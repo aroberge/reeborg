@@ -1,8 +1,9 @@
 module("World");
 
-test("Creation", 4, function(){
+test("Creation", 5, function(){
     // WORLD created by default
     deepEqual(WORLD.robots, {}, "World starts with no robots");
+    deepEqual(WORLD.walls, {}, "World starts with no walls - except those at x=0 and at y=0");
     strictEqual(WORLD.robot_counter, 0, "World starts with no robots");
     strictEqual(WORLD.needs_update, true, "World starts needing update - for drawing");
 
@@ -16,6 +17,17 @@ test("Adding robot", 3, function(){
     deepEqual(WORLD.robots, {"robot0": reeborg}, "World has one more robot");
     strictEqual(WORLD.robot_counter, 1, "World has one more robot");
 });
+
+test("Adding walls", 4, function(){
+    WORLD.toggle_wall(1, 1, "NORTH");
+    deepEqual(WORLD.walls, {'1,1': ["NORTH"]}, "Added north wall at 1, 1");
+    WORLD.toggle_wall(1, 1, "EAST");
+    deepEqual(WORLD.walls, {'1,1': ["NORTH", "EAST"]}, "Added east wall at 1, 1");
+    WORLD.toggle_wall(1, 1, "NORTH");
+    deepEqual(WORLD.walls, {'1,1': ["EAST"]}, "Removed north wall at 1, 1");
+    WORLD.toggle_wall(1, 1, "EAST");
+    deepEqual(WORLD.walls, {}, "Removed east wall at 1, 1");
+})
 
 module('UsedRobot', {
     setup: function(){
