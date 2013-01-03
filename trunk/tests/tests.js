@@ -1,10 +1,14 @@
-module("World");
+module("World", {
+    setup: function(){
+        WORLD.reset();
+        ok(true, "module setup run")
+    }
+});
 
 test("Creation", 5, function(){
     // WORLD created by default
-    deepEqual(WORLD.robots, {}, "World starts with no robots");
+    deepEqual(WORLD.robots, [], "World starts with no robots");
     deepEqual(WORLD.walls, {}, "World starts with no walls - except those at x=0 and at y=0");
-    strictEqual(WORLD.robot_counter, 0, "World starts with no robots");
     strictEqual(WORLD.needs_update, true, "World starts needing update - for drawing");
 
     WORLD.update();
@@ -14,11 +18,21 @@ test("Creation", 5, function(){
 test("Adding robot", 3, function(){
     var reeborg = new UsedRobot();
     strictEqual(WORLD.needs_update, true, "The world needs to be updated");
-    deepEqual(WORLD.robots, {"robot0": reeborg}, "World has one more robot");
-    strictEqual(WORLD.robot_counter, 1, "World has one more robot");
+    deepEqual(WORLD.robots, [reeborg], "World has one more robot");
 });
 
-test("Adding walls", 4, function(){
+test("Exporting and importing a world", 3, function(){
+    var newWorld = new World();
+    var reeborg = new UsedRobot();
+    var reeborg2 = new UsedRobot(3, 4, "West", 42);
+    WORLD.toggle_wall(1, 1, "NORTH");
+    WORLD.robots[0].move();  // moves reeborg
+    newWorld.import(WORLD.export());
+    deepEqual(newWorld.robots, WORLD.robots, "Same number of robots in both worlds.");
+    deepEqual(newWorld.walls, WORLD.walls, "Same walls configuration in both worlds.");
+});
+
+test("Adding walls", 5, function(){
     WORLD.toggle_wall(1, 1, "NORTH");
     deepEqual(WORLD.walls, {'1,1': ["NORTH"]}, "Added north wall at 1, 1");
     WORLD.toggle_wall(1, 1, "EAST");
@@ -36,7 +50,7 @@ module('UsedRobot', {
     }
 });
 
-test( "Creation", 20, function() {
+test( "Creation", 18, function() {
     var reeborg = new UsedRobot();
     strictEqual(reeborg.x, 1, "reeborg default x coordinate");
     strictEqual(reeborg.y, 1, "reeborg default y coordinate");
@@ -44,8 +58,7 @@ test( "Creation", 20, function() {
     strictEqual(reeborg.coins, 0, "reeborg default coins");
     strictEqual(reeborg.changed, true, "reeborg has been changed upon creation");
     strictEqual(WORLD.needs_update, true, "The world needs to be updated");
-    deepEqual(WORLD.robots, {"robot0": reeborg}, "World has one more robot");
-    strictEqual(WORLD.robot_counter, 1, "World has one more robot");
+    deepEqual(WORLD.robots, [reeborg], "World has one more robot");
 
     var reeborg2 = new UsedRobot(2, 3, "N", 2);
     strictEqual(reeborg2.x, 2, "reeborg assigned x coordinate");
@@ -53,8 +66,7 @@ test( "Creation", 20, function() {
     strictEqual(reeborg2.orientation, 1, "reeborg assigned orientation");
     strictEqual(reeborg2.coins, 2, "reeborg assigned coins");
     strictEqual(WORLD.needs_update, true, "The world needs to be updated");
-    deepEqual(WORLD.robots, {"robot0": reeborg, "robot1":reeborg2}, "World has two robots");
-    strictEqual(WORLD.robot_counter, 2, "World has two robots");
+    deepEqual(WORLD.robots, [reeborg, reeborg2], "World has two robots");
 
     reeborg = new UsedRobot(1, 1, "west");
     strictEqual(reeborg.orientation, 2, "reeborg assigned orientation");

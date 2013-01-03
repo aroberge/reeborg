@@ -1,10 +1,15 @@
 
-// Array Remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
+// Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
 Array.prototype.remove = function(from, to) {
   var rest = this.slice((to || from) + 1 || this.length);
   this.length = from < 0 ? this.length + from : from;
   return this.push.apply(this, rest);
 };
+
+/*
+A world can be modified either by a graphical World Builder or via a JSON string - only the second is currently implemented.
+*/
+
 
 function World () {
     "use strict";
@@ -14,16 +19,14 @@ function World () {
     this.SOUTH = 3;
 
     this.reset = function (){
-        this.robots = {};
-        this.robot_counter = 0;
+        this.robots = [];
         this.needs_update = true;   // true indicates that we should redraw
         this.walls = {};
     };
     this.reset();
 
     this.add_robot = function (robot) {
-        this.robots["robot" + this.robot_counter] = robot;
-        this.robot_counter++;
+        this.robots.push(robot);
         this.needs_update = true;
     };
 
@@ -77,18 +80,48 @@ function World () {
             }
         }
     };
+
+    this.export = function (){
+        var json_object;
+        json_object = {"robots": this.robots, "walls": this.walls};
+        return JSON.stringify(json_object);
+    };
+
+    this.import = function (json_string){
+        var json_object, orientation;
+        json_object = JSON.parse(json_string);
+        this.robots = [];
+        this.walls = json_object.walls;
+        for (var i = 0; i < json_object.robots.length; i++){
+            switch(json_object.robots[i].orientation){
+                case 0:
+                    orientation = "e";
+                    break;
+                case 1:
+                    orientation = "n";
+                    break;
+                case 2:
+                    orientation = "w";
+                    break;
+                case 3:
+                    orientation = "s";
+                    break;
+            }
+            this.robots.push(new __PrivateRobot(json_object.robots[i].x, json_object.robots[i].y,
+                             orientation, json_object.robots[i].coins));
+        }
+    };
 }
 
 var WORLD = new World();
 
-function UsedRobot(x, y, orientation, coins) {
+function __PrivateRobot(x, y, orientation, coins) {
     "use strict";
     this.x = x || 1;
     this.y = y || 1;
     this.coins = coins || 0;
     this["pièces"] = this.coins;    // pièces de monnaie == coins
     this.changed = true;
-    WORLD.add_robot(this);
 
     if (orientation === undefined){
         this.orientation = WORLD.EAST;
@@ -122,21 +155,26 @@ function UsedRobot(x, y, orientation, coins) {
     }
 }
 
-var RobotUsagé = UsedRobot;
-
-UsedRobot.prototype.turn_left = function(){
+__PrivateRobot.prototype.turn_left = function(){
     "use strict";
     this.orientation += 1;
     this.orientation %= 4;
 };
 
-UsedRobot.prototype["tourne_à_gauche"] = UsedRobot.prototype.turn_left;
+__PrivateRobot.prototype["tourne_à_gauche"] = __PrivateRobot.prototype.turn_left;
 
-UsedRobot.prototype.move = function(){
+__PrivateRobot.prototype.move = function(){
     "use strict";
     WORLD.move_robot(this);
 };
 
-UsedRobot.prototype.avance = UsedRobot.prototype.move;
+__PrivateRobot.prototype.avance = __PrivateRobot.prototype.move;
 
+function UsedRobot(x, y, orientation, coins)  {
+    "use strict";
+    var robot = new __PrivateRobot(x, y, orientation, coins);
+    WORLD.add_robot(robot);
+    return robot;
+}
 
+var RobotUsagé = UsedRobot;
