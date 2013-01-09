@@ -27,7 +27,7 @@ test("Exporting and importing a world", 3, function(){
     var reeborg2 = new UsedRobot(3, 4, "West", 42);
     WORLD.toggle_wall(1, 1, "NORTH");
     WORLD.robots[0].move();  // moves reeborg
-    newWorld.import(WORLD.export());
+    newWorld.import_(WORLD.export_());
     deepEqual(newWorld.robots, WORLD.robots, "Same number of robots in both worlds.");
     deepEqual(newWorld.walls, WORLD.walls, "Same walls configuration in both worlds.");
 });
@@ -55,7 +55,7 @@ test( "Creation", 18, function() {
     strictEqual(reeborg.x, 1, "reeborg default x coordinate");
     strictEqual(reeborg.y, 1, "reeborg default y coordinate");
     strictEqual(reeborg.orientation, 0, "reeborg default orientation");
-    strictEqual(reeborg.coins, 0, "reeborg default coins");
+    strictEqual(reeborg.tokens, 0, "reeborg default tokens");
     strictEqual(reeborg.changed, true, "reeborg has been changed upon creation");
     strictEqual(WORLD.needs_update, true, "The world needs to be updated");
     deepEqual(WORLD.robots, [reeborg], "World has one more robot");
@@ -64,7 +64,7 @@ test( "Creation", 18, function() {
     strictEqual(reeborg2.x, 2, "reeborg assigned x coordinate");
     strictEqual(reeborg2.y, 3, "reeborg assigned y coordinate");
     strictEqual(reeborg2.orientation, 1, "reeborg assigned orientation");
-    strictEqual(reeborg2.coins, 2, "reeborg assigned coins");
+    strictEqual(reeborg2.tokens, 2, "reeborg assigned tokens");
     strictEqual(WORLD.needs_update, true, "The world needs to be updated");
     deepEqual(WORLD.robots, [reeborg, reeborg2], "World has two robots");
 
@@ -82,7 +82,7 @@ test( "Création en français", 5, function() {
     strictEqual(reeborg.x, 3, "reeborg x coordinate");
     strictEqual(reeborg.y, 4, "reeborg y coordinate");
     strictEqual(reeborg.orientation, 2, "reeborg orientation en français");
-    strictEqual(reeborg.pièces, 0, "reeborg pièces de monnaie");
+    strictEqual(reeborg.jetons, 0, "reeborg jetons ");
 });
 
 test( "Turning - both languages", 7, function() {

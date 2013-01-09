@@ -1,3 +1,4 @@
+/*jshint browser:true, devel:true */
 
 // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
 Array.prototype.remove = function(from, to) {
@@ -12,7 +13,7 @@ A world can be modified either by a graphical World Builder or via a JSON string
 
 
 function World () {
-    "use strict";
+    
     this.EAST = 0;
     this.NORTH = 1;
     this.WEST = 2;
@@ -74,20 +75,20 @@ function World () {
                 this.walls[coords].push(orientation);
             } else {
                 this.walls[coords].remove(index);
-                if (this.walls[coords].length == 0){
+                if (this.walls[coords].length === 0){
                     delete this.walls[coords];
                 }
             }
         }
     };
 
-    this.export = function (){
+    this.export_ = function (){
         var json_object;
         json_object = {"robots": this.robots, "walls": this.walls};
         return JSON.stringify(json_object);
     };
 
-    this.import = function (json_string){
+    this.import_ = function (json_string){
         var json_object, orientation;
         json_object = JSON.parse(json_string);
         this.robots = [];
@@ -108,19 +109,19 @@ function World () {
                     break;
             }
             this.robots.push(new __PrivateRobot(json_object.robots[i].x, json_object.robots[i].y,
-                             orientation, json_object.robots[i].coins));
+                             orientation, json_object.robots[i].tokens));
         }
     };
 }
 
 var WORLD = new World();
 
-function __PrivateRobot(x, y, orientation, coins) {
-    "use strict";
+function __PrivateRobot(x, y, orientation, tokens) {
+    
     this.x = x || 1;
     this.y = y || 1;
-    this.coins = coins || 0;
-    this["pièces"] = this.coins;    // pièces de monnaie == coins
+    this.tokens = tokens || 0;
+    this.jetons = this.tokens;
     this.changed = true;
 
     if (orientation === undefined){
@@ -156,23 +157,23 @@ function __PrivateRobot(x, y, orientation, coins) {
 }
 
 __PrivateRobot.prototype.turn_left = function(){
-    "use strict";
+    
     this.orientation += 1;
     this.orientation %= 4;
 };
 
-__PrivateRobot.prototype["tourne_à_gauche"] = __PrivateRobot.prototype.turn_left;
+__PrivateRobot.prototype.tourne_à_gauche = __PrivateRobot.prototype.turn_left;
 
 __PrivateRobot.prototype.move = function(){
-    "use strict";
+    
     WORLD.move_robot(this);
 };
 
 __PrivateRobot.prototype.avance = __PrivateRobot.prototype.move;
 
-function UsedRobot(x, y, orientation, coins)  {
-    "use strict";
-    var robot = new __PrivateRobot(x, y, orientation, coins);
+function UsedRobot(x, y, orientation, tokens)  {
+    
+    var robot = new __PrivateRobot(x, y, orientation, tokens);
     WORLD.add_robot(robot);
     return robot;
 }
