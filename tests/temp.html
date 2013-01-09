@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Canvas test</title>
+    </head>
+    <body>
+        <div id="canvas-wrapper">
+            <canvas id="canvas1" width="600" height="480">
+                
+            </canvas>
+        </div>
+    <script>
+        var canvas1 = document.getElementById("canvas1");
+        var ctx = canvas1.getContext("2d");
+        var img = new Image();
+
+      img.onload = function() {
+        ctx.drawImage(img, 150, 50);
+      };
+      img.src = '../src/images/robot_e.png';
+   
+    </script>
+    </body>
+</html>
