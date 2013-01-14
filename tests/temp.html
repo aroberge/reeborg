@@ -3,23 +3,68 @@
     <head>
         <meta charset="utf-8">
         <title>Canvas test</title>
+        <style>
+        #canvas-wrapper {
+            position: relative;
+            top:100px;
+            left:100px;
+
+        }
+        canvas {
+position:absolute;
+    border: 1px solid green;
+    left:0px;
+    top:0px;
+            }
+        </style>
     </head>
     <body>
         <div id="canvas-wrapper">
             <canvas id="canvas1" width="600" height="480">
                 
             </canvas>
+            <canvas id="canvas2" width="600" height="480">
+                
+            </canvas>
         </div>
     <script>
         var canvas1 = document.getElementById("canvas1");
+        var canvas2 = document.getElementById("canvas2");
         var ctx = canvas1.getContext("2d");
+        var ctx2 = canvas2.getContext("2d");
         var img = new Image();
 
       img.onload = function() {
-        ctx.drawImage(img, 150, 50);
+        ctx2.drawImage(img, 150, 150);
       };
       img.src = '../src/images/robot_e.png';
+      
+      var x_arr = [];
+        for (var i=0; i < 10; i++){
+        x_arr.push(10 + i*10);
+      }
+
+function doMove() {
+ if (x_arr.length !== 0){
+    ctx.clearRect(0,0,600,480);
+    ctx.drawImage(img, x_arr.shift(), 50);
+    setTimeout(doMove, 1); // call doMove() in 20 msec
+    }
+}
+doMove();
+
+
    
+    // create static series of frames
+    // draw frames as animation
+    // create series of frames programmatically
+    // add editor - code mirror
+    // create series of frames from simple program in editor and animate
+    // add animation buttons: run, pause, stop, reload  (one at a time)
+    // add background canvas
+    // have multiple canvases:
+    //   pure background, user walls, tokens, oil leak, robot
+    //  add possibility to follow robot
     </script>
     </body>
 </html>

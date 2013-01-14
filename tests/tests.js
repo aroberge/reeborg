@@ -21,12 +21,15 @@ test("Adding robot", 3, function(){
     deepEqual(WORLD.robots, [reeborg], "World has one more robot");
 });
 
-test("Exporting and importing a world", 3, function(){
+test("Exporting and importing a world", 5, function(){
     var newWorld = new World();
     var reeborg = new UsedRobot();
+    newWorld.import_(WORLD.export_());
+    deepEqual(newWorld.robots, WORLD.robots, "Same number of robots in both worlds.");
+    deepEqual(newWorld.walls, WORLD.walls, "Same walls configuration in both worlds.");
     var reeborg2 = new UsedRobot(3, 4, "West", 42);
     WORLD.toggle_wall(1, 1, "NORTH");
-    WORLD.robots[0].move();  // moves reeborg
+    WORLD.robots[0].move();
     newWorld.import_(WORLD.export_());
     deepEqual(newWorld.robots, WORLD.robots, "Same number of robots in both worlds.");
     deepEqual(newWorld.walls, WORLD.walls, "Same walls configuration in both worlds.");
