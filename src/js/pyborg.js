@@ -1,41 +1,59 @@
 //pyborg.js
-/*globals _builtins _messages _conditions */
+/*globals RUR */
 
-_builtins = {
-    "en": {"move()": "move",
-           "turn_left()": "turn_left"
-           },
-    "fr": {"avance()": "move",
-           "tourne_à_gauche()": "turn_left"
-           }
-};
-
-
-_messages = {
-    "en": {"Unknown command": "Unknown command: ",
-           "Indentation error": "Indentation error",
-           "Attempt to redefine": "Attempt to redefine '",
-           "Syntax error": "Syntax error: ",
-           "Invalid test condition": "Invalid test condition: ",
-           "Missing if": "'elif' or 'else' without matching 'if'",
-           "break outside loop": "SyntaxError: 'break' outside loop",
-            "def syntax error": "Syntax error: bad method name or missing colon."
-           },
-    "fr": {"Unknown command": "Commande inconnue: ",
-           "Indentation error": "Erreur d'indentation",
-           "Attempt to redefine": "Tentative de redéfinir '",
-           "Syntax error": "Erreur de syntaxe: ",
-           "Invalid test condition": "Condition non valide: ",
-           "Missing if": "'elif' ou 'else' sans le 'if' correspondant",
-           "break outside loop": "Erreur de syntaxe: 'break' à l'extérieur d'une boucle",
-           "def syntax error": "Erreur de syntaxe: mauvais nom de méthode ou 'deux points'."
-           }
-};
-
-_conditions = {
-    "on_beeper()": "on_beeper()",
-    "True": true,
-    "False": false
+RUR = {
+    // pyborg is the Python dialect (keywords) understood by Reeborg
+    pyborg :{
+        SINGLE_LINE: /( *)(.*)/,  // extracts info about indentation and content
+        ASSIGNMENT : /^(\w+)\s*=\s*(\w+)\s*$/,  // synonym = word
+        DEF: /def\s+([a-zA-Z]\w*)\(\s*\)\s*:/,   // def command():
+        COMMENT: /(?!(\'|\")*#.*(\'|\")\s*)#.*/, //  ... # comment follow the # sign - not inside string
+        START_WITH_NOT: /^not /,
+        IF: /^if \s*(.*):\s*$/,               //  if some_condition :
+        ELIF: /^elif \s*(\S+)\s*:\s*$/,        // elif some_condition :
+        WHILE: /^while (.*):\s*$/,             // while some_condition :
+        BREAK: "break",
+        PASS: "pass",
+        ELSE: "else:",
+        START_WITH_IF: /^if /,
+        START_WITH_DEF: /^def /,
+        START_WITH_WHILE: /^while /,
+        START_WITH_ELIF: /^elif /,
+        CONTAIN_ASSIGNMENT: new RegExp("=")  // use RegExp to prevent JSLint from dying...
+    },
+    builtins : {
+        "en": {"move()": "move",
+               "turn_left()": "turn_left"
+               },
+        "fr": {"avance()": "move",
+               "tourne_à_gauche()": "turn_left"
+               }
+    },
+    messages : {
+        "en": {"Unknown command": "Unknown command: ",
+               "Indentation error": "Indentation error",
+               "Attempt to redefine": "Attempt to redefine '",
+               "Syntax error": "Syntax error: ",
+               "Invalid test condition": "Invalid test condition: ",
+               "Missing if": "'elif' or 'else' without matching 'if'",
+               "break outside loop": "SyntaxError: 'break' outside loop",
+                "def syntax error": "Syntax error: bad method name or missing colon."
+               },
+        "fr": {"Unknown command": "Commande inconnue: ",
+               "Indentation error": "Erreur d'indentation",
+               "Attempt to redefine": "Tentative de redéfinir '",
+               "Syntax error": "Erreur de syntaxe: ",
+               "Invalid test condition": "Condition non valide: ",
+               "Missing if": "'elif' ou 'else' sans le 'if' correspondant",
+               "break outside loop": "Erreur de syntaxe: 'break' à l'extérieur d'une boucle",
+               "def syntax error": "Erreur de syntaxe: mauvais nom de méthode ou 'deux points'."
+               }
+    },
+    conditions : {
+        "token_detected()": "token_detected()",
+        "True": true,
+        "False": false
+    }
 };
 
 var remove_spaces = function (text) {
@@ -43,13 +61,12 @@ var remove_spaces = function (text) {
 };
 
 function LineOfCode(raw_content, line_number) {
+    var line_content;
     this.line_number = line_number;
-    var pattern = /( *)(.*)/;
-    var comment_pattern = /(?!(\'|\")*#.*(\'|\")\s*)#.*/;
-    raw_content = raw_content.replace(comment_pattern, '');
-    var match = raw_content.match(pattern);
-    this.indentation = match[1].length;
-    this.content = match[2];
+    raw_content = raw_content.replace(RUR.pyborg.COMMENT, '');
+    line_content = raw_content.match(RUR.pyborg.SINGLE_LINE);
+    this.indentation = line_content[1].length;
+    this.content = line_content[2];
     this.stripped_content = remove_spaces(this.content);
 }
 
@@ -60,12 +77,12 @@ function UserProgram(program, language) {
     else {
         this.language = language;
     }
-    this.builtins = _builtins[this.language];
+    this.builtins = RUR.builtins[this.language];
 
     var lines = program.split("\n");
     this.lines = [];
     this.nb_lines = lines.length;
-    this.index = 0;
+    this.line_number = 0;
     this.syntax_error = null;
     this.user_defined = {};
     for (var i = 0; i < this.nb_lines; i++) {
@@ -73,20 +90,20 @@ function UserProgram(program, language) {
     }
 
     this.next_line = function () {
-        if (this.index >= this.nb_lines) {
+        if (this.line_number >= this.nb_lines) {
             return null;
         }
-        var current_line = this.lines[this.index];
-        this.index += 1;
+        var current_line = this.lines[this.line_number];
+        this.line_number += 1;
         return current_line;
     };
 
     this.previous_line = function () {
-        this.index -= 1;
+        this.line_number -= 1;
     };
 
     this.abort_parsing = function (msg) {
-        this.syntax_error = [this.index - 1, msg];
+        this.syntax_error = [this.line_number - 1, msg];
     };
 
 }
@@ -105,11 +122,11 @@ function Block(program, min_indentation, inside_loop) {
 
     this.set_indentation = function () {
         if (this.current_line.indentation <= this.min_indentation) {
-            this.program.abort_parsing(_messages[this.program.language]["Indentation error"]);
+            this.program.abort_parsing(RUR.messages[this.program.language]["Indentation error"]);
             return false;
         }
         else if (this.min_indentation === -1 && this.current_line.indentation !== 0) {
-            this.program.abort_parsing(_messages[this.program.language]["Indentation error"]);
+            this.program.abort_parsing(RUR.messages[this.program.language]["Indentation error"]);
             return false;
         }
         return true;
@@ -124,7 +141,7 @@ function Block(program, min_indentation, inside_loop) {
             return false;
         }
         else if (this.current_line.indentation !== this.block_indentation) {
-            this.program.abort_parsing(_messages[this.program.language]["Indentation error"]);
+            this.program.abort_parsing(RUR.messages[this.program.language]["Indentation error"]);
             return false;
         }
         return true;
@@ -134,14 +151,14 @@ function Block(program, min_indentation, inside_loop) {
         // parses a statement like  "a = b"
         var left, right;
         this.current_line.type = "assignment";
-        var matches = /^(\w+)\s*=\s*(\w+)\s*$/.exec(this.current_line.content);
+        var matches = this.current_line.content.match(RUR.pyborg.ASSIGNMENT);
         if (matches) {
             left = matches[1];
             right = matches[2];
             this.current_line.type = "assignment";
             if (this.program.builtins[left + "()"] !== undefined ||
                 this.program.user_defined[left + "()"] !== undefined) {
-                this.program.abort_parsing(_messages[this.program.language]["Attempt to redefine"] +
+                this.program.abort_parsing(RUR.messages[this.program.language]["Attempt to redefine"] +
                                             left + "'");
             }
             else if (this.program.builtins[right + "()"] !== undefined) {
@@ -156,34 +173,34 @@ function Block(program, min_indentation, inside_loop) {
             else if (right === "False") {
                 this.program.user_defined[left] = false;
             }
-            else if (_conditions[right + "()"] !== undefined) {
-                this.program.user_defined[left + "()"] = _conditions[right + "()"];
+            else if (RUR.conditions[right + "()"] !== undefined) {
+                this.program.user_defined[left + "()"] = RUR.conditions[right + "()"];
             }
             else {
-                this.program.abort_parsing(_messages[this.program.language]["Unknown command"] + right);
+                this.program.abort_parsing(RUR.messages[this.program.language]["Unknown command"] + right);
             }
         }
         else {
-            this.program.abort_parsing(_messages[this.program.language]["Syntax error"] +
+            this.program.abort_parsing(RUR.messages[this.program.language]["Syntax error"] +
                                        "'" + this.current_line.content + "'");
         }
     };
 
     this.parse_def = function () {
         this.current_line.type = "def block";
-        var matches = /def\s+(\S+)\(\s*\)\s*:/.exec(this.current_line.content);
+        var matches = this.current_line.content.match(RUR.pyborg.DEF);
         var name;
         if (matches) {
             name = matches[1];
         }
         else {
-            this.program.abort_parsing(_messages[this.program.language]["def syntax error"]);
+            this.program.abort_parsing(RUR.messages[this.program.language]["def syntax error"]);
             return false;
         }
 
         if (this.program.builtins[name + "()"] !== undefined ||
            this.program.user_defined[name + "()"] !== undefined) {
-            this.program.abort_parsing(_messages[this.program.language]["Attempt to redefine"] + name + "'");
+            this.program.abort_parsing(RUR.messages[this.program.language]["Attempt to redefine"] + name + "'");
             return false;
         }
         this.current_line.method_name = name;
@@ -195,13 +212,13 @@ function Block(program, min_indentation, inside_loop) {
 
     this.normalize_condition = function (condition) {
         this.current_line.negate_condition = false;
-        if (condition.match(/^not /)) {
+        if (condition.match(RUR.pyborg.START_WITH_NOT)) {
             this.current_line.negate_condition = true;
             condition = condition.slice(4);
         }
 
-        if (_conditions[condition] !== undefined) {
-            this.current_line.condition = _conditions[condition];
+        if (RUR.conditions[condition] !== undefined) {
+            this.current_line.condition = RUR.conditions[condition];
             return condition;
         }
 
@@ -211,18 +228,18 @@ function Block(program, min_indentation, inside_loop) {
         }
 
         var stripped_condition = remove_spaces(condition);
-        if (_conditions[stripped_condition] !== undefined) {
-            this.current_line.condition = _conditions[stripped_condition];
+        if (RUR.conditions[stripped_condition] !== undefined) {
+            this.current_line.condition = RUR.conditions[stripped_condition];
             return stripped_condition;
         }
 
-        this.program.abort_parsing(_messages[this.program.language]["Invalid test condition"] + condition);
+        this.program.abort_parsing(RUR.messages[this.program.language]["Invalid test condition"] + condition);
         return null;
     };
 
     this.parse_if = function () {
         this.current_line.type = "if block";
-        var matches = /^if (.*):\s*$/.exec(this.current_line.content);
+        var matches = this.current_line.content.match(RUR.pyborg.IF);
         var condition = this.normalize_condition(matches[1]);
         if (condition !== null) {
             this.current_line.block = new Block(this.program,
@@ -233,11 +250,11 @@ function Block(program, min_indentation, inside_loop) {
 
     this.parse_elif = function () {
         if ((this.previous_line_content !== null) &&
-                ((this.previous_line_content.match(/^if /)) ||
-                 (this.previous_line_content.match(/^elif /)))
+                ((this.previous_line_content.match(RUR.pyborg.IF)) ||
+                 (this.previous_line_content.match(RUR.pyborg.ELIF)))
            ) {
             this.current_line.type = "elif block";
-            var matches = /^elif \s*(\S+)\s*:\s*$/.exec(this.current_line.content);
+            var matches = this.current_line.content.match(RUR.pyborg.ELIF);
             var condition = this.normalize_condition(matches[1]);
             if (condition !== null) {
                 this.current_line.block = new Block(this.program,
@@ -246,27 +263,27 @@ function Block(program, min_indentation, inside_loop) {
             }
         }
         else {
-            this.program.abort_parsing(_messages[this.program.language]["Missing if"]);
+            this.program.abort_parsing(RUR.messages[this.program.language]["Missing if"]);
         }
     };
 
     this.parse_else = function () {
         if ((this.previous_line_content !== null) &&
-                ((this.previous_line_content.match(/^if /)) ||
-                (this.previous_line_content.match(/^elif /)))
+                ((this.previous_line_content.match(RUR.pyborg.IF)) ||
+                (this.previous_line_content.match(RUR.pyborg.ELIF)))
             ) {
             this.current_line.type = "else block";
             this.current_line.block = new Block(this.program, this.current_line.indentation,
                                            this.inside_loop);
         }
         else {
-            this.program.abort_parsing(_messages[this.program.language]["Missing if"]);
+            this.program.abort_parsing(RUR.messages[this.program.language]["Missing if"]);
         }
     };
 
     this.parse_while = function () {
         this.current_line.type = "while block";
-        var matches = /^while (.*):\s*$/.exec(this.current_line.content);
+        var matches = this.current_line.content.match(RUR.pyborg.WHILE);
         var condition = this.normalize_condition(matches[1]);
         if (condition !== null) {
             this.current_line.block = new Block(this.program, this.current_line.indentation, true);
@@ -274,6 +291,7 @@ function Block(program, min_indentation, inside_loop) {
     };
 
     this.parse = function () {
+        var method_def_line;
         this.previous_line_content = null;
         while (this.program.syntax_error === null) {
             this.current_line = this.program.next_line();
@@ -292,44 +310,44 @@ function Block(program, min_indentation, inside_loop) {
             }
             else if (this.program.user_defined[this.current_line.content] !== undefined) {
                 this.current_line.type = "user method";
-                var method_def_line = this.program.user_defined[this.current_line.content];
+                method_def_line = this.program.user_defined[this.current_line.content];
                 this.current_line.name = method_def_line.method_name;
                 this.current_line.block = method_def_line.block;
             }
-            else if (this.current_line.stripped_content === "pass") {
+            else if (this.current_line.stripped_content === RUR.pyborg.PASS) {
                 this.current_line.type = "pass";
             }
-            else if (this.current_line.content.match(/^def /)) {
+            else if (this.current_line.content.match(RUR.pyborg.START_WITH_DEF)) {
                 this.parse_def();
             }
-            else if (this.current_line.content.match(/^if /)) {
+            else if (this.current_line.content.match(RUR.pyborg.START_WITH_IF)) {
                 this.parse_if();
             }
-            else if (this.current_line.content.match(/^elif /)) {
+            else if (this.current_line.content.match(RUR.pyborg.START_WITH_ELIF)) {
                 this.parse_elif();
             }
-            else if (this.current_line.stripped_content === "else:") {
+            else if (this.current_line.stripped_content === RUR.pyborg.ELSE) {
                 this.parse_else();
             }
-            else if (this.current_line.content.match(/^while /)) {
+            else if (this.current_line.content.match(RUR.pyborg.START_WITH_WHILE)) {
                 this.parse_while();
             }
-            else if (this.current_line.content.match(/^break\s*$/)) {
+            else if (this.current_line.content.match(RUR.pyborg.BREAK)) {
                 if (this.inside_loop) {
                     this.current_line.type = "break";
                 }
                 else {
-                    this.program.abort_parsing(_messages[this.program.language]["break outside loop"]);
+                    this.program.abort_parsing(RUR.messages[this.program.language]["break outside loop"]);
                 }
-            }     // use RegExp below to prevent JSLint from dying...
-            else if (this.current_line.content.match(new RegExp("="))) {
+            }     
+            else if (this.current_line.content.match(RUR.pyborg.CONTAIN_ASSIGNMENT)){ 
                 this.parse_assignment();
             }
             else if (!this.current_line.content) {
                 this.current_line.type = "empty line";
             }
             else {
-                this.program.abort_parsing(_messages[this.program.language]["Unknown command"] + this.current_line.content);
+                this.program.abort_parsing(RUR.messages[this.program.language]["Unknown command"] + this.current_line.content);
             }
             this.lines.push(this.current_line);
             this.previous_line_content = this.current_line.content;
