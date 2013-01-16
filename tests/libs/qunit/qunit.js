@@ -582,7 +582,7 @@ config = {
 
 	// when enabled, show only failing tests
 	// gets persisted through sessionStorage and can be changed in UI via checkbox
-	hidepassed: false,
+	hidepassed: true,
 
 	// by default, run previously failed tests first
 	// very useful in combination with "Hide passed tests" checked
