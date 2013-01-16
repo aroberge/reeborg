@@ -3,6 +3,8 @@
 
 RUR = {
     // pyborg is the Python dialect (keywords) understood by Reeborg
+    // Note that pyborg is a language that does not have a concept of local scope
+    // ... which is explained by saying that Reeborg never forgets anything...
     pyborg :{
         SINGLE_LINE: /( *)(.*)/,  // extracts info about indentation and content
         ASSIGNMENT : /^(\w+)\s*=\s*(\w+)\s*$/,  // synonym = word
@@ -78,6 +80,7 @@ function UserProgram(program, language) {
         this.language = language;
     }
     this.builtins = RUR.builtins[this.language];
+    this.messages = RUR.messages[this.language]
 
     var lines = program.split("\n");
     this.lines = [];
@@ -111,6 +114,11 @@ function UserProgram(program, language) {
 function Block(program, min_indentation, inside_loop) {
     this.lines = [];
     this.program = program;
+    this.builtins = this.program.builtins;
+    this.methods = this.program.methods;
+    this.messages = this.program.messages;
+    this.user_defined = this.program.user_defined;
+
     if (min_indentation === undefined) {
         this.min_indentation = -1;
     }
@@ -122,11 +130,11 @@ function Block(program, min_indentation, inside_loop) {
 
     this.set_indentation = function () {
         if (this.current_line.indentation <= this.min_indentation) {
-            this.program.abort_parsing(RUR.messages[this.program.language]["Indentation error"]);
+            this.program.abort_parsing(this.messages["Indentation error"]);
             return false;
         }
         else if (this.min_indentation === -1 && this.current_line.indentation !== 0) {
-            this.program.abort_parsing(RUR.messages[this.program.language]["Indentation error"]);
+            this.program.abort_parsing(this.messages["Indentation error"]);
             return false;
         }
         return true;
@@ -141,7 +149,7 @@ function Block(program, min_indentation, inside_loop) {
             return false;
         }
         else if (this.current_line.indentation !== this.block_indentation) {
-            this.program.abort_parsing(RUR.messages[this.program.language]["Indentation error"]);
+            this.program.abort_parsing(this.messages["Indentation error"]);
             return false;
         }
         return true;
@@ -156,13 +164,13 @@ function Block(program, min_indentation, inside_loop) {
             left = matches[1];
             right = matches[2];
             this.current_line.type = "assignment";
-            if (this.program.builtins[left + "()"] !== undefined ||
+            if (this.builtins[left + "()"] !== undefined ||
                 this.program.user_defined[left + "()"] !== undefined) {
-                this.program.abort_parsing(RUR.messages[this.program.language]["Attempt to redefine"] +
+                this.program.abort_parsing(this.messages["Attempt to redefine"] +
                                             left + "'");
             }
-            else if (this.program.builtins[right + "()"] !== undefined) {
-                this.program.builtins[left + "()"] = this.program.builtins[right + "()"];
+            else if (this.builtins[right + "()"] !== undefined) {
+                this.builtins[left + "()"] = this.builtins[right + "()"];
             }
             else if (this.program.user_defined[right + "()"] !== undefined) {
                 this.program.user_defined[left + "()"] = this.program.user_defined[right + "()"];
@@ -177,11 +185,11 @@ function Block(program, min_indentation, inside_loop) {
                 this.program.user_defined[left + "()"] = RUR.conditions[right + "()"];
             }
             else {
-                this.program.abort_parsing(RUR.messages[this.program.language]["Unknown command"] + right);
+                this.program.abort_parsing(this.messages["Unknown command"] + right);
             }
         }
         else {
-            this.program.abort_parsing(RUR.messages[this.program.language]["Syntax error"] +
+            this.program.abort_parsing(this.messages["Syntax error"] +
                                        "'" + this.current_line.content + "'");
         }
     };
@@ -194,13 +202,13 @@ function Block(program, min_indentation, inside_loop) {
             name = matches[1];
         }
         else {
-            this.program.abort_parsing(RUR.messages[this.program.language]["def syntax error"]);
+            this.program.abort_parsing(this.messages["def syntax error"]);
             return false;
         }
 
-        if (this.program.builtins[name + "()"] !== undefined ||
+        if (this.builtins[name + "()"] !== undefined ||
            this.program.user_defined[name + "()"] !== undefined) {
-            this.program.abort_parsing(RUR.messages[this.program.language]["Attempt to redefine"] + name + "'");
+            this.program.abort_parsing(this.messages["Attempt to redefine"] + name + "'");
             return false;
         }
         this.current_line.method_name = name;
@@ -233,7 +241,7 @@ function Block(program, min_indentation, inside_loop) {
             return stripped_condition;
         }
 
-        this.program.abort_parsing(RUR.messages[this.program.language]["Invalid test condition"] + condition);
+        this.program.abort_parsing(this.messages["Invalid test condition"] + condition);
         return null;
     };
 
@@ -263,7 +271,7 @@ function Block(program, min_indentation, inside_loop) {
             }
         }
         else {
-            this.program.abort_parsing(RUR.messages[this.program.language]["Missing if"]);
+            this.program.abort_parsing(this.messages["Missing if"]);
         }
     };
 
@@ -277,7 +285,7 @@ function Block(program, min_indentation, inside_loop) {
                                            this.inside_loop);
         }
         else {
-            this.program.abort_parsing(RUR.messages[this.program.language]["Missing if"]);
+            this.program.abort_parsing(this.messages["Missing if"]);
         }
     };
 
@@ -304,8 +312,8 @@ function Block(program, min_indentation, inside_loop) {
             }
 
             this.block_indentation = this.current_line.indentation;
-            if (this.program.builtins[this.current_line.stripped_content] !== undefined) {
-                this.current_line.name = this.program.builtins[this.current_line.stripped_content];
+            if (this.builtins[this.current_line.stripped_content] !== undefined) {
+                this.current_line.name = this.builtins[this.current_line.stripped_content];
                 this.current_line.type = "command";
             }
             else if (this.program.user_defined[this.current_line.content] !== undefined) {
@@ -337,7 +345,7 @@ function Block(program, min_indentation, inside_loop) {
                     this.current_line.type = "break";
                 }
                 else {
-                    this.program.abort_parsing(RUR.messages[this.program.language]["break outside loop"]);
+                    this.program.abort_parsing(this.messages["break outside loop"]);
                 }
             }     
             else if (this.current_line.content.match(RUR.pyborg.CONTAIN_ASSIGNMENT)){ 
@@ -347,7 +355,7 @@ function Block(program, min_indentation, inside_loop) {
                 this.current_line.type = "empty line";
             }
             else {
-                this.program.abort_parsing(RUR.messages[this.program.language]["Unknown command"] + this.current_line.content);
+                this.program.abort_parsing(this.messages["Unknown command"] + this.current_line.content);
             }
             this.lines.push(this.current_line);
             this.previous_line_content = this.current_line.content;
