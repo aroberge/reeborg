@@ -2,7 +2,7 @@
 
 module("Line of Code");
 
-test('single line', function(){
+test('single line', function () {
     var line = new LineOfCode('a', 0);
     strictEqual(line.line_number, 0, 'line_number computed correctly');
     strictEqual(line.indentation, 0, 'indentation computed correctly');
