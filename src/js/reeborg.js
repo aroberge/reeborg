@@ -1,10 +1,10 @@
-/*jshint browser:true, devel:true */
+/*jshint browser:true, devel:true, indent:4, white:false */
 
 // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
 Array.prototype.remove = function(from, to) {
-  var rest = this.slice((to || from) + 1 || this.length);
-  this.length = from < 0 ? this.length + from : from;
-  return this.push.apply(this, rest);
+    var rest = this.slice((to || from) + 1 || this.length);
+    this.length = from < 0 ? this.length + from : from;
+    return this.push.apply(this, rest);
 };
 
 /*
@@ -13,7 +13,6 @@ A world can be modified either by a graphical World Builder or via a JSON string
 
 
 function World () {
-    
     this.EAST = 0;
     this.NORTH = 1;
     this.WEST = 2;
@@ -39,7 +38,7 @@ function World () {
         switch (robot.orientation){
             case this.EAST:
                 robot.x += 1;
-                break; 
+                break;
             case this.NORTH:
                 robot.y += 1;
                 break;
@@ -56,7 +55,7 @@ function World () {
                 } else {
                     robot.y -= 1;
                 }
-                break;      
+                break;
             default:
                 console.log("Should not happen: unhandled case in World.move_robot().");
                 console.log("robot.x= ", robot.x, " robot.y= ", robot.y, "robot.orientation= ", robot.orientation);
@@ -65,8 +64,8 @@ function World () {
     };
 
     this.toggle_wall = function (x, y, orientation){
-        var index;
-        var coords = x + "," + y;
+        var index, coords;
+        coords = x + "," + y;
         if (this.walls[coords] === undefined){
             this.walls[coords] = [orientation];
         } else {
@@ -117,7 +116,7 @@ function World () {
 var WORLD = new World();
 
 function __PrivateRobot(x, y, orientation, tokens) {
-    
+
     this.x = x || 1;
     this.y = y || 1;
     this.tokens = tokens || 0;
@@ -157,7 +156,7 @@ function __PrivateRobot(x, y, orientation, tokens) {
 }
 
 __PrivateRobot.prototype.turn_left = function(){
-    
+
     this.orientation += 1;
     this.orientation %= 4;
 };
@@ -165,14 +164,14 @@ __PrivateRobot.prototype.turn_left = function(){
 __PrivateRobot.prototype.tourne_à_gauche = __PrivateRobot.prototype.turn_left;
 
 __PrivateRobot.prototype.move = function(){
-    
+
     WORLD.move_robot(this);
 };
 
 __PrivateRobot.prototype.avance = __PrivateRobot.prototype.move;
 
 function UsedRobot(x, y, orientation, tokens)  {
-    
+
     var robot = new __PrivateRobot(x, y, orientation, tokens);
     WORLD.add_robot(robot);
     return robot;

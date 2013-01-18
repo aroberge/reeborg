@@ -1,13 +1,14 @@
 //pyborg.js
-/*globals RUR */
+/*global RUR:true*/
+/*jshint indent:4 */
 
 RUR = {
     // pyborg is the Python dialect (keywords) understood by Reeborg
     // Note that pyborg is a language that does not have a concept of local scope
     // ... which is explained by saying that Reeborg never forgets anything...
-    pyborg :{
+    pyborg : {
         SINGLE_LINE: /( *)(.*)/,  // extracts info about indentation and content
-        ASSIGNMENT : /^(\w+)\s*=\s*(\w+)\s*$/,  // synonym = word
+        ASSIGNMENT : /^(\w+)\s*=\s*(\w+)\s*$/,  // synonym = existing - no ()
         DEF: /def\s+([a-zA-Z]\w*)\(\s*\)\s*:/,   // def command():
         COMMENT: /(?!(\'|\")*#.*(\'|\")\s*)#.*/, //  ... # comment follow the # sign - not inside string
         START_WITH_NOT: /^not /,
@@ -21,7 +22,7 @@ RUR = {
         START_WITH_DEF: /^def /,
         START_WITH_WHILE: /^while /,
         START_WITH_ELIF: /^elif /,
-        CONTAIN_ASSIGNMENT: new RegExp("=")  // use RegExp to prevent JSLint from dying...
+        CONTAIN_ASSIGNMENT: /.*=.*/
     },
     builtins : {
         "en": {"move()": "move",
@@ -59,10 +60,12 @@ RUR = {
 };
 
 var remove_spaces = function (text) {
+    "use strict";
     return text.replace(/\s+/g, '');
 };
 
 function LineOfCode(raw_content, line_number) {
+    "use strict";
     var line_content;
     this.line_number = line_number;
     raw_content = raw_content.replace(RUR.pyborg.COMMENT, '');
@@ -73,6 +76,8 @@ function LineOfCode(raw_content, line_number) {
 }
 
 function UserProgram(program, language) {
+    "use strict";
+    var lines, i;
     if (language === undefined) {
         this.language = "en";
     }
@@ -80,15 +85,15 @@ function UserProgram(program, language) {
         this.language = language;
     }
     this.builtins = RUR.builtins[this.language];
-    this.messages = RUR.messages[this.language]
+    this.messages = RUR.messages[this.language];
 
-    var lines = program.split("\n");
+    lines = program.split("\n");
     this.lines = [];
     this.nb_lines = lines.length;
     this.line_number = 0;
     this.syntax_error = null;
     this.user_defined = {};
-    for (var i = 0; i < this.nb_lines; i++) {
+    for (i = 0; i < this.nb_lines; i++) {
         this.lines.push(new LineOfCode(lines[i], i));
     }
 
@@ -112,6 +117,9 @@ function UserProgram(program, language) {
 }
 
 function Block(program, min_indentation, inside_loop) {
+    // recursive function; it will call itself if it encounters sub-blocks
+    // via parse() ; see at the very end of this function
+    "use strict";
     this.lines = [];
     this.program = program;
     this.builtins = this.program.builtins;
@@ -157,9 +165,9 @@ function Block(program, min_indentation, inside_loop) {
 
     this.parse_assignment = function () {
         // parses a statement like  "a = b"
-        var left, right;
+        var left, right, matches;
         this.current_line.type = "assignment";
-        var matches = this.current_line.content.match(RUR.pyborg.ASSIGNMENT);
+        matches = this.current_line.content.match(RUR.pyborg.ASSIGNMENT);
         if (matches) {
             left = matches[1];
             right = matches[2];
@@ -195,9 +203,9 @@ function Block(program, min_indentation, inside_loop) {
     };
 
     this.parse_def = function () {
+        var name, matches;
         this.current_line.type = "def block";
-        var matches = this.current_line.content.match(RUR.pyborg.DEF);
-        var name;
+        matches = this.current_line.content.match(RUR.pyborg.DEF);
         if (matches) {
             name = matches[1];
         }
@@ -246,9 +254,10 @@ function Block(program, min_indentation, inside_loop) {
     };
 
     this.parse_if = function () {
+        var matches, condition;
         this.current_line.type = "if block";
-        var matches = this.current_line.content.match(RUR.pyborg.IF);
-        var condition = this.normalize_condition(matches[1]);
+        matches = this.current_line.content.match(RUR.pyborg.IF);
+        condition = this.normalize_condition(matches[1]);
         if (condition !== null) {
             this.current_line.block = new Block(this.program,
                                                 this.current_line.indentation,
@@ -257,13 +266,14 @@ function Block(program, min_indentation, inside_loop) {
     };
 
     this.parse_elif = function () {
+        var matches, condition;
         if ((this.previous_line_content !== null) &&
                 ((this.previous_line_content.match(RUR.pyborg.IF)) ||
                  (this.previous_line_content.match(RUR.pyborg.ELIF)))
            ) {
             this.current_line.type = "elif block";
-            var matches = this.current_line.content.match(RUR.pyborg.ELIF);
-            var condition = this.normalize_condition(matches[1]);
+            matches = this.current_line.content.match(RUR.pyborg.ELIF);
+            condition = this.normalize_condition(matches[1]);
             if (condition !== null) {
                 this.current_line.block = new Block(this.program,
                                                 this.current_line.indentation,
@@ -290,9 +300,10 @@ function Block(program, min_indentation, inside_loop) {
     };
 
     this.parse_while = function () {
+        var matches, condition;
         this.current_line.type = "while block";
-        var matches = this.current_line.content.match(RUR.pyborg.WHILE);
-        var condition = this.normalize_condition(matches[1]);
+        matches = this.current_line.content.match(RUR.pyborg.WHILE);
+        condition = this.normalize_condition(matches[1]);
         if (condition !== null) {
             this.current_line.block = new Block(this.program, this.current_line.indentation, true);
         }
@@ -347,8 +358,8 @@ function Block(program, min_indentation, inside_loop) {
                 else {
                     this.program.abort_parsing(this.messages["break outside loop"]);
                 }
-            }     
-            else if (this.current_line.content.match(RUR.pyborg.CONTAIN_ASSIGNMENT)){ 
+            }
+            else if (this.current_line.content.match(RUR.pyborg.CONTAIN_ASSIGNMENT)) {
                 this.parse_assignment();
             }
             else if (!this.current_line.content) {
