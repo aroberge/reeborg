@@ -1,6 +1,6 @@
 //pyborg.js
 /*global RUR:true*/
-/*jshint indent:4 */
+/*jshint indent:4, plusplus:false */
 
 RUR = {
     // pyborg is the Python dialect (keywords) understood by Reeborg
