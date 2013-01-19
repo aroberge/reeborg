@@ -43,6 +43,7 @@ var world = {
         this.cols = Math.floor(this.width/this.wall_length)-2;
         this.robot_e_img = new Image();
         this.robot_e_img.src = '../src/images/robot_e.png';
+        this.draw_background_walls();
         this.draw();
     },
     wall_length: 40,
@@ -50,7 +51,7 @@ var world = {
     robot_y_offset : 6,
     robot_x_offset : 9,
     wall_color: "brown",
-    potential_wall_color: "#f0f0f0",
+    shawdow_wall_color: "#f0f0f0",
     ctx: null,
     draw : function (){
         this.walls = {
@@ -62,53 +63,39 @@ var world = {
             "4,5" : ["EAST"],
             "5,4" : ["NORTH"]
         };
-        this.draw_grid();
-        // this.draw_east_wall(ctx, 2, 2);
-        // this.draw_north_wall(ctx, 3, 3);
-        // this.draw_east_wall(ctx, 5, 5);
-        // this.draw_north_wall(ctx, 5, 5);
-        // this.draw_east_wall(ctx, 4, 5);
-        // this.draw_north_wall(ctx, 5, 4);
+        this.draw_foreground_walls();
     },
-    draw_grid : function (){
+    draw_background_walls : function (){
+        this.ctx = this.background_ctx;
+        this.ctx.fillStyle = this.shawdow_wall_color;
+        for (var i = 1; i <= this.cols; i++) {
+            for (var j = 1; j <= this.rows; j++){
+                this.draw_north_wall (i, j);
+                this.draw_east_wall (i, j);
+            }
+        }
+    },
+    draw_foreground_walls : function (){
         var key;
+        this.ctx = this.wall_ctx;
+        this.ctx.fillStyle = this.wall_color;
         for (var i = 0; i <= this.cols; i++) {
             for (var j = 0; j <= this.rows; j++){
                 if (i === 0 && j !== 0) {
-                    this.ctx = this.wall_ctx;
-                    this.ctx.fillStyle = this.wall_color;
                     this.draw_east_wall(i, j);
                 } else if (i !== 0 && j === 0) {
-                    this.ctx = this.wall_ctx;
-                    this.ctx.fillStyle = this.wall_color;
                     this.draw_north_wall(i, j);
                 } else if (i === 0 && j === 0){
                     continue;
                 } else {
                     key = i + "," + j;
-                    if ( key in this.walls){
+                    if ( key in this.walls ){
                         if ( this.walls[key].indexOf("NORTH") !== -1){
-                            this.ctx = this.wall_ctx;
-                            this.ctx.fillStyle = this.wall_color;
-                        } else {
-                            this.ctx = this.background_ctx;
-                            this.ctx.fillStyle = this.potential_wall_color;
+                            this.draw_north_wall (i, j);
                         }
-                        this.draw_north_wall (i, j);
-
                         if (this.walls[key].indexOf("EAST") !== -1){
-                            this.ctx = this.wall_ctx;
-                            this.ctx.fillStyle = this.wall_color;
-                        } else {
-                            this.ctx = this.background_ctx;
-                            this.ctx.fillStyle = this.potential_wall_color;
+                            this.draw_east_wall (i, j);
                         }
-                        this.draw_east_wall (i, j);
-                    } else {
-                        this.ctx = this.background_ctx;
-                        this.ctx.fillStyle = this.potential_wall_color;
-                        this.draw_north_wall (i, j);
-                        this.draw_east_wall (i, j);
                     }
                 }
             }
@@ -122,13 +109,17 @@ var world = {
         this.ctx.fillRect((i+1)*this.wall_length, this.height - (j+1)*this.wall_length,
                           this.wall_thickness, this.wall_length + this.wall_thickness);
     },
+    draw_robot : function (robot){
+        this.ctx = world.robot_ctx;
+        this.ctx.drawImage(world.robot_e_img, robot.x, robot.y);
+    },
     play_frames : function () {
         var robot;
         this.ctx = world.robot_ctx;
          if (world.x_arr.length !== 0){
             this.ctx.clearRect(0, 0, world.width, world.height);
             robot = world.x_arr.shift();
-            this.ctx.drawImage(world.robot_e_img, robot.x, robot.y);
+            world.draw_robot(robot);
             setTimeout(world.play_frames, 500);
         }
     },
