@@ -29,6 +29,7 @@
         left: 20px;
     }
     </style>
+    <script src="../src/js/reeborg.js" charset="utf-8"></script>
     <script src="../src/libs/codemirror/lib/codemirror.js"></script>
     <script src="../src/libs/codemirror/mode/javascript/javascript.js"></script>
     <script src="../src/libs/codemirror/mode/css/css.js"></script>
@@ -55,6 +56,13 @@
 <textarea id="code" name="code">
 move();
 move();
+var test = function(j){
+    reeborg = new UsedRobot(1, j);
+    reeborg.move();
+    reeborg.move();
+}
+test(4);
+test(6);
 
 for (i=0; i<= 10; i++){
      move();
@@ -89,10 +97,9 @@ for (i=0; i<= 10; i++){
             <canvas id="background_canvas" width="600" height="480"></canvas>
             <canvas id="wall_canvas" width="600" height="480"></canvas>
             <canvas id="robot_canvas" width="600" height="480"></canvas>
-        <button onClick="RUR.visible_world.play_frames();">Play</button>
-        <button onClick="RUR.visible_world.fake_program();">Reload</button>
-        <button onClick="move();">move</button>
-        <button onClick="updateProgram();">Update program</button>
+        <button onClick="play();">Play</button>
+        <button onClick="RUR.visible_world.reset();">Reset</button>
+        <button onClick="compile();">Compile</button>
         </div>
 
     <script src="../src/js/animator.js" charset="utf-8"></script>
@@ -104,14 +111,20 @@ for (i=0; i<= 10; i++){
         lineNumbers: true,
         theme: 'rubyblue'
       });
-      function updateProgram(){
+      function compile(){
         try {
             eval(editor.getValue());
         }
         catch (e){
             alert(e.message);
         }
-      }
+      };
+
+
+      function play(){
+        RUR.visible_world.play_frames();
+      };
+
   var input = document.getElementById("select");
   function selectTheme() {
     var theme = input.options[input.selectedIndex].innerHTML;

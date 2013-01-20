@@ -24,18 +24,14 @@ RUR.World = function () {
 
     this.reset = function (){
         this.robots = [];
-        this.needs_update = true;   // true indicates that we should redraw
         this.walls = {};
+        this.frames = [];
     };
     this.reset();
 
     this.add_robot = function (robot) {
         this.robots.push(robot);
-        this.needs_update = true;
-    };
-
-    this.update = function(){
-        this.needs_update = false;
+        this.add_frame();
     };
 
     this.move_robot = function(robot){
@@ -65,6 +61,18 @@ RUR.World = function () {
             console.log("robot.x= ", robot.x, " robot.y= ", robot.y, "robot.orientation= ", robot.orientation);
             throw "Should not happen: unhandled case in World__.move_robot().";
         }
+        this.add_frame();
+    };
+    this.add_frame = function () {
+        var i, robot, robots = [];
+        for (i = 0; i < this.robots.length; i++){
+            robot = {};
+            robot.x = RUR.world.robots[i].x;
+            robot.y = RUR.world.robots[i].y;
+            robot.orientation = RUR.world.robots[i].orientation;
+            robots.push(robot);
+        }
+        this.frames.push({robots: robots});
     };
 
     this.toggle_wall = function (x, y, orientation){
@@ -164,6 +172,7 @@ RUR.PrivateRobot.prototype.turn_left = function(){
     "use strict";
     this.orientation += 1;
     this.orientation %= 4;
+    RUR.world.add_frame();
 };
 
 RUR.PrivateRobot.prototype.tourne_à_gauche = RUR.PrivateRobot.prototype.turn_left;
