@@ -12,7 +12,7 @@ test("Creation", 5, function(){
     strictEqual(WORLD.needs_update, true, "World starts needing update - for drawing");
 
     WORLD.update();
-    strictEqual(WORLD.needs_update, false, "World has been updated"); 
+    strictEqual(WORLD.needs_update, false, "World has been updated");
 });
 
 test("Adding robot", 3, function(){
@@ -114,7 +114,7 @@ test("Moving in empty world - both languages", 7, function(){
     reeborg.move();
     strictEqual(reeborg.x, 2, "reeborg new position");
     reeborg2.move();
-    strictEqual(reeborg2.x, 2, "reeborg2 new position");    
+    strictEqual(reeborg2.x, 2, "reeborg2 new position");
     reeborg.turn_left();
     reeborg.move();
     strictEqual(reeborg.y, 2, "reeborg new position");
