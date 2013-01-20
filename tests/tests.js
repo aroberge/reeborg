@@ -23,7 +23,7 @@ test("Adding robot", 3, function(){
 });
 
 test("Exporting and importing a world", 5, function(){
-    var newWorld = new World__();
+    var newWorld = new RUR.World();
     var reeborg = new UsedRobot();
     newWorld.import_(RUR.world.export_());
     deepEqual(newWorld.robots, RUR.world.robots, "Same number of robots in both worlds.");
