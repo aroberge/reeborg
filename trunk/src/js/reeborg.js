@@ -13,8 +13,9 @@ if (!Array.prototype.remove){
 A world can be modified either by a graphical World Builder or via a JSON string - only the second is currently implemented.
 */
 
+var RUR = RUR || {};
 
-function World () {
+function World__ () {
     "use strict";
     this.EAST = 0;
     this.NORTH = 1;
@@ -60,9 +61,9 @@ function World () {
             }
             break;
         default:
-            console.log("Should not happen: unhandled case in World.move_robot().");
+            console.log("Should not happen: unhandled case in World__.move_robot().");
             console.log("robot.x= ", robot.x, " robot.y= ", robot.y, "robot.orientation= ", robot.orientation);
-            throw "Should not happen: unhandled case in World.move_robot().";
+            throw "Should not happen: unhandled case in World__.move_robot().";
         }
     };
 
@@ -110,15 +111,16 @@ function World () {
                 orientation = "s";
                 break;
             }
-            this.robots.push(new PrivateRobot__(json_object.robots[i].x, json_object.robots[i].y,
+            this.robots.push(new RUR.PrivateRobot(json_object.robots[i].x, json_object.robots[i].y,
                              orientation, json_object.robots[i].tokens));
         }
     };
 }
 
-var WORLD = new World();
+RUR.world = new World__();
 
-function PrivateRobot__(x, y, orientation, tokens) {
+
+RUR.PrivateRobot = function(x, y, orientation, tokens) {
     "use strict";
     this.x = x || 1;
     this.y = y || 1;
@@ -127,56 +129,56 @@ function PrivateRobot__(x, y, orientation, tokens) {
     this.changed = true;
 
     if (orientation === undefined){
-        this.orientation = WORLD.EAST;
+        this.orientation = RUR.world.EAST;
     } else {
         switch (orientation.toLowerCase()){
         case "e":
         case "east":
         case "est":
-            this.orientation = WORLD.EAST;
+            this.orientation = RUR.world.EAST;
             break;
         case "n":
         case "north":
         case "nord":
-            this.orientation = WORLD.NORTH;
+            this.orientation = RUR.world.NORTH;
             break;
         case "w":
         case "o":
         case "west":
         case "ouest":
-            this.orientation = WORLD.WEST;
+            this.orientation = RUR.world.WEST;
             break;
         case "s":
         case "south":
         case "sud":
-            this.orientation = WORLD.SOUTH;
+            this.orientation = RUR.world.SOUTH;
             break;
         default:
             throw "Should not happen: unknown orientation";
             // TODO: turn this into a warning
         }
     }
-}
+};
 
-PrivateRobot__.prototype.turn_left = function(){
+RUR.PrivateRobot.prototype.turn_left = function(){
     "use strict";
     this.orientation += 1;
     this.orientation %= 4;
 };
 
-PrivateRobot__.prototype.tourne_à_gauche = PrivateRobot__.prototype.turn_left;
+RUR.PrivateRobot.prototype.tourne_à_gauche = RUR.PrivateRobot.prototype.turn_left;
 
-PrivateRobot__.prototype.move = function(){
+RUR.PrivateRobot.prototype.move = function(){
     "use strict";
-    WORLD.move_robot(this);
+    RUR.world.move_robot(this);
 };
 
-PrivateRobot__.prototype.avance = PrivateRobot__.prototype.move;
+RUR.PrivateRobot.prototype.avance = RUR.PrivateRobot.prototype.move;
 
 function UsedRobot(x, y, orientation, tokens)  {
     "use strict";
-    var robot = new PrivateRobot__(x, y, orientation, tokens);
-    WORLD.add_robot(robot);
+    var robot = new RUR.PrivateRobot(x, y, orientation, tokens);
+    RUR.world.add_robot(robot);
     return robot;
 }
 
