@@ -6,19 +6,14 @@ module("World", {
     }
 });
 
-test("Creation", 5, function(){
+test("Creation", 3, function(){
     // RUR.world created by default
     deepEqual(RUR.world.robots, [], "World starts with no robots");
     deepEqual(RUR.world.walls, {}, "World starts with no walls - except those at x=0 and at y=0");
-    strictEqual(RUR.world.needs_update, true, "World starts needing update - for drawing");
-
-    RUR.world.update();
-    strictEqual(RUR.world.needs_update, false, "World has been updated");
 });
 
-test("Adding robot", 3, function(){
+test("Adding robot", 2, function(){
     var reeborg = new UsedRobot();
-    strictEqual(RUR.world.needs_update, true, "The world needs to be updated");
     deepEqual(RUR.world.robots, [reeborg], "World has one more robot");
 });
 
@@ -54,14 +49,13 @@ module('UsedRobot', {
     }
 });
 
-test( "Creation", 18, function() {
+test( "Creation", 16, function() {
     var reeborg = new UsedRobot();
     strictEqual(reeborg.x, 1, "reeborg default x coordinate");
     strictEqual(reeborg.y, 1, "reeborg default y coordinate");
     strictEqual(reeborg.orientation, 0, "reeborg default orientation");
     strictEqual(reeborg.tokens, 0, "reeborg default tokens");
     strictEqual(reeborg.changed, true, "reeborg has been changed upon creation");
-    strictEqual(RUR.world.needs_update, true, "The world needs to be updated");
     deepEqual(RUR.world.robots, [reeborg], "World has one more robot");
 
     var reeborg2 = new UsedRobot(2, 3, "N", 2);
@@ -69,7 +63,6 @@ test( "Creation", 18, function() {
     strictEqual(reeborg2.y, 3, "reeborg assigned y coordinate");
     strictEqual(reeborg2.orientation, 1, "reeborg assigned orientation");
     strictEqual(reeborg2.tokens, 2, "reeborg assigned tokens");
-    strictEqual(RUR.world.needs_update, true, "The world needs to be updated");
     deepEqual(RUR.world.robots, [reeborg, reeborg2], "World has two robots");
 
     reeborg = new UsedRobot(1, 1, "west");
