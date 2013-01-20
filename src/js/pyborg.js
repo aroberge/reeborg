@@ -1,70 +1,74 @@
 //pyborg.js
 /*global RUR:true*/
-/*jshint indent:4, plusplus:false */
+/*jshint indent:4, white:false, browser:true, plusplus: false */
 
-RUR = {
+var RUR = RUR || {};
+
     // pyborg is the Python dialect (keywords) understood by Reeborg
     // Note that pyborg is a language that does not have a concept of local scope
     // ... which is explained by saying that Reeborg never forgets anything...
-    pyborg : {
-        SINGLE_LINE: /( *)(.*)/,  // extracts info about indentation and content
-        ASSIGNMENT : /^(\w+)\s*=\s*(\w+)\s*$/,  // synonym = existing - no ()
-        DEF: /def\s+([a-zA-Z]\w*)\(\s*\)\s*:/,   // def command():
-        COMMENT: /(?!(\'|\")*#.*(\'|\")\s*)#.*/, //  ... # comment follow the # sign - not inside string
-        START_WITH_NOT: /^not /,
-        IF: /^if \s*(.*):\s*$/,               //  if some_condition :
-        ELIF: /^elif \s*(\S+)\s*:\s*$/,        // elif some_condition :
-        WHILE: /^while (.*):\s*$/,             // while some_condition :
-        BREAK: "break",
-        PASS: "pass",
-        ELSE: "else:",
-        START_WITH_IF: /^if /,
-        START_WITH_DEF: /^def /,
-        START_WITH_WHILE: /^while /,
-        START_WITH_ELIF: /^elif /,
-        CONTAIN_ASSIGNMENT: /.*=.*/
-    },
-    builtins : {
-        "en": {"move()": "move",
-               "turn_left()": "turn_left"
-               },
-        "fr": {"avance()": "move",
-               "tourne_à_gauche()": "turn_left"
-               }
-    },
-    messages : {
-        "en": {"Unknown command": "Unknown command: ",
-               "Indentation error": "Indentation error",
-               "Attempt to redefine": "Attempt to redefine '",
-               "Syntax error": "Syntax error: ",
-               "Invalid test condition": "Invalid test condition: ",
-               "Missing if": "'elif' or 'else' without matching 'if'",
-               "break outside loop": "SyntaxError: 'break' outside loop",
-                "def syntax error": "Syntax error: bad method name or missing colon."
-               },
-        "fr": {"Unknown command": "Commande inconnue: ",
-               "Indentation error": "Erreur d'indentation",
-               "Attempt to redefine": "Tentative de redéfinir '",
-               "Syntax error": "Erreur de syntaxe: ",
-               "Invalid test condition": "Condition non valide: ",
-               "Missing if": "'elif' ou 'else' sans le 'if' correspondant",
-               "break outside loop": "Erreur de syntaxe: 'break' à l'extérieur d'une boucle",
-               "def syntax error": "Erreur de syntaxe: mauvais nom de méthode ou 'deux points'."
-               }
-    },
-    conditions : {
-        "token_detected()": "token_detected()",
-        "True": true,
-        "False": false
-    }
+RUR.pyborg = {
+    SINGLE_LINE: /( *)(.*)/,  // extracts info about indentation and content
+    ASSIGNMENT : /^(\w+)\s*=\s*(\w+)\s*$/,  // synonym = existing - no ()
+    DEF: /def\s+([a-zA-Z]\w*)\(\s*\)\s*:/,   // def command():
+    COMMENT: /(?!(\'|\")*#.*(\'|\")\s*)#.*/, //  ... # comment follow the # sign - not inside string
+    START_WITH_NOT: /^not /,
+    IF: /^if \s*(.*):\s*$/,               //  if some_condition :
+    ELIF: /^elif \s*(\S+)\s*:\s*$/,        // elif some_condition :
+    WHILE: /^while (.*):\s*$/,             // while some_condition :
+    BREAK: "break",
+    PASS: "pass",
+    ELSE: "else:",
+    START_WITH_IF: /^if /,
+    START_WITH_DEF: /^def /,
+    START_WITH_WHILE: /^while /,
+    START_WITH_ELIF: /^elif /,
+    CONTAIN_ASSIGNMENT: /.*=.*/
 };
 
-var remove_spaces = function (text) {
+RUR.builtins = {
+    "en": {"move()": "move",
+           "turn_left()": "turn_left"
+           },
+    "fr": {"avance()": "move",
+           "tourne_à_gauche()": "turn_left"
+           }
+};
+
+RUR.messages = {
+    "en": {"Unknown command": "Unknown command: ",
+           "Indentation error": "Indentation error",
+           "Attempt to redefine": "Attempt to redefine '",
+           "Syntax error": "Syntax error: ",
+           "Invalid test condition": "Invalid test condition: ",
+           "Missing if": "'elif' or 'else' without matching 'if'",
+           "break outside loop": "SyntaxError: 'break' outside loop",
+            "def syntax error": "Syntax error: bad method name or missing colon."
+           },
+    "fr": {"Unknown command": "Commande inconnue: ",
+           "Indentation error": "Erreur d'indentation",
+           "Attempt to redefine": "Tentative de redéfinir '",
+           "Syntax error": "Erreur de syntaxe: ",
+           "Invalid test condition": "Condition non valide: ",
+           "Missing if": "'elif' ou 'else' sans le 'if' correspondant",
+           "break outside loop": "Erreur de syntaxe: 'break' à l'extérieur d'une boucle",
+           "def syntax error": "Erreur de syntaxe: mauvais nom de méthode ou 'deux points'."
+           }
+};
+
+RUR.conditions = {
+    "token_detected()": "token_detected()",
+    "True": true,
+    "False": false
+};
+
+
+RUR.remove_spaces = function (text) {
     "use strict";
     return text.replace(/\s+/g, '');
 };
 
-function LineOfCode(raw_content, line_number) {
+RUR.LineOfCode = function(raw_content, line_number) {
     "use strict";
     var line_content;
     this.line_number = line_number;
@@ -72,10 +76,10 @@ function LineOfCode(raw_content, line_number) {
     line_content = raw_content.match(RUR.pyborg.SINGLE_LINE);
     this.indentation = line_content[1].length;
     this.content = line_content[2];
-    this.stripped_content = remove_spaces(this.content);
-}
+    this.stripped_content = RUR.remove_spaces(this.content);
+};
 
-function UserProgram(program, language) {
+RUR.UserProgram = function(program, language) {
     "use strict";
     var lines, i;
     if (language === undefined) {
@@ -94,7 +98,7 @@ function UserProgram(program, language) {
     this.syntax_error = null;
     this.user_defined = {};
     for (i = 0; i < this.nb_lines; i++) {
-        this.lines.push(new LineOfCode(lines[i], i));
+        this.lines.push(new RUR.LineOfCode(lines[i], i));
     }
 
     this.next_line = function () {
@@ -113,10 +117,9 @@ function UserProgram(program, language) {
     this.abort_parsing = function (msg) {
         this.syntax_error = [this.line_number - 1, msg];
     };
+};
 
-}
-
-function Block(program, min_indentation, inside_loop) {
+RUR.Block = function(program, min_indentation, inside_loop) {
     // recursive function; it will call itself if it encounters sub-blocks
     // via parse() ; see at the very end of this function
     "use strict";
@@ -221,7 +224,7 @@ function Block(program, min_indentation, inside_loop) {
         }
         this.current_line.method_name = name;
         this.program.user_defined[name + "()"] = this.current_line;
-        this.current_line.block = new Block(this.program, this.current_line.indentation,
+        this.current_line.block = new RUR.Block(this.program, this.current_line.indentation,
                                        this.current_line.type);
         return true;
     };
@@ -243,7 +246,7 @@ function Block(program, min_indentation, inside_loop) {
             return condition;
         }
 
-        var stripped_condition = remove_spaces(condition);
+        var stripped_condition = RUR.remove_spaces(condition);
         if (RUR.conditions[stripped_condition] !== undefined) {
             this.current_line.condition = RUR.conditions[stripped_condition];
             return stripped_condition;
@@ -259,7 +262,7 @@ function Block(program, min_indentation, inside_loop) {
         matches = this.current_line.content.match(RUR.pyborg.IF);
         condition = this.normalize_condition(matches[1]);
         if (condition !== null) {
-            this.current_line.block = new Block(this.program,
+            this.current_line.block = new RUR.Block(this.program,
                                                 this.current_line.indentation,
                                                 this.inside_loop);
         }
@@ -275,7 +278,7 @@ function Block(program, min_indentation, inside_loop) {
             matches = this.current_line.content.match(RUR.pyborg.ELIF);
             condition = this.normalize_condition(matches[1]);
             if (condition !== null) {
-                this.current_line.block = new Block(this.program,
+                this.current_line.block = new RUR.Block(this.program,
                                                 this.current_line.indentation,
                                                 this.inside_loop);
             }
@@ -291,7 +294,7 @@ function Block(program, min_indentation, inside_loop) {
                 (this.previous_line_content.match(RUR.pyborg.ELIF)))
             ) {
             this.current_line.type = "else block";
-            this.current_line.block = new Block(this.program, this.current_line.indentation,
+            this.current_line.block = new RUR.Block(this.program, this.current_line.indentation,
                                            this.inside_loop);
         }
         else {
@@ -305,7 +308,7 @@ function Block(program, min_indentation, inside_loop) {
         matches = this.current_line.content.match(RUR.pyborg.WHILE);
         condition = this.normalize_condition(matches[1]);
         if (condition !== null) {
-            this.current_line.block = new Block(this.program, this.current_line.indentation, true);
+            this.current_line.block = new RUR.Block(this.program, this.current_line.indentation, true);
         }
     };
 
@@ -375,4 +378,4 @@ function Block(program, min_indentation, inside_loop) {
 
     this.parse();
 
-}
+};

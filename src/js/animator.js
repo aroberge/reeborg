@@ -144,14 +144,15 @@ RUR.visible_world = {
 };
 RUR.visible_world.init();
 
-move = function(){
+var move = function(){
+    "use strict";
     var prev_robot, robot;
     robot = {};
     prev_robot = RUR.visible_world.x_arr.slice(-1)[0]; // retrieves last element
     robot.x = prev_robot.x + RUR.visible_world.wall_length;
     robot.y = prev_robot.y;
     RUR.visible_world.x_arr.push(robot);
-}
+};
 
     // create series of frames programmatically
     // add editor - code mirror
