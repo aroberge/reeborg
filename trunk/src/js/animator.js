@@ -92,47 +92,66 @@ RUR.visible_world = {
         "use strict";
         this.ctx = RUR.visible_world.robot_ctx;
         this.ctx.drawImage(RUR.visible_world.robot_e_img, robot.x, robot.y);
+        this.ctx.drawImage(RUR.visible_world.robot_e_img, robot.x, robot.y);
     },
     play_frames : function () {
         "use strict";
-        console.log(RUR.visible_world.running);
         if (RUR.visible_world.running){
             RUR.visible_world.running = false;
             return;
         }
         RUR.visible_world.running = true;
-        this.draw_frames();
+        this.update();
+    },
+    update : function () {
+        "use strict";
+        if (!RUR.visible_world.running){
+            return;
+        }
+        RUR.visible_world.draw_frames();
+        if (RUR.visible_world.x_arr.length !== 0) {
+            setTimeout(RUR.visible_world.update, 500);
+        }
     },
     draw_frames : function () {
         "use strict";
         var robot;
-        if (!RUR.visible_world.running){
-            return
-        }
         this.ctx = RUR.visible_world.robot_ctx;
         if (RUR.visible_world.x_arr.length !== 0) {
             this.ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
             robot = RUR.visible_world.x_arr.shift();
             RUR.visible_world.draw_robot(robot);
-            setTimeout(RUR.visible_world.draw_frames, 500);
         }
     },
     fake_program : function () {
         "use strict";
-        var robot, i;
-        this.x_arr = [];
-        for (i=0; i < 10; i++) {
+        var robot, prev_robot, i;
+        RUR.visible_world.x_arr = [];
+        robot = {};
+        robot.x = this.wall_length + this.robot_x_offset;
+        robot.y = this.wall_length + this.robot_y_offset;
+        RUR.visible_world.x_arr.push(robot);
+        for (i=1; i < 10; i++) {
+            prev_robot = robot;
             robot = {};
-            robot.x = this.wall_length + i*this.wall_length + this.robot_x_offset;
-            robot.y = (i+1)*this.wall_length + this.robot_y_offset;
-            this.x_arr.push(robot);
+            robot.x = prev_robot.x + this.wall_length;
+            robot.y = prev_robot.y + this.wall_length;
+            RUR.visible_world.x_arr.push(robot);
         }
+        this.draw_frames();
+        RUR.visible_world.running = false;
     }
 };
 RUR.visible_world.init();
-RUR.visible_world.fake_program();
 
-
+move = function(){
+    var prev_robot, robot;
+    robot = {};
+    prev_robot = RUR.visible_world.x_arr.slice(-1)[0]; // retrieves last element
+    robot.x = prev_robot.x + RUR.visible_world.wall_length;
+    robot.y = prev_robot.y;
+    RUR.visible_world.x_arr.push(robot);
+}
 
     // create series of frames programmatically
     // add editor - code mirror

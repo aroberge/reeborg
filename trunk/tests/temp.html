@@ -1,30 +1,130 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <title>Canvas test</title>
-        <style>
-        #canvas-wrapper {
-            position: relative;
-            top:100px;
-            left:100px;
+    <meta charset="utf-8">
+    <title>Canvas test</title>
+    <style>
 
-        }
-        canvas {
-position:absolute;
-    border: 1px solid green;
-    left:0px;
-    top:0px;
-            }
-        </style>
+    #editor{
+        float: left;
+        width: 40%;
+    }
+    .CodeMirror {
+        border: 1px solid black;
+        font-size:13px;
+    }
+
+    #canvas-wrapper {
+        position: relative;
+        float:right;
+        border: 1px solid blue;
+        width: 50%;
+        height: 550px;
+
+    }
+    canvas {
+        position:absolute;
+        border: 1px solid green;
+        top: 40px;
+        left: 20px;
+    }
+    </style>
+    <script src="../src/libs/codemirror/lib/codemirror.js"></script>
+    <script src="../src/libs/codemirror/mode/javascript/javascript.js"></script>
+    <script src="../src/libs/codemirror/mode/css/css.js"></script>
+    <link rel=stylesheet href="../src/libs/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/neat.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/elegant.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/erlang-dark.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/night.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/monokai.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/cobalt.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/eclipse.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/rubyblue.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/lesser-dark.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/xq-dark.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/ambiance.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/blackboard.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/vibrant-ink.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/solarized.css">
+    <link rel="stylesheet" href="../src/libs/codemirror/theme/twilight.css">
     </head>
     <body>
+    <div id="editor">
+<form>
+<textarea id="code" name="code">
+move();
+move();
+
+for (i=0; i<= 10; i++){
+     move();
+     turn_left();
+}
+
+</textarea>
+</form>
+
+<p>Select a theme: <select onchange="selectTheme()" id=select>
+    <option>default</option>
+    <option>ambiance</option>
+    <option>blackboard</option>
+    <option>cobalt</option>
+    <option>eclipse</option>
+    <option>elegant</option>
+    <option>erlang-dark</option>
+    <option>lesser-dark</option>
+    <option>monokai</option>
+    <option>neat</option>
+    <option>night</option>
+    <option selected>rubyblue</option>
+    <option>solarized dark</option>
+    <option>solarized light</option>
+    <option>twilight</option>
+    <option>vibrant-ink</option>
+    <option>xq-dark</option>
+</select>
+</p>
+</div>
         <div id="canvas-wrapper">
             <canvas id="background_canvas" width="600" height="480"></canvas>
             <canvas id="wall_canvas" width="600" height="480"></canvas>
             <canvas id="robot_canvas" width="600" height="480"></canvas>
-        </div>
         <button onClick="RUR.visible_world.play_frames();">Play</button>
+        <button onClick="RUR.visible_world.fake_program();">Reload</button>
+        <button onClick="move();">move</button>
+        <button onClick="updateProgram();">Update program</button>
+        </div>
+
     <script src="../src/js/animator.js" charset="utf-8"></script>
+
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+        mode: 'javascript',
+        tabMode: 'indent',
+        lineNumbers: true,
+        theme: 'rubyblue'
+      });
+      function updateProgram(){
+        try {
+            eval(editor.getValue());
+        }
+        catch (e){
+            alert(e.message);
+        }
+      }
+  var input = document.getElementById("select");
+  function selectTheme() {
+    var theme = input.options[input.selectedIndex].innerHTML;
+    editor.setOption("theme", theme);
+  }
+  var choice = document.location.search &&
+               decodeURIComponent(document.location.search.slice(1));
+  if (choice) {
+    input.value = choice;
+    editor.setOption("theme", choice);
+}
+    </script>
+
+
     </body>
 </html>
