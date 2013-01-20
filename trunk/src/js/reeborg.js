@@ -15,7 +15,7 @@ A world can be modified either by a graphical World Builder or via a JSON string
 
 var RUR = RUR || {};
 
-function World__ () {
+RUR.World = function () {
     "use strict";
     this.EAST = 0;
     this.NORTH = 1;
@@ -115,9 +115,9 @@ function World__ () {
                              orientation, json_object.robots[i].tokens));
         }
     };
-}
+};
 
-RUR.world = new World__();
+RUR.world = new RUR.World();
 
 
 RUR.PrivateRobot = function(x, y, orientation, tokens) {
