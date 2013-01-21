@@ -1,63 +1,65 @@
 //pyborg.js
 /*global RUR:true*/
 /*jshint indent:4 */
-
-RUR = {
+var RUR = RUR || {};
     // pyborg is the Python dialect (keywords) understood by Reeborg
     // Note that pyborg is a language that does not have a concept of local scope
     // ... which is explained by saying that Reeborg never forgets anything...
-    pyborg : {
-        SINGLE_LINE: /( *)(.*)/,  // extracts info about indentation and content
-        ASSIGNMENT : /^(\w+)\s*=\s*(\w+)\s*$/,  // synonym = existing - no ()
-        DEF: /def\s+([a-zA-Z]\w*)\(\s*\)\s*:/,   // def command():
-        COMMENT: /(?!(\'|\")*#.*(\'|\")\s*)#.*/, //  ... # comment follow the # sign - not inside string
-        START_WITH_NOT: /^not /,
-        IF: /^if \s*(.*):\s*$/,               //  if some_condition :
-        ELIF: /^elif \s*(\S+)\s*:\s*$/,        // elif some_condition :
-        WHILE: /^while (.*):\s*$/,             // while some_condition :
-        BREAK: "break",
-        PASS: "pass",
-        ELSE: "else:",
-        START_WITH_IF: /^if /,
-        START_WITH_DEF: /^def /,
-        START_WITH_WHILE: /^while /,
-        START_WITH_ELIF: /^elif /,
-        CONTAIN_ASSIGNMENT: /.*=.*/
-    },
-    builtins : {
-        "en": {"move()": "move",
-               "turn_left()": "turn_left"
-               },
-        "fr": {"avance()": "move",
-               "tourne_à_gauche()": "turn_left"
-               }
-    },
-    messages : {
-        "en": {"Unknown command": "Unknown command: ",
-               "Indentation error": "Indentation error",
-               "Attempt to redefine": "Attempt to redefine '",
-               "Syntax error": "Syntax error: ",
-               "Invalid test condition": "Invalid test condition: ",
-               "Missing if": "'elif' or 'else' without matching 'if'",
-               "break outside loop": "SyntaxError: 'break' outside loop",
-                "def syntax error": "Syntax error: bad method name or missing colon."
-               },
-        "fr": {"Unknown command": "Commande inconnue: ",
-               "Indentation error": "Erreur d'indentation",
-               "Attempt to redefine": "Tentative de redéfinir '",
-               "Syntax error": "Erreur de syntaxe: ",
-               "Invalid test condition": "Condition non valide: ",
-               "Missing if": "'elif' ou 'else' sans le 'if' correspondant",
-               "break outside loop": "Erreur de syntaxe: 'break' à l'extérieur d'une boucle",
-               "def syntax error": "Erreur de syntaxe: mauvais nom de méthode ou 'deux points'."
-               }
-    },
-    conditions : {
-        "token_detected()": "token_detected()",
-        "True": true,
-        "False": false
-    }
+RUR.pyborg = {
+    SINGLE_LINE: /( *)(.*)/,  // extracts info about indentation and content
+    ASSIGNMENT : /^(\w+)\s*=\s*(\w+)\s*$/,  // synonym = existing - no ()
+    DEF: /def\s+([a-zA-Z]\w*)\(\s*\)\s*:/,   // def command():
+    COMMENT: /(?!(\'|\")*#.*(\'|\")\s*)#.*/, //  ... # comment follow the # sign - not inside string
+    START_WITH_NOT: /^not /,
+    IF: /^if \s*(.*):\s*$/,               //  if some_condition :
+    ELIF: /^elif \s*(\S+)\s*:\s*$/,        // elif some_condition :
+    WHILE: /^while (.*):\s*$/,             // while some_condition :
+    BREAK: "break",
+    PASS: "pass",
+    ELSE: "else:",
+    START_WITH_IF: /^if /,
+    START_WITH_DEF: /^def /,
+    START_WITH_WHILE: /^while /,
+    START_WITH_ELIF: /^elif /,
+    CONTAIN_ASSIGNMENT: /.*=.*/
 };
+
+RUR.builtins = {
+    "en": {"move()": "move",
+           "turn_left()": "turn_left"
+           },
+    "fr": {"avance()": "move",
+           "tourne_à_gauche()": "turn_left"
+           }
+};
+
+RUR.messages = {
+    "en": {"Unknown command": "Unknown command: ",
+           "Indentation error": "Indentation error",
+           "Attempt to redefine": "Attempt to redefine '",
+           "Syntax error": "Syntax error: ",
+           "Invalid test condition": "Invalid test condition: ",
+           "Missing if": "'elif' or 'else' without matching 'if'",
+           "break outside loop": "SyntaxError: 'break' outside loop",
+            "def syntax error": "Syntax error: bad method name or missing colon."
+           },
+    "fr": {"Unknown command": "Commande inconnue: ",
+           "Indentation error": "Erreur d'indentation",
+           "Attempt to redefine": "Tentative de redéfinir '",
+           "Syntax error": "Erreur de syntaxe: ",
+           "Invalid test condition": "Condition non valide: ",
+           "Missing if": "'elif' ou 'else' sans le 'if' correspondant",
+           "break outside loop": "Erreur de syntaxe: 'break' à l'extérieur d'une boucle",
+           "def syntax error": "Erreur de syntaxe: mauvais nom de méthode ou 'deux points'."
+           }
+};
+
+RUR.conditions = {
+    "token_detected()": "token_detected()",
+    "True": true,
+    "False": false
+};
+
 
 var remove_spaces = function (text) {
     "use strict";
@@ -374,5 +376,4 @@ function Block(program, min_indentation, inside_loop) {
     };
 
     this.parse();
-
 }
