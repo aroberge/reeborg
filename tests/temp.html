@@ -92,14 +92,19 @@ for (i=0; i<= 10; i++){
     <option>xq-dark</option>
 </select>
 </p>
+
+<div id="world">
+<pre>
+    World definition will go here;
+</pre>
+</div>
 </div>
         <div id="canvas-wrapper">
             <canvas id="background_canvas" width="600" height="480"></canvas>
             <canvas id="wall_canvas" width="600" height="480"></canvas>
             <canvas id="robot_canvas" width="600" height="480"></canvas>
-        <button onClick="play();">Play</button>
+        <button onClick="RUR.visible_world.reset();run();">Reset and run</button>
         <button onClick="RUR.visible_world.reset();">Reset</button>
-        <button onClick="compile();">Compile</button>
         </div>
 
     <script src="../src/js/animator.js" charset="utf-8"></script>
@@ -109,20 +114,20 @@ for (i=0; i<= 10; i++){
         mode: 'javascript',
         tabMode: 'indent',
         lineNumbers: true,
-        theme: 'rubyblue'
+        theme: 'rubyblue',
+        indentUnit: 4
       });
-      function compile(){
+      function run(){
+        try {
+            clearTimeout(RUR.timer);
+        } catch (e) {};
         try {
             eval(editor.getValue());
+            RUR.visible_world.play_frames();
         }
         catch (e){
             alert(e.message);
         }
-      };
-
-
-      function play(){
-        RUR.visible_world.play_frames();
       };
 
   var input = document.getElementById("select");
