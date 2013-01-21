@@ -1,49 +1,50 @@
+
 module("World", {
     setup: function(){
-        WORLD.reset();
+        RUR.world.reset();
         ok(true, "module setup run")
     }
 });
 
 test("Creation", 3, function(){
-    // WORLD created by default
-    deepEqual(WORLD.robots, [], "World starts with no robots");
-    deepEqual(WORLD.walls, {}, "World starts with no walls - except those at x=0 and at y=0");
+    // RUR.world created by default
+    deepEqual(RUR.world.robots, [], "World starts with no robots");
+    deepEqual(RUR.world.walls, {}, "World starts with no walls - except those at x=0 and at y=0");
 });
 
 test("Adding robot", 2, function(){
     var reeborg = new UsedRobot();
-    deepEqual(WORLD.robots, [reeborg], "World has one more robot");
+    deepEqual(RUR.world.robots, [reeborg], "World has one more robot");
 });
 
 test("Exporting and importing a world", 5, function(){
-    var newWorld = new World();
+    var newWorld = new RUR.World();
     var reeborg = new UsedRobot();
-    newWorld.import_(WORLD.export_());
-    deepEqual(newWorld.robots, WORLD.robots, "Same number of robots in both worlds.");
-    deepEqual(newWorld.walls, WORLD.walls, "Same walls configuration in both worlds.");
+    newWorld.import_(RUR.world.export_());
+    deepEqual(newWorld.robots, RUR.world.robots, "Same number of robots in both worlds.");
+    deepEqual(newWorld.walls, RUR.world.walls, "Same walls configuration in both worlds.");
     var reeborg2 = new UsedRobot(3, 4, "West", 42);
-    WORLD.toggle_wall(1, 1, "NORTH");
-    WORLD.robots[0].move();
-    newWorld.import_(WORLD.export_());
-    deepEqual(newWorld.robots, WORLD.robots, "Same number of robots in both worlds.");
-    deepEqual(newWorld.walls, WORLD.walls, "Same walls configuration in both worlds.");
+    RUR.world.toggle_wall(1, 1, "NORTH");
+    RUR.world.robots[0].move();
+    newWorld.import_(RUR.world.export_());
+    deepEqual(newWorld.robots, RUR.world.robots, "Same number of robots in both worlds.");
+    deepEqual(newWorld.walls, RUR.world.walls, "Same walls configuration in both worlds.");
 });
 
 test("Adding walls", 5, function(){
-    WORLD.toggle_wall(1, 1, "NORTH");
-    deepEqual(WORLD.walls, {'1,1': ["NORTH"]}, "Added north wall at 1, 1");
-    WORLD.toggle_wall(1, 1, "EAST");
-    deepEqual(WORLD.walls, {'1,1': ["NORTH", "EAST"]}, "Added east wall at 1, 1");
-    WORLD.toggle_wall(1, 1, "NORTH");
-    deepEqual(WORLD.walls, {'1,1': ["EAST"]}, "Removed north wall at 1, 1");
-    WORLD.toggle_wall(1, 1, "EAST");
-    deepEqual(WORLD.walls, {}, "Removed east wall at 1, 1");
+    RUR.world.toggle_wall(1, 1, "NORTH");
+    deepEqual(RUR.world.walls, {'1,1': ["NORTH"]}, "Added north wall at 1, 1");
+    RUR.world.toggle_wall(1, 1, "EAST");
+    deepEqual(RUR.world.walls, {'1,1': ["NORTH", "EAST"]}, "Added east wall at 1, 1");
+    RUR.world.toggle_wall(1, 1, "NORTH");
+    deepEqual(RUR.world.walls, {'1,1': ["EAST"]}, "Removed north wall at 1, 1");
+    RUR.world.toggle_wall(1, 1, "EAST");
+    deepEqual(RUR.world.walls, {}, "Removed east wall at 1, 1");
 })
 
 module('UsedRobot', {
     setup: function(){
-        WORLD.reset();
+        RUR.world.reset();
         ok(true, "module setup run")
     }
 });
@@ -55,14 +56,14 @@ test( "Creation", 16, function() {
     strictEqual(reeborg.orientation, 0, "reeborg default orientation");
     strictEqual(reeborg.tokens, 0, "reeborg default tokens");
     strictEqual(reeborg.changed, true, "reeborg has been changed upon creation");
-    deepEqual(WORLD.robots, [reeborg], "World has one more robot");
+    deepEqual(RUR.world.robots, [reeborg], "World has one more robot");
 
     var reeborg2 = new UsedRobot(2, 3, "N", 2);
     strictEqual(reeborg2.x, 2, "reeborg assigned x coordinate");
     strictEqual(reeborg2.y, 3, "reeborg assigned y coordinate");
     strictEqual(reeborg2.orientation, 1, "reeborg assigned orientation");
     strictEqual(reeborg2.tokens, 2, "reeborg assigned tokens");
-    deepEqual(WORLD.robots, [reeborg, reeborg2], "World has two robots");
+    deepEqual(RUR.world.robots, [reeborg, reeborg2], "World has two robots");
 
     reeborg = new UsedRobot(1, 1, "west");
     strictEqual(reeborg.orientation, 2, "reeborg assigned orientation");
@@ -119,4 +120,3 @@ test("Moving in empty world - both languages", 7, function(){
     }, "Hit wall exception", "Must throw error to pass.");
     strictEqual(reeborg.x, 1, "reeborg unchanged position");
 });
-

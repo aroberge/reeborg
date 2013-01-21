@@ -264,7 +264,6 @@ test('test assignment condition', function(){
 test('test assignment condition not allowed', function(){
     var program = new UserProgram("t=True()");
     var block = new Block(program);
-    console.log(program.syntax_error);
     deepEqual(program.syntax_error, [0, "Syntax error: 't=True()'"], "syntax error expected");
 });
 
