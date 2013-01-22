@@ -58,7 +58,7 @@
 move();
 move();
 var test = function(j){
-    reeborg = new UsedRobot(1, j);
+    var reeborg = new UsedRobot(1, j);
     reeborg.move();
     reeborg.move();
 }
@@ -74,7 +74,7 @@ var turn_right = function() {
     turn_around();
 }
 
-for (i=0; i< 4; i++){
+for (var i=0; i < 4; i++){
      move();
      turn_left();
 }
@@ -121,17 +121,17 @@ for (i=0; i< 4; i++){
 </pre>
 </div>
 </div>
-        <div id="canvas-wrapper">
-            <canvas id="background_canvas" width="600" height="480"></canvas>
-            <canvas id="wall_canvas" width="600" height="480"></canvas>
-            <canvas id="trace_canvas" width="600" height="480"></canvas>
-            <canvas id="robot_canvas" width="600" height="480"></canvas>
-        <button id="run" onClick="run();">Execute</button>
-        <button id="pause" disabled="true" onClick="pause();">Pause</button>
-        <button id="step" onClick="step();">Step</button>
-        <button id="stop" disabled="true" onClick="stop();">Stop</button>
-        <button it="reload" onClick="reload();">Reload</button>
-        </div>
+    <div id="canvas-wrapper">
+        <canvas id="background_canvas" width="600" height="480"></canvas>
+        <canvas id="wall_canvas" width="600" height="480"></canvas>
+        <canvas id="trace_canvas" width="600" height="480"></canvas>
+        <canvas id="robot_canvas" width="600" height="480"></canvas>
+        <button id="run" onClick="RUR.controls.run();">Execute</button>
+        <button id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
+        <button id="step" onClick="RUR.controls.step();">Step</button>
+        <button id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
+        <button it="reload" onClick="RUR.controls.reload();">Reload</button>
+    </div>
 
 
 
@@ -144,37 +144,7 @@ for (i=0; i< 4; i++){
         theme: 'rubyblue',
         indentUnit: 4
       });
-      function run(){
-        $("#stop").removeAttr("disabled");
-        $("#run").attr("disabled", "true");
-        try {
-            clearTimeout(RUR.timer);
-        } catch (e) {};
-        try {
-            eval(editor.getValue());
-            RUR.visible_world.play_frames();
-        }
-        catch (e){
-            alert(e.message);
-        }
 
-      };
-      function stop(){
-        try {
-            clearTimeout(RUR.timer);
-        } catch (e) {};
-        try {
-            eval(editor.getValue());
-            RUR.visible_world.play_frames();
-        }
-        catch (e){
-            alert(e.message);
-        }
-      };
-      function done() {
-        $("#run").removeAttr("disabled");
-        $("#stop").attr("disabled", "true");
-      }
 
   var input = document.getElementById("select");
   function selectTheme() {
