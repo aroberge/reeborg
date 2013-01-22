@@ -35,6 +35,8 @@ RUR.World = function () {
     };
 
     this.move_robot = function(robot){
+        robot.prev_x = robot.x;
+        robot.prev_y = robot.y;
         switch (robot.orientation){
         case this.EAST:
             robot.x += 1;
@@ -61,7 +63,6 @@ RUR.World = function () {
             console.log("robot.x= ", robot.x, " robot.y= ", robot.y, "robot.orientation= ", robot.orientation);
             throw "Should not happen: unhandled case in World__.move_robot().";
         }
-        this.add_frame();
     };
     this.add_frame = function () {
         var i, robot, robots = [];
@@ -69,7 +70,10 @@ RUR.World = function () {
             robot = {};
             robot.x = RUR.world.robots[i].x;
             robot.y = RUR.world.robots[i].y;
+            robot.prev_x = RUR.world.robots[i].prev_x;
+            robot.prev_y = RUR.world.robots[i].prev_y;
             robot.orientation = RUR.world.robots[i].orientation;
+            robot.prev_orientation = RUR.world.robots[i].prev_orientation;
             robots.push(robot);
         }
         this.frames.push({robots: robots});
@@ -131,6 +135,8 @@ RUR.PrivateRobot = function(x, y, orientation, tokens) {
     "use strict";
     this.x = x || 1;
     this.y = y || 1;
+    this.prev_x = this.x;
+    this.prev_y = this.y;
     this.tokens = tokens || 0;
     this.jetons = this.tokens;
     this.changed = true;
@@ -165,10 +171,14 @@ RUR.PrivateRobot = function(x, y, orientation, tokens) {
             // TODO: turn this into a warning
         }
     }
+    this.prev_orientation = this.orientation;
 };
 
 RUR.PrivateRobot.prototype.turn_left = function(){
     "use strict";
+    this.prev_orientation = this.orientation;
+    this.prev_x = this.x;
+    this.prev_y = this.y;
     this.orientation += 1;
     this.orientation %= 4;
     RUR.world.add_frame();
@@ -178,7 +188,9 @@ RUR.PrivateRobot.prototype.tourne_à_gauche = RUR.PrivateRobot.prototype.turn_le
 
 RUR.PrivateRobot.prototype.move = function(){
     "use strict";
+    this.prev_orientation = this.orientation;
     RUR.world.move_robot(this);
+    RUR.world.add_frame();
 };
 
 RUR.PrivateRobot.prototype.avance = RUR.PrivateRobot.prototype.move;
