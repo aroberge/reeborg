@@ -25,7 +25,6 @@ test("Exporting and importing a world", 5, function(){
     deepEqual(newWorld.walls, RUR.world.walls, "Same walls configuration in both worlds.");
     var reeborg2 = new UsedRobot(3, 4, "West", 42);
     RUR.world.toggle_wall(1, 1, "NORTH");
-    RUR.world.robots[0].move();
     newWorld.import_(RUR.world.export_());
     deepEqual(newWorld.robots, RUR.world.robots, "Same number of robots in both worlds.");
     deepEqual(newWorld.walls, RUR.world.walls, "Same walls configuration in both worlds.");
@@ -49,13 +48,12 @@ module('UsedRobot', {
     }
 });
 
-test( "Creation", 16, function() {
+test( "Creation", 15, function() {
     var reeborg = new UsedRobot();
     strictEqual(reeborg.x, 1, "reeborg default x coordinate");
     strictEqual(reeborg.y, 1, "reeborg default y coordinate");
     strictEqual(reeborg.orientation, 0, "reeborg default orientation");
     strictEqual(reeborg.tokens, 0, "reeborg default tokens");
-    strictEqual(reeborg.changed, true, "reeborg has been changed upon creation");
     deepEqual(RUR.world.robots, [reeborg], "World has one more robot");
 
     var reeborg2 = new UsedRobot(2, 3, "N", 2);
