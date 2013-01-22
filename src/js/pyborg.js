@@ -61,12 +61,12 @@ RUR.conditions = {
 };
 
 
-var remove_spaces = function (text) {
+RUR.remove_spaces = function (text) {
     "use strict";
     return text.replace(/\s+/g, '');
 };
 
-function LineOfCode(raw_content, line_number) {
+RUR.LineOfCode = function (raw_content, line_number) {
     "use strict";
     var line_content;
     this.line_number = line_number;
@@ -74,10 +74,10 @@ function LineOfCode(raw_content, line_number) {
     line_content = raw_content.match(RUR.pyborg.SINGLE_LINE);
     this.indentation = line_content[1].length;
     this.content = line_content[2];
-    this.stripped_content = remove_spaces(this.content);
+    this.stripped_content = RUR.remove_spaces(this.content);
 }
 
-function UserProgram(program, language) {
+RUR.UserProgram = function (program, language) {
     "use strict";
     var lines, i;
     if (language === undefined) {
@@ -96,7 +96,7 @@ function UserProgram(program, language) {
     this.syntax_error = null;
     this.user_defined = {};
     for (i = 0; i < this.nb_lines; i++) {
-        this.lines.push(new LineOfCode(lines[i], i));
+        this.lines.push(new RUR.LineOfCode(lines[i], i));
     }
 
     this.next_line = function () {
@@ -118,7 +118,7 @@ function UserProgram(program, language) {
 
 }
 
-function Block(program, min_indentation, inside_loop) {
+RUR.Block = function (program, min_indentation, inside_loop) {
     // recursive function; it will call itself if it encounters sub-blocks
     // via parse() ; see at the very end of this function
     "use strict";
@@ -223,7 +223,7 @@ function Block(program, min_indentation, inside_loop) {
         }
         this.current_line.method_name = name;
         this.program.user_defined[name + "()"] = this.current_line;
-        this.current_line.block = new Block(this.program, this.current_line.indentation,
+        this.current_line.block = new RUR.Block(this.program, this.current_line.indentation,
                                        this.current_line.type);
         return true;
     };
@@ -245,7 +245,7 @@ function Block(program, min_indentation, inside_loop) {
             return condition;
         }
 
-        var stripped_condition = remove_spaces(condition);
+        var stripped_condition = RUR.remove_spaces(condition);
         if (RUR.conditions[stripped_condition] !== undefined) {
             this.current_line.condition = RUR.conditions[stripped_condition];
             return stripped_condition;
@@ -261,7 +261,7 @@ function Block(program, min_indentation, inside_loop) {
         matches = this.current_line.content.match(RUR.pyborg.IF);
         condition = this.normalize_condition(matches[1]);
         if (condition !== null) {
-            this.current_line.block = new Block(this.program,
+            this.current_line.block = new RUR.Block(this.program,
                                                 this.current_line.indentation,
                                                 this.inside_loop);
         }
@@ -277,7 +277,7 @@ function Block(program, min_indentation, inside_loop) {
             matches = this.current_line.content.match(RUR.pyborg.ELIF);
             condition = this.normalize_condition(matches[1]);
             if (condition !== null) {
-                this.current_line.block = new Block(this.program,
+                this.current_line.block = new RUR.Block(this.program,
                                                 this.current_line.indentation,
                                                 this.inside_loop);
             }
@@ -293,7 +293,7 @@ function Block(program, min_indentation, inside_loop) {
                 (this.previous_line_content.match(RUR.pyborg.ELIF)))
             ) {
             this.current_line.type = "else block";
-            this.current_line.block = new Block(this.program, this.current_line.indentation,
+            this.current_line.block = new RUR.Block(this.program, this.current_line.indentation,
                                            this.inside_loop);
         }
         else {
@@ -307,7 +307,7 @@ function Block(program, min_indentation, inside_loop) {
         matches = this.current_line.content.match(RUR.pyborg.WHILE);
         condition = this.normalize_condition(matches[1]);
         if (condition !== null) {
-            this.current_line.block = new Block(this.program, this.current_line.indentation, true);
+            this.current_line.block = new RUR.Block(this.program, this.current_line.indentation, true);
         }
     };
 
