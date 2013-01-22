@@ -74,6 +74,10 @@ RUR.World = function () {
             robot.prev_y = RUR.world.robots[i].prev_y;
             robot.orientation = RUR.world.robots[i].orientation;
             robot.prev_orientation = RUR.world.robots[i].prev_orientation;
+            if (RUR.world.robots[i].is_leaky !== undefined &&
+                RUR.world.robots[i].a_une_fuite !== undefined ) {
+                robot.is_leaky = true;
+            }
             robots.push(robot);
         }
         this.frames.push({robots: robots});
@@ -139,7 +143,8 @@ RUR.PrivateRobot = function(x, y, orientation, tokens) {
     this.prev_y = this.y;
     this.tokens = tokens || 0;
     this.jetons = this.tokens;
-    this.changed = true;
+    this.is_leaky = true;
+    this.a_une_fuite = this.is_leaky;
 
     if (orientation === undefined){
         this.orientation = RUR.world.EAST;
