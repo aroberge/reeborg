@@ -136,7 +136,8 @@ for (i=0; i< 4; i++){
 
 
     <script>
-    RUR.visible_world.init()
+    RUR.visible_world.init();
+    RUR.controls = new RUR.Controls("javascript");
       var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
         mode: 'javascript',
         tabMode: 'indent',
