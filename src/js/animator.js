@@ -12,6 +12,7 @@ RUR.visible_world = {
         this.width = this.background_canvas.width;
         this.wall_ctx = document.getElementById("wall_canvas").getContext("2d");
         this.trace_ctx = document.getElementById("trace_canvas").getContext("2d");
+        this.set_trace_style("default");
         this.robot_ctx = document.getElementById("robot_canvas").getContext("2d");
         this.rows = Math.floor(this.height / this.wall_length) - 2;
         this.cols = Math.floor(this.width / this.wall_length) - 2;
@@ -37,9 +38,6 @@ RUR.visible_world = {
     wall_color: "brown",
     shawdow_wall_color: "#f0f0f0",
     ctx: null,
-    trace_color: "seagreen",
-    trace_offset : [[30, 30], [30, 20], [20, 20], [20, 30]],
-    //trace_offset : [[25, 30], [25, 25], [25, 20], [25, 25]],
     draw : function () {
         "use strict";
         // fake wall configuration
@@ -53,6 +51,17 @@ RUR.visible_world = {
             "5,4" : ["NORTH"]
         };
         this.draw_foreground_walls();
+    },
+    set_trace_style : function (choice){
+        if (choice === undefined || choice === "default") {
+            RUR.visible_world.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
+            RUR.visible_world.trace_color = "seagreen";
+            RUR.visible_world.trace_thickness = 1;
+        } else {
+            RUR.visible_world.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
+            RUR.visible_world.trace_color = "red";
+            RUR.visible_world.trace_thickness = 4;
+        }
     },
     draw_background_walls : function () {
         "use strict";
@@ -135,6 +144,8 @@ RUR.visible_world = {
         "use strict";
         this.ctx = this.trace_ctx;
         this.ctx.strokeStyle = this.trace_color;
+        this.ctx.lineWidth = this.trace_thickness;
+        this.ctx.lineCap = "round";
         this.ctx.beginPath();
         this.ctx.moveTo(robot.prev_x* this.wall_length + RUR.visible_world.trace_offset[robot.prev_orientation][0],
                         this.height - (robot.prev_y +1) * this.wall_length + RUR.visible_world.trace_offset[robot.prev_orientation][1]);
