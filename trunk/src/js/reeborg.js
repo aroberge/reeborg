@@ -372,14 +372,14 @@ RUR.visible_world = {
         if (!RUR.visible_world.running){
             return;
         }
-        RUR.visible_world.draw_frames();
+        RUR.visible_world.play_single_frame();
         if (RUR.world.frames.length !== 0) {
-            setTimeout(RUR.visible_world.update, RUR.visible_world.delay);
+            RUR.timer = setTimeout(RUR.visible_world.update, RUR.visible_world.delay);
         } else {
             RUR.controls.stop();
         }
     },
-    draw_frames : function () {
+    play_single_frame : function () {
         "use strict";
         var frame, robot;
         this.ctx = RUR.visible_world.robot_ctx;
@@ -389,38 +389,52 @@ RUR.visible_world = {
             for (robot=0; robot < frame.robots.length; robot++){
                 RUR.visible_world.draw_robot(frame.robots[robot]);
             }
+        } else {
+            RUR.controls.stop();
         }
     },
     reset : function () {
         "use strict";
         var dummy;
         RUR.world.reset();
+        this.compiled = false;
         this.draw_background_walls();
         this.draw_foreground_walls();
         this.trace_ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
         dummy = new UsedRobot();
-        this.draw_frames();
+        this.play_single_frame();
         RUR.visible_world.running = false;
     }
 };
 
-RUR.Controls = function () {
+RUR.Controls = function (programming_language) {
+    // Evaluation and execution control of robot programs using Javascript as basic language.
+    // Note: by having "use strict;" here, it has the interesting effect of requiring user
+    // programs to conform to "strict" usage, meaning that all variables have to be declared,
+    // etc.
     "use strict";
+    programming_language = programming_language || "javascript";
     this.run = function () {
         $("#stop").removeAttr("disabled");
         $("#pause").removeAttr("disabled");
         $("#run").attr("disabled", "true");
         $("#step").attr("disabled", "true");
         $("#reload").attr("disabled", "true");
-        try {
-            clearTimeout(RUR.timer);
-        } catch (e) {}
-        try {
-            eval(editor.getValue());
-            RUR.visible_world.play_frames();
-        }
-        catch (e){
-            alert(e.message);
+        clearTimeout(RUR.timer);
+
+        if (programming_language === "javascript") {
+            try {
+                if (!RUR.visible_world.compiled) {
+                    eval(editor.getValue());
+                    RUR.visible_world.compiled = true;
+                }
+                RUR.visible_world.play_frames();
+            }
+            catch (e){
+                alert(e.message);
+            }
+        } else {
+            alert("Unknown programming_language in RUR.Controls.run().")
         }
     };
 
@@ -429,7 +443,17 @@ RUR.Controls = function () {
     };
 
     this.step = function () {
-        alert("step not implemented yet");
+        try {
+            if (!RUR.visible_world.compiled) {
+                eval(editor.getValue());
+                console.log("program compiled");
+                RUR.visible_world.compiled = true;
+            }
+            RUR.visible_world.play_single_frame();
+        }
+        catch (e){
+            alert(e.message);
+        }
     };
 
     this.stop = function () {
@@ -452,8 +476,6 @@ RUR.Controls = function () {
         $("#reload").attr("disabled", "true");
     };
 };
-
-RUR.controls = new RUR.Controls();
 
 var move = function(){
     "use strict";
