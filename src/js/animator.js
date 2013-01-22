@@ -12,7 +12,7 @@ RUR.visible_world = {
         this.width = this.background_canvas.width;
         this.wall_ctx = document.getElementById("wall_canvas").getContext("2d");
         this.trace_ctx = document.getElementById("trace_canvas").getContext("2d");
-        this.set_trace_style("default");
+        this.set_trace_style();
         this.robot_ctx = document.getElementById("robot_canvas").getContext("2d");
         this.rows = Math.floor(this.height / this.wall_length) - 2;
         this.cols = Math.floor(this.width / this.wall_length) - 2;
@@ -53,14 +53,15 @@ RUR.visible_world = {
         this.draw_foreground_walls();
     },
     set_trace_style : function (choice){
-        if (choice === undefined || choice === "default") {
-            RUR.visible_world.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
-            RUR.visible_world.trace_color = "seagreen";
-            RUR.visible_world.trace_thickness = 1;
-        } else {
+        "use strict";
+        if (choice === "red") {
             RUR.visible_world.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
             RUR.visible_world.trace_color = "red";
             RUR.visible_world.trace_thickness = 4;
+        } else {
+            RUR.visible_world.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
+            RUR.visible_world.trace_color = "seagreen";
+            RUR.visible_world.trace_thickness = 1;
         }
     },
     draw_background_walls : function () {
@@ -142,6 +143,9 @@ RUR.visible_world = {
     },
     draw_trace : function (robot) {
         "use strict";
+        if (robot.is_leaky === undefined) {
+            return;
+        }
         this.ctx = this.trace_ctx;
         this.ctx.strokeStyle = this.trace_color;
         this.ctx.lineWidth = this.trace_thickness;
