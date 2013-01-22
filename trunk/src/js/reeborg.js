@@ -1,4 +1,5 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, editor */
 
 if (!Array.prototype.remove){
     // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
@@ -374,6 +375,8 @@ RUR.visible_world = {
         RUR.visible_world.draw_frames();
         if (RUR.world.frames.length !== 0) {
             setTimeout(RUR.visible_world.update, RUR.visible_world.delay);
+        } else {
+            RUR.controls.stop();
         }
     },
     draw_frames : function () {
@@ -400,6 +403,57 @@ RUR.visible_world = {
         RUR.visible_world.running = false;
     }
 };
+
+RUR.Controls = function () {
+    "use strict";
+    this.run = function () {
+        $("#stop").removeAttr("disabled");
+        $("#pause").removeAttr("disabled");
+        $("#run").attr("disabled", "true");
+        $("#step").attr("disabled", "true");
+        $("#reload").attr("disabled", "true");
+        try {
+            clearTimeout(RUR.timer);
+        } catch (e) {}
+        try {
+            eval(editor.getValue());
+            RUR.visible_world.play_frames();
+        }
+        catch (e){
+            alert(e.message);
+        }
+    };
+
+    this.pause = function () {
+        alert("pause not implemented yet");
+    };
+
+    this.step = function () {
+        alert("step not implemented yet");
+    };
+
+    this.stop = function () {
+        try {
+            clearTimeout(RUR.timer);
+        } catch (e) {}
+        $("#stop").attr("disabled", "true");
+        $("#pause").attr("disabled", "true");
+        $("#run").attr("disabled", "true");
+        $("#step").attr("disabled", "true");
+        $("#reload").removeAttr("disabled");
+    };
+
+    this.reload = function() {
+        RUR.visible_world.reset();
+        $("#stop").attr("disabled", "true");
+        $("#pause").attr("disabled", "true");
+        $("#run").removeAttr("disabled");
+        $("#step").removeAttr("disabled");
+        $("#reload").attr("disabled", "true");
+    };
+};
+
+RUR.controls = new RUR.Controls();
 
 var move = function(){
     "use strict";
