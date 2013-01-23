@@ -31,6 +31,7 @@
     </style>
     <script src="../src/js/reeborg.js" charset="utf-8"></script>
     <script src="../src/libs/jquery.js"></script>
+    <script src="../src/libs/brython/brython.js"></script>
     <script src="../src/libs/codemirror/lib/codemirror.js"></script>
     <script src="../src/libs/codemirror/mode/javascript/javascript.js"></script>
     <script src="../src/libs/codemirror/mode/css/css.js"></script>
@@ -51,46 +52,59 @@
     <link rel="stylesheet" href="../src/libs/codemirror/theme/solarized.css">
     <link rel="stylesheet" href="../src/libs/codemirror/theme/twilight.css">
     </head>
-    <body>
+    <body onload="brython(1)">
+
+
+<script type="text/python">
+import sys
+import time
+import dis
+def run_python():
+    src = doc["code"].value
+    return dis.dis(src)
+run_python()
+</script>
+
+<script type="text/javascript">
+function compile_python () {
+    var pycode = editor.getValue();
+    var js_code = run_python();
+    editor.setValue(js_code);
+}
+</script>
+
+
     <div id="editor">
 <form>
 <textarea id="code" name="code">
-move();
-move();
-var test = function(j){
-    var reeborg = new UsedRobot(1, j);
-    reeborg.move();
-    reeborg.move();
-}
-test(8);
+move()
+move()
 
-var turn_around = function() {
-    turn_left();
-    turn_left();
-}
+def turn_around():
+    turn_left()
+    turn_left()
 
-var turn_right = function() {
-    turn_left();
-    turn_around();
-}
 
-for (var i=0; i < 4; i++){
-     move();
-     turn_left();
-}
-move();
-turn_around();
-move();
-turn_right();
-move();
-move();
-move();
+def turn_right():
+    turn_left()
+    turn_around()
 
-for (i=0; i< 4; i++){
-     move();
-     turn_right();
-}
 
+for i in range(4):
+     move()
+     turn_left()
+
+move()
+turn_around()
+move()
+turn_right()
+move()
+move()
+move()
+
+for i in range(4):
+    move()
+    turn_right()
 </textarea>
 </form>
 
@@ -131,13 +145,14 @@ for (i=0; i< 4; i++){
         <button id="step" onClick="RUR.controls.step();">Step</button>
         <button id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
         <button it="reload" onClick="RUR.controls.reload();">Reload</button>
+        <button it="reload" onClick="compile_python();">Compile Python</button>
     </div>
 
 
 
-    <script>
+    <script type="text/javascript">
     RUR.visible_world.init();
-    RUR.controls = new RUR.Controls("python");
+    RUR.controls = new RUR.Controls("javascript");
       var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
         mode: 'javascript',
         tabMode: 'indent',

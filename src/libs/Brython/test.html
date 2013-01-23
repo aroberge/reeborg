@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta name="description" content="Hello world demo written in Brython www.brython.info">
+<meta name="keywords" content="Python,Brython">
+<meta name="author" content="Pierre Quentel">
+<meta charset="iso-8859-1">
+<script src="brython.js"></script>
+<style>
+body {font-family:arial}
+#clock{
+    background-color:#000;
+    color:#66CC00;
+    font-size:20;
+    font-family:"courier new";
+    font-weight:bold;
+    padding:5px;
+}
+</style>
+</head>
+<body onLoad="brython()">
+<img src="brython.png">
+<script type="text/python">
+import sys
+import datetime
+import time
+
+def show_time():
+    doc['clock'].text = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')    
+show_time()
+time.set_interval(show_time,1000)
+
+doc['version'].text = '.'.join([str(x) for x in sys.version_info])
+def echo():
+    alert("Hello %s !" %doc["zone"].value)
+</script>
+<p><span id="clock"></span>
+<p><i>Brython version <span id="version"></span></i>
+<p>To write Python scripts, all you have to do is :
+<ul>
+<li>include the line <tt>&lt;script src="brython.js"&gt;&lt;/script&gt;</tt> in the HEAD section of your HTML file ; if the file brython.js in not in the same folder as the HTML page, replace "brython.js" by a relative or absolute path pointing to brython.js
+<li>run the function <em>brython()</em> on page load : <tt>&lt;body onload="brython()"&gt;</tt>. You can also call it with a debug mode as argument : <tt>&lt;body onload="brython(1)"&gt;</tt> : this will write error messages to the browser console
+<li>write Python code in scripts inside the page :<blockquote>
+<pre>&lt;script type="text/python"&gt;
+(... python code ...)
+&lt;/script&gt;</pre></blockquote>
+</ul>
+Visit the <a href="http://www.brython.info" target="_blank">Brython site</a> for a gallery of examples, documentation and contacts if you need help
+<p>Have fun !
+</body>
+</html>
+
