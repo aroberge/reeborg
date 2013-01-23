@@ -11,7 +11,8 @@ if (!Array.prototype.remove){
     };
 }
 /*
-A world can be modified either by a graphical World Builder or via a JSON string - only the second is currently implemented.
+A world can be modified either by a graphical World Builder or
+via a JSON string - only the second is currently implemented.
 */
 
 var RUR = RUR || {};
@@ -439,14 +440,17 @@ RUR.Controls = function (programming_language) {
     };
 
     this.pause = function () {
-        alert("pause not implemented yet");
+        RUR.visible_world.running = false;
+        clearTimeout(RUR.timer);
+        $("#pause").attr("disabled", "true");
+        $("#run").removeAttr("disabled");
+        $("#step").removeAttr("disabled");
     };
 
     this.step = function () {
         try {
             if (!RUR.visible_world.compiled) {
                 eval(editor.getValue());
-                console.log("program compiled");
                 RUR.visible_world.compiled = true;
             }
             RUR.visible_world.play_single_frame();
@@ -457,9 +461,7 @@ RUR.Controls = function (programming_language) {
     };
 
     this.stop = function () {
-        try {
-            clearTimeout(RUR.timer);
-        } catch (e) {}
+        clearTimeout(RUR.timer);
         $("#stop").attr("disabled", "true");
         $("#pause").attr("disabled", "true");
         $("#run").attr("disabled", "true");
