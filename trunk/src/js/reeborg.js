@@ -435,7 +435,7 @@ RUR.Controls = function (programming_language) {
                 alert(e.message);
             }
         } else {
-            alert("Unknown programming_language in RUR.Controls.run().")
+            alert("Unknown programming_language in RUR.Controls.run().");
         }
     };
 
