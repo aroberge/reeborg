@@ -77,7 +77,7 @@ test( "Création en français", 5, function() {
     strictEqual(reeborg.x, 3, "reeborg x coordinate");
     strictEqual(reeborg.y, 4, "reeborg y coordinate");
     strictEqual(reeborg.orientation, 2, "reeborg orientation en français");
-    strictEqual(reeborg.jetons, 0, "reeborg jetons ");
+    strictEqual(reeborg.tokens, 0, "reeborg tokens ");
 });
 
 test( "Turning - both languages", 7, function() {
