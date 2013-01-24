@@ -24,6 +24,15 @@ RUR.World = function () {
     this.WEST = 2;
     this.SOUTH = 3;
 
+    this.set_delay = function (delay) {
+        if (delay >= 0  && delay <= 10){
+            this.frames.push({delay: Math.round(delay*1000)});
+        }
+        else {
+            alert("delay needs to be specified in seconds, between 0 and 10; this was: " + delay);
+        }
+    };
+
     this.reset = function (){
         this.robots = [];
         this.walls = {};
@@ -370,28 +379,42 @@ RUR.visible_world = {
     },
     update : function () {
         "use strict";
+        var frame_info;
         if (!RUR.visible_world.running){
             return;
         }
-        RUR.visible_world.play_single_frame();
-        if (RUR.world.frames.length !== 0) {
-            RUR.timer = setTimeout(RUR.visible_world.update, RUR.visible_world.delay);
-        } else {
+        frame_info = RUR.visible_world.play_single_frame();
+        if (RUR.world.frames.length === 0) {
             RUR.controls.stop();
+            return;
         }
+
+        if (frame_info === "immediate") {
+            clearTimeout(RUR.timer);
+            RUR.visible_world.update();
+            return;
+        }
+
+        RUR.timer = setTimeout(RUR.visible_world.update, RUR.visible_world.delay);
     },
     play_single_frame : function () {
         "use strict";
         var frame, robot, ctx;
         ctx = RUR.visible_world.robot_ctx;
         if (RUR.world.frames.length !== 0) {
-            ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
             frame = RUR.world.frames.shift();
-            for (robot=0; robot < frame.robots.length; robot++){
-                RUR.visible_world.draw_robot(frame.robots[robot]);
-            }
         } else {
             RUR.controls.stop();
+            return;
+        }
+        if (frame.delay !== undefined) {
+            RUR.visible_world.delay = frame.delay;
+            return "immediate";
+        }
+
+        ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
+        for (robot=0; robot < frame.robots.length; robot++){
+            RUR.visible_world.draw_robot(frame.robots[robot]);
         }
     },
     reset : function () {
@@ -493,14 +516,19 @@ RUR.Controls = function (programming_language) {
     };
 };
 
-var move = function(){
+var move = function() {
     "use strict";
     RUR.world.robots[0].move();
 };
 
-var turn_left = function(){
+var turn_left = function() {
     "use strict";
     RUR.world.robots[0].turn_left();
+};
+
+var set_delay = function(delay) {
+    "use strict";
+    RUR.world.set_delay(delay);
 };
 
 
