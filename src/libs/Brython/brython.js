@@ -76,12 +76,12 @@ var x=null
 var i=null
 this.iter=null
 this.__class__=dict
-this.$keys=$keys 
-this.$values=$values 
+this.$keys=$keys
+this.$values=$values
 }
 $DictClass.prototype.toString=function(){
 if(this.$keys.length==0){return '{}'}
-var res="{",key=null,value=null,i=null 
+var res="{",key=null,value=null,i=null
 var qesc=new RegExp('"',"g")
 for(var i=0;i<this.$keys.length;i++){
 if(typeof this.$keys[i]==="string"){key='"'+$escape_dq(this.$keys[i])+'"'}
@@ -230,7 +230,7 @@ this.value=value
 this.__class__=float
 }
 $FloatClass.prototype.toString=function(){
-var res=this.value+'' 
+var res=this.value+''
 if(res.indexOf('.')==-1){res+='.0'}
 return str(res)
 }
@@ -267,7 +267,7 @@ else{$raise('TypeError',
 "unsupported operand type(s) for -: "+this.value+" (float) and '"+other.__class__+"'")
 }
 }
-$op_func +='' 
+$op_func +=''
 var $ops={'+':'add','-':'sub','*':'mul','%':'mod'}
 for($op in $ops){
 eval('$FloatClass.prototype.__'+$ops[$op]+'__ = '+$op_func.replace(/-/gm,$op))
@@ -279,7 +279,7 @@ else{$raise('TypeError',
 "unorderable types: "+this.__class__+'() > '+other.__class__+"()")
 }
 }
-$comp_func +='' 
+$comp_func +=''
 var $comps={'>':'gt','>=':'ge','<':'lt','<=':'le','==':'eq','!=':'ne'}
 for($op in $comps){
 eval("$FloatClass.prototype.__"+$comps[$op]+'__ = '+$comp_func.replace(/>/gm,$op))
@@ -288,7 +288,7 @@ var $notimplemented=function(other){
 $raise('TypeError',
 "unsupported operand types for OPERATOR: '"+this.__class__+"' and '"+other.__class__+"'")
 }
-$notimplemented +='' 
+$notimplemented +=''
 for($op in $operators){
 var $opfunc='__'+$operators[$op]+'__'
 if(!($opfunc in $FloatClass.prototype)){
@@ -385,7 +385,7 @@ else{$raise('TypeError',
 "unsupported operand type(s) for -: "+this.value+" (float) and '"+str(other.__class__)+"'")
 }
 }
-$op_func +='' 
+$op_func +=''
 var $ops={'+':'add','-':'sub','%':'mod'}
 for($op in $ops){
 eval('Number.prototype.__'+$ops[$op]+'__ = '+$op_func.replace(/-/gm,$op))
@@ -396,7 +396,7 @@ else if(isinstance(other,float)){return this.valueOf()> other.value}
 else{$raise('TypeError',
 "unorderable types: "+str(this.__class__)+'() > '+str(other.__class__)+"()")}
 }
-$comp_func +='' 
+$comp_func +=''
 var $comps={'>':'gt','>=':'ge','<':'lt','<=':'le','==':'eq','!=':'ne'}
 for($op in $comps){
 eval("Number.prototype.__"+$comps[$op]+'__ = '+$comp_func.replace(/>/gm,$op))
@@ -405,7 +405,7 @@ var $notimplemented=function(other){
 $raise('TypeError',
 "unsupported operand types for OPERATOR: '"+str(this.__class__)+"' and '"+str(other.__class__)+"'")
 }
-$notimplemented +='' 
+$notimplemented +=''
 for($op in $operators){
 var $opfunc='__'+$operators[$op]+'__'
 if(!($opfunc in Number.prototype)){
@@ -435,7 +435,7 @@ return obj.constructor===arg
 }
 function iter(obj){
 if('__item__' in obj){
-obj.__counter__=0 
+obj.__counter__=0
 return obj
 }
 $raise('TypeError',"'"+str(obj.__class__)+"' object is not iterable")
@@ -556,7 +556,7 @@ if(i<args.length-1){res +=' '}
 res +=end
 document.$stdout.write(res)
 }
-log=$print 
+log=$print
 function $prompt(text,fill){return prompt(text,fill || '')}
 function range(){
 var $ns=$MakeArgs('range',arguments,[],{},'args',null)
@@ -783,7 +783,7 @@ function $ListClass(items){
 var x=null,i=null
 this.iter=null
 this.__class__=list
-this.items=items 
+this.items=items
 }
 Array.prototype.__add__=function(other){
 return this.valueOf().concat(other.valueOf())
@@ -1103,33 +1103,33 @@ obj=this
 switch(attr){
 case 'capitalize':
 return $string_capitalize(obj)
-case 'center': 
+case 'center':
 return $string_center(obj)
-case 'count': 
+case 'count':
 return $string_count(obj)
-case 'endswith': 
+case 'endswith':
 return $string_endswith(obj)
-case 'find': 
+case 'find':
 return $string_find(obj)
-case 'index': 
+case 'index':
 return $string_index(obj)
 case 'join':
 return $string_join(obj)
 case 'lower':
 return $string_lower(obj)
-case 'lstrip': 
+case 'lstrip':
 return $string_lstrip(obj)
-case 'replace': 
+case 'replace':
 return $string_replace(obj)
-case 'rfind': 
+case 'rfind':
 return $string_rfind(obj)
-case 'rindex': 
+case 'rindex':
 return $string_rindex(obj)
-case 'rstrip': 
+case 'rstrip':
 return $string_rstrip(obj)
-case 'split': 
+case 'split':
 return $string_split(obj)
-case 'startswith': 
+case 'startswith':
 return $string_startswith(obj)
 case 'strip':
 return $string_strip(obj)
@@ -1280,7 +1280,7 @@ if(typeof other !=="string"){$raise('TypeError',
 "unorderable types: 'str' > "+other.__class__+"()")}
 return this > other
 }
-$comp_func +='' 
+$comp_func +=''
 var $comps={'>':'gt','>=':'ge','<':'lt','<=':'le'}
 for($op in $comps){
 eval("String.prototype.__"+$comps[$op]+'__ = '+$comp_func.replace(/>/gm,$op))
@@ -1289,7 +1289,7 @@ var $notimplemented=function(other){
 $raise('TypeError',
 "unsupported operand types for OPERATOR: '"+str(this.__class__)+"' and '"+str(other.__class__)+"'")
 }
-$notimplemented +='' 
+$notimplemented +=''
 for($op in $operators){
 var $opfunc='__'+$operators[$op]+'__'
 if(!($opfunc in String.prototype)){
@@ -1556,7 +1556,7 @@ $xmlhttp.send()
 if(res.constructor===Error){throw res}
 var stack=$py2js(res,module)
 stack.list.splice(0,0,['code',module+'= new object()'],['newline','\n'])
-var $pos=0 
+var $pos=0
 while(true){
 var $mlname_pos=stack.find_next_at_same_level($pos,"keyword","function")
 if($mlname_pos===null){break}
@@ -1572,7 +1572,7 @@ $fend_code=";"+$fend_code.substr(0,$pv_pos)
 stack.list[$fend][1]=$fend_code
 $pos=$mlname_pos+1
 }
-var $pos=0 
+var $pos=0
 while(true){
 var $mlname_pos=stack.find_next_at_same_level($pos,"assign_id")
 if($mlname_pos===null){break}
@@ -1777,8 +1777,8 @@ pos=br_pos+1
 }
 var not_a_display={
 '[':[["id"],["assign_id"],['str'],['int'],['float'],["qualifier"],
-["bracket",$List2Dict("]",")")]], 
-'(':[["id"],["assign_id"],["qualifier"],["bracket",$List2Dict("]",")")]], 
+["bracket",$List2Dict("]",")")]],
+'(':[["id"],["assign_id"],["qualifier"],["bracket",$List2Dict("]",")")]],
 '{':[[]]
 }
 var PyType={'(':'tuple','[':'$list','{':'dict_or_set'}
@@ -1934,7 +1934,7 @@ if(end_def==null){
 $SyntaxError(module,"Unable to find definition end "+end_def,def_pos)
 }
 var has_args=false
-if(arg_start[0]=='bracket' && arg_start[1]=='(' && 
+if(arg_start[0]=='bracket' && arg_start[1]=='(' &&
 !(stack.list[def_pos+3].match(["bracket",")"]))){
 has_args=true
 arg_end=stack.find_next_matching(def_pos+2)
@@ -1948,7 +1948,7 @@ var defaults=[]
 var has_defaults=false
 var other_args=null
 var other_kw=null
-var instance=null 
+var instance=null
 for(var i=args.length-1;i>=0;i--){
 arg=args[i]
 var op=null
@@ -2023,7 +2023,7 @@ stack.list.splice(block[0]+11,0,['indent',block_indent],
 if(document.$debug){
 var block=stack.find_block(def_pos)
 stack.list.splice(block[0]+5,0,['indent',block_indent],
-['code','try'], 
+['code','try'],
 ['bracket','{'],['newline','\n'])
 for(var i=block[0]+8;i<block[1]+4;i++){
 if(stack.list[i][0]==='indent'){
@@ -2043,7 +2043,7 @@ while(true){
 var br_pos=stack.find_previous(pos,"bracket","(")
 if(br_pos==null){break}
 if((stack.list[br_pos-1][0]=='id' || stack.list[br_pos-1][0]=="qualifier")
-&& br_pos>1 && 
+&& br_pos>1 &&
 !(stack.list[br_pos-2].match(["keyword",'def']))){
 var end_call=stack.find_next_matching(br_pos)
 var s=new Stack(stack.list.slice(br_pos+1,end_call))
@@ -2100,7 +2100,7 @@ while(true){
 var sign=stack.find_next(pos,"operator","+","-")
 if(sign==null){break}
 var op=stack.list[sign]
-if(sign>0 && 
+if(sign>0 &&
 (stack.list[sign-1][0]in $List2Dict("delimiter","newline","indent","assign","operator")||
 (stack.list[sign-1].match(["keyword","return"]))||
 (stack.list[sign-1][0]=="bracket" &&("({[".indexOf(stack.list[sign-1][1])>-1)))){
@@ -2129,7 +2129,7 @@ if(from_pos==null){break}
 if(stack.list[from_pos-1][0]!=='indent'){
 $SyntaxError("invalid syntax",from_pos)
 }
-if(from_pos<=stack.length-3 || 
+if(from_pos<=stack.length-3 ||
 stack.list[from_pos+1][0]!=='id'){
 $SyntaxError("invalid syntax",from_pos)
 }
@@ -2321,7 +2321,7 @@ var block_indent=stack.indent(block[0]+2)
 var arg_list=stack.atom_at(kw_pos+1,true)
 var _in=stack.atom_at(arg_list.end+1)
 var _in_list=stack.list.slice(_in.start,_in.end+1)
-if(_in_list.length !=1 || 
+if(_in_list.length !=1 ||
 _in_list[0][0]!="operator" || _in_list[0][1]!="in"){
 $SyntaxError(module,"missing 'in' after 'for'",src_pos)
 }
@@ -2449,7 +2449,7 @@ var left=stack.atom_before(assign)
 if(left.type=="id"){left.list()[0][3]="global"}
 var op=stack.list[assign][1]
 var simple_op=op.substr(0,op.length-1)
-stack.list[assign][1]="=" 
+stack.list[assign][1]="="
 stack.list.splice(assign+1,0,['operator',simple_op])
 for(var i=left.list().length-1;i>=0;i--){
 stack.list.splice(assign+1,0,left.list()[i])
@@ -2589,7 +2589,7 @@ if(func_pos==null){break}
 if(!stack.list[func_pos+1].match(['bracket','('])){
 $SyntaxError(module,'missing ( after function '+key,func_pos)
 }
-stack.list[func_pos][0]='code' 
+stack.list[func_pos][0]='code'
 stack.list[func_pos][1]=js2py[key]
 pos=func_pos+1
 }
@@ -2631,7 +2631,7 @@ if(assign==null){break}
 var left=stack.atom_before(assign,true)
 var line_end=stack.line_end(assign)
 var right=new Stack(stack.list.slice(assign+1,line_end))
-if(left.type=="tuple" || 
+if(left.type=="tuple" ||
 (left.type=="function_call" && left.list()[0][1]=="tuple")){
 var list=left.list()
 if(list[0].match(["id","tuple"])){
@@ -2832,7 +2832,7 @@ break
 "^":"pow","<":"lt",">":"gt",
 "<=":"le",">=":"ge","==":"eq","!=":"ne",
 "or":"or","and":"and","in":"in","not":"not",
-"not_in":"not_in","is_not":"is_not" 
+"not_in":"not_in","is_not":"is_not"
 }
 var $augmented_assigns={
 "//=":"ifloordiv",">>=":"irshift","<<=":"ilshift",
@@ -2985,7 +2985,7 @@ continue
 }
 if(name==""){
 if(car.search(/[a-zA-Z_]/)!=-1){
-name=car 
+name=car
 pos++;continue
 }
 }else{
@@ -3036,7 +3036,7 @@ pos++;continue
 if(stack[stack.length-1][0]!="newline"){
 stack.push(["newline",lnum,pos])
 }else{
-stack[stack.length-1][1]=lnum 
+stack[stack.length-1][1]=lnum
 }
 pos++;continue
 }
@@ -3320,7 +3320,7 @@ return nl
 Stack.prototype.line_start=function(pos){
 var nl=this.find_previous(pos,"newline")
 if(nl==null){return 0}
-return nl+1 
+return nl+1
 }
 Stack.prototype.next_at_same_indent=function(pos){
 var indent=this.indent(pos)
@@ -3348,9 +3348,9 @@ return atom
 }
 var dict1=$List2Dict('id','assign_id','str','int','float')
 var $valid_kws=$List2Dict("True","False","None")
-if(this.list[pos][0]in dict1 || 
+if(this.list[pos][0]in dict1 ||
 (this.list[pos][0]=="keyword" && this.list[pos][1]in $valid_kws)||
-(this.list[pos][0]=="bracket" && 
+(this.list[pos][0]=="bracket" &&
 (this.list[pos][1]=="(" || this.list[pos][1]=='['))){
 atom.type=this.list[pos][0]
 end=pos
@@ -3377,7 +3377,7 @@ break
 }
 atom.end=end
 return atom
-}else if(this.list[pos][0]=="bracket" && 
+}else if(this.list[pos][0]=="bracket" &&
 (this.list[pos][1]=="(" || this.list[pos][1]=='[')){
 atom.type="tuple"
 atom.end=this.find_next_matching(pos)
@@ -3617,7 +3617,7 @@ return f
 var $dq_regexp=new RegExp('"',"g")
 function $escape_dq(arg){return arg.replace($dq_regexp,'\\"')}
 document.$stderr=null
-document.$stderr_buff='' 
+document.$stderr_buff=''
 document.$stdout={
 write: function(data){console.log(data)}
 }
@@ -3679,10 +3679,10 @@ if(!Array.indexOf){
 Array.prototype.indexOf=function(obj){
 for(var i=0;i<this.length;i++){
 if(this[i]==obj){
-return i 
+return i
 }
 }
-return -1 
+return -1
 }
 }
 try{console}
@@ -3764,7 +3764,7 @@ $xmlhttp.send(res)
 }
 this.set_timeout=function(seconds,func){
 $xmlhttp.$requestTimer=setTimeout(
-function(){$xmlhttp.abort();func()}, 
+function(){$xmlhttp.abort();func()},
 seconds*1000)
 }
 }
@@ -3845,7 +3845,7 @@ function DOMObject(){}
 DOMObject.__class__=$type
 DOMObject.toString=function(){return "<class 'DOMObject'>"}
 $DOMtoString=function(){
-var res="<DOMObject object type '" 
+var res="<DOMObject object type '"
 return res+$NodeTypes[this.nodeType]+"' name '"+this.nodeName+"'>"
 }
 $NodeTypes={1:"ELEMENT",
@@ -4092,7 +4092,7 @@ DOMNode.prototype.__radd__=function(other){
 var res=$TagSum()
 var txt=document.createTextNode(other)
 res.children=[txt,this]
-return res 
+return res
 }
 DOMNode.prototype.__setattr__=function(attr,value){
 if(attr.substr(0,2)=='on'){
@@ -4250,7 +4250,7 @@ function $TagSum(){
 return new $TagSumClass()
 }
 function A(){return $Tag('A',arguments)}
-var $src=A+'' 
+var $src=A+''
 $tags=['A', 'ABBR', 'ACRONYM', 'ADDRESS', 'APPLET',
 'B', 'BDO', 'BIG', 'BLOCKQUOTE', 'BUTTON',
 'CAPTION', 'CENTER', 'CITE', 'CODE',
@@ -4264,7 +4264,7 @@ $tags=['A', 'ABBR', 'ACRONYM', 'ADDRESS', 'APPLET',
 'STRONG', 'STYLE', 'SUB', 'SUP', 'TABLE',
 'TEXTAREA', 'TITLE', 'TT', 'U', 'UL',
 'VAR', 'BODY', 'COLGROUP', 'DD', 'DT', 'HEAD',
-'HTML', 'LI', 'P', 'TBODY','OPTION', 
+'HTML', 'LI', 'P', 'TBODY','OPTION',
 'TD', 'TFOOT', 'TH', 'THEAD', 'TR',
 'AREA', 'BASE', 'BASEFONT', 'BR', 'COL', 'FRAME',
 'HR', 'IMG', 'INPUT', 'ISINDEX', 'LINK',
@@ -4333,7 +4333,7 @@ var $svg_tags=['a',
 'animateTransform',
 'circle',
 'clipPath',
-'color_profile', 
+'color_profile',
 'cursor',
 'defs',
 'desc',
@@ -4358,7 +4358,7 @@ var $svg_tags=['a',
 'tspan',
 'use']
 $svg=function(){return $SVGTag('X',arguments)}
-$svg +='' 
+$svg +=''
 for(var i=0;i<$svg_tags.length;i++){
 var tag=$svg_tags[i]
 eval('SVG.'+tag+'='+$svg.replace('X',tag))

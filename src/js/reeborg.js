@@ -121,7 +121,7 @@ RUR.World = function () {
     this.export_ = function (){
         var json_object;
         json_object = {"robots": this.robots, "walls": this.walls};
-        return JSON.stringify(json_object);
+        return JSON.stringify(json_object, null, '   ');
     };
 
     this.import_ = function (json_string){
@@ -159,7 +159,6 @@ RUR.PrivateRobot = function(x, y, orientation, tokens) {
     this.prev_x = this.x;
     this.prev_y = this.y;
     this.tokens = tokens || 0;
-    this.jetons = this.tokens;
     this.is_leaky = true;
     this.a_une_fuite = this.is_leaky;
 
@@ -438,6 +437,7 @@ RUR.visible_world = {
         dummy = new UsedRobot();
         this.play_single_frame();
         RUR.visible_world.running = false;
+        //console.log(RUR.world.export_());
     }
 };
 
@@ -530,16 +530,19 @@ var move = function() {
     "use strict";
     RUR.world.robots[0].move();
 };
+var avance = move;
 
 var turn_left = function() {
     "use strict";
     RUR.world.robots[0].turn_left();
 };
+var tourne_à_gauche = turn_left;
 
 var set_delay = function(delay) {
     "use strict";
     RUR.world.set_delay(delay);
 };
+var ajuste_délai = set_delay;
 
 var pause = function () {
     "use strict"
