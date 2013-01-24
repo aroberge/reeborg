@@ -1,5 +1,5 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor */
+/*globals $, editor, translate_python */
 
 if (!Array.prototype.remove){
     // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
@@ -366,7 +366,7 @@ RUR.visible_world = {
             return;
         }
         RUR.visible_world.running = true;
-        this.update();
+        RUR.visible_world.update();
     },
     update : function () {
         "use strict";
@@ -382,10 +382,10 @@ RUR.visible_world = {
     },
     play_single_frame : function () {
         "use strict";
-        var frame, robot;
-        this.ctx = RUR.visible_world.robot_ctx;
+        var frame, robot, ctx;
+        ctx = RUR.visible_world.robot_ctx;
         if (RUR.world.frames.length !== 0) {
-            this.ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
+            ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
             frame = RUR.world.frames.shift();
             for (robot=0; robot < frame.robots.length; robot++){
                 RUR.visible_world.draw_robot(frame.robots[robot]);
@@ -408,13 +408,50 @@ RUR.visible_world = {
     }
 };
 
+RUR.compile_javascript = function (src) {
+    "use strict";  // will propagate to user's code, enforcing good programming habits.
+    eval(src);
+};
+
+
+RUR.compile_brython = function (src) {
+    // do not  "use strict" as we do not control the output produced by Brython
+    // translate_python needs to be included in the html page in a Python script
+    eval(translate_python(src));
+};
+
 RUR.Controls = function (programming_language) {
     // Evaluation and execution control of robot programs using Javascript as basic language.
     // Note: by having "use strict;" here, it has the interesting effect of requiring user
     // programs to conform to "strict" usage, meaning that all variables have to be declared,
     // etc.
     "use strict";
-    programming_language = programming_language || "javascript";
+    this.programming_language = programming_language;
+    this.compile_and_run = function (func) {
+        var src;
+        if (!RUR.visible_world.compiled) {
+            src = editor.getValue();
+        }
+
+        try {
+            if (!RUR.visible_world.compiled) {
+                if (this.programming_language === "javascript") {
+                    RUR.compile_javascript(src);
+                } else if (this.programming_language === "brython") {
+                    RUR.compile_brython(src);
+                } else {
+                    alert("Unrecognized programming language.");
+                }
+                RUR.visible_world.compiled = true;
+            }
+            func();
+        }
+        catch (e){
+            alert(e.message);
+        }
+
+    };
+
     this.run = function () {
         $("#stop").removeAttr("disabled");
         $("#pause").removeAttr("disabled");
@@ -422,21 +459,7 @@ RUR.Controls = function (programming_language) {
         $("#step").attr("disabled", "true");
         $("#reload").attr("disabled", "true");
         clearTimeout(RUR.timer);
-
-        if (programming_language === "javascript") {
-            try {
-                if (!RUR.visible_world.compiled) {
-                    eval(editor.getValue());
-                    RUR.visible_world.compiled = true;
-                }
-                RUR.visible_world.play_frames();
-            }
-            catch (e){
-                alert(e.message);
-            }
-        } else {
-            alert("Unknown programming_language in RUR.Controls.run().");
-        }
+        RUR.controls.compile_and_run(RUR.visible_world.play_frames);
     };
 
     this.pause = function () {
@@ -448,16 +471,7 @@ RUR.Controls = function (programming_language) {
     };
 
     this.step = function () {
-        try {
-            if (!RUR.visible_world.compiled) {
-                eval(editor.getValue());
-                RUR.visible_world.compiled = true;
-            }
-            RUR.visible_world.play_single_frame();
-        }
-        catch (e){
-            alert(e.message);
-        }
+        RUR.controls.compile_and_run(RUR.visible_world.play_single_frame);
     };
 
     this.stop = function () {

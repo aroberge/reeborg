@@ -56,21 +56,9 @@
 
 
 <script type="text/python">
-import sys
-import time
 import dis
-def run_python():
-    src = doc["code"].value
+def translate_python(src):
     return dis.dis(src)
-run_python()
-</script>
-
-<script type="text/javascript">
-function compile_python () {
-    var pycode = editor.getValue();
-    var js_code = run_python();
-    editor.setValue(js_code);
-}
 </script>
 
 
@@ -146,14 +134,13 @@ for i in range(4):
         <button id="step" onClick="RUR.controls.step();">Step</button>
         <button id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
         <button it="reload" onClick="RUR.controls.reload();">Reload</button>
-        <button it="reload" onClick="compile_python();">Compile Python</button>
     </div>
 
 
 
     <script type="text/javascript">
     RUR.visible_world.init();
-    RUR.controls = new RUR.Controls("javascript");
+    RUR.controls = new RUR.Controls("brython");
       var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
         mode: 'javascript',
         tabMode: 'indent',
