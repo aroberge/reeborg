@@ -33,6 +33,10 @@ RUR.World = function () {
         }
     };
 
+    this.pause = function() {
+        this.frames.push({pause: true});
+    }
+
     this.reset = function (){
         this.robots = [];
         this.walls = {};
@@ -393,6 +397,8 @@ RUR.visible_world = {
             clearTimeout(RUR.timer);
             RUR.visible_world.update();
             return;
+        } else if (frame_info === "pause") {
+            return;
         }
 
         RUR.timer = setTimeout(RUR.visible_world.update, RUR.visible_world.delay);
@@ -410,6 +416,10 @@ RUR.visible_world = {
         if (frame.delay !== undefined) {
             RUR.visible_world.delay = frame.delay;
             return "immediate";
+        }
+        if (frame.pause) {
+            RUR.controls.pause();
+            return "pause";
         }
 
         ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
@@ -531,7 +541,10 @@ var set_delay = function(delay) {
     RUR.world.set_delay(delay);
 };
 
-
+var pause = function () {
+    "use strict"
+    RUR.world.pause();
+}
 
 function UsedRobot(x, y, orientation, tokens)  {
     "use strict";
