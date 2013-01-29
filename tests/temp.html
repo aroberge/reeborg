@@ -52,7 +52,6 @@
     </head>
     <body>
     <div id="editor">
-<form>
 <textarea id="code" name="code">
 move();
 move();
@@ -91,7 +90,6 @@ for (i=0; i< 4; i++){
 }
 
 </textarea>
-</form>
 
 <p>Select a theme: <select onchange="selectTheme()" id=select>
     <option>default</option>
@@ -114,8 +112,8 @@ for (i=0; i< 4; i++){
 </select>
 </p>
 
-<div id="world">
-<pre>
+<div id="worlds">
+<textarea id="world">
 {
  "robots": [
   {
@@ -136,7 +134,7 @@ for (i=0; i< 4; i++){
   ]
  }
 }
-</pre>
+</textarea>
 </div>
 </div>
     <div id="canvas-wrapper">
@@ -154,8 +152,8 @@ for (i=0; i< 4; i++){
 
 
     <script>
-    RUR.visible_world.init();
-    RUR.controls = new RUR.Controls("javascript");
+      RUR.visible_world.init();
+      RUR.controls = new RUR.Controls("javascript");
       var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
         mode: 'javascript',
         tabMode: 'indent',
@@ -163,7 +161,13 @@ for (i=0; i< 4; i++){
         theme: 'rubyblue',
         indentUnit: 4
       });
-
+      var world = CodeMirror.fromTextArea(document.getElementById('world'), {
+        mode: 'javascript',
+        tabMode: 'indent',
+        lineNumbers: true,
+        theme: 'night',
+        indentUnit: 4
+      });
 
   var input = document.getElementById("select");
   function selectTheme() {

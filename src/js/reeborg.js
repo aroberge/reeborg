@@ -35,7 +35,7 @@ RUR.World = function () {
 
     this.pause = function() {
         this.frames.push({pause: true});
-    }
+    };
 
     this.reset = function (){
         this.robots = [];
@@ -442,6 +442,9 @@ RUR.visible_world = {
 };
 
 RUR.compile_javascript = function (src) {
+    // Note: by having "use strict;" here, it has the interesting effect of requiring user
+    // programs to conform to "strict" usage, meaning that all variables have to be declared,
+    // etc.
     "use strict";  // will propagate to user's code, enforcing good programming habits.
     eval(src);
 };
@@ -454,10 +457,6 @@ RUR.compile_brython = function (src) {
 };
 
 RUR.Controls = function (programming_language) {
-    // Evaluation and execution control of robot programs using Javascript as basic language.
-    // Note: by having "use strict;" here, it has the interesting effect of requiring user
-    // programs to conform to "strict" usage, meaning that all variables have to be declared,
-    // etc.
     "use strict";
     this.programming_language = programming_language;
     this.compile_and_run = function (func) {
@@ -545,9 +544,9 @@ var set_delay = function(delay) {
 var ajuste_délai = set_delay;
 
 var pause = function () {
-    "use strict"
+    "use strict";
     RUR.world.pause();
-}
+};
 
 function UsedRobot(x, y, orientation, tokens)  {
     "use strict";
