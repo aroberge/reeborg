@@ -39,7 +39,19 @@ RUR.World = function () {
 
     this.reset = function (){
         this.robots = [];
-        this.walls = {};
+        //this.walls = {};
+        // fake wall configuration
+        this.walls = {
+            "1,3" : ["EAST"],
+            "3,3" : ["NORTH"],
+            "7,3" : ["EAST"],
+            "9,3" : ["NORTH"],
+            "5,5" : ["EAST", "NORTH"],
+            "4,5" : ["EAST"],
+            "5,4" : ["NORTH"]
+        };
+
+
         this.frames = [];
     };
     this.reset();
@@ -50,10 +62,17 @@ RUR.World = function () {
     };
 
     this.move_robot = function(robot){
+        var coords;
         robot.prev_x = robot.x;
         robot.prev_y = robot.y;
         switch (robot.orientation){
         case this.EAST:
+            coords = robot.x + "," + robot.y;
+            if (RUR.world.walls[coords] !== undefined){
+                if (RUR.world.walls[coords].indexOf("EAST") !== -1) {
+                    throw new Error("Hit wall exception");
+                }
+            }
             robot.x += 1;
             break;
         case this.NORTH:
@@ -61,14 +80,14 @@ RUR.World = function () {
             break;
         case this.WEST:
             if (robot.x===1){
-                throw "Hit wall exception";
+                throw new Error("Hit wall exception");
             } else {
                 robot.x -= 1;
             }
             break;
         case this.SOUTH:
             if (robot.y===1){
-                throw "Hit wall exception";
+                throw new Error("Hit wall exception");
             } else {
                 robot.y -= 1;
             }
@@ -254,16 +273,6 @@ RUR.visible_world = {
     ctx: null,
     draw : function () {
         "use strict";
-        // fake wall configuration
-        this.walls = {
-            "1,3" : ["EAST"],
-            "3,3" : ["NORTH"],
-            "7,3" : ["EAST"],
-            "9,3" : ["NORTH"],
-            "5,5" : ["EAST", "NORTH"],
-            "4,5" : ["EAST"],
-            "5,4" : ["NORTH"]
-        };
         this.draw_foreground_walls();
     },
     set_trace_style : function (choice){
@@ -307,11 +316,11 @@ RUR.visible_world = {
                     continue;
                 } else {
                     key = i + "," + j;
-                    if ( key in this.walls ) {
-                        if ( this.walls[key].indexOf("NORTH") !== -1) {
+                    if ( key in RUR.world.walls ) {
+                        if ( RUR.world.walls[key].indexOf("NORTH") !== -1) {
                             this.draw_north_wall(i, j);
                         }
-                        if (this.walls[key].indexOf("EAST") !== -1) {
+                        if (RUR.world.walls[key].indexOf("EAST") !== -1) {
                             this.draw_east_wall(i, j);
                         }
                     }
@@ -547,37 +556,12 @@ var pause = function () {
     RUR.world.pause();
 };
 
-UsedRobot.prototype = new RUR.PrivateRobot();
+UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
 UsedRobot.prototype.constructor = UsedRobot;
 
-function UsedRobot(x, y, orientation, tokens, visibility)  {
+function UsedRobot(x, y, orientation, tokens)  {
     "use strict";
-    var add_robot = true;
-    if (x !== undefined && x.visible !== undefined){
-        add_robot = x.visible;
-        x = 1;
-        y = 1;
-        orientation = 'e';
-        tokens = 0;
-    } else if (y !== undefined && y.visible !== undefined){
-        add_robot = y.visible;
-        y = 1;
-        orientation = 'e';
-        tokens = 0;
-    } else if (orientation !== undefined && orientation.visible !== undefined){
-        add_robot = orientation.visible;
-        orientation = 'e';
-        tokens = 0;
-    } else if (tokens !== undefined && tokens.visible !== undefined){
-        add_robot = tokens.visible;
-        tokens = 0;
-    } else if (visibility !== undefined && visibility.visible !== undefined){
-        add_robot = visibility.visible;
-    }
-
     RUR.PrivateRobot.call(this, x, y, orientation, tokens);
-    if (add_robot) {
-        RUR.world.add_robot(this);
-    }
+    RUR.world.add_robot(this);
 }
 var RobotUsagé = UsedRobot;
