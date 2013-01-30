@@ -21,6 +21,11 @@ body {font-family: Arial;
   background-image: linear-gradient(bottom, rgb(210,210,210) 11%, rgb(255,255,255) 80%);
 }
 
+button {padding: 3px;
+  font-weight: bold;
+}
+
+
 #control button:first-child {
   border-left: 1px solid #aaa;
   border-top-left-radius: 5px;
@@ -42,8 +47,15 @@ body {font-family: Arial;
 background-color: #ebf3ff;
 }
 
+#control button:hover {
+color: rgb(200, 0, 0);
+text-shadow: #fff 2px 2px 2px;
+}
+
+
 #control button {
   background: transparent;
+  font-weight: bold;
   color: black;
   padding: 5px;
   margin: 0px;

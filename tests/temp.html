@@ -2,32 +2,33 @@
 <html>
     <head>
     <meta charset="utf-8">
+
     <title>Javascript version</title>
     <style>
 
-    #editor{
-        float: left;
-        width: 40%;
-    }
-    .CodeMirror {
-        border: 1px solid black;
-        font-size:13px;
-    }
+      #editor{
+          float: left;
+          width: 40%;
+      }
+      .CodeMirror {
+          border: 1px solid black;
+          font-size:13px;
+      }
 
-    #canvas-wrapper {
-        position: relative;
-        float:right;
-        border: 1px solid blue;
-        width: 50%;
-        height: 550px;
+      #canvas-wrapper {
+          position: relative;
+          float:right;
+          border: 1px solid blue;
+          width: 50%;
+          height: 550px;
 
-    }
-    canvas {
-        position:absolute;
-        border: 1px solid green;
-        top: 40px;
-        left: 20px;
-    }
+      }
+      canvas {
+          position:absolute;
+          border: 1px solid green;
+          top: 40px;
+          left: 20px;
+      }
     </style>
     <script src="../src/js/reeborg.js" charset="utf-8"></script>
     <script src="../src/libs/jquery.js"></script>
@@ -91,7 +92,8 @@ for (i=0; i< 4; i++){
 
 </textarea>
 
-<p>Select a theme: <select onchange="selectTheme()" id=select>
+<p>Select a theme:
+  <select onchange="selectTheme()" id=select>
     <option>default</option>
     <option>ambiance</option>
     <option>blackboard</option>
@@ -109,9 +111,9 @@ for (i=0; i< 4; i++){
     <option>twilight</option>
     <option>vibrant-ink</option>
     <option>xq-dark</option>
-</select>
+  </select>
 </p>
-
+</div>
 <div id="worlds">
 <textarea id="world">
 {
@@ -136,7 +138,7 @@ for (i=0; i< 4; i++){
 }
 </textarea>
 </div>
-</div>
+
     <div id="canvas-wrapper">
         <canvas id="background_canvas" width="600" height="480"></canvas>
         <canvas id="wall_canvas" width="600" height="480"></canvas>
