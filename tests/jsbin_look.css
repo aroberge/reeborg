@@ -9,6 +9,9 @@ body {font-family: Arial;
 }
 
 #control {height: 33px;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
   width: 100%;
   background-image: -webkit-gradient(linear, 0 100%, 0 0, color-stop(0.11, rgb(210,210,210)), color-stop(0.8, rgb(255,255,255)));
   background-image: -webkit-linear-gradient(bottom, rgb(210,210,210) 11%, rgb(255,255,255) 80%);
@@ -35,11 +38,11 @@ body {font-family: Arial;
   width: 300px;
 }
 
-button.active {
+#control button.active {
 background-color: #ebf3ff;
 }
 
-button {
+#control button {
   background: transparent;
   color: black;
   padding: 5px;
@@ -52,6 +55,8 @@ button {
 }
 
 #panels {
+  top: 33px;
+  position: fixed;
   width: 100%;
   display: block;
   min-width: 800px;
@@ -61,9 +66,10 @@ button {
 }
 
 #panels div.panel {float: left;
-  min-height: 600px;
+  position: relative;
+  top: 0;
+  height: 94%;
   width: 200px;
-  border-right: 1px solid #ccc;
   padding: 3px;
   overflow-y: auto;
   overflow-x: hidden;
