@@ -89,12 +89,7 @@ RUR.World = function () {
             robot.prev_y = RUR.world.robots[i].prev_y;
             robot.orientation = RUR.world.robots[i].orientation;
             robot.prev_orientation = RUR.world.robots[i].prev_orientation;
-            // enable user to fix the robot leak using javascript delete on the
-            // appropriate property!
-            if (RUR.world.robots[i].is_leaky !== undefined &&
-                RUR.world.robots[i].a_une_fuite !== undefined ) {
-                robot.is_leaky = true;
-            }
+            robot._is_leaky = RUR.world.robots[i]._is_leaky;
             robots.push(robot);
         }
         this.frames.push({robots: robots});
@@ -159,8 +154,7 @@ RUR.PrivateRobot = function(x, y, orientation, tokens) {
     this.prev_x = this.x;
     this.prev_y = this.y;
     this.tokens = tokens || 0;
-    this.is_leaky = true;
-    this.a_une_fuite = this.is_leaky;
+    this._is_leaky = true;
 
     if (orientation === undefined){
         this.orientation = RUR.world.EAST;
@@ -204,6 +198,12 @@ RUR.PrivateRobot.prototype.turn_left = function(){
     this.orientation %= 4;
     RUR.world.add_frame();
 };
+
+RUR.PrivateRobot.prototype.is_leaky = function (leak) {
+    this._is_leaky = leak;
+};
+
+RUR.PrivateRobot.prototype.a_une_fuite = RUR.PrivateRobot.prototype._is_leaky;
 
 RUR.PrivateRobot.prototype.tourne_à_gauche = RUR.PrivateRobot.prototype.turn_left;
 
@@ -357,7 +357,7 @@ RUR.visible_world = {
     },
     draw_trace : function (robot) {
         "use strict";
-        if (robot.is_leaky === undefined) {
+        if (robot._is_leaky === false) {
             return;
         }
         this.ctx = this.trace_ctx;
@@ -437,7 +437,6 @@ RUR.visible_world = {
         dummy = new UsedRobot();
         this.play_single_frame();
         RUR.visible_world.running = false;
-        //console.log(RUR.world.export_());
     }
 };
 
@@ -548,11 +547,37 @@ var pause = function () {
     RUR.world.pause();
 };
 
-function UsedRobot(x, y, orientation, tokens)  {
-    "use strict";
-    var robot = new RUR.PrivateRobot(x, y, orientation, tokens);
-    RUR.world.add_robot(robot);
-    return robot;
-}
+UsedRobot.prototype = new RUR.PrivateRobot();
+UsedRobot.prototype.constructor = UsedRobot;
 
+function UsedRobot(x, y, orientation, tokens, visibility)  {
+    "use strict";
+    var add_robot = true;
+    if (x !== undefined && x.visible !== undefined){
+        add_robot = x.visible;
+        x = 1;
+        y = 1;
+        orientation = 'e';
+        tokens = 0;
+    } else if (y !== undefined && y.visible !== undefined){
+        add_robot = y.visible;
+        y = 1;
+        orientation = 'e';
+        tokens = 0;
+    } else if (orientation !== undefined && orientation.visible !== undefined){
+        add_robot = orientation.visible;
+        orientation = 'e';
+        tokens = 0;
+    } else if (tokens !== undefined && tokens.visible !== undefined){
+        add_robot = tokens.visible;
+        tokens = 0;
+    } else if (visibility !== undefined && visibility.visible !== undefined){
+        add_robot = visibility.visible;
+    }
+
+    RUR.PrivateRobot.call(this, x, y, orientation, tokens);
+    if (add_robot) {
+        RUR.world.add_robot(this);
+    }
+}
 var RobotUsagé = UsedRobot;
