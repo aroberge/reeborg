@@ -227,7 +227,7 @@ RUR.visible_world = {
         this.trace_ctx = document.getElementById("trace_canvas").getContext("2d");
         this.set_trace_style();
         this.robot_ctx = document.getElementById("robot_canvas").getContext("2d");
-        this.rows = Math.floor(this.height / this.wall_length) - 2;
+        this.rows = Math.floor(this.height / this.wall_length) - 1;
         this.cols = Math.floor(this.width / this.wall_length) - 2;
         this.delay = 50;   // milliseconds
         this.robot_e_img = new Image();
