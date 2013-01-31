@@ -66,6 +66,15 @@ RUR.World = function () {
         this.add_frame();
     };
 
+    this.is_wall_at = function (coords, orientation) {
+        if (RUR.world.walls[coords] !== undefined){
+            if (RUR.world.walls[coords].indexOf(orientation) !== -1) {
+                return true;
+            }
+        }
+        return false;
+    };
+
     this.move_robot = function(robot){
         var coords;
         robot.prev_x = robot.x;
@@ -73,20 +82,26 @@ RUR.World = function () {
         switch (robot.orientation){
         case this.EAST:
             coords = robot.x + "," + robot.y;
-            if (RUR.world.walls[coords] !== undefined){
-                if (RUR.world.walls[coords].indexOf("EAST") !== -1) {
-                    throw new RUR.Error("Hit wall error");
-                }
+            if (this.is_wall_at(coords, "EAST")) {
+                throw new RUR.Error("Hit wall error");
             }
             robot.x += 1;
             break;
         case this.NORTH:
+            coords = robot.x + "," + robot.y;
+            if (this.is_wall_at(coords, "NORTH")) {
+                throw new RUR.Error("Hit wall error");
+            }
             robot.y += 1;
             break;
         case this.WEST:
             if (robot.x===1){
                 throw new RUR.Error("Hit wall error");
             } else {
+                coords = robot.x-1 + "," + robot.y;
+                if (this.is_wall_at(coords, "EAST")) {
+                    throw new RUR.Error("Hit wall error");
+                }
                 robot.x -= 1;
             }
             break;
@@ -94,6 +109,10 @@ RUR.World = function () {
             if (robot.y===1){
                 throw new RUR.Error("Hit wall error");
             } else {
+                coords = robot.x + "," + robot.y-1;
+                if (this.is_wall_at(coords, "NORTH")) {
+                    throw new RUR.Error("Hit wall error");
+                }
                 robot.y -= 1;
             }
             break;
