@@ -122,6 +122,11 @@ RUR.World = function () {
             throw "Should not happen: unhandled case in World__.move_robot().";
         }
     };
+
+    this.add_error_frame = function (message) {
+        this.frames.push({error: message});
+    };
+
     this.add_frame = function () {
         var i, robot, robots = [];
         for (i = 0; i < this.robots.length; i++){
@@ -453,6 +458,11 @@ RUR.visible_world = {
             RUR.controls.pause();
             return "pause";
         }
+        if (frame.error !== undefined) {
+            RUR.controls.stop();
+            alert(frame.error.name + "\n" + frame.error.message);
+            return;
+        }
 
         ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
         for (robot=0; robot < frame.robots.length; robot++){
@@ -492,28 +502,35 @@ RUR.Controls = function (programming_language) {
     "use strict";
     this.programming_language = programming_language;
     this.compile_and_run = function (func) {
-        var src;
+        var src, fatal_error_found = false;
+
         if (!RUR.visible_world.compiled) {
             src = editor.getValue();
         }
-
-        try {
-            if (!RUR.visible_world.compiled) {
+        if (!RUR.visible_world.compiled) {
+            try {
                 if (this.programming_language === "javascript") {
                     RUR.compile_javascript(src);
                 } else if (this.programming_language === "brython") {
                     RUR.compile_brython(src);
                 } else {
                     alert("Unrecognized programming language.");
+                    fatal_error_found = true;
                 }
-                RUR.visible_world.compiled = true;
+            } catch (e) {
+                if (e.name === "ReeborgError"){
+                    RUR.world.add_error_frame(e);
+                } else {
+                    alert(e.name + "\n" + e.message);
+                    fatal_error_found = true;
+                }
             }
-            func();
-        }
-        catch (e){
-            alert(e.name + "\n" + e.message);
         }
 
+        RUR.visible_world.compiled = true;
+        if (!fatal_error_found) {
+            func();
+        }
     };
 
     this.run = function () {
