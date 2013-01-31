@@ -17,6 +17,11 @@ via a JSON string - only the second is currently implemented.
 
 var RUR = RUR || {};
 
+RUR.Error = function (message) {
+    this.name = "ReeborgError";
+    this.message = message;
+};
+
 RUR.World = function () {
     "use strict";
     this.EAST = 0;
@@ -70,7 +75,7 @@ RUR.World = function () {
             coords = robot.x + "," + robot.y;
             if (RUR.world.walls[coords] !== undefined){
                 if (RUR.world.walls[coords].indexOf("EAST") !== -1) {
-                    throw new Error("Hit wall exception");
+                    throw new RUR.Error("Hit wall error");
                 }
             }
             robot.x += 1;
@@ -80,14 +85,14 @@ RUR.World = function () {
             break;
         case this.WEST:
             if (robot.x===1){
-                throw new Error("Hit wall exception");
+                throw new RUR.Error("Hit wall error");
             } else {
                 robot.x -= 1;
             }
             break;
         case this.SOUTH:
             if (robot.y===1){
-                throw new Error("Hit wall exception");
+                throw new RUR.Error("Hit wall error");
             } else {
                 robot.y -= 1;
             }
@@ -487,7 +492,7 @@ RUR.Controls = function (programming_language) {
             func();
         }
         catch (e){
-            alert(e.message);
+            alert(e.name + "\n" + e.message);
         }
 
     };
