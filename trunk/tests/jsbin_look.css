@@ -66,6 +66,24 @@ text-shadow: #fff 2px 2px 2px;
   display:block;
 }
 
+#tabs .ui-tabs-panel {
+  padding: 0 ;
+}
+
+#editor #library {
+    width: 100%;
+}
+.CodeMirror {
+    border: 1px solid black;
+    font-size:13px;
+    width: 100%;
+    height: 100% !important;
+}
+.CodeMirror-scroll {
+  overflow-y: hidden;
+}
+
+
 #panels {
   top: 33px;
   position: fixed;
@@ -92,3 +110,19 @@ text-shadow: #fff 2px 2px 2px;
   display: block;
 }
 
+
+#canvas-wrapper {
+    position: relative;
+    min-height: 550px;
+    overflow: auto;
+}
+canvas {
+    position:absolute;
+    border: 1px solid green;
+    top: 30px;
+    left: 10px;
+}
+#output-panel {
+  background-color: #ffe;
+  border: 1px solid blue;
+}

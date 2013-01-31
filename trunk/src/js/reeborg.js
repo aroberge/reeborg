@@ -503,7 +503,8 @@ RUR.Controls = function (programming_language) {
         var src, fatal_error_found = false;
 
         if (!RUR.visible_world.compiled) {
-            src = editor.getValue();
+            src = library.getValue() + ";\n";
+            src += editor.getValue();
         }
         if (!RUR.visible_world.compiled) {
             try {
@@ -573,9 +574,9 @@ RUR.Controls = function (programming_language) {
     };
 };
 
-var print = function (s) {
-  $("#output-pre").append("\n" + s);
-}
+var output = function (s) {
+    $("#output-pre").append("\n" + s);
+};
 
 var move = function() {
     "use strict";
