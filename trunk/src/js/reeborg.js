@@ -117,9 +117,7 @@ RUR.World = function () {
             }
             break;
         default:
-            console.log("Should not happen: unhandled case in World__.move_robot().");
-            console.log("robot.x= ", robot.x, " robot.y= ", robot.y, "robot.orientation= ", robot.orientation);
-            throw "Should not happen: unhandled case in World__.move_robot().";
+            throw new Error("Should not happen: unhandled case in RUR.World.move_robot().");
         }
     };
 
@@ -571,8 +569,13 @@ RUR.Controls = function (programming_language) {
         $("#run").removeAttr("disabled");
         $("#step").removeAttr("disabled");
         $("#reload").attr("disabled", "true");
+        $("#output-pre").html("");
     };
 };
+
+var print = function (s) {
+  $("#output-pre").append("\n" + s);
+}
 
 var move = function() {
     "use strict";

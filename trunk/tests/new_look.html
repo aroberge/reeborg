@@ -44,6 +44,10 @@
           top: 30px;
           left: 10px;
       }
+      #output-panel {
+        background-color: #ffe;
+        border: 1px solid blue;
+      }
     </style>
 <title>Basic JS Bin Look and feel</title>
 </head>
@@ -55,6 +59,7 @@
     <button class="active" label="content-panel">Content</a>
     <button class="active" label="editor-panel">Editor</a>
     <button class="active" label="world-panel">World</a>
+    <button label="output-panel">Output</a>
     <button title="Help">Help</a>
   </div>
 </div>
@@ -123,6 +128,12 @@ for (i=0; i< 4; i++){
         <button id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
         <button it="reload" onClick="RUR.controls.reload();">Reload</button>
     </div>
+  </div>
+
+  <div id="output-panel" class="panel">
+    <pre id="output-pre">
+
+    </pre>
   </div>
 
 </div>
