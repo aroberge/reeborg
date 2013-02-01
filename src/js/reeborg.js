@@ -530,6 +530,7 @@ RUR.Controls = function (programming_language) {
                 } else {
                     alert(e.name + "\n" + e.message);
                     fatal_error_found = true;
+                    this.stop();
                 }
             }
         }
