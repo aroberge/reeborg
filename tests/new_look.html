@@ -169,9 +169,16 @@ To find out more, follow the lessons.
     var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
     library.setValue(library_content);
 
-    $( "#help" ).dialog({ autoOpen: false });
+    $( "#help" ).dialog({ autoOpen: false,
+      close : function(event, ui){
+        $("#help-button").removeClass("active");
+      }
+    });
     $( "#help-button" ).on("click", function() {
     $( "#help" ).dialog( "open" );
+    $( ".selector" ).dialog({
+  close: function( event, ui ) {}
+});
 });
 
 </script>
