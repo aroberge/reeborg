@@ -1,5 +1,5 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, translate_python */
+/*globals $, editor, library, translate_python */
 
 if (!Array.prototype.remove){
     // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
@@ -253,7 +253,7 @@ RUR.PrivateRobot.prototype.is_leaky = function (leak) {
     this._is_leaky = leak;
 };
 
-RUR.PrivateRobot.prototype.a_une_fuite = RUR.PrivateRobot.prototype._is_leaky;
+RUR.PrivateRobot.prototype.a_une_fuite = RUR.PrivateRobot.prototype.is_leaky;
 
 RUR.PrivateRobot.prototype.tourne_à_gauche = RUR.PrivateRobot.prototype.turn_left;
 
@@ -586,6 +586,19 @@ RUR.Controls = function (programming_language) {
 var output = function (s) {
     RUR.world.add_output_frame("#output-pre", s);
 };
+
+var inspect = function (obj){
+    var props, result = "";
+    for (props in obj) {
+        if (typeof obj[props] == "function") {
+            result += props + "()\n";
+        } else{
+            result += props + "\n";
+        }
+    }
+    output(result);
+};
+
 
 var move = function() {
     "use strict";
