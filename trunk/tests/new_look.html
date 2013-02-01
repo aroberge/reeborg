@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset=utf-8 />
@@ -6,9 +6,9 @@
 <meta name="keywords" content="JavaScript,Python,Programming"/>
 <meta name="author" content="André Roberge"/>
 <meta name="license" content="CC BY-NC-SA 3.0"/>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
 
 
 <script src="jsbin_look.js"></script>
@@ -88,12 +88,14 @@ for (i=0; i< 4; i++){
   <div id="library">
     <button id="save-library">save</button> <span id="saved">Saved!</span>
 <textarea id="library-code" name="library-code">
-/* var turn_right = function() {
-    turn_left();
-    turn_left();
-    turn_left();
-}*/
+/* Sorry - if you see this, it means that
+your browser is incapable of using the
+Library the way it has been designed.
 
+You could write code here ... but it will
+not be saved for next time you visit.
+
+Have you tried Firefox or Chrome? */
 </textarea>
   </div>
 </div>
@@ -169,29 +171,31 @@ site look better, corrections, etc.
       });
 
       $(function() {
-        $( "#tabs" ).tabs({ heightStyle: "auto" });
+        $("#tabs").tabs({ heightStyle: "auto" });
       });
 
     $("#save-library").on("click", function() {
         localStorage.setItem("library", library.getValue());
         $('#saved').show().fadeOut(4000);
     });
+    try{
     var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
     library.setValue(library_content + "\n");
+  } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");}
 
-    $( "#help" ).dialog({ autoOpen: false });
-    $( "#help-button" ).on("click", function() {
-      $( "#help" ).dialog( "open" );
+    $("#help").dialog({ autoOpen: false });
+    $("#help-button").on("click", function() {
+      $("#help").dialog( "open");
     });
 
-    $( "#about" ).dialog({ autoOpen: false });
-    $( "#about-button" ).on("click", function() {
-      $( "#about" ).dialog( "open" );
+    $("#about").dialog({ autoOpen: false });
+    $("#about-button").on("click", function() {
+      $("#about").dialog( "open");
     });
 
-    $( "#contribute" ).dialog({ autoOpen: false });
-    $( "#contribute-button" ).on("click", function() {
-      $( "#contribute" ).dialog( "open" );
+    $("#contribute").dialog({ autoOpen: false });
+    $("#contribute-button").on("click", function() {
+      $("#contribute").dialog( "open");
     });
 
 </script>
