@@ -32,7 +32,7 @@
     <button class="active" label="editor-panel">Editor</a>
     <button class="active" label="world-panel">World</a>
     <button label="output-panel">Output</a>
-    <button title="Help">Help</a>
+    <button id="help-button">Help</a>
   </div>
 </div>
 
@@ -81,7 +81,7 @@ for (i=0; i< 4; i++){
       </div>
 
   <div id="library">
-    <button id="save-library">save</button> <span id="saved" style="background-color: #fc0; display:none">Saved!</span>
+    <button id="save-library">save</button> <span id="saved">Saved!</span>
 <textarea id="library-code" name="library-code">
 /* var turn_right = function() {
     turn_left();
@@ -117,6 +117,28 @@ for (i=0; i< 4; i++){
 </div>
 
 
+<div id="help" title="Help">
+This is just a quick reminder.
+Reeborg knows the following instructions:
+<ul>
+  <li><code>move()</code></li>
+  <li><code>turn_left()</code></li>
+  <li><code>pick_token()</code> NotImplemented</li>
+  <li><code>put_token()</code> NotImplemented</li>
+</ul>
+In addition, the following commands are available
+<ul>
+  <li><code>set_delay()</code></li>
+  <li><code>output()</code></li>
+</ul>
+To find out more, follow the lessons.
+</div>
+
+<script>
+
+</script>
+
+
 
 <script>
       RUR.visible_world.init();
@@ -144,8 +166,14 @@ for (i=0; i< 4; i++){
         localStorage.setItem("library", library.getValue());
         $('#saved').show().fadeOut(4000);
     });
-    var library_content = localStorage.getItem("library") || "\n";
+    var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
     library.setValue(library_content);
+
+    $( "#help" ).dialog({ autoOpen: false });
+    $( "#help-button" ).on("click", function() {
+    $( "#help" ).dialog( "open" );
+});
+
 </script>
 
 </body>

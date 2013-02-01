@@ -75,8 +75,14 @@ text-shadow: #fff 2px 2px 2px;
     height: 100%;
 }
 
-#save {display: block;
+#save-library {display: block;
   float: right;
+}
+
+#saved {background-color: #fd3;
+    display:none;
+    float: right;
+    margin: 5px;
 }
 
 .CodeMirror {
@@ -110,6 +116,7 @@ text-shadow: #fff 2px 2px 2px;
   overflow-y: auto;
   overflow-x: hidden;
   display: none;
+  border-right: 1px solid blue;
 }
 
 #panels div.active {
@@ -128,7 +135,7 @@ canvas {
     top: 30px;
     left: 10px;
 }
+
 #output-panel {
   background-color: #ffe;
-  border: 1px solid blue;
 }
