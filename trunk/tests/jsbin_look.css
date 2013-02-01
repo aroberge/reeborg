@@ -48,6 +48,7 @@ button {padding: 3px;
   border-bottom-right-radius: 5px;
 }
 
+.resizable-helper {border-right: 1px dashed red;}
 
 #control button.active {
 background-color: #ebf3ff;
