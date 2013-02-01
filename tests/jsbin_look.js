@@ -69,7 +69,7 @@ $(document).ready(function() {
     var all_active_panels, child;
     all_active_panels = reset_widths();
 
-    $("#control-wrapper button").on("click", function(e){
+    $("#control-wrapper button").on("click", function(){
         var index, label, children;
         $(this).toggleClass("active");
         label = $(this).attr("label");
@@ -83,6 +83,7 @@ $(document).ready(function() {
         }
         reset_widths();
     });
+
 
 });
 
