@@ -142,6 +142,6 @@ canvas {
     left: 10px;
 }
 
-#output-panel {
-  background-color: #eee;
-}
+#output-panel {background-color: #eee;}
+#output-panel pre {margin-top: 0;
+background-color: white;}

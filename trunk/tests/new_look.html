@@ -109,14 +109,13 @@ for (i=0; i< 4; i++){
         <button id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
         <button id="step" onClick="RUR.controls.step();">Step</button>
         <button id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
-        <button id="reload" onClick="RUR.controls.reload();">Reload</button>
+        <button id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
     </div>
   </div>
 
   <div id="output-panel" class="panel">
-    <pre id="output-pre">
-
-    </pre>
+    <h3>Output</h3>
+    <pre id="output-pre"></pre>
   </div>
 
 </div>
@@ -180,29 +179,17 @@ site look better, corrections, etc.
     var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
     library.setValue(library_content + "\n");
 
-    $( "#help" ).dialog({ autoOpen: false,
-      close : function(event, ui){
-        $("#help-button").removeClass("active");
-      }
-    });
+    $( "#help" ).dialog({ autoOpen: false });
     $( "#help-button" ).on("click", function() {
       $( "#help" ).dialog( "open" );
     });
 
-    $( "#about" ).dialog({ autoOpen: false,
-      close : function(event, ui){
-        $("#about-button").removeClass("active");
-      }
-    });
+    $( "#about" ).dialog({ autoOpen: false });
     $( "#about-button" ).on("click", function() {
       $( "#about" ).dialog( "open" );
     });
 
-    $( "#contribute" ).dialog({ autoOpen: false,
-      close : function(event, ui){
-        $("#contribute-button").removeClass("active");
-      }
-    });
+    $( "#contribute" ).dialog({ autoOpen: false });
     $( "#contribute-button" ).on("click", function() {
       $( "#contribute" ).dialog( "open" );
     });
