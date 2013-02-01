@@ -53,40 +53,41 @@
   </ul>
      <div id="editor">
 <textarea id="code" name="code">
-  move();
-  move();
-  var test = function(j){
-      var reeborg = new UsedRobot(1, j);
-      reeborg.move();
-      reeborg.move();
-  }
-  test(8);
+move();
+move();
+var test = function(j){
+    var reeborg = new UsedRobot(1, j);
+    reeborg.move();
+    reeborg.move();
+}
+test(8);
 
-  for (var i=0; i < 4; i++){
-       move();
-       turn_left();
-  }
-  move();
-  move();
-  turn_right();
-  move();
-  move();
-  move();
+for (var i=0; i < 4; i++){
+     move();
+     turn_left();
+}
+move();
+move();
+turn_right();
+move();
+move();
+move();
 
-  for (i=0; i< 4; i++){
-       move();
-       turn_right();
-  }
+for (i=0; i< 4; i++){
+     move();
+     turn_right();
+}
 </textarea>
       </div>
 
   <div id="library">
+    <button id="save-library">save</button> <span id="saved" style="background-color: #fc0; display:none">Saved!</span>
 <textarea id="library-code" name="library-code">
-  var turn_right = function() {
-      turn_left();
-      turn_left();
-      turn_left();
-  }
+/* var turn_right = function() {
+    turn_left();
+    turn_left();
+    turn_left();
+}*/
 
 </textarea>
   </div>
@@ -118,26 +119,33 @@
 
 
 <script>
-  RUR.visible_world.init();
-  RUR.controls = new RUR.Controls("javascript");
-  var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-    mode: 'javascript',
-    tabMode: 'indent',
-    lineNumbers: true,
-    theme: 'reeborg-dark',
-    indentUnit: 4
-  });
-  var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
-    mode: 'javascript',
-    tabMode: 'indent',
-    lineNumbers: true,
-    theme: 'reeborg-dark',
-    indentUnit: 4
-  });
+      RUR.visible_world.init();
+      RUR.controls = new RUR.Controls("javascript");
+      var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+        mode: 'javascript',
+        tabMode: 'indent',
+        lineNumbers: true,
+        theme: 'reeborg-dark',
+        indentUnit: 4
+      });
+      var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
+        mode: 'javascript',
+        tabMode: 'indent',
+        lineNumbers: true,
+        theme: 'reeborg-dark',
+        indentUnit: 4
+      });
 
-  $(function() {
-    $( "#tabs" ).tabs();
-  });
+      $(function() {
+        $( "#tabs" ).tabs({ heightStyle: "auto" });
+      });
+
+    $("#save-library").on("click", function() {
+        localStorage.setItem("library", library.getValue());
+        $('#saved').show().fadeOut(4000);
+    });
+    var library_content = localStorage.getItem("library") || "\n";
+    library.setValue(library_content);
 </script>
 
 </body>
