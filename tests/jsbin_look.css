@@ -25,11 +25,21 @@ button {padding: 3px;
   font-weight: bold;
 }
 
+#logo{float: left;
+  margin-left: 10px;
+  margin-right: 200px;
+  font-weight: bold;
+  color: #666;
+  text-shadow: #fff 2px 2px 2px;
+  font-size: 25px;"
+}
+
 
 #control button:first-child {
   border-left: 1px solid #aaa;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  margin-left: 100px;
 }
 
 #control button:last-child {
@@ -38,10 +48,6 @@ button {padding: 3px;
   border-bottom-right-radius: 5px;
 }
 
-#control-wrapper {margin-left:auto;
-  margin-right: auto;
-  width: 300px;
-}
 
 #control button.active {
 background-color: #ebf3ff;
@@ -75,13 +81,8 @@ text-shadow: #fff 2px 2px 2px;
     height: 100%;
 }
 
-#save-library {display: block;
-  float: right;
-}
-
 #saved {background-color: #fd3;
     display:none;
-    float: right;
     margin: 5px;
 }
 
@@ -121,8 +122,13 @@ text-shadow: #fff 2px 2px 2px;
 
 #panels div.active {
   display: block;
+  max-width: 800px;
+  margin: auto;
 }
 
+#content {
+  margin-left: 10px;
+}
 
 #canvas-wrapper {
     position: relative;
@@ -137,5 +143,5 @@ canvas {
 }
 
 #output-panel {
-  background-color: #ffe;
+  background-color: #eee;
 }

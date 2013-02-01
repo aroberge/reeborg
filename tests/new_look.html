@@ -14,34 +14,39 @@
 <script src="jsbin_look.js"></script>
 <link rel="stylesheet" href="jsbin_look.css">
 
-
     <script src="../src/js/reeborg.js" charset="utf-8"></script>
     <script src="../src/libs/codemirror/lib/codemirror.js"></script>
     <script src="../src/libs/codemirror/mode/javascript/javascript.js"></script>
     <link rel=stylesheet href="../src/libs/codemirror/lib/codemirror.css">
     <link rel="stylesheet" href="../src/libs/codemirror/theme/reeborg-dark.css">
 
-<title>Basic JS Bin Look and feel</title>
+<title>Reeborg's world</title>
 </head>
 <body>
 
 <div id="control">
-  <span style="float: left; margin-left: 10px; font-weight: bold; color: #666; text-shadow: #fff 2px 2px 2px; font-size: 25px;">Reeborg</span>
+  <span id="logo">Reeborg</span>
   <div id="control-wrapper">
-    <button class="active" label="content-panel">Content</a>
-    <button class="active" label="editor-panel">Editor</a>
-    <button class="active" label="world-panel">World</a>
-    <button label="output-panel">Output</a>
-    <button id="help-button">Help</a>
+    <button class="active" label="content-panel">Content</button>
+    <button class="active" label="editor-panel">Editor</button>
+    <button class="active" label="world-panel">World</button>
+    <button label="output-panel">Output</button>
+  </div>
+  <div id="secondary-control-wrapper">
+    <button id="help-button">Help</button>
+    <button id="about-button">About</button>
+    <button id="contribute-button">Contribute</button>
   </div>
 </div>
 
 <div id="panels">
   <div id="content-panel" class="panel active">
-    Content   <br>
-    this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text.
+    <div id="content">
+      Content   <br>
+      this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text.
 
-    this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. END
+      this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. END
+    </div>
 
   </div>
   <div id="editor-panel" class="panel active" >
@@ -104,7 +109,7 @@ for (i=0; i< 4; i++){
         <button id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
         <button id="step" onClick="RUR.controls.step();">Step</button>
         <button id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
-        <button it="reload" onClick="RUR.controls.reload();">Reload</button>
+        <button id="reload" onClick="RUR.controls.reload();">Reload</button>
     </div>
   </div>
 
@@ -125,6 +130,7 @@ Reeborg knows the following instructions:
   <li><code>turn_left()</code></li>
   <li><code>pick_token()</code> NotImplemented</li>
   <li><code>put_token()</code> NotImplemented</li>
+  <li><code>pause()</code></li>
 </ul>
 In addition, the following commands are available
 <ul>
@@ -134,10 +140,15 @@ In addition, the following commands are available
 To find out more, follow the lessons.
 </div>
 
-<script>
 
-</script>
+<div id="about" title="About">
+Something about me and Reeborg.
+</div>
 
+<div id="contribute" title="Contribute">
+Ideas for lessons, new worlds, better image for the robot, css fixes to make the
+site look better, corrections, etc.
+</div>
 
 
 <script>
@@ -167,7 +178,7 @@ To find out more, follow the lessons.
         $('#saved').show().fadeOut(4000);
     });
     var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
-    library.setValue(library_content);
+    library.setValue(library_content + "\n");
 
     $( "#help" ).dialog({ autoOpen: false,
       close : function(event, ui){
@@ -175,11 +186,26 @@ To find out more, follow the lessons.
       }
     });
     $( "#help-button" ).on("click", function() {
-    $( "#help" ).dialog( "open" );
-    $( ".selector" ).dialog({
-  close: function( event, ui ) {}
-});
-});
+      $( "#help" ).dialog( "open" );
+    });
+
+    $( "#about" ).dialog({ autoOpen: false,
+      close : function(event, ui){
+        $("#about-button").removeClass("active");
+      }
+    });
+    $( "#about-button" ).on("click", function() {
+      $( "#about" ).dialog( "open" );
+    });
+
+    $( "#contribute" ).dialog({ autoOpen: false,
+      close : function(event, ui){
+        $("#contribute-button").removeClass("active");
+      }
+    });
+    $( "#contribute-button" ).on("click", function() {
+      $( "#contribute" ).dialog( "open" );
+    });
 
 </script>
 
