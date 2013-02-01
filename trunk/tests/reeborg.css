@@ -118,7 +118,7 @@ text-shadow: #fff 2px 2px 2px;
   overflow-y: auto;
   overflow-x: hidden;
   display: none;
-  border-right: 1px solid blue;
+  border-right: 1px dashed #888;
 }
 
 #panels div.active {

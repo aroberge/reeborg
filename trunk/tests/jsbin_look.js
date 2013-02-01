@@ -62,6 +62,37 @@ $(document).ready(function() {
         reset_widths();
     });
 
+      $(function() {
+        $("#tabs").tabs({ heightStyle: "auto" });
+      });
+
+    $("#save-library").on("click", function() {
+        localStorage.setItem("library", library.getValue());
+        $('#saved').show().fadeOut(4000);
+    });
+    try{
+    var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
+    library.setValue(library_content + "\n");
+  } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");}
+
+    $("#help").dialog({ autoOpen: false });
+    $("#help-button").on("click", function() {
+      $("#help").dialog( "open");
+    });
+
+    $("#about").dialog({ autoOpen: false });
+    $("#about-button").on("click", function() {
+      $("#about").dialog( "open");
+    });
+
+    $("#contribute").dialog({ autoOpen: false });
+    $("#contribute-button").on("click", function() {
+      $("#contribute").dialog( "open");
+    });
+
+
+
+
 
 });
 
