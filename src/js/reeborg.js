@@ -125,6 +125,10 @@ RUR.World = function () {
         this.frames.push({error: message});
     };
 
+    this.add_output_frame = function (element, message) {
+        this.frames.push({output: {element:element, message:message}});
+    };
+
     this.add_frame = function () {
         var i, robot, robots = [];
         for (i = 0; i < this.robots.length; i++){
@@ -461,6 +465,10 @@ RUR.visible_world = {
             alert(frame.error.name + "\n" + frame.error.message);
             return;
         }
+        if (frame.output !== undefined) {
+            $(frame.output.element).append(frame.output.message + "\n");
+            return;
+        }
 
         ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
         for (robot=0; robot < frame.robots.length; robot++){
@@ -575,7 +583,7 @@ RUR.Controls = function (programming_language) {
 };
 
 var output = function (s) {
-    $("#output-pre").append("\n" + s);
+    RUR.world.add_output_frame("#output-pre", s);
 };
 
 var move = function() {

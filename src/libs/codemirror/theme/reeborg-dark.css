@@ -14,7 +14,7 @@
 
 .cm-s-reeborg-dark span.cm-comment { color: #999; font-style:italic; line-height: 1em; }
 .cm-s-reeborg-dark span.cm-atom { color: #F4C20B; }
-.cm-s-reeborg-dark span.cm-number, .cm-s-reeborg-dark span.cm-attribute { color: #82C6E0; }
+.cm-s-reeborg-dark span.cm-number, .cm-s-reeborg-dark span.cm-attribute { color: #adf; }
 .cm-s-reeborg-dark span.cm-keyword { color: #FBDE2D; }
 .cm-s-reeborg-dark span.cm-string { color: #F08047; }
 .cm-s-reeborg-dark span.cm-variable-2 { color: #7BD827; }
