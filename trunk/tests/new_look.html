@@ -14,7 +14,8 @@
 <script src="../src/libs/codemirror/lib/codemirror.js"></script>
 <script src="../src/libs/codemirror/mode/javascript/javascript.js"></script>
 
-<script src="http://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
+<script src="../src/libs/jshint.js"></script>
+<!--script src="http://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script-->
 
 <style type="text/css">
   .lint-error {font-family: arial; font-size: 70%; background: #ffa; color: #a00; padding: 2px 5px 3px; }
@@ -58,6 +59,7 @@
   <ul>
     <li><a href="#editor">Code</a></li>
     <li><a href="#library">Library</a></li>
+    <li><a href="#notes">Notes</a></li>
   </ul>
      <div id="editor">
     <button id="lint">Valid code?</button> <span id="checked">Valid code!</span>
@@ -80,6 +82,19 @@ not be saved for next time you visit.
 Have you tried Firefox or Chrome? */
 </textarea>
   </div>
+
+  <div id="notes">
+    <button id="save-notes">save</button> <span id="saved-notes">Saved!</span>
+<textarea id="user-notes" name="user-notes">
+Sorry - if you see this, it means that
+your browser is incapable of using the
+notes tab the way it has been designed.
+
+You could write notes here ... but they will
+not be saved for next time you visit.
+</textarea>
+  </div>
+
 </div>
 </div>
   <div id="world-panel" class="panel active" >
@@ -148,6 +163,14 @@ Have you tried Firefox or Chrome? */
     theme: 'reeborg-dark',
     indentUnit: 4
   });
+  var notes = CodeMirror.fromTextArea(document.getElementById('user-notes'), {
+    mode: 'markdown',
+    tabMode: 'indent',
+    lineNumbers: false,
+    theme: 'reeborg-dark',
+    indentUnit: 4
+  });
+
 
 editor.widgets = []
 
@@ -169,10 +192,9 @@ var jshint_options = {eqeqeq:true,
   devel:true,
   white:false,
   plusplus:false,
-  jquery:true,
-  indent:4};
+  jquery:true};
 
-  var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect */"
+  var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect*/\n"
 
 function updateHints(obj) {
   obj.operation(function(){
@@ -180,7 +202,7 @@ function updateHints(obj) {
       obj.removeLineWidget(obj.widgets[i]);
     obj.widgets.length = 0;
 
-    JSHINT(globals_ + obj.getValue(), jshint_options);
+    JSHINT( globals_+obj.getValue(), jshint_options);
         for (var i = 0; i < JSHINT.errors.length; ++i) {
           var err = JSHINT.errors[i];
           if (!err) continue;
@@ -190,7 +212,7 @@ function updateHints(obj) {
       icon.className = "lint-error-icon";
       msg.appendChild(document.createTextNode(err.reason));
       msg.className = "lint-error";
-      obj.widgets.push(obj.addLineWidget(err.line - 1, msg, {coverGutter: false, noHScroll: true}));
+      obj.widgets.push(obj.addLineWidget(err.line - 2, msg, {coverGutter: false, noHScroll: true}));
     }
   });
   var info = obj.getScrollInfo();
@@ -204,7 +226,7 @@ function updateHints(obj) {
         if (editor.widgets.length === 0){
             libraryUpdateHints();
             if (library.widgets.length !== 0){
-                $('#library-problem').show().fadeOut(2000);
+                $('#library-problem').show().fadeOut(10000);
             } else {
             $('#checked').show().fadeOut(2000);
             }

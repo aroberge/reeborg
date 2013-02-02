@@ -707,10 +707,18 @@ $(document).ready(function() {
         localStorage.setItem("library", library.getValue());
         $('#saved').show().fadeOut(4000);
     });
+
+    $("#save-notes").on("click", function() {
+        localStorage.setItem("user-notes", library.getValue());
+        $('#saved-notes').show().fadeOut(4000);
+    });
+
     try{
     var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
     library.setValue(library_content + "\n");
-  } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");}
+    var notes_content = localStorage.getItem("user-notes") || "Write your own notes here.\nRemember to save them!\n";
+    notes.setValue(notes_content + "\n");
+  } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
     $("#help").dialog({ autoOpen: false });
     $("#help-button").on("click", function() {

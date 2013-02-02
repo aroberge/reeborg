@@ -77,12 +77,12 @@ text-shadow: #fff 2px 2px 2px;
   padding: 0 ;
 }
 
-#editor, #library {
+#editor, #library, #notes {
     width: 100%;
     height: 100%;
 }
 
-#saved, #checked, #library-problem {background-color: #fd3;
+#saved, #checked, #library-problem, #saved-notes {background-color: #fd3;
     display:none;
     margin: 5px;
 }
