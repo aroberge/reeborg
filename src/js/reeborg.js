@@ -598,7 +598,7 @@ RUR.Controls = function (programming_language) {
     };
 };
 
-var output = function (s) {
+var write = function (s) {
     RUR.world.add_output_frame("#output-pre", s);
 };
 
@@ -611,7 +611,7 @@ var inspect = function (obj){
             result += props + "\n";
         }
     }
-    output(result);
+    write(result);
 };
 
 
