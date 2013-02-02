@@ -9,16 +9,20 @@
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
-
-
 <link rel="stylesheet" href="reeborg.css">
+<script src="../src/js/reeborg.js" charset="utf-8"></script>
+<script src="../src/libs/codemirror/lib/codemirror.js"></script>
+<script src="../src/libs/codemirror/mode/javascript/javascript.js"></script>
 
-    <script src="../src/js/reeborg.js" charset="utf-8"></script>
-    <script src="../src/libs/codemirror/lib/codemirror.js"></script>
-    <script src="../src/libs/codemirror/mode/javascript/javascript.js"></script>
-    <link rel=stylesheet href="../src/libs/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="../src/libs/codemirror/theme/reeborg-dark.css">
+<script src="http://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
 
+<style type="text/css">
+  .lint-error {font-family: arial; font-size: 70%; background: #ffa; color: #a00; padding: 2px 5px 3px; }
+  .lint-error-icon {color: white; background-color: red; font-weight: bold; border-radius: 50%; padding: 0 3px; margin-right: 7px;}
+</style>
+
+<link rel=stylesheet href="../src/libs/codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="../src/libs/codemirror/theme/reeborg-dark.css">
 <title>Reeborg's world</title>
 </head>
 <body>
@@ -56,6 +60,8 @@
     <li><a href="#library">Library</a></li>
   </ul>
      <div id="editor">
+    <button id="lint">Valid code?</button> <span id="checked">Valid code!</span>
+    <span id="library-problem">Problem with code in library!</span>
 <textarea id="code" name="code">
 move();
 </textarea>
@@ -76,7 +82,6 @@ Have you tried Firefox or Chrome? */
   </div>
 </div>
 </div>
-
   <div id="world-panel" class="panel active" >
     <div id="canvas-wrapper">
         <canvas id="background_canvas" width="600" height="460"></canvas>
@@ -90,7 +95,6 @@ Have you tried Firefox or Chrome? */
         <button id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
     </div>
   </div>
-
   <div id="output-panel" class="panel">
     <h3>Output</h3>
     <pre id="output-pre"></pre>
@@ -100,51 +104,129 @@ Have you tried Firefox or Chrome? */
 
 
 <div id="help" title="Help">
-This is just a quick reminder.
-Reeborg knows the following instructions:
-<ul>
-  <li><code>move()</code></li>
-  <li><code>turn_left()</code></li>
-  <li><code>pick_token()</code> NotImplemented</li>
-  <li><code>put_token()</code> NotImplemented</li>
-  <li><code>pause()</code></li>
-</ul>
-In addition, the following commands are available
-<ul>
-  <li><code>set_delay()</code></li>
-  <li><code>output()</code></li>
-</ul>
-To find out more, follow the lessons.
+  This is just a quick reminder.
+  Reeborg knows the following instructions:
+  <ul>
+    <li><code>move()</code></li>
+    <li><code>turn_left()</code></li>
+    <li><code>pick_token()</code> NotImplemented</li>
+    <li><code>put_token()</code> NotImplemented</li>
+    <li><code>pause()</code></li>
+  </ul>
+  In addition, the following commands are available
+  <ul>
+    <li><code>set_delay()</code></li>
+    <li><code>output()</code></li>
+  </ul>
+  To find out more, follow the lessons.
 </div>
 
-
 <div id="about" title="About">
-Something about me and Reeborg.
+  Something about me and Reeborg.
 </div>
 
 <div id="contribute" title="Contribute">
-Ideas for lessons, new worlds, better image for the robot, css fixes to make the
-site look better, corrections, etc.
+  Ideas for lessons, new worlds, better image for the robot, css fixes to make the
+  site look better, corrections, etc.
 </div>
 
 
 <script>
-RUR.visible_world.init();
-RUR.controls = new RUR.Controls("javascript");
-var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-  mode: 'javascript',
-  tabMode: 'indent',
-  lineNumbers: true,
-  theme: 'reeborg-dark',
-  indentUnit: 4
-});
-var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
-  mode: 'javascript',
-  tabMode: 'indent',
-  lineNumbers: true,
-  theme: 'reeborg-dark',
-  indentUnit: 4
-});
+  RUR.visible_world.init();
+  RUR.controls = new RUR.Controls("javascript");
+  var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+    mode: 'javascript',
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4
+  });
+  var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
+    mode: 'javascript',
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4
+  });
+
+editor.widgets = []
+
+function editorUpdateHints(){
+  updateHints(editor);
+}
+
+library.widgets = []
+
+function libraryUpdateHints(){
+  updateHints(library);
+}
+var jshint_options = {eqeqeq:true,
+  boss:true,
+  undef:true,
+  curly:true,
+  nonew:true,
+  browser:true,
+  devel:true,
+  white:false,
+  plusplus:false,
+  jquery:true,
+  indent:4};
+
+  var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect */"
+
+function updateHints(obj) {
+  obj.operation(function(){
+    for (var i = 0; i < obj.widgets.length; ++i)
+      obj.removeLineWidget(obj.widgets[i]);
+    obj.widgets.length = 0;
+
+    JSHINT(globals_ + obj.getValue(), jshint_options);
+        for (var i = 0; i < JSHINT.errors.length; ++i) {
+          var err = JSHINT.errors[i];
+          if (!err) continue;
+      var msg = document.createElement("div");
+      var icon = msg.appendChild(document.createElement("span"));
+      icon.innerHTML = "!!";
+      icon.className = "lint-error-icon";
+      msg.appendChild(document.createTextNode(err.reason));
+      msg.className = "lint-error";
+      obj.widgets.push(obj.addLineWidget(err.line - 1, msg, {coverGutter: false, noHScroll: true}));
+    }
+  });
+  var info = obj.getScrollInfo();
+  var after = obj.charCoords({line: obj.getCursor().line + 1, ch: 0}, "local").top;
+  if (info.top + info.clientHeight < after)
+    obj.scrollTo(null, after - info.clientHeight + 3);
+}
+
+    $("#lint").on("click", function() {
+        editorUpdateHints();
+        if (editor.widgets.length === 0){
+            libraryUpdateHints();
+            if (library.widgets.length !== 0){
+                $('#library-problem').show().fadeOut(2000);
+            } else {
+            $('#checked').show().fadeOut(2000);
+            }
+        }
+    });
+
+  // var editor_waiting;
+  // editor.on("change", function() {
+  //   clearTimeout(editor_waiting);
+  //   editor_waiting = setTimeout(editorUpdateHints, 1000);
+  // });
+
+  // setTimeout(editorUpdateHints, 100);
+
+  var library_waiting;
+  library.on("change", function() {
+    clearTimeout(library_waiting);
+    library_waiting = setTimeout(libraryUpdateHints, 1000);
+  });
+
+  setTimeout(libraryUpdateHints, 200);
+
 </script>
 
 </body>

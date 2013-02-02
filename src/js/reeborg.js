@@ -29,12 +29,12 @@ RUR.World = function () {
     this.WEST = 2;
     this.SOUTH = 3;
 
-    this.set_delay = function (delay) {
+    this.think = function (delay) {
         if (delay >= 0  && delay <= 10){
             this.frames.push({delay: Math.round(delay*1000)});
         }
         else {
-            alert("delay needs to be specified in seconds, between 0 and 10; this was: " + delay);
+            alert("Reeborg's thinking time needs to be specified in seconds, between 0 and 10; this was: " + delay);
         }
     };
 
@@ -612,11 +612,11 @@ var turn_left = function() {
 };
 var tourne_à_gauche = turn_left;
 
-var set_delay = function(delay) {
+var think = function(delay) {
     "use strict";
-    RUR.world.set_delay(delay);
+    RUR.world.think(delay);
 };
-var ajuste_délai = set_delay;
+var pense = think;
 
 var pause = function () {
     "use strict";
