@@ -1,5 +1,5 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, translate_python */
+/*globals $, editor, library, notes, translate_python */
 
 if (!Array.prototype.remove){
     // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
@@ -318,6 +318,20 @@ RUR.visible_world = {
             RUR.visible_world.trace_thickness = 1;
         }
     },
+    draw_coordinates: function(){
+        "use strict";
+        var x, y;
+        this.ctx = this.background_ctx;
+        this.ctx.fillStyle = 'black';
+        y = this.height-this.wall_length/2;
+        for(x=1; x <= this.cols; x++){
+            this.ctx.fillText(""+x, (x+0.5)*this.wall_length, y);
+        }
+        x = this.wall_length/2;
+        for(y=1; y <= this.rows; y++){
+            this.ctx.fillText(""+y, x, this.height - (y+0.3)*this.wall_length);
+        }
+    },
     draw_background_walls : function () {
         "use strict";
         var i, j;
@@ -481,6 +495,7 @@ RUR.visible_world = {
         RUR.world.reset();
         this.compiled = false;
         this.draw_background_walls();
+        this.draw_coordinates();
         this.draw_foreground_walls();
         this.trace_ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
         dummy = new UsedRobot();
@@ -699,9 +714,9 @@ $(document).ready(function() {
         reset_widths();
     });
 
-      $(function() {
+    $(function() {
         $("#tabs").tabs({ heightStyle: "auto" });
-      });
+    });
 
     $("#editor-link").on("click", function(){
         $("#lint").show();
@@ -713,12 +728,11 @@ $(document).ready(function() {
         $("#save-library").show();
         $("#save-notes").hide();
     });
-        $("#notes-link").on("click", function(){
+    $("#notes-link").on("click", function(){
         $("#lint").hide();
         $("#save-library").hide();
         $("#save-notes").show();
     });
-
 
     $("#save-library").on("click", function() {
         localStorage.setItem("library", library.getValue());
@@ -731,24 +745,24 @@ $(document).ready(function() {
     });
 
     try{
-    var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
-    library.setValue(library_content + "\n");
-    var notes_content = localStorage.getItem("user-notes") || "Write your own notes here.\nRemember to save them!\n";
-    notes.setValue(notes_content + "\n");
-  } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
+        var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
+        library.setValue(library_content + "\n");
+        var notes_content = localStorage.getItem("user-notes") || "Write your own notes here.\nRemember to save them!\n";
+        notes.setValue(notes_content + "\n");
+    } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
     $("#help").dialog({ autoOpen: false });
     $("#help-button").on("click", function() {
-      $("#help").dialog( "open");
+        $("#help").dialog( "open");
     });
 
     $("#about").dialog({ autoOpen: false });
     $("#about-button").on("click", function() {
-      $("#about").dialog( "open");
+        $("#about").dialog( "open");
     });
 
     $("#contribute").dialog({ autoOpen: false });
     $("#contribute-button").on("click", function() {
-      $("#contribute").dialog( "open");
+        $("#contribute").dialog( "open");
     });
 });
