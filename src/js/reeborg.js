@@ -709,7 +709,7 @@ $(document).ready(function() {
     });
 
     $("#save-notes").on("click", function() {
-        localStorage.setItem("user-notes", library.getValue());
+        localStorage.setItem("user-notes", notes.getValue());
         $('#saved-notes').show().fadeOut(4000);
     });
 
