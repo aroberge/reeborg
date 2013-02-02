@@ -73,8 +73,10 @@ text-shadow: #fff 2px 2px 2px;
   display:block;
 }
 
+#tabs {height: 85%;}
+
 #tabs .ui-tabs-panel {
-  padding: 0 ;
+  padding: 0;
 }
 
 #editor, #library, #notes {
@@ -91,10 +93,7 @@ text-shadow: #fff 2px 2px 2px;
     border: 1px solid black;
     font-size:13px;
     width: 100%;
-    height: 100% !important;
-}
-.CodeMirror-scroll {
-  overflow-y: hidden;
+    height: 100%;
 }
 
 
