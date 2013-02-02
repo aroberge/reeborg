@@ -11,6 +11,7 @@ body {font-family: Arial;
 #control {height: 33px;
   position: fixed;
   top: 0;
+  left: 0;
   z-index: 9999;
   width: 100%;
   background-image: -webkit-gradient(linear, 0 100%, 0 0, color-stop(0.11, rgb(210,210,210)), color-stop(0.8, rgb(255,255,255)));
@@ -73,7 +74,9 @@ text-shadow: #fff 2px 2px 2px;
   display:block;
 }
 
-#tabs {height: 85%;}
+#tabs {height: 95%;
+overflow: auto;
+}
 
 #tabs .ui-tabs-panel {
   padding: 0;
@@ -84,6 +87,9 @@ text-shadow: #fff 2px 2px 2px;
     height: 100%;
 }
 
+#save-library, #save-notes {display: none}
+#lint, #save-library, #save-notes {float: right;}
+
 #saved, #checked, #library-problem, #saved-notes {background-color: #fd3;
     display:none;
     margin: 5px;
@@ -93,7 +99,7 @@ text-shadow: #fff 2px 2px 2px;
     border: 1px solid black;
     font-size:13px;
     width: 100%;
-    height: 100%;
+    height: 90%;
 }
 
 

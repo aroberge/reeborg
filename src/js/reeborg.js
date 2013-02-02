@@ -703,6 +703,23 @@ $(document).ready(function() {
         $("#tabs").tabs({ heightStyle: "auto" });
       });
 
+    $("#editor-link").on("click", function(){
+        $("#lint").show();
+        $("#save-library").hide();
+        $("#save-notes").hide();
+    });
+    $("#library-link").on("click", function(){
+        $("#lint").hide();
+        $("#save-library").show();
+        $("#save-notes").hide();
+    });
+        $("#notes-link").on("click", function(){
+        $("#lint").hide();
+        $("#save-library").hide();
+        $("#save-notes").show();
+    });
+
+
     $("#save-library").on("click", function() {
         localStorage.setItem("library", library.getValue());
         $('#saved').show().fadeOut(4000);
