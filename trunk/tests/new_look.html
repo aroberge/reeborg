@@ -57,12 +57,15 @@
 
 <div id="tabs">
   <ul>
-    <li><a href="#editor">Code</a></li>
-    <li><a href="#library">Library</a></li>
-    <li><a href="#notes">Notes</a></li>
+    <li><a id="editor-link" href="#editor">Code</a></li>
+    <li><a id="library-link" href="#library">Library</a></li>
+    <li><a id="notes-link" href="#notes">Notes</a></li>
+    <button id="lint">Valid code?</button> <span id="checked">Yes!</span>
+    <button id="save-library">Save code</button> <span id="saved">Saved!</span>
+    <button id="save-notes">Save notes</button> <span id="saved-notes">Saved!</span>
   </ul>
      <div id="editor">
-    <button id="lint">Valid code?</button> <span id="checked">Valid code!</span>
+
     <span id="library-problem">Problem with code in library!</span>
 <textarea id="code" name="code">
 move();
@@ -70,7 +73,7 @@ move();
       </div>
 
   <div id="library">
-    <button id="save-library">save</button> <span id="saved">Saved!</span>
+
 <textarea id="library-code" name="library-code">
 /* Sorry - if you see this, it means that
 your browser is incapable of using the
@@ -84,7 +87,6 @@ Have you tried Firefox or Chrome? */
   </div>
 
   <div id="notes">
-    <button id="save-notes">save</button> <span id="saved-notes">Saved!</span>
 <textarea id="user-notes" name="user-notes">
 Sorry - if you see this, it means that
 your browser is incapable of using the
