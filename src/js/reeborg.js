@@ -728,7 +728,7 @@ function doShowNotes() {
     var i = 0;
 
     if (deleted_notes.length > 0){
-        document.getElementById('undo_delete').innerHTML = '<a href="javascript:doUndoDelete()" class=" float_left fake_button">Undo Delete</a>'
+        document.getElementById('undo_delete').innerHTML = '<a href="javascript:doUndoDelete()" class=" float_left fake_button">Undo Delete</a>';
     }
     else{
         document.getElementById('undo_delete').innerHTML = '';
