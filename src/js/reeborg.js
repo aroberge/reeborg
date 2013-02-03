@@ -281,17 +281,17 @@ RUR.visible_world = {
         this.cols = Math.floor(this.width / this.wall_length) - 2;
         this.delay = 50;   // milliseconds
         this.robot_e_img = new Image();
-        this.robot_e_img.src = '../src/images/robot_e.png';
+        this.robot_e_img.src = '../images/robot_e.png';
         // the following ensures that we won't attempt drawing until the default image is available
         this.robot_e_img.onload = function () {
             RUR.visible_world.reset();
         };
         this.robot_n_img = new Image();
-        this.robot_n_img.src = '../src/images/robot_n.png';
+        this.robot_n_img.src = '../images/robot_n.png';
         this.robot_w_img = new Image();
-        this.robot_w_img.src = '../src/images/robot_w.png';
+        this.robot_w_img.src = '../images/robot_w.png';
         this.robot_s_img = new Image();
-        this.robot_s_img.src = '../src/images/robot_s.png';
+        this.robot_s_img.src = '../images/robot_s.png';
         this.draw();
         this.running = false;
     },
