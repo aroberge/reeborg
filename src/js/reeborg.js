@@ -670,7 +670,7 @@ function reset_widths () {
         // WHY do I need to subtract 8 ??    2 x padding + 1 for border perhaps?...
         all_active_panels[index].width($("#panels").width()/all_active_panels.length - 8);
     }
-    for (index = 0; index < all_active_panels.length; index++) {
+    for (index = 0; index < all_active_panels.length-1; index++) {
         set_resizable(all_active_panels, index);
     }
     return all_active_panels;
@@ -693,6 +693,7 @@ function set_resizable(all_active_panels, index){
     });
 }
 
+RUR.ajax_requests = {};
 
 $(document).ready(function() {
 // init
@@ -742,18 +743,41 @@ $(document).ready(function() {
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
-    $("#help").dialog({ autoOpen: false });
+
+    $("#help").dialog({autoOpen:false, width:600, position:"top"});
     $("#help-button").on("click", function() {
-        $("#help").dialog( "open");
+        if (RUR.ajax_requests.help !== undefined){
+            $("#help").dialog( "open");
+            return;
+        }
+        $('#help').load("help.xml");
+        RUR.ajax_requests.help = true;
+        $("#help").dialog("open");
+        return false;
     });
 
-    $("#about").dialog({ autoOpen: false });
+    $("#about").dialog({autoOpen:false, width:600, position:"top"});
     $("#about-button").on("click", function() {
-        $("#about").dialog( "open");
+        if (RUR.ajax_requests.about !== undefined){
+            $("#about").dialog("open");
+            return;
+        }
+        $('#about').load("about.xml");
+        RUR.ajax_requests.about = true;
+        $("#about").dialog("open");
+        return false;
     });
 
-    $("#contribute").dialog({ autoOpen: false });
+    $("#contribute").dialog({autoOpen:false, width:600, position:"top"});
     $("#contribute-button").on("click", function() {
+        if (RUR.ajax_requests.contribute !== undefined){
+            $("#contribute").dialog( "open");
+            return;
+        }
+        $('#contribute').load("contribute.xml");
+        RUR.ajax_requests.contribute = true;
         $("#contribute").dialog( "open");
+        return false;
     });
+
 });
