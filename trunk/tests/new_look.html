@@ -1,20 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset=utf-8 />
-<meta name="description" content="Free Interactive Tutorials"/>
-<meta name="keywords" content="JavaScript,Python,Programming"/>
-<meta name="author" content="André Roberge"/>
-<meta name="license" content="CC BY-NC-SA 3.0"/>
-<link href="../src/libs/jquery-ui-1.10.0.custom/css/custom-theme/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="../src/libs/jquery-ui-1.10.0.custom/js/jquery-ui-1.10.0.custom.min.js"></script>
-<script src="../src/js/reeborg.js" charset="utf-8"></script>
-<script src="../src/libs/codemirror/lib/codemirror.js"></script>
-<script src="../src/libs/codemirror/mode/javascript/javascript.js"></script>
-<link rel=stylesheet href="../src/libs/codemirror/lib/codemirror.css">
-<link rel="stylesheet" href="../src/libs/codemirror/theme/reeborg-dark.css">
-<link rel="stylesheet" href="reeborg.css">
+<meta charset="utf-8">
+<meta name="description" content="Free Interactive Tutorials">
+<meta name="keywords" content="JavaScript,Python,Programming">
+<meta name="author" content="André Roberge">
+<meta name="license" content="CC BY-NC-SA 3.0">
+<link href="../src/libs/jquery-ui-1.10.0.custom/css/custom-theme/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" >
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
+<link rel="stylesheet" href="reeborg.css"> <!-- load after codemirror.css -->
 <title>Reeborg's world</title>
 </head>
 <body>
@@ -27,7 +21,7 @@
     <button class="active" label="world-panel">World</button>
     <button label="output-panel">Writings</button>
   </div>
-  <div id="secondary-header-child">
+  <div>
     <button id="help-button">Help</button>
     <button id="about-button">About</button>
     <button id="contribute-button">Contribute</button>
@@ -55,8 +49,7 @@
       </ul>
       <div id="editor">
         <span id="library-problem">Problem with code in library!</span>
-        <textarea id="code" name="code">move();
-        </textarea>
+        <textarea id="code" name="code">move();</textarea>
       </div>
       <div id="library">
         <textarea id="library-code" name="library-code">
@@ -98,11 +91,11 @@
         <canvas id="wall_canvas" width="600" height="460"></canvas>
         <canvas id="trace_canvas" width="600" height="460"></canvas>
         <canvas id="robot_canvas" width="600" height="460"></canvas>
-        <button id="run" onClick="RUR.headers.run();">Execute</button>
-        <button id="pause" disabled="true" onClick="RUR.headers.pause();">Pause</button>
-        <button id="step" onClick="RUR.headers.step();">Step</button>
-        <button id="stop" disabled="true" onClick="RUR.headers.stop();">Stop</button>
-        <button id="reload" disabled="true" onClick="RUR.headers.reload();">Reload</button>
+        <button id="run" onClick="RUR.controls.run();">Execute</button>
+        <button id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
+        <button id="step" onClick="RUR.controls.step();">Step</button>
+        <button id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
+        <button id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
     </div>
   </div>
   <div id="output-panel" class="panel">
@@ -111,13 +104,17 @@
   </div>
 </div>
 
-<div id="help" title="Help"></div>
-<div id="about" title="About"></div>
-<div id="contribute" title="Contribute"></div>
+<div id="help" title="Help">Retrieving...</div>
+<div id="about" title="About">Retrieving...</div>
+<div id="contribute" title="Contribute">Retrieving...</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
+<script src="../src/js/reeborg.js"></script>
 
 <script>
-  RUR.visible_world.init();
-  RUR.headers = new RUR.Controls("javascript");
   var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     mode: 'javascript',
     tabMode: 'indent',
@@ -210,6 +207,8 @@
   });
 
   setTimeout(libraryUpdateHints, 200);
+  RUR.visible_world.init();
+  RUR.controls = new RUR.Controls("javascript");
 </script>
 
 <script src="../src/libs/jshint.js"></script>

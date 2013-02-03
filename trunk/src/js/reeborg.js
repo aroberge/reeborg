@@ -524,7 +524,6 @@ RUR.Controls = function (programming_language) {
     this.programming_language = programming_language;
     this.compile_and_run = function (func) {
         var src, fatal_error_found = false;
-
         if (!RUR.visible_world.compiled) {
             src = library.getValue() + ";\n";
             src += editor.getValue();
