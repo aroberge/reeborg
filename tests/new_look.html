@@ -77,7 +77,8 @@
                      You can choose to use html syntax for formatting.</p>
         <p>
           <form name="notes_editor" id="notes_editor">
-            <textarea name="data" cols="48" rows="10" placeholder="Write your note here." id="data_entry"></textarea>
+            <textarea name="data" rows="5" placeholder="Write your note here." id="data_entry"></textarea>
+            <br>
             <span id="undo_delete"></span>
             <span class="float_right">HTML</span>
             <input type="checkbox" name="check_html" class="float_right"/>
@@ -131,77 +132,84 @@
     theme: 'reeborg-dark',
     indentUnit: 4
   });
-editor.widgets = [];
+  editor.widgets = [];
 
-function editorUpdateHints(){
-  updateHints(editor);
-}
+  function editorUpdateHints() {
+    updateHints(editor);
+  }
 
-library.widgets = [];
+  library.widgets = [];
 
-function libraryUpdateHints(){
-  updateHints(library);
-}
-var jshint_options = {eqeqeq:true,
-  boss:true,
-  undef:true,
-  curly:true,
-  nonew:true,
-  browser:true,
-  devel:true,
-  white:false,
-  plusplus:false,
-  jquery:true};
+  function libraryUpdateHints() {
+    updateHints(library);
+  }
+  var jshint_options = {
+    eqeqeq: true,
+    boss: true,
+    undef: true,
+    curly: true,
+    nonew: true,
+    browser: true,
+    devel: true,
+    white: false,
+    plusplus: false,
+    jquery: true
+  };
 
-var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect*/\n";
+  var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect*/\n";
 
-function updateHints(obj) {
-  obj.operation(function(){
-    for (var i = 0; i < obj.widgets.length; ++i)
+  function updateHints(obj) {
+    obj.operation(function () {
+      for(var i = 0; i < obj.widgets.length; ++i)
       obj.removeLineWidget(obj.widgets[i]);
-    obj.widgets.length = 0;
+      obj.widgets.length = 0;
 
-    JSHINT( globals_+obj.getValue(), jshint_options);
-        for (var i = 0; i < JSHINT.errors.length; ++i) {
-          var err = JSHINT.errors[i];
-          if (!err) continue;
-      var msg = document.createElement("div");
-      var icon = msg.appendChild(document.createElement("span"));
-      icon.innerHTML = "!?!";
-      icon.className = "lint-error-icon";
-      msg.appendChild(document.createTextNode(err.reason));
-      msg.className = "lint-error";
-      obj.widgets.push(obj.addLineWidget(err.line - 2, msg, {coverGutter: false, noHScroll: true}));
+      JSHINT(globals_ + obj.getValue(), jshint_options);
+      for(var i = 0; i < JSHINT.errors.length; ++i) {
+        var err = JSHINT.errors[i];
+        if(!err) continue;
+        var msg = document.createElement("div");
+        var icon = msg.appendChild(document.createElement("span"));
+        icon.innerHTML = "!?!";
+        icon.className = "lint-error-icon";
+        msg.appendChild(document.createTextNode(err.reason));
+        msg.className = "lint-error";
+        obj.widgets.push(obj.addLineWidget(err.line - 2, msg, {
+          coverGutter: false,
+          noHScroll: true
+        }));
+      }
+    });
+
+    var info = obj.getScrollInfo();
+    var after = obj.charCoords({
+      line: obj.getCursor().line + 1,
+      ch: 0
+    }, "local").top;
+    if(info.top + info.clientHeight < after) {
+      obj.scrollTo(null, after - info.clientHeight + 3);
+    }
+  };
+
+  $("#lint").on("click", function () {
+    editorUpdateHints();
+    if(editor.widgets.length === 0) {
+      libraryUpdateHints();
+      if(library.widgets.length !== 0) {
+        $('#library-problem').show().fadeOut(4000);
+      } else {
+        $('#checked').show().fadeOut(2000);
+      }
     }
   });
 
-  var info = obj.getScrollInfo();
-  var after = obj.charCoords({line: obj.getCursor().line + 1, ch: 0}, "local").top;
-  if (info.top + info.clientHeight < after){
-    obj.scrollTo(null, after - info.clientHeight + 3);
-  }
-};
-
-    $("#lint").on("click", function() {
-        editorUpdateHints();
-        if (editor.widgets.length === 0){
-            libraryUpdateHints();
-            if (library.widgets.length !== 0){
-                $('#library-problem').show().fadeOut(10000);
-            } else {
-            $('#checked').show().fadeOut(2000);
-            }
-        }
-    });
-
   var library_waiting;
-  library.on("change", function() {
+  library.on("change", function () {
     clearTimeout(library_waiting);
     library_waiting = setTimeout(libraryUpdateHints, 1000);
   });
 
   setTimeout(libraryUpdateHints, 200);
-
 </script>
 
 <script src="../src/libs/jshint.js"></script>

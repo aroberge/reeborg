@@ -737,7 +737,7 @@ function doShowNotes() {
         key = localStorage.key(i);
         if (key.slice(0, 9) == "user_note") {
             _note = localStorage.getItem(key);
-            _notes += "<br/><hr/><br/><div class='user_note'>" + _note + '<p><a href="javascript:doDeleteNote(' + "'" + key + "'" + ');" class="fake_button">Delete</a></p></div>';
+            _notes += "<hr><div class='user_note'>" + _note + '</div><a href="javascript:doDeleteNote(' + "'" + key + "'" + ');" class="fake_button">Delete</a>';
             if (!debug && _note.slice(0, 19) == 'Debug Reeborg Notes') {
                 debug = true;
             }
