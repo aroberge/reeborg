@@ -72,7 +72,7 @@ body .ui-tooltip{border-width:2px}
 .ui-widget-header a{color:#fff}
 .ui-state-default,.ui-widget-content .ui-state-default,.ui-widget-header .ui-state-default{border:1px solid #09399a;background:#ccc url(images/ui-bg_highlight-soft_100_cccccc_1x100.png) 50% 50% repeat-x;font-weight:bold;color:#09399a}
 .ui-state-default a,.ui-state-default a:link,.ui-state-default a:visited{color:#09399a;text-decoration:none}
-.ui-state-hover,.ui-widget-content .ui-state-hover,.ui-widget-header .ui-state-hover,.ui-state-focus,.ui-widget-content .ui-state-focus,.ui-widget-header .ui-state-focus{border:1px solid #09399a;background:#96c423 url(images/ui-bg_highlight-soft_100_109410_1x100.png) 50% 50% repeat-x;font-weight:bold;color:#fff}
+.ui-state-hover,.ui-widget-content .ui-state-hover,.ui-widget-header .ui-state-hover,.ui-state-focus,.ui-widget-content .ui-state-focus,.ui-widget-header .ui-state-focus{border:1px solid #09399a;background:#96c423 50% 50% repeat-x;font-weight:bold;color:#fff}
 .ui-state-hover a,.ui-state-hover a:hover,.ui-state-hover a:link,.ui-state-hover a:visited{color:#fff;text-decoration:none}
 .ui-state-active,.ui-widget-content .ui-state-active,.ui-widget-header .ui-state-active{border:1px solid #248;background:#0b3ea2 url(images/ui-bg_highlight-soft_100_0b3ea2_1x100.png) 50% 50% repeat-x;font-weight:bold;color:#fff}
 .ui-state-active a,.ui-state-active a:link,.ui-state-active a:visited{color:#fff;text-decoration:none}
