@@ -1,0 +1,252 @@
+button, a {outline:none;}
+body {font-family:Trebuchet MS,Helvetica,Arial,sans-serif;
+  margin: 0;
+  overflow: hidden;
+}
+
+header {height: 33px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border-bottom: 4px solid rgb(117,161,16);
+  width: 99.9%;
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.24, rgb(25,50,100)),
+        color-stop(0.40, rgb(30,60,120)),
+        color-stop(0.8, rgb(45,90,180))
+    );
+    background: -moz-linear-gradient(
+        center bottom,
+        rgb(25,50,100) 24%,
+        rgb(30,60,120) 40%,
+        rgb(45,90,180) 80%
+    );
+}
+
+#logo{float: left;
+  padding-left: 20px;
+  padding-right: 300px;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    line-height: 45px;
+    position: relative;
+    bottom: 7px;
+    text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.3),
+               0 0 5px rgba(0,0,0,.4),
+               0 1px 3px rgba(0,0,0,.3),
+               1px 3px 5px rgba(0,0,0,.2),
+               2px 5px 10px rgba(0,0,0,.35),
+               5px 10px 10px rgba(0,0,0,.45);
+}
+
+header button {border-left: 1px solid rgba(255,255,255,0.1);
+  border-right: 1px solid rgba(0,0,0,0.1);
+  height:33px;
+  position: relative;
+  border-top: 0;
+  border-bottom: 0;
+  font-weight: bold;
+  float: left;
+  display:block;
+  margin: 0;
+}
+
+header button:last-child {margin-right: 100px;}
+
+
+.resizable-helper {border-right: 1px dashed red;}
+
+button.active {
+  color:#ffc;
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.8, rgb(25,50,100)),
+        color-stop(0.6, rgb(30,60,120)),
+        color-stop(0.24, rgb(45,90,180))
+    );
+    background: -moz-linear-gradient(
+        center bottom,
+        rgb(45,90,180) 24%,
+        rgb(30,60,120) 60%,
+        rgb(25,50,100) 80%
+    );
+}
+
+.clear {clear: both;}
+
+#tabs {height: 98%;
+overflow: auto;
+}
+
+#tabs .ui-tabs-panel {
+  padding: 0;
+}
+
+#editor, #library, #notes {
+    width: 100%;
+    height: 90%;
+}
+
+#save-library, #save-notes {display: none}
+#lint, #save-library, #save-notes {float: right;}
+
+#saved, #checked, #library-problem, #saved-notes {background-color: #96c423;
+  color: white;
+    display:none;
+    margin: 5px;
+    font-size:1.1em;
+    float: right;
+}
+
+.CodeMirror {
+    border: 1px solid black;
+    font-size:13px;
+    width: 100%;
+    height: 100%;
+}
+.cm-s-reeborg-dark {
+  line-height: 1.2em;
+  font-size: 11pt !important;
+}
+.cm-s-reeborg-dark {
+  font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace !important;
+}
+
+.cm-s-reeborg-dark.CodeMirror { background: #112244; color: white; }
+.cm-s-reeborg-dark div.CodeMirror-selected { background: #38566F !important; }
+.cm-s-reeborg-dark .CodeMirror-gutters { background: #224488; border-right: 3px solid rgb(117,161,16); }
+.cm-s-reeborg-dark .CodeMirror-linenumber {font-size: 9pt; color: white; }
+.cm-s-reeborg-dark .CodeMirror-cursor { border-left: 1px solid white !important; }
+
+.cm-s-reeborg-dark span.cm-comment { color: #999; font-style:italic; line-height: 1em; }
+.cm-s-reeborg-dark span.cm-atom { color: #F4C20B; }
+.cm-s-reeborg-dark span.cm-number, .cm-s-reeborg-dark span.cm-attribute { color: #adf; }
+.cm-s-reeborg-dark span.cm-keyword { color: #FBDE2D; }
+.cm-s-reeborg-dark span.cm-string { color: #F08047; }
+.cm-s-reeborg-dark span.cm-variable-2 { color: #7BD827; }
+.cm-s-reeborg-dark span.cm-def { color: #7BD827; }
+.cm-s-reeborg-dark span.cm-variable-3 { color: #7BD827; }
+
+.cm-s-reeborg-dark span.cm-builtin, .cm-s-reeborg-dark span.cm-special { color: #FF9D00; }
+.cm-s-reeborg-dark .cm-tab:before {
+  content: "➤";   /*visualize tab character*/
+  color: red;
+}
+
+#panels {
+  top: 33px;
+  position: fixed;
+  width: 100%;
+  display: block;
+  min-width: 800px;
+  height: 100%;
+  margin: auto;
+  padding: 0;
+}
+
+#panels div.panel {float: left;
+  position: relative;
+  top: 0;
+  height: 94%;
+  width: 200px;
+  padding: 3px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: none;
+  border-right: 1px dashed #124;
+}
+
+#panels div.active {
+  display: block;
+  max-width: 800px;
+  margin: auto;
+}
+
+#content {
+  margin-left: 10px;
+}
+
+#canvas-wrapper {
+    position: relative;
+    min-height: 550px;
+    overflow: auto;
+}
+canvas {
+    position:absolute;
+    border: 1px solid green;
+    top: 40px;
+    left: 10px;
+}
+
+#output-panel {background-color: #eee;}
+#output-panel pre {margin-top: 0;
+background-color: white;}
+
+/** User notes
+ */
+ #notes {background-color: #eee;}
+.user_note {background-color: white;}
+#debug td {padding-right:10px; background-color:#fee;}
+#data_entry {
+  width: 90%;
+  background-color: #ffe;
+}
+.float_right{float: right;}
+.float_left{float: left;}
+button, a.fake_button{
+    color:white;
+    font-family: sans-serif;
+    text-decoration: none;
+    padding: 5px;
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.24, rgb(25,50,100)),
+        color-stop(0.40, rgb(30,60,120)),
+        color-stop(0.8, rgb(45,90,180))
+    );
+    background: -moz-linear-gradient(
+        center bottom,
+        rgb(25,50,100) 24%,
+        rgb(30,60,120) 40%,
+        rgb(45,90,180) 80%
+    );
+}
+button:hover, a.fake_button:hover{
+  background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.24, rgb(117,161,16)),
+        color-stop(0.53, rgb(150,196,35)),
+        color-stop(0.79, rgb(179,232,54))
+    );
+    background: -moz-linear-gradient(
+        center bottom,
+        rgb(117,161,16) 24%,
+        rgb(150,196,35) 53%,
+        rgb(179,232,54) 79%
+    );
+}
+
+button[disabled]{
+    background: #eee;
+    color: #ccc;
+}
+
+  .lint-error {font-size: 80%; background: #ffa; color: black; padding: 2px 5px 3px; }
+  .lint-error-icon {color: white; background-color: red; font-weight: bold; border-radius: 50%; padding: 0 3px; margin-right: 7px;}
