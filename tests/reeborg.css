@@ -1,11 +1,10 @@
 button, a {outline:none;}
-body {font-family: Arial;
-  font-size:10pt;
+body {font-family:Trebuchet MS,Helvetica,Arial,sans-serif;
   margin: 0;
   overflow: hidden;
 }
 
-#control {height: 33px;
+header {height: 33px;
   position: fixed;
   top: 0;
   left: 0;
@@ -51,7 +50,7 @@ body {font-family: Arial;
                5px 10px 10px rgba(0,0,0,.45);
 }
 
-#control button {border-left: 1px solid rgba(255,255,255,0.1);
+header button {border-left: 1px solid rgba(255,255,255,0.1);
   border-right: 1px solid rgba(0,0,0,0.1);
   height:33px;
   position: relative;
@@ -63,7 +62,7 @@ body {font-family: Arial;
   margin: 0;
 }
 
-#control button:last-child {margin-right: 100px;}
+header button:last-child {margin-right: 100px;}
 
 
 .resizable-helper {border-right: 1px dashed red;}
@@ -170,7 +169,6 @@ background-color: white;}
 /** User notes
  */
  #notes {background-color: #eee;}
-#notes_list {margin-top:15px;}
 .user_note {font-size: 11pt; background-color: white;}
 #debug td {padding-right:10px; background-color:#fee;}
 #data_entry {
@@ -220,3 +218,6 @@ button[disabled]{
     background: #eee;
     color: #ccc;
 }
+
+  .lint-error {font-family: arial; font-size: 70%; background: #ffa; color: #a00; padding: 2px 5px 3px; }
+  .lint-error-icon {color: white; background-color: red; font-weight: bold; border-radius: 50%; padding: 0 3px; margin-right: 7px;}
