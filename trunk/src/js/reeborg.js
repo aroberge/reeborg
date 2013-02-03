@@ -693,6 +693,87 @@ function set_resizable(all_active_panels, index){
     });
 }
 
+/*******   User notes
+
+****************************/
+
+var deleted_notes = [];
+
+function doShowAll(debug) {
+    if (!debug) {
+        document.getElementById('debug').innerHTML = '';
+        return;
+    }
+    var key = "";
+    var pairs = "<tr><th>Key</th><th>Value</th></tr>\n";
+    var i = 0;
+    for (i = 0; i <= localStorage.length - 1; i++) {
+        key = localStorage.key(i);
+        pairs += "<tr><td>" + key + "</td>\n<td>" + localStorage.getItem(key) + "</td></tr>\n";
+    }
+    if (pairs == "<tr><th>Name</th><th>Value</th></tr>\n") {
+        pairs += "<tr><td><i>empty</i></td>\n<td><i>empty</i></td></tr>\n";
+    }
+    for (i = 0; i <= deleted_notes.length - 1; i++) {
+        pairs += "<tr><td>Deleted Note:</td>\n<td>" + deleted_notes[i] + "</td></tr>\n";
+    }
+    document.getElementById('debug').innerHTML = pairs;
+}
+
+function doShowNotes() {
+    var key = "";
+    var _notes = "";
+    var _note;
+    var debug = false;
+    var i = 0;
+
+    if (deleted_notes.length > 0){
+        document.getElementById('undo_delete').innerHTML = '<a href="javascript:doUndoDelete()" class=" float_left fake_button">Undo Delete</a>'
+    }
+    else{
+        document.getElementById('undo_delete').innerHTML = '';
+    }
+    for (i = localStorage.length - 1; i >= 0; i--) {
+        key = localStorage.key(i);
+        if (key.slice(0, 9) == "user_note") {
+            _note = localStorage.getItem(key);
+            _notes += "<br/><hr/><br/><div class='user_note'>" + _note + '<p><a href="javascript:doDeleteNote(' + "'" + key + "'" + ');" class="fake_button">Delete</a></p></div>';
+            if (!debug && _note.slice(0, 19) == 'Debug Reeborg Notes') {
+                debug = true;
+            }
+        }
+    }
+    document.getElementById('notes_list').innerHTML = _notes;
+    doShowAll(debug);
+}
+
+function addNote() {
+    var user_note;
+    var key = "user_note" + (new Date()).getTime();
+    user_note = document.forms.notes_editor.data.value;
+    if(!document.forms.notes_editor.check_html.checked) {
+        user_note = "<pre>" + user_note + "</pre>";
+    }
+    localStorage.setItem(key, user_note);
+    doShowNotes();
+}
+
+function doDeleteNote(key) {
+    deleted_notes.push(localStorage.getItem(key));
+    localStorage.removeItem(key);
+    doShowNotes();
+}
+
+function doUndoDelete(){
+    var user_note = deleted_notes.pop();
+    var key = "user_note" + (new Date()).getTime();
+    localStorage.setItem(key, user_note);
+    doShowNotes();
+}
+
+
+
+
 RUR.ajax_requests = {};
 
 $(document).ready(function() {
@@ -700,7 +781,7 @@ $(document).ready(function() {
     var all_active_panels, child;
     all_active_panels = reset_widths();
 
-    $("#control-wrapper button").on("click", function(){
+    $("#header-child button").on("click", function(){
         var index, label, children;
         $(this).toggleClass("active");
         label = $(this).attr("label");
@@ -716,7 +797,7 @@ $(document).ready(function() {
     });
 
     $(function() {
-        $("#tabs").tabs({ heightStyle: "auto" });
+        $("#tabs").tabs({heightStyle: "auto"});
     });
 
     $("#editor-link").on("click", function(){
@@ -779,5 +860,5 @@ $(document).ready(function() {
         $("#contribute").dialog( "open");
         return false;
     });
-
+    doShowNotes();
 });
