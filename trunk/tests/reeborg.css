@@ -11,7 +11,7 @@ body {font-family: Arial;
   left: 0;
   z-index: 1;
   border-bottom: 4px solid rgb(117,161,16);
-  width: 99.5%;
+  width: 99.9%;
     background: -webkit-gradient(
         linear,
         left bottom,
@@ -80,9 +80,9 @@ button.active {
     );
     background: -moz-linear-gradient(
         center bottom,
-        rgb(25,50,100) 80%,
+        rgb(45,90,180) 24%,
         rgb(30,60,120) 50%,
-        rgb(45,90,180) 24%
+        rgb(25,50,100) 80%
     );
 }
 
@@ -107,6 +107,7 @@ overflow: auto;
     display:none;
     margin: 5px;
     font-size:15px;
+    float: right;
 }
 
 .CodeMirror {

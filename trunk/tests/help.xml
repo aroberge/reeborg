@@ -1,0 +1,16 @@
+  <p>This is just a quick reminder.
+  Reeborg knows the following instructions:</p>
+  <ul>
+    <li><code>move()</code></li>
+    <li><code>turn_left()</code></li>
+    <li><code>pick_token()</code> NotImplemented</li>
+    <li><code>put_token()</code> NotImplemented</li>
+    <li><code>pause()</code></li>
+  </ul>
+  <p>In addition, the following commands are available</p>
+  <ul>
+    <li><code>think()</code></li>
+    <li><code>write()</code></li>
+    <li><code>inspect()</code></li>
+  </ul>
+ <p>To find out more, follow the lessons.</p>
