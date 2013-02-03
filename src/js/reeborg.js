@@ -1,5 +1,5 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, notes, translate_python */
+/*globals $, editor, library, translate_python */
 
 if (!Array.prototype.remove){
     // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
@@ -721,17 +721,14 @@ $(document).ready(function() {
     $("#editor-link").on("click", function(){
         $("#lint").show();
         $("#save-library").hide();
-        $("#save-notes").hide();
     });
     $("#library-link").on("click", function(){
         $("#lint").hide();
         $("#save-library").show();
-        $("#save-notes").hide();
     });
     $("#notes-link").on("click", function(){
         $("#lint").hide();
         $("#save-library").hide();
-        $("#save-notes").show();
     });
 
     $("#save-library").on("click", function() {
@@ -739,16 +736,10 @@ $(document).ready(function() {
         $('#saved').show().fadeOut(4000);
     });
 
-    $("#save-notes").on("click", function() {
-        localStorage.setItem("user-notes", notes.getValue());
-        $('#saved-notes').show().fadeOut(4000);
-    });
 
     try{
         var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
         library.setValue(library_content + "\n");
-        var notes_content = localStorage.getItem("user-notes") || "Write your own notes here.\nRemember to save them!\n";
-        notes.setValue(notes_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
     $("#help").dialog({ autoOpen: false });

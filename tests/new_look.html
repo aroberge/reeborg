@@ -6,15 +6,14 @@
 <meta name="keywords" content="JavaScript,Python,Programming"/>
 <meta name="author" content="André Roberge"/>
 <meta name="license" content="CC BY-NC-SA 3.0"/>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="../src/libs/jquery-ui-1.10.0.custom/css/custom-theme/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+<script src="../src/libs/jquery-ui-1.10.0.custom/js/jquery-ui-1.10.0.custom.min.js"></script>
 <script src="../src/js/reeborg.js" charset="utf-8"></script>
 <script src="../src/libs/codemirror/lib/codemirror.js"></script>
 <script src="../src/libs/codemirror/mode/javascript/javascript.js"></script>
 
 <script src="../src/libs/jshint.js"></script>
-<!--script src="http://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script-->
 
 <style type="text/css">
   .lint-error {font-family: arial; font-size: 70%; background: #ffa; color: #a00; padding: 2px 5px 3px; }
@@ -87,14 +86,26 @@ Have you tried Firefox or Chrome? */
   </div>
 
   <div id="notes">
-<textarea id="user-notes" name="user-notes">
-Sorry - if you see this, it means that
-your browser is incapable of using the
-notes tab the way it has been designed.
+<h2>Your notebook</h2>
+  <p>Keep your personal notes here.  These notes are stored by your browser on
+               your own computer, and will be available from any page on this site.
+               You can choose to use html syntax for formatting.</p>
+  <p>
 
-You could write notes here ... but they will
-not be saved for next time you visit.
-</textarea>
+    <form name="notes_editor" id="notes_editor">
+     <textarea name="data" cols="48" rows="10" placeholder="Write your note here." id="data_entry"></textarea>
+     <br/>
+    <span id="undo_delete"></span>
+    <span class="float_right">HTML</span>
+    <input type="checkbox" name="check_html" class="float_right"/>
+    <a href="javascript:addNote();" class="fake_button float_right">Add Note</a>
+    <br class="clear"/>
+    </form>
+ </p>
+
+    <div id="notes_list"></div>
+    <br/>
+    <table id="debug"></table>
   </div>
 
 </div>
@@ -165,14 +176,6 @@ not be saved for next time you visit.
     theme: 'reeborg-dark',
     indentUnit: 4
   });
-  var notes = CodeMirror.fromTextArea(document.getElementById('user-notes'), {
-    mode: 'markdown',
-    tabMode: 'indent',
-    lineNumbers: false,
-    theme: 'reeborg-dark',
-    indentUnit: 4
-  });
-
 
 editor.widgets = []
 
@@ -210,7 +213,7 @@ function updateHints(obj) {
           if (!err) continue;
       var msg = document.createElement("div");
       var icon = msg.appendChild(document.createElement("span"));
-      icon.innerHTML = "!!";
+      icon.innerHTML = "!?!";
       icon.className = "lint-error-icon";
       msg.appendChild(document.createTextNode(err.reason));
       msg.className = "lint-error";
@@ -235,14 +238,6 @@ function updateHints(obj) {
         }
     });
 
-  // var editor_waiting;
-  // editor.on("change", function() {
-  //   clearTimeout(editor_waiting);
-  //   editor_waiting = setTimeout(editorUpdateHints, 1000);
-  // });
-
-  // setTimeout(editorUpdateHints, 100);
-
   var library_waiting;
   library.on("change", function() {
     clearTimeout(library_waiting);
@@ -252,6 +247,93 @@ function updateHints(obj) {
   setTimeout(libraryUpdateHints, 200);
 
 </script>
+
+<script>
+
+var deleted_notes = [];
+
+function doShowAll(debug) {
+    if (!debug) {
+        document.getElementById('debug').innerHTML = '';
+        return;
+    }
+    var key = "";
+    var pairs = "<tr><th>Key</th><th>Value</th></tr>\n";
+    var i = 0;
+    for (i = 0; i <= localStorage.length - 1; i++) {
+        key = localStorage.key(i);
+        pairs += "<tr><td>" + key + "</td>\n<td>" + localStorage.getItem(key) + "</td></tr>\n";
+    }
+    if (pairs == "<tr><th>Name</th><th>Value</th></tr>\n") {
+        pairs += "<tr><td><i>empty</i></td>\n<td><i>empty</i></td></tr>\n";
+    }
+    for (i = 0; i <= deleted_notes.length - 1; i++) {
+        pairs += "<tr><td>Deleted Note:</td>\n<td>" + deleted_notes[i] + "</td></tr>\n";
+    }
+    document.getElementById('debug').innerHTML = pairs;
+}
+
+function doShowNotes() {
+    var key = "";
+    var _notes = "";
+    var _note;
+    var debug = false;
+    var i = 0;
+
+    if (deleted_notes.length > 0){
+        document.getElementById('undo_delete').innerHTML = '<a href="javascript:doUndoDelete()" class=" float_left fake_button">Undo Delete</a>'
+    }
+    else{
+        document.getElementById('undo_delete').innerHTML = '';
+    }
+    for (i = localStorage.length - 1; i >= 0; i--) {
+        key = localStorage.key(i);
+        if (key.slice(0, 9) == "user_note") {
+            _note = localStorage.getItem(key);
+            _notes += "<br/><hr/><br/><div class='user_note'>" + _note + "<br/>" + '<p><a href="javascript:doDeleteNote(' + "'" + key + "'" + ');" class="fake_button">Delete</a></p></div>';
+            if (!debug && _note.slice(0, 19) == 'Debug Reeborg Notes') {
+                debug = true;
+            }
+        }
+    }
+    document.getElementById('notes_list').innerHTML = _notes;
+    doShowAll(debug);
+}
+
+function addNote() {
+    var user_note;
+    var key = "user_note" + (new Date()).getTime();
+    user_note = document.forms.notes_editor.data.value;
+    if(!document.forms.notes_editor.check_html.checked) {
+        user_note = "<pre>" + user_note + "</pre>";
+    }
+    localStorage.setItem(key, user_note);
+    doShowNotes();
+}
+
+function doDeleteNote(key) {
+    deleted_notes.push(localStorage.getItem(key));
+    localStorage.removeItem(key);
+    doShowNotes();
+}
+
+function doUndoDelete(){
+    var user_note = deleted_notes.pop();
+    var key = "user_note" + (new Date()).getTime();
+    localStorage.setItem(key, user_note);
+    doShowNotes();
+}
+</script>
+
+
+<script>
+    doShowNotes();
+</script>
+
+
+
+
+
 
 </body>
 </html>
