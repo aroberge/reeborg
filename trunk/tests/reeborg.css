@@ -1,6 +1,3 @@
-* {margin: 0;
-  padding:0
-}
 
 body {font-family: Arial;
   font-size:10pt;
@@ -12,66 +9,80 @@ body {font-family: Arial;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999;
-  width: 100%;
-  background-image: -webkit-gradient(linear, 0 100%, 0 0, color-stop(0.11, rgb(210,210,210)), color-stop(0.8, rgb(255,255,255)));
-  background-image: -webkit-linear-gradient(bottom, rgb(210,210,210) 11%, rgb(255,255,255) 80%);
-  background-image: -moz-linear-gradient(bottom, rgb(210,210,210) 11%, rgb(255,255,255) 80%);
-  background-image: -o-linear-gradient(bottom, rgb(210,210,210) 11%, rgb(255,255,255) 80%);
-  background-image: -ms-linear-gradient(bottom, rgb(210,210,210) 11%, rgb(255,255,255) 80%);
-  background-image: linear-gradient(bottom, rgb(210,210,210) 11%, rgb(255,255,255) 80%);
-}
-
-button {padding: 3px;
-  font-weight: bold;
+  z-index: 1;
+  border-bottom: 4px solid rgb(117,161,16);
+  width: 99.5%;
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.24, rgb(25,50,100)),
+        color-stop(0.40, rgb(30,60,120)),
+        color-stop(0.8, rgb(45,90,180))
+    );
+    background: -moz-linear-gradient(
+        center bottom,
+        rgb(25,50,100) 24%,
+        rgb(30,60,120) 40%,
+        rgb(45,90,180) 80%
+    );
 }
 
 #logo{float: left;
-  margin-left: 10px;
-  margin-right: 200px;
+  padding-left: 20px;
+  padding-right: 300px;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    line-height: 45px;
+    position: relative;
+    bottom: 7px;
+    text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.3),
+               0 0 5px rgba(0,0,0,.4),
+               0px 1px 3px rgba(0,0,0,.3),
+               1px 3px 5px rgba(0,0,0,.2),
+               2px 5px 10px rgba(0,0,0,.35),
+               5px 10px 10px rgba(0,0,0,.45);
+}
+
+#control button {border-left: 1px solid rgba(255,255,255,0.1);
+  border-right: 1px solid rgba(0,0,0,0.1);
+  height:33px;
+  position: relative;
+  border-top: 0;
+  border-bottom: 0;
   font-weight: bold;
-  color: #666;
-  text-shadow: #fff 2px 2px 2px;
-  font-size: 25px;"
+  float: left;
+  display:block;
+  margin: 0;
 }
 
+#control button:last-child {margin-right: 100px;}
 
-#control button:first-child {
-  border-left: 1px solid #aaa;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  margin-left: 100px;
-}
-
-#control button:last-child {
-  border-right: 1px solid #aaa;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
 
 .resizable-helper {border-right: 1px dashed red;}
 
-#control button.active {
-background-color: #ebf3ff;
-}
-
-#control button:hover {
-color: rgb(200, 0, 0);
-text-shadow: #fff 2px 2px 2px;
-}
-
-
-#control button {
-  background: transparent;
-  font-weight: bold;
-  color: black;
-  padding: 5px;
-  margin: 0px;
-  margin-top:3px;
-  border: 1px solid #aaa;
-  border-left: 0;
-  float: left;
-  display:block;
+button.active {
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.8, rgb(25,50,100)),
+        color-stop(0.50, rgb(30,60,120)),
+        color-stop(0.24, rgb(45,90,180))
+    );
+    background: -moz-linear-gradient(
+        center bottom,
+        rgb(25,50,100) 80%,
+        rgb(30,60,120) 50%,
+        rgb(45,90,180) 24%
+    );
 }
 
 #tabs {height: 95%;
@@ -90,9 +101,11 @@ overflow: auto;
 #save-library, #save-notes {display: none}
 #lint, #save-library, #save-notes {float: right;}
 
-#saved, #checked, #library-problem, #saved-notes {background-color: #fd3;
+#saved, #checked, #library-problem, #saved-notes {background-color: #96c423;
+  color: white;
     display:none;
     margin: 5px;
+    font-size:15px;
 }
 
 .CodeMirror {
@@ -144,10 +157,64 @@ overflow: auto;
 canvas {
     position:absolute;
     border: 1px solid green;
-    top: 30px;
+    top: 40px;
     left: 10px;
 }
 
 #output-panel {background-color: #eee;}
 #output-panel pre {margin-top: 0;
 background-color: white;}
+
+/** User notes
+ */
+ #notes {background-color: #eee;}
+#notes_list {margin-top:15px;}
+.user_note {font-size: 11pt; background-color: white;}
+#debug td {padding-right:10px; background-color:#fee;}
+#data_entry {
+  font-size: 12pt;
+  background-color: #ffe;
+}
+.float_right{float: right;}
+.float_left{float: left;}
+button, a.fake_button{
+    color:white;
+    font-family: sans-serif;
+    text-decoration: none;
+    padding: 5px;
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.24, rgb(25,50,100)),
+        color-stop(0.40, rgb(30,60,120)),
+        color-stop(0.8, rgb(45,90,180))
+    );
+    background: -moz-linear-gradient(
+        center bottom,
+        rgb(25,50,100) 24%,
+        rgb(30,60,120) 40%,
+        rgb(45,90,180) 80%
+    );
+}
+button:hover, a.fake_button:hover{
+  background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.24, rgb(117,161,16)),
+        color-stop(0.53, rgb(150,196,35)),
+        color-stop(0.79, rgb(179,232,54))
+    );
+    background: -moz-linear-gradient(
+        center bottom,
+        rgb(117,161,16) 24%,
+        rgb(150,196,35) 53%,
+        rgb(179,232,54) 79%
+    );
+}
+
+button[disabled]{
+    background: #eee;
+    color: #ccc;
+}

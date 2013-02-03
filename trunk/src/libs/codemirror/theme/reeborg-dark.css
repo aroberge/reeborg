@@ -6,9 +6,9 @@
   font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace !important;
 }
 
-.cm-s-reeborg-dark.CodeMirror { background: #112232; color: white; }
+.cm-s-reeborg-dark.CodeMirror { background: #112244; color: white; }
 .cm-s-reeborg-dark div.CodeMirror-selected { background: #38566F !important; }
-.cm-s-reeborg-dark .CodeMirror-gutters { background: #1F4661; border-right: 7px solid #3E7087; }
+.cm-s-reeborg-dark .CodeMirror-gutters { background: #224488; border-right: 3px solid rgb(117,161,16); }
 .cm-s-reeborg-dark .CodeMirror-linenumber {font-size: 9pt; color: white; }
 .cm-s-reeborg-dark .CodeMirror-cursor { border-left: 1px solid white !important; }
 
