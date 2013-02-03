@@ -85,6 +85,8 @@ button.active {
     );
 }
 
+.clear {clear: both;}
+
 #tabs {height: 98%;
 overflow: auto;
 }
@@ -105,7 +107,7 @@ overflow: auto;
   color: white;
     display:none;
     margin: 5px;
-    font-size:15px;
+    font-size:1.1em;
     float: right;
 }
 
@@ -169,10 +171,10 @@ background-color: white;}
 /** User notes
  */
  #notes {background-color: #eee;}
-.user_note {font-size: 11pt; background-color: white;}
+.user_note {background-color: white;}
 #debug td {padding-right:10px; background-color:#fee;}
 #data_entry {
-  font-size: 12pt;
+  width: 90%;
   background-color: #ffe;
 }
 .float_right{float: right;}

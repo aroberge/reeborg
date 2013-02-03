@@ -64,8 +64,7 @@ input.ui-button::-moz-focus-inner,button.ui-button::-moz-focus-inner{border:0;pa
 .ui-tabs .ui-tabs-panel{display:block;border-width:0;padding:1em 1.4em;background:none}
 .ui-tooltip{padding:8px;position:absolute;z-index:9999;max-width:300px;-webkit-box-shadow:0 0 5px #aaa;box-shadow:0 0 5px #aaa}
 body .ui-tooltip{border-width:2px}
-.ui-widget{font-family:Trebuchet MS,Helvetica,Arial,sans-serif;font-size:1.1em}
-.ui-widget .ui-widget{font-size:1em}
+.ui-widget{font-family:Trebuchet MS,Helvetica,Arial,sans-serif}
 .ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button{font-family:Trebuchet MS,Helvetica,Arial,sans-serif;font-size:1em}
 .ui-widget-content{border:1px solid #09399a;background:#fff url(images/ui-bg_highlight-soft_100_ffffff_1x100.png) 50% top repeat-x;color:#000}
 .ui-widget-content a{color:#000}.ui-widget-header{border:1px solid #248;background:#248 url(images/ui-bg_flat_40_224488_40x100.png) 50% 50% repeat-x;color:#fff;font-weight:bold}
