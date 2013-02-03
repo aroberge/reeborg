@@ -42,66 +42,55 @@
 
       this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. END
     </div>
-
   </div>
   <div id="editor-panel" class="panel active" >
-
-<div id="tabs">
-  <ul>
-    <li><a id="editor-link" href="#editor">Code</a></li>
-    <li><a id="library-link" href="#library">Library</a></li>
-    <li><a id="notes-link" href="#notes">Notes</a></li>
-    <button id="lint">Valid code?</button> <span id="checked">Yes!</span>
-    <button id="save-library">Save code</button> <span id="saved">Saved!</span>
-    <button id="save-notes">Save notes</button> <span id="saved-notes">Saved!</span>
-  </ul>
-     <div id="editor">
-
-    <span id="library-problem">Problem with code in library!</span>
-<textarea id="code" name="code">
-move();
-</textarea>
+    <div id="tabs">
+      <ul>
+        <li><a id="editor-link" href="#editor">Code</a></li>
+        <li><a id="library-link" href="#library">Library</a></li>
+        <li><a id="notes-link" href="#notes">Notes</a></li>
+        <button id="lint">Valid code?</button> <span id="checked">Yes!</span>
+        <button id="save-library">Save code</button> <span id="saved">Saved!</span>
+        <button id="save-notes">Save notes</button> <span id="saved-notes">Saved!</span>
+      </ul>
+      <div id="editor">
+        <span id="library-problem">Problem with code in library!</span>
+        <textarea id="code" name="code">move();
+        </textarea>
       </div>
+      <div id="library">
+        <textarea id="library-code" name="library-code">
+        /* Sorry - if you see this, it means that
+        your browser is incapable of using the
+        Library the way it has been designed.
 
-  <div id="library">
+        You could write code here ... but it will
+        not be saved for next time you visit.
 
-<textarea id="library-code" name="library-code">
-/* Sorry - if you see this, it means that
-your browser is incapable of using the
-Library the way it has been designed.
+        Have you tried Firefox or Chrome? */
+        </textarea>
+      </div>
+      <div id="notes">
+        <h2>Your notebook</h2>
+        <p>Keep your personal notes here.  These notes are stored by your browser on
+                     your own computer, and will be available from any page on this site.
+                     You can choose to use html syntax for formatting.</p>
+        <p>
+          <form name="notes_editor" id="notes_editor">
+            <textarea name="data" cols="48" rows="10" placeholder="Write your note here." id="data_entry"></textarea>
+            <span id="undo_delete"></span>
+            <span class="float_right">HTML</span>
+            <input type="checkbox" name="check_html" class="float_right"/>
+            <a href="javascript:addNote();" class="fake_button float_right">Add Note</a>
+            <br class="clear">
+          </form>
+        </p>
 
-You could write code here ... but it will
-not be saved for next time you visit.
-
-Have you tried Firefox or Chrome? */
-</textarea>
+        <div id="notes_list"></div>
+        <table id="debug"></table>
+      </div>
+    </div>
   </div>
-
-  <div id="notes">
-<h2>Your notebook</h2>
-  <p>Keep your personal notes here.  These notes are stored by your browser on
-               your own computer, and will be available from any page on this site.
-               You can choose to use html syntax for formatting.</p>
-  <p>
-
-    <form name="notes_editor" id="notes_editor">
-     <textarea name="data" cols="48" rows="10" placeholder="Write your note here." id="data_entry"></textarea>
-     <br/>
-    <span id="undo_delete"></span>
-    <span class="float_right">HTML</span>
-    <input type="checkbox" name="check_html" class="float_right"/>
-    <a href="javascript:addNote();" class="fake_button float_right">Add Note</a>
-    <br class="clear"/>
-    </form>
- </p>
-
-    <div id="notes_list"></div>
-    <br/>
-    <table id="debug"></table>
-  </div>
-
-</div>
-</div>
   <div id="world-panel" class="panel active" >
     <div id="canvas-wrapper">
         <canvas id="background_canvas" width="600" height="460"></canvas>
@@ -119,14 +108,11 @@ Have you tried Firefox or Chrome? */
     <h3>Reeborg's written notes</h3>
     <pre id="output-pre"></pre>
   </div>
-
 </div>
-
 
 <div id="help" title="Help"></div>
 <div id="about" title="About"></div>
 <div id="contribute" title="Contribute"></div>
-
 
 <script>
   RUR.visible_world.init();
@@ -145,14 +131,13 @@ Have you tried Firefox or Chrome? */
     theme: 'reeborg-dark',
     indentUnit: 4
   });
-
-editor.widgets = []
+editor.widgets = [];
 
 function editorUpdateHints(){
   updateHints(editor);
 }
 
-library.widgets = []
+library.widgets = [];
 
 function libraryUpdateHints(){
   updateHints(library);
@@ -168,7 +153,7 @@ var jshint_options = {eqeqeq:true,
   plusplus:false,
   jquery:true};
 
-  var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect*/\n"
+var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect*/\n";
 
 function updateHints(obj) {
   obj.operation(function(){
@@ -189,11 +174,13 @@ function updateHints(obj) {
       obj.widgets.push(obj.addLineWidget(err.line - 2, msg, {coverGutter: false, noHScroll: true}));
     }
   });
+
   var info = obj.getScrollInfo();
   var after = obj.charCoords({line: obj.getCursor().line + 1, ch: 0}, "local").top;
-  if (info.top + info.clientHeight < after)
+  if (info.top + info.clientHeight < after){
     obj.scrollTo(null, after - info.clientHeight + 3);
-}
+  }
+};
 
     $("#lint").on("click", function() {
         editorUpdateHints();
@@ -217,15 +204,7 @@ function updateHints(obj) {
 
 </script>
 
-<script>
-
-</script>
 <script src="../src/libs/jshint.js"></script>
-
-
-
-
-
 
 </body>
 </html>
