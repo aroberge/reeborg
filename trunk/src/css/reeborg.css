@@ -199,13 +199,21 @@ box-shadow:
   background-image: -linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
 }
 
-
 button, a.fake_button{
     color:white;
     font-family: sans-serif;
     text-decoration: none;
     padding: 5px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
+    border-top: 0;
 }
+button {
+      border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+
 button:hover, a.fake_button:hover, .green-gradient {
   background-color: #75a110;
   background-image: -webkit-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
