@@ -95,7 +95,7 @@ overflow: auto;
   padding: 0;
 }
 
-#editor, #library, #notes {
+#editor, #library {
     width: 100%;
     height: 90%;
 }
@@ -197,10 +197,17 @@ background-color: white;}
 
 /** User notes
  */
- #notes {background-color: #eee;}
-.user_note {background-color: white;}
-#debug td {padding-right:10px; background-color:#fee;}
+ #notes {background: #112244; color: white; margin-left: 30px;
+box-shadow:
+  -3px 0 0 0 #75a110,
+  -30px 0 0 0 #224488;
+}
+
+ #notes p {margin: 0 10px; font-size: 0.9em;}
+.user_note {background-color: white; color: black; margin: 0 10px 0 10px;}
+#debug td { background-color:#fee;}
 #data_entry {
+  margin-left: 10px;
   width: 90%;
   background-color: #ffe;
 }
