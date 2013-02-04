@@ -9,23 +9,10 @@ header {height: 33px;
   top: 0;
   left: 0;
   z-index: 1;
-  border-bottom: 4px solid rgb(117,161,16);
   width: 99.9%;
-    background: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0.24, rgb(25,50,100)),
-        color-stop(0.40, rgb(30,60,120)),
-        color-stop(0.8, rgb(45,90,180))
-    );
-    background: -moz-linear-gradient(
-        center bottom,
-        rgb(25,50,100) 24%,
-        rgb(30,60,120) 40%,
-        rgb(45,90,180) 80%
-    );
 }
+
+.green-border {border-bottom: 4px solid #75a110;}
 
 #logo{float: left;
   padding-left: 20px;
@@ -66,24 +53,6 @@ header button:last-child {margin-right: 100px;}
 
 
 .resizable-helper {border-right: 1px dashed red;}
-
-button.active {
-  color:#ffc;
-    background: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0.8, rgb(25,50,100)),
-        color-stop(0.6, rgb(30,60,120)),
-        color-stop(0.24, rgb(45,90,180))
-    );
-    background: -moz-linear-gradient(
-        center bottom,
-        rgb(45,90,180) 24%,
-        rgb(30,60,120) 60%,
-        rgb(25,50,100) 80%
-    );
-}
 
 .clear {clear: both;}
 
@@ -197,10 +166,10 @@ background-color: white;}
 
 /** User notes
  */
- #notes {background: #112244; color: white; margin-left: 30px;
+ #notes {background: #112244; color: white; margin-left: 32px;
 box-shadow:
   -3px 0 0 0 #75a110,
-  -30px 0 0 0 #224488;
+  -32px 0 0 0 #224488;
 }
 
  #notes p {margin: 0 10px; font-size: 0.9em;}
@@ -213,41 +182,38 @@ box-shadow:
 }
 .float_right{float: right;}
 .float_left{float: left;}
+
+.reverse-blue-gradient {
+  background-color: #2d5ab4;
+  background-image: -webkit-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
+  background-image: -moz-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
+  background-image: -ms-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
+  background-image: -o-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
+  background-image: -linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
+}
+.blue-gradient {
+  background-color: #123264;
+  background-image: -webkit-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
+  background-image: -moz-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
+  background-image: -ms-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
+  background-image: -o-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
+  background-image: -linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
+}
+
+
 button, a.fake_button{
     color:white;
     font-family: sans-serif;
     text-decoration: none;
     padding: 5px;
-    background: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0.24, rgb(25,50,100)),
-        color-stop(0.40, rgb(30,60,120)),
-        color-stop(0.8, rgb(45,90,180))
-    );
-    background: -moz-linear-gradient(
-        center bottom,
-        rgb(25,50,100) 24%,
-        rgb(30,60,120) 40%,
-        rgb(45,90,180) 80%
-    );
 }
-button:hover, a.fake_button:hover{
-  background: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0.24, rgb(117,161,16)),
-        color-stop(0.53, rgb(150,196,35)),
-        color-stop(0.79, rgb(179,232,54))
-    );
-    background: -moz-linear-gradient(
-        center bottom,
-        rgb(117,161,16) 24%,
-        rgb(150,196,35) 53%,
-        rgb(179,232,54) 79%
-    );
+button:hover, a.fake_button:hover, .green-gradient {
+  background-color: #75a110;
+  background-image: -webkit-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
+  background-image: -moz-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
+  background-image: -ms-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
+  background-image: -o-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
+  background-image: -linear-gradient(top, #beff7f, #96c423 50%, #75a110);
 }
 
 button[disabled]{

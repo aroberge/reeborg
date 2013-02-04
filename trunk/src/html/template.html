@@ -13,18 +13,18 @@
 </head>
 <body>
 
-<header>
+<header  class="blue-gradient green-border">
   <span id="logo">Reeborg</span>
   <div id="header-child">
-    <button class="active" label="content-panel">Content</button>
-    <button class="active" label="editor-panel">Editor</button>
-    <button class="active" label="world-panel">World</button>
-    <button label="output-panel">Writings</button>
+    <button class="active reverse-blue-gradient" label="content-panel">Content</button>
+    <button class="active reverse-blue-gradient" label="editor-panel">Editor</button>
+    <button class="active reverse-blue-gradient" label="world-panel">World</button>
+    <button class="blue-gradient" label="output-panel">Writings</button>
   </div>
   <div>
-    <button id="help-button">Help</button>
-    <button id="about-button">About</button>
-    <button id="contribute-button">Contribute</button>
+    <button class="blue-gradient" id="help-button">Help</button>
+    <button class="blue-gradient" id="about-button">About</button>
+    <button class="blue-gradient" id="contribute-button">Contribute</button>
   </div>
 </header>
 
@@ -43,9 +43,9 @@
         <li><a id="editor-link" href="#editor">Code</a></li>
         <li><a id="library-link" href="#library">Library</a></li>
         <li><a id="notes-link" href="#notes">Notes</a></li>
-        <button id="lint">Valid code?</button> <span id="checked">Yes!</span>
-        <button id="save-library">Save code</button> <span id="saved">Saved!</span>
-        <button id="save-notes">Save notes</button> <span id="saved-notes">Saved!</span>
+        <button class="blue-gradient" id="lint">Valid code?</button> <span id="checked">Yes!</span>
+        <button class="blue-gradient" id="save-library">Save code</button> <span id="saved">Saved!</span>
+        <button class="blue-gradient" id="save-notes">Save notes</button> <span id="saved-notes">Saved!</span>
       </ul>
       <div id="editor">
         <span id="library-problem">Problem with code in library!</span>
@@ -55,7 +55,7 @@
         <textarea id="library-code" name="library-code">
         /* Sorry - if you see this, it means that
         your browser is incapable of using the
-        Library the way it has been designed.
+        Library or the Notes the way they been have designed.
 
         You could write code here ... but it will
         not be saved for next time you visit.
@@ -65,15 +65,14 @@
       </div>
       <div id="notes">
         <br>
-        <p>Keep your personal notes here.  Assuming your browser supports it (check the library tab),
-          these notes will be stored on your own computer, and will be available from any page on this site.
+        <p>Keep your personal notes here; they will be available from any page on this site.
           You can choose to use html syntax for formatting.</p>
         <p>
           <form name="notes_editor" id="notes_editor">
             <textarea name="data" rows="5" placeholder="Write your note here." id="data_entry"></textarea><br>
             <span id="undo_delete"></span><span class="float_right">HTML</span>
             <input type="checkbox" name="check_html" class="float_right"/>
-            <a href="javascript:addNote();" class="fake_button float_right">Add Note</a><br class="clear">
+            <a href="javascript:addNote();" class="blue-gradient fake_button float_right">Add Note</a><br class="clear">
           </form>
         </p>
         <div id="notes_list"></div>
@@ -87,11 +86,11 @@
         <canvas id="wall_canvas" width="600" height="460"></canvas>
         <canvas id="trace_canvas" width="600" height="460"></canvas>
         <canvas id="robot_canvas" width="600" height="460"></canvas>
-        <button id="run" onClick="RUR.controls.run();">Execute</button>
-        <button id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
-        <button id="step" onClick="RUR.controls.step();">Step</button>
-        <button id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
-        <button id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
+        <button class="blue-gradient" id="run" onClick="RUR.controls.run();">Execute</button>
+        <button class="blue-gradient" id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
+        <button class="blue-gradient" id="step" onClick="RUR.controls.step();">Step</button>
+        <button class="blue-gradient" id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
+        <button class="blue-gradient" id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
     </div>
   </div>
   <div id="output-panel" class="panel">
