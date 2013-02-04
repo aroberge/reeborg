@@ -727,7 +727,7 @@ function doShowNotes() {
     var i = 0;
 
     if (deleted_notes.length > 0){
-        document.getElementById('undo_delete').innerHTML = '<a href="javascript:doUndoDelete()" class=" float_left fake_button">Undo Delete</a>';
+        document.getElementById('undo_delete').innerHTML = '<a href="javascript:doUndoDelete()" class=" float_left fake_button blue-gradient">Undo Delete</a>';
     }
     else{
         document.getElementById('undo_delete').innerHTML = '';
@@ -736,7 +736,7 @@ function doShowNotes() {
         key = localStorage.key(i);
         if (key.slice(0, 9) == "user_note") {
             _note = localStorage.getItem(key);
-            _notes += "<hr><div class='user_note'>" + _note + '</div><a href="javascript:doDeleteNote(' + "'" + key + "'" + ');" class="fake_button">Delete</a>';
+            _notes += "<hr><div class='user_note'>" + _note + '</div><a href="javascript:doDeleteNote(' + "'" + key + "'" + ');" class="fake_button blue-gradient">Delete</a>';
             if (!debug && _note.slice(0, 19) == 'Debug Reeborg Notes') {
                 debug = true;
             }
@@ -783,6 +783,8 @@ $(document).ready(function() {
     $("#header-child button").on("click", function(){
         var index, label, children;
         $(this).toggleClass("active");
+        $(this).toggleClass("blue-gradient");
+        $(this).toggleClass("reverse-blue-gradient");
         label = $(this).attr("label");
 
         children = $("#panels").children();
@@ -859,5 +861,7 @@ $(document).ready(function() {
         $("#contribute").dialog( "open");
         return false;
     });
-    doShowNotes();
+    try{
+        doShowNotes();
+    }catch (e) {console.log(e);}; // Do not alert the user as we've already caught similar errors
 });
