@@ -50,10 +50,6 @@ input.ui-button::-moz-focus-inner,button.ui-button::-moz-focus-inner{border:0;pa
 .ui-dialog .ui-dialog-buttonpane button{margin:.5em .4em .5em 0;cursor:pointer}
 .ui-dialog .ui-resizable-se{width:12px;height:12px;right:-5px;bottom:-5px;background-position:16px 16px}
 .ui-draggable .ui-dialog-titlebar{cursor:move}
-.ui-progressbar{height:2em;text-align:left;overflow:hidden}
-.ui-progressbar .ui-progressbar-value{margin:-1px;height:100%}
-.ui-progressbar .ui-progressbar-overlay{background:url("images/animated-overlay.gif");height:100%;filter:alpha(opacity=25);opacity:0.25}
-.ui-progressbar-indeterminate .ui-progressbar-value{background-image:none}
 .ui-tabs{position:relative;padding:.2em}
 .ui-tabs .ui-tabs-nav{margin:0;padding:.2em .2em 0}
 .ui-tabs .ui-tabs-nav li{list-style:none;float:left;position:relative;top:0;margin:1px .2em 0 0;border-bottom:0;padding:0;white-space:nowrap}
@@ -267,9 +263,7 @@ body .ui-tooltip{border-width:2px}
 .ui-icon-grip-solid-horizontal{background-position:-48px -224px}
 .ui-icon-gripsmall-diagonal-se{background-position:-64px -224px}
 .ui-icon-grip-diagonal-se{background-position:-80px -224px}
-.ui-corner-all,.ui-corner-top,.ui-corner-left,.ui-corner-tl{border-top-left-radius:0}
-.ui-corner-all,.ui-corner-top,.ui-corner-right,.ui-corner-tr{border-top-right-radius:0}
-.ui-corner-all,.ui-corner-bottom,.ui-corner-left,.ui-corner-bl{border-bottom-left-radius:0}
-.ui-corner-all,.ui-corner-bottom,.ui-corner-right,.ui-corner-br{border-bottom-right-radius:0}
+.ui-corner-top{border-top-left-radius:10px}
+.ui-corner-top{border-top-right-radius:10px}
 .ui-widget-overlay{background:#fff url(images/ui-bg_flat_0_ffffff_40x100.png) 50% 50% repeat-x;opacity:.8;filter:Alpha(Opacity=80)}
-.ui-widget-shadow{margin:-4px 0 0 -4px;padding:0;background:#aaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;opacity:0;filter:Alpha(Opacity=0);border-radius:0}
+.ui-widget-shadow{margin:-4px 0 0 -4px;padding:0;background:#aaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;opacity:0;filter:Alpha(Opacity=0);}

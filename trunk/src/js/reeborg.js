@@ -698,11 +698,7 @@ function set_resizable(all_active_panels, index){
 
 var deleted_notes = [];
 
-function doShowAll(debug) {
-    if (!debug) {
-        document.getElementById('debug').innerHTML = '';
-        return;
-    }
+function doShowAll() {
     var key = "";
     var pairs = "<tr><th>Key</th><th>Value</th></tr>\n";
     var i = 0;
@@ -716,14 +712,12 @@ function doShowAll(debug) {
     for (i = 0; i <= deleted_notes.length - 1; i++) {
         pairs += "<tr><td>Deleted Note:</td>\n<td>" + deleted_notes[i] + "</td></tr>\n";
     }
-    document.getElementById('debug').innerHTML = pairs;
 }
 
 function doShowNotes() {
     var key = "";
     var _notes = "";
     var _note;
-    var debug = false;
     var i = 0;
 
     if (deleted_notes.length > 0){
@@ -737,13 +731,10 @@ function doShowNotes() {
         if (key.slice(0, 9) == "user_note") {
             _note = localStorage.getItem(key);
             _notes += "<hr><div class='user_note'>" + _note + '</div><a href="javascript:doDeleteNote(' + "'" + key + "'" + ');" class="fake_button blue-gradient">Delete</a>';
-            if (!debug && _note.slice(0, 19) == 'Debug Reeborg Notes') {
-                debug = true;
-            }
         }
     }
     document.getElementById('notes_list').innerHTML = _notes;
-    doShowAll(debug);
+    doShowAll();
 }
 
 function addNote() {
