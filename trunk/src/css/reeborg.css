@@ -12,18 +12,17 @@ header {height: 33px;
   width: 99.9%;
 }
 
-.green-border {border-bottom: 4px solid #75a110;}
 
 #logo{float: left;
   padding-left: 20px;
-  padding-right: 300px;
+  padding-right: 20px;
+  margin-right: 280px;
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;
     color: white;
-    line-height: 45px;
+    line-height: 25px;
     position: relative;
-    bottom: 7px;
     text-shadow: 0 1px 0 #ccc,
                0 2px 0 #c9c9c9,
                0 3px 0 #bbb,
@@ -76,7 +75,7 @@ overflow: auto;
   color: white;
     display:none;
     margin: 5px;
-    font-size:1.1em;
+    font-size:0.5em;
     float: right;
 }
 
@@ -94,8 +93,7 @@ overflow: auto;
   font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace !important;
 }
 
-.cm-s-reeborg-dark.CodeMirror { background: #112244; color: white; }
-.cm-s-reeborg-dark div.CodeMirror-selected { background: #38566F !important; }
+.cm-s-reeborg-dark.CodeMirror { background: #112244; color: white; border: 0;}
 .cm-s-reeborg-dark .CodeMirror-gutters { background: #224488; border-right: 3px solid rgb(117,161,16); }
 .cm-s-reeborg-dark .CodeMirror-linenumber {font-size: 9pt; color: white; }
 .cm-s-reeborg-dark .CodeMirror-cursor { border-left: 1px solid white !important; }
@@ -183,14 +181,14 @@ box-shadow:
 .float_left{float: left;}
 
 .reverse-blue-gradient {
-  background-color: #2d5ab4;
+  background-color: #112244;
   background-image: -webkit-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
   background-image: -moz-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
   background-image: -ms-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
   background-image: -o-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
   background-image: -linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
 }
-.blue-gradient {
+.ui-tabs .ui-tabs-nav li, .blue-gradient, .ui-widget-header {
   background-color: #123264;
   background-image: -webkit-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
   background-image: -moz-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
@@ -198,6 +196,8 @@ box-shadow:
   background-image: -o-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
   background-image: -linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
 }
+.green-border {border-bottom: 4px solid #75a110;}
+.ui-widget-header {border-bottom: 3px solid #75a110;}
 
 button, a.fake_button{
     color:white;
@@ -213,8 +213,13 @@ button {
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
+.ui-tabs .ui-tabs-nav li, .ui-tabs .ui-tabs-nav li.ui-tabs-active:hover {top:3px; border-bottom: 3px solid #75a110;}
+.ui-tabs .ui-tabs-nav li:first-child {margin-left: 30px;}
+.ui-tabs .ui-tabs-nav li a {color:white;}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {top:3px;border-bottom: 3px solid #112244; background-color: #112244;
+background-image: none;}
 
-button:hover, a.fake_button:hover, .green-gradient {
+.ui-tabs .ui-tabs-nav li:hover, button:hover, a.fake_button:hover, .green-gradient {
   background-color: #75a110;
   background-image: -webkit-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
   background-image: -moz-linear-gradient(top, #beff7f, #96c423 50%, #75a110);

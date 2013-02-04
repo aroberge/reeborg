@@ -807,7 +807,7 @@ $(document).ready(function() {
 
     $("#save-library").on("click", function() {
         localStorage.setItem("library", library.getValue());
-        $('#saved').show().fadeOut(4000);
+        $('#saved').show().fadeOut(2000);
     });
 
 
