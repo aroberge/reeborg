@@ -14,7 +14,7 @@
 <body>
 
 <header  class="blue-gradient green-border">
-  <span id="logo">Reeborg</span>
+  <a id="logo" href="../index.html" class="fake_button">Reeborg</a>
   <div id="header-child">
     <button class="active reverse-blue-gradient" label="content-panel">Content</button>
     <button class="active reverse-blue-gradient" label="editor-panel">Editor</button>
@@ -44,7 +44,7 @@
         <li><a id="library-link" href="#library">Library</a></li>
         <li><a id="notes-link" href="#notes">Notes</a></li>
         <button class="blue-gradient" id="lint">Valid code?</button> <span id="checked">Yes!</span>
-        <button class="blue-gradient" id="save-library"></button> <span id="saved">Saved!</span>
+        <button class="blue-gradient" id="save-library">Save</button> <span id="saved">Saved!</span>
       </ul>
       <div id="editor">
         <span id="library-problem">Problem with code in library!</span>
@@ -68,7 +68,7 @@ Have you tried Firefox or Chrome? */
           You can choose to use html syntax for formatting.</p>
         <p>
           <form name="notes_editor" id="notes_editor">
-            <textarea name="data" rows="5" placeholder="Write your note here." id="data_entry"></textarea><br>
+            <textarea name="data" rows="5" id="data_entry"></textarea><br>
             <span id="undo_delete"></span><span class="float_right">HTML</span>
             <input type="checkbox" name="check_html" class="float_right"/>
             <a href="javascript:addNote();" class="blue-gradient fake_button float_right">Add Note</a><br class="clear">
@@ -188,7 +188,7 @@ Have you tried Firefox or Chrome? */
       if(library.widgets.length !== 0) {
         $('#library-problem').show().fadeOut(4000);
       } else {
-        $('#checked').show().fadeOut(2000);
+        $('#checked').show().fadeOut(1000);
       }
     }
   });
