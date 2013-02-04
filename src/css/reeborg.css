@@ -69,10 +69,10 @@ overflow: auto;
     height: 90%;
 }
 
-#save-library, #save-notes {display: none}
-#lint, #save-library, #save-notes {float: right;}
+#save-library{display: none}
+#lint, #save-library {float: right;}
 
-#saved, #checked, #library-problem, #saved-notes {background-color: #96c423;
+#saved, #checked, #library-problem {background-color: #96c423;
   color: white;
     display:none;
     margin: 5px;
@@ -174,7 +174,6 @@ box-shadow:
 
  #notes p {margin: 0 10px; font-size: 0.9em;}
 .user_note {background-color: white; color: black; margin: 0 10px 0 10px;}
-#debug td { background-color:#fee;}
 #data_entry {
   margin-left: 10px;
   width: 90%;
