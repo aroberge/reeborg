@@ -830,7 +830,7 @@ $(document).ready(function() {
             $("#help").dialog( "open");
             return;
         }
-        $('#help').load("help.xml");
+        $('#help').load("../xml/help.xml");
         RUR.ajax_requests.help = true;
         $("#help").dialog("open");
         return false;
@@ -842,7 +842,7 @@ $(document).ready(function() {
             $("#about").dialog("open");
             return;
         }
-        $('#about').load("about.xml");
+        $('#about').load("../xml/about.xml");
         RUR.ajax_requests.about = true;
         $("#about").dialog("open");
         return false;
@@ -854,7 +854,7 @@ $(document).ready(function() {
             $("#contribute").dialog( "open");
             return;
         }
-        $('#contribute').load("contribute.xml");
+        $('#contribute').load("../xml/contribute.xml");
         RUR.ajax_requests.contribute = true;
         $("#contribute").dialog( "open");
         return false;
