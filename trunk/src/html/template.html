@@ -43,8 +43,8 @@
         <li><a id="editor-link" href="#editor">Code</a></li>
         <li><a id="library-link" href="#library">Library</a></li>
         <li><a id="notes-link" href="#notes">Notes</a></li>
-        <button class="blue-gradient" id="lint">Valid code?</button> <span id="checked">Yes!</span>
-        <button class="blue-gradient" id="save-library">Save</button> <span id="saved">Saved!</span>
+        <button class="blue-gradient float-right" id="lint">Valid code?</button> <span id="checked">Yes!</span>
+        <button class="blue-gradient float-right" id="save-library">Save</button> <span id="saved">Saved!</span>
       </ul>
       <div id="editor">
         <span id="library-problem">Problem with code in library!</span>
@@ -69,9 +69,9 @@ Have you tried Firefox or Chrome? */
         <p>
           <form name="notes_editor" id="notes_editor">
             <textarea name="data" rows="5" id="data_entry"></textarea><br>
-            <span id="undo_delete"></span><span class="float_right">HTML</span>
-            <input type="checkbox" name="check_html" class="float_right"/>
-            <a href="javascript:addNote();" class="blue-gradient fake_button float_right">Add Note</a><br class="clear">
+            <span id="undo_delete"></span><span class="float-right">HTML</span>
+            <input type="checkbox" name="check_html" class="float-right"/>
+            <a href="javascript:addNote();" class="blue-gradient fake_button float-right">Add Note</a><br class="clear">
           </form>
         </p>
         <div id="notes_list"></div>
@@ -89,6 +89,11 @@ Have you tried Firefox or Chrome? */
         <button class="blue-gradient" id="step" onClick="RUR.controls.step();">Step</button>
         <button class="blue-gradient" id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
         <button class="blue-gradient" id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
+        <select id="select_world">
+          <option value="remove" selected>Select a world</option>
+          <option value="../json/test_world.json">Test world</option>
+          <option value="../json/test_world2.json">Test world 2</option>
+        </select>
     </div>
   </div>
   <div id="output-panel" class="panel">
@@ -100,6 +105,7 @@ Have you tried Firefox or Chrome? */
 <div id="help" title="Help">Retrieving...</div>
 <div id="about" title="About">Retrieving...</div>
 <div id="contribute" title="Contribute">Retrieving...</div>
+<div id="worlds" style="display:none"></div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
@@ -146,7 +152,7 @@ Have you tried Firefox or Chrome? */
     jquery: true
   };
 
-  var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect*/\n";
+  var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect, UsedRobot*/\n";
 
   function updateHints(obj) {
     obj.operation(function () {
@@ -200,6 +206,16 @@ Have you tried Firefox or Chrome? */
   });
 
   setTimeout(libraryUpdateHints, 200);
+
+  $("#select_world").change(function() {
+      $("select option[value='remove']").remove();
+      $.get($(this).val(), function(data) {
+        RUR.world.import_(data);
+        RUR.world.reset();
+        RUR.controls.reload();
+      });
+  });
+
   RUR.visible_world.init();
   RUR.controls = new RUR.Controls("javascript");
 </script>

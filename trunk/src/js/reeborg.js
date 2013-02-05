@@ -42,21 +42,46 @@ RUR.World = function () {
         this.frames.push({pause: true});
     };
 
-    this.reset = function (){
+    this.export_ = function (){
+        var json_object;
+        json_object = {"robots": this.robots, "walls": this.walls};
+        return JSON.stringify(json_object, null, '   ');
+    };
+
+    this.import_ = function (json_string){
+        this.imported_world = JSON.parse(json_string) || {};
+    };
+
+    this.parse_world = function() {
+        var i, orientation;
+        this.imported_world = this.imported_world || {};
         this.robots = [];
-        //this.walls = {};
-        // fake wall configuration
-        this.walls = {
-            "1,3" : ["EAST"],
-            "3,3" : ["NORTH"],
-            "7,3" : ["EAST"],
-            "9,3" : ["NORTH"],
-            "5,5" : ["EAST", "NORTH"],
-            "4,5" : ["EAST"],
-            "5,4" : ["NORTH"]
-        };
+        this.walls = this.imported_world.walls || {};
+        if (this.imported_world.robots !== undefined) {
+            for (i = 0; i < this.imported_world.robots.length; i++){
+                switch(this.imported_world.robots[i].orientation){
+                case 0:
+                    orientation = "e";
+                    break;
+                case 1:
+                    orientation = "n";
+                    break;
+                case 2:
+                    orientation = "w";
+                    break;
+                case 3:
+                    orientation = "s";
+                    break;
+                }
+                this.robots.push(new RUR.PrivateRobot(this.imported_world.robots[i].x,
+                                 this.imported_world.robots[i].y,
+                                 orientation, this.imported_world.robots[i].tokens));
+            }
+        }
+    };
 
-
+    this.reset = function (){
+        this.parse_world();
         this.frames = [];
     };
     this.reset();
@@ -160,37 +185,6 @@ RUR.World = function () {
                     delete this.walls[coords];
                 }
             }
-        }
-    };
-
-    this.export_ = function (){
-        var json_object;
-        json_object = {"robots": this.robots, "walls": this.walls};
-        return JSON.stringify(json_object, null, '   ');
-    };
-
-    this.import_ = function (json_string){
-        var json_object, orientation, i;
-        json_object = JSON.parse(json_string);
-        this.robots = [];
-        this.walls = json_object.walls;
-        for (i = 0; i < json_object.robots.length; i++){
-            switch(json_object.robots[i].orientation){
-            case 0:
-                orientation = "e";
-                break;
-            case 1:
-                orientation = "n";
-                break;
-            case 2:
-                orientation = "w";
-                break;
-            case 3:
-                orientation = "s";
-                break;
-            }
-            this.robots.push(new RUR.PrivateRobot(json_object.robots[i].x, json_object.robots[i].y,
-                             orientation, json_object.robots[i].tokens));
         }
     };
 };
@@ -483,23 +477,27 @@ RUR.visible_world = {
             $(frame.output.element).append(frame.output.message + "\n");
             return;
         }
+        this.draw_robots(frame.robots);
+    },
 
-        ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
-        for (robot=0; robot < frame.robots.length; robot++){
-            RUR.visible_world.draw_robot(frame.robots[robot]);
+    draw_robots : function(robots) {
+        var robot;
+        this.robot_ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
+        for (robot=0; robot < robots.length; robot++){
+            this.draw_robot(robots[robot]);
         }
     },
+
     reset : function () {
         "use strict";
-        var dummy;
         RUR.world.reset();
         this.compiled = false;
         this.draw_background_walls();
         this.draw_coordinates();
         this.draw_foreground_walls();
         this.trace_ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
-        dummy = new UsedRobot();
-        this.play_single_frame();
+        this.robot_ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
+        this.draw_robots(RUR.world.robots);
         RUR.visible_world.running = false;
     }
 };
@@ -854,5 +852,5 @@ $(document).ready(function() {
     });
     try{
         doShowNotes();
-    }catch (e) {console.log(e);}; // Do not alert the user as we've already caught similar errors
+    }catch (e) {console.log(e);} // Do not alert the user as we've already caught similar errors
 });
