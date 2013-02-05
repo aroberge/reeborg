@@ -84,16 +84,19 @@ Have you tried Firefox or Chrome? */
         <canvas id="wall_canvas" width="600" height="460"></canvas>
         <canvas id="trace_canvas" width="600" height="460"></canvas>
         <canvas id="robot_canvas" width="600" height="460"></canvas>
-        <button class="blue-gradient" id="run" onClick="RUR.controls.run();">Execute</button>
+        <button class="blue-gradient" id="run" disabled="true" onClick="RUR.controls.run();">Execute</button>
         <button class="blue-gradient" id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
-        <button class="blue-gradient" id="step" onClick="RUR.controls.step();">Step</button>
+        <button class="blue-gradient" id="step" disabled="true" onClick="RUR.controls.step();">Step</button>
         <button class="blue-gradient" id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
         <button class="blue-gradient" id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
         <select id="select_world">
           <option value="remove" selected>Select a world</option>
+          <option value="../json/empty_world.json">Empty world</option>
+          <option value="../json/world_1.json">World 1</option>
           <option value="../json/test_world.json">Test world</option>
           <option value="../json/test_world2.json">Test world 2</option>
         </select>
+        <div id="Reeborg-says" title="Reeborg says" style="display:none">All done!</div>
     </div>
   </div>
   <div id="output-panel" class="panel">
@@ -105,7 +108,6 @@ Have you tried Firefox or Chrome? */
 <div id="help" title="Help">Retrieving...</div>
 <div id="about" title="About">Retrieving...</div>
 <div id="contribute" title="Contribute">Retrieving...</div>
-<div id="worlds" style="display:none"></div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>

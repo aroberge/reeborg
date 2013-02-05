@@ -1,0 +1,11 @@
+{
+   "robots": [
+      {
+         "x": 1,
+         "y": 1,
+         "tokens": 0,
+         "orientation": 0,
+         "prev_orientation": 0
+      }
+   ]
+}
