@@ -108,35 +108,35 @@ RUR.World = function () {
         case this.EAST:
             coords = robot.x + "," + robot.y;
             if (this.is_wall_at(coords, "EAST")) {
-                throw new RUR.Error("Hit wall error");
+                throw new RUR.Error("Ouch! I hit a wall!");
             }
             robot.x += 1;
             break;
         case this.NORTH:
             coords = robot.x + "," + robot.y;
             if (this.is_wall_at(coords, "NORTH")) {
-                throw new RUR.Error("Hit wall error");
+                throw new RUR.Error("Ouch! I hit a wall!");
             }
             robot.y += 1;
             break;
         case this.WEST:
             if (robot.x===1){
-                throw new RUR.Error("Hit wall error");
+                throw new RUR.Error("Ouch! I hit a wall!");
             } else {
                 coords = robot.x-1 + "," + robot.y;
                 if (this.is_wall_at(coords, "EAST")) {
-                    throw new RUR.Error("Hit wall error");
+                    throw new RUR.Error("Ouch! I hit a wall!");
                 }
                 robot.x -= 1;
             }
             break;
         case this.SOUTH:
             if (robot.y===1){
-                throw new RUR.Error("Hit wall error");
+                throw new RUR.Error("Ouch! I hit a wall!");
             } else {
                 coords = robot.x + "," + robot.y-1;
                 if (this.is_wall_at(coords, "NORTH")) {
-                    throw new RUR.Error("Hit wall error");
+                    throw new RUR.Error("Ouch! I hit a wall!");
                 }
                 robot.y -= 1;
             }
@@ -435,16 +435,16 @@ RUR.visible_world = {
             return;
         }
         frame_info = RUR.visible_world.play_single_frame();
-        if (RUR.world.frames.length === 0) {
-            RUR.controls.stop();
-            return;
-        }
+        // if (RUR.world.frames.length === 0) {
+        //     RUR.controls.stop();
+        //     return;
+        // }
 
         if (frame_info === "immediate") {
             clearTimeout(RUR.timer);
             RUR.visible_world.update();
             return;
-        } else if (frame_info === "pause") {
+        } else if (frame_info === "pause" || frame_info === "stopped") {
             return;
         }
 
@@ -457,8 +457,9 @@ RUR.visible_world = {
         if (RUR.world.frames.length !== 0) {
             frame = RUR.world.frames.shift();
         } else {
+            $("#Reeborg-says").html("All done!").dialog("open");
             RUR.controls.stop();
-            return;
+            return "stopped";
         }
         if (frame.delay !== undefined) {
             RUR.visible_world.delay = frame.delay;
@@ -470,14 +471,15 @@ RUR.visible_world = {
         }
         if (frame.error !== undefined) {
             RUR.controls.stop();
-            alert(frame.error.name + "\n" + frame.error.message);
-            return;
+            $("#Reeborg-says").html(frame.error.message).dialog("open");
+            //alert(frame.error.name + "\n" + frame.error.message);
+            return "stopped";
         }
         if (frame.output !== undefined) {
             $(frame.output.element).append(frame.output.message + "\n");
             return;
         }
-        this.draw_robots(frame.robots);
+        RUR.visible_world.draw_robots(frame.robots);
     },
 
     draw_robots : function(robots) {
@@ -760,8 +762,6 @@ function doUndoDelete(){
 }
 
 
-
-
 RUR.ajax_requests = {};
 
 $(document).ready(function() {
@@ -850,6 +850,9 @@ $(document).ready(function() {
         $("#contribute").dialog( "open");
         return false;
     });
+
+    $("#Reeborg-says").dialog({autoOpen:false, position:{my: "center", at: "center", of: $("#robot_canvas")}});
+
     try{
         doShowNotes();
     }catch (e) {console.log(e);} // Do not alert the user as we've already caught similar errors
