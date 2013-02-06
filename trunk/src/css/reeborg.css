@@ -1,100 +1,31 @@
-body {font-family:Trebuchet MS,Helvetica,Arial,sans-serif;
-  margin: 0;
-  overflow: hidden;
-}
+html, body {max-width: 100%;}
+body {font-family:Trebuchet MS,Helvetica,Arial,sans-serif;}
 button:focus, a:focus {outline: none;}
-
-header {height: 33px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 99.9%;
+header {position: fixed; top: 0; left: 0; z-index: 10; width: 99.9%;}
+#logo{float: left; padding-left: 20px; padding-right: 20px; margin-right: 20%; font-size: 30px;
+  font-weight: bold; text-decoration: none; color: white; line-height: 25px;
+  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
+    0 6px 1px rgba(0,0,0,.3), 0 0 5px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.3), 1px 3px 5px rgba(0,0,0,.2),
+    2px 5px 10px rgba(0,0,0,.35), 5px 10px 10px rgba(0,0,0,.45);
 }
-
-#logo{float: left;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-right: 280px;
-    font-size: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    color: white;
-    line-height: 25px;
-    position: relative;
-    text-shadow: 0 1px 0 #ccc,
-               0 2px 0 #c9c9c9,
-               0 3px 0 #bbb,
-               0 4px 0 #b9b9b9,
-               0 5px 0 #aaa,
-               0 6px 1px rgba(0,0,0,.3),
-               0 0 5px rgba(0,0,0,.4),
-               0 1px 3px rgba(0,0,0,.3),
-               1px 3px 5px rgba(0,0,0,.2),
-               2px 5px 10px rgba(0,0,0,.35),
-               5px 10px 10px rgba(0,0,0,.45);
-}
-
-header button {border-left: 1px solid rgba(255,255,255,0.1);
-  border-right: 1px solid rgba(0,0,0,0.1);
-  height:33px;
-  position: relative;
-  border-top: 0;
-  border-bottom: 0;
-  font-weight: bold;
-  float: left;
-  display:block;
-  margin: 0;
-}
-
-header button:last-child {margin-right: 100px;}
-
+header button {border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(0,0,0,0.1);
+  height: 37px; position: relative; border-top: 0; border-bottom: 0; font-weight: bold; float: left; margin: 0;}
+header button:last-child {margin-right: 10%;}
 .resizable-helper {border-right: 1px dashed red;}
-
 .clear {clear: both;}
-
-#tabs {height: 98%;
-overflow: auto;
-}
-
-#tabs .ui-tabs-panel {
-  padding: 0;
-}
-
-#editor, #library {
-    width: 100%;
-    height: 90%;
-}
-
+#tabs {height: 98%; overflow: auto;}
+#tabs .ui-tabs-panel {padding: 0;}
+#editor, #library { width: 100%; height: 90%;}
 #save-library{display: none}
-
-#saved, #checked, #library-problem {background-color: #96c423;
-  color: white;
-    display:none;
-    margin: 5px;
-    font-size:0.5em;
-    float: right;
-}
-
-.CodeMirror {
-    border: 1px solid black;
-    font-size:13px;
-    width: 100%;
-    height: 100%;
-}
-.cm-s-reeborg-dark {
-  line-height: 1.2em;
-  font-size: 11pt;
-}
-.cm-s-reeborg-dark {
-  font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
-}
-
+#saved, #checked, #library-problem {background-color: #96c423; color: white; display:none; margin: 5px;
+  font-size:0.5em; float: right;}
+.CodeMirror {border: 1px solid black; font-size:13px; width: 99.9%; height: 100%;}
+.cm-s-reeborg-dark { line-height: 1.2em; font-size: 11pt;}
+.cm-s-reeborg-dark { font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;}
 .cm-s-reeborg-dark.CodeMirror { background: #112244; color: white; border: 0;}
 .cm-s-reeborg-dark .CodeMirror-gutters { background: #224488; border-right: 3px solid rgb(117,161,16); }
 .cm-s-reeborg-dark .CodeMirror-linenumber {font-size: 9pt; color: white; }
 .cm-s-reeborg-dark .CodeMirror-cursor { border-left: 1px solid white !important; }
-
 .cm-s-reeborg-dark .cm-comment { color: #999; font-style:italic; line-height: 1em; }
 .cm-s-reeborg-dark .cm-atom { color: #F4C20B; }
 .cm-s-reeborg-dark .cm-number, .cm-s-reeborg-dark .cm-attribute { color: #adf; }
@@ -103,46 +34,14 @@ overflow: auto;
 .cm-s-reeborg-dark .cm-variable-2 { color: #7BD827; }
 .cm-s-reeborg-dark .cm-def { color: #7BD827; }
 .cm-s-reeborg-dark .cm-variable-3 { color: #7BD827; }
-
 .cm-s-reeborg-dark .cm-builtin, .cm-s-reeborg-dark .cm-special { color: #FF9D00; }
-.cm-s-reeborg-dark .cm-tab:before {
-  content: "➤";   /*visualize tab character*/
-  color: red;
-}
-
-#panels {
-  top: 33px;
-  position: fixed;
-  width: 100%;
-  display: block;
-  min-width: 800px;
-  height: 100%;
-  margin: auto;
-  padding: 0;
-}
-
-#panels div.panel {float: left;
-  position: relative;
-  top: 0;
-  height: 94%;
-  width: 200px;
-  padding: 3px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: none;
-  border-right: 1px dashed #124;
-}
-
-#panels div.active {
-  display: block;
-  max-width: 800px;
-  margin: auto;
-}
-
-#content {
-  margin-left: 10px;
-}
-
+.cm-s-reeborg-dark .cm-tab:before {content: "➤";  color: red;}
+#panels {position: fixed;  top: 37px; left: 0;width: 100%; display: block; min-width: 800px; height: 100%;
+  margin: auto; padding: 0;}
+.panel {float: left; position: relative; top: 0; height: 94%; padding: 3px;  overflow-y: auto;
+  overflow-x: hidden; display: none; border-right: 1px dashed #124;}
+#panels div.active {display: block; max-width: 800px; margin: auto;}
+#content { margin-left: 10px;}
 #canvas-wrapper {
     position: relative;
     min-height: 550px;
@@ -154,26 +53,14 @@ canvas {
     top: 50px;
     left: 10px;
 }
-
 #output-panel {background-color: #eee;}
 #output-panel pre {margin-top: 0;
 background-color: white;}
-
-/** User notes
- */
- #notes {background: #112244; color: white; margin-left: 32px;
-box-shadow:
-  -3px 0 0 0 #75a110,
-  -32px 0 0 0 #224488;
-}
+ #notes {background: #112244; color: white; margin-left: 32px; box-shadow: -3px 0 0 0 #75a110, -32px 0 0 0 #224488;}
 
  #notes p {margin: 0 10px; font-size: 0.9em;}
 .user_note {background-color: white; color: black; margin: 0 10px 0 10px;}
-#data_entry {
-  margin-left: 10px;
-  width: 90%;
-  background-color: #ffe;
-}
+#data_entry { margin-left: 10px; width: 90%; background-color: #ffe;}
 .float-right{float: right;}
 .float-left{float: left;}
 
@@ -193,6 +80,7 @@ box-shadow:
   background-image: -o-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
   background-image: -linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
 }
+.alert .ui-widget-header {background-color: red; background-image: none;}
 .green-border {border-bottom: 4px solid #75a110;}
 .ui-widget-header {border-bottom: 3px solid #75a110;}
 

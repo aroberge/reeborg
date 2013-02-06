@@ -457,7 +457,8 @@ RUR.visible_world = {
         if (RUR.world.frames.length !== 0) {
             frame = RUR.world.frames.shift();
         } else {
-            $("#Reeborg-says").html("All done!").dialog("open");
+            $("#Reeborg-says").html("All done!").dialog("open").fadeOut(2000);
+            setTimeout(function(){$("#Reeborg-says").dialog("close");}, 1500);
             RUR.controls.stop();
             return "stopped";
         }
@@ -471,8 +472,7 @@ RUR.visible_world = {
         }
         if (frame.error !== undefined) {
             RUR.controls.stop();
-            $("#Reeborg-says").html(frame.error.message).dialog("open");
-            //alert(frame.error.name + "\n" + frame.error.message);
+            $("#Reeborg-shouts").html(frame.error.message).dialog("open");
             return "stopped";
         }
         if (frame.output !== undefined) {
@@ -764,6 +764,12 @@ function doUndoDelete(){
 
 RUR.ajax_requests = {};
 
+var load_page = function(page) {
+    $("#content").load(page+".html");
+    location.hash = page;
+};
+
+
 $(document).ready(function() {
 // init
     var all_active_panels, child;
@@ -815,6 +821,24 @@ $(document).ready(function() {
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
 
+    var hash = location.hash;
+    if (hash === ''){
+        load_page("test1");
+    } else {
+        hash = hash.slice(1) + ".html";
+        $.ajax({
+            url: hash,
+            context: $("#content"),
+            statusCode: {
+                404: function() {
+                    alert("page not found");
+                    load_page("test1");
+                }
+            },
+            type: 'POST'
+        }).done(function(data){$("#content").html(data);});
+    }
+
     $("#help").dialog({autoOpen:false, width:600, position:"top"});
     $("#help-button").on("click", function() {
         if (RUR.ajax_requests.help !== undefined){
@@ -852,7 +876,7 @@ $(document).ready(function() {
     });
 
     $("#Reeborg-says").dialog({autoOpen:false, position:{my: "center", at: "center", of: $("#robot_canvas")}});
-
+    $("#Reeborg-shouts").dialog({autoOpen:false, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     try{
         doShowNotes();
     }catch (e) {console.log(e);} // Do not alert the user as we've already caught similar errors
