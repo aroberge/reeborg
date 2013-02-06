@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<header  class="blue-gradient green-border">
+<header class="blue-gradient green-border">
   <a id="logo" href="../index.html" class="fake_button">Reeborg</a>
   <div id="header-child">
     <button class="active reverse-blue-gradient" label="content-panel">Content</button>
@@ -30,12 +30,7 @@
 
 <div id="panels">
   <div id="content-panel" class="panel active">
-    <div id="content">
-      Content   <br>
-      this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text.
-
-      this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. this is some text. END
-    </div>
+    <div id="content">Loading content...</div>
   </div>
   <div id="editor-panel" class="panel active" >
     <div id="tabs">
@@ -96,7 +91,8 @@ Have you tried Firefox or Chrome? */
           <option value="../json/test_world.json">Test world</option>
           <option value="../json/test_world2.json">Test world 2</option>
         </select>
-        <div id="Reeborg-says" title="Reeborg says" style="display:none">All done!</div>
+        <div id="Reeborg-says" title="Reeborg says" style="display:none"></div>
+        <div id="Reeborg-shouts" title="Reeborg shouts" style="display:none"></div>
     </div>
   </div>
   <div id="output-panel" class="panel">
