@@ -36,7 +36,7 @@ RUR.List = function(){
     };
     this.shift = function() {
         return this.container.shift();
-    }
+    };
 };
 
 RUR.World = function () {
@@ -118,46 +118,65 @@ RUR.World = function () {
         return false;
     };
 
-    this.move_robot = function(robot){
+    this.wall_in_front = function(robot){
         var coords;
-        robot.prev_x = robot.x;
-        robot.prev_y = robot.y;
         switch (robot.orientation){
         case this.EAST:
             coords = robot.x + "," + robot.y;
-            if (this.is_wall_at(coords, "EAST")) {
-                throw new RUR.Error("Ouch! I hit a wall!");
+            if (this.is_wall_at(coords, "east")) {
+                return true;
             }
-            robot.x += 1;
             break;
         case this.NORTH:
             coords = robot.x + "," + robot.y;
-            if (this.is_wall_at(coords, "NORTH")) {
-                throw new RUR.Error("Ouch! I hit a wall!");
+            if (this.is_wall_at(coords, "north")) {
+                return true;
             }
-            robot.y += 1;
             break;
         case this.WEST:
             if (robot.x===1){
-                throw new RUR.Error("Ouch! I hit a wall!");
+                return true;
             } else {
                 coords = robot.x-1 + "," + robot.y;
-                if (this.is_wall_at(coords, "EAST")) {
-                    throw new RUR.Error("Ouch! I hit a wall!");
+                if (this.is_wall_at(coords, "east")) {
+                    return true;
                 }
-                robot.x -= 1;
             }
             break;
         case this.SOUTH:
             if (robot.y===1){
-                throw new RUR.Error("Ouch! I hit a wall!");
+                return true;
             } else {
                 coords = robot.x + "," + robot.y-1;
-                if (this.is_wall_at(coords, "NORTH")) {
-                    throw new RUR.Error("Ouch! I hit a wall!");
+                if (this.is_wall_at(coords, "north")) {
+                    return true;
                 }
-                robot.y -= 1;
             }
+            break;
+        default:
+            throw new Error("Should not happen: unhandled case in RUR.World.move_robot().");
+        }
+        return false;
+    };
+
+    this.move_robot = function(robot){
+        if (this.wall_in_front(robot)) {
+            throw new RUR.Error("Ouch! I hit a wall!");
+        }
+        robot.prev_x = robot.x;
+        robot.prev_y = robot.y;
+        switch (robot.orientation){
+        case this.EAST:
+            robot.x += 1;
+            break;
+        case this.NORTH:
+            robot.y += 1;
+            break;
+        case this.WEST:
+            robot.x -= 1;
+            break;
+        case this.SOUTH:
+            robot.y -= 1;
             break;
         default:
             throw new Error("Should not happen: unhandled case in RUR.World.move_robot().");
@@ -277,6 +296,10 @@ RUR.PrivateRobot.prototype.move = function(){
     RUR.world.add_frame();
 };
 
+RUR.PrivateRobot.prototype.wall_in_front = function() {
+    return RUR.world.wall_in_front(this);
+}
+
 RUR.PrivateRobot.prototype.avance = RUR.PrivateRobot.prototype.move;
 
 RUR.visible_world = {
@@ -375,10 +398,10 @@ RUR.visible_world = {
                 } else {
                     key = i + "," + j;
                     if ( key in RUR.world.walls ) {
-                        if ( RUR.world.walls[key].indexOf("NORTH") !== -1) {
+                        if ( RUR.world.walls[key].indexOf("north") !== -1) {
                             this.draw_north_wall(i, j);
                         }
-                        if (RUR.world.walls[key].indexOf("EAST") !== -1) {
+                        if (RUR.world.walls[key].indexOf("east") !== -1) {
                             this.draw_east_wall(i, j);
                         }
                     }
@@ -651,6 +674,11 @@ var pause = function () {
     "use strict";
     RUR.world.pause();
 };
+
+var wall_in_front = function() {
+    "use strict";
+    return RUR.world.wall_in_front(RUR.world.robots[0]);
+}
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
 UsedRobot.prototype.constructor = UsedRobot;
