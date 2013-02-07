@@ -1,5 +1,4 @@
-  <p>This is just a quick reminder.
-  Reeborg knows the following instructions:</p>
+  <p> Reeborg, and all the other robots, know the following instructions:</p>
   <ul>
     <li><code>move()</code></li>
     <li><code>turn_left()</code></li>
@@ -7,7 +6,9 @@
     <li><code>put_token()</code> NotImplemented</li>
     <li><code>is_facing_north()</code></li>
     <li><code>wall_in_front()</code></li>
+    <li><code>done()</code></li>
   </ul>
+  <p>To create additional robots, one can use <code>new UsedRobot()</code></p>
   <p>In addition, the following commands are available</p>
   <ul>
     <li><code>pause()</code></li>
