@@ -183,9 +183,12 @@ RUR.World = function () {
         }
     };
 
-    this.add_error_frame = function (message) {
+    this.add_error_frame = function (error) {
         // bypass the verification for limit of frames
-        this.frames.container.push({error: message});
+        if (error.message === "Done!") {
+            return;
+        }
+        this.frames.container.push({error: error});
     };
 
     this.add_output_frame = function (element, message) {
@@ -302,6 +305,10 @@ RUR.PrivateRobot.prototype.wall_in_front = function() {
 
 RUR.PrivateRobot.prototype.is_facing_north = function () {
     return this.orientation === RUR.world.NORTH;
+}
+
+RUR.PrivateRobot.prototype.done = function() {
+    throw new RUR.Error("Done!");
 }
 
 RUR.PrivateRobot.prototype.avance = RUR.PrivateRobot.prototype.move;
@@ -682,11 +689,15 @@ var pause = function () {
 var wall_in_front = function() {
     "use strict";
     return RUR.world.wall_in_front(RUR.world.robots[0]);
-}
+};
 
 var is_facing_north = function() {
     "use strict";
     return RUR.world.robots[0].is_facing_north();
+};
+
+var done = function () {
+    RUR.world.robots[0].done();
 }
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
