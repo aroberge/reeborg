@@ -1,1 +1,18 @@
-<p>Something about me and Reeborg.</p>
+<p>Inspired by Guido van Robot, itself inspired by the original Karel the Robot
+created by Richard Pattis, Reeborg first appeared in RUR-PLE, a program I created
+to teach myself programming as a hobby.</p>
+<p>Reeborg is there to guide you in learning computer programming in Javascript.
+Why Javascript?   The main reason is because it is the native language
+for programming web browsers.  Since Reeborg's program is written in Javascript,
+you will be able, after going through enough lessons, to change the way that
+Reeborg behaves, using the full power of Javascript and perhaps make
+Reeborg do things that I never thought could be possible.<p>
+<p> I hope you enjoy learning computer programming with Reeborg.
+<p>Feel free to contact me at
+<a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
+
+<p>Reeborg is free and will remain free to use and to share under a Creative Commons License
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+<img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" height="31px" width="88px"/></a></p>
+
+<p><small><a href="http://about.me/andre.roberge">More info about me</a></small></p>
