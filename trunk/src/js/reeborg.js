@@ -22,16 +22,34 @@ RUR.Error = function (message) {
     this.message = message;
 };
 
+
+RUR.List = function(){
+    this.container = [];
+    this.length = function(){
+        return this.container.length;
+    };
+    this.add_item = function(data) {
+        this.container.push(data);
+        if (this.length() > RUR.world.max_steps) {
+            throw new RUR.Error("Too many steps: " + RUR.world.max_steps);
+        }
+    };
+    this.shift = function() {
+        return this.container.shift();
+    }
+};
+
 RUR.World = function () {
     "use strict";
     this.EAST = 0;
     this.NORTH = 1;
     this.WEST = 2;
     this.SOUTH = 3;
+    this.max_steps = 1000;
 
     this.think = function (delay) {
         if (delay >= 0  && delay <= 10){
-            this.frames.push({delay: Math.round(delay*1000)});
+            this.frames.add_item({delay: Math.round(delay*1000)});
         }
         else {
             alert("Reeborg's thinking time needs to be specified in seconds, between 0 and 10; this was: " + delay);
@@ -39,7 +57,7 @@ RUR.World = function () {
     };
 
     this.pause = function() {
-        this.frames.push({pause: true});
+        this.frames.add_item({pause: true});
     };
 
     this.export_ = function (){
@@ -82,7 +100,7 @@ RUR.World = function () {
 
     this.reset = function (){
         this.parse_world();
-        this.frames = [];
+        this.frames = new RUR.List();
     };
     this.reset();
 
@@ -147,11 +165,12 @@ RUR.World = function () {
     };
 
     this.add_error_frame = function (message) {
-        this.frames.push({error: message});
+        // bypass the verification for limit of frames
+        this.frames.container.push({error: message});
     };
 
     this.add_output_frame = function (element, message) {
-        this.frames.push({output: {element:element, message:message}});
+        this.frames.add_item({output: {element:element, message:message}});
     };
 
     this.add_frame = function () {
@@ -167,7 +186,7 @@ RUR.World = function () {
             robot._is_leaky = RUR.world.robots[i]._is_leaky;
             robots.push(robot);
         }
-        this.frames.push({robots: robots});
+        this.frames.add_item({robots: robots});
     };
 
     this.toggle_wall = function (x, y, orientation){
@@ -435,10 +454,6 @@ RUR.visible_world = {
             return;
         }
         frame_info = RUR.visible_world.play_single_frame();
-        // if (RUR.world.frames.length === 0) {
-        //     RUR.controls.stop();
-        //     return;
-        // }
 
         if (frame_info === "immediate") {
             clearTimeout(RUR.timer);
@@ -454,7 +469,7 @@ RUR.visible_world = {
         "use strict";
         var frame, robot, ctx;
         ctx = RUR.visible_world.robot_ctx;
-        if (RUR.world.frames.length !== 0) {
+        if (RUR.world.frames.length() !== 0) {
             frame = RUR.world.frames.shift();
         } else {
             $("#Reeborg-says").html("All done!").dialog("open").fadeOut(2000);
