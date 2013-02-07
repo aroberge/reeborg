@@ -300,6 +300,10 @@ RUR.PrivateRobot.prototype.wall_in_front = function() {
     return RUR.world.wall_in_front(this);
 }
 
+RUR.PrivateRobot.prototype.is_facing_north = function () {
+    return this.orientation === RUR.world.NORTH;
+}
+
 RUR.PrivateRobot.prototype.avance = RUR.PrivateRobot.prototype.move;
 
 RUR.visible_world = {
@@ -678,6 +682,11 @@ var pause = function () {
 var wall_in_front = function() {
     "use strict";
     return RUR.world.wall_in_front(RUR.world.robots[0]);
+}
+
+var is_facing_north = function() {
+    "use strict";
+    return RUR.world.robots[0].is_facing_north();
 }
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
