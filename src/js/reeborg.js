@@ -46,6 +46,12 @@ RUR.World = function () {
     this.WEST = 2;
     this.SOUTH = 3;
     this.max_steps = 1000;
+    this.frames = undefined;
+    this.walls = undefined;
+    this.robots = undefined;
+    this.tokens = undefined;
+    this.imported_world = undefined;
+    this.json_world_string = undefined;
 
     this.think = function (delay) {
         if (delay >= 0  && delay <= 10){
@@ -67,12 +73,16 @@ RUR.World = function () {
     };
 
     this.import_ = function (json_string){
-        this.imported_world = JSON.parse(json_string) || {};
+        if (json_string === undefined){
+            return {};
+        }
+        this.json_world_string = json_string;
+        return JSON.parse(json_string) || {};
     };
 
     this.parse_world = function() {
         var i, orientation;
-        this.imported_world = this.imported_world || {};
+        this.imported_world = this.import_(this.json_world_string);
         this.robots = [];
         this.walls = this.imported_world.walls || {};
         this.tokens = this.imported_world.tokens || {};
@@ -110,9 +120,41 @@ RUR.World = function () {
         this.add_frame();
     };
 
+    this.set_tokens = function (x, y, nb_tokens){
+        if (nb_tokens > 0) {
+            this.tokens[x + "," + y] = nb_tokens;
+        } else {
+            delete this.tokens[x + "," + y];
+        }
+    };
+
+    this.get_tokens = function (x, y) {
+        return this.tokens[x + "," + y] || 0;
+    };
+
+    this.robot_pick_token  = function (robot) {
+        var token = this.get_tokens(robot.x, robot.y);
+        if (token === 0){
+            throw new RUR.Error("No token found here!");
+        } else {
+            robot.tokens += 1;
+            this.set_tokens(robot.x, robot.y, token-1);
+        }
+    };
+
+    this.robot_put_token = function (robot) {
+        var token;
+        if (robot.tokens === 0){
+            throw new RUR.Error("I don't have any token to put down!");
+        }
+        token = this.get_tokens(robot.x, robot.y);
+        this.set_tokens(robot.x, robot.y, token+1);
+        robot.tokens -= 1;
+    };
+
     this.is_wall_at = function (coords, orientation) {
-        if (RUR.world.walls[coords] !== undefined){
-            if (RUR.world.walls[coords].indexOf(orientation) !== -1) {
+        if (this.walls[coords] !== undefined){
+            if (this.walls[coords].indexOf(orientation) !== -1) {
                 return true;
             }
         }
@@ -155,7 +197,7 @@ RUR.World = function () {
             }
             break;
         default:
-            throw new Error("Should not happen: unhandled case in RUR.World.move_robot().");
+            throw new RUR.Error("Should not happen: unhandled case in RUR.World.move_robot().");
         }
         return false;
     };
@@ -200,13 +242,13 @@ RUR.World = function () {
         var i, robot, robots = [];
         for (i = 0; i < this.robots.length; i++){
             robot = {};
-            robot.x = RUR.world.robots[i].x;
-            robot.y = RUR.world.robots[i].y;
-            robot.prev_x = RUR.world.robots[i].prev_x;
-            robot.prev_y = RUR.world.robots[i].prev_y;
-            robot.orientation = RUR.world.robots[i].orientation;
-            robot.prev_orientation = RUR.world.robots[i].prev_orientation;
-            robot._is_leaky = RUR.world.robots[i]._is_leaky;
+            robot.x = this.robots[i].x;
+            robot.y = this.robots[i].y;
+            robot.prev_x = this.robots[i].prev_x;
+            robot.prev_y = this.robots[i].prev_y;
+            robot.orientation = this.robots[i].orientation;
+            robot.prev_orientation = this.robots[i].prev_orientation;
+            robot._is_leaky = this.robots[i]._is_leaky;
             robots.push(robot);
         }
         this.frames.add_item({robots: robots});
@@ -268,8 +310,7 @@ RUR.PrivateRobot = function(x, y, orientation, tokens) {
             this.orientation = RUR.world.SOUTH;
             break;
         default:
-            throw "Should not happen: unknown orientation";
-            // TODO: turn this into a warning
+            throw new RUR.Error("Unknown orientation for robot.");
         }
     }
     this.prev_orientation = this.orientation;
@@ -313,6 +354,16 @@ RUR.PrivateRobot.prototype.done = function() {
 };
 
 RUR.PrivateRobot.prototype.avance = RUR.PrivateRobot.prototype.move;
+
+RUR.PrivateRobot.prototype.put_token = function () {
+    RUR.world.robot_put_token(this);
+    RUR.world.add_frame();
+};
+
+RUR.PrivateRobot.prototype.pick_token = function () {
+    RUR.world.robot_pick_token(this);
+    RUR.world.add_frame();
+};
 
 RUR.visible_world = {
     init: function () {
@@ -436,10 +487,10 @@ RUR.visible_world = {
     },
     draw_tokens : function() {
         "use strict";
+        var i, j, k, t, toks;
         if (RUR.world.tokens === undefined){
             return;
         }
-        var i, j, k, t, toks;
         this.ctx = this.wall_ctx;
         this.ctx.fillStyle = "gold";
         this.ctx.strokeStyle = "black";
@@ -447,7 +498,7 @@ RUR.visible_world = {
         for (t=0; t < toks.length; t++){
             k = toks[t].split(",");
             i = parseInt(k[0], 10);
-            j = parseInt(k[0], 10);
+            j = parseInt(k[1], 10);
             this.ctx.beginPath();
             this.ctx.arc((i+0.6)*this.wall_length, this.height -
                          (j+0.4)*this.wall_length, 12, 0 , 2 * Math.PI, false);
@@ -727,6 +778,14 @@ var is_facing_north = function() {
 
 var done = function () {
     RUR.world.robots[0].done();
+};
+
+var put_token = function() {
+    RUR.world.robots[0].put_token();
+};
+
+var pick_token = function() {
+    RUR.world.robots[0].pick_token();
 };
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
