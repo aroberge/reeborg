@@ -62,7 +62,7 @@ RUR.World = function () {
 
     this.export_ = function (){
         var json_object;
-        json_object = {"robots": this.robots, "walls": this.walls};
+        json_object = {"robots": this.robots, "walls": this.walls, "tokens": this.tokens};
         return JSON.stringify(json_object, null, '   ');
     };
 
@@ -75,6 +75,7 @@ RUR.World = function () {
         this.imported_world = this.imported_world || {};
         this.robots = [];
         this.walls = this.imported_world.walls || {};
+        this.tokens = this.imported_world.tokens || {};
         if (this.imported_world.robots !== undefined) {
             for (i = 0; i < this.imported_world.robots.length; i++){
                 switch(this.imported_world.robots[i].orientation){
@@ -301,15 +302,15 @@ RUR.PrivateRobot.prototype.move = function(){
 
 RUR.PrivateRobot.prototype.wall_in_front = function() {
     return RUR.world.wall_in_front(this);
-}
+};
 
 RUR.PrivateRobot.prototype.is_facing_north = function () {
     return this.orientation === RUR.world.NORTH;
-}
+};
 
 RUR.PrivateRobot.prototype.done = function() {
     throw new RUR.Error("Done!");
-}
+};
 
 RUR.PrivateRobot.prototype.avance = RUR.PrivateRobot.prototype.move;
 
@@ -372,11 +373,11 @@ RUR.visible_world = {
         this.ctx.fillStyle = 'black';
         y = this.height-this.wall_length/2;
         for(x=1; x <= this.cols; x++){
-            this.ctx.fillText(""+x, (x+0.5)*this.wall_length, y);
+            this.ctx.fillText(x, (x+0.5)*this.wall_length, y);
         }
         x = this.wall_length/2;
         for(y=1; y <= this.rows; y++){
-            this.ctx.fillText(""+y, x, this.height - (y+0.3)*this.wall_length);
+            this.ctx.fillText(y, x, this.height - (y+0.3)*this.wall_length);
         }
     },
     draw_background_walls : function () {
@@ -398,6 +399,9 @@ RUR.visible_world = {
         this.ctx = this.wall_ctx;
         this.ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
         this.ctx.fillStyle = this.wall_color;
+        // todo : make more efficient by 1. splitting into two functions so as not
+        // to redraw permanent walls and 2. do not loop over all possible combinations
+        // but identify which walls need to be drawn the same way we do for tokens.
         for (i = 0; i <= this.cols; i++) {
             for (j = 0; j <= this.rows; j++) {
                 if (i === 0 && j !== 0) {
@@ -429,6 +433,28 @@ RUR.visible_world = {
         "use strict";
         this.ctx.fillRect((i+1)*this.wall_length, this.height - (j+1)*this.wall_length,
                           this.wall_thickness, this.wall_length + this.wall_thickness);
+    },
+    draw_tokens : function() {
+        "use strict";
+        if (RUR.world.tokens === undefined){
+            return;
+        }
+        var i, j, k, t, toks;
+        this.ctx = this.wall_ctx;
+        this.ctx.fillStyle = "gold";
+        this.ctx.strokeStyle = "black";
+        toks = Object.keys(RUR.world.tokens);
+        for (t=0; t < toks.length; t++){
+            k = toks[t].split(",");
+            i = parseInt(k[0], 10);
+            j = parseInt(k[0], 10);
+            this.ctx.beginPath();
+            this.ctx.arc((i+0.6)*this.wall_length, this.height -
+                         (j+0.4)*this.wall_length, 12, 0 , 2 * Math.PI, false);
+            this.ctx.fill();
+            this.ctx.strokeText(RUR.world.tokens[toks[t]], (i+0.5)*this.wall_length,
+                                this.height - (j+0.3)*this.wall_length);
+        }
     },
     draw_robot : function (robot) {
         "use strict";
@@ -528,6 +554,8 @@ RUR.visible_world = {
             $(frame.output.element).append(frame.output.message + "\n");
             return;
         }
+        RUR.visible_world.draw_foreground_walls();
+        RUR.visible_world.draw_tokens();
         RUR.visible_world.draw_robots(frame.robots);
     },
 
@@ -548,6 +576,7 @@ RUR.visible_world = {
         this.draw_foreground_walls();
         this.trace_ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
         this.robot_ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
+        this.draw_tokens();
         this.draw_robots(RUR.world.robots);
         RUR.visible_world.running = false;
     }
@@ -698,7 +727,7 @@ var is_facing_north = function() {
 
 var done = function () {
     RUR.world.robots[0].done();
-}
+};
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
 UsedRobot.prototype.constructor = UsedRobot;

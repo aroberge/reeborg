@@ -7,9 +7,11 @@
     <li><code>is_facing_north()</code></li>
     <li><code>wall_in_front()</code></li>
     <li><code>done()</code></li>
+    <li><code>build_wall()</code> NotImplemented</li>
   </ul>
   <p>To create additional robots, one can use <code>new UsedRobot()</code></p>
-  <p>In addition, the following commands are available</p>
+  <p>In addition, the following commands are available and are not tied to
+    any robot in particular.</p>
   <ul>
     <li><code>pause()</code></li>
     <li><code>think()</code></li>
