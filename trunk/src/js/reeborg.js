@@ -368,6 +368,7 @@ RUR.PrivateRobot.prototype.pick_token = function () {
 RUR.visible_world = {
     init: function () {
         "use strict";
+        var that = this;
         this.background_canvas = document.getElementById("background_canvas");
         this.background_ctx = this.background_canvas.getContext("2d");
         this.height = this.background_canvas.height;
@@ -383,7 +384,7 @@ RUR.visible_world = {
         this.robot_e_img.src = '../images/robot_e.png';
         // the following ensures that we won't attempt drawing until the default image is available
         this.robot_e_img.onload = function () {
-            RUR.visible_world.reset();
+            that.reset();
         };
         this.robot_n_img = new Image();
         this.robot_n_img.src = '../images/robot_n.png';
@@ -408,13 +409,13 @@ RUR.visible_world = {
     set_trace_style : function (choice){
         "use strict";
         if (choice === "red") {
-            RUR.visible_world.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
-            RUR.visible_world.trace_color = "red";
-            RUR.visible_world.trace_thickness = 4;
+            this.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
+            this.trace_color = "red";
+            this.trace_thickness = 4;
         } else {
-            RUR.visible_world.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
-            RUR.visible_world.trace_color = "seagreen";
-            RUR.visible_world.trace_thickness = 1;
+            this.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
+            this.trace_color = "seagreen";
+            this.trace_thickness = 1;
         }
     },
     draw_coordinates: function(){
@@ -435,7 +436,7 @@ RUR.visible_world = {
         "use strict";
         var i, j;
         this.ctx = this.background_ctx;
-        this.ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
+        this.ctx.clearRect(0, 0, this.width, this.height);
         this.ctx.fillStyle = this.shawdow_wall_color;
         for (i = 1; i <= this.cols; i++) {
             for (j = 1; j <= this.rows; j++) {
@@ -510,25 +511,25 @@ RUR.visible_world = {
     draw_robot : function (robot) {
         "use strict";
         var x, y, img;
-        this.ctx = RUR.visible_world.robot_ctx;
+        this.ctx = this.robot_ctx;
         x = robot.x * this.wall_length + this.robot_x_offset;
         y = this.height - (robot.y +1) * this.wall_length + this.robot_y_offset;
         this.ctx.beginPath();
         switch(robot.orientation){
         case RUR.world.EAST:
-            img = RUR.visible_world.robot_e_img;
+            img = this.robot_e_img;
             break;
         case RUR.world.NORTH:
-            img = RUR.visible_world.robot_n_img;
+            img = this.robot_n_img;
             break;
         case RUR.world.WEST:
-            img = RUR.visible_world.robot_w_img;
+            img = this.robot_w_img;
             break;
         case RUR.world.SOUTH:
-            img = RUR.visible_world.robot_s_img;
+            img = this.robot_s_img;
             break;
         default:
-            img = RUR.visible_world.robot_e_img;
+            img = this.robot_e_img;
         }
         this.ctx.drawImage(img, x, y);
         this.draw_trace(robot);
@@ -543,10 +544,10 @@ RUR.visible_world = {
         this.ctx.lineWidth = this.trace_thickness;
         this.ctx.lineCap = "round";
         this.ctx.beginPath();
-        this.ctx.moveTo(robot.prev_x* this.wall_length + RUR.visible_world.trace_offset[robot.prev_orientation][0],
-                        this.height - (robot.prev_y +1) * this.wall_length + RUR.visible_world.trace_offset[robot.prev_orientation][1]);
-        this.ctx.lineTo(robot.x* this.wall_length + RUR.visible_world.trace_offset[robot.orientation][0],
-                        this.height - (robot.y +1) * this.wall_length + RUR.visible_world.trace_offset[robot.orientation][1]);
+        this.ctx.moveTo(robot.prev_x* this.wall_length + this.trace_offset[robot.prev_orientation][0],
+                        this.height - (robot.prev_y +1) * this.wall_length + this.trace_offset[robot.prev_orientation][1]);
+        this.ctx.lineTo(robot.x* this.wall_length + this.trace_offset[robot.orientation][0],
+                        this.height - (robot.y +1) * this.wall_length + this.trace_offset[robot.orientation][1]);
         this.ctx.stroke();
     },
     play_frames : function () {
@@ -579,7 +580,7 @@ RUR.visible_world = {
     play_single_frame : function () {
         "use strict";
         var frame, robot, ctx;
-        ctx = RUR.visible_world.robot_ctx;
+        ctx = this.robot_ctx;
         if (RUR.world.frames.length() !== 0) {
             frame = RUR.world.frames.shift();
         } else {
@@ -605,14 +606,14 @@ RUR.visible_world = {
             $(frame.output.element).append(frame.output.message + "\n");
             return;
         }
-        RUR.visible_world.draw_foreground_walls();
-        RUR.visible_world.draw_tokens();
-        RUR.visible_world.draw_robots(frame.robots);
+        this.draw_foreground_walls();
+        this.draw_tokens();
+        this.draw_robots(frame.robots);
     },
 
     draw_robots : function(robots) {
         var robot;
-        this.robot_ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
+        this.robot_ctx.clearRect(0, 0, this.width, this.height);
         for (robot=0; robot < robots.length; robot++){
             this.draw_robot(robots[robot]);
         }
@@ -625,11 +626,11 @@ RUR.visible_world = {
         this.draw_background_walls();
         this.draw_coordinates();
         this.draw_foreground_walls();
-        this.trace_ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
-        this.robot_ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
+        this.trace_ctx.clearRect(0, 0, this.width, this.height);
+        this.robot_ctx.clearRect(0, 0, this.width, this.height);
         this.draw_tokens();
         this.draw_robots(RUR.world.robots);
-        RUR.visible_world.running = false;
+        this.running = false;
     }
 };
 
