@@ -433,6 +433,13 @@ RUR.PrivateRobot.prototype.take = function (shape) {
     RUR.world.add_frame();
 };
 
+RUR.PrivateRobot.prototype.token_here = function () {
+    return RUR.world.get_tokens(this.x, this.y);
+};
+
+RUR.PrivateRobot.prototype.shape_here = function () {
+    return RUR.world.find_shape(this.x, this.y);
+};
 
 RUR.visible_world = {
     init: function () {
@@ -905,6 +912,11 @@ var is_facing_north = function() {
 var token_here = function () {
     "use strict";
     return RUR.world.get_tokens(RUR.world.robots[0].x, RUR.world.robots[0].y);
+};
+
+var shape_here = function () {
+    "use strict";
+    return RUR.world.find_shape(RUR.world.robots[0].x, RUR.world.robots[0].y);
 };
 
 var done = function () {
