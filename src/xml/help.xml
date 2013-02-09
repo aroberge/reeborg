@@ -2,11 +2,15 @@
   <ul>
     <li><code>move()</code></li>
     <li><code>turn_left()</code></li>
-    <li><code>pick_token()</code> NotImplemented</li>
-    <li><code>put_token()</code> NotImplemented</li>
+    <li><code>take_token()</code></li>
+    <li><code>put_token()</code></li>
+    <li><code>token_here()</code> NotImplemented</li>
     <li><code>is_facing_north()</code></li>
     <li><code>wall_in_front()</code></li>
     <li><code>done()</code></li>
+    <li><code>take(shape)</code> where <code>shape</code> is one of <code>"triangle", "square", "star"</code></li>
+    <li><code>put(shape)</code> where <code>shape</code> is one of <code>"triangle", "square", "star"</code></li>
+    <li><code>shape_here()</code> NotImplemented</li>
     <li><code>build_wall()</code> NotImplemented</li>
   </ul>
   <p>To create additional robots, one can use <code>new UsedRobot()</code></p>

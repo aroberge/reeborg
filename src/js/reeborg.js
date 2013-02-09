@@ -10,10 +10,6 @@ if (!Array.prototype.remove){
         return this.push.apply(this, rest);
     };
 }
-/*
-A world can be modified either by a graphical World Builder or
-via a JSON string - only the second is currently implemented.
-*/
 
 var RUR = RUR || {};
 
@@ -86,6 +82,7 @@ RUR.World = function () {
         this.robots = [];
         this.walls = this.imported_world.walls || {};
         this.tokens = this.imported_world.tokens || {};
+        this.shapes = this.imported_world.shapes || {};
         if (this.imported_world.robots !== undefined) {
             for (i = 0; i < this.imported_world.robots.length; i++){
                 switch(this.imported_world.robots[i].orientation){
@@ -132,7 +129,7 @@ RUR.World = function () {
         return this.tokens[x + "," + y] || 0;
     };
 
-    this.robot_pick_token  = function (robot) {
+    this.robot_take_token  = function (robot) {
         var token = this.get_tokens(robot.x, robot.y);
         if (token === 0){
             throw new RUR.Error("No token found here!");
@@ -151,6 +148,47 @@ RUR.World = function () {
         this.set_tokens(robot.x, robot.y, token+1);
         robot.tokens -= 1;
     };
+
+    this.set_shape = function (x, y, shape){
+        if (shape !== null) {
+            this.shapes[x + "," + y] = shape;
+        } else {
+            delete this.shapes[x + "," + y];
+        }
+    };
+
+    this.find_shape = function (x, y) {
+        return this.shapes[x + "," + y] || 0;
+    };
+
+    this.robot_take  = function (robot, shape) {
+        console.log("inside robot_take");
+        var s;
+        if (["triangle", "square", "star"].indexOf(shape) === -1){
+            throw new RUR.Error("Unknown shape: " + shape);
+        }
+        s = this.find_shape(robot.x, robot.y);
+        if (s === 0 || s !== shape) {
+            throw new RUR.Error("No " + shape + " found here!");
+        } else {
+            robot[shape] += 1;
+            this.set_shape(robot.x, robot.y, null);
+        }
+    };
+
+    this.robot_put = function (robot, shape) {
+        if (["triangle", "square", "star"].indexOf(shape) === -1){
+            throw new RUR.Error("Unknown shape: " + shape);
+        }
+        if (robot[shape] === 0){
+            throw new RUR.Error("I don't have any " + shape + "to put down!");
+        } else if (this.find_shape(robot.x, robot.y) !== 0) {
+            throw new RUR.Error("There is already something here.");
+        }
+        this.set_shape(robot.x, robot.y, shape);
+        robot[shape] -= 1;
+    };
+
 
     this.is_wall_at = function (coords, orientation) {
         if (this.walls[coords] !== undefined){
@@ -239,7 +277,7 @@ RUR.World = function () {
     };
 
     this.add_frame = function () {
-        var i, k, robot, robots = [], walls, tokens;
+        var i, k, robot, robots = [], walls, tokens, shapes;
         for (i = 0; i < this.robots.length; i++){
             robot = {};
             robot.x = this.robots[i].x;
@@ -262,7 +300,12 @@ RUR.World = function () {
         for (i=0; i < k.length; i++){
             walls[k[i]] = this.walls[k[i]];
         }
-        this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens});
+        shapes = {};
+        k = Object.keys(this.shapes);
+        for (i=0; i < k.length; i++){
+            shapes[k[i]] = this.shapes[k[i]];
+        }
+        this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens, "shapes": shapes});
     };
 
     this.toggle_wall = function (x, y, orientation){
@@ -294,6 +337,10 @@ RUR.PrivateRobot = function(x, y, orientation, tokens) {
     this.prev_y = this.y;
     this.tokens = tokens || 0;
     this._is_leaky = true;
+    // the following can only be found in the world
+    this.triangles = 0;
+    this.squares = 0;
+    this.star = 0;
 
     if (orientation === undefined){
         this.orientation = RUR.world.EAST;
@@ -371,10 +418,21 @@ RUR.PrivateRobot.prototype.put_token = function () {
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.pick_token = function () {
-    RUR.world.robot_pick_token(this);
+RUR.PrivateRobot.prototype.take_token = function () {
+    RUR.world.robot_take_token(this);
     RUR.world.add_frame();
 };
+
+RUR.PrivateRobot.prototype.put = function (shape) {
+    RUR.world.robot_put(this, shape);
+    RUR.world.add_frame();
+};
+
+RUR.PrivateRobot.prototype.take = function (shape) {
+    RUR.world.robot_take(this, shape);
+    RUR.world.add_frame();
+};
+
 
 RUR.visible_world = {
     init: function () {
@@ -418,9 +476,12 @@ RUR.visible_world = {
         if (frame.tokens !== undefined){
             this.draw_tokens(frame.tokens);
         }
+        if (frame.shapes !== undefined){
+            this.draw_shapes(frame.shapes);
+        }
         this.draw_trace();
         if (frame.robots !== undefined) {
-            this.draw_robots(frame.robots)
+            this.draw_robots(frame.robots);
         }
     },
     set_trace_style : function (choice){
@@ -506,21 +567,76 @@ RUR.visible_world = {
     draw_tokens : function(tokens) {
         "use strict";
         var i, j, k, t, toks;
-        this.ctx = this.wall_ctx;
-        this.ctx.fillStyle = "gold";
-        this.ctx.strokeStyle = "black";
         toks = Object.keys(tokens);
         for (t=0; t < toks.length; t++){
             k = toks[t].split(",");
             i = parseInt(k[0], 10);
             j = parseInt(k[1], 10);
-            this.ctx.beginPath();
-            this.ctx.arc((i+0.6)*this.wall_length, this.height -
-                         (j+0.4)*this.wall_length, 12, 0 , 2 * Math.PI, false);
-            this.ctx.fill();
-            this.ctx.strokeText(tokens[toks[t]], (i+0.5)*this.wall_length,
-                                this.height - (j+0.3)*this.wall_length);
+            this.draw_token(i, j, tokens[toks[t]]);
         }
+    },
+    draw_token : function (i, j, num) {
+        "use strict";
+        var size = 12, scale = this.wall_length, Y = this.height;
+        this.ctx = this.wall_ctx;
+        this.ctx.fillStyle = "gold";
+        this.ctx.strokeStyle = "black";
+        this.ctx.beginPath();
+        this.ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
+        this.ctx.fill();
+        this.ctx.strokeText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
+    },
+    draw_shapes : function(shapes) {
+        "use strict";
+        var i, j, k, t, sh;
+        sh = Object.keys(shapes);
+        for (t=0; t < sh.length; t++){
+            k = sh[t].split(",");
+            i = parseInt(k[0], 10);
+            j = parseInt(k[1], 10);
+            this.draw_shape(i, j, shapes[sh[t]]);
+        }
+    },
+    draw_shape : function (i, j, shape) {
+        "use strict";
+        var size = 12, scale = this.wall_length, Y = this.height;
+        this.ctx = this.wall_ctx;
+        if (shape === "square") {
+            this.ctx.fillStyle = "blue";
+            this.ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
+        } else if (shape === "triangle") { // triangle
+            this.ctx.fillStyle = "green";
+            this.ctx.beginPath();
+            this.ctx.moveTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
+            this.ctx.lineTo((i+0.6)*scale, Y - (j+0.4)*scale - size);
+            this.ctx.lineTo((i+0.6)*scale + size, Y - (j+0.4)*scale + size);
+            this.ctx.lineTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
+            this.ctx.fill();
+            this.ctx.closePath();
+        } else {
+            this.ctx.fillStyle = "red";
+            this.draw_star(this.ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size);
+        }
+    },
+    draw_star : function (ctx, x, y, r){
+        // adapted from https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Compositing
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(r,0);
+        for (var i=0; i<9; i++){
+            ctx.rotate(Math.PI/5);
+            if(i%2 === 0) {
+                ctx.lineTo((r/0.525731)*0.200811, 0);
+            } else {
+                ctx.lineTo(r, 0);
+            }
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        ctx.restore();
     },
     draw_robot : function (robot) {
         "use strict";
@@ -794,8 +910,16 @@ var put_token = function() {
     RUR.world.robots[0].put_token();
 };
 
-var pick_token = function() {
-    RUR.world.robots[0].pick_token();
+var take_token = function() {
+    RUR.world.robots[0].take_token();
+};
+
+var put = function(arg) {
+    RUR.world.robots[0].put(arg);
+};
+
+var take = function(arg) {
+    RUR.world.robots[0].take(arg);
 };
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
