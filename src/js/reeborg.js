@@ -1,5 +1,5 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, translate_python */
+/*globals $, editor, library, translate_python, JSHINT */
 
 if (!Array.prototype.remove){
     // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
@@ -235,9 +235,62 @@ RUR.World = function () {
             }
             break;
         default:
-            throw new RUR.Error("Should not happen: unhandled case in RUR.World.move_robot().");
+            throw new RUR.Error("Should not happen: unhandled case in RUR.World.wall_in_front().");
         }
         return false;
+    };
+
+    this.build_wall = function(robot){
+        var coords, orientation, x, y;
+        switch (robot.orientation){
+        case this.EAST:
+            coords = robot.x + "," + robot.y;
+            if (this.is_wall_at(coords, "east")) {
+                throw new RUR.Error("There is already a wall here!");
+            }
+            orientation = "east";
+            x = robot.x;
+            y = robot.y;
+            break;
+        case this.NORTH:
+            coords = robot.x + "," + robot.y;
+            if (this.is_wall_at(coords, "north")) {
+                throw new RUR.Error("There is already a wall here!");
+            }
+            orientation = "north";
+            x = robot.x;
+            y = robot.y;
+            break;
+        case this.WEST:
+            if (robot.x===1){
+                throw new RUR.Error("There is already a wall here!");
+            } else {
+                coords = robot.x-1 + "," + robot.y;
+                if (this.is_wall_at(coords, "east")) {
+                    throw new RUR.Error("There is already a wall here!");
+                }
+            }
+            orientation = "east";
+            x = robot.x-1;
+            y = robot.y;
+            break;
+        case this.SOUTH:
+            if (robot.y===1){
+                throw new RUR.Error("There is already a wall here!");
+            } else {
+                coords = robot.x + "," + robot.y-1;
+                if (this.is_wall_at(coords, "north")) {
+                    throw new RUR.Error("There is already a wall here!");
+                }
+            }
+            orientation = "north";
+            x = robot.x;
+            y = robot.y-1;
+            break;
+        default:
+            throw new RUR.Error("Should not happen: unhandled case in RUR.World.build_wall().");
+        }
+        RUR.world.toggle_wall(x, y, orientation);
     };
 
     this.move_robot = function(robot){
@@ -246,7 +299,7 @@ RUR.World = function () {
         }
         if ((robot.y === RUR.visible_world.rows && robot.orientation === this.NORTH) ||
             (robot.x === RUR.visible_world.cols && robot.orientation === this.EAST)) {
-            throw new RUR.Error("I am afraid of the void!")
+            throw new RUR.Error("I am afraid of the void!");
         }
         robot.prev_x = robot.x;
         robot.prev_y = robot.y;
@@ -277,7 +330,7 @@ RUR.World = function () {
     };
 
     this.add_frame = function () {
-        var i, k, robot, robots = [], walls, tokens, shapes, home;
+        var i, j, k, robot, robots = [], walls, tokens, shapes, home;
         for (i = 0; i < this.robots.length; i++){
             robot = {};
             robot.x = this.robots[i].x;
@@ -298,7 +351,10 @@ RUR.World = function () {
         walls = {};
         k = Object.keys(this.walls);
         for (i=0; i < k.length; i++){
-            walls[k[i]] = this.walls[k[i]];
+            walls[k[i]] = [];
+            for(j = 0; j < this.walls[k[i]].length; j++){
+                walls[k[i]].push(this.walls[k[i]][j]);
+            }
         }
         shapes = {};
         k = Object.keys(this.shapes);
@@ -404,6 +460,11 @@ RUR.PrivateRobot.prototype.wall_in_front = function() {
     return RUR.world.wall_in_front(this);
 };
 
+RUR.PrivateRobot.prototype.build_wall = function () {
+    RUR.world.build_wall(this);
+    RUR.world.add_frame();
+};
+
 RUR.PrivateRobot.prototype.is_facing_north = function () {
     return this.orientation === RUR.world.NORTH;
 };
@@ -426,13 +487,12 @@ RUR.PrivateRobot.prototype.take_token = function () {
 
 RUR.PrivateRobot.prototype.has_token = function () {
     return this.tokens > 0;
-}
+};
 
 RUR.PrivateRobot.prototype.at_home = function () {
     return (this.x === RUR.world.imported_world.home.x &&
-            this.y === RUR.world.imported_world.home.y)
-}
-
+            this.y === RUR.world.imported_world.home.y);
+};
 
 RUR.PrivateRobot.prototype.put = function (shape) {
     RUR.world.robot_put(this, shape);
@@ -493,7 +553,7 @@ RUR.visible_world = {
     ctx: null,
     draw : function (frame) {
         "use strict";
-        this.draw_foreground_walls();
+        this.draw_foreground_walls(frame.walls);
         if (frame.tokens !== undefined){
             this.draw_tokens(frame.tokens);
         }
@@ -545,7 +605,7 @@ RUR.visible_world = {
             }
         }
     },
-    draw_foreground_walls : function () {
+    draw_foreground_walls : function (walls) {
         "use strict";
         var key, i, j;
         var ctx = this.wall_ctx;
@@ -565,11 +625,11 @@ RUR.visible_world = {
                     continue;
                 } else {
                     key = i + "," + j;
-                    if ( key in RUR.world.walls ) {
-                        if ( RUR.world.walls[key].indexOf("north") !== -1) {
+                    if ( key in walls ) {
+                        if ( walls[key].indexOf("north") !== -1) {
                             this.draw_north_wall(i, j);
                         }
-                        if (RUR.world.walls[key].indexOf("east") !== -1) {
+                        if (walls[key].indexOf("east") !== -1) {
                             this.draw_east_wall(i, j);
                         }
                     }
@@ -664,7 +724,7 @@ RUR.visible_world = {
     draw_robot : function (robot) {
         "use strict";
         var x, y, img, ctx;
-        var ctx = this.robot_ctx;
+        ctx = this.robot_ctx;
         x = robot.x * this.wall_length + this.robot_x_offset;
         y = this.height - (robot.y +1) * this.wall_length + this.robot_y_offset;
         switch(robot.orientation){
@@ -937,6 +997,11 @@ var wall_in_front = function() {
     return RUR.world.wall_in_front(RUR.world.robots[0]);
 };
 
+var build_wall = function() {
+    "use strict";
+    RUR.world.robots[0].build_wall();
+};
+
 var is_facing_north = function() {
     "use strict";
     return RUR.world.robots[0].is_facing_north();
@@ -966,7 +1031,7 @@ var take_token = function() {
 
 var has_token = function () {
     return RUR.world.robots[0].has_token();
-}
+};
 
 var put = function(arg) {
     RUR.world.robots[0].put(arg);
@@ -978,7 +1043,7 @@ var take = function(arg) {
 
 var at_home = function() {
     return RUR.world.robots[0].at_home();
-}
+};
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
 UsedRobot.prototype.constructor = UsedRobot;
@@ -1228,14 +1293,14 @@ $(document).ready(function() {
     library.widgets = [];
 });
 
-  function editorUpdateHints() {
+function editorUpdateHints() {
     updateHints(editor);
-  }
+}
 
-  function libraryUpdateHints() {
+function libraryUpdateHints() {
     updateHints(library);
-  }
-  var jshint_options = {
+}
+var jshint_options = {
     eqeqeq: true,
     boss: true,
     undef: true,
@@ -1246,41 +1311,38 @@ $(document).ready(function() {
     white: false,
     plusplus: false,
     jquery: true
-  };
+};
 
-  var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect, UsedRobot, wall_in_front, "+
+var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect, UsedRobot, wall_in_front, "+
                     " is_faing_north, done, put_token, take_token, put, take, shape_here,"+
-                    " token_here, has_token, write, at_home*/\n";
+                    " token_here, has_token, write, at_home, build_wall*/\n";
 
-  function updateHints(obj) {
+function updateHints(obj) {
     obj.operation(function () {
-      for(var i = 0; i < obj.widgets.length; ++i)
-      obj.removeLineWidget(obj.widgets[i]);
-      obj.widgets.length = 0;
+        for(var i = 0; i < obj.widgets.length; ++i)
+            obj.removeLineWidget(obj.widgets[i]);
+        obj.widgets.length = 0;
 
-      JSHINT(globals_ + obj.getValue(), jshint_options);
-      for(var i = 0; i < JSHINT.errors.length; ++i) {
-        var err = JSHINT.errors[i];
-        if(!err) continue;
-        var msg = document.createElement("div");
-        var icon = msg.appendChild(document.createElement("span"));
-        icon.innerHTML = "!?!";
-        icon.className = "lint-error-icon";
-        msg.appendChild(document.createTextNode(err.reason));
-        msg.className = "lint-error";
-        obj.widgets.push(obj.addLineWidget(err.line - 2, msg, {
-          coverGutter: false,
-          noHScroll: true
-        }));
-      }
+        JSHINT(globals_ + obj.getValue(), jshint_options);
+        for(i = 0; i < JSHINT.errors.length; ++i) {
+            var err = JSHINT.errors[i];
+            if(!err) continue;
+            var msg = document.createElement("div");
+            var icon = msg.appendChild(document.createElement("span"));
+            icon.innerHTML = "!?!";
+            icon.className = "lint-error-icon";
+            msg.appendChild(document.createTextNode(err.reason));
+            msg.className = "lint-error";
+            obj.widgets.push(obj.addLineWidget(err.line - 2, msg, {
+                coverGutter: false,
+                noHScroll: true
+            }));
+        }
     });
 
     var info = obj.getScrollInfo();
-    var after = obj.charCoords({
-      line: obj.getCursor().line + 1,
-      ch: 0
-    }, "local").top;
+    var after = obj.charCoords({line: obj.getCursor().line + 1, ch: 0}, "local").top;
     if(info.top + info.clientHeight < after) {
-      obj.scrollTo(null, after - info.clientHeight + 3);
+        obj.scrollTo(null, after - info.clientHeight + 3);
     }
-  };
+}
