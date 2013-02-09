@@ -902,6 +902,11 @@ var is_facing_north = function() {
     return RUR.world.robots[0].is_facing_north();
 };
 
+var token_here = function () {
+    "use strict";
+    return RUR.world.get_tokens(RUR.world.robots[0].x, RUR.world.robots[0].y);
+};
+
 var done = function () {
     RUR.world.robots[0].done();
 };
