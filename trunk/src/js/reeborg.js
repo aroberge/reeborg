@@ -26,7 +26,7 @@ RUR.List = function(){
     };
     this.add_item = function(data) {
         this.container.push(data);
-        if (this.length() > RUR.world.max_steps) {
+        if (this.length() >= RUR.world.max_steps) {
             throw new RUR.Error("Too many steps: " + RUR.world.max_steps);
         }
     };
@@ -64,7 +64,8 @@ RUR.World = function () {
 
     this.export_ = function (){
         var json_object;
-        json_object = {"robots": this.robots, "walls": this.walls, "tokens": this.tokens};
+        json_object = {"robots": this.robots, "walls": this.walls, "tokens": this.tokens,
+                        "shapes": this.shapes, "home": this.home};
         return JSON.stringify(json_object, null, '   ');
     };
 
@@ -162,7 +163,6 @@ RUR.World = function () {
     };
 
     this.robot_take  = function (robot, shape) {
-        console.log("inside robot_take");
         var s;
         if (["triangle", "square", "star"].indexOf(shape) === -1){
             throw new RUR.Error("Unknown shape: " + shape);
@@ -265,10 +265,6 @@ RUR.World = function () {
     };
 
     this.add_error_frame = function (error) {
-        // bypass the verification for limit of frames
-        if (error.message === "Done!") {
-            return;
-        }
         this.frames.container.push({error: error});
     };
 
@@ -277,7 +273,7 @@ RUR.World = function () {
     };
 
     this.add_frame = function () {
-        var i, k, robot, robots = [], walls, tokens, shapes;
+        var i, k, robot, robots = [], walls, tokens, shapes, home;
         for (i = 0; i < this.robots.length; i++){
             robot = {};
             robot.x = this.robots[i].x;
@@ -305,7 +301,8 @@ RUR.World = function () {
         for (i=0; i < k.length; i++){
             shapes[k[i]] = this.shapes[k[i]];
         }
-        this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens, "shapes": shapes});
+        this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens, "shapes": shapes,
+                                "home" : this.home});
     };
 
     this.toggle_wall = function (x, y, orientation){
@@ -468,7 +465,10 @@ RUR.visible_world = {
         this.robot_w_img.src = '../images/robot_w.png';
         this.robot_s_img = new Image();
         this.robot_s_img.src = '../images/robot_s.png';
+        this.home_img = new Image();
+        this.home_img.src = '../images/home.png';
         this.running = false;
+        this.home = undefined;
     },
     wall_length: 40,
     wall_thickness: 5,
@@ -651,7 +651,6 @@ RUR.visible_world = {
         this.ctx = this.robot_ctx;
         x = robot.x * this.wall_length + this.robot_x_offset;
         y = this.height - (robot.y +1) * this.wall_length + this.robot_y_offset;
-        this.ctx.beginPath();
         switch(robot.orientation){
         case RUR.world.EAST:
             img = this.robot_e_img;
@@ -744,15 +743,31 @@ RUR.visible_world = {
         }
         RUR.visible_world.draw(frame);
     },
-
     draw_robots : function(robots) {
-        var robot;
+        var robot, X, Y;
         this.robot_ctx.clearRect(0, 0, this.width, this.height);
+        if (RUR.world.imported_world.home !== undefined) {
+            this.draw_home();
+            X = RUR.world.imported_world.home.x;
+            Y = RUR.world.imported_world.home.y;
+        } else {
+            X = -1;
+            Y = -1;
+        }
         for (robot=0; robot < robots.length; robot++){
-            this.draw_robot(robots[robot]);
+            if( !(robots[robot].x === X && robots[robot].y === Y)) {
+                this.draw_robot(robots[robot]);
+            }
         }
     },
-
+    draw_home : function () {
+        "use strict";
+        var x, y, img;
+        this.ctx = this.robot_ctx;
+        x = RUR.world.imported_world.home.x * this.wall_length;
+        y = this.height - (RUR.world.imported_world.home.y +1) * this.wall_length;
+        this.ctx.drawImage(this.home_img, x, y);
+    },
     reset : function () {
         "use strict";
         RUR.world.reset();
