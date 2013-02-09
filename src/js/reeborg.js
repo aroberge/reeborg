@@ -239,7 +239,7 @@ RUR.World = function () {
     };
 
     this.add_frame = function () {
-        var i, robot, robots = [];
+        var i, k, robot, robots = [], walls, tokens;
         for (i = 0; i < this.robots.length; i++){
             robot = {};
             robot.x = this.robots[i].x;
@@ -249,9 +249,20 @@ RUR.World = function () {
             robot.orientation = this.robots[i].orientation;
             robot.prev_orientation = this.robots[i].prev_orientation;
             robot._is_leaky = this.robots[i]._is_leaky;
+            robot.tokens = this.robots[i].tokens;
             robots.push(robot);
         }
-        this.frames.add_item({robots: robots});
+        tokens = {};
+        k = Object.keys(this.tokens);
+        for (i=0; i < k.length; i++){
+            tokens[k[i]] = this.tokens[k[i]];
+        }
+        walls = {};
+        k = Object.keys(this.walls);
+        for (i=0; i < k.length; i++){
+            walls[k[i]] = this.walls[k[i]];
+        }
+        this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens});
     };
 
     this.toggle_wall = function (x, y, orientation){
@@ -392,7 +403,6 @@ RUR.visible_world = {
         this.robot_w_img.src = '../images/robot_w.png';
         this.robot_s_img = new Image();
         this.robot_s_img.src = '../images/robot_s.png';
-        this.draw();
         this.running = false;
     },
     wall_length: 40,
@@ -402,9 +412,16 @@ RUR.visible_world = {
     wall_color: "brown",
     shawdow_wall_color: "#f0f0f0",
     ctx: null,
-    draw : function () {
+    draw : function (frame) {
         "use strict";
         this.draw_foreground_walls();
+        if (frame.tokens !== undefined){
+            this.draw_tokens(frame.tokens);
+        }
+        this.draw_trace();
+        if (frame.robots !== undefined) {
+            this.draw_robots(frame.robots)
+        }
     },
     set_trace_style : function (choice){
         "use strict";
@@ -486,16 +503,13 @@ RUR.visible_world = {
         this.ctx.fillRect((i+1)*this.wall_length, this.height - (j+1)*this.wall_length,
                           this.wall_thickness, this.wall_length + this.wall_thickness);
     },
-    draw_tokens : function() {
+    draw_tokens : function(tokens) {
         "use strict";
         var i, j, k, t, toks;
-        if (RUR.world.tokens === undefined){
-            return;
-        }
         this.ctx = this.wall_ctx;
         this.ctx.fillStyle = "gold";
         this.ctx.strokeStyle = "black";
-        toks = Object.keys(RUR.world.tokens);
+        toks = Object.keys(tokens);
         for (t=0; t < toks.length; t++){
             k = toks[t].split(",");
             i = parseInt(k[0], 10);
@@ -504,7 +518,7 @@ RUR.visible_world = {
             this.ctx.arc((i+0.6)*this.wall_length, this.height -
                          (j+0.4)*this.wall_length, 12, 0 , 2 * Math.PI, false);
             this.ctx.fill();
-            this.ctx.strokeText(RUR.world.tokens[toks[t]], (i+0.5)*this.wall_length,
+            this.ctx.strokeText(tokens[toks[t]], (i+0.5)*this.wall_length,
                                 this.height - (j+0.3)*this.wall_length);
         }
     },
@@ -536,7 +550,7 @@ RUR.visible_world = {
     },
     draw_trace : function (robot) {
         "use strict";
-        if (robot._is_leaky === false) {
+        if (robot === undefined || robot._is_leaky === false) {
             return;
         }
         this.ctx = this.trace_ctx;
@@ -579,8 +593,7 @@ RUR.visible_world = {
     },
     play_single_frame : function () {
         "use strict";
-        var frame, robot, ctx;
-        ctx = this.robot_ctx;
+        var frame, robot;
         if (RUR.world.frames.length() !== 0) {
             frame = RUR.world.frames.shift();
         } else {
@@ -606,9 +619,7 @@ RUR.visible_world = {
             $(frame.output.element).append(frame.output.message + "\n");
             return;
         }
-        this.draw_foreground_walls();
-        this.draw_tokens();
-        this.draw_robots(frame.robots);
+        RUR.visible_world.draw(frame);
     },
 
     draw_robots : function(robots) {
@@ -625,11 +636,8 @@ RUR.visible_world = {
         this.compiled = false;
         this.draw_background_walls();
         this.draw_coordinates();
-        this.draw_foreground_walls();
         this.trace_ctx.clearRect(0, 0, this.width, this.height);
-        this.robot_ctx.clearRect(0, 0, this.width, this.height);
-        this.draw_tokens();
-        this.draw_robots(RUR.world.robots);
+        this.draw(RUR.world);
         this.running = false;
     }
 };
@@ -662,8 +670,10 @@ RUR.Controls = function (programming_language) {
             try {
                 if (this.programming_language === "javascript") {
                     RUR.compile_javascript(src);
+                    RUR.visible_world.compiled = true;
                 } else if (this.programming_language === "brython") {
                     RUR.compile_brython(src);
+                    RUR.visible_world.compiled = true;
                 } else {
                     alert("Unrecognized programming language.");
                     fatal_error_found = true;
@@ -679,7 +689,6 @@ RUR.Controls = function (programming_language) {
             }
         }
 
-        RUR.visible_world.compiled = true;
         if (!fatal_error_found) {
             func();
         }
