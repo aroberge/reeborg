@@ -244,6 +244,10 @@ RUR.World = function () {
         if (this.wall_in_front(robot)) {
             throw new RUR.Error("Ouch! I hit a wall!");
         }
+        if ((robot.y === RUR.visible_world.rows && robot.orientation === this.NORTH) ||
+            (robot.x === RUR.visible_world.cols && robot.orientation === this.EAST)) {
+            throw new RUR.Error("I am afraid of the void!")
+        }
         robot.prev_x = robot.x;
         robot.prev_y = robot.y;
         switch (robot.orientation){
@@ -420,6 +424,16 @@ RUR.PrivateRobot.prototype.take_token = function () {
     RUR.world.add_frame();
 };
 
+RUR.PrivateRobot.prototype.has_token = function () {
+    return this.tokens > 0;
+}
+
+RUR.PrivateRobot.prototype.at_home = function () {
+    return (this.x === RUR.world.imported_world.home.x &&
+            this.y === RUR.world.imported_world.home.y)
+}
+
+
 RUR.PrivateRobot.prototype.put = function (shape) {
     RUR.world.robot_put(this, shape);
     RUR.world.add_frame();
@@ -506,23 +520,24 @@ RUR.visible_world = {
     draw_coordinates: function(){
         "use strict";
         var x, y;
-        this.ctx = this.background_ctx;
-        this.ctx.fillStyle = 'black';
+        var ctx = this.background_ctx;
+        ctx.fillStyle = 'black';
         y = this.height-this.wall_length/2;
         for(x=1; x <= this.cols; x++){
-            this.ctx.fillText(x, (x+0.5)*this.wall_length, y);
+            ctx.fillText(x, (x+0.5)*this.wall_length, y);
         }
         x = this.wall_length/2;
         for(y=1; y <= this.rows; y++){
-            this.ctx.fillText(y, x, this.height - (y+0.3)*this.wall_length);
+            ctx.fillText(y, x, this.height - (y+0.3)*this.wall_length);
         }
     },
     draw_background_walls : function () {
         "use strict";
         var i, j;
-        this.ctx = this.background_ctx;
-        this.ctx.clearRect(0, 0, this.width, this.height);
-        this.ctx.fillStyle = this.shawdow_wall_color;
+        var ctx = this.background_ctx;
+        this.ctx = ctx;
+        ctx.clearRect(0, 0, this.width, this.height);
+        ctx.fillStyle = this.shawdow_wall_color;
         for (i = 1; i <= this.cols; i++) {
             for (j = 1; j <= this.rows; j++) {
                 this.draw_north_wall(i, j);
@@ -533,9 +548,10 @@ RUR.visible_world = {
     draw_foreground_walls : function () {
         "use strict";
         var key, i, j;
-        this.ctx = this.wall_ctx;
-        this.ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
-        this.ctx.fillStyle = this.wall_color;
+        var ctx = this.wall_ctx;
+        this.ctx = ctx;
+        ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
+        ctx.fillStyle = this.wall_color;
         // todo : make more efficient by 1. splitting into two functions so as not
         // to redraw permanent walls and 2. do not loop over all possible combinations
         // but identify which walls need to be drawn the same way we do for tokens.
@@ -585,13 +601,13 @@ RUR.visible_world = {
     draw_token : function (i, j, num) {
         "use strict";
         var size = 12, scale = this.wall_length, Y = this.height;
-        this.ctx = this.wall_ctx;
-        this.ctx.fillStyle = "gold";
-        this.ctx.strokeStyle = "black";
-        this.ctx.beginPath();
-        this.ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
-        this.ctx.fill();
-        this.ctx.strokeText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
+        var ctx = this.wall_ctx;
+        ctx.fillStyle = "gold";
+        ctx.strokeStyle = "black";
+        ctx.beginPath();
+        ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
+        ctx.fill();
+        ctx.strokeText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
     },
     draw_shapes : function(shapes) {
         "use strict";
@@ -607,22 +623,22 @@ RUR.visible_world = {
     draw_shape : function (i, j, shape) {
         "use strict";
         var size = 12, scale = this.wall_length, Y = this.height;
-        this.ctx = this.wall_ctx;
+        var ctx = this.wall_ctx;
         if (shape === "square") {
-            this.ctx.fillStyle = "blue";
-            this.ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
+            ctx.fillStyle = "blue";
+            ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
         } else if (shape === "triangle") { // triangle
-            this.ctx.fillStyle = "green";
-            this.ctx.beginPath();
-            this.ctx.moveTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
-            this.ctx.lineTo((i+0.6)*scale, Y - (j+0.4)*scale - size);
-            this.ctx.lineTo((i+0.6)*scale + size, Y - (j+0.4)*scale + size);
-            this.ctx.lineTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
-            this.ctx.fill();
-            this.ctx.closePath();
+            ctx.fillStyle = "green";
+            ctx.beginPath();
+            ctx.moveTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
+            ctx.lineTo((i+0.6)*scale, Y - (j+0.4)*scale - size);
+            ctx.lineTo((i+0.6)*scale + size, Y - (j+0.4)*scale + size);
+            ctx.lineTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
+            ctx.fill();
+            ctx.closePath();
         } else {
-            this.ctx.fillStyle = "red";
-            this.draw_star(this.ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size);
+            ctx.fillStyle = "red";
+            this.draw_star(ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size);
         }
     },
     draw_star : function (ctx, x, y, r){
@@ -647,8 +663,8 @@ RUR.visible_world = {
     },
     draw_robot : function (robot) {
         "use strict";
-        var x, y, img;
-        this.ctx = this.robot_ctx;
+        var x, y, img, ctx;
+        var ctx = this.robot_ctx;
         x = robot.x * this.wall_length + this.robot_x_offset;
         y = this.height - (robot.y +1) * this.wall_length + this.robot_y_offset;
         switch(robot.orientation){
@@ -667,7 +683,7 @@ RUR.visible_world = {
         default:
             img = this.robot_e_img;
         }
-        this.ctx.drawImage(img, x, y);
+        ctx.drawImage(img, x, y);
         this.draw_trace(robot);
     },
     draw_trace : function (robot) {
@@ -675,16 +691,16 @@ RUR.visible_world = {
         if (robot === undefined || robot._is_leaky === false) {
             return;
         }
-        this.ctx = this.trace_ctx;
-        this.ctx.strokeStyle = this.trace_color;
-        this.ctx.lineWidth = this.trace_thickness;
-        this.ctx.lineCap = "round";
-        this.ctx.beginPath();
-        this.ctx.moveTo(robot.prev_x* this.wall_length + this.trace_offset[robot.prev_orientation][0],
+        var ctx = this.trace_ctx;
+        ctx.strokeStyle = this.trace_color;
+        ctx.lineWidth = this.trace_thickness;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(robot.prev_x* this.wall_length + this.trace_offset[robot.prev_orientation][0],
                         this.height - (robot.prev_y +1) * this.wall_length + this.trace_offset[robot.prev_orientation][1]);
-        this.ctx.lineTo(robot.x* this.wall_length + this.trace_offset[robot.orientation][0],
+        ctx.lineTo(robot.x* this.wall_length + this.trace_offset[robot.orientation][0],
                         this.height - (robot.y +1) * this.wall_length + this.trace_offset[robot.orientation][1]);
-        this.ctx.stroke();
+        ctx.stroke();
     },
     play_frames : function () {
         "use strict";
@@ -756,17 +772,19 @@ RUR.visible_world = {
         }
         for (robot=0; robot < robots.length; robot++){
             if( !(robots[robot].x === X && robots[robot].y === Y)) {
-                this.draw_robot(robots[robot]);
+                this.draw_robot(robots[robot]); // draws trace automatically
+            } else {
+                this.draw_trace(robots[robot]);
             }
         }
     },
     draw_home : function () {
         "use strict";
         var x, y, img;
-        this.ctx = this.robot_ctx;
+        var ctx = this.robot_ctx;
         x = RUR.world.imported_world.home.x * this.wall_length;
         y = this.height - (RUR.world.imported_world.home.y +1) * this.wall_length;
-        this.ctx.drawImage(this.home_img, x, y);
+        ctx.drawImage(this.home_img, x, y);
     },
     reset : function () {
         "use strict";
@@ -946,6 +964,10 @@ var take_token = function() {
     RUR.world.robots[0].take_token();
 };
 
+var has_token = function () {
+    return RUR.world.robots[0].has_token();
+}
+
 var put = function(arg) {
     RUR.world.robots[0].put(arg);
 };
@@ -953,6 +975,10 @@ var put = function(arg) {
 var take = function(arg) {
     RUR.world.robots[0].take(arg);
 };
+
+var at_home = function() {
+    return RUR.world.robots[0].at_home();
+}
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
 UsedRobot.prototype.constructor = UsedRobot;
@@ -1197,4 +1223,64 @@ $(document).ready(function() {
     try{
         doShowNotes();
     }catch (e) {console.log(e);} // Do not alert the user as we've already caught similar errors
+
+    editor.widgets = [];
+    library.widgets = [];
 });
+
+  function editorUpdateHints() {
+    updateHints(editor);
+  }
+
+  function libraryUpdateHints() {
+    updateHints(library);
+  }
+  var jshint_options = {
+    eqeqeq: true,
+    boss: true,
+    undef: true,
+    curly: true,
+    nonew: true,
+    browser: true,
+    devel: true,
+    white: false,
+    plusplus: false,
+    jquery: true
+  };
+
+  var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect, UsedRobot, wall_in_front, "+
+                    " is_faing_north, done, put_token, take_token, put, take, shape_here,"+
+                    " token_here, has_token, write, at_home*/\n";
+
+  function updateHints(obj) {
+    obj.operation(function () {
+      for(var i = 0; i < obj.widgets.length; ++i)
+      obj.removeLineWidget(obj.widgets[i]);
+      obj.widgets.length = 0;
+
+      JSHINT(globals_ + obj.getValue(), jshint_options);
+      for(var i = 0; i < JSHINT.errors.length; ++i) {
+        var err = JSHINT.errors[i];
+        if(!err) continue;
+        var msg = document.createElement("div");
+        var icon = msg.appendChild(document.createElement("span"));
+        icon.innerHTML = "!?!";
+        icon.className = "lint-error-icon";
+        msg.appendChild(document.createTextNode(err.reason));
+        msg.className = "lint-error";
+        obj.widgets.push(obj.addLineWidget(err.line - 2, msg, {
+          coverGutter: false,
+          noHScroll: true
+        }));
+      }
+    });
+
+    var info = obj.getScrollInfo();
+    var after = obj.charCoords({
+      line: obj.getCursor().line + 1,
+      ch: 0
+    }, "local").top;
+    if(info.top + info.clientHeight < after) {
+      obj.scrollTo(null, after - info.clientHeight + 3);
+    }
+  };

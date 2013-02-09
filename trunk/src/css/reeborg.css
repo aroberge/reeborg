@@ -1,7 +1,7 @@
 html, body {max-width: 100%;}
 body {font-family:Trebuchet MS,Helvetica,Arial,sans-serif;}
 button:focus, a:focus {outline: none;}
-header {position: fixed; top: 0; left: 0; z-index: 10; width: 99.9%;}
+header {position: absolute; top: 0; left: 0; z-index: 10; width: 99.9%;}
 #logo{float: left; padding-left: 20px; padding-right: 20px; margin-right: 20%; font-size: 30px;
   font-weight: bold; text-decoration: none; color: white; line-height: 25px;
   text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
