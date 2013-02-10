@@ -892,7 +892,25 @@ RUR.visible_world = {
         }
         if (frame.error !== undefined) {
             RUR.controls.stop();
-            $("#Reeborg-shouts").html(frame.error.message).dialog("open");
+            if (frame.error.message === "Done!"){
+                if (RUR.world.goal !== undefined){
+                    goal_status = RUR.visible_world.check_goal(RUR.world.prev_frame);
+                    if (goal_status.success) {
+                        $("#Reeborg-says").html(goal_status.message).dialog("open");
+                    } else {
+                        $("#Reeborg-shouts").html(goal_status.message).dialog("open");
+                    }
+                    RUR.controls.stop();
+                    return "stopped";
+                } else {
+                    $("#Reeborg-says").html("All done!").dialog("open").fadeOut(2000);
+                    setTimeout(function(){$("#Reeborg-says").dialog("close");}, 1500);
+                    RUR.controls.stop();
+                    return "stopped";
+                }
+            } else {
+                $("#Reeborg-shouts").html(frame.error.message).dialog("open");
+            }
             return "stopped";
         }
         if (frame.output !== undefined) {
