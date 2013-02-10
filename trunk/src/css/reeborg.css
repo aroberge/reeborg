@@ -5,7 +5,7 @@ header {position: absolute; top: 0; left: 0; z-index: 10; width: 99.9%;}
 #logo{float: left; padding-left: 20px; padding-right: 20px; margin-right: 20%; font-size: 30px;
   font-weight: bold; text-decoration: none; color: white; line-height: 25px;
   text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
-    0 6px 1px rgba(0,0,0,.3), 0 0 5px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.3), 1px 3px 5px rgba(0,0,0,.2),
+    0 6px 1px rgba(0,0,0,.3), 0 0 5px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.3), 1px 3px 5px rgba(0,0,0,.4),
     2px 5px 10px rgba(0,0,0,.35), 5px 10px 10px rgba(0,0,0,.45);
 }
 header button {border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(0,0,0,0.1);
@@ -20,7 +20,7 @@ header button:last-child {margin-right: 10%;}
 #saved, #checked, #library-problem {background-color: #96c423; color: white; display:none; margin: 5px;
   font-size:0.5em; float: right;}
 .CodeMirror {border: 1px solid black; font-size:13px; width: 99.9%; height: 100%;}
-.cm-s-reeborg-dark { line-height: 1.2em; font-size: 11pt;}
+.cm-s-reeborg-dark { line-height: 1.4em; font-size: 11pt;}
 .cm-s-reeborg-dark { font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;}
 .cm-s-reeborg-dark.CodeMirror { background: #112244; color: white; border: 0;}
 .cm-s-reeborg-dark .CodeMirror-gutters { background: #224488; border-right: 3px solid rgb(117,161,16); }
@@ -36,6 +36,26 @@ header button:last-child {margin-right: 10%;}
 .cm-s-reeborg-dark .cm-variable-3 { color: #7BD827; }
 .cm-s-reeborg-dark .cm-builtin, .cm-s-reeborg-dark .cm-special { color: #FF9D00; }
 .cm-s-reeborg-dark .cm-tab:before {content: "➤";  color: red;}
+
+.jscode .cm-s-reeborg-dark.CodeMirror{
+      background-image: -webkit-linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%,
+                transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%,
+                transparent 75%, transparent);
+      background-image: -moz-linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%,
+                transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%,
+                transparent 75%, transparent);
+      background-image: -ms-linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%,
+                transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%,
+                transparent 75%, transparent);
+      background-image: -o-linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%,
+                transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%,
+                transparent 75%, transparent);
+      background-image: linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%,
+                transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%,
+                transparent 75%, transparent);
+      background-size:50px 50px;
+    }
+
 #panels {position: fixed;  top: 37px; left: 0;width: 100%; display: block; min-width: 800px; height: 100%;
   margin: auto; padding: 0;}
 .panel {float: left; position: relative; top: 0; height: 94%; padding: 3px;  overflow-y: auto;

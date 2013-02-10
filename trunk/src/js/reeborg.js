@@ -528,7 +528,7 @@ RUR.visible_world = {
         this.robot_ctx = document.getElementById("robot_canvas").getContext("2d");
         this.rows = Math.floor(this.height / this.wall_length) - 1;
         this.cols = Math.floor(this.width / this.wall_length) - 2;
-        this.delay = 50;   // milliseconds
+        this.delay = 300;   // milliseconds
         this.robot_e_img = new Image();
         this.robot_e_img.src = '../images/robot_e.png';
         // the following ensures that we won't attempt drawing until the default image is available
