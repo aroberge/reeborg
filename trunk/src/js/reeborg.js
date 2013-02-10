@@ -86,6 +86,7 @@ RUR.World = function () {
         this.tokens = this.imported_world.tokens || {};
         this.shapes = this.imported_world.shapes || {};
         this.goal = this.imported_world.goal;
+        console.log(this.goal);
         if (this.imported_world.robots !== undefined) {
             for (i = 0; i < this.imported_world.robots.length; i++){
                 switch(this.imported_world.robots[i].orientation){
@@ -610,15 +611,37 @@ RUR.visible_world = {
     draw_goal : function () {
         "use strict";
         if (RUR.world.goal === undefined) return;
-        if (RUR.world.goal.position !== undefined) {
-            this.draw_coloured_tile(RUR.world.goal.position.x, RUR.world.goal.position.y);
+        var goal = RUR.world.goal;
+        if (goal.position !== undefined) {
+            this.draw_coloured_tile(goal.position.x, goal.position.y, goal.orientation);
         }
     },
-    draw_coloured_tile : function (i, j) {
-        var ctx = this.background_ctx;
+    draw_coloured_tile : function (i, j, orientation) {
+        var size = this.wall_thickness, ctx = this.background_ctx;
         ctx.fillStyle = "#99ffcc";
-        ctx.fillRect(i*this.wall_length + this.wall_thickness, this.height - (j+1)*this.wall_length + this.wall_thickness,
-                          this.wall_length - this.wall_thickness, this.wall_length-this.wall_thickness);
+        ctx.fillRect(i*this.wall_length + size, this.height - (j+1)*this.wall_length + size,
+                          this.wall_length - size, this.wall_length - size);
+        if (orientation === undefined) return;
+
+        ctx.fillStyle = "black";
+        switch(orientation){
+        case 0:
+            ctx.fillRect((i+1)*this.wall_length - size, this.height - (j+0.5)*this.wall_length,
+                          size, size);
+            break;
+        case 1:
+            ctx.fillRect((i+0.5)*this.wall_length, this.height - (j+1)*this.wall_length + size,
+                          size, size);
+            break;
+        case 2:
+            ctx.fillRect((i)*this.wall_length + size, this.height - (j+0.5)*this.wall_length,
+                          size, size);
+            break;
+        case 3:
+            ctx.fillRect((i+0.5)*this.wall_length , this.height - (j)*this.wall_length - size,
+                          size, size);
+            break;
+        }
     },
     draw_foreground_walls : function (walls) {
         "use strict";
@@ -822,6 +845,14 @@ RUR.visible_world = {
                 goal_status.message += "<li class='success'>Reeborg y position.</li>";
             } else {
                 goal_status.message += "<li class='failure'>Reeborg y position.</li>";
+                goal_status.success = false;
+            }
+        }
+        if (g.orientation !== undefined){
+            if (RUR.world.goal.orientation === RUR.world.robots[0].orientation){
+                goal_status.message += "<li class='success'>Reeborg orientation.</li>";
+            } else {
+                goal_status.message += "<li class='failure'>Reeborg orientation.</li>";
                 goal_status.success = false;
             }
         }
