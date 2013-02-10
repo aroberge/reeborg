@@ -332,7 +332,7 @@ RUR.World = function () {
     };
 
     this.add_frame = function () {
-        var i, j, k, robot, robots = [], walls, tokens, shapes, home;
+        var i, j, k, robot, robots = [], walls, tokens, shapes;
         for (i = 0; i < this.robots.length; i++){
             robot = {};
             robot.x = this.robots[i].x;
@@ -617,6 +617,9 @@ RUR.visible_world = {
         if (goal.shapes !== undefined){
             this.draw_shapes(goal.shapes, true);
         }
+        if (goal.tokens !== undefined) {
+            this.draw_tokens(goal.tokens, true);
+        }
     },
     draw_coloured_tile : function (i, j, orientation) {
         var size = this.wall_thickness, ctx = this.background_ctx;
@@ -687,7 +690,7 @@ RUR.visible_world = {
         this.ctx.fillRect((i+1)*this.wall_length, this.height - (j+1)*this.wall_length,
                           this.wall_thickness, this.wall_length + this.wall_thickness);
     },
-    draw_tokens : function(tokens) {
+    draw_tokens : function(tokens, goal) {
         "use strict";
         var i, j, k, t, toks;
         toks = Object.keys(tokens);
@@ -695,19 +698,30 @@ RUR.visible_world = {
             k = toks[t].split(",");
             i = parseInt(k[0], 10);
             j = parseInt(k[1], 10);
-            this.draw_token(i, j, tokens[toks[t]]);
+            this.draw_token(i, j, tokens[toks[t]], goal);
         }
     },
-    draw_token : function (i, j, num) {
+    draw_token : function (i, j, num, goal) {
         "use strict";
         var size = 12, scale = this.wall_length, Y = this.height;
         var ctx = this.wall_ctx;
         ctx.fillStyle = "gold";
-        ctx.strokeStyle = "black";
+        if (goal) {
+            ctx = this.background_ctx;
+            ctx.strokeStyle = "#333";
+        } else {
+            ctx.strokeStyle = "black";
+        }
         ctx.beginPath();
         ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
-        ctx.fill();
-        ctx.strokeText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
+        if (goal) {
+            ctx.stroke();
+            ctx.strokeText(num, (i+0.2)*scale, Y - (j)*scale);
+        } else {
+            ctx.fill();
+            ctx.strokeText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
+        }
+
     },
     draw_shapes : function(shapes, goal) {
         "use strict";
@@ -849,40 +863,61 @@ RUR.visible_world = {
 
         RUR.timer = setTimeout(RUR.visible_world.update, RUR.visible_world.delay);
     },
+    contained_in: function (obj1, obj2){
+        var keys, i;
+        keys = Object.keys(obj1);
+        for (i=0; i < keys.length; i++){
+            if (obj2[keys[i]] === undefined){
+                return false;
+            } else if (obj2[keys[i]] !== obj1[keys[i]]) {
+                return false;
+            }
+        }
+        return true;
+    },
     check_goal : function (frame) {
-        var g, w, goal_status = {};
+        var g, i, k, keys, goal_status = {}, result;
         g = RUR.world.goal;
-        w = RUR.world;
         goal_status.message = "<ul>";
         goal_status.success = true;
         if (g.position !== undefined){
             goal_status.position = {};
-            if (g.position.x === w.robots[0].x){
-                goal_status.message += "<li class='success'>Reeborg x position.</li>";
+            if (g.position.x === frame.robots[0].x){
+                goal_status.message += "<li class='success'>Reeborg is at the correct x position.</li>";
             } else {
-                goal_status.message += "<li class='failure'>Reeborg x position.</li>";
+                goal_status.message += "<li class='failure'>Reeborg is at the wrong x position.</li>";
                 goal_status.success = false;
             }
-            if (g.position.y === w.robots[0].y){
-                goal_status.message += "<li class='success'>Reeborg y position.</li>";
+            if (g.position.y === frame.robots[0].y){
+                goal_status.message += "<li class='success'>Reeborg is at the correct y position.</li>";
             } else {
-                goal_status.message += "<li class='failure'>Reeborg y position.</li>";
+                goal_status.message += "<li class='failure'>Reeborg is at the wrong y position.</li>";
                 goal_status.success = false;
             }
         }
         if (g.orientation !== undefined){
-            if (gl.orientation === w.robots[0].orientation){
-                goal_status.message += "<li class='success'>Reeborg orientation.</li>";
+            if (g.orientation === frame.robots[0].orientation){
+                goal_status.message += "<li class='success'>Reeborg has the correct orientation.</li>";
             } else {
-                goal_status.message += "<li class='failure'>Reeborg orientation.</li>";
+                goal_status.message += "<li class='failure'>Reeborg has the wrong orientation.</li>";
                 goal_status.success = false;
             }
         }
         if (g.shapes !== undefined) {
-            if (JSON.stringify(g.shapes) === JSON.stringify(w.shapes)){
-                goal_status.message += "<li class='success'>Shapes at the correct location.</li>";
+            result = this.contained_in(g.shapes, frame.shapes);
+            if (result){
+                goal_status.message += "<li class='success'>All shapes are at the correct location.</li>";
             } else {
-                goal_status.message += "<li class='failure'>One or more shape not at the correct location.</li>";
+                goal_status.message += "<li class='failure'>One or more shapes are not at the correct location.</li>";
+                goal_status.success = false;
+            }
+        }
+        if (g.tokens !== undefined) {
+            result = this.contained_in(g.tokens, frame.tokens);
+            if (result){
+                goal_status.message += "<li class='success'>All tokens are at the correct location.</li>";
+            } else {
+                goal_status.message += "<li class='failure'>One or more tokens are not at the correct location.</li>";
                 goal_status.success = false;
             }
         }
@@ -891,7 +926,7 @@ RUR.visible_world = {
     },
     play_single_frame : function () {
         "use strict";
-        var frame, robot, goal_status;
+        var frame, goal_status;
         if (RUR.world.frames.length() !== 0) {
             frame = RUR.world.frames.shift();
             RUR.world.prev_frame = frame;
@@ -970,7 +1005,7 @@ RUR.visible_world = {
     },
     draw_home : function () {
         "use strict";
-        var x, y, img;
+        var x, y;
         var ctx = this.robot_ctx;
         x = RUR.world.imported_world.home.x * this.wall_length;
         y = this.height - (RUR.world.imported_world.home.y +1) * this.wall_length;
@@ -1413,8 +1448,8 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#Reeborg-says").dialog({autoOpen:false, width:450, position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-shouts").dialog({autoOpen:false, width:450, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-says").dialog({autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-shouts").dialog({autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     try{
         doShowNotes();
     }catch (e) {console.log(e);} // Do not alert the user as we've already caught similar errors
