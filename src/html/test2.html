@@ -2,7 +2,7 @@
 <a href="javascript:void(0);" onClick="load_page('test1')">Test 1</a>
 <p> Make sure that you define in your library (and
     click save for later use) the following function.</p>
-<pre>
+<pre class="jscode">
 function turn_right() {
     turn_left();
     turn_left();
@@ -12,7 +12,7 @@ function turn_right() {
 <p>Select Test world 2. The following is a solution for it: Reeborg
     has to end on the pale green square, facing west (as indicated by the tiny black square)
     and move the coloured shapes to their correct location (indicated by the outlines). Try changing it, perhaps by commenting out an instruction, and see the result.</p>
-<pre>
+<pre class="jscode">
 turn_right();
 move();
 take_token();
@@ -49,3 +49,17 @@ build_wall();
 turn_left();
 turn_left();
 </pre>
+<script>
+$('.jscode').each(function() {
+    var $this = $(this),
+        $code = $this.html();
+    $this.empty();
+    var myCodeMirror = CodeMirror(this, {
+        value: $code,
+        mode: 'javascript',
+        lineNumbers: !$this.is('.inline'),
+        readOnly: true,
+        theme: 'reeborg-dark'
+    });
+});
+</script>
