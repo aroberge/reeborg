@@ -83,6 +83,10 @@ background-color: white;}
 .alert .ui-widget-header {background-color: red; background-image: none;}
 .green-border {border-bottom: 4px solid #75a110;}
 .ui-widget-header {border-bottom: 3px solid #75a110;}
+.success {color: green; list-style: none;}
+li.success:after{content: url(../images/ok.png);}
+.failure {color: red; list-style: none;}
+li.failure:after{content: url(../images/not_ok.png);}
 
 button, a.fake_button{
     color:white;
@@ -116,5 +120,5 @@ button[disabled]{
     color: #ccc;
 }
 
-  .lint-error {font-size: 80%; background: #ffa; color: black; padding: 2px 5px 3px; }
-  .lint-error-icon {color: white; background-color: red; font-weight: bold; border-radius: 50%; padding: 0 3px; margin-right: 7px;}
+.lint-error {font-size: 80%; background: #ffa; color: black; padding: 2px 5px 3px; }
+.lint-error-icon {color: white; background-color: red; font-weight: bold; border-radius: 50%; padding: 0 3px; margin-right: 7px;}

@@ -43,6 +43,7 @@ RUR.World = function () {
     this.SOUTH = 3;
     this.max_steps = 1000;
     this.frames = undefined;
+    this.prev_frame = undefined;
     this.walls = undefined;
     this.robots = undefined;
     this.tokens = undefined;
@@ -84,6 +85,7 @@ RUR.World = function () {
         this.walls = this.imported_world.walls || {};
         this.tokens = this.imported_world.tokens || {};
         this.shapes = this.imported_world.shapes || {};
+        this.goal = this.imported_world.goal;
         if (this.imported_world.robots !== undefined) {
             for (i = 0; i < this.imported_world.robots.length; i++){
                 switch(this.imported_world.robots[i].orientation){
@@ -546,8 +548,8 @@ RUR.visible_world = {
     },
     wall_length: 40,
     wall_thickness: 5,
-    robot_y_offset : 6,
-    robot_x_offset : 9,
+    robot_y_offset : 8,
+    robot_x_offset : 10,
     wall_color: "brown",
     shawdow_wall_color: "#f0f0f0",
     ctx: null,
@@ -604,6 +606,19 @@ RUR.visible_world = {
                 this.draw_east_wall(i, j);
             }
         }
+    },
+    draw_goal : function () {
+        "use strict";
+        if (RUR.world.goal === undefined) return;
+        if (RUR.world.goal.position !== undefined) {
+            this.draw_coloured_tile(RUR.world.goal.position.x, RUR.world.goal.position.y);
+        }
+    },
+    draw_coloured_tile : function (i, j) {
+        var ctx = this.background_ctx;
+        ctx.fillStyle = "#99ffcc";
+        ctx.fillRect(i*this.wall_length + this.wall_thickness, this.height - (j+1)*this.wall_length + this.wall_thickness,
+                          this.wall_length - this.wall_thickness, this.wall_length-this.wall_thickness);
     },
     draw_foreground_walls : function (walls) {
         "use strict";
@@ -789,16 +804,52 @@ RUR.visible_world = {
 
         RUR.timer = setTimeout(RUR.visible_world.update, RUR.visible_world.delay);
     },
+    check_goal : function (frame) {
+        var g, w, goal_status = {};
+        g = RUR.world.goal;
+        w = RUR.world;
+        goal_status.message = "<ul>";
+        goal_status.success = true;
+        if (g.position !== undefined){
+            goal_status.position = {};
+            if (RUR.world.goal.position.x === RUR.world.robots[0].x){
+                goal_status.message += "<li class='success'>Reeborg x position.</li>";
+            } else {
+                goal_status.message += "<li class='failure'>Reeborg x position.</li>";
+                goal_status.success = false;
+            }
+            if (RUR.world.goal.position.y === RUR.world.robots[0].y){
+                goal_status.message += "<li class='success'>Reeborg y position.</li>";
+            } else {
+                goal_status.message += "<li class='failure'>Reeborg y position.</li>";
+                goal_status.success = false;
+            }
+        }
+        goal_status.message += "</u>";
+        return goal_status;
+    },
     play_single_frame : function () {
         "use strict";
-        var frame, robot;
+        var frame, robot, goal_status;
         if (RUR.world.frames.length() !== 0) {
             frame = RUR.world.frames.shift();
+            RUR.world.prev_frame = frame;
         } else {
-            $("#Reeborg-says").html("All done!").dialog("open").fadeOut(2000);
-            setTimeout(function(){$("#Reeborg-says").dialog("close");}, 1500);
-            RUR.controls.stop();
-            return "stopped";
+            if (RUR.world.goal !== undefined){
+                goal_status = RUR.visible_world.check_goal(RUR.world.prev_frame);
+                if (goal_status.success) {
+                    $("#Reeborg-says").html(goal_status.message).dialog("open");
+                } else {
+                    $("#Reeborg-shouts").html(goal_status.message).dialog("open");
+                }
+                RUR.controls.stop();
+                return "stopped";
+            } else {
+                $("#Reeborg-says").html("All done!").dialog("open").fadeOut(2000);
+                setTimeout(function(){$("#Reeborg-says").dialog("close");}, 1500);
+                RUR.controls.stop();
+                return "stopped";
+            }
         }
         if (frame.delay !== undefined) {
             RUR.visible_world.delay = frame.delay;
@@ -851,6 +902,7 @@ RUR.visible_world = {
         RUR.world.reset();
         this.compiled = false;
         this.draw_background_walls();
+        this.draw_goal();
         this.draw_coordinates();
         this.trace_ctx.clearRect(0, 0, this.width, this.height);
         this.draw(RUR.world);
@@ -904,7 +956,6 @@ RUR.Controls = function (programming_language) {
                 }
             }
         }
-
         if (!fatal_error_found) {
             func();
         }
