@@ -86,7 +86,6 @@ RUR.World = function () {
         this.tokens = this.imported_world.tokens || {};
         this.shapes = this.imported_world.shapes || {};
         this.goal = this.imported_world.goal;
-        console.log(this.goal);
         if (this.imported_world.robots !== undefined) {
             for (i = 0; i < this.imported_world.robots.length; i++){
                 switch(this.imported_world.robots[i].orientation){
@@ -615,6 +614,9 @@ RUR.visible_world = {
         if (goal.position !== undefined) {
             this.draw_coloured_tile(goal.position.x, goal.position.y, goal.orientation);
         }
+        if (goal.shapes !== undefined){
+            this.draw_shapes(goal.shapes, true);
+        }
     },
     draw_coloured_tile : function (i, j, orientation) {
         var size = this.wall_thickness, ctx = this.background_ctx;
@@ -707,7 +709,7 @@ RUR.visible_world = {
         ctx.fill();
         ctx.strokeText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
     },
-    draw_shapes : function(shapes) {
+    draw_shapes : function(shapes, goal) {
         "use strict";
         var i, j, k, t, sh;
         sh = Object.keys(shapes);
@@ -715,16 +717,27 @@ RUR.visible_world = {
             k = sh[t].split(",");
             i = parseInt(k[0], 10);
             j = parseInt(k[1], 10);
-            this.draw_shape(i, j, shapes[sh[t]]);
+            this.draw_shape(i, j, shapes[sh[t]], goal);
         }
     },
-    draw_shape : function (i, j, shape) {
+    draw_shape : function (i, j, shape, goal) {
         "use strict";
-        var size = 12, scale = this.wall_length, Y = this.height;
-        var ctx = this.wall_ctx;
+        var ctx, size = 12, scale = this.wall_length, Y = this.height;
+        if(goal !== undefined){
+            ctx = this.background_ctx;
+        } else {
+            ctx = this.wall_ctx;
+        }
+        ctx.strokeStyle = "#666";
         if (shape === "square") {
             ctx.fillStyle = "blue";
-            ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
+            if(goal !== undefined){
+                ctx.beginPath();
+                ctx.rect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
+                ctx.stroke();
+            } else {
+                ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
+            }
         } else if (shape === "triangle") { // triangle
             ctx.fillStyle = "green";
             ctx.beginPath();
@@ -732,14 +745,18 @@ RUR.visible_world = {
             ctx.lineTo((i+0.6)*scale, Y - (j+0.4)*scale - size);
             ctx.lineTo((i+0.6)*scale + size, Y - (j+0.4)*scale + size);
             ctx.lineTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
-            ctx.fill();
-            ctx.closePath();
+            if(goal !== undefined) {
+                ctx.closePath();
+                ctx.stroke();
+            } else {
+                ctx.fill();
+            }
         } else {
             ctx.fillStyle = "red";
-            this.draw_star(ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size);
+            this.draw_star(ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size, goal);
         }
     },
-    draw_star : function (ctx, x, y, r){
+    draw_star : function (ctx, x, y, r, goal){
         // adapted from https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Compositing
         ctx.save();
         ctx.translate(x, y);
@@ -755,7 +772,12 @@ RUR.visible_world = {
             }
         }
         ctx.closePath();
-        ctx.fill();
+        ctx.stroke();
+        if (goal !== undefined){
+            ctx.stroke();
+        } else {
+            ctx.fill();
+        }
         ctx.restore();
         ctx.restore();
     },
@@ -835,13 +857,13 @@ RUR.visible_world = {
         goal_status.success = true;
         if (g.position !== undefined){
             goal_status.position = {};
-            if (RUR.world.goal.position.x === RUR.world.robots[0].x){
+            if (g.position.x === w.robots[0].x){
                 goal_status.message += "<li class='success'>Reeborg x position.</li>";
             } else {
                 goal_status.message += "<li class='failure'>Reeborg x position.</li>";
                 goal_status.success = false;
             }
-            if (RUR.world.goal.position.y === RUR.world.robots[0].y){
+            if (g.position.y === w.robots[0].y){
                 goal_status.message += "<li class='success'>Reeborg y position.</li>";
             } else {
                 goal_status.message += "<li class='failure'>Reeborg y position.</li>";
@@ -849,10 +871,18 @@ RUR.visible_world = {
             }
         }
         if (g.orientation !== undefined){
-            if (RUR.world.goal.orientation === RUR.world.robots[0].orientation){
+            if (gl.orientation === w.robots[0].orientation){
                 goal_status.message += "<li class='success'>Reeborg orientation.</li>";
             } else {
                 goal_status.message += "<li class='failure'>Reeborg orientation.</li>";
+                goal_status.success = false;
+            }
+        }
+        if (g.shapes !== undefined) {
+            if (JSON.stringify(g.shapes) === JSON.stringify(w.shapes)){
+                goal_status.message += "<li class='success'>Shapes at the correct location.</li>";
+            } else {
+                goal_status.message += "<li class='failure'>One or more shape not at the correct location.</li>";
                 goal_status.success = false;
             }
         }
@@ -1383,8 +1413,8 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#Reeborg-says").dialog({autoOpen:false, position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-shouts").dialog({autoOpen:false, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-says").dialog({autoOpen:false, width:450, position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-shouts").dialog({autoOpen:false, width:450, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     try{
         doShowNotes();
     }catch (e) {console.log(e);} // Do not alert the user as we've already caught similar errors

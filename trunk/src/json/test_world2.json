@@ -20,12 +20,19 @@
       "3,3": 4,
       "2,2": 1
    },
-      "shapes": {
+   "shapes": {
       "4,4": "square",
       "5,5": "triangle",
       "6,6": "star"
    },
    "home" : {"x" :1,
             "y": 1
-            }
+            },
+   "goal" : {
+         "shapes": {
+         "5,4": "square",
+         "6,5": "triangle",
+         "7,6": "star"
+      }
+   }
 }
