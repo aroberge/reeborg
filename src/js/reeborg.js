@@ -620,6 +620,28 @@ RUR.visible_world = {
         if (goal.tokens !== undefined) {
             this.draw_tokens(goal.tokens, true);
         }
+        if (goal.walls !== undefined){
+            this.draw_foreground_walls(goal.walls, goal);
+            var key, i, j;
+            var ctx = this.background_ctx;
+            this.ctx = ctx;
+            // todo : make more efficient by 1. splitting into two functions so as not
+            // to redraw permanent walls and 2. do not loop over all possible combinations
+            // but identify which walls need to be drawn the same way we do for tokens.
+            for (i = 0; i <= this.cols; i++) {
+                for (j = 0; j <= this.rows; j++) {
+                    key = i + "," + j;
+                    if ( key in goal.walls ) {
+                        if ( goal.walls[key].indexOf("north") !== -1) {
+                            this.draw_north_wall(i, j, true);
+                        }
+                        if (goal.walls[key].indexOf("east") !== -1) {
+                            this.draw_east_wall(i, j, true);
+                        }
+                    }
+                }
+            }
+        }
     },
     draw_coloured_tile : function (i, j, orientation) {
         var size = this.wall_thickness, ctx = this.background_ctx;
@@ -648,7 +670,7 @@ RUR.visible_world = {
             break;
         }
     },
-    draw_foreground_walls : function (walls) {
+    draw_foreground_walls : function (walls, goal) {
         "use strict";
         var key, i, j;
         var ctx = this.wall_ctx;
@@ -680,13 +702,29 @@ RUR.visible_world = {
             }
         }
     },
-    draw_north_wall : function(i, j) {
+    draw_north_wall : function(i, j, goal) {
         "use strict";
+        if (goal){
+            this.ctx.strokeStyle = "black";
+            this.ctx.beginPath();
+            this.ctx.rect(i*this.wall_length, this.height - (j+1)*this.wall_length,
+                          this.wall_length + this.wall_thickness, this.wall_thickness);
+            this.ctx.stroke();
+            return;
+        }
         this.ctx.fillRect(i*this.wall_length, this.height - (j+1)*this.wall_length,
                           this.wall_length + this.wall_thickness, this.wall_thickness);
     },
-    draw_east_wall : function(i, j) {
+    draw_east_wall : function(i, j, goal) {
         "use strict";
+        if (goal){
+            this.ctx.strokeStyle = "black";
+            this.ctx.beginPath();
+            this.ctx.rect((i+1)*this.wall_length, this.height - (j+1)*this.wall_length,
+                          this.wall_thickness, this.wall_length + this.wall_thickness);
+            this.ctx.stroke();
+            return;
+        }
         this.ctx.fillRect((i+1)*this.wall_length, this.height - (j+1)*this.wall_length,
                           this.wall_thickness, this.wall_length + this.wall_thickness);
     },
@@ -875,6 +913,22 @@ RUR.visible_world = {
         }
         return true;
     },
+    walls_contained_in: function (obj1, obj2){
+        var keys, i, j;
+        keys = Object.keys(obj1);
+        for (i=0; i < keys.length; i++){
+            if (obj2[keys[i]] === undefined){
+                return false;
+            } else {
+                for (j=0; j < obj1[keys[i]].length; j++){
+                    if (obj2[keys[i]].indexOf(obj1[keys[i]][j]) === -1 ){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    },
     check_goal : function (frame) {
         var g, i, k, keys, goal_status = {}, result;
         g = RUR.world.goal;
@@ -918,6 +972,15 @@ RUR.visible_world = {
                 goal_status.message += "<li class='success'>All tokens are at the correct location.</li>";
             } else {
                 goal_status.message += "<li class='failure'>One or more tokens are not at the correct location.</li>";
+                goal_status.success = false;
+            }
+        }
+        if (g.walls !== undefined) {
+            result = this.walls_contained_in(g.walls, frame.walls);
+            if (result){
+                goal_status.message += "<li class='success'>All walls have been built correctly.</li>";
+            } else {
+                goal_status.message += "<li class='failure'>One or more walls missing or built at wrong location.</li>";
                 goal_status.success = false;
             }
         }
