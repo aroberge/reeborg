@@ -42,6 +42,11 @@
       }, "orientation": 2,
       "tokens" : {
          "3,4": 5
+      },
+      "walls" :{
+         "8,6": [
+            "east"
+         ]
       }
    }
 }

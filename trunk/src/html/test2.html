@@ -11,7 +11,7 @@ function turn_right() {
 </pre>
 <p>Select Test world 2. The following is a solution for it: Reeborg
     has to end on the pale green square, facing west (as indicated by the tiny black square)
-    and move the coloured shapes to their correct location (indicated by the outlines). Try changing it, perhaps by commenting out a comment, and see the result.</p>
+    and move the coloured shapes to their correct location (indicated by the outlines). Try changing it, perhaps by commenting out an instruction, and see the result.</p>
 <pre>
 turn_right();
 move();
@@ -45,6 +45,7 @@ turn_right();
 move();
 put("star");
 move();
+build_wall();
 turn_left();
 turn_left();
 </pre>
