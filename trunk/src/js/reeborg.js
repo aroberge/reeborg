@@ -11,6 +11,17 @@ if (!Array.prototype.remove){
     };
 }
 
+// function cloneObject(source) {
+//     for (var i in source) {
+//         if (typeof source[i] == 'source') {
+//             this[i] = new cloneObject(source[i]);
+//         }
+//         else{
+//             this[i] = source[i];
+//         }
+//     }
+// }
+
 var RUR = RUR || {};
 
 RUR.Error = function (message) {
@@ -66,7 +77,7 @@ RUR.World = function () {
     this.export_ = function (){
         var json_object;
         json_object = {"robots": this.robots, "walls": this.walls, "tokens": this.tokens,
-                        "shapes": this.shapes, "home": this.home};
+                        "shapes": this.shapes};
         return JSON.stringify(json_object, null, '   ');
     };
 
@@ -363,8 +374,7 @@ RUR.World = function () {
         for (i=0; i < k.length; i++){
             shapes[k[i]] = this.shapes[k[i]];
         }
-        this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens, "shapes": shapes,
-                                "home" : this.home});
+        this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens, "shapes": shapes});
     };
 
     this.toggle_wall = function (x, y, orientation){
@@ -491,9 +501,14 @@ RUR.PrivateRobot.prototype.has_token = function () {
     return this.tokens > 0;
 };
 
-RUR.PrivateRobot.prototype.at_home = function () {
-    return (this.x === RUR.world.imported_world.home.x &&
-            this.y === RUR.world.imported_world.home.y);
+RUR.PrivateRobot.prototype.at_goal = function () {
+    var goal = RUR.world.goal;
+    if (goal !== undefined){
+        if (goal.position !== undefined) {
+            return (this.x === goal.position.x && this.y === goal.position.y);
+        }
+    }
+    throw new RUR.Error("There is no goal in this world!");
 };
 
 RUR.PrivateRobot.prototype.put = function (shape) {
@@ -541,10 +556,7 @@ RUR.visible_world = {
         this.robot_w_img.src = '../images/robot_w.png';
         this.robot_s_img = new Image();
         this.robot_s_img.src = '../images/robot_s.png';
-        this.home_img = new Image();
-        this.home_img.src = '../images/home.png';
         this.running = false;
-        this.home = undefined;
     },
     wall_length: 40,
     wall_thickness: 5,
@@ -670,7 +682,7 @@ RUR.visible_world = {
             break;
         }
     },
-    draw_foreground_walls : function (walls, goal) {
+    draw_foreground_walls : function (walls) {
         "use strict";
         var key, i, j;
         var ctx = this.wall_ctx;
@@ -930,7 +942,7 @@ RUR.visible_world = {
         return true;
     },
     check_goal : function (frame) {
-        var g, i, k, keys, goal_status = {}, result;
+        var g, goal_status = {}, result;
         g = RUR.world.goal;
         goal_status.message = "<ul>";
         goal_status.success = true;
@@ -992,7 +1004,9 @@ RUR.visible_world = {
         var frame, goal_status;
         if (RUR.world.frames.length() !== 0) {
             frame = RUR.world.frames.shift();
-            RUR.world.prev_frame = frame;
+            if (frame.error === undefined){
+                RUR.world.prev_frame = frame;
+            }
         } else {
             if (RUR.world.goal !== undefined){
                 goal_status = RUR.visible_world.check_goal(RUR.world.prev_frame);
@@ -1048,31 +1062,11 @@ RUR.visible_world = {
         RUR.visible_world.draw(frame);
     },
     draw_robots : function(robots) {
-        var robot, X, Y;
+        var robot;
         this.robot_ctx.clearRect(0, 0, this.width, this.height);
-        if (RUR.world.imported_world.home !== undefined) {
-            this.draw_home();
-            X = RUR.world.imported_world.home.x;
-            Y = RUR.world.imported_world.home.y;
-        } else {
-            X = -1;
-            Y = -1;
-        }
         for (robot=0; robot < robots.length; robot++){
-            if( !(robots[robot].x === X && robots[robot].y === Y)) {
-                this.draw_robot(robots[robot]); // draws trace automatically
-            } else {
-                this.draw_trace(robots[robot]);
-            }
+            this.draw_robot(robots[robot]); // draws trace automatically
         }
-    },
-    draw_home : function () {
-        "use strict";
-        var x, y;
-        var ctx = this.robot_ctx;
-        x = RUR.world.imported_world.home.x * this.wall_length;
-        y = this.height - (RUR.world.imported_world.home.y +1) * this.wall_length;
-        ctx.drawImage(this.home_img, x, y);
     },
     reset : function () {
         "use strict";
@@ -1269,8 +1263,8 @@ var take = function(arg) {
     RUR.world.robots[0].take(arg);
 };
 
-var at_home = function() {
-    return RUR.world.robots[0].at_home();
+var at_goal = function() {
+    return RUR.world.robots[0].at_goal();
 };
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
@@ -1475,7 +1469,7 @@ $(document).ready(function() {
         }).done(function(data){$("#content").html(data);});
     }
 
-    $("#help").dialog({autoOpen:false, width:600, position:"top"});
+    $("#help").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
     $("#help-button").on("click", function() {
         if (RUR.ajax_requests.help !== undefined){
             $("#help").dialog( "open");
@@ -1487,7 +1481,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#about").dialog({autoOpen:false, width:600, position:"top"});
+    $("#about").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
     $("#about-button").on("click", function() {
         if (RUR.ajax_requests.about !== undefined){
             $("#about").dialog("open");
@@ -1499,7 +1493,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#contribute").dialog({autoOpen:false, width:600, position:"top"});
+    $("#contribute").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
     $("#contribute-button").on("click", function() {
         if (RUR.ajax_requests.contribute !== undefined){
             $("#contribute").dialog( "open");
@@ -1543,7 +1537,7 @@ var jshint_options = {
 
 var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect, UsedRobot, wall_in_front, "+
                     " is_faing_north, done, put_token, take_token, put, take, shape_here,"+
-                    " token_here, has_token, write, at_home, build_wall*/\n";
+                    " token_here, has_token, write, at_goal, build_wall*/\n";
 
 function updateHints(obj) {
     obj.operation(function () {
