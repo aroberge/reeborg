@@ -100,6 +100,9 @@ Have you tried Firefox or Chrome? */
     </div>
   </div>
   <div id="output-panel" class="panel">
+    <button class="blue-gradient" id="run2" onClick="RUR.controls.run2();">Execute</button>
+    <button class="blue-gradient" id="clear" disabled="true" onClick="RUR.controls.clear();">Clear</button>
+    <button class="blue-gradient" id="deselect" disabled="true" onClick="RUR.controls.deselect();">Deselect World</button>
     <h3>Reeborg's diary</h3>
     <pre id="output-pre"></pre>
   </div>
@@ -149,6 +152,9 @@ Have you tried Firefox or Chrome? */
         RUR.world.import_(data);
         RUR.world.reset();
         RUR.controls.reload();
+        $("#run2").attr("disabled", "true");
+        $("#deselect").removeAttr("disabled");
+        $("#clear").attr("disabled", "true");
       });
   });
 
