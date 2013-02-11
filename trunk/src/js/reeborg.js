@@ -11,24 +11,12 @@ if (!Array.prototype.remove){
     };
 }
 
-// function cloneObject(source) {
-//     for (var i in source) {
-//         if (typeof source[i] == 'source') {
-//             this[i] = new cloneObject(source[i]);
-//         }
-//         else{
-//             this[i] = source[i];
-//         }
-//     }
-// }
-
 var RUR = RUR || {};
 
 RUR.Error = function (message) {
     this.name = "ReeborgError";
     this.message = message;
 };
-
 
 RUR.List = function(){
     this.container = [];
@@ -449,6 +437,17 @@ RUR.PrivateRobot.prototype.turn_left = function(){
     this.prev_x = this.x;
     this.prev_y = this.y;
     this.orientation += 1;
+    this.orientation %= 4;
+    RUR.world.add_frame();
+};
+
+RUR.PrivateRobot.prototype.__turn_right = function(){
+    // private method for now ...
+    "use strict";
+    this.prev_orientation = this.orientation;
+    this.prev_x = this.x;
+    this.prev_y = this.y;
+    this.orientation += 3;
     this.orientation %= 4;
     RUR.world.add_frame();
 };
@@ -1071,6 +1070,7 @@ RUR.visible_world = {
     reset : function () {
         "use strict";
         RUR.world.reset();
+        this.delay = 300;
         this.compiled = false;
         this.draw_background_walls();
         this.draw_goal();
@@ -1170,8 +1170,49 @@ RUR.Controls = function (programming_language) {
         $("#run").removeAttr("disabled");
         $("#step").removeAttr("disabled");
         $("#reload").attr("disabled", "true");
+        $("#run2").attr("disabled", "true");
+        $("#deselect").removeAttr("disabled");
         $("#output-pre").html("");
     };
+
+    this.run2 = function () {
+        var src;
+        $("#run2").attr("disabled", "true");
+        src = library.getValue() + ";\n";
+        src += editor.getValue();
+        think(0);
+        RUR.controls.compile_and_run(RUR.visible_world.play_frames);
+        setTimeout(function() {$("#reload").attr("disabled", "true");}, 300);
+        $("#clear").removeAttr("disabled");
+    };
+
+    this.clear = function () {
+        $("#run2").removeAttr("disabled");
+        $("#clear").attr("disabled", "true");
+        $("#output-pre").html("");
+        $("#reload").attr("disabled", "true");
+        RUR.world.reset();
+        clearTimeout(RUR.timer);
+        RUR.visible_world.compiled = false;
+        RUR.visible_world.running = false;
+    };
+
+    this.deselect = function () {
+        $('#select_world').prepend( new Option("Select world", "remove", false, true));
+        $("#stop").attr("disabled", "true");
+        $("#pause").attr("disabled", "true");
+        $("#run").attr("disabled", "true");
+        $("#step").attr("disabled", "true");
+        $("#reload").attr("disabled", "true");
+        $("#run2").removeAttr("disabled");
+        $("#deselect").attr("disabled", "true");
+        $("#output-pre").html("");
+        RUR.world.import_("{}");
+        RUR.world.reset();
+        RUR.visible_world.init();
+    };
+
+
 };
 
 var write = function (s) {
