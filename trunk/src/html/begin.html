@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Free Interactive Programming Tutorials">
+<meta name="keywords" content="JavaScript,Python,Programming">
+<meta name="author" content="André Roberge">
+<meta name="license" content="CC BY-NC-SA 3.0">
+<link href="../css/jquery-ui.custom.min.css" rel="stylesheet" >
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
+<link rel="stylesheet" href="../css/reeborg.css"> <!-- load after codemirror.css -->
+<title>Reeborg's world</title>
+</head>
+<body>
+
+<header class="blue-gradient green-border">
+  <a id="logo" href="../index.html" class="fake_button">Reeborg</a>
+  <div id="header-child">
+    <button class="active reverse-blue-gradient" label="content-panel">Content</button>
+    <button class="active reverse-blue-gradient" label="editor-panel">Editor</button>
+    <button class="active reverse-blue-gradient" label="world-panel">World</button>
+    <button class="blue-gradient" label="output-panel">Diary</button>
+  </div>
+  <div>
+    <button class="blue-gradient" id="help-button">Help</button>
+    <button class="blue-gradient" id="about-button">About</button>
+    <button class="blue-gradient" id="contribute-button">Contribute</button>
+  </div>
+</header>
+
+<div id="panels">
+  <div id="content-panel" class="panel active">
+    <div id="content">Loading content...</div>
+  </div>
+  <div id="editor-panel" class="panel active" >
+    <div id="tabs">
+      <ul>
+        <li><a id="editor-link" href="#editor">Code</a></li>
+        <li><a id="library-link" href="#library">Library</a></li>
+        <li><a id="notes-link" href="#notes">Notes</a></li>
+        <button class="blue-gradient float-right" id="save-library">Save</button> <span id="saved">Saved!</span>
+      </ul>
+      <div id="editor">
+        <span id="library-problem">Problem with code in library!</span>
+        <textarea id="code" name="code">move();</textarea>
+      </div>
+      <div id="library">
+        <textarea id="library-code" name="library-code">
+/* Sorry - if you see this, it means that
+your browser is incapable of using the
+Library or the Notes the way they been have designed.
+
+You could write code here ... but it will
+not be saved for next time you visit.
+
+Have you tried Firefox or Chrome? */
+        </textarea>
+      </div>
+      <div id="notes">
+        <br>
+        <p>Keep your personal notes here; they will be available from any page on this site.
+          You can choose to use html syntax for formatting.</p>
+        <p>
+          <form name="notes_editor" id="notes_editor">
+            <textarea name="data" rows="5" id="data_entry"></textarea><br>
+            <span id="undo_delete"></span><span class="float-right">HTML</span>
+            <input type="checkbox" name="check_html" class="float-right"/>
+            <a href="javascript:addNote();" class="blue-gradient fake_button float-right">Add Note</a><br class="clear">
+          </form>
+        </p>
+        <div id="notes_list"></div>
+      </div>
+    </div>
+  </div>
+  <div id="world-panel" class="panel active" >
+    <div id="canvas-wrapper">
+        <canvas id="background_canvas" width="560" height="460"></canvas>
+        <canvas id="wall_canvas" width="560" height="460"></canvas>
+        <canvas id="trace_canvas" width="560" height="460"></canvas>
+        <canvas id="robot_canvas" width="560" height="460"></canvas>
+        <button class="blue-gradient" id="run" disabled="true" onClick="RUR.controls.run();">Execute</button>
+        <button class="blue-gradient" id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
+        <button class="blue-gradient" id="step" disabled="true" onClick="RUR.controls.step();">Step</button>
+        <button class="blue-gradient" id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
+        <button class="blue-gradient" id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
+        <select id="select_world">
+          <option value="remove" selected>Select a world</option>
+          <option value="../json/alone.json">Alone</option>
+          <option value="../json/home1.json">Home 1</option>
+          <option value="../json/home2.json">Home 2</option>
+          <option value="../json/home3.json">Home 3</option>
+        </select>
+        <div id="Reeborg-says" title="Reeborg says" style="display:none"></div>
+        <div id="Reeborg-shouts" title="Reeborg shouts" style="display:none"></div>
+    </div>
+  </div>
+  <div id="output-panel" class="panel">
+    <button class="blue-gradient" id="run2" onClick="RUR.controls.run2();">Execute</button>
+    <button class="blue-gradient" id="clear" disabled="true" onClick="RUR.controls.clear();">Clear</button>
+    <button class="blue-gradient" id="deselect" disabled="true" onClick="RUR.controls.deselect();">Deselect World</button>
+    <h3>Reeborg's diary</h3>
+    <pre id="output-pre"></pre>
+  </div>
+</div>
+
+<div id="help" title="Help">Retrieving...</div>
+<div id="about" title="About">Retrieving...</div>
+<div id="contribute" title="Contribute">Retrieving...</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
+<script src="../js/reeborg.js"></script>
+
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+    mode: 'javascript',
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4
+  });
+  var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
+    mode: 'javascript',
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4
+  });
+
+  $("#select_world").change(function() {
+      $("select option[value='remove']").remove();
+      $.get($(this).val(), function(data) {
+        RUR.world.import_(data);
+        RUR.world.reset();
+        RUR.controls.reload();
+        $("#run2").attr("disabled", "true");
+        $("#deselect").removeAttr("disabled");
+        $("#clear").attr("disabled", "true");
+      });
+  });
+
+  RUR.visible_world.init();
+  RUR.controls = new RUR.Controls("javascript");
+</script>
+
+<script src="../libs/jshint.js"></script>
+
+</body>
+</html>

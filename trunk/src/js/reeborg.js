@@ -11,6 +11,35 @@ if (!Array.prototype.remove){
     };
 }
 
+/*
+    Original script title: "Object.identical.js"; version 1.12
+    Copyright (c) 2011, Chris O'Brien, prettycode.org
+    http://github.com/prettycode/Object.identical.js
+*/
+
+Object.identical = function (a, b, sortArrays) {
+
+    function sort(object) {
+        if (sortArrays === true && Array.isArray(object)) {
+            return object.sort();
+        }
+        else if (typeof object !== "object" || object === null) {
+            return object;
+        }
+
+        return Object.keys(object).sort().map(function(key) {
+            return {
+                key: key,
+                value: sort(object[key])
+            };
+        });
+    }
+
+    return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
+};
+
+
+
 var RUR = RUR || {};
 
 RUR.Error = function (message) {
@@ -912,34 +941,6 @@ RUR.visible_world = {
 
         RUR.timer = setTimeout(RUR.visible_world.update, RUR.visible_world.delay);
     },
-    contained_in: function (obj1, obj2){
-        var keys, i;
-        keys = Object.keys(obj1);
-        for (i=0; i < keys.length; i++){
-            if (obj2[keys[i]] === undefined){
-                return false;
-            } else if (obj2[keys[i]] !== obj1[keys[i]]) {
-                return false;
-            }
-        }
-        return true;
-    },
-    walls_contained_in: function (obj1, obj2){
-        var keys, i, j;
-        keys = Object.keys(obj1);
-        for (i=0; i < keys.length; i++){
-            if (obj2[keys[i]] === undefined){
-                return false;
-            } else {
-                for (j=0; j < obj1[keys[i]].length; j++){
-                    if (obj2[keys[i]].indexOf(obj1[keys[i]][j]) === -1 ){
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    },
     check_goal : function (frame) {
         var g, goal_status = {}, result;
         g = RUR.world.goal;
@@ -969,7 +970,7 @@ RUR.visible_world = {
             }
         }
         if (g.shapes !== undefined) {
-            result = this.contained_in(g.shapes, frame.shapes);
+            result = Object.identical(g.shapes, frame.shapes, true);
             if (result){
                 goal_status.message += "<li class='success'>All shapes are at the correct location.</li>";
             } else {
@@ -978,7 +979,7 @@ RUR.visible_world = {
             }
         }
         if (g.tokens !== undefined) {
-            result = this.contained_in(g.tokens, frame.tokens);
+            result = Object.identical(g.tokens, frame.tokens, true);
             if (result){
                 goal_status.message += "<li class='success'>All tokens are at the correct location.</li>";
             } else {
@@ -987,7 +988,7 @@ RUR.visible_world = {
             }
         }
         if (g.walls !== undefined) {
-            result = this.walls_contained_in(g.walls, frame.walls);
+            result = Object.identical(g.walls, frame.walls, true);
             if (result){
                 goal_status.message += "<li class='success'>All walls have been built correctly.</li>";
             } else {
@@ -1086,6 +1087,14 @@ RUR.compile_javascript = function (src) {
     // programs to conform to "strict" usage, meaning that all variables have to be declared,
     // etc.
     "use strict";  // will propagate to user's code, enforcing good programming habits.
+// lint, then eval
+    editorUpdateHints();
+    if(editor.widgets.length === 0) {
+        libraryUpdateHints();
+        if(library.widgets.length !== 0) {
+            $('#library-problem').show().fadeOut(4000);
+        }
+    }
     eval(src);
 };
 
@@ -1435,11 +1444,28 @@ function doUndoDelete(){
 
 RUR.ajax_requests = {};
 
-var load_page = function(page) {
-    $("#content").load(page+".html");
-    location.hash = page;
-};
 
+var load_page = function (page){
+    $.ajax({
+        url: page+".html",
+        context: document.body
+    }).done(function(data) {
+        $("#content").html(data);
+        location.hash = page;
+        $('.jscode').each(function() {
+        var $this = $(this),
+        $code = $this.html();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode: 'javascript',
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-dark'
+            });
+        });
+    });
+}
 
 $(document).ready(function() {
 // init
@@ -1494,7 +1520,7 @@ $(document).ready(function() {
 
     var hash = location.hash;
     if (hash === ''){
-        load_page("test1");
+        load_page("lesson1");
     } else {
         hash = hash.slice(1) + ".html";
         $.ajax({
@@ -1503,7 +1529,7 @@ $(document).ready(function() {
             statusCode: {
                 404: function() {
                     alert("page not found");
-                    load_page("test1");
+                    load_page("lesson");
                 }
             },
             type: 'POST'
