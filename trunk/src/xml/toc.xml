@@ -1,0 +1,9 @@
+<ul><li><a href="javascript:void(0);" onClick="load_page('welcome')">Welcome to Reeborg's world</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('move')">First program</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('errors')">Dealing with eRRoRs</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('rule1')">Rule number 1</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('home')">Test driven learning</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('turn_left')">Turning left</a></li>
+</ul>
+
+
