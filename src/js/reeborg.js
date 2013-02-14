@@ -1520,7 +1520,7 @@ $(document).ready(function() {
 
     var hash = location.hash;
     if (hash === ''){
-        load_page("lesson1");
+        load_page("welcome");
     } else {
         hash = hash.slice(1) + ".html";
         $.ajax({
@@ -1529,7 +1529,7 @@ $(document).ready(function() {
             statusCode: {
                 404: function() {
                     alert("page not found");
-                    load_page("lesson");
+                    load_page("welcome");
                 }
             },
             type: 'POST'
