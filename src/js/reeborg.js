@@ -1,5 +1,5 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, translate_python, JSHINT */
+/*globals $, editor, library, translate_python, JSHINT, CodeMirror */
 
 if (!Array.prototype.remove){
     // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
@@ -1453,19 +1453,18 @@ var load_page = function (page){
         $("#content").html(data);
         location.hash = page;
         $('.jscode').each(function() {
-        var $this = $(this),
-        $code = $this.html();
-        $this.empty();
-        var myCodeMirror = CodeMirror(this, {
-            value: $code,
-            mode: 'javascript',
-            lineNumbers: !$this.is('.inline'),
-            readOnly: true,
-            theme: 'reeborg-dark'
+            var $this = $(this), $code = $this.html();
+            $this.empty();
+            var myCodeMirror = CodeMirror(this, {
+                value: $code,
+                mode: 'javascript',
+                lineNumbers: !$this.is('.inline'),
+                readOnly: true,
+                theme: 'reeborg-dark'
             });
         });
     });
-}
+};
 
 $(document).ready(function() {
 // init
@@ -1535,6 +1534,18 @@ $(document).ready(function() {
             type: 'POST'
         }).done(function(data){$("#content").html(data);});
     }
+
+    $("#toc").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
+    $("#toc-button").on("click", function() {
+        if (RUR.ajax_requests.toc !== undefined){
+            $("#toc").dialog( "open");
+            return;
+        }
+        $('#toc').load("../xml/toc.xml");
+        RUR.ajax_requests.toc = true;
+        $("#toc").dialog("open");
+        return false;
+    });
 
     $("#help").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
     $("#help-button").on("click", function() {
