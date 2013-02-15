@@ -14,6 +14,8 @@ about a second commands Reeborg can follow.</li>
 discussion about an annoying subject.</li>
 <li><a href="javascript:void(0);" onClick="load_page('tokens1')">A token of appreciation</a> Learning
 about tokens and what Reeborg can do with them.</li>
+<li><a href="javascript:void(0);" onClick="load_page('rule2')">Rule number 2</a>: one of
+the most important rules for writing computer programs.</li>
 </ol>
 
 
