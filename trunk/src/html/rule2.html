@@ -1,0 +1,98 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('tokens1')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Next</a>
+<h1>Rule number 2</h1>
+
+<p>For this lesson, you don't need the editor panel nor the world panel; you
+    can, and probably should hide them to focus on the text below.</p>
+
+<p>I have already mentioned the first rule for learning how to program:
+you must write programs (and test them) and not simply read about
+programming.  Now, I am about to tell you the second rule which
+is one of thebest-kept secret for writing good computer programs.</p>
+<dl>
+<dt><b>Rule # 2</b></dt>
+<dd>Write your computer programs to make them easy for
+<b><em>people</em></b> to read and understand.</dd>
+</dl>
+<p>That's right, write your computer programs so that other
+people, just like you, would find them easy to read on their own,
+and figure out what they do.
+Yes, computer languages are designed to allow you to communicate
+with computers, just as human languages have evolved to allow
+humans to communicate with each other. But computer languages,
+which are much simpler than human languages, are often used by
+programmers to share their work with other programmers.</p>
+<p>I present to you the first tool you can use to write computer
+programs that are easier for people to understand: <em>comments</em>.</p>
+<p>Comments are notes made by a programmer which are ignored
+by the computer; they are meant to be read and understood
+only by humans.</p>
+<p>When using Javascript, one can write comments in one of two ways:</p>
+<ul><li>By enclosing an arbitrary quantity of text between "/*"  and "*/".</li>
+<li>By writing some text preceded by "//" on any given line.</li></ul>
+<p>I will first write a simple program without any comments followed
+by a second version with comments added; however,
+I will make the same error in both programs.  Can you spot it
+more easily in the first program or the second?</p>
+<pre class="jscode">move();
+move();
+turn_left();
+put_token();
+move();
+move();
+turn_left();
+put_token();
+move();
+turn_left();
+put_token();
+move();
+move();
+turn_left();
+put_token();</pre>
+
+<p>Contrast the above program with the same one, from Reeborg's
+point of view, but with comments added for humans;
+you will be able so recognize comments as
+they appear in a grey font.  If you have not done
+so already, you might want to close
+the other panels to see the entire lines all at once.</p>
+
+<pre class="jscode">/* This is an example of
+a simple program where Reeborg draws a square,
+leaving a token behind at each corner. */
+
+move();  // Javascript commands have to end with a semi-colon
+move();
+turn_left(); // Reeborg only knows to turn left
+put_token();  // we assume that Reeborg carries enough tokens
+
+// we repeat the above three more times to complete the square
+move();
+move();
+turn_left();
+put_token();
+
+move();
+turn_left();
+put_token();
+
+move();
+move();
+turn_left();
+put_token();
+</pre>
+
+<p>The above are not particularly good comments, but at least one
+of them should have helped you find what was wrong with
+the program.   You might think this is cheating; however,
+how can you guess the intent behind some lines of code in a program
+on their own?  The addition of comments explaining what a given
+program should do can be very helpful in finding mistakes.  </p>
+<p> Note that
+in addition to comments, I have used blank lines to separate some
+"logical" blocks of code, to help see the pattern better.  Together,
+the use of comments and insertion of blank lines can make a program
+much easier to read.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('tokens1')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Next</a>
