@@ -1,9 +1,19 @@
-<ul><li><a href="javascript:void(0);" onClick="load_page('welcome')">Welcome to Reeborg's world</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('move')">First program</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('errors')">Dealing with eRRoRs</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('rule1')">Rule number 1</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('home')">Test driven learning</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('turn_left')">Turning left</a></li>
-</ul>
+<ol><li><a href="javascript:void(0);" onClick="load_page('welcome')">Welcome to Reeborg's world</a>: Getting
+familiar with the layout of this website.</li>
+<li><a href="javascript:void(0);" onClick="load_page('move')">First program</a>: Making Reeborg
+move for the first time.</li>
+<li><a href="javascript:void(0);" onClick="load_page('errors')">Dealing with eRRoRs</a>: Learning
+to recognize some error messages given to us by Reeborg.</li>
+<li><a href="javascript:void(0);" onClick="load_page('rule1')">Rule number 1</a>: The first and most
+important rule that someone must follow, if they wish to learn programming.</li>
+<li><a href="javascript:void(0);" onClick="load_page('home')">Test driven learning</a>: A bit more
+information about how this site will teach you programming.</li>
+<li><a href="javascript:void(0);" onClick="load_page('turn_left')">Turning left</a>: Learning
+about a second commands Reeborg can follow.</li>
+<li><a href="javascript:void(0);" onClick="load_page('bugs')">Darn bugs!</a> An important
+discussion about an annoying subject.</li>
+<li><a href="javascript:void(0);" onClick="load_page('tokens1')">A token of appreciation</a> Learning
+about tokens and what Reeborg can do with them.</li>
+</ol>
 
 

@@ -39,8 +39,8 @@ Object.identical = function (a, b, sortArrays) {
 };
 
 
-
 var RUR = RUR || {};
+RUR.DEBUG = false;
 
 RUR.Error = function (message) {
     this.name = "ReeborgError";
@@ -165,7 +165,9 @@ RUR.World = function () {
         if (token === 0){
             throw new RUR.Error("No token found here!");
         } else {
-            robot.tokens += 1;
+            if (typeof robot.tokens === typeof 42){
+                robot.tokens += 1;
+            }
             this.set_tokens(robot.x, robot.y, token-1);
         }
     };
@@ -177,7 +179,9 @@ RUR.World = function () {
         }
         token = this.get_tokens(robot.x, robot.y);
         this.set_tokens(robot.x, robot.y, token+1);
-        robot.tokens -= 1;
+        if (typeof robot.tokens === typeof 42){
+            robot.tokens -= 1;
+        }
     };
 
     this.set_shape = function (x, y, shape){
@@ -1062,15 +1066,23 @@ RUR.visible_world = {
         RUR.visible_world.draw(frame);
     },
     draw_robots : function(robots) {
-        var robot;
+        var robot, info = '';
         this.robot_ctx.clearRect(0, 0, this.width, this.height);
         for (robot=0; robot < robots.length; robot++){
             this.draw_robot(robots[robot]); // draws trace automatically
+            if (RUR.DEBUG) {
+                info += "robot" + robot + ": x=" + robots[robot].x + ", y=" + robots[robot].y + ", tokens=" + robots[robot].tokens + ".  ";
+            }
+        }
+        if (RUR.DEBUG) {
+            this.robot_ctx.fillStyle = "blue";
+            this.robot_ctx.fillText(info, 5, 15);
         }
     },
     reset : function () {
         "use strict";
         RUR.world.reset();
+        RUR.DEBUG = false;
         this.delay = 300;
         this.compiled = false;
         this.draw_background_walls();
@@ -1523,16 +1535,29 @@ $(document).ready(function() {
     } else {
         hash = hash.slice(1) + ".html";
         $.ajax({
-            url: hash,
-            context: $("#content"),
-            statusCode: {
-                404: function() {
-                    alert("page not found");
-                    load_page("welcome");
-                }
-            },
-            type: 'POST'
-        }).done(function(data){$("#content").html(data);});
+                url: hash,
+                context: $("#content"),
+                statusCode: {
+                    404: function() {
+                        alert("page not found: " + hash);
+                        load_page("welcome");
+                    }
+                },
+                type: 'POST'
+            }).done(function(data) {
+                $("#content").html(data);
+                $('.jscode').each(function() {
+                    var $this = $(this), $code = $this.html();
+                    $this.empty();
+                    var myCodeMirror = CodeMirror(this, {
+                        value: $code,
+                        mode: 'javascript',
+                        lineNumbers: !$this.is('.inline'),
+                        readOnly: true,
+                        theme: 'reeborg-dark'
+                    });
+                });
+            });
     }
 
     $("#toc").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
