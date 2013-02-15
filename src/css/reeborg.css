@@ -5,12 +5,15 @@ header {position: absolute; top: 0; left: 0; z-index: 10; width: 99.9%;}
 h1 {font-size: 1.7em; color: #224488;}
 h2 {font-size: 1.3em; color: #224488;}
 h3 {font-size: 1.1em; color: #224488;}
-#logo{float: left; padding-left: 20px; padding-right: 20px; margin-right: 20%; font-size: 30px;
+ol li a {color: #224488 !important;}
+dl {border: 2px solid #886622; border-radius: 6px; background-color: #fed}
+#logo{float: left; padding-left: 30px; padding-right: 20px; margin-right: 20%; font-size: 30px;
   font-weight: bold; text-decoration: none; color: white; line-height: 25px;
   text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
     0 6px 1px rgba(0,0,0,.3), 0 0 5px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.3), 1px 3px 5px rgba(0,0,0,.4),
     2px 5px 10px rgba(0,0,0,.35), 5px 10px 10px rgba(0,0,0,.45);
 }
+#logo img{float: left; padding:0; margin:0; position:absolute; top:5px; left:5px;}
 header button {border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(0,0,0,0.1);
   height: 37px; position: relative; border-top: 0; border-bottom: 0; font-weight: bold; float: left; margin: 0;}
 header button:last-child {margin-right: 10%;}
@@ -19,6 +22,7 @@ header button:last-child {margin-right: 10%;}
 #tabs {height: 98%; overflow: auto;}
 #tabs .ui-tabs-panel {padding: 0;}
 #editor, #library { width: 100%; height: 90%;}
+#editor-panel {scroll-x: auto;}
 #save-library{display: none}
 #saved, #checked, #library-problem {background-color: #96c423; color: white; display:none; margin: 5px;
   font-size:0.5em; float: right;}
