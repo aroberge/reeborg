@@ -40,7 +40,8 @@ Object.identical = function (a, b, sortArrays) {
 
 
 var RUR = RUR || {};
-RUR.DEBUG = false;
+var DEBUG = {};
+DEBUG.ON = false;
 
 RUR.Error = function (message) {
     this.name = "ReeborgError";
@@ -438,23 +439,18 @@ RUR.PrivateRobot = function(x, y, orientation, tokens) {
         switch (orientation.toLowerCase()){
         case "e":
         case "east":
-        case "est":
             this.orientation = RUR.world.EAST;
             break;
         case "n":
         case "north":
-        case "nord":
             this.orientation = RUR.world.NORTH;
             break;
         case "w":
-        case "o":
         case "west":
-        case "ouest":
             this.orientation = RUR.world.WEST;
             break;
         case "s":
         case "south":
-        case "sud":
             this.orientation = RUR.world.SOUTH;
             break;
         default:
@@ -489,9 +485,6 @@ RUR.PrivateRobot.prototype.is_leaky = function (leak) {
     this._is_leaky = leak;
 };
 
-RUR.PrivateRobot.prototype.a_une_fuite = RUR.PrivateRobot.prototype.is_leaky;
-
-RUR.PrivateRobot.prototype.tourne_à_gauche = RUR.PrivateRobot.prototype.turn_left;
 
 RUR.PrivateRobot.prototype.move = function(){
     "use strict";
@@ -516,8 +509,6 @@ RUR.PrivateRobot.prototype.is_facing_north = function () {
 RUR.PrivateRobot.prototype.done = function() {
     throw new RUR.Error("Done!");
 };
-
-RUR.PrivateRobot.prototype.avance = RUR.PrivateRobot.prototype.move;
 
 RUR.PrivateRobot.prototype.put_token = function () {
     RUR.world.robot_put_token(this);
@@ -1070,11 +1061,11 @@ RUR.visible_world = {
         this.robot_ctx.clearRect(0, 0, this.width, this.height);
         for (robot=0; robot < robots.length; robot++){
             this.draw_robot(robots[robot]); // draws trace automatically
-            if (RUR.DEBUG) {
+            if (DEBUG.ON) {
                 info += "robot" + robot + ": x=" + robots[robot].x + ", y=" + robots[robot].y + ", tokens=" + robots[robot].tokens + ".  ";
             }
         }
-        if (RUR.DEBUG) {
+        if (DEBUG.ON) {
             this.robot_ctx.fillStyle = "blue";
             this.robot_ctx.fillText(info, 5, 15);
         }
@@ -1082,7 +1073,7 @@ RUR.visible_world = {
     reset : function () {
         "use strict";
         RUR.world.reset();
-        RUR.DEBUG = false;
+        DEBUG.ON = false;
         this.delay = 300;
         this.compiled = false;
         this.draw_background_walls();
@@ -1252,24 +1243,20 @@ var inspect = function (obj){
     write(result);
 };
 
-
 var move = function() {
     "use strict";
     RUR.world.robots[0].move();
 };
-var avance = move;
 
 var turn_left = function() {
     "use strict";
     RUR.world.robots[0].turn_left();
 };
-var tourne_à_gauche = turn_left;
 
 var think = function(delay) {
     "use strict";
     RUR.world.think(delay);
 };
-var pense = think;
 
 var pause = function () {
     "use strict";
@@ -1337,9 +1324,6 @@ function UsedRobot(x, y, orientation, tokens)  {
     RUR.PrivateRobot.call(this, x, y, orientation, tokens);
     RUR.world.add_robot(this);
 }
-var RobotUsagé = UsedRobot;
-
-
 
 /*==================================================
 UI : panels, tabs and what not...
@@ -1453,9 +1437,7 @@ function doUndoDelete(){
     doShowNotes();
 }
 
-
 RUR.ajax_requests = {};
-
 
 var load_page = function (page){
     $.ajax({
@@ -1522,12 +1504,10 @@ $(document).ready(function() {
         $('#saved').show().fadeOut(2000);
     });
 
-
     try{
         var library_content = localStorage.getItem("library") || "/* Your special code goes here */\n\n";
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
-
 
     var hash = location.hash;
     if (hash === ''){
@@ -1638,9 +1618,9 @@ var jshint_options = {
     jquery: true
 };
 
-var globals_ = "/*globals move, avance, turn_left, RUR, output, inspect, UsedRobot, wall_in_front, "+
+var globals_ = "/*globals move, turn_left, RUR, output, inspect, UsedRobot, wall_in_front, "+
                     " is_faing_north, done, put_token, take_token, put, take, shape_here,"+
-                    " token_here, has_token, write, at_goal, build_wall*/\n";
+                    " token_here, has_token, write, at_goal, build_wall, DEBUG*/\n";
 
 function updateHints(obj) {
     obj.operation(function () {
