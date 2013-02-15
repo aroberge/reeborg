@@ -115,6 +115,10 @@ li.success:after{content: url(../images/ok.png);}
 .failure {color: red; list-style: none;}
 li.failure:after{content: url(../images/not_ok.png);}
 
+code {border: 1px solid #75a110; border-radius: 6px;
+     font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace; }
+.world {border: 1px solid #248; border-radius: 6px; font-weight: bold;}
+
 a.left-link, a.right-link, button, a.fake_button{
     color:white;
     font-family: sans-serif;
