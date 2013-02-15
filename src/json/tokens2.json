@@ -1,18 +1,22 @@
 { "tokens": {
-   "2,1": 1
+   "5,1": 1
    },
    "robots": [
       {
          "x": 1,
          "y": 1,
-         "tokens": "infinite",
+         "tokens": 0,
          "orientation": 0,
          "prev_orientation": 0
       }
    ],
    "goal": {
       "tokens": {
-         "3,1": 1
+         "6,1": 1
+      },
+      "position": {
+         "x": 7,
+         "y": 1
       }
    }
 }
