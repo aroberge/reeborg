@@ -1026,8 +1026,7 @@ RUR.visible_world = {
                 RUR.controls.stop();
                 return "stopped";
             } else {
-                $("#Reeborg-says").html("All done!").dialog("open").fadeOut(2000);
-                setTimeout(function(){$("#Reeborg-says").dialog("close");}, 1500);
+                $("#Reeborg-says").html("All done!");
                 RUR.controls.stop();
                 return "stopped";
             }
