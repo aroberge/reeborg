@@ -1,27 +1,31 @@
-  <p> Reeborg, and all the other robots, know the following instructions:</p>
+  <p> In addition to Javascript, Reeborg, and all the other robots, know the following instructions:</p>
   <ul>
-    <li><code>move()</code></li>
-    <li><code>turn_left()</code></li>
-    <li><code>take_token()</code></li>
-    <li><code>put_token()</code></li>
-    <li><code>token_here()</code></li>
-    <li><code>is_facing_north()</code></li>
-    <li><code>wall_in_front()</code></li>
-    <li><code>done()</code></li>
-    <li><code>take(shape)</code> where <code>shape</code> is one of <code>"triangle", "square", "star"</code></li>
-    <li><code>put(shape)</code> where <code>shape</code> is one of <code>"triangle", "square", "star"</code></li>
-    <li><code>shape_here()</code></li>
-    <li><code>build_wall()</code></li>
-    <li><code>at_goal()</code></li>
-    <li><code>has_token()</code></li>
+    <li><b>move()</b></li>
+    <li><b>turn_left()</b></li>
+    <li><b>take_token()</b></li>
+    <li><b>put_token()</b></li>
+    <li><b>token_here()</b></li>
+    <li><b>has_token()</b></li>
+    <li><b>is_facing_north()</b></li>
+    <li><b>wall_in_front()</b></li>
+    <li><b>done()</b></li>
+    <li><b>build_wall()</b></li>
+    <li><b>at_goal_position()</b></li>
+    <li><b>at_goal_orientation()</b></li>
   </ul>
-  <p>To create additional robots, one can use <code>new UsedRobot()</code></p>
+  <p>To create additional robots, one can use <b>new UsedRobot()</b></p>
   <p>In addition, the following commands are available and are not tied to
     any robot in particular.</p>
   <ul>
-    <li><code>pause()</code></li>
-    <li><code>think()</code></li>
-    <li><code>write()</code></li>
-    <li><code>inspect()</code></li>
+    <li><b>pause()</b></li>
+    <li><b>think()</b></li>
+    <li><b>write()</b></li>
+    <li><b>inspect()</b></li>
   </ul>
+  <p>In some more advanced lessons, and especially in some programming
+    challenges, the following are also used:</p>
+    <ul><li><b>take(shape)</b> where shape is one of "triangle", "square", "star"</li>
+    <li><b>put(shape)</b> where shape is one of "triangle", "square", "star"</li>
+    <li><b>shape_here()</b></li></ul>
+
  <p>To find out more, follow the lessons.</p>

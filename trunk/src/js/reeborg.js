@@ -524,15 +524,28 @@ RUR.PrivateRobot.prototype.has_token = function () {
     return this.tokens > 0;
 };
 
-RUR.PrivateRobot.prototype.at_goal = function () {
+RUR.PrivateRobot.prototype.at_goal_position = function () {
     var goal = RUR.world.goal;
     if (goal !== undefined){
         if (goal.position !== undefined) {
             return (this.x === goal.position.x && this.y === goal.position.y);
         }
+        throw new RUR.Error("There is no position as a goal in this world!");
     }
     throw new RUR.Error("There is no goal in this world!");
 };
+
+RUR.PrivateRobot.prototype.at_goal_orientation = function () {
+    var goal = RUR.world.goal;
+    if (goal !== undefined){
+        if (goal.orientation !== undefined) {
+            return (this.orientation === goal.orientation);
+        }
+        throw new RUR.Error("There is no orientation as a goal in this world!");
+    }
+    throw new RUR.Error("There is no goal in this world!");
+};
+
 
 RUR.PrivateRobot.prototype.put = function (shape) {
     RUR.world.robot_put(this, shape);
@@ -1312,8 +1325,12 @@ var take = function(arg) {
     RUR.world.robots[0].take(arg);
 };
 
-var at_goal = function() {
-    return RUR.world.robots[0].at_goal();
+var at_goal_position = function() {
+    return RUR.world.robots[0].at_goal_position();
+};
+
+var at_goal_orientation = function() {
+    return RUR.world.robots[0].at_goal_orientation();
 };
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
@@ -1620,7 +1637,8 @@ var jshint_options = {
 
 var globals_ = "/*globals move, turn_left, RUR, output, inspect, UsedRobot, wall_in_front, "+
                     " is_faing_north, done, put_token, take_token, put, take, shape_here,"+
-                    " token_here, has_token, write, at_goal, build_wall, DEBUG*/\n";
+                    " token_here, has_token, write, at_goal_position, at_goal_orientation," +
+                    " build_wall, DEBUG*/\n";
 
 function updateHints(obj) {
     obj.operation(function () {
