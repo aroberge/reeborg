@@ -595,17 +595,17 @@ RUR.visible_world = {
         this.cols = Math.floor(this.width / this.wall_length) - 2;
         this.delay = 300;   // milliseconds
         this.robot_e_img = new Image();
-        this.robot_e_img.src = '../images/robot_e.png';
+        this.robot_e_img.src = 'src/images/robot_e.png';
         // the following ensures that we won't attempt drawing until the default image is available
         this.robot_e_img.onload = function () {
             that.reset();
         };
         this.robot_n_img = new Image();
-        this.robot_n_img.src = '../images/robot_n.png';
+        this.robot_n_img.src = 'src/images/robot_n.png';
         this.robot_w_img = new Image();
-        this.robot_w_img.src = '../images/robot_w.png';
+        this.robot_w_img.src = 'src/images/robot_w.png';
         this.robot_s_img = new Image();
-        this.robot_s_img.src = '../images/robot_s.png';
+        this.robot_s_img.src = 'src/images/robot_s.png';
         this.running = false;
     },
     wall_length: 40,
@@ -1476,7 +1476,7 @@ RUR.ajax_requests = {};
 
 var load_page = function (page){
     $.ajax({
-        url: page+".html",
+        url: "src/xml/"+page+".xml",
         context: document.body
     }).done(function(data) {
         $("#content").html(data);
@@ -1548,7 +1548,7 @@ $(document).ready(function() {
     if (hash === ''){
         load_page("welcome");
     } else {
-        hash = hash.slice(1) + ".html";
+        hash = "src/xml/" + hash.slice(1) + ".xml";
         $.ajax({
                 url: hash,
                 context: $("#content"),
@@ -1581,7 +1581,7 @@ $(document).ready(function() {
             $("#toc").dialog( "open");
             return;
         }
-        $('#toc').load("../xml/toc.xml");
+        $('#toc').load("src/xml/toc.xml");
         RUR.ajax_requests.toc = true;
         $("#toc").dialog("open");
         return false;
@@ -1593,7 +1593,7 @@ $(document).ready(function() {
             $("#help").dialog( "open");
             return;
         }
-        $('#help').load("../xml/help.xml");
+        $('#help').load("src/xml/help.xml");
         RUR.ajax_requests.help = true;
         $("#help").dialog("open");
         return false;
@@ -1605,7 +1605,7 @@ $(document).ready(function() {
             $("#about").dialog("open");
             return;
         }
-        $('#about').load("../xml/about.xml");
+        $('#about').load("src/xml/about.xml");
         RUR.ajax_requests.about = true;
         $("#about").dialog("open");
         return false;
@@ -1617,7 +1617,7 @@ $(document).ready(function() {
             $("#contribute").dialog( "open");
             return;
         }
-        $('#contribute').load("../xml/contribute.xml");
+        $('#contribute').load("src/xml/contribute.xml");
         RUR.ajax_requests.contribute = true;
         $("#contribute").dialog( "open");
         return false;
@@ -1631,6 +1631,23 @@ $(document).ready(function() {
 
     editor.widgets = [];
     library.widgets = [];
+
+  $("#select_world").change(function() {
+      $("select option[value='remove']").remove();
+      $.get($(this).val(), function(data) {
+        RUR.world.import_(data);
+        RUR.world.reset();
+        RUR.controls.reload();
+        $("#run2").attr("disabled", "true");
+        $("#deselect").removeAttr("disabled");
+        $("#clear").attr("disabled", "true");
+        // jquery is sometimes too intelligent; it can guess
+        // if the imported object is a string ... or a json object
+        // I need a string here;  so make sure to prevent it from identifying.
+      }, "text");
+  });
+
+
 });
 
 function editorUpdateHints() {
@@ -1668,7 +1685,7 @@ function updateHints(obj) {
         if (obj === editor) {
             values = globals_ + library.getValue() + editor.getValue();
             nb_lines = library.lineCount() + 1;
-            JSHINT(values, jshint_options);;
+            JSHINT(values, jshint_options);
         } else {
             JSHINT(globals_ + obj.getValue(), jshint_options);
             nb_lines = 2;

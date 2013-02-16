@@ -1,0 +1,21 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('welcome')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('errors')">Next</a>
+<h1>First program</h1>
+<p>In the third panel, notice a drop-down list with
+    <b>Select a world</b>
+    written.  Click on it and select <span class="world">Alone</span>; you will see Reeborg appear
+    in the world, in the bottom left corner, as well as some buttons
+    on the top.</p>
+<p>Click on <b>Execute</b> and watch what happens.</p>
+<p>Try it!</p>
+
+<h2>Congratulations!</h2>
+<p>You had Reeborg take its first steps.  In the center panel, there is a single instruction:</p>
+<pre class="jscode">move();</pre>
+<p>That is the command that Reeborg executed. Notice how the "Execute" button
+is now disabled; click on "Reload" to enable it again, and try to run it again. By the way,
+a synonym for Execute is Run (as in, run a program).
+When you are ready, <b>move</b> to the next lesson.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('welcome')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('errors')">Next</a>

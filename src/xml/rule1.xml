@@ -1,0 +1,22 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('errors')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Next</a>
+<h1>Rule number 1</h1>
+
+<p>Did you try all that I suggested to you in the previous lesson?  If not,
+I urge you to go back to do it.  You see, the most important rule you
+must follow if you wish to learn programming is the following:</p>
+
+<dl>
+<dt><b>Rule # 1</b></dt>
+<dd>Learning about computer programming is like learning to play
+a musical instrument: you have to <b>do it</b>, not simply read
+about it.</dd>
+</dl>
+
+<p>Every time I suggest you try something, I have a reason for doing
+so.  Sometimes it will not be apparent right away, but I really encourage
+you to try it.  I would even suggest to you that you should do more
+than what I suggest and try different things just to explore further.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('errors')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Next</a>
