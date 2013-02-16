@@ -2,7 +2,7 @@
 <a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Next</a>
 <h1>Rule number 2</h1>
 
-<p>For this lesson, you don't need the editor panel nor the world panel; you
+<p>For most of this lesson, you don't need the editor panel nor the world panel; you
     can, and probably should hide them to focus on the text below.</p>
 
 <p>I have already mentioned the first rule for learning how to program:
@@ -93,6 +93,20 @@ in addition to comments, I have used blank lines to separate some
 "logical" blocks of code, to help see the pattern better.  Together,
 the use of comments and insertion of blank lines can make a program
 much easier to read.</p>
+
+<p>Finally, let me rewrite the <b>same</b> program in a way
+that is much harder to read for humans, but that is just as easily
+understood by Reeborg.</p>
+<pre class="jscode">move();move();turn_left();
+put_token();move();move();turn_left();
+put_token();move();turn_left();put_token();
+move();move();turn_left();put_token();</pre>
+
+<p>By choosing world <span class="world">Alone</span> and
+copying/pasting each program in turn in the editor, you can verify
+that they all make Reeborg perform exactly the same task!</p>
+
+<p>Now, which one is easier to read?...</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('tokens1')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Next</a>

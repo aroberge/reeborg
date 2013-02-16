@@ -7,10 +7,11 @@
     <li><b>token_here()</b></li>
     <li><b>has_token()</b></li>
     <li><b>is_facing_north()</b></li>
-    <li><b>wall_in_front()</b></li>
+    <li><b>front_is_clear()</b></li>
+    <li><b>right_is_clear()</b></li>
     <li><b>done()</b></li>
     <li><b>build_wall()</b></li>
-    <li><b>at_goal_position()</b></li>
+    <li><b>at_goal()</b></li>
     <li><b>at_goal_orientation()</b></li>
   </ul>
   <p>To create additional robots, one can use <b>new UsedRobot()</b></p>
