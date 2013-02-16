@@ -6,15 +6,15 @@
 <meta name="keywords" content="JavaScript,Python,Programming">
 <meta name="author" content="André Roberge">
 <meta name="license" content="CC BY-NC-SA 3.0">
-<link href="../css/jquery-ui.custom.min.css" rel="stylesheet" >
+<link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
-<link rel="stylesheet" href="../css/reeborg.css"> <!-- load after codemirror.css -->
+<link rel="stylesheet" href="src/css/reeborg.css"> <!-- load after codemirror.css -->
 <title>Reeborg's world</title>
 </head>
 <body>
 
 <header class="blue-gradient green-border">
-  <a id="logo" href="../index.html" class="fake_button"><img src="../images/robot_e.png">Reeborg</a>
+  <a id="logo" href="index.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg</a>
   <div id="header-child">
     <button class="active reverse-blue-gradient" label="content-panel">Content</button>
     <button class="active reverse-blue-gradient" label="editor-panel">Editor</button>
@@ -86,12 +86,12 @@ Have you tried Firefox or Chrome? */
         <button class="blue-gradient" id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
         <select id="select_world">
           <option value="remove" selected>Select a world</option>
-          <option value="../json/alone.json">Alone</option>
-          <option value="../json/home1.json">Home 1</option>
-          <option value="../json/home2.json">Home 2</option>
-          <option value="../json/home3.json">Home 3</option>
-          <option value="../json/tokens1.json">Tokens 1</option>
-          <option value="../json/tokens2.json">Tokens 2</option>
+          <option value="src/json/alone.json">Alone</option>
+          <option value="src/json/home1.json">Home 1</option>
+          <option value="src/json/home2.json">Home 2</option>
+          <option value="src/json/home3.json">Home 3</option>
+          <option value="src/json/tokens1.json">Tokens 1</option>
+          <option value="src/json/tokens2.json">Tokens 2</option>
         </select>
         <div id="Reeborg-says" title="Reeborg says" style="display:none"></div>
         <div id="Reeborg-shouts" title="Reeborg shouts" style="display:none"></div>
@@ -115,7 +115,7 @@ Have you tried Firefox or Chrome? */
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
-<script src="../js/reeborg.js"></script>
+<script src="src/js/reeborg.js"></script>
 
 <script>
   var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
@@ -137,7 +137,7 @@ Have you tried Firefox or Chrome? */
   RUR.controls = new RUR.Controls("javascript");
 </script>
 
-<script src="../libs/jshint.js"></script>
+<script src="src/libs/jshint.js"></script>
 
 </body>
 </html>
