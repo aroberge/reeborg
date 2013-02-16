@@ -1477,7 +1477,8 @@ RUR.ajax_requests = {};
 var load_page = function (page){
     $.ajax({
         url: "src/xml/"+page+".xml",
-        context: document.body
+        context: document.body,
+        dataType: "text"
     }).done(function(data) {
         $("#content").html(data);
         location.hash = page;
@@ -1646,7 +1647,6 @@ $(document).ready(function() {
         // I need a string here;  so make sure to prevent it from identifying.
       }, "text");
   });
-
 
 });
 
