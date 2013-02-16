@@ -234,45 +234,53 @@ RUR.World = function () {
         return false;
     };
 
-    this.wall_in_front = function(robot){
+    this.front_is_clear = function(robot){
         var coords;
         switch (robot.orientation){
         case this.EAST:
             coords = robot.x + "," + robot.y;
             if (this.is_wall_at(coords, "east")) {
-                return true;
+                return false;
             }
             break;
         case this.NORTH:
             coords = robot.x + "," + robot.y;
             if (this.is_wall_at(coords, "north")) {
-                return true;
+                return false;
             }
             break;
         case this.WEST:
             if (robot.x===1){
-                return true;
+                return false;
             } else {
                 coords = robot.x-1 + "," + robot.y;
                 if (this.is_wall_at(coords, "east")) {
-                    return true;
+                    return false;
                 }
             }
             break;
         case this.SOUTH:
             if (robot.y===1){
-                return true;
+                return false;
             } else {
                 coords = robot.x + "," + robot.y-1;
                 if (this.is_wall_at(coords, "north")) {
-                    return true;
+                    return false;
                 }
             }
             break;
         default:
-            throw new RUR.Error("Should not happen: unhandled case in RUR.World.wall_in_front().");
+            throw new RUR.Error("Should not happen: unhandled case in RUR.World.front_is_clear().");
         }
-        return false;
+        return true;
+    };
+
+    this.right_is_clear = function(robot){
+        var result;
+        robot.__turn_right(true);
+        result = this.front_is_clear(robot);
+        robot.turn_left(true);
+        return result;
     };
 
     this.build_wall = function(robot){
@@ -329,7 +337,7 @@ RUR.World = function () {
     };
 
     this.move_robot = function(robot){
-        if (this.wall_in_front(robot)) {
+        if (!this.front_is_clear(robot)) {
             throw new RUR.Error("Ouch! I hit a wall!");
         }
         if ((robot.y === RUR.visible_world.rows && robot.orientation === this.NORTH) ||
@@ -460,17 +468,18 @@ RUR.PrivateRobot = function(x, y, orientation, tokens) {
     this.prev_orientation = this.orientation;
 };
 
-RUR.PrivateRobot.prototype.turn_left = function(){
+RUR.PrivateRobot.prototype.turn_left = function(no_frame){
     "use strict";
     this.prev_orientation = this.orientation;
     this.prev_x = this.x;
     this.prev_y = this.y;
     this.orientation += 1;
     this.orientation %= 4;
+    if (no_frame !== undefined) return;
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.__turn_right = function(){
+RUR.PrivateRobot.prototype.__turn_right = function(no_frame){
     // private method for now ...
     "use strict";
     this.prev_orientation = this.orientation;
@@ -478,6 +487,7 @@ RUR.PrivateRobot.prototype.__turn_right = function(){
     this.prev_y = this.y;
     this.orientation += 3;
     this.orientation %= 4;
+    if (no_frame !== undefined) return;
     RUR.world.add_frame();
 };
 
@@ -493,8 +503,12 @@ RUR.PrivateRobot.prototype.move = function(){
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.wall_in_front = function() {
-    return RUR.world.wall_in_front(this);
+RUR.PrivateRobot.prototype.front_is_clear = function() {
+    return RUR.world.front_is_clear(this);
+};
+
+RUR.PrivateRobot.prototype.right_is_clear = function() {
+    return RUR.world.right_is_clear(this);
 };
 
 RUR.PrivateRobot.prototype.build_wall = function () {
@@ -524,7 +538,7 @@ RUR.PrivateRobot.prototype.has_token = function () {
     return this.tokens > 0;
 };
 
-RUR.PrivateRobot.prototype.at_goal_position = function () {
+RUR.PrivateRobot.prototype.at_goal = function () {
     var goal = RUR.world.goal;
     if (goal !== undefined){
         if (goal.position !== undefined) {
@@ -1275,9 +1289,14 @@ var pause = function () {
     RUR.world.pause();
 };
 
-var wall_in_front = function() {
+var front_is_clear = function() {
     "use strict";
-    return RUR.world.wall_in_front(RUR.world.robots[0]);
+    return RUR.world.front_is_clear(RUR.world.robots[0]);
+};
+
+var right_is_clear = function() {
+    "use strict";
+    return RUR.world.right_is_clear(RUR.world.robots[0]);
 };
 
 var build_wall = function() {
@@ -1324,8 +1343,8 @@ var take = function(arg) {
     RUR.world.robots[0].take(arg);
 };
 
-var at_goal_position = function() {
-    return RUR.world.robots[0].at_goal_position();
+var at_goal = function() {
+    return RUR.world.robots[0].at_goal();
 };
 
 var at_goal_orientation = function() {
@@ -1634,18 +1653,26 @@ var jshint_options = {
     jquery: true
 };
 
-var globals_ = "/*globals move, turn_left, RUR, output, inspect, UsedRobot, wall_in_front, "+
-                    " is_faing_north, done, put_token, take_token, put, take, shape_here,"+
-                    " token_here, has_token, write, at_goal_position, at_goal_orientation," +
+var globals_ = "/*globals move, turn_left, RUR, output, inspect, UsedRobot, front_is_clear, right_is_clear, "+
+                    " is_facing_north, done, put_token, take_token, put, take, shape_here,"+
+                    " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, DEBUG*/\n";
 
 function updateHints(obj) {
+    var values, nb_lines;
     obj.operation(function () {
         for(var i = 0; i < obj.widgets.length; ++i)
             obj.removeLineWidget(obj.widgets[i]);
         obj.widgets.length = 0;
 
-        JSHINT(globals_ + obj.getValue(), jshint_options);
+        if (obj === editor) {
+            values = globals_ + library.getValue() + editor.getValue();
+            nb_lines = library.lineCount() + 1;
+            JSHINT(values, jshint_options);;
+        } else {
+            JSHINT(globals_ + obj.getValue(), jshint_options);
+            nb_lines = 2;
+        }
         for(i = 0; i < JSHINT.errors.length; ++i) {
             var err = JSHINT.errors[i];
             if(!err) continue;
@@ -1655,7 +1682,7 @@ function updateHints(obj) {
             icon.className = "lint-error-icon";
             msg.appendChild(document.createTextNode(err.reason));
             msg.className = "lint-error";
-            obj.widgets.push(obj.addLineWidget(err.line - 2, msg, {
+            obj.widgets.push(obj.addLineWidget(err.line - nb_lines, msg, {
                 coverGutter: false,
                 noHScroll: true
             }));

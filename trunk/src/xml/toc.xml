@@ -1,3 +1,5 @@
+<h2>Introduction</h2>
+
 <ol><li><a href="javascript:void(0);" onClick="load_page('welcome')">Welcome to Reeborg's world</a>: Getting
 familiar with the layout of this website.</li>
 <li><a href="javascript:void(0);" onClick="load_page('move')">First program</a>: Making Reeborg
@@ -18,4 +20,77 @@ about tokens and what Reeborg can do with them.</li>
 the most important rules for writing computer programs.</li>
 </ol>
 
+<h2> 6 series of challenges</h2>
 
+<ol><li>Hurdles</li>
+<li>Harvest</li>
+<li>Around the world</li>
+<li>build_wall and closing windows</li>
+<li>Maze</li>
+<li>Newspaper delivery</li>
+</ol>
+
+<h2>Defining new things</h2>
+
+<ol><li>Rule number 3</li>
+<li>turn_right</li>
+<li>turn_around  and remembering rule number 3</li>
+<li>Library - again about rule number 3</li>
+<li>Revisiting the Newspaper delivery</li>
+</ol>
+
+<h2>Making choices</h2>
+
+<ol><li>Done</li>
+<li>true and false: introduce DEBUG</li>
+<li>if and true/false</li>
+<li>write  with true and false</li>
+<li>if and at_goal: going home revisited</li>
+<li>write with at_goal</li>
+<li>else and at_goal_orientation: going home...</li>
+<li>negation</li>
+<li>while</li>
+<li>has_token</li>
+<li>facing_north</li>
+<li>wall_in_front</li>
+<li>Revisiting the Harvesting challenges; use write to keep track of what we do</li>
+</ol>
+
+<h2>extending tests</h2>
+
+<ol><li>return</li>
+<li>facing whatever</li>
+<li>wall somewhere</li>
+<li>revisiting closing windows</li>
+</ol>
+
+<h2> Stepwise refinement</h2>
+
+<ol><li>Step by step around the world and maze</li>
+<li>revisiting maze </li>
+<li>revisiting hurdles</li>
+</ol>
+
+<h2>More javascript keywords</h2>
+
+<ol><li>var ... Visiting France...</li>
+<li>A bit of math: +, -, *, /</li>
+<li>Counting: using a while loop</li>
+<li>for loop: repeating</li>
+<li>repeat(f, i) function</li>
+<li>returning from repeat (new way to define turn_right)</li>
+<li>Random numbers in javascript - game, guess a number</li>
+<li>try and catch: explaining exceptions</li>
+<li>try and catch: better to ask for forgiveness than permission</li>
+</ol>
+
+
+<h2>The dot notation</h2>
+
+<ol><li>new   UsedRobot</li>
+<li>multiple robots</li>
+<li>local and global variables</li>
+<li>extending a prototype</li>
+<li>% operator</li>
+<li>designing new robots</li>
+</ol>
