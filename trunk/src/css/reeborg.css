@@ -7,7 +7,7 @@ h2 {font-size: 1.3em; color: #224488;}
 h3 {font-size: 1.1em; color: #224488;}
 ol li a {color: #224488 !important;}
 dl {border: 2px solid #886622; border-radius: 6px; background-color: #fed}
-#logo{float: left; padding-left: 30px; padding-right: 20px; margin-right: 20%; font-size: 30px;
+#logo{float: left; padding-left: 30px; padding-right: 20px; margin-right: 50px; font-size: 30px;
   font-weight: bold; text-decoration: none; color: white; line-height: 25px;
   text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa,
     0 6px 1px rgba(0,0,0,.3), 0 0 5px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.3), 1px 3px 5px rgba(0,0,0,.4),
@@ -16,7 +16,7 @@ dl {border: 2px solid #886622; border-radius: 6px; background-color: #fed}
 #logo img{float: left; padding:0; margin:0; position:absolute; top:5px; left:5px;}
 header button {border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(0,0,0,0.1);
   height: 37px; position: relative; border-top: 0; border-bottom: 0; font-weight: bold; float: left; margin: 0;}
-header button:last-child {margin-right: 10%;}
+header button:last-child {margin-right: 50px;}
 .resizable-helper {border-right: 1px dashed red;}
 .clear {clear: both;}
 #tabs {height: 98%; overflow: auto;}
@@ -63,7 +63,7 @@ header button:last-child {margin-right: 10%;}
       background-size:50px 50px;
     }
 
-#panels {position: fixed;  top: 37px; left: 0;width: 100%; display: block; min-width: 800px; height: 100%;
+#panels {position: fixed;  top: 37px; left: 0;width: 99.6%; display: block; min-width: 800px; height: 100%;
   margin: auto; padding: 0;}
 .panel {float: left; position: relative; top: 0; height: 94%; padding: 3px;  overflow-y: auto;
   overflow-x: hidden; display: none; border-right: 1px dashed #124;}
@@ -115,7 +115,7 @@ li.success:after{content: url(../images/ok.png);}
 .failure {color: red; list-style: none;}
 li.failure:after{content: url(../images/not_ok.png);}
 
-code {border: 1px solid #75a110; border-radius: 6px;
+code {background-color: #eef; border-radius: 6px; font-size:12px; padding: 2px 3px;
      font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace; }
 .world {border: 1px solid #248; border-radius: 6px; font-weight: bold;}
 

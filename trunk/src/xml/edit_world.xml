@@ -9,6 +9,7 @@ $("#cmd-input").keyup(function (e) {
         } catch (e) {
             $("#cmd-result").html(e.message);
         }
+        copy();
     }
 });
 
@@ -27,24 +28,6 @@ function remove_robot() {
     delete user_world.robots;
     _update("removed robot");
 }
-function add_wall(x, y, orientation){
-    var coords = x +"," + y;
-    if (user_world.walls === undefined){
-        user_world.walls = {};
-    }
-    if (user_world.walls[coords] === undefined){
-        user_world.walls[coords] = [];
-    }
-    if (orientation === "east" && user_world.walls[coords].indexOf("east") === -1){
-        user_world.walls[coords].push("east");
-        _update("added wall");
-    } else if (orientation === "north" && user_world.walls[coords].indexOf("north") === -1){
-        user_world.walls[coords].push("north");
-        _update("added wall");
-    }
-    $("#cmd-result").html("nothing done");
-}
-
 function add_robot(x, y, orientation, tokens){
     var robot = {};
     robot.x = x || 1;
@@ -55,12 +38,43 @@ function add_robot(x, y, orientation, tokens){
     _update("added or changed robot");
 }
 
+function toggle_wall(x, y, orientation){
+    var index, coords;
+    if (!(orientation ==="east" || orientation === "north")){
+        $("#cmd-result").html("invalid orientation:" + orientation);
+        return;
+    }
+    coords = x + "," + y;
+    if (user_world.walls === undefined){
+        user_world.walls = {}
+    }
+    if (user_world.walls[coords] === undefined){
+        user_world.walls[coords] = [orientation];
+        _update("wall added");
+    } else {
+        index = user_world.walls[coords].indexOf(orientation);
+        if (index === -1) {
+            user_world.walls[coords].push(orientation);
+            _update("wall added")
+        } else {
+            user_world.walls[coords].remove(index);
+            if (user_world.walls[coords].length === 0){
+                delete user_world.walls[coords];
+                if (Object.keys(user_world.walls).length === 0){
+                    delete user_world.walls;
+                }
+            }
+            _update("wall removed");
+        }
+    }
+}
+
 function duplicate() {
     user_world = JSON.parse(RUR.world.json_world_string);
     _update("duplicated world");
 }
 </script>
-<p>Command: <input type="text" id="cmd-input"> <span id="cmd-result">result</span></p>
+<p>Command: <input type="text" id="cmd-input"> <span id="cmd-result"></span></p>
 <ul><li><code> duplicate()</code>: duplicates the currently selected world</li>
 <li><code>add_robot()</code>: adds or replace a robot; only
 one robot is allowed</li>
