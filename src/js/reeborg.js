@@ -1672,9 +1672,11 @@ $(document).ready(function() {
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
             RUR.__load_world(data);
+            $("select").attr("style", "background-color:#eff");
         } else {
             $.get(val, function(data) {
                 RUR.__load_world(data);
+                $("select").attr("style", "background-color:#fff");
                 // jquery is sometimes too intelligent; it can guess
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
