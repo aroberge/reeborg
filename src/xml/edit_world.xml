@@ -1,0 +1,68 @@
+<script>
+var user_world = {};
+
+$("#cmd-input").keyup(function (e) {
+    if (e.keyCode == 13) {
+        try {
+            eval($("#cmd-input").val());
+            $("#cmd-input").val("")
+        } catch (e) {
+            $("#cmd-result").html(e.message);
+        }
+    }
+});
+
+function _update(message) {
+    RUR.world.import_(JSON.stringify(user_world));
+    RUR.world.reset();
+    RUR.visible_world.reset();
+    $("#cmd-result").html(message);
+}
+
+function copy(){
+    $("#output-pre").html(JSON.stringify(user_world, null, '   '));
+}
+
+function remove_robot() {
+    delete user_world.robots;
+    _update("removed robot");
+}
+function add_wall(x, y, orientation){
+    var coords = x +"," + y;
+    if (user_world.walls === undefined){
+        user_world.walls = {};
+    }
+    if (user_world.walls[coords] === undefined){
+        user_world.walls[coords] = [];
+    }
+    if (orientation === "east" && user_world.walls[coords].indexOf("east") === -1){
+        user_world.walls[coords].push("east");
+        _update("added wall");
+    } else if (orientation === "north" && user_world.walls[coords].indexOf("north") === -1){
+        user_world.walls[coords].push("north");
+        _update("added wall");
+    }
+    $("#cmd-result").html("nothing done");
+}
+
+function add_robot(x, y, orientation, tokens){
+    var robot = {};
+    robot.x = x || 1;
+    robot.y = y || 1;
+    robot.orientation = orientation || 0;
+    robot.tokens = tokens || 0;
+    user_world.robots = [robot];
+    _update("added or changed robot");
+}
+
+function duplicate() {
+    user_world = JSON.parse(RUR.world.json_world_string);
+    _update("duplicated world");
+}
+</script>
+<p>Command: <input type="text" id="cmd-input"> <span id="cmd-result">result</span></p>
+<ul><li><code> duplicate()</code>: duplicates the currently selected world</li>
+<li><code>add_robot()</code>: adds or replace a robot; only
+one robot is allowed</li>
+<li><code>remove_robot()</code>: remove existing robot.</li>
+<li><code>copy()</code>: outputs a json string representing the world in Reeborg's diary</li></ul>

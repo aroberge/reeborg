@@ -1624,6 +1624,18 @@ $(document).ready(function() {
         return false;
     });
 
+    $("#edit-world").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
+    $("#edit-world-button").on("click", function() {
+        if (RUR.ajax_requests.edit_world !== undefined){
+            $("#edit-world").dialog( "open");
+            return;
+        }
+        $('#edit-world').load("src/xml/edit_world.xml");
+        RUR.ajax_requests.edit_world = true;
+        $("#edit-world").dialog( "open");
+        return false;
+    });
+
     $("#Reeborg-says").dialog({autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog({autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     try{
