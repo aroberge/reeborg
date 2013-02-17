@@ -13,6 +13,29 @@ $("#cmd-input").keyup(function (e) {
     }
 });
 
+function save_world(name){
+    if (localStorage.getItem("user_world:" + name) !== null){
+        alert("Name already exist; will not save.");
+        return;
+    }
+    localStorage.setItem("user_world:"+ name, JSON.stringify(user_world));
+    $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+                              ).val("user_world:" + name).html(name));
+    _update("saved world");
+}
+
+function delete_world(name){
+    if (localStorage.getItem("user_world:" + name) === null){
+        alert("No such world.");
+        return;
+    }
+    localStorage.removeItem("user_world:" + name);
+    $("select option[value='" + "user_world:" + name +"']").remove();
+    RUR.controls.deselect();
+    _update("deleted world");
+
+}
+
 function _update(message) {
     RUR.world.import_(JSON.stringify(user_world));
     RUR.world.reset();

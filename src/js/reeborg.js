@@ -1474,6 +1474,18 @@ function doUndoDelete(){
 
 RUR.ajax_requests = {};
 
+RUR.load_user_worlds = function () {
+    var key, name;
+    for (i = localStorage.length - 1; i >= 0; i--) {
+        key = localStorage.key(i);
+        if (key.slice(0, 11) === "user_world:") {
+            name = key.slice(11);
+            $('#select_world').append( $('<option style="background-color:#ff9"></option>'
+                              ).val("user_world:" + name).html(name));
+        }
+    }
+};
+
 var load_page = function (page){
     $.ajax({
         url: "src/xml/"+page+".xml",
@@ -1645,20 +1657,30 @@ $(document).ready(function() {
     editor.widgets = [];
     library.widgets = [];
 
-  $("#select_world").change(function() {
-      $("select option[value='remove']").remove();
-      $.get($(this).val(), function(data) {
+    RUR.__load_world = function(data){
         RUR.world.import_(data);
         RUR.world.reset();
         RUR.controls.reload();
         $("#run2").attr("disabled", "true");
         $("#deselect").removeAttr("disabled");
         $("#clear").attr("disabled", "true");
-        // jquery is sometimes too intelligent; it can guess
-        // if the imported object is a string ... or a json object
-        // I need a string here;  so make sure to prevent it from identifying.
-      }, "text");
-  });
+    };
+
+    $("#select_world").change(function() {
+        $("select option[value='remove']").remove();
+        var data, val = $(this).val();
+        if (val.substring(0,11) === "user_world:"){
+            data = localStorage.getItem(val);
+            RUR.__load_world(data);
+        } else {
+            $.get(val, function(data) {
+                RUR.__load_world(data);
+                // jquery is sometimes too intelligent; it can guess
+                // if the imported object is a string ... or a json object
+                // I need a string here;  so make sure to prevent it from identifying.
+            }, "text");
+        }
+    });
 
 });
 
