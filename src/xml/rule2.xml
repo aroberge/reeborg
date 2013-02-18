@@ -1,5 +1,5 @@
 <a class="left-link" href="javascript:void(0);" onClick="load_page('tokens1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('summary1')">Next</a>
 <h1>Rule number 2</h1>
 
 <p>For most of this lesson, you don't need the editor panel nor the world panel; you
@@ -28,8 +28,8 @@ programs that are easier for people to understand: <em>comments</em>.</p>
 by the computer; they are meant to be read and understood
 only by humans.</p>
 <p>When using Javascript, one can write comments in one of two ways:</p>
-<ul><li>By enclosing an arbitrary quantity of text between "/*"  and "*/".</li>
-<li>By writing some text preceded by "//" on any given line.</li></ul>
+<ul><li>By enclosing an arbitrary quantity of text between <code>/*</code>  and <code>*/</code>.</li>
+<li>By writing some text preceded by <code>//</code> on any given line.</li></ul>
 <p>I will first write a simple program without any comments followed
 by a second version with comments added; however,
 I will make the same error in both programs.  Can you spot it
@@ -111,4 +111,4 @@ that they all make Reeborg perform exactly the same task!</p>
 <p>Now, which one is easier to read?...</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('tokens1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('summary1')">Next</a>
