@@ -20,9 +20,10 @@ about tokens and what Reeborg can do with them.</li>
 the most important rules for writing computer programs.</li>
 </ol>
 
-<h2> 6 series of challenges</h2>
+<h2> 7 series of challenges</h2>
 
-<ol><li>Hurdles</li>
+<ol><li>Finding the center</li>
+    <li>Hurdles</li>
 <li>Harvest</li>
 <li>Around the world</li>
 <li>build_wall and closing windows</li>
@@ -71,6 +72,10 @@ the most important rules for writing computer programs.</li>
 a multi-part tutorial in creating a program capable of handling worlds
 of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('refine2')">Refinements: part 2</a>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('refine3')">Refinements: part 3</a>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('refine4')">Refinements: part 4</a>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('refine5')">Refinements: part 5</a>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('rule4')">Rule number 4</a>.</li>
 <li>revisiting hurdles</li>
 </ol>
 

@@ -14,8 +14,7 @@ while ( !token_here() ){
     } else {
         turn_left();
     }
-}
-</pre>
+}</pre>
 <p><b>Try it!</b></p>
 <h2>Not so simple world</h2>
 <p>Let's try the program we wrote on a slightly more complicated world
@@ -40,8 +39,7 @@ while ( !token_here() ){
     } else {
         turn_left();
     }
-}
-</pre>
+}</pre>
 <p>Does it work? Read it carefully to decide for yourself. Then try it to
 confirm your opinion, or make any change you think appropriate.</p>
 

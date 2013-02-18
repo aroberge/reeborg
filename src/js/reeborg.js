@@ -149,6 +149,11 @@ RUR.World = function () {
         this.add_frame();
     };
 
+    this.remove_robot = function () {
+        this.robots.remove(0);
+        this.add_frame();
+    };
+
     this.set_tokens = function (x, y, nb_tokens){
         if (nb_tokens > 0) {
             this.tokens[x + "," + y] = nb_tokens;
@@ -253,7 +258,7 @@ RUR.World = function () {
             if (robot.x===1){
                 return false;
             } else {
-                coords = robot.x-1 + "," + robot.y;
+                coords = (robot.x-1) + "," + robot.y;
                 if (this.is_wall_at(coords, "east")) {
                     return false;
                 }
@@ -263,7 +268,7 @@ RUR.World = function () {
             if (robot.y===1){
                 return false;
             } else {
-                coords = robot.x + "," + robot.y-1;
+                coords = robot.x + "," + (robot.y-1);
                 if (this.is_wall_at(coords, "north")) {
                     return false;
                 }
@@ -1253,6 +1258,10 @@ RUR.Controls = function (programming_language) {
 
 };
 
+var remove_robot = function (){
+    RUR.world.remove_robot();
+};
+
 var write = function (s) {
     RUR.world.add_output_frame("#output-pre", s);
 };
@@ -1475,7 +1484,7 @@ function doUndoDelete(){
 RUR.ajax_requests = {};
 
 RUR.load_user_worlds = function () {
-    var key, name;
+    var key, name, i;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
@@ -1709,7 +1718,7 @@ var jshint_options = {
 var globals_ = "/*globals move, turn_left, RUR, output, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put_token, take_token, put, take, shape_here,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
-                    " build_wall, DEBUG*/\n";
+                    " build_wall, think, DEBUG, remove_robot*/\n";
 
 function updateHints(obj) {
     var values, nb_lines;
