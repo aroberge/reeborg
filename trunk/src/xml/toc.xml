@@ -28,7 +28,7 @@ the most important rules for writing computer programs.</li>
 <li>Around the world</li>
 <li>build_wall and closing windows</li>
 <li>Maze</li>
-<li>Newspaper delivery</li>
+<li><a href="javascript:void(0);" onClick="load_page('newspaper1')">Newspaper delivery</a>.</li>
 </ol>
 
 <h2>Defining new things</h2>
@@ -37,7 +37,7 @@ the most important rules for writing computer programs.</li>
 <li>turn_right</li>
 <li>turn_around  and remembering rule number 3</li>
 <li>Library - again about rule number 3</li>
-<li>Revisiting the Newspaper delivery</li>
+<li><a href="javascript:void(0);" onClick="load_page('newspaper2')">Newspaper delivery revisited</a>.</li>
 </ol>
 
 <h2>Making choices</h2>
@@ -52,6 +52,7 @@ the most important rules for writing computer programs.</li>
 <li>negation</li>
 <li>while</li>
 <li>has_token</li>
+<li><a href="javascript:void(0);" onClick="load_page('newspaper3')">Newspaper delivery revisited again</a>.</li>
 <li>facing_north</li>
 <li>wall_in_front</li>
 <li>Revisiting the Harvesting challenges; use write to keep track of what we do</li>

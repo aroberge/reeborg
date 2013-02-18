@@ -221,7 +221,7 @@ RUR.World = function () {
             throw new RUR.Error("Unknown shape: " + shape);
         }
         if (robot[shape] === 0){
-            throw new RUR.Error("I don't have any " + shape + "to put down!");
+            throw new RUR.Error("I don't have any " + shape + " to put down!");
         } else if (this.find_shape(robot.x, robot.y) !== 0) {
             throw new RUR.Error("There is already something here.");
         }

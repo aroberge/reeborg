@@ -87,6 +87,8 @@ while ( !found_starting_point() ){
 the start. We could then choose to mark the starting point by <i>removing</i>
 a beeper. We would need to make some small changes in the definitions, but
 the solution as such would not need to be changed.</p>
+<p><b>Note: you might want to make a copy of <code>follow_right_wall()</code>
+in your library so that you can use it if you need it again.</b></p>
 
 <h2>Conclusion</h2>
 <p>We started with a simple problem to solve (going around a rectangular
