@@ -29,12 +29,6 @@ function get_money() {
     }
 }
 
-function put_money_down() {
-    while ( ... ){
-       // single line of code
-    }
-}
-
 // === End of definitions ===
 
 take("star");
@@ -46,8 +40,7 @@ put("star"); // leave paper
 turn_around();
 while ( ! ... ){
     // single line of code
-}
-put_money_down();</pre>
+}</pre>
 
 <p>It is up to you to fill up the missing tests and other lines of code.
 Once you are done, you might want to go back to
