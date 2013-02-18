@@ -115,7 +115,7 @@ li.success:after{content: url(../images/ok.png);}
 .failure {color: red; list-style: none;}
 li.failure:after{content: url(../images/not_ok.png);}
 
-code {background-color: #eef; border-radius: 6px; font-size:12px; padding: 2px 3px;
+code {background-color: #eef; border-radius: 6px; font-size:12px; padding: 2px 3px; font-weight: bold;
      font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace; }
 .world {border: 1px solid #248; border-radius: 6px; font-weight: bold;}
 

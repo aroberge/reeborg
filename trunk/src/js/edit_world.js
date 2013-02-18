@@ -1,11 +1,12 @@
-
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, RUR */
 var user_world = {};
 
 $("#cmd-input").keyup(function (e) {
     if (e.keyCode == 13) {
         try {
             eval($("#cmd-input").val());
-            $("#cmd-input").val("")
+            $("#cmd-input").val("");
         } catch (e) {
             $("#cmd-result").html(e.message);
         }
@@ -14,6 +15,7 @@ $("#cmd-input").keyup(function (e) {
 });
 
 function save_world(name){
+    "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
         alert("Name already exist; will not save.");
         return;
@@ -25,6 +27,7 @@ function save_world(name){
 }
 
 function delete_world(name){
+    "use strict";
     if (localStorage.getItem("user_world:" + name) === null){
         alert("No such world.");
         return;
@@ -37,6 +40,7 @@ function delete_world(name){
 }
 
 function _update(message) {
+    "use strict";
     RUR.world.import_(JSON.stringify(user_world));
     RUR.world.reset();
     RUR.visible_world.reset();
@@ -44,14 +48,18 @@ function _update(message) {
 }
 
 function copy(){
+    "use strict";
     $("#output-pre").html(JSON.stringify(user_world, null, '   '));
 }
 
 function remove_robot() {
+    "use strict";
     delete user_world.robots;
     _update("removed robot");
 }
+
 function add_robot(x, y, orientation, tokens){
+    "use strict";
     var robot = {};
     robot.x = x || 1;
     robot.y = y || 1;
@@ -62,12 +70,14 @@ function add_robot(x, y, orientation, tokens){
 }
 
 function _ensure_key_exist(obj, key){
+    "use strict";
     if (obj[key] === undefined){
         obj[key] = {};
     }
 }
 
 function toggle_wall(x, y, orientation){
+    "use strict";
     var index, coords;
     if (!(orientation ==="east" || orientation === "north")){
         $("#cmd-result").html("invalid orientation:" + orientation);
@@ -97,6 +107,7 @@ function toggle_wall(x, y, orientation){
 }
 
 function set_tokens(x, y, nb_tokens) {
+    "use strict";
     if (user_world.shapes !== undefined && user_world.shapes[x + "," + y] !== undefined){
         $("#cmd-result").html("shape here; can't put tokens");
         return;
@@ -114,6 +125,7 @@ function set_tokens(x, y, nb_tokens) {
 }
 
 function toggle_shape(x, y, shape){
+    "use strict";
     if (!(shape === "star" || shape === "square" || shape === "triangle")){
         $("#cmd-result").html("unknown shape: " + shape);
         return;
@@ -135,6 +147,7 @@ function toggle_shape(x, y, shape){
 }
 
 function set_goal_position(x, y){
+    "use strict";
     _ensure_key_exist(user_world, "goal");
     if (x >0  && y >0){
         user_world.goal.position = {"x": x, "y": y};
@@ -146,11 +159,12 @@ function set_goal_position(x, y){
                 delete user_world.goal;
             }
         }
-        _update("No position goal")
+        _update("No position goal");
     }
 }
 
 function set_goal_orientation(orientation){
+    "use strict";
     _ensure_key_exist(user_world, "goal");
     if ([0, 1, 2, 3].indexOf(orientation) !== -1){
         user_world.goal.orientation = orientation;
@@ -162,11 +176,12 @@ function set_goal_orientation(orientation){
                 delete user_world.goal;
             }
         }
-        _update("No orientation goal")
+        _update("No orientation goal");
     }
 }
 
 function set_goal_tokens(x, y, nb_tokens){
+    "use strict";
     _ensure_key_exist(user_world, "goal");
     if (user_world.goal.shapes !== undefined && user_world.goal.shapes[x + "," + y] !== undefined){
         $("#cmd-result").html("shape goal here; can't set token goal");
@@ -188,16 +203,19 @@ function set_goal_tokens(x, y, nb_tokens){
 }
 
 function set_goal_no_tokens(){
+    "use strict";
     _ensure_key_exist(user_world, "goal");
     user_world.goal.tokens = {};
 }
 
 function set_goal_no_shapes(){
+    "use strict";
     _ensure_key_exist(user_world, "goal");
     user_world.goal.shapes = {};
 }
 
 function set_goal_wall(x, y, orientation){
+    "use strict";
     var index, coords;
     if (!(orientation ==="east" || orientation === "north")){
         $("#cmd-result").html("invalid orientation:" + orientation);
@@ -242,6 +260,7 @@ function set_goal_wall(x, y, orientation){
 }
 
 function set_goal_shape(x, y, shape){
+    "use strict";
     if (!(shape === "star" || shape === "square" || shape === "triangle")){
         $("#cmd-result").html("unknown shape: " + shape);
         return;
@@ -249,7 +268,7 @@ function set_goal_shape(x, y, shape){
     _ensure_key_exist(user_world, "goal");
     if (user_world.goal.tokens !== undefined &&
         user_world.goal.tokens[x + "," + y] !== undefined){
-            $("#cmd-result").html("tokens as a goal here; can't set a shape goal");
+        $("#cmd-result").html("tokens as a goal here; can't set a shape goal");
         return;
     }
     _ensure_key_exist(user_world.goal, "shapes");
@@ -269,6 +288,7 @@ function set_goal_shape(x, y, shape){
 
 
 function duplicate() {
+    "use strict";
     user_world = JSON.parse(RUR.world.json_world_string);
     _update("duplicated world");
 }
