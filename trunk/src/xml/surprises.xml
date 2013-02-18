@@ -1,0 +1,18 @@
+<h1>Surprises</h1>
+<p>Change the program we just wrote to remove the <code>put_token()</code>
+instruction.  After saving it, try this slightly modified program
+with the following hurdle race (file: hurdles3.wld).</p>
+
+<p>Surprise! Other than finishing facing in an unusual direction (perhaps
+bowing to the crowd after winning), the program we just wrote can solve the
+hurdle problem. It also works with the uneven hurdle (file: hurdles4.wld)
+illustrated below - which the program we wrote before for jumping over
+hurdles could not handle!</p>
+
+<p>Try the same modified program again with the maze
+problem we introduced in one of the first lessons (file: maze1.wld),
+as illustrated below.</p>
+
+<p>As you will see, our simple program can find the exit to this maze!
+Amazing!</p>
+

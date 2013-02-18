@@ -28,8 +28,7 @@ while ( !token_here() ){
     } else {
         turn_left();
     }
-}
-</pre>
+}</pre>
 <p>Take the time to think about what the above program instructs Reeborg to
 do before trying to run it. Can you find a problem with the proposed solution?</p>
 
