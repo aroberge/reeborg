@@ -1,4 +1,6 @@
 
+<a class="right-link" href="javascript:void(0);" onClick="load_page('refine2')">Next</a>
+
 <h1>Refinements: part 1</h1>
 <p>In this multi-part lesson, we are going to write a complete program to
 solve problems of increasing complexity.  For each lesson,
@@ -32,3 +34,4 @@ while ( !token_here() ){
 <p>Take the time to think about what the above program instructs Reeborg to
 do before trying to run it. Can you find a problem with the proposed solution?</p>
 
+<a class="right-link" href="javascript:void(0);" onClick="load_page('refine2')">Next</a>

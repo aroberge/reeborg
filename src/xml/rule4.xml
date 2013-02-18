@@ -1,3 +1,5 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('refine5')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('surprises')">Next</a>
 <h1>Rule number 4</h1>
 <p>We have designed a program that works in many more situations
     than just the original one we considered. (<small>We could come
@@ -113,3 +115,5 @@ does; and</li>
 <p>The last two parts are essentially the same as Rule number 2.</p>
 <p>Now, make sure you have the working program in the editor before
 moving to next lesson.</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('refine5')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('surprises')">Next</a>
