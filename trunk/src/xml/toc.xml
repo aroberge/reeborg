@@ -67,7 +67,10 @@ the most important rules for writing computer programs.</li>
 <h2> Stepwise refinement</h2>
 
 <ol><li>Step by step around the world and maze</li>
-<li>revisiting maze </li>
+<li><a href="javascript:void(0);" onClick="load_page('refine1')">Refinements: part 1</a>:
+a multi-part tutorial in creating a program capable of handling worlds
+of increasing complexity.</li>
+<li><a href="javascript:void(0);" onClick="load_page('refine2')">Refinements: part 2</a>.</li>
 <li>revisiting hurdles</li>
 </ol>
 

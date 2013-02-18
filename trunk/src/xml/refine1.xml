@@ -1,0 +1,35 @@
+
+<h1>Refinements: part 1</h1>
+<p>In this multi-part lesson, we are going to write a complete program to
+solve problems of increasing complexity.  For each lesson,
+I will present a tentative solution that will contain one mistake.
+Try to find it before moving on to the next lesson.</p>
+
+<h2>A simple problem</h2>
+<p>Let us start by considering a simple problem: having Reeborg go around his
+world once, assuming there is no obstacle on the way. In concrete terms,
+select world <span class="world">Refine 1</span>. We have done something like this
+before, when we introduced the <code>front_is_clear()</code> test. Here's the
+outline of a solution which supposes that Reeborg carries at least one beeper
+at the beginning:</p>
+<ol>
+    <li> Put down a token to mark the starting point.</li>
+    <li> Move forward until facing a wall.</li>
+    <li> Turn left when facing a wall.</li>
+    <li> Repeat steps 2 and 3 until we find the token we had put down.</li>
+</ol>
+<p>Take you time to think about the above algorithm. Then, consider
+this solution in code. </p>
+<pre class="jscode">
+put_token();
+while ( !token_here() ){
+    if (front_is_clear()){
+        move();
+    } else {
+        turn_left();
+    }
+}
+</pre>
+<p>Take the time to think about what the above program instructs Reeborg to
+do before trying to run it. Can you find a problem with the proposed solution?</p>
+
