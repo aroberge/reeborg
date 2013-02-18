@@ -1,3 +1,5 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('refine3')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('refine5')">Next</a>
 <h1>Refinements: part 4</h1>
 <p>As you most likely found out, we were too hasty in asking Reeborg to move
 forward after putting down a beeper. We need to check if there is a wall
@@ -21,3 +23,5 @@ while ( !token_here() ){
 
 <p>Test it now and see that it works. Can you imagine situations where it
 might not work?</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('refine3')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('refine5')">Next</a>

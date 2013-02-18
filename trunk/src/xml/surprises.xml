@@ -1,3 +1,4 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
 <h1>Surprises</h1>
 <p>Change the program we just wrote to remove the <code>put_token()</code>
 instruction.  After saving it, try this slightly modified program
@@ -15,4 +16,5 @@ as illustrated below.</p>
 
 <p>As you will see, our simple program can find the exit to this maze!
 Amazing!</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
 

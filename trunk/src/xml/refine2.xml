@@ -1,3 +1,6 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('refine1')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('refine3')">Next</a>
+
 <h1>Refinements: part 2</h1>
 <p>Here's the cause of the problem we had at the end of part 1: we put down a
 beeper and, before we had the chance to move, tested to see if we were not
@@ -43,3 +46,5 @@ while ( !token_here() ){
 <p>Does it work? Read it carefully to decide for yourself. Then try it to
 confirm your opinion, or make any change you think appropriate.</p>
 
+<a class="left-link" href="javascript:void(0);" onClick="load_page('refine1')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('refine3')">Next</a>
