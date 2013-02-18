@@ -73,14 +73,7 @@ turn_left();
 move();
 turn_left();
 turn_left();
-turn_left();
-
-// put money down.
-put_token();
-put_token();
-put_token();
-put_token();
-put_token();</pre>
+turn_left();</pre>
 
 <p>This solution is quite long ... and it is easy to make mistakes when typing it.
 We note however that there are quite a few repeated code segements for which we
@@ -124,14 +117,6 @@ function get_money() {
     take_token();
 }
 
-function put_money_down() {
-    put_token();
-    put_token();
-    put_token();
-    put_token();
-    put_token();
-}
-
 // === End of definitions ===
 
 take("star");
@@ -139,8 +124,7 @@ climb_up_three_floors();
 get_money();
 put("star"); // leave paper
 turn_around();
-climb_down_three_floors();
-put_money_down();</pre>
+climb_down_three_floors();</pre>
 
 <p>Each function contains no more than 5 instructions; it's much easier to verify that
 each function does what it is supposed to do than verifying an entire list of commands

@@ -826,7 +826,6 @@ RUR.visible_world = {
             ctx.fill();
             ctx.strokeText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
         }
-
     },
     draw_shapes : function(shapes, goal) {
         "use strict";
