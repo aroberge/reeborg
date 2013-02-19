@@ -1,0 +1,37 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('repeat')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
+<h1>Reeborg goes to France</h1>
+
+<ul><li><em> Quelque chose à déclarer Monsieur. ... Reeborg?</em></li>
+    <li><tt>Je ne parle pas français .... I do not speak French.</tt></li>
+    <li><em>Do you have something to declare?</em></li>
+    <li><tt>Perhaps I should ...</tt></li>
+</ul>
+
+<p>Reeborg is known internationnally and travels often.  It might be useful to teach him
+words in a different language.  For functions, this can be done using the Javascript
+keyword <code>var</code>.  I like to think of <code>var</code> as creating some <code>var</code>iation of
+the language, perhaps following a <code>V</code>ery <code>A</code>cient <code>R</code>itual.  However,
+in programming terms, this is simply known as <b>declaring</b> a <code>var</code><b>iable</b>.</p>
+<p>We can do this in either 1 or two steps.</p>
+
+<pre class="jscode">
+var avance;      // declare a new word
+avance = move;   // define the equivalence
+var tourne_à_gauche = turn_left;  // do both in one step
+
+// notice the absence of parentheses ()
+// in the declaration above.
+
+// use the newly named functions
+// just like the old ones.
+
+avance();
+tourne_à_gauche();
+move();    //  still works
+}</pre>
+<h2>Try it!</h2>
+<p>Perhaps you could define your own language for giving instructions to Reeborg.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('repeat')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>

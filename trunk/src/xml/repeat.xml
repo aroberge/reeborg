@@ -1,5 +1,5 @@
 <a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('france')">Next</a>
 <h1>Repeat</h1>
 
 <p>Often, we will find that we want to repeat a series of instructions a fixed number of times.
@@ -37,4 +37,4 @@ shorten the code.  If you don't have it, go back to the previous lesson and redo
 <code>repeat()</code>.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('france')">Next</a>
