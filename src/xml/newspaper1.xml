@@ -1,4 +1,5 @@
 
+<a class="right-link" href="javascript:void(0);" onClick="load_page('rule3')">Next</a>
 
 <h1>Newspaper delivery</h1>
 <p>Reeborg has a new job: he delivers the <em>Northern Star</em> newspaper.
@@ -30,4 +31,4 @@ two instructions written above and make sure, when you need to use them,
 <p>At this point , it may appear impossible to write a single program that
 could handle both deliveries.
 Later, you will find out how to do so.</p>
-
+<a class="right-link" href="javascript:void(0);" onClick="load_page('rule3')">Next</a>

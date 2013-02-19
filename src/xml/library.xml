@@ -1,0 +1,26 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('turn_around')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('reading')">Next</a>
+<h1>Using the Library</h1>
+<p>When programmer make use of a given function in different programs,
+rather than redefining it in each program, they put them in special
+programs called <b>libraries</b> and they have a way to ensure that
+their other programs can use the functions that are found in
+the library.</p>
+<p>You are going to use the function <code>turn_right()</code> <b>a lot!</b>.
+Instead of rewriting it each time (remember Rule # 3), what you are going to
+do is to write it <b>once</b> (<small>more</small>) but, this time,
+instead of writing it in the editor with the <b>Code</b> tab, you will
+click on the <b>Library</b> tab and write it there.  Oh, and you should
+also write <code>turn_around()</code> there as well.  Once you have done
+this, you need to do two things.</p>
+<ol><li>Click on <b>save</b> so that it will be available for you
+anytime you come back to Reeborg's world. (I don't expect you to go
+through all the lessons in one single visit.)</li>
+<li>Write a short program that uses them to make sure that they
+work as expected.  If they don't, fix them ... <b>and save the version
+that works properly</b> by clicking on <b>save</b> again.</li></ol>
+<p>From now on, whenever you define a function that you use more than
+once, add it to your library so that you don't have to redefine it
+every time.</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('turn_around')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('reading')">Next</a>

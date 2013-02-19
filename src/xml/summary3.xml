@@ -1,0 +1,17 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper2')">Previous</a>
+<h1>Summary</h1>
+
+<p>In this section, we have seen our third rule: </p>
+
+<dt><b>Rule # 3</b></dt>
+<dd>When writing computer programs, do not repeat yourself.<br>
+I repeat: <b>do not repeat yourself!</b></dd>
+</dl>
+<dl>
+
+<p>We have also learned how to define functions by using our very first javascript
+keyword: <code>function</code>.</p>
+<p>Finally, we have learned that we could save functions in the Library so
+that we can use them without having to redefine them each time.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper2')">Previous</a>
