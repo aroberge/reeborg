@@ -1,9 +1,9 @@
 <a class="left-link" href="javascript:void(0);" onClick="load_page('reading')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('repeat')">Next</a>
 <h1>Newspaper delivery revisited</h1>
 
 <p>Let's go back to our newspaper delivery example; we'll consider
-the delivery to Ms. Ada Lovelace in <span class="world">Newspaper 1</span>.
+the delivery to Ms. Ada Lovelace in <span class="world">Newspaper&nbsp;1</span>.
 Below is a solution to that problem, with a few added comments.</p>
 
 <pre class="jscode">
@@ -136,7 +136,7 @@ again, much easier to verify that it is right.  All together, using functions to
 repetitions, we end up with a shorter program that is also much easier to read.
 </p><p>
 It should be fairly simple to modify the above function definitions so that we could deliver a newspaper
-to Mr. Babbage, in world <span class="world">Newspaper 2</span>. <b>Do it!</b></p>
+to Mr. Babbage, in world <span class="world">Newspaper&nbsp;2</span>. <b>Do it!</b></p>
 
 <p>Later, we will see how we can write a single program, shorter than the above,
 that will enable us to deliver newspapers to either Ms. Lovelace or Mr. Babbage.</p>
@@ -147,4 +147,4 @@ you are always able to remember all that are there.  If you do find that you use
 a function many times in different programs, then it is a good idea to put it
 in your library.</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('reading')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('repeat')">Next</a>

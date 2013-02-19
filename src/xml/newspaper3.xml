@@ -2,8 +2,8 @@
 
 <p>Let's go back to our newspaper delivery example.  Below is
     an outline of a solution that will work both Ms. Lovelace's
-    world <span class="world">Newspaper 1</span>,
-    and Mr. Babbage's <span class="world">Newspaper 2</span>.</p>
+    world <span class="world">Newspaper&nbsp;1</span>,
+    and Mr. Babbage's <span class="world">Newspaper&nbsp;2</span>.</p>
 
 
 <pre class="jscode">

@@ -44,6 +44,7 @@ repetitions again!</li>
 <li><a href="javascript:void(0);" onClick="load_page('reading')">Reading exercise</a>: on
 the importance of choosing meaningful names (see Rule # 2).</li>
 <li><a href="javascript:void(0);" onClick="load_page('newspaper2')">Newspaper delivery revisited</a>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('repeat')">Repeat</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('summary3')">Summary</a></li>
 </ol>
 
