@@ -1,3 +1,5 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('reading')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
 <h1>Newspaper delivery revisited</h1>
 
 <p>Let's go back to our newspaper delivery example; we'll consider
@@ -138,3 +140,11 @@ to Mr. Babbage, in world <span class="world">Newspaper 2</span>. <b>Do it!</b></
 
 <p>Later, we will see how we can write a single program, shorter than the above,
 that will enable us to deliver newspapers to either Ms. Lovelace or Mr. Babbage.</p>
+<p>Since functions like <code>get_money()</code>, <code>climb_up_three_floors</code>, etc.,
+are specific to this problem, it is probably <b>not</b> a good idea to save them
+in the library; you don't want to have too many functions in your library so that
+you are always able to remember all that are there.  If you do find that you use
+a function many times in different programs, then it is a good idea to put it
+in your library.</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('reading')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>

@@ -18,6 +18,7 @@ discussion about an annoying subject.</li>
 about tokens and what Reeborg can do with them.</li>
 <li><a href="javascript:void(0);" onClick="load_page('rule2')">Rule number 2</a>: one of
 the most important rules for writing computer programs.</li>
+<li><a href="javascript:void(0);" onClick="load_page('summary1')">Summary</a></li>
 </ol>
 
 <h2> 7 series of challenges</h2>
@@ -33,11 +34,17 @@ the most important rules for writing computer programs.</li>
 
 <h2>Defining new things</h2>
 
-<ol><li>Rule number 3</li>
-<li>turn_right</li>
-<li>turn_around  and remembering rule number 3</li>
-<li>Library - again about rule number 3</li>
+<ol>
+<li><a href="javascript:void(0);" onClick="load_page('rule3')">Rule number 3</a>: avoiding
+repetitions.</li>
+<li><a href="javascript:void(0);" onClick="load_page('turn_around')">Turn around</a>: avoiding
+repetitions again.</li>
+<li><a href="javascript:void(0);" onClick="load_page('library')">Using the Library</a>: avoiding
+repetitions again!</li>
+<li><a href="javascript:void(0);" onClick="load_page('reading')">Reading exercise</a>: on
+the importance of choosing meaningful names (see Rule # 2).</li>
 <li><a href="javascript:void(0);" onClick="load_page('newspaper2')">Newspaper delivery revisited</a>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('summary3')">Summary</a></li>
 </ol>
 
 <h2>Making choices</h2>
