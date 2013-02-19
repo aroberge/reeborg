@@ -18,10 +18,10 @@ carry them all up the stairs).</li>
 worlds:</p>
 <ul><li>The nice Ms. Ada Lovelace, who lives on the third floor of her building,
 always leaves a couple of extra tokens as a gift to Reeborg; hers is
-world <span class="world">Newspaper 1</span>.</li>
+world <span class="world">Newspaper&nbsp;1</span>.</li>
 <li>The old curmodgeon Mr. Charles Babbage, who lives on the fifth floor, always
 pays the exact amount, leaving no tip for Reeborg; his world is
-<span class="world">Newspaper 2</span></li></ul>
+<span class="world">Newspaper&nbsp;2</span></li></ul>
 <p>With the help of the following two instructions:</p>
 <pre class="jscode">take("star")   // pick it up to carry
 put("star")  // put it down</pre>

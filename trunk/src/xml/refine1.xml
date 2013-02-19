@@ -10,7 +10,7 @@ Try to find it before moving on to the next lesson.</p>
 <h2>A simple problem</h2>
 <p>Let us start by considering a simple problem: having Reeborg go around his
 world once, assuming there is no obstacle on the way. In concrete terms,
-select world <span class="world">Refine 1</span>. We have done something like this
+select world <span class="world">Refine&nbsp;1</span>. We have done something like this
 before, when we introduced the <code>front_is_clear()</code> test. Here's the
 outline of a solution which supposes that Reeborg carries at least one beeper
 at the beginning:</p>

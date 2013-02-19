@@ -1,3 +1,12 @@
+/* Author: André Roberge
+   License: MIT
+
+   I know, I should break it up into modules as it is getting rather big.
+   It is not very friendly for an outsider.   And that outsider could
+   be me in 6 months time ... but, right now, I am more focused in getting
+   it complete as a first prototype than I am at getting it organized for
+   others.  Feel free to contact me if you have questions.              */
+
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, editor, library, translate_python, JSHINT, CodeMirror */
 
@@ -258,7 +267,7 @@ RUR.World = function () {
             if (robot.x===1){
                 return false;
             } else {
-                coords = (robot.x-1) + "," + robot.y;
+                coords = (robot.x-1) + "," + robot.y; // do math first before building strings
                 if (this.is_wall_at(coords, "east")) {
                     return false;
                 }
@@ -268,7 +277,7 @@ RUR.World = function () {
             if (robot.y===1){
                 return false;
             } else {
-                coords = robot.x + "," + (robot.y-1);
+                coords = robot.x + "," + (robot.y-1);  // do math first before building strings
                 if (this.is_wall_at(coords, "north")) {
                     return false;
                 }
@@ -1253,16 +1262,33 @@ RUR.Controls = function (programming_language) {
         RUR.world.reset();
         RUR.visible_world.init();
     };
-
-
 };
 
-var remove_robot = function (){
-    RUR.world.remove_robot();
+
+var at_goal = function() {
+    return RUR.world.robots[0].at_goal();
 };
 
-var write = function (s) {
-    RUR.world.add_output_frame("#output-pre", s);
+var at_goal_orientation = function() {
+    return RUR.world.robots[0].at_goal_orientation();
+};
+
+var build_wall = function() {
+    "use strict";
+    RUR.world.robots[0].build_wall();
+};
+
+var done = function () {
+    RUR.world.robots[0].done();
+};
+
+var front_is_clear = function() {
+    "use strict";
+    return RUR.world.front_is_clear(RUR.world.robots[0]);
+};
+
+var has_token = function () {
+    return RUR.world.robots[0].has_token();
 };
 
 var inspect = function (obj){
@@ -1277,19 +1303,14 @@ var inspect = function (obj){
     write(result);
 };
 
+var is_facing_north = function() {
+    "use strict";
+    return RUR.world.robots[0].is_facing_north();
+};
+
 var move = function() {
     "use strict";
     RUR.world.robots[0].move();
-};
-
-var turn_left = function() {
-    "use strict";
-    RUR.world.robots[0].turn_left();
-};
-
-var think = function(delay) {
-    "use strict";
-    RUR.world.think(delay);
 };
 
 var pause = function () {
@@ -1297,29 +1318,27 @@ var pause = function () {
     RUR.world.pause();
 };
 
-var front_is_clear = function() {
-    "use strict";
-    return RUR.world.front_is_clear(RUR.world.robots[0]);
+var put = function(arg) {
+    RUR.world.robots[0].put(arg);
 };
+
+var put_token = function() {
+    RUR.world.robots[0].put_token();
+};
+
+var remove_robot = function (){
+    RUR.world.remove_robot();
+};
+
+var repeat = function (f, n) {
+    for (var i=0; i < n; i++){
+        f();
+    }
+}
 
 var right_is_clear = function() {
     "use strict";
     return RUR.world.right_is_clear(RUR.world.robots[0]);
-};
-
-var build_wall = function() {
-    "use strict";
-    RUR.world.robots[0].build_wall();
-};
-
-var is_facing_north = function() {
-    "use strict";
-    return RUR.world.robots[0].is_facing_north();
-};
-
-var token_here = function () {
-    "use strict";
-    return RUR.world.get_tokens(RUR.world.robots[0].x, RUR.world.robots[0].y);
 };
 
 var shape_here = function () {
@@ -1327,36 +1346,31 @@ var shape_here = function () {
     return RUR.world.find_shape(RUR.world.robots[0].x, RUR.world.robots[0].y);
 };
 
-var done = function () {
-    RUR.world.robots[0].done();
-};
-
-var put_token = function() {
-    RUR.world.robots[0].put_token();
+var take = function(arg) {
+    RUR.world.robots[0].take(arg);
 };
 
 var take_token = function() {
     RUR.world.robots[0].take_token();
 };
 
-var has_token = function () {
-    return RUR.world.robots[0].has_token();
+var think = function(delay) {
+    "use strict";
+    RUR.world.think(delay);
 };
 
-var put = function(arg) {
-    RUR.world.robots[0].put(arg);
+var token_here = function () {
+    "use strict";
+    return RUR.world.get_tokens(RUR.world.robots[0].x, RUR.world.robots[0].y);
 };
 
-var take = function(arg) {
-    RUR.world.robots[0].take(arg);
+var turn_left = function() {
+    "use strict";
+    RUR.world.robots[0].turn_left();
 };
 
-var at_goal = function() {
-    return RUR.world.robots[0].at_goal();
-};
-
-var at_goal_orientation = function() {
-    return RUR.world.robots[0].at_goal_orientation();
+var write = function (s) {
+    RUR.world.add_output_frame("#output-pre", s);
 };
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
@@ -1503,7 +1517,7 @@ var load_page = function (page){
         $("#content").html(data);
         location.hash = page;
         $('.jscode').each(function() {
-            var $this = $(this), $code = $this.html();
+            var $this = $(this), $code = $this.text();
             $this.empty();
             var myCodeMirror = CodeMirror(this, {
                 value: $code,
@@ -1583,7 +1597,7 @@ $(document).ready(function() {
             }).done(function(data) {
                 $("#content").html(data);
                 $('.jscode').each(function() {
-                    var $this = $(this), $code = $this.html();
+                    var $this = $(this), $code = $this.text();
                     $this.empty();
                     var myCodeMirror = CodeMirror(this, {
                         value: $code,
@@ -1717,7 +1731,7 @@ var jshint_options = {
 var globals_ = "/*globals move, turn_left, RUR, output, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put_token, take_token, put, take, shape_here,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
-                    " build_wall, think, DEBUG, remove_robot*/\n";
+                    " build_wall, think, DEBUG, remove_robot, repeat*/\n";
 
 function updateHints(obj) {
     var values, nb_lines;
