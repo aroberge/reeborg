@@ -54,7 +54,7 @@ put_token();
 <p>Contrast the above program with the same one, from Reeborg's
 point of view, but with comments added for humans;
 you will be able so recognize comments as
-they appear in a grey font.  If you have not done
+they appear in a different colour and font style.  If you have not done
 so already, you might want to close
 the other panels to see the entire lines all at once.</p>
 

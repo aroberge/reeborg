@@ -36,7 +36,7 @@ the most important rules for writing computer programs.</li>
 
 <ol>
 <li><a href="javascript:void(0);" onClick="load_page('rule3')">Rule number 3</a>: avoiding
-repetitions.</li>
+repetitions, and introducing the first javascript keyword: <code>function</code>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('turn_around')">Turn around</a>: avoiding
 repetitions again.</li>
 <li><a href="javascript:void(0);" onClick="load_page('library')">Using the Library</a>: avoiding
@@ -45,6 +45,8 @@ repetitions again!</li>
 the importance of choosing meaningful names (see Rule # 2).</li>
 <li><a href="javascript:void(0);" onClick="load_page('newspaper2')">Newspaper delivery revisited</a>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('repeat')">Repeat</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('france')">Reeborg goes to France</a>:
+introducing the second javascript keyword: <code>var</code>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('summary3')">Summary</a></li>
 </ol>
 
@@ -94,8 +96,8 @@ of increasing complexity.</li>
 <li>A bit of math: +, -, *, /</li>
 <li>Counting: using a while loop</li>
 <li>for loop: repeating</li>
-<li>repeat(f, i) function</li>
-<li>returning from repeat (new way to define turn_right)</li>
+<li><b>repeat()</b>: how it is defined</li>
+<li><a href="javascript:void(0);" onClick="load_page('better_repeat')">A better <b>repeat()</b></a>.</li>
 <li>Random numbers in javascript - game, guess a number</li>
 <li>try and catch: explaining exceptions</li>
 <li>try and catch: better to ask for forgiveness than permission</li>
