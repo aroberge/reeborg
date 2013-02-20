@@ -1,0 +1,6 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>
+<h1>Introduction to the challenges</h1>
+<p>.</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>

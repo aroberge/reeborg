@@ -1,0 +1,7 @@
+<a class="left-link" href="javascript:void(0);" onClick="load_page('harvest')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('newspaper1')">Next</a>
+<h1>Stormy weather</h1>
+<p>
+    <span class="world">Hurdles&nbsp;4</span>.</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('harvest')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('newspaper1')">Next</a>
