@@ -25,10 +25,10 @@ the most important rules for writing computer programs.</li>
 
 <ol><li><a href="javascript:void(0);" onClick="load_page('center')">Finding the center</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('around')">Around the world</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('maze')">Lost in a maze</a></li>
     <li>Hurdles</li>
 <li>Harvest</li>
 <li>build_wall and closing windows</li>
-<li>Maze</li>
 <li><a href="javascript:void(0);" onClick="load_page('newspaper1')">Newspaper delivery</a>.</li>
 </ol>
 

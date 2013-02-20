@@ -1,5 +1,5 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('center')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('maze')">Next</a>
 <h1>Around the world</h1>
 <p>This is the first of our series of mini challenges.</p>
 <p>Have a look at the worlds <span class="world">Around&nbsp;1</span> to
@@ -9,5 +9,5 @@ a program that will have Reeborg go all around the world, always moving next to 
 that are much shorter and, will work for all of these four worlds and any similar
 worlds.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('center')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('maze')">Next</a>

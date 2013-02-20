@@ -89,11 +89,11 @@ RUR.World = function () {
     this.json_world_string = undefined;
 
     this.think = function (delay) {
-        if (delay >= 0  && delay <= 10){
-            this.frames.add_item({delay: Math.round(delay*1000)});
+        if (delay >= 0  && delay <= 10000){
+            this.frames.add_item({delay: Math.round(delay)});
         }
         else {
-            alert("Reeborg's thinking time needs to be specified in seconds, between 0 and 10; this was: " + delay);
+            alert("Reeborg's thinking time needs to be specified in milli-seconds, between 0 and 10000; this was: " + delay);
         }
     };
 
