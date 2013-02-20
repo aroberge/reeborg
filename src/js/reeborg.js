@@ -645,9 +645,9 @@ RUR.visible_world = {
     },
     set_trace_style : function (choice){
         "use strict";
-        if (choice === "red") {
+        if (choice === "thick") {
             this.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
-            this.trace_color = "red";
+            this.trace_color = "seagreen";
             this.trace_thickness = 4;
         } else {
             this.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
@@ -1334,7 +1334,7 @@ var repeat = function (f, n) {
     for (var i=0; i < n; i++){
         f();
     }
-}
+};
 
 var right_is_clear = function() {
     "use strict";

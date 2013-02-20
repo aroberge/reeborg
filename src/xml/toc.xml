@@ -23,13 +23,16 @@ the most important rules for writing computer programs.</li>
 
 <h2> 7 series of challenges</h2>
 
-<ol><li><a href="javascript:void(0);" onClick="load_page('center')">Finding the center</a></li>
+<ol>
+<li><a href="javascript:void(0);" onClick="load_page('challenges1')">Introduction to the challenges</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('center')">Finding the center</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('around')">Around the world</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('maze')">Lost in a maze</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('hurdles')">Jumping over hurdles</a></li>
-<li>Harvest</li>
-<li>build_wall and closing windows</li>
+<li><a href="javascript:void(0);" onClick="load_page('harvest')">Harvest time</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('storm')">Stormy weather</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('newspaper1')">Newspaper delivery</a>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('summary2')">Summary</a></li>
 </ol>
 
 <h2>Defining new things</h2>

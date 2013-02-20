@@ -31,9 +31,10 @@ only by humans.</p>
 <ul><li>By enclosing an arbitrary quantity of text between <code>/*</code>  and <code>*/</code>.</li>
 <li>By writing some text preceded by <code>//</code> on any given line.</li></ul>
 <p>I will first write a simple program without any comments followed
-by a second version with comments added; however,
-I will make the same error in both programs.  Can you spot it
-more easily in the first program or the second?</p>
+by a second version with comments added and a third version ... slightly
+less radable; however,
+I will make the same error in all three programs.  Can you spot it
+more easily in the first program, the second, or the third?</p>
 <pre class="jscode">move();
 move();
 turn_left();

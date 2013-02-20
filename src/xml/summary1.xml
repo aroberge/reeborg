@@ -1,6 +1,6 @@
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('rule2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('challenges1')">Next</a>
 <h1>Summary</h1>
 
 <p>In addition to getting familiar with the environment on this site, you
@@ -27,11 +27,11 @@ will be ignored by the computer.</p>
 <li><code>take_token();</code></li>
 <li><code>put_token();</code></li>
 <li><code>pause();</code></li></ul>
-<p>You may or may not have used the <code>pause();</code> instruction which I
+<p>You may or may not have used the <code>pause()</code> instruction which I
 only mentioned in passing when talking about bugs. If you have not done so,
  you might want to write a short
-program that includes it just to see what happens; make sure that the <code>pause();</code>
+program that includes it just to see what happens; make sure that the <code>pause()</code>
 instruction is neither the first nor the last one so that you can plainly see what it does.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('rule2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('challenges1')">Next</a>
