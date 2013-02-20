@@ -16,8 +16,10 @@ this, you need to do two things.</p>
 <ol><li>Click on <b>save</b> so that it will be available for you
 anytime you come back to Reeborg's world. (I don't expect you to go
 through all the lessons in one single visit.)</li>
-<li>Write a short program that uses them to make sure that they
-work as expected.  If they don't, fix them ... <b>and save the version
+<li>Go back to the Code editor (so you no longer see your <code>turn_right()</code>
+and <code>turn_around()</code> functions)
+and write a short program that nonetheless uses them to make sure that they
+work as expected.  If they don't, go back and fix them ... <b>and save the version
 that works properly</b> by clicking on <b>save</b> again.</li></ol>
 <p>From now on, whenever you define a function that you use more than
 once, add it to your library so that you don't have to redefine it

@@ -3,8 +3,8 @@
 
 <h1>Refinements: part 2</h1>
 <p>Here's the cause of the problem we had at the end of part 1: we put down a
-beeper and, before we had the chance to move, tested to see if we were not
-next to a beeper. Since we were next to a beeper,
+token and, before we had the chance to move, tested to see if we were not
+next to a token. Since we were next to a token,
 we never go the chance to get in the <code>while</code> loop.
 Perhaps we can change the
 program to add a <code>move()</code> before we start the loop, as follows:</p>
@@ -21,7 +21,7 @@ while ( !token_here() ){
 <p><b>Try it!</b></p>
 <h2>Not so simple world</h2>
 <p>Let's try the program we wrote on a slightly more complicated world
-    <span class="world">Refine&nbsp;2</span>.</p>
+    <span class="world">Around&nbsp;2</span>.</p>
 <p>When you try your program, you will see that the result is not exactly
 what we wanted: Reeborg takes a shortcut, and
 doesn't go all the way around.

@@ -13,7 +13,7 @@ words in a different language.  For functions, this can be done using the Javasc
 keyword <code>var</code>.  I like to think of <code>var</code> as creating some <code>var</code>iation of
 the language, perhaps following a <code>V</code>ery <code>A</code>cient <code>R</code>itual.  However,
 in programming terms, this is simply known as <b>declaring</b> a <code>var</code><b>iable</b>.</p>
-<p>We can do this in either 1 or two steps.</p>
+<p>We can do this in either one or two steps.</p>
 
 <pre class="jscode">
 var avance;      // declare a new word
@@ -31,7 +31,8 @@ tourne_à_gauche();
 move();    //  still works
 }</pre>
 <h2>Try it!</h2>
-<p>Perhaps you could define your own language for giving instructions to Reeborg.</p>
+<p>Perhaps you could define your own language for giving instructions to Reeborg
+    (<small>and save it in the library?</small>).</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('repeat')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>

@@ -8,7 +8,7 @@ define a function <code>turn_around()</code> as follows:</p>
 <pre class="jscode">
 function turn_around () {
     turn_left();
-    turn_left()
+    turn_left();
 }</pre>
 <p>Try it!</p>
 <h2>Back to <code>turn_right()</code></h2>
