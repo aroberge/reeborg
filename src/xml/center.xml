@@ -1,5 +1,5 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('around')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('??')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('around')">Next</a>
 <h1>Finding the center</h1>
 <p>Have a look at the worlds <span class="world">Center&nbsp;1</span> to
 <span class="world">Center&nbsp;3</span>. In each case, write a program that has
@@ -7,5 +7,5 @@ Reeborg put a token at the geometric center of his world.</p>
 <p>Later, you will be able to write a single program that will have Reeborg
 find the geometric center of a rectangular world (with odd dimensions on each side)
 and have it put a token at that location.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('around')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('??')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('around')">Next</a>

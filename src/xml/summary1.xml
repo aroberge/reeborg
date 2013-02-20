@@ -1,5 +1,6 @@
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('rule2')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>
 <h1>Summary</h1>
 
 <p>In addition to getting familiar with the environment on this site, you
@@ -33,3 +34,4 @@ program that includes it just to see what happens; make sure that the <code>paus
 instruction is neither the first nor the last one so that you can plainly see what it does.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('rule2')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>
