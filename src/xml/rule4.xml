@@ -3,7 +3,7 @@
 <h1>Rule number 4</h1>
 <p>We have designed a program that works in many more situations
     than just the original one we considered. (<small>We could come
-up with other situation where it would not work ... but we
+up with other situations where it would not work ... but we
 have done enough for this exercise.</small>)
 This program, before we forget, is to allow Reeborg to
 explore his world, going around once. While the program is rather short, and
@@ -37,7 +37,8 @@ while ( !token_here() ){
     } else {
         turn_left();  // follow the wall by turning left
     }
-}</pre>
+}
+</pre>
 
 <p>While this sort of clarifies our intent for each instruction, it is not
 really that helpful in summarizing the method (also known as the
@@ -81,7 +82,8 @@ mark_starting_point_and_move();
 
 while ( !found_starting_point() ){
     follow_right_wall();
-}</pre>
+}
+</pre>
 
 <p>Isn't this clearer? Now, suppose that each corner has a beeper on it at
 the start. We could then choose to mark the starting point by <i>removing</i>
