@@ -16,7 +16,6 @@ dl {border: 2px solid #886622; border-radius: 6px; background-color: #faf5ea}
 #logo img{float: left; padding:0; margin:0; position:absolute; top:5px; left:5px;}
 header button {border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(0,0,0,0.1);
   height: 37px; position: relative; border-top: 0; border-bottom: 0; font-weight: bold; float: left; margin: 0;}
-header button:last-child {margin-right: 50px;}
 nav {text-align: center;}
 nav a{margin:0; display: inline-block;}
 nav a:last-child{border-radius: 0 20px 20px 0;}
@@ -75,6 +74,7 @@ nav a:first-child{border-radius: 20px 0 0 20px;}
 #content { margin-left: 10px;}
 #canvas-wrapper {
     position: relative;
+    top:10px;
     min-height: 550px;
     overflow: auto;
 }

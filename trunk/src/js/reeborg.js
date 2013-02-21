@@ -1514,6 +1514,7 @@ function go_to_previous_from_toc() {
     load_content(RUR.ajax_requests.previous);
 }
 
+
 var load_page = function (page){
     $.ajax({
         url: "src/xml/"+page+".xml",
@@ -1626,6 +1627,11 @@ $(document).ready(function() {
                 });
         }
     };
+
+    window.onhashchange = function() {
+        load_content();
+    };
+
     load_content();
 
     $("#contents").dialog({autoOpen:true, width:800, height:$(window).height()-30, maximize: false, position:"top"});

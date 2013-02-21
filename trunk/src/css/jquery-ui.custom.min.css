@@ -41,7 +41,7 @@ input.ui-button{padding:.4em 1em}
 .ui-buttonset .ui-button{margin-left:0;margin-right:-.3em}
 input.ui-button::-moz-focus-inner,button.ui-button::-moz-focus-inner{border:0;padding:0}
 
-.ui-dialog { position: absolute; padding: .2em; margin:auto; box-shadow: 2px 2px 6px rgba(0,0,0,0.5);}
+.ui-dialog { position: absolute; padding: 1px; margin:auto; box-shadow: 2px 2px 6px rgba(0,0,0,0.5);}
 .ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
 .ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; }
 .ui-dialog .ui-dialog-titlebar-minimize { position: absolute; right: 3.3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
