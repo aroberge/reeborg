@@ -1536,6 +1536,7 @@ var load_page = function (page){
                 theme: 'reeborg-dark'
             });
         });
+        $("#contents").scrollTop(0);
     });
 };
 
@@ -1604,7 +1605,6 @@ $(document).ready(function() {
                     context: $("#contents"),
                     statusCode: {
                         404: function() {
-                            alert("page not found: " + hash);
                             load_page("welcome");
                         }
                     },
@@ -1622,12 +1622,13 @@ $(document).ready(function() {
                             theme: 'reeborg-dark'
                         });
                     });
+                    $("#contents").dialog("open").scrollTop(0);
                 });
         }
     };
     load_content();
 
-    $("#contents").dialog({autoOpen:true, width:800, height:500, maximize: false, position:"top"});
+    $("#contents").dialog({autoOpen:true, width:800, height:$(window).height()-30, maximize: false, position:"top"});
     $("#contents-button").on("click", function() {
         load_content();
         $("#contents").dialog("open");
@@ -1643,30 +1644,6 @@ $(document).ready(function() {
         $('#help').load("src/xml/help.xml");
         RUR.ajax_requests.help = true;
         $("#help").dialog("open");
-        return false;
-    });
-
-    $("#about").dialog({autoOpen:false, width:600,  height:500, minimize: false, maximize: false, position:"top"});
-    $("#about-button").on("click", function() {
-        if (RUR.ajax_requests.about !== undefined){
-            $("#about").dialog("open");
-            return;
-        }
-        $('#about').load("src/xml/about.xml");
-        RUR.ajax_requests.about = true;
-        $("#about").dialog("open");
-        return false;
-    });
-
-    $("#contribute").dialog({autoOpen:false, width:600,  height:500, minimize: false, maximize: false, position:"top"});
-    $("#contribute-button").on("click", function() {
-        if (RUR.ajax_requests.contribute !== undefined){
-            $("#contribute").dialog( "open");
-            return;
-        }
-        $('#contribute').load("src/xml/contribute.xml");
-        RUR.ajax_requests.contribute = true;
-        $("#contribute").dialog( "open");
         return false;
     });
 
