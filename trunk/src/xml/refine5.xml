@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('refine4')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rule4')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine4')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule4')">Next</a>
+</nav>
 <h1>Refinements: part 5</h1>
 <p>Consider world <span class="world">Around&nbsp;4</span></p>
 <p>Does the program written previously work with it? Try it!</p>

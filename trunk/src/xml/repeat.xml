@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('france')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper2')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('france')">Next</a>
+</nav>
 <h1>Repeat</h1>
 
 <p>Often, we will find that we want to repeat a series of instructions a fixed number of times.

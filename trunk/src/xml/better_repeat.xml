@@ -1,3 +1,8 @@
+<nav>
+
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+
+</nav>
 <h1>A better <b>repeat()</b></h1>
 
 <p>You have seen how we can use our function <code>repeat()</code> to reduce

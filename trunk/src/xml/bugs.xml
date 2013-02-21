@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('turn_left')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('tokens1')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_left')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('tokens1')">Next</a>
+</nav>
 <h1>Darn bugs! </h1>
 <p>Nobody likes to talk about computer bugs.
 But, unfortunately, you must learn about them and, especially, how to get

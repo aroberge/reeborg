@@ -1,5 +1,7 @@
-
-<a class="right-link" href="javascript:void(0);" onClick="load_page('refine2')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine2')">Next</a>
+</nav>
 
 <h1>Refinements: part 1</h1>
 <p>In this multi-part lesson, we are going to write a complete program to

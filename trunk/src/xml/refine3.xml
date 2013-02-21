@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('refine2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('refine4')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine2')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine4')">Next</a>
+</nav>
 <h1>Refinements: part 3</h1>
 <p>As you should have noticed the program doesn't work. What happens is that
 Reeborg gets in an infinite loop when there is no wall around him. We need to

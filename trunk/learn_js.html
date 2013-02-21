@@ -16,13 +16,14 @@
 <header class="blue-gradient green-border">
   <a id="logo" href="index.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg</a>
   <div id="header-child">
-    <button class="active reverse-blue-gradient" label="content-panel">Content</button>
     <button class="active reverse-blue-gradient" label="editor-panel">Editor</button>
     <button class="active reverse-blue-gradient" label="world-panel">World</button>
     <button class="blue-gradient" label="output-panel">Diary</button>
   </div>
   <div>
-    <button class="blue-gradient" id="toc-button">Table of Contents</button>
+    <button class="blue-gradient" id="contents-button">Contents</button>
+  </div>
+  <div>
     <button class="blue-gradient" id="help-button">Help</button>
     <button class="blue-gradient" id="about-button">About</button>
     <button class="blue-gradient" id="contribute-button">Contribute</button>
@@ -30,10 +31,13 @@
   </div>
 </header>
 
+<div id="contents" title="Reeborg's world"><a href="javascript:void(0);" onClick="load_page(location.hash.slice(1))">Load content</a></div>
+<div id="help" title="Help">Retrieving...</div>
+<div id="about" title="About">Retrieving...</div>
+<div id="contribute" title="Contribute">Retrieving...</div>
+<div id="edit-world" title="Edit World">Retrieving...</div>
+
 <div id="panels">
-  <div id="content-panel" class="panel active">
-    <div id="content">Loading content...</div>
-  </div>
   <div id="editor-panel" class="panel active" >
     <div id="tabs">
       <ul>
@@ -123,17 +127,12 @@ Have you tried Firefox or Chrome? */
   </div>
 </div>
 
-<div id="toc" title="Table of Contents">Retrieving...</div>
-<div id="help" title="Help">Retrieving...</div>
-<div id="about" title="About">Retrieving...</div>
-<div id="contribute" title="Contribute">Retrieving...</div>
-<div id="edit-world" title="Edit World">Retrieving...</div>
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
 <script src="src/js/reeborg.js"></script>
+<script src="src/js/jquery.ui.dialog.minmax.js"></script>
 
 <script>
   var editor = CodeMirror.fromTextArea(document.getElementById('code'), {

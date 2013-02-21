@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('challenges1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('around')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('challenges1')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('around')">Next</a>
+</nav>
 <h1>Finding the center</h1>
 <p>This is the first of our series of mini challenges.</p>
 <p>Have a look at the worlds <span class="world">Center&nbsp;1</span> to

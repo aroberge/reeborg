@@ -1,5 +1,9 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rule3')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('library')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule3')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('library')">Next</a>
+</nav>
+
 <h1>Turn around</h1>
 <p>In addition to having Reeborg making right turns, you <em>might</em> have
 had him turn around a few times; by turning around, I mean changing direction

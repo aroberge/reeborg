@@ -1508,14 +1508,23 @@ RUR.load_user_worlds = function () {
     }
 };
 
+var load_content;
+function go_to_previous_from_toc() {
+    // console.log(RUR.ajax_requests.previous);
+    load_content(RUR.ajax_requests.previous);
+}
+
 var load_page = function (page){
     $.ajax({
         url: "src/xml/"+page+".xml",
         context: document.body,
         dataType: "text"
     }).done(function(data) {
-        $("#content").html(data);
+        $("#contents").html(data);
         location.hash = page;
+        if (page !== "toc"){
+            RUR.ajax_requests.previous = "src/xml/" + page + ".xml";
+        }
         $('.jscode').each(function() {
             var $this = $(this), $code = $this.text();
             $this.empty();
@@ -1579,50 +1588,53 @@ $(document).ready(function() {
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
-    var hash = location.hash;
-    if (hash === ''){
-        load_page("welcome");
-    } else {
-        hash = "src/xml/" + hash.slice(1) + ".xml";
-        $.ajax({
-                url: hash,
-                context: $("#content"),
-                statusCode: {
-                    404: function() {
-                        alert("page not found: " + hash);
-                        load_page("welcome");
-                    }
-                },
-                type: 'POST'
-            }).done(function(data) {
-                $("#content").html(data);
-                $('.jscode').each(function() {
-                    var $this = $(this), $code = $this.text();
-                    $this.empty();
-                    var myCodeMirror = CodeMirror(this, {
-                        value: $code,
-                        mode: 'javascript',
-                        lineNumbers: !$this.is('.inline'),
-                        readOnly: true,
-                        theme: 'reeborg-dark'
+    load_content = function (from_toc) {
+        var hash = location.hash;
+        if (hash === ''){
+            load_page("welcome");
+        } else {
+            hash = "src/xml/" + hash.slice(1) + ".xml";
+            if (from_toc !== undefined){
+                hash = RUR.ajax_requests.previous;
+            } else {
+                RUR.ajax_requests.previous = hash;
+            }
+            $.ajax({
+                    url: hash,
+                    context: $("#contents"),
+                    statusCode: {
+                        404: function() {
+                            alert("page not found: " + hash);
+                            load_page("welcome");
+                        }
+                    },
+                    type: 'POST'
+                }).done(function(data) {
+                    $("#contents").html(data);
+                    $('.jscode').each(function() {
+                        var $this = $(this), $code = $this.text();
+                        $this.empty();
+                        var myCodeMirror = CodeMirror(this, {
+                            value: $code,
+                            mode: 'javascript',
+                            lineNumbers: !$this.is('.inline'),
+                            readOnly: true,
+                            theme: 'reeborg-dark'
+                        });
                     });
                 });
-            });
-    }
-
-    $("#toc").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
-    $("#toc-button").on("click", function() {
-        if (RUR.ajax_requests.toc !== undefined){
-            $("#toc").dialog( "open");
-            return;
         }
-        $('#toc').load("src/xml/toc.xml");
-        RUR.ajax_requests.toc = true;
-        $("#toc").dialog("open");
+    };
+    load_content();
+
+    $("#contents").dialog({autoOpen:true, width:800, height:500, maximize: false, position:"top"});
+    $("#contents-button").on("click", function() {
+        load_content();
+        $("#contents").dialog("open");
         return false;
     });
 
-    $("#help").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
+    $("#help").dialog({autoOpen:false, width:600,  height:500, maximize: false, position:"top"});
     $("#help-button").on("click", function() {
         if (RUR.ajax_requests.help !== undefined){
             $("#help").dialog( "open");
@@ -1634,7 +1646,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#about").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
+    $("#about").dialog({autoOpen:false, width:600,  height:500, minimize: false, maximize: false, position:"top"});
     $("#about-button").on("click", function() {
         if (RUR.ajax_requests.about !== undefined){
             $("#about").dialog("open");
@@ -1646,7 +1658,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#contribute").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
+    $("#contribute").dialog({autoOpen:false, width:600,  height:500, minimize: false, maximize: false, position:"top"});
     $("#contribute-button").on("click", function() {
         if (RUR.ajax_requests.contribute !== undefined){
             $("#contribute").dialog( "open");
@@ -1658,7 +1670,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#edit-world").dialog({autoOpen:false, width:600, maxHeight: 600, position:"top"});
+    $("#edit-world").dialog({autoOpen:false, width:600,  height:500, minimize: false, maximize: false, position:"top"});
     $("#edit-world-button").on("click", function() {
         if (RUR.ajax_requests.edit_world !== undefined){
             $("#edit-world").dialog( "open");
@@ -1670,8 +1682,8 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#Reeborg-says").dialog({autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-shouts").dialog({autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-says").dialog({minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     try{
         doShowNotes();
     }catch (e) {console.log(e);} // Do not alert the user as we've already caught similar errors

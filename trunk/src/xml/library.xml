@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('turn_around')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('reading')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_around')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('reading')">Next</a>
+</nav>
 <h1>Using the Library</h1>
 <p>When programmer make use of a given function in different programs,
 rather than redefining it in each program, they put them in special

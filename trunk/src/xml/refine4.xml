@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('refine3')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('refine5')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine3')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine5')">Next</a>
+</nav>
 <h1>Refinements: part 4</h1>
 <p>As you most likely found out, we were too hasty in asking Reeborg to move
 forward after putting down a beeper. We need to check if there is a wall

@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center')">Next</a>
+</nav>
 <h1>Introduction to the challenges</h1>
 <p>.</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>

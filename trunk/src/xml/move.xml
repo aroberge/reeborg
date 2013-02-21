@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('welcome')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('errors')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('welcome')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('errors')">Next</a>
+</nav>
 <h1>First program</h1>
 <p>In the third panel, notice a drop-down list with
     <b>Select a world</b>
