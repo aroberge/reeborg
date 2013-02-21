@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('errors')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('errors')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('home')">Next</a>
+</nav>
 <h1>Rule number 1</h1>
 
 <p>Did you try all that I suggested to you in the previous lesson?  If not,

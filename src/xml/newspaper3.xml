@@ -1,3 +1,8 @@
+<nav>
+
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+
+</nav>
 <h1>Newspaper delivery revisited again</h1>
 
 <p>Let's go back to our newspaper delivery example.  Below is

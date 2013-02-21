@@ -1,6 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('refine1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('refine3')">Next</a>
-
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine1')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine3')">Next</a>
+</nav>
 <h1>Refinements: part 2</h1>
 <p>Here's the cause of the problem we had at the end of part 1: we put down a
 token and, before we had the chance to move, tested to see if we were not

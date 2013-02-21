@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('around')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('around')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles')">Next</a>
+</nav>
 <h1>Lost in a maze</h1>
 <p>Reeborg is lost in a maze. Have a look at the worlds <span class="world">Maze&nbsp;1</span> and
 <span class="world">Maze&nbsp;2</span>. In each case, write a program that has

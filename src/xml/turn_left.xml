@@ -1,5 +1,9 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('home')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('bugs')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('home')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('bugs')">Next</a>
+</nav>
+
 <h1>Making a left term</h1>
 
 <p>Last lesson ended with a program that did not quite work: something about Reeborg

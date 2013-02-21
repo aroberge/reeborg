@@ -1,4 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+</nav>
+
 <h1>Surprises</h1>
 <p>Change the program we just wrote to remove the <code>put_token()</code>
 instruction.  After saving it, try this slightly modified program

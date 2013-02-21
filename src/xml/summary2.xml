@@ -1,6 +1,8 @@
-
-<a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rule3')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper1')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule3')">Next</a>
+</nav>
 <h1>Summary</h1>
 
 

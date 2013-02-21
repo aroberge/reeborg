@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('repeat')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('repeat')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
+</nav>
 <h1>Reeborg goes to France</h1>
 
 <ul><li><em> Quelque chose à déclarer Monsieur. ... Reeborg?</em></li>

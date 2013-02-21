@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('move')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rule1')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('move')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule1')">Next</a>
+</nav>
 <h1>Dealing with eRRoRs</h1>
 <p>Change <code>move();</code> to <code>Move();</code> (with an uppercase M) and
 try to execute the program.</p>

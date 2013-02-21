@@ -1,4 +1,8 @@
-<a class="right-link" href="javascript:void(0);" onClick="load_page('move')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('move')">Next</a>
+</nav>
+
 <h1>Welcome to Reeborg's world</h1>
 <p>Before you learn how to program, you should become familiar
 with Reeborg's world and its surroundings.</p>

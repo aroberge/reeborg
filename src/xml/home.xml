@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rule1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('turn_left')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule1')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_left')">Next</a>
+</nav>
 <h1>Test driven learning</h1>
 <p>In order to help you learn Javascript, I will give you some tests: you have
 to program Reeborg to accomplish specific tasks and Reeborg itself will tell you

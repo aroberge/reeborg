@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('refine5')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('surprises')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine5')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('surprises')">Next</a>
+</nav>
 <h1>Rule number 4</h1>
 <p>We have designed a program that works in many more situations
     than just the original one we considered. (<small>We could come

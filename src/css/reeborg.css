@@ -1,5 +1,5 @@
 html, body {max-width: 100%;}
-body {font-family:Trebuchet MS,Helvetica,Arial,sans-serif;}
+body {font-family:Trebuchet MS,Helvetica,Arial,sans-serif; overflow-x:hidden;overflow-y:hidden;}
 button:focus, a:focus {outline: none;}
 header {position: absolute; top: 0; left: 0; z-index: 10; width: 99.9%;}
 h1 {font-size: 1.7em; color: #224488;}
@@ -17,8 +17,12 @@ dl {border: 2px solid #886622; border-radius: 6px; background-color: #faf5ea}
 header button {border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(0,0,0,0.1);
   height: 37px; position: relative; border-top: 0; border-bottom: 0; font-weight: bold; float: left; margin: 0;}
 header button:last-child {margin-right: 50px;}
-.resizable-helper {border-right: 1px dashed red;}
+nav {text-align: center;}
+nav a{margin:0; display: inline-block;}
+nav a:last-child{border-radius: 0 20px 20px 0;}
+nav a:first-child{border-radius: 20px 0 0 20px;}
 .clear {clear: both;}
+.resizable-helper {border-right: 1px dashed red;}
 #tabs {height: 98%; overflow: auto;}
 #tabs .ui-tabs-panel {padding: 0;}
 #editor, #library { width: 100%; height: 90%;}
@@ -90,6 +94,8 @@ background-color: white;}
 #data_entry { margin-left: 10px; width: 90%; background-color: #ffe;}
 .right-link, .float-right{float: right;}
 .left-link, .float-left{float: left;}
+.right-link {border-radius: 0 20px 20px 0;}
+.left-link {border-radius: 20px 0 0 20px;}
 
 .reverse-blue-gradient {
   background-color: #112244;
@@ -127,8 +133,8 @@ a.left-link, a.right-link, button, a.fake_button{
     padding: 5px;
     border-left: 1px solid rgba(255,255,255,0.3);
     border-right: 1px solid rgba(0,0,0,0.1);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-top: 0;
+    border-bottom: 0;
 }
 
 .ui-tabs .ui-tabs-nav li, .ui-tabs .ui-tabs-nav li.ui-tabs-active:hover {top:3px; border-bottom: 3px solid #75a110;}

@@ -1,5 +1,8 @@
-<a class="left-link" href="javascript:void(0);" onClick="load_page('bugs')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rule2')">Next</a>
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('bugs')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule2')">Next</a>
+</nav>
 <h1>A token of appreciation</h1>
 
 <p>Reeborg likes to collect tokens.  When he finds one on the ground, most often he
