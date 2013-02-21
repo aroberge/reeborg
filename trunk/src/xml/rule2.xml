@@ -5,9 +5,6 @@
 </nav>
 <h1>Rule number 2</h1>
 
-<p>For most of this lesson, you don't need the editor panel nor the world panel; you
-    can, and probably should hide them to focus on the text below.</p>
-
 <p>I have already mentioned the first rule for learning how to program:
 you must write programs (and test them) and not simply read about
 programming.  Now, I am about to tell you the second rule which
@@ -58,9 +55,7 @@ put_token();
 <p>Contrast the above program with the same one, from Reeborg's
 point of view, but with comments added for humans;
 you will be able so recognize comments as
-they appear in a different colour and font style.  If you have not done
-so already, you might want to close
-the other panels to see the entire lines all at once.</p>
+they appear in a different colour and font style.</p>
 
 <pre class="jscode">/* This is an example of
 a simple program where Reeborg draws a square,

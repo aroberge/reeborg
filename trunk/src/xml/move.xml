@@ -4,7 +4,7 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('errors')">Next</a>
 </nav>
 <h1>First program</h1>
-<p>In the third panel, notice a drop-down list with
+<p>In the second panel, notice a drop-down list with
     <b>Select a world</b>
     written.  Click on it and select <span class="world">Alone</span>; you will see Reeborg appear
     in the world, in the bottom left corner, as well as some buttons
@@ -13,7 +13,7 @@
 <p>Try it!</p>
 
 <h2>Congratulations!</h2>
-<p>You had Reeborg take its first steps.  In the center panel, there is a single instruction:</p>
+<p>You had Reeborg take its first steps.  In the editor panel, there is a single instruction:</p>
 <pre class="jscode">move();</pre>
 <p>That is the command that Reeborg executed. Notice how the "Execute" button
 is now disabled; click on "Reload" to enable it again, and try to run it again. By the way,
