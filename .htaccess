@@ -1,2 +1,5 @@
 redirect 301 /index.html http://reeborg.ca/index_en.html
 ErrorDocument 404 /404.html
+<FilesMatch ".(xml)$">
+Header unset Cache-Control
+</FilesMatch>

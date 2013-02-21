@@ -1510,7 +1510,6 @@ RUR.load_user_worlds = function () {
 
 var load_content;
 function go_to_previous_from_toc() {
-    // console.log(RUR.ajax_requests.previous);
     load_content(RUR.ajax_requests.previous);
 }
 
@@ -1629,7 +1628,7 @@ $(document).ready(function() {
     };
 
     window.onhashchange = function() {
-        load_content();
+        load_page(location.hash.slice(1));
     };
 
     load_content();
