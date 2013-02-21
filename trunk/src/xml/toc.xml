@@ -1,7 +1,3 @@
-<nav>
-    <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="go_to_previous_from_toc()">Previous</a>
-</nav>
-
 <h2>Introduction</h2>
 
 <ol><li><a href="javascript:void(0);" onClick="load_page('welcome')">Welcome to Reeborg's world</a>: Getting
