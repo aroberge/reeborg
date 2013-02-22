@@ -549,7 +549,7 @@ RUR.PrivateRobot.prototype.take_token = function () {
 };
 
 RUR.PrivateRobot.prototype.has_token = function () {
-    return this.tokens > 0;
+    return this.tokens > 0 || typeof this.tokens === "string";
 };
 
 RUR.PrivateRobot.prototype.at_goal = function () {
@@ -1044,7 +1044,13 @@ RUR.visible_world = {
             }
         } else {
             if (RUR.world.goal !== undefined){
-                goal_status = RUR.visible_world.check_goal(RUR.world.prev_frame);
+                if (RUR.world.prev_frame !== undefined){
+                    goal_status = RUR.visible_world.check_goal(RUR.world.prev_frame);
+                } else{
+                    RUR.world.add_frame();
+                    frame = RUR.world.frames.shift();
+                    goal_status = RUR.visible_world.check_goal(frame);
+                }
                 if (goal_status.success) {
                     $("#Reeborg-says").html(goal_status.message).dialog("open");
                 } else {
@@ -1508,10 +1514,6 @@ RUR.load_user_worlds = function () {
     }
 };
 
-var load_content;
-function go_to_previous_from_toc() {
-    load_content(RUR.ajax_requests.previous);
-}
 
 
 var load_page = function (page){
@@ -1522,9 +1524,6 @@ var load_page = function (page){
     }).done(function(data) {
         $("#contents").html(data);
         location.hash = page;
-        if (page !== "toc"){
-            RUR.ajax_requests.previous = "src/xml/" + page + ".xml";
-        }
         $('.jscode').each(function() {
             var $this = $(this), $code = $this.text();
             $this.empty();
@@ -1589,17 +1588,12 @@ $(document).ready(function() {
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
-    load_content = function (from_toc) {
+    load_content = function () {
         var hash = location.hash;
         if (hash === ''){
             load_page("welcome");
         } else {
             hash = "src/xml/" + hash.slice(1) + ".xml";
-            if (from_toc !== undefined){
-                hash = RUR.ajax_requests.previous;
-            } else {
-                RUR.ajax_requests.previous = hash;
-            }
             $.ajax({
                     url: hash,
                     context: $("#contents"),
