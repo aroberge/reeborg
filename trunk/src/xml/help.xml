@@ -36,9 +36,9 @@
   <p>In some more advanced lessons, and especially in some programming
     challenges, the following are also used:</p>
   <ul>
-    <li><code>put(shape)</code> where shape is one of "triangle", "square", "star"</li>
+    <li><code>put(shape)</code> where shape is one of <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
     <li><code>shape_here()</code></li>
-    <li><code>take(shape)</code> where shape is one of "triangle", "square", "star"</li>
+    <li><code>take(shape)</code> where shape is one of <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
   </ul>
 
  <p>To find out more, follow the lessons.</p>
