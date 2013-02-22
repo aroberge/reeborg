@@ -1023,7 +1023,18 @@ RUR.visible_world = {
             }
         }
         if (g.walls !== undefined) {
-            result = Object.identical(g.walls, frame.walls, true);
+            result = true;
+            loop:
+            for(var w in g.walls){
+                for(var i=0; i < g.walls[w].length; i++){
+                    if ( !(frame.walls !== undefined &&
+                           frame.walls[w] !== undefined &&
+                           frame.walls[w].indexOf(g.walls[w][i]) !== -1)){
+                        result = false;
+                        break loop;
+                    }
+                }
+            }
             if (result){
                 goal_status.message += "<li class='success'>All walls have been built correctly.</li>";
             } else {
