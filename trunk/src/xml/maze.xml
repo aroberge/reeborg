@@ -8,6 +8,6 @@
 <span class="world">Maze&nbsp;2</span>. In each case, write a program that has
 Reeborg guide Reeborg to the exit.</p>
 <p>Later, you will be able to write a single program that will have Reeborg
-get out of both mazes.</p>
+get out of both mazes, and could in fact help him get out of almost any maze you could think of.</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('around')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles')">Next</a>

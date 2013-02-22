@@ -4,6 +4,13 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center')">Next</a>
 </nav>
 <h1>Introduction to the challenges</h1>
-<p>.</p>
+<p>In the next few lessons, you will be presented some challenges.
+What you have to do, is to write programs that accomplish what is being described as being Reeborg's task.
+You do not have to do all the challenges.  The idea at this point is to get familiar with the way that
+Reeborg moves and to identify patterns that reoccur when finding a given solution.</p>
+<p>While you write your programs, each of which will consist of a specific of series of instructions,
+you have the advantage of seeing the entire world all at once.  You should think of how Reeborg,
+who only sees the grid square where he is located, could take advantage of clues to determine its
+next action.</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>
