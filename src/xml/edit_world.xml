@@ -27,6 +27,5 @@ choose a non-allowed value to remove this goal.</li>
 Allowed shapes: "star", "triangle", "square". Only one shape per location. </li>
 <li><code>set_goal_no_shapes()</code>: seeks to have no shapes left in final world.</li>
 <li><code>set_goal_wall(x, y, direction)</code> where direction is one of "east" or "north".</li>
-<li><code>copy()</code>: if needed, outputs a json string representing the world in Reeborg's diary;
-this is done automatically whenever the world is updated.</li></ul>
+</ul>
 <script src="src/js/edit_world.js"></script>

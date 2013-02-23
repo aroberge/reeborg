@@ -14,9 +14,7 @@ its structure should be clear at this point, it might not be so obvious to
 someone who just happened to see it for the first time. It's probably a good
 idea either to add comments and/or to introduce more meaningful words. Let's
 start by adding comments, somewhat more verbose than we think we might
-need. (<small>You might want to make this area wider or to hide
-some of the other panels to better see the code.</small>)
-</p>
+need. </p>
 <pre class="jscode">
 // We mark the starting point by putting down a token
 put_token();

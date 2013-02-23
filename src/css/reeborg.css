@@ -21,6 +21,7 @@ nav a{margin:0; display: inline-block;}
 nav a:last-child{border-radius: 0 20px 20px 0;}
 nav a:first-child{border-radius: 20px 0 0 20px;}
 .clear {clear: both;}
+.center {text-align: center;}
 .resizable-helper {border-right: 1px dashed red;}
 #tabs {height: 98%; overflow: auto;}
 #tabs .ui-tabs-panel {padding: 0;}
