@@ -8,8 +8,7 @@
 instruction.  After saving it, try this slightly modified program
 with the following hurdle race (file: hurdles3.wld).</p>
 
-<p>Surprise! Other than finishing facing in an unusual direction (perhaps
-bowing to the crowd after winning), the program we just wrote can solve the
+<p>Surprise! The program we just wrote can solve the
 hurdle problem. It also works with the uneven hurdle (file: hurdles4.wld)
 illustrated below - which the program we wrote before for jumping over
 hurdles could not handle!</p>

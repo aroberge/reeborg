@@ -13,7 +13,7 @@ reopen it by clicking on the
 <p>Try it!</p>
 
 <h2>Moving along...</h2>
-<p>The panel on the right is the <b>Editor</b> panel, where you will write the
+<p>The panel on the left is the <b>Editor</b> panel, where you will write the
 programs that Reeborg will execute.  It will do so in the second panel, known
 as the <b>World</b> panel.  A third panel, Reeborg's <b>Diary</b> can also be
 open from a button on the top.</p>

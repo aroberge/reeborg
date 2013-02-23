@@ -5,7 +5,7 @@
 </nav>
 <h1>Using the Library</h1>
 <p>When programmer make use of a given function in different programs,
-rather than redefining it in each program, they put them in special
+rather than redefining it in each program they write, they put them in special
 programs called <b>libraries</b> and they have a way to ensure that
 their other programs can use the functions that are found in
 the library.</p>

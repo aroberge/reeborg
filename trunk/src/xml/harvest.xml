@@ -8,6 +8,9 @@
     <span class="world">Harvest&nbsp;1</span>, <span class="world">Harvest&nbsp;2</span> or
     <span class="world">Harvest&nbsp;3</span> and have Reeborg collect all the tokens which represent
 plants to harvest.</p>
+<p>Notice how one can view the first worlds <span class="world">Harvest&nbsp;1</span> and
+<span class="world">Harvest&nbsp;3</span> as having horizontal (or vertical) rows having the same length, while
+world <span class="world">Harvest&nbsp;2</span> can be seen as having diagonal rows having the same length.</p>
 <p>Alternatively, select world <span class="world">Harvest&nbsp;4</span> which occurred
 earlier in the season.  Reeborg had been planting some carrots; some sprouted fine, others did not,
 while at some location 2 or more seeds sprouted.  Reeborg must remove the excess plants and reseed

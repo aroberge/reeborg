@@ -36,8 +36,12 @@ function some_well_chosen_name () {
 are names in a computing programs that are assigned some special meaning that
 will be the same indendently of who writes the program. Note how it appears
 in a different colour above: all javascript keywords will be identified
-similarly. Let's write our
-first javascript function:</p>
+similarly. Notice how the, curly braces <code>{ }</code> surround what
+is known as a <em>block of code</em> and constitutes the <em>body </em> of the
+function.  It is customary to <em>indent</em> such blocks of code to make it easier
+to identify the function body, rather than simply relying on spotting the
+curly braces. </p>
+<p>Let's write our first javascript function:</p>
 <pre class="jscode">
 function turn_right () {
     turn_left();

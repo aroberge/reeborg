@@ -1,0 +1,79 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('at_goal')">Next</a>
+</nav>
+<h1>If only ...</h1>
+<p>If only Reeborg could decide on its own, writing programs would be much simpler ... <b>WAIT !</b> Didn't
+I tell you: Reeborg can make decisions on its own.</p>
+<h2>Javascript keyword: <code>if</code></h2>
+
+<p>Select an appropriate world  (perhaps <span class="world">Alone</span>), and have
+Reeborg execute the following program:</p>
+<pre class="jscode">
+if (true) {
+    move();
+}
+
+if (false) {
+    turn_left();
+}</pre>
+<p><code>true</code> and <code>false</code> are Javascript keywords as well.  You might
+want to interchange them and run the program again to see what happens.</p>
+<h2><code>if</code> statement</h2>
+<p>The so-called <code>if</code> <b>statement</b> follows a pattern somewhat similar to
+that of <code>function</code>s : </p>
+<pre class="jscode">
+function some_name() {
+    // block of code
+}
+
+if (some_condition) {
+    // block of code
+}</pre>
+
+<p>Having to specify <code>true</code> or <code>false</code> does not help Reeborg
+decide on its own.  However, there are special functions that Reeborg recognizes that
+allow to decide things for himself.  The first of these is <code>token_here()</code> which
+tell Reeborg that there is at least one token at the grid position where he is located.
+For example, if we want to ask Reeborg to collect tokens, one part of the code could be</p>
+<pre class="jscode">
+if ( token_here() ) {
+    take_token();
+}</pre>
+<p>Have a look at worlds <span class="world">Tokens&nbsp;1</span> and
+<span class="world">Tokens&nbsp;2</span>. In both cases, and assuming that Reeborg moves forward
+in a straight line, when he finds a token, all he as to do is:</p>
+<ol><li>take it</li>
+<li>move to the next grid</li>
+<li>put the token down</li>
+<li>move one more step</li>
+<li>and he is <code>done()</code></li></ol>
+<p>where I have introduced a new command that Reeborg understands: <code>done()</code>.
+Actually, you should think of this command as Reeborg saying it himself and declaring
+that he has finished.</p>
+<p>Let's write the outline of a program that will work in both worlds
+    <span class="world">Tokens&nbsp;1</span> and
+<span class="world">Tokens&nbsp;2</span></p>
+<pre class="jscode">
+function move_until_done() {
+    move();
+    if ( token_here() ){
+        // something
+        // something else
+        // something else again
+        // yet one more
+        done();
+    }
+}
+
+repeat(move_until_done, 42);</pre>
+<p>Why 42? ... well, I just want to be sure that Reeborg will take enough steps no matter
+what world he is in.  So far, all the worlds are small enough that this should be fine.
+I agree, it does not seem very smart ... We'll see how to fix that later.</p>
+<p>For now, copy the above in the Code editor, filling in the missing commands,
+and test your program on both worlds <span class="world">Tokens&nbsp;1</span> and
+<span class="world">Tokens&nbsp;2</span></p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('at_goal')">Next</a>

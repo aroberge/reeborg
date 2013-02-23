@@ -6,7 +6,7 @@
 <h1>Introduction to the challenges</h1>
 <p>In the next few lessons, you will be presented some challenges.
 What you have to do, is to write programs that accomplish what is being described as being Reeborg's task.
-You do not have to do all the challenges.  The idea at this point is to get familiar with the way that
+<b>You do not have to do all the challenges.</b>  The idea at this point is to get familiar with the way that
 Reeborg moves and to identify patterns that reoccur when finding a given solution.</p>
 <p>While you write your programs, each of which will consist of a specific of series of instructions,
 you have the advantage of seeing the entire world all at once.  You should think of how Reeborg,

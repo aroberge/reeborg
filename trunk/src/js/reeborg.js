@@ -1070,7 +1070,7 @@ RUR.visible_world = {
                 RUR.controls.stop();
                 return "stopped";
             } else {
-                $("#Reeborg-says").html("All done!");
+                $("#Reeborg-says").html("<p class='center'>Last instruction completed!</p>").dialog("open");
                 RUR.controls.stop();
                 return "stopped";
             }
@@ -1096,8 +1096,7 @@ RUR.visible_world = {
                     RUR.controls.stop();
                     return "stopped";
                 } else {
-                    $("#Reeborg-says").html("All done!").dialog("open").fadeOut(2000);
-                    setTimeout(function(){$("#Reeborg-says").dialog("close");}, 1500);
+                    $("#Reeborg-says").html("<p class='center'>Instruction <code>done;()</code> executed.</p>").dialog("open");
                     RUR.controls.stop();
                     return "stopped";
                 }

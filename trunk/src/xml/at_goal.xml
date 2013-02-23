@@ -1,0 +1,40 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('if')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles2')">Next</a>
+</nav>
+<h1>Finding the right spot</h1>
+<p>While the program you just wrote works for worlds <span class="world">Tokens&nbsp;1</span> and
+<span class="world">Tokens&nbsp;2</span>, it will fail if you try it for worlds
+<span class="world">Tokens&nbsp;3</span> and
+<span class="world">Tokens&nbsp;4</span>.</p>
+<p><b>Try it!</b></p>
+<h2>Another condition</h2>
+<p>In addition to being able to find out if tokens are located at the position where Reeborg finds himself,
+Reeborg can also determine if he reached the coloured square which we described before as
+ Reeborg's home. In many worlds, it makes more sense to think of this as Reeborg's goal destination, rather
+ than home, and the function that Reeborg uses to determine this is <code>at_goal()</code>.  Here's
+ the outline of a solution that should work in all four worlds mentioned above.</p>
+<pre class="jscode">
+function move_until_done() {
+    if ( at_goal() ) {
+        // something
+    }
+    move();
+    if ( token_here() ){
+        // something
+        // something else
+        // something else again
+    }
+}
+
+repeat(move_until_done, 42);</pre>
+<p>Complete the above (in the Code editor) and make sure it works for all four worlds mentioned above.</p>
+
+<h2>And now, something different</h2>
+<p>You did complete the above exercise, didn't you?  ... Good.  Now, select either
+world <span class="world">Home&nbsp;1</span> or <span class="world">Home&nbsp;2</span>.  Would
+the same program work?  After you have determined this, try running it to confirm your understanding.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('if')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles2')">Next</a>
