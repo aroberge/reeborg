@@ -1389,6 +1389,8 @@ var write = function (s) {
     RUR.world.add_output_frame("#output-pre", s);
 };
 
+var Tantrum = RUR.Error;  // Reeborg throws a new Tantrum!
+
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
 UsedRobot.prototype.constructor = UsedRobot;
 
@@ -1729,7 +1731,7 @@ var jshint_options = {
 var globals_ = "/*globals move, turn_left, RUR, output, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put_token, take_token, put, take, shape_here,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
-                    " build_wall, think, DEBUG, remove_robot, repeat*/\n";
+                    " build_wall, think, DEBUG, remove_robot, repeat, Tantrum*/\n";
 
 function updateHints(obj) {
     var values, nb_lines;

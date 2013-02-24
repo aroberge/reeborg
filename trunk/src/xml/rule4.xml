@@ -4,7 +4,7 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('surprises')">Next</a>
 </nav>
 <h1>Rule number 4</h1>
-<p>We have designed a program that works in many more situations
+<p>In the preceding lessons, we have designed a program that works in many more situations
     than just the original one we considered. (<small>We could come
 up with other situations where it would not work ... but we
 have done enough for this exercise.</small>)
