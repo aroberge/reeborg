@@ -32,10 +32,68 @@ if (some_condition) {
     // block of code
 }</pre>
 
+<h2>How to think of <code>if</code> statements</h2>
+<p>When we introduced functions, we explained how we could think of a function <b>call</b>
+as being equivalent to inserting the code block for the function definition at that point
+in the program.  Thus:</p>
+<pre class="jscode">
+move();
+turn_right();  // function call
+move();
+</pre>
+<p>is equivalent to</p>
+<pre class="jscode">
+move();
+// begin of code block inside turn_right()
+turn_left();
+turn_left();
+turn_left();
+// end of code block
+move();
+</pre>
+<p><code>if</code> statements can be thought in similar terms, except that
+we have a <em>conditional</em> insertion (or rather <b>deletion</b>!). Thus</p>
+<pre class="jscode">
+move();
+if (true) {
+    turn_left();
+    turn_left();
+}
+move();
+</pre>
+<p>is equivalent to</p>
+<pre class="jscode">
+move();
+turn_left();
+turn_left();
+move();
+</pre>
+<p>whereas</p>
+<pre class="jscode">
+move();
+if (false) {
+    turn_left();
+    turn_left();
+}
+move();
+</pre>
+<p>is equivalent to</p>
+<pre class="jscode">
+move();
+move();
+</pre>
+<p>Note that thinking of it this way does not mean that such a deletion would be done
+permanently: if, somehow, our program <em>looped back</em> and repeated this
+part of the code again, the <code>if</code> statement would be reevaluated
+each time to decide whether or not to execute the lines of code inside
+the code block.</p>
+
+<h2>More useful that you might think...</h2>
+
 <p>Having to specify <code>true</code> or <code>false</code> does not help Reeborg
 decide on its own.  However, there are special functions that Reeborg recognizes that
 allow to decide things for himself.  The first of these is <code>token_here()</code> which
-tell Reeborg that there is at least one token at the grid position where he is located.
+tells Reeborg that there is at least one token at the grid position where he is located.
 For example, if we want to ask Reeborg to collect tokens, one part of the code could be</p>
 <pre class="jscode">
 if ( token_here() ) {
