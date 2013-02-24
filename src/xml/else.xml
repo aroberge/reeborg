@@ -42,5 +42,40 @@ repeat(move_or_turn, 40);</pre>
 <p>After you are done, can you modify the program (by adding one line) so that Reeborg
 deposits a token at each corner?</p>
 
+<h2>How to think about <code>if/else</code></h2>
+<p>We have seen how <code>function</code>s and <code>if</code> statements
+could be thought of as being (sometimes) equivalent to inserting a code
+block; the exception was when the condition of the <code>if</code> statement
+was <code>false</code>, in which case we ignored the code
+block which is equivalent to deleting it.  <code>if/else</code> statements
+can be thought as inserting one or the other code block.  Thus</p>
+<pre class="jscode">
+move();
+if ( true ) {
+    turn_right();
+} else {
+    turn_left();
+}
+move();</pre>
+<p>is equivalent to </p>
+<pre class="jscode">
+move();
+turn_right();
+move();</pre>
+<p>whereas</p>
+<pre class="jscode">
+move();
+if ( false ) {
+    turn_right();
+} else {
+    turn_left();
+}
+move();</pre>
+<p>is equivalent to </p>
+<pre class="jscode">
+move();
+turn_left();
+move();</pre>
+
 <a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles2')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles3')">Next</a>

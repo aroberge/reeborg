@@ -1,0 +1,46 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule3')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_around')">Next</a>
+</nav>
+<h1>How to think about <code>function</code></h1>
+
+<p>You have just seen how to define a function in Javascript. Chances are, you
+understood right away how to think about them but, just in case, here's
+a more detailed explanation which will help you to not only understand
+how functions work, but also other javascript construct that involve
+blocks of code.</p>
+<p>Suppose we have the following:</p>
+<pre class="jscode">
+function turn_right () {  // begin of code block
+    turn_left();
+    turn_left();
+    turn_left();
+}  // end of code block
+
+move();
+turn_right();
+move();
+</pre>
+<p>This is equivalent to the following:</p>
+<pre class="jscode">
+// define a function
+function turn_right () {
+    turn_left();
+    turn_left();
+    turn_left();
+}
+
+move();
+// begin of code block inside turn_right()
+turn_left();
+turn_left();
+turn_left();
+// end of code block
+move();
+</pre>
+<p>In other words, <code>function</code> defines a name that we can use as a synonym
+for all the code that appears inside the code block, and whenever we see the synonym
+being <b>called</b> [that is, the name appears followed by <code>()</code>], we can think of it as being equivalent to inserting the code block <em>as is</em> at that location.
+<a class="left-link" href="javascript:void(0);" onClick="load_page('rule3')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('turn_around')">Next</a>

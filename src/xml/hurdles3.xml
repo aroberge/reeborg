@@ -13,11 +13,38 @@ that only one of those can happen.  Then, Reeborg could be faced with the follow
     go_skiing();
 } else {
     go_swimming(); // assuming it is warm!
-}
-</pre>
+}</pre>
 <p>Notice the use of <code>else</code> for choices 2 and 3, and the additional <code>if</code> statement
 for the second case.  If we took into account other possible weather phenomena, like hail, thunder, fog,
 drizzle, etc., we could add other choices using additional <code>else if {...}</code> code blocks.</p>
+
+<h2>How to think of <code>if/else if/ ... /else</code> statements</h2>
+<p>A series of <code>if/else if/ ... /else</code> statements is
+equivalent to inserting the <b>first</b> code block that evaluates to <code>true</code>.  Thus</p>
+<pre class="jscode">if ( false ) {
+    do_1f();
+} else if ( true ){
+    do_2();
+} else if ( true ){
+    do_3();
+} else {
+    do_4();
+}</pre>
+is equivalent to
+<pre class="jscode">do_2();</pre>
+<p>whereas </p>
+<pre class="jscode">if ( false ) {
+    do_1();
+} else if ( false ){
+    do_2();
+} else if ( false ){
+    do_3();
+} else {
+    do_4();
+}</pre>
+<p>is equivalent to </p>
+<pre class="jscode">do_4();</pre>
+<p>etc.</p>
 
 <h2>Back to hurdles</h2>
 <p>Just two lessons ago, you wrote a program that worked for worlds

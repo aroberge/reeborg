@@ -37,7 +37,10 @@ move();    //  still works
 <p>Perhaps you could define your own language for giving instructions to Reeborg
     (<small>and save it in the library?</small>).</p>
 <p>For now, limit yourselves with names that start with a letter and contain
-    only letters,  numbers or the underscore character "_".</p>
+    only letters,  numbers or the underscore character "_"; a name can <b>not</b> have
+a space in it - which is why many people use the underscore character to create
+names that look like many words that would be a phrase; thus, instead of
+<em>turn left</em>, we write <code>turn_left</code>.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('repeat')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
