@@ -1,23 +1,25 @@
 <nav>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('challenges2')">Next</a>
 </nav>
 
 <h1>Surprises</h1>
 <p>Change the program we just wrote to remove the <code>put_token()</code>
-instruction.  After saving it, try this slightly modified program
-with the following hurdle race (file: hurdles3.wld).</p>
+instruction.  Then try this slightly modified program
+with the following hurdle races <span class="world">Hurdles&nbsp;1</span>,
+<span class="world">Hurdles&nbsp;2</span> and <span class="world">Hurdles&nbsp;3</span>.
+You will find that this program, which is quite different than the ones you had
+written before, works just as well.</p>
 
-<p>Surprise! The program we just wrote can solve the
-hurdle problem. It also works with the uneven hurdle (file: hurdles4.wld)
-illustrated below - which the program we wrote before for jumping over
-hurdles could not handle!</p>
+<p>Now, try it with <span class="world">Hurdles&nbsp;4</span>. Surprise! It
+works whereas the previous program did not!</p>
 
-<p>Try the same modified program again with the maze
-problem we introduced in one of the first lessons (file: maze1.wld),
-as illustrated below.</p>
+<p>Try the same modified program again with either <span class="world">Maze&nbsp;1</span>
+or <span class="world">Maze&nbsp;2</span>.</p>
 
-<p>As you will see, our simple program can find the exit to this maze!
-Amazing!</p>
+<p>As you will see, this simple program can find the exit to this maze!</p>
+<p>Amazing!</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('challenges2')">Next</a>
 

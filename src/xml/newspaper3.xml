@@ -1,5 +1,5 @@
 <nav>
-
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
 
 </nav>
@@ -50,5 +50,7 @@ while ( ! ... ){
 <p>It is up to you to fill up the missing tests and other lines of code.
 Once you are done, you might want to go back to
 <a href="javascript:void(0);" onClick="load_page('newspaper2')">Newspaper delivery revisited</a>
-and see how much shorter this new version, which works in both worlds
-(<small>you did check, right?</small>), is.</p>
+and see how much shorter this new version, which works in both worlds,
+<small>as you have checked, ... right?</small>, is.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('while')">Previous</a>

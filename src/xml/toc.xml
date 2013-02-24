@@ -85,26 +85,29 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('refine4')">Refinements: part 4</a>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('refine5')">Refinements: part 5</a>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('rule4')">Rule number 4</a>.</li>
-<li>summary</li>
+<li><a href="javascript:void(0);" onClick="load_page('surprises')">Surprises!</a></li>
 </ol>
 
 <h2>Revisiting some challenges</h2>
 
 <ol>
-<li><a href="javascript:void(0);" onClick="load_page('challenges2')">Introduction to the challenges</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('center2')">Finding the center</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('challenges2')">Re-introduction to some challenges</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('harvest2')">Harvest time</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('storm2')">Stormy weather</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('summaryX')">Summary</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('center2')">Finding the center</a></li>
 </ol>
+
+<h2>Recursion</h2>
+
+<p>Recursion is the process of repeating items in a self-similar way</p>
 
 <h2>extending tests</h2>
 
 <ol><li>return</li>
 <li>facing whatever</li>
 <li>wall somewhere</li>
-<li>revisiting closing windows</li>
-<li>revisiting a maze</li>
+<li>revisiting closing windows: going the other way</li>
+<li>revisiting a maze: going the other way</li>
 <li>try and catch: explaining exceptions  (catch at_goal_orientation() in the Home programs so that
 a single solution can be used for all three.)</li>
 </ol>
@@ -112,8 +115,9 @@ a single solution can be used for all three.)</li>
 <h2>More javascript keywords</h2>
 
 <ol>
-    <li>writing</li>
-<li>Reading, writing, ... ah, yes: <a href="">Mathematics!</a></li>
+<li>Writing</li>
+<li>Reading</li>
+<li>Reading, writing, ... ah, yes: <a href="">Arithmetics!</a></li>
 <li>variables</li>
 <li>Counting: using a while loop; note: while has already been seen - this is to help with for loops.</li>
 <li>for loop: repeating</li>
