@@ -70,7 +70,7 @@ learn about <code>front_is_clear()</code>, which enables Reeborg to determine if
 him; you also learn about a new javascript keyword: <code>else</code>.
 <li><a href="javascript:void(0);" onClick="load_page('not')">Not ... true!</a> Where you learn about the value of
 begin negative.
-<li>while</li>
+<li><a href="javascript:void(0);" onClick="load_page('while')">For a <code>while</code></a>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('newspaper3')">Newspaper delivery revisited again</a>.</li>
 </ol>
 
@@ -141,4 +141,5 @@ a single solution can be used for all three.)</li>
 <h2>Appendix</h2>
 
 <ol><li>Designing your own worlds and challenges</li>
+<li><a href="javascript:void(0);" onClick="load_page('keywords')">Javascript keywords</a></li>
 </ol>

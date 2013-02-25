@@ -71,6 +71,8 @@ just before the beginning of the block and see if the condition is satisfied;
 if not, you repeat once again the cycle.  If the condition never becomes <code>false</code>,
 you keep repeating and end up with an <b>infinite loop</b>.</p>
 
+<p>Conclusion: you want to make sure that the condition will become <code>false</code> at some point.</p>
+
 <h2>Back to hurdles!</h2>
 <p>Let's go back to <span class="world">Hurdles&nbsp;1</span>,
 <span class="world">Hurdles&nbsp;2</span> and <span class="world">Hurdles&nbsp;3</span>,

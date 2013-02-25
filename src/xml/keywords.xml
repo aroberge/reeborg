@@ -1,0 +1,59 @@
+<h1>Javascript keywords and other important references</h1>
+
+<p>The following Javascript keywords, if used in the lessons,
+    first appear in the link indicated below.</p>
+
+<ul>
+<li>break</li>
+<li>case</li>
+<li>catch</li>
+<li>continue</li>
+<li>debugger</li>
+<li>default</li>
+<li>delete</li>
+<li>do</li>
+<li><a href="javascript:void(0);" onClick="load_page('else')">else</a></li>
+<li>finally</li>
+<li>for</li>
+<li><a href="javascript:void(0);" onClick="load_page('rule3')">function</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('if')">if</a></li>
+<li>in</li>
+<li>instanceof</li>
+<li>new</li>
+<li>return</li>
+<li>switch</li>
+<li>this</li>
+<li>throw</li>
+<li>typeof</li>
+<li><a href="javascript:void(0);" onClick="load_page('france')">var</a></li>
+<li>void</li>
+<li><a href="javascript:void(0);" onClick="load_page('while')">while</a></li>
+<li>with</li>  use with "no strict";
+</ul>
+<p>The following are not officially keywords, but they can be thought as keywords just the same</p>
+<ul>
+    <li><a href="javascript:void(0);" onClick="load_page('if')">true</a></li>
+    <li><a href="javascript:void(0);" onClick="load_page('if')">false</a></li>
+    <li>null</li>
+</ul>
+
+<p>note that undefined is not a keyword</p>
+
+<h2>Reserved for future use</h2>
+<ul>
+    <li>class</li>
+    <li>enum</li>
+    <li>export</li>
+    <li>extends</li>
+    <li>import</li>
+    <li>implements</li>
+    <li>interface</li>
+    <li>let</li>
+    <li>package</li>
+    <li>private</li>
+    <li>protected</li>
+    <li>public</li>
+    <li>static</li>
+    <li>super</li>
+    <li>yield</li>
+</ul>
