@@ -1,0 +1,41 @@
+<h1>Example with <code>with</code></h1>
+<p>Just a quick thing to expand upon.</p>
+<pre class="jscode">// select a world with a robot.
+var Reeborg = new UsedRobot(2,2); // create a second one.
+move();   // refers to the first one.
+Reeborg.move(); // second.
+
+// try uncommenting the following
+/* with( Reeborg) {
+    move();
+    move();
+}
+*/  // won't work
+</pre>
+
+<p>Reeborg's world forces the code to be in what is known as <b>strict mode</b>.
+This is done by inserting the string</p>
+<pre class="jscode">"use strict";
+</pre>
+<p>as the first line of a function definition.</p>
+<p>Talk about the advantage of strict mode.</p>
+<h2>Let's live dangerously</h2>
+<p>If you write</p>
+<pre class="jscode">"no strict";
+</pre>
+<p>as the first line of the code in the editor, it will be executed in the <b>normal</b>
+javascript mode, i.e. without the usual <b>strict</b> safeguard.  In addition,
+I use jshint to identify any mistakes and point them out; this is disabled when
+you use the <code>"no strict";</code> mode, exclusive to Reeborg's world. For example:</p>
+<pre class="jscode">"no strict";
+Reeborg = new UsedRobot(2,2); // we did not use "var" !!!
+move();                // make sure to select a world with a default robot.
+Reeborg.move();
+
+with( Reeborg) {
+    move();      // same as Reeborg.move();
+    move();
+}
+</pre>
+
+
