@@ -1156,6 +1156,12 @@ RUR.compile_javascript = function (src) {
     eval(src);
 };
 
+RUR.compile_no_strict_js = function (src) {
+    // bypass linting and does not "use strict"
+    // requires "no strict"; as first statement in editor
+    eval(src);
+};
+
 
 RUR.compile_brython = function (src) {
     // do not  "use strict" as we do not control the output produced by Brython
@@ -1167,15 +1173,20 @@ RUR.Controls = function (programming_language) {
     "use strict";
     this.programming_language = programming_language;
     this.compile_and_run = function (func) {
-        var src, fatal_error_found = false;
+        var src, ed_src, fatal_error_found = false;
         if (!RUR.visible_world.compiled) {
             src = library.getValue() + ";\n";
-            src += editor.getValue();
+            ed_src = editor.getValue();
+            src += ed_src;
         }
         if (!RUR.visible_world.compiled) {
             try {
                 if (this.programming_language === "javascript") {
-                    RUR.compile_javascript(src);
+                    if (ed_src.slice(1, 10) === "no strict") {
+                        RUR.compile_no_strict_js(src);
+                    } else {
+                        RUR.compile_javascript(src);
+                    }
                     RUR.visible_world.compiled = true;
                 } else if (this.programming_language === "brython") {
                     RUR.compile_brython(src);

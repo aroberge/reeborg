@@ -5,7 +5,7 @@ header {position: absolute; top: 0; left: 0; z-index: 10; width: 99.9%;}
 h1 {font-size: 1.7em; color: #224488;}
 h2 {font-size: 1.3em; color: #224488;}
 h3 {font-size: 1.1em; color: #224488;}
-ol li a {color: #224488 !important;}
+ol li a, ul li a {color: #224488 !important;}
 dl {border: 2px solid #886622; border-radius: 6px; background-color: #faf5ea}
 #logo{float: left; padding-left: 30px; padding-right: 20px; margin-right: 50px; font-size: 30px;
   font-weight: bold; text-decoration: none; color: white; line-height: 25px;
