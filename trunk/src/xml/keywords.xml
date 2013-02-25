@@ -28,7 +28,7 @@
 <li><a href="javascript:void(0);" onClick="load_page('france')">var</a></li>
 <li>void</li>
 <li><a href="javascript:void(0);" onClick="load_page('while')">while</a></li>
-<li>with</li>  use with "no strict";
+<li><a href="javascript:void(0);" onClick="load_page('with')">with</a></li>
 </ul>
 <p>The following are not officially keywords, but they can be thought as keywords just the same</p>
 <ul>

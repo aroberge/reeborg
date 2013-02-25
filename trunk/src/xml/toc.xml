@@ -138,8 +138,15 @@ a single solution can be used for all three.)</li>
 <li>designing new robots</li>
 </ol>
 
-<h2>Appendix</h2>
+<h2>Odds and ends</h2>
 
-<ol><li>Designing your own worlds and challenges</li>
+<ol>
+    <li><a href="javascript:void(0);" onClick="load_page('with')">with</a></li>
+</ol>
+
+<h2>Appendices</h2>
+
+<ol>
 <li><a href="javascript:void(0);" onClick="load_page('keywords')">Javascript keywords</a></li>
+<li>Designing your own worlds and challenges</li>
 </ol>
