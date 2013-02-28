@@ -1,4 +1,5 @@
 <nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper3')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine2')">Next</a>
 </nav>
@@ -36,4 +37,5 @@ while ( !token_here() ){
 <p>Take the time to think about what the above program instructs Reeborg to
 do before trying to run it. Can you find a problem with the proposed solution?</p>
 
+<a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper3')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('refine2')">Next</a>
