@@ -97,8 +97,8 @@ RUR.World = function () {
         }
     };
 
-    this.pause = function() {
-        this.frames.add_item({pause: true});
+    this.pause = function(ms) {
+        this.frames.add_item({pause: true, pause_time:ms});
     };
 
     this.export_ = function (){
@@ -1080,7 +1080,7 @@ RUR.visible_world = {
             return "immediate";
         }
         if (frame.pause) {
-            RUR.controls.pause();
+            RUR.controls.pause(frame.pause_time);
             return "pause";
         }
         if (frame.error !== undefined) {
@@ -1220,12 +1220,15 @@ RUR.Controls = function (programming_language) {
         RUR.controls.compile_and_run(RUR.visible_world.play_frames);
     };
 
-    this.pause = function () {
+    this.pause = function (ms) {
         RUR.visible_world.running = false;
         clearTimeout(RUR.timer);
         $("#pause").attr("disabled", "true");
         $("#run").removeAttr("disabled");
         $("#step").removeAttr("disabled");
+        if (ms !== undefined){
+            setTimeout(RUR.controls.run, ms);
+        }
     };
 
     this.step = function () {
@@ -1340,9 +1343,9 @@ var move = function() {
     RUR.world.robots[0].move();
 };
 
-var pause = function () {
+var pause = function (ms) {
     "use strict";
-    RUR.world.pause();
+    RUR.world.pause(ms);
 };
 
 var put = function(arg) {
@@ -1742,7 +1745,7 @@ var jshint_options = {
 var globals_ = "/*globals move, turn_left, RUR, output, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put_token, take_token, put, take, shape_here,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
-                    " build_wall, think, DEBUG, remove_robot, repeat, Tantrum*/\n";
+                    " build_wall, think, DEBUG, pause, remove_robot, repeat, Tantrum*/\n";
 
 function updateHints(obj) {
     var values, nb_lines;

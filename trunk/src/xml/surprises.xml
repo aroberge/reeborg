@@ -21,5 +21,5 @@ or <span class="world">Maze&nbsp;2</span>.</p>
 <p>As you will see, this simple program can find the exit to this maze!</p>
 <p>Amazing!</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('challenges2')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('challenges2')">Next</a>
 
