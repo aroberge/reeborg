@@ -1224,10 +1224,11 @@ RUR.Controls = function (programming_language) {
         RUR.visible_world.running = false;
         clearTimeout(RUR.timer);
         $("#pause").attr("disabled", "true");
-        $("#run").removeAttr("disabled");
-        $("#step").removeAttr("disabled");
         if (ms !== undefined){
-            setTimeout(RUR.controls.run, ms);
+            RUR.timer = setTimeout(RUR.controls.run, ms);
+        } else {
+            $("#run").removeAttr("disabled");
+            $("#step").removeAttr("disabled");
         }
     };
 
