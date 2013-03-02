@@ -89,7 +89,7 @@ following:</p>
 instruction <code>pause();</code> at any point inside a program and Reeborg
 will pause, awaiting your permission to continue.</li>
 <li>You can <em>step through</em> a program, one instruction at a time, by pressing
-the <em>execute one instruction and pause, or <b>step</b><em> button.</li>
+the <em>execute one instruction and pause, or <b>step</b></em> button.</li>
 <li>You can change the speed of execution at any point inside a program;
 I will explain how you can do this later.</li>
 <li>You can have Reeborg write some information at any given point
