@@ -9,7 +9,7 @@ rather than redefining it in each program they write, they put them in special
 programs called <b>libraries</b> and they have a way to ensure that
 their other programs can use the functions that are found in
 the library.</p>
-<p>You are going to use the function <code>turn_right()</code> <b>a lot!</b>.
+<p>You are going to use the function <code>turn_right()</code> <b>a lot!</b>
 Instead of rewriting it each time (remember Rule # 3), what you are going to
 do is to write it <b>once</b> (<small>more</small>) but, this time,
 instead of writing it in the editor with the <b>Code</b> tab, you will

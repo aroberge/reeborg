@@ -29,7 +29,8 @@
     any robot in particular.</p>
   <ul>
     <li><code>inspect(javascript object)</code></li>
-    <li><code>pause()</code></li>
+    <li><code>pause()</code>; can be called with an argument in millisecond which indicates the
+    time after which it will automatically resume.</li>
     <li><code>think(number)</code></li>
     <li><code>write(string)</code></li>
   </ul>

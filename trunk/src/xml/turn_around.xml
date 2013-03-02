@@ -1,5 +1,5 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule3')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('functions1')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('library')">Next</a>
 </nav>
@@ -57,5 +57,5 @@ step_back();
 // back at the same location,
 // facing in the same direction as before</pre>
 <p>Make sure you to test it!</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rule3')">Previous</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('functions1')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('library')">Next</a>

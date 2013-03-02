@@ -41,6 +41,6 @@ move();
 </pre>
 <p>In other words, <code>function</code> defines a name that we can use as a synonym
 for all the code that appears inside the code block, and whenever we see the synonym
-being <b>called</b> [that is, the name appears followed by <code>()</code>], we can think of it as being equivalent to inserting the code block <em>as is</em> at that location.
+being <b>called</b> [that is, the name appears followed by <code>()</code>], we can think of it as being equivalent to inserting the code block <em>as is</em> at that location.</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('rule3')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('turn_around')">Next</a>

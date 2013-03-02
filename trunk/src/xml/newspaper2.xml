@@ -134,7 +134,7 @@ climb_down_three_floors();</pre>
 <p>Each function contains no more than 5 instructions; it's much easier to verify that
 each function does what it is supposed to do than verifying an entire list of commands
 like we have previously.  Once we know that the functions do what they are supposed
-to do, making use of them allow us to write a complete program in 7 more lines of code -
+to do, making use of them allow us to write a complete program in 6 more lines of code -
 again, much easier to verify that it is right.  All together, using functions to avoid
 repetitions, we end up with a shorter program that is also much easier to read.
 </p><p>
