@@ -1404,6 +1404,10 @@ var write = function (s) {
     RUR.world.add_output_frame("#output-pre", s);
 };
 
+var write_now = function (s){
+    $("#output-pre").append(s + "\n");
+}
+
 var Tantrum = RUR.Error;  // Reeborg throws a new Tantrum!
 
 UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
@@ -1512,6 +1516,7 @@ function addNote() {
     }
     localStorage.setItem(key, user_note);
     doShowNotes();
+    document.forms.notes_editor.data.value = ""
 }
 
 function doDeleteNote(key) {
@@ -1624,6 +1629,7 @@ $(document).ready(function() {
             $.ajax({
                     url: hash,
                     context: $("#contents"),
+                    dataType: "text",
                     statusCode: {
                         404: function() {
                             load_page("welcome");
@@ -1743,9 +1749,9 @@ var jshint_options = {
     jquery: true
 };
 
-var globals_ = "/*globals move, turn_left, RUR, output, inspect, UsedRobot, front_is_clear, right_is_clear, "+
+var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put_token, take_token, put, take, shape_here,"+
-                    " token_here, has_token, write, at_goal, at_goal_orientation," +
+                    " token_here, has_token, write, write_now, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, Tantrum*/\n";
 
 function updateHints(obj) {

@@ -1,0 +1,68 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion2')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion4')">Next</a>
+</nav>
+<h1>More recursion</h1>
+<p>The last program we considered was the following:</p>
+
+<pre class="jscode">function go_home(){
+    move();
+    if (!at_goal()) {
+        go_home();
+    }
+    turn_left();
+}
+
+// now do it!
+go_home();</pre>
+<p>By now, you probably have figured out how it works; at the very least, you should
+have tried to run it!   Let's analyze it assuming we run it in world <span class="world">Home&nbsp;1</span>.
+As usual, we consider the single instruction</p>
+<pre class="jscode">go_home();</pre>
+<p>which gets replace by the body of the function definition</p>
+<pre class="jscode">move();
+if (!at_goal()) {
+    go_home();
+}
+turn_left();</pre>
+<p>After the first <code>move()</code>, Reeborg has not reached its goal yet so that the
+<code>if</code> statement block is executed</p>
+<pre class="jscode">move();
+    go_home();
+turn_left();</pre>
+<p>Once again, we replace <code>go_home()</code> by its definition</p>
+<pre class="jscode">move();
+    move();
+    if (!at_goal()) {
+        go_home();
+    }
+    turn_left();
+turn_left();</pre>
+<p>After the second <code>move()</code> instruction, Reeborg has reached its goal and
+the <code>if</code> statement block is not executed</p>
+<pre class="jscode">move();
+    move();
+    turn_left();
+turn_left();</pre>
+<p>Thus, after reaching its goal, Reeborg does two left turns (a celebratory dance perhaps?)
+before ending its program.</p>
+<h2>Another test</h2>
+<p>Using again the same world, can you figure out what would be Reeborg's final orientation
+if he executes the following program?</p>
+<pre class="jscode">function go_home(){
+    move();
+    if (!at_goal()) {
+        go_home();
+        turn_left();
+    }
+    turn_left();
+}
+
+// now do it!
+go_home();</pre>
+<p>Try to figure it out before running it and then check your understanding by
+seeing Reeborg in action.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('recursion2')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('recursion4')">Next</a>
