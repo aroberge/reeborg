@@ -32,7 +32,8 @@
     <li><code>pause()</code>; can be called with an argument in millisecond which indicates the
     time after which it will automatically resume.</li>
     <li><code>think(number)</code></li>
-    <li><code>write(string)</code></li>
+    <li><code>write(string)</code>: write as one more robot action, in its own frame</li>
+    <li><code>write_now(string)</code>: done "immediately"</li>
   </ul>
   <p>In some more advanced lessons, and especially in some programming
     challenges, the following are also used:</p>

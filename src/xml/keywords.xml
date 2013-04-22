@@ -1,3 +1,7 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+</nav>
+
 <h1>Javascript keywords and other important references</h1>
 
 <p>The following Javascript keywords, if used in the lessons,
@@ -11,7 +15,7 @@
 <li>debugger</li>
 <li>default</li>
 <li>delete</li>
-<li>do</li>
+<li><a href="javascript:void(0);" onClick="load_page('do_while')">do ... while</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('else')">else</a></li>
 <li>finally</li>
 <li>for</li>
@@ -30,14 +34,14 @@
 <li><a href="javascript:void(0);" onClick="load_page('while')">while</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('with')">with</a></li>
 </ul>
-<p>The following are not officially keywords, but they can be thought as keywords just the same</p>
+<p>The following are not officially keywords, but they can be thought as keywords for all practical purpose</p>
 <ul>
     <li><a href="javascript:void(0);" onClick="load_page('if')">true</a></li>
     <li><a href="javascript:void(0);" onClick="load_page('if')">false</a></li>
     <li>null</li>
 </ul>
 
-<p>note that undefined is not a keyword</p>
+<p>note that <em>undefined</em> is not a keyword</p>
 
 <h2>Reserved for future use</h2>
 <ul>
