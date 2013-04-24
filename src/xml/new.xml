@@ -1,0 +1,31 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('oop')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('new')">Next</a>
+</nav>
+
+<h1>A Used Robot gets his name</h1>
+
+
+<p>So far, all the programs we wrote instructing Reeborg to accomplish tasks have been written without using the Object-Oriented Programming (OOP) notation. Let's start with a simple example.</p>
+
+<p>First, we start by having an <span class="world">Empty</span> world.</p>
+
+<p>Now, you might remember what we said about Reeborg: it is old and faulty ... since it is a Used Robot.
+[We will learn how to fix it and its
+friends later.] So, we will create our first instance of a <code>UsedRobot</code> and name it, appropriately, Reeborg! We will then instruct it to take one step.</p>
+
+<pre class="jscode">Reeborg = new UsedRobot();
+Reeborg.move();</pre>
+
+<p>If you don't like the combination of <code>new</code> with  <code>Used</code>, remember that while
+Reeborg might be a <code>UsedRobot</code>, it is <code>new</code> to you
+<small>[spoken like a true used car salesman].</small></p>
+
+<h2>Try it!</h2>
+<p>You might want to write a more complicated program, having Reeborg's name preceeding any command
+given to him.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('oop')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('new')">Next</a>
+

@@ -5,12 +5,15 @@
 </nav>
 <h1>A better <b>repeat()</b></h1>
 
+<p><em>Note: this lesson covers some very advanced concepts.  If you do not fully grasp them the first time around,
+you should feel free to continue with the other lessons.</em></p>
+
 <p>You have seen how we can use our function <code>repeat()</code> to reduce
 the number of lines of code needed to accomplish the same thing.  For example,
 if we want to simulate a right turn, we can write <code>repeat(turn_left,&nbsp;3)</code>, thus
 replacing three instructions with one.  The problem with doing this in general is that
 it does not make the code much more readable.  A better approach that we have seen is
-to use <code>repeat()</code> inside a function definition like this:</p>
+to use <code>repeat()</code> inside a well-named function definition like this:</p>
 <pre class="jscode">function turn_right (){
     repeat(turn_left, 3);
 }</pre>
