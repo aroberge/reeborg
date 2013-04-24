@@ -99,8 +99,6 @@ of increasing complexity.</li>
 
 <h2>Recursion</h2>
 
-<p>Recursion is the process of repeating items in a self-similar way</p>
-
 <ol>
 <li><a href="javascript:void(0);" onClick="load_page('recursion')">Recursion</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('recursion2')">Tricky recursion</a></li>
@@ -111,8 +109,8 @@ of increasing complexity.</li>
 
 <h2>extending tests</h2>
 
-<ol><li>return</li>
-<li>facing whatever</li>
+<ol>
+<li><a href="javascript:void(0);" onClick="load_page('return')">Return</a></li>
 <li>wall somewhere</li>
 <li>revisiting closing windows: going the other way</li>
 <li>revisiting a maze: going the other way</li>
@@ -136,9 +134,11 @@ a single solution can be used for all three.)</li>
 </ol>
 
 
-<h2>The dot notation</h2>
+<h2>Object Oriented Programming (OOP)</h2>
 
-<ol><li>new UsedRobot</li>
+<ol>
+<li><a href="javascript:void(0);" onClick="load_page('oop')">The dot notation</a>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('new')">A Used Robot gets his name</a>.</li>
 <li>multiple robots</li>
 <li>local and global variables</li>
 <li>extending a prototype</li>

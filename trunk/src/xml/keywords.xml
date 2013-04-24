@@ -23,8 +23,8 @@
 <li><a href="javascript:void(0);" onClick="load_page('if')">if</a></li>
 <li>in</li>
 <li>instanceof</li>
-<li>new</li>
-<li>return</li>
+<li><a href="javascript:void(0);" onClick="load_page('new')">new</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('return')">Return</a></li>
 <li>switch</li>
 <li>this</li>
 <li>throw</li>
@@ -44,6 +44,8 @@
 <p>note that <em>undefined</em> is not a keyword</p>
 
 <h2>Reserved for future use</h2>
+<p>The following potential keywords have been reserved by the Committee responsible for the Javascript
+language for possible future use; your programs should not use these as variable names.</p>
 <ul>
     <li>class</li>
     <li>enum</li>
