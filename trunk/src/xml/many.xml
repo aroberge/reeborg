@@ -1,0 +1,23 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('new')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_right')">Next</a>
+</nav>
+
+<h1>Many robots</h1>
+
+<p>Select the world <span class="world">Empty</span> which has no robot in it.</p>
+
+<p>Next, write and execute the following program:</p>
+
+<pre class="jscode">var Reeborg = new UsedRobot();
+var Erdna = new UsedRobot();
+Reeborg.move();
+Erdna.turn_left();
+Erdna.move();</pre>
+
+<p>Congratulations!  You now know how to control two robots independently.  Try adding a third robot.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('new')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('turn_right')">Next</a>
+

@@ -80,11 +80,11 @@ begin negative.
 <li><a href="javascript:void(0);" onClick="load_page('refine1')">Refinements: part 1</a>:
 a multi-part tutorial in creating a program capable of handling worlds
 of increasing complexity.</li>
-<li><a href="javascript:void(0);" onClick="load_page('refine2')">Refinements: part 2</a>.</li>
-<li><a href="javascript:void(0);" onClick="load_page('refine3')">Refinements: part 3</a>.</li>
-<li><a href="javascript:void(0);" onClick="load_page('refine4')">Refinements: part 4</a>.</li>
-<li><a href="javascript:void(0);" onClick="load_page('refine5')">Refinements: part 5</a>.</li>
-<li><a href="javascript:void(0);" onClick="load_page('rule4')">Rule number 4</a>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('refine2')">Refinements: part 2</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('refine3')">Refinements: part 3</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('refine4')">Refinements: part 4</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('refine5')">Refinements: part 5</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('rule4')">Rule number 4</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('surprises')">Surprises!</a></li>
 </ol>
 
@@ -107,31 +107,28 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('recursion5')">Recursive challenges</a></li>
 </ol>
 
-<h2>Extending tests</h2>
+<h2>More javascript keywords</h2>
 
 <ol>
 <li><a href="javascript:void(0);" onClick="load_page('return')">Return</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('return2')">More returns</a></li>
-</ol>
-
-<h2>More javascript keywords</h2>
-
-<ol>
 <li><a href="javascript:void(0);" onClick="load_page('diary')">Reeborg's diary</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('increment')">Increment</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('while_num')">While counting</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('while_num')">For loops</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('better_repeat')">A better <b>repeat()</b></a>.</li>
-<li>Random numbers in javascript - game, guess a number</li>
-<li>try and catch: better to ask for forgiveness than permission (uses maze and random numbers)</li>
+<li><a href="javascript:void(0);" onClick="load_page('more')">More javascript</a></li>
 </ol>
 
 
 <h2>Object Oriented Programming (OOP)</h2>
 
 <ol>
-<li><a href="javascript:void(0);" onClick="load_page('oop')">The dot notation</a>.</li>
-<li><a href="javascript:void(0);" onClick="load_page('new')">A Used Robot gets his name</a>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('oop')">The dot notation</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('new')">A Used Robot gets his name</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('many')">Many robots</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('turn_right')">Many right turns</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('prototype')">Prototype this</a></li>
 <li>multiple robots</li>
 <li>local and global variables</li>
 <li>extending a prototype</li>
@@ -142,6 +139,8 @@ of increasing complexity.</li>
 <h2>Odds and ends</h2>
 
 <ol>
+    <li>Random numbers in javascript - game, guess a number</li>
+<li>try and catch: better to ask for forgiveness than permission (uses maze and random numbers)</li>
     <li><a href="javascript:void(0);" onClick="load_page('with')">with</a></li>
 </ol>
 

@@ -1,5 +1,5 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('oop')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('more')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('new')">Next</a>
 </nav>
@@ -15,7 +15,7 @@ and understand the notation used.</p>
 
 <p>Fido is a dog. During a typical day, he does various actions: he eats, runs, sleeps, etc. Here's how an object-oriented programmer might write this.</p>
 
-<pre class="jscode">Fido = new Dog();
+<pre class="jscode">var Fido = new Dog();
 Fido.eats();
 Fido.runs();
 Fido.sleeps();</pre>
@@ -42,6 +42,6 @@ Fido.head.mouth.teeth.canine.hurts();</pre>
 
 <p>We'll see how this works later. For now, let's see how Reeborg uses the "dot" notation.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('oop')">Previous</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('more')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('new')">Next</a>
 

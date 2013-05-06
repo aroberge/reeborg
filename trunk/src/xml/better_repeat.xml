@@ -1,6 +1,8 @@
 <nav>
 
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while_num')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('more')">Next</a>
 
 </nav>
 <h1>A better <b>repeat()</b></h1>
@@ -12,7 +14,8 @@ you should feel free to continue with the other lessons.</em></p>
 the number of lines of code needed to accomplish the same thing.  For example,
 if we want to simulate a right turn, we can write <code>repeat(turn_left,&nbsp;3)</code>, thus
 replacing three instructions with one.  The problem with doing this in general is that
-it does not make the code much more readable.  A better approach that we have seen is
+it does not make the code much more readable since we do not introduce descriptive names.
+A better approach that we have seen is
 to use <code>repeat()</code> inside a well-named function definition like this:</p>
 <pre class="jscode">function turn_right (){
     repeat(turn_left, 3);
@@ -45,6 +48,8 @@ functions!</p>
 
 // now, use it to define a new way to turn right
 var my_turn_right = better_repeat(turn_left, 3);
+
+my_turn_right();  // and use it!
 </pre>
 
 <p>Try it!</p>
@@ -69,3 +74,5 @@ walk_to_the_wall();
 
 <p>When you are done, you might want to define <code>do_while_not(fn,&nbsp;condition)</code> where we
 are doing something until a condition is <b>not</b> satisfied.</p>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while_num')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('more')">Next</a>
