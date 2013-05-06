@@ -1,0 +1,38 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('diary')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('increment')">Next</a>
+</nav>
+
+<h1>Reeborg's diary</h1>
+
+<p>Click on the <b>World</b> button at the top to hide Reeborg's world; click also on the <b>Diary</b>
+button to reveal Reeborg's diary, the place where our favourite robot writes.  You should
+see a button labeled <b>Deselect world</b>; click it and a button labeled <b>Execute</b> should be
+enabled.   <small>If, for some reason, the <b>Deselect world</b> button was disabled initially (so you
+couldn't click on it), reopen Reeborg's world (by clicking on the <b>World</b> button at the very top),
+select a world and close Reeborg's world.</small></p>
+<p>Have Reeborg execute the following program</p>
+<pre class="jscode">write(42);</pre>
+<p>You should see that Reeborg wrote the answer to the ultimate question about life, the universe and everything
+[<small>at least according to <em>The Hitchhiker's guide to the Galaxy</em></small>] in his diary.</p>
+
+<h2>Reeborg knows mathematics</h2>
+<p>Try running the following program and look at the output in Reeborg's diary.</p>
+<pre class="jscode">write( 2 + 3 );  // adding numbers
+write( 2 * 3 );  // multiplying numbers
+write( 3 - 2 );  // subtracting numbers
+write( 6 / 2 );  // dividing numbers
+write( 1 + 3 * 2 ); // multiplication is done before addition
+write( (1 + 3) * 2 );  // using parentheses to change normal order of operations</pre>
+<h2>Using variables</h2>
+<p>We have already seen the <code>var</code> keyword.  Let's use it again as explore mathematical
+operations some more.</p>
+<pre class="jscode">var length, width, area;
+length = 4;
+width = 6;
+area = length * width;  // area of a rectangle
+write(area);  // will output 24</pre>
+<p>Try it!</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('diary')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('increment')">Next</a>

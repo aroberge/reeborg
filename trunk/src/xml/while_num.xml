@@ -1,0 +1,75 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('increment')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('for')">Next</a>
+</nav>
+
+<h1>While counting</h1>
+<p>
+Select world <span class="world">Around&nbsp;1</span>.  You have seen before
+that Reeborg takes 9 steps before reaching the first square where he is
+blocked by having a wall in front of him.  Let's use the increment operator
+to have Reeborg keep track of the number of steps and stop just before hitting
+a wall.</p>
+<pre class="jscode">var number_of_steps = 0;
+while (number_of_steps < 9 ){  // "<" means "less than"
+    move();
+    number_of_steps++;
+}</pre>
+<p><b>Try it!</b>  Then, modify the program to write the value of <code>number_of_steps</code>
+each time it is incremented.</p>
+<h2>Defining <code>repeat()</code>?</h2>
+<p>In the above program, Reeborg was counting and doing a number of steps (<code>move</code>) up
+to a pre-determined value.  We have seen before how to accomplish this using a single
+instruction:</p>
+<pre class="jscode">repeat(move, 9);</pre>
+<p>Let's define a function <code>my_repeat</code> that will <em>hide</em> the code with the while loop
+above:</p>
+<pre class="jscode">function my_repeat() {
+    var number_of_steps = 0;
+    while (number_of_steps < 9 ){
+        move();
+        number_of_steps++;
+    }
+}
+
+my_repeat();   // use it!
+</pre>
+<p>That's not very useful compared with <code>repeat()</code> since both the number of steps
+to take and the specific instruction to repeat are <em>hard-coded</em>.  We can do better
+by <em>passing</em> <b>arguments</b> to <code>my_repeat</code> as follows:</p>
+<pre class="jscode">function my_repeat(some_function, max_value) {
+    var number_of_steps = 0;
+    while (number_of_steps < max_value ){
+        some_function();
+        number_of_steps++;
+    }
+}
+
+my_repeat(move, 9);   // use it!
+my_repeat(turn_left, 4);
+</pre>
+<p><b>Try it!</b></p>
+<h2>Scope</h2>
+<p>Compare</p>
+<pre class="jscode">var number_of_steps = 0;
+function my_repeat(some_function, max_value) {
+    while (number_of_steps < max_value ){
+        some_function();
+        number_of_steps++;
+    }
+}</pre>
+<p>with the previous definition.  You should note that the colour of the variable <code>number_of_steps</code> is
+different in both cases.  If you look more closely, you will find that in one case, this variable
+is defined <em>inside</em> the function body whereas in the other it is defined <em>outside</em>.
+When it is defined <em>inside</em>, we say that it is a <b>local</b> variable: its value is only
+known locally inside the function and not in the larger program.  Otherwise, it is known as
+a <b>global</b> variable.  Whether a variable is <em>local</em> to a function or <em>global</em>
+is known as the <b>scope</b> of the variable.  Generally, it is recommended to use local
+variables whenever possible so that if you reuse the same variable name (locally) elsewhere in
+a program, it will be treated as a completely different variable and won't affect the value
+of a similarly named variable elsewhere.  If you use global variables, a change in one part
+of the program will change the value of that variable everywhere else - often leading to some
+hard to trace bugs.</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('increment')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('for')">Next</a>

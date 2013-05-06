@@ -107,27 +107,20 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('recursion5')">Recursive challenges</a></li>
 </ol>
 
-<h2>extending tests</h2>
+<h2>Extending tests</h2>
 
 <ol>
 <li><a href="javascript:void(0);" onClick="load_page('return')">Return</a></li>
-<li>wall somewhere</li>
-<li>revisiting closing windows: going the other way</li>
-<li>revisiting a maze: going the other way</li>
-<li>try and catch: explaining exceptions  (catch at_goal_orientation() in the Home programs so that
-a single solution can be used for all three.)</li>
+<li><a href="javascript:void(0);" onClick="load_page('return2')">More returns</a></li>
 </ol>
 
 <h2>More javascript keywords</h2>
 
 <ol>
-<li>Writing</li>
-<li>Reading</li>
-<li>Reading, wRiting, ... ah, yes: aRithmetics!</li>
-<li>variables</li>
-<li>Counting: using a while loop; note: while has already been seen - this is to help with for loops.</li>
-<li>for loop: repeating</li>
-<li><b>repeat()</b>: how it is defined</li>
+<li><a href="javascript:void(0);" onClick="load_page('diary')">Reeborg's diary</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('increment')">Increment</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('while_num')">While counting</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('while_num')">For loops</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('better_repeat')">A better <b>repeat()</b></a>.</li>
 <li>Random numbers in javascript - game, guess a number</li>
 <li>try and catch: better to ask for forgiveness than permission (uses maze and random numbers)</li>

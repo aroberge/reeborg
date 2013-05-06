@@ -1,7 +1,7 @@
 <nav>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return2')">Next</a>
 </nav>
 
 <h1>Return</h1>
@@ -95,5 +95,11 @@ make 4 more to determine its new orientation!</p>
 <p>Later, by digging in Reeborg's built-in program, we will find a way to
 fix its compass and have it determine its orientation without getting dizzy.</p>
 
+<h2>Mini-quiz</h2>
+
+<p>Write a program that has Reeborg face West, no matter what his orginal orientation is.
+Test it with Reeborg in various starting orientations, by giving him a few <code>turn_left()</code>
+instructions first.</p>
+
 <a class="left-link" href="javascript:void(0);" onClick="load_page('return')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('return')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('return2')">Next</a>

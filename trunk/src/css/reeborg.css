@@ -42,9 +42,9 @@ nav a:first-child{border-radius: 20px 0 0 20px;}
 .cm-s-reeborg-dark .cm-number, .cm-s-reeborg-dark .cm-attribute { color: #cef; }
 .cm-s-reeborg-dark .cm-keyword { color: #FBDE2D; }
 .cm-s-reeborg-dark .cm-string { color: #F08047; }
-.cm-s-reeborg-dark .cm-variable-2 { color: #7BD827; }
-.cm-s-reeborg-dark .cm-def { color: #7BD827; }
-.cm-s-reeborg-dark .cm-variable-3 { color: #7BD827; }
+.cm-s-reeborg-dark .cm-variable-2 { color: #9f9; }
+.cm-s-reeborg-dark .cm-def { color: #9f9; }
+.cm-s-reeborg-dark .cm-variable-3 { color: #9f9; }
 .cm-s-reeborg-dark .cm-builtin, .cm-s-reeborg-dark .cm-special { color: #FF9D00; }
 .cm-s-reeborg-dark .cm-tab:before {content: "➤";  color: red;}
 
