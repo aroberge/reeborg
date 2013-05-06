@@ -18,7 +18,7 @@
 <li><a href="javascript:void(0);" onClick="load_page('do_while')">do ... while</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('else')">else</a></li>
 <li>finally</li>
-<li>for</li>
+<li><a href="javascript:void(0);" onClick="load_page('for')">for</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('rule3')">function</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('if')">if</a></li>
 <li>in</li>
@@ -26,7 +26,7 @@
 <li><a href="javascript:void(0);" onClick="load_page('new')">new</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('return')">return</a></li>
 <li>switch</li>
-<li>this</li>
+<li><a href="javascript:void(0);" onClick="load_page('prototype')">this</a></li>
 <li>throw</li>
 <li>typeof</li>
 <li><a href="javascript:void(0);" onClick="load_page('france')">var</a></li>
@@ -41,7 +41,7 @@
     <li>null</li>
 </ul>
 
-<p>note that <em>undefined</em> is not a keyword</p>
+<p>Note that <em>undefined</em> is not a keyword.</p>
 
 <h2>Reserved for future use</h2>
 <p>The following potential keywords have been reserved by the Committee responsible for the Javascript

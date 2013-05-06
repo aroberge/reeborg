@@ -1,0 +1,35 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_right')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('many')">Next</a>
+</nav>
+
+<h1>Prototype this</h1>
+
+<p>Javascript is a language based on prototypes: we can add methods to objects by adding them to
+the object's prototype.  The syntax is the following:</p>
+<pre class="jscode">some_object.prototype.new_stuff = some_definition;</pre>
+<p>For example, here's how we can add a new <code>turn_right</code> method to <code>UsedRobot</code>:</p>
+
+<p>Select the world <span class="world">Empty</span> which has no robot in it. Next define the following
+function:</p>
+
+<pre class="jscode">UsedRobot.prototype.turn_right = function () {
+    this.turn_left();
+    this.turn_left();
+    this.turn_left();
+};</pre>
+<p>The javascript keyword <code>this</code> will be replaced by the name of whichever's robot
+is being asked to execute the right turn:</p>
+
+<pre class="jscode">var Reeborg = new UsedRobot();
+var Erdna = new UsedRobot();
+Reeborg.move();
+Reeborg.turn_right();
+Erdna.turn_right();</pre>
+
+<p>Try it!</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('turn_right')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('many')">Next</a>
+

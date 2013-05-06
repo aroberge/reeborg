@@ -1,0 +1,36 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('many')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('prototype')">Next</a>
+</nav>
+
+<h1>Many right turns</h1>
+
+<p>Select the world <span class="world">Empty</span> which has no robot in it. Next define the following
+function:</p>
+
+<pre class="jscode">function turn_right(robot) {
+    robot.turn_left();
+    robot.turn_left();
+    robot.turn_left();
+}</pre>
+
+<p>Note how we pass the variable <code>robot</code> as an argument to the function and how we
+use it inside the function; this variable will be the robot's name.</p>
+
+<p>After defining this function, you can use it as follows:</p>
+
+<pre class="jscode">var Reeborg = new UsedRobot();
+var Erdna = new UsedRobot();
+Reeborg.move();
+turn_right(Reeborg);
+Erdna.turn_left();
+turn_right(Erdna);</pre>
+
+<p>This works ... but it does not look right since the  <em>function</em> that is used to make
+the robots turn right uses a different syntax from the <em>method</em> that is used to make them
+left.  There has to be a better way...</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('many')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('prototype')">Next</a>
+
