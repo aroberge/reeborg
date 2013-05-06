@@ -1070,7 +1070,11 @@ RUR.visible_world = {
                 RUR.controls.stop();
                 return "stopped";
             } else {
-                $("#Reeborg-says").html("<p class='center'>Last instruction completed!</p>").dialog("open");
+                if (RUR.controls.end_flag) {
+                    $("#Reeborg-says").html("<p class='center'>Last instruction completed!</p>").dialog("open");
+                } else {
+                    RUR.controls.end_flag = true;
+                }
                 RUR.controls.stop();
                 return "stopped";
             }
@@ -1172,6 +1176,7 @@ RUR.compile_brython = function (src) {
 RUR.Controls = function (programming_language) {
     "use strict";
     this.programming_language = programming_language;
+    this.end_flag = true;
     this.compile_and_run = function (func) {
         var src, ed_src, fatal_error_found = false;
         if (!RUR.visible_world.compiled) {
@@ -1263,6 +1268,7 @@ RUR.Controls = function (programming_language) {
         src = library.getValue() + ";\n";
         src += editor.getValue();
         think(0);
+        RUR.controls.end_flag = false;
         RUR.controls.compile_and_run(RUR.visible_world.play_frames);
         setTimeout(function() {$("#reload").attr("disabled", "true");}, 300);
         $("#clear").removeAttr("disabled");

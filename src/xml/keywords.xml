@@ -24,7 +24,7 @@
 <li>in</li>
 <li>instanceof</li>
 <li><a href="javascript:void(0);" onClick="load_page('new')">new</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('return')">Return</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('return')">return</a></li>
 <li>switch</li>
 <li>this</li>
 <li>throw</li>
@@ -63,3 +63,5 @@ language for possible future use; your programs should not use these as variable
     <li>super</li>
     <li>yield</li>
 </ul>
+
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
