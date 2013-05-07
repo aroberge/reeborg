@@ -1,0 +1,67 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('prototype')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport2')">Next</a>
+</nav>
+
+<h1>Teleport!</h1>
+
+<p>Open Reeborg's Diary and execute the following program (the output will appear in the Diary panel)</p>
+<pre class="jscode">var Reeborg = new UsedRobot();
+inspect(Reeborg);</pre>
+<p>Note that <code>inspect()</code> is a function that is only available in Reeborg's world.
+It allows one to see what <em>attributes</em> and <em>methods</em> are defined for an object.</p>
+<p><small>[Note: if you are curious, you can see how <code>inspect</code> is defined by
+executing the program <code>write(inspect)</code> ... but it uses some javascript features
+that we have not explained yet, so it is highly likely that it will not make sense to you.]</small></p>
+<p><em>Methods</em> are identified by the two parentheses () following their names.
+Note that <code>teleport</code> is <b>not</b> a method currently defined.</p>
+<p>Among the attributes, we note the variables <code>x</code> and <code>y</code>.  If you have
+seen cartesian coordinates before, you should have guessed that these refer to Reeborg's position.
+Let's see if this makes sense by running the following program.
+Make sure that you first select the world <span class="world">Empty</span> and that Reeborg's Diary
+is open. And it might be a good idea to <em>step through</em> the program one instruction at a time
+using the <b>step</b> button instead of the <b>execute</b> button.</p>
+<pre class="jscode">var Reeborg = new UsedRobot();
+Reeborg.move();
+write(Reeborg.x);
+write(Reeborg.y);
+Reeborg.x = 8;
+Reeborg.move();
+write(Reeborg.x);</pre>
+<p><em>What happens if you comment out the second <code>move()</code> instruction?</em></p>
+
+<h2>First attempt at teleportation</h2>
+<p>Let's use the above code as an inspiration for writing a teleport method</p>
+<pre class="jscode">UsedRobot.prototype.teleport = function (x, y) {
+    this.x = x;
+    this.y = y;
+};
+
+var Reeborg = new UsedRobot();
+Reeborg.teleport(3, 3);
+Reeborg.teleport(4, 8);
+</pre>
+<p>Step through the program.  Other than Reeborg being created, nothing seems to happen ...
+Add the following instruction at the very end and repeat the code execution.</p>
+<pre class="jscode">Reeborg.move();</pre>
+<p>You should now see that Reeborg has teleported correctly to the last location from which
+he moved.  However, we'd like to see him when he teleports to a given location. To understand
+why we can't do so, we need to find out more about how Reeborg's world is created.
+The way this is normally done by programmers is by studying the source code.   We can use
+both the <code>write</code> and <code>inspect</code> functions to help us do so.</p>
+<p>So, let's try again to have a look at the following:</p>
+<pre class="jscode">var Reeborg = new UsedRobot();
+inspect(Reeborg);</pre>
+<p>making sure that Reeborg's Diary is open.
+Since we are interested in adding a new <em>method</em> (teleport) for Reeborg,
+we identify similar methods and look at their source code using the following:</p>
+<pre class="jscode">var Reeborg = new UsedRobot();
+write(Reeborg.move);
+write(Reeborg.turn_left);
+write(Reeborg.put_token);</pre>
+<p>By examining the output, can you figure out what instruction we might need to add to
+see Reeborg teleport to a new location?</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('prototype')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('teleport2')">Next</a>
+
