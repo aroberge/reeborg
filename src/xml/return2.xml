@@ -1,7 +1,7 @@
 <nav>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return2')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('diary')">Next</a>
 </nav>
 
 <h1>More returns</h1>
@@ -19,4 +19,4 @@ and <span class="world">Storm&nbsp;2</span>, that is, go around the one-room hou
 direction compared with your previous solutions.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('return')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('return2')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('diary')">Next</a>
