@@ -1,0 +1,85 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('logical')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random')">Next</a>
+</nav>
+
+<h1>Switch statement</h1>
+
+<p>When player <em>rock, paper, scissors</em>, both player can choose one of three possible "weapons"
+so that the total number of combinations is 9:
+<ul><li>rock and rock</li>
+<li>rock and paper</li>
+<li>rock and scissors</li>
+<li>paper and rock</li>
+<li>...</li></ul>
+We might be tempted to use <code>if/else</code> statements (which would work), but
+there is an easier, more readable way: <code>switch</code> statements.
+</p>
+<p>Imagine that we have a computer player and a human player.  We could combine
+their respective selection for a "match" as follows:</p>
+
+<pre class="jscode">var player1, player2, match;
+player1 = computer_select();
+player2 = human_select();
+match = player1 + " " + player2;
+</pre>
+<p>For example, if <code>match</code> has the value <code>"rock scissors"</code>, we
+would say that player 1 (the computer) has won.
+Similarly, if <code>match</code> has the value <code>"rock paper"</code>, we would
+conclude that player 2 has won.  Here is how we would use the <code>switch</code>
+statement to determine the winner:</p>
+
+<pre class="jscode">
+switch (match){
+    case "rock paper":
+        alert("Player 2 wins");
+        break;
+    case "rock scissors":
+        alert("Player 1 wins");
+        break;
+    case "paper rock":
+        alert("Player 1 wins");
+        break;
+    case "paper scissors":
+        alert("Player 2 wins");
+        break;
+    case "scissors rock":
+        alert("Player 2 wins");
+        break;
+    case "scissors paper":
+        alert("Player 1 wins");
+        break;
+    case "rock rock":             // even matches
+    case "scissors scissors":
+    case "paper paper":
+        alert("Nobody wins");   // no need to break here
+                               // since nothing else is done below
+    default:
+        // would occur if we have an invalid choice
+        // above; we already alerted the user in that
+        // case so we just ignore it here.
+}
+</pre>
+<p>In the above, the value of the variable <code>match</code> determine which <code>case</code> we consider:
+the code execution begins where the <b>label</b> of a given <code>case</code> statement has the same value
+as the variable <code>match</code>.  From there, the code execute line by line until and unless a
+<code>break</code> statement occurs, in which case we jump out of the <code>switch</code> block.</p>
+<p>It is always a good practice to include a <code>default</code> statement.  The code that follows
+this statement is executed if no matching case is found.  Sometimes, we do want a useful "default"
+action to take place; if not, it might be a good idea to include an <code>alert</code> to inform the
+user that we've encountered an unexpected condition - especially when testing the program to help
+us identify bugs.</p>
+
+<h2>Try it!</h2>
+<p>Implement the game and test it out.  When you are happy that it is working, you
+might want to consider the following:</p>
+<ul><li>Include the possibility of multiple rounds, like we have done for the number guessing game.</li>
+<li>Include a variable to keep track of the score and inform the players of the score at each turn.</li>
+<li>Include the possibility of having either of player 1 or 2 being a computer or a human.</li></ul>
+<h2>Up for a challenge?</h2>
+<p>If you are ambitious, you might want to implement the
+<a href="http://en.wikipedia.org/wiki/Rock-paper-scissors-lizard-Spock">rock paper scissors lizard Spock</a>
+ version.</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('logical')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('hilo_game')">Next</a>
