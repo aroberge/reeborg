@@ -1,0 +1,64 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('switch')">Next</a>
+</nav>
+
+<h1>Logical operators</h1>
+
+<p>Javascript has two logical operators: <code>||</code>, which means "or",
+and <code>&amp;&amp;</code> which means "and". They are used to obtain a "truth value"
+by combining two boolean variables.</p>
+<p>With the <em>logical or</em> operator, <code>||</code>,
+if one of the two boolean variables is true, their combination
+will be true.  Thus, we have:</p>
+<ul><li><code>true || true</code> is <code>true</code></li>
+<li><code>true || false</code> is <code>true</code></li>
+<li><code>false || true</code> is <code>true</code></li>
+<li><code>false || false</code> is <code>false</code></li></ul>
+
+<p>With the <em>logical and</em> operator, <code>&amp;&amp;</code>,
+if one of the two boolean variables is false, their combination
+will be false.  Thus, we have:</p>
+<ul><li><code>true &amp;&amp; true</code> is <code>true</code></li>
+<li><code>true &amp;&amp; false</code> is <code>false</code></li>
+<li><code>false &amp;&amp; true</code> is <code>false</code></li>
+<li><code>false &amp;&amp; false</code> is <code>false</code></li></ul>
+
+<p>We'll use the logical or operator to design a function enabling
+a human paper to choose their weapon.</p>
+
+<p>For the human player, we'll give the possibility to either use the
+first letter of the word or the full word to choose the "weapon":</p>
+
+<pre class="jscode">function human_select() {
+    var selection = prompt("Enter (r)ock, (p)aper or (s)cissors");
+    if (selection === "r" || selection === "rock") {
+        return "rock";
+    } else if (selection === "p" || selection === "paper") {
+        return "paper";
+    } else if (selection === "s" || selection === "scissors") {
+        return "scissors";
+    } else {
+        alert(selection + " is not a valid choice.");
+        return selection;
+    }
+}</pre>
+<p>Note that we included the possibility that the choice given by the
+human would be an incorrect one.</p>
+<p>You can perhaps test this function with the following code:</p>
+<pre class="jscode">var choice = 0;
+while (choice !== "q" ) {  // we use "q" as short for "quit"
+    choice = human_select();
+    write(choice);
+}</pre>
+<p>Note that it is <b>always</b> a good idea to test individual functions
+so as to identify bugs as early as possible and fix them while the number
+of lines of code is still small.</p>
+
+<p>Once you have tested the above code, go to the next lesson to learn about
+<code>switch</code>, <code>case</code> and <code>default</code> and find out how
+to write the rest of the game.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('switch')">Next</a>

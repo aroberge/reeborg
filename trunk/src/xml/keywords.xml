@@ -9,11 +9,11 @@
 
 <ul>
 <li><a href="javascript:void(0);" onClick="load_page('break')">break</a></li>
-<li>case</li>
+<li><a href="javascript:void(0);" onClick="load_page('switch')">case</a></li>
 <li>catch</li>
 <li>continue</li>
 <li>debugger</li>
-<li>default</li>
+<li><a href="javascript:void(0);" onClick="load_page('switch')">default</a></li>
 <li>delete</li>
 <li><a href="javascript:void(0);" onClick="load_page('do_while')">do ... while</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('else')">else</a></li>
@@ -25,7 +25,7 @@
 <li>instanceof</li>
 <li><a href="javascript:void(0);" onClick="load_page('new')">new</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('return')">return</a></li>
-<li>switch</li>
+<li><a href="javascript:void(0);" onClick="load_page('switch')">switch</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('prototype')">this</a></li>
 <li>throw</li>
 <li>typeof</li>
