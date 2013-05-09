@@ -8,7 +8,7 @@
     first appear in the link indicated below.</p>
 
 <ul>
-<li>break</li>
+<li><a href="javascript:void(0);" onClick="load_page('break')">break</a></li>
 <li>case</li>
 <li>catch</li>
 <li>continue</li>

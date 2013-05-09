@@ -47,5 +47,6 @@ my_repeat(turn_left, 4);</pre>
 <p>Open Reeborg's diary and have Reeborg execute the single line program:</p>
 <pre class="jscode">write( repeat );</pre>
 <p>to find out which definition Reeborg uses for the <code>repeat()</code> function.</p>
+
 <a class="left-link" href="javascript:void(0);" onClick="load_page('while_num')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('better_repeat')">Next</a>

@@ -1,0 +1,90 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('break')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random')">Next</a>
+</nav>
+
+<h1>Rock, paper, scissors</h1>
+
+<p>You probably already know the game: rock beats scissors, scissors beat paper,
+and paper beats rock.  Let's implement a javascript version of it and learn three
+new keywords:  <code>switch</code>, <code>case</code>, and <code>default</code>.</p>
+
+<p>This game is played with two players; however we'll just take
+one of the players to be the computer so that you can play against it by yourself.
+Also, we'll just give the code for one round of the game; it will be up to you
+to implement a multiple game round with a <code>while</code> loop, using the
+number guessing game as an example.</p>
+<p>Starting with the computer player, we use the random number generator
+to make one of the three possible choices:</p>
+<pre class="jscode">function computer_select () {
+    var selection = Math.floor(Math.random()*3);
+    if (selection === 0) {
+        return "rock";
+    } else if (selection === 1) {
+        return "paper";
+    } else {
+        return "scissors";
+    }
+}</pre>
+
+<p>For the human player, we'll give the possibility to either use the
+first letter of the word or the full word to choose the "weapon":</p>
+
+<pre class="jscode">function human_select() {
+    var selection = prompt("Enter (r)ock, (p)aper or (s)cissors");
+    if (selection === "r" || selection === "rock") {
+        return "rock";
+    } else if (selection === "p" || selection === "paper") {
+        return "paper";
+    } else if (selection === "s" || selection === "scissors") {
+        return "scissors";
+    } else {
+        alert(selection + " is not a valid choice.");
+        return selection;
+    }
+}</pre>
+
+<pre class="jscode">var player1, player2, match;
+
+
+
+player1 = computer_select();
+player2 = human_select();
+match = player1 + " " + player2;
+
+switch (match){
+    case "rock rock":
+    case "scissors scissors":
+    case "paper paper":
+        alert("Nobody wins");
+        break;
+    case "rock paper":
+        alert("Player 2 wins");
+        break;
+    case "rock scissors":
+        alert("Player 1 wins");
+        break;
+    case "paper rock":
+        alert("Player 1 wins");
+        break;
+    case "paper scissors":
+        alert("Player 2 wins");
+        break;
+    case "scissors rock":
+        alert("Player 2 wins");
+        break;
+    case "scissors paper":
+        alert("Player 1 wins");
+        break;
+    default:
+        // would occur if we have an invalid choice
+        // above; we already alerted the user in that
+        // case so we just ignore it here.
+}
+
+</pre>
+<h2>Up for a challenge?</h2>
+<p>If you are ambitious, you might want to implement the Rock-Paper-Scissors-Lizard-Spock version.</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('break')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('hilo_game')">Next</a>

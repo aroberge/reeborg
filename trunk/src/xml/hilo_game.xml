@@ -1,0 +1,50 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('popup')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('break')">Next</a>
+</nav>
+
+<h1>Guess a number: the game!</h1>
+
+<p>We now know everything we need to write the program for a number guessing game.
+Here's the outline of our program in words:</p>
+<p><em>After asking the player his or her name, we will ask them if they want to play.
+If they do, we will generate a random number and ask the player to guess it. If the
+player guesses a number too high, we will indicate it and ask to guess again; we'll
+do the same thing if the guess is too low.  If the answer is right, we indicate so
+and ask the player if they want to play again.</em></p>
+<p>Each time a new game is started, we will have a loop until the right number is guessed.
+Similarly, we will have a loop enabling us to restart a new game.</p>
+<p>I have written the code for you, replacing most variable names (introduced on
+the first line) by <code>*****</code>. Rewrite this code with the correct variable
+names and start playing!</p>
+
+<pre class="jscode">var answer, guess, player_name, play_game;
+
+***** = prompt("What is your name?");
+***** = confirm("Hello " + ***** + "!  Let's play a game!");
+while(*****) {
+    answer = Math.floor(Math.random()*100) + 1;
+    ***** = parseInt(prompt("Choose a number between 1 and 100."), 10);
+
+    while (***** !== answer) {
+        if (***** < *****) {
+            guess = parseInt(prompt(guess + " is too low; guess again."), 10);
+        }
+        else {
+            ***** = parseInt(prompt(***** + " is too high; guess again."), 10);
+        }
+    }
+
+    ***** = confirm(***** + " is the answer!\n Play again?");
+}
+
+alert("Goodbye " + *****);
+</pre>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('popup')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('break')">Next</a>
+
+
+
+

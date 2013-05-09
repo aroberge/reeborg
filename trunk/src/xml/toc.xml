@@ -115,7 +115,7 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('diary')">Reeborg's diary</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('increment')">Increment</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('while_num')">While counting</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('while_num')">For loops</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('for')">For loops</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('better_repeat')">A better <b>repeat()</b></a>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('more')">More javascript</a></li>
 </ol>
@@ -139,6 +139,16 @@ of increasing complexity.</li>
 <li>% operator</li>
 <li>designing new robots</li>
 </ol>
+
+<h2>Game time!</h2>
+<p>We'll leave Reeborg's world for a few lessons and create two simple games.</p>
+<ol><li><a href="javascript:void(0);" onClick="load_page('random')">Random math stuff</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('popup')">Communicating with the user</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('hilo_game')">Guess a number: the game!</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('break')">Taking a break</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Rock, paper, scissors</a></li>
+<li>Getting input from a user</li></ol>
+
 
 <h2>Odds and ends</h2>
 
