@@ -1,0 +1,120 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random2')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('try')">Next</a>
+</nav>
+
+<h1>Reeborg throws a tantrum</h1>
+<p><em><b>Note:</b> this lesson is a bit long and includes many small programs that you
+definitely should run to confirm your understanding of the topic.</em></p>
+
+
+<p>Select a world with Reeborg in it and try running the following program:</p>
+<pre class="jscode">var tantrum = new RUR.Error("I don't want to!");
+
+throw tantrum;
+move();</pre>
+<p>Reeborg never moves as he throws a tantrum!</p>
+<h2>Taking care of tantrums</h2>
+<p>Let's see three different ways of dealing with Reeborg's tantrum and have
+it move.</p>
+<p>Open Reeborg's diary and run the following program.</p>
+<pre class="jscode">var tantrum = new RUR.Error("I don't want to!");
+
+try {
+    throw tantrum;
+}
+catch (e) {
+    write(e.message);
+}
+finally {
+    move();
+}</pre>
+<p>After running the above code, remove the <code>catch</code> block completely,
+so as to have only the
+<code>try</code> and <code>finally</code> blocks, and run the program again.</p>
+<p>Finally, run the following (which has no <code>finally</code> block):</p>
+<pre class="jscode">var tantrum = new RUR.Error("I don't want to!");
+
+try {
+    throw tantrum;
+}
+catch (e) {
+    write(e.message);
+}
+move();</pre>
+<p>All three versions should give the same result in terms of Reeborg taking one step.</p>
+
+<h2>Javascript errors</h2>
+
+<p>In the above examples, we have seen four new Javascript keywords: <code>throw</code>,
+<code>try</code>, <code>catch</code> and <code>finally</code>.   These all deal with the
+concept of Javascript <b>errors</b>.  For example, execute the following one-line program:</p>
+<pre class="jscode">a();</pre>
+<p>You should see an alert popup  with the following message:</p>
+<pre>TypeError
+a is not a function</pre>
+<p>Now try running the following</p>
+<pre class="jscode">throw new TypeError("a is not a function");</pre>
+<p>Again, you should see an alert popup with the exact same message.</p>
+<p>In addition to the basic <code>Error</code> and <code>TypeError</code>, javascript has
+other available errors such as <code>EvalError</code>, <code>RangeError</code>, <code>ReferenceError</code>,
+<code>SyntaxError</code> and <code>URIError</code>; all javascript <code>errors</code>
+are derived from the basic "type" <code>Error</code>.  Programmers can design their own
+error types, such as was done in Reeborg's world: <code>RUR.Error</code>.  Try running
+the following program:</p>
+<pre class="jscode">try {
+    a();
+} catch(e) {
+    write(e instanceof Error);     // true
+    write(e instanceof TypeError); // true
+    write(e instanceof RUR.Error); // false
+}
+
+write("=============");
+try {
+    take_token();   // in a world where none is present
+} catch(err) {      // any variable name can be used
+    write(err instanceof Error);     // false
+    write(err instanceof RUR.Error); // true
+}</pre>
+
+<h2>Multiple catch blocks</h2>
+<p>Javascript allows multiple <code>catch</code> blocks</p>
+<pre class="jscode">"no strict";  // prevent false error messages in editor
+
+try {
+    a();
+} catch(e if e instanceof TypeError) {
+    write("Caught TypeError");
+} catch(e if e instanceof Error) {
+    write("Caught Error");
+} catch(e if e instanceof RUR.Error) {
+    write("Caught RUR.Error");
+}
+</pre>
+<p>With multiple <code>catch</code> blocks, the first valid one is the one that
+is executed.  Try interchanging <code>TypeError</code> with <code>Error</code> above.</p>
+<p>It is usually recommended to first <code>catch</code> and deal with the more
+specific error possible, such as <code>TypeError</code>, rather than a more
+general one, such as <code>Error</code>.</p>
+<p>While it may not always be possible to completely take care of the
+consequences of an error where it occurs, using embedded <code>try/catch</code> blocks
+one can document where an error occur and deal with it somewhere else.</p>
+<pre class="jscode">try{
+    // many lines of code
+
+    try {
+        a();
+    } catch (e) {
+        write("Error occurred in function X...");
+        throw e;  // sends it further
+    }
+    write("will be not be executed");
+} catch (err) {
+    write("Dealing with previous error");
+}</pre>
+
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('random2')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('try')">Next</a>

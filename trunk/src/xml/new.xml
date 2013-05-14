@@ -26,6 +26,28 @@ Reeborg might be a <code>UsedRobot</code>, it is <code>new</code> to you
 <p>You might want to write a more complicated program, having Reeborg's name preceeding any command
 given to him.</p>
 
+<h2>One more keyword: <code>instanceof</code></h2>
+<p>We have already said that Reeborg, as defined above, is an <b><em>instance of</em></b> a <code>UsedRobot</code>.
+Open Reeborg's diary and verify this:</p>
+
+<pre class="jscode">var Reeborg = new UsedRobot();
+write( Reeborg instanceof UsedRobot);</pre>
+
+<p>Actually, <code>UsedRobot</code> is derived from a more primitive class of objects:
+<code>RUR.PrivateRobot</code> as can easily be verified.</p>
+
+<pre class="jscode">var Reeborg = new UsedRobot();
+write( Reeborg instanceof UsedRobot);
+write( Reeborg instanceof RUR.PrivateRobot);</pre>
+
+<p>However, a  <code>RUR.PrivateRobot</code> is not a <code>UsedRobot</code>:</p>
+
+<pre class="jscode">var Reeborg = new RUR.PrivateRobot();
+write( Reeborg instanceof UsedRobot);
+write( Reeborg instanceof RUR.PrivateRobot);</pre>
+
+<p>We will learn more about "derived" classes of objects later.</p>
+
 <a class="left-link" href="javascript:void(0);" onClick="load_page('oop')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('many')">Next</a>
 

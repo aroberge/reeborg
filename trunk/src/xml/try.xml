@@ -1,0 +1,51 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('tantrum')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random2')">Next</a>
+</nav>
+
+<h1>Random escapes 2</h1>
+
+<p>Select world <span class="world">Maze&nbsp;1</span>.
+Rather than checking to see if there is a wall in front before attempting
+a <code>move</code>, we can have Reeborg attempt a <code>move</code> and,
+if a wall blocks the way so that an error is thrown, we can simply <code>catch</code>
+it.   This approach is sometimes described as
+<em>Better Ask for Forgiveness than Permission</em> (BAFP).  </p>
+
+<pre class="jscode">var result;
+RUR.world.max_steps = 10000;
+think(0);
+
+while (!at_goal()) {
+    result = Math.random();
+    if (result < 1/3 ){
+        try {
+            move();
+        } catch (e) {
+            // don't move!
+        }
+    } else if (result < 2/3 ) {
+        turn_left();
+    } else {
+        turn_right();
+    }
+}</pre>
+
+<h2>Which approach is preferable?</h2>
+
+<p>In most cases, the LBYL approach that we used in the first example, is the recommended way to deal
+    with potential problems.
+<br>If an exceptional (<code>error</code>) condition is <b>not</b> expected to occur often,
+the BAFP approach <b>might</b> be preferred - especially if would be better dealt with
+elsewhere in the program.
+However, if the exceptional condition is expected to occur often (as is the case here),
+the LBYL approach is definitely recommended.</p>
+<p>The makers of Reeborg's world found that the logical way to deal with errors
+(such as Reeborg hitting a wall) that occur in <b>your</b> programs was to use the BAFP
+approach.  Thus <b>your</b> program is run without checking first to see if problems will arise and
+the execution of <b>your</b> program is stopped by throwing an error and catching it elsewhere,
+giving the opportunity to Reeborg to shout at you.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('tantrum')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('random2')">Next</a>
