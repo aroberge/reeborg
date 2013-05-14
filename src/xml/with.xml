@@ -1,8 +1,8 @@
-<h1>Example with <code>with</code></h1>
+<h1>The <code>with</code> keyword</h1>
 <p>Just a quick thing to expand upon.</p>
 <pre class="jscode">// select a world with a robot.
-var Reeborg = new UsedRobot(2,2); // create a second one.
-move();   // refers to the first one.
+var Reeborg = new UsedRobot(2,4); // create a second one.
+move();   // refers to the first robot.
 Reeborg.move(); // second.
 
 // try uncommenting the following
@@ -28,7 +28,7 @@ javascript mode, i.e. without the usual <b>strict</b> safeguard.  In addition,
 I use jshint to identify any mistakes and point them out; this is disabled when
 you use the <code>"no strict";</code> mode, exclusive to Reeborg's world. For example:</p>
 <pre class="jscode">"no strict";
-Reeborg = new UsedRobot(2,2); // we did not use "var" !!!
+Reeborg = new UsedRobot(2,4); // we did not use "var" !!!
 move();                // make sure to select a world with a default robot.
 Reeborg.move();
 

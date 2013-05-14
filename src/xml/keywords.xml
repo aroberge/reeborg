@@ -10,24 +10,25 @@
 <ul>
 <li><a href="javascript:void(0);" onClick="load_page('break')">break</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('switch')">case</a></li>
-<li>catch</li>
+<li><a href="javascript:void(0);" onClick="load_page('tantrum')">catch</a></li>
 <li>continue</li>
 <li>debugger</li>
 <li><a href="javascript:void(0);" onClick="load_page('switch')">default</a></li>
 <li>delete</li>
 <li><a href="javascript:void(0);" onClick="load_page('do_while')">do ... while</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('else')">else</a></li>
-<li>finally</li>
+<li><a href="javascript:void(0);" onClick="load_page('tantrum')">finally</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('for')">for</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('rule3')">function</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('if')">if</a></li>
 <li>in</li>
-<li>instanceof</li>
+<li><a href="javascript:void(0);" onClick="load_page('new')">instanceof</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('new')">new</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('return')">return</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('switch')">switch</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('prototype')">this</a></li>
-<li>throw</li>
+<li><a href="javascript:void(0);" onClick="load_page('tantrum')">throw</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('tantrum')">try</a></li>
 <li>typeof</li>
 <li><a href="javascript:void(0);" onClick="load_page('france')">var</a></li>
 <li>void</li>

@@ -1,6 +1,10 @@
+<h1>Table of contents</h1>
+
+<ol>
 <h2>Introduction</h2>
 
-<ol><li><a href="javascript:void(0);" onClick="load_page('welcome')">Welcome to Reeborg's world</a>: Getting
+
+<li><a href="javascript:void(0);" onClick="load_page('welcome')">Welcome to Reeborg's world</a>: Getting
 familiar with the layout of this website.</li>
 <li><a href="javascript:void(0);" onClick="load_page('move')">First program</a>: Making Reeborg
 move for the first time.</li>
@@ -19,11 +23,11 @@ about tokens and what Reeborg can do with them.</li>
 <li><a href="javascript:void(0);" onClick="load_page('rule2')">Rule number 2</a>: one of
 the most important rules for writing computer programs.</li>
 <li><a href="javascript:void(0);" onClick="load_page('summary1')">Summary</a></li>
-</ol>
+
 
 <h2> 7 series of challenges</h2>
 
-<ol>
+
 <li><a href="javascript:void(0);" onClick="load_page('challenges1')">Introduction to the challenges</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('center')">Finding the center</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('around')">Around the world</a></li>
@@ -33,11 +37,11 @@ the most important rules for writing computer programs.</li>
 <li><a href="javascript:void(0);" onClick="load_page('storm')">Stormy weather</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('newspaper1')">Newspaper delivery</a>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('summary2')">Summary</a></li>
-</ol>
+
 
 <h2>Defining new things</h2>
 
-<ol>
+
 <li><a href="javascript:void(0);" onClick="load_page('rule3')">Rule number 3</a>: avoiding
 repetitions, and introducing the first javascript keyword: <code>function</code>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('functions1')">How to think about <code>function</code></a>.</li>
@@ -52,11 +56,11 @@ the importance of choosing meaningful names (see Rule # 2).</li>
 <li><a href="javascript:void(0);" onClick="load_page('france')">Reeborg goes to France</a>:
 introducing the second javascript keyword: <code>var</code>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('summary3')">Summary</a></li>
-</ol>
+
 
 <h2>Making choices</h2>
 
-<ol><li><a href="javascript:void(0);" onClick="load_page('if')">If only...</a>:
+<li><a href="javascript:void(0);" onClick="load_page('if')">If only...</a>:
 introducing <b>three</b> javascript keywords, <code>if</code>, <code>true</code> and
 <code>false</code>, as well as one new instruction, <code>done()</code>,
 and one condition, <code>token_here()</code>.</li>
@@ -72,11 +76,11 @@ him; you also learn about a new javascript keyword: <code>else</code>.
 begin negative.
 <li><a href="javascript:void(0);" onClick="load_page('while')">For a <code>while</code></a>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('newspaper3')">Newspaper delivery revisited again</a>.</li>
-</ol>
+
 
 <h2> Stepwise refinement</h2>
 
-<ol>
+
 <li><a href="javascript:void(0);" onClick="load_page('refine1')">Refinements: part 1</a>:
 a multi-part tutorial in creating a program capable of handling worlds
 of increasing complexity.</li>
@@ -86,30 +90,30 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('refine5')">Refinements: part 5</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('rule4')">Rule number 4</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('surprises')">Surprises!</a></li>
-</ol>
+
 
 <h2>Revisiting some challenges</h2>
 
-<ol>
+
 <li><a href="javascript:void(0);" onClick="load_page('challenges2')">Re-introduction to some challenges</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('harvest2')">Harvest time</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('storm2')">Stormy weather</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('center2')">Finding the center</a></li>
-</ol>
+
 
 <h2>Recursion</h2>
 
-<ol>
+
 <li><a href="javascript:void(0);" onClick="load_page('recursion')">Recursion</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('recursion2')">Tricky recursion</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('recursion3')">More recursion</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('recursion4')">Counting on recursion</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('recursion5')">Recursive challenges</a></li>
-</ol>
+
 
 <h2>More javascript keywords</h2>
 
-<ol>
+
 <li><a href="javascript:void(0);" onClick="load_page('return')">Return</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('return2')">More returns</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('diary')">Reeborg's diary</a></li>
@@ -118,12 +122,12 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('for')">For loops</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('better_repeat')">A better <b>repeat()</b></a>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('more')">More javascript</a></li>
-</ol>
+
 
 
 <h2>Object Oriented Programming (OOP)</h2>
 
-<ol>
+
 <li><a href="javascript:void(0);" onClick="load_page('oop')">The dot notation</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('new')">A Used Robot gets his name</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('many')">Many robots</a></li>
@@ -138,31 +142,34 @@ of increasing complexity.</li>
 <li>extending a prototype</li>
 <li>% operator</li>
 <li>designing new robots</li>
-</ol>
+
 
 <h2>Game time!</h2>
 <p>We'll leave Reeborg's world for a few lessons and create two simple games.</p>
-<ol><li><a href="javascript:void(0);" onClick="load_page('random')">Random math stuff</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('random')">Random math stuff</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('popup')">Communicating with the user</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('hilo_game')">Guess a number: the game!</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('break')">Taking a break</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Rock, paper, scissors</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('logical')">Logical operators</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('switch')">Switch statement</a></li>
-</ol>
 
+<h2>Random escapes</h2>
+<p>We learn about throwing and catching errors...</p>
+<li><a href="javascript:void(0);" onClick="load_page('random2')">Random escapes</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('tantrum')">Reeborg throws a tantrum</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('try')">Random escapes 2</a></li>
 
 <h2>Odds and ends</h2>
 
-<ol>
-    <li>Random numbers in javascript - game, guess a number</li>
+
 <li>try and catch: better to ask for forgiveness than permission (uses maze and random numbers)</li>
-    <li><a href="javascript:void(0);" onClick="load_page('with')">with</a></li>
-</ol>
+    <li><a href="javascript:void(0);" onClick="load_page('with')">The <code>with</code> keyword</a></li>
+
 
 <h2>Appendices</h2>
 
-<ol>
+
 <li><a href="javascript:void(0);" onClick="load_page('keywords')">Javascript keywords</a></li>
 <li>Designing your own worlds and challenges</li>
 </ol>
