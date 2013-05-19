@@ -1,14 +1,14 @@
 <nav>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport3')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport4')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array')">Next</a>
 </nav>
 
 <h1>Teleporting correctly</h1>
 
 <p>In the previous lesson, you might have found that the attribute <code>_is_leaky</code> had
 the value <code>true</code>.  Let's turn it off an on to simulate what a teleportation might look like,
-adding a couple of <code>move</code> instructions to make sure everything works correctly:</p>
+adding a couple of other instructions to make sure everything works correctly:</p>
 
 <pre class="jscode">UsedRobot.prototype.teleport = function (x, y) {
     this.prev_x = this.x;
@@ -24,11 +24,12 @@ adding a couple of <code>move</code> instructions to make sure everything works 
 var Reeborg = new UsedRobot();
 Reeborg.move();
 Reeborg.teleport(3, 3);
+Reeborg.turn_left();
 Reeborg.teleport(4, 8);
 Reeborg.move();
 </pre>
 <p>Try it!</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('teleport3')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('teleport4')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('array')">Next</a>
 

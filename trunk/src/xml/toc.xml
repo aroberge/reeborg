@@ -137,9 +137,8 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('teleport2')">Teleport again!</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('teleport3')">More teleportation</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('teleport4')">Teleporting correctly</a></li>
-<li>multiple robots</li>
-<li>local and global variables</li>
-<li>extending a prototype</li>
+<li><a href="javascript:void(0);" onClick="load_page('array')">Javascript arrays</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('array2')">Many robots ... again</a></li>
 <li>% operator</li>
 <li>designing new robots</li>
 
@@ -155,21 +154,22 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('switch')">Switch statement</a></li>
 
 <h2>Random escapes</h2>
-<p>We learn about throwing and catching errors...</p>
+<p>Back to Reeborg's world where we learn about throwing and catching errors...</p>
 <li><a href="javascript:void(0);" onClick="load_page('random2')">Random escapes</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('tantrum')">Reeborg throws a tantrum</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('try')">Random escapes 2</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('continue')">Continue</a></li>
 
 <h2>Odds and ends</h2>
+<p>A few miscellaneous things not covered in previous lessons.</p>
 
-
-<li>try and catch: better to ask for forgiveness than permission (uses maze and random numbers)</li>
-    <li><a href="javascript:void(0);" onClick="load_page('with')">The <code>with</code> keyword</a></li>
-
-
-<h2>Appendices</h2>
-
-
+<li><a href="javascript:void(0);" onClick="load_page('with')">The <code>with</code> keyword</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('keywords')">Javascript keywords</a></li>
-<li>Designing your own worlds and challenges</li>
 </ol>
+
+<h2>User contributed challenges</h2>
+
+<a href="javascript:void(0);" onClick="load_page('edit_world')">Designing your own worlds and challenges</a>
+
+<ol type='A'>
+<li>Your contribution here</li></ol>

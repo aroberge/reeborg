@@ -49,7 +49,7 @@
 
 <p>Inspired by Guido van Robot, itself inspired by the original Karel the Robot
 created by Richard Pattis, Reeborg first appeared in RUR-PLE, a program I created
-to teach myself programming as a hobby.</p>
+to learn Python, picking up programming as a hobby.</p>
 <p>Reeborg is there to guide you in learning computer programming in Javascript.
 Why Javascript?   The main reason is because it is the native language
 for programming web browsers.  Since Reeborg's program is written in Javascript,

@@ -60,7 +60,5 @@ by the designers of Reeborg's world to help prevent infinite loops.</p>
 <p>Before we see another way of escaping from the maze, we need to learn
 about Reeborg's tantrums!</p>
 
-
-
 <a class="left-link" href="javascript:void(0);" onClick="load_page('switch')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('tantrum')">Next</a>
