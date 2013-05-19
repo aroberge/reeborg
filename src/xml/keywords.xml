@@ -11,7 +11,7 @@
 <li><a href="javascript:void(0);" onClick="load_page('break')">break</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('switch')">case</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('tantrum')">catch</a></li>
-<li>continue</li>
+<li><a href="javascript:void(0);" onClick="load_page('continue')">continue</a></li>
 <li>debugger</li>
 <li><a href="javascript:void(0);" onClick="load_page('switch')">default</a></li>
 <li>delete</li>
