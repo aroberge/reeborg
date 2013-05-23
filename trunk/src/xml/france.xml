@@ -47,9 +47,7 @@ names that look like many words that would be a phrase; thus, instead of
 is not normally required.  Reeborg's world uses what is known as the <b>strict</b> mode, which
 has many advantages in terms of producing more robust code.  There is a way to disable
 this strict mode within Reeborg's world, which I will mention later.</p>
-<p>For those that are familiar with Javascript <b>strict</b> mode, if you look in one of
-the Appendices and scan the list of keywords, you might be able to figure out
-where I discuss bypassing the strict mode restriction.</p>
+
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('repeat')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>

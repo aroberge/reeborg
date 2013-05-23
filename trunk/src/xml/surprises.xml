@@ -10,7 +10,8 @@ instruction.  Then try this slightly modified program
 with the following hurdle races <span class="world">Hurdles&nbsp;1</span>,
 <span class="world">Hurdles&nbsp;2</span> and <span class="world">Hurdles&nbsp;3</span>.
 You will find that this program, which is quite different than the ones you had
-written before, works just as well. <b>Note:</b> you will need to change
+written before to solve the hurdles challenges, works just as well.
+<b>Note:</b> you will need to change
 <code>found_starting_point</code> by something appropriate.</p>
 
 <p>Now, try it with <span class="world">Hurdles&nbsp;4</span>. Surprise! It

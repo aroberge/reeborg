@@ -165,11 +165,11 @@ of increasing complexity.</li>
 
 <li><a href="javascript:void(0);" onClick="load_page('with')">The <code>with</code> keyword</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('keywords')">Javascript keywords</a></li>
-</ol>
+
 
 <h2>User contributed challenges</h2>
 
-<a href="javascript:void(0);" onClick="load_page('edit_world')">Designing your own worlds and challenges</a>
-
+<li><a href="javascript:void(0);" onClick="load_page('edit_world')">Designing your own worlds and challenges</a></li>
+</ol>
 <ol type='A'>
 <li>Your contribution here</li></ol>

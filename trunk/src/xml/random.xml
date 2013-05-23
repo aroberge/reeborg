@@ -17,7 +17,7 @@ for(var i=0; i < 10; i++) {
 }
 </pre>
 <p><code>random()</code> and <code>floor()</code> are two methods from the javascript
-<code>Math</code> module.  <code>random()</code> generates a random number between 0 and 1; by
+<code>Math</code> object.  <code>random()</code> generates a random number between 0 and 1; by
 random we mean a number that can not be predicted and will be different every time the
 method is called.</p>
 <p><code>floor()</code> takes an arbitrary number and removes the decimal part leaving only

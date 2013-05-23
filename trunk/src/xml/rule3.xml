@@ -33,7 +33,7 @@ function some_well_chosen_name () {
 }</pre>
 <p>
 <code>function</code> is our very first javascript <b>keyword</b>; keywords
-are names in a computing programs that are assigned some special meaning that
+are names in a programming language that are assigned some special meaning that
 will be the same indendently of who writes the program. Note how it appears
 in a different colour above: all javascript keywords will be identified
 similarly. Notice how the, curly braces <code>{ }</code> surround what

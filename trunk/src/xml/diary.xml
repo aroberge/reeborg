@@ -53,7 +53,7 @@ write(area);  // will output 24</pre>
 <h2>A word of caution</h2>
 <p>Combining strings and numbers can yield unexpected results:</p>
 <pre class="jscode">write("2" + 2);</pre>
-<p><b>Important</b>: the <em>character</em> "2" is not the same as teh <em>number</em> 2.</p>
+<p><b>Important</b>: the <em>character</em> "2" is not the same as the <em>number</em> 2.</p>
 <p>Finally, note that spaces around operators, like <code>+</code>, are ignored by javascript; however
 they often make a program easier to read for humans.</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('return2')">Previous</a>
