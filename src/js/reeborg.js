@@ -599,6 +599,7 @@ RUR.visible_world = {
         var that = this;
         this.background_canvas = document.getElementById("background_canvas");
         this.background_ctx = this.background_canvas.getContext("2d");
+        this.background_ctx.font = "bold 12px sans-serif";
         this.height = this.background_canvas.height;
         this.width = this.background_canvas.width;
         this.wall_ctx = document.getElementById("wall_canvas").getContext("2d");
@@ -668,6 +669,10 @@ RUR.visible_world = {
         for(y=1; y <= this.rows; y++){
             ctx.fillText(y, x, this.height - (y+0.3)*this.wall_length);
         }
+        // axis labels
+        ctx.fillStyle = this.wall_color;
+        ctx.fillText("x", this.width/2, this.height - 10);
+        ctx.fillText("y", 5, this.height/2 );
     },
     draw_background_walls : function () {
         "use strict";
@@ -1125,6 +1130,7 @@ RUR.visible_world = {
             }
         }
         if (DEBUG.ON) {
+            this.robot_ctx.font = "bold 12px sans-serif";
             this.robot_ctx.fillStyle = "blue";
             this.robot_ctx.fillText(info, 5, 15);
         }

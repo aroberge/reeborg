@@ -5,7 +5,9 @@ header {position: absolute; top: 0; left: 0; z-index: 10; width: 99.9%;}
 h1 {font-size: 1.7em; color: #224488;}
 h2 {font-size: 1.3em; color: #224488;}
 h3 {font-size: 1.1em; color: #224488;}
-ol li a, #contents ul li a {color: #224488 !important;}
+#contents p a, ol li a, #contents ul li a {color: #224488 !important;}
+
+
 dl {border: 2px solid #886622; border-radius: 6px; background-color: #faf5ea}
 input {border: 2px solid seagreen; background-color: #eff}
 #logo{float: left; padding-left: 30px; padding-right: 20px; margin-right: 50px; font-size: 30px;
@@ -74,7 +76,7 @@ nav a:first-child{border-radius: 20px 0 0 20px;}
 .panel {float: left; position: relative; top: 0; height: 94%; padding: 3px;  overflow-y: auto;
   overflow-x: hidden; display: none; border-right: 1px dashed #124;}
 #panels div.active {display: block; max-width: 800px; margin: auto;}
-#content { margin-left: 10px;}
+#content { margin-left: 10px; top:60px;}
 #canvas-wrapper {
     position: relative;
     top:10px;
@@ -138,6 +140,10 @@ a.left-link, a.right-link, button, a.fake_button{
     border-right: 1px solid rgba(0,0,0,0.1);
     border-top: 0;
     border-bottom: 0;
+}
+a[href^="http"] {
+    padding-right:16px;
+    background:transparent url(../images/external_link.png) right no-repeat;
 }
 
 .ui-tabs .ui-tabs-nav li, .ui-tabs .ui-tabs-nav li.ui-tabs-active:hover {top:3px; border-bottom: 3px solid #75a110;}

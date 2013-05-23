@@ -39,6 +39,9 @@ Erdna.move();
 RUR.world.robots[1].move();
 
 move();</pre>
+<p>You might find it useful to include the line</p>
+<pre class="jcode">DEBUG.ON = true;</pre>
+<p>to see some additional info printed just above Reeborg's world.</p>
 <p>Next, make sure that Reeborg's Diary is open and execute the following:</p>
 <pre class="jscode">write(move);</pre>
 <p>Notice how this function contains only one instruction which should match an

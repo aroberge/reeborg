@@ -6,7 +6,7 @@ move();   // refers to the first robot.
 Reeborg.move(); // second.
 
 // try uncommenting the following
-/* with( Reeborg) {
+/* with (Reeborg) {
     move();
     move();
 }
@@ -32,7 +32,7 @@ Reeborg = new UsedRobot(2,4); // we did not use "var" !!!
 move();                // make sure to select a world with a default robot.
 Reeborg.move();
 
-with( Reeborg) {
+with (Reeborg) {
     move();      // same as Reeborg.move();
     move();
 }

@@ -25,7 +25,7 @@ will be false.  Thus, we have:</p>
 <li><code>false &amp;&amp; true</code> is <code>false</code></li>
 <li><code>false &amp;&amp; false</code> is <code>false</code></li></ul>
 
-<p>We'll use the logical or operator to design a function enabling
+<p>We'll use the logical <code>||</code> operator to design a function enabling
 a human paper to choose their weapon.</p>
 
 <p>For the human player, we'll give the possibility to either use the

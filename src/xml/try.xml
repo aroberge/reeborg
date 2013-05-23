@@ -26,9 +26,9 @@ while (!at_goal()) {
             // don't move!
         }
     } else if (result < 2/3 ) {
-        turn_left();
-    } else {
         turn_right();
+    } else {
+        turn_left();
     }
 }</pre>
 

@@ -22,7 +22,7 @@ drizzle, etc., we could add other choices using additional <code>else if {...}</
 <p>A series of <code>if/else if/ ... /else</code> statements is
 equivalent to inserting the <b>first</b> code block that evaluates to <code>true</code>.  Thus</p>
 <pre class="jscode">if ( false ) {
-    do_1f();
+    do_1();
 } else if ( true ){
     do_2();
 } else if ( true ){
