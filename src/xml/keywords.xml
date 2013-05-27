@@ -14,7 +14,7 @@
 <li><a href="javascript:void(0);" onClick="load_page('continue')">continue</a></li>
 <li>debugger</li>
 <li><a href="javascript:void(0);" onClick="load_page('switch')">default</a></li>
-<li>delete</li>
+<li><a href="javascript:void(0);" onClick="load_page('teleport2')">delete</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('do_while')">do ... while</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('else')">else</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('tantrum')">finally</a></li>
