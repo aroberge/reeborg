@@ -1,7 +1,7 @@
 <nav>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('try')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('continue')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('modify')">Next</a>
 </nav>
 
 <h1>Continue</h1>
@@ -68,4 +68,4 @@ whenever <code>---</code> is written, the corresponding integer is not written, 
 
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('try')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('continue')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('modify')">Next</a>
