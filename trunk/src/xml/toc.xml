@@ -139,8 +139,7 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('teleport4')">Teleporting correctly</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('array')">Javascript arrays</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('array2')">Many robots ... again</a></li>
-<li>% operator</li>
-<li>designing new robots</li>
+<li><a href="javascript:void(0);" onClick="load_page('remainder')">Remainder operator</a></li>
 
 
 <h2>Game time!</h2>
@@ -159,6 +158,8 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('tantrum')">Reeborg throws a tantrum</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('try')">Random escapes 2</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('continue')">Continue</a></li>
+
+<h2>Reeborg 2.0</h2>
 
 <h2>Odds and ends</h2>
 <p>A few miscellaneous things not covered in previous lessons.</p>

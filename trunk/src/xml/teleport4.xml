@@ -7,7 +7,23 @@
 <h1>Teleporting correctly</h1>
 
 <p>In the previous lesson, you might have found that the attribute <code>_is_leaky</code> had
-the value <code>true</code>.  Let's turn it off an on to simulate what a teleportation might look like,
+the value <code>true</code> and that the method <code>is_leaky()</code> could be used to set the
+value of that attribute.  Note how the attribute name starts with the underscore character
+<code>_</code>: this follows a common convention of denoting a <b>private</b> attribute, i.e.
+one that should not be modified by another programmer.</p>
+<p>You may wonder what the reason for doing so here ...  In fact, I had two reasons:</p>
+<ul><li>I wanted for you to learn the convention used for denoting private variables.</li>
+<li>These lessons are going to be translated into French. The method name <code>is_leaky()</code>
+is going to be translated into <code>a_une_fuite()</code> and occurs only at one place
+in the program which is the only place where it has to be translated. (Actually, rather
+than changing the existing code by translating it, a duplicate of that function with the new
+name will be introduced.)
+The private variable <code>_is_leaky</code> is used elsewhere
+(when drawing the oil leak for example) and will <b>not</b>
+need to be translated everywhere it occurs.  If I decide to change its name everywhere,
+your own programs will still work provided you use the <b>public</b> method <code>is_leaky()</code>.</li></ul>
+<p>So, using the public method, let's turn the leak off and on
+to simulate what a teleportation might look like,
 adding a couple of other instructions to make sure everything works correctly:</p>
 
 <pre class="jscode">UsedRobot.prototype.teleport = function (x, y) {
@@ -16,9 +32,9 @@ adding a couple of other instructions to make sure everything works correctly:</
     this.x = x;
     this.y = y;
 
-    this._is_leaky = false;  // hide the leak
-    RUR.world.add_frame();
-    this._is_leaky = true;  // restore it
+    this.is_leaky(false);   // hide the leak
+    RUR.world.add_frame();  // draw the robot at the new position
+    this.is_leaky(true);    // restore the leak
 };
 
 var Reeborg = new UsedRobot();
@@ -28,7 +44,7 @@ Reeborg.turn_left();
 Reeborg.teleport(4, 8);
 Reeborg.move();
 </pre>
-<p>Try it!</p>
+<p><b>Try it!</b></p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('teleport3')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('array')">Next</a>

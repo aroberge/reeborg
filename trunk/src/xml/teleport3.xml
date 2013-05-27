@@ -38,9 +38,11 @@ a trace.  We can do this by fixing (temporarily) Reeborg's leak.</p>
 <p>Once again, let's inspect Reeborg's methods and attributes using the following program:</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
 inspect(Reeborg);
-write(Reeborg.something);</pre>
-<p>Try to identify a relevant attribute that could be used instead of <code>something</code> above
-to determine its value.</p>
+write(Reeborg.something);  // an attribute with a suggestive name
+write(Reeborg.something_else);  // a method with a suggestive name</pre>
+<p>Try to identify the relevant attribute and method that could be used instead of
+<code>something</code> and <code>something_else</code> above
+to determine their meaning.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('teleport2')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('teleport4')">Next</a>
