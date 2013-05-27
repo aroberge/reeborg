@@ -20,7 +20,7 @@ Reeborg.move();</pre>
 
 <p>If you don't like the combination of <code>new</code> with  <code>Used</code>, remember that while
 Reeborg might be a <code>UsedRobot</code>, it is <code>new</code> to you
-<small>[spoken like a true used car salesman].</small></p>
+<small>[spoken like a true used robot salesperson].</small></p>
 
 <h2>Try it!</h2>
 <p>You might want to write a more complicated program, having Reeborg's name preceeding any command

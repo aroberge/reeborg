@@ -160,6 +160,13 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('continue')">Continue</a></li>
 
 <h2>Reeborg 2.0</h2>
+<li><a href="javascript:void(0);" onClick="load_page('modify')">Adding new methods</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('fixing1')">Fixing Reeborg</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('fixing2')">Turning right</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('fixing3')">Fixing the compass</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('fixing4')">Seeing walls</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('fixing5')">Fixing the oil leak</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('fixed')">Testing the ImprovedRobot</a></li>
 
 <h2>Odds and ends</h2>
 <p>A few miscellaneous things not covered in previous lessons.</p>
