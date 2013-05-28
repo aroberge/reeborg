@@ -1670,10 +1670,10 @@ $(document).ready(function() {
 
     load_content();
 
-    $("#contents").dialog({autoOpen:true, width:800, height:$(window).height()-30, maximize: false, position:"top"});
+    $("#contents").dialog({autoOpen:true, width:600, height:$(window).height()-100, maximize: false, position: ['top', 'middle']});
     $("#contents-button").on("click", function() {
         load_content();
-        $("#contents").dialog("open");
+        $("#contents").dialog({autoOpen:false, width:600, height:$(window).height()-100, maximize: false, position: ['top', 'middle']});
         return false;
     });
 
