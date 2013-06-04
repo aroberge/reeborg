@@ -87,6 +87,7 @@ RUR.World = function () {
     this.tokens = undefined;
     this.imported_world = undefined;
     this.json_world_string = undefined;
+    this.robot_world_active = false;
 
     this.think = function (delay) {
         if (delay >= 0  && delay <= 10000){
@@ -1231,6 +1232,21 @@ RUR.Controls = function (programming_language) {
         RUR.controls.compile_and_run(RUR.visible_world.play_frames);
     };
 
+    this.run2 = function () {
+        var src, saved_write;
+        $("#run2").attr("disabled", "true");
+        src = library.getValue() + ";\n";
+        src += editor.getValue();
+        think(0);
+        RUR.controls.end_flag = false;
+        saved_write = write;
+        write = write_now;
+        RUR.controls.compile_and_run(function () {});
+        write = saved_write;
+        setTimeout(function() {$("#reload").attr("disabled", "true");}, 300);
+        $("#clear").removeAttr("disabled");
+    };
+
     this.pause = function (ms) {
         RUR.visible_world.running = false;
         clearTimeout(RUR.timer);
@@ -1238,7 +1254,7 @@ RUR.Controls = function (programming_language) {
         if (ms !== undefined){
             RUR.timer = setTimeout(RUR.controls.run, ms);
         } else {
-            $("#run").removeAttr("disabled");
+            // $("#run").removeAttr("disabled");
             $("#step").removeAttr("disabled");
         }
     };
@@ -1268,18 +1284,6 @@ RUR.Controls = function (programming_language) {
         $("#output-pre").html("");
     };
 
-    this.run2 = function () {
-        var src;
-        $("#run2").attr("disabled", "true");
-        src = library.getValue() + ";\n";
-        src += editor.getValue();
-        think(0);
-        RUR.controls.end_flag = false;
-        RUR.controls.compile_and_run(RUR.visible_world.play_frames);
-        setTimeout(function() {$("#reload").attr("disabled", "true");}, 300);
-        $("#clear").removeAttr("disabled");
-    };
-
     this.clear = function () {
         $("#run2").removeAttr("disabled");
         $("#clear").attr("disabled", "true");
@@ -1292,10 +1296,9 @@ RUR.Controls = function (programming_language) {
     };
 
     this.deselect = function () {
-        $('#select_world').prepend( new Option("Select world", "remove", false, true));
         $("#stop").attr("disabled", "true");
         $("#pause").attr("disabled", "true");
-        $("#run").attr("disabled", "true");
+        // $("#run").attr("disabled", "true");
         $("#step").attr("disabled", "true");
         $("#reload").attr("disabled", "true");
         $("#run2").removeAttr("disabled");
@@ -1304,6 +1307,7 @@ RUR.Controls = function (programming_language) {
         RUR.world.import_("{}");
         RUR.world.reset();
         RUR.visible_world.init();
+        RUR.world.robot_world_active = false;
     };
 };
 
@@ -1418,7 +1422,7 @@ var write = function (s) {
 
 var write_now = function (s){
     $("#output-pre").append(s + "\n");
-}
+};
 
 UsedRobot.prototype = Object.create(RUR.Robot.prototype);
 UsedRobot.prototype.constructor = UsedRobot;
@@ -1471,6 +1475,23 @@ function set_resizable(all_active_panels, index){
         }
     });
 }
+
+function update_controls() {
+    if ($("#world-panel").hasClass("active")){
+        $("#step").removeClass("hidden");
+        $("#select_world").removeClass("hidden");
+        if ( $("#select_world").val !== "None") {
+            RUR.world.robot_world_active = true;
+        }
+    } else {
+        $("#step").addClass("hidden");
+        $("#select_world").addClass("hidden");
+        RUR.world.robot_world_active = false;
+    }
+}
+
+
+
 
 /*******   User notes
 
@@ -1526,7 +1547,7 @@ function addNote() {
     }
     localStorage.setItem(key, user_note);
     doShowNotes();
-    document.forms.notes_editor.data.value = ""
+    document.forms.notes_editor.data.value = "";
 }
 
 function doDeleteNote(key) {
@@ -1556,8 +1577,6 @@ RUR.load_user_worlds = function () {
     }
 };
 
-
-
 var load_page = function (page){
     $.ajax({
         url: "src/xml/"+page+".xml",
@@ -1583,7 +1602,7 @@ var load_page = function (page){
 
 $(document).ready(function() {
 // init
-    var all_active_panels, child;
+    var all_active_panels, child, button_closed = false;
     all_active_panels = reset_widths();
 
     $("#header-child button").on("click", function(){
@@ -1601,6 +1620,7 @@ $(document).ready(function() {
             }
         }
         reset_widths();
+        update_controls();
     });
 
     $(function() {
@@ -1670,17 +1690,30 @@ $(document).ready(function() {
 
     load_content();
 
-    $("#contents").dialog({autoOpen:true, width:600, height:$(window).height()-100, maximize: false, position: ['top', 'middle']});
+    $("#contents").dialog({autoOpen:false, width:600, height:$(window).height()-100,
+        maximize: false, position: ['top', 'middle'],
+        beforeClose: function( event, ui ) {
+                $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}
+        });
     $("#contents-button").on("click", function() {
-        load_content();
-        $("#contents").dialog({autoOpen:false, width:600, height:$(window).height()-100, maximize: false, position: ['top', 'middle']});
+        if ($("#contents-button").hasClass("reverse-blue-gradient")) {
+            load_content();
+            $("#contents").dialog("open");
+        } else {
+            $("#contents").dialog("close");
+        }
         return false;
     });
 
-    $("#help").dialog({autoOpen:false, width:600,  height:500, maximize: false, position:"top"});
+    $("#help").dialog({autoOpen:false, width:600,  height:500, maximize: false, position:"top",
+        beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
     $("#help-button").on("click", function() {
         if (RUR.ajax_requests.help !== undefined){
-            $("#help").dialog( "open");
+            if ($("#help-button").hasClass("reverse-blue-gradient")) {
+                $("#help").dialog("open");
+            } else {
+                $("#help").dialog("close");
+            }
             return;
         }
         $('#help').load("src/xml/help.xml");
@@ -1702,19 +1735,18 @@ $(document).ready(function() {
         RUR.world.import_(data);
         RUR.world.reset();
         RUR.controls.reload();
-        $("#run2").attr("disabled", "true");
-        $("#deselect").removeAttr("disabled");
-        $("#clear").attr("disabled", "true");
+        // $("#run2").attr("disabled", "true");
+        // $("#clear").attr("disabled", "true");
     };
 
     $("#select_world").change(function() {
-        $("select option[value='remove']").remove();
         var data, val = $(this).val();
+        RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
             RUR.__load_world(data);
             $("select").attr("style", "background-color:#eff");
-        } else {
+        } else if (val !== "None") {
             $.get(val, function(data) {
                 RUR.__load_world(data);
                 $("select").attr("style", "background-color:#fff");
@@ -1722,6 +1754,8 @@ $(document).ready(function() {
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
             }, "text");
+        } else {
+            RUR.controls.deselect();
         }
     });
 
