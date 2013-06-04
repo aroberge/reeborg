@@ -22,6 +22,51 @@
     <button class="blue-gradient" id="contents-button">Contents</button>
     <button class="blue-gradient" id="help-button">Help</button>
   </div>
+  <div id="controls">
+    <button class="blue-gradient" id="run" disabled="true" onClick="RUR.controls.run();">Execute</button>
+      <button class="blue-gradient" id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
+      <button class="blue-gradient" id="step" disabled="true" onClick="RUR.controls.step();">Step</button>
+      <button class="blue-gradient" id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
+      <button class="blue-gradient" id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
+      <select id="select_world">
+        <option value="remove" selected>Select a world</option>
+        <option value="src/json/alone.json">Alone</option>
+        <option value="src/json/around1.json">Around 1</option>
+        <option value="src/json/around2.json">Around 2</option>
+        <option value="src/json/around3.json">Around 3</option>
+        <option value="src/json/around4.json">Around 4</option>
+        <option value="src/json/center1.json">Center 1</option>
+        <option value="src/json/center2.json">Center 2</option>
+        <option value="src/json/center3.json">Center 3</option>
+        <option value="src/json/empty_world.json">Empty</option>
+        <option value="src/json/harvest1.json">Harvest 1</option>
+        <option value="src/json/harvest2.json">Harvest 2</option>
+        <option value="src/json/harvest3.json">Harvest 3</option>
+        <option value="src/json/harvest4.json">Harvest 4</option>
+        <option value="src/json/home1.json">Home 1</option>
+        <option value="src/json/home2.json">Home 2</option>
+        <option value="src/json/home3.json">Home 3</option>
+        <option value="src/json/hurdle1.json">Hurdles 1</option>
+        <option value="src/json/hurdle2.json">Hurdles 2</option>
+        <option value="src/json/hurdle3.json">Hurdles 3</option>
+        <option value="src/json/hurdle4.json">Hurdles 4</option>
+        <option value="src/json/maze1.json">Maze 1</option>
+        <option value="src/json/maze2.json">Maze 2</option>
+        <option value="src/json/newspaper1.json">Newspaper 1</option>
+        <option value="src/json/newspaper2.json">Newspaper 2</option>
+        <option value="src/json/storm1.json">Storm 1</option>
+        <option value="src/json/storm2.json">Storm 2</option>
+        <option value="src/json/storm3.json">Storm 3</option>
+        <option value="src/json/storm4.json">Storm 4</option>
+        <option value="src/json/storm5.json">Storm 5</option>
+        <option value="src/json/tokens1.json">Tokens 1</option>
+        <option value="src/json/tokens2.json">Tokens 2</option>
+        <option value="src/json/tokens3.json">Tokens 3</option>
+        <option value="src/json/tokens4.json">Tokens 4</option>
+        <option value="src/json/tokens5.json">Tokens 5</option>
+        <option value="src/json/tokens6.json">Tokens 6</option>
+      </select>
+    </div>
 </header>
 
 
@@ -75,49 +120,6 @@ Have you tried Firefox or Chrome? */
         <canvas id="wall_canvas" width="560" height="460"></canvas>
         <canvas id="trace_canvas" width="560" height="460"></canvas>
         <canvas id="robot_canvas" width="560" height="460"></canvas>
-        <button class="blue-gradient" id="run" disabled="true" onClick="RUR.controls.run();">Execute</button>
-        <button class="blue-gradient" id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
-        <button class="blue-gradient" id="step" disabled="true" onClick="RUR.controls.step();">Step</button>
-        <button class="blue-gradient" id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
-        <button class="blue-gradient" id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
-        <select id="select_world">
-          <option value="remove" selected>Select a world</option>
-          <option value="src/json/alone.json">Alone</option>
-          <option value="src/json/around1.json">Around 1</option>
-          <option value="src/json/around2.json">Around 2</option>
-          <option value="src/json/around3.json">Around 3</option>
-          <option value="src/json/around4.json">Around 4</option>
-          <option value="src/json/center1.json">Center 1</option>
-          <option value="src/json/center2.json">Center 2</option>
-          <option value="src/json/center3.json">Center 3</option>
-          <option value="src/json/empty_world.json">Empty</option>
-          <option value="src/json/harvest1.json">Harvest 1</option>
-          <option value="src/json/harvest2.json">Harvest 2</option>
-          <option value="src/json/harvest3.json">Harvest 3</option>
-          <option value="src/json/harvest4.json">Harvest 4</option>
-          <option value="src/json/home1.json">Home 1</option>
-          <option value="src/json/home2.json">Home 2</option>
-          <option value="src/json/home3.json">Home 3</option>
-          <option value="src/json/hurdle1.json">Hurdles 1</option>
-          <option value="src/json/hurdle2.json">Hurdles 2</option>
-          <option value="src/json/hurdle3.json">Hurdles 3</option>
-          <option value="src/json/hurdle4.json">Hurdles 4</option>
-          <option value="src/json/maze1.json">Maze 1</option>
-          <option value="src/json/maze2.json">Maze 2</option>
-          <option value="src/json/newspaper1.json">Newspaper 1</option>
-          <option value="src/json/newspaper2.json">Newspaper 2</option>
-          <option value="src/json/storm1.json">Storm 1</option>
-          <option value="src/json/storm2.json">Storm 2</option>
-          <option value="src/json/storm3.json">Storm 3</option>
-          <option value="src/json/storm4.json">Storm 4</option>
-          <option value="src/json/storm5.json">Storm 5</option>
-          <option value="src/json/tokens1.json">Tokens 1</option>
-          <option value="src/json/tokens2.json">Tokens 2</option>
-          <option value="src/json/tokens3.json">Tokens 3</option>
-          <option value="src/json/tokens4.json">Tokens 4</option>
-          <option value="src/json/tokens5.json">Tokens 5</option>
-          <option value="src/json/tokens6.json">Tokens 6</option>
-        </select>
         <div id="Reeborg-says" title="Reeborg says: I'm done!" style="display:none"></div>
         <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
     </div>
