@@ -19,6 +19,8 @@ input {border: 2px solid seagreen; background-color: #eff}
 #logo img{float: left; padding:0; margin:0; position:absolute; top:5px; left:5px;}
 header button {border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(0,0,0,0.1);
   height: 37px; position: relative; border-top: 0; border-bottom: 0; font-weight: bold; float: left; margin: 0;}
+#run {margin-left: 100px;}
+
 nav {text-align: center;}
 nav a{margin:0; display: inline-block;}
 nav a:last-child{border-radius: 0 20px 20px 0;}
@@ -97,6 +99,8 @@ background-color: white;}
  #notes p {margin: 0 10px; font-size: 0.9em;}
 .user_note {background-color: white; color: black; margin: 0 10px 0 10px;}
 #data_entry { margin-left: 10px; width: 90%; background-color: #ffe;}
+
+
 .right-link, .float-right{float: right;}
 .left-link, .float-left{float: left;}
 .right-link {border-radius: 0 20px 20px 0;}
@@ -168,3 +172,4 @@ button[disabled]{
 
 .lint-error {font-size: 80%; background: #ffa; color: black; padding: 2px 5px 3px; }
 .lint-error-icon {color: white; background-color: red; font-weight: bold; border-radius: 50%; padding: 0 3px; margin-right: 7px;}
+.hidden {display: none;}

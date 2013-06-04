@@ -19,17 +19,17 @@
     <button class="active reverse-blue-gradient" label="editor-panel">Editor</button>
     <button class="active reverse-blue-gradient" label="world-panel">World</button>
     <button class="blue-gradient" label="output-panel">Diary</button>
-    <button class="blue-gradient" id="contents-button">Contents</button>
+    <button class="reverse-blue-gradient" id="contents-button">Contents</button>
     <button class="blue-gradient" id="help-button">Help</button>
   </div>
   <div id="controls">
-    <button class="blue-gradient" id="run" disabled="true" onClick="RUR.controls.run();">Execute</button>
-      <button class="blue-gradient" id="pause" disabled="true" onClick="RUR.controls.pause();">Pause</button>
-      <button class="blue-gradient" id="step" disabled="true" onClick="RUR.controls.step();">Step</button>
-      <button class="blue-gradient" id="stop" disabled="true" onClick="RUR.controls.stop();">Stop</button>
-      <button class="blue-gradient" id="reload" disabled="true" onClick="RUR.controls.reload();">Reload</button>
+    <button class="blue-gradient" id="run" onClick="RUR.controls.run();"><img src="src/images/play.png" alt="play"></button>
+      <button class="blue-gradient" id="pause" disabled="true" onClick="RUR.controls.pause();"><img src="src/images/pause.png" alt="pause"></button>
+      <button class="blue-gradient" id="step" disabled="true" onClick="RUR.controls.step();"><img src="src/images/step.png" alt="step"></button>
+      <button class="blue-gradient" id="stop" disabled="true" onClick="RUR.controls.stop();"><img src="src/images/stop.png" alt="pause"></button>
+      <button class="blue-gradient" id="reload" disabled="true" onClick="RUR.controls.reload();"><img src="src/images/reload.png" alt="reload"></button>
       <select id="select_world">
-        <option value="remove" selected>Select a world</option>
+        <option value="None" selected>Select a world</option>
         <option value="src/json/alone.json">Alone</option>
         <option value="src/json/around1.json">Around 1</option>
         <option value="src/json/around2.json">Around 2</option>
