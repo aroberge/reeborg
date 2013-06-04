@@ -34,17 +34,17 @@ Open Reeborg's diary and verify this:</p>
 write( Reeborg instanceof UsedRobot);</pre>
 
 <p>Actually, <code>UsedRobot</code> is derived from a more primitive class of objects:
-<code>RUR.PrivateRobot</code> as can easily be verified.</p>
+<code>RUR.Robot</code> as can easily be verified.</p>
 
 <pre class="jscode">var Reeborg = new UsedRobot();
 write( Reeborg instanceof UsedRobot);
-write( Reeborg instanceof RUR.PrivateRobot);</pre>
+write( Reeborg instanceof RUR.Robot);</pre>
 
-<p>However, a  <code>RUR.PrivateRobot</code> is not a <code>UsedRobot</code>:</p>
+<p>However, a  <code>RUR.Robot</code> is not a <code>UsedRobot</code>:</p>
 
-<pre class="jscode">var Reeborg = new RUR.PrivateRobot();
+<pre class="jscode">var Reeborg = new RUR.Robot();
 write( Reeborg instanceof UsedRobot);
-write( Reeborg instanceof RUR.PrivateRobot);</pre>
+write( Reeborg instanceof RUR.Robot);</pre>
 
 <p>We will learn more about "derived" classes of objects later.</p>
 

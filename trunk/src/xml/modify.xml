@@ -79,7 +79,7 @@ for the prototype of the object from which <code>instance</code> has been
 defined.   In our case, it would be <code>UsedRobot.prototype</code>.  If
 the method still can <b>not</b> be found, it looks <em>up the prototype <b>chain</b></em>,
 i.e. from "parent" objects.  In Reeborg's world case,
-it would be <code>RUR.PrivateRobot.prototype</code>.</p>
+it would be <code>RUR.Robot.prototype</code>.</p>
 <p>We will see this in more details in the following lessons.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('continue')">Previous</a>

@@ -140,7 +140,7 @@ RUR.World = function () {
                     orientation = "s";
                     break;
                 }
-                this.robots.push(new RUR.PrivateRobot(this.imported_world.robots[i].x,
+                this.robots.push(new RUR.Robot(this.imported_world.robots[i].x,
                                  this.imported_world.robots[i].y,
                                  orientation, this.imported_world.robots[i].tokens));
             }
@@ -442,7 +442,7 @@ RUR.World = function () {
 
 RUR.world = new RUR.World();
 
-RUR.PrivateRobot = function(x, y, orientation, tokens) {
+RUR.Robot = function(x, y, orientation, tokens) {
     "use strict";
     this.x = x || 1;
     this.y = y || 1;
@@ -482,7 +482,7 @@ RUR.PrivateRobot = function(x, y, orientation, tokens) {
     this.prev_orientation = this.orientation;
 };
 
-RUR.PrivateRobot.prototype.turn_left = function(no_frame){
+RUR.Robot.prototype.turn_left = function(no_frame){
     "use strict";
     this.prev_orientation = this.orientation;
     this.prev_x = this.x;
@@ -493,7 +493,7 @@ RUR.PrivateRobot.prototype.turn_left = function(no_frame){
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.__turn_right = function(no_frame){
+RUR.Robot.prototype.__turn_right = function(no_frame){
     // private method for now ...
     "use strict";
     this.prev_orientation = this.orientation;
@@ -505,54 +505,54 @@ RUR.PrivateRobot.prototype.__turn_right = function(no_frame){
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.is_leaky = function (leak) {
+RUR.Robot.prototype.is_leaky = function (leak) {
     this._is_leaky = leak;
 };
 
 
-RUR.PrivateRobot.prototype.move = function(){
+RUR.Robot.prototype.move = function(){
     "use strict";
     this.prev_orientation = this.orientation;
     RUR.world.move_robot(this);
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.front_is_clear = function() {
+RUR.Robot.prototype.front_is_clear = function() {
     return RUR.world.front_is_clear(this);
 };
 
-RUR.PrivateRobot.prototype.right_is_clear = function() {
+RUR.Robot.prototype.right_is_clear = function() {
     return RUR.world.right_is_clear(this);
 };
 
-RUR.PrivateRobot.prototype.build_wall = function () {
+RUR.Robot.prototype.build_wall = function () {
     RUR.world.build_wall(this);
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.is_facing_north = function () {
+RUR.Robot.prototype.is_facing_north = function () {
     return this.orientation === RUR.world.NORTH;
 };
 
-RUR.PrivateRobot.prototype.done = function() {
+RUR.Robot.prototype.done = function() {
     throw new RUR.Error("Done!");
 };
 
-RUR.PrivateRobot.prototype.put_token = function () {
+RUR.Robot.prototype.put_token = function () {
     RUR.world.robot_put_token(this);
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.take_token = function () {
+RUR.Robot.prototype.take_token = function () {
     RUR.world.robot_take_token(this);
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.has_token = function () {
+RUR.Robot.prototype.has_token = function () {
     return this.tokens > 0 || typeof this.tokens === "string";
 };
 
-RUR.PrivateRobot.prototype.at_goal = function () {
+RUR.Robot.prototype.at_goal = function () {
     var goal = RUR.world.goal;
     if (goal !== undefined){
         if (goal.position !== undefined) {
@@ -563,7 +563,7 @@ RUR.PrivateRobot.prototype.at_goal = function () {
     throw new RUR.Error("There is no goal in this world!");
 };
 
-RUR.PrivateRobot.prototype.at_goal_orientation = function () {
+RUR.Robot.prototype.at_goal_orientation = function () {
     var goal = RUR.world.goal;
     if (goal !== undefined){
         if (goal.orientation !== undefined) {
@@ -575,21 +575,21 @@ RUR.PrivateRobot.prototype.at_goal_orientation = function () {
 };
 
 
-RUR.PrivateRobot.prototype.put = function (shape) {
+RUR.Robot.prototype.put = function (shape) {
     RUR.world.robot_put(this, shape);
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.take = function (shape) {
+RUR.Robot.prototype.take = function (shape) {
     RUR.world.robot_take(this, shape);
     RUR.world.add_frame();
 };
 
-RUR.PrivateRobot.prototype.token_here = function () {
+RUR.Robot.prototype.token_here = function () {
     return RUR.world.get_tokens(this.x, this.y);
 };
 
-RUR.PrivateRobot.prototype.shape_here = function () {
+RUR.Robot.prototype.shape_here = function () {
     return RUR.world.find_shape(this.x, this.y);
 };
 
@@ -1343,7 +1343,7 @@ var inspect = function (obj){
             result += props + "\n";
         }
     }
-    write(result);
+    write_now(result);
 };
 
 var is_facing_north = function() {
@@ -1420,12 +1420,12 @@ var write_now = function (s){
     $("#output-pre").append(s + "\n");
 }
 
-UsedRobot.prototype = Object.create(RUR.PrivateRobot.prototype);
+UsedRobot.prototype = Object.create(RUR.Robot.prototype);
 UsedRobot.prototype.constructor = UsedRobot;
 
 function UsedRobot(x, y, orientation, tokens)  {
     "use strict";
-    RUR.PrivateRobot.call(this, x, y, orientation, tokens);
+    RUR.Robot.call(this, x, y, orientation, tokens);
     RUR.world.add_robot(this);
 }
 
