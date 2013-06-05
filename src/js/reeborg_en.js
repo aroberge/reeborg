@@ -153,9 +153,11 @@ var write_now = function (s){
 };
 
 var view_source = function(fn) {
-    $("#output-pre").after("<pre class='jscode'>" + fn + "</pre>" );
-    $('.jscode').each(function() {
+    $("#last-pre").before("<pre class='js_code'>" + fn + "</pre>" );
+    $('.js_code').each(function() {
         var $this = $(this), $code = $this.text();
+        $this.removeClass("js_code");
+        $this.addClass("jscode");
         $this.empty();
         var myCodeMirror = CodeMirror(this, {
             value: $code,
