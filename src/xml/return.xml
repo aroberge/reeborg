@@ -97,7 +97,7 @@ fix its compass and have it determine its orientation without getting dizzy.</p>
 
 <h2>Mini-quiz</h2>
 
-<p>Write a program that has Reeborg face West, no matter what his orginal orientation is.
+<p>Write a program that has Reeborg face West, no matter what his original orientation is.
 Test it with Reeborg in various starting orientations, by giving him a few <code>turn_left()</code>
 instructions first.</p>
 

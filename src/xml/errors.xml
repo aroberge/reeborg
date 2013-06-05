@@ -6,7 +6,7 @@
 <h1>Dealing with eRRoRs</h1>
 <p>Change <code>move();</code> to <code>Move();</code> (with an uppercase M) and
 try to execute the program.</p>
-<p>Click on "Execute" and watch what happens.</p>
+<p>Click on {execute_button} and watch what happens.</p>
 <p>Try it!</p>
 
 <h2>What happened?</h2>

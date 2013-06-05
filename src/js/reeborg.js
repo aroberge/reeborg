@@ -1467,7 +1467,7 @@ var load_page = function (page){
         context: document.body,
         dataType: "text"
     }).done(function(data) {
-        $("#contents").html(data);
+        $("#contents").html(data.supplant(RUR.Controls.buttons));
         location.hash = page;
         $('.jscode').each(function() {
             var $this = $(this), $code = $this.text();
@@ -1483,6 +1483,12 @@ var load_page = function (page){
         $("#contents").scrollTop(0);
     });
 };
+
+RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
+    reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
+    step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
+    pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
+    stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'}
 
 $(document).ready(function() {
 // init
@@ -1551,7 +1557,7 @@ $(document).ready(function() {
                     },
                     type: 'POST'
                 }).done(function(data) {
-                    $("#contents").html(data);
+                    $("#contents").html(data.supplant(RUR.Controls.buttons));
                     $('.jscode').each(function() {
                         var $this = $(this), $code = $this.text();
                         $this.empty();
