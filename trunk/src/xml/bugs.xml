@@ -81,7 +81,7 @@ program from properly registering a wall when it turns its head left.</li>
 flow of the program.  To this end you may do one or more of the
 following:</p>
 <ol><li>
- You can <em>pause</em> a program as it is running by pressing the <b>pause</b> button.
+ You can <em>pause</em> a program as it is running by pressing the <b>pause</b> button {pause_button}.
  This is similar to what people refer to as setting a
 <i>breakpoint</i> in a computer program
 </li>
@@ -89,7 +89,7 @@ following:</p>
 instruction <code>pause();</code> at any point inside a program and Reeborg
 will pause, awaiting your permission to continue.</li>
 <li>You can <em>step through</em> a program, one instruction at a time, by pressing
-the <em>execute one instruction and pause, or <b>step</b></em> button.</li>
+the <em>execute one instruction and pause</em>, or <b>step</b> button {step_button}.</li>
 <li>You can change the speed of execution at any point inside a program;
 I will explain how you can do this later.</li>
 <li>You can have Reeborg write some information at any given point
@@ -101,7 +101,7 @@ written at the top of Reeborg's world. To enable this feature, you simply have t
 the line <pre class="jscode">DEBUG.ON = true;</pre> anywhere in a program
 and it will be enabled for that program.</li>
 <li>Finally, you can stop a program at any point by pressing the
-<b>stop</b> button; this unfortunaly may not work if you create what is
+<b>stop</b> button {stop_button}; this unfortunaly may not work if you create what is
 known as an infinite loop, outside of Reeborg's control. If worse
 comes to worst, you can always just reload the web page.</li>
 </ol>

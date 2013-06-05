@@ -11,15 +11,15 @@
     on the top.</p>
     <p><small>You might have to minimize this window, or move it to the left in
         order to see Reeborg.</small></p>
-<p>Click on <b>Execute</b> and watch what happens.</p>
+<p>Click on the "execute" or "run" button above {execute_button}
+and watch what happens.</p>
 <p>Try it!</p>
 
 <h2>Congratulations!</h2>
 <p>You had Reeborg take its first steps.  In the editor panel, there is a single instruction:</p>
 <pre class="jscode">move();</pre>
-<p>That is the command that Reeborg executed. Notice how the "Execute" button
-is now disabled; click on "Reload" to enable it again, and try to run it again. By the way,
-a synonym for Execute is Run (as in, run a program).
+<p>That is the command that Reeborg executed. Notice how the "execute" button {execute_button} is now disabled.
+    Dismiss the popup window, click on {reload_button} to enable it again, and run the program again.
 When you are ready, <b>move</b> to the next lesson.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('welcome')">Previous</a>
