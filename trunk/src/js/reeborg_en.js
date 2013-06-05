@@ -1,7 +1,7 @@
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put_token, take_token, put, take, shape_here,"+
                     " token_here, has_token, write, write_now, at_goal, at_goal_orientation," +
-                    " build_wall, think, DEBUG, pause, remove_robot, repeat*/\n";
+                    " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source*/\n";
 
 RUR.translation = {};
 RUR.translation.ReeborgError = "ReeborgError";
@@ -150,6 +150,21 @@ var write = function (s) {
 
 var write_now = function (s){
     $("#output-pre").append(s + "\n");
+};
+
+var view_source = function(fn) {
+    $("#output-pre").after("<pre class='jscode'>" + fn + "</pre>" );
+    $('.jscode').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode: 'javascript',
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-dark'
+        });
+    });
 };
 
 UsedRobot.prototype = Object.create(RUR.Robot.prototype);
