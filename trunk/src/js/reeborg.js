@@ -1581,7 +1581,7 @@ $(document).ready(function() {
     load_content();
 
     $("#contents").dialog({autoOpen:true, width:600, height:$(window).height()-100,
-        maximize: false, position: ['top', 'middle'],
+        maximize: false, position: ['left', 'middle'],
         beforeClose: function( event, ui ) {
                 $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");
         }

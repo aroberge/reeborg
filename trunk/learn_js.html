@@ -76,6 +76,20 @@
 <div id="help" title="Help">Retrieving...</div>
 
 <div id="panels">
+  <div id="world-panel" class="panel active" >
+    <div id="canvas-wrapper">
+        <canvas id="background_canvas" width="560" height="460"></canvas>
+        <canvas id="wall_canvas" width="560" height="460"></canvas>
+        <canvas id="trace_canvas" width="560" height="460"></canvas>
+        <canvas id="robot_canvas" width="560" height="460"></canvas>
+        <div id="Reeborg-says" title="Reeborg says: I'm done!" style="display:none"></div>
+        <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
+    </div>
+  </div>
+  <div id="output-panel" class="panel">
+    <h3>Reeborg's diary</h3>
+    <pre id="output-pre"></pre>
+  </div>
   <div id="editor-panel" class="panel active" >
     <div id="tabs">
       <ul>
@@ -115,20 +129,6 @@ Have you tried Firefox or Chrome? */
         <div id="notes_list"></div>
       </div>
     </div>
-  </div>
-  <div id="world-panel" class="panel active" >
-    <div id="canvas-wrapper">
-        <canvas id="background_canvas" width="560" height="460"></canvas>
-        <canvas id="wall_canvas" width="560" height="460"></canvas>
-        <canvas id="trace_canvas" width="560" height="460"></canvas>
-        <canvas id="robot_canvas" width="560" height="460"></canvas>
-        <div id="Reeborg-says" title="Reeborg says: I'm done!" style="display:none"></div>
-        <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
-    </div>
-  </div>
-  <div id="output-panel" class="panel">
-    <h3>Reeborg's diary</h3>
-    <pre id="output-pre"></pre>
   </div>
 </div>
 
