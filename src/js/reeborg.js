@@ -1426,6 +1426,9 @@ RUR.select_world = function (s) {
 
     for (var i=0; i < elt.options.length; i++){
         if (elt.options[i].text === s) {
+            if (elt.options[i].selected) {
+                return;
+            }
             elt.value = elt.options[i].value;
             $("#select_world").change();
             alert(RUR.translation["World selected"].supplant({world: s}));
