@@ -15,10 +15,9 @@ reopen it by clicking on the
 <h2>Moving along...</h2>
 <p>Make this window smaller and move it downwards and to the right.</p>
 <p>The panel on the right is the <b>Editor</b> panel, where you will write the
-programs that Reeborg will execute.  It will do so in the second panel, known
-as the <b>World</b> panel, and located to the left, below the initial position
-of the <b>Contents</b> window.  A third panel, Reeborg's <b>Diary</b> can also be
-open from a button on the top.</p>
+programs that Reeborg will execute.  It will do so in the first panel, known
+as the <b>World</b> panel.  A third panel, Reeborg's <b>Diary</b> can also be
+opened from a button on the top.</p>
 <p>Try opening and closing the various panels or resize them just to get a feel
 of how you can rearrange the environment.</p>
 <h2>Suggestion</h2>

@@ -29,11 +29,12 @@
     any robot in particular.</p>
   <ul>
     <li><code>inspect(javascript object)</code></li>
-    <li><code>pause()</code>; can be called with an argument in millisecond which indicates the
+    <li><code>pause()</code>; can be called with an argument in milliseconds which indicates the
     time after which it will automatically resume.</li>
-    <li><code>think(number)</code></li>
+    <li><code>think(number)</code>: sets the amount of time in milliseconds between each robot action.</li>
     <li><code>write(string)</code>: write as one more robot action, in its own frame</li>
     <li><code>write_now(string)</code>: done "immediately"</li>
+    <li><code>RUR.select_world(string)</code>: selects a given world.</li>
   </ul>
   <p>In some more advanced lessons, and especially in some programming
     challenges, the following are also used:</p>

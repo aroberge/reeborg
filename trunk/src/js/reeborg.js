@@ -1165,7 +1165,7 @@ RUR.compile_javascript = function (src) {
     // programs to conform to "strict" usage, meaning that all variables have to be declared,
     // etc.
     "use strict";  // will propagate to user's code, enforcing good programming habits.
-// lint, then eval
+    // lint, then eval
     editorUpdateHints();
     if(editor.widgets.length === 0) {
         libraryUpdateHints();
@@ -1181,7 +1181,6 @@ RUR.compile_no_strict_js = function (src) {
     // Usually requires "no strict"; as first statement in editor
     eval(src);
 };
-
 
 RUR.compile_brython = function (src) {
     // do not  "use strict" as we do not control the output produced by Brython
@@ -1230,6 +1229,14 @@ RUR.Controls = function (programming_language) {
             func();
         }
     };
+
+    this.set_ready_to_run = function () {
+        $("#stop").attr("disabled", "true");
+        $("#pause").attr("disabled", "true");
+        $("#run").removeAttr("disabled");
+        $("#step").removeAttr("disabled");
+        $("#reload").attr("disabled", "true");
+    }
 
     this.run = function () {
         var src, saved_write;
@@ -1280,12 +1287,7 @@ RUR.Controls = function (programming_language) {
 
     this.reload = function() {
         RUR.visible_world.reset();
-        $("#stop").attr("disabled", "true");
-        $("#pause").attr("disabled", "true");
-        $("#run").removeAttr("disabled");
-        $("#step").removeAttr("disabled");
-        $("#reload").attr("disabled", "true");
-        $("#deselect").removeAttr("disabled");
+        this.set_ready_to_run();
         $("#output-pre").html("");
         RUR.world.reset();
         clearTimeout(RUR.timer);
@@ -1298,8 +1300,6 @@ RUR.Controls = function (programming_language) {
         $("#pause").attr("disabled", "true");
         $("#step").attr("disabled", "true");
         $("#reload").attr("disabled", "true");
-        $("#deselect").attr("disabled", "true");
-        $("#output-pre").html("");
         RUR.world.import_("{}");
         RUR.world.reset();
         RUR.visible_world.init();
@@ -1372,22 +1372,6 @@ function update_controls() {
 
 var deleted_notes = [];
 
-function doShowAll() {
-    var key = "";
-    var pairs = "<tr><th>Key</th><th>Value</th></tr>\n";
-    var i = 0;
-    for (i = 0; i <= localStorage.length - 1; i++) {
-        key = localStorage.key(i);
-        pairs += "<tr><td>" + key + "</td>\n<td>" + localStorage.getItem(key) + "</td></tr>\n";
-    }
-    if (pairs == "<tr><th>Name</th><th>Value</th></tr>\n") {
-        pairs += "<tr><td><i>empty</i></td>\n<td><i>empty</i></td></tr>\n";
-    }
-    for (i = 0; i <= deleted_notes.length - 1; i++) {
-        pairs += "<tr><td>Deleted Note:</td>\n<td>" + deleted_notes[i] + "</td></tr>\n";
-    }
-}
-
 function doShowNotes() {
     var key = "";
     var _notes = "";
@@ -1408,7 +1392,6 @@ function doShowNotes() {
         }
     }
     document.getElementById('notes_list').innerHTML = _notes;
-    doShowAll();
 }
 
 function addNote() {
@@ -1437,6 +1420,20 @@ function doUndoDelete(){
 }
 
 RUR.ajax_requests = {};
+
+RUR.select_world = function (s) {
+    var elt = document.getElementById("select_world");
+
+    for (var i=0; i < elt.options.length; i++){
+        if (elt.options[i].text === s) {
+            elt.value = elt.options[i].value;
+            $("#select_world").change();
+            alert(RUR.translation["World selected"].supplant({world: s}));
+            return;
+        }
+    }
+    alert(RUR.translation["Could not find world"].supplant({world: s}));
+}
 
 RUR.load_user_worlds = function () {
     var key, name, i;
