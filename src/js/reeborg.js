@@ -1257,6 +1257,7 @@ RUR.Controls = function (programming_language) {
             write = write_now;
             RUR.controls.compile_and_run(function () {});
             write = saved_write;
+            RUR.controls.stop();
         }
     };
 
@@ -1289,6 +1290,7 @@ RUR.Controls = function (programming_language) {
         RUR.visible_world.reset();
         this.set_ready_to_run();
         $("#output-pre").html("");
+        $("#output-panel pre").remove(".jscode");
         RUR.world.reset();
         clearTimeout(RUR.timer);
         RUR.visible_world.compiled = false;
@@ -1358,11 +1360,13 @@ function update_controls() {
         $("#select_world").removeClass("hidden");
         if ( $("#select_world").val !== "None") {
             RUR.world.robot_world_active = true;
+            RUR.world.reset();
         }
     } else {
         $("#step").addClass("hidden");
         $("#select_world").addClass("hidden");
         RUR.world.robot_world_active = false;
+        RUR.world.reset();
     }
 }
 

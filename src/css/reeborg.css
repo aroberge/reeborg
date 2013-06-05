@@ -92,8 +92,7 @@ canvas {
     left: 10px;
 }
 #output-panel {background-color: #eee;}
-#output-panel pre {margin-top: 0;
-background-color: white;}
+#output-pre {margin-top: 0; background-color: white;}
  #notes {background: #112244; color: white; margin-left: 32px; box-shadow: -3px 0 0 0 #75a110, -32px 0 0 0 #224488;}
 
  #notes p {margin: 0 10px; font-size: 0.9em;}
