@@ -47,13 +47,23 @@ Object.identical = function (a, b, sortArrays) {
     return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
 };
 
+// adapted from http://javascript.crockford.com/remedial.html
+String.prototype.supplant = function (o) {
+    return this.replace(
+        /\{([^{}]*)\}/g,
+        function (a, b) {
+            var r = o[b];
+            return typeof r === 'string' || typeof r === 'number' ? r : a;
+        }
+    );
+};
 
 var RUR = RUR || {};
 var DEBUG = {};
 DEBUG.ON = false;
 
 RUR.Error = function (message) {
-    this.name = "ReeborgError";
+    this.name = RUR.translation.ReeborgError;
     this.message = message;
 };
 
@@ -65,7 +75,7 @@ RUR.List = function(){
     this.add_item = function(data) {
         this.container.push(data);
         if (this.length() >= RUR.world.max_steps) {
-            throw new RUR.Error("Too many steps: " + RUR.world.max_steps);
+            throw new RUR.Error(RUR.translation["Too many steps:"].supplant({max_steps: RUR.world.max_steps}));
         }
     };
     this.shift = function() {
@@ -94,7 +104,7 @@ RUR.World = function () {
             this.frames.add_item({delay: Math.round(delay)});
         }
         else {
-            alert("Reeborg's thinking time needs to be specified in milli-seconds, between 0 and 10000; this was: " + delay);
+            throw new RUR.Error(RUR.translation["Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: "].supplant({delay: delay}));
         }
     };
 
@@ -179,7 +189,7 @@ RUR.World = function () {
     this.robot_take_token  = function (robot) {
         var token = this.get_tokens(robot.x, robot.y);
         if (token === 0){
-            throw new RUR.Error("No token found here!");
+            throw new RUR.Error(RUR.translation["No token found here!"]);
         } else {
             if (typeof robot.tokens === typeof 42){
                 robot.tokens += 1;
@@ -191,7 +201,7 @@ RUR.World = function () {
     this.robot_put_token = function (robot) {
         var token;
         if (robot.tokens === 0){
-            throw new RUR.Error("I don't have any token to put down!");
+            throw new RUR.Error(RUR.translation["I don't have any token to put down!"]);
         }
         token = this.get_tokens(robot.x, robot.y);
         this.set_tokens(robot.x, robot.y, token+1);
@@ -214,12 +224,12 @@ RUR.World = function () {
 
     this.robot_take  = function (robot, shape) {
         var s;
-        if (["triangle", "square", "star"].indexOf(shape) === -1){
-            throw new RUR.Error("Unknown shape: " + shape);
+        if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(shape) === -1){
+            throw new RUR.Error(RUR.translation["Unknown shape"].supplant({shape: shape}));
         }
         s = this.find_shape(robot.x, robot.y);
         if (s === 0 || s !== shape) {
-            throw new RUR.Error("No " + shape + " found here!");
+            throw new RUR.Error(RUR.translation["No shape found here"].supplant({shape: shape}));
         } else {
             robot[shape] += 1;
             this.set_shape(robot.x, robot.y, null);
@@ -227,18 +237,17 @@ RUR.World = function () {
     };
 
     this.robot_put = function (robot, shape) {
-        if (["triangle", "square", "star"].indexOf(shape) === -1){
-            throw new RUR.Error("Unknown shape: " + shape);
+        if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(shape) === -1){
+            throw new RUR.Error(RUR.translation["Unknown shape"].supplant({shape: shape}));
         }
         if (robot[shape] === 0){
-            throw new RUR.Error("I don't have any " + shape + " to put down!");
+            throw new RUR.Error(RUR.translation["I don't have any shape to put down!"].supplant({shape:shape}));
         } else if (this.find_shape(robot.x, robot.y) !== 0) {
-            throw new RUR.Error("There is already something here.");
+            throw new RUR.Error(RUR.translation["There is already something here."]);
         }
         this.set_shape(robot.x, robot.y, shape);
         robot[shape] -= 1;
     };
-
 
     this.is_wall_at = function (coords, orientation) {
         if (this.walls[coords] !== undefined){
@@ -304,7 +313,7 @@ RUR.World = function () {
         case this.EAST:
             coords = robot.x + "," + robot.y;
             if (this.is_wall_at(coords, "east")) {
-                throw new RUR.Error("There is already a wall here!");
+                throw new RUR.Error(RUR.translation["There is already a wall here!"]);
             }
             orientation = "east";
             x = robot.x;
@@ -313,7 +322,7 @@ RUR.World = function () {
         case this.NORTH:
             coords = robot.x + "," + robot.y;
             if (this.is_wall_at(coords, "north")) {
-                throw new RUR.Error("There is already a wall here!");
+                throw new RUR.Error(RUR.translation["There is already a wall here!"]);
             }
             orientation = "north";
             x = robot.x;
@@ -321,11 +330,11 @@ RUR.World = function () {
             break;
         case this.WEST:
             if (robot.x===1){
-                throw new RUR.Error("There is already a wall here!");
+                throw new RUR.Error(RUR.translation["There is already a wall here!"]);
             } else {
                 coords = robot.x-1 + "," + robot.y;
                 if (this.is_wall_at(coords, "east")) {
-                    throw new RUR.Error("There is already a wall here!");
+                    throw new RUR.Error(RUR.translation["There is already a wall here!"]);
                 }
             }
             orientation = "east";
@@ -334,11 +343,11 @@ RUR.World = function () {
             break;
         case this.SOUTH:
             if (robot.y===1){
-                throw new RUR.Error("There is already a wall here!");
+                throw new RUR.Error(RUR.translation["There is already a wall here!"]);
             } else {
                 coords = robot.x + "," + robot.y-1;
                 if (this.is_wall_at(coords, "north")) {
-                    throw new RUR.Error("There is already a wall here!");
+                    throw new RUR.Error(RUR.translation["There is already a wall here!"]);
                 }
             }
             orientation = "north";
@@ -353,11 +362,11 @@ RUR.World = function () {
 
     this.move_robot = function(robot){
         if (!this.front_is_clear(robot)) {
-            throw new RUR.Error("Ouch! I hit a wall!");
+            throw new RUR.Error(RUR.translation["Ouch! I hit a wall!"]);
         }
         if ((robot.y === RUR.visible_world.rows && robot.orientation === this.NORTH) ||
             (robot.x === RUR.visible_world.cols && robot.orientation === this.EAST)) {
-            throw new RUR.Error("I am afraid of the void!");
+            throw new RUR.Error(RUR.translation["I am afraid of the void!"]);
         }
         robot.prev_x = robot.x;
         robot.prev_y = robot.y;
@@ -461,23 +470,23 @@ RUR.Robot = function(x, y, orientation, tokens) {
     } else {
         switch (orientation.toLowerCase()){
         case "e":
-        case "east":
+        case RUR.translation.east:
             this.orientation = RUR.world.EAST;
             break;
         case "n":
-        case "north":
+        case RUR.translation.north:
             this.orientation = RUR.world.NORTH;
             break;
         case "w":
-        case "west":
+        case RUR.translation.west:
             this.orientation = RUR.world.WEST;
             break;
         case "s":
-        case "south":
+        case RUR.translation.south:
             this.orientation = RUR.world.SOUTH;
             break;
         default:
-            throw new RUR.Error("Unknown orientation for robot.");
+            throw new RUR.Error(RUR.translation["Unknown orientation for robot."]);
         }
     }
     this.prev_orientation = this.orientation;
@@ -510,7 +519,6 @@ RUR.Robot.prototype.is_leaky = function (leak) {
     this._is_leaky = leak;
 };
 
-
 RUR.Robot.prototype.move = function(){
     "use strict";
     this.prev_orientation = this.orientation;
@@ -536,7 +544,7 @@ RUR.Robot.prototype.is_facing_north = function () {
 };
 
 RUR.Robot.prototype.done = function() {
-    throw new RUR.Error("Done!");
+    throw new RUR.Error(RUR.translation["Done!"]);
 };
 
 RUR.Robot.prototype.put_token = function () {
@@ -559,9 +567,9 @@ RUR.Robot.prototype.at_goal = function () {
         if (goal.position !== undefined) {
             return (this.x === goal.position.x && this.y === goal.position.y);
         }
-        throw new RUR.Error("There is no position as a goal in this world!");
+        throw new RUR.Error(RUR.translation["There is no position as a goal in this world!"]);
     }
-    throw new RUR.Error("There is no goal in this world!");
+    throw new RUR.Error(RUR.translation["There is no goal in this world!"]);
 };
 
 RUR.Robot.prototype.at_goal_orientation = function () {
@@ -570,9 +578,9 @@ RUR.Robot.prototype.at_goal_orientation = function () {
         if (goal.orientation !== undefined) {
             return (this.orientation === goal.orientation);
         }
-        throw new RUR.Error("There is no orientation as a goal in this world!");
+        throw new RUR.Error(RUR.translation["There is no orientation as a goal in this world!"]);
     }
-    throw new RUR.Error("There is no goal in this world!");
+    throw new RUR.Error(RUR.translation["There is no goal in this world!"]);
 };
 
 
@@ -862,7 +870,7 @@ RUR.visible_world = {
             ctx = this.wall_ctx;
         }
         ctx.strokeStyle = "#666";
-        if (shape === "square") {
+        if (shape === RUR.translation.square) {
             ctx.fillStyle = "blue";
             if(goal !== undefined){
                 ctx.beginPath();
@@ -871,7 +879,7 @@ RUR.visible_world = {
             } else {
                 ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
             }
-        } else if (shape === "triangle") { // triangle
+        } else if (shape === RUR.translation.triangle) { // triangle
             ctx.fillStyle = "green";
             ctx.beginPath();
             ctx.moveTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
@@ -990,41 +998,41 @@ RUR.visible_world = {
         if (g.position !== undefined){
             goal_status.position = {};
             if (g.position.x === frame.robots[0].x){
-                goal_status.message += "<li class='success'>Reeborg is at the correct x position.</li>";
+                goal_status.message += RUR.translation["<li class='success'>Reeborg is at the correct x position.</li>"];
             } else {
-                goal_status.message += "<li class='failure'>Reeborg is at the wrong x position.</li>";
+                goal_status.message += RUR.translation["<li class='failure'>Reeborg is at the wrong x position.</li>"];
                 goal_status.success = false;
             }
             if (g.position.y === frame.robots[0].y){
-                goal_status.message += "<li class='success'>Reeborg is at the correct y position.</li>";
+                goal_status.message += RUR.translation["<li class='success'>Reeborg is at the correct y position.</li>"];
             } else {
-                goal_status.message += "<li class='failure'>Reeborg is at the wrong y position.</li>";
+                goal_status.message += RUR.translation["<li class='failure'>Reeborg is at the wrong y position.</li>"];
                 goal_status.success = false;
             }
         }
         if (g.orientation !== undefined){
             if (g.orientation === frame.robots[0].orientation){
-                goal_status.message += "<li class='success'>Reeborg has the correct orientation.</li>";
+                goal_status.message += RUR.translation["<li class='success'>Reeborg has the correct orientation.</li>"];
             } else {
-                goal_status.message += "<li class='failure'>Reeborg has the wrong orientation.</li>";
+                goal_status.message += RUR.translation["<li class='failure'>Reeborg has the wrong orientation.</li>"];
                 goal_status.success = false;
             }
         }
         if (g.shapes !== undefined) {
             result = Object.identical(g.shapes, frame.shapes, true);
             if (result){
-                goal_status.message += "<li class='success'>All shapes are at the correct location.</li>";
+                goal_status.message += RUR.translation["<li class='success'>All shapes are at the correct location.</li>"];
             } else {
-                goal_status.message += "<li class='failure'>One or more shapes are not at the correct location.</li>";
+                goal_status.message += RUR.translation["<li class='failure'>One or more shapes are not at the correct location.</li>"];
                 goal_status.success = false;
             }
         }
         if (g.tokens !== undefined) {
             result = Object.identical(g.tokens, frame.tokens, true);
             if (result){
-                goal_status.message += "<li class='success'>All tokens are at the correct location.</li>";
+                goal_status.message += RUR.translation["<li class='success'>All tokens are at the correct location.</li>"];
             } else {
-                goal_status.message += "<li class='failure'>One or more tokens are not at the correct location.</li>";
+                goal_status.message += RUR.translation["<li class='failure'>One or more tokens are not at the correct location.</li>"];
                 goal_status.success = false;
             }
         }
@@ -1042,9 +1050,9 @@ RUR.visible_world = {
                 }
             }
             if (result){
-                goal_status.message += "<li class='success'>All walls have been built correctly.</li>";
+                goal_status.message += RUR.translation["<li class='success'>All walls have been built correctly.</li>"];
             } else {
-                goal_status.message += "<li class='failure'>One or more walls missing or built at wrong location.</li>";
+                goal_status.message += RUR.translation["<li class='failure'>One or more walls missing or built at wrong location.</li>"];
                 goal_status.success = false;
             }
         }
@@ -1077,7 +1085,7 @@ RUR.visible_world = {
                 return "stopped";
             } else {
                 if (RUR.controls.end_flag) {
-                    $("#Reeborg-says").html("<p class='center'>Last instruction completed!</p>").dialog("open");
+                    $("#Reeborg-says").html("<p class='center'>" + RUR.translation["Last instruction completed!"] + "</p>").dialog("open");
                 } else {
                     RUR.controls.end_flag = true;
                 }
@@ -1106,7 +1114,7 @@ RUR.visible_world = {
                     RUR.controls.stop();
                     return "stopped";
                 } else {
-                    $("#Reeborg-says").html("<p class='center'>Instruction <code>done;()</code> executed.</p>").dialog("open");
+                    $("#Reeborg-says").html(RUR.translation["<p class='center'>Instruction <code>done;()</code> executed.</p>"]).dialog("open");
                     RUR.controls.stop();
                     return "stopped";
                 }
@@ -1127,7 +1135,8 @@ RUR.visible_world = {
         for (robot=0; robot < robots.length; robot++){
             this.draw_robot(robots[robot]); // draws trace automatically
             if (DEBUG.ON) {
-                info += "robot" + robot + ": x=" + robots[robot].x + ", y=" + robots[robot].y + ", tokens=" + robots[robot].tokens + ".  ";
+                info += RUR.translation.robot + robot + ": x=" + robots[robot].x +
+                        ", y=" + robots[robot].y + RUR.translation[", tokens="] + robots[robot].tokens + ".  ";
             }
         }
         if (DEBUG.ON) {
@@ -1208,7 +1217,7 @@ RUR.Controls = function (programming_language) {
                     fatal_error_found = true;
                 }
             } catch (e) {
-                if (e.name === "ReeborgError"){
+                if (e.name === RUR.translation.ReeborgError){
                     RUR.world.add_error_frame(e);
                 } else {
                     alert(e.name + "\n" + e.message);
@@ -1254,7 +1263,7 @@ RUR.Controls = function (programming_language) {
         if (ms !== undefined){
             RUR.timer = setTimeout(RUR.controls.run, ms);
         } else {
-            // $("#run").removeAttr("disabled");
+            $("#run").removeAttr("disabled");
             $("#step").removeAttr("disabled");
         }
     };
@@ -1298,7 +1307,6 @@ RUR.Controls = function (programming_language) {
     this.deselect = function () {
         $("#stop").attr("disabled", "true");
         $("#pause").attr("disabled", "true");
-        // $("#run").attr("disabled", "true");
         $("#step").attr("disabled", "true");
         $("#reload").attr("disabled", "true");
         $("#run2").removeAttr("disabled");
@@ -1368,9 +1376,6 @@ function update_controls() {
         RUR.world.robot_world_active = false;
     }
 }
-
-
-
 
 /*******   User notes
 
@@ -1569,11 +1574,12 @@ $(document).ready(function() {
 
     load_content();
 
-    $("#contents").dialog({autoOpen:false, width:600, height:$(window).height()-100,
+    $("#contents").dialog({autoOpen:true, width:600, height:$(window).height()-100,
         maximize: false, position: ['top', 'middle'],
         beforeClose: function( event, ui ) {
-                $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}
-        });
+                $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");
+        }
+    });
     $("#contents-button").on("click", function() {
         if ($("#contents-button").hasClass("reverse-blue-gradient")) {
             load_content();

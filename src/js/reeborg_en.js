@@ -3,6 +3,49 @@ var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_cle
                     " token_here, has_token, write, write_now, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat*/\n";
 
+RUR.translation = {};
+RUR.translation.ReeborgError = "ReeborgError";
+RUR.translation["Too many steps:"] = "Too many steps: {max_steps}";
+RUR.translation["Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: "] =
+    "Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: {delay}";
+RUR.translation["No token found here!"] = "No token found here!";
+RUR.translation["I don't have any token to put down!"] = "I don't have any token to put down!";
+RUR.translation.triangle = "triangle";
+RUR.translation.star = "star";
+RUR.translation.square = "square";
+RUR.translation["Unknown shape"] = "Unknown shape: {shape}";
+RUR.translation["No shape found here"] = "No {shape} found here!";
+RUR.translation["There is already something here."] = "There is already something here.";
+RUR.translation["I don't have any shape to put down!"] = "I don't have any {shape} to put down!";
+RUR.translation["There is already a wall here!"] = "There is already a wall here!";
+RUR.translation["Ouch! I hit a wall!"] = "Ouch! I hit a wall!";
+RUR.translation["I am afraid of the void!"] = "I am afraid of the void!";
+RUR.translation.east = "east";
+RUR.translation.north = "north";
+RUR.translation.west = "west";
+RUR.translation.south = "south";
+RUR.translation["Unknown orientation for robot."] = "Unknown orientation for robot.";
+RUR.translation["Done!"] = "Done!";
+RUR.translation["There is no position as a goal in this world!"] = "There is no position as a goal in this world!";
+RUR.translation["There is no orientation as a goal in this world!"] = "There is no orientation as a goal in this world!";
+RUR.translation["There is no goal in this world!"] = "There is no goal in this world!";
+RUR.translation["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
+RUR.translation["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg is at the wrong x position.</li>";
+RUR.translation["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg is at the correct y position.</li>";
+RUR.translation["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg is at the wrong y position.</li>";
+RUR.translation["<li class='success'>Reeborg has the correct orientation.</li>"] = "<li class='success'>Reeborg has the correct orientation.</li>";
+RUR.translation["<li class='failure'>Reeborg has the wrong orientation.</li>"] = "<li class='failure'>Reeborg has the wrong orientation.</li>";
+RUR.translation["<li class='success'>All shapes are at the correct location.</li>"] = "<li class='success'>All shapes are at the correct location.</li>";
+RUR.translation["<li class='failure'>One or more shapes are not at the correct location.</li>"] = "<li class='failure'>One or more shapes are not at the correct location.</li>";
+RUR.translation["<li class='success'>All tokens are at the correct location.</li>"] = "<li class='success'>All tokens are at the correct location.</li>";
+RUR.translation["<li class='failure'>One or more tokens are not at the correct location.</li>"] = "<li class='failure'>One or more tokens are not at the correct location.</li>";
+RUR.translation["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>All walls have been built correctly.</li>";
+RUR.translation["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>One or more walls missing or built at wrong location.</li>";
+RUR.translation["Last instruction completed!"] = "Last instruction completed!";
+RUR.translation["<p class='center'>Instruction <code>done;()</code> executed.</p>"] = "<p class='center'>Instruction <code>done;()</code> executed.</p>";
+RUR.translation.robot = "robot";
+RUR.translation[", tokens="] = ", tokens=";
+
 var at_goal = function() {
     return RUR.world.robots[0].at_goal();
 };
