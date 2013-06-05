@@ -7,9 +7,8 @@
 <p>At the very top, on the right hand side, notice a drop-down list with
     <b>Select a world</b>
     written.  Click on it and select <span class="world">Alone</span>; you will see Reeborg appear
-    in the world, in the bottom left corner, as well as some buttons
-    on the top.</p>
-    <p><small>You might have to minimize this window, or move it to the right in
+    in the world, in the bottom left corner.</p>
+    <p><small>You might have to minimize this Contents window, or move it to the right in
         order to see Reeborg.</small></p>
 <p>Click on the "execute" or "run" button above {execute_button}
 and watch what happens.</p>

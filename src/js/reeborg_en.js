@@ -47,7 +47,8 @@ RUR.translation.robot = "robot";
 RUR.translation[", tokens="] = ", tokens=";
 RUR.translation["Delete "] = "Delete";
 RUR.translation["Undo Delete"] = "Undo Delete";
-
+RUR.translation["World selected"] = "World {world} selected";
+RUR.translation["Could not find world"] = "Could not find world {world}";
 
 var at_goal = function() {
     return RUR.world.robots[0].at_goal();
