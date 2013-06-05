@@ -45,6 +45,9 @@ RUR.translation["Last instruction completed!"] = "Last instruction completed!";
 RUR.translation["<p class='center'>Instruction <code>done;()</code> executed.</p>"] = "<p class='center'>Instruction <code>done;()</code> executed.</p>";
 RUR.translation.robot = "robot";
 RUR.translation[", tokens="] = ", tokens=";
+RUR.translation["Delete "] = "Delete";
+RUR.translation["Undo Delete"] = "Undo Delete";
+
 
 var at_goal = function() {
     return RUR.world.robots[0].at_goal();

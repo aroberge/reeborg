@@ -1232,28 +1232,25 @@ RUR.Controls = function (programming_language) {
     };
 
     this.run = function () {
+        var src, saved_write;
         $("#stop").removeAttr("disabled");
         $("#pause").removeAttr("disabled");
         $("#run").attr("disabled", "true");
         $("#step").attr("disabled", "true");
         $("#reload").attr("disabled", "true");
         clearTimeout(RUR.timer);
-        RUR.controls.compile_and_run(RUR.visible_world.play_frames);
-    };
-
-    this.run2 = function () {
-        var src, saved_write;
-        $("#run2").attr("disabled", "true");
-        src = library.getValue() + ";\n";
-        src += editor.getValue();
-        think(0);
-        RUR.controls.end_flag = false;
-        saved_write = write;
-        write = write_now;
-        RUR.controls.compile_and_run(function () {});
-        write = saved_write;
-        setTimeout(function() {$("#reload").attr("disabled", "true");}, 300);
-        $("#clear").removeAttr("disabled");
+        if (RUR.world.robot_world_active) {
+            RUR.controls.compile_and_run(RUR.visible_world.play_frames);
+        } else {
+            src = library.getValue() + ";\n";
+            src += editor.getValue();
+            think(0);
+            RUR.controls.end_flag = false;
+            saved_write = write;
+            write = write_now;
+            RUR.controls.compile_and_run(function () {});
+            write = saved_write;
+        }
     };
 
     this.pause = function (ms) {
@@ -1288,16 +1285,8 @@ RUR.Controls = function (programming_language) {
         $("#run").removeAttr("disabled");
         $("#step").removeAttr("disabled");
         $("#reload").attr("disabled", "true");
-        $("#run2").attr("disabled", "true");
         $("#deselect").removeAttr("disabled");
         $("#output-pre").html("");
-    };
-
-    this.clear = function () {
-        $("#run2").removeAttr("disabled");
-        $("#clear").attr("disabled", "true");
-        $("#output-pre").html("");
-        $("#reload").attr("disabled", "true");
         RUR.world.reset();
         clearTimeout(RUR.timer);
         RUR.visible_world.compiled = false;
@@ -1309,7 +1298,6 @@ RUR.Controls = function (programming_language) {
         $("#pause").attr("disabled", "true");
         $("#step").attr("disabled", "true");
         $("#reload").attr("disabled", "true");
-        $("#run2").removeAttr("disabled");
         $("#deselect").attr("disabled", "true");
         $("#output-pre").html("");
         RUR.world.import_("{}");
@@ -1364,6 +1352,7 @@ function set_resizable(all_active_panels, index){
 }
 
 function update_controls() {
+    $("#run").removeAttr("disabled");
     if ($("#world-panel").hasClass("active")){
         $("#step").removeClass("hidden");
         $("#select_world").removeClass("hidden");
@@ -1406,7 +1395,7 @@ function doShowNotes() {
     var i = 0;
 
     if (deleted_notes.length > 0){
-        document.getElementById('undo_delete').innerHTML = '<a href="javascript:doUndoDelete()" class=" float_left fake_button blue-gradient">Undo Delete</a>';
+        document.getElementById('undo_delete').innerHTML = '<a href="javascript:doUndoDelete()" class=" float_left fake_button blue-gradient">' + RUR.translation["Undo Delete"] + '</a>';
     }
     else{
         document.getElementById('undo_delete').innerHTML = '';
@@ -1415,7 +1404,7 @@ function doShowNotes() {
         key = localStorage.key(i);
         if (key.slice(0, 9) == "user_note") {
             _note = localStorage.getItem(key);
-            _notes += "<hr><div class='user_note'>" + _note + '</div><a href="javascript:doDeleteNote(' + "'" + key + "'" + ');" class="fake_button blue-gradient">Delete</a>';
+            _notes += "<hr><div class='user_note'>" + _note + '</div><a href="javascript:doDeleteNote(' + "'" + key + "'" + ');" class="fake_button blue-gradient">' + RUR.translation["Delete "] + '</a>';
         }
     }
     document.getElementById('notes_list').innerHTML = _notes;

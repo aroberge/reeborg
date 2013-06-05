@@ -6,7 +6,7 @@
 <h1>Welcome to Reeborg's world</h1>
 <p>Before you learn how to program, you should become familiar
 with Reeborg's world and its surroundings.</p>
-<p>This text appears in the <b>Contents</b> <em>window</em>; you can resize it,
+<p>This text appears in the <b>Contents</b> window; you can resize it,
 move it, minimize it or close it.  If you do close it, you can always
 reopen it by clicking on the
 <b>Contents</b> button at the very top. </p>
@@ -14,9 +14,10 @@ reopen it by clicking on the
 
 <h2>Moving along...</h2>
 <p>Make this window smaller and move it downwards and to the right.</p>
-<p>The panel on the left is the <b>Editor</b> panel, where you will write the
+<p>The panel on the right is the <b>Editor</b> panel, where you will write the
 programs that Reeborg will execute.  It will do so in the second panel, known
-as the <b>World</b> panel.  A third panel, Reeborg's <b>Diary</b> can also be
+as the <b>World</b> panel, and located to the left, below the initial position
+of the <b>Contents</b> window.  A third panel, Reeborg's <b>Diary</b> can also be
 open from a button on the top.</p>
 <p>Try opening and closing the various panels or resize them just to get a feel
 of how you can rearrange the environment.</p>
