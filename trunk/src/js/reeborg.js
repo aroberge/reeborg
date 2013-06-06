@@ -135,6 +135,7 @@ RUR.World = function () {
         this.tokens = this.imported_world.tokens || {};
         this.shapes = this.imported_world.shapes || {};
         this.goal = this.imported_world.goal;
+        this.blank_canvas = this.imported_world.blank;
         if (this.imported_world.robots !== undefined) {
             for (i = 0; i < this.imported_world.robots.length; i++){
                 switch(this.imported_world.robots[i].orientation){
@@ -639,7 +640,11 @@ RUR.visible_world = {
         this.robot_top_s_img = new Image();
         this.robot_top_s_img.src = 'src/images/top_s.png';
         this.running = false;
-        this.top_view = false;
+        if (localStorage.getItem("top_view") === "true") {
+            this.top_view = true;
+        } else {
+            this.top_view = false;
+        }
     },
     wall_length: 40,
     wall_thickness: 5,
@@ -676,6 +681,7 @@ RUR.visible_world = {
     },
     draw_coordinates: function(){
         "use strict";
+        if (RUR.world.blank_canvas) return;
         var x, y;
         var ctx = this.background_ctx;
         ctx.fillStyle = 'black';
@@ -698,6 +704,7 @@ RUR.visible_world = {
         var ctx = this.background_ctx;
         this.ctx = ctx;
         ctx.clearRect(0, 0, this.width, this.height);
+        if (RUR.world.blank_canvas) return;
         ctx.fillStyle = this.shawdow_wall_color;
         for (i = 1; i <= this.cols; i++) {
             for (j = 1; j <= this.rows; j++) {
@@ -775,6 +782,7 @@ RUR.visible_world = {
         var ctx = this.wall_ctx;
         this.ctx = ctx;
         ctx.clearRect(0, 0, RUR.visible_world.width, RUR.visible_world.height);
+        if (RUR.world.blank_canvas) return;
         ctx.fillStyle = this.wall_color;
         // todo : make more efficient by 1. splitting into two functions so as not
         // to redraw permanent walls and 2. do not loop over all possible combinations
@@ -1157,6 +1165,7 @@ RUR.visible_world = {
     draw_robots : function(robots) {
         var robot, info = '';
         this.robot_ctx.clearRect(0, 0, this.width, this.height);
+        if (RUR.world.blank_canvas) return;
         for (robot=0; robot < robots.length; robot++){
             this.draw_robot(robots[robot]); // draws trace automatically
             if (DEBUG.ON) {
@@ -1176,12 +1185,12 @@ RUR.visible_world = {
         DEBUG.ON = false;
         this.delay = 300;
         this.compiled = false;
+        this.running = false;
         this.draw_background_walls();
         this.draw_goal();
         this.draw_coordinates();
         this.trace_ctx.clearRect(0, 0, this.width, this.height);
         this.draw(RUR.world);
-        this.running = false;
     }
 };
 

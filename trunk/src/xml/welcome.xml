@@ -22,11 +22,11 @@ opened from a button on the top.</p>
 of how you can rearrange the environment.</p>
 <h2>Suggestion</h2>
 <p>Personnally, I find it
-very convenient to make the position this <b>Contents</b> window such that the title bar
-is just below the buttons on the world panel (you may have to make this window
-slightly smaller depending on the size of your screen) and use the
+very convenient to make the position this <b>Contents</b> window such that its title bar
+is just below the main title bar and located above Reeborg's world
+(which should be its starting position), and use the
 minimize "button" ( "_" on the title bar) to hide the content when
-I try running some programs and click on it again when I want to read
+I try running some programs, clicking on it again to maximize it when I want to read
 the lessons.</p>
 
 <p>Once you're satisfied with your exploration, click on the

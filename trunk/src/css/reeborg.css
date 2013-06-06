@@ -7,7 +7,6 @@ h2 {font-size: 1.3em; color: #224488;}
 h3 {font-size: 1.1em; color: #224488;}
 #contents p a, ol li a, #contents ul li a {color: #224488 !important;}
 
-
 dl {border: 2px solid #886622; border-radius: 6px; background-color: #faf5ea}
 input {border: 2px solid seagreen; background-color: #eff}
 #logo{float: left; padding-left: 30px; padding-right: 20px; margin-right: 50px; font-size: 30px;
@@ -84,6 +83,7 @@ nav a:first-child{border-radius: 20px 0 0 20px;}
     top:10px;
     min-height: 550px;
     overflow: auto;
+    background-color: white;
 }
 canvas {
     position:absolute;
@@ -93,11 +93,11 @@ canvas {
 }
 #output-panel {background-color: #eee;}
 #output-pre {margin-top: 0; background-color: white;}
- #notes {background: #112244; color: white; margin-left: 32px; box-shadow: -3px 0 0 0 #75a110, -32px 0 0 0 #224488;}
+ #notes {background: #f9ffff; margin-left: 32px; box-shadow: -3px 0 0 0 #75a110, -32px 0 0 0 #224488;}
 
  #notes p {margin: 0 10px; font-size: 0.9em;}
-.user_note {background-color: white; color: black; margin: 0 10px 0 10px;}
-#data_entry { margin-left: 10px; width: 90%; background-color: #ffe;}
+.user_note {margin: 0 10px 0 10px; border: 1px solid #ccc;}
+#data_entry { margin-left: 10px; width: 90%; background-color: white;}
 
 
 .right-link, .float-right{float: right;}
