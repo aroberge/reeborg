@@ -624,13 +624,22 @@ RUR.visible_world = {
         this.robot_e_img.onload = function () {
             that.reset();
         };
+        this.robot_top_e_img = new Image();
+        this.robot_top_e_img.src = 'src/images/top_e.png';
         this.robot_n_img = new Image();
         this.robot_n_img.src = 'src/images/robot_n.png';
+        this.robot_top_n_img = new Image();
+        this.robot_top_n_img.src = 'src/images/top_n.png';
         this.robot_w_img = new Image();
         this.robot_w_img.src = 'src/images/robot_w.png';
+        this.robot_top_w_img = new Image();
+        this.robot_top_w_img.src = 'src/images/top_w.png';
         this.robot_s_img = new Image();
         this.robot_s_img.src = 'src/images/robot_s.png';
+        this.robot_top_s_img = new Image();
+        this.robot_top_s_img.src = 'src/images/top_s.png';
         this.running = false;
+        this.top_view = false;
     },
     wall_length: 40,
     wall_thickness: 5,
@@ -930,16 +939,32 @@ RUR.visible_world = {
         y = this.height - (robot.y +1) * this.wall_length + this.robot_y_offset;
         switch(robot.orientation){
         case RUR.world.EAST:
-            img = this.robot_e_img;
+            if (RUR.visible_world.top_view) {
+                img = this.robot_top_e_img;
+            } else {
+                img = this.robot_e_img;
+            }
             break;
         case RUR.world.NORTH:
-            img = this.robot_n_img;
+            if (RUR.visible_world.top_view) {
+                img = this.robot_top_n_img;
+            } else {
+                img = this.robot_n_img;
+            }
             break;
         case RUR.world.WEST:
-            img = this.robot_w_img;
+            if (RUR.visible_world.top_view) {
+                img = this.robot_top_w_img;
+            } else {
+                img = this.robot_w_img;
+            }
             break;
         case RUR.world.SOUTH:
-            img = this.robot_s_img;
+            if (RUR.visible_world.top_view) {
+                img = this.robot_top_s_img;
+            } else {
+                img = this.robot_s_img;
+            }
             break;
         default:
             img = this.robot_e_img;
