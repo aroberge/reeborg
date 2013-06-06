@@ -1,7 +1,7 @@
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put_token, take_token, put, take, shape_here,"+
                     " token_here, has_token, write, write_now, at_goal, at_goal_orientation," +
-                    " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source*/\n";
+                    " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view*/\n";
 
 RUR.translation = {};
 RUR.translation.ReeborgError = "ReeborgError";
@@ -167,6 +167,14 @@ var view_source = function(fn) {
             theme: 'reeborg-dark'
         });
     });
+};
+
+var side_view = function () {
+    RUR.visible_world.top_view = false;
+};
+
+var top_view = function () {
+    RUR.visible_world.top_view = true;
 };
 
 UsedRobot.prototype = Object.create(RUR.Robot.prototype);
