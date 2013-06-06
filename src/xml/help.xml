@@ -1,5 +1,6 @@
 <p><small style="color:#900;">Discussions, questions, comments about Reeborg take place
-    <a href="https://groups.google.com/forum/?fromgroups#!forum/reeborg">here</a>.</small></p>
+    <a href="https://groups.google.com/forum/?fromgroups#!forum/reeborg">here</a>.
+  <a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</small></p>
 
 <a href="#basic-commands">Basic commands</a><br>
 <a href="#about">About Reeborg</a><br>
@@ -35,6 +36,8 @@
     <li><code>write(string)</code>: write as one more robot action, in its own frame</li>
     <li><code>write_now(string)</code>: done "immediately"</li>
     <li><code>RUR.select_world(string)</code>: selects a given world.</li>
+    <li><code>side_view()</code> and <code>top_view()</code> can be used to change the set of robot images
+    that are used.</li>
   </ul>
   <p>In some more advanced lessons, and especially in some programming
     challenges, the following are also used:</p>
@@ -79,12 +82,16 @@ If you are using it to teach Javascript to students, you might want to make
 I would gladly welcome any suggestions or contributions to</p>
 <ul><li>Improve the usability of this site.</li>
 <li>Make a better looking robot; I drew Reeborg pixel-by-pixel using a rather primitive
-    drawing program, suitable for my skills level. Note that Reeborg is viewed sideways where its
-world is (most often) viewed from above; a nicer-looking Reeborg, perhaps viewed
+    drawing program, suitable for my skills level. There are two sets of pictures available:
+    one with Reeborg viewed from its side and one viewed from above.
+    Note that the (imo) better looking Reeborg
+    is viewed sideways whereas its world is (most often) viewed from above;
+    a nicer-looking Reeborg, perhaps viewed
 from nearly above, might be most welcome.</li>
 <li>New worlds, examples and challenges.</li>
 <li>Corrections to the existing content, including fixing typos.</li>
 <li>etc.</li></ul>
+<p><a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</p>
 <p>My medium-term plans include:</p>
 <ul><li>Translating the Javascript-based tutorial into French</li>
 <li>Having a Python version (probably using <a href="http://brython.info/index.html">Brython</a>)</li>
@@ -93,5 +100,6 @@ from nearly above, might be most welcome.</li>
 <p>Longer term plans include:</p>
 <ul><li>Implementing Reeborg's world for other languages (Scheme, ...) as long as it can be
 done within a browser with no server-side code running.</li>
+<li>Enlisting contributors to translate tutorials into languages other than English or French</li>
 <li>Investigating something like <a href="https://github.com/ryanb/ruby-warrior">Ruby-warrior in javascript</a></li>
 <li>Investigating the possibility of porting <a href="http://www.nand2tetris.org/">From nand to Tetris</a> to the web using Javascript</li></ul>

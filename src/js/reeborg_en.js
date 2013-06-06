@@ -171,10 +171,12 @@ var view_source = function(fn) {
 
 var side_view = function () {
     RUR.visible_world.top_view = false;
+    localStorage.setItem("top_view", "false");
 };
 
 var top_view = function () {
     RUR.visible_world.top_view = true;
+    localStorage.setItem("top_view", "true");
 };
 
 UsedRobot.prototype = Object.create(RUR.Robot.prototype);
