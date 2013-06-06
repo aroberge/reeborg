@@ -14,14 +14,14 @@ the method <code>left_is_clear()</code> is not defined.  Let's change that.</p>
 <p>We first start by having a look at how the existing two methods are defined
 (notice the absence of <code>()</code>):</p>
 <pre class="jscode">var Reeborg = new ImprovedRobot();
-write( Reeborg.front_is_clear );
-write( Reeborg.right_is_clear );</pre>
+view_source( Reeborg.front_is_clear );
+view_source( Reeborg.right_is_clear );</pre>
 <p>As you can see, these methods are defined using similarly named ones
 from the object <code>RUR.world</code>.  If you execute the single line:</p>
-<pre class="jscode">write( RUR.world.front_is_clear );</pre>
+<pre class="jscode">view_source( RUR.world.front_is_clear );</pre>
 <p>you will see a rather complicated definition.  However, if you do the
 same for </p>
-<pre class="jscode">write( RUR.world.right_is_clear );</pre>
+<pre class="jscode">view_source( RUR.world.right_is_clear );</pre>
 <p>you will see a much simpler one, which uses <code>front_is_clear</code>.
 Have a closer look at the definition for <code>RUR.world.right_is_clear()</code>.
 Do you see anything unusual about it?</p>
@@ -30,7 +30,7 @@ Do you see anything unusual about it?</p>
 are called with an argument (<code>true</code>) instead of without like
 we have done up until now.  If you look at the definition of <code>turn_left</code> using</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
-write( Reeborg.turn_left );</pre>
+view_source( Reeborg.turn_left );</pre>
 <p>you will see that it takes an optional argument, named <code>no_frame</code>.  Whenever
 that argument is defined, the function returns <b>before</b> a new frame is added. Thus
 the robot turns ... but that turn is not recorded.  Note that, instead of <code>true</code>,

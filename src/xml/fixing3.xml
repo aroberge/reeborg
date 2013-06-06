@@ -20,8 +20,7 @@ an error will be raised.</p>
 <p>Let's see the definition of <code>is_facing_north</code> by running
 the following program:</p>
 <pre class="jscode">var Reeborg = new ImprovedRobot();
-
-write( Reeborg.is_facing_north );</pre>
+view_source( Reeborg.is_facing_north );</pre>
 <p>From the result, this suggest that the following definition might do what we want:</p>
 <pre class="jscode">ImprovedRobot.prototype.is_facing_east = function () {
     return this.orientation === RUR.world.EAST;
