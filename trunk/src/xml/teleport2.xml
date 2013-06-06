@@ -36,10 +36,9 @@ hand at those puzzles on your own first, before moving to the next lesson.</p>
 <p>You have just defined a new method: <code>teleport</code>.
 Execute the program</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
-write(Reeborg.teleport);
-write("==========");
+view_source(Reeborg.teleport);
 delete UsedRobot.prototype.teleport;
-write(Reeborg.teleport);</pre>
+view_source(Reeborg.teleport);</pre>
 <p> and note how <code>teleport</code> first appears as a known method and then,
 after we <code>delete</code> it, it no longer is defined.  We can use the
 javascript keyword <code>delete</code> to remove attributes or methods

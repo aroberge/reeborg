@@ -9,7 +9,7 @@ a <code>turn_right</code> method when the UsedRobot brand went to the market.
 You can see the implementation of that method in Reeborg's Diary by
 executing the following program:</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
-write(Reeborg.__turn_right);</pre>
+view_source(Reeborg.__turn_right);</pre>
 <p>In order to have our <code>ImprovedRobot</code> turn right properly,
 we could copy the existing code in a method as follows:</p>
 <pre class="jscode">ImprovedRobot.prototype.turn_right = function () {

@@ -52,7 +52,7 @@ move();</pre>
 concept of Javascript <b>errors</b>.  For example, execute the following one-line program:</p>
 <pre class="jscode">a();</pre>
 <p>You should see an alert popup  with the following message:</p>
-<pre>TypeError
+<pre class="jscode">TypeError
 a is not a function</pre>
 <p>Now try running the following</p>
 <pre class="jscode">throw new TypeError("a is not a function");</pre>

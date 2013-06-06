@@ -45,8 +45,13 @@ my_repeat(turn_left, 4);</pre>
 <p><b>Try it</b> with world <span class="world">Around&nbsp;1</span>.</p>
 <h2>Reeborg's <code>repeat()</code></h2>
 <p>Open Reeborg's diary and have Reeborg execute the single line program:</p>
-<pre class="jscode">write( repeat );</pre>
+<pre class="jscode">view_source( repeat );</pre>
 <p>to find out which definition Reeborg uses for the <code>repeat()</code> function.</p>
+
+<p>Note that you could also use</p>
+<pre class="jscode">write( repeat );</pre>
+<p>but the code would not be as nicely formatted!</p>
+
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('while_num')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('better_repeat')">Next</a>

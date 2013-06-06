@@ -45,6 +45,12 @@ Reeborg.teleport(4, 8);
 Reeborg.move();
 </pre>
 <p><b>Try it!</b></p>
+<h2>A word of caution</h2>
+<p>The above code will work even if the coordinates to which Reeborg teleports
+are not integer; thus Reeborg could find itself inside a wall!  Later, you
+will learn some mathematical methods like <code>Math.floor</code> that could be
+used to ensure that Reeborg only teleports to locations with coordinates
+expressed as integers.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('teleport3')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('array')">Next</a>
