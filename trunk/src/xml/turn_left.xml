@@ -16,6 +16,14 @@ In order to do so, we must add one more instruction to the program:</p>
 <h2>Try something else</h2>
 <p>What happens if, instead of using <code>turn_left();</code>, you use instead a third
 <code>move();</code> instruction?</p>
+<h2>A different view</h2>
+<p>You may have noticed that Reeborg (the robot itself) is seen from its side, such as <img src="src/images/robot_e.png"/> whereas his world
+    is seen from above ... which you might perhaps
+find confusing especially when you instruct Reeborg to turn left.  You can change the way
+Reeborg is seen by either using the instruction <code>top_view();</code> or <code>side_view();</code>
+in any given program.  For example, when facing East, such as the side view above, Reeborg will appear as follows when viewed from above: <img src="src/images/top_e.png"/>Reeborg will remember the last such instruction seen so that you will not
+have to insert it in future programs.  Note that only the <b>last</b> such instruction in a given
+program has an effect.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('home')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('bugs')">Next</a>
