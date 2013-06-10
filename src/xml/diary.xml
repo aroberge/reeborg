@@ -1,5 +1,5 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return2')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest3')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('increment')">Next</a>
 </nav>
@@ -56,5 +56,5 @@ write(area);  // will output 24</pre>
 <p><b>Important</b>: the <em>character</em> "2" is not the same as the <em>number</em> 2.</p>
 <p>Finally, note that spaces around operators, like <code>+</code>, are ignored by javascript; however
 they often make a program easier to read for humans.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('return2')">Previous</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('harvest3')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('increment')">Next</a>
