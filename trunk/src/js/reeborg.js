@@ -849,26 +849,27 @@ RUR.visible_world = {
     draw_token : function (i, j, num, goal) {
         "use strict";
         var size = 12, scale = this.wall_length, Y = this.height;
-        var ctx = this.wall_ctx;
-        ctx.fillStyle = "gold";
+        var ctx;
         if (goal) {
-            ctx.strokeStyle = "#666"
             ctx = this.background_ctx;
         } else {
-            ctx.strokeStyle = "black";
             ctx = this.wall_ctx;
         }
         ctx.beginPath();
         ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
         if (goal) {
+            ctx.strokeStyle = "#666";
+            ctx.fillStyle = "black";
             ctx.lineWidth = 3;
             ctx.stroke();
-            ctx.lineWidth = 1;
-            ctx.strokeText(num, (i+0.2)*scale, Y - (j)*scale);
+            ctx.fillText(num, (i+0.2)*scale, Y - (j)*scale);
         } else {
+            ctx.fillStyle = "gold";
+            ctx.strokeStyle = "black";
             ctx.fill();
             ctx.lineWidth = 1;
-            ctx.strokeText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
+            ctx.fillStyle = "black";
+            ctx.fillText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
         }
     },
     draw_shapes : function(shapes, goal) {

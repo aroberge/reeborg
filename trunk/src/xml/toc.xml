@@ -99,7 +99,6 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('harvest2')">Harvest time</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('storm2')">Stormy weather</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('center2')">Finding the center</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('harvest3')">More harvesting challenges</a></li>
 
 <h2>Recursion</h2>
 
@@ -116,6 +115,7 @@ of increasing complexity.</li>
 
 <li><a href="javascript:void(0);" onClick="load_page('return')">Return</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('return2')">More returns</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('harvest3')">More harvesting challenges</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('diary')">Reeborg's diary</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('increment')">Increment</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('while_num')">While counting</a></li>

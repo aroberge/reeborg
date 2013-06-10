@@ -18,7 +18,8 @@ and watch what happens.</p>
 <p>You had Reeborg take its first steps.  In the editor panel, there is a single instruction:</p>
 <pre class="jscode">move();</pre>
 <p>That is the command that Reeborg executed. Notice how the "execute" button {execute_button} is now disabled.
-    Dismiss the popup window, click on {reload_button} to enable it again, and run the program again.
+    If you have not done so already, dismiss the popup window,
+    click on {reload_button} to enable it again, and run the program again.
 When you are ready, <b>move</b> to the next lesson.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('welcome')">Previous</a>
