@@ -1,5 +1,13 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('maze_again')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('keywords')">Next</a>
+</nav>
+
 <h1>The <code>with</code> keyword</h1>
-<p>Just a quick thing to expand upon.</p>
+<p>If you read other tutorials, or some Javascript code samples, you might encounter
+the Javascript keyword <code>with</code>.  We recommend that you do not use it.  However,
+you can see the purpose of this keyword using the following example.</p>
 <pre class="jscode">// select a world with a robot.
 var Reeborg = new UsedRobot(2,4); // create a second one.
 move();   // refers to the first robot.
@@ -37,5 +45,8 @@ with (Reeborg) {
     move();
 }
 </pre>
+<p>As you can see, <code>with</code> sets up a block so that the object whose methods
+are invoked is known by default, so that it does not have to be typed in explictly.</p>
 
-
+<a class="left-link" href="javascript:void(0);" onClick="load_page('maze_again')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('keywords')">Next</a>

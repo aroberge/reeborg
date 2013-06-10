@@ -99,7 +99,7 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('harvest2')">Harvest time</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('storm2')">Stormy weather</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('center2')">Finding the center</a></li>
-
+<li><a href="javascript:void(0);" onClick="load_page('harvest3')">More harvesting challenges</a></li>
 
 <h2>Recursion</h2>
 
@@ -169,6 +169,7 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('object')">Basic objects</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('positional')">Positional and named arguments</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('fixed')">Testing the ImprovedRobot</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('maze_again')">A last challenge</a></li>
 
 <h2>Odds and ends</h2>
 <p>A few miscellaneous things not covered in previous lessons.</p>

@@ -1,5 +1,5 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center2')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest3')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion2')">Next</a>
 </nav>
@@ -41,5 +41,5 @@ and have Reeborg do the following:</p>
 go_home();</pre>
 <p>Once you have tried the above and completely understood it, go to the next
 lesson where we will consider a slightly trickier example.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('center2')">Previous</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('harvest3')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('recursion2')">Next</a>
