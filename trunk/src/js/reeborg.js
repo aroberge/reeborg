@@ -1388,7 +1388,6 @@ function set_resizable(all_active_panels, index){
 }
 
 function update_controls() {
-    $("#run").removeAttr("disabled");
     if ($("#world-panel").hasClass("active")){
         $("#step").removeClass("hidden");
         $("#select_world").removeClass("hidden");
@@ -1399,6 +1398,7 @@ function update_controls() {
     } else {
         $("#step").addClass("hidden");
         $("#select_world").addClass("hidden");
+        $("#run").removeAttr("disabled");
         RUR.world.robot_world_active = false;
         RUR.world.reset();
     }
