@@ -166,6 +166,7 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('fixing3')">Fixing the compass</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('fixing4')">Going left?</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('fixing5')">Fixing the oil leak</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('object')">Basic objects</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('positional')">Positional and named arguments</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('fixed')">Testing the ImprovedRobot</a></li>
 
