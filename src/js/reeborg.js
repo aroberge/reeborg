@@ -852,18 +852,22 @@ RUR.visible_world = {
         var ctx = this.wall_ctx;
         ctx.fillStyle = "gold";
         if (goal) {
+            ctx.strokeStyle = "#666"
             ctx = this.background_ctx;
-            ctx.strokeStyle = "#333";
         } else {
             ctx.strokeStyle = "black";
+            ctx = this.wall_ctx;
         }
         ctx.beginPath();
         ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
         if (goal) {
+            ctx.lineWidth = 3;
             ctx.stroke();
+            ctx.lineWidth = 1;
             ctx.strokeText(num, (i+0.2)*scale, Y - (j)*scale);
         } else {
             ctx.fill();
+            ctx.lineWidth = 1;
             ctx.strokeText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
         }
     },
@@ -883,10 +887,11 @@ RUR.visible_world = {
         var ctx, size = 12, scale = this.wall_length, Y = this.height;
         if(goal !== undefined){
             ctx = this.background_ctx;
+            ctx.lineWidth = 3;
         } else {
             ctx = this.wall_ctx;
         }
-        ctx.strokeStyle = "#666";
+        ctx.strokeStyle = "black";
         if (shape === RUR.translation.square) {
             ctx.fillStyle = "blue";
             if(goal !== undefined){
@@ -930,8 +935,8 @@ RUR.visible_world = {
             }
         }
         ctx.closePath();
-        ctx.stroke();
         if (goal !== undefined){
+            ctx.lineWidth = 3;
             ctx.stroke();
         } else {
             ctx.fill();

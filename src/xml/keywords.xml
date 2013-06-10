@@ -1,5 +1,7 @@
 <nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('with')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('edit_world')">Next</a>
 </nav>
 
 <h1>Javascript keywords and other important references</h1>
@@ -65,4 +67,5 @@ language for possible future use; your programs should not use these as variable
     <li>yield</li>
 </ul>
 
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('with')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('edit_world')">Next</a>

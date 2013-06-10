@@ -1,4 +1,5 @@
 <nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('keywords')">Previous</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
 </nav>
 
@@ -38,3 +39,5 @@ Allowed shapes: "star", "triangle", "square". Only one shape per location. </li>
 <li><code>set_goal_wall(x, y, direction)</code> where direction is one of "east" or "north".</li>
 </ul>
 <script src="src/js/edit_world.js"></script>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('keywords')">Previous</a>

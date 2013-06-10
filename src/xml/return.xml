@@ -101,5 +101,18 @@ fix its compass and have it determine its orientation without getting dizzy.</p>
 Test it with Reeborg in various starting orientations, by giving him a few <code>turn_left()</code>
 instructions first.</p>
 
+<h2>How to think about return</h2>
+<p>Suppose we have the following:</p>
+<pre class="jscode">function some_function () {
+    ...
+    return something;
+}
+
+... = some_function();
+</pre>
+<p>In this case, the call to <code>some_function()</code> on the last line gets
+replaced by the value of <code>something</code> which is what follows the
+<code>return</code> keyword.</p>
+
 <a class="left-link" href="javascript:void(0);" onClick="load_page('recursion5')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('return2')">Next</a>
