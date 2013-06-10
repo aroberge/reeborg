@@ -11,8 +11,7 @@ practice for his hurdles race. </p>
 <p>Some programming language, like Python, indicate that something is not true by writing <code>not True</code>
 which, in Python, is synonymous of <code>False</code>.   Javascript, like quite a few other languages,
 uses a convention where <b>negation</b> is represented by a symbol <code>!</code></p>
-<p>You might have missed it ... go back to the last character of the previous sentence ...
-that's it ... <code>!</code>  The exclamation mark indicates negation in Javascript.  However, instead
+<p>The exclamation mark indicates negation in Javascript.  However, instead
 of appearing at the end of something, like a sentence, it has to appear before something, like some statement
 that would be normally either <code>true</code> or <code>false</code>.  Thus <code>!true</code>
 is the same thing as <code>false</code>, and <code>!false</code> is the same thing as <code>true</code>.</p>
