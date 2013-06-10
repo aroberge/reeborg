@@ -38,5 +38,24 @@ piwikTracker.enableLinkTracking();
 } catch( err ) {}
 </script><noscript><p><img src="http://www.reeborg.ca/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
 <!-- End Piwik Tracking Code -->
+<footer class="clear">
+<p>
+<a class="email">
+<span class="hidden">andre<span class="replaceAT">-AT-</span>reeborg.ca</span>
+<img src='src/images/mailto.png' height="32px" width="32px"/>
+André Roberge </a>
+<a href="http://about.me/andre.roberge">Qui suis-je?</a>
+<a href="http://groups.google.com/group/reeborg/topics">Discussions</a>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+$(".replaceAT").replaceWith("@");
+$(".email").attr("href", "mailto:"+$('.hidden').text());
+$(".hidden").replaceWith("");
+});
+</script>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr">
+<img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" height="31px" width="88px"/></a>
+</p>
+</footer>
 </body>
 </html>

@@ -45,7 +45,7 @@ a[href^="http"] {
 }
 
 .main_text {width:800px;top:100px; margin:auto;position:relative;}
-.clear {clear: both;}
+.clear {clear: both; height:0;}
 .center {text-align: center;}
 .resizable-helper {border-right: 1px dashed red;}
 .right-link, .float-right{float: right;}
@@ -169,3 +169,28 @@ padding:3px;}
 #notes p {margin: 0 10px; font-size: 0.9em;}
 
 #data_entry { margin-left: 10px; width: 90%; background-color: white;}
+footer{
+  position: absolute;
+  bottom:70px;
+  text-align: center;
+  font-size: 9pt;
+  font-style: italic;
+  width:700px;
+  margin:auto;
+}
+footer p {
+    padding: 15px 0 15px 0;
+}
+footer img{
+    text-decoration: none;
+    max-height: 60px;
+    margin-bottom: -10px;
+}
+footer a{
+    text-decoration: none;
+    color: #396b91;
+    padding-left: 25px;
+}
+footer a:hover{
+    text-decoration: underline;
+}
