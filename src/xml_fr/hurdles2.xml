@@ -1,0 +1,24 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('at_goal')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('else')">Next</a>
+</nav>
+<h1>Hurdles again!</h1>
+<p>Have a look at worlds <span class="world">Hurdles&nbsp;1</span> and
+<span class="world">Hurdles&nbsp;2</span>.  Ignoring the end goal for a second, a program
+that Reeborg could follow to race over these hurdles would alternate between two instructions</p>
+<ul><li><code>move();</code></li>
+<li><code>jump_over_hurdle();</code></li></ul>
+<p>with the appropriate definition for <code>jump_over_hurdle()</code>.  If you could include
+a test (<code>if</code> statement) at some point to see if you have reached the goal, you could
+use the above to create a new function, that we could call <code>move_and_jump_until_done()</code>
+so that a program suitable for both worlds <span class="world">Hurdles&nbsp;1</span> and
+<span class="world">Hurdles&nbsp;2</span> would be:</p>
+<pre class="jscode">
+repeat(move_and_jump_until_done, 42);</pre>
+<p>Write such a program and make sure it works.</p>
+<p><b>Could this program work without changing anything for world
+    <span class="world">Hurdles&nbsp;4</span>?</b></p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('at_goal')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('else')">Next</a>

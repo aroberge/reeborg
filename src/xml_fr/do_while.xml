@@ -1,0 +1,84 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('not')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper3')">Next</a>
+</nav>
+
+<h1><code>do</code> ... for a <code>while</code></h1>
+<p>Sometimes, we may want to have a set of instructions done at least once
+and then repeated depending on some conditions.  In that case, we can use
+the <code>do ... while</code> construct.
+ Here is an example, followed by an explanation of
+how you can think about it.</p>
+
+<pre class="jscode">
+do {
+    do_1();
+    do_2();
+    do_3();
+} while ( condition() );</pre>
+<p>You can think of this as being equivalent to:</p>
+<pre class="jscode">
+do_1();
+do_2();
+do_3();
+if ( condition() ){
+    do_1();
+    do_2();
+    do_3();
+}
+if ( condition() ){
+    do_1();
+    do_2();
+    do_3();
+}
+if ( condition() ){
+    do_1();
+    do_2();
+    do_3();
+}
+....</pre>
+<p>which is to say that after being executed once,
+    the block of code is repeated as long
+as the condition is or remains <code>true</code>.  So, what happens if
+the condition is always <code>true</code>?   The block of code is repeated
+for ever and the program never ends.</p>
+<p>This is bad, as we have mentioned before in our discussion of the
+    <code>while</code> keyword.</p>
+
+<p>So, remember: you want to make sure that the condition will become <code>false</code> at some point,
+or perhaps have another test with a <code>break</code> statement to get out of the loop.</p>
+
+<h2>Try it out</h2>
+<p>Select the world <span class="world">Around&nbsp;1</span> and try the following
+code.
+<pre class="jscode">
+do {
+    move();
+} while (front_is_clear());</pre>
+<p>This will have Reeborg behave in the same way as if you had tried instead.</p>
+<pre class="jscode">
+while (front_is_clear()) {
+    move();
+}</pre>
+<p>To see the difference between <code>while</code> and <code>do/while</code> try
+the following two programs.</p>
+<pre class="jscode">
+while (front_is_clear()) {
+    move();
+}
+while (front_is_clear()) {
+    move();
+}</pre>
+and
+<pre class="jscode">
+while (front_is_clear()) {
+    move();
+}
+do {
+    move();
+} while (front_is_clear());</pre>
+<p>In this last case, the <code>do ... while</code> is not appropriate but sometimes it will be.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('not')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('newspaper3')">Next</a>

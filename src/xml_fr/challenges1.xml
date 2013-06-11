@@ -1,0 +1,29 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center')">Next</a>
+</nav>
+<h1>Introduction to the challenges</h1>
+<p>In the next few lessons, you will be presented some challenges.
+What you have to do, is to write programs that accomplish what is being described as being Reeborg's task.
+<b>You do not have to do all the challenges.</b>  The idea at this point is to get familiar with the way that
+Reeborg moves and to identify patterns that reoccur when finding a given solution.</p>
+<p>While you write your programs, each of which will consist of a specific of series of instructions,
+you have the advantage of seeing the entire world all at once.  You should think of how Reeborg,
+who only sees the grid square where he is located, could take advantage of clues to determine its
+next action.</p>
+<h2>Important information about saving your work</h2>
+<p>In the editor panel, you will find a "Notes" tab; if you select it, you will
+find a gadget that allows you to save notes ... including programs.  All your notes
+are saved locally on your computer; thus, no one else can see them.  If you do save
+your programs, you will have to note for which world they are designed.  To do
+so you can use comments.  Alternatively, and this is perhaps a better option, you
+can use the special command <code>RUR.select_world("world_name_here");</code> as the first
+instruction.  For example, a solution to world <span class="world">Home&nbsp;1</span> would be</p>
+<pre class="jscode">RUR.select_world("Home 1");
+move();
+move();</pre>
+<p>Try it without selecting world <span class="world">Home&nbsp;1</span> first.  Then try running
+it a second time with the right world selected.</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>

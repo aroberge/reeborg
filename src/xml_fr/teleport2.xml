@@ -1,0 +1,49 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport3')">Next</a>
+</nav>
+
+<h1>Teleport again!</h1>
+
+<p>At the end of last lesson, you looked at the source code for three of Reeborg's methods.
+    You should have noticed that the very last line for each of them was</p>
+<pre class="jscode">RUR.world.add_frame();</pre>
+<p>Computer screens can not display moving images: they can fake it by showing static images
+(or <em>frames</em>) in rapid succession.  The makers of Reeborg's world have adopted this
+strategy to make Reeborg move in his world.  Let's modify our definition of <code>teleport</code>
+by adding this instruction. </p>
+<pre class="jscode">UsedRobot.prototype.teleport = function (x, y) {
+    this.x = x;
+    this.y = y;
+    RUR.world.add_frame();
+};
+
+var Reeborg = new UsedRobot();
+Reeborg.teleport(3, 3);
+Reeborg.teleport(4, 8);
+</pre>
+<p>What happens if you have Reeborg step through this program?  Does Reeborg now appear at its
+new location after teleporting?  If so, is everything the way you'd expect ... or does
+something else needs to be added to the above definition for <code>teleport</code>?</p>
+<p>You might want to use <code>write</code> and <code>inspect</code> some more and experiment with
+various changes.  Based on the limited amount of information you have, it is likely to be a real
+puzzle to figure out what to do ... but the best way to learn about programming is trying your
+hand at those puzzles on your own first, before moving to the next lesson.</p>
+
+
+<h2>Before moving on ...</h2>
+<p>You have just defined a new method: <code>teleport</code>.
+Execute the program</p>
+<pre class="jscode">var Reeborg = new UsedRobot();
+view_source(Reeborg.teleport);
+delete UsedRobot.prototype.teleport;
+view_source(Reeborg.teleport);</pre>
+<p> and note how <code>teleport</code> first appears as a known method and then,
+after we <code>delete</code> it, it no longer is defined.  We can use the
+javascript keyword <code>delete</code> to remove attributes or methods
+from a corresponding object, either from a <em>specific</em> instance or
+from <b>all</b> the instances by removing it from the <em>prototype</em> like we have done here. </p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('teleport')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('teleport3')">Next</a>
+

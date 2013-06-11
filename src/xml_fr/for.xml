@@ -1,0 +1,57 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while_num')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('better_repeat')">Next</a>
+</nav>
+
+<h1>For loops</h1>
+<p>As we have seen, <code>while</code> loops can be used with numbers using the following
+pattern:</p>
+<pre class="jscode">var n = initial_value;  // initialisation
+while (n < max_value) {  // condition to end the loop
+    ...
+    n++;  // increment
+}</pre>
+<p>Another way to write <em><b>exactly the same program meaning</b></em> is to use a
+<code>for</code> loop:</p>
+<pre class="jscode">for ( var n = initial_value; n < max_value; n++ ) {
+    ...
+}</pre>
+<p>Thus, instead of having the variable initialisation, the condition test for ending
+the loop and the increment steps on three different lines, they appear on the same line:</p>
+<pre class="jscode">for (initialisation; condition; increment) {...}</pre>
+<p>However, <code>for</code> loops and <code>while</code> loops are completely equivalent.
+Deciding which type of loop to choose is usually done based on how much easier it makes it
+to read and understand a program: for programs that use numerical values that are incremented
+each steps until a specific value is reached, <code>for</code> loops are often preferred
+because the three steps (initialisation, condition, increment) can be seen at a glance.
+Note that any one (or more) of these three steps can be omitted in a <code>for</code> loop.
+For example, one could write</p>
+<pre class="jscode">for ( ; !front_is_clear(); ) {...}</pre>
+<p>instead of</p>
+<pre class="jscode">while ( !front_is_clear() ) {...}</pre>
+<p>However, in this case, the <code>while</code> loop syntax is considered by most people
+to be easier to read.</p>
+<p>Using the <code>for</code> loop syntax, we can have a different definition for a
+<code>repeat</code>-like function:</p>
+<pre class="jscode">function my_repeat(some_function, max_value){
+    for(var n = 0; n < max_value; n++) {
+        some_function();
+    }
+}
+
+my_repeat(move, 9);
+my_repeat(turn_left, 4);</pre>
+<p><b>Try it</b> with world <span class="world">Around&nbsp;1</span>.</p>
+<h2>Reeborg's <code>repeat()</code></h2>
+<p>Open Reeborg's diary and have Reeborg execute the single line program:</p>
+<pre class="jscode">view_source( repeat );</pre>
+<p>to find out which definition Reeborg uses for the <code>repeat()</code> function.</p>
+
+<p>Note that you could also use</p>
+<pre class="jscode">write( repeat );</pre>
+<p>but the code would not be as nicely formatted!</p>
+
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('while_num')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('better_repeat')">Next</a>

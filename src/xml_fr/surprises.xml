@@ -1,0 +1,27 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('challenges2')">Next</a>
+</nav>
+
+<h1>Surprises</h1>
+<p>Change the program we just wrote to remove the <code>put_token()</code>
+instruction.  Then try this slightly modified program
+with the following hurdle races <span class="world">Hurdles&nbsp;1</span>,
+<span class="world">Hurdles&nbsp;2</span> and <span class="world">Hurdles&nbsp;3</span>.
+You will find that this program, which is quite different than the ones you had
+written before to solve the hurdles challenges, works just as well.
+<b>Note:</b> you will need to change
+<code>found_starting_point</code> by something appropriate.</p>
+
+<p>Now, try it with <span class="world">Hurdles&nbsp;4</span>. Surprise! It
+works whereas the previous program did not!</p>
+
+<p>Try the same modified program again with either <span class="world">Maze&nbsp;1</span>
+or <span class="world">Maze&nbsp;2</span>.</p>
+
+<p>As you will see, this simple program can find the exit to this maze!</p>
+<p>Amazing!</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('challenges2')">Next</a>
+

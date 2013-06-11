@@ -1,0 +1,42 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing5')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('positional')">Next</a>
+</nav>
+
+<h1>Basic objects</h1>
+
+<p>Before continuing on improving Reeborg, we make a small detour to discuss
+    Javascript objects <b>very briefly</b>.  In fact, we will only provide a simple
+example for you to read and figure out on your own: there should be just enough clues
+for you to do so.</p>
+
+<p>In Reeborg's world we have so far mostly used objects as derived from a prototype.  There is
+a way to define basic objects using a simplified syntax as follows:</p>
+
+<pre class="jscode">var half = {
+    "numerator" : 1,
+    "denominator" : 2,
+    "toString": function () {
+        return this.numerator + "/" + this.denominator;
+        },
+    "evaluate": function () {
+        return this.numerator/this.denominator;
+        }
+};
+
+// use "dot" notation
+write( "One half, which is written as " + half.toString() +
+       " is equal to " + half.evaluate());
+
+// mixed notation introduced without further explanation
+write( 'The denominator is ' + half.denominator +
+       ' whereas the numerator is ' + half['numerator']);
+</pre>
+<p>Try to figure out what the above does by reading it and
+    confirm your guess by running the program and observing the result in
+    Reeborg's diary.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('fixing5')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('positional')">Next</a>
+

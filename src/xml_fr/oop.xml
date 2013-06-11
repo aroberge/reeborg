@@ -1,0 +1,47 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('more')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('new')">Next</a>
+</nav>
+
+<h1>The dot notation</h1>
+
+<p>We are soon going to learn about a modern programming style called Object-Oriented Programming [OOP]. Javascript is known as a Prototype based language rather than an OOP language, but <b>for the basic
+concepts covered in this lesson</b>, Prototype based languages and OOP languages are indistinguishable.
+Before we start writing object-oriented programs, we will first learn how to read
+and understand the notation used.</p>
+
+<h2>All in a dog's day</h2>
+
+<p>Fido is a dog. During a typical day, he does various actions: he eats, runs, sleeps, etc. Here's how an object-oriented programmer might write this.</p>
+
+<pre class="jscode">var Fido = new Dog();
+Fido.eats();
+Fido.runs();
+Fido.sleeps();</pre>
+
+<p>In addition, Fido has various qualities or attributes. These are variables, like we have seen before except that they "belong" to Fido. He is tall (for a dog) and his hair is black. Here's how the programmer might write the same things.</p>
+<pre class="jscode">Fido.size = "tall";
+Fido.hair_colour = "black";</pre>
+
+</p>In the object-oriented language, we have the following:</p>
+
+<ul>
+    <li><code>Dog</code> is an example of a <em>class</em> of <b>objects</b>.</li>
+    <li><code>Fido</code> is an <b>instance</b> (or particular object) in the Dog class.</li>
+    <li><code>eats(), runs()</code>and <code>sleeps()</code> are <b>methods</b> of the Dog class; 'methods' are essentially like 'functions' which we saw before (the only difference is that they belong in a given class/object/instance).</li>
+    <li><code>size</code> and <code>hair_colour</code> are attributes of a given instance/object; attributes can take any value that a "normal" variable can take.</li>
+    <li>The connection between the attributes or the methods with the object is indicated by a "dot" (".") written between them.</li>
+</ul>
+<p>Objects can also have other objects that belong to them, each with their own methods or attributes:</p>
+
+<pre class="jscode">Fido.tail.wags();
+Fido.tail.type = "bushy";
+Fido.left_front_paw.moves();
+Fido.head.mouth.teeth.canine.hurts();</pre>
+
+<p>We'll see how this works later. For now, let's see how Reeborg uses the "dot" notation.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('more')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('new')">Next</a>
+

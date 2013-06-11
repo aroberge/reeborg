@@ -1,0 +1,38 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing4')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('object')">Next</a>
+</nav>
+<h1>Fixing the oil leak</h1>
+<p>We have already seen how to use the <code>is_leaky()</code> method to fix the oil leak.
+We can use it inside the constructor to ensure that the leak is fixed right from the
+moment a robot is created.</p>
+<pre class="jscode">function ImprovedRobot(x, y, orientation, tokens)  {
+    UsedRobot.call(this, x, y, orientation, tokens);
+    this.is_leaky(false);
+    RUR.world.add_robot(this);
+}</pre>
+<p>Change the constructor in your library and try it out!</p>
+<h2>Useful leaks ...</h2>
+<p>While oil leaks are not friendly for the environment, <em>fake</em> oil leaks are sometimes
+useful in helping us visualize the actions performed by a robot.  Thus, it would be useful
+if we could <b>easily</b> turn the oil leaks on and off, by doing something like:</p>
+<pre class="jscode">var Reeborg = new ImprovedRobot();  // no leak
+var LeakyReeborg = new ImprovedRobot(true);  // leaks
+
+...</pre>
+<p>We can do so with the following modified constructor:</p>
+<pre class="jscode">function ImprovedRobot(leak, x, y, orientation, tokens)  {
+    UsedRobot.call(this, x, y, orientation, tokens);
+    if (!leak) {
+        this.is_leaky(false);
+    }
+    RUR.world.add_robot(this);
+}</pre>
+<p>This works since when <code>leak</code> is <code>undefined</code> (which is considered as
+being similar to <code>false</code> in Javascript), <code>!leak</code> is
+<code>true</code>.  Try it out!</p>
+
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('fixing4')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('object')">Next</a>
