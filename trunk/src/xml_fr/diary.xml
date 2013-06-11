@@ -1,0 +1,60 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest3')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('increment')">Next</a>
+</nav>
+
+<h1>Reeborg's diary</h1>
+
+<p>Click on the <b>World</b> button at the top to hide Reeborg's world; click also on the <b>Diary</b>
+button to reveal Reeborg's diary, the place where our favourite robot writes.  You should
+see a button labeled <b>Deselect world</b>; click it and a button labeled <b>Execute</b> should be
+enabled.   <small>If, for some reason, the <b>Deselect world</b> button was disabled initially (so you
+couldn't click on it), reopen Reeborg's world (by clicking on the <b>World</b> button at the very top),
+select a world and close Reeborg's world.</small></p>
+<p>Have Reeborg execute the following program</p>
+<pre class="jscode">write(42);</pre>
+<p>You should see that Reeborg wrote the answer to the ultimate question about life, the universe and everything
+[<small>at least according to <em>The Hitchhiker's guide to the Galaxy</em></small>] in his diary.</p>
+
+<h2>Writing text</h2>
+<p>In programming terms, a <em>character</em> is any letter, number or symbol that can
+be printed and a <em>string of characters</em>, or simply <em>string</em>, is any combination
+of character that can be printed. For example, try the following:</p>
+<pre class="jscode">write("Hello world!");
+write('Hello again.');</pre>
+<p>Note that the quotes that surround the <em>string</em> have to be the same, either double
+quotes like ", or single quotes like '.  To have a string that contains some quote characters,
+we can either surround it by quotes of a different type or use the <em>escape character</em> <code>\</code>.</p>
+<pre class="jscode">write("Let's go.");
+write('Let\'s go.');</pre>
+<p>We can combine strings using the <code>+</code> symbol.</p>
+<pre class="jscode">write("Goodbye! " + "And thanks for all the fish.");</pre>
+<p>We can also start on a new line using the following <em>escape sequence</em>: <code>\n</code></p>
+<pre class="jscode">write("Thank you. \nTry again");</pre>
+
+<h2>Reeborg knows mathematics</h2>
+<p>Try running the following program and look at the output in Reeborg's diary.</p>
+<pre class="jscode">write( 2 + 3 );  // adding numbers
+write( 2 * 3 );  // multiplying numbers
+write( 3 - 2 );  // subtracting numbers
+write( 6 / 2 );  // dividing numbers
+write( 1 + 3 * 2 ); // multiplication is done before addition
+write( (1 + 3) * 2 );  // using parentheses to change normal order of operations</pre>
+<h2>Using variables</h2>
+<p>We have already seen the <code>var</code> keyword.  Let's use it again as explore mathematical
+operations some more.</p>
+<pre class="jscode">var length, width, area;
+length = 4;
+width = 6;
+area = length * width;  // area of a rectangle
+write(area);  // will output 24</pre>
+<p>Try it!</p>
+<h2>A word of caution</h2>
+<p>Combining strings and numbers can yield unexpected results:</p>
+<pre class="jscode">write("2" + 2);</pre>
+<p><b>Important</b>: the <em>character</em> "2" is not the same as the <em>number</em> 2.</p>
+<p>Finally, note that spaces around operators, like <code>+</code>, are ignored by javascript; however
+they often make a program easier to read for humans.</p>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('harvest3')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('increment')">Next</a>

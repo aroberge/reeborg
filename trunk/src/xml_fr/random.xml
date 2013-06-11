@@ -1,0 +1,36 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('remainder')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('popup')">Next</a>
+</nav>
+
+<h1>Random math stuff</h1>
+
+<p>Open Reeborg's Diary and close Reeborg's world.  Then, run the following program.
+</p>
+
+<pre class="jscode">write(Math.random());
+write(Math.floor(8.4));
+write("=========");
+for(var i=0; i < 10; i++) {
+    write(Math.floor(Math.random()*100));
+}
+</pre>
+<p><code>random()</code> and <code>floor()</code> are two methods from the javascript
+<code>Math</code> object.  <code>random()</code> generates a random number between 0 and 1; by
+random we mean a number that can not be predicted and will be different every time the
+method is called.</p>
+<p><code>floor()</code> takes an arbitrary number and removes the decimal part leaving only
+an integer (or whole number).</p>
+<p>By multiplying the output of <code>random()</code> by 100, and taking the <code>floor</code>, we
+end up with an integer between 0 and 99.  We can use this to design a game that has a player
+guess a number between 0 and 99 (or whatever arbitrary value we may wish).  Actually,
+other than programmers, people usually start counting at 1 instead of 0, so we can add 1 to
+the above,
+<code>Math.floor(Math.random()*100)&nbsp;+&nbsp;1</code>, in order to get an arbitrary
+number between 1 and 100 inclusively.</p>
+
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('remainder')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('popup')">Next</a>
+

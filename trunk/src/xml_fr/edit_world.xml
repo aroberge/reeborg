@@ -1,0 +1,43 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('keywords')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+</nav>
+
+<h1>Create your own worlds!</h1>
+<p>You can easily create your own worlds; once saved, they will appear as
+additional selections.</p>
+<p>Suggestion: close the Editor panel, and open the Diary.
+    Start with an existing world selected and duplicate it. <b>Remember to save.</b>
+<p>If you want to share your world (and corresponding challenges) with others,
+    copy it from Reeborg's diary and send it to
+<a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
+</p>
+
+<p>Command: <input type="text" id="cmd-input"> <span id="cmd-result"></span></p>
+<ul><li><code> duplicate()</code>: duplicates the currently selected world.</li>
+    <li><code>save_world("name")</code>: saves the current world (uses html localStorage)</li>
+    <li><code>delete_world("name")</code>: deletes previously saved world.</li>
+<li><code>add_robot(x, y, orientation, tokens)</code>: adds or replace a robot; only
+one robot is allowed.  Optional arguments are, in order: x, y, orientation (0 means East, 1
+means North, etc.), tokens (positive integer or use any string, like "infinite" [self-documenting!]
+for a robot that carries an unlimited number of tokens).  Default values: 1, 1, 0, 0. </li>
+<li><code>remove_robot()</code>: remove existing robot.</li>
+<li><code>toggle_wall(x, y, direction)</code> where direction is one of "east" or "north".</li>
+<li><code>set_tokens(x, y, nb_tokens</code> sets the number of tokens at a given location.</li>
+<li><code>toggle_shape(x, y, shape)</code> puts a shape (or remove it) at a given location.
+Allowed shapes: "star", "triangle", "square". Only one shape per location. </li>
+<li><code>set_goal_position(x,y)</code>: sets the goal position; choose x=y=0 to remove
+this goal.</li>
+<li><code>set_goal_orientation(orientation)</code>: sets the goal orientation
+    (0=East, 1=North, 2=West, 3=South);
+choose a non-allowed value to remove this goal.</li>
+<li><code>set_goal_tokens(x, y, nb_tokens)</code>: similar to <code>set_tokens()</code></li>
+<li><code>set_goal_no_tokens()</code>: seeks to have no token left in final world.</li>
+<li><code>set_goal_shape(x, y, shape)</code> sets a shape (or remove it) as a goal at a given location.
+Allowed shapes: "star", "triangle", "square". Only one shape per location. </li>
+<li><code>set_goal_no_shapes()</code>: seeks to have no shapes left in final world.</li>
+<li><code>set_goal_wall(x, y, direction)</code> where direction is one of "east" or "north".</li>
+</ul>
+<script src="src/js/edit_world.js"></script>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('keywords')">Previous</a>

@@ -1,0 +1,103 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('else')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('not')">Next</a>
+</nav>
+<h1>Hurdles yet again!</h1>
+<p>Reeborg lives in Canada where it not only can rain or be sunny, but snow can also
+be falling ... usually not all three at the same time ... <small> but it does happen...</small> Let's suppose
+that only one of those can happen.  Then, Reeborg could be faced with the following choices:</p>
+<pre class="jscode">if ( it_rains() ) {
+    play_indoors();
+} else if ( it_snows() ){
+    go_skiing();
+} else {
+    go_swimming(); // assuming it is warm!
+}</pre>
+<p>Notice the use of <code>else</code> for choices 2 and 3, and the additional <code>if</code> statement
+for the second case.  If we took into account other possible weather phenomena, like hail, thunder, fog,
+drizzle, etc., we could add other choices using additional <code>else if {...}</code> code blocks.</p>
+
+<h2>How to think of <code>if/else if/ ... /else</code> statements</h2>
+<p>A series of <code>if/else if/ ... /else</code> statements is
+equivalent to inserting the <b>first</b> code block that evaluates to <code>true</code>.  Thus</p>
+<pre class="jscode">if ( false ) {
+    do_1();
+} else if ( true ){
+    do_2();
+} else if ( true ){
+    do_3();
+} else {
+    do_4();
+}</pre>
+is equivalent to
+<pre class="jscode">do_2();</pre>
+<p>whereas </p>
+<pre class="jscode">if ( false ) {
+    do_1();
+} else if ( false ){
+    do_2();
+} else if ( false ){
+    do_3();
+} else {
+    do_4();
+}</pre>
+<p>is equivalent to </p>
+<pre class="jscode">do_4();</pre>
+<p>etc.</p>
+
+<h2>Back to hurdles</h2>
+<p>Just two lessons ago, you wrote a program that worked for worlds
+<span class="world">Hurdles&nbsp;1</span> and
+<span class="world">Hurdles&nbsp;2</span> but not for <span class="world">Hurdles&nbsp;3</span>.
+Your program was likely something like this </p>
+<pre class="jscode">
+function jump_over_hurdle() {
+    // some suitable definition
+}
+
+function move_and_jump_until_done () {
+    move();
+    if ( at_goal() ) {
+        done();
+    }
+    jump_over_hurdle();
+}
+
+repeat(move_and_jump_until_done, 42);</pre>
+<p>The reason it is not working for <span class="world">Hurdles&nbsp;3</span> is that
+it is written with the assumption that the hurdles are evenly spaced.  Let's use
+our new condition <code>front_is_clear()</code> and keyword <code>else</code> to change that. </p>
+<p>Here's a new program that should work for the world we mentioned above, provided
+you fill in the missing pieces.</p>
+<pre class="jscode">
+function jump_over_hurdle() {
+    // suitable definition
+}
+
+function run_jump_or_finish () {
+    if ( at_goal() ){
+        // something
+    } else if ( front_is_clear() ){
+        // something
+    } else {
+        // something
+    }
+}
+
+repeat(run_jump_or_finish, 42);</pre>
+
+<p>Note the structure of the <code>if/else</code> statements; as is mentioned above,
+you should see that it
+gives three independent choices: only one of them will be executed.</p>
+
+<p>Write such a program and make sure it works.</p>
+<p><b>Could this program work without changing anything for world
+    <span class="world">Hurdles&nbsp;4</span>? ...</b>  Have a look and you will likely
+conclude that the answer is no.  You might want to try it just to be sure.
+It will take a little <code>while</code> until we
+are ready to write a program that can make Reeborg race <span class="world">Hurdles&nbsp;4</span>
+as well as the other three.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('else')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('not')">Next</a>

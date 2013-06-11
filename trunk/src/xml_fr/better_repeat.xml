@@ -1,0 +1,79 @@
+<nav>
+
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while_num')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('more')">Next</a>
+
+</nav>
+<h1>A better <b>repeat()</b></h1>
+
+<p><em>Note: this lesson covers some very advanced concepts.  If you do not fully grasp them the first time around,
+you should feel free to continue with the other lessons.</em></p>
+
+<p>You have seen how we can use our function <code>repeat()</code> to reduce
+the number of lines of code needed to accomplish the same thing.  For example,
+if we want to simulate a right turn, we can write <code>repeat(turn_left,&nbsp;3)</code>, thus
+replacing three instructions with one.  The problem with doing this in general is that
+it does not make the code much more readable since we do not introduce descriptive names.
+A better approach that we have seen is
+to use <code>repeat()</code> inside a well-named function definition like this:</p>
+<pre class="jscode">function turn_right (){
+    repeat(turn_left, 3);
+}</pre>
+<p>However, we can do this differently.  First, we have just seen how <code>repeat()</code>
+is defined:</p>
+<pre class="jscode">function repeat (fn, n){
+    for (var i = 0; i < n; i++) {
+        fn();
+    }
+}</pre>
+<p>Second, we need to remember what the <code>return</code> statement does in a function.
+For example, if I have</p>
+<pre class="jscode">function some_function (){
+    // some lines of code
+    return something;
+}
+
+var a = some_function();
+// a will now be a synonym for "something"</pre>
+<p>Just like we can have functions as arguments of other functions, we can <code>return</code>
+functions!</p>
+<pre class="jscode">function better_repeat (fn, n){
+    return function () {
+        for (var i = 0; i < n; i++){
+            fn();
+        }
+    };
+}
+
+// now, use it to define a new way to turn right
+var my_turn_right = better_repeat(turn_left, 3);
+
+my_turn_right();  // and use it!
+</pre>
+
+<p>Try it!</p>
+<h2>Extending this idea</h2>
+
+<p>In addition to things that need to be repeated, we can also extend this
+idea to conditions that need to be tested for...</p>
+
+<pre class="jscode">function do_while(fn, condition) {
+    return function() {
+        while (condition()) {
+            fn();
+        }
+    };
+}
+
+var walk_to_the_wall = do_while(move, front_is_clear);
+walk_to_the_wall();
+</pre>
+
+<p>Try it!</p>
+
+<p>When you are done, you might want to define <code>do_while_not(fn,&nbsp;condition)</code> where we
+are doing something until a condition is <b>not</b> satisfied.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('while_num')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('more')">Next</a>

@@ -1,0 +1,41 @@
+<nav>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('challenges2')">Previous</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('storm2')">Next</a>
+</nav>
+<h1>Before harvesting</h1>
+<p>Select world <span class="world">Harvest&nbsp;4</span> which occurred shortly after the garden
+was seeded.  Some carrot seeds sprouted well, others yielded two or three plants while some
+did not sprout at all.  Help Reeborg weed out the excess seedlings, and plant some new seeds
+at locations where some were missing.  Here is a suggestion for some vocabulary to use:</p>
+<pre class="jscode">
+var carrot_here = token_here;
+var plant_carrot_seed = put_token;
+var remove_seedling = take_token;
+
+function ensure_one_carrot_at_spot():
+  ...
+</pre>
+<p>Do it!</p>
+
+<h2>Ready to harvest</h2>
+<p>The weeding went well (I hope!), the growing season is over and it is time to harvest.  Select world
+    <span class="world">Harvest&nbsp;1</span> or <span class="world">Harvest&nbsp;2</span> and have Reeborg collect all the tokens which represent
+plants to harvest.</p>
+<p>Notice how one can view the world <span class="world">Harvest&nbsp;1</span> as having horizontal
+(or vertical) rows having the same length, while
+world <span class="world">Harvest&nbsp;2</span> can be seen as having diagonal rows having the same length.</p>
+<p>One possible approach is to define a function <code>harvest_one_row</code> and a second one called
+<code>harvest_two_rows</code> as well as <code>move_to_first_row</code>.  Using these, can write a general solution.  Note that these individual functions may have to be different
+in different worlds.</p>
+<p>With suitable function definitions, the programs for both world <span class="world">Harvest&nbsp;1</span>
+and <span class="world">Harvest&nbsp;2</span> can be written as</p>
+<pre class="jscode">
+move_to_first_row();
+repeat(harvest_two_rows, 3);
+</pre>
+<p>
+Note however that you may choose a different way to solve the problems than that which is described above.</p>
+
+<a class="left-link" href="javascript:void(0);" onClick="load_page('challenges2')">Previous</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('storm2')">Next</a>
