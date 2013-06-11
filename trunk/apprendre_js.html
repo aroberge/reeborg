@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Free Interactive Programming Tutorials">
+<meta name="keywords" content="JavaScript,Python,Programming">
+<meta name="author" content="André Roberge">
+<meta name="license" content="CC BY-NC-SA 3.0">
+<link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
+<link rel="stylesheet" href="src/css/reeborg.css"> <!-- load after codemirror.css -->
+<title>Le monde de Reeborg</title>
+</head>
+<body>
+
+<header class="blue-gradient green-border">
+  <a id="logo" href="index_fr.html" class="fake_button"><img src="src/images/robot_e.png">Le monde de Reeborg</a>
+  <div id="header-child">
+    <button class="active reverse-blue-gradient" label="editor-panel">Éditeur</button>
+    <button class="active reverse-blue-gradient" label="world-panel">Monde</button>
+    <button class="blue-gradient" label="output-panel">Journal</button>
+    <button class="reverse-blue-gradient" id="contents-button">Leçons</button>
+    <button class="blue-gradient" id="help-button">Aide</button>
+  </div>
+  <div id="controls">
+    <button class="blue-gradient" id="run" title="exécution" onClick="RUR.controls.run();"><img src="src/images/play.png" alt="exécution"></button>
+      <button class="blue-gradient hidden" id="step" title="une commande" disabled="true" onClick="RUR.controls.step();"><img src="src/images/step.png" alt="une commande"></button>
+      <button class="blue-gradient" id="pause" title="pause" disabled="true" onClick="RUR.controls.pause();"><img src="src/images/pause.png" alt="pause"></button>
+      <button class="blue-gradient" id="stop" title="stop" disabled="true" onClick="RUR.controls.stop();"><img src="src/images/stop.png" alt="pause"></button>
+      <button class="blue-gradient" id="reload" title="recommencer" disabled="true" onClick="RUR.controls.reload();"><img src="src/images/reload.png" alt="recommencer"></button>
+      <select id="select_world">
+        <option value="None" selected>Choisir un monde</option>
+        <option value="src/json/alone.json">Seul</option>
+        <option value="src/json/around1.json">Autour 1</option>
+        <option value="src/json/around2.json">Autour 2</option>
+        <option value="src/json/around3.json">Autour 3</option>
+        <option value="src/json/around4.json">Autour 4</option>
+        <option value="src/json/center1.json">Centrer 1</option>
+        <option value="src/json/center2.json">Centrer 2</option>
+        <option value="src/json/center3.json">Centrer 3</option>
+        <option value="src/json/hurdle1.json">Haies 1</option>
+        <option value="src/json/hurdle2.json">Haies 2</option>
+        <option value="src/json/hurdle3.json">Haies 3</option>
+        <option value="src/json/hurdle4.json">Haies 4</option>
+        <option value="src/json/tokens1.json">Jetons 1</option>
+        <option value="src/json/tokens2.json">Jetons 2</option>
+        <option value="src/json/tokens3.json">Jetons 3</option>
+        <option value="src/json/tokens4.json">Jetons 4</option>
+        <option value="src/json/tokens5.json">Jetons 5</option>
+        <option value="src/json/tokens6.json">Jetons 6</option>
+        <option value="src/json/newspaper1.json">Journal 1</option>
+        <option value="src/json/newspaper2.json">Journal 2</option>
+        <option value="src/json/maze1.json">Labyrinthe 1</option>
+        <option value="src/json/maze2.json">Labyrinthe 2</option>
+        <option value="src/json/home1.json">Maison 1</option>
+        <option value="src/json/home2.json">Maison 2</option>
+        <option value="src/json/home3.json">Maison 3</option>
+        <option value="src/json/harvest1.json">Récolte 1</option>
+        <option value="src/json/harvest2.json">Récolte 2</option>
+        <option value="src/json/harvest3.json">Récolte 3</option>
+        <option value="src/json/harvest4.json">Récolte 4</option>
+        <option value="src/json/harvest5a.json">Récolte 5a</option>
+        <option value="src/json/harvest5b.json">Récolte 5b</option>
+        <option value="src/json/harvest5c.json">Récolte 5c</option>
+        <option value="src/json/harvest5d.json">Récolte 5d</option>
+        <option value="src/json/storm1.json">Tempête 1</option>
+        <option value="src/json/storm2.json">Tempête 2</option>
+        <option value="src/json/storm3.json">Tempête 3</option>
+        <option value="src/json/storm4.json">Tempête 4</option>
+        <option value="src/json/storm5.json">Tempête 5</option>
+        <option value="src/json/empty_world.json">Vide</option>
+        <option value="src/json/blank.json">Le canevas html</option>
+      </select>
+    </div>
+</header>
+
+
+<div id="contents" title="Le monde de Reeborg">
+  <a href="javascript:void(0);" onClick="load_page('welcome')">Désolé ... SVP, cliquez ici !</a>
+</div>
+<div id="help" title="Aide">Récupération...</div>
+
+<div id="panels">
+  <div id="world-panel" class="panel active" >
+    <div id="canvas-wrapper">
+        <canvas id="background_canvas" width="560" height="460"></canvas>
+        <canvas id="wall_canvas" width="560" height="460"></canvas>
+        <canvas id="trace_canvas" width="560" height="460"></canvas>
+        <canvas id="robot_canvas" width="560" height="460"></canvas>
+        <div id="Reeborg-says" title="Reeborg dit : J'ai fini !" style="display:none"></div>
+        <div id="Reeborg-shouts" title="Reeborg crie: Quelque chose ne va pas !" style="display:none"></div>
+    </div>
+  </div>
+  <div id="output-panel" class="panel">
+    <h3>Le journal de Reeborg</h3>
+    <pre id="output-pre"></pre>
+    <pre id="last-pre"></pre>
+  </div>
+  <div id="editor-panel" class="panel active" >
+    <div id="tabs">
+      <ul>
+        <li><a id="editor-link" href="#editor">Code</a></li>
+        <li><a id="library-link" href="#library">Librarie</a></li>
+        <li><a id="notes-link" href="#notes">Notes</a></li>
+        <button class="blue-gradient float-right" id="save-library">Sauvegarder</button> <span id="saved">Sauvegardé !</span>
+      </ul>
+      <div id="editor">
+        <span id="library-problem">Il y a un problème avec le code dans la librarie !</span>
+        <textarea id="code" name="code">avance();</textarea>
+      </div>
+      <div id="library">
+        <textarea id="library-code" name="library-code">
+
+/* Désolé, si vous voyez ceci, cela veut dire
+que votre navigateur est incapable d'utiliser
+la librarie ou les notes de la façon dont
+elles ont été conçues.
+
+Vous pouvez écrire ici ... mais rien ne sera
+sauvegardé la prochaine fois que vous reviendrez
+sur ce site.
+
+Avez-vous essayé Firefox ou Chrome ? */
+        </textarea>
+      </div>
+      <div id="notes">
+        <br>
+        <p>Gardez vos notes ici; elles seront disponibles partout sur ce site.
+          Vous pouvez utiliser la syntaxe html pour formatter vos notes.</p>
+        <p>
+          <form name="notes_editor" id="notes_editor">
+            <textarea name="data" rows="5" id="data_entry"></textarea><br>
+            <span id="undo_delete"></span><span class="float-right">HTML</span>
+            <input type="checkbox" name="check_html" class="float-right"/>
+            <a href="javascript:addNote();" class="blue-gradient fake_button float-right">Ajouter une note</a>
+            <br class="clear">
+          </form>
+        </p>
+        <div id="notes_list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
+<script src="src/js/reeborg.js"></script>
+<script src="src/js/reeborg_fr.js"></script>
+<script src="src/js/jquery.ui.dialog.minmax.js"></script>
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+    mode: 'javascript',
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4
+  });
+  var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
+    mode: 'javascript',
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4
+  });
+
+  RUR.visible_world.init();
+  RUR.controls = new RUR.Controls("javascript");
+  RUR.load_user_worlds();
+</script>
+
+<script src="src/libs/jshint.js"></script>
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://www.reeborg.ca/piwik/" : "http://www.reeborg.ca/piwik/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="http://www.reeborg.ca/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tracking Code -->
+</body>
+</html>
