@@ -3,6 +3,7 @@ var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_cle
                     " token_here, has_token, write, write_now, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view*/\n";
 
+RUR.xml = "src/xml/";
 RUR.translation = {};
 RUR.translation["/* Your special code goes here */\n\n"] = "/* Sauvegardez vos définitions ici. */\n\n"
 RUR.translation.ReeborgError = "ReeborgError";

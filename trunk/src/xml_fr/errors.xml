@@ -1,27 +1,30 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('move')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule1')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('move')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule1')">Suivant</a>
 </nav>
-<h1>Dealing with eRRoRs</h1>
-<p>Change <code>move();</code> to <code>Move();</code> (with an uppercase M) and
-try to execute the program.</p>
-<p>Click on {execute_button} and watch what happens.</p>
-<p>Try it!</p>
+<h1>Composer avec les eRReuRs</h1>
+<p>Changez l'instruction <code>avance();</code> à <code>Avance();</code> (avec un A majuscule) et
+tentez d'exécuter le programme à nouveau.</p>
+<p>Cliquez sur {execute_button} et prenez note de ce qui arrive.</p>
 
-<h2>What happened?</h2>
-<p>Javascript, the language that Reeborg understands, is "case sensitive"; that is,
-lowercase letters have a different meanings than uppercase ones.  So, go back, fix
-the program and run the corrected version.</p>
-<p>Once you have run it successfully, all previous indications that something
-    was wrong with the program will have disappeared.  So, make sure that this
-    is the case.</p>
-<p>Now, delete the semi-colon (;) at the end of the <code>move()</code> instruction
-    and run the program again.   You will find that Reeborg complains that
-    there is a missing semi-colon but nonetheless understands enough
-    to do what you expect it to do.  Missing semi-colons can sometimes cause
-    Reeborg to misunderstand your intentions; so make sure to include them
-    when Reeborg complains even if Reeborg appears to be doing the right thing.</p>
+<h2>Qu'est-il arrivé?</h2>
+<p>Tout d'abord, je note que le message d'erreur <em>'Avance' is not defined</em>, qui
+signifie <em>'Avance' n'est pas défini</em>, est en anglais.  Ceci est malheureusement
+incontournable...</p>
+<p>Javascript, le langage que Reeborg comprend, est "sensible à la casse";
+    c'est-à-dire que les lettres majuscules et les lettre minuscules ont des
+    sens différents.  Corrigez-donc le programme pour que Reeborg soit en mesure
+    de le comprendre et vérifiez que cela est bien le cas.</p>
+<p>Lorsque vous aurez exécuter le programme à nouveau, les indications d'erreurs
+    seront effacées. Assurez-vous que ceci soit bel et bien le cas.
+</p>
+<p>Maintenant, effacez le point-virgule <code>;</code> qui apparait à la fin
+de l'instruction <code>avance();</code> et exécutez le programme à nouveau.
+Reeborg se plaindra de l'absence du point-virgule mais exécutera néanmoins correctement le programme.
+Cependant, les points-virgules qui manque peuvent parfois causer des erreurs de compréhension
+de la part de Reeborg; assurez-vous donc de reconnaitre le message d'erreur puis de les inclure
+lorsque Reeborg se plaint, peu importe qu'il exécute le programme correctement ou non.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('move')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rule1')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('move')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('rule1')">Suivant</a>
