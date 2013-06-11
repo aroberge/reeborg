@@ -1496,7 +1496,7 @@ RUR.load_user_worlds = function () {
 
 var load_page = function (page){
     $.ajax({
-        url: "src/xml/"+page+".xml",
+        url: RUR.xml+page+".xml",
         context: document.body,
         dataType: "text"
     }).done(function(data) {
@@ -1578,7 +1578,7 @@ $(document).ready(function() {
         if (hash === ''){
             load_page("welcome");
         } else {
-            hash = "src/xml/" + hash.slice(1) + ".xml";
+            hash = RUR.xml + hash.slice(1) + ".xml";
             $.ajax({
                     url: hash,
                     context: $("#contents"),
@@ -1640,7 +1640,7 @@ $(document).ready(function() {
             }
             return;
         }
-        $('#help').load("src/xml/help.xml");
+        $('#help').load(RUR.xml+"/help.xml");
         RUR.ajax_requests.help = true;
         $("#help").dialog("open");
         return false;

@@ -1,37 +1,38 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('move')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('move')">Suivant</a>
 </nav>
 
-<h1>Welcome to Reeborg's world</h1>
-<p>Before you learn how to program, you should become familiar
-with Reeborg's world and its surroundings.</p>
-<p>This text appears in the <b>Contents</b> window; you can resize it,
-move it, minimize it or close it.  If you do close it, you can always
-reopen it by clicking on the
-<b>Contents</b> button at the very top. </p>
-<p>Try it!</p>
+<h1>Bienvenue au monde de Reeborg !</h1>
+<p>En préparation pour apprendre la programmation avec Reeborg,
+vous devriez vous familiariser avec l'environnement de son monde.</p>
+<p>Le texte que vous êtes en train de lire est dans la fenêtre flottante
+    <b>Leçons</b>; vous pouvez changer les dimensions de cette fenêtre,
+    la déplacer, la minimiser ou la fermer.  Si vous la fermez, vous
+    pouvez l'ouvrir à nouveau en cliquant sur le bouton <b>Leçons</b>
+    tout en haut.</p>
 
-<h2>Moving along...</h2>
-<p>Make this window smaller and move it downwards and to the right.</p>
-<p>The panel on the right is the <b>Editor</b> panel, where you will write the
-programs that Reeborg will execute.  It will do so in the first panel, known
-as the <b>World</b> panel.  A third panel, Reeborg's <b>Diary</b> can also be
-opened from a button on the top.</p>
-<p>Try opening and closing the various panels or resize them just to get a feel
-of how you can rearrange the environment.</p>
+<p>Allez-y, essayez!</p>
+
+<h2>On continue la tournée ...</h2>
+<p>Le "panneau" à droite de cette fenêtre est l'<b>Éditeur</b>.
+Rapetissez cette fenêtre et déplacez-la légèreent vers la droite pour voir un
+peu plus le panneau <b>Monde</b> qui est en-dessous.  Un troisième
+panneau, le <b>Journal</b> de Reeborg peut également être ouvert
+en utilisant un bouton en haut.</p>
+<p>Essayez d'ouvrir et de refermer les différents panneaux, ou changez leur largeur
+    pour avoir une idée de la façon dont vous pouvez organiser ce site.</p>
 <h2>Suggestion</h2>
-<p>Personnally, I find it
-very convenient to make the position this <b>Contents</b> window such that its title bar
-is just below the main title bar and located above Reeborg's world
-(which should be its starting position), and use the
-minimize "button" ( "_" on the title bar) to hide the content when
-I try running some programs, clicking on it again to maximize it when I want to read
-the lessons.</p>
+<p>Personnellement, je trouve pratique de positionner la fenêtre <b>Leçons</b>
+de telle sorte que sa barre titre soit tout juste en-dessous de la barre titre
+principale - ce qui devrait être la position de départ - et d'utiliser le bouton
+de minimisation "-" pour cacher le contenu lorsque je veux exécuter un programme,
+puis de maximiser à nouveau cette fenêtre pour continuer à lire.
+</p>
 
-<p>Once you're satisfied with your exploration, click on the
-<b>Next</b> button, either near the top or bottom of this <b>Contents</b> window, to
-go to the next lesson, where you will have Reeborg take its
-first step.</p>
+<p>Lorsque vous aurez complété votre exploration de cette page, cliquez sur
+    le bouton <b>Suivant</b>, soit celui en haut ou celui en bas de cette fenêtre,
+    pour passer à la leçon suivante, où vous verrez Reeborg faire ses premiers pas.
+</p>
 
-<a class="right-link" href="javascript:void(0);" onClick="load_page('move')">Next</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('move')">Suivant</a>
