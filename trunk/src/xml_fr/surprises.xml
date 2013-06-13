@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('challenges2')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule4')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('challenges2')">Suivant</a>
 </nav>
 
 <h1>Surprises</h1>
@@ -22,6 +22,6 @@ or <span class="world">Maze&nbsp;2</span>.</p>
 
 <p>As you will see, this simple program can find the exit to this maze!</p>
 <p>Amazing!</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rule4')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('challenges2')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('rule4')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('challenges2')">Suivant</a>
 

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('storm2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('storm2')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion')">Suivant</a>
 </nav>
 <h1>Finding the center</h1>
 <p>Have a look at the worlds <span class="world">Center&nbsp;1</span> to
@@ -13,5 +13,5 @@ by picking one token at one end, then at the other end, going back and forth unt
 is taken, the location of the center can be found.  When you know how to do this in one dimension
 (along a horizontal line), you can use that location as the starting point to find the location
 along the other location (a vertical line).</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('storm2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('recursion')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('storm2')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('recursion')">Suivant</a>

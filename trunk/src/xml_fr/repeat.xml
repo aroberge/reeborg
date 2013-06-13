@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('france')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper2')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('france')">Suivant</a>
 </nav>
 <h1>Repeat</h1>
 
@@ -39,5 +39,5 @@ in the Code editor, change it so that you use <code>repeat()</code> wherever it 
 shorten the code.  If you don't have it, go back to the previous lesson and redo it using
 <code>repeat()</code>.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('france')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper2')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('france')">Suivant</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion3')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion5')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion3')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion5')">Suivant</a>
 </nav>
 <h1>Counting on recursion</h1>
 <p>Reeborg knows how to count ... but we have not seen that yet and will not for a while.
@@ -32,5 +32,5 @@ can be found below.</p>
 
 collect();
 move(); </pre>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('recursion3')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('recursion5')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('recursion3')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('recursion5')">Suivant</a>

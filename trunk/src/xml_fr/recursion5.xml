@@ -1,11 +1,11 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion4')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion4')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return')">Suivant</a>
 </nav>
 <h1>Recursive challenges</h1>
 <p>Review the previous challenges and try writing new solutions using recursion instead of
 <code>while</code> loops.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('recursion4')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('return')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('recursion4')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('return')">Suivant</a>

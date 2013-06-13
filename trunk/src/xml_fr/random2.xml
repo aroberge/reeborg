@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('switch')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('tantrum')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('switch')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('tantrum')">Suivant</a>
 </nav>
 
 <h1>Random escapes</h1>
@@ -60,5 +60,5 @@ by the designers of Reeborg's world to help prevent infinite loops.</p>
 <p>Before we see another way of escaping from the maze, we need to learn
 about Reeborg's tantrums!</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('switch')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('tantrum')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('switch')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('tantrum')">Suivant</a>

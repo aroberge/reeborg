@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('repeat')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('repeat')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary3')">Suivant</a>
 </nav>
 <h1>Reeborg goes to France</h1>
 
@@ -49,5 +49,5 @@ has many advantages in terms of producing more robust code.  There is a way to d
 this strict mode within Reeborg's world, which I will mention later.</p>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('repeat')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('repeat')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Suivant</a>

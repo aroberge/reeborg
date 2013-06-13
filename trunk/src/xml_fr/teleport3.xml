@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport4')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport2')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport4')">Suivant</a>
 </nav>
 
 <h1>More teleportation</h1>
@@ -45,6 +45,6 @@ method that could be used instead of
 <code>something</code> and <code>something_else</code> above
 to determine their meaning.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('teleport2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('teleport4')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('teleport2')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('teleport4')">Suivant</a>
 

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles3')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles2')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles3')">Suivant</a>
 </nav>
 <h1>Listen to me ... or else ....</h1>
 <p>While learning how to program may be fun, you should not spend all your
@@ -77,5 +77,5 @@ move();
 turn_left();
 move();</pre>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles3')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles2')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles3')">Suivant</a>

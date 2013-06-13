@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles3')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles3')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while')">Suivant</a>
 </nav>
 <h1>Not ... true!</h1>
 <p>Reeborg is upset.  It's <b>not</b> raining; it's <b>not</b> snowing. Yet, he cannot go outside and
@@ -78,5 +78,5 @@ function run_jump_or_finish () {
 }
 </pre>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles3')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('while')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles3')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('while')">Suivant</a>

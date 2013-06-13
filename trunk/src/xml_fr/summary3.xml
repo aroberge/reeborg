@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('france')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('if')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('france')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('if')">Suivant</a>
 </nav>
 <h1>Summary</h1>
 
@@ -21,6 +21,6 @@ the Javascript keyword <code>var</code>.</p>
 <p>Finally, we have learned that we could save functions in the Library so
 that we can use them without having to redefine them each time.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('france')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('if')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('france')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('if')">Suivant</a>
 

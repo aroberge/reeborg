@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('prototype')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport2')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('prototype')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport2')">Suivant</a>
 </nav>
 
 <h1>Teleport!</h1>
@@ -62,6 +62,6 @@ view_source(Reeborg.turn_left);
 view_source(Reeborg.put_token);</pre>
 <p>By examining the output, can you figure out what instruction we might need to add to
 see Reeborg teleport to a new location?</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('prototype')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('teleport2')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('prototype')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('teleport2')">Suivant</a>
 

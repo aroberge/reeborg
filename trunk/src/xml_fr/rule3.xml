@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper1')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('functions1')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper1')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('functions1')">Suivant</a>
 </nav>
 <h1>Rule number 3</h1>
 <p>By now, you should be ready to learn about the third rule for writing
@@ -56,5 +56,5 @@ to use it, perhaps using the world <span class="world">Alone</span>.
 If you don't know what to try, just have Reeborg go around a square
 by alternating <code>turn_right()</code> and <code>move()</code>
 <b>functions</b> four times in a row.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('functions1')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper1')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('functions1')">Suivant</a>

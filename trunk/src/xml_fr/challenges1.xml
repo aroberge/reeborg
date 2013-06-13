@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary1')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center')">Suivant</a>
 </nav>
 <h1>Introduction to the challenges</h1>
 <p>In the next few lessons, you will be presented some challenges.
@@ -25,5 +25,5 @@ move();
 move();</pre>
 <p>Try it without selecting world <span class="world">Home&nbsp;1</span> first.  Then try running
 it a second time with the right world selected.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Suivant</a>

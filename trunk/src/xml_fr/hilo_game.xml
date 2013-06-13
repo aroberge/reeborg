@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('popup')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('break')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('popup')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('break')">Suivant</a>
 </nav>
 
 <h1>Guess a number: the game!</h1>
@@ -42,8 +42,8 @@ while(*****) {
 alert("Goodbye " + *****);
 </pre>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('popup')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('break')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('popup')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('break')">Suivant</a>
 
 
 

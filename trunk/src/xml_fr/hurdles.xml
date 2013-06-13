@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('maze')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('maze')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest')">Suivant</a>
 </nav>
 <h1>Jumping over hurdles</h1>
 <p>Reeborg has entered a race. It's the 110 meters hurdles race, in preparation for the Olympics.
@@ -16,5 +16,5 @@ Reeborg complete that race as well.</p>
 <p>Once you are done with those races, you might want to try the unevenly spaced hurdles of
     world <span class="world">Hurdles&nbsp;3</span> or the highly irregular ones of world
     <span class="world">Hurdles&nbsp;4</span>.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('maze')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('harvest')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('maze')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('harvest')">Suivant</a>

@@ -1,29 +1,33 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule1')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_left')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule1')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_left')">Suivant</a>
 </nav>
-<h1>Test driven learning</h1>
-<p>In order to help you learn Javascript, I will give you some tests: you have
-to program Reeborg to accomplish specific tasks and Reeborg itself will tell you
-if you got it right or wrong.</p>
-<p>Select the world <span class="world">Home&nbsp;1</span>.  Notice how the bottom left square is coloured differently: this
-is Reeborg's home.  Reeborg's world is a simple grid.  In <span class="world">Home&nbsp;1</span>, Reeborg starts at
-the third square on the bottom row.
- It labels this square as <code>x=3</code> and <code>y=1</code>, using what is
-known as Cartesian coordinates.</p>
-<p>In the Code editor, there is a program with a single command: <code>move();</code>.
-    Try running the program and see what Reeborg has to say about the result.</p>
+<h1>Apprentissage guidé par des tâches</h1>
+<p>Dans le but de vous aider à apprendre à programmer en Javascript, je vais vous
+    donner une série de tâches que Reeborg doit accomplir.  Reeborg lui-même vous
+    laissera savoir si les tâches en question ont été accomplies.</p>
+<p>Choisissez le monde <span class="world">Maison&nbsp;1</span>.
+Voyez comment le carré en bas à gauche est d'une couleur différente: ceci identifie
+la maison de Reeborg.  Le monde de Reeborg est un simple échiquier.
+Dans  <span class="world">Maison&nbsp;1</span>, Reeborg part du troisième carré
+sur la rangée du bas.  Ce carré a les coordonnées cartésiennes starts at
+<code>x=3</code> et <code>y=1</code>.</p>
+<p>Dans l'éditeur de code, il y a un programme avec une seule instruction:
+<code>avance();</code>.
+Exécutez ce programme et voyez ce que Reeborg a à dire sur son résultat.</p>
 
-<h2>Fix it!</h2>
-<p>Can you add a second line to the program so that Reeborg can go home?</p>
-<h2>Try two more</h2>
-<p>Select <span class="world">Home&nbsp;2</span>.
-Notice how Reeborg is in a different location and is also facing you.
-Try running the exact same program and see what happens.</p>
-<p>Next, select <span class="world">Home 3</span>.
-Notice how there is a small black square in the  home position.
-Try to run your program now.</p>
+<h2>Corrigez ce programme!</h2>
+<p>Pouvez-vous ajouter une deuxième ligne à ce programme pour faire en sorte
+    que Reeborg puisse aller chez lui?</p>
+<h2>Deux tâches de plus</h2>
+<p>Sélectionnez <span class="world">Maison&nbsp;2</span>.
+Notez que Reeborg est à un endroit différent et vous fait face.
+Exécutez exactement le même programme et prenez note du résultat.</p>
+<p>Ensuite, sélectionnez <span class="world">Maison&nbsp;3</span>.
+Voyez-vous le petit carré noir dans le carré indiquant la maison de Reeborg?
+Essayez d'exécuter le même programme encore une fois.
+</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rule1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('turn_left')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('rule1')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('turn_left')">Suivant</a>

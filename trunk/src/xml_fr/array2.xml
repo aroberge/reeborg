@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('remainder')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('remainder')">Suivant</a>
 </nav>
 
 <h1>Many robots ... again</h1>
@@ -95,6 +95,6 @@ then with the second line being executed.</p>
 move();</pre>
 <p>If the result does not make sense to you, make sure to read the both the previous lesson and
 this one again.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('array')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('remainder')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('array')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('remainder')">Suivant</a>
 
