@@ -207,3 +207,6 @@ RUR.Robot.prototype.a_une_fuite = RUR.Robot.prototype.is_leaky;
 RUR.Robot.prototype.tourne_à_gauche = RUR.Robot.prototype.turn_left;
 RUR.Robot.prototype.tourne_a_gauche = RUR.Robot.prototype.turn_left;
 RUR.Robot.prototype.avance = RUR.Robot.prototype.move;
+
+RUR.sélectionne_monde = RUR.select_world;
+RUR.selectionne_monde = RUR.select_world;
