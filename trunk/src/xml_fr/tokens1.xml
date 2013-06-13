@@ -3,27 +3,31 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule2')">Suivant</a>
 </nav>
-<h1>A token of appreciation</h1>
+<h1>Collection de jetons</h1>
 
-<p>Reeborg likes to collect tokens.  When he finds one on the ground, most often he
-takes it; sometimes he puts one down as well.  The commands for having him do so
-are as follows</p>
-<pre class="jscode">take_token();
-put_token();</pre>
+<p>Certains aiment collectionner les timbres, d'autres collectionnent les pièces de monnaie;
+    Reeborg, lui, aime collectionner les jetons.  Il utilise son imagination pour représenter
+    toute sorte d'objet par des jetons.  Il peut les ramasser lorsqu'ils sont par terre, ou les
+    déposer, en utilisant les instructions suivantes. </p>
+<pre class="jscode">prend_jeton();
+dépose_jeton();</pre>
 
-<p>Select world <span class="world">Tokens&nbsp;1</span>.  There is a token right next to Reeborg. Note the number 1 inside it: the
-number will change depending on the number of tokens at that location.
-Next square, we see the outline of a token, with the number 1 outside it.  This
-tells us that we should have Reeborg put one token at that location.  Once this is done, we can see that
-it has been done correctly by comparing the number of tokens at that location (number inside the
-gold coloured token) and the expected number.</p>
-<p><b>Write a program to accomplish this task.</b>  Can your program
-also work, without any changes for world <span class="world">Tokens&nbsp;2</span>?
-The answer should be no, for now ... but, later, you will learn how to
-write a single program that can work properly for both worlds.</p>
-<h2>Try something else</h2>
-<p>What happens if Reeborg attempts to put down a token when he does not carry one?
-What happens if Reeborg attempts to take a token where there is none to be found?</p>
+<p>Selectionnez le monde <span class="world">Jetons&nbsp;1</span>.  Il y a un jeton
+tout juste à côté de Reeborg.  On sait qu'il n'y en a qu'un parce qu'on voit
+le chiffre 1 à l'intérieur.  Dans le carré suivant, on voit le contour d'un jeton
+(imaginaire) avec le numéro 1 à côté.  Ceci indique que Reeborg doit déposer un seul
+jeton à cet endroit.  Lorsque le tout sera complété, on pourra comparer le nombre de
+jetons déposés (chiffre à l'intérieur) avec le nombre de jetons recherché (chiffre
+à l'extérieur).
+</p>
+<p><b>Écrivez un programme pour accomplir la tâche demandée.</b>
+Est-ce que votre programme peut également, sans aucun changement, accomplir
+la tâche du monde <span class="world">Jetons&nbsp;2</span>?
+La réponse devrait être non ... mais, plus tard, vous apprendrez à écrire
+un seul programme pouvant accomplir ces deux tâches.</p>
+<h2>Essayez autre chose</h2>
+<p>Qu'arrive-t-il si Reeborg essaie de déposer un jeton alors qu'il n'en a pas
+    avec lui?  Qu'arrive-t-il s'il essaie d'en ramasser un là où il n'y en a pas?</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('bugs')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('rule2')">Suivant</a>
