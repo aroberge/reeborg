@@ -20,9 +20,9 @@ Une deuxième instruction pour guider Reeborg.</li>
 Une discussion important sur un sujet embêtant. </li>
 <li><a href="javascript:void(0);" onClick="load_page('tokens1')">A token of appreciation</a> Learning
 about tokens and what Reeborg can do with them.</li>
-<li><a href="javascript:void(0);" onClick="load_page('rule2')">Rule number 2</a> One of
-the most important rules for writing computer programs.</li>
-<li><a href="javascript:void(0);" onClick="load_page('summary1')">Summary</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('rule2')">Règle numéro 2</a> Une des règles
+les plus importantes lorsqu'on écrit des programmes informatiques.</li>
+<li><a href="javascript:void(0);" onClick="load_page('summary1')">Résumé</a></li>
 
 
 <h2> 7 series of challenges</h2>
