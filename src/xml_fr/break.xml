@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hilo_game')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hilo_game')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Suivant</a>
 </nav>
 
 <h1>Taking a break</h1>
@@ -88,8 +88,8 @@ most people avoid using break with labels as it is found that it makes programs
 more difficult to read and understand.  Many other computer languages (Python, Java, ...)
 have break statements but no label statements.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('hilo_game')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('hilo_game')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Suivant</a>
 
 
 

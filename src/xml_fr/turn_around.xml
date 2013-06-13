@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('functions1')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('library')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('functions1')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('library')">Suivant</a>
 </nav>
 
 <h1>Turn around</h1>
@@ -57,5 +57,5 @@ step_back();
 // back at the same location,
 // facing in the same direction as before</pre>
 <p>Make sure you to test it!</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('functions1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('library')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('functions1')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('library')">Suivant</a>

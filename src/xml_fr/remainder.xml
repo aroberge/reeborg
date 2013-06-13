@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array2')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random')">Suivant</a>
 </nav>
 
 <h1>Remainder operator</h1>
@@ -105,6 +105,6 @@ view_source(Reeborg.turn_left);
 view_source(Reeborg.__turn_right);</pre>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('array2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('random')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('array2')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('random')">Suivant</a>
 

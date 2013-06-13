@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing4')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('object')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing4')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('object')">Suivant</a>
 </nav>
 <h1>Fixing the oil leak</h1>
 <p>We have already seen how to use the <code>is_leaky()</code> method to fix the oil leak.
@@ -34,5 +34,5 @@ being similar to <code>false</code> in Javascript), <code>!leak</code> is
 <code>true</code>.  Try it out!</p>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('fixing4')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('object')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('fixing4')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('object')">Suivant</a>

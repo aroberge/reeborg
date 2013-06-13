@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('increment')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('for')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('increment')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('for')">Suivant</a>
 </nav>
 
 <h1>While counting</h1>
@@ -71,5 +71,5 @@ a program, it will be treated as a completely different variable and won't affec
 of a similarly named variable elsewhere.  If you use global variables, a change in one part
 of the program will change the value of that variable everywhere else - often leading to some
 hard to trace bugs.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('increment')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('for')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('increment')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('for')">Suivant</a>

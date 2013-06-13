@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion2')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center2')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion2')">Suivant</a>
 </nav>
 <h1>Recursion</h1>
 <p>If you look up on the internet for a definition of recursion, you will often see something
@@ -41,5 +41,5 @@ and have Reeborg do the following:</p>
 go_home();</pre>
 <p>Once you have tried the above and completely understood it, go to the next
 lesson where we will consider a slightly trickier example.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('center2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('recursion2')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('center2')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('recursion2')">Suivant</a>

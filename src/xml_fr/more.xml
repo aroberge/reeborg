@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('better_repeat')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('oop')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('better_repeat')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('oop')">Suivant</a>
 </nav>
 
 <h1>More javascript</h1>
@@ -11,5 +11,5 @@ There are many more mathematical operations in javascript.  We suggest that you 
 and Operators</a> on the <a href="https://developer.mozilla.org/en-US/" target="_blank">Mozilla Developer Network</a> resources
 to find out more about the available operators before learning about Object Oriented Programming in
 the next section.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('better_repeat')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('oop')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('better_repeat')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('oop')">Suivant</a>

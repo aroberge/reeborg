@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('challenges1')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('around')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('challenges1')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('around')">Suivant</a>
 </nav>
 <h1>Finding the center</h1>
 <p>This is the first of our series of mini challenges.</p>
@@ -11,5 +11,5 @@ Reeborg put a token at the geometric center of the rectangular room he finds him
 <p>Later, you will be able to write a single program that will have Reeborg
 find the geometric center of any rectangular room (with odd dimensions on each side)
 and have it put a token at that location.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('challenges1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('around')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('challenges1')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('around')">Suivant</a>

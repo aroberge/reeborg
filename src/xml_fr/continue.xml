@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('try')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('modify')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('try')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('modify')">Suivant</a>
 </nav>
 
 <h1>Continue</h1>
@@ -67,5 +67,5 @@ whenever <code>---</code> is written, the corresponding integer is not written, 
 </pre>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('try')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('modify')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('try')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('modify')">Suivant</a>

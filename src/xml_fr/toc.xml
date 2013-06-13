@@ -1,23 +1,23 @@
-<h1>Table of contents</h1>
+<h1>Table des matières</h1>
 
 <ol>
 <h2>Introduction</h2>
 
 
-<li><a href="javascript:void(0);" onClick="load_page('welcome')">Welcome to Reeborg's world</a> Getting
-familiar with the layout of this website.</li>
-<li><a href="javascript:void(0);" onClick="load_page('move')">First program</a> Making Reeborg
-move for the first time.</li>
-<li><a href="javascript:void(0);" onClick="load_page('errors')">Dealing with eRRoRs</a> Learning
-to recognize some error messages given to us by Reeborg.</li>
-<li><a href="javascript:void(0);" onClick="load_page('rule1')">Rule number 1</a> The first and most
-important rule that someone must follow, if they wish to learn programming.</li>
-<li><a href="javascript:void(0);" onClick="load_page('home')">Test driven learning</a> A bit more
-information about how this site will teach you programming.</li>
-<li><a href="javascript:void(0);" onClick="load_page('turn_left')">Turning left</a> Learning
-about a second instruction Reeborg can follow.</li>
-<li><a href="javascript:void(0);" onClick="load_page('bugs')">Darn bugs!</a> An important
-discussion about an annoying subject.</li>
+<li><a href="javascript:void(0);" onClick="load_page('welcome')">Bienvenue au monde de Reeborg !</a>
+Devenez familier avec l'agencement de ce site.</li>
+<li><a href="javascript:void(0);" onClick="load_page('move')">Premier programme</a> Où l'on
+apprend à Reeborg à faire ses premiers pas.</li>
+<li><a href="javascript:void(0);" onClick="load_page('errors')">Composer avec les eRReuRs</a>
+Apprendre à reconnaitre certains messages d'erreurs donnés par Reeborg.</li>
+<li><a href="javascript:void(0);" onClick="load_page('rule1')">Règle numéro 1</a> La première règle,
+et la plus importante, que vous devez respecter si vous désirer apprendre à programmer. </li>
+<li><a href="javascript:void(0);" onClick="load_page('home')">Apprentissage guidé par des tâches</a>
+Un petit aperçu sur la méthode priviligiée pour vous aider à apprendre la programmation informatique.
+<li><a href="javascript:void(0);" onClick="load_page('turn_left')">Tourner à gauche</a>
+Une deuxième instruction pour guider Reeborg.</li>
+<li><a href="javascript:void(0);" onClick="load_page('bugs')">Fichus bogues!</a>
+Une discussion important sur un sujet embêtant. </li>
 <li><a href="javascript:void(0);" onClick="load_page('tokens1')">A token of appreciation</a> Learning
 about tokens and what Reeborg can do with them.</li>
 <li><a href="javascript:void(0);" onClick="load_page('rule2')">Rule number 2</a> One of

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('break')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('logical')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('break')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('logical')">Suivant</a>
 </nav>
 
 <h1>Rock, paper, scissors</h1>
@@ -35,5 +35,5 @@ write( i + " " + computer_select() );
 }</pre>
 <p>before moving to the next lesson to learn about logical operators.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('break')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('logical')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('break')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('logical')">Suivant</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine1')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine1')">Suivant</a>
 </nav>
 <h1>Newspaper delivery revisited again</h1>
 
@@ -53,5 +53,5 @@ Once you are done, you might want to go back to
 and see how much shorter this new version, which works in both worlds,
 <small>as you have checked, ... right?</small>, is.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('while')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('refine1')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('while')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('refine1')">Suivant</a>

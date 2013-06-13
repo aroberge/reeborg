@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport4')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array2')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport4')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array2')">Suivant</a>
 </nav>
 
 <h1>Javascript arrays</h1>
@@ -76,6 +76,6 @@ the animation takes place.</p>
     <li><code>pop()</code> removes the last item on the array and <em>returns</em> it</li>
 </ul>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('teleport4')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('array2')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('teleport4')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('array2')">Suivant</a>
 

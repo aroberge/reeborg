@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('storm')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('storm')">Suivant</a>
 </nav>
 <h1>Harvest time</h1>
 <p>Reeborg has been gardening and it is time to harvest.  Select world
@@ -15,5 +15,5 @@ world <span class="world">Harvest&nbsp;2</span> can be seen as having diagonal r
 earlier in the season.  Reeborg had been planting some carrots; some sprouted fine, others did not,
 while at some location 2 or more seeds sprouted.  Reeborg must remove the excess plants and reseed
 at locations where there are missing ones so that each plant site has only one plant (token).</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('storm')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('storm')">Suivant</a>

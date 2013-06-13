@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('try')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random2')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('try')">Suivant</a>
 </nav>
 
 <h1>Reeborg throws a tantrum</h1>
@@ -116,5 +116,5 @@ one can document where an error occur and deal with it somewhere else.</p>
 }</pre>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('random2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('try')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('random2')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('try')">Suivant</a>

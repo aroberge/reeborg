@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine3')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine5')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine3')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine5')">Suivant</a>
 </nav>
 <h1>Refinements: part 4</h1>
 <p>As you most likely found out, we were too hasty in asking Reeborg to move
@@ -26,5 +26,5 @@ while ( !token_here() ){
 
 <p>Test it now and see that it works. Can you imagine situations where it
 might not work?</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('refine3')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('refine5')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('refine3')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('refine5')">Suivant</a>

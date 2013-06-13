@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('continue')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing1')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('continue')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing1')">Suivant</a>
 </nav>
 
 <h1>Adding new methods</h1>
@@ -82,6 +82,6 @@ i.e. from "parent" objects.  In Reeborg's world case,
 it would be <code>RUR.Robot.prototype</code>.</p>
 <p>We will see this in more details in the following lessons.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('continue')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('fixing1')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('continue')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('fixing1')">Suivant</a>
 

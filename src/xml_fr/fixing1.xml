@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('modify')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing2')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('modify')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing2')">Suivant</a>
 </nav>
 <p>In what follows, you might want to always select world <span class="world">Empty</span>
 when running a program.</p>
@@ -75,5 +75,5 @@ Reeborg.turn_left();</pre>
 <p><b>Try it!</b></p>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('modify')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('fixing2')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('modify')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('fixing2')">Suivant</a>

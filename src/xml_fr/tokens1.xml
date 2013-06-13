@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('bugs')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule2')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('bugs')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule2')">Suivant</a>
 </nav>
 <h1>A token of appreciation</h1>
 
@@ -25,5 +25,5 @@ write a single program that can work properly for both worlds.</p>
 <p>What happens if Reeborg attempts to put down a token when he does not carry one?
 What happens if Reeborg attempts to take a token where there is none to be found?</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('bugs')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rule2')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('bugs')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('rule2')">Suivant</a>

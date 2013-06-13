@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing1')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing3')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing1')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing3')">Suivant</a>
 </nav>
 <h1>Turning right</h1>
 <p>As we have seen before, the makers of Reeborg were working on implementing
@@ -35,5 +35,5 @@ Reeborg.turn_right();  // causes an error</pre>
 
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('fixing1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('fixing3')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('fixing1')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('fixing3')">Suivant</a>

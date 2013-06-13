@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest3')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest3')">Suivant</a>
 </nav>
 
 <h1>More returns</h1>
@@ -18,5 +18,5 @@ following the <b>left</b> wall.  Do the same for solving challenges for worlds
 and <span class="world">Storm&nbsp;2</span>, that is, go around the one-room houses in the opposite
 direction compared with your previous solutions.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('return')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('harvest3')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('return')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('harvest3')">Suivant</a>

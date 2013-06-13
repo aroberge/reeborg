@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('maze_again')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('keywords')">Next</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('maze_again')">Précédent</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('keywords')">Suivant</a>
 </nav>
 
 <h1>The <code>with</code> keyword</h1>
@@ -48,5 +48,5 @@ with (Reeborg) {
 <p>As you can see, <code>with</code> sets up a block so that the object whose methods
 are invoked is known by default, so that it does not have to be typed in explictly.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('maze_again')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('keywords')">Next</a>
+<a class="left-link" href="javascript:void(0);" onClick="load_page('maze_again')">Précédent</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('keywords')">Suivant</a>
