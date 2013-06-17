@@ -3,27 +3,35 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center')">Suivant</a>
 </nav>
-<h1>Introduction to the challenges</h1>
-<p>In the next few lessons, you will be presented some challenges.
-What you have to do, is to write programs that accomplish what is being described as being Reeborg's task.
-<b>You do not have to do all the challenges.</b>  The idea at this point is to get familiar with the way that
-Reeborg moves and to identify patterns that reoccur when finding a given solution.</p>
-<p>While you write your programs, each of which will consist of a specific of series of instructions,
-you have the advantage of seeing the entire world all at once.  You should think of how Reeborg,
-who only sees the grid square where he is located, could take advantage of clues to determine its
-next action.</p>
-<h2>Important information about saving your work</h2>
-<p>In the editor panel, you will find a "Notes" tab; if you select it, you will
-find a gadget that allows you to save notes ... including programs.  All your notes
-are saved locally on your computer; thus, no one else can see them.  If you do save
-your programs, you will have to note for which world they are designed.  To do
-so you can use comments.  Alternatively, and this is perhaps a better option, you
-can use the special command <code>RUR.select_world("world_name_here");</code> as the first
-instruction.  For example, a solution to world <span class="world">Home&nbsp;1</span> would be</p>
-<pre class="jscode">RUR.select_world("Home 1");
-move();
-move();</pre>
-<p>Try it without selecting world <span class="world">Home&nbsp;1</span> first.  Then try running
-it a second time with the right world selected.</p>
+<h1>Introduction aux missions</h1>
+<p>Bonjour programmeur anonyme,</p>
+<p>Votre mission, si vous l'accepter, consiste à lire les sept prochaines leçons et à écrire des programmes
+permettant d'accomplir les tâches qui y sont décrites.</p>
+<p><b>Vous n'avez pas à écrire des programmes pour toutes ces tâches à ce moment-ci.</b>
+L'idée est de vous permettre de vous familiariser avec la façon dont Reeborg agit et d'identifier
+des patrons récurrents dans les diverses solutions.</p>
+<p>Lorsque vous allez écrire vos programmes, vous aurez l'avantage de voir le monde dans
+son ensemble.  Vous devriez chercher à vous identifier à Reeborg, qui ne voit que le
+carré où il se trouve, et imaginer comment vous pouvez vous baser sur cette vue limitée
+pour décider quelle devrait être la prochaine action.</p>
+
+
+<h2>Sauvegarde de votre travail</h2>
+<p>Dans le panneau de l'éditeur, vous verrez qu'il y a un onglet intitulé "Notes";
+    si vous le sélectionner, vous trouverez un petit gadget vous permettant de
+    sauvegarder des notes ... y compris des programmes en entier.
+    Toutes vos notes sont sauvegardées localement sur votre propre ordinateur;
+    donc, personne d'autre que vous ne peut les voir. Si vous sauvegardez un programme,
+    il serait probablement utile d'ajouter de l'information indiquant pour quelle monde
+    ce programme représente une solution.  Une façon de le faire est d'ajouter un
+    commentaire - ce que vous savez comment faire si vous avez lu les leçons précédentes.
+    Une autre façon, peut-être plus utile, est d'avoir comme toute première instruction
+    <code>sélectionne_monde("nom du monde ici");</code>.  Par exemple, une solution
+    au monde <span class="world">Maison&nbsp;1</span> aurait comme première instruction</p>
+<pre class="jscode">sélectionne_monde("Maison 1");
+avance();
+avance();</pre>
+<p>Essayez d'exécuter ce programme <b>sans sélectionner</b> <span class="world">Maison&nbsp;1</span> en
+premier.  Puis, exécuter ce programme une deuxième fois sans rien changer d'autre. </p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Suivant</a>

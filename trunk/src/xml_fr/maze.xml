@@ -3,10 +3,13 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles')">Suivant</a>
 </nav>
-<h1>Lost in a maze</h1>
-<p>Reeborg is lost in a maze. Have a look at the worlds <span class="world">Maze&nbsp;1</span> and
-<span class="world">Maze&nbsp;2</span>. In each case, write a program that leads Reeborg to the exit.</p>
-<p>Later, you will be able to write a single program that will have Reeborg
-get out of both mazes, and could in fact help him get out of almost any maze you could think of.</p>
+<h1>Perdu dans un labyrinthe</h1>
+<p>Reeborg est perdu dans un labyrinthe.
+    Jetez un coup d'oeil sur les mondes <span class="world">Labyrinthe&nbsp;1</span> et
+<span class="world">Labyrinthe&nbsp;2</span>. Dans chaque cas, écrivez un programme qui permet à Reeborg
+de trouver la sortie. </p>
+<p>Plus tard, vous serez capable d'écrire un programme unique permettant à Reeborg de
+    sortir de ces deux labyrinthes et, en fait de sortir probablement de n'importe
+    quel labyrinthe que vous pourriez concevoir.</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('around')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles')">Suivant</a>

@@ -3,14 +3,14 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('maze')">Suivant</a>
 </nav>
-<h1>Around the world</h1>
-<p>Have a look at the worlds <span class="world">Around&nbsp;1</span> to
-<span class="world">Around&nbsp;4</span>. For at least one of these worlds, write
-a program that will have Reeborg go all around the world coming back at its original starting location,
-always moving next to a wall.</p>
-<p>Later, we will come back to these challenges and show you how to write programs
-that are much shorter and, will work for all of these four worlds and any similar
-worlds.</p>
+<h1>Autour du monde</h1>
+<p>Examinez les mondes <span class="world">Autour&nbsp;1</span> à
+<span class="world">Autour&nbsp;4</span>. Pour au moins un de ces mondes, écrivez
+un programme faisant en sorte que Reeborg fasse le tour du monde, en suivant un mur,
+et retourne à son point de départ.</p>
+<p>Plus tard, vous verrez comment on peut écrire un programme beaucoup plus court et
+    qui peut permettre à Reeborg de faire le tour de n'importe quel de ces 4 mondes,
+et de tout autre monde semblable.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('center')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('maze')">Suivant</a>

@@ -1341,7 +1341,7 @@ RUR.Controls = function (programming_language) {
         $("#stop").attr("disabled", "true");
         $("#pause").attr("disabled", "true");
         $("#step").attr("disabled", "true");
-        $("#reload").attr("disabled", "true");
+        $("#run").removeAttr("disabled");
         RUR.world.import_("{}");
         RUR.world.reset();
         RUR.visible_world.init();
@@ -1683,6 +1683,7 @@ $(document).ready(function() {
             $("#step").addClass("hidden");
         }
     });
+    RUR.controls.set_ready_to_run();
 
 });
 

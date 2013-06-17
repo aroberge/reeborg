@@ -18,9 +18,9 @@ find a gadget that allows you to save notes ... including programs.  All your no
 are saved locally on your computer; thus, no one else can see them.  If you do save
 your programs, you will have to note for which world they are designed.  To do
 so you can use comments.  Alternatively, and this is perhaps a better option, you
-can use the special command <code>RUR.select_world("world_name_here");</code> as the first
+can use the special command <code>select_world("world_name_here");</code> as the first
 instruction.  For example, a solution to world <span class="world">Home&nbsp;1</span> would be</p>
-<pre class="jscode">RUR.select_world("Home 1");
+<pre class="jscode">select_world("Home 1");
 move();
 move();</pre>
 <p>Try it without selecting world <span class="world">Home&nbsp;1</span> first.  Then try running

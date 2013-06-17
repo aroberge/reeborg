@@ -3,7 +3,7 @@ var globals_ = "/*globals avance, tourne_a_gauche, tourne_à_gauche, RUR, examin
                     " dépose_jeton, depose_jeton, prend_jeton, dépose, depose, prend, objet_ici,"+
                     " jeton_ici, a_des_jetons, écrit, ecrit, écrit_maintenant, ecrit_maintenant, au_but, " +
                     " au_but_orientation, construit_un_mur, pense, DEBUG, pause, supprimer_le_robot, " +
-                    " repete, répète, voir_source, vue_de_cote, vue_de_côté, vue_de_haut*/\n";
+                    " repete, répète, voir_source, vue_de_cote, vue_de_côté, vue_de_haut, sélectionne_monde, selectionne_monde*/\n";
 //RUR = RUR || {};
 
 RUR.xml = "src/xml_fr/";
@@ -208,5 +208,5 @@ RUR.Robot.prototype.tourne_à_gauche = RUR.Robot.prototype.turn_left;
 RUR.Robot.prototype.tourne_a_gauche = RUR.Robot.prototype.turn_left;
 RUR.Robot.prototype.avance = RUR.Robot.prototype.move;
 
-RUR.sélectionne_monde = RUR.select_world;
-RUR.selectionne_monde = RUR.select_world;
+var sélectionne_monde = RUR.select_world;
+var selectionne_monde = RUR.select_world;

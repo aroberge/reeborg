@@ -38,7 +38,7 @@
     <li><code>pense(nombre)</code>: spécifie le montant de temps (en millisecondes) entre chaque action d'un robot. </li>
     <li><code>écrit(chaine)</code>: écrit un texte - considéré comme une action d'un robot. </li>
     <li><code>écrit_maintenant(string)</code>: fait "immédiatement"</li>
-    <li><code>RUR.sélectionne_monde(string)</code>: sélectionne un monde donné. </li>
+    <li><code>sélectionne_monde(string)</code>: sélectionne un monde donné. </li>
     <li><code>vue_de_côté()</code> et <code>vue_de_haut()</code> peuvent être utilisés pour spécifier
     quelle série d'images doit être utilisée pour représenter les robots. </li>
   </ul>
@@ -110,4 +110,4 @@ puisse être fait totalement du côté client, sans avoir de code exécuté sur 
 <li>Possiblement inclure la traduction des leçons dans d'autres langues que l'anglais et le
   français, selon la bonne volonté de bénévoles.</li>
 <li>Investiguer la possibilité d'avoir quelque chose comme <a href="https://github.com/ryanb/ruby-warrior">Ruby-warrior en javascript</a></li>
-<li>Investiguer la possibilté d'avoir une version javascript de <a href="http://www.nand2tetris.org/">From nand to Tetris</a></li></ul>
+<li>Investiguer la possibilité d'avoir une version javascript de <a href="http://www.nand2tetris.org/">From nand to Tetris</a></li></ul>
