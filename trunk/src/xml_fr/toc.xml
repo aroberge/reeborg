@@ -35,15 +35,15 @@ les plus importantes lorsqu'on écrit des programmes informatiques.</li>
 <li><a href="javascript:void(0);" onClick="load_page('hurdles')">Sauter par-dessus les haies</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('harvest')">Le temps des récoltes</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('storm')">Jour de tempête</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('newspaper1')">Newspaper delivery</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('summary2')">Summary</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('newspaper1')">Livraison de journaux</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('summary2')">Résumé</a></li>
 
 
 <h2>Defining new things</h2>
 
 
-<li><a href="javascript:void(0);" onClick="load_page('rule3')">Rule number 3</a> Avoiding
-repetitions, and introducing the first javascript keyword: <code>function</code>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('rule3')">Règle numéro 3</a> Éviter les
+répétitions en utilisant le mot-clé <code>function</code>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('functions1')">How to think about <code>function</code></a>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('turn_around')">Turn around</a> Avoiding
 repetitions again.</li>
