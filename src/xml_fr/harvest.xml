@@ -3,17 +3,20 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('storm')">Suivant</a>
 </nav>
-<h1>Harvest time</h1>
-<p>Reeborg has been gardening and it is time to harvest.  Select world
-    <span class="world">Harvest&nbsp;1</span>, <span class="world">Harvest&nbsp;2</span> or
-    <span class="world">Harvest&nbsp;3</span> and have Reeborg collect all the tokens which represent
-plants to harvest.</p>
-<p>Notice how one can view the first worlds <span class="world">Harvest&nbsp;1</span> and
-<span class="world">Harvest&nbsp;3</span> as having horizontal (or vertical) rows having the same length, while
-world <span class="world">Harvest&nbsp;2</span> can be seen as having diagonal rows having the same length.</p>
-<p>Alternatively, select world <span class="world">Harvest&nbsp;4</span> which occurred
-earlier in the season.  Reeborg had been planting some carrots; some sprouted fine, others did not,
-while at some location 2 or more seeds sprouted.  Reeborg must remove the excess plants and reseed
-at locations where there are missing ones so that each plant site has only one plant (token).</p>
+<h1>Le temps des récoltes</h1>
+<p>Reeborg est à la ferme de sa tante et c'est le temps des récoltes.  Sélectionnez un des
+mondes <span class="world">Récolte&nbsp;1</span>, <span class="world">Récolte&nbsp;2</span> ou
+    <span class="world">Récolte&nbsp;3</span> et faites en sorte que Reeborg ramasse tous
+    les jetons qui représentent des plantes à récolter. </p>
+<p>Observez que les mondes <span class="world">Récolte&nbsp;1</span> et
+<span class="world">Récolte&nbsp;3</span> ont des rangées horizontales (ou verticales) ayant la
+même longueur alors que le monde <span class="world">Récolte&nbsp;2</span> peut être vu comme
+ayant des rangées diagonales ayant la même longueur.</p>
+<p>Pour une autre tâche, sélectionez le monde <span class="world">Récolte&nbsp;4</span>
+qui a eu lieu plus tôt dans la saison.  Reeborg avait planté des graines de carottes; certaines avaient
+poussé correctement alors que d'autres graines n'avaient pas germées; d'autres encore avaient
+été semées trop rapprochées les unes des autres.  Reeborg doit enlever les carottes en excès,
+resemer aux endroits où les graines n'ont pas germé de façon à avoir une carotte (jeton) par endroit.
+</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('storm')">Suivant</a>

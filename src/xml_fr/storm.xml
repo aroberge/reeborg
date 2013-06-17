@@ -3,33 +3,37 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper1')">Suivant</a>
 </nav>
-<h1>Stormy weather</h1>
-<p>It was a beautifully sunny day. Reeborg was playing outside with his
-friend. Suddenly, it started to rain and Reeborg remembered that the windows
-in his house were all open. So Reeborg went back to his house and stopped in
-front of the door, unsure of how to proceed.</p>
-<p>Using the <code>build_wall()</code> instruction, help Reeborg close the windows of his house.
- When Reeborg finishes his task, he will
-stand in the doorway, watching the rain fall, waiting for it to stop before
-he can go back and play outside. The world is <span class="world">Storm&nbsp;1</span>.</p>
-<h2>Reeborg's friend's turn.</h2>
-<p>Erdna, Reeborg's friend, lives in a bigger house as shown on
-<span class="world">Storm&nbsp;2</span>. Erdna was playing
-outside with Reeborg when it started raining. Help Erdna close the windows in
-her house.</p>
-<p>Later, you will be able to write a single program that will work for both
-    Reeborg and Erdna ... however, it will be a bit tricky.</p>
-<h2>After the storm</h2>
-<p>The wind blew really hard last night.  There is litter everywhere outside Reeborg's house.  His parents asked him to go and clean up the path leading to the curb, <span class="world">Storm&nbsp;3</span>, as well
-as the driveway: <span class="world">Storm&nbsp;4</span>.</p>
-<p>Reeborg should collect all the litter, and put it in the garbage can, and
-close the lid, using <code>build_wall()</code>.</p>
-<h2>More yard work!</h2>
-<p>
-Reeborg's parents are so proud of his work, that they ask him to pick up all the garbage that got blown away in their backyard during the windstorm, as illustrated on <span class="world">Storm&nbsp;5</span>.  Have Reeborg pick up all the garbage and put it in the garbage can.
+<h1>Jour de tempête</h1>
+<p>C'était une belle journée ensoleillée.  Reeborg jouait dehors avec son amie.
+Soudainement, la pluie se mit à tomber et Reeborg se rappela que les fenêtres
+de sa maison étaient toutes ouvertes.  Reeborg alla donc chez lui pour fermer
+les fenêtres mais arrêta au seuil de la porte, indécis quant à la meilleure
+façon de procéder.</p>
+<p>Utilisez la commande <code>construit_un_mur()</code> et aidez Reeborg
+à fermer les fenêtres de sa maison.  Lorsque Reeborg aura terminé, il sera au
+seuil de la porte, regardant la pluie tomber et attendra patiemment qu'elle
+arrête pour qu'il puisse retourner jouer dehors.  Le monde à sélectionner est
+<span class="world">Tempête&nbsp;1</span>.</p>
+<h2>Au tour de l'amie de Reeborg</h2>
+<p>Erdna, l'amie de Reeborg, vit dans une plus grande maison illustrée dans
+<span class="world">Tempête&nbsp;2</span>. Erdna jouait avec Reeborg lorsque
+la pluie s'est mise à tomber.  Aidez Erdna à fermer les fenêtres de sa maison.
 </p>
-<p>Later, you will learn to write a single program that can help Reeborg do the cleanup for
-all three locations.</p>
+<p>Plus tard, vous serez capable d'écrire un seul programme permettant à Reeborg
+    et à Erdna de fermer les fenêtres de leur maison ... mais ça vous demandera
+    de la réflexion.</p>
+<h2>Après la tempête</h2>
+<p>Le vent a soufllé violemment la nuit dernière.  Il y a des déchets partout autour de la maison
+    de Reeborg.  Ses parents lui demandent de nettoyer le troittoir qui mène à la rue<span class="world">Tempête&nbsp;3</span>, ainsi que l'allée <span class="world">Tempête&nbsp;4</span>.</p>
+<p>Reeborg doit ramasser tous les déchets (représentés par des jetons), et les mettre dans la poubelle en
+    s'assurant de fermer le couvercle à l'aide de l'instruction <code>construit_un_mur()</code>.</p>
+<h2>Encore du travail!</h2>
+<p>Les parents de Reeborg sont tellement content de son travail de nettoyage qu'ils lui demande de ramasser
+    tous les déchets qui se sont retrouvés dans la cour, tel qu'illustré dans
+    <span class="world">Tempête&nbsp;5</span>.
+</p>
+<p>Plus tard, vous serez en mesure d'écrire un seul programme qui permettra d'accomplir les trois tâches
+    de nettoyage. </p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('harvest')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('newspaper1')">Suivant</a>

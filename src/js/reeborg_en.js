@@ -1,5 +1,5 @@
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
-                    " is_facing_north, done, put_token, take_token, put, take, shape_here,"+
+                    " is_facing_north, done, put_token, take_token, put, take, shape_here, select_world,"+
                     " token_here, has_token, write, write_now, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view*/\n";
 
@@ -188,3 +188,5 @@ function UsedRobot(x, y, orientation, tokens)  {
     RUR.Robot.call(this, x, y, orientation, tokens);
     RUR.world.add_robot(this);
 }
+
+var select_world = RUR.select_world;
