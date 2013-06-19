@@ -213,19 +213,19 @@ RUR.World = function () {
 
     this.set_shape = function (x, y, shape){
         if (shape !== null) {
-            this.shapes[x + "," + y] = shape;
+            this.shapes[x + "," + y] = RUR.translation[shape];
         } else {
             delete this.shapes[x + "," + y];
         }
     };
 
     this.find_shape = function (x, y) {
-        return this.shapes[x + "," + y] || 0;
+        return RUR.translation[this.shapes[x + "," + y]] || 0;
     };
 
     this.robot_take  = function (robot, shape) {
         var s;
-        if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(shape) === -1){
+        if ([RUR.translation["triangle"], RUR.translation["square"], RUR.translation["star"]].indexOf(shape) === -1){
             throw new RUR.Error(RUR.translation["Unknown shape"].supplant({shape: shape}));
         }
         s = this.find_shape(robot.x, robot.y);
@@ -238,7 +238,7 @@ RUR.World = function () {
     };
 
     this.robot_put = function (robot, shape) {
-        if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(shape) === -1){
+        if ([RUR.translation["triangle"], RUR.translation["square"], RUR.translation["star"]].indexOf(shape) === -1){
             throw new RUR.Error(RUR.translation["Unknown shape"].supplant({shape: shape}));
         }
         if (robot[shape] === 0){
@@ -893,7 +893,7 @@ RUR.visible_world = {
             ctx = this.wall_ctx;
         }
         ctx.strokeStyle = "black";
-        if (shape === RUR.translation.square) {
+        if (shape === RUR.translation["square"]) {
             ctx.fillStyle = "blue";
             if(goal !== undefined){
                 ctx.beginPath();
@@ -902,7 +902,7 @@ RUR.visible_world = {
             } else {
                 ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
             }
-        } else if (shape === RUR.translation.triangle) { // triangle
+        } else if (shape === RUR.translation["triangle"]) { // triangle
             ctx.fillStyle = "green";
             ctx.beginPath();
             ctx.moveTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);

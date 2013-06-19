@@ -18,6 +18,10 @@ RUR.translation["I don't have any token to put down!"] = "Je n'ai pas de jetons 
 RUR.translation.triangle = "triangle";
 RUR.translation.star = "étoile";
 RUR.translation.square = "carré";
+// reverse translation needed as well
+RUR.translation["étoile"] = "star";
+RUR.translation["carré"] = "square";
+
 RUR.translation["Unknown shape"] = "Forme inconnue: {shape}";
 RUR.translation["No shape found here"] = "Pas de {shape} trouvé ici !";
 RUR.translation["There is already something here."] = "Il y a déjà quelque chose ici.";

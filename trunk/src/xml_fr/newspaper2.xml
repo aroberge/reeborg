@@ -3,151 +3,155 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('repeat')">Suivant</a>
 </nav>
-<h1>Newspaper delivery revisited</h1>
+<h1>Autre livraison de journaux</h1>
 
-<p>Let's go back to our newspaper delivery example; we'll consider
-the delivery to Ms. Ada Lovelace in <span class="world">Newspaper&nbsp;1</span>.
-Below is a solution to that problem, with a few added comments.</p>
-
-<pre class="jscode">
-take("star");
-
-// climb up first floor
-turn_left();
-move();
-turn_left();
-turn_left();
-turn_left();
-move();
-move();
-
-// climb up second floor
-turn_left();
-move();
-turn_left();
-turn_left();
-turn_left();
-move();
-move();
-
-// climb up third floor
-turn_left();
-move();
-turn_left();
-turn_left();
-turn_left();
-move();
-move();
-
-// get money
-take_token();
-take_token();
-take_token();
-take_token();
-take_token();
-
-// leave paper
-put("star");
-
-// turn around
-turn_left();
-turn_left();
-
-// climb down floor
-move();
-move();
-turn_left();
-move();
-turn_left();
-turn_left();
-turn_left();
-
-// climb down floor
-move();
-move();
-turn_left();
-move();
-turn_left();
-turn_left();
-turn_left();
-
-// climb down floor
-move();
-move();
-turn_left();
-move();
-turn_left();
-turn_left();
-turn_left();</pre>
-
-<p>This solution is quite long ... and it is easy to make mistakes when typing it.
-We note however that there are quite a few repeated code segements for which we
-could create functions.  We have already defined <code>turn_right()</code> and
-<code>turn_around()</code>; let's use them and define a few others.</p>
+<p>Retournons à l'exemple de la livraison des journaux; nous allons
+    considérer le cas de la livraison à la gentille Ada Lovelace
+    dans <span class="world">Journal&nbsp;1</span>.
+    Ci-dessous est la première solution que vous avez du trouver,
+    avec quelques commentaires rajoutés.</p>
 
 <pre class="jscode">
-function climb_up_one_floor() {
-    turn_left();
-    move();
-    turn_right();
-    move();
-    move();
+prend("étoile");
+
+// monte au premier
+tourne_à_gauche();
+avance();
+tourne_à_gauche();
+tourne_à_gauche();
+tourne_à_gauche();
+avance();
+avance();
+
+// monte au deuxième
+tourne_à_gauche();
+avance();
+tourne_à_gauche();
+tourne_à_gauche();
+tourne_à_gauche();
+avance();
+avance();
+
+// monte au troisième
+tourne_à_gauche();
+avance();
+tourne_à_gauche();
+tourne_à_gauche();
+tourne_à_gauche();
+avance();
+avance();
+
+// prendre la monnaie
+prend_jeton();
+prend_jeton();
+prend_jeton();
+prend_jeton();
+prend_jeton();
+
+// déposer un journal
+dépose("étoile");
+
+// demi-tour
+tourne_à_gauche();
+tourne_à_gauche();
+
+// descend un étage
+avance();
+avance();
+tourne_à_gauche();
+avance();
+tourne_à_gauche();
+tourne_à_gauche();
+tourne_à_gauche();
+
+// descend un étage
+avance();
+avance();
+tourne_à_gauche();
+avance();
+tourne_à_gauche();
+tourne_à_gauche();
+tourne_à_gauche();
+
+// descend un étage
+avance();
+avance();
+tourne_à_gauche();
+avance();
+tourne_à_gauche();
+tourne_à_gauche();
+tourne_à_gauche();</pre>
+
+<p>Cette solution est plutôt longue ... et il est facile de faire des erreurs.
+    On remarque cependant qu'il y a plusieurs répétitions, ce qui suggère qu'on peut
+    définir plusieurs fonctions.   Nous avons déjà défini <code>tourne_à_droite</code>
+    et <code>demi_tour</code> qui devrait être dans votre bibliothèque.
+    Utilisons-les et définissons d'autres fonctions.</p>
+
+<pre class="jscode">
+function monte_un_étage() {
+    tourne_à_gauche();
+    avance();
+    tourne_à_droite();
+    avance();
+    avance();
 }
 
-function climb_up_three_floors() {
-    climb_up_one_floor();
-    climb_up_one_floor();
-    climb_up_one_floor();
+function monte_trois_étages() {
+    monte_un_étage();
+    monte_un_étage();
+    monte_un_étage();
 }
 
-function climb_down_one_floor() {
-    move();
-    move();
-    turn_left();
-    move();
-    turn_right();
+function descend_un_étage() {
+    avance();
+    avance();
+    tourne_à_gauche();
+    avance();
+    tourne_à_droite();
 }
 
-function climb_down_three_floors() {
-    climb_down_one_floor();
-    climb_down_one_floor();
-    climb_down_one_floor();
+function descend_trois_étages() {
+    descend_un_étage();
+    descend_un_étage();
+    descend_un_étage();
 }
 
-function get_money() {
-    take_token();
-    take_token();
-    take_token();
-    take_token();
-    take_token();
+function prend_argent() {
+    prend_jeton();
+    prend_jeton();
+    prend_jeton();
+    prend_jeton();
+    prend_jeton();
 }
 
-// === End of definitions ===
+// === Fin des définitions ===
 
-take("star");
-climb_up_three_floors();
-get_money();
-put("star"); // leave paper
-turn_around();
-climb_down_three_floors();</pre>
+prend("étoile");
+monte_trois_étages();
+prend_argent();
+dépose("étoile");
+demi_tour();
+descend_trois_étages();
+</pre>
 
-<p>Each function contains no more than 5 instructions; it's much easier to verify that
-each function does what it is supposed to do than verifying an entire list of commands
-like we have previously.  Once we know that the functions do what they are supposed
-to do, making use of them allow us to write a complete program in 6 more lines of code -
-again, much easier to verify that it is right.  All together, using functions to avoid
-repetitions, we end up with a shorter program that is also much easier to read.
+<p>Chaque fonction de contient pas plus de 5 instructions; c'est très facile de vérifier
+    que chaque fonction est correctement définie individuellement comparativement à
+    ce que nous avions à faire auparavant avec la longue liste de définitions.
+    Une fois que l'on a défini les fonctions requises, il est facile d'écrire
+    un programme: 6 lignes suffisent pour faire en sorte que Reeborg livre le
+    journal et retourne au rez-de-chaussée.  Les définitions de fonctions
+    permettent donc d'éviter plein de répétitions, et facilitent la compréhension.
 </p><p>
-It should be fairly simple to modify the above function definitions so that we could deliver a newspaper
-to Mr. Babbage, in world <span class="world">Newspaper&nbsp;2</span>. <b>Do it!</b></p>
+Vous devriez pouvoir facilement modifier le programme ci-dessus pour que Reeborg puisse
+livrer le journal de Monsieur Babbage dans <span class="world">Journal&nbsp;2</span>. <b>Allez-y!</b></p>
 
-<p>Later, we will see how we can write a single program, shorter than the above,
-that will enable us to deliver newspapers to either Ms. Lovelace or Mr. Babbage.</p>
-<p>Since functions like <code>get_money()</code>, <code>climb_up_three_floors</code>, etc.,
-are specific to this problem, it is probably <b>not</b> a good idea to save them
-in the library; you don't want to have too many functions in your library so that
-you are always able to remember all that are there.  If you do find that you use
-a function many times in different programs, then it is a good idea to put it
-in your library.</p>
+<p>Plus tard, nous verrons comment on peut écrire un seul programme, plus court que
+    celui ci-dessus, qui permettra à Reeborg de livrer des journaux à Madame Lovelace
+    et à Monsieur Babbage.  </p>
+<p>Puisque des fonctions comme <code>prend_argent()</code>, <code>monte_trois_étages</code>, etc.,
+sont spécifiques à une tâche en particulier, ce n'est probablement pas une bonne idée de les
+sauvegarder dans la bibliothèque (mais vous pouvez le faire dans les <b>notes</b>).
+</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('reading')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('repeat')">Suivant</a>
