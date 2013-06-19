@@ -3,50 +3,56 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary3')">Suivant</a>
 </nav>
-<h1>Reeborg goes to France</h1>
+<h1>Reeborg va en Espagne</h1>
 
-<ul><li><em> Quelque chose à déclarer Monsieur. ... Reeborg?</em></li>
-    <li><tt>Je ne parle pas français .... I do not speak French.</tt></li>
-    <li><em>Do you have something to declare?</em></li>
-    <li><tt>Perhaps I should ...</tt></li>
+<ul><li><em> Algo que declarar Señor ... Reeborg?</em></li>
+    <li><tt>Yo no hablo español .... Je ne parle pas espagnol.</tt></li>
+    <li><em>Est-ce que vous avez quelque chose à déclarer?</em></li>
+    <li><tt>Peut-être que oui ...</tt></li>
 </ul>
 
-<p>Reeborg is known internationnally and travels often.  It might be useful to teach him
-words in a different language.  For functions, this can be done using the Javascript
-keyword <code>var</code>.  I like to think of <code>var</code> as creating some <code>var</code>iation of
-the language, perhaps following a <code>V</code>ery <code>A</code>cient <code>R</code>itual.  However,
-in programming terms, this is simply known as <b>declaring</b> a <code>var</code><b>iable</b>.</p>
-<p>We can do this in either one or two steps.</p>
+<p>Reeborg est connu partout dans le monde et voyage souvent.  Ça pourrait être
+    utile de lui enseigner des instructions dans d'autres langues.
+    En javascript, on peut faire ceci à l'aide du mot-clé <code>var</code>.
+    J'aime penser à <code>var</code> comme signifiant qu'on crée une <code>var</code>iation
+    de la langue utilisée.  Cela dit, dans le monde informatique, on dit que ceci
+    correspond à <b>déclarer</b> une <code>var</code>iable.
+</p>
+<p>On peut déclarer une variable de deux façons.</p>
 
 <pre class="jscode">
-var avance;      // declare a new word
-avance = move;   // define the equivalence
-var tourne_à_gauche = turn_left;  // do both in one step
+var avanzar;      // déclarer un nouveau mot
+avanzar = avance;   // définir l'équivalence
+var girar_a_la_izquierda = tourne_à_gauche;  // deux étapes à la fois
 
-// notice the absence of parentheses ()
-// in the declaration above.
+// Notez l'absence de parenthèses ci-dessus.
 
-// use the newly named functions
-// just like the old ones.
+// On peut utiliser les nouvelles fonctions
+// avec les vieilles
 
-avance();
-tourne_à_gauche();
-move();    //  still works
+avanzar();
+girar_a_la_izquierda();
+avance();    //  fonctionne toujours
 }</pre>
-<h2>Try it!</h2>
-<p>Perhaps you could define your own language for giving instructions to Reeborg
-    (<small>and save it in the library?</small>).</p>
-<p>For now, limit yourselves with names that start with a letter and contain
-    only letters,  numbers or the underscore character "_"; a name can <b>not</b> have
-a space in it - which is why many people use the underscore character to create
-names that look like many words that would be a phrase; thus, instead of
-<em>turn left</em>, we write <code>turn_left</code>.</p>
+<h2>Essayez par vous-mêmes!</h2>
+<p>Si vous le désirez, vous pouvez définir votre propre langage pour donner
+    des instructions à Reeborg
+    (<small> et le sauvegarder dans la bibliothèque?</small>).</p>
+<p>Pour l'instant, n'utilisez que des noms qui débutent par une lettre et
+    qui ne contiennent que des lettres, des chiffres ou le caractère de
+    soulignement "_"; un nom ne peut <b>pas</b> contenir d'espaces -
+    et c'est pour cette raison que plusieurs personnes, dont les créateurs
+    du monde de Reeborg, utilisent le caractère de soulignement pour
+    créer des noms qui ont l'apparence d'un bout de phrase, tel que
+ <code>tourne_à_gauche</code>.</p>
 
-<h2>Note for the advanced reader</h2>
-<p>If you have learned some Javascript elsewhere, you have seen that the <code>var</code> keyword
-is not normally required.  Reeborg's world uses what is known as the <b>strict</b> mode, which
-has many advantages in terms of producing more robust code.  There is a way to disable
-this strict mode within Reeborg's world, which I will mention later.</p>
+<h2>Pour les utilisateurs plus avancés</h2>
+<p>Si vous avez appris à programmer en javascript ailleurs, vous avez vu que le mot-clé
+<code>var</code> n'est habituellement pas requis pour déclarer une variable.
+Le monde de Reeborg utilise ce qui est appelé le mode <b>strict</b> de javascript
+qui a l'avantage d'exiger de l'utilisateur une façon d'écrire les programmes les
+rendant plus fiables.  Il existe une façon de désactiver le mode strict dans
+le monde de Reeborg, comme nous le verrons plus tard.</p>
 
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('repeat')">Précédent</a>

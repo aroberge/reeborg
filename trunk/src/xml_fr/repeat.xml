@@ -3,41 +3,47 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('france')">Suivant</a>
 </nav>
-<h1>Repeat</h1>
+<h1>Répète</h1>
 
-<p>Often, we will find that we want to repeat a series of instructions a fixed number of times.
-There is a way in Javascript to do so ... but it has too many new concepts to explain at this
-time.   I will just show you the code, and immediately introduce <code>repeat()</code>,
-a simpler replacement for it.  Later, when you know more about Javascript, I will explain how
-<code>repeat()</code> is defined in terms of the stardard way.  The standard
-way is known as a <b>for loop</b> and is written as follows:</p>
+<p>Comme nous l'avons vu, il arrive souvent que l'on doive répéter une instruction donnée
+    un certains nombre de fois.  Il y a une façon standard de faire ceci en Javascript ...
+    mais ceci requiert de comprendre trop de nouveaux concepts à la fois.  Je vais juste
+    vous montrer le code requis pour ceci puis présenter une fonction plus simple à comprendre,
+    <code>répète()</code>, fonction unique au monde de Reeborg.  Plus tard je vous
+    expliquerai comment <code>répète()</code> est définie à l'aide du code utilisé habituellement.
+</p>
+<p>La façon stardard s'appelle une <em>boucle <code>for</code></em> et est écrite de la façon
+suivante</p>
 <pre class="jscode">for (var i = 0; i < n; i++){
-    // some instructions here
+    // instructions à répéter ici
 }</pre>
-<p>Now that you have seen this cryptic code which includes two Javascript keywords,
-<code>for</code> and <code>var</code>, let's introduce instead <code>repeat()</code>.
-We will use the example <code>get_money()</code> from the previous newspaper delivery example:</p>
+<p>Maintenant que vous avez entrevu le code cryptique incluant deux mots-clés
+<code>for</code> et <code>var</code>, nous présentons plutôt la fonction
+ <code>répète()</code>.
+Nous allons utiliser la fonction <code>prend_argent()</code> de la tâche de livraison de journaux
+que nous avons tout juste vue:</p>
 
 <pre class="jscode">
-function get_money() {
-    take_token();
-    take_token();
-    take_token();
-    take_token();
-    take_token();
+function prend_argent() {
+    prend_jeton();
+    prend_jeton();
+    prend_jeton();
+    prend_jeton();
+    prend_jeton();
 }</pre>
-<p>Inside <code>get_money()</code>, we repeat 5 times the command <code>take_token()</code>.
-Using <code>repeat()</code>, we can rewrite the above as follows:</p>
+<p>Le corps de <code>prend_argent()</code> est constitué de 5 répétitions de <code>prend_jeton()</code>.
+Utilisant <code>répète()</code>, nous pouvons récrire ceci de la façon suivante:</p>
 <pre class="jscode">
-function get_money() {
-    repeat(take_token, 5);
+function prend_argent() {
+    répète(prend_jeton, 5);
 }</pre>
-<p>Note that I have <b>not</b> included the parentheses <code>()</code> for <code>take_token</code>
-inside <code>repeat()</code>.  Using <code>repeat()</code> we have yet another way to
-eliminate repetitions in our code.  If you still have the program for the newspaper problem
-in the Code editor, change it so that you use <code>repeat()</code> wherever it would
-shorten the code.  If you don't have it, go back to the previous lesson and redo it using
-<code>repeat()</code>.</p>
+<p>Notez que les parenthèses <code>()</code> ne sont <b>pas</b> incluse pour <code>prend_jeton</code>
+comme <em>argument</em> de <code>répète()</code>. Donc, en utilisant <code>répète()</code>,
+nous avons une autre façon d'éliminer les répétitions dans nos programmes. w
+Si vous avez toujours dans l'éditeur de code une copie du programme permettant à Reeborg de
+livrer le journal, modifiez-le de façon à utiliser <code>répète()</code> à toutes les fois
+que ceci permet de raccourcir le code. Si vous n'avez pas une copie du programme, retourner
+à la leçon précédente et refaites-le en utilisant <code>répète()</code>.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper2')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('france')">Suivant</a>
