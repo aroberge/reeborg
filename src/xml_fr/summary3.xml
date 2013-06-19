@@ -3,23 +3,24 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('if')">Suivant</a>
 </nav>
-<h1>Summary</h1>
+<h1>Résumé</h1>
 
-<p>In this section, we have seen our third rule: </p>
+<p>Dans cette section, nous avons vu notre troisième règle : </p>
 
 <dl>
-<dt><b>Rule # 3</b></dt>
-<dd>When writing computer programs, do not repeat yourself.<br>
-I repeat: <b>do not repeat yourself!</b></dd>
+<dt><b>Règle numéro 3</b></dt>
+<dd>Lorsque vous écrivez des programmes informatiques, ne vous répétez pas. <br>
+Je répète: <a href="http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas">ne vous répétez pas!</a></dd>
 </dl>
 
-
-<p>We have also learned how to define functions by using our very first Javascript
-keyword: <code>function</code>, as well as the special function <code>repeat()</code>.
-We have also seen how we could define new words for existing functions using
-the Javascript keyword <code>var</code>.</p>
-<p>Finally, we have learned that we could save functions in the Library so
-that we can use them without having to redefine them each time.</p>
+<p>Nous avons également appris à définir des fonctions à l'aide du mot-clé
+    <code>function</code> et nous avons appris à utiliser la fonction <code>répète()</code>.
+    Nous avons aussi vu comment définir de nouveaux mots comme synonymes de fonctions
+    existantes en utilisant le mot-clé <code>var</code>.
+</p>
+<p>Finalement, nous avons appris que nous pouvions sauvegarder des fonctions dans
+    la bibliothèque de façon à pouvoir les utiliser dans n'importe quel programme
+    sans avoir à les redéfinir à chaque fois.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('france')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('if')">Suivant</a>

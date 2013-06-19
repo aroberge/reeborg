@@ -52,10 +52,10 @@ d'éviter des répétitions!</li>
 <li><a href="javascript:void(0);" onClick="load_page('reading')">Exercice de lecture</a> On
 démontre l'importance de bien choisir le nom des fonctions (voir la règle numéro 2).</li>
 <li><a href="javascript:void(0);" onClick="load_page('newspaper2')">Autre livraison de journaux</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('repeat')">Repeat</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('france')">Reeborg goes to France</a>
-Introducing the second javascript keyword: <code>var</code>.</li>
-<li><a href="javascript:void(0);" onClick="load_page('summary3')">Summary</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('repeat')">Répète</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('france')">Reeborg va en Espagne</a>
+Un deuxième mot-clé javascript: <code>var</code>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('summary3')">Résumé</a></li>
 
 
 <h2>Making choices</h2>
