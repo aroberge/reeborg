@@ -3,29 +3,29 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper2')">Suivant</a>
 </nav>
-<h1>Reading exercise</h1>
-<p>Remember the following?</p>
+<h1>Exercice de lecture</h1>
+<p>Vous rappelez-vous de la règle suivante?</p>
 <dl>
-<dt><b>Rule # 2</b></dt>
-<dd>Write your computer programs to make them easy for
-<b><em>people</em></b> to read and understand.</dd>
+<dt><b>Règle numéro 2</b></dt>
+<dd>Écrivez vos programmes pour qu'il soit facile à lire et à comprendre
+    par des <b><em>humains</em></b>.</dd>
 </dl>
-<p>Can you figure out on your own what the following
-program does, without
-copying it in the editor?</p>
+<p>Pouvez-vous déterminer par vous-mêmes, sans l'exécuter,
+    ce que le programme suivant instruit Reeborg de faire?
+</p>
 <pre class="jscode">function a () {
-    turn_left();
-    turn_left();
+    tourne_à_gauche();
+    tourne_à_gauche();
 }
 
 function b (){
-    turn_left();
+    tourne_à_gauche();
     a();
 }
 
 function c (){
-    move();
-    move();
+    avance();
+    avance();
 }
 
 function d (){
@@ -40,14 +40,18 @@ function e () {
     d();
 }
 
-turn_left();
+tourne_à_gauche();
 e();
 b();
 </pre>
-<p>Not so easy, is it?  Once you think you have figured it out,
-copy it in the editor and try to run it.</p>
-<p>This should help you to understand why it is important to
-write programs for humans, by choosing function names that
-are meaningful.</p>
+<p>Pas si facile, n'est-ce pas?  Une fois que vous serez convaincu
+que vous savez ce que ce programme demande à Reeborg de faire,
+vérifiez votre compréhension en copiant ce programme dans l'éditeur
+de code et en l'exécutant.</p>
+<p>Ceci devrait vous permettre de mieux comprendre pourquoi il est important
+    d'écrire des programmes pour que d'autres humains puissent les
+    comprendre, en choisissant des noms de fonctions qui décrivent
+    leur but.
+</p>
 <a class="left-link" href="javascript:void(0);" onClick="load_page('library')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('newspaper2')">Suivant</a>

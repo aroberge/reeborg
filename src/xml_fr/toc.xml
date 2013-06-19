@@ -39,7 +39,7 @@ les plus importantes lorsqu'on écrit des programmes informatiques.</li>
 <li><a href="javascript:void(0);" onClick="load_page('summary2')">Résumé</a></li>
 
 
-<h2>Defining new things</h2>
+<h2>Définir de nouvelle choses</h2>
 
 
 <li><a href="javascript:void(0);" onClick="load_page('rule3')">Règle numéro 3</a> Éviter les
@@ -47,11 +47,11 @@ répétitions en utilisant le mot-clé <code>function</code>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('functions1')">Comment penser à <code>function</code></a>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('turn_around')">Demi-tour!</a> Éviter à nouveau
 les répétitions.</li>
-<li><a href="javascript:void(0);" onClick="load_page('library')">Using the Library</a> Avoiding
-repetitions again!</li>
-<li><a href="javascript:void(0);" onClick="load_page('reading')">Reading exercise</a> On
-the importance of choosing meaningful names (see Rule # 2).</li>
-<li><a href="javascript:void(0);" onClick="load_page('newspaper2')">Newspaper delivery revisited</a></li>
+<li><a href="javascript:void(0);" onClick="load_page('library')">La bibliothèque</a> Une autre façon
+d'éviter des répétitions!</li>
+<li><a href="javascript:void(0);" onClick="load_page('reading')">Exercice de lecture</a> On
+démontre l'importance de bien choisir le nom des fonctions (voir la règle numéro 2).</li>
+<li><a href="javascript:void(0);" onClick="load_page('newspaper2')">Autre livraison de journaux</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('repeat')">Repeat</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('france')">Reeborg goes to France</a>
 Introducing the second javascript keyword: <code>var</code>.</li>
