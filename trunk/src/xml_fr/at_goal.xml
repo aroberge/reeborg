@@ -3,38 +3,47 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles2')">Suivant</a>
 </nav>
-<h1>Finding the right spot</h1>
-<p>While the program you just wrote works for worlds <span class="world">Tokens&nbsp;1</span> and
-<span class="world">Tokens&nbsp;2</span>, it will fail if you try it for worlds
-<span class="world">Tokens&nbsp;3</span> and
-<span class="world">Tokens&nbsp;4</span>.</p>
-<p><b>Try it!</b></p>
-<h2>Another condition</h2>
-<p>In addition to being able to find out if tokens are located at the position where Reeborg finds himself,
-Reeborg can also determine if he reached the coloured square which we described before as
- Reeborg's home. In many worlds, it makes more sense to think of this as Reeborg's goal destination, rather
- than home, and the function that Reeborg uses to determine this is <code>at_goal()</code>.  Here's
- the outline of a solution that should work in all four worlds mentioned above.</p>
+<h1>Droit au but</h1>
+<p>Bien que le programme que vous venez d'écrire permette à Reeborg d'accomplir sa tâche
+    pour les mondes <span class="world">Jetons&nbsp;1</span> et
+<span class="world">Jetons&nbsp;2</span>, il n'en sera pas de même pour
+<span class="world">Jetons&nbsp;3</span> et
+<span class="world">Jetons&nbsp;4</span>.</p>
+<p><b>Vérifiez ceci!</b></p>
+<h2>Une autre condition</h2>
+<p>En plus d'être capable de déterminer si des jetons se trouvent là où il est, Reeborg
+    peut aussi déterminer s'il se trouve sur le carré coloré que nous avons décrit précédemment
+    comme indiquant qu'il est à sa maison.  Dans plusieurs cas, il est plus logique de considérer
+    ce carré comme étant la destination ou le but ultime de Reeborg, plutôt que simplement sa maison.
+    Reeborg peut donc déterminer s'il a atteint son but par la condition <code>au_but()</code>.
+    Voici l'esquisse d'un programme unique qui devrait permettre à Reeborg d'accomplir sa tâche
+    pour chacun des quatre mondes mentionnés ci-dessus.</p>
 <pre class="jscode">
-function move_until_done() {
-    if ( at_goal() ) {
-        // something
+    function avance_jusque_tâche_terminée() {
+    if ( au_but() ) {
+        // quelque chose
     }
-    move();
-    if ( token_here() ){
-        // something
-        // something else
-        // something else again
+    avance();
+    if ( jeton_ici() ){
+        // quelque chose
+        // quelque chose d'autre
+        // autre chose encore
+        // une de plus
+        terminé();
     }
 }
 
-repeat(move_until_done, 42);</pre>
-<p>Complete the above (in the Code editor) and make sure it works for all four worlds mentioned above.</p>
+répète(avance_jusque_tâche_terminée, 42);</pre>
 
-<h2>And now, something different</h2>
-<p>You did complete the above exercise, didn't you?  ... Good.  Now, select either
-world <span class="world">Home&nbsp;1</span> or <span class="world">Home&nbsp;2</span>.  Would
-the same program work?  After you have determined this, try running it to confirm your understanding.</p>
+<p>Utilisant l'esquisse ci-dessus, écrivez dans l'éditeur de code le programme requis et vérifiez
+qu'il fonctionne bel et bien dans chacun des quatre mondes mentionnés. </p>
+
+<h2>Quelque chose de complètement différent ...</h2>
+<p>Vous avez bel et bien complété l'exercice ci-dessus, n'est-ce pas? ... Alors, sélectionnez
+    soit  <span class="world">Maison&nbsp;1</span> ou <span class="world">Maison&nbsp;2</span>.
+    En analysant le programme que vous venez d'écrire, sans l'exécuter, est-ce que vous croyez
+    qu'il est une solution pour ces deux mondes?  Vérifiez votre compréhension en exécutant le
+    programme.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('if')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles2')">Suivant</a>

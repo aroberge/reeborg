@@ -58,14 +58,14 @@ Un deuxième mot-clé javascript: <code>var</code>.</li>
 <li><a href="javascript:void(0);" onClick="load_page('summary3')">Résumé</a></li>
 
 
-<h2>Making choices</h2>
+<h2>Faire des choix</h2>
 
-<li><a href="javascript:void(0);" onClick="load_page('if')">If only...</a>
-Introducing <b>three</b> javascript keywords, <code>if</code>, <code>true</code> and
-<code>false</code>, as well as one new instruction, <code>done()</code>,
-and one condition, <code>token_here()</code>.</li>
-<li><a href="javascript:void(0);" onClick="load_page('at_goal')">Finding the right spot</a>
-Where you learn about <code>at_goal()</code> which enables Reeborg to find the right location at which to stop.
+<li><a href="javascript:void(0);" onClick="load_page('if')">Si seulement...</a>
+Plein de nouveautés avec <b>trois</b> mot-clés javascript:  <code>if</code>, <code>true</code> et
+<code>false</code>, ainsi qu'une nouvelle instruction, <code>terminé()</code>,
+et une condition, <code>jeton_ici()</code>.</li>
+<li><a href="javascript:void(0);" onClick="load_page('at_goal')">Droit au but</a>
+Où vous apprenez <code>au_but()</code> qui permet à Reeborg de déterminer s'il doit arrêter.
 </li>
 <li><a href="javascript:void(0);" onClick="load_page('hurdles2')">Hurdles again!</a> Using
 our new knowledge to race better.</li>

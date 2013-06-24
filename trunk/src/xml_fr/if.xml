@@ -3,135 +3,150 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('at_goal')">Suivant</a>
 </nav>
-<h1>If only ...</h1>
-<p>If only Reeborg could decide on its own, writing programs would be much simpler ... <b>WAIT !</b> Didn't
-I tell you: Reeborg can make decisions on its own.</p>
-<h2>Javascript keyword: <code>if</code></h2>
+<h1>Si seulement ...</h1>
+<p>Si seulement Reeborg pouvait prendre des décisions de lui-même, écrire des programmes serait
+    tellement plus simple ... <b>OUPS&nbsp;!</b> J'ai oublié de vous le mentionner: Reeborg <b>peut</b>
+    prendre ses propres décisions!
+</p>
+<h2>Le mot-clé <code>if</code></h2>
 
-<p>Select an appropriate world  (perhaps <span class="world">Alone</span>), and have
-Reeborg execute the following program:</p>
+<p>Sélectionnez le monde <span class="world">Seul</span>) et faites-en sorte
+que Reeborg exécute le programme suivant</p>
 <pre class="jscode">
 if (true) {
-    move();
+    avance();
 }
 
 if (false) {
-    turn_left();
+    tourne_à_gauche();
 }</pre>
-<p><code>true</code> and <code>false</code> are Javascript keywords as well.  You might
-want to interchange them and run the program again to see what happens.</p>
-<h2><code>if</code> statement</h2>
-<p>The so-called <code>if</code> <b>statement</b> follows a pattern somewhat similar to
-that of <code>function</code>s : </p>
+<p><code>true</code> (signifiant <b>vrai</b>) et <code>false</code> (signifiant <b>faux</b>) sont
+deux mots-clés de Javascript.  Je vous suggère de les échanger l'un pour l'autre et
+d'exécuter le programme à nouveau.  Est-ce que Reeborg <code>avance</code> ou
+<code>tourne_à_gauche</code>?</p>
+<h2>Énoncé <code>if</code> </h2>
+<p>L'<em>énoncé</em> <code>if</code> suit un patron semblable à celui de <code>function</code>: </p>
 <pre class="jscode">
-function some_name() {
-    // block of code
+function nom_quelconque() {
+    // bloc de code
 }
 
-if (some_condition) {
-    // block of code
+if (condition_quelconque) {
+    // bloc de code
 }</pre>
 
-<h2>How to think of <code>if</code> statements</h2>
-<p>When we introduced functions, we explained how we could think of a function <b>call</b>
-as being equivalent to inserting the code block for the function definition at that point
-in the program.  Thus:</p>
+<h2>Comment interpréter les énoncés <code>if</code> </h2>
+<p>Lorsque nous avons présenté les fonctions, nous avons expliqué comment on pouvait
+    interpréter l'<b>invocation</b> d'une fonction comme étant équivalente à
+    insérer le bloc de code du corps de la fonction à l'endroit de l'invocation.
+    Ainsi:</p>
 <pre class="jscode">
-move();
-turn_right();  // function call
-move();
+avance();
+tourne_à_droite();  // invocation
+avance();
 </pre>
 <p>is equivalent to</p>
 <pre class="jscode">
-move();
-// begin of code block inside turn_right()
-turn_left();
-turn_left();
-turn_left();
-// end of code block
-move();
+avance();
+// début du bloc de code pour tourne_à_droite()
+tourne_à_gauche();
+tourne_à_gauche();
+tourne_à_gauche();
+// fin du bloc de code
+avance();
 </pre>
-<p><code>if</code> statements can be thought in similar terms, except that
-we have a <em>conditional</em> insertion (or rather <b>deletion</b>!). Thus</p>
+<p>Les énoncés <code>if</code> peuvent être interprétés de façon similaire, sauf
+que nous avons une <em>insertion</em> ou une <em>élimination</em> <b>conditionnelle</b>
+du bloc de code.  Ainsi: </p>
 <pre class="jscode">
-move();
+avance();
 if (true) {
-    turn_left();
-    turn_left();
+    tourne_à_gauche();
+    tourne_à_gauche();
 }
-move();
+avance();
 </pre>
-<p>is equivalent to</p>
+<p>est équivalent à</p>
 <pre class="jscode">
-move();
-turn_left();
-turn_left();
-move();
+avance();
+tourne_à_gauche();
+tourne_à_gauche();
+avance();
 </pre>
-<p>whereas</p>
+<p>alors que </p>
 <pre class="jscode">
-move();
+avance();
 if (false) {
-    turn_left();
-    turn_left();
+    tourne_à_gauche();
+    tourne_à_gauche();
 }
-move();
+avance();
 </pre>
-<p>is equivalent to</p>
+<p>est équivalent à</p>
 <pre class="jscode">
-move();
-move();
+avance();
+avance();
 </pre>
-<p>Note that thinking of it this way does not mean that such a deletion would be done
-permanently: if, somehow, our program <em>looped back</em> and repeated this
-part of the code again, the <code>if</code> statement would be reevaluated
-each time to decide whether or not to execute the lines of code inside
-the code block.</p>
+<p>Il est important de noter que cette insertion ou élimination d'un bloc de code
+    n'est pas quelque chose de permanent: si, pour quelque raison, l'exécution
+    du programme faisait en sorte que l'énoncé <code>if</code> était répété à
+    nouveau, la condition serait réévaluée à chaque fois, ce qui pourrait mener
+    à des résultats différents d'une évaluation à l'autre.
+</p>
 
-<h2>More useful that you might think...</h2>
+<h2>PLus utile que vous ne le pensez...</h2>
 
-<p>Having to specify <code>true</code> or <code>false</code> does not help Reeborg
-decide on its own.  However, there are special functions that Reeborg recognizes that
-allow to decide things for himself.  The first of these is <code>token_here()</code> which
-tells Reeborg that there is at least one token at the grid position where he is located.
-For example, if we want to ask Reeborg to collect tokens, one part of the code could be</p>
+<p>Avoir à spécifier <code>true</code> ou <code>false</code> dans un programme n'aide
+pas Reeborg à décider de lui-même.  Cependant, il existe des fonctions que Reeborg
+reconnait comme lui indiquant des décisions à prendre.  Une de ces fonctions
+est <code>jeton_ici()</code> qui indique à Reeborg si un ou plusieurs jetons se
+trouvent aux coordonnées où Reeborg est situé.   Par exemple, si on demandait
+à Reeborg de collectionner des jetons, une partie du code pourrait être:
+</p>
 <pre class="jscode">
-if ( token_here() ) {
-    take_token();
+if ( jeton_ici() ) {
+    prendre_jeton();
 }</pre>
-<p>Have a look at worlds <span class="world">Tokens&nbsp;1</span> and
-<span class="world">Tokens&nbsp;2</span>. In both cases, and assuming that Reeborg moves forward
-in a straight line, when he finds a token, all he as to do is:</p>
-<ol><li>take it</li>
-<li>move to the next grid</li>
-<li>put the token down</li>
-<li>move one more step</li>
-<li>and he is <code>done()</code></li></ol>
-<p>where I have introduced a new command that Reeborg understands: <code>done()</code>.
-Actually, you should think of this command as Reeborg saying it himself and declaring
-that he has finished.</p>
-<p>Let's write the outline of a program that will work in both worlds
-    <span class="world">Tokens&nbsp;1</span> and
-<span class="world">Tokens&nbsp;2</span></p>
+<p>Examinez à tour de rôle les mondes <span class="world">Jetons&nbsp;1</span> et
+<span class="world">Jetons&nbsp;2</span>.  Dans chaque cas, en supposant que Reeborg
+se déplace le long d'une ligne, tout ce qu'il a à faire lorsqu'il trouve un jeton est:
+</p>
+<ol><li>prendre ce jeton</li>
+<li>avancer d'une case</li>
+<li>déposer ce jeton</li>
+<li>avancer d'une autre case</li>
+<li>et il a <code>terminé()</code></li></ol>
+<p>où j'ai introduit une nouvelle instruction que Reeborg comprend: <code>terminé()</code>.
+En fait, vous pouvez penser à cette instruction comme quelque chose que Reeborg dit lui-même
+lorsqu'il déclare avoir terminé une tâche.
+</p>
+<p>Écrivons donc le une esquisse d'un programme unique qui pourrait permettre à Reeborg d'accomplir
+    la tâche dans les deux mondes mentionnés ci-dessus, soit
+    <span class="world">Jetons&nbsp;1</span> et
+<span class="world">Jetons&nbsp;2</span></p>
 <pre class="jscode">
-function move_until_done() {
-    move();
-    if ( token_here() ){
-        // something
-        // something else
-        // something else again
-        // yet one more
-        done();
+function avance_jusque_tâche_terminée() {
+    avance();
+    if ( jeton_ici() ){
+        // quelque chose
+        // quelque chose d'autre
+        // autre chose encore
+        // une de plus
+        terminé();
     }
 }
 
-repeat(move_until_done, 42);</pre>
-<p>Why 42? ... well, I just want to be sure that Reeborg will take enough steps no matter
-what world he is in.  So far, all the worlds are small enough that this should be fine.
-I agree, it does not seem very smart ... We'll see how to fix that later.</p>
-<p>For now, copy the above in the Code editor, filling in the missing commands,
-and test your program on both worlds <span class="world">Tokens&nbsp;1</span> and
-<span class="world">Tokens&nbsp;2</span></p>
+répète(avance_jusque_tâche_terminée, 42);</pre>
+<p>Pourquoi 42? ... Je n'ai pas de véritable raisons pour ce choix.  Tout ce que je
+    veux est que Reeborg avance suffisamment de fois pour compléter sa tâche peu
+    importe la dimension du monde.  Les deux mondes en questions sont suffisamment
+    petit que de répéter 42 fois est plus que suffisant (certains diraient que c'est
+    excessif).   Je suis d'accord avec vous, ceci ne semble pas être une façon très
+    intelligente de faire les choses ... On fera mieux plus tard.</p>
+<p>Pour l'instant, copiez le code ci-dessus dans l'éditeur de code,
+    ajouter les instructions manquantes, et vérifiez que votre programme fonctionne
+    dans les mondes <span class="world">Jetons&nbsp;1</span> et
+<span class="world">Jetons&nbsp;2</span>.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('at_goal')">Suivant</a>
