@@ -1142,7 +1142,7 @@ RUR.visible_world = {
         }
         if (frame.error !== undefined) {
             RUR.controls.stop();
-            if (frame.error.message === "Done!"){
+            if (frame.error.message === RUR.translation["Done!"]){
                 if (RUR.world.goal !== undefined){
                     goal_status = RUR.visible_world.check_goal(RUR.world.prev_frame);
                     if (goal_status.success) {
@@ -1153,7 +1153,7 @@ RUR.visible_world = {
                     RUR.controls.stop();
                     return "stopped";
                 } else {
-                    $("#Reeborg-says").html(RUR.translation["<p class='center'>Instruction <code>done;()</code> executed.</p>"]).dialog("open");
+                    $("#Reeborg-says").html(RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"]).dialog("open");
                     RUR.controls.stop();
                     return "stopped";
                 }

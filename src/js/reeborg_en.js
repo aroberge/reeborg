@@ -44,7 +44,7 @@ RUR.translation["<li class='failure'>One or more tokens are not at the correct l
 RUR.translation["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>All walls have been built correctly.</li>";
 RUR.translation["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>One or more walls missing or built at wrong location.</li>";
 RUR.translation["Last instruction completed!"] = "Last instruction completed!";
-RUR.translation["<p class='center'>Instruction <code>done;()</code> executed.</p>"] = "<p class='center'>Instruction <code>done;()</code> executed.</p>";
+RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>done()</code> executed.</p>";
 RUR.translation.robot = "robot";
 RUR.translation[", tokens="] = ", tokens=";
 RUR.translation["Delete "] = "Delete";
