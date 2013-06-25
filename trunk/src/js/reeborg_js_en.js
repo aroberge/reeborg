@@ -1,6 +1,6 @@
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, shape_here, select_world,"+
-                    " token_here, has_token, write, write_now, at_goal, at_goal_orientation," +
+                    " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view*/\n";
 
 RUR.settings = {};
@@ -88,7 +88,7 @@ var inspect = function (obj){
             result += props + "\n";
         }
     }
-    write_now(result);
+    write(result);
 };
 
 var is_facing_north = function() {
@@ -142,12 +142,9 @@ var turn_left = function() {
 };
 
 var write = function (s) {
-    RUR.world.add_output_frame("#output-pre", s);
+    RUR.world.add_output_frame("#output-pre", s.toString());
 };
 
-var write_now = function (s){
-    $("#output-pre").append(s + "\n");
-};
 
 var view_source = function(fn) {
     $("#last-pre").before("<pre class='js_code'>" + fn + "</pre>" );

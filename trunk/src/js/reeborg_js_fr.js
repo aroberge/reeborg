@@ -1,7 +1,7 @@
 var globals_ = "/*globals avance, tourne_a_gauche, tourne_à_gauche, RUR, examine, RobotUsagé, RobotUsage, " +
                 "rien_devant, rien_à_droite, rien_a_droite, face_au_nord, termine, terminé, "+
                     " dépose, depose, prend, objet_ici,"+
-                    " jeton_ici, a_des_jetons, écrit, ecrit, écrit_maintenant, ecrit_maintenant, au_but, " +
+                    " jeton_ici, a_des_jetons, écrit, ecrit, au_but, " +
                     " au_but_orientation, construit_un_mur, pense, DEBUG, pause, supprimer_le_robot, " +
                     " repete, répète, voir_source, vue_de_cote, vue_de_côté, vue_de_haut, sélectionne_monde, selectionne_monde*/\n";
 //RUR = RUR || {};
@@ -154,15 +154,11 @@ var tourne_à_gauche = function() {
 };
 var tourne_a_gauche = tourne_à_gauche;
 
-var écrit = function (s) {
-    RUR.world.add_output_frame("#output-pre", s);
+var ecrit = function (s) {
+    RUR.world.add_output_frame("#output-pre", s.toString());
 };
-var ecrit = écrit;
+var écrit = ecrit;
 
-var écrit_maintenant = function (s){
-    $("#output-pre").append(s + "\n");
-};
-var ecrit_maintenant = écrit_maintenant;
 
 var voir_source = function(fn) {
     $("#last-pre").before("<pre class='js_code'>" + fn + "</pre>" );

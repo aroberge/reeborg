@@ -1287,7 +1287,7 @@ RUR.Controls = function (programming_language) {
     }
 
     this.run = function () {
-        var src, saved_write;
+        var src;
         $("#stop").removeAttr("disabled");
         $("#pause").removeAttr("disabled");
         $("#run").attr("disabled", "true");
@@ -1301,10 +1301,7 @@ RUR.Controls = function (programming_language) {
             src += editor.getValue();
             think(0);
             RUR.controls.end_flag = false;
-            saved_write = write;
-            write = write_now;
             RUR.controls.compile_and_run(function () {});
-            write = saved_write;
             RUR.controls.stop();
         }
     };
