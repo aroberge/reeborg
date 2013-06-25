@@ -3,9 +3,11 @@ var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_cle
                     " token_here, has_token, write, write_now, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view*/\n";
 
-RUR.xml = "src/xml_js_en/";
+RUR.settings = {};
+RUR.settings.library = "library_js_en";
+RUR.settings.xml = "src/xml_js_en/";
 RUR.translation = {};
-RUR.translation["/* Your special code goes here */\n\n"] = "/* Sauvegardez vos définitions ici. */\n\n"
+RUR.translation["/* Your special code goes here */\n\n"] = "/* Your special code goes here */\n\n";
 RUR.translation.ReeborgError = "ReeborgError";
 RUR.translation["Too many steps:"] = "Too many steps: {max_steps}";
 RUR.translation["Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: "] =
