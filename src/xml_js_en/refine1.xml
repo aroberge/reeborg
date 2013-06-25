@@ -26,7 +26,7 @@ at the beginning:</p>
 <p>Take you time to think about the above algorithm. Then, consider
 this solution in code. </p>
 <pre class="jscode">
-put_token();
+put("token");
 while ( !token_here() ){
     if (front_is_clear()){
         move();

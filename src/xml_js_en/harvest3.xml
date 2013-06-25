@@ -60,7 +60,7 @@ for (var i = 0; i < 6; i++ ) {
     complete_one_row(selection);
 }</pre>
 
-<p>Remember <code>take_token()</code> and <code>take("star")</code>, etc.</p>
+<p>Remember <code>take("token")</code>, <code>take("star")</code>, etc.</p>
 
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('return2')">Previous</a>

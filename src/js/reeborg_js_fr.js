@@ -36,6 +36,7 @@ RUR.translation.east = "est";
 RUR.translation.north = "nord";
 RUR.translation.west = "ouest";
 RUR.translation.south = "sud";
+RUR.translation.token = "jeton";
 RUR.translation["Unknown orientation for robot."] = "Orientation inconnue.";
 RUR.translation["Done!"] = "Terminé !";
 RUR.translation["There is no position as a goal in this world!"] = "Aucune position n'a été spécifiée comme but dans ce monde!";
@@ -116,11 +117,6 @@ var dépose = function(arg) {
 };
 var depose = dépose;
 
-var dépose_jeton = function() {
-    RUR.world.robots[0].put_token();
-};
-var depose_jeton = dépose_jeton;
-
 var supprimer_le_robot = function (){
     RUR.world.remove_robot();
 };
@@ -143,10 +139,6 @@ var objet_ici = function () {
 
 var prend = function(arg) {
     RUR.world.robots[0].take(arg);
-};
-
-var prend_jeton = function() {
-    RUR.world.robots[0].take_token();
 };
 
 var pense = function(delay) {

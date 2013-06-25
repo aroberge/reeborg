@@ -18,10 +18,13 @@
     <li><code>has_token()</code></li>
     <li><code>is_facing_north()</code></li>
     <li><code>move()</code></li>
-    <li><code>put_token()</code></li>
+    <li><code>put()</code> or <code>put("shape")</code> where shape is one of <code>"token"</code>,
+      <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
     <li><code>right_is_clear()</code></li>
     <li><code>repeat(f, n)</code></li>
-    <li><code>take_token()</code></li>
+    <li><code>shape_here()</code></li>
+    <li><code>take()</code> or <code>take("shape")</code> where shape is one of <code>"token"</code>,
+      <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
     <li><code>token_here()</code></li>
     <li><code>turn_left()</code></li>
   </ul>
@@ -38,13 +41,6 @@
     <li><code>select_world(string)</code>: selects a given world.</li>
     <li><code>side_view()</code> and <code>top_view()</code> can be used to change the set of robot images
     that are used.</li>
-  </ul>
-  <p>In some more advanced lessons, and especially in some programming
-    challenges, the following are also used:</p>
-  <ul>
-    <li><code>put(shape)</code> where shape is one of <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
-    <li><code>shape_here()</code></li>
-    <li><code>take(shape)</code> where shape is one of <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
   </ul>
 
  <p>To find out more, follow the lessons.</p>

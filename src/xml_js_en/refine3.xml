@@ -8,7 +8,7 @@
 Reeborg gets in an infinite loop when there is no wall around him. We need to
 have him <code>move()</code> after turning right, as indicated below:</p>
 <pre class="jscode">
-put_token();
+put("token");
 move();
 while ( !token_here() ){
     if (right_is_clear()){

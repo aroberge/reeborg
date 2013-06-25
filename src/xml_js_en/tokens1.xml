@@ -7,9 +7,9 @@
 
 <p>Reeborg likes to collect tokens.  When he finds one on the ground, most often he
 takes it; sometimes he puts one down as well.  The commands for having him do so
-are as follows</p>
-<pre class="jscode">take_token();
-put_token();</pre>
+can be simply written as follows</p>
+<pre class="jscode">take();
+put();</pre>
 
 <p>Select world <span class="world">Tokens&nbsp;1</span>.  There is a token right next to Reeborg. Note the number 1 inside it: the
 number will change depending on the number of tokens at that location.
@@ -24,6 +24,15 @@ write a single program that can work properly for both worlds.</p>
 <h2>Try something else</h2>
 <p>What happens if Reeborg attempts to put down a token when he does not carry one?
 What happens if Reeborg attempts to take a token where there is none to be found?</p>
+<h2>Being more specific</h2>
+<p>When you ask Reeborg to <code>take()</code> or <code>put()</code> something, he
+knows you are taking about tokens, his favourite objects.  However, there are
+other objects that exist in Reeborg's world.  So, if you want to be more specific,
+you can write instead:</p>
+<pre class="jscode">take("token");
+put('token');</pre>
+<p>Note that the word <b>token</b> is surrounded by quotes, either single or
+double quotes. Try it out!</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('bugs')">Previous</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('rule2')">Next</a>

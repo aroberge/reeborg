@@ -225,7 +225,11 @@ RUR.World = function () {
 
     this.robot_take  = function (robot, shape) {
         var s;
-        if ([RUR.translation["triangle"], RUR.translation["square"], RUR.translation["star"]].indexOf(shape) === -1){
+        if (RUR.translation["token"] === shape || shape == undefined){
+            this.robot_take_token(robot);
+            return;
+        }
+        else if ([RUR.translation["triangle"], RUR.translation["square"], RUR.translation["star"]].indexOf(shape) === -1){
             throw new RUR.Error(RUR.translation["Unknown shape"].supplant({shape: shape}));
         }
         s = this.find_shape(robot.x, robot.y);
@@ -238,7 +242,11 @@ RUR.World = function () {
     };
 
     this.robot_put = function (robot, shape) {
-        if ([RUR.translation["triangle"], RUR.translation["square"], RUR.translation["star"]].indexOf(shape) === -1){
+        if (RUR.translation["token"] === shape || shape == undefined){
+            this.robot_put_token(robot);
+            return;
+        }
+        else if ([RUR.translation["triangle"], RUR.translation["square"], RUR.translation["star"]].indexOf(shape) === -1){
             throw new RUR.Error(RUR.translation["Unknown shape"].supplant({shape: shape}));
         }
         if (robot[shape] === 0){

@@ -20,13 +20,13 @@ We will use the example <code>get_money()</code> from the previous newspaper del
 
 <pre class="jscode">
 function get_money() {
-    take_token();
-    take_token();
-    take_token();
-    take_token();
-    take_token();
+    take("token");
+    take("token");
+    take("token");
+    take("token");
+    take("token");
 }</pre>
-<p>Inside <code>get_money()</code>, we repeat 5 times the command <code>take_token()</code>.
+<p>Inside <code>get_money()</code>, we repeat 5 times the command <code>take("token")</code>.
 Using <code>repeat()</code>, we can rewrite the above as follows:</p>
 <pre class="jscode">
 function get_money() {
