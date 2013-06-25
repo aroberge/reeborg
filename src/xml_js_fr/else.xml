@@ -3,79 +3,79 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles3')">Suivant</a>
 </nav>
-<h1>Listen to me ... or else ....</h1>
-<p>While learning how to program may be fun, you should not spend all your
-time in front of the computer. <code>if</code> it rains, keep reading, otherwise,
-go outside and play! (Yes, even you grandpa!)</p>
-<h2>Two choices...</h2>
-<p>Let's rewrite the sentence that starts with <code>if</code> above.</p>
-<pre class="jscode">if it rains,
-    keep reading,
-otherwise,
-    go outside and play</pre>
-<p>If this were javascript, we might have written it like this instead:</p>'
-<pre class="jscode">if ( it_rains() ) {
-    keep_reading();
+<h1>Écoutez-moi, sinon ...</h1>
+<p> Apprendre la programmation informatique peut être très amusant, mais
+    vous ne devriez pas passer toute votre vie devant un écran d'ordinateur.
+    Si il pleut, continuez à lire, sinon allez jouer dehors!  (Oui, même vous
+    grand-père!) </p>
+<h2>Deux choix...</h2>
+<p>Récrivons la phrase ci-dessus débutant avec <b>Si</b>.</p>
+<pre class="jscode">Si il pleut,
+    continuez à lire,
+sinon
+    allez jouer dehors!</pre>
+<p>Si nous exprimions cette idée en Javascript, on aurait quelque chose du genre
+    à la place</p>
+<pre class="jscode">if ( il_pleut() ) {
+    continuez_à_lire();
 } else {
-    go_outside_and_play();
+    allez_jouez_dehors();
 }</pre>
-<p>Yes, javascript includes the possibility of more than one choice with the keyword <code>else</code>.
-Let's use it with another example.  Reeborg can see if there's a wall right in front
-him. Consider world <span class="world">Around&nbsp;1</span>.
-You will use a new condition, <code>front_is_clear()</code> which Reeborg uses
-to determine if there's a wall in front of him or not, together with the <code>if/else</code>
-pair to write a program that will guide Reeborg around the world.  Something like the
-following:</p>
+<p>Oui, javascript donne la possibilité d'avoir plus d'un choix avec le mot-clé <code>else</code>.
+Utilisons-le avec un autre exemple.  Reeborg peut voir s'il y a ou non un mur devant lui.
+Sélectionnez le monde <span class="world">Autour&nbsp;1</span>.
+À l'aide de la nouvelle condition, <code>rien_devant()</code>, que Reeborg utilise pour
+déterminer s'il y a ou non un mur devant lui, on peut utiliser la combinaison <code>if/else</code> <code>if/else</code> pour écrire un programme permettant à Reeborg de faire le tour du monde.  Quelque chose
+comme ce qui suit suffit:</p>
 <pre class="jscode">
-function move_or_turn () {
-    if ( front_is_clear() ) {
-        // something
+function avance_ou_tourne () {
+    if ( rien_devant() ) {
+        // faire quelque chose
     } else {
-        // something else
+        // faire autre chose
     }
 }
 
-repeat(move_or_turn, 40);</pre>
+répète(avance_ou_tourne, 40);</pre>
 
-<h2>Try it!</h2>
+<h2>Faites-le!</h2>
 
-<p>After you are done, can you modify the program (by adding one line) so that Reeborg
-deposits a token at each corner?</p>
+<p>Lorsque ce sera fait, pouvez-vous modifier le programme (en ajoutant une seule instruction)
+    de telle sorte que Reeborg dépose un jeton à chaque coin?
+</p>
 
-<h2>How to think about <code>if/else</code></h2>
-<p>We have seen how <code>function</code>s and <code>if</code> statements
-could be thought of as being (sometimes) equivalent to inserting a code
-block; the exception was when the condition of the <code>if</code> statement
-was <code>false</code>, in which case we ignored the code
-block which is equivalent to deleting it.  <code>if/else</code> statements
-can be thought as inserting one or the other code block.  Thus</p>
+<h2>Comment comprendre <code>if/else</code></h2>
+<p>Nous avons vu comment les énoncés <code>function</code> et <code>if</code>
+   pouvaient être interprétés comme étant parfois équivalent à insérer un
+   bloc de code.  Les combinaisons <code>if/else</code> peuvent être considérées
+   de la même façon.  Ainsi</p>
 <pre class="jscode">
-move();
+avance();
 if ( true ) {
-    turn_right();
+    tourne_à_droite();
 } else {
-    turn_left();
+    tourne_à_gauche();
 }
-move();</pre>
-<p>is equivalent to </p>
+avance();</pre>
+<p>est équivalent à </p>
 <pre class="jscode">
-move();
-turn_right();
-move();</pre>
-<p>whereas</p>
+avance();
+tourne_à_droite();
+avance();</pre>
+<p>alors que </p>
 <pre class="jscode">
-move();
+avance();
 if ( false ) {
-    turn_right();
+    tourne_à_droite();
 } else {
-    turn_left();
+    tourne_à_gauche();
 }
-move();</pre>
-<p>is equivalent to </p>
+avance();</pre>
+<p>est équivalent à </p>
 <pre class="jscode">
-move();
-turn_left();
-move();</pre>
+avance();
+tourne_à_gauche();
+avance();</pre>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles2')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles3')">Suivant</a>
