@@ -93,7 +93,7 @@ in addition to comments, I have used blank lines to separate some
 "logical" blocks of code, to help see the pattern better.  Together,
 the use of comments and insertion of blank lines can make a program
 much easier to read.</p>
-<p>Finally, while it does not make any difference to Reeborg,
+<p>Furthermore, while it does not make any difference to Reeborg,
 I have made sure to specify that it was <code>"token"</code> that I
 wanted Reeborg <code>put</code>; this makes it more clear to
 human readers.

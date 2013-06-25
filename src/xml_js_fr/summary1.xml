@@ -29,8 +29,8 @@ l'ordinateur, pouvait aider
     5 instructions différentes:</p>
 <ul><li><code>avance();</code></li>
 <li><code>tourne_à_gauche();</code></li>
-<li><code>prend_jeton();</code></li>
-<li><code>dépose_jeton();</code></li>
+<li><code>prend()</code> ou <code>prend("jeton");</code></li>
+<li><code>dépose()</code> ou <code>dépose("jeton");</code></li>
 <li><code>pause();</code></li></ul>
 <p>Il est possible que vous n'ayez pas utilisé l'instruction <code>pause()</code>
 lorsque je l'ai mentionné en parlant de bogues.  Si vous ne l'avez pas fait,
