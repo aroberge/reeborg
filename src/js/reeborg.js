@@ -1496,7 +1496,7 @@ RUR.load_user_worlds = function () {
 
 var load_page = function (page){
     $.ajax({
-        url: RUR.xml+page+".xml",
+        url: RUR.settings.xml+page+".xml",
         context: document.body,
         dataType: "text"
     }).done(function(data) {
@@ -1564,12 +1564,18 @@ $(document).ready(function() {
     });
 
     $("#save-library").on("click", function() {
-        localStorage.setItem("library", library.getValue());
+        localStorage.setItem(RUR.settings.library, library.getValue());
         $('#saved').show().fadeOut(2000);
+        // try/catch temporary code to enable library migration
+        // see issue 3
+        try {
+            localStorage.removeItem("library");
+        } catch (e) {};
     });
 
-    try{
-        var library_content = localStorage.getItem("library") || RUR.translation["/* Your special code goes here */\n\n"];
+    try{  // first item is temporary code to enable library migration
+          // see issue 3
+        var library_content = localStorage.getItem("library") || localStorage.getItem(RUR.settings.library) || RUR.translation["/* Your special code goes here */\n\n"];
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
@@ -1578,7 +1584,7 @@ $(document).ready(function() {
         if (hash === ''){
             load_page("welcome");
         } else {
-            hash = RUR.xml + hash.slice(1) + ".xml";
+            hash = RUR.settings.xml + hash.slice(1) + ".xml";
             $.ajax({
                     url: hash,
                     context: $("#contents"),
@@ -1640,7 +1646,7 @@ $(document).ready(function() {
             }
             return;
         }
-        $('#help').load(RUR.xml+"/help.xml");
+        $('#help').load(RUR.settings.xml+"help.xml");
         RUR.ajax_requests.help = true;
         $("#help").dialog("open");
         return false;
