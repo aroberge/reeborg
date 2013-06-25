@@ -6,7 +6,7 @@ var globals_ = "/*globals avance, tourne_a_gauche, tourne_à_gauche, RUR, examin
                     " repete, répète, voir_source, vue_de_cote, vue_de_côté, vue_de_haut, sélectionne_monde, selectionne_monde*/\n";
 //RUR = RUR || {};
 
-RUR.xml = "src/xml_fr/";
+RUR.xml = "src/xml_js_fr/";
 RUR.translation = {};
 RUR.translation["/* Your special code goes here */\n\n"] = "/* Sauvegardez vos définitions ici. */\n\n"
 RUR.translation.ReeborgError = "ReeborgError";
