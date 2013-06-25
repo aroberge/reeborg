@@ -39,8 +39,7 @@
     <li><code>pause()</code>; peut être invoqué avec un argument en millisecondes indiquant la durée de
     la pause dans quel cas le programme continue sans avoir à cliquer sur un bouton. </li>
     <li><code>pense(nombre)</code>: spécifie le montant de temps (en millisecondes) entre chaque action d'un robot. </li>
-    <li><code>écrit(chaine)</code>: écrit un texte - considéré comme une action d'un robot. </li>
-    <li><code>écrit_maintenant(chaine)</code>: fait "immédiatement"</li>
+    <li><code>écrit(chaine)</code>: écrit une chaine de caractère dans le journal de Reeborg. </li>
     <li><code>sélectionne_monde(chaine)</code>: sélectionne un monde donné. </li>
     <li><code>vue_de_côté()</code> et <code>vue_de_haut()</code> peuvent être utilisés pour spécifier
     quelle série d'images doit être utilisée pour représenter les robots. </li>

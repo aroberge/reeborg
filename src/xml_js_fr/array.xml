@@ -44,29 +44,25 @@ well as one property, <code>length</code>.</p>
 <p>Make sure that Reeborg's Diary is visible and run the following program:</p>
 <pre class="jscode">var list = ["abc", 1, 10.4];
 
-write_now( list );
-write_now( list[0] );
+write( list );
+write( list[0] );
 
-write_now( list.length );
-write_now("-----");
+write( list.length );
+write("-----");
 
 for (var i=0; i < list.length; i++ ){
-    write_now( list[i] );
+    write( list[i] );
 }
 
-write_now("-----");
+write("-----");
 list.push(42);
-write_now( list );
-write_now( list.length );
+write( list );
+write( list.length );
 
-write_now("-----");
-write_now( list.pop() );
-write_now( list );
-write_now( list.length );</pre>
-<p>We use the Reeborg's world function <code>write_now</code> instead of <code>write</code> so
-as to bypass Reeborg's frame-by-frame animation and ensures that what is written
-reflects the state of the program as it is executed - and not later when
-the animation takes place.</p>
+write("-----");
+write( list.pop() );
+write( list );
+write( list.length );</pre>
 <p>Some things to note:</p>
 <ul>
     <li>Individual array items are accessed using the bracket notation: <code>[array_index]</code></li>
