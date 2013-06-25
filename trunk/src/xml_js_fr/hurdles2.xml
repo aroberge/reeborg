@@ -3,22 +3,25 @@
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('else')">Suivant</a>
 </nav>
-<h1>Hurdles again!</h1>
-<p>Have a look at worlds <span class="world">Hurdles&nbsp;1</span> and
-<span class="world">Hurdles&nbsp;2</span>.  Ignoring the end goal for a second, a program
-that Reeborg could follow to race over these hurdles would alternate between two instructions</p>
-<ul><li><code>move();</code></li>
-<li><code>jump_over_hurdle();</code></li></ul>
-<p>with the appropriate definition for <code>jump_over_hurdle()</code>.  If you could include
-a test (<code>if</code> statement) at some point to see if you have reached the goal, you could
-use the above to create a new function, that we could call <code>move_and_jump_until_done()</code>
-so that a program suitable for both worlds <span class="world">Hurdles&nbsp;1</span> and
-<span class="world">Hurdles&nbsp;2</span> would be:</p>
+<h1>Encore les haies!</h1>
+<p>Examinez les mondes <span class="world">Haies&nbsp;1</span> et
+<span class="world">Haies&nbsp;2</span>.  Ignorez pour l'instant le but à atteindre
+(la maison de Reeborg).  Un programme qui permettrait à Reeborg de terminer la course
+pourrait être constitué d'une alternance des deux instructions suivantes:
+</p>
+<ul><li><code>avance();</code></li>
+<li><code>saute();</code></li></ul>
+<p>en autant qu'on ait une définition appropriée pour  <code>saute()</code>.
+Si vous pouviez inclure une condition (énoncé <code>if</code>) à quelque part pour
+vérifier que vous avez atteint le but, vous pourriez alors définir une fonction
+que nous pourrions appeler <code>avance_et_saut_jusqu_au_but()</code>
+de telle sorte qu'un programme unique suffirait pour les mondes <span class="world">Haies&nbsp;1</span> et
+<span class="world">Haies&nbsp;2</span>:</p>
 <pre class="jscode">
-repeat(move_and_jump_until_done, 42);</pre>
-<p>Write such a program and make sure it works.</p>
-<p><b>Could this program work without changing anything for world
-    <span class="world">Hurdles&nbsp;4</span>?</b></p>
+répète(avance_et_saut_jusqu_au_but, 42);</pre>
+<p>Écrivez un tel programme et assurez-vous qu'il permette à Reeborg de terminer la course.</p>
+<p><b>Est-ce que ce programme pourrait permettre à Reeborg de terminer la course
+    <span class="world">Haies&nbsp;4</span>?</b></p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('at_goal')">Précédent</a>
 <a class="right-link" href="javascript:void(0);" onClick="load_page('else')">Suivant</a>

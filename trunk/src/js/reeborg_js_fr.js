@@ -1,6 +1,6 @@
 var globals_ = "/*globals avance, tourne_a_gauche, tourne_à_gauche, RUR, examine, RobotUsagé, RobotUsage, " +
                 "rien_devant, rien_à_droite, rien_a_droite, face_au_nord, termine, terminé, "+
-                    " dépose_jeton, depose_jeton, prend_jeton, dépose, depose, prend, objet_ici,"+
+                    " dépose, depose, prend, objet_ici,"+
                     " jeton_ici, a_des_jetons, écrit, ecrit, écrit_maintenant, ecrit_maintenant, au_but, " +
                     " au_but_orientation, construit_un_mur, pense, DEBUG, pause, supprimer_le_robot, " +
                     " repete, répète, voir_source, vue_de_cote, vue_de_côté, vue_de_haut, sélectionne_monde, selectionne_monde*/\n";
