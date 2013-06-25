@@ -25,13 +25,13 @@ que nous avons tout juste vue:</p>
 
 <pre class="jscode">
 function prend_argent() {
-    prend_jeton();
-    prend_jeton();
-    prend_jeton();
-    prend_jeton();
-    prend_jeton();
+    prend("jeton");
+    prend("jeton");
+    prend("jeton");
+    prend("jeton");
+    prend("jeton");
 }</pre>
-<p>Le corps de <code>prend_argent()</code> est constitué de 5 répétitions de <code>prend_jeton()</code>.
+<p>Le corps de <code>prend_argent()</code> est constitué de 5 répétitions de <code>prend("jeton")</code>.
 Utilisant <code>répète()</code>, nous pouvons récrire ceci de la façon suivante:</p>
 <pre class="jscode">
 function prend_argent() {

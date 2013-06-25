@@ -20,10 +20,13 @@
     <li><code>a_des_jetons()</code></li>
     <li><code>face_au_nord()</code></li>
     <li><code>avance()</code></li>
-    <li><code>dépose_jeton()</code></li>
+    <li><code>dépose()</code> ou <code>dépose("objet")</code> où "objet" est l'un de <code>"jeton"</code>,
+      <code>"triangle"</code>, <code>"carré"</code> ou <code>"étoile"</code></li>
+      <li><code>objet_ici()</code></li>
     <li><code>rien_à_droite()</code></li>
     <li><code>répète(f, n)</code></li>
-    <li><code>prend_jeton()</code></li>
+    <li><code>prend()</code> ou <code>prend("objet")</code> où "objet" est l'un de <code>"jeton"</code>,
+      <code>"triangle"</code>, <code>"carré"</code> ou <code>"étoile"</code></li>
     <li><code>jeton_ici()</code></li>
     <li><code>tourne_à_gauche()</code></li>
   </ul>
@@ -37,17 +40,10 @@
     la pause dans quel cas le programme continue sans avoir à cliquer sur un bouton. </li>
     <li><code>pense(nombre)</code>: spécifie le montant de temps (en millisecondes) entre chaque action d'un robot. </li>
     <li><code>écrit(chaine)</code>: écrit un texte - considéré comme une action d'un robot. </li>
-    <li><code>écrit_maintenant(string)</code>: fait "immédiatement"</li>
-    <li><code>sélectionne_monde(string)</code>: sélectionne un monde donné. </li>
+    <li><code>écrit_maintenant(chaine)</code>: fait "immédiatement"</li>
+    <li><code>sélectionne_monde(chaine)</code>: sélectionne un monde donné. </li>
     <li><code>vue_de_côté()</code> et <code>vue_de_haut()</code> peuvent être utilisés pour spécifier
     quelle série d'images doit être utilisée pour représenter les robots. </li>
-  </ul>
-  <p>Dans les leçons plus avancées, et en particulier dans certaines tâches spécifiques, les instructions
-    suivantes sont utiles. </p>
-  <ul>
-    <li><code>dépose(objet)</code> où "objet" est l'un de <code>"triangle"</code>, <code>"carré"</code> ou <code>"étoile"</code></li>
-    <li><code>objet_ici()</code></li>
-    <li><code>prend(objet)</code> où "objet" est l'un de <code>"triangle"</code>, <code>"carré"</code> ou <code>"étoile"</code></li>
   </ul>
 
  <p>Pour en savoir davantage, consultez les leçons.</p>

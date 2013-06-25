@@ -42,11 +42,11 @@ avance();
 avance();
 
 // prendre la monnaie
-prend_jeton();
-prend_jeton();
-prend_jeton();
-prend_jeton();
-prend_jeton();
+prend("jeton");
+prend("jeton");
+prend("jeton");
+prend("jeton");
+prend("jeton");
 
 // déposer un journal
 dépose("étoile");
@@ -118,11 +118,11 @@ function descend_trois_étages() {
 }
 
 function prend_argent() {
-    prend_jeton();
-    prend_jeton();
-    prend_jeton();
-    prend_jeton();
-    prend_jeton();
+    prend("jeton");
+    prend("jeton");
+    prend("jeton");
+    prend("jeton");
+    prend("jeton");
 }
 
 // === Fin des définitions ===
