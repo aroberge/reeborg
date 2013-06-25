@@ -27,8 +27,8 @@ will be ignored by the computer.</p>
 <p>While I have not mentioned this explicitly, you have also learned that a program is a series of instructions. You have seen a total of 5 different instructions:</p>
 <ul><li><code>move();</code></li>
 <li><code>turn_left();</code></li>
-<li><code>take_token();</code></li>
-<li><code>put_token();</code></li>
+<li><code>take();</code> equivalent to <code>take("token");</code></li>
+<li><code>put();</code> equivalent to <code>put("token");</code></li>
 <li><code>pause();</code></li></ul>
 <p>You may or may not have used the <code>pause()</code> instruction which I
 only mentioned in passing when talking about bugs. If you have not done so,

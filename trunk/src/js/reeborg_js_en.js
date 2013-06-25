@@ -1,5 +1,5 @@
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
-                    " is_facing_north, done, put_token, take_token, put, take, shape_here, select_world,"+
+                    " is_facing_north, done, put, take, shape_here, select_world,"+
                     " token_here, has_token, write, write_now, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view*/\n";
 
@@ -28,6 +28,7 @@ RUR.translation.east = "east";
 RUR.translation.north = "north";
 RUR.translation.west = "west";
 RUR.translation.south = "south";
+RUR.translation.token = "token";
 RUR.translation["Unknown orientation for robot."] = "Unknown orientation for robot.";
 RUR.translation["Done!"] = "Done!";
 RUR.translation["There is no position as a goal in this world!"] = "There is no position as a goal in this world!";
@@ -106,10 +107,6 @@ var put = function(arg) {
     RUR.world.robots[0].put(arg);
 };
 
-var put_token = function() {
-    RUR.world.robots[0].put_token();
-};
-
 var remove_robot = function (){
     RUR.world.remove_robot();
 };
@@ -130,10 +127,6 @@ var shape_here = function () {
 
 var take = function(arg) {
     RUR.world.robots[0].take(arg);
-};
-
-var take_token = function() {
-    RUR.world.robots[0].take_token();
 };
 
 var think = function(delay) {

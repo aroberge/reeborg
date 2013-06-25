@@ -2,7 +2,7 @@
 
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while_num')">Précédent</a>
 <a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('more')">Suivant</a>
+<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('other_repeat')">Suivant</a>
 
 </nav>
 <h1>A better <b>repeat()</b></h1>
@@ -76,4 +76,4 @@ walk_to_the_wall();
 are doing something until a condition is <b>not</b> satisfied.</p>
 
 <a class="left-link" href="javascript:void(0);" onClick="load_page('while_num')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('more')">Suivant</a>
+<a class="right-link" href="javascript:void(0);" onClick="load_page('other_repeat')">Suivant</a>

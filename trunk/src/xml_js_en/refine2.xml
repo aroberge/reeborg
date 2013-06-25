@@ -11,7 +11,7 @@ we never go the chance to get in the <code>while</code> loop.
 Perhaps we can change the
 program to add a <code>move()</code> before we start the loop, as follows:</p>
 <pre class="jscode">
-put_token();
+put("token");
 move();
 while ( !token_here() ){
     if (front_is_clear()){
@@ -34,7 +34,7 @@ first to check on his right to see if there is still a wall; if not, we have
 him make a right turn. Here's a modified program that <i>attempts</i>
 to do just that:</p>
 <pre class="jscode">
-put_token();
+put("token");
 move();
 while ( !token_here() ){
     if (right_is_clear()){

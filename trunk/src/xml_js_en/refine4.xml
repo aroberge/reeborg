@@ -8,7 +8,7 @@
 forward after putting down a beeper. We need to check if there is a wall
 preventing him from moving first. Here's a solution to the problem.</p>
 <pre class="jscode">
-put_token();
+put("token");
 if ( !front_is_clear() ) {
     turn_left();
 }

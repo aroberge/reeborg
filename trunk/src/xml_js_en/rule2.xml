@@ -38,18 +38,18 @@ more easily in the first program, the second, or the third?</p>
 <pre class="jscode">move();
 move();
 turn_left();
-put_token();
+put();
 move();
 move();
 turn_left();
-put_token();
+put();
 move();
 turn_left();
-put_token();
+put();
 move();
 move();
 turn_left();
-put_token();
+put();
 </pre>
 
 <p>Contrast the above program with the same one, from Reeborg's
@@ -64,22 +64,22 @@ leaving a token behind at each corner. */
 move();  // Javascript commands have to end with a semi-colon
 move();
 turn_left(); // Reeborg only knows to turn left
-put_token();  // we assume that Reeborg carries enough tokens
+put("token");  // we assume that Reeborg carries enough tokens
 
 // we repeat the above three more times to complete the square
 move();
 move();
 turn_left();
-put_token();
+put("token");
 
 move();
 turn_left();
-put_token();
+put("token");
 
 move();
 move();
 turn_left();
-put_token();
+put("token");
 </pre>
 
 <p>The above are not particularly good comments, but at least one
@@ -93,14 +93,19 @@ in addition to comments, I have used blank lines to separate some
 "logical" blocks of code, to help see the pattern better.  Together,
 the use of comments and insertion of blank lines can make a program
 much easier to read.</p>
+<p>Finally, while it does not make any difference to Reeborg,
+I have made sure to specify that it was <code>"token"</code> that I
+wanted Reeborg <code>put</code>; this makes it more clear to
+human readers.
+</p>
 
 <p>Finally, let me rewrite the <b>same</b> program in a way
 that is much harder to read for humans, but that is just as easily
 understood by Reeborg.</p>
 <pre class="jscode">move();move();turn_left();
-put_token();move();move();turn_left();
-put_token();move();turn_left();put_token();
-move();move();turn_left();put_token();
+put();move();move();turn_left();
+put();move();turn_left();put();
+move();move();turn_left();put();
 </pre>
 
 <p>By choosing world <span class="world">Alone</span> and

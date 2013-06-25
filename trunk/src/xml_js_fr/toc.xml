@@ -121,6 +121,7 @@ of increasing complexity.</li>
 <li><a href="javascript:void(0);" onClick="load_page('while_num')">While counting</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('for')">For loops</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('better_repeat')">A better <b>repeat()</b></a></li>
+<li><a href="javascript:void(0);" onClick="load_page('other_repeat')">An other way to repeat</a></li>
 <li><a href="javascript:void(0);" onClick="load_page('more')">More javascript</a></li>
 
 

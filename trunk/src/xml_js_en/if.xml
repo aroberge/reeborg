@@ -97,7 +97,7 @@ tells Reeborg that there is at least one token at the grid position where he is 
 For example, if we want to ask Reeborg to collect tokens, one part of the code could be</p>
 <pre class="jscode">
 if ( token_here() ) {
-    take_token();
+    take("token");
 }</pre>
 <p>Have a look at worlds <span class="world">Tokens&nbsp;1</span> and
 <span class="world">Tokens&nbsp;2</span>. In both cases, and assuming that Reeborg moves forward

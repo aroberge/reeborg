@@ -40,11 +40,11 @@ move();
 move();
 
 // get money
-take_token();
-take_token();
-take_token();
-take_token();
-take_token();
+take("token");
+take("token");
+take("token");
+take("token");
+take("token");
 
 // leave paper
 put("star");
@@ -115,11 +115,11 @@ function climb_down_three_floors() {
 }
 
 function get_money() {
-    take_token();
-    take_token();
-    take_token();
-    take_token();
-    take_token();
+    take("token");
+    take("token");
+    take("token");
+    take("token");
+    take("token");
 }
 
 // === End of definitions ===

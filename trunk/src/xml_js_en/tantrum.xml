@@ -73,7 +73,7 @@ the following program:</p>
 
 write("=============");
 try {
-    take_token();   // in a world where none is present
+    take("token");   // in a world where none is present
 } catch(err) {      // any variable name can be used
     write(err instanceof Error);     // false
     write(err instanceof RUR.Error); // true
