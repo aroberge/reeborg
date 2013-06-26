@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper1')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('harvest')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('newspaper1')">Suivant</a>
 </nav>
 <h1>Jour de tempête</h1>
 <p>C'était une belle journée ensoleillée.  Reeborg jouait dehors avec son amie.
@@ -23,8 +23,8 @@ la pluie s'est mise à tomber.  Aidez Erdna à fermer les fenêtres de sa maison
     et à Erdna de fermer les fenêtres de leur maison ... mais ça vous demandera
     de la réflexion.</p>
 <h2>Après la tempête</h2>
-<p>Le vent a soufllé violemment la nuit dernière.  Il y a des déchets partout autour de la maison
-    de Reeborg.  Ses parents lui demandent de nettoyer le troittoir qui mène à la rue<span class="world">Tempête&nbsp;3</span>, ainsi que l'allée <span class="world">Tempête&nbsp;4</span>.</p>
+<p>Le vent a soufflé violemment la nuit dernière.  Il y a des déchets partout autour de la maison
+    de Reeborg.  Ses parents lui demandent de nettoyer le trottoir qui mène à la rue<span class="world">Tempête&nbsp;3</span>, ainsi que l'allée <span class="world">Tempête&nbsp;4</span>.</p>
 <p>Reeborg doit ramasser tous les déchets (représentés par des jetons), et les mettre dans la poubelle en
     s'assurant de fermer le couvercle à l'aide de l'instruction <code>construit_un_mur()</code>.</p>
 <h2>Encore du travail!</h2>
@@ -35,5 +35,5 @@ la pluie s'est mise à tomber.  Aidez Erdna à fermer les fenêtres de sa maison
 <p>Plus tard, vous serez en mesure d'écrire un seul programme qui permettra d'accomplir les trois tâches
     de nettoyage. </p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('harvest')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('newspaper1')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('harvest')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('newspaper1')">Suivant</a>

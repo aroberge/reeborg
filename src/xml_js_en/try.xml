@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('tantrum')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('continue')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('tantrum')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('continue')">Next</a>
 </nav>
 
 <h1>Random escapes 2</h1>
@@ -47,5 +47,5 @@ approach.  Thus <b>your</b> program is run without checking first to see if prob
 the execution of <b>your</b> program is stopped by throwing an error and catching it elsewhere,
 giving the opportunity to Reeborg to shout at you.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('tantrum')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('continue')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('tantrum')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('continue')">Next</a>

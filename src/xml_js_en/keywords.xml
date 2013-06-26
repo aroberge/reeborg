@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('with')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('edit_world')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('with')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('edit_world')">Next</a>
 </nav>
 
 <h1>Javascript keywords and other important references</h1>
@@ -10,37 +10,37 @@
     first appear in the link indicated below.</p>
 
 <ul>
-<li><a href="javascript:void(0);" onClick="load_page('break')">break</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('switch')">case</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('tantrum')">catch</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('continue')">continue</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('break')">break</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('switch')">case</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('tantrum')">catch</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('continue')">continue</a></li>
 <li>debugger</li>
-<li><a href="javascript:void(0);" onClick="load_page('switch')">default</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('teleport2')">delete</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('do_while')">do ... while</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('else')">else</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('tantrum')">finally</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('for')">for</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('rule3')">function</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('if')">if</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('switch')">default</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('teleport2')">delete</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('do_while')">do ... while</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('else')">else</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('tantrum')">finally</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('for')">for</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('rule3')">function</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('if')">if</a></li>
 <li>in</li>
-<li><a href="javascript:void(0);" onClick="load_page('new')">instanceof</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('new')">new</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('return')">return</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('switch')">switch</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('prototype')">this</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('tantrum')">throw</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('tantrum')">try</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('new')">instanceof</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('new')">new</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('return')">return</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('switch')">switch</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('prototype')">this</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('tantrum')">throw</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('tantrum')">try</a></li>
 <li>typeof</li>
-<li><a href="javascript:void(0);" onClick="load_page('france')">var</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('france')">var</a></li>
 <li>void</li>
-<li><a href="javascript:void(0);" onClick="load_page('while')">while</a></li>
-<li><a href="javascript:void(0);" onClick="load_page('with')">with</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('while')">while</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('with')">with</a></li>
 </ul>
 <p>The following are not officially keywords, but they can be thought as keywords for all practical purpose</p>
 <ul>
-    <li><a href="javascript:void(0);" onClick="load_page('if')">true</a></li>
-    <li><a href="javascript:void(0);" onClick="load_page('if')">false</a></li>
+    <li><a href="Javascript:void(0);" onClick="load_page('if')">true</a></li>
+    <li><a href="Javascript:void(0);" onClick="load_page('if')">false</a></li>
     <li>null</li>
 </ul>
 
@@ -67,5 +67,5 @@ language for possible future use; your programs should not use these as variable
     <li>yield</li>
 </ul>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('with')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('edit_world')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('with')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('edit_world')">Next</a>

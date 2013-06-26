@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('else')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('not')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('else')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('not')">Next</a>
 </nav>
 <h1>Hurdles yet again!</h1>
 <p>Reeborg lives in Canada where it not only can rain or be sunny, but snow can also
@@ -99,5 +99,5 @@ It will take a little <code>while</code> until we
 are ready to write a program that can make Reeborg race <span class="world">Hurdles&nbsp;4</span>
 as well as the other three.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('else')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('not')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('else')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('not')">Next</a>

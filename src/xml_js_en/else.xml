@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles3')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('hurdles2')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('hurdles3')">Next</a>
 </nav>
 <h1>Listen to me ... or else ....</h1>
 <p>While learning how to program may be fun, you should not spend all your
@@ -13,13 +13,13 @@ go outside and play! (Yes, even you grandpa!)</p>
     keep reading,
 otherwise,
     go outside and play</pre>
-<p>If this were javascript, we might have written it like this instead:</p>'
+<p>If this were Javascript, we might have written it like this instead:</p>'
 <pre class="jscode">if ( it_rains() ) {
     keep_reading();
 } else {
     go_outside_and_play();
 }</pre>
-<p>Yes, javascript includes the possibility of more than one choice with the keyword <code>else</code>.
+<p>Yes, Javascript includes the possibility of more than one choice with the keyword <code>else</code>.
 Let's use it with another example.  Reeborg can see if there's a wall right in front
 him. Consider world <span class="world">Around&nbsp;1</span>.
 You will use a new condition, <code>front_is_clear()</code> which Reeborg uses
@@ -77,5 +77,5 @@ move();
 turn_left();
 move();</pre>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles3')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('hurdles2')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('hurdles3')">Next</a>

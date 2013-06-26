@@ -1,12 +1,12 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hilo_game')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('random')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('hilo_game')">Next</a>
 </nav>
 
 <h1>Communicating with the user</h1>
 
-<p>When using javascript in a browser window, one can communicate with the user
+<p>When using Javascript in a browser window, one can communicate with the user
 via some <em>modal</em> popup windows.  <em>Modal</em> windows are windows that take
 over the normal program flow and have to be dealt with before anything else
 can happen. There are three such modal popup windows:</p>
@@ -34,7 +34,7 @@ alert("You entered: " + response);
 appeared, to stop more from showing up.</p>
 <h2>Getting numbers from users</h2>
 <p>We have seen previously that the character "2" is not the same as the number 2.
-When we use <code>prompt</code>, javascript assumes that we are requesting a <em>string</em> from
+When we use <code>prompt</code>, Javascript assumes that we are requesting a <em>string</em> from
 the user.  If we want a number, we have to convert the string into a proper number.  We can use
 <code>parseInt</code> to convert a string into an integer, and <code>parseFloat</code> to convert
 a string into a <em>decimal</em> or <em>floating point</em> number:</p>
@@ -46,8 +46,8 @@ write( parseInt("100", 2) );  // 4 = 100 in base 2</pre>
 <ul><li>Note that NaN is a symbol meaning <em>Not a Number</em></li>
 <li>By default, parseInt assume that we are converting a string into a number in base 10; Reeborg
 will give you a warning if you do not specify the basis.</li></ul>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('random')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('hilo_game')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('random')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('hilo_game')">Next</a>
 
 
 

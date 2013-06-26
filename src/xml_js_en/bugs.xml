@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_left')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('tokens1')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('turn_left')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('tokens1')">Next</a>
 </nav>
 <h1>Darn bugs! </h1>
 <p>Nobody likes to talk about computer bugs.
@@ -101,9 +101,9 @@ written at the top of Reeborg's world. To enable this feature, you simply have t
 the line <pre class="jscode">DEBUG.ON = true;</pre> anywhere in a program
 and it will be enabled for that program.</li>
 <li>Finally, you can stop a program at any point by pressing the
-<b>stop</b> button {stop_button}; this unfortunaly may not work if you create what is
+<b>stop</b> button {stop_button}; this unfortunately may not work if you create what is
 known as an infinite loop, outside of Reeborg's control. If worse
 comes to worst, you can always just reload the web page.</li>
 </ol>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('turn_left')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('tokens1')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('turn_left')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('tokens1')">Next</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('bugs')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule2')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('bugs')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rule2')">Suivant</a>
 </nav>
 <h1>Collection de jetons</h1>
 
@@ -12,7 +12,7 @@
 <pre class="jscode">prend();
 dépose();</pre>
 
-<p>Selectionnez le monde <span class="world">Jetons&nbsp;1</span>.  Il y a un jeton
+<p>Sélectionnez le monde <span class="world">Jetons&nbsp;1</span>.  Il y a un jeton
 tout juste à côté de Reeborg.  On sait qu'il n'y en a qu'un parce qu'on voit
 le chiffre 1 à l'intérieur.  Dans le carré suivant, on voit le contour d'un jeton
 (imaginaire) avec le numéro 1 à côté.  Ceci indique que Reeborg doit déposer un seul
@@ -40,5 +40,5 @@ dépose('jeton');</pre>
 <p>On note que le mot <b>jeton</b> est entouré soit de guillemets simples ou doubles.
 Vérifiez que ceci fonctionne!</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('bugs')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rule2')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('bugs')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('rule2')">Suivant</a>

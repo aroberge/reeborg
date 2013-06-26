@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('prototype')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport2')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('prototype')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('teleport2')">Suivant</a>
 </nav>
 
 <h1>Teleport!</h1>
@@ -12,7 +12,7 @@ inspect(Reeborg);</pre>
 <p>Note that <code>inspect()</code> is a function that is only available in Reeborg's world.
 It allows one to see what <em>attributes</em> and <em>methods</em> are defined for an object.</p>
 <p><small>[Note: if you are curious, you can see how <code>inspect</code> is defined by
-executing the program <code>view_source(inspect)</code> ... but it uses some javascript features
+executing the program <code>view_source(inspect)</code> ... but it uses some Javascript features
 that we have not explained yet, so it is highly likely that it will not make sense to you.]</small></p>
 <p><em>Methods</em> are identified by the two parentheses () following their names.
 Note that <code>teleport</code> is <b>not</b> a method currently defined.</p>
@@ -62,6 +62,6 @@ view_source(Reeborg.turn_left);
 view_source(Reeborg.put_token);</pre>
 <p>By examining the output, can you figure out what instruction we might need to add to
 see Reeborg teleport to a new location?</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('prototype')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('teleport2')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('prototype')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('teleport2')">Suivant</a>
 

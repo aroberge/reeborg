@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule1')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_left')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rule1')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('turn_left')">Suivant</a>
 </nav>
 <h1>Apprentissage guidé par des tâches</h1>
 <p>Dans le but de vous aider à apprendre à programmer en Javascript, je vais vous
@@ -11,7 +11,7 @@
 Voyez comment le carré en bas à gauche est d'une couleur différente: ceci identifie
 la maison de Reeborg.  Le monde de Reeborg est un simple échiquier.
 Dans  <span class="world">Maison&nbsp;1</span>, Reeborg part du troisième carré
-sur la rangée du bas.  Ce carré a les coordonnées cartésiennes starts at
+sur la rangée du bas.  Ce carré a les coordonnées cartésiennes
 <code>x=3</code> et <code>y=1</code>.</p>
 <p>Dans l'éditeur de code, il y a un programme avec une seule instruction:
 <code>avance();</code>.
@@ -29,5 +29,5 @@ Voyez-vous le petit carré noir dans le carré indiquant la maison de Reeborg?
 Essayez d'exécuter le même programme encore une fois.
 </p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rule1')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('turn_left')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('rule1')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('turn_left')">Suivant</a>

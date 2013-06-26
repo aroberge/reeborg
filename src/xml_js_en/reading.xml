@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('library')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper2')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('library')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('newspaper2')">Next</a>
 </nav>
 <h1>Reading exercise</h1>
 <p>Remember the following?</p>
@@ -49,5 +49,5 @@ copy it in the editor and try to run it.</p>
 <p>This should help you to understand why it is important to
 write programs for humans, by choosing function names that
 are meaningful.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('library')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('newspaper2')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('library')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('newspaper2')">Next</a>

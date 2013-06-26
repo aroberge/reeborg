@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while_num')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('better_repeat')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('while_num')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('better_repeat')">Suivant</a>
 </nav>
 
 <h1>For loops</h1>
@@ -53,5 +53,5 @@ my_repeat(turn_left, 4);</pre>
 <p>but the code would not be as nicely formatted!</p>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('while_num')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('better_repeat')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('while_num')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('better_repeat')">Suivant</a>

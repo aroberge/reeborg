@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('storm')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary2')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('storm')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('summary2')">Suivant</a>
 </nav>
 
 <h1>Livraison de journaux</h1>
@@ -34,7 +34,7 @@ Assurez-vous d'écrire les deux instructions ci-dessus <b>exactement</b> de la f
 dont elles apparaissent; en particulier, le mot <em>étoile</em> doit être écrit avec
 un accent aigu sur le   e.</p>
 <p>Il peut vous sembler impossible d'écrire un seul programme qui ferait la livraison
-    correctmement aux deux clients ... mais vous verrez un peu plus tard comment on peut le faire.
+    correctement aux deux clients ... mais vous verrez un peu plus tard comment on peut le faire.
 </p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('storm')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary2')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('storm')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('summary2')">Suivant</a>

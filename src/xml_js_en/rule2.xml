@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('tokens1')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary1')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('tokens1')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('summary1')">Next</a>
 </nav>
 <h1>Rule number 2</h1>
 
@@ -114,5 +114,5 @@ that they all make Reeborg perform exactly the same task!</p>
 
 <p>Now, which one is easier to read?...</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('tokens1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary1')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('tokens1')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('summary1')">Next</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule3')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_around')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rule3')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('turn_around')">Suivant</a>
 </nav>
 <h1>Comment penser à <code>function</code></h1>
 
@@ -31,9 +31,9 @@ avance();
 </pre>
 <p>En d'autres mots, <code>function</code> définit un nom que l'on peut utiliser
 comme synonyme pour représenter un bloc de code; à chaque fois que l'on
-voit le synonyme être <em>appelé</em> [c'est-à-dire que le nom apparait suivi
-de parentheses <code>()</code>], on peut penser à ceci comme étant équivalent
-à insérér à la place du synonyme le bloc de code constituant le corps de la
+voit le synonyme être <em>appelé</em> [c'est-à-dire que le nom apparaît suivi
+de parenthèses <code>()</code>], on peut penser à ceci comme étant équivalent
+à insérer à la place du synonyme le bloc de code constituant le corps de la
 fonction tel quel à cet endroit. </p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rule3')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('turn_around')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('rule3')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('turn_around')">Suivant</a>

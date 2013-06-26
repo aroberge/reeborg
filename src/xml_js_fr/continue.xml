@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('try')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('modify')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('try')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('modify')">Suivant</a>
 </nav>
 
 <h1>Continue</h1>
@@ -47,11 +47,11 @@ For example, here is a partial output of a run I did on my computer:</p>
 ---
 5
 6</pre>
-<p>Now, uncomment the line with the <code>continue</code> javascript keyword, so that it is executed
+<p>Now, uncomment the line with the <code>continue</code> Javascript keyword, so that it is executed
 and run the program again a few times, looking closely at the output.  Can you figure what is going on?</p>
 <h2>continue</h2>
-<p>The javascript <code>continue</code> keyword tells javascript to continue the looping process <b>but</b>
-to jump back to the beginning of the loop to do so.  In other words, it instructs javascript to ignore
+<p>The Javascript <code>continue</code> keyword tells Javascript to continue the looping process <b>but</b>
+to jump back to the beginning of the loop to do so.  In other words, it instructs Javascript to ignore
 everything else that occurs below - but just for that one loop.  Thus, since we write the value
 of the variable <code>nb</code> at the bottom of the loop, it is skipped when the <code>continue</code>
 statement is encountered.  Jumping back to the top of the loop increments the variable <code>nb</code>
@@ -67,5 +67,5 @@ whenever <code>---</code> is written, the corresponding integer is not written, 
 </pre>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('try')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('modify')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('try')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('modify')">Suivant</a>

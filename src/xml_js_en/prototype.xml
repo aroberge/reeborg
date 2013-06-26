@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_right')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('turn_right')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('teleport')">Next</a>
 </nav>
 
 <h1>Prototype this</h1>
@@ -19,7 +19,7 @@ function:</p>
     this.turn_left();
     this.turn_left();
 };</pre>
-<p>The javascript keyword <code>this</code> will be replaced by the name of whichever's robot
+<p>The Javascript keyword <code>this</code> will be replaced by the name of whichever robot
 is being asked to execute the right turn:</p>
 
 <pre class="jscode">var Reeborg = new UsedRobot();
@@ -49,6 +49,6 @@ for (var i=0; i < 4; i++) {
     Reeborg.__turn_right();
 }</pre>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('turn_right')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('teleport')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('turn_right')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('teleport')">Next</a>
 

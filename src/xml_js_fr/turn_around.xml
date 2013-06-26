@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('functions1')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('library')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('functions1')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('library')">Suivant</a>
 </nav>
 
 <h1>Demi-tour!</h1>
@@ -45,7 +45,7 @@ function tourne_à_droite () {
     ligne, de s'assurer qu'il n'y a pas de bogues.  De plus, une fois que nous
     avons défini et testé une fonction pour nous assurer qu'elle ne comporte
     pas de bogues, on réduit la possibilité de bogues ailleurs en l'utilisant
-    aussi souvent que possible.  J'admet que l'exemple choisi peut sembler
+    aussi souvent que possible.  J’admets que l'exemple choisi peut sembler
     ridicule en raison de la simplicité des fonctions utilisées ... mais
     je n'ai pas d'exemples plus compliqués à vous offrir à ce moment-ci pour
     illustrer cette idée très importante.</p>
@@ -60,5 +60,5 @@ recule();
 // de retour au point x, y,
 // faisant face à la même direction qu'au départ</pre>
 <p>Assurez-vous de vérifier que le tout fonctionne!</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('functions1')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('library')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('functions1')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('library')">Suivant</a>

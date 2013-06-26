@@ -35,12 +35,12 @@
   <p>De plus, les commandes suivantes sont généralement disponibles sans être liées
     à un robot en particulier. </p>
   <ul>
-    <li><code>examine(objet javascript)</code></li>
+    <li><code>examine(objet Javascript)</code></li>
     <li><code>pause()</code>; peut être invoqué avec un argument en millisecondes indiquant la durée de
     la pause dans quel cas le programme continue sans avoir à cliquer sur un bouton. </li>
     <li><code>pense(nombre)</code>: spécifie le montant de temps (en millisecondes) entre chaque action d'un robot. </li>
-    <li><code>écrit(chaine)</code>: écrit une chaine de caractère dans le journal de Reeborg. </li>
-    <li><code>sélectionne_monde(chaine)</code>: sélectionne un monde donné. </li>
+    <li><code>écrit(chaîne)</code>: écrit une chaîne de caractère dans le journal de Reeborg. </li>
+    <li><code>sélectionne_monde(chaîne)</code>: sélectionne un monde donné. </li>
     <li><code>vue_de_côté()</code> et <code>vue_de_haut()</code> peuvent être utilisés pour spécifier
     quelle série d'images doit être utilisée pour représenter les robots. </li>
   </ul>
@@ -83,7 +83,7 @@ vous avez besoin d'aide, n'hésitez pas à me contacter.</p>
  <p> Je ne suis qu'un programmeur autodidacte, sans formation en design web, graphisme, etc.
  J'invite toute suggestion ou contribution visant à
 </p>
-<ul><li>Améliorer l'usabilité de ce site. </li>
+<ul><li>Améliorer la convivialité de ce site. </li>
 <li>Avoir un robot de meilleure apparence; j'ai dessiné Reeborg pixel par pixel, utilisant
   un logiciel assez simple, approprié pour mon niveau d'habilité.  Il y a deux ensembles
   d'images: une avec Reeborg vu de côté, et l'autre avec une vue d'en haut.
@@ -98,11 +98,11 @@ vous avez besoin d'aide, n'hésitez pas à me contacter.</p>
 <ul><li>Traduire tout le contenu en français</li>
 <li>Avoir une version Python (probablement en utilisant <a href="http://brython.info/index.html">Brython</a>)</li>
 <li>Avoir une version CoffeeScript </li>
-<li>Inclure des tutoriels sur la création de jeux en utilsant le canevas html. </li></ul>
+<li>Inclure des tutoriels sur la création de jeux en utilisant le canevas HTML. </li></ul>
 <p>À plus long terme, j'aimerais :</p>
 <ul><li>Inclure toute une série de langages informatiques (Scheme, ...) en autant que ceci
 puisse être fait totalement du côté client, sans avoir de code exécuté sur un serveur.</li>
 <li>Possiblement inclure la traduction des leçons dans d'autres langues que l'anglais et le
   français, selon la bonne volonté de bénévoles.</li>
-<li>Investiguer la possibilité d'avoir quelque chose comme <a href="https://github.com/ryanb/ruby-warrior">Ruby-warrior en javascript</a></li>
-<li>Investiguer la possibilité d'avoir une version javascript de <a href="http://www.nand2tetris.org/">From nand to Tetris</a></li></ul>
+<li>Investiguer la possibilité d'avoir quelque chose comme <a href="https://github.com/ryanb/ruby-warrior">Ruby-warrior en Javascript</a></li>
+<li>Investiguer la possibilité d'avoir une version Javascript de <a href="http://www.nand2tetris.org/">From nand to Tetris</a></li></ul>

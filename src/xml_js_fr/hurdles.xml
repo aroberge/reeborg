@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('maze')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('maze')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('harvest')">Suivant</a>
 </nav>
 <h1>Sauter par-dessus les haies</h1>
 <p>Reeborg va participer à une course; il s'agit du 110 mètres haies, en préparation pour les jeux olympiques.
@@ -19,5 +19,5 @@ Lorsque vous aurez réussi à écrire un tel programme, vous voudrez peut-être 
     avec celle des haies inégalement espacées
  <span class="world">Haies&nbsp;3</span> ou celle des haies très irrégulières
     <span class="world">Haies&nbsp;4</span>.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('maze')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('harvest')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('maze')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('harvest')">Suivant</a>

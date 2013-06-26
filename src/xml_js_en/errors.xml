@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('move')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule1')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('move')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rule1')">Next</a>
 </nav>
 <h1>Dealing with eRRoRs</h1>
 <p>Change <code>move();</code> to <code>Move();</code> (with an uppercase M) and
@@ -23,5 +23,5 @@ the program and run the corrected version.</p>
     Reeborg to misunderstand your intentions; so make sure to include them
     when Reeborg complains even if Reeborg appears to be doing the right thing.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('move')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rule1')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('move')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('rule1')">Next</a>

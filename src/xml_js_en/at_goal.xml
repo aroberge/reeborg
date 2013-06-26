@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('if')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles2')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('if')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('hurdles2')">Next</a>
 </nav>
 <h1>Finding the right spot</h1>
 <p>While the program you just wrote works for worlds <span class="world">Tokens&nbsp;1</span> and
@@ -36,5 +36,5 @@ repeat(move_until_done, 42);</pre>
 world <span class="world">Home&nbsp;1</span> or <span class="world">Home&nbsp;2</span>.  Would
 the same program work?  After you have determined this, try running it to confirm your understanding.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('if')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles2')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('if')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('hurdles2')">Next</a>

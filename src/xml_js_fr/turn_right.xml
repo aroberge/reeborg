@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('many')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('prototype')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('many')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('prototype')">Suivant</a>
 </nav>
 
 <h1>Many right turns</h1>
@@ -31,6 +31,6 @@ turn_right(Erdna);</pre>
 the robots turn right uses a different syntax from the <em>method</em> that is used to make them
 left.  There has to be a better way...</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('many')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('prototype')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('many')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('prototype')">Suivant</a>
 

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('not')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper3')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('not')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('newspaper3')">Next</a>
 </nav>
 
 <h1>For a <code>while</code></h1>
@@ -94,5 +94,5 @@ while ( !at_goal() ){
 <code>repeat()</code> when you know <b>exactly</b> how many times a given
 function must be repeated.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('not')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('newspaper3')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('not')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('newspaper3')">Next</a>

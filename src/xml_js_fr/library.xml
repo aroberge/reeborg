@@ -1,12 +1,12 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_around')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('reading')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('turn_around')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('reading')">Suivant</a>
 </nav>
 <h1>La bibliothèque</h1>
 <p>Lorsque des programmeurs utilisent la même fonction dans plusieurs programmes,
     plutôt que de la redéfinir dans chaque programme ils la mettent dans
-    un programme spécial qui s'appelle une <b>bibliothèque</b> (<em>librarie</em>
+    un programme spécial qui s'appelle une <b>bibliothèque</b> (<em>library</em>
     en anglais) et ils ont une façon spéciale d'assurer que tous les programmes
     aient accès aux fonctions qui se trouve dans la bibliothèque. À noter qu'on
     retrouve généralement plusieurs bibliothèques et qu'un programme donnée peut
@@ -43,5 +43,5 @@ des programmes entiers, possiblement un pour chaque tâche que Reeborg doit acco
 Votre ordinateur devrait fournir suffisamment d'espace pour y sauvegarder tous
 les programmes que vous pourriez imaginer,  incluant vos commentaires.
 Ne vous gênez surtout pas, utilisez-le!</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('turn_around')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('reading')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('turn_around')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('reading')">Suivant</a>

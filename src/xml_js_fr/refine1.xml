@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('newspaper3')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine2')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('newspaper3')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('refine2')">Suivant</a>
 </nav>
 
 <h1>Refinements: part 1</h1>
@@ -37,5 +37,5 @@ while ( !token_here() ){
 <p>Take the time to think about what the above program instructs Reeborg to
 do before trying to run it. Can you find a problem with the proposed solution?</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('newspaper3')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('refine2')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('newspaper3')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('refine2')">Suivant</a>

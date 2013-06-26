@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest2')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center2')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('harvest2')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('center2')">Suivant</a>
 </nav>
 <h1>Stormy weather</h1>
 <p>It was a beautifully sunny day. Reeborg was playing outside with his
@@ -34,5 +34,5 @@ Reeborg's parents are so proud of his work, that they ask him to pick up all the
 <p>Your real challenge is to write a single program that can help Reeborg do the cleanup for
 all three locations.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('harvest2')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('center2')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('harvest2')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('center2')">Suivant</a>

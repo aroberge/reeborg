@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('reading')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('repeat')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('reading')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('repeat')">Next</a>
 </nav>
 <h1>Newspaper delivery revisited</h1>
 
@@ -81,7 +81,7 @@ turn_left();
 turn_left();</pre>
 
 <p>This solution is quite long ... and it is easy to make mistakes when typing it.
-We note however that there are quite a few repeated code segements for which we
+We note however that there are quite a few repeated code segments for which we
 could create functions.  We have already defined <code>turn_right()</code> and
 <code>turn_around()</code>; let's use them and define a few others.</p>
 
@@ -149,5 +149,5 @@ in the library; you don't want to have too many functions in your library so tha
 you are always able to remember all that are there.  If you do find that you use
 a function many times in different programs, then it is a good idea to put it
 in your library.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('reading')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('repeat')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('reading')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('repeat')">Next</a>

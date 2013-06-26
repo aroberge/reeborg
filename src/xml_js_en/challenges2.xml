@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('surprises')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest2')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('surprises')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('harvest2')">Next</a>
 </nav>
 <h1>Re-introduction to some challenges</h1>
 <p>It is time to solve some of the challenges introduced early on.</p>
@@ -14,5 +14,5 @@ solution so that it can be applied to more than one problem</li>
 <li>Remember rule #3: avoid repeating code as much as possible. </li></ol>
 <p>Now, remember rule #1 ... and make sure that, this time, you solve <b>all</b> the challenges described
 in the next few lessons.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('surprises')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('harvest2')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('surprises')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('harvest2')">Next</a>

@@ -1,13 +1,13 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('break')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('logical')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('break')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('logical')">Next</a>
 </nav>
 
 <h1>Rock, paper, scissors</h1>
 
 <p>You probably already know the game: rock beats scissors, scissors beat paper,
-and paper beats rock.  Let's implement a javascript version of it and learn three
+and paper beats rock.  Let's implement a Javascript version of it and learn three
 new keywords:  <code>switch</code>, <code>case</code>, and <code>default</code>.
 We will also learn about the logical operators <code>||</code> and <code>&amp;&amp;</code></p>
 
@@ -35,5 +35,5 @@ write( i + " " + computer_select() );
 }</pre>
 <p>before moving to the next lesson to learn about logical operators.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('break')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('logical')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('break')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('logical')">Next</a>

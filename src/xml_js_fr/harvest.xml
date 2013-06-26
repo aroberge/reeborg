@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('storm')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('hurdles')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('storm')">Suivant</a>
 </nav>
 <h1>Le temps des récoltes</h1>
 <p>Reeborg est à la ferme de sa tante et c'est le temps des récoltes.  Sélectionnez un des
@@ -12,11 +12,11 @@ mondes <span class="world">Récolte&nbsp;1</span>, <span class="world">Récolte&
 <span class="world">Récolte&nbsp;3</span> ont des rangées horizontales (ou verticales) ayant la
 même longueur alors que le monde <span class="world">Récolte&nbsp;2</span> peut être vu comme
 ayant des rangées diagonales ayant la même longueur.</p>
-<p>Pour une autre tâche, sélectionez le monde <span class="world">Récolte&nbsp;4</span>
+<p>Pour une autre tâche, sélectionnez le monde <span class="world">Récolte&nbsp;4</span>
 qui a eu lieu plus tôt dans la saison.  Reeborg avait planté des graines de carottes; certaines avaient
 poussé correctement alors que d'autres graines n'avaient pas germées; d'autres encore avaient
 été semées trop rapprochées les unes des autres.  Reeborg doit enlever les carottes en excès,
 resemer aux endroits où les graines n'ont pas germé de façon à avoir une carotte (jeton) par endroit.
 </p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('storm')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('hurdles')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('storm')">Suivant</a>

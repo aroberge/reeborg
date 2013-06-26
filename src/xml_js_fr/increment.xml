@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('diary')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while_num')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('diary')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('while_num')">Suivant</a>
 </nav>
 
 <h1>Increment</h1>
@@ -69,5 +69,5 @@ write(number_of_steps);  // should be 9</pre>
 have him count the number of steps <b>and</b> the number of left turns, writing them
 in his diary at the end.  You should start by putting a token down to mark what will be the
 end position.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('diary')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('while_num')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('diary')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('while_num')">Suivant</a>

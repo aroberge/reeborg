@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('errors')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('home')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('errors')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('home')">Next</a>
 </nav>
 <h1>Rule number 1</h1>
 
@@ -21,5 +21,5 @@ so.  Sometimes it will not be apparent right away, but I really encourage
 you to try it.  I would even suggest to you that you should do more
 than what I suggest and try different things just to explore further.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('errors')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('errors')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('home')">Next</a>

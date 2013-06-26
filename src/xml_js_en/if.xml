@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('at_goal')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('at_goal')">Next</a>
 </nav>
 <h1>If only ...</h1>
 <p>If only Reeborg could decide on its own, writing programs would be much simpler ... <b>WAIT !</b> Didn't
@@ -133,5 +133,5 @@ I agree, it does not seem very smart ... We'll see how to fix that later.</p>
 and test your program on both worlds <span class="world">Tokens&nbsp;1</span> and
 <span class="world">Tokens&nbsp;2</span></p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('at_goal')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('summary1')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('at_goal')">Next</a>
