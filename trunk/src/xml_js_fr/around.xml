@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('maze')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('center')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('maze')">Suivant</a>
 </nav>
 <h1>Autour du monde</h1>
 <p>Examinez les mondes <span class="world">Autour&nbsp;1</span> à
@@ -12,5 +12,5 @@ et retourne à son point de départ.</p>
     qui peut permettre à Reeborg de faire le tour de n'importe quel de ces 4 mondes,
 et de tout autre monde semblable.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('center')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('maze')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('center')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('maze')">Suivant</a>

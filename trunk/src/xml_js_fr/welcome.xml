@@ -1,6 +1,6 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('move')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('move')">Suivant</a>
 </nav>
 
 <h1>Bienvenue au monde de Reeborg !</h1>
@@ -16,7 +16,7 @@ vous devriez vous familiariser avec l'environnement de son monde.</p>
 
 <h2>On continue la tournée ...</h2>
 <p>Le "panneau" à droite de cette fenêtre est l'<b>Éditeur</b>.
-Rapetissez cette fenêtre et déplacez-la légèreent vers la droite pour voir un
+Rapetissez cette fenêtre et déplacez-la légèrement vers la droite pour voir un
 peu plus le panneau <b>Monde</b> qui est en-dessous.  Un troisième
 panneau, le <b>Journal</b> de Reeborg peut également être ouvert
 en utilisant un bouton en haut.</p>
@@ -35,4 +35,4 @@ puis de maximiser à nouveau cette fenêtre pour continuer à lire.
     pour passer à la leçon suivante, où vous verrez Reeborg faire ses premiers pas.
 </p>
 
-<a class="right-link" href="javascript:void(0);" onClick="load_page('move')">Suivant</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('move')">Suivant</a>

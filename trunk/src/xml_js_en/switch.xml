@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('logical')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random2')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('logical')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('random2')">Next</a>
 </nav>
 
 <h1>Switch statement</h1>
@@ -81,5 +81,5 @@ might want to consider the following:</p>
 <p>If you are ambitious, you might want to implement the
 <a href="http://en.wikipedia.org/wiki/Rock-paper-scissors-lizard-Spock">rock paper scissors lizard Spock</a>
  version.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('logical')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('random2')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('logical')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('random2')">Next</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('home')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('bugs')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('home')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('bugs')">Next</a>
 </nav>
 
 <h1>Making a left term</h1>
@@ -25,5 +25,5 @@ in any given program.  For example, when facing East, such as the side view abov
 have to insert it in future programs.  Note that only the <b>last</b> such instruction in a given
 program has an effect.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('home')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('bugs')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('home')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('bugs')">Next</a>

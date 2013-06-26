@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('remainder')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('array')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('remainder')">Suivant</a>
 </nav>
 
 <h1>Many robots ... again</h1>
@@ -63,7 +63,7 @@ Let's dig deeper into the code by executing the following:</p>
 <p>where <code>this</code> refers to <code>RUR.world</code> and
 <code>robot</code> refers to the <em>different</em> variable <code>this</code> that was passed to the
 method <code>add_robot</code>.</p>
-<p><b>Granted, the use of <code>this</code> in javascript can be confusing...</b>
+<p><b>Granted, the use of <code>this</code> in Javascript can be confusing...</b>
 However, what I really want to draw your attention to here is
 that we use <code>push</code> which, as we have seen before, is a method used to add items to an array
 in Javascript.</p>
@@ -95,6 +95,6 @@ then with the second line being executed.</p>
 move();</pre>
 <p>If the result does not make sense to you, make sure to read the both the previous lesson and
 this one again.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('array')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('remainder')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('array')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('remainder')">Suivant</a>
 

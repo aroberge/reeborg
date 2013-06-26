@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('storm')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary2')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('storm')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('summary2')">Next</a>
 </nav>
 
 <h1>Newspaper delivery</h1>
@@ -22,7 +22,7 @@ worlds:</p>
 <ul><li>The nice Ms. Ada Lovelace, who lives on the third floor of her building,
 always leaves a couple of extra tokens as a gift to Reeborg; hers is
 world <span class="world">Newspaper&nbsp;1</span>.</li>
-<li>The old curmodgeon Mr. Charles Babbage, who lives on the fifth floor, always
+<li>The old curmudgeon Mr. Charles Babbage, who lives on the fifth floor, always
 pays the exact amount, leaving no tip for Reeborg; his world is
 <span class="world">Newspaper&nbsp;2</span></li></ul>
 <p>With the help of the following two instructions:</p>
@@ -34,5 +34,5 @@ two instructions written above and make sure, when you need to use them,
 <p>At this point , it may appear impossible to write a single program that
 could handle both deliveries.
 Later, you will find out how to do so.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('storm')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary2')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('storm')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('summary2')">Next</a>

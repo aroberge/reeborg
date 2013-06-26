@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hilo_game')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('hilo_game')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rock_paper_scissors')">Suivant</a>
 </nav>
 
 <h1>Taking a break</h1>
@@ -9,10 +9,10 @@
 <p>While you were getting the code right and testing it by playing the number guessing game,
 you perhaps wished you could stop the game.  However, once inside a loop, the only
 way you know to get out is to satisfy the condition for that loop.  Sometimes,
-there is another way, using the javascript keyword <code>break</code>.</p>
+there is another way, using the Javascript keyword <code>break</code>.</p>
 
 <p>When a <code>break</code> instruction is encountered inside a <code>while</code> or
-a <code>for</code> loop, javascript terminates the instructions inside the loop block
+a <code>for</code> loop, Javascript terminates the instructions inside the loop block
 by jumping outside.  To demonstrate this, we will use a "secret code": if the
 player enters -1 as the guess, we will break out of the loop.  Here's
 the code to do so</p>
@@ -46,7 +46,7 @@ alert("Goodbye " + player_name);
 guessing numbers; but it still require an extra step to confirm if we want
 to stop playing altogether as this requires that we get out of the <em>outer</em>
 loop.   Javascript gives us a way to get out of a specific loop using <b>labels</b>.
-A label is any valid javascript identifier (something that <em>could</em> be used as
+A label is any valid Javascript identifier (something that <em>could</em> be used as
 a variable or a function name) except that it can not already be used.  When
 using labels, we need to specify which one we want to use as in <code>break label</code>.
 Here's a new version of the program which uses labels</p>
@@ -83,13 +83,13 @@ alert("Goodbye " + player_name);
 </pre>
 <p><b>Try it!</b></p>
 <h2>Please note</h2>
-<p><code>break</code> without labels is often used in javascript programs.  However,
+<p><code>break</code> without labels is often used in Javascript programs.  However,
 most people avoid using break with labels as it is found that it makes programs
 more difficult to read and understand.  Many other computer languages (Python, Java, ...)
 have break statements but no label statements.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('hilo_game')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('hilo_game')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('rock_paper_scissors')">Suivant</a>
 
 
 

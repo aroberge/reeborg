@@ -32,7 +32,7 @@
   <p>In addition, the following commands are available and are not tied to
     any robot in particular.</p>
   <ul>
-    <li><code>inspect(javascript object)</code></li>
+    <li><code>inspect(Javascript object)</code></li>
     <li><code>pause()</code>; can be called with an argument in milliseconds which indicates the
     time after which it will automatically resume.</li>
     <li><code>think(number)</code>: sets the amount of time in milliseconds between each robot action.</li>
@@ -96,5 +96,5 @@ from nearly above, might be most welcome.</li>
 <ul><li>Implementing Reeborg's world for other languages (Scheme, ...) as long as it can be
 done within a browser with no server-side code running.</li>
 <li>Enlisting contributors to translate tutorials into languages other than English or French</li>
-<li>Investigating something like <a href="https://github.com/ryanb/ruby-warrior">Ruby-warrior in javascript</a></li>
+<li>Investigating something like <a href="https://github.com/ryanb/ruby-warrior">Ruby-warrior in Javascript</a></li>
 <li>Investigating the possibility of porting <a href="http://www.nand2tetris.org/">From nand to Tetris</a> to the web using Javascript</li></ul>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('move')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule1')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('move')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rule1')">Suivant</a>
 </nav>
 <h1>Composer avec les eRReuRs</h1>
 <p>Changez l'instruction <code>avance();</code> à <code>Avance();</code> (avec un A majuscule) et
@@ -19,12 +19,12 @@ incontournable...</p>
 <p>Lorsque vous aurez exécuter le programme à nouveau, les indications d'erreurs
     seront effacées. Assurez-vous que ceci soit bel et bien le cas.
 </p>
-<p>Maintenant, effacez le point-virgule <code>;</code> qui apparait à la fin
+<p>Maintenant, effacez le point-virgule <code>;</code> qui apparaît à la fin
 de l'instruction <code>avance();</code> et exécutez le programme à nouveau.
 Reeborg se plaindra de l'absence du point-virgule mais exécutera néanmoins correctement le programme.
 Cependant, les points-virgules qui manque peuvent parfois causer des erreurs de compréhension
-de la part de Reeborg; assurez-vous donc de reconnaitre le message d'erreur puis de les inclure
+de la part de Reeborg; assurez-vous donc de reconnaître le message d'erreur puis de les inclure
 lorsque Reeborg se plaint, peu importe qu'il exécute le programme correctement ou non.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('move')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rule1')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('move')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('rule1')">Suivant</a>

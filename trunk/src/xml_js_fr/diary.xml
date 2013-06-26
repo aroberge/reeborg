@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('harvest3')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('increment')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('harvest3')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('increment')">Suivant</a>
 </nav>
 
 <h1>Reeborg's diary</h1>
@@ -54,7 +54,7 @@ write(area);  // will output 24</pre>
 <p>Combining strings and numbers can yield unexpected results:</p>
 <pre class="jscode">write("2" + 2);</pre>
 <p><b>Important</b>: the <em>character</em> "2" is not the same as the <em>number</em> 2.</p>
-<p>Finally, note that spaces around operators, like <code>+</code>, are ignored by javascript; however
+<p>Finally, note that spaces around operators, like <code>+</code>, are ignored by Javascript; however
 they often make a program easier to read for humans.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('harvest3')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('increment')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('harvest3')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('increment')">Suivant</a>

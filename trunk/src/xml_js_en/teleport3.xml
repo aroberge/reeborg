@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport4')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('teleport2')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('teleport4')">Next</a>
 </nav>
 
 <h1>More teleportation</h1>
@@ -33,7 +33,7 @@ Reeborg.teleport(4, 8);
 correctly as he teleports himself from one location to another.</p>
 <p>There is however, one small problem: Reeborg appears to be <em>jumping</em> from
 one location to another, rather than teleporting.  One might expect that teleportation
-would imply going from one position to another almost instanteneously, without leaving
+would imply going from one position to another almost instantaneously, without leaving
 a trace.  We can do this by fixing (temporarily) Reeborg's leak.</p>
 <p>Once again, let's inspect Reeborg's methods and attributes using the following program:</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
@@ -45,6 +45,6 @@ method that could be used instead of
 <code>something</code> and <code>something_else</code> above
 to determine their meaning.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('teleport2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('teleport4')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('teleport2')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('teleport4')">Next</a>
 

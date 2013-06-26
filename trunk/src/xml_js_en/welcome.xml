@@ -1,6 +1,6 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('move')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('move')">Next</a>
 </nav>
 
 <h1>Welcome to Reeborg's world</h1>
@@ -21,7 +21,7 @@ opened from a button on the top.</p>
 <p>Try opening and closing the various panels or resize them just to get a feel
 of how you can rearrange the environment.</p>
 <h2>Suggestion</h2>
-<p>Personnally, I find it
+<p>Personally, I find it
 very convenient to make the position this <b>Contents</b> window such that its title bar
 is just below the main title bar and located above Reeborg's world
 (which should be its starting position), and use the
@@ -34,4 +34,4 @@ the lessons.</p>
 go to the next lesson, where you will have Reeborg take its
 first step.</p>
 
-<a class="right-link" href="javascript:void(0);" onClick="load_page('move')">Next</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('move')">Next</a>

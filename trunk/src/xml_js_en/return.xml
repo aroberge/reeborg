@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion5')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return2')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('recursion5')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('return2')">Next</a>
 </nav>
 
 <h1>Return</h1>
@@ -11,15 +11,15 @@ can only see walls when they are right in front of him or immediately to his rig
 and can see tokens only when he is literally standing on top of them.
 Reeborg has also a (somewhat broken) compass which he can used to find out if is is facing north ... or not.
 To find out if he is facing north, you can ask Reeborg to do the test <code>is_facing_north()</code>.
-<small>Note: North is towards the top of the screen; East is towards the right, West towards the left and South
-towards the bottom.</small></p>
+<small>Note: North is toward the top of the screen; East is toward the right, West toward the left and South
+toward the bottom.</small></p>
 
 <h2>Try it!</h2>
 
 <p>Choosing an appropriate world, write a short program that will ensure that Reeborg
     will turn left until he faces north, no matter what his starting orientation is.</p>
 
-<h2>Gettings results from functions</h2>
+<h2>Getting results from functions</h2>
 <p>Tests like <code>is_facing_north()</code> are actually Javascript functions.
 They differ from other functions like <code>turn_left()</code> or <code>move()</code>
 in that they <code>return</code> a value.  Let's start by considering a simple example: try
@@ -114,5 +114,5 @@ instructions first.</p>
 replaced by the value of <code>something</code> which is what follows the
 <code>return</code> keyword.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('recursion5')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('return2')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('recursion5')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('return2')">Next</a>

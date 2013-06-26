@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing1')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing3')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixing1')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixing3')">Next</a>
 </nav>
 <h1>Turning right</h1>
 <p>As we have seen before, the makers of Reeborg were working on implementing
@@ -21,7 +21,7 @@ we could copy the existing code in a method as follows:</p>
 <dd>When writing computer programs, do not repeat yourself.<br>
 I repeat: <b>do not repeat yourself!</b></dd>
 </dl>
-<p>So, instead of just <b>repeating</b> what was done by <b>copying</b> the exising
+<p>So, instead of just <b>repeating</b> what was done by <b>copying</b> the existing
 code, we can do the following instead:</p>
 <pre class="jscode">ImprovedRobot.prototype.turn_right = UsedRobot.__turn_right;</pre>
 <p>Save these this of code in your library so that you can use this
@@ -35,5 +35,5 @@ Reeborg.turn_right();  // causes an error</pre>
 
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('fixing1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('fixing3')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('fixing1')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('fixing3')">Next</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule1')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_left')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rule1')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('turn_left')">Next</a>
 </nav>
 <h1>Test driven learning</h1>
 <p>In order to help you learn Javascript, I will give you some tests: you have
@@ -25,5 +25,5 @@ Try running the exact same program and see what happens.</p>
 Notice how there is a small black square in the  home position.
 Try to run your program now.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rule1')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('turn_left')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('rule1')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('turn_left')">Next</a>

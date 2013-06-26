@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_around')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('reading')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('turn_around')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('reading')">Next</a>
 </nav>
 <h1>Using the Library</h1>
 <p>When programmer make use of a given function in different programs,
@@ -37,5 +37,5 @@ There should be at least one hundred if not a thousand times more space provided
 than what would be required to save all the solutions (programs), including comments (so that
 you would know what program solves what problem) for all the suggested exercises and
 challenges that you will find on this website.  Don't be shy, use it!</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('turn_around')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('reading')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('turn_around')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('reading')">Next</a>

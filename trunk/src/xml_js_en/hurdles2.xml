@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('at_goal')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('else')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('at_goal')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('else')">Next</a>
 </nav>
 <h1>Hurdles again!</h1>
 <p>Have a look at worlds <span class="world">Hurdles&nbsp;1</span> and
@@ -20,5 +20,5 @@ repeat(move_and_jump_until_done, 42);</pre>
 <p><b>Could this program work without changing anything for world
     <span class="world">Hurdles&nbsp;4</span>?</b></p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('at_goal')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('else')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('at_goal')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('else')">Next</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('object')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixed')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('object')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixed')">Next</a>
 </nav>
 <h1>Positional and named arguments</h1>
 <p>If we want to have a new robot at position <code>x=2</code> and <code>y=3</code>, this
@@ -34,10 +34,10 @@ the values for all the arguments:</p>
 <pre class="jscode">var leaky = OtherImprovedRobot(1, 1, 'east', 0, true);</pre>
 <p>There has to be a better way ...</p>
 <h2>Named arguments</h2>
-<p>In some languages, one can speficied functions arguments by name rather than simply
+<p>In some languages, one can specify functions arguments by name rather than simply
 by position.  <b>If</b> we could do so in Javascript, it would enable the following
 notation:</p>
-<pre class="jscode">var leaky = FictitiousImprovedRobot(leak=true);</pre>
+<pre class="jscode">var leaky = FictitiousImprovedRobot( leak = true );</pre>
 <p><b>We can not do this.</b>  However, we can essentially achieve the same goal
 using objects as parameters.  Consider the following:</p>
 <pre class="jscode">ImprovedRobot.prototype = Object.create(UsedRobot.prototype);
@@ -73,5 +73,5 @@ values.</p>
 <p>Try it!</p>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('object')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('fixed')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('object')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('fixed')">Next</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('return2')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('diary')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('return2')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('diary')">Suivant</a>
 </nav>
 <h1>More harvesting challenges</h1>
 <p>Reeborg's aunt is a fruit farmer.  In her fields, many types of fruits can be found.
@@ -63,5 +63,5 @@ for (var i = 0; i < 6; i++ ) {
 <p>Remember <code>take_token()</code> and <code>take("star")</code>, etc.</p>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('return2')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('diary')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('return2')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('diary')">Suivant</a>

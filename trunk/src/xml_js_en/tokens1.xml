@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('bugs')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule2')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('bugs')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rule2')">Next</a>
 </nav>
 <h1>A token of appreciation</h1>
 
@@ -34,5 +34,5 @@ put('token');</pre>
 <p>Note that the word <b>token</b> is surrounded by quotes, either single or
 double quotes. Try it out!</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('bugs')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('rule2')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('bugs')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('rule2')">Next</a>

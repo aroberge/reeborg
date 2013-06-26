@@ -1,15 +1,15 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('other_repeat')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('oop')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('other_repeat')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('oop')">Next</a>
 </nav>
 
-<h1>More javascript</h1>
-<p>In this section, we have seen a few more javascript keywords as well as mathematical operations.
-There are many more mathematical operations in javascript.  We suggest that you read through
+<h1>More Javascript</h1>
+<p>In this section, we have seen a few more Javascript keywords as well as mathematical operations.
+There are many more mathematical operations in Javascript.  We suggest that you read through
 <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Expressions_and_Operators" target="_blank">Expressions
 and Operators</a> on the <a href="https://developer.mozilla.org/en-US/" target="_blank">Mozilla Developer Network</a> resources
 to find out more about the available operators before learning about Object Oriented Programming in
 the next section.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('other_repeat')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('oop')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('other_repeat')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('oop')">Next</a>

@@ -1,13 +1,13 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('while_num')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('better_repeat')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('while_num')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('better_repeat')">Next</a>
 </nav>
 
 <h1>For loops</h1>
 <p>As we have seen, <code>while</code> loops can be used with numbers using the following
 pattern:</p>
-<pre class="jscode">var n = initial_value;  // initialisation
+<pre class="jscode">var n = initial_value;  // initialization
 while (n < max_value) {  // condition to end the loop
     ...
     n++;  // increment
@@ -17,14 +17,14 @@ while (n < max_value) {  // condition to end the loop
 <pre class="jscode">for ( var n = initial_value; n < max_value; n++ ) {
     ...
 }</pre>
-<p>Thus, instead of having the variable initialisation, the condition test for ending
+<p>Thus, instead of having the variable initialization, the condition test for ending
 the loop and the increment steps on three different lines, they appear on the same line:</p>
-<pre class="jscode">for (initialisation; condition; increment) {...}</pre>
+<pre class="jscode">for (initialization; condition; increment) {...}</pre>
 <p>However, <code>for</code> loops and <code>while</code> loops are completely equivalent.
 Deciding which type of loop to choose is usually done based on how much easier it makes it
 to read and understand a program: for programs that use numerical values that are incremented
 each steps until a specific value is reached, <code>for</code> loops are often preferred
-because the three steps (initialisation, condition, increment) can be seen at a glance.
+because the three steps (initialization, condition, increment) can be seen at a glance.
 Note that any one (or more) of these three steps can be omitted in a <code>for</code> loop.
 For example, one could write</p>
 <pre class="jscode">for ( ; !front_is_clear(); ) {...}</pre>
@@ -53,5 +53,5 @@ my_repeat(turn_left, 4);</pre>
 <p>but the code would not be as nicely formatted!</p>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('while_num')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('better_repeat')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('while_num')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('better_repeat')">Next</a>

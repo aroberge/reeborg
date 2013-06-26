@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('increment')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('for')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('increment')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('for')">Next</a>
 </nav>
 
 <h1>While counting</h1>
@@ -20,7 +20,7 @@ while (number_of_steps < 9 ){  // "<" means "less than"
 each time it is incremented.</p>
 <h2>Defining <code>repeat()</code>?</h2>
 <p>In the above program, Reeborg was counting and doing a number of steps (<code>move</code>) up
-to a pre-determined value.  We have seen before how to accomplish this using a single
+to a predetermined value.  We have seen before how to accomplish this using a single
 instruction:</p>
 <pre class="jscode">repeat(move, 9);</pre>
 <p>Let's define a function <code>my_repeat</code> that will <em>hide</em> the code with the while loop
@@ -71,5 +71,5 @@ a program, it will be treated as a completely different variable and won't affec
 of a similarly named variable elsewhere.  If you use global variables, a change in one part
 of the program will change the value of that variable everywhere else - often leading to some
 hard to trace bugs.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('increment')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('for')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('increment')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('for')">Next</a>

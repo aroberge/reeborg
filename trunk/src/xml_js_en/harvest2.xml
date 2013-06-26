@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('challenges2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('storm2')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('challenges2')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('storm2')">Next</a>
 </nav>
 <h1>Before harvesting</h1>
 <p>Select world <span class="world">Harvest&nbsp;4</span> which occurred shortly after the garden
@@ -37,5 +37,5 @@ repeat(harvest_two_rows, 3);
 <p>
 Note however that you may choose a different way to solve the problems than that which is described above.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('challenges2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('storm2')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('challenges2')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('storm2')">Next</a>

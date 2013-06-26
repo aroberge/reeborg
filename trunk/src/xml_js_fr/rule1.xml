@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('errors')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('home')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('errors')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('home')">Suivant</a>
 </nav>
 <h1> Règle numéro 1 </h1>
 
@@ -20,5 +20,5 @@ Parfois, ce ne sera pas évident tout de suite, mais je vous encourage vraiment
 à essayer ce que je vous suggère. Je dirais même que vous devriez en faire encore davantage
 que ce que je propose et essayer différentes choses de vous mêmes; c'est la meilleure façon d'apprendre. </p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('errors')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('home')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('errors')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('home')">Suivant</a>

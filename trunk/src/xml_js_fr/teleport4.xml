@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport3')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('teleport3')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('array')">Suivant</a>
 </nav>
 
 <h1>Teleporting correctly</h1>
@@ -52,6 +52,6 @@ will learn some mathematical methods like <code>Math.floor</code> that could be
 used to ensure that Reeborg only teleports to locations with coordinates
 expressed as integers.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('teleport3')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('array')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('teleport3')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('array')">Suivant</a>
 

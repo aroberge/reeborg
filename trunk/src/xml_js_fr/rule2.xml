@@ -1,11 +1,11 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('tokens1')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary1')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('tokens1')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('summary1')">Suivant</a>
 </nav>
 <h1>Règle numéro 2</h1>
 
-<p>J'ai déjà manetionné la première règle pour apprendre la programmation
+<p>J'ai déjà mentionné la première règle pour apprendre la programmation
     informatique: vous devez écrire des programmes (et les tester) et non
     simplement lire au sujet de la programmation.  C'est maintenant le temps
     de partager avec vous la deuxième règle, qui est possiblement le secret
@@ -72,7 +72,7 @@ avance();
 tourne_à_gauche(); // Reeborg sait seulement tourner à gauche
 dépose("jeton");  // On suppose que Reeborg a suffisamment de jetons
 
-// On répête les instructions ci-dessus trois fois de plus
+// On répète les instructions ci-dessus trois fois de plus
 // pour compléter le carré.
 avance();
 avance();
@@ -93,7 +93,7 @@ dépose("jeton");
     particulièrement géniaux ... mais au moins l'un d'entre eux
     devrait vous permettre de trouver l'erreur dans le programme.
     Vous penserez peut-être que j'ai triché; cela dit, comment
-    pouvez-vous connaitre le but d'un programme s'il n'est indiqué
+    pouvez-vous connaître le but d'un programme s'il n'est indiqué
     nulle part?  L'addition de commentaires est parfois essentielle
     pour comprendre le but d'un programme et devient ainsi très
     utile pour détecter des erreurs.
@@ -118,12 +118,12 @@ avance();avance();tourne_à_gauche();dépose();
 </pre>
 
 <p>Sélectionnez le monde <span class="world">Seul</span>
-et "copiez/collez" chaque version du programme (une version à la fois)
+et "copiez / collez" chaque version du programme (une version à la fois)
 dans l'éditeur.  En exécutant chaque version, vous pourrez vérifier
 que Reeborg effectue la même tâche dans chaque cas.
 </p>
 
 <p>Alors, quelle version est la plus facile à lire et à comprendre?...</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('tokens1')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary1')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('tokens1')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('summary1')">Suivant</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random2')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('try')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('random2')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('try')">Next</a>
 </nav>
 
 <h1>Reeborg throws a tantrum</h1>
@@ -57,9 +57,9 @@ a is not a function</pre>
 <p>Now try running the following</p>
 <pre class="jscode">throw new TypeError("a is not a function");</pre>
 <p>Again, you should see an alert popup with the exact same message.</p>
-<p>In addition to the basic <code>Error</code> and <code>TypeError</code>, javascript has
+<p>In addition to the basic <code>Error</code> and <code>TypeError</code>, Javascript has
 other available errors such as <code>EvalError</code>, <code>RangeError</code>, <code>ReferenceError</code>,
-<code>SyntaxError</code> and <code>URIError</code>; all javascript <code>errors</code>
+<code>SyntaxError</code> and <code>URIError</code>; all Javascript <code>errors</code>
 are derived from the basic "type" <code>Error</code>.  Programmers can design their own
 error types, such as was done in Reeborg's world: <code>RUR.Error</code>.  Try running
 the following program:</p>
@@ -116,5 +116,5 @@ one can document where an error occur and deal with it somewhere else.</p>
 }</pre>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('random2')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('try')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('random2')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('try')">Next</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing2')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing4')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixing2')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixing4')">Suivant</a>
 </nav>
 <h1>Fixing the compass</h1>
 <p>With Reeborg's diary open, execute the following program:</p>
@@ -31,5 +31,5 @@ view_source( Reeborg.is_facing_north );</pre>
 as methods for <code>ImprovedRobot</code>, save the code in your library and test it for all
 directions using a <code>for</code> loop like we did at the beginning of this lesson.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('fixing2')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('fixing4')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('fixing2')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('fixing4')">Suivant</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing5')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('positional')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixing5')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('positional')">Suivant</a>
 </nav>
 
 <h1>Basic objects</h1>
@@ -37,6 +37,6 @@ write( 'The denominator is ' + half.denominator +
     confirm your guess by running the program and observing the result in
     Reeborg's diary.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('fixing5')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('positional')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('fixing5')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('positional')">Suivant</a>
 

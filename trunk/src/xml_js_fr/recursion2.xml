@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion3')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('recursion')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('recursion3')">Suivant</a>
 </nav>
 <h1>Tricky recursion</h1>
 <p>So, you understand the recursion example we just saw.  Let me write it
@@ -63,5 +63,5 @@ So, make sure to read it again if necessary as we are going to consider a slight
 go_home();</pre>
 <p>Try to figure out what it does before trying to have Reeborg execute it.  An explanation
 follows in the next lesson.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('recursion')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('recursion3')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('recursion')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('recursion3')">Suivant</a>

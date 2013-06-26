@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('repeat')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary3')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('repeat')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('summary3')">Suivant</a>
 </nav>
 <h1>Reeborg va en Espagne</h1>
 
@@ -13,7 +13,7 @@
 
 <p>Reeborg est connu partout dans le monde et voyage souvent.  Ça pourrait être
     utile de lui enseigner des instructions dans d'autres langues.
-    En javascript, on peut faire ceci à l'aide du mot-clé <code>var</code>.
+    En Javascript, on peut faire ceci à l'aide du mot-clé <code>var</code>.
     J'aime penser à <code>var</code> comme signifiant qu'on crée une <code>var</code>iation
     de la langue utilisée.  Cela dit, dans le monde informatique, on dit que ceci
     correspond à <b>déclarer</b> une <code>var</code>iable.
@@ -47,13 +47,13 @@ avance();    //  fonctionne toujours
  <code>tourne_à_gauche</code>.</p>
 
 <h2>Pour les utilisateurs plus avancés</h2>
-<p>Si vous avez appris à programmer en javascript ailleurs, vous avez vu que le mot-clé
+<p>Si vous avez appris à programmer en Javascript ailleurs, vous avez vu que le mot-clé
 <code>var</code> n'est habituellement pas requis pour déclarer une variable.
-Le monde de Reeborg utilise ce qui est appelé le mode <b>strict</b> de javascript
+Le monde de Reeborg utilise ce qui est appelé le mode <b>strict</b> de Javascript
 qui a l'avantage d'exiger de l'utilisateur une façon d'écrire les programmes les
 rendant plus fiables.  Il existe une façon de désactiver le mode strict dans
 le monde de Reeborg, comme nous le verrons plus tard.</p>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('repeat')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('summary3')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('repeat')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('summary3')">Suivant</a>

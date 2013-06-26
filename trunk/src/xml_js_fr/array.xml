@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('teleport4')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array2')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('teleport4')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('array2')">Suivant</a>
 </nav>
 
 <h1>Javascript arrays</h1>
@@ -26,7 +26,7 @@ and talk about <code>Arrays</code>.</p>
 
 
 <h2>Arrays</h2>
-<p>Here is the list of ingredients of the above recipe presented as a javascript array</p>
+<p>Here is the list of ingredients of the above recipe presented as a Javascript array</p>
 <pre class="jscode">ingredients = ["4 eggs", "100 g of sugar",
 "250 g of dark semi-sweet chocolate",
 "30 ml of cocoa powder"]</pre>
@@ -72,6 +72,6 @@ write( list.length );</pre>
     <li><code>pop()</code> removes the last item on the array and <em>returns</em> it</li>
 </ul>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('teleport4')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('array2')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('teleport4')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('array2')">Suivant</a>
 

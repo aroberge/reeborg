@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('home')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('bugs')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('home')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('bugs')">Suivant</a>
 </nav>
 
 <h1>Tourner à gauche</h1>
@@ -25,8 +25,8 @@ connues par Reeborg seront reconnues si on omet tous les accents.  Ainsi, pour R
 <code>tourne_à_gauche()</code> et <code>tourne_a_gauche()</code> ont le même effet.</p>
 <p>Vérifiez ceci!</p>
 <p>Cela dit, lorsque vous apprendrez à définir vos propres instructions pour Reeborg et que
-vous incluerez des accents, Reeborg ne comprendra ces instructions que si vous
-respectez l'ortographe que vous aurez choisi pour leur définition.</p>
+vous inclurez des accents, Reeborg ne comprendra ces instructions que si vous
+respectez l’orthographe que vous aurez choisi pour leur définition.</p>
 <h2>Essayez autre chose</h2>
 <p>Qu'arrive-t-il si, au lieu d'avoir <code>tourne_à_gauche();</code> comme troisième instruction,
 vous avez <code>avance();</code>?</p>
@@ -34,7 +34,7 @@ vous avez <code>avance();</code>?</p>
 <p>Vous avez probablement remarqué que Reeborg (le robot) est vu de côté, comme par exemple
  <img src="src/images/robot_e.png"/>, alors que son monde est vu d'en haut ...
  ce qui peut porter à confusion, surtout lorsqu'on demande à Reeborg de tourner à gauche.
- Vous pouvez changer la façon dont Reeborg apparait à l'écran en utilisant soit
+ Vous pouvez changer la façon dont Reeborg apparaît à l'écran en utilisant soit
  <code>vue_de_côté();</code> ou <code>vue_de_haut();</code> dans n'importe quel programme.
  Par exemple, lorsque Reeborg fait face à l'est (droite de l'écran) tel que vu ci-dessus,
  son apparence vue d'en haut serait la suivante:  <img src="src/images/top_e.png"/>
@@ -45,5 +45,5 @@ telle instruction dans chaque programme.  À noter que seule <b>la dernière</b>
 dans un programme donné est obéie par Reeborg.
 </p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('home')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('bugs')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('home')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('bugs')">Suivant</a>

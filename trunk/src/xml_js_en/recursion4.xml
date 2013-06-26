@@ -1,11 +1,11 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion3')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('recursion5')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('recursion3')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('recursion5')">Next</a>
 </nav>
 <h1>Counting on recursion</h1>
 <p>Reeborg knows how to count ... but we have not seen that yet and will not for a while.
-If you know some javascript other than what you've learned here, you might already know
+If you know some Javascript other than what you've learned here, you might already know
 how to make Reeborg count using numerical variables; however, I ask you to not use those
 in what follows.</p>
 <p>Select world <span class="world">Tokens&nbsp;5</span>.  Where Reeborg stands, a single
@@ -32,5 +32,5 @@ can be found below.</p>
 
 collect();
 move(); </pre>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('recursion3')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('recursion5')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('recursion3')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('recursion5')">Next</a>

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles2')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles3')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('hurdles2')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('hurdles3')">Suivant</a>
 </nav>
 <h1>Écoutez-moi, sinon ...</h1>
 <p> Apprendre la programmation informatique peut être très amusant, mais
@@ -21,7 +21,7 @@ sinon
 } else {
     allez_jouez_dehors();
 }</pre>
-<p>Oui, javascript donne la possibilité d'avoir plus d'un choix avec le mot-clé <code>else</code>.
+<p>Oui, Javascript donne la possibilité d'avoir plus d'un choix avec le mot-clé <code>else</code>.
 Utilisons-le avec un autre exemple.  Reeborg peut voir s'il y a ou non un mur devant lui.
 Sélectionnez le monde <span class="world">Autour&nbsp;1</span>.
 À l'aide de la nouvelle condition, <code>rien_devant()</code>, que Reeborg utilise pour
@@ -77,5 +77,5 @@ avance();
 tourne_à_gauche();
 avance();</pre>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('hurdles2')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles3')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('hurdles2')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('hurdles3')">Suivant</a>

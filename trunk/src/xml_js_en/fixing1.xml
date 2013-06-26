@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('modify')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing2')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('modify')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixing2')">Next</a>
 </nav>
 <p>In what follows, you might want to always select world <span class="world">Empty</span>
 when running a program.</p>
@@ -62,7 +62,7 @@ function ImprovedRobot(x, y, orientation, tokens)  {
 be a copy of that of <code>UsedRobot</code>. The second line of code states which
 function (the constructor) will be called when a <code>new&nbsp;ImprovedRobot</code>
 instance is created.  These two lines of code are a standard way to do
-<em>prototypal inheritance</em> in modern javascript. </p>
+<em>prototypal inheritance</em> in modern Javascript. </p>
 <p>The rest of the code defines the constructor.
 It is specific to the way things are done in Reeborg's world;
 the constructor function is defined such that it first create
@@ -75,5 +75,5 @@ Reeborg.turn_left();</pre>
 <p><b>Try it!</b></p>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('modify')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('fixing2')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('modify')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('fixing2')">Next</a>

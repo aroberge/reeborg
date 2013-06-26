@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('switch')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rock_paper_scissors')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('switch')">Suivant</a>
 </nav>
 
 <h1>Logical operators</h1>
@@ -60,5 +60,5 @@ of lines of code is still small.</p>
 <code>switch</code>, <code>case</code> and <code>default</code> and find out how
 to write the rest of the game.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rock_paper_scissors')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('switch')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('rock_paper_scissors')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('switch')">Suivant</a>

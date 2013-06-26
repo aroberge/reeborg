@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('continue')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('fixing1')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('continue')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixing1')">Next</a>
 </nav>
 
 <h1>Adding new methods</h1>
@@ -73,7 +73,7 @@ robot2.move2();
 <h2>How does this work?</h2>
 <p>When the following code</p>
 <pre class="jscode">instance.method();</pre>
-<p>is executed, javascript first looks to see if <code>method()</code> has
+<p>is executed, Javascript first looks to see if <code>method()</code> has
 been defined for that particular <code>instance</code>; if not, it looks
 for the prototype of the object from which <code>instance</code> has been
 defined.   In our case, it would be <code>UsedRobot.prototype</code>.  If
@@ -82,6 +82,6 @@ i.e. from "parent" objects.  In Reeborg's world case,
 it would be <code>RUR.Robot.prototype</code>.</p>
 <p>We will see this in more details in the following lessons.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('continue')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('fixing1')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('continue')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('fixing1')">Next</a>
 

@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('if')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('hurdles2')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('if')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('hurdles2')">Suivant</a>
 </nav>
 <h1>Droit au but</h1>
 <p>Bien que le programme que vous venez d'écrire permette à Reeborg d'accomplir sa tâche
@@ -45,5 +45,5 @@ qu'il fonctionne bel et bien dans chacun des quatre mondes mentionnés. </p>
     qu'il est une solution pour ces deux mondes?  Vérifiez votre compréhension en exécutant le
     programme.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('if')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('hurdles2')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('if')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('hurdles2')">Suivant</a>

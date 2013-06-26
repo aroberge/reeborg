@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('summary1')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('center')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('summary1')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('center')">Suivant</a>
 </nav>
 <h1>Introduction aux missions</h1>
 <p>Bonjour programmeur anonyme,</p>
@@ -33,5 +33,5 @@ avance();
 avance();</pre>
 <p>Essayez d'exécuter ce programme <b>sans sélectionner</b> <span class="world">Maison&nbsp;1</span> en
 premier.  Puis, exécuter ce programme une deuxième fois sans rien changer d'autre. </p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('summary1')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('center')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('summary1')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('center')">Suivant</a>

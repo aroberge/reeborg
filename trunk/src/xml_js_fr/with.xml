@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('maze_again')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('keywords')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('maze_again')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('keywords')">Suivant</a>
 </nav>
 
 <h1>The <code>with</code> keyword</h1>
@@ -32,7 +32,7 @@ This is done by inserting the string</p>
 <pre class="jscode">"no strict";
 </pre>
 <p>as the first line of the code in the editor, it will be executed in the <b>normal</b>
-javascript mode, i.e. without the usual <b>strict</b> safeguard.  In addition,
+Javascript mode, i.e. without the usual <b>strict</b> safeguard.  In addition,
 I use jshint to identify any mistakes and point them out; this is disabled when
 you use the <code>"no strict";</code> mode, exclusive to Reeborg's world. For example:</p>
 <pre class="jscode">"no strict";
@@ -48,5 +48,5 @@ with (Reeborg) {
 <p>As you can see, <code>with</code> sets up a block so that the object whose methods
 are invoked is known by default, so that it does not have to be typed in explictly.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('maze_again')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('keywords')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('maze_again')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('keywords')">Suivant</a>

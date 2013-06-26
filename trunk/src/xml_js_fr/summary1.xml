@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('rule2')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('challenges1')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rule2')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('challenges1')">Suivant</a>
 </nav>
 <h1>Résumé</h1>
 
@@ -38,5 +38,5 @@ assurez-vous d'écrire un court programme incluant une <code>pause()</code> comm
 instruction à quelque part au milieu d'un programme (donc excluant la première
 et la dernière instruction) pour que vous puissiez véritablement constater son effet.</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('rule2')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('challenges1')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('rule2')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('challenges1')">Suivant</a>

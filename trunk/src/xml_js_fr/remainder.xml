@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('array2')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('random')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('array2')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('random')">Suivant</a>
 </nav>
 
 <h1>Remainder operator</h1>
@@ -53,7 +53,7 @@ variables and the remainder operator <code>%</code>.</p>
 <li>8 divided by 3 is 2 (with a remainder of 2)</li>
 <li>8 divided by 5 is 1 (with a remainder of 3)</li>
 <li><em>etc.</em></li></ul>
-<p>In javascript, the remainder operator is represented by the symbol <code>%</code></p>
+<p>In Javascript, the remainder operator is represented by the symbol <code>%</code></p>
 <pre class="jscode">8 % 5 = 3</pre>
 <p>Try running the following program and observe the result in Reeborg's Diary:</p>
 <pre class="jscode">for (var i = 0; i < 10; i++) {
@@ -105,6 +105,6 @@ view_source(Reeborg.turn_left);
 view_source(Reeborg.__turn_right);</pre>
 
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('array2')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('random')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('array2')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('random')">Suivant</a>
 

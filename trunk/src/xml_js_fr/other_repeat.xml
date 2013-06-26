@@ -1,8 +1,8 @@
 <nav>
 
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('better_repeat')">Previous</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('more')">Next</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('better_repeat')">Previous</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table of Contents</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('more')">Next</a>
 
 </nav>
 <h1>An other way to repeat</h1>
@@ -48,5 +48,5 @@ when this happens, <code>nb</code> take the value 1.</li>
 
 <p>Try it!</p>
 
-<a class="left-link" href="javascript:void(0);" onClick="load_page('better_repeat')">Previous</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('more')">Next</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('better_repeat')">Previous</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('more')">Next</a>

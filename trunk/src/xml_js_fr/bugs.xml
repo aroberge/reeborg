@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('turn_left')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('tokens1')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('turn_left')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('tokens1')">Suivant</a>
 </nav>
 <h1>Fichus bogues! </h1>
 <p>Personne n'aime avoir à discuter au sujet des bogues en informatique.
@@ -17,12 +17,12 @@
 est souvent attribué à un incident où un papillon de nuit a été trouvé
 à l'intérieur de l'ordinateur Mark II de l'Université Harvard.
 Cet insecte avait été trouvé par les membres d'une équipe menée par
-l'illustre informaticienne, mathématiciennet et jeune officier naval
+l'illustre informaticienne, mathématicienne et jeune officier naval
 Grace Murray Hopper, qui inventa par la suite le concept de compilateur
 de langages informatiques.  Madame Grace Hopper, Ph.D., a également
-atteint le titre d'admiral (<em>Rear Admiral</em>) dans la marine américaine.
+atteint le titre d’amiral (<em>Rear Admiral</em>) dans la marine américaine.
 </p>
-<p>Ce papillona été préservé, collé dans le journal de bord de Madame Hopper,
+<p>Ce papillon a été préservé, collé dans le journal de bord de Madame Hopper,
     tel qu'illustré ci-dessous.  Fait intéressant, on note une mention
     qui dit "First actual case of bug being found." qu'on pourrait traduire par
     <em>Premier cas actuel d'un bogue/insecte trouvé.</em>
@@ -32,7 +32,7 @@ atteint le titre d'admiral (<em>Rear Admiral</em>) dans la marine américaine.
 <a href="http://www.history.navy.mil/photos/pers-us/uspers-h/g-hoppr.htm">
 U.S. Naval Historical Center </a></h6>
 <p>En fait, la première utilisation du mot anglais bug dans un contexte technologique
-    est atrtribuée à l'inventeur Thomas Edison.  Selon le dictionnaire Oxford,
+    est attribuée à l'inventeur Thomas Edison.  Selon le dictionnaire Oxford,
     le texte suivant aurait été publié le 11 mars 1889 dans le journal
     Pall Mall Gazette:
 </p>
@@ -70,7 +70,7 @@ inside and is causing all the trouble.</cite></blockquote>
     Vous apprendrez plus tard à réparer cette fuite.  Et je vous montrerai
     une façon moins dommageable pour l'environnement afin de suivre
     ce que fait Reeborg; des techniques plus avancées utilisant des
-    logiciels connus sous le nom de <b>déboggueurs</b> vont au-dèlà
+    logiciels connus sous le nom de <b>débogueurs</b> vont au-delà
     de ce qui est couvert dans ces leçons.
 </li>
 <li>Le mécanisme de direction de Reeborg n'est pas utilisé correctement
@@ -94,7 +94,7 @@ inside and is causing all the trouble.</cite></blockquote>
     corriger le logiciel de Reeborg correctement.</li>
 <li>Reeborg peut voir s'il y a un mur qui bloque son passage devant lui,
     et peut tourner la tête pour voir s'il y a un mur à sa droite.
-    Malheureusment une <em>limitation</em> de son programme (ce qui
+    Malheureusement une <em>limitation</em> de son programme (ce qui
     est une expression malhonnête que les manufacturiers utilisent pour
     éviter de dire que leurs programmes ont des bogues) empêche Reeborg
     de déterminer correctement si un mur se trouve immédiatement à sa
@@ -115,13 +115,13 @@ dans un programme.
     le même effet.</li>
 <li>Vous pouvez exécuter un programme <em>une instruction à la fois</em> en
 cliquant sur le bouton <em>exécution d'une seule instruction</em> {step_button}.</li>
-<li>Vous pouvez changer la vitesse d'éxécution (le temps entre deux instructions)
+<li>Vous pouvez changer la vitesse d’exécution (le temps entre deux instructions)
     à n'importe quel point à l'intérieur d'un programme; j'expliquerai comment faire
     ceci plus tard.</li>
 <li>Vous pouvez demander à Reeborg d'écrire certaines notes à n'importe
     quel point à l'intérieur d'un programme; je vous montrerai également
     comment faire ceci plus tard.</li>
-<li>Vous pouvez avoir certaines informations apparaitre automatiquement quant
+<li>Vous pouvez avoir certaines informations apparaître automatiquement quant
     au nombres de jetons (objet qui sera présenté bientôt) qui sont transportés
     par quelques robots (oui, il est possible d'en avoir plusieurs ...), ainsi
     que la position de ces robots.  Pour faire ceci, il suffit d'insérer l'instruction
@@ -133,5 +133,5 @@ cliquant sur le bouton <em>exécution d'une seule instruction</em> {step_button}
     hors du contrôle de Reeborg.  Dans le pire des cas, vous pouvez simplement
     recharger la page web et redémarrer à zéro.</li>
 </ol>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('turn_left')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('tokens1')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('turn_left')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('tokens1')">Suivant</a>

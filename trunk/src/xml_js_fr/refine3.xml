@@ -1,7 +1,7 @@
 <nav>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine2')">Précédent</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="javascript:void(0);" onClick="load_page('refine4')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('refine2')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('refine4')">Suivant</a>
 </nav>
 <h1>Refinements: part 3</h1>
 <p>As you should have noticed the program doesn't work. What happens is that
@@ -24,5 +24,5 @@ while ( !token_here() ){
 <p>Now, consider <span class="world">Around&nbsp;3</span>; will our program work?</p>
 <p>As you probably guessed, unfortunately the answer is no.
 Try to figure out why before reading any further.</p>
-<a class="left-link" href="javascript:void(0);" onClick="load_page('refine2')">Précédent</a>
-<a class="right-link" href="javascript:void(0);" onClick="load_page('refine4')">Suivant</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('refine2')">Précédent</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('refine4')">Suivant</a>
