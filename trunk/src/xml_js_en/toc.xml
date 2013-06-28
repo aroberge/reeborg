@@ -72,6 +72,7 @@ our new knowledge to race better.</li>
 <li><a href="Javascript:void(0);" onClick="load_page('else')">Listen to me ... or else</a> Where you
 learn about <code>front_is_clear()</code>, which enables Reeborg to determine if there's a wall in front of
 him; you also learn about a new Javascript keyword: <code>else</code>.
+<li><a href="Javascript:void(0);" onClick="load_page('hurdles3')">Hurdles yet again!</a> </li>
 <li><a href="Javascript:void(0);" onClick="load_page('not')">Not ... true!</a> Where you learn about the value
  of begin negative.
 <li><a href="Javascript:void(0);" onClick="load_page('while')">For a <code>while</code></a></li>

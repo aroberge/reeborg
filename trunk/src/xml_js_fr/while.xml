@@ -4,95 +4,101 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('newspaper3')">Suivant</a>
 </nav>
 
-<h1>For a <code>while</code></h1>
-<p>When we want to repeat some instructions until a certain condition is
-satisfied, Javascript gives us a simpler way to write this using a new keyword:
-<code>while</code>. For example, suppose we want to have Reeborg keep moving until it
-reaches a wall. Previously, we might have done something like the following:
+<h1>Tant que ...</h1>
+<p>Lorsqu'on veut répéter un bloc de code jusqu'à ce qu'une certaine
+    condition soit satisfaite, on peut utiliser le mot-clé <code>while</code>,
+    mot anglais que l'on peut traduire par <b>tant que</b>.  Par exemple,
+    supposons que l'on veuille que Reeborg se déplace en ligne droite
+    jusqu'à ce qu'il rencontre un mur.  On pourrait écrire quelque chose comme
+
 <pre class="jscode">
-function move_until_wall () {
-    if ( front_is_clear() ){
-        move();
+function avance_au_mur () {
+    if ( rien_devant() ){
+        avance();
     }
 }
 
-repeat(move_until_wall, 42);</pre>
-<p>and hoped that 42 would have been a number of repetitions sufficient to
-reach a wall.  Using <code>while</code>, we can write the following</p>
+répète(avance_au_mur, 42);</pre>
+<p>en se croisant les doigts et espérant que 42 sera un nombre suffisant
+    de répétitions pour atteindre le mur.  Si on utilise plutôt le
+    mot-clé <code>while</code>, on peut écrire</p>
 <pre class="jscode">
-while ( front_is_clear() ){
-    move();
+while ( rien_devant() ){
+    avance();
 }</pre>
-<p>That's it!  No more guessing and asking something to be performed a large
-number of time just to ensure that it will be enough.</p>
+<p>C'est tout!  Plus de devinettes sur le nombre de répétitions à faire. </p>
 
-<h2>How to think about <code>while</code></h2>
-<p>Suppose we have the following:</p>
+<h2>Comment penser à <code>while</code></h2>
+<p>Supposons que l'on ait le code suivant:</p>
 <pre class="jscode">
 while ( condition() ){
-    do_1();
-    do_2();
-    do_3();
+    instruction_1();
+    instruction_2();
+    instruction_3();
 }</pre>
-<p>You can think of this as being equivalent to:</p>
+<p>Vous pouvez pensez ceci comme étant équivalent à:</p>
 <pre class="jscode">
 if ( condition() ){
-    do_1();
-    do_2();
-    do_3();
+    instruction_1();
+    instruction_2();
+    instruction_3();
 }
 if ( condition() ){
-    do_1();
-    do_2();
-    do_3();
+    instruction_1();
+    instruction_2();
+    instruction_3();
 }
 if ( condition() ){
-    do_1();
-    do_2();
-    do_3();
+    instruction_1();
+    instruction_2();
+    instruction_3();
 }
 if ( condition() ){
-    do_1();
-    do_2();
-    do_3();
+    instruction_1();
+    instruction_2();
+    instruction_3();
 }
 ....</pre>
-<p>which is to say that the block of code is repeated as long
-as the condition remains <code>true</code>.  So, what happens if
-the condition is always <code>true</code>?   The block of code is repeated
-for ever and the program never ends.</p>
-<p>This is bad.</p>
-<p>Instead of using this description of
-repeated blocks of code, programmers describe this as a <b>loop</b>: that is, you
-start with the first instruction (<code>do_1();</code>) inside the code block,
-continue with all the others until you reach the last instruction
-(<code>do_3();</code>), then <b><em>loop</em> back</b>, or go back, to the test
-just before the beginning of the block and see if the condition is satisfied;
-if not, you repeat once again the cycle.  If the condition never becomes <code>false</code>,
-you keep repeating and end up with an <b>infinite loop</b>.</p>
+<p>c'est-à-dire que le bloc de code est répété aussi souvent que
+    la condition soit satisfaite (<code>true</code>).  Qu'arrive-t-il
+    si la condition est toujours satisfaite?   Le bloc de code
+    est répété éternellement et le programme ne termine jamais.
+</p>
+<p>Ceci n'est pas une bonne chose.</p>
+<p>Plutôt que d'utiliser la description de blocs de code répétés, les programmeurs
+    décrivent ceci comme une <b>boucle</b>: en commençant par la première instruction,
+     (<code>instruction_1();</code>) à l'intérieur du bloc de code,
+     on continue à exécuter les autres jusqu'à atteindre la dernière
+(<code>instruction_3();</code>), puis le programme complète la boucle et
+retourne tout juste avant le début du bloc de code où la condition est de
+nouveau évaluée; si elle est satisfaite, la boucle se répète.  Si la condition
+est toujours satisfaite, on répète ad vitam æternam  et on a alors une
+<b>boucle infinie</b>. </p>
 
-<p>Conclusion: you want to make sure that the condition will become <code>false</code> at some point.</p>
+<p>Conclusion: vous voulez vous assurez que la condition ne sera pas satisfaite (devenant équivalente
+    à <code>false</code>) à quelque temps. </p>
 
-<h2>Back to hurdles!</h2>
-<p>Let's go back to <span class="world">Hurdles&nbsp;1</span>,
-<span class="world">Hurdles&nbsp;2</span> and <span class="world">Hurdles&nbsp;3</span>,
-and write a single program, using <code>while</code>, and without using <code>repeat()</code>
-which works in all three cases.  Your program might look like the following:</p>
+<h2>De retour aux haies!</h2>
+<p>Retournons aux courses <span class="world">Haies&nbsp;1</span>,
+<span class="world">Haies&nbsp;2</span> et <span class="world">Haies&nbsp;3</span>,
+et écrivons un seul programme pour ces trois courses.  Votre programme pourra ressembler
+à ceci:</p>
 <pre class="jscode">
-function jump_over_hurdle() {
-    // suitable definition
+function saute() {
+    // instructions ...
 }
 
-function run_or_jump () {
-    // suitable definition
+function cours_ou_saute () {
+    // instructions
 }
 
-while ( !at_goal() ){
-    run_or_jump();
+while ( !au_but() ){
+    cours_ou_saute();
 }</pre>
-<p>That's it! No more arbitrary repetitions!  From now on, you should only use
-<code>repeat()</code> when you know <b>exactly</b> how many times a given
-function must be repeated.</p>
+<p>C'est tout!  Plus besoin d'un nombre arbitraire de répétitions.
+    À partir de maintenant, n'utilisez plus <code>répète()</code> <b><em>sauf</em></b>
+    si vous savez <b>exactement</b> le nombre de fois qu'une certaine fonction doit
+    être répétée.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('not')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('newspaper3')">Suivant</a>

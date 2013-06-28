@@ -18,7 +18,7 @@ que nous pourrions appeler <code>avance_et_saut_jusqu_au_but()</code>
 de telle sorte qu'un programme unique suffirait pour les mondes <span class="world">Haies&nbsp;1</span> et
 <span class="world">Haies&nbsp;2</span>:</p>
 <pre class="jscode">
-répète(avance_et_saut_jusqu_au_but, 42);</pre>
+répète(avance_et_saute_jusqu_au_but, 42);</pre>
 <p>Écrivez un tel programme et assurez-vous qu'il permette à Reeborg de terminer la course.</p>
 <p><b>Est-ce que ce programme pourrait permettre à Reeborg de terminer la course
     <span class="world">Haies&nbsp;4</span>?</b></p>
