@@ -7,11 +7,11 @@
 <p>The last program we considered was the following:</p>
 
 <pre class="jscode">function go_home(){
-    move();
+    avance();
     if (!at_goal()) {
         go_home();
     }
-    turn_left();
+    tourne_à_gauche();
 }
 
 // now do it!
@@ -21,42 +21,42 @@ have tried to run it!   Let's analyze it assuming we run it in world <span class
 As usual, we consider the single instruction</p>
 <pre class="jscode">go_home();</pre>
 <p>which gets replace by the body of the function definition</p>
-<pre class="jscode">move();
+<pre class="jscode">avance();
 if (!at_goal()) {
     go_home();
 }
-turn_left();</pre>
-<p>After the first <code>move()</code>, Reeborg has not reached its goal yet so that the
+tourne_à_gauche();</pre>
+<p>After the first <code>avance()</code>, Reeborg has not reached its goal yet so that the
 <code>if</code> statement block is executed</p>
-<pre class="jscode">move();
+<pre class="jscode">avance();
     go_home();
-turn_left();</pre>
+tourne_à_gauche();</pre>
 <p>Once again, we replace <code>go_home()</code> by its definition</p>
-<pre class="jscode">move();
-    move();
+<pre class="jscode">avance();
+    avance();
     if (!at_goal()) {
         go_home();
     }
-    turn_left();
-turn_left();</pre>
-<p>After the second <code>move()</code> instruction, Reeborg has reached its goal and
+    tourne_à_gauche();
+tourne_à_gauche();</pre>
+<p>After the second <code>avance()</code> instruction, Reeborg has reached its goal and
 the <code>if</code> statement block is not executed</p>
-<pre class="jscode">move();
-    move();
-    turn_left();
-turn_left();</pre>
+<pre class="jscode">avance();
+    avance();
+    tourne_à_gauche();
+tourne_à_gauche();</pre>
 <p>Thus, after reaching its goal, Reeborg does two left turns (a celebratory dance perhaps?)
 before ending its program.</p>
 <h2>Another test</h2>
 <p>Using again the same world, can you figure out what would be Reeborg's final orientation
 if he executes the following program?</p>
 <pre class="jscode">function go_home(){
-    move();
+    avance();
     if (!at_goal()) {
         go_home();
-        turn_left();
+        tourne_à_gauche();
     }
-    turn_left();
+    tourne_à_gauche();
 }
 
 // now do it!

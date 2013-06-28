@@ -15,7 +15,7 @@ do it is as follows:
 </p>
 <pre class="jscode">function turn(nb){
     for (var i = 0; i < nb; i++) {
-        turn_left();
+        tourne_à_gauche();
     }
 }</pre>
 
@@ -25,15 +25,15 @@ do it is as follows:
 
 <h2>Having a default behaviour</h2>
 
-<p>Remember how <code>take()</code> and <code>take("token")</code> are equivalent?
+<p>Remember how <code>prend()</code> and <code>prend("token")</code> are equivalent?
 Would it be nice to have something similar for <code>turn()</code> where
 <code>turn()</code>, with no argument, would be equivalent to a single
-<code>turn_left()</code> instruction?</p>
+<code>tourne_à_gauche()</code> instruction?</p>
 <p>This can be accomplished as follows:</p>
 <pre class="jscode">function turn(nb){
     nb = nb || 1;
     for (var i = 0; i < nb; i++) {
-        turn_left();
+        tourne_à_gauche();
     }
 }</pre>
 <p>In the code above, we make use of the <b>logical OR operator</b>, <code>||</code>,

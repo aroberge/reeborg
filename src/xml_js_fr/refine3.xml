@@ -6,18 +6,18 @@
 <h1>Refinements: part 3</h1>
 <p>As you should have noticed the program doesn't work. What happens is that
 Reeborg gets in an infinite loop when there is no wall around him. We need to
-have him <code>move()</code> after turning right, as indicated below:</p>
+have him <code>avance()</code> after turning right, as indicated below:</p>
 <pre class="jscode">
-put_token();
-move();
+dépose("jeton");
+avance();
 while ( !token_here() ){
     if (right_is_clear()){
         turn_right();
-        move();
+        avance();
     } else if (front_is_clear()){
-        move();
+        avance();
     } else {
-        turn_left();
+        tourne_à_gauche();
     }
 }</pre>
 <h2>More complicated world</h2>

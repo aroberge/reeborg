@@ -23,13 +23,13 @@ Make sure that you first select the world <span class="world">Empty</span> and t
 is open. And it might be a good idea to <em>step through</em> the program one instruction at a time
 using the <b>step</b> button instead of the <b>execute</b> button.</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
-Reeborg.move();
+Reeborg.avance();
 write(Reeborg.x);
 write(Reeborg.y);
 Reeborg.x = 8;
-Reeborg.move();
+Reeborg.avance();
 write(Reeborg.x);</pre>
-<p><em>What happens if you comment out the second <code>move()</code> instruction?</em></p>
+<p><em>What happens if you comment out the second <code>avance()</code> instruction?</em></p>
 
 <h2>First attempt at teleportation</h2>
 <p>Let's use the above code as an inspiration for writing a teleport method</p>
@@ -44,7 +44,7 @@ Reeborg.teleport(4, 8);
 </pre>
 <p>Step through the program.  Other than Reeborg being created, nothing seems to happen ...
 Add the following instruction at the very end and repeat the code execution.</p>
-<pre class="jscode">Reeborg.move();</pre>
+<pre class="jscode">Reeborg.avance();</pre>
 <p>You should now see that Reeborg has teleported correctly to the last location from which
 he moved.  However, we'd like to see him when he teleports to a given location. To understand
 why we can't do so, we need to find out more about how Reeborg's world is created.

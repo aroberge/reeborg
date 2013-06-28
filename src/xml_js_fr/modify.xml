@@ -13,8 +13,8 @@ let's call it <code>move2</code>.  Using what we have seen before, we
 can write the following:</p>
 <pre class="jscode">var robot1 = new UsedRobot(1, 2);
 UsedRobot.prototype.move2 = function () {
-    this.move();
-    this.move();
+    this.avance();
+    this.avance();
 };
 
 var robot2 = new UsedRobot(1, 3);
@@ -34,13 +34,13 @@ var robot2 = new UsedRobot(1, 3);
 
 robot1.move2 = function () {
     this.is_leaky(false);
-    this.move();
-    this.move();
+    this.avance();
+    this.avance();
 };
 
 robot2.move2 = function () {
-    this.move();
-    this.move();
+    this.avance();
+    this.avance();
 };
 
 
@@ -55,13 +55,13 @@ var robot2 = new UsedRobot(1, 3);
 
 robot1.move2 = function () {
     this.is_leaky(false);
-    this.move();
-    this.move();
+    this.avance();
+    this.avance();
 };
 
 UsedRobot.prototype.move2 = function () {
-    this.move();
-    this.move();
+    this.avance();
+    this.avance();
 };
 
 robot1.move2(); // no oil leaks!

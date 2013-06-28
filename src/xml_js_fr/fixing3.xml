@@ -9,7 +9,7 @@
 
 for (var i = 0; i < 4; i++) {
     write( Reeborg.is_facing_north() );
-    Reeborg.turn_left();
+    Reeborg.tourne_à_gauche();
 }</pre>
 <p><b>Important:</b> note that we are <b>executing</b> the function
 <code>is_facing_north()</code> as it ends with <code>()</code>.</p>

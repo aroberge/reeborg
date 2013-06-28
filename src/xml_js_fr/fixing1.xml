@@ -70,8 +70,8 @@ a <code>UsedRobot</code> at the correct location and then adds the relevant
 information to Reeborg's world so that any such robot can be drawn on the screen.</p>
 <p>You should test it by writing the following in the <b>code</b> tab</p>
 <pre class="jscode">var Reeborg = new ImprovedRobot();
-Reeborg.move();
-Reeborg.turn_left();</pre>
+Reeborg.avance();
+Reeborg.tourne_à_gauche();</pre>
 <p><b>Try it!</b></p>
 
 

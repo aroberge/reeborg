@@ -55,17 +55,17 @@ function ImprovedRobot(params)  {
 }
 
 var leaky = new ImprovedRobot({"leak": true});
-leaky.move();
+leaky.avance();
 
 var other = new ImprovedRobot({"x": 3, "y": 4});
-other.move();
+other.avance();
 
 var rich = new ImprovedRobot({"tokens": "infinite"});
-rich.turn_left();
-rich.move();
+rich.tourne_à_gauche();
+rich.avance();
 
 var also_leaky = new ImprovedRobot({"leak": true, "x": 5});
-also_leaky.move();
+also_leaky.avance();
 </pre>
 <p>By passing an object as an argument, we can specify as many attributes as we desire.
 All we have to do is to ensure that we know how to take care of <code>undefined</code>

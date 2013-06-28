@@ -17,13 +17,13 @@ start by adding comments, somewhat more verbose than we think we might
 need. </p>
 <pre class="jscode">
 // We mark the starting point by putting down a token
-put_token();
+dépose("jeton");
 
 // We find a clear direction and start moving
 while ( !front_is_clear() ) {
-    turn_left();
+    tourne_à_gauche();
 }
-move();
+avance();
 
 /* We know we will have gone around the world
 when we come back to the place we put the beeper
@@ -32,11 +32,11 @@ down. */
 while ( !token_here() ){
     if (right_is_clear()){  // keep to the right
         turn_right();
-        move();
+        avance();
     } else if (front_is_clear()){ // move ... following the right wall
-        move();
+        avance();
     } else {
-        turn_left();  // follow the wall by turning left
+        tourne_à_gauche();  // follow the wall by turning left
     }
 }
 </pre>
@@ -55,22 +55,22 @@ writing the comments differently.</p>
    counterclockwise, stopping when he comes
    back to his starting point. */
 
-function mark_starting_point_and_move() {
-    put_token();
+function mark_starting_point_and_avance() {
+    dépose("jeton");
     while ( !front_is_clear() ) {
-        turn_left();
+        tourne_à_gauche();
     }
-    move();
+    avance();
 }
 
 function follow_right_wall() {
     if (right_is_clear()){
         turn_right();
-        move();
+        avance();
     } else if (front_is_clear()){
-        move();
+        avance();
     } else {
-        turn_left();
+        tourne_à_gauche();
     }
 }
 
@@ -79,7 +79,7 @@ var found_starting_point = token_here;
 /* end of definitions above;
    program execution below */
 
-mark_starting_point_and_move();
+mark_starting_point_and_avance();
 
 while ( !found_starting_point() ){
     follow_right_wall();

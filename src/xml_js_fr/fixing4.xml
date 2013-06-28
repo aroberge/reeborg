@@ -26,7 +26,7 @@ same for </p>
 Have a closer look at the definition for <code>RUR.world.right_is_clear()</code>.
 Do you see anything unusual about it?</p>
 <h2>Optional arguments</h2>
-<p>You may have notice that <code>__turn_right()</code> and <code>turn_left()</code>
+<p>You may have notice that <code>__turn_right()</code> and <code>tourne_à_gauche()</code>
 are called with an argument (<code>true</code>) instead of without like
 we have done up until now.  If you look at the definition of <code>turn_left</code> using</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
@@ -49,7 +49,7 @@ the robot turns ... but that turn is not recorded.  Note that, instead of <code>
 
 var Reeborg = new ImprovedRobot();
 write( Reeborg.left_is_clear() );  // true or false?
-Reeborg.turn_left();
+Reeborg.tourne_à_gauche();
 write( Reeborg.left_is_clear() );  // true or false?</pre>
 <p>Note that since we are implementing this as a robot method, instead of as
 a world method the way <code>right_is_clear</code> was implemented, we use

@@ -7,7 +7,7 @@
 <p>So, you understand the recursion example we just saw.  Let me write it
     again here.</p>
 <pre class="jscode">function go_home(){
-    move();
+    avance();
     if (!at_goal()) {
         go_home();
     }
@@ -20,7 +20,7 @@ as replacing the function call by the body of that function.  By this, I mean th
 this instruction:</p>
 <pre class="jscode">go_home();</pre>
 is equivalent to
-<pre class="jscode">move();
+<pre class="jscode">avance();
 if (!at_goal()) {
     go_home();
 }</pre>
@@ -28,12 +28,12 @@ if (!at_goal()) {
 <code>false</code> and hence <code>!at_goal()</code> is <code>true</code> ... like it
 was for world <span class="world">Home&nbsp;1</span>.  In this case, the above
 call to <code>go_home()</code> is also executed, and the above code is equivalent to:</p>
-<pre class="jscode">move();
+<pre class="jscode">avance();
     go_home();</pre>
 <p>We can now replace the call to <code>go_home()</code> by its definition</p>
 
-<pre class="jscode">move();
-    move();
+<pre class="jscode">avance();
+    avance();
     if (!at_goal()) {
         go_home();
     }</pre>
@@ -41,10 +41,10 @@ call to <code>go_home()</code> is also executed, and the above code is equivalen
 call to <code>go_home()</code> by its definition.</p>
 <p>However, we don't want that as we want things to end eventually ... which they
 do fortunately for world <span class="world">Home&nbsp;1</span>.  In that case
-after the second <code>move()</code>, we were <code>at_goal()</code> and
+after the second <code>avance()</code>, we were <code>at_goal()</code> and
 <code>go_home()</code>was not called, which was equivalent to:</p>
-<pre class="jscode">move();
-    move();</pre>
+<pre class="jscode">avance();
+    avance();</pre>
 
 <p><b>It is really important that you understand the above explanation before going any further.</b>
 So, make sure to read it again if necessary as we are going to consider a slightly trickier example.</p>
@@ -52,11 +52,11 @@ So, make sure to read it again if necessary as we are going to consider a slight
 <h2>Small change...</h2>
 <p>Consider the program below</p>
 <pre class="jscode">function go_home(){
-    move();
+    avance();
     if (!at_goal()) {
         go_home();
     }
-    turn_left();
+    tourne_à_gauche();
 }
 
 // now do it!

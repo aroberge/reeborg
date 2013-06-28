@@ -55,7 +55,7 @@ we have seen and that can be used to <em>increment</em> a variable.</p>
 <pre class="jscode">var number_of_steps = 0;
 
 function move_and_count_steps() {
-    move();
+    avance();
     number_of_steps++;
 }
 

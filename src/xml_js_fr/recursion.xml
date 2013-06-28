@@ -31,7 +31,7 @@ if (!completed_task()){
 <p>Let's consider a real program for Reeborg to execute.  Select <span class="world">Home&nbsp;1</span>
 and have Reeborg do the following:</p>
 <pre class="jscode">function go_home(){
-    move();
+    avance();
     if (!at_goal()) {
         go_home();
     }
