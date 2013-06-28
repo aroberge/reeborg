@@ -15,16 +15,16 @@ the object's prototype.  The syntax is the following:</p>
 function:</p>
 
 <pre class="jscode">UsedRobot.prototype.turn_right = function () {
-    this.turn_left();
-    this.turn_left();
-    this.turn_left();
+    this.tourne_à_gauche();
+    this.tourne_à_gauche();
+    this.tourne_à_gauche();
 };</pre>
 <p>The Javascript keyword <code>this</code> will be replaced by the name of whichever's robot
 is being asked to execute the right turn:</p>
 
 <pre class="jscode">var Reeborg = new UsedRobot();
 var Erdna = new UsedRobot();
-Reeborg.move();
+Reeborg.avance();
 Reeborg.turn_right();
 Erdna.turn_right();</pre>
 
@@ -41,11 +41,11 @@ by using on or two underscore "_" symbols in front of the name of the method (or
 <p>Try the following to see how Reeborg <b>can</b> do a right turn directly.</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
 
-Reeborg.turn_left();
+Reeborg.tourne_à_gauche();
 
 for (var i=0; i < 4; i++) {
-    Reeborg.move();
-    Reeborg.move();
+    Reeborg.avance();
+    Reeborg.avance();
     Reeborg.__turn_right();
 }</pre>
 

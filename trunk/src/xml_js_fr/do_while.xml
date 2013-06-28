@@ -54,29 +54,29 @@ or perhaps have another test with a <code>break</code> statement to get out of t
 code.
 <pre class="jscode">
 do {
-    move();
+    avance();
 } while (front_is_clear());</pre>
 <p>This will have Reeborg behave in the same way as if you had tried instead.</p>
 <pre class="jscode">
 while (front_is_clear()) {
-    move();
+    avance();
 }</pre>
 <p>To see the difference between <code>while</code> and <code>do/while</code> try
 the following two programs.</p>
 <pre class="jscode">
 while (front_is_clear()) {
-    move();
+    avance();
 }
 while (front_is_clear()) {
-    move();
+    avance();
 }</pre>
 and
 <pre class="jscode">
 while (front_is_clear()) {
-    move();
+    avance();
 }
 do {
-    move();
+    avance();
 } while (front_is_clear());</pre>
 <p>In this last case, the <code>do ... while</code> is not appropriate but sometimes it will be.</p>
 

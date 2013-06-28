@@ -13,7 +13,7 @@ to have Reeborg keep track of the number of steps and stop just before hitting
 a wall.</p>
 <pre class="jscode">var number_of_steps = 0;
 while (number_of_steps < 9 ){  // "<" means "less than"
-    move();
+    avance();
     number_of_steps++;
 }</pre>
 <p><b>Try it!</b>  Then, modify the program to write the value of <code>number_of_steps</code>
@@ -28,7 +28,7 @@ above:</p>
 <pre class="jscode">function my_repeat() {
     var number_of_steps = 0;
     while (number_of_steps < 9 ){
-        move();
+        avance();
         number_of_steps++;
     }
 }

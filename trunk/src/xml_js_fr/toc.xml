@@ -79,17 +79,17 @@ d'être négatif.
 <li><a href="Javascript:void(0);" onClick="load_page('newspaper3')">Une nouvelle livraison de journaux</a></li>
 
 
-<h2> Stepwise refinement</h2>
+<h2> Améliorations progressives</h2>
 
-
-<li><a href="Javascript:void(0);" onClick="load_page('refine1')">Refinements: part 1</a>
-a multi-part tutorial in creating a program capable of handling worlds
-of increasing complexity.</li>
-<li><a href="Javascript:void(0);" onClick="load_page('refine2')">Refinements: part 2</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('refine3')">Refinements: part 3</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('refine4')">Refinements: part 4</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('refine5')">Refinements: part 5</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('rule4')">Rule number 4</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('refine1')">Améliorations: partie 1</a>
+Un tutoriel en plusieurs parties démontrant le processus progressif d'amélioration d'un programme
+pour résoudre des tâches de plus en plus complexes.
+</li>
+<li><a href="Javascript:void(0);" onClick="load_page('refine2')">Améliorations: partie 2</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('refine3')">Améliorations: partie 3</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('refine4')">Améliorations: partie 4</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('refine5')">Améliorations: partie 5</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('rule4')">Règle numéro 4</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('surprises')">Surprises!</a></li>
 
 

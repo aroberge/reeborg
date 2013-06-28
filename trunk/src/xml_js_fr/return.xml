@@ -21,13 +21,13 @@ towards the bottom.</small></p>
 
 <h2>Gettings results from functions</h2>
 <p>Tests like <code>is_facing_north()</code> are actually Javascript functions.
-They differ from other functions like <code>turn_left()</code> or <code>move()</code>
+They differ from other functions like <code>tourne_à_gauche()</code> or <code>avance()</code>
 in that they <code>return</code> a value.  Let's start by considering a simple example: try
 having Reeborg execute the following program.</p>
 <pre class="jscode">function interrupted_two_steps() {
-    move();
+    avance();
     return;
-    move();
+    avance();
 }
 
 interrupted_two_steps();</pre>
@@ -37,15 +37,15 @@ Reeborg only takes one step.  Let's get rid of the warning by "hiding"
 the <code>return</code> keyword inside an <code>if</code> block.</p>
 
 <pre class="jscode">function interrupted_two_steps() {
-    move();
+    avance();
     if (true) {
         return;
     }
-    move();
+    avance();
 }
 
 interrupted_two_steps();</pre>
-<p>Even though we do not get a warning, the second <code>move()</code> instruction
+<p>Even though we do not get a warning, the second <code>avance()</code> instruction
 is not executed as the execution of the function ends when the <code>return;</code>
 statement is executed.</p>
 
@@ -56,7 +56,7 @@ For example, try the following:</p>
 }
 
 while (!north()) {
-    turn_left();
+    tourne_à_gauche();
 }
 </pre>
 <p>As you have tried it, you noticed that <code>north()</code> was giving the same
@@ -71,17 +71,17 @@ statement.  One thing we need to do: have Reeborg use a <em>variable</em> to rem
 its orientation after two left turns.</p>
 
 <pre class="jscode">function is_facing_south(){
-    turn_left();
-    turn_left();
+    tourne_à_gauche();
+    tourne_à_gauche();
     var remember = is_facing_north();
-    turn_left();
-    turn_left();
+    tourne_à_gauche();
+    tourne_à_gauche();
     return remember;
 }
 
 // now, ensure that Reeborg is facing South
 while (!is_facing_south()) {
-    turn_left();
+    tourne_à_gauche();
 }</pre>
 
 <p><b>Make sure you try it!</b></p>
@@ -98,7 +98,7 @@ fix its compass and have it determine its orientation without getting dizzy.</p>
 <h2>Mini-quiz</h2>
 
 <p>Write a program that has Reeborg face West, no matter what his original orientation is.
-Test it with Reeborg in various starting orientations, by giving him a few <code>turn_left()</code>
+Test it with Reeborg in various starting orientations, by giving him a few <code>tourne_à_gauche()</code>
 instructions first.</p>
 
 <h2>How to think about return</h2>

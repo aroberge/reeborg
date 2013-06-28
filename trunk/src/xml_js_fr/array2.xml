@@ -28,17 +28,17 @@ been implemented.</p>
 <h2>Robot actions: different ways</h2>
 <p>Select world select <span class="world">Empty</span> and run the following program,
 ideally one instruction at a time using the <b>step</b> button.
-Which robot makes the last <code>move()</code>?</p>
+Which robot makes the last <code>avance()</code>?</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
 var Erdna = new UsedRobot(2,2);
 
-Reeborg.move();
-RUR.world.robots[0].move();
+Reeborg.avance();
+RUR.world.robots[0].avance();
 
-Erdna.move();
-RUR.world.robots[1].move();
+Erdna.avance();
+RUR.world.robots[1].avance();
 
-move();</pre>
+avance();</pre>
 <p>You might find it useful to include the line</p>
 <pre class="jscode">DEBUG.ON = true;</pre>
 <p>to see some additional info printed just above Reeborg's world.</p>
@@ -83,16 +83,16 @@ and display the result one frame at a time
 to create the animation.</p>
 <p>And, when you select a world with a robot already present, that robot has no name ...
 but it can be referred to as the zeroth-index robot in <code>RUR.world.robots</code> which
-allows you to use the simple <code>move()</code> or <code>turn_left()</code>.</p>
+allows you to use the simple <code>avance()</code> or <code>tourne_à_gauche()</code>.</p>
 <h2>No robot?</h2>
-<p><b>What happens if you try to use <code>move()</code> in world <span class="world">Empty</span>
+<p><b>What happens if you try to use <code>avance()</code> in world <span class="world">Empty</span>
 without creating a <code>new UsedRobot</code> first?</b></p>
 <p>Once you have tried to move an absent robot, select a world <b>with</b> a robot in
 it and try the following code first with the second line commented-out (as written) and
 then with the second line being executed.</p>
 <pre class="jscode">RUR.world.robots.pop();
 //var Reeborg = new UsedRobot(4,4);
-move();</pre>
+avance();</pre>
 <p>If the result does not make sense to you, make sure to read the both the previous lesson and
 this one again.</p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('array')">Précédent</a>

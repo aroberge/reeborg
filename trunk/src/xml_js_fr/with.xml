@@ -10,13 +10,13 @@ the Javascript keyword <code>with</code>.  We recommend that you do not use it. 
 you can see the purpose of this keyword using the following example.</p>
 <pre class="jscode">// select a world with a robot.
 var Reeborg = new UsedRobot(2,4); // create a second one.
-move();   // refers to the first robot.
-Reeborg.move(); // second.
+avance();   // refers to the first robot.
+Reeborg.avance(); // second.
 
 // try uncommenting the following
 /* with (Reeborg) {
-    move();
-    move();
+    avance();
+    avance();
 }
 */  // won't work
 </pre>
@@ -37,12 +37,12 @@ I use jshint to identify any mistakes and point them out; this is disabled when
 you use the <code>"no strict";</code> mode, exclusive to Reeborg's world. For example:</p>
 <pre class="jscode">"no strict";
 Reeborg = new UsedRobot(2,4); // we did not use "var" !!!
-move();                // make sure to select a world with a default robot.
-Reeborg.move();
+avance();                // make sure to select a world with a default robot.
+Reeborg.avance();
 
 with (Reeborg) {
-    move();      // same as Reeborg.move();
-    move();
+    avance();      // same as Reeborg.avance();
+    avance();
 }
 </pre>
 <p>As you can see, <code>with</code> sets up a block so that the object whose methods

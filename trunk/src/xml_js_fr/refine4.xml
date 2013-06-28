@@ -8,19 +8,19 @@
 forward after putting down a beeper. We need to check if there is a wall
 preventing him from moving first. Here's a solution to the problem.</p>
 <pre class="jscode">
-put_token();
+dépose("jeton");
 if ( !front_is_clear() ) {
-    turn_left();
+    tourne_à_gauche();
 }
-move();
+avance();
 while ( !token_here() ){
     if (right_is_clear()){
         turn_right();
-        move();
+        avance();
     } else if (front_is_clear()){
-        move();
+        avance();
     } else {
-        turn_left();
+        tourne_à_gauche();
     }
 }</pre>
 

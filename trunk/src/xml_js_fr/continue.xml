@@ -22,13 +22,13 @@ while (!at_goal()) {
     result = Math.random();
     if (result < 1/3 ){
         try {
-            move();
+            avance();
         } catch (e) {
             write("---");
             //continue;
         }
     } else if (result < 2/3 ) {
-        turn_left();
+        tourne_à_gauche();
     } else {
         turn_right();
     }

@@ -13,7 +13,7 @@ definitely should run to confirm your understanding of the topic.</em></p>
 <pre class="jscode">var tantrum = new RUR.Error("I don't want to!");
 
 throw tantrum;
-move();</pre>
+avance();</pre>
 <p>Reeborg never moves as he throws a tantrum!</p>
 <h2>Taking care of tantrums</h2>
 <p>Let's see three different ways of dealing with Reeborg's tantrum and have
@@ -28,7 +28,7 @@ catch (e) {
     write(e.message);
 }
 finally {
-    move();
+    avance();
 }</pre>
 <p>After running the above code, remove the <code>catch</code> block completely,
 so as to have only the
@@ -42,7 +42,7 @@ try {
 catch (e) {
     write(e.message);
 }
-move();</pre>
+avance();</pre>
 <p>All three versions should give the same result in terms of Reeborg taking one step.</p>
 
 <h2>Javascript errors</h2>
@@ -73,7 +73,7 @@ the following program:</p>
 
 write("=============");
 try {
-    take_token();   // in a world where none is present
+    prend("jeton");   // in a world where none is present
 } catch(err) {      // any variable name can be used
     write(err instanceof Error);     // false
     write(err instanceof RUR.Error); // true

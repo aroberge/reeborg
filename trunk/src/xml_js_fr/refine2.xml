@@ -9,15 +9,15 @@ token and, before we had the chance to move, tested to see if we were not
 next to a token. Since we were next to a token,
 we never go the chance to get in the <code>while</code> loop.
 Perhaps we can change the
-program to add a <code>move()</code> before we start the loop, as follows:</p>
+program to add a <code>avance()</code> before we start the loop, as follows:</p>
 <pre class="jscode">
-put_token();
-move();
+dépose("jeton");
+avance();
 while ( !token_here() ){
     if (front_is_clear()){
-        move();
+        avance();
     } else {
-        turn_left();
+        tourne_à_gauche();
     }
 }</pre>
 <p><b>Try it!</b></p>
@@ -34,15 +34,15 @@ first to check on his right to see if there is still a wall; if not, we have
 him make a right turn. Here's a modified program that <i>attempts</i>
 to do just that:</p>
 <pre class="jscode">
-put_token();
-move();
+dépose("jeton");
+avance();
 while ( !token_here() ){
     if (right_is_clear()){
         turn_right();
     } else if (front_is_clear()){
-        move();
+        avance();
     } else {
-        turn_left();
+        tourne_à_gauche();
     }
 }</pre>
 <p>Does it work? Read it carefully to decide for yourself. Then try it to

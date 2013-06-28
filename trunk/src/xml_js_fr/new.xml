@@ -16,7 +16,7 @@
 friends later.] So, we will create our first instance of a <code>UsedRobot</code> and name it, appropriately, Reeborg! We will then instruct it to take one step.</p>
 
 <pre class="jscode">var Reeborg = new UsedRobot();
-Reeborg.move();</pre>
+Reeborg.avance();</pre>
 
 <p>If you don't like the combination of <code>new</code> with  <code>Used</code>, remember that while
 Reeborg might be a <code>UsedRobot</code>, it is <code>new</code> to you

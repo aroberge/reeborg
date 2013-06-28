@@ -38,11 +38,11 @@ adding a couple of other instructions to make sure everything works correctly:</
 };
 
 var Reeborg = new UsedRobot();
-Reeborg.move();
+Reeborg.avance();
 Reeborg.teleport(3, 3);
-Reeborg.turn_left();
+Reeborg.tourne_à_gauche();
 Reeborg.teleport(4, 8);
-Reeborg.move();
+Reeborg.avance();
 </pre>
 <p><b>Try it!</b></p>
 <h2>A word of caution</h2>

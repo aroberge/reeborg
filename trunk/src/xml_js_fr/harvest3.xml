@@ -30,7 +30,7 @@ function harvest_one_row (fruit) {
         if (shape_here() === fruit) {
             harvest(fruit);
         }
-        move();
+        avance();
     }
 }
 
@@ -52,7 +52,7 @@ function complete_one_row(fruit) {
     move_to_next_row();
 }
 
-move();
+avance();
 selection = shape_here();
 harvest(selection);
 go_to_first_row();
@@ -60,7 +60,7 @@ for (var i = 0; i < 6; i++ ) {
     complete_one_row(selection);
 }</pre>
 
-<p>Remember <code>take_token()</code> and <code>take("star")</code>, etc.</p>
+<p>Remember <code>prend("jeton")</code> and <code>prend("star")</code>, etc.</p>
 
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('return2')">Précédent</a>

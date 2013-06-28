@@ -10,9 +10,9 @@
 function:</p>
 
 <pre class="jscode">function turn_right(robot) {
-    robot.turn_left();
-    robot.turn_left();
-    robot.turn_left();
+    robot.tourne_à_gauche();
+    robot.tourne_à_gauche();
+    robot.tourne_à_gauche();
 }</pre>
 
 <p>Note how we pass the variable <code>robot</code> as an argument to the function and how we
@@ -22,9 +22,9 @@ use it inside the function; this variable will be the robot's name.</p>
 
 <pre class="jscode">var Reeborg = new UsedRobot();
 var Erdna = new UsedRobot();
-Reeborg.move();
+Reeborg.avance();
 turn_right(Reeborg);
-Erdna.turn_left();
+Erdna.tourne_à_gauche();
 turn_right(Erdna);</pre>
 
 <p>This works ... but it does not look right since the  <em>function</em> that is used to make

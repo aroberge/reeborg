@@ -26,12 +26,12 @@ at the beginning:</p>
 <p>Take you time to think about the above algorithm. Then, consider
 this solution in code. </p>
 <pre class="jscode">
-put_token();
+dépose("jeton");
 while ( !token_here() ){
     if (front_is_clear()){
-        move();
+        avance();
     } else {
-        turn_left();
+        tourne_à_gauche();
     }
 }</pre>
 <p>Take the time to think about what the above program instructs Reeborg to
