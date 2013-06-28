@@ -3,18 +3,18 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('refine4')">Suivant</a>
 </nav>
-<h1>Refinements: part 3</h1>
+<h1>Améliorations: partie 3</h1>
 <p>As you should have noticed the program doesn't work. What happens is that
 Reeborg gets in an infinite loop when there is no wall around him. We need to
 have him <code>avance()</code> after turning right, as indicated below:</p>
 <pre class="jscode">
 dépose("jeton");
 avance();
-while ( !token_here() ){
+while ( !jeton_ici() ){
     if (right_is_clear()){
-        turn_right();
+        tourne_à_droite();
         avance();
-    } else if (front_is_clear()){
+    } else if (rien_devant()){
         avance();
     } else {
         tourne_à_gauche();

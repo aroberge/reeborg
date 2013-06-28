@@ -64,7 +64,7 @@ Un deuxième mot-clé Javascript: <code>var</code>.</li>
 Plein de nouveautés avec <b>trois</b> mot-clés Javascript:  <code>if</code>, <code>true</code> et
 <code>false</code>, ainsi qu'une nouvelle instruction, <code>terminé()</code>,
 et une condition, <code>jeton_ici()</code>.</li>
-<li><a href="Javascript:void(0);" onClick="load_page('at_goal')">Droit au but</a>
+<li><a href="Javascript:void(0);" onClick="load_page('au_but')">Droit au but</a>
 Où vous apprenez <code>au_but()</code> qui permet à Reeborg de déterminer s'il doit arrêter.
 </li>
 <li><a href="Javascript:void(0);" onClick="load_page('hurdles2')">Encore les haies!</a> Nous utilisons
@@ -133,7 +133,7 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('oop')">The dot notation</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('new')">A Used Robot gets his name</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('many')">Many robots</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('turn_right')">Many right turns</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('tourne_à_droite')">Many right turns</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('prototype')">Prototype this</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('teleport')">Teleport!</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('teleport2')">Teleport again!</a></li>

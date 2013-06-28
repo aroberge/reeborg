@@ -4,7 +4,7 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('refine2')">Suivant</a>
 </nav>
 
-<h1>Refinements: part 1</h1>
+<h1>Améliorations: partie 1</h1>
 <p>In this multi-part lesson, we are going to write a complete program to
 solve problems of increasing complexity.  For each lesson,
 I will present a tentative solution that will contain one mistake.
@@ -14,7 +14,7 @@ Try to find it before moving on to the next lesson.</p>
 <p>Let us start by considering a simple problem: having Reeborg go around his
 world <b>once</b> and stop when it is back at its starting point. In concrete terms,
 select world <span class="world">Around&nbsp;1</span>. We have done something like this
-before, when we introduced the <code>front_is_clear()</code> test. Here's the
+before, when we introduced the <code>rien_devant()</code> test. Here's the
 outline of a solution which supposes that Reeborg carries at least one beeper
 at the beginning:</p>
 <ol>
@@ -27,8 +27,8 @@ at the beginning:</p>
 this solution in code. </p>
 <pre class="jscode">
 dépose("jeton");
-while ( !token_here() ){
-    if (front_is_clear()){
+while ( !jeton_ici() ){
+    if (rien_devant()){
         avance();
     } else {
         tourne_à_gauche();

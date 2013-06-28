@@ -3,21 +3,21 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('refine5')">Suivant</a>
 </nav>
-<h1>Refinements: part 4</h1>
+<h1>Améliorations: partie 4</h1>
 <p>As you most likely found out, we were too hasty in asking Reeborg to move
 forward after putting down a beeper. We need to check if there is a wall
 preventing him from moving first. Here's a solution to the problem.</p>
 <pre class="jscode">
 dépose("jeton");
-if ( !front_is_clear() ) {
+if ( !rien_devant() ) {
     tourne_à_gauche();
 }
 avance();
-while ( !token_here() ){
+while ( !jeton_ici() ){
     if (right_is_clear()){
-        turn_right();
+        tourne_à_droite();
         avance();
-    } else if (front_is_clear()){
+    } else if (rien_devant()){
         avance();
     } else {
         tourne_à_gauche();

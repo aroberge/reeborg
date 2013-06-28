@@ -1,7 +1,7 @@
 <nav>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('summary1')">Précédent</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
-<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('at_goal')">Suivant</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('au_but')">Suivant</a>
 </nav>
 <h1>Si seulement ...</h1>
 <p>Si seulement Reeborg pouvait prendre des décisions de lui-même, écrire des programmes serait
@@ -149,4 +149,4 @@ répète(avance_jusque_tâche_terminée, 42);</pre>
 <span class="world">Jetons&nbsp;2</span>.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('summary1')">Précédent</a>
-<a class="right-link" href="Javascript:void(0);" onClick="load_page('at_goal')">Suivant</a>
+<a class="right-link" href="Javascript:void(0);" onClick="load_page('au_but')">Suivant</a>

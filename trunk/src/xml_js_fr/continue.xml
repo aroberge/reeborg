@@ -17,7 +17,7 @@ fit on one screen.</p>
 RUR.world.max_steps = 60;
 think(0);
 
-while (!at_goal()) {
+while (!au_but()) {
     nb++;
     result = Math.random();
     if (result < 1/3 ){
@@ -30,7 +30,7 @@ while (!at_goal()) {
     } else if (result < 2/3 ) {
         tourne_à_gauche();
     } else {
-        turn_right();
+        tourne_à_droite();
     }
     write(nb);
 }</pre>

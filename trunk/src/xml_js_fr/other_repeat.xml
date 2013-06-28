@@ -19,7 +19,7 @@ do it is as follows:
     }
 }</pre>
 
-<p>Using this definition, <code>turn_right()</code> would be written as
+<p>Using this definition, <code>tourne_à_droite()</code> would be written as
 <code>turn(3)</code> and <code>turn_around()</code> would be written as
 <code>turn(2)</code>.  Try it!</p>
 

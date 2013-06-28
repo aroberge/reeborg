@@ -102,7 +102,7 @@ a property of the remainder operator when dealing with negative numbers.</p>
     see if the code generally makes sense to you:</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
 view_source(Reeborg.turn_left);
-view_source(Reeborg.__turn_right);</pre>
+view_source(Reeborg.__tourne_à_droite);</pre>
 
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('array2')">Précédent</a>

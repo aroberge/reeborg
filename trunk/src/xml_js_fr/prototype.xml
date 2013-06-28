@@ -1,5 +1,5 @@
 <nav>
-<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('turn_right')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('tourne_à_droite')">Précédent</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('teleport')">Suivant</a>
 </nav>
@@ -9,12 +9,12 @@
 <p>Javascript is a language based on prototypes: we can add methods to objects by adding them to
 the object's prototype.  The syntax is the following:</p>
 <pre class="jscode">some_object.prototype.new_stuff = some_definition;</pre>
-<p>For example, here's how we can add a new <code>turn_right</code> method to <code>UsedRobot</code>:</p>
+<p>For example, here's how we can add a new <code>tourne_à_droite</code> method to <code>UsedRobot</code>:</p>
 
 <p>Select the world <span class="world">Empty</span> which has no robot in it. Next define the following
 function:</p>
 
-<pre class="jscode">UsedRobot.prototype.turn_right = function () {
+<pre class="jscode">UsedRobot.prototype.tourne_à_droite = function () {
     this.tourne_à_gauche();
     this.tourne_à_gauche();
     this.tourne_à_gauche();
@@ -25,8 +25,8 @@ is being asked to execute the right turn:</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
 var Erdna = new UsedRobot();
 Reeborg.avance();
-Reeborg.turn_right();
-Erdna.turn_right();</pre>
+Reeborg.tourne_à_droite();
+Erdna.tourne_à_droite();</pre>
 
 <p><b>Try it!</b></p>
 <p>As you can see, to make a robot turn right, we can now use exactly the same syntax as we did for turning left:
@@ -46,9 +46,9 @@ Reeborg.tourne_à_gauche();
 for (var i=0; i < 4; i++) {
     Reeborg.avance();
     Reeborg.avance();
-    Reeborg.__turn_right();
+    Reeborg.__tourne_à_droite();
 }</pre>
 
-<a class="left-link" href="Javascript:void(0);" onClick="load_page('turn_right')">Précédent</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('tourne_à_droite')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('teleport')">Suivant</a>
 

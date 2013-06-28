@@ -9,7 +9,7 @@
 <p>Select the world <span class="world">Empty</span> which has no robot in it. Next define the following
 function:</p>
 
-<pre class="jscode">function turn_right(robot) {
+<pre class="jscode">function tourne_à_droite(robot) {
     robot.tourne_à_gauche();
     robot.tourne_à_gauche();
     robot.tourne_à_gauche();
@@ -23,9 +23,9 @@ use it inside the function; this variable will be the robot's name.</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
 var Erdna = new UsedRobot();
 Reeborg.avance();
-turn_right(Reeborg);
+tourne_à_droite(Reeborg);
 Erdna.tourne_à_gauche();
-turn_right(Erdna);</pre>
+tourne_à_droite(Erdna);</pre>
 
 <p>This works ... but it does not look right since the  <em>function</em> that is used to make
 the robots turn right uses a different syntax from the <em>method</em> that is used to make them

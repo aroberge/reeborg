@@ -17,7 +17,7 @@ function tourne_à_droite () {  // début du bloc de code
 }  // fin du bloc de code
 
 avance();
-turn_right();
+tourne_à_droite();
 avance();
 </pre>
 <p>Ceci est équivalent à </p>

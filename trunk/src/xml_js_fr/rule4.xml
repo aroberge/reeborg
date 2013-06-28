@@ -20,7 +20,7 @@ need. </p>
 dépose("jeton");
 
 // We find a clear direction and start moving
-while ( !front_is_clear() ) {
+while ( !rien_devant() ) {
     tourne_à_gauche();
 }
 avance();
@@ -29,11 +29,11 @@ avance();
 when we come back to the place we put the beeper
 down. */
 
-while ( !token_here() ){
+while ( !jeton_ici() ){
     if (right_is_clear()){  // keep to the right
-        turn_right();
+        tourne_à_droite();
         avance();
-    } else if (front_is_clear()){ // move ... following the right wall
+    } else if (rien_devant()){ // move ... following the right wall
         avance();
     } else {
         tourne_à_gauche();  // follow the wall by turning left
@@ -57,7 +57,7 @@ writing the comments differently.</p>
 
 function mark_starting_point_and_avance() {
     dépose("jeton");
-    while ( !front_is_clear() ) {
+    while ( !rien_devant() ) {
         tourne_à_gauche();
     }
     avance();
@@ -65,16 +65,16 @@ function mark_starting_point_and_avance() {
 
 function follow_right_wall() {
     if (right_is_clear()){
-        turn_right();
+        tourne_à_droite();
         avance();
-    } else if (front_is_clear()){
+    } else if (rien_devant()){
         avance();
     } else {
         tourne_à_gauche();
     }
 }
 
-var found_starting_point = token_here;
+var found_starting_point = jeton_ici;
 
 /* end of definitions above;
    program execution below */

@@ -3,7 +3,7 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('refine3')">Suivant</a>
 </nav>
-<h1>Refinements: part 2</h1>
+<h1>Améliorations: partie 2</h1>
 <p>Here's the cause of the problem we had at the end of part 1: we put down a
 token and, before we had the chance to move, tested to see if we were not
 next to a token. Since we were next to a token,
@@ -13,8 +13,8 @@ program to add a <code>avance()</code> before we start the loop, as follows:</p>
 <pre class="jscode">
 dépose("jeton");
 avance();
-while ( !token_here() ){
-    if (front_is_clear()){
+while ( !jeton_ici() ){
+    if (rien_devant()){
         avance();
     } else {
         tourne_à_gauche();
@@ -36,10 +36,10 @@ to do just that:</p>
 <pre class="jscode">
 dépose("jeton");
 avance();
-while ( !token_here() ){
+while ( !jeton_ici() ){
     if (right_is_clear()){
-        turn_right();
-    } else if (front_is_clear()){
+        tourne_à_droite();
+    } else if (rien_devant()){
         avance();
     } else {
         tourne_à_gauche();
