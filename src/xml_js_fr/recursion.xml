@@ -32,7 +32,7 @@ if (!completed_task()){
 and have Reeborg do the following:</p>
 <pre class="jscode">function go_home(){
     avance();
-    if (!at_goal()) {
+    if (!au_but()) {
         go_home();
     }
 }

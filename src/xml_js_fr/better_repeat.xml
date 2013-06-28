@@ -17,7 +17,7 @@ replacing three instructions with one.  The problem with doing this in general i
 it does not make the code much more readable since we do not introduce descriptive names.
 A better approach that we have seen is
 to use <code>repeat()</code> inside a well-named function definition like this:</p>
-<pre class="jscode">function turn_right (){
+<pre class="jscode">function tourne_à_droite (){
     repeat(turn_left, 3);
 }</pre>
 <p>However, we can do this differently.  First, we have just seen how <code>repeat()</code>
@@ -47,9 +47,9 @@ functions!</p>
 }
 
 // now, use it to define a new way to turn right
-var my_turn_right = better_repeat(turn_left, 3);
+var my_tourne_à_droite = better_repeat(turn_left, 3);
 
-my_turn_right();  // and use it!
+my_tourne_à_droite();  // and use it!
 </pre>
 
 <p>Try it!</p>
@@ -66,7 +66,7 @@ idea to conditions that need to be tested for...</p>
     };
 }
 
-var walk_to_the_wall = do_while(move, front_is_clear);
+var walk_to_the_wall = do_while(move, rien_devant);
 walk_to_the_wall();
 </pre>
 

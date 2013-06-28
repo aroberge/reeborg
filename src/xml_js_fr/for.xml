@@ -27,9 +27,9 @@ each steps until a specific value is reached, <code>for</code> loops are often p
 because the three steps (initialisation, condition, increment) can be seen at a glance.
 Note that any one (or more) of these three steps can be omitted in a <code>for</code> loop.
 For example, one could write</p>
-<pre class="jscode">for ( ; !front_is_clear(); ) {...}</pre>
+<pre class="jscode">for ( ; !rien_devant(); ) {...}</pre>
 <p>instead of</p>
-<pre class="jscode">while ( !front_is_clear() ) {...}</pre>
+<pre class="jscode">while ( !rien_devant() ) {...}</pre>
 <p>However, in this case, the <code>while</code> loop syntax is considered by most people
 to be easier to read.</p>
 <p>Using the <code>for</code> loop syntax, we can have a different definition for a

@@ -9,7 +9,7 @@ was seeded.  Some carrot seeds sprouted well, others yielded two or three plants
 did not sprout at all.  Help Reeborg weed out the excess seedlings, and plant some new seeds
 at locations where some were missing.  Here is a suggestion for some vocabulary to use:</p>
 <pre class="jscode">
-var carrot_here = token_here;
+var carrot_here = jeton_ici;
 var plant_carrot_seed = put_token;
 var remove_seedling = take_token;
 

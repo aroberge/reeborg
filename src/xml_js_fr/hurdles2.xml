@@ -1,5 +1,5 @@
 <nav>
-<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('at_goal')">Précédent</a>
+<a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('au_but')">Précédent</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('else')">Suivant</a>
 </nav>
@@ -23,5 +23,5 @@ répète(avance_et_saute_jusqu_au_but, 42);</pre>
 <p><b>Est-ce que ce programme pourrait permettre à Reeborg de terminer la course
     <span class="world">Haies&nbsp;4</span>?</b></p>
 
-<a class="left-link" href="Javascript:void(0);" onClick="load_page('at_goal')">Précédent</a>
+<a class="left-link" href="Javascript:void(0);" onClick="load_page('au_but')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('else')">Suivant</a>

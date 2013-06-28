@@ -14,7 +14,7 @@
 </p>
 <p>Reeborg uses the function <code>shape_here()</code> which return one of
 <code>"star", "triangle", "square"</code> depending if one of the three shapes are found, and
-returns <code>0</code> otherwise.  Similarly, there is also a function <code>token_here()</code>
+returns <code>0</code> otherwise.  Similarly, there is also a function <code>jeton_ici()</code>
 that returns either <code>true</code> or <code>false</code> depending on whether or not
 a token is found at a given location.  Using these, you can complete the following outline
 of a solution that will work for each of these four worlds.</p>
@@ -26,7 +26,7 @@ function harvest (fruit) {
 }
 
 function harvest_one_row (fruit) {
-    while (front_is_clear()) {
+    while (rien_devant()) {
         if (shape_here() === fruit) {
             harvest(fruit);
         }

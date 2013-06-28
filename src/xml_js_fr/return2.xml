@@ -6,7 +6,7 @@
 
 <h1>More returns</h1>
 
-<p>Reeborg can determine if there is a wall in front of him, using <code>front_is_clear()</code>, or
+<p>Reeborg can determine if there is a wall in front of him, using <code>rien_devant()</code>, or
 if there is a wall to his right, using <code>right_is_clear()</code>.
 Write a test that has Reeborg turn left 4 times, so that he ends up back in the same orientation
 that he started with, but that returns <code>true</code> if there is no wall to his left.</p>

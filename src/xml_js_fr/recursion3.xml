@@ -8,7 +8,7 @@
 
 <pre class="jscode">function go_home(){
     avance();
-    if (!at_goal()) {
+    if (!au_but()) {
         go_home();
     }
     tourne_à_gauche();
@@ -22,7 +22,7 @@ As usual, we consider the single instruction</p>
 <pre class="jscode">go_home();</pre>
 <p>which gets replace by the body of the function definition</p>
 <pre class="jscode">avance();
-if (!at_goal()) {
+if (!au_but()) {
     go_home();
 }
 tourne_à_gauche();</pre>
@@ -34,7 +34,7 @@ tourne_à_gauche();</pre>
 <p>Once again, we replace <code>go_home()</code> by its definition</p>
 <pre class="jscode">avance();
     avance();
-    if (!at_goal()) {
+    if (!au_but()) {
         go_home();
     }
     tourne_à_gauche();
@@ -52,7 +52,7 @@ before ending its program.</p>
 if he executes the following program?</p>
 <pre class="jscode">function go_home(){
     avance();
-    if (!at_goal()) {
+    if (!au_but()) {
         go_home();
         tourne_à_gauche();
     }

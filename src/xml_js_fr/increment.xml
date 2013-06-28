@@ -59,7 +59,7 @@ function move_and_count_steps() {
     number_of_steps++;
 }
 
-while (front_is_clear()){
+while (rien_devant()){
     move_and_count_steps();
 }
 

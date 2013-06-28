@@ -17,7 +17,7 @@ it.   This approach is sometimes described as
 RUR.world.max_steps = 10000;
 think(0);
 
-while (!at_goal()) {
+while (!au_but()) {
     result = Math.random();
     if (result < 1/3 ){
         try {
@@ -26,7 +26,7 @@ while (!at_goal()) {
             // don't move!
         }
     } else if (result < 2/3 ) {
-        turn_right();
+        tourne_à_droite();
     } else {
         tourne_à_gauche();
     }

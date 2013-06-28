@@ -55,29 +55,29 @@ code.
 <pre class="jscode">
 do {
     avance();
-} while (front_is_clear());</pre>
+} while (rien_devant());</pre>
 <p>This will have Reeborg behave in the same way as if you had tried instead.</p>
 <pre class="jscode">
-while (front_is_clear()) {
+while (rien_devant()) {
     avance();
 }</pre>
 <p>To see the difference between <code>while</code> and <code>do/while</code> try
 the following two programs.</p>
 <pre class="jscode">
-while (front_is_clear()) {
+while (rien_devant()) {
     avance();
 }
-while (front_is_clear()) {
+while (rien_devant()) {
     avance();
 }</pre>
 and
 <pre class="jscode">
-while (front_is_clear()) {
+while (rien_devant()) {
     avance();
 }
 do {
     avance();
-} while (front_is_clear());</pre>
+} while (rien_devant());</pre>
 <p>In this last case, the <code>do ... while</code> is not appropriate but sometimes it will be.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('not')">Précédent</a>
