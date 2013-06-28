@@ -75,8 +75,8 @@ mur lui bloque le chemin; également, on voit un nouveau mot-clé: <code>else</c
 <li><a href="Javascript:void(0);" onClick="load_page('hurdles3')">Hurdles yet again!</a> </li>
 <li><a href="Javascript:void(0);" onClick="load_page('not')">Pas vrai!</a> C'est parfois utile
 d'être négatif.
-<li><a href="Javascript:void(0);" onClick="load_page('while')">For a <code>while</code></a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('newspaper3')">Newspaper delivery revisited again</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('while')">Tant que ...</code></a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('newspaper3')">Une nouvelle livraison de journaux</a></li>
 
 
 <h2> Stepwise refinement</h2>

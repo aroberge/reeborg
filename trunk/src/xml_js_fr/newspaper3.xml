@@ -3,55 +3,56 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('refine1')">Suivant</a>
 </nav>
-<h1>Newspaper delivery revisited again</h1>
+<h1>Une nouvelle livraison de journaux</h1>
 
-<p>Let's go back to our newspaper delivery example.  Below is
-    an outline of a solution that will work both Ms. Lovelace's
-    world <span class="world">Newspaper&nbsp;1</span>,
-    and Mr. Babbage's <span class="world">Newspaper&nbsp;2</span>.</p>
+<p>Retournons à l'exemple de la livraison de journaux.
+    Ci-dessous est une esquisse de solution qui permettra à
+    Reeborg de livrer le journal de Madame Lovelace,
+    <span class="world">Journal&nbsp;1</span>, ainsi que
+    celui de Monsieur Babbage, <span class="world">Journal&nbsp;2</span>,</p>
 
 
 <pre class="jscode">
-function climb_up_one_floor() {
-    turn_left();
-    move();
-    turn_right();
-    move();
-    move();
+function monte_un_étage() {
+    tourne_à_gauche();
+    avance();
+    tourne_à_droite();
+    avance();
+    avance();
 }
 
-function climb_down_one_floor() {
-    move();
-    move();
-    turn_left();
-    move();
-    turn_right();
+function descend_un_étage() {
+    avance();
+    avance();
+    tourne_à_gauche();
+    avance();
+    tourne_à_droite();
 }
 
-function get_money() {
+function prend_argent() {
     while ( ... ) {
-      // single line of code
+      // une seule instruction
     }
 }
 
-// === End of definitions ===
+// === Fin des définitions ===
 
-take("star");
-while ( !token_here() ){
-    // single line of code
+prend("étoile");
+while ( !jeton_ici() ){
+    // une seule instruction
 }
-get_money();
-put("star"); // leave paper
-turn_around();
+prend_argent();
+dépose("étoile");
+demi_tour();
 while ( ! ... ){
-    // single line of code
+    // une seule instruction
 }</pre>
 
-<p>It is up to you to fill up the missing tests and other lines of code.
-Once you are done, you might want to go back to
-<a href="Javascript:void(0);" onClick="load_page('newspaper2')">Newspaper delivery revisited</a>
-and see how much shorter this new version, which works in both worlds,
-<small>as you have checked, ... right?</small>, is.</p>
+<p>C'est à vous de compléter le programme.  Lorsque vous aurez terminé et testé votre
+    programme <b>avec les deux mondes</b>, comparez avec la solution de
+    <a href="Javascript:void(0);" onClick="load_page('newspaper2')">Autre livraison de journaux</a>;
+    vous verrez que cette nouvelle solution, qui fonctionne pour les deux mondes,
+    est beaucoup plus courte que la précédente qui ne fonctionnait que pour un seul monde.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('while')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('refine1')">Suivant</a>
