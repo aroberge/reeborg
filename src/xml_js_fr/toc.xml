@@ -72,8 +72,9 @@ ce que nous avons appris pour permettre à Reeborg de faire de meilleures course
 <li><a href="Javascript:void(0);" onClick="load_page('else')">Écoutez-moi, sinon ...</a> Reeborg
 connait une autre instruction, <code>rien_devant()</code>, qui lui permet de déterminer si un
 mur lui bloque le chemin; également, on voit un nouveau mot-clé: <code>else</code>.
-<li><a href="Javascript:void(0);" onClick="load_page('not')">Not ... true!</a> Where you learn about the value
- of begin negative.
+<li><a href="Javascript:void(0);" onClick="load_page('hurdles3')">Hurdles yet again!</a> </li>
+<li><a href="Javascript:void(0);" onClick="load_page('not')">Pas vrai!</a> C'est parfois utile
+d'être négatif.
 <li><a href="Javascript:void(0);" onClick="load_page('while')">For a <code>while</code></a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('newspaper3')">Newspaper delivery revisited again</a></li>
 

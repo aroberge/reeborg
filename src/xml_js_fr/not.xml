@@ -3,77 +3,74 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('while')">Suivant</a>
 </nav>
-<h1>Not ... true!</h1>
-<p>Reeborg is upset.  It's <b>not</b> raining; it's <b>not</b> snowing. Yet, he cannot go outside and
-practice for his hurdles race. </p>
-<p>Why, do you ask?    It's because Reeborg is waiting for you to learn about Javascript <b>not</b>.</p>
-<h2>Time to be negative.</h2>
-<p>Some programming language, like Python, indicate that something is not true by writing <code>not True</code>
-which, in Python, is synonymous of <code>False</code>.   Javascript, like quite a few other languages,
-uses a convention where <b>negation</b> is represented by a symbol <code>!</code></p>
-<p>The exclamation mark indicates negation in Javascript.  However, instead
-of appearing at the end of something, like a sentence, it has to appear before something, like some statement
-that would be normally either <code>true</code> or <code>false</code>.  Thus <code>!true</code>
-is the same thing as <code>false</code>, and <code>!false</code> is the same thing as <code>true</code>.</p>
-<h2>Please, make Reeborg happy</h2>
-<p>You have already written a program that enables Reeborg to jump hurdles; parts of it went
-something like this:</p>
+<h1>Pas vrai!</h1>
+<p>Reeborg est fâché.  Il ne pleut <b>pas</b>; il ne neige <b>pas</b>; mais Reeborg ne peut <b>pas</b> aller
+jouer dehors et s’entraîner pour la course aux haies.  Il doit attendre que vous appreniez la négation
+en Javascript.</p>
+<h2>C'est le temps d'être négatif</h2>
+<p>Javascript, comme plusieurs autres langages de programmation,
+    utilise le symbole <code>!</code> pour représenter la négation.
+    Au lieu d'apparaître à la fin d'une phrase, ce point d'exclamation apparaît avant un objet ayant
+    un sens booléen (vrai ou faux) et en reverse le sens.  Ainsi <code>!true</code>
+veut dire <code>false</code>, et <code>!false</code> signifie <code>true</code>.</p>
+<h2>SVP, faites plaisir à Reeborg</h2>
+<p>Vous avez déjà écrit un programme permettant à Reeborg de prendre part à une course
+    aux haies.  Une partie de votre programme se lisait comme suit:</p>
 <pre class="jscode">
-function run_jump_or_finish () {
-    if ( at_goal() ){
-        // something
-    } else if ( front_is_clear() ){
-        // something
+function avance_et_saute_jusqu_au_but () {
+    if ( au_but() ) {
+        // instruction ...
+    } else if ( rien_devant() ) {
+        // instruction ...
     } else {
-        // something
+        // instruction ...
     }
 }</pre>
 
-<p>Make Reeborg happy by re-writing this program in three other versions, by choosing different
-combinations of the negation symbol <code>!</code> <b>and</b> different combinations of <code>if/else</code>.
-You will have to pay close attention to where the negation symbol occur <b>and</b> to what is actually
-included in each code block.
+<p>Vous pouvez rendre Reeborg heureux en écrivant trois versions différentes de ce
+    programme démontrant différents choix d'utilisation du symbole de négation <code>!</code>
+    ainsi que différentes combinaisons <code>if/else</code>.
 </p>
 
 <pre class="jscode">
-// first choice:
+// premier choix:
 
-function run_jump_or_finish () {
-    if ( at_goal() ){
-        // something
-    } else if ( !front_is_clear() ){
-        // something
+function avance_et_saute_jusqu_au_but () {
+    if ( au_but() ){
+        // instruction ...
+    } else if ( !rien_devant() ){
+        // instruction ...
     } else {
-        // something
+        // instruction ...
     }
 }
 
-// second choice ... trickier
+// deuxième choix ... plus difficile
 
-function run_jump_or_finish () {
-    if ( !at_goal() ){
-        if ( front_is_clear() ){
-            // something
+function avance_et_saute_jusqu_au_but () {
+    if ( !au_but() ){
+        if ( rien_devant() ){
+            // instruction ...
         } else {
-            // something
+            // instruction ...
         }
     } else {
-        // something
+        // instruction ...
     }
 }
 
-// third choice:
+// troisième choix
 
 
-function run_jump_or_finish () {
-    if ( !at_goal() ){
-        if ( !front_is_clear() ){
-            // something
+function avance_et_saute_jusqu_au_but () {
+    if ( !au_but() ){
+        if ( !rien_devant() ){
+            // instruction ...
         } else {
-            // something
+            // instruction ...
         }
     } else {
-        // something
+        // instruction ...
     }
 }
 </pre>
