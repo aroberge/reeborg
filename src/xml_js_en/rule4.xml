@@ -26,7 +26,7 @@ while ( !front_is_clear() ) {
 move();
 
 /* We know we will have gone around the world
-when we come back to the place we put the beeper
+when we come back to the place we put the token
 down. */
 
 while ( !token_here() ){
@@ -86,10 +86,7 @@ while ( !found_starting_point() ){
 }
 </pre>
 
-<p>Isn't this clearer? Now, suppose that each corner has a beeper on it at
-the start. We could then choose to mark the starting point by <i>removing</i>
-a beeper. We would need to make some small changes in the definitions, but
-the solution as such would not need to be changed.</p>
+<p>Isn't this much clearer? </p>
 <p><b>Note: you might want to make a copy of <code>follow_right_wall()</code>
 in your library so that you can use it if you need it again.</b></p>
 
