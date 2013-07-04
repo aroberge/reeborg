@@ -3,66 +3,68 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('recursion4')">Suivant</a>
 </nav>
-<h1>More recursion</h1>
-<p>The last program we considered was the following:</p>
+<h1>Encore de la récursivité</h1>
+<p>Le dernier programme que nous avons vu était le suivant:</p>
 
-<pre class="jscode">function go_home(){
+<pre class="jscode">function va_au_but(){
     avance();
     if (!au_but()) {
-        go_home();
+        va_au_but();
     }
     tourne_à_gauche();
 }
 
-// now do it!
-go_home();</pre>
-<p>By now, you probably have figured out how it works; at the very least, you should
-have tried to run it!   Let's analyze it assuming we run it in world <span class="world">Home&nbsp;1</span>.
-As usual, we consider the single instruction</p>
-<pre class="jscode">go_home();</pre>
-<p>which gets replace by the body of the function definition</p>
+// définition complétée; on y va!
+va_au_but();</pre>
+
+<p>Vous avez fort probablement compris comment il fonctionne.  Néanmoins, analysons-le en supposant
+    que Reeborg est dans le monde <span class="world">Maison&nbsp;1</span>.
+Comme toujours, nous commençons avec la première invocation</p>
+<pre class="jscode">va_au_but();</pre>
+<p>que nous remplaçons par le corps de la fonction telle que définie </p>
 <pre class="jscode">avance();
 if (!au_but()) {
-    go_home();
+    va_au_but();
 }
 tourne_à_gauche();</pre>
-<p>After the first <code>avance()</code>, Reeborg has not reached its goal yet so that the
-<code>if</code> statement block is executed</p>
+<p>Après l'instruction <code>avance()</code>, Reeborg n'a pas atteint son but et le bloc <code>if</code>
+est exécuté</p>
 <pre class="jscode">avance();
-    go_home();
+    va_au_but();
 tourne_à_gauche();</pre>
-<p>Once again, we replace <code>go_home()</code> by its definition</p>
+<p>Une fois de plus, on remplace <code>va_au_but();</code> par sa définition</p>
 <pre class="jscode">avance();
     avance();
     if (!au_but()) {
-        go_home();
+        va_au_but();
     }
     tourne_à_gauche();
 tourne_à_gauche();</pre>
-<p>After the second <code>avance()</code> instruction, Reeborg has reached its goal and
-the <code>if</code> statement block is not executed</p>
+<p>Après la deuxième invocation de l'instruction <code>avance()</code>,
+Reeborg a atteint son but et le bloc <code>if</code> n'est <b>pas</b> exécuté.
+</p>
 <pre class="jscode">avance();
     avance();
     tourne_à_gauche();
 tourne_à_gauche();</pre>
-<p>Thus, after reaching its goal, Reeborg does two left turns (a celebratory dance perhaps?)
-before ending its program.</p>
-<h2>Another test</h2>
-<p>Using again the same world, can you figure out what would be Reeborg's final orientation
-if he executes the following program?</p>
-<pre class="jscode">function go_home(){
+<p>Donc, après avoir atteint son but, Reeborg tourne deux fois à gauche
+    (une petite danse pour célébrer peut-être?) avant de terminer le programme.</p>
+<h2>Un autre test</h2>
+<p>Sans changer de monde, pouvez-vous prédire l'orientation finale de Reeborg s'il
+    exécute le programme suivant?</p>
+<pre class="jscode">function va_au_but() {
     avance();
     if (!au_but()) {
-        go_home();
+        va_au_but();
         tourne_à_gauche();
     }
     tourne_à_gauche();
 }
 
-// now do it!
-go_home();</pre>
-<p>Try to figure it out before running it and then check your understanding by
-seeing Reeborg in action.</p>
+// définition complétée; on y va!
+va_au_but();</pre>
+<p>Essayez de prédire par vous-mêmes <b>avant</b> de demander à Reeborg
+d'exécuter ce programme.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('recursion2')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('recursion4')">Suivant</a>
