@@ -4,8 +4,7 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('recursion3')">Next</a>
 </nav>
 <h1>Tricky recursion</h1>
-<p>So, you understand the recursion example we just saw.  Let me write it
-    again here.</p>
+<p>Before considering a slightly more complex example, let's review the preceding example. </p>
 <pre class="jscode">function go_home(){
     move();
     if (!at_goal()) {

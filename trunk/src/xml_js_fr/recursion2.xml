@@ -3,65 +3,68 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('recursion3')">Suivant</a>
 </nav>
-<h1>Tricky recursion</h1>
-<p>So, you understand the recursion example we just saw.  Let me write it
-    again here.</p>
-<pre class="jscode">function go_home(){
+<h1>Récursivité plus compliquée</h1>
+<p>Avant d'aborder un exemple un peu plus compliqué, revoyons l'exemple précédent et
+    écrivons-le à nouveau. </p>
+<pre class="jscode">function va_au_but(){
     avance();
     if (!au_but()) {
-        go_home();
+        va_au_but();
     }
 }
 
-// now do it!
-go_home();</pre>
-<p>Now, remember how I explained that when a function is called, we can think of it
-as replacing the function call by the body of that function.  By this, I mean that
-this instruction:</p>
-<pre class="jscode">go_home();</pre>
-is equivalent to
+// définition complétée; on y va!
+va_au_but();</pre>
+<p>Si vous vous rappelez, j'ai expliqué que lorsqu'on invoque une fonction, ceci est équivalent
+    à insérer sur place le corps de la fonction. Donc, l'invocation:</p>
+<pre class="jscode">va_au_but();</pre>
+<p>est équivalente à</p>
 <pre class="jscode">avance();
 if (!au_but()) {
-    go_home();
+    va_au_but();
 }</pre>
-<p>Let's assume that the first time we excute these instructions, <code>au_but</code> is
-<code>false</code> and hence <code>!au_but()</code> is <code>true</code> ... like it
-was for world <span class="world">Home&nbsp;1</span>.  In this case, the above
-call to <code>go_home()</code> is also executed, and the above code is equivalent to:</p>
+<p>Supposons que la première fois qu'on exécute ces instructions, <code>au_but()</code>
+soit faux (<code>false</code>) et donc <code>!au_but()</code> soit vrai (<code>true</code>)
+... comme c'est le cas pour le monde
+ <span class="world">Maison&nbsp;1</span>.  Dans ce cas, l'invocation
+ <code>va_au_but()</code> est exécutée une deuxième fois et le code ci-dessus est donc équivalent
+ à </p>
 <pre class="jscode">avance();
-    go_home();</pre>
-<p>We can now replace the call to <code>go_home()</code> by its definition</p>
+    va_au_but();</pre>
+<p>On peut à nouveau remplacer l'invocation <code>va_au_but()</code> par sa définition</p>
 
 <pre class="jscode">avance();
     avance();
     if (!au_but()) {
-        go_home();
+        va_au_but();
     }</pre>
-<p>and could, in theory, keep going like this forever, always replacing the
-call to <code>go_home()</code> by its definition.</p>
-<p>However, we don't want that as we want things to end eventually ... which they
-do fortunately for world <span class="world">Home&nbsp;1</span>.  In that case
-after the second <code>avance()</code>, we were <code>au_but()</code> and
-<code>go_home()</code>was not called, which was equivalent to:</p>
+<p> et on pourrait, en théorie, continuer à faire éternellement des remplacements de la fonction par
+    sa définition <b>si la condition restait toujours la même</b>.
+</p>
+<p>Heureusement, ce n'est pas le cas pour le monde <span class="world">Maison&nbsp;1</span>.
+Dans ce cas, après la deuxième invocation d'<code>avance()</code>,
+nous sommes <code>au_but()</code> et
+<code>va_au_but()</code> n'est pas invoqué une troisième fois.  Le résultat est donc
+équivalent à :</p>
 <pre class="jscode">avance();
     avance();</pre>
 
-<p><b>It is really important that you understand the above explanation before going any further.</b>
-So, make sure to read it again if necessary as we are going to consider a slightly trickier example.</p>
+<p><b>Assurez-vous de bien comprendre l'explication ci-dessus avant d'aller plus loinn. </p>
 
-<h2>Small change...</h2>
-<p>Consider the program below</p>
-<pre class="jscode">function go_home(){
+<h2>Petit changement...</h2>
+<p>Considérez le programme suivant</p>
+<pre class="jscode">function va_au_but(){
     avance();
     if (!au_but()) {
-        go_home();
+        va_au_but();
     }
     tourne_à_gauche();
 }
 
-// now do it!
-go_home();</pre>
-<p>Try to figure out what it does before trying to have Reeborg execute it.  An explanation
-follows in the next lesson.</p>
+// définition complétée; on y va!
+va_au_but();</pre>
+<p>Essayez de prédire ce que Reeborg fera avant d'exécuter le programme.  Une explication
+    vous sera fournie à la prochaine leçon.
+</p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('recursion')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('recursion3')">Suivant</a>
