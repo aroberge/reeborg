@@ -5,7 +5,7 @@
 </nav>
 <h1>Refinements: part 4</h1>
 <p>As you most likely found out, we were too hasty in asking Reeborg to move
-forward after putting down a beeper. We need to check if there is a wall
+forward after putting down a token. We need to check if there is a wall
 preventing him from moving first. Here's a solution to the problem.</p>
 <pre class="jscode">
 put("token");

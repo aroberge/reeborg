@@ -4,9 +4,10 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('refine4')">Suivant</a>
 </nav>
 <h1>Améliorations: partie 3</h1>
-<p>As you should have noticed the program doesn't work. What happens is that
-Reeborg gets in an infinite loop when there is no wall around him. We need to
-have him <code>avance()</code> after turning right, as indicated below:</p>
+<p>Comme vous l'avez sans doute observé, le programme précédent ne fonctionne
+    pas correctement: Reeborg se retrouve dans une boucle infinie lorsqu'il n'y a pas de mur
+    près de lui.  Pour résoudre le problème, il faut que Reeborg <code>avance()</code>
+    aussitôt après avoir fait un virage à droite. </p>
 <pre class="jscode">
 dépose("jeton");
 avance();
@@ -20,9 +21,11 @@ while ( !jeton_ici() ){
         tourne_à_gauche();
     }
 }</pre>
-<h2>More complicated world</h2>
-<p>Now, consider <span class="world">Around&nbsp;3</span>; will our program work?</p>
-<p>As you probably guessed, unfortunately the answer is no.
-Try to figure out why before reading any further.</p>
+<h2>Encore plus complexe...</h2>
+<p>Sélectionnez <span class="world">Autour&nbsp;3</span>; est-ce que le programme fonctionne?</p>
+<p>Comme vous l'avez sans doute deviné, la réponse est malheureusement non.  Essayez de déterminer
+    pourquoi et possiblement de trouver la solution de vous-même avant de passer à la leçon suivante.
+    Assurez-vous de faire en sorte que votre programme fonctionne pour les trois mondes.
+    </p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('refine2')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('refine4')">Suivant</a>
