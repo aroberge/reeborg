@@ -93,15 +93,15 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('surprises')">Surprises!</a></li>
 
 
-<h2>Revisiting some challenges</h2>
+<h2>Retour aux missions</h2>
 
 
-<li><a href="Javascript:void(0);" onClick="load_page('challenges2')">Re-introduction to some challenges</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('harvest2')">Harvest time</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('storm2')">Stormy weather</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('center2')">Finding the center</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('challenges2')">Revue de quelques missions</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('harvest2')">Le temps des récoltes</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('storm2')">Le mauvais temps</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('center2')">Trouver le centre</a></li>
 
-<h2>Recursion</h2>
+<h2>Récursion</h2>
 
 
 <li><a href="Javascript:void(0);" onClick="load_page('recursion')">Recursion</a></li>

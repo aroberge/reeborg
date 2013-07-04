@@ -3,15 +3,19 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('recursion')">Suivant</a>
 </nav>
-<h1>Finding the center</h1>
-<p>Have a look at the worlds <span class="world">Center&nbsp;1</span> to
-<span class="world">Center&nbsp;3</span>. Write a <b>single</b> program that has
-Reeborg put a token at the geometric center of the rectangular room he finds himself in.</p>
-<p>Hint: you may find it useful to have Reeborg, who carries more tokens than he might ever need,
-make a line with tokens at each location.  Then,
-by picking one token at one end, then at the other end, going back and forth until the last token
-is taken, the location of the center can be found.  When you know how to do this in one dimension
-(along a horizontal line), you can use that location as the starting point to find the location
-along the other location (a vertical line).</p>
+
+<h1>Trouver le centre</h1>
+<p>Examinez les mondes <span class="world">Centre&nbsp;1</span> à
+<span class="world">Centre&nbsp;3</span>.  En commençant avec le cas le plus simple,
+faites des améliorations progressives et écrivez
+un programme faisant en sorte que Reeborg dépose un jeton au centre géométrique
+de la pièce rectangulaire dans laquelle il se trouve, peu importe le monde choisis</p>
+<p><em>Suggestion:</em> Reeborg a des jetons plein les poches.  Ça pourrait être utile
+pour lui de <b>déposer</b> des jetons en premier le long d'une ligne.  Puis, en ramassant
+un jeton à un bout de la ligne, puis à l'autre bout, en alternance jusqu'à ce qu'il n'y ait
+plus qu'un seul jeton, Reeborg devrait pouvoir trouver le centre.  Lorsque vous savez
+faire ceci en une dimension (le long d'une ligne horizontale), vous pouvez utiliser cet
+endroit comme début d'une ligne verticale où vous pouvez répéter cet algorithme.</p>
+
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('storm2')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('recursion')">Suivant</a>
