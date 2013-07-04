@@ -5,14 +5,23 @@
 </nav>
 
 <h1>Surprises</h1>
-<p>Change the program we just wrote to remove the <code>put("token")</code>
-instruction.  Then try this slightly modified program
+<p>Change the program we just wrote so that </p>
+<pre class="jscode">mark_starting_point_and_move();
+
+while ( !found_starting_point() ){
+    follow_right_wall();
+}</pre>
+<p>becomes</p>
+<pre class="jscode">
+while ( !at_goal() ){
+    follow_right_wall();
+}</pre>
+<p>and run this program
 with the following hurdle races <span class="world">Hurdles&nbsp;1</span>,
 <span class="world">Hurdles&nbsp;2</span> and <span class="world">Hurdles&nbsp;3</span>.
 You will find that this program, which is quite different than the ones you had
 written before to solve the hurdles challenges, works just as well.
-<b>Note:</b> you will need to change
-<code>found_starting_point</code> by something appropriate.</p>
+</p>
 
 <p>Now, try it with <span class="world">Hurdles&nbsp;4</span>. Surprise! It
 works whereas the previous program did not!</p>

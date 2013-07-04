@@ -4,24 +4,35 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('challenges2')">Suivant</a>
 </nav>
 
-<h1>Surprises</h1>
-<p>Change the program we just wrote to remove the <code>dépose("jeton")</code>
-instruction.  Then try this slightly modified program
-with the following hurdle races <span class="world">Hurdles&nbsp;1</span>,
-<span class="world">Hurdles&nbsp;2</span> and <span class="world">Hurdles&nbsp;3</span>.
-You will find that this program, which is quite different than the ones you had
-written before to solve the hurdles challenges, works just as well.
-<b>Note:</b> you will need to change
-<code>found_starting_point</code> by something appropriate.</p>
+<h1>Surprises!</h1>
+<p>Changez le programme que nous venons tout juste d'écrire de telle sorte que </p>
+<pre class="jscode">marque_point_départ_et_avance();
 
-<p>Now, try it with <span class="world">Hurdles&nbsp;4</span>. Surprise! It
-works whereas the previous program did not!</p>
+while ( !trouve_point_départ() ){
+    suis_le_mur_à_droite();
+}</pre>
+<p>soit remplacé par</p>
+<pre class="jscode">
+while ( !au_but() ){
+    suis_le_mur_à_droite();
+}</pre>
+<p>et exécutez ce programme modifié avec les course de haies
+ <span class="world">Haies&nbsp;1</span>,
+<span class="world">Haies&nbsp;2</span> et <span class="world">Haies&nbsp;3</span>.
+Vous verrez que ce programme, qui est très différent des solutions que vous aviez
+avant pour ces courses, fonctionne tout aussi bien.
+</p>
 
-<p>Try the same modified program again with either <span class="world">Maze&nbsp;1</span>
-or <span class="world">Maze&nbsp;2</span>.</p>
+<p>Essayez avec <span class="world">Haies&nbsp;4</span>. Surprise! Ça fonctionne
+alors que nos programmes précédents ne pouvaient pas permettre à Reeborg de compléter
+cette course.</p>
 
-<p>As you will see, this simple program can find the exit to this maze!</p>
-<p>Amazing!</p>
+<p>Essayez également le programme modifié avec soit  <span class="world">Labyrinthe&nbsp;1</span>
+ou <span class="world">Labyrinthe&nbsp;2</span>.</p>
+
+<p>Comme vous pourrez le constater, ce simple programme permet de trouver la sortie du
+    labyrinthe.</p>
+<p>Étonnant, non?!</p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('rule4')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('challenges2')">Suivant</a>
 

@@ -3,16 +3,18 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('harvest2')">Suivant</a>
 </nav>
-<h1>Re-introduction to some challenges</h1>
-<p>It is time to solve some of the challenges introduced early on.</p>
-<p>Using <code>while</code>, <code>if</code>, <code>else</code>, etc., you will write programs that
-will be able to accomplish various tasks.  In writing these programs, you should keep the following
-in mind:</p>
-<ol><li>Remember rule #2 and choose names that are descriptive for the problems you are attempting to solve</li>
-<li>Follow the principles given in rule #4: start by solving simpler problems first and generalize your
-solution so that it can be applied to more than one problem</li>
-<li>Remember rule #3: avoid repeating code as much as possible. </li></ol>
-<p>Now, remember rule #1 ... and make sure that, this time, you solve <b>all</b> the challenges described
-in the next few lessons.</p>
+<h1>Revue de quelques missions</h1>
+<p>C'est le temps de revoir certaines des missions que nous avions vu beaucoup plus tôt.</p>
+<p>En utilisant <code>while</code>, <code>if</code>, <code>else</code>, etc., vous êtes maintenant
+en mesure d'écrire des programmes qui permettront à Reeborg d'accomplir les tâches qui lui sont confiées.
+Cependant, gardez ce qui suit en tête: </p>
+<ol><li>Souvenez-vous de la règle numéro 2 et assurez-vous de choisir des noms descriptifs pour les
+    problèmes à résoudre.</li>
+<li>Suivez les principes décrits dans la règle numéro 4: commencez par résoudre des problèmes simples
+    en premier, puis améliorez votre solution pour être en mesure de résoudre plus d'un problème.
+</li>
+<li>Souvenez-vous de la règle numéro 3: évitez autant que possible les répétitions de code.</li></ol>
+<p>Finalement, n'oubliez pas la règle numéro 1 ... et assurez-vous cette fois-ci de
+    résoudre <b>tous</b> les tâches décrites dans les leçons suivantes. </p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('surprises')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('harvest2')">Suivant</a>

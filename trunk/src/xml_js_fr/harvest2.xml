@@ -3,39 +3,41 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('storm2')">Suivant</a>
 </nav>
-<h1>Before harvesting</h1>
-<p>Select world <span class="world">Harvest&nbsp;4</span> which occurred shortly after the garden
-was seeded.  Some carrot seeds sprouted well, others yielded two or three plants while some
-did not sprout at all.  Help Reeborg weed out the excess seedlings, and plant some new seeds
-at locations where some were missing.  Here is a suggestion for some vocabulary to use:</p>
+<h1>Avant les récoltes</h1>
+<p>Sélectionnez le monde <span class="world">Récolte&nbsp;4</span> qui représente l'état du jardin
+peu de temps après les semences.  Certaines graines de carottes ont bien germé, d'autres ont germé
+trop rapprochées les unes des autres, alors que certaines n'ont pas germées du tout.  Aidez Reeborg
+à enlever les carottes en excès et à semer à nouveau lorsque c'est requis de telle sorte qu'il
+n'y ait qu'une seule carotte par endroit.  Dans ce monde, les carottes sont représentées par
+des jetons, ce qui suggère d'adopter le vocabulaire suivant:
+</p>
 <pre class="jscode">
-var carrot_here = jeton_ici;
-var plant_carrot_seed = put_token;
-var remove_seedling = take_token;
+var carotte_ici = jeton_ici;
+var sème_carotte = dépose;
+var enlève_carotte = prend;
 
-function ensure_one_carrot_at_spot():
+function une_seule_carotte():
   ...
 </pre>
-<p>Do it!</p>
+<p>Faites le!</p>
 
-<h2>Ready to harvest</h2>
-<p>The weeding went well (I hope!), the growing season is over and it is time to harvest.  Select world
-    <span class="world">Harvest&nbsp;1</span> or <span class="world">Harvest&nbsp;2</span> and have Reeborg collect all the tokens which represent
-plants to harvest.</p>
-<p>Notice how one can view the world <span class="world">Harvest&nbsp;1</span> as having horizontal
-(or vertical) rows having the same length, while
-world <span class="world">Harvest&nbsp;2</span> can be seen as having diagonal rows having the same length.</p>
-<p>One possible approach is to define a function <code>harvest_one_row</code> and a second one called
-<code>harvest_two_rows</code> as well as <code>move_to_first_row</code>.  Using these, can write a general solution.  Note that these individual functions may have to be different
-in different worlds.</p>
-<p>With suitable function definitions, the programs for both world <span class="world">Harvest&nbsp;1</span>
-and <span class="world">Harvest&nbsp;2</span> can be written as</p>
+<h2>Prêt pour la récolte</h2>
+<p>L'aménagement des semences s'est bien passé, et c'est le temps des récoltes.
+    Sélectionnez le monde
+    <span class="world">Récolte&nbsp;1</span> ou <span class="world">Récolte&nbsp;2</span> et faites
+    en sorte que Reeborg ramasse tous les jetons qui représentent des plantes à récolter.</p>
+<p>On peut voir que le monde <span class="world">Récolte&nbsp;1</span> a des rangs horizontaux (ou verticaux)
+de la même longueur alors que le monde  <span class="world">Récolte&nbsp;2</span> peut être perçu comme ayant
+des rangs diagonaux de la même longueur. </p>
+<p>Une approche possible aux problèmes des récoltes est de définir trois fonctions,  <code>récolte_un_rang</code>
+et <code>récolte_deux_rangs</code> et <code>avance_au_premier_rang</code>; les définitions exactes de
+ces fonctions vont dépendre du monde sélectionné. </p>
+<p>Une fois ces fonctions définies, la solution du problème devient identique pour les deux mondes: </p>
 <pre class="jscode">
-move_to_first_row();
-repeat(harvest_two_rows, 3);
+avance_au_premier_rang();
+répète(récolte_deux_rangs, 3);
 </pre>
-<p>
-Note however that you may choose a different way to solve the problems than that which is described above.</p>
+<p>Cela dit, vous pouvez choisir une approche différente de celle qui est suggérée ci-dessus.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('challenges2')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('storm2')">Suivant</a>
