@@ -32,7 +32,8 @@ having Reeborg execute the following program.</p>
 
 interrupted_two_steps();</pre>
 
-<p>You will get a warning <em>Unreachable 'move' after 'return'</em> and see that
+<p>Since jshint is used in Reeborg's world to check the code prior to execution,
+    you will get a warning <em>Unreachable 'move' after 'return'</em> and see that
 Reeborg only takes one step.  Let's get rid of the warning by "hiding"
 the <code>return</code> keyword inside an <code>if</code> block.</p>
 
@@ -63,7 +64,8 @@ while (!north()) {
 result as <code>is_facing_north()</code>; that is the effect of the <code>return</code>
 statement.  We can use this to have Reeborg be able to identify orientations
 other than North.  First, note that if Reeborg turns left 4 times, he will be back
-to its initial orientation.  Now, suppose we would like to know if Reeborg was facing
+to its initial orientation; we do want Reeborg to end the test in the same orientation
+as that which he had at the start.  Now, suppose we would like to know if Reeborg was facing
 South.  We could ask Reeborg to turn left twice, note if his orientation is North
 (which it should be if he was facing South) or not, turn left twice more, to go back
 to its original orientation, and tell us what he remembered using the <code>return</code>
@@ -112,7 +114,8 @@ instructions first.</p>
 </pre>
 <p>In this case, the call to <code>some_function()</code> on the last line gets
 replaced by the value of <code>something</code> which is what follows the
-<code>return</code> keyword.</p>
+<code>return</code> keyword.  If nothing follows <code>return</code> the result is
+<code>undefined</code>.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('recursion5')">Previous</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('return2')">Next</a>

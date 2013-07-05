@@ -111,11 +111,11 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('recursion5')">Défis récursifs</a></li>
 
 
-<h2>More Javascript keywords</h2>
+<h2>D'autres mots-clés Javascript</h2>
 
 
-<li><a href="Javascript:void(0);" onClick="load_page('return')">Return</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('return2')">More returns</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('return')">return</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('return2')">D'autres "return"</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('harvest3')">More harvesting challenges</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('diary')">Reeborg's diary</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('increment')">Increment</a></li>
