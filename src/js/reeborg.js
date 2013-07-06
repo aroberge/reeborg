@@ -901,7 +901,7 @@ RUR.visible_world = {
             ctx = this.wall_ctx;
         }
         ctx.strokeStyle = "black";
-        if (shape === RUR.translation["square"]) {
+        if (shape === "square") {
             ctx.fillStyle = "blue";
             if(goal !== undefined){
                 ctx.beginPath();
@@ -910,7 +910,7 @@ RUR.visible_world = {
             } else {
                 ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
             }
-        } else if (shape === RUR.translation["triangle"]) { // triangle
+        } else if (shape === "triangle") { // triangle
             ctx.fillStyle = "green";
             ctx.beginPath();
             ctx.moveTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);

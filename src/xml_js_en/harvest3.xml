@@ -7,8 +7,8 @@
 <p>Reeborg's aunt is a fruit farmer.  In her fields, many types of fruits can be found.
     On a given day, only a certain kind of fruit needs to be harvested.  Have a look at worlds
     <span class="world">Harvest&nbsp;5a</span>, <span class="world">Harvest&nbsp;5b</span>,
-    <span class="world">Harvest&nbsp;5c</span> and <span class="world">Harvest&nbsp;5d</span>
-    which shows these worlds. As he enters the field, Reeborg sees the type of fruit that
+    <span class="world">Harvest&nbsp;5c</span> and <span class="world">Harvest&nbsp;5d</span>.
+    As he enters the field, Reeborg sees the type of fruit that
     needs to be harvested as his aunt put a sample there.
     He picks it up and proceed to harvest all fruits of the similar type.
 </p>
@@ -19,10 +19,11 @@ that returns either <code>true</code> or <code>false</code> depending on whether
 a token is found at a given location.  Using these, you can complete the following outline
 of a solution that will work for each of these four worlds.</p>
 <pre class="jscode">var selection;
-think(0);  // so it does not take too long...
+think(0);  // optional; so it does not take too long...
 
 function harvest (fruit) {
-  // decide what to take ...
+  // decide what to take
+  ...
 }
 
 function harvest_one_row (fruit) {
