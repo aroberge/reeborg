@@ -110,13 +110,13 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('while_num')">Reeborg compte</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('for')">Boucles <code>for</code></a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('better_repeat')">Un meilleur <b>répète()</b></a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('other_repeat')">An other way to repeat</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('more')">More Javascript</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('other_repeat')">Une autre façon de répéter</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('more')">Encore plus de Javascript</a></li>
 
-<h2>Object Oriented Programming (OOP)</h2>
+<h2>Programmation Orientée Objet (POO)</h2>
 
-<li><a href="Javascript:void(0);" onClick="load_page('oop')">The dot notation</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('new')">A Used Robot gets his name</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('oop')">La notation "point"</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('new')">Un robot usagé est nommé</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('many')">Many robots</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('tourne_à_droite')">Many right turns</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('prototype')">Prototype this</a></li>
@@ -128,8 +128,8 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('array2')">Many robots ... again</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('remainder')">Remainder operator</a></li>
 
-
 <h2>Game time!</h2>
+
 <p>We'll leave Reeborg's world for a few lessons and create two simple games.</p>
 <li><a href="Javascript:void(0);" onClick="load_page('random')">Random math stuff</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('popup')">Communicating with the user</a></li>

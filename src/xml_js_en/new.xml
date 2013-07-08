@@ -7,7 +7,7 @@
 <h1>A Used Robot gets his name</h1>
 
 
-<p>So far, all the programs we wrote instructing Reeborg to accomplish tasks have been written without using the dot notation. Let's start with a simple example.</p>
+<p>So far, all the programs we wrote instructing Reeborg to accomplish tasks have been written without using the dot notation. Let's change this, starting with a simple example.</p>
 
 <p>First, we start by selecting the world <span class="world">Empty</span> which has no robot in it.</p>
 
