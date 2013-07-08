@@ -4,53 +4,58 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('better_repeat')">Suivant</a>
 </nav>
 
-<h1>For loops</h1>
-<p>As we have seen, <code>while</code> loops can be used with numbers using the following
-pattern:</p>
-<pre class="jscode">var n = initial_value;  // initialisation
-while (n < max_value) {  // condition to end the loop
+<h1>Boucles <code>for</code></h1>
+<p>Comme nous l'avons vu, les boucles <code>while</code> peuvent être utilisées avec des
+nombres suivant le patron:
+</p>
+<pre class="jscode">var n = valeur_initiale;  // initialisation
+while (n < valeur_maximale) {  // condition pour terminer
     ...
-    n++;  // increment
+    n++;  // incrément
 }</pre>
-<p>Another way to write <em><b>exactly the same program meaning</b></em> is to use a
-<code>for</code> loop:</p>
-<pre class="jscode">for ( var n = initial_value; n < max_value; n++ ) {
+<p>Une autre façon d'écrire un bout de programme ayant <em><b>exactement le même sens</b></em>
+est d'utilisé une boucle <code>for</code>:</p>
+<pre class="jscode">for ( var n = valeur_initiale; n < valeur_maximale; n++ ) {
     ...
 }</pre>
-<p>Thus, instead of having the variable initialisation, the condition test for ending
-the loop and the increment steps on three different lines, they appear on the same line:</p>
-<pre class="jscode">for (initialisation; condition; increment) {...}</pre>
-<p>However, <code>for</code> loops and <code>while</code> loops are completely equivalent.
-Deciding which type of loop to choose is usually done based on how much easier it makes it
-to read and understand a program: for programs that use numerical values that are incremented
-each steps until a specific value is reached, <code>for</code> loops are often preferred
-because the three steps (initialisation, condition, increment) can be seen at a glance.
-Note that any one (or more) of these three steps can be omitted in a <code>for</code> loop.
-For example, one could write</p>
-<pre class="jscode">for ( ; !rien_devant(); ) {...}</pre>
-<p>instead of</p>
-<pre class="jscode">while ( !rien_devant() ) {...}</pre>
-<p>However, in this case, the <code>while</code> loop syntax is considered by most people
-to be easier to read.</p>
-<p>Using the <code>for</code> loop syntax, we can have a different definition for a
-<code>repeat</code>-like function:</p>
-<pre class="jscode">function my_repeat(some_function, max_value){
-    for(var n = 0; n < max_value; n++) {
-        some_function();
+<p>Ainsi, au lieu d'avoir l'initialisation d'une variable, la condition pour terminer la boucle
+    et l'incrémentation d'une variable faites sur trois lignes différentes, elles
+    apparaissent sur la même ligne::</p>
+<pre class="jscode">for (initialisation; condition; incrément) {...}</pre>
+<p>Les boucles <code>for</code> et <code>while</code> sont complètement équivalentes.
+La décision de choisir l'une plutôt que l'autre est souvent décidée sur la base
+de la lisibilité du code: pour des programmes qui utilisent des valeurs numériques
+incrémentées à chaque passage de la boucle jusqu'à ce qu'une valeur maximale connue soit
+atteinte, les boucles <code>for</code> sont souvent préférées parce que les trois étapes
+(initialisation, condition, incrément) peuvent être perçues en même temps.  Notez que
+l'une ou plusieurs (même les trois) de ces trois étapes peuvent être omises dans une
+boucle <code>for</code>.  Par exemple, on pourrait écrire
+</p>
+<pre class="jscode">for ( ; rien_devant(); ) {...}</pre>
+<p>plutôt que</p>
+<pre class="jscode">while ( rien_devant() ) {...}</pre>
+<p>Cependant, dans ce dernier cas, l'utilisation d'une boucle <code>while</code> est considérée
+comme étant plus facile à lire.</p>
+<p>Si on utilise une boucle <code>for</code>, on peut avoir une définition différente
+pour une fonction comme <code>répète()</code>:</p>
+<pre class="jscode">function mon_répète(fonction_quelconque, valeur_maximale){
+    for(var n = 0; n < valeur_maximale; n++) {
+        fonction_quelconque();
     }
 }
 
-my_repeat(move, 9);
-my_repeat(turn_left, 4);</pre>
-<p><b>Try it</b> with world <span class="world">Around&nbsp;1</span>.</p>
-<h2>Reeborg's <code>repeat()</code></h2>
-<p>Open Reeborg's diary and have Reeborg execute the single line program:</p>
-<pre class="jscode">view_source( repeat );</pre>
-<p>to find out which definition Reeborg uses for the <code>repeat()</code> function.</p>
+mon_répète(avance, 9);
+mon_répète(tourne_à_gauche, 4);</pre>
+<p><b>Essayez</b> avec le monde <span class="world">Autour&nbsp;1</span>.</p>
+<h2>Le <code>répète()</code> de Reeborg</h2>
+<p>Ouvrez le journal de Reeborg et exécutez l'instruction suivante:</p>
+<pre class="jscode">voir_source( répète );</pre>
+<p>pour voir quelle définition Reeborg utilise pour la fonction <code>répète()</code>.
+</p>
 
-<p>Note that you could also use</p>
-<pre class="jscode">write( repeat );</pre>
-<p>but the code would not be as nicely formatted!</p>
+<p>Notez que vous pourriez aussi utiliser </p>
+<pre class="jscode">écrit( répète );</pre>
+<p>mais le code serait plus difficile à lire! </p>
 
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('while_num')">Précédent</a>
