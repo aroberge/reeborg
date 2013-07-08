@@ -4,12 +4,14 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('oop')">Suivant</a>
 </nav>
 
-<h1>More Javascript</h1>
-<p>In this section, we have seen a few more Javascript keywords as well as mathematical operations.
-There are many more mathematical operations in Javascript.  We suggest that you read through
-<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Expressions_and_Operators" target="_blank">Expressions
-and Operators</a> on the <a href="https://developer.mozilla.org/en-US/" target="_blank">Mozilla Developer Network</a> resources
-to find out more about the available operators before learning about Object Oriented Programming in
-the next section.</p>
+<h1>Encore plus de Javascript</h1>
+<p>Dans cette section, nous avons vu plusieurs mots-clés Javascript ainsi que certaines
+    oéprations mathématiques.  Il y a plusieurs autres opérations mathématiques possibles
+    en Javascript.  Nous vous suggérons de consulter
+<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Expressions_and_Operators" target="_blank">
+    Expressions and Operators</a> (pas disponible en français) sur le site
+    <a href="https://developer.mozilla.org/fr/" target="_blank">Mozilla Developer Network</a>
+    (partiellement traduit en français) avant de passer à la prochaine section sur la Programmation
+    Orientée Objet.</p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('other_repeat')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('oop')">Suivant</a>
