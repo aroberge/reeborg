@@ -13,13 +13,13 @@
 (or <em>frames</em>) in rapid succession.  The makers of Reeborg's world have adopted this
 strategy to make Reeborg move in his world.  Let's modify our definition of <code>teleport</code>
 by adding this instruction. </p>
-<pre class="jscode">UsedRobot.prototype.teleport = function (x, y) {
+<pre class="jscode">RobotUsagé.prototype.teleport = function (x, y) {
     this.x = x;
     this.y = y;
     RUR.world.add_frame();
 };
 
-var Reeborg = new UsedRobot();
+var Reeborg = new RobotUsagé();
 Reeborg.teleport(3, 3);
 Reeborg.teleport(4, 8);
 </pre>
@@ -35,9 +35,9 @@ hand at those puzzles on your own first, before moving to the next lesson.</p>
 <h2>Before moving on ...</h2>
 <p>You have just defined a new method: <code>teleport</code>.
 Execute the program</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
+<pre class="jscode">var Reeborg = new RobotUsagé();
 view_source(Reeborg.teleport);
-delete UsedRobot.prototype.teleport;
+delete RobotUsagé.prototype.teleport;
 view_source(Reeborg.teleport);</pre>
 <p> and note how <code>teleport</code> first appears as a known method and then,
 after we <code>delete</code> it, it no longer is defined.  We can use the

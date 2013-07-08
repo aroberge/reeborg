@@ -100,7 +100,7 @@ a property of the remainder operator when dealing with negative numbers.</p>
 <h2>When you are done ...</h2>
 <p>Execute the following program, examine the result in Reeborg's Diary and
     see if the code generally makes sense to you:</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
+<pre class="jscode">var Reeborg = new RobotUsagé();
 view_source(Reeborg.turn_left);
 view_source(Reeborg.__tourne_à_droite);</pre>
 

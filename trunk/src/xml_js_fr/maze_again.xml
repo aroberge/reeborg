@@ -10,7 +10,7 @@ require the robot to do three left turns.</p>
 <p>Your program should implement both a <code>follow_the_right_wall</code> function or method,
 like the original solution we derived, as well as a <code>follow_the_left_wall</code> function
 or method.</p>
-<p>The mazes already contain a <code>UsedRobot</code>.
+<p>The mazes already contain a <code>RobotUsagé</code>.
 You should start by obtaining the <code>y</code> coordinate/attribute of that existing robot
 before removing it and replacing it by an <code>ImprovedRobot</code> (or whatever name you choose)
 at that same location. Also based on the location of that robot, you should decide if the robot

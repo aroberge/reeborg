@@ -11,13 +11,13 @@ different way that works on individual instances.</p>
 <p>Suppose we want to define a method that makes robots take two steps;
 let's call it <code>move2</code>.  Using what we have seen before, we
 can write the following:</p>
-<pre class="jscode">var robot1 = new UsedRobot(1, 2);
-UsedRobot.prototype.move2 = function () {
+<pre class="jscode">var robot1 = new RobotUsagé(1, 2);
+RobotUsagé.prototype.move2 = function () {
     this.avance();
     this.avance();
 };
 
-var robot2 = new UsedRobot(1, 3);
+var robot2 = new RobotUsagé(1, 3);
 
 robot1.move2();
 robot2.move2();</pre>
@@ -29,8 +29,8 @@ that are created after the prototype is modified.</p>
 <p>Instead of modifying the prototype, we can add a method to an <em>instance</em>.
 For example, we will add two different methods <em>with the same name</em> to two
 different robot instances:</p>
-<pre class="jscode">var robot1 = new UsedRobot(1, 2);
-var robot2 = new UsedRobot(1, 3);
+<pre class="jscode">var robot1 = new RobotUsagé(1, 2);
+var robot2 = new RobotUsagé(1, 3);
 
 robot1.move2 = function () {
     this.is_leaky(false);
@@ -50,8 +50,8 @@ robot2.move2();
 <p>This even works if we change the prototype; instance specific
 changes take precedence:</p>
 
-<pre class="jscode">var robot1 = new UsedRobot(1, 2);
-var robot2 = new UsedRobot(1, 3);
+<pre class="jscode">var robot1 = new RobotUsagé(1, 2);
+var robot2 = new RobotUsagé(1, 3);
 
 robot1.move2 = function () {
     this.is_leaky(false);
@@ -59,7 +59,7 @@ robot1.move2 = function () {
     this.avance();
 };
 
-UsedRobot.prototype.move2 = function () {
+RobotUsagé.prototype.move2 = function () {
     this.avance();
     this.avance();
 };
@@ -76,7 +76,7 @@ robot2.move2();
 <p>is executed, Javascript first looks to see if <code>method()</code> has
 been defined for that particular <code>instance</code>; if not, it looks
 for the prototype of the object from which <code>instance</code> has been
-defined.   In our case, it would be <code>UsedRobot.prototype</code>.  If
+defined.   In our case, it would be <code>RobotUsagé.prototype</code>.  If
 the method still can <b>not</b> be found, it looks <em>up the prototype <b>chain</b></em>,
 i.e. from "parent" objects.  In Reeborg's world case,
 it would be <code>RUR.Robot.prototype</code>.</p>

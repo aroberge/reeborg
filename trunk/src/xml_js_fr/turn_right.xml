@@ -4,10 +4,10 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('prototype')">Suivant</a>
 </nav>
 
-<h1>Many right turns</h1>
+<h1>Plusieurs virages à droite</h1>
 
-<p>Select the world <span class="world">Empty</span> which has no robot in it. Next define the following
-function:</p>
+<p>Sélectionnez le monde <span class="world">Vide</span> dans lequel il n'y a aucun robot.
+Ensuite, définissez la fonction suivante:</p>
 
 <pre class="jscode">function tourne_à_droite(robot) {
     robot.tourne_à_gauche();
@@ -15,21 +15,22 @@ function:</p>
     robot.tourne_à_gauche();
 }</pre>
 
-<p>Note how we pass the variable <code>robot</code> as an argument to the function and how we
-use it inside the function; this variable will be the robot's name.</p>
+<p>Notez la variable <code>robot</code> utilisée comme argument de la fonction et comment
+on l'utilise à l'intérieur; cette variable est le nom du robot choisi.</p>
 
-<p>After defining this function, you can use it as follows:</p>
+<p>Une fois définie la fonction ci-dessus, vous pouvez l'utiliser comme suit: </p>
 
-<pre class="jscode">var Reeborg = new UsedRobot();
-var Erdna = new UsedRobot();
+<pre class="jscode">var Reeborg = new RobotUsagé();
+var Erdna = new RobotUsagé();
 Reeborg.avance();
 tourne_à_droite(Reeborg);
 Erdna.tourne_à_gauche();
 tourne_à_droite(Erdna);</pre>
 
-<p>This works ... but it does not look right since the  <em>function</em> that is used to make
-the robots turn right uses a different syntax from the <em>method</em> that is used to make them
-left.  There has to be a better way...</p>
+<p>Ça fonctionne ... mais ça n'est pas très élégant puisqu'on utilise une <em>fonction</em> pour
+faire des virages à droite et une <em>méthode</em> pour faire des virages à gauche.   Il
+doit y avoir une meilleure façon de faire les choses...
+</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('many')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('prototype')">Suivant</a>

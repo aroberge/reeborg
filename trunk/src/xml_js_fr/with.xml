@@ -9,7 +9,7 @@
 the Javascript keyword <code>with</code>.  We recommend that you do not use it.  However,
 you can see the purpose of this keyword using the following example.</p>
 <pre class="jscode">// select a world with a robot.
-var Reeborg = new UsedRobot(2,4); // create a second one.
+var Reeborg = new RobotUsagé(2,4); // create a second one.
 avance();   // refers to the first robot.
 Reeborg.avance(); // second.
 
@@ -36,7 +36,7 @@ Javascript mode, i.e. without the usual <b>strict</b> safeguard.  In addition,
 I use jshint to identify any mistakes and point them out; this is disabled when
 you use the <code>"no strict";</code> mode, exclusive to Reeborg's world. For example:</p>
 <pre class="jscode">"no strict";
-Reeborg = new UsedRobot(2,4); // we did not use "var" !!!
+Reeborg = new RobotUsagé(2,4); // we did not use "var" !!!
 avance();                // make sure to select a world with a default robot.
 Reeborg.avance();
 

@@ -6,15 +6,15 @@
 <h1>Positional and named arguments</h1>
 <p>If we want to have a new robot at position <code>x=2</code> and <code>y=3</code>, this
 is how we do it:</p>
-<pre class="jscode">var a_robot = new UsedRobot(2, 3)</pre>
+<pre class="jscode">var a_robot = new RobotUsagé(2, 3)</pre>
 <p>If we only specify the value of the x coordinate (i.e. the very first argument
-for the <code>UsedRobot</code> function), the y argument will take
+for the <code>RobotUsagé</code> function), the y argument will take
 the default value of 1, as decided by the makers of Reeborg's world.</p>
 <p>These functions arguments are known as <em>positional</em> arguments since
 the order in which they appear determine the variable to which they are assigned.</p>
 <p>Now, remember the last time we created an "improved" robot:</p>
 <pre class="jscode">function ImprovedRobot(leak, x, y, orientation, tokens)  {
-    UsedRobot.call(this, x, y, orientation, tokens);
+    RobotUsagé.call(this, x, y, orientation, tokens);
     if (!leak) {
         this.is_leaky(false);
     }
@@ -24,7 +24,7 @@ the order in which they appear determine the variable to which they are assigned
 whether or not the robot will have a leak.  If we want to specify a value for
 the x coordinate we <b>must</b> also specify if the robot will be leaky or not:</p>
 <pre class="jscode">var leaky = ImprovedRobot(true, 5);  // located at x=5, y=1</pre>
-<p>Since the order of the parameters differs from the existing <code>UsedRobot</code>,
+<p>Since the order of the parameters differs from the existing <code>RobotUsagé</code>,
 it creates confusion.  An alternative would have been to have the <code>leak</code> argument
 added at the very end of the argument list so that the order of the first four arguments
 (<code>x, y, orientation, tokens</code>) would have remained the same.  However, in doing
@@ -40,14 +40,14 @@ notation:</p>
 <pre class="jscode">var leaky = FictitiousImprovedRobot(leak=true);</pre>
 <p><b>We can not do this.</b>  However, we can essentially achieve the same goal
 using objects as parameters.  Consider the following:</p>
-<pre class="jscode">ImprovedRobot.prototype = Object.create(UsedRobot.prototype);
+<pre class="jscode">ImprovedRobot.prototype = Object.create(RobotUsagé.prototype);
 ImprovedRobot.prototype.constructor = ImprovedRobot;
 
 function ImprovedRobot(params)  {
     if (params === undefined) {
         params = {};   // empty object
     }
-    UsedRobot.call(this, params.x, params.y, params.orientation, params.tokens);
+    RobotUsagé.call(this, params.x, params.y, params.orientation, params.tokens);
     if (!params.leak) {
         this.is_leaky(false);
     }

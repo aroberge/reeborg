@@ -7,7 +7,7 @@
 <h1>Teleport!</h1>
 
 <p>Open Reeborg's Diary and execute the following program (the output will appear in the Diary panel)</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
+<pre class="jscode">var Reeborg = new RobotUsagé();
 inspect(Reeborg);</pre>
 <p>Note that <code>inspect()</code> is a function that is only available in Reeborg's world.
 It allows one to see what <em>attributes</em> and <em>methods</em> are defined for an object.</p>
@@ -22,7 +22,7 @@ Let's see if this makes sense by running the following program.
 Make sure that you first select the world <span class="world">Empty</span> and that Reeborg's Diary
 is open. And it might be a good idea to <em>step through</em> the program one instruction at a time
 using the <b>step</b> button instead of the <b>execute</b> button.</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
+<pre class="jscode">var Reeborg = new RobotUsagé();
 Reeborg.avance();
 write(Reeborg.x);
 write(Reeborg.y);
@@ -33,12 +33,12 @@ write(Reeborg.x);</pre>
 
 <h2>First attempt at teleportation</h2>
 <p>Let's use the above code as an inspiration for writing a teleport method</p>
-<pre class="jscode">UsedRobot.prototype.teleport = function (x, y) {
+<pre class="jscode">RobotUsagé.prototype.teleport = function (x, y) {
     this.x = x;
     this.y = y;
 };
 
-var Reeborg = new UsedRobot();
+var Reeborg = new RobotUsagé();
 Reeborg.teleport(3, 3);
 Reeborg.teleport(4, 8);
 </pre>
@@ -51,12 +51,12 @@ why we can't do so, we need to find out more about how Reeborg's world is create
 The way this is normally done by programmers is by studying the source code.   We can use
 both the <code>write</code> and <code>inspect</code> functions to help us do so.</p>
 <p>So, let's try again to have a look at the following:</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
+<pre class="jscode">var Reeborg = new RobotUsagé();
 inspect(Reeborg);</pre>
 <p>making sure that Reeborg's Diary is open.
 Since we are interested in adding a new <em>method</em> (teleport) for Reeborg,
 we identify similar methods and look at their source code using the following:</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
+<pre class="jscode">var Reeborg = new RobotUsagé();
 view_source(Reeborg.move);
 view_source(Reeborg.turn_left);
 view_source(Reeborg.put_token);</pre>

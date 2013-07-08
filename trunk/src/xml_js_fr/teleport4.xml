@@ -26,7 +26,7 @@ your own programs will still work provided you use the <b>public</b> method <cod
 to simulate what a teleportation might look like,
 adding a couple of other instructions to make sure everything works correctly:</p>
 
-<pre class="jscode">UsedRobot.prototype.teleport = function (x, y) {
+<pre class="jscode">RobotUsagé.prototype.teleport = function (x, y) {
     this.prev_x = this.x;
     this.prev_y = this.y;
     this.x = x;
@@ -37,7 +37,7 @@ adding a couple of other instructions to make sure everything works correctly:</
     this.is_leaky(true);    // restore the leak
 };
 
-var Reeborg = new UsedRobot();
+var Reeborg = new RobotUsagé();
 Reeborg.avance();
 Reeborg.teleport(3, 3);
 Reeborg.tourne_à_gauche();
