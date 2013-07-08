@@ -29,8 +29,8 @@ been implemented.</p>
 <p>Select world select <span class="world">Empty</span> and run the following program,
 ideally one instruction at a time using the <b>step</b> button.
 Which robot makes the last <code>avance()</code>?</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
-var Erdna = new UsedRobot(2,2);
+<pre class="jscode">var Reeborg = new RobotUsagé();
+var Erdna = new RobotUsagé(2,2);
 
 Reeborg.avance();
 RUR.world.robots[0].avance();
@@ -49,13 +49,13 @@ instruction from the above program with two robots.   This instruction tells
 the <b>first</b> robot (i.e. the one with the zero index) from the array
 <code>RUR.world.robots</code> to move.</p>
 <p>Next, execute the following:</p>
-<pre class="jscode">view_source(UsedRobot);</pre>
+<pre class="jscode">view_source(RobotUsagé);</pre>
 <p>Note how it contains the line</p>
 <pre class="jscode">RUR.world.add_robot(this);</pre>
 <p>which strongly suggests that we are <em>adding a robot to a world</em>.
 Here, <small>and it is not obvious</small>, <code>this</code> refer to the
-<code>UsedRobot</code> that is "created" when we invoke
-<code>new UsedRobot()</code>.
+<code>RobotUsagé</code> that is "created" when we invoke
+<code>new RobotUsagé()</code>.
 Let's dig deeper into the code by executing the following:</p>
 <pre class="jscode">view_source(RUR.world.add_robot);</pre>
 <p>One of the lines of the output is </p>
@@ -69,7 +69,7 @@ that we use <code>push</code> which, as we have seen before, is a method used to
 in Javascript.</p>
 <p>Let's explain what this all means...</p>
 <p>When a user writes</p>
-<pre class="jscode">robot_name = new UsedRobot()</pre>
+<pre class="jscode">robot_name = new RobotUsagé()</pre>
  <p> a new robot is created <b>and</b> is added to an array.  Thus, one
 can either refer to this robot by its "name" or by the array item which
 was used to record it.  </p>
@@ -86,12 +86,12 @@ but it can be referred to as the zeroth-index robot in <code>RUR.world.robots</c
 allows you to use the simple <code>avance()</code> or <code>tourne_à_gauche()</code>.</p>
 <h2>No robot?</h2>
 <p><b>What happens if you try to use <code>avance()</code> in world <span class="world">Empty</span>
-without creating a <code>new UsedRobot</code> first?</b></p>
+without creating a <code>new RobotUsagé</code> first?</b></p>
 <p>Once you have tried to move an absent robot, select a world <b>with</b> a robot in
 it and try the following code first with the second line commented-out (as written) and
 then with the second line being executed.</p>
 <pre class="jscode">RUR.world.robots.pop();
-//var Reeborg = new UsedRobot(4,4);
+//var Reeborg = new RobotUsagé(4,4);
 avance();</pre>
 <p>If the result does not make sense to you, make sure to read the both the previous lesson and
 this one again.</p>

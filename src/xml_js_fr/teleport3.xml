@@ -16,7 +16,7 @@ two attributes, <code>prev_x</code> and <code>prev_y</code> appear to be related
 to Reeborg's previous position.  Let's try to update these values as Reeborg
 teleports himself.</p>
 
-<pre class="jscode">UsedRobot.prototype.teleport = function (x, y) {
+<pre class="jscode">RobotUsagé.prototype.teleport = function (x, y) {
     this.prev_x = this.x;  // save current values before teleporting
     this.prev_y = this.y;
 
@@ -25,7 +25,7 @@ teleports himself.</p>
     RUR.world.add_frame();
 };
 
-var Reeborg = new UsedRobot();
+var Reeborg = new RobotUsagé();
 Reeborg.teleport(3, 3);
 Reeborg.teleport(4, 8);
 </pre>
@@ -36,7 +36,7 @@ one location to another, rather than teleporting.  One might expect that telepor
 would imply going from one position to another almost instanteneously, without leaving
 a trace.  We can do this by fixing (temporarily) Reeborg's leak.</p>
 <p>Once again, let's inspect Reeborg's methods and attributes using the following program:</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
+<pre class="jscode">var Reeborg = new RobotUsagé();
 inspect(Reeborg);
 view_source(Reeborg.something);  // an attribute with a suggestive name
 view_source(Reeborg.something_else);  // a method with a suggestive name</pre>

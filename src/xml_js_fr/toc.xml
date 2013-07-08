@@ -117,9 +117,9 @@ pour résoudre des tâches de plus en plus complexes.
 
 <li><a href="Javascript:void(0);" onClick="load_page('oop')">La notation "point"</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('new')">Un robot usagé est nommé</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('many')">Many robots</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('tourne_à_droite')">Many right turns</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('prototype')">Prototype this</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('many')">Plusieurs robots</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('turn_right')">Plusieurs virages à droite</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('prototype')">Les prototypes</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('teleport')">Teleport!</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('teleport2')">Teleport again!</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('teleport3')">More teleportation</a></li>

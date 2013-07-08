@@ -29,7 +29,7 @@ Do you see anything unusual about it?</p>
 <p>You may have notice that <code>__tourne_à_droite()</code> and <code>tourne_à_gauche()</code>
 are called with an argument (<code>true</code>) instead of without like
 we have done up until now.  If you look at the definition of <code>turn_left</code> using</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
+<pre class="jscode">var Reeborg = new RobotUsagé();
 view_source( Reeborg.turn_left );</pre>
 <p>you will see that it takes an optional argument, named <code>no_frame</code>.  Whenever
 that argument is defined, the function returns <b>before</b> a new frame is added. Thus

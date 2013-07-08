@@ -47,26 +47,26 @@ purchase.</li></ol>
 of all existing and future instances of that object.</li>
 <li>They can create new classes of object that share the "good" attributes and
 methods of the existing ones but include some new features.</li></ol>
-<p>We will follow the second approach and not modify <code>UsedRobot</code> so
+<p>We will follow the second approach and not modify <code>RobotUsagé</code> so
 that any program that we might have saved will run exactly as before.
 For now, write the following lines of code in the <b>library</b> tab (and save them);
 you likely don't have to remove any previously saved lines of code in your library.</p>
-<pre class="jscode">ImprovedRobot.prototype = Object.create(UsedRobot.prototype);
+<pre class="jscode">ImprovedRobot.prototype = Object.create(RobotUsagé.prototype);
 ImprovedRobot.prototype.constructor = ImprovedRobot;
 
 function ImprovedRobot(x, y, orientation, tokens)  {
-    UsedRobot.call(this, x, y, orientation, tokens);
+    RobotUsagé.call(this, x, y, orientation, tokens);
     RUR.world.add_robot(this);
 }</pre>
 <p>The first line ensures that the prototype of <code>ImprovedRobot</code> will
-be a copy of that of <code>UsedRobot</code>. The second line of code states which
+be a copy of that of <code>RobotUsagé</code>. The second line of code states which
 function (the constructor) will be called when a <code>new&nbsp;ImprovedRobot</code>
 instance is created.  These two lines of code are a standard way to do
 <em>prototypal inheritance</em> in modern Javascript. </p>
 <p>The rest of the code defines the constructor.
 It is specific to the way things are done in Reeborg's world;
 the constructor function is defined such that it first create
-a <code>UsedRobot</code> at the correct location and then adds the relevant
+a <code>RobotUsagé</code> at the correct location and then adds the relevant
 information to Reeborg's world so that any such robot can be drawn on the screen.</p>
 <p>You should test it by writing the following in the <b>code</b> tab</p>
 <pre class="jscode">var Reeborg = new ImprovedRobot();

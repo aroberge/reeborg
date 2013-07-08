@@ -5,10 +5,10 @@
 </nav>
 <h1>Turning right</h1>
 <p>As we have seen before, the makers of Reeborg were working on implementing
-a <code>tourne_à_droite</code> method when the UsedRobot brand went to the market.
+a <code>tourne_à_droite</code> method when the RobotUsagé brand went to the market.
 You can see the implementation of that method in Reeborg's Diary by
 executing the following program:</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
+<pre class="jscode">var Reeborg = new RobotUsagé();
 view_source(Reeborg.__tourne_à_droite);</pre>
 <p>In order to have our <code>ImprovedRobot</code> turn right properly,
 we could copy the existing code in a method as follows:</p>
@@ -23,11 +23,11 @@ I repeat: <b>do not repeat yourself!</b></dd>
 </dl>
 <p>So, instead of just <b>repeating</b> what was done by <b>copying</b> the exising
 code, we can do the following instead:</p>
-<pre class="jscode">ImprovedRobot.prototype.tourne_à_droite = UsedRobot.__tourne_à_droite;</pre>
+<pre class="jscode">ImprovedRobot.prototype.tourne_à_droite = RobotUsagé.__tourne_à_droite;</pre>
 <p>Save these this of code in your library so that you can use this
 method whenever you want.  Note that by doing it in this way,
-<code>UsedRobot</code> is not modified and thus:</p>
-<pre class="jscode">var Reeborg = new UsedRobot();
+<code>RobotUsagé</code> is not modified and thus:</p>
+<pre class="jscode">var Reeborg = new RobotUsagé();
 var newReeborg = new ImprovedRobot();
 newReeborg.tourne_à_droite();  // works
 Reeborg.tourne_à_droite();  // causes an error</pre>
