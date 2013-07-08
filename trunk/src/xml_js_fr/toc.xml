@@ -117,9 +117,9 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('return')">return</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('return2')">D'autres "return"</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('harvest3')">D'autres récoltes</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('diary')">Reeborg's diary</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('increment')">Increment</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('while_num')">While counting</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('diary')">Le journal de Reeborg</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('increment')">Incrément</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('while_num')">Reeborg compte</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('for')">For loops</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('better_repeat')">A better <b>repeat()</b></a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('other_repeat')">An other way to repeat</a></li>
