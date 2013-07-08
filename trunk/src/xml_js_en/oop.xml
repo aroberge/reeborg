@@ -29,7 +29,7 @@ Fido.hair_colour = "black";</pre>
 <ul>
     <li><code>Dog</code> is an example of a <em>class</em> of <b>objects</b>.</li>
     <li><code>Fido</code> is an <b>instance</b> (or particular object) in the Dog class.</li>
-    <li><code>eats(), runs()</code>and <code>sleeps()</code> are <b>methods</b> of the Dog class; 'methods' are essentially like 'functions' which we saw before (the only difference is that they belong in a given class/object/instance).</li>
+    <li><code>eats(), runs()</code> and <code>sleeps()</code> are <b>methods</b> of the Dog class; 'methods' are essentially like 'functions' which we saw before (the only difference is that they belong in a given class/object/instance).</li>
     <li><code>size</code> and <code>hair_colour</code> are attributes of a given instance/object; attributes can take any value that a "normal" variable can take.</li>
     <li>The connection between the attributes or the methods with the object is indicated by a "dot" (".") written between them.</li>
 </ul>
@@ -40,7 +40,7 @@ Fido.tail.type = "bushy";
 Fido.left_front_paw.moves();
 Fido.head.mouth.teeth.canine.hurts();</pre>
 
-<p>We'll see how this works later. For now, let's see how Reeborg uses the "dot" notation.</p>
+<p>Let's now see how Reeborg uses the "dot" notation.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('more')">Previous</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('new')">Next</a>

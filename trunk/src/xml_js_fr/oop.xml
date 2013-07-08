@@ -4,43 +4,53 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('new')">Suivant</a>
 </nav>
 
-<h1>The dot notation</h1>
+<h1>La notation "point"</h1>
 
-<p>We are soon going to learn about a modern programming style called Object-Oriented Programming [OOP]. Javascript is known as a Prototype based language rather than an OOP language, but <b>for the basic
-concepts covered in this lesson</b>, Prototype based languages and OOP languages are indistinguishable.
-Before we start writing object-oriented programs, we will first learn how to read
-and understand the notation used.</p>
+<p>Nous allons bientôt apprendre les rudiments d'une méthode moderne de programmation appelée la
+    Programmation Orientée Object (POO). Javascript n'est pas un langage POO; c'est un langage basé
+    sur les prototypes mais, <b>pour les concepts de base couverts dans cette leçons</b>, les langages
+    basés sur les prototypes et la POO sont essentiellement identiques.
+</p>
 
-<h2>All in a dog's day</h2>
+<h2>Une vie de chien</h2>
 
-<p>Fido is a dog. During a typical day, he does various actions: he eats, runs, sleeps, etc. Here's how an object-oriented programmer might write this.</p>
+<p>Milou est un chien.  Durant une journée typique il fait plusieurs actions: il mange, il court, il dort,
+    etc.  Voici comment un programmeur utilisant un langage de POO pourrait écrire ceci.</p>
 
-<pre class="jscode">var Fido = new Dog();
-Fido.eats();
-Fido.runs();
-Fido.sleeps();</pre>
+<pre class="jscode">var Milou = new Chien();  // "new" = nouveau
+Milou.mange();
+Milou.court();
+Milou.dort();</pre>
 
-<p>In addition, Fido has various qualities or attributes. These are variables, like we have seen before except that they "belong" to Fido. He is tall (for a dog) and his hair is black. Here's how the programmer might write the same things.</p>
-<pre class="jscode">Fido.size = "tall";
-Fido.hair_colour = "black";</pre>
+<p>De plus, Milou a diverses qualités ou <em>attributs</em>; ce sont là des variables, semblables à
+celles que nous avons vues auparavant, sauf qu'elles "appartiennent" à Milou.  Par exemple, Milou est petit
+et son poil est blanc.  Voici comment un programmeur pourrait écrire ceci. </p>
+<pre class="jscode">Milou.taille = "petit";
+Milou.couleur_de_poil = "blanc";</pre>
 
-</p>In the object-oriented language, we have the following:</p>
+</p>Dans le langage de la POO, nous dirions que:</p>
 
 <ul>
-    <li><code>Dog</code> is an example of a <em>class</em> of <b>objects</b>.</li>
-    <li><code>Fido</code> is an <b>instance</b> (or particular object) in the Dog class.</li>
-    <li><code>eats(), runs()</code>and <code>sleeps()</code> are <b>methods</b> of the Dog class; 'methods' are essentially like 'functions' which we saw before (the only difference is that they belong in a given class/object/instance).</li>
-    <li><code>size</code> and <code>hair_colour</code> are attributes of a given instance/object; attributes can take any value that a "normal" variable can take.</li>
-    <li>The connection between the attributes or the methods with the object is indicated by a "dot" (".") written between them.</li>
+    <li><code>Chien</code> est une <em>classe</em> d'<b>objets</b>.</li>
+    <li><code>Milou</code> est un exemple concret (ou un objet spécifique) de la clase Chien.</li>
+    <li><code>mange(), court()</code> et <code> dort()</code> sont des <b>méthodes</b> de la classe Chien;
+    les méthodes sont essentiellements des fonctions telles que nous les avons vues auparavant, sauf
+    qu'elles "appartiennent" à une classe ou un objet particulier.</li>
+    <li><code>taille</code> et <code>couleur_de_poil</code> sont des attributs d'un objet; les attributs
+    peuvent avoir toute valeur qu'une variable "ordinaire" pourrait avoir. </li>
+    <li>Le lien entre un attribut ou une méthode et un objet est indiqué par un point (".") écrit
+        entre les deux.</li>
 </ul>
-<p>Objects can also have other objects that belong to them, each with their own methods or attributes:</p>
+<p>Les objets peuvent avoir d'autres objets qui leur appartiennent, chacun avec ses méthodes ou ses
+    attributs:</p>
 
-<pre class="jscode">Fido.tail.wags();
-Fido.tail.type = "bushy";
-Fido.left_front_paw.moves();
-Fido.head.mouth.teeth.canine.hurts();</pre>
+<pre class="jscode">Milou.queue.remue();
+Milou.queue.type = "touffue";
+Milou.patte_avant_gauche.bouche();
+Milou.tête.bouche.dents.canine.font_mal();
+</pre>
 
-<p>We'll see how this works later. For now, let's see how Reeborg uses the "dot" notation.</p>
+<p>Voyons maintenant comment Reeborg utilise la notation "point".</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('more')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('new')">Suivant</a>
