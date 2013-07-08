@@ -17,3 +17,5 @@ In addition, lessons are translated as well.  Lessons are simple xml files (html
 
 In order to help keep translation in sync, *filenames use the same name as the English version*.  Thus, the lesson that introduces the `move()` command is move.xml even though the French name (for example) for the command is `avance()`.   However, these filenames are found in a directory that refers to the relevant languages (programming and human). Thus, the English lessons for Javascript are in directory 
 src/xml_js_en/
+
+Note that some lessons (e.g. prototype.xml or even more so the next one, teleport.xml) will refer to methods with English names; this is unavoidable and can be explained by mentioning that the makers of Reeborg's world use English for internal development, etc., etc.  An example will be provided by the French lessons.
