@@ -5,40 +5,40 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('other_repeat')">Suivant</a>
 
 </nav>
-<h1>A better <b>repeat()</b></h1>
+<h1>Un meilleur <b>répète()</b></h1>
 
-<p><em>Note: this lesson covers some very advanced concepts.  If you do not fully grasp them the first time around,
-you should feel free to continue with the other lessons.</em></p>
+<p><em>N.B. Cette leçon couvre des concepts très avancés.  Si vous ne comprenez pas tout, ceci ne devrait pas
+    vous empêcher de continuer avec les autres leçons.</em></p>
 
-<p>You have seen how we can use our function <code>repeat()</code> to reduce
-the number of lines of code needed to accomplish the same thing.  For example,
-if we want to simulate a right turn, we can write <code>repeat(turn_left,&nbsp;3)</code>, thus
-replacing three instructions with one.  The problem with doing this in general is that
-it does not make the code much more readable since we do not introduce descriptive names.
-A better approach that we have seen is
-to use <code>repeat()</code> inside a well-named function definition like this:</p>
+<p>Vous avez vu comment on pouvait définir notre propre fonction équivalente à <code>répète()</code>,
+fonction qui permet d'éviter les répétitions de lignes de code.  Par exemple, si on veut simuler
+un virage à droite, on peut écrire <code>répète( tourne_à_gauche,&nbsp;3)</code> au lieu
+de répéter trois fois la même instruction.  Le problème avec cette approche en général est que
+ceci n'améliore pas la lisibilité du code puisqu'on n'introduit pas de noms descriptifs.
+Une meilleure approche que nous avons vu est d'utiliser <code>répète()</code> mais de
+ cacher ces répétitions à l'intérieur d'une fonction:</p>
 <pre class="jscode">function tourne_à_droite (){
-    repeat(turn_left, 3);
+    répète(tourne_à_gauche, 3);
 }</pre>
-<p>However, we can do this differently.  First, we have just seen how <code>repeat()</code>
-is defined:</p>
-<pre class="jscode">function repeat (fn, n){
+<p>Cependant, on peut faire ceci d'une autre façon.  Tout d'abord, revoyons la définition
+    de <code>répète()</code>:</p>
+<pre class="jscode">function répète (fn, n){
     for (var i = 0; i < n; i++) {
         fn();
     }
 }</pre>
-<p>Second, we need to remember what the <code>return</code> statement does in a function.
-For example, if I have</p>
-<pre class="jscode">function some_function (){
-    // some lines of code
-    return something;
+<p>Ensuite, rappelons-nous l'effet d'un énoncé <code>return</code> à l'intérieur d'une
+fonction.  Par exemple, si on a</p>
+<pre class="jscode">function fonction_quelconque (){
+    // quelques lignes de code
+    return quelque_chose;
 }
 
-var a = some_function();
-// a will now be a synonym for "something"</pre>
-<p>Just like we can have functions as arguments of other functions, we can <code>return</code>
-functions!</p>
-<pre class="jscode">function better_repeat (fn, n){
+var a = fonction_quelconque();
+// "a" sera maintenant un synonyme de "quelque_chose"</pre>
+<p>Tout comme on peut avoir des fonctions comme arguments d'autres fonctions, on peut
+    <em>retourner</em> des fonctions!</p>
+<pre class="jscode">function meilleur_répète (fn, n){
     return function () {
         for (var i = 0; i < n; i++){
             fn();
@@ -46,19 +46,19 @@ functions!</p>
     };
 }
 
-// now, use it to define a new way to turn right
-var my_tourne_à_droite = better_repeat(turn_left, 3);
+// on l'utilise pour définir un virage à droite
+var mon_virage_à_droite = meilleur_répète(tourne_à_gauche, 3);
 
-my_tourne_à_droite();  // and use it!
+mon_virage_à_droite();  // et on l'utilise
 </pre>
 
-<p>Try it!</p>
-<h2>Extending this idea</h2>
+<p>Essayez-le!</p>
+<h2>Extension de cette idée</h2>
 
-<p>In addition to things that need to be repeated, we can also extend this
-idea to conditions that need to be tested for...</p>
+<p>En plus d'utiliser cette approche pour des répétions, on peut l'utiliser
+    pour des conditions devant être vérifiées.</p>
 
-<pre class="jscode">function do_while(fn, condition) {
+<pre class="jscode">function faire_pendant(fn, condition) {
     return function() {
         while (condition()) {
             fn();
@@ -66,14 +66,15 @@ idea to conditions that need to be tested for...</p>
     };
 }
 
-var walk_to_the_wall = do_while(move, rien_devant);
-walk_to_the_wall();
+var marche_au_mur = faire_pendant(avance, rien_devant);
+marche_au_mur();
 </pre>
 
-<p>Try it!</p>
+<p>Vérifiez que ça fonctionne.</p>
 
-<p>When you are done, you might want to define <code>do_while_not(fn,&nbsp;condition)</code> where we
-are doing something until a condition is <b>not</b> satisfied.</p>
+<p>Lorsque vous aurez terminé, vous pourrez tenter de définir une fonction
+ <code>faire_si_non(fn,&nbsp;condition)</code> où nous faisons quelque chose jusqu'à ce
+ qu'une condition ne soit <b>pas</b> satisfaite.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('while_num')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('other_repeat')">Suivant</a>

@@ -3,7 +3,6 @@
 <ol>
 <h2>Introduction</h2>
 
-
 <li><a href="Javascript:void(0);" onClick="load_page('welcome')">Bienvenue au monde de Reeborg !</a>
 Devenez familier avec l'agencement de ce site.</li>
 <li><a href="Javascript:void(0);" onClick="load_page('move')">Premier programme</a> Où l'on
@@ -24,9 +23,7 @@ ce que Reeborg peut faire avec ses objets favoris, les jetons. </li>
 les plus importantes lorsqu'on écrit des programmes informatiques.</li>
 <li><a href="Javascript:void(0);" onClick="load_page('summary1')">Résumé</a></li>
 
-
 <h2> 7 ensembles de missions</h2>
-
 
 <li><a href="Javascript:void(0);" onClick="load_page('challenges1')">Introduction aux missions</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('center')">Trouver le centre</a></li>
@@ -38,9 +35,7 @@ les plus importantes lorsqu'on écrit des programmes informatiques.</li>
 <li><a href="Javascript:void(0);" onClick="load_page('newspaper1')">Livraison de journaux</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('summary2')">Résumé</a></li>
 
-
 <h2>Définir de nouvelle choses</h2>
-
 
 <li><a href="Javascript:void(0);" onClick="load_page('rule3')">Règle numéro 3</a> Éviter les
 répétitions en utilisant le mot-clé <code>function</code>.</li>
@@ -56,7 +51,6 @@ démontre l'importance de bien choisir le nom des fonctions (voir la règle num�
 <li><a href="Javascript:void(0);" onClick="load_page('france')">Reeborg va en Espagne</a>
 Un deuxième mot-clé Javascript: <code>var</code>.</li>
 <li><a href="Javascript:void(0);" onClick="load_page('summary3')">Résumé</a></li>
-
 
 <h2>Faire des choix</h2>
 
@@ -78,7 +72,6 @@ d'être négatif.
 <li><a href="Javascript:void(0);" onClick="load_page('while')">Tant que ...</code></a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('newspaper3')">Une nouvelle livraison de journaux</a></li>
 
-
 <h2> Améliorations progressives</h2>
 
 <li><a href="Javascript:void(0);" onClick="load_page('refine1')">Améliorations: partie 1</a>
@@ -92,9 +85,7 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('rule4')">Règle numéro 4</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('surprises')">Surprises!</a></li>
 
-
 <h2>Retour aux missions</h2>
-
 
 <li><a href="Javascript:void(0);" onClick="load_page('challenges2')">Revue de quelques missions</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('harvest2')">Le temps des récoltes</a></li>
@@ -103,16 +94,13 @@ pour résoudre des tâches de plus en plus complexes.
 
 <h2>Récursivité</h2>
 
-
 <li><a href="Javascript:void(0);" onClick="load_page('recursion')">Récursivité</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('recursion2')">Récursivité plus compliquée</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('recursion3')">Encore de la récursivité</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('recursion4')">Compter sur la récursivité</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('recursion5')">Défis récursifs</a></li>
 
-
 <h2>D'autres mots-clés Javascript</h2>
-
 
 <li><a href="Javascript:void(0);" onClick="load_page('return')">return</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('return2')">D'autres "return"</a></li>
@@ -120,15 +108,12 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('diary')">Le journal de Reeborg</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('increment')">Incrément</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('while_num')">Reeborg compte</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('for')">For loops</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('better_repeat')">A better <b>repeat()</b></a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('for')">Boucles <code>for</code></a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('better_repeat')">Un meilleur <b>répète()</b></a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('other_repeat')">An other way to repeat</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('more')">More Javascript</a></li>
 
-
-
 <h2>Object Oriented Programming (OOP)</h2>
-
 
 <li><a href="Javascript:void(0);" onClick="load_page('oop')">The dot notation</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('new')">A Used Robot gets his name</a></li>
@@ -179,10 +164,10 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('with')">The <code>with</code> keyword</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('keywords')">Javascript keywords</a></li>
 
-
 <h2>User contributed challenges</h2>
 
 <li><a href="Javascript:void(0);" onClick="load_page('edit_world')">Designing your own worlds and challenges</a></li>
 </ol>
 <ol type='A'>
-<li>Your contribution here</li></ol>
+<li>Your contribution here</li>
+</ol>
