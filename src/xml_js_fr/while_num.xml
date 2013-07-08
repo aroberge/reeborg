@@ -4,72 +4,72 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('for')">Suivant</a>
 </nav>
 
-<h1>While counting</h1>
-<p>
-Select world <span class="world">Around&nbsp;1</span>.  You have seen before
-that Reeborg takes 9 steps before reaching the first square where he is
-blocked by having a wall in front of him.  Let's use the increment operator
-to have Reeborg keep track of the number of steps and stop just before hitting
-a wall.</p>
-<pre class="jscode">var number_of_steps = 0;
-while (number_of_steps < 9 ){  // "<" means "less than"
+<h1>Reeborg compte</h1>
+<p>Sélectionnez le monde <span class="world">Autour&nbsp;1</span>.  Vous avez
+vérifié précédemment que Reeborg prend 9 pas pour rejoindre le mur à droite.
+Utilisons Reeborg pour compter le nombre de pas à nouveau en se basant sur
+le nombre de pas pour éviter de frapper le mur. </p>
+<pre class="jscode">var nombre_de_pas = 0;
+while (nombre_de_pas < 9 ){  // "<" signifie "plus petit que"
     avance();
-    number_of_steps++;
+    nombre_de_pas++;
 }</pre>
-<p><b>Try it!</b>  Then, modify the program to write the value of <code>number_of_steps</code>
-each time it is incremented.</p>
-<h2>Defining <code>repeat()</code>?</h2>
-<p>In the above program, Reeborg was counting and doing a number of steps (<code>move</code>) up
-to a pre-determined value.  We have seen before how to accomplish this using a single
-instruction:</p>
-<pre class="jscode">repeat(move, 9);</pre>
-<p>Let's define a function <code>my_repeat</code> that will <em>hide</em> the code with the while loop
-above:</p>
-<pre class="jscode">function my_repeat() {
-    var number_of_steps = 0;
-    while (number_of_steps < 9 ){
+<p><b>Essayez!</b>  Puis, modifiez le programme pour écrire la valeur de la variable <code>nombre_de_pas</code>
+dans le journal de Reeborg à chaque fois que sa valeur change.</p>
+<h2>Définition de <code>répète()</code>?</h2>
+<p>Dans le programme ci-dessus, Reeborg comptait le nombre de pas et en faisait un
+    nombre total prédéterminé à l'avance.  Nous avons vu comment faire la même chose précédemment
+    utilisant une seule instruction:</p>
+<pre class="jscode">répète(avance, 9);</pre>
+<p>Définissons une fonction que nous allons appeler <code>mon_répète</code> et qui
+<em>cachera</em> le code apparaissant dans la boucle <code>while</code> ci-dessus :</p>
+<pre class="jscode">function mon_répète() {
+    var nombre_de_pas = 0;
+    while (nombre_de_pas < 9 ){
         avance();
-        number_of_steps++;
+        nombre_de_pas++;
     }
 }
 
-my_repeat();   // use it!
+mon_répète();   // on l'utilise!
 </pre>
-<p>That's not very useful compared with <code>repeat()</code> since both the number of steps
-to take and the specific instruction to repeat are <em>hard-coded</em>.  We can do better
-by <em>passing</em> <b>arguments</b> to <code>my_repeat</code> as follows:</p>
-<pre class="jscode">function my_repeat(some_function, max_value) {
-    var number_of_steps = 0;
-    while (number_of_steps < max_value ){
-        some_function();
-        number_of_steps++;
+<p>Cette fonction n'est pas très utile comparativement à <code>répète()</code> puisque le nombre
+de pas à prendre ainsi que l'instruction à répéter (<code>avance</code>) doivent être codées spécifiquement.
+On peut faire mieux en <em>passant</em> des <b>arguments</b> à la fonction
+<code>mon_répète</code> comme ce qui suit: </p>
+<pre class="jscode">function mon_répète(fonction_quelconque, valeur_maximale) {
+    var nombre_de_pas = 0;
+    while (nombre_de_pas < valeur_maximale ){
+        fonction_quelconque();
+        nombre_de_pas++;
     }
 }
 
-my_repeat(move, 9);   // use it!
-my_repeat(turn_left, 4);
+mon_répète(avance, 9);
+mon_répète(tourne_à_gauche, 4);
 </pre>
-<p><b>Try it!</b></p>
-<h2>Scope</h2>
-<p>Compare</p>
-<pre class="jscode">var number_of_steps = 0;
-function my_repeat(some_function, max_value) {
-    while (number_of_steps < max_value ){
-        some_function();
-        number_of_steps++;
+<p><b>Essayez!</b></p>
+<h2>Portée des variables</h2>
+<p>Comparez</p>
+<pre class="jscode">var nombre_de_pas = 0;
+function mon_répète(fonction_quelconque, valeur_maximale) {
+    while (nombre_de_pas < valeur_maximale ){
+        fonction_quelconque();
+        nombre_de_pas++;
     }
 }</pre>
-<p>with the previous definition.  You should note that the colour of the variable <code>number_of_steps</code> is
-different in both cases.  If you look more closely, you will find that in one case, this variable
-is defined <em>inside</em> the function body whereas in the other it is defined <em>outside</em>.
-When it is defined <em>inside</em>, we say that it is a <b>local</b> variable: its value is only
-known locally inside the function and not in the larger program.  Otherwise, it is known as
-a <b>global</b> variable.  Whether a variable is <em>local</em> to a function or <em>global</em>
-is known as the <b>scope</b> of the variable.  Generally, it is recommended to use local
-variables whenever possible so that if you reuse the same variable name (locally) elsewhere in
-a program, it will be treated as a completely different variable and won't affect the value
-of a similarly named variable elsewhere.  If you use global variables, a change in one part
-of the program will change the value of that variable everywhere else - often leading to some
-hard to trace bugs.</p>
+<p>avec la définition précédente.
+    Vous devriez d'abord remarquer que la couleur de la variable <code>nombre_de_pas</code> est différente
+    dans ces deux cas. Si vous regardez de plus près, vous verrez que dans un cas, cette variable
+    est définie, à l'aide du mot-clé <code>var</code>, à <em>l'intérieur</em> de la fonction alors que dans l'autre cas elle est définie à l'extérieur. Lorsqu'une variable est définie à l'intérieur d'une fonction
+    on dit que c'est une variable <b>locale</b>: sa valeur est seulement connue à l'intérieur de la fonction
+    et non dans le reste du programme.  Autrement, on a une variable <b>globale</b>.
+    On utilise le terme de <em>portée</em> d'une variable (<em>scope</em> en anglais) pour référer
+    au fait que c'est une variable locale ou globale.  On recommande fortement d'utiliser des
+    variables locales lorsque c'est possible; ceci permet d'utiliser le même nom pour d'autres
+    variables locales utilisées ailleurs dans le programme sans que les changements à leur valeur
+    n'affecte celle de la variable locale.  Si vous utilisez des variables globales, un changement
+    de valeur à un endroit changera la valeur de cette variable partout ailleurs dans le programme,
+    ce qui peut mener à des bogues difficiles à retracer.</p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('increment')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('for')">Suivant</a>

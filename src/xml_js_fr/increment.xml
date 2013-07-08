@@ -4,70 +4,75 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('while_num')">Suivant</a>
 </nav>
 
-<h1>Increment</h1>
+<h1>Incrément</h1>
 
-<p>Make sure you have the <b>Editor</b>, the <b>World</b> and the <b>Diary</b> panels open.
-Select world <span class="world">Around&nbsp;1</span> and adjust the width of the
-<b>World</b> panel so that you see the entire world. (You can width of the panels by "grabbing" the
-dotted line between panels and dragging it.)</p>
-<p>Now, suppose we wanted to count the number of steps taken by Reeborg to reach the
-wall on the right from its starting position.  One way to do this is to use a variable
-which I will name <code>number_of_steps</code> and give it an initial value of 0.
-Then, each time that Reeborg takes a step, I will add 1 to the <em>previous</em> value
-of <code>number_of_steps</code>.  This is done in Javascript using the following syntax:</p>
-<pre class="jscode">number_of_steps = number_of_steps + 1;</pre>
-<p><b>Do not think of this as a mathematical equation!</b>  Clearly, if this were a mathematical
-equation, the variable on the left hand side of the "equal sign" would not have the same
-value as the terms on the right hand side.  However, in Javascript, and many other programming
-languages, "=" is known as the <b>assignment operator</b>: Javascript determines the value
-on the right hand side of "=" and use the variable name on the left hand side as a way
-to remember that value.  Thus, if we have</p>
+<p>Assurez-vous d'avoir les panneaux <b>Éditeur</b>, <b>Monde</b> et <b>Journal</b> ouverts.
+Sélectionnez le monde <span class="world">Autour&nbsp;1</span> et ajustez la largeur du
+panneau <b>Monde</b> pour que vous puissiez voir tout le monde de Reeborg.  (Vous pouvez
+ajustez la largeur en "saisissant" la ligne pointillée entre les panneaux et en la
+glissant avec la souris.)</p>
+<p>Supposons que nous voulons compter le nombre de pas pris par Reeborg pour atteindre
+    le mur à droite à partir de son point de départ.  Une façon de faire ceci
+    est d'utiliser une variable que je vais appeler <code>nombre_de_pas</code> et
+    à laquelle je vais attribuer 0 comme valeur initiale.  Puis, à chaque fois
+    que Reeborg prendra un pas, j'ajouterai 1 à la valeur <em>précédente</em> de
+    <code>nombre_de_pas</code>.  En Javascript, ceci est fait en utilisant la
+    syntaxe suivante:</p>
+<pre class="jscode">nombre_de_pas = nombre_de_pas + 1;</pre>
+<p><b>Ceci n'est pas une équation mathématique!</b>  Si on avait une équation mathématique,
+une variable du côté gauche du signe d'égalité aurait la même valeur que si elle se trouvait
+à droite du même signe.  En Javascript, et dans plusieurs autres langages de programmation,
+le symbole <code>=</code> est utilisé pour <em>assigner</em> une valeur: Javascript détermine
+en premier la valeur de l'expression à la droite du signe <code>=</code>, puis utilise le nom
+de la variable à gauche de ce signe comme aide-mémoire pour se rappeler de la valeur.
+Ainsi, si nous avons</p>
 <pre class="jscode">var n;
 n = 1;
 n = n + 3;
-write(n);  // outputs 4</pre>
-<p>it is equivalent to</p>
+écrit(n);  // donne 4</pre>
+<p>c'est équivalent à</p>
 <pre class="jscode">var n;
 n = 1;
-n = 1 + 3;  // notice how we use "1" instead of "n"
-write(n);  // outputs 4</pre>
-<p><b>Try it!</b></p>
-<p>Because this type of operation, known as <em>incrementing</em> a variable occurs so
-often, Javascript, and many other languages, allow the use of the following shortened notation,
-using the <code>+=</code> operator:</p>
+n = 1 + 3;  // nous avons écrit "1" au lieu de "n"
+écrit(n);  // donne 4</pre>
+<p><b>Vérifiez par vous-mêmes!</b></p>
+<p>Puisque ce type d'opération, connue sous le nom d'<em>incrémenter</em> une variable,
+est fait très souvent, Javascript, et plusieurs autres langages de programmation, utilise
+une notation raccourcie et l'opérateur <code>+=</code>:</p>
 <pre class="jscode">var n;
 n = 1;
 n += 3;
-write(n);  // outputs 4</pre>
-<p>If the value by which we want to <em>increment</em> the variable is 1, we can even
-use a shorter expression:</p>
+écrit(n);  // donne 4</pre>
+<p>Si la valeur par laquelle on veut <em>incrémenter</em> la variable est 1, on peut
+utiliser une notation encore plus courte:</p>
 <pre class="jscode">var n;
 n = 1;
 n++;
-write(n);  // outputs 2</pre>
-<p><b>Try it!</b></p>
-<h2>Counting steps</h2>
-<p>We are now ready to write a program to have Reeborg count the number of
-steps using world <span class="world">Around&nbsp;1</span>.
-I will write it for you here, but you must copy it in the
-editor to run it.  Ideally, you should then modify it to try the other ways
-we have seen and that can be used to <em>increment</em> a variable.</p>
-<pre class="jscode">var number_of_steps = 0;
+écrit(n);  // donne 2</pre>
+<p><b>Essayez!</b></p>
+<h2>Compter les pas</h2>
+<p>Nous sommes maintenant prêts à écrire un programme qui permettra à Reeborg
+    de compter les nombres de pas, en utilisant le monde <span class="world">Autour&nbsp;1</span>.
+    Transcrivez le code suivant dans l'éditeur et exécutez-le.  Idéalement,
+    vous devriez le modifier pour vérifier les autres façons d'incrémenter une
+    variable décrites ci-dessus. </p>
+<pre class="jscode">var nombre_de_pas = 0;
 
-function move_and_count_steps() {
+function avance_et_compte() {
     avance();
-    number_of_steps++;
+    nombre_de_pas++;
 }
 
 while (rien_devant()){
-    move_and_count_steps();
+    avance_et_compte();
 }
 
-write(number_of_steps);  // should be 9</pre>
-<h2>Your turn</h2>
-<p>Write a program so that Reeborg goes around world <span class="world">Around&nbsp;1</span> and
-have him count the number of steps <b>and</b> the number of left turns, writing them
-in his diary at the end.  You should start by putting a token down to mark what will be the
-end position.</p>
+écrit(nombre_de_pas);  // devrait être 9</pre>
+<h2>À votre tour</h2>
+<p>Écrivez un programme qui fera en sorte que Reeborg fasse le tour du monde
+    <span class="world">Autour&nbsp;1</span> tout en comptant le nombre
+    de pas <b>ainsi que</b> le nombre de virages à gauche, écrivant le résultat
+    dans son journal à la fin.  Vous devriez commencer par déposer un jeton pour indiquer
+    la position de départ (et d'arrivée).</p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('diary')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('while_num')">Suivant</a>
