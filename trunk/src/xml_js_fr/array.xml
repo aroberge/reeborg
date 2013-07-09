@@ -44,25 +44,25 @@ well as one property, <code>length</code>.</p>
 <p>Make sure that Reeborg's Diary is visible and run the following program:</p>
 <pre class="jscode">var list = ["abc", 1, 10.4];
 
-write( list );
-write( list[0] );
+écrit( list );
+écrit( list[0] );
 
-write( list.length );
-write("-----");
+écrit( list.length );
+écrit("-----");
 
 for (var i=0; i < list.length; i++ ){
-    write( list[i] );
+    écrit( list[i] );
 }
 
-write("-----");
+écrit("-----");
 list.push(42);
-write( list );
-write( list.length );
+écrit( list );
+écrit( list.length );
 
-write("-----");
-write( list.pop() );
-write( list );
-write( list.length );</pre>
+écrit("-----");
+écrit( list.pop() );
+écrit( list );
+écrit( list.length );</pre>
 <p>Some things to note:</p>
 <ul>
     <li>Individual array items are accessed using the bracket notation: <code>[array_index]</code></li>

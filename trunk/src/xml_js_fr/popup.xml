@@ -38,11 +38,11 @@ When we use <code>prompt</code>, Javascript assumes that we are requesting a <em
 the user.  If we want a number, we have to convert the string into a proper number.  We can use
 <code>parseInt</code> to convert a string into an integer, and <code>parseFloat</code> to convert
 a string into a <em>decimal</em> or <em>floating point</em> number:</p>
-<pre class="jscode">write( parseInt("12.3") );
-write( parseFloat("12.3") );
-write( parseInt("Hello") );
-write( parseInt("12", 10) );  // specify that base 10 is used
-write( parseInt("100", 2) );  // 4 = 100 in base 2</pre>
+<pre class="jscode">écrit( parseInt("12.3") );
+écrit( parseFloat("12.3") );
+écrit( parseInt("Hello") );
+écrit( parseInt("12", 10) );  // specify that base 10 is used
+écrit( parseInt("100", 2) );  // 4 = 100 in base 2</pre>
 <ul><li>Note that NaN is a symbol meaning <em>Not a Number</em></li>
 <li>By default, parseInt assume that we are converting a string into a number in base 10; Reeborg
 will give you a warning if you do not specify the basis.</li></ul>

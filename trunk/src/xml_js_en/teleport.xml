@@ -21,7 +21,7 @@ seen Cartesian coordinates before, you should have guessed that these refer to R
 Let's see if this makes sense by running the following program.
 Make sure that you first select the world <span class="world">Empty</span> and that Reeborg's Diary
 is open. And it might be a good idea to <em>step through</em> the program one instruction at a time
-using the <b>step</b> button instead of the <b>execute</b> button.</p>
+using the <b>step</b> button {step_button} instead of the usual <b>execute</b> button {execute_button}.</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
 Reeborg.move();
 write(Reeborg.x);
@@ -49,17 +49,18 @@ Add the following instruction at the very end and repeat the code execution.</p>
 he moved.  However, we'd like to see him when he teleports to a given location. To understand
 why we can't do so, we need to find out more about how Reeborg's world is created.
 The way this is normally done by programmers is by studying the source code.   We can use
-both the <code>write</code> and <code>inspect</code> functions to help us do so.</p>
+both the <code>write</code>, or even better <code>view_source</code>,
+and <code>inspect</code> functions to help us do so.</p>
 <p>So, let's try again to have a look at the following:</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
 inspect(Reeborg);</pre>
 <p>making sure that Reeborg's Diary is open.
 Since we are interested in adding a new <em>method</em> (teleport) for Reeborg,
-we identify similar methods and look at their source code using the following:</p>
+we identify similar methods; we already know two of them and can
+look at their source code using the following:</p>
 <pre class="jscode">var Reeborg = new UsedRobot();
-view_source(Reeborg.move);
-view_source(Reeborg.turn_left);
-view_source(Reeborg.put_token);</pre>
+write(Reeborg.move);
+view_source(Reeborg.turn_left); // nicer output!</pre>
 <p>By examining the output, can you figure out what instruction we might need to add to
 see Reeborg teleport to a new location?</p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('prototype')">Previous</a>

@@ -15,13 +15,13 @@ Often, a bug is found, the code is corrected ... but the comments are not.
 This situation is even more problematic for <em>documentation</em> about a program, such as
 these lessons, because they (the code and the documentation) are in separate files
 with no obvious link between the two.   Partly for this reason, I will often ask
-you to use <code>view_source()</code> or <code>write()</code> or <code>inspect()</code> to see how a particular
+you to use <code>voir_source()</code> or <code>écrit()</code> or <code>examine()</code> to see how a particular
 feature of Reeborg's world is implemented so that what you see is <b>exactly</b>
 the program as it is run ... and not an earlier version.</p>
 <p>In this lesson, I will include some lines of code from Reeborg's world
 <em>as they exist at the time I am writing this lesson</em> which may be slightly
-different from the way are today, as you read this.  However, you should use <code>view_source()</code> or
-<code>write()</code> and <code>inspect()</code> whenever I suggest you to do so,
+different from the way are today, as you read this.  However, you should use <code>voir_source()</code> or
+<code>écrit()</code> and <code>examine()</code> whenever I suggest you to do so,
 to either confirm that the content of this lesson is accurate or, if not, to
 find out the most recent (and hence better!) way that a certain feature has
 been implemented.</p>
@@ -43,13 +43,13 @@ avance();</pre>
 <pre class="jscode">DEBUG.ON = true;</pre>
 <p>to see some additional info printed just above Reeborg's world.</p>
 <p>Next, make sure that Reeborg's Diary is open and execute the following:</p>
-<pre class="jscode">view_source(move);</pre>
+<pre class="jscode">voir_source(move);</pre>
 <p>Notice how this function contains only one instruction which should match an
 instruction from the above program with two robots.   This instruction tells
 the <b>first</b> robot (i.e. the one with the zero index) from the array
 <code>RUR.world.robots</code> to move.</p>
 <p>Next, execute the following:</p>
-<pre class="jscode">view_source(RobotUsagé);</pre>
+<pre class="jscode">voir_source(RobotUsagé);</pre>
 <p>Note how it contains the line</p>
 <pre class="jscode">RUR.world.add_robot(this);</pre>
 <p>which strongly suggests that we are <em>adding a robot to a world</em>.
@@ -57,7 +57,7 @@ Here, <small>and it is not obvious</small>, <code>this</code> refer to the
 <code>RobotUsagé</code> that is "created" when we invoke
 <code>new RobotUsagé()</code>.
 Let's dig deeper into the code by executing the following:</p>
-<pre class="jscode">view_source(RUR.world.add_robot);</pre>
+<pre class="jscode">voir_source(RUR.world.add_robot);</pre>
 <p>One of the lines of the output is </p>
 <pre class="jscode">this.robots.push(robot);</pre>
 <p>where <code>this</code> refers to <code>RUR.world</code> and

@@ -31,7 +31,7 @@ to make one of the three possible choices:</p>
 
 <p>You may want to try the above code by running the following test program</p>
 <pre class="jscode">for( var i=0; i < 25; i++) {
-write( i + " " + computer_select() );
+écrit( i + " " + computer_select() );
 }</pre>
 <p>before moving to the next lesson to learn about logical operators.</p>
 

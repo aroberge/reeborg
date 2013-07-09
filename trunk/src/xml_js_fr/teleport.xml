@@ -4,64 +4,65 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('teleport2')">Suivant</a>
 </nav>
 
-<h1>Teleport!</h1>
+<h1>Téléporte!</h1>
 
-<p>Open Reeborg's Diary and execute the following program (the output will appear in the Diary panel)</p>
+<p>Ouvrez le journal de Reeborg et exécutez le programme suivant:</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
-inspect(Reeborg);</pre>
-<p>Note that <code>inspect()</code> is a function that is only available in Reeborg's world.
-It allows one to see what <em>attributes</em> and <em>methods</em> are defined for an object.</p>
-<p><small>[Note: if you are curious, you can see how <code>inspect</code> is defined by
-executing the program <code>view_source(inspect)</code> ... but it uses some Javascript features
-that we have not explained yet, so it is highly likely that it will not make sense to you.]</small></p>
-<p><em>Methods</em> are identified by the two parentheses () following their names.
-Note that <code>teleport</code> is <b>not</b> a method currently defined.</p>
-<p>Among the attributes, we note the variables <code>x</code> and <code>y</code>.  If you have
-seen cartesian coordinates before, you should have guessed that these refer to Reeborg's position.
-Let's see if this makes sense by running the following program.
-Make sure that you first select the world <span class="world">Empty</span> and that Reeborg's Diary
-is open. And it might be a good idea to <em>step through</em> the program one instruction at a time
-using the <b>step</b> button instead of the <b>execute</b> button.</p>
+examine(Reeborg);</pre>
+<p><code>examine</code> est une fonction unique au monde de Reeborg: elle permet d'obtenir
+la liste des attributs et des méthodes [identifiées par les parenthèses () qui suivent leur nom]
+qui appartiennent à un objet donné.  Notez que <code>téléporte</code> n'apparaît nulle part
+dans cette liste.  On remarque que la majorité des noms sont des noms anglais et que les noms
+français se trouvent à la fin.</p>
+<p>Parmi les attributs, notez les variables <code>x</code> et <code>y</code>.  Si vous avez
+vu les coordonnées cartésiennes avant, vous devriez avoir deviné que ces variables réfèrent à
+la position de Reeborg.  Nous allons vérifié ceci en sélectionnant le monde <span class="world">Vide</span>
+et en exécutant le programme suivant, tout en ayant le journal de Reeborg ouvert.  Notez que ce
+serait peut-être une bonne idée d'exécuter le programme une instruction à la fois en cliquant
+sur le bouton {step_button} au lieu du bouton {execute_button}.
+</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
 Reeborg.avance();
-write(Reeborg.x);
-write(Reeborg.y);
+écrit(Reeborg.x);
+écrit(Reeborg.y);
 Reeborg.x = 8;
 Reeborg.avance();
-write(Reeborg.x);</pre>
-<p><em>What happens if you comment out the second <code>avance()</code> instruction?</em></p>
+écrit(Reeborg.x);</pre>
+<p><em>Qu'arrive-t-il si vous commenter la deuxième instruction <code>avance()</code> pour empêcher
+son exécution?</em></p>
 
-<h2>First attempt at teleportation</h2>
-<p>Let's use the above code as an inspiration for writing a teleport method</p>
-<pre class="jscode">RobotUsagé.prototype.teleport = function (x, y) {
+<h2>Première tentative de téléportation</h2>
+<p>Utilisons le code ci-dessus comme inspiration et tentons d'écrire une méthode
+    qui permet à Reeborg de se téléporter à n'importe quel point.</p>
+<pre class="jscode">RobotUsagé.prototype.téléporte = function (x, y) {
     this.x = x;
     this.y = y;
 };
 
 var Reeborg = new RobotUsagé();
-Reeborg.teleport(3, 3);
-Reeborg.teleport(4, 8);
+Reeborg.téléporte(3, 3);
+Reeborg.téléporte(4, 8);
 </pre>
-<p>Step through the program.  Other than Reeborg being created, nothing seems to happen ...
-Add the following instruction at the very end and repeat the code execution.</p>
-<pre class="jscode">Reeborg.avance();</pre>
-<p>You should now see that Reeborg has teleported correctly to the last location from which
-he moved.  However, we'd like to see him when he teleports to a given location. To understand
-why we can't do so, we need to find out more about how Reeborg's world is created.
-The way this is normally done by programmers is by studying the source code.   We can use
-both the <code>write</code> and <code>inspect</code> functions to help us do so.</p>
-<p>So, let's try again to have a look at the following:</p>
+<p>Exécutez le programme.  Outre le fait que Reeborg soit créé, rien ne semble se passer...
+    Ajoutez l'instruction <code>Reeborg.avance();</code> à la toute fin du programme et
+    exécutez-le à nouveau. </p>
+<p>Vous devriez maintenant voir que Reeborg s'est téléporté correctement au dernier endroit.
+    Cependant, nous aimerions le voir lorsqu'il se téléporte à n'importe quel endroit.
+    Pour comprendre pourquoi cela n'est pas le cas, nous devons en apprendre plus sur
+    la façon dont le monde de Reeborg fonctionne. Ceci peut être fait en étudiant
+    le code source.  Nous pouvons utiliser les fonctions <code>écrit()</code>, ou mieux
+    encore <code>voir_source()</code>, ainsi que <code>examine()</code> pour nous aider.</p>
+<p>Commençons par répéter l'exécution du programme suivant:</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
-inspect(Reeborg);</pre>
-<p>making sure that Reeborg's Diary is open.
-Since we are interested in adding a new <em>method</em> (teleport) for Reeborg,
-we identify similar methods and look at their source code using the following:</p>
+examine(Reeborg);</pre>
+<p>En examinant le journal de Reeborg, on peut identifier des méthodes similaires
+    à <code>téléporte</code>, celle qu'on veut implémenter:</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
-view_source(Reeborg.move);
-view_source(Reeborg.turn_left);
-view_source(Reeborg.put_token);</pre>
-<p>By examining the output, can you figure out what instruction we might need to add to
-see Reeborg teleport to a new location?</p>
+écrit(Reeborg.avance);
+voir_source(Reeborg.tourne_à_gauche); // plus facile à lire!</pre>
+<p>En examinant le résultat, pouvez-vous identifier quelle instruction (dont le nom
+    est en anglais) devrait être ajoutée pour qu'on puisse voir Reeborg se téléporter
+    à un endroit?</p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('prototype')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('teleport2')">Suivant</a>
 

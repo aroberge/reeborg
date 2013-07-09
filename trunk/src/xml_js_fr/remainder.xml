@@ -57,7 +57,7 @@ variables and the remainder operator <code>%</code>.</p>
 <pre class="jscode">8 % 5 = 3</pre>
 <p>Try running the following program and observe the result in Reeborg's Diary:</p>
 <pre class="jscode">for (var i = 0; i < 10; i++) {
-    write( i % 3);
+    écrit( i % 3);
 }
 </pre>
 <p>As you can see, the result cycles through the values 0, 1 and 2.</p>
@@ -85,7 +85,7 @@ orientation %= 4;  // equivalent to  orientation = orientation % 4;</pre>
 for (var i = 0; i < 12; i++ ){
     orientation++;
     orientation %= 4;
-    write(orientation);
+    écrit(orientation);
 }
 </pre>
 <h2>Your turn</h2>
@@ -101,8 +101,8 @@ a property of the remainder operator when dealing with negative numbers.</p>
 <p>Execute the following program, examine the result in Reeborg's Diary and
     see if the code generally makes sense to you:</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
-view_source(Reeborg.turn_left);
-view_source(Reeborg.__tourne_à_droite);</pre>
+voir_source(Reeborg.turn_left);
+voir_source(Reeborg.__tourne_à_droite);</pre>
 
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('array2')">Précédent</a>

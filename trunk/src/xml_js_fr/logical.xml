@@ -50,7 +50,7 @@ human would be an incorrect one.</p>
 <pre class="jscode">var choice = 0;
 while (choice !== "q" ) {  // we use "q" as short for "quit"
     choice = human_select();
-    write(choice);
+    écrit(choice);
 }</pre>
 <p>Note that it is <b>always</b> a good idea to test individual functions
 so as to identify bugs as early as possible and fix them while the number

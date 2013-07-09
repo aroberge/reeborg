@@ -97,7 +97,7 @@ var examine = function (obj){
             result += props + "\n";
         }
     }
-    write_now(result);
+    ecrit(result);
 };
 
 var face_au_nord = function() {
@@ -202,6 +202,20 @@ RUR.Robot.prototype.a_une_fuite = RUR.Robot.prototype.is_leaky;
 RUR.Robot.prototype.tourne_à_gauche = RUR.Robot.prototype.turn_left;
 RUR.Robot.prototype.tourne_a_gauche = RUR.Robot.prototype.turn_left;
 RUR.Robot.prototype.avance = RUR.Robot.prototype.move;
+RUR.Robot.prototype.prend = RUR.Robot.prototype.take;
+RUR.Robot.prototype.dépose = RUR.Robot.prototype.put;
+RUR.Robot.prototype.depose = RUR.Robot.prototype.take;
+RUR.Robot.prototype.jeton_ici = RUR.Robot.prototype.token_here;
+RUR.Robot.prototype.objet_ici = RUR.Robot.prototype.shape_here;
+RUR.Robot.prototype.construit_un_mur = RUR.Robot.prototype.build_wall;
+RUR.Robot.prototype.rien_devant = RUR.Robot.prototype.front_is_clear;
+RUR.Robot.prototype.rien_à_droite = RUR.Robot.prototype.right_is_clear;
+RUR.Robot.prototype.rien_a_droite = RUR.Robot.prototype.right_is_clear;
+RUR.Robot.prototype.face_au_nord = RUR.Robot.prototype.is_facing_north;
+RUR.Robot.prototype.au_but = RUR.Robot.prototype.at_goal;
+RUR.Robot.prototype.au_but_orientation = RUR.Robot.prototype.at_goal_orientation;
+RUR.Robot.prototype.terminé = RUR.Robot.prototype.done;
+RUR.Robot.prototype.termine = RUR.Robot.prototype.done;
 
 var sélectionne_monde = RUR.select_world;
 var selectionne_monde = RUR.select_world;
