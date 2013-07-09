@@ -4,31 +4,32 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('remainder')">Suivant</a>
 </nav>
 
-<h1>Many robots ... again</h1>
-<h2>First, an aside ...</h2>
-<p>I have mentioned before that it is useful to add comments to code to explain
-<b>why</b> something is done a certain way; <b>how</b> something is done should
-not required comments if the code is written in a readable way!</p>
-<p>One of the problems with comments is that there is no way to guarantee
-that they reflect what the code does, since they are ignored by the computer.
-Often, a bug is found, the code is corrected ... but the comments are not.
-This situation is even more problematic for <em>documentation</em> about a program, such as
-these lessons, because they (the code and the documentation) are in separate files
-with no obvious link between the two.   Partly for this reason, I will often ask
-you to use <code>voir_source()</code> or <code>écrit()</code> or <code>examine()</code> to see how a particular
-feature of Reeborg's world is implemented so that what you see is <b>exactly</b>
-the program as it is run ... and not an earlier version.</p>
-<p>In this lesson, I will include some lines of code from Reeborg's world
-<em>as they exist at the time I am writing this lesson</em> which may be slightly
-different from the way are today, as you read this.  However, you should use <code>voir_source()</code> or
-<code>écrit()</code> and <code>examine()</code> whenever I suggest you to do so,
-to either confirm that the content of this lesson is accurate or, if not, to
-find out the most recent (and hence better!) way that a certain feature has
-been implemented.</p>
+<h1>Plusieurs robots ... encore</h1>
+<h2>Mais auparavant, en passant ....</h2>
+<p>J'ai mentionné qu'il était utile d'ajouter des commentaires pour expliquer
+    <b>pourquoi</b> quelque chose est fait d'une certaine façon dans un programme
+    informatique; le <b>comment</b> devrait être clair par la façon dont le code
+    lui-même est écrit.</p>
+<p>Un des problèmes avec les commentaires est qu'il n'y a aucune façon de s'assurer
+    qu'ils sont valables et qu'ils reflètent le but d'un programme parce que l'ordinateur les ignore.
+    Souvent, un bogue est noté, le code est corrigé ... mais les commentaires ne le sont pas.
+    Cette situation est encore plus problématique pour la <em>documentation</em> d'un programme,
+    telle que celle fournie par ces leçons, parce que les leçons sont dans des fichiers totalement
+    découplés du code et qu'il n'y a aucun lien entre les deux.  En partie pour cette raison,
+    je vais parfois vous demander d'utiliser <code>voir_source()</code> ou <code>écrit()</code>
+    ou <code>examine()</code> pour apprendre comment une certaine méthode de Reeborg est
+    écrite ce qui vous permet de voir <b>exactement</b> de quelle façon le code <b>actuel</b>
+    a été organisé, et non une version précédente.</p>
+<p>Dans cette leçon, je vais inclure quelques lignes de code du monde de Reeborg telles
+    qu'elles existaient au moment où j'ai écrit la leçon.  Il est possible qu'il existe
+    de petites différences entre la version présentée ici et la version actuelle.  Cependant,
+    vous pouvez toujours utiliser <code>voir_source()</code>, etc., pour soit confirmer
+    que le code présenté dans les leçons reflète la réalité ou pour voir ce qui devrait
+    être une meilleure façon d'accomplir le but recherché!  </p>
 <h2>Robot actions: different ways</h2>
-<p>Select world select <span class="world">Empty</span> and run the following program,
-ideally one instruction at a time using the <b>step</b> button.
-Which robot makes the last <code>avance()</code>?</p>
+<p>Sélectionnez le monde <span class="world">Vide</span> et exécutez le programme suivant,
+de préférence une instruction à la fois en utilisant {step_button}.
+Quel robot <code>avance()</code> le dernier?</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
 var Erdna = new RobotUsagé(2,2);
 
@@ -39,62 +40,67 @@ Erdna.avance();
 RUR.world.robots[1].avance();
 
 avance();</pre>
-<p>You might find it useful to include the line</p>
+<p>Si vous voulez, vous pouvez inclure la ligne </p>
 <pre class="jscode">DEBUG.ON = true;</pre>
-<p>to see some additional info printed just above Reeborg's world.</p>
-<p>Next, make sure that Reeborg's Diary is open and execute the following:</p>
-<pre class="jscode">voir_source(move);</pre>
-<p>Notice how this function contains only one instruction which should match an
-instruction from the above program with two robots.   This instruction tells
-the <b>first</b> robot (i.e. the one with the zero index) from the array
-<code>RUR.world.robots</code> to move.</p>
-<p>Next, execute the following:</p>
+<p>pour voir de l'information supplémentaire paraître au haut du monde de Reeborg. </p>
+<p>Ensuite, assurez-vous que le journal de Reeborg soit visible et exécutez l'instruction
+    suivante:</p>
+<pre class="jscode">voir_source(avance);</pre>
+<p>Cette fonction devrait inclure une seule instruction  indiquant
+    que le premier robot (celui avec un indice égal à zéro) est celui qui devrait avancer.
+</p>
+<p>Ensuite, exécutez l'instruction:</p>
 <pre class="jscode">voir_source(RobotUsagé);</pre>
-<p>Note how it contains the line</p>
+<p>Vous voyez que ceci inclus l'instruction</p>
 <pre class="jscode">RUR.world.add_robot(this);</pre>
-<p>which strongly suggests that we are <em>adding a robot to a world</em>.
-Here, <small>and it is not obvious</small>, <code>this</code> refer to the
-<code>RobotUsagé</code> that is "created" when we invoke
+<p>signifiant</p>
+<pre class="jscode">RUR.monde.ajoute_robot(this);</pre>
+<p>qui suggère fortement que nous <em>additionnons un robot au monde</em>.
+Ici, <small>et ce n'est pas évident</small>, <code>this</code> réfère au
+<code>RobotUsagé</code> qui a été "créé" lors de l'invocation de
 <code>new RobotUsagé()</code>.
-Let's dig deeper into the code by executing the following:</p>
+Continuons notre exploration plus à fond du code en exécutant:</p>
 <pre class="jscode">voir_source(RUR.world.add_robot);</pre>
-<p>One of the lines of the output is </p>
+<p>Une des lignes est </p>
 <pre class="jscode">this.robots.push(robot);</pre>
-<p>where <code>this</code> refers to <code>RUR.world</code> and
-<code>robot</code> refers to the <em>different</em> variable <code>this</code> that was passed to the
-method <code>add_robot</code>.</p>
-<p><b>Granted, the use of <code>this</code> in Javascript can be confusing...</b>
-However, what I really want to draw your attention to here is
-that we use <code>push</code> which, as we have seen before, is a method used to add items to an array
-in Javascript.</p>
-<p>Let's explain what this all means...</p>
-<p>When a user writes</p>
+<p>où <code>this</code> réfère au <code>RUR.world</code> ("monde") et
+<code>robot</code>, sans "s", réfère à <em>l'autre</em> variable <code>this</code>
+qui a été passé comme argument de la méthode <code>add_robot</code>.</p>
+<p><b>J'admet que l'utilisation de <code>this</code> en Javascript peut être mélangeante...</b>
+Cependant, ce sur quoi je voulais surtout attirer votre attention ici est le fait que la
+méthode <code>push</code> est utilisée, méthode qui, nous l'avons vu plus tôt, ajoute un élément
+à un tableau Javascript.</p>
+<p>Qu'est-ce que tout ceci veut dire ...</p>
+<p>Lorsqu'un programmeur, comme vous, écrit</p>
 <pre class="jscode">robot_name = new RobotUsagé()</pre>
- <p> a new robot is created <b>and</b> is added to an array.  Thus, one
-can either refer to this robot by its "name" or by the array item which
-was used to record it.  </p>
-<p>Why do it like that, you ask?...</p>
-<p>The reason is that when <b>you</b> write a program, you choose your own
-names to refer to a robot.  The programmers that designed Reeborg's world have
-no way to know which name you use to refer to a particular robot.  However,
-they can keep track of how many robots you add, via <code>RUR.world.robots.length</code>,
-and record every robot position and orientation at each "frame" using the corresponding array index,
-and display the result one frame at a time
-to create the animation.</p>
-<p>And, when you select a world with a robot already present, that robot has no name ...
-but it can be referred to as the zeroth-index robot in <code>RUR.world.robots</code> which
-allows you to use the simple <code>avance()</code> or <code>tourne_à_gauche()</code>.</p>
-<h2>No robot?</h2>
-<p><b>What happens if you try to use <code>avance()</code> in world <span class="world">Empty</span>
-without creating a <code>new RobotUsagé</code> first?</b></p>
-<p>Once you have tried to move an absent robot, select a world <b>with</b> a robot in
-it and try the following code first with the second line commented-out (as written) and
-then with the second line being executed.</p>
+ <p>un nouveau robot est créé <b>et</b> il est ajouté à un tableau.
+ Donc, on peut référer à ce robot soit par son "nom" ou par l'élément
+ du tableau qui lui est propre.  </p>
+<p>Pourquoi les créateurs du monde de Reeborg on fait ceci?...</p>
+<p>La raison est que lorsque <b>vous</b> écrivez un programme, vous choisissez
+les noms à utiliser pour nommer vos robots.  Les programmeurs qui ont conçu le
+monde de Reeborg n'avaient aucune façon de savoir quels noms vous utiliseriez pour
+identifier un robot donné.  Par contre, ils pouvaient tenir compte du nombre
+de robots créés, via <code>RUR.world.robots.length</code>,
+et enregistrer la position et l'orientation de chaque robot à chaque "image" (<em>frame</em>) en
+utilisant l'indice correspondant du tableau, puis montrer le résultat une image à la fois
+pour créer l'animation.</p>
+<p>Lorsque vous sélectionnez un monde qui a déjà un robot présent, ce robot n'a pas
+    de nom ... mais c'est celui dont l'indice du tableau <code>RUR.world.robots</code>
+    est égal à zéro, et c'est ce qui nous permet d'utiliser des instructions toutes
+    simples, comme <code>avance()</code> ou <code>tourne_à_gauche()</code>.</p>
+<h2>Pas de robot?</h2>
+<p><b>Qu'arrive-t-il si vous utilisez <code>avance()</code> dans le monde <span class="world">Vide</span>
+sans créer un <code>new RobotUsagé</code> en premier?</b></p>
+<p>Lorsque vous aurez essayé de faire avancer un robot absent, sélectionnez un monde
+    <b>avec</b> un robot déjà présent, et exécutez le code suivant, tout d'abord
+    en gardant la première ligne comme commentaire, puis exécutez-le à nouveau
+    en enlevant les <code>//</code> pour que la première ligne soit exécutée.</p>
 <pre class="jscode">RUR.world.robots.pop();
 //var Reeborg = new RobotUsagé(4,4);
 avance();</pre>
-<p>If the result does not make sense to you, make sure to read the both the previous lesson and
-this one again.</p>
+<p>Si le résultat ne vous parait pas logique, assurez-vous de lire à nouveau cette leçon-ci ainsi que
+    la précédente.</p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('array')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('remainder')">Suivant</a>
 
