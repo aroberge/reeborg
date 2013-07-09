@@ -22,7 +22,7 @@ glissant avec la souris.)</p>
 <p><b>Ceci n'est pas une équation mathématique!</b>  Si on avait une équation mathématique,
 une variable du côté gauche du signe d'égalité aurait la même valeur que si elle se trouvait
 à droite du même signe.  En Javascript, et dans plusieurs autres langages de programmation,
-le symbole <code>=</code> est utilisé pour <em>assigner</em> une valeur: Javascript détermine
+le symbole <code>=</code> est utilisé pour <em>affecter</em> une valeur: Javascript détermine
 en premier la valeur de l'expression à la droite du signe <code>=</code>, puis utilise le nom
 de la variable à gauche de ce signe comme aide-mémoire pour se rappeler de la valeur.
 Ainsi, si nous avons</p>

@@ -43,7 +43,7 @@ orientations such as <code>north_east</code> (half-way between <code>north</code
 or even <code>north_north_east</code> (half-way between <code>north</code> and <code>north_east)</code>,
 <em>etc</em>.   There exists a more concise and less error-prone way of performing cyclic operations using numerical
 variables and the remainder operator <code>%</code>.</p>
-<h2>While number division</h2>
+<h2>Whole number division</h2>
 <p>When you first learn about divisions, you saw whole number or integer divisions:</p>
 <ul><li>8 divided by 2 is 4</li>
 <li>8 divided by 4 is 2</li>
