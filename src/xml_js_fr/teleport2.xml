@@ -11,35 +11,35 @@
 <pre class="jscode">RUR.world.add_frame();</pre>
 <p>Computer screens can not display moving images: they can fake it by showing static images
 (or <em>frames</em>) in rapid succession.  The makers of Reeborg's world have adopted this
-strategy to make Reeborg move in his world.  Let's modify our definition of <code>teleport</code>
+strategy to make Reeborg move in his world.  Let's modify our definition of <code>téléporte</code>
 by adding this instruction. </p>
-<pre class="jscode">RobotUsagé.prototype.teleport = function (x, y) {
+<pre class="jscode">RobotUsagé.prototype.téléporte = function (x, y) {
     this.x = x;
     this.y = y;
     RUR.world.add_frame();
 };
 
 var Reeborg = new RobotUsagé();
-Reeborg.teleport(3, 3);
-Reeborg.teleport(4, 8);
+Reeborg.téléporte(3, 3);
+Reeborg.téléporte(4, 8);
 </pre>
 <p>What happens if you have Reeborg step through this program?  Does Reeborg now appear at its
-new location after teleporting?  If so, is everything the way you'd expect ... or does
-something else needs to be added to the above definition for <code>teleport</code>?</p>
-<p>You might want to use <code>write</code> and <code>inspect</code> some more and experiment with
+new location after téléporteing?  If so, is everything the way you'd expect ... or does
+something else needs to be added to the above definition for <code>téléporte</code>?</p>
+<p>You might want to use <code>voir_source</code> and <code>examine</code> some more and experiment with
 various changes.  Based on the limited amount of information you have, it is likely to be a real
 puzzle to figure out what to do ... but the best way to learn about programming is trying your
 hand at those puzzles on your own first, before moving to the next lesson.</p>
 
 
 <h2>Before moving on ...</h2>
-<p>You have just defined a new method: <code>teleport</code>.
+<p>You have just defined a new method: <code>téléporte</code>.
 Execute the program</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
-view_source(Reeborg.teleport);
-delete RobotUsagé.prototype.teleport;
-view_source(Reeborg.teleport);</pre>
-<p> and note how <code>teleport</code> first appears as a known method and then,
+voir_source(Reeborg.téléporte);
+delete RobotUsagé.prototype.téléporte;
+voir_source(Reeborg.téléporte);</pre>
+<p> and note how <code>téléporte</code> first appears as a known method and then,
 after we <code>delete</code> it, it no longer is defined.  We can use the
 Javascript keyword <code>delete</code> to remove attributes or methods
 from a corresponding object, either from a <em>specific</em> instance or

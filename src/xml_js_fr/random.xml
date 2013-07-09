@@ -9,11 +9,11 @@
 <p>Open Reeborg's Diary and close Reeborg's world.  Then, run the following program.
 </p>
 
-<pre class="jscode">write(Math.random());
-write(Math.floor(8.4));
-write("=========");
+<pre class="jscode">écrit(Math.random());
+écrit(Math.floor(8.4));
+écrit("=========");
 for(var i=0; i < 10; i++) {
-    write(Math.floor(Math.random()*100));
+    écrit(Math.floor(Math.random()*100));
 }
 </pre>
 <p><code>random()</code> and <code>floor()</code> are two methods from the Javascript

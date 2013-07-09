@@ -25,7 +25,7 @@ try {
     throw tantrum;
 }
 catch (e) {
-    write(e.message);
+    écrit(e.message);
 }
 finally {
     avance();
@@ -40,7 +40,7 @@ try {
     throw tantrum;
 }
 catch (e) {
-    write(e.message);
+    écrit(e.message);
 }
 avance();</pre>
 <p>All three versions should give the same result in terms of Reeborg taking one step.</p>
@@ -66,17 +66,17 @@ the following program:</p>
 <pre class="jscode">try {
     a();
 } catch(e) {
-    write(e instanceof Error);     // true
-    write(e instanceof TypeError); // true
-    write(e instanceof RUR.Error); // false
+    écrit(e instanceof Error);     // true
+    écrit(e instanceof TypeError); // true
+    écrit(e instanceof RUR.Error); // false
 }
 
-write("=============");
+écrit("=============");
 try {
     prend("jeton");   // in a world where none is present
 } catch(err) {      // any variable name can be used
-    write(err instanceof Error);     // false
-    write(err instanceof RUR.Error); // true
+    écrit(err instanceof Error);     // false
+    écrit(err instanceof RUR.Error); // true
 }</pre>
 
 <h2>Multiple catch blocks</h2>
@@ -86,11 +86,11 @@ try {
 try {
     a();
 } catch(e if e instanceof TypeError) {
-    write("Caught TypeError");
+    écrit("Caught TypeError");
 } catch(e if e instanceof Error) {
-    write("Caught Error");
+    écrit("Caught Error");
 } catch(e if e instanceof RUR.Error) {
-    write("Caught RUR.Error");
+    écrit("Caught RUR.Error");
 }
 </pre>
 <p>With multiple <code>catch</code> blocks, the first valid one is the one that
@@ -107,12 +107,12 @@ one can document where an error occur and deal with it somewhere else.</p>
     try {
         a();
     } catch (e) {
-        write("Error occurred in function X...");
+        écrit("Error occurred in function X...");
         throw e;  // sends it further
     }
-    write("will be not be executed");
+    écrit("will be not be executed");
 } catch (err) {
-    write("Dealing with previous error");
+    écrit("Dealing with previous error");
 }</pre>
 
 

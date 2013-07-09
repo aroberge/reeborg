@@ -26,11 +26,11 @@ a way to define basic objects using a simplified syntax as follows:</p>
 };
 
 // use "dot" notation
-write( "One half, which is written as " + half.toString() +
+écrit( "One half, which is written as " + half.toString() +
        " is equal to " + half.evaluate());
 
 // mixed notation introduced without further explanation
-write( 'The denominator is ' + half.denominator +
+écrit( 'The denominator is ' + half.denominator +
        ' whereas the numerator is ' + half['numerator']);
 </pre>
 <p>Try to figure out what the above does by reading it and

@@ -6,22 +6,22 @@
 <h1>Going left?</h1>
 <p>Run the following program:</p>
 <pre class="jscode">var Reeborg = new ImprovedRobot();
-write( Reeborg.rien_devant() );
-write( Reeborg.right_is_clear() );</pre>
+écrit( Reeborg.rien_devant() );
+écrit( Reeborg.right_is_clear() );</pre>
 <p>As you can see in Reeborg's diary, Reeborg can determine correctly if there is a
 wall in front or to its right.  Unfortunately, it can not do the same to its left:
 the method <code>left_is_clear()</code> is not defined.  Let's change that.</p>
 <p>We first start by having a look at how the existing two methods are defined
 (notice the absence of <code>()</code>):</p>
 <pre class="jscode">var Reeborg = new ImprovedRobot();
-view_source( Reeborg.rien_devant );
-view_source( Reeborg.right_is_clear );</pre>
+voir_source( Reeborg.rien_devant );
+voir_source( Reeborg.right_is_clear );</pre>
 <p>As you can see, these methods are defined using similarly named ones
 from the object <code>RUR.world</code>.  If you execute the single line:</p>
-<pre class="jscode">view_source( RUR.world.rien_devant );</pre>
+<pre class="jscode">voir_source( RUR.world.rien_devant );</pre>
 <p>you will see a rather complicated definition.  However, if you do the
 same for </p>
-<pre class="jscode">view_source( RUR.world.right_is_clear );</pre>
+<pre class="jscode">voir_source( RUR.world.right_is_clear );</pre>
 <p>you will see a much simpler one, which uses <code>rien_devant</code>.
 Have a closer look at the definition for <code>RUR.world.right_is_clear()</code>.
 Do you see anything unusual about it?</p>
@@ -30,7 +30,7 @@ Do you see anything unusual about it?</p>
 are called with an argument (<code>true</code>) instead of without like
 we have done up until now.  If you look at the definition of <code>turn_left</code> using</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
-view_source( Reeborg.turn_left );</pre>
+voir_source( Reeborg.turn_left );</pre>
 <p>you will see that it takes an optional argument, named <code>no_frame</code>.  Whenever
 that argument is defined, the function returns <b>before</b> a new frame is added. Thus
 the robot turns ... but that turn is not recorded.  Note that, instead of <code>true</code>,
@@ -48,9 +48,9 @@ the robot turns ... but that turn is not recorded.  Note that, instead of <code>
 };
 
 var Reeborg = new ImprovedRobot();
-write( Reeborg.left_is_clear() );  // true or false?
+écrit( Reeborg.left_is_clear() );  // true or false?
 Reeborg.tourne_à_gauche();
-write( Reeborg.left_is_clear() );  // true or false?</pre>
+écrit( Reeborg.left_is_clear() );  // true or false?</pre>
 <p>Note that since we are implementing this as a robot method, instead of as
 a world method the way <code>right_is_clear</code> was implemented, we use
 <code>this</code> instead of <code>robot</code> inside the method definition.</p>
