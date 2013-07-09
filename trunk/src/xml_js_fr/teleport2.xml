@@ -4,15 +4,21 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('teleport3')">Suivant</a>
 </nav>
 
-<h1>Teleport again!</h1>
+<h1>Encore la téléportation</h1>
 
-<p>At the end of last lesson, you looked at the source code for three of Reeborg's methods.
-    You should have noticed that the very last line for each of them was</p>
+<p>À la fin de la leçon précédente, vous avez examiné le code source pour deux des méthodes
+    de Reeborg.  Vous avez peut-être remarqué que la dernière instruction dans chaque cas
+    était</p>
 <pre class="jscode">RUR.world.add_frame();</pre>
-<p>Computer screens can not display moving images: they can fake it by showing static images
-(or <em>frames</em>) in rapid succession.  The makers of Reeborg's world have adopted this
-strategy to make Reeborg move in his world.  Let's modify our definition of <code>téléporte</code>
-by adding this instruction. </p>
+<p>qu'on pourrait traduire en français par</p>
+<pre class="jscode">RUR.monde.ajoute_image();</pre>
+<p>Les écrans d'ordinateurs ne peuvent pas montrer des images en mouvement: ils simulent le
+    mouvement en montrant une série d'images statiques en succession rapide.  (Ceci est la
+    même technique que pour les films et le mot anglais <em>frame</em> est l'équivalent
+    d'<em>image</em> dans ce contexte).  Les créateurs du monde de Reeborg ont adopté cette
+    stratégie pour visualiser les déplacement de Reeborg.  Modifions donc notre définition de
+    <code>téléporte</code> en ajoutant cette instruction.
+</p>
 <pre class="jscode">RobotUsagé.prototype.téléporte = function (x, y) {
     this.x = x;
     this.y = y;
@@ -23,27 +29,28 @@ var Reeborg = new RobotUsagé();
 Reeborg.téléporte(3, 3);
 Reeborg.téléporte(4, 8);
 </pre>
-<p>What happens if you have Reeborg step through this program?  Does Reeborg now appear at its
-new location after téléporteing?  If so, is everything the way you'd expect ... or does
-something else needs to be added to the above definition for <code>téléporte</code>?</p>
-<p>You might want to use <code>voir_source</code> and <code>examine</code> some more and experiment with
-various changes.  Based on the limited amount of information you have, it is likely to be a real
-puzzle to figure out what to do ... but the best way to learn about programming is trying your
-hand at those puzzles on your own first, before moving to the next lesson.</p>
+<p>Qu'est-ce qui arrive si vous exécutez ce programme?  Est-ce que Reeborg apparaît à tous les
+    endroits où il se téléporte?  Si oui, est-ce que tout se passe telle que vous l'auriez
+    prévu? ... ou est-ce que l'on doit modifier la définition de <code>téléporte</code>?</p>
+<p>Vous voudrez peut-être utiliser <code>voir_source</code> et <code>examine</code> pour poursuivre
+votre exploration du code source de Reeborg et tenter diverses expériences.  En raison du peu
+d'information que vous avez, c'est un véritable défi de trouver la solution par vous-mêmes ....
+mais la meilleure façon d'apprendre est d'essayer d'abord de trouver les solutions par soi-même.
+La solution sera donnée dans la prochaine leçon. </p>
 
 
-<h2>Before moving on ...</h2>
-<p>You have just defined a new method: <code>téléporte</code>.
-Execute the program</p>
+<h2>Avant de poursuivre la lecture ...</h2>
+<p>Vous avez défini une nouvelle méthode: <code>téléporte</code>.
+Exécutez le programme</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
 voir_source(Reeborg.téléporte);
 delete RobotUsagé.prototype.téléporte;
 voir_source(Reeborg.téléporte);</pre>
-<p> and note how <code>téléporte</code> first appears as a known method and then,
-after we <code>delete</code> it, it no longer is defined.  We can use the
-Javascript keyword <code>delete</code> to remove attributes or methods
-from a corresponding object, either from a <em>specific</em> instance or
-from <b>all</b> the instances by removing it from the <em>prototype</em> like we have done here. </p>
+<p> et notez qu'en premier <code>téléporte</code> apparaît comme une méthode connue puis,
+après avoir utilisé le mot-clé <code>delete</code> ("supprimer"), la méthode n'est plus
+définie.  Le mot-clé <code>delete</code> peut être utilisé pour supprimer des attributs
+ou des méthodes soit d'un objet spécifique, ou de <b>tous</b> les objets d'une "classe"
+donnée comme nous l'avons fait ici.</p>
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('teleport')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('teleport3')">Suivant</a>
 

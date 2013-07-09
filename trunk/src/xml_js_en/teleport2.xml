@@ -6,7 +6,7 @@
 
 <h1>Teleport again!</h1>
 
-<p>At the end of last lesson, you looked at the source code for three of Reeborg's methods.
+<p>At the end of last lesson, you looked at the source code for two of Reeborg's methods.
     You should have noticed that the very last line for each of them was</p>
 <pre class="jscode">RUR.world.add_frame();</pre>
 <p>Computer screens can not display moving images: they can fake it by showing static images

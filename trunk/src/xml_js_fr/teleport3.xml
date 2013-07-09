@@ -4,20 +4,21 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('teleport4')">Suivant</a>
 </nav>
 
-<h1>More téléporteation</h1>
+<h1>Toujours la téléportation</h1>
 
-<p>As you know, Reeborg has an oil leak, which makes it easy to follow, but is not
-very good for the environment.  As Reeborg moves, this oil leak follows
-Reeborg from his <em>previous</em> position to its current one.  However, the
-<code>téléporte</code> method you have seen so far does not seem to follow Reeborg
-as he téléportes repeatedly from one position to a new one.</p>
-<p>If you examine the source code for various Reeborg's methods, you will find that
-two attributes, <code>prev_x</code> and <code>prev_y</code> appear to be related
-to Reeborg's previous position.  Let's try to update these values as Reeborg
-téléportes himself.</p>
+<p>Comme vous le savez, Reeborg a une fuite d'huile, ce qui le rend facile à suivre
+    à la trace mais qui et dommageable pour l'environnement.  Lorsque Reeborg se
+    déplace, la fuite d'huile trace une ligne de sa position <em>précédente</em>
+    (ou <em>previous</em> en anglais) à sa position actuelle.  Cependant, la
+    méthode <code>téléporte</code> ne semble pas tenir compte de la position précédente
+    de Reeborg.</p>
+<p>Si vous examinez le code source pour diverses méthodes de Reeborg, vous verrez
+    que deux attributs, <code>prev_x</code> et <code>prev_y</code>, semblent
+    être reliés à la position précédente de Reeborg.  Essayons d'actualiser
+    la valeur de ces attributs lorsque Reeborg se téléporte. </p>
 
 <pre class="jscode">RobotUsagé.prototype.téléporte = function (x, y) {
-    this.prev_x = this.x;  // save current values before téléporteing
+    this.prev_x = this.x;  // sauvegarde les valeurs avant la téléportation
     this.prev_y = this.y;
 
     this.x = x;
@@ -29,21 +30,19 @@ var Reeborg = new RobotUsagé();
 Reeborg.téléporte(3, 3);
 Reeborg.téléporte(4, 8);
 </pre>
-<p>If you try to execute this program, you will see that the oil leak follows Reeborg
-correctly as he téléportes himself from one location to another.</p>
-<p>There is however, one small problem: Reeborg appears to be <em>jumping</em> from
-one location to another, rather than téléporteing.  One might expect that téléporteation
-would imply going from one position to another almost instanteneously, without leaving
-a trace.  We can do this by fixing (temporarily) Reeborg's leak.</p>
-<p>Once again, let's inspect Reeborg's methods and attributes using the following program:</p>
+<p>Si vous exécutez ce programme, vous verrez que la fuite d'huile suit Reeborg
+    correctement lorsqu'il se téléporte.</p>
+<p>Il demeure cependant un petit problème: Reeborg semble <em>sauter</em> d'un endroit
+à l'autre plutôt que se téléporter.  En effet, on s'attendrait à ce que la téléportation
+ait lieu instantanément, sans ne laisser de trace.  On peut faire ceci en arrêtant
+(temporairement) la fuite d'huile.</p>
+<p>Une fois de plus, examinez les méthodes et attributs de Reeborg en utilisant le
+    programme suivant:</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
 examine(Reeborg);
-voir_source(Reeborg.something);  // an attribute with a suggestive name
-voir_source(Reeborg.something_else);  // a method with a suggestive name</pre>
-<p>Start by simply using <code>examine(Reeborg)</code> to identify the relevant attribute and
-method that could be used instead of
-<code>something</code> and <code>something_else</code> above
-to determine their meaning.</p>
+voir_source(Reeborg.un_attribut);  // pouvez-vous deviner le nom?
+voir_source(Reeborg.une_méthode);  // pouvez-vous deviner le nom?</pre>
+<p>Un dictionnaire anglais-français pourrait peut-être être utile...</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('teleport2')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('teleport4')">Suivant</a>
