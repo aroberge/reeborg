@@ -4,72 +4,74 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('array2')">Suivant</a>
 </nav>
 
-<h1>Javascript arrays</h1>
-<p>I don't know about you, but I'm getting hungry. It would be so nice to have some delicious chocolate mousse cake to eat.</p>
-<h2>Chocolate Mousse Recipe</h2>
+<h1>Les tableaux de Javascript </h1>
+<p>Je ne sais pas si c'est le cas pour vous, mais moi, je commence à avoir fin.  Ce serait tellement bon
+    d'avoir une délicieuse mousse au chocolat à déguster.</p>
+<h2>Recette de mousse au chocolat</h2>
 
-<ul><li>List of ingredients</li>
-<ul><li>4 eggs</li>
-<li>100 g of sugar</li>
-<li>250 g of dark semi-sweet chocolate</li>
-<li>30 ml of cocoa powder</li></ul></ul>
-<p>To actually make the cake, we need the recipe. Something like:</p>
-<ul><li>Preheat the oven to 180 C (350 F).</li>
-<li>Separate the egg whites from the yolks.</li>
+<ul><li>Ingrédients</li>
+<ul><li>4 oeufs</li>
+<li>100 g de sucre</li>
+<li>250 g de chocolat noir mi-sucré  </li>
+<li>30 ml de poudre de cacao</li></ul></ul>
+<p>Pour préparer cette mousse, il faut suivre une recette:</p>
+<ul><li>Préchauffer le four à 180 C </li>
+<li>Séparez le blanc et le jaune des oeufs </li>
 <li><em>etc.</em></li></ul>
 
-<p>A recipe is very much like a computer program: it's a series of instructions that one needs to
-follow in a precise order to accomplish a desired result.
-I think we have enough to learn about programming,
-that I will end the cooking lesson at this point and go back to Javascript
-and talk about <code>Arrays</code>.</p>
+<p>Une recette ressemble beaucoup à un programme informatique: il s'agit d'une suite d'instructions
+    que l'on doit suivre pour accomplir un but recherché.  Je crois qu'on en a déjà plein notre
+    assiette à apprendre la programmation et je vais donc terminer ici ces leçons sur la cuisine
+    pour retourner à Javascript, et plus particulièrement parler de <b>tableaux</b>.
+</p>
 
 
-<h2>Arrays</h2>
-<p>Here is the list of ingredients of the above recipe presented as a Javascript array</p>
-<pre class="jscode">ingredients = ["4 eggs", "100 g of sugar",
-"250 g of dark semi-sweet chocolate",
-"30 ml of cocoa powder"]</pre>
-<p>Alternatively, instead of the shorcut notation <code>[ ... ]</code>, we could
-have written this as:</p>
-<pre class="jscode">ingredients = new Array("4 eggs", "100 g of sugar",
-"250 g of dark semi-sweet chocolate",
-"30 ml of cocoa powder")</pre>
+<h2>Tableaux</h2>
+<p>Voici la liste d'ingrédients ci-dessus présentés sous forme d'un tableau Javascript </p>
+<pre class="jscode">ingrédients = ["4 oeufs", "100 g de sucre",
+"250 g de chocolat noir mi-sucré ",
+"30 ml de poudre de cacao"]</pre>
+<p>Au lieu d'utiliser la notation simplifiée<code>[ ... ]</code>, nous aurions
+pu définir le tableau (<em>array</em> en anglais) comme ceci: </p>
+<pre class="jscode">ingrédients = new Array("4 oeufs", "100 g de sucre",
+"250 g de chocolat noir mi-sucré ",
+"30 ml de poudre de cacao")</pre>
 
-<p>Javascript arrays have multiple methods such as <code>sort</code>, <code>reverse</code>,
-<code>shift</code>, etc.  You can find a more complete description on
+<p>Les tableaux Javascript ont diverses méthodes telles que <code>sort</code>, <code>reverse</code>,
+<code>shift</code>, etc.  Vous pouvez trouver une description complète au
 <a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Mozilla's Developers site</a>.
-Here, we will introduce only two array methods, <code>push</code> and <code>pop</code> as
-well as one property, <code>length</code>.</p>
-<p>Make sure that Reeborg's Diary is visible and run the following program:</p>
-<pre class="jscode">var list = ["abc", 1, 10.4];
+Ici, nous présenterons seulement deux méthodes, soit <code>push</code> et <code>pop</code>,
+ainsi qu'une propriété ou attribut, <code>length</code>.</p>
+<p>Assurez-vous que le journal de Reeborg soit visible et exécutez le programme suivant: </p>
+<pre class="jscode">var liste = ["abc", 1, 10.4];
 
-écrit( list );
-écrit( list[0] );
+écrit( liste );
+écrit( liste[0] );
 
-écrit( list.length );
+écrit( liste.length );
 écrit("-----");
 
-for (var i=0; i < list.length; i++ ){
-    écrit( list[i] );
+for (var i=0; i < liste.length; i++ ){
+    écrit( liste[i] );
 }
 
 écrit("-----");
-list.push(42);
-écrit( list );
-écrit( list.length );
+liste.push(42);
+écrit( liste );
+écrit( liste.length );
 
 écrit("-----");
-écrit( list.pop() );
-écrit( list );
-écrit( list.length );</pre>
-<p>Some things to note:</p>
+écrit( liste.pop() );
+écrit( liste );
+écrit( liste.length );</pre>
+<p>Quelques points à noter:</p>
 <ul>
-    <li>Individual array items are accessed using the bracket notation: <code>[array_index]</code></li>
-    <li>The first item has index 0</li>
-    <li><code>name_of_array.length</code> refers to the number of items in that array</li>
-    <li><code>push()</code> is used to add one item at the end of the array</li>
-    <li><code>pop()</code> removes the last item on the array and <em>returns</em> it</li>
+    <li>Les éléments d'un tableau peuvent être obtenu en utilisant la notation crochet:
+            <code>[indice_du_tableau]</code></li>
+    <li>Le premier élément a 0 comme indice. </li>
+    <li><code>nom_du_tableau.length</code> réfère au nombre d'éléments du tableau. </li>
+    <li><code>push()</code> est utilisé pour ajouter un élément à la fin du tableau. </li>
+    <li><code>pop()</code> élimine le dernier élément du tableau et le retourne (via <code>return</code>) </li>
 </ul>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('teleport4')">Précédent</a>
