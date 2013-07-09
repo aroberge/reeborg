@@ -121,9 +121,9 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('turn_right')">Plusieurs virages à droite</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('prototype')">Les prototypes</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('teleport')">Téléporte!</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('teleport2')">Teleport again!</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('teleport3')">More téléporteation</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('teleport4')">Teleporting correctly</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('teleport2')">Encore la téléportation</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('teleport3')">Toujours la téléportation</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('teleport4')">La véritable téléportation</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('array')">Javascript arrays</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('array2')">Many robots ... again</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('remainder')">Remainder operator</a></li>
