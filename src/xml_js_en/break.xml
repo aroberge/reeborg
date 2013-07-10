@@ -85,7 +85,7 @@ alert("Goodbye " + player_name);
 <h2>Please note</h2>
 <p><code>break</code> without labels is often used in Javascript programs.  However,
 most people avoid using break with labels as it is found that it makes programs
-more difficult to read and understand.  Many other computer languages (Python, Java, ...)
+more difficult to read and understand.  Many other computer languages (Python for example)
 have break statements but no label statements.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('hilo_game')">Previous</a>

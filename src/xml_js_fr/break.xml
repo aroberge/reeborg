@@ -4,89 +4,91 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('rock_paper_scissors')">Suivant</a>
 </nav>
 
-<h1>Taking a break</h1>
+<h1>Briser la boucle</h1>
 
-<p>While you were getting the code right and testing it by playing the number guessing game,
-you perhaps wished you could stop the game.  However, once inside a loop, the only
-way you know to get out is to satisfy the condition for that loop.  Sometimes,
-there is another way, using the Javascript keyword <code>break</code>.</p>
+<p>Lorsque vous étiez à modifier le code du jeu de devinette des nombres et à vérifier qu'il fonctionnait
+    correctement, vous avez fort probablement souhaité pouvoir l'interrompre.  Malheureusement, une fois
+    dans la boucle, la seule façon d'en sortir était de satisfaire la condition de cette boucle.
+    Parfois il y a une autre façon de sortir d'une boucle en utilisant le mot-clé <code>break</code>.</p>
 
-<p>When a <code>break</code> instruction is encountered inside a <code>while</code> or
-a <code>for</code> loop, Javascript terminates the instructions inside the loop block
-by jumping outside.  To demonstrate this, we will use a "secret code": if the
-player enters -1 as the guess, we will break out of the loop.  Here's
-the code to do so</p>
+<p>Lorsqu'une instruction <code>break</code> est exécutée à l'intérieur d'une boucle <code>while</code> ou
+    une boucle  <code>for</code>, Javascript cesse l'exécution des instructions à l'intérieur de la
+    boucle et "saute" à l'instruction suivant immédiatement cette boucle.  Pour illustrer ceci,
+    nous allons utiliser un "code secret": si le joueur soumet -1 comme valeur d'un nombre, nous
+    allons utiliser <code>break</code> pour terminer la boucle. </p>
 
-<pre class="jscode">var answer, guess, player_name, play_game;
+<pre class="jscode">var réponse, devine, nom_du_joueur, on_joue;
 
-player_name = prompt("What is your name?");
-play_game = confirm("Hello " + player_name + "!  Let's play a game!");
+nom_du_joueur = prompt("Quel est votre nom?");
+on_joue = confirm("Bonjour " + nom_du_joueur + "!  Jouons à un jeu!");
 
-while(play_game) {
-    answer = Math.floor(Math.random()*100) + 1;
-    guess = parseInt(prompt("Choose a number between 1 and 100."), 10);
+while(on_joue) {
+    réponse = Math.floor(Math.random()*100) + 1;
+    devine = parseInt(prompt("Choisissez un nombre entre 1 et 100."), 10);
 
-    while (guess !== answer) {
-        if (guess === -1) {   // check for secret code
+    while (devine !== réponse) {
+        if (devine === -1) {   // on vérifie pour le code secret
             break;
-        } else if (guess < answer) {
-            guess = parseInt(prompt(guess + " is too low; guess again."), 10);
+        } else if (devine < réponse) {
+            devine = parseInt(prompt(devine + " est trop petit; essayez à nouveau."), 10);
         }
         else {
-            guess = parseInt(prompt(guess + " is too high; guess again."), 10);
+            devine = parseInt(prompt(devine + " est trop grand; essayez à nouveau."), 10);
         }
     }
 
-    play_game = confirm(answer + " is the answer!\n Play again?");
+    on_joue = confirm(réponse + " est la réponse!\n On joue à nouveau?");
 }
 
-alert("Goodbye " + player_name);
+alert("Au revoir " + nom_du_joueur);
 </pre>
-<p>This works fine to break out of the <em>inner</em> <code>while</code> loop, where we are
-guessing numbers; but it still require an extra step to confirm if we want
-to stop playing altogether as this requires that we get out of the <em>outer</em>
-loop.   Javascript gives us a way to get out of a specific loop using <b>labels</b>.
-A label is any valid Javascript identifier (something that <em>could</em> be used as
-a variable or a function name) except that it can not already be used.  When
-using labels, we need to specify which one we want to use as in <code>break label</code>.
-Here's a new version of the program which uses labels</p>
+<p>Comme vous pouvez le vérifier, ceci fonctionne bien pour terminer la boucle
+    <em>intérieure</em>, où on devine le nombre; cependant, ça requiert une autre étape
+    pour confirmer qu'on veut cesser complètement de jouer puisqu'on doit alors sortir
+    de la boucle <em>extérieure</em>.   Javascript nous donne l'option de sortir d'une
+    boucle spécifique en utilisant des <b>étiquettes</b>.  Une étiquette est un "mot" qui
+    serait valable comme nom de variable ou comme nom de fonctions.  Lorsqu'on
+    utilise des étiquettes, on spécifie laquelle on choisie via l'énoncé
+    <code>break étiquette</code>.  Voici une autre version du programme qui
+    utilise les étiquettes.</p>
 
 
-<pre class="jscode">var answer, guess, player_name, play_game;
+<pre class="jscode">var réponse, devine, nom_du_joueur, on_joue;
 
-player_name = prompt("What is your name?");
-play_game = confirm("Hello " + player_name + "!  Let's play a game!");
+nom_du_joueur = prompt("Quel est votre nom?");
+on_joue = confirm("Bonjour " + nom_du_joueur + "!  Jouons à un jeu!");
 
-game_loop:   // label for the outer loop
-while(play_game) {
-    answer = Math.floor(Math.random()*100) + 1;
-    guess = parseInt(prompt("Choose a number between 1 and 100."), 10);
+boucle_du_jeu:   // étiquette pour boucle extérieure
+while(on_joue) {
+    réponse = Math.floor(Math.random()*100) + 1;
+    devine = parseInt(prompt("Choose a number between 1 and 100."), 10);
 
-    guessing_loop:    // label for the inner loop
-    while (guess !== answer) {
-        if (guess === -1) {
-            break guessing_loop;  // terminate inner loop
-        } else if (guess === -2){
-            break game_loop;      // terminate outer loop
-        } else if (guess < answer) {
-            guess = parseInt(prompt(guess + " is too low; guess again."), 10);
+    boucle_de_devinette:    // étiquette pour boucle intérieure
+    while (devine !== réponse) {
+        if (devine === -1) {
+            break boucle_de_devinette;  // on termine la boucle intérieure
+        } else if (devine === -2){
+            break boucle_du_jeu;      // on termine la boucle extérieure
+        } else if (devine < réponse) {
+            devine = parseInt(prompt(devine + " est trop petit; essayez à nouveau."), 10);
         }
         else {
-            guess = parseInt(prompt(guess + " is too high; guess again."), 10);
+            devine = parseInt(prompt(devine + " est trop grand; essayez à nouveau."), 10);
         }
     }
 
-    play_game = confirm(answer + " is the answer!\n Play again?");
+    on_joue = confirm(réponse + " est la réponse!\n On joue à nouveau?");
 }
 
-alert("Goodbye " + player_name);
+alert("Au revoir " + nom_du_joueur);
 </pre>
-<p><b>Try it!</b></p>
-<h2>Please note</h2>
-<p><code>break</code> without labels is often used in Javascript programs.  However,
-most people avoid using break with labels as it is found that it makes programs
-more difficult to read and understand.  Many other computer languages (Python, Java, ...)
-have break statements but no label statements.</p>
+<p><b>Jouez et amusez-vous!</b></p>
+<h2>Veuillez noter ...</h2>
+<p><code>break</code> sans étiquette est souvent utilisé en Javascript.
+Plusieurs personnes évitent d'utiliser les étiquettes parce qu'elles trouvent que
+ça peut rendre un programme plus difficile à lire et à comprendre.  En fait, plusieurs
+autres langages de programmation (comme Python) ont des énoncés <code>break</code>
+mais n'ont pas d'étiquettes.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('hilo_game')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('rock_paper_scissors')">Suivant</a>

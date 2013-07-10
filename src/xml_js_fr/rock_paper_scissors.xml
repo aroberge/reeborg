@@ -4,36 +4,41 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('logical')">Suivant</a>
 </nav>
 
-<h1>Rock, paper, scissors</h1>
+<h1>Roche, papier, ciseaux</h1>
 
-<p>You probably already know the game: rock beats scissors, scissors beat paper,
-and paper beats rock.  Let's implement a Javascript version of it and learn three
-new keywords:  <code>switch</code>, <code>case</code>, and <code>default</code>.
-We will also learn about the logical operators <code>||</code> and <code>&amp;&amp;</code></p>
+<p>Vous connaissez probablement le jeu: on l'appelle <em>roche-papier-ciseaux</em> au Canada,
+<em>papier-caillou-ciseaux, ou chifoumi</em> en France, ou <em>pierre-papier-ciseaux</em> en
+France et en Belgique, etc.   Si on prend la version canadienne (après tout, Reeborg
+est Canadien),  la roche bat les ciseaux (en les émoussant),
+les ciseaux battent le papier (en le coupant), le papier bat la roche (en l'enveloppant).
+Nous allons écrire une version Javascript de ce jeu et apprendre trois nouveaux
+mots-clés: <code>switch</code>, <code>case</code>, et <code>default</code>.
+Nous allons également voir les opérateurs logiques <code>||</code> et <code>&amp;&amp;</code></p>
 
-<p>This game is played with two players; however we'll just take
-one of the players to be the computer so that you can play against it by yourself.
-Also, we'll just give the code for one round of the game; it will be up to you
-to implement a multiple game round with a <code>while</code> loop, using the
-number guessing game as an example.</p>
-<p>Starting with the computer player, we use the random number generator
-to make one of the three possible choices:</p>
-<pre class="jscode">function computer_select () {
-    var selection = Math.random();  // number between 0. and 1.0
-    if (selection < 1/3) {
-        return "rock";
-    } else if (selection < 2/3 ) {
-        return "paper";
+<p>Pour ce jeu, on doit avoir deux joueurs; nous allons faire en sorte que l'ordinateur
+    soit un joueur pour que vous puissiez jouer sans qu'un ami soit présent.
+Nous allons voir le code que pour une seule joute; ce sera à vous d'utiliser
+le mot-clé <code>while</code> pour pouvoir jouer à répétitions comme on l'a vu
+pour l'autre jeu.</p>
+<p>Commençons avec l'ordinateur comme joueur.  Nous pouvons utilisé la méthode
+    des nombres aléatoires pour décider au hasard quelle "arme" choisir: </p>
+<pre class="jscode">function choix_ordinateur () {
+    var sélection = Math.random();  // number between 0. and 1.0
+    if (sélection < 1/3) {
+        return "roche";
+    } else if (sélection < 2/3 ) {
+        return "papier";
     } else {
-        return "scissors";
+        return "ciseaux";
     }
 }</pre>
 
-<p>You may want to try the above code by running the following test program</p>
+<p>Exécutez le programme ci-dessus avec ce qui suit pour vérifier comment ça
+fonctionne</p>
 <pre class="jscode">for( var i=0; i < 25; i++) {
-écrit( i + " " + computer_select() );
+écrit( i + " " + choix_ordinateur() );
 }</pre>
-<p>before moving to the next lesson to learn about logical operators.</p>
+<p>avant de passer à la prochaine leçon et voir les opérateurs logiques. </p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('break')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('logical')">Suivant</a>

@@ -27,7 +27,7 @@ seuil de porte.</li>
     qui paie toujours le montant exact, sans laisser de pourboire pour
     Reeborg; <span class="world">Journal&nbsp;2</span></li></ul>
 <p>Utilisant les instructions </p>
-<pre class="jscode">prendre("étoile")   // préparer pour transporter
+<pre class="jscode">prend("étoile")   // préparer pour transporter
 dépose("étoile")  // </pre>
 <p> faites en sorte que Reeborg fasse au moins une livraison au client de votre choix.
 Assurez-vous d'écrire les deux instructions ci-dessus <b>exactement</b> de la façon
