@@ -6,7 +6,7 @@
 
 <h1>Switch statement</h1>
 
-<p>When player <em>rock, paper, scissors</em>, both player can choose one of three possible "weapons"
+<p>When playing <em>rock, paper, scissors</em>, both player can choose one of three possible "weapons"
 so that the total number of combinations is 9:
 <ul><li>rock and rock</li>
 <li>rock and paper</li>
@@ -16,7 +16,9 @@ so that the total number of combinations is 9:
 We might be tempted to use <code>if/else</code> statements (which would work), but
 there is an easier, more readable way: <code>switch</code> statements.
 </p>
-<p>Imagine that we have a computer player and a human player.  We could combine
+<p>Before explaining the <code>switch</code> statements, let's think of how
+we might evaluate the result of a game.
+Imagine that we have a computer player and a human player.  We could combine
 their respective selection for a "match" as follows:</p>
 
 <pre class="jscode">var player1, player2, match;
