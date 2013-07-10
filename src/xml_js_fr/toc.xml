@@ -137,7 +137,7 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('break')">Briser la boucle</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('rock_paper_scissors')">Roche, papier, ciseaux</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('logical')">Opérateurs logiques</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('switch')">Switch statement</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('switch')">Énoncé switch</a></li>
 
 <h2>Random escapes</h2>
 <p>Back to Reeborg's world where we learn about throwing and catching errors...</p>
