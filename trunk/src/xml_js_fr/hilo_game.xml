@@ -4,42 +4,46 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('break')">Suivant</a>
 </nav>
 
-<h1>Guess a number: the game!</h1>
+<h1>Le jeu: devinez un nombre!</h1>
 
-<p>We now know everything we need to write the program for a number guessing game.
-Here's the outline of our program in words:</p>
-<p><em>After asking the player his or her name, we will ask them if they want to play.
-If they do, we will generate a random number and ask the player to guess it. If the
-player guesses a number too high, we will indicate it and ask to guess again; we'll
-do the same thing if the guess is too low.  If the answer is right, we indicate so
-and ask the player if they want to play again.</em></p>
-<p>Each time a new game is started, we will have a loop until the right number is guessed.
-Similarly, we will have a loop enabling us to restart a new game.</p>
-<p>I have written the code for you, replacing most variable names (introduced on
-the first line) by <code>*****</code>. Rewrite this code with the correct variable
-names and start playing!</p>
+<p>Pour avez tout ce qu'il vous faut pour écrire un programme ludique où
+    le joueur doit deviner un nombre.  En voici une brève description:
+</p>
+<p><em>Après avoir demandé au joueur (ou à la joueuse...) son nom, nous lui demanderons si il
+    veut jouer.  Si il le veut, nous allons générer un nombre aléatoire
+    et demander au joueur de deviner quel est ce nombre.  Si le nombre que le joueur
+    donne est plus grand que le nombre choisi, on l'indique et on offre de deviner à nouveau;
+    on fait la même chose si le nombre est plus petit.  Si le joueur devine le nombre,
+    on lui indique et on lui offre de jouer à nouveau.</em></p>
+<p>À chaque fois qu'un nouveau jeu débute, nous aurons une boucle qui se poursuivra
+    jusqu'à ce que le nombre ait été deviné correctement.  Nous aurons également une
+    autre boucle permettant de recommencer le jeu.</p>
+<p>J'ai écrit le code requis pour le jeu ci-dessous, en remplaçant divers noms
+    de variables (définies sur la première ligne) par <code>*****</code>.
+    C'est à vous d'écrire le code corrigé dans l'éditeur et de commencer
+    à jouer! </p>
 
-<pre class="jscode">var answer, guess, player_name, play_game;
+<pre class="jscode">var réponse, devine, nom_du_joueur, on_joue=true;
 
-***** = prompt("What is your name?");
-***** = confirm("Hello " + ***** + "!  Let's play a game!");
+***** = prompt("Quel est votre nom?");
+***** = confirm("Bonjour " + ***** + "!  Jouons à un jeu!");
 while(*****) {
-    answer = Math.floor(Math.random()*100) + 1;
-    ***** = parseInt(prompt("Choose a number between 1 and 100."), 10);
+    réponse = Math.floor(Math.random()*100) + 1;
+    ***** = parseInt(prompt("Choisissez un nombre entre 1 et 100."), 10);
 
-    while (***** !== answer) {
+    while (***** !== réponse) {
         if (***** < *****) {
-            guess = parseInt(prompt(guess + " is too low; guess again."), 10);
+            devine = parseInt(prompt(devine + " est trop petit; essayez à nouveau."), 10);
         }
         else {
-            ***** = parseInt(prompt(***** + " is too high; guess again."), 10);
+            ***** = parseInt(prompt(***** + " est trop grand; essayez à nouveau."), 10);
         }
     }
 
-    ***** = confirm(***** + " is the answer!\n Play again?");
+    ***** = confirm(***** + " est la réponse!\n On joue à nouveau?");
 }
 
-alert("Goodbye " + *****);
+alert("Au revoir " + *****);
 </pre>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('popup')">Précédent</a>

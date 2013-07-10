@@ -25,11 +25,11 @@ will be false.  Thus, we have:</p>
 <li><code>false &amp;&amp; true</code> is <code>false</code></li>
 <li><code>false &amp;&amp; false</code> is <code>false</code></li></ul>
 
-<p>We'll use the logical <code>||</code> operator to design a function enabling
-a human paper to choose their weapon.</p>
-
 <p>For the human player, we'll give the possibility to either use the
-first letter of the word or the full word to choose the "weapon":</p>
+first letter of the word or the full word to choose the "weapon".  So as to
+avoid having two <code>if</code> statement for each "weapon", we will
+use the logical <code>||</code> operator and combine two possible choices
+inside the function definition:</p>
 
 <pre class="jscode">function human_select() {
     var selection = prompt("Enter (r)ock, (p)aper or (s)cissors");

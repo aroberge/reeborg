@@ -25,7 +25,8 @@ Une partie du code pourrait être constituée de blocs <code>if/else</code>:</p>
 } else {  // orientation === sud
     orientation = est;
 }</pre>
-<p>ou on pourrait utiliser un énoncé <code>switch</code></p>
+<p>ou on pourrait utiliser un énoncé <code>switch</code> (que nous expliquerons dans une autre leçon plus tard)
+</p>
 <pre class="jscode">switch (orientation) {
     case est:
         orientation = nord;

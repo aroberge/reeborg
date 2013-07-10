@@ -22,7 +22,7 @@ Part of the code could be written using <code>if/else</code> blocks:</p>
 } else {  // orientation === south
     orientation = east;
 }</pre>
-<p>or using a <code>switch</code> statement</p>
+<p>or using a <code>switch</code> statement (which we will explain in a later lesson)</p>
 <pre class="jscode">switch (orientation) {
     case east:
         orientation = north;

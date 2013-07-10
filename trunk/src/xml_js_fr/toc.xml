@@ -128,15 +128,15 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('array2')">Plusieurs robots ... encore</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('remainder')">Opérateur modulo</a></li>
 
-<h2>Game time!</h2>
+<h2>C'est le temps de jouer!</h2>
 
-<p>We'll leave Reeborg's world for a few lessons and create two simple games.</p>
-<li><a href="Javascript:void(0);" onClick="load_page('random')">Random math stuff</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('popup')">Communicating with the user</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('hilo_game')">Guess a number: the game!</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('break')">Taking a break</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('rock_paper_scissors')">Rock, paper, scissors</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('logical')">Logical operators</a></li>
+<p> Nous allons temporairement quitter le monde de Reeborg et concevoir deux jeux simples. </p>
+<li><a href="Javascript:void(0);" onClick="load_page('random')">Au hasard des mathématiques</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('popup')">Communiquer avec l'utilisateur</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('hilo_game')">Le jeu: devinez un nombre!</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('break')">Briser la boucle</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('rock_paper_scissors')">Roche, papier, ciseaux</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('logical')">Opérateurs logiques</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('switch')">Switch statement</a></li>
 
 <h2>Random escapes</h2>

@@ -19,7 +19,7 @@ Similarly, we will have a loop enabling us to restart a new game.</p>
 the first line) by <code>*****</code>. Rewrite this code with the correct variable
 names and start playing!</p>
 
-<pre class="jscode">var answer, guess, player_name, play_game;
+<pre class="jscode">var answer, guess, player_name, play_game=true;
 
 ***** = prompt("What is your name?");
 ***** = confirm("Hello " + ***** + "!  Let's play a game!");
