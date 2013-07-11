@@ -13,7 +13,7 @@ the default value of 1, as decided by the makers of Reeborg's world.</p>
 <p>These functions arguments are known as <em>positional</em> arguments since
 the order in which they appear determine the variable to which they are assigned.</p>
 <p>Now, remember the last time we created an "improved" robot:</p>
-<pre class="jscode">function ImprovedRobot(leak, x, y, orientation, tokens)  {
+<pre class="jscode">function RobotAmélioré(leak, x, y, orientation, tokens)  {
     RobotUsagé.call(this, x, y, orientation, tokens);
     if (!leak) {
         this.is_leaky(false);
@@ -23,7 +23,7 @@ the order in which they appear determine the variable to which they are assigned
 <p>The first argument is <b>not</b> the value of the x coordinate but
 whether or not the robot will have a leak.  If we want to specify a value for
 the x coordinate we <b>must</b> also specify if the robot will be leaky or not:</p>
-<pre class="jscode">var leaky = ImprovedRobot(true, 5);  // located at x=5, y=1</pre>
+<pre class="jscode">var leaky = RobotAmélioré(true, 5);  // located at x=5, y=1</pre>
 <p>Since the order of the parameters differs from the existing <code>RobotUsagé</code>,
 it creates confusion.  An alternative would have been to have the <code>leak</code> argument
 added at the very end of the argument list so that the order of the first four arguments
@@ -31,19 +31,19 @@ added at the very end of the argument list so that the order of the first four a
 so, if we had wanted to only specify the <code>leak</code> variable while using the default
 values for all the other variables, we would nonetheless have been required to specify
 the values for all the arguments:</p>
-<pre class="jscode">var leaky = OtherImprovedRobot(1, 1, 'east', 0, true);</pre>
+<pre class="jscode">var leaky = OtherRobotAmélioré(1, 1, 'east', 0, true);</pre>
 <p>There has to be a better way ...</p>
 <h2>Named arguments</h2>
 <p>In some languages, one can speficied functions arguments by name rather than simply
 by position.  <b>If</b> we could do so in Javascript, it would enable the following
 notation:</p>
-<pre class="jscode">var leaky = FictitiousImprovedRobot(leak=true);</pre>
+<pre class="jscode">var leaky = FictitiousRobotAmélioré(leak=true);</pre>
 <p><b>We can not do this.</b>  However, we can essentially achieve the same goal
 using objects as parameters.  Consider the following:</p>
-<pre class="jscode">ImprovedRobot.prototype = Object.create(RobotUsagé.prototype);
-ImprovedRobot.prototype.constructor = ImprovedRobot;
+<pre class="jscode">RobotAmélioré.prototype = Object.create(RobotUsagé.prototype);
+RobotAmélioré.prototype.constructor = RobotAmélioré;
 
-function ImprovedRobot(params)  {
+function RobotAmélioré(params)  {
     if (params === undefined) {
         params = {};   // empty object
     }
@@ -54,17 +54,17 @@ function ImprovedRobot(params)  {
     RUR.world.add_robot(this);
 }
 
-var leaky = new ImprovedRobot({"leak": true});
+var leaky = new RobotAmélioré({"leak": true});
 leaky.avance();
 
-var other = new ImprovedRobot({"x": 3, "y": 4});
+var other = new RobotAmélioré({"x": 3, "y": 4});
 other.avance();
 
-var rich = new ImprovedRobot({"tokens": "infinite"});
+var rich = new RobotAmélioré({"tokens": "infinite"});
 rich.tourne_à_gauche();
 rich.avance();
 
-var also_leaky = new ImprovedRobot({"leak": true, "x": 5});
+var also_leaky = new RobotAmélioré({"leak": true, "x": 5});
 also_leaky.avance();
 </pre>
 <p>By passing an object as an argument, we can specify as many attributes as we desire.

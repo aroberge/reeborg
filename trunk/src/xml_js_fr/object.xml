@@ -4,38 +4,40 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('positional')">Suivant</a>
 </nav>
 
-<h1>Basic objects</h1>
+<h1>Objets de base</h1>
 
-<p>Before continuing on improving Reeborg, we make a small detour to discuss
-    Javascript objects <b>very briefly</b>.  In fact, we will only provide a simple
-example for you to read and figure out on your own: there should be just enough clues
-for you to do so.</p>
+<p>Avant de continuer à améliorer Reeborg, nous allons faire un petit détour pour
+    présenter <b>très brièvement</b> les objets Javascript.  En fait, nous n'allons
+    fournir qu'un seul exemple simple à lire à partir duquel vous êtes invités
+    à comprendre ce qui se passe: il devrait y avoir tout juste assez d'indices pour
+    vous permettre de le faire.</p>
 
-<p>In Reeborg's world we have so far mostly used objects as derived from a prototype.  There is
-a way to define basic objects using a simplified syntax as follows:</p>
+<p>Dans le monde de Reeborg, tous les objets que nous avons présentés jusqu'à maintenant
+    étaient dérivés d'un prototype explicite.  Il y a une autre façon de définir des
+    objets en utilisant une syntaxe différente comme suit: </p>
 
-<pre class="jscode">var half = {
-    "numerator" : 1,
-    "denominator" : 2,
-    "toString": function () {
-        return this.numerator + "/" + this.denominator;
+<pre class="jscode">var demie = {
+    "numérateur" : 1,
+    "dénominateur" : 2,
+    "toString": function () {   // conversion en chaîne de caractères
+        return this.numérateur + "/" + this.dénominateur;
         },
-    "evaluate": function () {
-        return this.numerator/this.denominator;
+    "évaluer": function () {
+        return this.numérateur/this.dénominateur;
         }
 };
 
-// use "dot" notation
-écrit( "One half, which is written as " + half.toString() +
-       " is equal to " + half.evaluate());
+// utilisant la notation "point"
+écrit( "Une demie, qui s'écrit " + demie.toString() +
+       " est égale à " + demie.évaluer());
 
-// mixed notation introduced without further explanation
-écrit( 'The denominator is ' + half.denominator +
-       ' whereas the numerator is ' + half['numerator']);
+// notation mixte introduite sans explications
+écrit( 'Le dénominateur est ' + demie.dénominateur +
+       ' alors que le numérateur est ' + demie['numérateur']);
 </pre>
-<p>Try to figure out what the above does by reading it and
-    confirm your guess by running the program and observing the result in
-    Reeborg's diary.</p>
+<p>Essayez de comprendre ce que le code précédent signifie en le lisant
+    attentivement puis vérifiez votre compréhension en l'exécutant
+    et en examinant le résultat dans le journal de Reeborg.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('fixing5')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('positional')">Suivant</a>

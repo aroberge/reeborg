@@ -3,7 +3,7 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('maze_again')">Suivant</a>
 </nav>
-<h1>Testing the ImprovedRobot</h1>
+<h1>Testing the RobotAmélioré</h1>
 
 <p>Congratulations! You should now be able to design a new robot that is completely free of bugs.  It should be
 capable of:</p>
