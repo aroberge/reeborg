@@ -155,7 +155,7 @@ of increasing complexity.</li>
 <li><a href="Javascript:void(0);" onClick="load_page('switch')">Switch statement</a></li>
 
 <h2>Random escapes</h2>
-<p>Back to Reeborg's world where we learn about throwing and catching errors...</p>
+<p>Back to Reeborg's world where we learn about throwing and catching ... errors.</p>
 <li><a href="Javascript:void(0);" onClick="load_page('random2')">Random escapes</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('tantrum')">Reeborg throws a tantrum</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('try')">Random escapes 2</a></li>

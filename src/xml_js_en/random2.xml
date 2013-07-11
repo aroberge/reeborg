@@ -22,11 +22,7 @@ turn left or right. </li>
     that there is no wall blocking the way.</li>
 </ul>
 
-<p>We will implement this algorithm using two different type of approaches to
-    dealing with potential problems.</p>
-
-<h2>Random escape 1</h2>
-<p>Our first program will be based on the techniques we have seen up to now.
+<p>Our program is based on the techniques we have seen up to now.
 If Reeborg decides to move, he also checks for the presence of a wall in front;
 this is done using <code>&amp;&amp;</code>, the <em>logical <b>and</b></em> operator.
 This is sometimes describe as a <em>Look before you leap</em> (LBYL) approach.</p>

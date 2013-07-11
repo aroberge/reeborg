@@ -4,48 +4,51 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('continue')">Suivant</a>
 </nav>
 
-<h1>Random escapes 2</h1>
+<h1>Évasions aléatoires 2</h1>
 
-<p>Select world <span class="world">Maze&nbsp;1</span>.
-Rather than checking to see if there is a wall in front before attempting
-a <code>move</code>, we can have Reeborg attempt a <code>move</code> and,
-if a wall blocks the way so that an error is thrown, we can simply <code>catch</code>
-it.   This approach is sometimes described as
-<em>Better Ask for Forgiveness than Permission</em> (BAFP).  </p>
+<p>Sélectionnez le monde <span class="world">Labyrinthe&nbsp;1</span>.
+Plutôt que de vérifier s'il y a un mur devant lui avant de tenter d'avancer,
+Reeborg va exécuter l'instruction <code>avance</code> et, si un mur lui
+bloque le chemin de telle sorte qu'un erreur est générée, on va tout
+simplement capturer l'erreur (<code>catch</code>).  Cette approche
+est parfois décrite par la phrase
+<em>Mieux vaut demander pardon que permission</em>.  </p>
 
-<pre class="jscode">var result;
+<pre class="jscode">var résultat;
 RUR.world.max_steps = 10000;
-think(0);
+pense(0);
 
 while (!au_but()) {
-    result = Math.random();
-    if (result < 1/3 ){
+    résultat = Math.random();
+    if (résultat < 1/3 ){
         try {
             avance();
         } catch (e) {
-            // don't move!
+            // on n'avance pas!
         }
-    } else if (result < 2/3 ) {
+    } else if (résultat < 2/3 ) {
         tourne_à_droite();
     } else {
         tourne_à_gauche();
     }
 }</pre>
 
-<h2>Which approach is preferable?</h2>
+<h2>Quelle approche est préférable? </h2>
 
-<p>In most cases, the LBYL approach that we used in the first example, is the recommended way to deal
-    with potential problems.
-<br>If an exceptional (<code>error</code>) condition is <b>not</b> expected to occur often,
-the BAFP approach <b>might</b> be preferred - especially if would be better dealt with
-elsewhere in the program.
-However, if the exceptional condition is expected to occur often (as is the case here),
-the LBYL approach is definitely recommended.</p>
-<p>The makers of Reeborg's world found that the logical way to deal with errors
-(such as Reeborg hitting a wall) that occur in <b>your</b> programs was to use the BAFP
-approach.  Thus <b>your</b> program is run without checking first to see if problems will arise and
-the execution of <b>your</b> program is stopped by throwing an error and catching it elsewhere,
-giving the opportunity to Reeborg to shout at you.</p>
+<p>Dans la plupart des cas, <em>Réfléchir avant d'agir</em>, comme on l'avait fait dans le
+premier exemple, est la façon recommandée de composer avec les problèmes potentiels.
+Si on s'attend à ce qu'une erreur ne soit produite que très rarement, l'approche
+<em>Mieux vaut demander pardon que permission</em> <b>pourrait</b> être préférable.
+Dans le cas de l'évasion du labyrinthe avec des mouvements aléatoires, on s'attend à
+avoir à composer avec plusieurs situations où un mur pourrait nous empêcher d'avancer
+et il est donc préférable de <em>réfléchir avant d'agir</em>.</p>
+<p>Cela dit, en dépit du grand nombre d'erreurs possibles, les créateurs du monde de Reeborg ont
+    déterminé qu'il était préférable d'utiliser l'approche <em>mieux vaut demander pardon que permission</em>
+    pour composer avec les erreurs dans <b>vos</b> programmes (comme lorsque Reeborg
+    frappe un mur).  Ainsi, <b>vos</b> programmes sont exécutés sans vérifier auparavant
+    si une erreur aura lieu.  Si une erreur a lieu, le programme est interrompu et une
+    erreur est "lancée" (<code>throw</code>) et "attrapée" (<code>catch</code>) ailleurs,
+    là où Reeborg a l'opportunité de protester en criant après vous.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('tantrum')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('continue')">Suivant</a>
