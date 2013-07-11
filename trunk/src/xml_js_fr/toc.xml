@@ -147,7 +147,7 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('continue')">Continue</a></li>
 
 <h2>Reeborg 2.0</h2>
-<li><a href="Javascript:void(0);" onClick="load_page('modify')">Adding new methods</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('modify')">Ajouter des méthodes</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('fixing1')">Fixing Reeborg</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('fixing2')">Turning right</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('fixing3')">Fixing the compass</a></li>

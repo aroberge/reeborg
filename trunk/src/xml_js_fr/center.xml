@@ -4,8 +4,8 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('around')">Suivant</a>
 </nav>
 <h1>Trouver le centre</h1>
-<p>Examinez les mondes <span class="world">Centre&nbsp;1</span> à
-<span class="world">Centre&nbsp;3</span>.  Dans chaque cas, écrivez
+<p>Examinez les mondes <span class="world">Centrer&nbsp;1</span> à
+<span class="world">Centrer&nbsp;3</span>.  Dans chaque cas, écrivez
 un programme faisant en sorte que Reeborg dépose un jeton au centre géométrique
 de la pièce rectangulaire dans laquelle il se trouve.</p>
 <p>Plus tard, vous serez en mesure d'écrire un programme unique permettant à Reeborg
