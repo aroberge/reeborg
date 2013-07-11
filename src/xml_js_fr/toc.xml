@@ -148,14 +148,14 @@ pour résoudre des tâches de plus en plus complexes.
 
 <h2>Reeborg 2.0</h2>
 <li><a href="Javascript:void(0);" onClick="load_page('modify')">Ajouter des méthodes</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('fixing1')">Fixing Reeborg</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('fixing2')">Turning right</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('fixing3')">Fixing the compass</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('fixing1')">Réparer Reeborg</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('fixing2')">Tourner à droite</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('fixing3')">Réparation de la boussole</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('fixing4')">Going left?</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('fixing5')">Fixing the oil leak</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('object')">Basic objects</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('fixing5')">Réparer la fuite d'huile</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('object')">Objets de base</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('positional')">Positional and named arguments</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('fixed')">Testing the ImprovedRobot</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('fixed')">Testing the RobotAmélioré</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('maze_again')">A last challenge</a></li>
 
 <h2>Odds and ends</h2>

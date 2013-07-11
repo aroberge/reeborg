@@ -5,7 +5,7 @@
 </nav>
 <h1>Going left?</h1>
 <p>Run the following program:</p>
-<pre class="jscode">var Reeborg = new ImprovedRobot();
+<pre class="jscode">var Reeborg = new RobotAmélioré();
 écrit( Reeborg.rien_devant() );
 écrit( Reeborg.right_is_clear() );</pre>
 <p>As you can see in Reeborg's diary, Reeborg can determine correctly if there is a
@@ -13,7 +13,7 @@ wall in front or to its right.  Unfortunately, it can not do the same to its lef
 the method <code>left_is_clear()</code> is not defined.  Let's change that.</p>
 <p>We first start by having a look at how the existing two methods are defined
 (notice the absence of <code>()</code>):</p>
-<pre class="jscode">var Reeborg = new ImprovedRobot();
+<pre class="jscode">var Reeborg = new RobotAmélioré();
 voir_source( Reeborg.rien_devant );
 voir_source( Reeborg.right_is_clear );</pre>
 <p>As you can see, these methods are defined using similarly named ones
@@ -39,7 +39,7 @@ the robot turns ... but that turn is not recorded.  Note that, instead of <code>
 <h2>Your turn</h2>
 <p>Fill in the missing code to enable Reeborg to see if there is a wall immediately
     to its left</p>
-<pre class="jscode">ImprovedRobot.prototype.left_is_clear = function () {
+<pre class="jscode">RobotAmélioré.prototype.left_is_clear = function () {
     var result;
     this.turn_... (true);
     ... = this.rien_devant();
@@ -47,7 +47,7 @@ the robot turns ... but that turn is not recorded.  Note that, instead of <code>
     return ...;
 };
 
-var Reeborg = new ImprovedRobot();
+var Reeborg = new RobotAmélioré();
 écrit( Reeborg.left_is_clear() );  // true or false?
 Reeborg.tourne_à_gauche();
 écrit( Reeborg.left_is_clear() );  // true or false?</pre>

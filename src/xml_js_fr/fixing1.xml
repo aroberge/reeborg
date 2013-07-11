@@ -3,76 +3,85 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixing2')">Suivant</a>
 </nav>
-<p>In what follows, you might want to always select world <span class="world">Empty</span>
-when running a program.</p>
-<h1>Fixing Reeborg</h1>
-<p>As we have seen before, the makers of Reeborg, like many
-    not so good programmers,
-<em> state that "bugs" are not really bugs but
-that they are "features" of their programs.</p>
+<p>Dans les leçons qui suivent, vous devriez toujours sélectionner le monde
+    <span class="world">Vide</span> pour exécuter vos programmes.
+</p>
+<h1>Réparer Reeborg</h1>
+<p>Comme nous l'avons vu précédemment, les créateurs du monde de Reeborg,
+    comme plusieurs autres programmeurs incompétents,
+    disent que <em>les "bogues" de Reeborg n'en sont pas vraiment: ce sont
+des caractéristiques utiles de son programme.</em>
+</p>
 <ol>
-<li>Reeborg has an oil leak.  Oil leaks are damaging for the environment
-    and inconvenient for Reeborg who must replenish its supplies when
-    it's not busy accomplishing tasks.  The maker of Reeborg claims
-    that it is a feature, as it enables you to follow Reeborg's path,
-    just like any programmer can learn to "trace" a program.
+<li>Reeborg a une fuite d'huile.  De telle fuite sont dommageables pour
+    l'environnement et pas très pratique pour Reeborg qui doit refaire le
+    plein de façon périodique, lorsqu'il n'est pas occupé à accomplir
+    les tâches que vous lui confiez.   Les créateurs de Reeborg
+    prétendent qu'en fait il s'agit d'une caractéristique utile puisque
+    ceci vous permet de suivre Reeborg à la trace, comme tout bon
+    programmeur doit pouvoir faire dans ses programmes.
 </li>
-<li>Reeborg's steering mechanism is not handled properly by Reeborg's
-program: it can only turn left.  The maker of Reeborg, once again,
-claims that this is a feature as it present you with an opportunity
-to learn about functions.  Reeborg disagrees. </li>
-<li>Reeborg has a compass, enabling him to determine which direction
-he is facing.  Unfortunately, yet again, the program that enables Reeborg
-to get the information from the compass has a bug: it only tells Reeborg
-if he is facing North ... or not.  </li>
-<li>Reeborg can see if a wall is in front of him, and can also turn
-its head to the right to see if there is a wall there.  However, a software
-"glitch" (which is another weasel term that software manufacturers use
-to avoid having to say that their product has a bug) prevents Reeborg's
-program from properly registering a wall when it turns its head left.</li>
+<li>Le mécanisme de direction de Reeborg n'est pas utilisé correctement
+    par le logiciel de Reeborg, ce qui fait que ce dernier ne peut que
+    tourner vers la gauche.  Les créateurs de Reeborg, une fois de plus,
+    prétendent qu'il s'agit là d'une caractéristique utile puisque ceci
+    vous a permis d'apprendre le concept de <b>fonctions</b>.
+    Reeborg n'est pas d'accord. </li>
+<li>Reeborg possède une boussole lui permettant de déterminer dans quelle
+    direction il va.  Malheureusement, une fois de plus, le logiciel de
+    Reeborg a un bogue qui fait en sorte que Reeborg peut seulement dire
+    s'il se dirige vers le nord ... ou non.  </li>
+<li>Reeborg peut voir s'il y a un mur qui bloque son passage devant lui,
+    et peut tourner la tête pour voir s'il y a un mur à sa droite.
+    Malheureusement une <em>limitation</em> de son programme (ce qui
+    est une expression malhonnête que les manufacturiers utilisent pour
+    éviter de dire que leurs programmes ont des bogues) empêche Reeborg
+    de déterminer correctement si un mur se trouve immédiatement à sa
+    gauche.</li>
 </ol>
 </em>
 
-<p>When manufacturers make products that are full of bugs, they can
-    adopt one of two strategies:</p>
-<ol><li>They can issue a <em>manufacturer's recall</em>, asking customers
-to bring back the defective product that they bought, so that they can be fixed.  This
-option can be costly to the manufacturer.</li>
-<li>They can create a <b>new and improved</b> version of their product and
-try to sell that version to customers that are not satisfied with their first
-purchase.</li></ol>
+<p>Lorsque des manufacturiers fabriquent des produits qui sont pleins de
+    défauts, ils adoptent une des deux stratégies suivantes:</p>
+<ol><li>Ils peuvent annoncer un  <em>rappel</em> de leur produit, demandant
+aux consommateurs de rapporter le produit défectueux pour qu'il puisse être réparé.
+Mais ceci peut coûter cher au manufacturier.</li>
+<li>Ils peuvent créer une version <b>nouvelle et améliorée</b> de leur produit
+et tenter de vendre cette nouvelle version aux consommateurs qui ne sont pas satisfaits
+de leur premier achat.</li></ol>
 
-<p>Javascript programmers have similar options.</p>
-<ol><li>They can modify the prototype of objects, thereby changing the behaviour
-of all existing and future instances of that object.</li>
-<li>They can create new classes of object that share the "good" attributes and
-methods of the existing ones but include some new features.</li></ol>
-<p>We will follow the second approach and not modify <code>RobotUsagé</code> so
-that any program that we might have saved will run exactly as before.
-For now, write the following lines of code in the <b>library</b> tab (and save them);
-you likely don't have to remove any previously saved lines of code in your library.</p>
-<pre class="jscode">ImprovedRobot.prototype = Object.create(RobotUsagé.prototype);
-ImprovedRobot.prototype.constructor = ImprovedRobot;
+<p>Les programmeurs informatiques qui utilisent Javascript ont des options semblables. </p>
+<ol><li>Ils peuvent modifier le prototype des objets, changeant ainsi le comportement
+    des objets existants ainsi que des objets futurs.</li>
+<li>Ils peuvent créer de nouvelles "classes" d'objets qui partagent les bons
+    attributs des objets précédents mais qui incluent des améliorations.</li></ol>
+<p>Nous allons suivre cette deuxième approche et ne pas modifier <code>RobotUsagé</code>
+de telle sorte que le fonctionnement des programmes que vous avez déjà écrit ne sera
+pas modifié.  Pour l'instant, ajoutez les lignes de code suivantes dans
+votre bibliothèque (et sauvegardez le tout) </p>
+<pre class="jscode">RobotAmélioré.prototype = Object.create(RobotUsagé.prototype);
+RobotAmélioré.prototype.constructor = RobotAmélioré;
 
-function ImprovedRobot(x, y, orientation, tokens)  {
-    RobotUsagé.call(this, x, y, orientation, tokens);
+function RobotAmélioré(x, y, orientation, jetons)  {
+    RobotUsagé.call(this, x, y, orientation, jetons);
     RUR.world.add_robot(this);
 }</pre>
-<p>The first line ensures that the prototype of <code>ImprovedRobot</code> will
-be a copy of that of <code>RobotUsagé</code>. The second line of code states which
-function (the constructor) will be called when a <code>new&nbsp;ImprovedRobot</code>
-instance is created.  These two lines of code are a standard way to do
-<em>prototypal inheritance</em> in modern Javascript. </p>
-<p>The rest of the code defines the constructor.
-It is specific to the way things are done in Reeborg's world;
-the constructor function is defined such that it first create
-a <code>RobotUsagé</code> at the correct location and then adds the relevant
-information to Reeborg's world so that any such robot can be drawn on the screen.</p>
-<p>You should test it by writing the following in the <b>code</b> tab</p>
-<pre class="jscode">var Reeborg = new ImprovedRobot();
+<p>La première ligne fait en sorte que le prototype de <code>RobotAmélioré</code>
+sera une copie de celle de <code>RobotUsagé</code>. La deuxième ligne spécifie
+quelle fonction (le constructeur) sera invoquée lorsqu'un nouveau <code>RobotAmélioré</code>
+sera créé.  Ces deux lignes de code sont la façon recommandée de faire <em>hériter</em>
+les attributs et méthodes d'un prototype existant.
+ </p>
+<p>Le reste du code définit le <em>constructeur</em>.  Ce code est
+spécifique au monde de Reeborg.  Le constructeur est défini de telle sorte qu'un
+ <code>RobotUsagé</code> est tout d'abord créé à l'endroit voulu, puis il ajoute l'information
+ requise pour "informer" le monde de Reeborg que ce robot existe, ce qui est requis pour
+ qu'il puisse apparaître à l'écran. </p>
+<p>Vous devriez tester ce code en écrivant ce qui suit dans l'onglet <b>code</b></p>
+<pre class="jscode">var Reeborg = new RobotAmélioré();
 Reeborg.avance();
 Reeborg.tourne_à_gauche();</pre>
-<p><b>Try it!</b></p>
+<p><b>Allez-y!</b></p>
 
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('modify')">Précédent</a>

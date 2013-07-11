@@ -3,37 +3,34 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixing3')">Suivant</a>
 </nav>
-<h1>Turning right</h1>
-<p>As we have seen before, the makers of Reeborg were working on implementing
-a <code>tourne_à_droite</code> method when the RobotUsagé brand went to the market.
-You can see the implementation of that method in Reeborg's Diary by
-executing the following program:</p>
+<h1>Tourner à droite</h1>
+<p>Comme nous l'avons vu précédemment, les créateurs de Reeborg avait écrit une
+    première version d'une méthode lui permettant de tourner à droite ...
+    tout juste avant que notre RobotUsagé soit mis en vente sur le marché.
+    Vous pouvez voir le code de cette méthode dans le journal de Reeborg
+    en exécutant le programme suivant:</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
-voir_source(Reeborg.__tourne_à_droite);</pre>
-<p>In order to have our <code>ImprovedRobot</code> turn right properly,
-we could copy the existing code in a method as follows:</p>
-<pre class="jscode">ImprovedRobot.prototype.tourne_à_droite = function () {
-    // code from the __tourne_à_droite method here
+voir_source(Reeborg.__turn_right);</pre>
+<p>Si on veut que notre <code>RobotAmélioré</code> puisse tourner à droite correctement,
+on pourrait simplement copier le code existant dans une méthode comme suit: </p>
+<pre class="jscode">RobotAmélioré.prototype.tourne_à_droite = function () {
+    // code copié de __turn_right ici
 };</pre>
-<p>However, as we have seen earlier:</p>
+<p>Cependant, comme on l'a vu plus tôt: </p>
 <dl>
-<dt><b>Rule # 3</b></dt>
-<dd>When writing computer programs, do not repeat yourself.<br>
-I repeat: <b>do not repeat yourself!</b></dd>
+<dt><b>Règle numéro 3</b></dt>
+<dd>Lorsque vous écrivez des programmes informatiques, ne vous répétez pas. <br>
+Je répète: <a href="http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas">ne vous répétez pas!</a></dd>
 </dl>
-<p>So, instead of just <b>repeating</b> what was done by <b>copying</b> the exising
-code, we can do the following instead:</p>
-<pre class="jscode">ImprovedRobot.prototype.tourne_à_droite = RobotUsagé.__tourne_à_droite;</pre>
-<p>Save these this of code in your library so that you can use this
-method whenever you want.  Note that by doing it in this way,
-<code>RobotUsagé</code> is not modified and thus:</p>
+<p>Donc, au lieu de <b>répéter</b> ce qui a été fait en <b>copiant</b> le code existant,
+il est préférable plutôt de faire ce qui suit:</p>
+<pre class="jscode">RobotAmélioré.prototype.tourne_à_droite = RobotUsagé.__turn_right;</pre>
+<p>Sauvegardez cette ligne de code dans votre bibliothèque de façon à pouvoir l'utiliser à l'avenir.
+    Puis, faites le test suivant, qui vérifie que <code>RobotUsagé</code> n'est pas modifié:</p>
 <pre class="jscode">var Reeborg = new RobotUsagé();
-var newReeborg = new ImprovedRobot();
-newReeborg.tourne_à_droite();  // works
-Reeborg.tourne_à_droite();  // causes an error</pre>
-
-
-
+var newReeborg = new RobotAmélioré();
+newReeborg.tourne_à_droite();  // fonctionne
+Reeborg.tourne_à_droite();  // produit une erreur</pre>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('fixing1')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('fixing3')">Suivant</a>
