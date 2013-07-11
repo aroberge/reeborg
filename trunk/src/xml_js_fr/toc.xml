@@ -155,19 +155,18 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('fixing5')">Réparer la fuite d'huile</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('object')">Objets de base</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('positional')">Positional and named arguments</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('fixed')">Testing the RobotAmélioré</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('maze_again')">A last challenge</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('fixed')">Mise à l'épreuve du RobotAmélioré</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('maze_again')">Une dernière mission</a></li>
 
-<h2>Odds and ends</h2>
-<p>A few miscellaneous things not covered in previous lessons.</p>
+<h2>Divers</h2>
 
 <li><a href="Javascript:void(0);" onClick="load_page('with')">The <code>with</code> keyword</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('keywords')">Javascript keywords</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('keywords')">Les mots-clés Javascript</a></li>
 
-<h2>User contributed challenges</h2>
+<h2>Vos propres défis </h2>
 
 <li><a href="Javascript:void(0);" onClick="load_page('edit_world')">Designing your own worlds and challenges</a></li>
 </ol>
 <ol type='A'>
-<li>Your contribution here</li>
+<li>Vos contributions ici ...</li>
 </ol>

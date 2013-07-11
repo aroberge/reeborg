@@ -3,17 +3,17 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('maze_again')">Suivant</a>
 </nav>
-<h1>Testing the RobotAmélioré</h1>
+<h1>Mise à l'épreuve du RobotAmélioré</h1>
 
-<p>Congratulations! You should now be able to design a new robot that is completely free of bugs.  It should be
-capable of:</p>
-<ul><li>seeing if there is a wall both to its left and to its right without having to do turns (that
-would leave traces if performed);</li>
-<li>being able to turn right directly</li>
-<li>being able to turn on or off the oil leak upon creation;</li>
-<li>being able to determine which direction (East, North, West or South) it is facing.</li></ul>
-<p>Do so and make sure to test it thoroughly.  Then use this new robot to solve some of the
-challenges, in particular the two where the robot has to get out of a maze.</p>
+<p>Félicitations!  Vous devriez maintenant pouvoir concevoir un nouveau robot sans bogues!  Ce robot
+    devrait être capable de:</p>
+<ul><li>voir s'il y a un mur à sa gauche et à sa droite, sans avoir à tourner visiblement;</li>
+<li>tourner à droite directement; </li>
+<li>pouvoir être créé avec ou sans fuite d'huile;</li>
+<li>pouvoir déterminer à quel point cardinal (nord, sud, est, ouest) il fait face.</li></ul>
+<p>Assurez-vous de le faire et mettez-le à l'épreuve pour vérifier ses nouvelles habiletés.
+    Puis, utilisez ce robot pour résoudre les divers défis de la façon la plus efficace possible,
+    en particulier, ceux de la sortie d'un labyrinthe.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('positional')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('maze_again')">Suivant</a>

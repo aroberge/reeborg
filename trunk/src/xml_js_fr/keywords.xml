@@ -4,10 +4,10 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('edit_world')">Suivant</a>
 </nav>
 
-<h1>Javascript keywords and other important references</h1>
+<h1>Les mots-clés Javascript et quelques autres définitions utiles</h1>
 
-<p>The following Javascript keywords, if used in the lessons,
-    first appear in the link indicated below.</p>
+<p>La liste suivante est celle des mots-clés Javascript. Si un mot-clé est utilisé
+dans les leçons, un lien est fourni à la toute première leçon où il est mentionné.  </p>
 
 <ul>
 <li><a href="Javascript:void(0);" onClick="load_page('break')">break</a></li>
@@ -37,18 +37,19 @@
 <li><a href="Javascript:void(0);" onClick="load_page('while')">while</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('with')">with</a></li>
 </ul>
-<p>The following are not officially keywords, but they can be thought as keywords for all practical purpose</p>
+<p>Les variables suivantes ne sont pas officiellement des mots-clés ... mais c'est tout comme. </p>
 <ul>
     <li><a href="Javascript:void(0);" onClick="load_page('if')">true</a></li>
     <li><a href="Javascript:void(0);" onClick="load_page('if')">false</a></li>
     <li>null</li>
 </ul>
 
-<p>Note that <em>undefined</em> is not a keyword.</p>
+<p>Notez que <em>undefined</em> n'est pas un mot-clé.</p>
 
-<h2>Reserved for future use</h2>
-<p>The following potential keywords have been reserved by the Committee responsible for the Javascript
-language for possible future use; your programs should not use these as variable names.</p>
+<h2>Réservés pour usage futur</h2>
+<p>La liste suivante contient des noms qui ont été réservé pour utilisation future
+    par le Comité responsable de la standardisation de Javascript; vos programmes ne devraient
+    pas utiliser ces mots comme noms de variables.</p>
 <ul>
     <li>class</li>
     <li>enum</li>
