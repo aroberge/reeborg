@@ -4,40 +4,36 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('tantrum')">Suivant</a>
 </nav>
 
-<h1>Random escapes</h1>
+<h1>Évasions aléatoires</h1>
 
-<p>In the two games that we've written, we have seen how to make use of Javascript's
-<code>random()</code> method to make arbitrary choices.
-Let's do this in Reeborg's world.  </p>
+<p>Dans les deux jeux que nous avons faits nous avons vu comment utiliser la méthode
+    <code>random()</code> de Javascript pour faire des choix arbitraires.  Voyons
+    comment utiliser ceci dans le monde de Reeborg.</p>
 
-<p>Select world <span class="world">Maze&nbsp;1</span>.  Instead of using
-a sound strategy, Reeborg is going to attempt to get out of the maze
-by making arbitrary, or random choices.
-Here's the basic algorithm that Reeborg will follow:</p>
+<p>Sélectionnez le monde <span class="world">Labyrinthe&nbsp;1</span>.  Plutôt que
+d'utiliser une approche logique, Reeborg va faire des choix totalement arbitraires
+pour tenter de sortir du labyrinthe.  Voici une description de l'algorithme que
+Reeborg va utiliser:</p>
 
-<ul>While Reeborg is not out of the maze
-<li>Reeborg makes an arbitrary decision to either <code>move</code> forward or
-turn left or right. </li>
-<li>If the decision is to move forward, Reeborg also checks to make sure
-    that there is no wall blocking the way.</li>
+<ul>Pendant que Reeborg est à l'intérieur du labyrinthe
+<li>il va décider, au hasard, de soit avancer, tourner à gauche ou tourner à droite. </li>
+<li>Si sa décision est d'avancer, Reeborg vérifiera s'il y a un mur devant lui pour
+    éviter de s'y heurter.</li>
 </ul>
 
-<p>We will implement this algorithm using two different type of approaches to
-    dealing with potential problems.</p>
-
-<h2>Random escape 1</h2>
-<p>Our first program will be based on the techniques we have seen up to now.
-If Reeborg decides to move, he also checks for the presence of a wall in front;
-this is done using <code>&amp;&amp;</code>, the <em>logical <b>and</b></em> operator.
-This is sometimes describe as a <em>Look before you leap</em> (LBYL) approach.</p>
-<pre class="jscode">var result;
-think(0);
+<p>Notre programme utilise les techniques que nous avons vu jusqu'ici.
+    Si Reeborg décide d'avancer, il vérifiera aussi s'il y a un mur devant lui;
+    ceci sera fait en utilisant l'opérateur logique "et", <code>&amp;&amp;</code>.
+    On décrit parfois cette approche comme étant <em>réfléchir avant d'agir</em>.
+</p>
+<pre class="jscode">var résultat;
+pense(0);
 
 while (!au_but()) {
-    result = Math.random();
-    if (result < 1/3 && rien_devant()){
+    résultat = Math.random();
+    if (résultat < 1/3 && rien_devant()){
         avance();
-    } else if (result < 2/3 ) {
+    } else if (résultat < 2/3 ) {
         tourne_à_droite();
     } else {
         tourne_à_gauche();
@@ -45,20 +41,21 @@ while (!au_but()) {
 }
 </pre>
 
-<p>We have made Reeborg spend little time thinking and act as fast as possible as
-it can take quite a while to find the exit, by using <code>think(0)</code>.  Here's
-a successful run of that program:</p>
+<p>Nous avons fait en sorte que Reeborg se déplace aussi rapidement que possible en
+    utilisant <code>pense(0)</code> pour réduire à zéro le temps pris pour réfléchir
+    entre deux actions, ceci afin de l'aider à sortir rapidement du labyrinthe.
+    Voici un exemple d'une tentative fructueuse d'exécution de ce programme: </p>
 <img src="src/images/random_maze.png" alt="random escape from maze"/>
-<p>If you try running this program a few times, you will almost certainly find out that
-Reeborg does not always get out: it gets tired after 1000 actions (<code>move</code>
-or <code>turn_left</code>) and quits.  You can increase the number of actions
-that Reeborg will perform, say to 10000, by writing </p>
+<p>Si vous exécutez ce programme plusieurs fois, vous constaterez probablement que Reeborg
+    ne réussit pas toujours à sortir: il se fatigue et abandonne au bout de 1000 actions
+    (comme <code>avance()</code> et <code>tourne_à_gauche()</code>).  Vous pouvez augmenter
+    le nombre d'actions que Reeborg va effectuez, disons à 10000, en écrivant </p>
 <pre class="jscode">RUR.world.max_steps = 10000;</pre>
-<p>as the first instruction.  This maximum number of step variable was introduced
-by the designers of Reeborg's world to help prevent infinite loops.</p>
+<p>comme première instruction de votre programme.  Le nombre maximal d'actions permises
+    a été mis en place afin d'aider à empêcher les boucles infinies.</p>
 
-<p>Before we see another way of escaping from the maze, we need to learn
-about Reeborg's tantrums!</p>
+<p>Avant de voir une façon différente d'utiliser les décisions aléatoires pour
+    s'échapper d'un labyrinthe, nous avons besoin d'apprendre au sujet des crises de Reeborg.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('switch')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('tantrum')">Suivant</a>

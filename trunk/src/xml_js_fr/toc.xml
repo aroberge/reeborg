@@ -139,11 +139,11 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('logical')">Opérateurs logiques</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('switch')">Énoncé switch</a></li>
 
-<h2>Random escapes</h2>
-<p>Back to Reeborg's world where we learn about throwing and catching errors...</p>
-<li><a href="Javascript:void(0);" onClick="load_page('random2')">Random escapes</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('tantrum')">Reeborg throws a tantrum</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('try')">Random escapes 2</a></li>
+<h2>Évasions aléatoires</h2>
+<p>De retour au monde de Reeborg où nous apprenons à lancer et attraper ... des erreurs.</p>
+<li><a href="Javascript:void(0);" onClick="load_page('random2')">Évasions aléatoires</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('tantrum')">Reeborg pique une crise</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('try')">Évasions aléatoires 2</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('continue')">Continue</a></li>
 
 <h2>Reeborg 2.0</h2>
