@@ -23,7 +23,7 @@ incontournable...</p>
 de l'instruction <code>avance();</code> et exécutez le programme à nouveau.
 Reeborg se plaindra de l'absence du point-virgule mais exécutera néanmoins correctement le programme.
 Cependant, les points-virgules qui manque peuvent parfois causer des erreurs de compréhension
-de la part de Reeborg; assurez-vous donc de reconnaître le message d'erreur puis de les inclure
+de la part de Reeborg; assurez-vous donc de reconnaître le message d'erreur puis d'inclure les points-virgules
 lorsque Reeborg se plaint, peu importe qu'il exécute le programme correctement ou non.</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('move')">Précédent</a>

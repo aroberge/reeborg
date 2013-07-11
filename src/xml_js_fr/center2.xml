@@ -5,8 +5,8 @@
 </nav>
 
 <h1>Trouver le centre</h1>
-<p>Examinez les mondes <span class="world">Centre&nbsp;1</span> à
-<span class="world">Centre&nbsp;3</span>.  En commençant avec le cas le plus simple,
+<p>Examinez les mondes <span class="world">Centrer&nbsp;1</span> à
+<span class="world">Centrer&nbsp;3</span>.  En commençant avec le cas le plus simple,
 faites des améliorations progressives et écrivez
 un programme faisant en sorte que Reeborg dépose un jeton au centre géométrique
 de la pièce rectangulaire dans laquelle il se trouve, peu importe le monde choisis</p>

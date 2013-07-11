@@ -4,7 +4,8 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixing1')">Suivant</a>
 </nav>
 
-<h1>Adding new methods</h1>
+<h1>Ajouter des méthodes</h1>
+
 <p>We have already seen how to add methods to a "class" of objects using its
 prototype.  In this lesson, we review how to this as well as a slightly
 different way that works on individual instances.</p>

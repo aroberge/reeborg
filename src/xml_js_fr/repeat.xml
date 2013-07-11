@@ -39,7 +39,7 @@ function prend_argent() {
 }</pre>
 <p>Notez que les parenthèses <code>()</code> ne sont <b>pas</b> incluse pour <code>prend_jeton</code>
 comme <em>argument</em> de <code>répète()</code>. Donc, en utilisant <code>répète()</code>,
-nous avons une autre façon d'éliminer les répétitions dans nos programmes. w
+nous avons une autre façon d'éliminer les répétitions dans nos programmes.
 Si vous avez toujours dans l'éditeur de code une copie du programme permettant à Reeborg de
 livrer le journal, modifiez-le de façon à utiliser <code>répète()</code> à toutes les fois
 que ceci permet de raccourcir le code. Si vous n'avez pas une copie du programme, retourner
