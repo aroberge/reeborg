@@ -5,15 +5,15 @@
 </nav>
 <h1>Going left?</h1>
 <p>Run the following program:</p>
-<pre class="jscode">var Reeborg = new ImprovedRobot();
+<pre class="jscode">var Reeborg = new UsedRobot();
 write( Reeborg.front_is_clear() );
 write( Reeborg.right_is_clear() );</pre>
 <p>As you can see in Reeborg's diary, Reeborg can determine correctly if there is a
 wall in front or to its right.  Unfortunately, it can not do the same to its left:
 the method <code>left_is_clear()</code> is not defined.  Let's change that.</p>
 <p>We first start by having a look at how the existing two methods are defined
-(notice the absence of <code>()</code>):</p>
-<pre class="jscode">var Reeborg = new ImprovedRobot();
+(notice the absence of <code>()</code> when looking at the source code):</p>
+<pre class="jscode">var Reeborg = new UsedRobot();
 view_source( Reeborg.front_is_clear );
 view_source( Reeborg.right_is_clear );</pre>
 <p>As you can see, these methods are defined using similarly named ones

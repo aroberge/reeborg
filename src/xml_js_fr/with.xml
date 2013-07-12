@@ -4,49 +4,58 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('keywords')">Suivant</a>
 </nav>
 
-<h1>The <code>with</code> keyword</h1>
-<p>If you read other tutorials, or some Javascript code samples, you might encounter
-the Javascript keyword <code>with</code>.  We recommend that you do not use it.  However,
-you can see the purpose of this keyword using the following example.</p>
-<pre class="jscode">// select a world with a robot.
-var Reeborg = new RobotUsagé(2,4); // create a second one.
-avance();   // refers to the first robot.
-Reeborg.avance(); // second.
+<h1>Le mot-clé <code>with</code></h1>
+<p>Si vous lisez d'autres tutoriels ou exemples de code Javascript, vous verrez peut-être le
+    mot-clé <code>with</code> (mot anglais signifiant <em>avec</em>).  Nous recommandons que
+    vous ne l'utilisiez pas dans vos programmes. Cependant, nous donnons un bref aperçu de
+    son utilisation dans l'exemple suivant. </p>
+<pre class="jscode">// sélectionnez un monde où un robot est présent.
+var Reeborg = new RobotUsagé(2,4); // créer un second robot
+avance();   // fait référence au premier
+Reeborg.avance(); //  ... au deuxième
 
-// try uncommenting the following
+// essayez d’exécuter le code suivant
 /* with (Reeborg) {
     avance();
     avance();
 }
-*/  // won't work
+*/  // ça ne marchera pas!
 </pre>
 
-<p>Reeborg's world forces the code to be in what is known as <b>strict mode</b>.
-This is done by inserting the string</p>
+<p>Le monde de Reeborg exige que le code Javascript soit exécuté en <b>mode strict</b>.
+Ceci est fait par l'insertion automatique de la chaîne de caractères</p>
 <pre class="jscode">"use strict";
 </pre>
-<p>as the first line of a function definition.</p>
-<p>Talk about the advantage of strict mode.</p>
-<h2>Let's live dangerously</h2>
-<p>If you write</p>
+<p>comme première ligne du code que vous exécutez. </p>
+<p>
+    Le mode strict a été créé dans le but de prévenir l'apparition de certaines erreurs
+    observées dans plusieurs programmes écrit en Javascript.   Normalement, le mode strict
+    n'est pas utilisé par défaut ... mais ceci a été fait ici dans le but de vous aider
+    à apprendre de bonnes habitudes de programmation en Javascript.
+</p>
+<h2>Vivons dangereusement</h2>
+<p>Si vous écrivez</p>
 <pre class="jscode">"no strict";
 </pre>
-<p>as the first line of the code in the editor, it will be executed in the <b>normal</b>
-Javascript mode, i.e. without the usual <b>strict</b> safeguard.  In addition,
-I use jshint to identify any mistakes and point them out; this is disabled when
-you use the <code>"no strict";</code> mode, exclusive to Reeborg's world. For example:</p>
+<p>comme toute première ligne du code dans l'éditeur, votre programme sera exécuté
+    dans le mode <b>normal</b> de Javascript, c'est-à-dire sans que le mode strict
+    ne soit activé.  De plus, normalement jshint est utilisé pour identifier des erreurs;
+    lorsque le mode strict est désactivé, jshint est également désactivé.  À noter que
+    tout ceci est une caractéristique unique du monde de Reeborg.
+    Voici un exemple qui suppose que vous avez déjà un robot de présent:</p>
 <pre class="jscode">"no strict";
-Reeborg = new RobotUsagé(2,4); // we did not use "var" !!!
-avance();                // make sure to select a world with a default robot.
+Reeborg = new RobotUsagé(2,4); // pas de mot-clé "var" !!!
+avance();                // pas Reeborg, mais l'autre robot
 Reeborg.avance();
 
 with (Reeborg) {
-    avance();      // same as Reeborg.avance();
+    avance();      // même chose que Reeborg.avance();
     avance();
 }
 </pre>
-<p>As you can see, <code>with</code> sets up a block so that the object whose methods
-are invoked is known by default, so that it does not have to be typed in explictly.</p>
+<p>Comme vous pouvez le constater, <code>with</code> permet d'invoquer les méthodes d'un objet
+à l'intérieur d'un bloc sans avoir à récrire le nom de l'objet à chaque instruction.
+</p>
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('maze_again')">Précédent</a>
 <a class="right-link" href="Javascript:void(0);" onClick="load_page('keywords')">Suivant</a>

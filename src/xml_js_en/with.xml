@@ -26,7 +26,11 @@ This is done by inserting the string</p>
 <pre class="jscode">"use strict";
 </pre>
 <p>as the first line of a function definition.</p>
-<p>Talk about the advantage of strict mode.</p>
+<p>
+Strict mode has been created in order to help prevent common mistakes in Javascript.
+It is normally not done by default ... but has been made this way to help you learn
+good programming habits.
+</p>
 <h2>Let's live dangerously</h2>
 <p>If you write</p>
 <pre class="jscode">"no strict";

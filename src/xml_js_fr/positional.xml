@@ -3,74 +3,82 @@
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('toc')">Table des matières</a>
 <a class="fake_button blue-gradient" href="Javascript:void(0);" onClick="load_page('fixed')">Suivant</a>
 </nav>
-<h1>Positional and named arguments</h1>
-<p>If we want to have a new robot at position <code>x=2</code> and <code>y=3</code>, this
-is how we do it:</p>
-<pre class="jscode">var a_robot = new RobotUsagé(2, 3)</pre>
-<p>If we only specify the value of the x coordinate (i.e. the very first argument
-for the <code>RobotUsagé</code> function), the y argument will take
-the default value of 1, as decided by the makers of Reeborg's world.</p>
-<p>These functions arguments are known as <em>positional</em> arguments since
-the order in which they appear determine the variable to which they are assigned.</p>
-<p>Now, remember the last time we created an "improved" robot:</p>
-<pre class="jscode">function RobotAmélioré(leak, x, y, orientation, tokens)  {
-    RobotUsagé.call(this, x, y, orientation, tokens);
-    if (!leak) {
-        this.is_leaky(false);
+
+<h1>Arguments positionnels et autres</h1>
+<p>Si nous voulons avoir un nouveau robot à la position  <code>x=2</code> et <code>y=3</code>
+on peut le faire ainsi:</p>
+<pre class="jscode">var un_robot = new RobotUsagé(2, 3)</pre>
+<p>Si nous voulons uniquement spécifier la valeur de la coordonnée <code>x</code>
+    (c'est-à-dire le premier argument pour la fonction <code>RobotUsagé</code>),
+    la variable <code>y</code> prendra la valeur 1 par défaut, tel que décidé par les
+    créateurs du monde de Reeborg.</p>
+<p>Ces arguments de fonctions sont appelés <em>positionnels</em> puisque la position
+    ou l'ordre dans lequel ils apparaissent détermine la variable à laquelle ils seront
+    affectés.</p>
+<p>Rappelez-vous la dernière version d'un robot "amélioré" que nous avons créée: </p>
+<pre class="jscode">function RobotAmélioré(fuite, x, y, orientation, jetons)  {
+    RobotUsagé.call(this, x, y, orientation, jetons);
+    if (!fuite) {
+        this.a_une_fuite(false);
     }
     RUR.world.add_robot(this);
 }</pre>
-<p>The first argument is <b>not</b> the value of the x coordinate but
-whether or not the robot will have a leak.  If we want to specify a value for
-the x coordinate we <b>must</b> also specify if the robot will be leaky or not:</p>
-<pre class="jscode">var leaky = RobotAmélioré(true, 5);  // located at x=5, y=1</pre>
-<p>Since the order of the parameters differs from the existing <code>RobotUsagé</code>,
-it creates confusion.  An alternative would have been to have the <code>leak</code> argument
-added at the very end of the argument list so that the order of the first four arguments
-(<code>x, y, orientation, tokens</code>) would have remained the same.  However, in doing
-so, if we had wanted to only specify the <code>leak</code> variable while using the default
-values for all the other variables, we would nonetheless have been required to specify
-the values for all the arguments:</p>
-<pre class="jscode">var leaky = OtherRobotAmélioré(1, 1, 'east', 0, true);</pre>
-<p>There has to be a better way ...</p>
-<h2>Named arguments</h2>
-<p>In some languages, one can speficied functions arguments by name rather than simply
-by position.  <b>If</b> we could do so in Javascript, it would enable the following
-notation:</p>
-<pre class="jscode">var leaky = FictitiousRobotAmélioré(leak=true);</pre>
-<p><b>We can not do this.</b>  However, we can essentially achieve the same goal
-using objects as parameters.  Consider the following:</p>
+<p>Le premier argument n'est <b>pas</b> la valeur de la coordonnée <code>x</code>; cet
+argument spécifie si le robot aura une fuite ou non.  Si on veut spécifier la valeur
+de la coordonnée <code>x</code>, nous <b>devons</b> également spécifier si le robot
+aura une fuite ou non:</p>
+<pre class="jscode">var un_robot = RobotAmélioré(true, 5);  // situé en x=5, y=1</pre>
+<p>Puisque l'ordre des paramètres (arguments de la fonction) diffère de celui pour
+     <code>RobotUsagé</code>, ceci peut porter à confusion.   Pour éviter cette confusion,
+     nous aurions pu ajouter plutôt l'argument <code>fuite</code> à la fin de la liste
+     des arguments de telle sorte que les 4 premiers arguments
+(<code>x, y, orientation, jetons</code>) seraient demeurés les mêmes.  Cependant, si
+on avait procédé de cette façon, et qu'on aurait voulu spécifier une valeur pour la variable
+ <code>fuite</code>, il aurait fallu écrire explicitement les valeurs des 4 autres variables
+ même si on voulait avoir les valeurs attribuée normalement par défaut </p>
+<pre class="jscode">var un_robot = AutreRobotAmélioré(1, 1, 'est', 0, true);</pre>
+<p>Il doit y avoir une meilleure façon ...</p>
+<h2>Arguments nommés</h2>
+<p>Dans certains langages informatiques, on peut spécifier à quelle variable correspond
+    un certain argument en utilisant le nom de la variable.  <b>Si</b> on pouvait
+    faire ceci en Javascript, voici à quoi ça pourrait ressembler:</p>
+<pre class="jscode">var un_robot = RobotFictif(fuite=true, y=3);</pre>
+<p><b>Nous ne pouvons pas faire ceci avec Javascript.</b>  Cependant, on peut faire quelque
+chose qui revient presque au même en utilisant des objets comme paramètres (dénotés ci-dessous
+par la variable <code>params</code>).  Par exemple: </p>
 <pre class="jscode">RobotAmélioré.prototype = Object.create(RobotUsagé.prototype);
 RobotAmélioré.prototype.constructor = RobotAmélioré;
 
 function RobotAmélioré(params)  {
     if (params === undefined) {
-        params = {};   // empty object
+        params = {};   // assure que l'objet existe
     }
-    RobotUsagé.call(this, params.x, params.y, params.orientation, params.tokens);
-    if (!params.leak) {
-        this.is_leaky(false);
+    RobotUsagé.call(this, params.x, params.y, params.orientation, params.jetons);
+    if (!params.fuite) {
+        this.a_une_fuite(false);
     }
     RUR.world.add_robot(this);
 }
 
-var leaky = new RobotAmélioré({"leak": true});
-leaky.avance();
+var percé = new RobotAmélioré({"fuite": true});
+percé.avance();
 
-var other = new RobotAmélioré({"x": 3, "y": 4});
-other.avance();
+var autre = new RobotAmélioré({"x": 3, "y": 4});
+autre.avance();
 
-var rich = new RobotAmélioré({"tokens": "infinite"});
-rich.tourne_à_gauche();
-rich.avance();
+var riche = new RobotAmélioré({"jetons": "infini"});
+riche.tourne_à_gauche();
+riche.avance();
 
-var also_leaky = new RobotAmélioré({"leak": true, "x": 5});
-also_leaky.avance();
+var aussi_percé = new RobotAmélioré({"fuite": true, "x": 5});
+aussi_percé.avance();
 </pre>
-<p>By passing an object as an argument, we can specify as many attributes as we desire.
-All we have to do is to ensure that we know how to take care of <code>undefined</code>
-values.</p>
-<p>Try it!</p>
+<p>En utilisant un objet comme argument d'une fonction ou d'une méthode, on peut spécifier
+    autant d'attributs que l'on désire.  Tout ce qu'on doit faire est de s'assurer que l'on
+    tienne compte de la possibilité qu'une valeur n'existe pas (<code>undefined</code>) lors
+    de l'initialisation de la fonction.
+</p>
+<p>Exécutez le code ci-dessus pour vérifier comment ça fonctionne!</p>
 
 
 <a class="left-link" href="Javascript:void(0);" onClick="load_page('object')">Précédent</a>
