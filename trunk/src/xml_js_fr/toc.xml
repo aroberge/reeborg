@@ -151,10 +151,10 @@ pour résoudre des tâches de plus en plus complexes.
 <li><a href="Javascript:void(0);" onClick="load_page('fixing1')">Réparer Reeborg</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('fixing2')">Tourner à droite</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('fixing3')">Réparation de la boussole</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('fixing4')">Going left?</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('fixing4')">Rien à gauche?</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('fixing5')">Réparer la fuite d'huile</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('object')">Objets de base</a></li>
-<li><a href="Javascript:void(0);" onClick="load_page('positional')">Positional and named arguments</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('positional')">Arguments positionnels et autres</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('fixed')">Mise à l'épreuve du RobotAmélioré</a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('maze_again')">Une dernière mission</a></li>
 
