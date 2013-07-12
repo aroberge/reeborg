@@ -160,7 +160,7 @@ pour résoudre des tâches de plus en plus complexes.
 
 <h2>Divers</h2>
 
-<li><a href="Javascript:void(0);" onClick="load_page('with')">The <code>with</code> keyword</a></li>
+<li><a href="Javascript:void(0);" onClick="load_page('with')">Le mot-clé <code>with</code> </a></li>
 <li><a href="Javascript:void(0);" onClick="load_page('keywords')">Les mots-clés Javascript</a></li>
 
 <h2>Vos propres défis </h2>
