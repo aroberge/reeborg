@@ -1288,6 +1288,10 @@ RUR.Controls = function (programming_language) {
 
     this.run = function () {
         var src;
+        if ($("#select_world").val() == "None"){
+            alert(RUR.translation["You must select a world first."]);
+            return;
+        }
         $("#stop").removeAttr("disabled");
         $("#pause").removeAttr("disabled");
         $("#run").attr("disabled", "true");
@@ -1402,7 +1406,7 @@ function update_controls() {
     if ($("#world-panel").hasClass("active")){
         $("#step").removeClass("hidden");
         $("#select_world").removeClass("hidden");
-        if ( $("#select_world").val !== "None") {
+        if ( $("#select_world").val() !== "None") {
             RUR.world.robot_world_active = true;
             RUR.world.reset();
         }
