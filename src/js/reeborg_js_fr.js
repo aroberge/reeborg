@@ -62,6 +62,7 @@ RUR.translation["Delete "] = "Supprimer";
 RUR.translation["Undo Delete"] = "Annuler la suppression";
 RUR.translation["World selected"] = "Monde {world} choisi";
 RUR.translation["Could not find world"] = "Je ne peux pas trouver {world}";
+RUR.translation["You must select a world first."] = "Vous devez choisir un monde.";
 
 var au_but = function() {
     return RUR.world.robots[0].at_goal();
