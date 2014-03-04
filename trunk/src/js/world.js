@@ -2,10 +2,12 @@
    License: MIT
  */
 
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*jshint browser:true, -W069:false, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, editor, library, translate_python, JSHINT, CodeMirror */
 
 var RUR = RUR || {};
+var DEBUG = {};
+DEBUG.ON = false;
 
 RUR.World = function () {
     "use strict";
@@ -149,7 +151,7 @@ RUR.World = function () {
 
     this.robot_take  = function (robot, shape) {
         var s;
-        if (RUR.translation["token"] === shape || shape == undefined){
+        if (RUR.translation["token"] === shape || shape === undefined){
             this.robot_take_token(robot);
             return;
         }
@@ -166,7 +168,7 @@ RUR.World = function () {
     };
 
     this.robot_put = function (robot, shape) {
-        if (RUR.translation["token"] === shape || shape == undefined){
+        if (RUR.translation["token"] === shape || shape === undefined){
             this.robot_put_token(robot);
             return;
         }
@@ -982,18 +984,3 @@ RUR.visible_world = {
     }
 };
 
-RUR.compile_javascript = function (src) {
-    // Note: by having "use strict;" here, it has the interesting effect of requiring user
-    // programs to conform to "strict" usage, meaning that all variables have to be declared,
-    // etc.
-    "use strict";  // will propagate to user's code, enforcing good programming habits.
-    // lint, then eval
-    editorUpdateHints();
-    if(editor.widgets.length === 0) {
-        libraryUpdateHints();
-        if(library.widgets.length !== 0) {
-            $('#library-problem').show().fadeOut(4000);
-        }
-    }
-    eval(src);
-};
