@@ -2,7 +2,6 @@
    License: MIT  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, translate_python, JSHINT, CodeMirror */
 
 if (!Array.prototype.remove){
     // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
@@ -80,7 +79,6 @@ RUR.List = function(){
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, translate_python, JSHINT, CodeMirror */
 
 var RUR = RUR || {};
 
@@ -237,10 +235,12 @@ RUR.Robot.prototype.shape_here = function () {
    License: MIT
  */
 
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*jshint browser:true, -W069:false, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, editor, library, translate_python, JSHINT, CodeMirror */
 
 var RUR = RUR || {};
+var DEBUG = {};
+DEBUG.ON = false;
 
 RUR.World = function () {
     "use strict";
@@ -384,7 +384,7 @@ RUR.World = function () {
 
     this.robot_take  = function (robot, shape) {
         var s;
-        if (RUR.translation["token"] === shape || shape == undefined){
+        if (RUR.translation["token"] === shape || shape === undefined){
             this.robot_take_token(robot);
             return;
         }
@@ -401,7 +401,7 @@ RUR.World = function () {
     };
 
     this.robot_put = function (robot, shape) {
-        if (RUR.translation["token"] === shape || shape == undefined){
+        if (RUR.translation["token"] === shape || shape === undefined){
             this.robot_put_token(robot);
             return;
         }
@@ -1217,6 +1217,16 @@ RUR.visible_world = {
     }
 };
 
+/* Author: André Roberge
+   License: MIT
+ */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, editor, library, translate_python, JSHINT, CodeMirror, think, globals_ */
+
+
+var RUR = RUR || {};
+
 RUR.compile_javascript = function (src) {
     // Note: by having "use strict;" here, it has the interesting effect of requiring user
     // programs to conform to "strict" usage, meaning that all variables have to be declared,
@@ -1232,17 +1242,6 @@ RUR.compile_javascript = function (src) {
     }
     eval(src);
 };
-/* Author: André Roberge
-   License: MIT
- */
-
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, translate_python, JSHINT, CodeMirror */
-
-
-var RUR = RUR || {};
-var DEBUG = {};
-DEBUG.ON = false;
 
 RUR.compile_no_strict_js = function (src) {
     // bypass linting and does not "use strict"
@@ -1304,14 +1303,10 @@ RUR.Controls = function (programming_language) {
         $("#run").removeAttr("disabled");
         $("#step").removeAttr("disabled");
         $("#reload").attr("disabled", "true");
-    }
+    };
 
     this.run = function () {
         var src;
-        if ($("#select_world").val() == "None"){
-            alert(RUR.translation["You must select a world first."]);
-            return;
-        }
         $("#stop").removeAttr("disabled");
         $("#pause").removeAttr("disabled");
         $("#run").attr("disabled", "true");
@@ -1426,10 +1421,7 @@ function update_controls() {
     if ($("#world-panel").hasClass("active")){
         $("#step").removeClass("hidden");
         $("#select_world").removeClass("hidden");
-        if ( $("#select_world").val() !== "None") {
-            RUR.world.robot_world_active = true;
-            RUR.world.reset();
-        }
+        RUR.world.robot_world_active = true;
     } else {
         $("#step").addClass("hidden");
         $("#select_world").addClass("hidden");
@@ -1509,7 +1501,7 @@ RUR.select_world = function (s) {
         }
     }
     alert(RUR.translation["Could not find world"].supplant({world: s}));
-}
+};
 
 RUR.load_user_worlds = function () {
     var key, name, i;
@@ -1550,9 +1542,10 @@ RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="b
     reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
     step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
     pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
-    stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'}
+    stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
 
 $(document).ready(function() {
+    RUR.select_world("Alone");
     // init
     var all_active_panels, child, button_closed = false;
     all_active_panels = reset_widths();
@@ -1599,7 +1592,7 @@ $(document).ready(function() {
         // see issue 3
         try {
             localStorage.removeItem("library");
-        } catch (e) {};
+        } catch (e) {}
     });
 
     try{  // first item is temporary code to enable library migration
@@ -1608,7 +1601,7 @@ $(document).ready(function() {
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
-    load_content = function () {
+    var load_content = function () {
         var hash = location.hash;
         if (hash === ''){
             load_page("welcome");
@@ -1651,7 +1644,7 @@ $(document).ready(function() {
     $("#contents").dialog({autoOpen:true, width:600, height:$(window).height()-100,
         maximize: false, position: ['left', 'middle'],
         beforeClose: function( event, ui ) {
-                $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");
+            $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");
         }
     });
     $("#contents-button").on("click", function() {
@@ -1696,16 +1689,26 @@ $(document).ready(function() {
         RUR.controls.reload();
     };
 
+    // initialize the world and then sets up a listener for subsequent changes
+    $.get($("#select_world").val(), function(data) {
+            RUR.__load_world(data);
+            $("select").attr("style", "background-color:#fff");
+            // jquery is sometimes too intelligent; it can guess
+            // if the imported object is a string ... or a json object
+            // I need a string here;  so make sure to prevent it from identifying.
+        }, "text");
+    RUR.world.robot_world_active = true;
+
     $("#select_world").change(function() {
         var data, val = $(this).val();
         RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
-            $("#step").removeClass("hidden");
+            // $("#step").removeClass("hidden");
             data = localStorage.getItem(val);
             RUR.__load_world(data);
             $("select").attr("style", "background-color:#eff");
-        } else if (val !== "None") {
-            $("#step").removeClass("hidden");
+        } else {
+            // $("#step").removeClass("hidden");
             $.get(val, function(data) {
                 RUR.__load_world(data);
                 $("select").attr("style", "background-color:#fff");
@@ -1713,9 +1716,9 @@ $(document).ready(function() {
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
             }, "text");
-        } else {
-            RUR.controls.deselect();
-            $("#step").addClass("hidden");
+        // } else {
+        //     RUR.controls.deselect();
+        //     $("#step").addClass("hidden");
         }
     });
     RUR.controls.set_ready_to_run();
