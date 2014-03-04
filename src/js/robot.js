@@ -3,7 +3,6 @@
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, translate_python, JSHINT, CodeMirror */
 
 var RUR = RUR || {};
 

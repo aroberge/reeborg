@@ -3,12 +3,26 @@
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, translate_python, JSHINT, CodeMirror */
+/*globals $, editor, library, translate_python, JSHINT, CodeMirror, think, globals_ */
 
 
 var RUR = RUR || {};
-var DEBUG = {};
-DEBUG.ON = false;
+
+RUR.compile_javascript = function (src) {
+    // Note: by having "use strict;" here, it has the interesting effect of requiring user
+    // programs to conform to "strict" usage, meaning that all variables have to be declared,
+    // etc.
+    "use strict";  // will propagate to user's code, enforcing good programming habits.
+    // lint, then eval
+    editorUpdateHints();
+    if(editor.widgets.length === 0) {
+        libraryUpdateHints();
+        if(library.widgets.length !== 0) {
+            $('#library-problem').show().fadeOut(4000);
+        }
+    }
+    eval(src);
+};
 
 RUR.compile_no_strict_js = function (src) {
     // bypass linting and does not "use strict"
@@ -70,7 +84,7 @@ RUR.Controls = function (programming_language) {
         $("#run").removeAttr("disabled");
         $("#step").removeAttr("disabled");
         $("#reload").attr("disabled", "true");
-    }
+    };
 
     this.run = function () {
         var src;
@@ -275,7 +289,7 @@ RUR.select_world = function (s) {
         }
     }
     alert(RUR.translation["Could not find world"].supplant({world: s}));
-}
+};
 
 RUR.load_user_worlds = function () {
     var key, name, i;
@@ -316,7 +330,7 @@ RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="b
     reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
     step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
     pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
-    stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'}
+    stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
 
 $(document).ready(function() {
     // init
@@ -365,7 +379,7 @@ $(document).ready(function() {
         // see issue 3
         try {
             localStorage.removeItem("library");
-        } catch (e) {};
+        } catch (e) {}
     });
 
     try{  // first item is temporary code to enable library migration
@@ -374,7 +388,7 @@ $(document).ready(function() {
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
-    load_content = function () {
+    var load_content = function () {
         var hash = location.hash;
         if (hash === ''){
             load_page("welcome");
@@ -417,7 +431,7 @@ $(document).ready(function() {
     $("#contents").dialog({autoOpen:true, width:600, height:$(window).height()-100,
         maximize: false, position: ['left', 'middle'],
         beforeClose: function( event, ui ) {
-                $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");
+            $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");
         }
     });
     $("#contents-button").on("click", function() {
