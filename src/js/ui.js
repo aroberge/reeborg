@@ -140,17 +140,8 @@ RUR.Controls = function (programming_language) {
         clearTimeout(RUR.timer);
         RUR.visible_world.compiled = false;
         RUR.visible_world.running = false;
-    };
-
-    this.deselect = function () {
-        $("#stop").attr("disabled", "true");
-        $("#pause").attr("disabled", "true");
-        $("#step").attr("disabled", "true");
-        $("#run").removeAttr("disabled");
-        RUR.world.import_("{}");
-        RUR.world.reset();
-        RUR.visible_world.init();
-        RUR.world.robot_world_active = false;
+        editorUpdateHints();
+        libraryUpdateHints();
     };
 };
 
@@ -202,12 +193,12 @@ function update_controls() {
     if ($("#world-panel").hasClass("active")){
         $("#step").removeClass("hidden");
         $("#select_world").removeClass("hidden");
-        RUR.world.robot_world_active = true;
+        // RUR.world.robot_world_active = true;
     } else {
         $("#step").addClass("hidden");
         $("#select_world").addClass("hidden");
         $("#run").removeAttr("disabled");
-        RUR.world.robot_world_active = false;
+        // RUR.world.robot_world_active = false;
         RUR.world.reset();
     }
 }
@@ -497,9 +488,6 @@ $(document).ready(function() {
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
             }, "text");
-        // } else {
-        //     RUR.controls.deselect();
-        //     $("#step").addClass("hidden");
         }
     });
     RUR.controls.set_ready_to_run();
