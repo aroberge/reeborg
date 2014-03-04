@@ -88,10 +88,6 @@ RUR.Controls = function (programming_language) {
 
     this.run = function () {
         var src;
-        if ($("#select_world").val() == "None"){
-            alert(RUR.translation["You must select a world first."]);
-            return;
-        }
         $("#stop").removeAttr("disabled");
         $("#pause").removeAttr("disabled");
         $("#run").attr("disabled", "true");
@@ -206,10 +202,7 @@ function update_controls() {
     if ($("#world-panel").hasClass("active")){
         $("#step").removeClass("hidden");
         $("#select_world").removeClass("hidden");
-        if ( $("#select_world").val() !== "None") {
-            RUR.world.robot_world_active = true;
-            RUR.world.reset();
-        }
+        RUR.world.robot_world_active = true;
     } else {
         $("#step").addClass("hidden");
         $("#select_world").addClass("hidden");
@@ -333,6 +326,7 @@ RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="b
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
 
 $(document).ready(function() {
+    RUR.select_world("Alone");
     // init
     var all_active_panels, child, button_closed = false;
     all_active_panels = reset_widths();
@@ -476,16 +470,26 @@ $(document).ready(function() {
         RUR.controls.reload();
     };
 
+    // initialize the world and then sets up a listener for subsequent changes
+    $.get($("#select_world").val(), function(data) {
+            RUR.__load_world(data);
+            $("select").attr("style", "background-color:#fff");
+            // jquery is sometimes too intelligent; it can guess
+            // if the imported object is a string ... or a json object
+            // I need a string here;  so make sure to prevent it from identifying.
+        }, "text");
+    RUR.world.robot_world_active = true;
+
     $("#select_world").change(function() {
         var data, val = $(this).val();
         RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
-            $("#step").removeClass("hidden");
+            // $("#step").removeClass("hidden");
             data = localStorage.getItem(val);
             RUR.__load_world(data);
             $("select").attr("style", "background-color:#eff");
-        } else if (val !== "None") {
-            $("#step").removeClass("hidden");
+        } else {
+            // $("#step").removeClass("hidden");
             $.get(val, function(data) {
                 RUR.__load_world(data);
                 $("select").attr("style", "background-color:#fff");
@@ -493,9 +497,9 @@ $(document).ready(function() {
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
             }, "text");
-        } else {
-            RUR.controls.deselect();
-            $("#step").addClass("hidden");
+        // } else {
+        //     RUR.controls.deselect();
+        //     $("#step").addClass("hidden");
         }
     });
     RUR.controls.set_ready_to_run();
