@@ -1240,19 +1240,19 @@ RUR.compile_javascript = function (src) {
             $('#library-problem').show().fadeOut(4000);
         }
     }
-    eval(src);
+    eval(src); // jshint ignore:line
 };
 
 RUR.compile_no_strict_js = function (src) {
     // bypass linting and does not "use strict"
     // Usually requires "no strict"; as first statement in editor
-    eval(src);
+    eval(src); // jshint ignore:line
 };
 
 RUR.compile_brython = function (src) {
     // do not  "use strict" as we do not control the output produced by Brython
     // translate_python needs to be included in the html page in a Python script
-    eval(translate_python(src));
+    eval(translate_python(src)); // jshint ignore:line
 };
 
 RUR.Controls = function (programming_language) {
@@ -1365,21 +1365,14 @@ RUR.Controls = function (programming_language) {
 };
 
 
-/*==================================================
-UI : panels, tabs and what not...
-================================*/
-var MAX_WIDTH, MIN_WIDTH = 200;
-
 function update_controls() {
     if ($("#world-panel").hasClass("active")){
         $("#step").removeClass("hidden");
         $("#select_world").removeClass("hidden");
-        // RUR.world.robot_world_active = true;
     } else {
         $("#step").addClass("hidden");
         $("#select_world").addClass("hidden");
         $("#run").removeAttr("disabled");
-        // RUR.world.robot_world_active = false;
         RUR.world.reset();
     }
 }
@@ -1516,7 +1509,6 @@ $(document).ready(function() {
                 child.toggleClass("active");
             }
         }
-        update_controls();
 
         if (label === "world-panel"){
             $("#world-panel").toggleClass("active");
@@ -1525,6 +1517,8 @@ $(document).ready(function() {
         }  else if (label === "editor-panel"){
             $("#editor-panel").toggleClass("active");
         }
+        
+        update_controls();
 
     });
 
