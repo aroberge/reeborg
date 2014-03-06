@@ -86,7 +86,9 @@ RUR.Controls = function (programming_language) {
         $("#reload").attr("disabled", "true");
   
         $("#stop2").attr("disabled", "true");
+        $("#pause2").attr("disabled", "true");
         $("#run2").removeAttr("disabled");
+        $("#step2").removeAttr("disabled");
         $("#reload2").attr("disabled", "true");
     };
 
@@ -99,7 +101,9 @@ RUR.Controls = function (programming_language) {
         $("#reload").attr("disabled", "true");
       
         $("#stop2").removeAttr("disabled");
+        $("#pause2").removeAttr("disabled");
         $("#run2").attr("disabled", "true");
+        $("#step").attr("disabled", "true");
         $("#reload2").attr("disabled", "true");
         clearTimeout(RUR.timer);
         if (RUR.world.robot_world_active) {
@@ -118,12 +122,14 @@ RUR.Controls = function (programming_language) {
         RUR.visible_world.running = false;
         clearTimeout(RUR.timer);
         $("#pause").attr("disabled", "true");
+        $("#pause2").attr("disabled", "true");
         if (ms !== undefined){
             RUR.timer = setTimeout(RUR.controls.run, ms);
         } else {
             $("#run").removeAttr("disabled");
             $("#step").removeAttr("disabled");
             $("#run2").removeAttr("disabled");
+            $("#step2").removeAttr("disabled");
         }
     };
 
@@ -140,7 +146,9 @@ RUR.Controls = function (programming_language) {
         $("#reload").removeAttr("disabled");
       
         $("#stop2").attr("disabled", "true");
+        $("#pause2").attr("disabled", "true");
         $("#run2").attr("disabled", "true");
+        $("#step2").attr("disabled", "true");
         $("#reload2").removeAttr("disabled");
     };
 
@@ -162,11 +170,14 @@ RUR.Controls = function (programming_language) {
 function update_controls() {
     if ($("#world-panel").hasClass("active")){
         $("#run2").css("visibility", "hidden");
+        $("#step2").css("visibility", "hidden");
+        $("#pause2").css("visibility", "hidden");
         $("#stop2").css("visibility", "hidden");
         $("#reload2").css("visibility", "hidden");
     } else {
-        $("#run").removeAttr("disabled");
         $("#run2").css("visibility", "visible");
+        $("#step2").css("visibility", "visible");
+        $("#pause2").css("visibility", "visible");
         $("#stop2").css("visibility", "visible");
         $("#reload2").css("visibility", "visible");
         RUR.world.reset();
