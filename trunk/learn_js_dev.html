@@ -22,55 +22,7 @@
     <button class="reverse-blue-gradient" id="contents-button">Contents</button>
     <button class="blue-gradient" id="help-button">Help</button>
   </div>
-  <div id="controls">
-    <button class="blue-gradient" id="run" title="run" onclick="RUR.controls.run();"><img src="src/images/play.png" alt="play"></button>
-      <button class="blue-gradient" id="step" title="step" disabled="true" onclick="RUR.controls.step();"><img src="src/images/step.png" alt="step"></button>
-      <button class="blue-gradient" id="pause" title="pause" disabled="true" onclick="RUR.controls.pause();"><img src="src/images/pause.png" alt="pause"></button>
-      <button class="blue-gradient" id="stop" title="stop" disabled="true" onclick="RUR.controls.stop();"><img src="src/images/stop.png" alt="pause"></button>
-      <button class="blue-gradient" id="reload" title="reload" disabled="true" onclick="RUR.controls.reload();"><img src="src/images/reload.png" alt="reload"></button>
-      <select id="select_world">
-        <option value="src/json/alone.json" selected>Alone</option>
-        <option value="src/json/around1.json">Around 1</option>
-        <option value="src/json/around2.json">Around 2</option>
-        <option value="src/json/around3.json">Around 3</option>
-        <option value="src/json/around4.json">Around 4</option>
-        <option value="src/json/center1.json">Center 1</option>
-        <option value="src/json/center2.json">Center 2</option>
-        <option value="src/json/center3.json">Center 3</option>
-        <option value="src/json/empty_world.json">Empty</option>
-        <option value="src/json/harvest1.json">Harvest 1</option>
-        <option value="src/json/harvest2.json">Harvest 2</option>
-        <option value="src/json/harvest3.json">Harvest 3</option>
-        <option value="src/json/harvest4.json">Harvest 4</option>
-        <option value="src/json/harvest5a.json">Harvest 5a</option>
-        <option value="src/json/harvest5b.json">Harvest 5b</option>
-        <option value="src/json/harvest5c.json">Harvest 5c</option>
-        <option value="src/json/harvest5d.json">Harvest 5d</option>
-        <option value="src/json/home1.json">Home 1</option>
-        <option value="src/json/home2.json">Home 2</option>
-        <option value="src/json/home3.json">Home 3</option>
-        <option value="src/json/hurdle1.json">Hurdles 1</option>
-        <option value="src/json/hurdle2.json">Hurdles 2</option>
-        <option value="src/json/hurdle3.json">Hurdles 3</option>
-        <option value="src/json/hurdle4.json">Hurdles 4</option>
-        <option value="src/json/maze1.json">Maze 1</option>
-        <option value="src/json/maze2.json">Maze 2</option>
-        <option value="src/json/newspaper1.json">Newspaper 1</option>
-        <option value="src/json/newspaper2.json">Newspaper 2</option>
-        <option value="src/json/storm1.json">Storm 1</option>
-        <option value="src/json/storm2.json">Storm 2</option>
-        <option value="src/json/storm3.json">Storm 3</option>
-        <option value="src/json/storm4.json">Storm 4</option>
-        <option value="src/json/storm5.json">Storm 5</option>
-        <option value="src/json/tokens1.json">Tokens 1</option>
-        <option value="src/json/tokens2.json">Tokens 2</option>
-        <option value="src/json/tokens3.json">Tokens 3</option>
-        <option value="src/json/tokens4.json">Tokens 4</option>
-        <option value="src/json/tokens5.json">Tokens 5</option>
-        <option value="src/json/tokens6.json">Tokens 6</option>
-        <option value="src/json/blank.json">Graphics canvas</option>
-      </select>
-    </div>
+  
 </header>
 
 
@@ -79,63 +31,136 @@
 </div>
 <div id="help" title="Help">Retrieving...</div>
 
+
 <div id="world-panel" class="active" >
+  <div id="world-controls">
+    <button class="blue-gradient" id="run" title="run" onclick="RUR.controls.run();">
+      <img src="src/images/play.png" alt="play">
+    </button>
+    <button class="blue-gradient" id="step" title="step" disabled="true" onclick="RUR.controls.step();">
+      <img src="src/images/step.png" alt="step">
+    </button>
+    <button class="blue-gradient" id="pause" title="pause" disabled="true" onclick="RUR.controls.pause();">
+      <img src="src/images/pause.png" alt="pause">
+    </button>
+    <button class="blue-gradient" id="stop" title="stop" disabled="true" onclick="RUR.controls.stop();">
+      <img src="src/images/stop.png" alt="pause">
+    </button>
+    <button class="blue-gradient" id="reload" title="reload" disabled="true" onclick="RUR.controls.reload();">
+      <img src="src/images/reload.png" alt="reload">
+    </button>
+    <select id="select_world">
+      <option value="src/json/alone.json" selected>Alone</option>
+      <option value="src/json/around1.json">Around 1</option>
+      <option value="src/json/around2.json">Around 2</option>
+      <option value="src/json/around3.json">Around 3</option>
+      <option value="src/json/around4.json">Around 4</option>
+      <option value="src/json/center1.json">Center 1</option>
+      <option value="src/json/center2.json">Center 2</option>
+      <option value="src/json/center3.json">Center 3</option>
+      <option value="src/json/empty_world.json">Empty</option>
+      <option value="src/json/harvest1.json">Harvest 1</option>
+      <option value="src/json/harvest2.json">Harvest 2</option>
+      <option value="src/json/harvest3.json">Harvest 3</option>
+      <option value="src/json/harvest4.json">Harvest 4</option>
+      <option value="src/json/harvest5a.json">Harvest 5a</option>
+      <option value="src/json/harvest5b.json">Harvest 5b</option>
+      <option value="src/json/harvest5c.json">Harvest 5c</option>
+      <option value="src/json/harvest5d.json">Harvest 5d</option>
+      <option value="src/json/home1.json">Home 1</option>
+      <option value="src/json/home2.json">Home 2</option>
+      <option value="src/json/home3.json">Home 3</option>
+      <option value="src/json/hurdle1.json">Hurdles 1</option>
+      <option value="src/json/hurdle2.json">Hurdles 2</option>
+      <option value="src/json/hurdle3.json">Hurdles 3</option>
+      <option value="src/json/hurdle4.json">Hurdles 4</option>
+      <option value="src/json/maze1.json">Maze 1</option>
+      <option value="src/json/maze2.json">Maze 2</option>
+      <option value="src/json/newspaper1.json">Newspaper 1</option>
+      <option value="src/json/newspaper2.json">Newspaper 2</option>
+      <option value="src/json/storm1.json">Storm 1</option>
+      <option value="src/json/storm2.json">Storm 2</option>
+      <option value="src/json/storm3.json">Storm 3</option>
+      <option value="src/json/storm4.json">Storm 4</option>
+      <option value="src/json/storm5.json">Storm 5</option>
+      <option value="src/json/tokens1.json">Tokens 1</option>
+      <option value="src/json/tokens2.json">Tokens 2</option>
+      <option value="src/json/tokens3.json">Tokens 3</option>
+      <option value="src/json/tokens4.json">Tokens 4</option>
+      <option value="src/json/tokens5.json">Tokens 5</option>
+      <option value="src/json/tokens6.json">Tokens 6</option>
+      <option value="src/json/blank.json">Graphics canvas</option>
+    </select>
+  </div>
   <div id="canvas-wrapper">
-      <canvas id="background_canvas" width="560" height="540"></canvas>
-      <canvas id="wall_canvas" width="560" height="540"></canvas>
-      <canvas id="trace_canvas" width="560" height="540"></canvas>
-      <canvas id="robot_canvas" width="560" height="540"></canvas>
-      <div id="Reeborg-says" title="Reeborg says: I'm done!" style="display:none"></div>
-      <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
+    <canvas id="background_canvas" width="560" height="550"></canvas>
+    <canvas id="wall_canvas" width="560" height="550"></canvas>
+    <canvas id="trace_canvas" width="560" height="550"></canvas>
+    <canvas id="robot_canvas" width="560" height="550"></canvas>
+    <div id="Reeborg-says" title="Reeborg says: I'm done!" style="display:none"></div>
+    <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
   </div>
 </div>
 
 <div id="output-panel">
-  <h3>Reeborg's diary</h3>
-  <pre id="output-pre"></pre>
-  <pre id="last-pre"></pre>
+    <div id="diary-controls">
+    <button class="blue-gradient" id="run2" title="run" onclick="RUR.controls.run();">
+      <img src="src/images/play.png" alt="play">
+    </button>
+    <button class="blue-gradient" id="stop2" title="stop" disabled="true" onclick="RUR.controls.stop();">
+      <img src="src/images/stop.png" alt="pause">
+    </button>
+    <button class="blue-gradient" id="reload2" title="reload" disabled="true" onclick="RUR.controls.reload();">
+      <img src="src/images/reload.png" alt="reload">
+    </button>
+  </div>
+  <div id="diary-wrapper">
+    <h3>Reeborg's diary</h3>
+    <pre id="output-pre"></pre>
+    <pre id="last-pre"></pre>
+  </div>
 </div>
 
 <div id="editor-panel" class="active" >
-<div id="tabs">
-  <ul>
-    <li><a id="editor-link" href="#editor">Code</a></li>
-    <li><a id="library-link" href="#library">Library</a></li>
-    <li><a id="notes-link" href="#notes">Notes</a></li>
-    <button class="blue-gradient float-right" id="save-library">Save</button> <span id="saved">Saved!</span>
-  </ul>
-  <div id="editor">
-    <span id="library-problem">Problem with code in library!</span>
-    <textarea id="code" name="code">move();</textarea>
-  </div>
-  <div id="library">
-    <textarea id="library-code" name="library-code">
-    /* Sorry - if you see this, it means that
-    your browser is incapable of using the
-    Library or the Notes the way they been have designed.
+  <div id="tabs">
+    <ul>
+      <li><a id="editor-link" href="#editor">Code</a></li>
+      <li><a id="library-link" href="#library">Library</a></li>
+      <li><a id="notes-link" href="#notes">Notes</a></li>
+      <button class="blue-gradient float-right" id="save-library">Save</button> <span id="saved">Saved!</span>
+    </ul>
+    <div id="editor">
+      <span id="library-problem">Problem with code in library!</span>
+      <textarea id="code" name="code">move();</textarea>
+    </div>
+    <div id="library">
+      <textarea id="library-code" name="library-code">
+      /* Sorry - if you see this, it means that
+      your browser is incapable of using the
+      Library or the Notes the way they been have designed.
 
-    You could write code here ... but it will
-    not be saved for next time you visit.
+      You could write code here ... but it will
+      not be saved for next time you visit.
 
-    Have you tried Firefox or Chrome? */
-    </textarea>
+      Have you tried Firefox or Chrome? */
+      </textarea>
+    </div>
+    <div id="notes">
+      <br>
+      <p>Keep your personal notes here; they will be available from any page on this site.
+        You can choose to use html syntax for formatting.</p>
+      <p>
+        <form name="notes_editor" id="notes_editor">
+          <textarea name="data" rows="5" id="data_entry"></textarea><br>
+          <span id="undo_delete"></span><span class="float-right">HTML</span>
+          <input type="checkbox" name="check_html" class="float-right"/>
+          <a href="javascript:addNote();" class="blue-gradient fake_button float-right">Add Note</a>
+          <br class="clear">
+        </form>
+      </p>
+      <div id="notes_list"></div>
+    </div>
   </div>
-  <div id="notes">
-    <br>
-    <p>Keep your personal notes here; they will be available from any page on this site.
-      You can choose to use html syntax for formatting.</p>
-    <p>
-      <form name="notes_editor" id="notes_editor">
-        <textarea name="data" rows="5" id="data_entry"></textarea><br>
-        <span id="undo_delete"></span><span class="float-right">HTML</span>
-        <input type="checkbox" name="check_html" class="float-right"/>
-        <a href="javascript:addNote();" class="blue-gradient fake_button float-right">Add Note</a>
-        <br class="clear">
-      </form>
-    </p>
-    <div id="notes_list"></div>
-  </div>
-</div>
 </div>
 
 <!--

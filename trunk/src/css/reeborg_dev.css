@@ -4,7 +4,7 @@ button:focus, a:focus {outline: none;}
 button[disabled]{
     background: #eee;
 }
-header {position: absolute; top: 0; left: 0; z-index: 10; width: 100%; min-width: 1020px;}
+header {position: absolute; top: 0; left: 0; z-index: 10; width: 100%; min-width: 800px;}
 h1 {font-size: 1.7em; color: #224488;}
 h2 {font-size: 1.3em; color: #224488;}
 h3 {font-size: 1.1em; color: #224488;}
@@ -23,8 +23,12 @@ nav a{margin:0; display: inline-block;}
 nav a:last-child{border-radius: 0 20px 20px 0;}
 nav a:first-child{border-radius: 20px 0 0 20px;}
 
-header button {border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(0,0,0,0.1);
-  height: 37px; position: relative; border-top: 0; border-bottom: 0; font-weight: bold; float: left; margin: 0;}
+button {
+  height: 37px; 
+  position: relative; 
+  font-weight: bold; 
+  float: left; margin: 0;}
+#world-controls button, #diary-controls button {margin-right: 4px;}
 
 a.left-link, a.right-link, button, a.fake_button{
     color:white;
@@ -150,27 +154,41 @@ padding:3px;}
 #save-library{display: none}
 #saved, #checked, #library-problem {background-color: #96c423; color: white; display:none; margin: 5px;
   font-size:0.5em; float: right;}
-#panels {position: fixed;  top: 37px; left: 0;width: 99.6%; display: block; min-width: 800px; height: 100%;
-  margin: auto; padding: 0;}
-#panels div.active {display: block; max-width: 800px; margin: auto;}
 #content { margin-left: 10px; top:60px;}
+
+#world-controls, #diary-controls {
+  position: relative;
+  top: 5px;
+}
+#select_world {
+  position: absolute;
+  top: 5px;
+}
+#canvas-wrapper, #diary-wrapper {
+  position: absolute;
+  top: 42px;
+}
 
 #world-panel, #output-panel, #editor-panel {   
     margin-top: 32px;
     position: relative; 
     display: none;
     width: 580px;
-    height: 550px;
+    height: 600px;
     padding: 0 5px;
 }
+
 #world-panel { background-color: white;}
-#output-panel {    
-    overflow: auto;
-    background-color: #eee;
-    border: 1px solid blue;
+#diary-wrapper {   
+  margin-top: 5px;
+  width: 575px;
+  height: 550px;
+  background-color: #eee;
+  overflow: auto;
+  border: 1px solid blue;
+  padding: 0 5px;
   }
 #world-panel.active, #output-panel.active, #editor-panel.active {display: inline-block; z-index: 1}
-
 
 #output-pre {margin-top: 0; background-color: white;}
 #notes {background: #f9ffff; margin-left: 32px; box-shadow: -3px 0 0 0 #75a110, -32px 0 0 0 #224488;}
