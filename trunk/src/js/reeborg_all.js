@@ -1370,44 +1370,6 @@ UI : panels, tabs and what not...
 ================================*/
 var MAX_WIDTH, MIN_WIDTH = 200;
 
-function reset_widths () {
-    var all_active_panels, children, index, child;
-    all_active_panels = [];
-    children = $("#panels").children();
-    for (index = 0; index < children.length; index++){
-        child = $(children[index]);
-        if (child.hasClass("active")) {
-            all_active_panels.push(child);
-        }
-    }
-    MAX_WIDTH = $("#panels").width() - all_active_panels.length * MIN_WIDTH;
-    for (index = 0; index < all_active_panels.length; index++){
-        // WHY do I need to subtract 8 ??    2 x padding + 1 for border perhaps?...
-        all_active_panels[index].width($("#panels").width()/all_active_panels.length - 8);
-    }
-    for (index = 0; index < all_active_panels.length-1; index++) {
-        set_resizable(all_active_panels, index);
-    }
-    return all_active_panels;
-}
-
-
-function set_resizable(all_active_panels, index){
-    var this_panel, next_panel;
-    this_panel = all_active_panels[index];
-    next_panel = all_active_panels[index+1];
-    this_panel.resizable({
-        handles: 'e',
-        maxWidth: MAX_WIDTH,
-        minWidth: MIN_WIDTH,
-        helper: "resizable-helper",
-        stop: function(event, ui){
-            var remaining = next_panel.width() - (ui.size.width - ui.originalSize.width);
-            next_panel.width(remaining);
-        }
-    });
-}
-
 function update_controls() {
     if ($("#world-panel").hasClass("active")){
         $("#step").removeClass("hidden");
@@ -1538,8 +1500,7 @@ RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="b
 $(document).ready(function() {
     RUR.select_world("Alone");
     // init
-    var all_active_panels, child, button_closed = false;
-    all_active_panels = reset_widths();
+    var child, button_closed = false;
 
     $("#header-child button").on("click", function(){
         var index, label, children;
@@ -1555,9 +1516,18 @@ $(document).ready(function() {
                 child.toggleClass("active");
             }
         }
-        reset_widths();
         update_controls();
+
+        if (label === "world-panel"){
+            $("#world-panel").toggleClass("active");
+        }  else if (label === "output-panel"){
+            $("#output-panel").toggleClass("active");
+        }  else if (label === "editor-panel"){
+            $("#editor-panel").toggleClass("active");
+        }
+
     });
+
 
     $(function() {
         $("#tabs").tabs({heightStyle: "auto"});
