@@ -5,12 +5,6 @@ var globals_ = "/*globals avance, tourne_a_gauche, tourne_à_gauche, RUR, examin
                     " au_but_orientation, construit_un_mur, pense, DEBUG, pause, supprimer_le_robot, " +
                     " repete, répète, voir_source, vue_de_cote, vue_de_côté, vue_de_haut, sélectionne_monde, selectionne_monde*/\n";
 
-// TODO: move settings to main html file
-RUR.settings = {};
-RUR.settings.library = "library_js_fr";
-RUR.settings.xml = "src/xml_js_fr/";
-
-
 RUR.translation = {};
 RUR.translation["/* Your special code goes here */\n\n"] = "/* Sauvegardez vos définitions ici. */\n\n"
 RUR.translation["# Your special code goes here \n\n"] = "# Sauvegardez vos définitions ici. \n\n";

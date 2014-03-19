@@ -20,7 +20,7 @@
     <button class="active reverse-blue-gradient" label="world-panel">World</button>
     <button class="blue-gradient" label="output-panel">Diary</button>
     <button class="active reverse-blue-gradient" label="editor-panel">Editor</button>
-    <button class="reverse-blue-gradient" id="contents-button">Contents</button>
+    <button class="reverse-blue-gradient" id="contents-button">Python Tutorial</button>
     <button class="blue-gradient" id="help-button">Help</button>
   </div>
   
@@ -176,7 +176,7 @@
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/python/python.js"></script>
 
 
-<script src="src/js/reeborg_all_py_test.js"></script>
+<script src="src/js/reeborg_all.js"></script>
 <script src="src/js/reeborg_js_en.js"></script>
 <script src="src/js/jquery.ui.dialog.minmax.js"></script>
 <script type="text/python">
@@ -187,14 +187,14 @@ def translate_python(src):
 <script>
   var PYTHON = true;
   var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-    mode: 'javascript',
+    mode: 'python',
     tabMode: 'indent',
     lineNumbers: true,
     theme: 'reeborg-dark',
     indentUnit: 4
   });
   var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
-    mode: 'javascript',
+    mode: 'python',
     tabMode: 'indent',
     lineNumbers: true,
     theme: 'reeborg-dark',
