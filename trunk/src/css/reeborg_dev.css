@@ -23,12 +23,11 @@ nav a{margin:0; display: inline-block;}
 nav a:last-child{border-radius: 0 20px 20px 0;}
 nav a:first-child{border-radius: 20px 0 0 20px;}
 
-button {
+button, #contents-button {
   height: 37px; 
   position: relative; 
   font-weight: bold; 
   float: left; margin: 0;}
-#world-controls button, #diary-controls button {margin-right: 4px;}
 
 a.left-link, a.right-link, button, a.fake_button{
     color:white;
@@ -145,7 +144,7 @@ li.failure:after{content: url(../images/not_ok.png);}
 #language_switcher {text-decoration: none; color: white; margin-right:50px; float: right; font-size: 25px;
 padding:3px;}
 #run {margin-left: 50px;}
-#contents p a, ol li a, #contents ul li a {color: #224488 !important;}
+
 #tabs {height: 98%; overflow: auto;}
 #tabs .ui-tabs-panel {padding: 0;}
 #editor, #library { width: 100%; height: 90%;}
@@ -154,20 +153,26 @@ padding:3px;}
 #save-library{display: none}
 #saved, #checked, #library-problem {background-color: #96c423; color: white; display:none; margin: 5px;
   font-size:0.5em; float: right;}
-#content { margin-left: 10px; top:60px;}
 
-#world-controls, #diary-controls {
-  position: relative;
-  top: 5px;
-}
-#select_world {
-  position: absolute;
-  top: 5px;
-}
 #canvas-wrapper, #diary-wrapper {
   position: absolute;
   top: 42px;
 }
+#diary-wrapper {   
+  margin-top: 5px;
+  width: 575px;
+  height: 550px;
+  background-color: #eee;
+  overflow: auto;
+  border: 1px solid blue;
+  padding: 0 5px;
+  }
+
+#world-controls, #diary-controls {
+  position: absolute;
+  top: 5px;
+}
+#world-controls button, #diary-controls button {margin-right: 4px;}
 
 #world-panel, #output-panel, #editor-panel {   
     margin-top: 32px;
@@ -179,15 +184,8 @@ padding:3px;}
 }
 
 #world-panel { background-color: white;}
-#diary-wrapper {   
-  margin-top: 5px;
-  width: 575px;
-  height: 550px;
-  background-color: #eee;
-  overflow: auto;
-  border: 1px solid blue;
-  padding: 0 5px;
-  }
+
+
 #world-panel.active, #output-panel.active, #editor-panel.active {display: inline-block; z-index: 1}
 
 #output-pre {margin-top: 0; background-color: white;}
