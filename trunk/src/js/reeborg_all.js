@@ -1255,6 +1255,7 @@ RUR.compile_python = function (src) {
     eval(translate_python(src)); // jshint ignore:line
 };
 
+
 RUR.Controls = function (programming_language) {
     "use strict";
     RUR.programming_language = programming_language;
@@ -1266,16 +1267,18 @@ RUR.Controls = function (programming_language) {
     }
     this.end_flag = true;
     this.compile_and_run = function (func) {
-        var src, ed_src, fatal_error_found = false;
+        var lib_src, src, fatal_error_found = false;
         if (!RUR.visible_world.compiled) {
-            src = library.getValue() + separator;
-            ed_src = editor.getValue();
-            src += ed_src;
+            lib_src = library.getValue();
+            src = editor.getValue();
+            console.log(src);
+            src = src.replace("import_lib()", separator+lib_src)
+            console.log(src);
         }
         if (!RUR.visible_world.compiled) {
             try {
                 if (RUR.programming_language === "javascript") {
-                    if (ed_src.slice(1, 10) === "no strict") {
+                    if (src.slice(1, 10) === "no strict") {
                         RUR.compile_no_strict_js(src);
                     } else {
                         RUR.compile_javascript(src);
@@ -1690,7 +1693,7 @@ function updateHints(obj) {
         obj.widgets.length = 0;
 
         if (obj === editor) {
-            values = globals_ + library.getValue() + editor.getValue();
+            values = globals_ + editor.getValue().replace("import_lib();", library.getValue());
             nb_lines = library.lineCount() + 1;
             JSHINT(values, jshint_options);
         } else {
