@@ -30,7 +30,7 @@ RUR.compile_no_strict_js = function (src) {
     eval(src); // jshint ignore:line
 };
 
-RUR.compile_brython = function (src) {
+RUR.compile_python = function (src) {
     // do not  "use strict" as we do not control the output produced by Brython
     // translate_python needs to be included in the html page in a Python script
     eval(translate_python(src)); // jshint ignore:line
@@ -38,7 +38,7 @@ RUR.compile_brython = function (src) {
 
 RUR.Controls = function (programming_language) {
     "use strict";
-    this.programming_language = programming_language;
+    RUR.programming_language = programming_language;
     this.end_flag = true;
     this.compile_and_run = function (func) {
         var src, ed_src, fatal_error_found = false;
@@ -49,15 +49,15 @@ RUR.Controls = function (programming_language) {
         }
         if (!RUR.visible_world.compiled) {
             try {
-                if (this.programming_language === "javascript") {
+                if (RUR.programming_language === "javascript") {
                     if (ed_src.slice(1, 10) === "no strict") {
                         RUR.compile_no_strict_js(src);
                     } else {
                         RUR.compile_javascript(src);
                     }
                     RUR.visible_world.compiled = true;
-                } else if (this.programming_language === "brython") {
-                    RUR.compile_brython(src);
+                } else if (RUR.programming_language === "python") {
+                    RUR.compile_python(src);
                     RUR.visible_world.compiled = true;
                 } else {
                     alert("Unrecognized programming language.");
@@ -268,28 +268,6 @@ RUR.load_user_worlds = function () {
     }
 };
 
-// var load_page = function (page){
-//     $.ajax({
-//         url: RUR.settings.xml+page+".xml",
-//         context: document.body,
-//         dataType: "text"
-//     }).done(function(data) {
-//         $("#contents").html(data.supplant(RUR.Controls.buttons));
-//         location.hash = page;
-//         $('.jscode').each(function() {
-//             var $this = $(this), $code = $this.text();
-//             $this.empty();
-//             var myCodeMirror = CodeMirror(this, {
-//                 value: $code,
-//                 mode: 'javascript',
-//                 lineNumbers: !$this.is('.inline'),
-//                 readOnly: true,
-//                 theme: 'reeborg-dark'
-//             });
-//         });
-//         $("#contents").scrollTop(0);
-//     });
-// };
 
 RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
     reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
@@ -298,7 +276,6 @@ RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="b
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
 
 function toggle_contents_button () {
-    console.log("tcb called");
     if ($("#contents-button").hasClass("reverse-blue-gradient")) {
         RUR.tutorial_window = window.open("index_en.html", '_blank', 'location=no,height=600,width=800,scrollbars=yes,status=yes');
     } else {
@@ -379,58 +356,18 @@ $(document).ready(function() {
 
     try{  // first item is temporary code to enable library migration
           // see issue 3
-        var library_content = localStorage.getItem("library") || localStorage.getItem(RUR.settings.library) || RUR.translation["/* Your special code goes here */\n\n"];
+        var library_comment = '';
+        alert(RUR.programming_language);
+        if (RUR.programming_language == "javascript") {
+            library_comment = RUR.translation["/* Your special code goes here */\n\n"];
+        } else if (RUR.programming_language == "python") {
+            library_comment = RUR.translation["# Your special code goes here \n\n"];
+        }
+        var library_content = localStorage.getItem(RUR.settings.library) || library_comment;
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
-    // var load_content = function () {
-    //     var hash = location.hash;
-    //     if (hash === ''){
-    //         load_page("welcome");
-    //     } else {
-    //         hash = RUR.settings.xml + hash.slice(1) + ".xml";
-    //         $.ajax({
-    //                 url: hash,
-    //                 context: $("#contents"),
-    //                 dataType: "text",
-    //                 statusCode: {
-    //                     404: function() {
-    //                         load_page("welcome");
-    //                     }
-    //                 },
-    //                 type: 'POST'
-    //             }).done(function(data) {
-    //                 $("#contents").html(data.supplant(RUR.Controls.buttons));
-    //                 $('.jscode').each(function() {
-    //                     var $this = $(this), $code = $this.text();
-    //                     $this.empty();
-    //                     var myCodeMirror = CodeMirror(this, {
-    //                         value: $code,
-    //                         mode: 'javascript',
-    //                         lineNumbers: !$this.is('.inline'),
-    //                         readOnly: true,
-    //                         theme: 'reeborg-dark'
-    //                     });
-    //                 });
-    //                 $("#contents").dialog("open").scrollTop(0);
-    //             });
-    //     }
-    // };
-
-    // window.onhashchange = function() {
-    //     load_page(location.hash.slice(1));
-    // };
-
-    // load_content();
-
-    // $("#contents").dialog({autoOpen:true, width:600, height:$(window).height()-100,
-    //     maximize: false, position: ['left', 'middle'],
-    //     beforeClose: function( event, ui ) {
-    //         $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");
-    //     }
-    // });
-
-
+ 
     $("#contents-button").on("click", toggle_contents_button);
 
     $("#help").dialog({autoOpen:false, width:600,  height:500, maximize: false, position:"top",

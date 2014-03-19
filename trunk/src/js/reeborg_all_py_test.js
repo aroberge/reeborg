@@ -1582,7 +1582,7 @@ $(document).ready(function() {
 
     try{  // first item is temporary code to enable library migration
           // see issue 3
-        var library_content = localStorage.getItem(RUR.settings.library);// || RUR.translation["/* Your special code goes here */\n\n"];
+        var library_content = localStorage.getItem(RUR.settings.library) || RUR.translation["# Your special code goes here \n\n"];
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
