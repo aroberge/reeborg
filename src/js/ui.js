@@ -40,11 +40,13 @@ RUR.compile_python = function (src) {
 RUR.Controls = function (programming_language) {
     "use strict";
     RUR.programming_language = programming_language;
-    var separator;  // separates library code from user code
+    var separator, import_lib_regex;  // separates library code from user code
     if (RUR.programming_language == "javascript") {
         separator = ";\n";
+        import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
     } else if (RUR.programming_language === "python") {
         separator = "\n";
+        import_lib_regex = /^\s*import_lib\s*\(\s*\)/m;
     }
     this.end_flag = true;
     this.compile_and_run = function (func) {
@@ -52,9 +54,7 @@ RUR.Controls = function (programming_language) {
         if (!RUR.visible_world.compiled) {
             lib_src = library.getValue();
             src = editor.getValue();
-            console.log(src);
-            src = src.replace("import_lib()", separator+lib_src)
-            console.log(src);
+            src = src.replace(import_lib_regex, separator+lib_src);
         }
         if (!RUR.visible_world.compiled) {
             try {
@@ -468,13 +468,14 @@ function updateHints(obj) {
         return;
     }
     var values, nb_lines;
+    var import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
     obj.operation(function () {
         for(var i = 0; i < obj.widgets.length; ++i)
             obj.removeLineWidget(obj.widgets[i]);
         obj.widgets.length = 0;
 
         if (obj === editor) {
-            values = globals_ + editor.getValue().replace("import_lib();", library.getValue());
+            values = globals_ + editor.getValue().replace(import_lib_regex, library.getValue());
             nb_lines = library.lineCount() + 1;
             JSHINT(values, jshint_options);
         } else {
