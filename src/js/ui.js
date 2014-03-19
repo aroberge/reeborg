@@ -297,6 +297,26 @@ RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="b
     pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
 
+function toggle_contents_button () {
+    console.log("tcb called");
+    if ($("#contents-button").hasClass("reverse-blue-gradient")) {
+        RUR.tutorial_window = window.open("index_en.html", '_blank', 'location=no,height=600,width=800,scrollbars=yes,status=yes');
+    } else {
+        try {
+            RUR.tutorial_window.close();
+        }
+        catch (e) {};
+    }
+    return false;
+}
+
+function toggle_contents_button_from_child () {
+    // called when child window is closed.
+    $("#contents-button").toggleClass("blue-gradient");
+    $("#contents-button").toggleClass("reverse-blue-gradient");
+}
+
+
 $(document).ready(function() {
     RUR.select_world("Alone");
     // init
@@ -409,15 +429,9 @@ $(document).ready(function() {
     //         $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");
     //     }
     // });
-    $("#contents-button").on("click", function() {
-        if ($("#contents-button").hasClass("reverse-blue-gradient")) {
-            load_content();
-            $("#contents").dialog("open");
-        } else {
-            $("#contents").dialog("close");
-        }
-        return false;
-    });
+
+
+    $("#contents-button").on("click", toggle_contents_button);
 
     $("#help").dialog({autoOpen:false, width:600,  height:500, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
