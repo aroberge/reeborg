@@ -2,7 +2,7 @@ var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_cle
                     " is_facing_north, done, put, take, shape_here, select_world,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view*/\n";
-                    
+
 RUR.translation = {};
 RUR.translation["/* Your special code goes here */\n\n"] = "/* Your special code goes here */\n\n";
 RUR.translation["# Your special code goes here \n\n"] = "# Your special code goes here \n\n";
