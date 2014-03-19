@@ -39,11 +39,17 @@ RUR.compile_python = function (src) {
 RUR.Controls = function (programming_language) {
     "use strict";
     RUR.programming_language = programming_language;
+    var separator;  // separates library code from user code
+    if (RUR.programming_language == "javascript") {
+        separator = ";\n";
+    } else if (RUR.programming_language === "python") {
+        separator = "\n";
+    }
     this.end_flag = true;
     this.compile_and_run = function (func) {
         var src, ed_src, fatal_error_found = false;
         if (!RUR.visible_world.compiled) {
-            src = library.getValue() + ";\n";
+            src = library.getValue() + separator;
             ed_src = editor.getValue();
             src += ed_src;
         }
@@ -357,7 +363,6 @@ $(document).ready(function() {
     try{  // first item is temporary code to enable library migration
           // see issue 3
         var library_comment = '';
-        alert(RUR.programming_language);
         if (RUR.programming_language == "javascript") {
             library_comment = RUR.translation["/* Your special code goes here */\n\n"];
         } else if (RUR.programming_language == "python") {
@@ -456,6 +461,9 @@ var jshint_options = {
 
 
 function updateHints(obj) {
+    if (RUR.programming_language != "javascript") {
+        return;
+    }
     var values, nb_lines;
     obj.operation(function () {
         for(var i = 0; i < obj.widgets.length; ++i)
