@@ -1487,34 +1487,54 @@ RUR.load_user_worlds = function () {
     }
 };
 
-var load_page = function (page){
-    $.ajax({
-        url: RUR.settings.xml+page+".xml",
-        context: document.body,
-        dataType: "text"
-    }).done(function(data) {
-        $("#contents").html(data.supplant(RUR.Controls.buttons));
-        location.hash = page;
-        $('.jscode').each(function() {
-            var $this = $(this), $code = $this.text();
-            $this.empty();
-            var myCodeMirror = CodeMirror(this, {
-                value: $code,
-                mode: 'javascript',
-                lineNumbers: !$this.is('.inline'),
-                readOnly: true,
-                theme: 'reeborg-dark'
-            });
-        });
-        $("#contents").scrollTop(0);
-    });
-};
+// var load_page = function (page){
+//     $.ajax({
+//         url: RUR.settings.xml+page+".xml",
+//         context: document.body,
+//         dataType: "text"
+//     }).done(function(data) {
+//         $("#contents").html(data.supplant(RUR.Controls.buttons));
+//         location.hash = page;
+//         $('.jscode').each(function() {
+//             var $this = $(this), $code = $this.text();
+//             $this.empty();
+//             var myCodeMirror = CodeMirror(this, {
+//                 value: $code,
+//                 mode: 'javascript',
+//                 lineNumbers: !$this.is('.inline'),
+//                 readOnly: true,
+//                 theme: 'reeborg-dark'
+//             });
+//         });
+//         $("#contents").scrollTop(0);
+//     });
+// };
 
 RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
     reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
     step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
     pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
+
+function toggle_contents_button () {
+    console.log("tcb called");
+    if ($("#contents-button").hasClass("reverse-blue-gradient")) {
+        RUR.tutorial_window = window.open("index_en.html", '_blank', 'location=no,height=600,width=800,scrollbars=yes,status=yes');
+    } else {
+        try {
+            RUR.tutorial_window.close();
+        }
+        catch (e) {};
+    }
+    return false;
+}
+
+function toggle_contents_button_from_child () {
+    // called when child window is closed.
+    $("#contents-button").toggleClass("blue-gradient");
+    $("#contents-button").toggleClass("reverse-blue-gradient");
+}
+
 
 $(document).ready(function() {
     RUR.select_world("Alone");
@@ -1582,61 +1602,55 @@ $(document).ready(function() {
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
-    var load_content = function () {
-        var hash = location.hash;
-        if (hash === ''){
-            load_page("welcome");
-        } else {
-            hash = RUR.settings.xml + hash.slice(1) + ".xml";
-            $.ajax({
-                    url: hash,
-                    context: $("#contents"),
-                    dataType: "text",
-                    statusCode: {
-                        404: function() {
-                            load_page("welcome");
-                        }
-                    },
-                    type: 'POST'
-                }).done(function(data) {
-                    $("#contents").html(data.supplant(RUR.Controls.buttons));
-                    $('.jscode').each(function() {
-                        var $this = $(this), $code = $this.text();
-                        $this.empty();
-                        var myCodeMirror = CodeMirror(this, {
-                            value: $code,
-                            mode: 'javascript',
-                            lineNumbers: !$this.is('.inline'),
-                            readOnly: true,
-                            theme: 'reeborg-dark'
-                        });
-                    });
-                    $("#contents").dialog("open").scrollTop(0);
-                });
-        }
-    };
+    // var load_content = function () {
+    //     var hash = location.hash;
+    //     if (hash === ''){
+    //         load_page("welcome");
+    //     } else {
+    //         hash = RUR.settings.xml + hash.slice(1) + ".xml";
+    //         $.ajax({
+    //                 url: hash,
+    //                 context: $("#contents"),
+    //                 dataType: "text",
+    //                 statusCode: {
+    //                     404: function() {
+    //                         load_page("welcome");
+    //                     }
+    //                 },
+    //                 type: 'POST'
+    //             }).done(function(data) {
+    //                 $("#contents").html(data.supplant(RUR.Controls.buttons));
+    //                 $('.jscode').each(function() {
+    //                     var $this = $(this), $code = $this.text();
+    //                     $this.empty();
+    //                     var myCodeMirror = CodeMirror(this, {
+    //                         value: $code,
+    //                         mode: 'javascript',
+    //                         lineNumbers: !$this.is('.inline'),
+    //                         readOnly: true,
+    //                         theme: 'reeborg-dark'
+    //                     });
+    //                 });
+    //                 $("#contents").dialog("open").scrollTop(0);
+    //             });
+    //     }
+    // };
 
-    window.onhashchange = function() {
-        load_page(location.hash.slice(1));
-    };
+    // window.onhashchange = function() {
+    //     load_page(location.hash.slice(1));
+    // };
 
-    load_content();
+    // load_content();
 
-    $("#contents").dialog({autoOpen:true, width:600, height:$(window).height()-100,
-        maximize: false, position: ['left', 'middle'],
-        beforeClose: function( event, ui ) {
-            $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");
-        }
-    });
-    $("#contents-button").on("click", function() {
-        if ($("#contents-button").hasClass("reverse-blue-gradient")) {
-            load_content();
-            $("#contents").dialog("open");
-        } else {
-            $("#contents").dialog("close");
-        }
-        return false;
-    });
+    // $("#contents").dialog({autoOpen:true, width:600, height:$(window).height()-100,
+    //     maximize: false, position: ['left', 'middle'],
+    //     beforeClose: function( event, ui ) {
+    //         $("#contents-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");
+    //     }
+    // });
+
+
+    $("#contents-button").on("click", toggle_contents_button);
 
     $("#help").dialog({autoOpen:false, width:600,  height:500, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
