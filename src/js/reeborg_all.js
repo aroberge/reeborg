@@ -1333,10 +1333,9 @@ function updateHints(obj) {
 
 var RUR = RUR || {};
 
-RUR.Controls = function (programming_language) {
-    "use strict";
-    RUR.programming_language = programming_language;
-    var separator, import_lib_regex;  // separates library code from user code
+function _import_library () {
+  // adds the library code to the editor code if appropriate string is found
+    var separator, import_lib_regex, src, lib_src;  // separates library code from user code
     if (RUR.programming_language == "javascript") {
         separator = ";\n";
         import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
@@ -1344,13 +1343,21 @@ RUR.Controls = function (programming_language) {
         separator = "\n";
         import_lib_regex = /^import\s* lib\s*$/m;
     }
+
+    lib_src = library.getValue();
+    src = editor.getValue();
+    return src.replace(import_lib_regex, separator+lib_src);
+}
+
+RUR.Controls = function (programming_language) {
+    "use strict";
+    RUR.programming_language = programming_language;
+    var src;
     this.end_flag = true;
     this.compile_and_run = function (func) {
         var lib_src, src, fatal_error_found = false;
         if (!RUR.visible_world.compiled) {
-            lib_src = library.getValue();
-            src = editor.getValue();
-            src = src.replace(import_lib_regex, separator+lib_src);
+            src = _import_library();
         }
         if (!RUR.visible_world.compiled) {
             try {
@@ -1379,6 +1386,10 @@ RUR.Controls = function (programming_language) {
             }
         }
         if (!fatal_error_found) {
+            try {
+                localStorage.setItem(RUR.settings.editor, editor.getValue());
+                localStorage.setItem(RUR.settings.library, library.getValue());
+            } catch (e) {}
             func();
         }
     };
@@ -1398,7 +1409,6 @@ RUR.Controls = function (programming_language) {
     };
 
     this.run = function () {
-        var src;
         $("#stop").removeAttr("disabled");
         $("#pause").removeAttr("disabled");
         $("#run").attr("disabled", "true");
@@ -1414,8 +1424,8 @@ RUR.Controls = function (programming_language) {
         if (RUR.world.robot_world_active) {
             RUR.controls.compile_and_run(RUR.visible_world.play_frames);
         } else {
-            src = library.getValue() + ";\n";
-            src += editor.getValue();
+          //TODO: Needed?
+            //_import_library();
             think(0);
             RUR.controls.end_flag = false;
             RUR.controls.compile_and_run(function () {});
@@ -1491,7 +1501,7 @@ function update_controls() {
 
 RUR.ajax_requests = {};
 
-RUR.select_world = function (s) {
+RUR.select_world = function (s, silent) {
     var elt = document.getElementById("select_world");
 
     for (var i=0; i < elt.options.length; i++){
@@ -1499,11 +1509,24 @@ RUR.select_world = function (s) {
             if (elt.options[i].selected) {
                 return;
             }
+            /* A new world can be selected via a user program using the
+              select_world() function. When this is done, and if the
+              world is changed by this selection, an alert is first
+              shown and the program is otherwise not run. Executing the
+              program a second time will work as the correct world will
+              be displayed.
+            */
             elt.value = elt.options[i].value;
             $("#select_world").change();
+            if (silent) {
+                return;
+            }
             alert(RUR.translation["World selected"].supplant({world: s}));
             return;
         }
+    }
+    if (silent) {
+        return;
     }
     alert(RUR.translation["Could not find world"].supplant({world: s}));
 };
@@ -1553,7 +1576,11 @@ function toggle_contents_button_from_child () {
 /*globals $, RUR, editor, library, toggle_contents_button, update_controls */
 
 $(document).ready(function() {
-    RUR.select_world("Alone");
+    try {
+        RUR.select_world(localStorage.getItem(RUR.settings.world), true);
+    } catch (e) {
+        RUR.select_world("Alone");
+    }
     // init
     var child, button_closed = false;
 
@@ -1591,28 +1618,24 @@ $(document).ready(function() {
     $("#editor-link").on("click", function(){
         $("#save-library").hide();
         $("#load-library").hide();
-        $("#memorize-library").hide();
         $("#save-editor").show();
         $("#load-editor").show();
-        $("#memorize-editor").show();
     });
     $("#library-link").on("click", function(){
         $("#save-editor").hide();
         $("#load-editor").hide();
-        $("#memorize-editor").hide();
         $("#save-library").show();
         $("#load-library").show();
-        $("#memorize-library").show();
     });
 
-    $("#memorize-library").on("click", function() {
-        localStorage.setItem(RUR.settings.library, library.getValue());
-        $('#saved').show().fadeOut(2000);
-    });
-    $("#memorize-editor").on("click", function() {
-        localStorage.setItem(RUR.settings.editor, editor.getValue());
-        $('#saved').show().fadeOut(2000);
-    });
+//    $("#memorize-library").on("click", function() {
+//        localStorage.setItem(RUR.settings.library, library.getValue());
+//        $('#saved').show().fadeOut(2000);
+//    });
+//    $("#memorize-editor").on("click", function() {
+//        localStorage.setItem(RUR.settings.editor, editor.getValue());
+//        $('#saved').show().fadeOut(2000);
+//    });
 
     try {  
         var library_comment = '', library_content, editor_content;
@@ -1626,7 +1649,9 @@ $(document).ready(function() {
       
         editor_content = localStorage.getItem(RUR.settings.editor) || editor.getValue();
         editor.setValue(editor_content);
-    } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
+      
+    } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");
+                }
 
     $("#contents-button").on("click", toggle_contents_button);
 
@@ -1672,6 +1697,10 @@ $(document).ready(function() {
 
     $("#select_world").change(function() {
         var data, val = $(this).val();
+        try {
+            localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
+        } catch (e) {}
+          
         RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             // $("#step").removeClass("hidden");

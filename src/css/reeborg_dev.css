@@ -150,7 +150,7 @@ padding:3px;}
 #editor, #library { width: 100%; height: 90%;}
 #editor-panel {scroll-x: auto;}
 #cmd-result {color: green;}
-#save-library, #load-library, #memorize-library{display: none;}
+#save-library, #load-library {display: none;}
 #saved, #checked, #library-problem {background-color: #96c423; color: white; display:none; margin: 5px;
   font-size:0.5em; float: right;}
 

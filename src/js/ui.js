@@ -8,10 +8,9 @@
 
 var RUR = RUR || {};
 
-RUR.Controls = function (programming_language) {
-    "use strict";
-    RUR.programming_language = programming_language;
-    var separator, import_lib_regex;  // separates library code from user code
+function _import_library () {
+  // adds the library code to the editor code if appropriate string is found
+    var separator, import_lib_regex, src, lib_src;  // separates library code from user code
     if (RUR.programming_language == "javascript") {
         separator = ";\n";
         import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
@@ -19,13 +18,21 @@ RUR.Controls = function (programming_language) {
         separator = "\n";
         import_lib_regex = /^import\s* lib\s*$/m;
     }
+
+    lib_src = library.getValue();
+    src = editor.getValue();
+    return src.replace(import_lib_regex, separator+lib_src);
+}
+
+RUR.Controls = function (programming_language) {
+    "use strict";
+    RUR.programming_language = programming_language;
+    var src;
     this.end_flag = true;
     this.compile_and_run = function (func) {
         var lib_src, src, fatal_error_found = false;
         if (!RUR.visible_world.compiled) {
-            lib_src = library.getValue();
-            src = editor.getValue();
-            src = src.replace(import_lib_regex, separator+lib_src);
+            src = _import_library();
         }
         if (!RUR.visible_world.compiled) {
             try {
@@ -54,6 +61,10 @@ RUR.Controls = function (programming_language) {
             }
         }
         if (!fatal_error_found) {
+            try {
+                localStorage.setItem(RUR.settings.editor, editor.getValue());
+                localStorage.setItem(RUR.settings.library, library.getValue());
+            } catch (e) {}
             func();
         }
     };
@@ -73,7 +84,6 @@ RUR.Controls = function (programming_language) {
     };
 
     this.run = function () {
-        var src;
         $("#stop").removeAttr("disabled");
         $("#pause").removeAttr("disabled");
         $("#run").attr("disabled", "true");
@@ -89,8 +99,8 @@ RUR.Controls = function (programming_language) {
         if (RUR.world.robot_world_active) {
             RUR.controls.compile_and_run(RUR.visible_world.play_frames);
         } else {
-            src = library.getValue() + ";\n";
-            src += editor.getValue();
+          //TODO: Needed?
+            //_import_library();
             think(0);
             RUR.controls.end_flag = false;
             RUR.controls.compile_and_run(function () {});
@@ -166,7 +176,7 @@ function update_controls() {
 
 RUR.ajax_requests = {};
 
-RUR.select_world = function (s) {
+RUR.select_world = function (s, silent) {
     var elt = document.getElementById("select_world");
 
     for (var i=0; i < elt.options.length; i++){
@@ -174,11 +184,24 @@ RUR.select_world = function (s) {
             if (elt.options[i].selected) {
                 return;
             }
+            /* A new world can be selected via a user program using the
+              select_world() function. When this is done, and if the
+              world is changed by this selection, an alert is first
+              shown and the program is otherwise not run. Executing the
+              program a second time will work as the correct world will
+              be displayed.
+            */
             elt.value = elt.options[i].value;
             $("#select_world").change();
+            if (silent) {
+                return;
+            }
             alert(RUR.translation["World selected"].supplant({world: s}));
             return;
         }
+    }
+    if (silent) {
+        return;
     }
     alert(RUR.translation["Could not find world"].supplant({world: s}));
 };

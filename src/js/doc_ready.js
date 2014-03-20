@@ -6,7 +6,11 @@
 /*globals $, RUR, editor, library, toggle_contents_button, update_controls */
 
 $(document).ready(function() {
-    RUR.select_world("Alone");
+    try {
+        RUR.select_world(localStorage.getItem(RUR.settings.world), true);
+    } catch (e) {
+        RUR.select_world("Alone");
+    }
     // init
     var child, button_closed = false;
 
@@ -44,28 +48,24 @@ $(document).ready(function() {
     $("#editor-link").on("click", function(){
         $("#save-library").hide();
         $("#load-library").hide();
-        $("#memorize-library").hide();
         $("#save-editor").show();
         $("#load-editor").show();
-        $("#memorize-editor").show();
     });
     $("#library-link").on("click", function(){
         $("#save-editor").hide();
         $("#load-editor").hide();
-        $("#memorize-editor").hide();
         $("#save-library").show();
         $("#load-library").show();
-        $("#memorize-library").show();
     });
 
-    $("#memorize-library").on("click", function() {
-        localStorage.setItem(RUR.settings.library, library.getValue());
-        $('#saved').show().fadeOut(2000);
-    });
-    $("#memorize-editor").on("click", function() {
-        localStorage.setItem(RUR.settings.editor, editor.getValue());
-        $('#saved').show().fadeOut(2000);
-    });
+//    $("#memorize-library").on("click", function() {
+//        localStorage.setItem(RUR.settings.library, library.getValue());
+//        $('#saved').show().fadeOut(2000);
+//    });
+//    $("#memorize-editor").on("click", function() {
+//        localStorage.setItem(RUR.settings.editor, editor.getValue());
+//        $('#saved').show().fadeOut(2000);
+//    });
 
     try {  
         var library_comment = '', library_content, editor_content;
@@ -79,7 +79,9 @@ $(document).ready(function() {
       
         editor_content = localStorage.getItem(RUR.settings.editor) || editor.getValue();
         editor.setValue(editor_content);
-    } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
+      
+    } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");
+                }
 
     $("#contents-button").on("click", toggle_contents_button);
 
@@ -125,6 +127,10 @@ $(document).ready(function() {
 
     $("#select_world").change(function() {
         var data, val = $(this).val();
+        try {
+            localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
+        } catch (e) {}
+          
         RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             // $("#step").removeClass("hidden");
