@@ -42,28 +42,43 @@ $(document).ready(function() {
     });
 
     $("#editor-link").on("click", function(){
-        $("#lint").show();
         $("#save-library").hide();
+        $("#load-library").hide();
+        $("#memorize-library").hide();
+        $("#save-editor").show();
+        $("#load-editor").show();
+        $("#memorize-editor").show();
     });
     $("#library-link").on("click", function(){
-        $("#lint").hide();
+        $("#save-editor").hide();
+        $("#load-editor").hide();
+        $("#memorize-editor").hide();
         $("#save-library").show();
+        $("#load-library").show();
+        $("#memorize-library").show();
     });
 
-    $("#save-library").on("click", function() {
+    $("#memorize-library").on("click", function() {
         localStorage.setItem(RUR.settings.library, library.getValue());
+        $('#saved').show().fadeOut(2000);
+    });
+    $("#memorize-editor").on("click", function() {
+        localStorage.setItem(RUR.settings.editor, editor.getValue());
         $('#saved').show().fadeOut(2000);
     });
 
     try {  
-        var library_comment = '';
+        var library_comment = '', library_content, editor_content;
         if (RUR.programming_language == "javascript") {
             library_comment = RUR.translation["/* Your special code goes here */\n\n"];
         } else if (RUR.programming_language == "python") {
             library_comment = RUR.translation["# Your special code goes here \n\n"];
         }
-        var library_content = localStorage.getItem(RUR.settings.library) || library_comment;
-        library.setValue(library_content + "\n");
+        library_content = localStorage.getItem(RUR.settings.library) || library_comment;
+        library.setValue(library_content);
+      
+        editor_content = localStorage.getItem(RUR.settings.editor) || editor.getValue();
+        editor.setValue(editor_content);
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
     $("#contents-button").on("click", toggle_contents_button);
