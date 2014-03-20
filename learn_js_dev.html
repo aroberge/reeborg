@@ -127,7 +127,6 @@
     <ul>
       <li><a id="editor-link" href="#editor">Javascript Code</a></li>
       <li><a id="library-link" href="#library">Library</a></li>
-      <li><a id="notes-link" href="#notes">Notes</a></li>
       <button class="blue-gradient float-right" id="save-library">Save</button> <span id="saved">Saved!</span>
     </ul>
     <div id="editor">
@@ -138,28 +137,13 @@
       <textarea id="library-code" name="library-code">
       /* Sorry - if you see this, it means that
       your browser is incapable of using the
-      Library or the Notes the way they been have designed.
+      Library the way it has been designed.
 
       You could write code here ... but it will
-      not be saved for next time you visit.
+      not be saved in your browser for your next visit.
 
       Have you tried Firefox or Chrome? */
       </textarea>
-    </div>
-    <div id="notes">
-      <br>
-      <p>Keep your personal notes here; they will be available from any page on this site.
-        You can choose to use html syntax for formatting.</p>
-      <p>
-        <form name="notes_editor" id="notes_editor">
-          <textarea name="data" rows="5" id="data_entry"></textarea><br>
-          <span id="undo_delete"></span><span class="float-right">HTML</span>
-          <input type="checkbox" name="check_html" class="float-right"/>
-          <a href="javascript:addNote();" class="blue-gradient fake_button float-right">Add Note</a>
-          <br class="clear">
-        </form>
-      </p>
-      <div id="notes_list"></div>
     </div>
   </div>
 </div>
