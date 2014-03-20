@@ -159,6 +159,7 @@ RUR.Controls = function (programming_language) {
 
 function update_controls() {
     if ($("#world-panel").hasClass("active")){
+        RUR.world.robot_world_active = true;
         $("#run2").css("visibility", "hidden");
         $("#step2").css("visibility", "hidden");
         $("#pause2").css("visibility", "hidden");
@@ -170,6 +171,7 @@ function update_controls() {
         $("#pause2").css("visibility", "visible");
         $("#stop2").css("visibility", "visible");
         $("#reload2").css("visibility", "visible");
+        RUR.world.robot_world_active = false;
         RUR.world.reset();
     }
 }

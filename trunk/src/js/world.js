@@ -23,7 +23,7 @@ RUR.World = function () {
     this.tokens = undefined;
     this.imported_world = undefined;
     this.json_world_string = undefined;
-    this.robot_world_active = false;
+    this.robot_world_active = undefined;
 
     this.think = function (delay) {
         if (delay >= 0  && delay <= 10000){

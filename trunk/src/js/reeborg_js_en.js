@@ -1,7 +1,16 @@
+/* Author: André Roberge
+   License: MIT
+ */
+
+/*jshint browser:true, devel:true, white:false, plusplus:false */
+/*globals $, CodeMirror */
+
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, shape_here, select_world,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view*/\n";
+
+var RUR = RUR || {};
 
 RUR.translation = {};
 RUR.translation["/* Your special code goes here */\n\n"] = "/* Your special code goes here */\n\n";
@@ -54,122 +63,155 @@ RUR.translation["World selected"] = "World {world} selected";
 RUR.translation["Could not find world"] = "Could not find world {world}";
 RUR.translation["You must select a world first."] = "You must select a world first.";
 
-var at_goal = function() {
-    return RUR.world.robots[0].at_goal();
-};
+var move, turn_left, inspect, front_is_clear, right_is_clear, 
+    is_facing_north, done, put, take, shape_here, select_world, token_here, 
+    has_token, write, at_goal, at_goal_orientation, build_wall, think, 
+    pause, remove_robot, repeat, view_source, side_view, top_view;
 
-var at_goal_orientation = function() {
-    return RUR.world.robots[0].at_goal_orientation();
-};
+RUR.reset_definitions = function () {
+    inspect = function (obj){
+      var props, result = "";
+      for (props in obj) {
+          if (typeof obj[props] === "function") {
+              result += props + "()\n";
+          } else{
+              result += props + "\n";
+          }
+      }
+      write(result);
+  };
+  
+  write = function (s) {
+      RUR.world.add_output_frame("#output-pre", s.toString());
+  };
 
-var build_wall = function() {
-    RUR.world.robots[0].build_wall();
-};
+  view_source = function(fn) {
+      $("#last-pre").before("<pre class='js_code'>" + fn + "</pre>" );
+      $('.js_code').each(function() {
+          var $this = $(this), $code = $this.text();
+          $this.removeClass("js_code");
+          $this.addClass("jscode");
+          $this.empty();
+          var myCodeMirror = CodeMirror(this, {
+              value: $code,
+              mode: 'javascript',
+              lineNumbers: !$this.is('.inline'),
+              readOnly: true,
+              theme: 'reeborg-dark'
+          });
+      });
+  };
+  
+  if (!RUR.world.robot_world_active){
+      move = null;
+      turn_left = null;
+      UsedRobot = null;
+      front_is_clear = null;
+      right_is_clear = null;
+      is_facing_north = null;
+      done = null;
+      put = null;
+      take = null;
+      shape_here = null;
+      select_world = null;
+      token_here = null;
+      has_token = null;
+      at_goal = null;
+      at_goal_orientation = null;
+      build_wall = null;
+      think = null;
+      pause = null;
+      remove_robot = null;
+      repeat = null;
+      side_view = null;
+      top_view = null;
+      return;
+  }
+  at_goal = function() {
+      return RUR.world.robots[0].at_goal();
+  };
 
-var done = function () {
-    RUR.world.robots[0].done();
-};
+  at_goal_orientation = function() {
+      return RUR.world.robots[0].at_goal_orientation();
+  };
 
-var front_is_clear = function() {
-    return RUR.world.front_is_clear(RUR.world.robots[0]);
-};
+  build_wall = function() {
+      RUR.world.robots[0].build_wall();
+  };
 
-var has_token = function () {
-    return RUR.world.robots[0].has_token();
-};
+  done = function () {
+      RUR.world.robots[0].done();
+  };
 
-var inspect = function (obj){
-    var props, result = "";
-    for (props in obj) {
-        if (typeof obj[props] === "function") {
-            result += props + "()\n";
-        } else{
-            result += props + "\n";
-        }
-    }
-    write(result);
-};
+  front_is_clear = function() {
+      return RUR.world.front_is_clear(RUR.world.robots[0]);
+  };
 
-var is_facing_north = function() {
-    return RUR.world.robots[0].is_facing_north();
-};
+  has_token = function () {
+      return RUR.world.robots[0].has_token();
+  };
 
-var move = function() {
-    RUR.world.robots[0].move();
-};
+  is_facing_north = function() {
+      return RUR.world.robots[0].is_facing_north();
+  };
 
-var pause = function (ms) {
-    RUR.world.pause(ms);
-};
+  move = function() {
+      RUR.world.robots[0].move();
+  };
 
-var put = function(arg) {
-    RUR.world.robots[0].put(arg);
-};
+  pause = function (ms) {
+      RUR.world.pause(ms);
+  };
 
-var remove_robot = function (){
-    RUR.world.remove_robot();
-};
+  put = function(arg) {
+      RUR.world.robots[0].put(arg);
+  };
 
-var repeat = function (f, n) {
-    for (var i=0; i < n; i++){
-        f();
-    }
-};
+  remove_robot = function (){
+      RUR.world.remove_robot();
+  };
 
-var right_is_clear = function() {
-    return RUR.world.right_is_clear(RUR.world.robots[0]);
-};
+  repeat = function (f, n) {
+      for (var i=0; i < n; i++){
+          f();
+      }
+  };
 
-var shape_here = function () {
-    return RUR.world.find_shape(RUR.world.robots[0].x, RUR.world.robots[0].y);
-};
+  right_is_clear = function() {
+      return RUR.world.right_is_clear(RUR.world.robots[0]);
+  };
 
-var take = function(arg) {
-    RUR.world.robots[0].take(arg);
-};
+  shape_here = function () {
+      return RUR.world.find_shape(RUR.world.robots[0].x, RUR.world.robots[0].y);
+  };
 
-var think = function(delay) {
-    RUR.world.think(delay);
-};
+  take = function(arg) {
+      RUR.world.robots[0].take(arg);
+  };
 
-var token_here = function () {
-    return RUR.world.get_tokens(RUR.world.robots[0].x, RUR.world.robots[0].y);
-};
+  think = function(delay) {
+      RUR.world.think(delay);
+  };
 
-var turn_left = function() {
-    RUR.world.robots[0].turn_left();
-};
+  token_here = function () {
+      return RUR.world.get_tokens(RUR.world.robots[0].x, RUR.world.robots[0].y);
+  };
 
-var write = function (s) {
-    RUR.world.add_output_frame("#output-pre", s.toString());
-};
+  turn_left = function() {
+      RUR.world.robots[0].turn_left();
+  };
 
+  side_view = function () {
+      RUR.visible_world.top_view = false;
+      localStorage.setItem("top_view", "false");
+  };
 
-var view_source = function(fn) {
-    $("#last-pre").before("<pre class='js_code'>" + fn + "</pre>" );
-    $('.js_code').each(function() {
-        var $this = $(this), $code = $this.text();
-        $this.removeClass("js_code");
-        $this.addClass("jscode");
-        $this.empty();
-        var myCodeMirror = CodeMirror(this, {
-            value: $code,
-            mode: 'javascript',
-            lineNumbers: !$this.is('.inline'),
-            readOnly: true,
-            theme: 'reeborg-dark'
-        });
-    });
-};
+  top_view = function () {
+      RUR.visible_world.top_view = true;
+      localStorage.setItem("top_view", "true");
+  };
 
-var side_view = function () {
-    RUR.visible_world.top_view = false;
-    localStorage.setItem("top_view", "false");
-};
-
-var top_view = function () {
-    RUR.visible_world.top_view = true;
-    localStorage.setItem("top_view", "true");
+  select_world = RUR.select_world;
 };
 
 UsedRobot.prototype = Object.create(RUR.Robot.prototype);
@@ -179,5 +221,3 @@ function UsedRobot(x, y, orientation, tokens)  {
     RUR.Robot.call(this, x, y, orientation, tokens);
     RUR.world.add_robot(this);
 }
-
-var select_world = RUR.select_world;

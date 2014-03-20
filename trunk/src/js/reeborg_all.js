@@ -256,7 +256,7 @@ RUR.World = function () {
     this.tokens = undefined;
     this.imported_world = undefined;
     this.json_world_string = undefined;
-    this.robot_world_active = false;
+    this.robot_world_active = undefined;
 
     this.think = function (delay) {
         if (delay >= 0  && delay <= 10000){
@@ -1240,18 +1240,21 @@ RUR.compile_javascript = function (src) {
             $('#library-problem').show().fadeOut(4000);
         }
     }
+    RUR.reset_definitions();
     eval(src); // jshint ignore:line
 };
 
 RUR.compile_no_strict_js = function (src) {
     // bypass linting and does not "use strict"
     // Usually requires "no strict"; as first statement in editor
+    RUR.reset_definitions();
     eval(src); // jshint ignore:line
 };
 
 RUR.compile_python = function (src) {
     // do not  "use strict" as we do not control the output produced by Brython
     // translate_python needs to be included in the html page in a Python script
+    RUR.reset_definitions();
     eval(translate_python(src)); // jshint ignore:line
 };
 /* Author: André Roberge
@@ -1484,6 +1487,7 @@ RUR.Controls = function (programming_language) {
 
 function update_controls() {
     if ($("#world-panel").hasClass("active")){
+        RUR.world.robot_world_active = true;
         $("#run2").css("visibility", "hidden");
         $("#step2").css("visibility", "hidden");
         $("#pause2").css("visibility", "hidden");
@@ -1495,6 +1499,7 @@ function update_controls() {
         $("#pause2").css("visibility", "visible");
         $("#stop2").css("visibility", "visible");
         $("#reload2").css("visibility", "visible");
+        RUR.world.robot_world_active = false;
         RUR.world.reset();
     }
 }
