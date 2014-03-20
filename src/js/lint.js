@@ -33,8 +33,9 @@ function updateHints(obj) {
     var values, nb_lines;
     var import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
     obj.operation(function () {
-        for(var i = 0; i < obj.widgets.length; ++i)
+        for(var i = 0; i < obj.widgets.length; ++i){
             obj.removeLineWidget(obj.widgets[i]);
+        }
         obj.widgets.length = 0;
 
         if (obj === editor) {

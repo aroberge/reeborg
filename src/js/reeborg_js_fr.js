@@ -1,3 +1,10 @@
+/* Author: André Roberge
+   License: MIT
+ */
+
+/*jshint browser:true, devel:true, white:false, plusplus:false */
+/*globals $, CodeMirror */
+
 var globals_ = "/*globals avance, tourne_a_gauche, tourne_à_gauche, RUR, examine, RobotUsagé, RobotUsage, " +
                 "rien_devant, rien_à_droite, rien_a_droite, face_au_nord, termine, terminé, "+
                     " dépose, depose, prend, objet_ici,"+
@@ -5,8 +12,10 @@ var globals_ = "/*globals avance, tourne_a_gauche, tourne_à_gauche, RUR, examin
                     " au_but_orientation, construit_un_mur, pense, DEBUG, pause, supprimer_le_robot, " +
                     " repete, répète, voir_source, vue_de_cote, vue_de_côté, vue_de_haut, sélectionne_monde, selectionne_monde*/\n";
 
+var RUR = RUR || {};
+
 RUR.translation = {};
-RUR.translation["/* Your special code goes here */\n\n"] = "/* Sauvegardez vos définitions ici. */\n\n"
+RUR.translation["/* Your special code goes here */\n\n"] = "/* Sauvegardez vos définitions ici. */\n\n";
 RUR.translation["# Your special code goes here \n\n"] = "# Sauvegardez vos définitions ici. \n\n";
 RUR.translation.ReeborgError = "ReeborgError";
 RUR.translation["Too many steps:"] = "Trop d'instructions: {max_steps}";

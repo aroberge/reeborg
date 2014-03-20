@@ -81,9 +81,6 @@ RUR.reset_definitions = function () {
       write(result);
   };
   
-  write = function (s) {
-      RUR.world.add_output_frame("#output-pre", s.toString());
-  };
 
   view_source = function(fn) {
       $("#last-pre").before("<pre class='js_code'>" + fn + "</pre>" );
@@ -125,8 +122,16 @@ RUR.reset_definitions = function () {
       repeat = null;
       side_view = null;
       top_view = null;
+      write = function (s) {
+          $("#output-pre").append(s.toString() + "\n");
+      };
       return;
   }
+  
+    write = function (s) {
+    RUR.world.add_output_frame("#output-pre", s.toString());
+  };
+  
   at_goal = function() {
       return RUR.world.robots[0].at_goal();
   };
