@@ -99,9 +99,6 @@ RUR.Controls = function (programming_language) {
         if (RUR.world.robot_world_active) {
             RUR.controls.compile_and_run(RUR.visible_world.play_frames);
         } else {
-          //TODO: Needed?
-            //_import_library();
-            think(0);
             RUR.controls.end_flag = false;
             RUR.controls.compile_and_run(function () {});
             RUR.controls.stop();
@@ -161,15 +158,9 @@ function update_controls() {
     if ($("#world-panel").hasClass("active")){
         RUR.world.robot_world_active = true;
         $("#run2").css("visibility", "hidden");
-        $("#step2").css("visibility", "hidden");
-        $("#pause2").css("visibility", "hidden");
-        $("#stop2").css("visibility", "hidden");
         $("#reload2").css("visibility", "hidden");
     } else {
         $("#run2").css("visibility", "visible");
-        $("#step2").css("visibility", "visible");
-        $("#pause2").css("visibility", "visible");
-        $("#stop2").css("visibility", "visible");
         $("#reload2").css("visibility", "visible");
         RUR.world.robot_world_active = false;
         RUR.world.reset();

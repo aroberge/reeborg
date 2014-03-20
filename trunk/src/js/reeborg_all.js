@@ -1292,8 +1292,9 @@ function updateHints(obj) {
     var values, nb_lines;
     var import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
     obj.operation(function () {
-        for(var i = 0; i < obj.widgets.length; ++i)
+        for(var i = 0; i < obj.widgets.length; ++i){
             obj.removeLineWidget(obj.widgets[i]);
+        }
         obj.widgets.length = 0;
 
         if (obj === editor) {
@@ -1429,7 +1430,6 @@ RUR.Controls = function (programming_language) {
         } else {
           //TODO: Needed?
             //_import_library();
-            think(0);
             RUR.controls.end_flag = false;
             RUR.controls.compile_and_run(function () {});
             RUR.controls.stop();
@@ -1489,15 +1489,9 @@ function update_controls() {
     if ($("#world-panel").hasClass("active")){
         RUR.world.robot_world_active = true;
         $("#run2").css("visibility", "hidden");
-        $("#step2").css("visibility", "hidden");
-        $("#pause2").css("visibility", "hidden");
-        $("#stop2").css("visibility", "hidden");
         $("#reload2").css("visibility", "hidden");
     } else {
         $("#run2").css("visibility", "visible");
-        $("#step2").css("visibility", "visible");
-        $("#pause2").css("visibility", "visible");
-        $("#stop2").css("visibility", "visible");
         $("#reload2").css("visibility", "visible");
         RUR.world.robot_world_active = false;
         RUR.world.reset();
@@ -1708,12 +1702,10 @@ $(document).ready(function() {
           
         RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
-            // $("#step").removeClass("hidden");
             data = localStorage.getItem(val);
             RUR.__load_world(data);
             $("select").attr("style", "background-color:#eff");
         } else {
-            // $("#step").removeClass("hidden");
             $.get(val, function(data) {
                 RUR.__load_world(data);
                 $("select").attr("style", "background-color:#fff");

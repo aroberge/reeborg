@@ -133,12 +133,10 @@ $(document).ready(function() {
           
         RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
-            // $("#step").removeClass("hidden");
             data = localStorage.getItem(val);
             RUR.__load_world(data);
             $("select").attr("style", "background-color:#eff");
         } else {
-            // $("#step").removeClass("hidden");
             $.get(val, function(data) {
                 RUR.__load_world(data);
                 $("select").attr("style", "background-color:#fff");
