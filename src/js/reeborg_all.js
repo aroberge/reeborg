@@ -1222,7 +1222,7 @@ RUR.visible_world = {
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, translate_python, JSHINT, CodeMirror, think, globals_ */
+/*globals $, editor, library, editorUpdateHints, libraryUpdateHints, translate_python */
 
 
 var RUR = RUR || {};
@@ -1254,7 +1254,84 @@ RUR.compile_python = function (src) {
     // translate_python needs to be included in the html page in a Python script
     eval(translate_python(src)); // jshint ignore:line
 };
+/* Author: André Roberge
+   License: MIT
+ */
 
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, editor, library, RUR, JSHINT, globals_ */
+
+function editorUpdateHints() {
+    updateHints(editor);
+}
+
+function libraryUpdateHints() {
+    updateHints(library);
+}
+var jshint_options = {
+    eqeqeq: true,
+    boss: true,
+    undef: true,
+    curly: true,
+    nonew: true,
+    browser: true,
+    devel: true,
+    white: false,
+    plusplus: false,
+    jquery: true
+};
+
+
+function updateHints(obj) {
+    if (RUR.programming_language != "javascript") {
+        return;
+    }
+    var values, nb_lines;
+    var import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
+    obj.operation(function () {
+        for(var i = 0; i < obj.widgets.length; ++i)
+            obj.removeLineWidget(obj.widgets[i]);
+        obj.widgets.length = 0;
+
+        if (obj === editor) {
+            values = globals_ + editor.getValue().replace(import_lib_regex, library.getValue());
+            nb_lines = library.lineCount() + 1;
+            JSHINT(values, jshint_options);
+        } else {
+            JSHINT(globals_ + obj.getValue(), jshint_options);
+            nb_lines = 2;
+        }
+        for(i = 0; i < JSHINT.errors.length; ++i) {
+            var err = JSHINT.errors[i];
+            if(!err) continue;
+            var msg = document.createElement("div");
+            var icon = msg.appendChild(document.createElement("span"));
+            icon.innerHTML = "!?!";
+            icon.className = "lint-error-icon";
+            msg.appendChild(document.createTextNode(err.reason));
+            msg.className = "lint-error";
+            obj.widgets.push(obj.addLineWidget(err.line - nb_lines, msg, {
+                coverGutter: false,
+                noHScroll: true
+            }));
+        }
+    });
+
+    var info = obj.getScrollInfo();
+    var after = obj.charCoords({line: obj.getCursor().line + 1, ch: 0}, "local").top;
+    if(info.top + info.clientHeight < after) {
+        obj.scrollTo(null, after - info.clientHeight + 3);
+    }
+}
+/* Author: André Roberge
+   License: MIT
+ */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, editor, library, editorUpdateHints, libraryUpdateHints, JSHINT, think */
+
+
+var RUR = RUR || {};
 
 RUR.Controls = function (programming_language) {
     "use strict";
@@ -1273,7 +1350,6 @@ RUR.Controls = function (programming_language) {
         if (!RUR.visible_world.compiled) {
             lib_src = library.getValue();
             src = editor.getValue();
-            console.log(src);
             src = src.replace(import_lib_regex, separator+lib_src);
         }
         if (!RUR.visible_world.compiled) {
@@ -1413,59 +1489,6 @@ function update_controls() {
     }
 }
 
-/*******   User notes
-
-****************************/
-//
-//var deleted_notes = [];
-//
-//function doShowNotes() {
-//    var key = "";
-//    var _notes = "";
-//    var _note;
-//    var i = 0;
-//
-//    if (deleted_notes.length > 0){
-//        document.getElementById('undo_delete').innerHTML = '<a href="javascript:doUndoDelete()" class=" float_left fake_button blue-gradient">' + RUR.translation["Undo Delete"] + '</a>';
-//    }
-//    else{
-//        document.getElementById('undo_delete').innerHTML = '';
-//    }
-//    for (i = localStorage.length - 1; i >= 0; i--) {
-//        key = localStorage.key(i);
-//        if (key.slice(0, 9) == "user_note") {
-//            _note = localStorage.getItem(key);
-//            _notes += "<hr><div class='user_note'>" + _note + '</div><a href="javascript:doDeleteNote(' + "'" + key + "'" + ');" class="fake_button blue-gradient">' + RUR.translation["Delete "] + '</a>';
-//        }
-//    }
-//    document.getElementById('notes_list').innerHTML = _notes;
-//}
-//
-//function addNote() {
-//    var user_note;
-//    var key = "user_note" + (new Date()).getTime();
-//    user_note = document.forms.notes_editor.data.value;
-//    if(!document.forms.notes_editor.check_html.checked) {
-//        user_note = "<pre>" + user_note + "</pre>";
-//    }
-//    localStorage.setItem(key, user_note);
-//    doShowNotes();
-//    document.forms.notes_editor.data.value = "";
-//}
-//
-//function doDeleteNote(key) {
-//    deleted_notes.push(localStorage.getItem(key));
-//    localStorage.removeItem(key);
-//    doShowNotes();
-//}
-//
-//function doUndoDelete(){
-//    var user_note = deleted_notes.pop();
-//    var key = "user_note" + (new Date()).getTime();
-//    localStorage.setItem(key, user_note);
-//    doShowNotes();
-//}
-
 RUR.ajax_requests = {};
 
 RUR.select_world = function (s) {
@@ -1517,11 +1540,17 @@ function toggle_contents_button () {
 }
 
 function toggle_contents_button_from_child () {
-    // called when child window is closed.
+    // called when child window is closed by user
     $("#contents-button").toggleClass("blue-gradient");
     $("#contents-button").toggleClass("reverse-blue-gradient");
 }
 
+/* Author: André Roberge
+   License: MIT
+ */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, RUR, editor, library, toggle_contents_button, update_controls */
 
 $(document).ready(function() {
     RUR.select_world("Alone");
@@ -1555,7 +1584,6 @@ $(document).ready(function() {
 
     });
 
-
     $(function() {
         $("#tabs").tabs({heightStyle: "auto"});
     });
@@ -1568,23 +1596,13 @@ $(document).ready(function() {
         $("#lint").hide();
         $("#save-library").show();
     });
-//    $("#notes-link").on("click", function(){
-//        $("#lint").hide();
-//        $("#save-library").hide();
-//    });
 
     $("#save-library").on("click", function() {
         localStorage.setItem(RUR.settings.library, library.getValue());
         $('#saved').show().fadeOut(2000);
-        // try/catch temporary code to enable library migration
-        // see issue 3
-        try {
-            localStorage.removeItem("library");
-        } catch (e) {}
     });
 
-    try{  // first item is temporary code to enable library migration
-          // see issue 3
+    try {  
         var library_comment = '';
         if (RUR.programming_language == "javascript") {
             library_comment = RUR.translation["/* Your special code goes here */\n\n"];
@@ -1595,11 +1613,11 @@ $(document).ready(function() {
         library.setValue(library_content + "\n");
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
 
- 
     $("#contents-button").on("click", toggle_contents_button);
 
     $("#help").dialog({autoOpen:false, width:600,  height:500, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+  
     $("#help-button").on("click", function() {
         if (RUR.ajax_requests.help !== undefined){
             if ($("#help-button").hasClass("reverse-blue-gradient")) {
@@ -1617,9 +1635,6 @@ $(document).ready(function() {
 
     $("#Reeborg-says").dialog({minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
-//    try{
-//        doShowNotes();
-//    }catch (e) {console.log(e);} // Do not alert the user as we've already caught similar errors
 
     editor.widgets = [];
     library.widgets = [];
@@ -1661,66 +1676,3 @@ $(document).ready(function() {
     });
     RUR.controls.set_ready_to_run();
 });
-
-function editorUpdateHints() {
-    updateHints(editor);
-}
-
-function libraryUpdateHints() {
-    updateHints(library);
-}
-var jshint_options = {
-    eqeqeq: true,
-    boss: true,
-    undef: true,
-    curly: true,
-    nonew: true,
-    browser: true,
-    devel: true,
-    white: false,
-    plusplus: false,
-    jquery: true
-};
-
-
-function updateHints(obj) {
-    if (RUR.programming_language != "javascript") {
-        return;
-    }
-    var values, nb_lines;
-    var import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
-    obj.operation(function () {
-        for(var i = 0; i < obj.widgets.length; ++i)
-            obj.removeLineWidget(obj.widgets[i]);
-        obj.widgets.length = 0;
-
-        if (obj === editor) {
-            values = globals_ + editor.getValue().replace(import_lib_regex, library.getValue());
-            nb_lines = library.lineCount() + 1;
-            JSHINT(values, jshint_options);
-        } else {
-            JSHINT(globals_ + obj.getValue(), jshint_options);
-            nb_lines = 2;
-        }
-        for(i = 0; i < JSHINT.errors.length; ++i) {
-            var err = JSHINT.errors[i];
-            if(!err) continue;
-            var msg = document.createElement("div");
-            var icon = msg.appendChild(document.createElement("span"));
-            icon.innerHTML = "!?!";
-            icon.className = "lint-error-icon";
-            msg.appendChild(document.createTextNode(err.reason));
-            msg.className = "lint-error";
-            obj.widgets.push(obj.addLineWidget(err.line - nb_lines, msg, {
-                coverGutter: false,
-                noHScroll: true
-            }));
-        }
-    });
-
-    var info = obj.getScrollInfo();
-    var after = obj.charCoords({line: obj.getCursor().line + 1, ch: 0}, "local").top;
-    if(info.top + info.clientHeight < after) {
-        obj.scrollTo(null, after - info.clientHeight + 3);
-    }
-}
