@@ -151,7 +151,7 @@ padding:3px;}
 #editor-panel {scroll-x: auto;}
 #cmd-result {color: green;}
 #save-library, #load-library {display: none;}
-#saved, #checked, #library-problem {background-color: #96c423; color: white; display:none; margin: 5px;
+#library-problem {background-color: #96c423; color: white; display:none; margin: 5px;
   font-size:0.5em; float: right;}
 
 #canvas-wrapper, #diary-wrapper {
@@ -167,6 +167,8 @@ padding:3px;}
   border: 1px solid blue;
   padding: 0 5px;
   }
+
+#fileInput {display:none;}
 
 #world-controls, #diary-controls {
   position: absolute;

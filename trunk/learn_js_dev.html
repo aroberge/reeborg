@@ -113,21 +113,31 @@
 </div>
 
 <div id="editor-panel" class="active" >
+<!--
+  <form id="fileSaver">
+		<label>Filename: <input type="text" class="filename" id="text-filename" placeholder="a plain document"/>.js</label>
+		<input type="submit" value="Save"/>
+	</form>
+-->
+
+  <input type="file" id="fileInput">
   <div id="tabs">
     <ul>
       <li><a id="editor-link" href="#editor">Javascript Code</a></li>
       <button class="blue-gradient float-right" id="load-editor">Load</button>
+      
       <button class="blue-gradient float-right" id="save-editor">Save</button> 
+      
 <!--      <button class="blue-gradient float-right" id="memorize-editor">Memorize</button> -->
       <li><a id="library-link" href="#library">Library</a></li>
       <button class="blue-gradient float-right" id="load-library">Load</button>
       <button class="blue-gradient float-right" id="save-library">Save</button> 
 <!--      <button class="blue-gradient float-right" id="memorize-library">Memorize</button> -->
-      <span id="saved">Done!</span>
     </ul>
     <div id="editor">
       <span id="library-problem">Problem with code in library!</span>
       <textarea id="code" name="code">move();</textarea>
+      
     </div>
     <div id="library">
       <textarea id="library-code" name="library-code">
@@ -142,6 +152,7 @@
       </textarea>
     </div>
   </div>
+      
 </div>
 
 
@@ -179,6 +190,7 @@
 </script>
 
 <script src="src/libs/jshint.js"></script>
+<script src="src/libs/filesaver.js"></script>
 
 </body>
 </html>
