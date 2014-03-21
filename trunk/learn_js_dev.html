@@ -24,8 +24,9 @@
   </div>
   
 </header>
-
+  <input type="file" id="worldfileInput">
 <div id="world-panel" class="active" >
+
   <div id="world-controls">
     <button class="blue-gradient" id="run" title="run" onclick="RUR.controls.run();">
       <img src="src/images/play.png" alt="play">
@@ -42,7 +43,9 @@
     <button class="blue-gradient" id="reload" title="reload" disabled="true" onclick="RUR.controls.reload();">
       <img src="src/images/reload.png" alt="reload">
     </button>
-    <select id="select_world">
+    <button class="blue-gradient" id="load-world" title="Load world">Load</button>
+    <button class="blue-gradient" id="save-world" title="Save world">Save</button> 
+    <select id="select_world" title="Select world">
       <option value="src/json/alone.json" selected>Alone</option>
       <option value="src/json/around1.json">Around 1</option>
       <option value="src/json/around2.json">Around 2</option>
@@ -113,26 +116,17 @@
 </div>
 
 <div id="editor-panel" class="active" >
-<!--
-  <form id="fileSaver">
-		<label>Filename: <input type="text" class="filename" id="text-filename" placeholder="a plain document"/>.js</label>
-		<input type="submit" value="Save"/>
-	</form>
--->
 
   <input type="file" id="fileInput">
   <div id="tabs">
     <ul>
       <li><a id="editor-link" href="#editor">Javascript Code</a></li>
-      <button class="blue-gradient float-right" id="load-editor">Load</button>
+      <button class="blue-gradient float-right" id="load-editor" title="Load program">Load</button>
+      <button class="blue-gradient float-right" id="save-editor" title="Save program">Save</button> 
       
-      <button class="blue-gradient float-right" id="save-editor">Save</button> 
-      
-<!--      <button class="blue-gradient float-right" id="memorize-editor">Memorize</button> -->
       <li><a id="library-link" href="#library">Library</a></li>
-      <button class="blue-gradient float-right" id="load-library">Load</button>
-      <button class="blue-gradient float-right" id="save-library">Save</button> 
-<!--      <button class="blue-gradient float-right" id="memorize-library">Memorize</button> -->
+      <button class="blue-gradient float-right" id="load-library" title="Load library">Load</button>
+      <button class="blue-gradient float-right" id="save-library" title="Save library">Save</button> 
     </ul>
     <div id="editor">
       <span id="library-problem">Problem with code in library!</span>

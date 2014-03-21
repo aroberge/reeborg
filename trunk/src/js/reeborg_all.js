@@ -1638,6 +1638,7 @@ $(document).ready(function() {
         $("#fileInput").show();
         var fileInput = document.getElementById('fileInput');
         fileInput.addEventListener('change', function(e) {
+          console.log(e);
             var file = fileInput.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
@@ -1674,6 +1675,31 @@ $(document).ready(function() {
         var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, _all_files);
     });
+  
+  
+    $("#save-world").on("click", function(evt) {
+        var blob = new Blob([RUR.world.json_world_string], {type: "text/javascript;charset=utf-8"});
+        saveAs(blob, "*.json");
+    });
+
+  
+    $("#load-world").on("click", function(evt) {
+        console.log("called");
+        $("#worldfileInput").show();
+        var fileInput = document.getElementById('worldfileInput');
+        fileInput.addEventListener('change', function(e) {
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                RUR.__load_world(reader.result);
+                $("#worldfileInput").hide();
+                fileInput.value = "";
+            };
+            reader.readAsText(file);	
+        }); 
+    });
+  
+  
   
     try {  
         var library_comment = '', library_content, editor_content;
