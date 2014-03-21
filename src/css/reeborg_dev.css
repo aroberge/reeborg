@@ -168,7 +168,8 @@ padding:3px;}
   padding: 0 5px;
   }
 
-#fileInput {display:none;}
+#fileInput, #worldfileInput {display:none;}
+#worldfileInput {position: relative; top: -500px;}
 
 #world-controls, #diary-controls {
   position: absolute;
