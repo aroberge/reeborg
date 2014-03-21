@@ -3,7 +3,7 @@
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, toggle_contents_button, update_controls */
+/*globals $, RUR, editor, library, toggle_contents_button, update_controls, saveAs */
 
 $(document).ready(function() {
     try {
@@ -67,6 +67,47 @@ $(document).ready(function() {
 //        $('#saved').show().fadeOut(2000);
 //    });
 
+    var load_file = function(obj) {
+        $("#fileInput").show();
+        var fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', function(e) {
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                obj.setValue(reader.result);
+                $("#fileInput").hide();
+                fileInput.value = "";
+            };
+            reader.readAsText(file);	
+        }); 
+    };
+
+    $("#load-editor").on("click", function(evt) {
+        load_file(editor);
+    });
+  
+    $("#load-library").on("click", function(evt) {
+        load_file(library);
+    });
+  
+    var _all_files = "";
+    if (RUR.programming_language == "javascript"){
+        _all_files = "*.js";
+    } else if (RUR.programming_language == "python") {
+        _all_files = "*.py";
+    }
+  
+  
+    $("#save-editor").on("click", function(evt) {
+        var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
+        saveAs(blob, _all_files);
+    });
+
+    $("#save-library").on("click", function(evt) {
+        var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
+        saveAs(blob, _all_files);
+    });
+  
     try {  
         var library_comment = '', library_content, editor_content;
         if (RUR.programming_language == "javascript") {
