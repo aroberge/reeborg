@@ -61,7 +61,7 @@ RUR.translation["Delete "] = "Delete";
 RUR.translation["Undo Delete"] = "Undo Delete";
 RUR.translation["World selected"] = "World {world} selected";
 RUR.translation["Could not find world"] = "Could not find world {world}";
-RUR.translation["You must select a world first."] = "You must select a world first.";
+RUR.translation["Invalid world file."] = "Invalid world file."
 
 var move, turn_left, inspect, front_is_clear, right_is_clear, 
     is_facing_north, done, put, take, shape_here, select_world, token_here, 

@@ -1582,11 +1582,21 @@ $(document).ready(function() {
         } catch (e) {};
     });
 
-    try{  // first item is temporary code to enable library migration
-          // see issue 3
-        var library_content = localStorage.getItem("library") || localStorage.getItem(RUR.settings.library) || RUR.translation["/* Your special code goes here */\n\n"];
-        library.setValue(library_content + "\n");
-    } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");}
+    try {  
+        var library_comment = '', library_content, editor_content;
+        if (RUR.programming_language == "javascript") {
+            library_comment = RUR.translation["/* Your special code goes here */\n\n"];
+        } else if (RUR.programming_language == "python") {
+            library_comment = RUR.translation["# Your special code goes here \n\n"];
+        }
+        library_content = localStorage.getItem(RUR.settings.library) || library_comment;
+        library.setValue(library_content);
+      
+        editor_content = localStorage.getItem(RUR.settings.editor) || editor.getValue();
+        editor.setValue(editor_content);
+      
+    } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");
+                }
 
     load_content = function () {
         var hash = location.hash;
