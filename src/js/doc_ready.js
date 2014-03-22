@@ -2,7 +2,7 @@
    License: MIT
  */
 
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*jshint -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, toggle_contents_button, update_controls, saveAs */
 
 $(document).ready(function() {
@@ -68,14 +68,13 @@ $(document).ready(function() {
 //    });
 
     var load_file = function(obj) {
-        $("#fileInput").show();
+        $("#fileInput").click();
         var fileInput = document.getElementById('fileInput');
         fileInput.addEventListener('change', function(e) {
             var file = fileInput.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
                 obj.setValue(reader.result);
-                $("#fileInput").hide();
                 fileInput.value = "";
             };
             reader.readAsText(file);	
@@ -116,15 +115,17 @@ $(document).ready(function() {
 
   
     $("#load-world").on("click", function(evt) {
-        console.log("called");
         $("#worldfileInput").show();
         var fileInput = document.getElementById('worldfileInput');
         fileInput.addEventListener('change', function(e) {
             var file = fileInput.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
-                RUR.__load_world(reader.result);
-                $("#worldfileInput").hide();
+                try {
+                    $("#worldfileInput").hide();
+                } catch (e) {
+                    alert(RUR.translation["Invalid world file."]);
+                }
                 fileInput.value = "";
             };
             reader.readAsText(file);	
