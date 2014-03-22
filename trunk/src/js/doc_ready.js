@@ -58,15 +58,6 @@ $(document).ready(function() {
         $("#load-library").show();
     });
 
-//    $("#memorize-library").on("click", function() {
-//        localStorage.setItem(RUR.settings.library, library.getValue());
-//        $('#saved').show().fadeOut(2000);
-//    });
-//    $("#memorize-editor").on("click", function() {
-//        localStorage.setItem(RUR.settings.editor, editor.getValue());
-//        $('#saved').show().fadeOut(2000);
-//    });
-
     var load_file = function(obj) {
         $("#fileInput").click();
         var fileInput = document.getElementById('fileInput');
@@ -152,22 +143,11 @@ $(document).ready(function() {
 
     $("#contents-button").on("click", toggle_contents_button);
 
-    $("#help").dialog({autoOpen:false, width:600,  height:500, maximize: false, position:"top",
+    $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
   
     $("#help-button").on("click", function() {
-        if (RUR.ajax_requests.help !== undefined){
-            if ($("#help-button").hasClass("reverse-blue-gradient")) {
-                $("#help").dialog("open");
-            } else {
-                $("#help").dialog("close");
-            }
-            return;
-        }
-        $('#help').load(RUR.settings.xml+"help.xml");
-        RUR.ajax_requests.help = true;
         $("#help").dialog("open");
-        return false;
     });
 
     $("#Reeborg-says").dialog({minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
