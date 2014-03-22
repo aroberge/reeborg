@@ -147,7 +147,12 @@ $(document).ready(function() {
         beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
   
     $("#help-button").on("click", function() {
-        $("#help").dialog("open");
+        if ($("#help-button").hasClass("reverse-blue-gradient")) {
+            $("#help").dialog("open");
+        } else {
+            $("#help").dialog("close");
+        }
+        return;
     });
 
     $("#Reeborg-says").dialog({minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
