@@ -52,7 +52,7 @@ RUR.Controls = function (programming_language) {
                 }
             } catch (e) {
                 if (e.name === RUR.translation.ReeborgError){
-                    RUR.world.add_error_frame(e);
+                    RUR.world.add_frame("error", e);
                 } else {
                     alert(e.name + "\n" + e.message);
                     fatal_error_found = true;

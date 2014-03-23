@@ -129,7 +129,7 @@ RUR.reset_definitions = function () {
   }
   
     write = function (s) {
-    RUR.world.add_output_frame("#output-pre", s.toString());
+    RUR.world.add_frame("output", "#output-pre", s.toString());
   };
   
   at_goal = function() {

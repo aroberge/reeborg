@@ -27,7 +27,7 @@ RUR.World = function () {
 
     this.think = function (delay) {
         if (delay >= 0  && delay <= 10000){
-            this.frames.add_item({delay: Math.round(delay)});
+            this.add_frame("delay", delay);
         }
         else {
             throw new RUR.Error(RUR.translation["Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: "].supplant({delay: delay}));
@@ -323,15 +323,8 @@ RUR.World = function () {
         }
     };
 
-    this.add_error_frame = function (error) {
-        this.frames.container.push({error: error});
-    };
 
-    this.add_output_frame = function (element, message) {
-        this.frames.add_item({output: {element:element, message:message}});
-    };
-
-    this.add_frame = function () {
+    this.add_frame = function (first, second, third) {
         var i, j, k, robot, robots = [], walls, tokens, shapes;
         for (i = 0; i < this.robots.length; i++){
             robot = {};
@@ -363,7 +356,15 @@ RUR.World = function () {
         for (i=0; i < k.length; i++){
             shapes[k[i]] = this.shapes[k[i]];
         }
-        this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens, "shapes": shapes});
+        if (first === undefined) {
+            this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens, "shapes": shapes});
+        } else if (first === "output") {
+            this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens, "shapes": shapes, output: {element:second, message:third}});
+        } else if (first === "delay") {
+            this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens, "shapes": shapes, delay: Math.round(second)}); 
+        } else if (first === "error") {
+            this.frames.add_item({"robots": robots, "walls": walls, "tokens": tokens, "shapes": shapes, error: second});
+        }
     };
 
     this.toggle_wall = function (x, y, orientation){

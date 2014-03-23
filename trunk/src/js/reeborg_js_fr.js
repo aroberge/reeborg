@@ -161,7 +161,7 @@ var tourne_à_gauche = function() {
 var tourne_a_gauche = tourne_à_gauche;
 
 var ecrit = function (s) {
-    RUR.world.add_output_frame("#output-pre", s.toString());
+    RUR.world.add_frame("output", "#output-pre", s.toString());
 };
 var écrit = ecrit;
 
