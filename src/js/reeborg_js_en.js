@@ -3,7 +3,7 @@
  */
 
 /*jshint browser:true, devel:true, white:false, plusplus:false */
-/*globals $, CodeMirror */
+/*globals $, CodeMirror, editor, library */
 
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, shape_here, select_world,"+
@@ -61,7 +61,7 @@ RUR.translation["Delete "] = "Delete";
 RUR.translation["Undo Delete"] = "Undo Delete";
 RUR.translation["World selected"] = "World {world} selected";
 RUR.translation["Could not find world"] = "Could not find world {world}";
-RUR.translation["Invalid world file."] = "Invalid world file."
+RUR.translation["Invalid world file."] = "Invalid world file.";
 
 var move, turn_left, inspect, front_is_clear, right_is_clear, 
     is_facing_north, done, put, take, shape_here, select_world, token_here, 
@@ -226,3 +226,20 @@ function UsedRobot(x, y, orientation, tokens)  {
     RUR.Robot.call(this, x, y, orientation, tokens);
     RUR.world.add_robot(this);
 }
+
+function _import_library () {
+  // adds the library code to the editor code if appropriate string is found
+    var separator, import_lib_regex, src, lib_src;  // separates library code from user code
+    if (RUR.programming_language == "javascript") {
+        separator = ";\n";
+        import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
+    } else if (RUR.programming_language === "python") {
+        separator = "\n";
+        import_lib_regex = /^import\s* my_lib\s*$/m;
+    }
+
+    lib_src = library.getValue();
+    src = editor.getValue();
+    return src.replace(import_lib_regex, separator+lib_src);
+}
+
