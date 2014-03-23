@@ -160,7 +160,9 @@
 <script src="src/js/jquery.ui.dialog.minmax.js"></script>
 <script type="text/javascript">
 function translate_python(src) {
-  return __BRYTHON__.py2js(src).to_js()
+//  debugger;
+  __BRYTHON__.$py_module_path['__main__'] = 'src/libs/brython'
+  return __BRYTHON__.py2js(src).to_js();
 }
 </script>
 <script>
