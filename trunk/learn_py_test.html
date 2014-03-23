@@ -44,8 +44,6 @@
     <button class="blue-gradient" id="reload" title="reload" disabled="true" onclick="RUR.controls.reload();">
       <img src="src/images/reload.png" alt="reload">
     </button>
-    <button class="blue-gradient" id="load-world" title="Load world">Load</button>
-    <button class="blue-gradient" id="save-world" title="Save world">Save</button> 
     <select id="select_world" title="Select world">
       <option value="src/json/alone.json" selected>Alone</option>
       <option value="src/json/around1.json">Around 1</option>
@@ -97,7 +95,14 @@
     <div id="Reeborg-says" title="Reeborg says: I'm done!" style="display:none"></div>
     <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
   </div>
+    <div id="world-edit-buttons">
+      <button class="blue-gradient" id="edit-world" title="Edit world">Edit</button>
+      <button class="blue-gradient" id="load-world" title="Load world">Load</button>
+      <button class="blue-gradient" id="save-world" title="Save world">Save</button>
+    </div>
+     
 </div>
+
 
 <div id="output-panel">
     <div id="diary-controls">
@@ -144,7 +149,6 @@
       Have you tried Firefox or Chrome? */
       </textarea>
     </div>
-<!--    <div id="library-copy" style="display:none"></div>-->
   </div>
       
 </div>
@@ -159,7 +163,7 @@
 <script src="src/js/reeborg_js_en.js"></script>
 <script src="src/js/jquery.ui.dialog.minmax.js"></script>
 <script type="text/python3">
-from browser import window
+from _browser import window
 
 def translate_python(src):
     exec(src)

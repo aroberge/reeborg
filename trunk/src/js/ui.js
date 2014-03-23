@@ -54,7 +54,7 @@ RUR.Controls = function (programming_language) {
                 if (e.name === RUR.translation.ReeborgError){
                     RUR.world.add_frame("error", e);
                 } else {
-                    alert(e.name + "\n" + e.message);
+                    $("#Reeborg-shouts").html("<h3>" + e.name + "</h3><h4>" + e.message + "</h4>").dialog("open");
                     fatal_error_found = true;
                     this.stop();
                 }
