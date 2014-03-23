@@ -99,6 +99,10 @@ $(document).ready(function() {
     });
   
   
+    $("#edit-world").on("click", function(evt) {
+        $("#Reeborg-shouts").html("<h2>Not implemented yet!</h2>").dialog("open");
+    })
+  
     $("#save-world").on("click", function(evt) {
         var blob = new Blob([RUR.world.json_world_string], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, "*.json");

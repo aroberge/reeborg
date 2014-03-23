@@ -158,6 +158,11 @@ padding:3px;}
   position: absolute;
   top: 42px;
 }
+#world-edit-buttons {
+  position: absolute;
+  bottom: -40px;
+}
+
 #diary-wrapper {   
   margin-top: 5px;
   width: 575px;
@@ -175,7 +180,7 @@ padding:3px;}
   position: absolute;
   top: 5px;
 }
-#world-controls button, #diary-controls button {margin-right: 4px;}
+#world-controls button, #diary-controls button, #world-edit-buttons button {margin-right: 4px;}
 
 #world-panel, #output-panel, #editor-panel {   
     margin-top: 32px;
