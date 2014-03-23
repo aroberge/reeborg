@@ -12,7 +12,8 @@
 <title>Reeborg's world</title>
     <script src="src/libs/brython/brython.js"></script>
 </head>
-<body onload="brython(1)">
+<body onload="brython(2)">
+
 
 <header class="blue-gradient green-border">
   <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
@@ -143,6 +144,7 @@
       Have you tried Firefox or Chrome? */
       </textarea>
     </div>
+<!--    <div id="library-copy" style="display:none"></div>-->
   </div>
       
 </div>
@@ -156,10 +158,10 @@
 <script src="src/js/reeborg_all.js"></script>
 <script src="src/js/reeborg_js_en.js"></script>
 <script src="src/js/jquery.ui.dialog.minmax.js"></script>
-<script type="text/python">
-import dis
-def translate_python(src):
-    return dis.dis(src)
+<script type="text/javascript">
+function translate_python(src) {
+  return __BRYTHON__.py2js(src).to_js()
+}
 </script>
 <script>
   var PYTHON = true;
