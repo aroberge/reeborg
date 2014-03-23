@@ -158,13 +158,16 @@
 <script src="src/js/reeborg_all.js"></script>
 <script src="src/js/reeborg_js_en.js"></script>
 <script src="src/js/jquery.ui.dialog.minmax.js"></script>
-<script type="text/javascript">
-function translate_python(src) {
-//  debugger;
-  __BRYTHON__.$py_module_path['__main__'] = 'src/libs/brython'
-  return __BRYTHON__.py2js(src).to_js();
-}
+<script type="text/python3">
+from browser import window
+
+def translate_python(src):
+    exec(src)
+
+# put "translate_python" in global Javascript namespace
+window['translate_python'] = translate_python
 </script>
+
 <script>
   var PYTHON = true;
   var editor = CodeMirror.fromTextArea(document.getElementById('code'), {

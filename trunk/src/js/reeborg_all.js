@@ -1256,7 +1256,7 @@ RUR.compile_python = function (src) {
     // do not  "use strict" as we do not control the output produced by Brython
     // translate_python needs to be included in the html page in a Python script
     RUR.reset_definitions();
-    eval(translate_python(src)); // jshint ignore:line
+    translate_python(src); // jshint ignore:line
 };
 /* Author: André Roberge
    License: MIT
