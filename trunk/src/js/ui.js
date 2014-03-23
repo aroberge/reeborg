@@ -3,26 +3,10 @@
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, editorUpdateHints, libraryUpdateHints, JSHINT, think */
+/*globals $, editor, library, editorUpdateHints, libraryUpdateHints, JSHINT, think, _import_library */
 
 
 var RUR = RUR || {};
-
-function _import_library () {
-  // adds the library code to the editor code if appropriate string is found
-    var separator, import_lib_regex, src, lib_src;  // separates library code from user code
-    if (RUR.programming_language == "javascript") {
-        separator = ";\n";
-        import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
-    } else if (RUR.programming_language === "python") {
-        separator = "\n";
-        import_lib_regex = /^import\s* lib\s*$/m;
-    }
-
-    lib_src = library.getValue();
-    src = editor.getValue();
-    return src.replace(import_lib_regex, separator+lib_src);
-}
 
 RUR.Controls = function (programming_language) {
     "use strict";
