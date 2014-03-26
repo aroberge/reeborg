@@ -133,7 +133,7 @@ $(document).ready(function() {
     $("#memorize-world").on("click", function(evt) {
         var response = prompt("Enter world name to save");
         if (response !== null) {
-            save_world(response.trim());
+            RUR.edit_world.save_world(response.trim());
             $('#delete-world').show(); 
         }
     });
@@ -141,12 +141,18 @@ $(document).ready(function() {
     $("#delete-world").on("click", function(evt) {
         var response = prompt("Enter world name to delete");
         if (response !== null) {
-            delete_world(response.trim());
+            RUR.edit_world.delete_world(response.trim());
             $('#delete-world').show(); 
         }
     });
   
- 
+    $("#robot_canvas").on("click", function (evt) {
+        if (!RUR.editing_world) {
+            return;
+        }
+        RUR.edit_world.edit_world();
+    });
+    
     try {  
         var library_comment = '', library_content, editor_content;
         if (RUR.programming_language == "javascript") {

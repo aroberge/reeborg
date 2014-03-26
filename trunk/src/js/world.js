@@ -436,7 +436,7 @@ RUR.visible_world = {
     robot_y_offset : 8,
     robot_x_offset : 10,
     wall_color: "brown",
-    shawdow_wall_color: "#f0f0f0",
+    shadow_wall_color: "#f0f0f0",
     ctx: null,
     draw : function (frame) {
         "use strict";
@@ -490,7 +490,7 @@ RUR.visible_world = {
         this.ctx = ctx;
         ctx.clearRect(0, 0, this.width, this.height);
         if (RUR.world.blank_canvas) return;
-        ctx.fillStyle = this.shawdow_wall_color;
+        ctx.fillStyle = this.shadow_wall_color;
         for (i = 1; i <= this.cols; i++) {
             for (j = 1; j <= this.rows; j++) {
                 this.draw_north_wall(i, j);
@@ -977,6 +977,9 @@ RUR.visible_world = {
         this.delay = 300;
         this.compiled = false;
         this.running = false;
+        this.draw_all();
+    },
+    draw_all : function () {
         this.draw_background_walls();
         this.draw_goal();
         this.draw_coordinates();
