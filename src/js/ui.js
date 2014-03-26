@@ -125,6 +125,9 @@ RUR.Controls = function (programming_language) {
 
     this.reload = function() {
         RUR.visible_world.reset();
+        if (RUR.editing_world){
+            return;
+        }
         this.set_ready_to_run();
         $("#output-pre").html("");
         $("#output-panel pre").remove(".jscode");
@@ -184,14 +187,18 @@ RUR.select_world = function (s, silent) {
 };
 
 RUR.load_user_worlds = function () {
-    var key, name, i;
+    var key, name, i, user_world_present;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
             name = key.slice(11);
             $('#select_world').append( $('<option style="background-color:#ff9"></option>'
                               ).val("user_world:" + name).html(name));
+            user_world_present = true;
         }
+    }
+    if (user_world_present){
+        $('#delete-world').show();
     }
 };
 

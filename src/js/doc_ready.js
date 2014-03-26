@@ -3,7 +3,8 @@
  */
 
 /*jshint -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, toggle_contents_button, update_controls, saveAs */
+/*globals $, RUR, editor, library, toggle_contents_button, update_controls, saveAs, toggle_editing_mode,
+          save_world, delete_world*/
 
 $(document).ready(function() {
     try {
@@ -100,8 +101,10 @@ $(document).ready(function() {
   
   
     $("#edit-world").on("click", function(evt) {
-        $("#Reeborg-shouts").html("<h2>Not implemented yet!</h2>").dialog("open");
-    })
+        toggle_editing_mode();
+        $(this).toggleClass("blue-gradient");
+        $(this).toggleClass("reverse-blue-gradient");
+    });
   
     $("#save-world").on("click", function(evt) {
         var blob = new Blob([RUR.world.json_world_string], {type: "text/javascript;charset=utf-8"});
@@ -126,9 +129,24 @@ $(document).ready(function() {
             reader.readAsText(file);	
         }); 
     });
+    
+    $("#memorize-world").on("click", function(evt) {
+        var response = prompt("Enter world name to save");
+        if (response !== null) {
+            save_world(response.trim());
+            $('#delete-world').show(); 
+        }
+    });
+    
+    $("#delete-world").on("click", function(evt) {
+        var response = prompt("Enter world name to delete");
+        if (response !== null) {
+            delete_world(response.trim());
+            $('#delete-world').show(); 
+        }
+    });
   
-  
-  
+ 
     try {  
         var library_comment = '', library_content, editor_content;
         if (RUR.programming_language == "javascript") {
@@ -171,16 +189,7 @@ $(document).ready(function() {
         RUR.controls.reload();
     };
 
-    // initialize the world and then sets up a listener for subsequent changes
-    $.get($("#select_world").val(), function(data) {
-            RUR.__load_world(data);
-            $("select").attr("style", "background-color:#fff");
-            // jquery is sometimes too intelligent; it can guess
-            // if the imported object is a string ... or a json object
-            // I need a string here;  so make sure to prevent it from identifying.
-        }, "text");
-    RUR.world.robot_world_active = true;
-
+    // Set listener ...  (continuing below)
     $("#select_world").change(function() {
         var data, val = $(this).val();
         try {
@@ -191,16 +200,17 @@ $(document).ready(function() {
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
             RUR.__load_world(data);
-            $("select").attr("style", "background-color:#eff");
         } else {
             $.get(val, function(data) {
                 RUR.__load_world(data);
-                $("select").attr("style", "background-color:#fff");
                 // jquery is sometimes too intelligent; it can guess
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
             }, "text");
         }
     });
+    // ... and trigger it to load the initial world.
+    $("#select_world").change();
+    
     RUR.controls.set_ready_to_run();
 });

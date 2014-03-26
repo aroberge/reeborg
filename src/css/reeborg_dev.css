@@ -56,11 +56,11 @@ a[href^="http"] {
 .world {border: 1px solid #248; border-radius: 6px; font-weight: bold;}
 .reverse-blue-gradient {
   background-color: #112244;
-  background-image: -webkit-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
-  background-image: -moz-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
-  background-image: -ms-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
-  background-image: -o-linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
-  background-image: -linear-gradient(top, #123264 20%, #1e3c78 50%, #2d5ab4 80%);
+  background-image: -webkit-linear-gradient(top, #123264 20%, #1e3c78 40%, #749ef2 80%);
+  background-image: -moz-linear-gradient(top, #123264 20%, #1e3c78 40%, #749ef2 80%);
+  background-image: -ms-linear-gradient(top, #123264 20%, #1e3c78 40%, #749ef2 80%);
+  background-image: -o-linear-gradient(top, #123264 20%, #1e3c78 40%, #749ef2 80%);
+  background-image: -linear-gradient(top, #123264 20%, #1e3c78 40%, #749ef2 80%);
 }
 .ui-tabs .ui-tabs-nav li, .blue-gradient, .left-link, .right-link, .ui-widget-header {
   background-color: #123264;
@@ -182,7 +182,7 @@ padding:3px;}
 }
 #world-controls button, #diary-controls button, #world-edit-buttons button {margin-right: 4px;}
 
-#world-panel, #output-panel, #editor-panel {   
+#world-panel, #output-panel, #editor-panel, #edit-world-panel {   
     margin-top: 32px;
     position: relative; 
     display: none;
@@ -193,8 +193,7 @@ padding:3px;}
 
 #world-panel { background-color: white;}
 
-
-#world-panel.active, #output-panel.active, #editor-panel.active {display: inline-block; z-index: 1}
+#world-panel.active, #output-panel.active, #editor-panel.active, #edit-world-panel.active {display: inline-block; z-index: 1}
 
 #output-pre {margin-top: 0; background-color: white;}
 #notes {background: #f9ffff; margin-left: 32px; box-shadow: -3px 0 0 0 #75a110, -32px 0 0 0 #224488;}
