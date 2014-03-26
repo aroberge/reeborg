@@ -3,17 +3,43 @@
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
+/*globals $, RUR, add_robot */
+
+(function() {
+    window.onmousemove = handleMouseMove;
+    function handleMouseMove(event) {
+        RUR.mouse_x = event.clientX;
+        RUR.mouse_y = event.clientY;
+    }
+})();
+
+RUR.edit_world.edit_world = function  () {
+    RUR.edit_world.locate_robot();
+};
+
+
 
 function toggle_editing_mode () {
     $("#edit-world-panel").toggleClass("active");
     if (RUR.editing_world) {
+        window.clearInterval(RUR._interval_id);
         RUR.editing_world = false;
         editing_world_show_others();
+        RUR.visible_world.wall_color = "brown";
+        RUR.visible_world.shadow_wall_color = "#f0f0f0";
+        RUR.visible_world.draw_all();
     } else {
+        RUR.user_world = RUR.world;
         RUR.editing_world = true;
+        RUR.visible_world.wall_color = "black";
+        RUR.visible_world.shadow_wall_color = "#ccd";
+        RUR._interval_id = window.setInterval(refresh_world_edited, 30);
         editing_world_hide_others();
     }
+}
+
+function refresh_world_edited () {
+    RUR.visible_world.draw_all();
 }
 
 function editing_world_show_others(){
