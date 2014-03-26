@@ -16,9 +16,9 @@
 <header class="blue-gradient green-border">
   <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
   <div id="header-child">
-    <button class="active reverse-blue-gradient" label="world-panel">World</button>
-    <button class="blue-gradient" label="output-panel">Diary</button>
-    <button class="active reverse-blue-gradient" label="editor-panel">Editor</button>
+    <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">World</button>
+    <button class="blue-gradient" id="output-panel-button" label="output-panel">Diary</button>
+    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
     <button class="blue-gradient" id="contents-button">Javascript Tutorial</button>
     <button class="blue-gradient" id="help-button">Help</button>
   </div>
@@ -95,9 +95,13 @@
     <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
   </div>
     <div id="world-edit-buttons">
-      <button class="blue-gradient" id="edit-world" title="Edit world">Edit</button>
-      <button class="blue-gradient" id="load-world" title="Load world">Load</button>
-      <button class="blue-gradient" id="save-world" title="Save world">Save</button>
+      <button class="blue-gradient" id="edit-world" title="Edit world">Edit World</button>
+      <button class="blue-gradient" id="save-world" title="Save world to file">file: Save</button>
+      <button class="blue-gradient" id="load-world" title="Load world from file">file: Load</button>
+      <button class="blue-gradient" id="memorize-world" title="Save world in browser memory (local storage)">browser: Save</button>
+      <button class="blue-gradient" id="delete-world" title="Delete world from browser memory (local storage)" style="display: none;">
+        browser: Delete
+      </button>
     </div>
      
 </div>
@@ -153,6 +157,38 @@
   </div>
       
 </div>
+
+<div id="edit-world-panel">
+    <h1>Create your own worlds!</h1>
+    <p>If you want to share your world (and corresponding challenges) with others,
+        save it to a file and send it to
+    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
+
+    <p>Command: <input type="text" id="cmd-input"> <span id="cmd-result"></span></p>
+    <ul>
+    <li><code>add_robot(x, y, orientation, tokens)</code>: adds or replace a robot; only
+    one robot is allowed.  Optional arguments are, in order: x, y, orientation (0 means East, 1
+    means North, etc.), tokens (positive integer or use any string, like "infinite" [self-documenting!]
+    for a robot that carries an unlimited number of tokens).  Default values: 1, 1, 0, 0. </li>
+    <li><code>remove_robot()</code>: remove existing robot.</li>
+    <li><code>toggle_wall(x, y, direction)</code> where direction is one of "east" or "north".</li>
+    <li><code>set_tokens(x, y, nb_tokens</code> sets the number of tokens at a given location.</li>
+    <li><code>toggle_shape(x, y, shape)</code> puts a shape (or remove it) at a given location.
+    Allowed shapes: "star", "triangle", "square". Only one shape per location. </li>
+    <li><code>set_goal_position(x,y)</code>: sets the goal position; choose x=y=0 to remove
+    this goal.</li>
+    <li><code>set_goal_orientation(orientation)</code>: sets the goal orientation
+        (0=East, 1=North, 2=West, 3=South);
+    choose a non-allowed value to remove this goal.</li>
+    <li><code>set_goal_tokens(x, y, nb_tokens)</code>: similar to <code>set_tokens()</code></li>
+    <li><code>set_goal_no_tokens()</code>: seeks to have no token left in final world.</li>
+    <li><code>set_goal_shape(x, y, shape)</code> sets a shape (or remove it) as a goal at a given location.
+    Allowed shapes: "star", "triangle", "square". Only one shape per location. </li>
+    <li><code>set_goal_no_shapes()</code>: seeks to have no shapes left in final world.</li>
+    <li><code>set_goal_wall(x, y, direction)</code> where direction is one of "east" or "north".</li>
+    </ul>
+</div>
+
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>

@@ -1,11 +1,11 @@
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 var user_world = {};
 
 $("#cmd-input").keyup(function (e) {
     if (e.keyCode == 13) {
         try {
-            eval($("#cmd-input").val());
+            eval($("#cmd-input").val()); // jshint ignore:line
             $("#cmd-input").val("");
         } catch (e) {
             $("#cmd-result").html(e.message);
@@ -17,26 +17,39 @@ $("#cmd-input").keyup(function (e) {
 function save_world(name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
-        alert("Name already exist; will not save.");
+        $("#Reeborg-shouts").html("Name already exist; will not save.").dialog("open");
         return;
     }
-    localStorage.setItem("user_world:"+ name, JSON.stringify(user_world));
+    localStorage.setItem("user_world:"+ name, RUR.world.json_world_string);
     $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
                               ).val("user_world:" + name).html(name));
-    _update("saved world");
+    $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
+    $("#select_world").change();
 }
 
 function delete_world(name){
     "use strict";
+    var i, key;
     if (localStorage.getItem("user_world:" + name) === null){
-        alert("No such world.");
+        $("#Reeborg-shouts").html("No such world!").dialog("open");
         return;
     }
     localStorage.removeItem("user_world:" + name);
     $("select option[value='" + "user_world:" + name +"']").remove();
-    RUR.controls.deselect();
-    _update("deleted world");
-    user_world = {};
+    try {
+        RUR.select_world(localStorage.getItem(RUR.settings.world), true);
+    } catch (e) {
+        RUR.select_world("Alone");
+    }
+    $("#select_world").change();
+    
+    for (i = localStorage.length - 1; i >= 0; i--) {
+        key = localStorage.key(i);
+        if (key.slice(0, 11) === "user_world:") {
+            return;
+        }
+    }
+    $('#delete-world').hide();
 }
 
 function _update(message) {
@@ -284,11 +297,4 @@ function set_goal_shape(x, y, shape){
         user_world.goal.shapes[x + "," + y] = shape;
     }
     _update("updated shapes");
-}
-
-
-function duplicate() {
-    "use strict";
-    user_world = JSON.parse(RUR.world.json_world_string);
-    _update("duplicated world");
 }
