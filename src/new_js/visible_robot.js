@@ -48,7 +48,7 @@ RUR.__visible_robot.select_style = function (arg) {
     RUR.__robot_y_offset = RUR.__visible_robot.images[style].robot_y_offset;
 };
 
-if (localStorage.getItem("top_view") === "true") {
+if (localStorage.getItem("top_view") === "true") {  // TODO fix this
     RUR.__visible_robot.select_style(1);
 } else {
     RUR.__visible_robot.select_style(0);
