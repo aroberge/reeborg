@@ -7,11 +7,7 @@
           save_world, delete_world*/
 
 $(document).ready(function() {
-    try {
-        RUR.select_world(localStorage.getItem(RUR.settings.world), true);
-    } catch (e) {
-        RUR.select_world("Alone");
-    }
+
     // init
     var child, button_closed = false;
 
@@ -81,14 +77,9 @@ $(document).ready(function() {
         load_file(library);
     });
   
+
+  
     var _all_files = "";
-    if (RUR.programming_language == "javascript"){
-        _all_files = "*.js";
-    } else if (RUR.programming_language == "python") {
-        _all_files = "*.py";
-    }
-  
-  
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, _all_files);
@@ -152,24 +143,6 @@ $(document).ready(function() {
         }
         RUR.edit_world.edit_world();
     });
-    
-    try {  
-        var library_comment = '', library_content, editor_content;
-        if (RUR.programming_language == "javascript") {
-            library_comment = RUR.translation["/* Your special code goes here */\n\n"];
-        } else if (RUR.programming_language == "python") {
-            library_comment = RUR.translation["# Your special code goes here \n\n"];
-        }
-        library_content = localStorage.getItem(RUR.settings.library) || library_comment;
-        library.setValue(library_content);
-      
-        editor_content = localStorage.getItem(RUR.settings.editor) || editor.getValue();
-        editor.setValue(editor_content);
-      
-    } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library or your notes.");
-                }
-
-    $("#contents-button").on("click", toggle_contents_button);
 
     $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
@@ -189,11 +162,7 @@ $(document).ready(function() {
     editor.widgets = [];
     library.widgets = [];
 
-    RUR.__load_world = function(data){
-        RUR.world.import_(data);
-        RUR.world.reset();
-        RUR.controls.reload();
-    };
+
 
     // Set listener ...  (continuing below)
     $("#select_world").change(function() {
@@ -216,14 +185,24 @@ $(document).ready(function() {
         }
     });
     // ... and trigger it to load the initial world.
-    $("#select_world").change();
-    
-    RUR.controls.set_ready_to_run();
+    //$("#select_world").change();
+
     
     $("#robot_canvas").click(function(event) {
         RUR.mouse_x = event.clientX;
         RUR.mouse_y = event.clientY;
         console.log(RUR.mouse_x);
-    })    
+    });    
+    
+    RUR.__current_world = RUR.__create_empty_world();
+    var robot = RUR.__create_robot();
+    RUR.__add_robot(RUR.__current_world, robot);
+    // the following si to ensure that we won't attempt drawing until the default image is available
+    RUR.__robot_e_img.onload = function () {
+        RUR.__visible_world.draw_all(RUR.__current_world);
+    };
+    
+    
+    
     
 });
