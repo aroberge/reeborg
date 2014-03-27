@@ -3,7 +3,7 @@
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR */
+/*globals RUR, DEBUG */
 
 RUR.__visible_world = {};
 
@@ -132,7 +132,7 @@ RUR.__visible_world.draw_robots = function (robots) {
         RUR.__robot_ctx.fillStyle = "blue";
         RUR.__robot_ctx.fillText(info, 5, 15);
     }
-}
+};
 
 RUR.__visible_world.draw_all = function (world) {
     "use strict";

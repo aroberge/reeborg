@@ -33,8 +33,6 @@ $(document).ready(function() {
         }  else if (label === "editor-panel"){
             $("#editor-panel").toggleClass("active");
         }
-        
-        update_controls();
 
     });
 
@@ -138,10 +136,12 @@ $(document).ready(function() {
     });
   
     $("#robot_canvas").on("click", function (evt) {
-        if (!RUR.editing_world) {
+        if (!RUR.__editing_world) {
             return;
         }
-        RUR.edit_world.edit_world();
+        RUR.__mouse_x = evt.clientX;
+        RUR.__mouse_y = evt.clientY;
+        RUR.__edit_world.edit_world();
     });
 
     $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
@@ -187,12 +187,6 @@ $(document).ready(function() {
     // ... and trigger it to load the initial world.
     //$("#select_world").change();
 
-    
-    $("#robot_canvas").click(function(event) {
-        RUR.mouse_x = event.clientX;
-        RUR.mouse_y = event.clientY;
-        console.log(RUR.mouse_x);
-    });    
     
     RUR.__current_world = RUR.__create_empty_world();
     var robot = RUR.__create_robot();
