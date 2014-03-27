@@ -1781,6 +1781,13 @@ $(document).ready(function() {
     $("#select_world").change();
     
     RUR.controls.set_ready_to_run();
+    
+    $("#robot_canvas").click(function(event) {
+        RUR.mouse_x = event.clientX;
+        RUR.mouse_y = event.clientY;
+        console.log(RUR.mouse_x);
+    })    
+    
 });
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -2108,14 +2115,6 @@ function set_goal_shape(x, y, shape){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, add_robot */
-
-(function() {
-    window.onmousemove = handleMouseMove;
-    function handleMouseMove(event) {
-        RUR.mouse_x = event.clientX;
-        RUR.mouse_y = event.clientY;
-    }
-})();
 
 RUR.edit_world.edit_world = function  () {
     RUR.edit_world.locate_robot();

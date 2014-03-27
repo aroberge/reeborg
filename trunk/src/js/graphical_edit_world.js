@@ -5,14 +5,6 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, add_robot */
 
-(function() {
-    window.onmousemove = handleMouseMove;
-    function handleMouseMove(event) {
-        RUR.mouse_x = event.clientX;
-        RUR.mouse_y = event.clientY;
-    }
-})();
-
 RUR.edit_world.edit_world = function  () {
     RUR.edit_world.locate_robot();
 };
