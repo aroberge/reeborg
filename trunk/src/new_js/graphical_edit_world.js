@@ -6,9 +6,24 @@
 /*globals $, RUR, add_robot */
 
 RUR.__edit_world.edit_world = function  () {
-    RUR.__teleport_robot();
-    refresh_world_edited();
+    switch (RUR.__edit_world_flag) {
+        case "teleport":
+            RUR.__teleport_robot();
+            refresh_world_edited();
+            break;
+    }
 };
+
+RUR.__edit_world.select = function (choice) {
+    console.log("called");
+    switch (choice) {
+        case "teleport":
+            $("#cmd-result").html("Click on canvas to move robot.");
+            RUR.__edit_world_flag = choice;
+            break;
+    }
+};
+
 
 function toggle_editing_mode () {
     $("#edit-world-panel").toggleClass("active");
