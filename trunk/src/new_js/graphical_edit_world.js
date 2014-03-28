@@ -15,6 +15,7 @@ RUR.__edit_world.edit_world = function  () {
         case "robot-remove":
         case "robot-add":
         case "robot-turn":
+        case "robot-tokens":
             break;
     }
     RUR.__refresh_world_edited();
@@ -42,6 +43,11 @@ RUR.__edit_world.select = function (choice) {
         case "robot-orientation":
             $("#cmd-result").html("Click on image to turn robot");
             $("#edit-world-turn").show();
+            break;
+        case "robot-tokens":
+            RUR.__give_tokens_to_robot();
+            RUR.__edit_world.edit_world();
+            $("#cmd-result").html("Robot now has " + RUR.__current_world.robots[0].tokens + " tokens.");
             break;
     }
 };
@@ -79,7 +85,7 @@ function toggle_editing_mode () {
 
 RUR.__refresh_world_edited = function () {
     RUR.__visible_world.draw_all(RUR.__current_world);
-}
+};
 
 function editing_world_show_others(){
     $("#contents-button").removeAttr("disabled");
