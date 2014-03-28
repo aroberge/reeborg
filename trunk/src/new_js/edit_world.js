@@ -80,6 +80,34 @@ RUR.__give_tokens_to_robot = function () {
     }
 };
 
+RUR.__set_token_number = function () {
+    var position, response, x, y, tokens;
+    position = RUR.__calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    
+    if (RUR.__current_world.shapes !== undefined && RUR.user_world.shapes[x + "," + y] !== undefined){
+        $("#cmd-result").html("shape here; can't put tokens");
+        $("#Reeborg-shouts").html("shape here; can't put tokens").dialog("open");
+        return;
+    }
+    
+    response = prompt("Enter number of tokens for robot to carry (use inf for infinite number)");
+    if (response !== null) {
+        tokens = parseInt(response, 10);
+        if (tokens >= 0) {
+            RUR.__ensure_key_exist(RUR.__current_world, "tokens");
+            if (tokens > 0) {
+                RUR.__current_world.tokens[x + "," + y] = tokens;
+            } else {
+                delete RUR.__current_world.tokens[x + "," + y];
+            }
+        } else {
+            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+        }
+    } 
+};
+
 RUR.__turn_robot = function (orientation) {
     RUR.__current_world.robots[0].orientation = orientation;
     RUR.__refresh_world_edited();
@@ -106,12 +134,12 @@ RUR.__edit_world.add_robot = function (x, y, orientation, tokens){
     RUR.__edit_world.update("added or changed robot");
 };
 
-function _ensure_key_exist(obj, key){
+RUR.__ensure_key_exist = function(obj, key){
     "use strict";
     if (obj[key] === undefined){
         obj[key] = {};
     }
-}
+};
 
 function toggle_wall(x, y, orientation){
     "use strict";
@@ -121,7 +149,7 @@ function toggle_wall(x, y, orientation){
         return;
     }
     coords = x + "," + y;
-    _ensure_key_exist(RUR.user_world, "walls");
+    RUR.__ensure_key_exist(RUR.user_world, "walls");
     if (RUR.user_world.walls[coords] === undefined){
         RUR.user_world.walls[coords] = [orientation];
         RUR.__edit_world.update("wall added");
@@ -149,7 +177,7 @@ function set_tokens(x, y, nb_tokens) {
         $("#cmd-result").html("shape here; can't put tokens");
         return;
     }
-    _ensure_key_exist(RUR.user_world, "tokens");
+    RUR.__ensure_key_exist(RUR.user_world, "tokens");
     if (nb_tokens > 0) {
         RUR.user_world.tokens[x + "," + y] = nb_tokens;
     } else {
@@ -171,7 +199,7 @@ function toggle_shape(x, y, shape){
         $("#cmd-result").html("tokens here; can't put a shape");
         return;
     }
-    _ensure_key_exist(RUR.user_world, "shapes");
+    RUR.__ensure_key_exist(RUR.user_world, "shapes");
     if (RUR.user_world.shapes[x + "," + y] === shape) {
         delete RUR.user_world.shapes[x + "," + y];
         if (Object.keys(RUR.user_world.shapes).length === 0){
@@ -185,7 +213,7 @@ function toggle_shape(x, y, shape){
 
 function set_goal_position(x, y){
     "use strict";
-    _ensure_key_exist(RUR.user_world, "goal");
+    RUR.__ensure_key_exist(RUR.user_world, "goal");
     if (x >0  && y >0){
         RUR.user_world.goal.position = {"x": x, "y": y};
         RUR.__edit_world.update("updated position goal");
@@ -202,7 +230,7 @@ function set_goal_position(x, y){
 
 function set_goal_orientation(orientation){
     "use strict";
-    _ensure_key_exist(RUR.user_world, "goal");
+    RUR.__ensure_key_exist(RUR.user_world, "goal");
     if ([0, 1, 2, 3].indexOf(orientation) !== -1){
         RUR.user_world.goal.orientation = orientation;
         RUR.__edit_world.update("updated orientation goal");
@@ -219,12 +247,12 @@ function set_goal_orientation(orientation){
 
 function set_goal_tokens(x, y, nb_tokens){
     "use strict";
-    _ensure_key_exist(RUR.user_world, "goal");
+    RUR.__ensure_key_exist(RUR.user_world, "goal");
     if (RUR.user_world.goal.shapes !== undefined && RUR.user_world.goal.shapes[x + "," + y] !== undefined){
         $("#cmd-result").html("shape goal here; can't set token goal");
         return;
     }
-    _ensure_key_exist(RUR.user_world.goal, "tokens");
+    RUR.__ensure_key_exist(RUR.user_world.goal, "tokens");
     if (nb_tokens > 0) {
         RUR.user_world.goal.tokens[x + "," + y] = nb_tokens;
     } else {
@@ -241,13 +269,13 @@ function set_goal_tokens(x, y, nb_tokens){
 
 function set_goal_no_tokens(){
     "use strict";
-    _ensure_key_exist(RUR.user_world, "goal");
+    RUR.__ensure_key_exist(RUR.user_world, "goal");
     RUR.user_world.goal.tokens = {};
 }
 
 function set_goal_no_shapes(){
     "use strict";
-    _ensure_key_exist(RUR.user_world, "goal");
+    RUR.__ensure_key_exist(RUR.user_world, "goal");
     RUR.user_world.goal.shapes = {};
 }
 
@@ -268,8 +296,8 @@ function set_goal_wall(x, y, orientation){
             }
         }
     }
-    _ensure_key_exist(RUR.user_world, "goal");
-    _ensure_key_exist(RUR.user_world.goal, "walls");
+    RUR.__ensure_key_exist(RUR.user_world, "goal");
+    RUR.__ensure_key_exist(RUR.user_world.goal, "walls");
     if (RUR.user_world.goal.walls[coords] === undefined){
         RUR.user_world.goal.walls[coords] = [orientation];
         RUR.__edit_world.update("Goal wall added");
@@ -302,13 +330,13 @@ function set_goal_shape(x, y, shape){
         $("#cmd-result").html("unknown shape: " + shape);
         return;
     }
-    _ensure_key_exist(RUR.user_world, "goal");
+    RUR.__ensure_key_exist(RUR.user_world, "goal");
     if (RUR.user_world.goal.tokens !== undefined &&
         RUR.user_world.goal.tokens[x + "," + y] !== undefined){
         $("#cmd-result").html("tokens as a goal here; can't set a shape goal");
         return;
     }
-    _ensure_key_exist(RUR.user_world.goal, "shapes");
+    RUR.__ensure_key_exist(RUR.user_world.goal, "shapes");
     if (RUR.user_world.goal.shapes[x + "," + y] === shape) {
         delete RUR.user_world.goal.shapes[x + "," + y];
         if (Object.keys(RUR.user_world.goal.shapes).length === 0){
