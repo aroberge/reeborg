@@ -3,18 +3,6 @@
 
 RUR.__edit_world = {};
 
-$("#cmd-input").keyup(function (e) {
-    if (e.keyCode == 13) {
-        try {
-            eval($("#cmd-input").val()); // jshint ignore:line
-            $("#cmd-input").val("");
-        } catch (e) {
-            $("#cmd-result").html(e.message);
-        }
-    }
-});
-
-
 RUR.__delete_world = function (name){
     "use strict";
     var i, key;
@@ -73,13 +61,20 @@ RUR.__teleport_robot = function () {
     RUR.__current_world.robots[0].y = y;
 };
 
-
-
-function remove_robot() {
-    "use strict";
-    delete RUR.user_world.robots;
-    RUR.__edit_world.update("removed robot");
+RUR.__turn_robot = function (orientation) {
+    RUR.__current_world.robots[0].orientation = orientation;
+    RUR.__refresh_world_edited();
 }
+
+RUR.__remove_robot = function () {
+    "use strict";
+    RUR.__current_world.robots = [];
+};
+
+RUR.__add_robot = function () {
+    "use strict";
+    RUR.__current_world.robots = [RUR.__create_robot()];
+};
 
 RUR.__edit_world.add_robot = function (x, y, orientation, tokens){
     "use strict";
