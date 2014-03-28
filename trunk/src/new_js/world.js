@@ -38,5 +38,6 @@ RUR.__clone_world = function (world) {
 };
 
 RUR.__add_robot = function (robot) {
+    robot.__id = RUR.__current_world.robots.length;
     RUR.__current_world.robots.push(robot);
 };

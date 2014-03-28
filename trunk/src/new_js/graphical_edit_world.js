@@ -6,7 +6,7 @@
 /*globals $, RUR, add_robot */
 
 RUR.__edit_world.edit_world = function  () {
-    RUR.__edit_world.locate_robot();
+    RUR.__teleport_robot();
     refresh_world_edited();
 };
 

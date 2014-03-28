@@ -50,7 +50,7 @@ RUR.__edit_world.update = function (message) {
 };
 
 
-RUR.__edit_world.locate_robot = function () {
+RUR.__teleport_robot = function () {
     var ctx, x, y;
     x = RUR.__mouse_x - $("#robot_canvas").offset().left;
     y = RUR.__mouse_y - $("#robot_canvas").offset().top;
