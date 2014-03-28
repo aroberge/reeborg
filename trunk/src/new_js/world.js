@@ -31,6 +31,9 @@ RUR.__import_world = function (json_string) {
     }
     RUR.__current_world = JSON.parse(json_string) || RUR.__create_empty_world();
     RUR.__visible_world.draw_all();
+    if (RUR.__editing_world) {
+        RUR.__change_edit_robot_menu();
+    }
 };
 
 RUR.__clone_world = function (world) {

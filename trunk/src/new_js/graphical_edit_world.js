@@ -6,44 +6,78 @@
 /*globals $, RUR, add_robot */
 
 RUR.__edit_world.edit_world = function  () {
+    // usually triggered when canvas is clicked if editing world;
+    // call explicitly if needed.
     switch (RUR.__edit_world_flag) {
-        case "teleport":
+        case "robot-teleport":
             RUR.__teleport_robot();
-            refresh_world_edited();
+            break;
+        case "robot-remove":
+        case "robot-add":
+        case "robot-turn":
+            break;
+    }
+    RUR.__refresh_world_edited();
+};
+
+RUR.__edit_world.select = function (choice) {
+    $(".edit-world-submenus").hide();
+    RUR.__edit_world_flag = choice;
+    switch (choice) {
+        case "robot-teleport":
+            $("#cmd-result").html("Click on canvas to move robot.");
+            break;
+        case "robot-remove":
+            $("#cmd-result").html("Removed robot.");
+            RUR.__remove_robot();
+            RUR.__edit_world.edit_world();
+            RUR.__change_edit_robot_menu();
+            break;
+        case "robot-add":
+            $("#cmd-result").html("Added robot");
+            RUR.__add_robot(RUR.__create_robot());
+            RUR.__edit_world.edit_world();
+            RUR.__change_edit_robot_menu();
+            break;
+        case "robot-orientation":
+            $("#cmd-result").html("Click on image to turn robot");
+            $("#edit-world-turn").show();
             break;
     }
 };
 
-RUR.__edit_world.select = function (choice) {
-    console.log("called");
-    switch (choice) {
-        case "teleport":
-            $("#cmd-result").html("Click on canvas to move robot.");
-            RUR.__edit_world_flag = choice;
-            break;
+RUR.__change_edit_robot_menu = function () {
+    if ("robots" in RUR.__current_world && 
+        RUR.__current_world.robots.length > 0) {
+        $(".robot-absent").hide();
+        $(".robot-present").show();
+    } else {
+        $(".robot-absent").show();
+        $(".robot-present").hide();
     }
 };
+
 
 
 function toggle_editing_mode () {
     $("#edit-world-panel").toggleClass("active");
     if (RUR.__editing_world) {
-        window.clearInterval(RUR._interval_id);
         RUR.__editing_world = false;
         editing_world_show_others();
         RUR.__wall_color = "brown";
         RUR.__shadow_wall_color = "#f0f0f0";
-        refresh_world_edited();
+        RUR.__refresh_world_edited();
     } else {
+        RUR.__change_edit_robot_menu();
         RUR.__editing_world = true;
         RUR.__wall_color = "black";
         RUR.__shadow_wall_color = "#ccd";
-        refresh_world_edited();
+        RUR.__refresh_world_edited();
         editing_world_hide_others();
     }
 }
 
-function refresh_world_edited () {
+RUR.__refresh_world_edited = function () {
     RUR.__visible_world.draw_all(RUR.__current_world);
 }
 

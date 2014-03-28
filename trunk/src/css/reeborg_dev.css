@@ -273,7 +273,6 @@ footer a:hover{
 
 
 /* Submenu */
-
 #edit-world-nav li ul {
  display: none;
  position: absolute;
@@ -320,3 +319,12 @@ footer a:hover{
  padding: 0.3em;
 }
 
+#edit-world-submenus-wrapper {
+    min-height: 70px;
+}
+.edit-world-submenus li {
+ float: left;
+ list-style: none;
+ position: relative;
+ width: 40px;
+}
