@@ -62,27 +62,29 @@ RUR.__visible_world.draw_background = function () {
 
 RUR.__visible_world.draw_foreground_walls = function (walls) {
     "use strict";
-    var key, i, j, ctx = RUR.__wall_ctx;
+    var keys, key, i, j, k, ctx = RUR.__wall_ctx;
+    
     ctx.clearRect(0, 0, RUR.__width, RUR.__height);
-    if (RUR.__current_world.blank_canvas) {
+    
+    if (RUR.__current_world.blank_canvas || 
+        walls === undefined || walls == {}) {
         return;
     }
+
     ctx.fillStyle = RUR.__wall_color;
-    // TODO : make more efficient by not looping over all possible combinations
-    // but identifying which walls need to be drawn the same way we do for tokens.
-    for (i = 1; i <= RUR.__cols; i++) {
-        for (j = 1; j <= RUR.__rows; j++) {
-            key = i + "," + j;
-            if ( key in walls ) {
-                if ( walls[key].indexOf("north") !== -1) {
-                    RUR.__visible_world.draw_north_wall(ctx, i, j);
-                }
-                if (walls[key].indexOf("east") !== -1) {
-                    RUR.__visible_world.draw_east_wall(ctx, i, j);
-                }
-            }
+    keys = Object.keys(walls);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        if ( walls[keys[key]].indexOf("north") !== -1) {
+            RUR.__visible_world.draw_north_wall(ctx, i, j);
+        }
+        if (walls[keys[key]].indexOf("east") !== -1) {
+            RUR.__visible_world.draw_east_wall(ctx, i, j);
         }
     }
+
 };
 
 
@@ -134,9 +136,58 @@ RUR.__visible_world.draw_robots = function (robots) {
     }
 };
 
-RUR.__visible_world.draw_all = function (world) {
+RUR.__visible_world.draw_tokens = function(tokens, goal) {
+    "use strict";
+    var i, j, k, t, toks;
+    if (!tokens) {
+        return;
+    }
+    toks = Object.keys(tokens);
+    for (t=0; t < toks.length; t++){
+        k = toks[t].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        RUR.__visible_world.draw_token(i, j, tokens[toks[t]], goal);
+    }
+};
+
+RUR.__visible_world.draw_token = function (i, j, num, goal) {
+    "use strict";
+    var size = 12, scale = RUR.__wall_length, Y = RUR.__height;
+    var ctx;
+    if (goal) {
+        ctx = RUR.__background_ctx;
+    } else {
+        ctx = RUR.__wall_ctx;
+    }
+    ctx.beginPath();
+    ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
+    if (goal) {
+        ctx.strokeStyle = "#666";
+        ctx.fillStyle = "black";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.fillText(num, (i+0.2)*scale, Y - (j)*scale);
+    } else {
+        ctx.fillStyle = "gold";
+        ctx.strokeStyle = "black";
+        ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.fillStyle = "black";
+        ctx.fillText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
+    }
+};
+
+
+RUR.__visible_world.draw_all = function () {
     "use strict";
     RUR.__visible_world.draw_background();
-    RUR.__visible_world.draw_foreground_walls(world.walls);
-    RUR.__visible_world.draw_robots(world.robots);
+    RUR.__visible_world.refresh();
+};
+
+RUR.__visible_world.refresh = function (world) {
+    "use strict";
+    RUR.__visible_world.draw_foreground_walls(RUR.__current_world.walls);
+    RUR.__visible_world.draw_robots(RUR.__current_world.robots);
+    RUR.__visible_world.draw_tokens(RUR.__current_world.tokens);
 };

@@ -7,7 +7,13 @@
           save_world, delete_world*/
 
 $(document).ready(function() {
-
+    
+    RUR.__add_user_worlds_to_menu();
+    try {
+        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
+    } catch (e) {
+        RUR.__select_world("Alone");
+    }
     // init
     var child, button_closed = false;
 
@@ -75,8 +81,6 @@ $(document).ready(function() {
         load_file(library);
     });
   
-
-  
     var _all_files = "";
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
@@ -122,7 +126,7 @@ $(document).ready(function() {
     $("#memorize-world").on("click", function(evt) {
         var response = prompt("Enter world name to save");
         if (response !== null) {
-            RUR.edit_world.save_world(response.trim());
+            RUR.__storage_save_world(response.trim());
             $('#delete-world').show(); 
         }
     });
@@ -130,7 +134,7 @@ $(document).ready(function() {
     $("#delete-world").on("click", function(evt) {
         var response = prompt("Enter world name to delete");
         if (response !== null) {
-            RUR.edit_world.delete_world(response.trim());
+            RUR.__delete_world(response.trim());
             $('#delete-world').show(); 
         }
     });
@@ -163,7 +167,6 @@ $(document).ready(function() {
     library.widgets = [];
 
 
-
     // Set listener ...  (continuing below)
     $("#select_world").change(function() {
         var data, val = $(this).val();
@@ -171,13 +174,13 @@ $(document).ready(function() {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
           
-        RUR.world.robot_world_active = true;
+//        RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
-            RUR.__load_world(data);
+            RUR.__import_world(data);
         } else {
             $.get(val, function(data) {
-                RUR.__load_world(data);
+                RUR.__import_world(data);
                 // jquery is sometimes too intelligent; it can guess
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
@@ -185,18 +188,6 @@ $(document).ready(function() {
         }
     });
     // ... and trigger it to load the initial world.
-    //$("#select_world").change();
-
-    
-    RUR.__current_world = RUR.__create_empty_world();
-    var robot = RUR.__create_robot();
-    RUR.__add_robot(RUR.__current_world, robot);
-    // the following si to ensure that we won't attempt drawing until the default image is available
-    RUR.__robot_e_img.onload = function () {
-        RUR.__visible_world.draw_all(RUR.__current_world);
-    };
-    
-    
-    
+    $("#select_world").change();
     
 });
