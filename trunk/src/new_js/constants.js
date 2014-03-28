@@ -35,3 +35,16 @@ RUR.__goal_wall_color = "black";
 RUR.__coordinates_color = "black";
 RUR.__axis_label_color = "brown";
 RUR.__shadow_wall_color= "#f0f0f0";
+
+RUR.__star_color = "red";
+RUR.__triangle_color = "green";
+RUR.__square_color = "blue";
+RUR.__shape_outline_color = "black";
+RUR.__target_tile_color = "#99ffcc";
+RUR.__orientation_tile_color = "black";
+
+RUR.__token_color = "gold";
+RUR.__text_color = "black";
+RUR.__token_goal_color = "#666";
+
+RUR.__debug_info_color = "blue";
