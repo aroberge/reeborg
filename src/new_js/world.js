@@ -11,8 +11,6 @@ RUR.__create_empty_world = function (blank_canvas) {
     if (blank_canvas) {
         world.blank_canvas = true;
         return world;
-    } else {
-        world.blank_canvas = false;
     }
     world.robots = [];
     world.walls = {};
@@ -21,22 +19,24 @@ RUR.__create_empty_world = function (blank_canvas) {
     world.goal = {};
     return world;
 };
+RUR.__current_world = RUR.__create_empty_world();
 
-RUR.__export_world = function (world) {
-    return JSON.stringify(world, null, '   ');
+RUR.__export_world = function () {
+    return JSON.stringify(RUR.__current_world, null, '   ');
 };
 
 RUR.__import_world = function (json_string) {
     if (json_string === undefined){
         return {};
     }
-    return JSON.parse(json_string) || {};
+    RUR.__current_world = JSON.parse(json_string) || RUR.__create_empty_world();
+    RUR.__visible_world.draw_all();
 };
 
 RUR.__clone_world = function (world) {
     return JSON.parse(JSON.stringify(world));
 };
 
-RUR.__add_robot = function (world, robot) {
-    world.robots.push(robot);
+RUR.__add_robot = function (robot) {
+    RUR.__current_world.robots.push(robot);
 };

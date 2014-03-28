@@ -54,6 +54,11 @@ if (localStorage.getItem("top_view") === "true") {  // TODO fix this
     RUR.__visible_robot.select_style(0);
 }
 
+// the following si to ensure that we won't attempt drawing until the default image is available
+RUR.__robot_e_img.onload = function () {
+    RUR.__visible_world.draw_all();
+};
+
 RUR.__visible_robot.draw = function (robot) {
     "use strict";
     var x, y;

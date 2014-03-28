@@ -224,6 +224,6 @@ $(document).ready(function() {
         RUR.mouse_x = event.clientX;
         RUR.mouse_y = event.clientY;
         console.log(RUR.mouse_x);
-    })    
+    })  ;
     
 });

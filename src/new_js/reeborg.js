@@ -7,7 +7,7 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 
 var RUR = {};
-DEBUG = {};
+var DEBUG = {};
 DEBUG.ON = false;
 
 RUR.EAST = 0;
@@ -43,7 +43,13 @@ RUR.__shadow_wall_color= "#f0f0f0";/* Author: André Roberge
           save_world, delete_world*/
 
 $(document).ready(function() {
-
+    
+    RUR.__add_user_worlds_to_menu();
+    try {
+        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
+    } catch (e) {
+        RUR.__select_world("Alone");
+    }
     // init
     var child, button_closed = false;
 
@@ -111,8 +117,6 @@ $(document).ready(function() {
         load_file(library);
     });
   
-
-  
     var _all_files = "";
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
@@ -158,7 +162,7 @@ $(document).ready(function() {
     $("#memorize-world").on("click", function(evt) {
         var response = prompt("Enter world name to save");
         if (response !== null) {
-            RUR.edit_world.save_world(response.trim());
+            RUR.__storage_save_world(response.trim());
             $('#delete-world').show(); 
         }
     });
@@ -166,7 +170,7 @@ $(document).ready(function() {
     $("#delete-world").on("click", function(evt) {
         var response = prompt("Enter world name to delete");
         if (response !== null) {
-            RUR.edit_world.delete_world(response.trim());
+            RUR.__delete_world(response.trim());
             $('#delete-world').show(); 
         }
     });
@@ -199,7 +203,6 @@ $(document).ready(function() {
     library.widgets = [];
 
 
-
     // Set listener ...  (continuing below)
     $("#select_world").change(function() {
         var data, val = $(this).val();
@@ -207,13 +210,13 @@ $(document).ready(function() {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
           
-        RUR.world.robot_world_active = true;
+//        RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
-            RUR.__load_world(data);
+            RUR.__import_world(data);
         } else {
             $.get(val, function(data) {
-                RUR.__load_world(data);
+                RUR.__import_world(data);
                 // jquery is sometimes too intelligent; it can guess
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
@@ -221,19 +224,7 @@ $(document).ready(function() {
         }
     });
     // ... and trigger it to load the initial world.
-    //$("#select_world").change();
-
-    
-    RUR.__current_world = RUR.__create_empty_world();
-    var robot = RUR.__create_robot();
-    RUR.__add_robot(RUR.__current_world, robot);
-    // the following si to ensure that we won't attempt drawing until the default image is available
-    RUR.__robot_e_img.onload = function () {
-        RUR.__visible_world.draw_all(RUR.__current_world);
-    };
-    
-    
-    
+    $("#select_world").change();
     
 });
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
@@ -252,20 +243,8 @@ $("#cmd-input").keyup(function (e) {
     }
 });
 
-RUR.__edit_world.save_world = function (name){
-    "use strict";
-    if (localStorage.getItem("user_world:" + name) !== null){
-        $("#Reeborg-shouts").html("Name already exist; will not save.").dialog("open");
-        return;
-    }
-    localStorage.setItem("user_world:"+ name, RUR.world.json_world_string);
-    $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                              ).val("user_world:" + name).html(name));
-    $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
-    $("#select_world").change();
-};
 
-RUR.__edit_world.delete_world = function (name){
+RUR.__delete_world = function (name){
     "use strict";
     var i, key;
     if (localStorage.getItem("user_world:" + name) === null){
@@ -275,9 +254,9 @@ RUR.__edit_world.delete_world = function (name){
     localStorage.removeItem("user_world:" + name);
     $("select option[value='" + "user_world:" + name +"']").remove();
     try {
-        RUR.select_world(localStorage.getItem(RUR.settings.world), true);
+        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.select_world("Alone");
+        RUR.__select_world("Alone");
     }
     $("#select_world").change();
     
@@ -289,6 +268,7 @@ RUR.__edit_world.delete_world = function (name){
     }
     $('#delete-world').hide();
 };
+
 
 RUR.__edit_world.update = function (message) {
     "use strict";
@@ -320,7 +300,6 @@ RUR.__edit_world.locate_robot = function () {
     }
     RUR.__current_world.robots[0].x = x; 
     RUR.__current_world.robots[0].y = y;
-    console.log(x, y);
 };
 
 
@@ -566,12 +545,9 @@ function set_goal_shape(x, y, shape){
 /*globals $, RUR, add_robot */
 
 RUR.__edit_world.edit_world = function  () {
-    console.log("called", RUR.__mouse_x, RUR.__mouse_y);
     RUR.__edit_world.locate_robot();
     refresh_world_edited();
 };
-
-
 
 function toggle_editing_mode () {
     $("#edit-world-panel").toggleClass("active");
@@ -696,6 +672,351 @@ RUR.__destroy_robot = function (robot) {
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, RUR */
+
+
+RUR.__storage_save_world = function (name){
+    "use strict";
+    if (localStorage.getItem("user_world:" + name) !== null){
+        $("#Reeborg-shouts").html("Name already exist; will not save.").dialog("open");
+        return;
+    }
+    localStorage.setItem("user_world:"+ name, RUR.__export_world(RUR.__current_world));
+    $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+                              ).val("user_world:" + name).html(name));
+    $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
+    $("#select_world").change();
+};
+
+RUR.__storage_delete_world = function (name){
+    "use strict";
+    var i, key;
+    if (localStorage.getItem("user_world:" + name) === null){
+        $("#Reeborg-shouts").html("No such world!").dialog("open");
+        return;
+    }
+    localStorage.removeItem("user_world:" + name);
+    $("select option[value='" + "user_world:" + name +"']").remove();
+    try {
+        RUR.select_world(localStorage.getItem(RUR.settings.world), true);
+    } catch (e) {
+        RUR.select_world("Alone");
+    }
+    $("#select_world").change();
+    
+    for (i = localStorage.length - 1; i >= 0; i--) {
+        key = localStorage.key(i);
+        if (key.slice(0, 11) === "user_world:") {
+            return;
+        }
+    }
+    $('#delete-world').hide();
+};/* Author: André Roberge
+   License: MIT
+ */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints, JSHINT, think, _import_library */
+
+RUR.Controls = function (programming_language) {
+    "use strict";
+    RUR.programming_language = programming_language;
+    var src;
+    this.end_flag = true;
+    this.compile_and_run = function (func) {
+        var lib_src, src, fatal_error_found = false;
+        if (!RUR.visible_world.compiled) {
+            src = _import_library();
+        }
+        if (!RUR.visible_world.compiled) {
+            try {
+                if (RUR.programming_language === "javascript") {
+                    if (src.slice(1, 10) === "no strict") {
+                        RUR.compile_no_strict_js(src);
+                    } else {
+                        RUR.compile_javascript(src);
+                    }
+                    RUR.visible_world.compiled = true;
+                } else if (RUR.programming_language === "python") {
+                    RUR.compile_python(src);
+                    RUR.visible_world.compiled = true;
+                } else {
+                    alert("Unrecognized programming language.");
+                    fatal_error_found = true;
+                }
+            } catch (e) {
+                if (e.name === RUR.translation.ReeborgError){
+                    RUR.world.add_frame("error", e);
+                } else {
+                    $("#Reeborg-shouts").html("<h3>" + e.name + "</h3><h4>" + e.message + "</h4>").dialog("open");
+                    fatal_error_found = true;
+                    this.stop();
+                }
+            }
+        }
+        if (!fatal_error_found) {
+            try {
+                localStorage.setItem(RUR.settings.editor, editor.getValue());
+                localStorage.setItem(RUR.settings.library, library.getValue());
+            } catch (e) {}
+            func();
+        }
+    };
+
+    this.set_ready_to_run = function () {
+        $("#stop").attr("disabled", "true");
+        $("#pause").attr("disabled", "true");
+        $("#run").removeAttr("disabled");
+        $("#step").removeAttr("disabled");
+        $("#reload").attr("disabled", "true");
+  
+        $("#stop2").attr("disabled", "true");
+        $("#pause2").attr("disabled", "true");
+        $("#run2").removeAttr("disabled");
+        $("#step2").removeAttr("disabled");
+        $("#reload2").attr("disabled", "true");
+    };
+
+    this.run = function () {
+        $("#stop").removeAttr("disabled");
+        $("#pause").removeAttr("disabled");
+        $("#run").attr("disabled", "true");
+        $("#step").attr("disabled", "true");
+        $("#reload").attr("disabled", "true");
+      
+        $("#stop2").removeAttr("disabled");
+        $("#pause2").removeAttr("disabled");
+        $("#run2").attr("disabled", "true");
+        $("#step").attr("disabled", "true");
+        $("#reload2").attr("disabled", "true");
+        clearTimeout(RUR.timer);
+        if (RUR.world.robot_world_active) {
+            RUR.controls.compile_and_run(RUR.visible_world.play_frames);
+        } else {
+            RUR.controls.end_flag = false;
+            RUR.controls.compile_and_run(function () {});
+            RUR.controls.stop();
+        }
+    };
+
+    this.pause = function (ms) {
+        RUR.visible_world.running = false;
+        clearTimeout(RUR.timer);
+        $("#pause").attr("disabled", "true");
+        $("#pause2").attr("disabled", "true");
+        if (ms !== undefined){
+            RUR.timer = setTimeout(RUR.controls.run, ms);
+        } else {
+            $("#run").removeAttr("disabled");
+            $("#step").removeAttr("disabled");
+            $("#run2").removeAttr("disabled");
+            $("#step2").removeAttr("disabled");
+        }
+    };
+
+    this.step = function () {
+        RUR.controls.compile_and_run(RUR.visible_world.play_single_frame);
+    };
+
+    this.stop = function () {
+        clearTimeout(RUR.timer);
+        $("#stop").attr("disabled", "true");
+        $("#pause").attr("disabled", "true");
+        $("#run").attr("disabled", "true");
+        $("#step").attr("disabled", "true");
+        $("#reload").removeAttr("disabled");
+      
+        $("#stop2").attr("disabled", "true");
+        $("#pause2").attr("disabled", "true");
+        $("#run2").attr("disabled", "true");
+        $("#step2").attr("disabled", "true");
+        $("#reload2").removeAttr("disabled");
+    };
+
+    this.reload = function() {
+        RUR.visible_world.reset();
+        if (RUR.editing_world){
+            return;
+        }
+        this.set_ready_to_run();
+        $("#output-pre").html("");
+        $("#output-panel pre").remove(".jscode");
+        RUR.world.reset();
+        clearTimeout(RUR.timer);
+        RUR.visible_world.compiled = false;
+        RUR.visible_world.running = false;
+        editorUpdateHints();
+        libraryUpdateHints();
+    };
+};
+
+
+function update_controls() {
+    if ($("#world-panel").hasClass("active")){
+        RUR.world.robot_world_active = true;
+        $("#run2").css("visibility", "hidden");
+        $("#reload2").css("visibility", "hidden");
+    } else {
+        $("#run2").css("visibility", "visible");
+        $("#reload2").css("visibility", "visible");
+        RUR.world.robot_world_active = false;
+        RUR.world.reset();
+    }
+}
+
+RUR.ajax_requests = {};
+
+RUR.__select_world = function (s, silent) {
+    var elt = document.getElementById("select_world");
+
+    for (var i=0; i < elt.options.length; i++){
+        if (elt.options[i].text === s) {
+            if (elt.options[i].selected) {
+                return;
+            }
+            /* A new world can be selected via a user program using the
+              select_world() function. When this is done, and if the
+              world is changed by this selection, an alert is first
+              shown and the program is otherwise not run. Executing the
+              program a second time will work as the correct world will
+              be displayed.
+            */
+            elt.value = elt.options[i].value;
+            $("#select_world").change();
+            if (silent) {
+                return;
+            }
+            alert(RUR.translation["World selected"].supplant({world: s}));
+            return;
+        }
+    }
+    if (silent) {
+        return;
+    }
+    alert(RUR.translation["Could not find world"].supplant({world: s}));
+};
+
+RUR.__add_user_worlds_to_menu = function () {
+    var key, name, i, user_world_present;
+    for (i = localStorage.length - 1; i >= 0; i--) {
+        key = localStorage.key(i);
+        if (key.slice(0, 11) === "user_world:") {
+            name = key.slice(11);
+            $('#select_world').append( $('<option style="background-color:#ff9"></option>'
+                              ).val("user_world:" + name).html(name));
+            user_world_present = true;
+        }
+    }
+    if (user_world_present){
+        $('#delete-world').show();
+    }
+};
+
+
+RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
+    reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
+    step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
+    pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
+    stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
+
+function toggle_contents_button () {
+    if ($("#contents-button").hasClass("reverse-blue-gradient")) {
+        RUR.tutorial_window = window.open("index_en.html", '_blank', 'location=no,height=600,width=800,scrollbars=yes,status=yes');
+    } else {
+        try {
+            RUR.tutorial_window.close();
+        }
+        catch (e) {}
+    }
+    return false;
+}
+
+function toggle_contents_button_from_child () {
+    // called when child window is closed by user
+    $("#contents-button").toggleClass("blue-gradient");
+    $("#contents-button").toggleClass("reverse-blue-gradient");
+}
+
+/* Author: André Roberge
+   License: MIT  */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals RUR */
+
+if (!Array.prototype.remove){
+    // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
+    Array.prototype.remove = function(from, to) {
+        "use strict";
+        var rest = this.slice((to || from) + 1 || this.length);
+        this.length = from < 0 ? this.length + from : from;
+        return this.push.apply(this, rest);
+    };
+}
+
+/*
+    Original script title: "Object.identical.js"; version 1.12
+    Copyright (c) 2011, Chris O'Brien, prettycode.org
+    http://github.com/prettycode/Object.identical.js
+*/
+
+Object.identical = function (a, b, sortArrays) {
+
+    function sort(object) {
+        if (sortArrays === true && Array.isArray(object)) {
+            return object.sort();
+        }
+        else if (typeof object !== "object" || object === null) {
+            return object;
+        }
+
+        return Object.keys(object).sort().map(function(key) {
+            return {
+                key: key,
+                value: sort(object[key])
+            };
+        });
+    }
+
+    return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
+};
+
+// adapted from http://javascript.crockford.com/remedial.html
+String.prototype.supplant = function (o) {
+    return this.replace(
+        /\{([^{}]*)\}/g,
+        function (a, b) {
+            var r = o[b];
+            return typeof r === 'string' || typeof r === 'number' ? r : a;
+        }
+    );
+};
+
+
+RUR.Error = function (message) {
+    this.name = RUR.translation.ReeborgError;
+    this.message = message;
+};
+
+RUR.List = function(){
+    this.container = [];
+    this.length = function(){
+        return this.container.length;
+    };
+    this.add_item = function(data) {
+        this.container.push(data);
+        if (this.length() >= RUR.world.max_steps) {
+            throw new RUR.Error(RUR.translation["Too many steps:"].supplant({max_steps: RUR.world.max_steps}));
+        }
+    };
+    this.shift = function() {
+        return this.container.shift();
+    };
+};
+/* Author: André Roberge
+   License: MIT
+ */
+
+/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
 RUR.__visible_robot = {};
@@ -746,6 +1067,11 @@ if (localStorage.getItem("top_view") === "true") {  // TODO fix this
 } else {
     RUR.__visible_robot.select_style(0);
 }
+
+// the following si to ensure that we won't attempt drawing until the default image is available
+RUR.__robot_e_img.onload = function () {
+    RUR.__visible_world.draw_all();
+};
 
 RUR.__visible_robot.draw = function (robot) {
     "use strict";
@@ -836,27 +1162,29 @@ RUR.__visible_world.draw_background = function () {
 
 RUR.__visible_world.draw_foreground_walls = function (walls) {
     "use strict";
-    var key, i, j, ctx = RUR.__wall_ctx;
+    var keys, key, i, j, k, ctx = RUR.__wall_ctx;
+    
     ctx.clearRect(0, 0, RUR.__width, RUR.__height);
-    if (RUR.__current_world.blank_canvas) {
+    
+    if (RUR.__current_world.blank_canvas || 
+        walls === undefined || walls == {}) {
         return;
     }
+
     ctx.fillStyle = RUR.__wall_color;
-    // TODO : make more efficient by not looping over all possible combinations
-    // but identifying which walls need to be drawn the same way we do for tokens.
-    for (i = 1; i <= RUR.__cols; i++) {
-        for (j = 1; j <= RUR.__rows; j++) {
-            key = i + "," + j;
-            if ( key in walls ) {
-                if ( walls[key].indexOf("north") !== -1) {
-                    RUR.__visible_world.draw_north_wall(ctx, i, j);
-                }
-                if (walls[key].indexOf("east") !== -1) {
-                    RUR.__visible_world.draw_east_wall(ctx, i, j);
-                }
-            }
+    keys = Object.keys(walls);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        if ( walls[keys[key]].indexOf("north") !== -1) {
+            RUR.__visible_world.draw_north_wall(ctx, i, j);
+        }
+        if (walls[keys[key]].indexOf("east") !== -1) {
+            RUR.__visible_world.draw_east_wall(ctx, i, j);
         }
     }
+
 };
 
 
@@ -908,11 +1236,60 @@ RUR.__visible_world.draw_robots = function (robots) {
     }
 };
 
-RUR.__visible_world.draw_all = function (world) {
+RUR.__visible_world.draw_tokens = function(tokens, goal) {
+    "use strict";
+    var i, j, k, t, toks;
+    if (!tokens) {
+        return;
+    }
+    toks = Object.keys(tokens);
+    for (t=0; t < toks.length; t++){
+        k = toks[t].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        RUR.__visible_world.draw_token(i, j, tokens[toks[t]], goal);
+    }
+};
+
+RUR.__visible_world.draw_token = function (i, j, num, goal) {
+    "use strict";
+    var size = 12, scale = RUR.__wall_length, Y = RUR.__height;
+    var ctx;
+    if (goal) {
+        ctx = RUR.__background_ctx;
+    } else {
+        ctx = RUR.__wall_ctx;
+    }
+    ctx.beginPath();
+    ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
+    if (goal) {
+        ctx.strokeStyle = "#666";
+        ctx.fillStyle = "black";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.fillText(num, (i+0.2)*scale, Y - (j)*scale);
+    } else {
+        ctx.fillStyle = "gold";
+        ctx.strokeStyle = "black";
+        ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.fillStyle = "black";
+        ctx.fillText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
+    }
+};
+
+
+RUR.__visible_world.draw_all = function () {
     "use strict";
     RUR.__visible_world.draw_background();
-    RUR.__visible_world.draw_foreground_walls(world.walls);
-    RUR.__visible_world.draw_robots(world.robots);
+    RUR.__visible_world.refresh();
+};
+
+RUR.__visible_world.refresh = function (world) {
+    "use strict";
+    RUR.__visible_world.draw_foreground_walls(RUR.__current_world.walls);
+    RUR.__visible_world.draw_robots(RUR.__current_world.robots);
+    RUR.__visible_world.draw_tokens(RUR.__current_world.tokens);
 };/* Author: André Roberge
    License: MIT
  */
@@ -926,8 +1303,6 @@ RUR.__create_empty_world = function (blank_canvas) {
     if (blank_canvas) {
         world.blank_canvas = true;
         return world;
-    } else {
-        world.blank_canvas = false;
     }
     world.robots = [];
     world.walls = {};
@@ -936,22 +1311,24 @@ RUR.__create_empty_world = function (blank_canvas) {
     world.goal = {};
     return world;
 };
+RUR.__current_world = RUR.__create_empty_world();
 
-RUR.__export_world = function (world) {
-    return JSON.stringify(world, null, '   ');
+RUR.__export_world = function () {
+    return JSON.stringify(RUR.__current_world, null, '   ');
 };
 
 RUR.__import_world = function (json_string) {
     if (json_string === undefined){
         return {};
     }
-    return JSON.parse(json_string) || {};
+    RUR.__current_world = JSON.parse(json_string) || RUR.__create_empty_world();
+    RUR.__visible_world.draw_all();
 };
 
 RUR.__clone_world = function (world) {
     return JSON.parse(JSON.stringify(world));
 };
 
-RUR.__add_robot = function (world, robot) {
-    world.robots.push(robot);
+RUR.__add_robot = function (robot) {
+    RUR.__current_world.robots.push(robot);
 };

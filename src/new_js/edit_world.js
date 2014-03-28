@@ -14,20 +14,8 @@ $("#cmd-input").keyup(function (e) {
     }
 });
 
-RUR.__edit_world.save_world = function (name){
-    "use strict";
-    if (localStorage.getItem("user_world:" + name) !== null){
-        $("#Reeborg-shouts").html("Name already exist; will not save.").dialog("open");
-        return;
-    }
-    localStorage.setItem("user_world:"+ name, RUR.world.json_world_string);
-    $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                              ).val("user_world:" + name).html(name));
-    $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
-    $("#select_world").change();
-};
 
-RUR.__edit_world.delete_world = function (name){
+RUR.__delete_world = function (name){
     "use strict";
     var i, key;
     if (localStorage.getItem("user_world:" + name) === null){
@@ -37,9 +25,9 @@ RUR.__edit_world.delete_world = function (name){
     localStorage.removeItem("user_world:" + name);
     $("select option[value='" + "user_world:" + name +"']").remove();
     try {
-        RUR.select_world(localStorage.getItem(RUR.settings.world), true);
+        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.select_world("Alone");
+        RUR.__select_world("Alone");
     }
     $("#select_world").change();
     
@@ -51,6 +39,7 @@ RUR.__edit_world.delete_world = function (name){
     }
     $('#delete-world').hide();
 };
+
 
 RUR.__edit_world.update = function (message) {
     "use strict";
@@ -82,7 +71,6 @@ RUR.__edit_world.locate_robot = function () {
     }
     RUR.__current_world.robots[0].x = x; 
     RUR.__current_world.robots[0].y = y;
-    console.log(x, y);
 };
 
 
