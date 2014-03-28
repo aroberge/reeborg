@@ -293,7 +293,7 @@ RUR.__edit_world.update = function (message) {
 };
 
 
-RUR.__edit_world.locate_robot = function () {
+RUR.__teleport_robot = function () {
     var ctx, x, y;
     x = RUR.__mouse_x - $("#robot_canvas").offset().left;
     y = RUR.__mouse_y - $("#robot_canvas").offset().top;
@@ -559,7 +559,7 @@ function set_goal_shape(x, y, shape){
 /*globals $, RUR, add_robot */
 
 RUR.__edit_world.edit_world = function  () {
-    RUR.__edit_world.locate_robot();
+    RUR.__teleport_robot();
     refresh_world_edited();
 };
 
@@ -1090,6 +1090,10 @@ RUR.__robot_e_img.onload = function () {
 RUR.__visible_robot.draw = function (robot) {
     "use strict";
     var x, y;
+    if (robot.__id && robot.__id === -1){
+        return;
+    }
+    
     x = robot.x * RUR.__wall_length + RUR.__robot_x_offset;
     y = RUR.__height - (robot.y +1) * RUR.__wall_length + RUR.__robot_y_offset;
     switch(robot.orientation){
@@ -1232,6 +1236,9 @@ RUR.__visible_world.draw_robots = function (robots) {
     var robot, info = '';
     RUR.__robot_ctx.clearRect(0, 0, RUR.__width, RUR.__height);
     if (RUR.__current_world.blank_canvas) {
+        return;
+    }
+    if (!robots) {
         return;
     }
     for (robot=0; robot < robots.length; robot++){
@@ -1484,5 +1491,6 @@ RUR.__clone_world = function (world) {
 };
 
 RUR.__add_robot = function (robot) {
+    robot.__id = RUR.__current_world.robots.length;
     RUR.__current_world.robots.push(robot);
 };

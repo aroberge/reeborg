@@ -120,6 +120,9 @@ RUR.__visible_world.draw_robots = function (robots) {
     if (RUR.__current_world.blank_canvas) {
         return;
     }
+    if (!robots) {
+        return;
+    }
     for (robot=0; robot < robots.length; robot++){
         RUR.__visible_robot.draw(robots[robot]); // draws trace automatically
         if (DEBUG.ON) {

@@ -62,6 +62,10 @@ RUR.__robot_e_img.onload = function () {
 RUR.__visible_robot.draw = function (robot) {
     "use strict";
     var x, y;
+    if (robot.__id && robot.__id === -1){
+        return;
+    }
+    
     x = robot.x * RUR.__wall_length + RUR.__robot_x_offset;
     y = RUR.__height - (robot.y +1) * RUR.__wall_length + RUR.__robot_y_offset;
     switch(robot.orientation){
