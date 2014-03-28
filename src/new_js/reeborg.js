@@ -34,7 +34,21 @@ RUR.__wall_color = "brown";
 RUR.__goal_wall_color = "black";
 RUR.__coordinates_color = "black";
 RUR.__axis_label_color = "brown";
-RUR.__shadow_wall_color= "#f0f0f0";/* Author: André Roberge
+RUR.__shadow_wall_color= "#f0f0f0";
+
+RUR.__star_color = "red";
+RUR.__triangle_color = "green";
+RUR.__square_color = "blue";
+RUR.__shape_outline_color = "black";
+RUR.__target_tile_color = "#99ffcc";
+RUR.__orientation_tile_color = "black";
+
+RUR.__token_color = "gold";
+RUR.__text_color = "black";
+RUR.__token_goal_color = "#666";
+
+RUR.__debug_info_color = "blue";
+/* Author: André Roberge
    License: MIT
  */
 
@@ -1228,8 +1242,7 @@ RUR.__visible_world.draw_robots = function (robots) {
         }
     }
     if (DEBUG.ON) {
-        RUR.__robot_ctx.font = "bold 12px sans-serif";
-        RUR.__robot_ctx.fillStyle = "blue";
+        RUR.__robot_ctx.fillStyle = RUR.__debug_info_color;
         RUR.__robot_ctx.fillText(info, 5, 15);
     }
 };
@@ -1261,17 +1274,17 @@ RUR.__visible_world.draw_token = function (i, j, num, goal) {
     ctx.beginPath();
     ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
     if (goal) {
-        ctx.strokeStyle = "#666";
-        ctx.fillStyle = "black";
+        ctx.strokeStyle = RUR.__token_goal_color;
+        ctx.fillStyle = RUR.__text_color;
         ctx.lineWidth = 3;
         ctx.stroke();
         ctx.fillText(num, (i+0.2)*scale, Y - (j)*scale);
     } else {
-        ctx.fillStyle = "gold";
-        ctx.strokeStyle = "black";
+        ctx.fillStyle = RUR.__token_color;
+        ctx.strokeStyle = RUR.__text_color;
         ctx.fill();
         ctx.lineWidth = 1;
-        ctx.fillStyle = "black";
+        ctx.fillStyle = RUR.__text_color;
         ctx.fillText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
     }
 };
@@ -1294,7 +1307,6 @@ RUR.__visible_world.draw_goal = function () {
         RUR.__visible_world.draw_tokens(goal.tokens, true);
     }
     if (goal.walls !== undefined){
-//        RUR.__visible_world.draw_foreground_walls(ctx, goal.walls, goal);
         ctx.fillStyle = RUR.__wall_color;
         keys = Object.keys(goal.walls);
         for (key=0; key < keys.length; key++){
@@ -1314,12 +1326,12 @@ RUR.__visible_world.draw_goal = function () {
 
 RUR.__visible_world.draw_coloured_tile = function (i, j, orientation) {
     var size = RUR.__wall_thickness, ctx = RUR.__background_ctx;
-    ctx.fillStyle = "#99ffcc";
+    ctx.fillStyle = RUR.__target_tile_color;
     ctx.fillRect(i*RUR.__wall_length + size, RUR.__height - (j+1)*RUR.__wall_length + size,
                       RUR.__wall_length - size, RUR.__wall_length - size);
     if (orientation === undefined) return;
 
-    ctx.fillStyle = "black";
+    ctx.fillStyle = RUR.__orientation_tile_color;
     switch(orientation){
     case 0:
         ctx.fillRect((i+1)*RUR.__wall_length - size, RUR.__height - (j+0.5)*RUR.__wall_length,
@@ -1364,9 +1376,9 @@ RUR.__visible_world.draw_shape = function (i, j, shape, goal) {
     } else {
         ctx = RUR.__wall_ctx;
     }
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = RUR.__shape_outline_color;
     if (shape === "square") {
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = RUR.__square_color;
         if(goal !== undefined){
             ctx.beginPath();
             ctx.rect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
@@ -1375,7 +1387,7 @@ RUR.__visible_world.draw_shape = function (i, j, shape, goal) {
             ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
         }
     } else if (shape === "triangle") { // triangle
-        ctx.fillStyle = "green";
+        ctx.fillStyle = RUR.__triangle_color;
         ctx.beginPath();
         ctx.moveTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
         ctx.lineTo((i+0.6)*scale, Y - (j+0.4)*scale - size);
@@ -1388,7 +1400,7 @@ RUR.__visible_world.draw_shape = function (i, j, shape, goal) {
             ctx.fill();
         }
     } else {
-        ctx.fillStyle = "red";
+        ctx.fillStyle = RUR.__star_color;
         RUR.__visible_world.draw_star(ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size, goal);
     }
 };
