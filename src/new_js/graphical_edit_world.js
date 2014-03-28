@@ -17,6 +17,9 @@ RUR.__edit_world.edit_world = function  () {
         case "robot-turn":
         case "robot-tokens":
             break;
+        case "world-tokens":
+            RUR.__set_token_number();
+            break;
     }
     RUR.__refresh_world_edited();
 };
@@ -49,6 +52,9 @@ RUR.__edit_world.select = function (choice) {
             RUR.__edit_world.edit_world();
             $("#cmd-result").html("Robot now has " + RUR.__current_world.robots[0].tokens + " tokens.");
             break;
+        case "world-tokens":
+            $("#cmd-result").html("Click on canvas to set number of tokens.");
+            break;
     }
 };
 
@@ -62,8 +68,6 @@ RUR.__change_edit_robot_menu = function () {
         $(".robot-present").hide();
     }
 };
-
-
 
 function toggle_editing_mode () {
     $("#edit-world-panel").toggleClass("active");
