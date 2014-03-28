@@ -280,8 +280,7 @@ RUR.__edit_world.update = function (message) {
     $("#cmd-result").html(message);
 };
 
-
-RUR.__teleport_robot = function () {
+RUR.__calculate_grid_position = function () {
     var ctx, x, y;
     x = RUR.__mouse_x - $("#robot_canvas").offset().left;
     y = RUR.__mouse_y - $("#robot_canvas").offset().top;
@@ -300,14 +299,34 @@ RUR.__teleport_robot = function () {
     } else if (y > RUR.__rows) {
         y = RUR.__rows;
     }
-    RUR.__current_world.robots[0].x = x; 
-    RUR.__current_world.robots[0].y = y;
+    return [x, y];
+};
+
+
+RUR.__teleport_robot = function () {
+    var position;
+    position = RUR.__calculate_grid_position();
+    RUR.__current_world.robots[0].x = position[0]; 
+    RUR.__current_world.robots[0].y = position[1];
+};
+
+RUR.__give_tokens_to_robot = function () {
+    var response = prompt("Enter number of tokens for robot to carry (use inf for infinite number)");
+    if (response !== null) {
+        if (response === "inf"){
+            RUR.__current_world.robots[0].tokens = "infinite";
+        } else if (parseInt(response, 10) >= 0) {
+            RUR.__current_world.robots[0].tokens = parseInt(response, 10);
+        } else {
+            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+        }
+    }
 };
 
 RUR.__turn_robot = function (orientation) {
     RUR.__current_world.robots[0].orientation = orientation;
     RUR.__refresh_world_edited();
-}
+};
 
 RUR.__remove_robot = function () {
     "use strict";
@@ -563,6 +582,7 @@ RUR.__edit_world.edit_world = function  () {
         case "robot-remove":
         case "robot-add":
         case "robot-turn":
+        case "robot-tokens":
             break;
     }
     RUR.__refresh_world_edited();
@@ -590,6 +610,11 @@ RUR.__edit_world.select = function (choice) {
         case "robot-orientation":
             $("#cmd-result").html("Click on image to turn robot");
             $("#edit-world-turn").show();
+            break;
+        case "robot-tokens":
+            RUR.__give_tokens_to_robot();
+            RUR.__edit_world.edit_world();
+            $("#cmd-result").html("Robot now has " + RUR.__current_world.robots[0].tokens + " tokens.");
             break;
     }
 };
@@ -627,7 +652,7 @@ function toggle_editing_mode () {
 
 RUR.__refresh_world_edited = function () {
     RUR.__visible_world.draw_all(RUR.__current_world);
-}
+};
 
 function editing_world_show_others(){
     $("#contents-button").removeAttr("disabled");
