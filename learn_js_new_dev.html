@@ -165,6 +165,38 @@
     <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
 
     <p>Command: <input type="text" id="cmd-input"> <span id="cmd-result"></span></p>
+    
+    <ul id="edit-world-nav">
+        <li class="a-like">Robot <ul>
+            <li><a href="javascript:RUR.__edit_world.select('teleport');"> Add/Teleport</a></li>
+            <li><a href="javascript:RUR.__edit_world.select('orientation');"> Turn</a></li>
+            <li><a href="javascript:RUR.__edit_world.select('teleport');">Tokens</a></li>
+            <li><a href="javascript:RUR.__edit_world.select('teleport');">Remove</a></li>
+        </ul></li>
+        <li><a href="javascript:RUR.__edit_world.select('teleport');">Walls</a></li>
+        <li><a href="javascript:RUR.__edit_world.select('teleport');">Tokens</a></li>
+        <li class="a-like">Shapes <ul>
+            <li><a href="javascript:RUR.__edit_world.select('teleport');">Square</a></li>
+            <li><a href="javascript:RUR.__edit_world.select('teleport');">Star</a></li>
+            <li><a href="javascript:RUR.__edit_world.select('teleport');">Triangle</a></li>
+        </ul></li>
+        <li class="a-like">Goal <ul>
+            <li class="a-like">Robot <ul>
+                <li><a href="javascript:RUR.__edit_world.select('teleport');">Location</a></li>
+                <li><a href="javascript:RUR.__edit_world.select('teleport');">Orientation</a></li>
+            </ul></li>
+            <li><a href="javascript:RUR.__edit_world.select('teleport');">Walls</a></li>
+            <li><a href="javascript:RUR.__edit_world.select('teleport');">Tokens</a></li>
+            <li class="a-like">Shapes <ul>
+                <li><a href="javascript:RUR.__edit_world.select('teleport');">Square</a></li>
+                <li><a href="javascript:RUR.__edit_world.select('teleport');">Star</a></li>
+                <li><a href="javascript:RUR.__edit_world.select('teleport');">Triangle</a></li>
+            </ul></li>
+        </ul></li>
+    </ul>
+    
+    
+    
     <ul>
     <li><code>add_robot(x, y, orientation, tokens)</code>:  "infinite" [self-documenting!] </li>
     <li><code>remove_robot()</code>: remove existing robot.</li>

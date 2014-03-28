@@ -62,6 +62,9 @@ RUR.__robot_e_img.onload = function () {
 RUR.__visible_robot.draw = function (robot) {
     "use strict";
     var x, y;
+    if (!robot) {
+        return;
+    }
     if (robot.__id && robot.__id === -1){
         return;
     }
