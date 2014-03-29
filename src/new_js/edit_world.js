@@ -91,7 +91,7 @@ RUR.__set_token_number = function () {
         return;
     }
     
-    response = prompt("Enter number of tokens for robot to carry (use inf for infinite number)");
+    response = prompt("Enter number of tokens for at that location.");
     if (response !== null) {
         tokens = parseInt(response, 10);
         if (tokens >= 0) {
@@ -226,22 +226,24 @@ function toggle_shape(x, y, shape){
     RUR.__edit_world.update("updated shapes");
 }
 
-function set_goal_position(x, y){
+RUR.__set_goal_position = function (){
+    // will remove the position if clicked again.
     "use strict";
+    var position;
     RUR.__ensure_key_exist(RUR.__current_world, "goal");
-    if (x >0  && y >0){
-        RUR.__current_world.goal.position = {"x": x, "y": y};
-        RUR.__edit_world.update("updated position goal");
-    } else {
-        if (RUR.__current_world.goal.position !== undefined){
+    position = RUR.__calculate_grid_position();
+    
+    if (RUR.__current_world.goal.position !== undefined){
+        if (position[0] === RUR.__current_world.goal.position.x &&
+            position[1] === RUR.__current_world.goal.position.y) { 
             delete RUR.__current_world.goal.position;
-            if (Object.keys(RUR.__current_world.goal).length === 0){
-                delete RUR.__current_world.goal;
-            }
+        } else {
+            RUR.__current_world.goal.position = {"x": position[0], "y": position[1]};
         }
-        RUR.__edit_world.update("No position goal");
+    } else {
+        RUR.__current_world.goal.position = {"x": position[0], "y": position[1]};
     }
-}
+};
 
 function set_goal_orientation(orientation){
     "use strict";

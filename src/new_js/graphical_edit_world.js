@@ -23,6 +23,9 @@ RUR.__edit_world.edit_world = function  () {
         case "world-walls":
             RUR.__toggle_wall();
             break;
+        case "goal-robot":
+            RUR.__set_goal_position();
+            break;
     }
     RUR.__refresh_world_edited();
 };
@@ -60,6 +63,9 @@ RUR.__edit_world.select = function (choice) {
             break;
         case "world-walls":
             $("#cmd-result").html("Click on canvas to toggle walls.");
+            break;
+        case "goal-robot":
+            $("#cmd-result").html("Click on canvas to set home position for robot.");
             break;
     }
 };
