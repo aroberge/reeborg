@@ -190,6 +190,9 @@ padding:3px;}
     height: 600px;
     padding: 0 5px;
 }
+#edit-world-panel {
+    vertical-align: top;
+}
 
 #world-panel { background-color: white;}
 
