@@ -108,6 +108,12 @@ RUR.__set_token_number = function () {
 };
 
 RUR.__turn_robot = function (orientation) {
+    if (RUR.__edit_world_flag === "goal-robot") {
+        RUR.__set_goal_orientation(orientation);
+        RUR.__refresh_world_edited();
+        return;
+    }
+    
     RUR.__current_world.robots[0].orientation = orientation;
     RUR.__refresh_world_edited();
 };
@@ -237,30 +243,35 @@ RUR.__set_goal_position = function (){
         if (position[0] === RUR.__current_world.goal.position.x &&
             position[1] === RUR.__current_world.goal.position.y) { 
             delete RUR.__current_world.goal.position;
+            if (RUR.__current_world.goal.orientation !== undefined) {
+                delete RUR.__current_world.goal.orientation;
+            }
+            $("#edit-world-turn").hide();
         } else {
             RUR.__current_world.goal.position = {"x": position[0], "y": position[1]};
+            $("#cmd-result").html("Click on same position to remove, or robot to set orientation");
+            $("#edit-world-turn").show();
         }
     } else {
         RUR.__current_world.goal.position = {"x": position[0], "y": position[1]};
+        $("#cmd-result").html("Click on same position to remove, or robot to set orientation");
+        $("#edit-world-turn").show();
     }
 };
 
-function set_goal_orientation(orientation){
+RUR.__set_goal_orientation = function(orientation){
     "use strict";
     RUR.__ensure_key_exist(RUR.__current_world, "goal");
-    if ([0, 1, 2, 3].indexOf(orientation) !== -1){
-        RUR.__current_world.goal.orientation = orientation;
-        RUR.__edit_world.update("updated orientation goal");
-    } else {
-        if (RUR.__current_world.goal.orientation !== undefined){
-            delete RUR.__current_world.goal.orientation;
-            if (Object.keys(RUR.__current_world.goal).length === 0){
-                delete RUR.__current_world.goal;
-            }
-        }
-        RUR.__edit_world.update("No orientation goal");
+    if (RUR.__current_world.goal.position === undefined) {
+        return;
     }
-}
+    if (RUR.__current_world.goal.orientation !== undefined &&
+        RUR.__current_world.goal.orientation === orientation) {
+        delete RUR.__current_world.goal.orientation;  // toggle
+    } else {
+        RUR.__current_world.goal.orientation = orientation;
+    }
+};
 
 function set_goal_tokens(x, y, nb_tokens){
     "use strict";
