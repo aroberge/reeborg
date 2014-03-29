@@ -77,7 +77,6 @@ a[href^="http"] {
 background-image: none;}
 .ui-tabs .ui-tabs-nav li:hover, button:hover:enabled, a.fake_button:hover, .green-gradient, a.left-link:hover,
 a.right-link:hover, #language_switcher:hover {
-  color: black;
   background-color: #75a110;
   background-image: -webkit-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
   background-image: -moz-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
@@ -320,11 +319,11 @@ footer a:hover{
 }
 
 #edit-world-submenus-wrapper {
-    min-height: 70px;
+    min-height: 100px;
 }
 .edit-world-submenus li {
  float: left;
  list-style: none;
  position: relative;
- width: 40px;
+ width: 100px;
 }
