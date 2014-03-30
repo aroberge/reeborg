@@ -27,6 +27,9 @@ RUR.__edit_world.edit_world = function  () {
         case "goal-wall":
             RUR.__toggle_goal_wall();
             break;
+        case "goal-tokens":
+            RUR.__set_goal_token_number();
+            break;
     }
     RUR.__refresh_world_edited();
 };
@@ -70,6 +73,9 @@ RUR.__edit_world.select = function (choice) {
             break;
         case "goal-wall":
             $("#cmd-result").html("Click on canvas to toggle additional walls to build.");
+            break;
+        case "goal-tokens":
+            $("#cmd-result").html("Click on canvas to set number of tokens as goal.");
             break;
     }
 };
@@ -251,6 +257,37 @@ RUR.__set_token_number = function () {
         }
     } 
 };
+
+RUR.__set_goal_token_number = function () {
+    var position, response, x, y, tokens;
+    position = RUR.__calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    
+    RUR.__ensure_key_exist(RUR.__current_world, "goal");
+    if (RUR.__current_world.goal.shapes !== undefined && RUR.__current_world.goal.shapes[x + "," + y] !== undefined){
+        $("#cmd-result").html("shape here; can't put tokens");
+        $("#Reeborg-shouts").html("shape here; can't put tokens").dialog("open");
+        return;
+    }
+    
+    response = prompt("Enter number of tokens for at that location.");
+    if (response !== null) {
+        tokens = parseInt(response, 10);
+        if (tokens >= 0) {
+            RUR.__ensure_key_exist(RUR.__current_world.goal, "tokens");
+            if (tokens > 0) {
+                RUR.__current_world.goal.tokens[x + "," + y] = tokens;
+            } else {
+                delete RUR.__current_world.goal.tokens[x + "," + y];
+            }
+        } else {
+            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+        }
+    } 
+};
+
+
 
 RUR.__turn_robot = function (orientation) {
     if (RUR.__edit_world_flag === "goal-robot") {
