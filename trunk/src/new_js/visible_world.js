@@ -5,12 +5,12 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, DEBUG */
 
-RUR.__visible_world = {};
+RUR.vis_world = {};
 
-RUR.__visible_world.draw_coordinates = function(ctx) {
+RUR.vis_world.draw_coordinates = function(ctx) {
     "use strict";
     var x, y;
-    if (RUR.__current_world.blank_canvas) {
+    if (RUR.current_world.blank_canvas) {
         return;
     }
     
@@ -30,12 +30,12 @@ RUR.__visible_world.draw_coordinates = function(ctx) {
 };
 
 
-RUR.__visible_world.draw_background = function () {
+RUR.vis_world.draw_background = function () {
     "use strict";
     var i, j, ctx = RUR.__background_ctx;
 
     ctx.clearRect(0, 0, RUR.__width, RUR.__height);
-    if (RUR.__current_world.blank_canvas) {
+    if (RUR.current_world.blank_canvas) {
         return;
     }
 
@@ -43,30 +43,30 @@ RUR.__visible_world.draw_background = function () {
     ctx.fillStyle = RUR.__shadow_wall_color;
     for (i = 1; i <= RUR.__cols; i++) {
         for (j = 1; j <= RUR.__rows; j++) {
-            RUR.__visible_world.draw_north_wall(ctx, i, j);
-            RUR.__visible_world.draw_east_wall(ctx, i, j);
+            RUR.vis_world.draw_north_wall(ctx, i, j);
+            RUR.vis_world.draw_east_wall(ctx, i, j);
         }
     }
 
     // border walls (x and y axis)
     ctx.fillStyle = RUR.__wall_color;
     for (j = 1; j <= RUR.__rows; j++) {
-        RUR.__visible_world.draw_east_wall(ctx, 0, j);
+        RUR.vis_world.draw_east_wall(ctx, 0, j);
     }
     for (i = 1; i <= RUR.__cols; i++) {
-        RUR.__visible_world.draw_north_wall(ctx, i, 0);
+        RUR.vis_world.draw_north_wall(ctx, i, 0);
     }
-    RUR.__visible_world.draw_coordinates(ctx);
+    RUR.vis_world.draw_coordinates(ctx);
     
 };
 
-RUR.__visible_world.draw_foreground_walls = function (walls) {
+RUR.vis_world.draw_foreground_walls = function (walls) {
     "use strict";
     var keys, key, i, j, k, ctx = RUR.__wall_ctx;
     
     ctx.clearRect(0, 0, RUR.__width, RUR.__height);
     
-    if (RUR.__current_world.blank_canvas || 
+    if (RUR.current_world.blank_canvas || 
         walls === undefined || walls == {}) {
         return;
     }
@@ -78,15 +78,15 @@ RUR.__visible_world.draw_foreground_walls = function (walls) {
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
         if ( walls[keys[key]].indexOf("north") !== -1) {
-            RUR.__visible_world.draw_north_wall(ctx, i, j);
+            RUR.vis_world.draw_north_wall(ctx, i, j);
         }
         if (walls[keys[key]].indexOf("east") !== -1) {
-            RUR.__visible_world.draw_east_wall(ctx, i, j);
+            RUR.vis_world.draw_east_wall(ctx, i, j);
         }
     }
 };
 
-RUR.__visible_world.draw_north_wall = function(ctx, i, j, goal) {
+RUR.vis_world.draw_north_wall = function(ctx, i, j, goal) {
     "use strict";
     if (goal){
         ctx.strokeStyle = RUR.__goal_wall_color;
@@ -100,7 +100,7 @@ RUR.__visible_world.draw_north_wall = function(ctx, i, j, goal) {
                       RUR.__wall_length + RUR.__wall_thickness, RUR.__wall_thickness);
 };
 
-RUR.__visible_world.draw_east_wall = function(ctx, i, j, goal) {
+RUR.vis_world.draw_east_wall = function(ctx, i, j, goal) {
     "use strict";
     if (goal){
         ctx.strokeStyle = RUR.__goal_wall_color;
@@ -114,17 +114,17 @@ RUR.__visible_world.draw_east_wall = function(ctx, i, j, goal) {
                       RUR.__wall_thickness, RUR.__wall_length + RUR.__wall_thickness);
 };
 
-RUR.__visible_world.draw_robots = function (robots) {
+RUR.vis_world.draw_robots = function (robots) {
     var robot, info = '';
     RUR.__robot_ctx.clearRect(0, 0, RUR.__width, RUR.__height);
-    if (RUR.__current_world.blank_canvas) {
+    if (RUR.current_world.blank_canvas) {
         return;
     }
     if (!robots) {
         return;
     }
     for (robot=0; robot < robots.length; robot++){
-        RUR.__visible_robot.draw(robots[robot]); // draws trace automatically
+        RUR.vis_robot.draw(robots[robot]); // draws trace automatically
         if (DEBUG.ON) {
             info += RUR.translation.robot + robot + ": x=" + robots[robot].x +
                     ", y=" + robots[robot].y + RUR.translation[", tokens="] + robots[robot].tokens + ".  ";
@@ -136,7 +136,7 @@ RUR.__visible_world.draw_robots = function (robots) {
     }
 };
 
-RUR.__visible_world.draw_tokens = function(tokens, goal) {
+RUR.vis_world.draw_tokens = function(tokens, goal) {
     "use strict";
     var i, j, k, t, toks;
     if (!tokens) {
@@ -147,11 +147,11 @@ RUR.__visible_world.draw_tokens = function(tokens, goal) {
         k = toks[t].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        RUR.__visible_world.draw_token(i, j, tokens[toks[t]], goal);
+        RUR.vis_world.draw_token(i, j, tokens[toks[t]], goal);
     }
 };
 
-RUR.__visible_world.draw_token = function (i, j, num, goal) {
+RUR.vis_world.draw_token = function (i, j, num, goal) {
     "use strict";
     var size = 12, scale = RUR.__wall_length, Y = RUR.__height;
     var ctx;
@@ -178,22 +178,22 @@ RUR.__visible_world.draw_token = function (i, j, num, goal) {
     }
 };
 
-RUR.__visible_world.draw_goal = function () {
+RUR.vis_world.draw_goal = function () {
     "use strict";
     var goal, key, keys, i, j, k, ctx = RUR.__background_ctx;
-    if (RUR.__current_world.goal === undefined) {
+    if (RUR.current_world.goal === undefined) {
         return;
     }
 
-    goal = RUR.__current_world.goal;
+    goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
-        RUR.__visible_world.draw_coloured_tile(goal.position.x, goal.position.y, goal.orientation);
+        RUR.vis_world.draw_coloured_tile(goal.position.x, goal.position.y, goal.orientation);
     }
     if (goal.shapes !== undefined){
-        RUR.__visible_world.draw_shapes(goal.shapes, true);
+        RUR.vis_world.draw_shapes(goal.shapes, true);
     }
     if (goal.tokens !== undefined) {
-        RUR.__visible_world.draw_tokens(goal.tokens, true);
+        RUR.vis_world.draw_tokens(goal.tokens, true);
     }
     if (goal.walls !== undefined){
         ctx.fillStyle = RUR.__wall_color;
@@ -203,17 +203,17 @@ RUR.__visible_world.draw_goal = function () {
             i = parseInt(k[0], 10);
             j = parseInt(k[1], 10);
             if ( goal.walls[keys[key]].indexOf("north") !== -1) {
-                RUR.__visible_world.draw_north_wall(ctx, i, j, true);
+                RUR.vis_world.draw_north_wall(ctx, i, j, true);
             }
             if (goal.walls[keys[key]].indexOf("east") !== -1) {
-                RUR.__visible_world.draw_east_wall(ctx, i, j, true);
+                RUR.vis_world.draw_east_wall(ctx, i, j, true);
             }
         }
     }
 };
 
 
-RUR.__visible_world.draw_coloured_tile = function (i, j, orientation) {
+RUR.vis_world.draw_coloured_tile = function (i, j, orientation) {
     var size = RUR.__wall_thickness, ctx = RUR.__background_ctx;
     ctx.fillStyle = RUR.__target_tile_color;
     ctx.fillRect(i*RUR.__wall_length + size, RUR.__height - (j+1)*RUR.__wall_length + size,
@@ -241,7 +241,7 @@ RUR.__visible_world.draw_coloured_tile = function (i, j, orientation) {
     }
 };
 
-RUR.__visible_world.draw_shapes = function(shapes, goal) {
+RUR.vis_world.draw_shapes = function(shapes, goal) {
     "use strict";
     var i, j, k, t, sh;
     if (shapes === undefined) {
@@ -252,11 +252,11 @@ RUR.__visible_world.draw_shapes = function(shapes, goal) {
         k = sh[t].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        RUR.__visible_world.draw_shape(i, j, shapes[sh[t]], goal);
+        RUR.vis_world.draw_shape(i, j, shapes[sh[t]], goal);
     }
 };
 
-RUR.__visible_world.draw_shape = function (i, j, shape, goal) {
+RUR.vis_world.draw_shape = function (i, j, shape, goal) {
     "use strict";
     var ctx, size = 12, scale = RUR.__wall_length, Y = RUR.__height;
     if(goal !== undefined){
@@ -290,11 +290,11 @@ RUR.__visible_world.draw_shape = function (i, j, shape, goal) {
         }
     } else {
         ctx.fillStyle = RUR.__star_color;
-        RUR.__visible_world.draw_star(ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size, goal);
+        RUR.vis_world.draw_star(ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size, goal);
     }
 };
 
-RUR.__visible_world.draw_star = function (ctx, x, y, r, goal){
+RUR.vis_world.draw_star = function (ctx, x, y, r, goal){
     // adapted from https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Compositing
     ctx.save();
     ctx.translate(x, y);
@@ -320,17 +320,17 @@ RUR.__visible_world.draw_star = function (ctx, x, y, r, goal){
     ctx.restore();
 };
 
-RUR.__visible_world.draw_all = function () {
+RUR.vis_world.draw_all = function () {
     "use strict";
-    RUR.__visible_world.draw_background();
-    RUR.__visible_world.draw_goal();
-    RUR.__visible_world.refresh();
+    RUR.vis_world.draw_background();
+    RUR.vis_world.draw_goal();
+    RUR.vis_world.refresh();
 };
 
-RUR.__visible_world.refresh = function (world) {
+RUR.vis_world.refresh = function (world) {
     "use strict";
-    RUR.__visible_world.draw_foreground_walls(RUR.__current_world.walls);
-    RUR.__visible_world.draw_robots(RUR.__current_world.robots);
-    RUR.__visible_world.draw_tokens(RUR.__current_world.tokens);
-    RUR.__visible_world.draw_shapes(RUR.__current_world.shapes);
+    RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
+    RUR.vis_world.draw_robots(RUR.current_world.robots);
+    RUR.vis_world.draw_tokens(RUR.current_world.tokens);
+    RUR.vis_world.draw_shapes(RUR.current_world.shapes);
 };

@@ -5,7 +5,9 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
-RUR.__create_robot = function (x, y, orientation, tokens) {
+RUR.robot = {};
+
+RUR.robot.create_robot = function (x, y, orientation, tokens) {
     "use strict";
     var robot = {};
     robot.x = x || 1;

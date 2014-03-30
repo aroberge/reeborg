@@ -176,7 +176,7 @@ $(document).ready(function() {
     $("#memorize-world").on("click", function(evt) {
         var response = prompt("Enter world name to save");
         if (response !== null) {
-            RUR.__storage_save_world(response.trim());
+            RUR.storage.save_world(response.trim());
             $('#delete-world').show(); 
         }
     });
@@ -184,7 +184,7 @@ $(document).ready(function() {
     $("#delete-world").on("click", function(evt) {
         var response = prompt("Enter world name to delete");
         if (response !== null) {
-            RUR.__delete_world(response.trim());
+            RUR.storage.delete_world(response.trim());
         }
     });
   
@@ -226,10 +226,10 @@ $(document).ready(function() {
 //        RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
-            RUR.__import_world(data);
+            RUR.world.import_world(data);
         } else {
             $.get(val, function(data) {
-                RUR.__import_world(data);
+                RUR.world.import_world(data);
                 // jquery is sometimes too intelligent; it can guess
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
@@ -291,7 +291,7 @@ RUR.__edit_world.select = function (choice) {
             break;
         case "robot-add":
             $("#cmd-result").html("Added robot").effect("highlight", {color: "gold"}, 1500);
-            RUR.__add_robot(RUR.__create_robot());
+            RUR.__add_robot(RUR.robot.create_robot());
             RUR.__edit_world.edit_world();
             RUR.__change_edit_robot_menu();
             break;
@@ -302,7 +302,7 @@ RUR.__edit_world.select = function (choice) {
         case "robot-tokens":
             RUR.__give_tokens_to_robot();
             RUR.__edit_world.edit_world();
-            $("#cmd-result").html("Robot now has " + RUR.__current_world.robots[0].tokens + " tokens.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html("Robot now has " + RUR.current_world.robots[0].tokens + " tokens.").effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-tokens":
             $("#cmd-result").html("Click on canvas to set number of tokens.").effect("highlight", {color: "gold"}, 1500);
@@ -323,8 +323,8 @@ RUR.__edit_world.select = function (choice) {
 };
 
 RUR.__change_edit_robot_menu = function () {
-    if ("robots" in RUR.__current_world && 
-        RUR.__current_world.robots.length > 0) {
+    if ("robots" in RUR.current_world && 
+        RUR.current_world.robots.length > 0) {
         $(".robot-absent").hide();
         $(".robot-present").show();
     } else {
@@ -352,7 +352,7 @@ function toggle_editing_mode () {
 }
 
 RUR.__refresh_world_edited = function () {
-    RUR.__visible_world.draw_all(RUR.__current_world);
+    RUR.vis_world.draw_all(RUR.current_world);
 };
 
 function editing_world_show_others(){
@@ -393,38 +393,38 @@ function editing_world_hide_others() {
     $("#reload2").attr("disabled", "true"); 
 }
 
-RUR.__delete_world = function (name){
-    "use strict";
-    var i, key;
-    if (localStorage.getItem("user_world:" + name) === null){
-        $("#Reeborg-shouts").html("No such world!").dialog("open");
-        return;
-    }
-    localStorage.removeItem("user_world:" + name);
-    $("select option[value='" + "user_world:" + name +"']").remove();
-    try {
-        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
-    } catch (e) {
-        RUR.__select_world("Alone");
-    }
-    $("#select_world").change();
-    
-    for (i = localStorage.length - 1; i >= 0; i--) {
-        console.log(i);
-        key = localStorage.key(i);
-        if (key.slice(0, 11) === "user_world:") {
-            console.log("returning");
-            return;
-        }
-    }
-    console.log("done");
-    $('#delete-world').hide();
-};
+//RUR.__delete_world = function (name){
+//    "use strict";
+//    var i, key;
+//    if (localStorage.getItem("user_world:" + name) === null){
+//        $("#Reeborg-shouts").html("No such world!").dialog("open");
+//        return;
+//    }
+//    localStorage.removeItem("user_world:" + name);
+//    $("select option[value='" + "user_world:" + name +"']").remove();
+//    try {
+//        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
+//    } catch (e) {
+//        RUR.__select_world("Alone");
+//    }
+//    $("#select_world").change();
+//    
+//    for (i = localStorage.length - 1; i >= 0; i--) {
+//        console.log(i);
+//        key = localStorage.key(i);
+//        if (key.slice(0, 11) === "user_world:") {
+//            console.log("returning");
+//            return;
+//        }
+//    }
+//    console.log("done");
+//    $('#delete-world').hide();
+//};
 
 //
 //RUR.__edit_world.update = function (message) {
 //    "use strict";
-//    RUR.world.import_(JSON.stringify(RUR.__current_world));
+//    RUR.world.import_(JSON.stringify(RUR.current_world));
 //    RUR.world.reset();
 //    RUR.__reset();
 //    $("#cmd-result").html(message);
@@ -455,17 +455,17 @@ RUR.__calculate_grid_position = function () {
 RUR.__teleport_robot = function () {
     var position;
     position = RUR.__calculate_grid_position();
-    RUR.__current_world.robots[0].x = position[0]; 
-    RUR.__current_world.robots[0].y = position[1];
+    RUR.current_world.robots[0].x = position[0]; 
+    RUR.current_world.robots[0].y = position[1];
 };
 
 RUR.__give_tokens_to_robot = function () {
     var response = prompt("Enter number of tokens for robot to carry (use inf for infinite number)");
     if (response !== null) {
         if (response === "inf"){
-            RUR.__current_world.robots[0].tokens = "infinite";
+            RUR.current_world.robots[0].tokens = "infinite";
         } else if (parseInt(response, 10) >= 0) {
-            RUR.__current_world.robots[0].tokens = parseInt(response, 10);
+            RUR.current_world.robots[0].tokens = parseInt(response, 10);
         } else {
             $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
         }
@@ -478,7 +478,7 @@ RUR.__set_token_number = function () {
     x = position[0];
     y = position[1];
     
-    if (RUR.__current_world.shapes !== undefined && RUR.__current_world.shapes[x + "," + y] !== undefined){
+    if (RUR.current_world.shapes !== undefined && RUR.current_world.shapes[x + "," + y] !== undefined){
         $("#cmd-result").html("shape here; can't put tokens").effect("highlight", {color: "gold"}, 1500);
         $("#Reeborg-shouts").html("shape here; can't put tokens").dialog("open");
         return;
@@ -488,11 +488,11 @@ RUR.__set_token_number = function () {
     if (response !== null) {
         tokens = parseInt(response, 10);
         if (tokens >= 0) {
-            RUR.__ensure_key_exist(RUR.__current_world, "tokens");
+            RUR.__ensure_key_exist(RUR.current_world, "tokens");
             if (tokens > 0) {
-                RUR.__current_world.tokens[x + "," + y] = tokens;
+                RUR.current_world.tokens[x + "," + y] = tokens;
             } else {
-                delete RUR.__current_world.tokens[x + "," + y];
+                delete RUR.current_world.tokens[x + "," + y];
             }
         } else {
             $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
@@ -506,8 +506,8 @@ RUR.__set_goal_token_number = function () {
     x = position[0];
     y = position[1];
     
-    RUR.__ensure_key_exist(RUR.__current_world, "goal");
-    if (RUR.__current_world.goal.shapes !== undefined && RUR.__current_world.goal.shapes[x + "," + y] !== undefined){
+    RUR.__ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
         $("#cmd-result").html("shape here; can't put tokens").effect("highlight", {color: "gold"}, 1500);
         $("#Reeborg-shouts").html("shape here; can't put tokens").dialog("open");
         return;
@@ -517,15 +517,15 @@ RUR.__set_goal_token_number = function () {
     if (response !== null) {
         tokens = parseInt(response, 10);
         if (tokens >= 0) {
-            RUR.__ensure_key_exist(RUR.__current_world.goal, "tokens");
+            RUR.__ensure_key_exist(RUR.current_world.goal, "tokens");
             if (tokens > 0) {
-                RUR.__current_world.goal.tokens[x + "," + y] = tokens;
+                RUR.current_world.goal.tokens[x + "," + y] = tokens;
             } else {
-                delete RUR.__current_world.goal.tokens[x + "," + y];
-                if (Object.keys(RUR.__current_world.goal.tokens).length === 0){
-                    delete RUR.__current_world.goal.tokens;
-                    if (Object.keys(RUR.__current_world.goal).length === 0){
-                        delete RUR.__current_world.goal;
+                delete RUR.current_world.goal.tokens[x + "," + y];
+                if (Object.keys(RUR.current_world.goal.tokens).length === 0){
+                    delete RUR.current_world.goal.tokens;
+                    if (Object.keys(RUR.current_world.goal).length === 0){
+                        delete RUR.current_world.goal;
                     }
                 }
             }
@@ -543,18 +543,18 @@ RUR.__turn_robot = function (orientation) {
         return;
     }
     
-    RUR.__current_world.robots[0].orientation = orientation;
+    RUR.current_world.robots[0].orientation = orientation;
     RUR.__refresh_world_edited();
 };
 
 RUR.__remove_robot = function () {
     "use strict";
-    RUR.__current_world.robots = [];
+    RUR.current_world.robots = [];
 };
 
 RUR.__add_robot = function () {
     "use strict";
-    RUR.__current_world.robots = [RUR.__create_robot()];
+    RUR.current_world.robots = [RUR.robot.create_robot()];
 };
 
 RUR.__calculate_wall_position = function () {
@@ -615,17 +615,17 @@ RUR.__toggle_wall = function () {
     orientation = position[2];
     coords = x + "," + y;
 
-    RUR.__ensure_key_exist(RUR.__current_world, "walls");
-    if (RUR.__current_world.walls[coords] === undefined){
-        RUR.__current_world.walls[coords] = [orientation];
+    RUR.__ensure_key_exist(RUR.current_world, "walls");
+    if (RUR.current_world.walls[coords] === undefined){
+        RUR.current_world.walls[coords] = [orientation];
     } else {
-        index = RUR.__current_world.walls[coords].indexOf(orientation);
+        index = RUR.current_world.walls[coords].indexOf(orientation);
         if (index === -1) {
-            RUR.__current_world.walls[coords].push(orientation);
+            RUR.current_world.walls[coords].push(orientation);
         } else {
-            RUR.__current_world.walls[coords].remove(index);
-            if (RUR.__current_world.walls[coords].length === 0){
-                delete RUR.__current_world.walls[coords];
+            RUR.current_world.walls[coords].remove(index);
+            if (RUR.current_world.walls[coords].length === 0){
+                delete RUR.current_world.walls[coords];
             }
         }
     }
@@ -640,22 +640,22 @@ RUR.__toggle_goal_wall = function () {
     orientation = position[2];
     coords = x + "," + y;
 
-    RUR.__ensure_key_exist(RUR.__current_world, "goal");
-    RUR.__ensure_key_exist(RUR.__current_world.goal, "walls");
-    if (RUR.__current_world.goal.walls[coords] === undefined){
-        RUR.__current_world.goal.walls[coords] = [orientation];
+    RUR.__ensure_key_exist(RUR.current_world, "goal");
+    RUR.__ensure_key_exist(RUR.current_world.goal, "walls");
+    if (RUR.current_world.goal.walls[coords] === undefined){
+        RUR.current_world.goal.walls[coords] = [orientation];
     } else {
-        index = RUR.__current_world.goal.walls[coords].indexOf(orientation);
+        index = RUR.current_world.goal.walls[coords].indexOf(orientation);
         if (index === -1) {
-            RUR.__current_world.goal.walls[coords].push(orientation);
+            RUR.current_world.goal.walls[coords].push(orientation);
         } else {
-            RUR.__current_world.goal.walls[coords].remove(index);
-            if (Object.keys(RUR.__current_world.goal.walls[coords]).length === 0){
-                delete RUR.__current_world.goal.walls[coords];
-                if (Object.keys(RUR.__current_world.goal.walls).length === 0) {
-                    delete RUR.__current_world.goal.walls;
-                    if (Object.keys(RUR.__current_world.goal).length === 0) {
-                        delete RUR.__current_world.goal;
+            RUR.current_world.goal.walls[coords].remove(index);
+            if (Object.keys(RUR.current_world.goal.walls[coords]).length === 0){
+                delete RUR.current_world.goal.walls[coords];
+                if (Object.keys(RUR.current_world.goal.walls).length === 0) {
+                    delete RUR.current_world.goal.walls;
+                    if (Object.keys(RUR.current_world.goal).length === 0) {
+                        delete RUR.current_world.goal;
                     }
                 }
             }
@@ -676,18 +676,18 @@ function toggle_shape(x, y, shape){
         $("#cmd-result").html("unknown shape: " + shape).effect("highlight", {color: "gold"}, 1500);
         return;
     }
-    if (RUR.__current_world.tokens !== undefined && RUR.__current_world.tokens[x + "," + y] !== undefined){
+    if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
         $("#cmd-result").html("tokens here; can't put a shape").effect("highlight", {color: "gold"}, 1500);
         return;
     }
-    RUR.__ensure_key_exist(RUR.__current_world, "shapes");
-    if (RUR.__current_world.shapes[x + "," + y] === shape) {
-        delete RUR.__current_world.shapes[x + "," + y];
-        if (Object.keys(RUR.__current_world.shapes).length === 0){
-            delete RUR.__current_world.shapes;
+    RUR.__ensure_key_exist(RUR.current_world, "shapes");
+    if (RUR.current_world.shapes[x + "," + y] === shape) {
+        delete RUR.current_world.shapes[x + "," + y];
+        if (Object.keys(RUR.current_world.shapes).length === 0){
+            delete RUR.current_world.shapes;
         }
     } else {
-        RUR.__current_world.shapes[x + "," + y] = shape;
+        RUR.current_world.shapes[x + "," + y] = shape;
     }
     RUR.__edit_world.update("updated shapes");
 }
@@ -696,27 +696,27 @@ RUR.__set_goal_position = function (){
     // will remove the position if clicked again.
     "use strict";
     var position;
-    RUR.__ensure_key_exist(RUR.__current_world, "goal");
+    RUR.__ensure_key_exist(RUR.current_world, "goal");
     position = RUR.__calculate_grid_position();
     
-    if (RUR.__current_world.goal.position !== undefined){
-        if (position[0] === RUR.__current_world.goal.position.x &&
-            position[1] === RUR.__current_world.goal.position.y) { 
-            delete RUR.__current_world.goal.position;
-            if (RUR.__current_world.goal.orientation !== undefined) {
-                delete RUR.__current_world.goal.orientation;
+    if (RUR.current_world.goal.position !== undefined){
+        if (position[0] === RUR.current_world.goal.position.x &&
+            position[1] === RUR.current_world.goal.position.y) { 
+            delete RUR.current_world.goal.position;
+            if (RUR.current_world.goal.orientation !== undefined) {
+                delete RUR.current_world.goal.orientation;
             }
-            if (Object.keys(RUR.__current_world.goal).length === 0) {
-                delete RUR.__current_world.goal;
+            if (Object.keys(RUR.current_world.goal).length === 0) {
+                delete RUR.current_world.goal;
             }
             $("#edit-world-turn").hide();
         } else {
-            RUR.__current_world.goal.position = {"x": position[0], "y": position[1]};
+            RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
             $("#cmd-result").html("Click on same position to remove, or robot to set orientation").effect("highlight", {color: "gold"}, 1500);
             $("#edit-world-turn").show();
         }
     } else {
-        RUR.__current_world.goal.position = {"x": position[0], "y": position[1]};
+        RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
         $("#cmd-result").html("Click on same position to remove, or robot to set orientation").effect("highlight", {color: "gold"}, 1500);
         $("#edit-world-turn").show();
     }
@@ -724,34 +724,34 @@ RUR.__set_goal_position = function (){
 
 RUR.__set_goal_orientation = function(orientation){
     "use strict";
-    RUR.__ensure_key_exist(RUR.__current_world, "goal");
-    if (RUR.__current_world.goal.position === undefined) {
+    RUR.__ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.position === undefined) {
         return;
     }
-    if (RUR.__current_world.goal.orientation !== undefined &&
-        RUR.__current_world.goal.orientation === orientation) {
-        delete RUR.__current_world.goal.orientation;  // toggle
+    if (RUR.current_world.goal.orientation !== undefined &&
+        RUR.current_world.goal.orientation === orientation) {
+        delete RUR.current_world.goal.orientation;  // toggle
     } else {
-        RUR.__current_world.goal.orientation = orientation;
+        RUR.current_world.goal.orientation = orientation;
     }
 };
 
 function set_goal_tokens(x, y, nb_tokens){
     "use strict";
-    RUR.__ensure_key_exist(RUR.__current_world, "goal");
-    if (RUR.__current_world.goal.shapes !== undefined && RUR.__current_world.goal.shapes[x + "," + y] !== undefined){
+    RUR.__ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
         $("#cmd-result").html("shape goal here; can't set token goal").effect("highlight", {color: "gold"}, 1500);
         return;
     }
-    RUR.__ensure_key_exist(RUR.__current_world.goal, "tokens");
+    RUR.__ensure_key_exist(RUR.current_world.goal, "tokens");
     if (nb_tokens > 0) {
-        RUR.__current_world.goal.tokens[x + "," + y] = nb_tokens;
+        RUR.current_world.goal.tokens[x + "," + y] = nb_tokens;
     } else {
-        delete RUR.__current_world.goal.tokens[x + "," + y];
-        if (Object.keys(RUR.__current_world.goal.tokens).length === 0){
-            delete RUR.__current_world.goal.tokens;
-            if (Object.keys(RUR.__current_world.goal).length === 0){
-                delete RUR.__current_world.goal;
+        delete RUR.current_world.goal.tokens[x + "," + y];
+        if (Object.keys(RUR.current_world.goal.tokens).length === 0){
+            delete RUR.current_world.goal.tokens;
+            if (Object.keys(RUR.current_world.goal).length === 0){
+                delete RUR.current_world.goal;
             }
         }
     }
@@ -760,14 +760,14 @@ function set_goal_tokens(x, y, nb_tokens){
 
 function set_goal_no_tokens(){
     "use strict";
-    RUR.__ensure_key_exist(RUR.__current_world, "goal");
-    RUR.__current_world.goal.tokens = {};
+    RUR.__ensure_key_exist(RUR.current_world, "goal");
+    RUR.current_world.goal.tokens = {};
 }
 
 function set_goal_no_shapes(){
     "use strict";
-    RUR.__ensure_key_exist(RUR.__current_world, "goal");
-    RUR.__current_world.goal.shapes = {};
+    RUR.__ensure_key_exist(RUR.current_world, "goal");
+    RUR.current_world.goal.shapes = {};
 }
 
 
@@ -777,26 +777,60 @@ function set_goal_shape(x, y, shape){
         $("#cmd-result").html("unknown shape: " + shape);
         return;
     }
-    RUR.__ensure_key_exist(RUR.__current_world, "goal");
-    if (RUR.__current_world.goal.tokens !== undefined &&
-        RUR.__current_world.goal.tokens[x + "," + y] !== undefined){
+    RUR.__ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.tokens !== undefined &&
+        RUR.current_world.goal.tokens[x + "," + y] !== undefined){
         $("#cmd-result").html("tokens as a goal here; can't set a shape goal");
         return;
     }
-    RUR.__ensure_key_exist(RUR.__current_world.goal, "shapes");
-    if (RUR.__current_world.goal.shapes[x + "," + y] === shape) {
-        delete RUR.__current_world.goal.shapes[x + "," + y];
-        if (Object.keys(RUR.__current_world.goal.shapes).length === 0){
-            delete RUR.__current_world.goal.shapes;
-            if (Object.keys(RUR.__current_world.goal).length === 0){
-                delete RUR.__current_world.goal;
+    RUR.__ensure_key_exist(RUR.current_world.goal, "shapes");
+    if (RUR.current_world.goal.shapes[x + "," + y] === shape) {
+        delete RUR.current_world.goal.shapes[x + "," + y];
+        if (Object.keys(RUR.current_world.goal.shapes).length === 0){
+            delete RUR.current_world.goal.shapes;
+            if (Object.keys(RUR.current_world.goal).length === 0){
+                delete RUR.current_world.goal;
             }
         }
     } else {
-        RUR.__current_world.goal.shapes[x + "," + y] = shape;
+        RUR.current_world.goal.shapes[x + "," + y] = shape;
     }
     RUR.__edit_world.update("updated shapes");
 }
+/* Author: André Roberge
+   License: MIT
+   
+   Defining base name space and various constants.
+ */
+
+/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals RUR */
+
+RUR.rec = {
+    nb_frames : undefined,
+    current_frame : undefined,
+    frames : undefined
+};
+
+RUR.rec.reset = function() {
+    RUR.rec.nb_frames = 0;
+    RUR.rec.current_frame = 0;
+    RUR.rec.frames = [];
+};
+RUR.rec.reset();
+
+RUR.rec.record_frame = function () {
+    // clone current world and store the clone
+    
+};
+
+RUR.rec.play_frame = function () {
+    // set current world to frame being played.
+};
+
+RUR.rec.play = function () {
+    // play all frames in succession
+};
 /* Author: André Roberge
    License: MIT
  */
@@ -804,7 +838,9 @@ function set_goal_shape(x, y, shape){
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
-RUR.__create_robot = function (x, y, orientation, tokens) {
+RUR.robot = {};
+
+RUR.robot.create_robot = function (x, y, orientation, tokens) {
     "use strict";
     var robot = {};
     robot.x = x || 1;
@@ -864,21 +900,22 @@ RUR.__destroy_robot = function (robot) {
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
+RUR.storage = {};
 
-RUR.__storage_save_world = function (name){
+RUR.storage.save_world = function (name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
         $("#Reeborg-shouts").html("Name already exist; will not save.").dialog("open");
         return;
     }
-    localStorage.setItem("user_world:"+ name, RUR.__export_world(RUR.__current_world));
+    localStorage.setItem("user_world:"+ name, RUR.world.export_world(RUR.current_world));
     $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
                               ).val("user_world:" + name).html(name));
     $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
     $("#select_world").change();
 };
 
-RUR.__storage_delete_world = function (name){
+RUR.storage.delete_world = function (name){
     "use strict";
     var i, key;
     if (localStorage.getItem("user_world:" + name) === null){
@@ -888,9 +925,9 @@ RUR.__storage_delete_world = function (name){
     localStorage.removeItem("user_world:" + name);
     $("select option[value='" + "user_world:" + name +"']").remove();
     try {
-        RUR.select_world(localStorage.getItem(RUR.settings.world), true);
+        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.select_world("Alone");
+        RUR.__select_world("Alone");
     }
     $("#select_world").change();
     
@@ -1209,61 +1246,61 @@ RUR.List = function(){
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
-RUR.__visible_robot = {};
-RUR.__visible_robot.images = [{}, {}];
+RUR.vis_robot = {};
+RUR.vis_robot.images = [{}, {}];
 
 // classic
-RUR.__visible_robot.images[0].robot_e_img = new Image();
-RUR.__visible_robot.images[0].robot_e_img.src = 'src/images/robot_e.png';
-RUR.__visible_robot.images[0].robot_n_img = new Image();
-RUR.__visible_robot.images[0].robot_n_img.src = 'src/images/robot_n.png';
-RUR.__visible_robot.images[0].robot_w_img = new Image();
-RUR.__visible_robot.images[0].robot_w_img.src = 'src/images/robot_w.png';
-RUR.__visible_robot.images[0].robot_s_img = new Image();
-RUR.__visible_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
-RUR.__visible_robot.images[0].robot_x_offset = 10;
-RUR.__visible_robot.images[0].robot_y_offset = 8;
+RUR.vis_robot.images[0].robot_e_img = new Image();
+RUR.vis_robot.images[0].robot_e_img.src = 'src/images/robot_e.png';
+RUR.vis_robot.images[0].robot_n_img = new Image();
+RUR.vis_robot.images[0].robot_n_img.src = 'src/images/robot_n.png';
+RUR.vis_robot.images[0].robot_w_img = new Image();
+RUR.vis_robot.images[0].robot_w_img.src = 'src/images/robot_w.png';
+RUR.vis_robot.images[0].robot_s_img = new Image();
+RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
+RUR.vis_robot.images[0].robot_x_offset = 10;
+RUR.vis_robot.images[0].robot_y_offset = 8;
 
 // poorly drawn
-RUR.__visible_robot.images[1].robot_e_img = new Image();
-RUR.__visible_robot.images[1].robot_e_img.src = 'src/images/top_e.png';
-RUR.__visible_robot.images[1].robot_n_img = new Image();
-RUR.__visible_robot.images[1].robot_n_img.src = 'src/images/top_n.png';
-RUR.__visible_robot.images[1].robot_w_img = new Image();
-RUR.__visible_robot.images[1].robot_w_img.src = 'src/images/top_w.png';
-RUR.__visible_robot.images[1].robot_s_img = new Image();
-RUR.__visible_robot.images[1].robot_s_img.src = 'src/images/top_s.png';
-RUR.__visible_robot.images[1].robot_x_offset = 10;
-RUR.__visible_robot.images[1].robot_y_offset = 8;
+RUR.vis_robot.images[1].robot_e_img = new Image();
+RUR.vis_robot.images[1].robot_e_img.src = 'src/images/top_e.png';
+RUR.vis_robot.images[1].robot_n_img = new Image();
+RUR.vis_robot.images[1].robot_n_img.src = 'src/images/top_n.png';
+RUR.vis_robot.images[1].robot_w_img = new Image();
+RUR.vis_robot.images[1].robot_w_img.src = 'src/images/top_w.png';
+RUR.vis_robot.images[1].robot_s_img = new Image();
+RUR.vis_robot.images[1].robot_s_img.src = 'src/images/top_s.png';
+RUR.vis_robot.images[1].robot_x_offset = 10;
+RUR.vis_robot.images[1].robot_y_offset = 8;
 
 
-RUR.__visible_robot.select_style = function (arg) {
+RUR.vis_robot.select_style = function (arg) {
     var style;
     if(arg === undefined) {
         style = 0;
     } else {
         style = arg;
     }
-    RUR.__robot_e_img = RUR.__visible_robot.images[style].robot_e_img;
-    RUR.__robot_n_img = RUR.__visible_robot.images[style].robot_n_img;
-    RUR.__robot_w_img = RUR.__visible_robot.images[style].robot_w_img;
-    RUR.__robot_s_img = RUR.__visible_robot.images[style].robot_s_img;
-    RUR.__robot_x_offset = RUR.__visible_robot.images[style].robot_x_offset;
-    RUR.__robot_y_offset = RUR.__visible_robot.images[style].robot_y_offset;
+    RUR.__robot_e_img = RUR.vis_robot.images[style].robot_e_img;
+    RUR.__robot_n_img = RUR.vis_robot.images[style].robot_n_img;
+    RUR.__robot_w_img = RUR.vis_robot.images[style].robot_w_img;
+    RUR.__robot_s_img = RUR.vis_robot.images[style].robot_s_img;
+    RUR.__robot_x_offset = RUR.vis_robot.images[style].robot_x_offset;
+    RUR.__robot_y_offset = RUR.vis_robot.images[style].robot_y_offset;
 };
 
 if (localStorage.getItem("top_view") === "true") {  // TODO fix this
-    RUR.__visible_robot.select_style(1);
+    RUR.vis_robot.select_style(1);
 } else {
-    RUR.__visible_robot.select_style(0);
+    RUR.vis_robot.select_style(0);
 }
 
 // the following si to ensure that we won't attempt drawing until the default image is available
 RUR.__robot_e_img.onload = function () {
-    RUR.__visible_world.draw_all();
+    RUR.vis_world.draw_all();
 };
 
-RUR.__visible_robot.draw = function (robot) {
+RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y;
     if (!robot) {
@@ -1302,12 +1339,12 @@ RUR.__visible_robot.draw = function (robot) {
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, DEBUG */
 
-RUR.__visible_world = {};
+RUR.vis_world = {};
 
-RUR.__visible_world.draw_coordinates = function(ctx) {
+RUR.vis_world.draw_coordinates = function(ctx) {
     "use strict";
     var x, y;
-    if (RUR.__current_world.blank_canvas) {
+    if (RUR.current_world.blank_canvas) {
         return;
     }
     
@@ -1327,12 +1364,12 @@ RUR.__visible_world.draw_coordinates = function(ctx) {
 };
 
 
-RUR.__visible_world.draw_background = function () {
+RUR.vis_world.draw_background = function () {
     "use strict";
     var i, j, ctx = RUR.__background_ctx;
 
     ctx.clearRect(0, 0, RUR.__width, RUR.__height);
-    if (RUR.__current_world.blank_canvas) {
+    if (RUR.current_world.blank_canvas) {
         return;
     }
 
@@ -1340,30 +1377,30 @@ RUR.__visible_world.draw_background = function () {
     ctx.fillStyle = RUR.__shadow_wall_color;
     for (i = 1; i <= RUR.__cols; i++) {
         for (j = 1; j <= RUR.__rows; j++) {
-            RUR.__visible_world.draw_north_wall(ctx, i, j);
-            RUR.__visible_world.draw_east_wall(ctx, i, j);
+            RUR.vis_world.draw_north_wall(ctx, i, j);
+            RUR.vis_world.draw_east_wall(ctx, i, j);
         }
     }
 
     // border walls (x and y axis)
     ctx.fillStyle = RUR.__wall_color;
     for (j = 1; j <= RUR.__rows; j++) {
-        RUR.__visible_world.draw_east_wall(ctx, 0, j);
+        RUR.vis_world.draw_east_wall(ctx, 0, j);
     }
     for (i = 1; i <= RUR.__cols; i++) {
-        RUR.__visible_world.draw_north_wall(ctx, i, 0);
+        RUR.vis_world.draw_north_wall(ctx, i, 0);
     }
-    RUR.__visible_world.draw_coordinates(ctx);
+    RUR.vis_world.draw_coordinates(ctx);
     
 };
 
-RUR.__visible_world.draw_foreground_walls = function (walls) {
+RUR.vis_world.draw_foreground_walls = function (walls) {
     "use strict";
     var keys, key, i, j, k, ctx = RUR.__wall_ctx;
     
     ctx.clearRect(0, 0, RUR.__width, RUR.__height);
     
-    if (RUR.__current_world.blank_canvas || 
+    if (RUR.current_world.blank_canvas || 
         walls === undefined || walls == {}) {
         return;
     }
@@ -1375,15 +1412,15 @@ RUR.__visible_world.draw_foreground_walls = function (walls) {
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
         if ( walls[keys[key]].indexOf("north") !== -1) {
-            RUR.__visible_world.draw_north_wall(ctx, i, j);
+            RUR.vis_world.draw_north_wall(ctx, i, j);
         }
         if (walls[keys[key]].indexOf("east") !== -1) {
-            RUR.__visible_world.draw_east_wall(ctx, i, j);
+            RUR.vis_world.draw_east_wall(ctx, i, j);
         }
     }
 };
 
-RUR.__visible_world.draw_north_wall = function(ctx, i, j, goal) {
+RUR.vis_world.draw_north_wall = function(ctx, i, j, goal) {
     "use strict";
     if (goal){
         ctx.strokeStyle = RUR.__goal_wall_color;
@@ -1397,7 +1434,7 @@ RUR.__visible_world.draw_north_wall = function(ctx, i, j, goal) {
                       RUR.__wall_length + RUR.__wall_thickness, RUR.__wall_thickness);
 };
 
-RUR.__visible_world.draw_east_wall = function(ctx, i, j, goal) {
+RUR.vis_world.draw_east_wall = function(ctx, i, j, goal) {
     "use strict";
     if (goal){
         ctx.strokeStyle = RUR.__goal_wall_color;
@@ -1411,17 +1448,17 @@ RUR.__visible_world.draw_east_wall = function(ctx, i, j, goal) {
                       RUR.__wall_thickness, RUR.__wall_length + RUR.__wall_thickness);
 };
 
-RUR.__visible_world.draw_robots = function (robots) {
+RUR.vis_world.draw_robots = function (robots) {
     var robot, info = '';
     RUR.__robot_ctx.clearRect(0, 0, RUR.__width, RUR.__height);
-    if (RUR.__current_world.blank_canvas) {
+    if (RUR.current_world.blank_canvas) {
         return;
     }
     if (!robots) {
         return;
     }
     for (robot=0; robot < robots.length; robot++){
-        RUR.__visible_robot.draw(robots[robot]); // draws trace automatically
+        RUR.vis_robot.draw(robots[robot]); // draws trace automatically
         if (DEBUG.ON) {
             info += RUR.translation.robot + robot + ": x=" + robots[robot].x +
                     ", y=" + robots[robot].y + RUR.translation[", tokens="] + robots[robot].tokens + ".  ";
@@ -1433,7 +1470,7 @@ RUR.__visible_world.draw_robots = function (robots) {
     }
 };
 
-RUR.__visible_world.draw_tokens = function(tokens, goal) {
+RUR.vis_world.draw_tokens = function(tokens, goal) {
     "use strict";
     var i, j, k, t, toks;
     if (!tokens) {
@@ -1444,11 +1481,11 @@ RUR.__visible_world.draw_tokens = function(tokens, goal) {
         k = toks[t].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        RUR.__visible_world.draw_token(i, j, tokens[toks[t]], goal);
+        RUR.vis_world.draw_token(i, j, tokens[toks[t]], goal);
     }
 };
 
-RUR.__visible_world.draw_token = function (i, j, num, goal) {
+RUR.vis_world.draw_token = function (i, j, num, goal) {
     "use strict";
     var size = 12, scale = RUR.__wall_length, Y = RUR.__height;
     var ctx;
@@ -1475,22 +1512,22 @@ RUR.__visible_world.draw_token = function (i, j, num, goal) {
     }
 };
 
-RUR.__visible_world.draw_goal = function () {
+RUR.vis_world.draw_goal = function () {
     "use strict";
     var goal, key, keys, i, j, k, ctx = RUR.__background_ctx;
-    if (RUR.__current_world.goal === undefined) {
+    if (RUR.current_world.goal === undefined) {
         return;
     }
 
-    goal = RUR.__current_world.goal;
+    goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
-        RUR.__visible_world.draw_coloured_tile(goal.position.x, goal.position.y, goal.orientation);
+        RUR.vis_world.draw_coloured_tile(goal.position.x, goal.position.y, goal.orientation);
     }
     if (goal.shapes !== undefined){
-        RUR.__visible_world.draw_shapes(goal.shapes, true);
+        RUR.vis_world.draw_shapes(goal.shapes, true);
     }
     if (goal.tokens !== undefined) {
-        RUR.__visible_world.draw_tokens(goal.tokens, true);
+        RUR.vis_world.draw_tokens(goal.tokens, true);
     }
     if (goal.walls !== undefined){
         ctx.fillStyle = RUR.__wall_color;
@@ -1500,17 +1537,17 @@ RUR.__visible_world.draw_goal = function () {
             i = parseInt(k[0], 10);
             j = parseInt(k[1], 10);
             if ( goal.walls[keys[key]].indexOf("north") !== -1) {
-                RUR.__visible_world.draw_north_wall(ctx, i, j, true);
+                RUR.vis_world.draw_north_wall(ctx, i, j, true);
             }
             if (goal.walls[keys[key]].indexOf("east") !== -1) {
-                RUR.__visible_world.draw_east_wall(ctx, i, j, true);
+                RUR.vis_world.draw_east_wall(ctx, i, j, true);
             }
         }
     }
 };
 
 
-RUR.__visible_world.draw_coloured_tile = function (i, j, orientation) {
+RUR.vis_world.draw_coloured_tile = function (i, j, orientation) {
     var size = RUR.__wall_thickness, ctx = RUR.__background_ctx;
     ctx.fillStyle = RUR.__target_tile_color;
     ctx.fillRect(i*RUR.__wall_length + size, RUR.__height - (j+1)*RUR.__wall_length + size,
@@ -1538,7 +1575,7 @@ RUR.__visible_world.draw_coloured_tile = function (i, j, orientation) {
     }
 };
 
-RUR.__visible_world.draw_shapes = function(shapes, goal) {
+RUR.vis_world.draw_shapes = function(shapes, goal) {
     "use strict";
     var i, j, k, t, sh;
     if (shapes === undefined) {
@@ -1549,11 +1586,11 @@ RUR.__visible_world.draw_shapes = function(shapes, goal) {
         k = sh[t].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        RUR.__visible_world.draw_shape(i, j, shapes[sh[t]], goal);
+        RUR.vis_world.draw_shape(i, j, shapes[sh[t]], goal);
     }
 };
 
-RUR.__visible_world.draw_shape = function (i, j, shape, goal) {
+RUR.vis_world.draw_shape = function (i, j, shape, goal) {
     "use strict";
     var ctx, size = 12, scale = RUR.__wall_length, Y = RUR.__height;
     if(goal !== undefined){
@@ -1587,11 +1624,11 @@ RUR.__visible_world.draw_shape = function (i, j, shape, goal) {
         }
     } else {
         ctx.fillStyle = RUR.__star_color;
-        RUR.__visible_world.draw_star(ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size, goal);
+        RUR.vis_world.draw_star(ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size, goal);
     }
 };
 
-RUR.__visible_world.draw_star = function (ctx, x, y, r, goal){
+RUR.vis_world.draw_star = function (ctx, x, y, r, goal){
     // adapted from https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Compositing
     ctx.save();
     ctx.translate(x, y);
@@ -1617,19 +1654,19 @@ RUR.__visible_world.draw_star = function (ctx, x, y, r, goal){
     ctx.restore();
 };
 
-RUR.__visible_world.draw_all = function () {
+RUR.vis_world.draw_all = function () {
     "use strict";
-    RUR.__visible_world.draw_background();
-    RUR.__visible_world.draw_goal();
-    RUR.__visible_world.refresh();
+    RUR.vis_world.draw_background();
+    RUR.vis_world.draw_goal();
+    RUR.vis_world.refresh();
 };
 
-RUR.__visible_world.refresh = function (world) {
+RUR.vis_world.refresh = function (world) {
     "use strict";
-    RUR.__visible_world.draw_foreground_walls(RUR.__current_world.walls);
-    RUR.__visible_world.draw_robots(RUR.__current_world.robots);
-    RUR.__visible_world.draw_tokens(RUR.__current_world.tokens);
-    RUR.__visible_world.draw_shapes(RUR.__current_world.shapes);
+    RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
+    RUR.vis_world.draw_robots(RUR.current_world.robots);
+    RUR.vis_world.draw_tokens(RUR.current_world.tokens);
+    RUR.vis_world.draw_shapes(RUR.current_world.shapes);
 };/* Author: André Roberge
    License: MIT
  */
@@ -1637,7 +1674,9 @@ RUR.__visible_world.refresh = function (world) {
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
-RUR.__create_empty_world = function (blank_canvas) {
+RUR.world = {};
+
+RUR.world.create_empty_world = function (blank_canvas) {
     "use strict";
     var world = {};
     if (blank_canvas) {
@@ -1650,28 +1689,28 @@ RUR.__create_empty_world = function (blank_canvas) {
     world.shapes = {};
     return world;
 };
-RUR.__current_world = RUR.__create_empty_world();
+RUR.current_world = RUR.world.create_empty_world();
 
-RUR.__export_world = function () {
-    return JSON.stringify(RUR.__current_world, null, '   ');
+RUR.world.export_world = function () {
+    return JSON.stringify(RUR.current_world, null, '   ');
 };
 
-RUR.__import_world = function (json_string) {
+RUR.world.import_world = function (json_string) {
     if (json_string === undefined){
         return {};
     }
-    RUR.__current_world = JSON.parse(json_string) || RUR.__create_empty_world();
-    RUR.__visible_world.draw_all();
+    RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
+    RUR.vis_world.draw_all();
     if (RUR.__editing_world) {
         RUR.__change_edit_robot_menu();
     }
 };
 
-RUR.__clone_world = function (world) {
+RUR.world.clone_world = function (world) {
     return JSON.parse(JSON.stringify(world));
 };
 
-RUR.__add_robot = function (robot) {
-    robot.__id = RUR.__current_world.robots.length;
-    RUR.__current_world.robots.push(robot);
+RUR.world.add_robot = function (robot) {
+    robot.__id = RUR.current_world.robots.length;
+    RUR.current_world.robots.push(robot);
 };
