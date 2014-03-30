@@ -40,7 +40,7 @@ RUR.AXIS_LABEL_COLOR = "brown";
 RUR.STAR_COLOR = "red";
 RUR.TRIANGLE_COLOR = "green";
 RUR.SQUARE_COLOR = "blue";
-RUR.SHAPE_OUTLINE_COLOR = "black";
+RUR.SHAPE_OUTLINE_COLOR = "grey";
 RUR.TARGET_TILE_COLOR = "#99ffcc";
 RUR.ORIENTATION_TILE_COLOR = "black";
 
@@ -59,7 +59,7 @@ RUR.DEBUG_INFO_COLOR = "blue";
 
 $(document).ready(function() {
     
-    RUR.ui.add_user_worlds_to_menu();
+    RUR.ui.load_user_worlds();
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
@@ -89,6 +89,16 @@ $(document).ready(function() {
             $("#output-panel").toggleClass("active");
         }  else if (label === "editor-panel"){
             $("#editor-panel").toggleClass("active");
+        }
+    
+        if ($("#output-panel").hasClass("active")) {
+            if ( $("#world-panel").hasClass("active")) {
+                $("#run2").hide();
+                $("#reload2").hide();
+            } else {
+                $("#run2").show();
+                $("#reload2").show();
+            }
         }
 
     });
@@ -243,6 +253,77 @@ $(document).ready(function() {
 });
 /* Author: André Roberge
    License: MIT
+ */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, editor, library, RUR, JSHINT, globals_ */
+
+function editorUpdateHints() {
+    updateHints(editor);
+}
+
+function libraryUpdateHints() {
+    updateHints(library);
+}
+var jshint_options = {
+    eqeqeq: true,
+    boss: true,
+    undef: true,
+    curly: true,
+    nonew: true,
+    browser: true,
+    devel: true,
+    white: false,
+    plusplus: false,
+    jquery: true
+};
+
+
+function updateHints(obj) {
+    if (RUR.programming_language != "javascript") {
+        return;
+    }
+    var values, nb_lines;
+    var import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
+    obj.operation(function () {
+        for(var i = 0; i < obj.widgets.length; ++i){
+            obj.removeLineWidget(obj.widgets[i]);
+        }
+        obj.widgets.length = 0;
+
+        if (obj === editor) {
+            // TODO: only lint library if code is used
+            values = globals_ + editor.getValue().replace(import_lib_regex, library.getValue());
+            nb_lines = library.lineCount() + 1;
+            JSHINT(values, jshint_options);
+        } else {
+            JSHINT(globals_ + obj.getValue(), jshint_options);
+            nb_lines = 2;
+        }
+        for(i = 0; i < JSHINT.errors.length; ++i) {
+            var err = JSHINT.errors[i];
+            if(!err) continue;
+            var msg = document.createElement("div");
+            var icon = msg.appendChild(document.createElement("span"));
+            icon.innerHTML = "!?!";
+            icon.className = "lint-error-icon";
+            msg.appendChild(document.createTextNode(err.reason));
+            msg.className = "lint-error";
+            obj.widgets.push(obj.addLineWidget(err.line - nb_lines, msg, {
+                coverGutter: false,
+                noHScroll: true
+            }));
+        }
+    });
+
+    var info = obj.getScrollInfo();
+    var after = obj.charCoords({line: obj.getCursor().line + 1, ch: 0}, "local").top;
+    if(info.top + info.clientHeight < after) {
+        obj.scrollTo(null, after - info.clientHeight + 3);
+    }
+}
+/* Author: André Roberge
+   License: MIT
    
    Defining base name space and various constants.
  */
@@ -392,6 +473,93 @@ RUR.storage.delete_world = function (name){
 
 RUR.ui = {};
 
+RUR.ui.set_ready_to_run = function () {
+    $("#stop").attr("disabled", "true");
+    $("#pause").attr("disabled", "true");
+    $("#run").removeAttr("disabled");
+    $("#step").removeAttr("disabled");
+    $("#reload").attr("disabled", "true");
+
+    $("#stop2").attr("disabled", "true");
+    $("#pause2").attr("disabled", "true");
+    $("#run2").removeAttr("disabled");
+    $("#step2").removeAttr("disabled");
+    $("#reload2").attr("disabled", "true");
+};
+
+RUR.ui.run = function () {
+    $("#stop").removeAttr("disabled");
+    $("#pause").removeAttr("disabled");
+    $("#run").attr("disabled", "true");
+    $("#step").attr("disabled", "true");
+    $("#reload").attr("disabled", "true");
+
+    $("#stop2").removeAttr("disabled");
+    $("#pause2").removeAttr("disabled");
+    $("#run2").attr("disabled", "true");
+    $("#step").attr("disabled", "true");
+    $("#reload2").attr("disabled", "true");
+    clearTimeout(RUR.timer);
+    if (RUR.world.robot_world_active) {
+        RUR.controls.compile_and_run(RUR.visible_world.play_frames);
+    } else {
+        RUR.controls.end_flag = false;
+        RUR.controls.compile_and_run(function () {});
+        RUR.controls.stop();
+    }
+};
+
+RUR.ui.pause = function (ms) {
+    RUR.visible_world.running = false;
+    clearTimeout(RUR.timer);
+    $("#pause").attr("disabled", "true");
+    $("#pause2").attr("disabled", "true");
+    if (ms !== undefined){
+        RUR.timer = setTimeout(RUR.controls.run, ms);
+    } else {
+        $("#run").removeAttr("disabled");
+        $("#step").removeAttr("disabled");
+        $("#run2").removeAttr("disabled");
+        $("#step2").removeAttr("disabled");
+    }
+};
+
+RUR.ui.step = function () {
+    RUR.controls.compile_and_run(RUR.visible_world.play_single_frame);
+};
+
+RUR.ui.stop = function () {
+    clearTimeout(RUR.timer);
+    $("#stop").attr("disabled", "true");
+    $("#pause").attr("disabled", "true");
+    $("#run").attr("disabled", "true");
+    $("#step").attr("disabled", "true");
+    $("#reload").removeAttr("disabled");
+
+    $("#stop2").attr("disabled", "true");
+    $("#pause2").attr("disabled", "true");
+    $("#run2").attr("disabled", "true");
+    $("#step2").attr("disabled", "true");
+    $("#reload2").removeAttr("disabled");
+};
+
+RUR.ui.reload = function() {
+    RUR.visible_world.reset();
+    if (RUR.editing_world){
+        return;
+    }
+    this.set_ready_to_run();
+    $("#output-pre").html("");
+    $("#output-panel pre").remove(".jscode");
+    RUR.world.reset();
+    clearTimeout(RUR.timer);
+    RUR.visible_world.compiled = false;
+    RUR.visible_world.running = false;
+    editorUpdateHints();
+    libraryUpdateHints();
+};
+
+
 RUR.Controls = function (programming_language) {
     "use strict";
     RUR.programming_language = programming_language;
@@ -436,93 +604,17 @@ RUR.Controls = function (programming_language) {
             func();
         }
     };
-
-    this.set_ready_to_run = function () {
-        $("#stop").attr("disabled", "true");
-        $("#pause").attr("disabled", "true");
-        $("#run").removeAttr("disabled");
-        $("#step").removeAttr("disabled");
-        $("#reload").attr("disabled", "true");
-  
-        $("#stop2").attr("disabled", "true");
-        $("#pause2").attr("disabled", "true");
-        $("#run2").removeAttr("disabled");
-        $("#step2").removeAttr("disabled");
-        $("#reload2").attr("disabled", "true");
-    };
-
-    this.run = function () {
-        $("#stop").removeAttr("disabled");
-        $("#pause").removeAttr("disabled");
-        $("#run").attr("disabled", "true");
-        $("#step").attr("disabled", "true");
-        $("#reload").attr("disabled", "true");
-      
-        $("#stop2").removeAttr("disabled");
-        $("#pause2").removeAttr("disabled");
-        $("#run2").attr("disabled", "true");
-        $("#step").attr("disabled", "true");
-        $("#reload2").attr("disabled", "true");
-        clearTimeout(RUR.timer);
-        if (RUR.world.robot_world_active) {
-            RUR.controls.compile_and_run(RUR.visible_world.play_frames);
-        } else {
-            RUR.controls.end_flag = false;
-            RUR.controls.compile_and_run(function () {});
-            RUR.controls.stop();
-        }
-    };
-
-    this.pause = function (ms) {
-        RUR.visible_world.running = false;
-        clearTimeout(RUR.timer);
-        $("#pause").attr("disabled", "true");
-        $("#pause2").attr("disabled", "true");
-        if (ms !== undefined){
-            RUR.timer = setTimeout(RUR.controls.run, ms);
-        } else {
-            $("#run").removeAttr("disabled");
-            $("#step").removeAttr("disabled");
-            $("#run2").removeAttr("disabled");
-            $("#step2").removeAttr("disabled");
-        }
-    };
-
-    this.step = function () {
-        RUR.controls.compile_and_run(RUR.visible_world.play_single_frame);
-    };
-
-    this.stop = function () {
-        clearTimeout(RUR.timer);
-        $("#stop").attr("disabled", "true");
-        $("#pause").attr("disabled", "true");
-        $("#run").attr("disabled", "true");
-        $("#step").attr("disabled", "true");
-        $("#reload").removeAttr("disabled");
-      
-        $("#stop2").attr("disabled", "true");
-        $("#pause2").attr("disabled", "true");
-        $("#run2").attr("disabled", "true");
-        $("#step2").attr("disabled", "true");
-        $("#reload2").removeAttr("disabled");
-    };
-
-    this.reload = function() {
-        RUR.visible_world.reset();
-        if (RUR.editing_world){
-            return;
-        }
-        this.set_ready_to_run();
-        $("#output-pre").html("");
-        $("#output-panel pre").remove(".jscode");
-        RUR.world.reset();
-        clearTimeout(RUR.timer);
-        RUR.visible_world.compiled = false;
-        RUR.visible_world.running = false;
-        editorUpdateHints();
-        libraryUpdateHints();
-    };
 };
+
+
+
+
+
+
+
+
+
+
 
 
 function update_controls() {
@@ -568,7 +660,7 @@ RUR.ui.select_world = function (s, silent) {
     alert(RUR.translation["Could not find world"].supplant({world: s}));
 };
 
-RUR.ui.add_user_worlds_to_menu = function () {
+RUR.ui.load_user_worlds = function () {
     var key, name, i, user_world_present;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
@@ -583,6 +675,8 @@ RUR.ui.add_user_worlds_to_menu = function () {
         $('#delete-world').show();
     }
 };
+
+
 
 
 RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
@@ -1163,7 +1257,7 @@ RUR.world.add_robot = function (robot) {
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
-RUR.we = {};
+RUR.we = {};   // we == World Editor
 
 RUR.we.edit_world = function  () {
     // usually triggered when canvas is clicked if editing world;
@@ -1312,43 +1406,6 @@ function editing_world_hide_others() {
     $("#step2").attr("disabled", "true");
     $("#reload2").attr("disabled", "true"); 
 }
-
-//RUR.__delete_world = function (name){
-//    "use strict";
-//    var i, key;
-//    if (localStorage.getItem("user_world:" + name) === null){
-//        $("#Reeborg-shouts").html("No such world!").dialog("open");
-//        return;
-//    }
-//    localStorage.removeItem("user_world:" + name);
-//    $("select option[value='" + "user_world:" + name +"']").remove();
-//    try {
-//        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
-//    } catch (e) {
-//        RUR.ui.select_world("Alone");
-//    }
-//    $("#select_world").change();
-//    
-//    for (i = localStorage.length - 1; i >= 0; i--) {
-//        console.log(i);
-//        key = localStorage.key(i);
-//        if (key.slice(0, 11) === "user_world:") {
-//            console.log("returning");
-//            return;
-//        }
-//    }
-//    console.log("done");
-//    $('#delete-world').hide();
-//};
-
-//
-//RUR.__edit_world.update = function (message) {
-//    "use strict";
-//    RUR.world.import_(JSON.stringify(RUR.current_world));
-//    RUR.world.reset();
-//    RUR.__reset();
-//    $("#cmd-result").html(message);
-//};
 
 RUR.we.calculate_grid_position = function () {
     var ctx, x, y;
