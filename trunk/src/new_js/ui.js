@@ -5,6 +5,8 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints, JSHINT, think, _import_library */
 
+RUR.ui = {};
+
 RUR.Controls = function (programming_language) {
     "use strict";
     RUR.programming_language = programming_language;
@@ -151,9 +153,7 @@ function update_controls() {
     }
 }
 
-RUR.ajax_requests = {};
-
-RUR.__select_world = function (s, silent) {
+RUR.ui.select_world = function (s, silent) {
     var elt = document.getElementById("select_world");
 
     for (var i=0; i < elt.options.length; i++){
@@ -183,7 +183,7 @@ RUR.__select_world = function (s, silent) {
     alert(RUR.translation["Could not find world"].supplant({world: s}));
 };
 
-RUR.__add_user_worlds_to_menu = function () {
+RUR.ui.add_user_worlds_to_menu = function () {
     var key, name, i, user_world_present;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);

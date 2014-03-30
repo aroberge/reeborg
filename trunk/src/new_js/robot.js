@@ -12,15 +12,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     var robot = {};
     robot.x = x || 1;
     robot.y = y || 1;
-    robot.prev_x = robot.x;
-    robot.prev_y = robot.y;
     robot.tokens = tokens || 0;
-    robot._is_leaky = true;
-    // the following can only be found in the world
-    robot.triangles = 0;
-    robot.squares = 0;
-    robot.stars = 0;
-    robot.__id = -1;  // id of -1 means inactive robot which could be removed.
 
     if (orientation === undefined){
         robot.orientation = RUR.EAST;
@@ -46,15 +38,24 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
             throw new RUR.Error(RUR.translation["Unknown orientation for robot."]);
         }
     }
-    robot.prev_orientation = robot.orientation;
+    
+    // private variables that should not be set directly in user programs.
+    robot._is_leaky = true;
+    robot._prev_x = robot.x;
+    robot._prev_y = robot.y;
+    robot._prev_orientation = robot.orientation;
+    robot._triangles = 0; // can only be found in the world
+    robot._squares = 0;   // same
+    robot._stars = 0;     // same
+    robot.__id = -1;  // id of -1 means inactive robot which could be removed.
     return robot;
 };
 
-RUR.__clone_robot = function (robot) {
+RUR.robot.clone_robot = function (robot) {
     return JSON.parse(JSON.stringify(robot));
 };
 
-RUR.__destroy_robot = function (robot) {
+RUR.robot.destroy_robot = function (robot) {
     robot.__id = -1;
 };
 
