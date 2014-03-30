@@ -5,21 +5,22 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
+RUR.storage = {};
 
-RUR.__storage_save_world = function (name){
+RUR.storage.save_world = function (name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
         $("#Reeborg-shouts").html("Name already exist; will not save.").dialog("open");
         return;
     }
-    localStorage.setItem("user_world:"+ name, RUR.__export_world(RUR.__current_world));
+    localStorage.setItem("user_world:"+ name, RUR.world.export_world(RUR.current_world));
     $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
                               ).val("user_world:" + name).html(name));
     $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
     $("#select_world").change();
 };
 
-RUR.__storage_delete_world = function (name){
+RUR.storage.delete_world = function (name){
     "use strict";
     var i, key;
     if (localStorage.getItem("user_world:" + name) === null){
@@ -29,9 +30,9 @@ RUR.__storage_delete_world = function (name){
     localStorage.removeItem("user_world:" + name);
     $("select option[value='" + "user_world:" + name +"']").remove();
     try {
-        RUR.select_world(localStorage.getItem(RUR.settings.world), true);
+        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.select_world("Alone");
+        RUR.__select_world("Alone");
     }
     $("#select_world").change();
     

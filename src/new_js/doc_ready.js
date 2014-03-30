@@ -126,7 +126,7 @@ $(document).ready(function() {
     $("#memorize-world").on("click", function(evt) {
         var response = prompt("Enter world name to save");
         if (response !== null) {
-            RUR.__storage_save_world(response.trim());
+            RUR.storage.save_world(response.trim());
             $('#delete-world').show(); 
         }
     });
@@ -134,7 +134,7 @@ $(document).ready(function() {
     $("#delete-world").on("click", function(evt) {
         var response = prompt("Enter world name to delete");
         if (response !== null) {
-            RUR.__delete_world(response.trim());
+            RUR.storage.delete_world(response.trim());
         }
     });
   
@@ -176,10 +176,10 @@ $(document).ready(function() {
 //        RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
-            RUR.__import_world(data);
+            RUR.world.import_world(data);
         } else {
             $.get(val, function(data) {
-                RUR.__import_world(data);
+                RUR.world.import_world(data);
                 // jquery is sometimes too intelligent; it can guess
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
