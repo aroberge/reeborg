@@ -16,7 +16,6 @@ RUR.__create_empty_world = function (blank_canvas) {
     world.walls = {};
     world.tokens = {};
     world.shapes = {};
-    world.goal = {};
     return world;
 };
 RUR.__current_world = RUR.__create_empty_world();
