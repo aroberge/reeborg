@@ -135,7 +135,6 @@ $(document).ready(function() {
         var response = prompt("Enter world name to delete");
         if (response !== null) {
             RUR.__delete_world(response.trim());
-            $('#delete-world').show(); 
         }
     });
   

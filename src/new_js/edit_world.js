@@ -24,6 +24,9 @@ RUR.__edit_world.edit_world = function  () {
         case "goal-robot":
             RUR.__set_goal_position();
             break;
+        case "goal-wall":
+            RUR.__toggle_goal_wall();
+            break;
     }
     RUR.__refresh_world_edited();
 };
@@ -64,6 +67,9 @@ RUR.__edit_world.select = function (choice) {
             break;
         case "goal-robot":
             $("#cmd-result").html("Click on canvas to set home position for robot.");
+            break;
+        case "goal-wall":
+            $("#cmd-result").html("Click on canvas to toggle additional walls to build.");
             break;
     }
 };
@@ -142,12 +148,12 @@ function editing_world_hide_others() {
 RUR.__delete_world = function (name){
     "use strict";
     var i, key;
-    if (localStorage.getItem("__current_world:" + name) === null){
+    if (localStorage.getItem("user_world:" + name) === null){
         $("#Reeborg-shouts").html("No such world!").dialog("open");
         return;
     }
-    localStorage.removeItem("__current_world:" + name);
-    $("select option[value='" + "__current_world:" + name +"']").remove();
+    localStorage.removeItem("user_world:" + name);
+    $("select option[value='" + "user_world:" + name +"']").remove();
     try {
         RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
@@ -156,11 +162,14 @@ RUR.__delete_world = function (name){
     $("#select_world").change();
     
     for (i = localStorage.length - 1; i >= 0; i--) {
+        console.log(i);
         key = localStorage.key(i);
-        if (key.slice(0, 11) === "__current_world:") {
+        if (key.slice(0, 11) === "user_world:") {
+            console.log("returning");
             return;
         }
     }
+    console.log("done");
     $('#delete-world').hide();
 };
 
@@ -315,7 +324,7 @@ RUR.__calculate_wall_position = function () {
 };
 
 RUR.__toggle_wall = function () {
-    var position, response, x, y, orientation, coords, index;
+    var position, x, y, orientation, coords, index;
     position = RUR.__calculate_wall_position();
     x = position[0];
     y = position[1];
@@ -338,6 +347,31 @@ RUR.__toggle_wall = function () {
     }
 };
 
+
+RUR.__toggle_goal_wall = function () {
+    var position, response, x, y, orientation, coords, index;
+    position = RUR.__calculate_wall_position();
+    x = position[0];
+    y = position[1];
+    orientation = position[2];
+    coords = x + "," + y;
+
+    RUR.__ensure_key_exist(RUR.__current_world, "goal");
+    RUR.__ensure_key_exist(RUR.__current_world.goal, "walls");
+    if (RUR.__current_world.goal.walls[coords] === undefined){
+        RUR.__current_world.goal.walls[coords] = [orientation];
+    } else {
+        index = RUR.__current_world.goal.walls[coords].indexOf(orientation);
+        if (index === -1) {
+            RUR.__current_world.goal.walls[coords].push(orientation);
+        } else {
+            RUR.__current_world.goal.walls[coords].remove(index);
+            if (RUR.__current_world.goal.walls[coords].length === 0){
+                delete RUR.__current_world.goal.walls[coords];
+            }
+        }
+    }
+};
 
 RUR.__ensure_key_exist = function(obj, key){
     "use strict";
