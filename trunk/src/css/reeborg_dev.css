@@ -264,7 +264,6 @@ footer a:hover{
 }
 
 #edit-world-nav li a:hover {
-  color: black;
   background-color: #75a110;
   background-image: -webkit-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
   background-image: -moz-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
