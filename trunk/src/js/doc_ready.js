@@ -141,8 +141,7 @@ $(document).ready(function() {
     $("#delete-world").on("click", function(evt) {
         var response = prompt("Enter world name to delete");
         if (response !== null) {
-            RUR.edit_world.delete_world(response.trim());
-            $('#delete-world').show(); 
+            RUR.edit_world.delete_world(response.trim()); 
         }
     });
   
