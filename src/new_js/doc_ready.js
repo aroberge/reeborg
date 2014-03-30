@@ -8,7 +8,7 @@
 
 $(document).ready(function() {
     
-    RUR.ui.add_user_worlds_to_menu();
+    RUR.ui.load_user_worlds();
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
@@ -38,6 +38,16 @@ $(document).ready(function() {
             $("#output-panel").toggleClass("active");
         }  else if (label === "editor-panel"){
             $("#editor-panel").toggleClass("active");
+        }
+    
+        if ($("#output-panel").hasClass("active")) {
+            if ( $("#world-panel").hasClass("active")) {
+                $("#run2").hide();
+                $("#reload2").hide();
+            } else {
+                $("#run2").show();
+                $("#reload2").show();
+            }
         }
 
     });

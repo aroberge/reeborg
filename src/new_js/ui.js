@@ -7,6 +7,93 @@
 
 RUR.ui = {};
 
+RUR.ui.set_ready_to_run = function () {
+    $("#stop").attr("disabled", "true");
+    $("#pause").attr("disabled", "true");
+    $("#run").removeAttr("disabled");
+    $("#step").removeAttr("disabled");
+    $("#reload").attr("disabled", "true");
+
+    $("#stop2").attr("disabled", "true");
+    $("#pause2").attr("disabled", "true");
+    $("#run2").removeAttr("disabled");
+    $("#step2").removeAttr("disabled");
+    $("#reload2").attr("disabled", "true");
+};
+
+RUR.ui.run = function () {
+    $("#stop").removeAttr("disabled");
+    $("#pause").removeAttr("disabled");
+    $("#run").attr("disabled", "true");
+    $("#step").attr("disabled", "true");
+    $("#reload").attr("disabled", "true");
+
+    $("#stop2").removeAttr("disabled");
+    $("#pause2").removeAttr("disabled");
+    $("#run2").attr("disabled", "true");
+    $("#step").attr("disabled", "true");
+    $("#reload2").attr("disabled", "true");
+    clearTimeout(RUR.timer);
+    if (RUR.world.robot_world_active) {
+        RUR.controls.compile_and_run(RUR.visible_world.play_frames);
+    } else {
+        RUR.controls.end_flag = false;
+        RUR.controls.compile_and_run(function () {});
+        RUR.controls.stop();
+    }
+};
+
+RUR.ui.pause = function (ms) {
+    RUR.visible_world.running = false;
+    clearTimeout(RUR.timer);
+    $("#pause").attr("disabled", "true");
+    $("#pause2").attr("disabled", "true");
+    if (ms !== undefined){
+        RUR.timer = setTimeout(RUR.controls.run, ms);
+    } else {
+        $("#run").removeAttr("disabled");
+        $("#step").removeAttr("disabled");
+        $("#run2").removeAttr("disabled");
+        $("#step2").removeAttr("disabled");
+    }
+};
+
+RUR.ui.step = function () {
+    RUR.controls.compile_and_run(RUR.visible_world.play_single_frame);
+};
+
+RUR.ui.stop = function () {
+    clearTimeout(RUR.timer);
+    $("#stop").attr("disabled", "true");
+    $("#pause").attr("disabled", "true");
+    $("#run").attr("disabled", "true");
+    $("#step").attr("disabled", "true");
+    $("#reload").removeAttr("disabled");
+
+    $("#stop2").attr("disabled", "true");
+    $("#pause2").attr("disabled", "true");
+    $("#run2").attr("disabled", "true");
+    $("#step2").attr("disabled", "true");
+    $("#reload2").removeAttr("disabled");
+};
+
+RUR.ui.reload = function() {
+    RUR.visible_world.reset();
+    if (RUR.editing_world){
+        return;
+    }
+    this.set_ready_to_run();
+    $("#output-pre").html("");
+    $("#output-panel pre").remove(".jscode");
+    RUR.world.reset();
+    clearTimeout(RUR.timer);
+    RUR.visible_world.compiled = false;
+    RUR.visible_world.running = false;
+    editorUpdateHints();
+    libraryUpdateHints();
+};
+
+
 RUR.Controls = function (programming_language) {
     "use strict";
     RUR.programming_language = programming_language;
@@ -51,93 +138,17 @@ RUR.Controls = function (programming_language) {
             func();
         }
     };
-
-    this.set_ready_to_run = function () {
-        $("#stop").attr("disabled", "true");
-        $("#pause").attr("disabled", "true");
-        $("#run").removeAttr("disabled");
-        $("#step").removeAttr("disabled");
-        $("#reload").attr("disabled", "true");
-  
-        $("#stop2").attr("disabled", "true");
-        $("#pause2").attr("disabled", "true");
-        $("#run2").removeAttr("disabled");
-        $("#step2").removeAttr("disabled");
-        $("#reload2").attr("disabled", "true");
-    };
-
-    this.run = function () {
-        $("#stop").removeAttr("disabled");
-        $("#pause").removeAttr("disabled");
-        $("#run").attr("disabled", "true");
-        $("#step").attr("disabled", "true");
-        $("#reload").attr("disabled", "true");
-      
-        $("#stop2").removeAttr("disabled");
-        $("#pause2").removeAttr("disabled");
-        $("#run2").attr("disabled", "true");
-        $("#step").attr("disabled", "true");
-        $("#reload2").attr("disabled", "true");
-        clearTimeout(RUR.timer);
-        if (RUR.world.robot_world_active) {
-            RUR.controls.compile_and_run(RUR.visible_world.play_frames);
-        } else {
-            RUR.controls.end_flag = false;
-            RUR.controls.compile_and_run(function () {});
-            RUR.controls.stop();
-        }
-    };
-
-    this.pause = function (ms) {
-        RUR.visible_world.running = false;
-        clearTimeout(RUR.timer);
-        $("#pause").attr("disabled", "true");
-        $("#pause2").attr("disabled", "true");
-        if (ms !== undefined){
-            RUR.timer = setTimeout(RUR.controls.run, ms);
-        } else {
-            $("#run").removeAttr("disabled");
-            $("#step").removeAttr("disabled");
-            $("#run2").removeAttr("disabled");
-            $("#step2").removeAttr("disabled");
-        }
-    };
-
-    this.step = function () {
-        RUR.controls.compile_and_run(RUR.visible_world.play_single_frame);
-    };
-
-    this.stop = function () {
-        clearTimeout(RUR.timer);
-        $("#stop").attr("disabled", "true");
-        $("#pause").attr("disabled", "true");
-        $("#run").attr("disabled", "true");
-        $("#step").attr("disabled", "true");
-        $("#reload").removeAttr("disabled");
-      
-        $("#stop2").attr("disabled", "true");
-        $("#pause2").attr("disabled", "true");
-        $("#run2").attr("disabled", "true");
-        $("#step2").attr("disabled", "true");
-        $("#reload2").removeAttr("disabled");
-    };
-
-    this.reload = function() {
-        RUR.visible_world.reset();
-        if (RUR.editing_world){
-            return;
-        }
-        this.set_ready_to_run();
-        $("#output-pre").html("");
-        $("#output-panel pre").remove(".jscode");
-        RUR.world.reset();
-        clearTimeout(RUR.timer);
-        RUR.visible_world.compiled = false;
-        RUR.visible_world.running = false;
-        editorUpdateHints();
-        libraryUpdateHints();
-    };
 };
+
+
+
+
+
+
+
+
+
+
 
 
 function update_controls() {
@@ -183,7 +194,7 @@ RUR.ui.select_world = function (s, silent) {
     alert(RUR.translation["Could not find world"].supplant({world: s}));
 };
 
-RUR.ui.add_user_worlds_to_menu = function () {
+RUR.ui.load_user_worlds = function () {
     var key, name, i, user_world_present;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
@@ -198,6 +209,8 @@ RUR.ui.add_user_worlds_to_menu = function () {
         $('#delete-world').show();
     }
 };
+
+
 
 
 RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',

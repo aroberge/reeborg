@@ -1,7 +1,7 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
-RUR.we = {};
+RUR.we = {};   // we == World Editor
 
 RUR.we.edit_world = function  () {
     // usually triggered when canvas is clicked if editing world;
@@ -150,43 +150,6 @@ function editing_world_hide_others() {
     $("#step2").attr("disabled", "true");
     $("#reload2").attr("disabled", "true"); 
 }
-
-//RUR.__delete_world = function (name){
-//    "use strict";
-//    var i, key;
-//    if (localStorage.getItem("user_world:" + name) === null){
-//        $("#Reeborg-shouts").html("No such world!").dialog("open");
-//        return;
-//    }
-//    localStorage.removeItem("user_world:" + name);
-//    $("select option[value='" + "user_world:" + name +"']").remove();
-//    try {
-//        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
-//    } catch (e) {
-//        RUR.ui.select_world("Alone");
-//    }
-//    $("#select_world").change();
-//    
-//    for (i = localStorage.length - 1; i >= 0; i--) {
-//        console.log(i);
-//        key = localStorage.key(i);
-//        if (key.slice(0, 11) === "user_world:") {
-//            console.log("returning");
-//            return;
-//        }
-//    }
-//    console.log("done");
-//    $('#delete-world').hide();
-//};
-
-//
-//RUR.__edit_world.update = function (message) {
-//    "use strict";
-//    RUR.world.import_(JSON.stringify(RUR.current_world));
-//    RUR.world.reset();
-//    RUR.__reset();
-//    $("#cmd-result").html(message);
-//};
 
 RUR.we.calculate_grid_position = function () {
     var ctx, x, y;
