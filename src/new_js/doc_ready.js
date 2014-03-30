@@ -8,11 +8,11 @@
 
 $(document).ready(function() {
     
-    RUR.__add_user_worlds_to_menu();
+    RUR.ui.add_user_worlds_to_menu();
     try {
-        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
+        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.__select_world("Alone");
+        RUR.ui.select_world("Alone");
     }
     // init
     var child, button_closed = false;
@@ -139,12 +139,12 @@ $(document).ready(function() {
     });
   
     $("#robot_canvas").on("click", function (evt) {
-        if (!RUR.__editing_world) {
+        if (!RUR.we.editing_world) {
             return;
         }
-        RUR.__mouse_x = evt.clientX;
-        RUR.__mouse_y = evt.clientY;
-        RUR.__edit_world.edit_world();
+        RUR.we.mouse_x = evt.clientX;
+        RUR.we.mouse_y = evt.clientY;
+        RUR.we.edit_world();
     });
 
     $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",

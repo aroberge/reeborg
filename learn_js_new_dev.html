@@ -167,36 +167,36 @@
     <div id="edit-world-submenus-wrapper">
         <p id="cmd-result">Select action to perform from menu below.</p>
         <ul class="edit-world-submenus" id="edit-world-turn" style="display:none">
-            <li><a href="javascript:RUR.__turn_robot(0);"><img src="src/images/robot_e.png" alt="robot: east"></a></li>
-            <li><a href="javascript:RUR.__turn_robot(1);"><img src="src/images/robot_n.png" alt="robot: north"></a></li>
-            <li><a href="javascript:RUR.__turn_robot(2);"><img src="src/images/robot_w.png" alt="robot: west"></a></li>
-            <li><a href="javascript:RUR.__turn_robot(3);"><img src="src/images/robot_s.png" alt="robot: south"></a></li>
+            <li><a href="javascript:RUR.we.turn_robot(0);"><img src="src/images/robot_e.png" alt="robot: east"></a></li>
+            <li><a href="javascript:RUR.we.turn_robot(1);"><img src="src/images/robot_n.png" alt="robot: north"></a></li>
+            <li><a href="javascript:RUR.we.turn_robot(2);"><img src="src/images/robot_w.png" alt="robot: west"></a></li>
+            <li><a href="javascript:RUR.we.turn_robot(3);"><img src="src/images/robot_s.png" alt="robot: south"></a></li>
         </ul>
     </div>
     
     <ul id="edit-world-nav">
         <li class="a-like">Robot <ul>
-            <li class="robot-absent"><a href="javascript:RUR.__edit_world.select('robot-add');"> Add robot</a></li>
-            <li class="robot-present"><a href="javascript:RUR.__edit_world.select('robot-teleport');"> Teleport</a></li>
-            <li class="robot-present"><a href="javascript:RUR.__edit_world.select('robot-orientation');"> Turn</a></li>
-            <li class="robot-present"><a href="javascript:RUR.__edit_world.select('robot-tokens');">Tokens</a></li>
-            <li class="robot-present"><a href="javascript:RUR.__edit_world.select('robot-remove');">Remove</a></li>
+            <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Add robot</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-teleport');"> Teleport</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-orientation');"> Turn</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-tokens');">Tokens</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-remove');">Remove</a></li>
         </ul></li>
-        <li><a href="javascript:RUR.__edit_world.select('world-walls');">Walls</a></li>
-        <li><a href="javascript:RUR.__edit_world.select('world-tokens');">Tokens</a></li>
+        <li><a href="javascript:RUR.we.select('world-walls');">Walls</a></li>
+        <li><a href="javascript:RUR.we.select('world-tokens');">Tokens</a></li>
         <li class="a-like">Shapes <ul>
-            <li><a href="javascript:RUR.__edit_world.select('teleport');">Square</a></li>
-            <li><a href="javascript:RUR.__edit_world.select('teleport');">Star</a></li>
-            <li><a href="javascript:RUR.__edit_world.select('teleport');">Triangle</a></li>
+            <li><a href="javascript:RUR.we.select('teleport');">Square</a></li>
+            <li><a href="javascript:RUR.we.select('teleport');">Star</a></li>
+            <li><a href="javascript:RUR.we.select('teleport');">Triangle</a></li>
         </ul></li>
         <li class="a-like">Goal <ul>
-            <li><a href="javascript:RUR.__edit_world.select('goal-robot');">Robot</a></li>
-            <li><a href="javascript:RUR.__edit_world.select('goal-wall');">Walls</a></li>
-            <li><a href="javascript:RUR.__edit_world.select('goal-tokens');">Tokens</a></li>
+            <li><a href="javascript:RUR.we.select('goal-robot');">Robot</a></li>
+            <li><a href="javascript:RUR.we.select('goal-wall');">Walls</a></li>
+            <li><a href="javascript:RUR.we.select('goal-tokens');">Tokens</a></li>
             <li class="a-like">Shapes <ul>
-                <li><a href="javascript:RUR.__edit_world.select('teleport');">Square</a></li>
-                <li><a href="javascript:RUR.__edit_world.select('teleport');">Star</a></li>
-                <li><a href="javascript:RUR.__edit_world.select('teleport');">Triangle</a></li>
+                <li><a href="javascript:RUR.we.select('teleport');">Square</a></li>
+                <li><a href="javascript:RUR.we.select('teleport');">Star</a></li>
+                <li><a href="javascript:RUR.we.select('teleport');">Triangle</a></li>
             </ul></li>
         </ul></li>
     </ul>

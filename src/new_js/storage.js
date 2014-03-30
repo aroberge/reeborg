@@ -30,9 +30,9 @@ RUR.storage.delete_world = function (name){
     localStorage.removeItem("user_world:" + name);
     $("select option[value='" + "user_world:" + name +"']").remove();
     try {
-        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
+        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.__select_world("Alone");
+        RUR.ui.select_world("Alone");
     }
     $("#select_world").change();
     

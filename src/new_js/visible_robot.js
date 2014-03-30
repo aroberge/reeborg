@@ -40,12 +40,12 @@ RUR.vis_robot.select_style = function (arg) {
     } else {
         style = arg;
     }
-    RUR.__robot_e_img = RUR.vis_robot.images[style].robot_e_img;
-    RUR.__robot_n_img = RUR.vis_robot.images[style].robot_n_img;
-    RUR.__robot_w_img = RUR.vis_robot.images[style].robot_w_img;
-    RUR.__robot_s_img = RUR.vis_robot.images[style].robot_s_img;
-    RUR.__robot_x_offset = RUR.vis_robot.images[style].robot_x_offset;
-    RUR.__robot_y_offset = RUR.vis_robot.images[style].robot_y_offset;
+    RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
+    RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
+    RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
+    RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
+    RUR.vis_robot.x_offset = RUR.vis_robot.images[style].robot_x_offset;
+    RUR.vis_robot.y_offset = RUR.vis_robot.images[style].robot_y_offset;
 };
 
 if (localStorage.getItem("top_view") === "true") {  // TODO fix this
@@ -55,7 +55,7 @@ if (localStorage.getItem("top_view") === "true") {  // TODO fix this
 }
 
 // the following si to ensure that we won't attempt drawing until the default image is available
-RUR.__robot_e_img.onload = function () {
+RUR.vis_robot.e_img.onload = function () {
     RUR.vis_world.draw_all();
 };
 
@@ -69,23 +69,23 @@ RUR.vis_robot.draw = function (robot) {
         return;
     }
     
-    x = robot.x * RUR.__wall_length + RUR.__robot_x_offset;
-    y = RUR.__height - (robot.y +1) * RUR.__wall_length + RUR.__robot_y_offset;
+    x = robot.x * RUR.WALL_LENGTH + RUR.vis_robot.x_offset;
+    y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.y_offset;
     switch(robot.orientation){
     case RUR.EAST:
-        RUR.__robot_ctx.drawImage(RUR.__robot_e_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y);
         break;
     case RUR.NORTH:
-        RUR.__robot_ctx.drawImage(RUR.__robot_n_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.n_img, x, y);
         break;
     case RUR.WEST:
-        RUR.__robot_ctx.drawImage(RUR.__robot_w_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.w_img, x, y);
         break;
     case RUR.SOUTH:
-        RUR.__robot_ctx.drawImage(RUR.__robot_s_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y);
         break;
     default:
-        RUR.__robot_ctx.drawImage(RUR.__robot_e_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y);
     }
 //        this.draw_trace(robot);
 };

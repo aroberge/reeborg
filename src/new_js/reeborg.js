@@ -6,48 +6,49 @@
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 
+var DEBUG = false;
 var RUR = {};
-var DEBUG = {};
-DEBUG.ON = false;
 
 RUR.EAST = 0;
 RUR.NORTH = 1;
 RUR.WEST = 2;
 RUR.SOUTH = 3;
 
-RUR.__background_canvas = document.getElementById("background_canvas");
-RUR.__background_ctx = RUR.__background_canvas.getContext("2d");
-RUR.__background_ctx.font = "bold 12px sans-serif";
-RUR.__height = RUR.__background_canvas.height;
-RUR.__width = RUR.__background_canvas.width;
-RUR.__wall_ctx = document.getElementById("wall_canvas").getContext("2d");
-RUR.__trace_ctx = document.getElementById("trace_canvas").getContext("2d");
-RUR.__robot_ctx = document.getElementById("robot_canvas").getContext("2d");
+RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
+RUR.BACKGROUND_CTX = RUR.BACKGROUND_CANVAS.getContext("2d");
+RUR.WALL_CTX = document.getElementById("wall_canvas").getContext("2d");
+RUR.TRACE_CTX = document.getElementById("trace_canvas").getContext("2d");
+RUR.ROBOT_CTX = document.getElementById("robot_canvas").getContext("2d");
 
-RUR.__wall_length = 40;
-RUR.__wall_thickness = 5;
+RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
 
-RUR.__rows = Math.floor(RUR.__height / RUR.__wall_length) - 1;
-RUR.__cols = Math.floor(RUR.__width / RUR.__wall_length) - 2;
+RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
+RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
 
-RUR.__wall_color = "brown";
-RUR.__goal_wall_color = "black";
-RUR.__coordinates_color = "black";
-RUR.__axis_label_color = "brown";
-RUR.__shadow_wall_color= "#f0f0f0";
+RUR.WALL_LENGTH = 40;
+RUR.WALL_THICKNESS = 5;
 
-RUR.__star_color = "red";
-RUR.__triangle_color = "green";
-RUR.__square_color = "blue";
-RUR.__shape_outline_color = "black";
-RUR.__target_tile_color = "#99ffcc";
-RUR.__orientation_tile_color = "black";
+RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
+RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 2;
 
-RUR.__token_color = "gold";
-RUR.__text_color = "black";
-RUR.__token_goal_color = "#666";
+RUR.WALL_COLOR = "brown";   // changed (toggled) in world_editor.js
+RUR.SHADOW_WALL_COLOR= "#f0f0f0";    // changed (toggled) in world_editor.js
+RUR.GOAL_WALL_COLOR = "black";
+RUR.COORDINATES_COLOR = "black";
+RUR.AXIS_LABEL_COLOR = "brown";
 
-RUR.__debug_info_color = "blue";
+RUR.STAR_COLOR = "red";
+RUR.TRIANGLE_COLOR = "green";
+RUR.SQUARE_COLOR = "blue";
+RUR.SHAPE_OUTLINE_COLOR = "black";
+RUR.TARGET_TILE_COLOR = "#99ffcc";
+RUR.ORIENTATION_TILE_COLOR = "black";
+
+RUR.TOKEN_COLOR = "gold";
+RUR.TEXT_COLOR = "black";
+RUR.TOKEN_GOAL_COLOR = "#666";
+
+RUR.DEBUG_INFO_COLOR = "blue";
 /* Author: André Roberge
    License: MIT
  */
@@ -58,11 +59,11 @@ RUR.__debug_info_color = "blue";
 
 $(document).ready(function() {
     
-    RUR.__add_user_worlds_to_menu();
+    RUR.ui.add_user_worlds_to_menu();
     try {
-        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
+        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.__select_world("Alone");
+        RUR.ui.select_world("Alone");
     }
     // init
     var child, button_closed = false;
@@ -189,12 +190,12 @@ $(document).ready(function() {
     });
   
     $("#robot_canvas").on("click", function (evt) {
-        if (!RUR.__editing_world) {
+        if (!RUR.we.editing_world) {
             return;
         }
-        RUR.__mouse_x = evt.clientX;
-        RUR.__mouse_y = evt.clientY;
-        RUR.__edit_world.edit_world();
+        RUR.we.mouse_x = evt.clientX;
+        RUR.we.mouse_y = evt.clientY;
+        RUR.we.edit_world();
     });
 
     $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
@@ -240,563 +241,6 @@ $(document).ready(function() {
     $("#select_world").change();
     
 });
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
-
-RUR.__edit_world = {};
-
-RUR.__edit_world.edit_world = function  () {
-    // usually triggered when canvas is clicked if editing world;
-    // call explicitly if needed.
-    switch (RUR.__edit_world_flag) {
-        case "robot-teleport":
-            RUR.__teleport_robot();
-            break;
-        case "robot-remove":
-        case "robot-add":
-        case "robot-turn":
-        case "robot-tokens":
-            break;
-        case "world-tokens":
-            RUR.__set_token_number();
-            break;
-        case "world-walls":
-            RUR.__toggle_wall();
-            break;
-        case "goal-robot":
-            RUR.__set_goal_position();
-            break;
-        case "goal-wall":
-            RUR.__toggle_goal_wall();
-            break;
-        case "goal-tokens":
-            RUR.__set_goal_token_number();
-            break;
-    }
-    RUR.__refresh_world_edited();
-};
-
-RUR.__edit_world.select = function (choice) {
-    $(".edit-world-submenus").hide();
-    RUR.__edit_world_flag = choice;
-    switch (choice) {
-        case "robot-teleport":
-            $("#cmd-result").html("Click on canvas to move robot.").effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "robot-remove":
-            $("#cmd-result").html("Removed robot.").effect("highlight", {color: "gold"}, 1500);
-            RUR.__remove_robot();
-            RUR.__edit_world.edit_world();
-            RUR.__change_edit_robot_menu();
-            break;
-        case "robot-add":
-            $("#cmd-result").html("Added robot").effect("highlight", {color: "gold"}, 1500);
-            RUR.__add_robot(RUR.robot.create_robot());
-            RUR.__edit_world.edit_world();
-            RUR.__change_edit_robot_menu();
-            break;
-        case "robot-orientation":
-            $("#cmd-result").html("Click on image to turn robot").effect("highlight", {color: "gold"}, 1500);
-            $("#edit-world-turn").show();
-            break;
-        case "robot-tokens":
-            RUR.__give_tokens_to_robot();
-            RUR.__edit_world.edit_world();
-            $("#cmd-result").html("Robot now has " + RUR.current_world.robots[0].tokens + " tokens.").effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "world-tokens":
-            $("#cmd-result").html("Click on canvas to set number of tokens.").effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "world-walls":
-            $("#cmd-result").html("Click on canvas to toggle walls.").effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "goal-robot":
-            $("#cmd-result").html("Click on canvas to set home position for robot.").effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "goal-wall":
-            $("#cmd-result").html("Click on canvas to toggle additional walls to build.").effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "goal-tokens":
-            $("#cmd-result").html("Click on canvas to set number of tokens as goal.").effect("highlight", {color: "gold"}, 1500);
-            break;
-    }
-};
-
-RUR.__change_edit_robot_menu = function () {
-    if ("robots" in RUR.current_world && 
-        RUR.current_world.robots.length > 0) {
-        $(".robot-absent").hide();
-        $(".robot-present").show();
-    } else {
-        $(".robot-absent").show();
-        $(".robot-present").hide();
-    }
-};
-
-function toggle_editing_mode () {
-    $("#edit-world-panel").toggleClass("active");
-    if (RUR.__editing_world) {
-        RUR.__editing_world = false;
-        editing_world_show_others();
-        RUR.__wall_color = "brown";
-        RUR.__shadow_wall_color = "#f0f0f0";
-        RUR.__refresh_world_edited();
-    } else {
-        RUR.__change_edit_robot_menu();
-        RUR.__editing_world = true;
-        RUR.__wall_color = "black";
-        RUR.__shadow_wall_color = "#ccd";
-        RUR.__refresh_world_edited();
-        editing_world_hide_others();
-    }
-}
-
-RUR.__refresh_world_edited = function () {
-    RUR.vis_world.draw_all(RUR.current_world);
-};
-
-function editing_world_show_others(){
-    $("#contents-button").removeAttr("disabled");
-    $("#help-button").removeAttr("disabled");
-    $("#world-panel-button").removeAttr("disabled");
-    $("#output-panel-button").removeAttr("disabled");
-    $("#editor-panel-button").removeAttr("disabled");
-    $("#editor-panel-button").click();
-    $("#run").removeAttr("disabled");
-    $("#step").removeAttr("disabled");
-    $("#run2").removeAttr("disabled");
-    $("#step2").removeAttr("disabled");
-}
-
-function editing_world_hide_others() {
-    if ($("#editor-panel-button").hasClass("active")) {
-        $("#editor-panel-button").click();
-    }
-    $("#editor-panel-button").attr("disabled", "true");
-    if ($("#output-panel-button").hasClass("active")) {
-        $("#output-panel-button").click();
-    }
-    $("#output-panel-button").attr("disabled", "true");
-    $("#world-panel-button").attr("disabled", "true");
-    $("#contents-button").attr("disabled", "true");
-    $("#help-button").attr("disabled", "true");
-
-    $("#stop").attr("disabled", "true");
-    $("#pause").attr("disabled", "true");
-    $("#run").attr("disabled", "true");
-    $("#step").attr("disabled", "true");
-    $("#reload").attr("disabled", "true");
-    $("#stop2").attr("disabled", "true");
-    $("#pause2").attr("disabled", "true");
-    $("#run2").attr("disabled", "true");
-    $("#step2").attr("disabled", "true");
-    $("#reload2").attr("disabled", "true"); 
-}
-
-//RUR.__delete_world = function (name){
-//    "use strict";
-//    var i, key;
-//    if (localStorage.getItem("user_world:" + name) === null){
-//        $("#Reeborg-shouts").html("No such world!").dialog("open");
-//        return;
-//    }
-//    localStorage.removeItem("user_world:" + name);
-//    $("select option[value='" + "user_world:" + name +"']").remove();
-//    try {
-//        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
-//    } catch (e) {
-//        RUR.__select_world("Alone");
-//    }
-//    $("#select_world").change();
-//    
-//    for (i = localStorage.length - 1; i >= 0; i--) {
-//        console.log(i);
-//        key = localStorage.key(i);
-//        if (key.slice(0, 11) === "user_world:") {
-//            console.log("returning");
-//            return;
-//        }
-//    }
-//    console.log("done");
-//    $('#delete-world').hide();
-//};
-
-//
-//RUR.__edit_world.update = function (message) {
-//    "use strict";
-//    RUR.world.import_(JSON.stringify(RUR.current_world));
-//    RUR.world.reset();
-//    RUR.__reset();
-//    $("#cmd-result").html(message);
-//};
-
-RUR.__calculate_grid_position = function () {
-    var ctx, x, y;
-    x = RUR.__mouse_x - $("#robot_canvas").offset().left;
-    y = RUR.__mouse_y - $("#robot_canvas").offset().top;
-
-    x /= RUR.__wall_length;
-    x = Math.floor(x);
-    y /= RUR.__wall_length;
-    y = RUR.__rows - Math.floor(y) + 1;
-    if (x < 1 ) {
-        x = 1;
-    } else if (x > RUR.__cols) {
-        x = RUR.__cols;
-    }
-    if (y < 1 ) {
-        y = 1;
-    } else if (y > RUR.__rows) {
-        y = RUR.__rows;
-    }
-    return [x, y];
-};
-
-RUR.__teleport_robot = function () {
-    var position;
-    position = RUR.__calculate_grid_position();
-    RUR.current_world.robots[0].x = position[0]; 
-    RUR.current_world.robots[0].y = position[1];
-};
-
-RUR.__give_tokens_to_robot = function () {
-    var response = prompt("Enter number of tokens for robot to carry (use inf for infinite number)");
-    if (response !== null) {
-        if (response === "inf"){
-            RUR.current_world.robots[0].tokens = "infinite";
-        } else if (parseInt(response, 10) >= 0) {
-            RUR.current_world.robots[0].tokens = parseInt(response, 10);
-        } else {
-            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
-        }
-    }
-};
-
-RUR.__set_token_number = function () {
-    var position, response, x, y, tokens;
-    position = RUR.__calculate_grid_position();
-    x = position[0];
-    y = position[1];
-    
-    if (RUR.current_world.shapes !== undefined && RUR.current_world.shapes[x + "," + y] !== undefined){
-        $("#cmd-result").html("shape here; can't put tokens").effect("highlight", {color: "gold"}, 1500);
-        $("#Reeborg-shouts").html("shape here; can't put tokens").dialog("open");
-        return;
-    }
-    
-    response = prompt("Enter number of tokens for at that location.");
-    if (response !== null) {
-        tokens = parseInt(response, 10);
-        if (tokens >= 0) {
-            RUR.__ensure_key_exist(RUR.current_world, "tokens");
-            if (tokens > 0) {
-                RUR.current_world.tokens[x + "," + y] = tokens;
-            } else {
-                delete RUR.current_world.tokens[x + "," + y];
-            }
-        } else {
-            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
-        }
-    } 
-};
-
-RUR.__set_goal_token_number = function () {
-    var position, response, x, y, tokens;
-    position = RUR.__calculate_grid_position();
-    x = position[0];
-    y = position[1];
-    
-    RUR.__ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
-        $("#cmd-result").html("shape here; can't put tokens").effect("highlight", {color: "gold"}, 1500);
-        $("#Reeborg-shouts").html("shape here; can't put tokens").dialog("open");
-        return;
-    }
-    
-    response = prompt("Enter number of tokens for at that location.");
-    if (response !== null) {
-        tokens = parseInt(response, 10);
-        if (tokens >= 0) {
-            RUR.__ensure_key_exist(RUR.current_world.goal, "tokens");
-            if (tokens > 0) {
-                RUR.current_world.goal.tokens[x + "," + y] = tokens;
-            } else {
-                delete RUR.current_world.goal.tokens[x + "," + y];
-                if (Object.keys(RUR.current_world.goal.tokens).length === 0){
-                    delete RUR.current_world.goal.tokens;
-                    if (Object.keys(RUR.current_world.goal).length === 0){
-                        delete RUR.current_world.goal;
-                    }
-                }
-            }
-        } else {
-            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
-        }
-    } 
-};
-
-
-RUR.__turn_robot = function (orientation) {
-    if (RUR.__edit_world_flag === "goal-robot") {
-        RUR.__set_goal_orientation(orientation);
-        RUR.__refresh_world_edited();
-        return;
-    }
-    
-    RUR.current_world.robots[0].orientation = orientation;
-    RUR.__refresh_world_edited();
-};
-
-RUR.__remove_robot = function () {
-    "use strict";
-    RUR.current_world.robots = [];
-};
-
-RUR.__add_robot = function () {
-    "use strict";
-    RUR.current_world.robots = [RUR.robot.create_robot()];
-};
-
-RUR.__calculate_wall_position = function () {
-    var ctx, x, y, orientation, remain_x, remain_y, del_x, del_y;
-    x = RUR.__mouse_x - $("#robot_canvas").offset().left;
-    y = RUR.__mouse_y - $("#robot_canvas").offset().top;
-    
-    x /= RUR.__wall_length;
-    y /= RUR.__wall_length;
-    remain_x = x - Math.floor(x);
-    remain_y = y - Math.floor(y);
-    
-    // del_  denotes the distance to the closest wall
-    if (Math.abs(1.0 - remain_x) < remain_x) {
-        del_x = Math.abs(1.0 - remain_x);
-    } else {
-        del_x = remain_x;
-    }
-
-    if (Math.abs(1.0 - remain_y) < remain_y) {
-        del_y = Math.abs(1.0 - remain_y);
-    } else {
-        del_y = remain_y;
-    }
-    
-    x = Math.floor(x);
-    y = RUR.__rows - Math.floor(y) + 1;
-    if (x < 1 ) {
-        x = 1;
-    } else if (x > RUR.__cols) {
-        x = RUR.__cols;
-    }
-    if (y < 1 ) {
-        y = 1;
-    } else if (y > RUR.__rows) {
-        y = RUR.__rows;
-    }
-    
-    if ( del_x < del_y ) {
-        orientation = "east";
-        if (remain_x < 0.5) {
-            x -= 1;
-        }
-    } else {
-        orientation = "north";
-        if (remain_y > 0.5) {
-            y -= 1;
-        }
-    }
-    return [x, y, orientation];
-};
-
-RUR.__toggle_wall = function () {
-    var position, x, y, orientation, coords, index;
-    position = RUR.__calculate_wall_position();
-    x = position[0];
-    y = position[1];
-    orientation = position[2];
-    coords = x + "," + y;
-
-    RUR.__ensure_key_exist(RUR.current_world, "walls");
-    if (RUR.current_world.walls[coords] === undefined){
-        RUR.current_world.walls[coords] = [orientation];
-    } else {
-        index = RUR.current_world.walls[coords].indexOf(orientation);
-        if (index === -1) {
-            RUR.current_world.walls[coords].push(orientation);
-        } else {
-            RUR.current_world.walls[coords].remove(index);
-            if (RUR.current_world.walls[coords].length === 0){
-                delete RUR.current_world.walls[coords];
-            }
-        }
-    }
-};
-
-
-RUR.__toggle_goal_wall = function () {
-    var position, response, x, y, orientation, coords, index;
-    position = RUR.__calculate_wall_position();
-    x = position[0];
-    y = position[1];
-    orientation = position[2];
-    coords = x + "," + y;
-
-    RUR.__ensure_key_exist(RUR.current_world, "goal");
-    RUR.__ensure_key_exist(RUR.current_world.goal, "walls");
-    if (RUR.current_world.goal.walls[coords] === undefined){
-        RUR.current_world.goal.walls[coords] = [orientation];
-    } else {
-        index = RUR.current_world.goal.walls[coords].indexOf(orientation);
-        if (index === -1) {
-            RUR.current_world.goal.walls[coords].push(orientation);
-        } else {
-            RUR.current_world.goal.walls[coords].remove(index);
-            if (Object.keys(RUR.current_world.goal.walls[coords]).length === 0){
-                delete RUR.current_world.goal.walls[coords];
-                if (Object.keys(RUR.current_world.goal.walls).length === 0) {
-                    delete RUR.current_world.goal.walls;
-                    if (Object.keys(RUR.current_world.goal).length === 0) {
-                        delete RUR.current_world.goal;
-                    }
-                }
-            }
-        }
-    }
-};
-
-RUR.__ensure_key_exist = function(obj, key){
-    "use strict";
-    if (obj[key] === undefined){
-        obj[key] = {};
-    }
-};
-
-function toggle_shape(x, y, shape){
-    "use strict";
-    if (!(shape === "star" || shape === "square" || shape === "triangle")){
-        $("#cmd-result").html("unknown shape: " + shape).effect("highlight", {color: "gold"}, 1500);
-        return;
-    }
-    if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html("tokens here; can't put a shape").effect("highlight", {color: "gold"}, 1500);
-        return;
-    }
-    RUR.__ensure_key_exist(RUR.current_world, "shapes");
-    if (RUR.current_world.shapes[x + "," + y] === shape) {
-        delete RUR.current_world.shapes[x + "," + y];
-        if (Object.keys(RUR.current_world.shapes).length === 0){
-            delete RUR.current_world.shapes;
-        }
-    } else {
-        RUR.current_world.shapes[x + "," + y] = shape;
-    }
-    RUR.__edit_world.update("updated shapes");
-}
-
-RUR.__set_goal_position = function (){
-    // will remove the position if clicked again.
-    "use strict";
-    var position;
-    RUR.__ensure_key_exist(RUR.current_world, "goal");
-    position = RUR.__calculate_grid_position();
-    
-    if (RUR.current_world.goal.position !== undefined){
-        if (position[0] === RUR.current_world.goal.position.x &&
-            position[1] === RUR.current_world.goal.position.y) { 
-            delete RUR.current_world.goal.position;
-            if (RUR.current_world.goal.orientation !== undefined) {
-                delete RUR.current_world.goal.orientation;
-            }
-            if (Object.keys(RUR.current_world.goal).length === 0) {
-                delete RUR.current_world.goal;
-            }
-            $("#edit-world-turn").hide();
-        } else {
-            RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-            $("#cmd-result").html("Click on same position to remove, or robot to set orientation").effect("highlight", {color: "gold"}, 1500);
-            $("#edit-world-turn").show();
-        }
-    } else {
-        RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-        $("#cmd-result").html("Click on same position to remove, or robot to set orientation").effect("highlight", {color: "gold"}, 1500);
-        $("#edit-world-turn").show();
-    }
-};
-
-RUR.__set_goal_orientation = function(orientation){
-    "use strict";
-    RUR.__ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.position === undefined) {
-        return;
-    }
-    if (RUR.current_world.goal.orientation !== undefined &&
-        RUR.current_world.goal.orientation === orientation) {
-        delete RUR.current_world.goal.orientation;  // toggle
-    } else {
-        RUR.current_world.goal.orientation = orientation;
-    }
-};
-
-function set_goal_tokens(x, y, nb_tokens){
-    "use strict";
-    RUR.__ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
-        $("#cmd-result").html("shape goal here; can't set token goal").effect("highlight", {color: "gold"}, 1500);
-        return;
-    }
-    RUR.__ensure_key_exist(RUR.current_world.goal, "tokens");
-    if (nb_tokens > 0) {
-        RUR.current_world.goal.tokens[x + "," + y] = nb_tokens;
-    } else {
-        delete RUR.current_world.goal.tokens[x + "," + y];
-        if (Object.keys(RUR.current_world.goal.tokens).length === 0){
-            delete RUR.current_world.goal.tokens;
-            if (Object.keys(RUR.current_world.goal).length === 0){
-                delete RUR.current_world.goal;
-            }
-        }
-    }
-    RUR.__edit_world.update("updated tokens goal");
-}
-
-function set_goal_no_tokens(){
-    "use strict";
-    RUR.__ensure_key_exist(RUR.current_world, "goal");
-    RUR.current_world.goal.tokens = {};
-}
-
-function set_goal_no_shapes(){
-    "use strict";
-    RUR.__ensure_key_exist(RUR.current_world, "goal");
-    RUR.current_world.goal.shapes = {};
-}
-
-
-function set_goal_shape(x, y, shape){
-    "use strict";
-    if (!(shape === "star" || shape === "square" || shape === "triangle")){
-        $("#cmd-result").html("unknown shape: " + shape);
-        return;
-    }
-    RUR.__ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.tokens !== undefined &&
-        RUR.current_world.goal.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html("tokens as a goal here; can't set a shape goal");
-        return;
-    }
-    RUR.__ensure_key_exist(RUR.current_world.goal, "shapes");
-    if (RUR.current_world.goal.shapes[x + "," + y] === shape) {
-        delete RUR.current_world.goal.shapes[x + "," + y];
-        if (Object.keys(RUR.current_world.goal.shapes).length === 0){
-            delete RUR.current_world.goal.shapes;
-            if (Object.keys(RUR.current_world.goal).length === 0){
-                delete RUR.current_world.goal;
-            }
-        }
-    } else {
-        RUR.current_world.goal.shapes[x + "," + y] = shape;
-    }
-    RUR.__edit_world.update("updated shapes");
-}
 /* Author: André Roberge
    License: MIT
    
@@ -845,15 +289,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     var robot = {};
     robot.x = x || 1;
     robot.y = y || 1;
-    robot.prev_x = robot.x;
-    robot.prev_y = robot.y;
     robot.tokens = tokens || 0;
-    robot._is_leaky = true;
-    // the following can only be found in the world
-    robot.triangles = 0;
-    robot.squares = 0;
-    robot.stars = 0;
-    robot.__id = -1;  // id of -1 means inactive robot which could be removed.
 
     if (orientation === undefined){
         robot.orientation = RUR.EAST;
@@ -879,15 +315,24 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
             throw new RUR.Error(RUR.translation["Unknown orientation for robot."]);
         }
     }
-    robot.prev_orientation = robot.orientation;
+    
+    // private variables that should not be set directly in user programs.
+    robot._is_leaky = true;
+    robot._prev_x = robot.x;
+    robot._prev_y = robot.y;
+    robot._prev_orientation = robot.orientation;
+    robot._triangles = 0; // can only be found in the world
+    robot._squares = 0;   // same
+    robot._stars = 0;     // same
+    robot.__id = -1;  // id of -1 means inactive robot which could be removed.
     return robot;
 };
 
-RUR.__clone_robot = function (robot) {
+RUR.robot.clone_robot = function (robot) {
     return JSON.parse(JSON.stringify(robot));
 };
 
-RUR.__destroy_robot = function (robot) {
+RUR.robot.destroy_robot = function (robot) {
     robot.__id = -1;
 };
 
@@ -925,9 +370,9 @@ RUR.storage.delete_world = function (name){
     localStorage.removeItem("user_world:" + name);
     $("select option[value='" + "user_world:" + name +"']").remove();
     try {
-        RUR.__select_world(localStorage.getItem(RUR.settings.world), true);
+        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.__select_world("Alone");
+        RUR.ui.select_world("Alone");
     }
     $("#select_world").change();
     
@@ -944,6 +389,8 @@ RUR.storage.delete_world = function (name){
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints, JSHINT, think, _import_library */
+
+RUR.ui = {};
 
 RUR.Controls = function (programming_language) {
     "use strict";
@@ -1091,9 +538,7 @@ function update_controls() {
     }
 }
 
-RUR.ajax_requests = {};
-
-RUR.__select_world = function (s, silent) {
+RUR.ui.select_world = function (s, silent) {
     var elt = document.getElementById("select_world");
 
     for (var i=0; i < elt.options.length; i++){
@@ -1123,7 +568,7 @@ RUR.__select_world = function (s, silent) {
     alert(RUR.translation["Could not find world"].supplant({world: s}));
 };
 
-RUR.__add_user_worlds_to_menu = function () {
+RUR.ui.add_user_worlds_to_menu = function () {
     var key, name, i, user_world_present;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
@@ -1281,12 +726,12 @@ RUR.vis_robot.select_style = function (arg) {
     } else {
         style = arg;
     }
-    RUR.__robot_e_img = RUR.vis_robot.images[style].robot_e_img;
-    RUR.__robot_n_img = RUR.vis_robot.images[style].robot_n_img;
-    RUR.__robot_w_img = RUR.vis_robot.images[style].robot_w_img;
-    RUR.__robot_s_img = RUR.vis_robot.images[style].robot_s_img;
-    RUR.__robot_x_offset = RUR.vis_robot.images[style].robot_x_offset;
-    RUR.__robot_y_offset = RUR.vis_robot.images[style].robot_y_offset;
+    RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
+    RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
+    RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
+    RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
+    RUR.vis_robot.x_offset = RUR.vis_robot.images[style].robot_x_offset;
+    RUR.vis_robot.y_offset = RUR.vis_robot.images[style].robot_y_offset;
 };
 
 if (localStorage.getItem("top_view") === "true") {  // TODO fix this
@@ -1296,7 +741,7 @@ if (localStorage.getItem("top_view") === "true") {  // TODO fix this
 }
 
 // the following si to ensure that we won't attempt drawing until the default image is available
-RUR.__robot_e_img.onload = function () {
+RUR.vis_robot.e_img.onload = function () {
     RUR.vis_world.draw_all();
 };
 
@@ -1310,23 +755,23 @@ RUR.vis_robot.draw = function (robot) {
         return;
     }
     
-    x = robot.x * RUR.__wall_length + RUR.__robot_x_offset;
-    y = RUR.__height - (robot.y +1) * RUR.__wall_length + RUR.__robot_y_offset;
+    x = robot.x * RUR.WALL_LENGTH + RUR.vis_robot.x_offset;
+    y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.y_offset;
     switch(robot.orientation){
     case RUR.EAST:
-        RUR.__robot_ctx.drawImage(RUR.__robot_e_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y);
         break;
     case RUR.NORTH:
-        RUR.__robot_ctx.drawImage(RUR.__robot_n_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.n_img, x, y);
         break;
     case RUR.WEST:
-        RUR.__robot_ctx.drawImage(RUR.__robot_w_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.w_img, x, y);
         break;
     case RUR.SOUTH:
-        RUR.__robot_ctx.drawImage(RUR.__robot_s_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y);
         break;
     default:
-        RUR.__robot_ctx.drawImage(RUR.__robot_e_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y);
     }
 //        this.draw_trace(robot);
 };
@@ -1348,46 +793,46 @@ RUR.vis_world.draw_coordinates = function(ctx) {
         return;
     }
     
-    ctx.fillStyle = RUR.__coordinates_color;
-    y = RUR.__height - RUR.__wall_length/2;
-    for(x=1; x <= RUR.__cols; x++){
-        ctx.fillText(x, (x+0.5)*RUR.__wall_length, y);
+    ctx.fillStyle = RUR.COORDINATES_COLOR;
+    y = RUR.HEIGHT - RUR.WALL_LENGTH/2;
+    for(x=1; x <= RUR.COLS; x++){
+        ctx.fillText(x, (x+0.5)*RUR.WALL_LENGTH, y);
     }
-    x = RUR.__wall_length/2;
-    for(y=1; y <= RUR.__rows; y++){
-        ctx.fillText(y, x, RUR.__height - (y+0.3)*RUR.__wall_length);
+    x = RUR.WALL_LENGTH/2;
+    for(y=1; y <= RUR.ROWS; y++){
+        ctx.fillText(y, x, RUR.HEIGHT - (y+0.3)*RUR.WALL_LENGTH);
     }
 
-    ctx.fillStyle = RUR.__axis_label_color;
-    ctx.fillText("x", RUR.__width/2, RUR.__height - 10);
-    ctx.fillText("y", 5, RUR.__height/2 );
+    ctx.fillStyle = RUR.AXIS_LABEL_COLOR;
+    ctx.fillText("x", RUR.WIDTH/2, RUR.HEIGHT - 10);
+    ctx.fillText("y", 5, RUR.HEIGHT/2 );
 };
 
 
 RUR.vis_world.draw_background = function () {
     "use strict";
-    var i, j, ctx = RUR.__background_ctx;
+    var i, j, ctx = RUR.BACKGROUND_CTX;
 
-    ctx.clearRect(0, 0, RUR.__width, RUR.__height);
+    ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     if (RUR.current_world.blank_canvas) {
         return;
     }
 
     // grid walls - need to be drawn first
-    ctx.fillStyle = RUR.__shadow_wall_color;
-    for (i = 1; i <= RUR.__cols; i++) {
-        for (j = 1; j <= RUR.__rows; j++) {
+    ctx.fillStyle = RUR.SHADOW_WALL_COLOR;
+    for (i = 1; i <= RUR.COLS; i++) {
+        for (j = 1; j <= RUR.ROWS; j++) {
             RUR.vis_world.draw_north_wall(ctx, i, j);
             RUR.vis_world.draw_east_wall(ctx, i, j);
         }
     }
 
     // border walls (x and y axis)
-    ctx.fillStyle = RUR.__wall_color;
-    for (j = 1; j <= RUR.__rows; j++) {
+    ctx.fillStyle = RUR.WALL_COLOR;
+    for (j = 1; j <= RUR.ROWS; j++) {
         RUR.vis_world.draw_east_wall(ctx, 0, j);
     }
-    for (i = 1; i <= RUR.__cols; i++) {
+    for (i = 1; i <= RUR.COLS; i++) {
         RUR.vis_world.draw_north_wall(ctx, i, 0);
     }
     RUR.vis_world.draw_coordinates(ctx);
@@ -1396,16 +841,16 @@ RUR.vis_world.draw_background = function () {
 
 RUR.vis_world.draw_foreground_walls = function (walls) {
     "use strict";
-    var keys, key, i, j, k, ctx = RUR.__wall_ctx;
+    var keys, key, i, j, k, ctx = RUR.WALL_CTX;
     
-    ctx.clearRect(0, 0, RUR.__width, RUR.__height);
+    ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     
     if (RUR.current_world.blank_canvas || 
         walls === undefined || walls == {}) {
         return;
     }
 
-    ctx.fillStyle = RUR.__wall_color;
+    ctx.fillStyle = RUR.WALL_COLOR;
     keys = Object.keys(walls);
     for (key=0; key < keys.length; key++){
         k = keys[key].split(",");
@@ -1423,34 +868,34 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
 RUR.vis_world.draw_north_wall = function(ctx, i, j, goal) {
     "use strict";
     if (goal){
-        ctx.strokeStyle = RUR.__goal_wall_color;
+        ctx.strokeStyle = RUR.GOAL_WALL_COLOR;
         ctx.beginPath();
-        ctx.rect(i*RUR.__wall_length, RUR.__height - (j+1)*RUR.__wall_length,
-                      RUR.__wall_length + RUR.__wall_thickness, RUR.__wall_thickness);
+        ctx.rect(i*RUR.WALL_LENGTH, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH,
+                      RUR.WALL_LENGTH + RUR.WALL_THICKNESS, RUR.WALL_THICKNESS);
         ctx.stroke();
         return;
     }
-    ctx.fillRect(i*RUR.__wall_length, RUR.__height - (j+1)*RUR.__wall_length,
-                      RUR.__wall_length + RUR.__wall_thickness, RUR.__wall_thickness);
+    ctx.fillRect(i*RUR.WALL_LENGTH, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH,
+                      RUR.WALL_LENGTH + RUR.WALL_THICKNESS, RUR.WALL_THICKNESS);
 };
 
 RUR.vis_world.draw_east_wall = function(ctx, i, j, goal) {
     "use strict";
     if (goal){
-        ctx.strokeStyle = RUR.__goal_wall_color;
+        ctx.strokeStyle = RUR.GOAL_WALL_COLOR;
         ctx.beginPath();
-        ctx.rect((i+1)*RUR.__wall_length, RUR.__height - (j+1)*RUR.__wall_length,
-                      RUR.__wall_thickness, RUR.__wall_length + RUR.__wall_thickness);
+        ctx.rect((i+1)*RUR.WALL_LENGTH, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH,
+                      RUR.WALL_THICKNESS, RUR.WALL_LENGTH + RUR.WALL_THICKNESS);
         ctx.stroke();
         return;
     }
-    ctx.fillRect((i+1)*RUR.__wall_length, RUR.__height - (j+1)*RUR.__wall_length,
-                      RUR.__wall_thickness, RUR.__wall_length + RUR.__wall_thickness);
+    ctx.fillRect((i+1)*RUR.WALL_LENGTH, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH,
+                      RUR.WALL_THICKNESS, RUR.WALL_LENGTH + RUR.WALL_THICKNESS);
 };
 
 RUR.vis_world.draw_robots = function (robots) {
     var robot, info = '';
-    RUR.__robot_ctx.clearRect(0, 0, RUR.__width, RUR.__height);
+    RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     if (RUR.current_world.blank_canvas) {
         return;
     }
@@ -1459,14 +904,14 @@ RUR.vis_world.draw_robots = function (robots) {
     }
     for (robot=0; robot < robots.length; robot++){
         RUR.vis_robot.draw(robots[robot]); // draws trace automatically
-        if (DEBUG.ON) {
+        if (DEBUG) {
             info += RUR.translation.robot + robot + ": x=" + robots[robot].x +
                     ", y=" + robots[robot].y + RUR.translation[", tokens="] + robots[robot].tokens + ".  ";
         }
     }
-    if (DEBUG.ON) {
-        RUR.__robot_ctx.fillStyle = RUR.__debug_info_color;
-        RUR.__robot_ctx.fillText(info, 5, 15);
+    if (DEBUG) {
+        RUR.ROBOT_CTX.fillStyle = RUR.DEBUG_INFO_COLOR;
+        RUR.ROBOT_CTX.fillText(info, 5, 15);
     }
 };
 
@@ -1487,34 +932,35 @@ RUR.vis_world.draw_tokens = function(tokens, goal) {
 
 RUR.vis_world.draw_token = function (i, j, num, goal) {
     "use strict";
-    var size = 12, scale = RUR.__wall_length, Y = RUR.__height;
+    var size = 12, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
     var ctx;
     if (goal) {
-        ctx = RUR.__background_ctx;
+        ctx = RUR.BACKGROUND_CTX;
     } else {
-        ctx = RUR.__wall_ctx;
+        ctx = RUR.WALL_CTX;
     }
     ctx.beginPath();
     ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
     if (goal) {
-        ctx.strokeStyle = RUR.__token_goal_color;
-        ctx.fillStyle = RUR.__text_color;
+        ctx.strokeStyle = RUR.TOKEN_GOAL_COLOR;
         ctx.lineWidth = 3;
         ctx.stroke();
+        ctx.fillStyle = RUR.TEXT_COLOR;
         ctx.fillText(num, (i+0.2)*scale, Y - (j)*scale);
     } else {
-        ctx.fillStyle = RUR.__token_color;
-        ctx.strokeStyle = RUR.__text_color;
-        ctx.fill();
         ctx.lineWidth = 1;
-        ctx.fillStyle = RUR.__text_color;
+        ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
+        ctx.fillStyle = RUR.TOKEN_COLOR;
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = RUR.TEXT_COLOR;
         ctx.fillText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
     }
 };
 
 RUR.vis_world.draw_goal = function () {
     "use strict";
-    var goal, key, keys, i, j, k, ctx = RUR.__background_ctx;
+    var goal, key, keys, i, j, k, ctx = RUR.BACKGROUND_CTX;
     if (RUR.current_world.goal === undefined) {
         return;
     }
@@ -1530,7 +976,7 @@ RUR.vis_world.draw_goal = function () {
         RUR.vis_world.draw_tokens(goal.tokens, true);
     }
     if (goal.walls !== undefined){
-        ctx.fillStyle = RUR.__wall_color;
+        ctx.fillStyle = RUR.WALL_COLOR;
         keys = Object.keys(goal.walls);
         for (key=0; key < keys.length; key++){
             k = keys[key].split(",");
@@ -1548,28 +994,28 @@ RUR.vis_world.draw_goal = function () {
 
 
 RUR.vis_world.draw_coloured_tile = function (i, j, orientation) {
-    var size = RUR.__wall_thickness, ctx = RUR.__background_ctx;
-    ctx.fillStyle = RUR.__target_tile_color;
-    ctx.fillRect(i*RUR.__wall_length + size, RUR.__height - (j+1)*RUR.__wall_length + size,
-                      RUR.__wall_length - size, RUR.__wall_length - size);
+    var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
+    ctx.fillStyle = RUR.TARGET_TILE_COLOR;
+    ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
+                      RUR.WALL_LENGTH - size, RUR.WALL_LENGTH - size);
     if (orientation === undefined) return;
 
-    ctx.fillStyle = RUR.__orientation_tile_color;
+    ctx.fillStyle = RUR.ORIENTATION_TILE_COLOR;
     switch(orientation){
     case 0:
-        ctx.fillRect((i+1)*RUR.__wall_length - size, RUR.__height - (j+0.5)*RUR.__wall_length,
+        ctx.fillRect((i+1)*RUR.WALL_LENGTH - size, RUR.HEIGHT - (j+0.5)*RUR.WALL_LENGTH,
                       size, size);
         break;
     case 1:
-        ctx.fillRect((i+0.5)*RUR.__wall_length, RUR.__height - (j+1)*RUR.__wall_length + size,
+        ctx.fillRect((i+0.5)*RUR.WALL_LENGTH, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
                       size, size);
         break;
     case 2:
-        ctx.fillRect((i)*RUR.__wall_length + size, RUR.__height - (j+0.5)*RUR.__wall_length,
+        ctx.fillRect((i)*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+0.5)*RUR.WALL_LENGTH,
                       size, size);
         break;
     case 3:
-        ctx.fillRect((i+0.5)*RUR.__wall_length , RUR.__height - (j)*RUR.__wall_length - size,
+        ctx.fillRect((i+0.5)*RUR.WALL_LENGTH , RUR.HEIGHT - (j)*RUR.WALL_LENGTH - size,
                       size, size);
         break;
     }
@@ -1592,16 +1038,16 @@ RUR.vis_world.draw_shapes = function(shapes, goal) {
 
 RUR.vis_world.draw_shape = function (i, j, shape, goal) {
     "use strict";
-    var ctx, size = 12, scale = RUR.__wall_length, Y = RUR.__height;
+    var ctx, size = 12, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
     if(goal !== undefined){
-        ctx = RUR.__background_ctx;
+        ctx = RUR.BACKGROUND_CTX;
         ctx.lineWidth = 3;
     } else {
-        ctx = RUR.__wall_ctx;
+        ctx = RUR.WALL_CTX;
     }
-    ctx.strokeStyle = RUR.__shape_outline_color;
+    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
     if (shape === "square") {
-        ctx.fillStyle = RUR.__square_color;
+        ctx.fillStyle = RUR.SQUARE_COLOR;
         if(goal !== undefined){
             ctx.beginPath();
             ctx.rect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
@@ -1610,7 +1056,7 @@ RUR.vis_world.draw_shape = function (i, j, shape, goal) {
             ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
         }
     } else if (shape === "triangle") { // triangle
-        ctx.fillStyle = RUR.__triangle_color;
+        ctx.fillStyle = RUR.TRIANGLE_COLOR;
         ctx.beginPath();
         ctx.moveTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
         ctx.lineTo((i+0.6)*scale, Y - (j+0.4)*scale - size);
@@ -1623,7 +1069,7 @@ RUR.vis_world.draw_shape = function (i, j, shape, goal) {
             ctx.fill();
         }
     } else {
-        ctx.fillStyle = RUR.__star_color;
+        ctx.fillStyle = RUR.STAR_COLOR;
         RUR.vis_world.draw_star(ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size, goal);
     }
 };
@@ -1701,8 +1147,8 @@ RUR.world.import_world = function (json_string) {
     }
     RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
     RUR.vis_world.draw_all();
-    if (RUR.__editing_world) {
-        RUR.__change_edit_robot_menu();
+    if (RUR.we.editing_world) {
+        RUR.we.change_edit_robot_menu();
     }
 };
 
@@ -1714,3 +1160,563 @@ RUR.world.add_robot = function (robot) {
     robot.__id = RUR.current_world.robots.length;
     RUR.current_world.robots.push(robot);
 };
+/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, RUR */
+
+RUR.we = {};
+
+RUR.we.edit_world = function  () {
+    // usually triggered when canvas is clicked if editing world;
+    // call explicitly if needed.
+    switch (RUR.we.edit_world_flag) {
+        case "robot-teleport":
+            RUR.we.teleport_robot();
+            break;
+        case "robot-remove":
+        case "robot-add":
+        case "robot-turn":
+        case "robot-tokens":
+            break;
+        case "world-tokens":
+            RUR.we.set_token_number();
+            break;
+        case "world-walls":
+            RUR.we.toggle_wall();
+            break;
+        case "goal-robot":
+            RUR.we.set_goal_position();
+            break;
+        case "goal-wall":
+            RUR.we.toggle_goal_wall();
+            break;
+        case "goal-tokens":
+            RUR.we.set_goal_token_number();
+            break;
+    }
+    RUR.we.refresh_world_edited();
+};
+
+RUR.we.select = function (choice) {
+    $(".edit-world-submenus").hide();
+    RUR.we.edit_world_flag = choice;
+    switch (choice) {
+        case "robot-teleport":
+            $("#cmd-result").html("Click on canvas to move robot.").effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "robot-remove":
+            $("#cmd-result").html("Removed robot.").effect("highlight", {color: "gold"}, 1500);
+            RUR.we.remove_robot();
+            RUR.we.edit_world();
+            RUR.we.change_edit_robot_menu();
+            break;
+        case "robot-add":
+            $("#cmd-result").html("Added robot").effect("highlight", {color: "gold"}, 1500);
+            RUR.we.add_robot(RUR.robot.create_robot());
+            RUR.we.edit_world();
+            RUR.we.change_edit_robot_menu();
+            break;
+        case "robot-orientation":
+            $("#cmd-result").html("Click on image to turn robot").effect("highlight", {color: "gold"}, 1500);
+            $("#edit-world-turn").show();
+            break;
+        case "robot-tokens":
+            RUR.we.give_tokens_to_robot();
+            RUR.we.edit_world();
+            $("#cmd-result").html("Robot now has " + RUR.current_world.robots[0].tokens + " tokens.").effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "world-tokens":
+            $("#cmd-result").html("Click on canvas to set number of tokens.").effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "world-walls":
+            $("#cmd-result").html("Click on canvas to toggle walls.").effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "goal-robot":
+            $("#cmd-result").html("Click on canvas to set home position for robot.").effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "goal-wall":
+            $("#cmd-result").html("Click on canvas to toggle additional walls to build.").effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "goal-tokens":
+            $("#cmd-result").html("Click on canvas to set number of tokens as goal.").effect("highlight", {color: "gold"}, 1500);
+            break;
+    }
+};
+
+RUR.we.change_edit_robot_menu = function () {
+    if ("robots" in RUR.current_world && 
+        RUR.current_world.robots.length > 0) {
+        $(".robot-absent").hide();
+        $(".robot-present").show();
+    } else {
+        $(".robot-absent").show();
+        $(".robot-present").hide();
+    }
+};
+
+function toggle_editing_mode () {
+    $("#edit-world-panel").toggleClass("active");
+    if (RUR.we.editing_world) {
+        RUR.we.editing_world = false;
+        editing_world_show_others();
+        RUR.WALL_COLOR = "brown";
+        RUR.SHADOW_WALL_COLOR = "#f0f0f0";
+        RUR.we.refresh_world_edited();
+    } else {
+        RUR.we.change_edit_robot_menu();
+        RUR.we.editing_world = true;
+        RUR.WALL_COLOR = "black";
+        RUR.SHADOW_WALL_COLOR = "#ccd";
+        RUR.we.refresh_world_edited();
+        editing_world_hide_others();
+    }
+}
+
+RUR.we.refresh_world_edited = function () {
+    RUR.vis_world.draw_all(RUR.current_world);
+};
+
+function editing_world_show_others(){
+    $("#contents-button").removeAttr("disabled");
+    $("#help-button").removeAttr("disabled");
+    $("#world-panel-button").removeAttr("disabled");
+    $("#output-panel-button").removeAttr("disabled");
+    $("#editor-panel-button").removeAttr("disabled");
+    $("#editor-panel-button").click();
+    $("#run").removeAttr("disabled");
+    $("#step").removeAttr("disabled");
+    $("#run2").removeAttr("disabled");
+    $("#step2").removeAttr("disabled");
+}
+
+function editing_world_hide_others() {
+    if ($("#editor-panel-button").hasClass("active")) {
+        $("#editor-panel-button").click();
+    }
+    $("#editor-panel-button").attr("disabled", "true");
+    if ($("#output-panel-button").hasClass("active")) {
+        $("#output-panel-button").click();
+    }
+    $("#output-panel-button").attr("disabled", "true");
+    $("#world-panel-button").attr("disabled", "true");
+    $("#contents-button").attr("disabled", "true");
+    $("#help-button").attr("disabled", "true");
+
+    $("#stop").attr("disabled", "true");
+    $("#pause").attr("disabled", "true");
+    $("#run").attr("disabled", "true");
+    $("#step").attr("disabled", "true");
+    $("#reload").attr("disabled", "true");
+    $("#stop2").attr("disabled", "true");
+    $("#pause2").attr("disabled", "true");
+    $("#run2").attr("disabled", "true");
+    $("#step2").attr("disabled", "true");
+    $("#reload2").attr("disabled", "true"); 
+}
+
+//RUR.__delete_world = function (name){
+//    "use strict";
+//    var i, key;
+//    if (localStorage.getItem("user_world:" + name) === null){
+//        $("#Reeborg-shouts").html("No such world!").dialog("open");
+//        return;
+//    }
+//    localStorage.removeItem("user_world:" + name);
+//    $("select option[value='" + "user_world:" + name +"']").remove();
+//    try {
+//        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
+//    } catch (e) {
+//        RUR.ui.select_world("Alone");
+//    }
+//    $("#select_world").change();
+//    
+//    for (i = localStorage.length - 1; i >= 0; i--) {
+//        console.log(i);
+//        key = localStorage.key(i);
+//        if (key.slice(0, 11) === "user_world:") {
+//            console.log("returning");
+//            return;
+//        }
+//    }
+//    console.log("done");
+//    $('#delete-world').hide();
+//};
+
+//
+//RUR.__edit_world.update = function (message) {
+//    "use strict";
+//    RUR.world.import_(JSON.stringify(RUR.current_world));
+//    RUR.world.reset();
+//    RUR.__reset();
+//    $("#cmd-result").html(message);
+//};
+
+RUR.we.calculate_grid_position = function () {
+    var ctx, x, y;
+    x = RUR.we.mouse_x - $("#robot_canvas").offset().left;
+    y = RUR.we.mouse_y - $("#robot_canvas").offset().top;
+
+    x /= RUR.WALL_LENGTH;
+    x = Math.floor(x);
+    y /= RUR.WALL_LENGTH;
+    y = RUR.ROWS - Math.floor(y) + 1;
+    if (x < 1 ) {
+        x = 1;
+    } else if (x > RUR.COLS) {
+        x = RUR.COLS;
+    }
+    if (y < 1 ) {
+        y = 1;
+    } else if (y > RUR.ROWS) {
+        y = RUR.ROWS;
+    }
+    return [x, y];
+};
+
+RUR.we.teleport_robot = function () {
+    var position;
+    position = RUR.we.calculate_grid_position();
+    console.log(position);
+    console.log(RUR.current_world.robots[0].x);
+    RUR.current_world.robots[0].x = position[0]; 
+    RUR.current_world.robots[0].y = position[1];
+    console.log(RUR.current_world.robots[0].x);
+};
+
+RUR.we.give_tokens_to_robot = function () {
+    var response = prompt("Enter number of tokens for robot to carry (use inf for infinite number)");
+    if (response !== null) {
+        if (response === "inf"){
+            RUR.current_world.robots[0].tokens = "infinite";
+        } else if (parseInt(response, 10) >= 0) {
+            RUR.current_world.robots[0].tokens = parseInt(response, 10);
+        } else {
+            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+        }
+    }
+};
+
+RUR.we.set_token_number = function () {
+    var position, response, x, y, tokens;
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    
+    if (RUR.current_world.shapes !== undefined && RUR.current_world.shapes[x + "," + y] !== undefined){
+        $("#cmd-result").html("shape here; can't put tokens").effect("highlight", {color: "gold"}, 1500);
+        $("#Reeborg-shouts").html("shape here; can't put tokens").dialog("open");
+        return;
+    }
+    
+    response = prompt("Enter number of tokens for at that location.");
+    if (response !== null) {
+        tokens = parseInt(response, 10);
+        if (tokens >= 0) {
+            RUR.we.ensure_key_exist(RUR.current_world, "tokens");
+            if (tokens > 0) {
+                RUR.current_world.tokens[x + "," + y] = tokens;
+            } else {
+                delete RUR.current_world.tokens[x + "," + y];
+            }
+        } else {
+            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+        }
+    } 
+};
+
+RUR.we.set_goal_token_number = function () {
+    var position, response, x, y, tokens;
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
+        $("#cmd-result").html("shape here; can't put tokens").effect("highlight", {color: "gold"}, 1500);
+        $("#Reeborg-shouts").html("shape here; can't put tokens").dialog("open");
+        return;
+    }
+    
+    response = prompt("Enter number of tokens for at that location.");
+    if (response !== null) {
+        tokens = parseInt(response, 10);
+        if (tokens >= 0) {
+            RUR.we.ensure_key_exist(RUR.current_world.goal, "tokens");
+            if (tokens > 0) {
+                RUR.current_world.goal.tokens[x + "," + y] = tokens;
+            } else {
+                delete RUR.current_world.goal.tokens[x + "," + y];
+                if (Object.keys(RUR.current_world.goal.tokens).length === 0){
+                    delete RUR.current_world.goal.tokens;
+                    if (Object.keys(RUR.current_world.goal).length === 0){
+                        delete RUR.current_world.goal;
+                    }
+                }
+            }
+        } else {
+            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+        }
+    } 
+};
+
+
+RUR.we.turn_robot = function (orientation) {
+    if (RUR.we.edit_world_flag === "goal-robot") {
+        RUR.we.set_goal_orientation(orientation);
+        RUR.we.refresh_world_edited();
+        return;
+    }
+    
+    RUR.current_world.robots[0].orientation = orientation;
+    RUR.we.refresh_world_edited();
+};
+
+RUR.we.remove_robot = function () {
+    "use strict";
+    RUR.current_world.robots = [];
+};
+
+RUR.we.add_robot = function () {
+    "use strict";
+    RUR.current_world.robots = [RUR.robot.create_robot()];
+};
+
+RUR.we.calculate_wall_position = function () {
+    var ctx, x, y, orientation, remain_x, remain_y, del_x, del_y;
+    x = RUR.we.mouse_x - $("#robot_canvas").offset().left;
+    y = RUR.we.mouse_y - $("#robot_canvas").offset().top;
+    
+    x /= RUR.WALL_LENGTH;
+    y /= RUR.WALL_LENGTH;
+    remain_x = x - Math.floor(x);
+    remain_y = y - Math.floor(y);
+    
+    // del_  denotes the distance to the closest wall
+    if (Math.abs(1.0 - remain_x) < remain_x) {
+        del_x = Math.abs(1.0 - remain_x);
+    } else {
+        del_x = remain_x;
+    }
+
+    if (Math.abs(1.0 - remain_y) < remain_y) {
+        del_y = Math.abs(1.0 - remain_y);
+    } else {
+        del_y = remain_y;
+    }
+    
+    x = Math.floor(x);
+    y = RUR.ROWS - Math.floor(y) + 1;
+    if (x < 1 ) {
+        x = 1;
+    } else if (x > RUR.COLS) {
+        x = RUR.COLS;
+    }
+    if (y < 1 ) {
+        y = 1;
+    } else if (y > RUR.ROWS) {
+        y = RUR.ROWS;
+    }
+    
+    if ( del_x < del_y ) {
+        orientation = "east";
+        if (remain_x < 0.5) {
+            x -= 1;
+        }
+    } else {
+        orientation = "north";
+        if (remain_y > 0.5) {
+            y -= 1;
+        }
+    }
+    return [x, y, orientation];
+};
+
+RUR.we.toggle_wall = function () {
+    var position, x, y, orientation, coords, index;
+    position = RUR.we.calculate_wall_position();
+    x = position[0];
+    y = position[1];
+    orientation = position[2];
+    coords = x + "," + y;
+
+    RUR.we.ensure_key_exist(RUR.current_world, "walls");
+    if (RUR.current_world.walls[coords] === undefined){
+        RUR.current_world.walls[coords] = [orientation];
+    } else {
+        index = RUR.current_world.walls[coords].indexOf(orientation);
+        if (index === -1) {
+            RUR.current_world.walls[coords].push(orientation);
+        } else {
+            RUR.current_world.walls[coords].remove(index);
+            if (RUR.current_world.walls[coords].length === 0){
+                delete RUR.current_world.walls[coords];
+            }
+        }
+    }
+};
+
+
+RUR.we.toggle_goal_wall = function () {
+    var position, response, x, y, orientation, coords, index;
+    position = RUR.we.calculate_wall_position();
+    x = position[0];
+    y = position[1];
+    orientation = position[2];
+    coords = x + "," + y;
+
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    RUR.we.ensure_key_exist(RUR.current_world.goal, "walls");
+    if (RUR.current_world.goal.walls[coords] === undefined){
+        RUR.current_world.goal.walls[coords] = [orientation];
+    } else {
+        index = RUR.current_world.goal.walls[coords].indexOf(orientation);
+        if (index === -1) {
+            RUR.current_world.goal.walls[coords].push(orientation);
+        } else {
+            RUR.current_world.goal.walls[coords].remove(index);
+            if (Object.keys(RUR.current_world.goal.walls[coords]).length === 0){
+                delete RUR.current_world.goal.walls[coords];
+                if (Object.keys(RUR.current_world.goal.walls).length === 0) {
+                    delete RUR.current_world.goal.walls;
+                    if (Object.keys(RUR.current_world.goal).length === 0) {
+                        delete RUR.current_world.goal;
+                    }
+                }
+            }
+        }
+    }
+};
+
+RUR.we.ensure_key_exist = function(obj, key){
+    "use strict";
+    if (obj[key] === undefined){
+        obj[key] = {};
+    }
+};
+
+function toggle_shape(x, y, shape){
+    "use strict";
+    if (!(shape === "star" || shape === "square" || shape === "triangle")){
+        $("#cmd-result").html("unknown shape: " + shape).effect("highlight", {color: "gold"}, 1500);
+        return;
+    }
+    if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
+        $("#cmd-result").html("tokens here; can't put a shape").effect("highlight", {color: "gold"}, 1500);
+        return;
+    }
+    RUR.we.ensure_key_exist(RUR.current_world, "shapes");
+    if (RUR.current_world.shapes[x + "," + y] === shape) {
+        delete RUR.current_world.shapes[x + "," + y];
+        if (Object.keys(RUR.current_world.shapes).length === 0){
+            delete RUR.current_world.shapes;
+        }
+    } else {
+        RUR.current_world.shapes[x + "," + y] = shape;
+    }
+    RUR.we.update("updated shapes");
+}
+
+RUR.we.set_goal_position = function (){
+    // will remove the position if clicked again.
+    "use strict";
+    var position;
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    position = RUR.we.calculate_grid_position();
+    
+    if (RUR.current_world.goal.position !== undefined){
+        if (position[0] === RUR.current_world.goal.position.x &&
+            position[1] === RUR.current_world.goal.position.y) { 
+            delete RUR.current_world.goal.position;
+            if (RUR.current_world.goal.orientation !== undefined) {
+                delete RUR.current_world.goal.orientation;
+            }
+            if (Object.keys(RUR.current_world.goal).length === 0) {
+                delete RUR.current_world.goal;
+            }
+            $("#edit-world-turn").hide();
+        } else {
+            RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
+            $("#cmd-result").html("Click on same position to remove, or robot to set orientation").effect("highlight", {color: "gold"}, 1500);
+            $("#edit-world-turn").show();
+        }
+    } else {
+        RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
+        $("#cmd-result").html("Click on same position to remove, or robot to set orientation").effect("highlight", {color: "gold"}, 1500);
+        $("#edit-world-turn").show();
+    }
+};
+
+RUR.we.set_goal_orientation = function(orientation){
+    "use strict";
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.position === undefined) {
+        return;
+    }
+    if (RUR.current_world.goal.orientation !== undefined &&
+        RUR.current_world.goal.orientation === orientation) {
+        delete RUR.current_world.goal.orientation;  // toggle
+    } else {
+        RUR.current_world.goal.orientation = orientation;
+    }
+};
+
+function set_goal_tokens(x, y, nb_tokens){
+    "use strict";
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
+        $("#cmd-result").html("shape goal here; can't set token goal").effect("highlight", {color: "gold"}, 1500);
+        return;
+    }
+    RUR.we.ensure_key_exist(RUR.current_world.goal, "tokens");
+    if (nb_tokens > 0) {
+        RUR.current_world.goal.tokens[x + "," + y] = nb_tokens;
+    } else {
+        delete RUR.current_world.goal.tokens[x + "," + y];
+        if (Object.keys(RUR.current_world.goal.tokens).length === 0){
+            delete RUR.current_world.goal.tokens;
+            if (Object.keys(RUR.current_world.goal).length === 0){
+                delete RUR.current_world.goal;
+            }
+        }
+    }
+    RUR.we.update("updated tokens goal");
+}
+
+function set_goal_no_tokens(){
+    "use strict";
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    RUR.current_world.goal.tokens = {};
+}
+
+function set_goal_no_shapes(){
+    "use strict";
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    RUR.current_world.goal.shapes = {};
+}
+
+
+function set_goal_shape(x, y, shape){
+    "use strict";
+    if (!(shape === "star" || shape === "square" || shape === "triangle")){
+        $("#cmd-result").html("unknown shape: " + shape);
+        return;
+    }
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.tokens !== undefined &&
+        RUR.current_world.goal.tokens[x + "," + y] !== undefined){
+        $("#cmd-result").html("tokens as a goal here; can't set a shape goal");
+        return;
+    }
+    RUR.we.ensure_key_exist(RUR.current_world.goal, "shapes");
+    if (RUR.current_world.goal.shapes[x + "," + y] === shape) {
+        delete RUR.current_world.goal.shapes[x + "," + y];
+        if (Object.keys(RUR.current_world.goal.shapes).length === 0){
+            delete RUR.current_world.goal.shapes;
+            if (Object.keys(RUR.current_world.goal).length === 0){
+                delete RUR.current_world.goal;
+            }
+        }
+    } else {
+        RUR.current_world.goal.shapes[x + "," + y] = shape;
+    }
+    RUR.we.update("updated shapes");
+}
