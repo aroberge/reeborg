@@ -119,3 +119,12 @@ RUR.world.front_is_clear = function(robot){
     }
     return true;
 };
+
+RUR.world.right_is_clear = function(robot){
+    var result;
+    RUR.control.__turn_right(robot, true);
+    result = RUR.world.front_is_clear(robot);
+    RUR.control.turn_left(robot, true);
+    return result;
+};
+

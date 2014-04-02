@@ -58,9 +58,7 @@ RUR.DEBUG_INFO_COLOR = "blue";
 
 RUR.control = {};
 
-RUR.control.move = function () {
-    var robot = RUR.current_world.robots[0];
-    console.log("entered move");
+RUR.control.move = function (robot) {
     if (!RUR.world.front_is_clear(robot)) {
         throw new RUR.Error(RUR.translation["Ouch! I hit a wall!"]);
     }
@@ -89,9 +87,8 @@ RUR.control.move = function () {
     RUR.rec.record_frame();
 };
 
-RUR.control.turn_left = function(no_frame){
+RUR.control.turn_left = function(robot, no_frame){
     "use strict";
-    var robot = RUR.current_world.robots[0];
     robot._prev_orientation = robot.orientation;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
@@ -101,6 +98,16 @@ RUR.control.turn_left = function(no_frame){
     RUR.rec.record_frame();
 };
 
+RUR.control.__turn_right = function(robot, no_frame){
+    "use strict";
+    robot._prev_orientation = robot.orientation;
+    robot._prev_x = robot.x;
+    robot._prev_y = robot.y;
+    robot.orientation += 3;
+    robot.orientation %= 4;
+    if (no_frame) return;
+    RUR.rec.record_frame();
+};
 /* Author: André Roberge
    License: MIT
  */
@@ -466,7 +473,6 @@ RUR.rec.display_frame = function () {
        count the frames in record frame as well.
     */
     RUR.rec.current_frame++;
-    console.log("frame =", RUR.rec.current_frame, RUR.rec.nb_frames);
     
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
         return RUR.rec.conclude();
@@ -748,9 +754,10 @@ RUR.reset_definitions = function () {
 //      RUR.world.robots[0].done();
 //  };
 //
-//  front_is_clear = function() {
-//      return RUR.world.front_is_clear(RUR.world.robots[0]);
-//  };
+front_is_clear = function() {
+  return RUR.world.front_is_clear(RUR.current_world.robots[0]);
+};
+
 //
 //  has_token = function () {
 //      return RUR.world.robots[0].has_token();
@@ -760,11 +767,8 @@ RUR.reset_definitions = function () {
 //      return RUR.world.robots[0].is_facing_north();
 //  };
 //
-//  move = function() {
-//      RUR.world.robots[0].move();
-//  };
 move = function () {
-    RUR.control.move();
+    RUR.control.move(RUR.current_world.robots[0]);
 };
 //
 //  pause = function (ms) {
@@ -785,9 +789,9 @@ move = function () {
 //      }
 //  };
 //
-//  right_is_clear = function() {
-//      return RUR.world.right_is_clear(RUR.world.robots[0]);
-//  };
+right_is_clear = function() {
+  return RUR.world.right_is_clear(RUR.current_world.robots[0]);
+};
 //
 //  shape_here = function () {
 //      return RUR.world.find_shape(RUR.world.robots[0].x, RUR.world.robots[0].y);
@@ -809,7 +813,7 @@ move = function () {
 //      RUR.world.robots[0].turn_left();
 //  };
 turn_left = function () {
-    RUR.control.turn_left();
+    RUR.control.turn_left(RUR.current_world.robots[0]);
 };
 //  side_view = function () {
 //      RUR.visible_world.top_view = false;
@@ -928,7 +932,6 @@ RUR.runner.interpreted = false;
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
-    console.log("run called");
     if (!RUR.runner.interpreted) {
         src = _import_library();                // defined in Reeborg_js_en, etc.
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
@@ -938,7 +941,6 @@ RUR.runner.run = function (playback) {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
-        console.log("before playback");
         playback(); // function called to play back the code in a sequence of frames
                     // or a "null function", f(){} can be passed if the code is not
                     // dependent on the robot world.
@@ -1357,10 +1359,23 @@ if (localStorage.getItem("top_view") === "true") {  // TODO fix this
     RUR.vis_robot.select_style(0);
 }
 
-// the following si to ensure that we won't attempt drawing until the default image is available
+
+// the following si to ensure that the images are loaded before the "final"
+// original drawing is made
+
 RUR.vis_robot.e_img.onload = function () {
     RUR.vis_world.draw_all();
 };
+RUR.vis_robot.w_img.onload = function () {
+    RUR.vis_world.draw_all();
+};
+RUR.vis_robot.n_img.onload = function () {
+    RUR.vis_world.draw_all();
+};
+RUR.vis_robot.s_img.onload = function () {
+    RUR.vis_world.draw_all();
+};
+
 
 RUR.vis_robot.draw = function (robot) {
     "use strict";
@@ -1876,7 +1891,17 @@ RUR.world.front_is_clear = function(robot){
         throw new RUR.Error("Should not happen: unhandled case in RUR.World.front_is_clear().");
     }
     return true;
-};/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+};
+
+RUR.world.right_is_clear = function(robot){
+    var result;
+    RUR.control.__turn_right(robot, true);
+    result = RUR.world.front_is_clear(robot);
+    RUR.control.turn_left(robot, true);
+    return result;
+};
+
+/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
 RUR.we = {};   // we == World Editor

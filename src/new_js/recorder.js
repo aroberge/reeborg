@@ -73,7 +73,6 @@ RUR.rec.display_frame = function () {
        count the frames in record frame as well.
     */
     RUR.rec.current_frame++;
-    console.log("frame =", RUR.rec.current_frame, RUR.rec.nb_frames);
     
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
         return RUR.rec.conclude();
