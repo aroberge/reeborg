@@ -149,9 +149,10 @@ RUR.reset_definitions = function () {
 //      RUR.world.robots[0].done();
 //  };
 //
-//  front_is_clear = function() {
-//      return RUR.world.front_is_clear(RUR.world.robots[0]);
-//  };
+front_is_clear = function() {
+  return RUR.world.front_is_clear(RUR.current_world.robots[0]);
+};
+
 //
 //  has_token = function () {
 //      return RUR.world.robots[0].has_token();
@@ -161,11 +162,8 @@ RUR.reset_definitions = function () {
 //      return RUR.world.robots[0].is_facing_north();
 //  };
 //
-//  move = function() {
-//      RUR.world.robots[0].move();
-//  };
 move = function () {
-    RUR.control.move();
+    RUR.control.move(RUR.current_world.robots[0]);
 };
 //
 //  pause = function (ms) {
@@ -186,9 +184,9 @@ move = function () {
 //      }
 //  };
 //
-//  right_is_clear = function() {
-//      return RUR.world.right_is_clear(RUR.world.robots[0]);
-//  };
+right_is_clear = function() {
+  return RUR.world.right_is_clear(RUR.current_world.robots[0]);
+};
 //
 //  shape_here = function () {
 //      return RUR.world.find_shape(RUR.world.robots[0].x, RUR.world.robots[0].y);
@@ -210,7 +208,7 @@ move = function () {
 //      RUR.world.robots[0].turn_left();
 //  };
 turn_left = function () {
-    RUR.control.turn_left();
+    RUR.control.turn_left(RUR.current_world.robots[0]);
 };
 //  side_view = function () {
 //      RUR.visible_world.top_view = false;

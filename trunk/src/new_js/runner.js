@@ -13,7 +13,6 @@ RUR.runner.interpreted = false;
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
-    console.log("run called");
     if (!RUR.runner.interpreted) {
         src = _import_library();                // defined in Reeborg_js_en, etc.
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
@@ -23,7 +22,6 @@ RUR.runner.run = function (playback) {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
-        console.log("before playback");
         playback(); // function called to play back the code in a sequence of frames
                     // or a "null function", f(){} can be passed if the code is not
                     // dependent on the robot world.

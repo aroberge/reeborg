@@ -54,10 +54,23 @@ if (localStorage.getItem("top_view") === "true") {  // TODO fix this
     RUR.vis_robot.select_style(0);
 }
 
-// the following si to ensure that we won't attempt drawing until the default image is available
+
+// the following si to ensure that the images are loaded before the "final"
+// original drawing is made
+
 RUR.vis_robot.e_img.onload = function () {
     RUR.vis_world.draw_all();
 };
+RUR.vis_robot.w_img.onload = function () {
+    RUR.vis_world.draw_all();
+};
+RUR.vis_robot.n_img.onload = function () {
+    RUR.vis_world.draw_all();
+};
+RUR.vis_robot.s_img.onload = function () {
+    RUR.vis_world.draw_all();
+};
+
 
 RUR.vis_robot.draw = function (robot) {
     "use strict";

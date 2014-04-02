@@ -7,9 +7,7 @@
 
 RUR.control = {};
 
-RUR.control.move = function () {
-    var robot = RUR.current_world.robots[0];
-    console.log("entered move");
+RUR.control.move = function (robot) {
     if (!RUR.world.front_is_clear(robot)) {
         throw new RUR.Error(RUR.translation["Ouch! I hit a wall!"]);
     }
@@ -38,9 +36,8 @@ RUR.control.move = function () {
     RUR.rec.record_frame();
 };
 
-RUR.control.turn_left = function(no_frame){
+RUR.control.turn_left = function(robot, no_frame){
     "use strict";
-    var robot = RUR.current_world.robots[0];
     robot._prev_orientation = robot.orientation;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
@@ -50,3 +47,13 @@ RUR.control.turn_left = function(no_frame){
     RUR.rec.record_frame();
 };
 
+RUR.control.__turn_right = function(robot, no_frame){
+    "use strict";
+    robot._prev_orientation = robot.orientation;
+    robot._prev_x = robot.x;
+    robot._prev_y = robot.y;
+    robot.orientation += 3;
+    robot.orientation %= 4;
+    if (no_frame) return;
+    RUR.rec.record_frame();
+};
