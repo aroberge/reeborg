@@ -170,10 +170,8 @@ RUR.vis_world.draw_token = function (i, j, num, goal) {
         ctx.fillText(num, (i+0.2)*scale, Y - (j)*scale);
     } else {
         ctx.lineWidth = 1;
-        ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
         ctx.fillStyle = RUR.TOKEN_COLOR;
         ctx.fill();
-        ctx.stroke();
         ctx.fillStyle = RUR.TEXT_COLOR;
         ctx.fillText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
     }

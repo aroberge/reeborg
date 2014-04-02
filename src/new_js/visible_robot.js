@@ -65,9 +65,6 @@ RUR.vis_robot.draw = function (robot) {
     if (!robot) {
         return;
     }
-    if (robot.__id && robot.__id === -1){
-        return;
-    }
     
     x = robot.x * RUR.WALL_LENGTH + RUR.vis_robot.x_offset;
     y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.y_offset;
@@ -87,7 +84,38 @@ RUR.vis_robot.draw = function (robot) {
     default:
         RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y);
     }
-//        this.draw_trace(robot);
+    RUR.vis_robot.draw_trace(robot);
 };
 
 
+RUR.vis_robot.draw_trace = function (robot) {
+    "use strict";
+    if (robot === undefined || robot._is_leaky === false) {
+        return;
+    }
+    var ctx = RUR.TRACE_CTX;
+    ctx.strokeStyle = RUR.vis_robot.trace_color;
+    ctx.lineWidth = RUR.vis_robot.trace_thickness;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(robot._prev_x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation][0],
+                    RUR.HEIGHT - (robot._prev_y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation][1]);
+    ctx.lineTo(robot.x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot.orientation][0],
+                    RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot.orientation][1]);
+    ctx.stroke();
+};
+
+RUR.vis_robot.set_trace_style = function (choice){
+    "use strict";
+    if (choice === "thick") {
+        RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
+        RUR.vis_robot.trace_color = "seagreen";
+        RUR.vis_robot.trace_thickness = 4;
+    } else {
+        RUR.vis_robot.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
+        RUR.vis_robot.trace_color = "seagreen";
+        RUR.vis_robot.trace_thickness = 1;
+    }
+};
+
+RUR.vis_robot.set_trace_style(); 

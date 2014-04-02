@@ -41,5 +41,14 @@ RUR.vis_world in visible_world.js
 RUR.vis_robot in visible_robot.js
 RUR.we in world_editor.js
 RUR.storage in storage.js
+RUR.ui in ui.js
+RUR.runner in runner.js
+
 
 "constants" are in all caps and are in constants.js
+
+The file doc_ready.js is run only when the page is loaded; its uses the idiom:
+
+$(document).ready(function() { ... }
+
+
