@@ -176,11 +176,8 @@ RUR.we.calculate_grid_position = function () {
 RUR.we.teleport_robot = function () {
     var position;
     position = RUR.we.calculate_grid_position();
-    console.log(position);
-    console.log(RUR.current_world.robots[0].x);
     RUR.current_world.robots[0].x = position[0]; 
     RUR.current_world.robots[0].y = position[1];
-    console.log(RUR.current_world.robots[0].x);
 };
 
 RUR.we.give_tokens_to_robot = function () {

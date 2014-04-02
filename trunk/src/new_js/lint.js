@@ -39,7 +39,6 @@ function updateHints(obj) {
         obj.widgets.length = 0;
 
         if (obj === editor) {
-            // TODO: only lint library if code is used
             values = globals_ + editor.getValue().replace(import_lib_regex, library.getValue());
             nb_lines = library.lineCount() + 1;
             JSHINT(values, jshint_options);

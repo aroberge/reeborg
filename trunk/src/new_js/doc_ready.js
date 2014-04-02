@@ -175,7 +175,6 @@ $(document).ready(function() {
     editor.widgets = [];
     library.widgets = [];
 
-
     // Set listener ...  (continuing below)
     $("#select_world").change(function() {
         var data, val = $(this).val();
@@ -198,5 +197,24 @@ $(document).ready(function() {
     });
     // ... and trigger it to load the initial world.
     $("#select_world").change();
+    
+    try {  
+        var library_comment = '', library_content, editor_content;
+        if (RUR.programming_language == "javascript") {
+            library_comment = RUR.translation["/* Your special code goes here */\n\n"];
+        } else if (RUR.programming_language == "python") {
+            library_comment = RUR.translation["# Your special code goes here \n\n"];
+        }
+        library_content = localStorage.getItem(RUR.settings.library) || library_comment;
+        library.setValue(library_content);
+      
+        editor_content = localStorage.getItem(RUR.settings.editor) || editor.getValue();
+        editor.setValue(editor_content);
+      
+    } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
+                }
+
+    
+    RUR.ui.update_controls();
     
 });
