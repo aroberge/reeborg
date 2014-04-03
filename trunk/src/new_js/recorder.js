@@ -10,15 +10,11 @@
 RUR.rec = {};
 
 RUR.rec.reset = function() {
-    RUR.rec.nb_frames = -1;
+    RUR.rec.nb_frames = 0;
     RUR.rec.current_frame = 0;
     RUR.rec.frames = [];
     RUR.rec.playback = false;
     clearTimeout(RUR.rec.timer);
-    if (RUR.world !== undefined && RUR.current_world !== undefined) {
-        RUR.rec.record_frame();   // record initial frame for dealing with
-        // the case where the user's program does not trigger recording.
-    }
 };
 RUR.rec.reset();
 
