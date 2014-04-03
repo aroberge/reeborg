@@ -172,6 +172,10 @@ RUR.reset_definitions = function () {
     put = function(arg) {
         RUR.control.put(RUR.current_world.robots[0], arg);
     };
+    token_here = function() {
+        return RUR.control.token_here(RUR.current_world.robots[0]);
+    };
+    
 //
 //  put = function(arg) {
 //      RUR.world.robots[0].put(arg);
