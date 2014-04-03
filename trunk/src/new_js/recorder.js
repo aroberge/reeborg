@@ -14,6 +14,7 @@ RUR.rec.reset = function() {
     RUR.rec.current_frame = 0;
     RUR.rec.frames = [];
     RUR.rec.playback = false;
+    RUR.rec.delay = 300;  
     clearTimeout(RUR.rec.timer);
 };
 RUR.rec.reset();
@@ -59,7 +60,7 @@ RUR.rec.loop = function () {
         return;
     }
 
-    RUR.rec.timer = setTimeout(RUR.rec.loop, 200); // FIXME delay
+    RUR.rec.timer = setTimeout(RUR.rec.loop, RUR.rec.delay);
 };
 
 RUR.rec.display_frame = function () {

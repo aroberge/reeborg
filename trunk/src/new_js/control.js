@@ -159,3 +159,7 @@ RUR.control.right_is_clear = function(robot){
     RUR.control.turn_left(robot, true);
     return result;
 };
+
+RUR.control.think = function (delay) {
+    RUR.rec.delay = delay;
+}
