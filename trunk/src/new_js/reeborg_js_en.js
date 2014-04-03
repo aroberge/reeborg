@@ -204,9 +204,7 @@ right_is_clear = function() {
 //      return RUR.world.get_tokens(RUR.world.robots[0].x, RUR.world.robots[0].y);
 //  };
 //
-//  turn_left = function() {
-//      RUR.world.robots[0].turn_left();
-//  };
+
 turn_left = function () {
     RUR.control.turn_left(RUR.current_world.robots[0]);
 };

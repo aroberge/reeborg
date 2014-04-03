@@ -322,6 +322,7 @@ RUR.vis_world.draw_star = function (ctx, x, y, r, goal){
 RUR.vis_world.draw_all = function () {
     "use strict";
     RUR.vis_world.draw_background();
+    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_goal();
     RUR.vis_world.refresh();
 };
