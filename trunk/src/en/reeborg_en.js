@@ -212,10 +212,10 @@ RUR.reset_definitions = function () {
 //      RUR.visible_world.top_view = true;
 //      localStorage.setItem("top_view", "true");
 //  };
-//
-//  select_world = RUR.select_world;
-//};
-//
+
+    select_world = RUR.ui.select_world;
+
+
 //UsedRobot.prototype = Object.create(RUR.Robot.prototype);
 //UsedRobot.prototype.constructor = UsedRobot;
 //

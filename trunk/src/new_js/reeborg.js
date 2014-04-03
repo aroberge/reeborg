@@ -1045,14 +1045,13 @@ RUR.ui.select_world = function (s, silent) {
             if (silent) {
                 return;
             }
-            alert(RUR.translation["World selected"].supplant({world: s}));
-            return;
+            throw new RUR.Error(RUR.translation["World selected"].supplant({world: s}));
         }
     }
     if (silent) {
         return;
     }
-    alert(RUR.translation["Could not find world"].supplant({world: s}));
+    throw new RUR.Error(RUR.translation["Could not find world"].supplant({world: s}));
 };
 
 RUR.ui.load_user_worlds = function () {
