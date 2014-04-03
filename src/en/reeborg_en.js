@@ -157,10 +157,6 @@ RUR.reset_definitions = function () {
         return RUR.control.has_token(RUR.current_world.robots[0]);
     };
 //
-//  has_token = function () {
-//      return RUR.world.robots[0].has_token();
-//  };
-//
 //  is_facing_north = function() {
 //      return RUR.world.robots[0].is_facing_north();
 //  };
@@ -176,19 +172,11 @@ RUR.reset_definitions = function () {
     put = function(arg) {
         RUR.control.put(RUR.current_world.robots[0], arg);
     };
+    
     token_here = function() {
         return RUR.control.token_here(RUR.current_world.robots[0]);
     };
-    
-//
-//  put = function(arg) {
-//      RUR.world.robots[0].put(arg);
-//  };
-//
-//  remove_robot = function (){
-//      RUR.world.remove_robot();
-//  };
-//
+
     repeat = function (f, n) {
       for (var i=0; i < n; i++){
           f();
@@ -207,14 +195,10 @@ RUR.reset_definitions = function () {
 //      RUR.world.robots[0].take(arg);
 //  };
 //
-//  think = function(delay) {
-//      RUR.world.think(delay);
-//  };
-//
-//  token_here = function () {
-//      return RUR.world.get_tokens(RUR.world.robots[0].x, RUR.world.robots[0].y);
-//  };
-//
+  think = function(delay) {
+      RUR.control.think(delay);
+  };
+
 
     turn_left = function () {
         RUR.control.turn_left(RUR.current_world.robots[0]);
