@@ -107,11 +107,7 @@ RUR.rec.conclude = function () {
             $("#Reeborg-shouts").html(goal_status.message).dialog("open");
         }
     } else {
-//        if (RUR.controls.end_flag) {
         $("#Reeborg-says").html("<p class='center'>" + RUR.translation["Last instruction completed!"] + "</p>").dialog("open");
-//        } else {
-//            RUR.controls.end_flag = true;
-//        }
     }
     return "stopped";
 };

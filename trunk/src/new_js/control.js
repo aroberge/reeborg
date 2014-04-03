@@ -61,3 +61,7 @@ RUR.control.__turn_right = function(robot, no_frame){
 RUR.control.pause = function (ms) {
     RUR.rec.record_frame("pause", {pause_time:ms});
 };
+
+RUR.control.done = function () {
+    throw new RUR.Error(RUR.translation["Done!"]);
+};

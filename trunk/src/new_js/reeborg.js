@@ -112,6 +112,10 @@ RUR.control.__turn_right = function(robot, no_frame){
 RUR.control.pause = function (ms) {
     RUR.rec.record_frame("pause", {pause_time:ms});
 };
+
+RUR.control.done = function () {
+    throw new RUR.Error(RUR.translation["Done!"]);
+};
 /* Author: André Roberge
    License: MIT
  */
@@ -511,11 +515,7 @@ RUR.rec.conclude = function () {
             $("#Reeborg-shouts").html(goal_status.message).dialog("open");
         }
     } else {
-//        if (RUR.controls.end_flag) {
         $("#Reeborg-says").html("<p class='center'>" + RUR.translation["Last instruction completed!"] + "</p>").dialog("open");
-//        } else {
-//            RUR.controls.end_flag = true;
-//        }
     }
     return "stopped";
 };
@@ -754,10 +754,10 @@ RUR.reset_definitions = function () {
 //      RUR.world.robots[0].build_wall();
 //  };
 //
-//  done = function () {
-//      RUR.world.robots[0].done();
-//  };
-//
+done = function () {
+  RUR.control.done();
+};
+
 front_is_clear = function() {
   return RUR.world.front_is_clear(RUR.current_world.robots[0]);
 };
