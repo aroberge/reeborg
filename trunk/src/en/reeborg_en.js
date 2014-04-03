@@ -131,15 +131,15 @@ RUR.reset_definitions = function () {
     write = function (s) {
     RUR.rec.record_frame("output", {"element": "#output-pre", "message": s.toString()});
   };
-//  
-//  at_goal = function() {
-//      return RUR.world.robots[0].at_goal();
-//  };
-//
-//  at_goal_orientation = function() {
-//      return RUR.world.robots[0].at_goal_orientation();
-//  };
-//
+
+    at_goal = function () {
+        return RUR.control.at_goal(RUR.current_world.robots[0]);
+    };
+
+    at_goal_orientation = function () {
+        return RUR.control.at_goal_orientation(RUR.current_world.robots[0]);
+    };
+
     build_wall = function() {
         RUR.control.build_wall(RUR.current_world.robots[0]);
     };
