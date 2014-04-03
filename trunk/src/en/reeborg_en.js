@@ -6,7 +6,7 @@
 /*globals $, CodeMirror, editor, library */
 
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
-                    " is_facing_north, done, put, take, shape_here, select_world,"+
+                    " is_facing_north, done, put, take, object_here, select_world,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view*/\n";
 
@@ -64,7 +64,7 @@ RUR.translation["Could not find world"] = "Could not find world {world}";
 RUR.translation["Invalid world file."] = "Invalid world file.";
 
 var move, turn_left, inspect, front_is_clear, right_is_clear, 
-    is_facing_north, done, put, take, shape_here, select_world, token_here, 
+    is_facing_north, done, put, take, object_here, select_world, token_here, 
     has_token, write, at_goal, at_goal_orientation, build_wall, think, 
     pause, remove_robot, repeat, view_source, side_view, top_view;
 
@@ -109,7 +109,7 @@ RUR.reset_definitions = function () {
       done = null;
       put = null;
       take = null;
-      shape_here = null;
+      object_here = null;
       select_world = null;
       token_here = null;
       has_token = null;
@@ -184,11 +184,11 @@ RUR.reset_definitions = function () {
     right_is_clear = function() {
       return RUR.control.right_is_clear(RUR.current_world.robots[0]);
     };
-//
-//  shape_here = function () {
-//      return RUR.world.find_shape(RUR.world.robots[0].x, RUR.world.robots[0].y);
-//  };
-//
+    
+    object_here = function () {
+        return RUR.control.object_here(RUR.current_world.robots[0]);
+    };
+    
     take = function(arg) {
         RUR.control.take(RUR.current_world.robots[0], arg);
     };
