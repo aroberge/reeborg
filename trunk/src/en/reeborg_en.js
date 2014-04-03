@@ -191,13 +191,13 @@ RUR.reset_definitions = function () {
 //      return RUR.world.find_shape(RUR.world.robots[0].x, RUR.world.robots[0].y);
 //  };
 //
-//  take = function(arg) {
-//      RUR.world.robots[0].take(arg);
-//  };
-//
-  think = function(delay) {
-      RUR.control.think(delay);
-  };
+    take = function(arg) {
+        RUR.control.take(RUR.current_world.robots[0], arg);
+    };
+
+    think = function(delay) {
+        RUR.control.think(delay);
+    };
 
 
     turn_left = function () {

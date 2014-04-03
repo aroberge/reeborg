@@ -149,6 +149,29 @@ RUR.control.has_token = function (robot) {
     if (robot.tokens !== 0) return true;
     return false;
 };
+RUR.control.take = function(robot, arg){
+    if (arg === undefined || arg === RUR.translation.token) {
+        RUR.control._take_token(robot);
+    }
+};
+
+RUR.control._take_token = function (robot) {
+    var token = RUR.control.token_here(robot);
+    if (token === 0){
+        throw new RUR.Error(RUR.translation["No token found here!"]);
+    }
+    token --;
+    if (token > 0) {
+        RUR.current_world.tokens[robot.x + "," + robot.y] = token;
+    } else {
+        delete RUR.current_world.tokens[robot.x + "," + robot.y];
+    }
+    if (typeof robot.tokens === typeof 42){  // robot could have "infinite" amount
+        robot.tokens += 1;
+    }
+    RUR.rec.record_frame();
+};
+
 
 RUR.control.is_wall_at = function (coords, orientation) {
     if (RUR.current_world.walls === undefined) {
@@ -213,7 +236,7 @@ RUR.control.right_is_clear = function(robot){
 
 RUR.control.think = function (delay) {
     RUR.rec.delay = delay;
-}
+};
 /* Author: André Roberge
    License: MIT
  */
