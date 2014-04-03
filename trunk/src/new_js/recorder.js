@@ -97,7 +97,7 @@ RUR.rec.display_frame = function () {
 
 RUR.rec.conclude = function () {
     var frame, goal_status;
-    if (RUR.rec.nb_frames === -1) return;
+    if (RUR.rec.nb_frames === 0) return "stopped";
     
     frame = RUR.rec.frames[RUR.rec.nb_frames]; // nb_frames could be zero ... but we might still want to check if goal reached.
     if (frame.world.goal !== undefined){

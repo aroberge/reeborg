@@ -134,6 +134,50 @@ RUR.control.is_wall_at = function (coords, orientation) {
     return false;
 };
 
+RUR.control.build_wall = function (robot){
+    var coords, orientation, x, y, walls;
+    if (!RUR.control.front_is_clear(robot)){
+        throw new RUR.Error(RUR.translation["There is already a wall here!"]);
+    }
+
+    switch (robot.orientation){
+    case RUR.EAST:
+        coords = robot.x + "," + robot.y;
+        orientation = "east";
+        x = robot.x;
+        y = robot.y;
+        break;
+    case RUR.NORTH:
+        coords = robot.x + "," + robot.y;
+        orientation = "north";
+        x = robot.x;
+        y = robot.y;
+        break;
+    case RUR.WEST:
+        orientation = "east";
+        x = robot.x-1;
+        y = robot.y;
+        break;
+    case RUR.SOUTH:
+        orientation = "north";
+        x = robot.x;
+        y = robot.y-1;
+        break;
+    default:
+        throw new RUR.Error("Should not happen: unhandled case in RUR.control.build_wall().");
+    }
+
+    coords = x + "," + y;
+    walls = RUR.current_world.walls;
+
+    if (walls[coords] === undefined){
+        walls[coords] = [orientation];
+    } else {
+        walls[coords].push(orientation);
+    }
+    RUR.rec.record_frame();
+};
+
 RUR.control.front_is_clear = function(robot){
     var coords;
     switch (robot.orientation){

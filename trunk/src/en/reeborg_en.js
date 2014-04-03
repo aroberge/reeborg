@@ -140,10 +140,10 @@ RUR.reset_definitions = function () {
 //      return RUR.world.robots[0].at_goal_orientation();
 //  };
 //
-//  build_wall = function() {
-//      RUR.world.robots[0].build_wall();
-//  };
-//
+    build_wall = function() {
+        RUR.control.build_wall(RUR.current_world.robots[0]);
+    };
+
     done = function () {
       RUR.control.done();
     };
