@@ -1,10 +1,10 @@
-Information for developers
-==========================
+Information for developers & instructors
+============================================
 
 This project lives on http://reeborg.ca. Permission is given to make copies
-on some other site, but I would request that you contact me to inform me
+on some other site, *but* I would request that you contact me to inform me
 so that I can add the information about where Reeborg is used and so that
-I can keep you abreast of any new development.
+I can keep you abreast of any new development.  *Please take note of the license.*
 
 Whenever possible, all javascript objects have been made part of a main
 one called RUR (for Reeborg the Used Robot) to avoid conflicts with user-defined
@@ -14,17 +14,19 @@ An html page will typically only load two javascript file that have been
 created here (some plugins have been copied from elsewhere) :
 
 reeborg.js
-reeborg_proglang_humlang.js
+reeborg_lang.js
 
-where  proglang is short for programming language and humlang means human
-language.  Thus a Javascript version for English speakers would include
-the file
+where lang means human language.  
+Thus for English speakers, we would include the file
 
-reeborg_js_en.js
+reeborg_en.js
 
-whereas a Python version for French speakers would include instead
+for French speakers would include instead
 
-reeborg_py_fr.js
+reeborg_fr.js
+
+The programming language (javascript or Python currently) needs to be 
+defined in the main html page.
 
 The main file is reeborg.js.  It is the result of the concatenation of
 all the (other) files found in src/js.  (As of this writing, it is actually
