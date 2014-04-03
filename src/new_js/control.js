@@ -65,3 +65,34 @@ RUR.control.pause = function (ms) {
 RUR.control.done = function () {
     throw new RUR.Error(RUR.translation["Done!"]);
 };
+
+RUR.control.token_here = function (robot) {
+    // returns the number of tokens at the location where the robot is
+    var coords = robot.x + "," + robot.y;
+    if (RUR.current_world.tokens === undefined) return 0;
+    if (RUR.current_world.tokens[coords] === undefined) return 0;
+    return RUR.current_world.tokens[coords];
+};
+
+//RUR.control.put(RUR.current_world.robots[0], arg);
+
+RUR.control.put = function(robot, arg){
+    if (arg === undefined || arg === RUR.translation.token) {
+        RUR.control._put_token(robot);
+    }
+};
+
+RUR.control._put_token = function (robot) {
+    var token;
+    if (robot.tokens === 0){
+        throw new RUR.Error(RUR.translation["I don't have any token to put down!"]);
+    }
+    token = RUR.control.token_here(robot);
+    RUR.we.ensure_key_exist(RUR.current_world, "tokens");
+    RUR.current_world.tokens[robot.x + "," + robot.y] = token+1;
+    if (typeof robot.tokens === typeof 42){  // robot could have "infinite" amount
+        robot.tokens -= 1;
+    }
+    RUR.rec.record_frame();
+};
+

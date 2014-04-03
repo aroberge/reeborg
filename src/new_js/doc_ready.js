@@ -42,11 +42,15 @@ $(document).ready(function() {
     
         if ($("#output-panel").hasClass("active")) {
             if ( $("#world-panel").hasClass("active")) {
+                RUR.world.robot_world_active = true;
+                RUR.reset_definitions();
                 $("#run2").hide();
                 $("#reload2").hide();
             } else {
                 $("#run2").show();
                 $("#reload2").show();
+                RUR.world.robot_world_active = false;
+                RUR.reset_definitions();
             }
         }
 
@@ -182,7 +186,7 @@ $(document).ready(function() {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
           
-//        RUR.world.robot_world_active = true;
+        RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
             RUR.world.import_world(data);
@@ -214,7 +218,6 @@ $(document).ready(function() {
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
                 }
 
-    
-    RUR.ui.update_controls();
+    RUR.ui.set_ready_to_run();
     
 });

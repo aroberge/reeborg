@@ -10,11 +10,15 @@
 RUR.rec = {};
 
 RUR.rec.reset = function() {
-    RUR.rec.nb_frames = 0;
+    RUR.rec.nb_frames = -1;
     RUR.rec.current_frame = 0;
     RUR.rec.frames = [];
     RUR.rec.playback = false;
     clearTimeout(RUR.rec.timer);
+    if (RUR.world !== undefined && RUR.current_world !== undefined) {
+        RUR.rec.record_frame();   // record initial frame for dealing with
+        // the case where the user's program does not trigger recording.
+    }
 };
 RUR.rec.reset();
 
@@ -49,10 +53,10 @@ RUR.rec.loop = function () {
     frame_info = RUR.rec.display_frame();
 
     if (frame_info === "immediate") {
-        clearTimeout(RUR.rec.timer);  // FIXME   still needed ?
+        clearTimeout(RUR.rec.timer);
         RUR.rec.loop();
         return;
-    } else if (frame_info === "pause") {   // user defined pause, for a certain time.
+    } else if (frame_info === "pause") {
         return;
     } else if (frame_info === "stopped") {
         RUR.ui.stop();
@@ -85,20 +89,20 @@ RUR.rec.display_frame = function () {
     } else if (frame.pause) {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
-    } else if (frame.error !== undefined) {                        // FIXME
+    } else if (frame.error !== undefined) { 
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message + "\n");
-        return;
-    } else {
-        RUR.current_world = frame.world;
-        RUR.vis_world.refresh();
     }
+    RUR.current_world = frame.world;
+    RUR.vis_world.refresh();
 };
 
 RUR.rec.conclude = function () {
     var frame, goal_status;
-    frame = RUR.rec.frames[RUR.rec.nb_frames];
+    if (RUR.rec.nb_frames === -1) return;
+    
+    frame = RUR.rec.frames[RUR.rec.nb_frames]; // nb_frames could be zero ... but we might still want to check if goal reached.
     if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
@@ -123,6 +127,7 @@ RUR.rec.handle_error = function (frame) {
     } else {
         $("#Reeborg-shouts").html(frame.error.message).dialog("open");
     }
+    RUR.ui.stop();
     return "stopped";
 };
 

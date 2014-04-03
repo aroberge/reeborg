@@ -59,7 +59,7 @@ RUR.ui.pause = function (ms) {
 };
 
 RUR.ui.step = function () {
-    RUR.controls.compile_and_run(RUR.visible_world.play_single_frame);
+    RUR.runner.run(RUR.rec.display_frame);
 };
 
 RUR.ui.stop = function () {
@@ -87,18 +87,6 @@ RUR.ui.reload = function() {
     RUR.rec.reset();
     editorUpdateHints();
     libraryUpdateHints();
-};
-
-RUR.ui.update_controls = function () {
-    if ($("#world-panel").hasClass("active")){
-        RUR.world.robot_world_active = true;
-        $("#run2").css("visibility", "hidden");
-        $("#reload2").css("visibility", "hidden");
-    } else {
-        $("#run2").css("visibility", "visible");
-        $("#reload2").css("visibility", "visible");
-        RUR.world.robot_world_active = false;
-    }
 };
 
 RUR.ui.select_world = function (s, silent) {

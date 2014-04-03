@@ -22,9 +22,12 @@ RUR.runner.run = function (playback) {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
-        playback(); // function called to play back the code in a sequence of frames
-                    // or a "null function", f(){} can be passed if the code is not
-                    // dependent on the robot world.
+        // "playback" is afunction called to play back the code in a sequence of frames
+        // or a "null function", f(){} can be passed if the code is not
+        // dependent on the robot world.
+        if (playback() === "stopped") {
+            RUR.ui.stop();
+        } 
     }
 };
 

@@ -116,6 +116,37 @@ RUR.control.pause = function (ms) {
 RUR.control.done = function () {
     throw new RUR.Error(RUR.translation["Done!"]);
 };
+
+RUR.control.token_here = function (robot) {
+    // returns the number of tokens at the location where the robot is
+    var coords = robot.x + "," + robot.y;
+    if (RUR.current_world.tokens === undefined) return 0;
+    if (RUR.current_world.tokens[coords] === undefined) return 0;
+    return RUR.current_world.tokens[coords];
+};
+
+//RUR.control.put(RUR.current_world.robots[0], arg);
+
+RUR.control.put = function(robot, arg){
+    if (arg === undefined || arg === RUR.translation.token) {
+        RUR.control._put_token(robot);
+    }
+};
+
+RUR.control._put_token = function (robot) {
+    var token;
+    if (robot.tokens === 0){
+        throw new RUR.Error(RUR.translation["I don't have any token to put down!"]);
+    }
+    token = RUR.control.token_here(robot);
+    RUR.we.ensure_key_exist(RUR.current_world, "tokens");
+    RUR.current_world.tokens[robot.x + "," + robot.y] = token+1;
+    if (typeof robot.tokens === typeof 42){  // robot could have "infinite" amount
+        robot.tokens -= 1;
+    }
+    RUR.rec.record_frame();
+};
+
 /* Author: André Roberge
    License: MIT
  */
@@ -160,11 +191,15 @@ $(document).ready(function() {
     
         if ($("#output-panel").hasClass("active")) {
             if ( $("#world-panel").hasClass("active")) {
+                RUR.world.robot_world_active = true;
+                RUR.reset_definitions();
                 $("#run2").hide();
                 $("#reload2").hide();
             } else {
                 $("#run2").show();
                 $("#reload2").show();
+                RUR.world.robot_world_active = false;
+                RUR.reset_definitions();
             }
         }
 
@@ -300,7 +335,7 @@ $(document).ready(function() {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
           
-//        RUR.world.robot_world_active = true;
+        RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
             RUR.world.import_world(data);
@@ -332,8 +367,7 @@ $(document).ready(function() {
     } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
                 }
 
-    
-    RUR.ui.update_controls();
+    RUR.ui.set_ready_to_run();
     
 });
 /* Author: André Roberge
@@ -418,11 +452,15 @@ function updateHints(obj) {
 RUR.rec = {};
 
 RUR.rec.reset = function() {
-    RUR.rec.nb_frames = 0;
+    RUR.rec.nb_frames = -1;
     RUR.rec.current_frame = 0;
     RUR.rec.frames = [];
     RUR.rec.playback = false;
     clearTimeout(RUR.rec.timer);
+    if (RUR.world !== undefined && RUR.current_world !== undefined) {
+        RUR.rec.record_frame();   // record initial frame for dealing with
+        // the case where the user's program does not trigger recording.
+    }
 };
 RUR.rec.reset();
 
@@ -457,10 +495,10 @@ RUR.rec.loop = function () {
     frame_info = RUR.rec.display_frame();
 
     if (frame_info === "immediate") {
-        clearTimeout(RUR.rec.timer);  // FIXME   still needed ?
+        clearTimeout(RUR.rec.timer);
         RUR.rec.loop();
         return;
-    } else if (frame_info === "pause") {   // user defined pause, for a certain time.
+    } else if (frame_info === "pause") {
         return;
     } else if (frame_info === "stopped") {
         RUR.ui.stop();
@@ -493,20 +531,20 @@ RUR.rec.display_frame = function () {
     } else if (frame.pause) {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
-    } else if (frame.error !== undefined) {                        // FIXME
+    } else if (frame.error !== undefined) { 
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message + "\n");
-        return;
-    } else {
-        RUR.current_world = frame.world;
-        RUR.vis_world.refresh();
     }
+    RUR.current_world = frame.world;
+    RUR.vis_world.refresh();
 };
 
 RUR.rec.conclude = function () {
     var frame, goal_status;
-    frame = RUR.rec.frames[RUR.rec.nb_frames];
+    if (RUR.rec.nb_frames === -1) return;
+    
+    frame = RUR.rec.frames[RUR.rec.nb_frames]; // nb_frames could be zero ... but we might still want to check if goal reached.
     if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
@@ -531,6 +569,7 @@ RUR.rec.handle_error = function (frame) {
     } else {
         $("#Reeborg-shouts").html(frame.error.message).dialog("open");
     }
+    RUR.ui.stop();
     return "stopped";
 };
 
@@ -677,70 +716,69 @@ var move, turn_left, inspect, front_is_clear, right_is_clear,
     has_token, write, at_goal, at_goal_orientation, build_wall, think, 
     pause, remove_robot, repeat, view_source, side_view, top_view;
 
-RUR.reset_definitions = function () {
-    inspect = function (obj){
-      var props, result = "";
-      for (props in obj) {
-          if (typeof obj[props] === "function") {
-              result += props + "()\n";
-          } else{
-              result += props + "\n";
-          }
+inspect = function (obj){
+  var props, result = "";
+  for (props in obj) {
+      if (typeof obj[props] === "function") {
+          result += props + "()\n";
+      } else{
+          result += props + "\n";
       }
-      write(result);
-  };
+  }
+  write(result);
 };
-  
 
-//  view_source = function(fn) {
-//      $("#last-pre").before("<pre class='js_code'>" + fn + "</pre>" );
-//      $('.js_code').each(function() {
-//          var $this = $(this), $code = $this.text();
-//          $this.removeClass("js_code");
-//          $this.addClass("jscode");
-//          $this.empty();
-//          var myCodeMirror = CodeMirror(this, {
-//              value: $code,
-//              mode: 'javascript',
-//              lineNumbers: !$this.is('.inline'),
-//              readOnly: true,
-//              theme: 'reeborg-dark'
-//          });
-//      });
-//  };
-//  
-//  if (!RUR.world.robot_world_active){
-//      move = null;
-//      turn_left = null;
-//      UsedRobot = null;
-//      front_is_clear = null;
-//      right_is_clear = null;
-//      is_facing_north = null;
-//      done = null;
-//      put = null;
-//      take = null;
-//      shape_here = null;
-//      select_world = null;
-//      token_here = null;
-//      has_token = null;
-//      at_goal = null;
-//      at_goal_orientation = null;
-//      build_wall = null;
-//      think = null;
-//      pause = null;
-//      remove_robot = null;
-//      repeat = null;
-//      side_view = null;
-//      top_view = null;
-//      write = function (s) {
-//          $("#output-pre").append(s.toString() + "\n");
-//      };
-//      return;
-//  }
-//  
-//    write = function (s) {
-//    RUR.world.add_frame("output", "#output-pre", s.toString());
-//  };
+view_source = function(fn) {
+  $("#last-pre").before("<pre class='js_code'>" + fn + "</pre>" );
+  $('.js_code').each(function() {
+      var $this = $(this), $code = $this.text();
+      $this.removeClass("js_code");
+      $this.addClass("jscode");
+      $this.empty();
+      var myCodeMirror = CodeMirror(this, {
+          value: $code,
+          mode: 'javascript',
+          lineNumbers: !$this.is('.inline'),
+          readOnly: true,
+          theme: 'reeborg-dark'
+      });
+  });
+};
+
+RUR.reset_definitions = function () {
+  
+  if (!RUR.world.robot_world_active){
+      move = null;
+      turn_left = null;
+      //UsedRobot = null;
+      front_is_clear = null;
+      right_is_clear = null;
+      is_facing_north = null;
+      done = null;
+      put = null;
+      take = null;
+      shape_here = null;
+      select_world = null;
+      token_here = null;
+      has_token = null;
+      at_goal = null;
+      at_goal_orientation = null;
+      build_wall = null;
+      think = null;
+      pause = null;
+      remove_robot = null;
+      repeat = null;
+      side_view = null;
+      top_view = null;
+      write = function (s) {
+          $("#output-pre").append(s.toString() + "\n");
+      };
+      return;
+  }
+  
+    write = function (s) {
+    RUR.rec.record_frame("output", {"element": "#output-pre", "message": s.toString()});
+  };
 //  
 //  at_goal = function() {
 //      return RUR.world.robots[0].at_goal();
@@ -754,13 +792,13 @@ RUR.reset_definitions = function () {
 //      RUR.world.robots[0].build_wall();
 //  };
 //
-done = function () {
-  RUR.control.done();
-};
+    done = function () {
+      RUR.control.done();
+    };
 
-front_is_clear = function() {
-  return RUR.world.front_is_clear(RUR.current_world.robots[0]);
-};
+    front_is_clear = function() {
+      return RUR.world.front_is_clear(RUR.current_world.robots[0]);
+    };
 
 //
 //  has_token = function () {
@@ -771,13 +809,17 @@ front_is_clear = function() {
 //      return RUR.world.robots[0].is_facing_north();
 //  };
 //
-move = function () {
-    RUR.control.move(RUR.current_world.robots[0]);
-};
+    move = function () {
+        RUR.control.move(RUR.current_world.robots[0]);
+    };
 
-pause = function (ms) {
-  RUR.control.pause(ms);
-};
+    pause = function (ms) {
+      RUR.control.pause(ms);
+    };
+    
+    put = function(arg) {
+        RUR.control.put(RUR.current_world.robots[0], arg);
+    };
 //
 //  put = function(arg) {
 //      RUR.world.robots[0].put(arg);
@@ -787,15 +829,15 @@ pause = function (ms) {
 //      RUR.world.remove_robot();
 //  };
 //
-repeat = function (f, n) {
-  for (var i=0; i < n; i++){
-      f();
-  }
-};
+    repeat = function (f, n) {
+      for (var i=0; i < n; i++){
+          f();
+      }
+    };
 
-right_is_clear = function() {
-  return RUR.world.right_is_clear(RUR.current_world.robots[0]);
-};
+    right_is_clear = function() {
+      return RUR.world.right_is_clear(RUR.current_world.robots[0]);
+    };
 //
 //  shape_here = function () {
 //      return RUR.world.find_shape(RUR.world.robots[0].x, RUR.world.robots[0].y);
@@ -814,9 +856,9 @@ right_is_clear = function() {
 //  };
 //
 
-turn_left = function () {
-    RUR.control.turn_left(RUR.current_world.robots[0]);
-};
+    turn_left = function () {
+        RUR.control.turn_left(RUR.current_world.robots[0]);
+    };
 //  side_view = function () {
 //      RUR.visible_world.top_view = false;
 //      localStorage.setItem("top_view", "false");
@@ -837,6 +879,7 @@ turn_left = function () {
 //    RUR.Robot.call(this, x, y, orientation, tokens);
 //    RUR.world.add_robot(this);
 //}
+};
 
 
 RUR.programming_language = "javascript";
@@ -943,9 +986,12 @@ RUR.runner.run = function (playback) {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
-        playback(); // function called to play back the code in a sequence of frames
-                    // or a "null function", f(){} can be passed if the code is not
-                    // dependent on the robot world.
+        // "playback" is afunction called to play back the code in a sequence of frames
+        // or a "null function", f(){} can be passed if the code is not
+        // dependent on the robot world.
+        if (playback() === "stopped") {
+            RUR.ui.stop();
+        } 
     }
 };
 
@@ -1115,7 +1161,7 @@ RUR.ui.pause = function (ms) {
 };
 
 RUR.ui.step = function () {
-    RUR.controls.compile_and_run(RUR.visible_world.play_single_frame);
+    RUR.runner.run(RUR.rec.display_frame);
 };
 
 RUR.ui.stop = function () {
@@ -1143,18 +1189,6 @@ RUR.ui.reload = function() {
     RUR.rec.reset();
     editorUpdateHints();
     libraryUpdateHints();
-};
-
-RUR.ui.update_controls = function () {
-    if ($("#world-panel").hasClass("active")){
-        RUR.world.robot_world_active = true;
-        $("#run2").css("visibility", "hidden");
-        $("#reload2").css("visibility", "hidden");
-    } else {
-        $("#run2").css("visibility", "visible");
-        $("#reload2").css("visibility", "visible");
-        RUR.world.robot_world_active = false;
-    }
 };
 
 RUR.ui.select_world = function (s, silent) {
