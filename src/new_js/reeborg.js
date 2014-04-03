@@ -503,7 +503,7 @@ RUR.rec.display_frame = function () {
 RUR.rec.conclude = function () {
     var frame, goal_status;
     frame = RUR.rec.frames[RUR.rec.nb_frames];
-    if (RUR.world.goal !== undefined){
+    if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
             $("#Reeborg-says").html(goal_status.message).dialog("open");
@@ -523,7 +523,7 @@ RUR.rec.conclude = function () {
 RUR.rec.handle_error = function (frame) {
     var goal_status;
     if (frame.error.message === RUR.translation["Done!"]){
-        if (RUR.world.goal !== undefined){
+        if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
             $("#Reeborg-says").html(RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"]).dialog("open");
@@ -813,9 +813,7 @@ right_is_clear = function() {
 //      return RUR.world.get_tokens(RUR.world.robots[0].x, RUR.world.robots[0].y);
 //  };
 //
-//  turn_left = function() {
-//      RUR.world.robots[0].turn_left();
-//  };
+
 turn_left = function () {
     RUR.control.turn_left(RUR.current_world.robots[0]);
 };
@@ -1765,6 +1763,7 @@ RUR.vis_world.draw_star = function (ctx, x, y, r, goal){
 RUR.vis_world.draw_all = function () {
     "use strict";
     RUR.vis_world.draw_background();
+    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_goal();
     RUR.vis_world.refresh();
 };

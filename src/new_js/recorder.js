@@ -99,7 +99,7 @@ RUR.rec.display_frame = function () {
 RUR.rec.conclude = function () {
     var frame, goal_status;
     frame = RUR.rec.frames[RUR.rec.nb_frames];
-    if (RUR.world.goal !== undefined){
+    if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
             $("#Reeborg-says").html(goal_status.message).dialog("open");
@@ -119,7 +119,7 @@ RUR.rec.conclude = function () {
 RUR.rec.handle_error = function (frame) {
     var goal_status;
     if (frame.error.message === RUR.translation["Done!"]){
-        if (RUR.world.goal !== undefined){
+        if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
             $("#Reeborg-says").html(RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"]).dialog("open");
