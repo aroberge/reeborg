@@ -165,10 +165,10 @@ front_is_clear = function() {
 move = function () {
     RUR.control.move(RUR.current_world.robots[0]);
 };
-//
-//  pause = function (ms) {
-//      RUR.world.pause(ms);
-//  };
+
+pause = function (ms) {
+  RUR.control.pause(ms);
+};
 //
 //  put = function(arg) {
 //      RUR.world.robots[0].put(arg);
@@ -178,12 +178,12 @@ move = function () {
 //      RUR.world.remove_robot();
 //  };
 //
-//  repeat = function (f, n) {
-//      for (var i=0; i < n; i++){
-//          f();
-//      }
-//  };
-//
+repeat = function (f, n) {
+  for (var i=0; i < n; i++){
+      f();
+  }
+};
+
 right_is_clear = function() {
   return RUR.world.right_is_clear(RUR.current_world.robots[0]);
 };

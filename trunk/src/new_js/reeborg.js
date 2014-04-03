@@ -108,6 +108,10 @@ RUR.control.__turn_right = function(robot, no_frame){
     if (no_frame) return;
     RUR.rec.record_frame();
 };
+
+RUR.control.pause = function (ms) {
+    RUR.rec.record_frame("pause", {pause_time:ms});
+};
 /* Author: André Roberge
    License: MIT
  */
@@ -483,7 +487,7 @@ RUR.rec.display_frame = function () {
         RUR.visible_world.delay = frame.delay;   // FIXME
         return "immediate";
     } else if (frame.pause) {
-        RUR.ui.pause(frame.pause_time);      // FIXME
+        RUR.ui.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {                        // FIXME
         return RUR.rec.handle_error(frame);
@@ -770,10 +774,10 @@ front_is_clear = function() {
 move = function () {
     RUR.control.move(RUR.current_world.robots[0]);
 };
-//
-//  pause = function (ms) {
-//      RUR.world.pause(ms);
-//  };
+
+pause = function (ms) {
+  RUR.control.pause(ms);
+};
 //
 //  put = function(arg) {
 //      RUR.world.robots[0].put(arg);
@@ -783,12 +787,12 @@ move = function () {
 //      RUR.world.remove_robot();
 //  };
 //
-//  repeat = function (f, n) {
-//      for (var i=0; i < n; i++){
-//          f();
-//      }
-//  };
-//
+repeat = function (f, n) {
+  for (var i=0; i < n; i++){
+      f();
+  }
+};
+
 right_is_clear = function() {
   return RUR.world.right_is_clear(RUR.current_world.robots[0]);
 };
