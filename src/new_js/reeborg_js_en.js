@@ -145,10 +145,10 @@ RUR.reset_definitions = function () {
 //      RUR.world.robots[0].build_wall();
 //  };
 //
-//  done = function () {
-//      RUR.world.robots[0].done();
-//  };
-//
+done = function () {
+  RUR.control.done();
+};
+
 front_is_clear = function() {
   return RUR.world.front_is_clear(RUR.current_world.robots[0]);
 };
