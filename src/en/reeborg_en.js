@@ -152,15 +152,13 @@ RUR.reset_definitions = function () {
       return RUR.control.front_is_clear(RUR.current_world.robots[0]);
     };
 
-    
     has_token = function () {
         return RUR.control.has_token(RUR.current_world.robots[0]);
     };
-//
-//  is_facing_north = function() {
-//      return RUR.world.robots[0].is_facing_north();
-//  };
-//
+    is_facing_north = function () {
+        return RUR.control.is_facing_north(RUR.current_world.robots[0]);
+    };
+
     move = function () {
         RUR.control.move(RUR.current_world.robots[0]);
     };

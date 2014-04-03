@@ -278,6 +278,10 @@ RUR.control.right_is_clear = function(robot){
     return result;
 };
 
+RUR.control.is_facing_north = function (robot) {
+    return robot.orientation === RUR.NORTH;
+};
+
 RUR.control.think = function (delay) {
     RUR.rec.delay = delay;
 };
