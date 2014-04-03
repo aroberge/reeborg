@@ -285,6 +285,28 @@ RUR.control.is_facing_north = function (robot) {
 RUR.control.think = function (delay) {
     RUR.rec.delay = delay;
 };
+
+RUR.control.at_goal = function (robot) {
+    var goal = RUR.current_world.goal;
+    if (goal !== undefined){
+        if (goal.position !== undefined) {
+            return (robot.x === goal.position.x && robot.y === goal.position.y);
+        }
+        throw new RUR.Error(RUR.translation["There is no position as a goal in this world!"]);
+    }
+    throw new RUR.Error(RUR.translation["There is no goal in this world!"]);
+};
+
+RUR.control.at_goal_orientation = function (robot) {
+    var goal = RUR.current_world.goal;
+    if (goal !== undefined){
+        if (goal.orientation !== undefined) {
+            return (robot.orientation === goal.orientation);
+        }
+        throw new RUR.Error(RUR.translation["There is no orientation as a goal in this world!"]);
+    }
+    throw new RUR.Error(RUR.translation["There is no goal in this world!"]);
+};
 /* Author: André Roberge
    License: MIT
  */
