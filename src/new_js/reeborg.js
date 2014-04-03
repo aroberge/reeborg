@@ -307,6 +307,18 @@ RUR.control.at_goal_orientation = function (robot) {
     }
     throw new RUR.Error(RUR.translation["There is no goal in this world!"]);
 };
+
+RUR.control.object_here = function (robot) {
+    var coords = robot.x + "," + robot.y;
+    if (RUR.control.token_here(robot) !== 0) {
+        return RUR.translation.token;
+    }
+    
+    if (RUR.current_world.shapes === undefined) {
+        return 0;
+    }
+    return RUR.translation[RUR.current_world.shapes[coords]] || 0;
+};
 /* Author: André Roberge
    License: MIT
  */
