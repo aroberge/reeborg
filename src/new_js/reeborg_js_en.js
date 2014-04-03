@@ -149,9 +149,13 @@ RUR.reset_definitions = function () {
     };
 
     front_is_clear = function() {
-      return RUR.world.front_is_clear(RUR.current_world.robots[0]);
+      return RUR.control.front_is_clear(RUR.current_world.robots[0]);
     };
 
+    
+    has_token = function () {
+        return RUR.control.has_token(RUR.current_world.robots[0]);
+    };
 //
 //  has_token = function () {
 //      return RUR.world.robots[0].has_token();
@@ -192,7 +196,7 @@ RUR.reset_definitions = function () {
     };
 
     right_is_clear = function() {
-      return RUR.world.right_is_clear(RUR.current_world.robots[0]);
+      return RUR.control.right_is_clear(RUR.current_world.robots[0]);
     };
 //
 //  shape_here = function () {
@@ -238,7 +242,6 @@ RUR.reset_definitions = function () {
 };
 
 
-RUR.programming_language = "javascript";
 function _import_library () {
   // adds the library code to the editor code if appropriate string is found
     var separator, import_lib_regex, src, lib_src;  // separates library code from user code

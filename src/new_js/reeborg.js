@@ -59,7 +59,7 @@ RUR.DEBUG_INFO_COLOR = "blue";
 RUR.control = {};
 
 RUR.control.move = function (robot) {
-    if (!RUR.world.front_is_clear(robot)) {
+    if (!RUR.control.front_is_clear(robot)) {
         throw new RUR.Error(RUR.translation["Ouch! I hit a wall!"]);
     }
     if ((robot.y === RUR.ROWS && robot.orientation === RUR.NORTH) ||
@@ -82,7 +82,7 @@ RUR.control.move = function (robot) {
         robot.y -= 1;
         break;
     default:
-        throw new Error("Should not happen: unhandled case in RUR.World.move_robot().");
+        throw new Error("Should not happen: unhandled case in RUR.control.move().");
     }
     RUR.rec.record_frame();
 };
@@ -125,8 +125,6 @@ RUR.control.token_here = function (robot) {
     return RUR.current_world.tokens[coords];
 };
 
-//RUR.control.put(RUR.current_world.robots[0], arg);
-
 RUR.control.put = function(robot, arg){
     if (arg === undefined || arg === RUR.translation.token) {
         RUR.control._put_token(robot);
@@ -147,7 +145,71 @@ RUR.control._put_token = function (robot) {
     RUR.rec.record_frame();
 };
 
-/* Author: André Roberge
+RUR.control.has_token = function (robot) {
+    if (robot.tokens !== 0) return true;
+    return false;
+};
+
+RUR.control.is_wall_at = function (coords, orientation) {
+    if (RUR.current_world.walls === undefined) {
+        return false;
+    }
+    if (RUR.current_world.walls[coords] !== undefined){
+        if (RUR.current_world.walls[coords].indexOf(orientation) !== -1) {
+            return true;
+        }
+    }
+    return false;
+};
+
+RUR.control.front_is_clear = function(robot){
+    var coords;
+    switch (robot.orientation){
+    case RUR.EAST:
+        coords = robot.x + "," + robot.y;
+        if (RUR.control.is_wall_at(coords, "east")) {
+            return false;
+        }
+        break;
+    case RUR.NORTH:
+        coords = robot.x + "," + robot.y;
+        if (RUR.control.is_wall_at(coords, "north")) {
+            return false;
+        }
+        break;
+    case RUR.WEST:
+        if (robot.x===1){
+            return false;
+        } else {
+            coords = (robot.x-1) + "," + robot.y; // do math first before building strings
+            if (RUR.control.is_wall_at(coords, "east")) {
+                return false;
+            }
+        }
+        break;
+    case RUR.SOUTH:
+        if (robot.y===1){
+            return false;
+        } else {
+            coords = robot.x + "," + (robot.y-1);  // do math first before building strings
+            if (RUR.control.is_wall_at(coords, "north")) {
+                return false;
+            }
+        }
+        break;
+    default:
+        throw new RUR.Error("Should not happen: unhandled case in RUR.control.front_is_clear().");
+    }
+    return true;
+};
+
+RUR.control.right_is_clear = function(robot){
+    var result;
+    RUR.control.__turn_right(robot, true);
+    result = RUR.control.front_is_clear(robot);
+    RUR.control.turn_left(robot, true);
+    return result;
+};/* Author: André Roberge
    License: MIT
  */
 
@@ -368,7 +430,6 @@ $(document).ready(function() {
                 }
 
     RUR.ui.set_ready_to_run();
-    
 });
 /* Author: André Roberge
    License: MIT
@@ -452,15 +513,11 @@ function updateHints(obj) {
 RUR.rec = {};
 
 RUR.rec.reset = function() {
-    RUR.rec.nb_frames = -1;
+    RUR.rec.nb_frames = 0;
     RUR.rec.current_frame = 0;
     RUR.rec.frames = [];
     RUR.rec.playback = false;
     clearTimeout(RUR.rec.timer);
-    if (RUR.world !== undefined && RUR.current_world !== undefined) {
-        RUR.rec.record_frame();   // record initial frame for dealing with
-        // the case where the user's program does not trigger recording.
-    }
 };
 RUR.rec.reset();
 
@@ -797,9 +854,13 @@ RUR.reset_definitions = function () {
     };
 
     front_is_clear = function() {
-      return RUR.world.front_is_clear(RUR.current_world.robots[0]);
+      return RUR.control.front_is_clear(RUR.current_world.robots[0]);
     };
 
+    
+    has_token = function () {
+        return RUR.control.has_token(RUR.current_world.robots[0]);
+    };
 //
 //  has_token = function () {
 //      return RUR.world.robots[0].has_token();
@@ -840,7 +901,7 @@ RUR.reset_definitions = function () {
     };
 
     right_is_clear = function() {
-      return RUR.world.right_is_clear(RUR.current_world.robots[0]);
+      return RUR.control.right_is_clear(RUR.current_world.robots[0]);
     };
 //
 //  shape_here = function () {
@@ -886,7 +947,6 @@ RUR.reset_definitions = function () {
 };
 
 
-RUR.programming_language = "javascript";
 function _import_library () {
   // adds the library code to the editor code if appropriate string is found
     var separator, import_lib_regex, src, lib_src;  // separates library code from user code
@@ -984,6 +1044,7 @@ RUR.runner.run = function (playback) {
     if (!RUR.runner.interpreted) {
         src = _import_library();                // defined in Reeborg_js_en, etc.
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
+        RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }
     if (!fatal_error_found) {
         try {
@@ -1404,16 +1465,16 @@ if (localStorage.getItem("top_view") === "true") {  // TODO fix this
 // original drawing is made
 
 RUR.vis_robot.e_img.onload = function () {
-    RUR.vis_world.draw_all();
+    RUR.world.reset();
 };
 RUR.vis_robot.w_img.onload = function () {
-    RUR.vis_world.draw_all();
+    RUR.world.reset();
 };
 RUR.vis_robot.n_img.onload = function () {
-    RUR.vis_world.draw_all();
+    RUR.world.reset();
 };
 RUR.vis_robot.s_img.onload = function () {
-    RUR.vis_world.draw_all();
+    RUR.world.reset();
 };
 
 
@@ -1880,67 +1941,6 @@ RUR.world.add_robot = function (robot) {
     RUR.current_world.robots.push(robot);
 };
 
-
-RUR.world.is_wall_at = function (coords, orientation) {
-    if (RUR.current_world.walls === undefined) {
-        return false;
-    }
-    if (RUR.current_world.walls[coords] !== undefined){
-        if (RUR.current_world.walls[coords].indexOf(orientation) !== -1) {
-            return true;
-        }
-    }
-    return false;
-};
-
-RUR.world.front_is_clear = function(robot){
-    var coords;
-    switch (robot.orientation){
-    case RUR.EAST:
-        coords = robot.x + "," + robot.y;
-        if (RUR.world.is_wall_at(coords, "east")) {
-            return false;
-        }
-        break;
-    case RUR.NORTH:
-        coords = robot.x + "," + robot.y;
-        if (RUR.world.is_wall_at(coords, "north")) {
-            return false;
-        }
-        break;
-    case RUR.WEST:
-        if (robot.x===1){
-            return false;
-        } else {
-            coords = (robot.x-1) + "," + robot.y; // do math first before building strings
-            if (RUR.world.is_wall_at(coords, "east")) {
-                return false;
-            }
-        }
-        break;
-    case RUR.SOUTH:
-        if (robot.y===1){
-            return false;
-        } else {
-            coords = robot.x + "," + (robot.y-1);  // do math first before building strings
-            if (RUR.world.is_wall_at(coords, "north")) {
-                return false;
-            }
-        }
-        break;
-    default:
-        throw new RUR.Error("Should not happen: unhandled case in RUR.World.front_is_clear().");
-    }
-    return true;
-};
-
-RUR.world.right_is_clear = function(robot){
-    var result;
-    RUR.control.__turn_right(robot, true);
-    result = RUR.world.front_is_clear(robot);
-    RUR.control.turn_left(robot, true);
-    return result;
-};
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */

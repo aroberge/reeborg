@@ -8,7 +8,7 @@
 RUR.control = {};
 
 RUR.control.move = function (robot) {
-    if (!RUR.world.front_is_clear(robot)) {
+    if (!RUR.control.front_is_clear(robot)) {
         throw new RUR.Error(RUR.translation["Ouch! I hit a wall!"]);
     }
     if ((robot.y === RUR.ROWS && robot.orientation === RUR.NORTH) ||
@@ -31,7 +31,7 @@ RUR.control.move = function (robot) {
         robot.y -= 1;
         break;
     default:
-        throw new Error("Should not happen: unhandled case in RUR.World.move_robot().");
+        throw new Error("Should not happen: unhandled case in RUR.control.move().");
     }
     RUR.rec.record_frame();
 };
@@ -74,8 +74,6 @@ RUR.control.token_here = function (robot) {
     return RUR.current_world.tokens[coords];
 };
 
-//RUR.control.put(RUR.current_world.robots[0], arg);
-
 RUR.control.put = function(robot, arg){
     if (arg === undefined || arg === RUR.translation.token) {
         RUR.control._put_token(robot);
@@ -96,3 +94,68 @@ RUR.control._put_token = function (robot) {
     RUR.rec.record_frame();
 };
 
+RUR.control.has_token = function (robot) {
+    if (robot.tokens !== 0) return true;
+    return false;
+};
+
+RUR.control.is_wall_at = function (coords, orientation) {
+    if (RUR.current_world.walls === undefined) {
+        return false;
+    }
+    if (RUR.current_world.walls[coords] !== undefined){
+        if (RUR.current_world.walls[coords].indexOf(orientation) !== -1) {
+            return true;
+        }
+    }
+    return false;
+};
+
+RUR.control.front_is_clear = function(robot){
+    var coords;
+    switch (robot.orientation){
+    case RUR.EAST:
+        coords = robot.x + "," + robot.y;
+        if (RUR.control.is_wall_at(coords, "east")) {
+            return false;
+        }
+        break;
+    case RUR.NORTH:
+        coords = robot.x + "," + robot.y;
+        if (RUR.control.is_wall_at(coords, "north")) {
+            return false;
+        }
+        break;
+    case RUR.WEST:
+        if (robot.x===1){
+            return false;
+        } else {
+            coords = (robot.x-1) + "," + robot.y; // do math first before building strings
+            if (RUR.control.is_wall_at(coords, "east")) {
+                return false;
+            }
+        }
+        break;
+    case RUR.SOUTH:
+        if (robot.y===1){
+            return false;
+        } else {
+            coords = robot.x + "," + (robot.y-1);  // do math first before building strings
+            if (RUR.control.is_wall_at(coords, "north")) {
+                return false;
+            }
+        }
+        break;
+    default:
+        throw new RUR.Error("Should not happen: unhandled case in RUR.control.front_is_clear().");
+    }
+    return true;
+};
+
+RUR.control.right_is_clear = function(robot){
+    var result;
+    RUR.control.__turn_right(robot, true);
+    result = RUR.control.front_is_clear(robot);
+    RUR.control.turn_left(robot, true);
+    return result;
+};

@@ -59,16 +59,16 @@ if (localStorage.getItem("top_view") === "true") {  // TODO fix this
 // original drawing is made
 
 RUR.vis_robot.e_img.onload = function () {
-    RUR.vis_world.draw_all();
+    RUR.world.reset();
 };
 RUR.vis_robot.w_img.onload = function () {
-    RUR.vis_world.draw_all();
+    RUR.world.reset();
 };
 RUR.vis_robot.n_img.onload = function () {
-    RUR.vis_world.draw_all();
+    RUR.world.reset();
 };
 RUR.vis_robot.s_img.onload = function () {
-    RUR.vis_world.draw_all();
+    RUR.world.reset();
 };
 
 
