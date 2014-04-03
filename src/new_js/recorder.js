@@ -83,7 +83,7 @@ RUR.rec.display_frame = function () {
         RUR.visible_world.delay = frame.delay;   // FIXME
         return "immediate";
     } else if (frame.pause) {
-        RUR.ui.pause(frame.pause_time);      // FIXME
+        RUR.ui.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {                        // FIXME
         return RUR.rec.handle_error(frame);
