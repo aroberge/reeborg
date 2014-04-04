@@ -8,7 +8,7 @@
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, object_here, select_world,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
-                    " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view*/\n";
+                    " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view, sound*/\n";
 
 var RUR = RUR || {};
 
@@ -66,7 +66,7 @@ RUR.translation["Invalid world file."] = "Invalid world file.";
 var move, turn_left, inspect, front_is_clear, right_is_clear, 
     is_facing_north, done, put, take, object_here, select_world, token_here, 
     has_token, write, at_goal, at_goal_orientation, build_wall, think, 
-    pause, remove_robot, repeat, view_source, side_view, top_view;
+    pause, remove_robot, repeat, view_source, side_view, top_view, sound;
 
 inspect = function (obj){
   var props, result = "";
@@ -95,6 +95,10 @@ view_source = function(fn) {
           theme: 'reeborg-dark'
       });
   });
+};
+
+sound = function (on) {
+    RUR.control.sound(on);  
 };
 
 RUR.reset_definitions = function () {
