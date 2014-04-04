@@ -173,10 +173,16 @@
             <li><a href="javascript:RUR.we.turn_robot(3);"><img src="src/images/robot_s.png" alt="robot: south"></a></li>
         </ul>
         <ul class="edit-world-canvas" id="edit-world-objects" style="display:none">
-            <li><a href="javascript:RUR.we.select('world-tokens');"><canvas id="canvas-token" width="40" height="40"></canvas></a></li>
-            <li><a href="javascript:RUR.we.select('world-star');"><canvas id="canvas-star" width="40" height="40"></canvas></a></li>
-            <li><a href="javascript:RUR.we.select('world-triangle');"><canvas id="canvas-triangle" width="40" height="40"></canvas></a></li>
-            <li><a href="javascript:RUR.we.select('world-square');"><canvas id="canvas-square" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-tokens');"><canvas id="canvas-token" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-star');"><canvas id="canvas-star" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-triangle');"><canvas id="canvas-triangle" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-square');"><canvas id="canvas-square" class="edit-canvas" width="40" height="40"></canvas></a></li>
+        </ul>
+        <ul class="edit-goal-canvas" id="edit-goal-objects" style="display:none">
+            <li><a href="javascript:RUR.we.select('goal-tokens');"><canvas id="canvas-goal-token" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('goal-star');"><canvas id="canvas-goal-star" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('goal-triangle');"><canvas id="canvas-goal-triangle" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('goal-square');"><canvas id="canvas-goal-square" class="edit-canvas" width="40" height="40"></canvas></a></li>
         </ul>
     </div>
     
@@ -193,12 +199,8 @@
         <li class="a-like">Goal <ul>
             <li><a href="javascript:RUR.we.select('goal-robot');">Robot</a></li>
             <li><a href="javascript:RUR.we.select('goal-wall');">Walls</a></li>
-            <li><a href="javascript:RUR.we.select('goal-tokens');">Tokens</a></li>
-            <li class="a-like">Shapes <ul>
-                <li><a href="javascript:RUR.we.select('teleport');">Square</a></li>
-                <li><a href="javascript:RUR.we.select('teleport');">Star</a></li>
-                <li><a href="javascript:RUR.we.select('teleport');">Triangle</a></li>
-            </ul></li>
+            <li><a href="javascript:RUR.we.select('goal-objects');">Objects</a></li>
+            <li><a href="javascript:RUR.we.select('goal-no-objects');">No objects</a></li>
         </ul></li>
     </ul>
     

@@ -15,7 +15,7 @@ canvas {
     border: 1px solid green;
     top: 5px;
 }
-#canvas-token, #canvas-star, #canvas-triangle, #canvas-square {
+.edit-canvas {
     position: relative;
 }
 code {background-color: #124; color: white; border-radius: 6px; font-size:12px; padding: 2px 3px; font-weight: bold;
@@ -309,24 +309,11 @@ footer a:hover{
  top: 0;
 }
 
-/* SUBSUBSUB Menu */
-
-#edit-world-nav li ul li ul li ul{
- display: none;
-}
-
-#edit-world-nav li ul li ul li:hover ul {
- left: 100%;
- top: 0;
-}
-#edit-world-nav li ul li ul li a {
- padding: 0.3em;
-}
 
 #edit-world-submenus-wrapper {
     min-height: 100px;
 }
-.edit-world-submenus li, .edit-world-canvas li {
+.edit-world-submenus li, .edit-world-canvas li, .edit-goal-canvas li {
  float: left;
  list-style: none;
  position: relative;
