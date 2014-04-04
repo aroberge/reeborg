@@ -133,7 +133,7 @@ RUR.reset_definitions = function () {
   }
   
     write = function (s) {
-    RUR.rec.record_frame("output", {"element": "#output-pre", "message": s.toString()});
+        RUR.control.write(s);
   };
 
     at_goal = function () {
