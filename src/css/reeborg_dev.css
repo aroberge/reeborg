@@ -15,6 +15,9 @@ canvas {
     border: 1px solid green;
     top: 5px;
 }
+#canvas-token, #canvas-star, #canvas-triangle, #canvas-square {
+    position: relative;
+}
 code {background-color: #124; color: white; border-radius: 6px; font-size:12px; padding: 2px 3px; font-weight: bold;
      font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace; }
 
@@ -323,7 +326,7 @@ footer a:hover{
 #edit-world-submenus-wrapper {
     min-height: 100px;
 }
-.edit-world-submenus li {
+.edit-world-submenus li, .edit-world-canvas li {
  float: left;
  list-style: none;
  position: relative;
