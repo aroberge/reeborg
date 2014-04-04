@@ -44,19 +44,15 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
     robot._prev_orientation = robot.orientation;
-    robot._triangles = 0; // can only be found in the world
-    robot._squares = 0;   // same
-    robot._stars = 0;     // same
-    robot.__id = -1;  // id of -1 means inactive robot which could be removed.
+    robot.triangle = 0; // can only be found in the world
+    robot.square = 0;   // same
+    robot.star = 0;     // same
+    robot.__id = -1;
     return robot;
 };
 
 RUR.robot.clone_robot = function (robot) {
     return JSON.parse(JSON.stringify(robot));
-};
-
-RUR.robot.destroy_robot = function (robot) {
-    robot.__id = -1;
 };
 
 
