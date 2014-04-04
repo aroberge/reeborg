@@ -3,7 +3,7 @@
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR */
+/*globals $, RUR */
 
 RUR.control = {};
 
@@ -75,6 +75,7 @@ RUR.control.token_here = function (robot) {
 };
 
 RUR.control.put = function(robot, arg){
+    RUR.control.sound_id = "#put-sound";
     if (arg === undefined || arg === RUR.translation.token) {
         RUR.control._put_token(robot);
         return;
@@ -297,3 +298,23 @@ RUR.control.object_here = function (robot) {
     }
     return RUR.translation[RUR.current_world.shapes[coords]] || 0;
 };
+
+
+RUR.control.sound_flag = false;
+RUR.control.sound = function(on){
+    if(!on){
+        RUR.control.sound_flag = false;
+        return;
+    }
+    RUR.control.sound_flag = true;
+};
+
+RUR.control.sound_id = undefined;
+RUR.control.play_sound = function (sound_id) {
+    var current_sound;
+    current_sound = $(sound_id)[0];
+    current_sound.load();
+    current_sound.play();
+};
+
+

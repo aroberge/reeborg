@@ -26,9 +26,16 @@ RUR.rec.record_frame = function (name, obj) {
     if (name !== undefined) {
         frame[name] = obj;
     }
+    if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > 250) {
+        frame.sound_id = RUR.control.sound_id;
+    }
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
     // TODO add check for too many steps.
+    RUR.control.sound_id = undefined;
+    if (RUR.rec.nb_frames == RUR.MAX_STEPS) {
+        throw new RUR.Error(RUR.translation["Too many steps:"].supplant({max_steps: RUR.MAX_STEPS}));
+    }
 };
 
 RUR.rec.play = function () {
@@ -92,6 +99,9 @@ RUR.rec.display_frame = function () {
         $(frame.output.element).append(frame.output.message + "\n");
     }
     RUR.current_world = frame.world;
+    if (frame.sound_id !== undefined){
+        RUR.control.play_sound(frame.sound_id);
+    }
     RUR.vis_world.refresh();
 };
 
