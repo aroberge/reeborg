@@ -77,7 +77,23 @@ RUR.control.token_here = function (robot) {
 RUR.control.put = function(robot, arg){
     if (arg === undefined || arg === RUR.translation.token) {
         RUR.control._put_token(robot);
+        return;
+    } else if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(arg) === -1){
+        throw new RUR.Error(RUR.translation["Unknown object"].supplant({shape: arg}));
     }
+    if (robot[RUR.translation[arg]] === 0){
+        throw new RUR.Error(RUR.translation["I don't have any shape to put down!"].supplant({shape:arg}));
+    } else if (RUR.control.object_here(robot) !== 0) {
+        throw new RUR.Error(RUR.translation["There is already something here."]);
+    }
+    robot[RUR.translation[arg]] -= 1;
+    RUR.control._put_object(robot, RUR.translation[arg]);
+};
+
+RUR.control._put_object = function (robot, obj) {
+    RUR.we.ensure_key_exist(RUR.current_world, "shapes");
+    RUR.current_world.shapes[robot.x + "," + robot.y] = obj;
+    RUR.rec.record_frame();
 };
 
 RUR.control._put_token = function (robot) {
@@ -101,7 +117,20 @@ RUR.control.has_token = function (robot) {
 RUR.control.take = function(robot, arg){
     if (arg === undefined || arg === RUR.translation.token) {
         RUR.control._take_token(robot);
+        return;
+    } else if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(arg) === -1){
+        throw new RUR.Error(RUR.translation["Unknown object"].supplant({shape: arg}));
     }
+    if (RUR.control.object_here(robot) !== RUR.translation[arg]) {
+        throw new RUR.Error(RUR.translation["No shape found here"].supplant({shape: arg}));
+    }
+    robot[RUR.translation[arg]] += 1;
+    RUR.control._take_object(robot, RUR.translation[arg]);
+};
+
+RUR.control._take_object = function (robot, obj) {
+    delete RUR.current_world.shapes[robot.x + "," + robot.y];
+    RUR.rec.record_frame();
 };
 
 RUR.control._take_token = function (robot) {
