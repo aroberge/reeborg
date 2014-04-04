@@ -34,6 +34,18 @@ RUR.we.edit_world = function  () {
         case "goal-tokens":
             RUR.we.set_goal_token_number();
             break;
+        case "goal-star":
+            RUR.we.toggle_goal_shape("star");
+            break;
+        case "goal-triangle":
+            RUR.we.toggle_goal_shape("triangle");
+            break;
+        case "goal-square":
+            RUR.we.toggle_goal_shape("square");
+            break;
+        case "goal-no-objects":
+            RUR.we.set_goal_no_objects();
+            break;
         default:
             break;
     }
@@ -43,6 +55,7 @@ RUR.we.edit_world = function  () {
 RUR.we.select = function (choice) {
     $(".edit-world-submenus").hide();
     $(".edit-world-canvas").hide();
+    $(".edit-goal-canvas").hide();
     RUR.we.edit_world_flag = choice;
     switch (choice) {
         case "robot-teleport":
@@ -98,9 +111,28 @@ RUR.we.select = function (choice) {
         case "goal-wall":
             $("#cmd-result").html("Click on canvas to toggle additional walls to build.").effect("highlight", {color: "gold"}, 1500);
             break;
-        case "goal-tokens":
-            $("#cmd-result").html("Click on canvas to set number of tokens as goal.").effect("highlight", {color: "gold"}, 1500);
+        case "goal-objects":
+            $(".edit-goal-canvas").show();
+            $("#cmd-result").html("Click on desired goal object below.").effect("highlight", {color: "gold"}, 1500);
             break;
+        case "goal-tokens":
+            $(".edit-goal-canvas").show();
+            $("#cmd-result").html("Click on canvas to set number of goal tokens.").effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "goal-star":
+            $(".edit-goal-canvas").show();
+            $("#cmd-result").html("Click on canvas to toggle star goal.").effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "goal-triangle":
+            $(".edit-goal-canvas").show();
+            $("#cmd-result").html("Click on canvas to toggle triangle goal.").effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "goal-square":
+            $(".edit-goal-canvas").show();
+            $("#cmd-result").html("Click on canvas to toggle square goal.").effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "goal-no-objects":
+            $("#cmd-result").html("Click on canvas at x=1, y=1 to have no object left as a goal.").effect("highlight", {color: "gold"}, 1500);
     }
 };
 
@@ -436,6 +468,27 @@ RUR.we.toggle_shape = function (shape){
     }
 };
 
+RUR.we.toggle_goal_shape = function (shape){
+    "use strict";
+    var position, x, y;
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.tokens !== undefined &&
+        RUR.current_world.goal.tokens[x + "," + y] !== undefined){
+        $("#cmd-result").html("tokens as a goal here; can't set another object as goal.");
+        return;
+    }
+    RUR.we.ensure_key_exist(RUR.current_world.goal, "shapes");
+    if (RUR.current_world.goal.shapes[x + "," + y] === shape) {
+        delete RUR.current_world.goal.shapes[x + "," + y];
+    } else {
+        RUR.current_world.goal.shapes[x + "," + y] = shape;
+    }
+};
+
 RUR.we.set_goal_position = function (){
     // will remove the position if clicked again.
     "use strict";
@@ -461,7 +514,7 @@ RUR.we.set_goal_position = function (){
         }
     } else {
         RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-        $("#cmd-result").html("Click on same position to remove, or robot to set orientation").effect("highlight", {color: "gold"}, 1500);
+        $("#cmd-result").html("Click on same position to remove, or robot to set orientation.").effect("highlight", {color: "gold"}, 1500);
         $("#edit-world-turn").show();
     }
 };
@@ -480,106 +533,95 @@ RUR.we.set_goal_orientation = function(orientation){
     }
 };
 
-function set_goal_tokens(x, y, nb_tokens){
+
+RUR.we.set_goal_no_objects = function(){
     "use strict";
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
-        $("#cmd-result").html("other object goal here; can't set token goal").effect("highlight", {color: "gold"}, 1500);
+    var position;
+    position = RUR.we.calculate_grid_position();
+    if (position[0] !== 1 || position[1] !== 1) {
+        $("#cmd-result").html("No effect.").effect("highlight", {color: "gold"}, 1500);
         return;
     }
-    RUR.we.ensure_key_exist(RUR.current_world.goal, "tokens");
-    if (nb_tokens > 0) {
-        RUR.current_world.goal.tokens[x + "," + y] = nb_tokens;
-    } else {
-        delete RUR.current_world.goal.tokens[x + "," + y];
-        if (Object.keys(RUR.current_world.goal.tokens).length === 0){
-            delete RUR.current_world.goal.tokens;
-            if (Object.keys(RUR.current_world.goal).length === 0){
-                delete RUR.current_world.goal;
-            }
-        }
-    }
-    RUR.we.update("updated tokens goal");
-}
-
-function set_goal_no_tokens(){
-    "use strict";
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     RUR.current_world.goal.tokens = {};
-}
-
-function set_goal_no_shapes(){
-    "use strict";
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
     RUR.current_world.goal.shapes = {};
-}
+    $("#cmd-result").html("Goal: no object left in world.").effect("highlight", {color: "gold"}, 1500);
+};
 
-
-function set_goal_shape(x, y, shape){
+RUR.we.draw_token = function (goal) {
     "use strict";
-    if (!(shape === "star" || shape === "square" || shape === "triangle")){
-        $("#cmd-result").html("unknown shape: " + shape);
-        return;
-    }
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.tokens !== undefined &&
-        RUR.current_world.goal.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html("tokens as a goal here; can't set a shape goal");
-        return;
-    }
-    RUR.we.ensure_key_exist(RUR.current_world.goal, "shapes");
-    if (RUR.current_world.goal.shapes[x + "," + y] === shape) {
-        delete RUR.current_world.goal.shapes[x + "," + y];
-        if (Object.keys(RUR.current_world.goal.shapes).length === 0){
-            delete RUR.current_world.goal.shapes;
-            if (Object.keys(RUR.current_world.goal).length === 0){
-                delete RUR.current_world.goal;
-            }
-        }
+    var ctx, size = 12;
+    if (goal) {
+        ctx = document.getElementById("canvas-goal-token").getContext("2d");
     } else {
-        RUR.current_world.goal.shapes[x + "," + y] = shape;
+        ctx = document.getElementById("canvas-token").getContext("2d");
     }
-    RUR.we.update("updated shapes");
-}
-
-
-RUR.we.draw_token = function () {
-    "use strict";
-    var size = 12;
-    var ctx = document.getElementById("canvas-token").getContext("2d");
     ctx.beginPath();
     ctx.arc(20,20, size, 0 , 2 * Math.PI, false);
     ctx.fillStyle = RUR.TOKEN_COLOR;
-    ctx.fill();
+    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
+    if (goal) {
+        ctx.stroke();
+    } else { 
+        ctx.fill();
+    }
 };
 RUR.we.draw_token();
+RUR.we.draw_token(true);
 
-RUR.we.draw_square = function () {
+RUR.we.draw_square = function (goal) {
     "use strict";
-    var ctx = document.getElementById("canvas-square").getContext("2d"), size=12;
+    var ctx, size=12;
+    if (goal) {
+        ctx = document.getElementById("canvas-goal-square").getContext("2d");
+    } else {
+        ctx = document.getElementById("canvas-square").getContext("2d");
+    }
     ctx.fillStyle = RUR.SQUARE_COLOR;
-    ctx.fillRect(8, 8, 2*size, 2*size);
-
+    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
+    if (goal) {
+        ctx.rect(8, 8, 2*size, 2*size);
+        ctx.stroke();
+    } else {
+        ctx.fillRect(8, 8, 2*size, 2*size);
+    }
 };
 RUR.we.draw_square();
+RUR.we.draw_square(true);
 
-RUR.we.draw_triangle = function () {
+RUR.we.draw_triangle = function (goal) {
     "use strict";
-    var ctx = document.getElementById("canvas-triangle").getContext("2d"), size=12, scale = RUR.WALL_LENGTH;
+    var ctx, size=12, scale = RUR.WALL_LENGTH;
+    if (goal) {
+        ctx = document.getElementById("canvas-goal-triangle").getContext("2d");
+    } else {
+        ctx = document.getElementById("canvas-triangle").getContext("2d");
+    }
     ctx.fillStyle = RUR.TRIANGLE_COLOR;
+    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
     ctx.beginPath();
     ctx.moveTo(0.5*scale - size, 0.5*scale + size);
     ctx.lineTo(0.5*scale, 0.5*scale - size);
     ctx.lineTo(0.5*scale + size, 0.5*scale + size);
     ctx.lineTo(0.5*scale - size, 0.5*scale + size);
-    ctx.fill();
+    if (goal) {
+        ctx.stroke();
+    } else { 
+        ctx.fill();
+    }
 };
 RUR.we.draw_triangle();
+RUR.we.draw_triangle(true);
 
-RUR.we.draw_star = function (){
+RUR.we.draw_star = function (goal){
     var ctx, scale = RUR.WALL_LENGTH, x, y, r;
-    ctx = document.getElementById("canvas-star").getContext("2d");
+    if (goal) {
+        ctx = document.getElementById("canvas-goal-star").getContext("2d");
+    } else {
+        ctx = document.getElementById("canvas-star").getContext("2d");
+    }
     ctx.fillStyle = RUR.STAR_COLOR;
+    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
     x = 0.5*scale;
     y = 0.5*scale;
     r = 18;
@@ -598,9 +640,14 @@ RUR.we.draw_star = function (){
         }
     }
     ctx.closePath();
-    ctx.fill();
+    if (goal) {
+        ctx.stroke();
+    } else { 
+        ctx.fill();
+    }
     ctx.restore();
     ctx.restore();
 };
 RUR.we.draw_star();
+RUR.we.draw_star(true);
 
