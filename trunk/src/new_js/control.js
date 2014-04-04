@@ -33,6 +33,7 @@ RUR.control.move = function (robot) {
     default:
         throw new Error("Should not happen: unhandled case in RUR.control.move().");
     }
+    RUR.control.sound_id = "#move-sound";
     RUR.rec.record_frame();
 };
 
@@ -44,6 +45,7 @@ RUR.control.turn_left = function(robot, no_frame){
     robot.orientation += 1;
     robot.orientation %= 4;
     if (no_frame) return;
+    RUR.control.sound_id = "#turn-sound";
     RUR.rec.record_frame();
 };
 
@@ -116,6 +118,7 @@ RUR.control.has_token = function (robot) {
     return false;
 };
 RUR.control.take = function(robot, arg){
+    RUR.control.sound_id = "#take-sound";
     if (arg === undefined || arg === RUR.translation.token) {
         RUR.control._take_token(robot);
         return;
@@ -205,6 +208,7 @@ RUR.control.build_wall = function (robot){
     } else {
         walls[coords].push(orientation);
     }
+    RUR.control.sound_id = "#build-sound";
     RUR.rec.record_frame();
 };
 
@@ -299,6 +303,10 @@ RUR.control.object_here = function (robot) {
     return RUR.translation[RUR.current_world.shapes[coords]] || 0;
 };
 
+RUR.control.write = function (s) {
+    RUR.control.sound_id = "#write-sound";
+    RUR.rec.record_frame("output", {"element": "#output-pre", "message": s.toString()});
+};
 
 RUR.control.sound_flag = false;
 RUR.control.sound = function(on){

@@ -26,7 +26,7 @@ RUR.rec.record_frame = function (name, obj) {
     if (name !== undefined) {
         frame[name] = obj;
     }
-    if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > 250) {
+    if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
@@ -113,11 +113,20 @@ RUR.rec.conclude = function () {
     if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
+            if (RUR.control.sound_flag) {
+                RUR.control.play_sound("#success-sound");
+            }
             $("#Reeborg-says").html(goal_status.message).dialog("open");
         } else {
+            if (RUR.control.sound_flag) {
+                RUR.control.play_sound("#error-sound");
+            }
             $("#Reeborg-shouts").html(goal_status.message).dialog("open");
         }
     } else {
+        if (RUR.control.sound_flag) {
+            RUR.control.play_sound("#success-sound");
+        }
         $("#Reeborg-says").html("<p class='center'>" + RUR.translation["Last instruction completed!"] + "</p>").dialog("open");
     }
     return "stopped";
@@ -129,9 +138,15 @@ RUR.rec.handle_error = function (frame) {
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
+            if (RUR.control.sound_flag) {
+                RUR.control.play_sound("#success-sound");
+            }
             $("#Reeborg-says").html(RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"]).dialog("open");
         }
     } else {
+        if (RUR.control.sound_flag) {
+            RUR.control.play_sound("#error-sound");
+        }
         $("#Reeborg-shouts").html(frame.error.message).dialog("open");
     }
     RUR.ui.stop();

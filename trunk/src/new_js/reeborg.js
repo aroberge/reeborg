@@ -50,7 +50,8 @@ RUR.TOKEN_GOAL_COLOR = "#666";
 
 RUR.DEBUG_INFO_COLOR = "blue";
 
-RUR.MAX_STEPS = 10;
+RUR.MAX_STEPS = 1000;
+RUR.MIN_TIME_SOUND = 250;
 /* Author: André Roberge
    License: MIT
  */
@@ -86,6 +87,7 @@ RUR.control.move = function (robot) {
     default:
         throw new Error("Should not happen: unhandled case in RUR.control.move().");
     }
+    RUR.control.sound_id = "#move-sound";
     RUR.rec.record_frame();
 };
 
@@ -97,6 +99,7 @@ RUR.control.turn_left = function(robot, no_frame){
     robot.orientation += 1;
     robot.orientation %= 4;
     if (no_frame) return;
+    RUR.control.sound_id = "#turn-sound";
     RUR.rec.record_frame();
 };
 
@@ -169,6 +172,7 @@ RUR.control.has_token = function (robot) {
     return false;
 };
 RUR.control.take = function(robot, arg){
+    RUR.control.sound_id = "#take-sound";
     if (arg === undefined || arg === RUR.translation.token) {
         RUR.control._take_token(robot);
         return;
@@ -258,6 +262,7 @@ RUR.control.build_wall = function (robot){
     } else {
         walls[coords].push(orientation);
     }
+    RUR.control.sound_id = "#build-sound";
     RUR.rec.record_frame();
 };
 
@@ -352,6 +357,10 @@ RUR.control.object_here = function (robot) {
     return RUR.translation[RUR.current_world.shapes[coords]] || 0;
 };
 
+RUR.control.write = function (s) {
+    RUR.control.sound_id = "#write-sound";
+    RUR.rec.record_frame("output", {"element": "#output-pre", "message": s.toString()});
+};
 
 RUR.control.sound_flag = false;
 RUR.control.sound = function(on){
@@ -691,7 +700,7 @@ RUR.rec.record_frame = function (name, obj) {
     if (name !== undefined) {
         frame[name] = obj;
     }
-    if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > 250) {
+    if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
@@ -778,11 +787,20 @@ RUR.rec.conclude = function () {
     if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
+            if (RUR.control.sound_flag) {
+                RUR.control.play_sound("#success-sound");
+            }
             $("#Reeborg-says").html(goal_status.message).dialog("open");
         } else {
+            if (RUR.control.sound_flag) {
+                RUR.control.play_sound("#error-sound");
+            }
             $("#Reeborg-shouts").html(goal_status.message).dialog("open");
         }
     } else {
+        if (RUR.control.sound_flag) {
+            RUR.control.play_sound("#success-sound");
+        }
         $("#Reeborg-says").html("<p class='center'>" + RUR.translation["Last instruction completed!"] + "</p>").dialog("open");
     }
     return "stopped";
@@ -794,9 +812,15 @@ RUR.rec.handle_error = function (frame) {
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
+            if (RUR.control.sound_flag) {
+                RUR.control.play_sound("#success-sound");
+            }
             $("#Reeborg-says").html(RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"]).dialog("open");
         }
     } else {
+        if (RUR.control.sound_flag) {
+            RUR.control.play_sound("#error-sound");
+        }
         $("#Reeborg-shouts").html(frame.error.message).dialog("open");
     }
     RUR.ui.stop();
@@ -1840,6 +1864,7 @@ RUR.world.clone_world = function (world) {
 
 RUR.world.reset = function () {
     RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
+    RUR.MAX_STEPS = 1000;
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.refresh();
 };
