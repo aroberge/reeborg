@@ -172,6 +172,12 @@
             <li><a href="javascript:RUR.we.turn_robot(2);"><img src="src/images/robot_w.png" alt="robot: west"></a></li>
             <li><a href="javascript:RUR.we.turn_robot(3);"><img src="src/images/robot_s.png" alt="robot: south"></a></li>
         </ul>
+        <ul class="edit-world-canvas" id="edit-world-objects" style="display:none">
+            <li><a href="javascript:RUR.we.select('world-tokens');"><canvas id="canvas-token" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-star');"><canvas id="canvas-star" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-triangle');"><canvas id="canvas-triangle" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-square');"><canvas id="canvas-square" width="40" height="40"></canvas></a></li>
+        </ul>
     </div>
     
     <ul id="edit-world-nav">
@@ -183,12 +189,7 @@
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-remove');">Remove</a></li>
         </ul></li>
         <li><a href="javascript:RUR.we.select('world-walls');">Walls</a></li>
-        <li><a href="javascript:RUR.we.select('world-tokens');">Tokens</a></li>
-        <li class="a-like">Shapes <ul>
-            <li><a href="javascript:RUR.we.select('teleport');">Square</a></li>
-            <li><a href="javascript:RUR.we.select('teleport');">Star</a></li>
-            <li><a href="javascript:RUR.we.select('teleport');">Triangle</a></li>
-        </ul></li>
+        <li><a href="javascript:RUR.we.select('world-objects');">Objects</a></li>
         <li class="a-like">Goal <ul>
             <li><a href="javascript:RUR.we.select('goal-robot');">Robot</a></li>
             <li><a href="javascript:RUR.we.select('goal-wall');">Walls</a></li>
