@@ -6,6 +6,7 @@
 /*globals RUR */
 
 RUR.robot = {};
+RUR.RobotFactory = {};
 
 RUR.robot.create_robot = function (x, y, orientation, tokens) {
     "use strict";
@@ -51,9 +52,20 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     return robot;
 };
 
-RUR.robot.clone_robot = function (robot) {
-    return JSON.parse(JSON.stringify(robot));
-};
 
 
+//function RobotFactory(x, y, o, t) {
+//    UsedRobot.call(this, x, y, o, t);
+//}
+//RobotFactory.prototype = new UsedRobot();
+//RobotFactory.constructor = RobotFactory;
+//
+//RobotFactory.prototype.right = function () {
+//    RUR.control.__turn_right(this.robot);
+//};
+//var t = new RobotFactory(3, 3);
+//t.move();
+//t.right();
+//t.move();
+//t.move();
 

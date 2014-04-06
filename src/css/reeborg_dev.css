@@ -165,6 +165,13 @@ padding:3px;}
   position: absolute;
   bottom: -40px;
 }
+#image-choice-buttons {
+  position: absolute;
+  bottom: -90px;
+}
+#image-choice-buttons button {
+    margin-left: 10px;
+}
 
 #diary-wrapper {   
   margin-top: 5px;

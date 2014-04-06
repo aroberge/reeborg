@@ -14,7 +14,7 @@ RUR.runner.interpreted = false;
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (!RUR.runner.interpreted) {
-        src = _import_library();                // defined in Reeborg_js_en, etc.
+        src = RUR._import_library();                // defined in Reeborg_js_en, etc.
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }

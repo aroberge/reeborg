@@ -6,7 +6,7 @@
 /*globals RUR */
 
 RUR.vis_robot = {};
-RUR.vis_robot.images = [{}, {}];
+RUR.vis_robot.images = [{}, {}, {}];
 
 // classic
 RUR.vis_robot.images[0].robot_e_img = new Image();
@@ -20,7 +20,7 @@ RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
 RUR.vis_robot.images[0].robot_x_offset = 10;
 RUR.vis_robot.images[0].robot_y_offset = 8;
 
-// poorly drawn
+// poorly drawn to view
 RUR.vis_robot.images[1].robot_e_img = new Image();
 RUR.vis_robot.images[1].robot_e_img.src = 'src/images/top_e.png';
 RUR.vis_robot.images[1].robot_n_img = new Image();
@@ -32,6 +32,17 @@ RUR.vis_robot.images[1].robot_s_img.src = 'src/images/top_s.png';
 RUR.vis_robot.images[1].robot_x_offset = 10;
 RUR.vis_robot.images[1].robot_y_offset = 8;
 
+// rover type
+RUR.vis_robot.images[2].robot_e_img = new Image();
+RUR.vis_robot.images[2].robot_e_img.src = 'src/images/rover_e.png';
+RUR.vis_robot.images[2].robot_n_img = new Image();
+RUR.vis_robot.images[2].robot_n_img.src = 'src/images/rover_n.png';
+RUR.vis_robot.images[2].robot_w_img = new Image();
+RUR.vis_robot.images[2].robot_w_img.src = 'src/images/rover_w.png';
+RUR.vis_robot.images[2].robot_s_img = new Image();
+RUR.vis_robot.images[2].robot_s_img.src = 'src/images/rover_s.png';
+RUR.vis_robot.images[2].robot_x_offset = 10;
+RUR.vis_robot.images[2].robot_y_offset = 8;
 
 RUR.vis_robot.select_style = function (arg) {
     var style;
@@ -46,6 +57,11 @@ RUR.vis_robot.select_style = function (arg) {
     RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
     RUR.vis_robot.x_offset = RUR.vis_robot.images[style].robot_x_offset;
     RUR.vis_robot.y_offset = RUR.vis_robot.images[style].robot_y_offset;
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+
+    console.log("select_style");
 };
 
 if (localStorage.getItem("top_view") === "true") {  // TODO fix this

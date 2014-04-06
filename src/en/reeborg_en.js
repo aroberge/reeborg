@@ -106,7 +106,7 @@ RUR.reset_definitions = function () {
   if (!RUR.world.robot_world_active){
       move = null;
       turn_left = null;
-      //UsedRobot = null;
+      window.UsedRobot = null;
       front_is_clear = null;
       right_is_clear = null;
       is_facing_north = null;
@@ -131,80 +131,132 @@ RUR.reset_definitions = function () {
       };
       return;
   }
-  
+    function UsedRobot(x, y, orientation, tokens)  {
+        this.robot = RUR.robot.create_robot(x, y, orientation, tokens);
+        RUR.world.add_robot(this.robot);
+    }
+    
+    
+    // functions not specific to individual robot.
     write = function (s) {
         RUR.control.write(s);
-  };
-
-    at_goal = function () {
-        return RUR.control.at_goal(RUR.current_world.robots[0]);
     };
-
-    at_goal_orientation = function () {
-        return RUR.control.at_goal_orientation(RUR.current_world.robots[0]);
-    };
-
-    build_wall = function() {
-        RUR.control.build_wall(RUR.current_world.robots[0]);
-    };
-
     done = function () {
       RUR.control.done();
     };
-
-    front_is_clear = function() {
-      return RUR.control.front_is_clear(RUR.current_world.robots[0]);
-    };
-
-    has_token = function () {
-        return RUR.control.has_token(RUR.current_world.robots[0]);
-    };
-    is_facing_north = function () {
-        return RUR.control.is_facing_north(RUR.current_world.robots[0]);
-    };
-
-    move = function () {
-        RUR.control.move(RUR.current_world.robots[0]);
-    };
-
+    
     pause = function (ms) {
       RUR.control.pause(ms);
     };
     
-    put = function(arg) {
-        RUR.control.put(RUR.current_world.robots[0], arg);
-    };
-    
-    token_here = function() {
-        return RUR.control.token_here(RUR.current_world.robots[0]);
-    };
-
     repeat = function (f, n) {
       for (var i=0; i < n; i++){
           f();
       }
     };
+    
+    think = function(delay) {
+        RUR.control.think(delay);
+    };
+
+    select_world = RUR.ui.select_world;
+    
+    // Robot specific functions.
+    // ensure it is known outside this function, available to the user.
+    window.UsedRobot = UsedRobot;  
+
+
+    at_goal = function () {
+        return RUR.control.at_goal(RUR.current_world.robots[0]);
+    };
+    UsedRobot.prototype.at_goal = function () {
+        RUR.control.at_goal(this.robot);
+    };
+    
+    at_goal_orientation = function () {
+        return RUR.control.at_goal_orientation(RUR.current_world.robots[0]);
+    };
+    UsedRobot.prototype.at_goal_orientation = function () {
+        RUR.control.at_goal_orientation(this.robot);
+    };
+
+    build_wall = function() {
+        RUR.control.build_wall(RUR.current_world.robots[0]);
+    };
+    UsedRobot.prototype.build_wall = function () {
+        RUR.control.build_wall(this.robot);
+    };
+
+    front_is_clear = function() {
+      return RUR.control.front_is_clear(RUR.current_world.robots[0]);
+    };
+    UsedRobot.prototype.front_is_clear = function () {
+        RUR.control.front_is_clear(this.robot);
+    };
+
+    has_token = function () {
+        return RUR.control.has_token(RUR.current_world.robots[0]);
+    };
+    UsedRobot.prototype.has_token = function () {
+        RUR.control.has_token(this.robot);
+    };
+    
+    is_facing_north = function () {
+        return RUR.control.is_facing_north(RUR.current_world.robots[0]);
+    };
+    UsedRobot.prototype.is_facing_north = function () {
+        RUR.control.is_facing_north(this.robot);
+    };
+
+    move = function () {
+        RUR.control.move(RUR.current_world.robots[0]);
+    };
+    UsedRobot.prototype.move = function () {
+        RUR.control.move(this.robot);
+    };
+
+    put = function(arg) {
+        RUR.control.put(RUR.current_world.robots[0], arg);
+    };
+    UsedRobot.prototype.put = function () {
+        RUR.control.put(this.robot);
+    };
+    
+    token_here = function() {
+        return RUR.control.token_here(RUR.current_world.robots[0]);
+    };
+    UsedRobot.prototype.token_here = function () {
+        RUR.control.token_here(this.robot);
+    };
 
     right_is_clear = function() {
       return RUR.control.right_is_clear(RUR.current_world.robots[0]);
+    };
+    UsedRobot.prototype.right_is_clear = function () {
+        RUR.control.right_is_clear(this.robot);
     };
     
     object_here = function () {
         return RUR.control.object_here(RUR.current_world.robots[0]);
     };
+    UsedRobot.prototype.object_here = function () {
+        RUR.control.object_here(this.robot);
+    };
     
     take = function(arg) {
         RUR.control.take(RUR.current_world.robots[0], arg);
     };
-
-    think = function(delay) {
-        RUR.control.think(delay);
+    UsedRobot.prototype.take = function () {
+        RUR.control.take(this.robot);
     };
-
 
     turn_left = function () {
         RUR.control.turn_left(RUR.current_world.robots[0]);
     };
+    UsedRobot.prototype.turn_left = function () {
+        RUR.control.turn_left(this.robot);
+    };
+    
 //  side_view = function () {
 //      RUR.visible_world.top_view = false;
 //      localStorage.setItem("top_view", "false");
@@ -215,20 +267,13 @@ RUR.reset_definitions = function () {
 //      localStorage.setItem("top_view", "true");
 //  };
 
-    select_world = RUR.ui.select_world;
 
-
-//UsedRobot.prototype = Object.create(RUR.Robot.prototype);
-//UsedRobot.prototype.constructor = UsedRobot;
-//
-//function UsedRobot(x, y, orientation, tokens)  {
-//    RUR.Robot.call(this, x, y, orientation, tokens);
-//    RUR.world.add_robot(this);
-//}
 };
 
 
-function _import_library () {
+// the regex of the following should be adapted
+// so that they make sense in the human language ...
+RUR._import_library = function () {
   // adds the library code to the editor code if appropriate string is found
     var separator, import_lib_regex, src, lib_src;  // separates library code from user code
     if (RUR.programming_language == "javascript") {
@@ -242,5 +287,5 @@ function _import_library () {
     lib_src = library.getValue();
     src = editor.getValue();
     return src.replace(import_lib_regex, separator+lib_src);
-}
+};
 
