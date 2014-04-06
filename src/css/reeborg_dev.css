@@ -319,3 +319,7 @@ footer a:hover{
  position: relative;
  width: 100px;
 }
+
+.editor-highlight {
+    background-color: #2d5ab4;
+}

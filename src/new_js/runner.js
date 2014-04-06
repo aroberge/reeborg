@@ -68,6 +68,7 @@ RUR.runner.eval_javascript = function (src) {
     // etc.
     "use strict";  // will propagate to user's code, enforcing good programming habits.
     // lint, then eval
+    var i, line, lines, text = '';
     editorUpdateHints();
     if(editor.widgets.length === 0) {
         libraryUpdateHints();
@@ -76,7 +77,21 @@ RUR.runner.eval_javascript = function (src) {
         }
     }
     RUR.reset_definitions();
+
+    function set_line_no(n){
+        RUR._current_line = n;
+    }
+    
+    lines = src.split("\n");
+    for (i=0; i < lines.length; i++){
+        text += "set_line_no(" + i + ");"
+        text += lines[i];
+    }
+    src = text;
     eval(src); // jshint ignore:line
+
+    console.log(Object.keys(RUR.runner.eval_javascript));
+    console.log(Object.getOwnPropertyNames(RUR.runner.eval_javascript));
 };
 
 RUR.runner.eval_no_strict_js = function (src) {

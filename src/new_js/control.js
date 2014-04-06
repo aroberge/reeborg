@@ -273,6 +273,7 @@ RUR.control.at_goal = function (robot) {
     var goal = RUR.current_world.goal;
     if (goal !== undefined){
         if (goal.position !== undefined) {
+            RUR.rec.record_frame();
             return (robot.x === goal.position.x && robot.y === goal.position.y);
         }
         throw new RUR.Error(RUR.translation["There is no position as a goal in this world!"]);
