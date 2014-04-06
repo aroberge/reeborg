@@ -62,7 +62,7 @@ RUR.MIN_TIME_SOUND = 250;
 RUR.control = {};
 
 RUR.control.move = function (robot) {
-    if (!RUR.control.front_is_clear(robot)) {
+    if (!RUR.control.front_is_clear(robot, true)) {
         throw new RUR.Error(RUR.translation["Ouch! I hit a wall!"]);
     }
     if ((robot.y === RUR.ROWS && robot.orientation === RUR.NORTH) ||
@@ -266,8 +266,11 @@ RUR.control.build_wall = function (robot){
     RUR.rec.record_frame();
 };
 
-RUR.control.front_is_clear = function(robot){
+RUR.control.front_is_clear = function(robot, flag){
     var coords;
+    if (!flag) {
+        RUR.rec.record_frame();
+    }
     switch (robot.orientation){
     case RUR.EAST:
         coords = robot.x + "," + robot.y;
@@ -310,12 +313,13 @@ RUR.control.front_is_clear = function(robot){
 RUR.control.right_is_clear = function(robot){
     var result;
     RUR.control.__turn_right(robot, true);
-    result = RUR.control.front_is_clear(robot);
+    result = RUR.control.front_is_clear(robot, true);
     RUR.control.turn_left(robot, true);
     return result;
 };
 
 RUR.control.is_facing_north = function (robot) {
+    RUR.rec.record_frame();
     return robot.orientation === RUR.NORTH;
 };
 
@@ -339,6 +343,7 @@ RUR.control.at_goal_orientation = function (robot) {
     var goal = RUR.current_world.goal;
     if (goal !== undefined){
         if (goal.orientation !== undefined) {
+            RUR.rec.record_frame();
             return (robot.orientation === goal.orientation);
         }
         throw new RUR.Error(RUR.translation["There is no orientation as a goal in this world!"]);
@@ -348,6 +353,7 @@ RUR.control.at_goal_orientation = function (robot) {
 
 RUR.control.object_here = function (robot) {
     var coords = robot.x + "," + robot.y;
+    RUR.rec.record_frame();
     if (RUR.control.token_here(robot) !== 0) {
         return RUR.translation.token;
     }
@@ -760,6 +766,7 @@ RUR.rec.display_frame = function () {
        count the frames in record frame as well.
     */
 
+    
     // track line number and highlight line to be executed
     if (RUR._previous_line !== undefined) {
         editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
@@ -767,7 +774,7 @@ RUR.rec.display_frame = function () {
     try { 
         editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
         RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
-    } catch (e) {console.log(e);}
+    } catch (e) {}
     
     
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
@@ -778,10 +785,6 @@ RUR.rec.display_frame = function () {
     if(frame === undefined) {
         return;
     }
-    
-    
-
-    
     
     if (frame.delay !== undefined) {
         RUR.visible_world.delay = frame.delay;   // FIXME
@@ -799,6 +802,9 @@ RUR.rec.display_frame = function () {
         RUR.control.play_sound(frame.sound_id);
     }
     RUR.vis_world.refresh();
+    if (RUR.rec.current_frame === RUR.rec.nb_frames) {
+        return RUR.rec.conclude();
+    }
 };
 
 RUR.rec.conclude = function () {
@@ -1068,14 +1074,11 @@ RUR.runner.eval_javascript = function (src) {
     
     lines = src.split("\n");
     for (i=0; i < lines.length; i++){
-        text += "set_line_no(" + i + ");"
+        text += "set_line_no(" + i + ");";
         text += lines[i];
     }
     src = text;
     eval(src); // jshint ignore:line
-
-    console.log(Object.keys(RUR.runner.eval_javascript));
-    console.log(Object.getOwnPropertyNames(RUR.runner.eval_javascript));
 };
 
 RUR.runner.eval_no_strict_js = function (src) {

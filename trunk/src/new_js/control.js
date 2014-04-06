@@ -8,7 +8,7 @@
 RUR.control = {};
 
 RUR.control.move = function (robot) {
-    if (!RUR.control.front_is_clear(robot)) {
+    if (!RUR.control.front_is_clear(robot, true)) {
         throw new RUR.Error(RUR.translation["Ouch! I hit a wall!"]);
     }
     if ((robot.y === RUR.ROWS && robot.orientation === RUR.NORTH) ||

@@ -85,6 +85,7 @@ RUR.rec.display_frame = function () {
        count the frames in record frame as well.
     */
 
+    
     // track line number and highlight line to be executed
     if (RUR._previous_line !== undefined) {
         editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
@@ -92,7 +93,7 @@ RUR.rec.display_frame = function () {
     try { 
         editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
         RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
-    } catch (e) {console.log(e);}
+    } catch (e) {}
     
     
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
@@ -103,10 +104,6 @@ RUR.rec.display_frame = function () {
     if(frame === undefined) {
         return;
     }
-    
-    
-
-    
     
     if (frame.delay !== undefined) {
         RUR.visible_world.delay = frame.delay;   // FIXME
@@ -124,6 +121,9 @@ RUR.rec.display_frame = function () {
         RUR.control.play_sound(frame.sound_id);
     }
     RUR.vis_world.refresh();
+    if (RUR.rec.current_frame === RUR.rec.nb_frames) {
+        return RUR.rec.conclude();
+    }
 };
 
 RUR.rec.conclude = function () {
