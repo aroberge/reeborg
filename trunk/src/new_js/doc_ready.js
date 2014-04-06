@@ -152,6 +152,25 @@ $(document).ready(function() {
         }
     });
   
+    // images
+    
+    $("#classic-image").on("click", function(evt) {
+        console.log("click classic");
+        RUR.vis_robot.select_style(0);
+    })
+    
+    $("#simple-topview").on("click", function(evt) {
+        console.log("click topview");
+        RUR.vis_robot.select_style(1);
+    })
+       
+    $("#rover-type").on("click", function(evt) {
+        console.log("click rover");
+        RUR.vis_robot.select_style(2);
+    })
+    
+    
+    
     $("#robot_canvas").on("click", function (evt) {
         if (!RUR.we.editing_world) {
             return;

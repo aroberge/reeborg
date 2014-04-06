@@ -51,7 +51,7 @@ RUR.control.turn_left = function(robot, no_frame){
 
 RUR.control.__turn_right = function(robot, no_frame){
     "use strict";
-    robot._prev_orientation = robot.orientation;
+    robot._prev_orientation = (robot.orientation+2)%4; // fix so that oil trace looks right
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
     robot.orientation += 3;

@@ -105,7 +105,7 @@ RUR.control.turn_left = function(robot, no_frame){
 
 RUR.control.__turn_right = function(robot, no_frame){
     "use strict";
-    robot._prev_orientation = robot.orientation;
+    robot._prev_orientation = (robot.orientation+2)%4; // fix so that oil trace looks right
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
     robot.orientation += 3;
@@ -541,6 +541,25 @@ $(document).ready(function() {
         }
     });
   
+    // images
+    
+    $("#classic-image").on("click", function(evt) {
+        console.log("click classic");
+        RUR.vis_robot.select_style(0);
+    })
+    
+    $("#simple-topview").on("click", function(evt) {
+        console.log("click topview");
+        RUR.vis_robot.select_style(1);
+    })
+       
+    $("#rover-type").on("click", function(evt) {
+        console.log("click rover");
+        RUR.vis_robot.select_style(2);
+    })
+    
+    
+    
     $("#robot_canvas").on("click", function (evt) {
         if (!RUR.we.editing_world) {
             return;
@@ -937,6 +956,7 @@ RUR.rec.check_goal= function (frame) {
 /*globals RUR */
 
 RUR.robot = {};
+RUR.RobotFactory = {};
 
 RUR.robot.create_robot = function (x, y, orientation, tokens) {
     "use strict";
@@ -982,11 +1002,22 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     return robot;
 };
 
-RUR.robot.clone_robot = function (robot) {
-    return JSON.parse(JSON.stringify(robot));
-};
 
 
+//function RobotFactory(x, y, o, t) {
+//    UsedRobot.call(this, x, y, o, t);
+//}
+//RobotFactory.prototype = new UsedRobot();
+//RobotFactory.constructor = RobotFactory;
+//
+//RobotFactory.prototype.right = function () {
+//    RUR.control.__turn_right(this.robot);
+//};
+//var t = new RobotFactory(3, 3);
+//t.move();
+//t.right();
+//t.move();
+//t.move();
 
 /* Author: André Roberge
    License: MIT
@@ -1004,7 +1035,7 @@ RUR.runner.interpreted = false;
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (!RUR.runner.interpreted) {
-        src = _import_library();                // defined in Reeborg_js_en, etc.
+        src = RUR._import_library();                // defined in Reeborg_js_en, etc.
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }
@@ -1385,7 +1416,7 @@ RUR.List = function(){
 /*globals RUR */
 
 RUR.vis_robot = {};
-RUR.vis_robot.images = [{}, {}];
+RUR.vis_robot.images = [{}, {}, {}];
 
 // classic
 RUR.vis_robot.images[0].robot_e_img = new Image();
@@ -1399,7 +1430,7 @@ RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
 RUR.vis_robot.images[0].robot_x_offset = 10;
 RUR.vis_robot.images[0].robot_y_offset = 8;
 
-// poorly drawn
+// poorly drawn to view
 RUR.vis_robot.images[1].robot_e_img = new Image();
 RUR.vis_robot.images[1].robot_e_img.src = 'src/images/top_e.png';
 RUR.vis_robot.images[1].robot_n_img = new Image();
@@ -1411,6 +1442,17 @@ RUR.vis_robot.images[1].robot_s_img.src = 'src/images/top_s.png';
 RUR.vis_robot.images[1].robot_x_offset = 10;
 RUR.vis_robot.images[1].robot_y_offset = 8;
 
+// rover type
+RUR.vis_robot.images[2].robot_e_img = new Image();
+RUR.vis_robot.images[2].robot_e_img.src = 'src/images/rover_e.png';
+RUR.vis_robot.images[2].robot_n_img = new Image();
+RUR.vis_robot.images[2].robot_n_img.src = 'src/images/rover_n.png';
+RUR.vis_robot.images[2].robot_w_img = new Image();
+RUR.vis_robot.images[2].robot_w_img.src = 'src/images/rover_w.png';
+RUR.vis_robot.images[2].robot_s_img = new Image();
+RUR.vis_robot.images[2].robot_s_img.src = 'src/images/rover_s.png';
+RUR.vis_robot.images[2].robot_x_offset = 10;
+RUR.vis_robot.images[2].robot_y_offset = 8;
 
 RUR.vis_robot.select_style = function (arg) {
     var style;
@@ -1425,6 +1467,11 @@ RUR.vis_robot.select_style = function (arg) {
     RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
     RUR.vis_robot.x_offset = RUR.vis_robot.images[style].robot_x_offset;
     RUR.vis_robot.y_offset = RUR.vis_robot.images[style].robot_y_offset;
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+
+    console.log("select_style");
 };
 
 if (localStorage.getItem("top_view") === "true") {  // TODO fix this
