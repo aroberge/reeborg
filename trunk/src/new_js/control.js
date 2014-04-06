@@ -212,8 +212,11 @@ RUR.control.build_wall = function (robot){
     RUR.rec.record_frame();
 };
 
-RUR.control.front_is_clear = function(robot){
+RUR.control.front_is_clear = function(robot, flag){
     var coords;
+    if (!flag) {
+        RUR.rec.record_frame();
+    }
     switch (robot.orientation){
     case RUR.EAST:
         coords = robot.x + "," + robot.y;
@@ -256,12 +259,13 @@ RUR.control.front_is_clear = function(robot){
 RUR.control.right_is_clear = function(robot){
     var result;
     RUR.control.__turn_right(robot, true);
-    result = RUR.control.front_is_clear(robot);
+    result = RUR.control.front_is_clear(robot, true);
     RUR.control.turn_left(robot, true);
     return result;
 };
 
 RUR.control.is_facing_north = function (robot) {
+    RUR.rec.record_frame();
     return robot.orientation === RUR.NORTH;
 };
 
@@ -285,6 +289,7 @@ RUR.control.at_goal_orientation = function (robot) {
     var goal = RUR.current_world.goal;
     if (goal !== undefined){
         if (goal.orientation !== undefined) {
+            RUR.rec.record_frame();
             return (robot.orientation === goal.orientation);
         }
         throw new RUR.Error(RUR.translation["There is no orientation as a goal in this world!"]);
@@ -294,6 +299,7 @@ RUR.control.at_goal_orientation = function (robot) {
 
 RUR.control.object_here = function (robot) {
     var coords = robot.x + "," + robot.y;
+    RUR.rec.record_frame();
     if (RUR.control.token_here(robot) !== 0) {
         return RUR.translation.token;
     }
