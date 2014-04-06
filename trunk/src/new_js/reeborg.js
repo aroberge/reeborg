@@ -541,20 +541,15 @@ $(document).ready(function() {
         }
     });
   
-    // images
-    
     $("#classic-image").on("click", function(evt) {
-        console.log("click classic");
         RUR.vis_robot.select_style(0);
     })
     
     $("#simple-topview").on("click", function(evt) {
-        console.log("click topview");
         RUR.vis_robot.select_style(1);
     })
        
     $("#rover-type").on("click", function(evt) {
-        console.log("click rover");
         RUR.vis_robot.select_style(2);
     })
     
@@ -1456,7 +1451,7 @@ RUR.vis_robot.images[2].robot_y_offset = 8;
 
 RUR.vis_robot.select_style = function (arg) {
     var style;
-    if(arg === undefined) {
+    if(arg === undefined || arg === null) {
         style = 0;
     } else {
         style = arg;
@@ -1471,30 +1466,33 @@ RUR.vis_robot.select_style = function (arg) {
         RUR.vis_world.refresh();
     }
 
-    console.log("select_style");
+    localStorage.setItem("robot_style", arg);
 };
 
-if (localStorage.getItem("top_view") === "true") {  // TODO fix this
-    RUR.vis_robot.select_style(1);
-} else {
-    RUR.vis_robot.select_style(0);
-}
+RUR.vis_robot.select_style(localStorage.getItem("robot_style"));
 
-
-// the following si to ensure that the images are loaded before the "final"
+// the following is to try to ensure that the images are loaded before the "final"
 // original drawing is made
 
 RUR.vis_robot.e_img.onload = function () {
-    RUR.world.reset();
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
 };
 RUR.vis_robot.w_img.onload = function () {
-    RUR.world.reset();
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
 };
 RUR.vis_robot.n_img.onload = function () {
-    RUR.world.reset();
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
 };
 RUR.vis_robot.s_img.onload = function () {
-    RUR.world.reset();
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
 };
 
 
