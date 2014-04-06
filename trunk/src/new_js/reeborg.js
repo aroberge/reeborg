@@ -327,6 +327,7 @@ RUR.control.at_goal = function (robot) {
     var goal = RUR.current_world.goal;
     if (goal !== undefined){
         if (goal.position !== undefined) {
+            RUR.rec.record_frame();
             return (robot.x === goal.position.x && robot.y === goal.position.y);
         }
         throw new RUR.Error(RUR.translation["There is no position as a goal in this world!"]);
@@ -679,7 +680,7 @@ function updateHints(obj) {
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
+/*globals $, RUR , editor*/
 
 RUR.rec = {};
 
@@ -687,9 +688,11 @@ RUR.rec.reset = function() {
     RUR.rec.nb_frames = 0;
     RUR.rec.current_frame = 0;
     RUR.rec.frames = [];
+    RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
     RUR.rec.delay = 300;  
     clearTimeout(RUR.rec.timer);
+    RUR._previous_line = undefined;
 };
 RUR.rec.reset();
 
@@ -703,6 +706,8 @@ RUR.rec.record_frame = function (name, obj) {
     if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
+    RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line;    
+    
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
     // TODO add check for too many steps.
@@ -754,12 +759,29 @@ RUR.rec.display_frame = function () {
        our first current frame is numbered 1; this affect the way we
        count the frames in record frame as well.
     */
-    RUR.rec.current_frame++;
+
+    // track line number and highlight line to be executed
+    if (RUR._previous_line !== undefined) {
+        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+    }
+    try { 
+        editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
+        RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
+    } catch (e) {console.log(e);}
+    
     
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
         return RUR.rec.conclude();
     }
     frame = RUR.rec.frames[RUR.rec.current_frame];
+    RUR.rec.current_frame++;
+    if(frame === undefined) {
+        return;
+    }
+    
+    
+
+    
     
     if (frame.delay !== undefined) {
         RUR.visible_world.delay = frame.delay;   // FIXME
@@ -780,6 +802,7 @@ RUR.rec.display_frame = function () {
 };
 
 RUR.rec.conclude = function () {
+    editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
     var frame, goal_status;
     if (RUR.rec.nb_frames === 0) return "stopped";
     
@@ -1029,6 +1052,7 @@ RUR.runner.eval_javascript = function (src) {
     // etc.
     "use strict";  // will propagate to user's code, enforcing good programming habits.
     // lint, then eval
+    var i, line, lines, text = '';
     editorUpdateHints();
     if(editor.widgets.length === 0) {
         libraryUpdateHints();
@@ -1037,7 +1061,21 @@ RUR.runner.eval_javascript = function (src) {
         }
     }
     RUR.reset_definitions();
+
+    function set_line_no(n){
+        RUR._current_line = n;
+    }
+    
+    lines = src.split("\n");
+    for (i=0; i < lines.length; i++){
+        text += "set_line_no(" + i + ");"
+        text += lines[i];
+    }
+    src = text;
     eval(src); // jshint ignore:line
+
+    console.log(Object.keys(RUR.runner.eval_javascript));
+    console.log(Object.getOwnPropertyNames(RUR.runner.eval_javascript));
 };
 
 RUR.runner.eval_no_strict_js = function (src) {
@@ -1267,15 +1305,15 @@ function toggle_contents_button_from_child () {
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
-if (!Array.prototype.remove){
-    // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
-    Array.prototype.remove = function(from, to) {
-        "use strict";
-        var rest = this.slice((to || from) + 1 || this.length);
-        this.length = from < 0 ? this.length + from : from;
-        return this.push.apply(this, rest);
-    };
-}
+//if (!Array.prototype.remove){
+//    // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
+//    Array.prototype.remove = function(from, to) {
+//        "use strict";
+//        var rest = this.slice((to || from) + 1 || this.length);
+//        this.length = from < 0 ? this.length + from : from;
+//        return this.push.apply(this, rest);
+//    };
+//}
 
 /*
     Original script title: "Object.identical.js"; version 1.12

@@ -5,7 +5,7 @@
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
+/*globals $, RUR , editor*/
 
 RUR.rec = {};
 
@@ -13,9 +13,11 @@ RUR.rec.reset = function() {
     RUR.rec.nb_frames = 0;
     RUR.rec.current_frame = 0;
     RUR.rec.frames = [];
+    RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
     RUR.rec.delay = 300;  
     clearTimeout(RUR.rec.timer);
+    RUR._previous_line = undefined;
 };
 RUR.rec.reset();
 
@@ -29,6 +31,8 @@ RUR.rec.record_frame = function (name, obj) {
     if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
+    RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line;    
+    
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
     // TODO add check for too many steps.
@@ -80,12 +84,29 @@ RUR.rec.display_frame = function () {
        our first current frame is numbered 1; this affect the way we
        count the frames in record frame as well.
     */
-    RUR.rec.current_frame++;
+
+    // track line number and highlight line to be executed
+    if (RUR._previous_line !== undefined) {
+        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+    }
+    try { 
+        editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
+        RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
+    } catch (e) {console.log(e);}
+    
     
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
         return RUR.rec.conclude();
     }
     frame = RUR.rec.frames[RUR.rec.current_frame];
+    RUR.rec.current_frame++;
+    if(frame === undefined) {
+        return;
+    }
+    
+    
+
+    
     
     if (frame.delay !== undefined) {
         RUR.visible_world.delay = frame.delay;   // FIXME
@@ -106,6 +127,7 @@ RUR.rec.display_frame = function () {
 };
 
 RUR.rec.conclude = function () {
+    editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
     var frame, goal_status;
     if (RUR.rec.nb_frames === 0) return "stopped";
     
