@@ -84,14 +84,11 @@ RUR.runner.eval_javascript = function (src) {
     
     lines = src.split("\n");
     for (i=0; i < lines.length; i++){
-        text += "set_line_no(" + i + ");"
+        text += "set_line_no(" + i + ");";
         text += lines[i];
     }
     src = text;
     eval(src); // jshint ignore:line
-
-    console.log(Object.keys(RUR.runner.eval_javascript));
-    console.log(Object.getOwnPropertyNames(RUR.runner.eval_javascript));
 };
 
 RUR.runner.eval_no_strict_js = function (src) {
