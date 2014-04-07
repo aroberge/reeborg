@@ -46,10 +46,9 @@ RUR.vis_robot.images[2].robot_y_offset = 8;
 
 RUR.vis_robot.select_style = function (arg) {
     var style;
-    if(arg === undefined || arg === null) {
+    style = parseInt(arg, 10);
+    if (!(style === 0 || style === 1 || style === 2)) {
         style = 0;
-    } else {
-        style = arg;
     }
     RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
     RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
@@ -63,7 +62,6 @@ RUR.vis_robot.select_style = function (arg) {
 
     localStorage.setItem("robot_style", arg);
 };
-
 RUR.vis_robot.select_style(localStorage.getItem("robot_style"));
 
 // the following is to try to ensure that the images are loaded before the "final"
