@@ -700,7 +700,7 @@ function updateHints(obj) {
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR , editor*/
+/*globals $, RUR , editor, __BRYTHON__*/
 
 RUR.rec = {};
 
@@ -729,9 +729,8 @@ RUR.rec.record_frame = function (name, obj) {
     if (RUR.programming_langage === "javascript") { 
         RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line; 
     } else if (RUR.programming_language === "python") {
-        console.log(__BRYTHON__.line_info);
         if (__BRYTHON__.line_info !== undefined) { 
-            RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-1; //__BRYTHON__.line_info[0];
+            RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-1;
         } else{
             RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
         }
@@ -826,9 +825,6 @@ RUR.rec.display_frame = function () {
         RUR.control.play_sound(frame.sound_id);
     }
     RUR.vis_world.refresh();
-//    if (RUR.rec.current_frame === RUR.rec.nb_frames) {
-//        return RUR.rec.conclude();
-//    }
 };
 
 RUR.rec.conclude = function () {
