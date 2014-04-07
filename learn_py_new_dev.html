@@ -1,0 +1,397 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Free Interactive Programming Tutorials">
+<meta name="keywords" content="JavaScript,Python,Programming">
+<meta name="author" content="André Roberge">
+<meta name="license" content="CC BY-NC-SA 3.0">
+<link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
+<link rel="stylesheet" href="src/css/reeborg_dev.css"> <!-- load after codemirror.css -->
+<title>Reeborg's world</title>
+    <script src="src/libs/brython/brython.js"></script>
+</head>
+<body onload="brython(1)">
+
+<header class="blue-gradient green-border">
+  <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
+  <div id="header-child">
+    <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">World</button>
+    <button class="blue-gradient" id="output-panel-button" label="output-panel">Diary</button>
+    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
+    <button class="blue-gradient" id="contents-button">Javascript Tutorial</button>
+    <button class="blue-gradient" id="help-button">Help</button>
+  </div>
+  
+</header>
+  <input type="file" id="worldfileInput">
+<div id="world-panel" class="active" >
+
+  <div id="world-controls">
+    <button class="blue-gradient" id="run" title="run" onclick="RUR.ui.run();">
+      <img src="src/images/play.png" alt="play">
+    </button>
+    <button class="blue-gradient" id="step" title="step" disabled="true" onclick="RUR.ui.step();">
+      <img src="src/images/step.png" alt="step">
+    </button>
+    <button class="blue-gradient" id="pause" title="pause" disabled="true" onclick="RUR.ui.pause();">
+      <img src="src/images/pause.png" alt="pause">
+    </button>
+    <button class="blue-gradient" id="stop" title="stop" disabled="true" onclick="RUR.ui.stop();">
+      <img src="src/images/stop.png" alt="pause">
+    </button>
+    <button class="blue-gradient" id="reload" title="reload" disabled="true" onclick="RUR.ui.reload();">
+      <img src="src/images/reload.png" alt="reload">
+    </button>
+    <select id="select_world" title="Select world">
+      <option value="src/json/alone.json" selected>Alone</option>
+      <option value="src/json/around1.json">Around 1</option>
+      <option value="src/json/around2.json">Around 2</option>
+      <option value="src/json/around3.json">Around 3</option>
+      <option value="src/json/around4.json">Around 4</option>
+      <option value="src/json/center1.json">Center 1</option>
+      <option value="src/json/center2.json">Center 2</option>
+      <option value="src/json/center3.json">Center 3</option>
+      <option value="src/json/empty_world.json">Empty</option>
+      <option value="src/json/harvest1.json">Harvest 1</option>
+      <option value="src/json/harvest2.json">Harvest 2</option>
+      <option value="src/json/harvest3.json">Harvest 3</option>
+      <option value="src/json/harvest4.json">Harvest 4</option>
+      <option value="src/json/harvest5a.json">Harvest 5a</option>
+      <option value="src/json/harvest5b.json">Harvest 5b</option>
+      <option value="src/json/harvest5c.json">Harvest 5c</option>
+      <option value="src/json/harvest5d.json">Harvest 5d</option>
+      <option value="src/json/home1.json">Home 1</option>
+      <option value="src/json/home2.json">Home 2</option>
+      <option value="src/json/home3.json">Home 3</option>
+      <option value="src/json/hurdle1.json">Hurdles 1</option>
+      <option value="src/json/hurdle2.json">Hurdles 2</option>
+      <option value="src/json/hurdle3.json">Hurdles 3</option>
+      <option value="src/json/hurdle4.json">Hurdles 4</option>
+      <option value="src/json/maze1.json">Maze 1</option>
+      <option value="src/json/maze2.json">Maze 2</option>
+      <option value="src/json/newspaper1.json">Newspaper 1</option>
+      <option value="src/json/newspaper2.json">Newspaper 2</option>
+      <option value="src/json/storm1.json">Storm 1</option>
+      <option value="src/json/storm2.json">Storm 2</option>
+      <option value="src/json/storm3.json">Storm 3</option>
+      <option value="src/json/storm4.json">Storm 4</option>
+      <option value="src/json/storm5.json">Storm 5</option>
+      <option value="src/json/tokens1.json">Tokens 1</option>
+      <option value="src/json/tokens2.json">Tokens 2</option>
+      <option value="src/json/tokens3.json">Tokens 3</option>
+      <option value="src/json/tokens4.json">Tokens 4</option>
+      <option value="src/json/tokens5.json">Tokens 5</option>
+      <option value="src/json/tokens6.json">Tokens 6</option>
+      <option value="src/json/blank.json">Graphics canvas</option>
+    </select>
+  </div>
+  <div id="canvas-wrapper">
+    <canvas id="background_canvas" width="560" height="550"></canvas>
+    <canvas id="wall_canvas" width="560" height="550"></canvas>
+    <canvas id="trace_canvas" width="560" height="550"></canvas>
+    <canvas id="robot_canvas" width="560" height="550"></canvas>
+    <div id="Reeborg-says" title="Reeborg says: I'm done!" style="display:none"></div>
+    <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
+  </div>
+    <div id="world-edit-buttons">
+      <button class="blue-gradient" id="edit-world" title="Edit world">Edit World</button>
+      <button class="blue-gradient" id="save-world" title="Save world to file">file: Save</button>
+      <button class="blue-gradient" id="load-world" title="Load world from file">file: Load</button>
+      <button class="blue-gradient" id="memorize-world" title="Save world in browser memory (local storage)">browser: Save</button>
+      <button class="blue-gradient" id="delete-world" title="Delete world from browser memory (local storage)" style="display: none;">
+        browser: Delete
+      </button>
+    </div>
+    <div id="image-choice-buttons">
+      <button class="blue-gradient" id="classic-image" title="Classic image"><img src="src/images/robot_e.png" alt="robot east"></button>
+      <button class="blue-gradient" id="simple-topview" title="Simple topview"><img src="src/images/top_e.png" alt="robot east"></button>
+      <button class="blue-gradient" id="rover-type" title="Rover type"><img src="src/images/rover_e.png" alt="robot east"></button>
+    </div>
+     
+</div>
+
+
+<div id="output-panel">
+    <div id="diary-controls">
+    <button class="blue-gradient" id="run2" title="run" onclick="RUR.ui.run();">
+      <img src="src/images/play.png" alt="play">
+    </button>
+    <button class="blue-gradient" id="reload2" title="reload" disabled="true" onclick="RUR.ui.reload();">
+      <img src="src/images/reload.png" alt="reload">
+    </button>
+
+  </div>
+  <div id="diary-wrapper">
+    <h3>Reeborg's diary</h3>
+    <pre id="output-pre"></pre>
+    <pre id="last-pre"></pre>
+  </div>
+</div>
+
+<div id="editor-panel" class="active" >
+
+  <input type="file" id="fileInput">
+  <div id="tabs">
+    <ul>
+      <li><a id="editor-link" href="#editor">Javascript Code</a></li>
+      <button class="blue-gradient float-right" id="load-editor" title="Load program">Load</button>
+      <button class="blue-gradient float-right" id="save-editor" title="Save program">Save</button> 
+      
+      <li><a id="library-link" href="#library">Library</a></li>
+      <button class="blue-gradient float-right" id="load-library" title="Load library">Load</button>
+      <button class="blue-gradient float-right" id="save-library" title="Save library">Save</button> 
+    </ul>
+    <div id="editor">
+      <span id="library-problem">Problem with code in library!</span>
+      <textarea id="code" name="code">move();</textarea>
+      
+    </div>
+    <div id="library">
+      <textarea id="library-code" name="library-code">
+      /* Sorry - if you see this, it means that
+      your browser is incapable of using the
+      Library the way it has been designed.
+
+      You could write code here ... but it will
+      not be saved in your browser for your next visit.
+
+      Have you tried Firefox or Chrome? */
+      </textarea>
+    </div>
+  </div>
+      
+</div>
+
+<div id="edit-world-panel">
+    <h1>Create your own worlds!</h1>
+    <p>If you want to share your world (and corresponding challenges) with others,
+        save it to a file and send it to
+    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
+
+    <div id="edit-world-submenus-wrapper">
+        <p id="cmd-result">Select action to perform from menu below.</p>
+        <ul class="edit-world-submenus" id="edit-world-turn" style="display:none">
+            <li><a href="javascript:RUR.we.turn_robot(0);"><img src="src/images/robot_e.png" alt="robot: east"></a></li>
+            <li><a href="javascript:RUR.we.turn_robot(1);"><img src="src/images/robot_n.png" alt="robot: north"></a></li>
+            <li><a href="javascript:RUR.we.turn_robot(2);"><img src="src/images/robot_w.png" alt="robot: west"></a></li>
+            <li><a href="javascript:RUR.we.turn_robot(3);"><img src="src/images/robot_s.png" alt="robot: south"></a></li>
+        </ul>
+        <ul class="edit-world-canvas" id="edit-world-objects" style="display:none">
+            <li><a href="javascript:RUR.we.select('world-tokens');"><canvas id="canvas-token" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-star');"><canvas id="canvas-star" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-triangle');"><canvas id="canvas-triangle" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-square');"><canvas id="canvas-square" class="edit-canvas" width="40" height="40"></canvas></a></li>
+        </ul>
+        <ul class="edit-goal-canvas" id="edit-goal-objects" style="display:none">
+            <li><a href="javascript:RUR.we.select('goal-tokens');"><canvas id="canvas-goal-token" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('goal-star');"><canvas id="canvas-goal-star" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('goal-triangle');"><canvas id="canvas-goal-triangle" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('goal-square');"><canvas id="canvas-goal-square" class="edit-canvas" width="40" height="40"></canvas></a></li>
+        </ul>
+    </div>
+    
+    <ul id="edit-world-nav">
+        <li class="a-like">Robot <ul>
+            <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Add robot</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-teleport');"> Teleport</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-orientation');"> Turn</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-tokens');">Tokens</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-remove');">Remove</a></li>
+        </ul></li>
+        <li><a href="javascript:RUR.we.select('world-walls');">Walls</a></li>
+        <li><a href="javascript:RUR.we.select('world-objects');">Objects</a></li>
+        <li class="a-like">Goal <ul>
+            <li><a href="javascript:RUR.we.select('goal-robot');">Robot</a></li>
+            <li><a href="javascript:RUR.we.select('goal-wall');">Walls</a></li>
+            <li><a href="javascript:RUR.we.select('goal-objects');">Objects</a></li>
+            <li><a href="javascript:RUR.we.select('goal-no-objects');">No objects</a></li>
+        </ul></li>
+    </ul>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
+<script src="src/new_js/reeborg.js"></script>
+<script src="src/en/reeborg_en.js"></script>
+<script src="src/js/jquery.ui.dialog.minmax.js"></script>
+
+<script type="text/python3">
+from _browser import window
+
+def translate_python(src):
+    exec(src)
+
+# put "translate_python" in global Javascript namespace
+window['translate_python'] = translate_python
+</script>
+
+
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+    mode: 'python',
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4
+  });
+  var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
+    mode: 'python',
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4
+  });
+
+  RUR.settings = {};
+  RUR.settings.editor = "editor_py_en";
+  RUR.settings.library = "library_py_en";
+  RUR.settings.world = "world_py_en";
+  RUR.programming_language = "python";
+</script>
+
+<script src="src/libs/jshint.js"></script>
+<script src="src/libs/filesaver.js"></script>
+
+<div id="help" title="Help" style="display:none">
+    <p><small style="color:#900;">Discussions, questions, comments about Reeborg take place
+        <a href="https://groups.google.com/forum/?fromgroups#!forum/reeborg">here</a>.
+      <a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</small></p>
+
+    <a href="#basic-commands">Basic commands</a><br>
+    <a href="#about">About Reeborg</a><br>
+    <a href="#contribute">Contribute</a><br>
+
+    <h2 id="basic-commands">Basic commands</h2>
+      <p> In addition to understanding Javascript, Reeborg, and all the other robots,
+        know the following instructions:</p>
+      <ul>
+        <li><code>at_goal()</code></li>
+        <li><code>at_goal_orientation()</code></li>
+        <li><code>build_wall()</code></li>
+        <li><code>done()</code></li>
+        <li><code>front_is_clear()</code></li>
+        <li><code>has_token()</code></li>
+        <li><code>is_facing_north()</code></li>
+        <li><code>move()</code></li>
+        <li><code>put()</code> or <code>put("object")</code> where object is one of <code>"token"</code>,
+          <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
+        <li><code>right_is_clear()</code></li>
+        <li><code>repeat(f, n)</code></li>
+        <li><code>object_here()</code></li>
+        <li><code>take()</code> or <code>take("object")</code> where object is one of <code>"token"</code>,
+          <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
+        <li><code>token_here()</code></li>
+        <li><code>turn_left()</code></li>
+      </ul>
+      <p>To create additional robots, one can use <code>new UsedRobot()</code></p>
+      <p>In addition, the following commands are available and are not tied to
+        any robot in particular.</p>
+      <ul>
+        <li><code>inspect(Javascript object)</code></li>
+        <li><code>pause()</code>; can be called with an argument in milliseconds which indicates the
+        time after which it will automatically resume.</li>
+        <li><code>sound(true/false)</code>: turns sound on or off. Off by default or if delay between actions is less than 250ms.</li>
+        <li><code>think(number)</code>: sets the amount of time in milliseconds between each robot action.</li>
+        <li><code>write(string)</code>: write a string in Reeborg's Diary</li>
+        <li><code>select_world(string)</code>: selects a given world.</li>
+        <li><code>side_view()</code> and <code>top_view()</code> can be used to change the set of robot images
+        that are used.</li>
+      </ul>
+
+     <p>To find out more, follow the lessons.</p>
+
+     <h2 id="about">About Reeborg</h2>
+
+    <p>Inspired by Guido van Robot, itself inspired by the original Karel the Robot
+    created by Richard Pattis, Reeborg first appeared in RUR-PLE, a program I created
+    to learn Python, picking up programming as a hobby.</p>
+    <p>Reeborg is there to guide you in learning computer programming in Javascript.
+    Why Javascript?   The main reason is because it is the native language
+    for programming web browsers.  Since Reeborg's program is written in Javascript,
+    you will be able, after going through enough lessons, to change the way that
+    Reeborg behaves, using the full power of Javascript and perhaps make
+    Reeborg do things that I never thought could be possible.</p>
+    <p> I hope you enjoy learning computer programming with Reeborg.</p>
+    <p>Feel free to contact me at
+    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
+
+    <p>Reeborg is free and will remain free to use and to share under a Creative Commons License
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" height="31px" width="88px"/></a>
+    If you are using it to teach Javascript to students, you might want to make
+        a copy of this site on a local server; contact me if you need help.</p>
+    <p>If you find this site so useful and you want to do something to thank me,
+        you have two choices:</p>
+        <ul><li>You can give me $100,000; small denominations preferred.</li>
+        <li>You can <em>pay it forward</em> by doing something nice to someone else.</li></ul>
+        <p>The choice is yours :-)</p>
+
+
+     <h2 id="contribute">Contribute</h2>
+
+     <p> I am just a self-taught programmer, with no training in web design, graphics, etc.
+    I would gladly welcome any suggestions or contributions to</p>
+    <ul><li>Improve the usability of this site.</li>
+    <li>Make a better looking robot; I drew Reeborg pixel-by-pixel using a rather primitive
+        drawing program, suitable for my skills level. There are two sets of pictures available:
+        one with Reeborg viewed from its side and one viewed from above.
+        Note that the (imo) better looking Reeborg
+        is viewed sideways whereas its world is (most often) viewed from above;
+        a nicer-looking Reeborg, perhaps viewed
+    from nearly above, might be most welcome.</li>
+    <li>New worlds, examples and challenges.</li>
+    <li>Corrections to the existing content, including fixing typos.</li>
+    <li>etc.</li></ul>
+    <p><a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</p>
+    <p>My medium-term plans include:</p>
+    <ul><li>Translating the Javascript-based tutorial into French</li>
+    <li>Having a Python version (probably using <a href="http://brython.info/index.html">Brython</a>)</li>
+    <li>Having a CoffeeScript version</li>
+    <li>Tutorial on games using the html canvas</li></ul>
+    <p>Longer term plans include:</p>
+    <ul><li>Implementing Reeborg's world for other languages (Scheme, ...) as long as it can be
+    done within a browser with no server-side code running.</li>
+    <li>Enlisting contributors to translate tutorials into languages other than English or French</li>
+    <li>Investigating something like <a href="https://github.com/ryanb/ruby-warrior">Ruby-warrior in Javascript</a></li>
+    <li>Investigating the possibility of porting <a href="http://www.nand2tetris.org/">From nand to Tetris</a> to the web using Javascript</li></ul>
+
+Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen (and modified) from Creative Commons license 0 submissions.
+</div>
+
+<audio id="put-sound" preload>
+  <source src="src/sounds/toc.wav" type="audio/x-wav">
+<!--
+  <source src="../sounds/tock.ogg" type="application/ogg">
+  <source src="../sounds/tock.mp3" type="audio/mpeg">
+-->
+</audio>
+
+<audio id="take-sound" preload>
+  <source src="src/sounds/pick.wav" type="audio/x-wav">
+</audio>
+<audio id="write-sound" preload>
+  <source src="src/sounds/type.wav" type="audio/x-wav">
+</audio>
+
+  <audio id="move-sound" preload>
+  <source src="src/sounds/move.wav" type="audio/x-wav">
+</audio>
+<audio id="turn-sound" preload>
+  <source src="src/sounds/turn.wav" type="audio/x-wav">
+</audio>
+<audio id="build-sound" preload>
+  <source src="src/sounds/brick.wav" type="audio/x-wav">
+</audio>
+<audio id="success-sound" preload>
+  <source src="src/sounds/success.wav" type="audio/x-wav">
+</audio>
+<audio id="error-sound" preload>
+  <source src="src/sounds/glitch-sound.wav" type="audio/x-wav">
+</audio>
+
+</body>
+</html>

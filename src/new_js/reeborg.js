@@ -543,16 +543,15 @@ $(document).ready(function() {
   
     $("#classic-image").on("click", function(evt) {
         RUR.vis_robot.select_style(0);
-    })
+    });
     
     $("#simple-topview").on("click", function(evt) {
         RUR.vis_robot.select_style(1);
-    })
+    });
        
     $("#rover-type").on("click", function(evt) {
         RUR.vis_robot.select_style(2);
-    })
-    
+    });
     
     
     $("#robot_canvas").on("click", function (evt) {
@@ -622,6 +621,7 @@ $(document).ready(function() {
                 }
 
     RUR.ui.set_ready_to_run();
+
 });
 /* Author: André Roberge
    License: MIT
@@ -726,7 +726,16 @@ RUR.rec.record_frame = function (name, obj) {
     if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
-    RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line;    
+    if (RUR.programming_langage === "javascript") { 
+        RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line; 
+    } else if (RUR.programming_language === "python") {
+        console.log(__BRYTHON__.line_info);
+        if (__BRYTHON__.line_info !== undefined) { 
+            RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-1; //__BRYTHON__.line_info[0];
+        } else{
+            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
+        }
+    }
     
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
@@ -782,9 +791,10 @@ RUR.rec.display_frame = function () {
 
     
     // track line number and highlight line to be executed
-    if (RUR._previous_line !== undefined) {
+    try {
+        
         editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
-    }
+    }catch (e) {}
     try { 
         editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
         RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
@@ -816,13 +826,15 @@ RUR.rec.display_frame = function () {
         RUR.control.play_sound(frame.sound_id);
     }
     RUR.vis_world.refresh();
-    if (RUR.rec.current_frame === RUR.rec.nb_frames) {
-        return RUR.rec.conclude();
-    }
+//    if (RUR.rec.current_frame === RUR.rec.nb_frames) {
+//        return RUR.rec.conclude();
+//    }
 };
 
 RUR.rec.conclude = function () {
-    editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+    try{ 
+        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+    } catch(e) {}
     var frame, goal_status;
     if (RUR.rec.nb_frames === 0) return "stopped";
     
@@ -1451,10 +1463,9 @@ RUR.vis_robot.images[2].robot_y_offset = 8;
 
 RUR.vis_robot.select_style = function (arg) {
     var style;
-    if(arg === undefined || arg === null) {
+    style = parseInt(arg, 10);
+    if (!(style === 0 || style === 1 || style === 2)) {
         style = 0;
-    } else {
-        style = arg;
     }
     RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
     RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
@@ -1468,7 +1479,6 @@ RUR.vis_robot.select_style = function (arg) {
 
     localStorage.setItem("robot_style", arg);
 };
-
 RUR.vis_robot.select_style(localStorage.getItem("robot_style"));
 
 // the following is to try to ensure that the images are loaded before the "final"

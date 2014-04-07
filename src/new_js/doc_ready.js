@@ -154,16 +154,15 @@ $(document).ready(function() {
   
     $("#classic-image").on("click", function(evt) {
         RUR.vis_robot.select_style(0);
-    })
+    });
     
     $("#simple-topview").on("click", function(evt) {
         RUR.vis_robot.select_style(1);
-    })
+    });
        
     $("#rover-type").on("click", function(evt) {
         RUR.vis_robot.select_style(2);
-    })
-    
+    });
     
     
     $("#robot_canvas").on("click", function (evt) {
@@ -233,4 +232,5 @@ $(document).ready(function() {
                 }
 
     RUR.ui.set_ready_to_run();
+
 });
