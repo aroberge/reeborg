@@ -1259,6 +1259,7 @@ RUR.ui.reload = function() {
     $("#output-panel pre").remove(".jscode");
     RUR.world.reset();
     RUR.runner.interpreted = false;
+    RUR.control.sound_flag = false;
     RUR.rec.reset();
     editorUpdateHints();
     libraryUpdateHints();
