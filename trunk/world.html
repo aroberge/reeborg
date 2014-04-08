@@ -220,8 +220,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
-<script src="src/libs/codemirror/python.js"></script>
-<!--<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/python/python.js"></script>-->
+<!--<script src="src/libs/codemirror/python.js"></script>-->
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/python/python.js"></script>
 <script>
   var RUR = {};
   RUR.settings = {};
@@ -247,16 +247,14 @@ window['translate_python'] = translate_python
 
 <script>
   var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-    mode: 'python',
-    version: '3',  // for python ... not recognized so use local python mode
+    mode:  {name: "python", version: 3},
     tabMode: 'indent',
     lineNumbers: true,
     theme: 'reeborg-dark',
     indentUnit: 4
   });
   var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
-    mode: 'python',
-    version: '3',
+    mode:  {name: "python", version: 3},
     tabMode: 'indent',
     lineNumbers: true,
     theme: 'reeborg-dark',
