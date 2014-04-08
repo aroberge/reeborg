@@ -3,14 +3,45 @@
  */
 
 /*jshint browser:true, devel:true, white:false, plusplus:false */
-/*globals $, CodeMirror, editor, library */
+/*globals $, CodeMirror, editor, library, removeHints */
+
+var RUR = RUR || {};
+$(document).ready(function() {
+    $('input[type=radio][name=programming_language]').on('change', function(){
+        RUR.removeHints();
+        switch($(this).val()){
+            case 'python-en' :
+                RUR.settings.editor = "editor_py_en";
+                RUR.settings.library = "library_py_en";
+                RUR.programming_language = "python";
+                editor.setOption("mode", "python");
+                library.setOption("mode", "python");
+                break;
+            case 'javascript-strict-en' :
+                RUR.settings.editor = "editor_js_en";
+                RUR.settings.library = "library_js_en";
+                RUR.programming_language = "javascript";
+                RUR.strict_javascript = true;
+                editor.setOption("mode", "javascript");
+                library.setOption("mode", "javascript");
+                break;
+            case 'javascript-en' :
+                RUR.settings.editor = "editor_js_en";
+                RUR.settings.library = "library_js_en";
+                RUR.programming_language = "javascript";
+                RUR.strict_javascript = false;
+                editor.setOption("mode", "javascript");
+                library.setOption("mode", "javascript");
+                break;
+        }            
+    });
+});
+
 
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, object_here, select_world,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view, sound*/\n";
-
-var RUR = RUR || {};
 
 RUR.translation = {};
 RUR.translation["/* Your special code goes here */\n\n"] = "/* Your special code goes here */\n\n";
@@ -62,6 +93,12 @@ RUR.translation["Undo Delete"] = "Undo Delete";
 RUR.translation["World selected"] = "World {world} selected";
 RUR.translation["Could not find world"] = "Could not find world {world}";
 RUR.translation["Invalid world file."] = "Invalid world file.";
+
+/* translations from world_editor.js */
+
+//TODO
+
+/*==========================================*/
 
 var move, turn_left, inspect, front_is_clear, right_is_clear, 
     is_facing_north, done, put, take, object_here, select_world, token_here, 
@@ -257,17 +294,6 @@ RUR.reset_definitions = function () {
         RUR.control.turn_left(this.robot);
     };
     
-//  side_view = function () {
-//      RUR.visible_world.top_view = false;
-//      localStorage.setItem("top_view", "false");
-//  };
-//
-//  top_view = function () {
-//      RUR.visible_world.top_view = true;
-//      localStorage.setItem("top_view", "true");
-//  };
-
-
 };
 
 
@@ -275,7 +301,7 @@ RUR.reset_definitions = function () {
 // so that they make sense in the human language ...
 RUR._import_library = function () {
   // adds the library code to the editor code if appropriate string is found
-    var separator, import_lib_regex, src, lib_src;  // separates library code from user code
+    var separator, import_lib_regex, src, lib_src;  
     if (RUR.programming_language == "javascript") {
         separator = ";\n";
         import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;

@@ -12,6 +12,7 @@ function editorUpdateHints() {
 function libraryUpdateHints() {
     updateHints(library);
 }
+
 var jshint_options = {
     eqeqeq: true,
     boss: true,

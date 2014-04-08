@@ -59,80 +59,80 @@ RUR.we.select = function (choice) {
     RUR.we.edit_world_flag = choice;
     switch (choice) {
         case "robot-teleport":
-            $("#cmd-result").html("Click on canvas to move robot.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to move robot."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "robot-remove":
-            $("#cmd-result").html("Removed robot.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Removed robot."]).effect("highlight", {color: "gold"}, 1500);
             RUR.we.remove_robot();
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
             break;
         case "robot-add":
-            $("#cmd-result").html("Added robot").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Added robot"]).effect("highlight", {color: "gold"}, 1500);
             RUR.we.add_robot(RUR.robot.create_robot());
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
             break;
         case "robot-orientation":
-            $("#cmd-result").html("Click on image to turn robot").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on image to turn robot"]).effect("highlight", {color: "gold"}, 1500);
             $("#edit-world-turn").show();
             break;
         case "robot-tokens":
             RUR.we.give_tokens_to_robot();
             RUR.we.edit_world();
-            $("#cmd-result").html("Robot now has " + RUR.current_world.robots[0].tokens + " tokens.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Robot now has tokens."].supplant({x_tokens: RUR.current_world.robots[0].tokens})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-tokens":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html("Click on canvas to set number of tokens.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to set number of tokens."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-objects":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html("Click on desired object below.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on desired object below."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-star":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle star.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle star."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-triangle":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle triangle.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle triangle."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-square":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle square.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle square."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-walls":
-            $("#cmd-result").html("Click on canvas to toggle walls.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle walls."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-robot":
-            $("#cmd-result").html("Click on canvas to set home position for robot.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to set home position for robot."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-wall":
-            $("#cmd-result").html("Click on canvas to toggle additional walls to build.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle additional walls to build."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-objects":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html("Click on desired goal object below.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on desired goal object below."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-tokens":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html("Click on canvas to set number of goal tokens.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to set number of goal tokens."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-star":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle star goal.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle star goal."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-triangle":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle triangle goal.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle triangle goal."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-square":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle square goal.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle square goal."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-no-objects":
-            $("#cmd-result").html("Click on canvas at x=1, y=1 to have no object left as a goal.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."]).effect("highlight", {color: "gold"}, 1500);
     }
 };
 
@@ -244,7 +244,7 @@ RUR.we.give_tokens_to_robot = function () {
         } else if (parseInt(response, 10) >= 0) {
             RUR.current_world.robots[0].tokens = parseInt(response, 10);
         } else {
-            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+            $("#Reeborg-shouts").html(response + RUR.translation[" is not a valid value!"]).dialog("open");
         }
     }
 };
@@ -256,12 +256,12 @@ RUR.we.set_token_number = function () {
     y = position[1];
     
     if (RUR.current_world.shapes !== undefined && RUR.current_world.shapes[x + "," + y] !== undefined){
-        $("#cmd-result").html("Other object here; can't put tokens").effect("highlight", {color: "gold"}, 1500);
-        $("#Reeborg-shouts").html("Other object here; can't put tokens").dialog("open");
+        $("#cmd-result").html(RUR.translation["Other object here; can't put tokens"]).effect("highlight", {color: "gold"}, 1500);
+        $("#Reeborg-shouts").html(RUR.translation["Other object here; can't put tokens"]).dialog("open");
         return;
     }
     
-    response = prompt("Enter number of tokens for at that location.");
+    response = prompt(RUR.translation["Enter number of tokens for at that location."]);
     if (response !== null) {
         tokens = parseInt(response, 10);
         if (tokens >= 0) {
@@ -272,7 +272,7 @@ RUR.we.set_token_number = function () {
                 delete RUR.current_world.tokens[x + "," + y];
             }
         } else {
-            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+            $("#Reeborg-shouts").html(response + RUR.translation[" is not a valid value!"]).dialog("open");
         }
     } 
 };
@@ -285,8 +285,8 @@ RUR.we.set_goal_token_number = function () {
     
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
-        $("#cmd-result").html("Other object goal here; can't put tokens").effect("highlight", {color: "gold"}, 1500);
-        $("#Reeborg-shouts").html("Other object goal here; can't put tokens").dialog("open");
+        $("#cmd-result").html(RUR.translation["Other object goal here; can't put tokens"]).effect("highlight", {color: "gold"}, 1500);
+        $("#Reeborg-shouts").html(RUR.translation["Other object goal here; can't put tokens"]).dialog("open");
         return;
     }
     
@@ -307,7 +307,7 @@ RUR.we.set_goal_token_number = function () {
                 }
             }
         } else {
-            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+            $("#Reeborg-shouts").html(response + RUR.translation[" is not a valid value!"]).dialog("open");
         }
     } 
 };
@@ -454,7 +454,7 @@ RUR.we.toggle_shape = function (shape){
     x = position[0];
     y = position[1];
     if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html("tokens here; can't put another object").effect("highlight", {color: "gold"}, 1500);
+        $("#cmd-result").html(RUR.translation["tokens here; can't put another object"]).effect("highlight", {color: "gold"}, 1500);
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world, "shapes");
@@ -478,7 +478,7 @@ RUR.we.toggle_goal_shape = function (shape){
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     if (RUR.current_world.goal.tokens !== undefined &&
         RUR.current_world.goal.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html("tokens as a goal here; can't set another object as goal.");
+        $("#cmd-result").html(RUR.translation["tokens as a goal here; can't set another object as goal."]);
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world.goal, "shapes");
@@ -509,12 +509,12 @@ RUR.we.set_goal_position = function (){
             $("#edit-world-turn").hide();
         } else {
             RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-            $("#cmd-result").html("Click on same position to remove, or robot to set orientation").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on same position to remove, or robot to set orientation."]).effect("highlight", {color: "gold"}, 1500);
             $("#edit-world-turn").show();
         }
     } else {
         RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-        $("#cmd-result").html("Click on same position to remove, or robot to set orientation.").effect("highlight", {color: "gold"}, 1500);
+        $("#cmd-result").html(RUR.translation["Click on same position to remove, or robot to set orientation."]).effect("highlight", {color: "gold"}, 1500);
         $("#edit-world-turn").show();
     }
 };
@@ -539,13 +539,13 @@ RUR.we.set_goal_no_objects = function(){
     var position;
     position = RUR.we.calculate_grid_position();
     if (position[0] !== 1 || position[1] !== 1) {
-        $("#cmd-result").html("No effect.").effect("highlight", {color: "gold"}, 1500);
+        $("#cmd-result").html(RUR.translation["No effect."]).effect("highlight", {color: "gold"}, 1500);
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     RUR.current_world.goal.tokens = {};
     RUR.current_world.goal.shapes = {};
-    $("#cmd-result").html("Goal: no object left in world.").effect("highlight", {color: "gold"}, 1500);
+    $("#cmd-result").html(RUR.translation["Goal: no object left in world."]).effect("highlight", {color: "gold"}, 1500);
 };
 
 RUR.we.draw_token = function (goal) {

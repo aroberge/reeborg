@@ -7,7 +7,6 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 
 var DEBUG = false;
-var RUR = {};
 
 RUR.EAST = 0;
 RUR.NORTH = 1;
@@ -628,7 +627,46 @@ $(document).ready(function() {
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals RUR */
+
+RUR.add_line_number = function (s) {
+    var i, line, lines, result;
+    
+    if (s.slice(-1) !== "\n") {
+        s += "\n";
+    }
+    lines = s.split("\n");
+    
+    result = "";
+    for(i=1; i <= lines.length; i++){
+        line = "RUR._line_number(" + i + ")\n" + lines[i-1] + "\n";
+        result += line;
+    }
+    
+    return result;
+};/* Author: André Roberge
+   License: MIT
+ */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, editor, library, RUR, JSHINT, globals_ */
+
+
+RUR.removeHints = function () {
+    editor.operation (function () {
+        for(var i = 0; i < editor.widgets.length; ++i){
+            editor.removeLineWidget(editor.widgets[i]);
+        }
+        editor.widgets.length = 0;
+    });
+    library.operation (function () {
+        for(var i = 0; i < library.widgets.length; ++i){
+            library.removeLineWidget(library.widgets[i]);
+        }
+        library.widgets.length = 0;
+    });
+};
+
 
 function editorUpdateHints() {
     updateHints(editor);
@@ -1031,8 +1069,6 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
 
 RUR.runner = {};
 
-RUR.programming_language = "javascript";  // TODO move elsewhere
-
 RUR.runner.interpreted = false;
 
 RUR.runner.run = function (playback) {
@@ -1057,12 +1093,14 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
+    console.log(RUR.programming_language, RUR.strict_javascript);
     try {
         if (RUR.programming_language === "javascript") {
-            if (src.slice(1, 10) === "no strict") {
-                RUR.runner.eval_no_strict_js(src);
-            } else {
+            if (RUR.strict_javascript) {
                 RUR.runner.eval_javascript(src);
+
+            } else {
+                RUR.runner.eval_no_strict_js(src);
             }
 
         } else if (RUR.programming_language === "python") {
@@ -1083,8 +1121,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     RUR.runner.interpreted = true;
     return false;
 };
-
-
 
 RUR.runner.eval_javascript = function (src) {
     // Note: by having "use strict;" here, it has the interesting effect of requiring user
@@ -1117,14 +1153,12 @@ RUR.runner.eval_javascript = function (src) {
 
 RUR.runner.eval_no_strict_js = function (src) {
     // bypass linting and does not "use strict"
-    // Usually requires "no strict"; as first statement in editor
     RUR.reset_definitions();
     eval(src); // jshint ignore:line
 };
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict" as we do not control the output produced by Brython
-    // translate_python needs to be included in the html page in a Python script
     RUR.reset_definitions();
     translate_python(src); // found in the html file
 };
@@ -1257,6 +1291,11 @@ RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
     $("#output-pre").html("");
     $("#output-panel pre").remove(".jscode");
+    $("#Reeborg-says").dialog("close");
+    $("#Reeborg-shouts").dialog("close");
+    // reset the options in case the user has dragged the window.
+    $("#Reeborg-says").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.runner.interpreted = false;
     RUR.control.sound_flag = false;
@@ -2029,80 +2068,80 @@ RUR.we.select = function (choice) {
     RUR.we.edit_world_flag = choice;
     switch (choice) {
         case "robot-teleport":
-            $("#cmd-result").html("Click on canvas to move robot.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to move robot."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "robot-remove":
-            $("#cmd-result").html("Removed robot.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Removed robot."]).effect("highlight", {color: "gold"}, 1500);
             RUR.we.remove_robot();
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
             break;
         case "robot-add":
-            $("#cmd-result").html("Added robot").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Added robot"]).effect("highlight", {color: "gold"}, 1500);
             RUR.we.add_robot(RUR.robot.create_robot());
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
             break;
         case "robot-orientation":
-            $("#cmd-result").html("Click on image to turn robot").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on image to turn robot"]).effect("highlight", {color: "gold"}, 1500);
             $("#edit-world-turn").show();
             break;
         case "robot-tokens":
             RUR.we.give_tokens_to_robot();
             RUR.we.edit_world();
-            $("#cmd-result").html("Robot now has " + RUR.current_world.robots[0].tokens + " tokens.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Robot now has tokens."].supplant({x_tokens: RUR.current_world.robots[0].tokens})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-tokens":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html("Click on canvas to set number of tokens.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to set number of tokens."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-objects":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html("Click on desired object below.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on desired object below."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-star":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle star.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle star."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-triangle":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle triangle.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle triangle."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-square":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle square.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle square."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-walls":
-            $("#cmd-result").html("Click on canvas to toggle walls.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle walls."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-robot":
-            $("#cmd-result").html("Click on canvas to set home position for robot.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to set home position for robot."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-wall":
-            $("#cmd-result").html("Click on canvas to toggle additional walls to build.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle additional walls to build."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-objects":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html("Click on desired goal object below.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on desired goal object below."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-tokens":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html("Click on canvas to set number of goal tokens.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to set number of goal tokens."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-star":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle star goal.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle star goal."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-triangle":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle triangle goal.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle triangle goal."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-square":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html("Click on canvas to toggle square goal.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world to toggle square goal."]).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-no-objects":
-            $("#cmd-result").html("Click on canvas at x=1, y=1 to have no object left as a goal.").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."]).effect("highlight", {color: "gold"}, 1500);
     }
 };
 
@@ -2214,7 +2253,7 @@ RUR.we.give_tokens_to_robot = function () {
         } else if (parseInt(response, 10) >= 0) {
             RUR.current_world.robots[0].tokens = parseInt(response, 10);
         } else {
-            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+            $("#Reeborg-shouts").html(response + RUR.translation[" is not a valid value!"]).dialog("open");
         }
     }
 };
@@ -2226,12 +2265,12 @@ RUR.we.set_token_number = function () {
     y = position[1];
     
     if (RUR.current_world.shapes !== undefined && RUR.current_world.shapes[x + "," + y] !== undefined){
-        $("#cmd-result").html("Other object here; can't put tokens").effect("highlight", {color: "gold"}, 1500);
-        $("#Reeborg-shouts").html("Other object here; can't put tokens").dialog("open");
+        $("#cmd-result").html(RUR.translation["Other object here; can't put tokens"]).effect("highlight", {color: "gold"}, 1500);
+        $("#Reeborg-shouts").html(RUR.translation["Other object here; can't put tokens"]).dialog("open");
         return;
     }
     
-    response = prompt("Enter number of tokens for at that location.");
+    response = prompt(RUR.translation["Enter number of tokens for at that location."]);
     if (response !== null) {
         tokens = parseInt(response, 10);
         if (tokens >= 0) {
@@ -2242,7 +2281,7 @@ RUR.we.set_token_number = function () {
                 delete RUR.current_world.tokens[x + "," + y];
             }
         } else {
-            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+            $("#Reeborg-shouts").html(response + RUR.translation[" is not a valid value!"]).dialog("open");
         }
     } 
 };
@@ -2255,8 +2294,8 @@ RUR.we.set_goal_token_number = function () {
     
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
-        $("#cmd-result").html("Other object goal here; can't put tokens").effect("highlight", {color: "gold"}, 1500);
-        $("#Reeborg-shouts").html("Other object goal here; can't put tokens").dialog("open");
+        $("#cmd-result").html(RUR.translation["Other object goal here; can't put tokens"]).effect("highlight", {color: "gold"}, 1500);
+        $("#Reeborg-shouts").html(RUR.translation["Other object goal here; can't put tokens"]).dialog("open");
         return;
     }
     
@@ -2277,7 +2316,7 @@ RUR.we.set_goal_token_number = function () {
                 }
             }
         } else {
-            $("#Reeborg-shouts").html(response + " is not a valid value!").dialog("open");
+            $("#Reeborg-shouts").html(response + RUR.translation[" is not a valid value!"]).dialog("open");
         }
     } 
 };
@@ -2424,7 +2463,7 @@ RUR.we.toggle_shape = function (shape){
     x = position[0];
     y = position[1];
     if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html("tokens here; can't put another object").effect("highlight", {color: "gold"}, 1500);
+        $("#cmd-result").html(RUR.translation["tokens here; can't put another object"]).effect("highlight", {color: "gold"}, 1500);
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world, "shapes");
@@ -2448,7 +2487,7 @@ RUR.we.toggle_goal_shape = function (shape){
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     if (RUR.current_world.goal.tokens !== undefined &&
         RUR.current_world.goal.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html("tokens as a goal here; can't set another object as goal.");
+        $("#cmd-result").html(RUR.translation["tokens as a goal here; can't set another object as goal."]);
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world.goal, "shapes");
@@ -2479,12 +2518,12 @@ RUR.we.set_goal_position = function (){
             $("#edit-world-turn").hide();
         } else {
             RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-            $("#cmd-result").html("Click on same position to remove, or robot to set orientation").effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Click on same position to remove, or robot to set orientation."]).effect("highlight", {color: "gold"}, 1500);
             $("#edit-world-turn").show();
         }
     } else {
         RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-        $("#cmd-result").html("Click on same position to remove, or robot to set orientation.").effect("highlight", {color: "gold"}, 1500);
+        $("#cmd-result").html(RUR.translation["Click on same position to remove, or robot to set orientation."]).effect("highlight", {color: "gold"}, 1500);
         $("#edit-world-turn").show();
     }
 };
@@ -2509,13 +2548,13 @@ RUR.we.set_goal_no_objects = function(){
     var position;
     position = RUR.we.calculate_grid_position();
     if (position[0] !== 1 || position[1] !== 1) {
-        $("#cmd-result").html("No effect.").effect("highlight", {color: "gold"}, 1500);
+        $("#cmd-result").html(RUR.translation["No effect."]).effect("highlight", {color: "gold"}, 1500);
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     RUR.current_world.goal.tokens = {};
     RUR.current_world.goal.shapes = {};
-    $("#cmd-result").html("Goal: no object left in world.").effect("highlight", {color: "gold"}, 1500);
+    $("#cmd-result").html(RUR.translation["Goal: no object left in world."]).effect("highlight", {color: "gold"}, 1500);
 };
 
 RUR.we.draw_token = function (goal) {
