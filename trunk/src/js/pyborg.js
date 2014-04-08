@@ -75,7 +75,7 @@ RUR.LineOfCode = function (raw_content, line_number) {
     this.indentation = line_content[1].length;
     this.content = line_content[2];
     this.stripped_content = RUR.remove_spaces(this.content);
-}
+};
 
 RUR.UserProgram = function (program, language) {
     "use strict";
@@ -116,7 +116,7 @@ RUR.UserProgram = function (program, language) {
         this.syntax_error = [this.line_number - 1, msg];
     };
 
-}
+};
 
 RUR.Block = function (program, min_indentation, inside_loop) {
     // recursive function; it will call itself if it encounters sub-blocks
@@ -376,4 +376,4 @@ RUR.Block = function (program, min_indentation, inside_loop) {
     };
 
     this.parse();
-}
+};

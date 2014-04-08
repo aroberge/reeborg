@@ -5,6 +5,15 @@ button[disabled]{
     background: #eee;
 }
 header {position: absolute; top: 0; left: 0; z-index: 10; width: 100%; min-width: 800px;}
+header form {color: white; 
+    position: relative;
+    font-weight: bold;
+    float: left;
+    padding: 5px;
+    padding-top: 8px;
+    font-size: 0.8em;
+    margin-left: 100px;
+}
 h1 {font-size: 1.7em; color: #224488;}
 h2 {font-size: 1.3em; color: #224488;}
 h3 {font-size: 1.1em; color: #224488;}
@@ -108,6 +117,7 @@ li.failure:after{content: url(../images/not_ok.png);}
 .cm-s-reeborg-dark .cm-atom { color: #F4C20B; }
 .cm-s-reeborg-dark .cm-number, .cm-s-reeborg-dark .cm-attribute { color: #cef; }
 .cm-s-reeborg-dark .cm-keyword { color: #FBDE2D; }
+.cm-s-reeborg-dark .cm-operator { color: #FBDE2D; }
 .cm-s-reeborg-dark .cm-string { color: #F08047; }
 .cm-s-reeborg-dark .cm-variable-2 { color: #9f9; }
 .cm-s-reeborg-dark .cm-def { color: #9f9; }

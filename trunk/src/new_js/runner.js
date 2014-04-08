@@ -7,8 +7,6 @@
 
 RUR.runner = {};
 
-RUR.programming_language = "javascript";  // TODO move elsewhere
-
 RUR.runner.interpreted = false;
 
 RUR.runner.run = function (playback) {
@@ -33,12 +31,14 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
+    console.log(RUR.programming_language, RUR.strict_javascript);
     try {
         if (RUR.programming_language === "javascript") {
-            if (src.slice(1, 10) === "no strict") {
-                RUR.runner.eval_no_strict_js(src);
-            } else {
+            if (RUR.strict_javascript) {
                 RUR.runner.eval_javascript(src);
+
+            } else {
+                RUR.runner.eval_no_strict_js(src);
             }
 
         } else if (RUR.programming_language === "python") {
@@ -59,8 +59,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     RUR.runner.interpreted = true;
     return false;
 };
-
-
 
 RUR.runner.eval_javascript = function (src) {
     // Note: by having "use strict;" here, it has the interesting effect of requiring user
@@ -93,14 +91,12 @@ RUR.runner.eval_javascript = function (src) {
 
 RUR.runner.eval_no_strict_js = function (src) {
     // bypass linting and does not "use strict"
-    // Usually requires "no strict"; as first statement in editor
     RUR.reset_definitions();
     eval(src); // jshint ignore:line
 };
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict" as we do not control the output produced by Brython
-    // translate_python needs to be included in the html page in a Python script
     RUR.reset_definitions();
     translate_python(src); // found in the html file
 };

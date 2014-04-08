@@ -3,8 +3,7 @@
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-
-var RUR = {};
+/*globals RUR */
 
 RUR.add_line_number = function (s) {
     var i, line, lines, result;

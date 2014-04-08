@@ -5,6 +5,23 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, editor, library, RUR, JSHINT, globals_ */
 
+
+RUR.removeHints = function () {
+    editor.operation (function () {
+        for(var i = 0; i < editor.widgets.length; ++i){
+            editor.removeLineWidget(editor.widgets[i]);
+        }
+        editor.widgets.length = 0;
+    });
+    library.operation (function () {
+        for(var i = 0; i < library.widgets.length; ++i){
+            library.removeLineWidget(library.widgets[i]);
+        }
+        library.widgets.length = 0;
+    });
+};
+
+
 function editorUpdateHints() {
     updateHints(editor);
 }
