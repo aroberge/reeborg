@@ -57,7 +57,13 @@ $(document).ready(function() {
     });
 
     $(function() {
-        $("#tabs").tabs({heightStyle: "auto"});
+        $("#tabs").tabs({
+            heightStyle: "auto",
+            activate: function(event, ui){
+                editor.refresh();
+                library.refresh();
+            }
+        });
     });
 
     $("#editor-link").on("click", function(){

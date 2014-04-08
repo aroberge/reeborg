@@ -445,7 +445,13 @@ $(document).ready(function() {
     });
 
     $(function() {
-        $("#tabs").tabs({heightStyle: "auto"});
+        $("#tabs").tabs({
+            heightStyle: "auto",
+            activate: function(event, ui){
+                editor.refresh();
+                library.refresh();
+            }
+        });
     });
 
     $("#editor-link").on("click", function(){
@@ -753,15 +759,15 @@ RUR.rec.record_frame = function (name, obj) {
     if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
-    if (RUR.programming_langage === "javascript") { 
-        RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line; 
-    } else if (RUR.programming_language === "python") {
-        if (__BRYTHON__.line_info !== undefined) { 
-            RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-1;
-        } else{
-            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
-        }
-    }
+//    if (RUR.programming_langage === "javascript") { 
+//        RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line; 
+//    } else if (RUR.programming_language === "python") {
+//        if (__BRYTHON__.line_info !== undefined) { 
+//            RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-1;
+//        } else{
+//            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
+//        }
+//    }
     
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
@@ -808,23 +814,17 @@ RUR.rec.display_frame = function () {
     // set current world to frame being played.
     "use strict";
     var frame, goal_status;
-    
-    /* We only want to have one line where we update the current frame as
-       we have multiple return points; so we update at the beginning and
-       our first current frame is numbered 1; this affect the way we
-       count the frames in record frame as well.
-    */
 
     
     // track line number and highlight line to be executed
-    try {
-        
-        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
-    }catch (e) {}
-    try { 
-        editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
-        RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
-    } catch (e) {}
+//    try {
+//        
+//        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+//    }catch (e) {}
+//    try { 
+//        editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
+//        RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
+//    } catch (e) {}
     
     
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
@@ -855,9 +855,9 @@ RUR.rec.display_frame = function () {
 };
 
 RUR.rec.conclude = function () {
-    try{ 
-        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
-    } catch(e) {}
+//    try{ 
+//        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+//    } catch(e) {}
     var frame, goal_status;
     if (RUR.rec.nb_frames === 0) return "stopped";
     
@@ -1126,16 +1126,16 @@ RUR.runner.eval_javascript = function (src) {
     }
     RUR.reset_definitions();
 
-    function set_line_no(n){
-        RUR._current_line = n;
-    }
-    
-    lines = src.split("\n");
-    for (i=0; i < lines.length; i++){
-        text += "set_line_no(" + i + ");";
-        text += lines[i];
-    }
-    src = text;
+//    function set_line_no(n){
+//        RUR._current_line = n;
+//    }
+//    
+//    lines = src.split("\n");
+//    for (i=0; i < lines.length; i++){
+//        text += "set_line_no(" + i + ");";
+//        text += lines[i];
+//    }
+//    src = text;
     eval(src); // jshint ignore:line
 };
 
