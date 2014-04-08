@@ -14,8 +14,8 @@ $(document).ready(function() {
                 RUR.settings.editor = "editor_py_en";
                 RUR.settings.library = "library_py_en";
                 RUR.programming_language = "python";
-                editor.setOption("mode", "python");
-                library.setOption("mode", "python");
+                editor.setOption("mode", {name: "python", version: 3});
+                library.setOption("mode", {name: "python", version: 3});
                 break;
             case 'javascript-strict-en' :
                 RUR.settings.editor = "editor_js_en";
