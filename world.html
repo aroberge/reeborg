@@ -150,7 +150,7 @@
     </ul>
     <div id="editor">
       <span id="library-problem">Problem with code in library!</span>
-      <textarea id="code" name="code">move();</textarea>
+      <textarea id="code" name="code">move()</textarea>
       
     </div>
     <div id="library">
@@ -235,13 +235,19 @@
 <script src="src/js/jquery.ui.dialog.minmax.js"></script>
 
 <script type="text/python3">
-from _browser import window
-
+import _sys
+from _browser import window, doc
 def translate_python(src):
     exec(src)
 
 # put "translate_python" in global Javascript namespace
 window['translate_python'] = translate_python
+def _write(data):
+    doc["output-pre"].innerHTML += str(data)
+def _write_err(data):
+    doc["output-pre"].innerHTML += "<b style='color:red'>" + str(data) + "</b>"
+_sys.stdout.write = _write
+_sys.stderr.write = _write_err
 </script>
 
 
