@@ -31,7 +31,6 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
-    console.log(RUR.programming_language, RUR.strict_javascript);
     try {
         if (RUR.programming_language === "javascript") {
             if (RUR.strict_javascript) {

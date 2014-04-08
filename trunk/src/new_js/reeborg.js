@@ -604,19 +604,8 @@ $(document).ready(function() {
     $("#select_world").change();
     
     try {  
-        var library_comment = '', library_content, editor_content;
-        if (RUR.programming_language == "javascript") {
-            library_comment = RUR.translation["/* Your special code goes here */\n\n"];
-        } else if (RUR.programming_language == "python") {
-            library_comment = RUR.translation["# Your special code goes here \n\n"];
-        }
-        library_content = localStorage.getItem(RUR.settings.library) || library_comment;
-        library.setValue(library_content);
-      
-        editor_content = localStorage.getItem(RUR.settings.editor) || editor.getValue();
-        editor.setValue(editor_content);
-      
-    } catch (e){ alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
+        RUR.reset_code_in_editors();
+    } catch (e){ console.log(e);alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
                 }
 
     RUR.ui.set_ready_to_run();
@@ -1093,7 +1082,6 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
-    console.log(RUR.programming_language, RUR.strict_javascript);
     try {
         if (RUR.programming_language === "javascript") {
             if (RUR.strict_javascript) {

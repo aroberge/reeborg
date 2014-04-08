@@ -6,14 +6,38 @@
 /*globals $, CodeMirror, editor, library, removeHints */
 
 var RUR = RUR || {};
+
+RUR.reset_code_in_editors = function () {
+    var library_comment = '', library_content, editor_content;
+
+    if (RUR.programming_language == "javascript") {
+        library_comment = RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"];
+    } else if (RUR.programming_language == "python") {
+        library_comment = RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"];
+    }
+    library_content = localStorage.getItem(RUR.settings.library);
+    if (!library_content){
+        library_content = library_comment;
+    }
+    library.setValue(library_content);
+    editor_content = localStorage.getItem(RUR.settings.editor);
+    if (!editor_content){
+        editor_content = editor.getValue();
+    }
+    editor.setValue(editor_content);
+};
+
+
 $(document).ready(function() {
     $('input[type=radio][name=programming_language]').on('change', function(){
+        var library_comment = '', library_content, editor_content;
         RUR.removeHints();
         switch($(this).val()){
             case 'python-en' :
                 RUR.settings.editor = "editor_py_en";
                 RUR.settings.library = "library_py_en";
                 RUR.programming_language = "python";
+                $("#editor-link").html("Python Code");
                 editor.setOption("mode", {name: "python", version: 3});
                 library.setOption("mode", {name: "python", version: 3});
                 break;
@@ -21,6 +45,7 @@ $(document).ready(function() {
                 RUR.settings.editor = "editor_js_en";
                 RUR.settings.library = "library_js_en";
                 RUR.programming_language = "javascript";
+                $("#editor-link").html("Javascript Code");
                 RUR.strict_javascript = true;
                 editor.setOption("mode", "javascript");
                 library.setOption("mode", "javascript");
@@ -29,14 +54,17 @@ $(document).ready(function() {
                 RUR.settings.editor = "editor_js_en";
                 RUR.settings.library = "library_js_en";
                 RUR.programming_language = "javascript";
+                $("#editor-link").html("Javascript Code");
                 RUR.strict_javascript = false;
                 editor.setOption("mode", "javascript");
                 library.setOption("mode", "javascript");
                 break;
         }            
+        try { 
+            RUR.reset_code_in_editors();
+        } catch (e) {}
     });
 });
-
 
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, object_here, select_world,"+
@@ -44,8 +72,10 @@ var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_cle
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view, sound*/\n";
 
 RUR.translation = {};
-RUR.translation["/* Your special code goes here */\n\n"] = "/* Your special code goes here */\n\n";
-RUR.translation["# Your special code goes here \n\n"] = "# Your special code goes here \n\n";
+RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] = 
+    "/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n";
+RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"] = 
+    "# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n";
 RUR.translation.ReeborgError = "ReeborgError";
 RUR.translation["Too many steps:"] = "Too many steps: {max_steps}";
 RUR.translation["Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: "] =
