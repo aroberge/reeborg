@@ -135,8 +135,11 @@ RUR.Controls = function (programming_language) {
         clearTimeout(RUR.timer);
         RUR.visible_world.compiled = false;
         RUR.visible_world.running = false;
-        editorUpdateHints();
-        libraryUpdateHints();
+        if (RUR.strict_javascript){
+            editorUpdateHints();
+            libraryUpdateHints();
+        }
+        
     };
 };
 

@@ -27,43 +27,61 @@ RUR.reset_code_in_editors = function () {
     editor.setValue(editor_content);
 };
 
+RUR.reset_programming_language = function(choice){
+    var library_comment = '', library_content, editor_content;
+    RUR.removeHints();
+    RUR.settings.current_language = choice;
+    try { 
+        localStorage.setItem("last_programming_language_en", RUR.settings.current_language);
+    } catch (e) {}
+    switch(RUR.settings.current_language){
+        case 'python-en' :
+            RUR.settings.editor = "editor_py_en";
+            RUR.settings.library = "library_py_en";
+            RUR.programming_language = "python";
+            $("#editor-link").html("Python Code");
+            editor.setOption("mode", {name: "python", version: 3});
+            library.setOption("mode", {name: "python", version: 3});
+            break;
+        case 'javascript-strict-en' :
+            RUR.settings.editor = "editor_js_en";
+            RUR.settings.library = "library_js_en";
+            RUR.programming_language = "javascript";
+            $("#editor-link").html("Javascript Code");
+            RUR.strict_javascript = true;
+            editor.setOption("mode", "javascript");
+            library.setOption("mode", "javascript");
+            break;
+        case 'javascript-en' :
+            RUR.settings.editor = "editor_js_en";
+            RUR.settings.library = "library_js_en";
+            RUR.programming_language = "javascript";
+            $("#editor-link").html("Javascript Code");
+            RUR.strict_javascript = false;
+            editor.setOption("mode", "javascript");
+            library.setOption("mode", "javascript");
+            break;
+    }            
+    try { 
+        RUR.reset_code_in_editors();
+    } catch (e) {}
+};
+
 
 $(document).ready(function() {
+    var prog_lang;
     $('input[type=radio][name=programming_language]').on('change', function(){
-        var library_comment = '', library_content, editor_content;
-        RUR.removeHints();
-        switch($(this).val()){
-            case 'python-en' :
-                RUR.settings.editor = "editor_py_en";
-                RUR.settings.library = "library_py_en";
-                RUR.programming_language = "python";
-                $("#editor-link").html("Python Code");
-                editor.setOption("mode", {name: "python", version: 3});
-                library.setOption("mode", {name: "python", version: 3});
-                break;
-            case 'javascript-strict-en' :
-                RUR.settings.editor = "editor_js_en";
-                RUR.settings.library = "library_js_en";
-                RUR.programming_language = "javascript";
-                $("#editor-link").html("Javascript Code");
-                RUR.strict_javascript = true;
-                editor.setOption("mode", "javascript");
-                library.setOption("mode", "javascript");
-                break;
-            case 'javascript-en' :
-                RUR.settings.editor = "editor_js_en";
-                RUR.settings.library = "library_js_en";
-                RUR.programming_language = "javascript";
-                $("#editor-link").html("Javascript Code");
-                RUR.strict_javascript = false;
-                editor.setOption("mode", "javascript");
-                library.setOption("mode", "javascript");
-                break;
-        }            
-        try { 
-            RUR.reset_code_in_editors();
-        } catch (e) {}
+        RUR.reset_programming_language($(this).val());
     });
+    
+    prog_lang = localStorage.getItem("last_programming_language_en");
+    switch (prog_lang) {
+        case 'python-en':
+        case 'javascript-en':
+        case 'javascript-strict-en':
+            $('input[type=radio][name=programming_language]').val([prog_lang]);
+            RUR.reset_programming_language(prog_lang);
+    }
 });
 
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
@@ -126,14 +144,47 @@ RUR.translation["Invalid world file."] = "Invalid world file.";
 
 /* translations from world_editor.js */
 
-//TODO
+
+RUR.translation["Click on world to move robot."] = "Click on world to move robot.";
+RUR.translation["Removed robot."] = "Removed robot.";
+RUR.translation["Added robot."] = "Added robot.";
+RUR.translation["Click on image to turn robot"] = "Click on image to turn robot";
+RUR.translation["Robot now has tokens."] = "Robot now has tokens.";
+RUR.translation["Click on world to set number of tokens."] = "Click on world to set number of tokens.";
+RUR.translation["Click on desired object below."] = "Click on desired object below.";
+RUR.translation["Click on world to toggle star."] = "Click on world to toggle star.";
+RUR.translation["Click on world to toggle triangle."] = "Click on world to toggle triangle.";
+RUR.translation["Click on world to toggle square."] = "Click on world to toggle square.";
+RUR.translation["Click on world to toggle walls."] = "Click on world to toggle walls.";
+RUR.translation["Click on world to set home position for robot."] = "Click on world to set home position for robot.";
+RUR.translation["Click on world to toggle additional walls to build."] = "Click on world to toggle additional walls to build.";
+RUR.translation["Click on desired goal object below."] = "Click on desired goal object below.";
+RUR.translation["Click on world to set number of goal tokens."] = "Click on world to set number of goal tokens.";
+RUR.translation["Click on world to toggle star goal."] = "Click on world to toggle star goal.";
+RUR.translation["Click on world to toggle triangle goal."] = "Click on world to toggle triangle goal.";
+RUR.translation["Click on world to toggle square goal."] = "Click on world to toggle square goal.";
+RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Click on world at x=1, y=1 to have no object left as a goal.";                                                     
+RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for robot to carry (use inf for infinite number)";
+RUR.translation[" is not a valid value!"] = " is not a valid value!";
+RUR.translation["Other object here; can't put tokens"] = "Other object here; can't put tokens";
+RUR.translation["Enter number of tokens for at that location."] = "Enter number of tokens for at that location.";
+RUR.translation["Other object goal here; can't put tokens"] = "Other object goal here; can't put tokens";
+RUR.translation["Enter number of tokens for at that location."] = "Enter number of tokens for at that location.";
+RUR.translation["tokens here; can't put another object"] = "tokens here; can't put another object";
+RUR.translation["tokens as a goal here; can't set another object as goal."] = "tokens as a goal here; can't set another object as goal.";
+RUR.translation["Click on same position to remove, or robot to set orientation."] = "Click on same position to remove, or robot to set orientation.";
+RUR.translation["Goal: no object left in world."] = "Goal: no object left in world.";
+
+
+
+
 
 /*==========================================*/
 
 var move, turn_left, inspect, front_is_clear, right_is_clear, 
     is_facing_north, done, put, take, object_here, select_world, token_here, 
     has_token, write, at_goal, at_goal_orientation, build_wall, think, 
-    pause, remove_robot, repeat, view_source, side_view, top_view, sound;
+    pause, remove_robot, repeat, view_source, side_view, top_view, sound, UsedRobot;
 
 inspect = function (obj){
   var props, result = "";
@@ -198,10 +249,10 @@ RUR.reset_definitions = function () {
       };
       return;
   }
-    function UsedRobot(x, y, orientation, tokens)  {
+  UsedRobot = function (x, y, orientation, tokens)  {
         this.robot = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.world.add_robot(this.robot);
-    }
+    };
     
     
     // functions not specific to individual robot.
@@ -226,11 +277,7 @@ RUR.reset_definitions = function () {
         RUR.control.think(delay);
     };
 
-    select_world = RUR.ui.select_world;
-    
-    // Robot specific functions.
-    // ensure it is known outside this function, available to the user.
-    window.UsedRobot = UsedRobot;  
+    select_world = RUR.ui.select_world;  
 
 
     at_goal = function () {
