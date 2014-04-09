@@ -234,6 +234,8 @@ RUR.we.teleport_robot = function () {
     position = RUR.we.calculate_grid_position();
     RUR.current_world.robots[0].x = position[0]; 
     RUR.current_world.robots[0].y = position[1];
+    RUR.current_world.robots[0]._prev_x = position[0]; 
+    RUR.current_world.robots[0]._prev_y = position[1];
 };
 
 RUR.we.give_tokens_to_robot = function () {
@@ -321,6 +323,7 @@ RUR.we.turn_robot = function (orientation) {
     }
     
     RUR.current_world.robots[0].orientation = orientation;
+    RUR.current_world.robots[0]._prev_orientation = orientation;
     RUR.we.refresh_world_edited();
 };
 
