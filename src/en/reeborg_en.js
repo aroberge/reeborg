@@ -392,3 +392,7 @@ RUR._import_library = function () {
     return src.replace(import_lib_regex, separator+lib_src);
 };
 
+var biblio = function() {
+    console.log(library.getValue());
+    return library.getValue();
+};
