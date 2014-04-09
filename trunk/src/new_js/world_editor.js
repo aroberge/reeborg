@@ -68,7 +68,7 @@ RUR.we.select = function (choice) {
             RUR.we.change_edit_robot_menu();
             break;
         case "robot-add":
-            $("#cmd-result").html(RUR.translation["Added robot"]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translation["Added robot."]).effect("highlight", {color: "gold"}, 1500);
             RUR.we.add_robot(RUR.robot.create_robot());
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
@@ -237,7 +237,7 @@ RUR.we.teleport_robot = function () {
 };
 
 RUR.we.give_tokens_to_robot = function () {
-    var response = prompt("Enter number of tokens for robot to carry (use inf for infinite number)");
+    var response = prompt(RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"]);
     if (response !== null) {
         if (response === "inf"){
             RUR.current_world.robots[0].tokens = "infinite";
@@ -290,7 +290,7 @@ RUR.we.set_goal_token_number = function () {
         return;
     }
     
-    response = prompt("Enter number of tokens for at that location.");
+    response = prompt(RUR.translation["Enter number of tokens for at that location."]);
     if (response !== null) {
         tokens = parseInt(response, 10);
         if (tokens >= 0) {

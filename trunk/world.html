@@ -248,6 +248,18 @@ def _write_err(data):
     doc["output-pre"].innerHTML += "<b style='color:red'>" + str(data) + "</b>"
 _sys.stdout.write = _write
 _sys.stderr.write = _write_err
+
+
+class UsedRobot ():
+    def __init__ (self, x=1, y=1, orientation='e', tokens=0):
+        self.robot = RUR.robot.create_robot(x, y, orientation, tokens)
+        RUR.world.add_robot(self.robot)
+    
+    def move (self):
+        RUR.control.move(self.robot)
+
+window['UsedRobot'] = UsedRobot
+
 </script>
 
 

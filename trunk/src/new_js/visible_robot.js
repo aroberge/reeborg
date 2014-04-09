@@ -114,6 +114,9 @@ RUR.vis_robot.draw = function (robot) {
     default:
         RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y);
     }
+    if (RUR.we.editing_world){
+        return;
+    }
     RUR.vis_robot.draw_trace(robot);
 };
 
