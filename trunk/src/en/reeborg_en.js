@@ -14,6 +14,8 @@ RUR.reset_code_in_editors = function () {
         library_comment = RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"];
     } else if (RUR.programming_language == "python") {
         library_comment = RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"];
+    }  else if (RUR.programming_language == "coffee") {
+        library_comment = RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"];
     }
     library_content = localStorage.getItem(RUR.settings.library);
     if (!library_content){
@@ -67,8 +69,8 @@ RUR.reset_programming_language = function(choice){
             RUR.programming_language = "coffee";
             $("#editor-link").html("CoffeeScript Code");
             RUR.strict_javascript = false;
-            editor.setOption("mode", "coffee");
-            library.setOption("mode", "coffee");
+            editor.setOption("mode", "coffeescript");
+            library.setOption("mode", "coffeescript");
             break;
     }            
     try { 
@@ -106,6 +108,8 @@ RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the 
     "/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n";
 RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"] = 
     "# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n";
+RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"] = 
+    "# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"
 RUR.translation.ReeborgError = "ReeborgError";
 RUR.translation["Too many steps:"] = "Too many steps: {max_steps}";
 RUR.translation["Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: "] =
@@ -415,6 +419,9 @@ RUR._import_library = function () {
     } else if (RUR.programming_language === "python") {
         separator = "\n";
         import_lib_regex = /^import\s* my_lib\s*$/m;
+    } else if (RUR.programming_language === "coffee") {
+        separator = "\n";
+        import_lib_regex = /^\s*import_lib\s*\(\s*\)/m;
     }
 
     lib_src = library.getValue();
