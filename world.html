@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
 <link rel="stylesheet" href="src/css/reeborg_dev.css"> <!-- load after codemirror.css -->
 <title>Reeborg's world</title>
-    <script src="src/libs/brython/brython.js"></script>
+    <script src="src/libraries/brython/brython.js"></script>
 </head>
 <body onload="brython()">
 
@@ -26,6 +26,7 @@
         <input type="radio" name="programming_language" value="python-en" checked> Python
         <input type="radio" name="programming_language" value="javascript-strict-en" > Javascript (strict)
         <input type="radio" name="programming_language" value="javascript-en" > Javascript
+        <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
     </form>
   </div>
   
@@ -220,7 +221,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
-<!--<script src="src/libs/codemirror/python.js"></script>-->
+<!--<script src="src/libraries/codemirror/python.js"></script>-->
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/python/python.js"></script>
 <script>
   var RUR = {};
@@ -233,6 +234,7 @@
 <script src="src/new_js/reeborg.js"></script>
 <script src="src/en/reeborg_en.js"></script>
 <script src="src/js/jquery.ui.dialog.minmax.js"></script>
+<script src="src/libraries/coffee-script.js"></script>
 
 <script type="text/python3">
 import _sys
@@ -280,8 +282,8 @@ window['UsedRobot'] = UsedRobot
   });
 </script>
 
-<script src="src/libs/jshint.js"></script>
-<script src="src/libs/filesaver.js"></script>
+<script src="src/libraries/jshint.js"></script>
+<script src="src/libraries/filesaver.js"></script>
 
 <div id="help" title="Help" style="display:none">
     <p><small style="color:#900;">Discussions, questions, comments about Reeborg take place
