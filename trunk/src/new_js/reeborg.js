@@ -1093,6 +1093,8 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
 
         } else if (RUR.programming_language === "python") {
             RUR.runner.eval_python(src);
+        } else if (RUR.programming_language === "coffee") {
+            RUR.runner.eval_coffee(src);
         } else {
             alert("Unrecognized programming language.");
             return true;
@@ -1150,7 +1152,13 @@ RUR.runner.eval_python = function (src) {
     RUR.reset_definitions();
     translate_python(src); // found in the html file
 };
-/* Author: André Roberge
+
+
+RUR.runner.eval_coffee = function (src) {
+    var out;
+    RUR.reset_definitions();
+    eval(CoffeeScript.compile(src));
+};/* Author: André Roberge
    License: MIT
  */
 

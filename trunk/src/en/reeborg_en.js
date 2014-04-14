@@ -61,6 +61,15 @@ RUR.reset_programming_language = function(choice){
             editor.setOption("mode", "javascript");
             library.setOption("mode", "javascript");
             break;
+        case 'coffeescript-en' :
+            RUR.settings.editor = "editor_coffee_en";
+            RUR.settings.library = "library_coffee_en";
+            RUR.programming_language = "coffee";
+            $("#editor-link").html("CoffeeScript Code");
+            RUR.strict_javascript = false;
+            editor.setOption("mode", "coffee");
+            library.setOption("mode", "coffee");
+            break;
     }            
     try { 
         RUR.reset_code_in_editors();
@@ -79,6 +88,7 @@ $(document).ready(function() {
         case 'python-en':
         case 'javascript-en':
         case 'javascript-strict-en':
+        case 'coffeescript-en':
             $('input[type=radio][name=programming_language]').val([prog_lang]);
             RUR.reset_programming_language(prog_lang);
     }
@@ -87,7 +97,9 @@ $(document).ready(function() {
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, object_here, select_world,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
-                    " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view, sound*/\n";
+                    " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view, sound," +
+    // do not translate the following instructions
+                    "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers*/\n";
 
 RUR.translation = {};
 RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] = 
@@ -186,6 +198,10 @@ var move, turn_left, inspect, front_is_clear, right_is_clear,
     has_token, write, at_goal, at_goal_orientation, build_wall, think, 
     pause, remove_robot, repeat, view_source, side_view, top_view, sound, UsedRobot;
 
+// do not translate the following three instructions; they are included only
+// so that most basic programs from rur-ple would run "as-is"
+var put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers;
+
 inspect = function (obj){
   var props, result = "";
   for (props in obj) {
@@ -247,6 +263,12 @@ RUR.reset_definitions = function () {
       write = function (s) {
           $("#output-pre").append(s.toString() + "\n");
       };
+      // do not translate the following
+      put_beeper = put;
+      pick_beeper = take;
+      turn_off = done;
+      on_beeper = token_here; 
+      carries_beepers = has_token;
       return;
   }
   UsedRobot = function (x, y, orientation, tokens)  {
@@ -370,6 +392,14 @@ RUR.reset_definitions = function () {
     UsedRobot.prototype.turn_left = function () {
         RUR.control.turn_left(this.robot);
     };
+    
+    // English speficic and only for compatibility with rur-ple
+    // do not translate the following
+    put_beeper = put;
+    pick_beeper = take;
+    turn_off = done;
+    on_beeper = token_here; 
+    carries_beepers = has_token;
     
 };
 
