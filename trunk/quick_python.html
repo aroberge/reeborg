@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Free Interactive Programming Tutorials">
+<meta name="keywords" content="JavaScript,Python,Programming">
+<meta name="author" content="André Roberge">
+<meta name="license" content="CC BY-NC-SA 3.0">
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
+<link rel="stylesheet" href="src/css/reeborg_dev.css"> <!-- load after codemirror.css -->
+<title>Quick Python Tutorial</title>
+</head>
+<body>
+
+<header class="blue-gradient green-border">
+  <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
+  <div id="header-child">
+    <button class="blue-gradient" onclick="window.open('world.html');">Open World</button>
+  </div>
+</header>
+
+<div class="main_text">
+
+<h1>Quick Python Tutorial using Reeborg's world</h1>
+<p>This tutorial assumes that you already know at least one programming
+language and you want to have a quick introduction to Python using
+Reeborg's world.  
+To follow this tutorial, you should have Reeborg's World (the executable version) in a separate window.
+You can open such a window by clicking "Open World" above and make sure that Python
+is selected in the header.
+It if opens in a new tab, I suggest you "pull" the tab so that it is in a separate window of its own.</p>
+<p>Reeborg's world uses <a href="http://brython.info">Brython</a>
+to convert Python 3 code in Javascript that is then run in the browser.</p>
+<h2>First step</h2>
+<p>In the other window, on the left, you should see Reeborg alone in its world.  
+On the right, you should see an editor with the following line of code:</p>
+<pre class="pycode">move()</pre>
+<p>Click on the "execute"  
+or "run" button <img src="src/images/play.png" class="blue-gradient" alt="run"/>
+and watch what happens.</p>
+
+<h2>Congratulations!</h2>
+<p>You had Reeborg take its first step.
+Notice how the "execute" button 
+    <img src="src/images/play.png" class="blue-gradient" alt="run"/> is now disabled.
+    Click on <img src="src/images/reload.png" class="blue-gradient" alt="reload"/> 
+    to enable it again, so that you can run the program again.</p>
+<h2>Python functions</h2>
+<p>The instruction <code>move()</code> is an example of a Python function.
+To be able to execute a function, we must have three things:</p>
+<ul>
+    <li>It must have a valid name; it this case, it is <code>move</code>.</li>
+    <li>It must be invoked, by adding <code>()</code> after its name.</li>
+    <li>On its own (i.e. not within a block ...), 
+    it must start at the beginning of a line, with no space in front.
+    Space at the beginning of a line (indentation) is meaningful in Python.</li>
+</ul>
+<p>Enter the following code in the editor and run it.</p>
+<pre class="pycode"># This is a comment
+move()   # another comment
+m = move # alternative name defined
+m()      # execute
+turn_left()   # another function that Reeborg knows.
+</pre>
+<p>Note that Python is case-sensitive.  Verify this by trying to run the
+following program:</p>
+<pre class="pycode">Move()</pre>
+<h2>Defining functions</h2>
+<p>While Python is an Object-Oriented programming language, it often uses
+functions as first-class objects.  In fact, this tutorial will focus mostly
+on simple functions and control flow.</p>
+<p>Here is how one defines a simple function in Python:</p>
+<pre class="pycode">def move2():   # note the colons :
+    move()   # blocks are defined by indentation
+    move()   
+    
+move2()    # use it
+</pre>
+<p>Other than for indentation, and possibly separating tokens, spaces
+have no meaning in Python. So, the following, while not quite as readable, is equivalent to
+what we wrote immediately above.</p>
+<pre class="pycode">def    move2  (    )   :
+    move  ()
+    move(  )   
+move2  (  )
+</pre>
+<h2>For loops</h2>
+<p>Currently, Reeborg's is in a world called <span class="world">Alone</span>.
+Select instead the world <span class="world">Center 1</span> and have
+Reeborg execute the following program:</p>
+<pre class="pycode">for a_variable in range(2):
+    move()
+put()  
+</pre>
+<p>As you can see, Reeborg put down a "token" at the center of its world.
+Select world <span class="world">Center 2</span> and modify the
+above code (by changing a single character) so that Reeborg execute
+the correct task.</p>
+<h2>If statements</h2>
+<p>Click on "Diary" at the top of the other window so that we
+can see what Reeborg writes using <code>print()</code>.</p>
+<p>Select world <span class="world">Home 1</span> and run
+the following:</p>
+<pre class="pycode">for a_variable in range(10):  # more than enough repetitions
+    move()
+    write( at_goal() )
+    if at_goal():
+        turn_left()    # for no good reason
+        turn_left()    # other than seeing the block structure
+        break     # out of the for loop
+</pre>
+<p>We used <code>write()</code>, which is specific to Reeborg's world,
+instead of <code>print()</code>, which is the Python version, as 
+<code>write()</code> has been defined to be "in step" with the execution
+of the Python code.   The way the code is run is as follows: the
+entire program is translated from Python into Javascript and run
+at once; each basic action results in a "frame" being recorded. These
+frames are then played back one at a time.  <code>print()</code>
+statements are written in Reeborg's diary as the program is executed.
+<code>write()</code> statements are recorded in a given frame
+and appear in Reeborg's diary at the appropriate moment in the
+play back.</p>
+
+<h2>While loops and negation</h2>
+<p>Try the following, still with world <span class="world">Home 1</span></p>
+<pre class="pycode">while not at_goal():
+    move()
+</pre>
+<p>Alternatively, run the following:</p>
+<pre class="pycode">while front_is_clear():
+    move()
+</pre>
+<p>Then, try adding one more move instruction, as in:</p>
+<pre class="pycode">while front_is_clear():
+    move()
+move() # after the while loop
+</pre>
+<h2>Test your understanding</h2>
+<p>Using if statements and while loops, write a single program that
+can have Reeborg solve the required task for both worlds
+<span class="world">Center 1</span> and <span class="world">Center 2</span>.  Once
+you have a solution, extend it so that it works also for
+<span class="world">Center 3</span></p>
+
+</div> <!-- main_text -->
+
+<script>
+    RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
+    reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
+    step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
+    pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
+    stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
+</script>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/python/python.js"></script>
+<script>
+$(document).ready(function() {
+    $('.pycode').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode: 'python',
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-dark'
+        });
+    });
+});
+</script>
+
+<footer id="tutorial-footer">
+
+<a href="mailto:andre.roberge@gmail.com">
+<img src="src/images/mailto.png" height="32px" width="32px"/>
+André Roberge </a>
+<a href="http://about.me/andre.roberge">About me</a>
+<a href="http://groups.google.com/group/reeborg/topics">Discussions</a>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+<img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" height="31px" width="88px"/></a>
+
+</footer>
+
+</body>
+</html>

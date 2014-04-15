@@ -22,10 +22,11 @@ RUR.reset_code_in_editors = function () {
         library_content = library_comment;
     }
     library.setValue(library_content);
+
     editor_content = localStorage.getItem(RUR.settings.editor);
     if (!editor_content){
         editor_content = editor.getValue();
-    }
+    } 
     editor.setValue(editor_content);
 };
 
@@ -68,7 +69,6 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.library = "library_coffee_en";
             RUR.programming_language = "coffee";
             $("#editor-link").html("CoffeeScript Code");
-            RUR.strict_javascript = false;
             editor.setOption("mode", "coffeescript");
             library.setOption("mode", "coffeescript");
             break;
@@ -109,7 +109,7 @@ RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the 
 RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"] = 
     "# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n";
 RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"] = 
-    "# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"
+    "# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n";
 RUR.translation.ReeborgError = "ReeborgError";
 RUR.translation["Too many steps:"] = "Too many steps: {max_steps}";
 RUR.translation["Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: "] =
