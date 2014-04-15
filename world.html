@@ -252,7 +252,6 @@ def _write_err(data):
 _sys.stdout.write = _write
 _sys.stderr.write = _write_err
 
-
 class UsedRobot ():
     def __init__ (self, x=1, y=1, orientation='e', tokens=0):
         self.robot = RUR.robot.create_robot(x, y, orientation, tokens)
@@ -260,6 +259,45 @@ class UsedRobot ():
     
     def move (self):
         RUR.control.move(self.robot)
+
+    def at_goal (self): 
+        RUR.control.at_goal(self.robot)
+
+    def at_goal_orientation (self):
+        RUR.control.at_goal_orientation(self.robot)
+
+    def build_wall (self):
+        RUR.control.build_wall(self.robot)
+
+    def front_is_clear (self):
+        RUR.control.front_is_clear(self.robot)
+
+    def has_token (self):
+        RUR.control.has_token(self.robot)
+
+    def is_facing_north (self):
+        RUR.control.is_facing_north(self.robot)
+
+    def move (self):
+        RUR.control.move(self.robot)
+
+    def put (self, arg):
+        RUR.control.put(self.robot, arg)
+
+    def token_here (self):
+        RUR.control.token_here(self.robot)
+
+    def right_is_clear (self):
+        RUR.control.right_is_clear(self.robot)
+    
+    def object_here (self):
+        RUR.control.object_here(self.robot)
+
+    def take (self, arg):
+        RUR.control.take(self.robot, arg)
+
+    def turn_left (self):
+        RUR.control.turn_left(self.robot)
 
 window['UsedRobot'] = UsedRobot
 

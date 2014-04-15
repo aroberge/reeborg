@@ -57,7 +57,7 @@ a[href^="http"] {
     background:transparent url(../images/external_link.png) right no-repeat;
 }
 
-.main_text {width:800px;top:100px; margin:auto;position:relative;}
+.main_text {width:800px;top:50px; margin:auto;position:relative; margin-bottom: 70px}
 .clear {clear: both; height:0;}
 .center {text-align: center;}
 .resizable-helper {border-right: 1px dashed red;}
@@ -125,7 +125,7 @@ li.failure:after{content: url(../images/not_ok.png);}
 .cm-s-reeborg-dark .cm-builtin, .cm-s-reeborg-dark .cm-special { color: #FF9D00; }
 .cm-s-reeborg-dark .cm-tab:before {content: "➤";  color: red;}
 
-.jscode .cm-s-reeborg-dark.CodeMirror{
+.pycode .cm-s-reeborg-dark.CodeMirror, .jscode .cm-s-reeborg-dark.CodeMirror{
       background-image: -webkit-linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%,
                 transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%,
                 transparent 75%, transparent);
@@ -223,14 +223,20 @@ padding:3px;}
 #notes p {margin: 0 10px; font-size: 0.9em;}
 
 #data_entry { margin-left: 10px; width: 90%; background-color: white;}
+
 footer{
   position: absolute;
   bottom:70px;
   text-align: center;
   font-size: 9pt;
   font-style: italic;
-  width:700px;
+  width:100%;
   margin:auto;
+  background-color: white;
+}
+#tutorial-footer {
+    position: relative;
+    bottom: -30px;
 }
 footer p {
     padding: 15px 0 15px 0;
