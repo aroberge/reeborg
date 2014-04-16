@@ -28,7 +28,9 @@ Reeborg's world.
 To follow this tutorial, you should have Reeborg's World (the executable version) in a separate window.
 You can open such a window by clicking "Open World" above and make sure that Python
 is selected in the header.
-It if opens in a new tab, I suggest you "pull" the tab so that it is in a separate window of its own.</p>
+It if opens in a new tab, you might want to "pull" the tab so that 
+it is in a separate window of its own. It should look like the following:</p>
+<p><img src="src/images/world.png" alt="Reeborg's world window"></p>
 <p>Reeborg's world uses <a href="http://brython.info">Brython</a>
 to convert Python 3 code in Javascript that is then run in the browser.</p>
 <h2>First step</h2>
@@ -65,18 +67,21 @@ turn_left()   # another function that Reeborg knows.
 <p>Note that Python is case-sensitive.  Verify this by trying to run the
 following program:</p>
 <pre class="pycode">Move()</pre>
+<h2>Other functions in Reeborg's world</h2>
+<p>If you click on "Help" in the other tab/window where programs
+are run, you will see a list of functions specific to Reeborg's world.</p>
 <h2>Defining functions</h2>
 <p>While Python is an Object-Oriented programming language, it often uses
 functions as first-class objects.  In fact, this tutorial will focus mostly
 on simple functions and control flow.</p>
 <p>Here is how one defines a simple function in Python:</p>
-<pre class="pycode">def move2():   # note the colons :
+<pre class="pycode">def move2():   # note the colon, :, and the "def" keyword
     move()   # blocks are defined by indentation
     move()   
     
 move2()    # use it
 </pre>
-<p>Other than for indentation, and possibly separating tokens, spaces
+<p>Other than for indentation, and delimiting names and keywords, spaces
 have no meaning in Python. So, the following, while not quite as readable, is equivalent to
 what we wrote immediately above.</p>
 <pre class="pycode">def    move2  (    )   :
@@ -92,7 +97,8 @@ Reeborg execute the following program:</p>
     move()
 put()  
 </pre>
-<p>As you can see, Reeborg put down a "token" at the center of its world.
+<p>As you can see, Reeborg takes 2 steps and 
+puts down a "token" at the center of its world.
 Select world <span class="world">Center 2</span> and modify the
 above code (by changing a single character) so that Reeborg execute
 the correct task.</p>
@@ -103,7 +109,7 @@ can see what Reeborg writes using <code>print()</code>.</p>
 the following:</p>
 <pre class="pycode">for a_variable in range(10):  # more than enough repetitions
     move()
-    write( at_goal() )
+    write( a_variable )
     if at_goal():
         turn_left()    # for no good reason
         turn_left()    # other than seeing the block structure
@@ -112,7 +118,8 @@ the following:</p>
 <p>We used <code>write()</code>, which is specific to Reeborg's world,
 instead of <code>print()</code>, which is the Python version, as 
 <code>write()</code> has been defined to be "in step" with the execution
-of the Python code.   The way the code is run is as follows: the
+of the Python code.   
+The way the code is run in Reeborg's world is as follows: the
 entire program is translated from Python into Javascript and run
 at once; each basic action results in a "frame" being recorded. These
 frames are then played back one at a time.  <code>print()</code>
@@ -123,7 +130,7 @@ play back.</p>
 
 <h2>While loops and negation</h2>
 <p>Try the following, still with world <span class="world">Home 1</span></p>
-<pre class="pycode">while not at_goal():
+<pre class="pycode">while not at_goal():   # notice the "not" keyword
     move()
 </pre>
 <p>Alternatively, run the following:</p>
