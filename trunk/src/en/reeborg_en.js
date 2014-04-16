@@ -99,7 +99,7 @@ $(document).ready(function() {
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, object_here, select_world,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
-                    " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, side_view, top_view, sound," +
+                    " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, sound," +
     // do not translate the following instructions
                     "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers*/\n";
 
@@ -200,7 +200,7 @@ RUR.translation["Goal: no object left in world."] = "Goal: no object left in wor
 var move, turn_left, inspect, front_is_clear, right_is_clear, 
     is_facing_north, done, put, take, object_here, select_world, token_here, 
     has_token, write, at_goal, at_goal_orientation, build_wall, think, 
-    pause, remove_robot, repeat, view_source, side_view, top_view, sound, UsedRobot;
+    pause, remove_robot, repeat, view_source, sound, UsedRobot;
 
 // do not translate the following three instructions; they are included only
 // so that most basic programs from rur-ple would run "as-is"
@@ -261,9 +261,6 @@ RUR.reset_definitions = function () {
       think = null;
       pause = null;
       remove_robot = null;
-      repeat = null;
-      side_view = null;
-      top_view = null;
       write = function (s) {
           $("#output-pre").append(s.toString() + "\n");
       };
