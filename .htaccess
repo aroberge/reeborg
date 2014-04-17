@@ -3,3 +3,4 @@ ErrorDocument 404 /404.html
 <FilesMatch ".(xml)$">
 Header unset Cache-Control
 </FilesMatch>
+RemoveHandler .py
