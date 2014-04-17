@@ -238,8 +238,8 @@
 <script src="src/libraries/coffee-script.js"></script>
 
 <script type="text/python3">
-import _sys
-from _browser import window, doc
+import sys
+from browser import window, doc
 def translate_python(src):
     exec(src)
 
@@ -249,8 +249,8 @@ def _write(data):
     doc["output-pre"].innerHTML += str(data)
 def _write_err(data):
     doc["output-pre"].innerHTML += "<b style='color:red'>" + str(data) + "</b>"
-_sys.stdout.write = _write
-_sys.stderr.write = _write_err
+sys.stdout.write = _write
+sys.stderr.write = _write_err
 
 class UsedRobot ():
     def __init__ (self, x=1, y=1, orientation='e', tokens=0):
