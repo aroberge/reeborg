@@ -57,7 +57,7 @@ a[href^="http"] {
     background:transparent url(../images/external_link.png) right no-repeat;
 }
 
-.main_text {width:800px;top:50px; margin:auto;position:relative; margin-bottom: 70px}
+.main_text {width:900px;top:50px; margin:auto;position:relative; margin-bottom: 70px}
 .clear {clear: both; height:0;}
 .center {text-align: center;}
 .resizable-helper {border-right: 1px dashed red;}
@@ -103,6 +103,12 @@ a.right-link:hover, #language_switcher:hover {
 li.success:after{content: url(../images/ok.png);}
 .failure {color: red; list-style: none;}
 li.failure:after{content: url(../images/not_ok.png);}
+
+p.try {
+    border: 1px solid #75a110;
+    border-radius: 10px;
+}
+
 
 .panel {float: left; position: relative; top: 0; height: 94%; padding: 3px;  overflow-y: auto;
   overflow-x: hidden; display: none; border-right: 1px dashed #124;}

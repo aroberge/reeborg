@@ -37,7 +37,7 @@ to convert Python 3 code in Javascript that is then run in the browser.</p>
 <p>In the other window, on the left, you should see Reeborg alone in its world.  
 On the right, you should see an editor with the following line of code:</p>
 <pre class="pycode">move()</pre>
-<p>Click on the "execute"  
+<p class="try">Click on the "execute"  
 or "run" button <img src="src/images/play.png" class="blue-gradient" alt="run"/>
 and watch what happens.</p>
 
@@ -57,8 +57,9 @@ To be able to execute a function, we must have three things:</p>
     it must start at the beginning of a line, with no space in front.
     Space at the beginning of a line (indentation) is meaningful in Python.</li>
 </ul>
-<p>Enter the following code in the editor and run it.</p>
-<pre class="pycode"># This is a comment
+<p class="try">Enter the following code in the editor and run it.</p>
+<pre class="pycode">
+# This is a comment
 move()   # another comment
 m = move # alternative name defined
 m()      # execute
@@ -75,39 +76,57 @@ are run, you will see a list of functions specific to Reeborg's world.</p>
 functions as first-class objects.  In fact, this tutorial will focus mostly
 on simple functions and control flow.</p>
 <p>Here is how one defines a simple function in Python:</p>
-<pre class="pycode">def move2():   # note the colon ":"  and the "def" keyword
+<pre class="pycode">
+def move2():   # note the colon ":"  and the "def" keyword
     move()   # blocks are defined by indentation
     move()   
     
 move2()    # use it
 </pre>
+<p class="try">Try it!</p>
 <p>Other than for indentation, and delimiting names and keywords, spaces
 have no meaning in Python. So, the following, while not quite as readable, is equivalent to
 what we wrote immediately above.</p>
-<pre class="pycode">def    move2  (    )   :
+<pre class="pycode">
+def    move2  (    )   :
     move  ()
     move(  )   
 move2  (  )
 </pre>
+<h2>Python 3 keywords</h2>
+
+<pre class="pycode">
+False      None      True      and          as 
+assert     break     class     continue     def 
+del        elif      else      except       finally 
+for        from      global    if           import 
+in         is        lambda    nonlocal     not 
+or         pass      raise     return       try 
+while      with      yield 
+</pre>
+
+
 <h2>For loops</h2>
-<p>Currently, Reeborg's is in a world called <span class="world">Alone</span>.
+<p class="try">Currently, Reeborg is in a world called <span class="world">Alone</span>.
 Select instead the world <span class="world">Center 1</span> and have
 Reeborg execute the following program:</p>
-<pre class="pycode">for a_variable in range(2):
+<pre class="pycode">for a_variable in range(2):  # range is a builtin function
     move()
 put()  
 </pre>
 <p>As you can see, Reeborg takes 2 steps and 
-puts down a "token" at the center of its world.
+puts down a "token" at the center of its world.</p>
+<p class="try"> 
 Select world <span class="world">Center 2</span> and modify the
 above code (by changing a single character) so that Reeborg execute
 the correct task.</p>
 <h2>If statements</h2>
 <p>Click on "Diary" at the top of the other window so that we
 can see what Reeborg writes using <code>print()</code>.</p>
-<p>Select world <span class="world">Home 1</span> and run
+<p class="try">Select world <span class="world">Home 1</span> and run
 the following:</p>
-<pre class="pycode">for a_variable in range(10):  # more than enough repetitions
+<pre class="pycode">
+for a_variable in range(10):  # more than enough repetitions
     move()
     write( a_variable )
     if at_goal():
@@ -129,8 +148,8 @@ and appear in Reeborg's diary at the appropriate moment in the
 play back.</p>
 
 <h2>While loops and negation</h2>
-<p>Try the following, still with world <span class="world">Home 1</span></p>
-<pre class="pycode">while not at_goal():   # notice the "not" keyword
+<p class="try">Try the following, still with world <span class="world">Home 1</span></p>
+<pre class="pycode">while not at_goal():
     move()
 </pre>
 <p>Alternatively, run the following:</p>
@@ -142,22 +161,119 @@ play back.</p>
     move()
 move() # after the while loop
 </pre>
+<p><code>front_is_clear()</code> and <code>at_goal()</code> are two functions
+that return boolean values.</p>
 <h2>Test your understanding</h2>
-<p>Using if statements and while loops, write a single program that
+<p class="try">Using if statements and while loops, write a single program that
 can have Reeborg solve the required task for both worlds
 <span class="world">Center 1</span> and <span class="world">Center 2</span>.  Once
 you have a solution, extend it so that it works also for
-<span class="world">Center 3</span></p>
+<span class="world">Center 3</span>.  Note that Reeborg carries only 2 tokens.</p>
+<h2>Newspaper delivery</h2>
+<p>Python functions can take arguments. We give an example through a story.</p>
+<p>Reeborg has a new job: he delivers the <em>Northern Star</em> newspaper.
+Many of Reeborg's customers do not live on the ground floor of their building.
+For each of these customers,
+Reeborg has to do the following</p>
+<ol><li>Pick up a single copy of the newspaper (it would be too heavy to
+carry them all up the stairs).</li>
+<li>Climb up the required number of floors to reach the customer's door.</li>
+<li>Get the money (tokens) left by the customer.</li>
+<li>Leave a copy of the newspaper (simply nicknamed the <em>star</em>) behind.</li>
+<li>Climb down to the ground level</li>
+</ol>
+
+<p>While Reeborg has many clients, I only included two with their corresponding
+worlds:</p>
+<ul><li>The nice Ms. Ada Lovelace, who lives on the third floor of her building,
+always leaves a couple of extra tokens as a gift to Reeborg; hers is
+world <span class="world">Newspaper&nbsp;1</span>.</li>
+<li>The old curmudgeon Mr. Charles Babbage, who lives on the fifth floor, always
+pays the exact amount, leaving no tip for Reeborg; his world is
+<span class="world">Newspaper&nbsp;2</span></li></ul>
+<p>With the help of the following two instructions:</p>
+<pre class="pycode">take("star")   # pick it up to carry
+put("star")</pre>
+<p>we can make Reeborg complete at least one delivery.  Here's
+a program to deliver a newspaper to Ms. Lovelace.</p>
+<pre class="pycode">
+def turn_around():
+    repeat(turn_left, 2)
+
+def turn_right():
+    repeat(turn_left, 3)
+    
+def upstairs():
+    turn_left()
+    move()
+    turn_right()
+    move()
+    move()
+
+def downstairs():
+    move()
+    move()
+    turn_left()
+    move()
+    turn_right()
+
+take("star")
+repeat(upstairs, 3)
+while token_here():
+    take()
+put("star")
+turn_around()
+repeat(downstairs, 3)</pre>
+<p class="try">Modify the above program so that Reeborg can use it to
+deliver newspapers to the two clients.  You only need to replace two
+lines by two short loops. You already have seen all the required functions.</p>
+<p>You may have noticed the <code>repeat</code> function that takes two
+arguments, one of which is a function name; this function is specific to
+Reeborg's world.  Here is one way that
+one could define such a function in Python:</p>
+<pre class="pycode">def repeat(f, n):
+    for i in range(n):
+        f()
+</pre>
+
+
+<h2>A bit of fun</h2>
+
+<pre class="pycode">
+left = turn_left
+
+def right():
+    repeat(left, 3)
+    
+def turn_around():
+    repeat(left, 2)
+ 
+def move2():
+    repeat(move, 2)
+    
+def exec_commands(a_list):
+    for cmd in a_list:
+        exec(cmd)
+
+upstairs = ["left()", "move()", "right()", "move2()"]
+
+take("star")
+while not token_here():
+    exec_commands(upstairs)
+while token_here():
+    take()
+put("star")
+turn_around()
+
+downstairs = upstairs[::-1]  # create reverse list
+left, right = right, left
+
+while not at_goal():
+    exec_commands(downstairs)
+</pre>
+
 
 </div> <!-- main_text -->
-
-<script>
-    RUR.Controls.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
-    reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
-    step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
-    pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
-    stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
-</script>
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -170,7 +286,7 @@ $(document).ready(function() {
         $this.empty();
         var myCodeMirror = CodeMirror(this, {
             value: $code,
-            mode: 'python',
+            mode: {name: "python", version: 3},
             lineNumbers: !$this.is('.inline'),
             readOnly: true,
             theme: 'reeborg-dark'
