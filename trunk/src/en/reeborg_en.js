@@ -8,30 +8,31 @@
 var RUR = RUR || {};
 
 RUR.reset_code_in_editors = function () {
-    var library_comment = '', library_content, editor_content;
+    var library_default, library_content, editor_content, editor_default;
 
     if (RUR.programming_language == "javascript") {
-        library_comment = RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"];
+        library_default = RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"];
+        editor_default = "move();";
     } else if (RUR.programming_language == "python") {
-        library_comment = RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"];
+        library_default = RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"];
+        editor_default = "move()";
     }  else if (RUR.programming_language == "coffee") {
-        library_comment = RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"];
+        library_default = RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"];
+        editor_default = "move()";
     }
     library_content = localStorage.getItem(RUR.settings.library);
     if (!library_content){
-        library_content = library_comment;
+        library_content = library_default;
     }
     library.setValue(library_content);
-
     editor_content = localStorage.getItem(RUR.settings.editor);
     if (!editor_content){
-        editor_content = editor.getValue();
-    } 
+        editor_content = editor_default;
+    }
     editor.setValue(editor_content);
 };
 
 RUR.reset_programming_language = function(choice){
-    var library_comment = '', library_content, editor_content;
     RUR.removeHints();
     RUR.settings.current_language = choice;
     try { 
