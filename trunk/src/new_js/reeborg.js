@@ -1150,7 +1150,7 @@ RUR.runner.eval_no_strict_js = function (src) {
 RUR.runner.eval_python = function (src) {
     // do not  "use strict" as we do not control the output produced by Brython
     RUR.reset_definitions();
-    translate_python(src); // found in the html file
+    eval(translate_python(src)); // found in the html file
 };
 
 
