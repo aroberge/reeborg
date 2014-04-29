@@ -52,7 +52,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         }
     } catch (e) {
         if (RUR.programming_language === "python") {
-            console.log(e);
             error_name = e.__name__;
         } else {
             error_name = e.name;

@@ -28,6 +28,10 @@ RUR.world.export_world = function () {
 
 RUR.world.import_world = function (json_string) {
     var robot;
+    if (RUR.imported_from_url){
+        RUR.imported_from_url = false;
+        return;
+    }
     if (json_string === undefined){
         return {};
     }
