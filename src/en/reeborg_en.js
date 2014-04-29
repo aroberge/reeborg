@@ -96,7 +96,6 @@ $(document).ready(function() {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        console.log("imported world");
         RUR.imported_from_url = true;
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
@@ -117,7 +116,6 @@ $(document).ready(function() {
 function create_permalink() {
     var proglang, world, _editor, _library, url_query, permalink, parts;
     url_query = parseUri(window.location.href);
-    console.log(url_query);
 
     permalink = url_query.protocol + "://" + url_query.host;
     if (url_query.port !== undefined){

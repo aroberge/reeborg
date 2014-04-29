@@ -201,7 +201,6 @@ $(document).ready(function() {
     // Set listener ...  (continuing below)
     $("#select_world").change(function() {
         var data, val = $(this).val();
-        console.log("select world called");
         RUR.settings.world_name = $(this).find(':selected').text();
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
@@ -210,10 +209,8 @@ $(document).ready(function() {
         RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
-            console.log("1");
             RUR.world.import_world(data);
         } else {
-            console.log("2", RUR.imported_from_url);
             $.get(val, function(data) {
                 RUR.world.import_world(data);
                 // jquery is sometimes too intelligent; it can guess
