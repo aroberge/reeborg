@@ -21,29 +21,30 @@
 
 <div class="main_text">
 
-<h1>Quick Python Tutorial using Reeborg's world</h1>
+<h1>Quick Python tutorial using Reeborg's World</h1>
 <p>This tutorial assumes that you already know at least one programming
 language and you want to have a quick introduction to Python using
-Reeborg's world.  
+Reeborg's world.  The goal is not to be comprehensive, but to give you an
+idea of what it is like to program in Python using a visual environment
+instead of boring print statements.</p>
+<p>
 To follow this tutorial, you should have Reeborg's World (the executable version) in a separate window.
 You can open such a window by clicking "Open World" above and make sure that Python
-is selected in the header.
+is selected in the header. 
 It if opens in a new tab, you might want to "pull" the tab so that 
 it is in a separate window of its own. It should look like the following:</p>
 <p><img src="src/images/world.png" alt="Reeborg's world window"></p>
 <p>Reeborg's world uses <a href="http://brython.info">Brython</a>
 to convert Python 3 code in Javascript that is then run in the browser.</p>
-<h2>First step</h2>
+<h2>Hello <small><small>Reeborg's</small></small> world</h2>
 <p>In the other window, on the left, you should see Reeborg alone in its world.  
 On the right, you should see an editor with the following line of code:</p>
 <pre class="pycode">move()</pre>
 <p class="try">Click on the "execute"  
 or "run" button <img src="src/images/play.png" class="blue-gradient" alt="run"/>
-and watch what happens.</p>
-
-<h2>Congratulations!</h2>
-<p>You had Reeborg take its first step.
-Notice how the "execute" button 
+to make sure that everything is working as it should.</p>
+<p>Assuming everything is set up correctly, Reeborg should have moved and
+the "execute" button 
     <img src="src/images/play.png" class="blue-gradient" alt="run"/> is now disabled.
     Click on <img src="src/images/reload.png" class="blue-gradient" alt="reload"/> 
     to enable it again, so that you can run the program again.</p>
@@ -51,20 +52,25 @@ Notice how the "execute" button
 <p>The instruction <code>move()</code> is an example of a Python function.
 To be able to execute a function, we must have three things:</p>
 <ul>
-    <li>It must have a valid name; it this case, it is <code>move</code>.</li>
+    <li>It must have a valid name; it this case, it is <code>move</code>.
+    Valid names must start with either a letter or the underscore character "_"
+    and may contain letters, numbers or the underscore character "_". In Python
+    3, non-ascii characters are allowed; however, Brython (currently) does
+    not recognize them as valid characters.
+    <pre class="pycode">prénom = "Guido" # e-acute valid in Python 3 but not in Brython</pre>
+    </li>
     <li>It must be invoked, by adding <code>()</code> after its name.</li>
     <li>On its own (i.e. not within a block ...), 
     it must start at the beginning of a line, with no space in front.
     Space at the beginning of a line (indentation) is meaningful in Python.</li>
 </ul>
-<p class="try">Enter the following code in the editor and run it.</p>
+<p class="try">Type (or copy-paste) the following code in the editor and run it.</p>
 <pre class="pycode">
 # This is a comment
 move()   # another comment
 m = move # alternative name defined
 m()      # execute
-turn_left()   # another function that Reeborg knows.
-</pre>
+turn_left()   # another function that Reeborg knows.</pre>
 <p>Note that Python is case-sensitive.  Verify this by trying to run the
 following program:</p>
 <pre class="pycode">Move()</pre>
@@ -73,16 +79,14 @@ following program:</p>
 are run, you will see a list of functions specific to Reeborg's world.</p>
 <h2>Defining functions</h2>
 <p>While Python is an Object-Oriented programming language, it often uses
-functions as first-class objects.  In fact, this tutorial will focus mostly
-on simple functions and control flow.</p>
+functions as first-class objects.</p>
 <p>Here is how one defines a simple function in Python:</p>
 <pre class="pycode">
 def move2():   # note the colon ":"  and the "def" keyword
     move()   # blocks are defined by indentation
     move()   
     
-move2()    # use it
-</pre>
+move2()    # use it</pre>
 <p class="try">Try it!</p>
 <p>Other than for indentation, and delimiting names and keywords, spaces
 have no meaning in Python. So, the following, while not quite as readable, is equivalent to
@@ -91,8 +95,7 @@ what we wrote immediately above.</p>
 def    move2  (    )   :
     move  ()
     move(  )   
-move2  (  )
-</pre>
+move2  (  )</pre>
 <h2>Python 3 keywords</h2>
 
 <pre class="pycode">
@@ -102,8 +105,7 @@ del        elif      else      except       finally
 for        from      global    if           import 
 in         is        lambda    nonlocal     not 
 or         pass      raise     return       try 
-while      with      yield 
-</pre>
+while      with      yield </pre>
 
 
 <h2>For loops</h2>
@@ -112,8 +114,7 @@ Select instead the world <span class="world">Center 1</span> and have
 Reeborg execute the following program:</p>
 <pre class="pycode">for a_variable in range(2):  # range is a builtin function
     move()
-put()  
-</pre>
+put()  </pre>
 <p>As you can see, Reeborg takes 2 steps and 
 puts down a "token" at the center of its world.</p>
 <p class="try"> 
@@ -132,8 +133,7 @@ for a_variable in range(10):  # more than enough repetitions
     if at_goal():
         turn_left()    # for no good reason
         turn_left()    # other than seeing the block structure
-        break     # out of the for loop
-</pre>
+        break     # out of the for loop</pre>
 <p>We used <code>write()</code>, which is specific to Reeborg's world,
 instead of <code>print()</code>, which is the Python version, as 
 <code>write()</code> has been defined to be "in step" with the execution
@@ -141,34 +141,40 @@ of the Python code.
 The way the code is run in Reeborg's world is as follows: the
 entire program is translated from Python into Javascript and run
 at once; each basic action results in a "frame" being recorded. These
-frames are then played back one at a time.  <code>print()</code>
-statements are written in Reeborg's diary as the program is executed.
-<code>write()</code> statements are recorded in a given frame
-and appear in Reeborg's diary at the appropriate moment in the
-play back.</p>
+frames are then played back one at a time.  The output of <code>print()</code>
+is written in Reeborg's diary as the program is executed.
+The output of <code>write()</code> is recorded in a given frame
+and appears in Reeborg's diary at the appropriate moment in the
+playback.</p>
 
 <h2>While loops and negation</h2>
 <p class="try">Try the following, still with world <span class="world">Home 1</span></p>
 <pre class="pycode">while not at_goal():
-    move()
-</pre>
+    move()</pre>
 <p>Alternatively, run the following:</p>
 <pre class="pycode">while front_is_clear():
+    move()</pre>
+<p>One more thing to try:</p>
+<pre class="pycode">while front_is_clear() and not at_goal():
     move()
-</pre>
-<p>Then, try adding one more move instruction, as in:</p>
-<pre class="pycode">while front_is_clear():
-    move()
-move() # after the while loop
-</pre>
+move() # after the while loop</pre>
 <p><code>front_is_clear()</code> and <code>at_goal()</code> are two functions
 that return boolean values.</p>
 <h2>Test your understanding</h2>
-<p class="try">Using if statements and while loops, write a single program that
+<p>If you did not already know programming, you should be reading
+the other, much slower pace tutorial.  Since you already know how to program,
+and are presumably reading this to get a quick overview of Python, it is
+time to see if you understood what you read so far.
+</p>
+<p class="try"> Using if statements and while loops, and strategically
+putting down tokens and picking them up, write a single program that
 can have Reeborg solve the required task for both worlds
 <span class="world">Center 1</span> and <span class="world">Center 2</span>.  Once
 you have a solution, extend it so that it works also for
-<span class="world">Center 3</span>.  Note that Reeborg carries only 2 tokens.</p>
+<span class="world">Center 3</span>.  Your program should be written so that
+it would work for any similar rectangular worlds, without using variables
+to count Reeborg's steps and figure out the size of its world. 
+Note that Reeborg carries only 2 tokens.</p>
 <h2>Newspaper delivery</h2>
 <p>Python functions can take arguments. We give an example through a story.</p>
 <p>Reeborg has a new job: he delivers the <em>Northern Star</em> newspaper.
@@ -193,7 +199,7 @@ pays the exact amount, leaving no tip for Reeborg; his world is
 <span class="world">Newspaper&nbsp;2</span></li></ul>
 <p>With the help of the following two instructions:</p>
 <pre class="pycode">take("star")   # pick it up to carry
-put("star")</pre>
+put('star')    # single quotes or double quotes can be used to surround strings</pre>
 <p>we can make Reeborg complete at least one delivery.  Here's
 a program to deliver a newspaper to Ms. Lovelace.</p>
 <pre class="pycode">
@@ -224,6 +230,8 @@ while token_here():
 put("star")
 turn_around()
 repeat(downstairs, 3)</pre>
+<p>Also, note that Reeborg can only turn to its left.  To have Reeborg turn
+to its right, it must make 3 left turns as defined above.</p>
 <p class="try">Modify the above program so that Reeborg can use it to
 deliver newspapers to the two clients.  You only need to replace two
 lines by two short loops. You already have seen all the required functions.</p>
@@ -235,10 +243,54 @@ one could define such a function in Python:</p>
     for i in range(n):
         f()
 </pre>
+<h2>if/elif/else</h2>
+<p>You are probably already familiar with the idea of various branches
+depending on conditions tested by if statements.  One can have
+a series of exclusive if statements, denoted as "else if" in
+some programming languages which is shortened as "elif" in Python.</p>
+<pre class="pycode">
+select_world("Maze 1")
+think(0)
+def turn_right():
+    repeat(turn_left, 3)
+
+def follow_right_wall():
+    if right_is_clear():
+        turn_right()
+        move()
+    elif front_is_clear():
+        move();
+    elif False:   # just to illustrate
+        pass
+    else:
+        turn_left()
+        
+while not at_goal():
+    follow_right_wall()</pre>
+<p>Note that the first instruction will switch to the appropriate world
+and terminate if that world is different from the one that was previously
+selected.  Running the program again will work as expected.</p>
 
 
 <h2>A bit of fun</h2>
-
+<p>When you looked at the code for the newspaper delivery example,
+you probably noticed that, to go down a stair, Reeborg had to do operations
+in the reverse order than that for going up a stair, while exchanging
+left turns and right turns.  Instead of hard-coding a function for
+going up (or down) stairs, we can create a list of instructions that
+can be <code>exec</code>uted one by one by Python. <small>[<code>exec</code> 
+can actually execute more than one instruction at a time, but
+we will not do so in the following example.]</small> Python lists are equivalent
+to "arrays" in some other languages. By reversing the list,
+using a specific Python idiom, and interchanging left and right turns,
+again using a Python idiom that does not require the use of an
+intermediate variable like one might do in most languages</p>
+<pre class="pycode">temp = left
+left = right
+right = temp</pre>
+<p>but is done as follows:</p>
+<pre class="pycode">left, right = right, left</pre>
+<p>one can have Reeborg deliver correctly the newspaper.</p>
 <pre class="pycode">
 left = turn_left
 
@@ -255,7 +307,7 @@ def exec_commands(a_list):
     for cmd in a_list:
         exec(cmd)
 
-upstairs = ["left()", "move()", "right()", "move2()"]
+upstairs = ["left()", "move()", "right()", "move2()"]  # a Python list
 
 take("star")
 while not token_here():
@@ -266,12 +318,126 @@ put("star")
 turn_around()
 
 downstairs = upstairs[::-1]  # create reverse list
-left, right = right, left
-
+left, right = right, left              # tuple interchange!
 while not at_goal():
-    exec_commands(downstairs)
-</pre>
+    exec_commands(downstairs)</pre>
 
+<h2>OOP: Reeborg the UsedRobot</h2>
+<p>Python is an Object-Oriented Programming (OOP) language. Objects
+can have attributes (variables) belonging to them as well as <em>methods</em>,
+which is the name given to a function that belongs to an object.
+The symbol used to indicate that an attribute or method belongs to a particular
+object (aka instance of a class [of objects]) is a ".".</p>
+<p class="try">Select world "Empty" and run the following program:</p>
+<pre class="pycode">reeborg = UsedRobot()
+reeborg.move()
+karel = UsedRobot(4, 4, 'n')
+karel.move()
+reeborg.turn_left()
+reeborg.move()</pre>
+
+<h2>Importing modules</h2>
+<p>In a Python program, one can import an existing module (other program) to
+make use of its functions.  Python is often described as "batteries included"
+for the number of useful modules that are part of its standard library.</p>
+<p>Suppose we wish to simulate throwing a normal die (not one of those
+fancy non-cubic dice), one that can give an integer from 1 to 6 as its result.
+To do so in Python, we can make use of the <code>randint</code> method
+found in the random module.</p>
+<p>Below are four equivalent ways to make the <code>randint</code>
+function available in a program.  <b>Do not do this yet!</b></p>
+<pre class="pycode">import random
+result = random.randint(1, 6)</pre>
+<pre class="pycode">from random import randint
+result = randint(1, 6)</pre>
+<pre class="pycode">import random as choice
+result = choice.randint(1, 6)</pre>
+<pre class="pycode">from random import randint as die
+result = die(1, 6)</pre>
+<p>The random module is included in the Brython distribution. However,
+when importing the random module in Python, various other modules
+are imported as well behind the scene.  This is done very rapidly when
+running Python locally.  Brython however uses ajax calls to import modules.
+A total of 45 calls have to be made when importing random <b>for the first
+time</b> in a given browser session.  This is <b>slow</b>.  
+However, a mostly compatible
+pure javascript module is included in the Brython distribution, and this
+is what we will use in the next example.</p>
+
+<h2>Inheritance</h2>
+<p>We've already mentioned that Python is an OOP.  In Python, objects are
+instances of a given class. <small>[Python modules are also objects in the
+sense that they have their own methods and attributes.]</small> We
+have mentioned that <code>UsedRobot</code> was a class.  Instances
+of that class have a number of methods.  Suppose we wish to create a new
+class of objects that inherits all the existing methods of another one,
+and add new methods.  We can easily do this in Python as shown in the
+following example:</p>
+
+<pre class="pycode">
+select_world("Maze 1")
+from __random import randint  # using the special Brython module
+think(0)                # speeding things up as this program may take a while
+RUR.MAX_STEPS = 10000   # Try to make sure we will not stop the program early
+
+class Gambler(UsedRobot):
+    
+    def roll_die(self):
+        return randint(1, 6)
+
+    def turn_right(self):
+        self.turn_left()
+        self.turn_left()
+        self.turn_left()
+
+del RUR.current_world.robots[0]  # remove existing UsedRobot
+           
+lucky = Gambler()
+
+while not lucky.at_goal():
+    result = lucky.roll_die()
+    if result &lt; 5:
+        if lucky.front_is_clear():
+            lucky.move()
+        else:
+            result = lucky.roll_die()
+            if result in [1, 2, 3]:
+                lucky.turn_left()
+            else:
+                lucky.turn_right()
+    elif result == 5:
+        lucky.turn_left()
+    else:
+        lucky.turn_right()</pre>
+
+<p>The above approach, where "lucky" checks to see if there is a wall
+before attempting a move is known as "loop before you leap".  There is
+an alternative approach one might use, known as "better ask forgiveness
+than permission".  Hitting a wall raises an exception in Reeborg's world.
+We can catch this exception <small>[using a "bare" <code>except</code> which
+is not usually recommended but done here because of some technical
+limitations of Reeborg's World]</small> and handle it ourselves. </p>
+<p class="try">Modify the previous code by changing it as
+written below. Open up Reeborg's Diary to see how the
+<code>finally</code> clause is always executed.</p>
+
+<pre class="pycode" title="20">
+    if result &lt; 5:
+        try:
+            lucky.move()
+            message = "ok"
+        except:
+            message = "ouch!"
+            result = lucky.roll_die()
+            if result &lt; 4:
+                lucky.turn_left()
+            else:
+                lucky.turn_right()
+        finally:
+            write(message)
+</pre>
+<h2>Conclusion</h2>
+<p>This conclude our very quick look at Python using Reeborg's world.</p>
 
 </div> <!-- main_text -->
 
@@ -282,13 +448,19 @@ while not at_goal():
 <script>
 $(document).ready(function() {
     $('.pycode').each(function() {
-        var $this = $(this), $code = $this.text();
+        var $this = $(this), $code = $this.text(), firstLine;
+        if ($this.attr("title")){ 
+            firstLine = parseInt($this.attr("title"), 10);
+        } else {
+            firstLine = 1;
+        }
         $this.empty();
         var myCodeMirror = CodeMirror(this, {
             value: $code,
             mode: {name: "python", version: 3},
             lineNumbers: !$this.is('.inline'),
             readOnly: true,
+            firstLineNumber: firstLine,
             theme: 'reeborg-dark'
         });
     });

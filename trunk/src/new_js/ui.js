@@ -118,13 +118,13 @@ RUR.ui.select_world = function (s, silent) {
             if (silent) {
                 return;
             }
-            throw new RUR.Error(RUR.translation["World selected"].supplant({world: s}));
+            throw new RUR.ReeborgError(RUR.translation["World selected"].supplant({world: s}));
         }
     }
     if (silent) {
         return;
     }
-    throw new RUR.Error(RUR.translation["Could not find world"].supplant({world: s}));
+    throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: s}));
 };
 
 RUR.ui.load_user_worlds = function () {
