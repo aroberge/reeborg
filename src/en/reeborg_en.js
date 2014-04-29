@@ -95,7 +95,9 @@ $(document).ready(function() {
         prog_lang = url_query.queryKey.proglang;
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
-        RUR.ui.select_world(decodeURIComponent(url_query.queryKey.world), true);
+        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
+        console.log("imported world");
+        RUR.imported_from_url = true;
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     } else {
@@ -137,13 +139,12 @@ function create_permalink() {
                 proglang = "javascript-en";
             }
     }
-    world = RUR.settings.world_name;
-    console.log(RUR.settings);
+    world = encodeURIComponent(RUR.world.export_world());
     _editor = encodeURIComponent(editor.getValue());
     _library = encodeURIComponent(library.getValue());
     
     permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
-    window.prompt('Press CTRL+C, then ENTER',permalink);
+    window.prompt('Press CTRL+C or CMD+C, then ENTER to copy the link to this world.',permalink);
     return false;
 }
 

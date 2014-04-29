@@ -589,6 +589,7 @@ $(document).ready(function() {
     // Set listener ...  (continuing below)
     $("#select_world").change(function() {
         var data, val = $(this).val();
+        console.log("select world called");
         RUR.settings.world_name = $(this).find(':selected').text();
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
@@ -597,8 +598,10 @@ $(document).ready(function() {
         RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
+            console.log("1");
             RUR.world.import_world(data);
         } else {
+            console.log("2", RUR.imported_from_url);
             $.get(val, function(data) {
                 RUR.world.import_world(data);
                 // jquery is sometimes too intelligent; it can guess
@@ -1997,10 +2000,16 @@ RUR.world.export_world = function () {
 
 RUR.world.import_world = function (json_string) {
     var robot;
+    if (RUR.imported_from_url){
+        RUR.imported_from_url = false;
+        return;
+    }
+    console.log("entering import, json_string=", json_string);
     if (json_string === undefined){
         return {};
     }
     RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
+    console.log("current", RUR.current_world);
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
             robot = RUR.current_world.robots[0];
@@ -2010,6 +2019,7 @@ RUR.world.import_world = function (json_string) {
         }
     }
     RUR.world.saved_world = RUR.world.clone_world();
+    console.log("saved", RUR.world.saved_world);
     RUR.vis_world.draw_all();
     if (RUR.we.editing_world) {
         RUR.we.change_edit_robot_menu();
@@ -2017,6 +2027,7 @@ RUR.world.import_world = function (json_string) {
 };
 
 RUR.world.clone_world = function (world) {
+    console.log("inside clone; world=", world);
     if (world === undefined) {
         return JSON.parse(JSON.stringify(RUR.current_world));
     } else {
