@@ -46,7 +46,7 @@ RUR.rec.record_frame = function (name, obj) {
     // TODO add check for too many steps.
     RUR.control.sound_id = undefined;
     if (RUR.rec.nb_frames == RUR.MAX_STEPS) {
-        throw new RUR.Error(RUR.translation["Too many steps:"].supplant({max_steps: RUR.MAX_STEPS}));
+        throw new RUR.ReeborgError(RUR.translation["Too many steps:"].supplant({max_steps: RUR.MAX_STEPS}));
     }
 };
 

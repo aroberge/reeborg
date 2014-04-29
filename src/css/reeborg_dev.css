@@ -57,6 +57,9 @@ a[href^="http"] {
     background:transparent url(../images/external_link.png) right no-repeat;
 }
 
+#permalink {margin-left:200px; bottom: 24px; background-color: white; border: 0; height: 36px;}
+
+
 .main_text {width:900px;top:50px; margin:auto;position:relative; margin-bottom: 70px}
 .clear {clear: both; height:0;}
 .center {text-align: center;}

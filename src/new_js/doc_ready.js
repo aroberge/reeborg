@@ -201,6 +201,7 @@ $(document).ready(function() {
     // Set listener ...  (continuing below)
     $("#select_world").change(function() {
         var data, val = $(this).val();
+        RUR.settings.world_name = $(this).find(':selected').text();
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}

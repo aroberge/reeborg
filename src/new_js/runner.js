@@ -3,7 +3,8 @@
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints, translate_python, _import_library */
+/*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints, 
+  translate_python, _import_library, CoffeeScript */
 
 RUR.runner = {};
 
@@ -31,6 +32,7 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
+    var error_name;
     try {
         if (RUR.programming_language === "javascript") {
             if (RUR.strict_javascript) {
@@ -49,10 +51,16 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             return true;
         }
     } catch (e) {
-        if (e.name === RUR.translation.ReeborgError){
+        if (RUR.programming_language === "python") {
+            console.log(e);
+            error_name = e.__name__;
+        } else {
+            error_name = e.name;
+        }
+        if (error_name === RUR.translation.ReeborgError){
             RUR.rec.record_frame("error", e);
         } else {
-            $("#Reeborg-shouts").html("<h3>" + e.name + "</h3><h4>" + e.message + "</h4>").dialog("open");
+            $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" + e.message + "</h4>").dialog("open");
             RUR.ui.stop();
             return true;
         }
@@ -99,12 +107,13 @@ RUR.runner.eval_no_strict_js = function (src) {
 RUR.runner.eval_python = function (src) {
     // do not  "use strict" as we do not control the output produced by Brython
     RUR.reset_definitions();
-    eval(translate_python(src)); // found in the html file
+    // translate_python is found in html file
+    translate_python(src);
 };
 
 
 RUR.runner.eval_coffee = function (src) {
     var out;
     RUR.reset_definitions();
-    eval(CoffeeScript.compile(src));
+    eval(CoffeeScript.compile(src)); // jshint ignore:line
 };

@@ -3,7 +3,7 @@
  */
 
 /*jshint browser:true, devel:true, white:false, plusplus:false */
-/*globals $, CodeMirror, editor, library, removeHints */
+/*globals $, CodeMirror, editor, library, removeHints, parseUri */
 
 var RUR = RUR || {};
 
@@ -82,27 +82,77 @@ RUR.reset_programming_language = function(choice){
 
 $(document).ready(function() {
     var prog_lang;
+    var url_query;
     $('input[type=radio][name=programming_language]').on('change', function(){
         RUR.reset_programming_language($(this).val());
     });
     
-    prog_lang = localStorage.getItem("last_programming_language_en");
-    switch (prog_lang) {
-        case 'python-en':
-        case 'javascript-en':
-        case 'javascript-strict-en':
-        case 'coffeescript-en':
-            $('input[type=radio][name=programming_language]').val([prog_lang]);
-            RUR.reset_programming_language(prog_lang);
+    url_query = parseUri(window.location.href);
+    if (url_query.queryKey.proglang !== undefined &&
+       url_query.queryKey.world !== undefined &&
+       url_query.queryKey.editor !== undefined &&
+       url_query.queryKey.library !== undefined) {
+        prog_lang = url_query.queryKey.proglang;
+        $('input[type=radio][name=programming_language]').val([prog_lang]);
+        RUR.reset_programming_language(prog_lang);
+        RUR.ui.select_world(decodeURIComponent(url_query.queryKey.world), true);
+        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
+        library.setValue(decodeURIComponent(url_query.queryKey.library));
+    } else {
+        prog_lang = localStorage.getItem("last_programming_language_en");
+        switch (prog_lang) {
+            case 'python-en':
+            case 'javascript-en':
+            case 'javascript-strict-en':
+            case 'coffeescript-en':
+                $('input[type=radio][name=programming_language]').val([prog_lang]);
+                RUR.reset_programming_language(prog_lang);
+        }
     }
 });
+
+
+function create_permalink() {
+    var proglang, world, _editor, _library, url_query, permalink, parts;
+    url_query = parseUri(window.location.href);
+    console.log(url_query);
+
+    permalink = url_query.protocol + "://" + url_query.host;
+    if (url_query.port !== undefined){
+        permalink += ":" + url_query.port;
+    }
+    permalink += url_query.path;
+    
+    switch(RUR.programming_language) {
+        case 'python': 
+            proglang = "python-en";
+            break;
+        case 'coffee': 
+            proglang = "coffeescript-en";
+            break;
+        case 'javascript':
+            if (RUR.strict_javascript) {
+                proglang = "javascript-strict-en";
+            } else {
+                proglang = "javascript-en";
+            }
+    }
+    world = RUR.settings.world_name;
+    console.log(RUR.settings);
+    _editor = encodeURIComponent(editor.getValue());
+    _library = encodeURIComponent(library.getValue());
+    
+    permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
+    window.prompt('Press CTRL+C, then ENTER',permalink);
+    return false;
+}
 
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, object_here, select_world,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, DEBUG, pause, remove_robot, repeat, view_source, sound," +
     // do not translate the following instructions
-                    "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers*/\n";
+                    "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, set_max_steps*/\n";
 
 RUR.translation = {};
 RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] = 
@@ -201,7 +251,8 @@ RUR.translation["Goal: no object left in world."] = "Goal: no object left in wor
 var move, turn_left, inspect, front_is_clear, right_is_clear, 
     is_facing_north, done, put, take, object_here, select_world, token_here, 
     has_token, write, at_goal, at_goal_orientation, build_wall, think, 
-    pause, remove_robot, repeat, view_source, sound, UsedRobot;
+    pause, remove_robot, repeat, view_source, sound, UsedRobot, 
+    set_max_steps;
 
 // do not translate the following three instructions; they are included only
 // so that most basic programs from rur-ple would run "as-is"
@@ -254,6 +305,7 @@ RUR.reset_definitions = function () {
       take = null;
       object_here = null;
       select_world = null;
+      set_max_steps = null;
       token_here = null;
       has_token = null;
       at_goal = null;
@@ -303,6 +355,9 @@ RUR.reset_definitions = function () {
     };
 
     select_world = RUR.ui.select_world;  
+    set_max_steps = function(n){
+        RUR.MAX_STEPS = n;
+    };
 
 
     at_goal = function () {
@@ -429,6 +484,5 @@ RUR._import_library = function () {
 };
 
 var biblio = function() {
-    console.log(library.getValue());
     return library.getValue();
 };
