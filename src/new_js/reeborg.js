@@ -589,7 +589,6 @@ $(document).ready(function() {
     // Set listener ...  (continuing below)
     $("#select_world").change(function() {
         var data, val = $(this).val();
-        console.log("select world called");
         RUR.settings.world_name = $(this).find(':selected').text();
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
@@ -598,10 +597,8 @@ $(document).ready(function() {
         RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
-            console.log("1");
             RUR.world.import_world(data);
         } else {
-            console.log("2", RUR.imported_from_url);
             $.get(val, function(data) {
                 RUR.world.import_world(data);
                 // jquery is sometimes too intelligent; it can guess
@@ -1107,7 +1104,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         }
     } catch (e) {
         if (RUR.programming_language === "python") {
-            console.log(e);
             error_name = e.__name__;
         } else {
             error_name = e.name;
@@ -1351,9 +1347,11 @@ RUR.ui.load_user_worlds = function () {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
             name = key.slice(11);
-            $('#select_world').append( $('<option style="background-color:#ff9"></option>'
+            if (name !== "PERMALINK") { 
+                $('#select_world').append( $('<option style="background-color:#ff9"></option>'
                               ).val("user_world:" + name).html(name));
-            user_world_present = true;
+                user_world_present = true;
+            }
         }
     }
     if (user_world_present){
@@ -1394,15 +1392,15 @@ function toggle_contents_button_from_child () {
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
-//if (!Array.prototype.remove){
-//    // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
-//    Array.prototype.remove = function(from, to) {
-//        "use strict";
-//        var rest = this.slice((to || from) + 1 || this.length);
-//        this.length = from < 0 ? this.length + from : from;
-//        return this.push.apply(this, rest);
-//    };
-//}
+if (!Array.prototype.remove){
+    // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
+    Array.prototype.remove = function(from, to) {
+        "use strict";
+        var rest = this.slice((to || from) + 1 || this.length);
+        this.length = from < 0 ? this.length + from : from;
+        return this.push.apply(this, rest);
+    };
+}
 
 /*
     Original script title: "Object.identical.js"; version 1.12
@@ -1460,7 +1458,7 @@ function parseUri (str) {
 	});
 
 	return uri;
-};
+}
 
 parseUri.options = {
 	strictMode: false,
@@ -2000,16 +1998,17 @@ RUR.world.export_world = function () {
 
 RUR.world.import_world = function (json_string) {
     var robot;
+    console.log("json_string", json_string);
     if (RUR.imported_from_url){
         RUR.imported_from_url = false;
         return;
     }
-    console.log("entering import, json_string=", json_string);
     if (json_string === undefined){
         return {};
     }
-    RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
     console.log("current", RUR.current_world);
+    console.log("JSON", JSON);
+    RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
             robot = RUR.current_world.robots[0];
@@ -2019,7 +2018,6 @@ RUR.world.import_world = function (json_string) {
         }
     }
     RUR.world.saved_world = RUR.world.clone_world();
-    console.log("saved", RUR.world.saved_world);
     RUR.vis_world.draw_all();
     if (RUR.we.editing_world) {
         RUR.we.change_edit_robot_menu();
@@ -2027,7 +2025,6 @@ RUR.world.import_world = function (json_string) {
 };
 
 RUR.world.clone_world = function (world) {
-    console.log("inside clone; world=", world);
     if (world === undefined) {
         return JSON.parse(JSON.stringify(RUR.current_world));
     } else {
@@ -2449,6 +2446,8 @@ RUR.we.toggle_wall = function () {
     orientation = position[2];
     coords = x + "," + y;
 
+    console.log("walls", RUR.current_world.walls);
+    
     RUR.we.ensure_key_exist(RUR.current_world, "walls");
     if (RUR.current_world.walls[coords] === undefined){
         RUR.current_world.walls[coords] = [orientation];
@@ -2457,6 +2456,8 @@ RUR.we.toggle_wall = function () {
         if (index === -1) {
             RUR.current_world.walls[coords].push(orientation);
         } else {
+            console.log("index", index);
+            
             RUR.current_world.walls[coords].remove(index);
             if (RUR.current_world.walls[coords].length === 0){
                 delete RUR.current_world.walls[coords];

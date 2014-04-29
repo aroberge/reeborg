@@ -133,9 +133,11 @@ RUR.ui.load_user_worlds = function () {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
             name = key.slice(11);
-            $('#select_world').append( $('<option style="background-color:#ff9"></option>'
+            if (name !== "PERMALINK") { 
+                $('#select_world').append( $('<option style="background-color:#ff9"></option>'
                               ).val("user_world:" + name).html(name));
-            user_world_present = true;
+                user_world_present = true;
+            }
         }
     }
     if (user_world_present){

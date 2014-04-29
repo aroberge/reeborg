@@ -81,8 +81,7 @@ RUR.reset_programming_language = function(choice){
 
 
 $(document).ready(function() {
-    var prog_lang;
-    var url_query;
+    var prog_lang, url_query, name;
     $('input[type=radio][name=programming_language]').on('change', function(){
         RUR.reset_programming_language($(this).val());
     });
@@ -95,8 +94,17 @@ $(document).ready(function() {
         prog_lang = url_query.queryKey.proglang;
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
-        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
+
         RUR.imported_from_url = true;
+//        name = "PERMALINK";
+//        localStorage.setItem("user_world:"+ name, RUR.world.export_world());
+//        $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+//                                  ).val("user_world:" + name).html(name));
+//        $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
+//        $("#select_world").change();
+//        $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
+        
+        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     } else {
