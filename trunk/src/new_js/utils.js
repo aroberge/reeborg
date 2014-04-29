@@ -4,15 +4,15 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
-//if (!Array.prototype.remove){
-//    // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
-//    Array.prototype.remove = function(from, to) {
-//        "use strict";
-//        var rest = this.slice((to || from) + 1 || this.length);
-//        this.length = from < 0 ? this.length + from : from;
-//        return this.push.apply(this, rest);
-//    };
-//}
+if (!Array.prototype.remove){
+    // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
+    Array.prototype.remove = function(from, to) {
+        "use strict";
+        var rest = this.slice((to || from) + 1 || this.length);
+        this.length = from < 0 ? this.length + from : from;
+        return this.push.apply(this, rest);
+    };
+}
 
 /*
     Original script title: "Object.identical.js"; version 1.12
@@ -70,7 +70,7 @@ function parseUri (str) {
 	});
 
 	return uri;
-};
+}
 
 parseUri.options = {
 	strictMode: false,

@@ -394,7 +394,7 @@ RUR.we.toggle_wall = function () {
     y = position[1];
     orientation = position[2];
     coords = x + "," + y;
-
+    
     RUR.we.ensure_key_exist(RUR.current_world, "walls");
     if (RUR.current_world.walls[coords] === undefined){
         RUR.current_world.walls[coords] = [orientation];
