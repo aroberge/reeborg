@@ -23,22 +23,22 @@ RUR.world.create_empty_world = function (blank_canvas) {
 RUR.current_world = RUR.world.create_empty_world();
 
 RUR.world.export_world = function () {
-    return JSON.stringify(RUR.current_world, null, '   ');
+    return JSON.stringify(RUR.current_world, null, '');
 };
 
 RUR.world.import_world = function (json_string) {
     var robot;
-    console.log("json_string", json_string);
-    if (RUR.imported_from_url){
-        RUR.imported_from_url = false;
-        return;
-    }
     if (json_string === undefined){
         return {};
     }
-    console.log("current", RUR.current_world);
-    console.log("JSON", JSON);
-    RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
+    try { 
+        RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
+    } catch (e) {
+        console.log("exception caught in import_world");
+        console.log(json_string);
+        console.log(e);
+        return;
+    }
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
             robot = RUR.current_world.robots[0];

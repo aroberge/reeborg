@@ -508,7 +508,7 @@ $(document).ready(function() {
     });
   
     $("#save-world").on("click", function(evt) {
-        var blob = new Blob([RUR.world.json_world_string], {type: "text/javascript;charset=utf-8"});
+        var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, "*.json");
     });
 
@@ -522,6 +522,7 @@ $(document).ready(function() {
             reader.onload = function(e) {
                 try {
                     $("#worldfileInput").hide();
+                    RUR.world.import_world(reader.result);
                 } catch (e) {
                     alert(RUR.translation["Invalid world file."]);
                 }
@@ -586,7 +587,6 @@ $(document).ready(function() {
     editor.widgets = [];
     library.widgets = [];
 
-    // Set listener ...  (continuing below)
     $("#select_world").change(function() {
         var data, val = $(this).val();
         RUR.settings.world_name = $(this).find(':selected').text();
@@ -607,8 +607,7 @@ $(document).ready(function() {
             }, "text");
         }
     });
-    // ... and trigger it to load the initial world.
-    $("#select_world").change();
+
     
     try {  
         RUR.reset_code_in_editors();
@@ -887,7 +886,8 @@ RUR.rec.conclude = function () {
 
 RUR.rec.handle_error = function (frame) {
     var goal_status;
-    if (frame.error.message === RUR.translation["Done!"]){
+    //Brython adds information to error messages; we want to remove it from the following comparison
+    if (frame.error.message.split("\n")[0] === RUR.translation["Done!"].split("\n")[0]){
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
@@ -1368,23 +1368,23 @@ RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gr
     pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
 
-function toggle_contents_button () {
-    if ($("#contents-button").hasClass("reverse-blue-gradient")) {
-        RUR.tutorial_window = window.open("index_en.html", '_blank', 'location=no,height=600,width=800,scrollbars=yes,status=yes');
-    } else {
-        try {
-            RUR.tutorial_window.close();
-        }
-        catch (e) {}
-    }
-    return false;
-}
-
-function toggle_contents_button_from_child () {
-    // called when child window is closed by user
-    $("#contents-button").toggleClass("blue-gradient");
-    $("#contents-button").toggleClass("reverse-blue-gradient");
-}
+//function toggle_contents_button () {
+//    if ($("#contents-button").hasClass("reverse-blue-gradient")) {
+//        RUR.tutorial_window = window.open("index_en.html", '_blank', 'location=no,height=600,width=800,scrollbars=yes,status=yes');
+//    } else {
+//        try {
+//            RUR.tutorial_window.close();
+//        }
+//        catch (e) {}
+//    }
+//    return false;
+//}
+//
+//function toggle_contents_button_from_child () {
+//    // called when child window is closed by user
+//    $("#contents-button").toggleClass("blue-gradient");
+//    $("#contents-button").toggleClass("reverse-blue-gradient");
+//}
 
 /* Author: André Roberge
    License: MIT  */
@@ -1993,22 +1993,22 @@ RUR.world.create_empty_world = function (blank_canvas) {
 RUR.current_world = RUR.world.create_empty_world();
 
 RUR.world.export_world = function () {
-    return JSON.stringify(RUR.current_world, null, '   ');
+    return JSON.stringify(RUR.current_world, null, '');
 };
 
 RUR.world.import_world = function (json_string) {
     var robot;
-    console.log("json_string", json_string);
-    if (RUR.imported_from_url){
-        RUR.imported_from_url = false;
-        return;
-    }
     if (json_string === undefined){
         return {};
     }
-    console.log("current", RUR.current_world);
-    console.log("JSON", JSON);
-    RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
+    try { 
+        RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
+    } catch (e) {
+        console.log("exception caught in import_world");
+        console.log(json_string);
+        console.log(e);
+        return;
+    }
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
             robot = RUR.current_world.robots[0];
@@ -2445,8 +2445,6 @@ RUR.we.toggle_wall = function () {
     y = position[1];
     orientation = position[2];
     coords = x + "," + y;
-
-    console.log("walls", RUR.current_world.walls);
     
     RUR.we.ensure_key_exist(RUR.current_world, "walls");
     if (RUR.current_world.walls[coords] === undefined){
@@ -2456,8 +2454,6 @@ RUR.we.toggle_wall = function () {
         if (index === -1) {
             RUR.current_world.walls[coords].push(orientation);
         } else {
-            console.log("index", index);
-            
             RUR.current_world.walls[coords].remove(index);
             if (RUR.current_world.walls[coords].length === 0){
                 delete RUR.current_world.walls[coords];

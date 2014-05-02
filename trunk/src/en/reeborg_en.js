@@ -85,7 +85,6 @@ $(document).ready(function() {
     $('input[type=radio][name=programming_language]').on('change', function(){
         RUR.reset_programming_language($(this).val());
     });
-    
     url_query = parseUri(window.location.href);
     if (url_query.queryKey.proglang !== undefined &&
        url_query.queryKey.world !== undefined &&
@@ -95,16 +94,15 @@ $(document).ready(function() {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
 
-        RUR.imported_from_url = true;
-//        name = "PERMALINK";
-//        localStorage.setItem("user_world:"+ name, RUR.world.export_world());
-//        $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-//                                  ).val("user_world:" + name).html(name));
-//        $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
-//        $("#select_world").change();
-//        $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
-        
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
+        name = "PERMALINK";
+        localStorage.setItem("user_world:"+ name, RUR.world.export_world());
+        $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+                                  ).val("user_world:" + name).html(name));
+        $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
+        $("#select_world").change();
+        $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
+
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     } else {
@@ -117,8 +115,36 @@ $(document).ready(function() {
                 $('input[type=radio][name=programming_language]').val([prog_lang]);
                 RUR.reset_programming_language(prog_lang);
         }
+        // trigger it to load the initial world.
+        $("#select_world").change();
     }
 });
+
+function update_permalink () {
+    url_query = parseUri($("#url_input_textarea").val());
+    if (url_query.queryKey.proglang !== undefined &&
+       url_query.queryKey.world !== undefined &&
+       url_query.queryKey.editor !== undefined &&
+       url_query.queryKey.library !== undefined) {
+        prog_lang = url_query.queryKey.proglang;
+        $('input[type=radio][name=programming_language]').val([prog_lang]);
+        RUR.reset_programming_language(prog_lang);
+
+        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
+        name = "PERMALINK";
+        localStorage.setItem("user_world:"+ name, RUR.world.export_world());
+        $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+                                  ).val("user_world:" + name).html(name));
+        $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
+        $("#select_world").change();
+        $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
+
+        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
+        library.setValue(decodeURIComponent(url_query.queryKey.library));
+    }
+    $("#url_input").hide();
+}
+
 
 
 function create_permalink() {
@@ -126,7 +152,7 @@ function create_permalink() {
     url_query = parseUri(window.location.href);
 
     permalink = url_query.protocol + "://" + url_query.host;
-    if (url_query.port !== undefined){
+    if (url_query.port){
         permalink += ":" + url_query.port;
     }
     permalink += url_query.path;
@@ -145,12 +171,16 @@ function create_permalink() {
                 proglang = "javascript-en";
             }
     }
-    world = encodeURIComponent(RUR.world.export_world());
+    world = encodeURIComponent(RUR.world.export_world());    
     _editor = encodeURIComponent(editor.getValue());
     _library = encodeURIComponent(library.getValue());
     
     permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
-    window.prompt('Press CTRL+C or CMD+C, then ENTER to copy the link to this world.',permalink);
+    $("#url_input_textarea").val(permalink);
+    $("#url_input").show();
+    $("#ok-permalink").removeAttr("disabled");
+    $("#cancel-permalink").removeAttr("disabled");
+    
     return false;
 }
 
@@ -250,9 +280,6 @@ RUR.translation["Click on same position to remove, or robot to set orientation."
 RUR.translation["Goal: no object left in world."] = "Goal: no object left in world.";
 
 
-
-
-
 /*==========================================*/
 
 var move, turn_left, inspect, front_is_clear, right_is_clear, 
@@ -263,7 +290,7 @@ var move, turn_left, inspect, front_is_clear, right_is_clear,
 
 // do not translate the following three instructions; they are included only
 // so that most basic programs from rur-ple would run "as-is"
-var put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers;
+var put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, next_to_a_beeper, set_delay, facing_north;
 
 inspect = function (obj){
   var props, result = "";
@@ -464,7 +491,10 @@ RUR.reset_definitions = function () {
     pick_beeper = take;
     turn_off = done;
     on_beeper = token_here; 
+    next_to_a_beeper = token_here;
     carries_beepers = has_token;
+    set_delay = think;
+    facing_north = is_facing_north;
     
 };
 

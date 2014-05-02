@@ -6,6 +6,8 @@
 <meta name="keywords" content="JavaScript,Python,Programming">
 <meta name="author" content="André Roberge">
 <meta name="license" content="CC BY-NC-SA 3.0">
+<link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon"> 
+<link rel="icon" href="src/images/favicon.ico" type="image/icon">
 <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
 <link rel="stylesheet" href="src/css/reeborg_dev.css"> <!-- load after codemirror.css -->
@@ -20,18 +22,30 @@
     <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">World</button>
     <button class="blue-gradient" id="output-panel-button" label="output-panel">Diary</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
-    
     <button class="blue-gradient" id="help-button">Help</button>
+    <button class="blue-gradient" onclick="TogetherJS(this); return false;">Start TogetherJS</button>
     <form>
         <input type="radio" name="programming_language" value="python-en" checked> Python
         <input type="radio" name="programming_language" value="javascript-strict-en" > Javascript (strict)
         <input type="radio" name="programming_language" value="javascript-en" > Javascript
         <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
     </form>
+    
+
   </div>
   
 </header>
   <input type="file" id="worldfileInput">
+  <div id="url_input">
+  <p>Copy the permalink and press cancel, or replace by new one and press Update.</p>
+  <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
+  <p>
+  <button class="blue-gradient" id="ok-permalink" onclick="update_permalink();">Update</button>
+  <button class="blue-gradient" id="cancel-permalink" onclick="$('#url_input').hide();">Cancel</button>
+  </p>
+  </div>
+  
+  
 <div id="world-panel" class="active" >
 
   <div id="world-controls">
@@ -91,6 +105,9 @@
       <option value="src/json/tokens5.json">Tokens 5</option>
       <option value="src/json/tokens6.json">Tokens 6</option>
       <option value="src/json/blank.json">Graphics canvas</option>
+      <option value="src/json/jsa1.json">JSA 1</option>
+      <option value="src/json/jsa2.json">JSA 2</option>
+      <option value="src/json/jsa3.json">JSA 3</option>
     </select>
     <button id="permalink" title="permalink" onclick="create_permalink();">
       <img src="src/images/permalink.png" alt="reload">
@@ -219,8 +236,8 @@
     </ul>
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
 <!--<script src="src/libraries/codemirror/python.js"></script>-->
@@ -327,6 +344,11 @@ window['ReeborgError'] = RUR.ReeborgError
 
 <script src="src/libraries/jshint.js"></script>
 <script src="src/libraries/filesaver.js"></script>
+
+<script>
+  TogetherJSConfig_cloneClicks = true;
+</script>
+<script src="https://togetherjs.com/togetherjs-min.js"></script>
 
 <div id="help" title="Help" style="display:none">
     <p><small style="color:#900;">Discussions, questions, comments about Reeborg take place

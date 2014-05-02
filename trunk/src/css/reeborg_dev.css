@@ -176,6 +176,17 @@ padding:3px;}
 #library-problem {background-color: #96c423; color: white; display:none; margin: 5px;
   font-size:0.5em; float: right;}
 
+#url_input {display: none; 
+    position: absolute; 
+    top:100px; 
+    left:100px; 
+    z-index:10; 
+    background-color: white;
+    border: 2px solid blue;
+    border-radius: 10px;
+}
+#ok-permalink, #cancel-permalink {margin-left: 10px;}
+
 #canvas-wrapper, #diary-wrapper {
   position: absolute;
   top: 42px;
