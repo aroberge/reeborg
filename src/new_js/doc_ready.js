@@ -120,7 +120,7 @@ $(document).ready(function() {
     });
   
     $("#save-world").on("click", function(evt) {
-        var blob = new Blob([RUR.world.json_world_string], {type: "text/javascript;charset=utf-8"});
+        var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, "*.json");
     });
 
@@ -134,6 +134,7 @@ $(document).ready(function() {
             reader.onload = function(e) {
                 try {
                     $("#worldfileInput").hide();
+                    RUR.world.import_world(reader.result);
                 } catch (e) {
                     alert(RUR.translation["Invalid world file."]);
                 }
@@ -198,7 +199,6 @@ $(document).ready(function() {
     editor.widgets = [];
     library.widgets = [];
 
-    // Set listener ...  (continuing below)
     $("#select_world").change(function() {
         var data, val = $(this).val();
         RUR.settings.world_name = $(this).find(':selected').text();
@@ -219,8 +219,7 @@ $(document).ready(function() {
             }, "text");
         }
     });
-    // ... and trigger it to load the initial world.
-    $("#select_world").change();
+
     
     try {  
         RUR.reset_code_in_editors();
