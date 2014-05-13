@@ -259,6 +259,9 @@
 <script type="text/python3">
 import sys
 from browser import window, doc
+from javascript import JSObject
+__RUR__ = JSObject(RUR)
+
 def translate_python(src):
     return exec(src)
 
