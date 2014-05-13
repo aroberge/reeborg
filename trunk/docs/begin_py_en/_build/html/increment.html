@@ -124,28 +124,26 @@ reach the wall on the right from its starting position. One way to do
 this is to use a variable which I will name <tt class="docutils literal"><span class="pre">number_of_steps</span></tt> and give
 it an initial value of 0. Then, each time that Reeborg takes a step, I
 will add 1 to the <em>previous</em> value of <tt class="docutils literal"><span class="pre">number_of_steps</span></tt>. This is done
-in Javascript using the following syntax:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">number_of_steps</span> <span class="o">=</span> <span class="n">number_of_steps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+in Python using the following syntax:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">number_of_steps</span> <span class="o">=</span> <span class="n">number_of_steps</span> <span class="o">+</span> <span class="mi">1</span>
 </pre></div>
 </div>
 <p><strong>Do not think of this as a mathematical equation!</strong> Clearly, if this
 were a mathematical equation, the variable on the left hand side of the
 &#8220;equal sign&#8221; would not have the same value as the terms on the right
-hand side. However, in Javascript, and many other programming languages,
-&#8220;=&#8221; is known as the <strong>assignment operator</strong>: Javascript determines the
+hand side. However, in Python, and many other programming languages,
+&#8220;=&#8221; is known as the <strong>assignment operator</strong>: Python determines the
 value on the right hand side of &#8220;=&#8221; and use the variable name on the
 left hand side as a way to remember that value. Thus, if we have:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">n</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
-<span class="n">write</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>  <span class="o">//</span> <span class="n">outputs</span> <span class="mi">4</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c"># outputs 4</span>
 </pre></div>
 </div>
 <p>it is equivalent to:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">n</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>  <span class="o">//</span> <span class="n">notice</span> <span class="n">how</span> <span class="n">we</span> <span class="n">use</span> <span class="s">&quot;1&quot;</span> <span class="n">instead</span> <span class="n">of</span> <span class="s">&quot;n&quot;</span>
-<span class="n">write</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>  <span class="o">//</span> <span class="n">outputs</span> <span class="mi">4</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span>  <span class="c"># notice how we use &quot;1&quot; instead of &quot;n&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c"># outputs 4</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -153,20 +151,11 @@ left hand side as a way to remember that value. Thus, if we have:</p>
 <p>Try to run the above code and see what is printed in Reeborg&#8217;s Diary.</p>
 </div>
 <p>Because this type of operation, known as <em>incrementing</em> a variable
-occurs so often, Javascript, and many other languages, allow the use of
+occurs so often, Python, and many other languages, allow the use of
 the following shortened notation, using the <tt class="docutils literal"><span class="pre">+=</span></tt> operator:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">n</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
-<span class="n">write</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>  <span class="o">//</span> <span class="n">outputs</span> <span class="mi">4</span>
-</pre></div>
-</div>
-<p>If the value by which we want to <em>increment</em> the variable is 1, we can
-even use a shorter expression:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">n</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">n</span><span class="o">++</span><span class="p">;</span>
-<span class="n">write</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>  <span class="o">//</span> <span class="n">outputs</span> <span class="mi">2</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n</span> <span class="o">+=</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c"># outputs 4</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -183,21 +172,29 @@ steps using world <strong>Around&nbsp;1</strong>.</p>
 <p>Copy the code below in the editor to run it. Ideally, you should then modify it to
 try the other ways we have seen and that can be used to <em>increment</em> a
 variable:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">number_of_steps</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">number_of_steps</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">function</span> <span class="n">move_and_count_steps</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">move</span><span class="p">();</span>
-    <span class="n">number_of_steps</span><span class="o">++</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="k">def</span> <span class="nf">move_and_count_steps</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">number_of_steps</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">number_of_steps</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<span class="k">while</span> <span class="p">(</span><span class="n">front_is_clear</span><span class="p">()){</span>
-    <span class="n">move_and_count_steps</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="k">while</span> <span class="n">front_is_clear</span><span class="p">():</span>
+    <span class="n">move_and_count_steps</span><span class="p">()</span>
 
-<span class="n">write</span><span class="p">(</span><span class="n">number_of_steps</span><span class="p">);</span>  <span class="o">//</span> <span class="n">should</span> <span class="n">be</span> <span class="mi">9</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">number_of_steps</span><span class="p">)</span>  <span class="c"># should be 9</span>
 </pre></div>
 </div>
 </div>
+<p>In the above program, we use the <tt class="docutils literal"><span class="pre">global</span></tt> keyword to indicate to Python that
+the variable <tt class="docutils literal"><span class="pre">number_of_steps</span></tt> used inside the <tt class="docutils literal"><span class="pre">move_and_count_steps</span></tt> function
+is assigned a value elsewhere.</p>
+<p>Note that when you run this program, the number of steps is printed <strong>before</strong>
+Reeborg moves.  This is because the program is first run behind the scene and
+played back like a movie, one frame at a time.  You can use the function <tt class="docutils literal"><span class="pre">write</span></tt>
+specific to Reeborg&#8217;s World instead of <tt class="docutils literal"><span class="pre">print</span></tt> if you want to see what Reeborg
+writes in its diary done as a programming step, like the <tt class="docutils literal"><span class="pre">move</span></tt> or <tt class="docutils literal"><span class="pre">turn_left</span></tt>
+functions.</p>
 <div class="topic">
 <p class="topic-title first">Your turn!</p>
 <p>Write a program so that Reeborg goes all the way around world <strong>Around&nbsp;1</strong> and have him

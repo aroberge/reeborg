@@ -119,40 +119,36 @@
 <h1>31. Tricky recursion<a class="headerlink" href="#tricky-recursion" title="Permalink to this headline">¶</a></h1>
 <p>Before considering a slightly more complex example, let&#8217;s review the
 preceding example:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function go_home(){
-    if (!at_goal()) {
-        move();
-        go_home();
-    }
-}
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">go_home</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+        <span class="n">move</span><span class="p">()</span>
+        <span class="n">go_home</span><span class="p">()</span>
 
-// now do it!
-go_home();
+<span class="c"># now do it!</span>
+<span class="n">go_home</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Now, remember how I explained that when a function is called, we can
 think of it as replacing the function call by the body of that function.
 By this, I mean that this instruction:</p>
-<div class="highlight-py3"><div class="highlight"><pre>if (!at_goal()) {
-    move();
-    go_home();
-}
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">go_home</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Let&#8217;s assume that the first time we execute these instructions,
 <tt class="docutils literal"><span class="pre">at_goal</span></tt> is <tt class="docutils literal"><span class="pre">false</span></tt> and hence <tt class="docutils literal"><span class="pre">!at_goal()</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> ... like
 it was for world <strong>Home&nbsp;1</strong>. In this case, the above call to <tt class="docutils literal"><span class="pre">go_home()</span></tt>
 is also executed, and the above code is equivalent to:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="n">go_home</span><span class="p">();</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="n">go_home</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>We can now replace the call to <tt class="docutils literal"><span class="pre">go_home()</span></tt> by its definition:</p>
-<div class="highlight-py3"><div class="highlight"><pre>move();
-if (!at_goal()) {
-    move();
-    go_home();
-}
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">go_home</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>and could, in theory, keep going like this forever, always replacing the
@@ -161,8 +157,8 @@ call to <tt class="docutils literal"><span class="pre">go_home()</span></tt> by 
 which they do fortunately for world <strong>Home&nbsp;1</strong>. In that case after a
 second <tt class="docutils literal"><span class="pre">move()</span></tt>, <tt class="docutils literal"><span class="pre">at_goal()</span></tt> would be true and and the <tt class="docutils literal"><span class="pre">if</span></tt> statement
 would be ignored.  Thus, the code in this case is equivalent to:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-    <span class="n">move</span><span class="p">();</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
 </pre></div>
 </div>
 <p><strong>It is really important that you understand the above explanation
@@ -171,16 +167,14 @@ as we are going to consider a slightly trickier example.</p>
 <div class="section" id="small-change">
 <h2>31.1. Small change...<a class="headerlink" href="#small-change" title="Permalink to this headline">¶</a></h2>
 <p>Consider the program below:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function go_home(){
-    if (!at_goal()) {
-        move();
-        go_home();
-    }
-    turn_left();
-}
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">go_home</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+        <span class="n">move</span><span class="p">()</span>
+        <span class="n">go_home</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span><span class="n">e</span>
 
-// now do it!
-go_home();
+<span class="c"># now do it!</span>
+<span class="n">go_home</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Try to figure out what it does before trying to have Reeborg execute it.

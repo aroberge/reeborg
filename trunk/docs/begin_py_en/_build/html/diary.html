@@ -124,7 +124,7 @@
 also on the <strong>Diary</strong> button to reveal Reeborg&#8217;s diary, the place where
 our favourite robot writes.</p>
 <p>Have Reeborg execute the following program:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You should see that Reeborg wrote the answer to the ultimate question
@@ -141,25 +141,25 @@ about life, the universe and everything <a class="footnote-reference" href="#id2
 can be printed and a <em>string of characters</em>, or simply <em>string</em>, is any
 combination of character that can be printed. For example, try the
 following:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="s">&quot;Hello world!&quot;</span><span class="p">);</span>
-<span class="n">write</span><span class="p">(</span><span class="s">&#39;Hello again.&#39;</span><span class="p">);</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Hello world!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Hello again.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note that the quotes that surround the <em>string</em> have to be the same,
 either double quotes like &#8221;, or single quotes like &#8216;. To have a string
 that contains some quote characters, we can either surround it by quotes
 of a different type or use the <em>escape character</em> <tt class="docutils literal"><span class="pre">\</span></tt>:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="s">&quot;Let&#39;s go.&quot;</span><span class="p">);</span>
-<span class="n">write</span><span class="p">(</span><span class="s">&#39;Let</span><span class="se">\&#39;</span><span class="s">s go.&#39;</span><span class="p">);</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Let&#39;s go.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Let</span><span class="se">\&#39;</span><span class="s">s go.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We can combine strings using the <tt class="docutils literal"><span class="pre">+</span></tt> symbol:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="s">&quot;Goodbye! &quot;</span> <span class="o">+</span> <span class="s">&quot;And thanks for all the fish.&quot;</span><span class="p">);</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Goodbye! &quot;</span> <span class="o">+</span> <span class="s">&quot;And thanks for all the fish.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We can also start on a new line using the following <em>escape sequence</em>:
 <tt class="docutils literal"><span class="pre">\n</span></tt>:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="s">&quot;Thank you. </span><span class="se">\n</span><span class="s">Try again&quot;</span><span class="p">);</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Thank you. </span><span class="se">\n</span><span class="s">Try again&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -173,25 +173,25 @@ of a different type or use the <em>escape character</em> <tt class="docutils lit
 <p class="topic-title first">Try this!</p>
 <p>Try running the following program and look at the output in Reeborg&#8217;s
 diary.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">write</span><span class="p">(</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="p">);</span>  <span class="c1">// adding numbers</span>
-<span class="nx">write</span><span class="p">(</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span> <span class="p">);</span>  <span class="c1">// multiplying numbers</span>
-<span class="nx">write</span><span class="p">(</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="p">);</span>  <span class="c1">// subtracting numbers</span>
-<span class="nx">write</span><span class="p">(</span> <span class="mi">6</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">);</span>  <span class="c1">// dividing numbers</span>
-<span class="nx">write</span><span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">);</span> <span class="c1">// multiplication is done before addition</span>
-<span class="nx">write</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">);</span>  <span class="c1">// using parentheses to change normal order of operations</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="p">)</span>  <span class="c"># adding numbers</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span> <span class="p">)</span>  <span class="c"># multiplying numbers</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="p">)</span>  <span class="c"># subtracting numbers</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">6</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">)</span>  <span class="c"># dividing numbers</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">)</span> <span class="c"># multiplication is done before addition</span>
+<span class="nb">print</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">)</span>  <span class="c"># using parentheses to change normal order of operations</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="using-variables">
 <h2>36.3. Using variables<a class="headerlink" href="#using-variables" title="Permalink to this headline">¶</a></h2>
-<p>We have already seen the <tt class="docutils literal"><span class="pre">var</span></tt> keyword. Let&#8217;s use it again as explore
+<p>We have already seen the idea of using different names (variables) as synonyms.
+Let&#8217;s use this idea again as explore
 mathematical operations some more:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">length</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">area</span><span class="p">;</span>
-<span class="n">length</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">length</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
 <span class="n">width</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-<span class="n">area</span> <span class="o">=</span> <span class="n">length</span> <span class="o">*</span> <span class="n">width</span><span class="p">;</span>  <span class="o">//</span> <span class="n">area</span> <span class="n">of</span> <span class="n">a</span> <span class="n">rectangle</span>
-<span class="n">write</span><span class="p">(</span><span class="n">area</span><span class="p">);</span>  <span class="o">//</span> <span class="n">will</span> <span class="n">output</span> <span class="mi">24</span>
+<span class="n">area</span> <span class="o">=</span> <span class="n">length</span> <span class="o">*</span> <span class="n">width</span><span class="p">;</span>  <span class="c"># area of a rectangle</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>  <span class="c"># will output 24</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -201,19 +201,12 @@ mathematical operations some more:</p>
 </div>
 <div class="section" id="a-word-of-caution">
 <h2>36.4. A word of caution<a class="headerlink" href="#a-word-of-caution" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p>Combining strings and numbers can yield unexpected results:</p>
-<div class="last highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="s">&quot;2&quot;</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">The <em>character</em> &#8220;2&#8221; is not the same as the <em>number</em> 2.</p>
 </div>
 <p>Finally, note that spaces around operators, like <tt class="docutils literal"><span class="pre">+</span></tt>, are ignored by
-Javascript; however they often make a program easier to read for humans.</p>
+Python; however they often make a program easier to read for humans.</p>
 </div>
 </div>
 

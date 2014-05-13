@@ -6,11 +6,10 @@ before reaching the first square where he is blocked by having a wall in
 front of him. Let's use the increment operator to have Reeborg keep
 track of the number of steps and stop just before hitting a wall::
 
-    var number_of_steps = 0;
-    while (number_of_steps < 9 ){  // "<" means "less than"
-        move();
-        number_of_steps++;
-    }
+    number_of_steps = 0;
+    while number_of_steps < 9 :  # "<" means "less than"
+        move()
+        number_of_steps += 1
 
 .. topic:: Try it!
 
@@ -26,36 +25,32 @@ In the above program, Reeborg was counting and doing a number of steps
 (``move``) up to a predetermined value. We have seen before how to
 accomplish this using a single instruction::
 
-    repeat(move, 9);
+    repeat(move, 9)
 
 Let's define a function ``my_repeat`` that will *hide* the code with the
 while loop above::
 
-    function my_repeat() {
-        var number_of_steps = 0;
-        while (number_of_steps < 9 ){
-            move();
-            number_of_steps++;
-        }
-    }
+    def my_repeat():
+        number_of_steps = 0
+        while number_of_steps < 9 :
+            move()
+            number_of_steps += 1
 
-    my_repeat();   // use it!
+    my_repeat()   # use it!
 
 That's not very useful compared with ``repeat()`` since both the number
 of steps to take and the specific instruction to repeat are
 *hard-coded*. We can do better by *passing* **arguments** to
 ``my_repeat`` as follows::
 
-    function my_repeat(some_function, max_value) {
-        var number_of_steps = 0;
-        while (number_of_steps < max_value ){
-            some_function();
-            number_of_steps++;
-        }
-    }
+    def my_repeat(some_function, max_value):
+        number_of_steps = 0
+        while number_of_steps < max_value :
+            some_function()
+            number_of_steps += 1
 
-    my_repeat(move, 9);   // use it!
-    my_repeat(turn_left, 4);
+    my_repeat(move, 9)   # use it!
+    my_repeat(turn_left, 4)
 
 .. topic:: Try it!
 
@@ -64,25 +59,19 @@ of steps to take and the specific instruction to repeat are
 Scope
 -----
 
-Make note of the colour of the variable ``number_of_steps`` in the
-Javascript editor.  Once you have done that, enter the following code
-instead::
+In the definition above, ``number_of_steps`` was a **local** variable
+only known inside the function ``my_repeat``.  
+An other way, which we have seen previously,
+is to us a **global** variable as follows::
 
-    var number_of_steps = 0;
-    function my_repeat(some_function, max_value) {
-        while (number_of_steps < max_value ){
-            some_function();
-            number_of_steps++;
-        }
-    }
+    number_of_steps = 0
+    def my_repeat(some_function, max_value):
+        global number_of_steps
+        while number_of_steps < max_value :
+            some_function()
+            number_of_steps += 1
 
-You should note that the colour of the
-variable ``number_of_steps`` is different in both cases. If you look
-more closely, you will find that in one case, this variable is defined
-*inside* the function body whereas in the other it is defined *outside*.
-When it is defined *inside*, we say that it is a **local** variable: its
-value is only known locally inside the function and not in the larger
-program. Otherwise, it is known as a **global** variable. Whether a
+Whether a
 variable is *local* to a function or *global* is known as the **scope**
 of the variable. Generally, it is recommended to use local variables
 whenever possible so that if you reuse the same variable name (locally)

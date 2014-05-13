@@ -126,14 +126,10 @@ work for each of these four worlds.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">selection</span><span class="p">;</span>
 <span class="nx">think</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>  <span class="c1">// optional; so it does not take too long...</span>
 
-<span class="kd">function</span> <span class="nx">harvest</span> <span class="p">(</span><span class="nx">fruit</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">...</span>  <span class="c1">// decide what to take</span>
-<span class="p">}</span>
-
 <span class="kd">function</span> <span class="nx">harvest_one_row</span> <span class="p">(</span><span class="nx">fruit</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">while</span> <span class="p">(</span><span class="nx">front_is_clear</span><span class="p">())</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">object_here</span><span class="p">()</span> <span class="o">===</span> <span class="nx">fruit</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">harvest</span><span class="p">(</span><span class="nx">fruit</span><span class="p">);</span>
+            <span class="nx">take</span><span class="p">(</span><span class="nx">fruit</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="nx">move</span><span class="p">();</span>
     <span class="p">}</span>
@@ -159,16 +155,19 @@ work for each of these four worlds.</p>
 
 <span class="nx">move</span><span class="p">();</span>
 <span class="nx">selection</span> <span class="o">=</span> <span class="nx">object_here</span><span class="p">();</span>
-<span class="nx">harvest</span><span class="p">(</span><span class="nx">selection</span><span class="p">);</span>
+<span class="nx">take</span><span class="p">(</span><span class="nx">selection</span><span class="p">);</span>
 <span class="nx">go_to_first_row</span><span class="p">();</span>
 <span class="nx">repeat</span><span class="p">(</span><span class="nx">complete_one_row</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
 </pre></div>
 </div>
+<p>There are two new things in the above code which makes is a bit difficult.
+First, we define some functions that take an <strong>argument</strong>, in
+this case <tt class="docutils literal"><span class="pre">fruit</span></tt>.  Second, we test to see if two quantities
+are equal by using three consecutive equal signs: <tt class="docutils literal"><span class="pre">===</span></tt>.</p>
 <div class="topic">
 <p class="topic-title first">Try it!</p>
 <p>Complete the above program so that it works in all four worlds:
-<strong>Harvest&nbsp;5a</strong>, <strong>Harvest&nbsp;5b</strong>, <strong>Harvest&nbsp;5c</strong> and <strong>Harvest&nbsp;5d</strong>.
-Remember <tt class="docutils literal"><span class="pre">take(&quot;token&quot;)</span></tt>, <tt class="docutils literal"><span class="pre">take(&quot;star&quot;)</span></tt>, etc.</p>
+<strong>Harvest&nbsp;5a</strong>, <strong>Harvest&nbsp;5b</strong>, <strong>Harvest&nbsp;5c</strong> and <strong>Harvest&nbsp;5d</strong>.</p>
 </div>
 </div>
 

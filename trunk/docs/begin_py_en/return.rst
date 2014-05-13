@@ -25,40 +25,35 @@ To find out if he is facing north, you can ask Reeborg to do the test
 Getting results from functions
 ------------------------------
 
-Tests like ``is_facing_north()`` are actually Javascript functions. They
+Tests like ``is_facing_north()`` are actually Python functions. They
 differ from other functions like ``turn_left()`` or ``move()`` in that
 they ``return`` a value. Let's start by considering a simple example:
 
 .. topic:: Try this!
 
-    .. code-block:: javascript
+    .. code-block:: py3
 
-        function interrupted_two_steps() {
-            move();
-            return;
-            move();
-        }
+        def interrupted_two_steps():
+            move()
+            return
+            move()
 
-        interrupted_two_steps();
-
-If you use the strict version of Javascript, you will get a warning *Unreachable 'move' after 'return'*
-and see that Reeborg only takes one step. You can get rid of this warning by
-using the "regular" version of Javascript.
+        interrupted_two_steps()
 
 
+As you can see, the return statement prevents the second ``move()`` from
+being executed.
 The ``return`` keyword can actually be accompanied by something else.
 
 .. topic:: Try this!
 
     For example, try the following::
 
-        function north(){
-           return is_facing_north();
-        }
+        def north():
+           return is_facing_north()
 
-        while (!north()) {
-            turn_left();
-        }
+        while not north():
+            turn_left()
 
 As you have tried it, you noticed that ``north()`` was giving the same
 result as ``is_facing_north()``; that is the effect of the ``return``
@@ -73,20 +68,17 @@ back to its original orientation, and tell us what he remembered using
 the ``return`` statement. One thing we need to do: have Reeborg use a
 *variable* to remember its orientation after two left turns::
 
-    function is_facing_south(){
-        var remember;  
-        turn_left();
-        turn_left();
-        remember = is_facing_north();
-        turn_left();
-        turn_left();
-        return remember;
-    }
+    def is_facing_south():
+        turn_left()
+        turn_left()
+        remember = is_facing_north()
+        turn_left()
+        turn_left()
+        return remember
 
-    // now, ensure that Reeborg is facing South
-    while (!is_facing_south()) {
-        turn_left();
-    }
+    # now, ensure that Reeborg is facing South
+    while not is_facing_south():
+        turn_left()
 
 .. topic:: Try it!
 
@@ -114,12 +106,11 @@ How to think about return
 
 Suppose we have the following::
 
-    function some_function () {
+    def some_function ():
         ...
-        return something;
-    }
+        return something
 
-    ... = some_function();
+    ... = some_function()
 
 In this case, the call to ``some_function()`` on the last line gets
 replaced by the value of ``something`` which is what follows the
