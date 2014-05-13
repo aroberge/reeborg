@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>3. Darn bugs! &mdash; Learn Javascript with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Javascript with Reeborg" href="index.html" />
+    <link rel="next" title="4. Reeborg goes to France" href="france.html" />
+    <link rel="prev" title="2. Test driven learning" href="home.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="france.html" title="4. Reeborg goes to France"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="home.html" title="2. Test driven learning"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">3. Darn bugs!</a><ul>
+<li><a class="reference internal" href="#what-is-a-bug">3.1. What is a bug?</a></li>
+<li><a class="reference internal" href="#dealing-with-bugs">3.2. Dealing with bugs</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="home.html"
+                        title="previous chapter">2. Test driven learning</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="france.html"
+                        title="next chapter">4. Reeborg goes to France</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/bugs.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="darn-bugs">
+<h1>3. Darn bugs!<a class="headerlink" href="#darn-bugs" title="Permalink to this headline">¶</a></h1>
+<p>Nobody likes to talk about computer bugs. But, unfortunately, you must
+learn about them and, especially, how to get rid of them.</p>
+<div class="section" id="what-is-a-bug">
+<h2>3.1. What is a bug?<a class="headerlink" href="#what-is-a-bug" title="Permalink to this headline">¶</a></h2>
+<p>The origin of the word <strong>bug</strong> in computer jargon is often attributed to
+an actual incident where a moth was found inside Harvard University&#8217;s
+Mark II computer; apparently this moth had caused the computer to stop
+working. It was found by the team headed by renowned computer scientist,
+mathematician, and young naval officer Grace Murray Hopper, who went on
+to invent the concept of compiler languages in computer programming. Dr.
+Grace Hopper eventually rose in the U.S. naval hierarchy to the rank of
+Rear Admiral.</p>
+<p>The moth was preserved, taped into Hopper&#8217;s log book, as shown below.
+Interestingly, the log book included a note saying, &#8220;First actual case
+of bug being found.&#8221; as you can see.</p>
+<p><img alt="image0" src="_images/first_bug.jpg" /></p>
+<p>Picture adapted from the public archive of the <a class="reference external" href="http://www.history.navy.mil/photos/pers-us/uspers-h/g-hoppr.htm">U.S. Naval Historical Center</a></p>
+<p>Actually, the word bug in a technological context is attributed by the
+Oxford English Dictionary to Thomas Edison. According to the Oxford
+Dictionary, the following text can apparently be found in the March 11,
+1889 edition of the Pall Mall Gazette:</p>
+<blockquote>
+<div>Mr. Edison, I was informed, had been up the two previous nights
+discovering &#8216;a bug&#8217; in his phonograph - an expression for solving a
+difficulty, and implying that some imaginary insect has secreted
+itself inside and is causing all the trouble.</div></blockquote>
+<p>It thus appears that the original &#8216;bug&#8217;, though it was indeed an insect,
+was in fact imaginary.</p>
+<p>Unfortunately, computer bugs, while they are not insects, are also not
+imaginary.</p>
+</div>
+<div class="section" id="dealing-with-bugs">
+<h2>3.2. Dealing with bugs<a class="headerlink" href="#dealing-with-bugs" title="Permalink to this headline">¶</a></h2>
+<p>In computer jargon, a bug is an error that causes a program to behave in
+an unexpected way. If you are writing computer programs, you are going
+to have bugs in them sooner or later - everybody does. Good programmers
+seek to &#8220;remove&#8221; bugs or &#8220;fix&#8221; them as soon as they find that their
+program behaves unexpectedly.</p>
+<p>Not so good programmers state that &#8220;bugs&#8221; are not really bugs but that
+they are &#8220;features&#8221; of their programs. <strong>You</strong> are going to be a good
+programmer, unlike the maker of Reeborg, whose program is littered with
+bugs.</p>
+<ol class="arabic simple">
+<li>Reeborg has an oil leak. Oil leaks are damaging for the environment
+and inconvenient for Reeborg who must replenish its supplies when
+it&#8217;s not busy accomplishing tasks. The maker of Reeborg claims that
+it is a feature, as it enables you to follow Reeborg&#8217;s path, just
+like any programmer can learn to &#8220;trace&#8221; a program. You will learn
+how to fix Reeborg&#8217;s leak later. More advanced techniques to trace bugs,
+like using what is known as a <em>debugger</em>,
+are beyond the scope of these lessons.</li>
+<li>Reeborg&#8217;s steering mechanism is not handled properly by Reeborg&#8217;s
+program: it can only turn left. The maker of Reeborg, once again,
+claims that this is a feature as it present you with an opportunity
+to learn about functions. Reeborg disagrees. You will soon learn how
+to program a <em>workaround solution</em>, enabling Reeborg to turn right,
+although in a wasteful fashion. Much later, you will learn how to
+truly fix Reeborg so that it can turn right just as easily as it can
+turn left.</li>
+<li>Reeborg has a compass, enabling him to determine which direction he
+is facing. Unfortunately, yet again, the program that enables Reeborg
+to get the information from the compass has a bug: it only tells
+Reeborg if he is facing North ... or not. Once again, you will first
+learn how to implement a workaround solution and later how to fix
+permanently Reeborg and get rid of what its maker calls a &#8220;feature&#8221;.</li>
+<li>Reeborg can see if a wall is in front of him, and can also turn its
+head to the right to see if there is a wall there. However, a
+software &#8220;glitch&#8221; (which is another weasel term that software
+manufacturers use to avoid having to say that their product has a
+bug) prevents Reeborg&#8217;s program from properly registering a wall when
+it turns its head left.</li>
+</ol>
+<p>Sometimes to find the cause of bugs, it can help to break the normal
+flow of the program. To this end you may do one or more of the
+following:</p>
+<ol class="arabic simple">
+<li>You can <em>pause</em> a program as it is running by pressing the <strong>pause</strong>
+button. This is similar to what people refer to as
+setting a <em>breakpoint</em> in a computer program</li>
+<li>Instead of actually pressing the pause button, you can type in the
+instruction <tt class="docutils literal"><span class="pre">pause();</span></tt> at any point inside a program and Reeborg
+will pause, awaiting your permission to continue.</li>
+<li>You can <em>step through</em> a program, one instruction at a time, by
+pressing the <em>execute one instruction and pause</em>, or <strong>step</strong> button.</li>
+<li>You can change the speed of execution at any point inside a program;
+I will explain how you can do this later.</li>
+<li>You can have Reeborg write some information at any given point inside
+a program; again, I will explain how you can do this later.</li>
+<li>At the top of Reeborg&#8217;s world appears some information about the position and
+number of tokens (to be explained later) carried by the first few
+robots in the world (yes, you can have multiple robots...).</li>
+<li>Finally, you can stop a program at any point by pressing the <strong>stop</strong>
+button; this unfortunately may not work if you create
+what is known as an infinite loop, outside of Reeborg&#8217;s control. If
+worse comes to worst, you can always just reload the web page.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="france.html" title="4. Reeborg goes to France"
+             >next</a></li>
+        <li class="right" >
+             <a href="home.html" title="2. Test driven learning"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

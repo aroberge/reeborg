@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>20. For a while &mdash; Learn Javascript with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Javascript with Reeborg" href="index.html" />
+    <link rel="next" title="21. Newspaper delivery revisited again" href="newspaper3.html" />
+    <link rel="prev" title="19. Not ... true!" href="not.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="newspaper3.html" title="21. Newspaper delivery revisited again"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="not.html" title="19. Not ... true!"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">20. For a <tt class="docutils literal"><span class="pre">while</span></tt></a><ul>
+<li><a class="reference internal" href="#how-to-think-about-while">20.1. How to think about <tt class="docutils literal"><span class="pre">while</span></tt></a></li>
+<li><a class="reference internal" href="#back-to-hurdles">20.2. Back to hurdles!</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="not.html"
+                        title="previous chapter">19. Not ... true!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="newspaper3.html"
+                        title="next chapter">21. Newspaper delivery revisited again</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/while.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="for-a-while">
+<h1>20. For a <tt class="docutils literal"><span class="pre">while</span></tt><a class="headerlink" href="#for-a-while" title="Permalink to this headline">¶</a></h1>
+<p>When we want to repeat some instructions until a certain condition is
+satisfied, Javascript gives us a simpler way to write this using a new
+keyword: <tt class="docutils literal"><span class="pre">while</span></tt>. For example, suppose we want to have Reeborg keep
+moving until it reaches a wall. Previously, we might have done something
+like the following:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">move_until_wall</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">front_is_clear</span><span class="p">()</span> <span class="p">){</span>
+        <span class="nx">move</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">repeat</span><span class="p">(</span><span class="nx">move_until_wall</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>and hoped that 42 would have been a number of repetitions sufficient to
+reach a wall. Using <tt class="docutils literal"><span class="pre">while</span></tt>, we can write the following:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">while</span> <span class="p">(</span> <span class="nx">front_is_clear</span><span class="p">()</span> <span class="p">){</span>
+    <span class="nx">move</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>That&#8217;s it! No more guessing and asking something to be performed a large
+number of time just to ensure that it will be enough.</p>
+<div class="section" id="how-to-think-about-while">
+<h2>20.1. How to think about <tt class="docutils literal"><span class="pre">while</span></tt><a class="headerlink" href="#how-to-think-about-while" title="Permalink to this headline">¶</a></h2>
+<p>Suppose we have the following:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">while</span> <span class="p">(</span> <span class="nx">condition</span><span class="p">()</span> <span class="p">){</span>
+    <span class="nx">do_1</span><span class="p">();</span>
+    <span class="nx">do_2</span><span class="p">();</span>
+    <span class="nx">do_3</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can think of this as being equivalent to:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="nx">condition</span><span class="p">()</span> <span class="p">){</span>
+    <span class="nx">do_1</span><span class="p">();</span>
+    <span class="nx">do_2</span><span class="p">();</span>
+    <span class="nx">do_3</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nx">condition</span><span class="p">()</span> <span class="p">){</span>
+    <span class="nx">do_1</span><span class="p">();</span>
+    <span class="nx">do_2</span><span class="p">();</span>
+    <span class="nx">do_3</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nx">condition</span><span class="p">()</span> <span class="p">){</span>
+    <span class="nx">do_1</span><span class="p">();</span>
+    <span class="nx">do_2</span><span class="p">();</span>
+    <span class="nx">do_3</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nx">condition</span><span class="p">()</span> <span class="p">){</span>
+    <span class="nx">do_1</span><span class="p">();</span>
+    <span class="nx">do_2</span><span class="p">();</span>
+    <span class="nx">do_3</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="p">....</span>
+</pre></div>
+</div>
+<p>which is to say that the block of code is repeated as long as the
+condition remains <tt class="docutils literal"><span class="pre">true</span></tt>. So, what happens if the condition is always
+<tt class="docutils literal"><span class="pre">true</span></tt>? The block of code is repeated for ever and the program never
+ends.</p>
+<p>This is bad.</p>
+<p>Instead of using this description of repeated blocks of code,
+programmers describe this as a <strong>loop</strong>: that is, you start with the
+first instruction (<tt class="docutils literal"><span class="pre">do_1();</span></tt>) inside the code block, continue with all
+the others until you reach the last instruction (<tt class="docutils literal"><span class="pre">do_3();</span></tt>), then
+<strong>*loop* back</strong>, or go back, to the test just before the beginning of
+the block and see if the condition is satisfied; if not, you repeat once
+again the cycle. If the condition never becomes <tt class="docutils literal"><span class="pre">false</span></tt>, you keep
+repeating and end up with an <strong>infinite loop</strong>.</p>
+<p>Conclusion: you want to make sure that the condition will become
+<tt class="docutils literal"><span class="pre">false</span></tt> at some point.</p>
+</div>
+<div class="section" id="back-to-hurdles">
+<h2>20.2. Back to hurdles!<a class="headerlink" href="#back-to-hurdles" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s go back to <strong>Hurdles&nbsp;1</strong>, <strong>Hurdles&nbsp;2</strong> and <strong>Hurdles&nbsp;3</strong>, and write a single
+program, using <tt class="docutils literal"><span class="pre">while</span></tt>, and without using <tt class="docutils literal"><span class="pre">repeat()</span></tt> which works in
+all three cases. Your program might look like the following:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">jump_over_hurdle</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// suitable definition</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">run_or_jump</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// suitable definition</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span> <span class="o">!</span><span class="nx">at_goal</span><span class="p">()</span> <span class="p">){</span>
+    <span class="nx">run_or_jump</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>That&#8217;s it! No more arbitrary repetitions! From now on, you should only
+use <tt class="docutils literal"><span class="pre">repeat()</span></tt> when you know <strong>exactly</strong> how many times a given
+function must be repeated.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="newspaper3.html" title="21. Newspaper delivery revisited again"
+             >next</a></li>
+        <li class="right" >
+             <a href="not.html" title="19. Not ... true!"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

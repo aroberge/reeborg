@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>5. A token of appreciation &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="index.html" />
+    <link rel="next" title="6. Rule number 2" href="rule2.html" />
+    <link rel="prev" title="4. Reeborg goes to France" href="france.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="rule2.html" title="6. Rule number 2"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="france.html" title="4. Reeborg goes to France"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">5. A token of appreciation</a><ul>
+<li><a class="reference internal" href="#being-more-specific">5.1. Being more specific</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="france.html"
+                        title="previous chapter">4. Reeborg goes to France</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="rule2.html"
+                        title="next chapter">6. Rule number 2</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tokens1.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="a-token-of-appreciation">
+<h1>5. A token of appreciation<a class="headerlink" href="#a-token-of-appreciation" title="Permalink to this headline">¶</a></h1>
+<p>Reeborg likes to collect tokens. When he finds one on the ground, most
+often he takes it; sometimes he puts one down as well. The commands for
+having him do so can be simply written as follows:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">take</span><span class="p">()</span>
+<span class="n">put</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Select world <strong>Tokens&nbsp;1</strong>. There is a token right next to Reeborg. Note the
+number 1 inside it: the number will change depending on the number of
+tokens at that location. Next square, we see the outline of a token,
+with the number 1 outside it. This tells us that we should have Reeborg
+put one token at that location. Once this is done, we can see that it
+has been done correctly by comparing the number of tokens at that
+location (number inside the gold coloured token) and the expected
+number.</p>
+<div class="topic">
+<p class="topic-title first">Try it!</p>
+<p>Write a program to accomplish this task. Can your program also work,
+without any changes for world <strong>Tokens&nbsp;2</strong>? The answer should be no, for now
+... but, later, you will learn how to write a single program that can
+work properly for both worlds.</p>
+</div>
+<div class="topic">
+<p class="topic-title first">Try something else!</p>
+<p>What happens if Reeborg attempts to put down a token when he does not
+carry one? What happens if Reeborg attempts to take a token where there
+is none to be found?</p>
+</div>
+<div class="section" id="being-more-specific">
+<h2>5.1. Being more specific<a class="headerlink" href="#being-more-specific" title="Permalink to this headline">¶</a></h2>
+<p>When you ask Reeborg to <tt class="docutils literal"><span class="pre">take()</span></tt> or <tt class="docutils literal"><span class="pre">put()</span></tt> something, he knows you
+are taking about tokens, his favourite objects. However, there are other
+objects that exist in Reeborg&#8217;s world. So, if you want to be more
+specific, you can write instead:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+<span class="n">put</span><span class="p">(</span><span class="s">&#39;token&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the word <strong>token</strong> is surrounded by quotes, either single or
+double quotes. Try it out!</p>
+<div class="topic">
+<p class="topic-title first">Try it!</p>
+<p>Write a program to solve world <strong>Tokens 2</strong> and using <tt class="docutils literal"><span class="pre">take(&quot;token&quot;)</span></tt>
+instead of simply <tt class="docutils literal"><span class="pre">take()</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="rule2.html" title="6. Rule number 2"
+             >next</a></li>
+        <li class="right" >
+             <a href="france.html" title="4. Reeborg goes to France"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

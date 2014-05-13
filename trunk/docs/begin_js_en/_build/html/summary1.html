@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>7. Summary &mdash; Learn Javascript with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Javascript with Reeborg" href="index.html" />
+    <link rel="next" title="8. Introduction to the challenges" href="challenges1.html" />
+    <link rel="prev" title="6. Rule number 2" href="rule2.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="challenges1.html" title="8. Introduction to the challenges"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="rule2.html" title="6. Rule number 2"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rule2.html"
+                        title="previous chapter">6. Rule number 2</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="challenges1.html"
+                        title="next chapter">8. Introduction to the challenges</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/summary1.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="summary">
+<h1>7. Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h1>
+<p>It is time to review what you have learned so far. In addition to
+getting familiar with the environment on this site, you have learned the
+first two rules for learning about programming.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p><strong>Rule # 1</strong></p>
+<blockquote>
+<div>Learning about computer programming is like learning to play a
+musical instrument: you have to <strong>do it</strong>, not simply read about it.</div></blockquote>
+<p><strong>Rule # 2</strong></p>
+<blockquote class="last">
+<div>Write your computer programs to make them easy for <strong>people</strong> to
+read and understand.</div></blockquote>
+</div>
+<p>Related to Rule # 2, we have seen how we can include <em>comments</em> as a
+mean to communicate some information to other humans, information that
+will be ignored by the computer.</p>
+<p>While I have not mentioned this explicitly, you have also learned that a
+program is a series of instructions. You have seen a total of 5
+different instructions:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">move();</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">turn_left();</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">take();</span></tt> equivalent to <tt class="docutils literal"><span class="pre">take(&quot;token&quot;);</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">put();</span></tt> equivalent to <tt class="docutils literal"><span class="pre">put(&quot;token&quot;);</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">pause();</span></tt></li>
+</ul>
+<p>You may or may not have used the <tt class="docutils literal"><span class="pre">pause()</span></tt> instruction which I only
+mentioned in passing when talking about bugs. If you have not done so,
+you might want to write a short program that includes it just to see
+what happens; make sure that the <tt class="docutils literal"><span class="pre">pause()</span></tt> instruction is neither the
+first instruction nor the last one so that you can plainly see what it does.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="challenges1.html" title="8. Introduction to the challenges"
+             >next</a></li>
+        <li class="right" >
+             <a href="rule2.html" title="6. Rule number 2"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

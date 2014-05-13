@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>39. For loops &mdash; Learn Javascript with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Javascript with Reeborg" href="index.html" />
+    <link rel="next" title="40. A better repeat()" href="better_repeat.html" />
+    <link rel="prev" title="38. While counting" href="while_num.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="better_repeat.html" title="40. A better repeat()"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="while_num.html" title="38. While counting"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">39. For loops</a><ul>
+<li><a class="reference internal" href="#reeborg-s-repeat">39.1. Reeborg&#8217;s <tt class="docutils literal"><span class="pre">repeat()</span></tt></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="while_num.html"
+                        title="previous chapter">38. While counting</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="better_repeat.html"
+                        title="next chapter">40. A better <strong>repeat()</strong></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/for.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="for-loops">
+<h1>39. For loops<a class="headerlink" href="#for-loops" title="Permalink to this headline">¶</a></h1>
+<p>As we have seen, <tt class="docutils literal"><span class="pre">while</span></tt> loops can be used with numbers using the
+following pattern:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">initial_value</span><span class="p">;</span>  <span class="c1">// initialization</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="nx">max_value</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// condition to end the loop</span>
+    <span class="p">...</span>
+    <span class="nx">n</span><span class="o">++</span><span class="p">;</span>  <span class="c1">// increment</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Another way to write <strong>exactly the same program meaning</strong> is to use a
+<tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">initial_value</span><span class="p">;</span> <span class="nx">n</span> <span class="o">&lt;</span> <span class="nx">max_value</span><span class="p">;</span> <span class="nx">n</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Thus, instead of having the variable initialization, the condition test
+for ending the loop and the increment steps on three different lines,
+they appear on the same line:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="nx">initialization</span><span class="p">;</span> <span class="nx">condition</span><span class="p">;</span> <span class="nx">increment</span><span class="p">)</span> <span class="p">{...}</span>
+</pre></div>
+</div>
+<p>However, <tt class="docutils literal"><span class="pre">for</span></tt> loops and <tt class="docutils literal"><span class="pre">while</span></tt> loops are completely equivalent.
+Deciding which type of loop to choose is usually done based on how much
+easier it makes it to read and understand a program: for programs that
+use numerical values that are incremented each steps until a specific
+value is reached, <tt class="docutils literal"><span class="pre">for</span></tt> loops are often preferred because the three
+steps (initialization, condition, increment) can be seen at a glance.
+Note that any one (or more) of these three steps can be omitted in a
+<tt class="docutils literal"><span class="pre">for</span></tt> loop. For example, one could write:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span> <span class="p">;</span> <span class="o">!</span><span class="nx">front_is_clear</span><span class="p">();</span> <span class="p">)</span> <span class="p">{...}</span>
+</pre></div>
+</div>
+<p>instead of:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">while</span> <span class="p">(</span> <span class="o">!</span><span class="nx">front_is_clear</span><span class="p">()</span> <span class="p">)</span> <span class="p">{...}</span>
+</pre></div>
+</div>
+<p>However, in this case, the <tt class="docutils literal"><span class="pre">while</span></tt> loop syntax is considered by most
+people to be easier to read.</p>
+<p>Using the <tt class="docutils literal"><span class="pre">for</span></tt> loop syntax, we can have a different definition for a
+<tt class="docutils literal"><span class="pre">repeat</span></tt>-like function:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">my_repeat</span><span class="p">(</span><span class="nx">some_function</span><span class="p">,</span> <span class="nx">max_value</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">n</span> <span class="o">&lt;</span> <span class="nx">max_value</span><span class="p">;</span> <span class="nx">n</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">some_function</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">my_repeat</span><span class="p">(</span><span class="nx">move</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span>
+<span class="nx">my_repeat</span><span class="p">(</span><span class="nx">turn_left</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Try it!</p>
+<p>Try the above program with world <strong>Around 1</strong>.</p>
+</div>
+<div class="section" id="reeborg-s-repeat">
+<h2>39.1. Reeborg&#8217;s <tt class="docutils literal"><span class="pre">repeat()</span></tt><a class="headerlink" href="#reeborg-s-repeat" title="Permalink to this headline">¶</a></h2>
+<p>Open Reeborg&#8217;s diary and have Reeborg execute the single line program:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">view_source</span><span class="p">(</span> <span class="nx">repeat</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>to find out which definition Reeborg uses for the <tt class="docutils literal"><span class="pre">repeat()</span></tt> function.</p>
+<p>Note that you could also use:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">write</span><span class="p">(</span> <span class="nx">repeat</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>but the code would not be as nicely formatted!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="better_repeat.html" title="40. A better repeat()"
+             >next</a></li>
+        <li class="right" >
+             <a href="while_num.html" title="38. While counting"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

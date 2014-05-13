@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>37. Increment &mdash; Learn Javascript with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Javascript with Reeborg" href="index.html" />
+    <link rel="next" title="38. While counting" href="while_num.html" />
+    <link rel="prev" title="36. Reeborg’s diary" href="diary.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="while_num.html" title="38. While counting"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="diary.html" title="36. Reeborg’s diary"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">37. Increment</a><ul>
+<li><a class="reference internal" href="#counting-steps">37.1. Counting steps</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="diary.html"
+                        title="previous chapter">36. Reeborg&#8217;s diary</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="while_num.html"
+                        title="next chapter">38. While counting</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/increment.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="increment">
+<h1>37. Increment<a class="headerlink" href="#increment" title="Permalink to this headline">¶</a></h1>
+<p>Make sure you have the <strong>Editor</strong>, the <strong>World</strong> and the <strong>Diary</strong>
+panels open. Select world <strong>Around&nbsp;1</strong>.</p>
+<p>Suppose we wanted to count the number of steps taken by Reeborg to
+reach the wall on the right from its starting position. One way to do
+this is to use a variable which I will name <tt class="docutils literal"><span class="pre">number_of_steps</span></tt> and give
+it an initial value of 0. Then, each time that Reeborg takes a step, I
+will add 1 to the <em>previous</em> value of <tt class="docutils literal"><span class="pre">number_of_steps</span></tt>. This is done
+in Javascript using the following syntax:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">number_of_steps</span> <span class="o">=</span> <span class="nx">number_of_steps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Do not think of this as a mathematical equation!</strong> Clearly, if this
+were a mathematical equation, the variable on the left hand side of the
+&#8220;equal sign&#8221; would not have the same value as the terms on the right
+hand side. However, in Javascript, and many other programming languages,
+&#8220;=&#8221; is known as the <strong>assignment operator</strong>: Javascript determines the
+value on the right hand side of &#8220;=&#8221; and use the variable name on the
+left hand side as a way to remember that value. Thus, if we have:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">n</span><span class="p">;</span>
+<span class="nx">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">n</span> <span class="o">=</span> <span class="nx">n</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">write</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>  <span class="c1">// outputs 4</span>
+</pre></div>
+</div>
+<p>it is equivalent to:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">n</span><span class="p">;</span>
+<span class="nx">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">n</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>  <span class="c1">// notice how we use &quot;1&quot; instead of &quot;n&quot;</span>
+<span class="nx">write</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>  <span class="c1">// outputs 4</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Try it!</p>
+<p>Try to run the above code and see what is printed in Reeborg&#8217;s Diary.</p>
+</div>
+<p>Because this type of operation, known as <em>incrementing</em> a variable
+occurs so often, Javascript, and many other languages, allow the use of
+the following shortened notation, using the <tt class="docutils literal"><span class="pre">+=</span></tt> operator:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">n</span><span class="p">;</span>
+<span class="nx">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">n</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">write</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>  <span class="c1">// outputs 4</span>
+</pre></div>
+</div>
+<p>If the value by which we want to <em>increment</em> the variable is 1, we can
+even use a shorter expression:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">n</span><span class="p">;</span>
+<span class="nx">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">n</span><span class="o">++</span><span class="p">;</span>
+<span class="nx">write</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>  <span class="c1">// outputs 2</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Try it!</p>
+<p>Try running programs like the ones above to make sure you understand
+these ways to increment the numerical value of a variable.</p>
+</div>
+<div class="section" id="counting-steps">
+<h2>37.1. Counting steps<a class="headerlink" href="#counting-steps" title="Permalink to this headline">¶</a></h2>
+<p>We are now ready to write a program to have Reeborg count the number of
+steps using world <strong>Around&nbsp;1</strong>.</p>
+<div class="topic">
+<p class="topic-title first">Try it!</p>
+<p>Copy the code below in the editor to run it. Ideally, you should then modify it to
+try the other ways we have seen and that can be used to <em>increment</em> a
+variable:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">number_of_steps</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">move_and_count_steps</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">move</span><span class="p">();</span>
+    <span class="nx">number_of_steps</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">front_is_clear</span><span class="p">()){</span>
+    <span class="nx">move_and_count_steps</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">write</span><span class="p">(</span><span class="nx">number_of_steps</span><span class="p">);</span>  <span class="c1">// should be 9</span>
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title first">Your turn!</p>
+<p>Write a program so that Reeborg goes all the way around world <strong>Around&nbsp;1</strong> and have him
+count the number of steps <strong>and</strong> the number of left turns, writing them
+in his diary at the end. You should start by putting a token down to
+mark what will be the end position.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="while_num.html" title="38. While counting"
+             >next</a></li>
+        <li class="right" >
+             <a href="diary.html" title="36. Reeborg’s diary"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

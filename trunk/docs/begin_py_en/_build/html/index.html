@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>Learn Python with Reeborg! &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="#" />
+    <link rel="next" title="1. First program" href="move.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="move.html" title="1. First program"
+             accesskey="N">next</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="#">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Next topic</h4>
+  <p class="topless"><a href="move.html"
+                        title="next chapter">1. First program</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="learn-python-with-reeborg">
+<h1>Learn Python with Reeborg!<a class="headerlink" href="#learn-python-with-reeborg" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="move.html">1. First program</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="move.html#dealing-with-errors">1.1. Dealing with eRRoRs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="move.html#rule-1">1.2. Rule #1</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="home.html">2. Test driven learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="home.html#making-a-left-term">2.1. Making a left term</a></li>
+<li class="toctree-l2"><a class="reference internal" href="home.html#a-different-view">2.2. A different view</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">3. Darn bugs!</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bugs.html#what-is-a-bug">3.1. What is a bug?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bugs.html#dealing-with-bugs">3.2. Dealing with bugs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="france.html">4. Reeborg goes to France</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="france.html#valid-names">4.1. Valid names</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tokens1.html">5. A token of appreciation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tokens1.html#being-more-specific">5.1. Being more specific</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rule2.html">6. Rule number 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rule2.html#comments">6.1. Comments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="summary1.html">7. Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="challenges1.html">8. Introduction to the challenges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="challenges1.html#important-information-about-saving-your-work">8.1. Important information about saving your work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges1.html#finding-the-center">8.2. Finding the center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges1.html#around-the-world">8.3. Around the world</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges1.html#lost-in-a-maze">8.4. Lost in a maze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges1.html#jumping-over-hurdles">8.5. Jumping over hurdles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges1.html#harvest-time">8.6. Harvest time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges1.html#stormy-weather">8.7. Stormy weather</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges1.html#summary">8.8. Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="newspaper1.html">9. Newspaper delivery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rule3.html">10. Rule number 3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rule3.html#three-lefts-can-make-a-right">10.1. Three lefts can make a right</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rule3.html#defining-functions">10.2. Defining functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rule3.html#how-to-think-about-def">10.3. How to think about <tt class="docutils literal"><span class="pre">def</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="turn_around.html">11. Turn around</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="turn_around.html#back-to-turn-right">11.1. Back to <tt class="docutils literal"><span class="pre">turn_right()</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">12. Using the Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="library.html#reading-exercise">12.1. Reading exercise</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="newspaper2.html">13. Newspaper delivery revisited</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repeat.html">14. Repeat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="if.html">15. If only ...</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="if.html#python-keyword-if">15.1. Python keyword: <tt class="docutils literal"><span class="pre">if</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="if.html#if-statement">15.2. <tt class="docutils literal"><span class="pre">if</span></tt> statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="if.html#how-to-think-of-if-statements">15.3. How to think of <tt class="docutils literal"><span class="pre">if</span></tt> statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="if.html#more-useful-that-you-might-think">15.4. More useful that you might think...</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="at_goal.html">16. Finding the right spot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="at_goal.html#another-condition">16.1. Another condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="at_goal.html#and-now-something-different">16.2. And now, something different</a></li>
+<li class="toctree-l2"><a class="reference internal" href="at_goal.html#hurdles-again">16.3. Hurdles again!</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="else.html">17. Listen to me ... or else ....</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="else.html#two-choices">17.1. Two choices...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="else.html#how-to-think-about-if-else">17.2. How to think about <tt class="docutils literal"><span class="pre">if/else</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hurdles3.html">18. Hurdles yet again!</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hurdles3.html#how-to-think-of-if-elif-else-statements">18.1. How to think of <tt class="docutils literal"><span class="pre">if/elif/</span> <span class="pre">...</span> <span class="pre">/else</span></tt> statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hurdles3.html#back-to-hurdles">18.2. Back to hurdles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="not.html">19. Not ... true!</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="not.html#time-to-be-negative">19.1. Time to be negative.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="not.html#please-make-reeborg-happy">19.2. Please, make Reeborg happy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="while.html">20. For a <tt class="docutils literal"><span class="pre">while</span></tt></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="while.html#how-to-think-about-while">20.1. How to think about <tt class="docutils literal"><span class="pre">while</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="while.html#back-to-hurdles">20.2. Back to hurdles!</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="newspaper3.html">21. Newspaper delivery revisited again</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refine1.html">22. Refinements: part 1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refine1.html#a-simple-problem">22.1. A simple problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refine2.html">23. Refinements: part 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refine2.html#not-so-simple-world">23.1. Not so simple world</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refine3.html">24. Refinements: part 3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refine3.html#more-complicated-world">24.1. More complicated world</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refine4.html">25. Refinements: part 4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refine4.html#refinements-part-5">26. Refinements: part 5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rule4.html">27. Rule number 4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rule4.html#conclusion">27.1. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="surprises.html">28. Surprises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="challenges2.html">29. Revisiting some challenges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="challenges2.html#before-harvesting">29.1. Before harvesting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges2.html#ready-to-harvest">29.2. Ready to harvest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges2.html#stormy-weather">29.3. Stormy weather</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges2.html#reeborg-s-friend-s-turn">29.4. Reeborg&#8217;s friend&#8217;s turn.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges2.html#after-the-storm">29.5. After the storm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges2.html#more-yard-work">29.6. More yard work!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="challenges2.html#finding-the-center">29.7. Finding the center</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="recursion.html">30. Recursion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recursion2.html">31. Tricky recursion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="recursion2.html#small-change">31.1. Small change...</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="recursion3.html">32. More recursion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="recursion3.html#another-test">32.1. Another test</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="recursion4.html">33. Counting on recursion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="return.html">34. Return</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="return.html#getting-results-from-functions">34.1. Getting results from functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="return.html#how-to-think-about-return">34.2. How to think about return</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="harvest3.html">35. More harvesting challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diary.html">36. Reeborg&#8217;s diary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="diary.html#writing-text">36.1. Writing text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diary.html#reeborg-knows-mathematics">36.2. Reeborg knows mathematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diary.html#using-variables">36.3. Using variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diary.html#a-word-of-caution">36.4. A word of caution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="increment.html">37. Increment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="increment.html#counting-steps">37.1. Counting steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="while_num.html">38. While counting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="while_num.html#defining-repeat">38.1. Defining <tt class="docutils literal"><span class="pre">repeat()</span></tt>?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="while_num.html#scope">38.2. Scope</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="for.html">39. For loops</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="for.html#reeborg-s-repeat">39.1. Reeborg&#8217;s <tt class="docutils literal"><span class="pre">repeat()</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="better_repeat.html">40. A better <strong>repeat()</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="better_repeat.html#extending-this-idea">40.1. Extending this idea</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="other_repeat.html">41. An other way to repeat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="other_repeat.html#having-a-default-behaviour">41.1. Having a default behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">42. Conclusion</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="move.html" title="1. First program"
+             >next</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="#">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
