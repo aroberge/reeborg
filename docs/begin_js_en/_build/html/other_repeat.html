@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>41. An other way to repeat &mdash; Learn Javascript with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Javascript with Reeborg" href="index.html" />
+    <link rel="next" title="42. Conclusion" href="conclusion.html" />
+    <link rel="prev" title="40. A better repeat()" href="better_repeat.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="conclusion.html" title="42. Conclusion"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="better_repeat.html" title="40. A better repeat()"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">41. An other way to repeat</a><ul>
+<li><a class="reference internal" href="#having-a-default-behaviour">41.1. Having a default behaviour</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="better_repeat.html"
+                        title="previous chapter">40. A better <strong>repeat()</strong></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="conclusion.html"
+                        title="next chapter">42. Conclusion</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/other_repeat.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="an-other-way-to-repeat">
+<h1>41. An other way to repeat<a class="headerlink" href="#an-other-way-to-repeat" title="Permalink to this headline">¶</a></h1>
+<p>Here we present a different way to repeat a given instruction, one that
+is more specific to the instruction that we want to repeat. Suppose we
+want to <em>turn right</em> or <em>turn around</em> but want to have a single function
+name to remember. One way to do it is as follows:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">turn</span><span class="p">(</span><span class="nx">nb</span><span class="p">){</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">nb</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">turn_left</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Using this definition, <tt class="docutils literal"><span class="pre">turn_right()</span></tt> would be written as <tt class="docutils literal"><span class="pre">turn(3)</span></tt>
+and <tt class="docutils literal"><span class="pre">turn_around()</span></tt> would be written as <tt class="docutils literal"><span class="pre">turn(2)</span></tt>. Try it!</p>
+<div class="section" id="having-a-default-behaviour">
+<h2>41.1. Having a default behaviour<a class="headerlink" href="#having-a-default-behaviour" title="Permalink to this headline">¶</a></h2>
+<p>Remember how <tt class="docutils literal"><span class="pre">take()</span></tt> and <tt class="docutils literal"><span class="pre">take(&quot;token&quot;)</span></tt> are equivalent? Would it
+be nice to have something similar for <tt class="docutils literal"><span class="pre">turn()</span></tt> where <tt class="docutils literal"><span class="pre">turn()</span></tt>, with
+no argument, would be equivalent to a single <tt class="docutils literal"><span class="pre">turn_left()</span></tt>
+instruction?</p>
+<p>This can be accomplished as follows:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">turn</span><span class="p">(</span><span class="nx">nb</span><span class="p">){</span>
+    <span class="nx">nb</span> <span class="o">=</span> <span class="nx">nb</span> <span class="o">||</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">nb</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">turn_left</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the code above, we make use of the <strong>logical OR operator</strong>, <tt class="docutils literal"><span class="pre">||</span></tt>,
+which we will see in more details later. Consider this as a simple
+example to whet your appetite. A quick explanation is as follows:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">a</span> <span class="pre">||</span> <span class="pre">b</span></tt> is equal to <tt class="docutils literal"><span class="pre">b</span></tt> if <tt class="docutils literal"><span class="pre">a</span></tt> is <tt class="docutils literal"><span class="pre">false</span></tt> or <tt class="docutils literal"><span class="pre">undefined</span></tt>.</li>
+<li>If the function <em>argument</em> is not specified, it is <tt class="docutils literal"><span class="pre">undefined</span></tt>;
+when this happens, <tt class="docutils literal"><span class="pre">nb</span></tt> take the value 1.</li>
+<li>Note that, if a number less than 1 or a string is passed as an
+argument, the <tt class="docutils literal"><span class="pre">for</span></tt> loop is skipped and Reeborg does not turn.</li>
+</ul>
+<div class="topic">
+<p class="topic-title first">Try it!</p>
+<p>Write programs that make use of the code samples above.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="conclusion.html" title="42. Conclusion"
+             >next</a></li>
+        <li class="right" >
+             <a href="better_repeat.html" title="40. A better repeat()"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

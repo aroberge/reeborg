@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>28. Surprises &mdash; Learn Javascript with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Javascript with Reeborg" href="index.html" />
+    <link rel="next" title="29. Revisiting some challenges" href="challenges2.html" />
+    <link rel="prev" title="27. Rule number 4" href="rule4.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="challenges2.html" title="29. Revisiting some challenges"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="rule4.html" title="27. Rule number 4"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rule4.html"
+                        title="previous chapter">27. Rule number 4</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="challenges2.html"
+                        title="next chapter">29. Revisiting some challenges</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/surprises.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="surprises">
+<h1>28. Surprises<a class="headerlink" href="#surprises" title="Permalink to this headline">¶</a></h1>
+<p>Change the program we just wrote so that:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">mark_starting_point_and_move</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span> <span class="o">!</span><span class="nx">found_starting_point</span><span class="p">()</span> <span class="p">){</span>
+    <span class="nx">follow_right_wall</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>becomes:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">while</span> <span class="p">(</span> <span class="o">!</span><span class="nx">at_goal</span><span class="p">()</span> <span class="p">){</span>
+    <span class="nx">follow_right_wall</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Try it!</p>
+<p>Run this program with the following hurdle races <strong>Hurdles&nbsp;1</strong>,
+<strong>Hurdles&nbsp;2</strong> and <strong>Hurdles&nbsp;3</strong>.</p>
+</div>
+<p>You will find that this program, which is quite
+different than the ones you had written before to solve the hurdles
+challenges, works just as well.</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<p>Now, try it with <strong>Hurdles&nbsp;4</strong>.</p>
+</div>
+<p>Surprise! It works whereas the previous program did not! Can you understand why
+it works?</p>
+<div class="topic">
+<p class="topic-title first">Try these!</p>
+<p>Run the same modified program again with both <strong>Maze&nbsp;1</strong> or <strong>Maze&nbsp;2</strong>.</p>
+</div>
+<p>As you will see, this simple program can find the exit to the mazes!</p>
+<p>Amazing!</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="challenges2.html" title="29. Revisiting some challenges"
+             >next</a></li>
+        <li class="right" >
+             <a href="rule4.html" title="27. Rule number 4"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>30. Recursion &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="index.html" />
+    <link rel="next" title="31. Tricky recursion" href="recursion2.html" />
+    <link rel="prev" title="29. Revisiting some challenges" href="challenges2.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="recursion2.html" title="31. Tricky recursion"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="challenges2.html" title="29. Revisiting some challenges"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="challenges2.html"
+                        title="previous chapter">29. Revisiting some challenges</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="recursion2.html"
+                        title="next chapter">31. Tricky recursion</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/recursion.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="recursion">
+<h1>30. Recursion<a class="headerlink" href="#recursion" title="Permalink to this headline">¶</a></h1>
+<p>If you look up on the Internet for a definition of recursion, you will
+often see something like the following:</p>
+<dl class="docutils">
+<dt><strong>Recursion</strong></dt>
+<dd>See recursion.</dd>
+</dl>
+<p>This is wrong, wrong, <em>wrong</em>, <strong>wrong</strong> .... WRONG!</p>
+<p>If you were a computer program, trying to parse the above definition,
+you would get stuck in an infinite loop. Since you are reading this, it
+means that either you did not behave like a computer and got stuck in an
+infinite loop OR that you did not read everything here and, in
+particular, skipped over the above definition.</p>
+<p>Recursion is sometimes described as being difficult to grasp. Do not
+believe this. If you understand loops, you can understand recursion.</p>
+<p>So, what is recursion you ask?...</p>
+<p>Recursion is the process of repeating items in a self-similar way. For
+computer programs, it means repeating instructions - like in a loop.
+And, like in a loop, we do not want to get stuck forever.</p>
+<p>The simplest example is that of a single recursive function, that is a
+function that calls itself.:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">recursive</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">completed_task</span><span class="p">():</span>
+        <span class="o">...</span>
+        <span class="n">recursive</span><span class="p">()</span>  <span class="c"># the same function is called ...</span>
+</pre></div>
+</div>
+<p>Let&#8217;s consider a real program for Reeborg to execute.</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<p>Select <strong>Home&nbsp;1</strong> and have Reeborg do the following:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">go_home</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+        <span class="n">move</span><span class="p">()</span>
+        <span class="n">go_home</span><span class="p">()</span>
+
+<span class="c"># now do it!</span>
+<span class="n">go_home</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Once you have tried the above and tried to understood it, go to the
+next lesson where we will review it and consider a slightly trickier example.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="recursion2.html" title="31. Tricky recursion"
+             >next</a></li>
+        <li class="right" >
+             <a href="challenges2.html" title="29. Revisiting some challenges"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

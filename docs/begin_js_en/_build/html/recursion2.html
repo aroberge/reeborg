@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>31. Tricky recursion &mdash; Learn Javascript with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Javascript with Reeborg" href="index.html" />
+    <link rel="next" title="32. More recursion" href="recursion3.html" />
+    <link rel="prev" title="30. Recursion" href="recursion.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="recursion3.html" title="32. More recursion"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="recursion.html" title="30. Recursion"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">31. Tricky recursion</a><ul>
+<li><a class="reference internal" href="#small-change">31.1. Small change...</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="recursion.html"
+                        title="previous chapter">30. Recursion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="recursion3.html"
+                        title="next chapter">32. More recursion</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/recursion2.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tricky-recursion">
+<h1>31. Tricky recursion<a class="headerlink" href="#tricky-recursion" title="Permalink to this headline">¶</a></h1>
+<p>Before considering a slightly more complex example, let&#8217;s review the
+preceding example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">go_home</span><span class="p">(){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">at_goal</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">move</span><span class="p">();</span>
+        <span class="nx">go_home</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// now do it!</span>
+<span class="nx">go_home</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Now, remember how I explained that when a function is called, we can
+think of it as replacing the function call by the body of that function.
+By this, I mean that this instruction:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">at_goal</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nx">move</span><span class="p">();</span>
+    <span class="nx">go_home</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let&#8217;s assume that the first time we execute these instructions,
+<tt class="docutils literal"><span class="pre">at_goal</span></tt> is <tt class="docutils literal"><span class="pre">false</span></tt> and hence <tt class="docutils literal"><span class="pre">!at_goal()</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> ... like
+it was for world <strong>Home&nbsp;1</strong>. In this case, the above call to <tt class="docutils literal"><span class="pre">go_home()</span></tt>
+is also executed, and the above code is equivalent to:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">move</span><span class="p">();</span>
+<span class="nx">go_home</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>We can now replace the call to <tt class="docutils literal"><span class="pre">go_home()</span></tt> by its definition:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">move</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">at_goal</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nx">move</span><span class="p">();</span>
+    <span class="nx">go_home</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>and could, in theory, keep going like this forever, always replacing the
+call to <tt class="docutils literal"><span class="pre">go_home()</span></tt> by its definition.</p>
+<p>However, we don&#8217;t want that as we want things to end eventually ...
+which they do fortunately for world <strong>Home&nbsp;1</strong>. In that case after a
+second <tt class="docutils literal"><span class="pre">move()</span></tt>, <tt class="docutils literal"><span class="pre">at_goal()</span></tt> would be true and and the <tt class="docutils literal"><span class="pre">if</span></tt> statement
+would be ignored.  Thus, the code in this case is equivalent to:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">move</span><span class="p">();</span>
+    <span class="nx">move</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><strong>It is really important that you understand the above explanation
+before going any further.</strong> So, make sure to read it again if necessary
+as we are going to consider a slightly trickier example.</p>
+<div class="section" id="small-change">
+<h2>31.1. Small change...<a class="headerlink" href="#small-change" title="Permalink to this headline">¶</a></h2>
+<p>Consider the program below:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">go_home</span><span class="p">(){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">at_goal</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">move</span><span class="p">();</span>
+        <span class="nx">go_home</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="nx">turn_left</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// now do it!</span>
+<span class="nx">go_home</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Try to figure out what it does before trying to have Reeborg execute it.
+An explanation follows in the next lesson.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="recursion3.html" title="32. More recursion"
+             >next</a></li>
+        <li class="right" >
+             <a href="recursion.html" title="30. Recursion"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

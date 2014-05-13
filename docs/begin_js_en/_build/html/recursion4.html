@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>33. Counting on recursion &mdash; Learn Javascript with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Javascript with Reeborg" href="index.html" />
+    <link rel="next" title="34. Return" href="return.html" />
+    <link rel="prev" title="32. More recursion" href="recursion3.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="return.html" title="34. Return"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="recursion3.html" title="32. More recursion"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="recursion3.html"
+                        title="previous chapter">32. More recursion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="return.html"
+                        title="next chapter">34. Return</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/recursion4.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="counting-on-recursion">
+<h1>33. Counting on recursion<a class="headerlink" href="#counting-on-recursion" title="Permalink to this headline">¶</a></h1>
+<p>Reeborg knows how to count ... but we have not seen that yet and will
+not for a while. If you know some Javascript other than what you&#8217;ve
+learned here, you might already know how to make Reeborg count using
+numerical variables; however, I ask you to not use those in what
+follows.</p>
+<p>Select world <strong>Tokens&nbsp;5</strong>. Where Reeborg stands, a single token can be
+found. You know how to make Reeborg take the token and move to the next
+square. I ask you to do this and have Reeborg repeat these two steps
+until he finds itself on a square where no token is to be found. Then,
+Reeborg must drop all the tokens collected on that square and move to
+the next square.</p>
+<p>The exact same program must work with world <strong>Tokens&nbsp;6</strong>, which has a
+different number of tokens - so you can not use <tt class="docutils literal"><span class="pre">repeat()</span></tt> as you
+don&#8217;t have a fixed number of repetitions.</p>
+<p>Reeborg starts with an infinite number of tokens in his pockets: so you
+can not use <tt class="docutils literal"><span class="pre">has_token()</span></tt> to figure out when to stop dropping tokens
+on the one spot.</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<p>Use recursion to write a solution to this problem. An outline
+of a solution can be found below:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">collect</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// something</span>
+    <span class="c1">// something</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">some_condition</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// something</span>
+    <span class="p">}</span>
+    <span class="c1">//something</span>
+<span class="p">}</span>
+
+<span class="nx">collect</span><span class="p">();</span>
+<span class="nx">move</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title first">Recursive challenges</p>
+<p>Review all of the previous challenges and try writing new solutions using
+recursion instead of <tt class="docutils literal"><span class="pre">while</span></tt> loops.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="return.html" title="34. Return"
+             >next</a></li>
+        <li class="right" >
+             <a href="recursion3.html" title="32. More recursion"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

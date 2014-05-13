@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>13. Newspaper delivery revisited &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="index.html" />
+    <link rel="next" title="14. Repeat" href="repeat.html" />
+    <link rel="prev" title="12. Using the Library" href="library.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="repeat.html" title="14. Repeat"
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="library.html" title="12. Using the Library"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="library.html"
+                        title="previous chapter">12. Using the Library</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="repeat.html"
+                        title="next chapter">14. Repeat</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/newspaper2.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="newspaper-delivery-revisited">
+<h1>13. Newspaper delivery revisited<a class="headerlink" href="#newspaper-delivery-revisited" title="Permalink to this headline">¶</a></h1>
+<p>Let&#8217;s go back to our newspaper delivery example; we&#8217;ll consider the
+delivery to Ms. Ada Lovelace in <strong>Newspaper&nbsp;1</strong>. Below is a solution to that
+problem, with a few added comments.:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">take</span><span class="p">(</span><span class="s">&quot;star&quot;</span><span class="p">)</span>
+
+<span class="c"># climb up first floor</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+
+<span class="c"># climb up second floor</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+
+<span class="c"># climb up third floor</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+
+<span class="c"># get money</span>
+<span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+<span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+<span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+<span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+<span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+
+<span class="c"># leave paper</span>
+<span class="n">put</span><span class="p">(</span><span class="s">&quot;star&quot;</span><span class="p">)</span>
+
+<span class="c"># turn around</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+
+<span class="c"># climb down floor</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+
+<span class="c"># climb down floor</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+
+<span class="c"># climb down floor</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This solution is quite long ... and it is easy to make mistakes when
+typing it. We note however that there are quite a few repeated code
+segments for which we could create functions. We have already defined
+<tt class="docutils literal"><span class="pre">turn_right()</span></tt> and <tt class="docutils literal"><span class="pre">turn_around()</span></tt>; let&#8217;s use them and define a few
+others.:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">my_lib</span>
+
+<span class="k">def</span> <span class="nf">climb_up_one_floor</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">turn_right</span><span class="p">()</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">move</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">climb_up_three_floors</span><span class="p">():</span>
+    <span class="n">climb_up_one_floor</span><span class="p">()</span>
+    <span class="n">climb_up_one_floor</span><span class="p">()</span>
+    <span class="n">climb_up_one_floor</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">climb_down_one_floor</span><span class="p">():</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">turn_right</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">climb_down_three_floors</span><span class="p">():</span>
+    <span class="n">climb_down_one_floor</span><span class="p">()</span>
+    <span class="n">climb_down_one_floor</span><span class="p">()</span>
+    <span class="n">climb_down_one_floor</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">get_money</span><span class="p">():</span>
+    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+
+<span class="c"># === End of definitions ===</span>
+
+<span class="n">take</span><span class="p">(</span><span class="s">&quot;star&quot;</span><span class="p">)</span>
+<span class="n">climb_up_three_floors</span><span class="p">()</span>
+<span class="n">get_money</span><span class="p">()</span>
+<span class="n">put</span><span class="p">(</span><span class="s">&quot;star&quot;</span><span class="p">)</span> <span class="c"># leave paper</span>
+<span class="n">turn_around</span><span class="p">()</span>
+<span class="n">climb_down_three_floors</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Each function contains no more than 5 instructions; it&#8217;s much easier to
+verify that each function does what it is supposed to do than verifying
+an entire list of commands like we have previously. Once we know that
+the functions do what they are supposed to do, making use of them allow
+us to write a complete program in 6 more lines of code - again, much
+easier to verify that it is right. All together, using functions to
+avoid repetitions, we end up with a shorter program that is also much
+easier to read.</p>
+<p>It should be fairly simple to modify the above function definitions so
+that we could deliver a newspaper to Mr. Babbage, in world <strong>Newspaper&nbsp;2.</strong></p>
+<div class="topic">
+<p class="topic-title first">Do it!</p>
+<p>Modify the above program so as to deliver a newspaper to Mr. Babbage.</p>
+</div>
+<p>Later, we will see how we can write a single program, shorter than the
+above, that will enable us to deliver newspapers to either Ms. Lovelace
+or Mr. Babbage.</p>
+<p>Since functions like <tt class="docutils literal"><span class="pre">get_money()</span></tt>, <tt class="docutils literal"><span class="pre">climb_up_three_floors</span></tt>, etc.,
+are specific to this problem, it is probably <strong>not</strong> a good idea to save
+them in the library; you don&#8217;t want to have too many functions in your
+library so that you are always able to remember all that are there. If
+you do find that you use a function many times in different programs,
+then it is a good idea to put it in your library.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="repeat.html" title="14. Repeat"
+             >next</a></li>
+        <li class="right" >
+             <a href="library.html" title="12. Using the Library"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

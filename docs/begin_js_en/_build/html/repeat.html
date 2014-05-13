@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>14. Repeat &mdash; Learn Javascript with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Javascript with Reeborg" href="index.html" />
+    <link rel="next" title="15. If only ..." href="if.html" />
+    <link rel="prev" title="13. Newspaper delivery revisited" href="newspaper2.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="if.html" title="15. If only ..."
+             accesskey="N">next</a></li>
+        <li class="right" >
+             <a href="newspaper2.html" title="13. Newspaper delivery revisited"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="newspaper2.html"
+                        title="previous chapter">13. Newspaper delivery revisited</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="if.html"
+                        title="next chapter">15. If only ...</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/repeat.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="repeat">
+<h1>14. Repeat<a class="headerlink" href="#repeat" title="Permalink to this headline">¶</a></h1>
+<p>Often, we will find that we want to repeat a series of instructions a
+fixed number of times. There is a way in Javascript to do so ... but it
+has too many new concepts to explain at this time. I will just show you
+the code, and immediately introduce <tt class="docutils literal"><span class="pre">repeat()</span></tt>, a simpler replacement
+for it, unique to Reeborg&#8217;s World.
+Later, when you know more about Javascript, I will explain how
+<tt class="docutils literal"><span class="pre">repeat()</span></tt> is defined in terms of the standard way. The standard way
+is known as a <strong>for loop</strong> and is written as follows:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="c1">// some instructions here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Remember that <tt class="docutils literal"><span class="pre">take(&quot;token&quot;)</span></tt> could more simply be written as <tt class="docutils literal"><span class="pre">take()</span></tt>.</p>
+</div>
+<p>Now that you have seen this cryptic code which includes two Javascript
+keywords, <tt class="docutils literal"><span class="pre">for</span></tt> and <tt class="docutils literal"><span class="pre">var</span></tt>, let&#8217;s introduce instead <tt class="docutils literal"><span class="pre">repeat()</span></tt>. We
+will use the example <tt class="docutils literal"><span class="pre">get_money()</span></tt> from the previous newspaper
+delivery example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">get_money</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+    <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+    <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+    <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+    <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Inside <tt class="docutils literal"><span class="pre">get_money()</span></tt>, we repeat 5 times the command <tt class="docutils literal"><span class="pre">take()</span></tt>.
+Using <tt class="docutils literal"><span class="pre">repeat()</span></tt>, we can rewrite the above as follows:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">get_money</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">repeat</span><span class="p">(</span><span class="nx">take</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that I have <strong>not</strong> included the parentheses <tt class="docutils literal"><span class="pre">()</span></tt> for
+<tt class="docutils literal"><span class="pre">take</span></tt> inside <tt class="docutils literal"><span class="pre">repeat()</span></tt>. If I had to specify the <em>argument</em>
+<tt class="docutils literal"><span class="pre">&quot;token&quot;</span></tt>, I would not have been able to use <tt class="docutils literal"><span class="pre">repeat</span></tt> as it makes
+use only of the name of the function, without calling it using <tt class="docutils literal"><span class="pre">()</span></tt>.
+Now, by using <tt class="docutils literal"><span class="pre">repeat()</span></tt> we have yet
+another way to eliminate repetitions in our code.</p>
+<div class="topic">
+<p class="topic-title first">Try it!</p>
+<p>Change your program for the newspaper problem so that
+you use <tt class="docutils literal"><span class="pre">repeat()</span></tt> wherever it would shorten the code. If you did not save it,
+go back to the previous lesson and redo it using <tt class="docutils literal"><span class="pre">repeat()</span></tt>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="if.html" title="15. If only ..."
+             >next</a></li>
+        <li class="right" >
+             <a href="newspaper2.html" title="13. Newspaper delivery revisited"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Learn Javascript with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
