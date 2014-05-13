@@ -3,7 +3,7 @@
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR, DEBUG */
+/*globals RUR*/
 
 RUR.vis_world = {};
 
@@ -125,15 +125,11 @@ RUR.vis_world.draw_robots = function (robots) {
     }
     for (robot=0; robot < robots.length; robot++){
         RUR.vis_robot.draw(robots[robot]); // draws trace automatically
-        if (DEBUG) {
-            info += RUR.translation.robot + robot + ": x=" + robots[robot].x +
-                    ", y=" + robots[robot].y + RUR.translation[", tokens="] + robots[robot].tokens + ".  ";
-        }
+        info += RUR.translation.robot + "_" + robot + ": x=" + robots[robot].x +
+                ", y=" + robots[robot].y + RUR.translation[", tokens="] + robots[robot].tokens + ".  ";
     }
-    if (DEBUG) {
-        RUR.ROBOT_CTX.fillStyle = RUR.DEBUG_INFO_COLOR;
-        RUR.ROBOT_CTX.fillText(info, 5, 15);
-    }
+    RUR.ROBOT_CTX.fillStyle = RUR.DEBUG_INFO_COLOR;
+    RUR.ROBOT_CTX.fillText(info, 5, 15);
 };
 
 RUR.vis_world.draw_tokens = function(tokens, goal) {

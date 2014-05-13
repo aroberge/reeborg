@@ -5,8 +5,7 @@
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-
-var DEBUG = false;
+var RUR = RUR || {};
 
 RUR.EAST = 0;
 RUR.NORTH = 1;
