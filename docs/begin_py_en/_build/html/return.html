@@ -138,35 +138,31 @@ starting orientation is.</p>
 </div>
 <div class="section" id="getting-results-from-functions">
 <h2>34.1. Getting results from functions<a class="headerlink" href="#getting-results-from-functions" title="Permalink to this headline">¶</a></h2>
-<p>Tests like <tt class="docutils literal"><span class="pre">is_facing_north()</span></tt> are actually Javascript functions. They
+<p>Tests like <tt class="docutils literal"><span class="pre">is_facing_north()</span></tt> are actually Python functions. They
 differ from other functions like <tt class="docutils literal"><span class="pre">turn_left()</span></tt> or <tt class="docutils literal"><span class="pre">move()</span></tt> in that
 they <tt class="docutils literal"><span class="pre">return</span></tt> a value. Let&#8217;s start by considering a simple example:</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">interrupted_two_steps</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">move</span><span class="p">();</span>
-    <span class="k">return</span><span class="p">;</span>
-    <span class="nx">move</span><span class="p">();</span>
-<span class="p">}</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">interrupted_two_steps</span><span class="p">():</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="k">return</span>
+    <span class="n">move</span><span class="p">()</span>
 
-<span class="nx">interrupted_two_steps</span><span class="p">();</span>
+<span class="n">interrupted_two_steps</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<p>If you use the strict version of Javascript, you will get a warning <em>Unreachable &#8216;move&#8217; after &#8216;return&#8217;</em>
-and see that Reeborg only takes one step. You can get rid of this warning by
-using the &#8220;regular&#8221; version of Javascript.</p>
-<p>The <tt class="docutils literal"><span class="pre">return</span></tt> keyword can actually be accompanied by something else.</p>
+<p>As you can see, the return statement prevents the second <tt class="docutils literal"><span class="pre">move()</span></tt> from
+being executed.
+The <tt class="docutils literal"><span class="pre">return</span></tt> keyword can actually be accompanied by something else.</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
 <p>For example, try the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function north(){
-   return is_facing_north();
-}
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">north</span><span class="p">():</span>
+   <span class="k">return</span> <span class="n">is_facing_north</span><span class="p">()</span>
 
-while (!north()) {
-    turn_left();
-}
+<span class="k">while</span> <span class="ow">not</span> <span class="n">north</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -182,20 +178,17 @@ it should be if he was facing South) or not, turn left twice more, to go
 back to its original orientation, and tell us what he remembered using
 the <tt class="docutils literal"><span class="pre">return</span></tt> statement. One thing we need to do: have Reeborg use a
 <em>variable</em> to remember its orientation after two left turns:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function is_facing_south(){
-    var remember;
-    turn_left();
-    turn_left();
-    remember = is_facing_north();
-    turn_left();
-    turn_left();
-    return remember;
-}
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">is_facing_south</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">remember</span> <span class="o">=</span> <span class="n">is_facing_north</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">remember</span>
 
-// now, ensure that Reeborg is facing South
-while (!is_facing_south()) {
-    turn_left();
-}
+<span class="c"># now, ensure that Reeborg is facing South</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">is_facing_south</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -220,12 +213,11 @@ by giving him a few <tt class="docutils literal"><span class="pre">turn_left()</
 <div class="section" id="how-to-think-about-return">
 <h2>34.2. How to think about return<a class="headerlink" href="#how-to-think-about-return" title="Permalink to this headline">¶</a></h2>
 <p>Suppose we have the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">some_function</span> <span class="p">()</span> <span class="p">{</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">some_function</span> <span class="p">():</span>
     <span class="o">...</span>
-    <span class="k">return</span> <span class="n">something</span><span class="p">;</span>
-<span class="p">}</span>
+    <span class="k">return</span> <span class="n">something</span>
 
-<span class="o">...</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">();</span>
+<span class="o">...</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>In this case, the call to <tt class="docutils literal"><span class="pre">some_function()</span></tt> on the last line gets

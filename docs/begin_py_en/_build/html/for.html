@@ -119,50 +119,25 @@
 <h1>39. For loops<a class="headerlink" href="#for-loops" title="Permalink to this headline">¶</a></h1>
 <p>As we have seen, <tt class="docutils literal"><span class="pre">while</span></tt> loops can be used with numbers using the
 following pattern:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">n</span> <span class="o">=</span> <span class="n">initial_value</span><span class="p">;</span>  <span class="o">//</span> <span class="n">initialization</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="n">max_value</span><span class="p">)</span> <span class="p">{</span>  <span class="o">//</span> <span class="n">condition</span> <span class="n">to</span> <span class="n">end</span> <span class="n">the</span> <span class="n">loop</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>             <span class="c"># initialization</span>
+<span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">max_value</span> <span class="p">:</span> <span class="c"># condition to end the loop</span>
     <span class="o">...</span>
-    <span class="n">n</span><span class="o">++</span><span class="p">;</span>  <span class="o">//</span> <span class="n">increment</span>
-<span class="p">}</span>
+    <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c"># increment</span>
 </pre></div>
 </div>
 <p>Another way to write <strong>exactly the same program meaning</strong> is to use a
 <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span> <span class="n">var</span> <span class="n">n</span> <span class="o">=</span> <span class="n">initial_value</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">max_value</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="o">...</span>
-<span class="p">}</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_value</span><span class="p">):</span>
+   <span class="o">...</span>
 </pre></div>
 </div>
-<p>Thus, instead of having the variable initialization, the condition test
-for ending the loop and the increment steps on three different lines,
-they appear on the same line:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="n">initialization</span><span class="p">;</span> <span class="n">condition</span><span class="p">;</span> <span class="n">increment</span><span class="p">)</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>However, <tt class="docutils literal"><span class="pre">for</span></tt> loops and <tt class="docutils literal"><span class="pre">while</span></tt> loops are completely equivalent.
-Deciding which type of loop to choose is usually done based on how much
-easier it makes it to read and understand a program: for programs that
-use numerical values that are incremented each steps until a specific
-value is reached, <tt class="docutils literal"><span class="pre">for</span></tt> loops are often preferred because the three
-steps (initialization, condition, increment) can be seen at a glance.
-Note that any one (or more) of these three steps can be omitted in a
-<tt class="docutils literal"><span class="pre">for</span></tt> loop. For example, one could write:</p>
-<div class="highlight-py3"><div class="highlight"><pre>for ( ; !front_is_clear(); ) {...}
-</pre></div>
-</div>
-<p>instead of:</p>
-<div class="highlight-py3"><div class="highlight"><pre>while ( !front_is_clear() ) {...}
-</pre></div>
-</div>
-<p>However, in this case, the <tt class="docutils literal"><span class="pre">while</span></tt> loop syntax is considered by most
-people to be easier to read.</p>
+<p>The <tt class="docutils literal"><span class="pre">for</span></tt> loop in Python can be used for much more than counting items.
+However, this will not be covered in this tutorial.</p>
 <p>Using the <tt class="docutils literal"><span class="pre">for</span></tt> loop syntax, we can have a different definition for a
 <tt class="docutils literal"><span class="pre">repeat</span></tt>-like function:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">my_repeat</span><span class="p">(</span><span class="n">some_function</span><span class="p">,</span> <span class="n">max_value</span><span class="p">){</span>
-    <span class="k">for</span><span class="p">(</span><span class="n">var</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">max_value</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">some_function</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_repeat</span><span class="p">(</span><span class="n">some_function</span><span class="p">,</span> <span class="n">max_value</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_value</span><span class="p">):</span>
+        <span class="n">some_function</span><span class="p">()</span>
 
 <span class="n">my_repeat</span><span class="p">(</span><span class="n">move</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span>
 <span class="n">my_repeat</span><span class="p">(</span><span class="n">turn_left</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
@@ -178,12 +153,13 @@ people to be easier to read.</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">view_source</span><span class="p">(</span> <span class="n">repeat</span> <span class="p">);</span>
 </pre></div>
 </div>
-<p>to find out which definition Reeborg uses for the <tt class="docutils literal"><span class="pre">repeat()</span></tt> function.</p>
-<p>Note that you could also use:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span> <span class="n">repeat</span> <span class="p">);</span>
-</pre></div>
-</div>
-<p>but the code would not be as nicely formatted!</p>
+<p>You will see a completely different code than the above as this will
+reveal the <tt class="docutils literal"><span class="pre">repeat</span></tt> function used by Reeborg ... and written using
+Javascript.  In fact, it uses Javascript&#8217;s version of a <tt class="docutils literal"><span class="pre">for</span></tt> loop
+which looks very different from the Python version.
+If you compare the Javascript code with the Python one, you will likely
+agree that Python is a &#8220;cleaner&#8221; language, with fewer extra characters
+like <tt class="docutils literal"><span class="pre">;</span></tt> or <tt class="docutils literal"><span class="pre">}</span></tt>.</p>
 </div>
 </div>
 

@@ -14,7 +14,7 @@
 <title>Reeborg's world</title>
     <script src="src/libraries/brython/brython.js"></script>
 </head>
-<body onload="brython(1)">
+<body onload="brython()">
 
 <header class="blue-gradient green-border">
   <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
@@ -131,9 +131,9 @@
       </button>
     </div>
     <div id="image-choice-buttons">
-      <button class="blue-gradient" id="classic-image" title="Classic image"><img src="src/images/robot_e.png" alt="robot east"></button>
-      <button class="blue-gradient" id="simple-topview" title="Simple topview"><img src="src/images/top_e.png" alt="robot east"></button>
-      <button class="blue-gradient" id="rover-type" title="Rover type"><img src="src/images/rover_e.png" alt="robot east"></button>
+      <button id="classic-image" title="Classic image"><img src="src/images/robot_e.png" alt="robot east"></button>
+      <button id="simple-topview" title="Simple topview"><img src="src/images/top_e.png" alt="robot east"></button>
+      <button id="rover-type" title="Rover type"><img src="src/images/rover_e.png" alt="robot east"></button>
     </div>
 </div>
 
@@ -363,38 +363,48 @@ window['ReeborgError'] = RUR.ReeborgError
     <a href="#contribute">Contribute</a><br>
 
     <h2 id="basic-commands">Basic commands</h2>
-      <p> In addition to understanding Javascript, Reeborg, and all the other robots,
+      <p>Note: In Javascript, <code>true</code> and <code>false</code> are all written in lower cases. 
+      In Python, <code>True</code> and <code>False</code> start with an upper case letter. To avoid having to
+      specify both possibilities each time, "true" and "false" will be used instead below.</p>
+      <p> In addition to understanding Javascript or Python, Reeborg, and all the other robots,
         know the following instructions:</p>
       <ul>
-        <li><code>at_goal()</code></li>
-        <li><code>at_goal_orientation()</code></li>
-        <li><code>build_wall()</code></li>
-        <li><code>done()</code></li>
-        <li><code>front_is_clear()</code></li>
-        <li><code>has_token()</code></li>
-        <li><code>is_facing_north()</code></li>
+        <li><code>at_goal()</code>: condition which is "true" if Reeborg has reached "home"</li>
+        <li><code>at_goal_orientation()</code>: condition which is "true" if Reeborg has the required orienation </li>
+        <li><code>build_wall()</code>: adds a wall right in front of where Reeborg is</li>
+        <li><code>done()</code>: instructs the program to stop (end) at that point.</li>
+        <li><code>front_is_clear()</code>: "true" if no wall blocking Reeborg's way</li>
+        <li><code>has_token()</code>: "true" if Reeborg carries at least one token</li>
+        <li><code>is_facing_north()</code>: "true" if Reeborg is facing North (towards the top of the screen)</li>
         <li><code>move()</code></li>
         <li><code>put()</code> or <code>put("object")</code> where object is one of <code>"token"</code>,
           <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
-        <li><code>right_is_clear()</code></li>
-        <li><code>repeat(f, n)</code></li>
-        <li><code>object_here()</code></li>
+        <li><code>right_is_clear()</code>: "true" if no wall is to the immediate right of Reeborg</li>
+        <li><code>repeat(f, n)</code>: executes ``f()`` n times</li>
+        <li><code>object_here()</code>: "false" if there is no object at Reeborg's location, otherwise it returns
+        the name of the object, <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code>, or the number
+        of tokens at that location. </li>
         <li><code>take()</code> or <code>take("object")</code> where object is one of <code>"token"</code>,
           <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
-        <li><code>token_here()</code></li>
+        <li><code>token_here()</code>: "true" if there is a token at Reeborg's location</li>
         <li><code>turn_left()</code></li>
       </ul>
-      <p>To create additional robots, one can use <code>new UsedRobot()</code></p>
+      <p>To create additional robots, one can use <code>UsedRobot()</code> preceeded by
+      <code>new</code> if using Javascript.</p>
       <p>In addition, the following commands are available and are not tied to
         any robot in particular.</p>
       <ul>
-        <li><code>inspect(Javascript object)</code></li>
+        <li><code>import_lib()</code>: for <b>Javascript</b>, includes the code found in the Library tab</li>
+        <li><code>import my_lib</code>: for <b>Python</b>, includes the code found in the Library tab</li>
+        <li><code>inspect(object)</code>: shows result in Reeborg's Diary</li>
         <li><code>pause()</code>; can be called with an argument in milliseconds which indicates the
         time after which it will automatically resume.</li>
-        <li><code>sound(true/false)</code>: turns sound on or off. Off by default or if delay between actions is less than 250ms.</li>
+        <li><code>sound("true")</code>: turns sound on. Can be turned off by calling with no argument or with "false".
+                  Off by default or if delay between actions is less than 250ms.</li>
         <li><code>think(number)</code>: sets the amount of time in milliseconds between each robot action.</li>
         <li><code>write(string)</code>: write a string in Reeborg's Diary</li>
         <li><code>select_world(string)</code>: selects a given world.</li>
+        <li><code>print(string)</code>: only valid with Python.  Somewhat equivalent to <code>write</code>.</li>
       </ul>
 
      <p>To find out more, follow the lessons.</p>
@@ -404,12 +414,15 @@ window['ReeborgError'] = RUR.ReeborgError
     <p>Inspired by Guido van Robot, itself inspired by the original Karel the Robot
     created by Richard Pattis, Reeborg first appeared in RUR-PLE, a program I created
     to learn Python, picking up programming as a hobby.</p>
-    <p>Reeborg is there to guide you in learning computer programming in Javascript.
+    <p>Reeborg is there to guide you in learning computer programming in either Python or Javascript.
+    Why Python?  Because its syntax is the simplest and encourages good writing habits by enforcing
+    blocks of code to be indented.
     Why Javascript?   The main reason is because it is the native language
     for programming web browsers.  Since Reeborg's program is written in Javascript,
     you will be able, after going through enough lessons, to change the way that
     Reeborg behaves, using the full power of Javascript and perhaps make
-    Reeborg do things that I never thought could be possible.</p>
+    Reeborg do things that I never thought could be possible.  Possible changes with Python as a language of choice
+    might be a bit more limited.</p>
     <p> I hope you enjoy learning computer programming with Reeborg.</p>
     <p>Feel free to contact me at
     <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
@@ -417,8 +430,9 @@ window['ReeborgError'] = RUR.ReeborgError
     <p>Reeborg is free and will remain free to use and to share under a Creative Commons License
     <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
     <img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" height="31px" width="88px"/></a>
-    If you are using it to teach Javascript to students, you might want to make
-        a copy of this site on a local server; contact me if you need help.</p>
+    If you are using it to teach programming to students, you might want to make
+        a copy of this site on a local server.  Regardless, I would really appreciate if you would contact me
+        as I would like to know where Reeborg's World is used (I do not track users).</p>
     <p>If you find this site so useful and you want to do something to thank me,
         you have two choices:</p>
         <ul><li>You can give me $100,000; small denominations preferred.</li>
@@ -434,7 +448,7 @@ window['ReeborgError'] = RUR.ReeborgError
     <li>Make a better looking robot; I drew Reeborg pixel-by-pixel using a rather primitive
         drawing program, suitable for my skills level. There are two sets of pictures available:
         one with Reeborg viewed from its side and one viewed from above.
-        Note that the (imo) better looking Reeborg
+        Note that by default Reeborg
         is viewed sideways whereas its world is (most often) viewed from above;
         a nicer-looking Reeborg, perhaps viewed
     from nearly above, might be most welcome.</li>
@@ -443,10 +457,8 @@ window['ReeborgError'] = RUR.ReeborgError
     <li>etc.</li></ul>
     <p><a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</p>
     <p>My medium-term plans include:</p>
-    <ul><li>Translating the Javascript-based tutorial into French</li>
-    <li>Having a Python version (probably using <a href="http://brython.info/index.html">Brython</a>)</li>
-    <li>Having a CoffeeScript version</li>
-    <li>Tutorial on games using the html canvas</li></ul>
+    <ul><li>Translating the tutorials into French</li>
+    <li>Adding various tutorials including some on making games using the html canvas</li></ul>
     <p>Longer term plans include:</p>
     <ul><li>Implementing Reeborg's world for other languages (Scheme, ...) as long as it can be
     done within a browser with no server-side code running.</li>

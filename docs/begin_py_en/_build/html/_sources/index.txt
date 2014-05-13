@@ -8,6 +8,13 @@
 Learn Python with Reeborg!
 ==========================
 
+Go to `Reeborg's world <../../world.html>`_, click on the "run" button
+(small white triangle on blue background)
+and watch Reeborg takes its first step.  (A screencast will soon demonstrate
+how to do this.)
+
+
+
 Contents:
 
 .. toctree::
@@ -53,5 +60,4 @@ Contents:
    while_num
    for
    better_repeat
-   other_repeat
    conclusion

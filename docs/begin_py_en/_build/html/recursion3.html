@@ -118,97 +118,93 @@
   <div class="section" id="more-recursion">
 <h1>32. More recursion<a class="headerlink" href="#more-recursion" title="Permalink to this headline">¶</a></h1>
 <p>The last program we considered was the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function go_home(){
-    if (!at_goal()) {
-        move();
-        go_home();
-    }
-    turn_left();
-}
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">go_home</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+        <span class="n">move</span><span class="p">()</span>
+        <span class="n">go_home</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
 
-// now do it!
-go_home();
+<span class="c"># now do it!</span>
+<span class="n">go_home</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>By now, you probably have figured out how it works; at the very least,
 you should have tried to run it! Let&#8217;s analyze it assuming we run it in
 world <strong>Home&nbsp;1</strong>. As usual, we consider the single instruction:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">go_home</span><span class="p">();</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">go_home</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>which gets replace by the body of the function definition:</p>
-<div class="highlight-py3"><div class="highlight"><pre>if (!at_goal()) {
-    move();
-    go_home();
-}
-turn_left();
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">go_home</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Since Reeborg has not reached its goal yet,
 the <tt class="docutils literal"><span class="pre">if</span></tt> statement block is executed:</p>
-<div class="highlight-py3"><div class="highlight"><pre>    <span class="n">move</span><span class="p">();</span>
-    <span class="n">go_home</span><span class="p">();</span>
-<span class="n">turn_left</span><span class="p">();</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="n">go_home</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Once again, we replace <tt class="docutils literal"><span class="pre">go_home()</span></tt> by its definition:</p>
-<div class="highlight-py3"><div class="highlight"><pre>    move();
-    if (!at_goal()) {
-        move();
-        go_home();
-    }
-    turn_left();
-turn_left();
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">go_home</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>and do it one more time:</p>
-<div class="highlight-py3"><div class="highlight"><pre>    move();
-        move();
-        if (!at_goal()) {
-            move();
-            go_home();
-        }
-        turn_left();
-    turn_left();
-turn_left();
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">go_home</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>After the second <tt class="docutils literal"><span class="pre">move()</span></tt> instruction, Reeborg has reached its goal
 and the <tt class="docutils literal"><span class="pre">if</span></tt> statement block is not executed:</p>
-<div class="highlight-py3"><div class="highlight"><pre>    move();
-        move();
-        //if (!at_goal()) {
-        //    move();
-        //    go_home();
-        //}
-        turn_left();
-    turn_left();
-turn_left();
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="c">#if not at_goal():</span>
+<span class="c">#    move()</span>
+<span class="c">#    go_home()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">go_home</span></tt> is called three times ... and Reeborg does three left turns.
+This is perhaps something that Reeborg can use to count ...  Remember this!</p>
 </div>
 <p>Thus, after reaching its goal, Reeborg does three left turns (a
 celebratory dance perhaps?) before ending its program.</p>
 <div class="topic">
 <p class="topic-title first">Try it!</p>
-<p>By running it, cdir ret*
-heck that the recursive program does indeed result in having Reeborg
+<p>By running it, check that the recursive program does indeed result in having Reeborg
 make three left turns at the end.</p>
 </div>
 <div class="section" id="another-test">
 <h2>32.1. Another test<a class="headerlink" href="#another-test" title="Permalink to this headline">¶</a></h2>
 <p>Using again the same world, can you figure out what would be Reeborg&#8217;s
 final orientation if he executes the following program?</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">go_home</span><span class="p">(){</span>
-    <span class="nx">move</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">at_goal</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nx">go_home</span><span class="p">();</span>
-        <span class="nx">turn_left</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">go_home</span><span class="p">():</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+        <span class="n">go_home</span><span class="p">()</span>
+        <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
 
-<span class="c1">// now do it!</span>
-<span class="nx">go_home</span><span class="p">();</span>
+<span class="c"># now do it!</span>
+<span class="n">go_home</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">

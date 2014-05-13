@@ -17,47 +17,41 @@ much more readable since we do not introduce descriptive names. A better
 approach that we have seen is to use ``repeat()`` inside a well-named
 function definition like this::
 
-    function turn_right (){
-        repeat(turn_left, 3);
-    }
+    def turn_right ():
+        repeat(turn_left, 3)
 
 However, we can do this differently. First, we have just seen how
-``repeat()`` is defined::
+``repeat()`` can be defined using a for loop::
 
-    function repeat (fn, n){
-        for (var i = 0; i < n; i++) {
-            fn();
-        }
-    }
+    def repeat (function, n):
+        for i in range(n):
+            function()
 
 Second, we need to remember what the ``return`` statement does in a
 function. For example::
 
-    function some_function (){
-        // some lines of code
+    def some_function ():
+        # some lines of code
         return something;
-    }
 
-    var a = some_function();
-    // a will now be a synonym for "something"
+    a = some_function()
+    # a will now be a synonym for "something"
 
 Just like we can have functions as arguments of other functions, we can
 ``return`` functions!
 
-.. code-block:: javascript
+.. code-block:: py3
 
-    function better_repeat (fn, n){
-        return function () {
-            for (var i = 0; i < n; i++){
-                fn();
-            }
-        };
-    }
+    def better_repeat (fn, n):
+        def old_repeat():
+            for i in range(n):
+                fn()
+        return old_repeat
 
-    // now, use it to define a new way to turn right
-    var my_turn_right = better_repeat(turn_left, 3);
+    # now, use it to define a new way to turn right
+    my_turn_right = better_repeat(turn_left, 3)
 
-    my_turn_right();  // and use it!
+    my_turn_right()  # and use it!
 
 .. topic:: Try it!
 
@@ -69,21 +63,57 @@ Extending this idea
 In addition to things that need to be repeated, we can also extend this
 idea to conditions that need to be tested for...
 
-.. code-block:: javascript
+.. code-block:: py3
 
-    function do_while(fn, condition) {
-        return function() {
-            while (condition()) {
-                fn();
-            }
-        };
-    }
+    def do_while(fn, condition):
+        def until():
+            while condition():
+                fn()
+        return until
 
-    var walk_to_the_wall = do_while(move, front_is_clear);
-    walk_to_the_wall();
+    walk_to_the_wall = do_while(move, front_is_clear)
+    walk_to_the_wall()
 
 .. topic:: Try it!
 
     Try the above.  Then, when you are done, you might want to define
     ``do_while_not(fn, condition)`` where we are doing something until a
     condition is **not** satisfied.
+
+An other way to repeat
+======================
+
+Here we present a different way to repeat a given instruction, one that
+is more specific to the instruction that we want to repeat. Suppose we
+want to *turn right* or *turn around* but want to have a single function
+name to remember. One way to do it is as follows::
+
+    def turn(n)
+        for i in range(n):
+            turn_left()
+
+Using this definition, ``turn_right()`` would be written as ``turn(3)``
+and ``turn_around()`` would be written as ``turn(2)``. Try it!
+
+Having a default behaviour
+--------------------------
+
+Remember how ``take()`` and ``take("token")`` are equivalent? Would it
+be nice to have something similar for ``turn()`` where ``turn()``, with
+no argument, would be equivalent to a single ``turn_left()``
+instruction?
+
+This can be accomplished as follows::
+
+    def turn(n):
+        if n is None:    # None indicates that no argument was given
+            n = 1        # default behaviour
+        for i in range(n):
+            turn_left()
+
+Note that, if a number less than 1 is passed as an
+argument, the ``for`` loop is skipped and Reeborg does not turn.
+
+.. topic:: Try it!
+
+   Write programs that make use of the code samples above.

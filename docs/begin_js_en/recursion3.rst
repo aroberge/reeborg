@@ -70,6 +70,11 @@ and the ``if`` statement block is not executed::
             turn_left();
         turn_left();
     turn_left();
+    
+.. note::
+
+   ``go_home`` is called three times ... and Reeborg does three left turns.
+   This is perhaps something that Reeborg can use to count ...  Remember this!
 
 Thus, after reaching its goal, Reeborg does three left turns (a
 celebratory dance perhaps?) before ending its program.

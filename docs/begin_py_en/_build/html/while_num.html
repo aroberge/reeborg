@@ -122,11 +122,10 @@
 before reaching the first square where he is blocked by having a wall in
 front of him. Let&#8217;s use the increment operator to have Reeborg keep
 track of the number of steps and stop just before hitting a wall:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">number_of_steps</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">number_of_steps</span> <span class="o">&lt;</span> <span class="mi">9</span> <span class="p">){</span>  <span class="o">//</span> <span class="s">&quot;&lt;&quot;</span> <span class="n">means</span> <span class="s">&quot;less than&quot;</span>
-    <span class="n">move</span><span class="p">();</span>
-    <span class="n">number_of_steps</span><span class="o">++</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">number_of_steps</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="n">number_of_steps</span> <span class="o">&lt;</span> <span class="mi">9</span> <span class="p">:</span>  <span class="c"># &quot;&lt;&quot; means &quot;less than&quot;</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">number_of_steps</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -139,36 +138,32 @@ track of the number of steps and stop just before hitting a wall:</p>
 <p>In the above program, Reeborg was counting and doing a number of steps
 (<tt class="docutils literal"><span class="pre">move</span></tt>) up to a predetermined value. We have seen before how to
 accomplish this using a single instruction:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">repeat</span><span class="p">(</span><span class="n">move</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">repeat</span><span class="p">(</span><span class="n">move</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Let&#8217;s define a function <tt class="docutils literal"><span class="pre">my_repeat</span></tt> that will <em>hide</em> the code with the
 while loop above:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function my_repeat() {
-    var number_of_steps = 0;
-    while (number_of_steps &lt; 9 ){
-        move();
-        number_of_steps++;
-    }
-}
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_repeat</span><span class="p">():</span>
+    <span class="n">number_of_steps</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">number_of_steps</span> <span class="o">&lt;</span> <span class="mi">9</span> <span class="p">:</span>
+        <span class="n">move</span><span class="p">()</span>
+        <span class="n">number_of_steps</span> <span class="o">+=</span> <span class="mi">1</span>
 
-my_repeat();   // use it!
+<span class="n">my_repeat</span><span class="p">()</span>   <span class="c"># use it!</span>
 </pre></div>
 </div>
 <p>That&#8217;s not very useful compared with <tt class="docutils literal"><span class="pre">repeat()</span></tt> since both the number
 of steps to take and the specific instruction to repeat are
 <em>hard-coded</em>. We can do better by <em>passing</em> <strong>arguments</strong> to
 <tt class="docutils literal"><span class="pre">my_repeat</span></tt> as follows:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function my_repeat(some_function, max_value) {
-    var number_of_steps = 0;
-    while (number_of_steps &lt; max_value ){
-        some_function();
-        number_of_steps++;
-    }
-}
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_repeat</span><span class="p">(</span><span class="n">some_function</span><span class="p">,</span> <span class="n">max_value</span><span class="p">):</span>
+    <span class="n">number_of_steps</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">number_of_steps</span> <span class="o">&lt;</span> <span class="n">max_value</span> <span class="p">:</span>
+        <span class="n">some_function</span><span class="p">()</span>
+        <span class="n">number_of_steps</span> <span class="o">+=</span> <span class="mi">1</span>
 
-my_repeat(move, 9);   // use it!
-my_repeat(turn_left, 4);
+<span class="n">my_repeat</span><span class="p">(</span><span class="n">move</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>   <span class="c"># use it!</span>
+<span class="n">my_repeat</span><span class="p">(</span><span class="n">turn_left</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -178,25 +173,19 @@ my_repeat(turn_left, 4);
 </div>
 <div class="section" id="scope">
 <h2>38.2. Scope<a class="headerlink" href="#scope" title="Permalink to this headline">¶</a></h2>
-<p>Make note of the colour of the variable <tt class="docutils literal"><span class="pre">number_of_steps</span></tt> in the
-Javascript editor.  Once you have done that, enter the following code
-instead:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">number_of_steps</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="n">function</span> <span class="n">my_repeat</span><span class="p">(</span><span class="n">some_function</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">number_of_steps</span> <span class="o">&lt;</span> <span class="n">max_value</span> <span class="p">){</span>
-        <span class="n">some_function</span><span class="p">();</span>
-        <span class="n">number_of_steps</span><span class="o">++</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>In the definition above, <tt class="docutils literal"><span class="pre">number_of_steps</span></tt> was a <strong>local</strong> variable
+only known inside the function <tt class="docutils literal"><span class="pre">my_repeat</span></tt>.
+An other way, which we have seen previously,
+is to us a <strong>global</strong> variable as follows:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">number_of_steps</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">def</span> <span class="nf">my_repeat</span><span class="p">(</span><span class="n">some_function</span><span class="p">,</span> <span class="n">max_value</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">number_of_steps</span>
+    <span class="k">while</span> <span class="n">number_of_steps</span> <span class="o">&lt;</span> <span class="n">max_value</span> <span class="p">:</span>
+        <span class="n">some_function</span><span class="p">()</span>
+        <span class="n">number_of_steps</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>You should note that the colour of the
-variable <tt class="docutils literal"><span class="pre">number_of_steps</span></tt> is different in both cases. If you look
-more closely, you will find that in one case, this variable is defined
-<em>inside</em> the function body whereas in the other it is defined <em>outside</em>.
-When it is defined <em>inside</em>, we say that it is a <strong>local</strong> variable: its
-value is only known locally inside the function and not in the larger
-program. Otherwise, it is known as a <strong>global</strong> variable. Whether a
+<p>Whether a
 variable is <em>local</em> to a function or <em>global</em> is known as the <strong>scope</strong>
 of the variable. Generally, it is recommended to use local variables
 whenever possible so that if you reuse the same variable name (locally)

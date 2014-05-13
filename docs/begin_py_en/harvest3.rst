@@ -18,53 +18,44 @@ at the current location. Using
 these, you can complete the following outline of a solution that will
 work for each of these four worlds.
 
-.. code-block:: javascript
+.. code-block:: py3
 
-    var selection;
-    think(0);  // optional; so it does not take too long...
+    think(0)  # optional; so it does not take too long...
 
-    function harvest (fruit) {
-        ...  // decide what to take
-    }
+    def harvest_one_row (fruit):
+        while front_is_clear():
+            if object_here() == fruit:
+                take(fruit)
+            move()
 
-    function harvest_one_row (fruit) {
-        while (front_is_clear()) {
-            if (object_here() === fruit) {
-                harvest(fruit);
-            }
-            move();
-        }
-    }
-
-    function go_back_to_beginning_of_row() {
+    def go_back_to_beginning_of_row():
         ...
-    }
 
-    function move_to_next_row() {
+    def move_to_next_row():
         ...
-    }
 
-    function go_to_first_row() {
+    def go_to_first_row():
         ...
-    }
 
-    function complete_one_row() {
-        harvest_one_row(selection);
-        go_back_to_beginning_of_row();
-        move_to_next_row();
-    }
+    def complete_one_row():
+        harvest_one_row(selection)
+        go_back_to_beginning_of_row()
+        move_to_next_row()
 
-    move();
-    selection = object_here();
-    harvest(selection);
-    go_to_first_row();
-    repeat(complete_one_row, 6);
+    move()
+    selection = object_here()
+    take(selection)
+    go_to_first_row()
+    repeat(complete_one_row, 6)
     
-    
+
+There are two new things in the above code which makes is a bit difficult.
+First, we define some functions that take an **argument**, in 
+this case ``fruit``.  Second, we test to see if two quantities 
+are equal by using two consecutive equal signs: ``==``.
 
 .. topic:: Try it!
 
     Complete the above program so that it works in all four worlds:
     **Harvest 5a**, **Harvest 5b**, **Harvest 5c** and **Harvest 5d**.
-    Remember ``take("token")``, ``take("star")``, etc.
 

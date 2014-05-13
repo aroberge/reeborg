@@ -23,14 +23,10 @@ work for each of these four worlds.
     var selection;
     think(0);  // optional; so it does not take too long...
 
-    function harvest (fruit) {
-        ...  // decide what to take
-    }
-
     function harvest_one_row (fruit) {
         while (front_is_clear()) {
             if (object_here() === fruit) {
-                harvest(fruit);
+                take(fruit);
             }
             move();
         }
@@ -56,15 +52,17 @@ work for each of these four worlds.
 
     move();
     selection = object_here();
-    harvest(selection);
+    take(selection);
     go_to_first_row();
     repeat(complete_one_row, 6);
     
-    
+There are two new things in the above code which makes is a bit difficult.
+First, we define some functions that take an **argument**, in 
+this case ``fruit``.  Second, we test to see if two quantities 
+are equal by using three consecutive equal signs: ``===``.
 
 .. topic:: Try it!
 
     Complete the above program so that it works in all four worlds:
     **Harvest 5a**, **Harvest 5b**, **Harvest 5c** and **Harvest 5d**.
-    Remember ``take("token")``, ``take("star")``, etc.
 

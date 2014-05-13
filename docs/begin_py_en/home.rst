@@ -26,7 +26,7 @@ Cartesian coordinates.
     home position. Try to run your program now.
 
 
-Making a left term
+Making a left turn
 ------------------
 
 Last example ended with a program that did not quite work: something
