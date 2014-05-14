@@ -73,7 +73,6 @@ RUR.world.add_robot = function (robot) {
     if (RUR.current_world.robots === undefined){
         RUR.current_world.robots = [];
     }
-    robot.__id = RUR.current_world.robots.length;
     RUR.current_world.robots.push(robot);
     RUR.rec.record_frame();
 };

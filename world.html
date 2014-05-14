@@ -279,7 +279,6 @@ class UsedRobot ():
         robot = RUR.robot.create_robot(x, y, orientation, tokens)
         self.robot = robot
         RUR.world.add_robot(self.robot)
-        self.body = RUR.current_world.robots[robot.__id]
     
     def move (self):
         RUR.control.move(self.robot)

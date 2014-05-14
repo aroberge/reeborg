@@ -48,24 +48,6 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot.triangle = 0; // can only be found in the world
     robot.square = 0;   // same
     robot.star = 0;     // same
-    robot.__id = -1;
     return robot;
 };
-
-
-
-//function RobotFactory(x, y, o, t) {
-//    UsedRobot.call(this, x, y, o, t);
-//}
-//RobotFactory.prototype = new UsedRobot();
-//RobotFactory.constructor = RobotFactory;
-//
-//RobotFactory.prototype.right = function () {
-//    RUR.control.__turn_right(this.robot);
-//};
-//var t = new RobotFactory(3, 3);
-//t.move();
-//t.right();
-//t.move();
-//t.move();
 
