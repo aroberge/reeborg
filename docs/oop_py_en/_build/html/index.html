@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>Introduction to OOP in Python with Reeborg &mdash; Object-Oriented Programming in Python</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Object-Oriented Programming in Python" href="#" />
+    <link rel="next" title="The dot notation" href="oop.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="oop.html" title="The dot notation"
+             accesskey="N">next</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="#">Object-Oriented Programming in Python</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Next topic</h4>
+  <p class="topless"><a href="oop.html"
+                        title="next chapter">The dot notation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction-to-oop-in-python-with-reeborg">
+<h1>Introduction to OOP in Python with Reeborg<a class="headerlink" href="#introduction-to-oop-in-python-with-reeborg" title="Permalink to this headline">¶</a></h1>
+<p>As you know, Reeborg is in poor shape.
+It can only turn to its left, its compass is broken as
+it can only be used to determine whether or not Reeborg is facing North.
+Reeborg can not turn its head left, so it can not find out if there is
+a wall to its left without turning its entire body.
+Finally, it leaks oil which is bad for itself and the environment.</p>
+<p>Using the power of Object-Oriented Programming, you will learn how to
+fix Reeborg and how to give it additional capabilities.</p>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="oop.html">The dot notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#all-in-a-dog-s-day">All in a dog&#8217;s day</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#a-used-robot-gets-his-name">A Used Robot gets his name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#many-robots">Many robots</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="turn_right.html">Many right turns</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="turn_right.html#derived-classes">Derived classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turn_right.html#designing-a-new-class">Designing a new class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="turn_right2.html">Turn right ??</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="turn_right2.html#digging-into-reeborg-s-code">Digging into Reeborg&#8217;s code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turn_right2.html#what-happened">What happened?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turn_right2.html#javascript">Javascript !?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="javascript.html">Javascript</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="oop.html" title="The dot notation"
+             >next</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="#">Object-Oriented Programming in Python</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

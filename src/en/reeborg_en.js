@@ -360,8 +360,8 @@ RUR.reset_definitions = function () {
       return;
   }
   UsedRobot = function (x, y, orientation, tokens)  {
-        this.robot = RUR.robot.create_robot(x, y, orientation, tokens);
-        RUR.world.add_robot(this.robot);
+        this.body = RUR.robot.create_robot(x, y, orientation, tokens);
+        RUR.world.add_robot(this.body);
     };
     
     
