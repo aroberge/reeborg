@@ -8,7 +8,10 @@
 
 .. |image0| image:: ../../src/images/square.png
 
+.. hint::
 
+    If you do not know how to, select world **Alone** and 
+    review the commands seen in `Test driven learning <home.html>`_
 
 Reeborg goes to France
 ======================

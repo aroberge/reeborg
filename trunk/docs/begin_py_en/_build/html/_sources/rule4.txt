@@ -64,7 +64,7 @@ and writing the comments differently::
         else:
             turn_left()
 
-    found_starting_point = token_here;
+    found_starting_point = token_here
 
     #######
     ##  End of definitions above; program execution below .

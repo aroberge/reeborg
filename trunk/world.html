@@ -277,50 +277,50 @@ sys.stderr.write = _write_err
 class UsedRobot ():
     def __init__ (self, x=1, y=1, orientation='e', tokens=0):
         robot = RUR.robot.create_robot(x, y, orientation, tokens)
-        self.robot = robot
-        RUR.world.add_robot(self.robot)
+        self.body = robot
+        RUR.world.add_robot(self.body)
     
     def move (self):
-        RUR.control.move(self.robot)
+        RUR.control.move(self.body)
 
     def at_goal (self): 
-        return RUR.control.at_goal(self.robot)
+        return RUR.control.at_goal(self.body)
 
     def at_goal_orientation (self):
-        return RUR.control.at_goal_orientation(self.robot)
+        return RUR.control.at_goal_orientation(self.body)
 
     def build_wall (self):
-        RUR.control.build_wall(self.robot)
+        RUR.control.build_wall(self.body)
 
     def front_is_clear (self):
-        return RUR.control.front_is_clear(self.robot)
+        return RUR.control.front_is_clear(self.body)
 
     def has_token (self):
-        return RUR.control.has_token(self.robot)
+        return RUR.control.has_token(self.body)
 
     def is_facing_north (self):
-        return RUR.control.is_facing_north(self.robot)
+        return RUR.control.is_facing_north(self.body)
 
     def move (self):
-        RUR.control.move(self.robot)
+        RUR.control.move(self.body)
 
     def put (self, arg="token"):
-        RUR.control.put(self.robot, arg)
+        RUR.control.put(self.body, arg)
 
     def token_here (self):
-        return RUR.control.token_here(self.robot)
+        return RUR.control.token_here(self.body)
 
     def right_is_clear (self):
-        return RUR.control.right_is_clear(self.robot)
+        return RUR.control.right_is_clear(self.body)
     
     def object_here (self):
-        return RUR.control.object_here(self.robot)
+        return RUR.control.object_here(self.body)
 
     def take (self, arg="token"):
-        RUR.control.take(self.robot, arg)
+        RUR.control.take(self.body, arg)
 
     def turn_left (self):
-        RUR.control.turn_left(self.robot)
+        RUR.control.turn_left(self.body)
 
 window['UsedRobot'] = UsedRobot
 window['ReeborgError'] = RUR.ReeborgError

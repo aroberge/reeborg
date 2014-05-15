@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>Javascript &mdash; Object-Oriented Programming in Python</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Object-Oriented Programming in Python" href="index.html" />
+    <link rel="prev" title="Turn right ??" href="turn_right2.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="turn_right2.html" title="Turn right ??"
+             accesskey="P">previous</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Object-Oriented Programming in Python</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="turn_right2.html"
+                        title="previous chapter">Turn right ??</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/javascript.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="javascript">
+<h1>Javascript<a class="headerlink" href="#javascript" title="Permalink to this headline">¶</a></h1>
+<p>Remember when you ran this code?</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">r</span> <span class="o">=</span> <span class="n">UsedRobot</span><span class="p">()</span>
+<span class="n">inspect</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We are going to do the equivalent with Javascript.</p>
+<p>At the very top of the Reeborg&#8217;s World window, click to select
+Javascript instead of Python.  Then run the following code:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UsedRobot</span><span class="p">();</span>
+<span class="nx">inspect</span><span class="p">(</span><span class="nx">r</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If you look in the diary, you will see <tt class="docutils literal"><span class="pre">robot</span></tt> as we had in the
+Python code, but will also see some familiar methods like
+<tt class="docutils literal"><span class="pre">at_goal()</span></tt>, <tt class="docutils literal"><span class="pre">move()</span></tt> and many others.</p>
+<p>Now we are ready to look at some code.</p>
+<div class="topic">
+<p class="topic-title first">Do this!</p>
+<p>Execute the following Javascript code and look at the result
+in the Diary.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UsedRobot</span><span class="p">();</span>
+<span class="nx">view_source</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">turn_left</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Make sure the code is exactly as written above.</p>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">You may have noticed that I usually do <strong>not</strong> show you the result of running
+these short programs.  One reason is that I occasionnally change the
+Javascript or the Python code powering Reeborg&#8217;s World in order to
+add new features or fix bugs.  By looking at the code displayed in
+the Diary, you have access to my best code (so far) which may differ
+from the one that existed when I wrote this tutorial.  However, while
+there might be some differences between the two, it should be close
+enough for you to figure out what is going with the help of this tutorial.</p>
+</div>
+<p>Based on the result that I see printed in Reeborg&#8217;s Diary, my next guess
+is to execute the following.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UsedRobot</span><span class="p">();</span>
+<span class="nx">view_source</span><span class="p">(</span><span class="nx">RUR</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">turn_left</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>After doing so, I see the following:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="p">(</span><span class="nx">robot</span><span class="p">,</span> <span class="nx">no_frame</span><span class="p">){</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="nx">robot</span><span class="p">.</span><span class="nx">_prev_orientation</span> <span class="o">=</span> <span class="nx">robot</span><span class="p">.</span><span class="nx">orientation</span><span class="p">;</span>
+    <span class="nx">robot</span><span class="p">.</span><span class="nx">_prev_x</span> <span class="o">=</span> <span class="nx">robot</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+    <span class="nx">robot</span><span class="p">.</span><span class="nx">_prev_y</span> <span class="o">=</span> <span class="nx">robot</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+    <span class="nx">robot</span><span class="p">.</span><span class="nx">orientation</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="nx">robot</span><span class="p">.</span><span class="nx">orientation</span> <span class="o">%=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">no_frame</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="nx">RUR</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">sound_id</span> <span class="o">=</span> <span class="s2">&quot;#turn-sound&quot;</span><span class="p">;</span>
+    <span class="nx">RUR</span><span class="p">.</span><span class="nx">rec</span><span class="p">.</span><span class="nx">record_frame</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As mentioned above, you might see something slightly different.
+Here is the equivalent Python code:</p>
+<div class="highlight-py3"><div class="highlight"><pre>def (robot, no_frame):
+    robot._prev_orientation = robot.orientation
+    robot._prev_x = robot.x
+    robot._prev_y = robot.y
+    robot.orientation += 1
+    robot.orientation %= 4
+    if no_frame:
+        return
+    RUR.control.sound_id = &quot;#turn-sound&quot;
+    RUR.rec.record_frame()
+</pre></div>
+</div>
+<p>We will come back to this code sample later; for now, remember that we were
+talking about &#8220;recording frames&#8221; ... It looks as though the last instruction
+is the one we were looking for.  Time to go back to coding in Python.
+Select Python as the programming language at the top of Reeborg&#8217;s World window
+before proceeding to the next page of this tutorial.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="turn_right2.html" title="Turn right ??"
+             >previous</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Object-Oriented Programming in Python</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
