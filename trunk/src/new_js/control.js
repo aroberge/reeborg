@@ -42,7 +42,7 @@ RUR.control.turn_left = function(robot, no_frame){
     robot._prev_orientation = robot.orientation;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-    robot.orientation += 1;
+    robot.orientation += 1;  // could have used "++" instead of "+= 1"
     robot.orientation %= 4;
     if (no_frame) return;
     RUR.control.sound_id = "#turn-sound";

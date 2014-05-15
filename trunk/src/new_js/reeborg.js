@@ -94,7 +94,7 @@ RUR.control.turn_left = function(robot, no_frame){
     robot._prev_orientation = robot.orientation;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-    robot.orientation += 1;
+    robot.orientation += 1;  // could have used "++" instead of "+= 1"
     robot.orientation %= 4;
     if (no_frame) return;
     RUR.control.sound_id = "#turn-sound";
@@ -1028,26 +1028,8 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot.triangle = 0; // can only be found in the world
     robot.square = 0;   // same
     robot.star = 0;     // same
-    robot.__id = -1;
     return robot;
 };
-
-
-
-//function RobotFactory(x, y, o, t) {
-//    UsedRobot.call(this, x, y, o, t);
-//}
-//RobotFactory.prototype = new UsedRobot();
-//RobotFactory.constructor = RobotFactory;
-//
-//RobotFactory.prototype.right = function () {
-//    RUR.control.__turn_right(this.robot);
-//};
-//var t = new RobotFactory(3, 3);
-//t.move();
-//t.right();
-//t.move();
-//t.move();
 
 /* Author: André Roberge
    License: MIT
@@ -1993,7 +1975,7 @@ RUR.world.export_world = function () {
 };
 
 RUR.world.import_world = function (json_string) {
-    var robot;
+    var body;
     if (json_string === undefined){
         return {};
     }
@@ -2007,10 +1989,10 @@ RUR.world.import_world = function (json_string) {
     }
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
-            robot = RUR.current_world.robots[0];
-            robot._prev_x = robot.x;
-            robot._prev_y = robot.y;
-            robot._prev_orientation = robot.orientation;
+            body = RUR.current_world.robots[0];
+            body._prev_x = body.x;
+            body._prev_y = body.y;
+            body._prev_orientation = body.orientation;
         }
     }
     RUR.world.saved_world = RUR.world.clone_world();
@@ -2039,7 +2021,6 @@ RUR.world.add_robot = function (robot) {
     if (RUR.current_world.robots === undefined){
         RUR.current_world.robots = [];
     }
-    robot.__id = RUR.current_world.robots.length;
     RUR.current_world.robots.push(robot);
     RUR.rec.record_frame();
 };

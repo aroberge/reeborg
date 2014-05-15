@@ -397,91 +397,91 @@ RUR.reset_definitions = function () {
         return RUR.control.at_goal(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.at_goal = function () {
-        RUR.control.at_goal(this.robot);
+        RUR.control.at_goal(this.body);
     };
     
     at_goal_orientation = function () {
         return RUR.control.at_goal_orientation(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.at_goal_orientation = function () {
-        RUR.control.at_goal_orientation(this.robot);
+        RUR.control.at_goal_orientation(this.body);
     };
 
     build_wall = function() {
         RUR.control.build_wall(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.build_wall = function () {
-        RUR.control.build_wall(this.robot);
+        RUR.control.build_wall(this.body);
     };
 
     front_is_clear = function() {
       return RUR.control.front_is_clear(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.front_is_clear = function () {
-        RUR.control.front_is_clear(this.robot);
+        RUR.control.front_is_clear(this.body);
     };
 
     has_token = function () {
         return RUR.control.has_token(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.has_token = function () {
-        RUR.control.has_token(this.robot);
+        RUR.control.has_token(this.body);
     };
     
     is_facing_north = function () {
         return RUR.control.is_facing_north(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.is_facing_north = function () {
-        RUR.control.is_facing_north(this.robot);
+        RUR.control.is_facing_north(this.body);
     };
 
     move = function () {
         RUR.control.move(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.move = function () {
-        RUR.control.move(this.robot);
+        RUR.control.move(this.body);
     };
 
     put = function(arg) {
         RUR.control.put(RUR.current_world.robots[0], arg);
     };
     UsedRobot.prototype.put = function () {
-        RUR.control.put(this.robot);
+        RUR.control.put(this.body);
     };
     
     token_here = function() {
         return RUR.control.token_here(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.token_here = function () {
-        RUR.control.token_here(this.robot);
+        RUR.control.token_here(this.body);
     };
 
     right_is_clear = function() {
       return RUR.control.right_is_clear(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.right_is_clear = function () {
-        RUR.control.right_is_clear(this.robot);
+        RUR.control.right_is_clear(this.body);
     };
     
     object_here = function () {
         return RUR.control.object_here(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.object_here = function () {
-        RUR.control.object_here(this.robot);
+        RUR.control.object_here(this.body);
     };
     
     take = function(arg) {
         RUR.control.take(RUR.current_world.robots[0], arg);
     };
     UsedRobot.prototype.take = function () {
-        RUR.control.take(this.robot);
+        RUR.control.take(this.body);
     };
 
     turn_left = function () {
         RUR.control.turn_left(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.turn_left = function () {
-        RUR.control.turn_left(this.robot);
+        RUR.control.turn_left(this.body);
     };
     
     // English speficic and only for compatibility with rur-ple
