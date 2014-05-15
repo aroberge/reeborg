@@ -27,7 +27,7 @@ RUR.world.export_world = function () {
 };
 
 RUR.world.import_world = function (json_string) {
-    var robot;
+    var body;
     if (json_string === undefined){
         return {};
     }
@@ -41,10 +41,10 @@ RUR.world.import_world = function (json_string) {
     }
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
-            robot = RUR.current_world.robots[0];
-            robot._prev_x = robot.x;
-            robot._prev_y = robot.y;
-            robot._prev_orientation = robot.orientation;
+            body = RUR.current_world.robots[0];
+            body._prev_x = body.x;
+            body._prev_y = body.y;
+            body._prev_orientation = body.orientation;
         }
     }
     RUR.world.saved_world = RUR.world.clone_world();

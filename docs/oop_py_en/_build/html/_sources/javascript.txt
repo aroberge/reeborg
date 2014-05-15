@@ -18,7 +18,7 @@ Javascript instead of Python.  Then run the following code:
    var r = new UsedRobot();
    inspect(r);
 
-If you look in the diary, you will see ``robot`` as we had in the
+If you look in the diary, you will see ``body`` as we had in the
 Python code, but will also see some familiar methods like
 ``at_goal()``, ``move()`` and many others.
 
@@ -89,4 +89,24 @@ We will come back to this code sample later; for now, remember that we were
 talking about "recording frames" ... It looks as though the last instruction
 is the one we were looking for.  Time to go back to coding in Python.
 Select Python as the programming language at the top of Reeborg's World window
-before proceeding to the next page of this tutorial. 
+before running the following program.
+
+.. topic:: Try this!
+
+   Select world **Empty** and run the following code to 
+   confirm that you can add new capabilities to
+   Reeborg and show its effect properly at each step.
+   
+   .. code-block:: py3
+   
+      class Teleporter(UsedRobot):
+      
+         def jump(self, x, y):
+            self.robot.x = x
+            self.robot.y = y
+            RUR.rec.record_frame()
+      
+      jumper = Teleporter()
+      jumper.jump(3, 5)
+      jumper.jump(7, 2)
+

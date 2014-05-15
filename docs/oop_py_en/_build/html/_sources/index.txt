@@ -9,7 +9,7 @@ Introduction to OOP in Python with Reeborg
 As you know, Reeborg is in poor shape. 
 It can only turn to its left, its compass is broken as
 it can only be used to determine whether or not Reeborg is facing North.
-Reeborg can not turn its head left, so it can not find out if there is
+Reeborg cannot turn its head left, so it cannot find out if there is
 a wall to its left without turning its entire body.
 Finally, it leaks oil which is bad for itself and the environment.
 
