@@ -224,11 +224,16 @@ padding:3px;}
 }
 #world-controls button, #diary-controls button, #world-edit-buttons button {margin-right: 4px;}
 
+#world-panel {
+    width: 620px;
+}
+#output-panel, #editor-panel, #edit-world-panel {
+    width: 590px;
+}
 #world-panel, #output-panel, #editor-panel, #edit-world-panel {   
     margin-top: 32px;
     position: relative; 
     display: none;
-    width: 595px;
     height: 600px;
     padding: 0 5px;
     vertical-align: top;

@@ -2390,6 +2390,8 @@ RUR.we.calculate_wall_position = function () {
     x = RUR.we.mouse_x - $("#robot_canvas").offset().left;
     y = RUR.we.mouse_y - $("#robot_canvas").offset().top;
     
+    y = RUR.BACKGROUND_CANVAS.height - y;  // count from bottom
+    
     x /= RUR.WALL_LENGTH;
     y /= RUR.WALL_LENGTH;
     remain_x = x - Math.floor(x);
@@ -2407,9 +2409,22 @@ RUR.we.calculate_wall_position = function () {
     } else {
         del_y = remain_y;
     }
-    
+
     x = Math.floor(x);
-    y = RUR.ROWS - Math.floor(y) + 1;
+    y = Math.floor(y);
+
+    if ( del_x < del_y ) {
+        orientation = "east";
+        if (remain_x < 0.5) {
+            x -= 1;
+        }
+    } else {
+        orientation = "north";
+        if (remain_y < 0.5) {
+            y -= 1;
+        }
+    }
+    
     if (x < 1 ) {
         x = 1;
     } else if (x > RUR.COLS) {
@@ -2421,17 +2436,6 @@ RUR.we.calculate_wall_position = function () {
         y = RUR.ROWS;
     }
     
-    if ( del_x < del_y ) {
-        orientation = "east";
-        if (remain_x < 0.5) {
-            x -= 1;
-        }
-    } else {
-        orientation = "north";
-        if (remain_y > 0.5) {
-            y -= 1;
-        }
-    }
     return [x, y, orientation];
 };
 
