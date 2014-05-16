@@ -216,7 +216,7 @@ padding:3px;}
   }
 
 #fileInput, #worldfileInput {display:none;}
-#worldfileInput {position: relative; top: -500px;}
+#worldfileInput {position: relative; top: 200px;}
 
 #world-controls, #diary-controls {
   position: absolute;
