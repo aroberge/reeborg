@@ -83,7 +83,7 @@ one step.
    reserving names that start with an upper case letter, like ``UsedRobot``, for
    classes of objects.
    
-   **However**, I will often not follow this convention in naming Reeborg and 
+   **However**, I will often **not** follow this convention in naming Reeborg and 
    other robots.
    
 Many robots
@@ -102,3 +102,24 @@ Many robots
        reeborg.move()
     
    You can add even more robots!
+
+
+For the advanced reader
+-----------------------
+
+In addition to the dot notation, there is another way to get the value of
+attributes or methods that belong to an object in Python.  Suppose I have a ``Dog()``
+as above, for which I can have the following::
+
+    Fido.size = "tall"
+    Fido.run()  # is an action that Fido can do
+
+With Python, one can use the built-in function ``getattr``, whose name
+is meant to remind of "get attribute", as follows::
+
+    how_big = getattr(Fido, "size")    # equivalent to how_big = "tall"
+    action = getattr(Fido, "run")      
+    action()       # equivalent to Fido.run()
+
+``getattr`` can be very useful in some contexts but its use is overly 
+complicated for what we need to do in Reeborg's world.

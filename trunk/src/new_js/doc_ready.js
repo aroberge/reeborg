@@ -65,6 +65,13 @@ $(document).ready(function() {
             }
         });
     });
+    $("#editor-panel").resizable({
+        resize: function() {
+            editor.setSize(null, $(this).height()-40);
+            library.setSize(null, $(this).height()-40);
+        }
+    });
+    $("#output-panel").resizable();
 
     $("#editor-link").on("click", function(){
         $("#save-library").hide();

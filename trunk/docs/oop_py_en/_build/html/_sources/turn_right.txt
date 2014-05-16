@@ -30,7 +30,7 @@ After defining this function, you can use it as follows::
 
 This works ... but it does not look right since the *function* that is
 used to make the robots turn right uses a different syntax from the
-*method* that is used to make them left. There has to be a better way...
+*method* that is used to make them turn left. There has to be a better way...
 
 
 Derived classes

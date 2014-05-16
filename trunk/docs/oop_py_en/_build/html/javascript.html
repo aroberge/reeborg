@@ -114,7 +114,7 @@ Javascript instead of Python.  Then run the following code:</p>
 <span class="nx">inspect</span><span class="p">(</span><span class="nx">r</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>If you look in the diary, you will see <tt class="docutils literal"><span class="pre">robot</span></tt> as we had in the
+<p>If you look in the diary, you will see <tt class="docutils literal"><span class="pre">body</span></tt> as we had in the
 Python code, but will also see some familiar methods like
 <tt class="docutils literal"><span class="pre">at_goal()</span></tt>, <tt class="docutils literal"><span class="pre">move()</span></tt> and many others.</p>
 <p>Now we are ready to look at some code.</p>
@@ -151,7 +151,7 @@ is to execute the following.</p>
     <span class="nx">robot</span><span class="p">.</span><span class="nx">_prev_orientation</span> <span class="o">=</span> <span class="nx">robot</span><span class="p">.</span><span class="nx">orientation</span><span class="p">;</span>
     <span class="nx">robot</span><span class="p">.</span><span class="nx">_prev_x</span> <span class="o">=</span> <span class="nx">robot</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
     <span class="nx">robot</span><span class="p">.</span><span class="nx">_prev_y</span> <span class="o">=</span> <span class="nx">robot</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="nx">robot</span><span class="p">.</span><span class="nx">orientation</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="nx">robot</span><span class="p">.</span><span class="nx">orientation</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// could have used &quot;++&quot; instead of &quot;+= 1&quot;</span>
     <span class="nx">robot</span><span class="p">.</span><span class="nx">orientation</span> <span class="o">%=</span> <span class="mi">4</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">no_frame</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
     <span class="nx">RUR</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">sound_id</span> <span class="o">=</span> <span class="s2">&quot;#turn-sound&quot;</span><span class="p">;</span>
@@ -177,7 +177,40 @@ Here is the equivalent Python code:</p>
 talking about &#8220;recording frames&#8221; ... It looks as though the last instruction
 is the one we were looking for.  Time to go back to coding in Python.
 Select Python as the programming language at the top of Reeborg&#8217;s World window
-before proceeding to the next page of this tutorial.</p>
+before running the following program.</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<p>Select world <strong>Empty</strong> and run the following code to
+confirm that you can add new capabilities to
+Reeborg and show its effect properly at each step.</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Teleporter</span><span class="p">(</span><span class="n">UsedRobot</span><span class="p">):</span>
+
+   <span class="k">def</span> <span class="nf">jump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+      <span class="n">RUR</span><span class="o">.</span><span class="n">rec</span><span class="o">.</span><span class="n">record_frame</span><span class="p">()</span>
+
+<span class="n">jumper</span> <span class="o">=</span> <span class="n">Teleporter</span><span class="p">()</span>
+<span class="n">jumper</span><span class="o">.</span><span class="n">jump</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">jumper</span><span class="o">.</span><span class="n">jump</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title first">Your turn!</p>
+<p>Design a robot class that can &#8220;hop&#8221; horizontally, only increasing
+the <tt class="docutils literal"><span class="pre">x</span></tt> coordinate by 1 each time (like in a <tt class="docutils literal"><span class="pre">move</span></tt> method) but
+effectively jumping over walls.  Create a robot instance and have
+it solve the hurdles challenges, <strong>Hurdles 1</strong> to <strong>Hurdles 4</strong>, going
+in a straight line.  For each existing world,
+you will first have to click on &#8220;Edit World&#8221; and
+remove the robot already present.  You may find it useful to then click
+on &#8220;browser:Save&#8221; so that you can reload this robot-free world if needed.
+A complete solution can be written in only 7 lines of code.</p>
+<p>If you have forgotten about incrementing variables, you can either look
+at the code above on this page to give you a hint, or go back and
+read <a class="reference external" href="../begin_py_en/increment.html">Increment</a>.</p>
+</div>
 </div>
 
 

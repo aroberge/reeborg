@@ -15,11 +15,11 @@ RUR.vis_world.draw_coordinates = function(ctx) {
     }
     
     ctx.fillStyle = RUR.COORDINATES_COLOR;
-    y = RUR.HEIGHT - RUR.WALL_LENGTH/2;
+    y = RUR.HEIGHT + 5 - RUR.WALL_LENGTH/2;
     for(x=1; x <= RUR.COLS; x++){
         ctx.fillText(x, (x+0.5)*RUR.WALL_LENGTH, y);
     }
-    x = RUR.WALL_LENGTH/2;
+    x = RUR.WALL_LENGTH/2 -5;
     for(y=1; y <= RUR.ROWS; y++){
         ctx.fillText(y, x, RUR.HEIGHT - (y+0.3)*RUR.WALL_LENGTH);
     }
@@ -129,7 +129,7 @@ RUR.vis_world.draw_robots = function (robots) {
                 ", y=" + robots[robot].y + RUR.translation[", tokens="] + robots[robot].tokens + ".  ";
     }
     RUR.ROBOT_CTX.fillStyle = RUR.DEBUG_INFO_COLOR;
-    RUR.ROBOT_CTX.fillText(info, 5, 15);
+    RUR.ROBOT_CTX.fillText(info, 5, 10);
 };
 
 RUR.vis_world.draw_tokens = function(tokens, goal) {
@@ -149,7 +149,7 @@ RUR.vis_world.draw_tokens = function(tokens, goal) {
 
 RUR.vis_world.draw_token = function (i, j, num, goal) {
     "use strict";
-    var size = 12, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
+    var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
     var ctx;
     if (goal) {
         ctx = RUR.BACKGROUND_CTX;
@@ -253,7 +253,7 @@ RUR.vis_world.draw_shapes = function(shapes, goal) {
 
 RUR.vis_world.draw_shape = function (i, j, shape, goal) {
     "use strict";
-    var ctx, size = 12, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
+    var ctx, size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
     if(goal !== undefined){
         ctx = RUR.BACKGROUND_CTX;
         ctx.lineWidth = 3;
@@ -317,6 +317,24 @@ RUR.vis_world.draw_star = function (ctx, x, y, r, goal){
 
 RUR.vis_world.draw_all = function () {
     "use strict";
+    if (RUR.LARGE_WORLD) {
+        RUR.WALL_LENGTH = 20;
+        RUR.WALL_THICKNESS = 3;
+        RUR.SCALE = 0.5;
+        RUR.vis_robot.x_offset = 4;
+        RUR.vis_robot.y_offset = 4;
+        RUR.BACKGROUND_CTX.font = "8px sans-serif";
+    } else {
+        RUR.WALL_LENGTH = 40;
+        RUR.WALL_THICKNESS = 5;
+        RUR.SCALE = 1;
+        RUR.vis_robot.x_offset = 10;
+        RUR.vis_robot.y_offset = 8;
+        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
+    }
+    RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
+    RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 2;
+    
     RUR.vis_world.draw_background();
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_goal();

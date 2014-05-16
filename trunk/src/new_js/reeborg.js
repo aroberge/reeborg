@@ -25,6 +25,7 @@ RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
 
 RUR.WALL_LENGTH = 40;
 RUR.WALL_THICKNESS = 5;
+RUR.LARGE_WORLD = false;
 
 RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 2;
@@ -452,6 +453,13 @@ $(document).ready(function() {
             }
         });
     });
+    $("#editor-panel").resizable({
+        resize: function() {
+            editor.setSize(null, $(this).height()-40);
+            library.setSize(null, $(this).height()-40);
+        }
+    });
+    $("#output-panel").resizable();
 
     $("#editor-link").on("click", function(){
         $("#save-library").hide();
@@ -1341,32 +1349,17 @@ RUR.ui.load_user_worlds = function () {
 };
 
 
-
+RUR.ui.resize = function () {
+    RUR.LARGE_WORLD = !RUR.LARGE_WORLD;
+    RUR.current_world.large_world = RUR.LARGE_WORLD;
+    RUR.vis_world.draw_all();
+};
 
 RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
     reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
     step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
     pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
-
-//function toggle_contents_button () {
-//    if ($("#contents-button").hasClass("reverse-blue-gradient")) {
-//        RUR.tutorial_window = window.open("index_en.html", '_blank', 'location=no,height=600,width=800,scrollbars=yes,status=yes');
-//    } else {
-//        try {
-//            RUR.tutorial_window.close();
-//        }
-//        catch (e) {}
-//    }
-//    return false;
-//}
-//
-//function toggle_contents_button_from_child () {
-//    // called when child window is closed by user
-//    $("#contents-button").toggleClass("blue-gradient");
-//    $("#contents-button").toggleClass("reverse-blue-gradient");
-//}
-
 /* Author: André Roberge
    License: MIT  */
 
@@ -1480,8 +1473,6 @@ RUR.vis_robot.images[0].robot_w_img = new Image();
 RUR.vis_robot.images[0].robot_w_img.src = 'src/images/robot_w.png';
 RUR.vis_robot.images[0].robot_s_img = new Image();
 RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
-RUR.vis_robot.images[0].robot_x_offset = 10;
-RUR.vis_robot.images[0].robot_y_offset = 8;
 
 // poorly drawn to view
 RUR.vis_robot.images[1].robot_e_img = new Image();
@@ -1492,8 +1483,6 @@ RUR.vis_robot.images[1].robot_w_img = new Image();
 RUR.vis_robot.images[1].robot_w_img.src = 'src/images/top_w.png';
 RUR.vis_robot.images[1].robot_s_img = new Image();
 RUR.vis_robot.images[1].robot_s_img.src = 'src/images/top_s.png';
-RUR.vis_robot.images[1].robot_x_offset = 10;
-RUR.vis_robot.images[1].robot_y_offset = 8;
 
 // rover type
 RUR.vis_robot.images[2].robot_e_img = new Image();
@@ -1504,8 +1493,9 @@ RUR.vis_robot.images[2].robot_w_img = new Image();
 RUR.vis_robot.images[2].robot_w_img.src = 'src/images/rover_w.png';
 RUR.vis_robot.images[2].robot_s_img = new Image();
 RUR.vis_robot.images[2].robot_s_img.src = 'src/images/rover_s.png';
-RUR.vis_robot.images[2].robot_x_offset = 10;
-RUR.vis_robot.images[2].robot_y_offset = 8;
+
+RUR.vis_robot.x_offset = 10;
+RUR.vis_robot.y_offset = 8;
 
 RUR.vis_robot.select_style = function (arg) {
     var style;
@@ -1517,8 +1507,7 @@ RUR.vis_robot.select_style = function (arg) {
     RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
     RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
     RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
-    RUR.vis_robot.x_offset = RUR.vis_robot.images[style].robot_x_offset;
-    RUR.vis_robot.y_offset = RUR.vis_robot.images[style].robot_y_offset;
+
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh();
     }
@@ -1563,19 +1552,19 @@ RUR.vis_robot.draw = function (robot) {
     y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.y_offset;
     switch(robot.orientation){
     case RUR.EAST:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
         break;
     case RUR.NORTH:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.n_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.n_img, x, y, RUR.vis_robot.n_img.width*RUR.SCALE, RUR.vis_robot.n_img.height*RUR.SCALE);
         break;
     case RUR.WEST:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.w_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.w_img, x, y, RUR.vis_robot.w_img.width*RUR.SCALE, RUR.vis_robot.w_img.height*RUR.SCALE);
         break;
     case RUR.SOUTH:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y, RUR.vis_robot.s_img.width*RUR.SCALE, RUR.vis_robot.s_img.height*RUR.SCALE);
         break;
     default:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
     }
     if (RUR.we.editing_world){
         return;
@@ -1593,6 +1582,15 @@ RUR.vis_robot.draw_trace = function (robot) {
     ctx.strokeStyle = RUR.vis_robot.trace_color;
     ctx.lineWidth = RUR.vis_robot.trace_thickness;
     ctx.lineCap = "round";
+    // overrides user choice for large world (small grid size)
+    if(RUR.LARGE_WORLD) {
+        RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
+        RUR.vis_robot.trace_color = "seagreen";
+        RUR.vis_robot.trace_thickness = 2;
+    } else {
+        RUR.vis_robot.set_trace_style(RUR.TRACE_STYLE);
+    }
+    
     ctx.beginPath();
     ctx.moveTo(robot._prev_x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation][0],
                     RUR.HEIGHT - (robot._prev_y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation][1]);
@@ -1603,6 +1601,7 @@ RUR.vis_robot.draw_trace = function (robot) {
 
 RUR.vis_robot.set_trace_style = function (choice){
     "use strict";
+    RUR.TRACE_STYLE = choice;
     if (choice === "thick") {
         RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
         RUR.vis_robot.trace_color = "seagreen";
@@ -1614,7 +1613,7 @@ RUR.vis_robot.set_trace_style = function (choice){
     }
 };
 
-RUR.vis_robot.set_trace_style(); 
+RUR.vis_robot.set_trace_style("default"); 
 /* Author: André Roberge
    License: MIT
  */
@@ -1632,11 +1631,11 @@ RUR.vis_world.draw_coordinates = function(ctx) {
     }
     
     ctx.fillStyle = RUR.COORDINATES_COLOR;
-    y = RUR.HEIGHT - RUR.WALL_LENGTH/2;
+    y = RUR.HEIGHT + 5 - RUR.WALL_LENGTH/2;
     for(x=1; x <= RUR.COLS; x++){
         ctx.fillText(x, (x+0.5)*RUR.WALL_LENGTH, y);
     }
-    x = RUR.WALL_LENGTH/2;
+    x = RUR.WALL_LENGTH/2 -5;
     for(y=1; y <= RUR.ROWS; y++){
         ctx.fillText(y, x, RUR.HEIGHT - (y+0.3)*RUR.WALL_LENGTH);
     }
@@ -1746,7 +1745,7 @@ RUR.vis_world.draw_robots = function (robots) {
                 ", y=" + robots[robot].y + RUR.translation[", tokens="] + robots[robot].tokens + ".  ";
     }
     RUR.ROBOT_CTX.fillStyle = RUR.DEBUG_INFO_COLOR;
-    RUR.ROBOT_CTX.fillText(info, 5, 15);
+    RUR.ROBOT_CTX.fillText(info, 5, 10);
 };
 
 RUR.vis_world.draw_tokens = function(tokens, goal) {
@@ -1766,7 +1765,7 @@ RUR.vis_world.draw_tokens = function(tokens, goal) {
 
 RUR.vis_world.draw_token = function (i, j, num, goal) {
     "use strict";
-    var size = 12, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
+    var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
     var ctx;
     if (goal) {
         ctx = RUR.BACKGROUND_CTX;
@@ -1870,7 +1869,7 @@ RUR.vis_world.draw_shapes = function(shapes, goal) {
 
 RUR.vis_world.draw_shape = function (i, j, shape, goal) {
     "use strict";
-    var ctx, size = 12, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
+    var ctx, size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
     if(goal !== undefined){
         ctx = RUR.BACKGROUND_CTX;
         ctx.lineWidth = 3;
@@ -1934,6 +1933,24 @@ RUR.vis_world.draw_star = function (ctx, x, y, r, goal){
 
 RUR.vis_world.draw_all = function () {
     "use strict";
+    if (RUR.LARGE_WORLD) {
+        RUR.WALL_LENGTH = 20;
+        RUR.WALL_THICKNESS = 3;
+        RUR.SCALE = 0.5;
+        RUR.vis_robot.x_offset = 4;
+        RUR.vis_robot.y_offset = 4;
+        RUR.BACKGROUND_CTX.font = "8px sans-serif";
+    } else {
+        RUR.WALL_LENGTH = 40;
+        RUR.WALL_THICKNESS = 5;
+        RUR.SCALE = 1;
+        RUR.vis_robot.x_offset = 10;
+        RUR.vis_robot.y_offset = 8;
+        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
+    }
+    RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
+    RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 2;
+    
     RUR.vis_world.draw_background();
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_goal();
@@ -1994,6 +2011,9 @@ RUR.world.import_world = function (json_string) {
             body._prev_y = body.y;
             body._prev_orientation = body.orientation;
         }
+    }
+    if (RUR.current_world.large_world !== undefined) {
+        RUR.LARGE_WORLD = RUR.current_world.large_world;
     }
     RUR.world.saved_world = RUR.world.clone_world();
     RUR.vis_world.draw_all();
