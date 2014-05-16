@@ -49,6 +49,8 @@ RUR.world.import_world = function (json_string) {
     }
     if (RUR.current_world.large_world !== undefined) {
         RUR.LARGE_WORLD = RUR.current_world.large_world;
+    } else {
+        RUR.LARGE_WORLD = false;
     }
     RUR.world.saved_world = RUR.world.clone_world();
     RUR.vis_world.draw_all();
