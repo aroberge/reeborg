@@ -110,7 +110,10 @@
       <option value="src/json/jsa3.json">JSA 3</option>
     </select>
     <button id="permalink" title="permalink" onclick="create_permalink();">
-      <img src="src/images/permalink.png" alt="reload">
+      <img src="src/images/permalink.png" alt="permalink">
+    </button>
+    <button id="resize" title="resize" onclick="RUR.ui.resize()">
+      <img src="src/images/resize.png" alt="resize">
     </button>
   </div>
   <div id="canvas-wrapper">
@@ -333,14 +336,16 @@ window['ReeborgError'] = RUR.ReeborgError
     tabMode: 'indent',
     lineNumbers: true,
     theme: 'reeborg-dark',
-    indentUnit: 4
+    indentUnit: 4,
+    viewportMargin: Infinity
   });
   var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
     mode:  {name: "python", version: 3},
     tabMode: 'indent',
     lineNumbers: true,
     theme: 'reeborg-dark',
-    indentUnit: 4
+    indentUnit: 4,
+    viewportMargin: Infinity
   });
 </script>
 

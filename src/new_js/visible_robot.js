@@ -17,8 +17,6 @@ RUR.vis_robot.images[0].robot_w_img = new Image();
 RUR.vis_robot.images[0].robot_w_img.src = 'src/images/robot_w.png';
 RUR.vis_robot.images[0].robot_s_img = new Image();
 RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
-RUR.vis_robot.images[0].robot_x_offset = 10;
-RUR.vis_robot.images[0].robot_y_offset = 8;
 
 // poorly drawn to view
 RUR.vis_robot.images[1].robot_e_img = new Image();
@@ -29,8 +27,6 @@ RUR.vis_robot.images[1].robot_w_img = new Image();
 RUR.vis_robot.images[1].robot_w_img.src = 'src/images/top_w.png';
 RUR.vis_robot.images[1].robot_s_img = new Image();
 RUR.vis_robot.images[1].robot_s_img.src = 'src/images/top_s.png';
-RUR.vis_robot.images[1].robot_x_offset = 10;
-RUR.vis_robot.images[1].robot_y_offset = 8;
 
 // rover type
 RUR.vis_robot.images[2].robot_e_img = new Image();
@@ -41,8 +37,9 @@ RUR.vis_robot.images[2].robot_w_img = new Image();
 RUR.vis_robot.images[2].robot_w_img.src = 'src/images/rover_w.png';
 RUR.vis_robot.images[2].robot_s_img = new Image();
 RUR.vis_robot.images[2].robot_s_img.src = 'src/images/rover_s.png';
-RUR.vis_robot.images[2].robot_x_offset = 10;
-RUR.vis_robot.images[2].robot_y_offset = 8;
+
+RUR.vis_robot.x_offset = 10;
+RUR.vis_robot.y_offset = 8;
 
 RUR.vis_robot.select_style = function (arg) {
     var style;
@@ -54,8 +51,7 @@ RUR.vis_robot.select_style = function (arg) {
     RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
     RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
     RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
-    RUR.vis_robot.x_offset = RUR.vis_robot.images[style].robot_x_offset;
-    RUR.vis_robot.y_offset = RUR.vis_robot.images[style].robot_y_offset;
+
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh();
     }
@@ -100,19 +96,19 @@ RUR.vis_robot.draw = function (robot) {
     y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.y_offset;
     switch(robot.orientation){
     case RUR.EAST:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
         break;
     case RUR.NORTH:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.n_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.n_img, x, y, RUR.vis_robot.n_img.width*RUR.SCALE, RUR.vis_robot.n_img.height*RUR.SCALE);
         break;
     case RUR.WEST:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.w_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.w_img, x, y, RUR.vis_robot.w_img.width*RUR.SCALE, RUR.vis_robot.w_img.height*RUR.SCALE);
         break;
     case RUR.SOUTH:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y, RUR.vis_robot.s_img.width*RUR.SCALE, RUR.vis_robot.s_img.height*RUR.SCALE);
         break;
     default:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
     }
     if (RUR.we.editing_world){
         return;
@@ -130,6 +126,15 @@ RUR.vis_robot.draw_trace = function (robot) {
     ctx.strokeStyle = RUR.vis_robot.trace_color;
     ctx.lineWidth = RUR.vis_robot.trace_thickness;
     ctx.lineCap = "round";
+    // overrides user choice for large world (small grid size)
+    if(RUR.LARGE_WORLD) {
+        RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
+        RUR.vis_robot.trace_color = "seagreen";
+        RUR.vis_robot.trace_thickness = 2;
+    } else {
+        RUR.vis_robot.set_trace_style(RUR.TRACE_STYLE);
+    }
+    
     ctx.beginPath();
     ctx.moveTo(robot._prev_x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation][0],
                     RUR.HEIGHT - (robot._prev_y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation][1]);
@@ -140,6 +145,7 @@ RUR.vis_robot.draw_trace = function (robot) {
 
 RUR.vis_robot.set_trace_style = function (choice){
     "use strict";
+    RUR.TRACE_STYLE = choice;
     if (choice === "thick") {
         RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
         RUR.vis_robot.trace_color = "seagreen";
@@ -151,4 +157,4 @@ RUR.vis_robot.set_trace_style = function (choice){
     }
 };
 
-RUR.vis_robot.set_trace_style(); 
+RUR.vis_robot.set_trace_style("default"); 

@@ -47,6 +47,9 @@ RUR.world.import_world = function (json_string) {
             body._prev_orientation = body.orientation;
         }
     }
+    if (RUR.current_world.large_world !== undefined) {
+        RUR.LARGE_WORLD = RUR.current_world.large_world;
+    }
     RUR.world.saved_world = RUR.world.clone_world();
     RUR.vis_world.draw_all();
     if (RUR.we.editing_world) {

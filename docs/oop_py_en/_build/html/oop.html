@@ -83,6 +83,7 @@
 <li><a class="reference internal" href="#all-in-a-dog-s-day">All in a dog&#8217;s day</a></li>
 <li><a class="reference internal" href="#a-used-robot-gets-his-name">A Used Robot gets his name</a></li>
 <li><a class="reference internal" href="#many-robots">Many robots</a></li>
+<li><a class="reference internal" href="#for-the-advanced-reader">For the advanced reader</a></li>
 </ul>
 </li>
 </ul>
@@ -194,7 +195,7 @@ letters.  It is a convention in Python (and many other programming languages)
 to give a name starting with a lower case letter to <em>instances</em> of a class of objects,
 reserving names that start with an upper case letter, like <tt class="docutils literal"><span class="pre">UsedRobot</span></tt>, for
 classes of objects.</p>
-<p class="last"><strong>However</strong>, I will often not follow this convention in naming Reeborg and
+<p class="last"><strong>However</strong>, I will often <strong>not</strong> follow this convention in naming Reeborg and
 other robots.</p>
 </div>
 </div>
@@ -214,6 +215,25 @@ code:</p>
 </div>
 <p>You can add even more robots!</p>
 </div>
+</div>
+<div class="section" id="for-the-advanced-reader">
+<h2>For the advanced reader<a class="headerlink" href="#for-the-advanced-reader" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the dot notation, there is another way to get the value of
+attributes or methods that belong to an object in Python.  Suppose I have a <tt class="docutils literal"><span class="pre">Dog()</span></tt>
+as above, for which I can have the following:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">Fido</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="s">&quot;tall&quot;</span>
+<span class="n">Fido</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  <span class="c"># is an action that Fido can do</span>
+</pre></div>
+</div>
+<p>With Python, one can use the built-in function <tt class="docutils literal"><span class="pre">getattr</span></tt>, whose name
+is meant to remind of &#8220;get attribute&#8221;, as follows:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">how_big</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Fido</span><span class="p">,</span> <span class="s">&quot;size&quot;</span><span class="p">)</span>    <span class="c"># equivalent to how_big = &quot;tall&quot;</span>
+<span class="n">action</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Fido</span><span class="p">,</span> <span class="s">&quot;run&quot;</span><span class="p">)</span>
+<span class="n">action</span><span class="p">()</span>       <span class="c"># equivalent to Fido.run()</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">getattr</span></tt> can be very useful in some contexts but its use is overly
+complicated for what we need to do in Reeborg&#8217;s world.</p>
 </div>
 </div>
 

@@ -145,10 +145,10 @@ on the &#8220;World&#8221; button.</p>
 that I wrote to enable you to see an
 object&#8217;s methods and attributes. Right now, it does not tell us much.
 It writes two things ... and we do not know if they are methods or
-attributes.  One of these is <tt class="docutils literal"><span class="pre">robot</span></tt>.  So, we know that <tt class="docutils literal"><span class="pre">r.robot</span></tt> is
+attributes.  One of these is <tt class="docutils literal"><span class="pre">body</span></tt>.  So, we know that <tt class="docutils literal"><span class="pre">r.body</span></tt> is
 <em>something</em>.  Run the following code:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">r</span> <span class="o">=</span> <span class="n">UsedRobot</span><span class="p">()</span>
-<span class="n">inspect</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">robot</span><span class="p">)</span>
+<span class="n">inspect</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You certainly recognize the words <tt class="docutils literal"><span class="pre">tokens</span></tt>, <tt class="docutils literal"><span class="pre">star</span></tt>, <tt class="docutils literal"><span class="pre">triangle</span></tt> and
@@ -160,15 +160,15 @@ should be write a program and see if this is the case.</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
 <p>Select the world <strong>Empty</strong> and execute the following code:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">nightCrawler</span> <span class="o">=</span> <span class="n">UsedRobot</span><span class="p">()</span>  <span class="c"># mutant robot that teleports itself</span>
-<span class="n">nightCrawler</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="n">nightCrawler</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">jumper</span> <span class="o">=</span> <span class="n">UsedRobot</span><span class="p">()</span>  <span class="c"># mutant robot that teleports itself</span>
+<span class="n">jumper</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">jumper</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
 </pre></div>
 </div>
 </div>
 <p>All you should see is a robot created at <tt class="docutils literal"><span class="pre">x=1,</span> <span class="pre">y=1</span></tt> ... which might not be
 what you have expected.  Add the following instruction:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">nightCrawler</span><span class="o">.</span><span class="n">turn_left</span><span class="p">()</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">jumper</span><span class="o">.</span><span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>at the end of your program and run it again.</p>
@@ -178,7 +178,7 @@ what you have expected.  Add the following instruction:</p>
 <p>You may recall from previous tutorials that Reeborg&#8217;s actions are recorded
 (like a movie) and played back one &#8220;frame&#8221; at a time.  The recording of a given
 state happens when some special instructions are given.  By changing the value
-of the attribute <tt class="docutils literal"><span class="pre">x</span></tt> or <tt class="docutils literal"><span class="pre">y</span></tt> of the <tt class="docutils literal"><span class="pre">kangaroo.robot</span></tt> object, you do not
+of the attribute <tt class="docutils literal"><span class="pre">x</span></tt> or <tt class="docutils literal"><span class="pre">y</span></tt> of the <tt class="docutils literal"><span class="pre">nightCrawler.body</span></tt> object, you do not
 trigger a frame recording.  However, by adding a <tt class="docutils literal"><span class="pre">turn_left()</span></tt> instruction at the
 end, we do make a recording of the situation, which shows us that the previous
 instructions did indeed change the robot&#8217;s position.</p>

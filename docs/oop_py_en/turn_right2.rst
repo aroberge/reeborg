@@ -30,11 +30,11 @@ Enter and execute the following code and look at the result in the Diary::
 that I wrote to enable you to see an
 object's methods and attributes. Right now, it does not tell us much.
 It writes two things ... and we do not know if they are methods or
-attributes.  One of these is ``robot``.  So, we know that ``r.robot`` is
+attributes.  One of these is ``body``.  So, we know that ``r.body`` is
 *something*.  Run the following code::
 
     r = UsedRobot()
-    inspect(r.robot)
+    inspect(r.body)
 
 You certainly recognize the words ``tokens``, ``star``, ``triangle`` and
 ``square`` from the challenges mentioned in the beginner's tutorial.
@@ -47,14 +47,14 @@ should be write a program and see if this is the case.
 
    Select the world **Empty** and execute the following code::
    
-      nightCrawler = UsedRobot()  # mutant robot that teleports itself
-      nightCrawler.robot.x = 8
-      nightCrawler.robot.y = 10
+      jumper = UsedRobot()  # mutant robot that teleports itself
+      jumper.body.x = 8
+      jumper.body.y = 10
 
 All you should see is a robot created at ``x=1, y=1`` ... which might not be
 what you have expected.  Add the following instruction::
 
-    nightCrawler.turn_left()
+    jumper.turn_left()
 
 at the end of your program and run it again.
 
@@ -65,7 +65,7 @@ What happened?
 You may recall from previous tutorials that Reeborg's actions are recorded
 (like a movie) and played back one "frame" at a time.  The recording of a given
 state happens when some special instructions are given.  By changing the value
-of the attribute ``x`` or ``y`` of the ``kangaroo.robot`` object, you do not
+of the attribute ``x`` or ``y`` of the ``nightCrawler.body`` object, you do not
 trigger a frame recording.  However, by adding a ``turn_left()`` instruction at the
 end, we do make a recording of the situation, which shows us that the previous
 instructions did indeed change the robot's position.

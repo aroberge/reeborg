@@ -146,29 +146,14 @@ RUR.ui.load_user_worlds = function () {
 };
 
 
-
+RUR.ui.resize = function () {
+    RUR.LARGE_WORLD = !RUR.LARGE_WORLD;
+    RUR.current_world.large_world = RUR.LARGE_WORLD;
+    RUR.vis_world.draw_all();
+};
 
 RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
     reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
     step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
     pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
-
-//function toggle_contents_button () {
-//    if ($("#contents-button").hasClass("reverse-blue-gradient")) {
-//        RUR.tutorial_window = window.open("index_en.html", '_blank', 'location=no,height=600,width=800,scrollbars=yes,status=yes');
-//    } else {
-//        try {
-//            RUR.tutorial_window.close();
-//        }
-//        catch (e) {}
-//    }
-//    return false;
-//}
-//
-//function toggle_contents_button_from_child () {
-//    // called when child window is closed by user
-//    $("#contents-button").toggleClass("blue-gradient");
-//    $("#contents-button").toggleClass("reverse-blue-gradient");
-//}
-
