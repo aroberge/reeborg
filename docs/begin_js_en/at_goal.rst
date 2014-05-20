@@ -70,6 +70,30 @@ for both worlds **Hurdles 1** and **Hurdles 2** would be::
 
     Write such a program and make sure it works.
 
-**Could this program work without changing anything for world
-Hurdles 4?**
+.. hint::
+
+   Your program could look as follows::
+   
+    import_lib();
+    
+    function jump_over_hurdle(){ 
+        // some definitions
+    }
+
+    function move_and_jump_until_done(){ 
+        // something
+        if (at_goal()){ 
+            done();
+        }
+        // something
+    }
+
+    repeat(move_and_jump_until_done, 42);
+
+
+A question for you
+~~~~~~~~~~~~~~~~~~
+
+Could this program work without changing anything for world
+**Hurdles 3**?
 

@@ -185,18 +185,27 @@ repeating and end up with an <strong>infinite loop</strong>.</p>
 </div>
 <div class="section" id="back-to-hurdles">
 <h2>20.2. Back to hurdles!<a class="headerlink" href="#back-to-hurdles" title="Permalink to this headline">¶</a></h2>
-<p>Let&#8217;s go back to <strong>Hurdles&nbsp;1</strong>, <strong>Hurdles&nbsp;2</strong> and <strong>Hurdles&nbsp;3</strong>, and write a single
-program, using <tt class="docutils literal"><span class="pre">while</span></tt>, and without using <tt class="docutils literal"><span class="pre">repeat()</span></tt> which works in
-all three cases. Your program might look like the following.</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">jump_over_hurdle</span><span class="p">():</span>
-    <span class="c"># suitable definition</span>
-
-<span class="k">def</span> <span class="nf">run_or_jump</span> <span class="p">():</span>
-    <span class="c"># suitable definition</span>
-
-<span class="k">while</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
-    <span class="n">run_or_jump</span><span class="p">()</span>
+<div class="topic">
+<p class="topic-title first">Your turn!</p>
+<p>Go back to <strong>Hurdles&nbsp;1</strong>, <strong>Hurdles&nbsp;2</strong> and <strong>Hurdles&nbsp;3</strong>, and write a single
+program for all three world, using <tt class="docutils literal"><span class="pre">while</span></tt> and without using <tt class="docutils literal"><span class="pre">repeat()</span></tt>.</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>Your program might look like the following:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">py3</span>
 </pre></div>
+</div>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>def jump_over_hurdle():</dt>
+<dd># suitable definition</dd>
+<dt>def run_or_jump ():</dt>
+<dd># suitable definition</dd>
+<dt>while not at_goal():</dt>
+<dd>run_or_jump()</dd>
+</dl>
+</div></blockquote>
 </div>
 <p>That&#8217;s it! No more arbitrary repetitions! From now on, you should only
 use <tt class="docutils literal"><span class="pre">repeat()</span></tt> when you know <strong>exactly</strong> how many times a given
@@ -233,9 +242,9 @@ function must be repeated.</p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

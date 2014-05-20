@@ -5,7 +5,7 @@ Reeborg is upset. It's **not** raining; it's **not** snowing. Yet, he
 cannot go outside and practise for his hurdles race.
 
 Why, do you ask? It's because Reeborg is waiting for you to learn about
-Javascript **not**.
+Javascript "**not**".
 
 Time to be negative.
 --------------------

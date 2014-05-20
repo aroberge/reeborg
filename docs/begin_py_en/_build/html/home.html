@@ -128,8 +128,9 @@ labels this square as <tt class="docutils literal"><span class="pre">x=3</span><
 Cartesian coordinates.</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
-<p>Write a program with a single <tt class="docutils literal"><span class="pre">move()</span></tt> instruction, run it and notice
-what feedback Reeborg gives you.  Then, change your program so that
+<p>With <strong>Home 1</strong> selected, write a program with a single <tt class="docutils literal"><span class="pre">move()</span></tt> instruction,
+run it and notice what feedback Reeborg gives you.
+Then, change your program so that
 Reeborg go home.</p>
 </div>
 <div class="topic">
@@ -200,9 +201,9 @@ image, Reeborg can appear as follows when viewed from above: <img alt="image1" s
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

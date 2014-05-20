@@ -27,6 +27,21 @@ simply type ``import_lib()`` in the Javascript Code editor.
    expected. If they don't, go back and fix them.  Remember to use
    ``import_lib()`` in your main program.
 
+.. hint::
+
+   With the appropriate functions defined in the library, 
+   here is such a program::
+   
+       import_lib();
+       move();
+       turn_around();
+       move();
+       turn_right();
+       move();
+       turn_around();
+       move();
+       turn_left();  // back at starting position
+
 From now on, whenever you define a function that you use more than once,
 add it to your library so that you don't have to redefine it every time.
 

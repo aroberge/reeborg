@@ -25,7 +25,23 @@ simply type ``import my_lib`` on its own line in the Python Code editor.
    functions) and write a short
    program that nonetheless uses them to make sure that they work as
    expected. If they don't, go back and fix them.  Remember to use
-   ``import lib`` in your main program.
+   ``import my_lib`` in your main program.
+
+.. hint::
+
+   With the appropriate functions defined in the library, 
+   here is such a program::
+   
+       import my_lib
+       move()
+       turn_around()
+       move()
+       turn_right()
+       move()
+       turn_around()
+       move()
+       turn_left()  # back at starting position
+
 
 From now on, whenever you define a function that you use more than once,
 add it to your library so that you don't have to redefine it every time.

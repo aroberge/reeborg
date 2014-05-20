@@ -187,30 +187,30 @@ here&#8217;s a more detailed explanation which will help you to not only
 understand how functions work, but also other Python construct that
 involve blocks of code.</p>
 <p>Suppose we have the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">turn_right</span><span class="p">():</span>  <span class="c"># begin of code block follows</span>
-    <span class="n">turn_left</span><span class="p">()</span>
-    <span class="n">turn_left</span><span class="p">()</span>
-    <span class="n">turn_left</span><span class="p">()</span>   <span class="c"># end of code block</span>
+<div class="highlight-python"><div class="highlight"><pre> <span class="k">def</span> <span class="nf">turn_right</span><span class="p">():</span>  <span class="c"># begin of code block follows</span>
+     <span class="n">turn_left</span><span class="p">()</span>
+     <span class="n">turn_left</span><span class="p">()</span>
+     <span class="n">turn_left</span><span class="p">()</span>   <span class="c"># end of code block</span>
 
-<span class="n">move</span><span class="p">()</span>
-<span class="n">turn_right</span><span class="p">()</span>
-<span class="n">move</span><span class="p">()</span>
+ <span class="n">move</span><span class="p">()</span>
+<span class="hll"> <span class="n">turn_right</span><span class="p">()</span>
+</span> <span class="n">move</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>This is equivalent to the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="c"># define a function</span>
-<span class="k">def</span> <span class="nf">turn_right</span><span class="p">():</span>
-    <span class="n">turn_left</span><span class="p">()</span>
-    <span class="n">turn_left</span><span class="p">()</span>
-    <span class="n">turn_left</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre> <span class="c"># define a function</span>
+ <span class="k">def</span> <span class="nf">turn_right</span><span class="p">():</span>
+     <span class="n">turn_left</span><span class="p">()</span>
+     <span class="n">turn_left</span><span class="p">()</span>
+     <span class="n">turn_left</span><span class="p">()</span>
 
-<span class="n">move</span><span class="p">()</span>
-<span class="c"># begin of code block inside turn_right()</span>
-<span class="n">turn_left</span><span class="p">()</span>
-<span class="n">turn_left</span><span class="p">()</span>
-<span class="n">turn_left</span><span class="p">()</span>
-<span class="c"># end of code block</span>
-<span class="n">move</span><span class="p">()</span>
+ <span class="n">move</span><span class="p">()</span>
+ <span class="c"># begin of code block inside turn_right()</span>
+<span class="hll"> <span class="n">turn_left</span><span class="p">()</span>
+</span><span class="hll"> <span class="n">turn_left</span><span class="p">()</span>
+</span><span class="hll"> <span class="n">turn_left</span><span class="p">()</span>
+</span> <span class="c"># end of code block</span>
+ <span class="n">move</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>In other words, <tt class="docutils literal"><span class="pre">def</span></tt> defines a name that we can use as a synonym
@@ -258,9 +258,9 @@ defining other functions.</p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

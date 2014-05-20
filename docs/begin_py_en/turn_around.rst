@@ -61,3 +61,9 @@ this important idea.
         # facing in the same direction as before
 
     Make sure you to test it!
+
+Do not use the hint unless you feel you absolutely can not do it otherwise!
+
+.. hint::
+
+   You might want to use ``turn_around()`` twice in defining ``step_back()``.

@@ -76,20 +76,25 @@ Conclusion: you want to make sure that the condition will become
 Back to hurdles!
 ----------------
 
-Let's go back to **Hurdles 1**, **Hurdles 2** and **Hurdles 3**, and write a single
-program, using ``while``, and without using ``repeat()`` which works in
-all three cases. Your program might look like the following.
+.. topic:: Your turn!
 
-.. code-block:: py3
+    Go back to **Hurdles 1**, **Hurdles 2** and **Hurdles 3**, and write a single
+    program for all three world, using ``while`` and without using ``repeat()``.
 
-    def jump_over_hurdle():
-        # suitable definition
+.. hint::
 
-    def run_or_jump ():
-        # suitable definition
+    Your program might look like the following::
 
-    while not at_goal():
-        run_or_jump()
+    .. code-block:: py3
+
+        def jump_over_hurdle():
+            # suitable definition
+
+        def run_or_jump ():
+            # suitable definition
+
+        while not at_goal():
+            run_or_jump()
 
 That's it! No more arbitrary repetitions! From now on, you should only
 use ``repeat()`` when you know **exactly** how many times a given

@@ -138,6 +138,11 @@ This function must be on a line of its own.</p>
 <p>Add a second <tt class="docutils literal"><span class="pre">move()</span></tt> instruction so that Reeborg takes two steps instead
 of only one.</p>
 </div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">Each instruction must appear on its own line, with no extra space
+at the beginning of the line.</p>
+</div>
 <div class="section" id="dealing-with-errors">
 <h2>1.1. Dealing with eRRoRs<a class="headerlink" href="#dealing-with-errors" title="Permalink to this headline">¶</a></h2>
 <p>When writing computer programs, you will likely make many errors.
@@ -206,9 +211,9 @@ than what I suggest and try different things just to explore further.</p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

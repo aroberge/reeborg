@@ -74,7 +74,10 @@ here's a more detailed explanation which will help you to not only
 understand how functions work, but also other Javascript construct that
 involve blocks of code.
 
-Suppose we have the following::
+Suppose we have the following:
+
+.. code-block:: javascript
+   :emphasize-lines: 8
 
     function turn_right () {  // begin of code block
         turn_left();
@@ -86,7 +89,10 @@ Suppose we have the following::
     turn_right();
     move();
 
-This is equivalent to the following::
+This is equivalent to the following:
+
+.. code-block:: javascript
+   :emphasize-lines: 10, 11, 12
 
     // define a function
     function turn_right () {

@@ -145,9 +145,9 @@ determine if there&#8217;s a wall in front of him or not, together with the
 <tt class="docutils literal"><span class="pre">if/else</span></tt> pair to write a program that will guide Reeborg around the
 world. Something like the following:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">move_or_turn</span> <span class="p">():</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="n">front_is_clear</span><span class="p">()</span> <span class="p">):</span>
+    <span class="k">if</span> <span class="n">front_is_clear</span><span class="p">():</span>
         <span class="c"># something</span>
-    <span class="k">else</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="c"># something else</span>
 
 <span class="n">repeat</span><span class="p">(</span><span class="n">move_or_turn</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
@@ -172,7 +172,7 @@ code block. Thus</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
 <span class="k">if</span> <span class="bp">True</span><span class="p">:</span>
     <span class="n">turn_right</span><span class="p">()</span>
-<span class="k">else</span>
+<span class="k">else</span><span class="p">:</span>
     <span class="n">turn_left</span><span class="p">()</span>
 <span class="n">move</span><span class="p">()</span>
 </pre></div>
@@ -187,7 +187,7 @@ code block. Thus</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
 <span class="k">if</span> <span class="bp">False</span><span class="p">:</span>
     <span class="n">turn_right</span><span class="p">()</span>
-<span class="k">else</span>
+<span class="k">else</span><span class="p">:</span>
     <span class="n">turn_left</span><span class="p">()</span>
 <span class="n">move</span><span class="p">()</span>
 </pre></div>
@@ -230,9 +230,9 @@ code block. Thus</p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>
