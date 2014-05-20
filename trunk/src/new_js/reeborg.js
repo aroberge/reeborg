@@ -1330,6 +1330,58 @@ RUR.ui.select_world = function (s, silent) {
     throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: s}));
 };
 
+
+RUR.ui.load_file = function (filename, name, replace, elt, i) {
+    console.log(replace);
+    $.ajax({url: "src/json/" + filename + ".json", 
+        async: false,
+        error: function(e){
+            RUR.ui.load_file_error = true;
+        },
+        success: function(data){
+            RUR.world.import_world(data);
+            if (replace) {
+                elt.options[i].value = "src/json/" + filename + ".json";
+                elt.value = elt.options[i].value;
+            } else {
+                $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+                                      ).val("src/json/" + filename + ".json").html(name));
+                $('#select_world').val("src/json/" + filename + ".json");
+            }
+            $("#select_world").change();
+        }
+    }, "text");
+};
+
+
+
+RUR.ui.select_challenge = function (filename) {
+    // this is for worlds that are defined in a file not available from the
+    // drop-down menu. 
+    var name = "Challenge", elt = document.getElementById("select_world"); 
+    RUR.ui.load_file_error = false;
+    for (var i=0; i < elt.options.length; i++){
+        if (elt.options[i].text === name) {
+            if (elt.options[i].selected) {
+                if (elt.options[i].value === "src/json/" + filename + ".json") {
+                    return;   // already selected, can run program
+                } else {
+                    RUR.ui.load_file(filename, name, true, elt, i);
+                    if (RUR.ui.load_file_error) {
+                        throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: filename}));
+                    }
+                    throw new RUR.ReeborgError(RUR.translation["World selected"].supplant({world: filename}));
+                }
+            }
+        }
+    }
+    RUR.ui.load_file(filename, name, false);
+    if (RUR.ui.load_file_error) {
+        throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: filename}));
+    }
+    throw new RUR.ReeborgError(RUR.translation["World selected"].supplant({world: filename}));
+};
+
 RUR.ui.load_user_worlds = function () {
     var key, name, i, user_world_present;
     for (i = localStorage.length - 1; i >= 0; i--) {

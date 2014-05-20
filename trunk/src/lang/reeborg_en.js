@@ -185,7 +185,7 @@ function create_permalink() {
 }
 
 var globals_ = "/*globals move, turn_left, RUR, inspect, UsedRobot, front_is_clear, right_is_clear, "+
-                    " is_facing_north, done, put, take, object_here, select_world,"+
+                    " is_facing_north, done, put, take, object_here, select_world, select_challenge,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, pause, repeat, view_source, sound," +
     // do not translate the following instructions
@@ -282,7 +282,7 @@ RUR.translation["Goal: no object left in world."] = "Goal: no object left in wor
 
 /*==========================================*/
 
-var move, turn_left, inspect, front_is_clear, right_is_clear, 
+var move, turn_left, inspect, front_is_clear, right_is_clear, select_challenge,
     is_facing_north, done, put, take, object_here, select_world, token_here, 
     has_token, write, at_goal, at_goal_orientation, build_wall, think, 
     pause, repeat, view_source, sound, UsedRobot, 
@@ -339,6 +339,7 @@ RUR.reset_definitions = function () {
       take = null;
       object_here = null;
       select_world = null;
+      select_challenge = null;
       set_max_steps = null;
       token_here = null;
       has_token = null;
@@ -387,6 +388,7 @@ RUR.reset_definitions = function () {
     };
 
     select_world = RUR.ui.select_world;  
+    select_challenge = RUR.ui.select_challenge;
     set_max_steps = function(n){
         RUR.MAX_STEPS = n;
     };
