@@ -24,9 +24,9 @@ By this, I mean that this instruction::
     }
 
 Let's assume that the first time we execute these instructions,
-``at_goal`` is ``false`` and hence ``!at_goal()`` is ``true`` ... like
-it was for world **Home 1**. In this case, the above call to ``go_home()``
-is also executed, and the above code is equivalent to::
+``at_goal`` is ``false`` and hence ``not at_goal()`` is ``true`` ... like
+it was for world **Home 1**. In this case, the above calls to ``move`` and 
+``go_home()`` are executed, and the above code is equivalent to::
 
         move();
         go_home();

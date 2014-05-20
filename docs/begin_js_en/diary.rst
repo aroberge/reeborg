@@ -17,6 +17,10 @@ about life, the universe and everything [#]_ in his diary.
 Writing text
 ------------
 
+.. note::
+
+   The function ``write`` below is specific to Reeborg's World.
+
 In programming terms, a *character* is any letter, number or symbol that
 can be printed and a *string of characters*, or simply *string*, is any
 combination of character that can be printed. For example, try the
