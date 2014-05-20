@@ -1,5 +1,5 @@
 /* Author: André Roberge
-   License: MIT
+   License: MIT 
  */
 
 /*jshint browser:true, devel:true, white:false, plusplus:false */

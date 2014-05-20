@@ -102,10 +102,23 @@
             
   <div class="section" id="learn-python-with-reeborg">
 <h1>Learn Python with Reeborg!<a class="headerlink" href="#learn-python-with-reeborg" title="Permalink to this headline">¶</a></h1>
-<p>Go to <a class="reference external" href="../../world.html">Reeborg&#8217;s world</a>, click on the &#8220;run&#8221; button
+<p>Learning Python is easy with Reeborg.  All you have to do is read the tutorial
+and try all the examples in <a class="reference external" href="../../world.html">Reeborg&#8217;s world</a>.
+I suggest that you keep the tutorial and Reeborg&#8217;s World both open but
+in separate windows or tabs.</p>
+<p>Before you actually start the tutorial, have Reeborg take its first step
+by running a program in Reeborg&#8217;s World.</p>
+<p>Hints are clickable and designed to provide useful pointers if you are
+not sure how to proceed.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">Go to <a class="reference external" href="../../world.html">Reeborg&#8217;s world</a>, click on the &#8220;run&#8221; button
 (small white triangle on blue background)
-and watch Reeborg takes its first step.  (A screencast will soon demonstrate
-how to do this.)</p>
+and watch Reeborg takes its first step.
+You can also <a class="reference external" href="http://youtu.be/yTdw97KNgGM">view this short video</a>
+to see what it looks like.  You may want to watch it in full screen with
+HD quality selected.</p>
+</div>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -301,5 +314,12 @@ how to do this.)</p>
         
        - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
+  <script> 
+  $(document).ready(function() {
+      $('.hint p').hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+  });
+  </script>
   </body>
 </html>

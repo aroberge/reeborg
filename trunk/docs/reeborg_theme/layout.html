@@ -233,5 +233,12 @@
     {%- endif %}
     </div>
 {%- endblock %}
+  <script> 
+  $(document).ready(function() {
+      $('.hint p').hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+  });
+  </script>
   </body>
 </html>
