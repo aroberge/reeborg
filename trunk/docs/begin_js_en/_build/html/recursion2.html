@@ -140,9 +140,9 @@ By this, I mean that this instruction:</p>
 </pre></div>
 </div>
 <p>Let&#8217;s assume that the first time we execute these instructions,
-<tt class="docutils literal"><span class="pre">at_goal</span></tt> is <tt class="docutils literal"><span class="pre">false</span></tt> and hence <tt class="docutils literal"><span class="pre">!at_goal()</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> ... like
-it was for world <strong>Home&nbsp;1</strong>. In this case, the above call to <tt class="docutils literal"><span class="pre">go_home()</span></tt>
-is also executed, and the above code is equivalent to:</p>
+<tt class="docutils literal"><span class="pre">at_goal</span></tt> is <tt class="docutils literal"><span class="pre">false</span></tt> and hence <tt class="docutils literal"><span class="pre">not</span> <span class="pre">at_goal()</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> ... like
+it was for world <strong>Home&nbsp;1</strong>. In this case, the above calls to <tt class="docutils literal"><span class="pre">move</span></tt> and
+<tt class="docutils literal"><span class="pre">go_home()</span></tt> are executed, and the above code is equivalent to:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="nx">move</span><span class="p">();</span>
 <span class="nx">go_home</span><span class="p">();</span>
 </pre></div>

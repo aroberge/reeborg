@@ -18,6 +18,15 @@ at the current location. Using
 these, you can complete the following outline of a solution that will
 work for each of these four worlds.
 
+.. warning::
+
+    There are two new things in the code below which makes is a bit difficult to
+    understand when you read it for the first time.
+    First, we define a new function that takes an **argument**, in 
+    this case ``fruit``.  Second, we test to see if two quantities 
+    are equal by using two consecutive equal signs: ``==``.
+
+
 .. code-block:: javascript
 
     var selection;
@@ -56,11 +65,6 @@ work for each of these four worlds.
     go_to_first_row();
     repeat(complete_one_row, 6);
     
-There are two new things in the above code which makes is a bit difficult.
-First, we define some functions that take an **argument**, in 
-this case ``fruit``.  Second, we test to see if two quantities 
-are equal by using three consecutive equal signs: ``===``.
-
 .. topic:: Try it!
 
     Complete the above program so that it works in all four worlds:
