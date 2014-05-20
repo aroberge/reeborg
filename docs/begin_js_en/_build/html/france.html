@@ -230,5 +230,12 @@ indicated by an uppercase letter.  We gave one such example above with
         
        - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
+  <script> 
+  $(document).ready(function() {
+      $('.hint p').hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$('.hint p').show();})
+  });
+  </script>
   </body>
 </html>
