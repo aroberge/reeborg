@@ -12,6 +12,8 @@
 
     If you do not know how to, select world **Alone** and 
     review the commands seen in `Test driven learning <home.html>`_
+    Your program will make use of 2 instructions (functions) and should
+    have 8 lines.
 
 Reeborg goes to France
 ======================
@@ -59,7 +61,7 @@ Valid names
 
     Reeborg's world uses Brython to translate Python 3 code into Javascript
     that can then be executed in the browser.  While Python 3 allows you to 
-    have variable names that contain non-English letters, such as é,
+    have variable names that contain non-English letters, such as ëêé,
     Brython does not recognizes these characters. 
 
 For now, limit yourselves with names that start with a letter and

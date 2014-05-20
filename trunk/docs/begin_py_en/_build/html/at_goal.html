@@ -82,7 +82,10 @@
 <li><a class="reference internal" href="#">16. Finding the right spot</a><ul>
 <li><a class="reference internal" href="#another-condition">16.1. Another condition</a></li>
 <li><a class="reference internal" href="#and-now-something-different">16.2. And now, something different</a></li>
-<li><a class="reference internal" href="#hurdles-again">16.3. Hurdles again!</a></li>
+<li><a class="reference internal" href="#hurdles-again">16.3. Hurdles again!</a><ul>
+<li><a class="reference internal" href="#a-question-for-you">16.3.1. A question for you</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -181,8 +184,28 @@ for both worlds <strong>Hurdles&nbsp;1</strong> and <strong>Hurdles&nbsp;2</stro
 <p class="topic-title first">Do it!</p>
 <p>Write such a program and make sure it works.</p>
 </div>
-<p><strong>Could this program work without changing anything for world
-Hurdles&nbsp;4?</strong></p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>Your program could look as follows:</p>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">my_lib</span>
+<span class="k">def</span> <span class="nf">jump_over_hurdle</span><span class="p">():</span>
+    <span class="c"># some definitions</span>
+
+<span class="k">def</span> <span class="nf">move_and_jump_until_done</span><span class="p">():</span>
+    <span class="c"># something</span>
+    <span class="k">if</span> <span class="n">at_goal</span><span class="p">():</span>
+        <span class="n">done</span><span class="p">()</span>
+    <span class="c"># something</span>
+
+<span class="n">repeat</span><span class="p">(</span><span class="n">move_and_jump_until_done</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-question-for-you">
+<h3>16.3.1. A question for you<a class="headerlink" href="#a-question-for-you" title="Permalink to this headline">¶</a></h3>
+<p>Could this program work without changing anything for world
+<strong>Hurdles&nbsp;3</strong>?</p>
+</div>
 </div>
 </div>
 
@@ -215,9 +238,9 @@ Hurdles&nbsp;4?</strong></p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

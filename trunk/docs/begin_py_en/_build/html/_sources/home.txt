@@ -13,8 +13,9 @@ Cartesian coordinates.
 
 .. topic:: Try this!
 
-    Write a program with a single ``move()`` instruction, run it and notice
-    what feedback Reeborg gives you.  Then, change your program so that
+    With **Home 1** selected, write a program with a single ``move()`` instruction, 
+    run it and notice what feedback Reeborg gives you.  
+    Then, change your program so that
     Reeborg go home.
 
 .. topic:: Try two more!

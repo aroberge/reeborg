@@ -137,7 +137,23 @@ the library, go back to the Python Code editor (so you no longer see your
 functions) and write a short
 program that nonetheless uses them to make sure that they work as
 expected. If they don&#8217;t, go back and fix them.  Remember to use
-<tt class="docutils literal"><span class="pre">import</span> <span class="pre">lib</span></tt> in your main program.</p>
+<tt class="docutils literal"><span class="pre">import</span> <span class="pre">my_lib</span></tt> in your main program.</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>With the appropriate functions defined in the library,
+here is such a program:</p>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">my_lib</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_around</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_right</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_around</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>  <span class="c"># back at starting position</span>
+</pre></div>
+</div>
 </div>
 <p>From now on, whenever you define a function that you use more than once,
 add it to your library so that you don&#8217;t have to redefine it every time.</p>
@@ -221,9 +237,9 @@ for humans, by choosing function names that are meaningful.</p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

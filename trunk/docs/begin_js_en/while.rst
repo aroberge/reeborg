@@ -82,9 +82,14 @@ Conclusion: you want to make sure that the condition will become
 Back to hurdles!
 ----------------
 
-Let's go back to **Hurdles 1**, **Hurdles 2** and **Hurdles 3**, and write a single
-program, using ``while``, and without using ``repeat()`` which works in
-all three cases. Your program might look like the following::
+.. topic:: Your turn!
+
+    Go back to **Hurdles 1**, **Hurdles 2** and **Hurdles 3**, and write a single
+    program for all three world, using ``while`` and without using ``repeat()``.
+
+.. hint::
+
+  Your program might look like the following::
 
     function jump_over_hurdle() {
         // suitable definition

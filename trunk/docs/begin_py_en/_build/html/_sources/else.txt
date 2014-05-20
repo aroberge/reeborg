@@ -36,9 +36,9 @@ world. Something like the following:
 
 
     def move_or_turn ():
-        if ( front_is_clear() ):
+        if front_is_clear():
             # something
-        else
+        else:
             # something else
 
     repeat(move_or_turn, 40)
@@ -65,7 +65,7 @@ code block. Thus
     move()
     if True:
         turn_right()
-    else
+    else:
         turn_left()
     move()
 
@@ -84,7 +84,7 @@ whereas
     move()
     if False:
         turn_right()
-    else
+    else:
         turn_left()
     move()
 

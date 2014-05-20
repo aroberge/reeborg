@@ -138,9 +138,9 @@ Programming in a more advanced tutorial.</p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show();})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

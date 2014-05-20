@@ -187,32 +187,32 @@ here&#8217;s a more detailed explanation which will help you to not only
 understand how functions work, but also other Javascript construct that
 involve blocks of code.</p>
 <p>Suppose we have the following:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">turn_right</span> <span class="p">()</span> <span class="p">{</span>  <span class="c1">// begin of code block</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-<span class="p">}</span>  <span class="c1">// end of code block</span>
+<div class="highlight-javascript"><div class="highlight"><pre> <span class="kd">function</span> <span class="nx">turn_right</span> <span class="p">()</span> <span class="p">{</span>  <span class="c1">// begin of code block</span>
+     <span class="nx">turn_left</span><span class="p">();</span>
+     <span class="nx">turn_left</span><span class="p">();</span>
+     <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="p">}</span>  <span class="c1">// end of code block</span>
 
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_right</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+<span class="hll"> <span class="nx">turn_right</span><span class="p">();</span>
+</span> <span class="nx">move</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>This is equivalent to the following:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// define a function</span>
-<span class="kd">function</span> <span class="nx">turn_right</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
+<div class="highlight-javascript"><div class="highlight"><pre> <span class="c1">// define a function</span>
+ <span class="kd">function</span> <span class="nx">turn_right</span> <span class="p">()</span> <span class="p">{</span>
+     <span class="nx">turn_left</span><span class="p">();</span>
+     <span class="nx">turn_left</span><span class="p">();</span>
+     <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="p">}</span>
 
-<span class="nx">move</span><span class="p">();</span>
-<span class="c1">// begin of code block inside turn_right()</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="c1">// end of code block</span>
-<span class="nx">move</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="c1">// begin of code block inside turn_right()</span>
+<span class="hll"> <span class="nx">turn_left</span><span class="p">();</span>
+</span><span class="hll"> <span class="nx">turn_left</span><span class="p">();</span>
+</span><span class="hll"> <span class="nx">turn_left</span><span class="p">();</span>
+</span> <span class="c1">// end of code block</span>
+ <span class="nx">move</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>In other words, <tt class="docutils literal"><span class="pre">function</span></tt> defines a name that we can use as a synonym
@@ -260,9 +260,9 @@ defining other functions.</p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show();})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

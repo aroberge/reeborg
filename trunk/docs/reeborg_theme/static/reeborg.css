@@ -295,7 +295,7 @@ hr {
 }
 
 .highlight {
-    border: 1px solid #2d5ab4;
+    border: solid 1px #d4d4d4;
     margin: 0 10px;
     border-radius: 5px;
 }
@@ -304,9 +304,11 @@ hr {
 code, tt {
     font-family: monospace;
 	  font-size: 1.2em;
-    background-color: #f8f8f8;
     font-style: normal;
     padding: 0 5px;
+    background-color: whitesmoke;
+    border: solid 1px #d4d4d4;
+    border-radius: 5px;
 }
 
 

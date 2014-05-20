@@ -175,6 +175,11 @@ By this, I mean that you should have:</p>
 </div>
 <p>Make sure you to test it!</p>
 </div>
+<p>Do not use the hint unless you feel you absolutely can not do it otherwise!</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">You might want to use <tt class="docutils literal"><span class="pre">turn_around()</span></tt> twice in defining <tt class="docutils literal"><span class="pre">step_back()</span></tt>.</p>
+</div>
 </div>
 </div>
 
@@ -207,9 +212,9 @@ By this, I mean that you should have:</p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

@@ -111,131 +111,244 @@
 <h1>13. Newspaper delivery revisited<a class="headerlink" href="#newspaper-delivery-revisited" title="Permalink to this headline">¶</a></h1>
 <p>Let&#8217;s go back to our newspaper delivery example; we&#8217;ll consider the
 delivery to Ms. Ada Lovelace in <strong>Newspaper&nbsp;1</strong>. Below is a solution to that
-problem, with a few added comments.:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">take</span><span class="p">(</span><span class="s2">&quot;star&quot;</span><span class="p">);</span>
+problem, with a few added comments.</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69</pre></div></td><td class="code"><div class="highlight"><pre> <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;star&quot;</span><span class="p">);</span>
 
-<span class="c1">// climb up first floor</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
+ <span class="c1">// climb up first floor</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
 
-<span class="c1">// climb up second floor</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
+ <span class="c1">// climb up second floor</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
 
-<span class="c1">// climb up third floor</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
+ <span class="c1">// climb up third floor</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
 
-<span class="c1">// get money</span>
-<span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
-<span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
-<span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
-<span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
-<span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+ <span class="c1">// get money</span>
+ <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+ <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+ <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+ <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+ <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
 
-<span class="c1">// leave paper</span>
-<span class="nx">put</span><span class="p">(</span><span class="s2">&quot;star&quot;</span><span class="p">);</span>
+ <span class="c1">// leave paper</span>
+ <span class="nx">put</span><span class="p">(</span><span class="s2">&quot;star&quot;</span><span class="p">);</span>
 
-<span class="c1">// turn around</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
+ <span class="c1">// turn around</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
 
-<span class="c1">// climb down floor</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
+ <span class="c1">// climb down floor</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
 
-<span class="c1">// climb down floor</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
+ <span class="c1">// climb down floor</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
 
-<span class="c1">// climb down floor</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
+ <span class="c1">// climb down floor</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">move</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
+ <span class="nx">turn_left</span><span class="p">();</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>This solution is quite long ... and it is easy to make mistakes when
 typing it. We note however that there are quite a few repeated code
 segments for which we could create functions. We have already defined
 <tt class="docutils literal"><span class="pre">turn_right()</span></tt> and <tt class="docutils literal"><span class="pre">turn_around()</span></tt>; let&#8217;s use them and define a few
-others.:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">import_lib</span><span class="p">();</span>
+others.</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre></div></td><td class="code"><div class="highlight"><pre> <span class="nx">import_lib</span><span class="p">();</span>
 
-<span class="kd">function</span> <span class="nx">climb_up_one_floor</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-    <span class="nx">move</span><span class="p">();</span>
-    <span class="nx">turn_right</span><span class="p">();</span>
-    <span class="nx">move</span><span class="p">();</span>
-    <span class="nx">move</span><span class="p">();</span>
-<span class="p">}</span>
+ <span class="kd">function</span> <span class="nx">climb_up_one_floor</span><span class="p">()</span> <span class="p">{</span>
+     <span class="nx">turn_left</span><span class="p">();</span>
+     <span class="nx">move</span><span class="p">();</span>
+     <span class="nx">turn_right</span><span class="p">();</span>
+     <span class="nx">move</span><span class="p">();</span>
+     <span class="nx">move</span><span class="p">();</span>
+ <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">climb_up_three_floors</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">climb_up_one_floor</span><span class="p">();</span>
-    <span class="nx">climb_up_one_floor</span><span class="p">();</span>
-    <span class="nx">climb_up_one_floor</span><span class="p">();</span>
-<span class="p">}</span>
+ <span class="kd">function</span> <span class="nx">climb_up_three_floors</span><span class="p">()</span> <span class="p">{</span>
+     <span class="nx">climb_up_one_floor</span><span class="p">();</span>
+     <span class="nx">climb_up_one_floor</span><span class="p">();</span>
+     <span class="nx">climb_up_one_floor</span><span class="p">();</span>
+ <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">climb_down_one_floor</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">move</span><span class="p">();</span>
-    <span class="nx">move</span><span class="p">();</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-    <span class="nx">move</span><span class="p">();</span>
-    <span class="nx">turn_right</span><span class="p">();</span>
-<span class="p">}</span>
+ <span class="kd">function</span> <span class="nx">climb_down_one_floor</span><span class="p">()</span> <span class="p">{</span>
+     <span class="nx">move</span><span class="p">();</span>
+     <span class="nx">move</span><span class="p">();</span>
+     <span class="nx">turn_left</span><span class="p">();</span>
+     <span class="nx">move</span><span class="p">();</span>
+     <span class="nx">turn_right</span><span class="p">();</span>
+ <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">climb_down_three_floors</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">climb_down_one_floor</span><span class="p">();</span>
-    <span class="nx">climb_down_one_floor</span><span class="p">();</span>
-    <span class="nx">climb_down_one_floor</span><span class="p">();</span>
-<span class="p">}</span>
+ <span class="kd">function</span> <span class="nx">climb_down_three_floors</span><span class="p">()</span> <span class="p">{</span>
+     <span class="nx">climb_down_one_floor</span><span class="p">();</span>
+     <span class="nx">climb_down_one_floor</span><span class="p">();</span>
+     <span class="nx">climb_down_one_floor</span><span class="p">();</span>
+ <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">get_money</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
-    <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
-    <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
-    <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
-    <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+ <span class="kd">function</span> <span class="nx">get_money</span><span class="p">()</span> <span class="p">{</span>
+     <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+     <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+     <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+     <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+     <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+ <span class="p">}</span>
 
-<span class="c1">// === End of definitions ===</span>
+ <span class="c1">// === End of definitions ===</span>
 
-<span class="nx">take</span><span class="p">(</span><span class="s2">&quot;star&quot;</span><span class="p">);</span>
-<span class="nx">climb_up_three_floors</span><span class="p">();</span>
-<span class="nx">get_money</span><span class="p">();</span>
-<span class="nx">put</span><span class="p">(</span><span class="s2">&quot;star&quot;</span><span class="p">);</span> <span class="c1">// leave paper</span>
-<span class="nx">turn_around</span><span class="p">();</span>
-<span class="nx">climb_down_three_floors</span><span class="p">();</span>
+ <span class="nx">take</span><span class="p">(</span><span class="s2">&quot;star&quot;</span><span class="p">);</span>
+ <span class="nx">climb_up_three_floors</span><span class="p">();</span>
+ <span class="nx">get_money</span><span class="p">();</span>
+ <span class="nx">put</span><span class="p">(</span><span class="s2">&quot;star&quot;</span><span class="p">);</span> <span class="c1">// leave paper</span>
+ <span class="nx">turn_around</span><span class="p">();</span>
+ <span class="nx">climb_down_three_floors</span><span class="p">();</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Each function contains no more than 5 instructions; it&#8217;s much easier to
 verify that each function does what it is supposed to do than verifying
 an entire list of commands like we have previously. Once we know that
@@ -248,9 +361,7 @@ easier to read.</p>
 that we could deliver a newspaper to Mr. Babbage, in world <strong>Newspaper&nbsp;2.</strong></p>
 <div class="topic">
 <p class="topic-title first">Do it!</p>
-<p>Modify the above program so as to deliver a newspaper to Mr. Babbage.
-If you are using functions defined in your library, remember to use
-<tt class="docutils literal"><span class="pre">import_lib()</span></tt> in your main program.</p>
+<p>Modify the above program so as to deliver a newspaper to Mr. Babbage.</p>
 </div>
 <p>Later, we will see how we can write a single program, shorter than the
 above, that will enable us to deliver newspapers to either Ms. Lovelace
@@ -292,9 +403,9 @@ then it is a good idea to put it in your library.</p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show();})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

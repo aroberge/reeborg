@@ -77,7 +77,10 @@ here's a more detailed explanation which will help you to not only
 understand how functions work, but also other Python construct that
 involve blocks of code.
 
-Suppose we have the following::
+Suppose we have the following:
+
+.. code-block:: python
+   :emphasize-lines: 7
 
     def turn_right():  # begin of code block follows
         turn_left()
@@ -88,7 +91,10 @@ Suppose we have the following::
     turn_right()
     move()
 
-This is equivalent to the following::
+This is equivalent to the following:
+
+.. code-block:: python
+   :emphasize-lines: 9, 10, 11
 
     # define a function
     def turn_right():

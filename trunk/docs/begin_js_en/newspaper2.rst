@@ -5,8 +5,10 @@ Newspaper delivery revisited
 
 Let's go back to our newspaper delivery example; we'll consider the
 delivery to Ms. Ada Lovelace in **Newspaper 1**. Below is a solution to that
-problem, with a few added comments.::
+problem, with a few added comments.
 
+.. code-block:: javascript
+   :linenos:
 
     take("star");
 
@@ -82,8 +84,11 @@ This solution is quite long ... and it is easy to make mistakes when
 typing it. We note however that there are quite a few repeated code
 segments for which we could create functions. We have already defined
 ``turn_right()`` and ``turn_around()``; let's use them and define a few
-others.::
+others.
 
+.. code-block:: javascript
+   :linenos:
+   
     import_lib();
 
     function climb_up_one_floor() {
@@ -146,8 +151,6 @@ that we could deliver a newspaper to Mr. Babbage, in world **Newspaper 2.**
 .. topic:: Do it!
 
    Modify the above program so as to deliver a newspaper to Mr. Babbage.
-   If you are using functions defined in your library, remember to use
-   ``import_lib()`` in your main program.
 
 Later, we will see how we can write a single program, shorter than the
 above, that will enable us to deliver newspapers to either Ms. Lovelace

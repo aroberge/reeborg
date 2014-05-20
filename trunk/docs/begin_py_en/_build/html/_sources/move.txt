@@ -21,6 +21,11 @@ This function must be on a line of its own.
     Add a second ``move()`` instruction so that Reeborg takes two steps instead
     of only one.
 
+.. hint::
+
+   Each instruction must appear on its own line, with no extra space
+   at the beginning of the line.
+
 
 Dealing with eRRoRs
 -------------------

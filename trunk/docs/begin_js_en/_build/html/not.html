@@ -121,7 +121,7 @@
 <p>Reeborg is upset. It&#8217;s <strong>not</strong> raining; it&#8217;s <strong>not</strong> snowing. Yet, he
 cannot go outside and practise for his hurdles race.</p>
 <p>Why, do you ask? It&#8217;s because Reeborg is waiting for you to learn about
-Javascript <strong>not</strong>.</p>
+Javascript &#8220;<strong>not</strong>&#8221;.</p>
 <div class="section" id="time-to-be-negative">
 <h2>19.1. Time to be negative.<a class="headerlink" href="#time-to-be-negative" title="Permalink to this headline">¶</a></h2>
 <p>Some programming language, like Python, indicate that something is not
@@ -231,9 +231,9 @@ included in each code block.:</p>
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show();})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>

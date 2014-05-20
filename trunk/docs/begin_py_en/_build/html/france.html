@@ -124,7 +124,9 @@ this image: <img alt="image0" src="_images/square.png" /></p>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p class="last">If you do not know how to, select world <strong>Alone</strong> and
-review the commands seen in <a class="reference external" href="home.html">Test driven learning</a></p>
+review the commands seen in <a class="reference external" href="home.html">Test driven learning</a>
+Your program will make use of 2 instructions (functions) and should
+have 8 lines.</p>
 </div>
 <div class="section" id="reeborg-goes-to-france">
 <h1>4. Reeborg goes to France<a class="headerlink" href="#reeborg-goes-to-france" title="Permalink to this headline">¶</a></h1>
@@ -172,7 +174,7 @@ Reeborg?</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Reeborg&#8217;s world uses Brython to translate Python 3 code into Javascript
 that can then be executed in the browser.  While Python 3 allows you to
-have variable names that contain non-English letters, such as é,
+have variable names that contain non-English letters, such as ëêé,
 Brython does not recognizes these characters.</p>
 </div>
 <p>For now, limit yourselves with names that start with a letter and
@@ -216,9 +218,9 @@ indicated by an uppercase letter.  We gave one such example above with
     </div>
   <script> 
   $(document).ready(function() {
-      $('.hint p').hide();
+      $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
-      $('.hint p.admonition-title').click( function() {$('.hint p').show().css('cursor', 'auto');})
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
   });
   </script>
   </body>
