@@ -39,7 +39,7 @@ Reeborg's ``repeat()``
 
 Open Reeborg's diary and have Reeborg execute the single line program::
 
-    view_source( repeat );
+    view_source( repeat )
 
 You will see a completely different code than the above as this will
 reveal the ``repeat`` function used by Reeborg ... and written using

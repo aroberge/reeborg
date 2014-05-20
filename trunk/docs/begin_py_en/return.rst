@@ -124,7 +124,7 @@ replaced by the value of ``something`` which is what follows the
     ``front_is_clear()``, or if there is a wall to his right, using
     ``right_is_clear()``. Write a test that has Reeborg turn left 4 times,
     so that he ends up back in the same orientation that he started with,
-    but that returns ``true`` if there is no wall to his left.
+    but that returns ``True`` if there is no wall to his left.
 
 .. topic:: Challenges!
 

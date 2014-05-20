@@ -17,6 +17,12 @@ about life, the universe and everything [#]_ in his diary.
 Writing text
 ------------
 
+.. note::
+
+   In addition to ``print``, which is a Python function, Reeborg's World
+   includes a function named ``write`` which behaves slighlty differently
+   as we will see later.  You may try it instead of ``print`` if you want.
+
 In programming terms, a *character* is any letter, number or symbol that
 can be printed and a *string of characters*, or simply *string*, is any
 combination of character that can be printed. For example, try the
