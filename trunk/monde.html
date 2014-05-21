@@ -19,9 +19,9 @@
 <header class="blue-gradient green-border">
   <a id="logo" href="index_fr.html" class="fake_button"><img src="src/images/robot_e.png">Le monde de Reeborg</a>
   <div id="header-child">
-    <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">Monde</button>
+   <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">Monde</button>
     <button class="blue-gradient" id="output-panel-button" label="output-panel">Journal</button>
-    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Éditeur</button>
+    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Éditeur</button>    
     <button class="blue-gradient" id="help-button">Aide</button>
     <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaboration</button>
     <form>
@@ -194,13 +194,14 @@
 </div>
 
 <div id="edit-world-panel">
-    <h1>Create your own worlds!</h1>
-    <p>If you want to share your world (and corresponding challenges) with others,
-        save it to a file and send it to
-    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
+    <h1>Créez vos propres mondes !</h1>
+    <p>Si vous désirez partager votre monde (et le défi correspondant) avec d'autres
+        utilisateurs, sauvegardez-le dans un fichier que vous pouvez envoyer à
+    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a>, ou
+    utilisez le permalien.</p>
 
     <div id="edit-world-submenus-wrapper">
-        <p id="cmd-result">Select action to perform from menu below.</p>
+        <p id="cmd-result">Sélectionnez l'action à performer dans le menu ci-dessous.</p>
         <ul class="edit-world-submenus" id="edit-world-turn" style="display:none">
             <li><a href="javascript:RUR.we.turn_robot(0);"><img src="src/images/robot_e.png" alt="robot: east"></a></li>
             <li><a href="javascript:RUR.we.turn_robot(1);"><img src="src/images/robot_n.png" alt="robot: north"></a></li>
@@ -223,19 +224,19 @@
     
     <ul id="edit-world-nav">
         <li class="a-like">Robot <ul>
-            <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Add robot</a></li>
-            <li class="robot-present"><a href="javascript:RUR.we.select('robot-teleport');"> Teleport</a></li>
-            <li class="robot-present"><a href="javascript:RUR.we.select('robot-orientation');"> Turn</a></li>
-            <li class="robot-present"><a href="javascript:RUR.we.select('robot-tokens');">Tokens</a></li>
-            <li class="robot-present"><a href="javascript:RUR.we.select('robot-remove');">Remove</a></li>
+            <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Ajouter Reeborg</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-teleport');"> Téléporter</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-orientation');"> Tourner</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-tokens');">Jetons</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-remove');">Supprimer</a></li>
         </ul></li>
-        <li><a href="javascript:RUR.we.select('world-walls');">Walls</a></li>
-        <li><a href="javascript:RUR.we.select('world-objects');">Objects</a></li>
-        <li class="a-like">Goal <ul>
+        <li><a href="javascript:RUR.we.select('world-walls');">Murs</a></li>
+        <li><a href="javascript:RUR.we.select('world-objects');">Objets</a></li>
+        <li class="a-like">But <ul>
             <li><a href="javascript:RUR.we.select('goal-robot');">Robot</a></li>
-            <li><a href="javascript:RUR.we.select('goal-wall');">Walls</a></li>
-            <li><a href="javascript:RUR.we.select('goal-objects');">Objects</a></li>
-            <li><a href="javascript:RUR.we.select('goal-no-objects');">No objects</a></li>
+            <li><a href="javascript:RUR.we.select('goal-wall');">Murs</a></li>
+            <li><a href="javascript:RUR.we.select('goal-objects');">Objets</a></li>
+            <li><a href="javascript:RUR.we.select('goal-no-objects');">Pas d'objets</a></li>
         </ul></li>
     </ul>
 </div>
@@ -356,127 +357,146 @@ window['ReeborgError'] = RUR.ReeborgError
 <script src="https://togetherjs.com/togetherjs-min.js"></script>
 
 <div id="help" title="Help" style="display:none">
-    <p><small style="color:#900;">Discussions, questions, comments about Reeborg take place
-        <a href="https://groups.google.com/forum/?fromgroups#!forum/reeborg">here</a>.
-      <a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</small></p>
+    <p><small>Les discussion, questions ou commentaires au sujet
+  de Reeborg sont les bienvenues
+    <a href="https://groups.google.com/forum/?fromgroups#!forum/reeborg">dans ce forum</a>.
+  <a href="https://code.google.com/p/reeborg/issues/list">Les rapports de bogues</a> sont les bienvenus!</small></p>
 
-    <a href="#basic-commands">Basic commands</a><br>
-    <a href="#about">About Reeborg</a><br>
-    <a href="#contribute">Contribute</a><br>
+<a href="#basic-commands">Commandes de base</a><br>
+<a href="#about">Pour en savoir plus au sujet de Reeborg</a><br>
+<a href="#contribute">Contribuez</a><br>
 
-    <h2 id="basic-commands">Basic commands</h2>
-      <p>Note: In Javascript, <code>true</code> and <code>false</code> are all written in lower cases. 
-      In Python, <code>True</code> and <code>False</code> start with an upper case letter. To avoid having to
-      specify both possibilities each time, "true" and "false" will be used instead below.</p>
-      <p> In addition to understanding Javascript or Python, Reeborg, and all the other robots,
-        know the following instructions:</p>
-      <ul>
-        <li><code>at_goal()</code>: condition which is "true" if Reeborg has reached "home"</li>
-        <li><code>at_goal_orientation()</code>: condition which is "true" if Reeborg has the required orienation </li>
-        <li><code>build_wall()</code>: adds a wall right in front of where Reeborg is</li>
-        <li><code>done()</code>: instructs the program to stop (end) at that point.</li>
-        <li><code>front_is_clear()</code>: "true" if no wall blocking Reeborg's way</li>
-        <li><code>has_token()</code>: "true" if Reeborg carries at least one token</li>
-        <li><code>is_facing_north()</code>: "true" if Reeborg is facing North (towards the top of the screen)</li>
-        <li><code>move()</code></li>
-        <li><code>put()</code> or <code>put("object")</code> where object is one of <code>"token"</code>,
-          <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
-        <li><code>right_is_clear()</code>: "true" if no wall is to the immediate right of Reeborg</li>
-        <li><code>repeat(f, n)</code>: executes ``f()`` n times</li>
-        <li><code>object_here()</code>: "false" if there is no object at Reeborg's location, otherwise it returns
-        the name of the object, <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code>, or the number
-        of tokens at that location. </li>
-        <li><code>take()</code> or <code>take("object")</code> where object is one of <code>"token"</code>,
-          <code>"triangle"</code>, <code>"square"</code> or <code>"star"</code></li>
-        <li><code>token_here()</code>: "true" if there is a token at Reeborg's location</li>
-        <li><code>turn_left()</code></li>
-      </ul>
-      <p>To create additional robots, one can use <code>UsedRobot()</code> preceeded by
-      <code>new</code> if using Javascript.</p>
-      <p>In addition, the following commands are available and are not tied to
-        any robot in particular.</p>
-      <ul>
-        <li><code>import_lib()</code>: for <b>Javascript</b>, includes the code found in the Library tab</li>
-        <li><code>import my_lib</code>: for <b>Python</b>, includes the code found in the Library tab</li>
-        <li><code>inspect(object)</code>: shows result in Reeborg's Diary</li>
-        <li><code>pause()</code>; can be called with an argument in milliseconds which indicates the
-        time after which it will automatically resume.</li>
-        <li><code>sound("true")</code>: turns sound on. Can be turned off by calling with no argument or with "false".
-                  Off by default or if delay between actions is less than 250ms.</li>
-        <li><code>think(number)</code>: sets the amount of time in milliseconds between each robot action.</li>
-        <li><code>write(string)</code>: write a string in Reeborg's Diary</li>
-        <li><code>select_world(string)</code>: selects a given world.</li>
-        <li><code>print(string)</code>: only valid with Python.  Somewhat equivalent to <code>write</code>.</li>
-      </ul>
+<h2 id="basic-commands">Commandes de base</h2>
+  <p> En plus de comprendre le Javascript, Reeborg et tous les autres robots
+  connaissent les instructions suivantes:
+</p>
 
-     <p>To find out more, follow the lessons.</p>
+      <p>Veuillez prendre note: en Javascript, <code>true</code> et <code>false</code> sont écrits
+      en lettre minuscules; en Python, <code>True</code> et <code>False</code> débutent avec une
+      lettre majuscule.  Pour éviter de spécifier ceci à chaque fois ci-dessous, j'utiliserai 
+      "true" et "false" pour signifier la même chose.</p>
+      
+      <h2 id="basic-commands">Commandes de base</h2>
+  <p> En plus de comprendre le Javascript ou le Python, Reeborg et tous les autres robots
+  connaissent les instructions suivantes:
+</p>
+  <ul>
+    <li><code>au_but()</code>: la condition est "true" si Reeborg a atteint son but.</li>
+    <li><code>au_but_orientation()</code>: la condition est "true" si Reeborg a la bonne orientation.</li>
+    <li><code>construit_un_mur()</code>: ajoute un mur tout juste devant la position de Reeborg</li>
+    <li><code>termine</code>: indique qu'un programme doit se terminer avec cette instruction. </li>
+    <li><code>rien_devant()</code>: "true" s'il n'y a pas de mur bloquant la voie de Reeborg.</li>
+    <li><code>a_des_jetons()</code>: "true" si Reeborg a au moins un jeton en main.</li>
+    <li><code>face_au_nord()</code>: "true" si Reeborg fait face au nord (vers le haut de l'écran).</li>
+    <li><code>avance()</code></li>
+    <li><code>depose()</code> ou <code>depose("objet")</code> où "objet" est l'un de <code>"jeton"</code>,
+      <code>"triangle"</code>, <code>"carré"</code> ou <code>"étoile"</code>: Reeborg dépose l'objet
+      en question là où il se trouve.</li>
+      <li><code>objet_ici()</code>: "false" s'il n'y a aucun objet à cet endroit, autrement on retourne
+      le nom de l'objet.</li>
+    <li><code>rien_à_droite()</code>: "true" s'il n'y a pas de mur immédiatement à la droite de Reeborg.</li>
+    <li><code>repete(f, n)</code>: excute <code>f()</code> n fois.</li>
+    <li><code>prend()</code> ou <code>prend("objet")</code> où "objet" est l'un de <code>"jeton"</code>,
+      <code>"triangle"</code>, <code>"carré"</code> ou <code>"étoile"</code></li>
+    <li><code>jeton_ici()</code>: "true" s'il y a un ou des jetons à cet endroit.</li>
+    <li><code>tourne_à_gauche()</code></li>
+  </ul>
+      
+      
+  <p>Pour créer des robots, on peut utiliser <code>RobotUsage()</code> prédédé de <code>new</code>
+  si on utilise Javascript.</p>
+  <p>De plus, les commandes suivantes sont généralement disponibles sans être liées
+    à un robot en particulier. </p>
+  <ul>
+        <li><code>import_biblio()</code>: pour <b>Javascript</b>, inclut le code qui se trouve sous l'onglet bibliothèque</li>
+        <li><code>import biblio</code>: pour <b>Python</b>, iinclut le code qui se trouve sous l'onglet bibliothèque</li>
+    <li><code>examine(objet Javascript)</code></li>
+    <li><code>pause()</code>; peut être invoqué avec un argument en millisecondes indiquant la durée de
+    la pause dans quel cas le programme continue sans avoir à cliquer sur un bouton. </li>
+        <li><code>son("true")</code>: ajoute des effets sonores. Ces effets sonores peuvent être arrêtés en utilant "false" comme
+                  argument ou omettant l'argument comme ceci: <code>son()</code>.
+                  Les effets sonores sont arrêtés par défaut ou si le délai entre les actions est inférieur à 250ms.
+                  </li>
+    <li><code>pense(nombre)</code>: spécifie le montant de temps (en millisecondes) entre chaque action d'un robot. </li>
+    <li><code>écrit(chaîne)</code>: écrit une chaîne de caractère dans le journal de Reeborg. </li>
+    <li><code>sélectionne_monde(chaîne)</code>: sélectionne un monde donné. </li>
+    <li><code>sélectionne_defi(chaîne)</code>: sélectionne un monde (caché) donné. </li>
+        <li><code>print(chaîne)</code>: seulement valide avec Python; semblable à <code>write</code>.</li>
 
-     <h2 id="about">About Reeborg</h2>
+  </ul>
 
-    <p>Inspired by Guido van Robot, itself inspired by the original Karel the Robot
-    created by Richard Pattis, Reeborg first appeared in RUR-PLE, a program I created
-    to learn Python, picking up programming as a hobby.</p>
-    <p>Reeborg is there to guide you in learning computer programming in either Python or Javascript.
-    Why Python?  Because its syntax is the simplest and encourages good writing habits by enforcing
-    blocks of code to be indented.
-    Why Javascript?   The main reason is because it is the native language
-    for programming web browsers.  Since Reeborg's program is written in Javascript,
-    you will be able, after going through enough lessons, to change the way that
-    Reeborg behaves, using the full power of Javascript and perhaps make
-    Reeborg do things that I never thought could be possible.  Possible changes with Python as a language of choice
-    might be a bit more limited.</p>
-    <p> I hope you enjoy learning computer programming with Reeborg.</p>
-    <p>Feel free to contact me at
-    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
-
-    <p>Reeborg is free and will remain free to use and to share under a Creative Commons License
-    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-    <img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" height="31px" width="88px"/></a>
-    If you are using it to teach programming to students, you might want to make
-        a copy of this site on a local server.  Regardless, I would really appreciate if you would contact me
-        as I would like to know where Reeborg's World is used (I do not track users).</p>
-    <p>If you find this site so useful and you want to do something to thank me,
-        you have two choices:</p>
-        <ul><li>You can give me $100,000; small denominations preferred.</li>
-        <li>You can <em>pay it forward</em> by doing something nice to someone else.</li></ul>
-        <p>The choice is yours :-)</p>
+ <p>Pour en savoir davantage, consultez les leçons.</p>
 
 
-     <h2 id="contribute">Contribute</h2>
+     <h2 id="about">À propos de Reeborg</h2>
 
-     <p> I am just a self-taught programmer, with no training in web design, graphics, etc.
-    I would gladly welcome any suggestions or contributions to</p>
-    <ul><li>Improve the usability of this site.</li>
-    <li>Make a better looking robot; I drew Reeborg pixel-by-pixel using a rather primitive
-        drawing program, suitable for my skills level. There are two sets of pictures available:
-        one with Reeborg viewed from its side and one viewed from above.
-        Note that by default Reeborg
-        is viewed sideways whereas its world is (most often) viewed from above;
-        a nicer-looking Reeborg, perhaps viewed
-    from nearly above, might be most welcome.</li>
-    <li>New worlds, examples and challenges.</li>
-    <li>Corrections to the existing content, including fixing typos.</li>
-    <li>etc.</li></ul>
-    <p><a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</p>
-    <p>My medium-term plans include:</p>
-    <ul><li>Translating the tutorials into French</li>
-    <li>Adding various tutorials including some on making games using the html canvas</li></ul>
-    <p>Longer term plans include:</p>
-    <ul><li>Implementing Reeborg's world for other languages (Scheme, ...) as long as it can be
-    done within a browser with no server-side code running.</li>
-    <li>Enlisting contributors to translate tutorials into languages other than English or French</li>
-    <li>Investigating something like <a href="https://github.com/ryanb/ruby-warrior">Ruby-warrior in Javascript</a></li>
-    <li>Investigating the possibility of porting <a href="http://www.nand2tetris.org/">From nand to Tetris</a> to the web using Javascript</li></ul>
+    <p>Inspiré par Guido van Robot, lui-même inspiré par le robot Karel conçu
+  par Richard Pattis, Reeborg est apparu en premier dans RUR-PLE, un logiciel
+  que j'ai créé pour faciliter l'apprentissage de Python.
+</p>
+<p>Reeborg est votre guide dans l'apprentissage de la programmation utilisant Python ou Javascript.
+  Pourquoi Python?  Parce que sa syntaxe est la plus simple et qu'il force des bonnes habitudes d'organisation
+  de programmes par le biais de l'indentation obligatoire des blocs de code.
+  Pourquoi Javascript?  La raison principale est que c'est le langage utilisé par tous
+  les navigateurs du web.  Puisque le logiciel de Reeborg est lui-même écrit en Javascript,
+  vous pourrez, après un certain temps, changer la façon dont Reeborg se comporte
+  et pourrez même possiblement permettre à Reeborg de faire des choses que je n'aurais
+  pas cru possible moi-même!<p>
+<p> J'espère que vous vous amuserez en apprenant la programmation avec Reeborg.
+<p>N'hésitez pas à me contacter par courriel:
+<a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
+    
 
-Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen (and modified) from Creative Commons license 0 submissions.
+<p>Reeborg est gratuit et restera toujours gratuit à utiliser et à partager
+  sous une licence Creative Commons
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr">
+<img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" height="31px" width="88px"/></a>
+Si vous êtes un enseignant qui utilise Reeborg pour vos étudiants, vous
+voudrez possiblement faire une copie de ce site sur votre propre serveur; si
+vous avez besoin d'aide, n'hésitez pas à me contacter.</p>
+<p>Si vous trouvez ce site utile, et que vous désirez me remercier, vous avez
+  deux choix: </p>
+    <ul><li>Vous pouvez me donner 100&nbsp;000$; les petites coupures sont préférables.</li>
+    <li>Vous pouvez <em>payer de l'avant</em> en faisant quelque chose de gentil pour
+    quelqu'un d'autre.</li></ul>
+    <p>Le choix est le vôtre! :-)</p>
+
+ <h2 id="contribute">Contribuez</h2>
+
+ <p> Je ne suis qu'un programmeur autodidacte, sans formation en design web, graphisme, etc.
+ J'invite toute suggestion ou contribution visant à
+</p>
+<ul><li>Améliorer la convivialité de ce site. </li>
+<li>Avoir un robot de meilleure apparence; j'ai dessiné Reeborg pixel par pixel, utilisant
+  un logiciel assez simple, approprié pour mon niveau d'habilité.  Il y a deux ensembles
+  d'images: une avec Reeborg vu de côté, et l'autre avec une vue d'en haut.
+  À mon avis, Reeborg est plus beau vu de côté ... mais son monde est vu de haut
+  ce qui peut porter à confusion.  De meilleurs dessins de Reeborg, vu avec un tout petit
+  angle par rapport à la verticale, serait possiblement souhaitable.</li>
+<li>Création de nouveaux mondes, de nouvelles tâches ou exemples. </li>
+<li>Correction au contenu, y compris la correction d'erreur grammaticale ou de syntaxe. </li>
+<li>etc.</li></ul>
+<p><a href="https://code.google.com/p/reeborg/issues/list">Les rapports de bogues</a> sont les bienvenus!</p>
+<p>À moyen terme, je prévois de :</p>
+<ul><li>Traduire tout le contenu en français</li>
+
+<li>Inclure des tutoriels sur la création de jeux en utilisant le canevas HTML. </li></ul>
+<p>À plus long terme, j'aimerais :</p>
+<ul><li>Inclure toute une série de langages informatiques (Scheme, ...) en autant que ceci
+puisse être fait totalement du côté client, sans avoir de code exécuté sur un serveur.</li>
+<li>Possiblement inclure la traduction des leçons dans d'autres langues que l'anglais et le
+  français, selon la bonne volonté de bénévoles.</li>
+<li>Investiguer la possibilité d'avoir quelque chose comme <a href="https://github.com/ryanb/ruby-warrior">Ruby-warrior en Javascript</a></li>
+<li>Investiguer la possibilité d'avoir une version Javascript de <a href="http://www.nand2tetris.org/">From nand to Tetris</a></li></ul>
+
+<p>
+Les échantillons audios ont été obtenus de <a href="https://www.freesound.org">freesound</a>; 
+ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative Commons".
+</p>
 </div>
 
 <audio id="put-sound" preload>
   <source src="src/sounds/toc.wav" type="audio/x-wav">
-<!--
-  <source src="../sounds/tock.ogg" type="application/ogg">
-  <source src="../sounds/tock.mp3" type="audio/mpeg">
--->
 </audio>
 
 <audio id="take-sound" preload>

@@ -9,11 +9,11 @@ var RUR = RUR || {};
 
 RUR.translation = {};
 RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] = 
-    "/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n";
+    "/* 'import_biblio();' dans l'onglet Code Javascript est requis pour\n pouvoir utiliser le code de cette bibliothèque.*/\n\n";
 RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"] = 
-    "# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n";
+    "# 'import biblio' dans l'onglet Code Python est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
 RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"] = 
-    "# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n";
+    "# 'import_biblio()' dans l'onglet Code CoffeeScript est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
 
 RUR.translation["Too many steps:"] = "Trop d'instructions: {max_steps}";
 RUR.translation["Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: "] =
@@ -64,6 +64,10 @@ RUR.translation[", tokens="] = ", jetons=";
 RUR.translation["World selected"] = "Monde {world} choisi";
 RUR.translation["Could not find world"] = "Je ne peux pas trouver {world}";
 RUR.translation["Invalid world file."] = "Fichier monde invalide.";
+
+RUR.translation["Python Code"] = "Code Python";
+RUR.translation["Javascript Code"] = "Code Javascript";
+RUR.translation["CoffeeScript Code"] = "Code CoffeeScript";
 
 /* translations from world_editor.js */
 
