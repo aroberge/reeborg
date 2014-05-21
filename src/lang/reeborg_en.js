@@ -61,6 +61,9 @@ RUR.translation["World selected"] = "World {world} selected";
 RUR.translation["Could not find world"] = "Could not find world {world}";
 RUR.translation["Invalid world file."] = "Invalid world file.";
 
+RUR.translation["Python Code"] = "Python Code";
+RUR.translation["Javascript Code"] = "Javascript Code";
+RUR.translation["CoffeeScript Code"] = "CoffeeScript Code";
 /* translations from world_editor.js */
 
 RUR.translation["Click on world to move robot."] = "Click on world to move Reeborg.";

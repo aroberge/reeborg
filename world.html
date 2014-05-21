@@ -23,7 +23,7 @@
     <button class="blue-gradient" id="output-panel-button" label="output-panel">Diary</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
     <button class="blue-gradient" id="help-button">Help</button>
-    <button class="blue-gradient" onclick="TogetherJS(this); return false;">Start TogetherJS</button>
+    <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaborate</button>
     <form>
         <input type="radio" name="programming_language" value="python-en" checked> Python
         <input type="radio" name="programming_language" value="javascript-strict-en" > Javascript (strict)
@@ -195,7 +195,8 @@
     <h1>Create your own worlds!</h1>
     <p>If you want to share your world (and corresponding challenges) with others,
         save it to a file and send it to
-    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
+    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a>, or use
+    the permalink.</p>
 
     <div id="edit-world-submenus-wrapper">
         <p id="cmd-result">Select action to perform from menu below.</p>
@@ -404,6 +405,7 @@ window['ReeborgError'] = RUR.ReeborgError
         <li><code>think(number)</code>: sets the amount of time in milliseconds between each robot action.</li>
         <li><code>write(string)</code>: write a string in Reeborg's Diary</li>
         <li><code>select_world(string)</code>: selects a given world.</li>
+            <li><code>select_challenge(string)</code>: selects a given (hiddent) world.</li>
         <li><code>print(string)</code>: only valid with Python.  Somewhat equivalent to <code>write</code>.</li>
       </ul>
 
@@ -465,16 +467,13 @@ window['ReeborgError'] = RUR.ReeborgError
     <li>Enlisting contributors to translate tutorials into languages other than English or French</li>
     <li>Investigating something like <a href="https://github.com/ryanb/ruby-warrior">Ruby-warrior in Javascript</a></li>
     <li>Investigating the possibility of porting <a href="http://www.nand2tetris.org/">From nand to Tetris</a> to the web using Javascript</li></ul>
-
+<p>
 Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen (and modified) from Creative Commons license 0 submissions.
+</p>
 </div>
 
 <audio id="put-sound" preload>
   <source src="src/sounds/toc.wav" type="audio/x-wav">
-<!--
-  <source src="../sounds/tock.ogg" type="application/ogg">
-  <source src="../sounds/tock.mp3" type="audio/mpeg">
--->
 </audio>
 
 <audio id="take-sound" preload>
