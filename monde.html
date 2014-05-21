@@ -278,55 +278,52 @@ def _write_err(data):
 sys.stdout.write = _write
 sys.stderr.write = _write_err
 
-class UsedRobot ():
+class RobotUsage ():
     def __init__ (self, x=1, y=1, orientation='e', tokens=0):
         robot = RUR.robot.create_robot(x, y, orientation, tokens)
         self.body = robot
         RUR.world.add_robot(self.body)
     
-    def move (self):
+    def avance (self):
         RUR.control.move(self.body)
 
-    def at_goal (self): 
+    def au_but (self): 
         return RUR.control.at_goal(self.body)
 
-    def at_goal_orientation (self):
+    def au_but_orientation (self):
         return RUR.control.at_goal_orientation(self.body)
 
-    def build_wall (self):
+    def construit_mur (self):
         RUR.control.build_wall(self.body)
 
-    def front_is_clear (self):
+    def rien_devant (self):
         return RUR.control.front_is_clear(self.body)
 
-    def has_token (self):
+    def a_des_jetons (self):
         return RUR.control.has_token(self.body)
 
-    def is_facing_north (self):
+    def face_au_nord (self):
         return RUR.control.is_facing_north(self.body)
 
-    def move (self):
-        RUR.control.move(self.body)
-
-    def put (self, arg="token"):
+    def depose (self, arg="jeton"):
         RUR.control.put(self.body, arg)
 
-    def token_here (self):
+    def jeton_ici (self):
         return RUR.control.token_here(self.body)
 
-    def right_is_clear (self):
+    def rien_a_droite (self):
         return RUR.control.right_is_clear(self.body)
     
-    def object_here (self):
+    def objet_ici (self):
         return RUR.control.object_here(self.body)
 
-    def take (self, arg="token"):
+    def prend (self, arg="token"):
         RUR.control.take(self.body, arg)
 
-    def turn_left (self):
+    def tourne_a_gauche (self):
         RUR.control.turn_left(self.body)
 
-window['UsedRobot'] = UsedRobot
+window['UsedRobot'] = RobotUsage
 window['ReeborgError'] = RUR.ReeborgError
 </script>
 

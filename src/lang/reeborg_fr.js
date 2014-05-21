@@ -7,188 +7,6 @@
 
 var RUR = RUR || {};
 
-RUR.reset_code_in_editors = function () {
-    var library_default, library_content, editor_content, editor_default;
-
-    if (RUR.programming_language == "javascript") {
-        library_default = RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"];
-        editor_default = "move();";
-    } else if (RUR.programming_language == "python") {
-        library_default = RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"];
-        editor_default = "move()";
-    }  else if (RUR.programming_language == "coffee") {
-        library_default = RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"];
-        editor_default = "move()";
-    }
-    library_content = localStorage.getItem(RUR.settings.library);
-    if (!library_content){
-        library_content = library_default;
-    }
-    library.setValue(library_content);
-    editor_content = localStorage.getItem(RUR.settings.editor);
-    if (!editor_content){
-        editor_content = editor_default;
-    }
-    editor.setValue(editor_content);
-};
-
-RUR.reset_programming_language = function(choice){
-    RUR.removeHints();
-    RUR.settings.current_language = choice;
-    try { 
-        localStorage.setItem("last_programming_language_fr", RUR.settings.current_language);
-    } catch (e) {}
-    switch(RUR.settings.current_language){
-        case 'python-fr' :
-            RUR.settings.editor = "editor_py_fr";
-            RUR.settings.library = "library_py_fr";
-            RUR.programming_language = "python";
-            $("#editor-link").html("Python Code");
-            editor.setOption("mode", {name: "python", version: 3});
-            library.setOption("mode", {name: "python", version: 3});
-            break;
-        case 'javascript-strict-fr' :
-            RUR.settings.editor = "editor_js_fr";
-            RUR.settings.library = "library_js_fr";
-            RUR.programming_language = "javascript";
-            $("#editor-link").html("Javascript Code");
-            RUR.strict_javascript = true;
-            editor.setOption("mode", "javascript");
-            library.setOption("mode", "javascript");
-            break;
-        case 'javascript-fr' :
-            RUR.settings.editor = "editor_js_fr";
-            RUR.settings.library = "library_js_fr";
-            RUR.programming_language = "javascript";
-            $("#editor-link").html("Javascript Code");
-            RUR.strict_javascript = false;
-            editor.setOption("mode", "javascript");
-            library.setOption("mode", "javascript");
-            break;
-        case 'coffeescript-fr' :
-            RUR.settings.editor = "editor_coffee_fr";
-            RUR.settings.library = "library_coffee_fr";
-            RUR.programming_language = "coffee";
-            $("#editor-link").html("CoffeeScript Code");
-            editor.setOption("mode", "coffeescript");
-            library.setOption("mode", "coffeescript");
-            break;
-    }            
-    try { 
-        RUR.reset_code_in_editors();
-    } catch (e) {}
-};
-
-
-$(document).ready(function() {
-    var prog_lang, url_query, name;
-    $('input[type=radio][name=programming_language]').on('change', function(){
-        RUR.reset_programming_language($(this).val());
-    });
-    url_query = parseUri(window.location.href);
-    if (url_query.queryKey.proglang !== undefined &&
-       url_query.queryKey.world !== undefined &&
-       url_query.queryKey.editor !== undefined &&
-       url_query.queryKey.library !== undefined) {
-        prog_lang = url_query.queryKey.proglang;
-        $('input[type=radio][name=programming_language]').val([prog_lang]);
-        RUR.reset_programming_language(prog_lang);
-
-        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        name = "PERMALIEN";
-        localStorage.setItem("user_world:"+ name, RUR.world.export_world());
-        $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                                  ).val("user_world:" + name).html(name));
-        $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
-        $("#select_world").change();
-        $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
-
-        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
-        library.setValue(decodeURIComponent(url_query.queryKey.library));
-    } else {
-        prog_lang = localStorage.getItem("last_programming_language_fr");
-        switch (prog_lang) {
-            case 'python-fr':
-            case 'javascript-fr':
-            case 'javascript-strict-fr':
-            case 'coffeescript-fr':
-                $('input[type=radio][name=programming_language]').val([prog_lang]);
-                RUR.reset_programming_language(prog_lang);
-        }
-        // trigger it to load the initial world.
-        $("#select_world").change();
-    }
-});
-
-function update_permalink () {
-    var url_query = parseUri($("#url_input_textarea").val());
-    if (url_query.queryKey.proglang !== undefined &&
-       url_query.queryKey.world !== undefined &&
-       url_query.queryKey.editor !== undefined &&
-       url_query.queryKey.library !== undefined) {
-        var prog_lang = url_query.queryKey.proglang;
-        $('input[type=radio][name=programming_language]').val([prog_lang]);
-        RUR.reset_programming_language(prog_lang);
-
-        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        var name = "PERMALIEN";
-        localStorage.setItem("user_world:"+ name, RUR.world.export_world());
-        $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                                  ).val("user_world:" + name).html(name));
-        $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
-        $("#select_world").change();
-        $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
-
-        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
-        library.setValue(decodeURIComponent(url_query.queryKey.library));
-    }
-    $("#url_input").hide();
-}
-
-
-
-function create_permalink() {
-    var proglang, world, _editor, _library, url_query, permalink, parts;
-    url_query = parseUri(window.location.href);
-
-    permalink = url_query.protocol + "://" + url_query.host;
-    if (url_query.port){
-        permalink += ":" + url_query.port;
-    }
-    permalink += url_query.path;
-    
-    switch(RUR.programming_language) {
-        case 'python': 
-            proglang = "python-fr";
-            break;
-        case 'coffee': 
-            proglang = "coffeescript-fr";
-            break;
-        case 'javascript':
-            if (RUR.strict_javascript) {
-                proglang = "javascript-strict-fr";
-            } else {
-                proglang = "javascript-fr";
-            }
-    }
-    world = encodeURIComponent(RUR.world.export_world());    
-    _editor = encodeURIComponent(editor.getValue());
-    _library = encodeURIComponent(library.getValue());
-    
-    permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
-    $("#url_input_textarea").val(permalink);
-    $("#url_input").show();
-    $("#ok-permalink").removeAttr("disabled");
-    $("#cancel-permalink").removeAttr("disabled");
-    
-    return false;
-}
-
-var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, rien_devant, rien_a_droite, "+
-                    " face_au_nord, termine, depose, prend, objet_ici, selectionne_monde,"+
-                    " jeton_ici, a_des_jetons, ecrit, au_but, au_but_orientation," +
-                    " construit_mur, pense, pause, repete, voir_source, son */\n";
-
 RUR.translation = {};
 RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] = 
     "/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n";
@@ -209,7 +27,6 @@ RUR.translation.square = "carré";
 // reverse translation needed as well ... triangle not needed as it is the same in both languages
 RUR.translation["étoile"] = "star";
 RUR.translation["carré"] = "square";
-
 RUR.translation["Unknown shape"] = "Forme inconnue: {shape}";
 RUR.translation["No shape found here"] = "Pas de {shape} trouvé ici !";
 RUR.translation["There is already something here."] = "Il y a déjà quelque chose ici.";
@@ -217,19 +34,17 @@ RUR.translation["I don't have any shape to put down!"] = "Je n'ai pas de {shape}
 RUR.translation["There is already a wall here!"] = "Il y a déjà un mur ici !";
 RUR.translation["Ouch! I hit a wall!"] = "Ouch! J'ai frappé un mur!";
 RUR.translation["I am afraid of the void!"] = "J'ai peur du néant !";
-
 RUR.translation.east = "est";
 RUR.translation.north = "nord";
 RUR.translation.west = "ouest";
 RUR.translation.south = "sud";
+RUR.translation.move = "avance";
 RUR.translation.token = "jeton";
-
 RUR.translation["Unknown orientation for robot."] = "Orientation inconnue.";
 RUR.translation["Done!"] = "Terminé !";
 RUR.translation["There is no position as a goal in this world!"] = "Aucune position n'a été spécifiée comme but dans ce monde!";
 RUR.translation["There is no orientation as a goal in this world!"] = "Aucune orientation n'a été spécifiée comme but dans ce monde!";
 RUR.translation["There is no goal in this world!"] = "Il n'y a pas de but dans ce monde!";
-
 RUR.translation["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
 RUR.translation["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée x.</li>";
 RUR.translation["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée y.</li>";
@@ -251,7 +66,6 @@ RUR.translation["Could not find world"] = "Je ne peux pas trouver {world}";
 RUR.translation["Invalid world file."] = "Fichier monde invalide.";
 
 /* translations from world_editor.js */
-
 
 RUR.translation["Click on world to move robot."] = "Cliquez sur le monde pour déplacer Reeborg.";
 RUR.translation["Removed robot."] = "Reeborg supprimé.";
@@ -286,90 +100,28 @@ RUR.translation["Goal: no object left in world."] = "But: aucun objet qui reste 
 
 /*==========================================*/
 
-var move, turn_left, inspect, front_is_clear, right_is_clear, 
-    is_facing_north, done, put, take, object_here, select_world, token_here, 
-    has_token, write, at_goal, at_goal_orientation, build_wall, think, 
-    pause, remove_robot, repeat, view_source, sound, UsedRobot, 
-    set_max_steps;
+var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, rien_devant, rien_a_droite, "+
+                    " face_au_nord, termine, depose, prend, objet_ici, selectionne_monde,"+
+                    " jeton_ici, a_des_jetons, ecrit, au_but, au_but_orientation, selectionne_defi," +
+                    " construit_mur, pense, pause, repete, voir_source, son */\n";
 
-inspect = function (obj){
-  var props, result = "";
-  for (props in obj) {
-      if (typeof obj[props] === "function") {
-          result += props + "()\n";
-      } else{
-          result += props + "\n";
-      }
-  }
-  write(result);
-};
-
-view_source = function(fn) {
-  $("#last-pre").before("<pre class='js_code'>" + fn + "</pre>" );
-  $('.js_code').each(function() {
-      var $this = $(this), $code = $this.text();
-      $this.removeClass("js_code");
-      $this.addClass("jscode");
-      $this.empty();
-      var myCodeMirror = CodeMirror(this, {
-          value: $code,
-          mode: 'javascript',
-          lineNumbers: !$this.is('.inline'),
-          readOnly: true,
-          theme: 'reeborg-dark'
-      });
-  });
-};
-
-sound = function (on) {
-    RUR.control.sound(on);  
-};
+var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite, selectionne_defi, 
+    face_au_nord, termine, depose, prend, objet_ici, selectionne_monde, jeton_ici, 
+    a_des_jetons, ecrit, au_but, au_but_orientation, construit_mur, pense, 
+    pause, repete, voir_source, son, RobotUsage, 
+    nombre_de_commandes;
 
 RUR.reset_definitions = function () {
-  
-  if (!RUR.world.robot_world_active){
-      move = null;
-      turn_left = null;
-      window.UsedRobot = null;
-      front_is_clear = null;
-      right_is_clear = null;
-      is_facing_north = null;
-      done = null;
-      put = null;
-      take = null;
-      object_here = null;
-      select_world = null;
-      set_max_steps = null;
-      token_here = null;
-      has_token = null;
-      at_goal = null;
-      at_goal_orientation = null;
-      build_wall = null;
-      think = null;
-      pause = null;
-      remove_robot = null;
-      write = function (s) {
-          $("#output-pre").append(s.toString() + "\n");
-      };
-      // do not translate the following
-      put_beeper = put;
-      pick_beeper = take;
-      turn_off = done;
-      on_beeper = token_here; 
-      carries_beepers = has_token;
-      return;
-  }
-  UsedRobot = function (x, y, orientation, tokens)  {
+ 
+  RobotUsage = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.world.add_robot(this.body);
     };
     
-    
-    // functions not specific to individual robot.
-    write = function (s) {
+    ecrit = function (s) {
         RUR.control.write(s);
     };
-    done = function () {
+    termine = function () {
       RUR.control.done();
     };
     
@@ -377,148 +129,127 @@ RUR.reset_definitions = function () {
       RUR.control.pause(ms);
     };
     
-    repeat = function (f, n) {
+    repete = function (f, n) {
       for (var i=0; i < n; i++){
           f();
       }
     };
     
-    think = function(delay) {
+    pense = function(delay) {
         RUR.control.think(delay);
     };
 
-    select_world = RUR.ui.select_world;  
-    set_max_steps = function(n){
+    selectionne_monde = RUR.ui.select_world;  
+    nombre_de_commandes = function(n){
         RUR.MAX_STEPS = n;
     };
 
-
-    at_goal = function () {
+    au_but = function () {
         return RUR.control.at_goal(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.at_goal = function () {
+    RobotUsage.prototype.au_but = function () {
         RUR.control.at_goal(this.body);
     };
     
-    at_goal_orientation = function () {
+    au_but_orientation = function () {
         return RUR.control.at_goal_orientation(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.at_goal_orientation = function () {
+    RobotUsage.prototype.au_but_orientation = function () {
         RUR.control.at_goal_orientation(this.body);
     };
 
-    build_wall = function() {
+    construit_mur = function() {
         RUR.control.build_wall(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.build_wall = function () {
+    RobotUsage.prototype.construit_mur = function () {
         RUR.control.build_wall(this.body);
     };
 
-    front_is_clear = function() {
+    rien_devant = function() {
       return RUR.control.front_is_clear(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.front_is_clear = function () {
+    RobotUsage.prototype.rien_devant = function () {
         RUR.control.front_is_clear(this.body);
     };
 
-    has_token = function () {
+    a_des_jetons = function () {
         return RUR.control.has_token(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.has_token = function () {
+    RobotUsage.prototype.a_des_jetons = function () {
         RUR.control.has_token(this.body);
     };
     
-    is_facing_north = function () {
+    face_au_nord = function () {
         return RUR.control.is_facing_north(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.is_facing_north = function () {
+    RobotUsage.prototype.face_au_nord = function () {
         RUR.control.is_facing_north(this.body);
     };
 
-    move = function () {
+    avance = function () {
         RUR.control.move(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.move = function () {
+    RobotUsage.prototype.avance = function () {
         RUR.control.move(this.body);
     };
 
-    put = function(arg) {
+    depose = function(arg) {
         RUR.control.put(RUR.current_world.robots[0], arg);
     };
-    UsedRobot.prototype.put = function () {
+    RobotUsage.prototype.depose = function () {
         RUR.control.put(this.body);
     };
     
-    token_here = function() {
+    jeton_ici = function() {
         return RUR.control.token_here(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.token_here = function () {
+    RobotUsage.prototype.jeton_ici = function () {
         RUR.control.token_here(this.body);
     };
 
-    right_is_clear = function() {
+    rien_a_droite = function() {
       return RUR.control.right_is_clear(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.right_is_clear = function () {
+    RobotUsage.prototype.rien_a_droite = function () {
         RUR.control.right_is_clear(this.body);
     };
     
-    object_here = function () {
+    objet_ici = function () {
         return RUR.control.object_here(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.object_here = function () {
+    RobotUsage.prototype.objet_ici = function () {
         RUR.control.object_here(this.body);
     };
     
-    take = function(arg) {
+    prend = function(arg) {
         RUR.control.take(RUR.current_world.robots[0], arg);
     };
-    UsedRobot.prototype.take = function () {
+    RobotUsage.prototype.prend = function () {
         RUR.control.take(this.body);
     };
 
-    turn_left = function () {
+    tourne_a_gauche = function () {
         RUR.control.turn_left(RUR.current_world.robots[0]);
     };
-    UsedRobot.prototype.turn_left = function () {
+    RobotUsage.prototype.tourne_a_gauche = function () {
         RUR.control.turn_left(this.body);
     };
     
-    // English speficic and only for compatibility with rur-ple
-    // do not translate the following
-    put_beeper = put;
-    pick_beeper = take;
-    turn_off = done;
-    on_beeper = token_here; 
-    next_to_a_beeper = token_here;
-    carries_beepers = has_token;
-    set_delay = think;
-    facing_north = is_facing_north;
-    
+    examine = RUR.inspect;
+
+    voir_source = RUR.view_source;
+
+    son = function (on) {
+        RUR.control.sound(on);  
+    };
 };
 
 
 // the regex of the following should be adapted
 // so that they make sense in the human language ...
-RUR._import_library = function () {
-  // adds the library code to the editor code if appropriate string is found
-    var separator, import_lib_regex, src, lib_src;  
-    if (RUR.programming_language == "javascript") {
-        separator = ";\n";
-        import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
-    } else if (RUR.programming_language === "python") {
-        separator = "\n";
-        import_lib_regex = /^import\s* my_lib\s*$/m;
-    } else if (RUR.programming_language === "coffee") {
-        separator = "\n";
-        import_lib_regex = /^\s*import_lib\s*\(\s*\)/m;
-    }
 
-    lib_src = library.getValue();
-    src = editor.getValue();
-    return src.replace(import_lib_regex, separator+lib_src);
-};
+RUR.import_lib_regex_js = /^\s*import_biblio\s*\(\s*\);/m;
+RUR.import_lib_regex_py = /^import\s* biblio\s*$/m; 
+RUR.import_lib_regex_coffee = /^\s*import_biblio\s*\(\s*\)/m;
 
-var biblio = function() {
-    return library.getValue();
-};
+
