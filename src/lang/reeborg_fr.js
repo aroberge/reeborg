@@ -207,7 +207,7 @@ RUR.translation["I don't have any token to put down!"] = "Je n'ai pas de jetons 
 RUR.translation.triangle = "triangle";
 RUR.translation.star = "étoile";
 RUR.translation.square = "carré";
-// reverse translation needed as well ... but triangle is the same in both languages
+// reverse translation needed as well ... triangle not needed as it is the same in both languages
 RUR.translation["étoile"] = "star";
 RUR.translation["carré"] = "square";
 
@@ -219,71 +219,70 @@ RUR.translation["There is already a wall here!"] = "Il y a déjà un mur ici !";
 RUR.translation["Ouch! I hit a wall!"] = "Ouch! J'ai frappé un mur!";
 RUR.translation["I am afraid of the void!"] = "J'ai peur du néant !";
 
+RUR.translation.east = "est";
+RUR.translation.north = "nord";
+RUR.translation.west = "ouest";
+RUR.translation.south = "sud";
+RUR.translation.token = "jeton";
 
-RUR.translation.east = "east";
-RUR.translation.north = "north";
-RUR.translation.west = "west";
-RUR.translation.south = "south";
-RUR.translation.token = "token";
-RUR.translation["Unknown orientation for robot."] = "Unknown orientation for robot.";
-RUR.translation["Done!"] = "Done!";
-RUR.translation["There is no position as a goal in this world!"] = "There is no position as a goal in this world!";
-RUR.translation["There is no orientation as a goal in this world!"] = "There is no orientation as a goal in this world!";
-RUR.translation["There is no goal in this world!"] = "There is no goal in this world!";
-RUR.translation["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
-RUR.translation["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg is at the wrong x position.</li>";
-RUR.translation["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg is at the correct y position.</li>";
-RUR.translation["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg is at the wrong y position.</li>";
-RUR.translation["<li class='success'>Reeborg has the correct orientation.</li>"] = "<li class='success'>Reeborg has the correct orientation.</li>";
-RUR.translation["<li class='failure'>Reeborg has the wrong orientation.</li>"] = "<li class='failure'>Reeborg has the wrong orientation.</li>";
-RUR.translation["<li class='success'>All shapes are at the correct location.</li>"] = "<li class='success'>All shapes are at the correct location.</li>";
-RUR.translation["<li class='failure'>One or more shapes are not at the correct location.</li>"] = "<li class='failure'>One or more shapes are not at the correct location.</li>";
-RUR.translation["<li class='success'>All tokens are at the correct location.</li>"] = "<li class='success'>All tokens are at the correct location.</li>";
-RUR.translation["<li class='failure'>One or more tokens are not at the correct location.</li>"] = "<li class='failure'>One or more tokens are not at the correct location.</li>";
-RUR.translation["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>All walls have been built correctly.</li>";
-RUR.translation["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>One or more walls missing or built at wrong location.</li>";
-RUR.translation["Last instruction completed!"] = "Last instruction completed!";
-RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>done()</code> executed.</p>";
+RUR.translation["Unknown orientation for robot."] = "Orientation inconnue.";
+RUR.translation["Done!"] = "Terminé !";
+RUR.translation["There is no position as a goal in this world!"] = "Aucune position n'a été spécifiée comme but dans ce monde!";
+RUR.translation["There is no orientation as a goal in this world!"] = "Aucune orientation n'a été spécifiée comme but dans ce monde!";
+RUR.translation["There is no goal in this world!"] = "Il n'y a pas de but dans ce monde!";
+
+RUR.translation["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
+RUR.translation["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée x.</li>";
+RUR.translation["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée y.</li>";
+RUR.translation["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée y.</li>";
+RUR.translation["<li class='success'>Reeborg has the correct orientation.</li>"] = "<li class='success'>Reeborg a la bonne orientation.</li>";
+RUR.translation["<li class='failure'>Reeborg has the wrong orientation.</li>"] = "<li class='failure'>Reeborg a la mauvaise orientation.</li>";
+RUR.translation["<li class='success'>All shapes are at the correct location.</li>"] = "<li class='success'>Tous les objets sont aux bons endroits.</li>";
+RUR.translation["<li class='failure'>One or more shapes are not at the correct location.</li>"] = "<li class='failure'>Un ou plusieurs objets ne sont pas aux bons endroits.</li>";
+RUR.translation["<li class='success'>All tokens are at the correct location.</li>"] = "<li class='success'>Tous les jetons sont aux bons endroits.</li>";
+RUR.translation["<li class='failure'>One or more tokens are not at the correct location.</li>"] = "<li class='failure'>Un ou plusieurs jetons ne sont pas aux bons endroits.</li>";
+RUR.translation["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>Tous les murs ont été construits correctement.</li>";
+RUR.translation["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>Un ou plusieurs murs manquent ou sont aux mauvais endroits.</li>";
+RUR.translation["Last instruction completed!"] = "Dernière instruction complétée!";
+RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>terminé()</code> exécutée.</p>";
 RUR.translation.robot = "robot";
-RUR.translation[", tokens="] = ", tokens=";
-RUR.translation["Delete "] = "Delete";
-RUR.translation["Undo Delete"] = "Undo Delete";
-RUR.translation["World selected"] = "World {world} selected";
-RUR.translation["Could not find world"] = "Could not find world {world}";
-RUR.translation["Invalid world file."] = "Invalid world file.";
+RUR.translation[", tokens="] = ", jetons=";
+RUR.translation["World selected"] = "Monde {world} choisi";
+RUR.translation["Could not find world"] = "Je ne peux pas trouver {world}";
+RUR.translation["Invalid world file."] = "Fichier monde invalide.";
 
 /* translations from world_editor.js */
 
 
-RUR.translation["Click on world to move robot."] = "Click on world to move robot.";
-RUR.translation["Removed robot."] = "Removed robot.";
-RUR.translation["Added robot."] = "Added robot.";
-RUR.translation["Click on image to turn robot"] = "Click on image to turn robot";
-RUR.translation["Robot now has tokens."] = "Robot now has {x_tokens} tokens.";
-RUR.translation["Click on world to set number of tokens."] = "Click on world to set number of tokens.";
-RUR.translation["Click on desired object below."] = "Click on desired object below.";
-RUR.translation["Click on world to toggle star."] = "Click on world to toggle star.";
-RUR.translation["Click on world to toggle triangle."] = "Click on world to toggle triangle.";
-RUR.translation["Click on world to toggle square."] = "Click on world to toggle square.";
-RUR.translation["Click on world to toggle walls."] = "Click on world to toggle walls.";
-RUR.translation["Click on world to set home position for robot."] = "Click on world to set home position for robot.";
-RUR.translation["Click on world to toggle additional walls to build."] = "Click on world to toggle additional walls to build.";
-RUR.translation["Click on desired goal object below."] = "Click on desired goal object below.";
-RUR.translation["Click on world to set number of goal tokens."] = "Click on world to set number of goal tokens.";
-RUR.translation["Click on world to toggle star goal."] = "Click on world to toggle star goal.";
-RUR.translation["Click on world to toggle triangle goal."] = "Click on world to toggle triangle goal.";
-RUR.translation["Click on world to toggle square goal."] = "Click on world to toggle square goal.";
-RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Click on world at x=1, y=1 to have no object left as a goal.";                                                     
-RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for robot to carry (use inf for infinite number)";
-RUR.translation[" is not a valid value!"] = " is not a valid value!";
-RUR.translation["Other object here; can't put tokens"] = "Other object here; can't put tokens";
-RUR.translation["Enter number of tokens for at that location."] = "Enter number of tokens for at that location.";
-RUR.translation["Other object goal here; can't put tokens"] = "Other object goal here; can't put tokens";
-RUR.translation["Enter number of tokens for at that location."] = "Enter number of tokens for at that location.";
-RUR.translation["tokens here; can't put another object"] = "tokens here; can't put another object";
-RUR.translation["tokens as a goal here; can't set another object as goal."] = "tokens as a goal here; can't set another object as goal.";
-RUR.translation["Click on same position to remove, or robot to set orientation."] = "Click on same position to remove, or robot to set orientation.";
-RUR.translation["Goal: no object left in world."] = "Goal: no object left in world.";
+RUR.translation["Click on world to move robot."] = "Cliquez sur le monde pour déplacer Reeborg.";
+RUR.translation["Removed robot."] = "Reeborg supprimé.";
+RUR.translation["Added robot."] = "Reeborg ajouté.";
+RUR.translation["Click on image to turn robot"] = "Cliquez sur l'image pour tourner Reeborg.";
+RUR.translation["Robot now has tokens."] = "Reeborg a {x_tokens} jetons.";
+RUR.translation["Click on world to set number of tokens."] = "Cliquez sur le monde pour ajouter des jetons.";
+RUR.translation["Click on desired object below."] = "Cliquez sur l'objet désiré ci-dessous.";
+RUR.translation["Click on world to toggle star."] = "Cliquez sur le monde pour ajouter/supprimer une étoile.";
+RUR.translation["Click on world to toggle triangle."] = "Cliquez sur le monde pour ajouter/supprimer un triangle.";
+RUR.translation["Click on world to toggle square."] = "Cliquez sur le monde pour ajouter/supprimer un carré.";
+RUR.translation["Click on world to toggle walls."] = "Cliquez sur le monde pour ajouter/supprimer des murs.";
+RUR.translation["Click on world to set home position for robot."] = "Cliquez sur le monde pour choisir la position finale du robot.";
+RUR.translation["Click on world to toggle additional walls to build."] = "Cliquez sur le monde pour ajouter/supprimer des murs à construire.";
+RUR.translation["Click on desired goal object below."] = "Cliquez sur l'objet but désiré.";
+RUR.translation["Click on world to set number of goal tokens."] = "Cliquez sur le monde pour fixer le nombre de jetons comme but.";
+RUR.translation["Click on world to toggle star goal."] = "Cliquez sur le monde pour ajouter/supprimer une étoile comme but.";
+RUR.translation["Click on world to toggle triangle goal."] = "Cliquez sur le monde pour ajouter/supprimer un triangle comme but.";
+RUR.translation["Click on world to toggle square goal."] = "Cliquez sur le monde pour ajouter/supprimer un carré comme but.";
+RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Cliquez sur le monde en x=1, y=1 pour avoir comme but aucun objet qui reste.";                                                     
+RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg (utilisez inf pour un nombre infini).";
+RUR.translation[" is not a valid value!"] = " n'est pas une valeur valide!";
+RUR.translation["Other object here; can't put tokens"] = "Autre objet ici; on ne peut pas mettre des jetons.";
+RUR.translation["Enter number of tokens for at that location."] = "Entrez le nombre de jetons requis à cet endroit.";
+RUR.translation["Other object goal here; can't put tokens"] = "Autre objet comme but ici; on ne peut pas mettre des jetons.";
+RUR.translation["Enter number of tokens for at that location."] = "Entrez le nombre de jetons requis à cet endroit.";
+RUR.translation["tokens here; can't put another object"] = "Jetons ici; on ne peut pas mettre un autre objet.";
+RUR.translation["tokens as a goal here; can't set another object as goal."] = "Jetons comme but ici; on ne peut pas mettre un autre objet comme but ici.";
+RUR.translation["Click on same position to remove, or robot to set orientation."] = "Cliquez sur la même position pour supprimer, ou sur un robot pour choisir l'orientation.";
+RUR.translation["Goal: no object left in world."] = "But: aucun objet qui reste dans le monde.";
 
 
 /*==========================================*/

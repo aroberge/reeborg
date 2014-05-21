@@ -1330,9 +1330,7 @@ RUR.ui.select_world = function (s, silent) {
     throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: s}));
 };
 
-
 RUR.ui.load_file = function (filename, name, replace, elt, i) {
-    console.log(replace);
     $.ajax({url: "src/json/" + filename + ".json", 
         async: false,
         error: function(e){
@@ -1352,8 +1350,6 @@ RUR.ui.load_file = function (filename, name, replace, elt, i) {
         }
     }, "text");
 };
-
-
 
 RUR.ui.select_challenge = function (filename) {
     // this is for worlds that are defined in a file not available from the
