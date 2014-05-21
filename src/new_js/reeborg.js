@@ -62,11 +62,11 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     if (!RUR.control.front_is_clear(robot, true)) {
-        throw new RUR.ReeborgError(RUR.translation["Ouch! I hit a wall!"]);
+        throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
     }
     if ((robot.y === RUR.ROWS && robot.orientation === RUR.NORTH) ||
         (robot.x === RUR.COLS && robot.orientation === RUR.EAST)) {
-        throw new RUR.ReeborgError(RUR.translation["I am afraid of the void!"]);
+        throw new RUR.ReeborgError(RUR.translate("I am afraid of the void!"));
     }
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
@@ -118,7 +118,7 @@ RUR.control.pause = function (ms) {
 };
 
 RUR.control.done = function () {
-    throw new RUR.ReeborgError(RUR.translation["Done!"]);
+    throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
 
 RUR.control.token_here = function (robot) {
@@ -135,15 +135,15 @@ RUR.control.put = function(robot, arg){
         RUR.control._put_token(robot);
         return;
     } else if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(arg) === -1){
-        throw new RUR.ReeborgError(RUR.translation["Unknown object"].supplant({shape: arg}));
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
     }
-    if (robot[RUR.translation[arg]] === 0){
-        throw new RUR.ReeborgError(RUR.translation["I don't have any shape to put down!"].supplant({shape:arg}));
+    if (robot[RUR.translate(arg)] === 0){
+        throw new RUR.ReeborgError(RUR.translate("I don't have any shape to put down!").supplant({shape:arg}));
     } else if (RUR.control.object_here(robot) !== 0) {
-        throw new RUR.ReeborgError(RUR.translation["There is already something here."]);
+        throw new RUR.ReeborgError(RUR.translate("There is already something here."));
     }
-    robot[RUR.translation[arg]] -= 1;
-    RUR.control._put_object(robot, RUR.translation[arg]);
+    robot[RUR.translate(arg)] -= 1;
+    RUR.control._put_object(robot, RUR.translate(arg));
 };
 
 RUR.control._put_object = function (robot, obj) {
@@ -155,7 +155,7 @@ RUR.control._put_object = function (robot, obj) {
 RUR.control._put_token = function (robot) {
     var token;
     if (robot.tokens === 0){
-        throw new RUR.ReeborgError(RUR.translation["I don't have any token to put down!"]);
+        throw new RUR.ReeborgError(RUR.translate("I don't have any token to put down!"));
     }
     token = RUR.control.token_here(robot);
     RUR.we.ensure_key_exist(RUR.current_world, "tokens");
@@ -176,13 +176,13 @@ RUR.control.take = function(robot, arg){
         RUR.control._take_token(robot);
         return;
     } else if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(arg) === -1){
-        throw new RUR.ReeborgError(RUR.translation["Unknown object"].supplant({shape: arg}));
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
     }
-    if (RUR.control.object_here(robot) !== RUR.translation[arg]) {
-        throw new RUR.ReeborgError(RUR.translation["No shape found here"].supplant({shape: arg}));
+    if (RUR.control.object_here(robot) !== RUR.translate(arg)) {
+        throw new RUR.ReeborgError(RUR.translate("No shape found here").supplant({shape: arg}));
     }
-    robot[RUR.translation[arg]] += 1;
-    RUR.control._take_object(robot, RUR.translation[arg]);
+    robot[RUR.translate(arg)] += 1;
+    RUR.control._take_object(robot, RUR.translate(arg));
 };
 
 RUR.control._take_object = function (robot, obj) {
@@ -193,7 +193,7 @@ RUR.control._take_object = function (robot, obj) {
 RUR.control._take_token = function (robot) {
     var token = RUR.control.token_here(robot);
     if (token === 0){
-        throw new RUR.ReeborgError(RUR.translation["No token found here!"]);
+        throw new RUR.ReeborgError(RUR.translate("No token found here!"));
     }
     token --;
     if (token > 0) {
@@ -223,7 +223,7 @@ RUR.control.is_wall_at = function (coords, orientation) {
 RUR.control.build_wall = function (robot){
     var coords, orientation, x, y, walls;
     if (!RUR.control.front_is_clear(robot)){
-        throw new RUR.ReeborgError(RUR.translation["There is already a wall here!"]);
+        throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
     }
 
     switch (robot.orientation){
@@ -333,9 +333,9 @@ RUR.control.at_goal = function (robot) {
             RUR.rec.record_frame();
             return (robot.x === goal.position.x && robot.y === goal.position.y);
         }
-        throw new RUR.ReeborgError(RUR.translation["There is no position as a goal in this world!"]);
+        throw new RUR.ReeborgError(RUR.translate("There is no position as a goal in this world!"));
     }
-    throw new RUR.ReeborgError(RUR.translation["There is no goal in this world!"]);
+    throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };
 
 RUR.control.at_goal_orientation = function (robot) {
@@ -345,9 +345,9 @@ RUR.control.at_goal_orientation = function (robot) {
             RUR.rec.record_frame();
             return (robot.orientation === goal.orientation);
         }
-        throw new RUR.ReeborgError(RUR.translation["There is no orientation as a goal in this world!"]);
+        throw new RUR.ReeborgError(RUR.translate("There is no orientation as a goal in this world!"));
     }
-    throw new RUR.ReeborgError(RUR.translation["There is no goal in this world!"]);
+    throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };
 
 RUR.control.object_here = function (robot) {
@@ -360,7 +360,7 @@ RUR.control.object_here = function (robot) {
     if (RUR.current_world.shapes === undefined) {
         return 0;
     }
-    return RUR.translation[RUR.current_world.shapes[coords]] || 0;
+    return RUR.translate(RUR.current_world.shapes[coords]) || 0;
 };
 
 RUR.control.write = function (s) {
@@ -531,7 +531,7 @@ $(document).ready(function() {
                     $("#worldfileInput").hide();
                     RUR.world.import_world(reader.result);
                 } catch (e) {
-                    alert(RUR.translation["Invalid world file."]);
+                    alert(RUR.translate("Invalid world file."));
                 }
                 fileInput.value = "";
             };
@@ -781,7 +781,7 @@ RUR.rec.record_frame = function (name, obj) {
     // TODO add check for too many steps.
     RUR.control.sound_id = undefined;
     if (RUR.rec.nb_frames == RUR.MAX_STEPS) {
-        throw new RUR.ReeborgError(RUR.translation["Too many steps:"].supplant({max_steps: RUR.MAX_STEPS}));
+        throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
 };
 
@@ -886,7 +886,7 @@ RUR.rec.conclude = function () {
         if (RUR.control.sound_flag) {
             RUR.control.play_sound("#success-sound");
         }
-        $("#Reeborg-says").html("<p class='center'>" + RUR.translation["Last instruction completed!"] + "</p>").dialog("open");
+        $("#Reeborg-says").html("<p class='center'>" + RUR.translate("Last instruction completed!") + "</p>").dialog("open");
     }
     return "stopped";
 };
@@ -894,14 +894,14 @@ RUR.rec.conclude = function () {
 RUR.rec.handle_error = function (frame) {
     var goal_status;
     //Brython adds information to error messages; we want to remove it from the following comparison
-    if (frame.error.message.split("\n")[0] === RUR.translation["Done!"].split("\n")[0]){
+    if (frame.error.message.split("\n")[0] === RUR.translate("Done!").split("\n")[0]){
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
             if (RUR.control.sound_flag) {
                 RUR.control.play_sound("#success-sound");
             }
-            $("#Reeborg-says").html(RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"]).dialog("open");
+            $("#Reeborg-says").html(RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>")).dialog("open");
         }
     } else {
         if (RUR.control.sound_flag) {
@@ -922,41 +922,41 @@ RUR.rec.check_goal= function (frame) {
     if (g.position !== undefined){
         goal_status.position = {};
         if (g.position.x === world.robots[0].x){
-            goal_status.message += RUR.translation["<li class='success'>Reeborg is at the correct x position.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct x position.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>Reeborg is at the wrong x position.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>Reeborg is at the wrong x position.</li>");
             goal_status.success = false;
         }
         if (g.position.y === world.robots[0].y){
-            goal_status.message += RUR.translation["<li class='success'>Reeborg is at the correct y position.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct y position.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>Reeborg is at the wrong y position.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>Reeborg is at the wrong y position.</li>");
             goal_status.success = false;
         }
     }
     if (g.orientation !== undefined){
         if (g.orientation === world.robots[0].orientation){
-            goal_status.message += RUR.translation["<li class='success'>Reeborg has the correct orientation.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>Reeborg has the correct orientation.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>Reeborg has the wrong orientation.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>Reeborg has the wrong orientation.</li>");
             goal_status.success = false;
         }
     }
     if (g.shapes !== undefined) {
         result = Object.identical(g.shapes, world.shapes, true);
         if (result){
-            goal_status.message += RUR.translation["<li class='success'>All shapes are at the correct location.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>All shapes are at the correct location.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>One or more shapes are not at the correct location.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>One or more shapes are not at the correct location.</li>");
             goal_status.success = false;
         }
     }
     if (g.tokens !== undefined) {
         result = Object.identical(g.tokens, world.tokens, true);
         if (result){
-            goal_status.message += RUR.translation["<li class='success'>All tokens are at the correct location.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>All tokens are at the correct location.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>One or more tokens are not at the correct location.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>One or more tokens are not at the correct location.</li>");
             goal_status.success = false;
         }
     }
@@ -974,9 +974,9 @@ RUR.rec.check_goal= function (frame) {
             }
         }
         if (result){
-            goal_status.message += RUR.translation["<li class='success'>All walls have been built correctly.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>All walls have been built correctly.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>One or more walls missing or built at wrong location.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>One or more walls missing or built at wrong location.</li>");
             goal_status.success = false;
         }
     }
@@ -1024,7 +1024,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
             robot.orientation = RUR.SOUTH;
             break;
         default:
-            throw new RUR.ReeborgError(RUR.translation["Unknown orientation for robot."]);
+            throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
         }
     }
     
@@ -1097,7 +1097,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         } else {
             error_name = e.name;
         }
-        if (error_name === RUR.translation.ReeborgError){
+        if (error_name === "ReeborgError"){
             RUR.rec.record_frame("error", e);
         } else {
             $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" + e.message + "</h4>").dialog("open");
@@ -1156,6 +1156,23 @@ RUR.runner.eval_coffee = function (src) {
     var out;
     RUR.reset_definitions();
     eval(CoffeeScript.compile(src)); // jshint ignore:line
+};/* Author: André Roberge
+   License: MIT  */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals RUR */
+
+RUR.ReeborgError = function (message) {
+    this.name = "ReeborgError";
+    this.message = message;
+};
+
+RUR.translate = function (s) {
+    if (RUR.translation[s] !== undefined) {
+        return RUR.translation[s];
+    } else {
+        return s;
+    }
 };/* Author: André Roberge
    License: MIT
  */
@@ -1321,13 +1338,13 @@ RUR.ui.select_world = function (s, silent) {
             if (silent) {
                 return;
             }
-            throw new RUR.ReeborgError(RUR.translation["World selected"].supplant({world: s}));
+            throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: s}));
         }
     }
     if (silent) {
         return;
     }
-    throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: s}));
+    throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: s}));
 };
 
 RUR.ui.load_file = function (filename, name, replace, elt, i) {
@@ -1364,18 +1381,18 @@ RUR.ui.select_challenge = function (filename) {
                 } else {
                     RUR.ui.load_file(filename, name, true, elt, i);
                     if (RUR.ui.load_file_error) {
-                        throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: filename}));
+                        throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
                     }
-                    throw new RUR.ReeborgError(RUR.translation["World selected"].supplant({world: filename}));
+                    throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
                 }
             }
         }
     }
     RUR.ui.load_file(filename, name, false);
     if (RUR.ui.load_file_error) {
-        throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: filename}));
+        throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
     }
-    throw new RUR.ReeborgError(RUR.translation["World selected"].supplant({world: filename}));
+    throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
 };
 
 RUR.ui.load_user_worlds = function () {
@@ -1495,12 +1512,6 @@ parseUri.options = {
 	}
 };
 
-
-RUR.ReeborgError = function (message) {
-    this.name = RUR.translation.ReeborgError;
-    this.message = message;
-    this.test_name = "ReeborgError";
-};
 
 /* Author: André Roberge
    License: MIT
@@ -1789,8 +1800,8 @@ RUR.vis_world.draw_robots = function (robots) {
     }
     for (robot=0; robot < robots.length; robot++){
         RUR.vis_robot.draw(robots[robot]); // draws trace automatically
-        info += RUR.translation.robot + "_" + robot + ": x=" + robots[robot].x +
-                ", y=" + robots[robot].y + RUR.translation[", tokens="] + robots[robot].tokens + ".  ";
+        info += RUR.translate("robot")+ "_" + robot + ": x=" + robots[robot].x +
+                ", y=" + robots[robot].y + RUR.translate(", tokens=") + robots[robot].tokens + ".  ";
     }
     RUR.ROBOT_CTX.fillStyle = RUR.DEBUG_INFO_COLOR;
     RUR.ROBOT_CTX.fillText(info, 5, 10);
@@ -2157,80 +2168,80 @@ RUR.we.select = function (choice) {
     RUR.we.edit_world_flag = choice;
     switch (choice) {
         case "robot-teleport":
-            $("#cmd-result").html(RUR.translation["Click on world to move robot."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "robot-remove":
-            $("#cmd-result").html(RUR.translation["Removed robot."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Removed robot.")).effect("highlight", {color: "gold"}, 1500);
             RUR.we.remove_robot();
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
             break;
         case "robot-add":
-            $("#cmd-result").html(RUR.translation["Added robot."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Added robot.")).effect("highlight", {color: "gold"}, 1500);
             RUR.we.add_robot(RUR.robot.create_robot());
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
             break;
         case "robot-orientation":
-            $("#cmd-result").html(RUR.translation["Click on image to turn robot"]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on image to turn robot")).effect("highlight", {color: "gold"}, 1500);
             $("#edit-world-turn").show();
             break;
         case "robot-tokens":
             RUR.we.give_tokens_to_robot();
             RUR.we.edit_world();
-            $("#cmd-result").html(RUR.translation["Robot now has tokens."].supplant({x_tokens: RUR.current_world.robots[0].tokens})).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Robot now has tokens.").supplant({x_tokens: RUR.current_world.robots[0].tokens})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-tokens":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translation["Click on world to set number of tokens."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to set number of tokens.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-objects":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translation["Click on desired object below."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-star":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translation["Click on world to toggle star."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to toggle star.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-triangle":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translation["Click on world to toggle triangle."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to toggle triangle.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-square":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translation["Click on world to toggle square."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to toggle square.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-walls":
-            $("#cmd-result").html(RUR.translation["Click on world to toggle walls."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-robot":
-            $("#cmd-result").html(RUR.translation["Click on world to set home position for robot."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-wall":
-            $("#cmd-result").html(RUR.translation["Click on world to toggle additional walls to build."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to toggle additional walls to build.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-objects":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translation["Click on desired goal object below."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on desired goal object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-tokens":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translation["Click on world to set number of goal tokens."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to set number of goal tokens.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-star":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translation["Click on world to toggle star goal."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to toggle star goal.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-triangle":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translation["Click on world to toggle triangle goal."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to toggle triangle goal.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-square":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translation["Click on world to toggle square goal."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to toggle square goal.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-no-objects":
-            $("#cmd-result").html(RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no object left as a goal.")).effect("highlight", {color: "gold"}, 1500);
     }
 };
 
@@ -2337,14 +2348,14 @@ RUR.we.teleport_robot = function () {
 };
 
 RUR.we.give_tokens_to_robot = function () {
-    var response = prompt(RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"]);
+    var response = prompt(RUR.translate("Enter number of tokens for robot to carry (use inf for infinite number)"));
     if (response !== null) {
         if (response === "inf"){
             RUR.current_world.robots[0].tokens = "infinite";
         } else if (parseInt(response, 10) >= 0) {
             RUR.current_world.robots[0].tokens = parseInt(response, 10);
         } else {
-            $("#Reeborg-shouts").html(response + RUR.translation[" is not a valid value!"]).dialog("open");
+            $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
         }
     }
 };
@@ -2356,12 +2367,12 @@ RUR.we.set_token_number = function () {
     y = position[1];
     
     if (RUR.current_world.shapes !== undefined && RUR.current_world.shapes[x + "," + y] !== undefined){
-        $("#cmd-result").html(RUR.translation["Other object here; can't put tokens"]).effect("highlight", {color: "gold"}, 1500);
-        $("#Reeborg-shouts").html(RUR.translation["Other object here; can't put tokens"]).dialog("open");
+        $("#cmd-result").html(RUR.translate("Other object here; can't put tokens")).effect("highlight", {color: "gold"}, 1500);
+        $("#Reeborg-shouts").html(RUR.translate("Other object here; can't put tokens")).dialog("open");
         return;
     }
     
-    response = prompt(RUR.translation["Enter number of tokens for at that location."]);
+    response = prompt(RUR.translate("Enter number of tokens for at that location."));
     if (response !== null) {
         tokens = parseInt(response, 10);
         if (tokens >= 0) {
@@ -2372,7 +2383,7 @@ RUR.we.set_token_number = function () {
                 delete RUR.current_world.tokens[x + "," + y];
             }
         } else {
-            $("#Reeborg-shouts").html(response + RUR.translation[" is not a valid value!"]).dialog("open");
+            $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
         }
     } 
 };
@@ -2385,12 +2396,12 @@ RUR.we.set_goal_token_number = function () {
     
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
-        $("#cmd-result").html(RUR.translation["Other object goal here; can't put tokens"]).effect("highlight", {color: "gold"}, 1500);
-        $("#Reeborg-shouts").html(RUR.translation["Other object goal here; can't put tokens"]).dialog("open");
+        $("#cmd-result").html(RUR.translate("Other object goal here; can't put tokens")).effect("highlight", {color: "gold"}, 1500);
+        $("#Reeborg-shouts").html(RUR.translate("Other object goal here; can't put tokens")).dialog("open");
         return;
     }
     
-    response = prompt(RUR.translation["Enter number of tokens for at that location."]);
+    response = prompt(RUR.translate("Enter number of tokens for at that location."));
     if (response !== null) {
         tokens = parseInt(response, 10);
         if (tokens >= 0) {
@@ -2407,7 +2418,7 @@ RUR.we.set_goal_token_number = function () {
                 }
             }
         } else {
-            $("#Reeborg-shouts").html(response + RUR.translation[" is not a valid value!"]).dialog("open");
+            $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
         }
     } 
 };
@@ -2559,7 +2570,7 @@ RUR.we.toggle_shape = function (shape){
     x = position[0];
     y = position[1];
     if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html(RUR.translation["tokens here; can't put another object"]).effect("highlight", {color: "gold"}, 1500);
+        $("#cmd-result").html(RUR.translate("tokens here; can't put another object")).effect("highlight", {color: "gold"}, 1500);
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world, "shapes");
@@ -2583,7 +2594,7 @@ RUR.we.toggle_goal_shape = function (shape){
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     if (RUR.current_world.goal.tokens !== undefined &&
         RUR.current_world.goal.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html(RUR.translation["tokens as a goal here; can't set another object as goal."]);
+        $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world.goal, "shapes");
@@ -2614,12 +2625,12 @@ RUR.we.set_goal_position = function (){
             $("#edit-world-turn").hide();
         } else {
             RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-            $("#cmd-result").html(RUR.translation["Click on same position to remove, or robot to set orientation."]).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
             $("#edit-world-turn").show();
         }
     } else {
         RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-        $("#cmd-result").html(RUR.translation["Click on same position to remove, or robot to set orientation."]).effect("highlight", {color: "gold"}, 1500);
+        $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
         $("#edit-world-turn").show();
     }
 };
@@ -2644,13 +2655,13 @@ RUR.we.set_goal_no_objects = function(){
     var position;
     position = RUR.we.calculate_grid_position();
     if (position[0] !== 1 || position[1] !== 1) {
-        $("#cmd-result").html(RUR.translation["No effect."]).effect("highlight", {color: "gold"}, 1500);
+        $("#cmd-result").html(RUR.translate("No effect.")).effect("highlight", {color: "gold"}, 1500);
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     RUR.current_world.goal.tokens = {};
     RUR.current_world.goal.shapes = {};
-    $("#cmd-result").html(RUR.translation["Goal: no object left in world."]).effect("highlight", {color: "gold"}, 1500);
+    $("#cmd-result").html(RUR.translate("Goal: no object left in world.")).effect("highlight", {color: "gold"}, 1500);
 };
 
 RUR.we.draw_token = function (goal) {

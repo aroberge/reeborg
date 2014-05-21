@@ -86,9 +86,3 @@ parseUri.options = {
 };
 
 
-RUR.ReeborgError = function (message) {
-    this.name = RUR.translation.ReeborgError;
-    this.message = message;
-    this.test_name = "ReeborgError";
-};
-
