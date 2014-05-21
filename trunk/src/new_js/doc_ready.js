@@ -143,7 +143,7 @@ $(document).ready(function() {
                     $("#worldfileInput").hide();
                     RUR.world.import_world(reader.result);
                 } catch (e) {
-                    alert(RUR.translation["Invalid world file."]);
+                    alert(RUR.translate("Invalid world file."));
                 }
                 fileInput.value = "";
             };

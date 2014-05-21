@@ -9,11 +9,11 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     if (!RUR.control.front_is_clear(robot, true)) {
-        throw new RUR.ReeborgError(RUR.translation["Ouch! I hit a wall!"]);
+        throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
     }
     if ((robot.y === RUR.ROWS && robot.orientation === RUR.NORTH) ||
         (robot.x === RUR.COLS && robot.orientation === RUR.EAST)) {
-        throw new RUR.ReeborgError(RUR.translation["I am afraid of the void!"]);
+        throw new RUR.ReeborgError(RUR.translate("I am afraid of the void!"));
     }
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
@@ -65,7 +65,7 @@ RUR.control.pause = function (ms) {
 };
 
 RUR.control.done = function () {
-    throw new RUR.ReeborgError(RUR.translation["Done!"]);
+    throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
 
 RUR.control.token_here = function (robot) {
@@ -82,15 +82,15 @@ RUR.control.put = function(robot, arg){
         RUR.control._put_token(robot);
         return;
     } else if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(arg) === -1){
-        throw new RUR.ReeborgError(RUR.translation["Unknown object"].supplant({shape: arg}));
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
     }
-    if (robot[RUR.translation[arg]] === 0){
-        throw new RUR.ReeborgError(RUR.translation["I don't have any shape to put down!"].supplant({shape:arg}));
+    if (robot[RUR.translate(arg)] === 0){
+        throw new RUR.ReeborgError(RUR.translate("I don't have any shape to put down!").supplant({shape:arg}));
     } else if (RUR.control.object_here(robot) !== 0) {
-        throw new RUR.ReeborgError(RUR.translation["There is already something here."]);
+        throw new RUR.ReeborgError(RUR.translate("There is already something here."));
     }
-    robot[RUR.translation[arg]] -= 1;
-    RUR.control._put_object(robot, RUR.translation[arg]);
+    robot[RUR.translate(arg)] -= 1;
+    RUR.control._put_object(robot, RUR.translate(arg));
 };
 
 RUR.control._put_object = function (robot, obj) {
@@ -102,7 +102,7 @@ RUR.control._put_object = function (robot, obj) {
 RUR.control._put_token = function (robot) {
     var token;
     if (robot.tokens === 0){
-        throw new RUR.ReeborgError(RUR.translation["I don't have any token to put down!"]);
+        throw new RUR.ReeborgError(RUR.translate("I don't have any token to put down!"));
     }
     token = RUR.control.token_here(robot);
     RUR.we.ensure_key_exist(RUR.current_world, "tokens");
@@ -123,13 +123,13 @@ RUR.control.take = function(robot, arg){
         RUR.control._take_token(robot);
         return;
     } else if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(arg) === -1){
-        throw new RUR.ReeborgError(RUR.translation["Unknown object"].supplant({shape: arg}));
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
     }
-    if (RUR.control.object_here(robot) !== RUR.translation[arg]) {
-        throw new RUR.ReeborgError(RUR.translation["No shape found here"].supplant({shape: arg}));
+    if (RUR.control.object_here(robot) !== RUR.translate(arg)) {
+        throw new RUR.ReeborgError(RUR.translate("No shape found here").supplant({shape: arg}));
     }
-    robot[RUR.translation[arg]] += 1;
-    RUR.control._take_object(robot, RUR.translation[arg]);
+    robot[RUR.translate(arg)] += 1;
+    RUR.control._take_object(robot, RUR.translate(arg));
 };
 
 RUR.control._take_object = function (robot, obj) {
@@ -140,7 +140,7 @@ RUR.control._take_object = function (robot, obj) {
 RUR.control._take_token = function (robot) {
     var token = RUR.control.token_here(robot);
     if (token === 0){
-        throw new RUR.ReeborgError(RUR.translation["No token found here!"]);
+        throw new RUR.ReeborgError(RUR.translate("No token found here!"));
     }
     token --;
     if (token > 0) {
@@ -170,7 +170,7 @@ RUR.control.is_wall_at = function (coords, orientation) {
 RUR.control.build_wall = function (robot){
     var coords, orientation, x, y, walls;
     if (!RUR.control.front_is_clear(robot)){
-        throw new RUR.ReeborgError(RUR.translation["There is already a wall here!"]);
+        throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
     }
 
     switch (robot.orientation){
@@ -280,9 +280,9 @@ RUR.control.at_goal = function (robot) {
             RUR.rec.record_frame();
             return (robot.x === goal.position.x && robot.y === goal.position.y);
         }
-        throw new RUR.ReeborgError(RUR.translation["There is no position as a goal in this world!"]);
+        throw new RUR.ReeborgError(RUR.translate("There is no position as a goal in this world!"));
     }
-    throw new RUR.ReeborgError(RUR.translation["There is no goal in this world!"]);
+    throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };
 
 RUR.control.at_goal_orientation = function (robot) {
@@ -292,9 +292,9 @@ RUR.control.at_goal_orientation = function (robot) {
             RUR.rec.record_frame();
             return (robot.orientation === goal.orientation);
         }
-        throw new RUR.ReeborgError(RUR.translation["There is no orientation as a goal in this world!"]);
+        throw new RUR.ReeborgError(RUR.translate("There is no orientation as a goal in this world!"));
     }
-    throw new RUR.ReeborgError(RUR.translation["There is no goal in this world!"]);
+    throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };
 
 RUR.control.object_here = function (robot) {
@@ -307,7 +307,7 @@ RUR.control.object_here = function (robot) {
     if (RUR.current_world.shapes === undefined) {
         return 0;
     }
-    return RUR.translation[RUR.current_world.shapes[coords]] || 0;
+    return RUR.translate(RUR.current_world.shapes[coords]) || 0;
 };
 
 RUR.control.write = function (s) {

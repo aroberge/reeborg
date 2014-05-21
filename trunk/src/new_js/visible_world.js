@@ -125,8 +125,8 @@ RUR.vis_world.draw_robots = function (robots) {
     }
     for (robot=0; robot < robots.length; robot++){
         RUR.vis_robot.draw(robots[robot]); // draws trace automatically
-        info += RUR.translation.robot + "_" + robot + ": x=" + robots[robot].x +
-                ", y=" + robots[robot].y + RUR.translation[", tokens="] + robots[robot].tokens + ".  ";
+        info += RUR.translate("robot")+ "_" + robot + ": x=" + robots[robot].x +
+                ", y=" + robots[robot].y + RUR.translate(", tokens=") + robots[robot].tokens + ".  ";
     }
     RUR.ROBOT_CTX.fillStyle = RUR.DEBUG_INFO_COLOR;
     RUR.ROBOT_CTX.fillText(info, 5, 10);

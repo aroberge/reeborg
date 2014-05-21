@@ -46,7 +46,7 @@ RUR.rec.record_frame = function (name, obj) {
     // TODO add check for too many steps.
     RUR.control.sound_id = undefined;
     if (RUR.rec.nb_frames == RUR.MAX_STEPS) {
-        throw new RUR.ReeborgError(RUR.translation["Too many steps:"].supplant({max_steps: RUR.MAX_STEPS}));
+        throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
 };
 
@@ -151,7 +151,7 @@ RUR.rec.conclude = function () {
         if (RUR.control.sound_flag) {
             RUR.control.play_sound("#success-sound");
         }
-        $("#Reeborg-says").html("<p class='center'>" + RUR.translation["Last instruction completed!"] + "</p>").dialog("open");
+        $("#Reeborg-says").html("<p class='center'>" + RUR.translate("Last instruction completed!") + "</p>").dialog("open");
     }
     return "stopped";
 };
@@ -159,14 +159,14 @@ RUR.rec.conclude = function () {
 RUR.rec.handle_error = function (frame) {
     var goal_status;
     //Brython adds information to error messages; we want to remove it from the following comparison
-    if (frame.error.message.split("\n")[0] === RUR.translation["Done!"].split("\n")[0]){
+    if (frame.error.message.split("\n")[0] === RUR.translate("Done!").split("\n")[0]){
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
             if (RUR.control.sound_flag) {
                 RUR.control.play_sound("#success-sound");
             }
-            $("#Reeborg-says").html(RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"]).dialog("open");
+            $("#Reeborg-says").html(RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>")).dialog("open");
         }
     } else {
         if (RUR.control.sound_flag) {
@@ -187,41 +187,41 @@ RUR.rec.check_goal= function (frame) {
     if (g.position !== undefined){
         goal_status.position = {};
         if (g.position.x === world.robots[0].x){
-            goal_status.message += RUR.translation["<li class='success'>Reeborg is at the correct x position.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct x position.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>Reeborg is at the wrong x position.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>Reeborg is at the wrong x position.</li>");
             goal_status.success = false;
         }
         if (g.position.y === world.robots[0].y){
-            goal_status.message += RUR.translation["<li class='success'>Reeborg is at the correct y position.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct y position.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>Reeborg is at the wrong y position.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>Reeborg is at the wrong y position.</li>");
             goal_status.success = false;
         }
     }
     if (g.orientation !== undefined){
         if (g.orientation === world.robots[0].orientation){
-            goal_status.message += RUR.translation["<li class='success'>Reeborg has the correct orientation.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>Reeborg has the correct orientation.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>Reeborg has the wrong orientation.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>Reeborg has the wrong orientation.</li>");
             goal_status.success = false;
         }
     }
     if (g.shapes !== undefined) {
         result = Object.identical(g.shapes, world.shapes, true);
         if (result){
-            goal_status.message += RUR.translation["<li class='success'>All shapes are at the correct location.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>All shapes are at the correct location.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>One or more shapes are not at the correct location.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>One or more shapes are not at the correct location.</li>");
             goal_status.success = false;
         }
     }
     if (g.tokens !== undefined) {
         result = Object.identical(g.tokens, world.tokens, true);
         if (result){
-            goal_status.message += RUR.translation["<li class='success'>All tokens are at the correct location.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>All tokens are at the correct location.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>One or more tokens are not at the correct location.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>One or more tokens are not at the correct location.</li>");
             goal_status.success = false;
         }
     }
@@ -239,9 +239,9 @@ RUR.rec.check_goal= function (frame) {
             }
         }
         if (result){
-            goal_status.message += RUR.translation["<li class='success'>All walls have been built correctly.</li>"];
+            goal_status.message += RUR.translate("<li class='success'>All walls have been built correctly.</li>");
         } else {
-            goal_status.message += RUR.translation["<li class='failure'>One or more walls missing or built at wrong location.</li>"];
+            goal_status.message += RUR.translate("<li class='failure'>One or more walls missing or built at wrong location.</li>");
             goal_status.success = false;
         }
     }

@@ -198,7 +198,7 @@ RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code
     "# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n";
 RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"] = 
     "# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n";
-RUR.translation.ReeborgError = "ReeborgError";
+
 RUR.translation["Too many steps:"] = "Too many steps: {max_steps}";
 RUR.translation["Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: "] =
     "Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: {delay}";

@@ -197,7 +197,6 @@ RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code
 RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"] = 
     "# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n";
 
-RUR.translation.ReeborgError = "ReeborgError";
 RUR.translation["Too many steps:"] = "Trop d'instructions: {max_steps}";
 RUR.translation["Reeborg's thinking time needs to be specified in milliseconds, between 0 and 10000; this was: "] =
     "Le temps de réflexion de Reeborg doit être spécifié en millisecondes, entre 0 et 10000; la valeur spécifiée était : {delay}";
@@ -292,10 +291,6 @@ var move, turn_left, inspect, front_is_clear, right_is_clear,
     has_token, write, at_goal, at_goal_orientation, build_wall, think, 
     pause, remove_robot, repeat, view_source, sound, UsedRobot, 
     set_max_steps;
-
-// do not translate the following three instructions; they are included only
-// so that most basic programs from rur-ple would run "as-is"
-var put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, next_to_a_beeper, set_delay, facing_north;
 
 inspect = function (obj){
   var props, result = "";

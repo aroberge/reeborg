@@ -56,7 +56,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         } else {
             error_name = e.name;
         }
-        if (error_name === RUR.translation.ReeborgError){
+        if (error_name === "ReeborgError"){
             RUR.rec.record_frame("error", e);
         } else {
             $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" + e.message + "</h4>").dialog("open");

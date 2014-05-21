@@ -118,13 +118,13 @@ RUR.ui.select_world = function (s, silent) {
             if (silent) {
                 return;
             }
-            throw new RUR.ReeborgError(RUR.translation["World selected"].supplant({world: s}));
+            throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: s}));
         }
     }
     if (silent) {
         return;
     }
-    throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: s}));
+    throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: s}));
 };
 
 RUR.ui.load_file = function (filename, name, replace, elt, i) {
@@ -161,18 +161,18 @@ RUR.ui.select_challenge = function (filename) {
                 } else {
                     RUR.ui.load_file(filename, name, true, elt, i);
                     if (RUR.ui.load_file_error) {
-                        throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: filename}));
+                        throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
                     }
-                    throw new RUR.ReeborgError(RUR.translation["World selected"].supplant({world: filename}));
+                    throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
                 }
             }
         }
     }
     RUR.ui.load_file(filename, name, false);
     if (RUR.ui.load_file_error) {
-        throw new RUR.ReeborgError(RUR.translation["Could not find world"].supplant({world: filename}));
+        throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
     }
-    throw new RUR.ReeborgError(RUR.translation["World selected"].supplant({world: filename}));
+    throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
 };
 
 RUR.ui.load_user_worlds = function () {
