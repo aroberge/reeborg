@@ -240,8 +240,6 @@ RUR.translation["Last instruction completed!"] = "Last instruction completed!";
 RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>done()</code> executed.</p>";
 RUR.translation.robot = "robot";
 RUR.translation[", tokens="] = ", tokens=";
-RUR.translation["Delete "] = "Delete";
-RUR.translation["Undo Delete"] = "Undo Delete";
 RUR.translation["World selected"] = "World {world} selected";
 RUR.translation["Could not find world"] = "Could not find world {world}";
 RUR.translation["Invalid world file."] = "Invalid world file.";
@@ -249,11 +247,11 @@ RUR.translation["Invalid world file."] = "Invalid world file.";
 /* translations from world_editor.js */
 
 
-RUR.translation["Click on world to move robot."] = "Click on world to move robot.";
-RUR.translation["Removed robot."] = "Removed robot.";
-RUR.translation["Added robot."] = "Added robot.";
-RUR.translation["Click on image to turn robot"] = "Click on image to turn robot";
-RUR.translation["Robot now has tokens."] = "Robot now has {x_tokens} tokens.";
+RUR.translation["Click on world to move robot."] = "Click on world to move Reeborg.";
+RUR.translation["Removed robot."] = "Removed Reeborg.";
+RUR.translation["Added robot."] = "Added Reeborg.";
+RUR.translation["Click on image to turn robot"] = "Click on image to turn Reeborg";
+RUR.translation["Robot now has tokens."] = "Reeborg now has {x_tokens} tokens.";
 RUR.translation["Click on world to set number of tokens."] = "Click on world to set number of tokens.";
 RUR.translation["Click on desired object below."] = "Click on desired object below.";
 RUR.translation["Click on world to toggle star."] = "Click on world to toggle star.";
@@ -268,12 +266,12 @@ RUR.translation["Click on world to toggle star goal."] = "Click on world to togg
 RUR.translation["Click on world to toggle triangle goal."] = "Click on world to toggle triangle goal.";
 RUR.translation["Click on world to toggle square goal."] = "Click on world to toggle square goal.";
 RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Click on world at x=1, y=1 to have no object left as a goal.";                                                     
-RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for robot to carry (use inf for infinite number)";
+RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for Reeborg to carry (use inf for infinite number)";
 RUR.translation[" is not a valid value!"] = " is not a valid value!";
 RUR.translation["Other object here; can't put tokens"] = "Other object here; can't put tokens";
 RUR.translation["Enter number of tokens for at that location."] = "Enter number of tokens for at that location.";
 RUR.translation["Other object goal here; can't put tokens"] = "Other object goal here; can't put tokens";
-RUR.translation["Enter number of tokens for at that location."] = "Enter number of tokens for at that location.";
+RUR.translation["Enter number of tokens for at that location."] = "Enter number of tokens required at that location.";
 RUR.translation["tokens here; can't put another object"] = "tokens here; can't put another object";
 RUR.translation["tokens as a goal here; can't set another object as goal."] = "tokens as a goal here; can't set another object as goal.";
 RUR.translation["Click on same position to remove, or robot to set orientation."] = "Click on same position to remove, or robot to set orientation.";
