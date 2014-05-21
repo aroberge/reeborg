@@ -39,7 +39,7 @@
   <p>Copy the permalink and press cancel, or replace by new one and press Update.</p>
   <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
   <p>
-  <button class="blue-gradient" id="ok-permalink" onclick="update_permalink();">Update</button>
+  <button class="blue-gradient" id="ok-permalink" onclick="RUR.update_permalink();">Update</button>
   <button class="blue-gradient" id="cancel-permalink" onclick="$('#url_input').hide();">Cancel</button>
   </p>
   </div>
@@ -108,7 +108,7 @@
       <option value="src/json/jsa2.json">JSA 2</option>
       <option value="src/json/jsa3.json">JSA 3</option>
     </select>
-    <button id="permalink" title="permalink" onclick="create_permalink();">
+    <button id="permalink" title="permalink" onclick="RUR.create_permalink();">
       <img src="src/images/permalink.png" alt="permalink">
     </button>
     <button id="resize" title="resize" onclick="RUR.ui.resize()">
@@ -302,9 +302,6 @@ class UsedRobot ():
 
     def is_facing_north (self):
         return RUR.control.is_facing_north(self.body)
-
-    def move (self):
-        RUR.control.move(self.body)
 
     def put (self, arg="token"):
         RUR.control.put(self.body, arg)
