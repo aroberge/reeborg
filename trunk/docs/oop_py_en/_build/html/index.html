@@ -160,5 +160,12 @@ fix Reeborg and how to give it additional capabilities.</p>
         
        - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
+  <script> 
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+  });
+  </script>
   </body>
 </html>
