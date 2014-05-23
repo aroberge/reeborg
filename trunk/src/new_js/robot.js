@@ -6,7 +6,6 @@
 /*globals RUR */
 
 RUR.robot = {};
-RUR.RobotFactory = {};
 
 RUR.robot.create_robot = function (x, y, orientation, tokens) {
     "use strict";

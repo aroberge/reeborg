@@ -263,10 +263,9 @@
 import sys
 from browser import window, doc
 from javascript import JSObject
-__RUR__ = JSObject(RUR)
 
 def translate_python(src):
-    return exec(src)
+    exec(src)
 
 # put "translate_python" in global Javascript namespace
 window['translate_python'] = translate_python
@@ -322,8 +321,8 @@ class UsedRobot ():
     def turn_left (self):
         RUR.control.turn_left(self.body)
 
-window['UsedRobot'] = UsedRobot
-window['ReeborgError'] = RUR.ReeborgError
+#window['UsedRobot'] = UsedRobot
+#window['ReeborgError'] = RUR.ReeborgError
 </script>
 
 
