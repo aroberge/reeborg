@@ -11,14 +11,34 @@ Remember when you ran this code?
 We are going to do the equivalent with Javascript. 
 
 At the very top of the Reeborg's World window, click to select
-Javascript instead of Python.  Then run the following code:
+Javascript instead of Python; it does not matter if you choose the
+strict version or the regular one.  Then run the following code:
 
 .. code-block:: javascript
 
    var r = new UsedRobot();
    inspect(r);
 
-If you look in the diary, you will see ``body`` as we had in the
+Here is what I see when I do this::
+
+    body
+    at_goal()
+    at_goal_orientation()
+    build_wall()
+    front_is_clear()
+    has_token()
+    is_facing_north()
+    move()
+    put()
+    token_here()
+    right_is_clear()
+    object_here()
+    take()
+    turn_left()
+
+
+So, nothing that starts and end with a double underscore, and we see
+``body`` as we had in the
 Python code, but will also see some familiar methods like
 ``at_goal()``, ``move()`` and many others.
 
@@ -34,21 +54,19 @@ Now we are ready to look at some code.
        var r = new UsedRobot();
        view_source(r.turn_left);
        
-   Make sure the code is exactly as written above.
+   Make sure the code is exactly as written above.  Note that I use
+   ``view_source`` instead of ``inspect`` which, as it turns out, would
+   not help me at all in this case.
 
-.. important::
+Based on the result that I see printed in Reeborg's Diary
 
-   You may have noticed that I usually do **not** show you the result of running
-   these short programs.  One reason is that I occasionnally change the
-   Javascript or the Python code powering Reeborg's World in order to
-   add new features or fix bugs.  By looking at the code displayed in
-   the Diary, you have access to my best code (so far) which may differ
-   from the one that existed when I wrote this tutorial.  However, while
-   there might be some differences between the two, it should be close 
-   enough for you to figure out what is going with the help of this tutorial.
+.. code-block:: javascript
 
-Based on the result that I see printed in Reeborg's Diary, my next guess
-is to execute the following.
+   function () {
+           RUR.control.turn_left(this.body);
+       }
+
+my next guess is to execute the following.
 
 .. code-block:: javascript
 
@@ -72,18 +90,20 @@ After doing so, I see the following:
    }
 
 As mentioned above, you might see something slightly different.
-Here is the equivalent Python code::
+Here is the equivalent Python code:
 
-   def (robot, no_frame):
-       robot._prev_orientation = robot.orientation
-       robot._prev_x = robot.x
-       robot._prev_y = robot.y
-       robot.orientation += 1
-       robot.orientation %= 4
-       if no_frame:
-           return
-       RUR.control.sound_id = "#turn-sound"
-       RUR.rec.record_frame()
+.. code-block:: py3
+
+    def unknown_function_name (robot, no_frame):
+        robot._prev_orientation = robot.orientation
+        robot._prev_x = robot.x
+        robot._prev_y = robot.y
+        robot.orientation += 1
+        robot.orientation %= 4
+        if no_frame:
+            return
+        RUR.control.sound_id = "#turn-sound"
+        RUR.rec.record_frame()
 
 We will come back to this code sample later; for now, remember that we were
 talking about "recording frames" ... It looks as though the last instruction
@@ -121,7 +141,11 @@ before running the following program.
    remove the robot already present.  You may find it useful to then click
    on "browser:Save" so that you can reload this robot-free world if needed.
    A complete solution can be written in only 7 lines of code.
+
+.. hint::
+
+   You can move the robot in the desired way by incrementing its x
+   variable as follows::
    
-   If you have forgotten about incrementing variables, you can either look
-   at the code above on this page to give you a hint, or go back and
-   read `Increment <../begin_py_en/increment.html>`_.
+       self.body.x += 1
+       
