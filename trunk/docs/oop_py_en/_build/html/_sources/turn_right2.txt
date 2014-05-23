@@ -15,6 +15,16 @@ the robot.   This is going to be a bit long, but very worthwhile in the end.
 Along the way, you will learn new Python concepts ... and you will even
 see some and understand some Javascript code!
 
+.. sidebar:: Why use ``inpect``? 
+
+   I sometimes change things in my programs [of course, **never** 
+   because my programs contain bugs ;-)] and it may just happen that the
+   code I describe in this tutorial is slightly different from the one that
+   happens to be used in Reeborg's World as you are reading this.  If the
+   differences are small, I do not plan to revise the entire set of tutorials
+   every time I make a change.  By having you using ``inspect`` to follow along with me,
+   you should be able to figure out how to make things work; if not, contact me!
+
 Digging into Reeborg's code
 ---------------------------
 
@@ -29,17 +39,45 @@ Enter and execute the following code and look at the result in the Diary::
 ``inspect`` is a Javascript function, understood by Python/Brython, 
 that I wrote to enable you to see an
 object's methods and attributes. Right now, it does not tell us much.
-It writes two things ... and we do not know if they are methods or
-attributes.  One of these is ``body``.  So, we know that ``r.body`` is
+Here is what I get when I do this::
+
+    __class__
+    body
+
+We do not know if they are methods or attributes.  ``__call__`` starts
+and ends with two underscore characters; this is a convention in the Python
+world to denote some internal Python code that is **mostly** reserved
+for advanced programmers.  The other is ``body``.  
+So, we know that ``r.body`` is
 *something*.  Run the following code::
 
     r = UsedRobot()
     inspect(r.body)
 
+.. note::
+
+   Python programmers use a convention where variable names that start
+   with an underscore, like ``_prev_x`` are meant to indicate that they are "private" and 
+   should normally not be changed by another programmer.
+
+You should see something like::
+
+    x
+    y
+    tokens
+    orientation
+    _is_leaky
+    _prev_x
+    _prev_y
+    _prev_orientation
+    triangle
+    square
+    star
+
 You certainly recognize the words ``tokens``, ``star``, ``triangle`` and
 ``square`` from the challenges mentioned in the beginner's tutorial.
-Also, various challenges told you that *Reeborg is at the correct ``x``
-position*, and similarly for ``y``.  So it would seem likely that ``x``
+Also, various challenges told you that *Reeborg is at the correct* ``x``
+*position*, and similarly for ``y``.  So it would seem likely that ``x``
 and ``y`` refer to Reeborg's position.  As a programmer, your first reflex
 should be write a program and see if this is the case.
 
@@ -52,11 +90,15 @@ should be write a program and see if this is the case.
       jumper.body.y = 10
 
 All you should see is a robot created at ``x=1, y=1`` ... which might not be
-what you have expected.  Add the following instruction::
+what you have expected.  
 
-    jumper.turn_left()
+.. topic:: Try this!
 
-at the end of your program and run it again.
+    Add the following instruction::
+
+        jumper.turn_left()
+
+    at the end of your program and run it again.
 
 
 What happened?
@@ -65,7 +107,7 @@ What happened?
 You may recall from previous tutorials that Reeborg's actions are recorded
 (like a movie) and played back one "frame" at a time.  The recording of a given
 state happens when some special instructions are given.  By changing the value
-of the attribute ``x`` or ``y`` of the ``nightCrawler.body`` object, you do not
+of the attribute ``x`` or ``y`` of the ``jumper.body`` object, you do not
 trigger a frame recording.  However, by adding a ``turn_left()`` instruction at the
 end, we do make a recording of the situation, which shows us that the previous
 instructions did indeed change the robot's position.
@@ -85,7 +127,8 @@ be wondering if you made a mistake in choosing Python over Javascript.
 Don't worry, you did not.
 
 You already know about libraries; chances are there are some functions
-defined in yours.  Libraries are sometimes written in a different language
+defined in yours on `Reeborg's World <http://reeborg.ca/world.html>`_.  
+Libraries are sometimes written in a different language
 than the main programming one.  For numerical work, Fortran has long been
 the language of choice and most numerical libraries have been written
 in Fortran.  Many other libraries have been written in the C language.

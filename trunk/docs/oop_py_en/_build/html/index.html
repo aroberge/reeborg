@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Object-Oriented Programming in Python" href="#" />
-    <link rel="next" title="The dot notation" href="oop.html" /> 
+    <link rel="next" title="1. The dot notation" href="oop.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -62,7 +62,7 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="oop.html" title="The dot notation"
+             <a href="oop.html" title="1. The dot notation"
              accesskey="N">next</a></li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -75,7 +75,7 @@
         <div class="sphinxsidebarwrapper">
   <h4>Next topic</h4>
   <p class="topless"><a href="oop.html"
-                        title="next chapter">The dot notation</a></p>
+                        title="next chapter">1. The dot notation</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -110,28 +110,53 @@ a wall to its left without turning its entire body.
 Finally, it leaks oil which is bad for itself and the environment.</p>
 <p>Using the power of Object-Oriented Programming, you will learn how to
 fix Reeborg and how to give it additional capabilities.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><strong>For the advanced reader</strong></p>
+<p>If you are not a beginner Python programmer and are experimenting on
+your own based on what you already know,
+you may find that some advanced but valid Python code you write
+will occasionally raise some unexpected exceptions.  The reason is that most
+of the code powering Reeborg&#8217;s world is written in Javascript and
+there&#8217;s only a thin layer that has been written in Python using
+Brython.  As a result some Javascript objects, methods or attributes
+are not directly available.  Furthermore, animations are done by
+cloning and saving the world state as a JSON string; if you
+attempt to create your own class using some objects already present,
+you may unknowingly create a circular reference which will prevent
+the cloning and raise an exception.</p>
+<p class="last">I could have written the entire program in Python using Brython ...
+but it would have made the situation worse if I had tried to use
+the result to enable programmers to use Javascript or CoffeeScript
+as their language of choice &#8211; which they can do now.</p>
+</div>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="oop.html">The dot notation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="oop.html#all-in-a-dog-s-day">All in a dog&#8217;s day</a></li>
-<li class="toctree-l2"><a class="reference internal" href="oop.html#a-used-robot-gets-his-name">A Used Robot gets his name</a></li>
-<li class="toctree-l2"><a class="reference internal" href="oop.html#many-robots">Many robots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="oop.html#for-the-advanced-reader">For the advanced reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oop.html">1. The dot notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#all-in-a-dog-s-day">1.1. All in a dog&#8217;s day</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#a-used-robot-gets-his-name">1.2. A Used Robot gets his name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#many-robots">1.3. Many robots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#for-the-advanced-reader">1.4. For the advanced reader</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="turn_right.html">Many right turns</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="turn_right.html#derived-classes">Derived classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="turn_right.html#designing-a-new-class">Designing a new class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turn_right.html">2. Many right turns</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="turn_right.html#derived-classes">2.1. Derived classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turn_right.html#designing-a-new-class">2.2. Designing a new class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="turn_right2.html">Turn right ??</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="turn_right2.html#digging-into-reeborg-s-code">Digging into Reeborg&#8217;s code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="turn_right2.html#what-happened">What happened?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="turn_right2.html#javascript">Javascript !?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turn_right2.html">3. Turn right ??</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="turn_right2.html#digging-into-reeborg-s-code">3.1. Digging into Reeborg&#8217;s code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turn_right2.html#what-happened">3.2. What happened?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turn_right2.html#javascript">3.3. Javascript !?</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="javascript.html">Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript.html">4. Javascript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modulo.html">5. Modulo operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facing_south.html">6. Facing South</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="facing_south.html#extend-this-idea">6.1. Extend this idea</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -146,7 +171,7 @@ fix Reeborg and how to give it additional capabilities.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="oop.html" title="The dot notation"
+             <a href="oop.html" title="1. The dot notation"
              >next</a></li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
