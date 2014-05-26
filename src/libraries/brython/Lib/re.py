@@ -112,6 +112,9 @@ import sys
 import _jsre
 _pymdl = [None]
 
+if not _jsre._is_valid():
+   from pyre import *
+
 # public symbols
 __all__ = [ "match", "search", "sub", "subn", "split", "findall",
     "compile", "purge", "template", "escape", "A", "I", "L", "M", "S", "X",
@@ -142,9 +145,9 @@ X = VERBOSE = _jsre.X # ignore whitespace and comments
 def _pyre():
     mdl = _pymdl[0]
     if mdl is None:
-        import _re
-        _pymdl[0] = _re
-        return _re
+        import pyre
+        _pymdl[0] = pyre
+        return pyre
     else:
         return mdl
 
@@ -250,4 +253,3 @@ def escape(pattern):
     """
     # FIXME: Do not load _re module
     return _pyre().escape(pattern)
-

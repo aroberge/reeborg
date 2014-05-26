@@ -10,10 +10,13 @@
 
 """Internal support module for sre"""
 
-import _sre, sys
+
+import sys
+import _sre
 import sre_parse
 from sre_constants import *
 from _sre import MAXREPEAT
+
 
 assert _sre.MAGIC == MAGIC, "SRE module mismatch"
 
@@ -24,6 +27,7 @@ else:
 
 def _identityfunction(x):
     return x
+
 
 _LITERAL_CODES = set([LITERAL, NOT_LITERAL])
 _REPEATING_CODES = set([REPEAT, MIN_REPEAT, MAX_REPEAT])
@@ -206,6 +210,7 @@ def _compile_charset(charset, flags, code, fixup=None):
         else:
             raise error("internal: unsupported set operator")
     emit(OPCODES[FAILURE])
+
 
 def _optimize_charset(charset, fixup):
     # internal: optimize character set
@@ -485,11 +490,9 @@ def _code(p, flags):
 
     # compile info block
     _compile_info(code, p, flags)
-    #print('sre_compile.py:481:code', code)
 
     # compile the pattern
     _compile(code, p.data, flags)
-    #print('sre_compile.py:485:code', code)
 
     code.append(OPCODES[SUCCESS])
 

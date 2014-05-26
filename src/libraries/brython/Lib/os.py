@@ -260,7 +260,10 @@ def makedirs(name, mode=0o777, exist_ok=False):
             # be happy if someone already created the path
             if e.errno != errno.EEXIST:
                 raise
-        if tail == curdir:           # xxx/newdir/. exists if xxx/newdir exists
+        cdir = curdir
+        if isinstance(tail, bytes):
+            cdir = bytes(curdir, 'ASCII')
+        if tail == cdir:           # xxx/newdir/. exists if xxx/newdir exists
             return
     try:
         mkdir(name, mode)
@@ -666,7 +669,11 @@ class _Environ(MutableMapping):
         self._data = data
 
     def __getitem__(self, key):
-        value = self._data[self.encodekey(key)]
+        try:
+            value = self._data[self.encodekey(key)]
+        except KeyError:
+            # raise KeyError with the original key value
+            raise KeyError(key) from None
         return self.decodevalue(value)
 
     def __setitem__(self, key, value):
@@ -676,9 +683,13 @@ class _Environ(MutableMapping):
         self._data[key] = value
 
     def __delitem__(self, key):
-        key = self.encodekey(key)
-        self.unsetenv(key)
-        del self._data[key]
+        encodedkey = self.encodekey(key)
+        self.unsetenv(encodedkey)
+        try:
+            del self._data[encodedkey]
+        except KeyError:
+            # raise KeyError with the original key value
+            raise KeyError(key) from None
 
     def __iter__(self):
         for key in self._data:
@@ -985,7 +996,7 @@ def popen(cmd, mode="r", buffering=-1):
         raise TypeError("invalid cmd type (%s, expected string)" % type(cmd))
     if mode not in ("r", "w"):
         raise ValueError("invalid mode %r" % mode)
-    if buffering == 0 or buffering == None:
+    if buffering == 0 or buffering is None:
         raise ValueError("popen() does not support unbuffered streams")
     import subprocess, io
     if mode == "r":

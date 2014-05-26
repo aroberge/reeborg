@@ -15,7 +15,7 @@
 
 MAGIC = 20031017
 
-MAXREPEAT = 2147483648
+#MAXREPEAT = 2147483648
 #from _sre import MAXREPEAT
 
 # SRE standard exception (access as sre.error)

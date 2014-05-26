@@ -7,8 +7,7 @@ that name.
 
 import sys
 import os
-#fixme brython
-#import tokenize
+import tokenize
 
 __all__ = ["getline", "clearcache", "checkcache"]
 
@@ -60,9 +59,7 @@ def checkcache(filename=None):
             continue   # no-op for files loaded via a __loader__
         try:
             stat = os.stat(fullname)
-        #fixme brython
-        #except os.error:
-        except:
+        except os.error:
             del cache[filename]
             continue
         if size != stat.st_size or mtime != stat.st_mtime:
@@ -112,11 +109,6 @@ def updatecache(filename, module_globals=None):
         if os.path.isabs(filename):
             return []
 
-        # Take care to handle packages.
-        if basename == '__init__.py':
-            # filename referes to a package
-            basename = filename
-
         for dirname in sys.path:
             try:
                 fullname = os.path.join(dirname, basename)
@@ -126,19 +118,13 @@ def updatecache(filename, module_globals=None):
             try:
                 stat = os.stat(fullname)
                 break
-            #fixme brython, invalid syntax 
-            #except os.error:
-            except:
+            except os.error:
                 pass
-        #fixme brython unexpected token else
-        #else:
-        #    return []
+        else:
+            return []
     try:
-        fp=open(fullname)
-        #fixme brython
-        #with tokenize.open(fullname) as fp:
-        lines = fp.readlines()
-        fp.close()
+        with tokenize.open(fullname) as fp:
+            lines = fp.readlines()
     except IOError:
         return []
     if lines and not lines[-1].endswith('\n'):

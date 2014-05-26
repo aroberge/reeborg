@@ -31,6 +31,7 @@ import warnings as _warnings
 import sys as _sys
 import io as _io
 import os as _os
+import errno as _errno
 from random import Random as _Random
 
 try:
@@ -171,17 +172,22 @@ def _get_default_tempdir():
             filename = _os.path.join(dir, name)
             try:
                 fd = _os.open(filename, _bin_openflags, 0o600)
-                fp = _io.open(fd, 'wb')
-                fp.write(b'blat')
-                fp.close()
-                _os.unlink(filename)
-                del fp, fd
+                try:
+                    try:
+                        with _io.open(fd, 'wb', closefd=False) as fp:
+                            fp.write(b'blat')
+                    finally:
+                        _os.close(fd)
+                finally:
+                    _os.unlink(filename)
                 return dir
             except FileExistsError:
                 pass
             except OSError:
                 break   # no point trying more names in this directory
-    raise FileNotFoundError("No usable temporary directory found in %s" % dirlist)
+    raise FileNotFoundError(_errno.ENOENT,
+                            "No usable temporary directory found in %s" %
+                            dirlist)
 
 _name_sequence = None
 
@@ -213,8 +219,16 @@ def _mkstemp_inner(dir, pre, suf, flags):
             return (fd, _os.path.abspath(file))
         except FileExistsError:
             continue    # try again
+        except PermissionError:
+            # This exception is thrown when a directory with the chosen name
+            # already exists on windows.
+            if _os.name == 'nt':
+                continue
+            else:
+                raise
 
-    raise FileExistsError("No usable temporary file name found")
+    raise FileExistsError(_errno.EEXIST,
+                          "No usable temporary file name found")
 
 
 # User visible interfaces.
@@ -301,7 +315,8 @@ def mkdtemp(suffix="", prefix=template, dir=None):
         except FileExistsError:
             continue    # try again
 
-    raise FileExistsError("No usable temporary directory name found")
+    raise FileExistsError(_errno.EEXIST,
+                          "No usable temporary directory name found")
 
 def mktemp(suffix="", prefix=template, dir=None):
     """User-callable function to return a unique temporary file name.  The
@@ -330,7 +345,8 @@ def mktemp(suffix="", prefix=template, dir=None):
         if not _exists(file):
             return file
 
-    raise FileExistsError("No usable temporary filename found")
+    raise FileExistsError(_errno.EEXIST,
+                          "No usable temporary filename found")
 
 
 class _TemporaryFileWrapper:
@@ -470,8 +486,8 @@ else:
             raise
 
 class SpooledTemporaryFile:
-    """Temporary file wrapper, specialized to switch from
-    StringIO to a real file when it exceeds a certain size or
+    """Temporary file wrapper, specialized to switch from BytesIO
+    or StringIO to a real file when it exceeds a certain size or
     when a fileno is needed.
     """
     _rolled = False
@@ -512,7 +528,7 @@ class SpooledTemporaryFile:
 
     # The method caching trick from NamedTemporaryFile
     # won't work here, because _file may change from a
-    # _StringIO instance to a real file. So we list
+    # BytesIO/StringIO instance to a real file. So we list
     # all the methods directly.
 
     # Context management protocol
@@ -537,7 +553,12 @@ class SpooledTemporaryFile:
 
     @property
     def encoding(self):
-        return self._file.encoding
+        try:
+            return self._file.encoding
+        except AttributeError:
+            if 'b' in self._TemporaryFileArgs['mode']:
+                raise
+            return self._TemporaryFileArgs['encoding']
 
     def fileno(self):
         self.rollover()
@@ -551,18 +572,26 @@ class SpooledTemporaryFile:
 
     @property
     def mode(self):
-        return self._file.mode
+        try:
+            return self._file.mode
+        except AttributeError:
+            return self._TemporaryFileArgs['mode']
 
     @property
     def name(self):
-        return self._file.name
+        try:
+            return self._file.name
+        except AttributeError:
+            return None
 
     @property
     def newlines(self):
-        return self._file.newlines
-
-    def next(self):
-        return self._file.next
+        try:
+            return self._file.newlines
+        except AttributeError:
+            if 'b' in self._TemporaryFileArgs['mode']:
+                raise
+            return self._TemporaryFileArgs['newline']
 
     def read(self, *args):
         return self._file.read(*args)
@@ -603,9 +632,6 @@ class SpooledTemporaryFile:
         self._check(file)
         return rv
 
-    def xreadlines(self, *args):
-        return self._file.xreadlines(*args)
-
 
 class TemporaryDirectory(object):
     """Create and return a temporary directory.  This has the same
@@ -615,13 +641,13 @@ class TemporaryDirectory(object):
         with TemporaryDirectory() as tmpdir:
             ...
 
-    Upon exiting the context, the directory and everthing contained
+    Upon exiting the context, the directory and everything contained
     in it are removed.
     """
 
     def __init__(self, suffix="", prefix=template, dir=None):
         self._closed = False
-        self.name = None # Handle mkdtemp throwing an exception
+        self.name = None # Handle mkdtemp raising an exception
         self.name = mkdtemp(suffix, prefix, dir)
 
     def __repr__(self):

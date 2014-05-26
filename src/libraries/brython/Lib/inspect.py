@@ -48,7 +48,7 @@ from collections import namedtuple, OrderedDict
 
 # Create constants for the compiler flags in Include/code.h
 # We try to get them from dis to avoid duplication, but fall
-# back to hardcording so the dependency is optional
+# back to hardcoding so the dependency is optional
 try:
     from dis import COMPILER_FLAG_NAMES as _flag_names
 except ImportError:
@@ -185,7 +185,7 @@ def isgenerator(object):
     """Return true if the object is a generator.
 
     Generator objects provide these attributes:
-        __iter__        defined to support interation over container
+        __iter__        defined to support iteration over container
         close           raises a new GeneratorExit exception inside the
                         generator to terminate the iteration
         gi_code         code object
@@ -550,7 +550,7 @@ def findsource(object):
 
     file = getfile(object)
     sourcefile = getsourcefile(object)
-    if not sourcefile and file[0] + file[-1] != '<>':
+    if not sourcefile and file[:1] + file[-1:] != '<>':
         raise IOError('source code not available')
     file = sourcefile if sourcefile else file
 
@@ -753,7 +753,8 @@ def getclasstree(classes, unique=False):
             for parent in c.__bases__:
                 if not parent in children:
                     children[parent] = []
-                children[parent].append(c)
+                if c not in children[parent]:
+                    children[parent].append(c)
                 if unique and parent in classes: break
         elif c not in roots:
             roots.append(c)
@@ -877,7 +878,7 @@ def formatannotationrelativeto(object):
         return formatannotation(annotation, module)
     return _formatannotation
 
-#fixme brython
+#brython fix me
 #def formatargspec(args, varargs=None, varkw=None, defaults=None,
 #                  kwonlyargs=(), kwonlydefaults={}, annotations={},
 #                  formatarg=str,
@@ -925,7 +926,7 @@ def formatannotationrelativeto(object):
 #        result += formatreturns(formatannotation(annotations['return']))
 #    return result
 
-#fixme brython
+#brython fix me
 #def formatargvalues(args, varargs, varkw, locals,
 #                    formatarg=str,
 #                    formatvarargs=lambda name: '*' + name,
@@ -1457,9 +1458,7 @@ class _empty:
 
 
 class _ParameterKind(int):
-    #fixme brython..
-    #def __new__(self, *args, name):
-    def __new__(self, *args, name=None):
+    def __new__(self, *args, name):
         obj = int.__new__(self, *args)
         obj._name = name
         return obj

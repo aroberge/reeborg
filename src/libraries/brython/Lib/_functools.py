@@ -13,7 +13,7 @@ def reduce(func,iterable,initializer=None):
     if initializer is not None:
         res = initializer
     else:
-        res = next(arg)
+        res = next(args)
     while True:
         try:
             res = func(res,next(args))

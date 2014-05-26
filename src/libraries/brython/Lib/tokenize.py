@@ -24,7 +24,6 @@ __author__ = 'Ka-Ping Yee <ping@lfw.org>'
 __credits__ = ('GvR, ESR, Tim Peters, Thomas Wouters, Fred Drake, '
                'Skip Montanaro, Raymond Hettinger, Trent Nelson, '
                'Michael Foord')
-
 import builtins
 import re
 import sys
@@ -32,7 +31,7 @@ from token import *
 from codecs import lookup, BOM_UTF8
 import collections
 from io import TextIOWrapper
-cookie_re = re.compile("coding[:=]\s*([-\w.]+)")
+cookie_re = re.compile(r'^[ \t\f]*#.*coding[:=][ \t]*([-\w.]+)', re.ASCII)
 
 import token
 __all__ = token.__all__ + ["COMMENT", "tokenize", "detect_encoding",
@@ -163,7 +162,7 @@ ContStr = group(StringPrefix + r"'[^\n'\\]*(?:\\.[^\n'\\]*)*" +
                 group("'", r'\\\r?\n'),
                 StringPrefix + r'"[^\n"\\]*(?:\\.[^\n"\\]*)*' +
                 group('"', r'\\\r?\n'))
-PseudoExtras = group(r'\\\r?\n', Comment, Triple)
+PseudoExtras = group(r'\\\r?\n|\Z', Comment, Triple)
 PseudoToken = Whitespace + group(PseudoExtras, Number, Funny, ContStr, Name)
 
 def _compile(expr):
@@ -373,10 +372,10 @@ def detect_encoding(readline):
                 msg = '{} for {!r}'.format(msg, filename)
             raise SyntaxError(msg)
 
-        matches = cookie_re.findall(line_string)
-        if not matches:
+        match = cookie_re.match(line_string)
+        if not match:
             return None
-        encoding = _get_normal_name(matches[0])
+        encoding = _get_normal_name(match.group(1))
         try:
             codec = lookup(encoding)
         except LookupError:
@@ -556,6 +555,8 @@ def _tokenize(readline, encoding):
             if pseudomatch:                                # scan for tokens
                 start, end = pseudomatch.span(1)
                 spos, epos, pos = (lnum, start), (lnum, end), end
+                if start == end:
+                    continue
                 token, initial = line[start:end], line[start]
 
                 if (initial in numchars or                  # ordinary number

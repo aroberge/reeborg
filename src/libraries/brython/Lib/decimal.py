@@ -212,6 +212,9 @@ class Clamped(DecimalException):
     number of zero digits are appended to the coefficient ("fold-down").
     """
 
+    #brython fixme
+    pass
+
 class InvalidOperation(DecimalException):
     """An invalid operation was performed.
 
@@ -301,6 +304,9 @@ class Inexact(DecimalException):
     operation (or sequence of operations) was inexact.
     """
 
+    #brython fix me
+    pass
+
 class InvalidContext(InvalidOperation):
     """Invalid context.  Unknown rounding, for example.
 
@@ -326,6 +332,8 @@ class Rounded(DecimalException):
     The rounded signal may be tested (or trapped) to determine if a given
     operation (or sequence of operations) caused a loss of precision.
     """
+    #brython fix me
+    pass
 
 class Subnormal(DecimalException):
     """Exponent < Emin before rounding.
@@ -337,6 +345,8 @@ class Subnormal(DecimalException):
     The subnormal signal may be tested (or trapped) to determine if a given
     or operation (or sequence of operations) yielded a subnormal result.
     """
+    #brython fix me
+    pass
 
 class Overflow(Inexact, Rounded):
     """Numerical overflow.
@@ -390,6 +400,8 @@ class Underflow(Inexact, Rounded, Subnormal):
 
     In all cases, Inexact, Rounded, and Subnormal will also be raised.
     """
+    #brython fix me
+    pass
 
 class FloatOperation(DecimalException, TypeError):
     """Enable stricter semantics for mixing floats and Decimals.
@@ -405,6 +417,8 @@ class FloatOperation(DecimalException, TypeError):
     Otherwise (the signal is trapped), only equality comparisons and explicit
     conversions are silent. All other mixed operations raise FloatOperation.
     """
+    #brython fix me
+    pass
 
 # List of public traps and flags
 _signals = [Clamped, DivisionByZero, Inexact, Overflow, Rounded,
