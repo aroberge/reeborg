@@ -6,11 +6,16 @@ functionality over this module.
 
 """
 # (Probably) need to stay in _imp
-
 from _imp import (lock_held, acquire_lock, release_lock,
-                  load_dynamic, get_frozen_object, is_frozen_package,
+                  get_frozen_object, is_frozen_package,
                   init_builtin, init_frozen, is_builtin, is_frozen,
                   _fix_co_filename)
+try:
+    from _imp import load_dynamic
+except ImportError:
+    # Platform doesn't support dynamic loading.
+    load_dynamic = None
+
 # Directly exposed by this module
 from importlib._bootstrap import new_module
 from importlib._bootstrap import cache_from_source, source_from_cache
@@ -22,6 +27,7 @@ import os
 import sys
 import tokenize
 import warnings
+
 
 # DEPRECATED
 SEARCH_ERROR = 0
@@ -84,13 +90,18 @@ class _HackedGetData:
     def get_data(self, path):
         """Gross hack to contort loader to deal w/ load_*()'s bad API."""
         if self.file and path == self.path:
-            with self.file:
+            if not self.file.closed:
+                file = self.file
+            else:
+                self.file = file = open(self.path, 'r')
+
+            with file:
                 # Technically should be returning bytes, but
                 # SourceLoader.get_code() just passed what is returned to
                 # compile() which can handle str. And converting to bytes would
                 # require figuring out the encoding to decode to and
                 # tokenize.detect_encoding() only accepts bytes.
-                return self.file.read()
+                return file.read()
         else:
             return super().get_data(path)
 
@@ -98,28 +109,40 @@ class _HackedGetData:
 class _LoadSourceCompatibility(_HackedGetData, _bootstrap.SourceFileLoader):
 
     """Compatibility support for implementing load_source()."""
-
+    #brython fix me
+    pass
 
 def load_source(name, pathname, file=None):
     msg = ('imp.load_source() is deprecated; use '
            'importlib.machinery.SourceFileLoader(name, pathname).load_module()'
            ' instead')
     warnings.warn(msg, DeprecationWarning, 2)
-    return _LoadSourceCompatibility(name, pathname, file).load_module(name)
+    _LoadSourceCompatibility(name, pathname, file).load_module(name)
+    module = sys.modules[name]
+    # To allow reloading to potentially work, use a non-hacked loader which
+    # won't rely on a now-closed file object.
+    module.__loader__ = _bootstrap.SourceFileLoader(name, pathname)
+    return module
 
 
 class _LoadCompiledCompatibility(_HackedGetData,
         _bootstrap.SourcelessFileLoader):
 
     """Compatibility support for implementing load_compiled()."""
-
+    #brython fix me
+    pass
 
 def load_compiled(name, pathname, file=None):
     msg = ('imp.load_compiled() is deprecated; use '
            'importlib.machinery.SourcelessFileLoader(name, pathname).'
            'load_module() instead ')
     warnings.warn(msg, DeprecationWarning, 2)
-    return _LoadCompiledCompatibility(name, pathname, file).load_module(name)
+    _LoadCompiledCompatibility(name, pathname, file).load_module(name)
+    module = sys.modules[name]
+    # To allow reloading to potentially work, use a non-hacked loader which
+    # won't rely on a now-closed file object.
+    module.__loader__ = _bootstrap.SourcelessFileLoader(name, pathname)
+    return module
 
 
 def load_package(name, path):
@@ -159,6 +182,12 @@ def load_module(name, file, filename, details):
             return load_source(name, filename, file)
         elif type_ == PY_COMPILED:
             return load_compiled(name, filename, file)
+        elif type_ == C_EXTENSION and load_dynamic is not None:
+            if file is None:
+                with open(filename, 'rb') as opened_file:
+                    return load_dynamic(name, filename, opened_file)
+            else:
+                return load_dynamic(name, filename, file)
         elif type_ == PKG_DIRECTORY:
             return load_package(name, filename)
         elif type_ == C_BUILTIN:
@@ -166,7 +195,7 @@ def load_module(name, file, filename, details):
         elif type_ == PY_FROZEN:
             return init_frozen(name)
         else:
-            msg =  "Don't know how to import {} (type code {}".format(name, type_)
+            msg =  "Don't know how to import {} (type code {})".format(name, type_)
             raise ImportError(msg, name=name)
 
 
@@ -245,8 +274,10 @@ def reload(module):
         parent_name = name.rpartition('.')[0]
         if parent_name and parent_name not in sys.modules:
             msg = "parent {!r} not in sys.modules"
-            raise ImportError(msg.format(parentname), name=parent_name)
-        return module.__loader__.load_module(name)
+            raise ImportError(msg.format(parent_name), name=parent_name)
+        module.__loader__.load_module(name)
+        # The module may have replaced itself in sys.modules!
+        return sys.modules[module.__name__]
     finally:
         try:
             del _RELOADING[name]

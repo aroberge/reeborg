@@ -8,5 +8,6 @@ var $module = (function($B){
             },
         stderr : $B.stderr,
         stdout : $B.stdout,
+        stdin : $B.stdin,
     }
 })(__BRYTHON__)

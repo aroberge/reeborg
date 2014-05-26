@@ -17,7 +17,7 @@ byteorder='little'
 
 def exc_info():
     exc = __BRYTHON__.exception_stack[-1]
-    return (exc.__class__,exc,None)
+    return (exc.__class__,exc,exc.traceback)
     
 exec_prefix = __BRYTHON__.brython_path
 
@@ -61,8 +61,9 @@ platform="brython"
 
 prefix = __BRYTHON__.brython_path
 
-#version = '.'.join(str(x) for x in __BRYTHON__.version_info)
-version = '3.0.0'
+version = '.'.join(str(x) for x in __BRYTHON__.version_info[:3])
+#todo, put in a 'real' date, etc
+version += " (default, Feb 29 2013, 00:00:00) \n[Javascript 1.5]"
 hexversion = 0x03000000   # python 3.0
 
 class __version_info(object):
@@ -70,8 +71,7 @@ class __version_info(object):
         self.version_info = version_info
         self.major = version_info[0]
         self.minor = version_info[1]
-        #self.micro = version_info[2]
-        self.micro = 0
+        self.micro = version_info[2]
         self.releaselevel = version_info[3]
         self.serial = version_info[4]
 

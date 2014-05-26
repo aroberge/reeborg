@@ -2,12 +2,12 @@ $module = (function($B){
 
     var __builtins__ = $B.builtins
     for(var $py_builtin in __builtins__){eval("var "+$py_builtin+"=__builtins__[$py_builtin]")}
-    var $JSObject = $B.$JSObject
     var JSObject = $B.JSObject
     
     return {
         choice:function(seq){
-            return getattr(seq,'__getitem__')(getattr(seq,'__len__')()*Math.random())
+            var rank = parseInt(getattr(seq,'__len__')()*Math.random())
+            return getattr(seq,'__getitem__')(rank)
         },
         random:function(){
           if(arguments.length > 0){

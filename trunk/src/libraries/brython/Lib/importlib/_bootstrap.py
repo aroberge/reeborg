@@ -1695,6 +1695,8 @@ def _setup(sys_module, _imp_module):
     modules, those two modules must be explicitly passed in.
 
     """
+
+    print("_bootstrap.setup")
     global _imp, sys, BYTECODE_SUFFIXES
     _imp = _imp_module
     sys = sys_module
@@ -1710,8 +1712,9 @@ def _setup(sys_module, _imp_module):
             if not hasattr(module, '__loader__'):
                 if name in sys.builtin_module_names:
                     module.__loader__ = BuiltinImporter
-                elif _imp.is_frozen(name):
-                    module.__loader__ = FrozenImporter
+                #fix me brython
+                #elif _imp.is_frozen(name):
+                #    module.__loader__ = FrozenImporter
 
     self_module = sys.modules[__name__]
     for builtin_name in ('_io', '_warnings', 'builtins', 'marshal'):
@@ -1765,6 +1768,7 @@ def _setup(sys_module, _imp_module):
         if '_d.pyd' in EXTENSION_SUFFIXES:
             WindowsRegistryFinder.DEBUG_BUILD = True
 
+    print('bytecode suffixes:', BYTECODE_SUFFIXES)
 
 def _install(sys_module, _imp_module):
     """Install importlib as the implementation of import."""

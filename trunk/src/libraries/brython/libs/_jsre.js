@@ -3,7 +3,6 @@ var $module = (function($B){
     var __builtins__ = $B.builtins
 
     for(var $py_builtin in __builtins__){eval("var "+$py_builtin+"=__builtins__[$py_builtin]")}
-    var $JSObject = $B.$JSObject
     var JSObject = $B.JSObject
 
     var obj = {__class__:$module,
@@ -20,13 +19,39 @@ var $module = (function($B){
         if (__BRYTHON__.$options.re=='pyre') return false  //force use of python's re module
         if (__BRYTHON__.$options.re=='jsre') return true   //force use of brythons re module
         // FIXME: Improve
+
+        if (!isinstance(pattern, str)) {
+           // this is probably a SRE_PATTERN, so return false, and let
+           // python's re module handle this.
+           return false
+        }
         var is_valid = false;
         try {
             new RegExp(pattern);
             is_valid = true;
         }
         catch(e) {}
-        return is_valid;
+        if (!is_valid) return is_valid  //if js won't prase the pattern return false
+
+        // using reference http://www.regular-expressions.info/
+        // to compare python re and javascript regex libraries
+
+        // look for things javascript does not support
+        // check for name capturing group
+        var mylist=['?P=', '?P<', '(?#', '(?<=', '(?<!', '(?(']
+        for(var i=0; i < mylist.length; i++) {
+           if (pattern.indexOf(mylist[i]) > -1) return false
+        }
+
+        var re_list=['\{,\d+\}']
+        for(var i=0; i < re_list.length; i++) {
+           var _re=new RegExp(re_list[i])
+           if (_re.test(pattern)) return false
+        }
+
+        // it looks like the pattern has passed all our tests so lets assume
+        // javascript can handle this pattern.
+        return true
     }
     var $SRE_PatternDict = {
         __class__:$B.$type,

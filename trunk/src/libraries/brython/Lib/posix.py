@@ -163,7 +163,7 @@ def dup2(*args,**kw):
     Duplicate file descriptor."""
     pass
 
-environ = {}
+environ = {'PYTHONUSERBASE': ' '}
 
 error = OSError
 
@@ -577,3 +577,24 @@ def write(*args,**kw):
     """write(fd, string) -> byteswritten    
     Write a string to a file descriptor."""
     pass
+
+## put WIFSIGNALED here. its needed by os module, and os module imports all
+## functions in this module
+def WIFSIGNALED(a):
+    return False
+
+def WTERMSIG(status):
+    return 0
+
+def WIFSIGNALED(status):
+    "Return True if the process exited due to a signal, otherwise return False"
+    return False
+
+def WIFEXITED(status):
+    return False
+
+def WEXITSTATUS(status):
+    pass
+
+def WNOHANG():
+    return (0,0)

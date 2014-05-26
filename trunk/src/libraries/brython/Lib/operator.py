@@ -95,8 +95,8 @@ __index__ = index
 
 def inv(a):
     "Same as ~a."
-    #return ~a    #brython does not like
-    return a^(2**31)
+    return ~a    #brython does not like
+    #return a^(2**31)
 invert = __inv__ = __invert__ = inv
 
 def lshift(a, b):
@@ -126,7 +126,7 @@ __or__ = or_
 
 def pos(a):
     "Same as +a."
-    #return +a    #brython does not like
+    return +a    #brython does not like
     if a >= 0: return a
     return -a
 __pos__ = pos
@@ -187,13 +187,14 @@ def getitem(a, b):
 __getitem__ = getitem
 
 #fixme  brython doesn't like this function
-#def indexOf(a, b):
-#    "Return the first index of b in a."
-#    for i, j in _bi.enumerate(a):
-#        if j == b:
-#            return i
-#    else:
-#        raise ValueError('b not found in a')
+def indexOf(a, b):
+    "Return the first index of b in a."
+    #for i, j in _bi.enumerate(a):
+    for i, j in enumerate(a):
+        if j == b:
+            return i
+    else:
+        raise ValueError('b not found in a')
 
 def setitem(a, b, c):
     "Same as a[b] = c."

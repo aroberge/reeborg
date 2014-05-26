@@ -44,6 +44,7 @@ class IndexedDB:
       return Transaction(self._db.transaction(entities, mode))
 
 class Transaction:
+
   def __init__(self, transaction):
       self._transaction=transaction
 
@@ -51,6 +52,7 @@ class Transaction:
       return ObjectStore(self._transaction.objectStore(name))
 
 class ObjectStore:
+
   def __init__(self, objectStore):
       self._objectStore=objectStore
       self._data=[]
@@ -73,13 +75,16 @@ class ObjectStore:
       if onerror is not None:
          _result.onerror=onerror
 
-  def put(self, object, key=None, onsuccess=None, onerror=None):
-      _r=self._objectStore.put(object, key)
-      _r.onsuccess=onsuccess
-      _r.onerror=onerror
+  def put(self, obj, key=None, onsuccess=None, onerror=None):
+      _r = self._objectStore.put(obj, key)
+      _r.onsuccess = onsuccess
+      _r.onerror = onerror
 
-  def add(self, object, onsuccess=None, onerror=None):
-      self._helper(self._objectStore.add, object, onsuccess, onerror)
+  def add(self, obj, key, onsuccess=None, onerror=None):
+      _r = self._objectStore.add(obj, key)
+      _r.onsuccess = onsuccess
+      _r.onerror = onerror
+      #self._helper(self._objectStore.add, object, onsuccess, onerror)
 
   def delete(self, index, onsuccess=None, onerror=None): 
       self._helper(self._objectStore.delete, index, onsuccess, onerror)
