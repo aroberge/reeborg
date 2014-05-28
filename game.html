@@ -34,14 +34,8 @@
   
 <div id="world-panel" class="active" >
   <div id="game-controls">
-    <button class="blue-gradient" id="run" title="run" onclick="RUR.ui.run();">
+    <button class="blue-gradient" id="run" title="run" onclick="RUR.run();">
       <img src="src/images/play.png" alt="run">
-    </button>
-    <button class="blue-gradient" id="pause" title="pause"  onclick="pause();">
-      <img src="src/images/pause.png" alt="pause">
-    </button>
-    <button class="blue-gradient" id="stop" title="stop" onclick="stop();">
-      <img src="src/images/stop.png" alt="stop">
     </button>
   </div>
   <div id="canvas-wrapper">
@@ -55,8 +49,8 @@
 
 <div id="output-panel">
     <div id="diary-controls">
-    <button class="blue-gradient" id="run2" title="run" onclick="run();">
-      <img src="src/images/play.png" alt="play">
+    <button class="blue-gradient" id="run2" title="run" onclick="RUR.run();">
+      <img src="src/images/play.png" alt="run">
     </button>
   </div>
   <div id="diary-wrapper">
@@ -108,7 +102,7 @@
 
 <script type="text/python3">
 import sys
-from browser import doc
+from browser import doc, window
 
 def _write(data):
     doc["output-pre"].innerHTML += str(data)
@@ -116,6 +110,10 @@ def _write_err(data):
     doc["output-pre"].innerHTML += "<b style='color:red'>" + str(data) + "</b>"
 sys.stdout.write = _write
 sys.stderr.write = _write_err
+
+def translate_python(src):
+    exec(src)
+window['translate_python'] = translate_python
 </script>
 
 

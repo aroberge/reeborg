@@ -11,6 +11,40 @@ RUR.settings.editor = "editor_py";
 RUR.settings.library = "library_py";
 RUR.programming_language = "python";
 
+RUR.run = function () {
+    var src, fatal_error_found = false;
+    src = library.getValue() + "\n" + editor.getValue();
+
+    try {
+        if (RUR.programming_language === "javascript") {
+            eval(src);  // jshint ignore:line
+        } else if (RUR.programming_language === "python") {
+            // translate_python is found in html file
+            translate_python(src);
+        } else if (RUR.programming_language === "coffee") {
+            eval(CoffeeScript.compile(src)); // jshint ignore:line
+        } else {
+            alert("Unrecognized programming language.");
+            return true;
+        }
+    } catch (e) {
+        alert("Error in code; view console.");
+        console.log(e);
+        return;
+    }
+
+    try {
+        localStorage.setItem(RUR.settings.editor, editor.getValue());
+        localStorage.setItem(RUR.settings.library, library.getValue());
+    } catch (e) {}
+
+};
+
+
+write = function (s) {
+    $("#output-pre").append(s.toString() + "\n");
+};
+
 RUR.reset_code_in_editors = function () {
     var library_default, library_content, editor_content, editor_default;
     
