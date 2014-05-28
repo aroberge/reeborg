@@ -182,7 +182,7 @@ RUR.vis_world.draw_goal = function () {
 
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
-        RUR.vis_world.draw_coloured_tile(goal.position.x, goal.position.y, goal.orientation);
+        RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
     }
     if (goal.shapes !== undefined){
         RUR.vis_world.draw_shapes(goal.shapes, true);
@@ -207,8 +207,14 @@ RUR.vis_world.draw_goal = function () {
     }
 };
 
+RUR.vis_world.draw_mud = function (i, j) {
+    var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
+    ctx.fillStyle = RUR.MUD_COLOR;
+    ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
+                      RUR.WALL_LENGTH - size, RUR.WALL_LENGTH - size);
+};
 
-RUR.vis_world.draw_coloured_tile = function (i, j, orientation) {
+RUR.vis_world.draw_home_tile = function (i, j, orientation) {
     var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
     ctx.fillStyle = RUR.TARGET_TILE_COLOR;
     ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
@@ -341,9 +347,26 @@ RUR.vis_world.draw_all = function () {
     RUR.vis_world.refresh();
 };
 
+RUR.vis_world.draw_other = function (other){
+    "use strict";
+    var obj, mud, i, j, k, t;
+    if (other === undefined) {
+        return;
+    }
+    if (other.mud != undefined){
+        mud = other.mud;
+        for (t=0; t < mud.length; t++){
+            k = mud[t].split(",");
+            i = parseInt(k[0], 10);
+            j = parseInt(k[1], 10);
+            RUR.vis_world.draw_mud(i, j)};
+    }
+}
+
 RUR.vis_world.refresh = function (world) {
     "use strict";
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
+    RUR.vis_world.draw_other(RUR.current_world.other);
     RUR.vis_world.draw_robots(RUR.current_world.robots);
     RUR.vis_world.draw_tokens(RUR.current_world.tokens);
     RUR.vis_world.draw_shapes(RUR.current_world.shapes);

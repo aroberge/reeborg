@@ -22,6 +22,9 @@ RUR.we.edit_world = function  () {
         case "world-square":
             RUR.we.toggle_shape("square");
             break;
+        case "world-mud":
+            RUR.we.toggle_mud();
+            break;
         case "world-walls":
             RUR.we.toggle_wall();
             break;
@@ -101,6 +104,10 @@ RUR.we.select = function (choice) {
         case "world-square":
             $(".edit-world-canvas").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle square.")).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "world-mud":
+            $(".edit-world-canvas").show();
+            $("#cmd-result").html(RUR.translate("Click on world to toggle mud tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-walls":
             $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);
@@ -658,3 +665,33 @@ RUR.we.draw_star = function (goal){
 RUR.we.draw_star();
 RUR.we.draw_star(true);
 
+RUR.we.draw_mud = function () {
+    "use strict";
+    var ctx, size=12;
+    ctx = document.getElementById("canvas-mud").getContext("2d");
+    ctx.fillStyle = RUR.MUD_COLOR;
+    ctx.fillRect(0, 0, 40, 40);
+};
+RUR.we.draw_mud();
+
+RUR.we.toggle_mud = function (){
+    // will remove the position if clicked again.
+    "use strict";
+    var x, y, position, coords, index;
+
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    coords = x + "," + y;
+    
+    RUR.we.ensure_key_exist(RUR.current_world, "other");
+    if (RUR.current_world.other.mud == undefined) {
+        RUR.current_world.other.mud = [];
+    }
+    index = RUR.current_world.other.mud.indexOf(coords);
+    if (index === -1) {
+        RUR.current_world.other.mud.push(coords);
+    } else {
+        RUR.current_world.other.mud.remove(index);
+    }
+};

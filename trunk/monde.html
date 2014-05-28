@@ -213,6 +213,7 @@
             <li><a href="javascript:RUR.we.select('world-star');"><canvas id="canvas-star" class="edit-canvas" width="40" height="40"></canvas></a></li>
             <li><a href="javascript:RUR.we.select('world-triangle');"><canvas id="canvas-triangle" class="edit-canvas" width="40" height="40"></canvas></a></li>
             <li><a href="javascript:RUR.we.select('world-square');"><canvas id="canvas-square" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-mud');"><canvas id="canvas-mud" class="edit-canvas" width="40" height="40"></canvas></a></li>
         </ul>
         <ul class="edit-goal-canvas" id="edit-goal-objects" style="display:none">
             <li><a href="javascript:RUR.we.select('goal-tokens');"><canvas id="canvas-goal-token" class="edit-canvas" width="40" height="40"></canvas></a></li>
@@ -268,7 +269,8 @@ from javascript import JSObject
 __RUR__ = JSObject(RUR)
 
 def translate_python(src):
-    return exec(src)
+    src = "class RobotUsage(_UsedRobot): pass\n" + src
+    exec(src)
 
 # put "translate_python" in global Javascript namespace
 window['translate_python'] = translate_python
@@ -279,7 +281,8 @@ def _write_err(data):
 sys.stdout.write = _write
 sys.stderr.write = _write_err
 
-class RobotUsage ():
+
+class _UsedRobot ():
     def __init__ (self, x=1, y=1, orientation='e', tokens=0):
         robot = RUR.robot.create_robot(x, y, orientation, tokens)
         self.body = robot
@@ -324,8 +327,13 @@ class RobotUsage ():
     def tourne_a_gauche (self):
         RUR.control.turn_left(self.body)
 
-window['UsedRobot'] = RobotUsage
-window['ReeborgError'] = RUR.ReeborgError
+class ReeborgError(Exception):
+    def __init__(self, value):
+        self.reeborg_says = value
+    def __str__(self):
+        return repr(self.reeborg_says)
+window['ReeborgError'] = ReeborgError
+
 </script>
 
 

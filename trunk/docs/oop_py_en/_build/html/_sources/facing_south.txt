@@ -1,7 +1,7 @@
 Facing South
 ============
 
-Reeborg's compass is broken; he cas use it to determine if he is
+Reeborg's compass is broken; he can use it to determine if he is
 facing North using ``facing_north()``, but that's it.
 
 When we introduced ``return`` in `a previous tutorial <../begin_py_en/return>`_

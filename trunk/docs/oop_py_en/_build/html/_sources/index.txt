@@ -52,6 +52,9 @@ Contents:
    javascript
    modulo
    facing_south
+   left_is_clear
+   leak
+   testing
 
 
 

@@ -35,7 +35,7 @@ Enter and execute the following code and look at the result in the Diary::
 
     r = UsedRobot()
     inspect(r)
-    
+
 ``inspect`` is a Javascript function, understood by Python/Brython, 
 that I wrote to enable you to see an
 object's methods and attributes. Right now, it does not tell us much.
@@ -43,6 +43,11 @@ Here is what I get when I do this::
 
     __class__
     body
+
+.. note::
+
+   I use a single letter ``r`` for the robot name as this is a very short
+   program and I don't need a descriptive name.
 
 We do not know if they are methods or attributes.  ``__call__`` starts
 and ends with two underscore characters; this is a convention in the Python

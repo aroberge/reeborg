@@ -43,6 +43,8 @@ RUR.SHAPE_OUTLINE_COLOR = "grey";
 RUR.TARGET_TILE_COLOR = "#99ffcc";
 RUR.ORIENTATION_TILE_COLOR = "black";
 
+RUR.MUD_COLOR = "#794c13";
+
 RUR.TOKEN_COLOR = "gold";
 RUR.TEXT_COLOR = "black";
 RUR.TOKEN_GOAL_COLOR = "#666";
@@ -821,8 +823,14 @@ RUR.rec.record_frame = function (name, obj) {
     
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
-    // TODO add check for too many steps.
     RUR.control.sound_id = undefined;
+
+    if (name === "error"){
+        return;
+    }
+    if(RUR.rec.check_mud(frame)){
+        throw new RUR.ReeborgError(RUR.translate("I'm stuck in mud."));
+    }
     if (RUR.rec.nb_frames == RUR.MAX_STEPS) {
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
@@ -955,6 +963,33 @@ RUR.rec.handle_error = function (frame) {
     RUR.ui.stop();
     return "stopped";
 };
+
+RUR.rec.check_mud = function(frame) {
+    var mud, robots, robot, coords;
+    if(frame.world.other !== undefined) {
+        if(frame.world.other.mud !== undefined){
+            mud = frame.world.other.mud;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+    if (frame.world.robots !== undefined) {
+        robots = frame.world.robots;
+    } else {
+        return false;
+    }
+
+    for (robot=0; robot < frame.world.robots.length; robot++){
+        coords = robots[robot].x + "," + robots[robot].y;
+        if(mud.indexOf(coords) !== -1){
+            return true;
+        }
+    }    
+    return false;
+};
+
 
 RUR.rec.check_goal= function (frame) {
     var g, world, goal_status = {}, result;
@@ -1136,6 +1171,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     } catch (e) {
         if (RUR.programming_language === "python") {
             error_name = e.__name__;
+            e.message = e.reeborg_says
         } else {
             error_name = e.name;
         }
@@ -1195,7 +1231,6 @@ RUR.runner.eval_python = function (src) {
 
 
 RUR.runner.eval_coffee = function (src) {
-    var out;
     RUR.reset_definitions();
     eval(CoffeeScript.compile(src)); // jshint ignore:line
 };/* Author: André Roberge
@@ -1205,6 +1240,9 @@ RUR.runner.eval_coffee = function (src) {
 /*globals RUR, $, CodeMirror, editor, library, removeHints, parseUri */
 
 RUR.ReeborgError = function (message) {
+    if (RUR.programming_language == "python"){
+        return ReeborgError(message);
+    }
     this.name = "ReeborgError";
     this.message = message;
 };
@@ -2092,7 +2130,7 @@ RUR.vis_world.draw_goal = function () {
 
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
-        RUR.vis_world.draw_coloured_tile(goal.position.x, goal.position.y, goal.orientation);
+        RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
     }
     if (goal.shapes !== undefined){
         RUR.vis_world.draw_shapes(goal.shapes, true);
@@ -2117,8 +2155,14 @@ RUR.vis_world.draw_goal = function () {
     }
 };
 
+RUR.vis_world.draw_mud = function (i, j) {
+    var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
+    ctx.fillStyle = RUR.MUD_COLOR;
+    ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
+                      RUR.WALL_LENGTH - size, RUR.WALL_LENGTH - size);
+};
 
-RUR.vis_world.draw_coloured_tile = function (i, j, orientation) {
+RUR.vis_world.draw_home_tile = function (i, j, orientation) {
     var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
     ctx.fillStyle = RUR.TARGET_TILE_COLOR;
     ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
@@ -2251,9 +2295,26 @@ RUR.vis_world.draw_all = function () {
     RUR.vis_world.refresh();
 };
 
+RUR.vis_world.draw_other = function (other){
+    "use strict";
+    var obj, mud, i, j, k, t;
+    if (other === undefined) {
+        return;
+    }
+    if (other.mud != undefined){
+        mud = other.mud;
+        for (t=0; t < mud.length; t++){
+            k = mud[t].split(",");
+            i = parseInt(k[0], 10);
+            j = parseInt(k[1], 10);
+            RUR.vis_world.draw_mud(i, j)};
+    }
+}
+
 RUR.vis_world.refresh = function (world) {
     "use strict";
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
+    RUR.vis_world.draw_other(RUR.current_world.other);
     RUR.vis_world.draw_robots(RUR.current_world.robots);
     RUR.vis_world.draw_tokens(RUR.current_world.tokens);
     RUR.vis_world.draw_shapes(RUR.current_world.shapes);
@@ -2277,6 +2338,7 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.walls = {};
     world.tokens = {};
     world.shapes = {};
+    world.other = {"mud":['2,3', '4,5']};
     return world;
 };
 RUR.current_world = RUR.world.create_empty_world();
@@ -2366,6 +2428,9 @@ RUR.we.edit_world = function  () {
         case "world-square":
             RUR.we.toggle_shape("square");
             break;
+        case "world-mud":
+            RUR.we.toggle_mud();
+            break;
         case "world-walls":
             RUR.we.toggle_wall();
             break;
@@ -2445,6 +2510,10 @@ RUR.we.select = function (choice) {
         case "world-square":
             $(".edit-world-canvas").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle square.")).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "world-mud":
+            $(".edit-world-canvas").show();
+            $("#cmd-result").html(RUR.translate("Click on world to toggle mud tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-walls":
             $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);
@@ -3002,3 +3071,33 @@ RUR.we.draw_star = function (goal){
 RUR.we.draw_star();
 RUR.we.draw_star(true);
 
+RUR.we.draw_mud = function () {
+    "use strict";
+    var ctx, size=12;
+    ctx = document.getElementById("canvas-mud").getContext("2d");
+    ctx.fillStyle = RUR.MUD_COLOR;
+    ctx.fillRect(0, 0, 40, 40);
+};
+RUR.we.draw_mud();
+
+RUR.we.toggle_mud = function (){
+    // will remove the position if clicked again.
+    "use strict";
+    var x, y, position, coords, index;
+
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    coords = x + "," + y;
+    
+    RUR.we.ensure_key_exist(RUR.current_world, "other");
+    if (RUR.current_world.other.mud == undefined) {
+        RUR.current_world.other.mud = [];
+    }
+    index = RUR.current_world.other.mud.indexOf(coords);
+    if (index === -1) {
+        RUR.current_world.other.mud.push(coords);
+    } else {
+        RUR.current_world.other.mud.remove(index);
+    }
+};

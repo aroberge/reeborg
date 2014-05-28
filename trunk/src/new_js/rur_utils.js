@@ -5,6 +5,9 @@
 /*globals RUR, $, CodeMirror, editor, library, removeHints, parseUri */
 
 RUR.ReeborgError = function (message) {
+    if (RUR.programming_language == "python"){
+        return ReeborgError(message);
+    }
     this.name = "ReeborgError";
     this.message = message;
 };

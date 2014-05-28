@@ -135,8 +135,8 @@ before running the following program.
    Design a robot class that can "hop" horizontally, only increasing
    the ``x`` coordinate by 1 each time (like in a ``move`` method) but
    effectively jumping over walls.  Create a robot instance and have
-   it solve the hurdles challenges, **Hurdles 1** to **Hurdles 4**, going
-   in a straight line.  For each existing world, 
+   it solve the hurdles challenges, **Hurdles 1** to **Hurdles 4**, by going
+   in a straight line, straight through walls!  For each existing world, 
    you will first have to click on "Edit World" and
    remove the robot already present.  You may find it useful to then click
    on "browser:Save" so that you can reload this robot-free world if needed.

@@ -191,7 +191,6 @@ RUR.reset_definitions = function () {
 
     move = function () {
         RUR.control.move(RUR.current_world.robots[0]);
-        console.log("test");
     };
     UsedRobot.prototype.move = function () {
         RUR.control.move(this.body);

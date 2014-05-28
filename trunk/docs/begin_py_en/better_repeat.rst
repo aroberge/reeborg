@@ -4,9 +4,9 @@ A better **repeat()**
 
 .. note::
 
-    This lesson covers some very advanced concepts. If you do not
-    fully grasp them the first time around, you should feel free to continue
-    with the other lessons.
+    This lesson covers some very advanced concepts. You may have to
+    go through it more than once.  Feel free to continue with
+    other tutorials instead.
 
 You have seen how we can use our function ``repeat()`` to reduce the
 number of lines of code needed to accomplish the same thing. For

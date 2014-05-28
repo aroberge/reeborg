@@ -14,7 +14,7 @@
 <title>Reeborg's world</title>
     <script src="src/libraries/brython/brython.js"></script>
 </head>
-<body onload="brython()">
+<body onload="brython(1)">
 
 <header class="blue-gradient green-border">
   <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
@@ -211,6 +211,7 @@
             <li><a href="javascript:RUR.we.select('world-star');"><canvas id="canvas-star" class="edit-canvas" width="40" height="40"></canvas></a></li>
             <li><a href="javascript:RUR.we.select('world-triangle');"><canvas id="canvas-triangle" class="edit-canvas" width="40" height="40"></canvas></a></li>
             <li><a href="javascript:RUR.we.select('world-square');"><canvas id="canvas-square" class="edit-canvas" width="40" height="40"></canvas></a></li>
+            <li><a href="javascript:RUR.we.select('world-mud');"><canvas id="canvas-mud" class="edit-canvas" width="40" height="40"></canvas></a></li>
         </ul>
         <ul class="edit-goal-canvas" id="edit-goal-objects" style="display:none">
             <li><a href="javascript:RUR.we.select('goal-tokens');"><canvas id="canvas-goal-token" class="edit-canvas" width="40" height="40"></canvas></a></li>
@@ -295,8 +296,8 @@ class _UsedRobot (object):
     def build_wall (self):
         RUR.control.build_wall(self.body)
 
-    def front_is_clear (self):
-        return RUR.control.front_is_clear(self.body)
+    def front_is_clear (self, no_frame=False):
+        return RUR.control.front_is_clear(self.body, no_frame=no_frame)
 
     def has_token (self):
         return RUR.control.has_token(self.body)
@@ -319,9 +320,15 @@ class _UsedRobot (object):
     def take (self, arg="token"):
         RUR.control.take(self.body, arg)
 
-    def turn_left (self):
-        RUR.control.turn_left(self.body)
-
+    def turn_left (self, no_frame=False):
+        RUR.control.turn_left(self.body, no_frame=no_frame)
+        
+class ReeborgError(Exception):
+    def __init__(self, value):
+        self.reeborg_says = value
+    def __str__(self):
+        return repr(self.reeborg_says)
+window['ReeborgError'] = ReeborgError
 </script>
 
 
