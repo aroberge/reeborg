@@ -18,6 +18,7 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.walls = {};
     world.tokens = {};
     world.shapes = {};
+    world.other = {"mud":['2,3', '4,5']};
     return world;
 };
 RUR.current_world = RUR.world.create_empty_world();

@@ -53,6 +53,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     } catch (e) {
         if (RUR.programming_language === "python") {
             error_name = e.__name__;
+            e.message = e.reeborg_says
         } else {
             error_name = e.name;
         }
@@ -112,7 +113,6 @@ RUR.runner.eval_python = function (src) {
 
 
 RUR.runner.eval_coffee = function (src) {
-    var out;
     RUR.reset_definitions();
     eval(CoffeeScript.compile(src)); // jshint ignore:line
 };

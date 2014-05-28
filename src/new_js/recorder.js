@@ -43,8 +43,14 @@ RUR.rec.record_frame = function (name, obj) {
     
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
-    // TODO add check for too many steps.
     RUR.control.sound_id = undefined;
+
+    if (name === "error"){
+        return;
+    }
+    if(RUR.rec.check_mud(frame)){
+        throw new RUR.ReeborgError(RUR.translate("I'm stuck in mud."));
+    }
     if (RUR.rec.nb_frames == RUR.MAX_STEPS) {
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
@@ -177,6 +183,33 @@ RUR.rec.handle_error = function (frame) {
     RUR.ui.stop();
     return "stopped";
 };
+
+RUR.rec.check_mud = function(frame) {
+    var mud, robots, robot, coords;
+    if(frame.world.other !== undefined) {
+        if(frame.world.other.mud !== undefined){
+            mud = frame.world.other.mud;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+    if (frame.world.robots !== undefined) {
+        robots = frame.world.robots;
+    } else {
+        return false;
+    }
+
+    for (robot=0; robot < frame.world.robots.length; robot++){
+        coords = robots[robot].x + "," + robots[robot].y;
+        if(mud.indexOf(coords) !== -1){
+            return true;
+        }
+    }    
+    return false;
+};
+
 
 RUR.rec.check_goal= function (frame) {
     var g, world, goal_status = {}, result;
