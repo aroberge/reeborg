@@ -218,11 +218,11 @@ padding:3px;}
 #fileInput, #worldfileInput {display:none;}
 #worldfileInput {position: relative; top: 200px;}
 
-#world-controls, #diary-controls {
+#game-controls, #world-controls, #diary-controls {
   position: absolute;
   top: 5px;
 }
-#world-controls button, #diary-controls button, #world-edit-buttons button {margin-right: 4px;}
+#game-controls button, #world-controls button, #diary-controls button, #world-edit-buttons button {margin-right: 4px;}
 
 #world-panel {
     width: 620px;
