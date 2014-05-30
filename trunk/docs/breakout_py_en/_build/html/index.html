@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>Breakout: Making a simple game with Python &mdash; Breakout: making a game with Python</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Breakout: making a game with Python" href="#" />
+    <link rel="next" title="Getting a handle on the canvas" href="canvas.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="canvas.html" title="Getting a handle on the canvas"
+             accesskey="N">next</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="#">Breakout: making a game with Python</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas.html"
+                        title="next chapter">Getting a handle on the canvas</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="breakout-making-a-simple-game-with-python">
+<h1>Breakout: Making a simple game with Python<a class="headerlink" href="#breakout-making-a-simple-game-with-python" title="Permalink to this headline">¶</a></h1>
+<p><strong>Prerequisite:</strong> you should have gone through the short
+<a class="reference external" href="../oop_py_en/">Introduction to Object Oriented Programming in Python</a>
+before reading this tutorial.</p>
+<p>Open <a class="reference external" href="../../game.html">the game world environment</a>  in a separate tab
+or browser window and follow along the instructions given in this tutorial
+to learn how to make your own game.   This tutorial is loosely
+based on <a class="reference external" href="http://billmill.org/static/canvastutorial/index.html">Bill Mill&#8217;s excellent tutorial</a>.</p>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Getting a handle on the canvas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="canvas.html#a-quick-look-at-the-canvas">A quick look at the canvas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="canvas.html#brython-s-browser-module">Brython&#8217;s browser module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">Using the Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="library.html#what-s-happening">What&#8217;s happening?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library.html#why-use-a-library-here">Why use a library here?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events: mouse and keyboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="events.html#mouse-events">Mouse events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html#keyboard-events">Keyboard events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="animation.html#automatic-animation">Automatic animation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="canvas.html" title="Getting a handle on the canvas"
+             >next</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="#">Breakout: making a game with Python</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  <script> 
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+  });
+  </script>
+  </body>
+</html>

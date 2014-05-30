@@ -14,6 +14,8 @@ RUR.programming_language = "python";
 RUR.run = function () {
     var src, fatal_error_found = false;
     src = library.getValue() + "\n" + editor.getValue();
+    $("#output-pre").html("");
+    $("#notify").html("");
 
     try {
         if (RUR.programming_language === "javascript") {
@@ -28,8 +30,12 @@ RUR.run = function () {
             return true;
         }
     } catch (e) {
-        alert("Error in code; view console.");
-        console.log(e);
+        RUR.notify();
+        if (RUR.programming_language === "python"){
+            write_err(e.__name__);
+            write_err(e.info);
+            write_err(e.message);
+        }
         return;
     }
 
@@ -44,6 +50,30 @@ RUR.run = function () {
 write = function (s) {
     $("#output-pre").append(s.toString() + "\n");
 };
+write_err = function (s) {
+    $("#output-pre").append("<b style='color:red'>" + s.toString() +  "</b>\n");
+};
+
+
+RUR.notify = function() {
+    if (RUR.diary_visible){
+        return;
+    }
+    $(document.body).effect("highlight", {color: "gold"}, 1500);
+}
+
+inspect = function (obj){
+    var props, result = "";
+    for (props in obj) {
+        if (typeof obj[props] === "function") {
+            result += props + "()\n";
+        } else{
+            result += props + "\n";
+        }
+    }
+    write(result);
+};
+
 
 RUR.reset_code_in_editors = function () {
     var library_default, library_content, editor_content, editor_default;

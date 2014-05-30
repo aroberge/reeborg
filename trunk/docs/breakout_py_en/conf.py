@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Learn Python documentation build configuration file, adapted from
-# the Learn Javascript one (i.e. edited by hand)
+# Breakout documentation build configuration file, created by
+# sphinx-quickstart on Wed May 28 21:28:54 2014.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -32,7 +32,6 @@ import os
 extensions = []
 
 highlight_language = 'py3'
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -46,7 +45,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Learn Python'
+project = 'Breakout'
 copyright = 'André Roberge'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -113,7 +112,7 @@ html_theme_path = ["../"]
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = "Learn Python with Reeborg"
+html_title = "Breakout: making a game with Python"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None
@@ -179,7 +178,7 @@ html_use_index = False
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'LearnPythondoc'
+htmlhelp_basename = 'Breakoutdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -199,7 +198,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'LearnPython.tex', 'Learn Python with Reeborg',
+  ('index', 'Breakout.tex', 'Breakout Documentation',
    'André Roberge', 'manual'),
 ]
 
@@ -229,7 +228,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'learnpython', 'Learn Python Documentation',
+    ('index', 'breakout', 'Breakout Documentation',
      ['André Roberge'], 1)
 ]
 
@@ -243,8 +242,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'LearnPython', 'Learn Python Documentation',
-   'André Roberge', 'LearnPython', 'One line description of project.',
+  ('index', 'Breakout', 'Breakout Documentation',
+   'André Roberge', 'Breakout', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -259,6 +258,3 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
-
-
-
