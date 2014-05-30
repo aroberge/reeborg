@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>Using the Library &mdash; Breakout: making a game with Python</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Breakout: making a game with Python" href="index.html" />
+    <link rel="prev" title="Getting a handle on the canvas" href="canvas.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="canvas.html" title="Getting a handle on the canvas"
+             accesskey="P">previous</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Breakout: making a game with Python</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">Using the Library</a><ul>
+<li><a class="reference internal" href="#what-s-happening">What&#8217;s happening?</a></li>
+<li><a class="reference internal" href="#why-use-a-library-here">Why use a library here?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas.html"
+                        title="previous chapter">Getting a handle on the canvas</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/library.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="using-the-library">
+<h1>Using the Library<a class="headerlink" href="#using-the-library" title="Permalink to this headline">¶</a></h1>
+<p>In previous tutorials, I suggested that you put your
+useful functions in the library and use the statement
+<tt class="docutils literal"><span class="pre">import</span> <span class="pre">my_lib</span></tt> in the Python Code editor if you
+wanted to use the functions present in the library.</p>
+<p>If you try this, it won&#8217;t work.</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<p>Type in <tt class="docutils literal"><span class="pre">import</span> <span class="pre">my_lib</span></tt> on a separate line in
+the Python Code editor and run your program.</p>
+</div>
+<div class="section" id="what-s-happening">
+<h2>What&#8217;s happening?<a class="headerlink" href="#what-s-happening" title="Permalink to this headline">¶</a></h2>
+<p>I have a confession to make: in previous tutorials I was &#8220;cheating&#8221;.
+In previous tutorials, when you clicked on the &#8220;run&#8221; button,
+the code that you had in the editor was scanned looking for the
+statement <tt class="docutils literal"><span class="pre">import</span> <span class="pre">my_lib</span></tt>.  If it was present, it was replaced
+by the entire content of the library.  No real import was taking place.</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<p>After removing the wrong import statement,
+add the following line anywhere to the program in the editor
+(don&#8217;t erase what you have), run it and look at the result
+in Reeborg&#8217;s Diary:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span> <span class="s">&quot;This is cheating.&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;cheating&quot;</span><span class="p">,</span> <span class="s">&quot;clever&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>What I wanted to do at the time was to introduce the idea of libraries and
+&#8220;importing&#8221; them as it is something very useful.  I thought it
+would be more easily understood if you used your own code to
+put in libraries.</p>
+</div>
+<div class="section" id="why-use-a-library-here">
+<h2>Why use a library here?<a class="headerlink" href="#why-use-a-library-here" title="Permalink to this headline">¶</a></h2>
+<p>In Reeborg&#8217;s game world environment, when you click the &#8220;run&#8221; button,
+the content of the Python Code editor is automatically added
+at the end of the content of the Library editor, and the entire
+thing is interpreted by Brython.</p>
+<p>You should use the Library to put in your well-tested code,
+containing only variable or function definitions,
+and the Python Code editor should contain only the new code
+you are working on.  This allows you to focus on the task at
+hand without being distracted by a large amount of code that
+is known to work properly.</p>
+<p>Taking the code from the previous tutorial and changing it
+only slightly, here&#8217;s how you should organize your code:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="c"># this should be in the library</span>
+
+<span class="kn">from</span> <span class="nn">browser</span> <span class="k">import</span> <span class="n">doc</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">pi</span>
+
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s">&quot;game-canvas&quot;</span><span class="p">]</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">getContext</span><span class="p">(</span><span class="s">&#39;2d&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">draw_circle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">fillStyle</span> <span class="o">=</span> <span class="n">color</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">beginPath</span><span class="p">()</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">arc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">closePath</span><span class="p">()</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">clear_screen</span><span class="p">():</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">canvas</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">canvas</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+<span class="c"># end of code in the library</span>
+
+<span class="c"># below is the code to put in the editor</span>
+
+<span class="n">clear_screen</span><span class="p">()</span>
+
+<span class="n">draw_circle</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">draw_circle</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">draw_circle</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">draw_circle</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="s">&#39;green&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Do it!</p>
+<p>Organize your code as shown above and test it to make sure
+it works properly.</p>
+</div>
+<p>In what follows, unless I mention the library explictly, it
+will be assumed that the correct code is already put in the
+library and I will usually only show the code that should
+be in the Python Code editor.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="canvas.html" title="Getting a handle on the canvas"
+             >previous</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Breakout: making a game with Python</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  <script> 
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+  });
+  </script>
+  </body>
+</html>
