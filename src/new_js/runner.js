@@ -52,6 +52,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         }
     } catch (e) {
         if (RUR.programming_language === "python") {
+            console.log(e);
             error_name = e.__name__;
             e.message = e.reeborg_says
         } else {

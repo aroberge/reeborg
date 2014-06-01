@@ -14,7 +14,7 @@
 <title>Le monde de Reeborg</title>
     <script src="src/libraries/brython/brython.js"></script>
 </head>
-<body onload="brython()">
+<body onload="brython(1)">
 
 <header class="blue-gradient green-border">
   <a id="logo" href="index_fr.html" class="fake_button"><img src="src/images/robot_e.png">Le monde de Reeborg</a>
@@ -265,8 +265,6 @@
 <script type="text/python3">
 import sys
 from browser import window, doc
-from javascript import JSObject
-__RUR__ = JSObject(RUR)
 
 def translate_python(src):
     src = "class RobotUsage(_UsedRobot): pass\n" + src
@@ -281,10 +279,9 @@ def _write_err(data):
 sys.stdout.write = _write
 sys.stderr.write = _write_err
 
-
-class _UsedRobot ():
-    def __init__ (self, x=1, y=1, orientation='e', tokens=0):
-        robot = RUR.robot.create_robot(x, y, orientation, tokens)
+class _UsedRobot (object):
+    def __init__ (self, x=1, y=1, orientation='e', jetons=0):
+        robot = RUR.robot.create_robot(x, y, orientation, jetons)
         self.body = robot
         RUR.world.add_robot(self.body)
     
@@ -333,7 +330,6 @@ class ReeborgError(Exception):
     def __str__(self):
         return repr(self.reeborg_says)
 window['ReeborgError'] = ReeborgError
-
 </script>
 
 
@@ -364,7 +360,7 @@ window['ReeborgError'] = ReeborgError
 </script>
 <script src="https://togetherjs.com/togetherjs-min.js"></script>
 
-<div id="help" title="Help" style="display:none">
+<div id="help" title="Aide" style="display:none">
     <p><small>Les discussion, questions ou commentaires au sujet
   de Reeborg sont les bienvenues
     <a href="https://groups.google.com/forum/?fromgroups#!forum/reeborg">dans ce forum</a>.
@@ -383,6 +379,8 @@ window['ReeborgError'] = ReeborgError
       en lettre minuscules; en Python, <code>True</code> et <code>False</code> débutent avec une
       lettre majuscule.  Pour éviter de spécifier ceci à chaque fois ci-dessous, j'utiliserai 
       "true" et "false" pour signifier la même chose.</p>
+      <p><b>Attention:</b> Vous pouvez écrire des noms de commandes
+      avec des accents en Javascript mais pas en Python.</p>
       
       <h2 id="basic-commands">Commandes de base</h2>
   <p> En plus de comprendre le Javascript ou le Python, Reeborg et tous les autres robots
@@ -402,12 +400,12 @@ window['ReeborgError'] = ReeborgError
       en question là où il se trouve.</li>
       <li><code>objet_ici()</code>: "false" s'il n'y a aucun objet à cet endroit, autrement on retourne
       le nom de l'objet.</li>
-    <li><code>rien_à_droite()</code>: "true" s'il n'y a pas de mur immédiatement à la droite de Reeborg.</li>
+    <li><code>rien_a_droite()</code>: "true" s'il n'y a pas de mur immédiatement à la droite de Reeborg.</li>
     <li><code>repete(f, n)</code>: excute <code>f()</code> n fois.</li>
     <li><code>prend()</code> ou <code>prend("objet")</code> où "objet" est l'un de <code>"jeton"</code>,
       <code>"triangle"</code>, <code>"carré"</code> ou <code>"étoile"</code></li>
     <li><code>jeton_ici()</code>: "true" s'il y a un ou des jetons à cet endroit.</li>
-    <li><code>tourne_à_gauche()</code></li>
+    <li><code>tourne_a_gauche()</code></li>
   </ul>
       
       
@@ -426,9 +424,9 @@ window['ReeborgError'] = ReeborgError
                   Les effets sonores sont arrêtés par défaut ou si le délai entre les actions est inférieur à 250ms.
                   </li>
     <li><code>pense(nombre)</code>: spécifie le montant de temps (en millisecondes) entre chaque action d'un robot. </li>
-    <li><code>écrit(chaîne)</code>: écrit une chaîne de caractère dans le journal de Reeborg. </li>
-    <li><code>sélectionne_monde(chaîne)</code>: sélectionne un monde donné. </li>
-    <li><code>sélectionne_defi(chaîne)</code>: sélectionne un monde (caché) donné. </li>
+    <li><code>ecrit(chaîne)</code>: écrit une chaîne de caractère dans le journal de Reeborg, par exemple <code>ecrit("Bonjour !")</code>. </li>
+    <li><code>selectionne_monde(chaîne)</code>: sélectionne un monde donné. </li>
+    <li><code>selectionne_defi(chaîne)</code>: sélectionne un monde (caché) donné. </li>
         <li><code>print(chaîne)</code>: seulement valide avec Python; semblable à <code>write</code>.</li>
 
   </ul>

@@ -84,6 +84,8 @@ The unit of time used by most functions is the millisecond abbreviated ms;
 there are 1000 ms in 1 second.  The time between frames, in ms, is thus
 1000 divided by the numbers of frames per second.
 
+We then define a function to start the animation.
+
 .. code-block:: py3
 
     def start_animation(): 
@@ -92,8 +94,7 @@ there are 1000 ms in 1 second.  The time between frames, in ms, is thus
         draw_circle(x, y, 10, 'red')
         update()
 
-To start the animation, we simply specify some default values, draw a first
-circle and call the function ``update``::
+This function ends with a call to the function ``update``::
 
 
     def update():
