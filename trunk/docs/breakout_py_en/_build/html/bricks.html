@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    
+    <title>16. Multiple bricks &mdash; Breakout: making a game with Python</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Breakout: making a game with Python" href="index.html" />
+    <link rel="prev" title="15. Rule #6" href="rule6.html" /> 
+  
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+  
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="rule6.html" title="15. Rule #6"
+             accesskey="P">previous</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Breakout: making a game with Python</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rule6.html"
+                        title="previous chapter">15. Rule #6</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/bricks.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="multiple-bricks">
+<h1>16. Multiple bricks<a class="headerlink" href="#multiple-bricks" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">A link to a tutorial (yet to be written) covering lists and list comprehensions will
+be added.</p>
+</div>
+<p>Adding multiple bricks is simple.  To have a playable game, we also need to move the starting
+point of the ball to the bottom of the screen (otherwise it is just too easy!),
+and change the value of <tt class="docutils literal"><span class="pre">DEBUG</span></tt>.  The relevant lines of code
+are as follows</p>
+<div class="highlight-py3"><div class="highlight"><pre> <span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+     <span class="c">#... some lines of code</span>
+     <span class="k">if</span> <span class="n">ball</span><span class="o">.</span><span class="n">overlaps_with</span><span class="p">(</span><span class="n">paddle</span><span class="p">):</span>
+         <span class="n">ball</span><span class="o">.</span><span class="n">handle_hit_with</span><span class="p">(</span><span class="s">&quot;paddle&quot;</span><span class="p">)</span>
+<span class="hll">     <span class="k">for</span> <span class="n">brick</span> <span class="ow">in</span> <span class="n">bricks</span><span class="p">:</span>
+</span><span class="hll">         <span class="k">if</span> <span class="n">brick</span><span class="o">.</span><span class="n">is_hittable</span> <span class="ow">and</span> <span class="n">ball</span><span class="o">.</span><span class="n">overlaps_with</span><span class="p">(</span><span class="n">brick</span><span class="p">):</span>
+</span><span class="hll">             <span class="n">ball</span><span class="o">.</span><span class="n">handle_hit_with</span><span class="p">(</span><span class="s">&quot;brick&quot;</span><span class="p">)</span>
+</span><span class="hll">             <span class="n">brick</span><span class="o">.</span><span class="n">handle_hit_with</span><span class="p">(</span><span class="s">&quot;ball&quot;</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">brick</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</span>     <span class="n">ball</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+     <span class="c">#... more lines of code</span>
+
+
+ <span class="c">#---------------</span>
+<span class="hll"> <span class="n">DEBUG</span> <span class="o">=</span> <span class="k">False</span>
+</span> <span class="n">pause</span> <span class="o">=</span> <span class="k">True</span>
+ <span class="n">fps</span> <span class="o">=</span> <span class="mi">60</span>
+ <span class="n">tbf</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">/</span><span class="n">fps</span>   <span class="c"># time between frames in ms</span>
+
+ <span class="n">ball</span> <span class="o">=</span> <span class="n">Ball</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">canvas</span><span class="o">.</span><span class="n">height</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="n">dy</span><span class="o">=-</span><span class="mi">5</span><span class="p">)</span>
+ <span class="n">paddle</span> <span class="o">=</span> <span class="n">Paddle</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">canvas</span><span class="o">.</span><span class="n">height</span><span class="o">-</span><span class="mi">20</span><span class="p">)</span>
+<span class="hll"> <span class="n">bricks</span> <span class="o">=</span> <span class="p">[</span><span class="n">Brick</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">50</span><span class="p">)]</span>
+</span> <span class="n">clear_screen</span><span class="p">()</span>
+ <span class="n">write_help</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>That&#8217;s it!</p>
+<div class="topic">
+<p class="topic-title first">Time to play!</p>
+<p>Make multiple bricks and play for a while!   If anyone asks you what you
+are doing, you are doing some Quality Assurance tests which is Very Serious Work.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="rule6.html" title="15. Rule #6"
+             >previous</a></li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
+            </a></li>
+        <li><a href="index.html">Breakout: making a game with Python</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  <script> 
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+  });
+  </script>
+  </body>
+</html>

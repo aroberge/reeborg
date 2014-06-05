@@ -32,12 +32,6 @@ Using Brython, the mouse events (moving the mouse or clicking on a button) avail
 | dblclick      | a pointing device button is clicked twice on an element                                                   |
 +---------------+-----------------------------------------------------------------------------------------------------------+
 
-.. note::
-
-    Thre reason why I ask you to use ``inspect``, even though it is not enough in itself here to give you the
-    full answer, is to encourage you to explore and find ways to identify possible attributes or methods of interest
-    by yourself and either explore further or give you ideas as to what to search for on the Internet.
-
 These events need to be "bound" at a given element in the document; it could be the document itself.
 
 
@@ -70,7 +64,7 @@ and don't want to be confused by the output of previously bound definitions.  Fi
 ``clear_screen``, I am reminded that I need to run the code again if I want to see the result.
 
 If you look closely at the output in Reeborg's diary, and are using Google Chrome as you browser,
-you may see these four variables among others::
+you may see these four variables among **many** others::
 
     clientX
     clientY
@@ -95,7 +89,8 @@ will work in both Chrome and Firefox:
     .. code-block:: py3
 
         def get_mouse_position(ev, canvas):
-            bound = canvas.getBoundingClientRect()  # gets the position of the canvas on the page
+            bound = canvas.getBoundingClientRect()  # gets the position of the canvas
+                                                    # on the page
             x = ev.clientX - bound.left
             y = ev.clientY - bound.top
             return x, y
@@ -116,7 +111,7 @@ the keyboard.
 Keyboard events
 ---------------
 
-The keyboard events of interest to us are ``keydown``, ``keypress`` and ``keyup``.
+The keyboard events of interest to us are ``keydown`` and ``keyup``.
 
 .. topic:: Try this!
 

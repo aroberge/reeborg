@@ -13,7 +13,7 @@ and see what happens.
 Saw it?  This informs you that an error message has been
 written in Reeborg's Diary and that you need to open the
 Diary to view it.  If the Diary is already open, you will
-not see this warning.
+not see this visual warning.
 
 .. note::
 

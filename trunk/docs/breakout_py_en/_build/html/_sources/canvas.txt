@@ -10,8 +10,10 @@ the following incorrect code::
 
 and see what happens.
 
-Got it?  Now that you know what happens when you make typing
-mistakes, let's write some useful code.
+Saw it?  This informs you that an error message has been
+written in Reeborg's Diary and that you need to open the
+Diary to view it.  If the Diary is already open, you will
+not see this visual warning.
 
 .. note::
 
