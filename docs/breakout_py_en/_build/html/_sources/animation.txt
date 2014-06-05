@@ -84,6 +84,8 @@ The unit of time used by most functions is the millisecond abbreviated ms;
 there are 1000 ms in 1 second.  The time between frames, in ms, is thus
 1000 divided by the numbers of frames per second.
 
+We then define a function to start the animation.
+
 .. code-block:: py3
 
     def start_animation(): 
@@ -92,8 +94,12 @@ there are 1000 ms in 1 second.  The time between frames, in ms, is thus
         draw_circle(x, y, 10, 'red')
         update()
 
-To start the animation, we simply specify some default values, draw a first
-circle and call the function ``update``::
+.. note:: 
+
+    ``id`` is the name of a Python function.  This is why I use ``_id`` as a variable
+    name so as to not confuse the two.
+
+This function ends with a call to the function ``update``::
 
 
     def update():
@@ -143,14 +149,23 @@ being shown on the screen using our keyboard::
     Enter the code above in the browser, doing your best to understand what each line
     does before running the code.  Then, run the code and confirm your understanding.
 
+.. important::
+
+    Before you edit your code, if the animation is running, you **must** press ``q``
+    to stop it otherwise you will not be able to type code in the editor!
+    This is a side effect of ``ev.preventDefault()`` that we included in the ``animate``
+    function which we bound to ``keydown`` events.
+
 .. topic:: Experiment!
 
     Here are some things you may want to try:
 
-    #. replace the line ``elif ev.keyCode == 83 and pause:`` by
-    ``elif ev.keyCode == 83:`` and press on ``r`` a few times in a row; you should see
-    multiple concurrent animations taking place.
+    #.  Replace the line ``elif ev.keyCode == 83 and pause:`` by
+        ``elif ev.keyCode == 83:`` and press on ``r`` a few times in a row; you should see
+        multiple concurrent animations taking place.
+
     #. Change the value of ``fps`` and those of ``dx`` and ``dy``.
-    #. Add a couple more keyCodes and use them to change the size of the circle being
-    drawn.  You will need to introduce a variable like ``radius`` to do this, and
-    use it instead of the number 10 as argument of ``draw_circle``.
+
+    #.  Add a couple more keyCodes and use them to change the size of the circle being
+        drawn.  You will need to introduce a variable like ``radius`` to do this, and
+        use it instead of the number 10 as argument of ``draw_circle``.

@@ -16,8 +16,8 @@ If you try this, it won't work.
 What's happening?
 -----------------
 
-I have a confession to make: in previous tutorials I was "cheating".
-In previous tutorials, when you clicked on the "run" button, 
+I have a confession to make: in previous tutorials I was "cheating":
+when you clicked on the "run" button, 
 the code that you had in the editor was scanned looking for the
 statement ``import my_lib``.  If it was present, it was replaced
 by the entire content of the library.  No real import was taking place.

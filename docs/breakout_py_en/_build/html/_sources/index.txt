@@ -12,19 +12,46 @@ before reading this tutorial.
 
 Open `the game world environment <../../game.html>`_  in a separate tab
 or browser window and follow along the instructions given in this tutorial 
-to learn how to make your own game.   This tutorial is loosely
-based on `Bill Mill's excellent tutorial <http://billmill.org/static/canvastutorial/index.html>`_.
+to learn how to make your own game.   This tutorial is inspired from 
+`Bill Mill's canvas tutorial <http://billmill.org/static/canvastutorial/index.html>`_.
 
+If you have both Firefox and Chrome, you may find it useful to open the 
+`the game world environment <../../game.html>`_ in each browser.
+In one browser, you could write the code the way I do it in this tutorial.
+In the other, you could write your own version, perhaps adding different
+features, or doing things differently.
+
+Reeborg's World saves the state of your code on **your** computer 
+using the "Local Storage" of your browser.  Having two different browsers
+open enable you to work with two different versions of the code.
+You don't have to do this, of course: a single browser with two tabs, one 
+for this tutorial and one for the game world environment, is sufficient
+to go through this tutorial.
+
+Have fun!
 
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
+   :numbered:
 
    canvas
    library
    events
    animation
+   stay
+   help
+   stay2
+   paddle
+   paddle2
+   paddle3
+   bounding_box
+   game_over
+   brick
+   rule5
+   rule6
+   bricks
 
 
