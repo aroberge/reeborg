@@ -53,5 +53,7 @@ Contents:
    rule5
    rule6
    bricks
+   mouse
+   bounce
 
 

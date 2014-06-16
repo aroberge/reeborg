@@ -34,7 +34,10 @@ by the entire content of the library.  No real import was taking place.
 What I wanted to do at the time was to introduce the idea of libraries and
 "importing" them as it is something very useful.  I thought it
 would be more easily understood if you used your own code to
-put in libraries.
+put in libraries.  The import statement looks for
+Python modules on the web server where my site is hosted.  
+Your code is in your browser window, which is a very different
+place for where the Python modules are located.  Hence, I cheated.
 
 Why use a library here?
 -----------------------

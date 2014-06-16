@@ -81,6 +81,7 @@
               <ul>
 <li><a class="reference internal" href="#">4. Reeborg goes to France</a><ul>
 <li><a class="reference internal" href="#valid-names">4.1. Valid names</a></li>
+<li><a class="reference internal" href="#but-you-said-france">4.2. But you said France?</a></li>
 </ul>
 </li>
 </ul>
@@ -186,6 +187,27 @@ An alternative way to write compound names most often used by non-Python
 programmers is known as camelCase, where the start of a new word is
 indicated by an uppercase letter.  We gave one such example above with
 <tt class="docutils literal"><span class="pre">turnLeft</span></tt>.</p>
+</div>
+<div class="section" id="but-you-said-france">
+<h2>4.2. But you said France?<a class="headerlink" href="#but-you-said-france" title="Permalink to this headline">¶</a></h2>
+<p>Reeborg&#8217;s World is also available in French (the tutorial is not yet translated).
+However, if you want to use commands in French [e.g. writing <tt class="docutils literal"><span class="pre">avance()</span></tt> instead
+of <tt class="docutils literal"><span class="pre">move()</span></tt>], you write the following line at the top of your program:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">french</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>To find out the name of the French commands, you can then do:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and click on the <strong>Diary</strong> button at the top to see the result.</p>
+<p>There is also a Spanish version of the commands which you can try in a similar
+way by typing:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">spanish</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>This type of instruction [<tt class="docutils literal"><span class="pre">from</span> <span class="pre">module</span> <span class="pre">import</span> <span class="pre">*</span></tt>] is not something that is
+generally recommended ... I will explain why in a future tutorial.</p>
 </div>
 </div>
 

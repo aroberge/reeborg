@@ -8,6 +8,11 @@
 
 div.red p.admonition-title {background-color: red !important;}
 
+table.docutils td {
+    border-left: 1px solid #aaa;
+}
+table.docutils {border-top: 1px solid #aaa; border-right: 1px solid #aaa;}
+
 body {
     font-family: Trebuchet MS,Helvetica,Arial, sans-serif;
     font-size: 1em;
@@ -329,9 +334,6 @@ pre a {
     text-decoration: underline;
 }
 
-td.linenos pre {
-    padding: 0.5em 0;
-}
 
 div.quotebar {
     background-color: #f8f8f8;

@@ -30,7 +30,7 @@ RUR.run = function () {
             return true;
         }
     } catch (e) {
-        RUR.notify();
+        notify();
         if (RUR.programming_language === "python"){
             write_err(e.__name__);
             write_err(e.info);
@@ -55,11 +55,14 @@ write_err = function (s) {
 };
 
 
-RUR.notify = function() {
+notify = function(color) {
+    if (color == undefined){
+        color = "gold";
+    }
     if (RUR.diary_visible){
         return;
     }
-    $(document.body).effect("highlight", {color: "gold"}, 1500);
+    $(document.body).effect("highlight", {color: color}, 1500);
 }
 
 inspect = function (obj){

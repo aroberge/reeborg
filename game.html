@@ -11,13 +11,13 @@
 <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
 <link rel="stylesheet" href="src/css/reeborg_dev.css"> <!-- load after codemirror.css -->
-<title>Reeborg's world</title>
+<title>Reeborg's Game World</title>
     <script src="src/libraries/brython/brython.js"></script>
 </head>
 <body onload="brython(1)">
 
 <header class="blue-gradient green-border">
-  <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
+  <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's Game World</a>
   <div id="header-child">
     <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">Game canvas</button>
     <button class="blue-gradient" id="output-panel-button" label="output-panel">Diary</button>
@@ -115,6 +115,20 @@ sys.stderr.write = _write_err
 def translate_python(src):
     exec(src)
 window['translate_python'] = translate_python
+
+def Help(obj):
+    try:
+        print(obj.__name__)
+        print("   {}".format(obj.__doc__))
+    except:
+        pass
+    for attr in dir(obj):
+        if attr == "__class__":
+            continue
+        if hasattr(getattr(obj, attr), "__doc__"):
+            if getattr(obj, attr).__doc__ :
+                print("\n{0}\n   {1}".format(attr,getattr(obj, attr).__doc__))
+window['Help'] = Help
 </script>
 
 
