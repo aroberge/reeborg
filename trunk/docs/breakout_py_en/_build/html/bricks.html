@@ -24,6 +24,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Breakout: making a game with Python" href="index.html" />
+    <link rel="next" title="17. Controlling the paddle with the mouse" href="mouse.html" />
     <link rel="prev" title="15. Rule #6" href="rule6.html" /> 
   
   <script>
@@ -62,8 +63,11 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
+             <a href="mouse.html" title="17. Controlling the paddle with the mouse"
+             accesskey="N">next</a></li>
+        <li class="right" >
              <a href="rule6.html" title="15. Rule #6"
-             accesskey="P">previous</a></li>
+             accesskey="P">previous</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
             </a></li>
@@ -76,6 +80,9 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="rule6.html"
                         title="previous chapter">15. Rule #6</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mouse.html"
+                        title="next chapter">17. Controlling the paddle with the mouse</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/bricks.txt"
@@ -107,7 +114,19 @@
 <p class="last">A link to a tutorial (yet to be written) covering lists and list comprehensions will
 be added.</p>
 </div>
-<p>Adding multiple bricks is simple.  To have a playable game, we also need to move the starting
+<p>Adding multiple bricks is simple.  We can simply use a Python list and add bricks
+to them.  The simplest way of drawing bricks on the canvas is to put them in
+rows and columns.
+Before I wrote the code below, I thought of creating <tt class="docutils literal"><span class="pre">bricks</span></tt> as a lists of list so that
+an individual brick could be referred to <tt class="docutils literal"><span class="pre">bricks[row][col]</span></tt>.  However, to check if
+any brick had been hit by the ball, I would have had essentially to loop over the rows and columns.
+Given that we use Python, I thought that a simpler loop of the form:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">for</span> <span class="n">brick</span> <span class="ow">in</span> <span class="n">bricks</span><span class="p">:</span>
+    <span class="c"># code follows</span>
+</pre></div>
+</div>
+<p>would be much simpler.  This is what I did below.</p>
+<p>To have a playable game, we also need to move the starting
 point of the ball to the bottom of the screen (otherwise it is just too easy!),
 and change the value of <tt class="docutils literal"><span class="pre">DEBUG</span></tt>.  The relevant lines of code
 are as follows</p>
@@ -141,7 +160,8 @@ are as follows</p>
 <div class="topic">
 <p class="topic-title first">Time to play!</p>
 <p>Make multiple bricks and play for a while!   If anyone asks you what you
-are doing, you are doing some Quality Assurance tests which is Very Serious Work.</p>
+are doing, you are doing some Quality Assurance Tests which is <em>Very Serious Work</em> ™ .
+However, better Quality Assurance Tests are soon going to be available.</p>
 </div>
 </div>
 
@@ -155,8 +175,11 @@ are doing, you are doing some Quality Assurance tests which is Very Serious Work
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
+             <a href="mouse.html" title="17. Controlling the paddle with the mouse"
+             >next</a></li>
+        <li class="right" >
              <a href="rule6.html" title="15. Rule #6"
-             >previous</a></li>
+             >previous</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
             </a></li>

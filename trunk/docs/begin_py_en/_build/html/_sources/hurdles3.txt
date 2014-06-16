@@ -17,6 +17,12 @@ Notice the use of ``elif`` (which means "else if") for choice 2. If we took into
 possible weather phenomena, like hail, thunder, fog, drizzle, etc., we
 could add other choices using additional ``elif: ...`` code blocks.
 
+Here is a graphical representation of the choices that Reeborg faces:
+
+.. figure:: ../../flowcharts/elif.jpg
+   :align: center
+
+
 How to think of ``if/elif/ ... /else`` statements
 ----------------------------------------------------
 

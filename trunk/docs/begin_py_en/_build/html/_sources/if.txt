@@ -81,7 +81,6 @@ whereas::
     if False:
         turn_left()
         turn_left()
-    }
     move()
 
 is equivalent to::
@@ -94,6 +93,11 @@ would be done permanently: if, somehow, our program *looped back* and
 repeated this part of the code again, the ``if`` statement would be
 reevaluated each time to decide whether or not to execute the lines of
 code inside the code block.
+
+We can represent the above using a flowchart:
+
+.. figure:: ../../flowcharts/if.jpg
+   :align: center
 
 More useful that you might think...
 -----------------------------------

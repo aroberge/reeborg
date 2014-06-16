@@ -24,6 +24,11 @@ reach a wall. Using ``while``, we can write the following::
 That's it! No more guessing and asking something to be performed a large
 number of time just to ensure that it will be enough.
 
+Here's a flowchart for this simple program:
+
+.. figure:: ../../flowcharts/while.jpg
+   :align: center
+
 How to think about ``while``
 ----------------------------
 

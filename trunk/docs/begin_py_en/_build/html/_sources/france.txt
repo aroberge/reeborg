@@ -74,4 +74,25 @@ programmers is known as camelCase, where the start of a new word is
 indicated by an uppercase letter.  We gave one such example above with
 ``turnLeft``.
 
+But you said France?
+--------------------
 
+Reeborg's World is also available in French (the tutorial is not yet translated).
+However, if you want to use commands in French [e.g. writing ``avance()`` instead
+of ``move()``], you write the following line at the top of your program::
+
+    from french import *
+
+To find out the name of the French commands, you can then do::
+
+    print(usage)
+
+and click on the **Diary** button at the top to see the result.
+
+There is also a Spanish version of the commands which you can try in a similar
+way by typing::
+
+    from spanish import *
+
+This type of instruction [``from module import *``] is not something that is
+generally recommended ... I will explain why in a future tutorial.

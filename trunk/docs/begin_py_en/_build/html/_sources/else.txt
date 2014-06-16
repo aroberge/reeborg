@@ -96,3 +96,7 @@ is equivalent to
     turn_left()
     move()
 
+We can represent this as a flowchart:
+
+.. figure:: ../../flowcharts/else.jpg
+   :align: center

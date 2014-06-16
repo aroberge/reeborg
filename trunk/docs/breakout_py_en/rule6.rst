@@ -262,7 +262,7 @@ in the process.
 
 Speaking of things that are broken, I noticed that when
 the ball hits the brick on one side (along a vertical edge
-of the brick), the ball bounce up or down (because that's what
+of the brick), the ball bounces up or down (because that's what
 I coded) whereas it should really be bouncing either left or right,
 away from the brick.
 

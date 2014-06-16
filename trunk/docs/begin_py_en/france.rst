@@ -62,7 +62,7 @@ Valid names
     Reeborg's world uses Brython to translate Python 3 code into Javascript
     that can then be executed in the browser.  While Python 3 allows you to 
     have variable names that contain non-English letters, such as ëêé,
-    Brython does not recognizes these characters. 
+    Brython does not (yet) recognizes these characters. 
 
 For now, limit yourselves with names that start with a letter and
 contain only letters, numbers or the underscore character "\_"; a name
@@ -74,4 +74,29 @@ programmers is known as camelCase, where the start of a new word is
 indicated by an uppercase letter.  We gave one such example above with
 ``turnLeft``.
 
+But you said France?
+--------------------
+
+Reeborg's World is also available in French (the tutorial is not yet translated).
+However, if you want to use commands in French [e.g. writing ``avance()`` instead
+of ``move()``], you write the following line at the top of your program::
+
+    from french import *
+
+To find out the name of the French commands::
+
+    print(usage)
+
+and click on the **Diary** button at the top to see the result; the explanation is given in French,
+but you should be able to understand how each English instruction is translated.
+
+There is also a Spanish version of the commands which you can try in a similar
+way by typing::
+
+    from spanish import *
+
+Note that, in this case, the explanation is given in **English**, not Spanish.
+
+This type of instruction [``from module import *``] is not something that is
+generally recommended ... I will explain why in a future tutorial.
 

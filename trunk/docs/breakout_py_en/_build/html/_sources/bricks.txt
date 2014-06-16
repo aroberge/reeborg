@@ -6,7 +6,20 @@ Multiple bricks
    A link to a tutorial (yet to be written) covering lists and list comprehensions will
    be added.
 
-Adding multiple bricks is simple.  To have a playable game, we also need to move the starting
+Adding multiple bricks is simple.  We can simply use a Python list and add bricks
+to them.  The simplest way of drawing bricks on the canvas is to put them in
+rows and columns.  
+Before I wrote the code below, I thought of creating ``bricks`` as a lists of list so that
+an individual brick could be referred to ``bricks[row][col]``.  However, to check if
+any brick had been hit by the ball, I would have had essentially to loop over the rows and columns.
+Given that we use Python, I thought that a simpler loop of the form::
+
+    for brick in bricks:
+        # code follows
+
+would be much simpler.  This is what I did below.
+
+To have a playable game, we also need to move the starting
 point of the ball to the bottom of the screen (otherwise it is just too easy!), 
 and change the value of ``DEBUG``.  The relevant lines of code 
 are as follows
@@ -44,5 +57,7 @@ That's it!
 .. topic:: Time to play!
 
     Make multiple bricks and play for a while!   If anyone asks you what you
-    are doing, you are doing some Quality Assurance tests which is Very Serious Work.
+    are doing, you are doing some Quality Assurance Tests which is *Very Serious Work* |tm| .
+    However, better Quality Assurance Tests are soon going to be available.
 
+.. |tm| unicode:: U+2122

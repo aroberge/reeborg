@@ -16,6 +16,22 @@ The name of the function is followed by ``()``. This tells Reeborg (Python)
 that the function must be *executed* or *called* (which are two synonyms).
 This function must be on a line of its own.
 
+Occasionnally we will make **flowcharts** which are graphical representations of a program.
+In a flowchart, a single instruction like ``move()`` might be represented
+as follows:
+
+.. figure:: ../../flowcharts/move1.jpg
+   :align: center
+
+and a complete program containing this single instruction would be represented
+as follows:
+
+.. figure:: ../../flowcharts/move.jpg
+   :align: center
+
+In a flowchart, the sequence of instructions follows the arrows, starting at "Start"
+and ending at "Stop".
+
 .. topic:: Try this!
 
     Add a second ``move()`` instruction so that Reeborg takes two steps instead
