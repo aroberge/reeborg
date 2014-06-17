@@ -107,7 +107,7 @@ from browser import doc, window
 def _write(data):
     doc["output-pre"].innerHTML += str(data)
 def _write_err(data):
-    RUR.notify()
+    notify()
     doc["output-pre"].innerHTML += "<b style='color:red'>" + str(data) + "</b>"
 sys.stdout.write = _write
 sys.stderr.write = _write_err
