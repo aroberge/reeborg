@@ -3,17 +3,16 @@
  */
 
 /*jshint -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, editor, library, toggle_contents_button, update_controls, saveAs, toggle_editing_mode */
+/*globals $, editor, toggle_contents_button, update_controls, saveAs, toggle_editing_mode */
 
 var RUR = {};
 RUR.settings = {};
 RUR.settings.editor = "editor_py";
-RUR.settings.library = "library_py";
 RUR.programming_language = "python";
 
 RUR.run = function () {
     var src, fatal_error_found = false;
-    src = library.getValue() + "\n" + editor.getValue();
+    src = editor.getValue();
     $("#output-pre").html("");
     $("#notify").html("");
 
@@ -41,7 +40,6 @@ RUR.run = function () {
 
     try {
         localStorage.setItem(RUR.settings.editor, editor.getValue());
-        localStorage.setItem(RUR.settings.library, library.getValue());
     } catch (e) {}
 
 };
@@ -79,23 +77,15 @@ inspect = function (obj){
 
 
 RUR.reset_code_in_editors = function () {
-    var library_default, library_content, editor_content, editor_default;
+    var editor_content, editor_default;
     
     if (RUR.programming_language == "javascript") {
-        library_default = "/* Put your Library code here*/\n\n";
         editor_default = "// Write code here.\n\n";
     } else if (RUR.programming_language == "python") {
-        library_default = "# Put your Library code here.\n\n";
         editor_default = "# Write code here.\n\n";
     } else if (RUR.programming_language == "coffee") {
-        library_default = "# Put your Library code here.\n\n";
         editor_default = "# Write code here.\n\n";
     }
-    library_content = localStorage.getItem(RUR.settings.library);
-    if (!library_content){
-        library_content = library_default;
-    }
-    library.setValue(library_content);
     editor_content = localStorage.getItem(RUR.settings.editor);
     if (!editor_content){
         editor_content = editor_default;
@@ -112,28 +102,22 @@ RUR.reset_programming_language = function(choice){
     switch(RUR.settings.current_language){
         case 'python':
             RUR.settings.editor = "editor_py";
-            RUR.settings.library = "library_py";
             RUR.programming_language = "python";
             $("#editor-link").html("Python Code");
             editor.setOption("mode", {name: "python", version: 3});
-            library.setOption("mode", {name: "python", version: 3});
             break;
         case 'javascript':
             RUR.settings.editor = "editor_js";
-            RUR.settings.library = "library_js";
             RUR.programming_language = "javascript";
             $("#editor-link").html("Javascript Code");
             RUR.strict_javascript = false;
             editor.setOption("mode", "javascript");
-            library.setOption("mode", "javascript");
             break;
         case 'coffeescript':
             RUR.settings.editor = "editor_coffee";
-            RUR.settings.library = "library_coffee";
             RUR.programming_language = "coffee";
             $("#editor-link").html("CoffeeScript Code");
             editor.setOption("mode", "coffeescript");
-            library.setOption("mode", "coffeescript");
             break;
     }            
     try { 
@@ -187,30 +171,15 @@ $(document).ready(function() {
             heightStyle: "auto",
             activate: function(event, ui){
                 editor.refresh();
-                library.refresh();
             }
         });
     });
     $("#editor-panel").resizable({
         resize: function() {
             editor.setSize(null, $(this).height()-40);
-            library.setSize(null, $(this).height()-40);
         }
     });
     $("#output-panel").resizable();
-
-    $("#editor-link").on("click", function(){
-        $("#save-library").hide();
-        $("#load-library").hide();
-        $("#save-editor").show();
-        $("#load-editor").show();
-    });
-    $("#library-link").on("click", function(){
-        $("#save-editor").hide();
-        $("#load-editor").hide();
-        $("#save-library").show();
-        $("#load-library").show();
-    });
 
     var load_file = function(obj) {
         $("#fileInput").click();
@@ -230,18 +199,10 @@ $(document).ready(function() {
         load_file(editor);
     });
   
-    $("#load-library").on("click", function(evt) {
-        load_file(library);
-    });
-  
+ 
 
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, _all_files);
-    });
-
-    $("#save-library").on("click", function(evt) {
-        var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, _all_files);
     });
 
