@@ -124,14 +124,6 @@ window['Help'] = Help
     indentUnit: 4,
     viewportMargin: Infinity
   });
-  var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
-    mode:  {name: "python", version: 3},
-    tabMode: 'indent',
-    lineNumbers: true,
-    theme: 'reeborg-dark',
-    indentUnit: 4,
-    viewportMargin: Infinity
-  });
 </script>
 <script src="src/game_js/game.js"></script>
 <script src="src/libraries/filesaver.js"></script>
@@ -141,28 +133,16 @@ window['Help'] = Help
 </script>
 <script src="https://togetherjs.com/togetherjs-min.js"></script>
 
-<audio id="put-sound" preload>
+<audio id="paddle-sound" preload>
   <source src="src/sounds/toc.wav" type="audio/x-wav">
 </audio>
-<audio id="take-sound" preload>
-  <source src="src/sounds/pick.wav" type="audio/x-wav">
+<audio id="break-sound" preload>
+  <source src="src/sounds/break.wav" type="audio/x-wav">
 </audio>
-<audio id="write-sound" preload>
-  <source src="src/sounds/type.wav" type="audio/x-wav">
-</audio>
-  <audio id="move-sound" preload>
-  <source src="src/sounds/move.wav" type="audio/x-wav">
-</audio>
-<audio id="turn-sound" preload>
-  <source src="src/sounds/turn.wav" type="audio/x-wav">
-</audio>
-<audio id="build-sound" preload>
-  <source src="src/sounds/brick.wav" type="audio/x-wav">
-</audio>
-<audio id="success-sound" preload>
+<audio id="win-sound" preload>
   <source src="src/sounds/success.wav" type="audio/x-wav">
 </audio>
-<audio id="error-sound" preload>
+<audio id="problem-sound" preload>
   <source src="src/sounds/glitch-sound.wav" type="audio/x-wav">
 </audio>
 
