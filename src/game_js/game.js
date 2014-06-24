@@ -199,8 +199,6 @@ $(document).ready(function() {
         load_file(editor);
     });
   
- 
-
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, _all_files);
