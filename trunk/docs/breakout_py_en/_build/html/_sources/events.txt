@@ -10,7 +10,7 @@ to take control of the game.
 Mouse events
 ------------
 
-Using Brython, the mouse events (moving the mouse or clicking on a button) available are:
+Using Brython, the mouse **events** (moving the mouse or clicking on a button) available are:
 
 +---------------+-----------------------------------------------------------------------------------------------------------+
 | mouseenter    | a pointing device is moved onto the element that has the listener attached                                |
@@ -32,16 +32,18 @@ Using Brython, the mouse events (moving the mouse or clicking on a button) avail
 | dblclick      | a pointing device button is clicked twice on an element                                                   |
 +---------------+-----------------------------------------------------------------------------------------------------------+
 
-These events need to be "bound" at a given element in the document; it could be the document itself.
+These events need to be "bound" to a given element in the document; 
+that element could be the document itself.
 
 
 
 .. topic:: Try this!
 
     Let's obtain the position of the mouse when we click on the canvas.  I assume that
-    the code in your Library contains the function ``clear_screen`` introduced before and
-    the definition of the variable ``canvas``, and that the code in the Python editor
-    contains the four ``draw_circle`` calls that we had before.::
+    the code in the editor contains the function ``clear_screen`` introduced before and
+    the definition of the variable ``canvas``, as well as the four ``draw_circle`` calls that we had before.
+    
+    .. code-block:: py3
 
         def get_info(ev):
             inspect(ev)
@@ -57,7 +59,8 @@ Let's examine what this code does in reverse.  The last line instruct the browse
 ``get_info`` whenever the canvas is "clicked". Such a function that is called following an event is
 known as a "callback" function.  A callback function such as this gets passed an **event** object; we
 used the variable name ``ev`` but you could choose any name.   Next, we use our handy
-``inspect`` function. I have done this so that you could explore on your own other possible information
+``inspect`` function introduced in previous tutorials. 
+I have done this so that you could explore on your own other possible information
 you could extract from this event.  Next, by calling the method ``unbind``, we prevent future clicks on
 the canvas to call ``get_info``.  I've done this because I want to change the definition of ``get_info``
 and don't want to be confused by the output of previously bound definitions.  Finally, by calling
@@ -115,7 +118,7 @@ The keyboard events of interest to us are ``keydown`` and ``keyup``.
 
 .. topic:: Try this!
 
-    Run the following code::
+    Add the following code and run it::
 
         def display_keyCode(ev):
             print("keyCode = ", ev.keyCode)
@@ -134,3 +137,8 @@ down arrow keys would normally make the page go ... up or down!  By using
 ``ev.preventDefault()`` we are disabling the possibility of scrolling the page that way.
 Imagine how annoying it would be to have the page scroll while you are trying to make
 your game character move!
+
+.. important::
+
+    When you are done, make sure to press ``q`` so that you can edit code in
+    the editor!

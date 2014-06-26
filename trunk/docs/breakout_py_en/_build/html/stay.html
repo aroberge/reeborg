@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>5. Stay in world! &mdash; Breakout: making a game with Python</title>
+    <title>4. Stay in world! &mdash; Breakout: making a game with Python</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Breakout: making a game with Python" href="index.html" />
-    <link rel="next" title="6. Help" href="help.html" />
-    <link rel="prev" title="4. Animation" href="animation.html" /> 
+    <link rel="next" title="5. Help" href="help.html" />
+    <link rel="prev" title="3. Animation" href="animation.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -63,10 +63,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="help.html" title="6. Help"
+             <a href="help.html" title="5. Help"
              accesskey="N">next</a></li>
         <li class="right" >
-             <a href="animation.html" title="4. Animation"
+             <a href="animation.html" title="3. Animation"
              accesskey="P">previous</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -79,19 +79,19 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table Of Contents</h3>
               <ul>
-<li><a class="reference internal" href="#">5. Stay in world!</a><ul>
-<li><a class="reference internal" href="#cleaning-up">5.1. Cleaning up</a></li>
-<li><a class="reference internal" href="#new-code">5.2. New code</a></li>
+<li><a class="reference internal" href="#">4. Stay in world!</a><ul>
+<li><a class="reference internal" href="#cleaning-up">4.1. Cleaning up</a></li>
+<li><a class="reference internal" href="#new-code">4.2. New code</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="animation.html"
-                        title="previous chapter">4. Animation</a></p>
+                        title="previous chapter">3. Animation</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="help.html"
-                        title="next chapter">6. Help</a></p>
+                        title="next chapter">5. Help</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/stay.txt"
@@ -117,26 +117,22 @@
           <div class="body">
             
   <div class="section" id="stay-in-world">
-<h1>5. Stay in world!<a class="headerlink" href="#stay-in-world" title="Permalink to this headline">¶</a></h1>
+<h1>4. Stay in world!<a class="headerlink" href="#stay-in-world" title="Permalink to this headline">¶</a></h1>
 <p>Currently, once the animation starts, the circle will keep going
 eventually moving off the canvas where it can no longer be seen.
 Let&#8217;s change this.</p>
 <div class="section" id="cleaning-up">
-<h2>5.1. Cleaning up<a class="headerlink" href="#cleaning-up" title="Permalink to this headline">¶</a></h2>
+<h2>4.1. Cleaning up<a class="headerlink" href="#cleaning-up" title="Permalink to this headline">¶</a></h2>
 <p>Before we write some new code, let&#8217;s clean up.  Move
-the import statement from the Python editor to the
-Library, just below the other import statement: it is
-good programming practice to keep all the import statements
-visible at the top of the code.  (Remember that the
-code in the Library is the code that is going to be run first.)</p>
-<p>Next, move the definition of the function <tt class="docutils literal"><span class="pre">clear_screen</span></tt> and
-its invocation also to the Library. Do the same for
-the definition of the function <tt class="docutils literal"><span class="pre">start_animation</span></tt> and
-<tt class="docutils literal"><span class="pre">animate</span></tt> as well as for the statements
-<tt class="docutils literal"><span class="pre">pause</span> <span class="pre">=</span> <span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">doc.bind(&quot;keydown&quot;,</span> <span class="pre">animate)</span></tt>.</p>
-<p>Finally, introduce a new variable called <tt class="docutils literal"><span class="pre">radius</span></tt>, give
-it the value of 10 and use it in the call for <tt class="docutils literal"><span class="pre">draw_circle</span></tt>
-inside <tt class="docutils literal"><span class="pre">update</span></tt>.</p>
+all the import statements to the top of the Python editor;
+personally, I try to follow the Python recommended practice
+of putting first the modules from the standard library
+(like <tt class="docutils literal"><span class="pre">math</span></tt>) followed by third-party modules (like <tt class="docutils literal"><span class="pre">browser</span></tt>).</p>
+<p>Next, put in all the functions definitions.  Finally, at the end,
+include the various variable assignments and function calls.</p>
+<p>Finally, introduce two new variables, <tt class="docutils literal"><span class="pre">radius</span></tt> and <tt class="docutils literal"><span class="pre">color</span></tt>,
+give them values of <tt class="docutils literal"><span class="pre">10</span></tt> and <tt class="docutils literal"><span class="pre">red</span></tt> respectively and use them
+in the <tt class="docutils literal"><span class="pre">draw_circle</span></tt> calls.</p>
 <div class="topic">
 <p class="topic-title first">Clean up and test!</p>
 <p>Do the above suggested changes and test your code.
@@ -146,7 +142,7 @@ animation.</p>
 </div>
 </div>
 <div class="section" id="new-code">
-<h2>5.2. New code<a class="headerlink" href="#new-code" title="Permalink to this headline">¶</a></h2>
+<h2>4.2. New code<a class="headerlink" href="#new-code" title="Permalink to this headline">¶</a></h2>
 <p>Add a new function called <tt class="docutils literal"><span class="pre">stay_in_world</span></tt>, with an
 empty body using Python&#8217;s <tt class="docutils literal"><span class="pre">pass</span></tt> statement and call it
 just before drawing the circle inside <tt class="docutils literal"><span class="pre">update</span></tt>.
@@ -156,25 +152,75 @@ value of <tt class="docutils literal"><span class="pre">fps</span></tt> might di
 experimented with different values at this point.</p>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
-<div class="last highlight-py3"><div class="highlight"><pre><span class="n">radius</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">dx</span> <span class="o">=</span> <span class="n">dy</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">fps</span> <span class="o">=</span> <span class="mi">20</span>          <span class="c"># frames per second</span>
-<span class="n">tbf</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">/</span><span class="n">fps</span>    <span class="c"># time between frames in ms</span>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">browser</span> <span class="k">import</span> <span class="n">doc</span>
+<span class="kn">from</span> <span class="nn">browser.timer</span> <span class="k">import</span> <span class="n">set_timeout</span><span class="p">,</span> <span class="n">clear_timeout</span>
+
+<span class="k">def</span> <span class="nf">draw_circle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">fillStyle</span> <span class="o">=</span> <span class="n">color</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">beginPath</span><span class="p">()</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">arc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">closePath</span><span class="p">()</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">clear_screen</span><span class="p">():</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">canvas</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">canvas</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">start_animation</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">draw_circle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+    <span class="n">update</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
-    <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_id</span>
+    <span class="k">global</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">frame_id</span>
     <span class="n">x</span> <span class="o">+=</span> <span class="n">dx</span>
     <span class="n">y</span> <span class="o">+=</span> <span class="n">dy</span>
     <span class="n">clear_screen</span><span class="p">()</span>
     <span class="n">stay_in_world</span><span class="p">()</span>
-    <span class="n">draw_circle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="s">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">draw_circle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">pause</span><span class="p">:</span>
         <span class="k">return</span>
-    <span class="n">_id</span> <span class="o">=</span> <span class="n">set_timeout</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">tbf</span><span class="p">)</span>
+    <span class="n">frame_id</span> <span class="o">=</span> <span class="n">set_timeout</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">time_between_frames</span><span class="p">)</span>
 
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">ev</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">pause</span><span class="p">,</span> <span class="n">frame_id</span>
+    <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">keyCode</span> <span class="o">==</span> <span class="mi">80</span><span class="p">:</span>  <span class="c"># p or P for Pause</span>
+        <span class="n">pause</span> <span class="o">=</span> <span class="k">True</span>
+        <span class="k">if</span> <span class="n">frame_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="k">None</span><span class="p">:</span>
+            <span class="n">clear_timeout</span><span class="p">(</span><span class="n">frame_id</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">ev</span><span class="o">.</span><span class="n">keyCode</span> <span class="o">==</span> <span class="mi">81</span><span class="p">:</span>  <span class="c"># q or Q  for Quit</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="s">&quot;keydown&quot;</span><span class="p">)</span>
+        <span class="n">clear_screen</span><span class="p">()</span>
+        <span class="n">pause</span> <span class="o">=</span> <span class="k">True</span>
+        <span class="k">if</span> <span class="n">frame_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="k">None</span><span class="p">:</span>
+            <span class="n">clear_timeout</span><span class="p">(</span><span class="n">frame_id</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">ev</span><span class="o">.</span><span class="n">keyCode</span> <span class="o">==</span> <span class="mi">82</span> <span class="ow">and</span> <span class="n">pause</span><span class="p">:</span>  <span class="c"># r or R for Resume</span>
+        <span class="n">pause</span> <span class="o">=</span> <span class="k">False</span>
+        <span class="n">update</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">ev</span><span class="o">.</span><span class="n">keyCode</span> <span class="o">==</span> <span class="mi">83</span> <span class="ow">and</span> <span class="n">pause</span><span class="p">:</span>  <span class="c"># s or S for Start</span>
+        <span class="n">pause</span> <span class="o">=</span> <span class="k">False</span>
+        <span class="n">start_animation</span><span class="p">()</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">preventDefault</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">stay_in_world</span><span class="p">():</span>
     <span class="k">pass</span>
+
+<span class="c"># end of function definitions</span>
+
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s">&quot;game-canvas&quot;</span><span class="p">]</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">getContext</span><span class="p">(</span><span class="s">&#39;2d&#39;</span><span class="p">)</span>
+<span class="n">frame_id</span> <span class="o">=</span> <span class="k">None</span>
+<span class="n">pause</span> <span class="o">=</span> <span class="k">True</span>
+<span class="n">dx</span> <span class="o">=</span> <span class="n">dy</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">color</span> <span class="o">=</span> <span class="s">&#39;red&#39;</span>
+
+<span class="n">fps</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">time_between_frames</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">/</span><span class="n">fps</span>
+
+<span class="n">doc</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;keydown&quot;</span><span class="p">,</span> <span class="n">animate</span><span class="p">)</span>
+<span class="n">clear_screen</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -189,7 +235,12 @@ is located at <tt class="docutils literal"><span class="pre">(canvas.width,</spa
 <p>Do not try to getting it perfect right away. Start with making
 sure that the circle changes direction when it goes beyond a &#8220;wall&#8221;;
 do not worry at first if the circle is partly beyond the edge
-of the canvas before bouncing back.</p>
+of the canvas before bouncing back.  After you get that working,
+you can decide if it is worth trying to have it work better so that
+the circle never goes beyond a wall.</p>
+<p>Note that it might be useful to change the radius of the circle
+(make it bigger) and the number of frames per second to see better
+how things work.</p>
 </div>
 <p>A few of you may find the above easy.  Many of you may find this
 very difficult to do. I am going to give you a series of hints.
@@ -233,10 +284,6 @@ but it might be good enough for now.  When you write a game, you
 should focus on putting all the pieces together quickly, not worrying
 about how polished it looks - otherwise, you might never finish the
 game.</p>
-<p>Personally, at this point, I find the fact that the circle goes beyond
-the boundaries of the canvas somewhat distracting.  So, before
-implementing other parts of the code, I will fix that.
-I have a reason for doing so as you will see later.</p>
 </div>
 </div>
 
@@ -250,10 +297,10 @@ I have a reason for doing so as you will see later.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="help.html" title="6. Help"
+             <a href="help.html" title="5. Help"
              >next</a></li>
         <li class="right" >
-             <a href="animation.html" title="4. Animation"
+             <a href="animation.html" title="3. Animation"
              >previous</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

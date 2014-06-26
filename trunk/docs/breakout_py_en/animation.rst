@@ -1,11 +1,17 @@
 Animation
 =========
 
+You did write down the key codes for the arrow keys like I asked you,
+didn't you?   
+
 .. topic:: Your turn!
 
     Complete the following code to make the circle move in the appropriate
     direction each time you press an arrow key::
 
+        # import relevant modules
+        # define draw_circle
+        # define clear_screen
         clear_screen()
 
         x = y = 200
@@ -14,16 +20,18 @@ Animation
 
         def move_circle(ev):
             global x, y
-            if ev.keyCode == _: # which arrow?
+            if ev.keyCode == _:  # which arrow?
                 x -= dx
-            if ev.keyCode == _: # which arrow?
+            if ev.keyCode == _:  # which arrow?
                 y -= dy
-            if ev.keyCode == _: # which arrow?
+            if ev.keyCode == _:  # which arrow?
                 x += dx
-            if ev.keyCode == _: # which arrow?
+            if ev.keyCode == _:  # which arrow?
                 y += dy               
             if ev.keyCode == 81:  # q or Q
                 doc.unbind("keydown")
+                clear_screen()
+                return
             ev.preventDefault()
 
             draw_circle(x, y, 10, 'red')
@@ -36,7 +44,9 @@ Animation
 .. hint::
 
     The ``y`` coordinates increases from top to bottom.  Also, there is an instruction missing
-    before ``draw_circle``.
+    before the second ``draw_circle``.
+
+Remember to press ``q`` when you are done!
 
 Automatic animation
 -------------------
@@ -53,7 +63,7 @@ to do that:
 Furthermore, if you read any recent tutorial, you will see that the recommendation
 is to use ``requestAnimationFrame``.  While I agree it is a better function to use
 **I will not use it for this tutorial**.  One of the reasons is that it is
-**too good** as it let the browser decides when is the most efficient time to
+**too good** as it lets the browser decides when is the most efficient time to
 draw things on the screen which, in turn, can hide some important concepts or
 make them more difficult to grasp.  I will use instead ``setTimeout``, or
 rather its Brython equivalent ``set_timeout``.  Here's the code I ask you
@@ -61,20 +71,24 @@ to use, presented in 4 blocks:
 
 .. code-block:: py3
 
+    # import same modules as before
+    # define draw_circle
+    # define clear_screen
+    
     from browser.timer import set_timeout, clear_timeout
 
     clear_screen()
     dx = dy = 5
 
-    fps = 4          # frames per second
-    tbf = 1000/fps   # time between frames in ms
-    pause = True
+    fps = 4                          # frames per second
+    time_between_frames = 1000/fps   # time in ms
 
 We import not only ``set_timeout`` but also ``clear_timeout``; we will see
 the relation between the two below.  
 
-Animations are done by showing a certain number of frames per second, usually
-abbreviated as ``fps``.  To have animations that look smooth to the eye, we should
+Animations are done by showing a certain number of **frames per second**, almost always
+abbreviated as ``fps`` by programmers; this is why I chose this variable name.  
+To have animations that look smooth to the eye, we should
 aim to have at least 24 if not 30 frames per second.  The ideal situation is
 when we have one animation frame each time the monitor refreshes, which is usually
 60 times per second.   Here I chose to use only 4 fps so that we can perceive
@@ -84,9 +98,7 @@ The unit of time used by most functions is the millisecond abbreviated ms;
 there are 1000 ms in 1 second.  The time between frames, in ms, is thus
 1000 divided by the numbers of frames per second.
 
-We then define a function to start the animation.
-
-.. code-block:: py3
+Next, we define a function to start the animation::
 
     def start_animation(): 
         global x, y
@@ -94,29 +106,34 @@ We then define a function to start the animation.
         draw_circle(x, y, 10, 'red')
         update()
 
-.. note:: 
-
-    ``id`` is the name of a Python function.  This is why I use ``_id`` as a variable
-    name so as to not confuse the two.
 
 This function ends with a call to the function ``update``::
 
 
     def update():
-        global x, y, _id
+        global x, y, frame_id
         x += dx
         y += dy
         clear_screen()
         draw_circle(x, y, 10, 'red')
         if pause:
             return
-        _id = set_timeout(update, tbf)
+        frame_id = set_timeout(update, time_between_frames)
+    
+    frame_id = None
+    pause = True
+
+.. note:: 
+
+    ``id`` is the name of a Python function.  This is why I use ``frame_id`` as a variable
+    name even though you will likely see ``id`` used if you look up information about
+    ``setTimeout`` on the Internet.
 
 The function ``update`` changes the values of ``x`` and ``y`` so that the circle
 is drawn elsewhere on the canvas and appears to move.  The last line of
 this function is what makes animations possible: the function ``set_timeout`` instruct
 the browser to call the function given in its first argument, which is ``update`` here,
-at a time ``tbf`` (time between frames) in the future.  It returns a unique number which
+at a time ``time_between_frames`` in the future.  It returns a unique number which
 the function ``clear_timeout`` can use to cancel the future request.
 
 In a certain sense, having ``update`` call ``set_timeout`` which will call ``update`` 
@@ -126,18 +143,21 @@ Finally, we define a callback function which will allow us to control what is
 being shown on the screen using our keyboard::
 
     def animate(ev):
-        global pause, _id
+        global pause, frame_id
         if ev.keyCode == 80:  # p or P for Pause
             pause = True
-            clear_timeout(_id)
+            if frame_id is not None:
+                clear_timeout(frame_id)
         elif ev.keyCode == 81:  # q or Q  for Quit
             doc.unbind("keydown")
             pause = True
-            clear_timeout(_id)
-        elif ev.keyCode == 82 and pause: # r or R for Resume
+            clear_screen()
+            if frame_id is not None:
+                clear_timeout(frame_id)
+        elif ev.keyCode == 82 and pause:  # r or R for Resume
             pause = False
             update()
-        elif ev.keyCode == 83 and pause: # s or S for Start
+        elif ev.keyCode == 83 and pause:  # s or S for Start
             pause = False
             start_animation()
         ev.preventDefault()
