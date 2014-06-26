@@ -3,41 +3,18 @@ Stay in world: part 2
 
 As mentioned before, the method I used to keep the circle within the bounds
 of the canvas is not perfect: the circle sometimes goes partly out
-of bounds.
+of bounds.  Normally, my advice at this point would be to just keep going,
+get the entire code for the game working "adequately" and plan to come
+back later to make the appropriate tweaks so that the game is "better".
+
+However, the way the ball does not stay perfectly within bounds annoys me.
 
 If your code works perfectly, then I congratulate you!  If not,
-please read on and we will see how to fix it.  However,
-before we start, let me show you what code I have in my Python
-Editor so that you can compare with yours.
+please read on and to fix my version of the code - and perhaps yours as well.  However,
+before we start, let me show you I have for the relevant function
+so that you can compare with yours.
 
 .. code-block:: py3
-
-    radius = 10
-    dx = dy = 5
-    fps = 20          # frames per second
-    tbf = 1000/fps   # time between frames in ms
-
-    def update():
-        global x, y, _id
-        x += dx
-        y += dy
-        clear_screen()
-        stay_in_world()
-        write_help()
-        draw_circle(x, y, radius, 'red')
-        if pause:
-            return
-        _id = set_timeout(update, tbf)
-
-    def write_help():
-        ctx.font = "30px sans-serif"
-        ctx.fillStyle = "lightgrey"
-        ctx.fillText("S to start the animation", 50, 100)
-        ctx.fillText("P to pause the animation", 50, 150)
-        ctx.fillText("R to resume after a pause", 50, 200)
-        ctx.fillText("Q to quit: click BEFORE editing!", 50, 250)
-
-    write_help()
         
     def stay_in_world():
         global x, y,  dx, dy

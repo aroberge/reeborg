@@ -60,7 +60,20 @@ a paddle and a ball, each having their own position, colour, size,
 etc.  Since we already do quite a lot with the ball (circle), let's
 focus on this one first and create a **class** of such objects
 and use a single instance (for now) in our program.
-Here's the code to create such a class::
+Here are some of the relevant parts of the code we have for the ball::
+
+    def draw_circle(x, y, radius, color):
+        ctx.fillStyle = color
+        ctx.beginPath()
+        ctx.arc(x, y, radius, 0, pi*2)
+        ctx.closePath()
+        ctx.fill()
+
+    dx = dy = 5
+    radius = 10
+    color = 'red'
+
+Here's the code to create a class for such an object::
 
     class Ball(object):
         def __init__(self, x, y, radius=10, color='red', dx=5, dy=5):
@@ -83,7 +96,7 @@ on what we had so far.
 
 .. topic:: Your turn!
 
-    Define the following class of objects.  Then reorganize 
+    Define the class ``Ball`` as above.  Then reorganize 
     your code using the following steps:
 
     #. Inside ``start_animation()``, create one instance of the Ball using the 
@@ -100,14 +113,46 @@ on what we had so far.
        ``ball.x``, ``ball.y``, etc.   Remove any global variable that
        are no longer needed.
 
-    #. Do the same for ``stay_in_world()``.  Yes, this is a bit tedious, and it
-       does not look good, but it is required.  We'll make this look better in 
-       a while.
+    #. Do the same for ``stay_in_world()``.  Yes, this is very tedious, and it
+       does not look good, but it is required at this point.  We'll make this look better in
+       a short while.
 
     #. Remove the function ``draw_circle`` from your library; it is no longer needed.
 
-    #. Carefully read over your code (both in the Python Editor and in the Library)
-       and remove any variables that are no longer needed.
+    #. Carefully read over your code and remove any variables that are no longer needed.
+
+
+**Can you think of other changes you should make?**
+
+More cleanup
+------------
+
+If you have followed the instructions I gave you above, 
+your function ``stay_in_world`` should look as follows::
+
+    def stay_in_world():
+        global ball
+        if ball.x < 0 and ball.dx < 0:
+            ball.dx = -ball.dx
+            ball.x += ball.dx
+        elif ball.x > canvas.width and ball.dx > 0:
+            ball.dx = -ball.dx
+            ball.x += ball.dx
+        if ball.y < 0 and ball.dy < 0:
+            ball.dy = -ball.dy
+            ball.y += ball.dy
+        elif ball.y > canvas.height and ball.dy > 0:
+            ball.dy = -ball.dy
+            ball.y += ball.dy
+
+This is silly: we have a function that controls the behaviour of a single
+object.  Clearly, this should be made a method of the relevant class of 
+objects.
+
+.. topic:: Your turn!
+
+    Make ``stay_in_world`` a method of the class ``Ball``.  After you
+    have done this, make sure that your code still work correctly.
 
 .. topic:: Can you do one more thing?
 
@@ -116,17 +161,3 @@ on what we had so far.
     .. hint::
 
         What does the ball do inside ``update()``?
-
-
-More cleanup
-------------
-
-Once you have done all of the above changes, reorganize your code
-(always making sure it works) by moving the ``Ball`` class and
-other definitions to your Library.  Keep the definitions for
-``update()``, ``draw_paddle()``, 
-``stay_in_world()`` and initial calls to functions in the
-Python Editor, ready for the next code improvement.
-
-You may want to think about the code and see if any function
-should be given a different name.

@@ -109,17 +109,48 @@ before reading this tutorial.</p>
 or browser window and follow along the instructions given in this tutorial
 to learn how to make your own game.   This tutorial is inspired from
 <a class="reference external" href="http://billmill.org/static/canvastutorial/index.html">Bill Mill&#8217;s canvas tutorial</a>.</p>
+<p>The game made in this tutorial is not very pretty, nor does
+it work perfectly: in particular, collisions between the ball and
+the bricks are definitely <strong>not</strong> pixel perfect.
+However, since you will be familiar with the entire
+program (more than 600 lines of code), you will be able to make some
+small tweaks yourself at the end to make it work better and make it
+a better looking game.  To see the game in its final state,
+enter the following code in the editor:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">breakout</span> <span class="k">import</span> <span class="n">Game</span>
+<span class="n">game</span> <span class="o">=</span> <span class="n">Game</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>and play with it!  Note that some bricks require more than one hit to
+be broken and others can&#8217;t be broken at all.
+If you want a greater challenge, press the up arrow
+key a few times while you play to speed up the game.  The game has
+three levels.  Adding new levels is <strong>extremely</strong> easy.
+As a simple example, you can replace the existing first level by one having
+a single huge brick as follows:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">breakout</span>
+<span class="n">breakout</span><span class="o">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">.1.&quot;</span>
+<span class="n">game</span> <span class="o">=</span> <span class="n">breakout</span><span class="o">.</span><span class="n">Game</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">If you have started a game, and want to edit code in the editor, you
+<strong>must</strong> quit the game by pressing &#8220;q&#8221;.</p>
+</div>
 <p>If you have both Firefox and Chrome, you may find it useful to open the
 <a class="reference external" href="../../game.html">the game world environment</a> in each browser.
 In one browser, you could write the code the way I do it in this tutorial.
 In the other, you could write your own version, perhaps adding different
-features, or doing things differently.</p>
-<p>Reeborg&#8217;s World saves the state of your code on <strong>your</strong> computer
-using the &#8220;Local Storage&#8221; of your browser.  Having two different browsers
-open enable you to work with two different versions of the code.
+features, or doing things differently.
 You don&#8217;t have to do this, of course: a single browser with two tabs, one
 for this tutorial and one for the game world environment, is sufficient
 to go through this tutorial.</p>
+<p>Reeborg&#8217;s World saves the state of your code on <strong>your</strong> computer
+using the &#8220;Local Storage&#8221; of your browser whenever you run it
+successfully.
+<strong>However, I strongly recommend that you save your work regularly in a file
+on your own computer.</strong></p>
 <p>Have fun!</p>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
@@ -129,70 +160,69 @@ to go through this tutorial.</p>
 <li class="toctree-l2"><a class="reference internal" href="canvas.html#brython-s-browser-module">1.2. Brython&#8217;s browser module</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="library.html">2. Using the Library</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="library.html#what-s-happening">2.1. What&#8217;s happening?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="library.html#why-use-a-library-here">2.2. Why use a library here?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">2. Events: mouse and keyboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="events.html#mouse-events">2.1. Mouse events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html#keyboard-events">2.2. Keyboard events</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="events.html">3. Events: mouse and keyboard</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="events.html#mouse-events">3.1. Mouse events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="events.html#keyboard-events">3.2. Keyboard events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">3. Animation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="animation.html#automatic-animation">3.1. Automatic animation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="animation.html">4. Animation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="animation.html#automatic-animation">4.1. Automatic animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stay.html">4. Stay in world!</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stay.html#cleaning-up">4.1. Cleaning up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stay.html#new-code">4.2. New code</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="stay.html">5. Stay in world!</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="stay.html#cleaning-up">5.1. Cleaning up</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stay.html#new-code">5.2. New code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">5. Help</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="help.html#writing-text">5.1. Writing text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="help.html#another-reminder">5.2. Another reminder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="help.html#a-better-name">5.3. A better name</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="help.html#writing-text">6.1. Writing text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stay2.html">6. Stay in world: part 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stay2.html#keeping-things-simple">6.1. Keeping things simple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stay2.html#three-more-times">6.2. Three more times</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="stay2.html">7. Stay in world: part 2</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="stay2.html#keeping-things-simple">7.1. Keeping things simple</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stay2.html#three-more-times">7.2. Three more times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="paddle.html">7. Paddle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="paddle.html#moving-paddle">7.1. Moving paddle?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paddle.html#paddle-and-ball">7.2. Paddle and ball</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paddle.html#more-cleanup">7.3. More cleanup</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="paddle.html">8. Paddle</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="paddle.html#moving-paddle">8.1. Moving paddle?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="paddle.html#paddle-and-ball">8.2. Paddle and ball</a></li>
-<li class="toctree-l2"><a class="reference internal" href="paddle.html#more-cleanup">8.3. More cleanup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="paddle2.html">8. Moving Paddle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="paddle2.html#paddle-class">8.1. Paddle class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paddle2.html#id1">8.2. Moving paddle?</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="paddle2.html">9. Moving Paddle</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="paddle2.html#id1">9.1. Moving paddle?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="paddle3.html">9. Keeping the paddle in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bounding_box.html">10. Bounding box</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bounding_box.html#bouncing-the-ball-off-the-paddle">10.1. Bouncing the ball off the paddle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bounding_box.html#squaring-the-circle">10.2. Squaring the circle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bounding_box.html#bouncing-at-last">10.3. Bouncing at last!</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="paddle3.html">10. Keeping the paddle in</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bounding_box.html">11. Bounding box</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bounding_box.html#bouncing-the-ball-off-the-paddle">11.1. Bouncing the ball off the paddle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bounding_box.html#squaring-the-circle">11.2. Squaring the circle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bounding_box.html#bouncing-at-last">11.3. Bouncing at last!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game_over.html">11. Game over!</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="game_over.html#debugging-a-game">11.1. Debugging a game</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="game_over.html">12. Game over!</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="game_over.html#debugging-a-game">12.1. Debugging a game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brick.html">12. Brick</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="brick.html#destroying-a-brick">12.1. Destroying a brick</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="brick.html">13. Brick</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="brick.html#destroying-a-brick">13.1. Destroying a brick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rule5.html">13. Rule #5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rule6.html">14. Rule #6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rule6.html#dry-and-yagni">14.1. DRY and YAGNI</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="rule5.html">14. Rule #5</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rule6.html">15. Rule #6</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="rule6.html#dry-and-yagni">15.1. DRY and YAGNI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bricks.html">15. Multiple bricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mouse.html">16. Controlling the paddle with the mouse</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mouse.html#hiding-the-cursor">16.1. Hiding the cursor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mouse.html#bounces-not-so-straight">16.2. Bounces: not so straight</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="bricks.html">16. Multiple bricks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mouse.html">17. Controlling the paddle with the mouse</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="mouse.html#hiding-the-cursor">17.1. Hiding the cursor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mouse.html#bounces-not-so-straight">17.2. Bounces: not so straight</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="bounce.html">17. Bouncing differently</a></li>
 </ul>
 </div>
 </div>

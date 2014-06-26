@@ -3,29 +3,34 @@ Bounding box
 
 Here is the code I have to keep the paddle in::
 
-    def keep_paddle_in():
-        if paddle.x < 0:
-            paddle.x = 0
-        elif paddle.x + paddle.width > canvas.width:
-            paddle.x = canvas.width - paddle.width
+    class Paddle(object):
+        ...
+        def stay_in_world(self):
+            if self.x < 0:
+                self.x = 0
+            elif self.x + self.width > canvas.width:
+                self.x = canvas.width - self.width
 
     def handle_keydown_events(ev):
-        global pause, _id
+        global pause, frame_id
+        remind = True
         if ev.keyCode == 37:   # left arrow
+            remind = False
             paddle.dx = - abs(paddle.dx)
             paddle.move()
-            keep_paddle_in()
+            paddle.stay_in_world()
         if ev.keyCode == 39:   # right arrow
+            remind = False
             paddle.dx = abs(paddle.dx)
             paddle.move()
-            keep_paddle_in()
+            paddle.stay_in_world()
         # more code ...
 
-I think that the code for ``keep_paddle_in`` is simple enough that I do not need to
+I think that the code for the paddle method ``stay_in_world`` is simple enough that I do not need to
 explain to you how it works.  Some observations:
 
-#. The function ``keep_paddle_in`` is **much** simpler than ``stay_in_world`` that is used
-   to keep the ball inside.  Perhaps there is a lesson there ... let's keep this in mind.
+#. The method ``stay_in_world`` for the paddle is **much** simpler than the corresponding
+   one for the ball.  Perhaps there is a lesson there ... let's keep this in mind.
 #. There is something *not quite right* about having 3 instructions specific to the paddle
    inside each ``if`` statement for the function ``handle_keydown_events()``.  However,
    since it works, I will leave it as is for now.
@@ -33,7 +38,10 @@ explain to you how it works.  Some observations:
 .. topic:: Your turn
 
     Look at the code and consider the above observations.  Can you think of a different
-    way of writing the code that could make things better?
+    way of writing the code that could make things better?  If you do, and especially
+    if you are using two different browsers (one in which to write your own version
+    and another to write my version of the code) to follow this tutorial, you might
+    want to make the relevant change in your own code.
 
 Bouncing the ball off the paddle
 --------------------------------
@@ -158,7 +166,7 @@ approach that works fairly well for simple games: using a bounding box.
 
 .. topic:: Try this
 
-    Run the following code::
+    Without erasing your existing code, add and run the following code::
 
         ctx.fillStyle = "gold"
         ctx.fillRect(10, 310, 99, 90)
@@ -173,6 +181,7 @@ approach that works fairly well for simple games: using a bounding box.
         ctx.fill()
         ctx.strokeStyle = "black"
         ctx.strokeRect(100, 380, 100, 100)
+   
 
 There is a black square enclosing the red circle: it is called
 a bounding box. The red circle overlaps with the blue rectangle

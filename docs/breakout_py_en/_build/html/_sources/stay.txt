@@ -9,21 +9,17 @@ Cleaning up
 -----------
 
 Before we write some new code, let's clean up.  Move
-the import statement from the Python editor to the
-Library, just below the other import statement: it is
-good programming practice to keep all the import statements
-visible at the top of the code.  (Remember that the
-code in the Library is the code that is going to be run first.)
+all the import statements to the top of the Python editor; 
+personally, I try to follow the Python recommended practice
+of putting first the modules from the standard library
+(like ``math``) followed by third-party modules (like ``browser``).
 
-Next, move the definition of the function ``clear_screen`` and
-its invocation also to the Library. Do the same for
-the definition of the function ``start_animation`` and
-``animate`` as well as for the statements
-``pause = True`` and ``doc.bind("keydown", animate)``.
+Next, put in all the functions definitions.  Finally, at the end,
+include the various variable assignments and function calls.
 
-Finally, introduce a new variable called ``radius``, give
-it the value of 10 and use it in the call for ``draw_circle``
-inside ``update``.
+Finally, introduce two new variables, ``radius`` and ``color``, 
+give them values of ``10`` and ``red`` respectively and use them
+in the ``draw_circle`` calls.
 
 .. topic:: Clean up and test!
 
@@ -47,25 +43,75 @@ experimented with different values at this point.
 
     .. code-block:: py3
 
-        radius = 10
-        dx = dy = 5
-        fps = 20          # frames per second
-        tbf = 1000/fps    # time between frames in ms
+        from math import pi
+        from browser import doc
+        from browser.timer import set_timeout, clear_timeout
+
+        def draw_circle(x, y, radius, color):
+            ctx.fillStyle = color
+            ctx.beginPath()
+            ctx.arc(x, y, radius, 0, pi*2)
+            ctx.closePath()
+            ctx.fill()
+
+        def clear_screen():
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+        def start_animation():
+            global x, y
+            x = y = 10
+            draw_circle(x, y, radius, color)
+            update()
 
         def update():
-            global x, y, _id
+            global x, y, frame_id
             x += dx
             y += dy
             clear_screen()
             stay_in_world()
-            draw_circle(x, y, radius, 'red')
+            draw_circle(x, y, radius, color)
             if pause:
                 return
-            _id = set_timeout(update, tbf)
-            
+            frame_id = set_timeout(update, time_between_frames)
+
+        def animate(ev):
+            global pause, frame_id
+            if ev.keyCode == 80:  # p or P for Pause
+                pause = True
+                if frame_id is not None:
+                    clear_timeout(frame_id)
+            elif ev.keyCode == 81:  # q or Q  for Quit
+                doc.unbind("keydown")
+                clear_screen()
+                pause = True
+                if frame_id is not None:
+                    clear_timeout(frame_id)
+            elif ev.keyCode == 82 and pause:  # r or R for Resume
+                pause = False
+                update()
+            elif ev.keyCode == 83 and pause:  # s or S for Start
+                pause = False
+                start_animation()
+            ev.preventDefault()
 
         def stay_in_world():
             pass
+
+        # end of function definitions
+
+        canvas = doc["game-canvas"]
+        ctx = canvas.getContext('2d')
+        frame_id = None
+        pause = True
+        dx = dy = 5
+        radius = 10
+        color = 'red'
+
+        fps = 4                          
+        time_between_frames = 1000/fps   
+
+        doc.bind("keydown", animate)
+        clear_screen()
 
 .. topic:: Write the code!
 
@@ -79,7 +125,13 @@ experimented with different values at this point.
     Do not try to getting it perfect right away. Start with making
     sure that the circle changes direction when it goes beyond a "wall";
     do not worry at first if the circle is partly beyond the edge
-    of the canvas before bouncing back.
+    of the canvas before bouncing back.  After you get that working,
+    you can decide if it is worth trying to have it work better so that
+    the circle never goes beyond a wall.
+    
+    Note that it might be useful to change the radius of the circle 
+    (make it bigger) and the number of frames per second to see better
+    how things work.
 
 A few of you may find the above easy.  Many of you may find this
 very difficult to do. I am going to give you a series of hints.
@@ -123,12 +175,4 @@ but it might be good enough for now.  When you write a game, you
 should focus on putting all the pieces together quickly, not worrying
 about how polished it looks - otherwise, you might never finish the
 game.
-
-Personally, at this point, I find the fact that the circle goes beyond
-the boundaries of the canvas somewhat distracting.  So, before
-implementing other parts of the code, I will fix that.  
-I have a reason for doing so as you will see later.
-
-
-
 

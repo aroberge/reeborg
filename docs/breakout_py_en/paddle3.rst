@@ -27,8 +27,8 @@ Time to do something like we did for the ball.
 
 .. topic:: Your turn
 
-    Write a function ``keep_paddle_in()`` that ensures that the paddle never
-    gets out of the canvas.  Note that the paddle should not "bounce" off
+    Write a method ``stay_in_world()`` that ensures that the paddle never
+    gets out of the canvas.  Note that, unlike the ball, the paddle should not "bounce" off
     the edges of the screen.  You need to find a good place to call
     this function.
 

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>11. Bounding box &mdash; Breakout: making a game with Python</title>
+    <title>10. Bounding box &mdash; Breakout: making a game with Python</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Breakout: making a game with Python" href="index.html" />
-    <link rel="next" title="12. Game over!" href="game_over.html" />
-    <link rel="prev" title="10. Keeping the paddle in" href="paddle3.html" /> 
+    <link rel="next" title="11. Game over!" href="game_over.html" />
+    <link rel="prev" title="9. Keeping the paddle in" href="paddle3.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -63,10 +63,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="game_over.html" title="12. Game over!"
+             <a href="game_over.html" title="11. Game over!"
              accesskey="N">next</a></li>
         <li class="right" >
-             <a href="paddle3.html" title="10. Keeping the paddle in"
+             <a href="paddle3.html" title="9. Keeping the paddle in"
              accesskey="P">previous</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -79,11 +79,11 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table Of Contents</h3>
               <ul>
-<li><a class="reference internal" href="#">11. Bounding box</a><ul>
-<li><a class="reference internal" href="#bouncing-the-ball-off-the-paddle">11.1. Bouncing the ball off the paddle</a></li>
-<li><a class="reference internal" href="#squaring-the-circle">11.2. Squaring the circle</a></li>
-<li><a class="reference internal" href="#bouncing-at-last">11.3. Bouncing at last!</a><ul>
-<li><a class="reference internal" href="#a-question-for-you">11.3.1. A question for you</a></li>
+<li><a class="reference internal" href="#">10. Bounding box</a><ul>
+<li><a class="reference internal" href="#bouncing-the-ball-off-the-paddle">10.1. Bouncing the ball off the paddle</a></li>
+<li><a class="reference internal" href="#squaring-the-circle">10.2. Squaring the circle</a></li>
+<li><a class="reference internal" href="#bouncing-at-last">10.3. Bouncing at last!</a><ul>
+<li><a class="reference internal" href="#a-question-for-you">10.3.1. A question for you</a></li>
 </ul>
 </li>
 </ul>
@@ -92,10 +92,10 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="paddle3.html"
-                        title="previous chapter">10. Keeping the paddle in</a></p>
+                        title="previous chapter">9. Keeping the paddle in</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="game_over.html"
-                        title="next chapter">12. Game over!</a></p>
+                        title="next chapter">11. Game over!</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/bounding_box.txt"
@@ -121,32 +121,37 @@
           <div class="body">
             
   <div class="section" id="bounding-box">
-<h1>11. Bounding box<a class="headerlink" href="#bounding-box" title="Permalink to this headline">¶</a></h1>
+<h1>10. Bounding box<a class="headerlink" href="#bounding-box" title="Permalink to this headline">¶</a></h1>
 <p>Here is the code I have to keep the paddle in:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">keep_paddle_in</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">paddle</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">paddle</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="n">paddle</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">paddle</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;</span> <span class="n">canvas</span><span class="o">.</span><span class="n">width</span><span class="p">:</span>
-        <span class="n">paddle</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">paddle</span><span class="o">.</span><span class="n">width</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Paddle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">stay_in_world</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;</span> <span class="n">canvas</span><span class="o">.</span><span class="n">width</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
 
 <span class="k">def</span> <span class="nf">handle_keydown_events</span><span class="p">(</span><span class="n">ev</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">pause</span><span class="p">,</span> <span class="n">_id</span>
+    <span class="k">global</span> <span class="n">pause</span><span class="p">,</span> <span class="n">frame_id</span>
+    <span class="n">remind</span> <span class="o">=</span> <span class="k">True</span>
     <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">keyCode</span> <span class="o">==</span> <span class="mi">37</span><span class="p">:</span>   <span class="c"># left arrow</span>
+        <span class="n">remind</span> <span class="o">=</span> <span class="k">False</span>
         <span class="n">paddle</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">paddle</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>
         <span class="n">paddle</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
-        <span class="n">keep_paddle_in</span><span class="p">()</span>
+        <span class="n">paddle</span><span class="o">.</span><span class="n">stay_in_world</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">keyCode</span> <span class="o">==</span> <span class="mi">39</span><span class="p">:</span>   <span class="c"># right arrow</span>
+        <span class="n">remind</span> <span class="o">=</span> <span class="k">False</span>
         <span class="n">paddle</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">paddle</span><span class="o">.</span><span class="n">dx</span><span class="p">)</span>
         <span class="n">paddle</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
-        <span class="n">keep_paddle_in</span><span class="p">()</span>
+        <span class="n">paddle</span><span class="o">.</span><span class="n">stay_in_world</span><span class="p">()</span>
     <span class="c"># more code ...</span>
 </pre></div>
 </div>
-<p>I think that the code for <tt class="docutils literal"><span class="pre">keep_paddle_in</span></tt> is simple enough that I do not need to
+<p>I think that the code for the paddle method <tt class="docutils literal"><span class="pre">stay_in_world</span></tt> is simple enough that I do not need to
 explain to you how it works.  Some observations:</p>
 <ol class="arabic simple">
-<li>The function <tt class="docutils literal"><span class="pre">keep_paddle_in</span></tt> is <strong>much</strong> simpler than <tt class="docutils literal"><span class="pre">stay_in_world</span></tt> that is used
-to keep the ball inside.  Perhaps there is a lesson there ... let&#8217;s keep this in mind.</li>
+<li>The method <tt class="docutils literal"><span class="pre">stay_in_world</span></tt> for the paddle is <strong>much</strong> simpler than the corresponding
+one for the ball.  Perhaps there is a lesson there ... let&#8217;s keep this in mind.</li>
 <li>There is something <em>not quite right</em> about having 3 instructions specific to the paddle
 inside each <tt class="docutils literal"><span class="pre">if</span></tt> statement for the function <tt class="docutils literal"><span class="pre">handle_keydown_events()</span></tt>.  However,
 since it works, I will leave it as is for now.</li>
@@ -154,10 +159,13 @@ since it works, I will leave it as is for now.</li>
 <div class="topic">
 <p class="topic-title first">Your turn</p>
 <p>Look at the code and consider the above observations.  Can you think of a different
-way of writing the code that could make things better?</p>
+way of writing the code that could make things better?  If you do, and especially
+if you are using two different browsers (one in which to write your own version
+and another to write my version of the code) to follow this tutorial, you might
+want to make the relevant change in your own code.</p>
 </div>
 <div class="section" id="bouncing-the-ball-off-the-paddle">
-<h2>11.1. Bouncing the ball off the paddle<a class="headerlink" href="#bouncing-the-ball-off-the-paddle" title="Permalink to this headline">¶</a></h2>
+<h2>10.1. Bouncing the ball off the paddle<a class="headerlink" href="#bouncing-the-ball-off-the-paddle" title="Permalink to this headline">¶</a></h2>
 <p>We want the ball to bounce up from the paddle when it hits it.  But what do we mean by
 &#8220;hit&#8221;?  Let&#8217;s draw some rectangles on the screen so that we can discuss this in details.</p>
 <div class="topic">
@@ -257,14 +265,14 @@ read and understand.</div></blockquote>
 </div>
 </div>
 <div class="section" id="squaring-the-circle">
-<h2>11.2. Squaring the circle<a class="headerlink" href="#squaring-the-circle" title="Permalink to this headline">¶</a></h2>
+<h2>10.2. Squaring the circle<a class="headerlink" href="#squaring-the-circle" title="Permalink to this headline">¶</a></h2>
 <p>The approach mentioned above works well when dealing with rectangles,
 but how can we see if a circle overlaps with a rectangle?</p>
 <p>There is a way to do this <strong>exactly</strong> ... but there is an approximate
 approach that works fairly well for simple games: using a bounding box.</p>
 <div class="topic">
 <p class="topic-title first">Try this</p>
-<p>Run the following code:</p>
+<p>Without erasing your existing code, add and run the following code:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">ctx</span><span class="o">.</span><span class="n">fillStyle</span> <span class="o">=</span> <span class="s">&quot;gold&quot;</span>
 <span class="n">ctx</span><span class="o">.</span><span class="n">fillRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
 
@@ -345,7 +353,7 @@ that will make it easier for you to see that the code is working properly.</p>
 </div>
 </div>
 <div class="section" id="bouncing-at-last">
-<h2>11.3. Bouncing at last!<a class="headerlink" href="#bouncing-at-last" title="Permalink to this headline">¶</a></h2>
+<h2>10.3. Bouncing at last!<a class="headerlink" href="#bouncing-at-last" title="Permalink to this headline">¶</a></h2>
 <p>If you see the ball change colours it overlaps with the paddle, replace the code
 that changes the colour by the following which does a decent job at making the
 ball bounce off the paddle:</p>
@@ -360,7 +368,7 @@ ball bounce off the paddle:</p>
 <p>Try it out and see if you like it.  We almost got a game going!</p>
 </div>
 <div class="section" id="a-question-for-you">
-<h3>11.3.1. A question for you<a class="headerlink" href="#a-question-for-you" title="Permalink to this headline">¶</a></h3>
+<h3>10.3.1. A question for you<a class="headerlink" href="#a-question-for-you" title="Permalink to this headline">¶</a></h3>
 <p>Why did I include <tt class="docutils literal"><span class="pre">and</span> <span class="pre">ball.dy</span> <span class="pre">&gt;</span> <span class="pre">0</span></tt> in the above code?</p>
 </div>
 </div>
@@ -376,10 +384,10 @@ ball bounce off the paddle:</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="game_over.html" title="12. Game over!"
+             <a href="game_over.html" title="11. Game over!"
              >next</a></li>
         <li class="right" >
-             <a href="paddle3.html" title="10. Keeping the paddle in"
+             <a href="paddle3.html" title="9. Keeping the paddle in"
              >previous</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
