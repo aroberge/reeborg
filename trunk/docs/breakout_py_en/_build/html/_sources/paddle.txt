@@ -132,18 +132,18 @@ your function ``stay_in_world`` should look as follows::
 
     def stay_in_world():
         global ball
-        if ball.x < 0 and ball.dx < 0:
+        if ball.x < ball.radius and ball.dx < 0:
             ball.dx = -ball.dx
-            ball.x += ball.dx
-        elif ball.x > canvas.width and ball.dx > 0:
+            ball.x = 2*ball.radius - ball.x
+        elif ball.x > canvas.width - ball.radius and ball.dx > 0:
             ball.dx = -ball.dx
-            ball.x += ball.dx
-        if ball.y < 0 and ball.dy < 0:
+            ball.x = 2*(canvas.width - ball.radius) - ball.x
+        if ball.y < ball.radius and ball.dy < 0:
             ball.dy = -ball.dy
-            ball.y += ball.dy
-        elif ball.y > canvas.height and ball.dy > 0:
+            ball.y = 2*ball.radius - ball.y
+        elif ball.y > canvas.height - ball.radius and ball.dy > 0:
             ball.dy = -ball.dy
-            ball.y += ball.dy
+            ball.y = 2*(canvas.height - ball.radius) - ball.y
 
 This is silly: we have a function that controls the behaviour of a single
 object.  Clearly, this should be made a method of the relevant class of 

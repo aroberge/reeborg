@@ -51,7 +51,8 @@ We want the ball to bounce up from the paddle when it hits it.  But what do we m
 
 .. topic:: Draw this
 
-    Add the following code anywhere (outside of a function) to your game
+    Without removing any of the existing code, 
+    add the following code at the very end of your game
     code and run it.  Do not start the animation!
 
     .. code-block:: py3
@@ -118,7 +119,7 @@ So, as long as one of them starts (either vertically or horizontally)
 in the range where the other one is present, there is a possibility of
 overlap.
 
-Let's start rewriting this in code::
+Let's start rewriting this in code (but do not copy it in your editor)::
 
     if (x_min < X_min < x_max) or (X_min < x_min < X_max):
         print("horizontal overlap exists.")
@@ -127,33 +128,22 @@ Let's start rewriting this in code::
 
 We can combine the two statements and simply write::
 
-    if (    ((x_min < X_min < x_max) or (X_min < x_min < X_max))
+    if ( ((x_min < X_min < x_max) or (X_min < x_min < X_max))
         and ((y_min < Y_min < y_max) or (Y_min < y_min < Y_max)) ):
         print("overlap exists.")    
 
-If we work with objects, we can define an overlap method that returns ``True``
+So, this complicated condition that follows the ``if`` keyword will be ``True``
+if an overlap exists, and ``False`` otherwise.  If we work with rectangular objects,
+we could use it as the return value of an overlap method that returns ``True``
 if the object (``self``) overlap with an other as follows::
 
     def overlap(self, other):
-        if (    ((self.x_min  < other.x_min < self.x_max) or 
+        return ( ((self.x_min  < other.x_min < self.x_max) or 
                  (other.x_min < self.x_min  < other.x_max))
             and ((self.y_min  < other.y_min < self.y_max) or 
-                 (other.y_min < self.y_min  < other.y_max)) ):
-            return True
-        return False    
+                 (other.y_min < self.y_min  < other.y_max)) )
 
-You may find that I have formatted the code a bit strangely, adding
-extra spaces and putting things on different lines even though
-they could have been put on the same line.  The reason I have done
-this is that I find it easier to see the pattern which should make
-it easier to spot any error.  Remember from the beginner's tutorial:
 
-.. important::
-
-    **Rule # 2**
-
-        Write your computer programs to make them easy for **people** to
-        read and understand.
 
 Squaring the circle
 -------------------
@@ -166,7 +156,8 @@ approach that works fairly well for simple games: using a bounding box.
 
 .. topic:: Try this
 
-    Without erasing your existing code, add and run the following code::
+    Replace the code used to draw the four coloured rectangles by the following
+    code and run it (but do not start the animation)::
 
         ctx.fillStyle = "gold"
         ctx.fillRect(10, 310, 99, 90)
@@ -249,7 +240,11 @@ than a strict bounding box.
 Bouncing at last!
 -----------------
 
-If you see the ball change colours it overlaps with the paddle, replace the code
+It may take you a while to get the above working but I am confident that you can.
+So, if you have not made it work ... go back to your code and get it done before
+continuing.  
+
+When you see the ball change colours it overlaps with the paddle, replace the code
 that changes the colour by the following which does a decent job at making the
 ball bounce off the paddle::
 

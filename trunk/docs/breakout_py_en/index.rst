@@ -79,11 +79,14 @@ Contents:
    paddle3
    bounding_box
    game_over
+   cleaning
    brick
-   rule5
    rule6
+   rule6a
    bricks
-   mouse
    bounce
+   mouse
+   game_object
+   rule7
 
 

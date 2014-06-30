@@ -15,26 +15,29 @@ inside the canvas::
         y = ev.clientY - bound.top
         return x, y
 
-We can call a modified version of this function (without having ``canvas`` as an argument as it is known globally) inside the following
+We can add again this function to our code and 
+call it inside the following new
 method for the ``Paddle`` class::
 
     def mouse_move(self, ev):
-        x, y = get_mouse_position(ev)
+        x, y = get_mouse_position(ev, canvas)
         self.x = x
-        keep_paddle_in()
-        self.calculate_bounding_box()
+        self.stay_in_world()
 
 We also need to "bind" this method so that it is invoked when the mouse move:
 
 .. code-block:: py3
-    :emphasize-lines: 2
+    :emphasize-lines: 4
 
-    paddle = Paddle(100, canvas.height-20)
-    doc.bind("mousemove", paddle.mouse_move)
+    def start_animation():
+        # ...
+        paddle = Paddle(100, canvas.height-20)
+        doc.bind("mousemove", paddle.mouse_move)
 
 .. topic:: Your turn!
 
-    Implement the above code and test it!
+    Implement the above code and test it!  You may want to disable controlling
+    the paddle using the keyboard when ``DEBUG == False``.
 
 Hiding the cursor
 ------------------
@@ -42,39 +45,18 @@ Hiding the cursor
 If you find the cursor distracting, you can hide it as follows:
 
 .. code-block:: py3
-    :emphasize-lines: 5, 12
+    :emphasize-lines: 6, 11
 
     def handle_keydown_events(ev):
         # ... some lines of code
-        elif ev.keyCode == 81:  # q or Q  for Quit
-            doc.unbind("keydown")
-            canvas.style.cursor = "default"
-            clear_screen()
-            pause = True
-            if _id is not None: 
-                clear_timeout(_id)
-        elif ev.keyCode == 83 and pause: # s or S for Start
-            pause = False
-            canvas.style.cursor = "none"
-            update()
-
-Bounces: not so straight
-------------------------
-
-If you have played breakout before, you may have noticed that
-the ball bounces differently depending on where it hits the paddle.
-This makes it easier to aim for a particular brick or empty path
-between bricks.   A simple approach is to change the value
-of ``dx`` for the ball so that it is zero if the ball hits
-the paddle right on its midpoint, and is either positive
-or negative depending if it hits to the right or the
-left of the midpoint.
-
-.. topic:: A challenge for you!
-
-    Try to implement a different way for the ball to bounce off
-    the paddle so that it is almost possible to aim it towards a particular
-    spot.
-
-In the next tutorial, I will give a basic way to do this.  It will involve
-changing some lines of the existing code.
+    elif ev.keyCode == 81:  # q or Q  for Quit
+        remind = False
+        doc.unbind("keydown")
+        canvas.style.cursor = "default"
+        # ...
+    elif ev.keyCode == 83 and pause:  # s or S for Start
+        remind = False
+        pause = False
+        canvas.style.cursor = "none"
+        start_animation()        
+        
