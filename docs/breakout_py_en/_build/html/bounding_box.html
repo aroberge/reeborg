@@ -170,7 +170,8 @@ want to make the relevant change in your own code.</p>
 &#8220;hit&#8221;?  Let&#8217;s draw some rectangles on the screen so that we can discuss this in details.</p>
 <div class="topic">
 <p class="topic-title first">Draw this</p>
-<p>Add the following code anywhere (outside of a function) to your game
+<p>Without removing any of the existing code,
+add the following code at the very end of your game
 code and run it.  Do not start the animation!</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">ctx</span><span class="o">.</span><span class="n">fillStyle</span> <span class="o">=</span> <span class="s">&quot;red&quot;</span>
 <span class="n">ctx</span><span class="o">.</span><span class="n">fillRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
@@ -227,7 +228,7 @@ the yellow rectangle starts.</p>
 <p>So, as long as one of them starts (either vertically or horizontally)
 in the range where the other one is present, there is a possibility of
 overlap.</p>
-<p>Let&#8217;s start rewriting this in code:</p>
+<p>Let&#8217;s start rewriting this in code (but do not copy it in your editor):</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">x_min</span> <span class="o">&lt;</span> <span class="n">X_min</span> <span class="o">&lt;</span> <span class="n">x_max</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">X_min</span> <span class="o">&lt;</span> <span class="n">x_min</span> <span class="o">&lt;</span> <span class="n">X_max</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s">&quot;horizontal overlap exists.&quot;</span><span class="p">)</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">y_min</span> <span class="o">&lt;</span> <span class="n">Y_min</span> <span class="o">&lt;</span> <span class="n">y_max</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">Y_min</span> <span class="o">&lt;</span> <span class="n">y_min</span> <span class="o">&lt;</span> <span class="n">Y_max</span><span class="p">):</span>
@@ -235,33 +236,21 @@ overlap.</p>
 </pre></div>
 </div>
 <p>We can combine the two statements and simply write:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span>    <span class="p">((</span><span class="n">x_min</span> <span class="o">&lt;</span> <span class="n">X_min</span> <span class="o">&lt;</span> <span class="n">x_max</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">X_min</span> <span class="o">&lt;</span> <span class="n">x_min</span> <span class="o">&lt;</span> <span class="n">X_max</span><span class="p">))</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="p">((</span><span class="n">x_min</span> <span class="o">&lt;</span> <span class="n">X_min</span> <span class="o">&lt;</span> <span class="n">x_max</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">X_min</span> <span class="o">&lt;</span> <span class="n">x_min</span> <span class="o">&lt;</span> <span class="n">X_max</span><span class="p">))</span>
     <span class="ow">and</span> <span class="p">((</span><span class="n">y_min</span> <span class="o">&lt;</span> <span class="n">Y_min</span> <span class="o">&lt;</span> <span class="n">y_max</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">Y_min</span> <span class="o">&lt;</span> <span class="n">y_min</span> <span class="o">&lt;</span> <span class="n">Y_max</span><span class="p">))</span> <span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s">&quot;overlap exists.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If we work with objects, we can define an overlap method that returns <tt class="docutils literal"><span class="pre">True</span></tt>
+<p>So, this complicated condition that follows the <tt class="docutils literal"><span class="pre">if</span></tt> keyword will be <tt class="docutils literal"><span class="pre">True</span></tt>
+if an overlap exists, and <tt class="docutils literal"><span class="pre">False</span></tt> otherwise.  If we work with rectangular objects,
+we could use it as the return value of an overlap method that returns <tt class="docutils literal"><span class="pre">True</span></tt>
 if the object (<tt class="docutils literal"><span class="pre">self</span></tt>) overlap with an other as follows:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">overlap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-    <span class="k">if</span> <span class="p">(</span>    <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span>  <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">x_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">)</span> <span class="ow">or</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span>  <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">x_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">)</span> <span class="ow">or</span>
              <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">x_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span>  <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">x_max</span><span class="p">))</span>
         <span class="ow">and</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">y_min</span>  <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">y_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span><span class="p">)</span> <span class="ow">or</span>
-             <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">y_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_min</span>  <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">y_max</span><span class="p">))</span> <span class="p">):</span>
-        <span class="k">return</span> <span class="k">True</span>
-    <span class="k">return</span> <span class="k">False</span>
+             <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">y_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_min</span>  <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">y_max</span><span class="p">))</span> <span class="p">)</span>
 </pre></div>
-</div>
-<p>You may find that I have formatted the code a bit strangely, adding
-extra spaces and putting things on different lines even though
-they could have been put on the same line.  The reason I have done
-this is that I find it easier to see the pattern which should make
-it easier to spot any error.  Remember from the beginner&#8217;s tutorial:</p>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p><strong>Rule # 2</strong></p>
-<blockquote class="last">
-<div>Write your computer programs to make them easy for <strong>people</strong> to
-read and understand.</div></blockquote>
 </div>
 </div>
 <div class="section" id="squaring-the-circle">
@@ -272,7 +261,8 @@ but how can we see if a circle overlaps with a rectangle?</p>
 approach that works fairly well for simple games: using a bounding box.</p>
 <div class="topic">
 <p class="topic-title first">Try this</p>
-<p>Without erasing your existing code, add and run the following code:</p>
+<p>Replace the code used to draw the four coloured rectangles by the following
+code and run it (but do not start the animation):</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">ctx</span><span class="o">.</span><span class="n">fillStyle</span> <span class="o">=</span> <span class="s">&quot;gold&quot;</span>
 <span class="n">ctx</span><span class="o">.</span><span class="n">fillRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
 
@@ -354,7 +344,10 @@ that will make it easier for you to see that the code is working properly.</p>
 </div>
 <div class="section" id="bouncing-at-last">
 <h2>10.3. Bouncing at last!<a class="headerlink" href="#bouncing-at-last" title="Permalink to this headline">¶</a></h2>
-<p>If you see the ball change colours it overlaps with the paddle, replace the code
+<p>It may take you a while to get the above working but I am confident that you can.
+So, if you have not made it work ... go back to your code and get it done before
+continuing.</p>
+<p>When you see the ball change colours it overlaps with the paddle, replace the code
 that changes the colour by the following which does a decent job at making the
 ball bounce off the paddle:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">ball</span><span class="o">.</span><span class="n">overlaps_with</span><span class="p">(</span><span class="n">paddle</span><span class="p">)</span> <span class="ow">and</span> <span class="n">ball</span><span class="o">.</span><span class="n">dy</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
