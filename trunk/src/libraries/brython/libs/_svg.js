@@ -69,6 +69,7 @@ var $svg_tags = ['a',
 'desc',
 'ellipse',
 'feBlend',
+'foreignObject', //patch to enable foreign objects
 'g',
 'image',
 'line',

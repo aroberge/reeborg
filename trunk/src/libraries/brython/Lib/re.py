@@ -145,11 +145,11 @@ X = VERBOSE = _jsre.X # ignore whitespace and comments
 def _pyre():
     mdl = _pymdl[0]
     if mdl is None:
-        import pyre
-        _pymdl[0] = pyre
-        return pyre
-    else:
-        return mdl
+       import pyre
+       _pymdl[0] = pyre
+       return pyre
+
+    return mdl
 
 # --------------------------------------------------------------------
 # public interface
@@ -157,18 +157,27 @@ def _pyre():
 def match(pattern, string, flags=0):
     """Try to apply the pattern at the start of the string, returning
     a match object, or None if no match was found."""
+    
+    if not isinstance(pattern, str):
+       return pattern.match(string, flags)
+
     if _jsre._is_valid(pattern):
-        return _jsre.match(pattern, string, flags)
-    else:
-        return _pyre().match(pattern, string, flags)
+       return _jsre.match(pattern, string, flags)
+
+    return _pyre().match(pattern, string, flags)
 
 def search(pattern, string, flags=0):
     """Scan through string looking for a match to the pattern, returning
     a match object, or None if no match was found."""
+
+    if not isinstance(pattern, str):
+       return pattern.search(string, flags)
+
     if _jsre._is_valid(pattern):
-        return _jsre.search(pattern, string, flags)
-    else:
-        return _pyre().search(pattern, string, flags)
+       return _jsre.search(pattern, string, flags)
+
+    return _pyre().search(pattern, string, flags)
+
 
 def sub(pattern, repl, string, count=0, flags=0):
     """Return the string obtained by replacing the leftmost
@@ -177,10 +186,14 @@ def sub(pattern, repl, string, count=0, flags=0):
     if a string, backslash escapes in it are processed.  If it is
     a callable, it's passed the match object and must return
     a replacement string to be used."""
+
+    if not isinstance(pattern, str):
+       return pattern.sub(repl, string, count, flags)
+
     if _jsre._is_valid(pattern):
         return _jsre.sub(pattern, repl, string, count, flags)
-    else:
-        return _pyre().sub(pattern, repl, string, count, flags)
+    
+    return _pyre().sub(pattern, repl, string, count, flags)
 
 def subn(pattern, repl, string, count=0, flags=0):
     """Return a 2-tuple containing (new_string, number).
@@ -191,10 +204,14 @@ def subn(pattern, repl, string, count=0, flags=0):
     callable; if a string, backslash escapes in it are processed.
     If it is a callable, it's passed the match object and must
     return a replacement string to be used."""
+
+    if not isinstance(pattern, str):
+       return pattern.subn(repl, string, count, flags)
+
     if _jsre._is_valid(pattern):
         return _jsre.subn(pattern, repl, string, count, flags)
-    else:
-        return _pyre().subn(pattern, repl, string, count, flags)
+
+    return _pyre().subn(pattern, repl, string, count, flags)
 
 def split(pattern, string, maxsplit=0, flags=0):
     """Split the source string by the occurrences of the pattern,
@@ -204,10 +221,14 @@ def split(pattern, string, maxsplit=0, flags=0):
     list.  If maxsplit is nonzero, at most maxsplit splits occur,
     and the remainder of the string is returned as the final element
     of the list."""
+
+    if not isinstance(pattern, str):
+       return pattern.split(string, maxsplit, flags)
+
     if _jsre._is_valid(pattern):
         return _jsre.split(pattern, string, maxsplit, flags)
-    else:
-        return _pyre().split(pattern, string, maxsplit, flags)
+
+    return _pyre().split(pattern, string, maxsplit, flags)
 
 def findall(pattern, string, flags=0):
     """Return a list of all non-overlapping matches in the string.
@@ -217,26 +238,30 @@ def findall(pattern, string, flags=0):
     has more than one group.
 
     Empty matches are included in the result."""
+
+    if not isinstance(pattern, str):
+       return pattern.findall(pattern, string, flags)
+
     if _jsre._is_valid(pattern):
         return _jsre.findall(pattern, string, flags)
     else:
         return _pyre().findall(pattern, string, flags)
 
-if sys.hexversion >= 0x02020000:
-    __all__.append("finditer")
-    def finditer(pattern, string, flags=0):
-        """Return an iterator over all non-overlapping matches in the
-        string.  For each match, the iterator returns a match object.
+def finditer(pattern, string, flags=0):
+    """Return an iterator over all non-overlapping matches in the
+       string.  For each match, the iterator returns a match object.
 
-        Empty matches are included in the result."""
-        return _pyre().finditer(pattern, string, flags)
+       Empty matches are included in the result."""
+
+    return _pyre().finditer(pattern, string, flags)
 
 def compile(pattern, flags=0):
     "Compile a regular expression pattern, returning a pattern object."
+
     if _jsre._is_valid(pattern):
-        return _jsre.compile(pattern, flags)
-    else:
-        return _pyre().compile(pattern, flags)
+       return _jsre.compile(pattern, flags)
+
+    return _pyre().compile(pattern, flags)
 
 def purge():
     "Clear the regular expression caches"

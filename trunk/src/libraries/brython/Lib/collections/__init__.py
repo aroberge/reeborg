@@ -16,6 +16,10 @@ from _abcoll import MutableMapping
 #import _abcoll
 #__all__ += _abcoll.__all__
 
+from collections.abc import *
+import collections.abc
+__all__ += collections.abc.__all__
+
 from _collections import deque, defaultdict, namedtuple
 from operator import itemgetter as _itemgetter
 from keyword import iskeyword as _iskeyword

@@ -266,7 +266,7 @@ class permutations:
         self.n = len(self.pool)
         self.r = self.n if r is None else r
         self.indices = list(range(self.n))
-        self.cycles = list(range(self.n, self.n - r, -1))
+        self.cycles = list(range(self.n, self.n - self.r, -1))
         self.zero = False
         self.stop = False
 
@@ -298,9 +298,25 @@ class permutations:
             i -= 1
         raise StopIteration
 
+# copied from Python documentation on itertools.product
+def product(*args, repeat=1):
+    # product('ABCD', 'xy') --> Ax Ay Bx By Cx Cy Dx Dy
+    # product(range(2), repeat=3) --> 000 001 010 011 100 101 110 111
+    pools = [tuple(pool) for pool in args] * repeat
+    result = [[]]
+    for pool in pools:
+        result = [x+[y] for x in result for y in pool]
+    for prod in result:
+        yield tuple(prod)
+
+
 ## adapted from
 ##https://bitbucket.org/pypy/pypy/src/c1aa74c06e86/lib_pypy/itertools.py#cl-392        
-class product:
+
+## (Brython) 
+## renamed to _product : the implementation fails for product('abc', [])
+## with CPython 3.x
+class _product:
     def __init__(self, *args, **kw):
         if len(kw) > 1:
             raise TypeError("product() takes at most 1 argument (%d given)" %
@@ -350,6 +366,7 @@ class product:
             l = []
             for x in range(0, self.num_gears):
                 index, limit = self.indicies[x]
+                print('itertools 353',self.gears,x,index)
                 l.append(self.gears[x][index])
             self.roll_gears()
             return tuple(l)

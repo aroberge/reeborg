@@ -22,7 +22,9 @@ from importlib._bootstrap import cache_from_source, source_from_cache
 
 
 from importlib import _bootstrap
-from importlib import machinery
+#fixme brython
+#from importlib import machinery
+import importlib.machinery as machinery
 import os
 import sys
 import tokenize

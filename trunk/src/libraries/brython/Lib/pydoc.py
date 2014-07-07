@@ -55,7 +55,7 @@ import builtins
 import imp
 import importlib.machinery
 #brython fix me
-#import inspect
+import inspect
 import io
 import os
 #brython fix me
@@ -88,8 +88,6 @@ def pathdirs():
 
 def getdoc(object):
     """Get the doc string or comments for an object."""
-    #earney fix me
-    print(object)
     result = inspect.getdoc(object) or inspect.getcomments(object)
     return result and re.sub('^ *\n', '', result.rstrip()) or ''
 
@@ -134,7 +132,9 @@ _re_stripid = re.compile(r' at 0x[0-9a-f]{6,16}(>+)$', re.IGNORECASE)
 def stripid(text):
     """Remove the hexadecimal id from a Python object representation."""
     # The behaviour of %p is implementation-dependent in terms of case.
-    return _re_stripid.sub(r'\1', text)
+    #fix me brython
+    #return _re_stripid.sub(r'\1', text)
+    return text
 
 def _is_some_method(obj):
     return (inspect.isfunction(obj) or
@@ -322,7 +322,9 @@ def safeimport(path, forceload=0, cache={}):
         elif exc is SyntaxError:
             # A SyntaxError occurred before we could execute the module.
             raise ErrorDuringImport(value.filename, info)
-        elif exc is ImportError and value.name == path:
+        #fix me brython
+        #elif exc is ImportError and value.name == path:
+        elif exc is ImportError and str(value) == str(path):
             # No such module in the path.
             return None
         else:
@@ -737,6 +739,7 @@ class HTMLDoc(Doc):
     def docclass(self, object, name=None, mod=None, funcs={}, classes={},
                  *ignored):
         """Produce HTML documentation for a class object."""
+        print('docclass')
         realname = object.__name__
         name = name or realname
         bases = object.__bases__
@@ -999,12 +1002,12 @@ class TextRepr(Repr):
         self.maxdict = 10
         self.maxstring = self.maxother = 100
 
-    def repr1(self, x, level):
-        if hasattr(type(x), '__name__'):
-            methodname = 'repr_' + '_'.join(type(x).__name__.split())
-            if hasattr(self, methodname):
-                return getattr(self, methodname)(x, level)
-        return cram(stripid(repr(x)), self.maxother)
+    #def repr1(self, x, level):
+    #    if hasattr(type(x), '__name__'):
+    #        methodname = 'repr_' + '_'.join(type(x).__name__.split())
+    #        if hasattr(self, methodname):
+    #            return getattr(self, methodname)(x, level)
+    #    return cram(stripid(repr(x)), self.maxother)
 
     def repr_string(self, x, level):
         test = cram(x, self.maxstring)

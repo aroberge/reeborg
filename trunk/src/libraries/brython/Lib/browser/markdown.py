@@ -247,6 +247,7 @@ def s_unmark(mo):
 def apply_markdown(src):
 
     scripts = []
+    key = None
 
     i = 0
     while i<len(src):

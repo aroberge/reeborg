@@ -108,6 +108,7 @@ class SAXNotRecognizedException(SAXException):
     An XMLReader will raise this exception when it is confronted with an
     unrecognized feature or property. SAX applications and extensions may
     use this class for similar purposes."""
+    pass
 
 
 # ===== SAXNOTSUPPORTEDEXCEPTION =====
@@ -120,6 +121,7 @@ class SAXNotSupportedException(SAXException):
     applications and extensions may use this class for similar
     purposes."""
 
+    pass
 # ===== SAXNOTSUPPORTEDEXCEPTION =====
 
 class SAXReaderNotAvailable(SAXNotSupportedException):
@@ -129,3 +131,5 @@ class SAXReaderNotAvailable(SAXNotSupportedException):
     is first imported, e.g. when a support module cannot be imported.
     It also may be raised during parsing, e.g. if executing an external
     program is not permitted."""
+
+    pass
