@@ -112,7 +112,9 @@ class SRE_Pattern:
         if not callable(template) and "\\" in template:
             # handle non-literal strings ; hand it over to the template compiler
             #import sre  #sre was renamed to re
-            import re as sre
+            #fix me brython
+            #print("possible issue at _sre.py line 116")
+            import pyre as sre
             filter = sre._subx(self, template)
         state = _State(string, 0, sys.maxsize, self.flags)
         sublist = []
@@ -864,8 +866,8 @@ class _OpcodeDispatcher(_Dispatcher):
                 ctx.state.marks_pop_keep()
 
         ctx.state.marks_pop_discard()
-        #ctx.has_matched = False
-        ctx.has_matched = True      # <== this should be True (so match object gets returned to program)
+        ctx.has_matched = False
+        #ctx.has_matched = True      # <== this should be True (so match object gets returned to program)
         yield True
 
     def op_min_repeat_one(self, ctx):
@@ -924,7 +926,6 @@ class _OpcodeDispatcher(_Dispatcher):
         #   print("951:ctx.state.repeat is None")
         #   #ctx.state.repeat=_RepeatContext(ctx)
 
-        print("repeat", ctx.state.repeat)
         repeat = _RepeatContext(ctx)
         ctx.state.repeat = repeat
         ctx.state.string_position = ctx.string_position

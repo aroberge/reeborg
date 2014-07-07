@@ -110,7 +110,28 @@ class _implementation:
 
 implementation=_implementation()
 
+class _hash_info:
+  def __init__(self):
+      self.width=32, 
+      self.modulus=2147483647
+      self.inf=314159 
+      self.nan=0
+      self.imag=1000003
+      self.algorithm='siphash24' 
+      self.hash_bits=64 
+      self.seed_bits=128 
+      cutoff=0
+
+  def __repr(self):
+      #fix me
+      return "sys.hash_info(width=32, modulus=2147483647, inf=314159, nan=0, imag=1000003, algorithm='siphash24', hash_bits=64, seed_bits=128, cutoff=0)"
+
+hash_info=_hash_info()
+
 warnoptions=[]
+
+def getfilesystemencoding():
+    return 'utf-8'
 
 #delete objects not in python sys module namespace
 del JSObject

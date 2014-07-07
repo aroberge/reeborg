@@ -21,8 +21,6 @@ and opendir), and leave all pathname manipulation to os.path
 (e.g., split and join).
 """
 
-#'
-
 import sys, errno
 import stat as st
 

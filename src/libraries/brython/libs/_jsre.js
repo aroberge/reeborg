@@ -31,7 +31,7 @@ var $module = (function($B){
             is_valid = true;
         }
         catch(e) {}
-        if (!is_valid) return is_valid  //if js won't prase the pattern return false
+        if (!is_valid) return false  //if js won't parse the pattern return false
 
         // using reference http://www.regular-expressions.info/
         // to compare python re and javascript regex libraries

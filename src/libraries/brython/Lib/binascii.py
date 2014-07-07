@@ -70,7 +70,7 @@ def b2a_uu(s):
          chr(0x20 + (((B << 2) | ((C >> 6) & 0x3)) & 0x3F)),
          chr(0x20 + (( C                         ) & 0x3F))])
               for A, B, C in triples_gen(s)]
-    return chr(ord(' ') + (length & 077)) + ''.join(result) + '\n'
+    return chr(ord(' ') + (length & 0o77)) + ''.join(result) + '\n'
 
 
 table_a2b_base64 = {
@@ -143,8 +143,8 @@ table_a2b_base64 = {
 
 
 def a2b_base64(s):
-    if not isinstance(s, (str, unicode)):
-        raise TypeError("expected string or unicode, got %r" % (s,))
+    if not isinstance(s, (str, bytes)):
+        raise TypeError("expected string, got %r" % (s,))
     s = s.rstrip()
     # clean out all invalid characters, this also strips the final '=' padding
     # check for correct padding
@@ -165,6 +165,8 @@ def a2b_base64(s):
     leftchar = 0
     res = []
     for i, c in enumerate(s):
+        if isinstance(c, int):
+            c = chr(c)
         if c > '\x7f' or c == '\n' or c == '\r' or c == ' ':
             continue
         if c == '=':
@@ -186,11 +188,11 @@ def a2b_base64(s):
             leftchar &= ((1 << leftbits) - 1)
     if leftbits != 0:
         raise Error('Incorrect padding')
+
+    return bytes(''.join([chr(i) for i in res]),__BRYTHON__.charset)
     
-    return ''.join([chr(i) for i in res])
-    
-table_b2a_base64 = \
-"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+table_b2a_base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"\
+    "0123456789+/"
 
 def b2a_base64(s):
     length = len(s)
@@ -199,14 +201,13 @@ def b2a_base64(s):
     def triples_gen(s):
         while s:
             try:
-                yield ord(s[0]), ord(s[1]), ord(s[2])
+                yield s[0], s[1], s[2]
             except IndexError:
-                s += '\0\0'
-                yield ord(s[0]), ord(s[1]), ord(s[2])
+                s += b'\0\0'
+                yield s[0], s[1], s[2]
                 return
             s = s[3:]
 
-    
     a = triples_gen(s[ :length - final_length])
 
     result = [''.join(
@@ -229,7 +230,8 @@ def b2a_base64(s):
         snippet = table_b2a_base64[(a >> 2) & 0x3F] + \
                   table_b2a_base64[((a << 4) | (b >> 4) & 0xF) & 0x3F] + \
                   table_b2a_base64[(b << 2) & 0x3F] + '='
-    return ''.join(result) + snippet + '\n'
+
+    return bytes(''.join(result) + snippet + '\n',__BRYTHON__.charset)
 
 def a2b_qp(s, header=False):
     inp = 0

@@ -1696,7 +1696,6 @@ def _setup(sys_module, _imp_module):
 
     """
 
-    print("_bootstrap.setup")
     global _imp, sys, BYTECODE_SUFFIXES
     _imp = _imp_module
     sys = sys_module
@@ -1767,8 +1766,6 @@ def _setup(sys_module, _imp_module):
         SOURCE_SUFFIXES.append('.pyw')
         if '_d.pyd' in EXTENSION_SUFFIXES:
             WindowsRegistryFinder.DEBUG_BUILD = True
-
-    print('bytecode suffixes:', BYTECODE_SUFFIXES)
 
 def _install(sys_module, _imp_module):
     """Install importlib as the implementation of import."""

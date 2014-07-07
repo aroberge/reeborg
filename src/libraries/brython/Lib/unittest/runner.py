@@ -148,6 +148,7 @@ class TextTestRunner(object):
         result.failfast = self.failfast
         result.buffer = self.buffer
         with warnings.catch_warnings():
+
             if self.warnings:
                 # if self.warnings is set, use it to filter all the warnings
                 warnings.simplefilter(self.warnings)
