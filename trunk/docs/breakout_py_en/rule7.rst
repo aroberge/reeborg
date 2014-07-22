@@ -48,9 +48,20 @@ This last step most likely takes a fair bit of time.
 There is a way to make it significantly faster.
 
 Instead of a single html canvas, there are actually 4 canvases
-on the `the game world environment <../../game.html>`_  You can think
+on the `the game world environment <../../game.html>`_ Here is
+the actual html code used on that page:
+
+.. code-block:: html
+
+    <canvas id="far-background-canvas" width="620" height="550"></canvas>
+    <canvas id="background-canvas" width="620" height="550"></canvas>
+    <canvas id="main-canvas" width="620" height="550"></canvas>
+    <canvas id="game-canvas" width="620" height="550"></canvas>
+
+You can think
 of them as 4 separate transparent sheets on which you can draw.
-Drawings on the top sheet will hide those on the buttom sheets where
+Drawings on the top sheet (the one appearing last in the html code above) 
+will hide those on the buttom sheets where
 they overlap.  So, here is a trick we can use: instead of redrawing
 the bricks at each iteration of the game loop, we only draw them once
 at the very beginning, but on a canvas that is located "below" that

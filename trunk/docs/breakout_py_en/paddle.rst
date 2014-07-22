@@ -3,7 +3,7 @@ Paddle
 
 In breakout, which is the game we are making, we hit a ball
 with a paddle.  So, let's draw the simplest paddle we can make:
-a rectangle.
+a rectangle.  To do this, we use the canvas ``fillRect`` method.
 
 .. topic:: Do this!
 
@@ -24,7 +24,7 @@ a rectangle.
 Moving paddle?
 --------------
 
-So, we know how to draw a simple paddle. 
+So, we know how to draw a simple paddle.
 We now need to make it move.  To do that, we need to
 change its ``x`` coordinate (the paddle usually does not move up
 and down on the screen).  Note how I used a **local** variable
@@ -35,14 +35,14 @@ either change its name (so as to distinguish it from the ``x`` denoting
 the position of the circle) or pass it as an argument to the function.
 However, if I do that, I still have to think of a name for it as
 I call it from outside the function.  Perhaps something like:
-``draw_paddle(paddle_x)``.   And, suppose I want to give the 
+``draw_paddle(paddle_x)``.   And, suppose I want to give the
 option of changing its size, and perhaps its vertical position
 as well, the perhaps I should plan to pass all four variables
 as arguments, something like::
 
     draw_paddle(paddle_x, paddle_y, paddle_width, paddle_height)
 
-.. important:: 
+.. important::
 
     STOP!
 
@@ -83,23 +83,23 @@ Here's the code to create a class for such an object::
             self.color = color
             self.dx = dx
             self.dy = dy
-        
+
         def draw(self):
             ctx.fillStyle = self.color
             ctx.beginPath()
             ctx.arc(self.x, self.y, self.radius, 0, pi*2)
             ctx.closePath()
-            ctx.fill()    
+            ctx.fill()
 
 Note that we have given default values for most of the arguments, based
 on what we had so far.
 
 .. topic:: Your turn!
 
-    Define the class ``Ball`` as above.  Then reorganize 
+    Define the class ``Ball`` as above.  Then reorganize
     your code using the following steps:
 
-    #. Inside ``start_animation()``, create one instance of the Ball using the 
+    #. Inside ``start_animation()``, create one instance of the Ball using the
        default values ``ball = Ball(10, 10)`` and make it draw itself
        usign ``ball.draw()``.  Remove all unused variables in that function.
        Make sure that ``ball`` is a global variable so that it is known outside
@@ -117,7 +117,7 @@ on what we had so far.
        does not look good, but it is required at this point.  We'll make this look better in
        a short while.
 
-    #. Remove the function ``draw_circle`` from your library; it is no longer needed.
+    #. Remove the function ``draw_circle`` from your code; it is no longer needed.
 
     #. Carefully read over your code and remove any variables that are no longer needed.
 
@@ -127,7 +127,7 @@ on what we had so far.
 More cleanup
 ------------
 
-If you have followed the instructions I gave you above, 
+If you have followed the instructions I gave you above,
 your function ``stay_in_world`` should look as follows::
 
     def stay_in_world():
@@ -146,7 +146,7 @@ your function ``stay_in_world`` should look as follows::
             ball.y = 2*(canvas.height - ball.radius) - ball.y
 
 This is silly: we have a function that controls the behaviour of a single
-object.  Clearly, this should be made a method of the relevant class of 
+object.  Clearly, this should be made a method of the relevant class of
 objects.
 
 .. topic:: Your turn!

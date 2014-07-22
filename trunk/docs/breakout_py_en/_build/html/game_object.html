@@ -426,23 +426,23 @@ let&#8217;s rename it <tt class="docutils literal"><span class="pre">loop</span>
                                    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">50</span><span class="p">)]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pause</span><span class="p">:</span>
-        <span class="k">return</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">clear_screen</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">write_help</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">show_fps</span><span class="p">()</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">overlaps_with</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paddle</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">handle_hit_with_paddle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paddle</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">brick</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bricks</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">overlaps_with</span><span class="p">(</span><span class="n">brick</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">handle_hit_with_brick</span><span class="p">(</span><span class="n">brick</span><span class="p">)</span>
-            <span class="n">brick</span><span class="o">.</span><span class="n">handle_hit_with_ball</span><span class="p">()</span>
-        <span class="n">brick</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">paddle</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="n">set_timeout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_between_frames</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_screen</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_help</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_fps</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">overlaps_with</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paddle</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">handle_hit_with_paddle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paddle</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">brick</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bricks</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">overlaps_with</span><span class="p">(</span><span class="n">brick</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">handle_hit_with_brick</span><span class="p">(</span><span class="n">brick</span><span class="p">)</span>
+                <span class="n">brick</span><span class="o">.</span><span class="n">handle_hit_with_ball</span><span class="p">()</span>
+            <span class="n">brick</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ball</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">paddle</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pause</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="n">set_timeout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_between_frames</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_mouse_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ev</span><span class="p">):</span>
         <span class="n">bound</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">getBoundingClientRect</span><span class="p">()</span>
