@@ -313,23 +313,23 @@ let's rename it ``loop`` and, with the exception of the code that is already in 
                                        for y in range(100, 350, 50)]
             self.loop()
 
-    def loop(self):
-        if self.pause:
-            return
-        self.clear_screen()
-        self.write_help()
-        self.ball.update()
-        self.show_fps()
-        if self.ball.overlaps_with(self.paddle):
-            self.ball.handle_hit_with_paddle(self.paddle)
-        for brick in self.bricks:
-            if self.ball.overlaps_with(brick):
-                self.ball.handle_hit_with_brick(brick)
-                brick.handle_hit_with_ball()
-            brick.draw()
-        self.ball.draw()
-        self.paddle.draw()
-        self.frame_id = set_timeout(self.loop, self.time_between_frames)
+        def loop(self):
+            self.clear_screen()
+            self.write_help()
+            self.ball.update()
+            self.show_fps()
+            if self.ball.overlaps_with(self.paddle):
+                self.ball.handle_hit_with_paddle(self.paddle)
+            for brick in self.bricks:
+                if self.ball.overlaps_with(brick):
+                    self.ball.handle_hit_with_brick(brick)
+                    brick.handle_hit_with_ball()
+                brick.draw()
+            self.ball.draw()
+            self.paddle.draw()
+            if self.pause:
+                return
+            self.frame_id = set_timeout(self.loop, self.time_between_frames)
 
         def get_mouse_position(self, ev):
             bound = self.canvas.getBoundingClientRect()  
@@ -419,19 +419,19 @@ by this::
 Finally, inside the ``stay_in_world`` of the ``Ball`` class, you need
 to replace::
 
-                if DEBUG:
-                    self.dy = -self.dy
-                    self.y = 2*(canvas.height - self.radius) - self.y
-                else:
-                    game_over()
+    if DEBUG:
+        self.dy = -self.dy
+        self.y = 2*(canvas.height - self.radius) - self.y
+    else:
+        game_over()
 
 by::
 
-                if DEBUG:
-                    self.dy = -self.dy
-                    self.y = 2*(canvas.height - self.radius) - self.y
-                else:
-                    game.game_over()
+    if DEBUG:
+        self.dy = -self.dy
+        self.y = 2*(canvas.height - self.radius) - self.y
+    else:
+        game.game_over()
 
 
 

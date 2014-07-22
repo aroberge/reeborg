@@ -88,5 +88,7 @@ Contents:
    mouse
    game_object
    rule7
+   four_canvases
+   images_bb
 
 

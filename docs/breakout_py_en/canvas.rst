@@ -6,14 +6,13 @@ what happens if we make a mistake.  In the Python editor
 of `the game world environment <../../game.html>`_, enter
 the following incorrect code::
 
-    print ( 
+    print( 
 
 and see what happens.
 
 Saw it?  This informs you that an error message has been
 written in Reeborg's Diary and that you need to open the
-Diary to view it.  If the Diary is already open, you will
-not see this visual warning.
+Diary to view it.
 
 .. important::
 
@@ -53,7 +52,7 @@ Programming tutorial.
         var canvas = document.getElementById("game-canvas");
         inspect(canvas);
 
-Here's a sample of what I see:
+Here's a sample of what I see (using Chrome version 35; with Firefox, the order is different):
 
 .. code-block:: py3
 

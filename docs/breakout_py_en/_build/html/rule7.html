@@ -24,6 +24,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Breakout: making a game with Python" href="index.html" />
+    <link rel="next" title="21. Four canvases" href="four_canvases.html" />
     <link rel="prev" title="19. The Game object" href="game_object.html" /> 
   
   <script>
@@ -62,8 +63,11 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
+             <a href="four_canvases.html" title="21. Four canvases"
+             accesskey="N">next</a></li>
+        <li class="right" >
              <a href="game_object.html" title="19. The Game object"
-             accesskey="P">previous</a></li>
+             accesskey="P">previous</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
             </a></li>
@@ -84,6 +88,9 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="game_object.html"
                         title="previous chapter">19. The Game object</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="four_canvases.html"
+                        title="next chapter">21. Four canvases</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/rule7.txt"
@@ -154,9 +161,18 @@ as you will likely understand by the end of this tutorial section.</p>
 <p>This last step most likely takes a fair bit of time.
 There is a way to make it significantly faster.</p>
 <p>Instead of a single html canvas, there are actually 4 canvases
-on the <a class="reference external" href="../../game.html">the game world environment</a>  You can think
+on the <a class="reference external" href="../../game.html">the game world environment</a> Here is
+the actual html code used on that page:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">&quot;far-background-canvas&quot;</span> <span class="na">width=</span><span class="s">&quot;620&quot;</span> <span class="na">height=</span><span class="s">&quot;550&quot;</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+<span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">&quot;background-canvas&quot;</span> <span class="na">width=</span><span class="s">&quot;620&quot;</span> <span class="na">height=</span><span class="s">&quot;550&quot;</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+<span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">&quot;main-canvas&quot;</span> <span class="na">width=</span><span class="s">&quot;620&quot;</span> <span class="na">height=</span><span class="s">&quot;550&quot;</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+<span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">&quot;game-canvas&quot;</span> <span class="na">width=</span><span class="s">&quot;620&quot;</span> <span class="na">height=</span><span class="s">&quot;550&quot;</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</pre></div>
+</div>
+<p>You can think
 of them as 4 separate transparent sheets on which you can draw.
-Drawings on the top sheet will hide those on the buttom sheets where
+Drawings on the top sheet (the one appearing last in the html code above)
+will hide those on the buttom sheets where
 they overlap.  So, here is a trick we can use: instead of redrawing
 the bricks at each iteration of the game loop, we only draw them once
 at the very beginning, but on a canvas that is located &#8220;below&#8221; that
@@ -249,8 +265,11 @@ when creating bricks, as follows:</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
+             <a href="four_canvases.html" title="21. Four canvases"
+             >next</a></li>
+        <li class="right" >
              <a href="game_object.html" title="19. The Game object"
-             >previous</a></li>
+             >previous</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
             </a></li>
