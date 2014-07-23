@@ -17,23 +17,22 @@ reached the coloured square which we described before as Reeborg's home.
 In many worlds, it makes more sense to think of this as Reeborg's goal
 destination, rather than home, and the function that Reeborg uses to
 determine this is ``at_goal()``. Here's the outline of a solution that
-should work in all four worlds mentioned above.::
+should work in all four worlds mentioned above.
 
-    function move_until_done() {
-        if ( at_goal() ) {
-            // something
-        }
-        move();
-        if ( token_here() ){
-            // something
-            // something else
-            // something else again
-        }
-    }
+.. code-block:: python
 
-    repeat(move_until_done, 42);
+    def move_until_done():
+        if at_goal():
+            # something
+        move()
+        if token_here():
+            # something
+            # something else
+            # something else again
 
-Complete the above (in the Javascript Code editor) and make sure it works for all
+    repeat(move_until_done, 42)
+
+Complete the above (in the Python Code editor) and make sure it works for all
 four worlds mentioned above.
 
 And now, something different
@@ -55,8 +54,8 @@ Have a look at worlds **Hurdles 1** and **Hurdles 2**. Ignoring the end goal f
 a second, a program that Reeborg could follow to race over these hurdles
 would alternate between two instructions
 
--  ``move();``
--  ``jump_over_hurdle();``
+-  ``move()``
+-  ``jump_over_hurdle()``
 
 with the appropriate definition for ``jump_over_hurdle()``. If you could
 include a test (``if`` statement) at some point to see if you have
@@ -64,7 +63,7 @@ reached the goal, you could use the above to create a new function, that
 we could call ``move_and_jump_until_done()`` so that a program suitable
 for both worlds **Hurdles 1** and **Hurdles 2** would be::
 
-    repeat(move_and_jump_until_done, 42);
+    repeat(move_and_jump_until_done, 42)
 
 .. topic:: Do it!
 
@@ -74,21 +73,17 @@ for both worlds **Hurdles 1** and **Hurdles 2** would be::
 
    Your program could look as follows::
    
-    import_lib();
-    
-    function jump_over_hurdle(){ 
-        // some definitions
-    }
+    import my_lib
+    def jump_over_hurdle():
+        # some definitions
 
-    function move_and_jump_until_done(){ 
-        // something
-        if (at_goal()){ 
-            done();
-        }
-        // something
-    }
+    def move_and_jump_until_done():
+        # something
+        if at_goal():
+            done()
+        # something
 
-    repeat(move_and_jump_until_done, 42);
+    repeat(move_and_jump_until_done, 42)
 
 
 A question for you

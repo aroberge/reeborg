@@ -28,11 +28,10 @@ And, like in a loop, we do not want to get stuck forever.
 The simplest example is that of a single recursive function, that is a
 function that calls itself.::
 
-    function recursive(){
-        if (!completed_task()){
+    def recursive():
+        if not completed_task():
             ...
-            recursive();  // the same function is called ...
-        }
+            recursive()  # the same function is called ...
 
 Let's consider a real program for Reeborg to execute. 
 
@@ -40,15 +39,13 @@ Let's consider a real program for Reeborg to execute.
 
     Select **Home 1** and have Reeborg do the following::
 
-        function go_home(){
-            if (!at_goal()) {
+        def go_home():
+            if not at_goal():
                 move()
-                go_home();
-            }
-        }
+                go_home()
 
-        // now do it!
-        go_home();
+        # now do it!
+        go_home()
 
 Once you have tried the above and tried to understood it, go to the
 next lesson where we will review it and consider a slightly trickier example.

@@ -8,15 +8,13 @@ not next to a token. Since we were next to a token, we never go the
 chance to get in the ``while`` loop. Perhaps we can change the program
 to add a ``move()`` before we start the loop, as follows::
 
-    put("token");
-    move();
-    while ( !token_here() ){
-        if (front_is_clear()){
-            move();
-        } else {
-            turn_left();
-        }
-    }
+    put("token")
+    move()
+    while not token_here():
+        if front_is_clear():
+            move()
+        else:
+            turn_left()
 
 .. topic:: Try it!
 
@@ -37,17 +35,15 @@ Reeborg needs to do is first to check on his right to see if there is
 still a wall; if not, we have him make a right turn. Here's a modified
 program that *attempts* to do just that::
 
-    put("token");
-    move();
-    while ( !token_here() ){
-        if (right_is_clear()){
-            turn_right();
-        } else if (front_is_clear()){
-            move();
-        } else {
-            turn_left();
-        }
-    }
+    put("token")
+    move()
+    while not token_here():
+        if right_is_clear():
+            turn_right()
+        elif front_is_clear():
+            move()
+        else:
+            turn_left()
 
 .. topic:: Your turn!
 

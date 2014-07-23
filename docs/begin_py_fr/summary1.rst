@@ -25,11 +25,11 @@ While I have not mentioned this explicitly, you have also learned that a
 program is a series of instructions. You have seen a total of 5
 different instructions:
 
--  ``move();``
--  ``turn_left();``
--  ``take();`` equivalent to ``take("token");``
--  ``put();`` equivalent to ``put("token");``
--  ``pause();``
+-  ``move()``
+-  ``turn_left()``
+-  ``take()`` equivalent to ``take("token")``
+-  ``put()`` equivalent to ``put("token")``
+-  ``pause()``
 
 You may or may not have used the ``pause()`` instruction which I only
 mentioned in passing when talking about bugs. If you have not done so,

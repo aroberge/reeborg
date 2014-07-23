@@ -5,18 +5,16 @@ As you should have noticed the program doesn't work. What happens is
 that Reeborg gets in an infinite loop when there is no wall around him.
 We need to have him ``move()`` after turning right, as indicated below::
 
-    put("token");
-    move();
-    while ( !token_here() ){
-        if (right_is_clear()){
-            turn_right();
-            move();
-        } else if (front_is_clear()){
-            move();
-        } else {
-            turn_left();
-        }
-    }
+    put("token")
+    move()
+    while not token_here():
+        if right_is_clear():
+            turn_right()
+            move()
+        elif front_is_clear():
+            move()
+        else:
+            turn_left()
 
 More complicated world
 ----------------------

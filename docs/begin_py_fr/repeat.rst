@@ -2,41 +2,43 @@ Repeat
 ======
 
 Often, we will find that we want to repeat a series of instructions a
-fixed number of times. There is a way in Javascript to do so ... but it
+fixed number of times. There is a way in Python to do so ... but it
 has too many new concepts to explain at this time. I will just show you
 the code, and immediately introduce ``repeat()``, a simpler replacement
 for it, unique to Reeborg's World. 
-Later, when you know more about Javascript, I will explain how
+Later, when you know more about Python, I will explain how
 ``repeat()`` is defined in terms of the standard way. The standard way
-is known as a **for loop** and is written as follows::
+is known as a **for loop** and is written as follows:
 
-    for (var i = 0; i < n; i++){
-        // some instructions here
-    }
+.. code-block:: python
+
+    for i in range(n):
+        # some 
+        # instructions 
+        # here
 
 .. note::
 
    Remember that ``take("token")`` could more simply be written as ``take()``.
 
-Now that you have seen this cryptic code which includes two Javascript
-keywords, ``for`` and ``var``, let's introduce instead ``repeat()``. We
-will use the example ``get_money()`` from the previous newspaper
+Now that you have seen this cryptic code which includes two Python
+keywords, ``for`` and ``in``, as well as a built-in function, ``range``, 
+let's introduce instead ``repeat()``. 
+We will use the example ``get_money()`` from the previous newspaper
 delivery example::
 
-    function get_money() {
-        take("token");
-        take("token");
-        take("token");
-        take("token");
-        take("token");
-    }
+    def get_money():
+        take("token")
+        take("token")
+        take("token")
+        take("token")
+        take("token")
 
 Inside ``get_money()``, we repeat 5 times the command ``take()``.
 Using ``repeat()``, we can rewrite the above as follows::
 
-    function get_money() {
-        repeat(take, 5);
-    }
+    def get_money():
+        repeat(take, 5)
 
 Note that I have **not** included the parentheses ``()`` for
 ``take`` inside ``repeat()``. If I had to specify the *argument*

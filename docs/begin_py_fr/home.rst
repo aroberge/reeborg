@@ -1,7 +1,7 @@
 Test driven learning
 ====================
 
-In order to help you learn Javascript, I will give you some tests: you
+In order to help you learn Python, I will give you some tests: you
 have to program Reeborg to accomplish specific tasks and Reeborg itself
 will tell you if you got it right or wrong.
 
@@ -36,7 +36,7 @@ green home square, you will notice a small black square on its right
 edge: this is the direction Reeborg should be facing. In order to do so,
 we must add one more instruction to the program::
 
-    turn_left();
+    turn_left()
 
 .. topic:: Try this!
 
@@ -44,8 +44,8 @@ we must add one more instruction to the program::
 
 .. topic:: Try something else!
 
-    What happens if, instead of using ``turn_left();``, you use instead a
-    third ``move();`` instruction?
+    What happens if, instead of using ``turn_left()``, you use instead a
+    third ``move()`` instruction?
 
 A different view
 ----------------
