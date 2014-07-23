@@ -6,54 +6,56 @@ can also be falling ... usually not all three at the same time ... but
 it does happen... Let's suppose that only one of those can happen. Then,
 Reeborg could be faced with the following choices::
 
-    if ( it_rains() ) {
-        play_indoors();
-    } else if ( it_snows() ){
-        go_skiing();
-    } else {
-        go_swimming(); // assuming it is warm!
-    }
+    if it_rains():
+        play_indoors()
+    elif it_snows():
+        go_skiing()
+    else:
+        go_swimming() # assuming it is warm!
 
-Notice the use of ``else`` for choices 2 and 3, and the additional
-``if`` statement for the second case. If we took into account other
+Notice the use of ``elif`` (which means "else if") for choice 2. If we took into account other
 possible weather phenomena, like hail, thunder, fog, drizzle, etc., we
-could add other choices using additional ``else if {...}`` code blocks.
+could add other choices using additional ``elif: ...`` code blocks.
 
-How to think of ``if/else if/ ... /else`` statements
+Here is a graphical representation of the choices that Reeborg faces:
+
+.. figure:: ../../flowcharts/elif.jpg
+   :align: center
+
+
+How to think of ``if/elif/ ... /else`` statements
 ----------------------------------------------------
 
-A series of ``if/else if/ ... /else`` statements is equivalent to
-inserting the **first** code block that evaluates to ``true``. Thus::
+A series of ``if/elif/ ... /else`` statements is equivalent to
+inserting the **first** code block that evaluates to ``True``. Thus::
 
-    if ( false ) {
-        do_1();
-    } else if ( true ){
-        do_2();
-    } else if ( true ){
-        do_3();
-    } else {
-        do_4();
-    }
+    if False:
+        do_1()
+    elif True:
+        do_2()
+    elif True:
+        do_3()
+    else:
+        do_4()
 
 is equivalent to::
 
-    do_2();
+    do_2()
 
 whereas::
 
-    if ( false ) {
-        do_1();
-    } else if ( false ){
-        do_2();
-    } else if ( false ){
-        do_3();
-    } else {
-        do_4();
-    }
+    if False:
+        do_1()
+    elif False:
+        do_2()
+    elif False:
+        do_3()
+    else:
+        do_4()
 
 is equivalent to::
 
-    do_4();
+    do_4()
 
 etc.
 
@@ -62,46 +64,44 @@ Back to hurdles
 
 Just two lessons ago, you wrote a program that worked for worlds
 **Hurdles 1** and **Hurdles 2** but not for **Hurdles 3**. Your program was likely
-something like this::
+something like this
 
-    function jump_over_hurdle() {
-        // some suitable definition
-    }
+.. code-block:: python
 
-    function move_and_jump_until_done () {
-        move();
-        if ( at_goal() ) {
-            done();
-        }
-        jump_over_hurdle();
-    }
+   def jump_over_hurdle():
+        # some suitable definition
 
-    repeat(move_and_jump_until_done, 42);
+   def move_and_jump_until_done():
+        move()
+        if at_goal():
+            done()
+        jump_over_hurdle()
+
+    repeat(move_and_jump_until_done, 42)
 
 The reason it is not working for **Hurdles 3** is that it is written with
 the assumption that the hurdles are evenly spaced. Let's use our new
 condition ``front_is_clear()`` and keyword ``else`` to change that.
 
 Here's a new program that should work for the world we mentioned above,
-provided you fill in the missing pieces.::
+provided you fill in the missing pieces.
 
-    function jump_over_hurdle() {
-        // suitable definition
-    }
+.. code-block:: python
 
-    function run_jump_or_finish () {
-        if ( at_goal() ){
-            // something
-        } else if ( front_is_clear() ){
-            // something
-        } else {
-            // something
-        }
-    }
+   def jump_over_hurdle():
+        # suitable definition
 
-    repeat(run_jump_or_finish, 42);
+   def run_jump_or_finish ():
+        if at_goal():
+            # something
+        elif front_is_clear():
+            # something
+        else:
+            # something
 
-Note the structure of the ``if/else`` statements; as is mentioned above,
+    repeat(run_jump_or_finish, 42)
+
+Note the structure of the ``if/elif/else`` statements; as is mentioned above,
 you should see that it gives three independent choices: only one of them
 will be executed.
 

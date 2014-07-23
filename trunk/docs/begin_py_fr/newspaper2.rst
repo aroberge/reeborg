@@ -7,78 +7,78 @@ Let's go back to our newspaper delivery example; we'll consider the
 delivery to Ms. Ada Lovelace in **Newspaper 1**. Below is a solution to that
 problem, with a few added comments.
 
-.. code-block:: javascript
+.. code-block:: python
    :linenos:
 
-    take("star");
+    take("star")
 
-    // climb up first floor
-    turn_left();
-    move();
-    turn_left();
-    turn_left();
-    turn_left();
-    move();
-    move();
+    # climb up first floor
+    turn_left()
+    move()
+    turn_left()
+    turn_left()
+    turn_left()
+    move()
+    move()
 
-    // climb up second floor
-    turn_left();
-    move();
-    turn_left();
-    turn_left();
-    turn_left();
-    move();
-    move();
+    # climb up second floor
+    turn_left()
+    move()
+    turn_left()
+    turn_left()
+    turn_left()
+    move()
+    move()
 
-    // climb up third floor
-    turn_left();
-    move();
-    turn_left();
-    turn_left();
-    turn_left();
-    move();
-    move();
+    # climb up third floor
+    turn_left()
+    move()
+    turn_left()
+    turn_left()
+    turn_left()
+    move()
+    move()
 
-    // get money
-    take("token");
-    take("token");
-    take("token");
-    take("token");
-    take("token");
+    # get money
+    take("token")
+    take("token")
+    take("token")
+    take("token")
+    take("token")
 
-    // leave paper
-    put("star");
+    # leave paper
+    put("star")
 
-    // turn around
-    turn_left();
-    turn_left();
+    # turn around
+    turn_left()
+    turn_left()
 
-    // climb down floor
-    move();
-    move();
-    turn_left();
-    move();
-    turn_left();
-    turn_left();
-    turn_left();
+    # climb down floor
+    move()
+    move()
+    turn_left()
+    move()
+    turn_left()
+    turn_left()
+    turn_left()
 
-    // climb down floor
-    move();
-    move();
-    turn_left();
-    move();
-    turn_left();
-    turn_left();
-    turn_left();
+    # climb down floor
+    move()
+    move()
+    turn_left()
+    move()
+    turn_left()
+    turn_left()
+    turn_left()
 
-    // climb down floor
-    move();
-    move();
-    turn_left();
-    move();
-    turn_left();
-    turn_left();
-    turn_left();
+    # climb down floor
+    move()
+    move()
+    turn_left()
+    move()
+    turn_left()
+    turn_left()
+    turn_left()
 
 This solution is quite long ... and it is easy to make mistakes when
 typing it. We note however that there are quite a few repeated code
@@ -86,55 +86,50 @@ segments for which we could create functions. We have already defined
 ``turn_right()`` and ``turn_around()``; let's use them and define a few
 others.
 
-.. code-block:: javascript
+.. code-block:: python
    :linenos:
-   
-    import_lib();
 
-    function climb_up_one_floor() {
-        turn_left();
-        move();
-        turn_right();
-        move();
-        move();
-    }
+    import my_lib
 
-    function climb_up_three_floors() {
-        climb_up_one_floor();
-        climb_up_one_floor();
-        climb_up_one_floor();
-    }
+    def climb_up_one_floor():
+        turn_left()
+        move()
+        turn_right()
+        move()
+        move()
 
-    function climb_down_one_floor() {
-        move();
-        move();
-        turn_left();
-        move();
-        turn_right();
-    }
+    def climb_up_three_floors():
+        climb_up_one_floor()
+        climb_up_one_floor()
+        climb_up_one_floor()
 
-    function climb_down_three_floors() {
-        climb_down_one_floor();
-        climb_down_one_floor();
-        climb_down_one_floor();
-    }
+    def climb_down_one_floor():
+        move()
+        move()
+        turn_left()
+        move()
+        turn_right()
 
-    function get_money() {
-        take("token");
-        take("token");
-        take("token");
-        take("token");
-        take("token");
-    }
+    def climb_down_three_floors():
+        climb_down_one_floor()
+        climb_down_one_floor()
+        climb_down_one_floor()
 
-    // === End of definitions ===
+    def get_money():
+        take("token")
+        take("token")
+        take("token")
+        take("token")
+        take("token")
 
-    take("star");
-    climb_up_three_floors();
-    get_money();
-    put("star"); // leave paper
-    turn_around();
-    climb_down_three_floors();
+    # === End of definitions ===
+
+    take("star")
+    climb_up_three_floors()
+    get_money()
+    put("star") # leave paper
+    turn_around()
+    climb_down_three_floors()
 
 Each function contains no more than 5 instructions; it's much easier to
 verify that each function does what it is supposed to do than verifying

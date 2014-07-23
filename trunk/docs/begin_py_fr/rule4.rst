@@ -12,29 +12,26 @@ time. It's probably a good idea either to add comments and/or to
 introduce more meaningful words. Let's start by adding comments,
 somewhat more verbose than we think we might need::
 
-    // We mark the starting point by putting down a token
-    put("token");
+    # We mark the starting point by putting down a token
+    put("token")
 
-    // We find a clear direction and start moving
-    while ( !front_is_clear() ) {
-        turn_left();
-    }
-    move();
+    # We find a clear direction and start moving
+    while not front_is_clear():
+        turn_left()
+    move()
 
-    /* We know we will have gone around the world
+    '''  We know we will have gone around the world
     when we come back to the place we put the token
-    down. */
+    down. ''''
 
-    while ( !token_here() ){
-        if (right_is_clear()){  // keep to the right
-            turn_right();
-            move();
-        } else if (front_is_clear()){ // move ... following the right wall
-            move();
-        } else {
-            turn_left();  // follow the wall by turning left
-        }
-    }
+    while not token_here():
+        if right_is_clear():  # keep to the right
+            turn_right()
+            move()
+        elif front_is_clear():    # move ... following the right wall
+            move()
+        else:
+            turn_left()  # follow the wall by turning left
 
 While this sort of clarifies our intent for each instruction, it is
 not really that helpful in summarizing the method (also known as the
@@ -48,40 +45,35 @@ Reading over the comments, we note that the program has two parts:
 Let's rewrite this program so that these two parts become clearer,
 and writing the comments differently::
 
-    /* This program instructs Reeborg to go around his world
-       counterclockwise, stopping when he comes
-       back to his starting point. */
+    ''' This program instructs Reeborg to go around his world
+        counterclockwise, stopping when he comes
+        back to his starting point. '''
 
-    function mark_starting_point_and_move() {
-        put("token");
-        while ( !front_is_clear() ) {
-            turn_left();
-        }
-        move();
-    }
+    def mark_starting_point_and_move():
+        put("token")
+        while not front_is_clear():
+            turn_left()
+        move()
 
-    function follow_right_wall() {
-        if (right_is_clear()){
-            turn_right();
-            move();
-        } else if (front_is_clear()){
-            move();
-        } else {
-            turn_left();
-        }
-    }
+    def follow_right_wall():
+        if right_is_clear():
+            turn_right()
+            move()
+        elif front_is_clear():
+            move()
+        else:
+            turn_left()
 
-    var found_starting_point = token_here;
+    found_starting_point = token_here
 
-    /* ***************
-        End of definitions above; program execution below .
-    *************/
+    #######
+    ##  End of definitions above; program execution below .
+    #######
 
-    mark_starting_point_and_move();
+    mark_starting_point_and_move()
 
-    while ( !found_starting_point() ){
-        follow_right_wall();
-    }
+    while not found_starting_point():
+        follow_right_wall()
 
 Isn't this much clearer?
 

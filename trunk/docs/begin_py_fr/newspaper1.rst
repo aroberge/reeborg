@@ -27,8 +27,8 @@ corresponding worlds:
 
     With the help of the following two instructions::
 
-        take("star")   // pick it up to carry
-        put("star")  // put it down
+        take("star")   # pick it up to carry
+        put("star")  # put it down
 
     make Reeborg complete at least one delivery. Pay attention to the two
     instructions written above and make sure, when you need to use them, to

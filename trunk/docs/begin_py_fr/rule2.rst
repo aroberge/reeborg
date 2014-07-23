@@ -30,63 +30,63 @@ that are easier for people to understand: *comments*.
 Comments are notes made by a programmer which are ignored by the
 computer; they are meant to be read and understood only by humans.
 
-When using Javascript, one can write comments in one of two ways:
+When using Python, one can write comments in one of two ways:
 
--  By enclosing an arbitrary quantity of text between ``/*`` and ``*/``.
--  By writing some text preceded by ``//`` on any given line.
+-  By enclosing an arbitrary quantity of text between triple-quotes like ``""" ... """`` or ``''' ... '''``.
+-  By writing some text preceded by ``#`` on any given line.
 
 I will first write a simple program without any comments followed by a
 second version with comments added and a third version ... slightly less
 readable; however, I will make the same error in all three programs. Can
-you spot it more easily in the first program, the second, or the third?
+you spot it more easily in the first program orthe second?
 
-.. code-block:: javascript
+.. code-block:: python
 
-    move();
-    move();
-    turn_left();
-    put();
-    move();
-    move();
-    turn_left();
-    put();
-    move();
-    turn_left();
-    put();
-    move();
-    move();
-    turn_left();
-    put();
+    move()
+    move()
+    turn_left()
+    put()
+    move()
+    move()
+    turn_left()
+    put()
+    move()
+    turn_left()
+    put()
+    move()
+    move()
+    turn_left()
+    put()
 
 Contrast the above program with the same one, from Reeborg's point of
 view, but with comments added for humans; you will be able so recognize
 comments as they appear in a different colour and font style.
 
-.. code-block:: javascript
+.. code-block:: python
 
-    /* This is an example of
+    '''  This is an example of
     a simple program where Reeborg draws a square,
-    leaving a token behind at each corner. */
+    leaving a token behind at each corner. ''' 
 
-    move();  // Javascript commands have to end with a semi-colon
-    move();
-    turn_left(); // Reeborg only knows to turn left
-    put("token");  // we assume that Reeborg carries enough tokens
+    move()  # Python commands are on separate lines
+    move()
+    turn_left() # Reeborg only knows to turn left
+    put("token")  # we assume that Reeborg carries enough tokens
 
-    // we repeat the above three more times to complete the square
-    move();
-    move();
-    turn_left();
-    put("token");
+    # we repeat the above three more times to complete the square
+    move()
+    move()
+    turn_left()
+    put("token")
 
-    move();
-    turn_left();
-    put("token");
+    move()
+    turn_left()
+    put("token")
 
-    move();
-    move();
-    turn_left();
-    put("token");
+    move()
+    move()
+    turn_left()
+    put("token")
 
 The above are not particularly good comments, but at least one of them
 should have helped you find what was wrong with the program. You might
@@ -103,20 +103,3 @@ easier to read.
 Furthermore, while it does not make any difference to Reeborg, I have
 made sure to specify that it was ``"token"`` that I wanted Reeborg
 ``put``; this makes it more clear to human readers.
-
-Finally, let me rewrite the **same** program in a way that is much
-harder to read for humans, but that is just as easily understood by
-Reeborg.
-
-.. code-block:: javascript
-
-    move();move();turn_left();
-    put();move();move();turn_left();
-    put();move();turn_left();put();
-    move();move();turn_left();put();
-
-By choosing world **Alone** and copying/pasting each program in turn in the
-editor, you can verify that they all make Reeborg perform exactly the
-same task!
-
-Now, which one is easier to read?

@@ -11,36 +11,37 @@ library.
 You are going to use the function ``turn_right()`` **a lot!** Instead of
 rewriting it each time (remember Rule # 3), what you are going to do is
 to write it **once** (more) but, this time, instead of writing it in the
-editor with the **Javascript Code** tab, you will click on the **Library** tab and
+editor with the **Python Code** tab, you will click on the **Library** tab and
 write it there. Oh, and you should also write ``turn_around()`` there as
 well.
 
 Then, when you want to use the functions defined in your library, you will
-simply type ``import_lib()`` in the Javascript Code editor.
+simply type ``import my_lib`` on its own line in the Python Code editor.
 
 .. topic:: Do this!
 
    After writing the functions ``turn_right()`` and ``turn_around()`` in
-   the library, go back to the Javascript Code editor (so you no longer see your
+   the library, go back to the Python Code editor (so you no longer see your
    functions) and write a short
    program that nonetheless uses them to make sure that they work as
    expected. If they don't, go back and fix them.  Remember to use
-   ``import_lib()`` in your main program.
+   ``import my_lib`` in your main program.
 
 .. hint::
 
    With the appropriate functions defined in the library, 
    here is such a program::
    
-       import_lib();
-       move();
-       turn_around();
-       move();
-       turn_right();
-       move();
-       turn_around();
-       move();
-       turn_left();  // back at starting position
+       import my_lib
+       move()
+       turn_around()
+       move()
+       turn_right()
+       move()
+       turn_around()
+       move()
+       turn_left()  # back at starting position
+
 
 From now on, whenever you define a function that you use more than once,
 add it to your library so that you don't have to redefine it every time.
@@ -59,36 +60,31 @@ Remember the following?
 Can you figure out on your own what the following program does, without
 copying it in the editor and having Reeborg obey the instructions?::
 
-    function a () {
-        turn_left();
-        turn_left();
-    }
+    def a():
+        turn_left()
+        turn_left()
 
-    function b (){
-        turn_left();
-        a();
-    }
+    def b():
+        turn_left()
+        a()
 
-    function c (){
-        move();
-        move();
-    }
+    def c():
+        move()
+        move()
 
-    function d (){
-        c();
-        b();
-    }
+    def d():
+        c()
+        b()
 
-    function e () {
-        d();
-        d();
-        d();
-        d();
-    }
+    def e():
+        d()
+        d()
+        d()
+        d()
 
-    turn_left();
-    e();
-    b();
+    turn_left()
+    e()
+    b()
 
 Not so easy, is it? 
 

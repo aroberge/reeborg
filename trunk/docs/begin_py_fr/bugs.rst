@@ -93,7 +93,7 @@ following:
    button. This is similar to what people refer to as
    setting a *breakpoint* in a computer program
 #. Instead of actually pressing the pause button, you can type in the
-   instruction ``pause();`` at any point inside a program and Reeborg
+   instruction ``pause()`` at any point inside a program and Reeborg
    will pause, awaiting your permission to continue.
 #. You can *step through* a program, one instruction at a time, by
    pressing the *execute one instruction and pause*, or **step** button.

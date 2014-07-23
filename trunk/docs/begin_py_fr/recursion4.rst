@@ -2,7 +2,7 @@ Counting on recursion
 =====================
 
 Reeborg knows how to count ... but we have not seen that yet and will
-not for a while. If you know some Javascript other than what you've
+not for a while. If you know some Python other than what you've
 learned here, you might already know how to make Reeborg count using
 numerical variables; however, I ask you to not use those in what
 follows.
@@ -27,17 +27,15 @@ on the one spot.
     Use recursion to write a solution to this problem. An outline
     of a solution can be found below::
 
-        function collect() {
-            // something
-            // something
-            if (some_condition) {
-                // something
-            }
-            //something
-        }
+        def collect():
+            # something
+            # something
+            if some_condition:
+                # something
+            #something
 
-        collect();
-        move(); 
+        collect()
+        move()
 
 .. topic:: Recursive challenges
 

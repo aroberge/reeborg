@@ -5,8 +5,8 @@ Reeborg likes to collect tokens. When he finds one on the ground, most
 often he takes it; sometimes he puts one down as well. The commands for
 having him do so can be simply written as follows::
 
-    take();
-    put();
+    take()
+    put()
 
 Select world **Tokens 1**. There is a token right next to Reeborg. Note the
 number 1 inside it: the number will change depending on the number of
@@ -38,8 +38,8 @@ are taking about tokens, his favourite objects. However, there are other
 objects that exist in Reeborg's world. So, if you want to be more
 specific, you can write instead::
 
-    take("token");
-    put('token');
+    take("token")
+    put('token')
 
 Note that the word **token** is surrounded by quotes, either single or
 double quotes. Try it out!

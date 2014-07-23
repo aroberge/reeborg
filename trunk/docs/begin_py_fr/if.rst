@@ -5,7 +5,7 @@ If only Reeborg could decide on its own, writing programs would be much
 simpler ... **WAIT !** Didn't I tell you: Reeborg can make decisions on
 its own.
 
-Javascript keyword: ``if``
+Python keyword: ``if``
 --------------------------
 
 .. topic:: Do it!
@@ -13,32 +13,30 @@ Javascript keyword: ``if``
     Select an appropriate world (perhaps **Alone**), and have Reeborg execute
     the program below.
 
-.. code-block:: javascript
+.. code-block:: python
 
-    if (true) {
-        move();
-    }
+    if True:
+        move()
 
-    if (false) {
-        turn_left();
-    }
+    if False:
+        turn_left()
 
-``true`` and ``false`` are Javascript keywords as well. You might want
+``True`` and ``False`` are Python keywords as well. You might want
 to interchange them and run the program again to see what happens.
 
 ``if`` statement
 ----------------
 
 The so-called ``if`` **statement** follows a pattern somewhat similar to
-that of ``function``\ s ::
+that of ``function``\ s :
 
-    function some_name() {
-        // block of code
-    }
+.. code-block:: python
 
-    if (some_condition) {
-        // block of code
-    }
+    def some_name():
+        # block of code
+
+    if some_condition:
+        # block of code
 
 How to think of ``if`` statements
 ---------------------------------
@@ -47,50 +45,48 @@ When we introduced functions, we explained how we could think of a
 function **call** as being somewhat equivalent to inserting the code block for
 the function definition at that point in the program. Thus::
 
-    move();
-    turn_right();  // function call
-    move();
+    move()
+    turn_right()  # function call
+    move()
 
 is equivalent to::
 
-    move();
-    // begin of code block inside turn_right()
-    turn_left();
-    turn_left();
-    turn_left();
-    // end of code block
-    move();
+    move()
+    # begin of code block inside turn_right()
+    turn_left()
+    turn_left()
+    turn_left()
+    # end of code block
+    move()
 
 ``if`` statements can be thought in similar terms, except that we have a
 *conditional* insertion (or rather **deletion**!). Thus::
 
-    move();
-    if (true) {
-        turn_left();
-        turn_left();
-    }
-    move();
+    move()
+    if True:
+        turn_left()
+        turn_left()
+    move()
 
 is equivalent to::
 
-    move();
-    turn_left();
-    turn_left();
-    move();
+    move()
+    turn_left()
+    turn_left()
+    move()
 
 whereas::
 
-    move();
-    if (false) {
-        turn_left();
-        turn_left();
-    }
-    move();
+    move()
+    if False:
+        turn_left()
+        turn_left()
+    move()
 
 is equivalent to::
 
-    move();
-    move();
+    move()
+    move()
 
 Note that thinking of it this way does not mean that such a deletion
 would be done permanently: if, somehow, our program *looped back* and
@@ -98,19 +94,23 @@ repeated this part of the code again, the ``if`` statement would be
 reevaluated each time to decide whether or not to execute the lines of
 code inside the code block.
 
+We can represent the above using a flowchart:
+
+.. figure:: ../../flowcharts/if.jpg
+   :align: center
+
 More useful that you might think...
 -----------------------------------
 
-Having to specify ``true`` or ``false`` does not help Reeborg decide on
+Having to specify ``True`` or ``False`` does not help Reeborg decide on
 its own. However, there are special functions that Reeborg recognizes
 that allow to decide things for himself. The first of these is
 ``token_here()`` which tells Reeborg that there is at least one token at
 the grid position where he is located. For example, if we want to ask
 Reeborg to collect tokens, one part of the code could be::
 
-    if ( token_here() ) {
-        take();
-    }
+    if token_here():
+        take()
 
 Have a look at worlds **Tokens 1** and **Tokens 2**. In both cases, and assuming
 that Reeborg moves forward in a straight line, when he finds a token,
@@ -129,18 +129,16 @@ it himself and declaring that he has finished.
 Let's write the outline of a program that will work in both worlds
 **Tokens 1** and **Tokens 2**::
 
-    function move_until_done() {
-        move();
-        if ( token_here() ){
-            // something
-            // something else
-            // something else again
-            // yet one more
-            done();
-        }
-    }
+    def move_until_done():
+        move()
+        if token_here():
+            # something
+            # something else
+            # something else again
+            # yet one more
+            done()
 
-    repeat(move_until_done, 42);
+    repeat(move_until_done, 42)
 
 Why 42? ... well, I just want to be sure that Reeborg will take enough
 steps no matter what world he is in. So far, all the worlds are small
