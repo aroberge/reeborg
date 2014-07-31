@@ -1,112 +1,127 @@
-Darn bugs!
-==========
+Fichus bogues!
+==============
 
-Nobody likes to talk about computer bugs. But, unfortunately, you must
-learn about them and, especially, how to get rid of them.
+Personne n'aime avoir à discuter au sujet des bogues en informatique.
+Mais, malheureusement, vous devez en savoir davantage à leur sujet et,
+surtout, apprendre comment vous en débarrasser.
 
-What is a bug?
---------------
+Cette leçon est un peu plus longue que les précédentes, mais je vous
+encourage à lire le tout au moins une fois.
 
-The origin of the word **bug** in computer jargon is often attributed to
-an actual incident where a moth was found inside Harvard University's
-Mark II computer; apparently this moth had caused the computer to stop
-working. It was found by the team headed by renowned computer scientist,
-mathematician, and young naval officer Grace Murray Hopper, who went on
-to invent the concept of compiler languages in computer programming. Dr.
-Grace Hopper eventually rose in the U.S. naval hierarchy to the rank of
-Rear Admiral.
 
-The moth was preserved, taped into Hopper's log book, as shown below.
-Interestingly, the log book included a note saying, "First actual case
-of bug being found." as you can see.
+Qu'est-ce qu'un bogue?
+----------------------
+
+L'origine du mot bogue, adapté de l'anglais **bug** qui signifie
+**insecte**, est souvent attribué à un incident où un papillon de nuit a
+été trouvé à l'intérieur de l'ordinateur Mark II de l'Université
+Harvard. Cet insecte avait été trouvé par les membres d'une équipe menée
+par l'illustre informaticienne, mathématicienne et jeune officier naval
+Grace Murray Hopper, qui inventa par la suite le concept de compilateur
+de langages informatiques. Madame Grace Hopper, Ph.D., a également
+atteint le titre d’amiral (*Rear Admiral*) dans la marine américaine.
+
+Ce papillon a été préservé, collé dans le journal de bord de Madame
+Hopper, tel qu'illustré ci-dessous. Fait intéressant, on note une
+mention qui dit "First actual case of bug being found." qu'on pourrait
+traduire par *Premier cas actuel d'un bogue/insecte trouvé.*
 
 |image0|
 
-Picture adapted from the public archive of the `U.S. Naval Historical Center 
+Image adaptée de l'archive publique `U.S. Naval Historical Center
 <http://www.history.navy.mil/photos/pers-us/uspers-h/g-hoppr.htm>`__
-                                                                                                                                                 
 
-Actually, the word bug in a technological context is attributed by the
-Oxford English Dictionary to Thomas Edison. According to the Oxford
-Dictionary, the following text can apparently be found in the March 11,
-1889 edition of the Pall Mall Gazette:
+En fait, la première utilisation du mot anglais bug dans un contexte
+technologique est attribuée à l'inventeur Thomas Edison. Selon le
+dictionnaire Oxford, le texte suivant aurait été publié le 11 mars 1889
+dans le journal Pall Mall Gazette:
 
     Mr. Edison, I was informed, had been up the two previous nights
     discovering 'a bug' in his phonograph - an expression for solving a
     difficulty, and implying that some imaginary insect has secreted
     itself inside and is causing all the trouble.
 
-It thus appears that the original 'bug', though it was indeed an insect,
-was in fact imaginary.
+Donc, il semblerait que le bogue original, bien qu'il ait fait référence
+à un insecte, en aurait été un *imaginaire*...
 
-Unfortunately, computer bugs, while they are not insects, are also not
-imaginary.
+Malheureusement, les bogues, bien qu'ils ne soient pas des insectes, ne
+sont pas imaginaires.
 
-Dealing with bugs
------------------
+Composer avec les bogues
+------------------------
 
-In computer jargon, a bug is an error that causes a program to behave in
-an unexpected way. If you are writing computer programs, you are going
-to have bugs in them sooner or later - everybody does. Good programmers
-seek to "remove" bugs or "fix" them as soon as they find that their
-program behaves unexpectedly.
+Dans le jargon informatique, un bogue est une erreur qui fait qu'un
+programme se comporte d'une façon inattendue. Si vous écrivez des
+programmes informatiques, tôt ou tard vous allez rencontrer des bogues.
+Les bons programmeurs cherchent à éliminer les bogues aussitôt que leur
+programme se comportent d'une manière inattendue.
 
-Not so good programmers state that "bugs" are not really bugs but that
-they are "features" of their programs. **You** are going to be a good
-programmer, unlike the maker of Reeborg, whose program is littered with
-bugs.
+Les programmeurs incompétents disent que les bogues dans leurs
+programmes n'en sont pas, mais qu'il s'agit plutôt de *particularité* ou
+de *trait intéressant du caractère* de leur programme. **Vous** allez
+devenir de bons programmeurs, contrairement aux créateurs de Reeborg
+dont le programme est rempli de bogues.
 
-#. Reeborg has an oil leak. Oil leaks are damaging for the environment
-   and inconvenient for Reeborg who must replenish its supplies when
-   it's not busy accomplishing tasks. The maker of Reeborg claims that
-   it is a feature, as it enables you to follow Reeborg's path, just
-   like any programmer can learn to "trace" a program. You will learn
-   how to fix Reeborg's leak later. More advanced techniques to trace bugs, 
-   like using what is known as a *debugger*,
-   are beyond the scope of these lessons.
-#. Reeborg's steering mechanism is not handled properly by Reeborg's
-   program: it can only turn left. The maker of Reeborg, once again,
-   claims that this is a feature as it present you with an opportunity
-   to learn about functions. Reeborg disagrees. You will soon learn how
-   to program a *workaround solution*, enabling Reeborg to turn right,
-   although in a wasteful fashion. Much later, you will learn how to
-   truly fix Reeborg so that it can turn right just as easily as it can
-   turn left.
-#. Reeborg has a compass, enabling him to determine which direction he
-   is facing. Unfortunately, yet again, the program that enables Reeborg
-   to get the information from the compass has a bug: it only tells
-   Reeborg if he is facing North ... or not. Once again, you will first
-   learn how to implement a workaround solution and later how to fix
-   permanently Reeborg and get rid of what its maker calls a "feature".
-#. Reeborg can see if a wall is in front of him, and can also turn its
-   head to the right to see if there is a wall there. However, a
-   software "glitch" (which is another weasel term that software
-   manufacturers use to avoid having to say that their product has a
-   bug) prevents Reeborg's program from properly registering a wall when
-   it turns its head left.
+#. Reeborg a une fuite d'huile. De telle fuite sont dommageables pour
+   l'environnement et pas très pratique pour Reeborg qui doit refaire le
+   plein de façon périodique, lorsqu'il n'est pas occupé à accomplir les
+   tâches que vous lui confiez. Les créateurs de Reeborg prétendent
+   qu'en fait il s'agit d'une caractéristique utile puisque ceci vous
+   permet de suivre Reeborg à la trace, comme tout bon programmeur doit
+   pouvoir faire dans ses programmes. Vous apprendrez plus tard à
+   réparer cette fuite. Et je vous montrerai une façon moins dommageable
+   pour l'environnement afin de suivre ce que fait Reeborg; des
+   techniques plus avancées utilisant des logiciels connus sous le nom
+   de **débogueurs** vont au-delà de ce qui est couvert dans ces leçons.
+#. Le mécanisme de direction de Reeborg n'est pas utilisé correctement
+   par le logiciel de Reeborg, ce qui fait que ce dernier ne peut que
+   tourner vers la gauche. Les créateurs de Reeborg, une fois de plus,
+   prétendent qu'il s'agit là d'une caractéristique utile puisque ceci
+   vous permet d'apprendre le concept de **fonctions**. Reeborg n'est
+   pas d'accord. Vous apprendrez sous peu comment accommoder tant bien
+   que mal cette limitation de Reeborg et trouver une façon détournée
+   pour lui permettre de faire des virages à droite. Beaucoup plus tard,
+   vous apprendrez à véritablement réparer Reeborg pour lui permettre de
+   tourner à droite aussi aisément qu'il peut déjà tourner à gauche.
+#. Reeborg possède une boussole lui permettant de déterminer dans quelle
+   direction il va. Malheureusement, une fois de plus, le logiciel de
+   Reeborg a un bogue qui fait en sorte que Reeborg peut seulement dire
+   s'il se dirige vers le nord ... ou non. Vous apprendrez d'abord à
+   composer avec ce bogue pour trouver une façon détournée de permettre
+   à Reeborg de s'orienter correctement. Plus tard, vous apprendrez à
+   corriger le logiciel de Reeborg correctement.
+#. Reeborg peut voir s'il y a un mur qui bloque son passage devant lui,
+   et peut tourner la tête pour voir s'il y a un mur à sa droite.
+   Malheureusement une *limitation* de son programme (ce qui est une
+   expression malhonnête que les manufacturiers utilisent pour éviter de
+   dire que leurs programmes ont des bogues) empêche Reeborg de
+   déterminer correctement si un mur se trouve immédiatement à sa
+   gauche.
 
-Sometimes to find the cause of bugs, it can help to break the normal
-flow of the program. To this end you may do one or more of the
-following:
+Pour déterminer la cause d'un bogue, il est parfois utile d'interrompre
+le flot normal d'un programme. À cette fin, vous pouvez utiliser un ou
+plusieurs des trucs suivants:
 
-#. You can *pause* a program as it is running by pressing the **pause**
-   button. This is similar to what people refer to as
-   setting a *breakpoint* in a computer program
-#. Instead of actually pressing the pause button, you can type in the
-   instruction ``pause()`` at any point inside a program and Reeborg
-   will pause, awaiting your permission to continue.
-#. You can *step through* a program, one instruction at a time, by
-   pressing the *execute one instruction and pause*, or **step** button.
-#. You can change the speed of execution at any point inside a program;
-   I will explain how you can do this later.
-#. You can have Reeborg write some information at any given point inside
-   a program; again, I will explain how you can do this later.
-#. At the top of Reeborg's world appears some information about the position and
-   number of tokens (to be explained later) carried by the first few
-   robots in the world (yes, you can have multiple robots...).
-#. Finally, you can stop a program at any point by pressing the **stop**
-   button; this unfortunately may not work if you create
-   what is known as an infinite loop, outside of Reeborg's control. If
-   worse comes to worst, you can always just reload the web page.
+#. Vous pouvez *pauser* un programme en voie d'exécution simplement en
+   cliquant sur le bouton **pause**. Ceci est semblable
+   à ce qu'on appelle un *point d'arrêt* ("breakpoint") dans un
+   programme.
+#. Plutôt que de cliquer sur le bouton de pause, vous pouvez insérer
+   l'instruction ``pause()`` à n'importe quel point du programme, ce
+   qui aura exactement le même effet.
+#. Vous pouvez exécuter un programme *une instruction à la fois* en
+   cliquant sur le bouton *exécution d'une seule instruction*.
+#. Vous pouvez changer la vitesse d’exécution (le temps entre deux
+   instructions) à n'importe quel point à l'intérieur d'un programme;
+   j'expliquerai comment faire ceci plus tard.
+#. Vous pouvez demander à Reeborg d'écrire certaines notes à n'importe
+   quel point à l'intérieur d'un programme; je vous montrerai également
+   comment faire ceci plus tard.
+#. Finalement, vous pouvez arrêter complètement l'exécution d'un
+   programme en cliquant le bouton **stop**;
+   malheureusement, ceci ne fonctionnera pas toujours si vous avez ce
+   qu'on appelle une boucle infinie hors du contrôle de Reeborg. Dans le
+   pire des cas, vous pouvez simplement recharger la page web et
+   redémarrer à zéro.
 
 .. |image0| image:: ../../src/images/first_bug.jpg

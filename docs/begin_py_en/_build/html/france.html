@@ -176,7 +176,7 @@ Reeborg?</p>
 <p class="last">Reeborg&#8217;s world uses Brython to translate Python 3 code into Javascript
 that can then be executed in the browser.  While Python 3 allows you to
 have variable names that contain non-English letters, such as ëêé,
-Brython does not recognizes these characters.</p>
+Brython does not (yet) recognizes these characters.</p>
 </div>
 <p>For now, limit yourselves with names that start with a letter and
 contain only letters, numbers or the underscore character &#8220;_&#8221;; a name
@@ -196,16 +196,18 @@ of <tt class="docutils literal"><span class="pre">move()</span></tt>], you write
 <div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">french</span> <span class="k">import</span> <span class="o">*</span>
 </pre></div>
 </div>
-<p>To find out the name of the French commands, you can then do:</p>
+<p>To find out the name of the French commands:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>and click on the <strong>Diary</strong> button at the top to see the result.</p>
+<p>and click on the <strong>Diary</strong> button at the top to see the result; the explanation is given in French,
+but you should be able to understand how each English instruction is translated.</p>
 <p>There is also a Spanish version of the commands which you can try in a similar
 way by typing:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">spanish</span> <span class="k">import</span> <span class="o">*</span>
 </pre></div>
 </div>
+<p>Note that, in this case, the explanation is given in <strong>English</strong>, not Spanish.</p>
 <p>This type of instruction [<tt class="docutils literal"><span class="pre">from</span> <span class="pre">module</span> <span class="pre">import</span> <span class="pre">*</span></tt>] is not something that is
 generally recommended ... I will explain why in a future tutorial.</p>
 </div>

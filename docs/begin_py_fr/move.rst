@@ -1,86 +1,95 @@
+Premier programme
+=================
 
+Si vous avez suivi les instructions correctement, Reeborg a fait ses premiers
+pas.  Dans l'onglet "code python" se trouve une seule instruction::
 
-First program
-=============
+    avance()
 
-So, you just had Reeborg take its very first step. In the editor panel, there is a
-single instruction::
+``avance()`` est un exemple d'une **fonction**.
+Une fonction a un nom; dans ce cas-ci, c'est ``avance``.
+Pour être valide, les noms doivent débuter soit par une lettre ou par le
+caractère de soulignement "_",
+et peuvent contenir des lettres, des chiffres ou le caractère
+de soulignement.
+Le nom de le fonction peut être suivi par des parenthèses ``()``.
+Ceci instruit Reeborg (Python) que la fonction doit être *exécutée*.
+La fonction doit être sur sa propre ligne (nous verrons des exceptions à ceci plus tard).
 
-    move()
+Occasionnellement, nous ferons des **organigrammes** qui sont une représentation graphique
+d'un programme.  Dans un organigramme, une simple instruction comme
+``avance()`` pourrait être représentée de la façon suivante:
 
-``move()`` is an example of a Python **function**.
-A function has a name; in this case, it is ``move``.
-Valid names must start with either a letter or the underscore character "_"
-and may contain letters, numbers or the underscore character "_".
-The name of the function is followed by ``()``. This tells Reeborg (Python)
-that the function must be *executed* or *called* (which are two synonyms).
-This function must be on a line of its own.
-
-Occasionnally we will make **flowcharts** which are graphical representations of a program.
-In a flowchart, a single instruction like ``move()`` might be represented
-as follows:
-
-.. figure:: ../../flowcharts/move1.jpg
+.. figure:: ../../flowcharts/avance1.png
    :align: center
 
-and a complete program containing this single instruction would be represented
-as follows:
+et un programme complet, comprenant seulement cette instructions, serait représenté
+comme suit:
 
-.. figure:: ../../flowcharts/move.jpg
+
+.. figure:: ../../flowcharts/avance.jpg
    :align: center
 
-In a flowchart, the sequence of instructions follows the arrows, starting at "Start"
-and ending at "Stop".
+Dans un organigramme, la séquence des instructions suit les flèches.
 
-.. topic:: Try this!
+.. topic:: Essayez ceci!
 
-    Add a second ``move()`` instruction so that Reeborg takes two steps instead
-    of only one.
+    Ajouter une seconde instruction ``avance()`` faisant en sorte que Reeborg fasse deux pas plutôt qu'un seul.
 
 .. hint::
 
-   Each instruction must appear on its own line, with no extra space
-   at the beginning of the line.
+   Chaque instruction doit apparaître sur sa propre ligne, sans espace
+   superflu au début de la ligne.
 
+Composer avec les eRReuRs
+--------------------------
 
-Dealing with eRRoRs
--------------------
+Lorsque vous allez écrire des programmes, vous allez occasionnellement faire des erreurs
+Pour voir comment Reeborg réagit lorsqu'il rencontre des erreurs, je vous demande
+d'en faire une de façon intentionnelle.
 
 When writing computer programs, you will likely make many errors.
 To see how Reeborg react to some errors, I will ask you to intentionally
 introduce one error in the program.
 
 
-.. topic:: Try this!
+.. topic:: Essayez ceci!
 
-    Change ``move()`` to ``Move()`` (with an uppercase M) and try to
-    execute the program.
+    Changez ``avance()`` à ``Avance()`` (avec un A majuscule) et exécutez le programme.
 
-What happened?
-~~~~~~~~~~~~~~
+Qu'est-il arrivé?
+~~~~~~~~~~~~~~~~~
 
-Python, the language that Reeborg understands, is "case sensitive";
-that is, lowercase letters have a different meanings than uppercase
-ones. Now that you see how Reeborg deals with errors, go back,
-fix the program and run the corrected version.
+Tout d'abord, je note que le message d'erreur *'Avance' is not defined*,
+qui signifie *'Avance' n'est pas défini*, est en anglais. Ceci est
+malheureusement incontournable...
+
+Python, le langage que Reeborg comprend, est "sensible à la casse";
+c'est-à-dire que les lettres majuscules et les lettre minuscules ont des
+sens différents. Corrigez-donc le programme pour que Reeborg soit en
+mesure de le comprendre et vérifiez que cela est bien le cas.
+
+Lorsque vous aurez exécuter le programme à nouveau, les indications
+d'erreurs seront effacées. Assurez-vous que ceci soit bel et bien le
+cas.
 
 
-Rule #1
--------
+Règle no 1
+----------
 
-Did you try all that I suggested to you above?  If not,
-I urge you to go back to do it.  You see, the most important rule you
-must follow if you wish to learn programming is the following:
+Est-ce que vous avez bel et bien essayez toutes les suggestions
+ci-dessus?  Sinon, je vous implore de le faire.  Voyez-vous, la
+règle la plus importante que vous devez suivre pour apprendre
+à programmer est la suivante:
 
 .. important::
 
-    Rule # 1
-        Learning about computer programming is like learning to play
-        a musical instrument: you have to **do it**, not simply read
-        about it.
+    Règle no 1
+        Apprendre la programmation informatique est comme apprendre à jouer
+        d'un instrument de musique: il faut le faire et non pas se contenter de lire à ce sujet.
 
-
-Every time I suggest you try something, I have a reason for doing
-so.  Sometimes it will not be apparent right away, but I really encourage
-you to try it.  I would even suggest to you that you should do more
-than what I suggest and try different things just to explore further.
+Chaque fois que je vous suggère d'essayer quelque chose, j'ai une raison bien
+précise pour le faire.  Parfois, cette raison ne vous sera pas évidente, mais
+je vous encourage fortement de toujours essayer.  En fait, je vous encourage
+à essayer d'autres exemples de votre cru, ce qui vous permettra d'approfondir
+votre compréhension.

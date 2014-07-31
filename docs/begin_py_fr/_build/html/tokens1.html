@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>5. A token of appreciation &mdash; Apprenez Python avec Reeborg</title>
+    <title>5. Collection de jetons &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="6. Rule number 2" href="rule2.html" />
-    <link rel="prev" title="4. Reeborg goes to France" href="france.html" /> 
+    <link rel="prev" title="4. Reeborg va en Espagne" href="france.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="rule2.html" title="6. Rule number 2"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="france.html" title="4. Reeborg goes to France"
+             <a href="france.html" title="4. Reeborg va en Espagne"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,15 +80,15 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">5. A token of appreciation</a><ul>
-<li><a class="reference internal" href="#being-more-specific">5.1. Being more specific</a></li>
+<li><a class="reference internal" href="#">5. Collection de jetons</a><ul>
+<li><a class="reference internal" href="#etre-plus-specifique">5.1. Être plus spécifique</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="france.html"
-                        title="Chapitre précédent">4. Reeborg goes to France</a></p>
+                        title="Chapitre précédent">4. Reeborg va en Espagne</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="rule2.html"
                         title="Chapitre suivant">6. Rule number 2</a></p>
@@ -116,52 +116,54 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="a-token-of-appreciation">
-<h1>5. A token of appreciation<a class="headerlink" href="#a-token-of-appreciation" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Reeborg likes to collect tokens. When he finds one on the ground, most
-often he takes it; sometimes he puts one down as well. The commands for
-having him do so can be simply written as follows:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">take</span><span class="p">();</span>
-<span class="n">put</span><span class="p">();</span>
+  <div class="section" id="collection-de-jetons">
+<h1>5. Collection de jetons<a class="headerlink" href="#collection-de-jetons" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Certains aiment collectionner les timbres, d&#8217;autres collectionnent les
+pièces de monnaie; Reeborg, lui, aime collectionner les jetons. Il
+utilise son imagination pour représenter toute sorte d&#8217;objet par des
+jetons. Il peut les ramasser lorsqu&#8217;ils sont par terre, ou les déposer,
+en utilisant les instructions suivantes:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">prend</span><span class="p">()</span>
+<span class="n">depose</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Select world <strong>Tokens&nbsp;1</strong>. There is a token right next to Reeborg. Note the
-number 1 inside it: the number will change depending on the number of
-tokens at that location. Next square, we see the outline of a token,
-with the number 1 outside it. This tells us that we should have Reeborg
-put one token at that location. Once this is done, we can see that it
-has been done correctly by comparing the number of tokens at that
-location (number inside the gold coloured token) and the expected
-number.</p>
+<p>Sélectionnez le monde <strong>Jetons&nbsp;1</strong>. Il y a un jeton tout juste à côté de
+Reeborg. On sait qu&#8217;il n&#8217;y en a qu&#8217;un parce qu&#8217;on voit le chiffre 1 à
+l&#8217;intérieur. Dans le carré suivant, on voit le contour d&#8217;un jeton
+(imaginaire) avec le numéro 1 à côté. Ceci indique que Reeborg doit
+déposer un seul jeton à cet endroit. Lorsque le tout sera complété, on
+pourra comparer le nombre de jetons déposés (chiffre à l&#8217;intérieur) avec
+le nombre de jetons recherché (chiffre à l&#8217;extérieur).</p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Write a program to accomplish this task. Can your program also work,
-without any changes for world <strong>Tokens&nbsp;2</strong>? The answer should be no, for now
-... but, later, you will learn how to write a single program that can
-work properly for both worlds.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Écrivez un programme pour accomplir cette tâche. Est-ce que
+votre programme peut également, sans aucun changement, accomplir la
+tâche du monde Jetons&nbsp;2? La réponse devrait être non ... mais, plus
+tard, vous apprendrez à écrire un seul programme pouvant accomplir ces
+deux tâches.</p>
 </div>
 <div class="topic">
-<p class="topic-title first">Try something else!</p>
-<p>What happens if Reeborg attempts to put down a token when he does not
-carry one? What happens if Reeborg attempts to take a token where there
-is none to be found?</p>
+<p class="topic-title first">Essayez autre chose!</p>
+<p>Qu&#8217;arrive-t-il si Reeborg essaie de déposer un jeton alors qu&#8217;il n&#8217;en a
+pas avec lui? Qu&#8217;arrive-t-il s&#8217;il essaie d&#8217;en ramasser un là où il n&#8217;y
+en a pas?</p>
 </div>
-<div class="section" id="being-more-specific">
-<h2>5.1. Being more specific<a class="headerlink" href="#being-more-specific" title="Lien permanent vers ce titre">¶</a></h2>
-<p>When you ask Reeborg to <tt class="docutils literal"><span class="pre">take()</span></tt> or <tt class="docutils literal"><span class="pre">put()</span></tt> something, he knows you
-are taking about tokens, his favourite objects. However, there are other
-objects that exist in Reeborg&#8217;s world. So, if you want to be more
-specific, you can write instead:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">);</span>
-<span class="n">put</span><span class="p">(</span><span class="s">&#39;token&#39;</span><span class="p">);</span>
+<div class="section" id="etre-plus-specifique">
+<h2>5.1. Être plus spécifique<a class="headerlink" href="#etre-plus-specifique" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Lorsque vous demandez à Reeborg <tt class="docutils literal"><span class="pre">prend()</span></tt> ou <tt class="docutils literal"><span class="pre">depose()</span></tt>, Reeborg
+comprend qu&#8217;il s&#8217;agit de prendre ou de déposer un jeton, son objet
+préféré. Cependant, il y a d&#8217;autres objets dans le monde de Reeborg. Il
+est parfois utile d&#8217;être plus spécifique et d&#8217;écrire:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">);</span>
+<span class="n">depose</span><span class="p">(</span><span class="s">&#39;jeton&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Note that the word <strong>token</strong> is surrounded by quotes, either single or
-double quotes. Try it out!</p>
+<p>On note que le mot <strong>jeton</strong> est entouré soit de guillemets simples ou
+doubles. Vérifiez que ceci fonctionne!</p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Write a program to solve world <strong>Tokens 2</strong> and using <tt class="docutils literal"><span class="pre">take(&quot;token&quot;)</span></tt>
-instead of simply <tt class="docutils literal"><span class="pre">take()</span></tt>.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Écrivez un programme pour résoudre la tâche du monde <strong>Jetons 2</strong>.
+Utilisez <tt class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></tt> au lieu de simplement <tt class="docutils literal"><span class="pre">prend()</span></tt></p>
 </div>
 </div>
 </div>
@@ -179,7 +181,7 @@ instead of simply <tt class="docutils literal"><span class="pre">take()</span></
              <a href="rule2.html" title="6. Rule number 2"
              >suivant</a></li>
         <li class="right" >
-             <a href="france.html" title="4. Reeborg goes to France"
+             <a href="france.html" title="4. Reeborg va en Espagne"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

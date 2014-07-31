@@ -1,62 +1,69 @@
-Test driven learning
-====================
+Apprentissage guidé par des tâches
+==================================
 
-In order to help you learn Python, I will give you some tests: you
-have to program Reeborg to accomplish specific tasks and Reeborg itself
-will tell you if you got it right or wrong.
+Dans le but de vous aider à apprendre à programmer en Python, je
+vais vous donner une série de tâches que Reeborg doit accomplir. Reeborg
+lui-même vous laissera savoir si les tâches en question ont été
+accomplies.
 
-Select the world **Home 1**. Notice how the bottom left square is coloured
-differently: this is Reeborg's home. Reeborg's world is a simple grid.
-In **Home 1**, Reeborg starts at the third square on the bottom row. It
-labels this square as ``x=3`` and ``y=1``, using what is known as
-Cartesian coordinates.
-
-.. topic:: Try this!
-
-    With **Home 1** selected, write a program with a single ``move()`` instruction, 
-    run it and notice what feedback Reeborg gives you.  
-    Then, change your program so that
-    Reeborg go home.
-
-.. topic:: Try two more!
-
-    Select **Home 2**. Notice how Reeborg is in a different location and is also
-    facing you. Try running the exact same program and see what happens.
-
-    Next, select **Home 3**. Notice how there is a small black square in the
-    home position. Try to run your program now.
+Choisissez le monde **But 1**. Voyez comment le carré en bas à gauche est
+d'une couleur différente: ceci identifie la maison de Reeborg. Le monde
+de Reeborg est un simple échiquier. Dans **But 1**, Reeborg part du
+troisième carré sur la rangée du bas. Ce carré a les coordonnées
+cartésiennes ``x=3`` et ``y=1``.
 
 
-Making a left turn
-------------------
+.. topic:: Essayez ceci!
 
-Last example ended with a program that did not quite work: something
-about Reeborg not being in the right orientation. If you look at the
-green home square, you will notice a small black square on its right
-edge: this is the direction Reeborg should be facing. In order to do so,
-we must add one more instruction to the program::
+    Avec le monde **But 1** sélectionnez, écrivez un programme avec
+    une seule instruction ``avance()``, exécutez-le et portez attention
+    au message de Reeborg.  Puis, modifiez ce programme pour que Reeborg
+    puisse aller à sa maison.
 
-    turn_left()
 
-.. topic:: Try this!
+.. topic:: Deux autres petits essais!
 
-    Make sure that Reeborg goes home in **Home 3**.
+    Sélectionez **But 2**.  Notez que Reeborg est à un endroit différent et
+    qu'il vous fait face.   Exécutez exactement le même programme et observez
+    le résultat.
 
-.. topic:: Try something else!
+    Ensuite, sélectionnez **But 3**.  Remarquez qu'il y a un tout petit carré noir
+    au but de Reeborg.  Qu'arrive-t-il si vous exécutez votre programme?
 
-    What happens if, instead of using ``turn_left()``, you use instead a
-    third ``move()`` instruction?
 
-A different view
+Tourner à gauche
 ----------------
+
+Le tout dernier exemple que vous avez essayé, si vous avez suivi
+les instructions, ne fonctionnait pas totalement: Reeborg a indiqué
+quelque chose à propos d'une mauvaise orientation.
+Si vous examinez le carré vert où se trouve Reeborg à la fin, vous verrez
+un petit carré noir près de la bordure droite du carré vert: ceci indique
+la direction à laquelle Reeborg doit faire face.
+Ceci peut être réalisé en ajoutant l'instruction suivante::
+
+    tourne_a_gauche()
+
+.. topic:: Essayez ceci!
+
+    Assurez-vous que Reeborg puisse compléter sa tâche dans le monde **But 3**.
+
+.. topic:: Essayez une autre chose!
+
+    Qu'arrive-t-il si, au lieu de ``tourne_a_gauche()``, vous ajoutez plutôt une
+    troisième instruction ``avance()``?
+
+Un autre point de vue
+---------------------
 
 .. |image0| image:: ../../src/images/robot_e.png
 .. |image1| image:: ../../src/images/rover_e.png
 
-You may have noticed that Reeborg (the robot itself) is seen from its
-side, such as |image0| whereas his world is seen from above ... which
-you might perhaps find confusing especially when you instruct Reeborg to
-turn left. You can change the way Reeborg is seen by either using the
-clicking on the appropriate image below Reeborg's world.
-For example, when facing East, such as the side view above, using a different
-image, Reeborg can appear as follows when viewed from above: |image1|
+Vous avez probablement remarqué que le robot Reeborg est vu de son
+côté, comme sur cette image |image0|, alors que son monde est vu d'au-dessus ....
+ce qui peut être mélangeant lorsque vous demandez à Reeborg de tourner à
+gauche.  Vous pouvez changer les images de Reeborg en cliquant sur l'image
+appropriée sous son monde.  Par exemple, lorsque Reeborg fait face à l'est,
+comme dans l'image ci-dessus vue de côté, en utilisant une autre série
+d'images, Reeborg peut apparaître de la façon suivante, comme s'il était
+vu d'au-dessus:  |image1|

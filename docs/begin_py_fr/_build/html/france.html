@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>4. Reeborg goes to France &mdash; Apprenez Python avec Reeborg</title>
+    <title>4. Reeborg va en Espagne &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="5. A token of appreciation" href="tokens1.html" />
-    <link rel="prev" title="3. Darn bugs!" href="bugs.html" /> 
+    <link rel="prev" title="3. Fichus bogues!" href="bugs.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="tokens1.html" title="5. A token of appreciation"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="bugs.html" title="3. Darn bugs!"
+             <a href="bugs.html" title="3. Fichus bogues!"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,15 +80,16 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">4. Reeborg goes to France</a><ul>
+<li><a class="reference internal" href="#">4. Reeborg va en Espagne</a><ul>
 <li><a class="reference internal" href="#valid-names">4.1. Valid names</a></li>
+<li><a class="reference internal" href="#mais-vous-aviez-mentionne-l-espagne">4.2. Mais vous aviez mentionné l&#8217;Espagne?</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="bugs.html"
-                        title="Chapitre précédent">3. Darn bugs!</a></p>
+                        title="Chapitre précédent">3. Fichus bogues!</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="tokens1.html"
                         title="Chapitre suivant">5. A token of appreciation</a></p>
@@ -117,92 +118,104 @@
           <div class="body">
             
   <div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>Before reading the rest of this lesson,
-write a program that makes Reeborg draw a square as illustrated on
-this image: <img alt="image0" src="_images/square.png" /></p>
+<p class="topic-title first">Faites ceci!</p>
+<p>Avant de poursuivre votre lecture, écrivez un programme qui fait
+en sorte que Reeborg dessine un carré tel qu&#8217;illustré sur
+cette image: <img alt="image0" src="_images/square.png" /></p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
-<p class="last">If you do not know how to, select world <strong>Alone</strong> and
-review the commands seen in <a class="reference external" href="home.html">Test driven learning</a>
-Your program will make use of 2 instructions (functions) and should
-have 8 lines.</p>
+<p class="last">Si vous ne savez pas comment, sélectionnez le monde <strong>Seul</strong> et
+relisez la section <a class="reference external" href="home.html">Apprentissage guidé par des tâches</a>.
+Votre programme utilisera deux instructions (fonctions) et devrait
+avoir 8 lignes.</p>
 </div>
-<div class="section" id="reeborg-goes-to-france">
-<h1>4. Reeborg goes to France<a class="headerlink" href="#reeborg-goes-to-france" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="reeborg-va-en-espagne">
+<h1>4. Reeborg va en Espagne<a class="headerlink" href="#reeborg-va-en-espagne" title="Lien permanent vers ce titre">¶</a></h1>
 <ul class="simple">
-<li><em>Quelque chose à déclarer Monsieur. ... Reeborg?</em></li>
-<li><tt class="docutils literal"><span class="pre">Je</span> <span class="pre">ne</span> <span class="pre">parle</span> <span class="pre">pas</span> <span class="pre">français</span> <span class="pre">....</span> <span class="pre">I</span> <span class="pre">do</span> <span class="pre">not</span> <span class="pre">speak</span> <span class="pre">French.</span></tt></li>
-<li><em>Do you have something to declare?</em></li>
-<li><tt class="docutils literal"><span class="pre">Perhaps</span> <span class="pre">I</span> <span class="pre">should</span> <span class="pre">...</span></tt></li>
+<li><em>Algo que declarar Señor ... Reeborg?</em></li>
+<li><tt class="docutils literal"><span class="pre">Yo</span> <span class="pre">no</span> <span class="pre">hablo</span> <span class="pre">español</span> <span class="pre">....</span> <span class="pre">Je</span> <span class="pre">ne</span> <span class="pre">parle</span> <span class="pre">pas</span> <span class="pre">espagnol.</span></tt></li>
+<li><em>Est-ce que vous avez quelque chose à déclarer?</em></li>
+<li><tt class="docutils literal"><span class="pre">Peut-être</span> <span class="pre">que</span> <span class="pre">oui</span> <span class="pre">...</span></tt></li>
 </ul>
-<p>Reeborg is known internationally and travels often. It might be useful
-to teach him words in a different language. For functions, this can be
-done using the Javascript keyword <tt class="docutils literal"><span class="pre">var</span></tt>. I like to think of <tt class="docutils literal"><span class="pre">var</span></tt> as
-creating some <tt class="docutils literal"><span class="pre">var</span></tt>iation of the language. However, in programming terms,
-this is simply known as <strong>declaring</strong> a <tt class="docutils literal"><span class="pre">var</span></tt><strong>iable</strong>.</p>
-<p>We can do this in either one or two steps.</p>
+<p>Reeborg est connu partout dans le monde et voyage souvent. Ça pourrait
+être utile de lui enseigner des instructions dans d&#8217;autres langues.
+On peut faire ceci facilement avec Python.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">On line 1 we define a new word and give it a meaning on line 2. On line
-3 we do both steps at once. Notice
-the absence of parentheses.
-We can then use the new functions names; the old ones still work
-as we show on the last line.</p>
+<p class="last">Aux lignes 1 et 2, on définit de nouveaux noms (synonymes) de fonctions;
+remarquez l&#8217;absence de parentheses.
+Aux lignes 4 et 5 on utilise ces nouveaux noms de fonctions; les anciens
+noms sont toujours compris par Reeborg tel qu&#8217;illustré à la sixième ligne.</p>
 </div>
-<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
 5
-6
-7</pre></div></td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">forward</span><span class="p">;</span>
-<span class="nx">forward</span> <span class="o">=</span> <span class="nx">move</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">turnLeft</span> <span class="o">=</span> <span class="nx">turn_left</span><span class="p">;</span>
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">saute</span> <span class="o">=</span> <span class="n">avance</span>
+<span class="n">gauche</span> <span class="o">=</span> <span class="n">tourne_a_gauche</span>
 
-<span class="nx">forward</span><span class="p">();</span>
-<span class="nx">turnLeft</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
+<span class="n">saute</span><span class="p">()</span>
+<span class="n">gauche</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Choose your own names for <tt class="docutils literal"><span class="pre">move</span></tt> and <tt class="docutils literal"><span class="pre">turn_left</span></tt> and use them
-to make Reeborg draw a square.  If your computer has speakers, you
-might want to add the instruction <tt class="docutils literal"><span class="pre">sound(true)</span></tt> at the very beginning
-of your program for a bit of added fun.</p>
+<p class="topic-title first">Essayez!</p>
+<p>Choisissez votre propres synonymes pour <tt class="docutils literal"><span class="pre">avance</span></tt> et <tt class="docutils literal"><span class="pre">tourne_a_gauche</span></tt>
+et utilisez-les pour que Reeborg dessine un carré.  Si votre ordinateur
+a des hauts-parleurs, vous pouvez ajouter l&#8217;instruction <tt class="docutils literal"><span class="pre">son(True)</span></tt>
+au début de votre programme pour une petite surprise. a</p>
 </div>
-<p>Perhaps you could define your own language for giving instructions to
-Reeborg?</p>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last"><strong>Keywords</strong> are
-names in a programming language that are assigned some special meaning
-that will be the same independently of who writes the program. Note how
-the <tt class="docutils literal"><span class="pre">var</span></tt> keyword above appears in a different colour in the Javascript
-editor:
-all Javascript keywords will be identified similarly.</p>
-</div>
+<p>Si vous le désirez, vous pouvez définir votre propre langage pour donner
+des instructions à Reeborg.</p>
 <div class="section" id="valid-names">
 <h2>4.1. Valid names<a class="headerlink" href="#valid-names" title="Lien permanent vers ce titre">¶</a></h2>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you have learned some Javascript elsewhere, you have seen that the
-<tt class="docutils literal"><span class="pre">var</span></tt> keyword is not normally required. If you choose the &#8220;regular&#8221;
-version of Javascript instead of the <strong>strict</strong> one, you will see
-that you can avoid using the <tt class="docutils literal"><span class="pre">var</span></tt> keyword.  However, this is considered
-to be a bad practice.</p>
+<p>Pour l&#8217;instant, n&#8217;utilisez que des noms qui débutent par une lettre et
+qui ne contiennent que des lettres, des chiffres ou le caractère de
+soulignement &#8220;_&#8221;; un nom ne peut <strong>pas</strong> contenir d&#8217;espaces - et c&#8217;est
+pour cette raison que plusieurs personnes, dont les créateurs du monde
+de Reeborg, utilisent le caractère de soulignement pour créer des noms
+qui ont l&#8217;apparence d&#8217;un bout de phrase, tel que <tt class="docutils literal"><span class="pre">tourne_a_gauche</span></tt>.</p>
+<p>Bien que les caractères avec des accents soient reconnus par Python
+(version 3, que nous utilisons), en général les programmeurs évitent
+de les utiliser dans des noms de variables.  Ainsi, nous écrivons
+<tt class="docutils literal"><span class="pre">tourne_a_gauche</span></tt> au lieu de <tt class="docutils literal"><span class="pre">tourne_à_gauche</span></tt>.</p>
 </div>
-<p>For now, limit yourselves with names that start with a letter and
-contain only letters, numbers or the underscore character &#8220;_&#8221;; a name
-can <strong>not</strong> have a space in it - which is why many people use the
-underscore character to create names that look like many words that
-would be a phrase; thus, instead of <em>turn left</em>, we can write <tt class="docutils literal"><span class="pre">turn_left</span></tt>.
-An alternative way to write compound names most often used by Javascript
-programmers is known as camelCase, where the start of a new word is
-indicated by an uppercase letter.  We gave one such example above with
-<tt class="docutils literal"><span class="pre">turnLeft</span></tt>.</p>
+<div class="section" id="mais-vous-aviez-mentionne-l-espagne">
+<h2>4.2. Mais vous aviez mentionné l&#8217;Espagne?<a class="headerlink" href="#mais-vous-aviez-mentionne-l-espagne" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Pour utiliser des instructions en espagnol plutôt qu&#8217;en français,
+comme [e.g. writing <tt class="docutils literal"><span class="pre">avanzar()</span></tt> au lieu de <tt class="docutils literal"><span class="pre">avance()</span></tt>],
+écrivez la toute première ligne au tout début de votre programme:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">spanish</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Par la suite, si vous voulez voir tous les noms d&#8217;instructions
+en espagnol, vous écrivez:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>exécutez le programme et cliquez sur le bouton <strong>Journal</strong> pour voir le résultat.
+Les explications sont données en anglais ... avec les noms équivalents en anglais.</p>
+<p>Si vous voulez voir la version anglaise, faites plutôt:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">english</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Encore une fois, si vous faites:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>les explications seront données en anglais.  Si vous voulez voir des explications
+en français, faites plutôt:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">french</span> <span class="k">import</span> <span class="o">*</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ce genre d&#8217;instruction [<tt class="docutils literal"><span class="pre">from</span> <span class="pre">module</span> <span class="pre">import</span> <span class="pre">*</span></tt>] est quelque chose qui n&#8217;est pas
+recommandé généralement.  J&#8217;expliquerai en détails pourquoi dans un futur tutoriel.
+Pour l&#8217;instant, notez que, à chaque fois que j&#8217;utilise cette instruction avec
+un nouveau module, le résultat de <tt class="docutils literal"><span class="pre">print(usage)</span></tt> est différent.</p>
 </div>
 </div>
 
@@ -219,7 +232,7 @@ indicated by an uppercase letter.  We gave one such example above with
              <a href="tokens1.html" title="5. A token of appreciation"
              >suivant</a></li>
         <li class="right" >
-             <a href="bugs.html" title="3. Darn bugs!"
+             <a href="bugs.html" title="3. Fichus bogues!"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
