@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>1. First program &mdash; Apprenez Python avec Reeborg</title>
+    <title>1. Premier programme &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -80,12 +80,12 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">1. First program</a><ul>
-<li><a class="reference internal" href="#dealing-with-errors">1.1. Dealing with eRRoRs</a><ul>
-<li><a class="reference internal" href="#what-happened">1.1.1. What happened?</a></li>
+<li><a class="reference internal" href="#">1. Premier programme</a><ul>
+<li><a class="reference internal" href="#composer-avec-les-erreurs">1.1. Composer avec les eRReuRs</a><ul>
+<li><a class="reference internal" href="#qu-est-il-arrive">1.1.1. Qu&#8217;est-il arrivé?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#rule-1">1.2. Rule #1</a></li>
+<li><a class="reference internal" href="#regle-no-1">1.2. Règle no 1</a></li>
 </ul>
 </li>
 </ul>
@@ -120,79 +120,88 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="first-program">
-<h1>1. First program<a class="headerlink" href="#first-program" title="Lien permanent vers ce titre">¶</a></h1>
-<p>So, you just had Reeborg take its very first step. In the editor panel, there is a
-single instruction:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+  <div class="section" id="premier-programme">
+<h1>1. Premier programme<a class="headerlink" href="#premier-programme" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Si vous avez suivi les instructions correctement, Reeborg a fait ses premiers
+pas.  Dans l&#8217;onglet &#8220;code python&#8221; se trouve une seule instruction:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">move()</span></tt> is an example of a Python <strong>function</strong>.
-A function has a name; in this case, it is <tt class="docutils literal"><span class="pre">move</span></tt>.
-Valid names must start with either a letter or the underscore character &#8220;_&#8221;
-and may contain letters, numbers or the underscore character &#8220;_&#8221;.
-The name of the function is followed by <tt class="docutils literal"><span class="pre">()</span></tt>. This tells Reeborg (Python)
-that the function must be <em>executed</em> or <em>called</em> (which are two synonyms).
-This function must be on a line of its own.</p>
-<p>Occasionnally we will make <strong>flowcharts</strong> which are graphical representations of a program.
-In a flowchart, a single instruction like <tt class="docutils literal"><span class="pre">move()</span></tt> might be represented
-as follows:</p>
+<p><tt class="docutils literal"><span class="pre">avance()</span></tt> est un exemple d&#8217;une <strong>fonction</strong>.
+Une fonction a un nom; dans ce cas-ci, c&#8217;est <tt class="docutils literal"><span class="pre">avance</span></tt>.
+Pour être valide, les noms doivent débuter soit par une lettre ou par le
+caractère de soulignement &#8220;_&#8221;,
+et peuvent contenir des lettres, des chiffres ou le caractère
+de soulignement.
+Le nom de le fonction peut être suivi par des parenthèses <tt class="docutils literal"><span class="pre">()</span></tt>.
+Ceci instruit Reeborg (Python) que la fonction doit être <em>exécutée</em>.
+La fonction doit être sur sa propre ligne (nous verrons des exceptions à ceci plus tard).</p>
+<p>Occasionnellement, nous ferons des <strong>organigrammes</strong> qui sont une représentation graphique
+d&#8217;un programme.  Dans un organigramme, une simple instruction comme
+<tt class="docutils literal"><span class="pre">avance()</span></tt> pourrait être représentée de la façon suivante:</p>
 <div class="figure align-center">
-<img alt="_images/move1.jpg" src="_images/move1.jpg" />
+<img alt="_images/avance1.png" src="_images/avance1.png" />
 </div>
-<p>and a complete program containing this single instruction would be represented
-as follows:</p>
+<p>et un programme complet, comprenant seulement cette instructions, serait représenté
+comme suit:</p>
 <div class="figure align-center">
-<img alt="_images/move.jpg" src="_images/move.jpg" />
+<img alt="_images/avance.jpg" src="_images/avance.jpg" />
 </div>
-<p>In a flowchart, the sequence of instructions follows the arrows, starting at &#8220;Start&#8221;
-and ending at &#8220;Stop&#8221;.</p>
+<p>Dans un organigramme, la séquence des instructions suit les flèches.</p>
 <div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>Add a second <tt class="docutils literal"><span class="pre">move()</span></tt> instruction so that Reeborg takes two steps instead
-of only one.</p>
+<p class="topic-title first">Essayez ceci!</p>
+<p>Ajouter une seconde instruction <tt class="docutils literal"><span class="pre">avance()</span></tt> faisant en sorte que Reeborg fasse deux pas plutôt qu&#8217;un seul.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
-<p class="last">Each instruction must appear on its own line, with no extra space
-at the beginning of the line.</p>
+<p class="last">Chaque instruction doit apparaître sur sa propre ligne, sans espace
+superflu au début de la ligne.</p>
 </div>
-<div class="section" id="dealing-with-errors">
-<h2>1.1. Dealing with eRRoRs<a class="headerlink" href="#dealing-with-errors" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="composer-avec-les-erreurs">
+<h2>1.1. Composer avec les eRReuRs<a class="headerlink" href="#composer-avec-les-erreurs" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Lorsque vous allez écrire des programmes, vous allez occasionnellement faire des erreurs
+Pour voir comment Reeborg réagit lorsqu&#8217;il rencontre des erreurs, je vous demande
+d&#8217;en faire une de façon intentionnelle.</p>
 <p>When writing computer programs, you will likely make many errors.
 To see how Reeborg react to some errors, I will ask you to intentionally
 introduce one error in the program.</p>
 <div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>Change <tt class="docutils literal"><span class="pre">move()</span></tt> to <tt class="docutils literal"><span class="pre">Move()</span></tt> (with an uppercase M) and try to
-execute the program.</p>
+<p class="topic-title first">Essayez ceci!</p>
+<p>Changez <tt class="docutils literal"><span class="pre">avance()</span></tt> à <tt class="docutils literal"><span class="pre">Avance()</span></tt> (avec un A majuscule) et exécutez le programme.</p>
 </div>
-<div class="section" id="what-happened">
-<h3>1.1.1. What happened?<a class="headerlink" href="#what-happened" title="Lien permanent vers ce titre">¶</a></h3>
-<p>Python, the language that Reeborg understands, is &#8220;case sensitive&#8221;;
-that is, lowercase letters have a different meanings than uppercase
-ones. Now that you see how Reeborg deals with errors, go back,
-fix the program and run the corrected version.</p>
+<div class="section" id="qu-est-il-arrive">
+<h3>1.1.1. Qu&#8217;est-il arrivé?<a class="headerlink" href="#qu-est-il-arrive" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Tout d&#8217;abord, je note que le message d&#8217;erreur <em>&#8216;Avance&#8217; is not defined</em>,
+qui signifie <em>&#8216;Avance&#8217; n&#8217;est pas défini</em>, est en anglais. Ceci est
+malheureusement incontournable...</p>
+<p>Python, le langage que Reeborg comprend, est &#8220;sensible à la casse&#8221;;
+c&#8217;est-à-dire que les lettres majuscules et les lettre minuscules ont des
+sens différents. Corrigez-donc le programme pour que Reeborg soit en
+mesure de le comprendre et vérifiez que cela est bien le cas.</p>
+<p>Lorsque vous aurez exécuter le programme à nouveau, les indications
+d&#8217;erreurs seront effacées. Assurez-vous que ceci soit bel et bien le
+cas.</p>
 </div>
 </div>
-<div class="section" id="rule-1">
-<h2>1.2. Rule #1<a class="headerlink" href="#rule-1" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Did you try all that I suggested to you above?  If not,
-I urge you to go back to do it.  You see, the most important rule you
-must follow if you wish to learn programming is the following:</p>
+<div class="section" id="regle-no-1">
+<h2>1.2. Règle no 1<a class="headerlink" href="#regle-no-1" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Est-ce que vous avez bel et bien essayez toutes les suggestions
+ci-dessus?  Sinon, je vous implore de le faire.  Voyez-vous, la
+règle la plus importante que vous devez suivre pour apprendre
+à programmer est la suivante:</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <dl class="last docutils">
-<dt>Rule # 1</dt>
-<dd>Learning about computer programming is like learning to play
-a musical instrument: you have to <strong>do it</strong>, not simply read
-about it.</dd>
+<dt>Règle no 1</dt>
+<dd>Apprendre la programmation informatique est comme apprendre à jouer
+d&#8217;un instrument de musique: il faut le faire et non pas se contenter de lire à ce sujet.</dd>
 </dl>
 </div>
-<p>Every time I suggest you try something, I have a reason for doing
-so.  Sometimes it will not be apparent right away, but I really encourage
-you to try it.  I would even suggest to you that you should do more
-than what I suggest and try different things just to explore further.</p>
+<p>Chaque fois que je vous suggère d&#8217;essayer quelque chose, j&#8217;ai une raison bien
+précise pour le faire.  Parfois, cette raison ne vous sera pas évidente, mais
+je vous encourage fortement de toujours essayer.  En fait, je vous encourage
+à essayer d&#8217;autres exemples de votre cru, ce qui vous permettra d&#8217;approfondir
+votre compréhension.</p>
 </div>
 </div>
 

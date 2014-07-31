@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>6. Rule number 2 &mdash; Apprenez Python avec Reeborg</title>
+    <title>6. Règle numéro 2 &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="7. Summary" href="summary1.html" />
-    <link rel="prev" title="5. A token of appreciation" href="tokens1.html" /> 
+    <link rel="prev" title="5. Collection de jetons" href="tokens1.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="summary1.html" title="7. Summary"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="tokens1.html" title="5. A token of appreciation"
+             <a href="tokens1.html" title="5. Collection de jetons"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,15 +80,15 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">6. Rule number 2</a><ul>
-<li><a class="reference internal" href="#comments">6.1. Comments</a></li>
+<li><a class="reference internal" href="#">6. Règle numéro 2</a><ul>
+<li><a class="reference internal" href="#commentaires">6.1. Commentaires</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="tokens1.html"
-                        title="Chapitre précédent">5. A token of appreciation</a></p>
+                        title="Chapitre précédent">5. Collection de jetons</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="summary1.html"
                         title="Chapitre suivant">7. Summary</a></p>
@@ -116,112 +116,108 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="rule-number-2">
-<h1>6. Rule number 2<a class="headerlink" href="#rule-number-2" title="Lien permanent vers ce titre">¶</a></h1>
-<p>I have already mentioned the first rule for learning how to program: you
-must write programs (and test them) and not simply read about
-programming. Now, I am about to tell you the second rule which is one of
-the best-kept secret for writing good computer programs.</p>
+  <div class="section" id="regle-numero-2">
+<h1>6. Règle numéro 2<a class="headerlink" href="#regle-numero-2" title="Lien permanent vers ce titre">¶</a></h1>
+<p>J&#8217;ai déjà mentionné la première règle pour apprendre la programmation
+informatique: vous devez écrire des programmes (et les tester) et non
+simplement lire au sujet de la programmation. C&#8217;est maintenant le temps
+de partager avec vous la deuxième règle, qui est possiblement le secret
+le mieux gardé en informatique.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p><strong>Rule # 2</strong></p>
+<p><strong>Règle numéro 2</strong></p>
 <blockquote class="last">
-<div>Write your computer programs to make them easy for <strong>people</strong> to
-read and understand.</div></blockquote>
+<div>Écrivez vos programmes pour qu&#8217;il soit facile à lire et à comprendre
+par des <strong>humains</strong>.</div></blockquote>
 </div>
-<p>That&#8217;s right, write your computer programs so that other people, just
-like you, would find them easy to read on their own, and figure out what
-they do. Yes, computer languages are designed to allow you to
-communicate with computers, just as human languages have evolved to
-allow humans to communicate with each other. But computer languages,
-which are much simpler than human languages, are often used by
-programmers to share their work with other programmers.</p>
-<div class="section" id="comments">
-<h2>6.1. Comments<a class="headerlink" href="#comments" title="Lien permanent vers ce titre">¶</a></h2>
-<p>I present to you the first tool you can use to write computer programs
-that are easier for people to understand: <em>comments</em>.</p>
-<p>Comments are notes made by a programmer which are ignored by the
-computer; they are meant to be read and understood only by humans.</p>
-<p>When using Javascript, one can write comments in one of two ways:</p>
+<p>C&#8217;est vrai, écrivez vos programmes informatiques pour que d&#8217;autres
+personnes, tout comme vous, les trouvent facile à lire et à comprendre
+par elles-mêmes. Il est vrai que les langages informatiques sont conçus
+pour vous permettre de donner des instructions aux ordinateurs. Ces
+langages sont beaucoup plus simples que les langues humaines et sont
+également utilisés pour partager des idées entre programmeurs.</p>
+<div class="section" id="commentaires">
+<h2>6.1. Commentaires<a class="headerlink" href="#commentaires" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Un des outils que vous pouvez utiliser pour écrire des programmes qui
+peuvent être plus facilement compris par les humains sont les
+<em>commentaires</em>.</p>
+<p>Les commentaires sont des notes écrites par un programmeur qui sont
+ignorées par l&#8217;ordinateur; leur seul but est d&#8217;être partagé avec
+d&#8217;autres humains.</p>
+<p>Lorsqu&#8217;on utilise Python, on peut écrire des commentaires de
+deux façons:</p>
 <ul class="simple">
-<li>By enclosing an arbitrary quantity of text between <tt class="docutils literal"><span class="pre">/*</span></tt> and <tt class="docutils literal"><span class="pre">*/</span></tt>.</li>
-<li>By writing some text preceded by <tt class="docutils literal"><span class="pre">//</span></tt> on any given line.</li>
+<li>En imbriquant un texte arbitraire entre deux triplets d&#8217;apostrophes
+ou de guillemets, c&#8217;est-à-dire <tt class="docutils literal"><span class="pre">&quot;&quot;&quot;</span> <span class="pre">...</span> <span class="pre">&quot;&quot;&quot;</span></tt> ou <tt class="docutils literal"><span class="pre">'''</span> <span class="pre">...</span> <span class="pre">'''</span></tt>.</li>
+<li>En précédent une partie d&#8217;une ligne de texte par <tt class="docutils literal"><span class="pre">#</span></tt>.</li>
 </ul>
-<p>I will first write a simple program without any comments followed by a
-second version with comments added and a third version ... slightly less
-readable; however, I will make the same error in all three programs. Can
-you spot it more easily in the first program, the second, or the third?</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">put</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">put</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">put</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">put</span><span class="p">();</span>
+<p>Pour illustrer l&#8217;utilisation de commentaire, je vais tout d&#8217;abord écrire
+un programme sans utiliser de commentaires, puis le modifier pour
+inclure des commentaires et le rendre plus facile à lire par les
+humains. De plus, la même
+erreur sera présente dans les deux versions. Vous devez déterminer dans
+laquelle de ces deux versions il est plus facile de détecter l&#8217;erreur.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">depose</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">depose</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">depose</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">depose</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Contrast the above program with the same one, from Reeborg&#8217;s point of
-view, but with comments added for humans; you will be able so recognize
-comments as they appear in a different colour and font style.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="cm">/* This is an example of</span>
-<span class="cm">a simple program where Reeborg draws a square,</span>
-<span class="cm">leaving a token behind at each corner. */</span>
+<p>Comparez donc la version ci-dessus avec une version identique (du point
+de vue de Reeborg) à laquelle on a ajouté des commentaires pour les
+humains; vous pourrez facilement identifier les commentaires car ils
+sont automatiquement présentés d&#8217;une autre couleur à l&#8217;écran.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="sd">&#39;&#39;&#39; Ceci est un simple programme</span>
+<span class="sd">où Reeborg dessine un carré, déposant un jeton à</span>
+<span class="sd">chaque coin.&#39;&#39;&#39;</span>
 
-<span class="nx">move</span><span class="p">();</span>  <span class="c1">// Javascript commands have to end with a semi-colon</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span> <span class="c1">// Reeborg only knows to turn left</span>
-<span class="nx">put</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>  <span class="c1">// we assume that Reeborg carries enough tokens</span>
+<span class="n">avance</span><span class="p">()</span>  <span class="c"># Chaque instruction est sur une seule ligne</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span> <span class="c"># Reeborg sait seulement tourner à gauche</span>
+<span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>  <span class="c"># On suppose que Reeborg a suffisamment de jetons</span>
 
-<span class="c1">// we repeat the above three more times to complete the square</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">put</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+<span class="c"># On répète les instructions ci-dessus trois fois de plus</span>
+<span class="c"># pour compléter le carré.</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
 
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">put</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_à_gauche</span><span class="p">()</span>
+<span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
 
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span>
-<span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">put</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The above are not particularly good comments, but at least one of them
-should have helped you find what was wrong with the program. You might
-think this is cheating; however, how can you guess the intent behind
-some lines of code in a program on their own? The addition of comments
-explaining what a given program should do can be very helpful in finding
-mistakes.</p>
-<p>Note that in addition to comments, I have used blank lines to separate
-some &#8220;logical&#8221; blocks of code, to help see the pattern better. Together,
-the use of comments and insertion of blank lines can make a program much
-easier to read.</p>
-<p>Furthermore, while it does not make any difference to Reeborg, I have
-made sure to specify that it was <tt class="docutils literal"><span class="pre">&quot;token&quot;</span></tt> that I wanted Reeborg
-<tt class="docutils literal"><span class="pre">put</span></tt>; this makes it more clear to human readers.</p>
-<p>Finally, let me rewrite the <strong>same</strong> program in a way that is much
-harder to read for humans, but that is just as easily understood by
-Reeborg.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">move</span><span class="p">();</span><span class="nx">move</span><span class="p">();</span><span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">put</span><span class="p">();</span><span class="nx">move</span><span class="p">();</span><span class="nx">move</span><span class="p">();</span><span class="nx">turn_left</span><span class="p">();</span>
-<span class="nx">put</span><span class="p">();</span><span class="nx">move</span><span class="p">();</span><span class="nx">turn_left</span><span class="p">();</span><span class="nx">put</span><span class="p">();</span>
-<span class="nx">move</span><span class="p">();</span><span class="nx">move</span><span class="p">();</span><span class="nx">turn_left</span><span class="p">();</span><span class="nx">put</span><span class="p">();</span>
-</pre></div>
-</div>
-<p>By choosing world <strong>Alone</strong> and copying/pasting each program in turn in the
-editor, you can verify that they all make Reeborg perform exactly the
-same task!</p>
-<p>Now, which one is easier to read?</p>
+<p>Les commentaires ajoutés au programme ci-dessus ne sont pas
+particulièrement géniaux ... mais au moins l&#8217;un d&#8217;entre eux devrait vous
+permettre de trouver l&#8217;erreur dans le programme. Vous penserez peut-être
+que j&#8217;ai triché; cela dit, comment pouvez-vous connaître le but d&#8217;un
+programme s&#8217;il n&#8217;est indiqué nulle part? L&#8217;addition de commentaires est
+parfois essentielle pour comprendre le but d&#8217;un programme et devient
+ainsi très utile pour détecter des erreurs.</p>
+<p>Notez qu&#8217;en plus d&#8217;ajouter des commentaires, j&#8217;ai inséré quelques lignes
+sans code pour séparer les &#8220;blocs logiques&#8221; et mieux voir le patron
+suivi. Ceci permet également d&#8217;identifier l&#8217;erreur plus facilement.</p>
+<p>Également, et bien que ceci ne crée aucune différence pour Reeborg, j&#8217;ai
+spécifié <tt class="docutils literal"><span class="pre">&quot;jeton&quot;</span></tt> lorsque je voulais que Reeborg en <tt class="docutils literal"><span class="pre">depose</span></tt> un;
+ceci est plus clair pour un lecteur.</p>
+<p>Alors, quelle version est la plus facile à lire et à comprendre?...</p>
 </div>
 </div>
 
@@ -238,7 +234,7 @@ same task!</p>
              <a href="summary1.html" title="7. Summary"
              >suivant</a></li>
         <li class="right" >
-             <a href="tokens1.html" title="5. A token of appreciation"
+             <a href="tokens1.html" title="5. Collection de jetons"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

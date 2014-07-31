@@ -8,13 +8,14 @@ single instruction::
 
     move()
 
-``move()`` is an example of a Python **function**. 
-A function has a name; in this case, it is ``move``.  
+``move()`` is an example of a Python **function**.
+A function has a name; in this case, it is ``move``.
 Valid names must start with either a letter or the underscore character "_"
 and may contain letters, numbers or the underscore character "_".
 The name of the function is followed by ``()``. This tells Reeborg (Python)
 that the function must be *executed* or *called* (which are two synonyms).
-This function must be on a line of its own.
+This function must be on a line of its own. [We will see exception to this
+rule later on.]
 
 Occasionnally we will make **flowcharts** which are graphical representations of a program.
 In a flowchart, a single instruction like ``move()`` might be represented
@@ -46,7 +47,7 @@ and ending at "Stop".
 Dealing with eRRoRs
 -------------------
 
-When writing computer programs, you will likely make many errors.  
+When writing computer programs, you will likely make many errors.
 To see how Reeborg react to some errors, I will ask you to intentionally
 introduce one error in the program.
 
@@ -61,7 +62,7 @@ What happened?
 
 Python, the language that Reeborg understands, is "case sensitive";
 that is, lowercase letters have a different meanings than uppercase
-ones. Now that you see how Reeborg deals with errors, go back, 
+ones. Now that you see how Reeborg deals with errors, go back,
 fix the program and run the corrected version.
 
 

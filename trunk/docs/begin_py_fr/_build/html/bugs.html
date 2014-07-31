@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>3. Darn bugs! &mdash; Apprenez Python avec Reeborg</title>
+    <title>3. Fichus bogues! &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="4. Reeborg goes to France" href="france.html" />
-    <link rel="prev" title="2. Test driven learning" href="home.html" /> 
+    <link rel="prev" title="2. Apprentissage guidé par des tâches" href="home.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="france.html" title="4. Reeborg goes to France"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="home.html" title="2. Test driven learning"
+             <a href="home.html" title="2. Apprentissage guidé par des tâches"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,16 +80,16 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">3. Darn bugs!</a><ul>
-<li><a class="reference internal" href="#what-is-a-bug">3.1. What is a bug?</a></li>
-<li><a class="reference internal" href="#dealing-with-bugs">3.2. Dealing with bugs</a></li>
+<li><a class="reference internal" href="#">3. Fichus bogues!</a><ul>
+<li><a class="reference internal" href="#qu-est-ce-qu-un-bogue">3.1. Qu&#8217;est-ce qu&#8217;un bogue?</a></li>
+<li><a class="reference internal" href="#composer-avec-les-bogues">3.2. Composer avec les bogues</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="home.html"
-                        title="Chapitre précédent">2. Test driven learning</a></p>
+                        title="Chapitre précédent">2. Apprentissage guidé par des tâches</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="france.html"
                         title="Chapitre suivant">4. Reeborg goes to France</a></p>
@@ -117,103 +117,117 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="darn-bugs">
-<h1>3. Darn bugs!<a class="headerlink" href="#darn-bugs" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Nobody likes to talk about computer bugs. But, unfortunately, you must
-learn about them and, especially, how to get rid of them.</p>
-<div class="section" id="what-is-a-bug">
-<h2>3.1. What is a bug?<a class="headerlink" href="#what-is-a-bug" title="Lien permanent vers ce titre">¶</a></h2>
-<p>The origin of the word <strong>bug</strong> in computer jargon is often attributed to
-an actual incident where a moth was found inside Harvard University&#8217;s
-Mark II computer; apparently this moth had caused the computer to stop
-working. It was found by the team headed by renowned computer scientist,
-mathematician, and young naval officer Grace Murray Hopper, who went on
-to invent the concept of compiler languages in computer programming. Dr.
-Grace Hopper eventually rose in the U.S. naval hierarchy to the rank of
-Rear Admiral.</p>
-<p>The moth was preserved, taped into Hopper&#8217;s log book, as shown below.
-Interestingly, the log book included a note saying, &#8220;First actual case
-of bug being found.&#8221; as you can see.</p>
+  <div class="section" id="fichus-bogues">
+<h1>3. Fichus bogues!<a class="headerlink" href="#fichus-bogues" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Personne n&#8217;aime avoir à discuter au sujet des bogues en informatique.
+Mais, malheureusement, vous devez en savoir davantage à leur sujet et,
+surtout, apprendre comment vous en débarrasser.</p>
+<p>Cette leçon est un peu plus longue que les précédentes, mais je vous
+encourage à lire le tout au moins une fois.</p>
+<div class="section" id="qu-est-ce-qu-un-bogue">
+<h2>3.1. Qu&#8217;est-ce qu&#8217;un bogue?<a class="headerlink" href="#qu-est-ce-qu-un-bogue" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L&#8217;origine du mot bogue, adapté de l&#8217;anglais <strong>bug</strong> qui signifie
+<strong>insecte</strong>, est souvent attribué à un incident où un papillon de nuit a
+été trouvé à l&#8217;intérieur de l&#8217;ordinateur Mark II de l&#8217;Université
+Harvard. Cet insecte avait été trouvé par les membres d&#8217;une équipe menée
+par l&#8217;illustre informaticienne, mathématicienne et jeune officier naval
+Grace Murray Hopper, qui inventa par la suite le concept de compilateur
+de langages informatiques. Madame Grace Hopper, Ph.D., a également
+atteint le titre d’amiral (<em>Rear Admiral</em>) dans la marine américaine.</p>
+<p>Ce papillon a été préservé, collé dans le journal de bord de Madame
+Hopper, tel qu&#8217;illustré ci-dessous. Fait intéressant, on note une
+mention qui dit &#8220;First actual case of bug being found.&#8221; qu&#8217;on pourrait
+traduire par <em>Premier cas actuel d&#8217;un bogue/insecte trouvé.</em></p>
 <p><img alt="image0" src="_images/first_bug.jpg" /></p>
-<p>Picture adapted from the public archive of the <a class="reference external" href="http://www.history.navy.mil/photos/pers-us/uspers-h/g-hoppr.htm">U.S. Naval Historical Center</a></p>
-<p>Actually, the word bug in a technological context is attributed by the
-Oxford English Dictionary to Thomas Edison. According to the Oxford
-Dictionary, the following text can apparently be found in the March 11,
-1889 edition of the Pall Mall Gazette:</p>
+<p>Image adaptée de l&#8217;archive publique <a class="reference external" href="http://www.history.navy.mil/photos/pers-us/uspers-h/g-hoppr.htm">U.S. Naval Historical Center</a></p>
+<p>En fait, la première utilisation du mot anglais bug dans un contexte
+technologique est attribuée à l&#8217;inventeur Thomas Edison. Selon le
+dictionnaire Oxford, le texte suivant aurait été publié le 11 mars 1889
+dans le journal Pall Mall Gazette:</p>
 <blockquote>
 <div>Mr. Edison, I was informed, had been up the two previous nights
 discovering &#8216;a bug&#8217; in his phonograph - an expression for solving a
 difficulty, and implying that some imaginary insect has secreted
 itself inside and is causing all the trouble.</div></blockquote>
-<p>It thus appears that the original &#8216;bug&#8217;, though it was indeed an insect,
-was in fact imaginary.</p>
-<p>Unfortunately, computer bugs, while they are not insects, are also not
-imaginary.</p>
+<p>Donc, il semblerait que le bogue original, bien qu&#8217;il ait fait référence
+à un insecte, en aurait été un <em>imaginaire</em>...</p>
+<p>Malheureusement, les bogues, bien qu&#8217;ils ne soient pas des insectes, ne
+sont pas imaginaires.</p>
 </div>
-<div class="section" id="dealing-with-bugs">
-<h2>3.2. Dealing with bugs<a class="headerlink" href="#dealing-with-bugs" title="Lien permanent vers ce titre">¶</a></h2>
-<p>In computer jargon, a bug is an error that causes a program to behave in
-an unexpected way. If you are writing computer programs, you are going
-to have bugs in them sooner or later - everybody does. Good programmers
-seek to &#8220;remove&#8221; bugs or &#8220;fix&#8221; them as soon as they find that their
-program behaves unexpectedly.</p>
-<p>Not so good programmers state that &#8220;bugs&#8221; are not really bugs but that
-they are &#8220;features&#8221; of their programs. <strong>You</strong> are going to be a good
-programmer, unlike the maker of Reeborg, whose program is littered with
-bugs.</p>
+<div class="section" id="composer-avec-les-bogues">
+<h2>3.2. Composer avec les bogues<a class="headerlink" href="#composer-avec-les-bogues" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Dans le jargon informatique, un bogue est une erreur qui fait qu&#8217;un
+programme se comporte d&#8217;une façon inattendue. Si vous écrivez des
+programmes informatiques, tôt ou tard vous allez rencontrer des bogues.
+Les bons programmeurs cherchent à éliminer les bogues aussitôt que leur
+programme se comportent d&#8217;une manière inattendue.</p>
+<p>Les programmeurs incompétents disent que les bogues dans leurs
+programmes n&#8217;en sont pas, mais qu&#8217;il s&#8217;agit plutôt de <em>particularité</em> ou
+de <em>trait intéressant du caractère</em> de leur programme. <strong>Vous</strong> allez
+devenir de bons programmeurs, contrairement aux créateurs de Reeborg
+dont le programme est rempli de bogues.</p>
 <ol class="arabic simple">
-<li>Reeborg has an oil leak. Oil leaks are damaging for the environment
-and inconvenient for Reeborg who must replenish its supplies when
-it&#8217;s not busy accomplishing tasks. The maker of Reeborg claims that
-it is a feature, as it enables you to follow Reeborg&#8217;s path, just
-like any programmer can learn to &#8220;trace&#8221; a program. You will learn
-how to fix Reeborg&#8217;s leak later. More advanced techniques to trace bugs,
-like using what is known as a <em>debugger</em>,
-are beyond the scope of these lessons.</li>
-<li>Reeborg&#8217;s steering mechanism is not handled properly by Reeborg&#8217;s
-program: it can only turn left. The maker of Reeborg, once again,
-claims that this is a feature as it present you with an opportunity
-to learn about functions. Reeborg disagrees. You will soon learn how
-to program a <em>workaround solution</em>, enabling Reeborg to turn right,
-although in a wasteful fashion. Much later, you will learn how to
-truly fix Reeborg so that it can turn right just as easily as it can
-turn left.</li>
-<li>Reeborg has a compass, enabling him to determine which direction he
-is facing. Unfortunately, yet again, the program that enables Reeborg
-to get the information from the compass has a bug: it only tells
-Reeborg if he is facing North ... or not. Once again, you will first
-learn how to implement a workaround solution and later how to fix
-permanently Reeborg and get rid of what its maker calls a &#8220;feature&#8221;.</li>
-<li>Reeborg can see if a wall is in front of him, and can also turn its
-head to the right to see if there is a wall there. However, a
-software &#8220;glitch&#8221; (which is another weasel term that software
-manufacturers use to avoid having to say that their product has a
-bug) prevents Reeborg&#8217;s program from properly registering a wall when
-it turns its head left.</li>
+<li>Reeborg a une fuite d&#8217;huile. De telle fuite sont dommageables pour
+l&#8217;environnement et pas très pratique pour Reeborg qui doit refaire le
+plein de façon périodique, lorsqu&#8217;il n&#8217;est pas occupé à accomplir les
+tâches que vous lui confiez. Les créateurs de Reeborg prétendent
+qu&#8217;en fait il s&#8217;agit d&#8217;une caractéristique utile puisque ceci vous
+permet de suivre Reeborg à la trace, comme tout bon programmeur doit
+pouvoir faire dans ses programmes. Vous apprendrez plus tard à
+réparer cette fuite. Et je vous montrerai une façon moins dommageable
+pour l&#8217;environnement afin de suivre ce que fait Reeborg; des
+techniques plus avancées utilisant des logiciels connus sous le nom
+de <strong>débogueurs</strong> vont au-delà de ce qui est couvert dans ces leçons.</li>
+<li>Le mécanisme de direction de Reeborg n&#8217;est pas utilisé correctement
+par le logiciel de Reeborg, ce qui fait que ce dernier ne peut que
+tourner vers la gauche. Les créateurs de Reeborg, une fois de plus,
+prétendent qu&#8217;il s&#8217;agit là d&#8217;une caractéristique utile puisque ceci
+vous permet d&#8217;apprendre le concept de <strong>fonctions</strong>. Reeborg n&#8217;est
+pas d&#8217;accord. Vous apprendrez sous peu comment accommoder tant bien
+que mal cette limitation de Reeborg et trouver une façon détournée
+pour lui permettre de faire des virages à droite. Beaucoup plus tard,
+vous apprendrez à véritablement réparer Reeborg pour lui permettre de
+tourner à droite aussi aisément qu&#8217;il peut déjà tourner à gauche.</li>
+<li>Reeborg possède une boussole lui permettant de déterminer dans quelle
+direction il va. Malheureusement, une fois de plus, le logiciel de
+Reeborg a un bogue qui fait en sorte que Reeborg peut seulement dire
+s&#8217;il se dirige vers le nord ... ou non. Vous apprendrez d&#8217;abord à
+composer avec ce bogue pour trouver une façon détournée de permettre
+à Reeborg de s&#8217;orienter correctement. Plus tard, vous apprendrez à
+corriger le logiciel de Reeborg correctement.</li>
+<li>Reeborg peut voir s&#8217;il y a un mur qui bloque son passage devant lui,
+et peut tourner la tête pour voir s&#8217;il y a un mur à sa droite.
+Malheureusement une <em>limitation</em> de son programme (ce qui est une
+expression malhonnête que les manufacturiers utilisent pour éviter de
+dire que leurs programmes ont des bogues) empêche Reeborg de
+déterminer correctement si un mur se trouve immédiatement à sa
+gauche.</li>
 </ol>
-<p>Sometimes to find the cause of bugs, it can help to break the normal
-flow of the program. To this end you may do one or more of the
-following:</p>
+<p>Pour déterminer la cause d&#8217;un bogue, il est parfois utile d&#8217;interrompre
+le flot normal d&#8217;un programme. À cette fin, vous pouvez utiliser un ou
+plusieurs des trucs suivants:</p>
 <ol class="arabic simple">
-<li>You can <em>pause</em> a program as it is running by pressing the <strong>pause</strong>
-button. This is similar to what people refer to as
-setting a <em>breakpoint</em> in a computer program</li>
-<li>Instead of actually pressing the pause button, you can type in the
-instruction <tt class="docutils literal"><span class="pre">pause();</span></tt> at any point inside a program and Reeborg
-will pause, awaiting your permission to continue.</li>
-<li>You can <em>step through</em> a program, one instruction at a time, by
-pressing the <em>execute one instruction and pause</em>, or <strong>step</strong> button.</li>
-<li>You can change the speed of execution at any point inside a program;
-I will explain how you can do this later.</li>
-<li>You can have Reeborg write some information at any given point inside
-a program; again, I will explain how you can do this later.</li>
-<li>At the top of Reeborg&#8217;s world appears some information about the position and
-number of tokens (to be explained later) carried by the first few
-robots in the world (yes, you can have multiple robots...).</li>
-<li>Finally, you can stop a program at any point by pressing the <strong>stop</strong>
-button; this unfortunately may not work if you create
-what is known as an infinite loop, outside of Reeborg&#8217;s control. If
-worse comes to worst, you can always just reload the web page.</li>
+<li>Vous pouvez <em>pauser</em> un programme en voie d&#8217;exécution simplement en
+cliquant sur le bouton <strong>pause</strong>. Ceci est semblable
+à ce qu&#8217;on appelle un <em>point d&#8217;arrêt</em> (&#8220;breakpoint&#8221;) dans un
+programme.</li>
+<li>Plutôt que de cliquer sur le bouton de pause, vous pouvez insérer
+l&#8217;instruction <tt class="docutils literal"><span class="pre">pause()</span></tt> à n&#8217;importe quel point du programme, ce
+qui aura exactement le même effet.</li>
+<li>Vous pouvez exécuter un programme <em>une instruction à la fois</em> en
+cliquant sur le bouton <em>exécution d&#8217;une seule instruction</em>.</li>
+<li>Vous pouvez changer la vitesse d’exécution (le temps entre deux
+instructions) à n&#8217;importe quel point à l&#8217;intérieur d&#8217;un programme;
+j&#8217;expliquerai comment faire ceci plus tard.</li>
+<li>Vous pouvez demander à Reeborg d&#8217;écrire certaines notes à n&#8217;importe
+quel point à l&#8217;intérieur d&#8217;un programme; je vous montrerai également
+comment faire ceci plus tard.</li>
+<li>Finalement, vous pouvez arrêter complètement l&#8217;exécution d&#8217;un
+programme en cliquant le bouton <strong>stop</strong>;
+malheureusement, ceci ne fonctionnera pas toujours si vous avez ce
+qu&#8217;on appelle une boucle infinie hors du contrôle de Reeborg. Dans le
+pire des cas, vous pouvez simplement recharger la page web et
+redémarrer à zéro.</li>
 </ol>
 </div>
 </div>
@@ -231,7 +245,7 @@ worse comes to worst, you can always just reload the web page.</li>
              <a href="france.html" title="4. Reeborg goes to France"
              >suivant</a></li>
         <li class="right" >
-             <a href="home.html" title="2. Test driven learning"
+             <a href="home.html" title="2. Apprentissage guidé par des tâches"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
