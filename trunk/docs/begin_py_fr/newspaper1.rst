@@ -1,43 +1,46 @@
+Livraison de journaux
+=====================
 
-Newspaper delivery
-==================
+Reeborg a un emploi: il livre le journal *l'Étoile du nord*. Plusieurs
+des clients de Reeborg ne vivent pas au rez-de-chaussée de leur édifice.
+Pour ceux-ci, Reeborg doit suivre la procédure suivante:
 
-Reeborg has a new job: he delivers the *Northern Star* newspaper. Many
-of Reeborg's customers do not live on the ground floor of their
-building. For each of these customers, Reeborg has to do the following
+#. Prendre une seule copie du journal (ce serait trop lourd de les
+   transporter tous à la fois).
+#. Grimper le nombre d'étages requis pour rejoindre la porte du client..
+#. Prendre la monnaie (jetons) laissée par les clients.
+#. Laisser une copie du journal, appelé plus simplement l'*étoile* sur
+   le seuil de porte.
+#. Redescendre au rez-de-chaussée.
 
-#. Pick up a single copy of the newspaper (it would be too heavy to
-   carry them all up the stairs).
-#. Climb up the required number of floors to reach the customer's door.
-#. Get the money (tokens) left by the customer.
-#. Leave a copy of the newspaper (simply nicknamed the *star*) behind.
-#. Climb down to the ground level
+Bien que Reeborg ait plusieurs clients, j'en ai seulement inclus deux
+pour votre attention:
 
-While Reeborg has many clients, I only included two with their
-corresponding worlds:
+-  La gentille Ada Lovelace, qui vit au troisième étage de son édifice,
+   et qui laisse toujours quelques pièces de monnaie de plus comme
+   cadeau pour Reeborg; son monde est **Journal 1**.
+-  Le vieux grognon Charles Babbage, qui vit au cinquième étage et qui
+   paie toujours le montant exact, sans laisser de pourboire pour
+   Reeborg; son monde est **Journal 2**.
 
--  The nice Ms. Ada Lovelace, who lives on the third floor of her
-   building, always leaves a couple of extra tokens as a gift to
-   Reeborg; hers is world **Newspaper 1**.
--  The old curmudgeon Mr. Charles Babbage, who lives on the fifth floor,
-   always pays the exact amount, leaving no tip for Reeborg; his world
-   is **Newspaper 2**
 
-.. topic:: Try it!
+.. topic:: À votre tour!
 
-    With the help of the following two instructions::
+  Utilisant les instructions::
 
-        take("star")   # pick it up to carry
-        put("star")  # put it down
+    prend("étoile")   # préparer pour transporter
+    depose("étoile")
 
-    make Reeborg complete at least one delivery. Pay attention to the two
-    instructions written above and make sure, when you need to use them, to
-    write them exactly the same way.
+  faites en sorte que Reeborg fasse au moins une livraison au client de
+  votre choix. Assurez-vous d'écrire les deux instructions ci-dessus
+  **exactement** de la façon dont elles apparaissent; en particulier, le
+  mot *étoile* doit être écrit avec un accent aigu sur le e.
 
 .. important::
 
-   Save your program; you will come back and use it again soon.
+  Sauvegarder votre programme; vous aurez l'occasion de l'utiliser à nouveau
+  sous peu.
 
-At this point , it may appear impossible to write a single program that
-could handle both deliveries. However, you will soon find out how to do so.
-
+Il peut vous sembler impossible d'écrire un seul programme qui ferait la
+livraison correctement aux deux clients ... mais vous verrez un peu plus
+tard comment on peut le faire.

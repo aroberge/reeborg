@@ -125,7 +125,7 @@ RUR.control.take = function(robot, arg){
     } else if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(arg) === -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
     }
-    if (RUR.control.object_here(robot) !== RUR.translate(arg)) {
+    if (RUR.control.object_here(robot) !== arg) {
         throw new RUR.ReeborgError(RUR.translate("No shape found here").supplant({shape: arg}));
     }
     robot[RUR.translate(arg)] += 1;
@@ -303,7 +303,7 @@ RUR.control.object_here = function (robot) {
     if (RUR.control.token_here(robot) !== 0) {
         return RUR.translation.token;
     }
-    
+
     if (RUR.current_world.shapes === undefined) {
         return 0;
     }

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>11. Turn around &mdash; Apprenez Python avec Reeborg</title>
+    <title>11. Demi-tour! &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="12. Using the Library" href="library.html" />
-    <link rel="prev" title="10. Rule number 3" href="rule3.html" /> 
+    <link rel="prev" title="10. Règle numéro 3" href="rule3.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="library.html" title="12. Using the Library"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="rule3.html" title="10. Rule number 3"
+             <a href="rule3.html" title="10. Règle numéro 3"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,15 +80,15 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">11. Turn around</a><ul>
-<li><a class="reference internal" href="#back-to-turn-right">11.1. Back to <tt class="docutils literal"><span class="pre">turn_right()</span></tt></a></li>
+<li><a class="reference internal" href="#">11. Demi-tour!</a><ul>
+<li><a class="reference internal" href="#de-retour-a-tourne-a-droite">11.1. De retour à <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt></a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="rule3.html"
-                        title="Chapitre précédent">10. Rule number 3</a></p>
+                        title="Chapitre précédent">10. Règle numéro 3</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="library.html"
                         title="Chapitre suivant">12. Using the Library</a></p>
@@ -116,73 +116,77 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="turn-around">
-<h1>11. Turn around<a class="headerlink" href="#turn-around" title="Lien permanent vers ce titre">¶</a></h1>
-<p>In addition to having Reeborg making right turns, you <em>might</em> have had
-him turn around a few times; by turning around, I mean changing
-direction so that Reeborg is heading back to where it was coming from.
-We can define a function <tt class="docutils literal"><span class="pre">turn_around()</span></tt> as follows:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">turn_around</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
+  <div class="section" id="demi-tour">
+<h1>11. Demi-tour!<a class="headerlink" href="#demi-tour" title="Lien permanent vers ce titre">¶</a></h1>
+<p>En plus d&#8217;instruire Reeborg de tourner à droite, vous avez probablement
+eu à lui faire demi-tour à quelques reprises. On peut définir une
+fonction <tt class="docutils literal"><span class="pre">demi_tour()</span></tt> de la façon suivante:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">demi_tour</span><span class="p">():</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Try it!</p>
-<div class="section" id="back-to-turn-right">
-<h2>11.1. Back to <tt class="docutils literal"><span class="pre">turn_right()</span></tt><a class="headerlink" href="#back-to-turn-right" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Remember <tt class="docutils literal"><span class="pre">turn_right()</span></tt>? Here it is again:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">turn_right</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
+<p>Faites-le!</p>
+<div class="section" id="de-retour-a-tourne-a-droite">
+<h2>11.1. De retour à <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt><a class="headerlink" href="#de-retour-a-tourne-a-droite" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Vous vous souvenez de <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt>? Revoici sa définition:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tourne_a_droite</span><span class="p">():</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Notice how the first two instructions are identical to the function
-definition for <tt class="docutils literal"><span class="pre">turn_around()</span></tt>. When this happens, we have to remember
-Rule # 3:</p>
+<p>On remarque que les deux premières instructions sont identiques à la
+définition de <tt class="docutils literal"><span class="pre">demi_tour()</span></tt>. Lorsque quelque chose du genre arrive, il
+est bon de se rappeler de la règle numéro 3:</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <dl class="last docutils">
-<dt>Rule # 3</dt>
-<dd>When writing computer programs, do not repeat yourself.
-I repeat: <strong>do not repeat yourself!</strong></dd>
+<dt><strong>Règle numéro 3</strong></dt>
+<dd>Lorsque vous écrivez des programmes informatiques, ne vous répétez
+pas.
+Je répète: <a class="reference external" href="http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas">ne vous répétez
+pas!</a></dd>
 </dl>
 </div>
-<p>So, we have some repeated instruction. While <tt class="docutils literal"><span class="pre">turn_right()</span></tt> is already
-very simple, a good programming practice is to replace parts of code
-that are repeated by a simple function. Thus, we should rewrite
-<tt class="docutils literal"><span class="pre">turn_right()</span></tt> as follows:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">turn_right</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="n">turn_around</span><span class="p">();</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
+<p>Donc, nous avons une répétitions d&#8217;instructions. Bien que
+<tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> soit déjà toute simple, une bonne habitude à
+développer en programmation informatique est de remplacer les parties de
+codes qui se répètent par une simple fonction. Donc, nous devrions
+redéfinir <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> de la façon suivante:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tourne_a_droite</span><span class="p">():</span>
+    <span class="n">demi_tour</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The idea behind this is that, the shorter a function is, the least
-likely there will be bugs in it. Furthermore, once we have a well-tested
-bug-free function, we make sure that we use it whenever we can when
-writing longer functions. I admit, this is almost a silly example ...
-but I don&#8217;t have more complicated examples at this point to illustrate
-this important idea.</p>
+<p>L&#8217;idée suggérant cette pratique est que, plus la définition d&#8217;une
+fonction est courte, plus il est facile de détecter des problèmes ...
+et, en bout de ligne, de s&#8217;assurer qu&#8217;il n&#8217;y a pas de bogues. De plus,
+une fois que nous avons défini et testé une fonction pour nous assurer
+qu&#8217;elle ne comporte pas de bogues, on réduit la possibilité de bogues
+ailleurs en l&#8217;utilisant aussi souvent que possible. J’admets que
+l&#8217;exemple choisi peut sembler ridicule en raison de la simplicité des
+fonctions utilisées ... mais je n&#8217;ai pas d&#8217;exemples plus compliqués à
+vous offrir à ce moment-ci pour illustrer cette idée très importante.</p>
 <div class="topic">
-<p class="topic-title first">Your turn</p>
-<p>Define a <tt class="docutils literal"><span class="pre">step_back()</span></tt> function that would undo a <tt class="docutils literal"><span class="pre">move()</span></tt> function.
-By this, I mean that you should have:</p>
-<div class="highlight-py3"><div class="highlight"><pre> <span class="o">//</span> <span class="n">starting</span> <span class="n">somewhere</span> <span class="n">at</span> <span class="n">location</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span>
-<span class="n">move</span><span class="p">();</span>
-<span class="n">step_back</span><span class="p">();</span>
-<span class="o">//</span> <span class="n">back</span> <span class="n">at</span> <span class="n">the</span> <span class="n">same</span> <span class="n">location</span><span class="p">,</span>
-<span class="o">//</span> <span class="n">facing</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">same</span> <span class="n">direction</span> <span class="k">as</span> <span class="n">before</span>
+<p class="topic-title first">À votre tour!</p>
+<p>Définissez la fonction <tt class="docutils literal"><span class="pre">recule()</span></tt> qui est l&#8217;opposé de la fonction
+<tt class="docutils literal"><span class="pre">avance()</span></tt>. Par ceci, je veux dire que si vous ceci devrait permettre
+le code suivant:</p>
+<div class="highlight-py3"><div class="highlight"><pre> <span class="c"># départ au point x, y</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">recule</span><span class="p">()</span>
+<span class="c"># de retour au point x, y,</span>
+<span class="c"># faisant face à la même direction qu&#39;au départ</span>
 </pre></div>
 </div>
-<p>Make sure you to test it!</p>
+<p>Assurez-vous de vérifier que le tout fonctionne!</p>
 </div>
-<p>Do not use the hint unless you feel you absolutely can not do it otherwise!</p>
+<p>N&#8217;utilisez pas l&#8217;indice sauf si vous en avez absolument besoin!</p>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
-<p class="last">You might want to use <tt class="docutils literal"><span class="pre">turn_around()</span></tt> twice in defining <tt class="docutils literal"><span class="pre">step_back()</span></tt>.</p>
+<p class="last">Vous voudrez probablement utiliser <tt class="docutils literal"><span class="pre">demi_tour()</span></tt> deux fois dans la définition
+de <tt class="docutils literal"><span class="pre">recule()</span></tt>.</p>
 </div>
 </div>
 </div>
@@ -200,7 +204,7 @@ By this, I mean that you should have:</p>
              <a href="library.html" title="12. Using the Library"
              >suivant</a></li>
         <li class="right" >
-             <a href="rule3.html" title="10. Rule number 3"
+             <a href="rule3.html" title="10. Règle numéro 3"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

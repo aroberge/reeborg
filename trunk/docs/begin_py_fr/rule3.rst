@@ -1,69 +1,75 @@
+Règle numéro 3
+==============
 
-Rule number 3
-=============
-
-By now, you should be ready to learn about the third rule for writing
-computer programs efficiently.
+Après avoir aidé Reeborg à accomplir ses tâches, vous devez être prêt
+pour apprendre et comprendre la troisième règle de programmation:
 
 .. important::
 
-    **Rule # 3**
-        When writing computer programs, do not repeat yourself.
-        I repeat: **do not repeat yourself!**
+  **Règle numéro 3**
+      Lorsque vous écrivez des programmes informatiques, ne vous répétez
+      pas.
+      Je répète: `ne vous répétez
+      pas! <http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas>`__
 
-Three lefts can make a right
-----------------------------
+Être gauche trois fois peut nous rendre (a)droit
+------------------------------------------------
 
-Since you have written quite a few programs by now (you have done the
-exercises, didn't you?), you must have realized that having Reeborg make
-three left turns in a row gives the same final result as if he were to
-make a single right turn. You are probably starting to find it quite
-tedious to have to write three ``turn_left()`` instructions each time
-you want to have Reeborg turn right. Wouldn't it be nicer if you could
-simply write ``turn_right()``?
-
-By the end of this lesson, you will be able to do just that.
-
-Defining functions
-------------------
-
-What we have called *instructions* or *commands* so far are examples of
-Python **functions**. So, ``turn_left()`` is a function and so is
-``move()``. We can define a new Python function as follows:
-
-.. code-block:: python
-
-    def some_well_chosen_name ():
-        # some lines of code 
-        # indented at the same level
+Puisque vous avez écrit plusieurs programmes, vous devez avoir réalisé
+que lorsqu'on demande à Reeborg de tourner trois fois vers la gauche
+ceci revient à la même chose que si on lui demandait de tourner une
+seule fois à droite. Mais c'est fastidieux d'écrire trois fois
+``tourne_a_gauche()`` alors qu'un simple ``tourne_a_droite()``
+suffirait si Reeborg n'était pas défectueux. C'est le temps de remédier
+à ceci.
 
 
-``function`` is our first Python **keyword**. Keywords are words that
-have a special meaning in a given programming language.
-Notice how a colon ``:`` precedes what 
-is known as a *block of code* and constitutes the *body* of the
-function. It is **required** in Python to *indent* such blocks of code 
-with the same number of spaces at the beginning of each line which, as a side-effect, makes it
-easy to identify the function body for a human reader.
 
-Let's write our first Python function::
+Définir des fonctions
+---------------------
 
-    def turn_right():
-        turn_left()
-        turn_left()
-        turn_left()
+Ce que nous avons appelé *instructions* jusqu'ici étaient en fait des
+**fonctions** python. Donc ``tourne_a_gauche()`` est une fonction,
+tout comme ``avance()``.
+Pour définir des fonctions en Python, on procède de la façon
+suivante::
 
-That's it! You will now be able to avoid having to write three
-``turn_left()`` functions in a row to simulate a right turn!
+    def nom_bien_choisi():
+        # des lignes de code
+        # indentées au même niveau
 
-.. topic:: Try it!
 
-    Define the ``turn_right()`` function in a program and try to use it,
-    perhaps using the world Alone. If you don't know what to try, just have
-    Reeborg go around a square by alternating ``turn_right()`` and
-    ``move()`` **functions** four times in a row.
+``def`` est notre premier **mot-clé** Python; les mot-clés sont
+des noms réservés dans un langage de programmation et qui possède un
+sens bien particulier à ce langage. Notez que le mot-clé ``function`` a
+une couleur différente du reste du texte dans la définition de la
+fonction ``nom_bien_choisi`` ci-dessus; tous les mot-clés Python
+seront de la même couleur lorsqu'ils apparaissent dans un programme
+informatique, ou une partie de programme informatique sur ce site. Notez
+également les deux points ``:`` qui précèdent ce qu'on appelle un *bloc
+de code* et constitue le *corps* de la fonction. Lorsqu'on programme
+en Python, on doit *indenter* de tels blocs de code ce qui, pour les humains,
+les rend plus facile à identifier.
 
-How to think about ``def``
+Nous sommes prêts à définir notre toute première fonction Python::
+
+    def tourne_a_droite ():
+        tourne_a_gauche()
+        tourne_a_gauche()
+        tourne_a_gauche()
+
+C'est tout! Plus besoin d'écrire ``tourne_a_gauche()`` trois fois de
+suite à chaque fois que vous voulez que Reeborg tourne à droite!
+
+.. topic:: À votre tour!
+
+    Définissez-vous même la fonction ``tourne_a_droite`` dans un
+    programme et utilisez-la. Si vous êtes à cours d'inspiration quant au
+    programme à écrire pour la tester, faites-en sorte que Reeborg suive un
+    parcours en forme de carré, en alternant ``tourne_a_droite()`` et
+    ``avance()`` à quatre reprises.
+
+Comment penser à ``def``
 -------------------------------
 
 .. note::
@@ -71,55 +77,55 @@ How to think about ``def``
    Please note that this simplified explanation does not take into account what is known
    as *variable scope* which is something that we will cover later.
 
-You have just seen how to define a function in Python. Chances are,
-you understood right away how to think about them but, just in case,
-here's a more detailed explanation which will help you to not only
-understand how functions work, but also other Python construct that
-involve blocks of code.
+Vous venez tout juste d'apprendre comment définir des fonctions en
+Python. Au cas où ce ne serait pas très clair pour vous, voici une façon
+de comprendre les fonctions qui pourra possiblement vous aider à comprendre
+d'autres constructions de Python comportant des blocs de code.
 
-Suppose we have the following:
+Supposons que vous ayez le programme suivant:
 
 .. code-block:: python
    :emphasize-lines: 7
 
-    def turn_right():  # begin of code block follows
-        turn_left()
-        turn_left()
-        turn_left()   # end of code block
+    def tourne_a_droite():  # le début du bloc de code suit
+        tourne_a_gauche()
+        tourne_a_gauche()
+        tourne_a_gauche()   # fin du bloc de code
 
-    move()
-    turn_right()
-    move()
+    avance()
+    tourne_a_droite()
+    avance()
 
-This is equivalent to the following:
+Ceci est équivalent à ce qui suit:
 
 .. code-block:: python
-   :emphasize-lines: 9, 10, 11
+   :emphasize-lines: 8, 9, 10
 
-    # define a function
-    def turn_right():
-        turn_left()
-        turn_left()
-        turn_left()
+    def tourne_a_droite():
+        tourne_a_gauche()
+        tourne_a_gauche()
+        tourne_a_gauche()
 
-    move()
-    # begin of code block inside turn_right()
-    turn_left()
-    turn_left()
-    turn_left()
-    # end of code block
-    move()
+    avance()
+    # début du bloc de code de tourne_a_droite()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    # fin du bloc de code
+    avance()
 
-In other words, ``def`` defines a name that we can use as a synonym
-for all the code that appears inside the code block, and whenever we see
-the synonym being **called** [that is, the name appears followed by
-``()``], we can think of it as being equivalent to inserting the code
-block *as is* at that location.
+En d'autres mots, ``def`` définit un nom que l'on peut utiliser
+comme synonyme pour représenter un bloc de code; à chaque fois que l'on
+voit le synonyme être *invoqué* [c'est-à-dire que le nom apparaît suivi
+de parenthèses ``()``], on peut penser à ceci comme étant équivalent à
+insérer à la place du synonyme le bloc de code constituant le corps de
+la fonction tel quel à cet endroit.
 
-.. topic:: Try this!
 
-   See if you can simplify your program for the newspaper delivery
-   and making it easier to read and understand
-   by using a ``turn_right()`` function.  Once you have done so, perhaps
-   you can think of other ways in which you can simplify your program by
-   defining other functions.
+.. topic:: À votre tour!
+
+   Pouvez-vous simplifier votre programme de livraison de journaux et utiliser
+   la fonction ``tourne_a_droite()`` qui estplus facile à lire et à comprendre que
+   trois instructions ``tourne_a_gauche()`` de suite?
+   Lorsque vous aurez fait ceci, essayer de trouver d'autres façons de simplifier
+   votre programme en définissant d'autres fonctions.

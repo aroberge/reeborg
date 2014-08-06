@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>15. If only ... &mdash; Apprenez Python avec Reeborg</title>
+    <title>15. Si seulement ... &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="16. Finding the right spot" href="at_goal.html" />
-    <link rel="prev" title="14. Repeat" href="repeat.html" /> 
+    <link rel="prev" title="14. Répète" href="repeat.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="at_goal.html" title="16. Finding the right spot"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="repeat.html" title="14. Repeat"
+             <a href="repeat.html" title="14. Répète"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,18 +80,18 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">15. If only ...</a><ul>
-<li><a class="reference internal" href="#javascript-keyword-if">15.1. Javascript keyword: <tt class="docutils literal"><span class="pre">if</span></tt></a></li>
-<li><a class="reference internal" href="#if-statement">15.2. <tt class="docutils literal"><span class="pre">if</span></tt> statement</a></li>
-<li><a class="reference internal" href="#how-to-think-of-if-statements">15.3. How to think of <tt class="docutils literal"><span class="pre">if</span></tt> statements</a></li>
-<li><a class="reference internal" href="#more-useful-that-you-might-think">15.4. More useful that you might think...</a></li>
+<li><a class="reference internal" href="#">15. Si seulement ...</a><ul>
+<li><a class="reference internal" href="#le-mot-cle-if">15.1. Le mot-clé <tt class="docutils literal"><span class="pre">if</span></tt></a></li>
+<li><a class="reference internal" href="#enonce-if">15.2. Énoncé <tt class="docutils literal"><span class="pre">if</span></tt></a></li>
+<li><a class="reference internal" href="#comment-interpreter-les-enonces-if">15.3. Comment interpréter les énoncés <tt class="docutils literal"><span class="pre">if</span></tt></a></li>
+<li><a class="reference internal" href="#plus-utile-que-vous-ne-le-pensez">15.4. PLus utile que vous ne le pensez...</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="repeat.html"
-                        title="Chapitre précédent">14. Repeat</a></p>
+                        title="Chapitre précédent">14. Répète</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="at_goal.html"
                         title="Chapitre suivant">16. Finding the right spot</a></p>
@@ -119,151 +119,155 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="if-only">
-<h1>15. If only ...<a class="headerlink" href="#if-only" title="Lien permanent vers ce titre">¶</a></h1>
-<p>If only Reeborg could decide on its own, writing programs would be much
-simpler ... <strong>WAIT !</strong> Didn&#8217;t I tell you: Reeborg can make decisions on
-its own.</p>
-<div class="section" id="javascript-keyword-if">
-<h2>15.1. Javascript keyword: <tt class="docutils literal"><span class="pre">if</span></tt><a class="headerlink" href="#javascript-keyword-if" title="Lien permanent vers ce titre">¶</a></h2>
+  <div class="section" id="si-seulement">
+<h1>15. Si seulement ...<a class="headerlink" href="#si-seulement" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Si seulement Reeborg pouvait prendre des décisions de lui-même, écrire
+des programmes serait tellement plus simple ... <strong>OUPS&nbsp;!</strong> J&#8217;ai oublié
+de vous le mentionner: Reeborg <strong>peut</strong> prendre ses propres décisions!</p>
+<div class="section" id="le-mot-cle-if">
+<h2>15.1. Le mot-clé <tt class="docutils literal"><span class="pre">if</span></tt><a class="headerlink" href="#le-mot-cle-if" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="topic">
 <p class="topic-title first">Do it!</p>
-<p>Select an appropriate world (perhaps <strong>Alone</strong>), and have Reeborg execute
-the program below.</p>
-</div>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">move</span><span class="p">();</span>
-<span class="p">}</span>
+<p>Sélectionnez le monde <strong>Seul</strong> et faites-en sorte que Reeborg exécute le
+programme suivant</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">avance</span><span class="p">()</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="k">if</span> <span class="bp">False</span><span class="p">:</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">true</span></tt> and <tt class="docutils literal"><span class="pre">false</span></tt> are Javascript keywords as well. You might want
-to interchange them and run the program again to see what happens.</p>
 </div>
-<div class="section" id="if-statement">
-<h2>15.2. <tt class="docutils literal"><span class="pre">if</span></tt> statement<a class="headerlink" href="#if-statement" title="Lien permanent vers ce titre">¶</a></h2>
-<p>The so-called <tt class="docutils literal"><span class="pre">if</span></tt> <strong>statement</strong> follows a pattern somewhat similar to
-that of <tt class="docutils literal"><span class="pre">function</span></tt>s</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">some_name</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">block</span> <span class="n">of</span> <span class="n">code</span>
-<span class="p">}</span>
+<p><tt class="docutils literal"><span class="pre">True</span></tt> (vrai) et <tt class="docutils literal"><span class="pre">False</span></tt> (faux) sont deux mots-clés Python.  Vous voudrez peut-être
+les interchanger juste pour voir.  Le mot anglais <strong>if</strong> est l&#8217;équivalent de la conjonction <strong>si</strong>
+en français.</p>
+</div>
+<div class="section" id="enonce-if">
+<h2>15.2. Énoncé <tt class="docutils literal"><span class="pre">if</span></tt><a class="headerlink" href="#enonce-if" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L&#8217;<em>énoncé</em> <tt class="docutils literal"><span class="pre">if</span></tt> suit un patron semblable à celui de <tt class="docutils literal"><span class="pre">def</span></tt>:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">un_nom</span><span class="p">():</span>
+    <span class="c"># bloc de code</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="n">some_condition</span><span class="p">)</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">block</span> <span class="n">of</span> <span class="n">code</span>
-<span class="p">}</span>
+<span class="k">if</span> <span class="n">une_condition</span><span class="p">:</span>
+    <span class="c"># bloc de code</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="how-to-think-of-if-statements">
-<h2>15.3. How to think of <tt class="docutils literal"><span class="pre">if</span></tt> statements<a class="headerlink" href="#how-to-think-of-if-statements" title="Lien permanent vers ce titre">¶</a></h2>
-<p>When we introduced functions, we explained how we could think of a
-function <strong>call</strong> as being somewhat equivalent to inserting the code block for
-the function definition at that point in the program. Thus:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="n">turn_right</span><span class="p">();</span>  <span class="o">//</span> <span class="n">function</span> <span class="n">call</span>
-<span class="n">move</span><span class="p">();</span>
+<div class="section" id="comment-interpreter-les-enonces-if">
+<h2>15.3. Comment interpréter les énoncés <tt class="docutils literal"><span class="pre">if</span></tt><a class="headerlink" href="#comment-interpreter-les-enonces-if" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Lorsque nous avons présenté les fonctions, nous avons expliqué comment
+on pouvait interpréter l&#8217;<strong>invocation</strong> d&#8217;une fonction comme étant
+équivalente à insérer le bloc de code du corps de la fonction à
+l&#8217;endroit de l&#8217;invocation. Ainsi:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_droite</span><span class="p">()</span>  <span class="c"># invocation</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>is equivalent to:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="o">//</span> <span class="n">begin</span> <span class="n">of</span> <span class="n">code</span> <span class="n">block</span> <span class="n">inside</span> <span class="n">turn_right</span><span class="p">()</span>
-<span class="n">turn_left</span><span class="p">();</span>
-<span class="n">turn_left</span><span class="p">();</span>
-<span class="n">turn_left</span><span class="p">();</span>
-<span class="o">//</span> <span class="n">end</span> <span class="n">of</span> <span class="n">code</span> <span class="n">block</span>
-<span class="n">move</span><span class="p">();</span>
+<p>est équivalent à:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="c"># début du bloc de code pour tourne_a_droite()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="c"># fin du bloc de code</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">if</span></tt> statements can be thought in similar terms, except that we have a
-<em>conditional</em> insertion (or rather <strong>deletion</strong>!). Thus:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">true</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
-<span class="n">move</span><span class="p">();</span>
+<p>Les énoncés <tt class="docutils literal"><span class="pre">if</span></tt> peuvent être interprétés de façon similaire, sauf que
+nous avons une <em>insertion</em> ou une <em>élimination</em> <strong>conditionnelle</strong> du
+bloc de code. Ainsi:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="k">if</span> <span class="k">True</span><span class="p">:</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>is equivalent to:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="n">turn_left</span><span class="p">();</span>
-<span class="n">turn_left</span><span class="p">();</span>
-<span class="n">move</span><span class="p">();</span>
+<p>est équivalent à:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>whereas:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">false</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
-<span class="n">move</span><span class="p">();</span>
+<p>alors que:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="k">if</span> <span class="k">False</span><span class="p">:</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>is equivalent to:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="n">move</span><span class="p">();</span>
+<p>est équivalent à:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Note that thinking of it this way does not mean that such a deletion
-would be done permanently: if, somehow, our program <em>looped back</em> and
-repeated this part of the code again, the <tt class="docutils literal"><span class="pre">if</span></tt> statement would be
-reevaluated each time to decide whether or not to execute the lines of
-code inside the code block.</p>
+<p>Il est important de noter que cette insertion ou élimination d&#8217;un bloc
+de code n&#8217;est pas quelque chose de permanent: si, pour quelque raison,
+l&#8217;exécution du programme faisait en sorte que l&#8217;énoncé <tt class="docutils literal"><span class="pre">if</span></tt> était
+répété à nouveau, la condition serait réévaluée à chaque fois, ce qui
+pourrait mener à des résultats différents d&#8217;une évaluation à l&#8217;autre.</p>
+<p>On peut représenter ceci par un organigramme:</p>
+<div class="figure align-center">
+<img alt="_images/if2.jpg" src="_images/if2.jpg" />
 </div>
-<div class="section" id="more-useful-that-you-might-think">
-<h2>15.4. More useful that you might think...<a class="headerlink" href="#more-useful-that-you-might-think" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Having to specify <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt> does not help Reeborg decide on
-its own. However, there are special functions that Reeborg recognizes
-that allow to decide things for himself. The first of these is
-<tt class="docutils literal"><span class="pre">token_here()</span></tt> which tells Reeborg that there is at least one token at
-the grid position where he is located. For example, if we want to ask
-Reeborg to collect tokens, one part of the code could be:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="n">token_here</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">take</span><span class="p">();</span>
-<span class="p">}</span>
+</div>
+<div class="section" id="plus-utile-que-vous-ne-le-pensez">
+<h2>15.4. PLus utile que vous ne le pensez...<a class="headerlink" href="#plus-utile-que-vous-ne-le-pensez" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Avoir à spécifier <tt class="docutils literal"><span class="pre">true</span></tt> ou <tt class="docutils literal"><span class="pre">false</span></tt> dans un programme n&#8217;aide pas
+Reeborg à décider de lui-même. Cependant, il existe des fonctions que
+Reeborg reconnaît comme lui indiquant des décisions à prendre. Une de
+ces fonctions est <tt class="docutils literal"><span class="pre">jeton_ici()</span></tt> qui indique à Reeborg si un ou
+plusieurs jetons se trouvent aux coordonnées où Reeborg est situé. Par
+exemple, si on demandait à Reeborg de collectionner des jetons, une
+partie du code pourrait être:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">jeton_ici</span><span class="p">():</span>
+    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Have a look at worlds <strong>Tokens&nbsp;1</strong> and <strong>Tokens&nbsp;2</strong>. In both cases, and assuming
-that Reeborg moves forward in a straight line, when he finds a token,
-all he as to do is:</p>
+<p>Examinez à tour de rôle les mondes <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>. Dans chaque
+cas, en supposant que Reeborg se déplace le long d&#8217;une ligne, tout ce
+qu&#8217;il a à faire lorsqu&#8217;il trouve un jeton est:</p>
 <ol class="arabic simple">
-<li>take it</li>
-<li>move to the next grid</li>
-<li>put the token down</li>
-<li>move one more step</li>
-<li>and he is <tt class="docutils literal"><span class="pre">done()</span></tt></li>
+<li>prendre ce jeton</li>
+<li>avancer d&#8217;une case</li>
+<li>déposer ce jeton</li>
+<li>avancer d&#8217;une autre case</li>
+<li>et il a <tt class="docutils literal"><span class="pre">termine()</span></tt></li>
 </ol>
-<p>where I have introduced a new command that Reeborg understands:
-<tt class="docutils literal"><span class="pre">done()</span></tt>. Actually, you should think of this command as Reeborg saying
-it himself and declaring that he has finished.</p>
-<p>Let&#8217;s write the outline of a program that will work in both worlds
-<strong>Tokens&nbsp;1</strong> and <strong>Tokens&nbsp;2</strong>:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">move_until_done</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">move</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="n">token_here</span><span class="p">()</span> <span class="p">){</span>
-        <span class="o">//</span> <span class="n">something</span>
-        <span class="o">//</span> <span class="n">something</span> <span class="k">else</span>
-        <span class="o">//</span> <span class="n">something</span> <span class="k">else</span> <span class="n">again</span>
-        <span class="o">//</span> <span class="n">yet</span> <span class="n">one</span> <span class="n">more</span>
-        <span class="n">done</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>où j&#8217;ai introduit une nouvelle instruction que Reeborg comprend:
+<tt class="docutils literal"><span class="pre">termine()</span></tt>. En fait, vous pouvez penser à cette instruction comme
+quelque chose que Reeborg dit lui-même lorsqu&#8217;il déclare avoir terminé
+une tâche.</p>
+<p>Écrivons donc le une esquisse d&#8217;un programme unique qui pourrait
+permettre à Reeborg d&#8217;accomplir la tâche dans les deux mondes mentionnés
+ci-dessus, soit <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">avance_jusque_tâche_terminée</span><span class="p">():</span>
+    <span class="n">avance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">jeton_ici</span><span class="p">():</span>
+        <span class="c"># quelque chose</span>
+        <span class="c"># quelque chose d&#39;autre</span>
+        <span class="c"># autre chose encore</span>
+        <span class="c"># une de plus</span>
+        <span class="n">termine</span><span class="p">()</span>
 
-<span class="n">repeat</span><span class="p">(</span><span class="n">move_until_done</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+<span class="n">repete</span><span class="p">(</span><span class="n">avance_jusque_tâche_terminée</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Why 42? ... well, I just want to be sure that Reeborg will take enough
-steps no matter what world he is in. So far, all the worlds are small
-enough that this should be fine. I agree, it does not seem very smart
-... We&#8217;ll see how to fix that later.</p>
+<p>Pourquoi 42? ... Je n&#8217;ai pas de véritable raisons pour ce choix. Tout ce
+que je veux est que Reeborg avance suffisamment de fois pour compléter
+sa tâche peu importe la dimension du monde. Les deux mondes en questions
+sont suffisamment petit que de répéter 42 fois est plus que suffisant
+(certains diraient que c&#8217;est excessif). Je suis d&#8217;accord avec vous, ceci
+ne semble pas être une façon très intelligente de faire les choses ...
+On fera mieux plus tard.</p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Copy the above in the Code editor, filling in the missing
-commands, and test your program on both worlds <strong>Tokens&nbsp;1</strong> and <strong>Tokens&nbsp;2</strong>.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Copiez le code ci-dessus dans l&#8217;éditeur de code, ajouter
+les instructions manquantes, et vérifiez que votre programme fonctionne
+dans les mondes <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>.</p>
 </div>
 </div>
 </div>
@@ -281,7 +285,7 @@ commands, and test your program on both worlds <strong>Tokens&nbsp;1</strong> an
              <a href="at_goal.html" title="16. Finding the right spot"
              >suivant</a></li>
         <li class="right" >
-             <a href="repeat.html" title="14. Repeat"
+             <a href="repeat.html" title="14. Répète"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

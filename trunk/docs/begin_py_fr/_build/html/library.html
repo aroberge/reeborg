@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>12. Using the Library &mdash; Apprenez Python avec Reeborg</title>
+    <title>12. La bibliothèque &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="13. Newspaper delivery revisited" href="newspaper2.html" />
-    <link rel="prev" title="11. Turn around" href="turn_around.html" /> 
+    <link rel="prev" title="11. Demi-tour!" href="turn_around.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="newspaper2.html" title="13. Newspaper delivery revisited"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="turn_around.html" title="11. Turn around"
+             <a href="turn_around.html" title="11. Demi-tour!"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,15 +80,15 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">12. Using the Library</a><ul>
-<li><a class="reference internal" href="#reading-exercise">12.1. Reading exercise</a></li>
+<li><a class="reference internal" href="#">12. La bibliothèque</a><ul>
+<li><a class="reference internal" href="#exercice-de-lecture">12.1. Exercice de lecture</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="turn_around.html"
-                        title="Chapitre précédent">11. Turn around</a></p>
+                        title="Chapitre précédent">11. Demi-tour!</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="newspaper2.html"
                         title="Chapitre suivant">13. Newspaper delivery revisited</a></p>
@@ -116,101 +116,98 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="using-the-library">
-<h1>12. Using the Library<a class="headerlink" href="#using-the-library" title="Lien permanent vers ce titre">¶</a></h1>
-<p>When programmer make use of a given function in different programs,
-rather than redefining it in each program they write, they put them in
-special programs called <strong>libraries</strong> and they have a way to ensure that
-their other programs can use the functions that are found in the
-library.</p>
-<p>You are going to use the function <tt class="docutils literal"><span class="pre">turn_right()</span></tt> <strong>a lot!</strong> Instead of
-rewriting it each time (remember Rule # 3), what you are going to do is
-to write it <strong>once</strong> (more) but, this time, instead of writing it in the
-editor with the <strong>Javascript Code</strong> tab, you will click on the <strong>Library</strong> tab and
-write it there. Oh, and you should also write <tt class="docutils literal"><span class="pre">turn_around()</span></tt> there as
-well.</p>
-<p>Then, when you want to use the functions defined in your library, you will
-simply type <tt class="docutils literal"><span class="pre">import_lib()</span></tt> in the Javascript Code editor.</p>
+  <div class="section" id="la-bibliotheque">
+<h1>12. La bibliothèque<a class="headerlink" href="#la-bibliotheque" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Lorsque des programmeurs utilisent la même fonction dans plusieurs
+programmes, plutôt que de la redéfinir dans chaque programme ils la
+mettent dans un programme spécial qui s&#8217;appelle une <strong>bibliothèque</strong>
+(<em>library</em> en anglais) et ils ont une façon spéciale d&#8217;assurer que tous
+les programmes aient accès aux fonctions qui se trouve dans la
+bibliothèque. À noter qu&#8217;on retrouve généralement plusieurs
+bibliothèques et qu&#8217;un programme donnée peut utiliser une ou plusieurs
+de ces bibliothèques.</p>
+<p>Vous allez utiliser la fonction <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> <strong>souvent!</strong>
+Plutôt que de la récrire à chaque fois (souvenez-vous de la règle numéro
+3), vous allez plutôt la récrire <strong>une fois</strong> de plus mais, cette
+fois-ci, vous allez cliquer sur l&#8217;onglet <strong>Bibliothèque</strong> et l&#8217;écrire à
+cet endroit. Vous devriez également y écrire <tt class="docutils literal"><span class="pre">demi_tour()</span></tt>.</p>
+<p>Lorsque vous voudrez utiliser les fonctions définies dans votre bibliothèque,
+il vous suffira d&#8217;écrire <tt class="docutils literal"><span class="pre">import</span> <span class="pre">biblio</span></tt> comme toute première ligne
+de votre programme dans l&#8217;éditeur.</p>
 <div class="topic">
-<p class="topic-title first">Do this!</p>
-<p>After writing the functions <tt class="docutils literal"><span class="pre">turn_right()</span></tt> and <tt class="docutils literal"><span class="pre">turn_around()</span></tt> in
-the library, go back to the Javascript Code editor (so you no longer see your
-functions) and write a short
-program that nonetheless uses them to make sure that they work as
-expected. If they don&#8217;t, go back and fix them.  Remember to use
-<tt class="docutils literal"><span class="pre">import_lib()</span></tt> in your main program.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Après avoir défini les fonctions <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> et <tt class="docutils literal"><span class="pre">demi_tour()</span></tt>
+dans votre bibliothèque, écrivez un court programme dans l&#8217;éditeur &#8220;Code Python&#8221;
+qui utilise ces fonctions.  Assurez-vous d&#8217;utiliser <tt class="docutils literal"><span class="pre">import</span> <span class="pre">biblio</span></tt>
+dans votre programme.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
-<p>With the appropriate functions defined in the library,
-here is such a program:</p>
-<div class="last highlight-py3"><div class="highlight"><pre><span class="n">import_lib</span><span class="p">();</span>
-<span class="n">move</span><span class="p">();</span>
-<span class="n">turn_around</span><span class="p">();</span>
-<span class="n">move</span><span class="p">();</span>
-<span class="n">turn_right</span><span class="p">();</span>
-<span class="n">move</span><span class="p">();</span>
-<span class="n">turn_around</span><span class="p">();</span>
-<span class="n">move</span><span class="p">();</span>
-<span class="n">turn_left</span><span class="p">();</span>  <span class="o">//</span> <span class="n">back</span> <span class="n">at</span> <span class="n">starting</span> <span class="n">position</span>
+<p>Si vous avez défini les fonctions requises dans votre bibliothèque, un
+exemple d&#8217;un tel programme est le suivant:</p>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">biblio</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">demi_tour</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_droite</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">demi_tour</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>  <span class="c"># de retour à la position de départ</span>
 </pre></div>
 </div>
 </div>
-<p>From now on, whenever you define a function that you use more than once,
-add it to your library so that you don&#8217;t have to redefine it every time.</p>
-<div class="section" id="reading-exercise">
-<h2>12.1. Reading exercise<a class="headerlink" href="#reading-exercise" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Remember the following?</p>
+<p>À l&#8217;avenir, à toutes les fois que vous définissez une fonctions et que
+vous l&#8217;utilisez dans plus d&#8217;un programme, c&#8217;est probablement une bonne
+idée de l&#8217;ajouter à votre bibliothèque pour vous éviter des répétitions.</p>
+<div class="section" id="exercice-de-lecture">
+<h2>12.1. Exercice de lecture<a class="headerlink" href="#exercice-de-lecture" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Vous rappelez-vous de ce qui suit?</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<dl class="last docutils">
-<dt><strong>Rule # 2</strong></dt>
-<dd>Write your computer programs to make them easy for <strong>people</strong> to
-read and understand.</dd>
-</dl>
+<p><strong>Règle numéro 2</strong></p>
+<blockquote class="last">
+<div>Écrivez vos programmes pour qu&#8217;il soit facile à lire et à comprendre
+par des <strong>humains</strong>.</div></blockquote>
 </div>
-<p>Can you figure out on your own what the following program does, without
-copying it in the editor and having Reeborg obey the instructions?:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">a</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
+<p>Pouvez-vous déterminez ce que fait le programme suivant, simplement
+en le lisant et sans l&#8217;exécuter?</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">a</span><span class="p">():</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
 
-<span class="n">function</span> <span class="n">b</span> <span class="p">(){</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-    <span class="n">a</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="k">def</span> <span class="nf">b</span><span class="p">():</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">a</span><span class="p">()</span>
 
-<span class="n">function</span> <span class="n">c</span> <span class="p">(){</span>
-    <span class="n">move</span><span class="p">();</span>
-    <span class="n">move</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="k">def</span> <span class="nf">c</span><span class="p">():</span>
+    <span class="n">avance</span><span class="p">()</span>
+    <span class="n">avance</span><span class="p">()</span>
 
-<span class="n">function</span> <span class="n">d</span> <span class="p">(){</span>
-    <span class="n">c</span><span class="p">();</span>
-    <span class="n">b</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="k">def</span> <span class="nf">d</span><span class="p">():</span>
+    <span class="n">c</span><span class="p">()</span>
+    <span class="n">b</span><span class="p">()</span>
 
-<span class="n">function</span> <span class="n">e</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="n">d</span><span class="p">();</span>
-    <span class="n">d</span><span class="p">();</span>
-    <span class="n">d</span><span class="p">();</span>
-    <span class="n">d</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="k">def</span> <span class="nf">e</span><span class="p">():</span>
+    <span class="n">d</span><span class="p">()</span>
+    <span class="n">d</span><span class="p">()</span>
+    <span class="n">d</span><span class="p">()</span>
+    <span class="n">d</span><span class="p">()</span>
 
-<span class="n">turn_left</span><span class="p">();</span>
-<span class="n">e</span><span class="p">();</span>
-<span class="n">b</span><span class="p">();</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">e</span><span class="p">()</span>
+<span class="n">b</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Not so easy, is it?</p>
+<p>Pas vraiment facile, n&#8217;est-ce pas?</p>
 <div class="topic">
-<p class="topic-title first">Test it!</p>
-<p>Once you think you have figured out what the above code does, copy it in
-the editor and run it to confirm your understanding.</p>
+<p class="topic-title first">Vérifiez!</p>
+<p>Lorsque vous serez convaincu de savoir ce que fait le programme ci-dessus,
+vérifiez votre compréhension en l&#8217;exécutant.</p>
 </div>
-<p>This should help you to understand why it is important to write programs
-for humans, by choosing function names that are meaningful.</p>
+<p>Cet exercice devrait vous aider à mieux comprendre pourquoi il est utile
+d&#8217;écrire des programmes en utilisant des fonctions avec des noms
+bien choisis.</p>
 </div>
 </div>
 
@@ -227,7 +224,7 @@ for humans, by choosing function names that are meaningful.</p>
              <a href="newspaper2.html" title="13. Newspaper delivery revisited"
              >suivant</a></li>
         <li class="right" >
-             <a href="turn_around.html" title="11. Turn around"
+             <a href="turn_around.html" title="11. Demi-tour!"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

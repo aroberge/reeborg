@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>14. Repeat &mdash; Apprenez Python avec Reeborg</title>
+    <title>14. Répète &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="15. If only ..." href="if.html" />
-    <link rel="prev" title="13. Newspaper delivery revisited" href="newspaper2.html" /> 
+    <link rel="prev" title="13. Autre livraison de journaux" href="newspaper2.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="if.html" title="15. If only ..."
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="newspaper2.html" title="13. Newspaper delivery revisited"
+             <a href="newspaper2.html" title="13. Autre livraison de journaux"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,7 +80,7 @@
         <div class="sphinxsidebarwrapper">
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="newspaper2.html"
-                        title="Chapitre précédent">13. Newspaper delivery revisited</a></p>
+                        title="Chapitre précédent">13. Autre livraison de journaux</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="if.html"
                         title="Chapitre suivant">15. If only ...</a></p>
@@ -108,56 +108,62 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="repeat">
-<h1>14. Repeat<a class="headerlink" href="#repeat" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Often, we will find that we want to repeat a series of instructions a
-fixed number of times. There is a way in Javascript to do so ... but it
-has too many new concepts to explain at this time. I will just show you
-the code, and immediately introduce <tt class="docutils literal"><span class="pre">repeat()</span></tt>, a simpler replacement
-for it, unique to Reeborg&#8217;s World.
-Later, when you know more about Javascript, I will explain how
-<tt class="docutils literal"><span class="pre">repeat()</span></tt> is defined in terms of the standard way. The standard way
-is known as a <strong>for loop</strong> and is written as follows:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="o">//</span> <span class="n">some</span> <span class="n">instructions</span> <span class="n">here</span>
-<span class="p">}</span>
+  <div class="section" id="repete">
+<h1>14. Répète<a class="headerlink" href="#repete" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Comme nous l&#8217;avons vu, il arrive souvent que l&#8217;on doive répéter une
+instruction donnée un certains nombre de fois. Il y a une façon standard
+de faire ceci en Python ... mais ceci requiert de comprendre trop de
+nouveaux concepts à la fois. Je vais juste vous montrer le code requis
+pour ceci puis présenter une fonction plus simple à comprendre,
+<tt class="docutils literal"><span class="pre">repete()</span></tt>, fonction unique au monde de Reeborg. Plus tard je vous
+expliquerai comment <tt class="docutils literal"><span class="pre">repete()</span></tt> est définie à l&#8217;aide du code utilisé
+habituellement.</p>
+<p>La façon standard s&#8217;appelle une <em>boucle ``for``</em> et est écrite de la
+façon suivante</p>
+<p>Repeat</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="c"># diverses</span>
+    <span class="c"># instructions</span>
+    <span class="c"># ici</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Remember that <tt class="docutils literal"><span class="pre">take(&quot;token&quot;)</span></tt> could more simply be written as <tt class="docutils literal"><span class="pre">take()</span></tt>.</p>
+<p class="last">Souvenez-vous que <tt class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></tt> pourrait simplement être écrit comme <tt class="docutils literal"><span class="pre">prend()</span></tt>.</p>
 </div>
-<p>Now that you have seen this cryptic code which includes two Javascript
-keywords, <tt class="docutils literal"><span class="pre">for</span></tt> and <tt class="docutils literal"><span class="pre">var</span></tt>, let&#8217;s introduce instead <tt class="docutils literal"><span class="pre">repeat()</span></tt>. We
-will use the example <tt class="docutils literal"><span class="pre">get_money()</span></tt> from the previous newspaper
-delivery example:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">get_money</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">);</span>
-    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">);</span>
-    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">);</span>
-    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">);</span>
-    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<p>Maintenant que vous avez entrevu le code cryptique incluant deux
+mots-clés <tt class="docutils literal"><span class="pre">for</span></tt> et <tt class="docutils literal"><span class="pre">in</span></tt>, nous présentons plutôt la fonction
+<tt class="docutils literal"><span class="pre">repete()</span></tt>. Nous allons utiliser la fonction <tt class="docutils literal"><span class="pre">prend_la_monnaie()</span></tt> de la
+tâche de livraison de journaux que nous avons tout juste vue:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">prendre_la_monnaie</span><span class="p">():</span>
+    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Inside <tt class="docutils literal"><span class="pre">get_money()</span></tt>, we repeat 5 times the command <tt class="docutils literal"><span class="pre">take()</span></tt>.
-Using <tt class="docutils literal"><span class="pre">repeat()</span></tt>, we can rewrite the above as follows:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">get_money</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">repeat</span><span class="p">(</span><span class="n">take</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
-<span class="p">}</span>
+<p>Le corps de <tt class="docutils literal"><span class="pre">prendre_la_monnaie()</span></tt> est constitué de 5 répétitions de
+<tt class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></tt>. Utilisant <tt class="docutils literal"><span class="pre">repete()</span></tt>, nous pouvons récrire ceci de
+la façon suivante::</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">prendre_la_monnaie</span><span class="p">():</span>
+    <span class="n">repete</span><span class="p">(</span><span class="n">prend</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that I have <strong>not</strong> included the parentheses <tt class="docutils literal"><span class="pre">()</span></tt> for
-<tt class="docutils literal"><span class="pre">take</span></tt> inside <tt class="docutils literal"><span class="pre">repeat()</span></tt>. If I had to specify the <em>argument</em>
-<tt class="docutils literal"><span class="pre">&quot;token&quot;</span></tt>, I would not have been able to use <tt class="docutils literal"><span class="pre">repeat</span></tt> as it makes
-use only of the name of the function, without calling it using <tt class="docutils literal"><span class="pre">()</span></tt>.
-Now, by using <tt class="docutils literal"><span class="pre">repeat()</span></tt> we have yet
-another way to eliminate repetitions in our code.</p>
+<p>Notez que les parenthèses <tt class="docutils literal"><span class="pre">()</span></tt> ne sont <strong>pas</strong> incluse pour
+<tt class="docutils literal"><span class="pre">prend</span></tt> comme <em>argument</em> de <tt class="docutils literal"><span class="pre">repete()</span></tt>. Donc, en utilisant
+<tt class="docutils literal"><span class="pre">repete()</span></tt>, nous avons une autre façon d&#8217;éliminer les répétitions dans
+nos programmes. Cela dit, si j&#8217;avais eu à spécifier l&#8217;argument
+<tt class="docutils literal"><span class="pre">&quot;jeton&quot;</span></tt>, je n&#8217;aurais pas pu utiliser <tt class="docutils literal"><span class="pre">repete</span></tt> car il ne prend
+que le nom d&#8217;une fonction comme argument (ainsi que le nombre de répétitions) sans
+parenthèses: on ne peut donc pas spécifier d&#8217;argument à cette deuxième fonction.</p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Change your program for the newspaper problem so that
-you use <tt class="docutils literal"><span class="pre">repeat()</span></tt> wherever it would shorten the code. If you did not save it,
-go back to the previous lesson and redo it using <tt class="docutils literal"><span class="pre">repeat()</span></tt>.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Si vous avez toujours dans l&#8217;éditeur de code une copie
+du programme permettant à Reeborg de livrer le journal, modifiez-le de
+façon à utiliser <tt class="docutils literal"><span class="pre">repete()</span></tt> à toutes les fois que ceci permet de
+raccourcir le code. Si vous n&#8217;avez pas une copie du programme, retourner
+à la leçon précédente et refaites-le en utilisant <tt class="docutils literal"><span class="pre">repete()</span></tt>.</p>
 </div>
 </div>
 
@@ -174,7 +180,7 @@ go back to the previous lesson and redo it using <tt class="docutils literal"><s
              <a href="if.html" title="15. If only ..."
              >suivant</a></li>
         <li class="right" >
-             <a href="newspaper2.html" title="13. Newspaper delivery revisited"
+             <a href="newspaper2.html" title="13. Autre livraison de journaux"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

@@ -5,7 +5,7 @@ button[disabled]{
     background: #eee;
 }
 header {position: absolute; top: 0; left: 0; z-index: 10; width: 100%; min-width: 800px;}
-header form {color: white; 
+header form {color: white;
     position: relative;
     font-weight: bold;
     float: left;
@@ -36,9 +36,9 @@ nav a:last-child{border-radius: 0 20px 20px 0;}
 nav a:first-child{border-radius: 20px 0 0 20px;}
 
 button, #contents-button {
-  height: 37px; 
-  position: relative; 
-  font-weight: bold; 
+  height: 37px;
+  position: relative;
+  font-weight: bold;
   float: left; margin: 0;}
 
 a.left-link, a.right-link, button, a.fake_button{
@@ -177,11 +177,11 @@ padding:3px;}
 #library-problem {background-color: #96c423; color: white; display:none; margin: 5px;
   font-size:0.5em; float: right;}
 
-#url_input {display: none; 
-    position: absolute; 
-    top:100px; 
-    left:100px; 
-    z-index:10; 
+#url_input {display: none;
+    position: absolute;
+    top:100px;
+    left:100px;
+    z-index:10;
     background-color: white;
     border: 2px solid blue;
     border-radius: 10px;
@@ -205,7 +205,7 @@ padding:3px;}
     margin-left: 10px;
 }
 
-#diary-wrapper {   
+#diary-wrapper {
   margin-top: 5px;
   width: 98%;
   height: 550px;
@@ -230,9 +230,9 @@ padding:3px;}
 #output-panel, #editor-panel, #edit-world-panel {
     width: 590px;
 }
-#world-panel, #output-panel, #editor-panel, #edit-world-panel {   
+#world-panel, #output-panel, #editor-panel, #edit-world-panel {
     margin-top: 32px;
-    position: relative; 
+    position: relative;
     display: none;
     height: 600px;
     padding: 0 5px;

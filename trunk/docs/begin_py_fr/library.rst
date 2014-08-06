@@ -1,76 +1,83 @@
+La bibliothèque
+===============
 
-Using the Library
-=================
+Lorsque des programmeurs utilisent la même fonction dans plusieurs
+programmes, plutôt que de la redéfinir dans chaque programme ils la
+mettent dans un programme spécial qui s'appelle une **bibliothèque**
+(*library* en anglais) et ils ont une façon spéciale d'assurer que tous
+les programmes aient accès aux fonctions qui se trouve dans la
+bibliothèque. À noter qu'on retrouve généralement plusieurs
+bibliothèques et qu'un programme donnée peut utiliser une ou plusieurs
+de ces bibliothèques.
 
-When programmer make use of a given function in different programs,
-rather than redefining it in each program they write, they put them in
-special programs called **libraries** and they have a way to ensure that
-their other programs can use the functions that are found in the
-library.
+Vous allez utiliser la fonction ``tourne_a_droite()`` **souvent!**
+Plutôt que de la récrire à chaque fois (souvenez-vous de la règle numéro
+3), vous allez plutôt la récrire **une fois** de plus mais, cette
+fois-ci, vous allez cliquer sur l'onglet **Bibliothèque** et l'écrire à
+cet endroit. Vous devriez également y écrire ``demi_tour()``.
 
-You are going to use the function ``turn_right()`` **a lot!** Instead of
-rewriting it each time (remember Rule # 3), what you are going to do is
-to write it **once** (more) but, this time, instead of writing it in the
-editor with the **Python Code** tab, you will click on the **Library** tab and
-write it there. Oh, and you should also write ``turn_around()`` there as
-well.
+Lorsque vous voudrez utiliser les fonctions définies dans votre bibliothèque,
+il vous suffira d'écrire ``import biblio`` comme toute première ligne
+de votre programme dans l'éditeur.
 
-Then, when you want to use the functions defined in your library, you will
-simply type ``import my_lib`` on its own line in the Python Code editor.
 
-.. topic:: Do this!
+.. topic:: À votre tour!
 
-   After writing the functions ``turn_right()`` and ``turn_around()`` in
-   the library, go back to the Python Code editor (so you no longer see your
-   functions) and write a short
-   program that nonetheless uses them to make sure that they work as
-   expected. If they don't, go back and fix them.  Remember to use
-   ``import my_lib`` in your main program.
+  Après avoir défini les fonctions ``tourne_a_droite()`` et ``demi_tour()``
+  dans votre bibliothèque, écrivez un court programme dans l'éditeur "Code Python"
+  qui utilise ces fonctions.  Assurez-vous d'utiliser ``import biblio``
+  dans votre programme.
+
 
 .. hint::
 
-   With the appropriate functions defined in the library, 
-   here is such a program::
-   
-       import my_lib
-       move()
-       turn_around()
-       move()
-       turn_right()
-       move()
-       turn_around()
-       move()
-       turn_left()  # back at starting position
+   Si vous avez défini les fonctions requises dans votre bibliothèque, un
+   exemple d'un tel programme est le suivant::
+
+       import biblio
+       avance()
+       demi_tour()
+       avance()
+       tourne_a_droite()
+       avance()
+       demi_tour()
+       avance()
+       tourne_a_gauche()  # de retour à la position de départ
+
+À l'avenir, à toutes les fois que vous définissez une fonctions et que
+vous l'utilisez dans plus d'un programme, c'est probablement une bonne
+idée de l'ajouter à votre bibliothèque pour vous éviter des répétitions.
 
 
-From now on, whenever you define a function that you use more than once,
-add it to your library so that you don't have to redefine it every time.
 
-Reading exercise
-----------------
+Exercice de lecture
+-------------------
 
-Remember the following?
+Vous rappelez-vous de ce qui suit?
 
 .. important::
 
-    **Rule # 2**
-        Write your computer programs to make them easy for **people** to
-        read and understand.
+    **Règle numéro 2**
 
-Can you figure out on your own what the following program does, without
-copying it in the editor and having Reeborg obey the instructions?::
+        Écrivez vos programmes pour qu'il soit facile à lire et à comprendre
+        par des **humains**.
+
+Pouvez-vous déterminez ce que fait le programme suivant, simplement
+en le lisant et sans l'exécuter?
+
+.. code-block:: py3
 
     def a():
-        turn_left()
-        turn_left()
+        tourne_a_gauche()
+        tourne_a_gauche()
 
     def b():
-        turn_left()
+        tourne_a_gauche()
         a()
 
     def c():
-        move()
-        move()
+        avance()
+        avance()
 
     def d():
         c()
@@ -82,16 +89,19 @@ copying it in the editor and having Reeborg obey the instructions?::
         d()
         d()
 
-    turn_left()
+    tourne_a_gauche()
     e()
     b()
 
-Not so easy, is it? 
+Pas vraiment facile, n'est-ce pas?
 
-.. topic:: Test it!
+.. topic:: Vérifiez!
 
-    Once you think you have figured out what the above code does, copy it in
-    the editor and run it to confirm your understanding.
+    Lorsque vous serez convaincu de savoir ce que fait le programme ci-dessus,
+    vérifiez votre compréhension en l'exécutant.
 
-This should help you to understand why it is important to write programs
-for humans, by choosing function names that are meaningful.
+
+Cet exercice devrait vous aider à mieux comprendre pourquoi il est utile
+d'écrire des programmes en utilisant des fonctions avec des noms
+bien choisis.
+

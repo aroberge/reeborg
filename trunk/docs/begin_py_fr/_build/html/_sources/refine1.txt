@@ -24,14 +24,12 @@ token at the beginning:
 Take you time to think about the above algorithm. Then, consider this
 solution in code::
 
-    put("token");
-    while ( !token_here() ){
-        if (front_is_clear()){
-            move();
-        } else {
-            turn_left();
-        }
-    }
+    put("token")
+    while not token_here():
+        if front_is_clear():
+            move()
+        else:
+            turn_left()
 
 .. topic:: Your turn!
 

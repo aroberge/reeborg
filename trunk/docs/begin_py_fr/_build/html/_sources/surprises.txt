@@ -3,17 +3,15 @@ Surprises
 
 Change the program we just wrote so that::
 
-    mark_starting_point_and_move();
+    mark_starting_point_and_move()
 
-    while ( !found_starting_point() ){
-        follow_right_wall();
-    }
+    while not found_starting_point():
+        follow_right_wall()
 
 becomes::
 
-    while ( !at_goal() ){
-        follow_right_wall();
-    }
+    while not at_goal():
+        follow_right_wall()
 
 .. topic:: Try it!
 
