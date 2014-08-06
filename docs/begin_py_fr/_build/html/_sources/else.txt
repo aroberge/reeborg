@@ -8,39 +8,40 @@ go outside and play! (Yes, even you grandpa!)
 Two choices...
 --------------
 
-Let's rewrite the sentence that starts with ``if`` above.::
+Let's rewrite the sentence that starts with ``if`` above::
 
     if it rains,
         keep reading,
     otherwise,
         go outside and play
 
-If this were Javascript, we might have written it like this instead::
+If this were Python, we might have written it like this instead:
 
-    if ( it_rains() ) {
-        keep_reading();
-    } else {
-        go_outside_and_play();
-    }
+.. code-block:: python
 
-Yes, Javascript includes the possibility of more than one choice with
+    if it_rains():
+        keep_reading()
+    else
+        go_outside_and_play()
+
+Yes, Python includes the possibility of more than one choice with
 the keyword ``else``. Let's use it with another example. Reeborg can see
 if there's a wall right in front him. Consider world **Around 1**. You will
 use a new condition, ``front_is_clear()`` which Reeborg uses to
 determine if there's a wall in front of him or not, together with the
 ``if/else`` pair to write a program that will guide Reeborg around the
-world. Something like the following::
+world. Something like the following:
+
+.. code-block:: python
 
 
-    function move_or_turn () {
-        if ( front_is_clear() ) {
-            // something
-        } else {
-            // something else
-        }
-    }
+    def move_or_turn ():
+        if front_is_clear():
+            # something
+        else:
+            # something else
 
-    repeat(move_or_turn, 40);
+    repeat(move_or_turn, 40)
     
 .. topic:: Try it!
 
@@ -52,40 +53,50 @@ world. Something like the following::
 How to think about ``if/else``
 ------------------------------
 
-We have seen how ``function``\ s and ``if`` statements could be thought
+We have seen how ``def``\ s and ``if`` statements could be thought
 of as being (sometimes) equivalent to inserting a code block; the
-exception was when the condition of the ``if`` statement was ``false``,
+exception was when the condition of the ``if`` statement was ``False``,
 in which case we ignored the code block which is equivalent to deleting
 it. ``if/else`` statements can be thought as inserting one or the other
-code block. Thus::
+code block. Thus
 
-    move();
-    if ( true ) {
-        turn_right();
-    } else {
-        turn_left();
-    }
-    move();
+.. code-block:: python
 
-is equivalent to::
+    move()
+    if True:
+        turn_right()
+    else:
+        turn_left()
+    move()
 
-    move();
-    turn_right();
-    move();
+is equivalent to
 
-whereas::
+.. code-block:: python
 
-    move();
-    if ( false ) {
-        turn_right();
-    } else {
-        turn_left();
-    }
-    move();
+    move()
+    turn_right()
+    move()
 
-is equivalent to::
+whereas
 
-    move();
-    turn_left();
-    move();
+.. code-block:: python
 
+    move()
+    if False:
+        turn_right()
+    else:
+        turn_left()
+    move()
+
+is equivalent to
+
+.. code-block:: python
+
+    move()
+    turn_left()
+    move()
+
+We can represent this as a flowchart:
+
+.. figure:: ../../flowcharts/else.jpg
+   :align: center

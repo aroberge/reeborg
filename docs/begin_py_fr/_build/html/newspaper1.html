@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>9. Newspaper delivery &mdash; Apprenez Python avec Reeborg</title>
+    <title>9. Livraison de journaux &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -108,46 +108,50 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="newspaper-delivery">
-<h1>9. Newspaper delivery<a class="headerlink" href="#newspaper-delivery" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Reeborg has a new job: he delivers the <em>Northern Star</em> newspaper. Many
-of Reeborg&#8217;s customers do not live on the ground floor of their
-building. For each of these customers, Reeborg has to do the following</p>
+  <div class="section" id="livraison-de-journaux">
+<h1>9. Livraison de journaux<a class="headerlink" href="#livraison-de-journaux" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Reeborg a un emploi: il livre le journal <em>l&#8217;Étoile du nord</em>. Plusieurs
+des clients de Reeborg ne vivent pas au rez-de-chaussée de leur édifice.
+Pour ceux-ci, Reeborg doit suivre la procédure suivante:</p>
 <ol class="arabic simple">
-<li>Pick up a single copy of the newspaper (it would be too heavy to
-carry them all up the stairs).</li>
-<li>Climb up the required number of floors to reach the customer&#8217;s door.</li>
-<li>Get the money (tokens) left by the customer.</li>
-<li>Leave a copy of the newspaper (simply nicknamed the <em>star</em>) behind.</li>
-<li>Climb down to the ground level</li>
+<li>Prendre une seule copie du journal (ce serait trop lourd de les
+transporter tous à la fois).</li>
+<li>Grimper le nombre d&#8217;étages requis pour rejoindre la porte du client..</li>
+<li>Prendre la monnaie (jetons) laissée par les clients.</li>
+<li>Laisser une copie du journal, appelé plus simplement l&#8217;<em>étoile</em> sur
+le seuil de porte.</li>
+<li>Redescendre au rez-de-chaussée.</li>
 </ol>
-<p>While Reeborg has many clients, I only included two with their
-corresponding worlds:</p>
+<p>Bien que Reeborg ait plusieurs clients, j&#8217;en ai seulement inclus deux
+pour votre attention:</p>
 <ul class="simple">
-<li>The nice Ms. Ada Lovelace, who lives on the third floor of her
-building, always leaves a couple of extra tokens as a gift to
-Reeborg; hers is world <strong>Newspaper&nbsp;1</strong>.</li>
-<li>The old curmudgeon Mr. Charles Babbage, who lives on the fifth floor,
-always pays the exact amount, leaving no tip for Reeborg; his world
-is <strong>Newspaper&nbsp;2</strong></li>
+<li>La gentille Ada Lovelace, qui vit au troisième étage de son édifice,
+et qui laisse toujours quelques pièces de monnaie de plus comme
+cadeau pour Reeborg; son monde est <strong>Journal&nbsp;1</strong>.</li>
+<li>Le vieux grognon Charles Babbage, qui vit au cinquième étage et qui
+paie toujours le montant exact, sans laisser de pourboire pour
+Reeborg; son monde est <strong>Journal&nbsp;2</strong>.</li>
 </ul>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>With the help of the following two instructions:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">take</span><span class="p">(</span><span class="s">&quot;star&quot;</span><span class="p">)</span>   <span class="o">//</span> <span class="n">pick</span> <span class="n">it</span> <span class="n">up</span> <span class="n">to</span> <span class="n">carry</span>
-<span class="n">put</span><span class="p">(</span><span class="s">&quot;star&quot;</span><span class="p">)</span>  <span class="o">//</span> <span class="n">put</span> <span class="n">it</span> <span class="n">down</span>
+<p class="topic-title first">À votre tour!</p>
+<p>Utilisant les instructions:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">prend</span><span class="p">(</span><span class="s">&quot;étoile&quot;</span><span class="p">)</span>   <span class="c"># préparer pour transporter</span>
+<span class="n">depose</span><span class="p">(</span><span class="s">&quot;étoile&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>make Reeborg complete at least one delivery. Pay attention to the two
-instructions written above and make sure, when you need to use them, to
-write them exactly the same way.</p>
+<p>faites en sorte que Reeborg fasse au moins une livraison au client de
+votre choix. Assurez-vous d&#8217;écrire les deux instructions ci-dessus
+<strong>exactement</strong> de la façon dont elles apparaissent; en particulier, le
+mot <em>étoile</em> doit être écrit avec un accent aigu sur le e.</p>
 </div>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">Save your program; you will come back and use it again soon.</p>
+<p class="last">Sauvegarder votre programme; vous aurez l&#8217;occasion de l&#8217;utiliser à nouveau
+sous peu.</p>
 </div>
-<p>At this point , it may appear impossible to write a single program that
-could handle both deliveries. However, you will soon find out how to do so.</p>
+<p>Il peut vous sembler impossible d&#8217;écrire un seul programme qui ferait la
+livraison correctement aux deux clients ... mais vous verrez un peu plus
+tard comment on peut le faire.</p>
 </div>
 
 

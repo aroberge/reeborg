@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>10. Rule number 3 &mdash; Apprenez Python avec Reeborg</title>
+    <title>10. Règle numéro 3 &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="11. Turn around" href="turn_around.html" />
-    <link rel="prev" title="9. Newspaper delivery" href="newspaper1.html" /> 
+    <link rel="prev" title="9. Livraison de journaux" href="newspaper1.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="turn_around.html" title="11. Turn around"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="newspaper1.html" title="9. Newspaper delivery"
+             <a href="newspaper1.html" title="9. Livraison de journaux"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,17 +80,17 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">10. Rule number 3</a><ul>
-<li><a class="reference internal" href="#three-lefts-can-make-a-right">10.1. Three lefts can make a right</a></li>
-<li><a class="reference internal" href="#defining-functions">10.2. Defining functions</a></li>
-<li><a class="reference internal" href="#how-to-think-about-function">10.3. How to think about <tt class="docutils literal"><span class="pre">function</span></tt></a></li>
+<li><a class="reference internal" href="#">10. Règle numéro 3</a><ul>
+<li><a class="reference internal" href="#etre-gauche-trois-fois-peut-nous-rendre-a-droit">10.1. Être gauche trois fois peut nous rendre (a)droit</a></li>
+<li><a class="reference internal" href="#definir-des-fonctions">10.2. Définir des fonctions</a></li>
+<li><a class="reference internal" href="#comment-penser-a-def">10.3. Comment penser à <tt class="docutils literal"><span class="pre">def</span></tt></a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="newspaper1.html"
-                        title="Chapitre précédent">9. Newspaper delivery</a></p>
+                        title="Chapitre précédent">9. Livraison de journaux</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="turn_around.html"
                         title="Chapitre suivant">11. Turn around</a></p>
@@ -118,116 +118,121 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="rule-number-3">
-<h1>10. Rule number 3<a class="headerlink" href="#rule-number-3" title="Lien permanent vers ce titre">¶</a></h1>
-<p>By now, you should be ready to learn about the third rule for writing
-computer programs efficiently.</p>
+  <div class="section" id="regle-numero-3">
+<h1>10. Règle numéro 3<a class="headerlink" href="#regle-numero-3" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Après avoir aidé Reeborg à accomplir ses tâches, vous devez être prêt
+pour apprendre et comprendre la troisième règle de programmation:</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <dl class="last docutils">
-<dt><strong>Rule # 3</strong></dt>
-<dd>When writing computer programs, do not repeat yourself.
-I repeat: <strong>do not repeat yourself!</strong></dd>
+<dt><strong>Règle numéro 3</strong></dt>
+<dd>Lorsque vous écrivez des programmes informatiques, ne vous répétez
+pas.
+Je répète: <a class="reference external" href="http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas">ne vous répétez
+pas!</a></dd>
 </dl>
 </div>
-<div class="section" id="three-lefts-can-make-a-right">
-<h2>10.1. Three lefts can make a right<a class="headerlink" href="#three-lefts-can-make-a-right" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Since you have written quite a few programs by now (you have done the
-exercises, didn&#8217;t you?), you must have realized that having Reeborg make
-three left turns in a row gives the same final result as if he were to
-make a single right turn. You are probably starting to find it quite
-tedious to have to write three <tt class="docutils literal"><span class="pre">turn_left();</span></tt> instructions each time
-you want to have Reeborg turn right. Wouldn&#8217;t it be nicer if you could
-simply write <tt class="docutils literal"><span class="pre">turn_right();</span></tt>?</p>
-<p>By the end of this lesson, you will be able to do just that.</p>
+<div class="section" id="etre-gauche-trois-fois-peut-nous-rendre-a-droit">
+<h2>10.1. Être gauche trois fois peut nous rendre (a)droit<a class="headerlink" href="#etre-gauche-trois-fois-peut-nous-rendre-a-droit" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Puisque vous avez écrit plusieurs programmes, vous devez avoir réalisé
+que lorsqu&#8217;on demande à Reeborg de tourner trois fois vers la gauche
+ceci revient à la même chose que si on lui demandait de tourner une
+seule fois à droite. Mais c&#8217;est fastidieux d&#8217;écrire trois fois
+<tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt> alors qu&#8217;un simple <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt>
+suffirait si Reeborg n&#8217;était pas défectueux. C&#8217;est le temps de remédier
+à ceci.</p>
 </div>
-<div class="section" id="defining-functions">
-<h2>10.2. Defining functions<a class="headerlink" href="#defining-functions" title="Lien permanent vers ce titre">¶</a></h2>
-<p>What we have called <em>instructions</em> or <em>commands</em> so far are examples of
-Javascript <strong>functions</strong>. So, <tt class="docutils literal"><span class="pre">turn_left()</span></tt> is a function and so is
-<tt class="docutils literal"><span class="pre">move()</span></tt>. We can define a new Javascript function as follows:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">some_well_chosen_name</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">some</span> <span class="n">lines</span> <span class="n">of</span> <span class="n">code</span> <span class="o">...</span>
-<span class="p">}</span>
+<div class="section" id="definir-des-fonctions">
+<h2>10.2. Définir des fonctions<a class="headerlink" href="#definir-des-fonctions" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Ce que nous avons appelé <em>instructions</em> jusqu&#8217;ici étaient en fait des
+<strong>fonctions</strong> python. Donc <tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt> est une fonction,
+tout comme <tt class="docutils literal"><span class="pre">avance()</span></tt>.
+Pour définir des fonctions en Python, on procède de la façon
+suivante:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">nom_bien_choisi</span><span class="p">():</span>
+    <span class="c"># des lignes de code</span>
+    <span class="c"># indentées au même niveau</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">function</span></tt> is our second Javascript <strong>keyword</strong>.
-Notice how the, curly braces <tt class="docutils literal"><span class="pre">{</span> <span class="pre">}</span></tt> surround what
-is known as a <em>block of code</em> and constitutes the <em>body</em> of the
-function. It is customary to <em>indent</em> such blocks of code to make it
-easier to identify the function body, rather than simply relying on
-spotting the curly braces.</p>
-<p>Let&#8217;s write our first Javascript function:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">turn_right</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
+<p><tt class="docutils literal"><span class="pre">def</span></tt> est notre premier <strong>mot-clé</strong> Python; les mot-clés sont
+des noms réservés dans un langage de programmation et qui possède un
+sens bien particulier à ce langage. Notez que le mot-clé <tt class="docutils literal"><span class="pre">function</span></tt> a
+une couleur différente du reste du texte dans la définition de la
+fonction <tt class="docutils literal"><span class="pre">nom_bien_choisi</span></tt> ci-dessus; tous les mot-clés Python
+seront de la même couleur lorsqu&#8217;ils apparaissent dans un programme
+informatique, ou une partie de programme informatique sur ce site. Notez
+également les deux points <tt class="docutils literal"><span class="pre">:</span></tt> qui précèdent ce qu&#8217;on appelle un <em>bloc
+de code</em> et constitue le <em>corps</em> de la fonction. Lorsqu&#8217;on programme
+en Python, on doit <em>indenter</em> de tels blocs de code ce qui, pour les humains,
+les rend plus facile à identifier.</p>
+<p>Nous sommes prêts à définir notre toute première fonction Python:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tourne_a_droite</span> <span class="p">():</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>That&#8217;s it! You will now be able to avoid having to write three
-<tt class="docutils literal"><span class="pre">turn_left()</span></tt> functions in a row to simulate a right turn!</p>
+<p>C&#8217;est tout! Plus besoin d&#8217;écrire <tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt> trois fois de
+suite à chaque fois que vous voulez que Reeborg tourne à droite!</p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Define the <tt class="docutils literal"><span class="pre">turn_right()</span></tt> function in a program and try to use it,
-perhaps using the world Alone. If you don&#8217;t know what to try, just have
-Reeborg go around a square by alternating <tt class="docutils literal"><span class="pre">turn_right()</span></tt> and
-<tt class="docutils literal"><span class="pre">move()</span></tt> <strong>functions</strong> four times in a row.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Définissez-vous même la fonction <tt class="docutils literal"><span class="pre">tourne_a_droite</span></tt> dans un
+programme et utilisez-la. Si vous êtes à cours d&#8217;inspiration quant au
+programme à écrire pour la tester, faites-en sorte que Reeborg suive un
+parcours en forme de carré, en alternant <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> et
+<tt class="docutils literal"><span class="pre">avance()</span></tt> à quatre reprises.</p>
 </div>
 </div>
-<div class="section" id="how-to-think-about-function">
-<h2>10.3. How to think about <tt class="docutils literal"><span class="pre">function</span></tt><a class="headerlink" href="#how-to-think-about-function" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="comment-penser-a-def">
+<h2>10.3. Comment penser à <tt class="docutils literal"><span class="pre">def</span></tt><a class="headerlink" href="#comment-penser-a-def" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Please note that this simplified explanation does not take into account what is known
 as <em>variable scope</em> which is something that we will cover later.</p>
 </div>
-<p>You have just seen how to define a function in Javascript. Chances are,
-you understood right away how to think about them but, just in case,
-here&#8217;s a more detailed explanation which will help you to not only
-understand how functions work, but also other Javascript construct that
-involve blocks of code.</p>
-<p>Suppose we have the following:</p>
-<div class="highlight-javascript"><div class="highlight"><pre> <span class="kd">function</span> <span class="nx">turn_right</span> <span class="p">()</span> <span class="p">{</span>  <span class="c1">// begin of code block</span>
-     <span class="nx">turn_left</span><span class="p">();</span>
-     <span class="nx">turn_left</span><span class="p">();</span>
-     <span class="nx">turn_left</span><span class="p">();</span>
- <span class="p">}</span>  <span class="c1">// end of code block</span>
+<p>Vous venez tout juste d&#8217;apprendre comment définir des fonctions en
+Python. Au cas où ce ne serait pas très clair pour vous, voici une façon
+de comprendre les fonctions qui pourra possiblement vous aider à comprendre
+d&#8217;autres constructions de Python comportant des blocs de code.</p>
+<p>Supposons que vous ayez le programme suivant:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="k">def</span> <span class="nf">tourne_a_droite</span><span class="p">():</span>  <span class="c"># le début du bloc de code suit</span>
+     <span class="n">tourne_a_gauche</span><span class="p">()</span>
+     <span class="n">tourne_a_gauche</span><span class="p">()</span>
+     <span class="n">tourne_a_gauche</span><span class="p">()</span>   <span class="c"># fin du bloc de code</span>
 
- <span class="nx">move</span><span class="p">();</span>
-<span class="hll"> <span class="nx">turn_right</span><span class="p">();</span>
-</span> <span class="nx">move</span><span class="p">();</span>
+ <span class="n">avance</span><span class="p">()</span>
+<span class="hll"> <span class="n">tourne_a_droite</span><span class="p">()</span>
+</span> <span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>This is equivalent to the following:</p>
-<div class="highlight-javascript"><div class="highlight"><pre> <span class="c1">// define a function</span>
- <span class="kd">function</span> <span class="nx">turn_right</span> <span class="p">()</span> <span class="p">{</span>
-     <span class="nx">turn_left</span><span class="p">();</span>
-     <span class="nx">turn_left</span><span class="p">();</span>
-     <span class="nx">turn_left</span><span class="p">();</span>
- <span class="p">}</span>
+<p>Ceci est équivalent à ce qui suit:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="k">def</span> <span class="nf">tourne_a_droite</span><span class="p">():</span>
+     <span class="n">tourne_a_gauche</span><span class="p">()</span>
+     <span class="n">tourne_a_gauche</span><span class="p">()</span>
+     <span class="n">tourne_a_gauche</span><span class="p">()</span>
 
- <span class="nx">move</span><span class="p">();</span>
- <span class="c1">// begin of code block inside turn_right()</span>
-<span class="hll"> <span class="nx">turn_left</span><span class="p">();</span>
-</span><span class="hll"> <span class="nx">turn_left</span><span class="p">();</span>
-</span><span class="hll"> <span class="nx">turn_left</span><span class="p">();</span>
-</span> <span class="c1">// end of code block</span>
- <span class="nx">move</span><span class="p">();</span>
+ <span class="n">avance</span><span class="p">()</span>
+ <span class="c"># début du bloc de code de tourne_a_droite()</span>
+<span class="hll"> <span class="n">tourne_a_gauche</span><span class="p">()</span>
+</span><span class="hll"> <span class="n">tourne_a_gauche</span><span class="p">()</span>
+</span><span class="hll"> <span class="n">tourne_a_gauche</span><span class="p">()</span>
+</span> <span class="c"># fin du bloc de code</span>
+ <span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>In other words, <tt class="docutils literal"><span class="pre">function</span></tt> defines a name that we can use as a synonym
-for all the code that appears inside the code block, and whenever we see
-the synonym being <strong>called</strong> [that is, the name appears followed by
-<tt class="docutils literal"><span class="pre">()</span></tt>], we can think of it as being equivalent to inserting the code
-block <em>as is</em> at that location.</p>
+<p>En d&#8217;autres mots, <tt class="docutils literal"><span class="pre">def</span></tt> définit un nom que l&#8217;on peut utiliser
+comme synonyme pour représenter un bloc de code; à chaque fois que l&#8217;on
+voit le synonyme être <em>invoqué</em> [c&#8217;est-à-dire que le nom apparaît suivi
+de parenthèses <tt class="docutils literal"><span class="pre">()</span></tt>], on peut penser à ceci comme étant équivalent à
+insérer à la place du synonyme le bloc de code constituant le corps de
+la fonction tel quel à cet endroit.</p>
 <div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>See if you can simplify your program for the newspaper delivery
-and making it easier to read and understand
-by using a <tt class="docutils literal"><span class="pre">turn_right()</span></tt> function.  Once you have done so, perhaps
-you can think of other ways in which you can simplify your program by
-defining other functions.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Pouvez-vous simplifier votre programme de livraison de journaux et utiliser
+la fonction <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> qui estplus facile à lire et à comprendre que
+trois instructions <tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt> de suite?
+Lorsque vous aurez fait ceci, essayer de trouver d&#8217;autres façons de simplifier
+votre programme en définissant d&#8217;autres fonctions.</p>
 </div>
 </div>
 </div>
@@ -245,7 +250,7 @@ defining other functions.</p>
              <a href="turn_around.html" title="11. Turn around"
              >suivant</a></li>
         <li class="right" >
-             <a href="newspaper1.html" title="9. Newspaper delivery"
+             <a href="newspaper1.html" title="9. Livraison de journaux"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

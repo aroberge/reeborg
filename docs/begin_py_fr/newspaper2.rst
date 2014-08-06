@@ -1,159 +1,158 @@
+Autre livraison de journaux
+===========================
 
+Retournons à l'exemple de la livraison des journaux; nous allons
+considérer le cas de la livraison à la gentille Ada Lovelace dans
+**Journal 1**. Ci-dessous est la première solution que vous avez du trouver,
+avec quelques commentaires rajoutés.
 
-Newspaper delivery revisited
-============================
-
-Let's go back to our newspaper delivery example; we'll consider the
-delivery to Ms. Ada Lovelace in **Newspaper 1**. Below is a solution to that
-problem, with a few added comments.
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
-    take("star")
+    prend("étoile")
 
-    # climb up first floor
-    turn_left()
-    move()
-    turn_left()
-    turn_left()
-    turn_left()
-    move()
-    move()
+    # monter au premier
+    tourne_a_gauche()
+    avance()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    avance()
+    avance()
 
-    # climb up second floor
-    turn_left()
-    move()
-    turn_left()
-    turn_left()
-    turn_left()
-    move()
-    move()
+    # monter au deuxième
+    tourne_a_gauche()
+    avance()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    avance()
+    avance()
 
-    # climb up third floor
-    turn_left()
-    move()
-    turn_left()
-    turn_left()
-    turn_left()
-    move()
-    move()
+    # monter au troisième
+    tourne_a_gauche()
+    avance()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    avance()
+    avance()
 
-    # get money
-    take("token")
-    take("token")
-    take("token")
-    take("token")
-    take("token")
+    # prendre la monnaie
+    prend("jeton")
+    prend("jeton")
+    prend("jeton")
+    prend("jeton")
+    prend("jeton")
 
-    # leave paper
-    put("star")
+    # déposer un journal
+    depose("étoile")
 
-    # turn around
-    turn_left()
-    turn_left()
+    # demi-tour
+    tourne_a_gauche()
+    tourne_a_gauche()
 
-    # climb down floor
-    move()
-    move()
-    turn_left()
-    move()
-    turn_left()
-    turn_left()
-    turn_left()
+    # descendre un étage
+    avance()
+    avance()
+    tourne_a_gauche()
+    avance()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    tourne_a_gauche()
 
-    # climb down floor
-    move()
-    move()
-    turn_left()
-    move()
-    turn_left()
-    turn_left()
-    turn_left()
+    # descendre un étage
+    avance()
+    avance()
+    tourne_a_gauche()
+    avance()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    tourne_a_gauche()
 
-    # climb down floor
-    move()
-    move()
-    turn_left()
-    move()
-    turn_left()
-    turn_left()
-    turn_left()
+    # descendre un étage
+    avance()
+    avance()
+    tourne_a_gauche()
+    avance()
+    tourne_a_gauche()
+    tourne_a_gauche()
+    tourne_a_gauche()
 
-This solution is quite long ... and it is easy to make mistakes when
-typing it. We note however that there are quite a few repeated code
-segments for which we could create functions. We have already defined
-``turn_right()`` and ``turn_around()``; let's use them and define a few
-others.
+Cette solution est plutôt longue ... et il est facile de faire des
+erreurs. On remarque cependant qu'il y a plusieurs répétitions, ce qui
+suggère qu'on peut définir plusieurs fonctions. Nous avons déjà défini
+``tourne_a_droite`` et ``demi_tour`` qui devrait être dans votre
+bibliothèque. Utilisons-les et définissons d'autres fonctions.
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
-    import my_lib
+    import biblio
 
-    def climb_up_one_floor():
-        turn_left()
-        move()
-        turn_right()
-        move()
-        move()
+    def monter_un_etage():
+        tourne_a_gauche()
+        avance()
+        tourne_a_droite()
+        avance()
+        avance()
 
-    def climb_up_three_floors():
-        climb_up_one_floor()
-        climb_up_one_floor()
-        climb_up_one_floor()
+    def monter_trois_etages():
+        monter_un_etage()
+        monter_un_etage()
+        monter_un_etage()
 
-    def climb_down_one_floor():
-        move()
-        move()
-        turn_left()
-        move()
-        turn_right()
+    def descendre_un_etage():
+        avance()
+        avance()
+        tourne_a_gauche()
+        avance()
+        tourne_a_droite()
 
-    def climb_down_three_floors():
-        climb_down_one_floor()
-        climb_down_one_floor()
-        climb_down_one_floor()
+    def descendre_trois_etages():
+        descendre_un_etage()
+        descendre_un_etage()
+        descendre_un_etage()
 
-    def get_money():
-        take("token")
-        take("token")
-        take("token")
-        take("token")
-        take("token")
+    def prendre_la_monnaie():
+        prend("jeton")
+        prend("jeton")
+        prend("jeton")
+        prend("jeton")
+        prend("jeton")
 
-    # === End of definitions ===
+    # === Fin des définitions ===
 
-    take("star")
-    climb_up_three_floors()
-    get_money()
-    put("star") # leave paper
-    turn_around()
-    climb_down_three_floors()
+    prend("étoile")
+    monter_trois_etages()
+    prendre_la_monnaie()
+    depose("étoile") # déposer un journal
+    demi_tour()
+    descendre_trois_etages()
 
-Each function contains no more than 5 instructions; it's much easier to
-verify that each function does what it is supposed to do than verifying
-an entire list of commands like we have previously. Once we know that
-the functions do what they are supposed to do, making use of them allow
-us to write a complete program in 6 more lines of code - again, much
-easier to verify that it is right. All together, using functions to
-avoid repetitions, we end up with a shorter program that is also much
-easier to read.
+Chaque fonction de contient pas plus de 5 instructions; c'est très
+facile de vérifier que chaque fonction est correctement définie
+individuellement comparativement à ce que nous avions à faire auparavant
+avec la longue liste de définitions. Une fois que l'on a défini les
+fonctions requises, il est facile d'écrire un programme: 6 lignes
+suffisent pour faire en sorte que Reeborg livre le journal et retourne
+au rez-de-chaussée. Les définitions de fonctions permettent donc
+d'éviter plein de répétitions, et facilitent la compréhension.
 
-It should be fairly simple to modify the above function definitions so
-that we could deliver a newspaper to Mr. Babbage, in world **Newspaper 2.**
+Vous devriez pouvoir facilement modifier le programme ci-dessus pour que
+Reeborg puisse livrer le journal de Monsieur Babbage dans **Journal 2**.
 
-.. topic:: Do it!
+.. topic:: Allez-y!
 
-   Modify the above program so as to deliver a newspaper to Mr. Babbage.
+    Modifiez le programme pour faire la livraison du journal de M. Babbage.
 
-Later, we will see how we can write a single program, shorter than the
-above, that will enable us to deliver newspapers to either Ms. Lovelace
-or Mr. Babbage.
+Plus tard, nous verrons comment on peut écrire un seul programme, plus
+court que celui ci-dessus, qui permettra à Reeborg de livrer des
+journaux à Madame Lovelace et à Monsieur Babbage.
 
-Since functions like ``get_money()``, ``climb_up_three_floors``, etc.,
-are specific to this problem, it is probably **not** a good idea to save
-them in the library; you don't want to have too many functions in your
-library so that you are always able to remember all that are there. If
-you do find that you use a function many times in different programs,
-then it is a good idea to put it in your library.
+Puisque des fonctions comme ``prendre_la_monnaie()``, ``monter_trois_etages``,
+etc., sont spécifiques à une tâche en particulier, ce n'est probablement
+**pas** une bonne idée de les sauvegarder dans la bibliothèque.
+
+

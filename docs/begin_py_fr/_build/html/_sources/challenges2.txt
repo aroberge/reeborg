@@ -34,13 +34,13 @@ excess seedlings, and plant some new seeds at locations where some were
 missing. Here is a suggestion for some vocabulary to use::
 
 
-    var carrot_here = token_here;
-    var plant_carrot_seed = put;
-    var remove_seedling = take;
+    var carrot_here = token_here
+    var plant_carrot_seed = put
+    var remove_seedling = take
 
-    function ensure_one_carrot_at_spot(){
+    def ensure_one_carrot_at_spot():
         ...
-    }
+
 
 .. topic:: Do it!
 
@@ -66,8 +66,8 @@ functions may have to be different in different worlds.
 With suitable function definitions, the programs for either world
 **Harvest 1** or **Harvest 2** can be written as::
 
-    move_to_first_row();
-    repeat(harvest_two_rows, 3);
+    move_to_first_row()
+    repeat(harvest_two_rows, 3)
 
 Note however that you may choose a different way to solve the problems
 than that which is described above.

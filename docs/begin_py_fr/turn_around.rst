@@ -1,69 +1,77 @@
+Demi-tour!
+==========
 
-Turn around
-===========
+En plus d'instruire Reeborg de tourner à droite, vous avez probablement
+eu à lui faire demi-tour à quelques reprises. On peut définir une
+fonction ``demi_tour()`` de la façon suivante::
 
-In addition to having Reeborg making right turns, you *might* have had
-him turn around a few times; by turning around, I mean changing
-direction so that Reeborg is heading back to where it was coming from.
-We can define a function ``turn_around()`` as follows::
+    def demi_tour():
+        tourne_a_gauche()
+        tourne_a_gauche()
 
-    def turn_around():
-        turn_left()
-        turn_left()
+Faites-le!
 
-Try it!
+De retour à ``tourne_a_droite()``
+---------------------------------
 
-Back to ``turn_right()``
-------------------------
+Vous vous souvenez de ``tourne_a_droite()``? Revoici sa définition::
 
-Remember ``turn_right()``? Here it is again::
+    def tourne_a_droite():
+        tourne_a_gauche()
+        tourne_a_gauche()
+        tourne_a_gauche()
 
-    def turn_right():
-        turn_left()
-        turn_left()
-        turn_left()
 
-Notice how the first two instructions are identical to the function
-definition for ``turn_around()``. When this happens, we have to remember
-Rule # 3:
+On remarque que les deux premières instructions sont identiques à la
+définition de ``demi_tour()``. Lorsque quelque chose du genre arrive, il
+est bon de se rappeler de la règle numéro 3:
 
 .. important::
 
-    Rule # 3
-        When writing computer programs, do not repeat yourself.
-        I repeat: **do not repeat yourself!**
+    **Règle numéro 3**
+        Lorsque vous écrivez des programmes informatiques, ne vous répétez
+        pas.
+        Je répète: `ne vous répétez
+        pas! <http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas>`__
 
-So, we have some repeated instruction. While ``turn_right()`` is already
-very simple, a good programming practice is to replace parts of code
-that are repeated by a simple function. Thus, we should rewrite
-``turn_right()`` as follows::
+Donc, nous avons une répétitions d'instructions. Bien que
+``tourne_a_droite()`` soit déjà toute simple, une bonne habitude à
+développer en programmation informatique est de remplacer les parties de
+codes qui se répètent par une simple fonction. Donc, nous devrions
+redéfinir ``tourne_a_droite()`` de la façon suivante::
 
-    def turn_right():
-        turn_around()
-        turn_left()
+    def tourne_a_droite():
+        demi_tour()
+        tourne_a_gauche()
 
-The idea behind this is that, the shorter a function is, the least
-likely there will be bugs in it. Furthermore, once we have a well-tested
-bug-free function, we make sure that we use it whenever we can when
-writing longer functions. I admit, this is almost a silly example ...
-but I don't have more complicated examples at this point to illustrate
-this important idea.
+L'idée suggérant cette pratique est que, plus la définition d'une
+fonction est courte, plus il est facile de détecter des problèmes ...
+et, en bout de ligne, de s'assurer qu'il n'y a pas de bogues. De plus,
+une fois que nous avons défini et testé une fonction pour nous assurer
+qu'elle ne comporte pas de bogues, on réduit la possibilité de bogues
+ailleurs en l'utilisant aussi souvent que possible. J’admets que
+l'exemple choisi peut sembler ridicule en raison de la simplicité des
+fonctions utilisées ... mais je n'ai pas d'exemples plus compliqués à
+vous offrir à ce moment-ci pour illustrer cette idée très importante.
 
-.. topic:: Your turn
+.. topic:: À votre tour!
 
-    Define a ``step_back()`` function that would undo a ``move()`` function.
-    By this, I mean that you should have::
+    Définissez la fonction ``recule()`` qui est l'opposé de la fonction
+    ``avance()``. Par ceci, je veux dire que si vous ceci devrait permettre
+    le code suivant::
 
-        # starting somewhere at location x,y
-        move()
-        step_back()
-        # back at the same location,
-        # facing in the same direction as before
+         # départ au point x, y
+        avance()
+        recule()
+        # de retour au point x, y,
+        # faisant face à la même direction qu'au départ
 
-    Make sure you to test it!
+    Assurez-vous de vérifier que le tout fonctionne!
 
-Do not use the hint unless you feel you absolutely can not do it otherwise!
+N'utilisez pas l'indice sauf si vous en avez absolument besoin!
+
 
 .. hint::
 
-   You might want to use ``turn_around()`` twice in defining ``step_back()``.
+   Vous voudrez probablement utiliser ``demi_tour()`` deux fois dans la définition
+   de ``recule()``.

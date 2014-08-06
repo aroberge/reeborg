@@ -6,21 +6,18 @@ As you most likely found out, we were too hasty in asking Reeborg to
 move forward after putting down a token. We need to check if there is a
 wall preventing him from moving first. Here's a solution to the problem::
 
-    put("token");
-    if ( !front_is_clear() ) {
-        turn_left();
-    }
-    move();
-    while ( !token_here() ){
-        if (right_is_clear()){
-            turn_right();
-            move();
-        } else if (front_is_clear()){
-            move();
-        } else {
-            turn_left();
-        }
-    }
+    put("token")
+    if not front_is_clear():
+        turn_left()
+    move()
+    while not token_here():
+        if right_is_clear():
+            turn_right()
+            move()
+        elif front_is_clear():
+            move()
+        else:
+            turn_left()
     
 .. topic:: Try it!
 

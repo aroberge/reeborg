@@ -1,55 +1,64 @@
-Repeat
+Répète
 ======
 
-Often, we will find that we want to repeat a series of instructions a
-fixed number of times. There is a way in Python to do so ... but it
-has too many new concepts to explain at this time. I will just show you
-the code, and immediately introduce ``repeat()``, a simpler replacement
-for it, unique to Reeborg's World. 
-Later, when you know more about Python, I will explain how
-``repeat()`` is defined in terms of the standard way. The standard way
-is known as a **for loop** and is written as follows:
+Comme nous l'avons vu, il arrive souvent que l'on doive répéter une
+instruction donnée un certains nombre de fois. Il y a une façon standard
+de faire ceci en Python ... mais ceci requiert de comprendre trop de
+nouveaux concepts à la fois. Je vais juste vous montrer le code requis
+pour ceci puis présenter une fonction plus simple à comprendre,
+``repete()``, fonction unique au monde de Reeborg. Plus tard je vous
+expliquerai comment ``repete()`` est définie à l'aide du code utilisé
+habituellement.
+
+La façon standard s'appelle une *boucle ``for``* et est écrite de la
+façon suivante
+
+Repeat
 
 .. code-block:: python
 
     for i in range(n):
-        # some 
-        # instructions 
-        # here
+        # diverses
+        # instructions
+        # ici
 
 .. note::
 
-   Remember that ``take("token")`` could more simply be written as ``take()``.
+   Souvenez-vous que ``prend("jeton")`` pourrait simplement être écrit comme ``prend()``.
 
-Now that you have seen this cryptic code which includes two Python
-keywords, ``for`` and ``in``, as well as a built-in function, ``range``, 
-let's introduce instead ``repeat()``. 
-We will use the example ``get_money()`` from the previous newspaper
-delivery example::
+Maintenant que vous avez entrevu le code cryptique incluant deux
+mots-clés ``for`` et ``in``, nous présentons plutôt la fonction
+``repete()``. Nous allons utiliser la fonction ``prend_la_monnaie()`` de la
+tâche de livraison de journaux que nous avons tout juste vue::
 
-    def get_money():
-        take("token")
-        take("token")
-        take("token")
-        take("token")
-        take("token")
+    def prendre_la_monnaie():
+        prend("jeton")
+        prend("jeton")
+        prend("jeton")
+        prend("jeton")
+        prend("jeton")
 
-Inside ``get_money()``, we repeat 5 times the command ``take()``.
-Using ``repeat()``, we can rewrite the above as follows::
+Le corps de ``prendre_la_monnaie()`` est constitué de 5 répétitions de
+``prend("jeton")``. Utilisant ``repete()``, nous pouvons récrire ceci de
+la façon suivante:::
 
-    def get_money():
-        repeat(take, 5)
+    def prendre_la_monnaie():
+        repete(prend, 5)
 
-Note that I have **not** included the parentheses ``()`` for
-``take`` inside ``repeat()``. If I had to specify the *argument*
-``"token"``, I would not have been able to use ``repeat`` as it makes
-use only of the name of the function, without calling it using ``()``.
-Now, by using ``repeat()`` we have yet
-another way to eliminate repetitions in our code. 
+Notez que les parenthèses ``()`` ne sont **pas** incluse pour
+``prend`` comme *argument* de ``repete()``. Donc, en utilisant
+``repete()``, nous avons une autre façon d'éliminer les répétitions dans
+nos programmes. Cela dit, si j'avais eu à spécifier l'argument
+``"jeton"``, je n'aurais pas pu utiliser ``repete`` car il ne prend
+que le nom d'une fonction comme argument (ainsi que le nombre de répétitions) sans
+parenthèses: on ne peut donc pas spécifier d'argument à cette deuxième fonction.
 
-.. topic:: Try it!
+.. topic:: À votre tour!
 
-    Change your program for the newspaper problem so that
-    you use ``repeat()`` wherever it would shorten the code. If you did not save it,
-    go back to the previous lesson and redo it using ``repeat()``.
+    Si vous avez toujours dans l'éditeur de code une copie
+    du programme permettant à Reeborg de livrer le journal, modifiez-le de
+    façon à utiliser ``repete()`` à toutes les fois que ceci permet de
+    raccourcir le code. Si vous n'avez pas une copie du programme, retourner
+    à la leçon précédente et refaites-le en utilisant ``repete()``.
+
 
