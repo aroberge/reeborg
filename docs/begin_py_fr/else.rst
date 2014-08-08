@@ -1,102 +1,96 @@
-Listen to me ... or else ....
-=============================
+Écoutez-moi, sinon ...
+======================
 
-While learning how to program may be fun, you should not spend all your
-time in front of the computer. ``if`` it rains, keep reading, otherwise,
-go outside and play! (Yes, even you grandpa!)
+Apprendre la programmation informatique peut être très amusant, mais
+vous ne devriez pas passer toute votre vie devant un écran d'ordinateur.
+Si il pleut, continuez à lire, sinon allez jouer dehors! (Oui, même vous
+grand-père!)
 
-Two choices...
---------------
+Deux choix...
+-------------
 
-Let's rewrite the sentence that starts with ``if`` above::
+Récrivons la phrase ci-dessus débutant avec **Si**.
 
-    if it rains,
-        keep reading,
-    otherwise,
-        go outside and play
+.. code:: py3
 
-If this were Python, we might have written it like this instead:
+    Si il pleut,
+        continuez à lire,
+    sinon
+        allez jouer dehors!
 
-.. code-block:: python
+Si nous exprimions cette idée en Python, on aurait quelque chose du
+genre à la place::
 
-    if it_rains():
-        keep_reading()
-    else
-        go_outside_and_play()
+    if il_pleut():
+        continuez_à_lire()
+    else:
+        allez_jouez_dehors()
 
-Yes, Python includes the possibility of more than one choice with
-the keyword ``else``. Let's use it with another example. Reeborg can see
-if there's a wall right in front him. Consider world **Around 1**. You will
-use a new condition, ``front_is_clear()`` which Reeborg uses to
-determine if there's a wall in front of him or not, together with the
-``if/else`` pair to write a program that will guide Reeborg around the
-world. Something like the following:
+Oui, Python donne la possibilité d'avoir plus d'un choix avec le
+mot-clé ``else``. Utilisons-le avec un autre exemple. Reeborg peut voir
+s'il y a ou non un mur devant lui. Sélectionnez le monde **Autour 1**. À
+l'aide de la nouvelle condition, ``rien_devant()``, que Reeborg utilise
+pour déterminer s'il y a ou non un mur devant lui, on peut utiliser la
+combinaison ``if/else`` ``if/else`` pour écrire un programme permettant
+à Reeborg de faire le tour du monde. Quelque chose comme ce qui suit
+suffit::
 
-.. code-block:: python
-
-
-    def move_or_turn ():
-        if front_is_clear():
-            # something
+    def avance_ou_tourne():
+        if rien_devant() :
+            # faire quelque chose
         else:
-            # something else
+            # faire autre chose
 
-    repeat(move_or_turn, 40)
-    
-.. topic:: Try it!
+    repete(avance_ou_tourne, 40)
 
-    Write a program using the code above so that Reeborg goes around world
-    **Around 1**.  
-    After you are done, can you modify the program (by adding one line) so
-    that Reeborg deposits a token at each corner?
+.. topic:: Faites-le!
 
-How to think about ``if/else``
+    Écrivez un programme utilisant le code ci-dessus faisant en
+    sorte que Reeborg fasse le tour du monde **Autour 1**.
+
+    Lorsque ce sera fait, pouvez-vous modifier le programme (en ajoutant une
+    seule instruction) de telle sorte que Reeborg dépose un jeton à chaque
+    coin?
+
+Comment comprendre ``if/else``
 ------------------------------
 
-We have seen how ``def``\ s and ``if`` statements could be thought
-of as being (sometimes) equivalent to inserting a code block; the
-exception was when the condition of the ``if`` statement was ``False``,
-in which case we ignored the code block which is equivalent to deleting
-it. ``if/else`` statements can be thought as inserting one or the other
-code block. Thus
+Nous avons vu comment les énoncés ``def`` et ``if`` pouvaient être
+interprétés comme étant parfois équivalent à insérer un bloc de code.
+Les combinaisons ``if/else`` peuvent être considérées de la même façon.
+Ainsi
 
-.. code-block:: python
+.. code:: py3
 
-    move()
+    avance()
     if True:
-        turn_right()
+        tourne_a_droite()
     else:
-        turn_left()
-    move()
+        tourne_a_gauche()
+    avance()
 
-is equivalent to
+est équivalent à::
 
-.. code-block:: python
+    avance()
+    tourne_a_droite()
+    avance()
 
-    move()
-    turn_right()
-    move()
+alors que::
 
-whereas
-
-.. code-block:: python
-
-    move()
+    avance()
     if False:
-        turn_right()
+        tourne_a_droite()
     else:
-        turn_left()
-    move()
+        tourne_a_gauche()
+    avance()
 
-is equivalent to
+est équivalent à::
 
-.. code-block:: python
+    avance()
+    tourne_a_gauche()
+    avance()
 
-    move()
-    turn_left()
-    move()
+On peut représenter ceci par l'organigramme suivant:
 
-We can represent this as a flowchart:
-
-.. figure:: ../../flowcharts/else.jpg
+.. figure:: ../../flowcharts/else2.jpg
    :align: center
