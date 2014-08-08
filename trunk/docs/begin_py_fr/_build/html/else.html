@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>17. Listen to me ... or else .... &mdash; Apprenez Python avec Reeborg</title>
+    <title>17. Écoutez-moi, sinon ... &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="18. Hurdles yet again!" href="hurdles3.html" />
-    <link rel="prev" title="16. Finding the right spot" href="at_goal.html" /> 
+    <link rel="prev" title="16. Droit au but" href="at_goal.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="hurdles3.html" title="18. Hurdles yet again!"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="at_goal.html" title="16. Finding the right spot"
+             <a href="at_goal.html" title="16. Droit au but"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,16 +80,16 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">17. Listen to me ... or else ....</a><ul>
-<li><a class="reference internal" href="#two-choices">17.1. Two choices...</a></li>
-<li><a class="reference internal" href="#how-to-think-about-if-else">17.2. How to think about <tt class="docutils literal"><span class="pre">if/else</span></tt></a></li>
+<li><a class="reference internal" href="#">17. Écoutez-moi, sinon ...</a><ul>
+<li><a class="reference internal" href="#deux-choix">17.1. Deux choix...</a></li>
+<li><a class="reference internal" href="#comment-comprendre-if-else">17.2. Comment comprendre <tt class="docutils literal"><span class="pre">if/else</span></tt></a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="at_goal.html"
-                        title="Chapitre précédent">16. Finding the right spot</a></p>
+                        title="Chapitre précédent">16. Droit au but</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="hurdles3.html"
                         title="Chapitre suivant">18. Hurdles yet again!</a></p>
@@ -117,92 +117,93 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="listen-to-me-or-else">
-<h1>17. Listen to me ... or else ....<a class="headerlink" href="#listen-to-me-or-else" title="Lien permanent vers ce titre">¶</a></h1>
-<p>While learning how to program may be fun, you should not spend all your
-time in front of the computer. <tt class="docutils literal"><span class="pre">if</span></tt> it rains, keep reading, otherwise,
-go outside and play! (Yes, even you grandpa!)</p>
-<div class="section" id="two-choices">
-<h2>17.1. Two choices...<a class="headerlink" href="#two-choices" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Let&#8217;s rewrite the sentence that starts with <tt class="docutils literal"><span class="pre">if</span></tt> above.:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">it</span> <span class="n">rains</span><span class="p">,</span>
-    <span class="n">keep</span> <span class="n">reading</span><span class="p">,</span>
-<span class="n">otherwise</span><span class="p">,</span>
-    <span class="n">go</span> <span class="n">outside</span> <span class="ow">and</span> <span class="n">play</span>
+  <div class="section" id="ecoutez-moi-sinon">
+<h1>17. Écoutez-moi, sinon ...<a class="headerlink" href="#ecoutez-moi-sinon" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Apprendre la programmation informatique peut être très amusant, mais
+vous ne devriez pas passer toute votre vie devant un écran d&#8217;ordinateur.
+Si il pleut, continuez à lire, sinon allez jouer dehors! (Oui, même vous
+grand-père!)</p>
+<div class="section" id="deux-choix">
+<h2>17.1. Deux choix...<a class="headerlink" href="#deux-choix" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Récrivons la phrase ci-dessus débutant avec <strong>Si</strong>.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre>Si il pleut,
+    continuez à lire,
+sinon
+    allez jouer dehors!
 </pre></div>
 </div>
-<p>If this were Javascript, we might have written it like this instead:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="n">it_rains</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">keep_reading</span><span class="p">();</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="n">go_outside_and_play</span><span class="p">();</span>
-<span class="p">}</span>
+<p>Si nous exprimions cette idée en Python, on aurait quelque chose du
+genre à la place:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">il_pleut</span><span class="p">():</span>
+    <span class="n">continuez_à_lire</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">allez_jouez_dehors</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Yes, Javascript includes the possibility of more than one choice with
-the keyword <tt class="docutils literal"><span class="pre">else</span></tt>. Let&#8217;s use it with another example. Reeborg can see
-if there&#8217;s a wall right in front him. Consider world <strong>Around&nbsp;1</strong>. You will
-use a new condition, <tt class="docutils literal"><span class="pre">front_is_clear()</span></tt> which Reeborg uses to
-determine if there&#8217;s a wall in front of him or not, together with the
-<tt class="docutils literal"><span class="pre">if/else</span></tt> pair to write a program that will guide Reeborg around the
-world. Something like the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">move_or_turn</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="n">front_is_clear</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="o">//</span> <span class="n">something</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="o">//</span> <span class="n">something</span> <span class="k">else</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>Oui, Python donne la possibilité d&#8217;avoir plus d&#8217;un choix avec le
+mot-clé <tt class="docutils literal"><span class="pre">else</span></tt>. Utilisons-le avec un autre exemple. Reeborg peut voir
+s&#8217;il y a ou non un mur devant lui. Sélectionnez le monde <strong>Autour&nbsp;1</strong>. À
+l&#8217;aide de la nouvelle condition, <tt class="docutils literal"><span class="pre">rien_devant()</span></tt>, que Reeborg utilise
+pour déterminer s&#8217;il y a ou non un mur devant lui, on peut utiliser la
+combinaison <tt class="docutils literal"><span class="pre">if/else</span></tt> <tt class="docutils literal"><span class="pre">if/else</span></tt> pour écrire un programme permettant
+à Reeborg de faire le tour du monde. Quelque chose comme ce qui suit
+suffit:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">avance_ou_tourne</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">rien_devant</span><span class="p">()</span> <span class="p">:</span>
+        <span class="c"># faire quelque chose</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c"># faire autre chose</span>
 
-<span class="n">repeat</span><span class="p">(</span><span class="n">move_or_turn</span><span class="p">,</span> <span class="mi">40</span><span class="p">);</span>
+<span class="n">repete</span><span class="p">(</span><span class="n">avance_ou_tourne</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Write a program using the code above so that Reeborg goes around world
-<strong>Around 1</strong>.
-After you are done, can you modify the program (by adding one line) so
-that Reeborg deposits a token at each corner?</p>
+<p class="topic-title first">Faites-le!</p>
+<p>Écrivez un programme utilisant le code ci-dessus faisant en
+sorte que Reeborg fasse le tour du monde <strong>Autour 1</strong>.</p>
+<p>Lorsque ce sera fait, pouvez-vous modifier le programme (en ajoutant une
+seule instruction) de telle sorte que Reeborg dépose un jeton à chaque
+coin?</p>
 </div>
 </div>
-<div class="section" id="how-to-think-about-if-else">
-<h2>17.2. How to think about <tt class="docutils literal"><span class="pre">if/else</span></tt><a class="headerlink" href="#how-to-think-about-if-else" title="Lien permanent vers ce titre">¶</a></h2>
-<p>We have seen how <tt class="docutils literal"><span class="pre">function</span></tt>s and <tt class="docutils literal"><span class="pre">if</span></tt> statements could be thought
-of as being (sometimes) equivalent to inserting a code block; the
-exception was when the condition of the <tt class="docutils literal"><span class="pre">if</span></tt> statement was <tt class="docutils literal"><span class="pre">false</span></tt>,
-in which case we ignored the code block which is equivalent to deleting
-it. <tt class="docutils literal"><span class="pre">if/else</span></tt> statements can be thought as inserting one or the other
-code block. Thus:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="k">if</span> <span class="p">(</span> <span class="n">true</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">turn_right</span><span class="p">();</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
-<span class="n">move</span><span class="p">();</span>
+<div class="section" id="comment-comprendre-if-else">
+<h2>17.2. Comment comprendre <tt class="docutils literal"><span class="pre">if/else</span></tt><a class="headerlink" href="#comment-comprendre-if-else" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous avons vu comment les énoncés <tt class="docutils literal"><span class="pre">def</span></tt> et <tt class="docutils literal"><span class="pre">if</span></tt> pouvaient être
+interprétés comme étant parfois équivalent à insérer un bloc de code.
+Les combinaisons <tt class="docutils literal"><span class="pre">if/else</span></tt> peuvent être considérées de la même façon.
+Ainsi</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="k">if</span> <span class="k">True</span><span class="p">:</span>
+    <span class="n">tourne_a_droite</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>is equivalent to:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="n">turn_right</span><span class="p">();</span>
-<span class="n">move</span><span class="p">();</span>
+<p>est équivalent à:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_droite</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>whereas:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="k">if</span> <span class="p">(</span> <span class="n">false</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">turn_right</span><span class="p">();</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="n">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
-<span class="n">move</span><span class="p">();</span>
+<p>alors que:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="k">if</span> <span class="k">False</span><span class="p">:</span>
+    <span class="n">tourne_a_droite</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>is equivalent to:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">();</span>
-<span class="n">turn_left</span><span class="p">();</span>
-<span class="n">move</span><span class="p">();</span>
+<p>est équivalent à:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
+</div>
+<p>On peut représenter ceci par l&#8217;organigramme suivant:</p>
+<div class="figure align-center">
+<img alt="_images/else2.jpg" src="_images/else2.jpg" />
 </div>
 </div>
 </div>
@@ -220,7 +221,7 @@ code block. Thus:</p>
              <a href="hurdles3.html" title="18. Hurdles yet again!"
              >suivant</a></li>
         <li class="right" >
-             <a href="at_goal.html" title="16. Finding the right spot"
+             <a href="at_goal.html" title="16. Droit au but"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
