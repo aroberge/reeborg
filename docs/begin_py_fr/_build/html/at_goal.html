@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>16. Finding the right spot &mdash; Apprenez Python avec Reeborg</title>
+    <title>16. Droit au but &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="17. Listen to me ... or else ...." href="else.html" />
-    <link rel="prev" title="15. If only ..." href="if.html" /> 
+    <link rel="prev" title="15. Si seulement ..." href="if.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="else.html" title="17. Listen to me ... or else ...."
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="if.html" title="15. If only ..."
+             <a href="if.html" title="15. Si seulement ..."
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,11 +80,11 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">16. Finding the right spot</a><ul>
-<li><a class="reference internal" href="#another-condition">16.1. Another condition</a></li>
-<li><a class="reference internal" href="#and-now-something-different">16.2. And now, something different</a></li>
-<li><a class="reference internal" href="#hurdles-again">16.3. Hurdles again!</a><ul>
-<li><a class="reference internal" href="#a-question-for-you">16.3.1. A question for you</a></li>
+<li><a class="reference internal" href="#">16. Droit au but</a><ul>
+<li><a class="reference internal" href="#une-autre-condition">16.1. Une autre condition</a></li>
+<li><a class="reference internal" href="#quelque-chose-de-completement-different">16.2. Quelque chose de complètement différent ...</a></li>
+<li><a class="reference internal" href="#encore-les-haies">16.3. Encore les haies!</a><ul>
+<li><a class="reference internal" href="#une-question-pour-vous">16.3.1. Une question pour vous</a></li>
 </ul>
 </li>
 </ul>
@@ -93,7 +93,7 @@
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="if.html"
-                        title="Chapitre précédent">15. If only ...</a></p>
+                        title="Chapitre précédent">15. Si seulement ...</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="else.html"
                         title="Chapitre suivant">17. Listen to me ... or else ....</a></p>
@@ -121,98 +121,99 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="finding-the-right-spot">
-<h1>16. Finding the right spot<a class="headerlink" href="#finding-the-right-spot" title="Lien permanent vers ce titre">¶</a></h1>
-<p>While the program you just wrote works for worlds <strong>Tokens&nbsp;1</strong> and <strong>Tokens&nbsp;2</strong>,
-it will fail if you try it for worlds <strong>Tokens&nbsp;3</strong> and <strong>Tokens&nbsp;4</strong>.</p>
+  <div class="section" id="droit-au-but">
+<h1>16. Droit au but<a class="headerlink" href="#droit-au-but" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Bien que le programme que vous venez d&#8217;écrire permette à Reeborg
+d&#8217;accomplir sa tâche pour les mondes <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>, il n&#8217;en sera
+pas de même pour <strong>Jetons&nbsp;3</strong> et <strong>Jetons&nbsp;4</strong>.</p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Try your program with all four worlds.</p>
+<p class="topic-title first">Vérifiez ceci!</p>
+<p>Essayez votre programme avec ces quatre mondes différents.</p>
 </div>
-<div class="section" id="another-condition">
-<h2>16.1. Another condition<a class="headerlink" href="#another-condition" title="Lien permanent vers ce titre">¶</a></h2>
-<p>In addition to being able to find out if tokens are located at the
-position where Reeborg finds himself, Reeborg can also determine if he
-reached the coloured square which we described before as Reeborg&#8217;s home.
-In many worlds, it makes more sense to think of this as Reeborg&#8217;s goal
-destination, rather than home, and the function that Reeborg uses to
-determine this is <tt class="docutils literal"><span class="pre">at_goal()</span></tt>. Here&#8217;s the outline of a solution that
-should work in all four worlds mentioned above.:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">move_until_done</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="n">at_goal</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="o">//</span> <span class="n">something</span>
-    <span class="p">}</span>
-    <span class="n">move</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="n">token_here</span><span class="p">()</span> <span class="p">){</span>
-        <span class="o">//</span> <span class="n">something</span>
-        <span class="o">//</span> <span class="n">something</span> <span class="k">else</span>
-        <span class="o">//</span> <span class="n">something</span> <span class="k">else</span> <span class="n">again</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="section" id="une-autre-condition">
+<h2>16.1. Une autre condition<a class="headerlink" href="#une-autre-condition" title="Lien permanent vers ce titre">¶</a></h2>
+<p>En plus d&#8217;être capable de déterminer si des jetons se trouvent là où il
+est, Reeborg peut aussi déterminer s&#8217;il se trouve sur le carré coloré
+que nous avons décrit précédemment comme indiquant qu&#8217;il est à sa
+maison. Dans plusieurs cas, il est plus logique de considérer ce carré
+comme étant la destination ou le but ultime de Reeborg, plutôt que
+simplement sa maison. Reeborg peut donc déterminer s&#8217;il a atteint son
+but par la condition <tt class="docutils literal"><span class="pre">au_but()</span></tt>. Voici l&#8217;esquisse d&#8217;un programme
+unique qui devrait permettre à Reeborg d&#8217;accomplir sa tâche pour chacun
+des quatre mondes mentionnés ci-dessus.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">avance_jusque_tâche_terminée</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">au_but</span><span class="p">():</span>
+        <span class="c"># quelque chose</span>
 
-<span class="n">repeat</span><span class="p">(</span><span class="n">move_until_done</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+    <span class="n">avance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">jeton_ici</span><span class="p">():</span>
+        <span class="c"># quelque chose</span>
+        <span class="c"># quelque chose d&#39;autre</span>
+        <span class="c"># autre chose encore</span>
+
+<span class="n">repete</span><span class="p">(</span><span class="n">avance_jusque_tâche_terminée</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Complete the above (in the Javascript Code editor) and make sure it works for all
-four worlds mentioned above.</p>
+<p>Utilisant l&#8217;esquisse ci-dessus, écrivez dans l&#8217;éditeur de code le
+programme requis et vérifiez qu&#8217;il fonctionne bel et bien dans chacun
+des quatre mondes mentionnés.</p>
 </div>
-<div class="section" id="and-now-something-different">
-<h2>16.2. And now, something different<a class="headerlink" href="#and-now-something-different" title="Lien permanent vers ce titre">¶</a></h2>
-<p>You did complete the above exercise, didn&#8217;t you? ... Good.</p>
+<div class="section" id="quelque-chose-de-completement-different">
+<h2>16.2. Quelque chose de complètement différent ...<a class="headerlink" href="#quelque-chose-de-completement-different" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Vous avez bel et bien complété l&#8217;exercice ci-dessus, n&#8217;est-ce pas? ...</p>
 <div class="topic">
-<p class="topic-title first">Do this!</p>
-<p>Select
-either world <strong>Home&nbsp;1</strong> or <strong>Home&nbsp;2</strong>. Would the same program you use for
-the <strong>Tokens</strong> world work? After you
-have determined this, try running it to confirm your understanding.</p>
+<p class="topic-title first">Un autre exercice!</p>
+<p>Sélectionnez soit <strong>Maison&nbsp;1</strong> ou <strong>Maison&nbsp;2</strong>. En analysant le programme
+que vous venez d&#8217;écrire, sans l&#8217;exécuter, est-ce que vous croyez qu&#8217;il
+est une solution pour ces deux mondes? Vérifiez votre compréhension en
+exécutant le programme.</p>
 </div>
 </div>
-<div class="section" id="hurdles-again">
-<h2>16.3. Hurdles again!<a class="headerlink" href="#hurdles-again" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Have a look at worlds <strong>Hurdles&nbsp;1</strong> and <strong>Hurdles&nbsp;2</strong>. Ignoring the end goal for
-a second, a program that Reeborg could follow to race over these hurdles
-would alternate between two instructions</p>
+<div class="section" id="encore-les-haies">
+<h2>16.3. Encore les haies!<a class="headerlink" href="#encore-les-haies" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Examinez les mondes <strong>Haies&nbsp;1</strong> et <strong>Haies&nbsp;2</strong>. Ignorez pour l&#8217;instant le but à
+atteindre (la maison de Reeborg). Un programme qui permettrait à Reeborg
+de terminer la course pourrait être constitué d&#8217;une alternance des deux
+instructions suivantes:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">move();</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">jump_over_hurdle();</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">avance()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">saute()</span></tt></li>
 </ul>
-<p>with the appropriate definition for <tt class="docutils literal"><span class="pre">jump_over_hurdle()</span></tt>. If you could
-include a test (<tt class="docutils literal"><span class="pre">if</span></tt> statement) at some point to see if you have
-reached the goal, you could use the above to create a new function, that
-we could call <tt class="docutils literal"><span class="pre">move_and_jump_until_done()</span></tt> so that a program suitable
-for both worlds <strong>Hurdles&nbsp;1</strong> and <strong>Hurdles&nbsp;2</strong> would be:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">repeat</span><span class="p">(</span><span class="n">move_and_jump_until_done</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+<p>en autant qu&#8217;on ait une définition appropriée pour <tt class="docutils literal"><span class="pre">saute()</span></tt>. Si vous
+pouviez inclure une condition (énoncé <tt class="docutils literal"><span class="pre">if</span></tt>) à quelque part pour
+vérifier que vous avez atteint le but, vous pourriez alors définir une
+fonction que nous pourrions appeler <tt class="docutils literal"><span class="pre">avance_et_saut_jusqu_au_but()</span></tt> de
+telle sorte qu&#8217;un programme unique suffirait pour les mondes Haies&nbsp;1 et
+Haies&nbsp;2:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">repete</span><span class="p">(</span><span class="n">avance_et_saute_jusqu_au_but</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Do it!</p>
-<p>Write such a program and make sure it works.</p>
+<p class="topic-title first">Faites-le !</p>
+<p>Écrivez un tel programme et assurez-vous qu&#8217;il permette à Reeborg de
+terminer la course.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
-<p>Your program could look as follows:</p>
-<div class="last highlight-py3"><div class="highlight"><pre><span class="n">import_lib</span><span class="p">();</span>
+<p>Votre programme devrait ressembler à ceci:</p>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">biblio</span>
+<span class="k">def</span> <span class="nf">saute</span><span class="p">():</span>
+    <span class="c"># quelques lignes de code</span>
 
-<span class="n">function</span> <span class="n">jump_over_hurdle</span><span class="p">(){</span>
-    <span class="o">//</span> <span class="n">some</span> <span class="n">definitions</span>
-<span class="p">}</span>
+<span class="k">def</span> <span class="nf">avance_et_saut_jusqu_au_but</span><span class="p">():</span>
+    <span class="c"># quelque chose</span>
+    <span class="k">if</span> <span class="n">au_but</span><span class="p">():</span>
+        <span class="n">termine</span><span class="p">()</span>
+    <span class="c"># quelque chose</span>
 
-<span class="n">function</span> <span class="n">move_and_jump_until_done</span><span class="p">(){</span>
-    <span class="o">//</span> <span class="n">something</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">at_goal</span><span class="p">()){</span>
-        <span class="n">done</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="o">//</span> <span class="n">something</span>
-<span class="p">}</span>
-
-<span class="n">repeat</span><span class="p">(</span><span class="n">move_and_jump_until_done</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+<span class="n">repete</span><span class="p">(</span><span class="n">avance_et_saut_jusqu_au_but</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="a-question-for-you">
-<h3>16.3.1. A question for you<a class="headerlink" href="#a-question-for-you" title="Lien permanent vers ce titre">¶</a></h3>
-<p>Could this program work without changing anything for world
-<strong>Hurdles&nbsp;3</strong>?</p>
+<div class="section" id="une-question-pour-vous">
+<h3>16.3.1. Une question pour vous<a class="headerlink" href="#une-question-pour-vous" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Est-ce que ce programme pourrait permettre à Reeborg de terminer la
+course <strong>Haies&nbsp;4</strong>?</p>
 </div>
 </div>
 </div>
@@ -230,7 +231,7 @@ for both worlds <strong>Hurdles&nbsp;1</strong> and <strong>Hurdles&nbsp;2</stro
              <a href="else.html" title="17. Listen to me ... or else ...."
              >suivant</a></li>
         <li class="right" >
-             <a href="if.html" title="15. If only ..."
+             <a href="if.html" title="15. Si seulement ..."
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
