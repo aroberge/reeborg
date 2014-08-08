@@ -1,116 +1,136 @@
-Hurdles yet again!
-==================
+Toujours les haies!
+===================
 
-Reeborg lives in Canada where it not only can rain or be sunny, but snow
-can also be falling ... usually not all three at the same time ... but
-it does happen... Let's suppose that only one of those can happen. Then,
-Reeborg could be faced with the following choices::
+Reeborg vit au Canada où non seulement il peut pleuvoir ou faire soleil,
+mais où la neige peut également tomber ... habituellement pas les trois
+(pluie, neige et soleil) en même temps ... mais ça arrive parfois...
+Supposons que seulement une des trois choses peut arriver à la fois.
+Dans ce cas, Reeborg pourrait se retrouver dans la situation suivante::
 
-    if it_rains():
-        play_indoors()
-    elif it_snows():
-        go_skiing()
+    if il_pleut():
+        joue_dans_la_maison()
+    elif il_neige():
+        va_skier()
     else:
-        go_swimming() # assuming it is warm!
+        va_nager() # en supposant qu'il fait chaud!
 
-Notice the use of ``elif`` (which means "else if") for choice 2. If we took into account other
-possible weather phenomena, like hail, thunder, fog, drizzle, etc., we
-could add other choices using additional ``elif: ...`` code blocks.
+Notez l'utilisation de ``else`` pour les choix 2 et 3, et le ``if``
+additionnel pour le deuxième cas. Si on devait considérer d'autres types
+d'intempéries, comme la grêle, les orages, le brouillard, le crachin,
+etc., on pourrait ajouter d'autres choix en utilisant les blocs de code
+``else if {...}``.
 
-Here is a graphical representation of the choices that Reeborg faces:
 
-.. figure:: ../../flowcharts/elif.jpg
+
+Remarquez l'utilisation de  ``elif`` (qui se veut une abréviation de "else if"
+signifiant "sinon, si ...") pour le deuxième choix.  Si on tenait compte
+de toutes les conditions météos possibles (brouillard, crachin, etc.), on pourrait
+ajouter d'autre blocs de code ``elif: ...``..
+
+Voici une représentation graphique des choix auxquels Reeborg fait face:
+
+.. figure:: ../../flowcharts/elif2.jpg
    :align: center
 
 
-How to think of ``if/elif/ ... /else`` statements
-----------------------------------------------------
 
-A series of ``if/elif/ ... /else`` statements is equivalent to
-inserting the **first** code block that evaluates to ``True``. Thus::
+Comme penser aux énoncés ``if / else if / ... / else``
+------------------------------------------------------
 
-    if False:
-        do_1()
-    elif True:
-        do_2()
-    elif True:
-        do_3()
-    else:
-        do_4()
+Une série d'énoncés ``if / else if / ... / else`` est équivalente à
+insérer le **premier** bloc de code dont la condition est équivalente à
+``True``. Donc
 
-is equivalent to::
-
-    do_2()
-
-whereas::
+.. code:: py3
 
     if False:
-        do_1()
-    elif False:
-        do_2()
-    elif False:
-        do_3()
+        fonction_1()
+    elif True:
+        fonction_2()
+    elif True:
+        fonction_3()
     else:
-        do_4()
+        fonction_4()
 
-is equivalent to::
+est équivalent à
 
-    do_4()
+.. code:: py3
+
+    fonction_2()
+
+alors que
+
+.. code:: py3
+
+    if False:
+        fonction_1()
+    elif False:
+        fonction_2()
+    elif False:
+        fonction_3()
+    else:
+        fonction_4()
+
+est équivalent à
+
+.. code:: py3
+
+    fonction_4()
 
 etc.
 
-Back to hurdles
----------------
+De retour aux haies
+-------------------
 
-Just two lessons ago, you wrote a program that worked for worlds
-**Hurdles 1** and **Hurdles 2** but not for **Hurdles 3**. Your program was likely
-something like this
+Deux leçons passées, vous avez écrit un programme qui permettait à
+Reeborg de terminer les courses **Haies 1** et **Haies 2** mais pas **Haies 3**.
+Votre programme ressemblait probablement à ce qui suit::
 
-.. code-block:: python
 
-   def jump_over_hurdle():
-        # some suitable definition
+    def saute():
+        # un bloc de code
 
-   def move_and_jump_until_done():
-        move()
-        if at_goal():
-            done()
-        jump_over_hurdle()
+    def avance_et_saute_jusqu_au_but():
+        avance()
+        if au_but():
+            termine()
+        saute()
 
-    repeat(move_and_jump_until_done, 42)
+    repete(avance_et_saute_jusqu_au_but, 42)
 
-The reason it is not working for **Hurdles 3** is that it is written with
-the assumption that the hurdles are evenly spaced. Let's use our new
-condition ``front_is_clear()`` and keyword ``else`` to change that.
+Ce programme ne fonctionnait pas avec **Haies 3** parce qu'il suppose que
+les haies sont espacées régulièrement, ce qui n'est pas le cas pour
+**Haies 3**. Utilisons la condition ``rien_devant()`` et le mot-clé ``else``
+pour résoudre ce problème.
 
-Here's a new program that should work for the world we mentioned above,
-provided you fill in the missing pieces.
+Le programme suivant devrait faire l'affaire en autant que vous ajoutiez
+les instructions qui manquent.
 
-.. code-block:: python
+.. code:: py3
 
-   def jump_over_hurdle():
-        # suitable definition
+    def saute():
+        # un bloc de code
 
-   def run_jump_or_finish ():
-        if at_goal():
-            # something
-        elif front_is_clear():
-            # something
+    def avance_et_saute_jusqu_au_but():
+        if au_but():
+            # instruction ...
+        elif rien_devant():
+            # instruction ...
         else:
-            # something
+            # instruction ...
 
-    repeat(run_jump_or_finish, 42)
 
-Note the structure of the ``if/elif/else`` statements; as is mentioned above,
-you should see that it gives three independent choices: only one of them
-will be executed.
+Souvenez-vous que la série d'énoncés ``if/else`` résulte en un seul bloc
+de code qui sera exécuté.
 
-.. topic:: Do it!
+.. topic:: Faites-le!
 
-    Write such a program and make sure it works.
+    Écrivez-donc un tel programme et assurez-vous qu'il fonctionne
+    correctement.
 
-Could this program work without changing anything for world **Hurdles 4**?
-... Have a look and you will likely conclude that the answer is no.
-You might want to try it just to be sure. It will take a little
-``while`` until we are ready to write a program that can make Reeborg
-race **Hurdles 4** as well as the other three.
+Est-ce que ce programme pourrait fonctionner tel quel pour le monde
+**Haies 4**? La réponse est *probablement* non ... mais étudiez-le pour
+tirer votre propre conclusion avant de le tester pour vérifier votre
+hypothèse.
+
+
