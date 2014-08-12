@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>29. Revisiting some challenges &mdash; Apprenez Python avec Reeborg</title>
+    <title>29. Revue de quelques missions &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="30. Recursion" href="recursion.html" />
-    <link rel="prev" title="28. Surprises" href="surprises.html" /> 
+    <link rel="prev" title="28. Surprises!" href="surprises.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="recursion.html" title="30. Recursion"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="surprises.html" title="28. Surprises"
+             <a href="surprises.html" title="28. Surprises!"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,21 +80,21 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">29. Revisiting some challenges</a><ul>
-<li><a class="reference internal" href="#before-harvesting">29.1. Before harvesting</a></li>
-<li><a class="reference internal" href="#ready-to-harvest">29.2. Ready to harvest</a></li>
-<li><a class="reference internal" href="#stormy-weather">29.3. Stormy weather</a></li>
-<li><a class="reference internal" href="#reeborg-s-friend-s-turn">29.4. Reeborg&#8217;s friend&#8217;s turn.</a></li>
-<li><a class="reference internal" href="#after-the-storm">29.5. After the storm</a></li>
-<li><a class="reference internal" href="#more-yard-work">29.6. More yard work!</a></li>
-<li><a class="reference internal" href="#finding-the-center">29.7. Finding the center</a></li>
+<li><a class="reference internal" href="#">29. Revue de quelques missions</a><ul>
+<li><a class="reference internal" href="#avant-les-recoltes">29.1. Avant les récoltes</a></li>
+<li><a class="reference internal" href="#pret-pour-la-recolte">29.2. Prêt pour la récolte</a></li>
+<li><a class="reference internal" href="#le-mauvais-temps">29.3. Le mauvais temps</a></li>
+<li><a class="reference internal" href="#au-tour-de-l-amie-de-reeborg">29.4. Au tour de l&#8217;amie de Reeborg</a></li>
+<li><a class="reference internal" href="#apres-la-tempete">29.5. Après la tempête</a></li>
+<li><a class="reference internal" href="#encore-du-travail">29.6. Encore du travail!</a></li>
+<li><a class="reference internal" href="#trouver-le-centre">29.7. Trouver le centre</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="surprises.html"
-                        title="Chapitre précédent">28. Surprises</a></p>
+                        title="Chapitre précédent">28. Surprises!</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="recursion.html"
                         title="Chapitre suivant">30. Recursion</a></p>
@@ -122,147 +122,155 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="revisiting-some-challenges">
-<h1>29. Revisiting some challenges<a class="headerlink" href="#revisiting-some-challenges" title="Lien permanent vers ce titre">¶</a></h1>
-<p>It is time to solve some of the challenges introduced early on.</p>
-<p>Using <tt class="docutils literal"><span class="pre">while</span></tt>, <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">else</span></tt>, etc., you will write programs that
-will be able to accomplish various tasks. In writing these programs, you
-should keep the following in mind:</p>
+  <div class="section" id="revue-de-quelques-missions">
+<h1>29. Revue de quelques missions<a class="headerlink" href="#revue-de-quelques-missions" title="Lien permanent vers ce titre">¶</a></h1>
+<p>C&#8217;est le temps de revoir certaines des missions que nous avions vu
+beaucoup plus tôt.</p>
+<p>En utilisant <tt class="docutils literal"><span class="pre">while</span></tt>, <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">else</span></tt>, etc., vous êtes maintenant en
+mesure d&#8217;écrire des programmes qui permettront à Reeborg d&#8217;accomplir les
+tâches qui lui sont confiées. Cependant, gardez ce qui suit en tête:</p>
 <ol class="arabic simple">
-<li>Remember rule #2 and choose names that are descriptive for the
-problems you are attempting to solve</li>
-<li>Follow the principles given in rule #4: start by solving simpler
-problems first and generalize your solution so that it can be applied
-to more than one problem</li>
-<li>Remember rule #3: avoid repeating code as much as possible.</li>
+<li>Souvenez-vous de la règle numéro 2 et assurez-vous de choisir des
+noms descriptifs pour les problèmes à résoudre.</li>
+<li>Suivez les principes décrits dans la règle numéro 4: commencez par
+résoudre des problèmes simples en premier, puis améliorez votre
+solution pour être en mesure de résoudre plus d&#8217;un problème.</li>
+<li>Souvenez-vous de la règle numéro 3: évitez autant que possible les
+répétitions de code.</li>
 </ol>
-<p>Now, remember rule #1 ... and make sure that, this time, you solve
-<strong>all</strong> the challenges mentioned below.</p>
+<p>Finalement, n&#8217;oubliez pas la règle numéro 1 ... et assurez-vous cette
+fois-ci de résoudre <strong>tous</strong> les tâches décrites dans les leçons
+suivantes.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">Make sure you save your various solutions as you might want to come back
-to them later.</p>
+<p class="last">Assurez-vous de sauvegarder vos diverses solutions; vous
+voudrez peut-être les revoir plus tard.</p>
 </div>
-<div class="section" id="before-harvesting">
-<h2>29.1. Before harvesting<a class="headerlink" href="#before-harvesting" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Select world <strong>Harvest&nbsp;4</strong> which occurred shortly after the garden was
-seeded. Some carrot seeds sprouted well, others yielded two or three
-plants while some did not sprout at all. Help Reeborg weed out the
-excess seedlings, and plant some new seeds at locations where some were
-missing. Here is a suggestion for some vocabulary to use:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">carrot_here</span> <span class="o">=</span> <span class="n">token_here</span><span class="p">;</span>
-<span class="n">var</span> <span class="n">plant_carrot_seed</span> <span class="o">=</span> <span class="n">put</span><span class="p">;</span>
-<span class="n">var</span> <span class="n">remove_seedling</span> <span class="o">=</span> <span class="n">take</span><span class="p">;</span>
+<div class="section" id="avant-les-recoltes">
+<h2>29.1. Avant les récoltes<a class="headerlink" href="#avant-les-recoltes" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Sélectionnez le monde <strong>Récolte&nbsp;4</strong> qui représente l&#8217;état du jardin peu de
+temps après les semences. Certaines graines de carottes ont bien germé,
+d&#8217;autres ont germé trop rapprochées les unes des autres, alors que
+certaines n&#8217;ont pas germées du tout. Aidez Reeborg à enlever les
+carottes en excès et à semer à nouveau lorsque c&#8217;est requis de telle
+sorte qu&#8217;il n&#8217;y ait qu&#8217;une seule carotte par endroit. Dans ce monde, les
+carottes sont représentées par des jetons, ce qui suggère d&#8217;adopter le
+vocabulaire suivant:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">carotte_ici</span> <span class="o">=</span> <span class="n">jeton_ici</span>
+<span class="n">sème_carotte</span> <span class="o">=</span> <span class="n">dépose</span>
+<span class="n">enlève_carotte</span> <span class="o">=</span> <span class="n">prend</span>
 
-<span class="n">function</span> <span class="n">ensure_one_carrot_at_spot</span><span class="p">(){</span>
-    <span class="o">...</span>
-<span class="p">}</span>
+<span class="k">def</span> <span class="nf">une_seule_carotte</span><span class="p">():</span>
+  <span class="o">...</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Do it!</p>
-<p>Write a program as described above.</p>
+<p class="topic-title first">Faites-le!</p>
+<p>Écrivez un programme tel que décrit ci-dessus.</p>
 </div>
 </div>
-<div class="section" id="ready-to-harvest">
-<h2>29.2. Ready to harvest<a class="headerlink" href="#ready-to-harvest" title="Lien permanent vers ce titre">¶</a></h2>
-<p>The weeding went well (I hope!), the growing season is over and it is
-time to harvest. Select world <strong>Harvest&nbsp;1</strong> or <strong>Harvest&nbsp;2</strong> and have Reeborg
-collect all the tokens which represent plants to harvest.</p>
-<p>Notice how one can view the world <strong>Harvest&nbsp;1</strong> as having horizontal (or
-vertical) rows having the same length, while world <strong>Harvest&nbsp;2</strong> can be seen
-as having diagonal rows having the same length.</p>
-<p>One possible approach is to define a function <tt class="docutils literal"><span class="pre">harvest_one_row</span></tt> and a
-second one called <tt class="docutils literal"><span class="pre">harvest_two_rows</span></tt> as well as <tt class="docutils literal"><span class="pre">move_to_first_row</span></tt>.
-Using these, can write a general solution. Note that these individual
-functions may have to be different in different worlds.</p>
-<p>With suitable function definitions, the programs for either world
-<strong>Harvest&nbsp;1</strong> or <strong>Harvest&nbsp;2</strong> can be written as:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move_to_first_row</span><span class="p">();</span>
-<span class="n">repeat</span><span class="p">(</span><span class="n">harvest_two_rows</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<div class="section" id="pret-pour-la-recolte">
+<h2>29.2. Prêt pour la récolte<a class="headerlink" href="#pret-pour-la-recolte" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L&#8217;aménagement des semences s&#8217;est bien passé, et c&#8217;est le temps des
+récoltes. Sélectionnez le monde <strong>Récolte&nbsp;1</strong> ou <strong>Récolte&nbsp;2</strong> et faites en
+sorte que Reeborg ramasse tous les jetons qui représentent des plantes à
+récolter.</p>
+<p>On peut voir que le monde <strong>Récolte&nbsp;1</strong> a des rangs horizontaux (ou
+verticaux) de la même longueur alors que le monde <strong>Récolte&nbsp;2</strong> peut être
+perçu comme ayant des rangs diagonaux de la même longueur.</p>
+<p>Une approche possible aux problèmes des récoltes est de définir trois
+fonctions, <tt class="docutils literal"><span class="pre">récolte_un_rang</span></tt> et <tt class="docutils literal"><span class="pre">récolte_deux_rangs</span></tt> et
+<tt class="docutils literal"><span class="pre">avance_au_premier_rang</span></tt>; les définitions exactes de ces fonctions
+vont dépendre du monde sélectionné.</p>
+<p>Une fois ces fonctions définies, la solution du problème devient
+identique pour les deux mondes:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance_au_premier_rang</span><span class="p">()</span>
+<span class="n">repete</span><span class="p">(</span><span class="n">récolte_deux_rangs</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note however that you may choose a different way to solve the problems
-than that which is described above.</p>
+<p>Cela dit, vous pouvez choisir une approche différente de celle qui est
+suggérée ci-dessus.</p>
 <div class="topic">
-<p class="topic-title first">Do it!</p>
-<p>Write a program to do the harvesting as described.</p>
+<p class="topic-title first">Faites-le!</p>
+<p>Écrivez un programme tel que décrit ci-dessus.</p>
 </div>
 </div>
-<div class="section" id="stormy-weather">
-<h2>29.3. Stormy weather<a class="headerlink" href="#stormy-weather" title="Lien permanent vers ce titre">¶</a></h2>
-<p>It was a beautifully sunny day. Reeborg was playing outside with his
-friend. Suddenly, it started to rain and Reeborg remembered that the
-windows in his house were all open. So Reeborg went back to his house
-and stopped in front of the door, unsure of how to proceed.</p>
+<div class="section" id="le-mauvais-temps">
+<h2>29.3. Le mauvais temps<a class="headerlink" href="#le-mauvais-temps" title="Lien permanent vers ce titre">¶</a></h2>
+<p>C&#8217;était une belle journée ensoleillée. Reeborg jouait dehors avec son
+amie. Soudainement, la pluie se mit à tomber et Reeborg se rappela que
+les fenêtres de sa maison étaient toutes ouvertes. Reeborg alla donc
+chez lui pour fermer les fenêtres mais arrêta au seuil de la porte,
+indécis quant à la meilleure façon de procéder.</p>
 <div class="topic">
-<p class="topic-title first">Do it!</p>
-<p>Using the <tt class="docutils literal"><span class="pre">build_wall()</span></tt> instruction, help Reeborg close the windows
-of his house. When Reeborg finishes his task, he will stand in the
-doorway, watching the rain fall, waiting for it to stop before he can go
-back and play outside. The world is <strong>Storm&nbsp;1</strong>.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Utilisez la commande <tt class="docutils literal"><span class="pre">construit_un_mur()</span></tt> et aidez Reeborg à fermer
+les fenêtres de sa maison. Lorsque Reeborg aura terminé, il sera au
+seuil de la porte, regardant la pluie tomber et attendra patiemment
+qu&#8217;elle arrête pour qu&#8217;il puisse retourner jouer dehors. Le monde à
+sélectionner est <strong>Tempête&nbsp;1</strong>.</p>
 </div>
 </div>
-<div class="section" id="reeborg-s-friend-s-turn">
-<h2>29.4. Reeborg&#8217;s friend&#8217;s turn.<a class="headerlink" href="#reeborg-s-friend-s-turn" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Erdna, Reeborg&#8217;s friend, lives in a bigger house as shown on <strong>Storm&nbsp;2</strong>.
-Erdna was playing outside with Reeborg when it started raining. Help
-Erdna close the windows in her house.</p>
+<div class="section" id="au-tour-de-l-amie-de-reeborg">
+<h2>29.4. Au tour de l&#8217;amie de Reeborg<a class="headerlink" href="#au-tour-de-l-amie-de-reeborg" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Erdna, l&#8217;amie de Reeborg, vit dans une plus grande maison illustrée dans
+<strong>Tempête&nbsp;2</strong>. Erdna jouait avec Reeborg lorsque la pluie s&#8217;est mise à
+tomber.</p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Your challenge is to write a single program that will work for both
-Reeborg and Erdna ... however, it might be a bit tricky.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Aidez Erdna à fermer les fenêtres de sa maison.   Le véritable défi est d&#8217;avoir
+à la fin un seul programme qui fonctionne dans les deux cas.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
-<p class="last">To determine if there&#8217;s a window at a given location, a robot may
-have to take an extra step and, depending on the result, may have to
-turn around, go back and close that window.</p>
+<p class="last">Pour déterminer s&#8217;il y a une fenêtre à
+côté de l&#8217;endroit où se trouve un robot, on peut avoir à faire avance le
+robot d&#8217;un pas de plus, de noter le résultat, puis de reculer d&#8217;un pas
+et déterminer ce qu&#8217;il faut faire basé sur le résultat qui avait été
+noté.</p>
 </div>
 </div>
-<div class="section" id="after-the-storm">
-<h2>29.5. After the storm<a class="headerlink" href="#after-the-storm" title="Lien permanent vers ce titre">¶</a></h2>
-<p>The wind blew really hard last night. There is litter everywhere outside
-Reeborg&#8217;s house. His parents asked him to go and clean up the path
-leading to the curb, <strong>Storm&nbsp;3</strong>, as well as the driveway: <strong>Storm&nbsp;4</strong>.</p>
+<div class="section" id="apres-la-tempete">
+<h2>29.5. Après la tempête<a class="headerlink" href="#apres-la-tempete" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Le vent a soufflé violemment la nuit dernière. Il y a des déchets
+partout autour de la maison de Reeborg. Ses parents lui demandent de
+nettoyer le trottoir qui mène à la rue <strong>Tempête&nbsp;3</strong>, ainsi que l&#8217;allée
+<strong>Tempête&nbsp;4</strong>.</p>
 <div class="topic">
-<p class="topic-title first">Do it!</p>
-<p>Following the instructions in your program,
-Reeborg should collect all the litter, and put it in the garbage can,
-and close the lid, using <tt class="docutils literal"><span class="pre">build_wall()</span></tt>.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Reeborg doit ramasser tous les déchets (représentés par des jetons), et
+les mettre dans la poubelle en s&#8217;assurant de fermer le couvercle à
+l&#8217;aide de l&#8217;instruction <tt class="docutils literal"><span class="pre">construit_un_mur()</span></tt>.</p>
 </div>
 </div>
-<div class="section" id="more-yard-work">
-<h2>29.6. More yard work!<a class="headerlink" href="#more-yard-work" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Reeborg&#8217;s parents are so proud of his work, that they ask him to pick up
-all the garbage that got blown away in their backyard during the
-windstorm, as illustrated on <strong>Storm&nbsp;5</strong>. Have Reeborg pick up all the
-garbage and put it in the garbage can.</p>
+<div class="section" id="encore-du-travail">
+<h2>29.6. Encore du travail!<a class="headerlink" href="#encore-du-travail" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les parents de Reeborg sont tellement content de son travail de
+nettoyage qu&#8217;ils lui demande de ramasser tous les déchets qui se sont
+retrouvés dans la cour, tel qu&#8217;illustré dans <strong>Tempête&nbsp;5</strong>.</p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Your real challenge is to write a single program that can help Reeborg
-do the cleanup for all three locations.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Votre véritable défi est de terminer avec un seul programme qui permet à
+Reeborg de faire le nettoyage requis dans les trois mondes différents.</p>
 </div>
 </div>
-<div class="section" id="finding-the-center">
-<h2>29.7. Finding the center<a class="headerlink" href="#finding-the-center" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Have a look at the worlds <strong>Center&nbsp;1</strong> to <strong>Center&nbsp;3</strong>.</p>
-<div class="topic">
-<p class="topic-title first">Do this!</p>
-<p>Write a <strong>single</strong>
-program that has Reeborg put a token at the geometric center of the
-rectangular room he finds himself in.</p>
-</div>
+<div class="section" id="trouver-le-centre">
+<h2>29.7. Trouver le centre<a class="headerlink" href="#trouver-le-centre" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Examinez les mondes <strong>Centrer&nbsp;1</strong> à <strong>Centrer&nbsp;3</strong>. En commençant avec le cas le
+plus simple, faites des améliorations progressives et écrivez un
+programme faisant en sorte que Reeborg dépose un jeton au centre
+géométrique de la pièce rectangulaire dans laquelle il se trouve, peu
+importe le monde choisis</p>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
-<p class="last">You may find it useful to have Reeborg, who carries two tokens,
-drop one token at each end of a line. Then,
-by picking one token at one end and moving it one step, going back and
-forth until both tokens are at the same position,
-the location of the center can be
-found. When you know how to do this in one dimension (along a horizontal
-line), you can use that location as the starting point to find the
-location along the other location (a vertical line).</p>
+<p class="last">Reeborg a deux jetons. Ça pourrait être
+utile pour lui de <strong>déposer</strong> des jetons en premier à l&#8217;extrémité d&#8217;une ligne.
+Puis, en ramassant un jeton à un bout de la ligne et en le déposant dans la case à côté,
+puis en faisans la même chose à l&#8217;autre bout de la ligne, Reeborg
+devrait pouvoir trouver le centre s&#8217;il répète ceci suffisamment de fois. Lorsque vous savez faire ceci en une
+dimension (le long d&#8217;une ligne horizontale), vous pouvez utiliser cet
+endroit comme début d&#8217;une ligne verticale où vous pouvez répéter cet
+algorithme.</p>
 </div>
 </div>
 </div>
@@ -280,7 +288,7 @@ location along the other location (a vertical line).</p>
              <a href="recursion.html" title="30. Recursion"
              >suivant</a></li>
         <li class="right" >
-             <a href="surprises.html" title="28. Surprises"
+             <a href="surprises.html" title="28. Surprises!"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

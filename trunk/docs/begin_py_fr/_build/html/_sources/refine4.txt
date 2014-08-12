@@ -1,38 +1,44 @@
+Améliorations: partie 4
+=======================
 
-Refinements: part 4
-===================
+Comme vous l'avez probablement trouvé, nous avons demandé à Reeborg de
+se déplacer trop tôt après avoir marqué sa position de départ. Reeborg
+doit d'abord trouver une direction dans laquelle il doit se déplacer
+avant de le faire. Voici une solution possible.
 
-As you most likely found out, we were too hasty in asking Reeborg to
-move forward after putting down a token. We need to check if there is a
-wall preventing him from moving first. Here's a solution to the problem::
+.. code:: py3
 
-    put("token")
-    if not front_is_clear():
-        turn_left()
-    move()
-    while not token_here():
-        if right_is_clear():
-            turn_right()
-            move()
-        elif front_is_clear():
-            move()
+    depose("jeton")
+    if not rien_devant():
+        tourne_a_gauche()
+    avance()
+
+    while not jeton_ici():
+        if rien_a_droite():
+            tourne_a_droite()
+            avance()
+        elif rien_devant():
+            avance()
         else:
-            turn_left()
-    
-.. topic:: Try it!
+            tourne_a_gauche()
 
-    Test it now and see that it works. Can you imagine situations where it
-    might not work?
+.. topic:: À votre tour!
 
-Refinements: part 5
-===================
+    Vérifiez que ceci fonctionne correctement. Pouvez-vous imaginer des
+    situations où ce programme ne permettrait pas à Reeborg de faire le tour
+    de son monde?
 
-Consider world **Around 4**
 
-.. topic:: Try it!
+Améliorations: partie 5
+=======================
 
-    Does the program written previously work with it?
+Sélectionnez le monde **Autour 4**
 
-As you probably guessed, if you didn't try it (you should, really!), it
-does not. To make it work, we need to replace the ``if`` we just added
-by a ``while``. Try it!
+.. topic:: Essayez!
+
+    Est-ce que le programme précédent permet à Reeborg de faire le tour de
+    ce monde?
+
+Essayez ensuite de remplacer l'énoncé ``if`` que nous avons écrit par un énoncé
+``while`` et vérifiez la solution.
+

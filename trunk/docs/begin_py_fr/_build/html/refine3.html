@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>24. Refinements: part 3 &mdash; Apprenez Python avec Reeborg</title>
+    <title>24. Améliorations: partie 3 &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="25. Refinements: part 4" href="refine4.html" />
-    <link rel="prev" title="23. Refinements: part 2" href="refine2.html" /> 
+    <link rel="prev" title="23. Améliorations: partie 2" href="refine2.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="refine4.html" title="25. Refinements: part 4"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="refine2.html" title="23. Refinements: part 2"
+             <a href="refine2.html" title="23. Améliorations: partie 2"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -78,17 +78,9 @@
   
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-              <h3>Table des Matières</h3>
-              <ul>
-<li><a class="reference internal" href="#">24. Refinements: part 3</a><ul>
-<li><a class="reference internal" href="#more-complicated-world">24.1. More complicated world</a></li>
-</ul>
-</li>
-</ul>
-
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="refine2.html"
-                        title="Chapitre précédent">23. Refinements: part 2</a></p>
+                        title="Chapitre précédent">23. Améliorations: partie 2</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="refine4.html"
                         title="Chapitre suivant">25. Refinements: part 4</a></p>
@@ -116,34 +108,33 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="refinements-part-3">
-<h1>24. Refinements: part 3<a class="headerlink" href="#refinements-part-3" title="Lien permanent vers ce titre">¶</a></h1>
-<p>As you should have noticed the program doesn&#8217;t work. What happens is
-that Reeborg gets in an infinite loop when there is no wall around him.
-We need to have him <tt class="docutils literal"><span class="pre">move()</span></tt> after turning right, as indicated below:</p>
-<div class="highlight-py3"><div class="highlight"><pre>put(&quot;token&quot;);
-move();
-while ( !token_here() ){
-    if (right_is_clear()){
-        turn_right();
-        move();
-    } else if (front_is_clear()){
-        move();
-    } else {
-        turn_left();
-    }
-}
+  <div class="section" id="ameliorations-partie-3">
+<h1>24. Améliorations: partie 3<a class="headerlink" href="#ameliorations-partie-3" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Comme vous l&#8217;avez sans doute observé, le programme précédent ne
+fonctionne pas correctement: Reeborg se retrouve dans une boucle infinie
+lorsqu&#8217;il n&#8217;y a pas de mur près de lui. Pour résoudre le problème, il
+faut que Reeborg <tt class="docutils literal"><span class="pre">avance()</span></tt> aussitôt après avoir fait un virage à
+droite:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">jeton_ici</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">rien_a_droite</span><span class="p">():</span>
+        <span class="n">tourne_a_droite</span><span class="p">()</span>
+        <span class="n">avance</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">rien_devant</span><span class="p">():</span>
+        <span class="n">avance</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="section" id="more-complicated-world">
-<h2>24.1. More complicated world<a class="headerlink" href="#more-complicated-world" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="topic">
-<p class="topic-title first">Another world!</p>
-<p>Now, consider <strong>Around&nbsp;3</strong>; will our program work?</p>
+<p class="topic-title first">Encore plus complexe!</p>
+<p>Sélectionnez <strong>Autour&nbsp;3</strong>; est-ce que le programme fonctionne?</p>
 </div>
-<p>As you probably guessed, unfortunately the answer is no. Try to figure
-out why before reading any further.</p>
-</div>
+<p>Comme vous l&#8217;avez sans doute deviné, la réponse est malheureusement non.
+Essayez de déterminer pourquoi et possiblement de trouver la solution de
+vous-même avant de passer à la leçon suivante. Assurez-vous de faire en
+sorte que votre programme fonctionne pour les trois mondes.</p>
 </div>
 
 
@@ -159,7 +150,7 @@ out why before reading any further.</p>
              <a href="refine4.html" title="25. Refinements: part 4"
              >suivant</a></li>
         <li class="right" >
-             <a href="refine2.html" title="23. Refinements: part 2"
+             <a href="refine2.html" title="23. Améliorations: partie 2"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

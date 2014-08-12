@@ -1,107 +1,114 @@
-For a ``while``
-===============
+Tant que ...
+============
 
-When we want to repeat some instructions until a certain condition is
-satisfied, Python gives us a simpler way to write this using a new
-keyword: ``while``. For example, suppose we want to have Reeborg keep
-moving until it reaches a wall. Previously, we might have done something
-like the following:
+Lorsqu'on veut répéter un bloc de code jusqu'à ce qu'une certaine
+condition soit satisfaite, on peut utiliser le mot-clé ``while``, mot
+anglais que l'on peut traduire par **tant que**. Par exemple, supposons
+que l'on veuille que Reeborg se déplace en ligne droite jusqu'à ce qu'il
+rencontre un mur. On pourrait écrire quelque chose comme::
 
-.. code-block:: python
+    def avance_au_mur():
+        if rien_devant():
+            avance()
 
-    def move_until_wall():
-        if front_is_clear():
-            move()
+    repete(avance_au_mur, 42)
 
-    repeat(move_until_wall, 42)
+en se croisant les doigts et espérant que 42 sera un nombre suffisant de
+répétitions pour atteindre le mur. Si on utilise plutôt le mot-clé
+``while``, qu'on peut traduire par "tant que", on peut écrire::
 
-and hoped that 42 would have been a number of repetitions sufficient to
-reach a wall. Using ``while``, we can write the following::
+    while rien_devant():
+        avance()
 
-    while front_is_clear():
-        move()
 
-That's it! No more guessing and asking something to be performed a large
-number of time just to ensure that it will be enough.
+C'est tout! Plus de devinettes sur le nombre de répétitions à faire.
 
-Here's a flowchart for this simple program:
+Voici un organigramme illustrant ce simple programme:
 
-.. figure:: ../../flowcharts/while.jpg
+.. figure:: ../../flowcharts/while_fr.jpg
    :align: center
 
-How to think about ``while``
-----------------------------
 
-Suppose we have the following::
+Comment penser à ``while``
+--------------------------
+
+Supposons que l'on ait le code suivant::
 
     while condition():
-        do_1()
-        do_2()
-        do_3()
+        instruction_1()
+        instruction_2()
+        instruction_3()
 
-You can think of this as being equivalent to::
+
+Vous pouvez pensez ceci comme étant équivalent à::
 
     if condition():
-        do_1()
-        do_2()
-        do_3()
+        instruction_1()
+        instruction_2()
+        instruction_3()
+
     if condition():
-        do_1()
-        do_2()
-        do_3()
+        instruction_1()
+        instruction_2()
+        instruction_3()
+
     if condition():
-        do_1()
-        do_2()
-        do_3()
+        instruction_1()
+        instruction_2()
+        instruction_3()
+
     if condition():
-        do_1()
-        do_2()
-        do_3()
-    ....
+        instruction_1()
+        instruction_2()
+        instruction_3()
 
-which is to say that the block of code is repeated as long as the
-condition remains ``True``. So, what happens if the condition is always
-``True``? The block of code is repeated for ever and the program never
-ends.
+    ...
 
-This is bad.
+c'est-à-dire que le bloc de code est répété aussi souvent que la
+condition soit satisfaite (``True``). Qu'arrive-t-il si la condition est
+toujours satisfaite? Le bloc de code est répété éternellement et le
+programme ne termine jamais.
 
-Instead of using this description of repeated blocks of code,
-programmers describe this as a **loop**: that is, you start with the
-first instruction (``do_1()``) inside the code block, continue with all
-the others until you reach the last instruction (``do_3()``), then
-***loop* back**, or go back, to the test just before the beginning of
-the block and see if the condition is satisfied; if not, you repeat once
-again the cycle. If the condition never becomes ``False``, you keep
-repeating and end up with an **infinite loop**.
+Ceci n'est pas une bonne chose.
 
-Conclusion: you want to make sure that the condition will become
-``False`` at some point.
+Plutôt que d'utiliser la description de blocs de code répétés, les
+programmeurs décrivent ceci comme une **boucle**: en commençant par la
+première instruction, (``instruction_1()``) à l'intérieur du bloc de
+code, on continue à exécuter les autres jusqu'à atteindre la dernière
+(``instruction_3()``), puis le programme complète la boucle et retourne
+tout juste avant le début du bloc de code où la condition est de nouveau
+évaluée; si elle est satisfaite, la boucle se repete. Si la condition
+est toujours satisfaite, on repete ad vitam æternam et on a alors une
+**boucle infinie**.
 
-Back to hurdles!
-----------------
+Conclusion: vous voulez vous assurez que la condition ne sera pas
+satisfaite (devenant équivalente à ``False``) à quelque temps.
 
-.. topic:: Your turn!
+De retour aux haies!
+--------------------
 
-    Go back to **Hurdles 1**, **Hurdles 2** and **Hurdles 3**, and write a single
-    program for all three world, using ``while`` and without using ``repeat()``.
+.. topic:: À votre tour !
+
+    Retournez aux courses **Haies 1**, **Haies 2** et **Haies 3**, et écrivez un seul
+    programme pour ces trois courses sans utiliser ``repete()``.
 
 .. hint::
 
-    Your program might look like the following::
+    Votre programme pourra ressembler à ceci::
 
-    .. code-block:: py3
+        def saute():
+            # instructions ...
 
-        def jump_over_hurdle():
-            # suitable definition
 
-        def run_or_jump ():
-            # suitable definition
+        def cours_ou_saute():
+            # instructions
 
-        while not at_goal():
-            run_or_jump()
 
-That's it! No more arbitrary repetitions! From now on, you should only
-use ``repeat()`` when you know **exactly** how many times a given
-function must be repeated.
+        while not au_but():
+            cours_ou_saute()
+
+C'est tout! Plus besoin d'un nombre arbitraire de répétitions. À partir
+de maintenant, n'utilisez plus ``repete()`` ***sauf*** si vous savez
+**exactement** le nombre de fois qu'une certaine fonction doit être
+répétée.
 

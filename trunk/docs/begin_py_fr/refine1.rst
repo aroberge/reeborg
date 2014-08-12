@@ -1,38 +1,46 @@
-Refinements: part 1
-===================
+Améliorations: partie 1
+=======================
 
-In this multi-part lesson, we are going to write a complete program to
-solve problems of increasing complexity. For each lesson, I will present
-a tentative solution that will contain one mistake. Try to find it
-before moving on to the next lesson.
+Dans cette leçon en plusieurs parties, nous allons écrire un programme
+complet pour résoudre des problèmes de plus en plus complexes. À chaque
+leçon, je vais présenter une solution incomplète, comprenant une erreur.
+Essayez à chaque fois de trouver l'erreur avant de passer à la leçon
+suivante.
 
-A simple problem
-----------------
+Un problème tout simple
+-----------------------
 
-Let us start by considering a simple problem: having Reeborg go around
-his world **once** and stop when it is back at its starting point. In
-concrete terms, select world **Around 1**. We have done something like this
-before, when we introduced the ``front_is_clear()`` test. Here's the
-outline of a solution which supposes that Reeborg carries at least one
-token at the beginning:
+Commençons par un problème tout simple: celui de faire en sorte que
+Reeborg fasse le tour de son monde une seule fois, et qu'il s'arrête
+lorsqu'il revient à son point de départ. Sélectionnez le monde **Autour 1**.
+Nous avons vu quelque chose de très semblable lorsque nous avons
+présenté le test ``rien_devant()`` test. Voici l'esquisse d'une solution
+qui présuppose que Reeborg ait avec lui au moins un jeton.
 
-#. Put down a token to mark the starting (and ending) point.
-#. Move forward until facing a wall.
-#. Turn left when facing a wall.
-#. Repeat steps 2 and 3 until we find the token we had put down.
+#. Déposer un jeton pour marquer le point de départ ainsi que celui
+   d'arrivée.
+#. Avancer jusqu'à être bloqué par un mur.
+#. Tourner à gauche lorsqu'un mur bloque le chemin.
+#. Répéter les deux étapes précédentes jusqu'à ce qu'on retrouve le
+   jeton déposé au début pour indiquer le point d'arrivée.
 
-Take you time to think about the above algorithm. Then, consider this
-solution in code::
 
-    put("token")
-    while not token_here():
-        if front_is_clear():
-            move()
-        else:
-            turn_left()
+Prenez le temps de réfléchir à l'algorithme ci-dessus et de déterminer
+s'il est suffisant pour permettre à Reeborg d'accomplir sa tâche. Puis,
+considérer la solution suivante.
 
-.. topic:: Your turn!
+.. code:: py3
 
-    Take the time to think about what the above program instructs Reeborg to
-    do before trying to run it. Can you find a problem with the proposed
-    solution?
+    depose("jeton");
+    while not jeton_ici():
+        if rien_devant():
+            avance()
+        else
+            tourne_a_gauche()
+
+.. topic:: À votre tour !
+
+    Quel est le problème avec la solution proposée? Pouvez-vous le trouver
+    sans avoir à exécuter le code? Pouvez-vous corriger ce problème avant de
+    passer à la leçon suivante.
+

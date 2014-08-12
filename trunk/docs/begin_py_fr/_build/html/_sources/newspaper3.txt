@@ -1,43 +1,47 @@
-Newspaper delivery revisited again
+Une nouvelle livraison de journaux
 ==================================
 
-Let's go back to our newspaper delivery example. Below is an outline of
-a solution that will work both Ms. Lovelace's world **Newspaper 1**, and Mr.
-Babbage's **Newspaper 2**::
+Retournons à l'exemple de la livraison de journaux. Ci-dessous est une
+esquisse de solution qui permettra à Reeborg de livrer le journal de
+Madame Lovelace, **Journal 1**, ainsi que celui de Monsieur Babbage,
+**Journal 2**::
 
-    def climb_up_one_floor():
-        turn_left()
-        move()
-        turn_right()
-        move()
-        move()
+    import biblio
 
-    def climb_down_one_floor():
-        move()
-        move()
-        turn_left()
-        move()
-        turn_right()
+    def monte_un_étage():
+        tourne_a_gauche()
+        avance()
+        tourne_a_droite()
+        avance()
+        avance()
 
-    def get_money():
-        while ... :
-          # single line of code
+    def descend_un_étage():
+        avance()
+        avance()
+        tourne_a_gauche()
+        avance()
+        tourne_a_droite()
 
-    # === End of definitions ===
+    def prend_argent():
+        while  ...:
+          # une seule instruction
 
-    take("star")
-    while not token_here():
-        # single line of code
+    # === Fin des définitions ===
 
-    get_money()
-    put("star") # leave paper
-    turn_around()
+    prend("étoile")
+    while not jeton_ici():
+        # une seule instruction
+
+    prend_argent()
+    depose("étoile")
+    demi_tour()
     while not ... :
-        # single line of code
+        # une seule instruction
 
-It is up to you to fill up the missing tests and other lines of code.
-Once you are done, you might want to go back to 
-`Newspaper delivery revisited <newspaper2.html>`_ and see how much shorter this new
-version, which works in both worlds, is as compared with the old one which only
-worked in one of the two worlds.
 
+C'est à vous de compléter le programme. Lorsque vous aurez terminé et
+testé votre programme **avec les deux mondes**, comparez avec la
+solution de `Autre livraison de journaux  <newspaper2.html>`__; vous
+verrez que cette nouvelle solution, qui fonctionne pour les deux mondes,
+est beaucoup plus courte que la précédente qui ne fonctionnait que pour
+un seul monde.

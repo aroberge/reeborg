@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>22. Refinements: part 1 &mdash; Apprenez Python avec Reeborg</title>
+    <title>22. Améliorations: partie 1 &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="23. Refinements: part 2" href="refine2.html" />
-    <link rel="prev" title="21. Newspaper delivery revisited again" href="newspaper3.html" /> 
+    <link rel="next" title="23. Améliorations: partie 2" href="refine2.html" />
+    <link rel="prev" title="21. Une nouvelle livraison de journaux" href="newspaper3.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -64,10 +64,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="refine2.html" title="23. Refinements: part 2"
+             <a href="refine2.html" title="23. Améliorations: partie 2"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="newspaper3.html" title="21. Newspaper delivery revisited again"
+             <a href="newspaper3.html" title="21. Une nouvelle livraison de journaux"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,18 +80,18 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">22. Refinements: part 1</a><ul>
-<li><a class="reference internal" href="#a-simple-problem">22.1. A simple problem</a></li>
+<li><a class="reference internal" href="#">22. Améliorations: partie 1</a><ul>
+<li><a class="reference internal" href="#un-probleme-tout-simple">22.1. Un problème tout simple</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="newspaper3.html"
-                        title="Chapitre précédent">21. Newspaper delivery revisited again</a></p>
+                        title="Chapitre précédent">21. Une nouvelle livraison de journaux</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="refine2.html"
-                        title="Chapitre suivant">23. Refinements: part 2</a></p>
+                        title="Chapitre suivant">23. Améliorations: partie 2</a></p>
   <h3>Cette page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/refine1.txt"
@@ -116,43 +116,45 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="refinements-part-1">
-<h1>22. Refinements: part 1<a class="headerlink" href="#refinements-part-1" title="Lien permanent vers ce titre">¶</a></h1>
-<p>In this multi-part lesson, we are going to write a complete program to
-solve problems of increasing complexity. For each lesson, I will present
-a tentative solution that will contain one mistake. Try to find it
-before moving on to the next lesson.</p>
-<div class="section" id="a-simple-problem">
-<h2>22.1. A simple problem<a class="headerlink" href="#a-simple-problem" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Let us start by considering a simple problem: having Reeborg go around
-his world <strong>once</strong> and stop when it is back at its starting point. In
-concrete terms, select world <strong>Around&nbsp;1</strong>. We have done something like this
-before, when we introduced the <tt class="docutils literal"><span class="pre">front_is_clear()</span></tt> test. Here&#8217;s the
-outline of a solution which supposes that Reeborg carries at least one
-token at the beginning:</p>
+  <div class="section" id="ameliorations-partie-1">
+<h1>22. Améliorations: partie 1<a class="headerlink" href="#ameliorations-partie-1" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Dans cette leçon en plusieurs parties, nous allons écrire un programme
+complet pour résoudre des problèmes de plus en plus complexes. À chaque
+leçon, je vais présenter une solution incomplète, comprenant une erreur.
+Essayez à chaque fois de trouver l&#8217;erreur avant de passer à la leçon
+suivante.</p>
+<div class="section" id="un-probleme-tout-simple">
+<h2>22.1. Un problème tout simple<a class="headerlink" href="#un-probleme-tout-simple" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Commençons par un problème tout simple: celui de faire en sorte que
+Reeborg fasse le tour de son monde une seule fois, et qu&#8217;il s&#8217;arrête
+lorsqu&#8217;il revient à son point de départ. Sélectionnez le monde <strong>Autour&nbsp;1</strong>.
+Nous avons vu quelque chose de très semblable lorsque nous avons
+présenté le test <tt class="docutils literal"><span class="pre">rien_devant()</span></tt> test. Voici l&#8217;esquisse d&#8217;une solution
+qui présuppose que Reeborg ait avec lui au moins un jeton.</p>
 <ol class="arabic simple">
-<li>Put down a token to mark the starting (and ending) point.</li>
-<li>Move forward until facing a wall.</li>
-<li>Turn left when facing a wall.</li>
-<li>Repeat steps 2 and 3 until we find the token we had put down.</li>
+<li>Déposer un jeton pour marquer le point de départ ainsi que celui
+d&#8217;arrivée.</li>
+<li>Avancer jusqu&#8217;à être bloqué par un mur.</li>
+<li>Tourner à gauche lorsqu&#8217;un mur bloque le chemin.</li>
+<li>Répéter les deux étapes précédentes jusqu&#8217;à ce qu&#8217;on retrouve le
+jeton déposé au début pour indiquer le point d&#8217;arrivée.</li>
 </ol>
-<p>Take you time to think about the above algorithm. Then, consider this
-solution in code:</p>
-<div class="highlight-py3"><div class="highlight"><pre>put(&quot;token&quot;);
-while ( !token_here() ){
-    if (front_is_clear()){
-        move();
-    } else {
-        turn_left();
-    }
-}
+<p>Prenez le temps de réfléchir à l&#8217;algorithme ci-dessus et de déterminer
+s&#8217;il est suffisant pour permettre à Reeborg d&#8217;accomplir sa tâche. Puis,
+considérer la solution suivante.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">);</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">jeton_ici</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">rien_devant</span><span class="p">():</span>
+        <span class="n">avance</span><span class="p">()</span>
+    <span class="k">else</span>
+        <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Your turn!</p>
-<p>Take the time to think about what the above program instructs Reeborg to
-do before trying to run it. Can you find a problem with the proposed
-solution?</p>
+<p class="topic-title first">À votre tour !</p>
+<p>Quel est le problème avec la solution proposée? Pouvez-vous le trouver
+sans avoir à exécuter le code? Pouvez-vous corriger ce problème avant de
+passer à la leçon suivante.</p>
 </div>
 </div>
 </div>
@@ -167,10 +169,10 @@ solution?</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="refine2.html" title="23. Refinements: part 2"
+             <a href="refine2.html" title="23. Améliorations: partie 2"
              >suivant</a></li>
         <li class="right" >
-             <a href="newspaper3.html" title="21. Newspaper delivery revisited again"
+             <a href="newspaper3.html" title="21. Une nouvelle livraison de journaux"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

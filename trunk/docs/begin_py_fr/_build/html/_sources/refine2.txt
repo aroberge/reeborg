@@ -1,52 +1,65 @@
+Améliorations: partie 2
+=======================
 
-Refinements: part 2
-===================
+Je suis certain que vous avez trouvé la source du problème de la
+solution présentée lors de la dernière leçon: Reeborg déposait un jeton
+et, avant même de se déplacer, il vérifiait s'il était arrivé à son but
+en cherchant pour un jeton qui, évidemment, se trouvait là où il était.
+Donc, la boucle ``while`` n'était jamais exécutée. Voici un programme
+modifié qui devrait fonctionner::
 
-Here's the cause of the problem we had at the end of part 1: we put down
-a token and, before we had the chance to move, tested to see if we were
-not next to a token. Since we were next to a token, we never go the
-chance to get in the ``while`` loop. Perhaps we can change the program
-to add a ``move()`` before we start the loop, as follows::
-
-    put("token")
-    move()
-    while not token_here():
-        if front_is_clear():
-            move()
+    depose("jeton")
+    avance()
+    while not jeton_ici():
+        if rien_devant():
+            avance()
         else:
-            turn_left()
+            tourne_a_gauche()
 
-.. topic:: Try it!
+.. topic:: À votre tour!
 
-   Make sure the above program works before moving on.
+   Assurez-vous que votre programme fonctionne avant de poursuivre la lecture.
 
-Not so simple world
--------------------
+Un monde un peu plus complexe
+-----------------------------
 
-Let's try the program we wrote on a slightly more complicated world
-**Around 2**.
+Essayons de modifier le programme pour qu'il puisse également être une
+solution pour le monde **Autour 2**. Sélectionnez donc ce monde et exécuter
+le programme que vous avez déjà sans le modifier pour voir ce qui
+arrive.
 
-When you try your program, you will see that the result is not exactly
-what we wanted: Reeborg takes a shortcut, and doesn't go all the way
-around. The problem is that we assumed that Reeborg only had to move
-forward or turn left to go around the world; we never took into account
-situations where we would have wanted him to make a right turn. What
-Reeborg needs to do is first to check on his right to see if there is
-still a wall; if not, we have him make a right turn. Here's a modified
-program that *attempts* to do just that::
+Identifier le problème
+----------------------
 
-    put("token")
-    move()
-    while not token_here():
-        if right_is_clear():
-            turn_right()
-        elif front_is_clear():
-            move()
+.. note::
+
+    N'oubliez pas d'inclure ``import biblio``.
+
+Comme vous avez pu le constater en exécutant le programme ci-dessus, le
+résultat n'était pas celui désiré: Reeborg prend un raccourci et ne fait
+pas le tour du monde. Le problème est que nous avions supposé que
+Reeborg n'ait que deux options: avancer ou tourner à gauche. Nous
+n'avons pas tenu compte de situations où Reeborg devrait tourner à
+droite. Donc, ce que Reeborg devrait faire est en premier de vérifier
+s'il y a un mur à sa droite; si la réponse est non, alors il doit faire
+un virage à droite pour suivre le mur. Voici un programme modifié qui
+est une tentative de résoudre le problème.
+
+.. code:: py3
+
+    depose("jeton")
+    avance()
+    while not jeton_ici():
+        if rien_a_droite():
+            tourne_a_droite()
+        elif rien_devant():
+            avance()
         else:
-            turn_left()
+            tourne_a_gauche()
 
-.. topic:: Your turn!
+.. topic:: À votre tour!
 
-    Does it work? Read it carefully to decide for yourself. Then try it to
-    confirm your opinion by running the program, or make any change you
-    think appropriate.
+    Est-ce que ceci fonctionne? Lisez et analysez soigneusement ce programme
+    puis confirmer votre opinion en l'exécutant. Si vous pouvez pensez à des
+    améliorations à apporter au programme, faites-les avant de passer à la
+    leçon suivante.
