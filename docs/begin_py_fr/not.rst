@@ -1,76 +1,78 @@
-Not ... true!
-=============
+Pas vrai!
+=========
 
-Reeborg is upset. It's **not** raining; it's **not** snowing. Yet, he
-cannot go outside and practise for his hurdles race.
+Reeborg est fâché. Il ne pleut **pas**; il ne neige **pas**; mais
+Reeborg ne peut **pas** aller jouer dehors et s’entraîner pour la course
+aux haies. Il doit attendre que vous appreniez la négation en
+Python.
 
-Why, do you ask? It's because Reeborg is waiting for you to learn about
-Python's **not**.
+C'est le temps d'être négatif
+-----------------------------
 
-Time to be negative.
---------------------
+Avec Python, on peut indiquer la négation d'une condition en ajoutant
+le mot-clé ``not``; ainsi ``not True`` (pas vrai)
+est synonyme de ``False``. De la même façon, ``not False`` (pas faux) est
+synonyme de ``True``.
 
-Python, we can indicate that something is not true by writing ``not True`` 
-which is synonymous of ``False``. Likewise, ``not False`` is
-equivalent to ``True``. 
+Faites plaisir à Reeborg
+------------------------
 
-Please, make Reeborg happy
---------------------------
+Vous avez déjà écrit un programme permettant à Reeborg de prendre part à
+une course aux haies. Une partie de votre programme se lisait comme
+suit::
 
-You have already written a program that enables Reeborg to jump hurdles;
-parts of it went something like this:
-
-.. code-block:: python
-
-   def run_jump_or_finish ():
-        if at_goal():
-            # something
-        elif front_is_clear():
-            # something
+    def avance_et_saute_jusqu_au_but():
+        if au_but():
+            # instruction ...
+        elif rien_devant():
+            # instruction ...
         else:
-            # something
+            # instruction ...
 
-.. topic:: Try it!
+.. topic:: Trois autres façons!
 
-    Make Reeborg happy by re-writing this program in three other versions,
-    by choosing different combinations of the negation keyword ``not`` **and**
-    different combinations of ``if/elif/else``. 
+    Vous pouvez rendre Reeborg heureux en écrivant trois versions
+    différentes de ce programme démontrant différents choix d'utilisation du
+    mot-clé ``not`` ainsi que différentes combinaisons
+    ``if/elif/else``
 
-You should use the three code samples below but pay close
-attention to where the ``not`` keyword occur **and** to what is actually
-included in each code block.
 
-.. code-block:: python
+Inspirez vous des trois modèles indiqués ci-dessous en portant
+attention à l'endoirt où le mot-clé ``not`` est utilisé et à ce qui
+est également inclus dans chaque bloc de code.
 
-   # first choice:
+.. code:: py3
 
-   def run_jump_or_finish ():
-        if at_goal():
-            # something
-        elif not front_is_clear():
-            # something
+    # premier choix:
+
+    def avance_et_saute_jusqu_au_but():
+        if au_but():
+            # instruction ...
+        elif not rien_devant():
+            # instruction ...
         else:
-            # something
+            # instruction ...
 
-   # second choice ... trickier
+    # deuxième choix ... plus difficile
 
-   def run_jump_or_finish ():
-        if not at_goal():
-            if front_is_clear():
-                # something
+    def avance_et_saute_jusqu_au_but():
+        if not au_but():
+            if rien_devant():
+                # instruction ...
             else:
-                # something
+                # instruction ...
         else:
-            # something
+            # instruction ...
 
-   # third choice:
 
-   def run_jump_or_finish ():
-        if not at_goal():
-            if not front_is_clear():
-                # something
+    # troisième choix
+
+    def avance_et_saute_jusqu_au_but():
+        if not au_but():
+            if not rien_devant():
+                # instruction ...
             else:
-                # something
+                # instruction ...
         else:
-            # something
+            # instruction ...
 

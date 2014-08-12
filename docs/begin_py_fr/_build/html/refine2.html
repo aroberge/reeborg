@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>23. Refinements: part 2 &mdash; Apprenez Python avec Reeborg</title>
+    <title>23. Améliorations: partie 2 &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="24. Refinements: part 3" href="refine3.html" />
-    <link rel="prev" title="22. Refinements: part 1" href="refine1.html" /> 
+    <link rel="next" title="24. Améliorations: partie 3" href="refine3.html" />
+    <link rel="prev" title="22. Améliorations: partie 1" href="refine1.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -64,10 +64,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="refine3.html" title="24. Refinements: part 3"
+             <a href="refine3.html" title="24. Améliorations: partie 3"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="refine1.html" title="22. Refinements: part 1"
+             <a href="refine1.html" title="22. Améliorations: partie 1"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,18 +80,19 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">23. Refinements: part 2</a><ul>
-<li><a class="reference internal" href="#not-so-simple-world">23.1. Not so simple world</a></li>
+<li><a class="reference internal" href="#">23. Améliorations: partie 2</a><ul>
+<li><a class="reference internal" href="#un-monde-un-peu-plus-complexe">23.1. Un monde un peu plus complexe</a></li>
+<li><a class="reference internal" href="#identifier-le-probleme">23.2. Identifier le problème</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="refine1.html"
-                        title="Chapitre précédent">22. Refinements: part 1</a></p>
+                        title="Chapitre précédent">22. Améliorations: partie 1</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="refine3.html"
-                        title="Chapitre suivant">24. Refinements: part 3</a></p>
+                        title="Chapitre suivant">24. Améliorations: partie 3</a></p>
   <h3>Cette page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/refine2.txt"
@@ -116,58 +117,66 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="refinements-part-2">
-<h1>23. Refinements: part 2<a class="headerlink" href="#refinements-part-2" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Here&#8217;s the cause of the problem we had at the end of part 1: we put down
-a token and, before we had the chance to move, tested to see if we were
-not next to a token. Since we were next to a token, we never go the
-chance to get in the <tt class="docutils literal"><span class="pre">while</span></tt> loop. Perhaps we can change the program
-to add a <tt class="docutils literal"><span class="pre">move()</span></tt> before we start the loop, as follows:</p>
-<div class="highlight-py3"><div class="highlight"><pre>put(&quot;token&quot;);
-move();
-while ( !token_here() ){
-    if (front_is_clear()){
-        move();
-    } else {
-        turn_left();
-    }
-}
+  <div class="section" id="ameliorations-partie-2">
+<h1>23. Améliorations: partie 2<a class="headerlink" href="#ameliorations-partie-2" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Je suis certain que vous avez trouvé la source du problème de la
+solution présentée lors de la dernière leçon: Reeborg déposait un jeton
+et, avant même de se déplacer, il vérifiait s&#8217;il était arrivé à son but
+en cherchant pour un jeton qui, évidemment, se trouvait là où il était.
+Donc, la boucle <tt class="docutils literal"><span class="pre">while</span></tt> n&#8217;était jamais exécutée. Voici un programme
+modifié qui devrait fonctionner:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">jeton_ici</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">rien_devant</span><span class="p">():</span>
+        <span class="n">avance</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Make sure the above program works before moving on.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Assurez-vous que votre programme fonctionne avant de poursuivre la lecture.</p>
 </div>
-<div class="section" id="not-so-simple-world">
-<h2>23.1. Not so simple world<a class="headerlink" href="#not-so-simple-world" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Let&#8217;s try the program we wrote on a slightly more complicated world
-<strong>Around&nbsp;2</strong>.</p>
-<p>When you try your program, you will see that the result is not exactly
-what we wanted: Reeborg takes a shortcut, and doesn&#8217;t go all the way
-around. The problem is that we assumed that Reeborg only had to move
-forward or turn left to go around the world; we never took into account
-situations where we would have wanted him to make a right turn. What
-Reeborg needs to do is first to check on his right to see if there is
-still a wall; if not, we have him make a right turn. Here&#8217;s a modified
-program that <em>attempts</em> to do just that:</p>
-<div class="highlight-py3"><div class="highlight"><pre>put(&quot;token&quot;);
-move();
-while ( !token_here() ){
-    if (right_is_clear()){
-        turn_right();
-    } else if (front_is_clear()){
-        move();
-    } else {
-        turn_left();
-    }
-}
+<div class="section" id="un-monde-un-peu-plus-complexe">
+<h2>23.1. Un monde un peu plus complexe<a class="headerlink" href="#un-monde-un-peu-plus-complexe" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Essayons de modifier le programme pour qu&#8217;il puisse également être une
+solution pour le monde <strong>Autour&nbsp;2</strong>. Sélectionnez donc ce monde et exécuter
+le programme que vous avez déjà sans le modifier pour voir ce qui
+arrive.</p>
+</div>
+<div class="section" id="identifier-le-probleme">
+<h2>23.2. Identifier le problème<a class="headerlink" href="#identifier-le-probleme" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">N&#8217;oubliez pas d&#8217;inclure <tt class="docutils literal"><span class="pre">import</span> <span class="pre">biblio</span></tt>.</p>
+</div>
+<p>Comme vous avez pu le constater en exécutant le programme ci-dessus, le
+résultat n&#8217;était pas celui désiré: Reeborg prend un raccourci et ne fait
+pas le tour du monde. Le problème est que nous avions supposé que
+Reeborg n&#8217;ait que deux options: avancer ou tourner à gauche. Nous
+n&#8217;avons pas tenu compte de situations où Reeborg devrait tourner à
+droite. Donc, ce que Reeborg devrait faire est en premier de vérifier
+s&#8217;il y a un mur à sa droite; si la réponse est non, alors il doit faire
+un virage à droite pour suivre le mur. Voici un programme modifié qui
+est une tentative de résoudre le problème.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">jeton_ici</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">rien_a_droite</span><span class="p">():</span>
+        <span class="n">tourne_a_droite</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">rien_devant</span><span class="p">():</span>
+        <span class="n">avance</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Your turn!</p>
-<p>Does it work? Read it carefully to decide for yourself. Then try it to
-confirm your opinion by running the program, or make any change you
-think appropriate.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Est-ce que ceci fonctionne? Lisez et analysez soigneusement ce programme
+puis confirmer votre opinion en l&#8217;exécutant. Si vous pouvez pensez à des
+améliorations à apporter au programme, faites-les avant de passer à la
+leçon suivante.</p>
 </div>
 </div>
 </div>
@@ -182,10 +191,10 @@ think appropriate.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="refine3.html" title="24. Refinements: part 3"
+             <a href="refine3.html" title="24. Améliorations: partie 3"
              >suivant</a></li>
         <li class="right" >
-             <a href="refine1.html" title="22. Refinements: part 1"
+             <a href="refine1.html" title="22. Améliorations: partie 1"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

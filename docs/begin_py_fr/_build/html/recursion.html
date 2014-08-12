@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>30. Recursion &mdash; Apprenez Python avec Reeborg</title>
+    <title>30. Récursivité &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="31. Tricky recursion" href="recursion2.html" />
-    <link rel="prev" title="29. Revisiting some challenges" href="challenges2.html" /> 
+    <link rel="prev" title="29. Revue de quelques missions" href="challenges2.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="recursion2.html" title="31. Tricky recursion"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="challenges2.html" title="29. Revisiting some challenges"
+             <a href="challenges2.html" title="29. Revue de quelques missions"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,7 +80,7 @@
         <div class="sphinxsidebarwrapper">
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="challenges2.html"
-                        title="Chapitre précédent">29. Revisiting some challenges</a></p>
+                        title="Chapitre précédent">29. Revue de quelques missions</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="recursion2.html"
                         title="Chapitre suivant">31. Tricky recursion</a></p>
@@ -108,53 +108,54 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="recursion">
-<h1>30. Recursion<a class="headerlink" href="#recursion" title="Lien permanent vers ce titre">¶</a></h1>
-<p>If you look up on the Internet for a definition of recursion, you will
-often see something like the following:</p>
+  <div class="section" id="recursivite">
+<h1>30. Récursivité<a class="headerlink" href="#recursivite" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Si vous faites une recherche sur Internet pour la définition de
+récursivité vous verrez <strong>parfois</strong> (et, <strong>très souvent</strong>, pour la
+définition du terme anglais <em>recursion</em>) quelque chose comme ce qui
+suit:</p>
 <dl class="docutils">
-<dt><strong>Recursion</strong></dt>
-<dd>See recursion.</dd>
+<dt><strong>Récursivité</strong></dt>
+<dd>Voir récursivité.</dd>
 </dl>
-<p>This is wrong, wrong, <em>wrong</em>, <strong>wrong</strong> .... WRONG!</p>
-<p>If you were a computer program, trying to parse the above definition,
-you would get stuck in an infinite loop. Since you are reading this, it
-means that either you did not behave like a computer and got stuck in an
-infinite loop OR that you did not read everything here and, in
-particular, skipped over the above definition.</p>
-<p>Recursion is sometimes described as being difficult to grasp. Do not
-believe this. If you understand loops, you can understand recursion.</p>
-<p>So, what is recursion you ask?...</p>
-<p>Recursion is the process of repeating items in a self-similar way. For
-computer programs, it means repeating instructions - like in a loop.
-And, like in a loop, we do not want to get stuck forever.</p>
-<p>The simplest example is that of a single recursive function, that is a
-function that calls itself.:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function recursive(){
-    if (!completed_task()){
-        ...
-        recursive();  // the same function is called ...
-    }
+<p>Ceci est une blague ... qui malheureusement peut donner la mauvaise idée
+de ce qu&#8217;est la récursivité.</p>
+<p>Si vous étiez un programme informatique qui tentait d&#8217;interpréter la
+définition ci-dessus, vous seriez pris dans une boucle infinie. Puisque
+vous lisez ce texte, c&#8217;est soit que vous avez sauté par-dessus la
+définition <strong>ou</strong> que vous ne lisez pas comme un ordinateur.</p>
+<p>La récursivité en informatique est parfois décrite comme un concept
+difficile à comprendre. Ce n&#8217;est pas le cas: si vous comprenez les
+boucles, vous pouvez comprendre la récursivité.</p>
+<p>La récursivité est une démarche qui fait référence à l&#8217;objet de la
+démarche. Pour les programmes informatiques, ceci veut dire qu&#8217;on répète
+des instructions ... un peu comme dans une boucle. Et, comme pour les
+boucles, il est important de ne pas répéter <em>à l&#8217;infini</em>.</p>
+<p>Le plus simple exemple qu&#8217;on peut donner est celui d&#8217;une fonction qui
+s&#8217;invoque elle-même basé sur une certaine condition.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">récursive</span><span class="p">():</span>
+    <span class="o">...</span>
+    <span class="k">if</span> <span class="n">tâche_pas_terminée</span><span class="p">():</span>
+        <span class="n">récursive</span><span class="p">()</span>   <span class="c"># la même fonction est invoquée ...</span>
 </pre></div>
 </div>
-<p>Let&#8217;s consider a real program for Reeborg to execute.</p>
 <div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>Select <strong>Home&nbsp;1</strong> and have Reeborg do the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function go_home(){
-    if (!at_goal()) {
-        move()
-        go_home();
-    }
-}
+<p class="topic-title first">Exemple concret</p>
+<p>Sélectionnez <strong>Maison&nbsp;1</strong> et exécutez le programme suivant:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">va_au_but</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+        <span class="n">avance</span><span class="p">()</span>
+        <span class="n">va_au_but</span><span class="p">()</span>
 
-// now do it!
-go_home();
+
+<span class="c"># définition complétée; on y va!</span>
+<span class="n">va_au_but</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<p>Once you have tried the above and tried to understood it, go to the
-next lesson where we will review it and consider a slightly trickier example.</p>
+<p>Lorsque vous aurez exécuté le programme ci-dessus et compris comment il
+fonctionne, passez à la leçon suivante où nous verrons un exemple un peu
+plus compliqué.</p>
 </div>
 
 
@@ -170,7 +171,7 @@ next lesson where we will review it and consider a slightly trickier example.</p
              <a href="recursion2.html" title="31. Tricky recursion"
              >suivant</a></li>
         <li class="right" >
-             <a href="challenges2.html" title="29. Revisiting some challenges"
+             <a href="challenges2.html" title="29. Revue de quelques missions"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

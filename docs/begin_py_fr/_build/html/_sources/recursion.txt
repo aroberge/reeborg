@@ -1,53 +1,54 @@
+Récursivité
+===========
 
-Recursion
-=========
+Si vous faites une recherche sur Internet pour la définition de
+récursivité vous verrez **parfois** (et, **très souvent**, pour la
+définition du terme anglais *recursion*) quelque chose comme ce qui
+suit:
 
-If you look up on the Internet for a definition of recursion, you will
-often see something like the following:
+**Récursivité**
+    Voir récursivité.
 
-**Recursion**
-    See recursion.
+Ceci est une blague ... qui malheureusement peut donner la mauvaise idée
+de ce qu'est la récursivité.
 
-This is wrong, wrong, *wrong*, **wrong** .... WRONG!
+Si vous étiez un programme informatique qui tentait d'interpréter la
+définition ci-dessus, vous seriez pris dans une boucle infinie. Puisque
+vous lisez ce texte, c'est soit que vous avez sauté par-dessus la
+définition **ou** que vous ne lisez pas comme un ordinateur.
 
-If you were a computer program, trying to parse the above definition,
-you would get stuck in an infinite loop. Since you are reading this, it
-means that either you did not behave like a computer and got stuck in an
-infinite loop OR that you did not read everything here and, in
-particular, skipped over the above definition.
+La récursivité en informatique est parfois décrite comme un concept
+difficile à comprendre. Ce n'est pas le cas: si vous comprenez les
+boucles, vous pouvez comprendre la récursivité.
 
-Recursion is sometimes described as being difficult to grasp. Do not
-believe this. If you understand loops, you can understand recursion.
+La récursivité est une démarche qui fait référence à l'objet de la
+démarche. Pour les programmes informatiques, ceci veut dire qu'on répète
+des instructions ... un peu comme dans une boucle. Et, comme pour les
+boucles, il est important de ne pas répéter *à l'infini*.
 
-So, what is recursion you ask?...
+Le plus simple exemple qu'on peut donner est celui d'une fonction qui
+s'invoque elle-même basé sur une certaine condition.
 
-Recursion is the process of repeating items in a self-similar way. For
-computer programs, it means repeating instructions - like in a loop.
-And, like in a loop, we do not want to get stuck forever.
+.. code:: py3
 
-The simplest example is that of a single recursive function, that is a
-function that calls itself.::
+    def récursive():
+        ...
+        if tâche_pas_terminée():
+            récursive()   # la même fonction est invoquée ...
 
-    def recursive():
-        if not completed_task():
-            ...
-            recursive()  # the same function is called ...
+.. topic:: Exemple concret
 
-Let's consider a real program for Reeborg to execute. 
+    Sélectionnez **Maison 1** et exécutez le programme suivant::
 
-.. topic:: Try this!
-
-    Select **Home 1** and have Reeborg do the following::
-
-        def go_home():
-            if not at_goal():
-                move()
-                go_home()
-
-        # now do it!
-        go_home()
-
-Once you have tried the above and tried to understood it, go to the
-next lesson where we will review it and consider a slightly trickier example.
+        def va_au_but():
+            if not au_but():
+                avance()
+                va_au_but()
 
 
+        # définition complétée; on y va!
+        va_au_but()
+
+Lorsque vous aurez exécuté le programme ci-dessus et compris comment il
+fonctionne, passez à la leçon suivante où nous verrons un exemple un peu
+plus compliqué.

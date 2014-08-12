@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>28. Surprises &mdash; Apprenez Python avec Reeborg</title>
+    <title>28. Surprises! &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="29. Revisiting some challenges" href="challenges2.html" />
-    <link rel="prev" title="27. Rule number 4" href="rule4.html" /> 
+    <link rel="prev" title="27. Règle numéro 4" href="rule4.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="challenges2.html" title="29. Revisiting some challenges"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="rule4.html" title="27. Rule number 4"
+             <a href="rule4.html" title="27. Règle numéro 4"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,7 +80,7 @@
         <div class="sphinxsidebarwrapper">
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="rule4.html"
-                        title="Chapitre précédent">27. Rule number 4</a></p>
+                        title="Chapitre précédent">27. Règle numéro 4</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="challenges2.html"
                         title="Chapitre suivant">29. Revisiting some challenges</a></p>
@@ -109,41 +109,41 @@
           <div class="body">
             
   <div class="section" id="surprises">
-<h1>28. Surprises<a class="headerlink" href="#surprises" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Change the program we just wrote so that:</p>
-<div class="highlight-py3"><div class="highlight"><pre>mark_starting_point_and_move();
+<h1>28. Surprises!<a class="headerlink" href="#surprises" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Changez le programme que nous venons tout juste d&#8217;écrire de telle sorte
+que:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">marque_point_départ_et_avance</span><span class="p">()</span>
 
-while ( !found_starting_point() ){
-    follow_right_wall();
-}
+<span class="k">while</span> <span class="ow">not</span> <span class="n">trouve_point_départ</span><span class="p">():</span>
+    <span class="n">suis_le_mur_à_droite</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>becomes:</p>
-<div class="highlight-py3"><div class="highlight"><pre>while ( !at_goal() ){
-    follow_right_wall();
-}
+<p>soit remplacé par:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">while</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+    <span class="n">suis_le_mur_à_droite</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Run this program with the following hurdle races <strong>Hurdles&nbsp;1</strong>,
-<strong>Hurdles&nbsp;2</strong> and <strong>Hurdles&nbsp;3</strong>.</p>
+<p class="topic-title first">Essayez!</p>
+<p>Exécutez ce programme modifié avec les course de haies <strong>Haies&nbsp;1</strong>,
+<strong>Haies&nbsp;2</strong> et <strong>Haies&nbsp;3</strong>. Vous verrez que ce programme, qui est très différent
+des solutions que vous aviez avant pour ces courses, fonctionne tout
+aussi bien.</p>
 </div>
-<p>You will find that this program, which is quite
-different than the ones you had written before to solve the hurdles
-challenges, works just as well.</p>
 <div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>Now, try it with <strong>Hurdles&nbsp;4</strong>.</p>
+<p class="topic-title first">Un autre essai!</p>
+<p>Essayez avec <strong>Haies&nbsp;4</strong>. Surprise! Ça fonctionne alors que nos programmes
+précédents ne pouvaient pas permettre à Reeborg de compléter cette
+course.</p>
 </div>
-<p>Surprise! It works whereas the previous program did not! Can you understand why
-it works?</p>
 <div class="topic">
-<p class="topic-title first">Try these!</p>
-<p>Run the same modified program again with both <strong>Maze&nbsp;1</strong> or <strong>Maze&nbsp;2</strong>.</p>
+<p class="topic-title first">Encore d&#8217;autres!</p>
+<p>Essayez également le programme modifié avec soit <strong>Labyrinthe&nbsp;1</strong> ou
+<strong>Labyrinthe&nbsp;2</strong>.</p>
 </div>
-<p>As you will see, this simple program can find the exit to the mazes!</p>
-<p>Amazing!</p>
+<p>Comme vous pourrez le constater, ce simple programme permet de trouver
+la sortie du labyrinthe.</p>
+<p>Étonnant, non?!</p>
 </div>
 
 
@@ -159,7 +159,7 @@ it works?</p>
              <a href="challenges2.html" title="29. Revisiting some challenges"
              >suivant</a></li>
         <li class="right" >
-             <a href="rule4.html" title="27. Rule number 4"
+             <a href="rule4.html" title="27. Règle numéro 4"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

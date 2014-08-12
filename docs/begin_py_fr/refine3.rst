@@ -1,28 +1,30 @@
-Refinements: part 3
-===================
+Améliorations: partie 3
+=======================
 
-As you should have noticed the program doesn't work. What happens is
-that Reeborg gets in an infinite loop when there is no wall around him.
-We need to have him ``move()`` after turning right, as indicated below::
+Comme vous l'avez sans doute observé, le programme précédent ne
+fonctionne pas correctement: Reeborg se retrouve dans une boucle infinie
+lorsqu'il n'y a pas de mur près de lui. Pour résoudre le problème, il
+faut que Reeborg ``avance()`` aussitôt après avoir fait un virage à
+droite::
 
-    put("token")
-    move()
-    while not token_here():
-        if right_is_clear():
-            turn_right()
-            move()
-        elif front_is_clear():
-            move()
+    depose("jeton")
+    avance()
+    while not jeton_ici():
+        if rien_a_droite():
+            tourne_a_droite()
+            avance()
+        elif rien_devant():
+            avance()
         else:
-            turn_left()
+            tourne_a_gauche()
 
-More complicated world
-----------------------
 
-.. topic:: Another world!
+.. topic:: Encore plus complexe!
 
-    Now, consider **Around 3**; will our program work?
+    Sélectionnez **Autour 3**; est-ce que le programme fonctionne?
 
-As you probably guessed, unfortunately the answer is no. Try to figure
-out why before reading any further.
+Comme vous l'avez sans doute deviné, la réponse est malheureusement non.
+Essayez de déterminer pourquoi et possiblement de trouver la solution de
+vous-même avant de passer à la leçon suivante. Assurez-vous de faire en
+sorte que votre programme fonctionne pour les trois mondes.
 
