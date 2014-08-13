@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>36. Reeborg’s diary &mdash; Apprenez Python avec Reeborg</title>
+    <title>36. Le journal de Reeborg &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="37. Increment" href="increment.html" />
-    <link rel="prev" title="35. More harvesting challenges" href="harvest3.html" /> 
+    <link rel="prev" title="35. D’autres récoltes" href="harvest3.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="increment.html" title="37. Increment"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="harvest3.html" title="35. More harvesting challenges"
+             <a href="harvest3.html" title="35. D’autres récoltes"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,18 +80,18 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">36. Reeborg&#8217;s diary</a><ul>
-<li><a class="reference internal" href="#writing-text">36.1. Writing text</a></li>
-<li><a class="reference internal" href="#reeborg-knows-mathematics">36.2. Reeborg knows mathematics</a></li>
-<li><a class="reference internal" href="#using-variables">36.3. Using variables</a></li>
-<li><a class="reference internal" href="#a-word-of-caution">36.4. A word of caution</a></li>
+<li><a class="reference internal" href="#">36. Le journal de Reeborg</a><ul>
+<li><a class="reference internal" href="#ecrire-des-textes">36.1. Écrire des textes</a></li>
+<li><a class="reference internal" href="#reeborg-connait-les-maths">36.2. Reeborg connaît les maths</a></li>
+<li><a class="reference internal" href="#utilisation-des-variables">36.3. Utilisation des variables</a></li>
+<li><a class="reference internal" href="#avis">36.4. Avis</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="harvest3.html"
-                        title="Chapitre précédent">35. More harvesting challenges</a></p>
+                        title="Chapitre précédent">35. D&#8217;autres récoltes</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="increment.html"
                         title="Chapitre suivant">37. Increment</a></p>
@@ -119,106 +119,102 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="reeborg-s-diary">
-<h1>36. Reeborg&#8217;s diary<a class="headerlink" href="#reeborg-s-diary" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Click on the <strong>World</strong> button at the top to hide Reeborg&#8217;s world; click
-also on the <strong>Diary</strong> button to reveal Reeborg&#8217;s diary, the place where
-our favourite robot writes.</p>
-<p>Have Reeborg execute the following program:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+  <div class="section" id="le-journal-de-reeborg">
+<h1>36. Le journal de Reeborg<a class="headerlink" href="#le-journal-de-reeborg" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Cliquez sur le bouton <strong>Monde</strong> au haut de l&#8217;écran pour cacher le monde
+de Reeborg. Cliquez également sur le bouton <strong>Journal</strong> pour voir le
+journal de Reeborg, là où notre robot favori écrit.</p>
+<p>Exécutez le programme suivant:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You should see that Reeborg wrote the answer to the ultimate question
-about life, the universe and everything <a class="footnote-reference" href="#id2" id="id1">[1]</a> in his diary.</p>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>At least according to <em>The Hitchhiker&#8217;s guide to the Galaxy</em></td></tr>
-</tbody>
-</table>
-<div class="section" id="writing-text">
-<h2>36.1. Writing text<a class="headerlink" href="#writing-text" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Vous devriez voir que Reeborg écrit la réponse à la question ultime au
+sujet de la Vie, de l&#8217;Univers et du Reste [du moins selon le livre <em>Le
+guide du voyageur galactique</em>] dans son journal.</p>
+<div class="section" id="ecrire-des-textes">
+<h2>36.1. Écrire des textes<a class="headerlink" href="#ecrire-des-textes" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The function <tt class="docutils literal"><span class="pre">write</span></tt> below is specific to Reeborg&#8217;s World.</p>
+<p class="last">En plus de la fonction Python <tt class="docutils literal"><span class="pre">print</span></tt>, le monde de Reeborg
+inclut une fonction <tt class="docutils literal"><span class="pre">ecrit</span></tt> qui fait presque la même chose.
+Essayez de l&#8217;utiliser à l&#8217;occasion.</p>
 </div>
-<p>In programming terms, a <em>character</em> is any letter, number or symbol that
-can be printed and a <em>string of characters</em>, or simply <em>string</em>, is any
-combination of character that can be printed. For example, try the
-following:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="s">&quot;Hello world!&quot;</span><span class="p">);</span>
-<span class="n">write</span><span class="p">(</span><span class="s">&#39;Hello again.&#39;</span><span class="p">);</span>
+<p>Dans le jargon de la programmation, un <em>caractère</em> est n&#8217;importe quelle
+lettre, chiffre ou symbole qui peut être imprimé, et une <em>chaîne de
+caractères</em>, ou plus simplement une <em>chaîne</em>, est n&#8217;importe quelle
+combinaison de caractères pouvant être imprimés. Par exemple, exécutez
+les instructions suivantes:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Bonjour monde!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Bonjour encore.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that the quotes that surround the <em>string</em> have to be the same,
-either double quotes like &#8221;, or single quotes like &#8216;. To have a string
-that contains some quote characters, we can either surround it by quotes
-of a different type or use the <em>escape character</em> <tt class="docutils literal"><span class="pre">\</span></tt>:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="s">&quot;Let&#39;s go.&quot;</span><span class="p">);</span>
-<span class="n">write</span><span class="p">(</span><span class="s">&#39;Let</span><span class="se">\&#39;</span><span class="s">s go.&#39;</span><span class="p">);</span>
+<p>Notez que les guillemets <strong>anglais</strong> qui encadrent la <em>chaîne</em> doivent
+être semblables, soient doubles, &#8221;, ou simples, &#8221;, doivent être les
+mêmes; à noter que ce ne sont <strong>pas</strong> des guillemets français « ». Si
+vous voulez inclure un guillemet dans une chaîne, vous pouvez soit
+utiliser des guillemets d&#8217;un type différent pour encadrer la chaîne, ou
+les précéder du <em>caractère d&#8217;échappement</em> <tt class="docutils literal"><span class="pre">\</span></tt>.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Ajourd&#39;hui.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Aujourd</span><span class="se">\&#39;</span><span class="s">hui.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We can combine strings using the <tt class="docutils literal"><span class="pre">+</span></tt> symbol:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="s">&quot;Goodbye! &quot;</span> <span class="o">+</span> <span class="s">&quot;And thanks for all the fish.&quot;</span><span class="p">);</span>
+<p>On peut combiner les chaînes en utilisant le symbole d&#8217;addition <tt class="docutils literal"><span class="pre">+</span></tt>:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Au revoir! &quot;</span> <span class="o">+</span> <span class="s">&quot;Et merci pour tout.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We can also start on a new line using the following <em>escape sequence</em>:
-<tt class="docutils literal"><span class="pre">\n</span></tt>:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="s">&quot;Thank you. </span><span class="se">\n</span><span class="s">Try again&quot;</span><span class="p">);</span>
+<p>Vous pouvez également débuter une nouvelle ligne en utilisant la
+<em>séquence d&#8217;échappement</em> <tt class="docutils literal"><span class="pre">\n</span></tt>:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Merci. </span><span class="se">\n</span><span class="s">Essayez encore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reeborg-connait-les-maths">
+<h2>36.2. Reeborg connaît les maths<a class="headerlink" href="#reeborg-connait-les-maths" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Exécutez le programme suivant et observez le résultat dans le journal de
+Reeborg.</p>
+<div class="topic">
+<p class="topic-title first">Faites des maths!</p>
+<p>Essayez les exemples suivants:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="p">)</span>  <span class="c"># addition</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span> <span class="p">)</span>  <span class="c"># multiplication</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="p">)</span>  <span class="c"># soustraction</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">6</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">)</span>  <span class="c"># division</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">)</span> <span class="c"># multiplication avant addition</span>
+<span class="nb">print</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">)</span>  <span class="c"># Les parenthèses indiquent l&#39;ordre des opérations</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="utilisation-des-variables">
+<h2>36.3. Utilisation des variables<a class="headerlink" href="#utilisation-des-variables" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous avons déjà vu l&#8217;idée d&#8217;utiliser différents noms (synonymes) pour le
+même concept. Utilisons-le à nouveau dans un
+contexte mathématique.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="n">longueur</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">largeur</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">aire</span> <span class="o">=</span> <span class="n">longueur</span> <span class="o">*</span> <span class="n">largeur</span><span class="p">;</span>  <span class="c"># aire d&#39;un rectangle</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aire</span><span class="p">)</span>  <span class="c"># imprimera 24</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Make sure you try to run the above code samples or some similar.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Reproduisez l&#8217;exemple ci-dessus, puis inventez vos propres exemples.</p>
 </div>
 </div>
-<div class="section" id="reeborg-knows-mathematics">
-<h2>36.2. Reeborg knows mathematics<a class="headerlink" href="#reeborg-knows-mathematics" title="Lien permanent vers ce titre">¶</a></h2>
-<div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>Try running the following program and look at the output in Reeborg&#8217;s
-diary.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">write</span><span class="p">(</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="p">);</span>  <span class="c1">// adding numbers</span>
-<span class="nx">write</span><span class="p">(</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span> <span class="p">);</span>  <span class="c1">// multiplying numbers</span>
-<span class="nx">write</span><span class="p">(</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="p">);</span>  <span class="c1">// subtracting numbers</span>
-<span class="nx">write</span><span class="p">(</span> <span class="mi">6</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">);</span>  <span class="c1">// dividing numbers</span>
-<span class="nx">write</span><span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">);</span> <span class="c1">// multiplication is done before addition</span>
-<span class="nx">write</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">);</span>  <span class="c1">// using parentheses to change normal order of operations</span>
+<div class="section" id="avis">
+<h2>36.4. Avis<a class="headerlink" href="#avis" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Combiner des chaînes et des nombres peut donner des résultats
+inattendus:</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;2&quot;</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="using-variables">
-<h2>36.3. Using variables<a class="headerlink" href="#using-variables" title="Lien permanent vers ce titre">¶</a></h2>
-<p>We have already seen the <tt class="docutils literal"><span class="pre">var</span></tt> keyword. Let&#8217;s use it again as explore
-mathematical operations some more:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">length</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">area</span><span class="p">;</span>
-<span class="n">length</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-<span class="n">width</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-<span class="n">area</span> <span class="o">=</span> <span class="n">length</span> <span class="o">*</span> <span class="n">width</span><span class="p">;</span>  <span class="o">//</span> <span class="n">area</span> <span class="n">of</span> <span class="n">a</span> <span class="n">rectangle</span>
-<span class="n">write</span><span class="p">(</span><span class="n">area</span><span class="p">);</span>  <span class="o">//</span> <span class="n">will</span> <span class="n">output</span> <span class="mi">24</span>
-</pre></div>
-</div>
-<div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Make up your own examples and run them.</p>
-</div>
-</div>
-<div class="section" id="a-word-of-caution">
-<h2>36.4. A word of caution<a class="headerlink" href="#a-word-of-caution" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p>Combining strings and numbers can yield unexpected results:</p>
-<div class="last highlight-py3"><div class="highlight"><pre><span class="n">write</span><span class="p">(</span><span class="s">&quot;2&quot;</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
-</pre></div>
+<p class="last">Le <em>caractère</em> &#8220;2&#8221; n&#8217;est pas le même que le <em>chiffre</em> 2.</p>
 </div>
-</div>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">The <em>character</em> &#8220;2&#8221; is not the same as the <em>number</em> 2.</p>
-</div>
-<p>Finally, note that spaces around operators, like <tt class="docutils literal"><span class="pre">+</span></tt>, are ignored by
-Javascript; however they often make a program easier to read for humans.</p>
+<p>Finalement, notez que les espaces autour des opérateurs comme <tt class="docutils literal"><span class="pre">+</span></tt>,
+sont ignorés par Python; cependant, ils peuvent faciliter la lecture
+(et la compréhension) pour les humains.</p>
 </div>
 </div>
 
@@ -235,7 +231,7 @@ Javascript; however they often make a program easier to read for humans.</p>
              <a href="increment.html" title="37. Increment"
              >suivant</a></li>
         <li class="right" >
-             <a href="harvest3.html" title="35. More harvesting challenges"
+             <a href="harvest3.html" title="35. D’autres récoltes"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

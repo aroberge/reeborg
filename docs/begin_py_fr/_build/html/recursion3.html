@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>32. More recursion &mdash; Apprenez Python avec Reeborg</title>
+    <title>32. Encore de la récursivité &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="33. Counting on recursion" href="recursion4.html" />
-    <link rel="prev" title="31. Tricky recursion" href="recursion2.html" /> 
+    <link rel="prev" title="31. Récursivité plus compliquée" href="recursion2.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="recursion4.html" title="33. Counting on recursion"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="recursion2.html" title="31. Tricky recursion"
+             <a href="recursion2.html" title="31. Récursivité plus compliquée"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,15 +80,15 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">32. More recursion</a><ul>
-<li><a class="reference internal" href="#another-test">32.1. Another test</a></li>
+<li><a class="reference internal" href="#">32. Encore de la récursivité</a><ul>
+<li><a class="reference internal" href="#un-autre-test">32.1. Un autre test</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="recursion2.html"
-                        title="Chapitre précédent">31. Tricky recursion</a></p>
+                        title="Chapitre précédent">31. Récursivité plus compliquée</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="recursion4.html"
                         title="Chapitre suivant">33. Counting on recursion</a></p>
@@ -116,113 +116,90 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="more-recursion">
-<h1>32. More recursion<a class="headerlink" href="#more-recursion" title="Lien permanent vers ce titre">¶</a></h1>
-<p>The last program we considered was the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function go_home(){
-    if (!at_goal()) {
-        move();
-        go_home();
-    }
-    turn_left();
-}
+  <div class="section" id="encore-de-la-recursivite">
+<h1>32. Encore de la récursivité<a class="headerlink" href="#encore-de-la-recursivite" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Le dernier programme que nous avons vu était le suivant:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">va_au_but</span><span class="p">():</span>
+    <span class="n">avance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+        <span class="n">va_au_but</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
 
-// now do it!
-go_home();
+<span class="c"># définition complétée; on y va!</span>
+<span class="n">va_au_but</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>By now, you probably have figured out how it works; at the very least,
-you should have tried to run it! Let&#8217;s analyze it assuming we run it in
-world <strong>Home&nbsp;1</strong>. As usual, we consider the single instruction:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">go_home</span><span class="p">();</span>
+<p>Vous avez fort probablement compris comment il fonctionne. Néanmoins,
+analysons-le en supposant que Reeborg est dans le monde <strong>But&nbsp;1</strong>. Comme
+toujours, nous commençons avec la première invocation:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">va_au_but</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>which gets replace by the body of the function definition:</p>
-<div class="highlight-py3"><div class="highlight"><pre>if (!at_goal()) {
-    move();
-    go_home();
-}
-turn_left();
+<p>que nous remplaçons par le corps de la fonction telle que définie:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+    <span class="n">va_au_but</span><span class="p">()</span>
+
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Since Reeborg has not reached its goal yet,
-the <tt class="docutils literal"><span class="pre">if</span></tt> statement block is executed:</p>
-<div class="highlight-py3"><div class="highlight"><pre>    <span class="n">move</span><span class="p">();</span>
-    <span class="n">go_home</span><span class="p">();</span>
-<span class="n">turn_left</span><span class="p">();</span>
+<p>Après l&#8217;instruction <tt class="docutils literal"><span class="pre">avance()</span></tt>, Reeborg n&#8217;a pas atteint son but et le
+bloc <tt class="docutils literal"><span class="pre">if</span></tt> est exécuté:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="n">va_au_but</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Once again, we replace <tt class="docutils literal"><span class="pre">go_home()</span></tt> by its definition:</p>
-<div class="highlight-py3"><div class="highlight"><pre>    move();
-    if (!at_goal()) {
-        move();
-        go_home();
-    }
-    turn_left();
-turn_left();
+<p>Une fois de plus, on remplace <tt class="docutils literal"><span class="pre">va_au_but()</span></tt> par sa définition:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+    <span class="n">va_au_but</span><span class="p">()</span>
+
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>and do it one more time:</p>
-<div class="highlight-py3"><div class="highlight"><pre>    move();
-        move();
-        if (!at_goal()) {
-            move();
-            go_home();
-        }
-        turn_left();
-    turn_left();
-turn_left();
-</pre></div>
-</div>
-<p>After the second <tt class="docutils literal"><span class="pre">move()</span></tt> instruction, Reeborg has reached its goal
-and the <tt class="docutils literal"><span class="pre">if</span></tt> statement block is not executed:</p>
-<div class="highlight-py3"><div class="highlight"><pre>    move();
-        move();
-        //if (!at_goal()) {
-        //    move();
-        //    go_home();
-        //}
-        turn_left();
-    turn_left();
-turn_left();
+<p>Après la deuxième invocation de l&#8217;instruction <tt class="docutils literal"><span class="pre">avance()</span></tt>, Reeborg a
+atteint son but et le bloc <tt class="docutils literal"><span class="pre">if</span></tt> n&#8217;est <strong>pas</strong> exécuté:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><tt class="docutils literal"><span class="pre">go_home</span></tt> is called three times ... and Reeborg does three left turns.
-This is perhaps something that Reeborg can use to count ...  Remember this!</p>
+<p class="last"><tt class="docutils literal"><span class="pre">va_au_but</span></tt> est invoqué deux fois ... et Reeborg tourne deux fois à gauche.
+Peut-être que Reeborg peut utiliser cette tactique pour compter ... rappelez-vous de ceci!</p>
 </div>
-<p>Thus, after reaching its goal, Reeborg does three left turns (a
-celebratory dance perhaps?) before ending its program.</p>
+<p>Donc, après avoir atteint son but, Reeborg tourne deux fois à gauche
+(une petite danse pour célébrer peut-être?) avant de terminer le
+programme.</p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>By running it,
-check that the recursive program does indeed result in having Reeborg
-make three left turns at the end.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>En exécutant le programme, vérifiez que la description que nous en avons donnée est correcte.</p>
 </div>
-<div class="section" id="another-test">
-<h2>32.1. Another test<a class="headerlink" href="#another-test" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Using again the same world, can you figure out what would be Reeborg&#8217;s
-final orientation if he executes the following program?</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">go_home</span><span class="p">(){</span>
-    <span class="nx">move</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">at_goal</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nx">go_home</span><span class="p">();</span>
-        <span class="nx">turn_left</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="nx">turn_left</span><span class="p">();</span>
-<span class="p">}</span>
+<div class="section" id="un-autre-test">
+<h2>32.1. Un autre test<a class="headerlink" href="#un-autre-test" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Sans changer de monde, pouvez-vous prédire l&#8217;orientation finale de
+Reeborg s&#8217;il exécute le programme suivant?</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">va_au_but</span><span class="p">():</span>
+    <span class="n">avance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+        <span class="n">va_au_but</span><span class="p">()</span>
+        <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
 
-<span class="c1">// now do it!</span>
-<span class="nx">go_home</span><span class="p">();</span>
+<span class="c"># définition complétée; on y va!</span>
+<span class="n">va_au_but</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Do this!</p>
-<p>Try to figure out the above program without running it
-and then check your understanding
-by seeing Reeborg in action.  What would happen if Reeborg were already
-at its goal before running the program?</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Essayez de prédire par vous-mêmes <strong>avant</strong> de demander à Reeborg
+d&#8217;exécuter ce programme.  Qu&#8217;arriverait-il si Reeborg se trouvait
+déjà à son but avant le début de l&#8217;exécution du programme?</p>
 </div>
 </div>
 </div>
@@ -240,7 +217,7 @@ at its goal before running the program?</p>
              <a href="recursion4.html" title="33. Counting on recursion"
              >suivant</a></li>
         <li class="right" >
-             <a href="recursion2.html" title="31. Tricky recursion"
+             <a href="recursion2.html" title="31. Récursivité plus compliquée"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

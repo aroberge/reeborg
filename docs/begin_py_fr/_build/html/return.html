@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>34. Return &mdash; Apprenez Python avec Reeborg</title>
+    <title>34. return &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="35. More harvesting challenges" href="harvest3.html" />
-    <link rel="prev" title="33. Counting on recursion" href="recursion4.html" /> 
+    <link rel="prev" title="33. Compter sur la récursivité" href="recursion4.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="harvest3.html" title="35. More harvesting challenges"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="recursion4.html" title="33. Counting on recursion"
+             <a href="recursion4.html" title="33. Compter sur la récursivité"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,16 +80,16 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">34. Return</a><ul>
-<li><a class="reference internal" href="#getting-results-from-functions">34.1. Getting results from functions</a></li>
-<li><a class="reference internal" href="#how-to-think-about-return">34.2. How to think about return</a></li>
+<li><a class="reference internal" href="#">34. return</a><ul>
+<li><a class="reference internal" href="#obtenir-des-resultats-de-fonctions">34.1. Obtenir des résultats de fonctions</a></li>
+<li><a class="reference internal" href="#comment-penser-a-return">34.2. Comment penser à return</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="recursion4.html"
-                        title="Chapitre précédent">33. Counting on recursion</a></p>
+                        title="Chapitre précédent">33. Compter sur la récursivité</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="harvest3.html"
                         title="Chapitre suivant">35. More harvesting challenges</a></p>
@@ -118,136 +118,138 @@
           <div class="body">
             
   <div class="section" id="return">
-<h1>34. Return<a class="headerlink" href="#return" title="Lien permanent vers ce titre">¶</a></h1>
+<h1>34. return<a class="headerlink" href="#return" title="Lien permanent vers ce titre">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">North is toward the top of the screen; East
-is toward the right, West toward the left and South toward the bottom.</p>
+<p class="last">Le nord est vers le haut de l&#8217;écran; l&#8217;est est vers la droite, l&#8217;ouest
+vers la gauche et le sud vers le bas.</p>
 </div>
-<p>As you know, Reeborg is not exactly in good shape. He can only turn
-left, has an oil leak, can only see walls when they are right in front
-of him or immediately to his right, and can see tokens only when he is
-literally standing on top of them. Reeborg has also a (somewhat broken)
-compass which he can used to find out if is is facing north ... or not.
-To find out if he is facing north, you can ask Reeborg to do the test
-<tt class="docutils literal"><span class="pre">is_facing_north()</span></tt>.</p>
+<p>Comme vous le savez, Reeborg n&#8217;est pas parfaitement opérationnel. Il
+peut seulement tourner à gauche, il a une fuite d&#8217;huile, et il peut voir
+s&#8217;il y a un mur devant lui ou tout juste à sa droite, mais pas à sa
+gauche; de plus, il ne voit les jetons que lorsqu&#8217;il est littéralement
+au-dessus d&#8217;eux. Reeborg a également une boussole qui fonctionne plus ou
+moins bien: il peut déterminer s&#8217;il fait face au nord ... ou non; pas
+moyen d&#8217;obtenir d&#8217;autre information au sujet de son orientation. Pour
+déterminer s&#8217;il fait face au nord, vous pouvez demander à Reeborg de
+faire le test <tt class="docutils literal"><span class="pre">face_au_nord()</span></tt>.</p>
 <div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>Choosing an appropriate world, write a short program that will ensure
-that Reeborg will turn left until he faces north, no matter what his
-starting orientation is.</p>
+<p class="topic-title first">Orientez Reeborg!</p>
+<p>Sélectionnez un monde approprié et écrivez un court programme qui fera
+en sorte que Reeborg tourne vers la gauche jusqu&#8217;à ce qu&#8217;il soit face au
+nord, quelque soit son orientation de départ.</p>
 </div>
-<div class="section" id="getting-results-from-functions">
-<h2>34.1. Getting results from functions<a class="headerlink" href="#getting-results-from-functions" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Tests like <tt class="docutils literal"><span class="pre">is_facing_north()</span></tt> are actually Javascript functions. They
-differ from other functions like <tt class="docutils literal"><span class="pre">turn_left()</span></tt> or <tt class="docutils literal"><span class="pre">move()</span></tt> in that
-they <tt class="docutils literal"><span class="pre">return</span></tt> a value. Let&#8217;s start by considering a simple example:</p>
-<div class="topic">
-<p class="topic-title first">Try this!</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">interrupted_two_steps</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">move</span><span class="p">();</span>
-    <span class="k">return</span><span class="p">;</span>
-    <span class="nx">move</span><span class="p">();</span>
-<span class="p">}</span>
+<div class="section" id="obtenir-des-resultats-de-fonctions">
+<h2>34.1. Obtenir des résultats de fonctions<a class="headerlink" href="#obtenir-des-resultats-de-fonctions" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les tests comme <tt class="docutils literal"><span class="pre">face_au_nord()</span></tt> sont des fonctions Python. Ces
+fonctions diffèrent des autres fonctions telles que
+<tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt> ou <tt class="docutils literal"><span class="pre">avance()</span></tt> car elles <strong>*retournent*</strong> une
+valeur, utilisant le mot-clé <tt class="docutils literal"><span class="pre">return</span></tt>. Commençons par un exemple
+simple et faites en sorte que Reeborg exécute le programme suivant.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">interruption</span><span class="p">():</span>
+    <span class="n">avance</span><span class="p">()</span>
+    <span class="k">return</span>
+    <span class="n">avance</span><span class="p">()</span>
 
-<span class="nx">interrupted_two_steps</span><span class="p">();</span>
+<span class="n">interruption</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<p>If you use the strict version of Javascript, you will get a warning <em>Unreachable &#8216;move&#8217; after &#8216;return&#8217;</em>
-and see that Reeborg only takes one step. You can get rid of this warning by
-using the &#8220;regular&#8221; version of Javascript.</p>
-<p>The <tt class="docutils literal"><span class="pre">return</span></tt> keyword can actually be accompanied by something else.</p>
-<div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>For example, try the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function north(){
-   return is_facing_north();
-}
+<p>Le second <tt class="docutils literal"><span class="pre">avance()</span></tt> n&#8217;est pas exécuté: l&#8217;exécution de la fonction termine lorsque
+l&#8217;énoncé contenant le mot-clé <tt class="docutils literal"><span class="pre">return;</span></tt> est exécuté.</p>
+<p>Le mot-clé <tt class="docutils literal"><span class="pre">return</span></tt> peut être accompagné de quelque chose d&#8217;autre
+comme l&#8217;exemple suivant le démontre.</p>
+<p>..topic:: Essayez ceci!</p>
+<blockquote>
+<div><p>..code-block:: py3</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>def nord():</dt>
+<dd>return face_au_nord()</dd>
+<dt>while not nord():</dt>
+<dd>tourne_a_gauche()</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<p>Lorsque vous exécuterez ce programme, vous verrez que la fonction
+<tt class="docutils literal"><span class="pre">nord()</span></tt> donne exactement le même résultat que si vous utilisiez
+directement <tt class="docutils literal"><span class="pre">face_au_nord()</span></tt>; ceci est le résultat de l&#8217;utilisation de
+l&#8217;énoncé <tt class="docutils literal"><span class="pre">return</span></tt>. Nous pouvons utiliser ce résultat pour permettre à
+Reeborg d&#8217;identifier d&#8217;autres orientations que le nord (et réparer sa
+boussole). Tout d&#8217;abord, nous savons que si Reeborg tourne 4 fois à
+gauche, il reviendra à son orientation de départ: nous voulons garantir
+que l&#8217;orientation de Reeborg à la fin du test sera la même qu&#8217;au début.</p>
+<p>Supposons que nous voulons savoir si Reeborg fait face au sud. Nous
+pouvons lui demander de tourner à gauche deux fois et noter si son
+orientation est face au nord (et donc qu&#8217;il était face au sud avant de
+tourner) ou non, et de tourner deux fois à gauche de nouveau. Utilisant
+le mot-clé <tt class="docutils literal"><span class="pre">return</span></tt>, Reeborg peut indiquer le résultat qu&#8217;il avait
+noté après deux tours à gauche.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">face_au_sud</span><span class="p">():</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">orientation</span> <span class="o">=</span> <span class="n">face_au_nord</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">orientation</span>
 
-while (!north()) {
-    turn_left();
-}
+
+<span class="c"># on oriente Reeborg pour qu&#39;il soit face au sud comme test</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">face_au_sud</span><span class="p">():</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<p>As you have tried it, you noticed that <tt class="docutils literal"><span class="pre">north()</span></tt> was giving the same
-result as <tt class="docutils literal"><span class="pre">is_facing_north()</span></tt>; that is the effect of the <tt class="docutils literal"><span class="pre">return</span></tt>
-statement. We can use this to have Reeborg be able to identify
-orientations other than North. First, note that if Reeborg turns left 4
-times, he will be back to its initial orientation; we do want Reeborg to
-end the test in the same orientation as that which he had at the start.
-Now, suppose we would like to know if Reeborg was facing South. We could
-ask Reeborg to turn left twice, note if his orientation is North (which
-it should be if he was facing South) or not, turn left twice more, to go
-back to its original orientation, and tell us what he remembered using
-the <tt class="docutils literal"><span class="pre">return</span></tt> statement. One thing we need to do: have Reeborg use a
-<em>variable</em> to remember its orientation after two left turns:</p>
-<div class="highlight-py3"><div class="highlight"><pre>function is_facing_south(){
-    var remember;
-    turn_left();
-    turn_left();
-    remember = is_facing_north();
-    turn_left();
-    turn_left();
-    return remember;
-}
-
-// now, ensure that Reeborg is facing South
-while (!is_facing_south()) {
-    turn_left();
-}
-</pre></div>
-</div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>It will not take you long, and you will be ready for the next exercise!</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Vérifiez que ceci fonctionne!</p>
 </div>
-<p>The above way works ... but, depending on its initial orientation, you might get
-dizzy if you keep track of all left turns that Reeborg has to make: when
-its orientation is not South, for each left turn that he makes to change
-its orientation, he must make 4 more to determine its new orientation!</p>
-<p>In a future tutorial, when we talk about Object-Oriented Programming,
-we will find a way, by digging in Reeborg&#8217;s built-in program, to
-fix its compass and have it determine its orientation without getting
-dizzy.</p>
+<p>Ceci fonctionne ... mais, dépendant de l&#8217;orientation initiale de
+Reeborg, vous pourriez devenir étourdi à le voir tourner: lorsque son
+orientation initiale n&#8217;est pas face au sud, pour chaque virage à gauche
+qu&#8217;il doit faire pour <em>changer</em>, il doit en faire 4 pour <em>déterminer</em>
+son orientation.</p>
+<p>Plus tard, en examinant le code source de Reeborg, nous pourrons trouver
+une façon beaucoup plus directe, et moins étourdissante, de déterminer
+son orientation.</p>
 <div class="topic">
-<p class="topic-title first">Mini-quiz!</p>
-<p>Write a program that has Reeborg face West, no matter what his original
-orientation is. Test it with Reeborg in various starting orientations,
-by giving him a few <tt class="docutils literal"><span class="pre">turn_left()</span></tt> instructions first.</p>
+<p class="topic-title first">Mini-quiz</p>
+<p>Écrivez un programme faisant en sorte que Reeborg soit orienté face à
+l&#8217;ouest, peu importe son orientation initiale. Vérifiez la validité de
+votre programme en commençant par quelques virages à gauche, pour tester
+différentes orientations initiales de Reeborg.</p>
 </div>
 </div>
-<div class="section" id="how-to-think-about-return">
-<h2>34.2. How to think about return<a class="headerlink" href="#how-to-think-about-return" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Suppose we have the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">some_function</span> <span class="p">()</span> <span class="p">{</span>
+<div class="section" id="comment-penser-a-return">
+<h2>34.2. Comment penser à return<a class="headerlink" href="#comment-penser-a-return" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Supposons que nous ayons le code suivant:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">fonction_quelconque</span><span class="p">():</span>
     <span class="o">...</span>
-    <span class="k">return</span> <span class="n">something</span><span class="p">;</span>
-<span class="p">}</span>
+    <span class="k">return</span> <span class="n">quelque_chose</span>
 
-<span class="o">...</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">();</span>
+<span class="o">...</span> <span class="o">=</span> <span class="n">fonction_quelconque</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>In this case, the call to <tt class="docutils literal"><span class="pre">some_function()</span></tt> on the last line gets
-replaced by the value of <tt class="docutils literal"><span class="pre">something</span></tt> which is what follows the
-<tt class="docutils literal"><span class="pre">return</span></tt> keyword. If nothing follows <tt class="docutils literal"><span class="pre">return</span></tt> the result is
-<tt class="docutils literal"><span class="pre">undefined</span></tt>.</p>
+<p>Dans ce cas, l&#8217;invocation de <tt class="docutils literal"><span class="pre">fonction_quelconque()</span></tt> à la dernière
+ligne sera remplacée par la valeur de <tt class="docutils literal"><span class="pre">quelque_chose</span></tt> qui est la
+variable suivant le mot-clé <tt class="docutils literal"><span class="pre">return</span></tt>. S&#8217;il n&#8217;y a rien après
+<tt class="docutils literal"><span class="pre">return</span></tt>, alors le résultat est <tt class="docutils literal"><span class="pre">None</span></tt> (non défini).</p>
 <div class="topic">
-<p class="topic-title first">More returns</p>
-<p>Reeborg can determine if there is a wall in front of him, using
-<tt class="docutils literal"><span class="pre">front_is_clear()</span></tt>, or if there is a wall to his right, using
-<tt class="docutils literal"><span class="pre">right_is_clear()</span></tt>. Write a test that has Reeborg turn left 4 times,
-so that he ends up back in the same orientation that he started with,
-but that returns <tt class="docutils literal"><span class="pre">true</span></tt> if there is no wall to his left.</p>
+<p class="topic-title first">Encore des retours</p>
+<p>Reeborg peut déterminer s&#8217;il y a un mur devant lui, utilisant
+<tt class="docutils literal"><span class="pre">rien_devant()</span></tt>, ou s&#8217;il y a un mur à sa droit en utilisant
+<tt class="docutils literal"><span class="pre">rien_a_droite()</span></tt>. Écrivez une fonction test qui fera en sorte
+que Reeborg fera 4 virages à gauches, et donc retournera à son
+orientation de départ, mais qui retournera <tt class="docutils literal"><span class="pre">True</span></tt> s&#8217;il
+n&#8217;y a <strong>pas</strong> de mur à sa gauche.</p>
 </div>
 <div class="topic">
-<p class="topic-title first">Challenges!</p>
-<p>Use the test you have written to have Reeborg get out of worlds <strong>Maze&nbsp;1</strong> and
-<strong>Maze&nbsp;2</strong> by following the <strong>left</strong> wall. Do the same for solving
-challenges for worlds <strong>Storm&nbsp;1</strong> and <strong>Storm&nbsp;2</strong>, that is, go around the
-one-room houses in the opposite direction compared with your previous
-solutions.</p>
+<p class="topic-title first">Défis!</p>
+<p>Utilisez la fonction test que vous avez écrite pour permettre à Reeborg
+de trouver la sortie des mondes <strong>Labyrinthe 1</strong> et <strong>Labyrinthe 2</strong>
+en suivant le mur du côté <strong>gauche</strong> plutôt que le mur du côté droit
+comme on l&#8217;avait vu avant.  Ensuite, faites la même chose pour
+<strong>Tempête 1</strong> et <strong>Tempête 2</strong>, c&#8217;est-à-dire en ayant Reeborg faire le
+tour de la maison dans une direction opposée à la solution que vous
+aviez trouvée avant.</p>
 </div>
 </div>
 </div>
@@ -265,7 +267,7 @@ solutions.</p>
              <a href="harvest3.html" title="35. More harvesting challenges"
              >suivant</a></li>
         <li class="right" >
-             <a href="recursion4.html" title="33. Counting on recursion"
+             <a href="recursion4.html" title="33. Compter sur la récursivité"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

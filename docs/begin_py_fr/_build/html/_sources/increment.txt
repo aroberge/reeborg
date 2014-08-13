@@ -1,92 +1,97 @@
-Increment
+Incrément
 =========
 
-Make sure you have the **Editor**, the **World** and the **Diary**
-panels open. Select world **Around 1**.
+Assurez-vous d'avoir les panneaux **Éditeur**, **Monde** et **Journal**
+ouverts. Sélectionnez le monde **Autour 1**.
 
-Suppose we wanted to count the number of steps taken by Reeborg to
-reach the wall on the right from its starting position. One way to do
-this is to use a variable which I will name ``number_of_steps`` and give
-it an initial value of 0. Then, each time that Reeborg takes a step, I
-will add 1 to the *previous* value of ``number_of_steps``. This is done
-in Python using the following syntax::
+Supposons que nous voulons compter le nombre de pas pris par Reeborg
+pour atteindre le mur à droite à partir de son point de départ. Une
+façon de faire ceci est d'utiliser une variable que je vais appeler
+``nombre_de_pas`` et à laquelle je vais attribuer 0 comme valeur
+initiale. Puis, à chaque fois que Reeborg prendra un pas, j'ajouterai 1
+à la valeur *précédente* de ``nombre_de_pas``. En Python, ceci est
+fait en utilisant la syntaxe suivante::
 
-    number_of_steps = number_of_steps + 1
+    nombre_de_pas = nombre_de_pas + 1
 
-**Do not think of this as a mathematical equation!** Clearly, if this
-were a mathematical equation, the variable on the left hand side of the
-"equal sign" would not have the same value as the terms on the right
-hand side. However, in Python, and many other programming languages,
-"=" is known as the **assignment operator**: Python determines the
-value on the right hand side of "=" and use the variable name on the
-left hand side as a way to remember that value. Thus, if we have::
+**Ceci n'est pas une équation mathématique!** Si on avait une équation
+mathématique, une variable du côté gauche du signe d'égalité aurait la
+même valeur que si elle se trouvait à droite du même signe. En
+Python, et dans plusieurs autres langages de programmation, le
+symbole ``=`` est utilisé pour *affecter* une valeur: Python
+détermine en premier la valeur de l'expression à la droite du signe
+``=``, puis utilise le nom de la variable à gauche de ce signe comme
+aide-mémoire pour se rappeler de la valeur. Ainsi, si nous avons::
 
     n = 1
     n = n + 3
-    print(n)  # outputs 4
+    print(n)  # donne 4
 
-it is equivalent to::
+c'est équivalent à::
 
     n = 1
-    n = 1 + 3  # notice how we use "1" instead of "n"
-    print(n)  # outputs 4
+    n = 1 + 3  # nous avons écrit "1" au lieu de "n"
+    print(n)   # donne 4
 
+.. topic:: À votre tour!
 
-.. topic:: Try it!
+   Vérifiez par vous-mêmes!
 
-   Try to run the above code and see what is printed in Reeborg's Diary.
-
-Because this type of operation, known as *incrementing* a variable
-occurs so often, Python, and many other languages, allow the use of
-the following shortened notation, using the ``+=`` operator::
+Puisque ce type d'opération, connue sous le nom d'*incrémenter* une
+variable, est fait très souvent, Python, et plusieurs autres
+langages de programmation, utilise une notation raccourcie et
+l'opérateur ``+=``::
 
     n = 1
     n += 3
-    print(n)  # outputs 4
+    print(n)  # donne 4
 
-.. topic:: Try it!
+.. topic:: À votre tour!
 
-   Try running programs like the ones above to make sure you understand
-   these ways to increment the numerical value of a variable.
+    Vérifiez que ceci fonctionne comme vous le comprenez!
 
-Counting steps
---------------
+Compter les pas
+---------------
 
-We are now ready to write a program to have Reeborg count the number of
-steps using world **Around 1**. 
+Nous sommes maintenant prêts à écrire un programme qui permettra à
+Reeborg de compter les nombres de pas, en utilisant le monde **Autour 1**.
+Transcrivez le code suivant dans l'éditeur et exécutez-le. Idéalement,
+vous devriez le modifier pour vérifier les autres façons d'incrémenter
+une variable décrites ci-dessus.
 
-.. topic:: Try it!
+.. code:: py3
 
-    Copy the code below in the editor to run it. Ideally, you should then modify it to
-    try the other ways we have seen and that can be used to *increment* a
-    variable::
+    nombre_de_pas = 0;
 
-        number_of_steps = 0
+    def avance_et_compte():
+        global nombre_de_pas
+        avance()
+        nombre_de_pas += 1
 
-        def move_and_count_steps():
-            global number_of_steps
-            move()
-            number_of_steps += 1
+    while rien_devant():
+        avance_et_compte()
 
-        while front_is_clear():
-            move_and_count_steps()
+    print(nombre_de_pas)  # devrait être 9
 
-        print(number_of_steps)  # should be 9
+Dans le programme ci-dessus, on utilise le mot-clé ``global`` pour indiquer
+à Python que la variable ``nombre_de_pas`` utilisée à l'intérieur de la
+fonction ``avance_et_compte`` est la même variable que celle utilisée
+ailleurs.
 
-In the above program, we use the ``global`` keyword to indicate to Python that
-the variable ``number_of_steps`` used inside the ``move_and_count_steps`` function
-is assigned a value elsewhere.  
+Si vous exécutez ce programme, vous remarquerez que le nombre de pas est imprimé
+**avant** que Reeborg ne se déplace.  La raison pour ceci est que le
+programme est exécuté et enregistré secrètement en coulisses, puis le résultat
+est démontré comme une animation dans un film.  Si au lieu d'utiliser la fonction
+Python ``print``, vous utilisez plutôt ``ecrit`` qui est spécifique au monde
+de Reeborg, vous verrez que le résultat de cette fonction est imprimé comme s'il
+s'agissait d'une étape individuelle dans le programme.
 
-Note that when you run this program, the number of steps is printed **before**
-Reeborg moves.  This is because the program is first run behind the scene and
-played back like a movie, one frame at a time.  You can use the function ``write``
-specific to Reeborg's World instead of ``print`` if you want to see what Reeborg
-writes in its diary done as a programming step, like the ``move`` or ``turn_left``
-functions.
 
-.. topic:: Your turn!
+.. topic:: À votre tour!
 
-    Write a program so that Reeborg goes all the way around world **Around 1** and have him
-    count the number of steps **and** the number of left turns, writing them
-    in his diary at the end. You should start by putting a token down to
-    mark what will be the end position.
+    Écrivez un programme qui fera en sorte que Reeborg fasse le tour du
+    monde Autour 1 tout en comptant le nombre de pas **ainsi que** le nombre
+    de virages à gauche, écrivant le résultat dans son journal à la fin.
+    Vous devriez commencer par déposer un jeton pour indiquer la position de
+    départ (et d'arrivée).
+

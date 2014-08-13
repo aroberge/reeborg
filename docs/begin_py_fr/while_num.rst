@@ -1,82 +1,88 @@
-While counting
+Reeborg compte
 ==============
 
-Select world **Around 1**. You have seen before that Reeborg takes 9 steps
-before reaching the first square where he is blocked by having a wall in
-front of him. Let's use the increment operator to have Reeborg keep
-track of the number of steps and stop just before hitting a wall::
+Sélectionnez le monde **Autour 1**. Vous avez vérifié précédemment que
+Reeborg prend 9 pas pour rejoindre le mur à droite. Utilisons Reeborg
+pour compter le nombre de pas à nouveau en se basant sur le nombre de
+pas pour éviter de frapper le mur.
 
-    number_of_steps = 0;
-    while number_of_steps < 9 :  # "<" means "less than"
-        move()
-        number_of_steps += 1
+.. code:: py3
 
-.. topic:: Try it!
+    nombre_de_pas = 0;
+    while nombre_de_pas < 9:  # "<" signifie "plus petit que"
+        avance()
+        nombre_de_pas += 1
+
+.. topic:: À votre tour!
+
+    **Essayez!** Puis, modifiez le programme pour écrire la valeur de la
+    variable ``nombre_de_pas`` dans le journal de Reeborg à chaque fois que
+    sa valeur change.
+
+Définition de ``repete()``?
+---------------------------
+
+Dans le programme ci-dessus, Reeborg comptait le nombre de pas et en
+faisait un nombre total prédéterminé à l'avance. Nous avons vu comment
+faire la même chose précédemment utilisant une seule instruction::
+
+    repete(avance, 9)
+
+Définissons une fonction que nous allons appeler ``mon_répète`` et qui
+*cachera* le code apparaissant dans la boucle ``while`` ci-dessus::
+
+    def mon_répète():
+        nombre_de_pas = 0
+        while nombre_de_pas < 9:
+            avance()
+            nombre_de_pas += 1
+
+    mon_répète()   # on l'utilise!
+
+Cette fonction n'est pas très utile comparativement à ``repete()``
+puisque le nombre de pas à prendre ainsi que l'instruction à répéter
+(``avance``) doivent être codées spécifiquement. On peut faire mieux en
+*passant* des **arguments** à la fonction ``mon_répète`` comme ce qui
+suit::
+
+    def mon_répète(fonction_quelconque, valeur_maximale):
+        nombre_de_pas = 0
+        while nombre_de_pas < valeur_maximale:
+            fonction_quelconque()
+            nombre_de_pas += 1
+
+    mon_répète(avance, 9)
+    mon_répète(tourne_a_gauche, 4)
+
+.. topic:: Vérifiez!
+
+    Définissez la fonction comme ci-dessus et vérifiez qu'elle fonctionne correctement!
 
 
-    Try to run the above. Then, modify the program to write the value of
-    ``number_of_steps`` in Reeborg's Diary each time it is incremented.
-    
+Portée des variables
+--------------------
 
-Defining ``repeat()``?
-----------------------
+Comparez::
 
-In the above program, Reeborg was counting and doing a number of steps
-(``move``) up to a predetermined value. We have seen before how to
-accomplish this using a single instruction::
+    nombre_de_pas = 0
+    def mon_répète(fonction_quelconque, valeur_maximale):
+        global nombre_de_pas
+        while nombre_de_pas < valeur_maximale:
+            fonction_quelconque()
+            nombre_de_pas += 1
 
-    repeat(move, 9)
+avec la définition précédente.  La définition précédente utilisait une
+version **locale** de la variable ``nombre_de_pas``: sa valeur n'était pas
+connue à l'extérieur de la fonction.  La nouvelle version utilise
+une valeur globale, connue partout.
 
-Let's define a function ``my_repeat`` that will *hide* the code with the
-while loop above::
+On utilise le terme de *portée* d'une
+variable (*scope* en anglais) pour référer au fait que c'est une
+variable locale ou globale. On recommande **fortement** d'utiliser des
+variables locales lorsque c'est possible; ceci permet d'utiliser le même
+nom pour d'autres variables locales utilisées ailleurs dans le programme
+sans que les changements à leur valeur n'affecte celle de la variable
+locale. Si vous utilisez des variables globales, un changement de valeur
+à un endroit changera la valeur de cette variable partout ailleurs dans
+le programme, ce qui peut mener à des bogues difficiles à retracer.
 
-    def my_repeat():
-        number_of_steps = 0
-        while number_of_steps < 9 :
-            move()
-            number_of_steps += 1
-
-    my_repeat()   # use it!
-
-That's not very useful compared with ``repeat()`` since both the number
-of steps to take and the specific instruction to repeat are
-*hard-coded*. We can do better by *passing* **arguments** to
-``my_repeat`` as follows::
-
-    def my_repeat(some_function, max_value):
-        number_of_steps = 0
-        while number_of_steps < max_value :
-            some_function()
-            number_of_steps += 1
-
-    my_repeat(move, 9)   # use it!
-    my_repeat(turn_left, 4)
-
-.. topic:: Try it!
-
-   Try to run the above program.
-
-Scope
------
-
-In the definition above, ``number_of_steps`` was a **local** variable
-only known inside the function ``my_repeat``.  
-An other way, which we have seen previously,
-is to us a **global** variable as follows::
-
-    number_of_steps = 0
-    def my_repeat(some_function, max_value):
-        global number_of_steps
-        while number_of_steps < max_value :
-            some_function()
-            number_of_steps += 1
-
-Whether a
-variable is *local* to a function or *global* is known as the **scope**
-of the variable. Generally, it is recommended to use local variables
-whenever possible so that if you reuse the same variable name (locally)
-elsewhere in a program, it will be treated as a completely different
-variable and won't affect the value of a similarly named variable
-elsewhere. If you use global variables, a change in one part of the
-program will change the value of that variable everywhere else - often
-leading to some hard to trace bugs.
