@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>37. Increment &mdash; Apprenez Python avec Reeborg</title>
+    <title>37. Incrément &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="38. While counting" href="while_num.html" />
-    <link rel="prev" title="36. Reeborg’s diary" href="diary.html" /> 
+    <link rel="prev" title="36. Le journal de Reeborg" href="diary.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="while_num.html" title="38. While counting"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="diary.html" title="36. Reeborg’s diary"
+             <a href="diary.html" title="36. Le journal de Reeborg"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,15 +80,15 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">37. Increment</a><ul>
-<li><a class="reference internal" href="#counting-steps">37.1. Counting steps</a></li>
+<li><a class="reference internal" href="#">37. Incrément</a><ul>
+<li><a class="reference internal" href="#compter-les-pas">37.1. Compter les pas</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="diary.html"
-                        title="Chapitre précédent">36. Reeborg&#8217;s diary</a></p>
+                        title="Chapitre précédent">36. Le journal de Reeborg</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="while_num.html"
                         title="Chapitre suivant">38. While counting</a></p>
@@ -117,94 +117,93 @@
           <div class="body">
             
   <div class="section" id="increment">
-<h1>37. Increment<a class="headerlink" href="#increment" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Make sure you have the <strong>Editor</strong>, the <strong>World</strong> and the <strong>Diary</strong>
-panels open. Select world <strong>Around&nbsp;1</strong>.</p>
-<p>Suppose we wanted to count the number of steps taken by Reeborg to
-reach the wall on the right from its starting position. One way to do
-this is to use a variable which I will name <tt class="docutils literal"><span class="pre">number_of_steps</span></tt> and give
-it an initial value of 0. Then, each time that Reeborg takes a step, I
-will add 1 to the <em>previous</em> value of <tt class="docutils literal"><span class="pre">number_of_steps</span></tt>. This is done
-in Javascript using the following syntax:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">number_of_steps</span> <span class="o">=</span> <span class="n">number_of_steps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<h1>37. Incrément<a class="headerlink" href="#increment" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Assurez-vous d&#8217;avoir les panneaux <strong>Éditeur</strong>, <strong>Monde</strong> et <strong>Journal</strong>
+ouverts. Sélectionnez le monde <strong>Autour&nbsp;1</strong>.</p>
+<p>Supposons que nous voulons compter le nombre de pas pris par Reeborg
+pour atteindre le mur à droite à partir de son point de départ. Une
+façon de faire ceci est d&#8217;utiliser une variable que je vais appeler
+<tt class="docutils literal"><span class="pre">nombre_de_pas</span></tt> et à laquelle je vais attribuer 0 comme valeur
+initiale. Puis, à chaque fois que Reeborg prendra un pas, j&#8217;ajouterai 1
+à la valeur <em>précédente</em> de <tt class="docutils literal"><span class="pre">nombre_de_pas</span></tt>. En Python, ceci est
+fait en utilisant la syntaxe suivante:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">nombre_de_pas</span> <span class="o">=</span> <span class="n">nombre_de_pas</span> <span class="o">+</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p><strong>Do not think of this as a mathematical equation!</strong> Clearly, if this
-were a mathematical equation, the variable on the left hand side of the
-&#8220;equal sign&#8221; would not have the same value as the terms on the right
-hand side. However, in Javascript, and many other programming languages,
-&#8220;=&#8221; is known as the <strong>assignment operator</strong>: Javascript determines the
-value on the right hand side of &#8220;=&#8221; and use the variable name on the
-left hand side as a way to remember that value. Thus, if we have:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">n</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
-<span class="n">write</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>  <span class="o">//</span> <span class="n">outputs</span> <span class="mi">4</span>
+<p><strong>Ceci n&#8217;est pas une équation mathématique!</strong> Si on avait une équation
+mathématique, une variable du côté gauche du signe d&#8217;égalité aurait la
+même valeur que si elle se trouvait à droite du même signe. En
+Python, et dans plusieurs autres langages de programmation, le
+symbole <tt class="docutils literal"><span class="pre">=</span></tt> est utilisé pour <em>affecter</em> une valeur: Python
+détermine en premier la valeur de l&#8217;expression à la droite du signe
+<tt class="docutils literal"><span class="pre">=</span></tt>, puis utilise le nom de la variable à gauche de ce signe comme
+aide-mémoire pour se rappeler de la valeur. Ainsi, si nous avons:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c"># donne 4</span>
 </pre></div>
 </div>
-<p>it is equivalent to:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">n</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>  <span class="o">//</span> <span class="n">notice</span> <span class="n">how</span> <span class="n">we</span> <span class="n">use</span> <span class="s">&quot;1&quot;</span> <span class="n">instead</span> <span class="n">of</span> <span class="s">&quot;n&quot;</span>
-<span class="n">write</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>  <span class="o">//</span> <span class="n">outputs</span> <span class="mi">4</span>
-</pre></div>
-</div>
-<div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Try to run the above code and see what is printed in Reeborg&#8217;s Diary.</p>
-</div>
-<p>Because this type of operation, known as <em>incrementing</em> a variable
-occurs so often, Javascript, and many other languages, allow the use of
-the following shortened notation, using the <tt class="docutils literal"><span class="pre">+=</span></tt> operator:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">n</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
-<span class="n">write</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>  <span class="o">//</span> <span class="n">outputs</span> <span class="mi">4</span>
-</pre></div>
-</div>
-<p>If the value by which we want to <em>increment</em> the variable is 1, we can
-even use a shorter expression:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">n</span><span class="p">;</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">n</span><span class="o">++</span><span class="p">;</span>
-<span class="n">write</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>  <span class="o">//</span> <span class="n">outputs</span> <span class="mi">2</span>
+<p>c&#8217;est équivalent à:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span>  <span class="c"># nous avons écrit &quot;1&quot; au lieu de &quot;n&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>   <span class="c"># donne 4</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Try running programs like the ones above to make sure you understand
-these ways to increment the numerical value of a variable.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Vérifiez par vous-mêmes!</p>
 </div>
-<div class="section" id="counting-steps">
-<h2>37.1. Counting steps<a class="headerlink" href="#counting-steps" title="Lien permanent vers ce titre">¶</a></h2>
-<p>We are now ready to write a program to have Reeborg count the number of
-steps using world <strong>Around&nbsp;1</strong>.</p>
+<p>Puisque ce type d&#8217;opération, connue sous le nom d&#8217;<em>incrémenter</em> une
+variable, est fait très souvent, Python, et plusieurs autres
+langages de programmation, utilise une notation raccourcie et
+l&#8217;opérateur <tt class="docutils literal"><span class="pre">+=</span></tt>:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n</span> <span class="o">+=</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c"># donne 4</span>
+</pre></div>
+</div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Copy the code below in the editor to run it. Ideally, you should then modify it to
-try the other ways we have seen and that can be used to <em>increment</em> a
-variable:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">number_of_steps</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<p class="topic-title first">À votre tour!</p>
+<p>Vérifiez que ceci fonctionne comme vous le comprenez!</p>
+</div>
+<div class="section" id="compter-les-pas">
+<h2>37.1. Compter les pas<a class="headerlink" href="#compter-les-pas" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous sommes maintenant prêts à écrire un programme qui permettra à
+Reeborg de compter les nombres de pas, en utilisant le monde <strong>Autour&nbsp;1</strong>.
+Transcrivez le code suivant dans l&#8217;éditeur et exécutez-le. Idéalement,
+vous devriez le modifier pour vérifier les autres façons d&#8217;incrémenter
+une variable décrites ci-dessus.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="n">nombre_de_pas</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-<span class="n">function</span> <span class="n">move_and_count_steps</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">move</span><span class="p">();</span>
-    <span class="n">number_of_steps</span><span class="o">++</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="k">def</span> <span class="nf">avance_et_compte</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">nombre_de_pas</span>
+    <span class="n">avance</span><span class="p">()</span>
+    <span class="n">nombre_de_pas</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<span class="k">while</span> <span class="p">(</span><span class="n">front_is_clear</span><span class="p">()){</span>
-    <span class="n">move_and_count_steps</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="k">while</span> <span class="n">rien_devant</span><span class="p">():</span>
+    <span class="n">avance_et_compte</span><span class="p">()</span>
 
-<span class="n">write</span><span class="p">(</span><span class="n">number_of_steps</span><span class="p">);</span>  <span class="o">//</span> <span class="n">should</span> <span class="n">be</span> <span class="mi">9</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nombre_de_pas</span><span class="p">)</span>  <span class="c"># devrait être 9</span>
 </pre></div>
 </div>
-</div>
+<p>Dans le programme ci-dessus, on utilise le mot-clé <tt class="docutils literal"><span class="pre">global</span></tt> pour indiquer
+à Python que la variable <tt class="docutils literal"><span class="pre">nombre_de_pas</span></tt> utilisée à l&#8217;intérieur de la
+fonction <tt class="docutils literal"><span class="pre">avance_et_compte</span></tt> est la même variable que celle utilisée
+ailleurs.</p>
+<p>Si vous exécutez ce programme, vous remarquerez que le nombre de pas est imprimé
+<strong>avant</strong> que Reeborg ne se déplace.  La raison pour ceci est que le
+programme est exécuté et enregistré secrètement en coulisses, puis le résultat
+est démontré comme une animation dans un film.  Si au lieu d&#8217;utiliser la fonction
+Python <tt class="docutils literal"><span class="pre">print</span></tt>, vous utilisez plutôt <tt class="docutils literal"><span class="pre">ecrit</span></tt> qui est spécifique au monde
+de Reeborg, vous verrez que le résultat de cette fonction est imprimé comme s&#8217;il
+s&#8217;agissait d&#8217;une étape individuelle dans le programme.</p>
 <div class="topic">
-<p class="topic-title first">Your turn!</p>
-<p>Write a program so that Reeborg goes all the way around world <strong>Around&nbsp;1</strong> and have him
-count the number of steps <strong>and</strong> the number of left turns, writing them
-in his diary at the end. You should start by putting a token down to
-mark what will be the end position.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Écrivez un programme qui fera en sorte que Reeborg fasse le tour du
+monde Autour&nbsp;1 tout en comptant le nombre de pas <strong>ainsi que</strong> le nombre
+de virages à gauche, écrivant le résultat dans son journal à la fin.
+Vous devriez commencer par déposer un jeton pour indiquer la position de
+départ (et d&#8217;arrivée).</p>
 </div>
 </div>
 </div>
@@ -222,7 +221,7 @@ mark what will be the end position.</p>
              <a href="while_num.html" title="38. While counting"
              >suivant</a></li>
         <li class="right" >
-             <a href="diary.html" title="36. Reeborg’s diary"
+             <a href="diary.html" title="36. Le journal de Reeborg"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

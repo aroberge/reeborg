@@ -1,98 +1,109 @@
-Reeborg's diary
-===============
+Le journal de Reeborg
+=====================
 
-Click on the **World** button at the top to hide Reeborg's world; click
-also on the **Diary** button to reveal Reeborg's diary, the place where
-our favourite robot writes.
+Cliquez sur le bouton **Monde** au haut de l'écran pour cacher le monde
+de Reeborg. Cliquez également sur le bouton **Journal** pour voir le
+journal de Reeborg, là où notre robot favori écrit.
 
-Have Reeborg execute the following program::
+Exécutez le programme suivant::
 
     print(42)
 
-You should see that Reeborg wrote the answer to the ultimate question
-about life, the universe and everything [#]_ in his diary.
+Vous devriez voir que Reeborg écrit la réponse à la question ultime au
+sujet de la Vie, de l'Univers et du Reste [du moins selon le livre *Le
+guide du voyageur galactique*] dans son journal.
 
-.. [#] At least according to *The Hitchhiker's guide to the Galaxy*
-
-Writing text
-------------
+Écrire des textes
+-----------------
 
 .. note::
 
-   In addition to ``print``, which is a Python function, Reeborg's World
-   includes a function named ``write`` which behaves slighlty differently
-   as we will see later.  You may try it instead of ``print`` if you want.
+    En plus de la fonction Python ``print``, le monde de Reeborg
+    inclut une fonction ``ecrit`` qui fait presque la même chose.
+    Essayez de l'utiliser à l'occasion.
 
-In programming terms, a *character* is any letter, number or symbol that
-can be printed and a *string of characters*, or simply *string*, is any
-combination of character that can be printed. For example, try the
-following::
-
-    print("Hello world!")
-    print('Hello again.')
-
-Note that the quotes that surround the *string* have to be the same,
-either double quotes like ", or single quotes like '. To have a string
-that contains some quote characters, we can either surround it by quotes
-of a different type or use the *escape character* ``\``::
-
-    print("Let's go.")
-    print('Let\'s go.')
-
-We can combine strings using the ``+`` symbol::
-
-    print("Goodbye! " + "And thanks for all the fish.")
-
-We can also start on a new line using the following *escape sequence*:
-``\n``::
-
-    print("Thank you. \nTry again")
-
-.. topic:: Try it!
-
-    Make sure you try to run the above code samples or some similar.
+Dans le jargon de la programmation, un *caractère* est n'importe quelle
+lettre, chiffre ou symbole qui peut être imprimé, et une *chaîne de
+caractères*, ou plus simplement une *chaîne*, est n'importe quelle
+combinaison de caractères pouvant être imprimés. Par exemple, exécutez
+les instructions suivantes::
 
 
-Reeborg knows mathematics
+    print("Bonjour monde!")
+    print('Bonjour encore.')
+
+Notez que les guillemets **anglais** qui encadrent la *chaîne* doivent
+être semblables, soient doubles, ", ou simples, ", doivent être les
+mêmes; à noter que ce ne sont **pas** des guillemets français « ». Si
+vous voulez inclure un guillemet dans une chaîne, vous pouvez soit
+utiliser des guillemets d'un type différent pour encadrer la chaîne, ou
+les précéder du *caractère d'échappement* ``\``.
+
+.. code:: py3
+
+    print("Ajourd'hui.")
+    print('Aujourd\'hui.')
+
+On peut combiner les chaînes en utilisant le symbole d'addition ``+``::
+
+    print("Au revoir! " + "Et merci pour tout.")
+
+Vous pouvez également débuter une nouvelle ligne en utilisant la
+*séquence d'échappement* ``\n``::
+
+
+    print("Merci. \nEssayez encore")
+
+Reeborg connaît les maths
 -------------------------
 
-.. topic:: Try this!
+Exécutez le programme suivant et observez le résultat dans le journal de
+Reeborg.
 
-    Try running the following program and look at the output in Reeborg's
-    diary.
+.. topic:: Faites des maths!
 
-    .. code-block:: py3
+    Essayez les exemples suivants::
 
-        print( 2 + 3 )  # adding numbers
-        print( 2 * 3 )  # multiplying numbers
-        print( 3 - 2 )  # subtracting numbers
-        print( 6 / 2 )  # dividing numbers
-        print( 1 + 3 * 2 ) # multiplication is done before addition
-        print( (1 + 3) * 2 )  # using parentheses to change normal order of operations
+        print( 2 + 3 )  # addition
+        print( 2 * 3 )  # multiplication
+        print( 3 - 2 )  # soustraction
+        print( 6 / 2 )  # division
+        print( 1 + 3 * 2 ) # multiplication avant addition
+        print( (1 + 3) * 2 )  # Les parenthèses indiquent l'ordre des opérations
 
-Using variables
----------------
+Utilisation des variables
+-------------------------
 
-We have already seen the idea of using different names (variables) as synonyms.
-Let's use this idea again as explore
-mathematical operations some more::
+Nous avons déjà vu l'idée d'utiliser différents noms (synonymes) pour le
+même concept. Utilisons-le à nouveau dans un
+contexte mathématique.
 
-    length = 4;
-    width = 6;
-    area = length * width;  # area of a rectangle
-    print(area)  # will output 24
+.. code:: py3
 
-.. topic:: Try it!
+    longueur = 4
+    largeur = 6
+    aire = longueur * largeur;  # aire d'un rectangle
+    print(aire)  # imprimera 24
 
-    Make up your own examples and run them.
+.. topic:: À votre tour!
 
-A word of caution
------------------
+    Reproduisez l'exemple ci-dessus, puis inventez vos propres exemples.
 
-.. important::
 
-   The *character* "2" is not the same as the *number* 2.
+Avis
+----
 
-Finally, note that spaces around operators, like ``+``, are ignored by
-Python; however they often make a program easier to read for humans.
+Combiner des chaînes et des nombres peut donner des résultats
+inattendus:
 
+.. code:: py3
+
+    print("2" + 2)
+
+.. warning::
+
+    Le *caractère* "2" n'est pas le même que le *chiffre* 2.
+
+Finalement, notez que les espaces autour des opérateurs comme ``+``,
+sont ignorés par Python; cependant, ils peuvent faciliter la lecture
+(et la compréhension) pour les humains.

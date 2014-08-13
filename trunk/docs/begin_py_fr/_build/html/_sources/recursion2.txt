@@ -1,69 +1,78 @@
-Tricky recursion
-================
+Récursivité plus compliquée
+===========================
 
-Before considering a slightly more complex example, let's review the
-preceding example::
+Avant d'aborder un exemple un peu plus compliqué, revoyons l'exemple
+précédent et écrivons-le à nouveau.
 
-    def go_home():
-        if not at_goal():
-            move()
-            go_home()
+.. code:: py3
 
-    # now do it!
-    go_home()
+    def va_au_but():
+        avance()
+        if not au_but():
+            va_au_but()
 
-Now, remember how I explained that when a function is called, we can
-think of it as replacing the function call by the body of that function.
-By this, I mean that this instruction::
+    # définition complétée; on y va!
+    va_au_but()
 
-    if not at_goal():
-        move()
-        go_home()
+Si vous vous rappelez, j'ai expliqué que lorsqu'on invoque une fonction,
+ceci est équivalent à insérer sur place le corps de la fonction. Donc,
+l'invocation::
 
-Let's assume that the first time we execute these instructions,
-``at_goal`` is ``false`` and hence ``not at_goal()`` is ``true`` ... like
-it was for world **Home 1**. In this case, the above calls to ``move`` and 
-``go_home()`` are executed, and the above code is equivalent to::
+    va_au_but()
 
-        move()
-        go_home()
+est équivalente à::
 
-We can now replace the call to ``go_home()`` by its definition::
+    avance()
+    if not au_but():
+        va_au_but()
 
-        move()
-        if not at_goal():
-            move()
-            go_home()
+Supposons que la première fois qu'on exécute ces instructions,
+``au_but()`` soit faux (``False``) et donc ``not au_but()`` soit vrai
+(``True``) ... comme c'est le cas pour le monde **But 1**. Dans ce cas,
+l'invocation ``va_au_but()`` est exécutée une deuxième fois et le code
+ci-dessus est donc équivalent à::
 
-and could, in theory, keep going like this forever, always replacing the
-call to ``go_home()`` by its definition.
+    avance()
+    va_au_but()
 
-However, we don't want that as we want things to end eventually ...
-which they do fortunately for world **Home 1**. In that case after a
-second ``move()``, ``at_goal()`` would be true and and the ``if`` statement
-would be ignored.  Thus, the code in this case is equivalent to:: 
+On peut à nouveau remplacer l'invocation ``va_au_but()`` par sa
+définition::
 
-        move()
-        move()
+    avance()
+    avance()
+    if not au_but():
+        va_au_but()
 
-**It is really important that you understand the above explanation
-before going any further.** So, make sure to read it again if necessary
-as we are going to consider a slightly trickier example.
+et on pourrait, en théorie, continuer à faire éternellement des
+remplacements de la fonction par sa définition **si la condition restait
+toujours la même**.
 
-Small change...
----------------
+Heureusement, ce n'est pas le cas pour le monde **But 1**. Dans ce cas,
+après la deuxième invocation d'``avance()``, nous sommes ``au_but()`` et
+``va_au_but()`` n'est pas invoqué une troisième fois. Le résultat est
+donc équivalent à::
 
-Consider the program below::
+    avance()
+    avance()
 
-    def go_home():
-        if not at_goal():
-            move()
-            go_home()
-        turn_left()
+Assurez-vous de bien comprendre l'explication ci-dessus avant d'aller
+plus loin.
 
-    # now do it!
-    go_home()
+Petit changement...
+-------------------
 
-Try to figure out what it does before trying to have Reeborg execute it.
-An explanation follows in the next lesson.
+Considérez le programme suivant::
 
+    def va_au_but():
+        avance()
+        if not au_but():
+            va_au_but()
+        tourne_a_gauche()
+
+    # définition complétée; on y va!
+    va_au_but()
+
+.. topic:: Réfléchissez!
+
+    Essayez de prédire ce que Reeborg fera avant d'exécuter le programme.
+    Une explication vous sera fournie à la prochaine leçon.

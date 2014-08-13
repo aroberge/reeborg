@@ -1,106 +1,91 @@
+Encore de la récursivité
+========================
 
-More recursion
-==============
+Le dernier programme que nous avons vu était le suivant::
 
-The last program we considered was the following::
+    def va_au_but():
+        avance()
+        if not au_but():
+            va_au_but()
+        tourne_a_gauche()
 
-    def go_home():
-        if not at_goal():
-            move()
-            go_home()
-        turn_left()
+    # définition complétée; on y va!
+    va_au_but()
 
-    # now do it!
-    go_home()
+Vous avez fort probablement compris comment il fonctionne. Néanmoins,
+analysons-le en supposant que Reeborg est dans le monde **But 1**. Comme
+toujours, nous commençons avec la première invocation::
 
-By now, you probably have figured out how it works; at the very least,
-you should have tried to run it! Let's analyze it assuming we run it in
-world **Home 1**. As usual, we consider the single instruction::
+    va_au_but()
 
-    go_home()
+que nous remplaçons par le corps de la fonction telle que définie::
 
-which gets replace by the body of the function definition::
+    avance()
+    if not au_but():
+        va_au_but()
 
-    if not at_goal():
-        move()
-        go_home()
-    turn_left()
+    tourne_a_gauche()
 
-Since Reeborg has not reached its goal yet,
-the ``if`` statement block is executed::
+Après l'instruction ``avance()``, Reeborg n'a pas atteint son but et le
+bloc ``if`` est exécuté::
 
-    move()
-    go_home()
-    turn_left()
+    avance()
+    va_au_but()
+    tourne_a_gauche()
 
-Once again, we replace ``go_home()`` by its definition::
+Une fois de plus, on remplace ``va_au_but()`` par sa définition::
 
-    move()
-    if not at_goal():
-        move()
-        go_home()
-    turn_left()
-    turn_left()
+    avance()
+    avance()
+    if not au_but():
+        va_au_but()
 
-and do it one more time::
+    tourne_a_gauche()
+    tourne_a_gauche()
 
-    move()
-    move()
-    if not at_goal():
-        move()
-        go_home()
-    turn_left()
-    turn_left()
-    turn_left()
+Après la deuxième invocation de l'instruction ``avance()``, Reeborg a
+atteint son but et le bloc ``if`` n'est **pas** exécuté::
 
-After the second ``move()`` instruction, Reeborg has reached its goal
-and the ``if`` statement block is not executed::
-
-    move()
-    move()
-    #if not at_goal():
-    #    move()
-    #    go_home()
-    turn_left()
-    turn_left()
-    turn_left()
+    avance()
+    avance()
+    tourne_a_gauche()
+    tourne_a_gauche()
 
 .. note::
 
-   ``go_home`` is called three times ... and Reeborg does three left turns.
-   This is perhaps something that Reeborg can use to count ...  Remember this!
+   ``va_au_but`` est invoqué deux fois ... et Reeborg tourne deux fois à gauche.
+   Peut-être que Reeborg peut utiliser cette tactique pour compter ... rappelez-vous de ceci!
 
-Thus, after reaching its goal, Reeborg does three left turns (a
-celebratory dance perhaps?) before ending its program.
+Donc, après avoir atteint son but, Reeborg tourne deux fois à gauche
+(une petite danse pour célébrer peut-être?) avant de terminer le
+programme.
 
-.. topic:: Try it!
+.. topic:: À votre tour!
 
-   By running it, check that the recursive program does indeed result in having Reeborg
-   make three left turns at the end.
+   En exécutant le programme, vérifiez que la description que nous en avons donnée est correcte.
 
-Another test
-------------
 
-Using again the same world, can you figure out what would be Reeborg's
-final orientation if he executes the following program?
+Un autre test
+-------------
 
-.. code-block:: py3
+Sans changer de monde, pouvez-vous prédire l'orientation finale de
+Reeborg s'il exécute le programme suivant?
 
-    def go_home():
-        move()
-        if not at_goal():
-            go_home()
-            turn_left()
-        turn_left()
+.. code:: py3
 
-    # now do it!
-    go_home()
-    
-.. topic:: Do this!
+    def va_au_but():
+        avance()
+        if not au_but():
+            va_au_but()
+            tourne_a_gauche()
+        tourne_a_gauche()
 
-    Try to figure out the above program without running it 
-    and then check your understanding
-    by seeing Reeborg in action.  What would happen if Reeborg were already
-    at its goal before running the program?
+    # définition complétée; on y va!
+    va_au_but()
 
+.. topic:: À votre tour!
+
+    Essayez de prédire par vous-mêmes **avant** de demander à Reeborg
+    d'exécuter ce programme.  Qu'arriverait-il si Reeborg se trouvait
+    déjà à son but avant le début de l'exécution du programme?
 

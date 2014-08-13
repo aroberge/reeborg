@@ -1,65 +1,67 @@
-More harvesting challenges
-==========================
+D'autres récoltes
+=================
 
-Reeborg's aunt is a fruit farmer. In her fields, many types of fruits
-can be found. On a given day, only a certain kind of fruit needs to be
-harvested. Have a look at worlds **Harvest 5a**, **Harvest 5b**, **Harvest 5c** and
-**Harvest 5d**. As he enters the field, Reeborg sees the type of fruit that
-needs to be harvested as his aunt put a sample there. He picks it up and
-proceed to harvest all fruits of the similar type.
+La tante de Reeborg a une ferme fruitière. Dans ses champs on retrouve
+plusieurs sortes de fruits. À chaque jour, un fruit différent doit être
+récolté. Jetez un coup d'oeil sur les mondes **Récolte 5a**, **Récolte 5b**,
+**Récolte 5c** et **Récolte 5d**. Lorsqu'il entre dans les champs, Reeborg voit
+le type de fruit qui doit être récolté car sa tante en a déposé un à
+l'entrée. Il ramasse ce fruit et récolte tous les fruits semblables dans
+les champs..
 
-Reeborg uses the function ``object_here()`` which return one of
-``"star", "triangle", "square"`` or ``"token"`` depending if one these
-objects is found, or return zero otherwise.
-
-There is also a
-function ``token_here()`` that returns either the number of tokens found
-at the current location. Using
-these, you can complete the following outline of a solution that will
-work for each of these four worlds.
+Reeborg utilise la fonction ``objet_ici()`` qui retourne l'une des
+valeurs ``"étoile", "triangle", "carré"`` s'il s'agit d'un de ces
+"fruits", ou retourne ``0`` s'il s'agit d'un fruit indiqué par un jeton.
+À noter qu'il existe également une fonction, ``jeton_ici()``, qui
+retourne le nombre de jetons qui se trouvent à un endroit donné. En
+utilisant ces deux fonctions, et les autres instructions que vous
+connaissez, complétez le programme suivant pour qu'il puisse permettre à
+Reeborg de récolter les bons fruits dans les 4 mondes mentionnés.
 
 .. warning::
 
-    There are two new things in the code below which makes is a bit difficult to
-    understand when you read it for the first time.
-    First, we define a new function that takes an **argument**, in 
-    this case ``fruit``.  Second, we test to see if two quantities 
-    are equal by using two consecutive equal signs: ``==``.
+    Il y a deux nouvelles choses dans le code ci-dessous qui peuvent le
+    rendre un peu plus difficile à comprendre.
+    En premier, nous définissons une fonction qui requiert un
+    **argument**, qui est ``fruit``.  En second, nous vérifions que
+    deux quantités sont égales avec le double symbole d'égalité: ``==``.
 
+.. code:: py3
 
-.. code-block:: py3
+    pense(10)  # optionnel; pour faire le travail plus vite
 
-    think(0)  # optional; so it does not take too long...
+    def récolte (fruit):
+      # décider quoi récolter
 
-    def harvest_one_row (fruit):
-        while front_is_clear():
-            if object_here() == fruit:
-                take(fruit)
-            move()
+    def récolte_un_rang (fruit):
+        while rien_devant():
+            if objet_ici() == fruit:
+                récolte(fruit)
+            avance()
 
-    def go_back_to_beginning_of_row():
+    def retourne_au_début_du_rang():
         ...
 
-    def move_to_next_row():
+    def va_au_prochain_rang():
         ...
 
-    def go_to_first_row():
+    def va_au_premier_rang():
         ...
 
-    def complete_one_row():
-        harvest_one_row(selection)
-        go_back_to_beginning_of_row()
-        move_to_next_row()
+    def complète_un_rang():
+        récolte_un_rang(fruit)
+        retourne_au_début_du_rang()
+        va_au_prochain_rang()
 
-    move()
-    selection = object_here()
-    take(selection)
-    go_to_first_row()
-    repeat(complete_one_row, 6)
-    
+    avance()
+    sélection = objet_ici()
+    récolte(sélection)
+    va_au_premier_rang()
+    repete(complète_un_rang, 6)
 
-.. topic:: Try it!
+.. topic:: À votre tour!
 
-    Complete the above program so that it works in all four worlds:
-    **Harvest 5a**, **Harvest 5b**, **Harvest 5c** and **Harvest 5d**.
+    Complétez le programme ci-dessus pour qu'il fonctionne dans
+    les mondes **Récolte 5a**, **Récolte 5b**,
+    **Récolte 5c** et **Récolte 5d**.
 

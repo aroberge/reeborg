@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>33. Counting on recursion &mdash; Apprenez Python avec Reeborg</title>
+    <title>33. Compter sur la récursivité &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="34. Return" href="return.html" />
-    <link rel="prev" title="32. More recursion" href="recursion3.html" /> 
+    <link rel="prev" title="32. Encore de la récursivité" href="recursion3.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="return.html" title="34. Return"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="recursion3.html" title="32. More recursion"
+             <a href="recursion3.html" title="32. Encore de la récursivité"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,7 +80,7 @@
         <div class="sphinxsidebarwrapper">
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="recursion3.html"
-                        title="Chapitre précédent">32. More recursion</a></p>
+                        title="Chapitre précédent">32. Encore de la récursivité</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="return.html"
                         title="Chapitre suivant">34. Return</a></p>
@@ -108,47 +108,48 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="counting-on-recursion">
-<h1>33. Counting on recursion<a class="headerlink" href="#counting-on-recursion" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Reeborg knows how to count ... but we have not seen that yet and will
-not for a while. If you know some Javascript other than what you&#8217;ve
-learned here, you might already know how to make Reeborg count using
-numerical variables; however, I ask you to not use those in what
-follows.</p>
-<p>Select world <strong>Tokens&nbsp;5</strong>. Where Reeborg stands, a single token can be
-found. You know how to make Reeborg take the token and move to the next
-square. I ask you to do this and have Reeborg repeat these two steps
-until he finds itself on a square where no token is to be found. Then,
-Reeborg must drop all the tokens collected on that square and move to
-the next square.</p>
-<p>The exact same program must work with world <strong>Tokens&nbsp;6</strong>, which has a
-different number of tokens - so you can not use <tt class="docutils literal"><span class="pre">repeat()</span></tt> as you
-don&#8217;t have a fixed number of repetitions.</p>
-<p>Reeborg starts with an infinite number of tokens in his pockets: so you
-can not use <tt class="docutils literal"><span class="pre">has_token()</span></tt> to figure out when to stop dropping tokens
-on the one spot.</p>
-<div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>Use recursion to write a solution to this problem. An outline
-of a solution can be found below:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">collect</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">something</span>
-    <span class="o">//</span> <span class="n">something</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">some_condition</span><span class="p">)</span> <span class="p">{</span>
-        <span class="o">//</span> <span class="n">something</span>
-    <span class="p">}</span>
-    <span class="o">//</span><span class="n">something</span>
-<span class="p">}</span>
+  <div class="section" id="compter-sur-la-recursivite">
+<h1>33. Compter sur la récursivité<a class="headerlink" href="#compter-sur-la-recursivite" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Reeborg sait comment compter ... mais nous n&#8217;avons pas encore vu ceci et
+nous ne le verrons pour quelque temps encore. Si vous avez appris la
+programmation ailleurs, vous savez probablement comment utiliser des
+variables numériques pour permettre à Reeborg de compter. Si c&#8217;est le
+cas, je vous demande de ne <strong>pas</strong> les utiliser dans ce qui suit.</p>
+<p>Sélectionnez le monde <strong>Jetons&nbsp;5</strong>. Là où Reeborg se trouve, il y a un seul
+jeton. Vous savez comment demander à Reeborg de prendre un jeton et
+d&#8217;avancer d&#8217;un pas. Je vous demande de faire en sorte que Reeborg répète
+ces deux instructions jusqu&#8217;à ce qu&#8217;il se trouve à un endroit où il n&#8217;y
+a pas de jetons. À cet endroit, Reeborg doit déposer tous les jetons
+qu&#8217;il a ramassé puis se déplacer au carré suivant.</p>
+<p>Le même programme peut être utilisé pour le monde <strong>Jetons&nbsp;6</strong>, qui a un
+nombre différent de jetons; vous ne pouvez donc pas utiliser la fonction
+<tt class="docutils literal"><span class="pre">repete()</span></tt> si vous voulez avoir un seul programme pour les deux
+mondes.</p>
+<p>Reeborg commence avec un nombre illimité de jetons dans ses poches; vous
+ne pouvez donc pas utiliser le test <tt class="docutils literal"><span class="pre">a_des_jetons()</span></tt> pour permettre à
+Reeborg de déterminer quand il doit arrêter de déposer des jetons.</p>
+<p>Pour satisfaire à toutes les contraintes mentionnées, vous allez
+utiliser un programme récursif, dont l&#8217;esquisse suit, pour résoudre ces
+problèmes.</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">collectionne</span><span class="p">():</span>
+    <span class="c"># instruction</span>
+    <span class="c"># instruction</span>
+    <span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
+        <span class="c"># instruction</span>
+    <span class="c">#instruction</span>
 
-<span class="n">collect</span><span class="p">();</span>
-<span class="n">move</span><span class="p">();</span>
+<span class="n">collectionne</span> <span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
+<div class="topic">
+<p class="topic-title first">À votre tour!</p>
+<p>Écrivez le programme décrit ci-dessus et vérifiez qu&#8217;il fonctionne correctement.</p>
 </div>
 <div class="topic">
-<p class="topic-title first">Recursive challenges</p>
-<p>Review all of the previous challenges and try writing new solutions using
-recursion instead of <tt class="docutils literal"><span class="pre">while</span></tt> loops.</p>
+<p class="topic-title first">Missions récursives</p>
+<p>Revoyez toutes les missions précédentes et tentez d&#8217;écrire de nouvelles solutions
+en utilisant la récursivité plutôt que des boucles <tt class="docutils literal"><span class="pre">while</span></tt>.</p>
 </div>
 </div>
 
@@ -165,7 +166,7 @@ recursion instead of <tt class="docutils literal"><span class="pre">while</span>
              <a href="return.html" title="34. Return"
              >suivant</a></li>
         <li class="right" >
-             <a href="recursion3.html" title="32. More recursion"
+             <a href="recursion3.html" title="32. Encore de la récursivité"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

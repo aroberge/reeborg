@@ -1,43 +1,50 @@
-Counting on recursion
-=====================
+Compter sur la récursivité
+==========================
 
-Reeborg knows how to count ... but we have not seen that yet and will
-not for a while. If you know some Python other than what you've
-learned here, you might already know how to make Reeborg count using
-numerical variables; however, I ask you to not use those in what
-follows.
+Reeborg sait comment compter ... mais nous n'avons pas encore vu ceci et
+nous ne le verrons pour quelque temps encore. Si vous avez appris la
+programmation ailleurs, vous savez probablement comment utiliser des
+variables numériques pour permettre à Reeborg de compter. Si c'est le
+cas, je vous demande de ne **pas** les utiliser dans ce qui suit.
 
-Select world **Tokens 5**. Where Reeborg stands, a single token can be
-found. You know how to make Reeborg take the token and move to the next
-square. I ask you to do this and have Reeborg repeat these two steps
-until he finds itself on a square where no token is to be found. Then,
-Reeborg must drop all the tokens collected on that square and move to
-the next square.
+Sélectionnez le monde **Jetons 5**. Là où Reeborg se trouve, il y a un seul
+jeton. Vous savez comment demander à Reeborg de prendre un jeton et
+d'avancer d'un pas. Je vous demande de faire en sorte que Reeborg répète
+ces deux instructions jusqu'à ce qu'il se trouve à un endroit où il n'y
+a pas de jetons. À cet endroit, Reeborg doit déposer tous les jetons
+qu'il a ramassé puis se déplacer au carré suivant.
 
-The exact same program must work with world **Tokens 6**, which has a
-different number of tokens - so you can not use ``repeat()`` as you
-don't have a fixed number of repetitions.
+Le même programme peut être utilisé pour le monde **Jetons 6**, qui a un
+nombre différent de jetons; vous ne pouvez donc pas utiliser la fonction
+``repete()`` si vous voulez avoir un seul programme pour les deux
+mondes.
 
-Reeborg starts with an infinite number of tokens in his pockets: so you
-can not use ``has_token()`` to figure out when to stop dropping tokens
-on the one spot.
+Reeborg commence avec un nombre illimité de jetons dans ses poches; vous
+ne pouvez donc pas utiliser le test ``a_des_jetons()`` pour permettre à
+Reeborg de déterminer quand il doit arrêter de déposer des jetons.
 
-.. topic:: Try this!
+Pour satisfaire à toutes les contraintes mentionnées, vous allez
+utiliser un programme récursif, dont l'esquisse suit, pour résoudre ces
+problèmes.
 
-    Use recursion to write a solution to this problem. An outline
-    of a solution can be found below::
+.. code:: py3
 
-        def collect():
-            # something
-            # something
-            if some_condition:
-                # something
-            #something
+    def collectionne():
+        # instruction
+        # instruction
+        if condition:
+            # instruction
+        #instruction
 
-        collect()
-        move()
+    collectionne ()
+    avance()
 
-.. topic:: Recursive challenges
+.. topic:: À votre tour!
 
-    Review all of the previous challenges and try writing new solutions using
-    recursion instead of ``while`` loops.
+    Écrivez le programme décrit ci-dessus et vérifiez qu'il fonctionne correctement.
+
+
+.. topic:: Missions récursives
+
+    Revoyez toutes les missions précédentes et tentez d'écrire de nouvelles solutions
+    en utilisant la récursivité plutôt que des boucles ``while``.
