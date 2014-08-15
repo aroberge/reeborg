@@ -2,6 +2,7 @@
 Conclusion
 ===============
 
-This brings us to the end of this tutorial.  There is much more to learn about
-programming using Python.  In particular, we have not discussed the concept of
-Object Oriented programming.  This will be explained in a more advanced tutorial.
+Ceci est la fin de ce tutoriel.  Il y a encore plein de choses à apprendre au sujet
+de la programmation Python.  En particulier, je n'ai rien mentionné au sujet
+de la Programmation Orientée Objet.  Ceci sera vu dans un tutoriel avancé.
+

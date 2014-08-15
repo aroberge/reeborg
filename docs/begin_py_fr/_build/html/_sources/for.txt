@@ -1,52 +1,49 @@
+Boucles ``for``
+===============
 
-For loops
-=========
+Comme nous l'avons vu, les boucles ``while`` peuvent être utilisées avec
+des nombres suivant le patron::
 
-As we have seen, ``while`` loops can be used with numbers using the
-following pattern::
-
-    var n = 0             # initialization
-    while n < max_value : # condition to end the loop
+    n = 0                      # initialisation
+    while n < valeur_maximale : # condition pour terminer
         ...
-        n += 1  # increment
+        n += 1  # incrément
 
-Another way to write **exactly the same program meaning** is to use a
-``for`` loop::
+Une autre façon d'écrire un bout de programme ayant **exactement le
+même sens** est d'utilisé une boucle ``for``::
 
-    for n in range(max_value):
+    for n in range(valeur_maximale):
        ...
 
-The ``for`` loop in Python can be used for much more than counting items.
-However, this will not be covered in this tutorial.
+La boucle ``for`` peut être utilisée pour plus de choses que simplement
+compter des objets.  Cependant, nous ne verrons pas ces autres exemples
+dans cette leçon.
 
-Using the ``for`` loop syntax, we can have a different definition for a
-``repeat``-like function::
+En utilisant une boucle ``for``, on peut avoir une autre définition
+pour la fonction ``repete``::
 
-    def my_repeat(some_function, max_value):
-        for n in range(max_value):
-            some_function()
+    def mon_repete(fonction_quelconque, valeur_maximale):
+        for n in range(valeur_maximale):
+            fonction quelconque()
 
-    my_repeat(move, 9);
-    my_repeat(turn_left, 4);
-
-.. topic:: Try it!
-
-   Try the above program with world **Around 1**.
+    mon_repete(avance, 9)
+    mon_repete(tourne_a_gauche, 4)
 
 
-Reeborg's ``repeat()``
-----------------------
+.. topic:: À votre tour!
 
-Open Reeborg's diary and have Reeborg execute the single line program::
+   Essayez le programme ci-dessus avec le monde **Autour 1**.
 
-    view_source( repeat )
+Le ``repete()`` de Reeborg
+--------------------------
 
-You will see a completely different code than the above as this will
-reveal the ``repeat`` function used by Reeborg ... and written using
-Javascript.  In fact, it uses Javascript's version of a ``for`` loop
-which looks very different from the Python version.  
-If you compare the Javascript code with the Python one, you will likely
-agree that Python is a "cleaner" language, with fewer extra characters
-like ``;`` or ``}``.
+Ouvrez le journal de Reeborg et exécutez l'instruction suivante::
 
+    voir_source( repete )
 
+Vous verrez une fonction complètement différente de celle ci-dessus;
+cette fonction est celle utilisée dans le monde de Reeborg.  Cette fonction
+utilise la boucle ``for`` du langage de programmation Javascript.
+Si vous comparez le code Javascript avec le code Python, vous concluerez
+probablement que Python est plus simple que Javascript car il y a moins
+de caractères apparemment superflus tels que ``;`` ou ``}``.

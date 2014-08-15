@@ -1,185 +1,198 @@
-Introduction to the challenges
-==============================
+Introduction aux missions
+=========================
 
-In this lesson, I introduce briefly most of the challenges (tasks) that
-Reeborg has to accomplish and which you can select from the menu
-above Reeborg's world. What you
-have to do, is to write programs that accomplish what is being described
-as being Reeborg's task. **You do not have to do all the challenges.**
-The idea at this point is to get familiar with the way that Reeborg
-moves and to identify patterns that reoccur when finding a given
-solution.
+Bonjour programmeur anonyme,
 
-While you write your programs, each of which will consist of a specific
-of series of instructions, you have the advantage of seeing the entire
-world all at once. You should start to think about how Reeborg, who only sees the
-grid square where he is located, could take advantage of clues to
-determine its next action; this will be useful later on.
+Votre mission, si vous l'accepter, consiste à lire les descriptions
+qui suivent et à écrire des programmes permettant d'accomplir les tâches qui
+y sont décrites.
 
-Important information about saving your work
---------------------------------------------
+**Vous n'avez pas à écrire des programmes pour toutes ces tâches à ce
+moment-ci.** L'idée est de vous permettre de vous familiariser avec la
+façon dont Reeborg agit et d'identifier des patrons récurrents dans les
+diverses solutions.
 
-By making use of something known as *Local Storage*, Reeborg's World remembers  
-the last program you work on in a given browser (Firefox or Chrome).
-However, it might be useful for you to save your programs on your computer,
-or on a usb key.  You can do this by clicking on the **Save** button at the
-right of the Python editor tab.  Similarly, you can retrieve a program
-from your computer using the **Load** button.
+Lorsque vous allez écrire vos programmes, vous aurez l'avantage de voir
+le monde dans son ensemble. Vous devriez chercher à vous identifier à
+Reeborg, qui ne voit que le carré où il se trouve, et imaginer comment
+vous pouvez vous baser sur cette vue limitée pour décider quelle devrait
+être la prochaine action.
 
-If you do save your programs, you will have to note for which
-world they are designed. To do so you can use comments. Alternatively,
-and this is perhaps a better option, you can use the special command
-``select_world("world_name_here")`` as the first instruction. For
-example, a solution to world Home 1 would be::
+Sauvegarde de votre travail
+---------------------------
 
-    select_world("Home 1")
-    move()
-    move()
+En utilisant "l'entreposage local" (*Local Storage*), le Monde de Reeborg
+se souvient du **dernier** programme que vous avez exécuté dans votre
+navigateur (Chrome ou Firefox). Cependant, ce serait parfois
+utile de sauvegarder un certain programme soit sur votre ordinateur
+ou sur un clé usb.  Pour ce faire, vous n'avez qu'à cliquer sur le
+bouton **Sauvegarder** à la droite de l'onglet pour l'éditeur Python.
+De la même façon, vous pouvez récupérer un programme en cliquant
+sur le bouton **Charger**.
 
-.. topic:: Try it!
+Si vous
+sauvegardez un programme, il serait probablement utile d'ajouter de
+l'information indiquant pour quelle monde ce programme représente une
+solution. Une façon de le faire est d'ajouter un commentaire - ce que
+vous savez comment faire si vous avez lu les leçons précédentes. Une
+autre façon, peut-être plus utile, est d'avoir comme toute première
+instruction ``selectionne_monde("nom du monde ici");``. Par exemple, une
+solution au monde **But 1** aurait comme première instruction::
 
-    Without selecting world **Home 1**, run the program above.  The first
-    time it will simply select the correct world and stop. If you try running it a
-    second time, it will run with the right world selected.
+    selectionne_monde("But 1")
+    avance()
+    avance()
 
-Finding the center
--------------------
+.. topic:: À votre tour!
 
-This is the first of our series of mini challenges.
+    Essayez d'exécuter ce programme sans sélectionner **But 1** en
+    premier. Puis, exécuter ce programme une deuxième fois sans rien changer
+    d'autre.
 
-Have a look at the worlds **Center 1** to **Center 3**. 
-In each case, you will have to write a
-program that has Reeborg put a token at the geometric center of the
-rectangular room he finds himself in. 
+Trouver le centre
+-----------------
 
-.. topic:: Try this!
+Examinez les mondes **Centrer 1** à **Centrer 3**. Dans chaque cas, écrivez un
+programme faisant en sorte que Reeborg dépose un jeton au centre
+géométrique de la pièce rectangulaire dans laquelle il se trouve.
 
-    Write a program for only one of these worlds for now.
+.. topic:: À votre tour!
 
-Later, you will be able to write a single program that will have Reeborg
-find the geometric center of any rectangular room (with odd dimensions
-on each side) and have it put a token at that exact location.
+    Écrivez au moins un programme pour un de ces mondes.
 
-Around the world
-----------------
+Plus tard, vous serez en mesure d'écrire un programme unique permettant
+à Reeborg de trouver le centre géométrique de n'importe quelle salle
+rectangulaire (ayant des côtés de dimension impaire) et d'y déposer un
+jeton.
 
-Have a look at the worlds **Around 1** to **Around 4**. For at least one of
-these worlds, write a program that will have Reeborg go all around the
-world coming back at its original starting location, always moving next
-to a wall.
+Autour du monde
+---------------
 
-Later, we will come back to these challenges and show you how to write
-programs that are much shorter and, will work for all of these four
-worlds and any similar worlds.
+Examinez les mondes **Autour 1** à **Autour 4**. Pour au moins un de ces mondes,
+écrivez un programme faisant en sorte que Reeborg fasse le tour du
+monde, en suivant un mur, et retourne à son point de départ.
 
-Lost in a maze
---------------
+Plus tard, vous verrez comment on peut écrire un programme beaucoup plus
+court et qui peut permettre à Reeborg de faire le tour de n'importe quel
+de ces 4 mondes, et de tout autre monde semblable.
 
-Reeborg is lost in a maze. Have a look at the worlds **Maze 1** and **Maze 2**.
-Can you think of a way to write a program that could get Reeborg out of both
-of these mazes? Later, you will learn how to do this and, in fact, you will
-write a program that could help Reeborg get out of almost any
-maze you could think of.
+Perdu dans un labyrinthe
+------------------------
 
-Jumping over hurdles
---------------------
+Reeborg est perdu dans un labyrinthe. Jetez un coup d'oeil sur les
+mondes **Labyrinthe 1** et **Labyrinthe 2**. Dans chaque cas, écrivez un
+programme qui permet à Reeborg de trouver la sortie.
 
-Reeborg has entered a race. It's the 110 meters hurdles race, in
-preparation for the Olympics. Have a look at the world **Hurdles 1** and
-have Reeborg complete the race, staying as low as he can, just jumping
-over the hurdles like this:
+Plus tard, vous serez capable d'écrire un programme unique permettant à
+Reeborg de sortir de ces deux labyrinthes et, en fait de sortir
+probablement de n'importe quel labyrinthe que vous pourriez concevoir.
+
+Sauter par-dessus les haies
+---------------------------
+
+Reeborg va participer à une course; il s'agit du 110 mètres haies, en
+préparation pour les jeux olympiques. Examinez le monde **Haies 1** et
+écrivez un programme permettant à Reeborg de terminer la course, en
+demeurant aussi près que possible du sol lorsqu'il saute les haies:
 
 |hurdles|
 
-.. topic:: Try it!
+.. topic:: À votre tour!
 
-   Write a program for the hurdle race.  Notice how often you repeat a certain
-   set of instructions.
+    Écrivez un programme pour ce monde.  Notez à commbien de
+    reprises vous répétez certaines séries d'instructions.
 
-Once you have done that, select world **Hurdles 2**: that's an indoor race,
-and therefore shorter. (It is also the one illustrated above.) You
-should be able to remove a few lines of your program and have Reeborg
-complete that race as well.
+Lorsque vous aurez réussi à écrire un tel programme, vous voudrez
+peut-être l'adapter au monde **Haies 2**: il s'agit d'une course intérieure,
+et donc plus courte. (En fait, c'est celle illustrée ci-dessus. )
 
-Once you are done with those races, you might want to try the unevenly
-spaced hurdles of world **Hurdles 3** or the highly irregular ones of world
-**Hurdles 4**.
-
-
-Harvest time
-------------
-
-Reeborg has been gardening and it is time to harvest. Select world
-**Harvest 1**, **Harvest 2** or **Harvest 3** and have Reeborg collect all the
-tokens which represent plants to harvest.
-
-Notice how one can view the first worlds **Harvest 1** and **Harvest 3** as
-having horizontal (or vertical) rows having the same length, while world
-**Harvest 2** can be seen as having diagonal rows having the same length.
-
-Alternatively, select world **Harvest 4** which occurred earlier in the
-season. Reeborg had been planting some carrots; some sprouted fine,
-others did not, while at some location 2 or more seeds sprouted. Reeborg
-must remove the excess plants and reseed at locations where there are
-missing ones so that each plant site has only one plant (token).
-
-**You do not have to write a program this time.**  Just think about how you
-would do it.
-
-Stormy weather
----------------
-
-It was a beautifully sunny day. Reeborg was playing outside with his
-friend. Suddenly, it started to rain and Reeborg remembered that the
-windows in his house were all open. So Reeborg went back to his house
-and stopped in front of the door, unsure of how to proceed.
-
-.. topic:: Try it!
-
-    Using the ``build_wall()`` instruction, help Reeborg close the windows
-    of his house. When Reeborg finishes his task, he will stand in the
-    doorway, watching the rain fall, waiting for it to stop before he can go
-    back and play outside. The world is **Storm 1**.
-
-Reeborg's friend's turn.
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Erdna, Reeborg's friend, lives in a bigger house as shown on **Storm 2**.
-Erdna was playing outside with Reeborg when it started raining. Help
-Erdna close the windows in her house.
-
-Later, you will be able to write a single program that will work for
-both Reeborg and Erdna ... however, it will be a bit tricky.
-
-After the storm
-~~~~~~~~~~~~~~~
-
-The wind blew really hard last night. There is litter everywhere outside
-Reeborg's house. His parents asked him to go and clean up the path
-leading to the curb, **Storm 3**, as well as the driveway: **Storm 4**.
-
-Reeborg should collect all the litter, and put it in the garbage can,
-and close the lid, using ``build_wall()``.
-
-More yard work!
-~~~~~~~~~~~~~~~
-
-Reeborg's parents are so proud of his work, that they ask him to pick up
-all the garbage that got blown away in their backyard during the
-windstorm, as illustrated on **Storm 5**. Have Reeborg pick up all the
-garbage and put it in the garbage can.
-
-Later, you will learn to write a single program that can help Reeborg do
-the cleanup for all three locations.
-
-Summary
--------
-
-Writing programs that can solve the previous challenges can be quite
-tedious as you have to write every single instruction that Reeborg must
-follow. However, they are good exercises to make you think like a robot.
-As you learn more about programming using Python, you will find ways
-to write much shorter programs to solve these challenges.
-
+Lorsque vous en aurez terminé avec ces deux courses, vous voudrez
+peut-être tenter votre chance avec celle des haies inégalement espacées
+**Haies 3** ou celle des haies très irrégulières **Haies 4**.
 
 .. |hurdles| image:: ../../src/images/hurdles.png
+
+Le temps des récoltes
+---------------------
+
+Reeborg est à la ferme de sa tante et c'est le temps des récoltes.
+Sélectionnez un des mondes **Récolte 1**, **Récolte 2** ou **Récolte 3** et faites
+en sorte que Reeborg ramasse tous les jetons qui représentent des
+plantes à récolter.
+
+Observez que les mondes **Récolte 1** et **Récolte 3** ont des rangées
+horizontales (ou verticales) ayant la même longueur alors que le monde
+Récolte 2 peut être vu comme ayant des rangées diagonales ayant la même
+longueur.
+
+Pour une autre tâche, sélectionnez le monde **Récolte 4** qui a eu lieu plus
+tôt dans la saison. Reeborg avait planté des graines de carottes;
+certaines avaient poussé correctement alors que d'autres graines
+n'avaient pas germées; d'autres encore avaient été semées trop
+rapprochées les unes des autres. Reeborg doit enlever les carottes en
+excès, resemer aux endroits où les graines n'ont pas germé de façon à
+avoir une carotte (jeton) par endroit.
+
+**Vous n'avez pas à écrire un programme à ce moment-ci.**
+Cependant, pensez à quoi aurait l'air un tel programme.
+
+
+Jour de tempête
+---------------
+
+C'était une belle journée ensoleillée. Reeborg jouait dehors avec son
+amie. Soudainement, la pluie se mit à tomber et Reeborg se rappela que
+les fenêtres de sa maison étaient toutes ouvertes. Reeborg alla donc
+chez lui pour fermer les fenêtres mais arrêta au seuil de la porte,
+indécis quant à la meilleure façon de procéder.
+
+.. topic:: À votre tour!
+
+    Utilisez la commande ``construit_un_mur()`` et aidez Reeborg à fermer
+    les fenêtres de sa maison. Lorsque Reeborg aura terminé, il sera au
+    seuil de la porte, regardant la pluie tomber et attendra patiemment
+    qu'elle arrête pour qu'il puisse retourner jouer dehors. Le monde à
+    sélectionner est **Tempête 1**.
+
+Au tour de l'amie de Reeborg
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Erdna, l'amie de Reeborg, vit dans une plus grande maison illustrée dans
+**Tempête 2**. Erdna jouait avec Reeborg lorsque la pluie s'est mise à
+tomber. Aidez Erdna à fermer les fenêtres de sa maison.
+
+Plus tard, vous serez capable d'écrire un seul programme permettant à
+Reeborg et à Erdna de fermer les fenêtres de leur maison ... mais ça
+vous demandera de la réflexion.
+
+Après la tempête
+~~~~~~~~~~~~~~~~
+
+Le vent a soufflé violemment la nuit dernière. Il y a des déchets
+partout autour de la maison de Reeborg. Ses parents lui demandent de
+nettoyer le trottoir qui mène à la rue **Tempête 3**, ainsi que l'allée
+**Tempête 4**.
+
+Reeborg doit ramasser tous les déchets (représentés par des jetons), et
+les mettre dans la poubelle en s'assurant de fermer le couvercle à
+l'aide de l'instruction ``construit_un_mur()``.
+
+Encore du travail!
+~~~~~~~~~~~~~~~~~~
+
+Les parents de Reeborg sont tellement content de son travail de
+nettoyage qu'ils lui demande de ramasser tous les déchets qui se sont
+retrouvés dans la cour, tel qu'illustré dans **Tempête 5**.
+
+Plus tard, vous serez en mesure d'écrire un seul programme qui permettra
+d'accomplir les trois tâches de nettoyage.
+
+Résumé
+------
+
+Écrire des programmes où toutes les instructions permettant à Reeborg d'accomplir
+une certaine tâche doivent être écrite une à la fois peut être très fastidieux.
+Cependant, ceci vous a permis de vous mettre dans la peau d'un robot et vous
+aidera à utiliser Javascript pour écrire des programmes beaucoup plus court
+permettant d'accomplir les diverses tâches confiées à Reeborg.
+

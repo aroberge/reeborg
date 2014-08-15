@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>40. A better repeat() &mdash; Apprenez Python avec Reeborg</title>
+    <title>40. Un meilleur repete() &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="41. Conclusion" href="conclusion.html" />
-    <link rel="prev" title="39. For loops" href="for.html" /> 
+    <link rel="next" title="42. Conclusion" href="conclusion.html" />
+    <link rel="prev" title="39. Boucles for" href="for.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -64,10 +64,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="conclusion.html" title="41. Conclusion"
+             <a href="conclusion.html" title="42. Conclusion"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="for.html" title="39. For loops"
+             <a href="for.html" title="39. Boucles for"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,18 +80,22 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">40. A better <strong>repeat()</strong></a><ul>
-<li><a class="reference internal" href="#extending-this-idea">40.1. Extending this idea</a></li>
+<li><a class="reference internal" href="#">40. Un meilleur <strong>repete()</strong></a><ul>
+<li><a class="reference internal" href="#extension-de-cette-idee">40.1. Extension de cette idée</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#une-autre-facon-de-repeter">41. Une autre façon de répéter</a><ul>
+<li><a class="reference internal" href="#comportement-par-defaut">41.1. Comportement par défaut</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="for.html"
-                        title="Chapitre précédent">39. For loops</a></p>
+                        title="Chapitre précédent">39. Boucles <tt class="docutils literal"><span class="pre">for</span></tt></a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="conclusion.html"
-                        title="Chapitre suivant">41. Conclusion</a></p>
+                        title="Chapitre suivant">42. Conclusion</a></p>
   <h3>Cette page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/better_repeat.txt"
@@ -116,88 +120,117 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="a-better-repeat">
-<h1>40. A better <strong>repeat()</strong><a class="headerlink" href="#a-better-repeat" title="Lien permanent vers ce titre">¶</a></h1>
+  <div class="section" id="un-meilleur-repete">
+<h1>40. Un meilleur <strong>repete()</strong><a class="headerlink" href="#un-meilleur-repete" title="Lien permanent vers ce titre">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This lesson covers some very advanced concepts. If you do not
-fully grasp them the first time around, you should feel free to continue
-with the other lessons.</p>
+<p class="last">Cette leçon couvre des concepts très avancés. Si vous ne comprenez
+pas tout, ceci ne devrait pas vous empêcher de continuer avec les autres
+leçons.</p>
 </div>
-<p>You have seen how we can use our function <tt class="docutils literal"><span class="pre">repeat()</span></tt> to reduce the
-number of lines of code needed to accomplish the same thing. For
-example, if we want to simulate a right turn, we can write
-<tt class="docutils literal"><span class="pre">repeat(turn_left,&nbsp;3)</span></tt>, thus replacing three instructions with one.
-The problem with doing this in general is that it does not make the code
-much more readable since we do not introduce descriptive names. A better
-approach that we have seen is to use <tt class="docutils literal"><span class="pre">repeat()</span></tt> inside a well-named
-function definition like this:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">turn_right</span> <span class="p">(){</span>
-    <span class="n">repeat</span><span class="p">(</span><span class="n">turn_left</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-<span class="p">}</span>
+<p>Vous avez vu comment on pouvait définir notre propre fonction
+équivalente à <tt class="docutils literal"><span class="pre">repete()</span></tt>, fonction qui permet d&#8217;éviter les répétitions
+de lignes de code. Par exemple, si on veut simuler un virage à droite,
+on peut écrire <tt class="docutils literal"><span class="pre">repete(</span> <span class="pre">tourne_a_gauche,&nbsp;3)</span></tt> au lieu de répéter trois
+fois la même instruction. Le problème avec cette approche en général est
+que ceci n&#8217;améliore pas la lisibilité du code puisqu&#8217;on n&#8217;introduit pas
+de noms descriptifs. Une meilleure approche que nous avons vu est
+d&#8217;utiliser <tt class="docutils literal"><span class="pre">repete()</span></tt> mais de cacher ces répétitions à l&#8217;intérieur
+d&#8217;une fonction:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tourne_a_droite</span><span class="p">():</span>
+    <span class="n">repeat</span><span class="p">(</span><span class="n">tourne_a_gauche</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>However, we can do this differently. First, we have just seen how
-<tt class="docutils literal"><span class="pre">repeat()</span></tt> is defined:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">repeat</span> <span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">n</span><span class="p">){</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fn</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>Cependant, on peut faire ceci d&#8217;une autre façon. Tout d&#8217;abord, revoyons
+une définition possible de <tt class="docutils literal"><span class="pre">repete()</span></tt>:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">repete</span> <span class="p">(</span><span class="n">fonction</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">fonction</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Second, we need to remember what the <tt class="docutils literal"><span class="pre">return</span></tt> statement does in a
-function. For example:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">function</span> <span class="n">some_function</span> <span class="p">(){</span>
-    <span class="o">//</span> <span class="n">some</span> <span class="n">lines</span> <span class="n">of</span> <span class="n">code</span>
-    <span class="k">return</span> <span class="n">something</span><span class="p">;</span>
-<span class="p">}</span>
+<p>Ensuite, rappelons-nous l&#8217;effet d&#8217;un énoncé <tt class="docutils literal"><span class="pre">return</span></tt> à l&#8217;intérieur
+d&#8217;une fonction. Par exemple, si on a:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">fonction_quelconque</span> <span class="p">():</span>
+    <span class="c"># quelques lignes de code</span>
+    <span class="k">return</span> <span class="n">quelque_chose</span>
 
-<span class="n">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">();</span>
-<span class="o">//</span> <span class="n">a</span> <span class="n">will</span> <span class="n">now</span> <span class="n">be</span> <span class="n">a</span> <span class="n">synonym</span> <span class="k">for</span> <span class="s">&quot;something&quot;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">onction_quelconque</span><span class="p">()</span>
+<span class="c"># a sera maintenant un synonyme pour &quot;quelque_chose&quot;</span>
 </pre></div>
 </div>
-<p>Just like we can have functions as arguments of other functions, we can
-<tt class="docutils literal"><span class="pre">return</span></tt> functions!</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">better_repeat</span> <span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">n</span><span class="p">){</span>
-    <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="nx">fn</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="p">};</span>
-<span class="p">}</span>
+<p>Tout comme on peut avoir des fonctions comme arguments d&#8217;autres
+fonctions, on peut <em>retourner</em> des fonctions!</p>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">meilleur_répète</span> <span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ancien_répète</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">fn</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">ancien_répète</span>
 
-<span class="c1">// now, use it to define a new way to turn right</span>
-<span class="kd">var</span> <span class="nx">my_turn_right</span> <span class="o">=</span> <span class="nx">better_repeat</span><span class="p">(</span><span class="nx">turn_left</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="c"># on l&#39;utilise pour définir un virage à droite</span>
+<span class="n">mon_virage_à_droite</span> <span class="o">=</span> <span class="n">meilleur_répète</span><span class="p">(</span><span class="n">tourne_à_gauche</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-<span class="nx">my_turn_right</span><span class="p">();</span>  <span class="c1">// and use it!</span>
+<span class="n">mon_virage_à_droite</span><span class="p">()</span>   <span class="c"># et on l&#39;utilise</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>See how you can create a new function using the <tt class="docutils literal"><span class="pre">better_repeat()</span></tt> function.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Vérifiez que le code ci-dessus fonctionne correctement.</p>
 </div>
-<div class="section" id="extending-this-idea">
-<h2>40.1. Extending this idea<a class="headerlink" href="#extending-this-idea" title="Lien permanent vers ce titre">¶</a></h2>
-<p>In addition to things that need to be repeated, we can also extend this
-idea to conditions that need to be tested for...</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">do_while</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">while</span> <span class="p">(</span><span class="nx">condition</span><span class="p">())</span> <span class="p">{</span>
-            <span class="nx">fn</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="p">};</span>
-<span class="p">}</span>
+<div class="section" id="extension-de-cette-idee">
+<h2>40.1. Extension de cette idée<a class="headerlink" href="#extension-de-cette-idee" title="Lien permanent vers ce titre">¶</a></h2>
+<p>En plus d&#8217;utiliser cette approche pour des répétions, on peut l&#8217;utiliser
+pour des conditions devant être vérifiées.</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">faire_pendant</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">condition</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">pendant</span><span class="p">():</span>
+        <span class="k">while</span> <span class="n">condition</span><span class="p">():</span>
+            <span class="n">fn</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">pendant</span>
 
-<span class="kd">var</span> <span class="nx">walk_to_the_wall</span> <span class="o">=</span> <span class="nx">do_while</span><span class="p">(</span><span class="nx">move</span><span class="p">,</span> <span class="nx">front_is_clear</span><span class="p">);</span>
-<span class="nx">walk_to_the_wall</span><span class="p">();</span>
+<span class="n">marche_au_mur</span> <span class="o">=</span> <span class="n">faire_pendant</span><span class="p">(</span><span class="n">avance</span><span class="p">,</span> <span class="n">rien_devant</span><span class="p">)</span>
+<span class="n">marche_au_mur</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Try the above.  Then, when you are done, you might want to define
-<tt class="docutils literal"><span class="pre">do_while_not(fn,&nbsp;condition)</span></tt> where we are doing something until a
-condition is <strong>not</strong> satisfied.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Vérifiez que ça fonctionne.</p>
+<p>Lorsque vous aurez terminé, vous pourrez tenter de définir une fonction
+<tt class="docutils literal"><span class="pre">faire_si_non(fn,&nbsp;condition)</span></tt> où nous faisons quelque chose jusqu&#8217;à ce
+qu&#8217;une condition ne soit <strong>pas</strong> satisfaite.</p>
+</div>
+</div>
+</div>
+<div class="section" id="une-autre-facon-de-repeter">
+<h1>41. Une autre façon de répéter<a class="headerlink" href="#une-autre-facon-de-repeter" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Nous pouvons également utiliser une façon différente de répéter une
+certaine instruction, qui est spécifique à cette instruction.
+Supposons que l&#8217;on veuille <em>tourner à droite</em> ou <em>faire demi-tour</em>
+mais qu&#8217;on voudrait n&#8217;avoir qu&#8217;un seul nom de fonction à se rappeler.
+Une façon de faire ceci serait la suivante:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tourne</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">tourne_a_gauche</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>En utilisant cette définition, <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> serait <tt class="docutils literal"><span class="pre">tourne(3)</span></tt>
+et <tt class="docutils literal"><span class="pre">demi_tour()</span></tt> serait <tt class="docutils literal"><span class="pre">tourne(2)</span></tt>. Essayez!</p>
+<div class="section" id="comportement-par-defaut">
+<h2>41.1. Comportement par défaut<a class="headerlink" href="#comportement-par-defaut" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Vous vous rappelez du fait que <tt class="docutils literal"><span class="pre">prend()</span></tt> et <tt class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></tt> sont équivalents?
+Ne serait-il pas utile d&#8217;avoir quelque chose de semblable pour <tt class="docutils literal"><span class="pre">tourne()</span></tt> où <tt class="docutils literal"><span class="pre">tourne()</span></tt>,
+sans argument, serait équivalent à <tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt>?</p>
+<p>Ceci peut être fait de la façon suivante:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tourne</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="ow">is</span> <span class="k">None</span><span class="p">:</span>    <span class="c"># None indique qu&#39;aucun argument n&#39;a été inclus</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>        <span class="c"># valeur par défaut</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">tourne_a_gauche</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Si on spéficie un argument (entier) inférieur à 1, la boucle
+<tt class="docutils literal"><span class="pre">for</span></tt> sera ignorée et Reeborg ne tournera pas!</p>
+<div class="topic">
+<p class="topic-title first">À votre tour!</p>
+<p>Écrivez des programmes qui utilisent les exemples de code ci-dessus.</p>
 </div>
 </div>
 </div>
@@ -212,10 +245,10 @@ condition is <strong>not</strong> satisfied.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="conclusion.html" title="41. Conclusion"
+             <a href="conclusion.html" title="42. Conclusion"
              >suivant</a></li>
         <li class="right" >
-             <a href="for.html" title="39. For loops"
+             <a href="for.html" title="39. Boucles for"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
