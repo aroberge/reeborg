@@ -1,119 +1,126 @@
-
-A better **repeat()**
-=====================
+Un meilleur **repete()**
+========================
 
 .. note::
 
-    This lesson covers some very advanced concepts. You may have to
-    go through it more than once.  Feel free to continue with
-    other tutorials instead.
+    Cette leçon couvre des concepts très avancés. Si vous ne comprenez
+    pas tout, ceci ne devrait pas vous empêcher de continuer avec les autres
+    leçons.
 
-You have seen how we can use our function ``repeat()`` to reduce the
-number of lines of code needed to accomplish the same thing. For
-example, if we want to simulate a right turn, we can write
-``repeat(turn_left, 3)``, thus replacing three instructions with one.
-The problem with doing this in general is that it does not make the code
-much more readable since we do not introduce descriptive names. A better
-approach that we have seen is to use ``repeat()`` inside a well-named
-function definition like this::
+Vous avez vu comment on pouvait définir notre propre fonction
+équivalente à ``repete()``, fonction qui permet d'éviter les répétitions
+de lignes de code. Par exemple, si on veut simuler un virage à droite,
+on peut écrire ``repete( tourne_a_gauche, 3)`` au lieu de répéter trois
+fois la même instruction. Le problème avec cette approche en général est
+que ceci n'améliore pas la lisibilité du code puisqu'on n'introduit pas
+de noms descriptifs. Une meilleure approche que nous avons vu est
+d'utiliser ``repete()`` mais de cacher ces répétitions à l'intérieur
+d'une fonction::
 
-    def turn_right ():
-        repeat(turn_left, 3)
+    def tourne_a_droite():
+        repeat(tourne_a_gauche, 3)
 
-However, we can do this differently. First, we have just seen how
-``repeat()`` can be defined using a for loop::
+Cependant, on peut faire ceci d'une autre façon. Tout d'abord, revoyons
+une définition possible de ``repete()``::
 
-    def repeat (function, n):
+    def repete (fonction, n):
         for i in range(n):
-            function()
+            fonction()
 
-Second, we need to remember what the ``return`` statement does in a
-function. For example::
 
-    def some_function ():
-        # some lines of code
-        return something;
+Ensuite, rappelons-nous l'effet d'un énoncé ``return`` à l'intérieur
+d'une fonction. Par exemple, si on a::
 
-    a = some_function()
-    # a will now be a synonym for "something"
+    def fonction_quelconque ():
+        # quelques lignes de code
+        return quelque_chose
 
-Just like we can have functions as arguments of other functions, we can
-``return`` functions!
+    a = onction_quelconque()
+    # a sera maintenant un synonyme pour "quelque_chose"
 
-.. code-block:: py3
+Tout comme on peut avoir des fonctions comme arguments d'autres
+fonctions, on peut *retourner* des fonctions!
 
-    def better_repeat (fn, n):
-        def old_repeat():
+.. code:: py3
+
+    def meilleur_répète (fn, n):
+        def ancien_répète():
             for i in range(n):
                 fn()
-        return old_repeat
+        return ancien_répète
 
-    # now, use it to define a new way to turn right
-    my_turn_right = better_repeat(turn_left, 3)
+    # on l'utilise pour définir un virage à droite
+    mon_virage_à_droite = meilleur_répète(tourne_à_gauche, 3)
 
-    my_turn_right()  # and use it!
+    mon_virage_à_droite()   # et on l'utilise
 
-.. topic:: Try it!
 
-   See how you can create a new function using the ``better_repeat()`` function.
+.. topic:: À votre tour!
 
-Extending this idea
--------------------
+    Vérifiez que le code ci-dessus fonctionne correctement.
 
-In addition to things that need to be repeated, we can also extend this
-idea to conditions that need to be tested for...
+Extension de cette idée
+-----------------------
+
+En plus d'utiliser cette approche pour des répétions, on peut l'utiliser
+pour des conditions devant être vérifiées.
 
 .. code-block:: py3
 
-    def do_while(fn, condition):
-        def until():
+    def faire_pendant(fn, condition):
+        def pendant():
             while condition():
                 fn()
-        return until
+        return pendant
 
-    walk_to_the_wall = do_while(move, front_is_clear)
-    walk_to_the_wall()
+    marche_au_mur = faire_pendant(avance, rien_devant)
+    marche_au_mur()
 
-.. topic:: Try it!
+.. topic:: À votre tour!
 
-    Try the above.  Then, when you are done, you might want to define
-    ``do_while_not(fn, condition)`` where we are doing something until a
-    condition is **not** satisfied.
+    Vérifiez que ça fonctionne.
 
-An other way to repeat
-======================
+    Lorsque vous aurez terminé, vous pourrez tenter de définir une fonction
+    ``faire_si_non(fn, condition)`` où nous faisons quelque chose jusqu'à ce
+    qu'une condition ne soit **pas** satisfaite.
 
-Here we present a different way to repeat a given instruction, one that
-is more specific to the instruction that we want to repeat. Suppose we
-want to *turn right* or *turn around* but want to have a single function
-name to remember. One way to do it is as follows::
 
-    def turn(n)
+
+Une autre façon de répéter
+==========================
+
+Nous pouvons également utiliser une façon différente de répéter une
+certaine instruction, qui est spécifique à cette instruction.
+Supposons que l'on veuille *tourner à droite* ou *faire demi-tour*
+mais qu'on voudrait n'avoir qu'un seul nom de fonction à se rappeler.
+Une façon de faire ceci serait la suivante::
+
+    def tourne(n)
         for i in range(n):
-            turn_left()
+            tourne_a_gauche()
 
-Using this definition, ``turn_right()`` would be written as ``turn(3)``
-and ``turn_around()`` would be written as ``turn(2)``. Try it!
+En utilisant cette définition, ``tourne_a_droite()`` serait ``tourne(3)``
+et ``demi_tour()`` serait ``tourne(2)``. Essayez!
 
-Having a default behaviour
---------------------------
+Comportement par défaut
+------------------------
 
-Remember how ``take()`` and ``take("token")`` are equivalent? Would it
-be nice to have something similar for ``turn()`` where ``turn()``, with
-no argument, would be equivalent to a single ``turn_left()``
-instruction?
+Vous vous rappelez du fait que ``prend()`` et ``prend("jeton")`` sont équivalents?
+Ne serait-il pas utile d'avoir quelque chose de semblable pour ``tourne()`` où ``tourne()``,
+sans argument, serait équivalent à ``tourne_a_gauche()``?
 
-This can be accomplished as follows::
+Ceci peut être fait de la façon suivante::
 
-    def turn(n):
-        if n is None:    # None indicates that no argument was given
-            n = 1        # default behaviour
+    def tourne(n):
+        if n is None:    # None indique qu'aucun argument n'a été inclus
+            n = 1        # valeur par défaut
         for i in range(n):
-            turn_left()
+            tourne_a_gauche()
 
-Note that, if a number less than 1 is passed as an
-argument, the ``for`` loop is skipped and Reeborg does not turn.
+Si on spéficie un argument (entier) inférieur à 1, la boucle
+``for`` sera ignorée et Reeborg ne tournera pas!
 
-.. topic:: Try it!
+.. topic:: À votre tour!
 
-   Write programs that make use of the code samples above.
+   Écrivez des programmes qui utilisent les exemples de code ci-dessus.
+

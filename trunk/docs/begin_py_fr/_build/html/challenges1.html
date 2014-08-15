@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8"> 
     
-    <title>8. Introduction to the challenges &mdash; Apprenez Python avec Reeborg</title>
+    <title>8. Introduction aux missions &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="9. Newspaper delivery" href="newspaper1.html" />
-    <link rel="prev" title="7. Summary" href="summary1.html" /> 
+    <link rel="next" title="9. Livraison de journaux" href="newspaper1.html" />
+    <link rel="prev" title="7. Résumé" href="summary1.html" /> 
   
   <script>
     // intelligent scrolling of the sidebar content
@@ -64,10 +64,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="newspaper1.html" title="9. Newspaper delivery"
+             <a href="newspaper1.html" title="9. Livraison de journaux"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="summary1.html" title="7. Summary"
+             <a href="summary1.html" title="7. Résumé"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -80,30 +80,30 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">8. Introduction to the challenges</a><ul>
-<li><a class="reference internal" href="#important-information-about-saving-your-work">8.1. Important information about saving your work</a></li>
-<li><a class="reference internal" href="#finding-the-center">8.2. Finding the center</a></li>
-<li><a class="reference internal" href="#around-the-world">8.3. Around the world</a></li>
-<li><a class="reference internal" href="#lost-in-a-maze">8.4. Lost in a maze</a></li>
-<li><a class="reference internal" href="#jumping-over-hurdles">8.5. Jumping over hurdles</a></li>
-<li><a class="reference internal" href="#harvest-time">8.6. Harvest time</a></li>
-<li><a class="reference internal" href="#stormy-weather">8.7. Stormy weather</a><ul>
-<li><a class="reference internal" href="#reeborg-s-friend-s-turn">8.7.1. Reeborg&#8217;s friend&#8217;s turn.</a></li>
-<li><a class="reference internal" href="#after-the-storm">8.7.2. After the storm</a></li>
-<li><a class="reference internal" href="#more-yard-work">8.7.3. More yard work!</a></li>
+<li><a class="reference internal" href="#">8. Introduction aux missions</a><ul>
+<li><a class="reference internal" href="#sauvegarde-de-votre-travail">8.1. Sauvegarde de votre travail</a></li>
+<li><a class="reference internal" href="#trouver-le-centre">8.2. Trouver le centre</a></li>
+<li><a class="reference internal" href="#autour-du-monde">8.3. Autour du monde</a></li>
+<li><a class="reference internal" href="#perdu-dans-un-labyrinthe">8.4. Perdu dans un labyrinthe</a></li>
+<li><a class="reference internal" href="#sauter-par-dessus-les-haies">8.5. Sauter par-dessus les haies</a></li>
+<li><a class="reference internal" href="#le-temps-des-recoltes">8.6. Le temps des récoltes</a></li>
+<li><a class="reference internal" href="#jour-de-tempete">8.7. Jour de tempête</a><ul>
+<li><a class="reference internal" href="#au-tour-de-l-amie-de-reeborg">8.7.1. Au tour de l&#8217;amie de Reeborg</a></li>
+<li><a class="reference internal" href="#apres-la-tempete">8.7.2. Après la tempête</a></li>
+<li><a class="reference internal" href="#encore-du-travail">8.7.3. Encore du travail!</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#summary">8.8. Summary</a></li>
+<li><a class="reference internal" href="#resume">8.8. Résumé</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="summary1.html"
-                        title="Chapitre précédent">7. Summary</a></p>
+                        title="Chapitre précédent">7. Résumé</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="newspaper1.html"
-                        title="Chapitre suivant">9. Newspaper delivery</a></p>
+                        title="Chapitre suivant">9. Livraison de journaux</a></p>
   <h3>Cette page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/challenges1.txt"
@@ -128,161 +128,172 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="introduction-to-the-challenges">
-<h1>8. Introduction to the challenges<a class="headerlink" href="#introduction-to-the-challenges" title="Lien permanent vers ce titre">¶</a></h1>
-<p>In this lesson, I introduce briefly most of the challenges (tasks) that
-Reeborg has to accomplish and which you can select from the menu
-above Reeborg&#8217;s world. What you
-have to do, is to write programs that accomplish what is being described
-as being Reeborg&#8217;s task. <strong>You do not have to do all the challenges.</strong>
-The idea at this point is to get familiar with the way that Reeborg
-moves and to identify patterns that reoccur when finding a given
-solution.</p>
-<p>While you write your programs, each of which will consist of a specific
-of series of instructions, you have the advantage of seeing the entire
-world all at once. You should start to think about how Reeborg, who only sees the
-grid square where he is located, could take advantage of clues to
-determine its next action; this will be useful later on.</p>
-<div class="section" id="important-information-about-saving-your-work">
-<h2>8.1. Important information about saving your work<a class="headerlink" href="#important-information-about-saving-your-work" title="Lien permanent vers ce titre">¶</a></h2>
-<p>By making use of something known as <em>Local Storage</em>, Reeborg&#8217;s World remembers
-the last program you work on in a given browser (Firefox or Chrome).
-However, it might be useful for you to save your programs on your computer,
-or on a usb key.  You can do this by clicking on the <strong>Save</strong> button at the
-right of the Javascript editor tab.  Similarly, you can retrieve a program
-from your computer using the <strong>Load</strong> button.</p>
-<p>If you do save your programs, you will have to note for which
-world they are designed. To do so you can use comments. Alternatively,
-and this is perhaps a better option, you can use the special command
-<tt class="docutils literal"><span class="pre">select_world(&quot;world_name_here&quot;);</span></tt> as the first instruction. For
-example, a solution to world Home&nbsp;1 would be:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">select_world</span><span class="p">(</span><span class="s">&quot;Home 1&quot;</span><span class="p">);</span>
-<span class="n">move</span><span class="p">();</span>
-<span class="n">move</span><span class="p">();</span>
+  <div class="section" id="introduction-aux-missions">
+<h1>8. Introduction aux missions<a class="headerlink" href="#introduction-aux-missions" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Bonjour programmeur anonyme,</p>
+<p>Votre mission, si vous l&#8217;accepter, consiste à lire les descriptions
+qui suivent et à écrire des programmes permettant d&#8217;accomplir les tâches qui
+y sont décrites.</p>
+<p><strong>Vous n&#8217;avez pas à écrire des programmes pour toutes ces tâches à ce
+moment-ci.</strong> L&#8217;idée est de vous permettre de vous familiariser avec la
+façon dont Reeborg agit et d&#8217;identifier des patrons récurrents dans les
+diverses solutions.</p>
+<p>Lorsque vous allez écrire vos programmes, vous aurez l&#8217;avantage de voir
+le monde dans son ensemble. Vous devriez chercher à vous identifier à
+Reeborg, qui ne voit que le carré où il se trouve, et imaginer comment
+vous pouvez vous baser sur cette vue limitée pour décider quelle devrait
+être la prochaine action.</p>
+<div class="section" id="sauvegarde-de-votre-travail">
+<h2>8.1. Sauvegarde de votre travail<a class="headerlink" href="#sauvegarde-de-votre-travail" title="Lien permanent vers ce titre">¶</a></h2>
+<p>En utilisant &#8220;l&#8217;entreposage local&#8221; (<em>Local Storage</em>), le Monde de Reeborg
+se souvient du <strong>dernier</strong> programme que vous avez exécuté dans votre
+navigateur (Chrome ou Firefox). Cependant, ce serait parfois
+utile de sauvegarder un certain programme soit sur votre ordinateur
+ou sur un clé usb.  Pour ce faire, vous n&#8217;avez qu&#8217;à cliquer sur le
+bouton <strong>Sauvegarder</strong> à la droite de l&#8217;onglet pour l&#8217;éditeur Python.
+De la même façon, vous pouvez récupérer un programme en cliquant
+sur le bouton <strong>Charger</strong>.</p>
+<p>Si vous
+sauvegardez un programme, il serait probablement utile d&#8217;ajouter de
+l&#8217;information indiquant pour quelle monde ce programme représente une
+solution. Une façon de le faire est d&#8217;ajouter un commentaire - ce que
+vous savez comment faire si vous avez lu les leçons précédentes. Une
+autre façon, peut-être plus utile, est d&#8217;avoir comme toute première
+instruction <tt class="docutils literal"><span class="pre">selectionne_monde(&quot;nom</span> <span class="pre">du</span> <span class="pre">monde</span> <span class="pre">ici&quot;);</span></tt>. Par exemple, une
+solution au monde <strong>But&nbsp;1</strong> aurait comme première instruction:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">selectionne_monde</span><span class="p">(</span><span class="s">&quot;But 1&quot;</span><span class="p">)</span>
+<span class="n">avance</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Without selecting world <strong>Home&nbsp;1</strong>, run the program above.  The first
-time it will simply select the correct world and stop. If you try running it a
-second time, it will run with the right world selected.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Essayez d&#8217;exécuter ce programme sans sélectionner <strong>But&nbsp;1</strong> en
+premier. Puis, exécuter ce programme une deuxième fois sans rien changer
+d&#8217;autre.</p>
 </div>
 </div>
-<div class="section" id="finding-the-center">
-<h2>8.2. Finding the center<a class="headerlink" href="#finding-the-center" title="Lien permanent vers ce titre">¶</a></h2>
-<p>This is the first of our series of mini challenges.</p>
-<p>Have a look at the worlds <strong>Center&nbsp;1</strong> to <strong>Center&nbsp;3</strong>.
-In each case, you will have to write a
-program that has Reeborg put a token at the geometric center of the
-rectangular room he finds himself in.</p>
+<div class="section" id="trouver-le-centre">
+<h2>8.2. Trouver le centre<a class="headerlink" href="#trouver-le-centre" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Examinez les mondes <strong>Centrer&nbsp;1</strong> à <strong>Centrer&nbsp;3</strong>. Dans chaque cas, écrivez un
+programme faisant en sorte que Reeborg dépose un jeton au centre
+géométrique de la pièce rectangulaire dans laquelle il se trouve.</p>
 <div class="topic">
-<p class="topic-title first">Try this!</p>
-<p>Write a program for only one of these worlds for now.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Écrivez au moins un programme pour un de ces mondes.</p>
 </div>
-<p>Later, you will be able to write a single program that will have Reeborg
-find the geometric center of any rectangular room (with odd dimensions
-on each side) and have it put a token at that exact location.</p>
+<p>Plus tard, vous serez en mesure d&#8217;écrire un programme unique permettant
+à Reeborg de trouver le centre géométrique de n&#8217;importe quelle salle
+rectangulaire (ayant des côtés de dimension impaire) et d&#8217;y déposer un
+jeton.</p>
 </div>
-<div class="section" id="around-the-world">
-<h2>8.3. Around the world<a class="headerlink" href="#around-the-world" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Have a look at the worlds <strong>Around&nbsp;1</strong> to <strong>Around&nbsp;4</strong>. For at least one of
-these worlds, write a program that will have Reeborg go all around the
-world coming back at its original starting location, always moving next
-to a wall.</p>
-<p>Later, we will come back to these challenges and show you how to write
-programs that are much shorter and, will work for all of these four
-worlds and any similar worlds.</p>
+<div class="section" id="autour-du-monde">
+<h2>8.3. Autour du monde<a class="headerlink" href="#autour-du-monde" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Examinez les mondes <strong>Autour&nbsp;1</strong> à <strong>Autour&nbsp;4</strong>. Pour au moins un de ces mondes,
+écrivez un programme faisant en sorte que Reeborg fasse le tour du
+monde, en suivant un mur, et retourne à son point de départ.</p>
+<p>Plus tard, vous verrez comment on peut écrire un programme beaucoup plus
+court et qui peut permettre à Reeborg de faire le tour de n&#8217;importe quel
+de ces 4 mondes, et de tout autre monde semblable.</p>
 </div>
-<div class="section" id="lost-in-a-maze">
-<h2>8.4. Lost in a maze<a class="headerlink" href="#lost-in-a-maze" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Reeborg is lost in a maze. Have a look at the worlds <strong>Maze&nbsp;1</strong> and <strong>Maze&nbsp;2</strong>.
-Can you think of a way to write a program that could get Reeborg out of both
-of these mazes? Later, you will learn how to do this and, in fact, you will
-write a program that could help Reeborg get out of almost any
-maze you could think of.</p>
+<div class="section" id="perdu-dans-un-labyrinthe">
+<h2>8.4. Perdu dans un labyrinthe<a class="headerlink" href="#perdu-dans-un-labyrinthe" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Reeborg est perdu dans un labyrinthe. Jetez un coup d&#8217;oeil sur les
+mondes <strong>Labyrinthe&nbsp;1</strong> et <strong>Labyrinthe&nbsp;2</strong>. Dans chaque cas, écrivez un
+programme qui permet à Reeborg de trouver la sortie.</p>
+<p>Plus tard, vous serez capable d&#8217;écrire un programme unique permettant à
+Reeborg de sortir de ces deux labyrinthes et, en fait de sortir
+probablement de n&#8217;importe quel labyrinthe que vous pourriez concevoir.</p>
 </div>
-<div class="section" id="jumping-over-hurdles">
-<h2>8.5. Jumping over hurdles<a class="headerlink" href="#jumping-over-hurdles" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Reeborg has entered a race. It&#8217;s the 110 meters hurdles race, in
-preparation for the Olympics. Have a look at the world <strong>Hurdles&nbsp;1</strong> and
-have Reeborg complete the race, staying as low as he can, just jumping
-over the hurdles like this:</p>
+<div class="section" id="sauter-par-dessus-les-haies">
+<h2>8.5. Sauter par-dessus les haies<a class="headerlink" href="#sauter-par-dessus-les-haies" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Reeborg va participer à une course; il s&#8217;agit du 110 mètres haies, en
+préparation pour les jeux olympiques. Examinez le monde <strong>Haies&nbsp;1</strong> et
+écrivez un programme permettant à Reeborg de terminer la course, en
+demeurant aussi près que possible du sol lorsqu&#8217;il saute les haies:</p>
 <p><img alt="hurdles" src="_images/hurdles.png" /></p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Write a program for the hurdle race.  Notice how often you repeat a certain
-set of instructions.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Écrivez un programme pour ce monde.  Notez à commbien de
+reprises vous répétez certaines séries d&#8217;instructions.</p>
 </div>
-<p>Once you have done that, select world <strong>Hurdles&nbsp;2</strong>: that&#8217;s an indoor race,
-and therefore shorter. (It is also the one illustrated above.) You
-should be able to remove a few lines of your program and have Reeborg
-complete that race as well.</p>
-<p>Once you are done with those races, you might want to try the unevenly
-spaced hurdles of world <strong>Hurdles&nbsp;3</strong> or the highly irregular ones of world
-<strong>Hurdles&nbsp;4</strong>.</p>
+<p>Lorsque vous aurez réussi à écrire un tel programme, vous voudrez
+peut-être l&#8217;adapter au monde <strong>Haies&nbsp;2</strong>: il s&#8217;agit d&#8217;une course intérieure,
+et donc plus courte. (En fait, c&#8217;est celle illustrée ci-dessus. )</p>
+<p>Lorsque vous en aurez terminé avec ces deux courses, vous voudrez
+peut-être tenter votre chance avec celle des haies inégalement espacées
+<strong>Haies&nbsp;3</strong> ou celle des haies très irrégulières <strong>Haies&nbsp;4</strong>.</p>
 </div>
-<div class="section" id="harvest-time">
-<h2>8.6. Harvest time<a class="headerlink" href="#harvest-time" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Reeborg has been gardening and it is time to harvest. Select world
-<strong>Harvest&nbsp;1</strong>, <strong>Harvest&nbsp;2</strong> or <strong>Harvest&nbsp;3</strong> and have Reeborg collect all the
-tokens which represent plants to harvest.</p>
-<p>Notice how one can view the first worlds <strong>Harvest&nbsp;1</strong> and <strong>Harvest&nbsp;3</strong> as
-having horizontal (or vertical) rows having the same length, while world
-<strong>Harvest&nbsp;2</strong> can be seen as having diagonal rows having the same length.</p>
-<p>Alternatively, select world <strong>Harvest&nbsp;4</strong> which occurred earlier in the
-season. Reeborg had been planting some carrots; some sprouted fine,
-others did not, while at some location 2 or more seeds sprouted. Reeborg
-must remove the excess plants and reseed at locations where there are
-missing ones so that each plant site has only one plant (token).</p>
-<p><strong>You do not have to write a program this time.</strong>  Just think about how you
-would do it.</p>
+<div class="section" id="le-temps-des-recoltes">
+<h2>8.6. Le temps des récoltes<a class="headerlink" href="#le-temps-des-recoltes" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Reeborg est à la ferme de sa tante et c&#8217;est le temps des récoltes.
+Sélectionnez un des mondes <strong>Récolte&nbsp;1</strong>, <strong>Récolte&nbsp;2</strong> ou <strong>Récolte&nbsp;3</strong> et faites
+en sorte que Reeborg ramasse tous les jetons qui représentent des
+plantes à récolter.</p>
+<p>Observez que les mondes <strong>Récolte&nbsp;1</strong> et <strong>Récolte&nbsp;3</strong> ont des rangées
+horizontales (ou verticales) ayant la même longueur alors que le monde
+Récolte&nbsp;2 peut être vu comme ayant des rangées diagonales ayant la même
+longueur.</p>
+<p>Pour une autre tâche, sélectionnez le monde <strong>Récolte&nbsp;4</strong> qui a eu lieu plus
+tôt dans la saison. Reeborg avait planté des graines de carottes;
+certaines avaient poussé correctement alors que d&#8217;autres graines
+n&#8217;avaient pas germées; d&#8217;autres encore avaient été semées trop
+rapprochées les unes des autres. Reeborg doit enlever les carottes en
+excès, resemer aux endroits où les graines n&#8217;ont pas germé de façon à
+avoir une carotte (jeton) par endroit.</p>
+<p><strong>Vous n&#8217;avez pas à écrire un programme à ce moment-ci.</strong>
+Cependant, pensez à quoi aurait l&#8217;air un tel programme.</p>
 </div>
-<div class="section" id="stormy-weather">
-<h2>8.7. Stormy weather<a class="headerlink" href="#stormy-weather" title="Lien permanent vers ce titre">¶</a></h2>
-<p>It was a beautifully sunny day. Reeborg was playing outside with his
-friend. Suddenly, it started to rain and Reeborg remembered that the
-windows in his house were all open. So Reeborg went back to his house
-and stopped in front of the door, unsure of how to proceed.</p>
+<div class="section" id="jour-de-tempete">
+<h2>8.7. Jour de tempête<a class="headerlink" href="#jour-de-tempete" title="Lien permanent vers ce titre">¶</a></h2>
+<p>C&#8217;était une belle journée ensoleillée. Reeborg jouait dehors avec son
+amie. Soudainement, la pluie se mit à tomber et Reeborg se rappela que
+les fenêtres de sa maison étaient toutes ouvertes. Reeborg alla donc
+chez lui pour fermer les fenêtres mais arrêta au seuil de la porte,
+indécis quant à la meilleure façon de procéder.</p>
 <div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Using the <tt class="docutils literal"><span class="pre">build_wall()</span></tt> instruction, help Reeborg close the windows
-of his house. When Reeborg finishes his task, he will stand in the
-doorway, watching the rain fall, waiting for it to stop before he can go
-back and play outside. The world is <strong>Storm&nbsp;1</strong>.</p>
+<p class="topic-title first">À votre tour!</p>
+<p>Utilisez la commande <tt class="docutils literal"><span class="pre">construit_un_mur()</span></tt> et aidez Reeborg à fermer
+les fenêtres de sa maison. Lorsque Reeborg aura terminé, il sera au
+seuil de la porte, regardant la pluie tomber et attendra patiemment
+qu&#8217;elle arrête pour qu&#8217;il puisse retourner jouer dehors. Le monde à
+sélectionner est <strong>Tempête&nbsp;1</strong>.</p>
 </div>
-<div class="section" id="reeborg-s-friend-s-turn">
-<h3>8.7.1. Reeborg&#8217;s friend&#8217;s turn.<a class="headerlink" href="#reeborg-s-friend-s-turn" title="Lien permanent vers ce titre">¶</a></h3>
-<p>Erdna, Reeborg&#8217;s friend, lives in a bigger house as shown on <strong>Storm&nbsp;2</strong>.
-Erdna was playing outside with Reeborg when it started raining. Help
-Erdna close the windows in her house.</p>
-<p>Later, you will be able to write a single program that will work for
-both Reeborg and Erdna ... however, it will be a bit tricky.</p>
+<div class="section" id="au-tour-de-l-amie-de-reeborg">
+<h3>8.7.1. Au tour de l&#8217;amie de Reeborg<a class="headerlink" href="#au-tour-de-l-amie-de-reeborg" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Erdna, l&#8217;amie de Reeborg, vit dans une plus grande maison illustrée dans
+<strong>Tempête&nbsp;2</strong>. Erdna jouait avec Reeborg lorsque la pluie s&#8217;est mise à
+tomber. Aidez Erdna à fermer les fenêtres de sa maison.</p>
+<p>Plus tard, vous serez capable d&#8217;écrire un seul programme permettant à
+Reeborg et à Erdna de fermer les fenêtres de leur maison ... mais ça
+vous demandera de la réflexion.</p>
 </div>
-<div class="section" id="after-the-storm">
-<h3>8.7.2. After the storm<a class="headerlink" href="#after-the-storm" title="Lien permanent vers ce titre">¶</a></h3>
-<p>The wind blew really hard last night. There is litter everywhere outside
-Reeborg&#8217;s house. His parents asked him to go and clean up the path
-leading to the curb, <strong>Storm&nbsp;3</strong>, as well as the driveway: <strong>Storm&nbsp;4</strong>.</p>
-<p>Reeborg should collect all the litter, and put it in the garbage can,
-and close the lid, using <tt class="docutils literal"><span class="pre">build_wall()</span></tt>.</p>
+<div class="section" id="apres-la-tempete">
+<h3>8.7.2. Après la tempête<a class="headerlink" href="#apres-la-tempete" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Le vent a soufflé violemment la nuit dernière. Il y a des déchets
+partout autour de la maison de Reeborg. Ses parents lui demandent de
+nettoyer le trottoir qui mène à la rue <strong>Tempête&nbsp;3</strong>, ainsi que l&#8217;allée
+<strong>Tempête&nbsp;4</strong>.</p>
+<p>Reeborg doit ramasser tous les déchets (représentés par des jetons), et
+les mettre dans la poubelle en s&#8217;assurant de fermer le couvercle à
+l&#8217;aide de l&#8217;instruction <tt class="docutils literal"><span class="pre">construit_un_mur()</span></tt>.</p>
 </div>
-<div class="section" id="more-yard-work">
-<h3>8.7.3. More yard work!<a class="headerlink" href="#more-yard-work" title="Lien permanent vers ce titre">¶</a></h3>
-<p>Reeborg&#8217;s parents are so proud of his work, that they ask him to pick up
-all the garbage that got blown away in their backyard during the
-windstorm, as illustrated on <strong>Storm&nbsp;5</strong>. Have Reeborg pick up all the
-garbage and put it in the garbage can.</p>
-<p>Later, you will learn to write a single program that can help Reeborg do
-the cleanup for all three locations.</p>
+<div class="section" id="encore-du-travail">
+<h3>8.7.3. Encore du travail!<a class="headerlink" href="#encore-du-travail" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les parents de Reeborg sont tellement content de son travail de
+nettoyage qu&#8217;ils lui demande de ramasser tous les déchets qui se sont
+retrouvés dans la cour, tel qu&#8217;illustré dans <strong>Tempête&nbsp;5</strong>.</p>
+<p>Plus tard, vous serez en mesure d&#8217;écrire un seul programme qui permettra
+d&#8217;accomplir les trois tâches de nettoyage.</p>
 </div>
 </div>
-<div class="section" id="summary">
-<h2>8.8. Summary<a class="headerlink" href="#summary" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Writing programs that can solve the previous challenges can be quite
-tedious as you have to write every single instruction that Reeborg must
-follow. However, they are good exercises to make you think like a robot.
-As you learn more about programming using Javascript, you will find ways
-to write much shorter programs to solve these challenges.</p>
+<div class="section" id="resume">
+<h2>8.8. Résumé<a class="headerlink" href="#resume" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Écrire des programmes où toutes les instructions permettant à Reeborg d&#8217;accomplir
+une certaine tâche doivent être écrite une à la fois peut être très fastidieux.
+Cependant, ceci vous a permis de vous mettre dans la peau d&#8217;un robot et vous
+aidera à utiliser Javascript pour écrire des programmes beaucoup plus court
+permettant d&#8217;accomplir les diverses tâches confiées à Reeborg.</p>
 </div>
 </div>
 
@@ -296,10 +307,10 @@ to write much shorter programs to solve these challenges.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="newspaper1.html" title="9. Newspaper delivery"
+             <a href="newspaper1.html" title="9. Livraison de journaux"
              >suivant</a></li>
         <li class="right" >
-             <a href="summary1.html" title="7. Summary"
+             <a href="summary1.html" title="7. Résumé"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
