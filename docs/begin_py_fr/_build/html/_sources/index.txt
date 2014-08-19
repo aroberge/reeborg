@@ -6,7 +6,7 @@
 Apprenez Python avec Reeborg!
 =============================
 
-C'est facile d'pprendre Python avec Reeborg.  Tout ce que vous avez
+C'est facile d'apprendre Python avec Reeborg.  Tout ce que vous avez
 à faire dest de lire ce tutoriel et de faire tous les exemples
 en utilisant `Le monde de Reeborg <../../monde.html>`_.
 Je vous suggère d'avoir le tutoriel et le monde de Reeborg ouverts
