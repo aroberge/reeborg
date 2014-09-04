@@ -8,11 +8,11 @@
 var RUR = RUR || {};
 
 RUR.translation = {};
-RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] = 
+RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] =
     "/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n";
-RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"] = 
-    "# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n";
-RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"] = 
+RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"] =
+    "# 'from my_lib import *' in Python Code is required to use\n# the code in this library. \n\n";
+RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"] =
     "# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n";
 
 RUR.translation["Too many steps:"] = "Too many steps: {max_steps}";
@@ -84,7 +84,7 @@ RUR.translation["Click on world to set number of goal tokens."] = "Click on worl
 RUR.translation["Click on world to toggle star goal."] = "Click on world to toggle star goal.";
 RUR.translation["Click on world to toggle triangle goal."] = "Click on world to toggle triangle goal.";
 RUR.translation["Click on world to toggle square goal."] = "Click on world to toggle square goal.";
-RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Click on world at x=1, y=1 to have no object left as a goal.";                                                     
+RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Click on world at x=1, y=1 to have no object left as a goal.";
 RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for Reeborg to carry (use inf for infinite number)";
 RUR.translation[" is not a valid value!"] = " is not a valid value!";
 RUR.translation["Other object here; can't put tokens"] = "Other object here; can't put tokens";
@@ -108,9 +108,9 @@ var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_c
                     "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, set_max_steps*/\n";
 
 var move, turn_left, inspect, front_is_clear, right_is_clear, select_challenge,
-    is_facing_north, done, put, take, object_here, select_world, token_here, 
-    has_token, write, at_goal, at_goal_orientation, build_wall, think, 
-    pause, repeat, view_source, sound, UsedRobot, 
+    is_facing_north, done, put, take, object_here, select_world, token_here,
+    has_token, write, at_goal, at_goal_orientation, build_wall, think,
+    pause, repeat, view_source, sound, UsedRobot,
     set_max_steps;
 
 // do not translate the following three instructions; they are included only
@@ -126,22 +126,22 @@ RUR.reset_definitions = function () {
     done = function () {
       RUR.control.done();
     };
-    
+
     pause = function (ms) {
       RUR.control.pause(ms);
     };
-    
+
     repeat = function (f, n) {
       for (var i=0; i < n; i++){
           f();
       }
     };
-    
+
     think = function(delay) {
         RUR.control.think(delay);
     };
 
-    select_world = RUR.ui.select_world;  
+    select_world = RUR.ui.select_world;
     select_challenge = RUR.ui.select_challenge;
     set_max_steps = function(n){
         RUR.MAX_STEPS = n;
@@ -153,7 +153,7 @@ RUR.reset_definitions = function () {
     UsedRobot.prototype.at_goal = function () {
         RUR.control.at_goal(this.body);
     };
-    
+
     at_goal_orientation = function () {
         return RUR.control.at_goal_orientation(RUR.current_world.robots[0]);
     };
@@ -181,7 +181,7 @@ RUR.reset_definitions = function () {
     UsedRobot.prototype.has_token = function () {
         RUR.control.has_token(this.body);
     };
-    
+
     is_facing_north = function () {
         return RUR.control.is_facing_north(RUR.current_world.robots[0]);
     };
@@ -202,7 +202,7 @@ RUR.reset_definitions = function () {
     UsedRobot.prototype.put = function () {
         RUR.control.put(this.body);
     };
-    
+
     token_here = function() {
         return RUR.control.token_here(RUR.current_world.robots[0]);
     };
@@ -216,14 +216,14 @@ RUR.reset_definitions = function () {
     UsedRobot.prototype.right_is_clear = function () {
         RUR.control.right_is_clear(this.body);
     };
-    
+
     object_here = function () {
         return RUR.control.object_here(RUR.current_world.robots[0]);
     };
     UsedRobot.prototype.object_here = function () {
         RUR.control.object_here(this.body);
     };
-    
+
     take = function(arg) {
         RUR.control.take(RUR.current_world.robots[0], arg);
     };
@@ -237,20 +237,20 @@ RUR.reset_definitions = function () {
     UsedRobot.prototype.turn_left = function () {
         RUR.control.turn_left(this.body);
     };
-    
+
     sound = function (on) {
-        RUR.control.sound(on);  
+        RUR.control.sound(on);
     };
     inspect = RUR.inspect;
 
     view_source = RUR.view_source;
-    
+
     // English speficic and only for compatibility with rur-ple
     // do not translate the following
     put_beeper = put;
     pick_beeper = take;
     turn_off = done;
-    on_beeper = token_here; 
+    on_beeper = token_here;
     next_to_a_beeper = token_here;
     carries_beepers = has_token;
     set_delay = think;
@@ -261,6 +261,6 @@ RUR.reset_definitions = function () {
 // so that they make sense in the human language ...
 
 RUR.import_lib_regex_js = /^\s*import_lib\s*\(\s*\);/m;
-RUR.import_lib_regex_py = /^import\s* my_lib\s*$/m;  // using lib instead of my_lib could cause conflicts with Brython
+RUR.import_lib_regex_py = /^from\s* my_lib import\s* \**$/m;  // using lib instead of my_lib could cause conflicts with Brython?
 RUR.import_lib_regex_coffee = /^\s*import_lib\s*\(\s*\)/m;
 
