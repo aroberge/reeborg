@@ -8,11 +8,11 @@
 var RUR = RUR || {};
 
 RUR.translation = {};
-RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] = 
+RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] =
     "/* 'import_biblio();' dans l'onglet Code Javascript est requis pour\n pouvoir utiliser le code de cette bibliothèque.*/\n\n";
-RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"] = 
-    "# 'import biblio' dans l'onglet Code Python est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
-RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"] = 
+RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"] =
+    "# 'from biblio import *' dans l'onglet Code Python est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
+RUR.translation["# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n"] =
     "# 'import_biblio()' dans l'onglet Code CoffeeScript est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
 
 RUR.translation["Too many steps:"] = "Trop d'instructions: {max_steps}";
@@ -89,7 +89,7 @@ RUR.translation["Click on world to set number of goal tokens."] = "Cliquez sur l
 RUR.translation["Click on world to toggle star goal."] = "Cliquez sur le monde pour ajouter/supprimer une étoile comme but.";
 RUR.translation["Click on world to toggle triangle goal."] = "Cliquez sur le monde pour ajouter/supprimer un triangle comme but.";
 RUR.translation["Click on world to toggle square goal."] = "Cliquez sur le monde pour ajouter/supprimer un carré comme but.";
-RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Cliquez sur le monde en x=1, y=1 pour avoir comme but aucun objet qui reste.";                                                     
+RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Cliquez sur le monde en x=1, y=1 pour avoir comme but aucun objet qui reste.";
 RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg (utilisez inf pour un nombre infini).";
 RUR.translation[" is not a valid value!"] = " n'est pas une valeur valide!";
 RUR.translation["Other object here; can't put tokens"] = "Autre objet ici; on ne peut pas mettre des jetons.";
@@ -109,41 +109,41 @@ var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, rie
                     " jeton_ici, a_des_jetons, ecrit, au_but, au_but_orientation, selectionne_defi," +
                     " construit_mur, pense, pause, repete, voir_source, son */\n";
 
-var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite, selectionne_defi, 
-    face_au_nord, termine, depose, prend, objet_ici, selectionne_monde, jeton_ici, 
-    a_des_jetons, ecrit, au_but, au_but_orientation, construit_mur, pense, 
-    pause, repete, voir_source, son, RobotUsage, 
+var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite, selectionne_defi,
+    face_au_nord, termine, depose, prend, objet_ici, selectionne_monde, jeton_ici,
+    a_des_jetons, ecrit, au_but, au_but_orientation, construit_mur, pense,
+    pause, repete, voir_source, son, RobotUsage,
     nombre_de_commandes;
 
 RUR.reset_definitions = function () {
- 
+
   RobotUsage = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.world.add_robot(this.body);
     };
-    
+
     ecrit = function (s) {
         RUR.control.write(s);
     };
     termine = function () {
       RUR.control.done();
     };
-    
+
     pause = function (ms) {
       RUR.control.pause(ms);
     };
-    
+
     repete = function (f, n) {
       for (var i=0; i < n; i++){
           f();
       }
     };
-    
+
     pense = function(delay) {
         RUR.control.think(delay);
     };
 
-    selectionne_monde = RUR.ui.select_world;  
+    selectionne_monde = RUR.ui.select_world;
     nombre_de_commandes = function(n){
         RUR.MAX_STEPS = n;
     };
@@ -154,7 +154,7 @@ RUR.reset_definitions = function () {
     RobotUsage.prototype.au_but = function () {
         RUR.control.at_goal(this.body);
     };
-    
+
     au_but_orientation = function () {
         return RUR.control.at_goal_orientation(RUR.current_world.robots[0]);
     };
@@ -182,7 +182,7 @@ RUR.reset_definitions = function () {
     RobotUsage.prototype.a_des_jetons = function () {
         RUR.control.has_token(this.body);
     };
-    
+
     face_au_nord = function () {
         return RUR.control.is_facing_north(RUR.current_world.robots[0]);
     };
@@ -203,7 +203,7 @@ RUR.reset_definitions = function () {
     RobotUsage.prototype.depose = function () {
         RUR.control.put(this.body);
     };
-    
+
     jeton_ici = function() {
         return RUR.control.token_here(RUR.current_world.robots[0]);
     };
@@ -217,14 +217,14 @@ RUR.reset_definitions = function () {
     RobotUsage.prototype.rien_a_droite = function () {
         RUR.control.right_is_clear(this.body);
     };
-    
+
     objet_ici = function () {
         return RUR.control.object_here(RUR.current_world.robots[0]);
     };
     RobotUsage.prototype.objet_ici = function () {
         RUR.control.object_here(this.body);
     };
-    
+
     prend = function(arg) {
         RUR.control.take(RUR.current_world.robots[0], arg);
     };
@@ -238,13 +238,13 @@ RUR.reset_definitions = function () {
     RobotUsage.prototype.tourne_a_gauche = function () {
         RUR.control.turn_left(this.body);
     };
-    
+
     examine = RUR.inspect;
 
     voir_source = RUR.view_source;
 
     son = function (on) {
-        RUR.control.sound(on);  
+        RUR.control.sound(on);
     };
 };
 
@@ -253,7 +253,7 @@ RUR.reset_definitions = function () {
 // so that they make sense in the human language ...
 
 RUR.import_lib_regex_js = /^\s*import_biblio\s*\(\s*\);/m;
-RUR.import_lib_regex_py = /^import\s* biblio\s*$/m; 
+RUR.import_lib_regex_py = /^from\s* biblio\s* import\s* \*\s*$/m;
 RUR.import_lib_regex_coffee = /^\s*import_biblio\s*\(\s*\)/m;
 
 

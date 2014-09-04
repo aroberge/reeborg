@@ -6,7 +6,7 @@
 <meta name="keywords" content="JavaScript,Python,Programming">
 <meta name="author" content="André Roberge">
 <meta name="license" content="CC BY-NC-SA 3.0">
-<link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon"> 
+<link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon">
 <link rel="icon" href="src/images/favicon.ico" type="image/icon">
 <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
@@ -21,7 +21,7 @@
   <div id="header-child">
    <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">Monde</button>
     <button class="blue-gradient" id="output-panel-button" label="output-panel">Journal</button>
-    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Éditeur</button>    
+    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Éditeur</button>
     <button class="blue-gradient" id="help-button">Aide</button>
     <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaboration</button>
     <form>
@@ -30,9 +30,9 @@
         <input type="radio" name="programming_language" value="javascript-fr" > Javascript
         <input type="radio" name="programming_language" value="coffeescript-fr" > CoffeeScript
     </form>
-    
+
   </div>
-  
+
 </header>
   <input type="file" id="worldfileInput">
   <div id="url_input">
@@ -40,27 +40,27 @@
   </p>
   <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
   <p>
-  <button class="blue-gradient" id="ok-permalink" onclick="update_permalink();">Mettre à jour</button>
+  <button class="blue-gradient" id="ok-permalink" onclick="RUR.update_permalink();">Mettre à jour</button>
   <button class="blue-gradient" id="cancel-permalink" onclick="$('#url_input').hide();">Annuler</button>
   </p>
   </div>
-  
+
 <div id="world-panel" class="active" >
 
   <div id="world-controls">
     <button class="blue-gradient" id="run" title="exécution" onclick="RUR.ui.run();">
       <img src="src/images/play.png" alt="exécution">
     </button>
-    <button class="blue-gradient" id="step" title="une commande" disabled="true" onclick="RUR.ui.step();">
+    <button class="blue-gradient" id="step" title="une commande" disabled="vrai" onclick="RUR.ui.step();">
       <img src="src/images/step.png" alt="une commande">
     </button>
-    <button class="blue-gradient" id="pause" title="pause" disabled="true" onclick="RUR.ui.pause();">
+    <button class="blue-gradient" id="pause" title="pause" disabled="vrai" onclick="RUR.ui.pause();">
       <img src="src/images/pause.png" alt="pause">
     </button>
-    <button class="blue-gradient" id="stop" title="stop" disabled="true" onclick="RUR.ui.stop();">
+    <button class="blue-gradient" id="stop" title="stop" disabled="vrai" onclick="RUR.ui.stop();">
       <img src="src/images/stop.png" alt="stop">
     </button>
-    <button class="blue-gradient" id="reload" title="recommencer" disabled="true" onclick="RUR.ui.reload();">
+    <button class="blue-gradient" id="reload" title="recommencer" disabled="vrai" onclick="RUR.ui.reload();">
       <img src="src/images/reload.png" alt="recommencer">
     </button>
     <select id="select_world" title="Sélectionner un monde">
@@ -108,7 +108,7 @@
       <option value="src/json/jsa2.json">JSA 2</option>
       <option value="src/json/jsa3.json">JSA 3</option>
     </select>
-    <button id="permalink" title="permalien" onclick="create_permalink();">
+    <button id="permalink" title="permalien" onclick="RUR.create_permalink();">
       <img src="src/images/permalink.png" alt="permalink">
     </button>
     <button id="resize" title="redimensionner" onclick="RUR.ui.resize()">
@@ -134,7 +134,6 @@
     </div>
     <div id="image-choice-buttons">
       <button id="classic-image" title="Classique"><img src="src/images/robot_e.png" alt="robot est"></button>
-      <button id="simple-topview" title="Simple vue de haut"><img src="src/images/top_e.png" alt="robot est"></button>
       <button id="rover-type" title="Robot à roues"><img src="src/images/rover_e.png" alt="robot est"></button>
     </div>
 </div>
@@ -145,7 +144,7 @@
     <button class="blue-gradient" id="run2" title="exécution" onclick="RUR.ui.run();">
       <img src="src/images/play.png" alt="play">
     </button>
-    <button class="blue-gradient" id="reload2" title="recommencer" disabled="true" onclick="RUR.ui.reload();">
+    <button class="blue-gradient" id="reload2" title="recommencer" disabled="vrai" onclick="RUR.ui.reload();">
       <img src="src/images/reload.png" alt="reload">
     </button>
 
@@ -164,16 +163,16 @@
     <ul>
       <li><a id="editor-link" href="#editor">Code Python</a></li>
       <button class="blue-gradient float-right" id="load-editor" title="Charger un programme">Charger</button>
-      <button class="blue-gradient float-right" id="save-editor" title="Sauvegarder un programme">Sauvegarder</button> 
-      
+      <button class="blue-gradient float-right" id="save-editor" title="Sauvegarder un programme">Sauvegarder</button>
+
       <li><a id="library-link" href="#library">Bibliothèque</a></li>
       <button class="blue-gradient float-right" id="load-library" title="Charger la bibliothèque">Charger</button>
-      <button class="blue-gradient float-right" id="save-library" title="Sauvegarder la bibliothèque">Sauvegarder</button> 
+      <button class="blue-gradient float-right" id="save-library" title="Sauvegarder la bibliothèque">Sauvegarder</button>
     </ul>
     <div id="editor">
       <span id="library-problem">Il y a un problème avec le code dans la bibliothèque !</span>
       <textarea id="code" name="code">avance()</textarea>
-      
+
     </div>
     <div id="library">
       <textarea id="library-code" name="library-code">
@@ -190,7 +189,7 @@
       </textarea>
     </div>
   </div>
-      
+
 </div>
 
 <div id="edit-world-panel">
@@ -222,7 +221,7 @@
             <li><a href="javascript:RUR.we.select('goal-square');"><canvas id="canvas-goal-square" class="edit-canvas" width="40" height="40"></canvas></a></li>
         </ul>
     </div>
-    
+
     <ul id="edit-world-nav">
         <li class="a-like">Robot <ul>
             <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Ajouter Reeborg</a></li>
@@ -284,11 +283,11 @@ class _UsedRobot (object):
         robot = RUR.robot.create_robot(x, y, orientation, jetons)
         self.body = robot
         RUR.world.add_robot(self.body)
-    
+
     def avance (self):
         RUR.control.move(self.body)
 
-    def au_but (self): 
+    def au_but (self):
         return RUR.control.at_goal(self.body)
 
     def au_but_orientation (self):
@@ -314,7 +313,7 @@ class _UsedRobot (object):
 
     def rien_a_droite (self):
         return RUR.control.right_is_clear(self.body)
-    
+
     def objet_ici (self):
         return RUR.control.object_here(self.body)
 
@@ -392,38 +391,38 @@ window['_UsedRobot'] = _UsedRobot
 
       <p>Veuillez prendre note: en Javascript, <code>true</code> et <code>false</code> sont écrits
       en lettre minuscules; en Python, <code>True</code> et <code>False</code> débutent avec une
-      lettre majuscule.  Pour éviter de spécifier ceci à chaque fois ci-dessous, j'utiliserai 
-      "true" et "false" pour signifier la même chose.</p>
+      lettre majuscule.  Pour éviter de spécifier ceci à chaque fois ci-dessous, j'utiliserai
+      "vrai" et "false" pour signifier la même chose.</p>
       <p><b>Attention:</b> Vous pouvez écrire des noms de commandes
       avec des accents en Javascript mais pas en Python.</p>
-      
+
       <h2 id="basic-commands">Commandes de base</h2>
   <p> En plus de comprendre le Javascript ou le Python, Reeborg et tous les autres robots
   connaissent les instructions suivantes:
 </p>
   <ul>
-    <li><code>au_but()</code>: la condition est "true" si Reeborg a atteint son but.</li>
-    <li><code>au_but_orientation()</code>: la condition est "true" si Reeborg a la bonne orientation.</li>
+    <li><code>au_but()</code>: la condition est "vrai" si Reeborg a atteint son but.</li>
+    <li><code>au_but_orientation()</code>: la condition est "vrai" si Reeborg a la bonne orientation.</li>
     <li><code>construit_un_mur()</code>: ajoute un mur tout juste devant la position de Reeborg</li>
     <li><code>termine</code>: indique qu'un programme doit se terminer avec cette instruction. </li>
-    <li><code>rien_devant()</code>: "true" s'il n'y a pas de mur bloquant la voie de Reeborg.</li>
-    <li><code>a_des_jetons()</code>: "true" si Reeborg a au moins un jeton en main.</li>
-    <li><code>face_au_nord()</code>: "true" si Reeborg fait face au nord (vers le haut de l'écran).</li>
+    <li><code>rien_devant()</code>: "vrai" s'il n'y a pas de mur bloquant la voie de Reeborg.</li>
+    <li><code>a_des_jetons()</code>: "vrai" si Reeborg a au moins un jeton en main.</li>
+    <li><code>face_au_nord()</code>: "vrai" si Reeborg fait face au nord (vers le haut de l'écran).</li>
     <li><code>avance()</code></li>
     <li><code>depose()</code> ou <code>depose("objet")</code> où "objet" est l'un de <code>"jeton"</code>,
       <code>"triangle"</code>, <code>"carré"</code> ou <code>"étoile"</code>: Reeborg dépose l'objet
       en question là où il se trouve.</li>
       <li><code>objet_ici()</code>: "false" s'il n'y a aucun objet à cet endroit, autrement on retourne
       le nom de l'objet.</li>
-    <li><code>rien_a_droite()</code>: "true" s'il n'y a pas de mur immédiatement à la droite de Reeborg.</li>
+    <li><code>rien_a_droite()</code>: "vrai" s'il n'y a pas de mur immédiatement à la droite de Reeborg.</li>
     <li><code>repete(f, n)</code>: excute <code>f()</code> n fois.</li>
     <li><code>prend()</code> ou <code>prend("objet")</code> où "objet" est l'un de <code>"jeton"</code>,
       <code>"triangle"</code>, <code>"carré"</code> ou <code>"étoile"</code></li>
-    <li><code>jeton_ici()</code>: "true" s'il y a un ou des jetons à cet endroit.</li>
+    <li><code>jeton_ici()</code>: "vrai" s'il y a un ou des jetons à cet endroit.</li>
     <li><code>tourne_a_gauche()</code></li>
   </ul>
-      
-      
+
+
   <p>Pour créer des robots, on peut utiliser <code>RobotUsage()</code> prédédé de <code>new</code>
   si on utilise Javascript.</p>
   <p>De plus, les commandes suivantes sont généralement disponibles sans être liées
@@ -434,7 +433,7 @@ window['_UsedRobot'] = _UsedRobot
     <li><code>examine(objet Javascript)</code></li>
     <li><code>pause()</code>; peut être invoqué avec un argument en millisecondes indiquant la durée de
     la pause dans quel cas le programme continue sans avoir à cliquer sur un bouton. </li>
-        <li><code>son("true")</code>: ajoute des effets sonores. Ces effets sonores peuvent être arrêtés en utilant "false" comme
+        <li><code>son("vrai")</code>: ajoute des effets sonores. Ces effets sonores peuvent être arrêtés en utilant "false" comme
                   argument ou omettant l'argument comme ceci: <code>son()</code>.
                   Les effets sonores sont arrêtés par défaut ou si le délai entre les actions est inférieur à 250ms.
                   </li>
@@ -466,7 +465,7 @@ window['_UsedRobot'] = _UsedRobot
 <p> J'espère que vous vous amuserez en apprenant la programmation avec Reeborg.
 <p>N'hésitez pas à me contacter par courriel:
 <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
-    
+
 
 <p>Reeborg est gratuit et restera toujours gratuit à utiliser et à partager
   sous une licence Creative Commons
@@ -511,7 +510,7 @@ puisse être fait totalement du côté client, sans avoir de code exécuté sur 
 <li>Investiguer la possibilité d'avoir une version Javascript de <a href="http://www.nand2tetris.org/">From nand to Tetris</a></li></ul>
 
 <p>
-Les échantillons audios ont été obtenus de <a href="https://www.freesound.org">freesound</a>; 
+Les échantillons audios ont été obtenus de <a href="https://www.freesound.org">freesound</a>;
 ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative Commons".
 </p>
 </div>
