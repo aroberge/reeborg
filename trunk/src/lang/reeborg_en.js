@@ -122,7 +122,7 @@ RUR.reset_definitions = function () {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.world.add_robot(this.body);
     };
-    write = RUR.write;
+    write = RUR.control.write;
     done = function () {
       RUR.control.done();
     };

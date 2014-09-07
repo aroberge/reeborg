@@ -1257,7 +1257,7 @@ RUR.translate = function (s) {
 RUR.reset_code_in_editors = function () {
     var library_default, library_content, editor_content, editor_default,
         default_instruction = RUR.translate("move");
-    
+
     if (RUR.programming_language == "javascript") {
         library_default = RUR.translate("/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n");
         editor_default = default_instruction + "();";
@@ -1291,12 +1291,12 @@ RUR.create_permalink = function () {
         permalink += ":" + url_query.port;
     }
     permalink += url_query.path;
-    
+
     switch(RUR.programming_language) {
-        case 'python': 
+        case 'python':
             proglang = "python-" + human_language;
             break;
-        case 'coffee': 
+        case 'coffee':
             proglang = "coffeescript-" + human_language;
             break;
         case 'javascript':
@@ -1306,16 +1306,16 @@ RUR.create_permalink = function () {
                 proglang = "javascript-" + human_language;
             }
     }
-    world = encodeURIComponent(RUR.world.export_world());    
+    world = encodeURIComponent(RUR.world.export_world());
     _editor = encodeURIComponent(editor.getValue());
     _library = encodeURIComponent(library.getValue());
-    
+
     permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
     $("#url_input_textarea").val(permalink);
     $("#url_input").show();
     $("#ok-permalink").removeAttr("disabled");
     $("#cancel-permalink").removeAttr("disabled");
-    
+
     return false;
 };
 
@@ -1323,7 +1323,7 @@ RUR.reset_programming_language = function(choice){
     var human_language = document.documentElement.lang;
     RUR.removeHints();
     RUR.settings.current_language = choice;
-    try { 
+    try {
         localStorage.setItem("last_programming_language_" + human_language, RUR.settings.current_language);
     } catch (e) {}
     switch(RUR.settings.current_language){
@@ -1361,8 +1361,8 @@ RUR.reset_programming_language = function(choice){
             editor.setOption("mode", "coffeescript");
             library.setOption("mode", "coffeescript");
             break;
-    }            
-    try { 
+    }
+    try {
         RUR.reset_code_in_editors();
     } catch (e) {}
 };
@@ -1392,9 +1392,9 @@ RUR.update_permalink = function () {
     $("#url_input").hide();
 };
 
-RUR.write = function (s) {
-    $("#output-pre").append(s.toString() + "\n");
-};
+// RUR.write = function (s) {
+//     $("#output-pre").append(s.toString() + "\n");
+// };
 
 
 RUR.inspect = function (obj){
@@ -1406,7 +1406,7 @@ RUR.inspect = function (obj){
             result += props + "\n";
         }
     }
-    RUR.write(result);
+    RUR.control.write(result);
 };
 
 RUR.view_source = function(fn) {
@@ -1428,7 +1428,7 @@ RUR.view_source = function(fn) {
 
 RUR._import_library = function () {
   // adds the library code to the editor code if appropriate string is found
-    var separator, import_lib_regex, src, lib_src;  
+    var separator, import_lib_regex, src, lib_src;
     if (RUR.programming_language == "javascript") {
         separator = ";\n";
         import_lib_regex = RUR.import_lib_regex_js;

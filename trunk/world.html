@@ -6,7 +6,7 @@
 <meta name="keywords" content="JavaScript,Python,Programming">
 <meta name="author" content="André Roberge">
 <meta name="license" content="CC BY-NC-SA 3.0">
-<link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon"> 
+<link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon">
 <link rel="icon" href="src/images/favicon.ico" type="image/icon">
 <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
@@ -30,9 +30,9 @@
         <input type="radio" name="programming_language" value="javascript-en" > Javascript
         <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
     </form>
-    
+
   </div>
-  
+
 </header>
   <input type="file" id="worldfileInput">
   <div id="url_input">
@@ -43,8 +43,8 @@
   <button class="blue-gradient" id="cancel-permalink" onclick="$('#url_input').hide();">Cancel</button>
   </p>
   </div>
-  
-  
+
+
 <div id="world-panel" class="active" >
 
   <div id="world-controls">
@@ -164,16 +164,16 @@
     <ul>
       <li><a id="editor-link" href="#editor">Python Code</a></li>
       <button class="blue-gradient float-right" id="load-editor" title="Load program">Load</button>
-      <button class="blue-gradient float-right" id="save-editor" title="Save program">Save</button> 
-      
+      <button class="blue-gradient float-right" id="save-editor" title="Save program">Save</button>
+
       <li><a id="library-link" href="#library">Library</a></li>
       <button class="blue-gradient float-right" id="load-library" title="Load library">Load</button>
-      <button class="blue-gradient float-right" id="save-library" title="Save library">Save</button> 
+      <button class="blue-gradient float-right" id="save-library" title="Save library">Save</button>
     </ul>
     <div id="editor">
       <span id="library-problem">Problem with code in library!</span>
       <textarea id="code" name="code">move()</textarea>
-      
+
     </div>
     <div id="library">
       <textarea id="library-code" name="library-code">
@@ -188,7 +188,7 @@
       </textarea>
     </div>
   </div>
-      
+
 </div>
 
 <div id="edit-world-panel">
@@ -220,7 +220,7 @@
             <li><a href="javascript:RUR.we.select('goal-square');"><canvas id="canvas-goal-square" class="edit-canvas" width="40" height="40"></canvas></a></li>
         </ul>
     </div>
-    
+
     <ul id="edit-world-nav">
         <li class="a-like">Robot <ul>
             <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Add robot</a></li>
@@ -282,11 +282,11 @@ class _UsedRobot (object):
         robot = RUR.robot.create_robot(x, y, orientation, tokens)
         self.body = robot
         RUR.world.add_robot(self.body)
-    
+
     def move (self):
         RUR.control.move(self.body)
 
-    def at_goal (self): 
+    def at_goal (self):
         return RUR.control.at_goal(self.body)
 
     def at_goal_orientation (self):
@@ -312,7 +312,7 @@ class _UsedRobot (object):
 
     def right_is_clear (self):
         return RUR.control.right_is_clear(self.body)
-    
+
     def object_here (self):
         return RUR.control.object_here(self.body)
 
@@ -321,7 +321,7 @@ class _UsedRobot (object):
 
     def turn_left (self, no_frame=False):
         RUR.control.turn_left(self.body, no_frame=no_frame)
-        
+
 class ReeborgError(Exception):
     def __init__(self, value):
         self.reeborg_says = value
@@ -384,7 +384,7 @@ window['_UsedRobot'] = _UsedRobot
     <a href="#contribute">Contribute</a><br>
 
     <h2 id="basic-commands">Basic commands</h2>
-      <p>Note: In Javascript, <code>true</code> and <code>false</code> are all written in lower cases. 
+      <p>Note: In Javascript, <code>true</code> and <code>false</code> are all written in lower cases.
       In Python, <code>True</code> and <code>False</code> start with an upper case letter. To avoid having to
       specify both possibilities each time, "true" and "false" will be used instead below.</p>
       <p> In addition to understanding Javascript or Python, Reeborg, and all the other robots,
@@ -416,7 +416,7 @@ window['_UsedRobot'] = _UsedRobot
         any robot in particular.</p>
       <ul>
         <li><code>import_lib()</code>: for <b>Javascript</b>, includes the code found in the Library tab</li>
-        <li><code>import my_lib</code>: for <b>Python</b>, includes the code found in the Library tab</li>
+        <li><code>from my_lib import *</code>: for <b>Python</b>, includes the code found in the Library tab</li>
         <li><code>inspect(object)</code>: shows result in Reeborg's Diary</li>
         <li><code>pause()</code>; can be called with an argument in milliseconds which indicates the
         time after which it will automatically resume.</li>
