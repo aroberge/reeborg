@@ -1,0 +1,5 @@
+{
+    "jscodehints.detectedExclusions": [
+        "C:/Users/Andre/reeborg/src/libraries/brython/libs/crypto_js/rollups/md5.js"
+    ]
+}
