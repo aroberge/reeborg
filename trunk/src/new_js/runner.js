@@ -3,7 +3,7 @@
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints, 
+/*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints,
   translate_python, _import_library, CoffeeScript */
 
 RUR.runner = {};
@@ -27,7 +27,7 @@ RUR.runner.run = function (playback) {
         // dependent on the robot world.
         if (playback() === "stopped") {
             RUR.ui.stop();
-        } 
+        }
     }
 };
 
@@ -54,7 +54,20 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         if (RUR.programming_language === "python") {
             console.log(e);
             error_name = e.__name__;
-            e.message = e.reeborg_says
+            if (e.reeborg_says == undefined) {
+                e.message = e.message.replace("\n", "<br>");
+                if (e.info){
+                    e.info = e.info.replace("\n", "<br>");
+                    e.info = e.info.replace("Traceback (most recent call last):<br>", '');
+                    e.info = e.info.replace(/module '*__main__'* line \d+\s/,"&#8594; " );
+                    e.info = e.info.replace(" ", "&nbsp;");
+                    e.info = e.info.replace(/\s*\^$/, "");
+                    e.message += "<br>" + e.info;
+                }
+                e.message = e.message.replace(/module '*__main__'* line \d+\s/,"&#8594; " );
+            } else {
+                e.message = e.reeborg_says;
+            }
         } else {
             error_name = e.name;
         }
@@ -89,7 +102,7 @@ RUR.runner.eval_javascript = function (src) {
 //    function set_line_no(n){
 //        RUR._current_line = n;
 //    }
-//    
+//
 //    lines = src.split("\n");
 //    for (i=0; i < lines.length; i++){
 //        text += "set_line_no(" + i + ");";

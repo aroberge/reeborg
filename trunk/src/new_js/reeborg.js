@@ -397,7 +397,7 @@ RUR.control.play_sound = function (sound_id) {
           save_world, delete_world*/
 
 $(document).ready(function() {
-    
+
     RUR.ui.load_user_worlds();
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
@@ -429,7 +429,7 @@ $(document).ready(function() {
         }  else if (label === "editor-panel"){
             $("#editor-panel").toggleClass("active");
         }
-    
+
         if ($("#output-panel").hasClass("active")) {
             if ( $("#world-panel").hasClass("active")) {
                 RUR.world.robot_world_active = true;
@@ -486,18 +486,18 @@ $(document).ready(function() {
                 obj.setValue(reader.result);
                 fileInput.value = "";
             };
-            reader.readAsText(file);	
-        }); 
+            reader.readAsText(file);
+        });
     };
 
     $("#load-editor").on("click", function(evt) {
         load_file(editor);
     });
-  
+
     $("#load-library").on("click", function(evt) {
         load_file(library);
     });
-  
+
     var _all_files = "";
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
@@ -508,22 +508,25 @@ $(document).ready(function() {
         var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, _all_files);
     });
-  
-  
+
+
     $("#edit-world").on("click", function(evt) {
         toggle_editing_mode();
         $(this).toggleClass("blue-gradient");
         $(this).toggleClass("reverse-blue-gradient");
     });
-  
+
     $("#save-world").on("click", function(evt) {
         var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, "*.json");
     });
 
-  
+
     $("#load-world").on("click", function(evt) {
-        $("#worldfileInput").show();
+        $("#worldfileInput").toggle();
+
+        $(this).toggleClass("blue-gradient");
+        $(this).toggleClass("reverse-blue-gradient");
         var fileInput = document.getElementById('worldfileInput');
         fileInput.addEventListener('change', function(e) {
             var file = fileInput.files[0];
@@ -531,44 +534,46 @@ $(document).ready(function() {
             reader.onload = function(e) {
                 try {
                     $("#worldfileInput").hide();
+                    $("#load-world").toggleClass("blue-gradient");
+                    $("#load-world").toggleClass("reverse-blue-gradient");
                     RUR.world.import_world(reader.result);
                 } catch (e) {
                     alert(RUR.translate("Invalid world file."));
                 }
                 fileInput.value = "";
             };
-            reader.readAsText(file);	
-        }); 
+            reader.readAsText(file);
+        });
     });
-    
+
     $("#memorize-world").on("click", function(evt) {
         var response = prompt("Enter world name to save");
         if (response !== null) {
             RUR.storage.save_world(response.trim());
-            $('#delete-world').show(); 
+            $('#delete-world').show();
         }
     });
-    
+
     $("#delete-world").on("click", function(evt) {
         var response = prompt("Enter world name to delete");
         if (response !== null) {
             RUR.storage.delete_world(response.trim());
         }
     });
-  
+
     $("#classic-image").on("click", function(evt) {
         RUR.vis_robot.select_style(0);
     });
-    
+
     $("#simple-topview").on("click", function(evt) {
         RUR.vis_robot.select_style(1);
     });
-       
+
     $("#rover-type").on("click", function(evt) {
         RUR.vis_robot.select_style(2);
     });
-    
-    
+
+
     $("#robot_canvas").on("click", function (evt) {
         if (!RUR.we.editing_world) {
             return;
@@ -580,7 +585,7 @@ $(document).ready(function() {
 
     $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
-  
+
     $("#help-button").on("click", function() {
         if ($("#help-button").hasClass("reverse-blue-gradient")) {
             $("#help").dialog("open");
@@ -602,7 +607,7 @@ $(document).ready(function() {
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
-          
+
         RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
@@ -617,8 +622,8 @@ $(document).ready(function() {
         }
     });
 
-    
-    try {  
+
+    try {
         RUR.reset_code_in_editors();
     } catch (e){ console.log(e);alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
                 }
@@ -1119,7 +1124,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints, 
+/*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints,
   translate_python, _import_library, CoffeeScript */
 
 RUR.runner = {};
@@ -1143,7 +1148,7 @@ RUR.runner.run = function (playback) {
         // dependent on the robot world.
         if (playback() === "stopped") {
             RUR.ui.stop();
-        } 
+        }
     }
 };
 
@@ -1170,7 +1175,20 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         if (RUR.programming_language === "python") {
             console.log(e);
             error_name = e.__name__;
-            e.message = e.reeborg_says
+            if (e.reeborg_says == undefined) {
+                e.message = e.message.replace("\n", "<br>");
+                if (e.info){
+                    e.info = e.info.replace("\n", "<br>");
+                    e.info = e.info.replace("Traceback (most recent call last):<br>", '');
+                    e.info = e.info.replace(/module '*__main__'* line \d+\s/,"&#8594; " );
+                    e.info = e.info.replace(" ", "&nbsp;");
+                    e.info = e.info.replace(/\s*\^$/, "");
+                    e.message += "<br>" + e.info;
+                }
+                e.message = e.message.replace(/module '*__main__'* line \d+\s/,"&#8594; " );
+            } else {
+                e.message = e.reeborg_says;
+            }
         } else {
             error_name = e.name;
         }
@@ -1205,7 +1223,7 @@ RUR.runner.eval_javascript = function (src) {
 //    function set_line_no(n){
 //        RUR._current_line = n;
 //    }
-//    
+//
 //    lines = src.split("\n");
 //    for (i=0; i < lines.length; i++){
 //        text += "set_line_no(" + i + ");";
@@ -1391,11 +1409,6 @@ RUR.update_permalink = function () {
     }
     $("#url_input").hide();
 };
-
-// RUR.write = function (s) {
-//     $("#output-pre").append(s.toString() + "\n");
-// };
-
 
 RUR.inspect = function (obj){
     var props, result = "";
