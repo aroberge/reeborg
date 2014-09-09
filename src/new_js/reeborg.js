@@ -476,6 +476,8 @@ $(document).ready(function() {
         $("#load-library").show();
     });
 
+    var FILENAME = "filename";
+
     var load_file = function(obj) {
         $("#fileInput").click();
         var fileInput = document.getElementById('fileInput');
@@ -484,7 +486,7 @@ $(document).ready(function() {
             var reader = new FileReader();
             reader.onload = function(e) {
                 obj.setValue(reader.result);
-                fileInput.value = "";
+                fileInput.value = FILENAME;
             };
             reader.readAsText(file);
         });
@@ -498,15 +500,14 @@ $(document).ready(function() {
         load_file(library);
     });
 
-    var _all_files = "";
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, _all_files);
+        saveAs(blob, FILENAME);
     });
 
     $("#save-library").on("click", function(evt) {
         var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, _all_files);
+        saveAs(blob, FILENAME);
     });
 
 
@@ -518,29 +519,23 @@ $(document).ready(function() {
 
     $("#save-world").on("click", function(evt) {
         var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, "*.json");
+        saveAs(blob, FILENAME);
     });
 
 
     $("#load-world").on("click", function(evt) {
-        $("#worldfileInput").toggle();
-
-        $(this).toggleClass("blue-gradient");
-        $(this).toggleClass("reverse-blue-gradient");
-        var fileInput = document.getElementById('worldfileInput');
+        $("#fileInput").click();
+        var fileInput = document.getElementById('fileInput');
         fileInput.addEventListener('change', function(e) {
             var file = fileInput.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    $("#worldfileInput").hide();
-                    $("#load-world").toggleClass("blue-gradient");
-                    $("#load-world").toggleClass("reverse-blue-gradient");
                     RUR.world.import_world(reader.result);
                 } catch (e) {
                     alert(RUR.translate("Invalid world file."));
                 }
-                fileInput.value = "";
+                fileInput.value = FILENAME;
             };
             reader.readAsText(file);
         });
@@ -1470,8 +1465,9 @@ RUR.storage = {};
 RUR.storage.save_world = function (name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
-        $("#Reeborg-shouts").html("Name already exist; will not save.").dialog("open");
-        return;
+        if (!window.confirm("Name already exist; confirm that you want to replace its content.")){
+            return;
+        }
     }
     localStorage.setItem("user_world:"+ name, RUR.world.export_world(RUR.current_world));
     $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
@@ -1495,7 +1491,7 @@ RUR.storage.delete_world = function (name){
         RUR.ui.select_world("Alone");
     }
     $("#select_world").change();
-    
+
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {

@@ -215,8 +215,6 @@ padding:3px;}
   padding: 0 5px;
   }
 
-#fileInput, #worldfileInput {display:none;}
-
 #game-controls, #world-controls, #diary-controls {
   position: absolute;
   top: 5px;

@@ -10,8 +10,9 @@ RUR.storage = {};
 RUR.storage.save_world = function (name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
-        $("#Reeborg-shouts").html("Name already exist; will not save.").dialog("open");
-        return;
+        if (!window.confirm("Name already exist; confirm that you want to replace its content.")){
+            return;
+        }
     }
     localStorage.setItem("user_world:"+ name, RUR.world.export_world(RUR.current_world));
     $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
@@ -35,7 +36,7 @@ RUR.storage.delete_world = function (name){
         RUR.ui.select_world("Alone");
     }
     $("#select_world").change();
-    
+
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
