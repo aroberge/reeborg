@@ -95,7 +95,8 @@ RUR.translation["tokens here; can't put another object"] = "tokens here; can't p
 RUR.translation["tokens as a goal here; can't set another object as goal."] = "tokens as a goal here; can't set another object as goal.";
 RUR.translation["Click on same position to remove, or robot to set orientation."] = "Click on same position to remove, or robot to set orientation.";
 RUR.translation["Goal: no object left in world."] = "Goal: no object left in world.";
-
+RUR.translation["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
+RUR.translation["No such world!"] = "No such world!";
 
 /*==========================================*/
 
