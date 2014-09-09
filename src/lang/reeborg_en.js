@@ -97,6 +97,8 @@ RUR.translation["Click on same position to remove, or robot to set orientation."
 RUR.translation["Goal: no object left in world."] = "Goal: no object left in world.";
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
 RUR.translation["No such world!"] = "No such world!";
+RUR.translation["Enter world name to save"] = "Enter world name to save";
+RUR.translation["Enter world name to delete"] = "Enter world name to delete";
 
 /*==========================================*/
 

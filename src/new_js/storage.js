@@ -10,7 +10,7 @@ RUR.storage = {};
 RUR.storage.save_world = function (name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
-        if (!window.confirm(RUR.translate("Name already exist; confirm that you want to replace its content.")){
+        if (!window.confirm(RUR.translate("Name already exist; confirm that you want to replace its content."))){
             return;
         }
     }
