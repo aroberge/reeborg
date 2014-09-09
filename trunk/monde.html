@@ -124,10 +124,9 @@
   </div>
     <div id="world-edit-buttons">
       <button class="blue-gradient" id="edit-world" title="Édition du monde">Édition</button>
-      <button class="blue-gradient" id="save-world" title="Sauvegarder le monde dans un fichier">sauvegarder (f)</button>
-      <button class="blue-gradient" id="load-world" title="Télécharger à partir d'un fichier">charger (f)</button>
-        <input type="file" id="worldfileInput">
-      <button class="blue-gradient" id="memorize-world" title="Sauvegarder dans le navigateur (stockage local)">sauvegarder (n)</button>
+      <button class="blue-gradient" id="save-world" title="Enregistrer le monde dans un fichier">enregistrer (f)</button>
+      <button class="blue-gradient" id="load-world" title="TéléOuvrir à partir d'un fichier">ouvrir (f)</button>
+      <button class="blue-gradient" id="memorize-world" title="Enregistrer dans le navigateur (stockage local)">enregistrer (n)</button>
       <button class="blue-gradient" id="delete-world" title="Supprimer du navigateur (stockage local)" style="display: none;">
         supprimer (n)
       </button>
@@ -157,17 +156,16 @@
 </div>
 
 <div id="editor-panel" class="active" >
-
-  <input type="file" id="fileInput">
+  <input type="file" id="fileInput" style="display:none;">
   <div id="tabs">
     <ul>
       <li><a id="editor-link" href="#editor">Code Python</a></li>
-      <button class="blue-gradient float-right" id="load-editor" title="Charger un programme">Charger</button>
-      <button class="blue-gradient float-right" id="save-editor" title="Sauvegarder un programme">Sauvegarder</button>
+      <button class="blue-gradient float-right" id="load-editor" title="Ouvrir un programme">Ouvrir</button>
+      <button class="blue-gradient float-right" id="save-editor" title="enregistrer un programme">enregistrer</button>
 
       <li><a id="library-link" href="#library">Bibliothèque</a></li>
-      <button class="blue-gradient float-right" id="load-library" title="Charger la bibliothèque">Charger</button>
-      <button class="blue-gradient float-right" id="save-library" title="Sauvegarder la bibliothèque">Sauvegarder</button>
+      <button class="blue-gradient float-right" id="load-library" title="Ouvrir la bibliothèque">Ouvrir</button>
+      <button class="blue-gradient float-right" id="save-library" title="enregistrer la bibliothèque">enregistrer</button>
     </ul>
     <div id="editor">
       <span id="library-problem">Il y a un problème avec le code dans la bibliothèque !</span>

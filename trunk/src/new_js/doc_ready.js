@@ -86,6 +86,8 @@ $(document).ready(function() {
         $("#load-library").show();
     });
 
+    var FILENAME = "filename";
+
     var load_file = function(obj) {
         $("#fileInput").click();
         var fileInput = document.getElementById('fileInput');
@@ -94,7 +96,7 @@ $(document).ready(function() {
             var reader = new FileReader();
             reader.onload = function(e) {
                 obj.setValue(reader.result);
-                fileInput.value = "";
+                fileInput.value = FILENAME;
             };
             reader.readAsText(file);
         });
@@ -108,15 +110,14 @@ $(document).ready(function() {
         load_file(library);
     });
 
-    var _all_files = "";
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, _all_files);
+        saveAs(blob, FILENAME);
     });
 
     $("#save-library").on("click", function(evt) {
         var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, _all_files);
+        saveAs(blob, FILENAME);
     });
 
 
@@ -128,29 +129,23 @@ $(document).ready(function() {
 
     $("#save-world").on("click", function(evt) {
         var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, "*.json");
+        saveAs(blob, FILENAME);
     });
 
 
     $("#load-world").on("click", function(evt) {
-        $("#worldfileInput").toggle();
-
-        $(this).toggleClass("blue-gradient");
-        $(this).toggleClass("reverse-blue-gradient");
-        var fileInput = document.getElementById('worldfileInput');
+        $("#fileInput").click();
+        var fileInput = document.getElementById('fileInput');
         fileInput.addEventListener('change', function(e) {
             var file = fileInput.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    $("#worldfileInput").hide();
-                    $("#load-world").toggleClass("blue-gradient");
-                    $("#load-world").toggleClass("reverse-blue-gradient");
                     RUR.world.import_world(reader.result);
                 } catch (e) {
                     alert(RUR.translate("Invalid world file."));
                 }
-                fileInput.value = "";
+                fileInput.value = FILENAME;
             };
             reader.readAsText(file);
         });
