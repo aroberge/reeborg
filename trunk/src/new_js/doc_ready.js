@@ -152,7 +152,7 @@ $(document).ready(function() {
     });
 
     $("#memorize-world").on("click", function(evt) {
-        var response = prompt("Enter world name to save");
+        var response = prompt(RUR.translate("Enter world name to save"));
         if (response !== null) {
             RUR.storage.save_world(response.trim());
             $('#delete-world').show();
@@ -160,7 +160,7 @@ $(document).ready(function() {
     });
 
     $("#delete-world").on("click", function(evt) {
-        var response = prompt("Enter world name to delete");
+        var response = prompt(RUR.translate("Enter world name to delete"));
         if (response !== null) {
             RUR.storage.delete_world(response.trim());
         }

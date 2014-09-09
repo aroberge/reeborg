@@ -542,7 +542,7 @@ $(document).ready(function() {
     });
 
     $("#memorize-world").on("click", function(evt) {
-        var response = prompt("Enter world name to save");
+        var response = prompt(RUR.translate("Enter world name to save"));
         if (response !== null) {
             RUR.storage.save_world(response.trim());
             $('#delete-world').show();
@@ -550,7 +550,7 @@ $(document).ready(function() {
     });
 
     $("#delete-world").on("click", function(evt) {
-        var response = prompt("Enter world name to delete");
+        var response = prompt(RUR.translate("Enter world name to delete"));
         if (response !== null) {
             RUR.storage.delete_world(response.trim());
         }
@@ -1465,7 +1465,7 @@ RUR.storage = {};
 RUR.storage.save_world = function (name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
-        if (!window.confirm("Name already exist; confirm that you want to replace its content.")){
+        if (!window.confirm(RUR.translate("Name already exist; confirm that you want to replace its content."))){
             return;
         }
     }
@@ -1480,7 +1480,7 @@ RUR.storage.delete_world = function (name){
     "use strict";
     var i, key;
     if (localStorage.getItem("user_world:" + name) === null){
-        $("#Reeborg-shouts").html("No such world!").dialog("open");
+        $("#Reeborg-shouts").html(RUR.translate("No such world!")).dialog("open");
         return;
     }
     localStorage.removeItem("user_world:" + name);
