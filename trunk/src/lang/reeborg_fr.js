@@ -100,7 +100,8 @@ RUR.translation["tokens here; can't put another object"] = "Jetons ici; on ne pe
 RUR.translation["tokens as a goal here; can't set another object as goal."] = "Jetons comme but ici; on ne peut pas mettre un autre objet comme but ici.";
 RUR.translation["Click on same position to remove, or robot to set orientation."] = "Cliquez sur la même position pour supprimer, ou sur un robot pour choisir l'orientation.";
 RUR.translation["Goal: no object left in world."] = "But: aucun objet qui reste dans le monde.";
-
+RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
+RUR.translation["No such world!"] = "Ce monde n'existe pas !";
 
 /*==========================================*/
 
