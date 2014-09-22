@@ -32,7 +32,7 @@ RUR.world.import_world = function (json_string) {
     if (json_string === undefined){
         return {};
     }
-    try { 
+    try {
         RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
     } catch (e) {
         console.log("exception caught in import_world");
@@ -84,3 +84,6 @@ RUR.world.add_robot = function (robot) {
 };
 
 
+RUR.world.__remove_default_robot = function () {
+    RUR.current_world.robots = [];
+};

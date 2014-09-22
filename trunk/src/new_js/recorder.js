@@ -1,6 +1,6 @@
 /* Author: André Roberge
    License: MIT
-   
+
    Defining base name space and various constants.
  */
 
@@ -15,7 +15,7 @@ RUR.rec.reset = function() {
     RUR.rec.frames = [];
     RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
-    RUR.rec.delay = 300;  
+    RUR.rec.delay = 300;
     clearTimeout(RUR.rec.timer);
     RUR._previous_line = undefined;
 };
@@ -31,16 +31,16 @@ RUR.rec.record_frame = function (name, obj) {
     if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
-//    if (RUR.programming_langage === "javascript") { 
-//        RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line; 
+//    if (RUR.programming_langage === "javascript") {
+//        RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line;
 //    } else if (RUR.programming_language === "python") {
-//        if (__BRYTHON__.line_info !== undefined) { 
+//        if (__BRYTHON__.line_info !== undefined) {
 //            RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-1;
 //        } else{
 //            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
 //        }
 //    }
-    
+
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
     RUR.control.sound_id = undefined;
@@ -92,18 +92,18 @@ RUR.rec.display_frame = function () {
     "use strict";
     var frame, goal_status;
 
-    
+
     // track line number and highlight line to be executed
 //    try {
-//        
+//
 //        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
 //    }catch (e) {}
-//    try { 
+//    try {
 //        editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
 //        RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
 //    } catch (e) {}
-    
-    
+
+
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
         return RUR.rec.conclude();
     }
@@ -112,14 +112,14 @@ RUR.rec.display_frame = function () {
     if(frame === undefined) {
         return;
     }
-    
+
     if (frame.delay !== undefined) {
         RUR.visible_world.delay = frame.delay;   // FIXME
         return "immediate";
     } else if (frame.pause) {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
-    } else if (frame.error !== undefined) { 
+    } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message + "\n");
@@ -132,7 +132,7 @@ RUR.rec.display_frame = function () {
 };
 
 RUR.rec.conclude = function () {
-//    try{ 
+//    try{
 //        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
 //    } catch(e) {}
     var frame, goal_status;
@@ -204,7 +204,7 @@ RUR.rec.check_mud = function(frame) {
         if(mud.indexOf(coords) !== -1){
             return true;
         }
-    }    
+    }
     return false;
 };
 

@@ -257,6 +257,10 @@ RUR.control.build_wall = function (robot){
 
     coords = x + "," + y;
     walls = RUR.current_world.walls;
+    if (walls === undefined){
+        walls = {};
+        RUR.current_world.walls = {};
+    }
 
     if (walls[coords] === undefined){
         walls[coords] = [orientation];
@@ -486,7 +490,7 @@ $(document).ready(function() {
             var reader = new FileReader();
             reader.onload = function(e) {
                 obj.setValue(reader.result);
-                fileInput.value = FILENAME;
+                fileInput.value = '';
             };
             reader.readAsText(file);
         });
@@ -535,7 +539,7 @@ $(document).ready(function() {
                 } catch (e) {
                     alert(RUR.translate("Invalid world file."));
                 }
-                fileInput.value = FILENAME;
+                fileInput.value = '';
             };
             reader.readAsText(file);
         });
@@ -780,7 +784,7 @@ function updateHints(obj) {
 }
 /* Author: André Roberge
    License: MIT
-   
+
    Defining base name space and various constants.
  */
 
@@ -795,7 +799,7 @@ RUR.rec.reset = function() {
     RUR.rec.frames = [];
     RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
-    RUR.rec.delay = 300;  
+    RUR.rec.delay = 300;
     clearTimeout(RUR.rec.timer);
     RUR._previous_line = undefined;
 };
@@ -811,16 +815,16 @@ RUR.rec.record_frame = function (name, obj) {
     if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
-//    if (RUR.programming_langage === "javascript") { 
-//        RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line; 
+//    if (RUR.programming_langage === "javascript") {
+//        RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line;
 //    } else if (RUR.programming_language === "python") {
-//        if (__BRYTHON__.line_info !== undefined) { 
+//        if (__BRYTHON__.line_info !== undefined) {
 //            RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-1;
 //        } else{
 //            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
 //        }
 //    }
-    
+
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
     RUR.control.sound_id = undefined;
@@ -872,18 +876,18 @@ RUR.rec.display_frame = function () {
     "use strict";
     var frame, goal_status;
 
-    
+
     // track line number and highlight line to be executed
 //    try {
-//        
+//
 //        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
 //    }catch (e) {}
-//    try { 
+//    try {
 //        editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
 //        RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
 //    } catch (e) {}
-    
-    
+
+
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
         return RUR.rec.conclude();
     }
@@ -892,14 +896,14 @@ RUR.rec.display_frame = function () {
     if(frame === undefined) {
         return;
     }
-    
+
     if (frame.delay !== undefined) {
         RUR.visible_world.delay = frame.delay;   // FIXME
         return "immediate";
     } else if (frame.pause) {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
-    } else if (frame.error !== undefined) { 
+    } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message + "\n");
@@ -912,7 +916,7 @@ RUR.rec.display_frame = function () {
 };
 
 RUR.rec.conclude = function () {
-//    try{ 
+//    try{
 //        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
 //    } catch(e) {}
     var frame, goal_status;
@@ -984,7 +988,7 @@ RUR.rec.check_mud = function(frame) {
         if(mud.indexOf(coords) !== -1){
             return true;
         }
-    }    
+    }
     return false;
 };
 
@@ -1887,7 +1891,7 @@ RUR.vis_robot.draw = function (robot) {
     if (!robot) {
         return;
     }
-    
+
     x = robot.x * RUR.WALL_LENGTH + RUR.vis_robot.x_offset;
     y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.y_offset;
     switch(robot.orientation){
@@ -1925,12 +1929,12 @@ RUR.vis_robot.draw_trace = function (robot) {
     // overrides user choice for large world (small grid size)
     if(RUR.LARGE_WORLD) {
         RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
-        RUR.vis_robot.trace_color = "seagreen";
+        // RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 2;
     } else {
         RUR.vis_robot.set_trace_style(RUR.TRACE_STYLE);
     }
-    
+
     ctx.beginPath();
     ctx.moveTo(robot._prev_x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation][0],
                     RUR.HEIGHT - (robot._prev_y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation][1]);
@@ -1941,19 +1945,24 @@ RUR.vis_robot.draw_trace = function (robot) {
 
 RUR.vis_robot.set_trace_style = function (choice){
     "use strict";
+    if (choice == undefined) {
+        return;
+    }
     RUR.TRACE_STYLE = choice;
     if (choice === "thick") {
         RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
         RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 4;
-    } else {
+    } else if (choice === "none") {
+        RUR.vis_robot.trace_color = "rgba(0,0,0,0)";
+    } else if (choice === "default") {
         RUR.vis_robot.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
         RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 1;
     }
 };
 
-RUR.vis_robot.set_trace_style("default"); 
+RUR.vis_robot.set_trace_style("default");
 /* Author: André Roberge
    License: MIT
  */
@@ -2360,7 +2369,7 @@ RUR.world.import_world = function (json_string) {
     if (json_string === undefined){
         return {};
     }
-    try { 
+    try {
         RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
     } catch (e) {
         console.log("exception caught in import_world");
@@ -2412,7 +2421,9 @@ RUR.world.add_robot = function (robot) {
 };
 
 
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+RUR.world.__remove_default_robot = function () {
+    RUR.current_world.robots = [];
+};/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
 RUR.we = {};   // we == World Editor

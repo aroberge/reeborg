@@ -122,7 +122,7 @@ p.try {
 .cm-s-reeborg-dark.CodeMirror { background: #112244; color: white; border: 0;}
 .cm-s-reeborg-dark .CodeMirror-gutters { background: #224488; border-right: 3px solid rgb(117,161,16); }
 .cm-s-reeborg-dark .CodeMirror-linenumber {font-size: 9pt; color: white; }
-.cm-s-reeborg-dark .CodeMirror-cursor { border-left: 1px solid white !important; }
+.cm-s-reeborg-dark .CodeMirror-cursor {border-left: 2px solid white !important; }
 .cm-s-reeborg-dark .cm-comment { color: #9c9; font-style:italic; line-height: 1em; }
 .cm-s-reeborg-dark .cm-atom { color: #F4C20B; }
 .cm-s-reeborg-dark .cm-number, .cm-s-reeborg-dark .cm-attribute { color: #cef; }
