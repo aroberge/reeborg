@@ -6,5 +6,6 @@
          "tokens": "infinite",
          "orientation": 0
       }
-   ]
+   ],
+   "walls": {}
 }

@@ -202,6 +202,10 @@ RUR.control.build_wall = function (robot){
 
     coords = x + "," + y;
     walls = RUR.current_world.walls;
+    if (walls === undefined){
+        walls = {};
+        RUR.current_world.walls = {};
+    }
 
     if (walls[coords] === undefined){
         walls[coords] = [orientation];

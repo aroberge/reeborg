@@ -110,11 +110,11 @@ RUR.translation["Enter world name to delete"] = "Écrivez le nom du monde à sup
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, rien_devant, rien_a_droite, "+
                     " face_au_nord, termine, depose, prend, objet_ici, selectionne_monde,"+
                     " jeton_ici, a_des_jetons, ecrit, au_but, au_but_orientation, selectionne_defi," +
-                    " construit_mur, pense, pause, repete, voir_source, son */\n";
+                    " construit_un_mur, pense, pause, repete, voir_source, son */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite, selectionne_defi,
     face_au_nord, termine, depose, prend, objet_ici, selectionne_monde, jeton_ici,
-    a_des_jetons, ecrit, au_but, au_but_orientation, construit_mur, pense,
+    a_des_jetons, ecrit, au_but, au_but_orientation, construit_un_mur, pense,
     pause, repete, voir_source, son, RobotUsage,
     nombre_de_commandes;
 
@@ -165,10 +165,10 @@ RUR.reset_definitions = function () {
         RUR.control.at_goal_orientation(this.body);
     };
 
-    construit_mur = function() {
+    construit_un_mur = function() {
         RUR.control.build_wall(RUR.current_world.robots[0]);
     };
-    RobotUsage.prototype.construit_mur = function () {
+    RobotUsage.prototype.construit_un_mur = function () {
         RUR.control.build_wall(this.body);
     };
 

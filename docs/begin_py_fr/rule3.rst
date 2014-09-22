@@ -74,8 +74,8 @@ Comment penser à ``def``
 
 .. note::
 
-   Please note that this simplified explanation does not take into account what is known
-   as *variable scope* which is something that we will cover later.
+   Veuillez noter que ceci ne tient pas compte de la "portée" des variables qui
+   est quelque chose que nous verrons plus tard.
 
 Vous venez tout juste d'apprendre comment définir des fonctions en
 Python. Au cas où ce ne serait pas très clair pour vous, voici une façon
@@ -125,7 +125,7 @@ la fonction tel quel à cet endroit.
 .. topic:: À votre tour!
 
    Pouvez-vous simplifier votre programme de livraison de journaux et utiliser
-   la fonction ``tourne_a_droite()`` qui estplus facile à lire et à comprendre que
+   la fonction ``tourne_a_droite()`` qui est plus facile à lire et à comprendre que
    trois instructions ``tourne_a_gauche()`` de suite?
    Lorsque vous aurez fait ceci, essayer de trouver d'autres façons de simplifier
    votre programme en définissant d'autres fonctions.

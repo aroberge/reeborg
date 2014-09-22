@@ -96,7 +96,7 @@ $(document).ready(function() {
             var reader = new FileReader();
             reader.onload = function(e) {
                 obj.setValue(reader.result);
-                fileInput.value = FILENAME;
+                fileInput.value = '';
             };
             reader.readAsText(file);
         });
@@ -145,7 +145,7 @@ $(document).ready(function() {
                 } catch (e) {
                     alert(RUR.translate("Invalid world file."));
                 }
-                fileInput.value = FILENAME;
+                fileInput.value = '';
             };
             reader.readAsText(file);
         });

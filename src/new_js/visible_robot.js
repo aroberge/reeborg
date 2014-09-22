@@ -91,7 +91,7 @@ RUR.vis_robot.draw = function (robot) {
     if (!robot) {
         return;
     }
-    
+
     x = robot.x * RUR.WALL_LENGTH + RUR.vis_robot.x_offset;
     y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.y_offset;
     switch(robot.orientation){
@@ -129,12 +129,12 @@ RUR.vis_robot.draw_trace = function (robot) {
     // overrides user choice for large world (small grid size)
     if(RUR.LARGE_WORLD) {
         RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
-        RUR.vis_robot.trace_color = "seagreen";
+        // RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 2;
     } else {
         RUR.vis_robot.set_trace_style(RUR.TRACE_STYLE);
     }
-    
+
     ctx.beginPath();
     ctx.moveTo(robot._prev_x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation][0],
                     RUR.HEIGHT - (robot._prev_y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation][1]);
@@ -145,16 +145,21 @@ RUR.vis_robot.draw_trace = function (robot) {
 
 RUR.vis_robot.set_trace_style = function (choice){
     "use strict";
+    if (choice == undefined) {
+        return;
+    }
     RUR.TRACE_STYLE = choice;
     if (choice === "thick") {
         RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
         RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 4;
-    } else {
+    } else if (choice === "none") {
+        RUR.vis_robot.trace_color = "rgba(0,0,0,0)";
+    } else if (choice === "default") {
         RUR.vis_robot.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
         RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 1;
     }
 };
 
-RUR.vis_robot.set_trace_style("default"); 
+RUR.vis_robot.set_trace_style("default");

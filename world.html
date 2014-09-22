@@ -421,7 +421,8 @@ window['_UsedRobot'] = _UsedRobot
         <li><code>sound("true")</code>: turns sound on. Can be turned off by calling with no argument or with "false".
                   Off by default or if delay between actions is less than 250ms.</li>
         <li><code>think(number)</code>: sets the amount of time in milliseconds between each robot action.</li>
-        <li><code>write(string)</code>: write a string in Reeborg's Diary</li>
+        <li><code>write(string)</code>: write a string in Reeborg's Diary <b>only</b> if world is visible - otherwise,
+          use <code>print</code>.</li>
         <li><code>select_world(string)</code>: selects a given world.</li>
             <li><code>select_challenge(string)</code>: selects a given (hiddent) world.</li>
         <li><code>print(string)</code>: only valid with Python.  Somewhat equivalent to <code>write</code>.</li>
