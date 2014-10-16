@@ -16,7 +16,7 @@ created here (some plugins have been copied from elsewhere) :
 reeborg.js
 reeborg_lang.js
 
-where lang means human language.  
+where lang means human language.
 Thus for English speakers, we would include the file
 
 reeborg_en.js
@@ -25,13 +25,11 @@ for French speakers would include instead
 
 reeborg_fr.js
 
-The programming language (javascript or Python currently) needs to be 
+The programming language (javascript or Python currently) needs to be
 defined in the main html page.
 
 The main file is reeborg.js.  It is the result of the concatenation of
-all the (other) files found in src/js.  (As of this writing, it is actually
-in src/new_js as I am rewriting the entire project to make it more efficient
-and avoid memory leaks.)
+all the (other) files found in src/js.
 
 In almost each subfile, a namespace is introduced so that functions can
 easily be located when they occur elsewhere.  Here are the names used:
