@@ -7,6 +7,8 @@
 
 RUR.ui = {};
 
+RUR.ui.stop_called = false;
+
 RUR.ui.set_ready_to_run = function () {
     $("#stop").attr("disabled", "true");
     $("#pause").attr("disabled", "true");
@@ -22,6 +24,10 @@ RUR.ui.set_ready_to_run = function () {
 };
 
 RUR.ui.run = function () {
+    if (RUR.ui.stop_called){
+        RUR.ui.stop_called = false;
+        RUR.ui.reload();
+    }
     $("#stop").removeAttr("disabled");
     $("#pause").removeAttr("disabled");
     $("#run").attr("disabled", "true");
@@ -66,19 +72,20 @@ RUR.ui.stop = function () {
     clearTimeout(RUR.rec.timer);
     $("#stop").attr("disabled", "true");
     $("#pause").attr("disabled", "true");
-    $("#run").attr("disabled", "true");
+    $("#run").removeAttr("disabled");
     $("#step").attr("disabled", "true");
     $("#reload").removeAttr("disabled");
 
     $("#stop2").attr("disabled", "true");
     $("#pause2").attr("disabled", "true");
-    $("#run2").attr("disabled", "true");
+    $("#run2").removeAttr("disabled");
     $("#step2").attr("disabled", "true");
     $("#reload2").removeAttr("disabled");
+    RUR.ui.stop_called = true;
 };
 
 RUR.ui.reload = function() {
-    RUR.world.reset();
+
     RUR.ui.set_ready_to_run();
     $("#output-pre").html("");
     $("#output-panel pre").remove(".jscode");
@@ -95,7 +102,7 @@ RUR.ui.reload = function() {
         editorUpdateHints();
         libraryUpdateHints();
     }
-    
+
 };
 
 RUR.ui.select_world = function (s, silent) {
@@ -128,7 +135,7 @@ RUR.ui.select_world = function (s, silent) {
 };
 
 RUR.ui.load_file = function (filename, name, replace, elt, i) {
-    $.ajax({url: "src/json/" + filename + ".json", 
+    $.ajax({url: "src/json/" + filename + ".json",
         async: false,
         error: function(e){
             RUR.ui.load_file_error = true;
@@ -150,8 +157,8 @@ RUR.ui.load_file = function (filename, name, replace, elt, i) {
 
 RUR.ui.select_challenge = function (filename) {
     // this is for worlds that are defined in a file not available from the
-    // drop-down menu. 
-    var name = "Challenge", elt = document.getElementById("select_world"); 
+    // drop-down menu.
+    var name = "Challenge", elt = document.getElementById("select_world");
     RUR.ui.load_file_error = false;
     for (var i=0; i < elt.options.length; i++){
         if (elt.options[i].text === name) {
@@ -181,7 +188,7 @@ RUR.ui.load_user_worlds = function () {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
             name = key.slice(11);
-            if (name !== "PERMALINK") { 
+            if (name !== "PERMALINK") {
                 $('#select_world').append( $('<option style="background-color:#ff9"></option>'
                               ).val("user_world:" + name).html(name));
                 user_world_present = true;
