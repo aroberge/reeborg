@@ -13,7 +13,7 @@ RUR.vis_world.draw_coordinates = function(ctx) {
     if (RUR.current_world.blank_canvas) {
         return;
     }
-    
+
     ctx.fillStyle = RUR.COORDINATES_COLOR;
     y = RUR.HEIGHT + 5 - RUR.WALL_LENGTH/2;
     for(x=1; x <= RUR.COLS; x++){
@@ -57,16 +57,16 @@ RUR.vis_world.draw_background = function () {
         RUR.vis_world.draw_north_wall(ctx, i, 0);
     }
     RUR.vis_world.draw_coordinates(ctx);
-    
+
 };
 
 RUR.vis_world.draw_foreground_walls = function (walls) {
     "use strict";
     var keys, key, i, j, k, ctx = RUR.WALL_CTX;
-    
+
     ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    
-    if (RUR.current_world.blank_canvas || 
+
+    if (RUR.current_world.blank_canvas ||
         walls === undefined || walls == {}) {
         return;
     }
@@ -340,11 +340,11 @@ RUR.vis_world.draw_all = function () {
     }
     RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
     RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 2;
-    
+
     RUR.vis_world.draw_background();
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_goal();
-    RUR.vis_world.refresh();
+    RUR.vis_world.refresh("initial");
 };
 
 RUR.vis_world.draw_other = function (other){
@@ -363,11 +363,20 @@ RUR.vis_world.draw_other = function (other){
     }
 }
 
-RUR.vis_world.refresh = function (world) {
+RUR.vis_world.refresh = function (initial) {
     "use strict";
+    var t, toks, min_, max_;
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_other(RUR.current_world.other);
     RUR.vis_world.draw_robots(RUR.current_world.robots);
     RUR.vis_world.draw_tokens(RUR.current_world.tokens);
+    if (initial !== undefined && RUR.current_world.tokens_range !== undefined) {
+        RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
+        toks = Object.keys(RUR.current_world.tokens_range);
+        for (t=0; t < toks.length; t++){
+            min_ = RUR.current_world.min_tokens[toks[t]];
+            max_ = RUR.current_world.max_tokens[toks[t]];
+            RUR.current_world.tokens[toks[t]] = randint(min_, max_);        }
+    }
     RUR.vis_world.draw_shapes(RUR.current_world.shapes);
 };
