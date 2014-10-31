@@ -85,4 +85,7 @@ parseUri.options = {
 	}
 };
 
-
+// Returns a random integer between min and max (both included)
+function randint(min, max, previous) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

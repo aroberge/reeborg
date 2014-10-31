@@ -53,7 +53,7 @@ RUR.vis_robot.select_style = function (arg) {
     RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
 
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.refresh("initial");
     }
 
     localStorage.setItem("robot_style", arg);
@@ -65,22 +65,22 @@ RUR.vis_robot.select_style(localStorage.getItem("robot_style"));
 
 RUR.vis_robot.e_img.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.refresh("initial");
     }
 };
 RUR.vis_robot.w_img.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.refresh("initial");
     }
 };
 RUR.vis_robot.n_img.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.refresh("initial");
     }
 };
 RUR.vis_robot.s_img.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.refresh("initial");
     }
 };
 
