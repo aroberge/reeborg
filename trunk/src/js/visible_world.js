@@ -366,9 +366,6 @@ RUR.vis_world.draw_other = function (other){
 RUR.vis_world.refresh = function (initial) {
     "use strict";
     var t, toks, min_, max_;
-    if (initial !== undefined) {
-        RUR.vis_world.select_initial_values();
-    }
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_other(RUR.current_world.other);
     RUR.vis_world.draw_robots(RUR.current_world.robots);
@@ -385,7 +382,7 @@ RUR.vis_world.select_initial_values = function() {
     // select initial values if required i.e. when some are specified as
     // being chosen randomly
     "use strict";
-    var k, keys, min_, max_;
+    var k, keys, min_, max_, robot;
     if (RUR.current_world.tokens_range !== undefined) {
         RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
         keys = Object.keys(RUR.current_world.tokens_range);
@@ -394,5 +391,13 @@ RUR.vis_world.select_initial_values = function() {
             max_ = RUR.current_world.max_tokens[keys[k]];
             RUR.current_world.tokens[keys[k]] = RUR.randint(min_, max_);
         }
+    }
+    robot = RUR.current_world.robots[0];
+    if (robot === undefined){
+        return
+    }
+    if (robot.orientation == -1){
+        RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
+        RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
     }
 }

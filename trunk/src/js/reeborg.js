@@ -564,12 +564,8 @@ $(document).ready(function() {
         RUR.vis_robot.select_style(0);
     });
 
-    $("#simple-topview").on("click", function(evt) {
-        RUR.vis_robot.select_style(1);
-    });
-
     $("#rover-type").on("click", function(evt) {
-        RUR.vis_robot.select_style(2);
+        RUR.vis_robot.select_style(1);
     });
 
 
@@ -2153,6 +2149,7 @@ RUR.runner.interpreted = false;
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (!RUR.runner.interpreted) {
+        RUR.vis_world.select_initial_values();
         src = RUR._import_library();                // defined in Reeborg_js_en, etc.
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
@@ -2844,31 +2841,20 @@ RUR.vis_robot.images[0].robot_w_img = new Image();
 RUR.vis_robot.images[0].robot_w_img.src = 'src/images/robot_w.png';
 RUR.vis_robot.images[0].robot_s_img = new Image();
 RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
-RUR.vis_robot.images[0].robot_spinning_img = new Image();
-RUR.vis_robot.images[0].robot_spinning_img.src = 'src/images/spinning_robot.gif';
-
-
-// poorly drawn to view
-RUR.vis_robot.images[1].robot_e_img = new Image();
-RUR.vis_robot.images[1].robot_e_img.src = 'src/images/top_e.png';
-RUR.vis_robot.images[1].robot_n_img = new Image();
-RUR.vis_robot.images[1].robot_n_img.src = 'src/images/top_n.png';
-RUR.vis_robot.images[1].robot_w_img = new Image();
-RUR.vis_robot.images[1].robot_w_img.src = 'src/images/top_w.png';
-RUR.vis_robot.images[1].robot_s_img = new Image();
-RUR.vis_robot.images[1].robot_s_img.src = 'src/images/top_s.png';
+RUR.vis_robot.images[0].robot_random_img = new Image();
+RUR.vis_robot.images[0].robot_random_img.src = 'src/images/robot_random.png';
 
 // rover type
-RUR.vis_robot.images[2].robot_e_img = new Image();
-RUR.vis_robot.images[2].robot_e_img.src = 'src/images/rover_e.png';
-RUR.vis_robot.images[2].robot_n_img = new Image();
-RUR.vis_robot.images[2].robot_n_img.src = 'src/images/rover_n.png';
-RUR.vis_robot.images[2].robot_w_img = new Image();
-RUR.vis_robot.images[2].robot_w_img.src = 'src/images/rover_w.png';
-RUR.vis_robot.images[2].robot_s_img = new Image();
-RUR.vis_robot.images[2].robot_s_img.src = 'src/images/rover_s.png';
-RUR.vis_robot.images[2].robot_spinning_img = new Image();
-RUR.vis_robot.images[2].robot_spinning_img.src = 'src/images/spinning_rover.gif';
+RUR.vis_robot.images[1].robot_e_img = new Image();
+RUR.vis_robot.images[1].robot_e_img.src = 'src/images/rover_e.png';
+RUR.vis_robot.images[1].robot_n_img = new Image();
+RUR.vis_robot.images[1].robot_n_img.src = 'src/images/rover_n.png';
+RUR.vis_robot.images[1].robot_w_img = new Image();
+RUR.vis_robot.images[1].robot_w_img.src = 'src/images/rover_w.png';
+RUR.vis_robot.images[1].robot_s_img = new Image();
+RUR.vis_robot.images[1].robot_s_img.src = 'src/images/rover_s.png';
+RUR.vis_robot.images[1].robot_random_img = new Image();
+RUR.vis_robot.images[1].robot_random_img.src = 'src/images/rover_random.png';
 
 RUR.vis_robot.x_offset = 10;
 RUR.vis_robot.y_offset = 8;
@@ -2876,14 +2862,15 @@ RUR.vis_robot.y_offset = 8;
 RUR.vis_robot.select_style = function (arg) {
     var style;
     style = parseInt(arg, 10);
-    if (!(style === 0 || style === 1 || style === 2)) {
-        style = 0;
+    if (!(style === 0 || style === 1)) {
+        style = 1;     // rover, which used to be style 2, is chosen as default
+                       // so that users that had it chosen still see
     }
     RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
     RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
     RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
     RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
-    RUR.vis_robot.spinning_img = RUR.vis_robot.images[style].robot_spinning_img;
+    RUR.vis_robot.random_img = RUR.vis_robot.images[style].robot_random_img;
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh("initial");
     }
@@ -2915,7 +2902,7 @@ RUR.vis_robot.s_img.onload = function () {
         RUR.vis_world.refresh("initial");
     }
 };
-RUR.vis_robot.spinning_img.onload = function () {
+RUR.vis_robot.random_img.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh("initial");
     }
@@ -2944,8 +2931,8 @@ RUR.vis_robot.draw = function (robot) {
         RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y, RUR.vis_robot.s_img.width*RUR.SCALE, RUR.vis_robot.s_img.height*RUR.SCALE);
         break;
     case -1:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.spinning_img, x, y, RUR.vis_robot.spinning_img.width*RUR.SCALE,
-                                RUR.vis_robot.spinning_img.height*RUR.SCALE);
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.random_img, x, y, RUR.vis_robot.random_img.width*RUR.SCALE,
+                                RUR.vis_robot.random_img.height*RUR.SCALE);
         break;
     default:
         RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
@@ -2959,7 +2946,7 @@ RUR.vis_robot.draw = function (robot) {
 
 RUR.vis_robot.draw_trace = function (robot) {
     "use strict";
-    if (robot === undefined || robot._is_leaky === false) {
+    if (robot === undefined || robot._is_leaky === false || robot.orientation === -1) {
         return;
     }
     var ctx = RUR.TRACE_CTX;
@@ -3371,9 +3358,6 @@ RUR.vis_world.draw_other = function (other){
 RUR.vis_world.refresh = function (initial) {
     "use strict";
     var t, toks, min_, max_;
-    if (initial !== undefined) {
-        RUR.vis_world.select_initial_values();
-    }
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_other(RUR.current_world.other);
     RUR.vis_world.draw_robots(RUR.current_world.robots);
@@ -3390,7 +3374,7 @@ RUR.vis_world.select_initial_values = function() {
     // select initial values if required i.e. when some are specified as
     // being chosen randomly
     "use strict";
-    var k, keys, min_, max_;
+    var k, keys, min_, max_, robot;
     if (RUR.current_world.tokens_range !== undefined) {
         RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
         keys = Object.keys(RUR.current_world.tokens_range);
@@ -3399,6 +3383,14 @@ RUR.vis_world.select_initial_values = function() {
             max_ = RUR.current_world.max_tokens[keys[k]];
             RUR.current_world.tokens[keys[k]] = RUR.randint(min_, max_);
         }
+    }
+    robot = RUR.current_world.robots[0];
+    if (robot === undefined){
+        return
+    }
+    if (robot.orientation == -1){
+        RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
+        RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
     }
 }/* Author: André Roberge
    License: MIT

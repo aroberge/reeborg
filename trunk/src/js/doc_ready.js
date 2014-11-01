@@ -170,12 +170,8 @@ $(document).ready(function() {
         RUR.vis_robot.select_style(0);
     });
 
-    $("#simple-topview").on("click", function(evt) {
-        RUR.vis_robot.select_style(1);
-    });
-
     $("#rover-type").on("click", function(evt) {
-        RUR.vis_robot.select_style(2);
+        RUR.vis_robot.select_style(1);
     });
 
 
