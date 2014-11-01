@@ -246,12 +246,31 @@ RUR.we.teleport_robot = function () {
 };
 
 RUR.we.give_tokens_to_robot = function () {
+    var tok, tokens, max_tokens;
     var response = prompt(RUR.translate("Enter number of tokens for robot to carry (use inf for infinite number)"));
     if (response !== null) {
+        _tok = response.split(":");
         if (response === "inf"){
             RUR.current_world.robots[0].tokens = "infinite";
-        } else if (parseInt(response, 10) >= 0) {
-            RUR.current_world.robots[0].tokens = parseInt(response, 10);
+        } else if (parseInt(_tok[0], 10) >= 0) {
+            tokens = parseInt(_tok[0], 10);
+            if (_tok[1] !== undefined) {
+                max_tokens = parseInt(_tok[1], 10);
+                if (max_tokens <= tokens) {
+                    $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
+                    delete RUR.current_world.robots[0].tokens_range;
+                    delete RUR.current_world.robots[0].max_tokens;
+                    delete RUR.current_world.robots[0].min_tokens;
+                    RUR.current_world.robots[0].tokens = "infinite";
+                } else {
+                    RUR.current_world.robots[0].max_tokens = max_tokens;
+                    RUR.current_world.robots[0].min_tokens = tokens;
+                    RUR.current_world.robots[0].tokens_range = response;
+                    RUR.current_world.robots[0].tokens = response;
+                }
+            } else {
+                RUR.current_world.robots[0].tokens = tokens;
+            }
         } else {
             $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
         }

@@ -400,4 +400,7 @@ RUR.vis_world.select_initial_values = function() {
         RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
         RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
     }
+    if (robot.tokens_range !== undefined){
+        RUR.current_world.robots[0].tokens = RUR.randint(robot.min_tokens, robot.max_tokens);
+    }
 }
