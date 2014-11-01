@@ -2477,7 +2477,10 @@ RUR._import_library = function () {
     return src.replace(import_lib_regex, separator+lib_src);
 };
 
-/* Author: André Roberge
+// Returns a random integer between min and max (both included)
+RUR.randint = function (min, max, previous) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}/* Author: André Roberge
    License: MIT
  */
 
@@ -2822,12 +2825,7 @@ parseUri.options = {
 		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
 		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
 	}
-};
-
-// Returns a random integer between min and max (both included)
-function randint(min, max, previous) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}/* Author: André Roberge
+};/* Author: André Roberge
    License: MIT
  */
 
@@ -2846,6 +2844,9 @@ RUR.vis_robot.images[0].robot_w_img = new Image();
 RUR.vis_robot.images[0].robot_w_img.src = 'src/images/robot_w.png';
 RUR.vis_robot.images[0].robot_s_img = new Image();
 RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
+RUR.vis_robot.images[0].robot_spinning_img = new Image();
+RUR.vis_robot.images[0].robot_spinning_img.src = 'src/images/spinning_robot.gif';
+
 
 // poorly drawn to view
 RUR.vis_robot.images[1].robot_e_img = new Image();
@@ -2866,6 +2867,8 @@ RUR.vis_robot.images[2].robot_w_img = new Image();
 RUR.vis_robot.images[2].robot_w_img.src = 'src/images/rover_w.png';
 RUR.vis_robot.images[2].robot_s_img = new Image();
 RUR.vis_robot.images[2].robot_s_img.src = 'src/images/rover_s.png';
+RUR.vis_robot.images[2].robot_spinning_img = new Image();
+RUR.vis_robot.images[2].robot_spinning_img.src = 'src/images/spinning_rover.gif';
 
 RUR.vis_robot.x_offset = 10;
 RUR.vis_robot.y_offset = 8;
@@ -2880,7 +2883,7 @@ RUR.vis_robot.select_style = function (arg) {
     RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
     RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
     RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
-
+    RUR.vis_robot.spinning_img = RUR.vis_robot.images[style].robot_spinning_img;
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh("initial");
     }
@@ -2912,7 +2915,11 @@ RUR.vis_robot.s_img.onload = function () {
         RUR.vis_world.refresh("initial");
     }
 };
-
+RUR.vis_robot.spinning_img.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
 
 RUR.vis_robot.draw = function (robot) {
     "use strict";
@@ -2935,6 +2942,10 @@ RUR.vis_robot.draw = function (robot) {
         break;
     case RUR.SOUTH:
         RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y, RUR.vis_robot.s_img.width*RUR.SCALE, RUR.vis_robot.s_img.height*RUR.SCALE);
+        break;
+    case -1:
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.spinning_img, x, y, RUR.vis_robot.spinning_img.width*RUR.SCALE,
+                                RUR.vis_robot.spinning_img.height*RUR.SCALE);
         break;
     default:
         RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
@@ -3360,20 +3371,36 @@ RUR.vis_world.draw_other = function (other){
 RUR.vis_world.refresh = function (initial) {
     "use strict";
     var t, toks, min_, max_;
+    if (initial !== undefined) {
+        RUR.vis_world.select_initial_values();
+    }
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_other(RUR.current_world.other);
     RUR.vis_world.draw_robots(RUR.current_world.robots);
     RUR.vis_world.draw_tokens(RUR.current_world.tokens);
-    if (initial !== undefined && RUR.current_world.tokens_range !== undefined) {
-        RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
-        toks = Object.keys(RUR.current_world.tokens_range);
-        for (t=0; t < toks.length; t++){
-            min_ = RUR.current_world.min_tokens[toks[t]];
-            max_ = RUR.current_world.max_tokens[toks[t]];
-            RUR.current_world.tokens[toks[t]] = randint(min_, max_);        }
+    if (initial !== undefined){
+        if (RUR.current_world.tokens_range !== undefined) {
+            RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
+        }
     }
     RUR.vis_world.draw_shapes(RUR.current_world.shapes);
-};/* Author: André Roberge
+};
+
+RUR.vis_world.select_initial_values = function() {
+    // select initial values if required i.e. when some are specified as
+    // being chosen randomly
+    "use strict";
+    var k, keys, min_, max_;
+    if (RUR.current_world.tokens_range !== undefined) {
+        RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
+        keys = Object.keys(RUR.current_world.tokens_range);
+        for (k=0; k < keys.length; k++){
+            min_ = RUR.current_world.min_tokens[keys[k]];
+            max_ = RUR.current_world.max_tokens[keys[k]];
+            RUR.current_world.tokens[keys[k]] = RUR.randint(min_, max_);
+        }
+    }
+}/* Author: André Roberge
    License: MIT
  */
 

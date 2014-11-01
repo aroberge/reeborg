@@ -366,17 +366,33 @@ RUR.vis_world.draw_other = function (other){
 RUR.vis_world.refresh = function (initial) {
     "use strict";
     var t, toks, min_, max_;
+    if (initial !== undefined) {
+        RUR.vis_world.select_initial_values();
+    }
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_other(RUR.current_world.other);
     RUR.vis_world.draw_robots(RUR.current_world.robots);
     RUR.vis_world.draw_tokens(RUR.current_world.tokens);
-    if (initial !== undefined && RUR.current_world.tokens_range !== undefined) {
-        RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
-        toks = Object.keys(RUR.current_world.tokens_range);
-        for (t=0; t < toks.length; t++){
-            min_ = RUR.current_world.min_tokens[toks[t]];
-            max_ = RUR.current_world.max_tokens[toks[t]];
-            RUR.current_world.tokens[toks[t]] = randint(min_, max_);        }
+    if (initial !== undefined){
+        if (RUR.current_world.tokens_range !== undefined) {
+            RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
+        }
     }
     RUR.vis_world.draw_shapes(RUR.current_world.shapes);
 };
+
+RUR.vis_world.select_initial_values = function() {
+    // select initial values if required i.e. when some are specified as
+    // being chosen randomly
+    "use strict";
+    var k, keys, min_, max_;
+    if (RUR.current_world.tokens_range !== undefined) {
+        RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
+        keys = Object.keys(RUR.current_world.tokens_range);
+        for (k=0; k < keys.length; k++){
+            min_ = RUR.current_world.min_tokens[keys[k]];
+            max_ = RUR.current_world.max_tokens[keys[k]];
+            RUR.current_world.tokens[keys[k]] = RUR.randint(min_, max_);
+        }
+    }
+}
