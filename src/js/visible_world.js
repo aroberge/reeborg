@@ -123,6 +123,21 @@ RUR.vis_world.draw_robots = function (robots) {
     if (!robots) {
         return;
     }
+
+    // take care of case where number of tokens carried by robot could be random
+    // this will be before the programm is run
+
+    if (typeof robots[0].tokens === "string" && robots[0].tokens.indexOf("-") != -1){
+        RUR.vis_robot.draw(robots[0]);
+        info = RUR.translate("robot")+ "_" + robot + ": x=" + robots[0].x +
+                ", y=" + robots[0].y + RUR.translate(", tokens=");
+        RUR.ROBOT_CTX.fillStyle = RUR.DEBUG_INFO_COLOR;
+        RUR.ROBOT_CTX.fillText(info, 5, 10);
+        RUR.ROBOT_CTX.fillStyle = "red";
+        RUR.ROBOT_CTX.fillText(robots[0].tokens, 5 + RUR.ROBOT_CTX.measureText(info).width, 10);
+        return;
+    }
+
     for (robot=0; robot < robots.length; robot++){
         RUR.vis_robot.draw(robots[robot]); // draws trace automatically
         info += RUR.translate("robot")+ "_" + robot + ": x=" + robots[robot].x +
