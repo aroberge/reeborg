@@ -206,3 +206,7 @@ RUR._import_library = function () {
     return src.replace(import_lib_regex, separator+lib_src);
 };
 
+// Returns a random integer between min and max (both included)
+RUR.randint = function (min, max, previous) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
