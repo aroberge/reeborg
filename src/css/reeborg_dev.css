@@ -366,6 +366,8 @@ footer a:hover{
  list-style: none;
  position: relative;
  width: 100px;
+ text-align: center;
+ display: inline;
 }
 
 .editor-highlight {

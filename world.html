@@ -133,7 +133,6 @@
     </div>
     <div id="image-choice-buttons">
       <button id="classic-image" title="Classic image"><img src="src/images/robot_e.png" alt="robot east"></button>
-      <button id="simple-topview" title="Simple topview"><img src="src/images/top_e.png" alt="robot east"></button>
       <button id="rover-type" title="Rover type"><img src="src/images/rover_e.png" alt="robot east"></button>
     </div>
 </div>
@@ -199,10 +198,11 @@
     <div id="edit-world-submenus-wrapper">
         <p id="cmd-result">Select action to perform from menu below.</p>
         <ul class="edit-world-submenus" id="edit-world-turn" style="display:none">
-            <li><a href="javascript:RUR.we.turn_robot(0);"><img src="src/images/robot_e.png" alt="robot: east"></a></li>
-            <li><a href="javascript:RUR.we.turn_robot(1);"><img src="src/images/robot_n.png" alt="robot: north"></a></li>
-            <li><a href="javascript:RUR.we.turn_robot(2);"><img src="src/images/robot_w.png" alt="robot: west"></a></li>
-            <li><a href="javascript:RUR.we.turn_robot(3);"><img src="src/images/robot_s.png" alt="robot: south"></a></li>
+            <li><a href="javascript:RUR.we.turn_robot(0);"><img src="src/images/robot_e.png" alt="robot: east"></a><br><span>East</span></li>
+            <li><a href="javascript:RUR.we.turn_robot(1);"><img src="src/images/robot_n.png" alt="robot: north"></a><br><span>North</span></li>
+            <li><a href="javascript:RUR.we.turn_robot(2);"><img src="src/images/robot_w.png" alt="robot: west"></a><br><span>West</span></li>
+            <li><a href="javascript:RUR.we.turn_robot(3);"><img src="src/images/robot_s.png" alt="robot: south"></a><br><span>South</span></li>
+            <li><a href="javascript:RUR.we.turn_robot(-1);"><img src="src/images/robot_random.png" alt="robot: random orientation"></a><br><span>Random</span></li>
         </ul>
         <ul class="edit-world-canvas" id="edit-world-objects" style="display:none">
             <li><a href="javascript:RUR.we.select('world-tokens');"><canvas id="canvas-token" class="edit-canvas" width="40" height="40"></canvas></a></li>
