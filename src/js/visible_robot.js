@@ -17,26 +17,20 @@ RUR.vis_robot.images[0].robot_w_img = new Image();
 RUR.vis_robot.images[0].robot_w_img.src = 'src/images/robot_w.png';
 RUR.vis_robot.images[0].robot_s_img = new Image();
 RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
-
-// poorly drawn to view
-RUR.vis_robot.images[1].robot_e_img = new Image();
-RUR.vis_robot.images[1].robot_e_img.src = 'src/images/top_e.png';
-RUR.vis_robot.images[1].robot_n_img = new Image();
-RUR.vis_robot.images[1].robot_n_img.src = 'src/images/top_n.png';
-RUR.vis_robot.images[1].robot_w_img = new Image();
-RUR.vis_robot.images[1].robot_w_img.src = 'src/images/top_w.png';
-RUR.vis_robot.images[1].robot_s_img = new Image();
-RUR.vis_robot.images[1].robot_s_img.src = 'src/images/top_s.png';
+RUR.vis_robot.images[0].robot_random_img = new Image();
+RUR.vis_robot.images[0].robot_random_img.src = 'src/images/robot_random.png';
 
 // rover type
-RUR.vis_robot.images[2].robot_e_img = new Image();
-RUR.vis_robot.images[2].robot_e_img.src = 'src/images/rover_e.png';
-RUR.vis_robot.images[2].robot_n_img = new Image();
-RUR.vis_robot.images[2].robot_n_img.src = 'src/images/rover_n.png';
-RUR.vis_robot.images[2].robot_w_img = new Image();
-RUR.vis_robot.images[2].robot_w_img.src = 'src/images/rover_w.png';
-RUR.vis_robot.images[2].robot_s_img = new Image();
-RUR.vis_robot.images[2].robot_s_img.src = 'src/images/rover_s.png';
+RUR.vis_robot.images[1].robot_e_img = new Image();
+RUR.vis_robot.images[1].robot_e_img.src = 'src/images/rover_e.png';
+RUR.vis_robot.images[1].robot_n_img = new Image();
+RUR.vis_robot.images[1].robot_n_img.src = 'src/images/rover_n.png';
+RUR.vis_robot.images[1].robot_w_img = new Image();
+RUR.vis_robot.images[1].robot_w_img.src = 'src/images/rover_w.png';
+RUR.vis_robot.images[1].robot_s_img = new Image();
+RUR.vis_robot.images[1].robot_s_img.src = 'src/images/rover_s.png';
+RUR.vis_robot.images[1].robot_random_img = new Image();
+RUR.vis_robot.images[1].robot_random_img.src = 'src/images/rover_random.png';
 
 RUR.vis_robot.x_offset = 10;
 RUR.vis_robot.y_offset = 8;
@@ -44,14 +38,15 @@ RUR.vis_robot.y_offset = 8;
 RUR.vis_robot.select_style = function (arg) {
     var style;
     style = parseInt(arg, 10);
-    if (!(style === 0 || style === 1 || style === 2)) {
-        style = 0;
+    if (!(style === 0 || style === 1)) {
+        style = 1;     // rover, which used to be style 2, is chosen as default
+                       // so that users that had it chosen still see
     }
     RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
     RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
     RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
     RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
-
+    RUR.vis_robot.random_img = RUR.vis_robot.images[style].robot_random_img;
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh("initial");
     }
@@ -83,7 +78,11 @@ RUR.vis_robot.s_img.onload = function () {
         RUR.vis_world.refresh("initial");
     }
 };
-
+RUR.vis_robot.random_img.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
 
 RUR.vis_robot.draw = function (robot) {
     "use strict";
@@ -107,6 +106,10 @@ RUR.vis_robot.draw = function (robot) {
     case RUR.SOUTH:
         RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y, RUR.vis_robot.s_img.width*RUR.SCALE, RUR.vis_robot.s_img.height*RUR.SCALE);
         break;
+    case -1:
+        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.random_img, x, y, RUR.vis_robot.random_img.width*RUR.SCALE,
+                                RUR.vis_robot.random_img.height*RUR.SCALE);
+        break;
     default:
         RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
     }
@@ -119,7 +122,7 @@ RUR.vis_robot.draw = function (robot) {
 
 RUR.vis_robot.draw_trace = function (robot) {
     "use strict";
-    if (robot === undefined || robot._is_leaky === false) {
+    if (robot === undefined || robot._is_leaky === false || robot.orientation === -1) {
         return;
     }
     var ctx = RUR.TRACE_CTX;
