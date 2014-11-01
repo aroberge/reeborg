@@ -3734,7 +3734,7 @@ RUR.we.give_tokens_to_robot = function () {
     var tok, tokens, max_tokens;
     var response = prompt(RUR.translate("Enter number of tokens for robot to carry (use inf for infinite number)"));
     if (response !== null) {
-        _tok = response.split(":");
+        _tok = response.split("-");
         if (response === "inf"){
             RUR.current_world.robots[0].tokens = "infinite";
         } else if (parseInt(_tok[0], 10) >= 0) {
@@ -3776,7 +3776,7 @@ RUR.we.set_token_number = function () {
 
     response = prompt(RUR.translate("Enter number of tokens for at that location."));
     if (response !== null) {
-        _tok = response.split(":");
+        _tok = response.split("-");
         tokens = parseInt(_tok[0], 10);
         if (_tok[1] !== undefined) {
             max_tokens = parseInt(_tok[1], 10);

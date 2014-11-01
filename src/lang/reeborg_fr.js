@@ -90,10 +90,10 @@ RUR.translation["Click on world to toggle star goal."] = "Cliquez sur le monde p
 RUR.translation["Click on world to toggle triangle goal."] = "Cliquez sur le monde pour ajouter/supprimer un triangle comme but.";
 RUR.translation["Click on world to toggle square goal."] = "Cliquez sur le monde pour ajouter/supprimer un carré comme but.";
 RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Cliquez sur le monde en x=1, y=1 pour avoir comme but aucun objet qui reste.";
-RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg (utilisez inf pour un nombre infini).";
+RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg (utilisez inf pour un nombre infini ou a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
 RUR.translation[" is not a valid value!"] = " n'est pas une valeur valide!";
 RUR.translation["Other object here; can't put tokens"] = "Autre objet ici; on ne peut pas mettre des jetons.";
-RUR.translation["Enter number of tokens for at that location."] = "Entrez le nombre de jetons requis à cet endroit.";
+RUR.translation["Enter number of tokens for at that location."] = "Entrez le nombre de jetons requis à cet endroit (utilisez a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
 RUR.translation["Other object goal here; can't put tokens"] = "Autre objet comme but ici; on ne peut pas mettre des jetons.";
 RUR.translation["Enter number of tokens for at that location."] = "Entrez le nombre de jetons requis à cet endroit.";
 RUR.translation["tokens here; can't put another object"] = "Jetons ici; on ne peut pas mettre un autre objet.";
