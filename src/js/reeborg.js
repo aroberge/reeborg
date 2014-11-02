@@ -2477,7 +2477,14 @@ RUR._import_library = function () {
 // Returns a random integer between min and max (both included)
 RUR.randint = function (min, max, previous) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}/* Author: André Roberge
+}
+
+RUR.filterInt = function (value) {
+  if(/^\s*(\-|\+)?([0-9]+|Infinity)\s*$/.test(value))
+    return Number(value);
+  return undefined;
+}
+/* Author: André Roberge
    License: MIT
  */
 
@@ -3598,7 +3605,8 @@ RUR.we.select = function (choice) {
         //     break;
         case "robot-add":
             $("#cmd-result").html(RUR.translate("Added robot.")).effect("highlight", {color: "gold"}, 1500);
-            RUR.we.add_robot(RUR.robot.create_robot());
+            // RUR.we.add_robot(RUR.robot.create_robot());
+            RUR.we.add_robot();
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
             break;
@@ -3817,10 +3825,10 @@ RUR.we.give_tokens_to_robot = function () {
         _tok = response.split("-");
         if (response === "inf"){
             RUR.current_world.robots[0].tokens = "infinite";
-        } else if (parseInt(_tok[0], 10) >= 0) {
-            tokens = parseInt(_tok[0], 10);
+        } else if (RUR.filterInt(_tok[0]) >= 0) {
+            tokens = RUR.filterInt(_tok[0]);
             if (_tok[1] !== undefined) {
-                max_tokens = parseInt(_tok[1], 10);
+                max_tokens = RUR.filterInt(_tok[1]);
                 if (max_tokens <= tokens) {
                     $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
                     delete RUR.current_world.robots[0].tokens_range;
@@ -3830,8 +3838,8 @@ RUR.we.give_tokens_to_robot = function () {
                 } else {
                     RUR.current_world.robots[0].max_tokens = max_tokens;
                     RUR.current_world.robots[0].min_tokens = tokens;
-                    RUR.current_world.robots[0].tokens_range = response;
-                    RUR.current_world.robots[0].tokens = response;
+                    RUR.current_world.robots[0].tokens_range = tokens+"-"+max_tokens;
+                    RUR.current_world.robots[0].tokens = tokens+"-"+max_tokens;
                 }
             } else {
                 RUR.current_world.robots[0].tokens = tokens;
@@ -3857,9 +3865,9 @@ RUR.we.set_token_number = function () {
     response = prompt(RUR.translate("Enter number of tokens for at that location."));
     if (response !== null) {
         _tok = response.split("-");
-        tokens = parseInt(_tok[0], 10);
+        tokens = RUR.filterInt(_tok[0]);
         if (_tok[1] !== undefined) {
-            max_tokens = parseInt(_tok[1], 10);
+            max_tokens = RUR.filterInt(_tok[1]);
             if (max_tokens <= tokens) {
                 tokens = -1;
             }
@@ -3876,7 +3884,7 @@ RUR.we.set_token_number = function () {
                 if (max_tokens !== undefined) {
                     RUR.current_world.max_tokens[x + "," + y] = max_tokens;
                     RUR.current_world.min_tokens[x + "," + y] = tokens;
-                    RUR.current_world.tokens_range[x + "," + y] = response;
+                    RUR.current_world.tokens_range[x + "," + y] = tokens+"-"+max_tokens;
                 }
             } else {
                 delete RUR.current_world.tokens[x + "," + y];
@@ -3905,7 +3913,7 @@ RUR.we.set_goal_token_number = function () {
 
     response = prompt(RUR.translate("Enter number of tokens for at that location."));
     if (response !== null) {
-        tokens = parseInt(response, 10);
+        tokens = RUR.filterInt(response);
         if (tokens >= 0) {
             RUR.we.ensure_key_exist(RUR.current_world.goal, "tokens");
             if (tokens > 0) {
