@@ -1892,7 +1892,6 @@ RUR.rec.display_frame = function () {
     "use strict";
     var frame, goal_status;
 
-
     // track line number and highlight line to be executed
 //    try {
 //
@@ -1903,13 +1902,18 @@ RUR.rec.display_frame = function () {
 //        RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
 //    } catch (e) {}
 
-
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
         return RUR.rec.conclude();
     }
     frame = RUR.rec.frames[RUR.rec.current_frame];
     RUR.rec.current_frame++;
-    if(frame === undefined) {
+    if(frame === undefined && RUR.rec.current_frame==1) {
+        frame = RUR.rec.frames[RUR.rec.current_frame];
+        RUR.rec.current_frame++;
+        if (frame === undefined) {
+            return;
+        }
+    } else if (frame === undefined){
         return;
     }
 
