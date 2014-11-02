@@ -237,12 +237,32 @@ RUR.we.calculate_grid_position = function () {
 };
 
 RUR.we.teleport_robot = function () {
-    var position;
+    "use strict";
+    var position, world=RUR.current_world, robot=world.robots[0], arr, pos, present=false;
+    if (!robot.start_positions){
+        robot.start_positions = [[robot.x, robot.y]];
+    }
     position = RUR.we.calculate_grid_position();
-    RUR.current_world.robots[0].x = position[0];
-    RUR.current_world.robots[0].y = position[1];
-    RUR.current_world.robots[0]._prev_x = position[0];
-    RUR.current_world.robots[0]._prev_y = position[1];
+    arr = [];
+    for (var i=0; i < robot.start_positions.length; i++){
+        pos = robot.start_positions[i];
+        if(pos[0]==position[0] && pos[1]==position[1]){
+            present = true;
+        } else {
+            arr.push(pos);
+            robot.x = pos[0];
+            robot.y = pos[1];
+        }
+    }
+    if (!present){
+        arr.push(position);
+        robot.x = position[0];
+        robot.y = position[1];
+    }
+    robot.start_positions = arr;
+    robot._prev_x = robot.x;
+    robot._prev_y = robot.y;
+
 };
 
 RUR.we.give_tokens_to_robot = function () {
