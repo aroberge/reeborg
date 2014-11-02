@@ -202,7 +202,7 @@
             <li><a href="javascript:RUR.we.turn_robot(1);"><img src="src/images/robot_n.png" alt="robot: north"></a><br><span>North</span></li>
             <li><a href="javascript:RUR.we.turn_robot(2);"><img src="src/images/robot_w.png" alt="robot: west"></a><br><span>West</span></li>
             <li><a href="javascript:RUR.we.turn_robot(3);"><img src="src/images/robot_s.png" alt="robot: south"></a><br><span>South</span></li>
-            <li><a href="javascript:RUR.we.turn_robot(-1);"><img src="src/images/robot_random.png" alt="robot: random orientation"></a><br><span>Random</span></li>
+            <li id="random-orientation"><a href="javascript:RUR.we.turn_robot(-1);"><img src="src/images/robot_random.png" alt="robot: random orientation"></a><br><span>Random</span></li>
         </ul>
         <ul class="edit-world-canvas" id="edit-world-objects" style="display:none">
             <li><a href="javascript:RUR.we.select('world-tokens');"><canvas id="canvas-token" class="edit-canvas" width="40" height="40"></canvas></a></li>
@@ -222,10 +222,9 @@
     <ul id="edit-world-nav">
         <li class="a-like">Robot <ul>
             <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Add robot</a></li>
-            <li class="robot-present"><a href="javascript:RUR.we.select('robot-teleport');"> Teleport</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-place');"> Position(s)</a></li>
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-orientation');"> Turn</a></li>
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-tokens');">Tokens</a></li>
-            <li class="robot-present"><a href="javascript:RUR.we.select('robot-remove');">Remove</a></li>
         </ul></li>
         <li><a href="javascript:RUR.we.select('world-walls');">Walls</a></li>
         <li><a href="javascript:RUR.we.select('world-objects');">Objects</a></li>
