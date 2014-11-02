@@ -210,3 +210,9 @@ RUR._import_library = function () {
 RUR.randint = function (min, max, previous) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+RUR.filterInt = function (value) {
+  if(/^\s*(\-|\+)?([0-9]+|Infinity)\s*$/.test(value))
+    return Number(value);
+  return undefined;
+}
