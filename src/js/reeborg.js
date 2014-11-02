@@ -3533,8 +3533,8 @@ RUR.we.edit_world = function  () {
     // usually triggered when canvas is clicked if editing world;
     // call explicitly if needed.
     switch (RUR.we.edit_world_flag) {
-        case "robot-teleport":
-            RUR.we.teleport_robot();
+        case "robot-place":
+            RUR.we.place_robot();
             break;
         case "world-tokens":
             RUR.we.set_token_number();
@@ -3587,15 +3587,15 @@ RUR.we.select = function (choice) {
     $(".edit-goal-canvas").hide();
     RUR.we.edit_world_flag = choice;
     switch (choice) {
-        case "robot-teleport":
+        case "robot-place":
             $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "robot-remove":
-            $("#cmd-result").html(RUR.translate("Removed robot.")).effect("highlight", {color: "gold"}, 1500);
-            RUR.we.remove_robot();
-            RUR.we.edit_world();
-            RUR.we.change_edit_robot_menu();
-            break;
+        // case "robot-remove":
+        //     $("#cmd-result").html(RUR.translate("Removed robot.")).effect("highlight", {color: "gold"}, 1500);
+        //     RUR.we.remove_robot();
+        //     RUR.we.edit_world();
+        //     RUR.we.change_edit_robot_menu();
+        //     break;
         case "robot-add":
             $("#cmd-result").html(RUR.translate("Added robot.")).effect("highlight", {color: "gold"}, 1500);
             RUR.we.add_robot(RUR.robot.create_robot());
@@ -3762,14 +3762,28 @@ RUR.we.calculate_grid_position = function () {
     return [x, y];
 };
 
-RUR.we.teleport_robot = function () {
+RUR.we.place_robot = function () {
     "use strict";
-    var position, world=RUR.current_world, robot=world.robots[0], arr, pos, present=false;
-    if (!robot.start_positions){
-        robot.start_positions = [[robot.x, robot.y]];
-    }
+    var position, world=RUR.current_world, robot, arr=[], pos, present=false;
     position = RUR.we.calculate_grid_position();
-    arr = [];
+    if (world.robots != undefined){
+        if (world.robots.length >0) {
+            robot = world.robots[0];
+            if (!robot.start_positions){
+                robot.start_positions = [[robot.x, robot.y]];
+            }
+        } else {
+            RUR.we.add_robot();
+            robot = world.robots[0];
+            robot.x = position[0];
+            robot.y = position[1];
+            robot._prev_x = robot.x;
+            robot._prev_y = robot.y;
+            robot.start_positions = [[robot.x, robot.y]];
+            return;
+        }
+    }
+
     for (var i=0; i < robot.start_positions.length; i++){
         pos = robot.start_positions[i];
         if(pos[0]==position[0] && pos[1]==position[1]){
@@ -3784,6 +3798,11 @@ RUR.we.teleport_robot = function () {
         arr.push(position);
         robot.x = position[0];
         robot.y = position[1];
+    }
+    if (arr.length==0){
+        RUR.current_world.robots = [];
+        RUR.we.change_edit_robot_menu();
+        return;
     }
     robot.start_positions = arr;
     robot._prev_x = robot.x;
@@ -3919,10 +3938,10 @@ RUR.we.turn_robot = function (orientation) {
     RUR.we.refresh_world_edited();
 };
 
-RUR.we.remove_robot = function () {
-    "use strict";
-    RUR.current_world.robots = [];
-};
+// RUR.we.remove_robot = function () {
+//     "use strict";
+//     RUR.current_world.robots = [];
+// };
 
 RUR.we.add_robot = function () {
     "use strict";
