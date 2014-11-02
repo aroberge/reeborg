@@ -76,7 +76,7 @@ RUR.translation["Removed robot."] = "Reeborg supprimé.";
 RUR.translation["Added robot."] = "Reeborg ajouté.";
 RUR.translation["Click on image to turn robot"] = "Cliquez sur l'image pour tourner Reeborg.";
 RUR.translation["Robot now has tokens."] = "Reeborg a {x_tokens} jetons.";
-RUR.translation["Click on world to set number of tokens."] = "Cliquez sur le monde pour ajouter des jetons.";
+RUR.translation["Click on world to set number of tokens."] = "Cliquez sur le monde pour ajouter des jetons (utilisez a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
 RUR.translation["Click on desired object below."] = "Cliquez sur l'objet désiré ci-dessous.";
 RUR.translation["Click on world to toggle star."] = "Cliquez sur le monde pour ajouter/supprimer une étoile.";
 RUR.translation["Click on world to toggle triangle."] = "Cliquez sur le monde pour ajouter/supprimer un triangle.";
@@ -93,7 +93,7 @@ RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] 
 RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg (utilisez inf pour un nombre infini ou a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
 RUR.translation[" is not a valid value!"] = " n'est pas une valeur valide!";
 RUR.translation["Other object here; can't put tokens"] = "Autre objet ici; on ne peut pas mettre des jetons.";
-RUR.translation["Enter number of tokens for at that location."] = "Entrez le nombre de jetons requis à cet endroit (utilisez a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
+RUR.translation["Enter number of tokens for at that location."] = "Entrez le nombre de jetons requis à cet endroit.";
 RUR.translation["Other object goal here; can't put tokens"] = "Autre objet comme but ici; on ne peut pas mettre des jetons.";
 RUR.translation["Enter number of tokens for at that location."] = "Entrez le nombre de jetons requis à cet endroit.";
 RUR.translation["tokens here; can't put another object"] = "Jetons ici; on ne peut pas mettre un autre objet.";

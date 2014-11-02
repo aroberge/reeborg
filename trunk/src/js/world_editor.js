@@ -72,7 +72,8 @@ RUR.we.select = function (choice) {
         //     break;
         case "robot-add":
             $("#cmd-result").html(RUR.translate("Added robot.")).effect("highlight", {color: "gold"}, 1500);
-            RUR.we.add_robot(RUR.robot.create_robot());
+            // RUR.we.add_robot(RUR.robot.create_robot());
+            RUR.we.add_robot();
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
             break;
