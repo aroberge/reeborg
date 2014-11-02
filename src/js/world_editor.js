@@ -80,6 +80,7 @@ RUR.we.select = function (choice) {
         case "robot-orientation":
             $("#cmd-result").html(RUR.translate("Click on image to turn robot")).effect("highlight", {color: "gold"}, 1500);
             $("#edit-world-turn").show();
+            $("#random-orientation").show();
             break;
         case "robot-tokens":
             RUR.we.give_tokens_to_robot();
@@ -604,11 +605,13 @@ RUR.we.set_goal_position = function (){
             RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
             $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
             $("#edit-world-turn").show();
+            $("#random-orientation").hide();
         }
     } else {
         RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
         $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
         $("#edit-world-turn").show();
+        $("#random-orientation").hide();
     }
 };
 
