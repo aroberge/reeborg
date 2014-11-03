@@ -3386,13 +3386,48 @@ RUR.vis_world.draw_other = function (other){
 
 RUR.vis_world.refresh = function (initial) {
     "use strict";
-    var t, toks, min_, max_, robot, clone, clones=[];
+    var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
+    if (initial !== undefined && RUR.current_world.goal != undefined
+        && RUR.current_world.goal.possible_positions != undefined) {
+        goal = RUR.current_world.goal;
+        for (i=0; i < goal.possible_positions.length; i++){
+            goal.position.x = goal.possible_positions[i][0];
+            goal.position.y = goal.possible_positions[i][1];
+            RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
+        }
+    } else {
+        if ( RUR.current_world.goal != undefined && RUR.current_world.goal.possible_positions != undefined
+            && RUR.current_world.goal.possible_positions.length > 1) {
+            // erase all possible tiles for goal position by drawing them all white
+            // if needed this could be made more efficient by setting up a flag and not redoing while
+            // the program is running i.e. after the first frame ...
+            color1_temp = RUR.TARGET_TILE_COLOR;
+            color2_temp = RUR.ORIENTATION_TILE_COLOR;
+            RUR.TARGET_TILE_COLOR = "white";
+            RUR.ORIENTATION_TILE_COLOR = "white";
+            goal = RUR.current_world.goal;
+            position = {'x': goal.position.x, 'y': goal.position.y};
+            for (i=0; i < goal.possible_positions.length; i++){
+                goal.position.x = goal.possible_positions[i][0];
+                goal.position.y = goal.possible_positions[i][1];
+                RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
+            }
+            // restore colour and position, and then redraw all.
+            // note that some goal shapes might have been placed on the possible positions,
+            // hence we must make sure to draw all the goals.
+            RUR.TARGET_TILE_COLOR = color1_temp;
+            RUR.ORIENTATION_TILE_COLOR = color2_temp
+            goal.position = position;
+            RUR.vis_world.draw_goal();
+        }
+    }
+
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_other(RUR.current_world.other);
     if (initial !== undefined && RUR.current_world.robots[0] != undefined
-        && RUR.current_world.robots[0].start_positions && RUR.current_world.robots[0].start_positions.length > 1) {
+        && RUR.current_world.robots[0].start_positions != undefined && RUR.current_world.robots[0].start_positions.length > 1) {
         robot = RUR.current_world.robots[0];
-        for (var i=0; i < robot.start_positions.length; i++){
+        for (i=0; i < robot.start_positions.length; i++){
             clone = JSON.parse(JSON.stringify(robot));
             clone.x = robot.start_positions[i][0];
             clone.y = robot.start_positions[i][1];
@@ -3421,7 +3456,7 @@ RUR.vis_world.select_initial_values = function() {
     // select initial values if required i.e. when some are specified as
     // being chosen randomly
     "use strict";
-    var k, keys, min_, max_, robot, position;
+    var k, keys, min_, max_, robot, position, goal;
     if (RUR.current_world.tokens_range !== undefined) {
         RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
         keys = Object.keys(RUR.current_world.tokens_range);
@@ -3451,6 +3486,15 @@ RUR.vis_world.select_initial_values = function() {
         robot.y = position[1];
         robot._prev_x = robot.x;
         robot._prev_y = robot.y;
+    }
+
+    if (RUR.current_world.goal != undefined){
+        goal = RUR.current_world.goal;
+        if (goal.possible_positions != undefined && goal.possible_positions.length > 1) {
+            position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
+            goal.position.x = position[0];
+            goal.position.y = position[1];
+        }
     }
 }/* Author: André Roberge
    License: MIT
@@ -3606,15 +3650,8 @@ RUR.we.select = function (choice) {
         case "robot-place":
             $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        // case "robot-remove":
-        //     $("#cmd-result").html(RUR.translate("Removed robot.")).effect("highlight", {color: "gold"}, 1500);
-        //     RUR.we.remove_robot();
-        //     RUR.we.edit_world();
-        //     RUR.we.change_edit_robot_menu();
-        //     break;
         case "robot-add":
             $("#cmd-result").html(RUR.translate("Added robot.")).effect("highlight", {color: "gold"}, 1500);
-            // RUR.we.add_robot(RUR.robot.create_robot());
             RUR.we.add_robot();
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
@@ -3956,11 +3993,6 @@ RUR.we.turn_robot = function (orientation) {
     RUR.we.refresh_world_edited();
 };
 
-// RUR.we.remove_robot = function () {
-//     "use strict";
-//     RUR.current_world.robots = [];
-// };
-
 RUR.we.add_robot = function () {
     "use strict";
     RUR.current_world.robots = [RUR.robot.create_robot()];
@@ -4128,32 +4160,56 @@ RUR.we.toggle_goal_shape = function (shape){
 RUR.we.set_goal_position = function (){
     // will remove the position if clicked again.
     "use strict";
-    var position;
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    position = RUR.we.calculate_grid_position();
+    var position, world=RUR.current_world, robot, arr=[], pos, present=false, goal;
 
-    if (RUR.current_world.goal.position !== undefined){
-        if (position[0] === RUR.current_world.goal.position.x &&
-            position[1] === RUR.current_world.goal.position.y) {
-            delete RUR.current_world.goal.position;
-            if (RUR.current_world.goal.orientation !== undefined) {
-                delete RUR.current_world.goal.orientation;
-            }
-            if (Object.keys(RUR.current_world.goal).length === 0) {
-                delete RUR.current_world.goal;
-            }
-            $("#edit-world-turn").hide();
+    $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
+    $("#edit-world-turn").show();
+    $("#random-orientation").hide();
+
+    RUR.we.ensure_key_exist(world, "goal");
+    goal = world.goal;
+
+    if (goal.possible_positions == undefined) {
+        RUR.we.ensure_key_exist(goal, "possible_positions");
+        if (goal.position !== undefined) {
+            goal.possible_positions = [[goal.position.x, goal.position.y]];
         } else {
-            RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-            $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
-            $("#edit-world-turn").show();
-            $("#random-orientation").hide();
+            RUR.we.ensure_key_exist(goal, "position");
         }
-    } else {
-        RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-        $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
-        $("#edit-world-turn").show();
-        $("#random-orientation").hide();
+    }
+
+    position = RUR.we.calculate_grid_position();
+    goal.position.x = position[0];
+    goal.position.y = position[1];
+
+    for(var i=0; i<goal.possible_positions.length; i++) {
+        pos = goal.possible_positions[i];
+        if(pos[0]==position[0] && pos[1]==position[1]){
+            present = true;
+        } else {
+            arr.push(pos);
+            goal.position.x = pos[0];
+            goal.position.y = pos[1];
+        }
+    }
+
+    if (!present){
+        arr.push(position);
+        goal.position.x = position[0];
+        goal.position.y = position[1];
+    }
+    goal.possible_positions = arr;
+
+    if (arr.length == 0) {
+        delete RUR.current_world.goal.position;
+        delete RUR.current_world.goal.possible_positions;
+        if (RUR.current_world.goal.orientation !== undefined) {
+            delete RUR.current_world.goal.orientation;
+        }
+        if (Object.keys(RUR.current_world.goal).length === 0) {
+            delete RUR.current_world.goal;
+        }
+        $("#edit-world-turn").hide();
     }
 };
 
