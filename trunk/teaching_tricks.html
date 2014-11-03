@@ -20,6 +20,12 @@
 
 
 <div class="main_text">
+     <p><b>Important</b>: before clicking on any link, if you are currently using any code saved in your library, you may want to open
+     <a href="world.html">Reeborg's world</a> (<em>safe link: will not change your saved code!</em>) in a separate tab so that the code will be there.
+     Once you are done with the examples linked
+     from the page you are reading, you will simply have to execute the code in the other tab to restore your library content in your browser's
+     local storage. </p>
+
   <h1>Teaching tricks!</h1>
   <p>So, you are using Reeborg's World to teach Python (or Javascript).  You will find here a few "tricks" that are likely
     not mentioned in the tutorials and which you may find to be useful.</p>
@@ -47,11 +53,7 @@ Can you write a program that will work in all cases?
     You can use "none" instead of "thick" to do this.  (The normal case would be "default").
     For long running tasks which you wish to demonstrate on the screen without leaving a trace, you can use this trick together with <b>think(0)</b>.
      </p>
-     <p><b>Important</b>: before clicking on any link, if you are currently using any code saved in your library, you may want to open
-     <a href="world.html">Reeborg's world</a> (<em>safe link: will not change your saved code!</em>) in a separate tab so that the code will be there.
-     Once you are done with the examples linked
-     from the page you are reading, you will simply have to execute the code in the other tab to restore your library content in your browser's
-     local storage. </p>
+
      <p>Click on <a href="http://reeborg.ca/world.html?proglang=python-en&world=%7B%22robots%22%3A%5B%7B%22x%22%3A1%2C%22y%22%3A1%2C%22tokens%22%3A%22infinite%22%2C%22orientation%22%3A0%2C%22_prev_x%22%3A1%2C%22_prev_y%22%3A1%2C%22_prev_orientation%22%3A0%7D%5D%2C%22walls%22%3A%7B%222%2C1%22%3A%5B%22east%22%5D%2C%224%2C1%22%3A%5B%22east%22%5D%2C%226%2C1%22%3A%5B%22east%22%5D%2C%228%2C1%22%3A%5B%22east%22%5D%2C%2210%2C1%22%3A%5B%22east%22%5D%2C%2212%2C1%22%3A%5B%22east%22%5D%7D%2C%22goal%22%3A%7B%22position%22%3A%7B%22x%22%3A12%2C%22y%22%3A1%7D%7D%7D&editor=def%20jump()%3A%0A%20%20%20%20move()%0A%20%20%20%20turn_left()%0A%20%20%20%20move()%0A%20%20%20%20repeat(turn_left%2C%203)%0A%20%20%20%20move()%0A%20%20%20%20repeat(turn_left%2C%203)%0A%20%20%20%20move()%0A%20%20%20%20turn_left()%0A%0Athink(0)%0ARUR.vis_robot.set_trace_style(%22thick%22)%0Arepeat(jump%2C%205)%0Amove()&library=%23%20'from%20my_lib%20import%20*'%20in%20Python%20Code%20is%20required%20to%20use%0A%23%20the%20code%20in%20this%20library.%20%0A%0A">this link</a>
       to see an example.  You may want to replace "thick" by "none" or "default" between each run.</p>
 
