@@ -424,6 +424,9 @@ RUR.vis_world.select_initial_values = function() {
             min_ = RUR.current_world.min_tokens[keys[k]];
             max_ = RUR.current_world.max_tokens[keys[k]];
             RUR.current_world.tokens[keys[k]] = RUR.randint(min_, max_);
+            if (RUR.current_world.tokens[keys[k]] == 0) {
+                delete RUR.current_world.tokens[keys[k]];
+            }
         }
     }
     robot = RUR.current_world.robots[0];

@@ -212,7 +212,7 @@ RUR.randint = function (min, max, previous) {
 }
 
 RUR.filterInt = function (value) {
-  if(/^\s*(\-|\+)?([0-9]+|Infinity)\s*$/.test(value))
-    return Number(value);
+  if(/^\s*([0-9]+)\s*$/.test(value))
+    return parseInt(value, 10);
   return undefined;
 }

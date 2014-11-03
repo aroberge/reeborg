@@ -2484,8 +2484,8 @@ RUR.randint = function (min, max, previous) {
 }
 
 RUR.filterInt = function (value) {
-  if(/^\s*(\-|\+)?([0-9]+|Infinity)\s*$/.test(value))
-    return Number(value);
+  if(/^\s*([0-9]+)\s*$/.test(value))
+    return parseInt(value, 10);
   return undefined;
 }
 /* Author: André Roberge
@@ -3429,6 +3429,9 @@ RUR.vis_world.select_initial_values = function() {
             min_ = RUR.current_world.min_tokens[keys[k]];
             max_ = RUR.current_world.max_tokens[keys[k]];
             RUR.current_world.tokens[keys[k]] = RUR.randint(min_, max_);
+            if (RUR.current_world.tokens[keys[k]] == 0) {
+                delete RUR.current_world.tokens[keys[k]];
+            }
         }
     }
     robot = RUR.current_world.robots[0];
@@ -3886,7 +3889,7 @@ RUR.we.set_token_number = function () {
                 RUR.we.ensure_key_exist(RUR.current_world, "max_tokens");
                 RUR.we.ensure_key_exist(RUR.current_world, "tokens_range");
             }
-            if (tokens > 0) {
+            if (tokens > 0 || (max_tokens !== undefined && max_tokens > tokens)) {
                 RUR.current_world.tokens[x + "," + y] = tokens;
                 if (max_tokens !== undefined) {
                     RUR.current_world.max_tokens[x + "," + y] = max_tokens;
