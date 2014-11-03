@@ -109,6 +109,12 @@ RUR.we.select = function (choice) {
             break;
         case "goal-robot":
             $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
+            if (RUR.current_world.goal != undefined && RUR.current_world.goal.position != undefined){
+                $("#edit-world-turn").show();
+                $("#random-orientation").hide();
+            } else {
+                $("#edit-world-turn").hide();
+            }
             break;
         case "goal-wall":
             $("#cmd-result").html(RUR.translate("Click on world to toggle additional walls to build.")).effect("highlight", {color: "gold"}, 1500);
@@ -576,7 +582,7 @@ RUR.we.set_goal_position = function (){
     "use strict";
     var position, world=RUR.current_world, robot, arr=[], pos, present=false, goal;
 
-    $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
+    $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
     $("#edit-world-turn").show();
     $("#random-orientation").hide();
 
