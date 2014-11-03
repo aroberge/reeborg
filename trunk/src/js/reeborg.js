@@ -3635,6 +3635,9 @@ RUR.we.edit_world = function  () {
         case "goal-no-objects":
             RUR.we.set_goal_no_objects();
             break;
+        case "goal-no-tokens":
+            RUR.we.set_goal_no_tokens();
+            break;
         default:
             break;
     }
@@ -3727,6 +3730,9 @@ RUR.we.select = function (choice) {
             break;
         case "goal-no-objects":
             $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no object left as a goal.")).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "goal-no-tokens":
+            $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no tokens left as a goal.")).effect("highlight", {color: "gold"}, 1500);
     }
 };
 
@@ -4243,9 +4249,21 @@ RUR.we.set_goal_no_objects = function(){
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    RUR.current_world.goal.tokens = {};
     RUR.current_world.goal.shapes = {};
     $("#cmd-result").html(RUR.translate("Goal: no object left in world.")).effect("highlight", {color: "gold"}, 1500);
+};
+
+RUR.we.set_goal_no_tokens = function(){
+    "use strict";
+    var position;
+    position = RUR.we.calculate_grid_position();
+    if (position[0] !== 1 || position[1] !== 1) {
+        $("#cmd-result").html(RUR.translate("No effect.")).effect("highlight", {color: "gold"}, 1500);
+        return;
+    }
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    RUR.current_world.goal.tokens = {};
+    $("#cmd-result").html(RUR.translate("Goal: no tokens left in world.")).effect("highlight", {color: "gold"}, 1500);
 };
 
 RUR.we.draw_token = function (goal) {
