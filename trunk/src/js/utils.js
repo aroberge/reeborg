@@ -28,6 +28,8 @@ Object.identical = function (a, b, sortArrays) {
         }
         else if (typeof object !== "object" || object === null) {
             return object;
+        } else if (Object.keys(object).length === 0){     // added by A.R. for Reeborg's World comparisons - issue 59
+            return undefined;
         }
 
         return Object.keys(object).sort().map(function(key) {
