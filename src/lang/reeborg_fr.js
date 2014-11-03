@@ -71,8 +71,7 @@ RUR.translation["CoffeeScript Code"] = "Code CoffeeScript";
 
 /* translations from world_editor.js */
 
-RUR.translation["Click on world to move robot."] = "Cliquez sur le monde pour déplacer Reeborg.";
-RUR.translation["Removed robot."] = "Reeborg supprimé.";
+RUR.translation["Click on world to move robot."] = "Cliquez sur le monde pour ajouter ou supprimer des positions de départ possibles pour Reeborg.";
 RUR.translation["Added robot."] = "Reeborg ajouté.";
 RUR.translation["Click on image to turn robot"] = "Cliquez sur l'image pour tourner Reeborg.";
 RUR.translation["Robot now has tokens."] = "Reeborg a {x_tokens} jetons.";

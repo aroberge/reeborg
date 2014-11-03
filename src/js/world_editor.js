@@ -64,15 +64,8 @@ RUR.we.select = function (choice) {
         case "robot-place":
             $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        // case "robot-remove":
-        //     $("#cmd-result").html(RUR.translate("Removed robot.")).effect("highlight", {color: "gold"}, 1500);
-        //     RUR.we.remove_robot();
-        //     RUR.we.edit_world();
-        //     RUR.we.change_edit_robot_menu();
-        //     break;
         case "robot-add":
             $("#cmd-result").html(RUR.translate("Added robot.")).effect("highlight", {color: "gold"}, 1500);
-            // RUR.we.add_robot(RUR.robot.create_robot());
             RUR.we.add_robot();
             RUR.we.edit_world();
             RUR.we.change_edit_robot_menu();
@@ -413,11 +406,6 @@ RUR.we.turn_robot = function (orientation) {
     RUR.current_world.robots[0]._prev_orientation = orientation;
     RUR.we.refresh_world_edited();
 };
-
-// RUR.we.remove_robot = function () {
-//     "use strict";
-//     RUR.current_world.robots = [];
-// };
 
 RUR.we.add_robot = function () {
     "use strict";
