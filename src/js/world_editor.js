@@ -347,7 +347,7 @@ RUR.we.set_token_number = function () {
                 RUR.we.ensure_key_exist(RUR.current_world, "max_tokens");
                 RUR.we.ensure_key_exist(RUR.current_world, "tokens_range");
             }
-            if (tokens > 0) {
+            if (tokens > 0 || (max_tokens !== undefined && max_tokens > tokens)) {
                 RUR.current_world.tokens[x + "," + y] = tokens;
                 if (max_tokens !== undefined) {
                     RUR.current_world.max_tokens[x + "," + y] = max_tokens;
