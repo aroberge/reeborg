@@ -109,13 +109,42 @@ RUR.translation["Enter world name to delete"] = "Écrivez le nom du monde à sup
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, rien_devant, rien_a_droite, "+
                     " face_au_nord, termine, depose, prend, objet_ici, selectionne_monde,"+
                     " jeton_ici, a_des_jetons, ecrit, au_but, au_but_orientation, selectionne_defi," +
-                    " construit_un_mur, pense, pause, repete, voir_source, son */\n";
+                    " construit_un_mur, pense, pause, repete, voir_source, son, confirmer */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite, selectionne_defi,
     face_au_nord, termine, depose, prend, objet_ici, selectionne_monde, jeton_ici,
     a_des_jetons, ecrit, au_but, au_but_orientation, construit_un_mur, pense,
     pause, repete, voir_source, son, RobotUsage,
     nombre_de_commandes;
+
+RUR.confirmer = function(test) {
+    var reeborg, robots, monde, jetons, orientation;
+    var est, nord, sud, ouest;
+    var js_test;
+    est = RUR.EAST;
+    ouest = RUR.WEST;
+    nord = RUR.NORTH;
+    sud = RUR.SOUTH;
+    monde = RUR.current_world;
+    robots = monde.robots;
+    reeborg = robots[0];
+    jetons = reeborg.tokens;
+    orientation = reeborg.orientation;
+
+    // if language is Python ... require spaces around logical operators to simplify
+    js_test = test.replace(/ and /g, '&&');
+    js_test = js_test.replace(/ or /g, '||');
+    js_test = js_test.replace(/ not /g, '!');
+    // True and False should not necessary to use ... but just in case
+    js_test = js_test.replace(/False/g, 'false');
+    js_test = js_test.replace(/True/g, 'true');
+
+    if (eval(js_test)){
+        return;
+    }
+    throw ReeborgError("Échec : <br>"+test);
+};
+
 
 RUR.reset_definitions = function () {
 
@@ -244,6 +273,7 @@ RUR.reset_definitions = function () {
     examine = RUR.inspect;
 
     voir_source = RUR.view_source;
+    confirmer = RUR.confirmer;
 
     son = function (on) {
         RUR.control.sound(on);

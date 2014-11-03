@@ -105,7 +105,7 @@ var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_c
                     " is_facing_north, done, put, take, object_here, select_world, select_challenge,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, pause, repeat, sound," +
-                    "RUR, inspect, view_source, " +
+                    "RUR, inspect, view_source, confirm" +
     // do not translate  nor include the following instructions; they help make rur-ple created programs *almost* compatible
                     "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, set_max_steps*/\n";
 
@@ -118,6 +118,35 @@ var move, turn_left, inspect, front_is_clear, right_is_clear, select_challenge,
 // do not translate the following three instructions; they are included only
 // so that most basic programs from rur-ple would run "as-is"
 var put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, next_to_a_beeper, set_delay, facing_north;
+
+RUR.confirm = function(test) {
+    var reeborg, robots, world, tokens, orientation;
+    var east, East, west, West, north, North, south, South;
+    var js_test;
+    east = East = RUR.EAST;
+    west = West = RUR.WEST;
+    north = North = RUR.NORTH;
+    south = South = RUR.SOUTH;
+    world = RUR.current_world;
+    robots = world.robots;
+    reeborg = robots[0];
+    tokens = reeborg.tokens;
+    orientation = reeborg.orientation;
+
+    // if language is Python ... require spaces around logical operators to simplify
+    js_test = test.replace(/ and /g, '&&');
+    js_test = js_test.replace(/ or /g, '||');
+    js_test = js_test.replace(/ not /g, '!');
+    // True and False should not necessary to use ... but just in case
+    js_test = js_test.replace(/False/g, 'false');
+    js_test = js_test.replace(/True/g, 'true');
+
+    if (eval(js_test)){
+        return;
+    }
+    throw ReeborgError("Failed: <br>"+test);
+};
+
 
 RUR.reset_definitions = function () {
     UsedRobot = function (x, y, orientation, tokens)  {
@@ -246,6 +275,7 @@ RUR.reset_definitions = function () {
     inspect = RUR.inspect;
 
     view_source = RUR.view_source;
+    confirm = RUR.confirm;
 
     // English speficic and only for compatibility with rur-ple
     // do not translate the following
