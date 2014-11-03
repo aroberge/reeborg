@@ -381,13 +381,48 @@ RUR.vis_world.draw_other = function (other){
 
 RUR.vis_world.refresh = function (initial) {
     "use strict";
-    var t, toks, min_, max_, robot, clone, clones=[];
+    var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
+    if (initial !== undefined && RUR.current_world.goal != undefined
+        && RUR.current_world.goal.possible_positions != undefined) {
+        goal = RUR.current_world.goal;
+        for (i=0; i < goal.possible_positions.length; i++){
+            goal.position.x = goal.possible_positions[i][0];
+            goal.position.y = goal.possible_positions[i][1];
+            RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
+        }
+    } else {
+        if ( RUR.current_world.goal != undefined && RUR.current_world.goal.possible_positions != undefined
+            && RUR.current_world.goal.possible_positions.length > 1) {
+            // erase all possible tiles for goal position by drawing them all white
+            // if needed this could be made more efficient by setting up a flag and not redoing while
+            // the program is running i.e. after the first frame ...
+            color1_temp = RUR.TARGET_TILE_COLOR;
+            color2_temp = RUR.ORIENTATION_TILE_COLOR;
+            RUR.TARGET_TILE_COLOR = "white";
+            RUR.ORIENTATION_TILE_COLOR = "white";
+            goal = RUR.current_world.goal;
+            position = {'x': goal.position.x, 'y': goal.position.y};
+            for (i=0; i < goal.possible_positions.length; i++){
+                goal.position.x = goal.possible_positions[i][0];
+                goal.position.y = goal.possible_positions[i][1];
+                RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
+            }
+            // restore colour and position, and then redraw all.
+            // note that some goal shapes might have been placed on the possible positions,
+            // hence we must make sure to draw all the goals.
+            RUR.TARGET_TILE_COLOR = color1_temp;
+            RUR.ORIENTATION_TILE_COLOR = color2_temp
+            goal.position = position;
+            RUR.vis_world.draw_goal();
+        }
+    }
+
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_other(RUR.current_world.other);
     if (initial !== undefined && RUR.current_world.robots[0] != undefined
-        && RUR.current_world.robots[0].start_positions && RUR.current_world.robots[0].start_positions.length > 1) {
+        && RUR.current_world.robots[0].start_positions != undefined && RUR.current_world.robots[0].start_positions.length > 1) {
         robot = RUR.current_world.robots[0];
-        for (var i=0; i < robot.start_positions.length; i++){
+        for (i=0; i < robot.start_positions.length; i++){
             clone = JSON.parse(JSON.stringify(robot));
             clone.x = robot.start_positions[i][0];
             clone.y = robot.start_positions[i][1];
@@ -416,7 +451,7 @@ RUR.vis_world.select_initial_values = function() {
     // select initial values if required i.e. when some are specified as
     // being chosen randomly
     "use strict";
-    var k, keys, min_, max_, robot, position;
+    var k, keys, min_, max_, robot, position, goal;
     if (RUR.current_world.tokens_range !== undefined) {
         RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
         keys = Object.keys(RUR.current_world.tokens_range);
@@ -446,5 +481,14 @@ RUR.vis_world.select_initial_values = function() {
         robot.y = position[1];
         robot._prev_x = robot.x;
         robot._prev_y = robot.y;
+    }
+
+    if (RUR.current_world.goal != undefined){
+        goal = RUR.current_world.goal;
+        if (goal.possible_positions != undefined && goal.possible_positions.length > 1) {
+            position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
+            goal.position.x = position[0];
+            goal.position.y = position[1];
+        }
     }
 }

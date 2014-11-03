@@ -574,32 +574,56 @@ RUR.we.toggle_goal_shape = function (shape){
 RUR.we.set_goal_position = function (){
     // will remove the position if clicked again.
     "use strict";
-    var position;
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    position = RUR.we.calculate_grid_position();
+    var position, world=RUR.current_world, robot, arr=[], pos, present=false, goal;
 
-    if (RUR.current_world.goal.position !== undefined){
-        if (position[0] === RUR.current_world.goal.position.x &&
-            position[1] === RUR.current_world.goal.position.y) {
-            delete RUR.current_world.goal.position;
-            if (RUR.current_world.goal.orientation !== undefined) {
-                delete RUR.current_world.goal.orientation;
-            }
-            if (Object.keys(RUR.current_world.goal).length === 0) {
-                delete RUR.current_world.goal;
-            }
-            $("#edit-world-turn").hide();
+    $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
+    $("#edit-world-turn").show();
+    $("#random-orientation").hide();
+
+    RUR.we.ensure_key_exist(world, "goal");
+    goal = world.goal;
+
+    if (goal.possible_positions == undefined) {
+        RUR.we.ensure_key_exist(goal, "possible_positions");
+        if (goal.position !== undefined) {
+            goal.possible_positions = [[goal.position.x, goal.position.y]];
         } else {
-            RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-            $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
-            $("#edit-world-turn").show();
-            $("#random-orientation").hide();
+            RUR.we.ensure_key_exist(goal, "position");
         }
-    } else {
-        RUR.current_world.goal.position = {"x": position[0], "y": position[1]};
-        $("#cmd-result").html(RUR.translate("Click on same position to remove, or robot to set orientation.")).effect("highlight", {color: "gold"}, 1500);
-        $("#edit-world-turn").show();
-        $("#random-orientation").hide();
+    }
+
+    position = RUR.we.calculate_grid_position();
+    goal.position.x = position[0];
+    goal.position.y = position[1];
+
+    for(var i=0; i<goal.possible_positions.length; i++) {
+        pos = goal.possible_positions[i];
+        if(pos[0]==position[0] && pos[1]==position[1]){
+            present = true;
+        } else {
+            arr.push(pos);
+            goal.position.x = pos[0];
+            goal.position.y = pos[1];
+        }
+    }
+
+    if (!present){
+        arr.push(position);
+        goal.position.x = position[0];
+        goal.position.y = position[1];
+    }
+    goal.possible_positions = arr;
+
+    if (arr.length == 0) {
+        delete RUR.current_world.goal.position;
+        delete RUR.current_world.goal.possible_positions;
+        if (RUR.current_world.goal.orientation !== undefined) {
+            delete RUR.current_world.goal.orientation;
+        }
+        if (Object.keys(RUR.current_world.goal).length === 0) {
+            delete RUR.current_world.goal;
+        }
+        $("#edit-world-turn").hide();
     }
 };
 
