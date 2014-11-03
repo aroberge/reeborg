@@ -438,7 +438,7 @@ RUR.vis_world.select_initial_values = function() {
         RUR.current_world.robots[0].tokens = RUR.randint(robot.min_tokens, robot.max_tokens);
     }
     if (robot.start_positions != undefined && robot.start_positions.length > 1) {
-        position = robot.start_positions[RUR.randint(0, robot.start_positions.length)];
+        position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
         robot.x = position[0];
         robot.y = position[1];
         robot._prev_x = robot.x;
