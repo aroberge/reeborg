@@ -83,7 +83,8 @@ RUR.translation["Click on world to set number of goal tokens."] = "Click on worl
 RUR.translation["Click on world to toggle star goal."] = "Click on world to toggle star goal.";
 RUR.translation["Click on world to toggle triangle goal."] = "Click on world to toggle triangle goal.";
 RUR.translation["Click on world to toggle square goal."] = "Click on world to toggle square goal.";
-RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Click on world at x=1, y=1 to have no object left as a goal.";
+RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Click on world at x=1, y=1 to confirm having no object (excluding tokens) left as a goal.";
+RUR.translation["Click on world at x=1, y=1 to have no tokens left as a goal."] = "Click on world at x=1, y=1 to confirm having no tokens left as a goal.";
 RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for Reeborg to carry (use inf for infinite number or a-b to indicate random integer values from a to b inclusively)";
 RUR.translation[" is not a valid value!"] = " is not a valid value!";
 RUR.translation["Other object here; can't put tokens"] = "Other object here; can't put tokens";
@@ -93,7 +94,8 @@ RUR.translation["Enter number of tokens for at that location."] = "Enter number 
 RUR.translation["tokens here; can't put another object"] = "tokens here; can't put another object";
 RUR.translation["tokens as a goal here; can't set another object as goal."] = "tokens as a goal here; can't set another object as goal.";
 RUR.translation["Click on same position to remove, or robot to set orientation."] = "Click on same position to remove, or robot to set orientation.";
-RUR.translation["Goal: no object left in world."] = "Goal: no object left in world.";
+RUR.translation["Goal: no object left in world."] = "Goal: no object (excluding tokens) left in world.";
+RUR.translation["Goal: no tokens left in world."] = "Goal: no tokens left in world.";
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
 RUR.translation["No such world!"] = "No such world!";
 RUR.translation["Enter world name to save"] = "Enter world name to save";

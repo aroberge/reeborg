@@ -88,7 +88,8 @@ RUR.translation["Click on world to set number of goal tokens."] = "Cliquez sur l
 RUR.translation["Click on world to toggle star goal."] = "Cliquez sur le monde pour ajouter/supprimer une étoile comme but.";
 RUR.translation["Click on world to toggle triangle goal."] = "Cliquez sur le monde pour ajouter/supprimer un triangle comme but.";
 RUR.translation["Click on world to toggle square goal."] = "Cliquez sur le monde pour ajouter/supprimer un carré comme but.";
-RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Cliquez sur le monde en x=1, y=1 pour avoir comme but aucun objet qui reste.";
+RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Cliquez sur le monde en x=1, y=1 pour confirmer avoir comme but aucun objet (sauf possiblement des jetons) qui reste.";
+RUR.translation["Click on world at x=1, y=1 to have no tokens left as a goal."] = "Cliquez sur le monde en x=1, y=1 pour confirmer avoir comme but aucun jetons qui reste.";
 RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg (utilisez inf pour un nombre infini ou a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
 RUR.translation[" is not a valid value!"] = " n'est pas une valeur valide!";
 RUR.translation["Other object here; can't put tokens"] = "Autre objet ici; on ne peut pas mettre des jetons.";
@@ -98,7 +99,8 @@ RUR.translation["Enter number of tokens for at that location."] = "Entrez le nom
 RUR.translation["tokens here; can't put another object"] = "Jetons ici; on ne peut pas mettre un autre objet.";
 RUR.translation["tokens as a goal here; can't set another object as goal."] = "Jetons comme but ici; on ne peut pas mettre un autre objet comme but ici.";
 RUR.translation["Click on same position to remove, or robot to set orientation."] = "Cliquez sur la même position pour supprimer, ou sur un robot pour choisir l'orientation.";
-RUR.translation["Goal: no object left in world."] = "But: aucun objet qui reste dans le monde.";
+RUR.translation["Goal: no object left in world."] = "But: aucun objet (sauf possiblement des jetons) qui reste dans le monde.";
+RUR.translation["Goal: no tokens left in world."] = "But: aucun jetons qui reste dans le monde.";
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
 RUR.translation["No such world!"] = "Ce monde n'existe pas !";
 RUR.translation["Enter world name to save"] = "Quel nom doit-on utiliser pour ce monde?";
