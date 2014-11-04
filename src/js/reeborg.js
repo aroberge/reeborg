@@ -3426,7 +3426,8 @@ RUR.vis_world.refresh = function (initial) {
 
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_other(RUR.current_world.other);
-    if (initial !== undefined && RUR.current_world.robots[0] != undefined
+    if (initial !== undefined && RUR.current_world.robots != undefined
+        && RUR.current_world.robots[0] != undefined
         && RUR.current_world.robots[0].start_positions != undefined && RUR.current_world.robots[0].start_positions.length > 1) {
         robot = RUR.current_world.robots[0];
         for (i=0; i < robot.start_positions.length; i++){
