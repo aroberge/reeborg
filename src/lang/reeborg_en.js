@@ -107,7 +107,7 @@ var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_c
                     " is_facing_north, done, put, take, object_here, select_world, select_challenge,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, pause, repeat, sound," +
-                    "RUR, inspect, view_source, verify" +
+                    "RUR, inspect, view_source, verify, say" +
     // do not translate  nor include the following instructions; they help make rur-ple created programs *almost* compatible
                     "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, set_max_steps*/\n";
 
@@ -115,7 +115,7 @@ var move, turn_left, inspect, front_is_clear, right_is_clear, select_challenge,
     is_facing_north, done, put, take, object_here, select_world, token_here,
     has_token, write, at_goal, at_goal_orientation, build_wall, think,
     pause, repeat, view_source, sound, UsedRobot,
-    set_max_steps;
+    set_max_steps, say;
 
 // do not translate the following three instructions; they are included only
 // so that most basic programs from rur-ple would run "as-is"
@@ -159,6 +159,9 @@ RUR.reset_definitions = function () {
     done = function () {
       RUR.control.done();
     };
+    say = function (message) {
+        RUR.control.say(message);
+    }
 
     pause = function (ms) {
       RUR.control.pause(ms);

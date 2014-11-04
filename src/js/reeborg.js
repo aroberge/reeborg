@@ -123,6 +123,10 @@ RUR.control.done = function () {
     throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
 
+RUR.control.say = function (message) {
+    RUR.rec.record_frame("say", message);
+};
+
 RUR.control.token_here = function (robot) {
     // returns the number of tokens at the location where the robot is
     var coords = robot.x + "," + robot.y;
@@ -590,8 +594,9 @@ $(document).ready(function() {
         return;
     });
 
-    $("#Reeborg-says").dialog({minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-says").dialog({minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "top", at: "top", of: $("#robot_canvas")}});
 
     editor.widgets = [];
     library.widgets = [];
@@ -1927,6 +1932,8 @@ RUR.rec.display_frame = function () {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message + "\n");
+    } else if (frame.say !== undefined) {
+        $("#Reeborg-says").html(frame.say).dialog("open");
     }
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
@@ -1948,7 +1955,7 @@ RUR.rec.conclude = function () {
             if (RUR.control.sound_flag) {
                 RUR.control.play_sound("#success-sound");
             }
-            $("#Reeborg-says").html(goal_status.message).dialog("open");
+            $("#Reeborg-concludes").html(goal_status.message).dialog("open");
         } else {
             if (RUR.control.sound_flag) {
                 RUR.control.play_sound("#error-sound");
@@ -1959,7 +1966,7 @@ RUR.rec.conclude = function () {
         if (RUR.control.sound_flag) {
             RUR.control.play_sound("#success-sound");
         }
-        $("#Reeborg-says").html("<p class='center'>" + RUR.translate("Last instruction completed!") + "</p>").dialog("open");
+        $("#Reeborg-concludes").html("<p class='center'>" + RUR.translate("Last instruction completed!") + "</p>").dialog("open");
     }
     return "stopped";
 };
@@ -1974,7 +1981,7 @@ RUR.rec.handle_error = function (frame) {
             if (RUR.control.sound_flag) {
                 RUR.control.play_sound("#success-sound");
             }
-            $("#Reeborg-says").html(RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>")).dialog("open");
+            $("#Reeborg-concludes").html(RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>")).dialog("open");
         }
     } else {
         if (RUR.control.sound_flag) {
@@ -2625,11 +2632,13 @@ RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
     $("#output-pre").html("");
     $("#output-panel pre").remove(".jscode");
-    $("#Reeborg-says").dialog("close");
+    $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
+    $("#Reeborg-says").dialog("close");
     // reset the options in case the user has dragged the window.
-    $("#Reeborg-says").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "say", position:{my: "top", at: "top", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.runner.interpreted = false;
     RUR.control.sound_flag = false;

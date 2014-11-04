@@ -111,13 +111,13 @@ RUR.translation["Enter world name to delete"] = "Écrivez le nom du monde à sup
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, rien_devant, rien_a_droite, "+
                     " face_au_nord, termine, depose, prend, objet_ici, selectionne_monde,"+
                     " jeton_ici, a_des_jetons, ecrit, au_but, au_but_orientation, selectionne_defi," +
-                    " construit_un_mur, pense, pause, repete, voir_source, son, confirmer */\n";
+                    " construit_un_mur, pense, pause, repete, voir_source, son, confirmer, dis */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite, selectionne_defi,
     face_au_nord, termine, depose, prend, objet_ici, selectionne_monde, jeton_ici,
     a_des_jetons, ecrit, au_but, au_but_orientation, construit_un_mur, pense,
     pause, repete, voir_source, son, RobotUsage,
-    nombre_de_commandes;
+    nombre_de_commandes, dis;
 
 RUR.confirmer = function(test) {
     var reeborg, robots, monde, jetons, orientation;
@@ -161,7 +161,9 @@ RUR.reset_definitions = function () {
     termine = function () {
       RUR.control.done();
     };
-
+    dis = function (message) {
+        RUR.control.say(message);
+    }
     pause = function (ms) {
       RUR.control.pause(ms);
     };
