@@ -165,7 +165,7 @@ RUR.vis_world.draw_tokens = function(tokens, goal) {
 
 RUR.vis_world.draw_token = function (i, j, num, goal) {
     "use strict";
-    var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
+    var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
     var ctx;
     if (goal) {
         ctx = RUR.BACKGROUND_CTX;
@@ -173,6 +173,8 @@ RUR.vis_world.draw_token = function (i, j, num, goal) {
         ctx = RUR.WALL_CTX;
     }
     ctx.beginPath();
+
+    text_width = ctx.measureText(num).width/2;
     ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
     if (goal) {
         ctx.strokeStyle = RUR.TOKEN_GOAL_COLOR;
@@ -185,7 +187,7 @@ RUR.vis_world.draw_token = function (i, j, num, goal) {
         ctx.fillStyle = RUR.TOKEN_COLOR;
         ctx.fill();
         ctx.fillStyle = RUR.TEXT_COLOR;
-        ctx.fillText(num, (i+0.5)*scale, Y - (j+0.3)*scale);
+        ctx.fillText(num, (i+0.6)*scale - text_width, Y - (j+0.3)*scale);
     }
 };
 
