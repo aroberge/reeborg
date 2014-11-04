@@ -101,6 +101,13 @@ a.right-link:hover, #language_switcher:hover {
   background-image: -linear-gradient(top, #beff7f, #96c423 50%, #75a110);
 }
 .alert .ui-widget-header {background-color: red; background-image: none;}
+.concludes .ui-widget-header {background-color: #75a110;
+  background-image: -webkit-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
+  background-image: -moz-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
+  background-image: -ms-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
+  background-image: -o-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
+  background-image: -linear-gradient(top, #beff7f, #96c423 50%, #75a110);
+}
 .green-border {border-bottom: 4px solid #75a110;}
 .ui-widget-header {border-bottom: 3px solid #75a110;}
 .success {color: green; list-style: none;}

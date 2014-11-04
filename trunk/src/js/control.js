@@ -68,6 +68,10 @@ RUR.control.done = function () {
     throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
 
+RUR.control.say = function (message) {
+    RUR.rec.record_frame("say", message);
+};
+
 RUR.control.token_here = function (robot) {
     // returns the number of tokens at the location where the robot is
     var coords = robot.x + "," + robot.y;
