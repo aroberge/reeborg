@@ -159,3 +159,63 @@ while not at_goal():
     follow_wall()
 
     _tp(9)"""
+
+##############################
+
+three_levels_if = """
+if True:
+    if False:
+        if other:
+            a()
+        elif some:
+            b()
+        else:
+            c()
+    elif other:
+        a()
+        b()
+        c()
+else:
+    if True:
+        if True:
+            done()
+"""
+
+three_levels_if_result = """
+_tp(1)
+if True:
+    _tp(2)
+    if False:
+        _tp(3)
+        if other:
+            _tp(4)
+            a()
+        elif some:
+            _tp(5)
+            RUR.control.placeholder_frame()
+            _tp(6)
+            b()
+        else:
+            _tp(7)
+            RUR.control.placeholder_frame()
+            _tp(8)
+            c()
+    elif other:
+        _tp(9)
+        RUR.control.placeholder_frame()
+        _tp(10)
+        a()
+        _tp(11)
+        b()
+        _tp(12)
+        c()
+else:
+    _tp(13)
+    RUR.control.placeholder_frame()
+    _tp(14)
+    if True:
+        _tp(15)
+        if True:
+            _tp(16)
+            done()
+"""
