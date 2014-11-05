@@ -1846,6 +1846,18 @@ RUR.rec.record_frame = function (name, obj) {
 //        }
 //    }
 
+
+/*    Experimental code    */
+
+   if (RUR.programming_language === "python" && RUR._highlight) {
+       if (__BRYTHON__.line_info !== undefined) {
+           RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-2;
+       } else{
+           RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
+       }
+   }
+/*=====================*/
+
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
     RUR.control.sound_id = undefined;
@@ -1897,21 +1909,27 @@ RUR.rec.display_frame = function () {
     "use strict";
     var frame, goal_status;
 
-    // track line number and highlight line to be executed
-//    try {
-//
-//        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
-//    }catch (e) {}
-//    try {
-//        editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
-//        RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
-//    } catch (e) {}
+/* Experimental code  */
+
+    //track line number and highlight line to be executed
+    if (RUR.programming_language === "python" && RUR._highlight) {
+        try {
+           editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+        }catch (e) {}
+        try {
+           editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
+           RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
+        } catch (e) {}
+    }
+
+/*=====================*/
 
     if (RUR.rec.current_frame > RUR.rec.nb_frames) {
         return RUR.rec.conclude();
     }
     frame = RUR.rec.frames[RUR.rec.current_frame];
     RUR.rec.current_frame++;
+
     if(frame === undefined && RUR.rec.current_frame==1) {
         frame = RUR.rec.frames[RUR.rec.current_frame];
         RUR.rec.current_frame++;
@@ -1943,9 +1961,14 @@ RUR.rec.display_frame = function () {
 };
 
 RUR.rec.conclude = function () {
-//    try{
-//        editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
-//    } catch(e) {}
+
+/*  Experimental code */
+    if (RUR.programming_language === "python" && RUR._highlight) {
+        try{
+            editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+        } catch(e) {}
+   }
+/* ===================== */
     var frame, goal_status;
     if (RUR.rec.nb_frames === 0) return "stopped";
     frame = RUR.rec.frames[RUR.rec.nb_frames]; // nb_frames could be zero ... but we might still want to check if goal reached.
@@ -2609,6 +2632,9 @@ RUR.ui.pause = function (ms) {
 
 RUR.ui.step = function () {
     RUR.runner.run(RUR.rec.display_frame);
+    RUR.ui.stop_called = false;
+    $("#stop").removeAttr("disabled");
+    clearTimeout(RUR.rec.timer);
 };
 
 RUR.ui.stop = function () {
@@ -2628,7 +2654,6 @@ RUR.ui.stop = function () {
 };
 
 RUR.ui.reload = function() {
-
     RUR.ui.set_ready_to_run();
     $("#output-pre").html("");
     $("#output-panel pre").remove(".jscode");
@@ -3778,7 +3803,7 @@ function toggle_editing_mode () {
 }
 
 RUR.we.refresh_world_edited = function () {
-    RUR.vis_world.draw_all(RUR.current_world);
+    RUR.vis_world.draw_all();
 };
 
 function editing_world_show_others(){

@@ -180,7 +180,7 @@ function toggle_editing_mode () {
 }
 
 RUR.we.refresh_world_edited = function () {
-    RUR.vis_world.draw_all(RUR.current_world);
+    RUR.vis_world.draw_all();
 };
 
 function editing_world_show_others(){
