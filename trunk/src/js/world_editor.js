@@ -361,9 +361,11 @@ RUR.we.set_token_number = function () {
                 }
             } else {
                 delete RUR.current_world.tokens[x + "," + y];
-                delete RUR.current_world.min_tokens[x + "," + y];
-                delete RUR.current_world.max_tokens[x + "," + y];
-                delete RUR.current_world.tokens_range[x + "," + y];
+                if (max_tokens !== undefined) {
+                    delete RUR.current_world.min_tokens[x + "," + y];
+                    delete RUR.current_world.max_tokens[x + "," + y];
+                    delete RUR.current_world.tokens_range[x + "," + y];
+                }
             }
         } else {
             $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
