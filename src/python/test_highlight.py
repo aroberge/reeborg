@@ -77,6 +77,21 @@ _tp(3)
 move()
 """
 
+#####################################
+
+only_while_loop = """
+while token_here():
+    take()
+"""
+
+only_while_loop_result = """
+_tp(1)
+while token_here():
+    _tp(2)
+    take()
+    _tp(1)
+"""
+
 ##########################################
 
 if_elif_else = """
@@ -98,16 +113,55 @@ if right_is_clear():
     move()
 elif front_is_clear():
     _tp(4)
-    RUR.control.null()
+    RUR.control.placeholder_frame()
     _tp(5)
     move()
 else:
     _tp(6)
-    RUR.control.null()
+    RUR.control.placeholder_frame()
     _tp(7)
     turn_left()
 """
 
+###########################
+
+complex_code = """
+def follow_wall():
+    if right_is_clear():
+        turn_right()
+        move()
+    elif front_is_clear():
+        move()
+    else:
+        turn_left()
+while not at_goal():
+    follow_wall()
+"""
+complex_code_result = """
+_tp(1)
+def follow_wall():
+    _tp(2)
+    if right_is_clear():
+        _tp(3)
+        turn_right()
+        _tp(4)
+        move()
+    elif front_is_clear():
+        _tp(5)
+        RUR.control.placeholder_frame()
+        _tp(6)
+        move()
+    else:
+        _tp(7)
+        RUR.control.placeholder_frame()
+        _tp(8)
+        turn_left()
+_tp(9)
+while not at_goal():
+    _tp(10)
+    follow_wall()
+    _tp(9)
+"""
 
 
 class TestSequenceFunctions(unittest.TestCase):
@@ -132,10 +186,20 @@ class TestSequenceFunctions(unittest.TestCase):
         result = tracer.process()
         self.assertEqual(while_loop_result, result)
 
+    def test_only_while(self):
+        tracer = highlight.InsertTracer(only_while_loop)
+        result = tracer.process()
+        self.assertEqual(only_while_loop_result, result)
+
     def test_if(self):
         tracer = highlight.InsertTracer(if_elif_else)
         result = tracer.process()
         self.assertEqual(if_elif_else_result, result)
+
+    def test_complex(self):
+        tracer = highlight.InsertTracer(complex_code)
+        result = tracer.process()
+        self.assertEqual(complex_code_result, result)
 
 if __name__ == '__main__':
     unittest.main()

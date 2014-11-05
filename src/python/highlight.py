@@ -13,8 +13,6 @@
    and highlighted.
    '''
 
-DEBUG = False
-
 def rchop_by_set(mystr, separators):
     """ Splits a string into 2 parts without using regexp
         and return the first part (before a known separator)
@@ -28,12 +26,12 @@ def repr_tracepoint( tc ):
     tracecall_name = '_tp'
     return tc['indent'] + tracecall_name +  '(%d)'%tc['target_lineno']
 
-def repr_null(tc):
-    '''Determines how to represent a null instruction
+def repr_static(tc):
+    '''Determines how to represent a static frame.
        This will be used to "pause" the highlighting while Reeborg is
        supposed to perform a clause like an "elif condition"
     '''
-    return tc['indent'] + 'RUR.control.null()'
+    return tc['indent'] + 'RUR.control.placeholder_frame()'
 
 ########################################################################
 #               The Code parsing and so on
@@ -51,7 +49,7 @@ class InsertTracer():
         return self.construct_result()
 
     def create_trace_calls(self):
-        for nr, line in enumerate(self.lines):
+        for lineno, line in enumerate(self.lines):
             if not line.strip():  # ignore empty lines
                 continue
 
@@ -73,19 +71,19 @@ class InsertTracer():
                 self.trace_calls.append(
                     dict(
                         when=when,
-                        place_lineno=nr,
-                        target_lineno=nr,
+                        place_lineno=lineno,
+                        target_lineno=lineno,
                         indent=indent if when=='before' else None,
                         cause=first_word,
                     )
                 )
-                self.indentation_stack.append( dict( cause=first_word, cause_lineno=nr, indent=None ) )
+                self.indentation_stack.append( dict( cause=first_word, cause_lineno=lineno, indent=None ) )
             else:  # for ordinary statements
                self.trace_calls.append(
                     dict(
                         when='before',
-                        place_lineno=nr,
-                        target_lineno=nr,
+                        place_lineno=lineno,
+                        target_lineno=lineno,
                         indent=indent
                     )
                 )
@@ -95,9 +93,9 @@ class InsertTracer():
                     last_indent = self.indentation_stack.pop()
                     if last_indent['cause'] in 'for while'.split():   # TODO: "for" might not be needed here (though in C++ it should)
                         self.trace_calls.append(
-                            dict(  # could inject "before current nr" but, less confusion -- "after previous nr"
+                            dict(  # could inject "before current lineno" but, less confusion -- "after previous lineno"
                                 when='after',
-                                place_lineno=nr-1,  # might happen to be empty line -- but it's ok
+                                place_lineno=lineno-1,  # might happen to be empty line -- but it's ok
                                 target_lineno=last_indent['cause_lineno'],
                                 indent=last_indent['indent']
                             )
@@ -118,24 +116,21 @@ class InsertTracer():
                 )
 
         result = []
-        for nr, line in enumerate(self.lines):
+        for lineno, line in enumerate(self.lines):
             # before
-            if nr in restructured_trace_calls:
-                for tc in restructured_trace_calls[nr]['before']:
+            if lineno in restructured_trace_calls:
+                for tc in restructured_trace_calls[lineno]['before']:
                     result.append(repr_tracepoint(tc))
 
             # the line
-            if DEBUG:
-                line += ' '*(20-len(line)) +'# %s'%nr  # add line original numbers
             result.append( line )
             # after
-            if nr in restructured_trace_calls:
-                for tc in restructured_trace_calls[nr]['after']:
+            if lineno in restructured_trace_calls:
+                for tc in restructured_trace_calls[lineno]['after']:
                     result.append(repr_tracepoint(tc))
-                for tc in restructured_trace_calls[nr]['after-null']:
+                for tc in restructured_trace_calls[lineno]['after-null']:
                     result.append(repr_tracepoint(tc))
-                    result.append(repr_null(tc))
-
+                    result.append(repr_static(tc))
         return '\n'.join(result)
 
 
