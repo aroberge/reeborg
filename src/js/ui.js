@@ -66,6 +66,9 @@ RUR.ui.pause = function (ms) {
 
 RUR.ui.step = function () {
     RUR.runner.run(RUR.rec.display_frame);
+    RUR.ui.stop_called = false;
+    $("#stop").removeAttr("disabled");
+    clearTimeout(RUR.rec.timer);
 };
 
 RUR.ui.stop = function () {
@@ -85,7 +88,6 @@ RUR.ui.stop = function () {
 };
 
 RUR.ui.reload = function() {
-
     RUR.ui.set_ready_to_run();
     $("#output-pre").html("");
     $("#output-panel pre").remove(".jscode");
