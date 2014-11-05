@@ -28,6 +28,12 @@ def repr_tracepoint( tc ):
     tracecall_name = '_tp'
     return tc['indent'] + tracecall_name +  '(%d)'%tc['target_lineno']
 
+def repr_null(tc):
+    '''Determines how to represent a null instruction
+       This will be used to "pause" the highlighting while Reeborg is
+       supposed to perform a clause like an "elif condition"
+    '''
+    return tc['indent'] + 'RUR.control.null()'
 
 ########################################################################
 #               The Code parsing and so on
@@ -51,9 +57,7 @@ class InsertTracer():
 
             line_wo_indent = line.lstrip()
             indent = line[:-len(line_wo_indent)]
-            #TODO -- guarantee that it takes first word OK
-            #~ first_word = line and line_wo_indent.split()[0] # was a bug with "else:"
-            first_word = rchop_by_set(line, ' ([{:\'"\\')  ############ possibly add # to see if first character - if so, simply return as comment
+            first_word = rchop_by_set(line, ' =([{:\'"\\')  ############ possibly add # to see if first character - if so, simply return as comment
 
             if self.indentation_stack[-1]['indent'] == None:  # if it was'nt set/known
                 self.indentation_stack[-1]['indent'] = indent
@@ -63,7 +67,7 @@ class InsertTracer():
 
             if first_word in 'for while if elif else def class try except finally with'.split():
                 if first_word in 'else elif except finally'.split():
-                    when='after'
+                    when='after-null'
                 else:
                     when='before'
                 self.trace_calls.append(
@@ -106,7 +110,7 @@ class InsertTracer():
         for tc in self.trace_calls:
             key = tc['place_lineno']
             if not key in restructured_trace_calls:
-                restructured_trace_calls[key] = {'before':[], 'after':[] }
+                restructured_trace_calls[key] = {'before':[], 'after':[], 'after-null':[] }
 
             restructured_trace_calls[key][tc['when']].append( dict(
                     indent=tc['indent'],
@@ -118,7 +122,7 @@ class InsertTracer():
             # before
             if nr in restructured_trace_calls:
                 for tc in restructured_trace_calls[nr]['before']:
-                    result.append(  repr_tracepoint( tc ) )
+                    result.append(repr_tracepoint(tc))
 
             # the line
             if DEBUG:
@@ -127,7 +131,10 @@ class InsertTracer():
             # after
             if nr in restructured_trace_calls:
                 for tc in restructured_trace_calls[nr]['after']:
-                    result.append( repr_tracepoint( tc )  )
+                    result.append(repr_tracepoint(tc))
+                for tc in restructured_trace_calls[nr]['after-null']:
+                    result.append(repr_tracepoint(tc))
+                    result.append(repr_null(tc))
 
         return '\n'.join(result)
 
