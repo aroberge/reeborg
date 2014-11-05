@@ -39,5 +39,10 @@ class TestSequenceFunctions(unittest.TestCase):
         result = tracer.process()
         self.assertEqual(src.complex_code_result, result)
 
+    def test_three_levels_if(self):
+        tracer = highlight.InsertTracer(src.three_levels_if)
+        result = tracer.process()
+        self.assertEqual(src.three_levels_if_result, result)
+
 if __name__ == '__main__':
     unittest.main()

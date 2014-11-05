@@ -14,6 +14,7 @@
    '''
 
 DEBUG = False
+DEBUG_add_lineno = False
 
 def rchop_by_set(mystr, separators):
     """ Splits a string into 2 parts without using regexp
@@ -127,7 +128,10 @@ class InsertTracer():
                     result.append(repr_tracepoint(tc))
 
             # the line
-            result.append( line )
+            if DEBUG_add_lineno:
+                result.append( line + "   #  %d"%lineno)
+            else:
+                result.append( line )
             # after
             if lineno in restructured_trace_calls:
                 for tc in restructured_trace_calls[lineno]['after']:
@@ -144,15 +148,18 @@ class InsertTracer():
 if __name__ == '__main__':
     import test_sources as src
     DEBUG = True
+    DEBUG_add_lineno = False
 
-    tracer = InsertTracer(src.complex_code)
+    tracer = InsertTracer(src.three_levels_if)
     result, lines, restructured_trace_calls, trace_calls = tracer.process()
-    for lineno, line in enumerate(lines[:-1]):
-        print(lineno, line)
-        print('   ', trace_calls[lineno])
-    print(src.complex_code_result)
-    for key in restructured_trace_calls:
-        for key2 in restructured_trace_calls[key]:
-            if restructured_trace_calls[key][key2]:
-                print(key, key2, restructured_trace_calls[key][key2])
+    print(result)
+
+    # for lineno, line in enumerate(lines[:-1]):
+    #     print(lineno, line)
+    #     print('   ', trace_calls[lineno])
+    # print(src.complex_code_result)
+    # for key in restructured_trace_calls:
+    #     for key2 in restructured_trace_calls[key]:
+    #         if restructured_trace_calls[key][key2]:
+    #             print(key, key2, restructured_trace_calls[key][key2])
 
