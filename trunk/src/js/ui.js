@@ -211,6 +211,18 @@ RUR.ui.resize = function () {
     RUR.vis_world.draw_all();
 };
 
+RUR.ui.highlight = function () {
+    if (RUR._highlight) {
+        RUR._highlight = false;
+        $("#not-ok-image").show();
+        $("#ok-image").hide();
+    } else {
+        RUR._highlight = true;
+        $("#not-ok-image").hide();
+        $("#ok-image").show();
+    }
+};
+
 RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
     reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
     step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
