@@ -104,11 +104,6 @@ RUR.control.turn_left = function(robot, no_frame){
     RUR.rec.record_frame();
 };
 
-RUR.control.placeholder_frame = function() {
-    // used for highlighting.
-    RUR.rec.record_frame();
-};
-
 RUR.control.__turn_right = function(robot, no_frame){
     "use strict";
     robot._prev_orientation = (robot.orientation+2)%4; // fix so that oil trace looks right
@@ -1855,13 +1850,15 @@ RUR.rec.record_frame = function (name, obj) {
 /*    Experimental code    */
 
    if (RUR.programming_language === "python" && RUR._highlight) {
-       if (__BRYTHON__.line_info !== undefined) {
-           RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-2;
+       if (RUR.current_lineno != undefined) {
+           RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR.current_lineno;
        } else{
            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
        }
    }
 /*=====================*/
+
+    RUR.previous_lineno = RUR.current_lineno;
 
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
@@ -2189,7 +2186,7 @@ RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (!RUR.runner.interpreted) {
         RUR.vis_world.select_initial_values();
-        src = RUR._import_library();                // defined in Reeborg_js_en, etc.
+        src = RUR._import_library();                // defined in rur_utils.js
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }
@@ -2510,6 +2507,11 @@ RUR._import_library = function () {
 
     lib_src = library.getValue();
     src = editor.getValue();
+
+    if (RUR.programming_language === "python" && RUR._highlight) {
+        src = insert_highlight_info(src);
+    }
+
     return src.replace(import_lib_regex, separator+lib_src);
 };
 
@@ -2523,7 +2525,13 @@ RUR.filterInt = function (value) {
     return parseInt(value, 10);
   return undefined;
 }
-/* Author: André Roberge
+
+RUR.set_lineno_highlight = function(lineno, frame) {
+    RUR.current_lineno = lineno;
+    if (frame) {
+        RUR.rec.record_frame();
+    }
+};/* Author: André Roberge
    License: MIT
  */
 

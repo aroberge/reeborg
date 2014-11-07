@@ -49,11 +49,6 @@ RUR.control.turn_left = function(robot, no_frame){
     RUR.rec.record_frame();
 };
 
-RUR.control.placeholder_frame = function() {
-    // used for highlighting.
-    RUR.rec.record_frame();
-};
-
 RUR.control.__turn_right = function(robot, no_frame){
     "use strict";
     robot._prev_orientation = (robot.orientation+2)%4; // fix so that oil trace looks right
