@@ -203,6 +203,11 @@ RUR._import_library = function () {
 
     lib_src = library.getValue();
     src = editor.getValue();
+
+    if (RUR.programming_language === "python" && RUR._highlight) {
+        src = insert_highlight_info(src);
+    }
+
     return src.replace(import_lib_regex, separator+lib_src);
 };
 
@@ -216,3 +221,10 @@ RUR.filterInt = function (value) {
     return parseInt(value, 10);
   return undefined;
 }
+
+RUR.set_lineno_highlight = function(lineno, frame) {
+    RUR.current_lineno = lineno;
+    if (frame) {
+        RUR.rec.record_frame();
+    }
+};

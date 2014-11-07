@@ -45,13 +45,15 @@ RUR.rec.record_frame = function (name, obj) {
 /*    Experimental code    */
 
    if (RUR.programming_language === "python" && RUR._highlight) {
-       if (__BRYTHON__.line_info !== undefined) {
-           RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-2;
+       if (RUR.current_lineno != undefined) {
+           RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR.current_lineno;
        } else{
            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
        }
    }
 /*=====================*/
+
+    RUR.previous_lineno = RUR.current_lineno;
 
     RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;

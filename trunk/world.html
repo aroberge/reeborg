@@ -263,6 +263,7 @@
 import sys
 from browser import window, doc
 from highlight import insert_highlight_info
+window['insert_highlight_info'] = insert_highlight_info
 
 def translate_python(src):
     src = "class UsedRobot(_UsedRobot): pass\n" + src
@@ -270,6 +271,7 @@ def translate_python(src):
 
 # put "translate_python" in global Javascript namespace
 window['translate_python'] = translate_python
+
 def _write(data):
     doc["output-pre"].innerHTML += str(data)
 def _write_err(data):
