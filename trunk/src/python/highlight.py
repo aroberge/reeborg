@@ -44,17 +44,24 @@ def insert_highlight_info(src):
             use_next_indent = False
 
 
-        if first_word in 'pass def class continue break'.split():
+        if first_word in 'pass def class continue break if from import del return raise try with yield'.split():
             new_lines.append(tracing_line(indent, lineno, frame=True))
             new_lines.append(line)
-        elif first_word in 'for while else'.split():
+        elif first_word in 'for while'.split():
+            new_lines.append(tracing_line(indent, lineno, frame=True))
             new_lines.append(line)
             use_next_indent = True
             saved_lineno = lineno
-        elif first_word in 'if elif'.split():
+        elif first_word in 'else except finally'.split():
+            new_lines.append(line)
+            use_next_indent = True
+            saved_lineno = lineno
+        elif first_word == 'elif':
             new_lines.append( indent + first_word + tracing_line(' ', lineno, frame=True) + ' and' + remaining)
         elif '=' in line_wo_indent:
             new_lines.append(tracing_line(indent, lineno, frame=True))
+            new_lines.append(line)
+        elif not first_word and remaining[0] == "#":
             new_lines.append(line)
         else:
             new_lines.append(tracing_line(indent, lineno))
