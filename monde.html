@@ -264,6 +264,8 @@
 <script type="text/python3">
 import sys
 from browser import window, doc
+from highlight import insert_highlight_info
+window['insert_highlight_info'] = insert_highlight_info
 
 def translate_python(src):
     src = "class RobotUsage(_UsedRobot): pass\n" + src

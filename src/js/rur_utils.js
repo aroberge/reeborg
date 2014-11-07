@@ -226,5 +226,6 @@ RUR.set_lineno_highlight = function(lineno, frame) {
     RUR.current_lineno = lineno;
     if (frame) {
         RUR.rec.record_frame();
+        RUR.rec.extra_highlighting_frames++;
     }
 };

@@ -12,6 +12,7 @@ RUR.rec = {};
 RUR.rec.reset = function() {
     RUR.rec.nb_frames = 0;
     RUR.rec.current_frame = 0;
+    RUR.rec.extra_highlighting_frames = 0;
     RUR.rec.frames = [];
     RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
@@ -31,15 +32,6 @@ RUR.rec.record_frame = function (name, obj) {
     if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
-//    if (RUR.programming_langage === "javascript") {
-//        RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR._current_line;
-//    } else if (RUR.programming_language === "python") {
-//        if (__BRYTHON__.line_info !== undefined) {
-//            RUR.rec._line_numbers [RUR.rec.nb_frames] = __BRYTHON__.line_info[0]-1;
-//        } else{
-//            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
-//        }
-//    }
 
 
 /*    Experimental code    */
@@ -64,7 +56,7 @@ RUR.rec.record_frame = function (name, obj) {
     if(RUR.rec.check_mud(frame)){
         throw new RUR.ReeborgError(RUR.translate("I'm stuck in mud."));
     }
-    if (RUR.rec.nb_frames == RUR.MAX_STEPS) {
+    if (RUR.rec.nb_frames > RUR.MAX_STEPS + RUR.rec.extra_highlighting_frames) {
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
 };
