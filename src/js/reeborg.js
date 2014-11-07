@@ -637,8 +637,14 @@ $(document).ready(function() {
 $(document).ready(function() {
     var prog_lang, url_query, name;
     var human_language = document.documentElement.lang;
+    RUR._highlight = true;
     $('input[type=radio][name=programming_language]').on('change', function(){
         RUR.reset_programming_language($(this).val());
+        if ($(this).val() == "python-"+human_language){
+            $("#highlight").show();
+        } else {
+            $("#highlight").hide();
+        }
     });
     url_query = parseUri(window.location.href);
     if (url_query.queryKey.proglang !== undefined &&
@@ -668,6 +674,11 @@ $(document).ready(function() {
             case 'coffeescript-' + human_language:
                 $('input[type=radio][name=programming_language]').val([prog_lang]);
                 RUR.reset_programming_language(prog_lang);
+                if (prog_lang == "python-"+human_language){
+                    $("#highlight").show();
+                } else {
+                    $("#highlight").hide();
+                }
         }
         // trigger it to load the initial world.
         $("#select_world").change();
@@ -2781,6 +2792,18 @@ RUR.ui.resize = function () {
     RUR.LARGE_WORLD = !RUR.LARGE_WORLD;
     RUR.current_world.large_world = RUR.LARGE_WORLD;
     RUR.vis_world.draw_all();
+};
+
+RUR.ui.highlight = function () {
+    if (RUR._highlight) {
+        RUR._highlight = false;
+        $("#not-ok-image").show();
+        $("#ok-image").hide();
+    } else {
+        RUR._highlight = true;
+        $("#not-ok-image").hide();
+        $("#ok-image").show();
+    }
 };
 
 RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
