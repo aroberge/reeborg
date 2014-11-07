@@ -57,8 +57,7 @@ a[href^="http"] {
     background:transparent url(../images/external_link.png) right no-repeat;
 }
 
-#permalink {margin-left: 170px;}
-#permalink, #resize, #highlight {bottom: 24px; background-color: white; border: 0; height: 36px;}
+#permalink, #resize, #highlight {background-color: white; border: 0; height: 36px;}
 
 
 .main_text {width:900px;top:50px; margin:auto;position:relative; margin-bottom: 70px}
@@ -173,7 +172,7 @@ p.try {
 #logo img{float: left; padding:0; margin:0; position:absolute; top:5px; left:5px;}
 #language_switcher {text-decoration: none; color: white; margin-right:50px; float: right; font-size: 25px;
 padding:3px;}
-#run {margin-left: 50px;}
+#run {margin-left: 0;}
 
 #tabs {height: 98%; overflow: auto;}
 #tabs .ui-tabs-panel {padding: 0;}
