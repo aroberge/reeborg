@@ -78,12 +78,16 @@ $(document).ready(function() {
         $("#load-library").hide();
         $("#save-editor").show();
         $("#load-editor").show();
+        if (RUR.programming_language == "python"){
+            $("#highlight").show();
+        }
     });
     $("#library-link").on("click", function(){
         $("#save-editor").hide();
         $("#load-editor").hide();
         $("#save-library").show();
         $("#load-library").show();
+        $("#highlight").hide();
     });
 
     var FILENAME = "filename";
