@@ -57,6 +57,35 @@ a[href^="http"] {
     background:transparent url(../images/external_link.png) right no-repeat;
 }
 
+
+/*   edit world at bottom of canvas */
+fieldset {display: inline-block;
+    border-radius: 10px;
+    color: #123264;
+    border: solid #123264;
+}
+
+legend { color: #123264;}
+
+#world-fieldset {width: 550px;
+  position: absolute;
+  top: -40px;
+}
+
+#edit-world {
+  top: 20px;
+}
+
+#file-fieldset{margin-left: 40px;}
+
+#resize { float: right;
+    top: 20px;
+}
+
+/*   ---------------- */
+
+
+
 #permalink, #resize, #highlight {background-color: white; border: 0; height: 36px;}
 
 
@@ -204,8 +233,7 @@ padding:3px;}
   bottom: -40px;
 }
 #image-choice-buttons {
-  position: absolute;
-  bottom: -90px;
+  float: right;
 }
 #image-choice-buttons button {
     margin-left: 10px;

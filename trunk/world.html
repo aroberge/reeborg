@@ -110,14 +110,7 @@
     <button id="permalink" title="permalink" onclick="RUR.create_permalink();">
       <img src="src/images/permalink.png" alt="permalink">
     </button>
-    <button id="resize" title="resize" onclick="RUR.ui.resize()">
-      <img src="src/images/resize.png" alt="resize">
-    </button>
-    <button id="highlight" title="highlight" onclick="RUR.ui.highlight()">
-      <img src="src/images/highlight.png" alt="highlight">
-      <img src="src/images/ok.png" alt="ok" id="ok-image">
-      <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
-    </button>
+
   </div>
   <div id="canvas-wrapper">
     <canvas id="background_canvas" width="620" height="550"></canvas>
@@ -128,16 +121,26 @@
     <div id="Reeborg-says" title="Reeborg says:" style="display:none"></div>
     <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
   </div>
+
     <div id="world-edit-buttons">
+  <fieldset id="world-fieldset"><legend>World</legend>
       <button class="blue-gradient" id="edit-world" title="Edit world">Edit World</button>
-      <button class="blue-gradient" id="save-world" title="Save world to file">file: Save</button>
-      <button class="blue-gradient" id="load-world" title="Load world from file">file: Open</button>
-      <button class="blue-gradient" id="memorize-world" title="Save world in browser memory (local storage)">browser: Save</button>
+      <fieldset id="file-fieldset"><legend>File</legend>
+      <button class="blue-gradient" id="save-world" title="Save world to file">Save</button>
+      <button class="blue-gradient" id="load-world" title="Load world from file">Open</button>
+      </fieldset>
+      <fieldset><legend>Browser</legend>
+      <button class="blue-gradient" id="memorize-world" title="Save world in browser memory (local storage)">Save</button>
       <button class="blue-gradient" id="delete-world" title="Delete world from browser memory (local storage)" style="display: none;">
-        browser: Delete
+        Delete
       </button>
+      </fieldset>
+    <button id="resize" title="resize" onclick="RUR.ui.resize()">
+      <img src="src/images/resize.png" alt="resize">
+    </button>
+</fieldset>
     </div>
-    <div id="image-choice-buttons">
+      <div id="image-choice-buttons">
       <button id="classic-image" title="Classic image"><img src="src/images/robot_e.png" alt="robot east"></button>
       <button id="rover-type" title="Rover type"><img src="src/images/rover_e.png" alt="robot east"></button>
     </div>
@@ -166,12 +169,17 @@
   <div id="tabs">
     <ul>
       <li><a id="editor-link" href="#editor">Python Code</a></li>
-      <button class="blue-gradient float-right" id="load-editor" title="Open program">Open</button>
-      <button class="blue-gradient float-right" id="save-editor" title="Save program">Save</button>
+      <button class="blue-gradient float-right" id="load-editor" title="Open program">Open (code)</button>
+      <button class="blue-gradient float-right" id="save-editor" title="Save program">Save (code)</button>
+      <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
+        <img src="src/images/highlight.png" alt="highlight">
+        <img src="src/images/ok.png" alt="ok" id="ok-image">
+        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
+      </button>
 
       <li><a id="library-link" href="#library">Library</a></li>
-      <button class="blue-gradient float-right" id="load-library" title="Open library">Open</button>
-      <button class="blue-gradient float-right" id="save-library" title="Save library">Save</button>
+      <button class="blue-gradient float-right" id="load-library" title="Open library">Open (lib)</button>
+      <button class="blue-gradient float-right" id="save-library" title="Save library">Save (lib)</button>
     </ul>
     <div id="editor">
       <span id="library-problem">Problem with code in library!</span>
