@@ -110,14 +110,7 @@
     <button id="permalink" title="permalien" onclick="RUR.create_permalink();">
       <img src="src/images/permalink.png" alt="permalink">
     </button>
-    <button id="resize" title="redimensionner" onclick="RUR.ui.resize()">
-      <img src="src/images/resize.png" alt="resize">
-    </button>
-    <button id="highlight" title="highlight" onclick="RUR.ui.highlight()">
-      <img src="src/images/highlight.png" alt="surligner">
-      <img src="src/images/ok.png" alt="ok" id="ok-image">
-      <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
-    </button>
+
   </div>
   <div id="canvas-wrapper">
     <canvas id="background_canvas" width="620" height="550"></canvas>
@@ -129,13 +122,23 @@
     <div id="Reeborg-shouts" title="Reeborg crie: Quelque chose ne va pas !" style="display:none"></div>
   </div>
     <div id="world-edit-buttons">
+  <fieldset id="world-fieldset"><legend>Monde</legend>
       <button class="blue-gradient" id="edit-world" title="Édition du monde">Édition</button>
-      <button class="blue-gradient" id="save-world" title="Enregistrer le monde dans un fichier">enregistrer (f)</button>
-      <button class="blue-gradient" id="load-world" title="Ouvrir à partir d'un fichier">ouvrir (f)</button>
-      <button class="blue-gradient" id="memorize-world" title="Enregistrer dans le navigateur (stockage local)">enregistrer (n)</button>
+      <fieldset id="file-fieldset"><legend>Fichier</legend>
+      <button class="blue-gradient" id="save-world" title="Enregistrer le monde dans un fichier">enregistrer</button>
+      <button class="blue-gradient" id="load-world" title="Ouvrir à partir d'un fichier">ouvrir</button>
+      </fieldset>
+      <fieldset><legend>Navigateur</legend>
+      <button class="blue-gradient" id="memorize-world" title="Enregistrer dans le navigateur (stockage local)">enregistrer</button>
       <button class="blue-gradient" id="delete-world" title="Supprimer du navigateur (stockage local)" style="display: none;">
-        supprimer (n)
+        supprimer
       </button>
+      </fieldset>
+      <button id="resize" title="redimensionner" onclick="RUR.ui.resize()">
+        <img src="src/images/resize.png" alt="resize">
+      </button>
+    </fieldset>
+
     </div>
     <div id="image-choice-buttons">
       <button id="classic-image" title="Classique"><img src="src/images/robot_e.png" alt="robot est"></button>
@@ -168,6 +171,12 @@
       <li><a id="editor-link" href="#editor">Code Python</a></li>
       <button class="blue-gradient float-right" id="load-editor" title="Ouvrir un programme">Ouvrir</button>
       <button class="blue-gradient float-right" id="save-editor" title="enregistrer un programme">enregistrer</button>
+
+      <button id="highlight" class="blue-gradient float-right" title="surligner" onclick="RUR.ui.highlight()">
+        <img src="src/images/highlight.png" alt="surligner">
+        <img src="src/images/ok.png" alt="ok" id="ok-image">
+        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
+      </button>
 
       <li><a id="library-link" href="#library">Bibliothèque</a></li>
       <button class="blue-gradient float-right" id="load-library" title="Ouvrir la bibliothèque">Ouvrir</button>
