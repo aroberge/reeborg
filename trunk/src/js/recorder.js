@@ -18,6 +18,11 @@ RUR.rec.reset = function() {
     RUR.rec.playback = false;
     RUR.rec.delay = 300;
     clearTimeout(RUR.rec.timer);
+    if (RUR.programming_language === "python" && RUR._highlight) {
+        try {
+           editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+        }catch (e) {}
+    }
     RUR._previous_line = undefined;
 };
 RUR.rec.reset();

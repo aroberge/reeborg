@@ -100,16 +100,7 @@ RUR.runner.eval_javascript = function (src) {
     }
     RUR.reset_definitions();
 
-//    function set_line_no(n){
-//        RUR._current_line = n;
-//    }
-//
-//    lines = src.split("\n");
-//    for (i=0; i < lines.length; i++){
-//        text += "set_line_no(" + i + ");";
-//        text += lines[i];
-//    }
-//    src = text;
+
     eval(src); // jshint ignore:line
 };
 
