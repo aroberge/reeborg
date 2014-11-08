@@ -1838,6 +1838,11 @@ RUR.rec.reset = function() {
     RUR.rec.playback = false;
     RUR.rec.delay = 300;
     clearTimeout(RUR.rec.timer);
+    if (RUR.programming_language === "python" && RUR._highlight) {
+        try {
+           editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+        }catch (e) {}
+    }
     RUR._previous_line = undefined;
 };
 RUR.rec.reset();
@@ -2279,16 +2284,7 @@ RUR.runner.eval_javascript = function (src) {
     }
     RUR.reset_definitions();
 
-//    function set_line_no(n){
-//        RUR._current_line = n;
-//    }
-//
-//    lines = src.split("\n");
-//    for (i=0; i < lines.length; i++){
-//        text += "set_line_no(" + i + ");";
-//        text += lines[i];
-//    }
-//    src = text;
+
     eval(src); // jshint ignore:line
 };
 
