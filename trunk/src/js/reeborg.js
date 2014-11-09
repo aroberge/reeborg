@@ -1943,29 +1943,9 @@ RUR.rec.display_frame = function () {
     frame = RUR.rec.frames[RUR.rec.current_frame];
     RUR.rec.current_frame++;
 
-if (frame === undefined){
-        return;
-    }
-
-    // if(frame === undefined && RUR.rec.current_frame==1) {
-    //     frame = RUR.rec.frames[RUR.rec.current_frame];
-
-    //     if (RUR.programming_language === "python" && RUR._highlight) {
-    //         try {
-    //            editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
-    //         }catch (e) {}
-    //         try {
-    //            editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
-    //            RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
-    //         } catch (e) {}
-    //     }
-    //     RUR.rec.current_frame++;
-    //     if (frame === undefined) {
-    //         return;
-    //     }
-    // } else if (frame === undefined){
-    //     return;
-    // }
+    if (frame === undefined){
+            return;
+        }
 
     if (frame.delay !== undefined) {
         RUR.visible_world.delay = frame.delay;   // FIXME
