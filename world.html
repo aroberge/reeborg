@@ -23,14 +23,16 @@
     <button class="blue-gradient" id="output-panel-button" label="output-panel">Diary</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
     <button class="blue-gradient" id="help-button">Help</button>
-    <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaborate</button>
+    <button  class="blue-gradient" onclick="TogetherJS(this); return false;">Collaborate</button>
+    <button id="permalink" class="blue-gradient" label="url-form" title="Create a permalink" onclick="RUR.create_permalink();">
+      Permalink
+    </button>
     <form>
         <input type="radio" name="programming_language" value="python-en" checked> Python
         <input type="radio" name="programming_language" value="javascript-strict-en" > Javascript (strict)
         <input type="radio" name="programming_language" value="javascript-en" > Javascript
         <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
     </form>
-
   </div>
 
 </header>
@@ -39,7 +41,7 @@
   <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
   <p>
   <button class="blue-gradient" id="ok-permalink" onclick="RUR.update_permalink();">Update</button>
-  <button class="blue-gradient" id="cancel-permalink" onclick="$('#url_input').hide();">Cancel</button>
+  <button class="blue-gradient" id="cancel-permalink" onclick="RUR.cancel_permalink();">Cancel</button>
   </p>
   </div>
 
@@ -62,6 +64,23 @@
     <button class="blue-gradient" id="reload" title="reload" disabled="true" onclick="RUR.ui.reload();">
       <img src="src/images/reload.png" alt="reload">
     </button>
+
+
+
+  </div>
+  <div id="canvas-wrapper">
+    <canvas id="background_canvas" width="620" height="550"></canvas>
+    <canvas id="wall_canvas" width="620" height="550"></canvas>
+    <canvas id="trace_canvas" width="620" height="550"></canvas>
+    <canvas id="robot_canvas" width="620" height="550"></canvas>
+    <div id="Reeborg-concludes" title="Reeborg says: I'm done!" style="display:none"></div>
+    <div id="Reeborg-says" title="Reeborg says:" style="display:none"></div>
+    <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
+  </div>
+
+    <div id="world-edit-buttons">
+  <fieldset id="world-fieldset"><legend>World</legend>
+
     <select id="select_world" title="Select world">
       <option value="src/json/alone.json" selected>Alone</option>
       <option value="src/json/around1.json">Around 1</option>
@@ -107,24 +126,8 @@
       <option value="src/json/jsa2.json">JSA 2</option>
       <option value="src/json/jsa3.json">JSA 3</option>
     </select>
-    <button id="permalink" title="permalink" onclick="RUR.create_permalink();">
-      <img src="src/images/permalink.png" alt="permalink">
-    </button>
 
-  </div>
-  <div id="canvas-wrapper">
-    <canvas id="background_canvas" width="620" height="550"></canvas>
-    <canvas id="wall_canvas" width="620" height="550"></canvas>
-    <canvas id="trace_canvas" width="620" height="550"></canvas>
-    <canvas id="robot_canvas" width="620" height="550"></canvas>
-    <div id="Reeborg-concludes" title="Reeborg says: I'm done!" style="display:none"></div>
-    <div id="Reeborg-says" title="Reeborg says:" style="display:none"></div>
-    <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
-  </div>
-
-    <div id="world-edit-buttons">
-  <fieldset id="world-fieldset"><legend>World</legend>
-      <button class="blue-gradient" id="edit-world" title="Edit world">Edit World</button>
+      <button class="blue-gradient" id="edit-world" title="Edit world">Edit</button>
       <fieldset id="file-fieldset"><legend>File</legend>
       <button class="blue-gradient" id="save-world" title="Save world to file">Save</button>
       <button class="blue-gradient" id="load-world" title="Load world from file">Open</button>
@@ -135,9 +138,6 @@
         Delete
       </button>
       </fieldset>
-    <button id="resize" title="resize" onclick="RUR.ui.resize()">
-      <img src="src/images/resize.png" alt="resize">
-    </button>
 </fieldset>
     </div>
       <div id="image-choice-buttons">
@@ -205,9 +205,10 @@
 <div id="edit-world-panel">
     <h1>Create your own worlds!</h1>
     <p>If you want to share your world (and corresponding challenges) with others,
-        save it to a file and send it to
-    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a>, or use
-    the permalink.</p>
+        save it to a file, or better yet, save everything using a permalink
+        (see button at top) and send it to
+    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a>.
+  </p>
 
     <div id="edit-world-submenus-wrapper">
         <p id="cmd-result">Select action to perform from menu below.</p>
@@ -234,6 +235,7 @@
     </div>
 
     <ul id="edit-world-nav">
+        <li><a href="javascript:RUR.ui.resize();">Toggle size</a></li>
         <li class="a-like">Robot <ul>
             <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Add robot</a></li>
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-place');"> Position(s)</a></li>
