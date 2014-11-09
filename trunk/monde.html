@@ -24,6 +24,7 @@
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Éditeur</button>
     <button class="blue-gradient" id="help-button">Aide</button>
     <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaboration</button>
+    <button id="permalink" class="blue-gradient" title="Créer un permalien" label="url-form" onclick="RUR.create_permalink();">Permalien</button>
     <form>
         <input type="radio" name="programming_language" value="python-fr" checked> Python
         <input type="radio" name="programming_language" value="javascript-strict-fr" > Javascript (strict)
@@ -40,7 +41,7 @@
   <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
   <p>
   <button class="blue-gradient" id="ok-permalink" onclick="RUR.update_permalink();">Mettre à jour</button>
-  <button class="blue-gradient" id="cancel-permalink" onclick="$('#url_input').hide();">Annuler</button>
+  <button class="blue-gradient" id="cancel-permalink" onclick="RUR.cancel_permalink();">Annuler</button>
   </p>
   </div>
 
@@ -62,6 +63,20 @@
     <button class="blue-gradient" id="reload" title="recommencer" disabled="vrai" onclick="RUR.ui.reload();">
       <img src="src/images/reload.png" alt="recommencer">
     </button>
+
+
+  </div>
+  <div id="canvas-wrapper">
+    <canvas id="background_canvas" width="620" height="550"></canvas>
+    <canvas id="wall_canvas" width="620" height="550"></canvas>
+    <canvas id="trace_canvas" width="620" height="550"></canvas>
+    <canvas id="robot_canvas" width="620" height="550"></canvas>
+    <div id="Reeborg-concludes" title="Reeborg dit : J'ai fini !" style="display:none"></div>
+    <div id="Reeborg-says" title="Reeborg dit :" style="display:none"></div>
+    <div id="Reeborg-shouts" title="Reeborg crie: Quelque chose ne va pas !" style="display:none"></div>
+  </div>
+    <div id="world-edit-buttons">
+  <fieldset id="world-fieldset" style="width:590px;"><legend>Monde</legend>
     <select id="select_world" title="Sélectionner un monde">
       <option value="src/json/alone.json" selected>Seul</option>
       <option value="src/json/empty_world.json">Vide</option>
@@ -107,36 +122,17 @@
       <option value="src/json/jsa2.json">JSA 2</option>
       <option value="src/json/jsa3.json">JSA 3</option>
     </select>
-    <button id="permalink" title="permalien" onclick="RUR.create_permalink();">
-      <img src="src/images/permalink.png" alt="permalink">
-    </button>
-
-  </div>
-  <div id="canvas-wrapper">
-    <canvas id="background_canvas" width="620" height="550"></canvas>
-    <canvas id="wall_canvas" width="620" height="550"></canvas>
-    <canvas id="trace_canvas" width="620" height="550"></canvas>
-    <canvas id="robot_canvas" width="620" height="550"></canvas>
-    <div id="Reeborg-concludes" title="Reeborg dit : J'ai fini !" style="display:none"></div>
-    <div id="Reeborg-says" title="Reeborg dit :" style="display:none"></div>
-    <div id="Reeborg-shouts" title="Reeborg crie: Quelque chose ne va pas !" style="display:none"></div>
-  </div>
-    <div id="world-edit-buttons">
-  <fieldset id="world-fieldset"><legend>Monde</legend>
       <button class="blue-gradient" id="edit-world" title="Édition du monde">Édition</button>
-      <fieldset id="file-fieldset"><legend>Fichier</legend>
-      <button class="blue-gradient" id="save-world" title="Enregistrer le monde dans un fichier">enregistrer</button>
-      <button class="blue-gradient" id="load-world" title="Ouvrir à partir d'un fichier">ouvrir</button>
+
+      <fieldset id="file-fieldset" style="margin-left:10px"><legend>Fichier</legend>
+      <button class="blue-gradient" id="save-world" title="Enregistrer le monde dans un fichier">Enreg.</button>
+      <button class="blue-gradient" id="load-world" title="Ouvrir à partir d'un fichier">Ouvrir</button>
       </fieldset>
       <fieldset><legend>Navigateur</legend>
-      <button class="blue-gradient" id="memorize-world" title="Enregistrer dans le navigateur (stockage local)">enregistrer</button>
+      <button class="blue-gradient" id="memorize-world" title="Enregistrer dans le navigateur (stockage local)">Enreg.</button>
       <button class="blue-gradient" id="delete-world" title="Supprimer du navigateur (stockage local)" style="display: none;">
-        supprimer
-      </button>
-      </fieldset>
-      <button id="resize" title="redimensionner" onclick="RUR.ui.resize()">
-        <img src="src/images/resize.png" alt="resize">
-      </button>
+        Suppr.
+              </fieldset>
     </fieldset>
 
     </div>
@@ -208,9 +204,11 @@
 <div id="edit-world-panel">
     <h1>Créez vos propres mondes !</h1>
     <p>Si vous désirez partager votre monde (et le défi correspondant) avec d'autres
-        utilisateurs, sauvegardez-le dans un fichier que vous pouvez envoyer à
-    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a>, ou
-    utilisez le permalien.</p>
+        utilisateurs, sauvegardez-le dans un fichier ou, mieux encore, créez un permalien
+        (voir bouton en haut) que vous pouvez envoyer à
+    <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a>.
+      </p>
+
 
     <div id="edit-world-submenus-wrapper">
         <p id="cmd-result">Sélectionnez l'action à performer dans le menu ci-dessous.</p>
@@ -237,6 +235,7 @@
     </div>
 
     <ul id="edit-world-nav">
+        <li><a href="javascript:RUR.ui.resize();">Taille</a></li>
         <li class="a-like">Robot <ul>
             <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Ajouter Reeborg</a></li>
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-place');"> Position(s)</a></li>

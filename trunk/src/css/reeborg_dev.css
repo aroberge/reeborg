@@ -12,7 +12,8 @@ header form {color: white;
     padding: 5px;
     padding-top: 8px;
     font-size: 0.8em;
-    margin-left: 100px;
+    margin-left: 5px;
+    border-left: 1px solid rgba(255,255,255,0.3);
 }
 h1 {font-size: 1.7em; color: #224488;}
 h2 {font-size: 1.3em; color: #224488;}
@@ -34,6 +35,11 @@ nav {text-align: center;}
 nav a{margin:0; display: inline-block;}
 nav a:last-child{border-radius: 0 20px 20px 0;}
 nav a:first-child{border-radius: 20px 0 0 20px;}
+
+select {margin-top: 20px;
+    float:left;
+    margin-right:10px;"
+}
 
 button, #contents-button {
   height: 37px;
@@ -78,16 +84,15 @@ legend { color: #123264;}
 
 #file-fieldset{margin-left: 40px;}
 
-#resize { float: right;
-    top: 20px;
-}
-
 /*   ---------------- */
 
 
 
-#permalink, #resize, #highlight {background-color: white; border: 0; height: 36px;}
-
+ #highlight {
+  border: 0;
+  height: 36px;
+}
+#resize {float:right;}
 
 .main_text {width:900px;top:50px; margin:auto;position:relative; margin-bottom: 70px}
 .clear {clear: both; height:0;}
@@ -237,6 +242,9 @@ padding:3px;}
 }
 #image-choice-buttons button {
     margin-left: 10px;
+    background: white;
+    border: 1px solid blue;
+    border-radius: 3px;
 }
 
 #diary-wrapper {

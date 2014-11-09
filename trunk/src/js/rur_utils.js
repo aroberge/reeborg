@@ -78,7 +78,7 @@ RUR.create_permalink = function () {
 
     permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
     $("#url_input_textarea").val(permalink);
-    $("#url_input").show();
+    $("#url_input").toggle();
     $("#ok-permalink").removeAttr("disabled");
     $("#cancel-permalink").removeAttr("disabled");
 
@@ -156,7 +156,16 @@ RUR.update_permalink = function () {
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     }
     $("#url_input").hide();
+    $("#permalink").removeClass('reverse-blue-gradient');
+    $("#permalink").addClass('blue-gradient');
 };
+
+RUR.cancel_permalink = function () {
+    $('#url_input').hide();
+    $("#permalink").removeClass('reverse-blue-gradient');
+    $("#permalink").addClass('blue-gradient');
+};
+
 
 RUR.inspect = function (obj){
     var props, result = "";
