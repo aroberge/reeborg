@@ -386,7 +386,8 @@ def translate_python(src):
         if key not in initial_my_lib_dict_keys:
             new_keys.append(key)
     for key in new_keys:
-        my_lib.__dict__[key] = None
+        del my_lib.__dict__[key]
+
 
 window['translate_python'] = translate_python
 </script>
