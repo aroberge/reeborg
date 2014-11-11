@@ -14,7 +14,7 @@
 <title>Reeborg's world</title>
     <script src="src/libraries/brython3/brython.js"></script>
 </head>
-<body onload="brython({debug:1, cache:'browser', static_stdlib_import:true})">
+<body onload="brython({debug:1})">
 
 <header class="blue-gradient green-border">
   <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
@@ -287,31 +287,7 @@ RUR = window.RUR
 from highlight import insert_highlight_info
 window['insert_highlight_info'] = insert_highlight_info
 
-move = window.move
-turn_left = window.turn_left
-inspect = window.inspect
-front_is_clear = window.front_is_clear
-right_is_clear = window.right_is_clear
-select_challenge = window.select_challenge
-is_facing_north = window.is_facing_north
-done = window.done
-put = window.put
-take = window.take
-object_here = window.object_here
-select_world = window.select_world
-token_here = window.token_here
-has_token = window.has_token
-write = window.write
-at_goal = window.at_goal
-at_goal_orientation = window.at_goal_orientation
-build_wall = window.build_wall
-think = window.think
-pause = window.pause
-repeat = window.repeat
-view_source = window.view_source
-sound = window.sound
-set_max_steps = window.set_max_steps
-say = window.say
+
 
 def _write(data):
     doc["output-pre"].innerHTML += str(data)
@@ -402,7 +378,7 @@ def translate_python(src):
         for key in my_lib.__dict__:
             initial_my_lib_dict_keys.append(key)
     exec(library.getValue(), my_lib.__dict__)
-    exec(src)
+    exec("from reeborg_en import *\n" + src)
 
     # cleanup to start from a clean slate next time
     new_keys = []
