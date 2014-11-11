@@ -293,11 +293,10 @@ RUR.reset_definitions = function () {
     set_delay = think;
     facing_north = is_facing_north;
 };
-
+RUR.reset_definitions();
 // the regex of the following should be adapted
 // so that they make sense in the human language ...
 
 RUR.import_lib_regex_js = /^\s*import_lib\s*\(\s*\);/m;
 RUR.import_lib_regex_py = /^from\s* my_lib import\s* \**$/m;  // using lib instead of my_lib could cause conflicts with Brython?
 RUR.import_lib_regex_coffee = /^\s*import_lib\s*\(\s*\)/m;
-
