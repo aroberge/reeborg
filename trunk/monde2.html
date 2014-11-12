@@ -76,7 +76,7 @@
     <div id="Reeborg-says" title="Reeborg dit :" style="display:none"></div>
     <div id="Reeborg-shouts" title="Reeborg crie: Quelque chose ne va pas !" style="display:none"></div>
   </div>
-   
+
     <div id="world-edit-buttons">
   <fieldset id="world-fieldset" style="width:590px;"><legend>Monde</legend>
     <select id="select_world" title="Sélectionner un monde">
@@ -124,7 +124,7 @@
       <option value="src/json/jsa2.json">JSA 2</option>
       <option value="src/json/jsa3.json">JSA 3</option>
     </select>
-     
+
       <button class="blue-gradient" id="edit-world" title="Édition du monde">Édition</button>
       <fieldset id="file-fieldset"><legend>Fichier</legend>
       <button class="blue-gradient" id="save-world" title="Enregistrer le monde dans un fichier">Enreg.</button>
@@ -281,13 +281,8 @@ import sys
 from browser import window, doc
 from highlight import insert_highlight_info
 window['insert_highlight_info'] = insert_highlight_info
+library = window['library']
 
-def translate_python(src):
-    src = "class RobotUsage(_UsedRobot): pass\n" + src
-    exec(src)
-
-# put "translate_python" in global Javascript namespace
-window['translate_python'] = translate_python
 def _write(data):
     doc["output-pre"].innerHTML += str(data)
 def _write_err(data):
@@ -295,72 +290,25 @@ def _write_err(data):
 sys.stdout.write = _write
 sys.stderr.write = _write_err
 
-class _UsedRobot (object):
-    def __init__ (self, x=1, y=1, orientation='e', jetons=0):
-        robot = RUR.robot.create_robot(x, y, orientation, jetons)
-        self.body = robot
-        RUR.world.add_robot(self.body)
+initial_my_lib_dict_keys = []
 
-    def avance (self):
-        RUR.control.move(self.body)
+def translate_python(src):
+    import my_lib
+    if not initial_my_lib_dict_keys:
+        for key in my_lib.__dict__:
+            initial_my_lib_dict_keys.append(key)
+    exec(library.getValue(), my_lib.__dict__)
+    exec("from reeborg_fr import *\n" + src)
 
-    def au_but (self):
-        return RUR.control.at_goal(self.body)
+    # cleanup to start from a clean slate next time
+    new_keys = []
+    for key in my_lib.__dict__:
+        if key not in initial_my_lib_dict_keys:
+            new_keys.append(key)
+    for key in new_keys:
+        del my_lib.__dict__[key]
 
-    def au_but_orientation (self):
-        return RUR.control.at_goal_orientation(self.body)
-
-    def construit_un_mur (self):
-        RUR.control.build_wall(self.body)
-
-    def rien_devant (self):
-        return RUR.control.front_is_clear(self.body)
-
-    def a_des_jetons (self):
-        return RUR.control.has_token(self.body)
-
-    def face_au_nord (self):
-        return RUR.control.is_facing_north(self.body)
-
-    def depose (self, arg="jeton"):
-        RUR.control.put(self.body, arg)
-
-    def jeton_ici (self):
-        return RUR.control.token_here(self.body)
-
-    def rien_a_droite (self):
-        return RUR.control.right_is_clear(self.body)
-
-    def objet_ici (self):
-        return RUR.control.object_here(self.body)
-
-    def prend (self, arg="token"):
-        RUR.control.take(self.body, arg)
-
-    def tourne_a_gauche (self):
-        RUR.control.turn_left(self.body)
-
-def Help(obj):
-    try:
-        print(obj.__name__)
-        print("   {}".format(obj.__doc__))
-    except:
-        pass
-    for attr in dir(obj):
-        if attr == "__class__":
-            continue
-        if hasattr(getattr(obj, attr), "__doc__"):
-            if getattr(obj, attr).__doc__ :
-                print("\n{0}\n   {1}".format(attr,getattr(obj, attr).__doc__))
-window['Help'] = Help
-
-class ReeborgError(Exception):
-    def __init__(self, value):
-        self.reeborg_says = value
-    def __str__(self):
-        return repr(self.reeborg_says)
-window['ReeborgError'] = ReeborgError
-window['_UsedRobot'] = _UsedRobot
+window['translate_python'] = translate_python
 </script>
 
 
