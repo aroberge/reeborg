@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
 <link rel="stylesheet" href="src/css/reeborg_dev.css"> <!-- load after codemirror.css -->
 <title>Le monde de Reeborg</title>
-    <script src="src/libraries/brython/brython.js"></script>
+    <script src="src/libraries/brython3/brython.js"></script>
 </head>
 <body onload="brython(1)">
 
@@ -290,23 +290,23 @@ def _write_err(data):
 sys.stdout.write = _write
 sys.stderr.write = _write_err
 
-initial_my_lib_dict_keys = []
+initial_biblio_dict_keys = []
 
 def translate_python(src):
-    import my_lib
-    if not initial_my_lib_dict_keys:
-        for key in my_lib.__dict__:
-            initial_my_lib_dict_keys.append(key)
-    exec(library.getValue(), my_lib.__dict__)
+    import biblio
+    if not initial_biblio_dict_keys:
+        for key in biblio.__dict__:
+            initial_biblio_dict_keys.append(key)
+    exec(library.getValue(), biblio.__dict__)
     exec("from reeborg_fr import *\n" + src)
 
     # cleanup to start from a clean slate next time
     new_keys = []
-    for key in my_lib.__dict__:
-        if key not in initial_my_lib_dict_keys:
+    for key in biblio.__dict__:
+        if key not in initial_biblio_dict_keys:
             new_keys.append(key)
     for key in new_keys:
-        del my_lib.__dict__[key]
+        del biblio.__dict__[key]
 
 window['translate_python'] = translate_python
 </script>
