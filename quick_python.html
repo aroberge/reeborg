@@ -30,23 +30,23 @@ instead of boring print statements.</p>
 <p>
 To follow this tutorial, you should have Reeborg's World (the executable version) in a separate window.
 You can open such a window by clicking "Open World" above and make sure that Python
-is selected in the header. 
-It if opens in a new tab, you might want to "pull" the tab so that 
+is selected in the header.
+It if opens in a new tab, you might want to "pull" the tab so that
 it is in a separate window of its own. It should look like the following:</p>
 <p><img src="src/images/world.png" alt="Reeborg's world window"></p>
 <p>Reeborg's world uses <a href="http://brython.info">Brython</a>
 to convert Python 3 code in Javascript that is then run in the browser.</p>
 <h2>Hello <small><small>Reeborg's</small></small> world</h2>
-<p>In the other window, on the left, you should see Reeborg alone in its world.  
+<p>In the other window, on the left, you should see Reeborg alone in its world.
 On the right, you should see an editor with the following line of code:</p>
 <pre class="pycode">move()</pre>
-<p class="try">Click on the "execute"  
+<p class="try">Click on the "execute"
 or "run" button <img src="src/images/play.png" class="blue-gradient" alt="run"/>
 to make sure that everything is working as it should.</p>
 <p>Assuming everything is set up correctly, Reeborg should have moved and
-the "execute" button 
+the "execute" button
     <img src="src/images/play.png" class="blue-gradient" alt="run"/> is now disabled.
-    Click on <img src="src/images/reload.png" class="blue-gradient" alt="reload"/> 
+    Click on <img src="src/images/reload.png" class="blue-gradient" alt="reload"/>
     to enable it again, so that you can run the program again.</p>
 <h2>Python functions</h2>
 <p>The instruction <code>move()</code> is an example of a Python function.
@@ -60,7 +60,7 @@ To be able to execute a function, we must have three things:</p>
     <pre class="pycode">prénom = "Guido" # e-acute valid in Python 3 but not in Brython</pre>
     </li>
     <li>It must be invoked, by adding <code>()</code> after its name.</li>
-    <li>On its own (i.e. not within a block ...), 
+    <li>On its own (i.e. not within a block ...),
     it must start at the beginning of a line, with no space in front.
     Space at the beginning of a line (indentation) is meaningful in Python.</li>
 </ul>
@@ -84,8 +84,8 @@ functions as first-class objects.</p>
 <pre class="pycode">
 def move2():   # note the colon ":"  and the "def" keyword
     move()   # blocks are defined by indentation
-    move()   
-    
+    move()
+
 move2()    # use it</pre>
 <p class="try">Try it!</p>
 <p>Other than for indentation, and delimiting names and keywords, spaces
@@ -94,17 +94,17 @@ what we wrote immediately above.</p>
 <pre class="pycode">
 def    move2  (    )   :
     move  ()
-    move(  )   
+    move(  )
 move2  (  )</pre>
 <h2>Python 3 keywords</h2>
 
 <pre class="pycode">
-False      None      True      and          as 
-assert     break     class     continue     def 
-del        elif      else      except       finally 
-for        from      global    if           import 
-in         is        lambda    nonlocal     not 
-or         pass      raise     return       try 
+False      None      True      and          as
+assert     break     class     continue     def
+del        elif      else      except       finally
+for        from      global    if           import
+in         is        lambda    nonlocal     not
+or         pass      raise     return       try
 while      with      yield </pre>
 
 
@@ -115,9 +115,9 @@ Reeborg execute the following program:</p>
 <pre class="pycode">for a_variable in range(2):  # range is a builtin function
     move()
 put()  </pre>
-<p>As you can see, Reeborg takes 2 steps and 
+<p>As you can see, Reeborg takes 2 steps and
 puts down a "token" at the center of its world.</p>
-<p class="try"> 
+<p class="try">
 Select world <span class="world">Center 2</span> and modify the
 above code (by changing a single character) so that Reeborg execute
 the correct task.</p>
@@ -135,9 +135,9 @@ for a_variable in range(10):  # more than enough repetitions
         turn_left()    # other than seeing the block structure
         break     # out of the for loop</pre>
 <p>We used <code>write()</code>, which is specific to Reeborg's world,
-instead of <code>print()</code>, which is the Python version, as 
+instead of <code>print()</code>, which is the Python version, as
 <code>write()</code> has been defined to be "in step" with the execution
-of the Python code.   
+of the Python code.
 The way the code is run in Reeborg's world is as follows: the
 entire program is translated from Python into Javascript and run
 at once; each basic action results in a "frame" being recorded. These
@@ -173,7 +173,7 @@ can have Reeborg solve the required task for both worlds
 you have a solution, extend it so that it works also for
 <span class="world">Center 3</span>.  Your program should be written so that
 it would work for any similar rectangular worlds, without using variables
-to count Reeborg's steps and figure out the size of its world. 
+to count Reeborg's steps and figure out the size of its world.
 Note that Reeborg carries only 2 tokens.</p>
 <h2>Newspaper delivery</h2>
 <p>Python functions can take arguments. We give an example through a story.</p>
@@ -208,7 +208,7 @@ def turn_around():
 
 def turn_right():
     repeat(turn_left, 3)
-    
+
 def upstairs():
     turn_left()
     move()
@@ -264,7 +264,7 @@ def follow_right_wall():
         pass
     else:
         turn_left()
-        
+
 while not at_goal():
     follow_right_wall()</pre>
 <p>Note that the first instruction will switch to the appropriate world
@@ -278,7 +278,7 @@ you probably noticed that, to go down a stair, Reeborg had to do operations
 in the reverse order than that for going up a stair, while exchanging
 left turns and right turns.  Instead of hard-coding a function for
 going up (or down) stairs, we can create a list of instructions that
-can be <code>exec</code>uted one by one by Python. <small>[<code>exec</code> 
+can be <code>exec</code>uted one by one by Python. <small>[<code>exec</code>
 can actually execute more than one instruction at a time, but
 we will not do so in the following example.]</small> Python lists are equivalent
 to "arrays" in some other languages. By reversing the list,
@@ -296,13 +296,13 @@ left = turn_left
 
 def right():
     repeat(left, 3)
-    
+
 def turn_around():
     repeat(left, 2)
- 
+
 def move2():
     repeat(move, 2)
-    
+
 def exec_commands(a_list):
     for cmd in a_list:
         exec(cmd)
@@ -359,7 +359,7 @@ when importing the random module in Python, various other modules
 are imported as well behind the scene.  This is done very rapidly when
 running Python locally.  Brython however uses ajax calls to import modules.
 A total of 45 calls have to be made when importing random <b>for the first
-time</b> in a given browser session.  This is <b>slow</b>.  
+time</b> in a given browser session.  This is <b>slow</b>.
 However, a mostly compatible
 pure javascript module is included in the Brython distribution, and this
 is what we will use in the next example.</p>
@@ -381,7 +381,7 @@ think(0)                # speeding things up as this program may take a while
 RUR.MAX_STEPS = 10000   # Try to make sure we will not stop the program early
 
 class Gambler(UsedRobot):
-    
+
     def roll_die(self):
         return randint(1, 6)
 
@@ -391,7 +391,7 @@ class Gambler(UsedRobot):
         self.turn_left()
 
 del RUR.current_world.robots[0]  # remove existing UsedRobot
-           
+
 lucky = Gambler()
 
 while not lucky.at_goal():
@@ -449,7 +449,7 @@ written below. Open up Reeborg's Diary to see how the
 $(document).ready(function() {
     $('.pycode').each(function() {
         var $this = $(this), $code = $this.text(), firstLine;
-        if ($this.attr("title")){ 
+        if ($this.attr("title")){
             firstLine = parseInt($this.attr("title"), 10);
         } else {
             firstLine = 1;
@@ -473,7 +473,7 @@ $(document).ready(function() {
 <img src="src/images/mailto.png" height="32px" width="32px"/>
 André Roberge </a>
 <a href="http://about.me/andre.roberge">About me</a>
-<a href="http://groups.google.com/group/reeborg/topics">Discussions</a>
+<a href="http://www.reddit.com/r/reeborg">Discussions</a>
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
 <img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" height="31px" width="88px"/></a>
 

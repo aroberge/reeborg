@@ -45,7 +45,6 @@
   </p>
   </div>
 
-
 <div id="world-panel" class="active" >
 
   <div id="world-controls">
@@ -65,8 +64,6 @@
       <img src="src/images/reload.png" alt="reload">
     </button>
 
-
-
   </div>
   <div id="canvas-wrapper">
     <canvas id="background_canvas" width="620" height="550"></canvas>
@@ -80,7 +77,6 @@
 
     <div id="world-edit-buttons">
   <fieldset id="world-fieldset"><legend>World</legend>
-
     <select id="select_world" title="Select world">
       <option value="src/json/alone.json" selected>Alone</option>
       <option value="src/json/around1.json">Around 1</option>
@@ -138,7 +134,7 @@
         Delete
       </button>
       </fieldset>
-</fieldset>
+  </fieldset>
     </div>
       <div id="image-choice-buttons">
       <button id="classic-image" title="Classic image"><img src="src/images/robot_e.png" alt="robot east"></button>
@@ -277,17 +273,10 @@
 <script type="text/python3">
 
 import sys
-import highlight
-
 from browser import window, doc
-
-RUR = window.RUR
-#window["brython_version"] = sys.implementation.version.major
-
 from highlight import insert_highlight_info
 window['insert_highlight_info'] = insert_highlight_info
-
-
+library = window['library']
 
 def _write(data):
     doc["output-pre"].innerHTML += str(data)
@@ -295,80 +284,6 @@ def _write_err(data):
     doc["output-pre"].innerHTML += "<b style='color:red'>" + str(data) + "</b>"
 sys.stdout.write = _write
 sys.stderr.write = _write_err
-
-
-class _UsedRobot (object):
-    def __init__ (self, x=1, y=1, orientation='e', tokens=0):
-        robot = RUR.robot.create_robot(x, y, orientation, tokens)
-        self.body = robot
-        RUR.world.add_robot(self.body)
-
-    def move (self):
-        RUR.control.move(self.body)
-
-    def at_goal (self):
-        return RUR.control.at_goal(self.body)
-
-    def at_goal_orientation (self):
-        return RUR.control.at_goal_orientation(self.body)
-
-    def build_wall (self):
-        RUR.control.build_wall(self.body)
-
-    def front_is_clear (self, no_frame=False):
-        return RUR.control.front_is_clear(self.body, no_frame=no_frame)
-
-    def has_token (self):
-        return RUR.control.has_token(self.body)
-
-    def is_facing_north (self):
-        return RUR.control.is_facing_north(self.body)
-
-    def put (self, arg="token"):
-        RUR.control.put(self.body, arg)
-
-    def token_here (self):
-        return RUR.control.token_here(self.body)
-
-    def right_is_clear (self):
-        return RUR.control.right_is_clear(self.body)
-
-    def object_here (self):
-        return RUR.control.object_here(self.body)
-
-    def take (self, arg="token"):
-        RUR.control.take(self.body, arg)
-
-    def turn_left (self, no_frame=False):
-        RUR.control.turn_left(self.body, no_frame=no_frame)
-
-class ReeborgError(Exception):
-    def __init__(self, value):
-        self.reeborg_says = value
-    def __str__(self):
-        return repr(self.reeborg_says)
-
-def Help(obj):
-    try:
-        print(obj.__name__)
-        print("   {}".format(obj.__doc__))
-    except:
-        pass
-    for attr in dir(obj):
-        if attr == "__class__":
-            continue
-        if hasattr(getattr(obj, attr), "__doc__"):
-            if getattr(obj, attr).__doc__ :
-                print("\n{0}\n   {1}".format(attr,getattr(obj, attr).__doc__))
-window['Help'] = Help
-
-window['ReeborgError'] = ReeborgError
-class UsedRobot(_UsedRobot):
-    pass
-#window['_UsedRobot'] = _UsedRobot
-#UsedRobot = window['UsedRobot']
-
-library = window['library']
 
 initial_my_lib_dict_keys = []
 
@@ -387,7 +302,6 @@ def translate_python(src):
             new_keys.append(key)
     for key in new_keys:
         del my_lib.__dict__[key]
-
 
 window['translate_python'] = translate_python
 </script>
@@ -422,7 +336,7 @@ window['translate_python'] = translate_python
 
 <div id="help" title="Help" style="display:none">
     <p><small style="color:#900;">Discussions, questions, comments about Reeborg take place
-        <a href="https://groups.google.com/forum/?fromgroups#!forum/reeborg">here</a>.
+        <a href="http://www.reddit.com/r/reeborg">here</a>.
       <a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</small></p>
 
     <a href="#basic-commands">Basic commands</a><br>
@@ -492,7 +406,7 @@ window['translate_python'] = translate_python
     you will be able, after going through enough lessons, to change the way that
     Reeborg behaves, using the full power of Javascript and perhaps make
     Reeborg do things that I never thought could be possible.  Possible changes with Python as a language of choice
-    might be a bit more limited.</p>
+    might be a bit more limited, <b>but it nonetheless is my recommendation for your first language.</b></p>
     <p> I hope you enjoy learning computer programming with Reeborg.</p>
     <p>Feel free to contact me at
     <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
@@ -502,7 +416,7 @@ window['translate_python'] = translate_python
     <img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" height="31" width="88"/></a>
     If you are using it to teach programming to students, you might want to make
         a copy of this site on a local server.  Regardless, I would really appreciate if you would contact me
-        as I would like to know where Reeborg's World is used (I do not track users).</p>
+        as I would like to know where Reeborg's World is used.</p>
     <p>If you find this site so useful and you want to do something to thank me,
         you have two choices:</p>
         <ul><li>You can give me $100,000; small denominations preferred.</li>
@@ -515,19 +429,13 @@ window['translate_python'] = translate_python
      <p> I am just a self-taught programmer, with no training in web design, graphics, etc.
     I would gladly welcome any suggestions or contributions to</p>
     <ul><li>Improve the usability of this site.</li>
-    <li>Make a better looking robot; I drew Reeborg pixel-by-pixel using a rather primitive
-        drawing program, suitable for my skills level. There are two sets of pictures available:
-        one with Reeborg viewed from its side and one viewed from above.
-        Note that by default Reeborg
-        is viewed sideways whereas its world is (most often) viewed from above;
-        a nicer-looking Reeborg, perhaps viewed
-    from nearly above, might be most welcome.</li>
+    <li>Make better looking robots.</li>
     <li>New worlds, examples and challenges.</li>
     <li>Corrections to the existing content, including fixing typos.</li>
     <li>etc.</li></ul>
     <p><a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</p>
     <p>My medium-term plans include:</p>
-    <ul><li>Translating the tutorials into French</li>
+    <ul>
     <li>Adding various tutorials including some on making games using the html canvas</li></ul>
     <p>Longer term plans include:</p>
     <ul><li>Implementing Reeborg's world for other languages (Scheme, ...) as long as it can be

@@ -8348,6 +8348,22 @@ delete self.$obj[key]
 $ObjDictDict.__setitem__=function(self,key,value){$DictDict.__setitem__(self,key,value)
 self.$obj[key]=value
 }
+//added
+$ObjDictDict.clear=function(self){$DictDict.clear(self)
+for(var key in self.$obj){delete self.$obj[key]}}
+$ObjDictDict.pop=function(self,key,_default){$DictDict.pop(self,key,_default)
+delete self.$obj[key]
+return key
+}
+$ObjDictDict.popitem=function(self){var res=$DictDict.popitem(self)
+var key=res[0]
+delete self.$obj[key]
+return res
+}
+$ObjDictDict.update=function(self,other){$DictDict.update(self,other)
+for(var i=0;i<other.$keys.length;i++){self.$obj[other.$keys[i]]=other.$values[i]
+}}
+// end
 function obj_dict(obj){var res={__class__:$ObjDictDict,$obj:obj,$keys:[],$values:[]}
 for(var attr in obj){if(attr.charAt(0)!='$'){res.$keys.push(attr)
 res.$values.push(obj[attr])
