@@ -179,6 +179,9 @@ RUR.reset_definitions = function () {
     };
 
     selectionne_monde = RUR.ui.select_world;
+
+    selectionne_defi = RUR.ui.select_challenge;
+
     nombre_de_commandes = function(n){
         RUR.MAX_STEPS = n;
     };
