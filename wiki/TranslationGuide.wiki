@@ -1,6 +1,8 @@
 #summary A quick guide for people who want to translate Reeborg's World
 #labels Phase-Implementation
 
+*This needs to be edited*
+
 = Introduction =
 
 Reeborg's world is designed to be adapted to various programming languages (Javascript, Python, CoffeeScript ... any programming language that can be tranlated to javascrip client-side) and various human languages, with English as the first version and a French translation provided by its creator.
