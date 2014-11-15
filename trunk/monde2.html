@@ -272,7 +272,7 @@
   RUR.programming_language = "python";
 </script>
 <script src="src/js/reeborg.js"></script>
-<script src="src/lang/reeborg_fr.js"></script>
+<script src="src/lang/reeborg_fr2.js"></script>
 <script src="src/lang/translation_fr.js"></script>
 <script src="src/js/jquery.ui.dialog.minmax.js"></script>
 <script src="src/libraries/coffee-script.js"></script>
@@ -299,7 +299,7 @@ def translate_python(src):
         for key in biblio.__dict__:
             initial_biblio_dict_keys.append(key)
     exec(library.getValue(), biblio.__dict__)
-    exec("from reeborg_fr import *\n" + src)
+    exec("from common_def import *\nfrom reeborg_fr import *\n" + src)
 
     # cleanup to start from a clean slate next time
     new_keys = []
