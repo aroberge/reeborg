@@ -1,6 +1,8 @@
 {
     "jscodehints.detectedExclusions": [
         "C:/Users/Andre/reeborg/src/libraries/brython/libs/crypto_js/rollups/md5.js",
-        "C:/Users/Andre/reeborg/src/libraries/brython/libs/crypto_js/rollups/hmac-sha384.js"
+        "C:/Users/Andre/reeborg/src/libraries/brython/libs/crypto_js/rollups/hmac-sha384.js",
+        "C:/Users/Andre/reeborg/src/libraries/brython/libs/time.js",
+        "C:/Users/Andre/reeborg/src/js/commands.js"
     ]
 }
