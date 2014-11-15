@@ -7,8 +7,7 @@
 
 var RUR = RUR || {};
 
-/*==========================================*/
-
+// required for lint.js
 var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, object_here, select_world, select_challenge,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
