@@ -390,7 +390,8 @@ RUR.vis_world.refresh = function (initial) {
         for (i=0; i < goal.possible_positions.length; i++){
             goal.position.x = goal.possible_positions[i][0];
             goal.position.y = goal.possible_positions[i][1];
-            RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
+            RUR.vis_world.draw_goal();
+            //RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
         }
     } else {
         if ( RUR.current_world.goal != undefined && RUR.current_world.goal.possible_positions != undefined
