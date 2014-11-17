@@ -113,3 +113,7 @@ RUR._repeat_ = function (f, n) {
 RUR._set_max_steps_ = function(n){
     RUR.MAX_STEPS_ = n;
 };
+
+import_lib = function() {
+    eval(library.getValue());
+}
