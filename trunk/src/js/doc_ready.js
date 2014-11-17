@@ -200,6 +200,20 @@ $(document).ready(function() {
         return;
     });
 
+
+    $("#about-div").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
+        beforeClose: function( event, ui ) {$("#about-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+
+    $("#about-button").on("click", function() {
+        if ($("#about-button").hasClass("reverse-blue-gradient")) {
+            $("#about-div").dialog("open");
+        } else {
+            $("#about-div").dialog("close");
+        }
+        return;
+    });
+
+
     $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-says").dialog({minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "top", at: "top", of: $("#robot_canvas")}});

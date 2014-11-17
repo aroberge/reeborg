@@ -33,7 +33,7 @@
         <input type="radio" name="programming_language" value="javascript-fr" > Javascript
         <input type="radio" name="programming_language" value="coffeescript-fr" > CoffeeScript
     </form>
-
+    <button class="blue-gradient" id="about-button" style="float:right">À propos</button>
   </div>
 
 </header>
@@ -341,14 +341,6 @@ window['translate_python'] = translate_python
 <script src="https://togetherjs.com/togetherjs-min.js"></script>
 
 <div id="help" title="Aide" style="display:none">
-    <p><small>Les discussion, questions ou commentaires au sujet
-  de Reeborg sont les bienvenues
-    <a href="https://groups.google.com/forum/?fromgroups#!forum/reeborg">dans ce forum</a>.
-  <a href="https://code.google.com/p/reeborg/issues/list">Les rapports de bogues</a> sont les bienvenus!</small></p>
-
-<a href="#basic-commands">Commandes de base</a><br>
-<a href="#about">Pour en savoir plus au sujet de Reeborg</a><br>
-<a href="#contribute">Contribuez</a><br>
 
 <h2 id="basic-commands">Commandes de base</h2>
 
@@ -411,6 +403,17 @@ window['translate_python'] = translate_python
   </ul>
 
  <p>Pour en savoir davantage, consultez les leçons.</p>
+</div>
+
+
+<div id="about-div" title="À propos" style="display:none">
+    <p><small style="color:#900;">Les discussion, questions ou commentaires au sujet
+  de Reeborg sont les bienvenues
+    <a href="https://groups.google.com/forum/?fromgroups#!forum/reeborg">dans ce forum</a>.
+  <a href="https://code.google.com/p/reeborg/issues/list">Les rapports de bogues</a> sont les bienvenus!</small></p>
+
+<a href="#about">À propos de Reeborg</a><br>
+<a href="#contribute">Contribuez</a><br>
 
 
      <h2 id="about">À propos de Reeborg</h2>
@@ -480,6 +483,11 @@ Les échantillons audios ont été obtenus de <a href="https://www.freesound.org
 ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative Commons".
 </p>
 </div>
+
+
+
+
+
 
 <audio id="put-sound" preload>
   <source src="src/sounds/toc.wav" type="audio/x-wav">
