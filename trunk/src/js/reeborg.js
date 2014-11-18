@@ -2948,17 +2948,16 @@ RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gr
     pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
 
-RUR.ui.add_help = function(usage, lang){
-    var human_language = document.documentElement.lang;
-    if (lang==human_language){
-        return;
-    } else if (RUR.ui._added_lang == undefined) {
+RUR.ui.add_help = function(usage, _id, lang){
+    if (RUR.ui._added_lang == undefined) {
         RUR.ui._added_lang = [lang];
-        $("#help").prepend(usage);
     } else if (RUR.ui._added_lang.indexOf(lang)== -1) {
         RUR.ui._added_lang.push(lang);
-        $("#help").prepend(usage);
+    } else {
+        return;
     }
+    $("#toc").after(usage);
+    $("#toc").prepend('<li><a href="#' + _id + '">' + lang + "</a></li>");
 };/* Author: André Roberge
    License: MIT  */
 
