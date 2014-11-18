@@ -46,9 +46,15 @@ RUR.run = function () {
 
 
 write = function (s) {
+    if (s==undefined){
+        s = "undefined";
+    }
     $("#output-pre").append(s.toString() + "\n");
 };
 write_err = function (s) {
+    if (s==undefined){
+        s = "undefined";
+    }
     $("#output-pre").append("<b style='color:red'>" + s.toString() +  "</b>\n");
 };
 
@@ -78,7 +84,7 @@ inspect = function (obj){
 
 RUR.reset_code_in_editors = function () {
     var editor_content, editor_default;
-    
+
     if (RUR.programming_language == "javascript") {
         editor_default = "// Write code here.\n\n";
     } else if (RUR.programming_language == "python") {
@@ -96,7 +102,7 @@ RUR.reset_code_in_editors = function () {
 
 RUR.reset_programming_language = function(choice){
     RUR.settings.current_language = choice;
-    try { 
+    try {
         localStorage.setItem("last_programming_language", RUR.settings.current_language);
     } catch (e) {}
     switch(RUR.settings.current_language){
@@ -119,14 +125,14 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").html("CoffeeScript Code");
             editor.setOption("mode", "coffeescript");
             break;
-    }            
-    try { 
+    }
+    try {
         RUR.reset_code_in_editors();
     } catch (e) {}
 };
 
 $(document).ready(function() {
-    
+
     var child, button_closed = false, programming_language, _all_files = "";
 
     $("#header-child button").on("click", function(){
@@ -151,7 +157,7 @@ $(document).ready(function() {
         }  else if (label === "editor-panel"){
             $("#editor-panel").toggleClass("active");
         }
-    
+
         if ($("#output-panel").hasClass("active")) {
             if ( $("#world-panel").hasClass("active")) {
                 RUR.canvas_visible = true;
@@ -191,14 +197,14 @@ $(document).ready(function() {
                 obj.setValue(reader.result);
                 fileInput.value = "";
             };
-            reader.readAsText(file);	
-        }); 
+            reader.readAsText(file);
+        });
     };
 
     $("#load-editor").on("click", function(evt) {
         load_file(editor);
     });
-  
+
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, _all_files);

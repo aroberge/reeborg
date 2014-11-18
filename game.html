@@ -87,6 +87,8 @@
 import sys
 from browser import doc, window
 
+notify = window.notify
+
 def _write(data):
     doc["output-pre"].innerHTML += str(data)
 def _write_err(data):

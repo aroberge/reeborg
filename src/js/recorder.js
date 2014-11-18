@@ -138,7 +138,7 @@ RUR.rec.display_frame = function () {
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message + "\n");
     } else if (frame.say !== undefined) {
-        $("#Reeborg-says").html(frame.say).dialog("open");
+        $("#Reeborg-says").html(frame.say.toString()).dialog("open");
     }
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){

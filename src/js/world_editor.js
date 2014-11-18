@@ -169,6 +169,9 @@ function toggle_editing_mode () {
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.we.refresh_world_edited();
+        if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
+            $("#memorize-world").trigger('click');
+        }
     } else {
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;
