@@ -2090,7 +2090,7 @@ RUR.rec.display_frame = function () {
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message + "\n");
     } else if (frame.say !== undefined) {
-        $("#Reeborg-says").html(frame.say).dialog("open");
+        $("#Reeborg-says").html(frame.say.toString()).dialog("open");
     }
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
@@ -3972,6 +3972,9 @@ function toggle_editing_mode () {
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.we.refresh_world_edited();
+        if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
+            $("#memorize-world").trigger('click');
+        }
     } else {
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;
