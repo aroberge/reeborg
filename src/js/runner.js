@@ -68,6 +68,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
                 e.message = e.message.replace(/module '*__main__'* line \d+\s/,"&#8594; " );
             } else {
                 e.message = e.reeborg_says;
+                console.log("The above error can be ignored: it should appear in a dialog");
             }
         } else {
             error_name = e.name;

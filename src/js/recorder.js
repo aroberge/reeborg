@@ -31,10 +31,11 @@ RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
     var frame = {};
     frame.world = RUR.world.clone_world();
+    frame.delay = RUR.rec.delay;
     if (name !== undefined) {
         frame[name] = obj;
     }
-    if (RUR.control.sound_id && RUR.control.sound_flag && RUR.rec.delay > RUR.MIN_TIME_SOUND) {
+    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
 
@@ -93,7 +94,6 @@ RUR.rec.loop = function () {
         RUR.ui.stop();
         return;
     }
-
     RUR.rec.timer = setTimeout(RUR.rec.loop, RUR.rec.delay);
 };
 
@@ -127,10 +127,13 @@ RUR.rec.display_frame = function () {
             return;
         }
 
-    if (frame.delay !== undefined) {
+    if (frame.delay !== undefined){
+        RUR.rec.delay = frame.delay;
+    }
+    /*if (frame.delay !== undefined) {
         RUR.visible_world.delay = frame.delay;   // FIXME
         return "immediate";
-    } else if (frame.pause) {
+    } else */ if (frame.pause) {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {
@@ -138,7 +141,7 @@ RUR.rec.display_frame = function () {
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message + "\n");
     } else if (frame.say !== undefined) {
-        $("#Reeborg-says").html(frame.say.toString()).dialog("open");
+        $("#Reeborg-says").html(frame.say.toString()).dialog("open").effect("highlight", {color: "cornsilk"}, 300);;
     }
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
