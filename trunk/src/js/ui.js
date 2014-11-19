@@ -230,6 +230,7 @@ RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gr
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
 
 RUR.ui.add_help = function(usage, _id, lang){
+
     if (RUR.ui._added_lang == undefined) {
         RUR.ui._added_lang = [lang];
     } else if (RUR.ui._added_lang.indexOf(lang)== -1) {
@@ -238,5 +239,5 @@ RUR.ui.add_help = function(usage, _id, lang){
         return;
     }
     $("#toc").after(usage);
-    $("#toc").prepend('<li><a href="#' + _id + '">' + lang + "</a></li>");
+    $("#toc").prepend('<li><a href="#basic-commands-' + _id + '">' + lang + "</a></li>");
 };
