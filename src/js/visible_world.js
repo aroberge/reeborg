@@ -132,7 +132,7 @@ RUR.vis_world.draw_robots = function (robots) {
             RUR.vis_robot.draw(robots[robot]); // draws trace automatically
             info = RUR.translate("robot")+ "_" + robot + ": x=" + robots[0].x +
                     ", y=" + robots[0].y + RUR.translate(", tokens=");
-            RUR.ROBOT_CTX.fillStyle = RUR.DEBUG_INFO_COLOR;
+            RUR.ROBOT_CTX.fillStyle = RUR.ROBOT_INFO_COLOR;
             RUR.ROBOT_CTX.fillText(info, 5, 10);
             RUR.ROBOT_CTX.fillStyle = "red";
             RUR.ROBOT_CTX.fillText(robots[0].tokens, 5 + RUR.ROBOT_CTX.measureText(info).width, 10);
@@ -144,7 +144,7 @@ RUR.vis_world.draw_robots = function (robots) {
         info += RUR.translate("robot")+ "_" + robot + ": x=" + robots[robot].x +
                 ", y=" + robots[robot].y + RUR.translate(", tokens=") + robots[robot].tokens + ".  ";
     }
-    RUR.ROBOT_CTX.fillStyle = RUR.DEBUG_INFO_COLOR;
+    RUR.ROBOT_CTX.fillStyle = RUR.ROBOT_INFO_COLOR;
     RUR.ROBOT_CTX.fillText(info, 5, 10);
 };
 
