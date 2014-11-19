@@ -1,6 +1,6 @@
 /* Author: André Roberge
    License: MIT
-   
+
    Defining base name space and various constants.
  */
 
@@ -49,7 +49,7 @@ RUR.TOKEN_COLOR = "gold";
 RUR.TEXT_COLOR = "black";
 RUR.TOKEN_GOAL_COLOR = "#666";
 
-RUR.DEBUG_INFO_COLOR = "blue";
+RUR.ROBOT_INFO_COLOR = "blue";
 
 RUR.MAX_STEPS = 1000;
 RUR.MIN_TIME_SOUND = 250;

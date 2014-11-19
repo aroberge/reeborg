@@ -134,6 +134,11 @@ RUR.rec.display_frame = function () {
             return;
         }
 
+    if (RUR.__debug && frame.debug) {
+        console.log("debug: ", frame.debug);
+    }
+
+
     if (frame.delay !== undefined){
         RUR.rec.delay = frame.delay;
     }

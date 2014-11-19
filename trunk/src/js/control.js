@@ -34,7 +34,7 @@ RUR.control.move = function (robot) {
         throw new Error("Should not happen: unhandled case in RUR.control.move().");
     }
     RUR.control.sound_id = "#move-sound";
-    RUR.rec.record_frame();
+    RUR.rec.record_frame("debug", "RUR.control.move");
 };
 
 RUR.control.turn_left = function(robot, no_frame){
@@ -46,7 +46,7 @@ RUR.control.turn_left = function(robot, no_frame){
     robot.orientation %= 4;
     if (no_frame) return;
     RUR.control.sound_id = "#turn-sound";
-    RUR.rec.record_frame();
+    RUR.rec.record_frame("debug", "RUR.control.turn_left");
 };
 
 RUR.control.__turn_right = function(robot, no_frame){
@@ -57,7 +57,7 @@ RUR.control.__turn_right = function(robot, no_frame){
     robot.orientation += 3;
     robot.orientation %= 4;
     if (no_frame) return;
-    RUR.rec.record_frame();
+    RUR.rec.record_frame("debug", "RUR.control.__turn_right");
 };
 
 RUR.control.pause = function (ms) {
@@ -72,9 +72,12 @@ RUR.control.say = function (message) {
     RUR.rec.record_frame("say", message);
 };
 
-RUR.control.token_here = function (robot) {
+RUR.control.token_here = function (robot, do_not_record) {
     // returns the number of tokens at the location where the robot is
     var coords = robot.x + "," + robot.y;
+    if (!do_not_record) {
+        RUR.rec.record_frame("debug", "RUR.control.token_here");
+    }
     if (RUR.current_world.tokens === undefined) return 0;
     if (RUR.current_world.tokens[coords] === undefined) return 0;
     return RUR.current_world.tokens[coords];
@@ -90,7 +93,7 @@ RUR.control.put = function(robot, arg){
     }
     if (robot[RUR.translate(arg)] === 0){
         throw new RUR.ReeborgError(RUR.translate("I don't have any shape to put down!").supplant({shape:arg}));
-    } else if (RUR.control.object_here(robot) !== 0) {
+    } else if (RUR.control.object_here(robot, true) !== 0) {
         throw new RUR.ReeborgError(RUR.translate("There is already something here."));
     }
     robot[RUR.translate(arg)] -= 1;
@@ -100,7 +103,7 @@ RUR.control.put = function(robot, arg){
 RUR.control._put_object = function (robot, obj) {
     RUR.we.ensure_key_exist(RUR.current_world, "shapes");
     RUR.current_world.shapes[robot.x + "," + robot.y] = obj;
-    RUR.rec.record_frame();
+    RUR.rec.record_frame("debug", "RUR.control._put_object");
 };
 
 RUR.control._put_token = function (robot) {
@@ -108,13 +111,13 @@ RUR.control._put_token = function (robot) {
     if (robot.tokens === 0){
         throw new RUR.ReeborgError(RUR.translate("I don't have any token to put down!"));
     }
-    token = RUR.control.token_here(robot);
+    token = RUR.control.token_here(robot, true);
     RUR.we.ensure_key_exist(RUR.current_world, "tokens");
     RUR.current_world.tokens[robot.x + "," + robot.y] = token+1;
     if (typeof robot.tokens === typeof 42){  // robot could have "infinite" amount
         robot.tokens -= 1;
     }
-    RUR.rec.record_frame();
+    RUR.rec.record_frame("debug", "RUR.control._put_token");
 };
 
 RUR.control.has_token = function (robot) {
@@ -129,7 +132,7 @@ RUR.control.take = function(robot, arg){
     } else if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(arg) === -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
     }
-    if (RUR.control.object_here(robot) !== arg) {
+    if (RUR.control.object_here(robot, true) !== arg) {
         throw new RUR.ReeborgError(RUR.translate("No shape found here").supplant({shape: arg}));
     }
     robot[RUR.translate(arg)] += 1;
@@ -138,11 +141,11 @@ RUR.control.take = function(robot, arg){
 
 RUR.control._take_object = function (robot, obj) {
     delete RUR.current_world.shapes[robot.x + "," + robot.y];
-    RUR.rec.record_frame();
+    RUR.rec.record_frame("debug", "RUR.control._take_object");
 };
 
 RUR.control._take_token = function (robot) {
-    var token = RUR.control.token_here(robot);
+    var token = RUR.control.token_here(robot, true);
     if (token === 0){
         throw new RUR.ReeborgError(RUR.translate("No token found here!"));
     }
@@ -155,7 +158,7 @@ RUR.control._take_token = function (robot) {
     if (typeof robot.tokens === typeof 42){  // robot could have "infinite" amount
         robot.tokens += 1;
     }
-    RUR.rec.record_frame();
+    RUR.rec.record_frame("debug", "RUR.control._take_token");
 };
 
 
@@ -217,13 +220,13 @@ RUR.control.build_wall = function (robot){
         walls[coords].push(orientation);
     }
     RUR.control.sound_id = "#build-sound";
-    RUR.rec.record_frame();
+    RUR.rec.record_frame("debug", "RUR.control.build_wall");
 };
 
 RUR.control.front_is_clear = function(robot, flag){
     var coords;
     if (!flag) {
-        RUR.rec.record_frame();
+        RUR.rec.record_frame("debug", "RUR.control.front_is_clear");
     }
     switch (robot.orientation){
     case RUR.EAST:
@@ -273,7 +276,7 @@ RUR.control.right_is_clear = function(robot){
 };
 
 RUR.control.is_facing_north = function (robot) {
-    RUR.rec.record_frame();
+    RUR.rec.record_frame("debug", "RUR.control.is_facing_north");
     return robot.orientation === RUR.NORTH;
 };
 
@@ -285,7 +288,7 @@ RUR.control.at_goal = function (robot) {
     var goal = RUR.current_world.goal;
     if (goal !== undefined){
         if (goal.position !== undefined) {
-            RUR.rec.record_frame();
+             RUR.rec.record_frame("debug", "RUR.control.at_goal");
             return (robot.x === goal.position.x && robot.y === goal.position.y);
         }
         throw new RUR.ReeborgError(RUR.translate("There is no position as a goal in this world!"));
@@ -297,7 +300,7 @@ RUR.control.at_goal_orientation = function (robot) {
     var goal = RUR.current_world.goal;
     if (goal !== undefined){
         if (goal.orientation !== undefined) {
-            RUR.rec.record_frame();
+                RUR.rec.record_frame("debug", "RUR.control.at_goal_orientation");
             return (robot.orientation === goal.orientation);
         }
         throw new RUR.ReeborgError(RUR.translate("There is no orientation as a goal in this world!"));
@@ -305,10 +308,12 @@ RUR.control.at_goal_orientation = function (robot) {
     throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };
 
-RUR.control.object_here = function (robot) {
+RUR.control.object_here = function (robot, do_not_record) {
     var coords = robot.x + "," + robot.y;
-    RUR.rec.record_frame();
-    if (RUR.control.token_here(robot) !== 0) {
+    if (!do_not_record) {
+        RUR.rec.record_frame("debug", "RUR.control.object_here");
+    }
+    if (RUR.control.token_here(robot, true) !== 0) {
         return RUR.translation.token;
     }
 
