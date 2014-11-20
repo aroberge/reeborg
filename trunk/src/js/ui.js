@@ -229,7 +229,7 @@ RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gr
     pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
 
-RUR.ui.add_help = function(usage, _id, lang){
+RUR.ui.add_help = function(usage, _id, lang, warning){
 
     if (RUR.ui._added_lang == undefined) {
         RUR.ui._added_lang = [lang];
@@ -237,6 +237,9 @@ RUR.ui.add_help = function(usage, _id, lang){
         RUR.ui._added_lang.push(lang);
     } else {
         return;
+    }
+    if (document.documentElement.lang != _id){
+        $("#help").prepend('<span style="color:darkred">' + warning + RUR.translate("Object names") + "</span><br>");
     }
     $("#toc").after(usage);
     $("#toc").prepend('<li><a href="#basic-commands-' + _id + '">' + lang + "</a></li>");

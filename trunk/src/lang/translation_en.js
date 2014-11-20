@@ -99,4 +99,4 @@ RUR.translation["Name already exist; confirm that you want to replace its conten
 RUR.translation["No such world!"] = "No such world!";
 RUR.translation["Enter world name to save"] = "Enter world name to save";
 RUR.translation["Enter world name to delete"] = "Enter world name to delete";
-
+RUR.translation["Object names"] = " my_lib, token, star, triangle, square.";
