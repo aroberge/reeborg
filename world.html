@@ -273,39 +273,15 @@
 <script src="src/libraries/coffee-script.js"></script>
 
 <script type="text/python3">
-import sys
-from browser import window, doc
-from highlight import insert_highlight_info
-window['insert_highlight_info'] = insert_highlight_info
-library = window['library']
-
-def _write(data):
-    doc["output-pre"].innerHTML += str(data)
-def _write_err(data):
-    doc["output-pre"].innerHTML += "<b style='color:red'>" + str(data) + "</b>"
-sys.stdout.write = _write
-sys.stderr.write = _write_err
-
-initial_my_lib_dict_keys = []
+from browser import window
+import common_def
+from reeborg_en import *  # will insert the relevant help information
 
 def translate_python(src):
     import my_lib
-    if not initial_my_lib_dict_keys:
-        for key in my_lib.__dict__:
-            initial_my_lib_dict_keys.append(key)
-    exec(library.getValue(), my_lib.__dict__)
-    exec("from reeborg_en import *\n" + src)
-
-    # cleanup to start from a clean slate next time
-    new_keys = []
-    for key in my_lib.__dict__:
-        if key not in initial_my_lib_dict_keys:
-            new_keys.append(key)
-    for key in new_keys:
-        del my_lib.__dict__[key]
+    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *")
 
 window['translate_python'] = translate_python
-from reeborg_en import *  # will insert the relevant help information
 </script>
 
 
