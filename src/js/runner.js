@@ -61,6 +61,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
                     e.info = e.info.replace("\n", "<br>");
                     e.info = e.info.replace("Traceback (most recent call last):<br>", '');
                     e.info = e.info.replace(/module '*__main__'* line \d+\s/,"&#8594; " );
+                    e.info = e.info.replace(/&#8594;\s* RUR.set_lineno_highlight\(\d+\)/, "")
                     e.info = e.info.replace(" ", "&nbsp;");
                     e.info = e.info.replace(/\s*\^$/, "");
                     e.message += "<br>" + e.info;
