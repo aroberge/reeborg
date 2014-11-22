@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Free Interactive Programming Tutorials">
+<meta name="keywords" content="JavaScript,Python,Programming">
+<meta name="author" content="André Roberge">
+<link rel="stylesheet" href="src/css/reeborg.css">
+<link rel="icon" href="src/images/favicon.ico" type="image/icon">
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
+<link rel="stylesheet" href="src/css/reeborg_dev.css"> <!-- load after codemirror.css -->
+<title>Tests for Reeborg's world</title>
+</head>
+<body>
+
+<header class="blue-gradient green-border">
+  <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png" alt="logo">Reeborg's World</a>
+  Tests.
+</header>
+
+
+<div class="main_text">
+     <p><b>Important</b>: before clicking on any link, if you are currently using any code saved in your library, you may want to open
+     <a href="world.html">Reeborg's world</a> (<em>safe link: will not change your saved code!</em>) in a separate tab so that the code will be there.
+     Once you are done with the examples linked
+     from the page you are reading, you will simply have to execute the code in the other tab to restore your library content in your browser's
+     local storage. </p>
+
+  <h1>Tests!</h1>
+  <p>The following links represent various world configurations and Python programs that can be run to ensure that everything is handled correctly.
+    These are especially useful when "porting" to a new human language, to verify that all important commands are working as intended.</p>
+
+comprehensive test   world.html with reeborg_en  (default)
+
+http://reeborg.ca/world.html?proglang=python-en&world=%7B%22robots%22%3A%5B%7B%22x%22%3A1%2C%22y%22%3A1%2C%22tokens%22%3A1%2C%22orientation%22%3A0%2C%22_prev_x%22%3A1%2C%22_prev_y%22%3A1%2C%22_prev_orientation%22%3A0%7D%5D%2C%22walls%22%3A%7B%7D%2C%22tokens%22%3A%7B%222%2C1%22%3A1%2C%222%2C2%22%3A1%7D%2C%22shapes%22%3A%7B%224%2C1%22%3A%22star%22%2C%224%2C2%22%3A%22star%22%2C%226%2C1%22%3A%22triangle%22%2C%226%2C2%22%3A%22triangle%22%2C%228%2C1%22%3A%22square%22%2C%228%2C2%22%3A%22square%22%7D%2C%22goal%22%3A%7B%22shapes%22%3A%7B%225%2C1%22%3A%22star%22%2C%225%2C2%22%3A%22star%22%2C%227%2C1%22%3A%22triangle%22%2C%227%2C2%22%3A%22triangle%22%2C%229%2C1%22%3A%22square%22%2C%229%2C2%22%3A%22square%22%7D%2C%22tokens%22%3A%7B%223%2C1%22%3A1%2C%223%2C2%22%3A1%7D%2C%22possible_positions%22%3A%5B%5B13%2C2%5D%5D%2C%22position%22%3A%7B%22x%22%3A13%2C%22y%22%3A2%7D%2C%22orientation%22%3A0%2C%22walls%22%3A%7B%2213%2C2%22%3A%5B%22north%22%5D%7D%7D%7D&editor=%23%20fairly%20comprehensive%20test%0Afrom%20my_lib%20import%20turn_right%0Aimport%20my_lib%0A%0ARUR.__debug%20%3D%20False%0A%0Athink(300)%20%23%20resetting%20default%0Asay(%22Sound%20is%20turned%20on%22)%0Asound(True)%0Aturn_right()%0Aturn_left()%0A%0Amove()%0A%0A%23%20ensuring%20that%20object_here%20returns%20the%20name%20of%20the%20object%0Afor%20i%20in%20range(5)%3A%0A%20%20%20%20obj%20%3D%20object_here()%0A%20%20%20%20if%20obj%3A%0A%20%20%20%20%20%20%20%20take(obj)%0A%20%20%20%20%20%20%20%20move()%0A%20%20%20%20%20%20%20%20put(obj)%0A%20%20%20%20%20%20%20%20move()%0Asay(%22Sound%20off%22)%0Asound()%0A%20%20%20%20%20%20%20%20%0Asay(%222%20second%20pause%20coming%20up%22)%0Apause(2000)%0Asound(True)%0Athink(0)%0Asay(%22Moving%20fast%3A%20sound%20is%20turned%20off%20by%20default%22)%0A%0A%23%20testing%20library%20functions%0Amy_lib.turn_around()%0A%0Awhile%20front_is_clear()%3A%0A%20%20%20%20move()%20%20%20%0Aturn_right()%0Amove()%0Aturn_right()%0Amove()%0A%0A%23%20test%20default%20name%0Atake()%0Aput()%0Aif%20token_here()%3A%0A%20%20%20%20take()%0A%20%20%20%20if%20has_token()%3A%0A%20%20%20%20%20%20%20%20put()%0A%23%20test%20explicit%20object%20names%0Atake(%22token%22)%0Amove()%0Aput(%22token%22)%0Amove()%0Atake(%22star%22)%0Amove()%0Aput(%22star%22)%0Amove()%0Atake(%22triangle%22)%0Amove()%0Aput(%22triangle%22)%0Amove()%0Atake(%22square%22)%0Amove()%0Aput(%22square%22)%0Amove()%0A%0Aif%20token_here()%3A%0A%20%20%20%20raise%20ReeborgError%0A%0Awhile%20not%20at_goal()%3A%0A%20%20%20%20move()%0A%0Awhile%20not%20is_facing_north()%3A%0A%20%20%20%20turn_left()%0A%0Abuild_wall()%0Awhile%20not%20at_goal_orientation()%3A%0A%20%20%20%20turn_left()%0A%20%20%20%20%0Aif%20not%20right_is_clear()%3A%0A%20%20%20%20move()%0A%20%20%20%20%0Awrite(%22This%20should%20be%20the%20last%20thing%20written%20here.%22)%0Asay(%22Pausing%20-%20waiting%20for%20button%20click%20to%20resume.%22)%0Apause()%0Asound(True)%0Asay(%22Sound%20back%20on.%20%20Check%20diary!%22)%0Aprint(%22First!%22)%0Atry%3A%0A%20%20%20%20move()%0Aexcept%20ReeborgError%3A%0A%20%20%20%20verify(%22reeborg.y%20%3D%3D%202%22)%0A%20%20%20%20done()%0Aprint(%22Never%20written%22)%0A%0A&library=%0Adef%20turn_right()%3A%0A%20%20%20%20repeat(turn_left%2C%203)%0A%0Adef%20turn_around()%3A%0A%20%20%20%20turn_left()%0A%20%20%20%20turn_left()%0A
+
+
+monde.html with reeborg_en
+
+http://reeborg.ca/monde.html?proglang=python-fr&world=%7B%22robots%22%3A%5B%7B%22x%22%3A1%2C%22y%22%3A1%2C%22tokens%22%3A1%2C%22orientation%22%3A0%2C%22_prev_x%22%3A1%2C%22_prev_y%22%3A1%2C%22_prev_orientation%22%3A0%7D%5D%2C%22walls%22%3A%7B%7D%2C%22tokens%22%3A%7B%222%2C1%22%3A1%2C%222%2C2%22%3A1%7D%2C%22shapes%22%3A%7B%224%2C1%22%3A%22star%22%2C%224%2C2%22%3A%22star%22%2C%226%2C1%22%3A%22triangle%22%2C%226%2C2%22%3A%22triangle%22%2C%228%2C1%22%3A%22square%22%2C%228%2C2%22%3A%22square%22%7D%2C%22goal%22%3A%7B%22shapes%22%3A%7B%225%2C1%22%3A%22star%22%2C%225%2C2%22%3A%22star%22%2C%227%2C1%22%3A%22triangle%22%2C%227%2C2%22%3A%22triangle%22%2C%229%2C1%22%3A%22square%22%2C%229%2C2%22%3A%22square%22%7D%2C%22tokens%22%3A%7B%223%2C1%22%3A1%2C%223%2C2%22%3A1%7D%2C%22possible_positions%22%3A%5B%5B13%2C2%5D%5D%2C%22position%22%3A%7B%22x%22%3A13%2C%22y%22%3A2%7D%2C%22orientation%22%3A0%2C%22walls%22%3A%7B%2213%2C2%22%3A%5B%22north%22%5D%7D%7D%7D&editor=%23%20fairly%20comprehensive%20test%0Afrom%20reeborg_en%20import%20*%0Afrom%20biblio%20import%20turn_right%0Aimport%20biblio%0A%0Athink(300)%20%23%20resetting%20default%0Asay(%22Sound%20is%20turned%20on%22)%0Asound(True)%0Aturn_right()%0Aturn_left()%0A%0Amove()%0A%0A%23%20ensuring%20that%20object_here%20returns%20the%20name%20of%20the%20object%0Afor%20i%20in%20range(5)%3A%0A%20%20%20%20obj%20%3D%20object_here()%0A%20%20%20%20if%20obj%3A%0A%20%20%20%20%20%20%20%20take(obj)%0A%20%20%20%20%20%20%20%20move()%0A%20%20%20%20%20%20%20%20put(obj)%0A%20%20%20%20%20%20%20%20move()%0Asay(%22Sound%20off%22)%0Asound()%0A%20%20%20%20%20%20%20%20%0Asay(%222%20second%20pause%20coming%20up%22)%0Apause(2000)%0Asound(True)%0Athink(0)%0Asay(%22Moving%20fast%3A%20sound%20is%20turned%20off%20by%20default%22)%0A%0A%23%20testing%20library%20functions%0Abiblio.turn_around()%0A%0Awhile%20front_is_clear()%3A%0A%20%20%20%20move()%20%20%20%0Aturn_right()%0Amove()%0Aturn_right()%0Amove()%0A%0A%23%20test%20default%20name%0Atake()%0Aput()%0Aif%20token_here()%3A%0A%20%20%20%20take()%0A%20%20%20%20if%20has_token()%3A%0A%20%20%20%20%20%20%20%20put()%0A%23%20test%20explicit%20object%20names%0Atake(%22jeton%22)%0Amove()%0Aput(%22jeton%22)%0Amove()%0Atake(%22%C3%A9toile%22)%0Amove()%0Aput(%22%C3%A9toile%22)%0Amove()%0Atake(%22triangle%22)%0Amove()%0Aput(%22triangle%22)%0Amove()%0Atake(%22carr%C3%A9%22)%0Amove()%0Aput(%22carr%C3%A9%22)%0Amove()%0A%0Aif%20token_here()%3A%0A%20%20%20%20raise%20ReeborgError%0A%0Awhile%20not%20at_goal()%3A%0A%20%20%20%20move()%0A%0Awhile%20not%20is_facing_north()%3A%0A%20%20%20%20turn_left()%0A%0Abuild_wall()%0Awhile%20not%20at_goal_orientation()%3A%0A%20%20%20%20turn_left()%0A%20%20%20%20%0Aif%20not%20right_is_clear()%3A%0A%20%20%20%20move()%0A%20%20%20%20%0Awrite(%22This%20should%20be%20the%20last%20thing%20written%20here.%22)%0Asay(%22Pausing%20-%20waiting%20for%20button%20click%20to%20resume.%22)%0Apause()%0Asound(True)%0Asay(%22Sound%20back%20on.%20%20Check%20diary!%22)%0Aprint(%22First!%22)%0Atry%3A%0A%20%20%20%20move()%0Aexcept%20ReeborgError%3A%0A%20%20%20%20confirmer(%22reeborg.y%20%3D%3D%202%22)%0A%20%20%20%20done()%0Aprint(%22Never%20written%22)%0A%0A&library=from%20reeborg_en%20import%20*%0Adef%20turn_right()%3A%0A%20%20%20%20repeat(turn_left%2C%203)%0A%0Adef%20turn_around()%3A%0A%20%20%20%20turn_left()%0A%20%20%20%20turn_left()%0A
+
+
+
+
+
+http://localhost:8000/world.html?proglang=javascript-en&world=%7B%22robots%22%3A%5B%7B%22x%22%3A1%2C%22y%22%3A1%2C%22tokens%22%3A1%2C%22orientation%22%3A0%2C%22_prev_x%22%3A1%2C%22_prev_y%22%3A1%2C%22_prev_orientation%22%3A0%7D%5D%2C%22walls%22%3A%7B%7D%2C%22tokens%22%3A%7B%222%2C1%22%3A1%2C%222%2C2%22%3A1%7D%2C%22shapes%22%3A%7B%224%2C1%22%3A%22star%22%2C%224%2C2%22%3A%22star%22%2C%226%2C1%22%3A%22triangle%22%2C%226%2C2%22%3A%22triangle%22%2C%228%2C1%22%3A%22square%22%2C%228%2C2%22%3A%22square%22%7D%2C%22goal%22%3A%7B%22shapes%22%3A%7B%225%2C1%22%3A%22star%22%2C%225%2C2%22%3A%22star%22%2C%227%2C1%22%3A%22triangle%22%2C%227%2C2%22%3A%22triangle%22%2C%229%2C1%22%3A%22square%22%2C%229%2C2%22%3A%22square%22%7D%2C%22tokens%22%3A%7B%223%2C1%22%3A1%2C%223%2C2%22%3A1%7D%2C%22possible_positions%22%3A%5B%5B13%2C2%5D%5D%2C%22position%22%3A%7B%22x%22%3A13%2C%22y%22%3A2%7D%2C%22orientation%22%3A0%2C%22walls%22%3A%7B%2213%2C2%22%3A%5B%22north%22%5D%7D%7D%7D&editor=var%20obj%3B%0A%2F%2Fimport_lib()%3B%0Aeval(library.getValue())%3B%0A%0Awrite(%22start%22)%3B%0Athink(300)%3B%20%2F%2F%20resetting%20default%0Asay(%22Sound%20is%20turned%20on%22)%3B%0Asound(true)%3B%0Aturn_right()%3B%0Aturn_left()%3B%0A%0Amove()%3B%0A%0A%2F%2F%20ensuring%20that%20object_here%20returns%20the%20name%20of%20the%20object%0Afor%20(var%20i%3D0%3B%20i%3C5%3B%20i%2B%2B)%7B%0A%20%20%20%20obj%20%3D%20object_here()%3B%0A%20%20%20%20if%20(obj)%7B%0A%20%20%20%20%20%20%20%20take(obj)%3B%0A%20%20%20%20%20%20%20%20move()%3B%0A%20%20%20%20%20%20%20%20put(obj)%3B%0A%20%20%20%20%20%20%20%20move()%3B%0A%20%20%20%20%7D%0A%7D%0Asay(%22Sound%20off%22)%3B%0Asound()%3B%0A%20%20%20%20%20%20%20%20%0Asay(%222%20second%20pause%20coming%20up%22)%3B%0Apause(2000)%3B%0Asound(true)%3B%0Athink(0)%3B%0Asay(%22Moving%20fast%3A%20sound%20is%20turned%20off%20by%20default%22)%3B%0A%0A%2F%2F%20testing%20library%20functions%0Aturn_around()%3B%0A%0Awhile%20(front_is_clear())%7B%0A%20%20%20%20move()%3B%0A%7D%0Aturn_right()%3B%0Amove()%3B%0Aturn_right()%3B%0Amove()%3B%0A%0A%2F%2F%20test%20default%20name%0Atake()%3B%0Aput()%3B%0Aif%20(token_here())%7B%0A%20%20%20%20take()%3B%0A%20%20%20%20if%20(has_token())%7B%0A%20%20%20%20%20%20%20%20put()%3B%0A%20%20%20%20%7D%0A%7D%0A%2F%2F%20test%20explicit%20object%20names%0Atake(%22token%22)%3B%0Amove()%3B%0Aput(%22token%22)%3B%0Amove()%3B%0Atake(%22star%22)%3B%0Amove()%3B%0Aput(%22star%22)%3B%0Amove()%3B%0Atake(%22triangle%22)%3B%0Amove()%3B%0Aput(%22triangle%22)%3B%0Amove()%3B%0Atake(%22square%22)%3B%0Amove()%3B%0Aput(%22square%22)%3B%0Amove()%3B%0A%0Aif%20(token_here())%7B%0A%20%20%20%20throw%20new%20ReeborgError(%22should%20not%20happen%22)%3B%0A%7D%0A%20%20%20%20%0A%0Awhile%20(!at_goal())%7B%0A%20%20%20%20move()%3B%0A%7D%0A%0Awhile%20(!is_facing_north())%7B%0A%20%20%20%20turn_left()%3B%0A%7D%0A%0Abuild_wall()%3B%0Awhile%20(!at_goal_orientation())%7B%0A%20%20%20%20turn_left()%3B%0A%7D%0A%20%20%20%20%0Aif%20(!right_is_clear())%7B%0A%20%20%20%20move()%3B%0A%7D%0A%20%20%20%20%0Awrite(%22This%20should%20be%20the%20last%20thing%20written%20here.%22)%3B%0Asay(%22Pausing%20-%20waiting%20for%20button%20click%20to%20resume.%22)%3B%0Apause()%3B%0Asound(true)%0Asay(%22Sound%20back%20on.%20%20Check%20diary!%22)%3B%0Atry%7B%0A%20%20%20%20move()%3B%0A%7D%0Acatch(e)%7B%20%0A%20%20%20%20verify(%22reeborg.y%20%3D%3D%202%22)%3B%0A%20%20%20%20done()%3B%0A%7D%0Awrite(%22Never%20written%22)%3B%0A%0A%0A&library=%2F*%20'import_lib()%3B'%20in%20Javascript%20Code%20is%20required%20to%20use%0A%20the%20code%20in%20this%20library.*%2F%0Avar%20turn_right%20%3D%20function()%7B%0A%20%20%20%20repeat(turn_left%2C%203)%3B%0A%7D%3B%0A%0Avar%20turn_around%20%3D%20function()%20%7B%0A%20%20%20%20turn_left()%3B%0A%20%20%20%20turn_left()%3B%0A%7D%3B%0A
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/python/python.js"></script>
+<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
+<script>
+$(document).ready(function() {
+    $('.pycode').each(function() {
+        var $this = $(this), $code = $this.text(), firstLine;
+        if ($this.attr("title")){
+            firstLine = parseInt($this.attr("title"), 10);
+        } else {
+            firstLine = 1;
+        }
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode: {name: "python", version: 3},
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            firstLineNumber: firstLine,
+            theme: 'reeborg-dark'
+        });
+    });
+    $('.jscode').each(function() {
+        var $this = $(this), $code = $this.text(), firstLine;
+        if ($this.attr("title")){
+            firstLine = parseInt($this.attr("title"), 10);
+        } else {
+            firstLine = 1;
+        }
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode: "javascript",
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            firstLineNumber: firstLine,
+            theme: 'reeborg-dark'
+        });
+    });
+});
+</script>
+
+<footer id="tutorial-footer">
+<p>
+<a href="mailto:andre.roberge@gmail.com">
+<img src="src/images/mailto.png" height="32" width="32" alt="mailto"/>
+André Roberge </a>
+<a href="http://about.me/andre.roberge">About me</a>
+<a href="http://www.reddit.com/r/reeborg">Discussions</a>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+<img alt="Contrat Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" height="31" width="88"/></a>
+</p>
+</footer>
+<a style="display: none" title="Real Time Web Analytics" href="http://clicky.com/100788691"><img alt="Real Time Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(100788691); }catch(e){}</script>
+</body>
+</html>
