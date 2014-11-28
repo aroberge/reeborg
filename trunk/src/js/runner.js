@@ -53,23 +53,22 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         }
     } catch (e) {
         if (RUR.programming_language === "python") {
-            console.log(e);
             error_name = e.__name__;
-            if (e.reeborg_says == undefined) {
+            if (e.reeborg_says === undefined) {
                 e.message = e.message.replace("\n", "<br>");
                 if (e.info){
+                    e.info = e.info.replace(/undefined\s*\n/, "");
                     e.info = e.info.replace("\n", "<br>");
                     e.info = e.info.replace("Traceback (most recent call last):<br>", '');
-                    e.info = e.info.replace(/module '*__main__'* line \d+\s/,"&#8594; " );
-                    e.info = e.info.replace(/&#8594;\s* RUR.set_lineno_highlight\(\d+\)/, "")
-                    e.info = e.info.replace(" ", "&nbsp;");
+                    e.info = e.info.replace(/module '*__main__'* line \d+\s/,"" );
+                    e.info = e.info.replace(/\s*RUR.set_lineno_highlight\(\d+\)/, "");
                     e.info = e.info.replace(/\s*\^$/, "");
-                    e.message += "<br>" + e.info;
+                    e.message += "<br>&#8594;" + e.info;
                 }
-                e.message = e.message.replace(/module '*__main__'* line \d+\s/,"&#8594; " );
+                e.message = e.message.replace(/module '*__main__'* line \d+\s/,"" );
             } else {
                 e.message = e.reeborg_says;
-                console.log("The above error can be ignored: it should appear in a dialog");
+                console.log("Any error appearing above can be ignored: it should also appear in a dialog.");
             }
         } else {
             error_name = e.name;
