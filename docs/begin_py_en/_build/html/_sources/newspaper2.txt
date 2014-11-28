@@ -89,7 +89,7 @@ others.
 .. code-block:: python
    :linenos:
 
-    import my_lib
+    rom my_lib import turn_right, turn_around
 
     def climb_up_one_floor():
         turn_left()

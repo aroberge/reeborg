@@ -38,7 +38,7 @@ four worlds mentioned above.
 And now, something different
 ----------------------------
 
-You did complete the above exercise, didn't you? ... Good. 
+You did complete the above exercise, didn't you? ... Good.
 
 .. topic:: Do this!
 
@@ -72,8 +72,8 @@ for both worlds **Hurdles 1** and **Hurdles 2** would be::
 .. hint::
 
    Your program could look as follows::
-   
-    import my_lib
+
+    from my_lib import turn_right
     def jump_over_hurdle():
         # some definitions
 

@@ -22,9 +22,9 @@ of bug being found." as you can see.
 
 |image0|
 
-Picture adapted from the public archive of the `U.S. Naval Historical Center 
+Picture adapted from the public archive of the `U.S. Naval Historical Center
 <http://www.history.navy.mil/photos/pers-us/uspers-h/g-hoppr.htm>`__
-                                                                                                                                                 
+
 
 Actually, the word bug in a technological context is attributed by the
 Oxford English Dictionary to Thomas Edison. According to the Oxford
@@ -61,7 +61,7 @@ bugs.
    it's not busy accomplishing tasks. The maker of Reeborg claims that
    it is a feature, as it enables you to follow Reeborg's path, just
    like any programmer can learn to "trace" a program. You will learn
-   how to fix Reeborg's leak later. More advanced techniques to trace bugs, 
+   how to fix Reeborg's leak later. More advanced techniques to trace bugs,
    like using what is known as a *debugger*,
    are beyond the scope of these lessons.
 #. Reeborg's steering mechanism is not handled properly by Reeborg's
@@ -97,6 +97,8 @@ following:
    will pause, awaiting your permission to continue.
 #. You can *step through* a program, one instruction at a time, by
    pressing the *execute one instruction and pause*, or **step** button.
+   By default, the line about to be executed is highlighted; you can turn off
+   the highlighting by clicking on a button above the code editor.
 #. You can change the speed of execution at any point inside a program;
    I will explain how you can do this later.
 #. You can have Reeborg write some information at any given point inside

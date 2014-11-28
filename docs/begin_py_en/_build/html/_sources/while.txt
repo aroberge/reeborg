@@ -90,16 +90,14 @@ Back to hurdles!
 
     Your program might look like the following::
 
-    .. code-block:: py3
+       def jump_over_hurdle():
+           # suitable definition
 
-        def jump_over_hurdle():
-            # suitable definition
+       def run_or_jump ():
+           # suitable definition
 
-        def run_or_jump ():
-            # suitable definition
-
-        while not at_goal():
-            run_or_jump()
+       while not at_goal():
+           run_or_jump()
 
 That's it! No more arbitrary repetitions! From now on, you should only
 use ``repeat()`` when you know **exactly** how many times a given

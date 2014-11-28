@@ -13,8 +13,8 @@ Cartesian coordinates.
 
 .. topic:: Try this!
 
-    With **Home 1** selected, write a program with a single ``move()`` instruction, 
-    run it and notice what feedback Reeborg gives you.  
+    With **Home 1** selected, write a program with a single ``move()`` instruction,
+    run it and notice what feedback Reeborg gives you.
     Then, change your program so that
     Reeborg go home.
 
@@ -57,6 +57,6 @@ You may have noticed that Reeborg (the robot itself) is seen from its
 side, such as |image0| whereas his world is seen from above ... which
 you might perhaps find confusing especially when you instruct Reeborg to
 turn left. You can change the way Reeborg is seen by either using the
-clicking on the appropriate image below Reeborg's world.
+clicking on the appropriate image above Reeborg's world.
 For example, when facing East, such as the side view above, using a different
 image, Reeborg can appear as follows when viewed from above: |image1|

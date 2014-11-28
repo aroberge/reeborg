@@ -176,7 +176,7 @@ Reeborg?</p>
 <p class="last">Reeborg&#8217;s world uses Brython to translate Python 3 code into Javascript
 that can then be executed in the browser.  While Python 3 allows you to
 have variable names that contain non-English letters, such as ëêé,
-Brython does not (yet) recognizes these characters.</p>
+Brython recognizes many but not all of these characters.</p>
 </div>
 <p>For now, limit yourselves with names that start with a letter and
 contain only letters, numbers or the underscore character &#8220;_&#8221;; a name
@@ -190,24 +190,23 @@ indicated by an uppercase letter.  We gave one such example above with
 </div>
 <div class="section" id="but-you-said-france">
 <h2>4.2. But you said France?<a class="headerlink" href="#but-you-said-france" title="Permalink to this headline">¶</a></h2>
-<p>Reeborg&#8217;s World is also available in French (the tutorial is not yet translated).
+<p>First, click on the <strong>Help</strong> button; you should see the list of available
+commands in English as well as some explanation.
+Reeborg&#8217;s World is also available in French.
 However, if you want to use commands in French [e.g. writing <tt class="docutils literal"><span class="pre">avance()</span></tt> instead
 of <tt class="docutils literal"><span class="pre">move()</span></tt>], you write the following line at the top of your program:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">french</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">reeborg_fr</span> <span class="k">import</span> <span class="o">*</span>
 </pre></div>
 </div>
-<p>To find out the name of the French commands:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>and click on the <strong>Diary</strong> button at the top to see the result; the explanation is given in French,
-but you should be able to understand how each English instruction is translated.</p>
+<p>If you then click on the <strong>Help</strong> button, you will see that additional instructions
+are available in French.</p>
 <p>There is also a Spanish version of the commands which you can try in a similar
 way by typing:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">spanish</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">reeborg_es</span> <span class="k">import</span> <span class="o">*</span>
 </pre></div>
 </div>
-<p>Note that, in this case, the explanation is given in <strong>English</strong>, not Spanish.</p>
+<p>At the time at which I am writing this tutorial, the Spanish version of the
+help was missing ...</p>
 <p>This type of instruction [<tt class="docutils literal"><span class="pre">from</span> <span class="pre">module</span> <span class="pre">import</span> <span class="pre">*</span></tt>] is not something that is
 generally recommended ... I will explain why in a future tutorial.</p>
 </div>
@@ -238,7 +237,7 @@ generally recommended ... I will explain why in a future tutorial.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   <script> 
   $(document).ready(function() {

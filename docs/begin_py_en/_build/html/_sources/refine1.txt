@@ -21,7 +21,7 @@ token at the beginning:
 #. Turn left when facing a wall.
 #. Repeat steps 2 and 3 until we find the token we had put down.
 
-Take you time to think about the above algorithm. Then, consider this
+Take your time to think about the above algorithm. Then, consider this
 solution in code::
 
     put("token")
