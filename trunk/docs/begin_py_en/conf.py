@@ -14,6 +14,7 @@
 # serve to show the default.
 
 import sys
+print(sys.version)
 import os
 
 # If extensions (or modules to document with autodoc) are in another directory,

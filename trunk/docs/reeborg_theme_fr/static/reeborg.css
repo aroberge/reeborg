@@ -215,7 +215,7 @@ div.footer a {
 
 /* -- body styles ----------------------------------------------------------- */
 
-p {    
+p {
     margin: 0.8em 0 0.5em 0;
 }
 
@@ -238,14 +238,12 @@ h1 {
     padding: 0.7em 0 0.3em 0;
     color: #123264;
     line-height: 1.2em;
-    text-shadow: #eeeefe 0.1em 0.1em 0.1em;
 }
 
 h2 {
     margin: 1.3em 0 0.2em 0;
     padding: 0 0 10px 0;
     color: #123264;
-    text-shadow: #eeeefe 0.1em 0.1em 0.1em;
 }
 h1, h2, h3, h4 {
     color: #123264;

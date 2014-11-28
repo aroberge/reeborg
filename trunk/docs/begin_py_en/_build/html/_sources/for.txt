@@ -5,7 +5,7 @@ For loops
 As we have seen, ``while`` loops can be used with numbers using the
 following pattern::
 
-    var n = 0             # initialization
+    n = 0                 # initialization
     while n < max_value : # condition to end the loop
         ...
         n += 1  # increment
@@ -44,7 +44,7 @@ Open Reeborg's diary and have Reeborg execute the single line program::
 You will see a completely different code than the above as this will
 reveal the ``repeat`` function used by Reeborg ... and written using
 Javascript.  In fact, it uses Javascript's version of a ``for`` loop
-which looks very different from the Python version.  
+which looks very different from the Python version.
 If you compare the Javascript code with the Python one, you will likely
 agree that Python is a "cleaner" language, with fewer extra characters
 like ``;`` or ``}``.

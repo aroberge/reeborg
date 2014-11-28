@@ -25,14 +25,14 @@ simply type ``import my_lib`` on its own line in the Python Code editor.
    functions) and write a short
    program that nonetheless uses them to make sure that they work as
    expected. If they don't, go back and fix them.  Remember to use
-   ``import my_lib`` in your main program.
+   ``from my_lib import turn_right, turn_around`` in your main program.
 
 .. hint::
 
-   With the appropriate functions defined in the library, 
+   With the appropriate functions defined in the library,
    here is such a program::
-   
-       import my_lib
+
+       from my_lib import turn_right, turn_around
        move()
        turn_around()
        move()
@@ -45,6 +45,30 @@ simply type ``import my_lib`` on its own line in the Python Code editor.
 
 From now on, whenever you define a function that you use more than once,
 add it to your library so that you don't have to redefine it every time.
+
+
+Different ways to import
+------------------------
+
+So far, we have seen the Python keyword ``import`` in two different types of statements::
+
+    from reeborg_fr import *
+    from my_lib import turn_right, turn_around
+
+In the first one, the ``*`` means *whatever name you find*; thus, any function or
+alias found in the library (``reeborg_fr`` is a library) is made available.
+The problem with using this *import everything* is that it can happen that
+a library defines a function with exactly the same name as one you defined ...
+and the one that will be executed may be the one defined in the library instead
+of your own.
+
+For this reason, it is much better to be explicit and specify which names we
+want to import from the library.
+
+There is a third way to import things from a library, but we will wait until
+the next tutorial after we explain what the *dot notation* means to introduce
+this third way.
+
 
 Reading exercise
 ----------------
@@ -86,7 +110,7 @@ copying it in the editor and having Reeborg obey the instructions?::
     e()
     b()
 
-Not so easy, is it? 
+Not so easy, is it?
 
 .. topic:: Test it!
 

@@ -1,16 +1,16 @@
 
 .. topic:: Try this!
 
-    Before reading the rest of this lesson, 
+    Before reading the rest of this lesson,
     write a program that makes Reeborg draw a square as illustrated on
     this image: |image0|
-    
+
 
 .. |image0| image:: ../../src/images/square.png
 
 .. hint::
 
-    If you do not know how to, select world **Alone** and 
+    If you do not know how to, select world **Alone** and
     review the commands seen in `Test driven learning <home.html>`_
     Your program will make use of 2 instructions (functions) and should
     have 8 lines.
@@ -60,9 +60,9 @@ Valid names
 .. note::
 
     Reeborg's world uses Brython to translate Python 3 code into Javascript
-    that can then be executed in the browser.  While Python 3 allows you to 
+    that can then be executed in the browser.  While Python 3 allows you to
     have variable names that contain non-English letters, such as ëêé,
-    Brython does not (yet) recognizes these characters. 
+    Brython recognizes many but not all of these characters.
 
 For now, limit yourselves with names that start with a letter and
 contain only letters, numbers or the underscore character "\_"; a name
@@ -77,25 +77,24 @@ indicated by an uppercase letter.  We gave one such example above with
 But you said France?
 --------------------
 
-Reeborg's World is also available in French (the tutorial is not yet translated).
+First, click on the **Help** button; you should see the list of available
+commands in English as well as some explanation.
+Reeborg's World is also available in French.
 However, if you want to use commands in French [e.g. writing ``avance()`` instead
 of ``move()``], you write the following line at the top of your program::
 
-    from french import *
+    from reeborg_fr import *
 
-To find out the name of the French commands::
-
-    print(usage)
-
-and click on the **Diary** button at the top to see the result; the explanation is given in French,
-but you should be able to understand how each English instruction is translated.
+If you then click on the **Help** button, you will see that additional instructions
+are available in French.
 
 There is also a Spanish version of the commands which you can try in a similar
 way by typing::
 
-    from spanish import *
+    from reeborg_es import *
 
-Note that, in this case, the explanation is given in **English**, not Spanish.
+At the time at which I am writing this tutorial, the Spanish version of the
+help was missing ...
 
 This type of instruction [``from module import *``] is not something that is
 generally recommended ... I will explain why in a future tutorial.

@@ -63,7 +63,8 @@ Vous avez probablement remarqué que le robot Reeborg est vu de son
 côté, comme sur cette image |image0|, alors que son monde est vu d'au-dessus ....
 ce qui peut être mélangeant lorsque vous demandez à Reeborg de tourner à
 gauche.  Vous pouvez changer les images de Reeborg en cliquant sur l'image
-appropriée sous son monde.  Par exemple, lorsque Reeborg fait face à l'est,
+appropriée au-dessus de son monde, du côté droit.  
+Par exemple, lorsque Reeborg fait face à l'est,
 comme dans l'image ci-dessus vue de côté, en utilisant une autre série
 d'images, Reeborg peut apparaître de la façon suivante, comme s'il était
 vu d'au-dessus:  |image1|

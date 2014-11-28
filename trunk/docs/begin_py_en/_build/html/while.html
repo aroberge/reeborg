@@ -197,19 +197,16 @@ program for all three world, using <tt class="docutils literal"><span class="pre
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p>Your program might look like the following:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">py3</span>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">jump_over_hurdle</span><span class="p">():</span>
+    <span class="c"># suitable definition</span>
+
+<span class="k">def</span> <span class="nf">run_or_jump</span> <span class="p">():</span>
+    <span class="c"># suitable definition</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+    <span class="n">run_or_jump</span><span class="p">()</span>
 </pre></div>
 </div>
-<blockquote class="last">
-<div><dl class="docutils">
-<dt>def jump_over_hurdle():</dt>
-<dd># suitable definition</dd>
-<dt>def run_or_jump ():</dt>
-<dd># suitable definition</dd>
-<dt>while not at_goal():</dt>
-<dd>run_or_jump()</dd>
-</dl>
-</div></blockquote>
 </div>
 <p>That&#8217;s it! No more arbitrary repetitions! From now on, you should only
 use <tt class="docutils literal"><span class="pre">repeat()</span></tt> when you know <strong>exactly</strong> how many times a given
@@ -242,7 +239,7 @@ function must be repeated.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   <script> 
   $(document).ready(function() {

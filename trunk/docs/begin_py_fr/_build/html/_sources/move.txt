@@ -44,14 +44,9 @@ Dans un organigramme, la séquence des instructions suit les flèches.
 Composer avec les eRReuRs
 --------------------------
 
-Lorsque vous allez écrire des programmes, vous allez occasionnellement faire des erreurs
+Lorsque vous allez écrire des programmes, vous allez occasionnellement faire des erreurs.
 Pour voir comment Reeborg réagit lorsqu'il rencontre des erreurs, je vous demande
 d'en faire une de façon intentionnelle.
-
-When writing computer programs, you will likely make many errors.
-To see how Reeborg react to some errors, I will ask you to intentionally
-introduce one error in the program.
-
 
 .. topic:: Essayez ceci!
 
@@ -60,8 +55,9 @@ introduce one error in the program.
 Qu'est-il arrivé?
 ~~~~~~~~~~~~~~~~~
 
-Tout d'abord, je note que le message d'erreur *'Avance' is not defined*,
-qui signifie *'Avance' n'est pas défini*, est en anglais. Ceci est
+Tout d'abord, je note que le message d'erreur indique **NameError** et qu'on
+lit le mot **undefined**; ceci signifie que *'Avance' n'est pas défini.
+Les messages d'erreurs comportent des termes anglais, mais ceci est
 malheureusement incontournable...
 
 Python, le langage que Reeborg comprend, est "sensible à la casse";
