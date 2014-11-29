@@ -57,7 +57,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             if (e.reeborg_says === undefined) {
                 e.message = e.message.replace("\n", "<br>");
                 if (e.info){
-                    e.info = e.info.replace(/undefined\s*\n/, "");
+                    e.info = e.info.replace("undefined", "undefined:");
                     e.info = e.info.replace("\n", "<br>");
                     e.info = e.info.replace("Traceback (most recent call last):<br>", '');
                     e.info = e.info.replace(/module '*__main__'* line \d+\s/,"" );
