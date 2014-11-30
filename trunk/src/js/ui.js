@@ -102,11 +102,6 @@ RUR.ui.reload = function() {
     RUR.runner.interpreted = false;
     RUR.control.sound_flag = false;
     RUR.rec.reset();
-    if (RUR.strict_javascript) {
-        editorUpdateHints();
-        libraryUpdateHints();
-    }
-
 };
 
 RUR.ui.select_world = function (s, silent) {
