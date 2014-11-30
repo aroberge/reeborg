@@ -2042,7 +2042,6 @@ RUR.rec.display_frame = function () {
         console.log("debug: ", frame.debug);
     }
 
-
     if (frame.delay !== undefined){
         RUR.rec.delay = frame.delay;
     }
@@ -2359,19 +2358,6 @@ RUR.simplify_python_traceback = function(info) {
     return info;
 };
 
-// Keep for now so as to have model for linting button.
-// old_RUR.runner.eval_javascript = function (src) {
-//     // Note: by having "use strict;" here, it has the interesting effect of requiring user
-//     // programs to conform to "strict" usage, meaning that all variables have to be declared,
-//     // etc.
-//     "use strict";  // will propagate to user's code, enforcing good programming habits.
-//     // lint, then eval
-//     var i, line, lines, text = '';
-//     editorUpdateHints();
-//     RUR.reset_definitions();
-//     eval(src); // jshint ignore:line
-// };
-
 RUR.runner.eval_javascript = function (src) {
     // do not "use strict"
     RUR.reset_definitions();
@@ -2389,7 +2375,15 @@ RUR.runner.eval_coffee = function (src) {
     // do not  "use strict"
     RUR.reset_definitions();
     eval(CoffeeScript.compile(src)); // jshint ignore:line
-};/* Author: André Roberge
+};
+
+RUR.runner.compile_coffee = function() {
+    if (RUR.programming_language !== "coffee") {
+        return;
+    }
+    var js_code = CoffeeScript.compile(editor.getValue())
+    $("#output-pre").html(js_code);
+}/* Author: André Roberge
    License: MIT  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
@@ -2471,6 +2465,7 @@ RUR.reset_programming_language = function(choice){
     } catch (e) {}
     $("#load-library").attr("disabled", "true");
     $("#save-library").attr("disabled", "true");
+    $("#compile-coffee").attr("disabled", "true");
     switch(RUR.settings.current_language){
         case 'python-' + human_language :
             RUR.settings.editor = "editor_py_" + human_language;
@@ -2502,6 +2497,7 @@ RUR.reset_programming_language = function(choice){
             $("#highlight").hide();
             $("#lint-js").hide();
             $("#library-link").parent().hide();
+            $("#compile-coffee").removeAttr("disabled");
             break;
     }
     try {
