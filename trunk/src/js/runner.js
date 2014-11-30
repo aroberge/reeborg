@@ -3,7 +3,7 @@
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints,
+/*globals $, RUR, editor, library, editorUpdateHints,
   translate_python, _import_library, CoffeeScript */
 
 RUR.runner = {};
@@ -83,7 +83,8 @@ RUR.simplify_python_traceback = function(info) {
     return info;
 };
 
-// RUR.runner.eval_javascript = function (src) {
+// Keep for now so as to have model for linting button.
+// old_RUR.runner.eval_javascript = function (src) {
 //     // Note: by having "use strict;" here, it has the interesting effect of requiring user
 //     // programs to conform to "strict" usage, meaning that all variables have to be declared,
 //     // etc.
@@ -91,15 +92,7 @@ RUR.simplify_python_traceback = function(info) {
 //     // lint, then eval
 //     var i, line, lines, text = '';
 //     editorUpdateHints();
-//     if(editor.widgets.length === 0) {
-//         libraryUpdateHints();
-//         if(library.widgets.length !== 0) {
-//             $('#library-problem').show().fadeOut(4000);
-//         }
-//     }
 //     RUR.reset_definitions();
-
-
 //     eval(src); // jshint ignore:line
 // };
 

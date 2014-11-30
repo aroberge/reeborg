@@ -5,30 +5,6 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, editor, library, RUR, JSHINT, globals_ */
 
-
-RUR.removeHints = function () {
-    editor.operation (function () {
-        for(var i = 0; i < editor.widgets.length; ++i){
-            editor.removeLineWidget(editor.widgets[i]);
-        }
-        editor.widgets.length = 0;
-    });
-    library.operation (function () {
-        for(var i = 0; i < library.widgets.length; ++i){
-            library.removeLineWidget(library.widgets[i]);
-        }
-        library.widgets.length = 0;
-    });
-};
-
-
-function editorUpdateHints() {
-    updateHints(editor);
-}
-
-function libraryUpdateHints() {
-    updateHints(library);
-}
 var jshint_options = {
     eqeqeq: true,
     boss: true,
@@ -42,28 +18,25 @@ var jshint_options = {
     jquery: true
 };
 
+RUR.removeHints = function () {
+    editor.operation (function () {
+        for(var i = 0; i < editor.widgets.length; ++i){
+            editor.removeLineWidget(editor.widgets[i]);
+        }
+        editor.widgets.length = 0;
+    });
+};
 
-function updateHints(obj) {
+RUR.editorUpdateHints = function() {
+    var values;
     if (RUR.programming_language != "javascript") {
         return;
     }
-    var values, nb_lines;
-    var import_lib_regex = /^\s*import_lib\s*\(\s*\);/m;
-    obj.operation(function () {
-        for(var i = 0; i < obj.widgets.length; ++i){
-            obj.removeLineWidget(obj.widgets[i]);
-        }
-        obj.widgets.length = 0;
-
-        if (obj === editor) {
-            values = globals_ + editor.getValue().replace(import_lib_regex, library.getValue());
-            nb_lines = library.lineCount() + 1;
-            JSHINT(values, jshint_options);
-        } else {
-            JSHINT(globals_ + obj.getValue(), jshint_options);
-            nb_lines = 2;
-        }
-        for(i = 0; i < JSHINT.errors.length; ++i) {
+    RUR.removeHints();
+    editor.operation(function () {
+        values = globals_ + editor.getValue();
+        JSHINT(values, jshint_options);
+        for(var i = 0; i < JSHINT.errors.length; ++i) {
             var err = JSHINT.errors[i];
             if(!err) continue;
             var msg = document.createElement("div");
@@ -72,16 +45,10 @@ function updateHints(obj) {
             icon.className = "lint-error-icon";
             msg.appendChild(document.createTextNode(err.reason));
             msg.className = "lint-error";
-            obj.widgets.push(obj.addLineWidget(err.line - nb_lines, msg, {
+            editor.widgets.push(editor.addLineWidget(err.line-2, msg, {
                 coverGutter: false,
                 noHScroll: true
             }));
         }
     });
-
-    var info = obj.getScrollInfo();
-    var after = obj.charCoords({line: obj.getCursor().line + 1, ch: 0}, "local").top;
-    if(info.top + info.clientHeight < after) {
-        obj.scrollTo(null, after - info.clientHeight + 3);
-    }
-}
+};
