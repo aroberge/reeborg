@@ -80,6 +80,7 @@ RUR.reset_programming_language = function(choice){
     } catch (e) {}
     $("#load-library").attr("disabled", "true");
     $("#save-library").attr("disabled", "true");
+    $("#compile-coffee").attr("disabled", "true");
     switch(RUR.settings.current_language){
         case 'python-' + human_language :
             RUR.settings.editor = "editor_py_" + human_language;
@@ -111,6 +112,7 @@ RUR.reset_programming_language = function(choice){
             $("#highlight").hide();
             $("#lint-js").hide();
             $("#library-link").parent().hide();
+            $("#compile-coffee").removeAttr("disabled");
             break;
     }
     try {

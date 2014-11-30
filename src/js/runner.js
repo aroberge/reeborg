@@ -83,19 +83,6 @@ RUR.simplify_python_traceback = function(info) {
     return info;
 };
 
-// Keep for now so as to have model for linting button.
-// old_RUR.runner.eval_javascript = function (src) {
-//     // Note: by having "use strict;" here, it has the interesting effect of requiring user
-//     // programs to conform to "strict" usage, meaning that all variables have to be declared,
-//     // etc.
-//     "use strict";  // will propagate to user's code, enforcing good programming habits.
-//     // lint, then eval
-//     var i, line, lines, text = '';
-//     editorUpdateHints();
-//     RUR.reset_definitions();
-//     eval(src); // jshint ignore:line
-// };
-
 RUR.runner.eval_javascript = function (src) {
     // do not "use strict"
     RUR.reset_definitions();
@@ -114,3 +101,11 @@ RUR.runner.eval_coffee = function (src) {
     RUR.reset_definitions();
     eval(CoffeeScript.compile(src)); // jshint ignore:line
 };
+
+RUR.runner.compile_coffee = function() {
+    if (RUR.programming_language !== "coffee") {
+        return;
+    }
+    var js_code = CoffeeScript.compile(editor.getValue())
+    $("#output-pre").html(js_code);
+}
