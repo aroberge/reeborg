@@ -290,15 +290,9 @@ $(document).ready(function() {
         switch (prog_lang) {
             case 'python-' + human_language:
             case 'javascript-' + human_language:
-            case 'javascript-strict-' + human_language:
             case 'coffeescript-' + human_language:
                 $('input[type=radio][name=programming_language]').val([prog_lang]);
                 RUR.reset_programming_language(prog_lang);
-                if (prog_lang == "python-"+human_language){
-                    $("#highlight").show();
-                } else {
-                    $("#highlight").hide();
-                }
         }
         // trigger it to load the initial world.
         $("#select_world").change();
