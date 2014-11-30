@@ -78,6 +78,8 @@ RUR.reset_programming_language = function(choice){
     try {
         localStorage.setItem("last_programming_language_" + human_language, RUR.settings.current_language);
     } catch (e) {}
+    $("#load-library").attr("disabled", "true");
+    $("#save-library").attr("disabled", "true");
     switch(RUR.settings.current_language){
         case 'python-' + human_language :
             RUR.settings.editor = "editor_py_" + human_language;
@@ -89,6 +91,8 @@ RUR.reset_programming_language = function(choice){
             $("#highlight").show();
             $("#lint-js").hide();
             $("#library-link").parent().show();
+            $("#load-library").removeAttr("disabled");
+            $("#save-library").removeAttr("disabled");
             break;
         case 'javascript-' + human_language :
             RUR.settings.editor = "editor_js_" + human_language;

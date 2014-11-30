@@ -74,19 +74,11 @@ $(document).ready(function() {
     $("#output-panel").resizable();
 
     $("#editor-link").on("click", function(){
-        $("#save-library").hide();
-        $("#load-library").hide();
-        $("#save-editor").show();
-        $("#load-editor").show();
         if (RUR.programming_language == "python"){
             $("#highlight").show();
         }
     });
     $("#library-link").on("click", function(){
-        $("#save-editor").hide();
-        $("#load-editor").hide();
-        $("#save-library").show();
-        $("#load-library").show();
         $("#highlight").hide();
     });
 
@@ -213,6 +205,18 @@ $(document).ready(function() {
         return;
     });
 
+    $("#more-menus").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
+        beforeClose: function( event, ui ) {$("#more-menus-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+
+    $("#more-menus-button").on("click", function() {
+        if ($("#more-menus-button").hasClass("reverse-blue-gradient")) {
+            $("#more-menus").dialog("open");
+        } else {
+            $("#more-menus").dialog("close");
+        }
+        return;
+    });
+
 
     $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
@@ -293,6 +297,9 @@ $(document).ready(function() {
             case 'coffeescript-' + human_language:
                 $('input[type=radio][name=programming_language]').val([prog_lang]);
                 RUR.reset_programming_language(prog_lang);
+                break;
+            default:
+                RUR.reset_programming_language('python-' + human_language);
         }
         // trigger it to load the initial world.
         $("#select_world").change();

@@ -23,7 +23,6 @@
     <button class="blue-gradient" id="output-panel-button" label="output-panel">Diary</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
     <button class="blue-gradient" id="help-button">Help</button>
-    <button  class="blue-gradient" onclick="TogetherJS(this); return false;">Collaborate</button>
     <button id="permalink" class="blue-gradient" label="url-form" title="Create a permalink" onclick="RUR.create_permalink();">
       Permalink
     </button>
@@ -32,6 +31,9 @@
         <input type="radio" name="programming_language" value="javascript-en" > Javascript
         <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
     </form>
+    <button id="more-menus-button" class="blue-gradient" label="url-form" title="Menu additionnel">
+      Additional menu
+    </button>
     <button class="blue-gradient" id="about-button" style="float:right">About</button>
   </div>
 
@@ -165,8 +167,6 @@
   <div id="tabs">
     <ul>
       <li><a id="editor-link" href="#editor">Python Code</a></li>
-      <button class="blue-gradient float-right" id="load-editor" title="Open program">Open</button>
-      <button class="blue-gradient float-right" id="save-editor" title="Save program">Save</button>
       <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
         <img src="src/images/highlight.png" alt="highlight">
         <img src="src/images/ok.png" alt="ok" id="ok-image">
@@ -177,8 +177,6 @@
       </button>
 
       <li><a id="library-link" href="#library">Library</a></li>
-      <button class="blue-gradient float-right" id="load-library" title="Open library">Open</button>
-      <button class="blue-gradient float-right" id="save-library" title="Save library">Save</button>
     </ul>
     <div id="editor">
       <textarea id="code" name="code">move()</textarea>
@@ -315,6 +313,46 @@ window['translate_python'] = translate_python
 
 <div id="help" title="Help" style="display:none">
     <ul id="toc"></ul>
+</div>
+
+<div id="more-menus" title="Other options" style="display:none">
+
+<p>To save the complete content (current state of the world, content of the code editor and,
+if programming using Python, content of the library), use the permalink button at the top.
+This will create a permalink which can be saved by copying it and pasting it in a location of
+your choice.</p>
+
+  <p>
+    <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaboration</button>
+    <span class="description"> Tool which permits collaboration with one or more other user
+      using Mozilla's TogetherJS.
+    </span>
+  </p>
+
+  <p>
+    <button class="blue-gradient" id="save-editor" title="Save program">Save program</button>
+    <span class="description"> Saves the content of the editor in a file.
+    </span>
+  </p>
+
+  <p>
+    <button class="blue-gradient" id="load-editor" title="Import program">Import a program</button>
+    <span class="description"> Opens a local file and use its content to replace the content of the Code editor.
+    </span>
+  </p>
+
+  <p>
+    <button class="blue-gradient" id="save-library" title="Save library">Save the library</button>
+    <span class="description">  For Python programming only.  Saves the content of the library in a file.
+    </span>
+  </p>
+
+  <p>
+    <button class="blue-gradient" id="load-library" title="Import library">Import a library</button>
+    <span class="description"> For Python programming only.
+      Opens a file and use its content to replace the current content of the Library.
+    </span>
+  </p>
 </div>
 
 
