@@ -81,7 +81,7 @@ Haies 2::
 
     Votre programme devrait ressembler à ceci::
 
-        import biblio
+        from biblio import *  # ou spécifiez le nom des fonctions
         def saute():
             # quelques lignes de code
 

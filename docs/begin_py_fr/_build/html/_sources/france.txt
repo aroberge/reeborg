@@ -55,8 +55,8 @@ On peut faire ceci facilement avec Python.
 Si vous le désirez, vous pouvez définir votre propre langage pour donner
 des instructions à Reeborg.
 
-Valid names
------------
+Noms valides
+------------
 
 Pour l'instant, n'utilisez que des noms qui débutent par une lettre et
 qui ne contiennent que des lettres, des chiffres ou le caractère de
@@ -78,32 +78,20 @@ Pour utiliser des instructions en espagnol plutôt qu'en français,
 comme [e.g. writing ``avanzar()`` au lieu de ``avance()``],
 écrivez la toute première ligne au tout début de votre programme::
 
-    from spanish import *
+    from reeborg_es import *
 
-Par la suite, si vous voulez voir tous les noms d'instructions
-en espagnol, vous écrivez::
-
-    print(usage)
-
-exécutez le programme et cliquez sur le bouton **Journal** pour voir le résultat.
-Les explications sont données en anglais ... avec les noms équivalents en anglais.
+Si vous cliquez sur le bouton **Aide** en haut, vous verrez
+que la listes de commandes apparait en espagnol en plus de la
+version française précédente. (Au moment d'écrire ce tutoriel,
+l'information espagnole était incomplète.)
 
 Si vous voulez voir la version anglaise, faites plutôt::
 
-    from english import *
+    from reeborg_en import *
 
-Encore une fois, si vous faites::
-
-    print(usage)
-
-les explications seront données en anglais.  Si vous voulez voir des explications
-en français, faites plutôt::
-
-    from french import *
-    print(usage)
 
 Ce genre d'instruction [``from module import *``] est quelque chose qui n'est pas
-recommandé généralement.  J'expliquerai en détails pourquoi dans un futur tutoriel.
-Pour l'instant, notez que, à chaque fois que j'utilise cette instruction avec
-un nouveau module, le résultat de ``print(usage)`` est différent.
+recommandé généralement mais qui est tout à fait acceptable ici.  
+J'expliquerai en détails pourquoi dans un futur tutoriel.
+
 

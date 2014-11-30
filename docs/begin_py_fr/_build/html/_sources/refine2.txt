@@ -33,7 +33,7 @@ Identifier le problème
 
 .. note::
 
-    N'oubliez pas d'inclure ``import biblio``.
+    N'oubliez pas d'inclure ``from biblio import *``.
 
 Comme vous avez pu le constater en exécutant le programme ci-dessus, le
 résultat n'était pas celui désiré: Reeborg prend un raccourci et ne fait

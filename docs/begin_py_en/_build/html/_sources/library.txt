@@ -16,7 +16,8 @@ write it there. Oh, and you should also write ``turn_around()`` there as
 well.
 
 Then, when you want to use the functions defined in your library, you will
-simply type ``import my_lib`` on its own line in the Python Code editor.
+simply type ``from my_lib import`` (followed by the function names, separated
+by commas) on its own line in the Python Code editor.
 
 .. topic:: Do this!
 

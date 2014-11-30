@@ -81,7 +81,7 @@
               <h3>Table des Matières</h3>
               <ul>
 <li><a class="reference internal" href="#">4. Reeborg va en Espagne</a><ul>
-<li><a class="reference internal" href="#valid-names">4.1. Valid names</a></li>
+<li><a class="reference internal" href="#noms-valides">4.1. Noms valides</a></li>
 <li><a class="reference internal" href="#mais-vous-aviez-mentionne-l-espagne">4.2. Mais vous aviez mentionné l&#8217;Espagne?</a></li>
 </ul>
 </li>
@@ -170,8 +170,8 @@ au début de votre programme pour une petite surprise. a</p>
 </div>
 <p>Si vous le désirez, vous pouvez définir votre propre langage pour donner
 des instructions à Reeborg.</p>
-<div class="section" id="valid-names">
-<h2>4.1. Valid names<a class="headerlink" href="#valid-names" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="noms-valides">
+<h2>4.1. Noms valides<a class="headerlink" href="#noms-valides" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Pour l&#8217;instant, n&#8217;utilisez que des noms qui débutent par une lettre et
 qui ne contiennent que des lettres, des chiffres ou le caractère de
 soulignement &#8220;_&#8221;; un nom ne peut <strong>pas</strong> contenir d&#8217;espaces - et c&#8217;est
@@ -188,34 +188,20 @@ de les utiliser dans des noms de variables.  Ainsi, nous écrivons
 <p>Pour utiliser des instructions en espagnol plutôt qu&#8217;en français,
 comme [e.g. writing <tt class="docutils literal"><span class="pre">avanzar()</span></tt> au lieu de <tt class="docutils literal"><span class="pre">avance()</span></tt>],
 écrivez la toute première ligne au tout début de votre programme:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">spanish</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">reeborg_es</span> <span class="k">import</span> <span class="o">*</span>
 </pre></div>
 </div>
-<p>Par la suite, si vous voulez voir tous les noms d&#8217;instructions
-en espagnol, vous écrivez:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>exécutez le programme et cliquez sur le bouton <strong>Journal</strong> pour voir le résultat.
-Les explications sont données en anglais ... avec les noms équivalents en anglais.</p>
+<p>Si vous cliquez sur le bouton <strong>Aide</strong> en haut, vous verrez
+que la listes de commandes apparait en espagnol en plus de la
+version française précédente. (Au moment d&#8217;écrire ce tutoriel,
+l&#8217;information espagnole était incomplète.)</p>
 <p>Si vous voulez voir la version anglaise, faites plutôt:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">english</span> <span class="k">import</span> <span class="o">*</span>
-</pre></div>
-</div>
-<p>Encore une fois, si vous faites:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>les explications seront données en anglais.  Si vous voulez voir des explications
-en français, faites plutôt:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">french</span> <span class="k">import</span> <span class="o">*</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">reeborg_en</span> <span class="k">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 <p>Ce genre d&#8217;instruction [<tt class="docutils literal"><span class="pre">from</span> <span class="pre">module</span> <span class="pre">import</span> <span class="pre">*</span></tt>] est quelque chose qui n&#8217;est pas
-recommandé généralement.  J&#8217;expliquerai en détails pourquoi dans un futur tutoriel.
-Pour l&#8217;instant, notez que, à chaque fois que j&#8217;utilise cette instruction avec
-un nouveau module, le résultat de <tt class="docutils literal"><span class="pre">print(usage)</span></tt> est différent.</p>
+recommandé généralement mais qui est tout à fait acceptable ici.
+J&#8217;expliquerai en détails pourquoi dans un futur tutoriel.</p>
 </div>
 </div>
 

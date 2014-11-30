@@ -129,23 +129,24 @@ de ces bibliothèques.</p>
 <p>Vous allez utiliser la fonction <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> <strong>souvent!</strong>
 Plutôt que de la récrire à chaque fois (souvenez-vous de la règle numéro
 3), vous allez plutôt la récrire <strong>une fois</strong> de plus mais, cette
-fois-ci, vous allez cliquer sur l&#8217;onglet <strong>Bibliothèque</strong> et l&#8217;écrire à
+fois-ci, vous allez cliquer sur l&#8217;onglet <strong>Biblio.</strong> et l&#8217;écrire à
 cet endroit. Vous devriez également y écrire <tt class="docutils literal"><span class="pre">demi_tour()</span></tt>.</p>
 <p>Lorsque vous voudrez utiliser les fonctions définies dans votre bibliothèque,
-il vous suffira d&#8217;écrire <tt class="docutils literal"><span class="pre">import</span> <span class="pre">biblio</span></tt> comme toute première ligne
+il vous suffira d&#8217;écrire <tt class="docutils literal"><span class="pre">from</span> <span class="pre">biblio</span> <span class="pre">import</span></tt> (suivi du nom des fonctions que
+vous avez définies, séparés par des virgules) comme toute première ligne
 de votre programme dans l&#8217;éditeur.</p>
 <div class="topic">
 <p class="topic-title first">À votre tour!</p>
 <p>Après avoir défini les fonctions <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> et <tt class="docutils literal"><span class="pre">demi_tour()</span></tt>
 dans votre bibliothèque, écrivez un court programme dans l&#8217;éditeur &#8220;Code Python&#8221;
-qui utilise ces fonctions.  Assurez-vous d&#8217;utiliser <tt class="docutils literal"><span class="pre">import</span> <span class="pre">biblio</span></tt>
+qui utilise ces fonctions.  Assurez-vous d&#8217;utiliser <tt class="docutils literal"><span class="pre">from</span> <span class="pre">biblio</span> <span class="pre">import</span> <span class="pre">tourne_a_droite,</span> <span class="pre">demi_tour</span></tt>
 dans votre programme.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
 <p>Si vous avez défini les fonctions requises dans votre bibliothèque, un
 exemple d&#8217;un tel programme est le suivant:</p>
-<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">biblio</span>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">biblio</span> <span class="k">import</span> <span class="n">tourne_a_droite</span><span class="p">,</span> <span class="n">demi_tour</span>
 <span class="n">avance</span><span class="p">()</span>
 <span class="n">demi_tour</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
