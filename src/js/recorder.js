@@ -131,13 +131,14 @@ RUR.rec.display_frame = function () {
     RUR.rec.current_frame++;
 
     if (frame === undefined){
-            return;
-        }
+        RUR.current_world = RUR.world.saved_world;  // useful when ...
+        RUR.vis_world.refresh();                    // ... reversing step
+        return;
+    }
 
     if (RUR.__debug && frame.debug) {
         console.log("debug: ", frame.debug);
     }
-
 
     if (frame.delay !== undefined){
         RUR.rec.delay = frame.delay;

@@ -2033,8 +2033,10 @@ RUR.rec.display_frame = function () {
     RUR.rec.current_frame++;
 
     if (frame === undefined){
-            return;
-        }
+        RUR.current_world = RUR.world.saved_world;  // useful when ...
+        RUR.vis_world.refresh();                    // ... reversing step
+        return;
+    }
 
     if (RUR.__debug && frame.debug) {
         console.log("debug: ", frame.debug);
@@ -2674,6 +2676,7 @@ RUR.ui.set_ready_to_run = function () {
     $("#pause").attr("disabled", "true");
     $("#run").removeAttr("disabled");
     $("#step").removeAttr("disabled");
+    $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
 
     $("#stop2").attr("disabled", "true");
@@ -2692,6 +2695,7 @@ RUR.ui.run = function () {
     $("#pause").removeAttr("disabled");
     $("#run").attr("disabled", "true");
     $("#step").attr("disabled", "true");
+    $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
 
     $("#stop2").removeAttr("disabled");
@@ -2719,6 +2723,7 @@ RUR.ui.pause = function (ms) {
     } else {
         $("#run").removeAttr("disabled");
         $("#step").removeAttr("disabled");
+        $("#reverse-step").removeAttr("disabled");
         $("#run2").removeAttr("disabled");
         $("#step2").removeAttr("disabled");
     }
@@ -2728,8 +2733,22 @@ RUR.ui.step = function () {
     RUR.runner.run(RUR.rec.display_frame);
     RUR.ui.stop_called = false;
     $("#stop").removeAttr("disabled");
+    $("#reverse-step").removeAttr("disabled");
     clearTimeout(RUR.rec.timer);
 };
+
+
+RUR.ui.reverse_step = function () {
+    RUR.rec.current_frame -= 2;
+    if (RUR.rec.current_frame < 0){
+        $("#reverse-step").attr("disabled", "true");
+    }
+    RUR.runner.run(RUR.rec.display_frame);
+    RUR.ui.stop_called = false;
+    $("#stop").removeAttr("disabled");
+    clearTimeout(RUR.rec.timer);
+};
+
 
 RUR.ui.stop = function () {
     clearTimeout(RUR.rec.timer);
@@ -2737,6 +2756,7 @@ RUR.ui.stop = function () {
     $("#pause").attr("disabled", "true");
     $("#run").removeAttr("disabled");
     $("#step").attr("disabled", "true");
+    $("#reverse-step").attr("disabled", "true");
     $("#reload").removeAttr("disabled");
 
     $("#stop2").attr("disabled", "true");
