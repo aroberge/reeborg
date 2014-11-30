@@ -57,21 +57,7 @@ RUR.create_permalink = function () {
         permalink += ":" + url_query.port;
     }
     permalink += url_query.path;
-
-    switch(RUR.programming_language) {
-        case 'python':
-            proglang = "python-" + human_language;
-            break;
-        case 'coffee':
-            proglang = "coffeescript-" + human_language;
-            break;
-        case 'javascript':
-            if (RUR.strict_javascript) {
-                proglang = "javascript-strict-" + human_language;
-            } else {
-                proglang = "javascript-" + human_language;
-            }
-    }
+    proglang = RUR.programming_language + "-" + human_language;
     world = encodeURIComponent(RUR.world.export_world());
     _editor = encodeURIComponent(editor.getValue());
     _library = encodeURIComponent(library.getValue());
@@ -107,7 +93,6 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.editor = "editor_js_" + human_language;
             RUR.programming_language = "javascript";
             $("#editor-link").html(RUR.translate("Javascript Code"));
-            RUR.strict_javascript = false;
             editor.setOption("mode", "javascript");
             $("#highlight").hide();
             $("#library-link").parent().hide();
