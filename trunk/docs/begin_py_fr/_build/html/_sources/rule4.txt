@@ -12,7 +12,7 @@ ce qui suit.
 
 .. code:: py3
 
-    import biblio
+    from biblio import *
 
     # On note le point de départ en déposant un jeton
     depose("jeton")
@@ -53,7 +53,7 @@ que le programme a deux parties:
        ce qu'il revienne à son point de départ.
     '''
 
-    import biblio
+    from biblio import *
 
     def marque_point_départ_et_avance():
         depose("jeton")

@@ -110,7 +110,12 @@ plusieurs des trucs suivants:
    l'instruction ``pause()`` à n'importe quel point du programme, ce
    qui aura exactement le même effet.
 #. Vous pouvez exécuter un programme *une instruction à la fois* en
-   cliquant sur le bouton *exécution d'une seule instruction*.
+   cliquant sur le bouton *une commande*.
+   Si vous faites ceci, vous remarquerez peut-être que les instructions
+   sont surlignées avant d'être exécutées.  Dans des cas très rares,
+   il peut arriver que le surlignage puisse causer des problèmes pour 
+   l'exécution de certains programmes; vous pouvez désactiver le
+   surlignage en cliquant sur un bouton en haut du code.
 #. Vous pouvez changer la vitesse d’exécution (le temps entre deux
    instructions) à n'importe quel point à l'intérieur d'un programme;
    j'expliquerai comment faire ceci plus tard.

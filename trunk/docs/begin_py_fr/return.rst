@@ -48,9 +48,9 @@ l'énoncé contenant le mot-clé ``return;`` est exécuté.
 Le mot-clé ``return`` peut être accompagné de quelque chose d'autre
 comme l'exemple suivant le démontre.
 
-..topic:: Essayez ceci!
+.. topic:: Essayez ceci!
 
-    ..code-block:: py3
+    .. code-block:: py3
 
         def nord():
            return face_au_nord()

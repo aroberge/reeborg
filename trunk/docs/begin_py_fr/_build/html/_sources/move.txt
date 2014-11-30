@@ -55,9 +55,10 @@ d'en faire une de façon intentionnelle.
 Qu'est-il arrivé?
 ~~~~~~~~~~~~~~~~~
 
-Tout d'abord, je note que le message d'erreur indique **NameError** et qu'on
-lit le mot **undefined**; ceci signifie que *'Avance' n'est pas défini.
-Les messages d'erreurs comportent des termes anglais, mais ceci est
+Tout d'abord, je note que le message d'erreur indique **NameError** et le
+mot *'Avance'* est identifié comme étant "undefined"; 
+ceci signifie que *'Avance'* n'est pas défini.
+Les messages d'erreurs comportent parfois des termes anglais, mais ceci est
 malheureusement incontournable...
 
 Python, le langage que Reeborg comprend, est "sensible à la casse";

@@ -6,7 +6,7 @@ esquisse de solution qui permettra à Reeborg de livrer le journal de
 Madame Lovelace, **Journal 1**, ainsi que celui de Monsieur Babbage,
 **Journal 2**::
 
-    import biblio
+    from biblio import *
 
     def monte_un_étage():
         tourne_a_gauche()

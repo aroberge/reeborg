@@ -158,18 +158,16 @@ simple et faites en sorte que Reeborg exécute le programme suivant.</p>
 l&#8217;énoncé contenant le mot-clé <tt class="docutils literal"><span class="pre">return;</span></tt> est exécuté.</p>
 <p>Le mot-clé <tt class="docutils literal"><span class="pre">return</span></tt> peut être accompagné de quelque chose d&#8217;autre
 comme l&#8217;exemple suivant le démontre.</p>
-<p>..topic:: Essayez ceci!</p>
-<blockquote>
-<div><p>..code-block:: py3</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>def nord():</dt>
-<dd>return face_au_nord()</dd>
-<dt>while not nord():</dt>
-<dd>tourne_a_gauche()</dd>
-</dl>
-</div></blockquote>
-</div></blockquote>
+<div class="topic">
+<p class="topic-title first">Essayez ceci!</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">nord</span><span class="p">():</span>
+   <span class="k">return</span> <span class="n">face_au_nord</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">nord</span><span class="p">():</span>
+    <span class="n">tourne_a_gauche</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 <p>Lorsque vous exécuterez ce programme, vous verrez que la fonction
 <tt class="docutils literal"><span class="pre">nord()</span></tt> donne exactement le même résultat que si vous utilisiez
 directement <tt class="docutils literal"><span class="pre">face_au_nord()</span></tt>; ceci est le résultat de l&#8217;utilisation de

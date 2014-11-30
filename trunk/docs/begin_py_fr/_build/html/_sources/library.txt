@@ -13,11 +13,12 @@ de ces bibliothèques.
 Vous allez utiliser la fonction ``tourne_a_droite()`` **souvent!**
 Plutôt que de la récrire à chaque fois (souvenez-vous de la règle numéro
 3), vous allez plutôt la récrire **une fois** de plus mais, cette
-fois-ci, vous allez cliquer sur l'onglet **Bibliothèque** et l'écrire à
+fois-ci, vous allez cliquer sur l'onglet **Biblio.** et l'écrire à
 cet endroit. Vous devriez également y écrire ``demi_tour()``.
 
 Lorsque vous voudrez utiliser les fonctions définies dans votre bibliothèque,
-il vous suffira d'écrire ``import biblio`` comme toute première ligne
+il vous suffira d'écrire ``from biblio import`` (suivi du nom des fonctions que
+vous avez définies, séparés par des virgules) comme toute première ligne
 de votre programme dans l'éditeur.
 
 
@@ -25,7 +26,7 @@ de votre programme dans l'éditeur.
 
   Après avoir défini les fonctions ``tourne_a_droite()`` et ``demi_tour()``
   dans votre bibliothèque, écrivez un court programme dans l'éditeur "Code Python"
-  qui utilise ces fonctions.  Assurez-vous d'utiliser ``import biblio``
+  qui utilise ces fonctions.  Assurez-vous d'utiliser ``from biblio import tourne_a_droite, demi_tour``
   dans votre programme.
 
 
@@ -34,7 +35,7 @@ de votre programme dans l'éditeur.
    Si vous avez défini les fonctions requises dans votre bibliothèque, un
    exemple d'un tel programme est le suivant::
 
-       import biblio
+       from biblio import tourne_a_droite, demi_tour
        avance()
        demi_tour()
        avance()
