@@ -3522,6 +3522,10 @@ RUR.vis_world.draw_all = function () {
     RUR.vis_world.refresh("initial");
 };
 
+RUR.vis_world.clear_trace = function(){
+    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+}
+
 RUR.vis_world.draw_other = function (other){
     "use strict";
     var obj, mud, i, j, k, t;
