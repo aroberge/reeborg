@@ -811,15 +811,9 @@ $(document).ready(function() {
         switch (prog_lang) {
             case 'python-' + human_language:
             case 'javascript-' + human_language:
-            case 'javascript-strict-' + human_language:
             case 'coffeescript-' + human_language:
                 $('input[type=radio][name=programming_language]').val([prog_lang]);
                 RUR.reset_programming_language(prog_lang);
-                if (prog_lang == "python-"+human_language){
-                    $("#highlight").show();
-                } else {
-                    $("#highlight").hide();
-                }
         }
         // trigger it to load the initial world.
         $("#select_world").change();
@@ -1851,28 +1845,6 @@ $.extend($.ui.dialog.overlay.prototype, {
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR */
-
-RUR.add_line_number = function (s) {
-    var i, line, lines, result;
-    
-    if (s.slice(-1) !== "\n") {
-        s += "\n";
-    }
-    lines = s.split("\n");
-    
-    result = "";
-    for(i=1; i <= lines.length; i++){
-        line = "RUR._line_number(" + i + ")\n" + lines[i-1] + "\n";
-        result += line;
-    }
-    
-    return result;
-};/* Author: André Roberge
-   License: MIT
- */
-
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, editor, library, RUR, JSHINT, globals_ */
 
 
@@ -2554,32 +2526,25 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").html(RUR.translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
             library.setOption("mode", {name: "python", version: 3});
-            break;
-        case 'javascript-strict-' + human_language :
-            RUR.settings.editor = "editor_js_" + human_language;
-            RUR.settings.library = "library_js_" + human_language;
-            RUR.programming_language = "javascript";
-            $("#editor-link").html(RUR.translate("Javascript Code"));
-            RUR.strict_javascript = true;
-            editor.setOption("mode", "javascript");
-            library.setOption("mode", "javascript");
+            $("#highlight").show();
+            $("#library-link").parent().show();
             break;
         case 'javascript-' + human_language :
             RUR.settings.editor = "editor_js_" + human_language;
-            RUR.settings.library = "library_js_" + human_language;
             RUR.programming_language = "javascript";
             $("#editor-link").html(RUR.translate("Javascript Code"));
             RUR.strict_javascript = false;
             editor.setOption("mode", "javascript");
-            library.setOption("mode", "javascript");
+            $("#highlight").hide();
+            $("#library-link").parent().hide();
             break;
         case 'coffeescript-' + human_language :
             RUR.settings.editor = "editor_coffee_" + human_language;
-            RUR.settings.library = "library_coffee_" + human_language;
             RUR.programming_language = "coffee";
             $("#editor-link").html(RUR.translate("CoffeeScript Code"));
             editor.setOption("mode", "coffeescript");
-            library.setOption("mode", "coffeescript");
+            $("#highlight").hide();
+            $("#library-link").parent().hide();
             break;
     }
     try {
@@ -3757,7 +3722,7 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.walls = {};
     world.tokens = {};
     world.shapes = {};
-    world.other = {"mud":['2,3', '4,5']};
+    world.other = {};
     return world;
 };
 RUR.current_world = RUR.world.create_empty_world();
