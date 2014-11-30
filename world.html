@@ -165,20 +165,22 @@
   <div id="tabs">
     <ul>
       <li><a id="editor-link" href="#editor">Python Code</a></li>
-      <button class="blue-gradient float-right" id="load-editor" title="Open program">Open (code)</button>
-      <button class="blue-gradient float-right" id="save-editor" title="Save program">Save (code)</button>
+      <button class="blue-gradient float-right" id="load-editor" title="Open program">Open</button>
+      <button class="blue-gradient float-right" id="save-editor" title="Save program">Save</button>
       <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
         <img src="src/images/highlight.png" alt="highlight">
         <img src="src/images/ok.png" alt="ok" id="ok-image">
         <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
       </button>
+      <button id="lint-js" class="blue-gradient float-right" title="Lint: syntax verification" onclick="RUR.editorUpdateHints()">
+        "Lint"
+      </button>
 
       <li><a id="library-link" href="#library">Library</a></li>
-      <button class="blue-gradient float-right" id="load-library" title="Open library">Open (lib)</button>
-      <button class="blue-gradient float-right" id="save-library" title="Save library">Save (lib)</button>
+      <button class="blue-gradient float-right" id="load-library" title="Open library">Open</button>
+      <button class="blue-gradient float-right" id="save-library" title="Save library">Save</button>
     </ul>
     <div id="editor">
-      <span id="library-problem">Problem with code in library!</span>
       <textarea id="code" name="code">move()</textarea>
 
     </div>

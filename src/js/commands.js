@@ -3,7 +3,7 @@
  */
 
 /*jshint browser:true, devel:true, white:false, plusplus:false */
-/*globals $, CodeMirror, editor, library, removeHints, parseUri */
+/*globals $, CodeMirror, editor, library, parseUri */
 
 var RUR = RUR || {};
 

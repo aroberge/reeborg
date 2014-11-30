@@ -87,6 +87,7 @@ RUR.reset_programming_language = function(choice){
             editor.setOption("mode", {name: "python", version: 3});
             library.setOption("mode", {name: "python", version: 3});
             $("#highlight").show();
+            $("#lint-js").hide();
             $("#library-link").parent().show();
             break;
         case 'javascript-' + human_language :
@@ -95,6 +96,7 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").html(RUR.translate("Javascript Code"));
             editor.setOption("mode", "javascript");
             $("#highlight").hide();
+            $("#lint-js").show();
             $("#library-link").parent().hide();
             break;
         case 'coffeescript-' + human_language :
@@ -103,6 +105,7 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").html(RUR.translate("CoffeeScript Code"));
             editor.setOption("mode", "coffeescript");
             $("#highlight").hide();
+            $("#lint-js").hide();
             $("#library-link").parent().hide();
             break;
     }

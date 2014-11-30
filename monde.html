@@ -174,13 +174,15 @@
         <img src="src/images/ok.png" alt="ok" id="ok-image">
         <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
       </button>
+      <button id="lint-js" class="blue-gradient float-right" title="Lint: vérification de la syntaxe" onclick="RUR.editorUpdateHints()">
+        "Lint"
+      </button>
 
       <li><a id="library-link" href="#library">Biblio.</a></li>
       <button class="blue-gradient float-right" id="load-library" title="Ouvrir la bibliothèque">Ouvrir</button>
       <button class="blue-gradient float-right" id="save-library" title="enregistrer la bibliothèque">Enreg.</button>
     </ul>
     <div id="editor">
-      <span id="library-problem">Il y a un problème avec le code dans la bibliothèque !</span>
       <textarea id="code" name="code">avance()</textarea>
 
     </div>

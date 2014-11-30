@@ -3,7 +3,7 @@
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, editorUpdateHints, libraryUpdateHints, JSHINT, think, _import_library */
+/*globals $, RUR, editor, library, editorUpdateHints, JSHINT, think, _import_library */
 
 RUR.ui = {};
 
