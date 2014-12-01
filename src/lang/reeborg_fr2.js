@@ -47,67 +47,7 @@ RUR.confirmer = function(test) {
     throw ReeborgError("Échec : <br>"+test);
 };
 
-// The following is for OOP programming in Javascript and CoffeeScript
-
-RobotUsage = function (x, y, orientation, tokens)  {
-    this.body = RUR.robot.create_robot(x, y, orientation, tokens);
-    RUR.world.add_robot(this.body);
-};
-RobotUsage.prototype.au_but = function () {
-    RUR.control.at_goal(this.body);
-};
-
-RobotUsage.prototype.au_but_orientation = function () {
-    RUR.control.at_goal_orientation(this.body);
-};
-
-RobotUsage.prototype.construit_un_mur = function () {
-    RUR.control.build_wall(this.body);
-};
-
-RobotUsage.prototype.rien_devant = function () {
-    RUR.control.front_is_clear(this.body);
-};
-
-RobotUsage.prototype.a_des_jetons = function () {
-    RUR.control.has_token(this.body);
-};
-
-RobotUsage.prototype.face_au_nord = function () {
-    RUR.control.is_facing_north(this.body);
-};
-
-RobotUsage.prototype.avance = function () {
-    RUR.control.move(this.body);
-};
-
-RobotUsage.prototype.depose = function () {
-    RUR.control.put(this.body);
-};
-
-RobotUsage.prototype.jeton_ici = function () {
-    RUR.control.token_here(this.body);
-};
-
-RobotUsage.prototype.rien_a_droite = function () {
-    RUR.control.right_is_clear(this.body);
-};
-
-RobotUsage.prototype.objet_ici = function () {
-    RUR.control.object_here(this.body);
-};
-
-RobotUsage.prototype.prend = function () {
-    RUR.control.take(this.body);
-};
-
-RobotUsage.prototype.tourne_a_gauche = function () {
-    RUR.control.turn_left(this.body);
-};
-
-
 RUR.reset_definitions = function () {
-
     // defined above
     confirmer = RUR.confirmer;
     // robot commands - defined in commands.js
@@ -140,5 +80,63 @@ RUR.reset_definitions = function () {
     selectionne_monde = RUR.ui.select_world;
     selectionne_defi = RUR.ui.select_challenge;
 
+    // The following are for OOP programming in Javascript and CoffeeScript
+
+    RobotUsage = function (x, y, orientation, tokens)  {
+        this.body = RUR.robot.create_robot(x, y, orientation, tokens);
+        RUR.world.add_robot(this.body);
+    };
+    RobotUsage.prototype.au_but = function () {
+        RUR.control.at_goal(this.body);
+    };
+
+    RobotUsage.prototype.au_but_orientation = function () {
+        RUR.control.at_goal_orientation(this.body);
+    };
+
+    RobotUsage.prototype.construit_un_mur = function () {
+        RUR.control.build_wall(this.body);
+    };
+
+    RobotUsage.prototype.rien_devant = function () {
+        RUR.control.front_is_clear(this.body);
+    };
+
+    RobotUsage.prototype.a_des_jetons = function () {
+        RUR.control.has_token(this.body);
+    };
+
+    RobotUsage.prototype.face_au_nord = function () {
+        RUR.control.is_facing_north(this.body);
+    };
+
+    RobotUsage.prototype.avance = function () {
+        RUR.control.move(this.body);
+    };
+
+    RobotUsage.prototype.depose = function () {
+        RUR.control.put(this.body);
+    };
+
+    RobotUsage.prototype.jeton_ici = function () {
+        RUR.control.token_here(this.body);
+    };
+
+    RobotUsage.prototype.rien_a_droite = function () {
+        RUR.control.right_is_clear(this.body);
+    };
+
+    RobotUsage.prototype.objet_ici = function () {
+        RUR.control.object_here(this.body);
+    };
+
+    RobotUsage.prototype.prend = function () {
+        RUR.control.take(this.body);
+    };
+
+    RobotUsage.prototype.tourne_a_gauche = function () {
+        RUR.control.turn_left(this.body);
+    };
 };
+
 RUR.reset_definitions();
