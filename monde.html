@@ -174,10 +174,6 @@
         <img src="src/images/ok.png" alt="ok" id="ok-image">
         <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
       </button>
-      <button id="lint-js" class="blue-gradient float-right" title="Lint: vérification de la syntaxe" onclick="RUR.editorUpdateHints()">
-        "Lint"
-      </button>
-
       <li><a id="library-link" href="#library">Biblio.</a></li>
 
     </ul>
@@ -330,6 +326,20 @@ window['translate_python'] = translate_python
   éditeur de texte, etc.). </p>
 
   <p>
+    <button class="blue-gradient" id="reverse-step" title="Renverse la commande" onclick="RUR.ui.reverse_step();">
+      <img src="src/images/reverse_step.png" alt="Renverse la commande">
+    </button>
+    <span class="description"> Renverse l'instruction précédemment exécutée.
+    </span>
+  </p>
+  <p>
+    <button class="blue-gradient" title="Effacer la trace" onclick="RUR.vis_world.clear_trace();">Effacer la trace</button>
+    <span class="description"> Efface la trace laissée par Reeborg.  Ceci est utile pour permettre de se concentrer
+      sur ce qui arrive lorsqu'on résume un programme après une pause.
+    </span>
+  </p>
+
+  <p>
     <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaboration</button>
     <span class="description"> Outil qui permet la collaboration à distance en utilisant l'outil TogetherJS de Mozilla
         (interface en anglais seulement).
@@ -348,40 +358,42 @@ window['translate_python'] = translate_python
       par le contenu du fichier choisi.
     </span>
   </p>
-
+<hr>
+  <h3>Python seulement</h3>
   <p>
     <button class="blue-gradient" id="save-library" title="enregistrer la bibliothèque">Enregistrer la bibliothèque</button>
-    <span class="description">  Pour la programmation en Python seulement. Enregistre le contenu de la bibliothèque dans un fichier.
+    <span class="description">  Pour la programmation en Python seulement. <br>
+      Enregistre le contenu de la bibliothèque dans un fichier.
     </span>
   </p>
 
   <p>
     <button class="blue-gradient" id="load-library" title="Ouvrir la bibliothèque">Importer une bibliothèque</button>
-    <span class="description"> Pour la programmation en Python seulement.
+    <span class="description"> Pour la programmation en Python seulement.<br>
       Ouvre un fichier contenant un programme et remplace le contenu de la bibliothèque
       par le contenu du fichier choisi.
     </span>
   </p>
 
-  <p>
-    <button class="blue-gradient" title="Effacer la trace" onclick="RUR.vis_world.clear_trace();">Effacer la trace</button>
-    <span class="description"> Efface la trace laissée par Reeborg.  Ceci est utile pour permettre de se concentrer
-      sur ce qui arrive lorsqu'on résume un programme après une pause.
-    </span>
-  </p>
-  <p>
-    <button class="blue-gradient" id="reverse-step" title="Renverse la commande" onclick="RUR.ui.reverse_step();">
-      <img src="src/images/reverse_step.png" alt="Renverse la commande">
-    </button>
-    <span class="description"> Renverse l'instruction précédemment exécutée.
-    </span>
-  </p>
+<hr>
+  <h3>Javascript seulement</h3>
 
+  <p>
+    <button id="lint-js" class="blue-gradient float-right" title="Lint: vérification de la syntaxe" onclick="RUR.editorUpdateHints()">
+      "Lint"
+    </button>
+    <span class="description"> Pour la programmation en Javascript seulement.<br>
+      Vérifie la syntaxe en utilisant JSHint et ajoute des indicateurs d'erreurs dans l'éditeur
+      le cas échéant.
+    </span>
+  </p>
+<hr>
+  <h3>CoffeeScript seulement</h3>
   <p>
     <button class="blue-gradient" id="compile-coffee" title="Converstir Coffee" onclick="RUR.runner.compile_coffee();">
       Convertir CoffeeScript
     </button>
-    <span class="description"> Pour la programmation en CoffeeScript seulement.
+    <span class="description"> Pour la programmation en CoffeeScript seulement.<br>
       Converti le code CoffeeScript présent dans l'éditeur en code Javascript; le résultat
       est imprimé dans le journal de Reeborg.
     </span>
