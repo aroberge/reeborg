@@ -188,11 +188,4 @@ RUR.reset_definitions = function () {
 };
 
 
-// the regex of the following should be adapted
-// so that they make sense in the human language ...
-
-RUR.import_lib_regex_js = /^\s*import_biblio\s*\(\s*\);/m;
-RUR.import_lib_regex_py = /^from\s* biblio\s* import\s* \*\s*$/m;
-RUR.import_lib_regex_coffee = /^\s*import_biblio\s*\(\s*\)/m;
-
 

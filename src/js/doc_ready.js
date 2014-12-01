@@ -4,7 +4,7 @@
 
 /*jshint -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, toggle_contents_button, update_controls, saveAs, toggle_editing_mode,
-          save_world, delete_world*/
+          save_world, delete_world, parseUri*/
 
 $(document).ready(function() {
 

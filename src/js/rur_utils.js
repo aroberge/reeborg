@@ -2,7 +2,7 @@
    License: MIT  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR, $, CodeMirror, editor, library, removeHints, parseUri */
+/*globals RUR, $, CodeMirror, ReeborgError, editor, library, removeHints, parseUri */
 
 RUR.ReeborgError = function (message) {
     if (RUR.programming_language == "python"){
@@ -25,20 +25,18 @@ RUR.reset_code_in_editors = function () {
         default_instruction = RUR.translate("move");
 
     if (RUR.programming_language == "javascript") {
-        library_default = RUR.translate("/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n");
         editor_default = default_instruction + "();";
     } else if (RUR.programming_language == "python") {
         library_default = RUR.translate("# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n");
+        library_content = localStorage.getItem(RUR.settings.library);
+        if (!library_content){
+            library_content = library_default;
+        }
+        library.setValue(library_content);
         editor_default = default_instruction + "()";
     }  else if (RUR.programming_language == "coffee") {
-        library_default = RUR.translate("# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n");
         editor_default = default_instruction + "()";
     }
-    library_content = localStorage.getItem(RUR.settings.library);
-    if (!library_content){
-        library_content = library_default;
-    }
-    library.setValue(library_content);
     editor_content = localStorage.getItem(RUR.settings.editor);
     if (!editor_content){
         editor_content = editor_default;
@@ -183,40 +181,16 @@ RUR.view_source = function(fn) {
     });
 };
 
-RUR._import_library = function () {
-  // adds the library code to the editor code if appropriate string is found
-    var separator, import_lib_regex, src, lib_src;
-    if (RUR.programming_language == "javascript") {
-        separator = ";\n";
-        import_lib_regex = RUR.import_lib_regex_js;
-    } else if (RUR.programming_language === "python") {
-        separator = "\n";
-        import_lib_regex = RUR.import_lib_regex_py;
-    } else if (RUR.programming_language === "coffee") {
-        separator = "\n";
-        import_lib_regex = RUR.import_lib_regex_coffee;
-    }
-
-    lib_src = library.getValue();
-    src = editor.getValue();
-
-    if (RUR.programming_language === "python" && RUR._highlight) {
-        src = insert_highlight_info(src);
-    }
-
-    return src.replace(import_lib_regex, separator+lib_src);
-};
-
 // Returns a random integer between min and max (both included)
 RUR.randint = function (min, max, previous) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 RUR.filterInt = function (value) {
   if(/^\s*([0-9]+)\s*$/.test(value))
     return parseInt(value, 10);
   return undefined;
-}
+};
 
 RUR.set_lineno_highlight = function(lineno, frame) {
     RUR.current_lineno = lineno;

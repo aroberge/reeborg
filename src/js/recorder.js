@@ -49,7 +49,7 @@ RUR.rec.record_frame = function (name, obj) {
 
 /*    Experimental code    */
    if (RUR.programming_language === "python" && RUR._highlight) {
-       if (RUR.current_lineno != undefined) {
+       if (RUR.current_lineno !== undefined) {
            RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR.current_lineno;
        } else{
            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
@@ -154,7 +154,7 @@ RUR.rec.display_frame = function () {
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message + "\n");
     } else if (frame.say !== undefined) {
-        $("#Reeborg-says").html(frame.say.toString()).dialog("open").effect("highlight", {color: "cornsilk"}, 300);;
+        $("#Reeborg-says").html(frame.say.toString()).dialog("open").effect("highlight", {color: "cornsilk"}, 300);
     }
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){

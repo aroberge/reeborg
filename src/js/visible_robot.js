@@ -150,7 +150,7 @@ RUR.vis_robot.draw_trace = function (robot) {
 
 RUR.vis_robot.set_trace_style = function (choice){
     "use strict";
-    if (choice == undefined) {
+    if (choice === undefined) {
         return;
     }
     RUR.TRACE_STYLE = choice;
