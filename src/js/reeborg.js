@@ -2364,7 +2364,7 @@ RUR.runner.eval_javascript = function (src) {
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
     RUR.reset_definitions();
-    translate_python(src);
+    translate_python(src, RUR._highlight);
 };
 
 

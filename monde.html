@@ -278,9 +278,9 @@ from browser import window
 import common_def
 from reeborg_fr import *  # will insert the relevant help information
 
-def translate_python(src):
+def translate_python(src, highlight):
     import biblio
-    common_def.generic_translate_python(src, biblio, "from reeborg_fr import *")
+    common_def.generic_translate_python(src, biblio, "from reeborg_fr import *", highlight)
 
 window['translate_python'] = translate_python
 </script>
