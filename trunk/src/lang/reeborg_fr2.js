@@ -141,3 +141,4 @@ RUR.reset_definitions = function () {
     selectionne_defi = RUR.ui.select_challenge;
 
 };
+RUR.reset_definitions();

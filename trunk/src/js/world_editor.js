@@ -112,7 +112,7 @@ RUR.we.select = function (choice) {
             break;
         case "goal-robot":
             $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
-            if (RUR.current_world.goal != undefined && RUR.current_world.goal.position != undefined){
+            if (RUR.current_world.goal !== undefined && RUR.current_world.goal.position !== undefined){
                 $("#edit-world-turn").show();
                 $("#random-orientation").hide();
             } else {
@@ -250,7 +250,7 @@ RUR.we.place_robot = function () {
     "use strict";
     var position, world=RUR.current_world, robot, arr=[], pos, present=false;
     position = RUR.we.calculate_grid_position();
-    if (world.robots != undefined){
+    if (world.robots !== undefined){
         if (world.robots.length >0) {
             robot = world.robots[0];
             if (!robot.start_positions){
@@ -283,7 +283,7 @@ RUR.we.place_robot = function () {
         robot.x = position[0];
         robot.y = position[1];
     }
-    if (arr.length==0){
+    if (arr.length===0){
         RUR.current_world.robots = [];
         RUR.we.change_edit_robot_menu();
         return;
@@ -295,7 +295,7 @@ RUR.we.place_robot = function () {
 };
 
 RUR.we.give_tokens_to_robot = function () {
-    var tok, tokens, max_tokens;
+    var _tok, tokens, max_tokens;
     var response = prompt(RUR.translate("Enter number of tokens for robot to carry (use inf for infinite number)"));
     if (response !== null) {
         _tok = response.split("-");
@@ -600,7 +600,7 @@ RUR.we.set_goal_position = function (){
     RUR.we.ensure_key_exist(world, "goal");
     goal = world.goal;
 
-    if (goal.possible_positions == undefined) {
+    if (goal.possible_positions === undefined) {
         RUR.we.ensure_key_exist(goal, "possible_positions");
         if (goal.position !== undefined) {
             goal.possible_positions = [[goal.position.x, goal.position.y]];
@@ -631,7 +631,7 @@ RUR.we.set_goal_position = function (){
     }
     goal.possible_positions = arr;
 
-    if (arr.length == 0) {
+    if (arr.length === 0) {
         delete RUR.current_world.goal.position;
         delete RUR.current_world.goal.possible_positions;
         if (RUR.current_world.goal.orientation !== undefined) {
@@ -808,7 +808,7 @@ RUR.we.toggle_mud = function (){
     coords = x + "," + y;
 
     RUR.we.ensure_key_exist(RUR.current_world, "other");
-    if (RUR.current_world.other.mud == undefined) {
+    if (RUR.current_world.other.mud === undefined) {
         RUR.current_world.other.mud = [];
     }
     index = RUR.current_world.other.mud.indexOf(coords);

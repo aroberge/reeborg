@@ -3,7 +3,7 @@
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, editorUpdateHints, JSHINT, think, _import_library */
+/*globals $, RUR */
 
 RUR.ui = {};
 
@@ -244,7 +244,7 @@ RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gr
 
 RUR.ui.add_help = function(usage, _id, lang, warning){
 
-    if (RUR.ui._added_lang == undefined) {
+    if (RUR.ui._added_lang === undefined) {
         RUR.ui._added_lang = [lang];
     } else if (RUR.ui._added_lang.indexOf(lang)== -1) {
         RUR.ui._added_lang.push(lang);

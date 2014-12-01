@@ -113,10 +113,7 @@ RUR._repeat_ = function (f, n) {
 RUR._set_max_steps_ = function(n){
     RUR.MAX_STEPS_ = n;
 };
-
-import_lib = function() {
-    eval(library.getValue());
-}/* Author: André Roberge
+/* Author: André Roberge
    License: MIT
 
    Defining base name space and various constants.
@@ -525,7 +522,7 @@ RUR.control.play_sound = function (sound_id) {
 
 /*jshint -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, toggle_contents_button, update_controls, saveAs, toggle_editing_mode,
-          save_world, delete_world*/
+          save_world, delete_world, parseUri*/
 
 $(document).ready(function() {
 
@@ -1951,7 +1948,7 @@ RUR.rec.record_frame = function (name, obj) {
 
 /*    Experimental code    */
    if (RUR.programming_language === "python" && RUR._highlight) {
-       if (RUR.current_lineno != undefined) {
+       if (RUR.current_lineno !== undefined) {
            RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR.current_lineno;
        } else{
            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
@@ -2056,7 +2053,7 @@ RUR.rec.display_frame = function () {
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message + "\n");
     } else if (frame.say !== undefined) {
-        $("#Reeborg-says").html(frame.say.toString()).dialog("open").effect("highlight", {color: "cornsilk"}, 300);;
+        $("#Reeborg-says").html(frame.say.toString()).dialog("open").effect("highlight", {color: "cornsilk"}, 300);
     }
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
@@ -2279,7 +2276,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, editorUpdateHints,
-  translate_python, _import_library, CoffeeScript */
+  translate_python, CoffeeScript */
 
 RUR.runner = {};
 
@@ -2289,7 +2286,7 @@ RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (!RUR.runner.interpreted) {
         RUR.vis_world.select_initial_values();
-        src = RUR._import_library();                // defined in rur_utils.js
+        src = editor.getValue();
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }
@@ -2381,13 +2378,13 @@ RUR.runner.compile_coffee = function() {
     if (RUR.programming_language !== "coffee") {
         return;
     }
-    var js_code = CoffeeScript.compile(editor.getValue())
+    var js_code = CoffeeScript.compile(editor.getValue());
     $("#output-pre").html(js_code);
-}/* Author: André Roberge
+};/* Author: André Roberge
    License: MIT  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR, $, CodeMirror, editor, library, removeHints, parseUri */
+/*globals RUR, $, CodeMirror, ReeborgError, editor, library, removeHints, parseUri */
 
 RUR.ReeborgError = function (message) {
     if (RUR.programming_language == "python"){
@@ -2410,20 +2407,18 @@ RUR.reset_code_in_editors = function () {
         default_instruction = RUR.translate("move");
 
     if (RUR.programming_language == "javascript") {
-        library_default = RUR.translate("/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n");
         editor_default = default_instruction + "();";
     } else if (RUR.programming_language == "python") {
         library_default = RUR.translate("# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n");
+        library_content = localStorage.getItem(RUR.settings.library);
+        if (!library_content){
+            library_content = library_default;
+        }
+        library.setValue(library_content);
         editor_default = default_instruction + "()";
     }  else if (RUR.programming_language == "coffee") {
-        library_default = RUR.translate("# 'import_lib()' in CoffeeScript Code is required to use\n# the code in this library. \n\n");
         editor_default = default_instruction + "()";
     }
-    library_content = localStorage.getItem(RUR.settings.library);
-    if (!library_content){
-        library_content = library_default;
-    }
-    library.setValue(library_content);
     editor_content = localStorage.getItem(RUR.settings.editor);
     if (!editor_content){
         editor_content = editor_default;
@@ -2568,40 +2563,16 @@ RUR.view_source = function(fn) {
     });
 };
 
-RUR._import_library = function () {
-  // adds the library code to the editor code if appropriate string is found
-    var separator, import_lib_regex, src, lib_src;
-    if (RUR.programming_language == "javascript") {
-        separator = ";\n";
-        import_lib_regex = RUR.import_lib_regex_js;
-    } else if (RUR.programming_language === "python") {
-        separator = "\n";
-        import_lib_regex = RUR.import_lib_regex_py;
-    } else if (RUR.programming_language === "coffee") {
-        separator = "\n";
-        import_lib_regex = RUR.import_lib_regex_coffee;
-    }
-
-    lib_src = library.getValue();
-    src = editor.getValue();
-
-    if (RUR.programming_language === "python" && RUR._highlight) {
-        src = insert_highlight_info(src);
-    }
-
-    return src.replace(import_lib_regex, separator+lib_src);
-};
-
 // Returns a random integer between min and max (both included)
 RUR.randint = function (min, max, previous) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 RUR.filterInt = function (value) {
   if(/^\s*([0-9]+)\s*$/.test(value))
     return parseInt(value, 10);
   return undefined;
-}
+};
 
 RUR.set_lineno_highlight = function(lineno, frame) {
     RUR.current_lineno = lineno;
@@ -2661,7 +2632,7 @@ RUR.storage.delete_world = function (name){
  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, editorUpdateHints, JSHINT, think, _import_library */
+/*globals $, RUR */
 
 RUR.ui = {};
 
@@ -2902,7 +2873,7 @@ RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gr
 
 RUR.ui.add_help = function(usage, _id, lang, warning){
 
-    if (RUR.ui._added_lang == undefined) {
+    if (RUR.ui._added_lang === undefined) {
         RUR.ui._added_lang = [lang];
     } else if (RUR.ui._added_lang.indexOf(lang)== -1) {
         RUR.ui._added_lang.push(lang);
@@ -3153,7 +3124,7 @@ RUR.vis_robot.draw_trace = function (robot) {
 
 RUR.vis_robot.set_trace_style = function (choice){
     "use strict";
-    if (choice == undefined) {
+    if (choice === undefined) {
         return;
     }
     RUR.TRACE_STYLE = choice;
@@ -3293,7 +3264,7 @@ RUR.vis_world.draw_robots = function (robots) {
     if (RUR.current_world.blank_canvas) {
         return;
     }
-    if (!robots || robots[0] == undefined) {
+    if (!robots || robots[0] === undefined) {
         return;
     }
 
@@ -3540,7 +3511,7 @@ RUR.vis_world.draw_all = function () {
 
 RUR.vis_world.clear_trace = function(){
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-}
+};
 
 RUR.vis_world.draw_other = function (other){
     "use strict";
@@ -3548,21 +3519,22 @@ RUR.vis_world.draw_other = function (other){
     if (other === undefined) {
         return;
     }
-    if (other.mud != undefined){
+    if (other.mud !== undefined){
         mud = other.mud;
         for (t=0; t < mud.length; t++){
             k = mud[t].split(",");
             i = parseInt(k[0], 10);
             j = parseInt(k[1], 10);
-            RUR.vis_world.draw_mud(i, j)};
+            RUR.vis_world.draw_mud(i, j);
+        }
     }
-}
+};
 
 RUR.vis_world.refresh = function (initial) {
     "use strict";
     var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
-    if (initial !== undefined && RUR.current_world.goal != undefined
-        && RUR.current_world.goal.possible_positions != undefined) {
+    if (initial !== undefined && RUR.current_world.goal !== undefined &&
+        RUR.current_world.goal.possible_positions !== undefined) {
         goal = RUR.current_world.goal;
         for (i=0; i < goal.possible_positions.length; i++){
             goal.position.x = goal.possible_positions[i][0];
@@ -3571,8 +3543,8 @@ RUR.vis_world.refresh = function (initial) {
             //RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
         }
     } else {
-        if ( RUR.current_world.goal != undefined && RUR.current_world.goal.possible_positions != undefined
-            && RUR.current_world.goal.possible_positions.length > 1) {
+        if ( RUR.current_world.goal !== undefined && RUR.current_world.goal.possible_positions !== undefined &&
+            RUR.current_world.goal.possible_positions.length > 1) {
             // erase all possible tiles for goal position by drawing them all white
             // if needed this could be made more efficient by setting up a flag and not redoing while
             // the program is running i.e. after the first frame ...
@@ -3591,7 +3563,7 @@ RUR.vis_world.refresh = function (initial) {
             // note that some goal shapes might have been placed on the possible positions,
             // hence we must make sure to draw all the goals.
             RUR.TARGET_TILE_COLOR = color1_temp;
-            RUR.ORIENTATION_TILE_COLOR = color2_temp
+            RUR.ORIENTATION_TILE_COLOR = color2_temp;
             goal.position = position;
             RUR.vis_world.draw_goal();
         }
@@ -3599,10 +3571,11 @@ RUR.vis_world.refresh = function (initial) {
 
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_other(RUR.current_world.other);
-    if (initial !== undefined && RUR.current_world.robots != undefined
-        && RUR.current_world.robots[0] != undefined
-        && RUR.current_world.robots[0].start_positions != undefined && RUR.current_world.robots[0].start_positions.length > 1) {
-        robot = RUR.current_world.robots[0];
+    if (initial !== undefined && RUR.current_world.robots !== undefined &&
+            RUR.current_world.robots[0] !== undefined &&
+            RUR.current_world.robots[0].start_positions !== undefined && 
+            RUR.current_world.robots[0].start_positions.length > 1) {
+            robot = RUR.current_world.robots[0];
         for (i=0; i < robot.start_positions.length; i++){
             clone = JSON.parse(JSON.stringify(robot));
             clone.x = robot.start_positions[i][0];
@@ -3614,7 +3587,7 @@ RUR.vis_world.refresh = function (initial) {
         RUR.ROBOT_CTX.save();
         RUR.ROBOT_CTX.globalAlpha = 0.4;
         RUR.vis_world.draw_robots(clones);
-        RUR.ROBOT_CTX.restore()
+        RUR.ROBOT_CTX.restore();
     } else {
         RUR.vis_world.draw_robots(RUR.current_world.robots);
     }
@@ -3640,14 +3613,14 @@ RUR.vis_world.select_initial_values = function() {
             min_ = RUR.current_world.min_tokens[keys[k]];
             max_ = RUR.current_world.max_tokens[keys[k]];
             RUR.current_world.tokens[keys[k]] = RUR.randint(min_, max_);
-            if (RUR.current_world.tokens[keys[k]] == 0) {
+            if (RUR.current_world.tokens[keys[k]] === 0) {
                 delete RUR.current_world.tokens[keys[k]];
             }
         }
     }
     robot = RUR.current_world.robots[0];
     if (robot === undefined){
-        return
+        return;
     }
     if (robot.orientation == -1){
         RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
@@ -3656,7 +3629,7 @@ RUR.vis_world.select_initial_values = function() {
     if (robot.tokens_range !== undefined){
         RUR.current_world.robots[0].tokens = RUR.randint(robot.min_tokens, robot.max_tokens);
     }
-    if (robot.start_positions != undefined && robot.start_positions.length > 1) {
+    if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
         position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
         robot.x = position[0];
         robot.y = position[1];
@@ -3664,15 +3637,15 @@ RUR.vis_world.select_initial_values = function() {
         robot._prev_y = robot.y;
     }
 
-    if (RUR.current_world.goal != undefined){
+    if (RUR.current_world.goal !== undefined){
         goal = RUR.current_world.goal;
-        if (goal.possible_positions != undefined && goal.possible_positions.length > 1) {
+        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1) {
             position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
             goal.position.x = position[0];
             goal.position.y = position[1];
         }
     }
-}/* Author: André Roberge
+};/* Author: André Roberge
    License: MIT
  */
 
@@ -3874,7 +3847,7 @@ RUR.we.select = function (choice) {
             break;
         case "goal-robot":
             $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
-            if (RUR.current_world.goal != undefined && RUR.current_world.goal.position != undefined){
+            if (RUR.current_world.goal !== undefined && RUR.current_world.goal.position !== undefined){
                 $("#edit-world-turn").show();
                 $("#random-orientation").hide();
             } else {
@@ -4012,7 +3985,7 @@ RUR.we.place_robot = function () {
     "use strict";
     var position, world=RUR.current_world, robot, arr=[], pos, present=false;
     position = RUR.we.calculate_grid_position();
-    if (world.robots != undefined){
+    if (world.robots !== undefined){
         if (world.robots.length >0) {
             robot = world.robots[0];
             if (!robot.start_positions){
@@ -4045,7 +4018,7 @@ RUR.we.place_robot = function () {
         robot.x = position[0];
         robot.y = position[1];
     }
-    if (arr.length==0){
+    if (arr.length===0){
         RUR.current_world.robots = [];
         RUR.we.change_edit_robot_menu();
         return;
@@ -4057,7 +4030,7 @@ RUR.we.place_robot = function () {
 };
 
 RUR.we.give_tokens_to_robot = function () {
-    var tok, tokens, max_tokens;
+    var _tok, tokens, max_tokens;
     var response = prompt(RUR.translate("Enter number of tokens for robot to carry (use inf for infinite number)"));
     if (response !== null) {
         _tok = response.split("-");
@@ -4362,7 +4335,7 @@ RUR.we.set_goal_position = function (){
     RUR.we.ensure_key_exist(world, "goal");
     goal = world.goal;
 
-    if (goal.possible_positions == undefined) {
+    if (goal.possible_positions === undefined) {
         RUR.we.ensure_key_exist(goal, "possible_positions");
         if (goal.position !== undefined) {
             goal.possible_positions = [[goal.position.x, goal.position.y]];
@@ -4393,7 +4366,7 @@ RUR.we.set_goal_position = function (){
     }
     goal.possible_positions = arr;
 
-    if (arr.length == 0) {
+    if (arr.length === 0) {
         delete RUR.current_world.goal.position;
         delete RUR.current_world.goal.possible_positions;
         if (RUR.current_world.goal.orientation !== undefined) {
@@ -4570,7 +4543,7 @@ RUR.we.toggle_mud = function (){
     coords = x + "," + y;
 
     RUR.we.ensure_key_exist(RUR.current_world, "other");
-    if (RUR.current_world.other.mud == undefined) {
+    if (RUR.current_world.other.mud === undefined) {
         RUR.current_world.other.mud = [];
     }
     index = RUR.current_world.other.mud.indexOf(coords);

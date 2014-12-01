@@ -120,7 +120,7 @@ RUR.vis_world.draw_robots = function (robots) {
     if (RUR.current_world.blank_canvas) {
         return;
     }
-    if (!robots || robots[0] == undefined) {
+    if (!robots || robots[0] === undefined) {
         return;
     }
 
@@ -367,7 +367,7 @@ RUR.vis_world.draw_all = function () {
 
 RUR.vis_world.clear_trace = function(){
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-}
+};
 
 RUR.vis_world.draw_other = function (other){
     "use strict";
@@ -375,21 +375,22 @@ RUR.vis_world.draw_other = function (other){
     if (other === undefined) {
         return;
     }
-    if (other.mud != undefined){
+    if (other.mud !== undefined){
         mud = other.mud;
         for (t=0; t < mud.length; t++){
             k = mud[t].split(",");
             i = parseInt(k[0], 10);
             j = parseInt(k[1], 10);
-            RUR.vis_world.draw_mud(i, j)};
+            RUR.vis_world.draw_mud(i, j);
+        }
     }
-}
+};
 
 RUR.vis_world.refresh = function (initial) {
     "use strict";
     var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
-    if (initial !== undefined && RUR.current_world.goal != undefined
-        && RUR.current_world.goal.possible_positions != undefined) {
+    if (initial !== undefined && RUR.current_world.goal !== undefined &&
+        RUR.current_world.goal.possible_positions !== undefined) {
         goal = RUR.current_world.goal;
         for (i=0; i < goal.possible_positions.length; i++){
             goal.position.x = goal.possible_positions[i][0];
@@ -398,8 +399,8 @@ RUR.vis_world.refresh = function (initial) {
             //RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
         }
     } else {
-        if ( RUR.current_world.goal != undefined && RUR.current_world.goal.possible_positions != undefined
-            && RUR.current_world.goal.possible_positions.length > 1) {
+        if ( RUR.current_world.goal !== undefined && RUR.current_world.goal.possible_positions !== undefined &&
+            RUR.current_world.goal.possible_positions.length > 1) {
             // erase all possible tiles for goal position by drawing them all white
             // if needed this could be made more efficient by setting up a flag and not redoing while
             // the program is running i.e. after the first frame ...
@@ -418,7 +419,7 @@ RUR.vis_world.refresh = function (initial) {
             // note that some goal shapes might have been placed on the possible positions,
             // hence we must make sure to draw all the goals.
             RUR.TARGET_TILE_COLOR = color1_temp;
-            RUR.ORIENTATION_TILE_COLOR = color2_temp
+            RUR.ORIENTATION_TILE_COLOR = color2_temp;
             goal.position = position;
             RUR.vis_world.draw_goal();
         }
@@ -426,10 +427,11 @@ RUR.vis_world.refresh = function (initial) {
 
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_other(RUR.current_world.other);
-    if (initial !== undefined && RUR.current_world.robots != undefined
-        && RUR.current_world.robots[0] != undefined
-        && RUR.current_world.robots[0].start_positions != undefined && RUR.current_world.robots[0].start_positions.length > 1) {
-        robot = RUR.current_world.robots[0];
+    if (initial !== undefined && RUR.current_world.robots !== undefined &&
+            RUR.current_world.robots[0] !== undefined &&
+            RUR.current_world.robots[0].start_positions !== undefined && 
+            RUR.current_world.robots[0].start_positions.length > 1) {
+            robot = RUR.current_world.robots[0];
         for (i=0; i < robot.start_positions.length; i++){
             clone = JSON.parse(JSON.stringify(robot));
             clone.x = robot.start_positions[i][0];
@@ -441,7 +443,7 @@ RUR.vis_world.refresh = function (initial) {
         RUR.ROBOT_CTX.save();
         RUR.ROBOT_CTX.globalAlpha = 0.4;
         RUR.vis_world.draw_robots(clones);
-        RUR.ROBOT_CTX.restore()
+        RUR.ROBOT_CTX.restore();
     } else {
         RUR.vis_world.draw_robots(RUR.current_world.robots);
     }
@@ -467,14 +469,14 @@ RUR.vis_world.select_initial_values = function() {
             min_ = RUR.current_world.min_tokens[keys[k]];
             max_ = RUR.current_world.max_tokens[keys[k]];
             RUR.current_world.tokens[keys[k]] = RUR.randint(min_, max_);
-            if (RUR.current_world.tokens[keys[k]] == 0) {
+            if (RUR.current_world.tokens[keys[k]] === 0) {
                 delete RUR.current_world.tokens[keys[k]];
             }
         }
     }
     robot = RUR.current_world.robots[0];
     if (robot === undefined){
-        return
+        return;
     }
     if (robot.orientation == -1){
         RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
@@ -483,7 +485,7 @@ RUR.vis_world.select_initial_values = function() {
     if (robot.tokens_range !== undefined){
         RUR.current_world.robots[0].tokens = RUR.randint(robot.min_tokens, robot.max_tokens);
     }
-    if (robot.start_positions != undefined && robot.start_positions.length > 1) {
+    if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
         position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
         robot.x = position[0];
         robot.y = position[1];
@@ -491,12 +493,12 @@ RUR.vis_world.select_initial_values = function() {
         robot._prev_y = robot.y;
     }
 
-    if (RUR.current_world.goal != undefined){
+    if (RUR.current_world.goal !== undefined){
         goal = RUR.current_world.goal;
-        if (goal.possible_positions != undefined && goal.possible_positions.length > 1) {
+        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1) {
             position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
             goal.position.x = position[0];
             goal.position.y = position[1];
         }
     }
-}
+};

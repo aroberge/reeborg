@@ -4,7 +4,7 @@
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, editorUpdateHints,
-  translate_python, _import_library, CoffeeScript */
+  translate_python, CoffeeScript */
 
 RUR.runner = {};
 
@@ -14,7 +14,7 @@ RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (!RUR.runner.interpreted) {
         RUR.vis_world.select_initial_values();
-        src = RUR._import_library();                // defined in rur_utils.js
+        src = editor.getValue();
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }
@@ -106,6 +106,6 @@ RUR.runner.compile_coffee = function() {
     if (RUR.programming_language !== "coffee") {
         return;
     }
-    var js_code = CoffeeScript.compile(editor.getValue())
+    var js_code = CoffeeScript.compile(editor.getValue());
     $("#output-pre").html(js_code);
-}
+};
