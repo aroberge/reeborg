@@ -81,6 +81,9 @@ RUR.reset_programming_language = function(choice){
     $("#load-library").attr("disabled", "true");
     $("#save-library").attr("disabled", "true");
     $("#compile-coffee").attr("disabled", "true");
+    $("#lint-js").attr("disabled", "true");
+    $("#library-link").parent().hide();
+    $("#highlight").hide();
     switch(RUR.settings.current_language){
         case 'python-' + human_language :
             RUR.settings.editor = "editor_py_" + human_language;
@@ -89,8 +92,8 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").html(RUR.translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
             library.setOption("mode", {name: "python", version: 3});
+            // show language specific
             $("#highlight").show();
-            $("#lint-js").hide();
             $("#library-link").parent().show();
             $("#load-library").removeAttr("disabled");
             $("#save-library").removeAttr("disabled");
@@ -100,18 +103,15 @@ RUR.reset_programming_language = function(choice){
             RUR.programming_language = "javascript";
             $("#editor-link").html(RUR.translate("Javascript Code"));
             editor.setOption("mode", "javascript");
-            $("#highlight").hide();
-            $("#lint-js").show();
-            $("#library-link").parent().hide();
+            // show language specific
+            $("#lint-js").removeAttr("disabled");
             break;
         case 'coffeescript-' + human_language :
             RUR.settings.editor = "editor_coffee_" + human_language;
             RUR.programming_language = "coffee";
             $("#editor-link").html(RUR.translate("CoffeeScript Code"));
             editor.setOption("mode", "coffeescript");
-            $("#highlight").hide();
-            $("#lint-js").hide();
-            $("#library-link").parent().hide();
+            // show language specific
             $("#compile-coffee").removeAttr("disabled");
             break;
     }

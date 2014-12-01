@@ -172,10 +172,6 @@
         <img src="src/images/ok.png" alt="ok" id="ok-image">
         <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
       </button>
-      <button id="lint-js" class="blue-gradient float-right" title="Lint: syntax verification" onclick="RUR.editorUpdateHints()">
-        "Lint"
-      </button>
-
       <li><a id="library-link" href="#library">Library</a></li>
     </ul>
     <div id="editor">
@@ -323,6 +319,21 @@ This will create a permalink which can be saved by copying it and pasting it in 
 your choice.</p>
 
   <p>
+    <button class="blue-gradient" id="reverse-step" title="Reverse step" onclick="RUR.ui.reverse_step();">
+      <img src="src/images/reverse_step.png" alt="reverse step">
+    </button>
+    <span class="description"> Reverses the previous step.
+    </span>
+  </p>
+
+  <p>
+    <button class="blue-gradient" title="Erase trace" onclick="RUR.vis_world.clear_trace();">Erase trace</button>
+    <span class="description"> Erases the trace left by Reeborg. This can be useful to focus on what happens
+      after a program is paused.
+    </span>
+  </p>
+
+  <p>
     <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaboration</button>
     <span class="description"> Tool which permits collaboration with one or more other user
       using Mozilla's TogetherJS.
@@ -340,40 +351,38 @@ your choice.</p>
     <span class="description"> Opens a local file and use its content to replace the content of the Code editor.
     </span>
   </p>
-
+<hr>
+  <h3>Python only</h3>
   <p>
     <button class="blue-gradient" id="save-library" title="Save library">Save the library</button>
-    <span class="description">  For Python programming only.  Saves the content of the library in a file.
+    <span class="description">
+      Saves the content of the library in a file.
     </span>
   </p>
 
   <p>
     <button class="blue-gradient" id="load-library" title="Import library">Import a library</button>
-    <span class="description"> For Python programming only.
+    <span class="description">
       Opens a file and use its content to replace the current content of the Library.
     </span>
   </p>
-
+<hr>
+  <h3>Javascript only</h3>
   <p>
-    <button class="blue-gradient" title="Erase trace" onclick="RUR.vis_world.clear_trace();">Erase trace</button>
-    <span class="description"> Erases the trace left by Reeborg. This can be useful to focus on what happens
-      after a program is paused.
-    </span>
-  </p>
-
-  <p>
-    <button class="blue-gradient" id="reverse-step" title="Reverse step" onclick="RUR.ui.reverse_step();">
-      <img src="src/images/reverse_step.png" alt="reverse step">
+    <button id="lint-js" class="blue-gradient float-right" title="Lint: syntax verification" onclick="RUR.editorUpdateHints()">
+      "Lint"
     </button>
-    <span class="description"> Reverses the previous step.
+    <span class="description">
+      Uses JSHint to see if any syntax errors are present and, if so, indicate it in the editor.
     </span>
   </p>
-
+<hr>
+  <h3>CoffeeScript only</h3>
   <p>
     <button class="blue-gradient" id="compile-coffee" title="Compile Coffee" onclick="RUR.runner.compile_coffee();">
       Translate CoffeeScript
     </button>
-    <span class="description"> For CoffeeScript programming only.
+    <span class="description"> For CoffeeScript programming only.<br>
       Translates the CoffeeScript code in the editor into Javascript and shows the result in the Diary.
     </span>
   </p>
