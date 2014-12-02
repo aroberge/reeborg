@@ -49,7 +49,7 @@ RUR.rec.record_frame = function (name, obj) {
 
 /*    Experimental code    */
    if (RUR.programming_language === "python" && RUR._highlight) {
-       if (RUR.current_lineno != undefined) {
+       if (RUR.current_lineno !== undefined) {
            RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR.current_lineno;
        } else{
            RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;

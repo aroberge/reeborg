@@ -7,51 +7,6 @@
 
 var RUR = RUR || {};
 
-RUR._UsedRobot_ = function (x, y, orientation, tokens)  {
-    this.body = RUR.robot.create_robot(x, y, orientation, tokens);
-    RUR.world.add_robot(this.body);
-};
-RUR._UsedRobot_.prototype.at_goal = function () {
-    RUR.control.at_goal(this.body);
-};
-RUR._UsedRobot_.prototype.at_goal_orientation = function () {
-    RUR.control.at_goal_orientation(this.body);
-};
-RUR._UsedRobot_.prototype.has_token = function () {
-    RUR.control.has_token(this.body);
-};
-RUR._UsedRobot_.prototype.build_wall = function () {
-    RUR.control.build_wall(this.body);
-};
-RUR._UsedRobot_.prototype.front_is_clear = function () {
-    RUR.control.front_is_clear(this.body);
-};
-RUR._UsedRobot_.prototype.is_facing_north = function () {
-    RUR.control.is_facing_north(this.body);
-};
-RUR._UsedRobot_.prototype.move = function () {
-    RUR.control.move(this.body);
-};
-RUR._UsedRobot_.prototype.put = function () {
-    RUR.control.put(this.body);
-};
-RUR._UsedRobot_.prototype.token_here = function () {
-    RUR.control.token_here(this.body);
-};
-RUR._UsedRobot_.prototype.right_is_clear = function () {
-    RUR.control.right_is_clear(this.body);
-};
-RUR._UsedRobot_.prototype.object_here = function () {
-    RUR.control.object_here(this.body);
-};
-RUR._UsedRobot_.prototype.take = function () {
-    RUR.control.take(this.body);
-};
-RUR._UsedRobot_.prototype.turn_left = function () {
-    RUR.control.turn_left(this.body);
-};
-
-
 RUR._at_goal_ = function () {
     return RUR.control.at_goal(RUR.current_world.robots[0]);
 };
