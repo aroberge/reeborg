@@ -33,7 +33,7 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
-    var error_name;
+    var error_name, info;
     try {
         if (RUR.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
@@ -51,7 +51,16 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             if (e.reeborg_says === undefined) {
                 e.message = e.message.replace("\n", "<br>");
                 if (e.info){
-                    e.message += "<br>&#8594;" + RUR.simplify_python_traceback(e.info);
+                    info = RUR.simplify_python_traceback(e.info);
+                    if (info == "Highlight Problem"){
+                        error_name = "Unexplained Error";
+                        e.message = "Please turn highlighting off" +
+                            "<img src='src/images/highlight.png'>" +
+                            "<img src='src/images/not_ok.png'>" +
+                            "<br>and try running your program again.";
+                    } else {
+                        e.message += "<br>&#8594;" + info;
+                    }
                 }
                 e.message = e.message.replace(/module '*__main__'* line \d+\s/,"" ); // TODO: might not be needed
             } else {
@@ -74,6 +83,9 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
 };
 
 RUR.simplify_python_traceback = function(info) {
+    if (info.indexOf("RUR.set_lineno_highlight") !== -1){
+        return "Highlight Problem";
+    }
     info = info.replace("undefined", "undefined:");
     info = info.replace("\n", "<br>");
     info = info.replace("Traceback (most recent call last):<br>", '');

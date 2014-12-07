@@ -3,13 +3,13 @@
 
 <html>
   <head>
-    <meta charset="utf-8"> 
-    
+    <meta charset="utf-8">
+
     <title>Introduction to OOP in Python with Reeborg &mdash; Object-Oriented Programming in Python</title>
-    
+
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
+
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Object-Oriented Programming in Python" href="#" />
-    <link rel="next" title="1. The dot notation" href="oop.html" /> 
-  
+    <link rel="next" title="1. The dot notation" href="oop.html" />
+
   <script>
     // intelligent scrolling of the sidebar content
     // copied from the sphinx website
@@ -55,7 +55,7 @@
         }
     });
     </script>
-  
+
   </head>
   <body>
     <div class="related">
@@ -67,10 +67,10 @@
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
             </a></li>
-        <li><a href="#">Object-Oriented Programming in Python</a></li> 
+        <li><a href="#">Object-Oriented Programming in Python</a></li>
       </ul>
     </div>
-  
+
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Next topic</h4>
@@ -99,7 +99,7 @@
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
-            
+
   <div class="section" id="introduction-to-oop-in-python-with-reeborg">
 <h1>Introduction to OOP in Python with Reeborg<a class="headerlink" href="#introduction-to-oop-in-python-with-reeborg" title="Permalink to this headline">¶</a></h1>
 <p>As you know, Reeborg is in poor shape.
@@ -110,26 +110,7 @@ a wall to its left without turning its entire body.
 Finally, it leaks oil which is bad for itself and the environment.</p>
 <p>Using the power of Object-Oriented Programming, you will learn how to
 fix Reeborg and how to give it additional capabilities.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p><strong>For the advanced reader</strong></p>
-<p>If you are not a beginner Python programmer and are experimenting on
-your own based on what you already know,
-you may find that some advanced but valid Python code you write
-will occasionally raise some unexpected exceptions.  The reason is that most
-of the code powering Reeborg&#8217;s world is written in Javascript and
-there&#8217;s only a thin layer that has been written in Python using
-Brython.  As a result some Javascript objects, methods or attributes
-are not directly available.  Furthermore, animations are done by
-cloning and saving the world state as a JSON string; if you
-attempt to create your own class using some objects already present,
-you may unknowingly create a circular reference which will prevent
-the cloning and raise an exception.</p>
-<p class="last">I could have written the entire program in Python using Brython ...
-but it would have made the situation worse if I had tried to use
-the result to enable programmers to use Javascript or CoffeeScript
-as their language of choice &#8211; which they can do now.</p>
-</div>
+
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -178,7 +159,7 @@ as their language of choice &#8211; which they can do now.</p>
 
           </div>
         </div>
-      </div>  
+      </div>
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -190,16 +171,16 @@ as their language of choice &#8211; which they can do now.</p>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
             </a></li>
-        <li><a href="#">Object-Oriented Programming in Python</a></li> 
+        <li><a href="#">Object-Oriented Programming in Python</a></li>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 
+        &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
-        
+
        - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
-  <script> 
+  <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
