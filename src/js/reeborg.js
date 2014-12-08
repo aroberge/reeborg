@@ -2280,11 +2280,11 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
                 if (e.info){
                     info = RUR.simplify_python_traceback(e.info);
                     if (info == "Highlight Problem"){
-                        error_name = "Unexplained Error";
-                        e.message = "Please turn highlighting off" +
+                        error_name = RUR.translate("Unexplained Error");
+                        e.message = RUR.translate("Please turn highlighting off") +
                             "<img src='src/images/highlight.png'>" +
-                            "<img src='src/images/not_ok.png'>" +
-                            "<br>and try running your program again.";
+                            "<img src='src/images/not_ok.png'><br>" +
+                            RUR.translate("and try running your program again.");
                     } else {
                         e.message += "<br>&#8594;" + info;
                     }

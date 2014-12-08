@@ -100,3 +100,6 @@ RUR.translation["No such world!"] = "No such world!";
 RUR.translation["Enter world name to save"] = "Enter world name to save";
 RUR.translation["Enter world name to delete"] = "Enter world name to delete";
 RUR.translation["Object names"] = " my_lib, token, star, triangle, square.";
+RUR.translation["Unexplained Error"] = "Unexplained Error";
+RUR.translation["Please turn highlighting off"] = "Please turn highlighting off";
+RUR.translation["and try running your program again."] = "and try running your program again.";

@@ -105,3 +105,6 @@ RUR.translation["No such world!"] = "Ce monde n'existe pas !";
 RUR.translation["Enter world name to save"] = "Quel nom doit-on utiliser pour ce monde?";
 RUR.translation["Enter world name to delete"] = "Écrivez le nom du monde à supprimer.";
 RUR.translation["Object names"] = " biblio, jeton, étoile, triangle et carré.";
+RUR.translation["Unexplained Error"] = "Erreur inexplicable";
+RUR.translation["Please turn highlighting off"] = "SVP désactivez le surlignement";
+RUR.translation["and try running your program again."] = "et essayez d'exécuter votre programme à nouveau.";
