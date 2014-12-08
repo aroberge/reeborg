@@ -173,9 +173,8 @@ RUR.rec.conclude = function () {
    }
 /* ===================== */
     var frame, goal_status;
-    if (RUR.rec.nb_frames === 0) return "stopped";
-    frame = RUR.rec.frames[RUR.rec.nb_frames]; // nb_frames could be zero ... but we might still want to check if goal reached.
-    if (frame.world.goal !== undefined){
+    frame = RUR.rec.frames[RUR.rec.nb_frames];
+    if (frame !== undefined && frame.world !== undefined && frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
             if (RUR.control.sound_flag) {
