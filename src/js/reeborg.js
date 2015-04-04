@@ -734,7 +734,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     var prog_lang, url_query, name;
     var human_language = document.documentElement.lang;
-    RUR._highlight = true;
+    RUR._highlight = false;
     $('input[type=radio][name=programming_language]').on('change', function(){
         RUR.reset_programming_language($(this).val());
         if ($(this).val() == "python-"+human_language){
@@ -4066,6 +4066,10 @@ RUR.we.set_token_number = function () {
                     RUR.current_world.max_tokens[x + "," + y] = max_tokens;
                     RUR.current_world.min_tokens[x + "," + y] = tokens;
                     RUR.current_world.tokens_range[x + "," + y] = tokens+"-"+max_tokens;
+                } else {
+                    delete RUR.current_world.min_tokens[x + "," + y];
+                    delete RUR.current_world.max_tokens[x + "," + y];
+                    delete RUR.current_world.tokens_range[x + "," + y];
                 }
             } else {
                 delete RUR.current_world.tokens[x + "," + y];

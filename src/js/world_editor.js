@@ -361,6 +361,10 @@ RUR.we.set_token_number = function () {
                     RUR.current_world.max_tokens[x + "," + y] = max_tokens;
                     RUR.current_world.min_tokens[x + "," + y] = tokens;
                     RUR.current_world.tokens_range[x + "," + y] = tokens+"-"+max_tokens;
+                } else {
+                    delete RUR.current_world.min_tokens[x + "," + y];
+                    delete RUR.current_world.max_tokens[x + "," + y];
+                    delete RUR.current_world.tokens_range[x + "," + y];
                 }
             } else {
                 delete RUR.current_world.tokens[x + "," + y];
