@@ -13,6 +13,7 @@ RUR.rec.reset = function() {
     RUR.rec.nb_frames = 0;
     RUR.rec.current_frame = 0;
     RUR.rec.extra_highlighting_frames = 0;
+    RUR.current_lineno = undefined;
     RUR.rec.frames = [];
     RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
@@ -59,8 +60,9 @@ RUR.rec.record_frame = function (name, obj) {
 
     RUR.previous_lineno = RUR.current_lineno;
 
-    RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
+    RUR.rec.nb_frames++;
+
     RUR.control.sound_id = undefined;
     if (name === "error"){
         return;
@@ -124,14 +126,14 @@ RUR.rec.display_frame = function () {
 
 /*=====================*/
 
-    if (RUR.rec.current_frame > RUR.rec.nb_frames) {
+    if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
         return RUR.rec.conclude();
     }
     frame = RUR.rec.frames[RUR.rec.current_frame];
     RUR.rec.current_frame++;
 
     if (frame === undefined){
-        RUR.current_world = RUR.world.saved_world;  // useful when ...
+        //RUR.current_world = RUR.world.saved_world;  // useful when ...
         RUR.vis_world.refresh();                    // ... reversing step
         return;
     }
@@ -173,7 +175,7 @@ RUR.rec.conclude = function () {
    }
 /* ===================== */
     var frame, goal_status;
-    frame = RUR.rec.frames[RUR.rec.nb_frames];
+    frame = RUR.rec.frames[RUR.rec.nb_frames-1];
     if (frame !== undefined && frame.world !== undefined && frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {

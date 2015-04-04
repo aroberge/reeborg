@@ -1867,6 +1867,7 @@ RUR.rec.reset = function() {
     RUR.rec.nb_frames = 0;
     RUR.rec.current_frame = 0;
     RUR.rec.extra_highlighting_frames = 0;
+    RUR.current_lineno = undefined;
     RUR.rec.frames = [];
     RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
@@ -1913,8 +1914,9 @@ RUR.rec.record_frame = function (name, obj) {
 
     RUR.previous_lineno = RUR.current_lineno;
 
-    RUR.rec.nb_frames++;   // will start at 1 -- see display_frame for reason
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
+    RUR.rec.nb_frames++;
+
     RUR.control.sound_id = undefined;
     if (name === "error"){
         return;
@@ -1978,14 +1980,14 @@ RUR.rec.display_frame = function () {
 
 /*=====================*/
 
-    if (RUR.rec.current_frame > RUR.rec.nb_frames) {
+    if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
         return RUR.rec.conclude();
     }
     frame = RUR.rec.frames[RUR.rec.current_frame];
     RUR.rec.current_frame++;
 
     if (frame === undefined){
-        RUR.current_world = RUR.world.saved_world;  // useful when ...
+        //RUR.current_world = RUR.world.saved_world;  // useful when ...
         RUR.vis_world.refresh();                    // ... reversing step
         return;
     }
@@ -2027,7 +2029,7 @@ RUR.rec.conclude = function () {
    }
 /* ===================== */
     var frame, goal_status;
-    frame = RUR.rec.frames[RUR.rec.nb_frames];
+    frame = RUR.rec.frames[RUR.rec.nb_frames-1];
     if (frame !== undefined && frame.world !== undefined && frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
@@ -2291,7 +2293,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
                 e.message = e.message.replace(/module '*__main__'* line \d+\s/,"" ); // TODO: might not be needed
             } else {
                 e.message = e.reeborg_says;
-                console.log("Any error appearing above can be ignored: it should also appear in a dialog.");
             }
         } else {
             error_name = e.name;
@@ -3539,7 +3540,7 @@ RUR.vis_world.refresh = function (initial) {
     RUR.vis_world.draw_other(RUR.current_world.other);
     if (initial !== undefined && RUR.current_world.robots !== undefined &&
             RUR.current_world.robots[0] !== undefined &&
-            RUR.current_world.robots[0].start_positions !== undefined && 
+            RUR.current_world.robots[0].start_positions !== undefined &&
             RUR.current_world.robots[0].start_positions.length > 1) {
             robot = RUR.current_world.robots[0];
         for (i=0; i < robot.start_positions.length; i++){
@@ -3584,8 +3585,19 @@ RUR.vis_world.select_initial_values = function() {
             }
         }
     }
+
+    if (RUR.current_world.goal !== undefined){
+        goal = RUR.current_world.goal;
+        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1) {
+            position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
+            goal.position.x = position[0];
+            goal.position.y = position[1];
+        }
+    }
+
     robot = RUR.current_world.robots[0];
     if (robot === undefined){
+        RUR.rec.record_frame();
         return;
     }
     if (robot.orientation == -1){
@@ -3597,20 +3609,12 @@ RUR.vis_world.select_initial_values = function() {
     }
     if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
         position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
-        robot.x = position[0];
-        robot.y = position[1];
-        robot._prev_x = robot.x;
-        robot._prev_y = robot.y;
+        RUR.current_world.robots[0].x = position[0];
+        RUR.current_world.robots[0].y = position[1];
+        RUR.current_world.robots[0]._prev_x = RUR.current_world.robots[0].x;
+        RUR.current_world.robots[0]._prev_y = RUR.current_world.robots[0].y;
     }
-
-    if (RUR.current_world.goal !== undefined){
-        goal = RUR.current_world.goal;
-        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1) {
-            position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
-            goal.position.x = position[0];
-            goal.position.y = position[1];
-        }
-    }
+    RUR.rec.record_frame();
 };/* Author: André Roberge
    License: MIT
  */

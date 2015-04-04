@@ -261,7 +261,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     var prog_lang, url_query, name;
     var human_language = document.documentElement.lang;
-    RUR._highlight = true;
+    RUR._highlight = false;
     $('input[type=radio][name=programming_language]').on('change', function(){
         RUR.reset_programming_language($(this).val());
         if ($(this).val() == "python-"+human_language){

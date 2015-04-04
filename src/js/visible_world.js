@@ -429,7 +429,7 @@ RUR.vis_world.refresh = function (initial) {
     RUR.vis_world.draw_other(RUR.current_world.other);
     if (initial !== undefined && RUR.current_world.robots !== undefined &&
             RUR.current_world.robots[0] !== undefined &&
-            RUR.current_world.robots[0].start_positions !== undefined && 
+            RUR.current_world.robots[0].start_positions !== undefined &&
             RUR.current_world.robots[0].start_positions.length > 1) {
             robot = RUR.current_world.robots[0];
         for (i=0; i < robot.start_positions.length; i++){
@@ -474,8 +474,19 @@ RUR.vis_world.select_initial_values = function() {
             }
         }
     }
+
+    if (RUR.current_world.goal !== undefined){
+        goal = RUR.current_world.goal;
+        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1) {
+            position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
+            goal.position.x = position[0];
+            goal.position.y = position[1];
+        }
+    }
+
     robot = RUR.current_world.robots[0];
     if (robot === undefined){
+        RUR.rec.record_frame();
         return;
     }
     if (robot.orientation == -1){
@@ -487,18 +498,10 @@ RUR.vis_world.select_initial_values = function() {
     }
     if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
         position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
-        robot.x = position[0];
-        robot.y = position[1];
-        robot._prev_x = robot.x;
-        robot._prev_y = robot.y;
+        RUR.current_world.robots[0].x = position[0];
+        RUR.current_world.robots[0].y = position[1];
+        RUR.current_world.robots[0]._prev_x = RUR.current_world.robots[0].x;
+        RUR.current_world.robots[0]._prev_y = RUR.current_world.robots[0].y;
     }
-
-    if (RUR.current_world.goal !== undefined){
-        goal = RUR.current_world.goal;
-        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1) {
-            position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
-            goal.position.x = position[0];
-            goal.position.y = position[1];
-        }
-    }
+    RUR.rec.record_frame();
 };
