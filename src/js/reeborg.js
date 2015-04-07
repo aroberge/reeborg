@@ -1973,8 +1973,8 @@ RUR.rec.display_frame = function () {
            editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
         }catch (e) {}
         try {
-           editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame], 'background', 'editor-highlight');
-           RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame];
+           editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame+1], 'background', 'editor-highlight');
+           RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame+1];
         } catch (e) {}
     }
 
