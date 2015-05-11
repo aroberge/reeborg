@@ -448,9 +448,13 @@ RUR.control.object_here = function (robot, do_not_record) {
     return RUR.translate(RUR.current_world.shapes[coords]) || 0;
 };
 
-RUR.control.write = function (s) {
+RUR.control.write = function () {
     RUR.control.sound_id = "#write-sound";
-    RUR.rec.record_frame("output", {"element": "#output-pre", "message": s.toString()});
+    var output_string = '';
+    for (var i = 0; i < arguments.length; i++) {
+        output_string += arguments[i].toString() + ' ';
+  }
+    RUR.rec.record_frame("output", {"element": "#output-pre", "message": output_string});
 };
 
 RUR.control.sound_flag = false;
