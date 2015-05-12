@@ -748,6 +748,7 @@ $(document).ready(function() {
         }
     });
     url_query = parseUri(window.location.href);
+    console.log(url_query);
     if (url_query.queryKey.proglang !== undefined &&
        url_query.queryKey.world !== undefined &&
        url_query.queryKey.editor !== undefined &&
@@ -2473,6 +2474,7 @@ RUR.reset_programming_language = function(choice){
 
 RUR.update_permalink = function () {
     var url_query = parseUri($("#url_input_textarea").val());
+    console.log(url_query);
     if (url_query.queryKey.proglang !== undefined &&
        url_query.queryKey.world !== undefined &&
        url_query.queryKey.editor !== undefined &&
@@ -2493,6 +2495,11 @@ RUR.update_permalink = function () {
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     }
+    console.log('preparing to update css');
+    if(url_query.queryKey.css !== undefined) {
+        var new_css = decodeURIComponent(url_query.queryKey.css);
+    }
+    eval(new_css);
     $("#url_input").hide();
     $("#permalink").removeClass('reverse-blue-gradient');
     $("#permalink").addClass('blue-gradient');

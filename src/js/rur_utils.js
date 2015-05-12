@@ -140,6 +140,10 @@ RUR.update_permalink = function () {
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     }
+    if(url_query.queryKey.css !== undefined) {
+        var new_css = decodeURIComponent(url_query.queryKey.css);
+    }
+    eval(new_css);
     $("#url_input").hide();
     $("#permalink").removeClass('reverse-blue-gradient');
     $("#permalink").addClass('blue-gradient');
