@@ -37,6 +37,7 @@
       <li><a href="#replace">Replacing the default robot</a> </li>
       <li><a href="#oop">Using "hidden" features from OOP</a> </li>
       <li><a href="#verify">Enhanced goals</a> </li>
+      <li><a href="#css">Modifying the UI using specially crafted permalinks</a></li>
 
     </ul>
 
@@ -189,6 +190,32 @@ confirmer = function(test) {
 };
 </pre>
 
+<h3 id="css">Modifying the UI using specially crafted permalinks</h3>
+<p>This is for advanced teachers who may wish to have their students
+using a simpler looking version of the site by using custom css.
+It is assumed that you know how to change css values using either standard
+Javascript or jQuery.</p>
+<p>The suggested way is to open Reeborg's World into a separate tab
+  and enable the javascript console.  Then, use Javascript/jQuery commands
+  in the console to change the UI as desired. Copy <b>all</b> of your required
+  code (not forgetting semi-colons...) into the textarea below.</p>
+<p> For example, suppose you wanted to hide the set of buttons (enabling world edition, saving, etc.)
+  below the world; you could do so using the following jQuery code:
+</p>
+<pre class="jscode">  $("#world-edit-buttons").css("display", "none");</pre>
+<p>You can use the above as an example and copy it into the textarea below
+  and then click the "Create permalink code" button; the result will
+  appear below the button.  Note that you need to create all the UI
+  changes into a single conversion.  Once you have the result, copy it
+  and <b>append it</b> to a "normal" permalink created within Reeborg's
+  World; your new permalink, when used to update Reeborg's world,
+  will make the required changes to the UI.</p>
+
+<textarea id="permalink-css-source" style="width:600px; height:200px;"></textarea>
+<br>
+<button onclick="encode_css()" class="blue-gradient">Create permalink code</button>
+<div id="permalink-result"></div>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/python/python.js"></script>
@@ -230,7 +257,13 @@ $(document).ready(function() {
         });
     });
 });
+
+function encode_css() {
+  var source = $("#permalink-css-source").val();
+  $("#permalink-result").html("&css="+ encodeURIComponent(source));
+}
 </script>
+
 
 <footer id="tutorial-footer">
 <p>
