@@ -169,8 +169,8 @@
       <li><a id="editor-link" href="#editor">Python Code</a></li>
       <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
         <img src="src/images/highlight.png" alt="highlight">
-        <img src="src/images/ok.png" alt="ok" id="ok-image" style="display:none">
-        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image">
+        <img src="src/images/ok.png" alt="ok" id="ok-image">
+        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
       </button>
       <li><a id="library-link" href="#library">Library</a></li>
     </ul>
@@ -192,6 +192,10 @@
     </div>
   </div>
 
+  <div id="highlight-impossible" style="display:none; background-color:gold;">
+    Code highlighting is only possible if no multi-line statements are
+    present.
+  </div>
 </div>
 
 <div id="edit-world-panel">

@@ -171,8 +171,8 @@
 
       <button id="highlight" class="blue-gradient float-right" title="surligner" onclick="RUR.ui.highlight()">
         <img src="src/images/highlight.png" alt="surligner">
-        <img src="src/images/ok.png" alt="ok" id="ok-image" style="display:none">
-        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image">
+        <img src="src/images/ok.png" alt="ok" id="ok-image">
+        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
       </button>
       <li><a id="library-link" href="#library">Biblio.</a></li>
 
@@ -196,7 +196,10 @@
       </textarea>
     </div>
   </div>
-
+  <div id="highlight-impossible" style="display:none; background-color:gold;">
+    Le surlignage du code est impossible si des énoncés Python requièrent
+    plus d'une ligne dans l'éditeur.
+  </div>
 </div>
 
 <div id="edit-world-panel">
