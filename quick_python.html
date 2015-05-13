@@ -129,23 +129,11 @@ the following:</p>
 <pre class="pycode">
 for a_variable in range(10):  # more than enough repetitions
     move()
-    write( a_variable )
+    print( a_variable )
     if at_goal():
         turn_left()    # for no good reason
         turn_left()    # other than seeing the block structure
         break     # out of the for loop</pre>
-<p>We used <code>write()</code>, which is specific to Reeborg's world,
-instead of <code>print()</code>, which is the Python version, as
-<code>write()</code> has been defined to be "in step" with the execution
-of the Python code.
-The way the code is run in Reeborg's world is as follows: the
-entire program is translated from Python into Javascript and run
-at once; each basic action results in a "frame" being recorded. These
-frames are then played back one at a time.  The output of <code>print()</code>
-is written in Reeborg's diary as the program is executed.
-The output of <code>write()</code> is recorded in a given frame
-and appears in Reeborg's diary at the appropriate moment in the
-playback.</p>
 
 <h2>While loops and negation</h2>
 <p class="try">Try the following, still with world <span class="world">Home 1</span></p>
