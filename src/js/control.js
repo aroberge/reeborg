@@ -68,7 +68,11 @@ RUR.control.done = function () {
     throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
 
-RUR.control.say = function (message) {
+RUR.control.say = function () {
+    var message = '';
+  for (var i = 0; i < arguments.length; i++) {
+    message += arguments[i];
+  }
     RUR.rec.record_frame("say", message);
 };
 
