@@ -304,5 +304,14 @@ $(document).ready(function() {
         // trigger it to load the initial world.
         $("#select_world").change();
     }
+    if(url_query.queryKey.css !== undefined) {
+        var new_css = decodeURIComponent(url_query.queryKey.css);
+        eval(new_css);
+    }
+    // for embedding
+    addEventListener("message", receiveMessage, false);
+    function receiveMessage(event){
+        RUR.update_permalink(event.data);
+    }
 });
 

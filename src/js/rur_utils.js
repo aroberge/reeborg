@@ -118,8 +118,13 @@ RUR.reset_programming_language = function(choice){
     } catch (e) {}
 };
 
-RUR.update_permalink = function () {
-    var url_query = parseUri($("#url_input_textarea").val());
+RUR.update_permalink = function (arg) {
+    var url_query;
+    if (arg != undefined) {
+        url_query = parseUri(arg);
+    } else {
+        url_query = parseUri($("#url_input_textarea").val());
+    }
     if (url_query.queryKey.proglang !== undefined &&
        url_query.queryKey.world !== undefined &&
        url_query.queryKey.editor !== undefined &&
@@ -142,8 +147,8 @@ RUR.update_permalink = function () {
     }
     if(url_query.queryKey.css !== undefined) {
         var new_css = decodeURIComponent(url_query.queryKey.css);
+        eval(new_css);
     }
-    eval(new_css);
     $("#url_input").hide();
     $("#permalink").removeClass('reverse-blue-gradient');
     $("#permalink").addClass('blue-gradient');

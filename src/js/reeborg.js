@@ -748,7 +748,6 @@ $(document).ready(function() {
         }
     });
     url_query = parseUri(window.location.href);
-    console.log(url_query);
     if (url_query.queryKey.proglang !== undefined &&
        url_query.queryKey.world !== undefined &&
        url_query.queryKey.editor !== undefined &&
@@ -781,6 +780,15 @@ $(document).ready(function() {
         }
         // trigger it to load the initial world.
         $("#select_world").change();
+    }
+    if(url_query.queryKey.css !== undefined) {
+        var new_css = decodeURIComponent(url_query.queryKey.css);
+        eval(new_css);
+    }
+    // for embedding
+    addEventListener("message", receiveMessage, false);
+    function receiveMessage(event){
+        RUR.update_permalink(event.data);
     }
 });
 
@@ -2472,9 +2480,13 @@ RUR.reset_programming_language = function(choice){
     } catch (e) {}
 };
 
-RUR.update_permalink = function () {
-    var url_query = parseUri($("#url_input_textarea").val());
-    console.log(url_query);
+RUR.update_permalink = function (arg) {
+    var url_query;
+    if (arg != undefined) {
+        url_query = parseUri(arg);
+    } else {
+        url_query = parseUri($("#url_input_textarea").val());
+    }
     if (url_query.queryKey.proglang !== undefined &&
        url_query.queryKey.world !== undefined &&
        url_query.queryKey.editor !== undefined &&
@@ -2495,11 +2507,10 @@ RUR.update_permalink = function () {
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     }
-    console.log('preparing to update css');
     if(url_query.queryKey.css !== undefined) {
         var new_css = decodeURIComponent(url_query.queryKey.css);
+        eval(new_css);
     }
-    eval(new_css);
     $("#url_input").hide();
     $("#permalink").removeClass('reverse-blue-gradient');
     $("#permalink").addClass('blue-gradient');
