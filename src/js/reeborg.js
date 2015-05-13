@@ -2420,9 +2420,13 @@ RUR.create_permalink = function () {
     proglang = RUR.programming_language + "-" + human_language;
     world = encodeURIComponent(RUR.world.export_world());
     _editor = encodeURIComponent(editor.getValue());
-    _library = encodeURIComponent(library.getValue());
+    if (RUR.programming_language == "python") {
+        _library = encodeURIComponent(library.getValue());
+        permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
+    } else {
+        permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor;
+    }
 
-    permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
     $("#url_input_textarea").val(permalink);
     $("#url_input").toggle();
     $("#ok-permalink").removeAttr("disabled");
@@ -2489,8 +2493,7 @@ RUR.update_permalink = function (arg) {
     }
     if (url_query.queryKey.proglang !== undefined &&
        url_query.queryKey.world !== undefined &&
-       url_query.queryKey.editor !== undefined &&
-       url_query.queryKey.library !== undefined) {
+       url_query.queryKey.editor !== undefined) {
         var prog_lang = url_query.queryKey.proglang;
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
@@ -2505,8 +2508,13 @@ RUR.update_permalink = function (arg) {
         $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
 
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
+    }
+
+    if (RUR.programming_language == "python" &&
+       url_query.queryKey.library !== undefined) {
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     }
+
     if(url_query.queryKey.css !== undefined) {
         var new_css = decodeURIComponent(url_query.queryKey.css);
         eval(new_css);
