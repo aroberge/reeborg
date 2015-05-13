@@ -104,6 +104,7 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.editor = "editor_js_" + human_language;
             RUR.programming_language = "javascript";
             $("#editor-link").html(RUR.translate("Javascript Code"));
+            $("#editor-link").click();
             editor.setOption("mode", "javascript");
             // show language specific
             $("#lint-js").removeAttr("disabled");
@@ -112,6 +113,7 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.editor = "editor_coffee_" + human_language;
             RUR.programming_language = "coffee";
             $("#editor-link").html(RUR.translate("CoffeeScript Code"));
+            $("#editor-link").click();
             editor.setOption("mode", "coffeescript");
             // show language specific
             $("#compile-coffee").removeAttr("disabled");
