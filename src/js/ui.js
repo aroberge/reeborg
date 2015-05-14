@@ -105,13 +105,13 @@ RUR.ui.reload = function() {
     $("#output-panel pre").remove(".jscode");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
-    $("#Reeborg-says").dialog("close");
+    //$("#Reeborg-writes").dialog("close");
     // reset the options in case the user has dragged the window.
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
                                               autoOpen:false, width:500,
                                               position:{my: "top", at: "top", of: $("#editor-panel")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-says").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "say", position:{my: "top", at: "top", of: $("#robot_canvas")}});
+    //$("#Reeborg-writes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "say", position:{my: "top", at: "top", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.runner.interpreted = false;
     RUR.control.sound_flag = false;

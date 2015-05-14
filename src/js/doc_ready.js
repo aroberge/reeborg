@@ -219,7 +219,8 @@ $(document).ready(function() {
     $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
                                     position:{my: "top", at: "top", of: $("#editor-panel")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-says").dialog({minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "top", at: "top", of: $("#robot_canvas")}});
+    $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:500,
+                                 position:{my: "bottom", at: "bottom", of: window}});
 
     editor.widgets = [];
     library.widgets = [];
