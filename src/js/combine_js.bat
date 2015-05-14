@@ -1,3 +1,3 @@
-del reeborg.js
-copy /Y /b *.js reeborg.js
+del reeborg_dev.js
+copy /Y /b *.js reeborg_dev.js
 time /t
