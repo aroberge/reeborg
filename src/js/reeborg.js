@@ -523,14 +523,12 @@ $(document).ready(function() {
 
         if ($("#output-panel").hasClass("active")) {
             if ( $("#world-panel").hasClass("active")) {
-                RUR.world.robot_world_active = true;
                 RUR.reset_definitions();
                 $("#run2").hide();
                 $("#reload2").hide();
             } else {
                 $("#run2").show();
                 $("#reload2").show();
-                RUR.world.robot_world_active = false;
                 RUR.reset_definitions();
             }
         }
@@ -699,7 +697,8 @@ $(document).ready(function() {
     });
 
 
-    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
+                                    position:{my: "top", at: "top", of: $("#editor-panel")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-says").dialog({minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "top", at: "top", of: $("#robot_canvas")}});
 
@@ -713,7 +712,6 @@ $(document).ready(function() {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
 
-        RUR.world.robot_world_active = true;
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
             RUR.world.import_world(data);
@@ -2025,7 +2023,6 @@ RUR.rec.display_frame = function () {
     } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
-        //$(frame.output.element).append(frame.output.message + "\n");
         $(frame.output.element).append(frame.output.message);
     } else if (frame.say !== undefined) {
         $("#Reeborg-says").html(frame.say.toString()).dialog("open").effect("highlight", {color: "cornsilk"}, 300);
@@ -2675,13 +2672,7 @@ RUR.ui.run = function () {
     $("#step").attr("disabled", "true");
     $("#reload2").attr("disabled", "true");
     clearTimeout(RUR.rec.timer);
-    if (RUR.world.robot_world_active) {
-        RUR.runner.run(RUR.rec.play);
-    } else {
-//        RUR.controls.end_flag = false;
-        RUR.runner.run(function () {});
-        RUR.ui.stop();
-    }
+    RUR.runner.run(RUR.rec.play);
 };
 
 RUR.ui.pause = function (ms) {
@@ -2746,7 +2737,9 @@ RUR.ui.reload = function() {
     $("#Reeborg-shouts").dialog("close");
     $("#Reeborg-says").dialog("close");
     // reset the options in case the user has dragged the window.
-    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
+                                              autoOpen:false, width:500,
+                                              position:{my: "top", at: "top", of: $("#editor-panel")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-says").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "say", position:{my: "top", at: "top", of: $("#robot_canvas")}});
     RUR.world.reset();

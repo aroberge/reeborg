@@ -42,13 +42,7 @@ RUR.ui.run = function () {
     $("#step").attr("disabled", "true");
     $("#reload2").attr("disabled", "true");
     clearTimeout(RUR.rec.timer);
-    if (RUR.world.robot_world_active) {
-        RUR.runner.run(RUR.rec.play);
-    } else {
-//        RUR.controls.end_flag = false;
-        RUR.runner.run(function () {});
-        RUR.ui.stop();
-    }
+    RUR.runner.run(RUR.rec.play);
 };
 
 RUR.ui.pause = function (ms) {
@@ -113,7 +107,9 @@ RUR.ui.reload = function() {
     $("#Reeborg-shouts").dialog("close");
     $("#Reeborg-says").dialog("close");
     // reset the options in case the user has dragged the window.
-    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
+                                              autoOpen:false, width:500,
+                                              position:{my: "top", at: "top", of: $("#editor-panel")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-says").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "say", position:{my: "top", at: "top", of: $("#robot_canvas")}});
     RUR.world.reset();
