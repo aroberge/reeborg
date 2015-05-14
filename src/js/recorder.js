@@ -154,7 +154,7 @@ RUR.rec.display_frame = function () {
     } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
-        $(frame.output.element).append(frame.output.message + "\n");
+        $(frame.output.element).append(frame.output.message);
     } else if (frame.say !== undefined) {
         $("#Reeborg-says").html(frame.say.toString()).dialog("open").effect("highlight", {color: "cornsilk"}, 300);
     }
