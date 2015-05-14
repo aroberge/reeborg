@@ -11,10 +11,6 @@ RUR._at_goal_ = function () {
     return RUR.control.at_goal(RUR.current_world.robots[0]);
 };
 
-RUR._at_goal_orientation_ = function () {
-    return RUR.control.at_goal_orientation(RUR.current_world.robots[0]);
-};
-
 RUR._build_wall_ = function() {
     RUR.control.build_wall(RUR.current_world.robots[0]);
 };
@@ -421,18 +417,6 @@ RUR.control.at_goal = function (robot) {
             return (robot.x === goal.position.x && robot.y === goal.position.y);
         }
         throw new RUR.ReeborgError(RUR.translate("There is no position as a goal in this world!"));
-    }
-    throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
-};
-
-RUR.control.at_goal_orientation = function (robot) {
-    var goal = RUR.current_world.goal;
-    if (goal !== undefined){
-        if (goal.orientation !== undefined) {
-                RUR.rec.record_frame("debug", "RUR.control.at_goal_orientation");
-            return (robot.orientation === goal.orientation);
-        }
-        throw new RUR.ReeborgError(RUR.translate("There is no orientation as a goal in this world!"));
     }
     throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };

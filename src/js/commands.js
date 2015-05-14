@@ -11,10 +11,6 @@ RUR._at_goal_ = function () {
     return RUR.control.at_goal(RUR.current_world.robots[0]);
 };
 
-RUR._at_goal_orientation_ = function () {
-    return RUR.control.at_goal_orientation(RUR.current_world.robots[0]);
-};
-
 RUR._build_wall_ = function() {
     RUR.control.build_wall(RUR.current_world.robots[0]);
 };

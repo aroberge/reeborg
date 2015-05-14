@@ -300,18 +300,6 @@ RUR.control.at_goal = function (robot) {
     throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };
 
-RUR.control.at_goal_orientation = function (robot) {
-    var goal = RUR.current_world.goal;
-    if (goal !== undefined){
-        if (goal.orientation !== undefined) {
-                RUR.rec.record_frame("debug", "RUR.control.at_goal_orientation");
-            return (robot.orientation === goal.orientation);
-        }
-        throw new RUR.ReeborgError(RUR.translate("There is no orientation as a goal in this world!"));
-    }
-    throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
-};
-
 RUR.control.object_here = function (robot, do_not_record) {
     var coords = robot.x + "," + robot.y;
     if (!do_not_record) {
