@@ -193,6 +193,15 @@
             <li><a href="javascript:RUR.we.select('goal-no-objects');">No other objects</a></li>
         </ul></li>
     </ul>
+
+    <div id="additional-code">
+      <p>The following copies code from the editor; such code will be run either before or
+         after the user's program.</p>
+      <button class="blue-gradient" id="insert-pre-code" onclick="RUR.we.insert_pre_code();">Insert pre-code</button>
+      <button class="blue-gradient" id="insert-post-code" onclick="RUR.we.insert_post_code();">Insert post-code</button>
+      <span id="code-copied"></span>
+    </div>
+
 </div>
 
 <div id="editor-panel" class="active" >
@@ -257,9 +266,10 @@ from browser import window
 import common_def         # reassigns stdin and stdout
 from reeborg_en import *  # will insert the relevant help information
 
-def translate_python(src, highlight):
+def translate_python(src, highlight, pre_code='', post_code=''):
     import my_lib
-    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *", highlight)
+    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",
+      highlight, pre_code=pre_code, post_code=post_code)
 
 window['translate_python'] = translate_python
 </script>

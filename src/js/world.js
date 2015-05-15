@@ -19,7 +19,10 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.tokens = {};
     world.shapes = {};
     world.other = {};
-    world.end_test = 'print("testing")';
+    // allow teacher to insert code to be run before and after the
+    // code entered by the student
+    world.pre_code = '';
+    world.post_code = '';
     return world;
 };
 RUR.current_world = RUR.world.create_empty_world();

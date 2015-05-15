@@ -525,6 +525,18 @@ RUR.we.ensure_key_exist = function(obj, key){
     }
 };
 
+RUR.we.insert_pre_code = function() {
+    RUR.we.ensure_key_exist(RUR.current_world, "pre_code");
+    RUR.current_world.pre_code = editor.getValue();
+    $("#code-copied").html(RUR.translate("Code copied from editor")).effect("highlight", {color: "gold"}, 1500);
+}
+
+RUR.we.insert_post_code = function() {
+    RUR.we.ensure_key_exist(RUR.current_world, "post_code");
+    RUR.current_world.post_code = editor.getValue();
+    $("#code-copied").html(RUR.translate("Code copied from editor")).effect("highlight", {color: "gold"}, 1500);
+}
+
 RUR.we.toggle_shape = function (shape){
     "use strict";
     var position, x, y;

@@ -2229,9 +2229,6 @@ RUR.runner.run = function (playback) {
     if (!RUR.runner.interpreted) {
         RUR.vis_world.select_initial_values();
         src = editor.getValue();
-        if(RUR.current_world.end_test){
-            src = src + "\n" + RUR.current_world.end_test;
-        }
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }
@@ -2319,8 +2316,15 @@ RUR.runner.eval_javascript = function (src) {
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
+    var pre_code = '', post_code = ''
     RUR.reset_definitions();
-    translate_python(src, RUR._highlight);
+    if (RUR.current_world.pre_code){
+        pre_code = RUR.current_world.pre_code;
+    }
+    if (RUR.current_world.post_code){
+        post_code = RUR.current_world.post_code;
+    }
+    translate_python(src, RUR._highlight, pre_code, post_code);
 };
 
 
@@ -3618,7 +3622,10 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.tokens = {};
     world.shapes = {};
     world.other = {};
-    world.end_test = 'print("testing")';
+    // allow teacher to insert code to be run before and after the
+    // code entered by the student
+    world.pre_code = '';
+    world.post_code = '';
     return world;
 };
 RUR.current_world = RUR.world.create_empty_world();
@@ -4212,6 +4219,18 @@ RUR.we.ensure_key_exist = function(obj, key){
         obj[key] = {};
     }
 };
+
+RUR.we.insert_pre_code = function() {
+    RUR.we.ensure_key_exist(RUR.current_world, "pre_code");
+    RUR.current_world.pre_code = editor.getValue();
+    $("#code-copied").html(RUR.translate("Code copied from editor")).effect("highlight", {color: "gold"}, 1500);
+}
+
+RUR.we.insert_post_code = function() {
+    RUR.we.ensure_key_exist(RUR.current_world, "post_code");
+    RUR.current_world.post_code = editor.getValue();
+    $("#code-copied").html(RUR.translate("Code copied from editor")).effect("highlight", {color: "gold"}, 1500);
+}
 
 RUR.we.toggle_shape = function (shape){
     "use strict";

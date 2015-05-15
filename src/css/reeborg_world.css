@@ -360,6 +360,11 @@ padding:3px;}
  display: inline;
 }
 
+
+#additional-code {
+  margin-top: 200px;
+}
+
 .editor-highlight {
     background-color: #2d5ab4;
 }

@@ -15,9 +15,6 @@ RUR.runner.run = function (playback) {
     if (!RUR.runner.interpreted) {
         RUR.vis_world.select_initial_values();
         src = editor.getValue();
-        if(RUR.current_world.end_test){
-            src = src + "\n" + RUR.current_world.end_test;
-        }
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }
@@ -105,8 +102,15 @@ RUR.runner.eval_javascript = function (src) {
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
+    var pre_code = '', post_code = ''
     RUR.reset_definitions();
-    translate_python(src, RUR._highlight);
+    if (RUR.current_world.pre_code){
+        pre_code = RUR.current_world.pre_code;
+    }
+    if (RUR.current_world.post_code){
+        post_code = RUR.current_world.post_code;
+    }
+    translate_python(src, RUR._highlight, pre_code, post_code);
 };
 
 
