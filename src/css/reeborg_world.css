@@ -220,7 +220,7 @@ padding:3px;}
 }
 #ok-permalink, #cancel-permalink {margin-left: 10px;}
 
-#canvas-wrapper, #diary-wrapper {
+#canvas-wrapper {
   position: absolute;
   top: 42px;
 }
@@ -239,29 +239,19 @@ padding:3px;}
     border-radius: 3px;
 }
 
-#diary-wrapper {
-  margin-top: 5px;
-  width: 98%;
-  height: 550px;
-  background-color: #eee;
-  overflow: auto;
-  border: 1px solid blue;
-  padding: 0 5px;
-  }
-
-#game-controls, #world-controls, #diary-controls {
+#game-controls, #world-controls{
   position: absolute;
   top: 5px;
 }
-#game-controls button, #world-controls button, #diary-controls button, #world-edit-buttons button {margin-right: 4px;}
+#game-controls button, #world-controls button, #world-edit-buttons button {margin-right: 4px;}
 
 #world-panel {
     width: 620px;
 }
-#output-panel, #editor-panel, #edit-world-panel {
+#editor-panel, #edit-world-panel {
     width: 590px;
 }
-#world-panel, #output-panel, #editor-panel, #edit-world-panel {
+#world-panel, #editor-panel, #edit-world-panel {
     margin-top: 32px;
     position: relative;
     display: none;
@@ -275,7 +265,7 @@ padding:3px;}
 
 #world-panel { background-color: white;}
 
-#world-panel.active, #output-panel.active, #editor-panel.active, #edit-world-panel.active {display: inline-block; z-index: 1}
+#world-panel.active, #editor-panel.active, #edit-world-panel.active {display: inline-block; z-index: 1}
 
 #stdout {margin-top: 0; background-color: cornsilk;}
 #Reeborg-writes {background-color: white;}
@@ -372,4 +362,9 @@ padding:3px;}
 
 .editor-highlight {
     background-color: #2d5ab4;
+}
+#highlight {
+  border: 0;
+  height: 36px;
+  float: right;
 }
