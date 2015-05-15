@@ -16,12 +16,6 @@ RUR.ui.set_ready_to_run = function () {
     $("#step").removeAttr("disabled");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
-
-    $("#stop2").attr("disabled", "true");
-    $("#pause2").attr("disabled", "true");
-    $("#run2").removeAttr("disabled");
-    $("#step2").removeAttr("disabled");
-    $("#reload2").attr("disabled", "true");
 };
 
 RUR.ui.run = function () {
@@ -36,11 +30,6 @@ RUR.ui.run = function () {
     $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
 
-    $("#stop2").removeAttr("disabled");
-    $("#pause2").removeAttr("disabled");
-    $("#run2").attr("disabled", "true");
-    $("#step").attr("disabled", "true");
-    $("#reload2").attr("disabled", "true");
     clearTimeout(RUR.rec.timer);
     RUR.runner.run(RUR.rec.play);
 };
@@ -49,15 +38,12 @@ RUR.ui.pause = function (ms) {
     RUR.rec.playback = false;
     clearTimeout(RUR.rec.timer);
     $("#pause").attr("disabled", "true");
-    $("#pause2").attr("disabled", "true");
     if (ms !== undefined){      // pause called via a program instruction
         RUR.rec.timer = setTimeout(RUR.ui.run, ms);  // will reset RUR.rec.playback to true
     } else {
         $("#run").removeAttr("disabled");
         $("#step").removeAttr("disabled");
         $("#reverse-step").removeAttr("disabled");
-        $("#run2").removeAttr("disabled");
-        $("#step2").removeAttr("disabled");
     }
 };
 
@@ -90,12 +76,6 @@ RUR.ui.stop = function () {
     $("#step").attr("disabled", "true");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").removeAttr("disabled");
-
-    $("#stop2").attr("disabled", "true");
-    $("#pause2").attr("disabled", "true");
-    $("#run2").removeAttr("disabled");
-    $("#step2").attr("disabled", "true");
-    $("#reload2").removeAttr("disabled");
     RUR.ui.stop_called = true;
 };
 

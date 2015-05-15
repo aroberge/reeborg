@@ -194,8 +194,6 @@ function editing_world_show_others(){
     $("#editor-panel-button").click();
     $("#run").removeAttr("disabled");
     $("#step").removeAttr("disabled");
-    $("#run2").removeAttr("disabled");
-    $("#step2").removeAttr("disabled");
 }
 
 function editing_world_hide_others() {
@@ -212,11 +210,6 @@ function editing_world_hide_others() {
     $("#run").attr("disabled", "true");
     $("#step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
-    $("#stop2").attr("disabled", "true");
-    $("#pause2").attr("disabled", "true");
-    $("#run2").attr("disabled", "true");
-    $("#step2").attr("disabled", "true");
-    $("#reload2").attr("disabled", "true");
 }
 
 RUR.we.calculate_grid_position = function () {
