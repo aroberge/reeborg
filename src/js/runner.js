@@ -15,6 +15,9 @@ RUR.runner.run = function (playback) {
     if (!RUR.runner.interpreted) {
         RUR.vis_world.select_initial_values();
         src = editor.getValue();
+        if(RUR.current_world.end_test){
+            src = src + "\n" + RUR.current_world.end_test;
+        }
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }

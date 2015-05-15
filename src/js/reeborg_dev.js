@@ -2229,6 +2229,9 @@ RUR.runner.run = function (playback) {
     if (!RUR.runner.interpreted) {
         RUR.vis_world.select_initial_values();
         src = editor.getValue();
+        if(RUR.current_world.end_test){
+            src = src + "\n" + RUR.current_world.end_test;
+        }
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }
@@ -3615,6 +3618,7 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.tokens = {};
     world.shapes = {};
     world.other = {};
+    world.end_test = 'print("testing")';
     return world;
 };
 RUR.current_world = RUR.world.create_empty_world();
@@ -3849,7 +3853,7 @@ function toggle_editing_mode () {
     $("#edit-world-panel").toggleClass("active");
     if (RUR.we.editing_world) {
         RUR.we.editing_world = false;
-        editing_world_show_others();
+        editing_world_enable_run();
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.we.refresh_world_edited();
@@ -3862,7 +3866,7 @@ function toggle_editing_mode () {
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.we.refresh_world_edited();
-        editing_world_hide_others();
+        editing_world_disable_run();
     }
 }
 
@@ -3870,25 +3874,12 @@ RUR.we.refresh_world_edited = function () {
     RUR.vis_world.draw_all();
 };
 
-function editing_world_show_others(){
-    $("#contents-button").removeAttr("disabled");
-    $("#help-button").removeAttr("disabled");
-    $("#world-panel-button").removeAttr("disabled");
-    $("#editor-panel-button").removeAttr("disabled");
-    $("#editor-panel-button").click();
+function editing_world_enable_run(){
     $("#run").removeAttr("disabled");
     $("#step").removeAttr("disabled");
 }
 
-function editing_world_hide_others() {
-    if ($("#editor-panel-button").hasClass("active")) {
-        $("#editor-panel-button").click();
-    }
-    $("#editor-panel-button").attr("disabled", "true");
-    $("#world-panel-button").attr("disabled", "true");
-    $("#contents-button").attr("disabled", "true");
-    $("#help-button").attr("disabled", "true");
-
+function editing_world_disable_run() {
     $("#stop").attr("disabled", "true");
     $("#pause").attr("disabled", "true");
     $("#run").attr("disabled", "true");

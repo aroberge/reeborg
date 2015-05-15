@@ -19,6 +19,7 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.tokens = {};
     world.shapes = {};
     world.other = {};
+    world.end_test = 'print("testing")';
     return world;
 };
 RUR.current_world = RUR.world.create_empty_world();

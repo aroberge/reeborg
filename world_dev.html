@@ -143,42 +143,6 @@
     </div>
 </div>
 
-<div id="editor-panel" class="active" >
-  <input type="file" id="fileInput" style="display:none;">
-  <div id="tabs">
-    <ul>
-      <li><a id="editor-link" href="#editor">Python Code</a></li>
-      <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
-        <img src="src/images/highlight.png" alt="highlight">
-        <img src="src/images/ok.png" alt="ok" id="ok-image">
-        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
-      </button>
-      <li><a id="library-link" href="#library">Library</a></li>
-    </ul>
-    <div id="editor">
-      <textarea id="code" name="code">move()</textarea>
-
-    </div>
-    <div id="library">
-      <textarea id="library-code" name="library-code">
-      /* Sorry - if you see this, it means that
-      your browser is incapable of using the
-      Library the way it has been designed.
-
-      You could write code here ... but it will
-      not be saved in your browser for your next visit.
-
-      Have you tried Firefox or Chrome? */
-      </textarea>
-    </div>
-  </div>
-
-  <div id="highlight-impossible" style="display:none; background-color:gold;">
-    Code highlighting is only possible if no multi-line statements are
-    present.
-  </div>
-</div>
-
 <div id="edit-world-panel">
     <h1>Create your own worlds!</h1>
     <p>If you want to share your world (and corresponding challenges) with others,
@@ -229,6 +193,42 @@
             <li><a href="javascript:RUR.we.select('goal-no-objects');">No other objects</a></li>
         </ul></li>
     </ul>
+</div>
+
+<div id="editor-panel" class="active" >
+  <input type="file" id="fileInput" style="display:none;">
+  <div id="tabs">
+    <ul>
+      <li><a id="editor-link" href="#editor">Python Code</a></li>
+      <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
+        <img src="src/images/highlight.png" alt="highlight">
+        <img src="src/images/ok.png" alt="ok" id="ok-image">
+        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
+      </button>
+      <li><a id="library-link" href="#library">Library</a></li>
+    </ul>
+    <div id="editor">
+      <textarea id="code" name="code">move()</textarea>
+
+    </div>
+    <div id="library">
+      <textarea id="library-code" name="library-code">
+      /* Sorry - if you see this, it means that
+      your browser is incapable of using the
+      Library the way it has been designed.
+
+      You could write code here ... but it will
+      not be saved in your browser for your next visit.
+
+      Have you tried Firefox or Chrome? */
+      </textarea>
+    </div>
+  </div>
+
+  <div id="highlight-impossible" style="display:none; background-color:gold;">
+    Code highlighting is only possible if no multi-line statements are
+    present.
+  </div>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
