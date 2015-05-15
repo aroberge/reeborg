@@ -684,8 +684,8 @@ $(document).ready(function() {
     $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
                                     position:{my: "top", at: "top", of: $("#editor-panel")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:300,
-                                 position:{my: "bottom", at: "bottom", of: window}});
+    $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
+                                 position:{my: "bottom", at: "bottom-20", of: window}});
 
     editor.widgets = [];
     library.widgets = [];
@@ -2721,13 +2721,11 @@ RUR.ui.reload = function() {
     $("#output-panel pre").remove(".jscode");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
-    //$("#Reeborg-writes").dialog("close");
     // reset the options in case the user has dragged the window.
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
                                               autoOpen:false, width:500,
                                               position:{my: "top", at: "top", of: $("#editor-panel")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    //$("#Reeborg-writes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "say", position:{my: "top", at: "top", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.runner.interpreted = false;
     RUR.control.sound_flag = false;
