@@ -20,7 +20,6 @@
   <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
   <div id="header-child">
     <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">World</button>
-    <button class="blue-gradient" id="output-panel-button" label="output-panel">Diary</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
     <button class="blue-gradient" id="help-button">Help</button>
     <button id="permalink" class="blue-gradient" label="url-form" title="Create a permalink" onclick="RUR.create_permalink();">
@@ -142,24 +141,6 @@
       <button id="classic-image" title="Classic image"><img src="src/images/robot_e.png" alt="robot east"></button>
       <button id="rover-type" title="Rover type"><img src="src/images/rover_e.png" alt="robot east"></button>
     </div>
-</div>
-
-
-<div id="output-panel">
-    <div id="diary-controls">
-    <button class="blue-gradient" id="run2" title="run" onclick="RUR.ui.run();">
-      <img src="src/images/play.png" alt="play">
-    </button>
-    <button class="blue-gradient" id="reload2" title="reload" disabled="true" onclick="RUR.ui.reload();">
-      <img src="src/images/reload.png" alt="reload">
-    </button>
-
-  </div>
-  <div id="diary-wrapper">
-    <h3>Reeborg's diary</h3>
-    <pre id="output-pre"></pre>
-    <pre id="last-pre"></pre>
-  </div>
 </div>
 
 <div id="editor-panel" class="active" >

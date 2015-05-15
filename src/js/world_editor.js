@@ -190,7 +190,6 @@ function editing_world_show_others(){
     $("#contents-button").removeAttr("disabled");
     $("#help-button").removeAttr("disabled");
     $("#world-panel-button").removeAttr("disabled");
-    $("#output-panel-button").removeAttr("disabled");
     $("#editor-panel-button").removeAttr("disabled");
     $("#editor-panel-button").click();
     $("#run").removeAttr("disabled");
@@ -204,10 +203,6 @@ function editing_world_hide_others() {
         $("#editor-panel-button").click();
     }
     $("#editor-panel-button").attr("disabled", "true");
-    if ($("#output-panel-button").hasClass("active")) {
-        $("#output-panel-button").click();
-    }
-    $("#output-panel-button").attr("disabled", "true");
     $("#world-panel-button").attr("disabled", "true");
     $("#contents-button").attr("disabled", "true");
     $("#help-button").attr("disabled", "true");

@@ -34,22 +34,8 @@ $(document).ready(function() {
 
         if (label === "world-panel"){
             $("#world-panel").toggleClass("active");
-        }  else if (label === "output-panel"){
-            $("#output-panel").toggleClass("active");
         }  else if (label === "editor-panel"){
             $("#editor-panel").toggleClass("active");
-        }
-
-        if ($("#output-panel").hasClass("active")) {
-            if ( $("#world-panel").hasClass("active")) {
-                RUR.reset_definitions();
-                $("#run2").hide();
-                $("#reload2").hide();
-            } else {
-                $("#run2").show();
-                $("#reload2").show();
-                RUR.reset_definitions();
-            }
         }
 
     });
@@ -69,7 +55,6 @@ $(document).ready(function() {
             library.setSize(null, $(this).height()-40);
         }
     });
-    $("#output-panel").resizable();
 
     $("#editor-link").on("click", function(){
         if (RUR.programming_language == "python"){

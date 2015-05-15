@@ -499,22 +499,8 @@ $(document).ready(function() {
 
         if (label === "world-panel"){
             $("#world-panel").toggleClass("active");
-        }  else if (label === "output-panel"){
-            $("#output-panel").toggleClass("active");
         }  else if (label === "editor-panel"){
             $("#editor-panel").toggleClass("active");
-        }
-
-        if ($("#output-panel").hasClass("active")) {
-            if ( $("#world-panel").hasClass("active")) {
-                RUR.reset_definitions();
-                $("#run2").hide();
-                $("#reload2").hide();
-            } else {
-                $("#run2").show();
-                $("#reload2").show();
-                RUR.reset_definitions();
-            }
         }
 
     });
@@ -534,7 +520,6 @@ $(document).ready(function() {
             library.setSize(null, $(this).height()-40);
         }
     });
-    $("#output-panel").resizable();
 
     $("#editor-link").on("click", function(){
         if (RUR.programming_language == "python"){
@@ -2719,7 +2704,6 @@ RUR.ui.stop = function () {
 RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
     $("#stdout").html("");
-    $("#output-panel pre").remove(".jscode");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
     // reset the options in case the user has dragged the window.
@@ -3910,7 +3894,6 @@ function editing_world_show_others(){
     $("#contents-button").removeAttr("disabled");
     $("#help-button").removeAttr("disabled");
     $("#world-panel-button").removeAttr("disabled");
-    $("#output-panel-button").removeAttr("disabled");
     $("#editor-panel-button").removeAttr("disabled");
     $("#editor-panel-button").click();
     $("#run").removeAttr("disabled");
@@ -3924,10 +3907,6 @@ function editing_world_hide_others() {
         $("#editor-panel-button").click();
     }
     $("#editor-panel-button").attr("disabled", "true");
-    if ($("#output-panel-button").hasClass("active")) {
-        $("#output-panel-button").click();
-    }
-    $("#output-panel-button").attr("disabled", "true");
     $("#world-panel-button").attr("disabled", "true");
     $("#contents-button").attr("disabled", "true");
     $("#help-button").attr("disabled", "true");

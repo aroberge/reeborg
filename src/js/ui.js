@@ -102,7 +102,6 @@ RUR.ui.stop = function () {
 RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
     $("#stdout").html("");
-    $("#output-panel pre").remove(".jscode");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
     // reset the options in case the user has dragged the window.
