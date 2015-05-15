@@ -2347,7 +2347,8 @@ RUR.runner.compile_coffee = function() {
         return;
     }
     var js_code = CoffeeScript.compile(editor.getValue());
-    $("#output-pre").html(js_code);
+    $("#stdout").html(js_code);
+    $("#Reeborg-writes").dialog("open");
 };/* Author: André Roberge
    License: MIT  */
 
