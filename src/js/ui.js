@@ -101,7 +101,7 @@ RUR.ui.stop = function () {
 
 RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
-    $("#output-pre").html("");
+    $("#stdout").html("");
     $("#output-panel pre").remove(".jscode");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
