@@ -291,7 +291,9 @@ padding:3px;}
 
 #world-panel.active, #output-panel.active, #editor-panel.active, #edit-world-panel.active {display: inline-block; z-index: 1}
 
-#output-pre {margin-top: 0; background-color: white;}
+#stdout {margin-top: 0; background-color: cornsilk;}
+#Reeborg-writes {background-color: white;}
+
 #notes {background: #f9ffff; margin-left: 32px; box-shadow: -3px 0 0 0 #75a110, -32px 0 0 0 #224488;}
 #notes p {margin: 0 10px; font-size: 0.9em;}
 
