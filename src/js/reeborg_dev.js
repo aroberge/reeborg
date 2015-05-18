@@ -189,14 +189,6 @@ RUR.control.done = function () {
     throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
 
-RUR.control.say = function () {
-    var message = '';
-  for (var i = 0; i < arguments.length; i++) {
-    message += arguments[i];
-  }
-    RUR.rec.record_frame("say", message);
-};
-
 RUR.control.token_here = function (robot, do_not_record) {
     // returns the number of tokens at the location where the robot is
     var coords = robot.x + "," + robot.y;
@@ -1995,8 +1987,6 @@ RUR.rec.display_frame = function () {
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message);
         $("#Reeborg-writes").dialog("open");
-    } else if (frame.say !== undefined) {
-        $("#Reeborg-writes").html(frame.say.toString()).dialog("open").effect("highlight", {color: "cornsilk"}, 300);
     }
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
