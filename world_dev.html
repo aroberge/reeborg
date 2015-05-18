@@ -10,9 +10,9 @@
 <link rel="icon" href="src/images/favicon.ico" type="image/icon">
 <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
-<link rel="stylesheet" href="src/css/reeborg_dev.css"> <!-- load after codemirror.css -->
+<link rel="stylesheet" href="src/css/reeborg_world.css"> <!-- load after codemirror.css -->
 <title>Reeborg's world</title>
-    <script src="src/libraries/brython_old/brython.js"></script>
+    <script src="src/libraries/brython/brython.js"></script>
 </head>
 <body onload="brython({debug:1, pythonpath:['/src/python']})">
 
@@ -20,7 +20,6 @@
   <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
   <div id="header-child">
     <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">World</button>
-    <button class="blue-gradient" id="output-panel-button" label="output-panel">Diary</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
     <button class="blue-gradient" id="help-button">Help</button>
     <button id="permalink" class="blue-gradient" label="url-form" title="Create a permalink" onclick="RUR.create_permalink();">
@@ -73,7 +72,7 @@
     <canvas id="trace_canvas" width="620" height="550"></canvas>
     <canvas id="robot_canvas" width="620" height="550"></canvas>
     <div id="Reeborg-concludes" title="Reeborg says: I'm done!" style="display:none"></div>
-    <div id="Reeborg-says" title="Reeborg says:" style="display:none"></div>
+    <div id="Reeborg-writes" title="Reeborg writes:" style="display:none"><pre id="stdout"></pre></div>
     <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
   </div>
 
@@ -144,60 +143,6 @@
     </div>
 </div>
 
-
-<div id="output-panel">
-    <div id="diary-controls">
-    <button class="blue-gradient" id="run2" title="run" onclick="RUR.ui.run();">
-      <img src="src/images/play.png" alt="play">
-    </button>
-    <button class="blue-gradient" id="reload2" title="reload" disabled="true" onclick="RUR.ui.reload();">
-      <img src="src/images/reload.png" alt="reload">
-    </button>
-
-  </div>
-  <div id="diary-wrapper">
-    <h3>Reeborg's diary</h3>
-    <pre id="output-pre"></pre>
-    <pre id="last-pre"></pre>
-  </div>
-</div>
-
-<div id="editor-panel" class="active" >
-  <input type="file" id="fileInput" style="display:none;">
-  <div id="tabs">
-    <ul>
-      <li><a id="editor-link" href="#editor">Python Code</a></li>
-      <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
-        <img src="src/images/highlight.png" alt="highlight">
-        <img src="src/images/ok.png" alt="ok" id="ok-image">
-        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
-      </button>
-      <li><a id="library-link" href="#library">Library</a></li>
-    </ul>
-    <div id="editor">
-      <textarea id="code" name="code">move()</textarea>
-
-    </div>
-    <div id="library">
-      <textarea id="library-code" name="library-code">
-      /* Sorry - if you see this, it means that
-      your browser is incapable of using the
-      Library the way it has been designed.
-
-      You could write code here ... but it will
-      not be saved in your browser for your next visit.
-
-      Have you tried Firefox or Chrome? */
-      </textarea>
-    </div>
-  </div>
-
-  <div id="highlight-impossible" style="display:none; background-color:gold;">
-    Code highlighting is only possible if no multi-line statements are
-    present.
-  </div>
-</div>
-
 <div id="edit-world-panel">
     <h1>Create your own worlds!</h1>
     <p>If you want to share your world (and corresponding challenges) with others,
@@ -248,6 +193,51 @@
             <li><a href="javascript:RUR.we.select('goal-no-objects');">No other objects</a></li>
         </ul></li>
     </ul>
+
+    <div id="additional-code">
+      <p>The following copies code from the editor; such code will be run either before or
+         after the user's program.</p>
+      <button class="blue-gradient" id="insert-pre-code" onclick="RUR.we.insert_pre_code();">Insert pre-code</button>
+      <button class="blue-gradient" id="insert-post-code" onclick="RUR.we.insert_post_code();">Insert post-code</button>
+      <span id="code-copied"></span>
+    </div>
+
+</div>
+
+<div id="editor-panel" class="active" >
+  <input type="file" id="fileInput" style="display:none;">
+  <div id="tabs">
+    <ul>
+      <li><a id="editor-link" href="#editor">Python Code</a></li>
+      <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
+        <img src="src/images/highlight.png" alt="highlight">
+        <img src="src/images/ok.png" alt="ok" id="ok-image">
+        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
+      </button>
+      <li><a id="library-link" href="#library">Library</a></li>
+    </ul>
+    <div id="editor">
+      <textarea id="code" name="code">move()</textarea>
+
+    </div>
+    <div id="library">
+      <textarea id="library-code" name="library-code">
+      /* Sorry - if you see this, it means that
+      your browser is incapable of using the
+      Library the way it has been designed.
+
+      You could write code here ... but it will
+      not be saved in your browser for your next visit.
+
+      Have you tried Firefox or Chrome? */
+      </textarea>
+    </div>
+  </div>
+
+  <div id="highlight-impossible" style="display:none; background-color:gold;">
+    Code highlighting is only possible if no multi-line statements are
+    present.
+  </div>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
@@ -265,7 +255,7 @@
   RUR.settings.library = "library_py_en";
   RUR.programming_language = "python";
 </script>
-<script src="src/js_old/reeborg.js"></script>
+<script src="src/js/reeborg_dev.js"></script>
 <script src="src/lang/reeborg_en.js"></script>
 <script src="src/lang/translation_en.js"></script>
 <script src="src/js/jquery.ui.dialog.minmax.js"></script>
@@ -276,9 +266,10 @@ from browser import window
 import common_def         # reassigns stdin and stdout
 from reeborg_en import *  # will insert the relevant help information
 
-def translate_python(src, highlight):
+def translate_python(src, highlight, pre_code='', post_code=''):
     import my_lib
-    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *", highlight)
+    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",
+      highlight, pre_code=pre_code, post_code=post_code)
 
 window['translate_python'] = translate_python
 </script>
@@ -387,7 +378,7 @@ your choice.</p>
       Translate CoffeeScript
     </button>
     <span class="description"> For CoffeeScript programming only.<br>
-      Translates the CoffeeScript code in the editor into Javascript and shows the result in the Diary.
+      Translates the CoffeeScript code in the editor into Javascript and prints the result.
     </span>
   </p>
 
