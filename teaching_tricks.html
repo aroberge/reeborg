@@ -37,9 +37,9 @@
       <li><a href="#traces">Different traces</a> </li>
       <li><a href="#replace">Replacing the default robot</a> </li>
       <li><a href="#oop">Using "hidden" features from OOP</a> </li>
+      <li><a href="#pre-post-code">Adding code to be run in addition to user's program</a></li>
       <li><a href="#verify">Enhanced goals</a> </li>
       <li><a href="#css">Modifying the UI using specially crafted permalinks</a></li>
-      <li><a href="#pre-post-code">Adding code to be run in addition to user's program</a></li>
     </ul>
 
 
@@ -101,6 +101,11 @@ taken by the robot without giving hints as to when multiple left turns must be d
 <h3 id="oop">Using "hidden" features from OOP</h3>
 <p>By reading the more advanced <a href="http://reeborg.ca/docs/oop_py_en/">tutorial on OOP</a>, you might be able to design a robot having
 enhanced capabilities useful for demonstrations.</p>
+
+<br>
+<h3 id="pre-post-code">Adding code to be run in addition to user's program</h3>
+<p>When editing the world, you can add a extra code that will be run either
+   before the user's program is run, or after it is run, or both. </p>
 
 <h3 id="verify">Enhanced goals</h3>
 <p>You know that you can set some "goals" for Reeborg to accomplish using the graphical world editor. When a world is designed to contain goals,
@@ -212,11 +217,6 @@ Javascript or jQuery.</p>
 <br>
 <button onclick="encode_css()" class="blue-gradient">Create permalink code</button>
 <div id="permalink-result"></div>
-
-
-<h3 id="pre-post-code">Adding code to be run in addition to user's program</h3>
-<p>When editing the world, you can add a extra code that will be run either
-   before the user's program is run, or after it is run, or both. </p>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
