@@ -2247,7 +2247,7 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
-    var error_name, info;
+    var error_name, info, new_message, line_no, tmp;
     try {
         if (RUR.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
@@ -2262,6 +2262,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     } catch (e) {
         if (RUR.programming_language === "python") {
             error_name = e.__name__;
+            console.log(e);
             if (e.reeborg_says === undefined) {
                 e.message = e.message.replace("\n", "<br>");
                 if (e.info){
@@ -2276,7 +2277,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
                         e.message += "<br>&#8594;" + info;
                     }
                 }
-                e.message = e.message.replace(/module '*__main__'* line \d+\s/,"" ); // TODO: might not be needed
             } else {
                 e.message = e.reeborg_says;
             }
@@ -2286,7 +2286,15 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         if (error_name === "ReeborgError"){
             RUR.rec.record_frame("error", e);
         } else {
-            $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" + e.message + "</h4>").dialog("open");
+            new_message = e.message.split("line ");
+            new_message = new_message[new_message.length-1];
+            if (RUR._highlight) {
+                tmp = new_message.split("\n");
+                line_no = parseInt(tmp[0], 10)/2;
+                new_message = new_message.replace(tmp[0], line_no.toString());
+            }
+            new_message = "near or at line " + new_message.replace("\n", "<br>");
+            $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" + new_message + "</h4>").dialog("open");
             RUR.ui.stop();
             return true;
         }
