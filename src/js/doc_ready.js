@@ -34,22 +34,8 @@ $(document).ready(function() {
 
         if (label === "world-panel"){
             $("#world-panel").toggleClass("active");
-        }  else if (label === "output-panel"){
-            $("#output-panel").toggleClass("active");
         }  else if (label === "editor-panel"){
             $("#editor-panel").toggleClass("active");
-        }
-
-        if ($("#output-panel").hasClass("active")) {
-            if ( $("#world-panel").hasClass("active")) {
-                RUR.reset_definitions();
-                $("#run2").hide();
-                $("#reload2").hide();
-            } else {
-                $("#run2").show();
-                $("#reload2").show();
-                RUR.reset_definitions();
-            }
         }
 
     });
@@ -69,7 +55,6 @@ $(document).ready(function() {
             library.setSize(null, $(this).height()-40);
         }
     });
-    $("#output-panel").resizable();
 
     $("#editor-link").on("click", function(){
         if (RUR.programming_language == "python"){
@@ -219,7 +204,8 @@ $(document).ready(function() {
     $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
                                     position:{my: "top", at: "top", of: $("#editor-panel")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-says").dialog({minimize: false, maximize: false, autoOpen:false, width:500, position:{my: "top", at: "top", of: $("#robot_canvas")}});
+    $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
+                                 position:{my: "bottom", at: "bottom-20", of: window}});
 
     editor.widgets = [];
     library.widgets = [];

@@ -155,8 +155,9 @@ RUR.rec.display_frame = function () {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
         $(frame.output.element).append(frame.output.message);
+        $("#Reeborg-writes").dialog("open");
     } else if (frame.say !== undefined) {
-        $("#Reeborg-says").html(frame.say.toString()).dialog("open").effect("highlight", {color: "cornsilk"}, 300);
+        $("#Reeborg-writes").html(frame.say.toString()).dialog("open").effect("highlight", {color: "cornsilk"}, 300);
     }
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
