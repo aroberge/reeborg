@@ -23,7 +23,7 @@ RUR.runner.run = function (playback) {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
-        // "playback" is afunction called to play back the code in a sequence of frames
+        // "playback" is a function called to play back the code in a sequence of frames
         // or a "null function", f(){} can be passed if the code is not
         // dependent on the robot world.
         if (playback() === "stopped") {
@@ -33,7 +33,7 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
-    var error_name, info, new_message, line_no, tmp;
+    var error_name, message;
     try {
         if (RUR.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
@@ -46,41 +46,21 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             return true;
         }
     } catch (e) {
+        console.log(e);     // see comment at the end of
+                            // this file showing some sample errors.
         if (RUR.programming_language === "python") {
             error_name = e.__name__;
-            console.log(e);
-            if (e.reeborg_says === undefined) {
-                e.message = e.message.replace("\n", "<br>");
-                if (e.info){
-                    info = RUR.simplify_python_traceback(e.info);
-                    if (info == "Highlight Problem"){
-                        error_name = RUR.translate("Unexplained Error");
-                        e.message = RUR.translate("Please turn highlighting off") +
-                            "<img src='src/images/highlight.png'>" +
-                            "<img src='src/images/not_ok.png'><br>" +
-                            RUR.translate("and try running your program again.");
-                    } else {
-                        e.message += "<br>&#8594;" + info;
-                    }
-                }
-            } else {
-                e.message = e.reeborg_says;
-            }
+            message = RUR.runner.simplify_python_traceback(e);
         } else {
             error_name = e.name;
+            message = e.message;
         }
+
         if (error_name === "ReeborgError"){
             RUR.rec.record_frame("error", e);
         } else {
-            new_message = e.message.split("line ");
-            new_message = new_message[new_message.length-1];
-            if (RUR._highlight) {
-                tmp = new_message.split("\n");
-                line_no = parseInt(tmp[0], 10)/2;
-                new_message = new_message.replace(tmp[0], line_no.toString());
-            }
-            new_message = "near or at line " + new_message.replace("\n", "<br>");
-            $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" + new_message + "</h4>").dialog("open");
+            $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" +
+                                      message + "</h4>").dialog("open");
             RUR.ui.stop();
             return true;
         }
@@ -89,18 +69,29 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     return false;
 };
 
-RUR.simplify_python_traceback = function(info) {
-    if (info.indexOf("RUR.set_lineno_highlight") !== -1){
-        return "Highlight Problem";
+
+RUR.runner.simplify_python_traceback = function(e) {
+    var message;
+    if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
+        message = e.message;
+    } else {
+        message = e.reeborg_shouts;
     }
-    info = info.replace("undefined", "undefined:");
-    info = info.replace("\n", "<br>");
-    info = info.replace("Traceback (most recent call last):<br>", '');
-    info = info.replace(/module '*__main__'* line \d+\s/,"" );
-    info = info.replace(/\s*RUR.set_lineno_highlight\(\d+\)/, "");
-    info = info.replace(/\s*\^$/, "");
-    return info;
-};
+    return message;
+}
+
+// RUR.simplify_python_traceback = function(info) {
+//     if (info.indexOf("RUR.set_lineno_highlight") !== -1){
+//         return "Highlight Problem";
+//     }
+//     info = info.replace("undefined", "undefined:");
+//     info = info.replace("\n", "<br>");
+//     info = info.replace("Traceback (most recent call last):<br>", '');
+//     info = info.replace(/module '*__main__'* line \d+\s/,"" );
+//     info = info.replace(/\s*RUR.set_lineno_highlight\(\d+\)/, "");
+//     info = info.replace(/\s*\^$/, "");
+//     return info;
+// };
 
 RUR.runner.eval_javascript = function (src) {
     // do not "use strict"
@@ -136,3 +127,66 @@ RUR.runner.compile_coffee = function() {
     $("#stdout").html(js_code);
     $("#Reeborg-writes").dialog("open");
 };
+
+
+/** This following are a list of error objects as recorded on the
+    Javascript console.
+    All the examples are from running Python programs.
+
+The character ↵, copied from the Javascript console, indicates a line return.
+
+=====================
+When running the following program with highlighting turned OFF in the
+default world "Alone":
+
+move()
+move()
+mov()
+move()
+
+The following is observed (June 19, 2015, "development" version):
+
+__class__: Object
+__name__: "NameError"
+args: "mov"
+info: "Traceback (most recent call last):↵  module __main__ line 7↵    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-rpry3c9s line 3↵    mov()"
+message: "mov<br>&#8594;      common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-rpry3c9s line 3↵    mov()"
+py_error: true
+stack: (...)
+get stack: function () { [native code] }
+set stack: function () { [native code] }
+traceback: Object
+type: "NameError"
+value: "mov"
+
+Note that both "info" and "message" contain the information about the
+error having occurred on line 3, just before their "last line"
+(prior to the character ↵).
+
+======================
+When running the following program with highlighting turned ON in the
+default world "Alone":
+
+move()
+move()
+mov()
+move()
+
+The following is observed (June 19, 2015, "development" version):
+
+__class__: Object
+__name__: "NameError"
+args: "mov"
+info: "Traceback (most recent call last):↵  module __main__ line 7↵    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-krinf2qk line 6↵    mov()"
+message: "mov<br>&#8594;      common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-krinf2qk line 6↵    mov()"
+py_error: true
+stack: (...)
+get stack: function () { [native code] }
+set stack: function () { [native code] }
+traceback: Object
+type: "NameError"
+value: "mov"
+
+Note that the line where the error occurred is indicated as line 6.
+
+*/
