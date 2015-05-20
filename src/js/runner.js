@@ -46,7 +46,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             return true;
         }
     } catch (e) {
-        console.log(e);     // see comment at the end of
+        console.dir(e);     // see comment at the end of
                             // this file showing some sample errors.
         if (RUR.programming_language === "python") {
             error_name = e.__name__;
@@ -71,33 +71,56 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
 
 
 RUR.runner.simplify_python_traceback = function(e) {
-    var message;
+    var message, line_number;
     if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
         message = e.message;
+        try {
+            line_number = RUR.runner.extract_line(e.info);
+        } catch (e) {
+            line_number = false;
+        }
+        if (line_number) {
+            message += "<br>Error found at or near line " + line_number.toString();
+        }
     } else {
         message = e.reeborg_shouts;
     }
     return message;
+};
+
+
+RUR.runner.extract_line = function (message) {
+    var lines, penultimate, last;
+
+    lines = message.split("\n");
+    penultimate = lines[lines.length -2];
+    last = lines[lines.length-1];
+    if (last.indexOf("exec(src, globals_)") != -1) { // error occurred on first line
+               // and brython incorrectly recorded the line in Reeborg's
+               // backend code as the source of the error
+        return 1
+    }
+    try {
+        line_number = parseInt(penultimate.split(" line ")[1], 10);
+        if (isNaN(line_number)) {
+            return false;
+        }
+    } catch (e) {
+        return false;
+    }
+    if (RUR._highlight) {
+        line_number = Math.round(line_number/2);
+    }
+    return line_number;
 }
 
-// RUR.simplify_python_traceback = function(info) {
-//     if (info.indexOf("RUR.set_lineno_highlight") !== -1){
-//         return "Highlight Problem";
-//     }
-//     info = info.replace("undefined", "undefined:");
-//     info = info.replace("\n", "<br>");
-//     info = info.replace("Traceback (most recent call last):<br>", '');
-//     info = info.replace(/module '*__main__'* line \d+\s/,"" );
-//     info = info.replace(/\s*RUR.set_lineno_highlight\(\d+\)/, "");
-//     info = info.replace(/\s*\^$/, "");
-//     return info;
-// };
 
 RUR.runner.eval_javascript = function (src) {
     // do not "use strict"
     RUR.reset_definitions();
     eval(src); // jshint ignore:line
 };
+
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
@@ -146,15 +169,13 @@ move()
 
 The following is observed (June 19, 2015, "development" version):
 
-__class__: Object
+class__: Object
 __name__: "NameError"
 args: "mov"
-info: "Traceback (most recent call last):↵  module __main__ line 7↵    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-rpry3c9s line 3↵    mov()"
-message: "mov<br>&#8594;      common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-rpry3c9s line 3↵    mov()"
+info: "Traceback (most recent call last):↵  module __main__ line 7↵    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-3rwj1zol line 3↵    mov()"
+message: "mov"
 py_error: true
-stack: (...)
-get stack: function () { [native code] }
-set stack: function () { [native code] }
+...   [unimportant ...]
 traceback: Object
 type: "NameError"
 value: "mov"
@@ -174,19 +195,18 @@ move()
 
 The following is observed (June 19, 2015, "development" version):
 
-__class__: Object
+_class__: Object
 __name__: "NameError"
 args: "mov"
-info: "Traceback (most recent call last):↵  module __main__ line 7↵    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-krinf2qk line 6↵    mov()"
-message: "mov<br>&#8594;      common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-krinf2qk line 6↵    mov()"
+info: "Traceback (most recent call last):↵  module __main__ line 7↵    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-h3t34gsi line 6↵    mov()"
+message: "mov"
 py_error: true
-stack: (...)
-get stack: function () { [native code] }
-set stack: function () { [native code] }
+...
 traceback: Object
 type: "NameError"
 value: "mov"
 
-Note that the line where the error occurred is indicated as line 6.
+Note that the line where the error occurred is indicated as line 6, instead
+of line 3; this is due to the highlighting.
 
 */
