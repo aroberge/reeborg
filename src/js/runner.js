@@ -122,8 +122,8 @@ RUR.runner.simplify_python_traceback = function(e) {
             message += "<br><br>Error found at or near line " + line_number.toString();
         }
         if (e.__name__ == "SyntaxError") {
-            if (RUR.runner.check_semicolons(line_number)) {
-                message += "<br>Perhaps a missing semi-colon is the cause."
+            if (RUR.runner.check_colons(line_number)) {
+                message += "<br>Perhaps a missingcolon is the cause."
             } else if (RUR.runner.check_func_parentheses(line_number)){
                 message += "<br>Perhaps you forgot to add parentheses ()."
             }
@@ -177,7 +177,7 @@ RUR.runner.extract_line = function (message) {
 };
 
 
-RUR.runner.check_semicolons = function(line_number) {
+RUR.runner.check_colons = function(line_number) {
     var lines, tokens, line, nb_token, pos;
 
     lines = editor.getValue().split("\n");
