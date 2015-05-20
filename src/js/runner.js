@@ -90,7 +90,7 @@ RUR.runner.simplify_python_traceback = function(e) {
 
 
 RUR.runner.extract_line = function (message) {
-    var lines, penultimate, last;
+    var lines, penultimate, last, pre_code;
 
     lines = message.split("\n");
     penultimate = lines[lines.length -2];
@@ -108,6 +108,12 @@ RUR.runner.extract_line = function (message) {
     } catch (e) {
         return false;
     }
+
+    if (RUR.current_world.pre_code){
+        pre_code = RUR.current_world.pre_code.split("\n");
+        line_number -= pre_code.length;
+    }
+
     if (RUR._highlight) {
         line_number = Math.round(line_number/2);
     }
