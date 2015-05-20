@@ -2324,22 +2324,22 @@ RUR.runner.simplify_python_traceback = function(e) {
             line_number = 1;
         }
         if (line_number !== false) {
-            message += "<br><br>Error found at or near line " + line_number.toString();
+            message += RUR.translate("<br><br>Error found at or near line {number}.").supplant({number: line_number.toString()});
         }
         if (e.__name__ == "SyntaxError") {
             if (RUR.runner.check_colons(line_number)) {
-                message += "<br>Perhaps a missing colon is the cause."
+                message += RUR.translate("<br>Perhaps a missing colon is the cause.");
             } else if (RUR.runner.check_func_parentheses(line_number)){
-                message += "<br>Perhaps you forgot to add parentheses ()."
+                message += RUR.translate("<br>Perhaps you forgot to add parentheses ().");
             }
         } else if (e.__name__ == "NameError") {
-            message += "<br>Perhaps you misspelled a word or forgot to define a function or a variable."
+            message += RUR.translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
         }
     } else {
         message = e.reeborg_shouts;
     }
     if (message =="Unexpected token {") {
-        message = "I do not understand what you are asking me to do."
+        message = RUR.translate("I do not understand what you are asking me to do.");
     }
     return message;
 };

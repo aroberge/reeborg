@@ -103,3 +103,9 @@ RUR.translation["Object names"] = " my_lib, token, star, triangle, square.";
 RUR.translation["Unexplained Error"] = "Unexplained Error";
 RUR.translation["Please turn highlighting off"] = "Please turn highlighting off";
 RUR.translation["and try running your program again."] = "and try running your program again.";
+
+RUR.translation["<br><br>Error found at or near line {number}."] = "<br><br>Error found at or near line {number}.";
+RUR.translation["<br>Perhaps a missing colon is the cause."] = "<br>Perhaps a missing colon is the cause.";
+RUR.translation["<br>Perhaps you forgot to add parentheses ()."] = "<br>Perhaps you forgot to add parentheses ().";
+RUR.translation["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Perhaps you misspelled a word or forgot to define a function or a variable.";
+RUR.translation["I do not understand what you are asking me to do."] = "I do not understand what you are asking me to do.";
