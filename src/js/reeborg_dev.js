@@ -2325,6 +2325,8 @@ RUR.runner.simplify_python_traceback = function(e) {
         if (e.__name__ == "SyntaxError") {
             if (RUR.runner.check_semicolons(line_number)) {
                 message += "<br>Perhaps a missing semi-colon is the cause."
+            } else if (RUR.runner.check_func_parentheses(line_number)){
+                message += "<br>Perhaps you forgot to add parentheses ()."
             }
         }
     } else {
@@ -2374,7 +2376,7 @@ RUR.runner.extract_line = function (message) {
 
 
 RUR.runner.check_semicolons = function(line_number) {
-    var lines, tokens, semicolon_error, line, max_line, nb_token, pos;
+    var lines, tokens, line, nb_token, pos;
 
     lines = editor.getValue().split("\n");
     tokens = ['if ', 'if(', 'else', 'elif ','elif(','while ','while(',
@@ -2396,6 +2398,30 @@ RUR.runner.check_semicolons = function(line_number) {
     }
     return false;  // no missing semi-colon
 };
+
+RUR.runner.check_func_parentheses = function(line_number) {
+    var lines, line, pos;
+
+    lines = editor.getValue().split("\n");
+    // Instead of simply checking for potential error on line_number as
+    // identified, check line above and below line_number as well
+    // in case the line_number identified by Brython was off by 1 ... which can happen.
+    for (line=Math.max(line_number-2, 0);
+         line <= Math.min(line_number, lines.length+1);
+         line++) {
+        pos = lines[line].indexOf('def');
+        if (pos != -1){
+            if (lines[line].indexOf("(") == -1){
+                return true;    // missing parentheses
+            }
+        }
+    }
+    return false;  // no missing semi-colon
+};
+
+
+
+
 
 
 
