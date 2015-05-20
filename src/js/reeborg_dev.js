@@ -2291,6 +2291,11 @@ RUR.runner.eval_python = function (src) {
     if (RUR.current_world.post_code){
         post_code = RUR.current_world.post_code;
     }
+    // Brython strips empty lines at the beginning;
+    // this may cause the line number reported when an error is found
+    // to be different from the actual number
+    // To solve this, we add an extra comment line at the beginning
+    pre_code = "#\n" + pre_code;
     translate_python(src, RUR._highlight, pre_code, post_code);
 };
 
@@ -2326,8 +2331,8 @@ RUR.runner.simplify_python_traceback = function(e) {
             message += "<br><br>Error found at or near line " + line_number.toString();
         }
         if (e.__name__ == "SyntaxError") {
-            if (RUR.runner.check_semicolons(line_number)) {
-                message += "<br>Perhaps a missing semi-colon is the cause."
+            if (RUR.runner.check_colons(line_number)) {
+                message += "<br>Perhaps a missing colon is the cause."
             } else if (RUR.runner.check_func_parentheses(line_number)){
                 message += "<br>Perhaps you forgot to add parentheses ()."
             }
@@ -2342,14 +2347,16 @@ RUR.runner.simplify_python_traceback = function(e) {
 
 
 RUR.runner.extract_line = function (message) {
-    var lines, penultimate, last, pre_code;
+    var lines, penultimate, last, pre_code, pre_code_length, i;
+    var empty_lines, line;
 
+    console.log("message = ", message);
 
     lines = message.split("\n");
     last = lines[lines.length-1];
     penultimate = lines[lines.length -2];
 
-    last = last.replace(/\s+/g, '');
+    last = last.replace(/\s+/g, ''); // remove all spaces
     if (last === "^") {  // this line was added by Brython as part of the traceback
         last = lines[lines.length-2];
         penultimate = lines[lines.length-3];
@@ -2360,6 +2367,8 @@ RUR.runner.extract_line = function (message) {
                // backend code as the source of the error
         return 1
     }
+
+    console.log("penultimate=", penultimate)
     try {
         line_number = parseInt(penultimate.split(" line ")[1], 10);
         if (isNaN(line_number)) {
@@ -2369,19 +2378,43 @@ RUR.runner.extract_line = function (message) {
         return false;
     }
 
+
+    /*  either remove 2 from the count due to adding the line [**]
+            pre_code = "#\n" + pre_code;
+        above as well as
+            src = pre_code + "\n" + src + "\n" + post_code
+        from common_def.py
+    */
+    pre_code_length = 2;
+    // or use the proper count (adding one for [**])
     if (RUR.current_world.pre_code){
         pre_code = RUR.current_world.pre_code.split("\n");
-        line_number -= pre_code.length;
+        pre_code_length = pre_code.length + 2;
     }
+    line_number -= pre_code_length;
 
     if (RUR._highlight) {
+        // the highlighting routine skips empty lines;
+        // we artificially increase the line number to take them into
+        // account ...
+        lines = editor.getValue().split("\n");
+        empty_lines = 0;
+        line = lines[0].replace(/\s+/g, '');
+        while (line != last){
+            empty_lines += 1;
+            line = lines[empty_lines].replace(/\s+/g, '');
+        }
+        line_number += empty_lines;
+        // ... and we divide by two, to remove the lines with highlighting
+        // instruction from the count.
         line_number = Math.round(line_number/2);
     }
-    return line_number;
+
+    return Math.min(line_number, 1);
 };
 
 
-RUR.runner.check_semicolons = function(line_number) {
+RUR.runner.check_colons = function(line_number) {
     var lines, tokens, line, nb_token, pos;
 
     lines = editor.getValue().split("\n");
@@ -2397,12 +2430,12 @@ RUR.runner.check_semicolons = function(line_number) {
             pos = lines[line].indexOf(tokens[nb_token]);
             if (pos != -1){
                 if (lines[line].indexOf(":") == -1){
-                    return true;    // missing semi-colon
+                    return true;    // missing colon
                 }
             }
         }
     }
-    return false;  // no missing semi-colon
+    return false;  // no missing colon
 };
 
 RUR.runner.check_func_parentheses = function(line_number) {
@@ -2422,7 +2455,7 @@ RUR.runner.check_func_parentheses = function(line_number) {
             }
         }
     }
-    return false;  // no missing semi-colon
+    return false;  // no missing colon
 };
 
 
