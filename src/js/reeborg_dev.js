@@ -1861,20 +1861,13 @@ RUR.rec.reset();
 
 RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
-    var frame = {}, min_time_sound;
+    var frame = {};
     frame.world = RUR.world.clone_world();
     if (name !== undefined) {
         frame[name] = obj;
     }
 
-    if (RUR.programming_language === "python" && RUR._highlight) {
-            frame.delay = RUR.rec.delay/2;
-            min_time_sound = RUR.MIN_TIME_SOUND/2;
-    } else {
-            frame.delay = RUR.rec.delay;
-            min_time_sound = RUR.MIN_TIME_SOUND;
-    }
-    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay > min_time_sound) {
+    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
 
