@@ -1,4 +1,4 @@
-/* Author: André Roberge
+ /* Author: André Roberge
    License: MIT
  */
 
@@ -87,11 +87,6 @@ RUR.runner.eval_python = function (src) {
     if (RUR.current_world.post_code){
         post_code = RUR.current_world.post_code;
     }
-    // Brython strips empty lines at the beginning;
-    // this may cause the line number reported when an error is found
-    // to be different from the actual number
-    // To solve this, we add an extra comment line at the beginning
-    pre_code = "#\n" + pre_code;
     translate_python(src, RUR._highlight, pre_code, post_code);
 };
 
@@ -116,10 +111,11 @@ RUR.runner.simplify_python_traceback = function(e) {
     if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
         message = e.message;
         try {
-            line_number = RUR.runner.extract_line(e.info);
+            line_number = RUR.runner.extract_line(e.info, e.__name__);
         } catch (e) {
             line_number = false;
         }
+
         if (line_number===0){
             line_number = 1;
         }
@@ -142,71 +138,44 @@ RUR.runner.simplify_python_traceback = function(e) {
 };
 
 
-RUR.runner.extract_line = function (message) {
-    var lines, penultimate, last, pre_code, pre_code_length, i;
-    var empty_lines, line;
-
-    console.log("message = ", message);
-
+RUR.runner.extract_line = function (message, error_name) {
+    var line, lines, last, line_number, last;
     lines = message.split("\n");
-    last = lines[lines.length-1];
-    penultimate = lines[lines.length -2];
+    last = lines[lines.length-1].replace(/\s+/g, '');
 
-    last = last.replace(/\s+/g, ''); // remove all spaces
     if (last === "^") {  // this line was added by Brython as part of the traceback
-        last = lines[lines.length-2];
-        penultimate = lines[lines.length-3];
+        last = lines[lines.length-2].replace(/\s+/g, '');
     }
 
-    if (last.indexOf("exec(src, globals_)") != -1) { // error occurred on first line
+    if (last.indexOf("exec(src, globals_)") != -1) { // error likely occurred on first line
                // and brython incorrectly recorded the line in Reeborg's
                // backend code as the source of the error
         return 1
     }
+    if (last.indexOf("RUR.set_lineno_highlight(") != -1) {
+        last = last.replace("RUR.set_lineno_highlight(", "");
+        lines = last.split(",");
+        line_number = parseInt(lines[0], 10) + 1;
+        return line_number;
+    }
 
-    console.log("penultimate=", penultimate)
-    try {
-        line_number = parseInt(penultimate.split(" line ")[1], 10);
-        if (isNaN(line_number)) {
-            return false;
-        }
-    } catch (e) {
+    if (error_name=="NameError" || error_name=="IndentationError") {
+        // can not reliably extract line number
         return false;
     }
 
-
-    /*  either remove 2 from the count due to adding the line [**]
-            pre_code = "#\n" + pre_code;
-        above as well as
-            src = pre_code + "\n" + src + "\n" + post_code
-        from common_def.py
-    */
-    pre_code_length = 2;
-    // or use the proper count (adding one for [**])
-    if (RUR.current_world.pre_code){
-        pre_code = RUR.current_world.pre_code.split("\n");
-        pre_code_length = pre_code.length + 2;
+    lines = editor.getValue().split("\n");
+    line = lines[0].replace(/\s+/g, '');
+    line_number = 0;
+    while (line != last && line_number < lines.length) {
+        line = lines[line_number].replace(/\s+/g, '');
+        line_number++;
     }
-    line_number -= pre_code_length;
-
-    if (RUR._highlight) {
-        // the highlighting routine skips empty lines;
-        // we artificially increase the line number to take them into
-        // account ...
-        lines = editor.getValue().split("\n");
-        empty_lines = 0;
-        line = lines[0].replace(/\s+/g, '');
-        while (line != last){
-            empty_lines += 1;
-            line = lines[empty_lines].replace(/\s+/g, '');
-        }
-        line_number += empty_lines;
-        // ... and we divide by two, to remove the lines with highlighting
-        // instruction from the count.
-        line_number = Math.round(line_number/2);
+    if (line != last) {
+        return false;
     }
 
-    return Math.max(line_number, 1);
+    return line_number;
 };
 
 
@@ -253,69 +222,3 @@ RUR.runner.check_func_parentheses = function(line_number) {
     }
     return false;  // no missing colon
 };
-
-
-
-
-
-
-
-
-/** This following are a list of error objects as recorded on the
-    Javascript console.
-    All the examples are from running Python programs.
-
-The character ↵, copied from the Javascript console, indicates a line return.
-
-=====================
-When running the following program with highlighting turned OFF in the
-default world "Alone":
-
-move()
-move()
-mov()
-move()
-
-The following is observed (June 19, 2015, "development" version):
-
-class__: Object
-__name__: "NameError"
-args: "mov"
-info: "Traceback (most recent call last):↵  module __main__ line 7↵    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-3rwj1zol line 3↵    mov()"
-message: "mov"
-py_error: true
-...   [unimportant ...]
-traceback: Object
-type: "NameError"
-value: "mov"
-
-Note that both "info" and "message" contain the information about the
-error having occurred on line 3, just before their "last line"
-(prior to the character ↵).
-
-======================
-When running the following program with highlighting turned ON in the
-default world "Alone":
-
-move()
-move()
-mov()
-move()
-
-The following is observed (June 19, 2015, "development" version):
-
-_class__: Object
-__name__: "NameError"
-args: "mov"
-info: "Traceback (most recent call last):↵  module __main__ line 7↵    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",↵  module exec-h3t34gsi line 6↵    mov()"
-message: "mov"
-py_error: true
-...
-traceback: Object
-type: "NameError"
-value: "mov"
-
-Note that the line where the error occurred is indicated as line 6, instead
-of line 3; this is due to the highlighting.
-
-*/
