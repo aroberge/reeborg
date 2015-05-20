@@ -110,9 +110,9 @@ RUR.translation["Please turn highlighting off"] = "SVP désactivez le surligneme
 RUR.translation["and try running your program again."] = "et essayez d'exécuter votre programme à nouveau.";
 
 
-RUR.translation["<br><br>Error found at or near line {number}."] = "<br><br>Erreur trouvée à la ligne {number} ou tout près.";
+RUR.translation["Error found at or near line {number}."] = "Erreur trouvée à la ligne {number} ou tout près.";
 RUR.translation["<br>Perhaps a missing colon is the cause."] = "<br>Il manque peut-être deux points ':'.";
 RUR.translation["<br>Perhaps you forgot to add parentheses ()."] = "<br>Il manque peut-être des parenthèses ().";
-RUR.translation["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>IL est possible qu'un mot soit mal épelé ou qu'une définition de fonction ou de variable manque.";
+RUR.translation["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Il est possible qu'un mot soit mal épelé ou qu'une définition de fonction ou de variable manque.";
 RUR.translation["I do not understand what you are asking me to do."] = "Je ne comprend pas ce que vous me demandez de faire.";
 

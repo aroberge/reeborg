@@ -2237,7 +2237,8 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
-    var error_name, message;
+    var error_name, message, response, other_info;
+    other_info = '';
     try {
         if (RUR.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
@@ -2254,7 +2255,9 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
                             // this file showing some sample errors.
         if (RUR.programming_language === "python") {
             error_name = e.__name__;
-            message = RUR.runner.simplify_python_traceback(e);
+            response = RUR.runner.simplify_python_traceback(e);
+            message = response.message;
+            other_info = response.other_info;
         } else {
             error_name = e.name;
             message = e.message;
@@ -2264,7 +2267,8 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             RUR.rec.record_frame("error", e);
         } else {
             $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" +
-                                      message + "</h4>").dialog("open");
+                                      message + "</h4><p>" + other_info +
+                                      '</p>').dialog("open");
             RUR.ui.stop();
             return true;
         }
@@ -2311,7 +2315,8 @@ RUR.runner.compile_coffee = function() {
 };
 
 RUR.runner.simplify_python_traceback = function(e) {
-    var message, line_number;
+    var message, response, other_info, line_number;
+    other_info = '';
     if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
         message = e.message;
         try {
@@ -2324,16 +2329,16 @@ RUR.runner.simplify_python_traceback = function(e) {
             line_number = 1;
         }
         if (line_number !== false) {
-            message += RUR.translate("<br><br>Error found at or near line {number}.").supplant({number: line_number.toString()});
+            other_info += RUR.translate("Error found at or near line {number}.").supplant({number: line_number.toString()});
         }
         if (e.__name__ == "SyntaxError") {
             if (RUR.runner.check_colons(line_number)) {
-                message += RUR.translate("<br>Perhaps a missing colon is the cause.");
+                other_info += RUR.translate("<br>Perhaps a missing colon is the cause.");
             } else if (RUR.runner.check_func_parentheses(line_number)){
-                message += RUR.translate("<br>Perhaps you forgot to add parentheses ().");
+                other_info += RUR.translate("<br>Perhaps you forgot to add parentheses ().");
             }
         } else if (e.__name__ == "NameError") {
-            message += RUR.translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
+            other_info += RUR.translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
         }
     } else {
         message = e.reeborg_shouts;
@@ -2341,7 +2346,7 @@ RUR.runner.simplify_python_traceback = function(e) {
     if (message =="Unexpected token {") {
         message = RUR.translate("I do not understand what you are asking me to do.");
     }
-    return message;
+    return {message:message, other_info:other_info};
 };
 
 
