@@ -70,57 +70,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
 };
 
 
-RUR.runner.simplify_python_traceback = function(e) {
-    var message, line_number;
-    if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
-        message = e.message;
-        try {
-            line_number = RUR.runner.extract_line(e.info);
-        } catch (e) {
-            line_number = false;
-        }
-        if (line_number) {
-            message += "<br>Error found at or near line " + line_number.toString();
-        }
-    } else {
-        message = e.reeborg_shouts;
-    }
-    return message;
-};
-
-
-RUR.runner.extract_line = function (message) {
-    var lines, penultimate, last, pre_code;
-
-    lines = message.split("\n");
-    penultimate = lines[lines.length -2];
-    last = lines[lines.length-1];
-    if (last.indexOf("exec(src, globals_)") != -1) { // error occurred on first line
-               // and brython incorrectly recorded the line in Reeborg's
-               // backend code as the source of the error
-        return 1
-    }
-    try {
-        line_number = parseInt(penultimate.split(" line ")[1], 10);
-        if (isNaN(line_number)) {
-            return false;
-        }
-    } catch (e) {
-        return false;
-    }
-
-    if (RUR.current_world.pre_code){
-        pre_code = RUR.current_world.pre_code.split("\n");
-        line_number -= pre_code.length;
-    }
-
-    if (RUR._highlight) {
-        line_number = Math.round(line_number/2);
-    }
-    return line_number;
-}
-
-
 RUR.runner.eval_javascript = function (src) {
     // do not "use strict"
     RUR.reset_definitions();
@@ -156,6 +105,95 @@ RUR.runner.compile_coffee = function() {
     $("#stdout").html(js_code);
     $("#Reeborg-writes").dialog("open");
 };
+
+RUR.runner.simplify_python_traceback = function(e) {
+    var message, line_number;
+    if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
+        message = e.message;
+        try {
+            line_number = RUR.runner.extract_line(e.info);
+        } catch (e) {
+            line_number = false;
+        }
+        if (line_number) {
+            message += "<br><br>Error found at or near line " + line_number.toString();
+        }
+        if (e.__name__ == "SyntaxError") {
+            if (RUR.runner.check_semicolons(line_number)) {
+                message += "<br>Perhaps a missing semi-colon is the cause."
+            }
+        }
+    } else {
+        message = e.reeborg_shouts;
+    }
+    return message;
+};
+
+
+RUR.runner.extract_line = function (message) {
+    var lines, penultimate, last, pre_code;
+
+    lines = message.split("\n");
+    last = lines[lines.length-1];
+    penultimate = lines[lines.length -2];
+
+    last = last.replace(/\s+/g, '');
+    if (last === "^") {  // this line was added by Brython as part of the traceback
+        last = lines[lines.length-2];
+        penultimate = lines[lines.length-3];
+    }
+
+    if (last.indexOf("exec(src, globals_)") != -1) { // error occurred on first line
+               // and brython incorrectly recorded the line in Reeborg's
+               // backend code as the source of the error
+        return 1
+    }
+    try {
+        line_number = parseInt(penultimate.split(" line ")[1], 10);
+        if (isNaN(line_number)) {
+            return false;
+        }
+    } catch (e) {
+        return false;
+    }
+
+    if (RUR.current_world.pre_code){
+        pre_code = RUR.current_world.pre_code.split("\n");
+        line_number -= pre_code.length;
+    }
+
+    if (RUR._highlight) {
+        line_number = Math.round(line_number/2);
+    }
+    return line_number;
+}
+
+
+RUR.runner.check_semicolons = function(line_number) {
+    var lines, tokens, semicolon_error, line, max_line, nb_token, pos;
+
+    lines = editor.getValue().split("\n");
+    tokens = ['if ', 'if(', 'else', 'elif ','elif(','while ','while(',
+              'for ','for(', 'def '];
+    // Instead of simply checking for potential error on line_number as
+    // identified, check line above and below line_number as well
+    // in case the line_number identified by Brython was off by 1 ... which can happen.
+    for (line=Math.max(line_number-2, 0);
+         line <= Math.min(line_number, lines.length+1);
+         line++) {
+        for (nb_token=0; nb_token < tokens.length; nb_token++){
+            pos = lines[line].indexOf(tokens[nb_token]);
+            if (pos != -1){
+                if (lines[line].indexOf(":") == -1){
+                    return true;    // missing semi-colon
+                }
+            }
+        }
+    }
+    return false;  // no missing semi-colon
+};
+
+
 
 
 /** This following are a list of error objects as recorded on the
