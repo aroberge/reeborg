@@ -115,7 +115,10 @@ RUR.runner.simplify_python_traceback = function(e) {
         } catch (e) {
             line_number = false;
         }
-        if (line_number) {
+        if (line_number===0){
+            line_number = 1;
+        }
+        if (line_number !== false) {
             message += "<br><br>Error found at or near line " + line_number.toString();
         }
         if (e.__name__ == "SyntaxError") {
@@ -124,6 +127,8 @@ RUR.runner.simplify_python_traceback = function(e) {
             } else if (RUR.runner.check_func_parentheses(line_number)){
                 message += "<br>Perhaps you forgot to add parentheses ()."
             }
+        } else if (e.__name__ == "NameError") {
+            message += "<br>Perhaps you misspelled a word or forgot to define a function or a variable."
         }
     } else {
         message = e.reeborg_shouts;
@@ -134,6 +139,7 @@ RUR.runner.simplify_python_traceback = function(e) {
 
 RUR.runner.extract_line = function (message) {
     var lines, penultimate, last, pre_code;
+
 
     lines = message.split("\n");
     last = lines[lines.length-1];
@@ -168,7 +174,7 @@ RUR.runner.extract_line = function (message) {
         line_number = Math.round(line_number/2);
     }
     return line_number;
-}
+};
 
 
 RUR.runner.check_semicolons = function(line_number) {
