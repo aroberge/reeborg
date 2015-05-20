@@ -2257,6 +2257,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         }
 
         if (error_name === "ReeborgError"){
+            e.message = e.reeborg_shouts;
             RUR.rec.record_frame("error", e);
         } else {
             $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" +
