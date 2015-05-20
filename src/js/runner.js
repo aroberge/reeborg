@@ -134,6 +134,9 @@ RUR.runner.simplify_python_traceback = function(e) {
     } else {
         message = e.reeborg_shouts;
     }
+    if (message =="Unexpected token {") {
+        message = "I do not understand what you are asking me to do."
+    }
     return message;
 };
 
