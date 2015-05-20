@@ -206,7 +206,7 @@ RUR.runner.extract_line = function (message) {
         line_number = Math.round(line_number/2);
     }
 
-    return Math.min(line_number, 1);
+    return Math.max(line_number, 1);
 };
 
 
