@@ -12,7 +12,7 @@ var $ProcessDict = {__class__:$B.$type,__name__:'Process'}
 
 var $convert_args=function(args) {
     var _list=[]
-    for(var i=0; i < args.length; i++) {
+    for(var i=0, _len_i = args.length; i < _len_i; i++) {
       var _a=args[i]
       if(isinstance(_a, str)){_list.push("'"+_a+"'")} else {_list.push(_a)} 
     }
@@ -111,7 +111,7 @@ $PoolDict.__str__ = $PoolDict.toString = $PoolDict.__repr__=function(self){
 
 $PoolDict.map = function(self){
    var args = []
-   for(var i=1;i<arguments.length;i++) args.push(arguments[i])
+   for(var i=1, _len_i = arguments.length; i < _len_i;i++) args.push(arguments[i])
 
    var $ns=$B.$MakeArgs('Pool.map',args,['func', 'fargs'],[],'args','kw')
    var func=$ns['func']
@@ -132,7 +132,7 @@ $PoolDict.map = function(self){
           arg=getattr(fargs, '__next__')()
        } catch(err) {
           if (err.__name__ == 'StopIteration') {
-             __BRYTHON__.$pop_exc()
+             $B.$pop_exc()
           } else {
              throw err
           }
@@ -154,6 +154,7 @@ $PoolDict.map = function(self){
                _pos++
            } catch(err) {
                if (err.__name__ != 'StopIteration') throw err
+               $B.$pop_exc()
                this.finished=true
            }
        }, false);
@@ -162,7 +163,7 @@ $PoolDict.map = function(self){
 
 $PoolDict.apply_async = function(self){
    var args = []
-   for(var i=1;i<arguments.length;i++){args.push(arguments[i])}
+   for(var i=1, _len_i = arguments.length; i < _len_i;i++){args.push(arguments[i])}
 
    var $ns=$B.$MakeArgs('apply_async',args,['func', 'fargs'],[],'args','kw')
    var func=$ns['func']
@@ -210,6 +211,7 @@ $PoolDict.apply_async = function(self){
                _pos++
            } catch(err) {
                if (err.__name__ != 'StopIteration') throw err
+               $B.$pop_exc()
                this.finished=true
            }
        }, false);

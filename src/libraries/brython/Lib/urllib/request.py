@@ -20,13 +20,14 @@ def urlopen(url, data=None, timeout=None):
     if timeout is not None:
        _ajax.set_timeout(timeout)
 
-    _ajax.open('GET', url, False)
     if data is None:
+       _ajax.open('GET', url, False)
        _ajax.send()
     else:
+       _ajax.open('POST', url, False)
        _ajax.send(data)
 
     if isinstance(result.text, str):
-       return FileIO(result.text), url, result.headers
+       return FileIO(result.text), url, {'status': result.status}
 
-    return FileIO(result.text()), url, result.headers
+    return FileIO(result.text()), url, {'status': result.status}

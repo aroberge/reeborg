@@ -13,9 +13,9 @@ FUNCTIONS:
 import time
 import locale
 import calendar
-from pyre import compile as re_compile
-from pyre import IGNORECASE
-from pyre import escape as re_escape
+from re import compile as re_compile
+from re import IGNORECASE
+from re import escape as re_escape
 from datetime import (date as datetime_date,
                       timedelta as datetime_timedelta,
                       timezone as datetime_timezone)
@@ -163,10 +163,10 @@ class LocaleTime(object):
         # Set self.timezone by using time.tzname.
         # Do not worry about possibility of time.tzname[0] == timetzname[1]
         # and time.daylight; handle that in strptime .
-        try:
-            time.tzset()
-        except AttributeError:
-            pass
+        #try:
+            #time.tzset()
+        #except AttributeError:
+            #pass
         no_saving = frozenset(["utc", "gmt", time.tzname[0].lower()])
         if time.daylight:
             has_saving = frozenset([time.tzname[1].lower()])
@@ -507,5 +507,4 @@ def _strptime_datetime(cls, data_string, format="%a %b %d %H:%M:%S %Y"):
         else:
             tz = datetime_timezone(tzdelta)
         args += (tz,)
-
     return cls(*args)

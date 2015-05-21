@@ -1,6 +1,12 @@
-import browser.html
-import _jsre as re
-import __random as random
+# -*- coding: utf-8 -*-
+
+try:
+    import _jsre as re
+except:
+    import re
+
+import random
+import time
 
 letters = 'abcdefghijklmnopqrstuvwxyz'
 letters += letters.upper()+'0123456789'
@@ -19,13 +25,18 @@ class URL:
 class CodeBlock:
     def __init__(self,line):
         self.lines = [line]
+        if line.startswith("```") and len(line)>3:
+            self.info = line[3:]
+        else:
+            self.info = None
     
     def to_html(self):
         if self.lines[0].startswith("`"):
             self.lines.pop(0)
         res = escape('\n'.join(self.lines))
         res = unmark(res)
-        res = '<pre class="marked">%s</pre>\n' %res
+        _class = self.info or "marked"
+        res = '<pre class="%s">%s</pre>\n' %(_class, res)
         return res,[]
 
 class HtmlBlock:
@@ -51,6 +62,7 @@ ref_pattern = r"^\[(.*)\]:\s+(.*)"
 def mark(src):
 
     global refs
+    t0 = time.time()
     refs = {}
     # split source in sections
     # sections can be :
@@ -141,7 +153,9 @@ def mark(src):
         lines.append('</ol>'*ol)
     if bq:
         lines.append('</blockquote>'*bq)
-    
+
+    t1 = time.time()
+    #print('part 1', t1-t0)    
     sections = []
     scripts = []
     section = Marked()
@@ -155,11 +169,25 @@ def mark(src):
             section = CodeBlock(line[4:])
             j = i+1
             while j<len(lines) and lines[j].startswith('    '):
-                    section.lines.append(lines[j][4:])
-                    j += 1
+                section.lines.append(lines[j][4:])
+                j += 1
             sections.append(section)
             section = Marked()
             i = j   
+            continue
+
+        elif line.strip() and line.startswith("```"):
+            # fenced code blocks à la Github Flavoured Markdown
+            if isinstance(section,Marked) and section.line:
+                sections.append(section)
+            section = CodeBlock(line)
+            j = i+1
+            while j<len(lines) and not lines[j].startswith("```"):
+                section.lines.append(lines[j])
+                j += 1
+            sections.append(section)
+            section = Marked()
+            i = j+1
             continue
 
         elif line.lower().startswith('<script'):
@@ -205,11 +233,12 @@ def mark(src):
                 if not line.strip():
                     line = '<p></p>'
                 if section.line:
-                    section.line += ' '
+                    section.line += '\n'
                 section.line += line
                     
             i += 1
-
+    t2 = time.time()
+    #print('section 2', t2-t1)
     if isinstance(section,Marked) and section.line:
         sections.append(section)
 
@@ -218,6 +247,7 @@ def mark(src):
         mk,_scripts = section.to_html()
         res += mk
         scripts += _scripts
+    #print('end mark', time.time()-t2)
     return res,scripts
 
 def escape(czone):
@@ -249,6 +279,7 @@ def apply_markdown(src):
     scripts = []
     key = None
 
+    t0 = time.time()
     i = 0
     while i<len(src):
         if src[i]=='[':
@@ -300,8 +331,10 @@ def apply_markdown(src):
         
         i += 1
 
-    # before apply the markup with _ and *, isolate HTML tags because they can
-    # contain these characters
+    t1 = time.time()
+    #print('apply markdown 1', t1-t0)
+    # before applying the markup with _ and *, isolate HTML tags because 
+    # they can contain these characters
 
     # We replace them temporarily by a random string
     rstr = ''.join(random.choice(letters) for i in range(16))
@@ -318,7 +351,6 @@ def apply_markdown(src):
                 if src[j]=='"' or src[j]=="'":
                     if state==src[j] and src[j-1]!='\\':
                         state = None
-                        #src = src[:start+1]+data+src[j:]
                         j = start+len(data)+1
                         data = ''
                     elif state==None:
@@ -340,7 +372,6 @@ def apply_markdown(src):
                     j=i+4
                     break
                 j += 1
-            #i = j
         elif src[i]=='`' and i>0 and src[i-1]!='\\':
             # ignore the content of inline code
             j = i+1
@@ -351,14 +382,17 @@ def apply_markdown(src):
             i = j
         i += 1                    
 
+    t2 = time.time()
+    #print('apply markdown 2', len(src), t2-t1)
+
     # escape "<", ">", "&" and "_" in inline code
     code_pattern = r'\`(.*?)\`'
     src = re.sub(code_pattern,s_escape,src)
 
     # replace escaped ` _ * by HTML characters
-    src = src.replace(r'\\\`','&#96;')
-    src = src.replace(r'\\_','&#95;')
-    src = src.replace(r'\\*','&#42;')
+    src = src.replace(r'\\`','&#96;')
+    src = src.replace(r'\_','&#95;')
+    src = src.replace(r'\*','&#42;')
 
     # emphasis
     strong_patterns = [('STRONG',r'\*\*(.*?)\*\*'),('B',r'__(.*?)__')]
@@ -382,5 +416,8 @@ def apply_markdown(src):
         src = src[:pos]+repl+src[pos+len(rstr):]
 
     src = '<p>'+src+'</p>'
+
+    t3 = time.time()
+    #print('apply markdown 3', t3-t2)
 
     return src,scripts

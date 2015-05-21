@@ -1,5 +1,36 @@
-import _os
-from os import urandom as _urandom
+from browser import window, alert
+
+def _randint(a, b):
+    return int(window.Math.random()*(b-a+1)+a)
+    
+def _rand_with_seed(x, rand_obj):
+    x = window.Math.sin(rand_obj._state) * 10000
+    # Adding 1 is not reliable because of current integer implementation
+    # If rand_obj._state is not a "safe integer" in the range [-2**53, 2**53]
+    # the increment between 2 different values is a power of 2
+    # It is stored in an attribute of rand_obj to avoid having to compute it
+    # for each iteration
+    if not hasattr(rand_obj, 'incr'):
+        rand_obj.incr = 1
+    n = rand_obj._state
+    while n+rand_obj.incr==n:
+        # increase the increment until the increment value is different
+        rand_obj.incr *= 2
+    rand_obj._state += rand_obj.incr
+    return x - window.Math.floor(x)
+
+def _urandom(n, rand_obj=None):
+    """urandom(n) -> str    
+    Return n random bytes suitable for cryptographic use."""
+    
+    if rand_obj is None or rand_obj._state is None:
+        randbytes= [_randint(0,255) for i in range(n)]
+    else:
+        randbytes= []
+        for i in range(n):
+            randbytes.append(int(256*_rand_with_seed(i, rand_obj)))
+    return bytes(randbytes)
+    
 class Random:
     """Random number generator base class used by bound module functions.
 
@@ -55,7 +86,7 @@ class Random:
 
     def random(self):
         """Get the next random number in the range [0.0, 1.0)."""
-        return _os.random()
+        return window.Math.random()
 
     def getrandbits(self, k):
         """getrandbits(k) -> x.  Generates a long int with k random bits."""
@@ -64,5 +95,6 @@ class Random:
         if k != int(k):
             raise TypeError('number of bits should be an integer')
         numbytes = (k + 7) // 8                       # bits / 8 and rounded up
-        x = int.from_bytes(_urandom(numbytes), 'big')
+        x = int.from_bytes(_urandom(numbytes, self), 'big')
+            
         return x >> (numbytes * 8 - k)                # trim excess bits

@@ -1,9 +1,12 @@
 # hack to return special attributes
 from _sys import *
+_getframe = Getframe
 from javascript import JSObject
 
 has_local_storage=__BRYTHON__.has_local_storage
+has_session_storage = __BRYTHON__.has_session_storage
 has_json=__BRYTHON__.has_json
+brython_debug_mode = __BRYTHON__.debug
 
 argv = ['__main__']
 
@@ -55,15 +58,15 @@ maxunicode=1114111
 
 path = __BRYTHON__.path
 
-path_hooks = list(JSObject(__BRYTHON__.path_hooks))
+#path_hooks = list(JSObject(__BRYTHON__.path_hooks))
+meta_path=__BRYTHON__.meta_path
 
 platform="brython"
 
 prefix = __BRYTHON__.brython_path
 
 version = '.'.join(str(x) for x in __BRYTHON__.version_info[:3])
-#todo, put in a 'real' date, etc
-version += " (default, Feb 29 2013, 00:00:00) \n[Javascript 1.5]"
+version += " (default, %s) \n[Javascript 1.5] on Brython" % __BRYTHON__.compiled_date
 hexversion = 0x03000000   # python 3.0
 
 class __version_info(object):
@@ -91,6 +94,43 @@ class __version_info(object):
         return _s % (self.major, self.minor, self.micro, 
                      self.releaselevel, self.serial)
         #return str(self.version_info)
+
+    def __eq__(self,other):
+        if isinstance(other, tuple):
+           return (self.major, self.minor, self.micro) == other
+
+        raise Error("Error! I don't know how to compare!")
+
+    def __ge__(self,other):
+        if isinstance(other, tuple):
+           return (self.major, self.minor, self.micro) >= other
+
+        raise Error("Error! I don't know how to compare!")
+
+    def __gt__(self,other):
+        if isinstance(other, tuple):
+           return (self.major, self.minor, self.micro) > other
+
+        raise Error("Error! I don't know how to compare!")
+
+    def __le__(self,other):
+        if isinstance(other, tuple):
+           return (self.major, self.minor, self.micro) <= other
+
+        raise Error("Error! I don't know how to compare!")
+
+    def __lt__(self,other):
+        if isinstance(other, tuple):
+           return (self.major, self.minor, self.micro) < other
+
+        raise Error("Error! I don't know how to compare!")
+
+    def __ne__(self,other):
+        if isinstance(other, tuple):
+           return (self.major, self.minor, self.micro) != other
+
+        raise Error("Error! I don't know how to compare!")
+
 
 #eventually this needs to be the real python version such as 3.0, 3.1, etc
 version_info=__version_info(__BRYTHON__.version_info)
@@ -132,6 +172,11 @@ warnoptions=[]
 
 def getfilesystemencoding():
     return 'utf-8'
+
+## __stdxxx__ contains the original values of sys.stdxxx
+__stdout__ = __BRYTHON__.stdout
+__stderr__ = __BRYTHON__.stderr
+__stdin__ = __BRYTHON__.stdin
 
 #delete objects not in python sys module namespace
 del JSObject
