@@ -87,7 +87,7 @@ RUR.ui.reload = function() {
     // reset the options in case the user has dragged the window.
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
                                               autoOpen:false, width:500,
-                                              position:{my: "top", at: "top", of: $("#editor-panel")}});
+                                              position:{my: "top", at: "bottom", of: $("header")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.runner.interpreted = false;

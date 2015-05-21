@@ -54,7 +54,10 @@ $(document).ready(function() {
             editor.setSize(null, $(this).height()-40);
             library.setSize(null, $(this).height()-40);
         }
-    });
+    }).draggable({cursor: "move", handle: "ul"});
+
+
+
 
     $("#editor-link").on("click", function(){
         if (RUR.programming_language == "python"){
@@ -202,7 +205,7 @@ $(document).ready(function() {
 
 
     $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
-                                    position:{my: "top", at: "top", of: $("#editor-panel")}});
+                                    position:{my: "top", at: "bottom", of: $("header")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
