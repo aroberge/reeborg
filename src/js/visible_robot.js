@@ -7,7 +7,6 @@
 
 RUR.vis_robot = {};
 RUR.vis_robot.images = [{}, {}, {}, {}];
-console.log("RUR.vis_robot.images = ", RUR.vis_robot.images);
 
 // classic
 RUR.vis_robot.images[0].robot_e_img = new Image();

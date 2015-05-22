@@ -278,6 +278,7 @@ RUR.control.is_facing_north = function (robot) {
 
 RUR.control.think = function (delay) {
     RUR.rec.delay = delay;
+    RUR.rec.record_frame("debug", "RUR.control.think");
 };
 
 RUR.control.at_goal = function (robot) {

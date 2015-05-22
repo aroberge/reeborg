@@ -399,6 +399,7 @@ RUR.control.is_facing_north = function (robot) {
 
 RUR.control.think = function (delay) {
     RUR.rec.delay = delay;
+    RUR.rec.record_frame("debug", "RUR.control.think");
 };
 
 RUR.control.at_goal = function (robot) {
@@ -1881,12 +1882,11 @@ RUR.rec.record_frame = function (name, obj) {
         frame[name] = obj;
     }
 
+    frame.delay = RUR.rec.delay;
     if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay > RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
 
-
-/*    Experimental code    */
    if (RUR.programming_language === "python" && RUR._highlight) {
        if (RUR.current_lineno !== undefined) {
            RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR.current_lineno;
@@ -1894,7 +1894,6 @@ RUR.rec.record_frame = function (name, obj) {
            RUR.rec._line_numbers [RUR.rec.nb_frames] = [0];
        }
    }
-/*=====================*/
 
     RUR.previous_lineno = RUR.current_lineno;
 
@@ -1931,11 +1930,7 @@ RUR.rec.loop = function () {
     }
     frame_info = RUR.rec.display_frame();
 
-    if (frame_info === "immediate") {
-        clearTimeout(RUR.rec.timer);
-        RUR.rec.loop();
-        return;
-    } else if (frame_info === "pause") {
+    if (frame_info === "pause") {
         return;
     } else if (frame_info === "stopped") {
         RUR.ui.stop();
@@ -1948,8 +1943,6 @@ RUR.rec.display_frame = function () {
     // set current world to frame being played.
     "use strict";
     var frame, goal_status;
-
-/* Experimental code  */
 
     //track line number and highlight line to be executed
     if (RUR.programming_language === "python" && RUR._highlight) {
@@ -1966,8 +1959,6 @@ RUR.rec.display_frame = function () {
         } catch (e) {}
     }
 
-/*=====================*/
-
     if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
         return RUR.rec.conclude();
     }
@@ -1983,14 +1974,10 @@ RUR.rec.display_frame = function () {
     if (RUR.__debug && frame.debug) {
         console.log("debug: ", frame.debug);
     }
-
     if (frame.delay !== undefined){
         RUR.rec.delay = frame.delay;
     }
-    /*if (frame.delay !== undefined) {
-        RUR.visible_world.delay = frame.delay;   // FIXME
-        return "immediate";
-    } else */ if (frame.pause) {
+    if (frame.pause) {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {
@@ -2662,7 +2649,6 @@ RUR.set_lineno_highlight = function(lineno, frame) {
     RUR.current_lineno = lineno;
     if (frame) {
         RUR.rec.record_frame();
-        RUR.rec.extra_highlighting_frames++;
         return true;
     }
 };/* Author: André Roberge
@@ -3043,7 +3029,6 @@ parseUri.options = {
 
 RUR.vis_robot = {};
 RUR.vis_robot.images = [{}, {}, {}, {}];
-console.log("RUR.vis_robot.images = ", RUR.vis_robot.images);
 
 // classic
 RUR.vis_robot.images[0].robot_e_img = new Image();
