@@ -35,25 +35,25 @@ RUR.vis_robot.images[1].robot_random_img.src = 'src/images/rover_random.png';
 
 // 3d red type
 RUR.vis_robot.images[2].robot_e_img = new Image();
-RUR.vis_robot.images[2].robot_e_img.src = 'src/images/plain_e_38x38.png';
+RUR.vis_robot.images[2].robot_e_img.src = 'src/images/plain_e_35x35.png';
 RUR.vis_robot.images[2].robot_n_img = new Image();
-RUR.vis_robot.images[2].robot_n_img.src = 'src/images/plain_n_38x38.png';
+RUR.vis_robot.images[2].robot_n_img.src = 'src/images/plain_n_35x35.png';
 RUR.vis_robot.images[2].robot_w_img = new Image();
-RUR.vis_robot.images[2].robot_w_img.src = 'src/images/plain_w_38x38.png';
+RUR.vis_robot.images[2].robot_w_img.src = 'src/images/plain_w_35x35.png';
 RUR.vis_robot.images[2].robot_s_img = new Image();
-RUR.vis_robot.images[2].robot_s_img.src = 'src/images/plain_s_38x38.png';
+RUR.vis_robot.images[2].robot_s_img.src = 'src/images/plain_s_35x35.png';
 RUR.vis_robot.images[2].robot_random_img = new Image();
 RUR.vis_robot.images[2].robot_random_img.src = 'src/images/robot_random.png';
 
 // solar panel type
 RUR.vis_robot.images[3].robot_e_img = new Image();
-RUR.vis_robot.images[3].robot_e_img.src = 'src/images/sp_e_38x38.png';
+RUR.vis_robot.images[3].robot_e_img.src = 'src/images/sp_e_35x35.png';
 RUR.vis_robot.images[3].robot_n_img = new Image();
-RUR.vis_robot.images[3].robot_n_img.src = 'src/images/sp_n_38x38.png';
+RUR.vis_robot.images[3].robot_n_img.src = 'src/images/sp_n_35x35.png';
 RUR.vis_robot.images[3].robot_w_img = new Image();
-RUR.vis_robot.images[3].robot_w_img.src = 'src/images/sp_w_38x38.png';
+RUR.vis_robot.images[3].robot_w_img.src = 'src/images/sp_w_35x35.png';
 RUR.vis_robot.images[3].robot_s_img = new Image();
-RUR.vis_robot.images[3].robot_s_img.src = 'src/images/sp_s_38x38.png';
+RUR.vis_robot.images[3].robot_s_img.src = 'src/images/sp_s_35x35.png';
 RUR.vis_robot.images[3].robot_random_img = new Image();
 RUR.vis_robot.images[3].robot_random_img.src = 'src/images/robot_random.png';
 
@@ -73,8 +73,8 @@ RUR.vis_robot.set_offsets = function(){
             RUR.vis_robot.x_offset = 10;
              RUR.vis_robot.y_offset = 8;
         } else {
-            RUR.vis_robot.x_offset = 3;
-            RUR.vis_robot.y_offset = 2;
+            RUR.vis_robot.x_offset = 5;
+            RUR.vis_robot.y_offset = 4;
         }
     }
 }
