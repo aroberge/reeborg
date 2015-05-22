@@ -156,6 +156,13 @@ $(document).ready(function() {
         RUR.vis_robot.select_style(1);
     });
 
+    $("#3d-red-type").on("click", function(evt) {
+        RUR.vis_robot.select_style(2);
+    });
+
+    $("#solar-panel-type").on("click", function(evt) {
+        RUR.vis_robot.select_style(3);
+    });
 
     $("#robot_canvas").on("click", function (evt) {
         if (!RUR.we.editing_world) {

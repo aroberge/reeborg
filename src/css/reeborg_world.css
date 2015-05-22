@@ -239,6 +239,8 @@ padding:3px;}
     background: white;
     border: 1px solid blue;
     border-radius: 3px;
+    height: 38px;
+    padding: 0 2px 0 2px;
 }
 
 #game-controls, #world-controls{

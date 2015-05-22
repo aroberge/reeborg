@@ -162,7 +162,7 @@ RUR.runner.simplify_python_traceback = function(e) {
                 other_info = RUR.translate("I cannot help you with this problem.");
                 break;
             default:
-                other_info = "I do not know what to suggest; please contact my programmer with a description of this problem.";
+                other_info = "";
         }
     } else {
         message = e.reeborg_shouts;

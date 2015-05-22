@@ -6,7 +6,7 @@
 /*globals RUR */
 
 RUR.vis_robot = {};
-RUR.vis_robot.images = [{}, {}, {}];
+RUR.vis_robot.images = [{}, {}, {}, {}];
 
 // classic
 RUR.vis_robot.images[0].robot_e_img = new Image();
@@ -32,16 +32,58 @@ RUR.vis_robot.images[1].robot_s_img.src = 'src/images/rover_s.png';
 RUR.vis_robot.images[1].robot_random_img = new Image();
 RUR.vis_robot.images[1].robot_random_img.src = 'src/images/rover_random.png';
 
-RUR.vis_robot.x_offset = 10;
-RUR.vis_robot.y_offset = 8;
+// 3d red type
+RUR.vis_robot.images[2].robot_e_img = new Image();
+RUR.vis_robot.images[2].robot_e_img.src = 'src/images/plain_e_38x38.png';
+RUR.vis_robot.images[2].robot_n_img = new Image();
+RUR.vis_robot.images[2].robot_n_img.src = 'src/images/plain_n_38x38.png';
+RUR.vis_robot.images[2].robot_w_img = new Image();
+RUR.vis_robot.images[2].robot_w_img.src = 'src/images/plain_w_38x38.png';
+RUR.vis_robot.images[2].robot_s_img = new Image();
+RUR.vis_robot.images[2].robot_s_img.src = 'src/images/plain_s_38x38.png';
+RUR.vis_robot.images[2].robot_random_img = new Image();
+RUR.vis_robot.images[2].robot_random_img.src = 'src/images/robot_random.png';
+
+// solar panel type
+RUR.vis_robot.images[3].robot_e_img = new Image();
+RUR.vis_robot.images[3].robot_e_img.src = 'src/images/sp_e_38x38.png';
+RUR.vis_robot.images[3].robot_n_img = new Image();
+RUR.vis_robot.images[3].robot_n_img.src = 'src/images/sp_n_38x38.png';
+RUR.vis_robot.images[3].robot_w_img = new Image();
+RUR.vis_robot.images[3].robot_w_img.src = 'src/images/sp_w_38x38.png';
+RUR.vis_robot.images[3].robot_s_img = new Image();
+RUR.vis_robot.images[3].robot_s_img.src = 'src/images/sp_s_38x38.png';
+RUR.vis_robot.images[3].robot_random_img = new Image();
+RUR.vis_robot.images[3].robot_random_img.src = 'src/images/robot_random.png';
+
+RUR.vis_robot.style = 0;
+
+RUR.vis_robot.set_offsets = function(){
+    if (RUR.LARGE_WORLD){
+        if (RUR.vis_robot.style==0 || RUR.vis_robot.style==1){
+            RUR.vis_robot.x_offset = 4;
+             RUR.vis_robot.y_offset = 4;
+        } else {
+            RUR.vis_robot.x_offset = 2;
+            RUR.vis_robot.y_offset = 2;
+        }
+    } else {
+        if (RUR.vis_robot.style==0 || RUR.vis_robot.style==1){
+            RUR.vis_robot.x_offset = 10;
+             RUR.vis_robot.y_offset = 8;
+        } else {
+            RUR.vis_robot.x_offset = 3;
+            RUR.vis_robot.y_offset = 2;
+        }
+    }
+}
 
 RUR.vis_robot.select_style = function (arg) {
     var style;
-    style = parseInt(arg, 10);
-    if (!(style === 0 || style === 1)) {
-        style = 1;     // rover, which used to be style 2, is chosen as default
-                       // so that users that had it chosen still see
-    }
+    RUR.vis_robot.style = parseInt(arg, 10);
+    RUR.vis_robot.set_offsets();
+
+    style = RUR.vis_robot.style;
     RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
     RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
     RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
