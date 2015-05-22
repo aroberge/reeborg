@@ -179,6 +179,7 @@ function toggle_editing_mode () {
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.we.refresh_world_edited();
         editing_world_disable_run();
+        RUR.we.show_pre_post_code();
     }
 }
 
@@ -526,15 +527,32 @@ RUR.we.ensure_key_exist = function(obj, key){
 };
 
 RUR.we.insert_pre_code = function() {
-    RUR.we.ensure_key_exist(RUR.current_world, "pre_code");
+    if (RUR.current_world.pre_code === undefined){
+        RUR.current_world.pre_code = '';
+        RUR.current_world.post_code = '';
+    }
     RUR.current_world.pre_code = editor.getValue();
-    $("#code-copied").html(RUR.translate("Code copied from editor")).effect("highlight", {color: "gold"}, 1500);
+    RUR.we.show_pre_post_code();
+    //$("#code-copied").html(RUR.translate("Code copied from editor")).effect("highlight", {color: "gold"}, 1500);
 }
 
 RUR.we.insert_post_code = function() {
-    RUR.we.ensure_key_exist(RUR.current_world, "post_code");
+    if (RUR.current_world.post_code === undefined){
+        RUR.current_world.pre_code = '';
+        RUR.current_world.post_code = '';
+    }
     RUR.current_world.post_code = editor.getValue();
-    $("#code-copied").html(RUR.translate("Code copied from editor")).effect("highlight", {color: "gold"}, 1500);
+    RUR.we.show_pre_post_code();
+    //$("#code-copied").html(RUR.translate("Code copied from editor")).effect("highlight", {color: "gold"}, 1500);
+}
+
+RUR.we.show_pre_post_code = function() {
+    if (RUR.current_world.pre_code == undefined) {
+        $("#code-copied").html('');
+        return;
+    }
+    $("#code-copied").html("<br>pre-code: <pre>" + RUR.current_world.pre_code +
+                           "</pre>post-code:<pre>" + RUR.current_world.post_code + "</pre>");
 }
 
 RUR.we.toggle_shape = function (shape){

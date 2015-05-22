@@ -223,9 +223,11 @@ $(document).ready(function() {
         if (val.substring(0,11) === "user_world:"){
             data = localStorage.getItem(val);
             RUR.world.import_world(data);
+            RUR.we.show_pre_post_code();
         } else {
             $.get(val, function(data) {
                 RUR.world.import_world(data);
+                RUR.we.show_pre_post_code();
                 // jquery is sometimes too intelligent; it can guess
                 // if the imported object is a string ... or a json object
                 // I need a string here;  so make sure to prevent it from identifying.
