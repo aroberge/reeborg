@@ -1864,7 +1864,9 @@ RUR.rec.reset = function() {
     clearTimeout(RUR.rec.timer);
     if (RUR.programming_language === "python" && RUR._highlight) {
         try {
-           editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+            for (var i=0; i < RUR._previous_line.length; i++){
+                editor.removeLineClass(RUR._previous_line[i], 'background', 'editor-highlight');
+            }
         }catch (e) {}
     }
     RUR._previous_line = undefined;
@@ -2093,7 +2095,6 @@ RUR.rec.check_goal= function (frame) {
     goal_status.message = "<ul>";
     goal_status.success = true;
     if (g.position !== undefined){
-        goal_status.position = {};
         if (g.position.x === world.robots[0].x){
             goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct x position.</li>");
         } else {
