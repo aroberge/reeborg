@@ -1880,7 +1880,7 @@ RUR.rec.record_frame = function (name, obj) {
        if (RUR.current_lineno !== undefined) {
            RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR.current_lineno;
        } else{
-           RUR.rec._line_numbers [RUR.rec.nb_frames] = 0;
+           RUR.rec._line_numbers [RUR.rec.nb_frames] = [0];
        }
    }
 /*=====================*/
@@ -1943,11 +1943,15 @@ RUR.rec.display_frame = function () {
     //track line number and highlight line to be executed
     if (RUR.programming_language === "python" && RUR._highlight) {
         try {
-           editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
+            for (var i=0; i < RUR._previous_line.length; i++){
+                editor.removeLineClass(RUR._previous_line[i], 'background', 'editor-highlight');
+            }
         }catch (e) {}
         try {
-           editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame+1], 'background', 'editor-highlight');
-           RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame+1];
+            for(i=0; i<RUR.rec._line_numbers [RUR.rec.current_frame+1].length; i++){
+                editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame+1][i], 'background', 'editor-highlight');
+            }
+            RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame+1];
         } catch (e) {}
     }
 
