@@ -2322,6 +2322,11 @@ RUR.runner.simplify_python_traceback = function(e) {
     var message, error_name, other_info;
     other_info = '';
     if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
+        if (RUR._automatic_highlight_off) {
+            RUR._automatic_highlight_off = false;
+            $("#highlight-impossible").hide();
+            RUR.ui.highlight(); // turn it back on - we found another problem.
+        }
         message = e.$message;
         error_name = e.__name__;
         diagnostic = ''
@@ -2899,9 +2904,12 @@ RUR.ui.resize = function () {
     RUR.vis_world.draw_all();
 };
 
-RUR.ui.highlight = function () {
+RUR.ui.highlight = function (arg) {
     if (RUR._highlight) {
         RUR._highlight = false;
+        if (arg){
+            RUR._automatic_highlight_off = true;
+        }
         $("#not-ok-image").show();
         $("#ok-image").hide();
     } else {

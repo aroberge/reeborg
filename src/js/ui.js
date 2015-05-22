@@ -199,9 +199,12 @@ RUR.ui.resize = function () {
     RUR.vis_world.draw_all();
 };
 
-RUR.ui.highlight = function () {
+RUR.ui.highlight = function (arg) {
     if (RUR._highlight) {
         RUR._highlight = false;
+        if (arg){
+            RUR._automatic_highlight_off = true;
+        }
         $("#not-ok-image").show();
         $("#ok-image").hide();
     } else {
