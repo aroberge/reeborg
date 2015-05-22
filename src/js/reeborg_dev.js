@@ -3042,6 +3042,7 @@ parseUri.options = {
 
 RUR.vis_robot = {};
 RUR.vis_robot.images = [{}, {}, {}, {}];
+console.log("RUR.vis_robot.images = ", RUR.vis_robot.images);
 
 // classic
 RUR.vis_robot.images[0].robot_e_img = new Image();
@@ -3116,6 +3117,11 @@ RUR.vis_robot.set_offsets = function(){
 RUR.vis_robot.select_style = function (arg) {
     var style;
     RUR.vis_robot.style = parseInt(arg, 10);
+    style = RUR.vis_robot.style;
+    if ( !(style==0 || style==1 || style==2 || style==3)){
+        RUR.vis_robot.style = 0;
+        style = 0;
+    }
     RUR.vis_robot.set_offsets();
 
     style = RUR.vis_robot.style;
@@ -3161,6 +3167,8 @@ RUR.vis_robot.random_img.onload = function () {
     }
 };
 
+
+
 RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y;
@@ -3170,26 +3178,28 @@ RUR.vis_robot.draw = function (robot) {
 
     x = robot.x * RUR.WALL_LENGTH + RUR.vis_robot.x_offset;
     y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.y_offset;
+
+
     switch(robot.orientation){
-    case RUR.EAST:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
-        break;
-    case RUR.NORTH:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.n_img, x, y, RUR.vis_robot.n_img.width*RUR.SCALE, RUR.vis_robot.n_img.height*RUR.SCALE);
-        break;
-    case RUR.WEST:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.w_img, x, y, RUR.vis_robot.w_img.width*RUR.SCALE, RUR.vis_robot.w_img.height*RUR.SCALE);
-        break;
-    case RUR.SOUTH:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y, RUR.vis_robot.s_img.width*RUR.SCALE, RUR.vis_robot.s_img.height*RUR.SCALE);
-        break;
-    case -1:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.random_img, x, y, RUR.vis_robot.random_img.width*RUR.SCALE,
-                                RUR.vis_robot.random_img.height*RUR.SCALE);
-        break;
-    default:
-        RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
-    }
+        case RUR.EAST:
+            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
+            break;
+        case RUR.NORTH:
+            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.n_img, x, y, RUR.vis_robot.n_img.width*RUR.SCALE, RUR.vis_robot.n_img.height*RUR.SCALE);
+            break;
+        case RUR.WEST:
+            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.w_img, x, y, RUR.vis_robot.w_img.width*RUR.SCALE, RUR.vis_robot.w_img.height*RUR.SCALE);
+            break;
+        case RUR.SOUTH:
+            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y, RUR.vis_robot.s_img.width*RUR.SCALE, RUR.vis_robot.s_img.height*RUR.SCALE);
+            break;
+        case -1:
+            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.random_img, x, y, RUR.vis_robot.random_img.width*RUR.SCALE,
+                                    RUR.vis_robot.random_img.height*RUR.SCALE);
+            break;
+        default:
+            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
+        }
     if (RUR.we.editing_world){
         return;
     }
