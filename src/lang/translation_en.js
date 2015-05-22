@@ -108,4 +108,3 @@ RUR.translation["Error found at or near line {number}."] = "Error found at or ne
 RUR.translation["<br>Perhaps a missing colon is the cause."] = "<br>Perhaps a missing colon is the cause.";
 RUR.translation["<br>Perhaps you forgot to add parentheses ()."] = "<br>Perhaps you forgot to add parentheses ().";
 RUR.translation["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Perhaps you misspelled a word or forgot to define a function or a variable.";
-RUR.translation["I do not understand what you are asking me to do."] = "I do not understand what you are asking me to do.";

@@ -2367,9 +2367,7 @@ RUR.runner.simplify_python_traceback = function(e) {
         }
     } else {
         message = e.reeborg_shouts;
-    }
-    if (message =="Unexpected token {") {
-        message = RUR.translate("I do not understand what you are asking me to do.");
+        error_name = "ReeborgError";
     }
     return {message:message, other_info:other_info, error_name:error_name};
 };
