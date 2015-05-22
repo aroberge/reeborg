@@ -1875,6 +1875,7 @@ RUR.rec.reset = function() {
 RUR.rec.reset();
 
 RUR.rec.record_frame = function (name, obj) {
+    var min_time_sound;
     // clone current world and store the clone
     var frame = {};
     frame.world = RUR.world.clone_world();
@@ -1882,8 +1883,15 @@ RUR.rec.record_frame = function (name, obj) {
         frame[name] = obj;
     }
 
-    frame.delay = RUR.rec.delay;
-    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay > RUR.MIN_TIME_SOUND) {
+    if (RUR.programming_language === "python" && RUR._highlight) {
+        frame.delay = RUR.rec.delay/2;
+        min_time_sound = RUR.MIN_TIME_SOUND/2;
+    } else {
+        frame.delay = RUR.rec.delay;
+        min_time_sound = RUR.MIN_TIME_SOUND;
+    }
+
+    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay > min_time_sound) {
         frame.sound_id = RUR.control.sound_id;
     }
 
