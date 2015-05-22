@@ -2783,10 +2783,12 @@ RUR.ui.stop = function () {
 
 RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
+    $("#highlight-impossible").hide();
     $("#stdout").html("");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
-    // reset the options in case the user has dragged the window.
+    // reset the options in case the user has dragged the dialogs as it would
+    // then open at the top left of the window
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
                                               autoOpen:false, width:500,
                                               position:{my: "top", at: "bottom", of: $("header")}});
