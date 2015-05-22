@@ -47,13 +47,14 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             return true;
         }
     } catch (e) {
-        console.dir(e);     // see comment at the end of
-                            // this file showing some sample errors.
+        if (RUR.__debug){
+            console.dir(e);
+        }
         if (RUR.programming_language === "python") {
-            error_name = e.__name__;
             response = RUR.runner.simplify_python_traceback(e);
             message = response.message;
             other_info = response.other_info;
+            error_name = response.error_name;
         } else {
             error_name = e.name;
             message = e.message;
@@ -112,31 +113,51 @@ RUR.runner.compile_coffee = function() {
 };
 
 RUR.runner.simplify_python_traceback = function(e) {
-    var message, response, other_info, line_number;
+    var message, error_name, other_info;
     other_info = '';
-    console.dir(e);
     if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
         message = e.$message;
-        try {
-            line_number = RUR.runner.extract_line(e.info, e.__name__);
-        } catch (e) {
-            line_number = false;
-        }
-
-        if (line_number===0){
-            line_number = 1;
-        }
-        if (line_number !== false) {
-            other_info += RUR.translate("Error found at or near line {number}.").supplant({number: line_number.toString()});
-        }
-        if (e.__name__ == "SyntaxError") {
-            if (RUR.runner.check_colons(line_number)) {
-                other_info += RUR.translate("<br>Perhaps a missing colon is the cause.");
-            } else if (RUR.runner.check_func_parentheses(line_number)){
-                other_info += RUR.translate("<br>Perhaps you forgot to add parentheses ().");
-            }
-        } else if (e.__name__ == "NameError") {
-            other_info += RUR.translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
+        error_name = e.__name__;
+        diagnostic = ''
+        switch (error_name) {
+            case "SyntaxError":
+                try {
+                    other_info = RUR.runner.find_line_number(e.args[1][3]);
+                    if (RUR.runner.check_colons(e.args[1][3])) {
+                        other_info += RUR.translate("<br>Perhaps a missing colon is the cause.");
+                    } else if (RUR.runner.check_func_parentheses(e.args[1][3])){
+                        other_info += RUR.translate("<br>Perhaps you forgot to add parentheses ().");
+                    }
+                } catch (e) {
+                    other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
+                }
+                break;
+            case "IndentationError":
+                message = RUR.translate("The code is not indented correctly.");
+                try {
+                    other_info = RUR.runner.find_line_number(e.args[1][3]);
+                    if (e.args[1][3].indexOf("RUR.set_lineno_highlight([") == -1){
+                        other_info += "<br><code>" + e.args[1][3] + "</code>";
+                    }
+                } catch (e) {
+                    other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
+                }
+                break;
+            case "NameError":
+                try {
+                    other_info = RUR.runner.find_line_number(message);
+                    other_info += RUR.translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
+                } catch (e) {
+                    other_info = "I could not analyze this error; you might want to contact my programmer.";
+                }
+                break;
+            case "Internal Javascript error: SyntaxError":
+                error_name = "Invalid Python Code";
+                message = '';
+                other_info = RUR.translate("I cannot help you with this problem.");
+                break;
+            default:
+                other_info = "I do not know what to suggest; please contact my programmer with a description of this problem.";
         }
     } else {
         message = e.reeborg_shouts;
@@ -144,91 +165,66 @@ RUR.runner.simplify_python_traceback = function(e) {
     if (message =="Unexpected token {") {
         message = RUR.translate("I do not understand what you are asking me to do.");
     }
-    return {message:message, other_info:other_info};
+    return {message:message, other_info:other_info, error_name:error_name};
 };
 
 
-RUR.runner.extract_line = function (message, error_name) {
-    var line, lines, last, line_number, last;
-    lines = message.split("\n");
-    last = lines[lines.length-1].replace(/\s+/g, '');
-
-    if (last === "^") {  // this line was added by Brython as part of the traceback
-        last = lines[lines.length-2].replace(/\s+/g, '');
+RUR.runner.find_line_number = function(bad_code) {
+    /** With the possibility of having code inserted by the highlighting routine,
+        with some pre-code, and with Brython not counting empty lines at the
+        beginning of a program, it is more reliable to scan the source code
+        for the offending code as identified by Brython and see if it occurs
+        only once in the user's program */
+    var lines, found, i, lineno;
+    if (bad_code.indexOf("RUR.set_lineno_highlight([") != -1){
+        bad_code = bad_code.replace("RUR.set_lineno_highlight([", "");
+        lines = bad_code.split("]");
+        lineno = lines[0] + 1;
+        return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
     }
-
-    if (last.indexOf("exec(src, globals_)") != -1) { // error likely occurred on first line
-               // and brython incorrectly recorded the line in Reeborg's
-               // backend code as the source of the error
-        return 1
-    }
-    if (last.indexOf("RUR.set_lineno_highlight(") != -1) {
-        last = last.replace("RUR.set_lineno_highlight(", "");
-        lines = last.split(",");
-        line_number = parseInt(lines[0], 10) + 1;
-        return line_number;
-    }
-
-    if (error_name=="NameError" || error_name=="IndentationError") {
-        // can not reliably extract line number
-        return false;
-    }
-
     lines = editor.getValue().split("\n");
-    line = lines[0].replace(/\s+/g, '');
-    line_number = 0;
-    while (line != last && line_number < lines.length) {
-        line = lines[line_number].replace(/\s+/g, '');
-        line_number++;
+    found = false;
+    lineno = false;
+    for (i=0; i<lines.length; i++) {
+        try {
+        } catch (e) {
+            return '';
+        }
+         if(lines[i].indexOf(bad_code) != -1){
+            if (found){
+                return '';   // found the offending code twice; can not rely on this
+            } else {
+                found = true;
+                lineno = i+1;
+            }
+        }
     }
-    if (line != last) {
-        return false;
+    if (lineno) {
+        return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
     }
+    return '';
+}
 
-    return line_number;
-};
 
-
-RUR.runner.check_colons = function(line_number) {
-    var lines, tokens, line, nb_token, pos;
-
-    lines = editor.getValue().split("\n");
+RUR.runner.check_colons = function(line_of_code) {
+    var tokens, line, nb_token;
     tokens = ['if ', 'if(', 'else', 'elif ','elif(','while ','while(',
               'for ','for(', 'def '];
-    // Instead of simply checking for potential error on line_number as
-    // identified, check line above and below line_number as well
-    // in case the line_number identified by Brython was off by 1 ... which can happen.
-    for (line=Math.max(line_number-2, 0);
-         line <= Math.min(line_number, lines.length+1);
-         line++) {
-        for (nb_token=0; nb_token < tokens.length; nb_token++){
-            pos = lines[line].indexOf(tokens[nb_token]);
-            if (pos != -1){
-                if (lines[line].indexOf(":") == -1){
-                    return true;    // missing colon
-                }
+    for (nb_token=0; nb_token < tokens.length; nb_token++){
+        if (line_of_code.indexOf(tokens[nb_token]) != -1){
+            if (line_of_code.indexOf(":") == -1){
+                return true;    // missing colon
             }
         }
     }
     return false;  // no missing colon
 };
 
-RUR.runner.check_func_parentheses = function(line_number) {
-    var lines, line, pos;
-
-    lines = editor.getValue().split("\n");
-    // Instead of simply checking for potential error on line_number as
-    // identified, check line above and below line_number as well
-    // in case the line_number identified by Brython was off by 1 ... which can happen.
-    for (line=Math.max(line_number-2, 0);
-         line <= Math.min(line_number, lines.length+1);
-         line++) {
-        pos = lines[line].indexOf('def');
-        if (pos != -1){
-            if (lines[line].indexOf("(") == -1){
-                return true;    // missing parentheses
-            }
+RUR.runner.check_func_parentheses = function(line_of_code) {
+    if (line_of_code.indexOf('def') != -1){
+        if (line_of_code.indexOf("(") == -1){
+            return true;    // missing parentheses
         }
     }
-    return false;  // no missing colon
+    return false;  // no missing parentheses
 };
