@@ -114,8 +114,9 @@ RUR.runner.compile_coffee = function() {
 RUR.runner.simplify_python_traceback = function(e) {
     var message, response, other_info, line_number;
     other_info = '';
+    console.dir(e);
     if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
-        message = e.message;
+        message = e.$message;
         try {
             line_number = RUR.runner.extract_line(e.info, e.__name__);
         } catch (e) {
