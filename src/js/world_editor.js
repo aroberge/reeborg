@@ -23,7 +23,19 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_shape("square");
             break;
         case "world-mud":
-            RUR.we.toggle_mud();
+            RUR.we.toggle_tile("mud");
+            break;
+        case "world-water":
+            RUR.we.toggle_tile("water");
+            break;
+        case "world-gravel":
+            RUR.we.toggle_tile("gravel");
+            break;
+        case "world-ice":
+            RUR.we.toggle_tile("ice");
+            break;
+        case "world-grass":
+            RUR.we.toggle_tile("grass");
             break;
         case "world-walls":
             RUR.we.toggle_wall();
@@ -106,6 +118,22 @@ RUR.we.select = function (choice) {
         case "world-mud":
             $(".edit-world-canvas").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle mud tile.")).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "world-water":
+            $(".edit-world-canvas").show();
+            $("#cmd-result").html(RUR.translate("Click on world to toggle water tile.")).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "world-ice":
+            $(".edit-world-canvas").show();
+            $("#cmd-result").html(RUR.translate("Click on world to toggle ice tile.")).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "world-gravel":
+            $(".edit-world-canvas").show();
+            $("#cmd-result").html(RUR.translate("Click on world to toggle gravel tile.")).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "world-grass":
+            $(".edit-world-canvas").show();
+            $("#cmd-result").html(RUR.translate("Click on world to toggle grass tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-walls":
             $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);
@@ -795,7 +823,7 @@ RUR.we.draw_star = function (goal){
 RUR.we.draw_star();
 RUR.we.draw_star(true);
 
-RUR.we.toggle_mud = function (){
+RUR.we.toggle_tile = function (tile){
     // will remove the position if clicked again.
     "use strict";
     var x, y, position, coords, index;
@@ -807,7 +835,7 @@ RUR.we.toggle_mud = function (){
 
     RUR.we.ensure_key_exist(RUR.current_world, "tiles");
     if (RUR.current_world.tiles[coords] === undefined){
-        RUR.current_world.tiles[coords] = "mud";
+        RUR.current_world.tiles[coords] = tile;
     } else {
         delete RUR.current_world.tiles[coords];
     }
