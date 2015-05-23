@@ -795,15 +795,6 @@ RUR.we.draw_star = function (goal){
 RUR.we.draw_star();
 RUR.we.draw_star(true);
 
-RUR.we.draw_mud = function () {
-    "use strict";
-    var ctx, size=12;
-    ctx = document.getElementById("canvas-mud").getContext("2d");
-    ctx.fillStyle = RUR.MUD_COLOR;
-    ctx.fillRect(0, 0, 40, 40);
-};
-RUR.we.draw_mud();
-
 RUR.we.toggle_mud = function (){
     // will remove the position if clicked again.
     "use strict";
