@@ -338,17 +338,15 @@ RUR.we.set_token_number = function () {
                     RUR.current_world.min_tokens[x + "," + y] = tokens;
                     RUR.current_world.tokens_range[x + "," + y] = tokens+"-"+max_tokens;
                 } else {
-                    delete RUR.current_world.min_tokens[x + "," + y];
-                    delete RUR.current_world.max_tokens[x + "," + y];
-                    delete RUR.current_world.tokens_range[x + "," + y];
+                    if (RUR.current_world.min_tokens !== undefined) {delete RUR.current_world.min_tokens[x + "," + y];}
+                    if (RUR.current_world.max_tokens !== undefined) {delete RUR.current_world.max_tokens[x + "," + y];}
+                    if (RUR.current_world.tokens_range !== undefined) {delete RUR.current_world.tokens_range[x + "," + y];}
                 }
             } else {
                 delete RUR.current_world.tokens[x + "," + y];
-                if (RUR.current_world.max_tokens !== undefined) {
-                    delete RUR.current_world.min_tokens[x + "," + y];
-                    delete RUR.current_world.max_tokens[x + "," + y];
-                    delete RUR.current_world.tokens_range[x + "," + y];
-                }
+                if (RUR.current_world.min_tokens !== undefined) {delete RUR.current_world.min_tokens[x + "," + y];}
+                if (RUR.current_world.max_tokens !== undefined) {delete RUR.current_world.max_tokens[x + "," + y];}
+                if (RUR.current_world.tokens_range !== undefined) {delete RUR.current_world.tokens_range[x + "," + y];}
             }
         } else {
             $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");

@@ -48,16 +48,6 @@ RUR.vis_world.draw_background = function () {
         }
     }
 
-    // border walls (x and y axis)
-    ctx.fillStyle = RUR.WALL_COLOR;
-    for (j = 1; j <= RUR.ROWS; j++) {
-        RUR.vis_world.draw_east_wall(ctx, 0, j);
-    }
-    for (i = 1; i <= RUR.COLS; i++) {
-        RUR.vis_world.draw_north_wall(ctx, i, 0);
-    }
-    RUR.vis_world.draw_coordinates(ctx);
-
 };
 
 RUR.vis_world.draw_foreground_walls = function (walls) {
@@ -71,7 +61,17 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
         return;
     }
 
+    // border walls (x and y axis)
     ctx.fillStyle = RUR.WALL_COLOR;
+    for (j = 1; j <= RUR.ROWS; j++) {
+        RUR.vis_world.draw_east_wall(ctx, 0, j);
+    }
+    for (i = 1; i <= RUR.COLS; i++) {
+        RUR.vis_world.draw_north_wall(ctx, i, 0);
+    }
+    RUR.vis_world.draw_coordinates(ctx);
+
+    // other walls
     keys = Object.keys(walls);
     for (key=0; key < keys.length; key++){
         k = keys[key].split(",");
@@ -227,9 +227,11 @@ RUR.vis_world.draw_goal = function () {
 
 RUR.vis_world.draw_mud = function (i, j) {
     var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
-    ctx.fillStyle = RUR.MUD_COLOR;
-    ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
-                      RUR.WALL_LENGTH - size, RUR.WALL_LENGTH - size);
+    var x, y, image;
+    x = i*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
+    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
+    image = RUR.tiles.mud.image;
+    ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
 };
 
 RUR.vis_world.draw_home_tile = function (i, j, orientation) {

@@ -2701,6 +2701,18 @@ RUR.storage.delete_world = function (name){
    License: MIT
  */
 
+/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, RUR */
+
+RUR.tiles = {};
+
+RUR.tiles.mud = {};
+RUR.tiles.mud.image = new Image();
+RUR.tiles.mud.image.src = 'src/images/mud.png';
+/* Author: André Roberge
+   License: MIT
+ */
+
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -3291,16 +3303,6 @@ RUR.vis_world.draw_background = function () {
         }
     }
 
-    // border walls (x and y axis)
-    ctx.fillStyle = RUR.WALL_COLOR;
-    for (j = 1; j <= RUR.ROWS; j++) {
-        RUR.vis_world.draw_east_wall(ctx, 0, j);
-    }
-    for (i = 1; i <= RUR.COLS; i++) {
-        RUR.vis_world.draw_north_wall(ctx, i, 0);
-    }
-    RUR.vis_world.draw_coordinates(ctx);
-
 };
 
 RUR.vis_world.draw_foreground_walls = function (walls) {
@@ -3314,7 +3316,17 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
         return;
     }
 
+    // border walls (x and y axis)
     ctx.fillStyle = RUR.WALL_COLOR;
+    for (j = 1; j <= RUR.ROWS; j++) {
+        RUR.vis_world.draw_east_wall(ctx, 0, j);
+    }
+    for (i = 1; i <= RUR.COLS; i++) {
+        RUR.vis_world.draw_north_wall(ctx, i, 0);
+    }
+    RUR.vis_world.draw_coordinates(ctx);
+
+    // other walls
     keys = Object.keys(walls);
     for (key=0; key < keys.length; key++){
         k = keys[key].split(",");
@@ -3470,9 +3482,11 @@ RUR.vis_world.draw_goal = function () {
 
 RUR.vis_world.draw_mud = function (i, j) {
     var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
-    ctx.fillStyle = RUR.MUD_COLOR;
-    ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
-                      RUR.WALL_LENGTH - size, RUR.WALL_LENGTH - size);
+    var x, y, image;
+    x = i*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
+    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
+    image = RUR.tiles.mud.image;
+    ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
 };
 
 RUR.vis_world.draw_home_tile = function (i, j, orientation) {
@@ -4176,17 +4190,15 @@ RUR.we.set_token_number = function () {
                     RUR.current_world.min_tokens[x + "," + y] = tokens;
                     RUR.current_world.tokens_range[x + "," + y] = tokens+"-"+max_tokens;
                 } else {
-                    delete RUR.current_world.min_tokens[x + "," + y];
-                    delete RUR.current_world.max_tokens[x + "," + y];
-                    delete RUR.current_world.tokens_range[x + "," + y];
+                    if (RUR.current_world.min_tokens !== undefined) {delete RUR.current_world.min_tokens[x + "," + y];}
+                    if (RUR.current_world.max_tokens !== undefined) {delete RUR.current_world.max_tokens[x + "," + y];}
+                    if (RUR.current_world.tokens_range !== undefined) {delete RUR.current_world.tokens_range[x + "," + y];}
                 }
             } else {
                 delete RUR.current_world.tokens[x + "," + y];
-                if (RUR.current_world.max_tokens !== undefined) {
-                    delete RUR.current_world.min_tokens[x + "," + y];
-                    delete RUR.current_world.max_tokens[x + "," + y];
-                    delete RUR.current_world.tokens_range[x + "," + y];
-                }
+                if (RUR.current_world.min_tokens !== undefined) {delete RUR.current_world.min_tokens[x + "," + y];}
+                if (RUR.current_world.max_tokens !== undefined) {delete RUR.current_world.max_tokens[x + "," + y];}
+                if (RUR.current_world.tokens_range !== undefined) {delete RUR.current_world.tokens_range[x + "," + y];}
             }
         } else {
             $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
