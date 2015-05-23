@@ -1919,6 +1919,10 @@ RUR.rec.record_frame = function (name, obj) {
         return;
     }
 
+    // catch any robot that teleported itself to a forbidden tile
+    // to try to do a sneaky action
+    RUR.rec.check_robots_on_tiles(frame);
+
     if (RUR.rec.nb_frames > RUR.MAX_STEPS + RUR.rec.extra_highlighting_frames) {
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
@@ -2131,8 +2135,20 @@ RUR.rec.check_goal= function (frame) {
     return goal_status;
 };
 
-
-
+// A sneaky programmer could teleport a robot on a forbidden tile
+// to perform an action; we catch any such potential problem here
+RUR.rec.check_robots_on_tiles = function(frame){
+    var tile, robots, robot, coords;
+    for (robot=0; robot < frame.world.robots.length; robot++){
+        console.dir(frame.world.robots);
+        tile = RUR.control.get_tile_at_position(frame.world.robots[robot]);
+        if (tile) {
+            if (tile.fatal){
+                throw new RUR.ReeborgError(tile.message);
+            }
+        }
+    }
+};
 /* Author: André Roberge
    License: MIT
  */
