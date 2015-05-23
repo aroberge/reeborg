@@ -60,9 +60,10 @@ RUR.rec.record_frame = function (name, obj) {
     if (name === "error"){
         return;
     }
-    if(RUR.rec.check_mud(frame)){
-        throw new RUR.ReeborgError(RUR.translate("I'm stuck in mud."));
-    }
+    // if(RUR.rec.check_mud(frame)){
+    //     console.log("got to RUR.rec.check_mud.")
+    //     throw new RUR.ReeborgError(RUR.translate("I'm stuck in mud."));
+    // }
     if (RUR.rec.nb_frames > RUR.MAX_STEPS + RUR.rec.extra_highlighting_frames) {
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }

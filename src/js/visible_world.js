@@ -370,18 +370,16 @@ RUR.vis_world.clear_trace = function(){
 
 RUR.vis_world.draw_tiles = function (tiles){
     "use strict";
-    var obj, mud, i, j, k, t;
+    var i, j, k, t, keys, key;
     if (tiles === undefined) {
         return;
     }
-    if (tiles.mud !== undefined){
-        mud = tiles.mud;
-        for (t=0; t < mud.length; t++){
-            k = mud[t].split(",");
-            i = parseInt(k[0], 10);
-            j = parseInt(k[1], 10);
-            RUR.vis_world.draw_mud(i, j);
-        }
+    keys = Object.keys(tiles);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        RUR.vis_world.draw_mud(i, j);
     }
 };
 

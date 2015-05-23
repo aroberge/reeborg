@@ -129,6 +129,7 @@ RUR.MIN_TIME_SOUND = 250;
 RUR.control = {};
 
 RUR.control.move = function (robot) {
+    var tile;
     if (!RUR.control.front_is_clear(robot, true)) {
         throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
     }
@@ -156,6 +157,14 @@ RUR.control.move = function (robot) {
     }
     RUR.control.sound_id = "#move-sound";
     RUR.rec.record_frame("debug", "RUR.control.move");
+
+    tile = RUR.control.get_tile_at_position(robot);
+    console.log("tile = ", tile);
+    if (tile) {
+        if (tile.fatal){
+            throw new RUR.ReeborgError(tile.message);
+        }
+    }
 };
 
 RUR.control.turn_left = function(robot, no_frame){
@@ -456,7 +465,13 @@ RUR.control.play_sound = function (sound_id) {
 };
 
 
-/* Author: André Roberge
+RUR.control.get_tile_at_position = function (robot) {
+    var coords = robot.x + "," + robot.y;
+
+    if (RUR.current_world.tiles === undefined) return false;
+    if (RUR.current_world.tiles[coords] === undefined) return false;
+    return RUR.tiles[RUR.current_world.tiles[coords]];
+};/* Author: André Roberge
    License: MIT
  */
 
@@ -1904,9 +1919,10 @@ RUR.rec.record_frame = function (name, obj) {
     if (name === "error"){
         return;
     }
-    if(RUR.rec.check_mud(frame)){
-        throw new RUR.ReeborgError(RUR.translate("I'm stuck in mud."));
-    }
+    // if(RUR.rec.check_mud(frame)){
+    //     console.log("got to RUR.rec.check_mud.")
+    //     throw new RUR.ReeborgError(RUR.translate("I'm stuck in mud."));
+    // }
     if (RUR.rec.nb_frames > RUR.MAX_STEPS + RUR.rec.extra_highlighting_frames) {
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
@@ -2707,6 +2723,8 @@ RUR.storage.delete_world = function (name){
 RUR.tiles = {};
 
 RUR.tiles.mud = {};
+RUR.tiles.mud.fatal = true;
+RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");
 RUR.tiles.mud.image = new Image();
 RUR.tiles.mud.image.src = 'src/images/mud.png';
 /* Author: André Roberge
@@ -3625,18 +3643,16 @@ RUR.vis_world.clear_trace = function(){
 
 RUR.vis_world.draw_tiles = function (tiles){
     "use strict";
-    var obj, mud, i, j, k, t;
+    var i, j, k, t, keys, key;
     if (tiles === undefined) {
         return;
     }
-    if (tiles.mud !== undefined){
-        mud = tiles.mud;
-        for (t=0; t < mud.length; t++){
-            k = mud[t].split(",");
-            i = parseInt(k[0], 10);
-            j = parseInt(k[1], 10);
-            RUR.vis_world.draw_mud(i, j);
-        }
+    keys = Object.keys(tiles);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        RUR.vis_world.draw_mud(i, j);
     }
 };
 
@@ -4658,13 +4674,9 @@ RUR.we.toggle_mud = function (){
     coords = x + "," + y;
 
     RUR.we.ensure_key_exist(RUR.current_world, "tiles");
-    if (RUR.current_world.tiles.mud === undefined) {
-        RUR.current_world.tiles.mud = [];
-    }
-    index = RUR.current_world.tiles.mud.indexOf(coords);
-    if (index === -1) {
-        RUR.current_world.tiles.mud.push(coords);
+    if (RUR.current_world.tiles[coords] === undefined){
+        RUR.current_world.tiles[coords] = "mud";
     } else {
-        RUR.current_world.tiles.mud.remove(index);
+        delete RUR.current_world.tiles[coords];
     }
 };

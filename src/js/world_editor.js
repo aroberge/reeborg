@@ -806,13 +806,9 @@ RUR.we.toggle_mud = function (){
     coords = x + "," + y;
 
     RUR.we.ensure_key_exist(RUR.current_world, "tiles");
-    if (RUR.current_world.tiles.mud === undefined) {
-        RUR.current_world.tiles.mud = [];
-    }
-    index = RUR.current_world.tiles.mud.indexOf(coords);
-    if (index === -1) {
-        RUR.current_world.tiles.mud.push(coords);
+    if (RUR.current_world.tiles[coords] === undefined){
+        RUR.current_world.tiles[coords] = "mud";
     } else {
-        RUR.current_world.tiles.mud.remove(index);
+        delete RUR.current_world.tiles[coords];
     }
 };
