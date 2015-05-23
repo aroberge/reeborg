@@ -2050,9 +2050,9 @@ RUR.rec.handle_error = function (frame) {
 
 RUR.rec.check_mud = function(frame) {
     var mud, robots, robot, coords;
-    if(frame.world.other !== undefined) {
-        if(frame.world.other.mud !== undefined){
-            mud = frame.world.other.mud;
+    if(frame.world.tiles !== undefined) {
+        if(frame.world.tiles.mud !== undefined){
+            mud = frame.world.tiles.mud;
         } else {
             return false;
         }
@@ -3623,14 +3623,14 @@ RUR.vis_world.clear_trace = function(){
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 };
 
-RUR.vis_world.draw_other = function (other){
+RUR.vis_world.draw_tiles = function (tiles){
     "use strict";
     var obj, mud, i, j, k, t;
-    if (other === undefined) {
+    if (tiles === undefined) {
         return;
     }
-    if (other.mud !== undefined){
-        mud = other.mud;
+    if (tiles.mud !== undefined){
+        mud = tiles.mud;
         for (t=0; t < mud.length; t++){
             k = mud[t].split(",");
             i = parseInt(k[0], 10);
@@ -3680,7 +3680,7 @@ RUR.vis_world.refresh = function (initial) {
     }
 
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
-    RUR.vis_world.draw_other(RUR.current_world.other);
+    RUR.vis_world.draw_tiles(RUR.current_world.tiles);
     if (initial !== undefined && RUR.current_world.robots !== undefined &&
             RUR.current_world.robots[0] !== undefined &&
             RUR.current_world.robots[0].start_positions !== undefined &&
@@ -4657,14 +4657,14 @@ RUR.we.toggle_mud = function (){
     y = position[1];
     coords = x + "," + y;
 
-    RUR.we.ensure_key_exist(RUR.current_world, "other");
-    if (RUR.current_world.other.mud === undefined) {
-        RUR.current_world.other.mud = [];
+    RUR.we.ensure_key_exist(RUR.current_world, "tiles");
+    if (RUR.current_world.tiles.mud === undefined) {
+        RUR.current_world.tiles.mud = [];
     }
-    index = RUR.current_world.other.mud.indexOf(coords);
+    index = RUR.current_world.tiles.mud.indexOf(coords);
     if (index === -1) {
-        RUR.current_world.other.mud.push(coords);
+        RUR.current_world.tiles.mud.push(coords);
     } else {
-        RUR.current_world.other.mud.remove(index);
+        RUR.current_world.tiles.mud.remove(index);
     }
 };

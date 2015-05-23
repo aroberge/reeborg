@@ -805,14 +805,14 @@ RUR.we.toggle_mud = function (){
     y = position[1];
     coords = x + "," + y;
 
-    RUR.we.ensure_key_exist(RUR.current_world, "other");
-    if (RUR.current_world.other.mud === undefined) {
-        RUR.current_world.other.mud = [];
+    RUR.we.ensure_key_exist(RUR.current_world, "tiles");
+    if (RUR.current_world.tiles.mud === undefined) {
+        RUR.current_world.tiles.mud = [];
     }
-    index = RUR.current_world.other.mud.indexOf(coords);
+    index = RUR.current_world.tiles.mud.indexOf(coords);
     if (index === -1) {
-        RUR.current_world.other.mud.push(coords);
+        RUR.current_world.tiles.mud.push(coords);
     } else {
-        RUR.current_world.other.mud.remove(index);
+        RUR.current_world.tiles.mud.remove(index);
     }
 };

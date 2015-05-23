@@ -368,14 +368,14 @@ RUR.vis_world.clear_trace = function(){
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 };
 
-RUR.vis_world.draw_other = function (other){
+RUR.vis_world.draw_tiles = function (tiles){
     "use strict";
     var obj, mud, i, j, k, t;
-    if (other === undefined) {
+    if (tiles === undefined) {
         return;
     }
-    if (other.mud !== undefined){
-        mud = other.mud;
+    if (tiles.mud !== undefined){
+        mud = tiles.mud;
         for (t=0; t < mud.length; t++){
             k = mud[t].split(",");
             i = parseInt(k[0], 10);
@@ -425,7 +425,7 @@ RUR.vis_world.refresh = function (initial) {
     }
 
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
-    RUR.vis_world.draw_other(RUR.current_world.other);
+    RUR.vis_world.draw_tiles(RUR.current_world.tiles);
     if (initial !== undefined && RUR.current_world.robots !== undefined &&
             RUR.current_world.robots[0] !== undefined &&
             RUR.current_world.robots[0].start_positions !== undefined &&

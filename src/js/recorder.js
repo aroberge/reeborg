@@ -206,9 +206,9 @@ RUR.rec.handle_error = function (frame) {
 
 RUR.rec.check_mud = function(frame) {
     var mud, robots, robot, coords;
-    if(frame.world.other !== undefined) {
-        if(frame.world.other.mud !== undefined){
-            mud = frame.world.other.mud;
+    if(frame.world.tiles !== undefined) {
+        if(frame.world.tiles.mud !== undefined){
+            mud = frame.world.tiles.mud;
         } else {
             return false;
         }
