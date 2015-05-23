@@ -42,6 +42,10 @@ RUR.control.move = function (robot) {
         if (tile.fatal){
             throw new RUR.ReeborgError(tile.message);
         }
+        if (tile.slippery){
+            RUR.control.write(tile.message + "\n");
+            RUR.control.move(robot);
+        }
     }
 };
 

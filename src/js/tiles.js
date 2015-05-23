@@ -12,3 +12,10 @@ RUR.tiles.mud.fatal = true;
 RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");
 RUR.tiles.mud.image = new Image();
 RUR.tiles.mud.image.src = 'src/images/mud.png';
+
+RUR.tiles.ice = {};
+RUR.tiles.ice.slippery = true;
+RUR.tiles.ice.message = RUR.translate("I'm slipping on ice!");
+RUR.tiles.ice.image = new Image();
+RUR.tiles.ice.image.src = 'src/images/ice.png';
+

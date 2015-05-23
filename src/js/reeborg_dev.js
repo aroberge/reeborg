@@ -163,6 +163,10 @@ RUR.control.move = function (robot) {
         if (tile.fatal){
             throw new RUR.ReeborgError(tile.message);
         }
+        if (tile.slippery){
+            RUR.control.write(tile.message + "\n");
+            RUR.control.move(robot);
+        }
     }
 };
 
@@ -2140,7 +2144,6 @@ RUR.rec.check_goal= function (frame) {
 RUR.rec.check_robots_on_tiles = function(frame){
     var tile, robots, robot, coords;
     for (robot=0; robot < frame.world.robots.length; robot++){
-        console.dir(frame.world.robots);
         tile = RUR.control.get_tile_at_position(frame.world.robots[robot]);
         if (tile) {
             if (tile.fatal){
@@ -2713,6 +2716,13 @@ RUR.tiles.mud.fatal = true;
 RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");
 RUR.tiles.mud.image = new Image();
 RUR.tiles.mud.image.src = 'src/images/mud.png';
+
+RUR.tiles.ice = {};
+RUR.tiles.ice.slippery = true;
+RUR.tiles.ice.message = RUR.translate("I'm slipping on ice!");
+RUR.tiles.ice.image = new Image();
+RUR.tiles.ice.image.src = 'src/images/ice.png';
+
 /* Author: André Roberge
    License: MIT
  */
@@ -3484,15 +3494,6 @@ RUR.vis_world.draw_goal = function () {
     }
 };
 
-RUR.vis_world.draw_mud = function (i, j) {
-    var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
-    var x, y, image;
-    x = i*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
-    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
-    image = RUR.tiles.mud.image;
-    ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
-};
-
 RUR.vis_world.draw_home_tile = function (i, j, orientation) {
     var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
     ctx.fillStyle = RUR.TARGET_TILE_COLOR;
@@ -3638,9 +3639,19 @@ RUR.vis_world.draw_tiles = function (tiles){
         k = keys[key].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        RUR.vis_world.draw_mud(i, j);
+        RUR.vis_world.draw_tile(RUR.tiles[tiles[keys[key]]].image, i, j);
     }
 };
+
+// single tile
+RUR.vis_world.draw_tile = function (image, i, j) {
+    var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
+    var x, y;
+    x = i*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
+    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
+    ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
+};
+
 
 RUR.vis_world.refresh = function (initial) {
     "use strict";
