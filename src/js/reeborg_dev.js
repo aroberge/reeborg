@@ -159,7 +159,6 @@ RUR.control.move = function (robot) {
     RUR.rec.record_frame("debug", "RUR.control.move");
 
     tile = RUR.control.get_tile_at_position(robot);
-    console.log("tile = ", tile);
     if (tile) {
         if (tile.fatal){
             throw new RUR.ReeborgError(tile.message);
@@ -1919,10 +1918,7 @@ RUR.rec.record_frame = function (name, obj) {
     if (name === "error"){
         return;
     }
-    // if(RUR.rec.check_mud(frame)){
-    //     console.log("got to RUR.rec.check_mud.")
-    //     throw new RUR.ReeborgError(RUR.translate("I'm stuck in mud."));
-    // }
+
     if (RUR.rec.nb_frames > RUR.MAX_STEPS + RUR.rec.extra_highlighting_frames) {
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
@@ -2062,32 +2058,6 @@ RUR.rec.handle_error = function (frame) {
     }
     RUR.ui.stop();
     return "stopped";
-};
-
-RUR.rec.check_mud = function(frame) {
-    var mud, robots, robot, coords;
-    if(frame.world.tiles !== undefined) {
-        if(frame.world.tiles.mud !== undefined){
-            mud = frame.world.tiles.mud;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-    if (frame.world.robots !== undefined) {
-        robots = frame.world.robots;
-    } else {
-        return false;
-    }
-
-    for (robot=0; robot < frame.world.robots.length; robot++){
-        coords = robots[robot].x + "," + robots[robot].y;
-        if(mud.indexOf(coords) !== -1){
-            return true;
-        }
-    }
-    return false;
 };
 
 

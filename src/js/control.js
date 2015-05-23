@@ -38,7 +38,6 @@ RUR.control.move = function (robot) {
     RUR.rec.record_frame("debug", "RUR.control.move");
 
     tile = RUR.control.get_tile_at_position(robot);
-    console.log("tile = ", tile);
     if (tile) {
         if (tile.fatal){
             throw new RUR.ReeborgError(tile.message);
