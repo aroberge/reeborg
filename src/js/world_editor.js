@@ -17,7 +17,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_objects("star");
             break;
         case "world-triangle":
-            RUR.we.toggle_shape("triangle");
+            RUR.we.toggle_objects("triangle");
             break;
         case "world-square":
             RUR.we.toggle_shape("square");
@@ -53,7 +53,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_goal_objects("star");
             break;
         case "goal-triangle":
-            RUR.we.toggle_goal_shape("triangle");
+            RUR.we.toggle_goal_objects("triangle");
             break;
         case "goal-square":
             RUR.we.toggle_goal_shape("square");
@@ -813,30 +813,6 @@ RUR.we.draw_square = function (goal) {
 };
 RUR.we.draw_square();
 RUR.we.draw_square(true);
-
-RUR.we.draw_triangle = function (goal) {
-    "use strict";
-    var ctx, size=12, scale = RUR.WALL_LENGTH;
-    if (goal) {
-        ctx = document.getElementById("canvas-goal-triangle").getContext("2d");
-    } else {
-        ctx = document.getElementById("canvas-triangle").getContext("2d");
-    }
-    ctx.fillStyle = RUR.TRIANGLE_COLOR;
-    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
-    ctx.beginPath();
-    ctx.moveTo(0.5*scale - size, 0.5*scale + size);
-    ctx.lineTo(0.5*scale, 0.5*scale - size);
-    ctx.lineTo(0.5*scale + size, 0.5*scale + size);
-    ctx.lineTo(0.5*scale - size, 0.5*scale + size);
-    if (goal) {
-        ctx.stroke();
-    } else {
-        ctx.fill();
-    }
-};
-RUR.we.draw_triangle();
-RUR.we.draw_triangle(true);
 
 RUR.we.toggle_tile = function (tile){
     // will remove the position if clicked again with tile of same type.

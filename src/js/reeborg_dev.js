@@ -1874,7 +1874,7 @@ RUR.objects = {};
 
 RUR.objects.star = {};
 RUR.objects.star.image = new Image();
-RUR.objects.star.image.src = 'src/images/star.png';  // from openclipart
+RUR.objects.star.image.src = 'src/images/star.png';  // adapted from openclipart
 RUR.objects.star.image_goal = new Image();
 RUR.objects.star.image_goal.src = 'src/images/star_goal.png';  // modified from above
 RUR.objects.star.image.onload = function () {
@@ -1887,7 +1887,23 @@ RUR.objects.star.image_goal.onload = function () {
         RUR.vis_world.refresh("initial");
     }
 };
-/* Author: André Roberge
+
+
+RUR.objects.triangle = {};
+RUR.objects.triangle.image = new Image();
+RUR.objects.triangle.image.src = 'src/images/triangle.png';  // adapted from openclipart
+RUR.objects.triangle.image_goal = new Image();
+RUR.objects.triangle.image_goal.src = 'src/images/triangle_goal.png';  // modified from above
+RUR.objects.triangle.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
+RUR.objects.triangle.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};/* Author: André Roberge
    License: MIT
 
    Defining base name space and various constants.
@@ -3958,7 +3974,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_objects("star");
             break;
         case "world-triangle":
-            RUR.we.toggle_shape("triangle");
+            RUR.we.toggle_objects("triangle");
             break;
         case "world-square":
             RUR.we.toggle_shape("square");
@@ -3994,7 +4010,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_goal_objects("star");
             break;
         case "goal-triangle":
-            RUR.we.toggle_goal_shape("triangle");
+            RUR.we.toggle_goal_objects("triangle");
             break;
         case "goal-square":
             RUR.we.toggle_goal_shape("square");
@@ -4755,29 +4771,29 @@ RUR.we.draw_square = function (goal) {
 RUR.we.draw_square();
 RUR.we.draw_square(true);
 
-RUR.we.draw_triangle = function (goal) {
-    "use strict";
-    var ctx, size=12, scale = RUR.WALL_LENGTH;
-    if (goal) {
-        ctx = document.getElementById("canvas-goal-triangle").getContext("2d");
-    } else {
-        ctx = document.getElementById("canvas-triangle").getContext("2d");
-    }
-    ctx.fillStyle = RUR.TRIANGLE_COLOR;
-    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
-    ctx.beginPath();
-    ctx.moveTo(0.5*scale - size, 0.5*scale + size);
-    ctx.lineTo(0.5*scale, 0.5*scale - size);
-    ctx.lineTo(0.5*scale + size, 0.5*scale + size);
-    ctx.lineTo(0.5*scale - size, 0.5*scale + size);
-    if (goal) {
-        ctx.stroke();
-    } else {
-        ctx.fill();
-    }
-};
-RUR.we.draw_triangle();
-RUR.we.draw_triangle(true);
+// RUR.we.draw_triangle = function (goal) {
+//     "use strict";
+//     var ctx, size=12, scale = RUR.WALL_LENGTH;
+//     if (goal) {
+//         ctx = document.getElementById("canvas-goal-triangle").getContext("2d");
+//     } else {
+//         ctx = document.getElementById("canvas-triangle").getContext("2d");
+//     }
+//     ctx.fillStyle = RUR.TRIANGLE_COLOR;
+//     ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
+//     ctx.beginPath();
+//     ctx.moveTo(0.5*scale - size, 0.5*scale + size);
+//     ctx.lineTo(0.5*scale, 0.5*scale - size);
+//     ctx.lineTo(0.5*scale + size, 0.5*scale + size);
+//     ctx.lineTo(0.5*scale - size, 0.5*scale + size);
+//     if (goal) {
+//         ctx.stroke();
+//     } else {
+//         ctx.fill();
+//     }
+// };
+// RUR.we.draw_triangle();
+// RUR.we.draw_triangle(true);
 
 RUR.we.toggle_tile = function (tile){
     // will remove the position if clicked again with tile of same type.
