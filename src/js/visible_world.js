@@ -376,10 +376,10 @@ RUR.vis_world.draw_tiles = function (tiles){
 };
 
 RUR.vis_world.draw_single_tile = function (image, i, j) {
-    var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
+    var thick = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
     var x, y;
-    x = i*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
-    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
+    x = i*RUR.WALL_LENGTH + thick/2;
+    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
     ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
 };
 
