@@ -119,7 +119,8 @@ RUR.ROBOT_INFO_COLOR = "blue";
 
 RUR.MAX_STEPS = 1000;
 RUR.MIN_TIME_SOUND = 250;
-/* Author: André Roberge
+
+RUR.total_images = 0;/* Author: André Roberge
    License: MIT
  */
 
@@ -2716,26 +2717,51 @@ RUR.tiles.mud.fatal = true;
 RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");
 RUR.tiles.mud.image = new Image();
 RUR.tiles.mud.image.src = 'src/images/mud.png';
+RUR.tiles.mud.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
 
 RUR.tiles.ice = {};
 RUR.tiles.ice.slippery = true;
 RUR.tiles.ice.message = RUR.translate("I'm slipping on ice!");
 RUR.tiles.ice.image = new Image();
 RUR.tiles.ice.image.src = 'src/images/ice.png';
+RUR.tiles.ice.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
 
 RUR.tiles.grass = {};
 RUR.tiles.grass.image = new Image();
 RUR.tiles.grass.image.src = 'src/images/grass.png';
+RUR.tiles.grass.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
 
 RUR.tiles.gravel = {};
 RUR.tiles.gravel.image = new Image();
 RUR.tiles.gravel.image.src = 'src/images/gravel.png';
+RUR.tiles.gravel.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
 
 RUR.tiles.water = {};
 RUR.tiles.water.fatal = true;
 RUR.tiles.water.message = RUR.translate("I'm in water!");
 RUR.tiles.water.image = new Image();
-RUR.tiles.water.image.src = 'src/images/water.png';/* Author: André Roberge
+RUR.tiles.water.image.src = 'src/images/water.png';
+RUR.tiles.water.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};/* Author: André Roberge
    License: MIT
  */
 

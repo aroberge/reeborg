@@ -53,3 +53,5 @@ RUR.ROBOT_INFO_COLOR = "blue";
 
 RUR.MAX_STEPS = 1000;
 RUR.MIN_TIME_SOUND = 250;
+
+RUR.total_images = 0;
