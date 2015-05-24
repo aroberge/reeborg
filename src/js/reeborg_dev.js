@@ -4755,13 +4755,20 @@ RUR.we.draw_token = function (goal) {
     }
     ctx.beginPath();
     ctx.arc(20,20, size, 0 , 2 * Math.PI, false);
-    ctx.fillStyle = RUR.TOKEN_COLOR;
-    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
     if (goal) {
-        ctx.stroke();
+        ctx.fillStyle = RUR.SHAPE_OUTLINE_COLOR;
     } else {
-        ctx.fill();
+        ctx.fillStyle = RUR.TOKEN_COLOR;
     }
+
+    // ctx.fillStyle = RUR.TOKEN_COLOR;
+    // ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
+    ctx.fill();
+    // if (goal) {
+    //     ctx.stroke();
+    // } else {
+    //     ctx.fill();
+    // }
 };
 RUR.we.draw_token();
 RUR.we.draw_token(true);

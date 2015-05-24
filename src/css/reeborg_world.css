@@ -362,6 +362,9 @@ padding:3px;}
  text-align: center;
  display: inline;
 }
+.edit-goal-canvas canvas, edit-world-canvas canvas {
+  border: none;
+}
 
 
 #additional-code {
