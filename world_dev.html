@@ -68,7 +68,9 @@
   </div>
   <div id="canvas-wrapper">
     <canvas id="background_canvas" width="620" height="550"></canvas>
-    <canvas id="wall_canvas" width="620" height="550"></canvas>
+    <canvas id="second_layer_canvas" width="620" height="550"></canvas>
+    <canvas id="goal_canvas" width="620" height="550"></canvas>
+    <canvas id="objects_canvas" width="620" height="550"></canvas>
     <canvas id="trace_canvas" width="620" height="550"></canvas>
     <canvas id="robot_canvas" width="620" height="550"></canvas>
     <div id="Reeborg-concludes" title="Reeborg says: I'm done!" style="display:none"></div>
@@ -167,7 +169,6 @@
             <li><a href="javascript:RUR.we.select('world-star');"><canvas id="canvas-star" class="edit-canvas" width="40" height="40"></canvas></a></li>
             <li><a href="javascript:RUR.we.select('world-triangle');"><canvas id="canvas-triangle" class="edit-canvas" width="40" height="40"></canvas></a></li>
             <li><a href="javascript:RUR.we.select('world-square');"><canvas id="canvas-square" class="edit-canvas" width="40" height="40"></canvas></a></li>
-            <br>
         </ul>
         <ul class="edit-world-tiles" id="edit-world-tiles" style="display:none">
             <li><a href="javascript:RUR.we.select('world-mud');"><img src="src/images/mud.png" alt="mud tile"></a></li>

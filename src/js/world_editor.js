@@ -419,6 +419,7 @@ RUR.we.set_goal_token_number = function () {
                     }
                 }
             }
+            RUR.we.refresh_world_edited();
         } else {
             $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
         }

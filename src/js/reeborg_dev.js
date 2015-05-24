@@ -80,7 +80,9 @@ RUR.SOUTH = 3;
 
 RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
 RUR.BACKGROUND_CTX = RUR.BACKGROUND_CANVAS.getContext("2d");
-RUR.WALL_CTX = document.getElementById("wall_canvas").getContext("2d");
+RUR.SECOND_LAYER_CTX = document.getElementById("second_layer_canvas").getContext("2d");
+RUR.GOAL_CTX = document.getElementById("goal_canvas").getContext("2d");
+RUR.OBJECTS_CTX = document.getElementById("objects_canvas").getContext("2d");
 RUR.TRACE_CTX = document.getElementById("trace_canvas").getContext("2d");
 RUR.ROBOT_CTX = document.getElementById("robot_canvas").getContext("2d");
 
@@ -3359,7 +3361,7 @@ RUR.vis_world.draw_background = function () {
 
 RUR.vis_world.draw_foreground_walls = function (walls) {
     "use strict";
-    var keys, key, i, j, k, ctx = RUR.WALL_CTX;
+    var keys, key, i, j, k, ctx = RUR.OBJECTS_CTX;
 
     ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
@@ -3475,9 +3477,9 @@ RUR.vis_world.draw_token = function (i, j, num, goal) {
     var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
     var ctx;
     if (goal) {
-        ctx = RUR.BACKGROUND_CTX;
+        ctx = RUR.GOAL_CTX;
     } else {
-        ctx = RUR.WALL_CTX;
+        ctx = RUR.OBJECTS_CTX;
     }
     ctx.beginPath();
 
@@ -3500,11 +3502,11 @@ RUR.vis_world.draw_token = function (i, j, num, goal) {
 
 RUR.vis_world.draw_goal = function () {
     "use strict";
-    var goal, key, keys, i, j, k, ctx = RUR.BACKGROUND_CTX;
+    var goal, key, keys, i, j, k, ctx = RUR.GOAL_CTX;
     if (RUR.current_world.goal === undefined) {
         return;
     }
-
+    ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
         RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
@@ -3533,7 +3535,7 @@ RUR.vis_world.draw_goal = function () {
 };
 
 RUR.vis_world.draw_home_tile = function (i, j, orientation) {
-    var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
+    var size = RUR.WALL_THICKNESS, ctx = RUR.GOAL_CTX;
     ctx.fillStyle = RUR.TARGET_TILE_COLOR;
     ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
                       RUR.WALL_LENGTH - size, RUR.WALL_LENGTH - size);
@@ -3579,10 +3581,10 @@ RUR.vis_world.draw_shape = function (i, j, shape, goal) {
     "use strict";
     var ctx, size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
     if(goal !== undefined){
-        ctx = RUR.BACKGROUND_CTX;
+        ctx = RUR.GOAL_CTX;
         ctx.lineWidth = 3;
     } else {
-        ctx = RUR.WALL_CTX;
+        ctx = RUR.OBJECTS_CTX;
     }
     ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
     if (shape === "square") {
@@ -4322,6 +4324,7 @@ RUR.we.set_goal_token_number = function () {
                     }
                 }
             }
+            RUR.we.refresh_world_edited();
         } else {
             $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
         }

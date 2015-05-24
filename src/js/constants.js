@@ -14,7 +14,9 @@ RUR.SOUTH = 3;
 
 RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
 RUR.BACKGROUND_CTX = RUR.BACKGROUND_CANVAS.getContext("2d");
-RUR.WALL_CTX = document.getElementById("wall_canvas").getContext("2d");
+RUR.SECOND_LAYER_CTX = document.getElementById("second_layer_canvas").getContext("2d");
+RUR.GOAL_CTX = document.getElementById("goal_canvas").getContext("2d");
+RUR.OBJECTS_CTX = document.getElementById("objects_canvas").getContext("2d");
 RUR.TRACE_CTX = document.getElementById("trace_canvas").getContext("2d");
 RUR.ROBOT_CTX = document.getElementById("robot_canvas").getContext("2d");
 
