@@ -4184,7 +4184,7 @@ RUR.we.calculate_grid_position = function () {
 
     y = RUR.HEIGHT - y + RUR.WALL_THICKNESS;
     y /= RUR.WALL_LENGTH;
-    y = Math.round(y)-1;
+    y = Math.floor(y);
 
     if (x < 1 ) {
         x = 1;
