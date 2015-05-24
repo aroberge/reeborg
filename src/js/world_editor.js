@@ -14,7 +14,7 @@ RUR.we.edit_world = function  () {
             RUR.we.set_token_number();
             break;
         case "world-star":
-            RUR.we.toggle_shape("star");
+            RUR.we.toggle_objects("star");
             break;
         case "world-triangle":
             RUR.we.toggle_shape("triangle");
@@ -50,7 +50,7 @@ RUR.we.edit_world = function  () {
             RUR.we.set_goal_token_number();
             break;
         case "goal-star":
-            RUR.we.toggle_goal_shape("star");
+            RUR.we.toggle_goal_objects("star");
             break;
         case "goal-triangle":
             RUR.we.toggle_goal_shape("triangle");
@@ -632,6 +632,50 @@ RUR.we.toggle_goal_shape = function (shape){
     }
 };
 
+RUR.we.toggle_objects = function (specific_object){
+    "use strict";
+    var position, x, y;
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
+        $("#cmd-result").html(RUR.translate("tokens here; can't put another object")).effect("highlight", {color: "gold"}, 1500);
+        return;
+    }
+    RUR.we.ensure_key_exist(RUR.current_world, "objects");
+    if (RUR.current_world.objects[x + "," + y] === specific_object) {
+        delete RUR.current_world.objects[x + "," + y];
+        if (Object.keys(RUR.current_world.objects).length === 0){
+            delete RUR.current_world.objects;
+        }
+    } else {
+        RUR.current_world.objects[x + "," + y] = specific_object;
+    }
+};
+
+RUR.we.toggle_goal_objects = function (specific_object){
+    "use strict";
+    var position, x, y;
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.tokens !== undefined &&
+        RUR.current_world.goal.tokens[x + "," + y] !== undefined){
+        $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
+        return;
+    }
+    RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
+    if (RUR.current_world.goal.objects[x + "," + y] === specific_object) {
+        delete RUR.current_world.goal.objects[x + "," + y];
+    } else {
+        RUR.current_world.goal.objects[x + "," + y] = specific_object;
+    }
+    console.log(RUR.current_world.goal.objects);
+};
+
+
 RUR.we.set_goal_position = function (){
     // will remove the position if clicked again.
     "use strict";
@@ -793,44 +837,6 @@ RUR.we.draw_triangle = function (goal) {
 };
 RUR.we.draw_triangle();
 RUR.we.draw_triangle(true);
-
-RUR.we.draw_star = function (goal){
-    var ctx, scale = RUR.WALL_LENGTH, x, y, r;
-    if (goal) {
-        ctx = document.getElementById("canvas-goal-star").getContext("2d");
-    } else {
-        ctx = document.getElementById("canvas-star").getContext("2d");
-    }
-    ctx.fillStyle = RUR.STAR_COLOR;
-    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
-    x = 0.5*scale;
-    y = 0.5*scale;
-    r = 18;
-    // adapted from https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Compositing
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.save();
-    ctx.beginPath();
-    ctx.moveTo(r,0);
-    for (var i=0; i<9; i++){
-        ctx.rotate(Math.PI/5);
-        if(i%2 === 0) {
-            ctx.lineTo((r/0.525731)*0.200811, 0);
-        } else {
-            ctx.lineTo(r, 0);
-        }
-    }
-    ctx.closePath();
-    if (goal) {
-        ctx.stroke();
-    } else {
-        ctx.fill();
-    }
-    ctx.restore();
-    ctx.restore();
-};
-RUR.we.draw_star();
-RUR.we.draw_star(true);
 
 RUR.we.toggle_tile = function (tile){
     // will remove the position if clicked again with tile of same type.

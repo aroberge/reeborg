@@ -205,6 +205,9 @@ RUR.vis_world.draw_goal = function () {
     if (goal.shapes !== undefined){
         RUR.vis_world.draw_shapes(goal.shapes, true);
     }
+    if (goal.objects !== undefined){
+        RUR.vis_world.draw_all_objects(goal.objects, true);
+    }
     if (goal.tokens !== undefined) {
         RUR.vis_world.draw_tokens(goal.tokens, true);
     }
@@ -384,6 +387,42 @@ RUR.vis_world.draw_single_tile = function (image, i, j) {
 };
 
 
+RUR.vis_world.draw_all_objects = function (objects, goal){
+    "use strict";
+    var i, j, k, keys, key, image, ctx;
+    if (objects === undefined) {
+        return;
+    }
+
+    if (goal) {
+        ctx = RUR.GOAL_CTX;
+    } else {
+        ctx = RUR.OBJECTS_CTX;
+    }
+
+    keys = Object.keys(objects);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        if (goal) {
+            image = RUR.objects[objects[keys[key]]].image_goal;
+        } else {
+            image = RUR.objects[objects[keys[key]]].image;
+        }
+        RUR.vis_world.draw_single_object(image, i, j, ctx);
+    }
+};
+
+RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
+    var thick = RUR.WALL_THICKNESS;
+    var x, y;
+    x = i*RUR.WALL_LENGTH + thick/2;
+    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
+    ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
+};
+
+
 RUR.vis_world.refresh = function (initial) {
     "use strict";
     var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
@@ -425,6 +464,7 @@ RUR.vis_world.refresh = function (initial) {
 
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_tiles(RUR.current_world.tiles);
+    RUR.vis_world.draw_all_objects(RUR.current_world.objects);
     if (initial !== undefined && RUR.current_world.robots !== undefined &&
             RUR.current_world.robots[0] !== undefined &&
             RUR.current_world.robots[0].start_positions !== undefined &&

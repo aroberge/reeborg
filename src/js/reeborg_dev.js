@@ -1865,6 +1865,30 @@ RUR.editorUpdateHints = function() {
     });
 };/* Author: André Roberge
    License: MIT
+ */
+
+/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, RUR */
+
+RUR.objects = {};
+
+RUR.objects.star = {};
+RUR.objects.star.image = new Image();
+RUR.objects.star.image.src = 'src/images/star.png';
+RUR.objects.star.image_goal = new Image();
+RUR.objects.star.image_goal.src = 'src/images/star_goal.png';
+RUR.objects.star.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
+RUR.objects.star.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
+/* Author: André Roberge
+   License: MIT
 
    Defining base name space and various constants.
  */
@@ -3514,6 +3538,9 @@ RUR.vis_world.draw_goal = function () {
     if (goal.shapes !== undefined){
         RUR.vis_world.draw_shapes(goal.shapes, true);
     }
+    if (goal.objects !== undefined){
+        RUR.vis_world.draw_all_objects(goal.objects, true);
+    }
     if (goal.tokens !== undefined) {
         RUR.vis_world.draw_tokens(goal.tokens, true);
     }
@@ -3693,6 +3720,42 @@ RUR.vis_world.draw_single_tile = function (image, i, j) {
 };
 
 
+RUR.vis_world.draw_all_objects = function (objects, goal){
+    "use strict";
+    var i, j, k, keys, key, image, ctx;
+    if (objects === undefined) {
+        return;
+    }
+
+    if (goal) {
+        ctx = RUR.GOAL_CTX;
+    } else {
+        ctx = RUR.OBJECTS_CTX;
+    }
+
+    keys = Object.keys(objects);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        if (goal) {
+            image = RUR.objects[objects[keys[key]]].image_goal;
+        } else {
+            image = RUR.objects[objects[keys[key]]].image;
+        }
+        RUR.vis_world.draw_single_object(image, i, j, ctx);
+    }
+};
+
+RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
+    var thick = RUR.WALL_THICKNESS;
+    var x, y;
+    x = i*RUR.WALL_LENGTH + thick/2;
+    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
+    ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
+};
+
+
 RUR.vis_world.refresh = function (initial) {
     "use strict";
     var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
@@ -3734,6 +3797,7 @@ RUR.vis_world.refresh = function (initial) {
 
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_tiles(RUR.current_world.tiles);
+    RUR.vis_world.draw_all_objects(RUR.current_world.objects);
     if (initial !== undefined && RUR.current_world.robots !== undefined &&
             RUR.current_world.robots[0] !== undefined &&
             RUR.current_world.robots[0].start_positions !== undefined &&
@@ -3919,7 +3983,7 @@ RUR.we.edit_world = function  () {
             RUR.we.set_token_number();
             break;
         case "world-star":
-            RUR.we.toggle_shape("star");
+            RUR.we.toggle_objects("star");
             break;
         case "world-triangle":
             RUR.we.toggle_shape("triangle");
@@ -3955,7 +4019,7 @@ RUR.we.edit_world = function  () {
             RUR.we.set_goal_token_number();
             break;
         case "goal-star":
-            RUR.we.toggle_goal_shape("star");
+            RUR.we.toggle_goal_objects("star");
             break;
         case "goal-triangle":
             RUR.we.toggle_goal_shape("triangle");
@@ -4537,6 +4601,50 @@ RUR.we.toggle_goal_shape = function (shape){
     }
 };
 
+RUR.we.toggle_objects = function (specific_object){
+    "use strict";
+    var position, x, y;
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
+        $("#cmd-result").html(RUR.translate("tokens here; can't put another object")).effect("highlight", {color: "gold"}, 1500);
+        return;
+    }
+    RUR.we.ensure_key_exist(RUR.current_world, "objects");
+    if (RUR.current_world.objects[x + "," + y] === specific_object) {
+        delete RUR.current_world.objects[x + "," + y];
+        if (Object.keys(RUR.current_world.objects).length === 0){
+            delete RUR.current_world.objects;
+        }
+    } else {
+        RUR.current_world.objects[x + "," + y] = specific_object;
+    }
+};
+
+RUR.we.toggle_goal_objects = function (specific_object){
+    "use strict";
+    var position, x, y;
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+
+    RUR.we.ensure_key_exist(RUR.current_world, "goal");
+    if (RUR.current_world.goal.tokens !== undefined &&
+        RUR.current_world.goal.tokens[x + "," + y] !== undefined){
+        $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
+        return;
+    }
+    RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
+    if (RUR.current_world.goal.objects[x + "," + y] === specific_object) {
+        delete RUR.current_world.goal.objects[x + "," + y];
+    } else {
+        RUR.current_world.goal.objects[x + "," + y] = specific_object;
+    }
+    console.log(RUR.current_world.goal.objects);
+};
+
+
 RUR.we.set_goal_position = function (){
     // will remove the position if clicked again.
     "use strict";
@@ -4698,44 +4806,6 @@ RUR.we.draw_triangle = function (goal) {
 };
 RUR.we.draw_triangle();
 RUR.we.draw_triangle(true);
-
-RUR.we.draw_star = function (goal){
-    var ctx, scale = RUR.WALL_LENGTH, x, y, r;
-    if (goal) {
-        ctx = document.getElementById("canvas-goal-star").getContext("2d");
-    } else {
-        ctx = document.getElementById("canvas-star").getContext("2d");
-    }
-    ctx.fillStyle = RUR.STAR_COLOR;
-    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
-    x = 0.5*scale;
-    y = 0.5*scale;
-    r = 18;
-    // adapted from https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Compositing
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.save();
-    ctx.beginPath();
-    ctx.moveTo(r,0);
-    for (var i=0; i<9; i++){
-        ctx.rotate(Math.PI/5);
-        if(i%2 === 0) {
-            ctx.lineTo((r/0.525731)*0.200811, 0);
-        } else {
-            ctx.lineTo(r, 0);
-        }
-    }
-    ctx.closePath();
-    if (goal) {
-        ctx.stroke();
-    } else {
-        ctx.fill();
-    }
-    ctx.restore();
-    ctx.restore();
-};
-RUR.we.draw_star();
-RUR.we.draw_star(true);
 
 RUR.we.toggle_tile = function (tile){
     // will remove the position if clicked again with tile of same type.
