@@ -3642,7 +3642,7 @@ RUR.vis_world.clear_trace = function(){
 
 RUR.vis_world.draw_tiles = function (tiles){
     "use strict";
-    var i, j, k, t, keys, key;
+    var i, j, k, keys, key, image;
     if (tiles === undefined) {
         return;
     }
@@ -3651,12 +3651,12 @@ RUR.vis_world.draw_tiles = function (tiles){
         k = keys[key].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        RUR.vis_world.draw_tile(RUR.tiles[tiles[keys[key]]].image, i, j);
+        image = RUR.tiles[tiles[keys[key]]].image;
+        RUR.vis_world.draw_single_tile(image, i, j);
     }
 };
 
-// single tile
-RUR.vis_world.draw_tile = function (image, i, j) {
+RUR.vis_world.draw_single_tile = function (image, i, j) {
     var size = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
     var x, y;
     x = i*RUR.WALL_LENGTH + size - RUR.WALL_THICKNESS/2;
@@ -4701,7 +4701,7 @@ RUR.we.draw_star();
 RUR.we.draw_star(true);
 
 RUR.we.toggle_tile = function (tile){
-    // will remove the position if clicked again.
+    // will remove the position if clicked again with tile of same type.
     "use strict";
     var x, y, position, coords, index;
 
@@ -4711,7 +4711,8 @@ RUR.we.toggle_tile = function (tile){
     coords = x + "," + y;
 
     RUR.we.ensure_key_exist(RUR.current_world, "tiles");
-    if (RUR.current_world.tiles[coords] === undefined){
+    if (RUR.current_world.tiles[coords] === undefined ||
+        RUR.current_world.tiles[coords] != tile){
         RUR.current_world.tiles[coords] = tile;
     } else {
         delete RUR.current_world.tiles[coords];

@@ -824,7 +824,7 @@ RUR.we.draw_star();
 RUR.we.draw_star(true);
 
 RUR.we.toggle_tile = function (tile){
-    // will remove the position if clicked again.
+    // will remove the position if clicked again with tile of same type.
     "use strict";
     var x, y, position, coords, index;
 
@@ -834,7 +834,8 @@ RUR.we.toggle_tile = function (tile){
     coords = x + "," + y;
 
     RUR.we.ensure_key_exist(RUR.current_world, "tiles");
-    if (RUR.current_world.tiles[coords] === undefined){
+    if (RUR.current_world.tiles[coords] === undefined ||
+        RUR.current_world.tiles[coords] != tile){
         RUR.current_world.tiles[coords] = tile;
     } else {
         delete RUR.current_world.tiles[coords];
