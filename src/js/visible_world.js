@@ -303,37 +303,9 @@ RUR.vis_world.draw_shape = function (i, j, shape, goal) {
         } else {
             ctx.fill();
         }
-    } else {
-        ctx.fillStyle = RUR.STAR_COLOR;
-        RUR.vis_world.draw_star(ctx, (i+0.6)*scale, Y-(j+0.4)*scale, 1.5*size, goal);
     }
 };
 
-RUR.vis_world.draw_star = function (ctx, x, y, r, goal){
-    // adapted from https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Compositing
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.save();
-    ctx.beginPath();
-    ctx.moveTo(r,0);
-    for (var i=0; i<9; i++){
-        ctx.rotate(Math.PI/5);
-        if(i%2 === 0) {
-            ctx.lineTo((r/0.525731)*0.200811, 0);
-        } else {
-            ctx.lineTo(r, 0);
-        }
-    }
-    ctx.closePath();
-    if (goal !== undefined){
-        ctx.lineWidth = 3;
-        ctx.stroke();
-    } else {
-        ctx.fill();
-    }
-    ctx.restore();
-    ctx.restore();
-};
 
 RUR.vis_world.draw_all = function () {
     "use strict";
