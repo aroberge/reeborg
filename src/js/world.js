@@ -17,8 +17,7 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.robots = [];
     world.walls = {};
     world.tokens = {};
-    world.shapes = {};
-    world.other = {};
+    world.objects = {};
     // allow teacher to insert code to be run before and after the
     // code entered by the student
     world.pre_code = '';

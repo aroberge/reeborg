@@ -344,7 +344,7 @@ RUR.we.set_token_number = function () {
     x = position[0];
     y = position[1];
 
-    if (RUR.current_world.shapes !== undefined && RUR.current_world.shapes[x + "," + y] !== undefined){
+    if (RUR.current_world.objects !== undefined && RUR.current_world.objects[x + "," + y] !== undefined){
         $("#cmd-result").html(RUR.translate("Other object here; can't put tokens")).effect("highlight", {color: "gold"}, 1500);
         $("#Reeborg-shouts").html(RUR.translate("Other object here; can't put tokens")).dialog("open");
         return;
@@ -397,7 +397,7 @@ RUR.we.set_goal_token_number = function () {
     y = position[1];
 
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
+    if (RUR.current_world.goal.objects !== undefined && RUR.current_world.goal.objects[x + "," + y] !== undefined){
         $("#cmd-result").html(RUR.translate("Other object goal here; can't put tokens")).effect("highlight", {color: "gold"}, 1500);
         $("#Reeborg-shouts").html(RUR.translate("Other object goal here; can't put tokens")).dialog("open");
         return;
@@ -600,14 +600,14 @@ RUR.we.toggle_shape = function (shape){
         $("#cmd-result").html(RUR.translate("tokens here; can't put another object")).effect("highlight", {color: "gold"}, 1500);
         return;
     }
-    RUR.we.ensure_key_exist(RUR.current_world, "shapes");
-    if (RUR.current_world.shapes[x + "," + y] === shape) {
-        delete RUR.current_world.shapes[x + "," + y];
-        if (Object.keys(RUR.current_world.shapes).length === 0){
-            delete RUR.current_world.shapes;
+    RUR.we.ensure_key_exist(RUR.current_world, "objects");
+    if (RUR.current_world.objects[x + "," + y] === shape) {
+        delete RUR.current_world.objects[x + "," + y];
+        if (Object.keys(RUR.current_world.objects).length === 0){
+            delete RUR.current_world.objects;
         }
     } else {
-        RUR.current_world.shapes[x + "," + y] = shape;
+        RUR.current_world.objects[x + "," + y] = shape;
     }
 };
 
@@ -624,11 +624,11 @@ RUR.we.toggle_goal_shape = function (shape){
         $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
         return;
     }
-    RUR.we.ensure_key_exist(RUR.current_world.goal, "shapes");
-    if (RUR.current_world.goal.shapes[x + "," + y] === shape) {
-        delete RUR.current_world.goal.shapes[x + "," + y];
+    RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
+    if (RUR.current_world.goal.objects[x + "," + y] === shape) {
+        delete RUR.current_world.goal.objects[x + "," + y];
     } else {
-        RUR.current_world.goal.shapes[x + "," + y] = shape;
+        RUR.current_world.goal.objects[x + "," + y] = shape;
     }
 };
 
@@ -755,7 +755,7 @@ RUR.we.set_goal_no_objects = function(){
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    RUR.current_world.goal.shapes = {};
+    RUR.current_world.goal.objects = {};
     $("#cmd-result").html(RUR.translate("Goal: no object left in world.")).effect("highlight", {color: "gold"}, 1500);
 };
 
@@ -787,15 +787,7 @@ RUR.we.draw_token = function (goal) {
     } else {
         ctx.fillStyle = RUR.TOKEN_COLOR;
     }
-
-    // ctx.fillStyle = RUR.TOKEN_COLOR;
-    // ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
     ctx.fill();
-    // if (goal) {
-    //     ctx.stroke();
-    // } else {
-    //     ctx.fill();
-    // }
 };
 RUR.we.draw_token();
 RUR.we.draw_token(true);

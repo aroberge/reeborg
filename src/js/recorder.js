@@ -235,12 +235,12 @@ RUR.rec.check_goal= function (frame) {
             goal_status.success = false;
         }
     }
-    if (g.shapes !== undefined) {
-        result = Object.identical(g.shapes, world.shapes, true);
+    if (g.objects !== undefined) {
+        result = Object.identical(g.objects, world.objects, true);
         if (result){
-            goal_status.message += RUR.translate("<li class='success'>All shapes are at the correct location.</li>");
+            goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
-            goal_status.message += RUR.translate("<li class='failure'>One or more shapes are not at the correct location.</li>");
+            goal_status.message += RUR.translate("<li class='failure'>One or more objects are not at the correct location.</li>");
             goal_status.success = false;
         }
     }

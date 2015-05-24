@@ -224,7 +224,7 @@ RUR.control.put = function(robot, arg){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
     }
     if (robot[RUR.translate(arg)] === 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any shape to put down!").supplant({shape:arg}));
+        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape:arg}));
     } else if (RUR.control.object_here(robot, true) !== 0) {
         throw new RUR.ReeborgError(RUR.translate("There is already something here."));
     }
@@ -233,8 +233,8 @@ RUR.control.put = function(robot, arg){
 };
 
 RUR.control._put_object = function (robot, obj) {
-    RUR.we.ensure_key_exist(RUR.current_world, "shapes");
-    RUR.current_world.shapes[robot.x + "," + robot.y] = obj;
+    RUR.we.ensure_key_exist(RUR.current_world, "objects");
+    RUR.current_world.objects[robot.x + "," + robot.y] = obj;
     RUR.rec.record_frame("debug", "RUR.control._put_object");
 };
 
@@ -265,14 +265,14 @@ RUR.control.take = function(robot, arg){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
     }
     if (RUR.control.object_here(robot, true) !== arg) {
-        throw new RUR.ReeborgError(RUR.translate("No shape found here").supplant({shape: arg}));
+        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({shape: arg}));
     }
     robot[RUR.translate(arg)] += 1;
     RUR.control._take_object(robot, RUR.translate(arg));
 };
 
 RUR.control._take_object = function (robot, obj) {
-    delete RUR.current_world.shapes[robot.x + "," + robot.y];
+    delete RUR.current_world.objects[robot.x + "," + robot.y];
     RUR.rec.record_frame("debug", "RUR.control._take_object");
 };
 
@@ -438,10 +438,10 @@ RUR.control.object_here = function (robot, do_not_record) {
         return RUR.translation.token;
     }
 
-    if (RUR.current_world.shapes === undefined) {
+    if (RUR.current_world.objects === undefined) {
         return 0;
     }
-    return RUR.translate(RUR.current_world.shapes[coords]) || 0;
+    return RUR.translate(RUR.current_world.objects[coords]) || 0;
 };
 
 RUR.control.write = function () {
@@ -2156,12 +2156,12 @@ RUR.rec.check_goal= function (frame) {
             goal_status.success = false;
         }
     }
-    if (g.shapes !== undefined) {
-        result = Object.identical(g.shapes, world.shapes, true);
+    if (g.objects !== undefined) {
+        result = Object.identical(g.objects, world.objects, true);
         if (result){
-            goal_status.message += RUR.translate("<li class='success'>All shapes are at the correct location.</li>");
+            goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
-            goal_status.message += RUR.translate("<li class='failure'>One or more shapes are not at the correct location.</li>");
+            goal_status.message += RUR.translate("<li class='failure'>One or more objects are not at the correct location.</li>");
             goal_status.success = false;
         }
     }
@@ -3559,16 +3559,13 @@ RUR.vis_world.draw_token = function (i, j, num, goal) {
 RUR.vis_world.draw_goal = function () {
     "use strict";
     var goal, key, keys, i, j, k, ctx = RUR.GOAL_CTX;
+    ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     if (RUR.current_world.goal === undefined) {
         return;
     }
-    ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
         RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
-    }
-    if (goal.shapes !== undefined){
-        RUR.vis_world.draw_shapes(goal.shapes, true);
     }
     if (goal.objects !== undefined){
         RUR.vis_world.draw_all_objects(goal.objects, true);
@@ -3620,57 +3617,6 @@ RUR.vis_world.draw_home_tile = function (i, j, orientation) {
         break;
     }
 };
-
-RUR.vis_world.draw_shapes = function(shapes, goal) {
-    "use strict";
-    var i, j, k, t, sh;
-    if (shapes === undefined) {
-        return;
-    }
-    sh = Object.keys(shapes);
-    for (t=0; t < sh.length; t++){
-        k = sh[t].split(",");
-        i = parseInt(k[0], 10);
-        j = parseInt(k[1], 10);
-        RUR.vis_world.draw_shape(i, j, shapes[sh[t]], goal);
-    }
-};
-
-RUR.vis_world.draw_shape = function (i, j, shape, goal) {
-    "use strict";
-    var ctx, size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
-    if(goal !== undefined){
-        ctx = RUR.GOAL_CTX;
-        ctx.lineWidth = 3;
-    } else {
-        ctx = RUR.OBJECTS_CTX;
-    }
-    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
-    if (shape === "square") {
-        ctx.fillStyle = RUR.SQUARE_COLOR;
-        if(goal !== undefined){
-            ctx.beginPath();
-            ctx.rect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
-            ctx.stroke();
-        } else {
-            ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
-        }
-    } else if (shape === "triangle") { // triangle
-        ctx.fillStyle = RUR.TRIANGLE_COLOR;
-        ctx.beginPath();
-        ctx.moveTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
-        ctx.lineTo((i+0.6)*scale, Y - (j+0.4)*scale - size);
-        ctx.lineTo((i+0.6)*scale + size, Y - (j+0.4)*scale + size);
-        ctx.lineTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
-        if(goal !== undefined) {
-            ctx.closePath();
-            ctx.stroke();
-        } else {
-            ctx.fill();
-        }
-    }
-};
-
 
 RUR.vis_world.draw_all = function () {
     "use strict";
@@ -3763,6 +3709,11 @@ RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
 RUR.vis_world.refresh = function (initial) {
     "use strict";
     var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
+
+// TODO simplify this entire code
+// move selecting initial value to runner - when program is first compiled
+// add something like draw_changing  to redraw only the canvas that might be changing
+
     if (initial !== undefined && RUR.current_world.goal !== undefined &&
         RUR.current_world.goal.possible_positions !== undefined) {
         goal = RUR.current_world.goal;
@@ -3790,7 +3741,7 @@ RUR.vis_world.refresh = function (initial) {
                 RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
             }
             // restore colour and position, and then redraw all.
-            // note that some goal shapes might have been placed on the possible positions,
+            // note that some goal objects might have been placed on the possible positions,
             // hence we must make sure to draw all the goals.
             RUR.TARGET_TILE_COLOR = color1_temp;
             RUR.ORIENTATION_TILE_COLOR = color2_temp;
@@ -3829,7 +3780,6 @@ RUR.vis_world.refresh = function (initial) {
             RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
         }
     }
-    RUR.vis_world.draw_shapes(RUR.current_world.shapes);
 };
 
 RUR.vis_world.select_initial_values = function() {
@@ -3898,8 +3848,7 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.robots = [];
     world.walls = {};
     world.tokens = {};
-    world.shapes = {};
-    world.other = {};
+    world.objects = {};
     // allow teacher to insert code to be run before and after the
     // code entered by the student
     world.pre_code = '';
@@ -4317,7 +4266,7 @@ RUR.we.set_token_number = function () {
     x = position[0];
     y = position[1];
 
-    if (RUR.current_world.shapes !== undefined && RUR.current_world.shapes[x + "," + y] !== undefined){
+    if (RUR.current_world.objects !== undefined && RUR.current_world.objects[x + "," + y] !== undefined){
         $("#cmd-result").html(RUR.translate("Other object here; can't put tokens")).effect("highlight", {color: "gold"}, 1500);
         $("#Reeborg-shouts").html(RUR.translate("Other object here; can't put tokens")).dialog("open");
         return;
@@ -4370,7 +4319,7 @@ RUR.we.set_goal_token_number = function () {
     y = position[1];
 
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.shapes !== undefined && RUR.current_world.goal.shapes[x + "," + y] !== undefined){
+    if (RUR.current_world.goal.objects !== undefined && RUR.current_world.goal.objects[x + "," + y] !== undefined){
         $("#cmd-result").html(RUR.translate("Other object goal here; can't put tokens")).effect("highlight", {color: "gold"}, 1500);
         $("#Reeborg-shouts").html(RUR.translate("Other object goal here; can't put tokens")).dialog("open");
         return;
@@ -4573,14 +4522,14 @@ RUR.we.toggle_shape = function (shape){
         $("#cmd-result").html(RUR.translate("tokens here; can't put another object")).effect("highlight", {color: "gold"}, 1500);
         return;
     }
-    RUR.we.ensure_key_exist(RUR.current_world, "shapes");
-    if (RUR.current_world.shapes[x + "," + y] === shape) {
-        delete RUR.current_world.shapes[x + "," + y];
-        if (Object.keys(RUR.current_world.shapes).length === 0){
-            delete RUR.current_world.shapes;
+    RUR.we.ensure_key_exist(RUR.current_world, "objects");
+    if (RUR.current_world.objects[x + "," + y] === shape) {
+        delete RUR.current_world.objects[x + "," + y];
+        if (Object.keys(RUR.current_world.objects).length === 0){
+            delete RUR.current_world.objects;
         }
     } else {
-        RUR.current_world.shapes[x + "," + y] = shape;
+        RUR.current_world.objects[x + "," + y] = shape;
     }
 };
 
@@ -4597,11 +4546,11 @@ RUR.we.toggle_goal_shape = function (shape){
         $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
         return;
     }
-    RUR.we.ensure_key_exist(RUR.current_world.goal, "shapes");
-    if (RUR.current_world.goal.shapes[x + "," + y] === shape) {
-        delete RUR.current_world.goal.shapes[x + "," + y];
+    RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
+    if (RUR.current_world.goal.objects[x + "," + y] === shape) {
+        delete RUR.current_world.goal.objects[x + "," + y];
     } else {
-        RUR.current_world.goal.shapes[x + "," + y] = shape;
+        RUR.current_world.goal.objects[x + "," + y] = shape;
     }
 };
 
@@ -4728,7 +4677,7 @@ RUR.we.set_goal_no_objects = function(){
         return;
     }
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    RUR.current_world.goal.shapes = {};
+    RUR.current_world.goal.objects = {};
     $("#cmd-result").html(RUR.translate("Goal: no object left in world.")).effect("highlight", {color: "gold"}, 1500);
 };
 
@@ -4760,15 +4709,7 @@ RUR.we.draw_token = function (goal) {
     } else {
         ctx.fillStyle = RUR.TOKEN_COLOR;
     }
-
-    // ctx.fillStyle = RUR.TOKEN_COLOR;
-    // ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
     ctx.fill();
-    // if (goal) {
-    //     ctx.stroke();
-    // } else {
-    //     ctx.fill();
-    // }
 };
 RUR.we.draw_token();
 RUR.we.draw_token(true);

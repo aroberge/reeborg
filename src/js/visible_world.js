@@ -194,16 +194,13 @@ RUR.vis_world.draw_token = function (i, j, num, goal) {
 RUR.vis_world.draw_goal = function () {
     "use strict";
     var goal, key, keys, i, j, k, ctx = RUR.GOAL_CTX;
+    ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     if (RUR.current_world.goal === undefined) {
         return;
     }
-    ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
         RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
-    }
-    if (goal.shapes !== undefined){
-        RUR.vis_world.draw_shapes(goal.shapes, true);
     }
     if (goal.objects !== undefined){
         RUR.vis_world.draw_all_objects(goal.objects, true);
@@ -255,57 +252,6 @@ RUR.vis_world.draw_home_tile = function (i, j, orientation) {
         break;
     }
 };
-
-RUR.vis_world.draw_shapes = function(shapes, goal) {
-    "use strict";
-    var i, j, k, t, sh;
-    if (shapes === undefined) {
-        return;
-    }
-    sh = Object.keys(shapes);
-    for (t=0; t < sh.length; t++){
-        k = sh[t].split(",");
-        i = parseInt(k[0], 10);
-        j = parseInt(k[1], 10);
-        RUR.vis_world.draw_shape(i, j, shapes[sh[t]], goal);
-    }
-};
-
-RUR.vis_world.draw_shape = function (i, j, shape, goal) {
-    "use strict";
-    var ctx, size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
-    if(goal !== undefined){
-        ctx = RUR.GOAL_CTX;
-        ctx.lineWidth = 3;
-    } else {
-        ctx = RUR.OBJECTS_CTX;
-    }
-    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
-    if (shape === "square") {
-        ctx.fillStyle = RUR.SQUARE_COLOR;
-        if(goal !== undefined){
-            ctx.beginPath();
-            ctx.rect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
-            ctx.stroke();
-        } else {
-            ctx.fillRect((i+0.6)*scale - size, Y - (j+0.4)*scale - size, 2*size, 2*size);
-        }
-    } else if (shape === "triangle") { // triangle
-        ctx.fillStyle = RUR.TRIANGLE_COLOR;
-        ctx.beginPath();
-        ctx.moveTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
-        ctx.lineTo((i+0.6)*scale, Y - (j+0.4)*scale - size);
-        ctx.lineTo((i+0.6)*scale + size, Y - (j+0.4)*scale + size);
-        ctx.lineTo((i+0.6)*scale - size, Y - (j+0.4)*scale + size);
-        if(goal !== undefined) {
-            ctx.closePath();
-            ctx.stroke();
-        } else {
-            ctx.fill();
-        }
-    }
-};
-
 
 RUR.vis_world.draw_all = function () {
     "use strict";
@@ -398,6 +344,11 @@ RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
 RUR.vis_world.refresh = function (initial) {
     "use strict";
     var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
+
+// TODO simplify this entire code
+// move selecting initial value to runner - when program is first compiled
+// add something like draw_changing  to redraw only the canvas that might be changing
+
     if (initial !== undefined && RUR.current_world.goal !== undefined &&
         RUR.current_world.goal.possible_positions !== undefined) {
         goal = RUR.current_world.goal;
@@ -425,7 +376,7 @@ RUR.vis_world.refresh = function (initial) {
                 RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
             }
             // restore colour and position, and then redraw all.
-            // note that some goal shapes might have been placed on the possible positions,
+            // note that some goal objects might have been placed on the possible positions,
             // hence we must make sure to draw all the goals.
             RUR.TARGET_TILE_COLOR = color1_temp;
             RUR.ORIENTATION_TILE_COLOR = color2_temp;
@@ -464,7 +415,6 @@ RUR.vis_world.refresh = function (initial) {
             RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
         }
     }
-    RUR.vis_world.draw_shapes(RUR.current_world.shapes);
 };
 
 RUR.vis_world.select_initial_values = function() {

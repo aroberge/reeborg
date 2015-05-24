@@ -100,7 +100,7 @@ RUR.control.put = function(robot, arg){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
     }
     if (robot[RUR.translate(arg)] === 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any shape to put down!").supplant({shape:arg}));
+        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape:arg}));
     } else if (RUR.control.object_here(robot, true) !== 0) {
         throw new RUR.ReeborgError(RUR.translate("There is already something here."));
     }
@@ -109,8 +109,8 @@ RUR.control.put = function(robot, arg){
 };
 
 RUR.control._put_object = function (robot, obj) {
-    RUR.we.ensure_key_exist(RUR.current_world, "shapes");
-    RUR.current_world.shapes[robot.x + "," + robot.y] = obj;
+    RUR.we.ensure_key_exist(RUR.current_world, "objects");
+    RUR.current_world.objects[robot.x + "," + robot.y] = obj;
     RUR.rec.record_frame("debug", "RUR.control._put_object");
 };
 
@@ -141,14 +141,14 @@ RUR.control.take = function(robot, arg){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
     }
     if (RUR.control.object_here(robot, true) !== arg) {
-        throw new RUR.ReeborgError(RUR.translate("No shape found here").supplant({shape: arg}));
+        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({shape: arg}));
     }
     robot[RUR.translate(arg)] += 1;
     RUR.control._take_object(robot, RUR.translate(arg));
 };
 
 RUR.control._take_object = function (robot, obj) {
-    delete RUR.current_world.shapes[robot.x + "," + robot.y];
+    delete RUR.current_world.objects[robot.x + "," + robot.y];
     RUR.rec.record_frame("debug", "RUR.control._take_object");
 };
 
@@ -314,10 +314,10 @@ RUR.control.object_here = function (robot, do_not_record) {
         return RUR.translation.token;
     }
 
-    if (RUR.current_world.shapes === undefined) {
+    if (RUR.current_world.objects === undefined) {
         return 0;
     }
-    return RUR.translate(RUR.current_world.shapes[coords]) || 0;
+    return RUR.translate(RUR.current_world.objects[coords]) || 0;
 };
 
 RUR.control.write = function () {
