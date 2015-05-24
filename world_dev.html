@@ -168,6 +168,8 @@
             <li><a href="javascript:RUR.we.select('world-triangle');"><canvas id="canvas-triangle" class="edit-canvas" width="40" height="40"></canvas></a></li>
             <li><a href="javascript:RUR.we.select('world-square');"><canvas id="canvas-square" class="edit-canvas" width="40" height="40"></canvas></a></li>
             <br>
+        </ul>
+        <ul class="edit-world-tiles" id="edit-world-tiles" style="display:none">
             <li><a href="javascript:RUR.we.select('world-mud');"><img src="src/images/mud.png" alt="mud tile"></a></li>
             <li><a href="javascript:RUR.we.select('world-water');"><img src="src/images/water.png" alt="water tile"></a></li>
             <li><a href="javascript:RUR.we.select('world-grass');"><img src="src/images/grass.png" alt="grass tile"></a></li>
@@ -190,8 +192,12 @@
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-orientation');"> Turn</a></li>
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-tokens');">Tokens</a></li>
         </ul></li>
-        <li><a href="javascript:RUR.we.select('world-walls');">Walls</a></li>
-        <li><a href="javascript:RUR.we.select('world-objects');">Objects</a></li>
+
+        <li class="a-like">More <ul>
+            <li><a href="javascript:RUR.we.select('world-walls');">Walls</a></li>
+            <li><a href="javascript:RUR.we.select('world-objects');">Objects</a></li>
+            <li><a href="javascript:RUR.we.select('world-tiles');">Tiles</a></li>
+        </ul></li>
         <li class="a-like">Goal <ul>
             <li><a href="javascript:RUR.we.select('goal-robot');">Robot</a></li>
             <li><a href="javascript:RUR.we.select('goal-wall');">Walls</a></li>

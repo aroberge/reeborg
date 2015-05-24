@@ -3977,6 +3977,7 @@ RUR.we.select = function (choice) {
     $(".edit-world-submenus").hide();
     $(".edit-world-canvas").hide();
     $(".edit-goal-canvas").hide();
+    $("#edit-world-tiles").hide();
     RUR.we.edit_world_flag = choice;
     switch (choice) {
         case "robot-place":
@@ -4006,6 +4007,10 @@ RUR.we.select = function (choice) {
             $(".edit-world-canvas").show();
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
+        case "world-tiles":
+            $("#edit-world-tiles").show();
+            $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
+            break;
         case "world-star":
             $(".edit-world-canvas").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle star.")).effect("highlight", {color: "gold"}, 1500);
@@ -4019,23 +4024,23 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on world to toggle square.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-mud":
-            $(".edit-world-canvas").show();
+            $("#edit-world-tiles").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle mud tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-water":
-            $(".edit-world-canvas").show();
+            $("#edit-world-tiles").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle water tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-ice":
-            $(".edit-world-canvas").show();
+            $("#edit-world-tiles").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle ice tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-gravel":
-            $(".edit-world-canvas").show();
+            $("#edit-world-tiles").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle gravel tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-grass":
-            $(".edit-world-canvas").show();
+            $("#edit-world-tiles").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle grass tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-walls":
