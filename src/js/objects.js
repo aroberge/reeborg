@@ -39,3 +39,19 @@ RUR.objects.triangle.image_goal.onload = function () {
         RUR.vis_world.refresh("initial");
     }
 };
+
+RUR.objects.square = {};
+RUR.objects.square.image = new Image();
+RUR.objects.square.image.src = 'src/images/square.png';
+RUR.objects.square.image_goal = new Image();
+RUR.objects.square.image_goal.src = 'src/images/square_goal.png';  // modified from above
+RUR.objects.square.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
+RUR.objects.square.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};

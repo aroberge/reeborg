@@ -1903,6 +1903,22 @@ RUR.objects.triangle.image_goal.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh("initial");
     }
+};
+
+RUR.objects.square = {};
+RUR.objects.square.image = new Image();
+RUR.objects.square.image.src = 'src/images/square.png';
+RUR.objects.square.image_goal = new Image();
+RUR.objects.square.image_goal.src = 'src/images/square_goal.png';  // modified from above
+RUR.objects.square.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
+RUR.objects.square.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
 };/* Author: André Roberge
    License: MIT
 
@@ -3977,7 +3993,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_objects("triangle");
             break;
         case "world-square":
-            RUR.we.toggle_shape("square");
+            RUR.we.toggle_objects("square");
             break;
         case "world-mud":
             RUR.we.toggle_tile("mud");
@@ -4013,7 +4029,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_goal_objects("triangle");
             break;
         case "goal-square":
-            RUR.we.toggle_goal_shape("square");
+            RUR.we.toggle_goal_objects("square");
             break;
         case "goal-no-objects":
             RUR.we.set_goal_no_objects();
@@ -4629,7 +4645,6 @@ RUR.we.toggle_goal_objects = function (specific_object){
     } else {
         RUR.current_world.goal.objects[x + "," + y] = specific_object;
     }
-    console.log(RUR.current_world.goal.objects);
 };
 
 
@@ -4750,50 +4765,6 @@ RUR.we.draw_token = function (goal) {
 };
 RUR.we.draw_token();
 RUR.we.draw_token(true);
-
-RUR.we.draw_square = function (goal) {
-    "use strict";
-    var ctx, size=12;
-    if (goal) {
-        ctx = document.getElementById("canvas-goal-square").getContext("2d");
-    } else {
-        ctx = document.getElementById("canvas-square").getContext("2d");
-    }
-    ctx.fillStyle = RUR.SQUARE_COLOR;
-    ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
-    if (goal) {
-        ctx.rect(8, 8, 2*size, 2*size);
-        ctx.stroke();
-    } else {
-        ctx.fillRect(8, 8, 2*size, 2*size);
-    }
-};
-RUR.we.draw_square();
-RUR.we.draw_square(true);
-
-// RUR.we.draw_triangle = function (goal) {
-//     "use strict";
-//     var ctx, size=12, scale = RUR.WALL_LENGTH;
-//     if (goal) {
-//         ctx = document.getElementById("canvas-goal-triangle").getContext("2d");
-//     } else {
-//         ctx = document.getElementById("canvas-triangle").getContext("2d");
-//     }
-//     ctx.fillStyle = RUR.TRIANGLE_COLOR;
-//     ctx.strokeStyle = RUR.SHAPE_OUTLINE_COLOR;
-//     ctx.beginPath();
-//     ctx.moveTo(0.5*scale - size, 0.5*scale + size);
-//     ctx.lineTo(0.5*scale, 0.5*scale - size);
-//     ctx.lineTo(0.5*scale + size, 0.5*scale + size);
-//     ctx.lineTo(0.5*scale - size, 0.5*scale + size);
-//     if (goal) {
-//         ctx.stroke();
-//     } else {
-//         ctx.fill();
-//     }
-// };
-// RUR.we.draw_triangle();
-// RUR.we.draw_triangle(true);
 
 RUR.we.toggle_tile = function (tile){
     // will remove the position if clicked again with tile of same type.
