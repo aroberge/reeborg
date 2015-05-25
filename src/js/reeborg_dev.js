@@ -3693,8 +3693,7 @@ RUR.vis_world.draw_single_tile = function (image, i, j) {
 
 RUR.vis_world.draw_all_objects = function (objects, goal){
     "use strict";
-    var i, j, k, obj; // indices
-    var keys, image, ctx, coords, object_keys, obj_type, specific_object, objects_at_location;
+    var i, j, image, ctx, coords, specific_object, objects_here, obj_name, grid_pos;
     if (objects === undefined) {
         return;
     }
@@ -3705,24 +3704,47 @@ RUR.vis_world.draw_all_objects = function (objects, goal){
         ctx = RUR.OBJECTS_CTX;
     }
 
-    keys = Object.keys(objects);
-    for (k=0; k < keys.length; k++){
-        coords = keys[k].split(",");
-        i = parseInt(coords[0], 10);
-        j = parseInt(coords[1], 10);
-        objects_at_location = objects[coords];
-        object_keys = Object.keys(objects_at_location);
-        for (obj=0; obj < object_keys.length; obj++){
-            obj_type = object_keys[obj];
-            specific_object = RUR.objects[obj_type];
-            if (goal) {
-                image = specific_object.image_goal;
-            } else {
-                image = specific_object.image;
+    for (coords in objects){
+        if (objects.hasOwnProperty(coords)){
+            objects_here = objects[coords];
+            grid_pos = coords.split(",");
+            i = parseInt(grid_pos[0], 10);
+            j = parseInt(grid_pos[1], 10);
+            for (obj_name in objects_here){
+                if (objects_here.hasOwnProperty(obj_name)){
+                    specific_object = RUR.objects[obj_name];
+                    if (goal) {
+                        image = specific_object.image_goal;
+                    } else {
+                        image = specific_object.image;
+                    }
+                    RUR.vis_world.draw_single_object(image, i, j, ctx);
+                }
             }
-        RUR.vis_world.draw_single_object(image, i, j, ctx);
         }
     }
+
+
+
+
+    // keys = Object.keys(objects);
+    // for (k=0; k < keys.length; k++){
+    //     coords = keys[k].split(",");
+    //     i = parseInt(coords[0], 10);
+    //     j = parseInt(coords[1], 10);
+    //     objects_at_location = objects[coords];
+    //     object_keys = Object.keys(objects_at_location);
+    //     for (obj=0; obj < object_keys.length; obj++){
+    //         obj_type = object_keys[obj];
+    //         specific_object = RUR.objects[obj_type];
+    //         if (goal) {
+    //             image = specific_object.image_goal;
+    //         } else {
+    //             image = specific_object.image;
+    //         }
+    //     RUR.vis_world.draw_single_object(image, i, j, ctx);
+    //     }
+    // }
 };
 
 RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
@@ -4212,7 +4234,7 @@ RUR.we.show_world_info = function () {
     // shows the information about a given grid position
     // when the user clicks on the canvas at that grid position.
     // enabled in doc_ready.js
-    var position, tile, obj, information, x, y, coords, obj_here, property;
+    var position, tile, obj, information, x, y, coords, obj_here, obj_type;
     $("#World-info").dialog("open");
     position = RUR.we.calculate_grid_position();
     x = position[0];
@@ -4228,9 +4250,9 @@ RUR.we.show_world_info = function () {
     obj = RUR.current_world.objects;
     if (obj != undefined && obj[coords] != undefined){
         obj_here = obj[coords];
-        for (property in obj_here) {
-            if (obj_here.hasOwnProperty(property)) {
-               information += "<br>" + property + ":" + obj_here[property];
+        for (obj_type in obj_here) {
+            if (obj_here.hasOwnProperty(obj_type)) {
+               information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
             }
         }
     }
