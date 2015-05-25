@@ -1879,6 +1879,22 @@ RUR.editorUpdateHints = function() {
 
 RUR.objects = {};
 
+RUR.objects.token = {};
+RUR.objects.token.image = new Image();
+RUR.objects.token.image.src = 'src/images/token.png';  // adapted from openclipart
+RUR.objects.token.image_goal = new Image();
+RUR.objects.token.image_goal.src = 'src/images/token_goal.png';  // modified from above
+RUR.objects.token.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
+RUR.objects.token.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+
 RUR.objects.star = {};
 RUR.objects.star.image = new Image();
 RUR.objects.star.image.src = 'src/images/star.png';  // adapted from openclipart
@@ -3961,7 +3977,7 @@ RUR.we.edit_world = function  () {
             RUR.we.place_robot();
             break;
         case "world-tokens":
-            RUR.we.set_token_number();
+            RUR.we.add_objects("token");
             break;
         case "world-star":
             RUR.we.add_objects("star");
@@ -3997,7 +4013,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_goal_wall();
             break;
         case "goal-tokens":
-            RUR.we.set_goal_token_number();
+            RUR.we.add_goal_objects("token");
             break;
         case "goal-star":
             RUR.we.add_goal_objects("star");
@@ -4570,28 +4586,6 @@ RUR.we.show_pre_post_code = function() {
                            "</pre>post-code:<pre>" + RUR.current_world.post_code + "</pre>");
 }
 
-// RUR.we.toggle_objects = function (specific_object){
-//     "use strict";
-//     var position, x, y;
-//     position = RUR.we.calculate_grid_position();
-//     x = position[0];
-//     y = position[1];
-//     if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
-//         $("#cmd-result").html(RUR.translate("tokens here; can't put another object")).effect("highlight", {color: "gold"}, 1500);
-//         return;
-//     }
-//     RUR.we.ensure_key_exist(RUR.current_world, "objects");
-//     if (RUR.current_world.objects[x + "," + y] === specific_object) {
-//         delete RUR.current_world.objects[x + "," + y];
-//         if (Object.keys(RUR.current_world.objects).length === 0){
-//             delete RUR.current_world.objects;
-//         }
-//     } else {
-//         RUR.current_world.objects[x + "," + y] = specific_object;
-//     }
-// };
-
-
 RUR.we.add_objects = function (specific_object){
     "use strict";
     var position, x, y, coords;
@@ -4640,29 +4634,6 @@ RUR.we.add_goal_objects = function (specific_object){
         RUR.current_world.goal.objects[coords][specific_object] = 1;
     }
 };
-
-
-
-// RUR.we.toggle_goal_objects = function (specific_object){
-//     "use strict";
-//     var position, x, y;
-//     position = RUR.we.calculate_grid_position();
-//     x = position[0];
-//     y = position[1];
-
-//     RUR.we.ensure_key_exist(RUR.current_world, "goal");
-//     if (RUR.current_world.goal.tokens !== undefined &&
-//         RUR.current_world.goal.tokens[x + "," + y] !== undefined){
-//         $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
-//         return;
-//     }
-//     RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
-//     if (RUR.current_world.goal.objects[x + "," + y] === specific_object) {
-//         delete RUR.current_world.goal.objects[x + "," + y];
-//     } else {
-//         RUR.current_world.goal.objects[x + "," + y] = specific_object;
-//     }
-// };
 
 
 RUR.we.set_goal_position = function (){
@@ -4784,22 +4755,22 @@ RUR.we.toggle_tile = function (tile){
 
 // The following is required only because we don't use images for tokens
 
-RUR.we.draw_token = function (goal) {
-    "use strict";
-    var ctx, size = 12;
-    if (goal) {
-        ctx = document.getElementById("canvas-goal-token").getContext("2d");
-    } else {
-        ctx = document.getElementById("canvas-token").getContext("2d");
-    }
-    ctx.beginPath();
-    ctx.arc(20,20, size, 0 , 2 * Math.PI, false);
-    if (goal) {
-        ctx.fillStyle = RUR.SHAPE_OUTLINE_COLOR;
-    } else {
-        ctx.fillStyle = RUR.TOKEN_COLOR;
-    }
-    ctx.fill();
-};
-RUR.we.draw_token();
-RUR.we.draw_token(true);
+// RUR.we.draw_token = function (goal) {
+//     "use strict";
+//     var ctx, size = 12;
+//     if (goal) {
+//         ctx = document.getElementById("canvas-goal-token").getContext("2d");
+//     } else {
+//         ctx = document.getElementById("canvas-token").getContext("2d");
+//     }
+//     ctx.beginPath();
+//     ctx.arc(20,20, size, 0 , 2 * Math.PI, false);
+//     if (goal) {
+//         ctx.fillStyle = RUR.SHAPE_OUTLINE_COLOR;
+//     } else {
+//         ctx.fillStyle = RUR.TOKEN_COLOR;
+//     }
+//     ctx.fill();
+// };
+// RUR.we.draw_token();
+// RUR.we.draw_token(true);

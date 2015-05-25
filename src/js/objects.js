@@ -7,6 +7,22 @@
 
 RUR.objects = {};
 
+RUR.objects.token = {};
+RUR.objects.token.image = new Image();
+RUR.objects.token.image.src = 'src/images/token.png';  // adapted from openclipart
+RUR.objects.token.image_goal = new Image();
+RUR.objects.token.image_goal.src = 'src/images/token_goal.png';  // modified from above
+RUR.objects.token.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh("initial");
+    }
+};
+RUR.objects.token.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+
 RUR.objects.star = {};
 RUR.objects.star.image = new Image();
 RUR.objects.star.image.src = 'src/images/star.png';  // adapted from openclipart

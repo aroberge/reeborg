@@ -11,7 +11,7 @@ RUR.we.edit_world = function  () {
             RUR.we.place_robot();
             break;
         case "world-tokens":
-            RUR.we.set_token_number();
+            RUR.we.add_objects("token");
             break;
         case "world-star":
             RUR.we.add_objects("star");
@@ -47,7 +47,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_goal_wall();
             break;
         case "goal-tokens":
-            RUR.we.set_goal_token_number();
+            RUR.we.add_goal_objects("token");
             break;
         case "goal-star":
             RUR.we.add_goal_objects("star");
@@ -789,22 +789,22 @@ RUR.we.toggle_tile = function (tile){
 
 // The following is required only because we don't use images for tokens
 
-RUR.we.draw_token = function (goal) {
-    "use strict";
-    var ctx, size = 12;
-    if (goal) {
-        ctx = document.getElementById("canvas-goal-token").getContext("2d");
-    } else {
-        ctx = document.getElementById("canvas-token").getContext("2d");
-    }
-    ctx.beginPath();
-    ctx.arc(20,20, size, 0 , 2 * Math.PI, false);
-    if (goal) {
-        ctx.fillStyle = RUR.SHAPE_OUTLINE_COLOR;
-    } else {
-        ctx.fillStyle = RUR.TOKEN_COLOR;
-    }
-    ctx.fill();
-};
-RUR.we.draw_token();
-RUR.we.draw_token(true);
+// RUR.we.draw_token = function (goal) {
+//     "use strict";
+//     var ctx, size = 12;
+//     if (goal) {
+//         ctx = document.getElementById("canvas-goal-token").getContext("2d");
+//     } else {
+//         ctx = document.getElementById("canvas-token").getContext("2d");
+//     }
+//     ctx.beginPath();
+//     ctx.arc(20,20, size, 0 , 2 * Math.PI, false);
+//     if (goal) {
+//         ctx.fillStyle = RUR.SHAPE_OUTLINE_COLOR;
+//     } else {
+//         ctx.fillStyle = RUR.TOKEN_COLOR;
+//     }
+//     ctx.fill();
+// };
+// RUR.we.draw_token();
+// RUR.we.draw_token(true);
