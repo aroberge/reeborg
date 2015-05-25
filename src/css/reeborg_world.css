@@ -358,13 +358,13 @@ padding:3px;}
  float: left;
  list-style: none;
  position: relative;
- width: 100px;
  text-align: center;
  display: inline;
 }
-.edit-goal-canvas canvas, edit-world-canvas canvas {
-  border: none;
+.edit-world-submenus li {
+ width: 100px;
 }
+
 
 
 #additional-code {
