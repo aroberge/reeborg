@@ -48,6 +48,16 @@ RUR.vis_world.draw_background = function () {
         }
     }
 
+    // border walls (x and y axis) -- keep in this drawing routine!
+    ctx.fillStyle = RUR.WALL_COLOR;
+    for (j = 1; j <= RUR.ROWS; j++) {
+        RUR.vis_world.draw_east_wall(ctx, 0, j);
+    }
+    for (i = 1; i <= RUR.COLS; i++) {
+        RUR.vis_world.draw_north_wall(ctx, i, 0);
+    }
+    RUR.vis_world.draw_coordinates(ctx);
+
 };
 
 RUR.vis_world.draw_foreground_walls = function (walls) {
@@ -60,17 +70,7 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
         walls === undefined || walls == {}) {
         return;
     }
-
-    // border walls (x and y axis)
     ctx.fillStyle = RUR.WALL_COLOR;
-    for (j = 1; j <= RUR.ROWS; j++) {
-        RUR.vis_world.draw_east_wall(ctx, 0, j);
-    }
-    for (i = 1; i <= RUR.COLS; i++) {
-        RUR.vis_world.draw_north_wall(ctx, i, 0);
-    }
-    RUR.vis_world.draw_coordinates(ctx);
-
     // other walls
     keys = Object.keys(walls);
     for (key=0; key < keys.length; key++){
