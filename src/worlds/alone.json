@@ -1,0 +1,11 @@
+{
+   "robots": [
+      {
+         "x": 1,
+         "y": 1,
+         "tokens": "infinite",
+         "orientation": 0
+      }
+   ],
+   "walls": {}
+}
