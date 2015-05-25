@@ -262,15 +262,22 @@ RUR.we.show_world_info = function () {
     // shows the information about a given grid position
     // when the user clicks on the canvas at that grid position.
     // enabled in doc_ready.js
-    var position, tile, information;
+    var position, tile, obj, information, x, y, coords;
     $("#World-info").dialog("open");
     position = RUR.we.calculate_grid_position();
-    information = "x = " + position[0] + ", y = " + position[1];
-    tile = RUR.control.get_tile_at_position(position[0], position[1]);
+    x = position[0];
+    y = position[1];
+    coords = x + "," + y;
+    information = "x = " + x + ", y = " + y;
+    tile = RUR.control.get_tile_at_position(x, y);
     if (tile){
         if (tile.info) {
             information += "<br>" + tile.info;
         }
+    }
+    obj = RUR.current_world.tokens;
+    if (obj != undefined && obj[coords] != undefined){
+        information += "<br>" + obj[coords];
     }
     $("#World-info").html(information);
 }
