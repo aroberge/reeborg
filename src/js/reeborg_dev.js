@@ -4228,7 +4228,9 @@ RUR.we.show_world_info = function () {
     // shows the information about a given grid position
     // when the user clicks on the canvas at that grid position.
     // enabled in doc_ready.js
-    var position, tile, obj, information, x, y, coords, obj_here, obj_type;
+    var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
+    var topic;
+
     $("#World-info").dialog("open");
     position = RUR.we.calculate_grid_position();
     x = position[0];
@@ -4236,17 +4238,45 @@ RUR.we.show_world_info = function () {
     coords = x + "," + y;
     information = "x = " + x + ", y = " + y;
     tile = RUR.control.get_tile_at_position(x, y);
+    topic = true;
     if (tile){
         if (tile.info) {
+            if (topic){
+                topic = false;
+                information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>"
+            }
             information += "<br>" + tile.info;
         }
     }
     obj = RUR.current_world.objects;
+    topic = true;
     if (obj != undefined && obj[coords] != undefined){
         obj_here = obj[coords];
         for (obj_type in obj_here) {
             if (obj_here.hasOwnProperty(obj_type)) {
+                    if (topic){
+                        topic = false;
+                        information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>"
+                    }
                information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
+            }
+        }
+    }
+
+    goals = RUR.current_world.goal;
+    if (goals != undefined){
+        obj = goals.objects;
+        topic = true;
+        if (obj != undefined && obj[coords] != undefined){
+            obj_here = obj[coords];
+            for (obj_type in obj_here) {
+                if (obj_here.hasOwnProperty(obj_type)) {
+                    if (topic){
+                        topic = false;
+                        information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>"
+                    }
+                   information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
+                }
             }
         }
     }
@@ -4751,26 +4781,3 @@ RUR.we.toggle_tile = function (tile){
         delete RUR.current_world.tiles[coords];
     }
 };
-
-
-// The following is required only because we don't use images for tokens
-
-// RUR.we.draw_token = function (goal) {
-//     "use strict";
-//     var ctx, size = 12;
-//     if (goal) {
-//         ctx = document.getElementById("canvas-goal-token").getContext("2d");
-//     } else {
-//         ctx = document.getElementById("canvas-token").getContext("2d");
-//     }
-//     ctx.beginPath();
-//     ctx.arc(20,20, size, 0 , 2 * Math.PI, false);
-//     if (goal) {
-//         ctx.fillStyle = RUR.SHAPE_OUTLINE_COLOR;
-//     } else {
-//         ctx.fillStyle = RUR.TOKEN_COLOR;
-//     }
-//     ctx.fill();
-// };
-// RUR.we.draw_token();
-// RUR.we.draw_token(true);
