@@ -3723,28 +3723,6 @@ RUR.vis_world.draw_all_objects = function (objects, goal){
             }
         }
     }
-
-
-
-
-    // keys = Object.keys(objects);
-    // for (k=0; k < keys.length; k++){
-    //     coords = keys[k].split(",");
-    //     i = parseInt(coords[0], 10);
-    //     j = parseInt(coords[1], 10);
-    //     objects_at_location = objects[coords];
-    //     object_keys = Object.keys(objects_at_location);
-    //     for (obj=0; obj < object_keys.length; obj++){
-    //         obj_type = object_keys[obj];
-    //         specific_object = RUR.objects[obj_type];
-    //         if (goal) {
-    //             image = specific_object.image_goal;
-    //         } else {
-    //             image = specific_object.image;
-    //         }
-    //     RUR.vis_world.draw_single_object(image, i, j, ctx);
-    //     }
-    // }
 };
 
 RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
@@ -4022,13 +4000,13 @@ RUR.we.edit_world = function  () {
             RUR.we.set_goal_token_number();
             break;
         case "goal-star":
-            RUR.we.toggle_goal_objects("star");
+            RUR.we.add_goal_objects("star");
             break;
         case "goal-triangle":
-            RUR.we.toggle_goal_objects("triangle");
+            RUR.we.add_goal_objects("triangle");
             break;
         case "goal-square":
-            RUR.we.toggle_goal_objects("square");
+            RUR.we.add_goal_objects("square");
             break;
         case "goal-no-objects":
             RUR.we.set_goal_no_objects();
@@ -4082,15 +4060,15 @@ RUR.we.select = function (choice) {
             break;
         case "world-star":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle star.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to add star.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-triangle":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle triangle.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to add triangle.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-square":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle square.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to add square.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-mud":
             $("#edit-world-tiles").show();
@@ -4137,15 +4115,15 @@ RUR.we.select = function (choice) {
             break;
         case "goal-star":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle star goal.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to add star goal.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-triangle":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle triangle goal.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to add triangle goal.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-square":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle square goal.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to add square goal.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-no-objects":
             $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no object left as a goal.")).effect("highlight", {color: "gold"}, 1500);
@@ -4592,7 +4570,7 @@ RUR.we.show_pre_post_code = function() {
                            "</pre>post-code:<pre>" + RUR.current_world.post_code + "</pre>");
 }
 
-// RUR.we.toggle_shape = function (shape){
+// RUR.we.toggle_objects = function (specific_object){
 //     "use strict";
 //     var position, x, y;
 //     position = RUR.we.calculate_grid_position();
@@ -4603,57 +4581,15 @@ RUR.we.show_pre_post_code = function() {
 //         return;
 //     }
 //     RUR.we.ensure_key_exist(RUR.current_world, "objects");
-//     if (RUR.current_world.objects[x + "," + y] === shape) {
+//     if (RUR.current_world.objects[x + "," + y] === specific_object) {
 //         delete RUR.current_world.objects[x + "," + y];
 //         if (Object.keys(RUR.current_world.objects).length === 0){
 //             delete RUR.current_world.objects;
 //         }
 //     } else {
-//         RUR.current_world.objects[x + "," + y] = shape;
+//         RUR.current_world.objects[x + "," + y] = specific_object;
 //     }
 // };
-
-// RUR.we.toggle_goal_shape = function (shape){
-//     "use strict";
-//     var position, x, y;
-//     position = RUR.we.calculate_grid_position();
-//     x = position[0];
-//     y = position[1];
-
-//     RUR.we.ensure_key_exist(RUR.current_world, "goal");
-//     if (RUR.current_world.goal.tokens !== undefined &&
-//         RUR.current_world.goal.tokens[x + "," + y] !== undefined){
-//         $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
-//         return;
-//     }
-//     RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
-//     if (RUR.current_world.goal.objects[x + "," + y] === shape) {
-//         delete RUR.current_world.goal.objects[x + "," + y];
-//     } else {
-//         RUR.current_world.goal.objects[x + "," + y] = shape;
-//     }
-// };
-
-RUR.we.toggle_objects = function (specific_object){
-    "use strict";
-    var position, x, y;
-    position = RUR.we.calculate_grid_position();
-    x = position[0];
-    y = position[1];
-    if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html(RUR.translate("tokens here; can't put another object")).effect("highlight", {color: "gold"}, 1500);
-        return;
-    }
-    RUR.we.ensure_key_exist(RUR.current_world, "objects");
-    if (RUR.current_world.objects[x + "," + y] === specific_object) {
-        delete RUR.current_world.objects[x + "," + y];
-        if (Object.keys(RUR.current_world.objects).length === 0){
-            delete RUR.current_world.objects;
-        }
-    } else {
-        RUR.current_world.objects[x + "," + y] = specific_object;
-    }
-};
 
 
 RUR.we.add_objects = function (specific_object){
@@ -4679,26 +4615,54 @@ RUR.we.add_objects = function (specific_object){
 };
 
 
-RUR.we.toggle_goal_objects = function (specific_object){
+RUR.we.add_goal_objects = function (specific_object){
     "use strict";
-    var position, x, y;
+    var position, x, y, coords;
     position = RUR.we.calculate_grid_position();
     x = position[0];
     y = position[1];
-
+    coords = x + "," + y;
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.tokens !== undefined &&
-        RUR.current_world.goal.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
-        return;
-    }
     RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
-    if (RUR.current_world.goal.objects[x + "," + y] === specific_object) {
-        delete RUR.current_world.goal.objects[x + "," + y];
+    RUR.we.ensure_key_exist(RUR.current_world.goal.objects, coords);
+    if (RUR.current_world.goal.objects[coords][specific_object] == 1) {
+        delete RUR.current_world.goal.objects[coords][specific_object];
+        if (Object.keys(RUR.current_world.goal.objects).length === 0){
+            delete RUR.current_world.goal.objects[coords];
+        }
+        if (Object.keys(RUR.current_world.goal.objects).length === 0){
+            delete RUR.current_world.goal.objects;
+        }
+        if (Object.keys(RUR.current_world.goal).length === 0){
+            delete RUR.current_world.goal;
+        }
     } else {
-        RUR.current_world.goal.objects[x + "," + y] = specific_object;
+        RUR.current_world.goal.objects[coords][specific_object] = 1;
     }
 };
+
+
+
+// RUR.we.toggle_goal_objects = function (specific_object){
+//     "use strict";
+//     var position, x, y;
+//     position = RUR.we.calculate_grid_position();
+//     x = position[0];
+//     y = position[1];
+
+//     RUR.we.ensure_key_exist(RUR.current_world, "goal");
+//     if (RUR.current_world.goal.tokens !== undefined &&
+//         RUR.current_world.goal.tokens[x + "," + y] !== undefined){
+//         $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
+//         return;
+//     }
+//     RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
+//     if (RUR.current_world.goal.objects[x + "," + y] === specific_object) {
+//         delete RUR.current_world.goal.objects[x + "," + y];
+//     } else {
+//         RUR.current_world.goal.objects[x + "," + y] = specific_object;
+//     }
+// };
 
 
 RUR.we.set_goal_position = function (){
