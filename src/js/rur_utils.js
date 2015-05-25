@@ -20,6 +20,15 @@ RUR.translate = function (s) {
     }
 };
 
+RUR.translate_to_english = function (s) {
+    if (RUR.translation_to_english[s] !== undefined) {
+        return RUR.translation_to_english[s];
+    } else {
+        return s;
+    }
+};
+
+
 RUR.reset_code_in_editors = function () {
     var library_default, library_content, editor_content, editor_default,
         default_instruction = RUR.translate("move");

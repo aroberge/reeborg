@@ -19,7 +19,7 @@ RUR.objects.star.image.onload = function () {
 };
 RUR.objects.star.image_goal.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.draw_goal();
     }
 };
 
@@ -36,7 +36,7 @@ RUR.objects.triangle.image.onload = function () {
 };
 RUR.objects.triangle.image_goal.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.draw_goal();
     }
 };
 
@@ -52,6 +52,6 @@ RUR.objects.square.image.onload = function () {
 };
 RUR.objects.square.image_goal.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.draw_goal();
     }
 };

@@ -7,6 +7,8 @@
 var RUR = RUR || {};
 
 RUR.translation = {};
+RUR.translation_to_english = {};
+
 RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] =
     "/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n";
 RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"] =
@@ -22,8 +24,8 @@ RUR.translation["I don't have any token to put down!"] = "I don't have any token
 RUR.translation.triangle = "triangle";
 RUR.translation.star = "star";
 RUR.translation.square = "square";
-RUR.translation["Unknown object"] = "Unknown object: {shape}";
-RUR.translation["No shape found here"] = "No {shape} found here!";
+RUR.translation["Unknown object"] = "Unknown object: {obj}";
+RUR.translation["No object found here"] = "No {obj} found here!";
 RUR.translation["There is already something here."] = "There is already something here.";
 RUR.translation["I don't have any shape to put down!"] = "I don't have any {shape} to put down!";
 RUR.translation["There is already a wall here!"] = "There is already a wall here!";

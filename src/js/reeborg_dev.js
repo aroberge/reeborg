@@ -220,8 +220,11 @@ RUR.control.put = function(robot, arg){
     if (arg === undefined || arg === RUR.translation.token) {
         RUR.control._put_token(robot);
         return;
-    } else if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(arg) === -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
+    }
+
+    arg = RUR.translate_to_english(arg);
+    if (["triangle", "square", "star"].indexOf(arg) === -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
     }
     if (robot[RUR.translate(arg)] === 0){
         throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape:arg}));
@@ -229,7 +232,7 @@ RUR.control.put = function(robot, arg){
         throw new RUR.ReeborgError(RUR.translate("There is already something here."));
     }
     robot[RUR.translate(arg)] -= 1;
-    RUR.control._put_object(robot, RUR.translate(arg));
+    RUR.control._put_object(robot, arg);
 };
 
 RUR.control._put_object = function (robot, obj) {
@@ -261,11 +264,14 @@ RUR.control.take = function(robot, arg){
     if (arg === undefined || arg === RUR.translation.token) {
         RUR.control._take_token(robot);
         return;
-    } else if ([RUR.translation.triangle, RUR.translation.square, RUR.translation.star].indexOf(arg) === -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({shape: arg}));
+    }
+
+    arg = RUR.translate_to_english(arg);
+    if (["triangle", "square", "star"].indexOf(arg) === -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
     }
     if (RUR.control.object_here(robot, true) !== arg) {
-        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({shape: arg}));
+        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
     }
     robot[RUR.translate(arg)] += 1;
     RUR.control._take_object(robot, RUR.translate(arg));
@@ -441,7 +447,7 @@ RUR.control.object_here = function (robot, do_not_record) {
     if (RUR.current_world.objects === undefined) {
         return 0;
     }
-    return RUR.translate(RUR.current_world.objects[coords]) || 0;
+    return RUR.translate_to_english(RUR.current_world.objects[coords]) || 0;
 };
 
 RUR.control.write = function () {
@@ -1884,7 +1890,7 @@ RUR.objects.star.image.onload = function () {
 };
 RUR.objects.star.image_goal.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.draw_goal();
     }
 };
 
@@ -1901,7 +1907,7 @@ RUR.objects.triangle.image.onload = function () {
 };
 RUR.objects.triangle.image_goal.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.draw_goal();
     }
 };
 
@@ -1917,7 +1923,7 @@ RUR.objects.square.image.onload = function () {
 };
 RUR.objects.square.image_goal.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.draw_goal();
     }
 };/* Author: André Roberge
    License: MIT
@@ -2517,6 +2523,15 @@ RUR.translate = function (s) {
         return s;
     }
 };
+
+RUR.translate_to_english = function (s) {
+    if (RUR.translation_to_english[s] !== undefined) {
+        return RUR.translation_to_english[s];
+    } else {
+        return s;
+    }
+};
+
 
 RUR.reset_code_in_editors = function () {
     var library_default, library_content, editor_content, editor_default,

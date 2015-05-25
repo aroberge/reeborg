@@ -7,6 +7,9 @@
 var RUR = RUR || {};
 
 RUR.translation = {};
+RUR.translation_to_english = {};
+
+
 RUR.translation["/* 'import_lib();' in Javascript Code is required to use\n the code in this library.*/\n\n"] =
     "/* 'import_lib();' dans l'onglet Code Javascript est requis pour\n pouvoir utiliser le code de cette bibliothèque.*/\n\n";
 RUR.translation["# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n"] =
@@ -24,10 +27,11 @@ RUR.translation.triangle = "triangle";
 RUR.translation.star = "étoile";
 RUR.translation.square = "carré";
 // reverse translation needed as well ... triangle not needed as it is the same in both languages
-RUR.translation["étoile"] = "star";
-RUR.translation["carré"] = "square";
-RUR.translation["Unknown shape"] = "Forme inconnue: {shape}";
-RUR.translation["No shape found here"] = "Pas de {shape} trouvé ici !";
+RUR.translation_to_english["étoile"] = "star";
+RUR.translation_to_english["carré"] = "square";
+
+RUR.translation["Unknown object"] = "Objet inconnu: {obj}";
+RUR.translation["No object found here"] = "Pas d'objet '{obj}'' trouvé ici !";
 RUR.translation["There is already something here."] = "Il y a déjà quelque chose ici.";
 RUR.translation["I don't have any shape to put down!"] = "Je n'ai pas de {shape}!";
 RUR.translation["There is already a wall here!"] = "Il y a déjà un mur ici !";
@@ -50,8 +54,8 @@ RUR.translation["<li class='success'>Reeborg is at the correct y position.</li>"
 RUR.translation["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée y.</li>";
 RUR.translation["<li class='success'>Reeborg has the correct orientation.</li>"] = "<li class='success'>Reeborg a la bonne orientation.</li>";
 RUR.translation["<li class='failure'>Reeborg has the wrong orientation.</li>"] = "<li class='failure'>Reeborg a la mauvaise orientation.</li>";
-RUR.translation["<li class='success'>All shapes are at the correct location.</li>"] = "<li class='success'>Tous les objets (jetons non compris) sont aux bons endroits.</li>";
-RUR.translation["<li class='failure'>One or more shapes are not at the correct location.</li>"] = "<li class='failure'>Un ou plusieurs objets (jetons non compris) ne sont pas aux bons endroits.</li>";
+RUR.translation["<li class='success'>All objects are at the correct location.</li>"] = "<li class='success'>Tous les objets (jetons non compris) sont aux bons endroits.</li>";
+RUR.translation["<li class='failure'>One or more object are not at the correct location.</li>"] = "<li class='failure'>Un ou plusieurs objets (jetons non compris) ne sont pas aux bons endroits.</li>";
 RUR.translation["<li class='success'>All tokens are at the correct location.</li>"] = "<li class='success'>Tous les jetons sont aux bons endroits.</li>";
 RUR.translation["<li class='failure'>One or more tokens are not at the correct location.</li>"] = "<li class='failure'>Un ou plusieurs jetons ne sont pas aux bons endroits.</li>";
 RUR.translation["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>Tous les murs ont été construits correctement.</li>";
