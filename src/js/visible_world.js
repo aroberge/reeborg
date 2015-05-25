@@ -198,18 +198,18 @@ RUR.vis_world.draw_all = function () {
     "use strict";
     if (RUR.LARGE_WORLD) {
         RUR.WALL_LENGTH = 20;
-        RUR.WALL_THICKNESS = 3;
+        RUR.WALL_THICKNESS = 2;
         RUR.SCALE = 0.5;
         RUR.BACKGROUND_CTX.font = "8px sans-serif";
     } else {
         RUR.WALL_LENGTH = 40;
-        RUR.WALL_THICKNESS = 5;
+        RUR.WALL_THICKNESS = 4;
         RUR.SCALE = 1;
         RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
     }
     RUR.vis_robot.set_offsets()
     RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
-    RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 2;
+    RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
 
     RUR.vis_world.draw_background();
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);

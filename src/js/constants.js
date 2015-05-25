@@ -25,12 +25,12 @@ RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
 RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
 RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
 
-RUR.WALL_LENGTH = 40;
-RUR.WALL_THICKNESS = 5;
+RUR.WALL_LENGTH = 40;   // These can be adjusted
+RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.LARGE_WORLD become true.
 RUR.LARGE_WORLD = false;
 
 RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
-RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 2;
+RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
 
 RUR.WALL_COLOR = "brown";   // changed (toggled) in world_editor.js
 RUR.SHADOW_WALL_COLOR= "#f0f0f0";    // changed (toggled) in world_editor.js
