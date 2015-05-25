@@ -19,10 +19,6 @@ RUR._front_is_clear_ = function() {
   return RUR.control.front_is_clear(RUR.current_world.robots[0]);
 };
 
-RUR._has_token_ = function () {
-    return RUR.control.has_token(RUR.current_world.robots[0]);
-};
-
 RUR._is_facing_north_ = function () {
     return RUR.control.is_facing_north(RUR.current_world.robots[0]);
 };
@@ -33,10 +29,6 @@ RUR._move_ = function () {
 
 RUR._put_ = function(arg) {
     RUR.control.put(RUR.current_world.robots[0], arg);
-};
-
-RUR._token_here_ = function() {
-    return RUR.control.token_here(RUR.current_world.robots[0]);
 };
 
 RUR._right_is_clear_ = function() {
@@ -112,10 +104,6 @@ RUR.TARGET_TILE_COLOR = "#99ffcc";
 RUR.ORIENTATION_TILE_COLOR = "black";
 
 RUR.MUD_COLOR = "#794c13";
-
-RUR.TOKEN_COLOR = "gold";
-RUR.TEXT_COLOR = "black";
-RUR.TOKEN_GOAL_COLOR = "#666";
 
 RUR.ROBOT_INFO_COLOR = "blue";
 
@@ -204,23 +192,8 @@ RUR.control.done = function () {
     throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
 
-RUR.control.token_here = function (robot, do_not_record) {
-    // returns the number of tokens at the location where the robot is
-    var coords = robot.x + "," + robot.y;
-    if (!do_not_record) {
-        RUR.rec.record_frame("debug", "RUR.control.token_here");
-    }
-    if (RUR.current_world.tokens === undefined) return 0;
-    if (RUR.current_world.tokens[coords] === undefined) return 0;
-    return RUR.current_world.tokens[coords];
-};
-
 RUR.control.put = function(robot, arg){
     RUR.control.sound_id = "#put-sound";
-    if (arg === undefined || arg === RUR.translation.token) {
-        RUR.control._put_token(robot);
-        return;
-    }
 
     arg = RUR.translate_to_english(arg);
     if (["triangle", "square", "star"].indexOf(arg) === -1){
@@ -241,33 +214,12 @@ RUR.control._put_object = function (robot, obj) {
     RUR.rec.record_frame("debug", "RUR.control._put_object");
 };
 
-RUR.control._put_token = function (robot) {
-    var token;
-    if (robot.tokens === 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any token to put down!"));
-    }
-    token = RUR.control.token_here(robot, true);
-    RUR.we.ensure_key_exist(RUR.current_world, "tokens");
-    RUR.current_world.tokens[robot.x + "," + robot.y] = token+1;
-    if (typeof robot.tokens === typeof 42){  // robot could have "infinite" amount
-        robot.tokens -= 1;
-    }
-    RUR.rec.record_frame("debug", "RUR.control._put_token");
-};
 
-RUR.control.has_token = function (robot) {
-    if (robot.tokens !== 0) return true;
-    return false;
-};
 RUR.control.take = function(robot, arg){
     RUR.control.sound_id = "#take-sound";
-    if (arg === undefined || arg === RUR.translation.token) {
-        RUR.control._take_token(robot);
-        return;
-    }
 
     arg = RUR.translate_to_english(arg);
-    if (["triangle", "square", "star"].indexOf(arg) === -1){
+    if (["token", "triangle", "square", "star"].indexOf(arg) === -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
     }
     if (RUR.control.object_here(robot, true) !== arg) {
@@ -280,23 +232,6 @@ RUR.control.take = function(robot, arg){
 RUR.control._take_object = function (robot, obj) {
     delete RUR.current_world.objects[robot.x + "," + robot.y];
     RUR.rec.record_frame("debug", "RUR.control._take_object");
-};
-
-RUR.control._take_token = function (robot) {
-    var token = RUR.control.token_here(robot, true);
-    if (token === 0){
-        throw new RUR.ReeborgError(RUR.translate("No token found here!"));
-    }
-    token --;
-    if (token > 0) {
-        RUR.current_world.tokens[robot.x + "," + robot.y] = token;
-    } else {
-        delete RUR.current_world.tokens[robot.x + "," + robot.y];
-    }
-    if (typeof robot.tokens === typeof 42){  // robot could have "infinite" amount
-        robot.tokens += 1;
-    }
-    RUR.rec.record_frame("debug", "RUR.control._take_token");
 };
 
 
@@ -439,9 +374,6 @@ RUR.control.object_here = function (robot, do_not_record) {
     var coords = robot.x + "," + robot.y;
     if (!do_not_record) {
         RUR.rec.record_frame("debug", "RUR.control.object_here");
-    }
-    if (RUR.control.token_here(robot, true) !== 0) {
-        return RUR.translation.token;
     }
 
     if (RUR.current_world.objects === undefined) {
@@ -2188,15 +2120,6 @@ RUR.rec.check_goal= function (frame) {
             goal_status.success = false;
         }
     }
-    if (g.tokens !== undefined) {
-        result = Object.identical(g.tokens, world.tokens, true);
-        if (result){
-            goal_status.message += RUR.translate("<li class='success'>All tokens are at the correct location.</li>");
-        } else {
-            goal_status.message += RUR.translate("<li class='failure'>One or more tokens are not at the correct location.</li>");
-            goal_status.success = false;
-        }
-    }
     if (g.walls !== undefined) {
         result = true;
         loop:
@@ -3525,73 +3448,11 @@ RUR.vis_world.draw_robots = function (robots) {
     if (!robots || robots[0] === undefined) {
         return;
     }
-
-    // take care of case where number of tokens carried by robot could be random
-    // this will be before the programm is run
-
-    if (typeof robots[0].tokens === "string" && robots[0].tokens.indexOf("-") != -1){
-        for (robot=0; robot < robots.length; robot++){
-            RUR.vis_robot.draw(robots[robot]); // draws trace automatically
-            info = RUR.translate("robot")+ "_" + robot + ": x=" + robots[0].x +
-                    ", y=" + robots[0].y + RUR.translate(", tokens=");
-            RUR.ROBOT_CTX.fillStyle = RUR.ROBOT_INFO_COLOR;
-            RUR.ROBOT_CTX.fillText(info, 5, 10);
-            RUR.ROBOT_CTX.fillStyle = "red";
-            RUR.ROBOT_CTX.fillText(robots[0].tokens, 5 + RUR.ROBOT_CTX.measureText(info).width, 10);
-        }
-        return;
-    }
     for (robot=0; robot < robots.length; robot++){
         RUR.vis_robot.draw(robots[robot]); // draws trace automatically
-        info += RUR.translate("robot")+ "_" + robot + ": x=" + robots[robot].x +
-                ", y=" + robots[robot].y + RUR.translate(", tokens=") + robots[robot].tokens + ".  ";
-    }
-    RUR.ROBOT_CTX.fillStyle = RUR.ROBOT_INFO_COLOR;
-    RUR.ROBOT_CTX.fillText(info, 5, 10);
-};
-
-RUR.vis_world.draw_tokens = function(tokens, goal) {
-    "use strict";
-    var i, j, k, t, toks;
-    if (!tokens) {
-        return;
-    }
-    toks = Object.keys(tokens);
-    for (t=0; t < toks.length; t++){
-        k = toks[t].split(",");
-        i = parseInt(k[0], 10);
-        j = parseInt(k[1], 10);
-        RUR.vis_world.draw_token(i, j, tokens[toks[t]], goal);
     }
 };
 
-RUR.vis_world.draw_token = function (i, j, num, goal) {
-    "use strict";
-    var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
-    var ctx;
-    if (goal) {
-        ctx = RUR.GOAL_CTX;
-    } else {
-        ctx = RUR.OBJECTS_CTX;
-    }
-    ctx.beginPath();
-
-    text_width = ctx.measureText(num).width/2;
-    ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
-    if (goal) {
-        ctx.strokeStyle = RUR.TOKEN_GOAL_COLOR;
-        ctx.lineWidth = 3;
-        ctx.stroke();
-        ctx.fillStyle = RUR.TEXT_COLOR;
-        ctx.fillText(num, (i+0.2)*scale, Y - (j)*scale);
-    } else {
-        ctx.lineWidth = 1;
-        ctx.fillStyle = RUR.TOKEN_COLOR;
-        ctx.fill();
-        ctx.fillStyle = RUR.TEXT_COLOR;
-        ctx.fillText(num, (i+0.6)*scale - text_width, Y - (j+0.3)*scale);
-    }
-};
 
 RUR.vis_world.draw_goal = function () {
     "use strict";
@@ -3607,9 +3468,7 @@ RUR.vis_world.draw_goal = function () {
     if (goal.objects !== undefined){
         RUR.vis_world.draw_all_objects(goal.objects, true);
     }
-    if (goal.tokens !== undefined) {
-        RUR.vis_world.draw_tokens(goal.tokens, true);
-    }
+
     if (goal.walls !== undefined){
         ctx.fillStyle = RUR.WALL_COLOR;
         keys = Object.keys(goal.walls);
@@ -3817,13 +3676,6 @@ RUR.vis_world.refresh = function (initial) {
     } else {
         RUR.vis_world.draw_robots(RUR.current_world.robots);
     }
-
-    RUR.vis_world.draw_tokens(RUR.current_world.tokens);
-    if (initial !== undefined){
-        if (RUR.current_world.tokens_range !== undefined) {
-            RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
-        }
-    }
 };
 
 RUR.vis_world.select_initial_values = function() {
@@ -3831,27 +3683,7 @@ RUR.vis_world.select_initial_values = function() {
     // being chosen randomly
     "use strict";
     var k, keys, min_, max_, robot, position, goal;
-    if (RUR.current_world.tokens_range !== undefined) {
-        RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
-        keys = Object.keys(RUR.current_world.tokens_range);
-        for (k=0; k < keys.length; k++){
-            min_ = RUR.current_world.min_tokens[keys[k]];
-            max_ = RUR.current_world.max_tokens[keys[k]];
-            RUR.current_world.tokens[keys[k]] = RUR.randint(min_, max_);
-            if (RUR.current_world.tokens[keys[k]] === 0) {
-                delete RUR.current_world.tokens[keys[k]];
-            }
-        }
-    }
 
-    if (RUR.current_world.goal !== undefined){
-        goal = RUR.current_world.goal;
-        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1) {
-            position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
-            goal.position.x = position[0];
-            goal.position.y = position[1];
-        }
-    }
 
     robot = RUR.current_world.robots[0];
     if (robot === undefined){
@@ -3862,9 +3694,7 @@ RUR.vis_world.select_initial_values = function() {
         RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
         RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
     }
-    if (robot.tokens_range !== undefined){
-        RUR.current_world.robots[0].tokens = RUR.randint(robot.min_tokens, robot.max_tokens);
-    }
+
     if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
         position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
         RUR.current_world.robots[0].x = position[0];
@@ -3891,7 +3721,6 @@ RUR.world.create_empty_world = function (blank_canvas) {
     }
     world.robots = [];
     world.walls = {};
-    world.tokens = {};
     world.objects = {};
     // allow teacher to insert code to be run before and after the
     // code entered by the student
@@ -4027,9 +3856,6 @@ RUR.we.edit_world = function  () {
         case "goal-no-objects":
             RUR.we.set_goal_no_objects();
             break;
-        case "goal-no-tokens":
-            RUR.we.set_goal_no_tokens();
-            break;
         default:
             break;
     }
@@ -4144,8 +3970,6 @@ RUR.we.select = function (choice) {
         case "goal-no-objects":
             $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no object left as a goal.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "goal-no-tokens":
-            $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no tokens left as a goal.")).effect("highlight", {color: "gold"}, 1500);
     }
 };
 
@@ -4229,7 +4053,7 @@ RUR.we.show_world_info = function () {
     // when the user clicks on the canvas at that grid position.
     // enabled in doc_ready.js
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
-    var topic;
+    var topic, nb_goal_objects;
 
     $("#World-info").dialog("open");
     position = RUR.we.calculate_grid_position();
@@ -4256,7 +4080,7 @@ RUR.we.show_world_info = function () {
             if (obj_here.hasOwnProperty(obj_type)) {
                     if (topic){
                         topic = false;
-                        information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>"
+                        information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
                     }
                information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
             }
@@ -4273,13 +4097,27 @@ RUR.we.show_world_info = function () {
                 if (obj_here.hasOwnProperty(obj_type)) {
                     if (topic){
                         topic = false;
-                        information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>"
+                        information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
                     }
                    information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
                 }
             }
         }
     }
+
+    goals = RUR.current_world.goal;
+    nb_goal_objects = 0;
+    if (goals != undefined){
+        for (obj_type in goals) {
+            if (goals.hasOwnProperty(obj_type)){
+                nb_goal_objects ++;
+            }
+        }
+        if (nb_goal_objects != 0){
+            information += "<br><br><b>" + RUR.translate("Note: no object must be left in this world at the end of the program.") + "</b>";
+        }
+    }
+
     $("#World-info").html(information);
 }
 
@@ -4750,18 +4588,6 @@ RUR.we.set_goal_no_objects = function(){
     $("#cmd-result").html(RUR.translate("Goal: no object left in world.")).effect("highlight", {color: "gold"}, 1500);
 };
 
-RUR.we.set_goal_no_tokens = function(){
-    "use strict";
-    var position;
-    position = RUR.we.calculate_grid_position();
-    if (position[0] !== 1 || position[1] !== 1) {
-        $("#cmd-result").html(RUR.translate("No effect.")).effect("highlight", {color: "gold"}, 1500);
-        return;
-    }
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    RUR.current_world.goal.tokens = {};
-    $("#cmd-result").html(RUR.translate("Goal: no tokens left in world.")).effect("highlight", {color: "gold"}, 1500);
-};
 
 RUR.we.toggle_tile = function (tile){
     // will remove the position if clicked again with tile of same type.

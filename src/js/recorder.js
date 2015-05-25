@@ -244,15 +244,6 @@ RUR.rec.check_goal= function (frame) {
             goal_status.success = false;
         }
     }
-    if (g.tokens !== undefined) {
-        result = Object.identical(g.tokens, world.tokens, true);
-        if (result){
-            goal_status.message += RUR.translate("<li class='success'>All tokens are at the correct location.</li>");
-        } else {
-            goal_status.message += RUR.translate("<li class='failure'>One or more tokens are not at the correct location.</li>");
-            goal_status.success = false;
-        }
-    }
     if (g.walls !== undefined) {
         result = true;
         loop:

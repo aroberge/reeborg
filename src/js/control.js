@@ -80,23 +80,8 @@ RUR.control.done = function () {
     throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
 
-RUR.control.token_here = function (robot, do_not_record) {
-    // returns the number of tokens at the location where the robot is
-    var coords = robot.x + "," + robot.y;
-    if (!do_not_record) {
-        RUR.rec.record_frame("debug", "RUR.control.token_here");
-    }
-    if (RUR.current_world.tokens === undefined) return 0;
-    if (RUR.current_world.tokens[coords] === undefined) return 0;
-    return RUR.current_world.tokens[coords];
-};
-
 RUR.control.put = function(robot, arg){
     RUR.control.sound_id = "#put-sound";
-    if (arg === undefined || arg === RUR.translation.token) {
-        RUR.control._put_token(robot);
-        return;
-    }
 
     arg = RUR.translate_to_english(arg);
     if (["triangle", "square", "star"].indexOf(arg) === -1){
@@ -117,33 +102,12 @@ RUR.control._put_object = function (robot, obj) {
     RUR.rec.record_frame("debug", "RUR.control._put_object");
 };
 
-RUR.control._put_token = function (robot) {
-    var token;
-    if (robot.tokens === 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any token to put down!"));
-    }
-    token = RUR.control.token_here(robot, true);
-    RUR.we.ensure_key_exist(RUR.current_world, "tokens");
-    RUR.current_world.tokens[robot.x + "," + robot.y] = token+1;
-    if (typeof robot.tokens === typeof 42){  // robot could have "infinite" amount
-        robot.tokens -= 1;
-    }
-    RUR.rec.record_frame("debug", "RUR.control._put_token");
-};
 
-RUR.control.has_token = function (robot) {
-    if (robot.tokens !== 0) return true;
-    return false;
-};
 RUR.control.take = function(robot, arg){
     RUR.control.sound_id = "#take-sound";
-    if (arg === undefined || arg === RUR.translation.token) {
-        RUR.control._take_token(robot);
-        return;
-    }
 
     arg = RUR.translate_to_english(arg);
-    if (["triangle", "square", "star"].indexOf(arg) === -1){
+    if (["token", "triangle", "square", "star"].indexOf(arg) === -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
     }
     if (RUR.control.object_here(robot, true) !== arg) {
@@ -156,23 +120,6 @@ RUR.control.take = function(robot, arg){
 RUR.control._take_object = function (robot, obj) {
     delete RUR.current_world.objects[robot.x + "," + robot.y];
     RUR.rec.record_frame("debug", "RUR.control._take_object");
-};
-
-RUR.control._take_token = function (robot) {
-    var token = RUR.control.token_here(robot, true);
-    if (token === 0){
-        throw new RUR.ReeborgError(RUR.translate("No token found here!"));
-    }
-    token --;
-    if (token > 0) {
-        RUR.current_world.tokens[robot.x + "," + robot.y] = token;
-    } else {
-        delete RUR.current_world.tokens[robot.x + "," + robot.y];
-    }
-    if (typeof robot.tokens === typeof 42){  // robot could have "infinite" amount
-        robot.tokens += 1;
-    }
-    RUR.rec.record_frame("debug", "RUR.control._take_token");
 };
 
 
@@ -315,9 +262,6 @@ RUR.control.object_here = function (robot, do_not_record) {
     var coords = robot.x + "," + robot.y;
     if (!do_not_record) {
         RUR.rec.record_frame("debug", "RUR.control.object_here");
-    }
-    if (RUR.control.token_here(robot, true) !== 0) {
-        return RUR.translation.token;
     }
 
     if (RUR.current_world.objects === undefined) {

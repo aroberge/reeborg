@@ -319,7 +319,7 @@ RUR.we.show_world_info = function () {
             }
         }
         if (nb_goal_objects != 0){
-            information += "<br><br><b>" + RUR.translate("Note: nNo object must be left in this world at the end of the program.") + "</b>";
+            information += "<br><br><b>" + RUR.translate("Note: no object must be left in this world at the end of the program.") + "</b>";
         }
     }
 

@@ -123,73 +123,11 @@ RUR.vis_world.draw_robots = function (robots) {
     if (!robots || robots[0] === undefined) {
         return;
     }
-
-    // take care of case where number of tokens carried by robot could be random
-    // this will be before the programm is run
-
-    if (typeof robots[0].tokens === "string" && robots[0].tokens.indexOf("-") != -1){
-        for (robot=0; robot < robots.length; robot++){
-            RUR.vis_robot.draw(robots[robot]); // draws trace automatically
-            info = RUR.translate("robot")+ "_" + robot + ": x=" + robots[0].x +
-                    ", y=" + robots[0].y + RUR.translate(", tokens=");
-            RUR.ROBOT_CTX.fillStyle = RUR.ROBOT_INFO_COLOR;
-            RUR.ROBOT_CTX.fillText(info, 5, 10);
-            RUR.ROBOT_CTX.fillStyle = "red";
-            RUR.ROBOT_CTX.fillText(robots[0].tokens, 5 + RUR.ROBOT_CTX.measureText(info).width, 10);
-        }
-        return;
-    }
     for (robot=0; robot < robots.length; robot++){
         RUR.vis_robot.draw(robots[robot]); // draws trace automatically
-        info += RUR.translate("robot")+ "_" + robot + ": x=" + robots[robot].x +
-                ", y=" + robots[robot].y + RUR.translate(", tokens=") + robots[robot].tokens + ".  ";
-    }
-    RUR.ROBOT_CTX.fillStyle = RUR.ROBOT_INFO_COLOR;
-    RUR.ROBOT_CTX.fillText(info, 5, 10);
-};
-
-RUR.vis_world.draw_tokens = function(tokens, goal) {
-    "use strict";
-    var i, j, k, t, toks;
-    if (!tokens) {
-        return;
-    }
-    toks = Object.keys(tokens);
-    for (t=0; t < toks.length; t++){
-        k = toks[t].split(",");
-        i = parseInt(k[0], 10);
-        j = parseInt(k[1], 10);
-        RUR.vis_world.draw_token(i, j, tokens[toks[t]], goal);
     }
 };
 
-RUR.vis_world.draw_token = function (i, j, num, goal) {
-    "use strict";
-    var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
-    var ctx;
-    if (goal) {
-        ctx = RUR.GOAL_CTX;
-    } else {
-        ctx = RUR.OBJECTS_CTX;
-    }
-    ctx.beginPath();
-
-    text_width = ctx.measureText(num).width/2;
-    ctx.arc((i+0.6)*scale, Y - (j+0.4)*scale, size, 0 , 2 * Math.PI, false);
-    if (goal) {
-        ctx.strokeStyle = RUR.TOKEN_GOAL_COLOR;
-        ctx.lineWidth = 3;
-        ctx.stroke();
-        ctx.fillStyle = RUR.TEXT_COLOR;
-        ctx.fillText(num, (i+0.2)*scale, Y - (j)*scale);
-    } else {
-        ctx.lineWidth = 1;
-        ctx.fillStyle = RUR.TOKEN_COLOR;
-        ctx.fill();
-        ctx.fillStyle = RUR.TEXT_COLOR;
-        ctx.fillText(num, (i+0.6)*scale - text_width, Y - (j+0.3)*scale);
-    }
-};
 
 RUR.vis_world.draw_goal = function () {
     "use strict";
@@ -205,9 +143,7 @@ RUR.vis_world.draw_goal = function () {
     if (goal.objects !== undefined){
         RUR.vis_world.draw_all_objects(goal.objects, true);
     }
-    if (goal.tokens !== undefined) {
-        RUR.vis_world.draw_tokens(goal.tokens, true);
-    }
+
     if (goal.walls !== undefined){
         ctx.fillStyle = RUR.WALL_COLOR;
         keys = Object.keys(goal.walls);
@@ -415,13 +351,6 @@ RUR.vis_world.refresh = function (initial) {
     } else {
         RUR.vis_world.draw_robots(RUR.current_world.robots);
     }
-
-    RUR.vis_world.draw_tokens(RUR.current_world.tokens);
-    if (initial !== undefined){
-        if (RUR.current_world.tokens_range !== undefined) {
-            RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
-        }
-    }
 };
 
 RUR.vis_world.select_initial_values = function() {
@@ -429,27 +358,7 @@ RUR.vis_world.select_initial_values = function() {
     // being chosen randomly
     "use strict";
     var k, keys, min_, max_, robot, position, goal;
-    if (RUR.current_world.tokens_range !== undefined) {
-        RUR.vis_world.draw_tokens(RUR.current_world.tokens_range);
-        keys = Object.keys(RUR.current_world.tokens_range);
-        for (k=0; k < keys.length; k++){
-            min_ = RUR.current_world.min_tokens[keys[k]];
-            max_ = RUR.current_world.max_tokens[keys[k]];
-            RUR.current_world.tokens[keys[k]] = RUR.randint(min_, max_);
-            if (RUR.current_world.tokens[keys[k]] === 0) {
-                delete RUR.current_world.tokens[keys[k]];
-            }
-        }
-    }
 
-    if (RUR.current_world.goal !== undefined){
-        goal = RUR.current_world.goal;
-        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1) {
-            position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
-            goal.position.x = position[0];
-            goal.position.y = position[1];
-        }
-    }
 
     robot = RUR.current_world.robots[0];
     if (robot === undefined){
@@ -460,9 +369,7 @@ RUR.vis_world.select_initial_values = function() {
         RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
         RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
     }
-    if (robot.tokens_range !== undefined){
-        RUR.current_world.robots[0].tokens = RUR.randint(robot.min_tokens, robot.max_tokens);
-    }
+
     if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
         position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
         RUR.current_world.robots[0].x = position[0];
