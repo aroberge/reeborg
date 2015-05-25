@@ -12,7 +12,8 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     var robot = {};
     robot.x = x || 1;
     robot.y = y || 1;
-    robot.tokens = tokens || 0;
+    robot.objects = {};
+    robot.objects.token = tokens || 0;
 
     if (orientation === undefined){
         robot.orientation = RUR.EAST;
@@ -38,15 +39,13 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
             throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
         }
     }
-    
+
     // private variables that should not be set directly in user programs.
     robot._is_leaky = true;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
     robot._prev_orientation = robot.orientation;
-    robot.triangle = 0; // can only be found in the world
-    robot.square = 0;   // same
-    robot.star = 0;     // same
+
     return robot;
 };
 

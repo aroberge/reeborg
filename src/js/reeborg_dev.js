@@ -216,21 +216,53 @@ RUR.control._put_object = function (robot, obj) {
 
 
 RUR.control.take = function(robot, arg){
+    var translated_arg, objects_here;
     RUR.control.sound_id = "#take-sound";
 
-    arg = RUR.translate_to_english(arg);
-    if (["token", "triangle", "square", "star"].indexOf(arg) === -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
+    if (arg != undefined) {
+        translated_arg = RUR.translate_to_english(arg);
+        if (["token", "triangle", "square", "star"].indexOf(translated_arg) == -1){
+            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
+        }
     }
-    if (RUR.control.object_here(robot, true) !== arg) {
-        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
+
+    objects_here = RUR.control.object_here(robot, arg);
+    if (arg != undefined) {
+        if (!objects_here) {
+            throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
+        }  else {
+            RUR.control._take_object_and_give_to_robot(robot, translated_arg);
+        }
+    }  else if (objects_here.length == 0){
+        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
+    }  else if (objects_here.length > 1){
+        throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
+    } else {
+        RUR.control._take_object_and_give_to_robot(robot, objects_here[0]);
     }
-    robot[RUR.translate(arg)] += 1;
-    RUR.control._take_object(robot, RUR.translate(arg));
 };
 
-RUR.control._take_object = function (robot, obj) {
-    delete RUR.current_world.objects[robot.x + "," + robot.y];
+RUR.control._take_object_and_give_to_robot = function (robot, obj) {
+    var objects_here, coords;
+
+    console.dir(robot);
+    coords = robot.x + "," + robot.y;
+    objects_here = RUR.current_world.objects[coords];
+    objects_here[obj] -= 1;
+    if (objects_here[obj] == 0){
+        delete objects_here[obj];
+        if (!RUR.control.object_here(robot)){
+            delete RUR.current_world.objects[coords];
+        }
+    }
+
+    if (robot.objects[obj] == undefined){
+        robot.objects[obj] = 1;
+    } else if (robot.objects[obj] == "infinite") {
+        return;
+    } else {
+        robot.objects[obj]++;
+    }
     RUR.rec.record_frame("debug", "RUR.control._take_object");
 };
 
@@ -370,16 +402,42 @@ RUR.control.at_goal = function (robot) {
     throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };
 
-RUR.control.object_here = function (robot, do_not_record) {
+RUR.control.object_here = function (robot, obj) {
+    /* if the object is specified, we return either true or false
+       depending on whether or not we found such an object at the
+       robot location.
+
+       If no object is specified, we return a list of object founds here,
+       or false if no object was found.  */
+    var obj_here, obj_type, all_objects;
     var coords = robot.x + "," + robot.y;
-    if (!do_not_record) {
-        RUR.rec.record_frame("debug", "RUR.control.object_here");
+
+    RUR.rec.record_frame("debug", "RUR.control.object_here");
+
+    if (RUR.current_world.objects == undefined ||
+        RUR.current_world.objects[coords] == undefined) {
+        return false;
     }
 
-    if (RUR.current_world.objects === undefined) {
-        return 0;
+    obj_here =  RUR.current_world.objects[coords];
+    all_objects = [];
+
+    for (obj_type in obj_here) {
+        if (obj_here.hasOwnProperty(obj_type)) {
+            all_objects.push(RUR.translate(obj_type));
+            if (RUR.translate(obj_type) == obj){
+                return true;
+            }
+        }
     }
-    return RUR.translate_to_english(RUR.current_world.objects[coords]) || 0;
+
+    if (obj != undefined) {
+        return false;
+    } else if (all_objects.length == 0){
+        return false;
+    } else {
+        return all_objects;
+    }
 };
 
 RUR.control.write = function () {
@@ -2171,7 +2229,8 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     var robot = {};
     robot.x = x || 1;
     robot.y = y || 1;
-    robot.tokens = tokens || 0;
+    robot.objects = {};
+    robot.objects.token = tokens || 0;
 
     if (orientation === undefined){
         robot.orientation = RUR.EAST;
@@ -2197,15 +2256,13 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
             throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
         }
     }
-    
+
     // private variables that should not be set directly in user programs.
     robot._is_leaky = true;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
     robot._prev_orientation = robot.orientation;
-    robot.triangle = 0; // can only be found in the world
-    robot.square = 0;   // same
-    robot.star = 0;     // same
+
     return robot;
 };
 
