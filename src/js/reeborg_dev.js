@@ -161,7 +161,7 @@ RUR.control.move = function (robot) {
     RUR.control.sound_id = "#move-sound";
     RUR.rec.record_frame("debug", "RUR.control.move");
 
-    tile = RUR.control.get_tile_at_position(robot);
+    tile = RUR.control.get_tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
             throw new RUR.ReeborgError(tile.message);
@@ -477,9 +477,8 @@ RUR.control.play_sound = function (sound_id) {
 };
 
 
-RUR.control.get_tile_at_position = function (robot) {
-    var coords = robot.x + "," + robot.y;
-
+RUR.control.get_tile_at_position = function (x, y) {
+    var coords = x + "," + y;
     if (RUR.current_world.tiles === undefined) return false;
     if (RUR.current_world.tiles[coords] === undefined) return false;
     return RUR.tiles[RUR.current_world.tiles[coords]];
@@ -650,12 +649,12 @@ $(document).ready(function() {
     });
 
     $("#robot_canvas").on("click", function (evt) {
-        if (!RUR.we.editing_world) {
-            return;
-        }
         RUR.we.mouse_x = evt.clientX;
         RUR.we.mouse_y = evt.clientY;
-        RUR.we.edit_world();
+        if (RUR.we.editing_world) {
+            RUR.we.edit_world();
+        }
+        RUR.we.show_world_info();
     });
 
     $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
@@ -701,6 +700,8 @@ $(document).ready(function() {
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
+    $("#World-info").dialog({minimize: true, maximize: false, autoOpen:false, width:600, height:250});
+
 
     editor.widgets = [];
     library.widgets = [];
@@ -2788,6 +2789,7 @@ RUR.tiles = {};
 RUR.tiles.mud = {};
 RUR.tiles.mud.fatal = true;
 RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");
+RUR.tiles.mud.info = RUR.translate("Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.")
 RUR.tiles.mud.image = new Image();
 RUR.tiles.mud.image.src = 'src/images/mud.png';
 RUR.tiles.mud.image.onload = function () {
@@ -2799,6 +2801,7 @@ RUR.tiles.mud.image.onload = function () {
 RUR.tiles.ice = {};
 RUR.tiles.ice.slippery = true;
 RUR.tiles.ice.message = RUR.translate("I'm slipping on ice!");
+RUR.tiles.ice.info = RUR.translate("Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.")
 RUR.tiles.ice.image = new Image();
 RUR.tiles.ice.image.src = 'src/images/ice.png';
 RUR.tiles.ice.image.onload = function () {
@@ -2810,6 +2813,7 @@ RUR.tiles.ice.image.onload = function () {
 RUR.tiles.grass = {};
 RUR.tiles.grass.image = new Image();
 RUR.tiles.grass.image.src = 'src/images/grass.png';
+RUR.tiles.grass.info = RUR.translate("Grass: usually safe.")
 RUR.tiles.grass.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh("initial");
@@ -2819,6 +2823,7 @@ RUR.tiles.grass.image.onload = function () {
 RUR.tiles.gravel = {};
 RUR.tiles.gravel.image = new Image();
 RUR.tiles.gravel.image.src = 'src/images/gravel.png';
+RUR.tiles.gravel.info = RUR.translate("Gravel: usually safe.")
 RUR.tiles.gravel.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh("initial");
@@ -2828,6 +2833,7 @@ RUR.tiles.gravel.image.onload = function () {
 RUR.tiles.water = {};
 RUR.tiles.water.fatal = true;
 RUR.tiles.water.message = RUR.translate("I'm in water!");
+RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will drawn if it moves to this location.")
 RUR.tiles.water.image = new Image();
 RUR.tiles.water.image.src = 'src/images/water.png';
 RUR.tiles.water.image.onload = function () {
@@ -4194,6 +4200,24 @@ RUR.we.calculate_grid_position = function () {
     }
     return [x, y];
 };
+
+RUR.we.show_world_info = function () {
+    // shows the information about a given grid position
+    // when the user clicks on the canvas at that grid position.
+    // enabled in doc_ready.js
+    var position, tile, information;
+    $("#World-info").dialog("open");
+    position = RUR.we.calculate_grid_position();
+    information = "x = " + position[0] + ", y = " + position[1];
+    tile = RUR.control.get_tile_at_position(position[0], position[1]);
+    if (tile){
+        if (tile.info) {
+            information += "<br>" + tile.info;
+        }
+    }
+    $("#World-info").html(information);
+}
+
 
 RUR.we.place_robot = function () {
     "use strict";

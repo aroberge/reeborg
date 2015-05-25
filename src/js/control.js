@@ -37,7 +37,7 @@ RUR.control.move = function (robot) {
     RUR.control.sound_id = "#move-sound";
     RUR.rec.record_frame("debug", "RUR.control.move");
 
-    tile = RUR.control.get_tile_at_position(robot);
+    tile = RUR.control.get_tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
             throw new RUR.ReeborgError(tile.message);
@@ -353,9 +353,8 @@ RUR.control.play_sound = function (sound_id) {
 };
 
 
-RUR.control.get_tile_at_position = function (robot) {
-    var coords = robot.x + "," + robot.y;
-
+RUR.control.get_tile_at_position = function (x, y) {
+    var coords = x + "," + y;
     if (RUR.current_world.tiles === undefined) return false;
     if (RUR.current_world.tiles[coords] === undefined) return false;
     return RUR.tiles[RUR.current_world.tiles[coords]];

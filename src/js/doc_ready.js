@@ -165,12 +165,12 @@ $(document).ready(function() {
     });
 
     $("#robot_canvas").on("click", function (evt) {
-        if (!RUR.we.editing_world) {
-            return;
-        }
         RUR.we.mouse_x = evt.clientX;
         RUR.we.mouse_y = evt.clientY;
-        RUR.we.edit_world();
+        if (RUR.we.editing_world) {
+            RUR.we.edit_world();
+        }
+        RUR.we.show_world_info();
     });
 
     $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
@@ -216,6 +216,8 @@ $(document).ready(function() {
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
+    $("#World-info").dialog({minimize: true, maximize: false, autoOpen:false, width:600, height:250});
+
 
     editor.widgets = [];
     library.widgets = [];
