@@ -3693,7 +3693,8 @@ RUR.vis_world.draw_single_tile = function (image, i, j) {
 
 RUR.vis_world.draw_all_objects = function (objects, goal){
     "use strict";
-    var i, j, k, keys, key, image, ctx;
+    var i, j, k, obj; // indices
+    var keys, image, ctx, coords, object_keys, obj_type, specific_object, objects_at_location;
     if (objects === undefined) {
         return;
     }
@@ -3705,16 +3706,22 @@ RUR.vis_world.draw_all_objects = function (objects, goal){
     }
 
     keys = Object.keys(objects);
-    for (key=0; key < keys.length; key++){
-        k = keys[key].split(",");
-        i = parseInt(k[0], 10);
-        j = parseInt(k[1], 10);
-        if (goal) {
-            image = RUR.objects[objects[keys[key]]].image_goal;
-        } else {
-            image = RUR.objects[objects[keys[key]]].image;
-        }
+    for (k=0; k < keys.length; k++){
+        coords = keys[k].split(",");
+        i = parseInt(coords[0], 10);
+        j = parseInt(coords[1], 10);
+        objects_at_location = objects[coords];
+        object_keys = Object.keys(objects_at_location);
+        for (obj=0; obj < object_keys.length; obj++){
+            obj_type = object_keys[obj];
+            specific_object = RUR.objects[obj_type];
+            if (goal) {
+                image = specific_object.image_goal;
+            } else {
+                image = specific_object.image;
+            }
         RUR.vis_world.draw_single_object(image, i, j, ctx);
+        }
     }
 };
 
@@ -3957,13 +3964,13 @@ RUR.we.edit_world = function  () {
             RUR.we.set_token_number();
             break;
         case "world-star":
-            RUR.we.toggle_objects("star");
+            RUR.we.add_objects("star");
             break;
         case "world-triangle":
-            RUR.we.toggle_objects("triangle");
+            RUR.we.add_objects("triangle");
             break;
         case "world-square":
-            RUR.we.toggle_objects("square");
+            RUR.we.add_objects("square");
             break;
         case "world-mud":
             RUR.we.toggle_tile("mud");
@@ -4205,7 +4212,7 @@ RUR.we.show_world_info = function () {
     // shows the information about a given grid position
     // when the user clicks on the canvas at that grid position.
     // enabled in doc_ready.js
-    var position, tile, obj, information, x, y, coords;
+    var position, tile, obj, information, x, y, coords, obj_here, property;
     $("#World-info").dialog("open");
     position = RUR.we.calculate_grid_position();
     x = position[0];
@@ -4218,9 +4225,14 @@ RUR.we.show_world_info = function () {
             information += "<br>" + tile.info;
         }
     }
-    obj = RUR.current_world.tokens;
+    obj = RUR.current_world.objects;
     if (obj != undefined && obj[coords] != undefined){
-        information += "<br>" + obj[coords];
+        obj_here = obj[coords];
+        for (property in obj_here) {
+            if (obj_here.hasOwnProperty(property)) {
+               information += "<br>" + property + ":" + obj_here[property];
+            }
+        }
     }
     $("#World-info").html(information);
 }
@@ -4558,47 +4570,47 @@ RUR.we.show_pre_post_code = function() {
                            "</pre>post-code:<pre>" + RUR.current_world.post_code + "</pre>");
 }
 
-RUR.we.toggle_shape = function (shape){
-    "use strict";
-    var position, x, y;
-    position = RUR.we.calculate_grid_position();
-    x = position[0];
-    y = position[1];
-    if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html(RUR.translate("tokens here; can't put another object")).effect("highlight", {color: "gold"}, 1500);
-        return;
-    }
-    RUR.we.ensure_key_exist(RUR.current_world, "objects");
-    if (RUR.current_world.objects[x + "," + y] === shape) {
-        delete RUR.current_world.objects[x + "," + y];
-        if (Object.keys(RUR.current_world.objects).length === 0){
-            delete RUR.current_world.objects;
-        }
-    } else {
-        RUR.current_world.objects[x + "," + y] = shape;
-    }
-};
+// RUR.we.toggle_shape = function (shape){
+//     "use strict";
+//     var position, x, y;
+//     position = RUR.we.calculate_grid_position();
+//     x = position[0];
+//     y = position[1];
+//     if (RUR.current_world.tokens !== undefined && RUR.current_world.tokens[x + "," + y] !== undefined){
+//         $("#cmd-result").html(RUR.translate("tokens here; can't put another object")).effect("highlight", {color: "gold"}, 1500);
+//         return;
+//     }
+//     RUR.we.ensure_key_exist(RUR.current_world, "objects");
+//     if (RUR.current_world.objects[x + "," + y] === shape) {
+//         delete RUR.current_world.objects[x + "," + y];
+//         if (Object.keys(RUR.current_world.objects).length === 0){
+//             delete RUR.current_world.objects;
+//         }
+//     } else {
+//         RUR.current_world.objects[x + "," + y] = shape;
+//     }
+// };
 
-RUR.we.toggle_goal_shape = function (shape){
-    "use strict";
-    var position, x, y;
-    position = RUR.we.calculate_grid_position();
-    x = position[0];
-    y = position[1];
+// RUR.we.toggle_goal_shape = function (shape){
+//     "use strict";
+//     var position, x, y;
+//     position = RUR.we.calculate_grid_position();
+//     x = position[0];
+//     y = position[1];
 
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.tokens !== undefined &&
-        RUR.current_world.goal.tokens[x + "," + y] !== undefined){
-        $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
-        return;
-    }
-    RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
-    if (RUR.current_world.goal.objects[x + "," + y] === shape) {
-        delete RUR.current_world.goal.objects[x + "," + y];
-    } else {
-        RUR.current_world.goal.objects[x + "," + y] = shape;
-    }
-};
+//     RUR.we.ensure_key_exist(RUR.current_world, "goal");
+//     if (RUR.current_world.goal.tokens !== undefined &&
+//         RUR.current_world.goal.tokens[x + "," + y] !== undefined){
+//         $("#cmd-result").html(RUR.translate("tokens as a goal here; can't set another object as goal."));
+//         return;
+//     }
+//     RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
+//     if (RUR.current_world.goal.objects[x + "," + y] === shape) {
+//         delete RUR.current_world.goal.objects[x + "," + y];
+//     } else {
+//         RUR.current_world.goal.objects[x + "," + y] = shape;
+//     }
+// };
 
 RUR.we.toggle_objects = function (specific_object){
     "use strict";
@@ -4620,6 +4632,30 @@ RUR.we.toggle_objects = function (specific_object){
         RUR.current_world.objects[x + "," + y] = specific_object;
     }
 };
+
+
+RUR.we.add_objects = function (specific_object){
+    "use strict";
+    var position, x, y, coords;
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    coords = x + "," + y;
+    RUR.we.ensure_key_exist(RUR.current_world, "objects");
+    RUR.we.ensure_key_exist(RUR.current_world.objects, coords);
+    if (RUR.current_world.objects[coords][specific_object] == 1) {
+        delete RUR.current_world.objects[coords][specific_object];
+        if (Object.keys(RUR.current_world.objects).length === 0){
+            delete RUR.current_world.objects[coords];
+        }
+        if (Object.keys(RUR.current_world.objects).length === 0){
+            delete RUR.current_world.objects;
+        }
+    } else {
+        RUR.current_world.objects[coords][specific_object] = 1;
+    }
+};
+
 
 RUR.we.toggle_goal_objects = function (specific_object){
     "use strict";
@@ -4740,6 +4776,28 @@ RUR.we.set_goal_no_tokens = function(){
     $("#cmd-result").html(RUR.translate("Goal: no tokens left in world.")).effect("highlight", {color: "gold"}, 1500);
 };
 
+RUR.we.toggle_tile = function (tile){
+    // will remove the position if clicked again with tile of same type.
+    "use strict";
+    var x, y, position, coords, index;
+
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    coords = x + "," + y;
+
+    RUR.we.ensure_key_exist(RUR.current_world, "tiles");
+    if (RUR.current_world.tiles[coords] === undefined ||
+        RUR.current_world.tiles[coords] != tile){
+        RUR.current_world.tiles[coords] = tile;
+    } else {
+        delete RUR.current_world.tiles[coords];
+    }
+};
+
+
+// The following is required only because we don't use images for tokens
+
 RUR.we.draw_token = function (goal) {
     "use strict";
     var ctx, size = 12;
@@ -4759,22 +4817,3 @@ RUR.we.draw_token = function (goal) {
 };
 RUR.we.draw_token();
 RUR.we.draw_token(true);
-
-RUR.we.toggle_tile = function (tile){
-    // will remove the position if clicked again with tile of same type.
-    "use strict";
-    var x, y, position, coords, index;
-
-    position = RUR.we.calculate_grid_position();
-    x = position[0];
-    y = position[1];
-    coords = x + "," + y;
-
-    RUR.we.ensure_key_exist(RUR.current_world, "tiles");
-    if (RUR.current_world.tiles[coords] === undefined ||
-        RUR.current_world.tiles[coords] != tile){
-        RUR.current_world.tiles[coords] = tile;
-    } else {
-        delete RUR.current_world.tiles[coords];
-    }
-};

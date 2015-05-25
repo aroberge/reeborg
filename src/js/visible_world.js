@@ -307,7 +307,8 @@ RUR.vis_world.draw_single_tile = function (image, i, j) {
 
 RUR.vis_world.draw_all_objects = function (objects, goal){
     "use strict";
-    var i, j, k, keys, key, image, ctx;
+    var i, j, k, obj; // indices
+    var keys, image, ctx, coords, object_keys, obj_type, specific_object, objects_at_location;
     if (objects === undefined) {
         return;
     }
@@ -319,16 +320,22 @@ RUR.vis_world.draw_all_objects = function (objects, goal){
     }
 
     keys = Object.keys(objects);
-    for (key=0; key < keys.length; key++){
-        k = keys[key].split(",");
-        i = parseInt(k[0], 10);
-        j = parseInt(k[1], 10);
-        if (goal) {
-            image = RUR.objects[objects[keys[key]]].image_goal;
-        } else {
-            image = RUR.objects[objects[keys[key]]].image;
-        }
+    for (k=0; k < keys.length; k++){
+        coords = keys[k].split(",");
+        i = parseInt(coords[0], 10);
+        j = parseInt(coords[1], 10);
+        objects_at_location = objects[coords];
+        object_keys = Object.keys(objects_at_location);
+        for (obj=0; obj < object_keys.length; obj++){
+            obj_type = object_keys[obj];
+            specific_object = RUR.objects[obj_type];
+            if (goal) {
+                image = specific_object.image_goal;
+            } else {
+                image = specific_object.image;
+            }
         RUR.vis_world.draw_single_object(image, i, j, ctx);
+        }
     }
 };
 
