@@ -39,7 +39,7 @@ RUR.vis_world.draw_background = function () {
         return;
     }
 
-    // grid walls - need to be drawn first
+    // grid walls
     ctx.fillStyle = RUR.SHADOW_WALL_COLOR;
     for (i = 1; i <= RUR.COLS; i++) {
         for (j = 1; j <= RUR.ROWS; j++) {
@@ -48,14 +48,6 @@ RUR.vis_world.draw_background = function () {
         }
     }
 
-    // border walls (x and y axis) -- keep in this drawing routine!
-    ctx.fillStyle = RUR.WALL_COLOR;
-    for (j = 1; j <= RUR.ROWS; j++) {
-        RUR.vis_world.draw_east_wall(ctx, 0, j);
-    }
-    for (i = 1; i <= RUR.COLS; i++) {
-        RUR.vis_world.draw_north_wall(ctx, i, 0);
-    }
     RUR.vis_world.draw_coordinates(ctx);
 
 };
@@ -66,11 +58,24 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
 
     ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
-    if (RUR.current_world.blank_canvas ||
-        walls === undefined || walls == {}) {
+    if (RUR.current_world.blank_canvas) {
         return;
     }
+
+
+    // border walls (x and y axis)
     ctx.fillStyle = RUR.WALL_COLOR;
+    for (j = 1; j <= RUR.ROWS; j++) {
+        RUR.vis_world.draw_east_wall(ctx, 0, j);
+    }
+    for (i = 1; i <= RUR.COLS; i++) {
+        RUR.vis_world.draw_north_wall(ctx, i, 0);
+    }
+
+    if (walls === undefined || walls == {}) {
+        return;
+    }
+
     // other walls
     keys = Object.keys(walls);
     for (key=0; key < keys.length; key++){
