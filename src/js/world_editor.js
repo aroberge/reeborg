@@ -716,6 +716,12 @@ RUR.we.add_goal_objects = function (specific_object){
     coords = x + "," + y;
 
     query = prompt(RUR.translate("Enter number of objects desired as a goal at that location."));
+    try {
+        query = parseInt(query, 10);
+    } catch (e) {
+        alert(RUR.translate("Only integer values please!"));
+        return;
+    }
 
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
