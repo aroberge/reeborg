@@ -373,7 +373,7 @@ RUR.control.object_here = function (robot, obj) {
 };
 
 
-RUR.control.has_object = function (robot, obj) {
+RUR.control.carries_object = function (robot, obj) {
     /* if the object is specified, we return either true or false
        depending on whether or not we found such an object carried
        by the robot.
