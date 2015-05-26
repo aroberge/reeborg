@@ -4033,6 +4033,9 @@ RUR.we.select = function (choice) {
     $("#edit-world-tiles").hide();
     RUR.we.edit_world_flag = choice;
     switch (choice) {
+        case "world-info":
+            $("#cmd-result").html(RUR.translate("Click on world get information.")).effect("highlight", {color: "gold"}, 1500);
+            break;
         case "robot-place":
             $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
             break;
@@ -4241,7 +4244,7 @@ RUR.we.show_world_info = function () {
                 }
             }
             if (no_object){
-                information += "<br><br><b>" + RUR.translate("A robot located here has no objects.") + "</b>"
+                information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.") + "</b>"
             }
         }
     }

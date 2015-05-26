@@ -163,7 +163,13 @@
     </div>
 
     <ul id="edit-world-nav">
-        <li><a href="javascript:RUR.ui.resize();">Toggle size</a></li>
+        <li class="a-like">World
+          <ul>
+            <li><a href="javascript:RUR.ui.resize();">Toggle size</a></li>
+            <li><a href="javascript:RUR.we.select('world-info');">Information</a></li>
+          </ul>
+        </li>
+
         <li class="a-like">Robot <ul>
             <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Add robot</a></li>
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-place');"> Position(s)</a></li>
@@ -171,7 +177,7 @@
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-tokens');">Tokens</a></li>
         </ul></li>
 
-        <li class="a-like">More <ul>
+        <li class="a-like">Add <ul>
             <li><a href="javascript:RUR.we.select('world-walls');">Walls</a></li>
             <li><a href="javascript:RUR.we.select('world-objects');">Objects</a></li>
             <li><a href="javascript:RUR.we.select('world-tiles');">Tiles</a></li>
