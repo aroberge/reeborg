@@ -268,7 +268,11 @@ RUR.we.show_world_info = function () {
     x = position[0];
     y = position[1];
     coords = x + "," + y;
-    information = "x = " + x + ", y = " + y;
+    if (!isNaN(x)){
+        information = "x = " + x + ", y = " + y;
+    } else {
+        information = "";
+    }
 
     robots = RUR.current_world.robots;
     for (r=0; r<robots.length; r++){
@@ -353,6 +357,10 @@ RUR.we.show_world_info = function () {
     }
     if (no_object){
         information += "<br><br><b>" + RUR.translate("Note: no object must be left in this world at the end of the program.") + "</b>";
+    }
+
+    if (RUR.current_world.description) {
+        information += "<br><br><b>" + RUR.translate("Description") + "</b><br>" + RUR.current_world.description;
     }
 
     $("#World-info").html(information);
@@ -589,6 +597,14 @@ RUR.we.insert_post_code = function() {
     }
     RUR.current_world.post_code = editor.getValue();
     RUR.we.show_pre_post_code();
+}
+
+RUR.we.add_description = function() {
+    if (RUR.current_world.description === undefined){
+        RUR.current_world.description = '';
+    }
+    RUR.current_world.description = editor.getValue();
+    RUR.we.show_world_info();
 }
 
 RUR.we.show_pre_post_code = function() {

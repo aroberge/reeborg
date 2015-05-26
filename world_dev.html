@@ -166,7 +166,7 @@
         <li class="a-like">World
           <ul>
             <li><a href="javascript:RUR.ui.resize();">Toggle size</a></li>
-            <li><a href="javascript:RUR.we.select('world-info');">Information</a></li>
+            <li><a href="javascript:RUR.we.select('world-info');">Current information</a></li>
           </ul>
         </li>
 
@@ -190,10 +190,12 @@
           </ul>
         </ul>
     <div id="additional-code">
-      <p>The following copies code from the editor; such code will be run either before or
-         after the user's program.<br>
+      <p>The following buttons copy text from the editor; for the first two, the code will be run either before or
+         after the user's program; for the third, the description will be added to the world information displayed when
+         clicking on the world canvas.<br>
         <button class="blue-gradient" id="insert-pre-code" onclick="RUR.we.insert_pre_code();">Insert pre-code</button>
         <button class="blue-gradient" id="insert-post-code" onclick="RUR.we.insert_post_code();">Insert post-code</button>
+        <button class="blue-gradient" id="insert-post-code" onclick="RUR.we.add_description();">Copy description</button>
       </p>
       <div id="code-copied"></div>
     </div>

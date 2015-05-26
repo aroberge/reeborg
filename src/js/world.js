@@ -26,7 +26,7 @@ RUR.world.create_empty_world = function (blank_canvas) {
 RUR.current_world = RUR.world.create_empty_world();
 
 RUR.world.export_world = function () {
-    return JSON.stringify(RUR.current_world, null, '');
+    return JSON.stringify(RUR.current_world, null, 2);
 };
 
 RUR.world.import_world = function (json_string) {

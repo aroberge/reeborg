@@ -194,6 +194,7 @@
           <ul>
             <li><a href="javascript:RUR.ui.resize();">Taille</a></li>
             <li><a href="javascript:RUR.we.select('world-info');">Information</a></li>
+            <li><a href="javascript:RUR.we.select('add-world-description');">Ajouter une description</a></li>
           </ul>
         </li>
 
@@ -217,12 +218,14 @@
         </ul></li>
     </ul>
     <div id="additional-code">
-      <p>Les deux boutons qui suivent permettent de copier le code se trouvant
-        dans l'éditeur; ce code sera exécuté soit immédiatement avant ou
-        immédiatement après le code du programmeur.
+      <p>Les boutons qui suivent permettent de copier le texte se trouvant
+        dans l'éditeur; pour les deux premier, le code sera exécuté soit immédiatement avant ou
+        immédiatement après le code du programmeur. Le troisième bouton permet d'ajouter une
+        description au sujet de ce monde.
       </p>
       <button class="blue-gradient" id="insert-pre-code" onclick="RUR.we.insert_pre_code();">Insérer le pré-code</button>
       <button class="blue-gradient" id="insert-post-code" onclick="RUR.we.insert_post_code();">Insérer le post-code</button>
+        <button class="blue-gradient" id="insert-post-code" onclick="RUR.we.add_description();">Copier la description</button>
       <span id="code-copied"></span>
     </div>
 
