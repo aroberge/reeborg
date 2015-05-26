@@ -125,6 +125,8 @@ RUR.vis_world.draw_robots = function (robots) {
     if (RUR.current_world.blank_canvas) {
         return;
     }
+    RUR.vis_world.compile_info();
+    RUR.vis_world.draw_info();
     if (!robots || robots[0] === undefined) {
         return;
     }
@@ -336,54 +338,76 @@ RUR.vis_world.refresh = function (initial) {
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_tiles(RUR.current_world.tiles);
     RUR.vis_world.draw_all_objects(RUR.current_world.objects);
-    // if (initial !== undefined && RUR.current_world.robots !== undefined &&
-    //         RUR.current_world.robots[0] !== undefined &&
-    //         RUR.current_world.robots[0].start_positions !== undefined &&
-    //         RUR.current_world.robots[0].start_positions.length > 1) {
-    //         robot = RUR.current_world.robots[0];
-    //     for (i=0; i < robot.start_positions.length; i++){
-    //         clone = JSON.parse(JSON.stringify(robot));
-    //         clone.x = robot.start_positions[i][0];
-    //         clone.y = robot.start_positions[i][1];
-    //         clone._prev_x = clone.x;
-    //         clone._prev_y = clone.y;
-    //         clones.push(clone);
-    //     }
-    //     RUR.ROBOT_CTX.save();
-    //     RUR.ROBOT_CTX.globalAlpha = 0.4;
-    //     RUR.vis_world.draw_robots(clones);
-    //     RUR.ROBOT_CTX.restore();
-    // } else {
-        RUR.vis_world.draw_robots(RUR.current_world.robots);
-    // }
+    RUR.vis_world.draw_robots(RUR.current_world.robots);
 };
 
-// RUR.vis_world.select_initial_values = function() {
-//     // select initial values if required i.e. when some are specified as
-//     // being chosen randomly
-//     "use strict";
-//     var k, keys, min_, max_, robot, position, goal;
 
+RUR.vis_world.compile_info = function() {
+    // compiles the information about objects and goal found at each
+    // grid location, so that we can determine what should be
+    // drawn - if anything.
+    var coords, obj, quantity;
+    RUR.vis_world.information = {};
+    if (RUR.current_world.objects != undefined) {
+        RUR.vis_world.compile_partial_info(RUR.current_world.objects);
+    }
+    if (RUR.current_world.goal != undefined &&
+        RUR.current_world.goal.objects != undefined) {
+        RUR.vis_world.compile_partial_info(RUR.current_world.goal.objects);
+    }
+};
 
-    // robot = RUR.current_world.robots[0];
-    // if (robot === undefined){
-    //     RUR.rec.record_frame();
-    //     return;
-    // }
-    // if (robot.orientation == -1){
-    //     RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
-    //     RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
-    // }
+RUR.vis_world.compile_partial_info = function(objects){
+    for (coords in objects) {
+        if (objects.hasOwnProperty(coords)){
+            // objects found here
+            for(obj in objects[coords]){
+                if (objects[coords].hasOwnProperty(obj)){
+                    if (RUR.vis_world.information[coords] != undefined){ // already at least one other object there
+                        RUR.vis_world.information[coords] = "?";
+                    } else {
+                        quantity = objects[coords][obj];
+                        if (quantity.toString().indexOf("-") != -1) {
+                            quantity = "?";
+                        } else if (quantity == "all") {
+                            quantity = "?";
+                        } else {
+                            try{
+                                quantity = parseInt(quantity, 10);
+                            } catch (e) {
+                                quantity = "?";
+                                console.log("WARNING: this should not happen in RUR.vis_world.compile_info")
+                            }
+                        }
+                        if (quantity == 1){
+                            quantity = ' ';
+                        }
+                        RUR.vis_world.information[coords] = quantity;
+                    }
+                }
+            }
+        }
+    }
+};
 
-    // if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
-    //     position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
-    //     RUR.current_world.robots[0].x = position[0];
-    //     RUR.current_world.robots[0].y = position[1];
-    //     RUR.current_world.robots[0]._prev_x = RUR.current_world.robots[0].x;
-    //     RUR.current_world.robots[0]._prev_y = RUR.current_world.robots[0].y;
-    // }
-//     RUR.rec.record_frame();
-// };
+RUR.vis_world.draw_info = function() {
+    var i, j, coords, keys, key, info, ctx;
+    var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
 
+    if (RUR.vis_world.information === undefined) {
+        return;
+    }
+    // make sure it appears on top of everything (except possibly robots)
+    ctx = RUR.ROBOT_CTX;  // Note: draw in draw_robots so it is not erased
 
-
+    keys = Object.keys(RUR.vis_world.information);
+    for (key=0; key < keys.length; key++){
+        coords = keys[key].split(",");
+        i = parseInt(coords[0], 10);
+        j = parseInt(coords[1], 10);
+        info = RUR.vis_world.information[coords];
+        text_width = ctx.measureText(info).width/2;
+        ctx.fillStyle = RUR.TEXT_COLOR;
+        ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
+    }
+}
