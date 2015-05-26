@@ -16,6 +16,7 @@ RUR.translate = function (s) {
     if (RUR.translation[s] !== undefined) {
         return RUR.translation[s];
     } else {
+        console.log("Translation needed for", s);
         return s;
     }
 };
@@ -24,6 +25,7 @@ RUR.translate_to_english = function (s) {
     if (RUR.translation_to_english[s] !== undefined) {
         return RUR.translation_to_english[s];
     } else {
+        console.log("Translation to English needed for", s);
         return s;
     }
 };

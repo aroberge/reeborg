@@ -2615,6 +2615,7 @@ RUR.translate = function (s) {
     if (RUR.translation[s] !== undefined) {
         return RUR.translation[s];
     } else {
+        console.log("Translation needed for", s);
         return s;
     }
 };
@@ -2623,6 +2624,7 @@ RUR.translate_to_english = function (s) {
     if (RUR.translation_to_english[s] !== undefined) {
         return RUR.translation_to_english[s];
     } else {
+        console.log("Translation to English needed for", s);
         return s;
     }
 };
@@ -4034,7 +4036,7 @@ RUR.we.select = function (choice) {
     RUR.we.edit_world_flag = choice;
     switch (choice) {
         case "world-info":
-            $("#cmd-result").html(RUR.translate("Click on world get information.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to get information.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "robot-place":
             $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
