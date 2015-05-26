@@ -2390,17 +2390,40 @@ RUR.runner.assign_initial_values = function () {
                         nb = objects_here[obj];
                         // see if we need to assign values here
                         if (total_nb_objects[obj] == undefined){
-                            total_nb_objects[obj] = nb;
+                            total_nb_objects[obj] = parseInt(nb, 10);
                         } else {
-                            total_nb_objects[obj] += nb;
+                            total_nb_objects[obj] += parseInt(nb, 10);
                         }
                     }
                 }
             }
         }
     }
-    console.log("total_nb_objects = ", total_nb_objects);
+
     // then look for "goals" with "all" as value;
+
+    if (RUR.current_world.goal != undefined &&
+        RUR.current_world.goal.objects != undefined){
+        objects = RUR.current_world.goal.objects;
+        for (coords in objects){
+            if (objects.hasOwnProperty(coords)){
+                objects_here = objects[coords];
+                for (obj in objects_here){
+                    if (objects_here.hasOwnProperty(obj)){
+                        nb = objects_here[obj];
+                        if (nb == "all") {
+                            try {
+                                objects_here[obj] = total_nb_objects[obj];
+                            } catch (e) {
+                                $("#World-info").dialog("open");
+                                $("#World-info").html("<b>Warning</b> Trying to assign a goal when no corresponding objects are found in the world.");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 
@@ -4451,90 +4474,6 @@ RUR.we.give_tokens_to_robot = function () {
     }
 };
 
-RUR.we.set_token_number = function () {
-    var position, response, x, y, tokens, _tok, max_tokens;
-    position = RUR.we.calculate_grid_position();
-    x = position[0];
-    y = position[1];
-
-
-    response = prompt(RUR.translate("Enter number of tokens for at that location."));
-    if (response !== null) {
-        _tok = response.split("-");
-        tokens = RUR.filterInt(_tok[0]);
-        if (_tok[1] !== undefined) {
-            max_tokens = RUR.filterInt(_tok[1]);
-            if (max_tokens <= tokens) {
-                tokens = -1;
-            }
-        }
-        if (tokens >= 0) {
-            RUR.we.ensure_key_exist(RUR.current_world, "tokens");
-            if (max_tokens !== undefined) {
-                RUR.we.ensure_key_exist(RUR.current_world, "min_tokens");
-                RUR.we.ensure_key_exist(RUR.current_world, "max_tokens");
-                RUR.we.ensure_key_exist(RUR.current_world, "tokens_range");
-            }
-            if (tokens > 0 || (max_tokens !== undefined && max_tokens > tokens)) {
-                RUR.current_world.tokens[x + "," + y] = tokens;
-                if (max_tokens !== undefined) {
-                    RUR.current_world.max_tokens[x + "," + y] = max_tokens;
-                    RUR.current_world.min_tokens[x + "," + y] = tokens;
-                    RUR.current_world.tokens_range[x + "," + y] = tokens+"-"+max_tokens;
-                } else {
-                    if (RUR.current_world.min_tokens !== undefined) {delete RUR.current_world.min_tokens[x + "," + y];}
-                    if (RUR.current_world.max_tokens !== undefined) {delete RUR.current_world.max_tokens[x + "," + y];}
-                    if (RUR.current_world.tokens_range !== undefined) {delete RUR.current_world.tokens_range[x + "," + y];}
-                }
-            } else {
-                delete RUR.current_world.tokens[x + "," + y];
-                if (RUR.current_world.min_tokens !== undefined) {delete RUR.current_world.min_tokens[x + "," + y];}
-                if (RUR.current_world.max_tokens !== undefined) {delete RUR.current_world.max_tokens[x + "," + y];}
-                if (RUR.current_world.tokens_range !== undefined) {delete RUR.current_world.tokens_range[x + "," + y];}
-            }
-        } else {
-            $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
-        }
-    }
-};
-
-RUR.we.set_goal_token_number = function () {
-    var position, response, x, y, tokens;
-    position = RUR.we.calculate_grid_position();
-    x = position[0];
-    y = position[1];
-
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.objects !== undefined && RUR.current_world.goal.objects[x + "," + y] !== undefined){
-        $("#cmd-result").html(RUR.translate("Other object goal here; can't put tokens")).effect("highlight", {color: "gold"}, 1500);
-        $("#Reeborg-shouts").html(RUR.translate("Other object goal here; can't put tokens")).dialog("open");
-        return;
-    }
-
-    response = prompt(RUR.translate("Enter number of tokens for at that location."));
-    if (response !== null) {
-        tokens = RUR.filterInt(response);
-        if (tokens >= 0) {
-            RUR.we.ensure_key_exist(RUR.current_world.goal, "tokens");
-            if (tokens > 0) {
-                RUR.current_world.goal.tokens[x + "," + y] = tokens;
-            } else {
-                delete RUR.current_world.goal.tokens[x + "," + y];
-                if (Object.keys(RUR.current_world.goal.tokens).length === 0){
-                    delete RUR.current_world.goal.tokens;
-                    if (Object.keys(RUR.current_world.goal).length === 0){
-                        delete RUR.current_world.goal;
-                    }
-                }
-            }
-            RUR.we.refresh_world_edited();
-        } else {
-            $("#Reeborg-shouts").html(response + RUR.translate(" is not a valid value!")).dialog("open");
-        }
-    }
-};
-
-
 RUR.we.turn_robot = function (orientation) {
     if (RUR.we.edit_world_flag === "goal-robot") {
         RUR.we.set_goal_orientation(orientation);
@@ -4731,11 +4670,17 @@ RUR.we.add_goal_objects = function (specific_object){
     coords = x + "," + y;
 
     query = prompt(RUR.translate("Enter number of objects desired as a goal at that location."));
-    try {
-        query = parseInt(query, 10);
-    } catch (e) {
-        alert(RUR.translate("Only integer values please!"));
-        return;
+    if (query != "all"){
+        try {
+            query = parseInt(query, 10);
+            if (isNaN(query)){
+                $("#cmd-result").html(RUR.translate("Only integer values or 'all' please!")).effect("highlight", {color: "gold"}, 1500);
+                return;
+            }
+        } catch (e) {
+                $("#cmd-result").html(RUR.translate("Only integer values or 'all' please!")).effect("highlight", {color: "gold"}, 1500);
+            return;
+        }
     }
 
     RUR.we.ensure_key_exist(RUR.current_world, "goal");

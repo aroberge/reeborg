@@ -24,17 +24,40 @@ RUR.runner.assign_initial_values = function () {
                         nb = objects_here[obj];
                         // see if we need to assign values here
                         if (total_nb_objects[obj] == undefined){
-                            total_nb_objects[obj] = nb;
+                            total_nb_objects[obj] = parseInt(nb, 10);
                         } else {
-                            total_nb_objects[obj] += nb;
+                            total_nb_objects[obj] += parseInt(nb, 10);
                         }
                     }
                 }
             }
         }
     }
-    console.log("total_nb_objects = ", total_nb_objects);
+
     // then look for "goals" with "all" as value;
+
+    if (RUR.current_world.goal != undefined &&
+        RUR.current_world.goal.objects != undefined){
+        objects = RUR.current_world.goal.objects;
+        for (coords in objects){
+            if (objects.hasOwnProperty(coords)){
+                objects_here = objects[coords];
+                for (obj in objects_here){
+                    if (objects_here.hasOwnProperty(obj)){
+                        nb = objects_here[obj];
+                        if (nb == "all") {
+                            try {
+                                objects_here[obj] = total_nb_objects[obj];
+                            } catch (e) {
+                                $("#World-info").dialog("open");
+                                $("#World-info").html("<b>Warning</b> Trying to assign a goal when no corresponding objects are found in the world.");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 

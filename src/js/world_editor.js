@@ -635,11 +635,17 @@ RUR.we.add_goal_objects = function (specific_object){
     coords = x + "," + y;
 
     query = prompt(RUR.translate("Enter number of objects desired as a goal at that location."));
-    try {
-        query = parseInt(query, 10);
-    } catch (e) {
-        alert(RUR.translate("Only integer values please!"));
-        return;
+    if (query != "all"){
+        try {
+            query = parseInt(query, 10);
+            if (isNaN(query)){
+                $("#cmd-result").html(RUR.translate("Only integer values or 'all' please!")).effect("highlight", {color: "gold"}, 1500);
+                return;
+            }
+        } catch (e) {
+                $("#cmd-result").html(RUR.translate("Only integer values or 'all' please!")).effect("highlight", {color: "gold"}, 1500);
+            return;
+        }
     }
 
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
