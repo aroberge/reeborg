@@ -2376,13 +2376,41 @@ RUR.runner = {};
 
 RUR.runner.interpreted = false;
 
+RUR.runner.assign_initial_values = function () {
+    var coords, obj, objects, objects_here, nb;
+    var total_nb_objects = {};
+
+    if (RUR.current_world.objects != undefined){
+        objects = RUR.current_world.objects;
+        for (coords in objects){
+            if (objects.hasOwnProperty(coords)){
+                objects_here = objects[coords];
+                for (obj in objects_here){
+                    if (objects_here.hasOwnProperty(obj)){
+                        nb = objects_here[obj];
+                        // see if we need to assign values here
+                        if (total_nb_objects[obj] == undefined){
+                            total_nb_objects[obj] = nb;
+                        } else {
+                            total_nb_objects[obj] += nb;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    console.log("total_nb_objects = ", total_nb_objects);
+    // then look for "goals" with "all" as value;
+}
+
+
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (!RUR.runner.interpreted) {
-//        RUR.vis_world.select_initial_values();
+        RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
+        RUR.runner.assign_initial_values();
         src = editor.getValue();
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
-        RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     }
     if (!fatal_error_found) {
         try {
