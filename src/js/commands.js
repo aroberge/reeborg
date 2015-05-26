@@ -35,9 +35,14 @@ RUR._right_is_clear_ = function() {
   return RUR.control.right_is_clear(RUR.current_world.robots[0]);
 };
 
-RUR._object_here_ = function () {
-    return RUR.control.object_here(RUR.current_world.robots[0]);
+RUR._object_here_ = function (arg) {
+    return RUR.control.object_here(RUR.current_world.robots[0], arg);
 };
+
+RUR._has_object_ = function (arg) {
+    return RUR.control.has_object(RUR.current_world.robots[0], arg);
+};
+
 
 RUR._take_ = function(arg) {
     RUR.control.take(RUR.current_world.robots[0], arg);

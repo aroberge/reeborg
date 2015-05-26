@@ -35,9 +35,14 @@ RUR._right_is_clear_ = function() {
   return RUR.control.right_is_clear(RUR.current_world.robots[0]);
 };
 
-RUR._object_here_ = function () {
-    return RUR.control.object_here(RUR.current_world.robots[0]);
+RUR._object_here_ = function (arg) {
+    return RUR.control.object_here(RUR.current_world.robots[0], arg);
 };
+
+RUR._has_object_ = function (arg) {
+    return RUR.control.has_object(RUR.current_world.robots[0], arg);
+};
+
 
 RUR._take_ = function(arg) {
     RUR.control.take(RUR.current_world.robots[0], arg);
@@ -483,6 +488,44 @@ RUR.control.object_here = function (robot, obj) {
         return all_objects;
     }
 };
+
+
+RUR.control.has_object = function (robot, obj) {
+    /* if the object is specified, we return either true or false
+       depending on whether or not we found such an object carried
+       by the robot.
+
+       If no object is specified, we return a list of object founds here,
+       or false if no object was found.  */
+    var obj_carried, obj_type, all_objects;
+
+    RUR.rec.record_frame("debug", "RUR.control.object_here");
+
+    if (robot == undefined || robot.objects == undefined) {
+        return false;
+    }
+
+    obj_carried =  robot.objects;
+    all_objects = [];
+
+    for (obj_type in obj_carried) {
+        if (obj_carried.hasOwnProperty(obj_type)) {
+            all_objects.push(RUR.translate(obj_type));
+            if (RUR.translate(obj_type) == obj){
+                return true;
+            }
+        }
+    }
+
+    if (obj != undefined) {
+        return false;
+    } else if (all_objects.length == 0){
+        return false;
+    } else {
+        return all_objects;
+    }
+};
+
 
 RUR.control.write = function () {
     RUR.control.sound_id = "#write-sound";
@@ -2224,6 +2267,8 @@ RUR.rec.check_goal= function (frame) {
     }
     if (g.objects !== undefined) {
         result = Object.identical(g.objects, world.objects, true);
+        console.log("goal objects", g.objects);
+        console.log("world objects", world.objects);
         if (result){
             goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {

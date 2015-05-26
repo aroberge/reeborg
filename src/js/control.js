@@ -372,6 +372,44 @@ RUR.control.object_here = function (robot, obj) {
     }
 };
 
+
+RUR.control.has_object = function (robot, obj) {
+    /* if the object is specified, we return either true or false
+       depending on whether or not we found such an object carried
+       by the robot.
+
+       If no object is specified, we return a list of object founds here,
+       or false if no object was found.  */
+    var obj_carried, obj_type, all_objects;
+
+    RUR.rec.record_frame("debug", "RUR.control.object_here");
+
+    if (robot == undefined || robot.objects == undefined) {
+        return false;
+    }
+
+    obj_carried =  robot.objects;
+    all_objects = [];
+
+    for (obj_type in obj_carried) {
+        if (obj_carried.hasOwnProperty(obj_type)) {
+            all_objects.push(RUR.translate(obj_type));
+            if (RUR.translate(obj_type) == obj){
+                return true;
+            }
+        }
+    }
+
+    if (obj != undefined) {
+        return false;
+    } else if (all_objects.length == 0){
+        return false;
+    } else {
+        return all_objects;
+    }
+};
+
+
 RUR.control.write = function () {
     RUR.control.sound_id = "#write-sound";
     var output_string = '';

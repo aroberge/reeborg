@@ -238,6 +238,8 @@ RUR.rec.check_goal= function (frame) {
     }
     if (g.objects !== undefined) {
         result = Object.identical(g.objects, world.objects, true);
+        console.log("goal objects", g.objects);
+        console.log("world objects", world.objects);
         if (result){
             goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
