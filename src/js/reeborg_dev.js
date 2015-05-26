@@ -617,7 +617,7 @@ $(document).ready(function() {
         }
     }).draggable({cursor: "move", handle: "ul"});
 
-
+    $("#edit-world-panel").resizable().draggable({cursor: "move", handle: "h1"});
 
 
     $("#editor-link").on("click", function(){
@@ -2377,7 +2377,7 @@ RUR.runner = {};
 RUR.runner.interpreted = false;
 
 RUR.runner.assign_initial_values = function () {
-    var coords, obj, objects, objects_here, nb;
+    var coords, obj, objects, objects_here, nb, range;
     var total_nb_objects = {};
 
     if (RUR.current_world.objects != undefined){
@@ -2388,7 +2388,11 @@ RUR.runner.assign_initial_values = function () {
                 for (obj in objects_here){
                     if (objects_here.hasOwnProperty(obj)){
                         nb = objects_here[obj];
-                        // see if we need to assign values here
+                        if (nb.toString().indexOf("-") != -1){
+                            range = nb.split("-");
+                            nb = RUR.randint(parseInt(range[0], 10), parseInt(range[1], 10));
+                            objects_here[obj] = nb;
+                        }
                         if (total_nb_objects[obj] == undefined){
                             total_nb_objects[obj] = parseInt(nb, 10);
                         } else {
@@ -2426,6 +2430,11 @@ RUR.runner.assign_initial_values = function () {
     }
 }
 
+RUR.runner.select_random_number = function(range) {
+
+    range = range.split("-");
+    return RUR.randint(parseInt(range[0], parseInt(range[1])));
+}
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;

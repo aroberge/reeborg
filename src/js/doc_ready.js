@@ -56,7 +56,7 @@ $(document).ready(function() {
         }
     }).draggable({cursor: "move", handle: "ul"});
 
-
+    $("#edit-world-panel").resizable().draggable({cursor: "move", handle: "h1"});
 
 
     $("#editor-link").on("click", function(){

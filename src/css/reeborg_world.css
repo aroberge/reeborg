@@ -205,9 +205,9 @@ padding:3px;}
 
 #tabs {height: 98%; overflow: auto;}
 #tabs .ui-tabs-panel {padding: 0;}
-#tabs ul {cursor: move;}
+#tabs ul, #edit-world-panel h1 {cursor: move;}
 #editor, #library {width: 100%; height: 90%;}
-#editor-panel {scroll-x: auto;
+#editor-panel, #edit-world-panel {scroll-x: auto;
     box-shadow: 5px 5px 7px 0px rgba(50, 50, 50, 0.6);}
 #cmd-result {color: green;}
 
@@ -264,8 +264,13 @@ padding:3px;}
 }
 #edit-world-panel {
     vertical-align: top;
+    background-color: white;
+    border: 1px solid blue;
 }
 
+#edit-world-panel h1 {
+  color: white;
+}
 #world-panel { background-color: white;}
 
 #world-panel.active, #editor-panel.active, #edit-world-panel.active {display: inline-block; z-index: 1}
