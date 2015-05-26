@@ -442,11 +442,6 @@ RUR.we.set_token_number = function () {
     x = position[0];
     y = position[1];
 
-    if (RUR.current_world.objects !== undefined && RUR.current_world.objects[x + "," + y] !== undefined){
-        $("#cmd-result").html(RUR.translate("Other object here; can't put tokens")).effect("highlight", {color: "gold"}, 1500);
-        $("#Reeborg-shouts").html(RUR.translate("Other object here; can't put tokens")).dialog("open");
-        return;
-    }
 
     response = prompt(RUR.translate("Enter number of tokens for at that location."));
     if (response !== null) {
@@ -666,7 +661,6 @@ RUR.we.insert_pre_code = function() {
     }
     RUR.current_world.pre_code = editor.getValue();
     RUR.we.show_pre_post_code();
-    //$("#code-copied").html(RUR.translate("Code copied from editor")).effect("highlight", {color: "gold"}, 1500);
 }
 
 RUR.we.insert_post_code = function() {
@@ -676,7 +670,6 @@ RUR.we.insert_post_code = function() {
     }
     RUR.current_world.post_code = editor.getValue();
     RUR.we.show_pre_post_code();
-    //$("#code-copied").html(RUR.translate("Code copied from editor")).effect("highlight", {color: "gold"}, 1500);
 }
 
 RUR.we.show_pre_post_code = function() {
@@ -690,14 +683,17 @@ RUR.we.show_pre_post_code = function() {
 
 RUR.we.add_objects = function (specific_object){
     "use strict";
-    var position, x, y, coords;
+    var position, x, y, coords, query;
     position = RUR.we.calculate_grid_position();
     x = position[0];
     y = position[1];
     coords = x + "," + y;
+
+    query = prompt(RUR.translate("Enter number of objects desired at that location."));
+
     RUR.we.ensure_key_exist(RUR.current_world, "objects");
     RUR.we.ensure_key_exist(RUR.current_world.objects, coords);
-    if (RUR.current_world.objects[coords][specific_object] == 1) {
+    if (query==0) {
         delete RUR.current_world.objects[coords][specific_object];
         if (Object.keys(RUR.current_world.objects).length === 0){
             delete RUR.current_world.objects[coords];
@@ -706,22 +702,25 @@ RUR.we.add_objects = function (specific_object){
             delete RUR.current_world.objects;
         }
     } else {
-        RUR.current_world.objects[coords][specific_object] = 1;
+        RUR.current_world.objects[coords][specific_object] = query;
     }
 };
 
 
 RUR.we.add_goal_objects = function (specific_object){
     "use strict";
-    var position, x, y, coords;
+    var position, x, y, coords, query;
     position = RUR.we.calculate_grid_position();
     x = position[0];
     y = position[1];
     coords = x + "," + y;
+
+    query = prompt(RUR.translate("Enter number of objects desired as a goal at that location."));
+
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
     RUR.we.ensure_key_exist(RUR.current_world.goal.objects, coords);
-    if (RUR.current_world.goal.objects[coords][specific_object] == 1) {
+    if (query==0) {
         delete RUR.current_world.goal.objects[coords][specific_object];
         if (Object.keys(RUR.current_world.goal.objects).length === 0){
             delete RUR.current_world.goal.objects[coords];
@@ -733,7 +732,7 @@ RUR.we.add_goal_objects = function (specific_object){
             delete RUR.current_world.goal;
         }
     } else {
-        RUR.current_world.goal.objects[coords][specific_object] = 1;
+        RUR.current_world.goal.objects[coords][specific_object] = query;
     }
 };
 
