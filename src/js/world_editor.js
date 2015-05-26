@@ -258,7 +258,7 @@ RUR.we.show_world_info = function () {
     // when the user clicks on the canvas at that grid position.
     // enabled in doc_ready.js
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
-    var topic, nb_goal_objects;
+    var topic, no_object;
 
     $("#World-info").dialog("open");
     position = RUR.we.calculate_grid_position();
@@ -310,17 +310,24 @@ RUR.we.show_world_info = function () {
         }
     }
 
+
     goals = RUR.current_world.goal;
-    nb_goal_objects = 0;
+    no_object = true;
     if (goals != undefined){
-        for (obj_type in goals) {
-            if (goals.hasOwnProperty(obj_type)){
-                nb_goal_objects ++;
+        obj = goals.objects;
+        topic = true;
+        if (obj != undefined){
+            for (coords in obj) {
+                if (obj.hasOwnProperty(coords)) {
+                    no_object = false;
+                }
             }
         }
-        if (nb_goal_objects != 0){
-            information += "<br><br><b>" + RUR.translate("Note: no object must be left in this world at the end of the program.") + "</b>";
-        }
+    } else {
+        no_object = false;
+    }
+    if (no_object){
+        information += "<br><br><b>" + RUR.translate("Note: no object must be left in this world at the end of the program.") + "</b>";
     }
 
     $("#World-info").html(information);

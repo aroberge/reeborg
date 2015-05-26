@@ -197,10 +197,8 @@ RUR.control.put = function(robot, arg){
     var translated_arg, objects_carried, obj_type, all_objects;
     RUR.control.sound_id = "#put-sound";
 
-    console.log("put arg=", arg);
     if (arg != undefined) {
         translated_arg = RUR.translate_to_english(arg);
-        console.log("put translated_arg = ", translated_arg);
         if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
             throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
@@ -4176,7 +4174,7 @@ RUR.we.show_world_info = function () {
     // when the user clicks on the canvas at that grid position.
     // enabled in doc_ready.js
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
-    var topic, nb_goal_objects;
+    var topic, no_object;
 
     $("#World-info").dialog("open");
     position = RUR.we.calculate_grid_position();
@@ -4228,17 +4226,24 @@ RUR.we.show_world_info = function () {
         }
     }
 
+
     goals = RUR.current_world.goal;
-    nb_goal_objects = 0;
+    no_object = true;
     if (goals != undefined){
-        for (obj_type in goals) {
-            if (goals.hasOwnProperty(obj_type)){
-                nb_goal_objects ++;
+        obj = goals.objects;
+        topic = true;
+        if (obj != undefined){
+            for (coords in obj) {
+                if (obj.hasOwnProperty(coords)) {
+                    no_object = false;
+                }
             }
         }
-        if (nb_goal_objects != 0){
-            information += "<br><br><b>" + RUR.translate("Note: no object must be left in this world at the end of the program.") + "</b>";
-        }
+    } else {
+        no_object = false;
+    }
+    if (no_object){
+        information += "<br><br><b>" + RUR.translate("Note: no object must be left in this world at the end of the program.") + "</b>";
     }
 
     $("#World-info").html(information);
