@@ -187,7 +187,7 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
             delete RUR.current_world.objects[coords];
         }
     }
-
+    RUR.we.ensure_key_exist(robot, "objects");
     if (robot.objects[obj] == undefined){
         robot.objects[obj] = 1;
     } else if (robot.objects[obj] == "infinite") {

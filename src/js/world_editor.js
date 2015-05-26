@@ -258,7 +258,7 @@ RUR.we.show_world_info = function () {
     // when the user clicks on the canvas at that grid position.
     // enabled in doc_ready.js
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
-    var topic, no_object;
+    var topic, no_object, r, robot, robots;
 
     $("#World-info").dialog("open");
     position = RUR.we.calculate_grid_position();
@@ -266,6 +266,28 @@ RUR.we.show_world_info = function () {
     y = position[1];
     coords = x + "," + y;
     information = "x = " + x + ", y = " + y;
+
+    robots = RUR.current_world.robots;
+    for (r=0; r<robots.length; r++){
+        if (robots[r].x == x && robots[r].y == y) {
+            robot = robots[r];
+            no_object = true;
+            for (obj in robot.objects){
+                if (robot.objects.hasOwnProperty(obj)) {
+                    if (no_object) {
+                        no_object = false;
+                        information += "<br><br><b>" + RUR.translate("A robot located here carries:") + "</b>"
+                    }
+                    information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
+                }
+            }
+            if (no_object){
+                information += "<br><br><b>" + RUR.translate("A robot located here has no objects.") + "</b>"
+            }
+        }
+    }
+
+
     tile = RUR.control.get_tile_at_position(x, y);
     topic = true;
     if (tile){
