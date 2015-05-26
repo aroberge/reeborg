@@ -9,6 +9,7 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     var tile;
+
     if (!RUR.control.front_is_clear(robot, true)) {
         throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
     }
@@ -81,24 +82,68 @@ RUR.control.done = function () {
 };
 
 RUR.control.put = function(robot, arg){
+    var translated_arg, objects_carried, obj_type, all_objects;
     RUR.control.sound_id = "#put-sound";
 
-    arg = RUR.translate_to_english(arg);
-    if (["triangle", "square", "star"].indexOf(arg) === -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
+    if (arg != undefined) {
+        translated_arg = RUR.translate_to_english(arg);
+        if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
+            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
+        }
     }
-    if (robot[RUR.translate(arg)] === 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape:arg}));
-    } else if (RUR.control.object_here(robot, true) !== 0) {
-        throw new RUR.ReeborgError(RUR.translate("There is already something here."));
+
+    objects_carried = robot.objects;
+    all_objects = [];
+    for (obj_type in objects_carried) {
+        if (objects_carried.hasOwnProperty(obj_type)) {
+            all_objects.push(obj_type);
+        }
     }
-    robot[RUR.translate(arg)] -= 1;
-    RUR.control._put_object(robot, arg);
+    if (all_objects.length == 0){
+        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape: RUR.translate("object")}));
+    }
+    if (arg != undefined) {
+        if (robot.objects[arg] == undefined) {
+            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape:arg}));
+        }  else {
+            RUR.control._robot_put_down_object(robot, translated_arg);
+        }
+    }  else {
+        if (all_objects.length == 0){
+            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape: RUR.translate("object")}));
+        } else if (all_objects.length > 1){
+             throw new RUR.ReeborgError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
+        } else {
+            RUR.control._robot_put_down_object(robot);
+        }
+    }
 };
 
-RUR.control._put_object = function (robot, obj) {
+RUR.control._robot_put_down_object = function (robot, obj) {
+    var objects_carried, coords;
+    if (obj == undefined){
+        objects_carried = robot.objects;
+        for (obj_type in objects_carried) {
+            if (objects_carried.hasOwnProperty(obj_type)) {
+                obj = obj_type;
+            }
+        }
+    }
+    if (robot.objects != "infinite") {
+        robot.objects[obj] -= 1;
+        if (robot.objects[obj] == 0) {
+            delete robot.objects[obj];
+        }
+    }
+
     RUR.we.ensure_key_exist(RUR.current_world, "objects");
-    RUR.current_world.objects[robot.x + "," + robot.y] = obj;
+    coords = robot.x + "," + robot.y;
+    RUR.we.ensure_key_exist(RUR.current_world.objects, coords);
+    if (RUR.current_world.objects[coords][obj] == undefined) {
+        RUR.current_world.objects[coords][obj] = 1;
+    } else {
+        RUR.current_world.objects[coords][obj] += 1;
+    }
     RUR.rec.record_frame("debug", "RUR.control._put_object");
 };
 
@@ -109,7 +154,7 @@ RUR.control.take = function(robot, arg){
 
     if (arg != undefined) {
         translated_arg = RUR.translate_to_english(arg);
-        if (["token", "triangle", "square", "star"].indexOf(translated_arg) == -1){
+        if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
             throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
     }
@@ -133,12 +178,11 @@ RUR.control.take = function(robot, arg){
 RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     var objects_here, coords;
 
-    console.dir(robot);
     coords = robot.x + "," + robot.y;
-    objects_here = RUR.current_world.objects[coords];
-    objects_here[obj] -= 1;
-    if (objects_here[obj] == 0){
-        delete objects_here[obj];
+    RUR.current_world.objects[coords][obj] -= 1;
+
+    if (RUR.current_world.objects[coords][obj] == 0){
+        delete RUR.current_world.objects[coords][obj];
         if (!RUR.control.object_here(robot)){
             delete RUR.current_world.objects[coords];
         }

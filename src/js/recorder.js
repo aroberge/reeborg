@@ -144,6 +144,7 @@ RUR.rec.display_frame = function () {
         $(frame.output.element).append(frame.output.message);
         $("#Reeborg-writes").dialog("open");
     }
+
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
         RUR.control.play_sound(frame.sound_id);

@@ -6,6 +6,8 @@
 /*globals $, RUR */
 
 RUR.objects = {};
+RUR.objects.known_objects = []
+
 
 RUR.objects.token = {};
 RUR.objects.token.image = new Image();
@@ -22,6 +24,8 @@ RUR.objects.token.image_goal.onload = function () {
         RUR.vis_world.draw_goal();
     }
 };
+RUR.objects.known_objects.push("token");
+
 
 RUR.objects.star = {};
 RUR.objects.star.image = new Image();
@@ -38,7 +42,7 @@ RUR.objects.star.image_goal.onload = function () {
         RUR.vis_world.draw_goal();
     }
 };
-
+RUR.objects.known_objects.push("star");
 
 RUR.objects.triangle = {};
 RUR.objects.triangle.image = new Image();
@@ -55,6 +59,8 @@ RUR.objects.triangle.image_goal.onload = function () {
         RUR.vis_world.draw_goal();
     }
 };
+RUR.objects.known_objects.push("triangle");
+
 
 RUR.objects.square = {};
 RUR.objects.square.image = new Image();
@@ -71,3 +77,4 @@ RUR.objects.square.image_goal.onload = function () {
         RUR.vis_world.draw_goal();
     }
 };
+RUR.objects.known_objects.push("square");

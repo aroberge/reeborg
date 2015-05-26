@@ -13,7 +13,7 @@ RUR.runner.interpreted = false;
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (!RUR.runner.interpreted) {
-        RUR.vis_world.select_initial_values();
+//        RUR.vis_world.select_initial_values();
         src = editor.getValue();
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);

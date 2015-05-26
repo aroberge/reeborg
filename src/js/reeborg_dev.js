@@ -121,6 +121,7 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     var tile;
+
     if (!RUR.control.front_is_clear(robot, true)) {
         throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
     }
@@ -193,24 +194,70 @@ RUR.control.done = function () {
 };
 
 RUR.control.put = function(robot, arg){
+    var translated_arg, objects_carried, obj_type, all_objects;
     RUR.control.sound_id = "#put-sound";
 
-    arg = RUR.translate_to_english(arg);
-    if (["triangle", "square", "star"].indexOf(arg) === -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
+    console.log("put arg=", arg);
+    if (arg != undefined) {
+        translated_arg = RUR.translate_to_english(arg);
+        console.log("put translated_arg = ", translated_arg);
+        if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
+            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
+        }
     }
-    if (robot[RUR.translate(arg)] === 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape:arg}));
-    } else if (RUR.control.object_here(robot, true) !== 0) {
-        throw new RUR.ReeborgError(RUR.translate("There is already something here."));
+
+    objects_carried = robot.objects;
+    all_objects = [];
+    for (obj_type in objects_carried) {
+        if (objects_carried.hasOwnProperty(obj_type)) {
+            all_objects.push(obj_type);
+        }
     }
-    robot[RUR.translate(arg)] -= 1;
-    RUR.control._put_object(robot, arg);
+    if (all_objects.length == 0){
+        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape: RUR.translate("object")}));
+    }
+    if (arg != undefined) {
+        if (robot.objects[arg] == undefined) {
+            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape:arg}));
+        }  else {
+            RUR.control._robot_put_down_object(robot, translated_arg);
+        }
+    }  else {
+        if (all_objects.length == 0){
+            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape: RUR.translate("object")}));
+        } else if (all_objects.length > 1){
+             throw new RUR.ReeborgError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
+        } else {
+            RUR.control._robot_put_down_object(robot);
+        }
+    }
 };
 
-RUR.control._put_object = function (robot, obj) {
+RUR.control._robot_put_down_object = function (robot, obj) {
+    var objects_carried, coords;
+    if (obj == undefined){
+        objects_carried = robot.objects;
+        for (obj_type in objects_carried) {
+            if (objects_carried.hasOwnProperty(obj_type)) {
+                obj = obj_type;
+            }
+        }
+    }
+    if (robot.objects != "infinite") {
+        robot.objects[obj] -= 1;
+        if (robot.objects[obj] == 0) {
+            delete robot.objects[obj];
+        }
+    }
+
     RUR.we.ensure_key_exist(RUR.current_world, "objects");
-    RUR.current_world.objects[robot.x + "," + robot.y] = obj;
+    coords = robot.x + "," + robot.y;
+    RUR.we.ensure_key_exist(RUR.current_world.objects, coords);
+    if (RUR.current_world.objects[coords][obj] == undefined) {
+        RUR.current_world.objects[coords][obj] = 1;
+    } else {
+        RUR.current_world.objects[coords][obj] += 1;
+    }
     RUR.rec.record_frame("debug", "RUR.control._put_object");
 };
 
@@ -221,7 +268,7 @@ RUR.control.take = function(robot, arg){
 
     if (arg != undefined) {
         translated_arg = RUR.translate_to_english(arg);
-        if (["token", "triangle", "square", "star"].indexOf(translated_arg) == -1){
+        if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
             throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
     }
@@ -245,12 +292,11 @@ RUR.control.take = function(robot, arg){
 RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     var objects_here, coords;
 
-    console.dir(robot);
     coords = robot.x + "," + robot.y;
-    objects_here = RUR.current_world.objects[coords];
-    objects_here[obj] -= 1;
-    if (objects_here[obj] == 0){
-        delete objects_here[obj];
+    RUR.current_world.objects[coords][obj] -= 1;
+
+    if (RUR.current_world.objects[coords][obj] == 0){
+        delete RUR.current_world.objects[coords][obj];
         if (!RUR.control.object_here(robot)){
             delete RUR.current_world.objects[coords];
         }
@@ -1868,6 +1914,8 @@ RUR.editorUpdateHints = function() {
 /*globals $, RUR */
 
 RUR.objects = {};
+RUR.objects.known_objects = []
+
 
 RUR.objects.token = {};
 RUR.objects.token.image = new Image();
@@ -1884,6 +1932,8 @@ RUR.objects.token.image_goal.onload = function () {
         RUR.vis_world.draw_goal();
     }
 };
+RUR.objects.known_objects.push("token");
+
 
 RUR.objects.star = {};
 RUR.objects.star.image = new Image();
@@ -1900,7 +1950,7 @@ RUR.objects.star.image_goal.onload = function () {
         RUR.vis_world.draw_goal();
     }
 };
-
+RUR.objects.known_objects.push("star");
 
 RUR.objects.triangle = {};
 RUR.objects.triangle.image = new Image();
@@ -1917,6 +1967,8 @@ RUR.objects.triangle.image_goal.onload = function () {
         RUR.vis_world.draw_goal();
     }
 };
+RUR.objects.known_objects.push("triangle");
+
 
 RUR.objects.square = {};
 RUR.objects.square.image = new Image();
@@ -1932,7 +1984,9 @@ RUR.objects.square.image_goal.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_goal();
     }
-};/* Author: André Roberge
+};
+RUR.objects.known_objects.push("square");
+/* Author: André Roberge
    License: MIT
 
    Defining base name space and various constants.
@@ -2078,6 +2132,7 @@ RUR.rec.display_frame = function () {
         $(frame.output.element).append(frame.output.message);
         $("#Reeborg-writes").dialog("open");
     }
+
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
         RUR.control.play_sound(frame.sound_id);
@@ -2230,7 +2285,9 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot.x = x || 1;
     robot.y = y || 1;
     robot.objects = {};
-    robot.objects.token = tokens || 0;
+    if (tokens != undefined){
+        robot.objects.token = tokens;
+    }
 
     if (orientation === undefined){
         robot.orientation = RUR.EAST;
@@ -2281,7 +2338,7 @@ RUR.runner.interpreted = false;
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (!RUR.runner.interpreted) {
-        RUR.vis_world.select_initial_values();
+//        RUR.vis_world.select_initial_values();
         src = editor.getValue();
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
@@ -3718,54 +3775,58 @@ RUR.vis_world.refresh = function (initial) {
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_tiles(RUR.current_world.tiles);
     RUR.vis_world.draw_all_objects(RUR.current_world.objects);
-    if (initial !== undefined && RUR.current_world.robots !== undefined &&
-            RUR.current_world.robots[0] !== undefined &&
-            RUR.current_world.robots[0].start_positions !== undefined &&
-            RUR.current_world.robots[0].start_positions.length > 1) {
-            robot = RUR.current_world.robots[0];
-        for (i=0; i < robot.start_positions.length; i++){
-            clone = JSON.parse(JSON.stringify(robot));
-            clone.x = robot.start_positions[i][0];
-            clone.y = robot.start_positions[i][1];
-            clone._prev_x = clone.x;
-            clone._prev_y = clone.y;
-            clones.push(clone);
-        }
-        RUR.ROBOT_CTX.save();
-        RUR.ROBOT_CTX.globalAlpha = 0.4;
-        RUR.vis_world.draw_robots(clones);
-        RUR.ROBOT_CTX.restore();
-    } else {
+    // if (initial !== undefined && RUR.current_world.robots !== undefined &&
+    //         RUR.current_world.robots[0] !== undefined &&
+    //         RUR.current_world.robots[0].start_positions !== undefined &&
+    //         RUR.current_world.robots[0].start_positions.length > 1) {
+    //         robot = RUR.current_world.robots[0];
+    //     for (i=0; i < robot.start_positions.length; i++){
+    //         clone = JSON.parse(JSON.stringify(robot));
+    //         clone.x = robot.start_positions[i][0];
+    //         clone.y = robot.start_positions[i][1];
+    //         clone._prev_x = clone.x;
+    //         clone._prev_y = clone.y;
+    //         clones.push(clone);
+    //     }
+    //     RUR.ROBOT_CTX.save();
+    //     RUR.ROBOT_CTX.globalAlpha = 0.4;
+    //     RUR.vis_world.draw_robots(clones);
+    //     RUR.ROBOT_CTX.restore();
+    // } else {
         RUR.vis_world.draw_robots(RUR.current_world.robots);
-    }
+    // }
 };
 
-RUR.vis_world.select_initial_values = function() {
-    // select initial values if required i.e. when some are specified as
-    // being chosen randomly
-    "use strict";
-    var k, keys, min_, max_, robot, position, goal;
+// RUR.vis_world.select_initial_values = function() {
+//     // select initial values if required i.e. when some are specified as
+//     // being chosen randomly
+//     "use strict";
+//     var k, keys, min_, max_, robot, position, goal;
 
 
-    robot = RUR.current_world.robots[0];
-    if (robot === undefined){
-        RUR.rec.record_frame();
-        return;
-    }
-    if (robot.orientation == -1){
-        RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
-        RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
-    }
+    // robot = RUR.current_world.robots[0];
+    // if (robot === undefined){
+    //     RUR.rec.record_frame();
+    //     return;
+    // }
+    // if (robot.orientation == -1){
+    //     RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
+    //     RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
+    // }
 
-    if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
-        position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
-        RUR.current_world.robots[0].x = position[0];
-        RUR.current_world.robots[0].y = position[1];
-        RUR.current_world.robots[0]._prev_x = RUR.current_world.robots[0].x;
-        RUR.current_world.robots[0]._prev_y = RUR.current_world.robots[0].y;
-    }
-    RUR.rec.record_frame();
-};/* Author: André Roberge
+    // if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
+    //     position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
+    //     RUR.current_world.robots[0].x = position[0];
+    //     RUR.current_world.robots[0].y = position[1];
+    //     RUR.current_world.robots[0]._prev_x = RUR.current_world.robots[0].x;
+    //     RUR.current_world.robots[0]._prev_y = RUR.current_world.robots[0].y;
+    // }
+//     RUR.rec.record_frame();
+// };
+
+
+
+/* Author: André Roberge
    License: MIT
  */
 

@@ -13,7 +13,9 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot.x = x || 1;
     robot.y = y || 1;
     robot.objects = {};
-    robot.objects.token = tokens || 0;
+    if (tokens != undefined){
+        robot.objects.token = tokens;
+    }
 
     if (orientation === undefined){
         robot.orientation = RUR.EAST;

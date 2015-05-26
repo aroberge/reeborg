@@ -336,51 +336,54 @@ RUR.vis_world.refresh = function (initial) {
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_tiles(RUR.current_world.tiles);
     RUR.vis_world.draw_all_objects(RUR.current_world.objects);
-    if (initial !== undefined && RUR.current_world.robots !== undefined &&
-            RUR.current_world.robots[0] !== undefined &&
-            RUR.current_world.robots[0].start_positions !== undefined &&
-            RUR.current_world.robots[0].start_positions.length > 1) {
-            robot = RUR.current_world.robots[0];
-        for (i=0; i < robot.start_positions.length; i++){
-            clone = JSON.parse(JSON.stringify(robot));
-            clone.x = robot.start_positions[i][0];
-            clone.y = robot.start_positions[i][1];
-            clone._prev_x = clone.x;
-            clone._prev_y = clone.y;
-            clones.push(clone);
-        }
-        RUR.ROBOT_CTX.save();
-        RUR.ROBOT_CTX.globalAlpha = 0.4;
-        RUR.vis_world.draw_robots(clones);
-        RUR.ROBOT_CTX.restore();
-    } else {
+    // if (initial !== undefined && RUR.current_world.robots !== undefined &&
+    //         RUR.current_world.robots[0] !== undefined &&
+    //         RUR.current_world.robots[0].start_positions !== undefined &&
+    //         RUR.current_world.robots[0].start_positions.length > 1) {
+    //         robot = RUR.current_world.robots[0];
+    //     for (i=0; i < robot.start_positions.length; i++){
+    //         clone = JSON.parse(JSON.stringify(robot));
+    //         clone.x = robot.start_positions[i][0];
+    //         clone.y = robot.start_positions[i][1];
+    //         clone._prev_x = clone.x;
+    //         clone._prev_y = clone.y;
+    //         clones.push(clone);
+    //     }
+    //     RUR.ROBOT_CTX.save();
+    //     RUR.ROBOT_CTX.globalAlpha = 0.4;
+    //     RUR.vis_world.draw_robots(clones);
+    //     RUR.ROBOT_CTX.restore();
+    // } else {
         RUR.vis_world.draw_robots(RUR.current_world.robots);
-    }
+    // }
 };
 
-RUR.vis_world.select_initial_values = function() {
-    // select initial values if required i.e. when some are specified as
-    // being chosen randomly
-    "use strict";
-    var k, keys, min_, max_, robot, position, goal;
+// RUR.vis_world.select_initial_values = function() {
+//     // select initial values if required i.e. when some are specified as
+//     // being chosen randomly
+//     "use strict";
+//     var k, keys, min_, max_, robot, position, goal;
 
 
-    robot = RUR.current_world.robots[0];
-    if (robot === undefined){
-        RUR.rec.record_frame();
-        return;
-    }
-    if (robot.orientation == -1){
-        RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
-        RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
-    }
+    // robot = RUR.current_world.robots[0];
+    // if (robot === undefined){
+    //     RUR.rec.record_frame();
+    //     return;
+    // }
+    // if (robot.orientation == -1){
+    //     RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
+    //     RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
+    // }
 
-    if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
-        position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
-        RUR.current_world.robots[0].x = position[0];
-        RUR.current_world.robots[0].y = position[1];
-        RUR.current_world.robots[0]._prev_x = RUR.current_world.robots[0].x;
-        RUR.current_world.robots[0]._prev_y = RUR.current_world.robots[0].y;
-    }
-    RUR.rec.record_frame();
-};
+    // if (robot.start_positions !== undefined && robot.start_positions.length > 1) {
+    //     position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
+    //     RUR.current_world.robots[0].x = position[0];
+    //     RUR.current_world.robots[0].y = position[1];
+    //     RUR.current_world.robots[0]._prev_x = RUR.current_world.robots[0].x;
+    //     RUR.current_world.robots[0]._prev_y = RUR.current_world.robots[0].y;
+    // }
+//     RUR.rec.record_frame();
+// };
+
+
+
