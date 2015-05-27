@@ -443,3 +443,11 @@ RUR.control.get_tile_at_position = function (x, y) {
     if (RUR.current_world.tiles[coords] === undefined) return false;
     return RUR.tiles[RUR.current_world.tiles[coords]];
 };
+
+RUR.control.set_max_nb_robots = function(nb){
+    if (RUR.MAX_NB_ROBOTS != undefined){
+        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the maximum number of robots!"));
+    } else {
+        RUR.MAX_NB_ROBOTS = nb;
+    }
+};

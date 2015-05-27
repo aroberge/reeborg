@@ -61,3 +61,7 @@ RUR._repeat_ = function (f, n) {
 RUR._set_max_steps_ = function(n){
     RUR.MAX_STEPS_ = n;
 };
+
+RUR._set_max_nb_robots_ = function(n){
+  RUR.control.set_max_nb_robots(n);
+};

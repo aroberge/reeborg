@@ -85,6 +85,7 @@ RUR.reset_definitions = function () {
     // defined in ui.js
     select_world = RUR.ui.select_world;
     select_challenge = RUR.ui.select_challenge;
+    set_max_nb_robots = RUR._set_max_nb_robots_;
 
 
     UsedRobot = function (x, y, orientation, tokens)  {

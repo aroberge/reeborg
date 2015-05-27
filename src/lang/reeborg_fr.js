@@ -79,6 +79,7 @@ RUR.reset_definitions = function () {
     // defined in ui.js
     selectionne_monde = RUR.ui.select_world;
     selectionne_defi = RUR.ui.select_challenge;
+    nombre_de_robots = RUR._set_max_nb_robots_;
 
     // The following are for OOP programming in Javascript and CoffeeScript
 

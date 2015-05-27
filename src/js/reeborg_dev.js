@@ -61,6 +61,10 @@ RUR._repeat_ = function (f, n) {
 RUR._set_max_steps_ = function(n){
     RUR.MAX_STEPS_ = n;
 };
+
+RUR._set_max_nb_robots_ = function(n){
+  RUR.control.set_max_nb_robots(n);
+};
 /* Author: André Roberge
    License: MIT
 
@@ -559,6 +563,14 @@ RUR.control.get_tile_at_position = function (x, y) {
     if (RUR.current_world.tiles === undefined) return false;
     if (RUR.current_world.tiles[coords] === undefined) return false;
     return RUR.tiles[RUR.current_world.tiles[coords]];
+};
+
+RUR.control.set_max_nb_robots = function(nb){
+    if (RUR.MAX_NB_ROBOTS != undefined){
+        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the maximum number of robots!"));
+    } else {
+        RUR.MAX_NB_ROBOTS = nb;
+    }
 };/* Author: André Roberge
    License: MIT
  */
@@ -4072,6 +4084,10 @@ RUR.world.reset = function () {
 RUR.world.add_robot = function (robot) {
     if (RUR.current_world.robots === undefined){
         RUR.current_world.robots = [];
+    }
+    if (RUR.MAX_NB_ROBOTS != undefined &&
+        RUR.MAX_NB_ROBOTS == RUR.current_world.robots.length){
+        throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
     }
     RUR.current_world.robots.push(robot);
     RUR.rec.record_frame();
