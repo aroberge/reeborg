@@ -4110,16 +4110,16 @@ RUR.we.edit_world = function  () {
             RUR.we.place_robot();
             break;
         case "world-tokens":
-            RUR.we.add_objects("token");
+            RUR.we._add_object("token");
             break;
         case "world-star":
-            RUR.we.add_objects("star");
+            RUR.we._add_object("star");
             break;
         case "world-triangle":
-            RUR.we.add_objects("triangle");
+            RUR.we._add_object("triangle");
             break;
         case "world-square":
-            RUR.we.add_objects("square");
+            RUR.we._add_object("square");
             break;
         case "world-mud":
             RUR.we.toggle_tile("mud");
@@ -4716,19 +4716,26 @@ RUR.we.show_pre_post_code = function() {
                            "</pre>post-code:<pre>" + RUR.current_world.post_code + "</pre>");
 }
 
-RUR.we.add_objects = function (specific_object){
+
+RUR.we._add_object = function (specific_object){
     "use strict";
-    var position, x, y, coords, query;
+    var position, x, y, query;
     position = RUR.we.calculate_grid_position();
     x = position[0];
     y = position[1];
-    coords = x + "," + y;
-
     query = prompt(RUR.translate("Enter number of objects desired at that location.").supplant({obj: specific_object}));
+    RUR.we.add_object(specific_object, x, y, query)
+};
+
+
+RUR.we.add_object = function (specific_object, x, y, nb){
+    "use strict";
+    var coords, nb;
+    coords = x + "," + y;
 
     RUR.we.ensure_key_exist(RUR.current_world, "objects");
     RUR.we.ensure_key_exist(RUR.current_world.objects, coords);
-    if (query==0) {
+    if (nb==0) {
         delete RUR.current_world.objects[coords][specific_object];
         if (Object.keys(RUR.current_world.objects).length === 0){
             delete RUR.current_world.objects[coords];
@@ -4737,7 +4744,7 @@ RUR.we.add_objects = function (specific_object){
             delete RUR.current_world.objects;
         }
     } else {
-        RUR.current_world.objects[coords][specific_object] = query;
+        RUR.current_world.objects[coords][specific_object] = nb;
     }
 };
 
