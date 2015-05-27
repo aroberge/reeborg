@@ -266,6 +266,7 @@ padding:3px;}
     vertical-align: top;
     background-color: white;
     border: 1px solid blue;
+    z-index: 2;
 }
 
 #edit-world-panel h1 {
@@ -273,7 +274,8 @@ padding:3px;}
 }
 #world-panel { background-color: white;}
 
-#world-panel.active, #editor-panel.active, #edit-world-panel.active {display: inline-block; z-index: 1}
+#world-panel.active, #editor-panel.active {display: inline-block; z-index: 1;}
+#edit-world-panel.active {display: inline-block; z-index: 2; margin-top: -300px;}
 
 #stdout {margin-top: 0; background-color: cornsilk;}
 #Reeborg-writes {background-color: white;}

@@ -150,6 +150,45 @@
     </div>
 </div>
 
+<div id="editor-panel" class="active" >
+  <input type="file" id="fileInput" style="display:none;">
+  <div id="tabs">
+    <ul>
+      <li><a id="editor-link" href="#editor">Code Python</a></li>
+
+      <button id="highlight" class="blue-gradient float-right" title="surligner" onclick="RUR.ui.highlight()">
+        <img src="src/images/highlight.png" alt="surligner">
+        <img src="src/images/ok.png" alt="ok" id="ok-image">
+        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
+      </button>
+      <li><a id="library-link" href="#library">Biblio.</a></li>
+
+    </ul>
+    <div id="editor">
+      <textarea id="code" name="code">avance()</textarea>
+
+    </div>
+    <div id="library">
+      <textarea id="library-code" name="library-code">
+        /* Désolé, si vous voyez ceci, cela veut dire
+        que votre navigateur est incapable d'utiliser
+        la bibliothèque ou les notes de la façon dont
+        elles ont été conçues.
+
+        Vous pouvez écrire ici ... mais rien ne sera
+        sauvegardé la prochaine fois que vous reviendrez
+        sur ce site.
+
+        Avez-vous essayé Firefox ou Chrome ? */
+      </textarea>
+    </div>
+  </div>
+  <div id="highlight-impossible" style="display:none; background-color:gold;">
+    Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le
+    surlignage du code dans l'éditeur.
+  </div>
+</div>
+
 
 <div id="edit-world-panel">
     <h1 class="blue-gradient">Créez vos propres mondes !</h1>
@@ -229,46 +268,6 @@
       <span id="code-copied"></span>
     </div>
 
-</div>
-
-
-<div id="editor-panel" class="active" >
-  <input type="file" id="fileInput" style="display:none;">
-  <div id="tabs">
-    <ul>
-      <li><a id="editor-link" href="#editor">Code Python</a></li>
-
-      <button id="highlight" class="blue-gradient float-right" title="surligner" onclick="RUR.ui.highlight()">
-        <img src="src/images/highlight.png" alt="surligner">
-        <img src="src/images/ok.png" alt="ok" id="ok-image">
-        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
-      </button>
-      <li><a id="library-link" href="#library">Biblio.</a></li>
-
-    </ul>
-    <div id="editor">
-      <textarea id="code" name="code">avance()</textarea>
-
-    </div>
-    <div id="library">
-      <textarea id="library-code" name="library-code">
-        /* Désolé, si vous voyez ceci, cela veut dire
-        que votre navigateur est incapable d'utiliser
-        la bibliothèque ou les notes de la façon dont
-        elles ont été conçues.
-
-        Vous pouvez écrire ici ... mais rien ne sera
-        sauvegardé la prochaine fois que vous reviendrez
-        sur ce site.
-
-        Avez-vous essayé Firefox ou Chrome ? */
-      </textarea>
-    </div>
-  </div>
-  <div id="highlight-impossible" style="display:none; background-color:gold;">
-    Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le
-    surlignage du code dans l'éditeur.
-  </div>
 </div>
 
 
