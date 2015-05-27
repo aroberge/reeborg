@@ -298,8 +298,7 @@ import common_def
 from reeborg_fr import *  # will insert the relevant help information
 
 def translate_python(src, highlight, pre_code='', post_code=''):
-    import biblio
-    common_def.generic_translate_python(src, biblio, "from reeborg_fr import *", highlight, pre_code=pre_code, post_code=post_code)
+    common_def.generic_translate_python(src, "biblio", "from reeborg_fr import *", highlight, pre_code=pre_code, post_code=post_code)
 
 window['translate_python'] = translate_python
 </script>
