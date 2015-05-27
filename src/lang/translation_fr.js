@@ -93,6 +93,7 @@ RUR.translation["Goal: no object left in world."] = "But: aucun objet qui reste 
 RUR.translation["Enter number of objects desired at that location."] = "Cliquez sur le monde pour fixer le nombre d'objet '{obj}' désiré à cet endroit; (utilisez a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
 RUR.translation["Objects found here:"] = "Objets trouvés ici:";
 RUR.translation["Description"] = "Description";
+RUR.translation["A robot located here carries no objects."] = "A robot situé à cet endroit ne transporte aucun objet.";
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";

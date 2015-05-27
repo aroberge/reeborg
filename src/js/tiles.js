@@ -53,6 +53,7 @@ RUR.tiles.gravel.image.onload = function () {
 
 RUR.tiles.water = {};
 RUR.tiles.water.fatal = true;
+RUR.tiles.water.detectable = true;
 RUR.tiles.water.message = RUR.translate("I'm in water!");
 RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will drawn if it moves to this location.")
 RUR.tiles.water.image = new Image();

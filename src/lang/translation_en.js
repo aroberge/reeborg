@@ -100,6 +100,7 @@ RUR.translation["Goal: no object left in world."] = "Goal: no object left in wor
 RUR.translation["Enter number of objects desired at that location."] = "Click on world to set number {obj}; (use a-b to indicate random integer values from a to b inclusively).";
 RUR.translation["Objects found here:"] = "Objects found here:";
 RUR.translation["Description"] = "Description";
+RUR.translation["A robot located here carries no objects."] = "A robot located here carries no objects.";
 
 
 // in storage.js

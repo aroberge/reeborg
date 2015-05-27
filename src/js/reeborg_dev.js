@@ -131,7 +131,7 @@ RUR.control = {};
 RUR.control.move = function (robot) {
     var tile;
 
-    if (!RUR.control.front_is_clear(robot, true)) {
+    if (RUR.control.wall_in_front(robot, true)) {
         throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
     }
     if ((robot.y === RUR.ROWS && robot.orientation === RUR.NORTH) ||
@@ -381,46 +381,77 @@ RUR.control.build_wall = function (robot){
     RUR.rec.record_frame("debug", "RUR.control.build_wall");
 };
 
-RUR.control.front_is_clear = function(robot, flag){
+
+RUR.control.wall_in_front = function (robot, flag) {
     var coords;
     if (!flag) {
-        RUR.rec.record_frame("debug", "RUR.control.front_is_clear");
+        RUR.rec.record_frame("debug", "RUR.control.wall_in_front");
     }
     switch (robot.orientation){
     case RUR.EAST:
         coords = robot.x + "," + robot.y;
         if (RUR.control.is_wall_at(coords, "east")) {
-            return false;
+            return true;
         }
         break;
     case RUR.NORTH:
         coords = robot.x + "," + robot.y;
         if (RUR.control.is_wall_at(coords, "north")) {
-            return false;
+            return true;
         }
         break;
     case RUR.WEST:
         if (robot.x===1){
-            return false;
+            return true;
         } else {
             coords = (robot.x-1) + "," + robot.y; // do math first before building strings
             if (RUR.control.is_wall_at(coords, "east")) {
-                return false;
+                return true;
             }
         }
         break;
     case RUR.SOUTH:
         if (robot.y===1){
-            return false;
+            return true;
         } else {
             coords = robot.x + "," + (robot.y-1);  // do math first before building strings
             if (RUR.control.is_wall_at(coords, "north")) {
-                return false;
+                return true;
             }
         }
         break;
     default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.front_is_clear().");
+        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.wall_in_front().");
+    }
+    return false;
+}
+
+RUR.control.tile_in_front = function (robot) {
+
+    switch (robot.orientation){
+    case RUR.EAST:
+        return RUR.control.get_tile_at_position(robot.x+1, robot.y);
+    case RUR.NORTH:
+        return RUR.control.get_tile_at_position(robot.x, robot.y+1);
+    case RUR.WEST:
+        return RUR.control.get_tile_at_position(robot.x-1, robot.y);
+    case RUR.SOUTH:
+        return RUR.control.get_tile_at_position(robot.x, robot.y-1);
+    default:
+        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.tile_in_front().");
+    }
+}
+
+RUR.control.front_is_clear = function(robot, flag){
+    var tile;
+    if( RUR.control.wall_in_front(robot, flag)) {
+        return false;
+    }
+    tile = RUR.control.tile_in_front(robot);
+    if (tile) {
+        if (tile.detectable && tile.fatal){
+            return false;
+        }
     }
     return true;
 };
@@ -3012,6 +3043,7 @@ RUR.tiles.gravel.image.onload = function () {
 
 RUR.tiles.water = {};
 RUR.tiles.water.fatal = true;
+RUR.tiles.water.detectable = true;
 RUR.tiles.water.message = RUR.translate("I'm in water!");
 RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will drawn if it moves to this location.")
 RUR.tiles.water.image = new Image();
