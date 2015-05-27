@@ -446,7 +446,7 @@ RUR.control.get_tile_at_position = function (x, y) {
 
 RUR.control.set_max_nb_robots = function(nb){
     if (RUR.MAX_NB_ROBOTS != undefined){
-        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the maximum number of robots!"));
+        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
     } else {
         RUR.MAX_NB_ROBOTS = nb;
     }
