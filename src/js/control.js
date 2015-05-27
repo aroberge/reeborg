@@ -151,7 +151,6 @@ RUR.control._robot_put_down_object = function (robot, obj) {
 RUR.control.take = function(robot, arg){
     var translated_arg, objects_here;
     RUR.control.sound_id = "#take-sound";
-
     if (arg != undefined) {
         translated_arg = RUR.translate_to_english(arg);
         if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
@@ -166,7 +165,7 @@ RUR.control.take = function(robot, arg){
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, translated_arg);
         }
-    }  else if (objects_here.length == 0){
+    }  else if (objects_here.length == 0 || !objects_here){
         throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));

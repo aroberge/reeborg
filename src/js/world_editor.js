@@ -47,16 +47,16 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_goal_wall();
             break;
         case "goal-tokens":
-            RUR.we.add_goal_objects("token");
+            RUR.we._add_goal_objects("token");
             break;
         case "goal-star":
-            RUR.we.add_goal_objects("star");
+            RUR.we._add_goal_objects("star");
             break;
         case "goal-triangle":
-            RUR.we.add_goal_objects("triangle");
+            RUR.we._add_goal_objects("triangle");
             break;
         case "goal-square":
-            RUR.we.add_goal_objects("square");
+            RUR.we._add_goal_objects("square");
             break;
         case "goal-no-objects":
             RUR.we.set_goal_no_objects();
@@ -631,7 +631,7 @@ RUR.we._add_object = function (specific_object){
 
 RUR.we.add_object = function (specific_object, x, y, nb){
     "use strict";
-    var coords, nb;
+    var coords;
     coords = x + "," + y;
 
     RUR.we.ensure_key_exist(RUR.current_world, "objects");
@@ -650,7 +650,7 @@ RUR.we.add_object = function (specific_object, x, y, nb){
 };
 
 
-RUR.we.add_goal_objects = function (specific_object){
+RUR.we._add_goal_objects = function (specific_object){
     "use strict";
     var position, x, y, coords, query;
     position = RUR.we.calculate_grid_position();
@@ -672,10 +672,19 @@ RUR.we.add_goal_objects = function (specific_object){
         }
     }
 
+    RUR.we.add_goal_objects(specific_object, x, y, query)
+};
+
+RUR.we.add_goal_objects = function (specific_object, x, y, nb){
+    "use strict";
+    var coords;
+
+    coords = x + "," + y;
+
     RUR.we.ensure_key_exist(RUR.current_world, "goal");
     RUR.we.ensure_key_exist(RUR.current_world.goal, "objects");
     RUR.we.ensure_key_exist(RUR.current_world.goal.objects, coords);
-    if (query==0) {
+    if (nb==0) {
         delete RUR.current_world.goal.objects[coords][specific_object];
         if (Object.keys(RUR.current_world.goal.objects).length === 0){
             delete RUR.current_world.goal.objects[coords];
@@ -687,7 +696,7 @@ RUR.we.add_goal_objects = function (specific_object){
             delete RUR.current_world.goal;
         }
     } else {
-        RUR.current_world.goal.objects[coords][specific_object] = query;
+        RUR.current_world.goal.objects[coords][specific_object] = nb;
     }
 };
 
