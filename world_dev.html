@@ -266,8 +266,8 @@ import common_def         # reassigns stdin and stdout
 from reeborg_en import *  # will insert the relevant help information
 
 def translate_python(src, highlight, pre_code='', post_code=''):
-    import my_lib
-    common_def.generic_translate_python(src, my_lib, "from reeborg_en import *",
+    #import my_lib
+    common_def.generic_translate_python(src, "my_lib", "from reeborg_en import *",
       highlight, pre_code=pre_code, post_code=post_code)
 
 window['translate_python'] = translate_python
