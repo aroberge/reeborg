@@ -239,10 +239,11 @@ RUR.vis_world.draw_all = function () {
     RUR.vis_world.draw_background();
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_goal();
-    RUR.vis_world.refresh("initial");
+    RUR.vis_world.refresh();
 };
 
 RUR.vis_world.clear_trace = function(){
+    // potentially useful as it can be called from a user's program.
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 };
 
@@ -314,49 +315,12 @@ RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
 };
 
 
-RUR.vis_world.refresh = function (initial) {
+RUR.vis_world.refresh = function () {
     "use strict";
     var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
 
-// TODO simplify this entire code
-// move selecting initial value to runner - when program is first compiled
-// add something like draw_changing  to redraw only the canvas that might be changing
-
-    if (initial !== undefined && RUR.current_world.goal !== undefined &&
-        RUR.current_world.goal.possible_positions !== undefined) {
-        goal = RUR.current_world.goal;
-        for (i=0; i < goal.possible_positions.length; i++){
-            goal.position.x = goal.possible_positions[i][0];
-            goal.position.y = goal.possible_positions[i][1];
-            RUR.vis_world.draw_goal();
-            //RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
-        }
-    } else {
-        if ( RUR.current_world.goal !== undefined && RUR.current_world.goal.possible_positions !== undefined &&
-            RUR.current_world.goal.possible_positions.length > 1) {
-            // erase all possible tiles for goal position by drawing them all white
-            // if needed this could be made more efficient by setting up a flag and not redoing while
-            // the program is running i.e. after the first frame ...
-            color1_temp = RUR.TARGET_TILE_COLOR;
-            color2_temp = RUR.ORIENTATION_TILE_COLOR;
-            RUR.TARGET_TILE_COLOR = "white";
-            RUR.ORIENTATION_TILE_COLOR = "white";
-            goal = RUR.current_world.goal;
-            position = {'x': goal.position.x, 'y': goal.position.y};
-            for (i=0; i < goal.possible_positions.length; i++){
-                goal.position.x = goal.possible_positions[i][0];
-                goal.position.y = goal.possible_positions[i][1];
-                RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
-            }
-            // restore colour and position, and then redraw all.
-            // note that some goal objects might have been placed on the possible positions,
-            // hence we must make sure to draw all the goals.
-            RUR.TARGET_TILE_COLOR = color1_temp;
-            RUR.ORIENTATION_TILE_COLOR = color2_temp;
-            goal.position = position;
-            RUR.vis_world.draw_goal();
-        }
-    }
+    // does not draw background
+    // does not clear trace
 
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_tiles(RUR.current_world.tiles);

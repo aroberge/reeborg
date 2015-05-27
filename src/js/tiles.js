@@ -15,7 +15,7 @@ RUR.tiles.mud.image = new Image();
 RUR.tiles.mud.image.src = 'src/images/mud.png';
 RUR.tiles.mud.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 
@@ -27,7 +27,7 @@ RUR.tiles.ice.image = new Image();
 RUR.tiles.ice.image.src = 'src/images/ice.png';
 RUR.tiles.ice.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 
@@ -37,7 +37,7 @@ RUR.tiles.grass.image.src = 'src/images/grass.png';
 RUR.tiles.grass.info = RUR.translate("Grass: usually safe.")
 RUR.tiles.grass.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 
@@ -47,7 +47,7 @@ RUR.tiles.gravel.image.src = 'src/images/gravel.png';
 RUR.tiles.gravel.info = RUR.translate("Gravel: usually safe.")
 RUR.tiles.gravel.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 
@@ -59,6 +59,6 @@ RUR.tiles.water.image = new Image();
 RUR.tiles.water.image.src = 'src/images/water.png';
 RUR.tiles.water.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };

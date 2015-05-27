@@ -567,7 +567,7 @@ RUR.control.get_tile_at_position = function (x, y) {
 
 RUR.control.set_max_nb_robots = function(nb){
     if (RUR.MAX_NB_ROBOTS != undefined){
-        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the maximum number of robots!"));
+        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
     } else {
         RUR.MAX_NB_ROBOTS = nb;
     }
@@ -1977,7 +1977,7 @@ RUR.objects.token.image_goal = new Image();
 RUR.objects.token.image_goal.src = 'src/images/token_goal.png';  // modified from above
 RUR.objects.token.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.objects.token.image_goal.onload = function () {
@@ -1995,7 +1995,7 @@ RUR.objects.star.image_goal = new Image();
 RUR.objects.star.image_goal.src = 'src/images/star_goal.png';  // modified from above
 RUR.objects.star.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.objects.star.image_goal.onload = function () {
@@ -2012,7 +2012,7 @@ RUR.objects.triangle.image_goal = new Image();
 RUR.objects.triangle.image_goal.src = 'src/images/triangle_goal.png';  // modified from above
 RUR.objects.triangle.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.objects.triangle.image_goal.onload = function () {
@@ -2030,7 +2030,7 @@ RUR.objects.square.image_goal = new Image();
 RUR.objects.square.image_goal.src = 'src/images/square_goal.png';  // modified from above
 RUR.objects.square.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.objects.square.image_goal.onload = function () {
@@ -2977,7 +2977,7 @@ RUR.tiles.mud.image = new Image();
 RUR.tiles.mud.image.src = 'src/images/mud.png';
 RUR.tiles.mud.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 
@@ -2989,7 +2989,7 @@ RUR.tiles.ice.image = new Image();
 RUR.tiles.ice.image.src = 'src/images/ice.png';
 RUR.tiles.ice.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 
@@ -2999,7 +2999,7 @@ RUR.tiles.grass.image.src = 'src/images/grass.png';
 RUR.tiles.grass.info = RUR.translate("Grass: usually safe.")
 RUR.tiles.grass.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 
@@ -3009,7 +3009,7 @@ RUR.tiles.gravel.image.src = 'src/images/gravel.png';
 RUR.tiles.gravel.info = RUR.translate("Gravel: usually safe.")
 RUR.tiles.gravel.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 
@@ -3021,7 +3021,7 @@ RUR.tiles.water.image = new Image();
 RUR.tiles.water.image.src = 'src/images/water.png';
 RUR.tiles.water.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };/* Author: André Roberge
    License: MIT
@@ -3443,7 +3443,7 @@ RUR.vis_robot.select_style = function (arg) {
     RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
     RUR.vis_robot.random_img = RUR.vis_robot.images[style].robot_random_img;
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 
     localStorage.setItem("robot_style", arg);
@@ -3455,27 +3455,27 @@ RUR.vis_robot.select_style(localStorage.getItem("robot_style"));
 
 RUR.vis_robot.e_img.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.vis_robot.w_img.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.vis_robot.n_img.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.vis_robot.s_img.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.vis_robot.random_img.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 
@@ -3808,10 +3808,11 @@ RUR.vis_world.draw_all = function () {
     RUR.vis_world.draw_background();
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_goal();
-    RUR.vis_world.refresh("initial");
+    RUR.vis_world.refresh();
 };
 
 RUR.vis_world.clear_trace = function(){
+    // potentially useful as it can be called from a user's program.
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 };
 
@@ -3883,49 +3884,12 @@ RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
 };
 
 
-RUR.vis_world.refresh = function (initial) {
+RUR.vis_world.refresh = function () {
     "use strict";
     var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
 
-// TODO simplify this entire code
-// move selecting initial value to runner - when program is first compiled
-// add something like draw_changing  to redraw only the canvas that might be changing
-
-    if (initial !== undefined && RUR.current_world.goal !== undefined &&
-        RUR.current_world.goal.possible_positions !== undefined) {
-        goal = RUR.current_world.goal;
-        for (i=0; i < goal.possible_positions.length; i++){
-            goal.position.x = goal.possible_positions[i][0];
-            goal.position.y = goal.possible_positions[i][1];
-            RUR.vis_world.draw_goal();
-            //RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
-        }
-    } else {
-        if ( RUR.current_world.goal !== undefined && RUR.current_world.goal.possible_positions !== undefined &&
-            RUR.current_world.goal.possible_positions.length > 1) {
-            // erase all possible tiles for goal position by drawing them all white
-            // if needed this could be made more efficient by setting up a flag and not redoing while
-            // the program is running i.e. after the first frame ...
-            color1_temp = RUR.TARGET_TILE_COLOR;
-            color2_temp = RUR.ORIENTATION_TILE_COLOR;
-            RUR.TARGET_TILE_COLOR = "white";
-            RUR.ORIENTATION_TILE_COLOR = "white";
-            goal = RUR.current_world.goal;
-            position = {'x': goal.position.x, 'y': goal.position.y};
-            for (i=0; i < goal.possible_positions.length; i++){
-                goal.position.x = goal.possible_positions[i][0];
-                goal.position.y = goal.possible_positions[i][1];
-                RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
-            }
-            // restore colour and position, and then redraw all.
-            // note that some goal objects might have been placed on the possible positions,
-            // hence we must make sure to draw all the goals.
-            RUR.TARGET_TILE_COLOR = color1_temp;
-            RUR.ORIENTATION_TILE_COLOR = color2_temp;
-            goal.position = position;
-            RUR.vis_world.draw_goal();
-        }
-    }
+    // does not draw background
+    // does not clear trace
 
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
     RUR.vis_world.draw_tiles(RUR.current_world.tiles);
@@ -4081,7 +4045,7 @@ RUR.world.reset = function () {
     }
     RUR.MAX_STEPS = 1000;
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.vis_world.refresh("initial");
+    RUR.vis_world.refresh();
 };
 
 RUR.world.add_robot = function (robot) {
@@ -4098,8 +4062,13 @@ RUR.world.add_robot = function (robot) {
 
 
 RUR.world.__remove_default_robot = function () {
-    RUR.current_world.robots = [];
-};/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+    if (RUR.MAX_NB_ROBOTS != undefined){
+        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
+    } else {
+        RUR.current_world.robots = [];
+    }
+};
+/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
 RUR.we = {};   // we == World Editor

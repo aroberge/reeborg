@@ -16,7 +16,7 @@ RUR.objects.token.image_goal = new Image();
 RUR.objects.token.image_goal.src = 'src/images/token_goal.png';  // modified from above
 RUR.objects.token.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.objects.token.image_goal.onload = function () {
@@ -34,7 +34,7 @@ RUR.objects.star.image_goal = new Image();
 RUR.objects.star.image_goal.src = 'src/images/star_goal.png';  // modified from above
 RUR.objects.star.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.objects.star.image_goal.onload = function () {
@@ -51,7 +51,7 @@ RUR.objects.triangle.image_goal = new Image();
 RUR.objects.triangle.image_goal.src = 'src/images/triangle_goal.png';  // modified from above
 RUR.objects.triangle.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.objects.triangle.image_goal.onload = function () {
@@ -69,7 +69,7 @@ RUR.objects.square.image_goal = new Image();
 RUR.objects.square.image_goal.src = 'src/images/square_goal.png';  // modified from above
 RUR.objects.square.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh("initial");
+        RUR.vis_world.refresh();
     }
 };
 RUR.objects.square.image_goal.onload = function () {
