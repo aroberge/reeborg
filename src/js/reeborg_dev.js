@@ -571,7 +571,12 @@ RUR.control.set_max_nb_robots = function(nb){
     } else {
         RUR.MAX_NB_ROBOTS = nb;
     }
-};/* Author: André Roberge
+};
+
+RUR.control.get_world_map = function () {
+    return JSON.stringify(RUR.current_world);
+};
+/* Author: André Roberge
    License: MIT
  */
 

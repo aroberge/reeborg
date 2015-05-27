@@ -11,5 +11,6 @@
     }
   ],
   "walls": {},
-  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>"
+  "description": "A simple, bigger, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, plus grand, que Reeborg peut explorer à sa guise.</em>",
+  "large_world": true
 }
