@@ -2442,6 +2442,10 @@ RUR.runner.assign_initial_values = function () {
             robot._prev_y = robot.y;
             delete robot.start_positions;
         }
+        if (robot.orientation == -1){
+            RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
+            RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
+        }
     }
     RUR.rec.record_frame("debug", "RUR.runner.assign_initial_values");
 };
