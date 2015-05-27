@@ -43,7 +43,6 @@ RUR.translation["Last instruction completed!"] = "Dernière instruction complét
 RUR.translation["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>terminé()</code> exécutée.</p>";
 
 
-
 // in control.js
 RUR.translation["Unknown object"] = "Objet inconnu: {obj}";
 RUR.translation["No object found here"] = "Pas d'objet '{obj}'' trouvé ici !";
@@ -91,6 +90,9 @@ RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] 
 RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg (utilisez 'inf' pour un nombre infini ou a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
 RUR.translation[" is not a valid value!"] = " n'est pas une valeur valide!";
 RUR.translation["Goal: no object left in world."] = "But: aucun objet qui reste dans le monde.";
+RUR.translation["Enter number of objects desired at that location."] = "Cliquez sur le monde pour fixer le nombre d'objet '{obj}' désiré à cet endroit; (utilisez a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
+RUR.translation["Objects found here:"] = "Objets trouvés ici:";
+RUR.translation["Description"] = "Description";
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";

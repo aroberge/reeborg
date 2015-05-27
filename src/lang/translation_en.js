@@ -97,6 +97,10 @@ RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] 
 RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for Reeborg to carry (use 'inf' for infinite number or a-b to indicate random integer values from a to b inclusively)";
 RUR.translation[" is not a valid value!"] = " is not a valid value!";
 RUR.translation["Goal: no object left in world."] = "Goal: no object left in world.";
+RUR.translation["Enter number of objects desired at that location."] = "Click on world to set number {obj}; (use a-b to indicate random integer values from a to b inclusively).";
+RUR.translation["Objects found here:"] = "Objects found here:";
+RUR.translation["Description"] = "Description";
+
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";

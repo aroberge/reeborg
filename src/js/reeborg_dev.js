@@ -4692,7 +4692,7 @@ RUR.we.add_objects = function (specific_object){
     y = position[1];
     coords = x + "," + y;
 
-    query = prompt(RUR.translate("Enter number of objects desired at that location."));
+    query = prompt(RUR.translate("Enter number of objects desired at that location.").supplant({obj: specific_object}));
 
     RUR.we.ensure_key_exist(RUR.current_world, "objects");
     RUR.we.ensure_key_exist(RUR.current_world.objects, coords);
