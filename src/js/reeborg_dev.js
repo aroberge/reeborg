@@ -2377,8 +2377,10 @@ RUR.runner = {};
 RUR.runner.interpreted = false;
 
 RUR.runner.assign_initial_values = function () {
-    var coords, obj, objects, objects_here, nb, range;
+    var coords, obj, objects, objects_here, nb, range, robot;
     var total_nb_objects = {};
+
+   // First, deal with objects
 
     if (RUR.current_world.objects != undefined){
         objects = RUR.current_world.objects;
@@ -2428,13 +2430,22 @@ RUR.runner.assign_initial_values = function () {
             }
         }
     }
-}
 
-RUR.runner.select_random_number = function(range) {
+    // next, initial position for robot
+    if (RUR.current_world.robots != undefined && RUR.current_world.robots.length == 1){
+        robot = RUR.current_world.robots[0];
+        if (robot.start_positions !== undefined) {
+            position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
+            robot.x = position[0];
+            robot.y = position[1];
+            robot._prev_x = robot.x;
+            robot._prev_y = robot.y;
+            delete robot.start_positions;
+        }
+    }
+    RUR.rec.record_frame("debug", "RUR.runner.assign_initial_values");
+};
 
-    range = range.split("-");
-    return RUR.randint(parseInt(range[0], parseInt(range[1])));
-}
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
@@ -3667,15 +3678,38 @@ RUR.vis_world.draw_robots = function (robots) {
     if (RUR.current_world.blank_canvas) {
         return;
     }
+
+    // drawn on RUR.ROBOT_CTX
     RUR.vis_world.compile_info();
     RUR.vis_world.draw_info();
+
     if (!robots || robots[0] === undefined) {
         return;
     }
     for (robot=0; robot < robots.length; robot++){
-        RUR.vis_robot.draw(robots[robot]); // draws trace automatically
+        if (robots[robot].start_positions != undefined && robots[robot].start_positions.length > 1){
+            RUR.vis_world.draw_robot_clones(robots[robot]);
+        } else {
+            RUR.vis_robot.draw(robots[robot]); // draws trace automatically
+        }
     }
 };
+
+RUR.vis_world.draw_robot_clones = function(robot){
+    var i, clone;
+    RUR.ROBOT_CTX.save();
+    RUR.ROBOT_CTX.globalAlpha = 0.4;
+    for (i=0; i < robot.start_positions.length; i++){
+            clone = JSON.parse(JSON.stringify(robot));
+            clone.x = robot.start_positions[i][0];
+            clone.y = robot.start_positions[i][1];
+            clone._prev_x = clone.x;
+            clone._prev_y = clone.y;
+            RUR.vis_robot.draw(clone);
+    }
+    RUR.ROBOT_CTX.restore();
+}
+
 
 
 RUR.vis_world.draw_goal = function () {
@@ -4448,15 +4482,16 @@ RUR.we.place_robot = function () {
         robot.x = position[0];
         robot.y = position[1];
     }
+
     if (arr.length===0){
         RUR.current_world.robots = [];
         RUR.we.change_edit_robot_menu();
         return;
     }
+
     robot.start_positions = arr;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-
 };
 
 RUR.we.give_tokens_to_robot = function () {

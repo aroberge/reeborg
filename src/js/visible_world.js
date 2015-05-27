@@ -125,15 +125,38 @@ RUR.vis_world.draw_robots = function (robots) {
     if (RUR.current_world.blank_canvas) {
         return;
     }
+
+    // drawn on RUR.ROBOT_CTX
     RUR.vis_world.compile_info();
     RUR.vis_world.draw_info();
+
     if (!robots || robots[0] === undefined) {
         return;
     }
     for (robot=0; robot < robots.length; robot++){
-        RUR.vis_robot.draw(robots[robot]); // draws trace automatically
+        if (robots[robot].start_positions != undefined && robots[robot].start_positions.length > 1){
+            RUR.vis_world.draw_robot_clones(robots[robot]);
+        } else {
+            RUR.vis_robot.draw(robots[robot]); // draws trace automatically
+        }
     }
 };
+
+RUR.vis_world.draw_robot_clones = function(robot){
+    var i, clone;
+    RUR.ROBOT_CTX.save();
+    RUR.ROBOT_CTX.globalAlpha = 0.4;
+    for (i=0; i < robot.start_positions.length; i++){
+            clone = JSON.parse(JSON.stringify(robot));
+            clone.x = robot.start_positions[i][0];
+            clone.y = robot.start_positions[i][1];
+            clone._prev_x = clone.x;
+            clone._prev_y = clone.y;
+            RUR.vis_robot.draw(clone);
+    }
+    RUR.ROBOT_CTX.restore();
+}
+
 
 
 RUR.vis_world.draw_goal = function () {

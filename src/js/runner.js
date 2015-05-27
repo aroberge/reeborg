@@ -11,8 +11,10 @@ RUR.runner = {};
 RUR.runner.interpreted = false;
 
 RUR.runner.assign_initial_values = function () {
-    var coords, obj, objects, objects_here, nb, range;
+    var coords, obj, objects, objects_here, nb, range, robot;
     var total_nb_objects = {};
+
+   // First, deal with objects
 
     if (RUR.current_world.objects != undefined){
         objects = RUR.current_world.objects;
@@ -62,13 +64,22 @@ RUR.runner.assign_initial_values = function () {
             }
         }
     }
-}
 
-RUR.runner.select_random_number = function(range) {
+    // next, initial position for robot
+    if (RUR.current_world.robots != undefined && RUR.current_world.robots.length == 1){
+        robot = RUR.current_world.robots[0];
+        if (robot.start_positions !== undefined) {
+            position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
+            robot.x = position[0];
+            robot.y = position[1];
+            robot._prev_x = robot.x;
+            robot._prev_y = robot.y;
+            delete robot.start_positions;
+        }
+    }
+    RUR.rec.record_frame("debug", "RUR.runner.assign_initial_values");
+};
 
-    range = range.split("-");
-    return RUR.randint(parseInt(range[0], parseInt(range[1])));
-}
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;

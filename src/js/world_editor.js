@@ -404,15 +404,16 @@ RUR.we.place_robot = function () {
         robot.x = position[0];
         robot.y = position[1];
     }
+
     if (arr.length===0){
         RUR.current_world.robots = [];
         RUR.we.change_edit_robot_menu();
         return;
     }
+
     robot.start_positions = arr;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-
 };
 
 RUR.we.give_tokens_to_robot = function () {
