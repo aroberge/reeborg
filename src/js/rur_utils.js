@@ -38,7 +38,7 @@ RUR.reset_code_in_editors = function () {
     if (RUR.programming_language == "javascript") {
         editor_default = default_instruction + "();";
     } else if (RUR.programming_language == "python") {
-        library_default = RUR.translate("# 'import my_lib' in Python Code is required to use\n# the code in this library. \n\n");
+        library_default = RUR.translate("# 'from my_lib import *' in Python Code is required to use\n# the code in this library. \n\n");
         library_content = localStorage.getItem(RUR.settings.library);
         if (!library_content){
             library_content = library_default;

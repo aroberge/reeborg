@@ -96,10 +96,6 @@ RUR.we.select = function (choice) {
             RUR.we.edit_world();
             $("#cmd-result").html(RUR.translate("Robot now has tokens.").supplant({x_tokens: RUR.current_world.robots[0].tokens})).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "world-tokens":
-            $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to set number of tokens.")).effect("highlight", {color: "gold"}, 1500);
-            break;
         case "world-objects":
             $(".edit-world-canvas").show();
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
@@ -108,17 +104,21 @@ RUR.we.select = function (choice) {
             $("#edit-world-tiles").show();
             $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
             break;
+        case "world-tokens":
+            $(".edit-world-canvas").show();
+            $("#cmd-result").html(RUR.translate("Click on world to add object.")).supplant({obj: RUR.translate("token")}).effect("highlight", {color: "gold"}, 1500);
+            break;
         case "world-star":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to add star.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to add object.")).supplant({obj: RUR.translate("star")}).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-triangle":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to add triangle.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to add object.")).supplant({obj: RUR.translate("triangle")}).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-square":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to add square.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to add object.")).supplant({obj: RUR.translate("square")}).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-mud":
             $("#edit-world-tiles").show();
@@ -161,19 +161,19 @@ RUR.we.select = function (choice) {
             break;
         case "goal-tokens":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to set number of goal tokens.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.")).supplant({obj: RUR.translate("token")}).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-star":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to add star goal.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.")).supplant({obj: RUR.translate("star")}).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-triangle":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to add triangle goal.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.")).supplant({obj: RUR.translate("triangle")}).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-square":
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to add square goal.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.")).supplant({obj: RUR.translate("square")}).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-no-objects":
             $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no object left as a goal.")).effect("highlight", {color: "gold"}, 1500);

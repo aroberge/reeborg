@@ -100,17 +100,17 @@ RUR.control.put = function(robot, arg){
         }
     }
     if (all_objects.length == 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape: RUR.translate("object")}));
+        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
     }
     if (arg != undefined) {
         if (robot.objects[arg] == undefined) {
-            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape:arg}));
+            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj:arg}));
         }  else {
             RUR.control._robot_put_down_object(robot, translated_arg);
         }
     }  else {
         if (all_objects.length == 0){
-            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({shape: RUR.translate("object")}));
+            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
         } else if (all_objects.length > 1){
              throw new RUR.ReeborgError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
         } else {

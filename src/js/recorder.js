@@ -228,14 +228,6 @@ RUR.rec.check_goal= function (frame) {
             goal_status.success = false;
         }
     }
-    if (g.orientation !== undefined){
-        if (g.orientation === world.robots[0].orientation){
-            goal_status.message += RUR.translate("<li class='success'>Reeborg has the correct orientation.</li>");
-        } else {
-            goal_status.message += RUR.translate("<li class='failure'>Reeborg has the wrong orientation.</li>");
-            goal_status.success = false;
-        }
-    }
     if (g.objects !== undefined) {
         result = Object.identical(g.objects, world.objects, true);
         if (result){
