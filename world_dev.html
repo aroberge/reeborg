@@ -9,7 +9,10 @@
 <link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon">
 <link rel="icon" href="src/images/favicon.ico" type="image/icon">
 <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
-<link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
+
+<!--offline-- <link rel="stylesheet" href="offline/codemirror-3.0/lib/codemirror.css"> <!--/offline-->
+<!--online-->  <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">  <!--/online-->
+
 <link rel="stylesheet" href="src/css/reeborg_world.css"> <!-- load after codemirror.css -->
 <title>Reeborg's world</title>
     <script src="src/libraries/brython/brython.js"></script>
@@ -239,13 +242,26 @@
 </div>
 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>
-<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script>
-<!--<script src="src/libraries/codemirror/python.js"></script>-->
-<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/python/python.js"></script>
-<script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/coffeescript/coffeescript.js"></script>
+<!--offline-- <script src="offline/jquery-2.1.0/jquery.min.js"></script> <!--/offline-->
+<!--online--> <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script> <!--/online-->
+
+<!--offline-- <script src="offline/jqueryui-1.10.4/jquery-ui.min.js"></script> <!--/offline-->
+<!--online--> <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> <!--/online-->
+
+<!--offline-- <script src="offline/codemirror-3.0/lib/codemirror.js"></script> <!--/offline-->
+<!--online--> <script src="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.js"></script>  <!--/online-->
+
+<!--offline-- <script src="offline/codemirror-3.0/mode/javascript/javascript.js"></script> <!--/offline-->
+<!--online--> <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/javascript/javascript.js"></script> <!--/online-->
+
+<!--offline-- <script src="offline/codemirror-3.0/mode/python/python.js"></script> <!--/offline-->
+<!--online--> <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/python/python.js"></script> <!--/online-->
+
+<!--offline-- <script src="offline/codemirror-3.0/mode/coffeescript/coffeescript.js"></script> <!--/offline-->
+<!--online--> <script src="http://cdn.jsdelivr.net/codemirror/3.0/mode/coffeescript/coffeescript.js"></script> <!--/online-->
+
+
+
 <script>
   var RUR = {};
   RUR.settings = {};
@@ -474,8 +490,12 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 <audio id="error-sound" preload>
   <source src="src/sounds/glitch-sound.wav" type="audio/x-wav">
 </audio>
+
+<!--offline--
 <a style="display: none" title="Real Time Web Analytics" href="http://clicky.com/100788691"><img alt="Real Time Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
 <script src="//static.getclicky.com/js" type="text/javascript"></script>
 <script type="text/javascript">try{ clicky.init(100788691); }catch(e){}</script>
+<!--/offline-->
+
 </body>
 </html>
