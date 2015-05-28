@@ -12,16 +12,16 @@ RUR.we.edit_world = function  () {
         case "robot-place":
             RUR.we.place_robot();
             break;
-        case "world-tokens":
+        case "object-token":
             RUR.we._add_object("token");
             break;
-        case "world-star":
+        case "object-star":
             RUR.we._add_object("star");
             break;
-        case "world-triangle":
+        case "object-triangle":
             RUR.we._add_object("triangle");
             break;
-        case "world-square":
+        case "object-square":
             RUR.we._add_object("square");
             break;
         case "world-mud":
@@ -93,7 +93,7 @@ RUR.we.select = function (choice) {
             $("#edit-world-turn").show();
             $("#random-orientation").show();
             break;
-        case "robot-tokens":
+        case "robot-objects":
             RUR.we.__give_to_robot = true;
             $(".edit-world-canvas").show();
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
@@ -107,7 +107,7 @@ RUR.we.select = function (choice) {
             $("#edit-world-tiles").show();
             $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "world-tokens":
+        case "object-token":
             $(".edit-world-canvas").show();
             if (RUR.we.__give_to_robot) {
                 RUR.we._give_objects_to_robot("token");
@@ -116,7 +116,7 @@ RUR.we.select = function (choice) {
                 $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
             }
             break;
-        case "world-star":
+        case "object-star":
             $(".edit-world-canvas").show();
             if (RUR.we.__give_to_robot) {
                 RUR.we._give_objects_to_robot("star");
@@ -125,7 +125,7 @@ RUR.we.select = function (choice) {
                 $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
             }
             break;
-        case "world-triangle":
+        case "object-triangle":
             $(".edit-world-canvas").show();
             if (RUR.we.__give_to_robot) {
                 RUR.we._give_objects_to_robot("triangle");
@@ -134,7 +134,7 @@ RUR.we.select = function (choice) {
                 $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
             }
             break;
-        case "world-square":
+        case "object-square":
             $(".edit-world-canvas").show();
             if (RUR.we.__give_to_robot) {
                 RUR.we._give_objects_to_robot("square");
@@ -279,44 +279,24 @@ RUR.we.calculate_grid_position = function () {
     return [x, y];
 };
 
-RUR.we.show_world_info = function () {
+RUR.we.show_world_info = function (no_grid) {
     // shows the information about a given grid position
     // when the user clicks on the canvas at that grid position.
     // enabled in doc_ready.js
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
     var topic, no_object, r, robot, robots;
 
+    information = "";
     $("#World-info").dialog("open");
-    position = RUR.we.calculate_grid_position();
-    x = position[0];
-    y = position[1];
-    coords = x + "," + y;
-    if (!isNaN(x)){
-        information = "x = " + x + ", y = " + y;
-    } else {
-        information = "";
-    }
-
-    robots = RUR.current_world.robots;
-    for (r=0; r<robots.length; r++){
-        if (robots[r].x == x && robots[r].y == y) {
-            robot = robots[r];
-            no_object = true;
-            for (obj in robot.objects){
-                if (robot.objects.hasOwnProperty(obj)) {
-                    if (no_object) {
-                        no_object = false;
-                        information += "<br><br><b>" + RUR.translate("A robot located here carries:") + "</b>"
-                    }
-                    information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
-                }
-            }
-            if (no_object){
-                information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.") + "</b>"
-            }
+    if (!no_grid) {
+        position = RUR.we.calculate_grid_position();
+        x = position[0];
+        y = position[1];
+        coords = x + "," + y;
+        if (!isNaN(x)){
+            information = "x = " + x + ", y = " + y;
         }
     }
-
 
     tile = RUR.control.get_tile_at_position(x, y);
     topic = true;
@@ -362,7 +342,6 @@ RUR.we.show_world_info = function () {
         }
     }
 
-
     goals = RUR.current_world.goal;
     no_object = true;
     if (goals != undefined){
@@ -381,6 +360,25 @@ RUR.we.show_world_info = function () {
     if (no_object){
         information += "<br><br><b>" + RUR.translate("Note: no object must be left in this world at the end of the program.") + "</b>";
     }
+
+    robots = RUR.current_world.robots;
+    for (r=0; r<robots.length; r++){
+        robot = robots[r];
+        no_object = true;
+        for (obj in robot.objects){
+            if (robot.objects.hasOwnProperty(obj)) {
+                if (no_object) {
+                    no_object = false;
+                    information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:robot.x, y:robot.y}) + "</b>"
+                }
+                information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
+            }
+        }
+        if (no_object){
+            information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:robot.x, y:robot.y}) + "</b>"
+        }
+    }
+
 
     if (RUR.current_world.description) {
         information += "<br><br><b>" + RUR.translate("Description") + "</b><br>" + RUR.current_world.description;
@@ -446,6 +444,7 @@ RUR.we._give_objects_to_robot = function (specific_object){
     query = prompt(RUR.translate("Enter number of objects to give to robot.").supplant({obj: specific_object}));
     if (query != null){
         RUR.we.give_objects_to_robot(specific_object, query);
+        RUR.we.show_world_info(true);
     }
 };
 

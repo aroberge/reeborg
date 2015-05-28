@@ -100,10 +100,10 @@ RUR.translation["Goal: no object left in world."] = "Goal: no object left in wor
 RUR.translation["Enter number of objects desired at that location."] = "Click on world to set number {obj}; (use a-b to indicate random integer values from a to b inclusively).";
 RUR.translation["Objects found here:"] = "Objects found here:";
 RUR.translation["Description"] = "Description";
-RUR.translation["A robot located here carries no objects."] = "A robot located here carries no objects.";
+RUR.translation["A robot located here carries no objects."] = "A robot located at {x},{y} carries no objects.";
 RUR.translation["Goal to achieve:"] = "Goal to achieve:";
 RUR.translation["Note: no object must be left in this world at the end of the program."] = "Note: no object must be left in this world at the end of the program.";
-RUR.translation["A robot located here carries:"] = "A robot located here carries:";
+RUR.translation["A robot located here carries:"] = "A robot located at {x},{y} carries:";
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
