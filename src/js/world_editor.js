@@ -3,6 +3,8 @@
 
 RUR.we = {};   // we == World Editor
 
+RUR.we.__give_to_robot = false;
+
 RUR.we.edit_world = function  () {
     // usually triggered when canvas is clicked if editing world;
     // call explicitly if needed.
@@ -92,12 +94,13 @@ RUR.we.select = function (choice) {
             $("#random-orientation").show();
             break;
         case "robot-tokens":
-            RUR.we.give_tokens_to_robot();
-            RUR.we.edit_world();
-            $("#cmd-result").html(RUR.translate("Robot now has tokens.").supplant({x_tokens: RUR.current_world.robots[0].tokens})).effect("highlight", {color: "gold"}, 1500);
+            RUR.we.__give_to_robot = true;
+            $(".edit-world-canvas").show();
+            $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-objects":
             $(".edit-world-canvas").show();
+            RUR.we.__give_to_robot = false;
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-tiles":
@@ -106,19 +109,39 @@ RUR.we.select = function (choice) {
             break;
         case "world-tokens":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
+            if (RUR.we.__give_to_robot) {
+                RUR.we._give_objects_to_robot("token");
+                RUR.we.edit_world_flag = '';
+            } else {
+                $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
+            }
             break;
         case "world-star":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("star")})).effect("highlight", {color: "gold"}, 1500);
+            if (RUR.we.__give_to_robot) {
+                RUR.we._give_objects_to_robot("star");
+                RUR.we.edit_world_flag = '';
+            } else {
+                $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
+            }
             break;
         case "world-triangle":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("triangle")})).effect("highlight", {color: "gold"}, 1500);
+            if (RUR.we.__give_to_robot) {
+                RUR.we._give_objects_to_robot("triangle");
+                RUR.we.edit_world_flag = '';
+            } else {
+                $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
+            }
             break;
         case "world-square":
             $(".edit-world-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("square")})).effect("highlight", {color: "gold"}, 1500);
+            if (RUR.we.__give_to_robot) {
+                RUR.we._give_objects_to_robot("square");
+                RUR.we.edit_world_flag = '';
+            } else {
+                $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
+            }
             break;
         case "world-mud":
             $("#edit-world-tiles").show();
@@ -449,6 +472,16 @@ RUR.we.give_tokens_to_robot = function () {
 };
 
 
+RUR.we._give_objects_to_robot = function (specific_object){
+    "use strict";
+    var query;
+    query = prompt(RUR.translate("Enter number of objects to give to robot.").supplant({obj: specific_object}));
+    if (query != null){
+        RUR.we.give_objects_to_robot(specific_object, query);
+    }
+};
+
+
 RUR.we.give_objects_to_robot = function (obj, nb, robot) {
     var translated_arg = RUR.translate_to_english(obj);
 
@@ -651,7 +684,9 @@ RUR.we._add_object = function (specific_object){
     x = position[0];
     y = position[1];
     query = prompt(RUR.translate("Enter number of objects desired at that location.").supplant({obj: specific_object}));
-    RUR.we.add_object(specific_object, x, y, query)
+    if (query != null){
+        RUR.we.add_object(specific_object, x, y, query);
+    }
 };
 
 
@@ -692,6 +727,9 @@ RUR.we._add_goal_objects = function (specific_object){
     coords = x + "," + y;
 
     query = prompt(RUR.translate("Enter number of objects desired as a goal at that location."));
+    if (query == null){
+        return;
+    }
     if (query != "all"){
         try {
             query = parseInt(query, 10);
