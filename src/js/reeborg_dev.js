@@ -773,8 +773,8 @@ $(document).ready(function() {
     });
 
     $("#robot_canvas").on("click", function (evt) {
-        RUR.we.mouse_x = evt.clientX;
-        RUR.we.mouse_y = evt.clientY;
+        RUR.we.mouse_x = evt.pageX;
+        RUR.we.mouse_y = evt.pageY;
         if (RUR.we.editing_world) {
             RUR.we.edit_world();
         }
