@@ -24,19 +24,19 @@ RUR.we.edit_world = function  () {
         case "object-square":
             RUR.we._add_object("square");
             break;
-        case "world-mud":
+        case "tile-mud":
             RUR.we.toggle_tile("mud");
             break;
-        case "world-water":
+        case "tile-water":
             RUR.we.toggle_tile("water");
             break;
-        case "world-gravel":
+        case "tile-gravel":
             RUR.we.toggle_tile("gravel");
             break;
-        case "world-ice":
+        case "tile-ice":
             RUR.we.toggle_tile("ice");
             break;
-        case "world-grass":
+        case "tile-grass":
             RUR.we.toggle_tile("grass");
             break;
         case "world-walls":
@@ -104,7 +104,7 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-tiles":
-            $("#edit-world-tiles").show();
+            $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "object-token":
@@ -143,24 +143,24 @@ RUR.we.select = function (choice) {
                 $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
             }
             break;
-        case "world-mud":
-            $("#edit-world-tiles").show();
+        case "tile-mud":
+            $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle mud tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "world-water":
-            $("#edit-world-tiles").show();
+        case "tile-water":
+            $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle water tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "world-ice":
-            $("#edit-world-tiles").show();
+        case "tile-ice":
+            $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle ice tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "world-gravel":
-            $("#edit-world-tiles").show();
+        case "tile-gravel":
+            $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle gravel tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "world-grass":
-            $("#edit-world-tiles").show();
+        case "tile-grass":
+            $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle grass tile.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-walls":
@@ -364,18 +364,24 @@ RUR.we.show_world_info = function (no_grid) {
     robots = RUR.current_world.robots;
     for (r=0; r<robots.length; r++){
         robot = robots[r];
+        x = robot.x;
+        y = robot.y;
+        if (robot.start_positions != undefined && robot.start_positions.length > 1){
+            x = RUR.translate("random location");
+            y = ''
+        }
         no_object = true;
         for (obj in robot.objects){
             if (robot.objects.hasOwnProperty(obj)) {
                 if (no_object) {
                     no_object = false;
-                    information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:robot.x, y:robot.y}) + "</b>"
+                    information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>"
                 }
                 information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
             }
         }
         if (no_object){
-            information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:robot.x, y:robot.y}) + "</b>"
+            information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>"
         }
     }
 

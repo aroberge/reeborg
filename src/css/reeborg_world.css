@@ -361,7 +361,7 @@ padding:3px;}
 #edit-world-submenus-wrapper {
     min-height: 100px;
 }
-.edit-world-submenus li, .edit-world-canvas li, .edit-goal-canvas li, .edit-world-tiles li {
+.edit-world-submenus li, .edit-world-canvas li, .edit-goal-canvas li, #edit-tile li {
  float: left;
  list-style: none;
  position: relative;
