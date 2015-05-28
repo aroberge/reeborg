@@ -3933,15 +3933,15 @@ RUR.vis_world.compile_info = function() {
     var coords, obj, quantity;
     RUR.vis_world.information = {};
     if (RUR.current_world.objects != undefined) {
-        RUR.vis_world.compile_partial_info(RUR.current_world.objects);
+        RUR.vis_world.compile_partial_info(RUR.current_world.objects, 'black');
     }
     if (RUR.current_world.goal != undefined &&
         RUR.current_world.goal.objects != undefined) {
-        RUR.vis_world.compile_partial_info(RUR.current_world.goal.objects);
+        RUR.vis_world.compile_partial_info(RUR.current_world.goal.objects, 'blue');
     }
 };
 
-RUR.vis_world.compile_partial_info = function(objects){
+RUR.vis_world.compile_partial_info = function(objects, color){
     for (coords in objects) {
         if (objects.hasOwnProperty(coords)){
             // objects found here
@@ -3952,12 +3952,12 @@ RUR.vis_world.compile_partial_info = function(objects){
                             RUR.vis_world.information[coords] = [undefined, "?"];  // assign impossible object
                         } else if (RUR.vis_world.information[coords][1] == objects[coords][obj]) { // same object, same quantity
                                if (objects[coords][obj] == 1){
-                                    RUR.vis_world.information[coords] = [obj, ''];  // don't show number for 1
+                                    RUR.vis_world.information[coords] = [obj, '', 'black'];  // don't show number for 1
                                } else {
-                                    RUR.vis_world.information[coords] = [obj, objects[coords][obj]];
+                                    RUR.vis_world.information[coords] = [obj, objects[coords][obj], 'green'];
                                }
                         } else {  // same object, different quantities
-                            RUR.vis_world.information[coords] = [obj, 'X'];
+                            RUR.vis_world.information[coords] = [obj, 'X', 'red'];
                         }
 
                     } else {
@@ -3974,7 +3974,7 @@ RUR.vis_world.compile_partial_info = function(objects){
                                 console.log("WARNING: this should not happen in RUR.vis_world.compile_info")
                             }
                         }
-                        RUR.vis_world.information[coords] = [obj, quantity];
+                        RUR.vis_world.information[coords] = [obj, quantity, color];
                     }
                 }
             }
@@ -4001,7 +4001,7 @@ RUR.vis_world.draw_info = function() {
         if (info != 1){
             text_width = ctx.measureText(info).width/2;
             ctx.font = RUR.BACKGROUND_CTX.font;
-            ctx.fillStyle = RUR.TEXT_COLOR;
+            ctx.fillStyle = RUR.vis_world.information[coords][2];
             ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
         }
     }
