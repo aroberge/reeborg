@@ -350,8 +350,19 @@ RUR.vis_world.compile_partial_info = function(objects){
             // objects found here
             for(obj in objects[coords]){
                 if (objects[coords].hasOwnProperty(obj)){
-                    if (RUR.vis_world.information[coords] != undefined){ // already at least one other object there
-                        RUR.vis_world.information[coords] = "?";
+                    if (RUR.vis_world.information[coords] != undefined){
+                        if (RUR.vis_world.information[coords][0] != obj) { // already at least one other object there
+                            RUR.vis_world.information[coords] = [undefined, "?"];  // assign impossible object
+                        } else if (RUR.vis_world.information[coords][1] == objects[coords][obj]) { // same object, same quantity
+                               if (objects[coords][obj] == 1){
+                                    RUR.vis_world.information[coords] = [obj, ''];  // don't show number for 1
+                               } else {
+                                    RUR.vis_world.information[coords] = [obj, objects[coords][obj]];
+                               }
+                        } else {  // same object, different quantities
+                            RUR.vis_world.information[coords] = [obj, 'X'];
+                        }
+
                     } else {
                         quantity = objects[coords][obj];
                         if (quantity.toString().indexOf("-") != -1) {
@@ -366,10 +377,7 @@ RUR.vis_world.compile_partial_info = function(objects){
                                 console.log("WARNING: this should not happen in RUR.vis_world.compile_info")
                             }
                         }
-                        if (quantity == 1){
-                            quantity = ' ';
-                        }
-                        RUR.vis_world.information[coords] = quantity;
+                        RUR.vis_world.information[coords] = [obj, quantity];
                     }
                 }
             }
@@ -392,9 +400,12 @@ RUR.vis_world.draw_info = function() {
         coords = keys[key].split(",");
         i = parseInt(coords[0], 10);
         j = parseInt(coords[1], 10);
-        info = RUR.vis_world.information[coords];
-        text_width = ctx.measureText(info).width/2;
-        ctx.fillStyle = RUR.TEXT_COLOR;
-        ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
+        info = RUR.vis_world.information[coords][1];
+        if (info != 1){
+            text_width = ctx.measureText(info).width/2;
+            ctx.font = RUR.BACKGROUND_CTX.font;
+            ctx.fillStyle = RUR.TEXT_COLOR;
+            ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
+        }
     }
 }
