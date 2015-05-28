@@ -95,7 +95,7 @@ RUR.translation["Objects found here:"] = "Objets trouvés ici:";
 RUR.translation["Description"] = "Description";
 RUR.translation["A robot located here carries no objects."] = "A robot situé à cet endroit ne transporte aucun objet.";
 RUR.translation["Note: no object must be left in this world at the end of the program."] = "Note: aucun objet ne doit rester dans ce monde à la fin de l'exécution du programme.";
-
+RUR.translation["A robot located here carries:"] = "Un robot situé ici transporte:";
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";

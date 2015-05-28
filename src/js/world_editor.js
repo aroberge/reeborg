@@ -448,6 +448,32 @@ RUR.we.give_tokens_to_robot = function () {
     }
 };
 
+
+RUR.we.give_objects_to_robot = function (obj, nb, robot) {
+    var translated_arg = RUR.translate_to_english(obj);
+
+    if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: obj}));
+    }
+
+    obj = translated_arg;
+    if (robot == undefined){
+        robot = RUR.current_world.robots[0];
+    }
+
+    if (nb === "inf"){
+        robot.objects[obj] = "infinite"
+    } else if (RUR.filterInt(nb) >= 0) {
+        if (nb==0 && robot.objects[obj] != undefined) {
+            delete robot.objects[obj]
+        } else {
+            robot.objects[obj] = nb;
+        }
+    } else {
+        $("#Reeborg-shouts").html(nb + RUR.translate(" is not a valid value!")).dialog("open");
+    }
+};
+
 RUR.we.turn_robot = function (orientation) {
     if (RUR.we.edit_world_flag === "goal-robot") {
         RUR.we.set_goal_orientation(orientation);
@@ -631,11 +657,18 @@ RUR.we._add_object = function (specific_object){
 
 RUR.we.add_object = function (specific_object, x, y, nb){
     "use strict";
-    var coords;
-    coords = x + "," + y;
+    var coords, translated_arg;
 
+    translated_arg = RUR.translate_to_english(specific_object);
+    if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
+    }
+
+    specific_object = translated_arg;
+    coords = x + "," + y;
     RUR.we.ensure_key_exist(RUR.current_world, "objects");
     RUR.we.ensure_key_exist(RUR.current_world.objects, coords);
+
     if (nb==0) {
         delete RUR.current_world.objects[coords][specific_object];
         if (Object.keys(RUR.current_world.objects).length === 0){

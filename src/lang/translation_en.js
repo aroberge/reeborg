@@ -103,7 +103,7 @@ RUR.translation["Description"] = "Description";
 RUR.translation["A robot located here carries no objects."] = "A robot located here carries no objects.";
 RUR.translation["Goal to achieve:"] = "Goal to achieve:";
 RUR.translation["Note: no object must be left in this world at the end of the program."] = "Note: no object must be left in this world at the end of the program.";
-
+RUR.translation["A robot located here carries:"] = "A robot located here carries:";
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
