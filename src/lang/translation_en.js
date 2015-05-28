@@ -101,6 +101,7 @@ RUR.translation["Enter number of objects desired at that location."] = "Click on
 RUR.translation["Objects found here:"] = "Objects found here:";
 RUR.translation["Description"] = "Description";
 RUR.translation["A robot located here carries no objects."] = "A robot located here carries no objects.";
+RUR.translation["Goal to achieve:"] = "Goal to achieve:";
 
 
 // in storage.js

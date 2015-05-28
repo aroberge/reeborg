@@ -100,6 +100,7 @@ RUR.translation["Name already exist; confirm that you want to replace its conten
 RUR.translation["No such world!"] = "Ce monde n'existe pas !";
 RUR.translation["Enter world name to save"] = "Quel nom doit-on utiliser pour ce monde?";
 RUR.translation["Enter world name to delete"] = "Écrivez le nom du monde à supprimer.";
+RUR.translation["Goal to achieve:"] = "Résultat désiré :";
 
 
 // in runner.js
