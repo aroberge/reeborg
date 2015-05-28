@@ -307,9 +307,12 @@ RUR.we.show_world_info = function () {
         }
     }
     obj = RUR.current_world.objects;
+    console.log("obj = ", obj);
+    console.log("coords = ", coords);
     topic = true;
     if (obj != undefined && obj[coords] != undefined){
         obj_here = obj[coords];
+        console.log("obj_here = ", obj_here);
         for (obj_type in obj_here) {
             if (obj_here.hasOwnProperty(obj_type)) {
                     if (topic){
