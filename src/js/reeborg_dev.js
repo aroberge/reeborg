@@ -1298,10 +1298,34 @@ RUR.tiles.water.image.onload = function () {
 RUR.home_images.green_home_tile = {};
 RUR.home_images.green_home_tile.fatal = true;
 RUR.home_images.green_home_tile.detectable = true;
-RUR.home_images.green_home_tile.info = RUR.translate("green_home_tile: Reeborg <b>can</b> detect this tile using at_goal().");
+RUR.home_images.green_home_tile.info = RUR.translate("green home tile:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
 RUR.home_images.green_home_tile.image = new Image();
 RUR.home_images.green_home_tile.image.src = 'src/images/green_home_tile.png';
 RUR.home_images.green_home_tile.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+
+RUR.home_images.house = {};
+RUR.home_images.house.fatal = true;
+RUR.home_images.house.detectable = true;
+RUR.home_images.house.info = RUR.translate("house:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
+RUR.home_images.house.image = new Image();
+RUR.home_images.house.image.src = 'src/images/house.png';
+RUR.home_images.house.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+
+RUR.home_images.racing_flag = {};
+RUR.home_images.racing_flag.fatal = true;
+RUR.home_images.racing_flag.detectable = true;
+RUR.home_images.racing_flag.info = RUR.translate("racing flag:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
+RUR.home_images.racing_flag.image = new Image();
+RUR.home_images.racing_flag.image.src = 'src/images/racing_flag.png';
+RUR.home_images.racing_flag.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_goal();
     }
@@ -3794,7 +3818,15 @@ RUR.vis_world.draw_goal = function () {
 
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
-        image = RUR.home_images.green_home_tile.image;
+        if (goal.position.image !== undefined &&
+            typeof goal.position.image === 'string' &&
+            RUR.home_images[goal.position.image] !== undefined){
+            image = RUR.home_images[goal.position.image].image;
+        } else {    // For anyone wondering, this step might be needed only when using older world
+                    // files that were created when there was not a choice
+                    // of image for indicating the home position.
+            image = RUR.home_images.green_home_tile.image;
+        }
         if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
                 RUR.GOAL_CTX.save();
                 RUR.GOAL_CTX.globalAlpha = 0.5;
@@ -3871,15 +3903,6 @@ RUR.vis_world.draw_tiles = function (tiles){
         RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
     }
 };
-
-// RUR.vis_world.draw_single_tile = function (image, i, j) {
-//     var thick = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
-//     var x, y;
-//     x = i*RUR.WALL_LENGTH + thick/2;
-//     y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
-//     ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
-// };
-
 
 RUR.vis_world.draw_all_objects = function (objects, goal){
     "use strict";
@@ -4154,13 +4177,16 @@ RUR.we.edit_world = function  () {
         case "world-walls":
             RUR.we.toggle_wall();
             break;
-        case "goal-robot":
-            RUR.we.set_goal_position();
+        case "position-green_home_tile":
+        case "position-house":
+        case "position-racing_flag":
+            value = RUR.we.edit_world_flag.substring(9);
+            RUR.we.set_goal_position(value);
             break;
         case "goal-wall":
             RUR.we.toggle_goal_wall();
             break;
-        case "goal-tokens":
+        case "goal-token":
         case "goal-star":
         case "goal-triangle":
         case "goal-square":
@@ -4242,6 +4268,12 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-robot":
+            $("#edit-goal-position").show();
+            $("#cmd-result").html(RUR.translate("Click on image desired to indicate the final position of the robot.")).effect("highlight", {color: "gold"}, 1500);
+            break
+        case "position-green_home_tile":
+        case "position-house":
+        case "position-racing_flag":
             $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-wall":
@@ -4251,7 +4283,7 @@ RUR.we.select = function (choice) {
             $(".edit-goal-canvas").show();
             $("#cmd-result").html(RUR.translate("Click on desired goal object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "goal-tokens":
+        case "goal-token":
         case "goal-star":
         case "goal-triangle":
         case "goal-square":
@@ -4807,7 +4839,7 @@ RUR.we.add_goal_objects = function (specific_object, x, y, nb){
 };
 
 
-RUR.we.set_goal_position = function (){
+RUR.we.set_goal_position = function (home){
     // will remove the position if clicked again.
     "use strict";
     var position, world=RUR.current_world, robot, arr=[], pos, present=false, goal;
@@ -4827,6 +4859,8 @@ RUR.we.set_goal_position = function (){
             RUR.we.ensure_key_exist(goal, "position");
         }
     }
+
+    goal.position.image = home;
 
     position = RUR.we.calculate_grid_position();
     goal.position.x = position[0];

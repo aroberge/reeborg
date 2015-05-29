@@ -142,10 +142,34 @@ RUR.tiles.water.image.onload = function () {
 RUR.home_images.green_home_tile = {};
 RUR.home_images.green_home_tile.fatal = true;
 RUR.home_images.green_home_tile.detectable = true;
-RUR.home_images.green_home_tile.info = RUR.translate("green_home_tile: Reeborg <b>can</b> detect this tile using at_goal().");
+RUR.home_images.green_home_tile.info = RUR.translate("green home tile:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
 RUR.home_images.green_home_tile.image = new Image();
 RUR.home_images.green_home_tile.image.src = 'src/images/green_home_tile.png';
 RUR.home_images.green_home_tile.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+
+RUR.home_images.house = {};
+RUR.home_images.house.fatal = true;
+RUR.home_images.house.detectable = true;
+RUR.home_images.house.info = RUR.translate("house:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
+RUR.home_images.house.image = new Image();
+RUR.home_images.house.image.src = 'src/images/house.png';
+RUR.home_images.house.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+
+RUR.home_images.racing_flag = {};
+RUR.home_images.racing_flag.fatal = true;
+RUR.home_images.racing_flag.detectable = true;
+RUR.home_images.racing_flag.info = RUR.translate("racing flag:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
+RUR.home_images.racing_flag.image = new Image();
+RUR.home_images.racing_flag.image.src = 'src/images/racing_flag.png';
+RUR.home_images.racing_flag.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_goal();
     }

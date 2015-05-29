@@ -170,7 +170,15 @@ RUR.vis_world.draw_goal = function () {
 
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
-        image = RUR.home_images.green_home_tile.image;
+        if (goal.position.image !== undefined &&
+            typeof goal.position.image === 'string' &&
+            RUR.home_images[goal.position.image] !== undefined){
+            image = RUR.home_images[goal.position.image].image;
+        } else {    // For anyone wondering, this step might be needed only when using older world
+                    // files that were created when there was not a choice
+                    // of image for indicating the home position.
+            image = RUR.home_images.green_home_tile.image;
+        }
         if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
                 RUR.GOAL_CTX.save();
                 RUR.GOAL_CTX.globalAlpha = 0.5;
@@ -247,15 +255,6 @@ RUR.vis_world.draw_tiles = function (tiles){
         RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
     }
 };
-
-// RUR.vis_world.draw_single_tile = function (image, i, j) {
-//     var thick = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
-//     var x, y;
-//     x = i*RUR.WALL_LENGTH + thick/2;
-//     y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
-//     ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
-// };
-
 
 RUR.vis_world.draw_all_objects = function (objects, goal){
     "use strict";

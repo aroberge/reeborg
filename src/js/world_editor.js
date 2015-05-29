@@ -32,13 +32,16 @@ RUR.we.edit_world = function  () {
         case "world-walls":
             RUR.we.toggle_wall();
             break;
-        case "goal-robot":
-            RUR.we.set_goal_position();
+        case "position-green_home_tile":
+        case "position-house":
+        case "position-racing_flag":
+            value = RUR.we.edit_world_flag.substring(9);
+            RUR.we.set_goal_position(value);
             break;
         case "goal-wall":
             RUR.we.toggle_goal_wall();
             break;
-        case "goal-tokens":
+        case "goal-token":
         case "goal-star":
         case "goal-triangle":
         case "goal-square":
@@ -120,6 +123,12 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-robot":
+            $("#edit-goal-position").show();
+            $("#cmd-result").html(RUR.translate("Click on image desired to indicate the final position of the robot.")).effect("highlight", {color: "gold"}, 1500);
+            break
+        case "position-green_home_tile":
+        case "position-house":
+        case "position-racing_flag":
             $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-wall":
@@ -129,7 +138,7 @@ RUR.we.select = function (choice) {
             $(".edit-goal-canvas").show();
             $("#cmd-result").html(RUR.translate("Click on desired goal object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "goal-tokens":
+        case "goal-token":
         case "goal-star":
         case "goal-triangle":
         case "goal-square":
@@ -685,7 +694,7 @@ RUR.we.add_goal_objects = function (specific_object, x, y, nb){
 };
 
 
-RUR.we.set_goal_position = function (){
+RUR.we.set_goal_position = function (home){
     // will remove the position if clicked again.
     "use strict";
     var position, world=RUR.current_world, robot, arr=[], pos, present=false, goal;
@@ -705,6 +714,8 @@ RUR.we.set_goal_position = function (){
             RUR.we.ensure_key_exist(goal, "position");
         }
     }
+
+    goal.position.image = home;
 
     position = RUR.we.calculate_grid_position();
     goal.position.x = position[0];
