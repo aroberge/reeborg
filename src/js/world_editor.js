@@ -6,38 +6,28 @@ RUR.we = {};   // we == World Editor
 RUR.we.__give_to_robot = false;
 
 RUR.we.edit_world = function  () {
+    "use strict"
     // usually triggered when canvas is clicked if editing world;
     // call explicitly if needed.
+    var value;
     switch (RUR.we.edit_world_flag) {
         case "robot-place":
             RUR.we.place_robot();
             break;
         case "object-token":
-            RUR.we._add_object("token");
-            break;
         case "object-star":
-            RUR.we._add_object("star");
-            break;
         case "object-triangle":
-            RUR.we._add_object("triangle");
-            break;
         case "object-square":
-            RUR.we._add_object("square");
+            value = RUR.we.edit_world_flag.substring(7);
+            RUR.we._add_object(value);
             break;
         case "tile-mud":
-            RUR.we.toggle_tile("mud");
-            break;
         case "tile-water":
-            RUR.we.toggle_tile("water");
-            break;
         case "tile-gravel":
-            RUR.we.toggle_tile("gravel");
-            break;
         case "tile-ice":
-            RUR.we.toggle_tile("ice");
-            break;
         case "tile-grass":
-            RUR.we.toggle_tile("grass");
+            value = RUR.we.edit_world_flag.substring(5);
+            RUR.we.toggle_tile(value);
             break;
         case "world-walls":
             RUR.we.toggle_wall();
@@ -49,16 +39,11 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_goal_wall();
             break;
         case "goal-tokens":
-            RUR.we._add_goal_objects("token");
-            break;
         case "goal-star":
-            RUR.we._add_goal_objects("star");
-            break;
         case "goal-triangle":
-            RUR.we._add_goal_objects("triangle");
-            break;
         case "goal-square":
-            RUR.we._add_goal_objects("square");
+            value = RUR.we.edit_world_flag.substring(5);
+            RUR.we._add_goal_objects(value);
             break;
         case "goal-no-objects":
             RUR.we.set_goal_no_objects();
@@ -70,6 +55,8 @@ RUR.we.edit_world = function  () {
 };
 
 RUR.we.select = function (choice) {
+    "use strict"
+    var value;
     $(".edit-world-submenus").hide();
     $(".edit-world-canvas").hide();
     $(".edit-goal-canvas").hide();
@@ -108,41 +95,19 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "object-token":
-            $(".edit-world-canvas").show();
-            if (RUR.we.__give_to_robot) {
-                RUR.we._give_objects_to_robot("token");
-                RUR.we.edit_world_flag = '';
-            } else {
-                $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
-            }
-            break;
         case "object-star":
-            $(".edit-world-canvas").show();
-            if (RUR.we.__give_to_robot) {
-                RUR.we._give_objects_to_robot("star");
-                RUR.we.edit_world_flag = '';
-            } else {
-                $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
-            }
-            break;
         case "object-triangle":
-            $(".edit-world-canvas").show();
-            if (RUR.we.__give_to_robot) {
-                RUR.we._give_objects_to_robot("triangle");
-                RUR.we.edit_world_flag = '';
-            } else {
-                $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
-            }
-            break;
         case "object-square":
+            value = choice.substring(7);
             $(".edit-world-canvas").show();
             if (RUR.we.__give_to_robot) {
-                RUR.we._give_objects_to_robot("square");
+                RUR.we._give_objects_to_robot(value);
                 RUR.we.edit_world_flag = '';
             } else {
-                $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
+                $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             }
             break;
+
         case "tile-mud":
             $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle mud tile.")).effect("highlight", {color: "gold"}, 1500);
@@ -177,20 +142,12 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on desired goal object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-tokens":
-            $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate("token")})).effect("highlight", {color: "gold"}, 1500);
-            break;
         case "goal-star":
-            $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate("star")})).effect("highlight", {color: "gold"}, 1500);
-            break;
         case "goal-triangle":
-            $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate("triangle")})).effect("highlight", {color: "gold"}, 1500);
-            break;
         case "goal-square":
+            value = choice.substring(5);
             $(".edit-goal-canvas").show();
-            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate("square")})).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-no-objects":
             $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no object left as a goal.")).effect("highlight", {color: "gold"}, 1500);
@@ -460,6 +417,7 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
     if (robot == undefined){
         robot = RUR.current_world.robots[0];
     }
+    RUR.we.ensure_key_exist(robot, "objects");
 
     if (nb === "inf"){
         robot.objects[obj] = "infinite"
