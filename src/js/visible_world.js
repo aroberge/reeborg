@@ -168,7 +168,8 @@ RUR.vis_world.draw_goal = function () {
     }
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
-        RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y, goal.orientation);
+        RUR.vis_world.draw_single_object(RUR.home_images.green_home_tile.image, goal.position.x, goal.position.y, RUR.GOAL_CTX);
+        // RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y);
     }
     if (goal.objects !== undefined){
         RUR.vis_world.draw_all_objects(goal.objects, true);
@@ -191,33 +192,14 @@ RUR.vis_world.draw_goal = function () {
     }
 };
 
-RUR.vis_world.draw_home_tile = function (i, j, orientation) {
-    var size = RUR.WALL_THICKNESS, ctx = RUR.GOAL_CTX;
-    ctx.fillStyle = RUR.TARGET_TILE_COLOR;
-    ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
-                      RUR.WALL_LENGTH - size, RUR.WALL_LENGTH - size);
-    if (orientation === undefined) return;
+// RUR.vis_world.draw_home_tile = function (i, j) {
 
-    ctx.fillStyle = RUR.ORIENTATION_TILE_COLOR;
-    switch(orientation){
-    case 0:
-        ctx.fillRect((i+1)*RUR.WALL_LENGTH - size, RUR.HEIGHT - (j+0.5)*RUR.WALL_LENGTH,
-                      size, size);
-        break;
-    case 1:
-        ctx.fillRect((i+0.5)*RUR.WALL_LENGTH, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
-                      size, size);
-        break;
-    case 2:
-        ctx.fillRect((i)*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+0.5)*RUR.WALL_LENGTH,
-                      size, size);
-        break;
-    case 3:
-        ctx.fillRect((i+0.5)*RUR.WALL_LENGTH , RUR.HEIGHT - (j)*RUR.WALL_LENGTH - size,
-                      size, size);
-        break;
-    }
-};
+
+//     var size = RUR.WALL_THICKNESS, ctx = RUR.GOAL_CTX;
+//     ctx.fillStyle = RUR.TARGET_TILE_COLOR;
+//     ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
+//                       RUR.WALL_LENGTH - size, RUR.WALL_LENGTH - size);
+// };
 
 RUR.vis_world.draw_all = function () {
     "use strict";
@@ -259,17 +241,17 @@ RUR.vis_world.draw_tiles = function (tiles){
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
         image = RUR.tiles[tiles[keys[key]]].image;
-        RUR.vis_world.draw_single_tile(image, i, j);
+        RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
     }
 };
 
-RUR.vis_world.draw_single_tile = function (image, i, j) {
-    var thick = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
-    var x, y;
-    x = i*RUR.WALL_LENGTH + thick/2;
-    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
-    ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
-};
+// RUR.vis_world.draw_single_tile = function (image, i, j) {
+//     var thick = RUR.WALL_THICKNESS, ctx = RUR.BACKGROUND_CTX;
+//     var x, y;
+//     x = i*RUR.WALL_LENGTH + thick/2;
+//     y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
+//     ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
+// };
 
 
 RUR.vis_world.draw_all_objects = function (objects, goal){

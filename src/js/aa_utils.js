@@ -4,6 +4,8 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, $, CodeMirror, ReeborgError, editor, library, removeHints, parseUri */
 
+// aa_utils.js : name starting with aa so that it is loaded first :-/
+
 RUR.ReeborgError = function (message) {
     if (RUR.programming_language == "python"){
         return ReeborgError(message);
