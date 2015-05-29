@@ -81,6 +81,21 @@ RUR.runner.assign_initial_values = function () {
             RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
         }
     }
+
+    // then final position for robot
+
+    if (RUR.current_world.goal != undefined &&
+        RUR.current_world.goal.possible_positions !== undefined &&
+        RUR.current_world.goal.possible_positions.length > 1) {
+        goal = RUR.current_world.goal;
+        position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
+        goal.position.x = position[0];
+        goal.position.y = position[1];
+        delete goal.possible_positions;
+    }
+    if (RUR.current_world.goal != undefined) {
+        RUR.vis_world.draw_goal();
+    }
     RUR.rec.record_frame("debug", "RUR.runner.assign_initial_values");
 };
 

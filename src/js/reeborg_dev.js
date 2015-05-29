@@ -2792,6 +2792,21 @@ RUR.runner.assign_initial_values = function () {
             RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
         }
     }
+
+    // then final position for robot
+
+    if (RUR.current_world.goal != undefined &&
+        RUR.current_world.goal.possible_positions !== undefined &&
+        RUR.current_world.goal.possible_positions.length > 1) {
+        goal = RUR.current_world.goal;
+        position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
+        goal.position.x = position[0];
+        goal.position.y = position[1];
+        delete goal.possible_positions;
+    }
+    if (RUR.current_world.goal != undefined) {
+        RUR.vis_world.draw_goal();
+    }
     RUR.rec.record_frame("debug", "RUR.runner.assign_initial_values");
 };
 
@@ -3770,15 +3785,27 @@ RUR.vis_world.draw_robot_clones = function(robot){
 
 RUR.vis_world.draw_goal = function () {
     "use strict";
-    var goal, key, keys, i, j, k, ctx = RUR.GOAL_CTX;
+    var g, goal, key, keys, i, j, k, image, ctx = RUR.GOAL_CTX;
     ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
     if (RUR.current_world.goal === undefined) {
         return;
     }
+
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
-        RUR.vis_world.draw_single_object(RUR.home_images.green_home_tile.image, goal.position.x, goal.position.y, RUR.GOAL_CTX);
-        // RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y);
+        image = RUR.home_images.green_home_tile.image;
+        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
+                RUR.GOAL_CTX.save();
+                RUR.GOAL_CTX.globalAlpha = 0.5;
+                for (i=0; i < goal.possible_positions.length; i++){
+                        g = goal.possible_positions[i];
+                        RUR.vis_world.draw_single_object(image, g[0], g[1], RUR.GOAL_CTX);
+                }
+                RUR.GOAL_CTX.restore();
+        } else {
+            RUR.vis_world.draw_single_object(image, goal.position.x, goal.position.y, RUR.GOAL_CTX);
+        }
     }
     if (goal.objects !== undefined){
         RUR.vis_world.draw_all_objects(goal.objects, true);
@@ -3800,15 +3827,6 @@ RUR.vis_world.draw_goal = function () {
         }
     }
 };
-
-// RUR.vis_world.draw_home_tile = function (i, j) {
-
-
-//     var size = RUR.WALL_THICKNESS, ctx = RUR.GOAL_CTX;
-//     ctx.fillStyle = RUR.TARGET_TILE_COLOR;
-//     ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
-//                       RUR.WALL_LENGTH - size, RUR.WALL_LENGTH - size);
-// };
 
 RUR.vis_world.draw_all = function () {
     "use strict";
@@ -4078,6 +4096,7 @@ RUR.world.reset = function () {
     }
     RUR.MAX_STEPS = 1000;
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.vis_world.draw_goal();
     RUR.vis_world.refresh();
 };
 
@@ -4271,12 +4290,6 @@ RUR.we.select = function (choice) {
             break;
         case "goal-robot":
             $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
-            if (RUR.current_world.goal !== undefined && RUR.current_world.goal.position !== undefined){
-                $("#edit-world-turn").show();
-                $("#random-orientation").hide();
-            } else {
-                $("#edit-world-turn").hide();
-            }
             break;
         case "goal-wall":
             $("#cmd-result").html(RUR.translate("Click on world to toggle additional walls to build.")).effect("highlight", {color: "gold"}, 1500);
@@ -4891,33 +4904,15 @@ RUR.we.set_goal_position = function (){
     }
     goal.possible_positions = arr;
 
-    if (arr.length === 0) {
+    if (arr.length == 0) {
         delete RUR.current_world.goal.position;
         delete RUR.current_world.goal.possible_positions;
-        if (RUR.current_world.goal.orientation !== undefined) {
-            delete RUR.current_world.goal.orientation;
-        }
         if (Object.keys(RUR.current_world.goal).length === 0) {
             delete RUR.current_world.goal;
         }
         $("#edit-world-turn").hide();
     }
 };
-
-RUR.we.set_goal_orientation = function(orientation){
-    "use strict";
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.position === undefined) {
-        return;
-    }
-    if (RUR.current_world.goal.orientation !== undefined &&
-        RUR.current_world.goal.orientation === orientation) {
-        delete RUR.current_world.goal.orientation;  // toggle
-    } else {
-        RUR.current_world.goal.orientation = orientation;
-    }
-};
-
 
 RUR.we.set_goal_no_objects = function(){
     "use strict";

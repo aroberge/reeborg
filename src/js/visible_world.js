@@ -161,15 +161,27 @@ RUR.vis_world.draw_robot_clones = function(robot){
 
 RUR.vis_world.draw_goal = function () {
     "use strict";
-    var goal, key, keys, i, j, k, ctx = RUR.GOAL_CTX;
+    var g, goal, key, keys, i, j, k, image, ctx = RUR.GOAL_CTX;
     ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
     if (RUR.current_world.goal === undefined) {
         return;
     }
+
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
-        RUR.vis_world.draw_single_object(RUR.home_images.green_home_tile.image, goal.position.x, goal.position.y, RUR.GOAL_CTX);
-        // RUR.vis_world.draw_home_tile(goal.position.x, goal.position.y);
+        image = RUR.home_images.green_home_tile.image;
+        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
+                RUR.GOAL_CTX.save();
+                RUR.GOAL_CTX.globalAlpha = 0.5;
+                for (i=0; i < goal.possible_positions.length; i++){
+                        g = goal.possible_positions[i];
+                        RUR.vis_world.draw_single_object(image, g[0], g[1], RUR.GOAL_CTX);
+                }
+                RUR.GOAL_CTX.restore();
+        } else {
+            RUR.vis_world.draw_single_object(image, goal.position.x, goal.position.y, RUR.GOAL_CTX);
+        }
     }
     if (goal.objects !== undefined){
         RUR.vis_world.draw_all_objects(goal.objects, true);
@@ -191,15 +203,6 @@ RUR.vis_world.draw_goal = function () {
         }
     }
 };
-
-// RUR.vis_world.draw_home_tile = function (i, j) {
-
-
-//     var size = RUR.WALL_THICKNESS, ctx = RUR.GOAL_CTX;
-//     ctx.fillStyle = RUR.TARGET_TILE_COLOR;
-//     ctx.fillRect(i*RUR.WALL_LENGTH + size, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + size,
-//                       RUR.WALL_LENGTH - size, RUR.WALL_LENGTH - size);
-// };
 
 RUR.vis_world.draw_all = function () {
     "use strict";

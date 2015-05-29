@@ -77,6 +77,7 @@ RUR.world.reset = function () {
     }
     RUR.MAX_STEPS = 1000;
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.vis_world.draw_goal();
     RUR.vis_world.refresh();
 };
 

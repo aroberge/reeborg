@@ -168,12 +168,6 @@ RUR.we.select = function (choice) {
             break;
         case "goal-robot":
             $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
-            if (RUR.current_world.goal !== undefined && RUR.current_world.goal.position !== undefined){
-                $("#edit-world-turn").show();
-                $("#random-orientation").hide();
-            } else {
-                $("#edit-world-turn").hide();
-            }
             break;
         case "goal-wall":
             $("#cmd-result").html(RUR.translate("Click on world to toggle additional walls to build.")).effect("highlight", {color: "gold"}, 1500);
@@ -788,33 +782,15 @@ RUR.we.set_goal_position = function (){
     }
     goal.possible_positions = arr;
 
-    if (arr.length === 0) {
+    if (arr.length == 0) {
         delete RUR.current_world.goal.position;
         delete RUR.current_world.goal.possible_positions;
-        if (RUR.current_world.goal.orientation !== undefined) {
-            delete RUR.current_world.goal.orientation;
-        }
         if (Object.keys(RUR.current_world.goal).length === 0) {
             delete RUR.current_world.goal;
         }
         $("#edit-world-turn").hide();
     }
 };
-
-RUR.we.set_goal_orientation = function(orientation){
-    "use strict";
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    if (RUR.current_world.goal.position === undefined) {
-        return;
-    }
-    if (RUR.current_world.goal.orientation !== undefined &&
-        RUR.current_world.goal.orientation === orientation) {
-        delete RUR.current_world.goal.orientation;  // toggle
-    } else {
-        RUR.current_world.goal.orientation = orientation;
-    }
-};
-
 
 RUR.we.set_goal_no_objects = function(){
     "use strict";

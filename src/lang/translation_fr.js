@@ -98,6 +98,7 @@ RUR.translation["Note: no object must be left in this world at the end of the pr
 RUR.translation["A robot located here carries:"] = "Un robot situé à {x},{y} transporte:";
 RUR.translation["random location"] = "une position choisie au hasard";
 RUR.translation["Enter number of objects to give to robot."] = "Quel nombre de {obj} voulez-vous donner au robot?"
+RUR.translation["Special information about this location:"] = "Information particulière au sujet de cet endroit:";
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
@@ -114,7 +115,7 @@ RUR.translation["<br>Perhaps you forgot to add parentheses ()."] = "<br>Il manqu
 RUR.translation["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Il est possible qu'un mot soit mal épelé ou qu'une définition de fonction ou de variable manque.";
 
 
-// in tiles.js
+// in images.js
 RUR.translation["I'm stuck in mud."] = "Je suis immobilisé dans la boue.";
 RUR.translation["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Boue: Reeborg <b>ne peut pas</b> détecter ceci et y sera immobilisé s'il va à cet endroit.";
 RUR.translation["I'm slipping on ice!"] = "Je glisse sur la glace!";
@@ -123,4 +124,5 @@ RUR.translation["Grass: usually safe."] = "Gazon: habituellement sans problèmes
 RUR.translation["Gravel: usually safe."] = "Gravier: habituellement sans problèmes.";
 RUR.translation["I'm in water!"] = "Je suis dans l'eau!";
 RUR.translation["Water: Reeborg <b>can</b> detect this but will drawn if it moves to this location."] = "Eau: Reeborg <b>peut</b> détecter ceci mais il se noiera s'il s'y déplace.";
+RUR.translation["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "tuile verte: Reeborg <b>peut</b> détecter ceci avec au_but().";
 
