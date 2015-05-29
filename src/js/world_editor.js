@@ -107,26 +107,14 @@ RUR.we.select = function (choice) {
                 $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             }
             break;
-
         case "tile-mud":
-            $("#edit-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle mud tile.")).effect("highlight", {color: "gold"}, 1500);
-            break;
         case "tile-water":
-            $("#edit-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle water tile.")).effect("highlight", {color: "gold"}, 1500);
-            break;
         case "tile-ice":
-            $("#edit-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle ice tile.")).effect("highlight", {color: "gold"}, 1500);
-            break;
         case "tile-gravel":
-            $("#edit-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle gravel tile.")).effect("highlight", {color: "gold"}, 1500);
-            break;
         case "tile-grass":
+            value = choice.substring(5);
             $("#edit-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle grass tile.")).effect("highlight", {color: "gold"}, 1500);
+            $("#cmd-result").html(RUR.translate("Click on world to toggle tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-walls":
             $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);

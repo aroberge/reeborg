@@ -107,6 +107,14 @@ RUR.translation["A robot located here carries:"] = "A robot located at {x},{y} c
 RUR.translation["random location"] = "random location";
 RUR.translation["Enter number of objects to give to robot."] = "Enter number of {obj} to give to robot."
 RUR.translation["Special information about this location:"] = "Special information about this location:";
+RUR.translation["Click on world to toggle tile."] = "Click on world to toggle {tile} tile.";
+RUR.translation["Click on desired tile below."] = "Click on desired tile below.";
+RUR.translation["mud"] = "mud";
+RUR.translation["water"] = "water";
+RUR.translation["grass"] = "grass";
+RUR.translation["gravel"] = "gravel";
+RUR.translation["ice"] = "ice";
+
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";

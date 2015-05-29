@@ -99,6 +99,14 @@ RUR.translation["A robot located here carries:"] = "Un robot situé à {x},{y} t
 RUR.translation["random location"] = "une position choisie au hasard";
 RUR.translation["Enter number of objects to give to robot."] = "Quel nombre de {obj} voulez-vous donner au robot?"
 RUR.translation["Special information about this location:"] = "Information particulière au sujet de cet endroit:";
+RUR.translation["Click on world to toggle tile."] = "Cliquez sur le monde pour ajouter/supprimer une image de fond: '{tile}'.";
+RUR.translation["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous.";
+RUR.translation["mud"] = "boue";
+RUR.translation["water"] = "eau";
+RUR.translation["grass"] = "gazon";
+RUR.translation["gravel"] = "gravier";
+RUR.translation["ice"] = "glace";
+
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
