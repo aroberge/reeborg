@@ -216,7 +216,7 @@ $(document).ready(function() {
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
-    $("#World-info").dialog({minimize: true, maximize: false, autoOpen:false, width:600, height:250});
+    $("#World-info").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250});
 
 
     editor.widgets = [];

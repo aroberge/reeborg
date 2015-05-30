@@ -1057,7 +1057,7 @@ $(document).ready(function() {
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
-    $("#World-info").dialog({minimize: true, maximize: false, autoOpen:false, width:600, height:250});
+    $("#World-info").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250});
 
 
     editor.widgets = [];
@@ -3289,6 +3289,7 @@ RUR.ui.run = function () {
     $("#step").attr("disabled", "true");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
+    $("#World-info").dialog("close");
 
     clearTimeout(RUR.rec.timer);
     RUR.runner.run(RUR.rec.play);
@@ -3313,6 +3314,7 @@ RUR.ui.step = function () {
     $("#stop").removeAttr("disabled");
     $("#reverse-step").removeAttr("disabled");
     clearTimeout(RUR.rec.timer);
+    $("#World-info").dialog("close");
 };
 
 
