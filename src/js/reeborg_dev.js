@@ -4373,6 +4373,7 @@ RUR.we.select = function (choice) {
     $(".edit-world-canvas").hide();
     $(".edit-goal-canvas").hide();
     $("#edit-world-tiles").hide();
+    $("#edit-goal-position").hide();
     RUR.we.edit_world_flag = choice;
     switch (choice) {
         case "world-info":
@@ -4452,7 +4453,7 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on world to toggle additional walls to build.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-objects":
-            $(".edit-goal-canvas").show();
+            $("#edit-goal-objects").show();
             $("#cmd-result").html(RUR.translate("Click on desired goal object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-token":
@@ -4460,7 +4461,7 @@ RUR.we.select = function (choice) {
         case "goal-triangle":
         case "goal-square":
             value = choice.substring(5);
-            $(".edit-goal-canvas").show();
+            $("#edit-goal-objects").show();
             $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-no-objects":
