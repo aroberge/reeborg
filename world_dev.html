@@ -9,6 +9,7 @@
 <link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon">
 <link rel="icon" href="src/images/favicon.ico" type="image/icon">
 <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
+<link href='http://fonts.googleapis.com/css?family=Orbitron:700' rel='stylesheet' type='text/css'>
 
 <!--offline-- <link rel="stylesheet" href="offline/codemirror-3.0/lib/codemirror.css"> <!--/offline-->
 <!--online-->  <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">  <!--/online-->
@@ -79,7 +80,7 @@
   </div>
 
     <div id="Reeborg-concludes" title="Reeborg says: I'm done!" style="display:none"></div>
-    <div id="Reeborg-writes" title="Reeborg writes:" style="display:none"><pre id="stdout"></pre></div>
+    <div id="Reeborg-writes" title="Reeborg writes:" style="display:none"><span id="narrates">This is a text sample.</span><pre id="stdout">Hello world.</pre></div>
     <div id="Reeborg-shouts" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
     <div id="World-info" title="Information about this location." style="display:none"></div>
 
@@ -171,6 +172,15 @@
             <li><a href="javascript:RUR.we.select('object-star');"><img src="src/images/star.png" alt="star"></a></li>
             <li><a href="javascript:RUR.we.select('object-triangle');"><img src="src/images/triangle.png" alt="triangle"></a></li>
             <li><a href="javascript:RUR.we.select('object-square');"><img src="src/images/square.png" alt="square"></a></li>
+            <li><a href="javascript:RUR.we.select('object-strawberry');"><img src="src/images/strawberry.png" alt="strawberry"></a></li>
+            <li><a href="javascript:RUR.we.select('object-banana');"><img src="src/images/banana.png" alt="banana"></a></li>
+            <li><a href="javascript:RUR.we.select('object-orange');"><img src="src/images/orange.png" alt="orange"></a></li>
+            <li><a href="javascript:RUR.we.select('object-apple');"><img src="src/images/apple.png" alt="apple"></a></li>
+            <li><a href="javascript:RUR.we.select('object-leaf');"><img src="src/images/leaf.png" alt="leaf"></a></li>
+            <li><a href="javascript:RUR.we.select('object-dandelion');"><img src="src/images/dandelion.png" alt="dandelion"></a></li>
+            <li><a href="javascript:RUR.we.select('object-carrot');"><img src="src/images/carrot.png" alt="carrot"></a></li>
+            <li><a href="javascript:RUR.we.select('object-tulip');"><img src="src/images/tulip.png" alt="tulip"></a></li>
+            <li><a href="javascript:RUR.we.select('object-daisy');"><img src="src/images/daisy.png" alt="daisy"></a></li>
         </ul>
         <ul id="edit-tile" style="display:none">
             <li><a href="javascript:RUR.we.select('tile-mud');"><img src="src/images/mud.png" alt="mud tile"></a></li>

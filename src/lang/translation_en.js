@@ -26,6 +26,21 @@ RUR.translation_to_english["square"] = "square";
 RUR.translation_to_english["triangle"] = "triangle";
 RUR.translation_to_english["token"] = "token";
 
+RUR.translation["strawberry"] = "strawberry";
+RUR.translation["carrot"] = "carrot";
+RUR.translation["apple"] = "apple";
+RUR.translation["banana"] = "banana";
+RUR.translation["orange"] = "orange";
+RUR.translation["tulip"] = "tulip";
+RUR.translation["dandelion"] = "dandelion";
+
+RUR.translation_to_english["strawberry"] = "strawberry";
+RUR.translation_to_english["carrot"] = "carrot";
+RUR.translation_to_english["apple"] = "apple";
+RUR.translation_to_english["banana"] = "banana";
+RUR.translation_to_english["orange"] = "orange";
+RUR.translation_to_english["tulip"] = "tulip";
+RUR.translation_to_english["dandelion"] = "dandelion";
 
 // in rur_utils.js
 RUR.translation["# 'from my_lib import *' in Python Code is required to use\n# the code in this library. \n\n"] =

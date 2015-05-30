@@ -18,6 +18,14 @@ RUR.we.edit_world = function  () {
         case "object-star":
         case "object-triangle":
         case "object-square":
+        case "object-strawberry":
+        case "object-banana":
+        case "object-apple":
+        case "object-orange":
+        case "object-dandelion":
+        case "object-carrot":
+        case "object-tulip":
+        case "object-daisy":
             value = RUR.we.edit_world_flag.substring(7);
             RUR.we._add_object(value);
             break;
@@ -101,6 +109,14 @@ RUR.we.select = function (choice) {
         case "object-star":
         case "object-triangle":
         case "object-square":
+        case "object-strawberry":
+        case "object-banana":
+        case "object-apple":
+        case "object-orange":
+        case "object-dandelion":
+        case "object-carrot":
+        case "object-tulip":
+        case "object-daisy":
             value = choice.substring(7);
             $(".edit-world-canvas").show();
             if (RUR.we.__give_to_robot) {

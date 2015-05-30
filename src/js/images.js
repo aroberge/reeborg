@@ -82,6 +82,162 @@ RUR.objects.square.image_goal.onload = function () {
 RUR.objects.known_objects.push("square");
 
 
+RUR.objects.strawberry = {};
+RUR.objects.strawberry.image = new Image();
+RUR.objects.strawberry.image.src = 'src/images/strawberry.png';
+RUR.objects.strawberry.image_goal = new Image();
+RUR.objects.strawberry.image_goal.src = 'src/images/strawberry_goal.png';  // modified from above
+RUR.objects.strawberry.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.strawberry.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+RUR.objects.known_objects.push("strawberry");
+
+RUR.objects.banana = {};
+RUR.objects.banana.image = new Image();
+RUR.objects.banana.image.src = 'src/images/banana.png';
+RUR.objects.banana.image_goal = new Image();
+RUR.objects.banana.image_goal.src = 'src/images/banana_goal.png';  // modified from above
+RUR.objects.banana.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.banana.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+RUR.objects.known_objects.push("banana");
+
+
+RUR.objects.apple = {};
+RUR.objects.apple.image = new Image();
+RUR.objects.apple.image.src = 'src/images/apple.png';
+RUR.objects.apple.image_goal = new Image();
+RUR.objects.apple.image_goal.src = 'src/images/apple_goal.png';  // modified from above
+RUR.objects.apple.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.apple.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+RUR.objects.known_objects.push("apple");
+
+
+RUR.objects.leaf = {};
+RUR.objects.leaf.image = new Image();
+RUR.objects.leaf.image.src = 'src/images/leaf.png';
+RUR.objects.leaf.image_goal = new Image();
+RUR.objects.leaf.image_goal.src = 'src/images/leaf_goal.png';  // modified from above
+RUR.objects.leaf.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.leaf.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+RUR.objects.known_objects.push("leaf");
+
+RUR.objects.carrot = {};
+RUR.objects.carrot.image = new Image();
+RUR.objects.carrot.image.src = 'src/images/carrot.png';
+RUR.objects.carrot.image_goal = new Image();
+RUR.objects.carrot.image_goal.src = 'src/images/carrot_goal.png';  // modified from above
+RUR.objects.carrot.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.carrot.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+RUR.objects.known_objects.push("carrot");
+
+RUR.objects.dandelion = {};
+RUR.objects.dandelion.image = new Image();
+RUR.objects.dandelion.image.src = 'src/images/dandelion.png';
+RUR.objects.dandelion.image_goal = new Image();
+RUR.objects.dandelion.image_goal.src = 'src/images/dandelion_goal.png';  // modified from above
+RUR.objects.dandelion.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.dandelion.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+RUR.objects.known_objects.push("dandelion");
+
+
+RUR.objects.orange = {};
+RUR.objects.orange.image = new Image();
+RUR.objects.orange.image.src = 'src/images/orange.png';
+RUR.objects.orange.image_goal = new Image();
+RUR.objects.orange.image_goal.src = 'src/images/orange_goal.png';  // modified from above
+RUR.objects.orange.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.orange.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+RUR.objects.known_objects.push("orange");
+
+RUR.objects.daisy = {};
+RUR.objects.daisy.image = new Image();
+RUR.objects.daisy.image.src = 'src/images/daisy.png';
+RUR.objects.daisy.image_goal = new Image();
+RUR.objects.daisy.image_goal.src = 'src/images/daisy_goal.png';  // modified from above
+RUR.objects.daisy.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.daisy.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+RUR.objects.known_objects.push("daisy");
+
+RUR.objects.tulip = {};
+RUR.objects.tulip.image = new Image();
+RUR.objects.tulip.image.src = 'src/images/tulip.png';
+RUR.objects.tulip.image_goal = new Image();
+RUR.objects.tulip.image_goal.src = 'src/images/tulip_goal.png';  // modified from above
+RUR.objects.tulip.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.tulip.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+RUR.objects.known_objects.push("tulip");
+
 RUR.tiles.mud = {};
 RUR.tiles.mud.fatal = true;
 RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");
