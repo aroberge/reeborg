@@ -803,6 +803,10 @@ RUR.control.write = function () {
     RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
 };
 
+RUR.control.narration = function (arg) {
+    RUR.rec.record_frame("output", {"element": "#narrates", "message": arg, "html": true});
+};
+
 RUR.control.sound_flag = false;
 RUR.control.sound = function(on){
     if(!on){
@@ -2708,7 +2712,11 @@ RUR.rec.display_frame = function () {
     } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
-        $(frame.output.element).append(frame.output.message);
+        if (frame.output.html){
+            $(frame.output.element).html(frame.output.message);
+        } else {
+            $(frame.output.element).append(frame.output.message);
+        }
         $("#Reeborg-writes").dialog("open");
     }
 
@@ -3350,6 +3358,7 @@ RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
     $("#highlight-impossible").hide();
     $("#stdout").html("");
+    $("#narrates").html("");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
     // reset the options in case the user has dragged the dialogs as it would

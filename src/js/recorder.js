@@ -141,7 +141,11 @@ RUR.rec.display_frame = function () {
     } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
-        $(frame.output.element).append(frame.output.message);
+        if (frame.output.html){
+            $(frame.output.element).html(frame.output.message);
+        } else {
+            $(frame.output.element).append(frame.output.message);
+        }
         $("#Reeborg-writes").dialog("open");
     }
 

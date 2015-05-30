@@ -449,6 +449,10 @@ RUR.control.write = function () {
     RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
 };
 
+RUR.control.narration = function (arg) {
+    RUR.rec.record_frame("output", {"element": "#narrates", "message": arg, "html": true});
+};
+
 RUR.control.sound_flag = false;
 RUR.control.sound = function(on){
     if(!on){
