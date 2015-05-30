@@ -197,7 +197,7 @@ RUR.we.change_edit_robot_menu = function () {
 };
 
 function toggle_editing_mode () {
-    $("#edit-world-panel").toggleClass("active");
+    // $("#edit-world-panel").toggleClass("active");
     if (RUR.we.editing_world) {
         RUR.we.editing_world = false;
         editing_world_enable_run();

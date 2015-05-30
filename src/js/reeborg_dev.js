@@ -890,15 +890,13 @@ $(document).ready(function() {
             }
         });
     });
+
     $("#editor-panel").resizable({
         resize: function() {
             editor.setSize(null, $(this).height()-40);
             library.setSize(null, $(this).height()-40);
         }
     }).draggable({cursor: "move", handle: "ul"});
-
-    $("#edit-world-panel").resizable().draggable({cursor: "move", handle: "h1"});
-
 
     $("#editor-link").on("click", function(){
         if (RUR.programming_language == "python"){
@@ -943,12 +941,6 @@ $(document).ready(function() {
         saveAs(blob, FILENAME);
     });
 
-
-    $("#edit-world").on("click", function(evt) {
-        toggle_editing_mode();
-        $(this).toggleClass("blue-gradient");
-        $(this).toggleClass("reverse-blue-gradient");
-    });
 
     $("#save-world").on("click", function(evt) {
         var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
@@ -1026,6 +1018,19 @@ $(document).ready(function() {
         return;
     });
 
+    $("#edit-world").on("click", function(evt) {
+        if ($("#edit-world").hasClass("blue-gradient")) {
+            $("#edit-world-panel").dialog("open");
+            $("#edit-world").addClass("reverse-blue-gradient").removeClass("blue-gradient");
+            toggle_editing_mode();
+        } else {
+            $("#edit-world-panel").dialog("close");
+            $("#edit-world-panel").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:800,  height:600, maximize: false, position:"top"});
+        }
+    });
+    $("#edit-world-panel").dialog({minimize: false, maximize: false, autoOpen:false, width:800,  height:600, maximize: false, position:"top",
+        beforeClose: function( event, ui ) {$("#edit-world").addClass("blue-gradient").removeClass("reverse-blue-gradient");
+                                              toggle_editing_mode();}});
 
     $("#about-div").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#about-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
@@ -4500,7 +4505,7 @@ RUR.we.change_edit_robot_menu = function () {
 };
 
 function toggle_editing_mode () {
-    $("#edit-world-panel").toggleClass("active");
+    // $("#edit-world-panel").toggleClass("active");
     if (RUR.we.editing_world) {
         RUR.we.editing_world = false;
         editing_world_enable_run();
