@@ -4354,6 +4354,14 @@ RUR.we.edit_world = function  () {
         case "goal-star":
         case "goal-triangle":
         case "goal-square":
+        case "goal-strawberry":
+        case "goal-banana":
+        case "goal-apple":
+        case "goal-orange":
+        case "goal-dandelion":
+        case "goal-carrot":
+        case "goal-tulip":
+        case "goal-daisy":
             value = RUR.we.edit_world_flag.substring(5);
             RUR.we._add_goal_objects(value);
             break;
@@ -4460,6 +4468,14 @@ RUR.we.select = function (choice) {
         case "goal-star":
         case "goal-triangle":
         case "goal-square":
+        case "goal-strawberry":
+        case "goal-banana":
+        case "goal-apple":
+        case "goal-orange":
+        case "goal-dandelion":
+        case "goal-carrot":
+        case "goal-tulip":
+        case "goal-daisy":
             value = choice.substring(5);
             $("#edit-goal-objects").show();
             $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
