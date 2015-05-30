@@ -261,6 +261,7 @@ RUR.we.calculate_grid_position = function () {
 };
 
 RUR.we.show_world_info = function (no_grid) {
+    "use strict"
     // shows the information about a given grid position
     // when the user clicks on the canvas at that grid position.
     // enabled in doc_ready.js
@@ -323,7 +324,6 @@ RUR.we.show_world_info = function (no_grid) {
         }
     }
 
-    goals = RUR.current_world.goal;
     no_object = true;
     if (goals != undefined){
         obj = goals.objects;
@@ -338,6 +338,38 @@ RUR.we.show_world_info = function (no_grid) {
     } else {
         no_object = false;
     }
+
+
+    if (goals != undefined){
+        if (goals.walls != undefined && coords) {
+            if (goals.walls[coords] !== undefined){
+                if (goals.walls[coords].indexOf("east") != -1) {
+                    information += "<br>" + RUR.translate("A wall must be built east of this location.");
+                }
+                if (goals.walls[coords].indexOf("north") != -1) {
+                    information += "<br>" + RUR.translate("A wall must be built north of this location.");
+                }
+            }
+            x -= 1;
+            coords = x + "," + y;
+            if (goals.walls[coords] !== undefined){
+                if (goals.walls[coords].indexOf("east") != -1) {
+                    information += "<br>" + RUR.translate("A wall must be built west of this location.");
+                }
+            }
+            x += 1;
+            y -= 1;
+            coords = x + "," + y;
+            if (goals.walls[coords] !== undefined){
+                if (goals.walls[coords].indexOf("north") != -1) {
+                    information += "<br>" + RUR.translate("A wall must be built south of this location.");
+                }
+            }
+            y += 1;
+            coords = x + "," + y;
+        }
+    }
+
     if (no_object){
         information += "<br><br><b>" + RUR.translate("Note: no object must be left in this world at the end of the program.") + "</b>";
     }

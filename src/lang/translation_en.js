@@ -129,6 +129,10 @@ RUR.translation["water"] = "water";
 RUR.translation["grass"] = "grass";
 RUR.translation["gravel"] = "gravel";
 RUR.translation["ice"] = "ice";
+RUR.translation["A wall must be built east of this location."] = "A wall must be built east of this location.";
+RUR.translation["A wall must be built north of this location."] = "A wall must be built north of this location.";
+RUR.translation["A wall must be built west of this location."] = "A wall must be built west of this location.";
+RUR.translation["A wall must be built south of this location."] = "A wall must be built south of this location.";
 
 
 // in storage.js
