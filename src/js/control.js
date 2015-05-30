@@ -453,6 +453,10 @@ RUR.control.narration = function (arg) {
     RUR.rec.record_frame("output", {"element": "#narrates", "message": arg, "html": true});
 };
 
+RUR.control.clear_print = function () {
+    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true, "other_element": "#narrates"});
+};
+
 RUR.control.sound_flag = false;
 RUR.control.sound = function(on){
     if(!on){

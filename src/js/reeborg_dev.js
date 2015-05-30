@@ -807,6 +807,10 @@ RUR.control.narration = function (arg) {
     RUR.rec.record_frame("output", {"element": "#narrates", "message": arg, "html": true});
 };
 
+RUR.control.clear_print = function () {
+    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true, "other_element": "#narrates"});
+};
+
 RUR.control.sound_flag = false;
 RUR.control.sound = function(on){
     if(!on){
@@ -2712,6 +2716,10 @@ RUR.rec.display_frame = function () {
     } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
+        if (frame.output.other_element && frame.output.html){  // for clear_print
+            $(frame.output.element).html(frame.output.message);
+            $(frame.output.other_element).html(frame.output.message);
+        }
         if (frame.output.html){
             $(frame.output.element).html(frame.output.message);
         } else {
