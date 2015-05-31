@@ -439,6 +439,10 @@ RUR.control.carries_object = function (robot, obj) {
     }
 };
 
+RUR.control.set_model = function(robot, model){
+     robot.model = model;
+ };
+
 
 RUR.control.write = function () {
     RUR.control.sound_id = "#write-sound";

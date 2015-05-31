@@ -225,7 +225,7 @@ RUR.vis_world.draw_all = function () {
         RUR.SCALE = 1;
         RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
     }
-    RUR.vis_robot.set_offsets()
+//    RUR.vis_robot.set_offsets()
     RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
     RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
 

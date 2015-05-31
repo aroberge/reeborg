@@ -34,49 +34,49 @@ RUR.vis_robot.images[1].robot_random_img.src = 'src/images/rover_random.png';
 
 // 3d red type
 RUR.vis_robot.images[2].robot_e_img = new Image();
-RUR.vis_robot.images[2].robot_e_img.src = 'src/images/plain_e_35x35.png';
+RUR.vis_robot.images[2].robot_e_img.src = 'src/images/plain_e.png';
 RUR.vis_robot.images[2].robot_n_img = new Image();
-RUR.vis_robot.images[2].robot_n_img.src = 'src/images/plain_n_35x35.png';
+RUR.vis_robot.images[2].robot_n_img.src = 'src/images/plain_n.png';
 RUR.vis_robot.images[2].robot_w_img = new Image();
-RUR.vis_robot.images[2].robot_w_img.src = 'src/images/plain_w_35x35.png';
+RUR.vis_robot.images[2].robot_w_img.src = 'src/images/plain_w.png';
 RUR.vis_robot.images[2].robot_s_img = new Image();
-RUR.vis_robot.images[2].robot_s_img.src = 'src/images/plain_s_35x35.png';
+RUR.vis_robot.images[2].robot_s_img.src = 'src/images/plain_s.png';
 RUR.vis_robot.images[2].robot_random_img = new Image();
 RUR.vis_robot.images[2].robot_random_img.src = 'src/images/robot_random.png';
 
 // solar panel type
 RUR.vis_robot.images[3].robot_e_img = new Image();
-RUR.vis_robot.images[3].robot_e_img.src = 'src/images/sp_e_35x35.png';
+RUR.vis_robot.images[3].robot_e_img.src = 'src/images/sp_e.png';
 RUR.vis_robot.images[3].robot_n_img = new Image();
-RUR.vis_robot.images[3].robot_n_img.src = 'src/images/sp_n_35x35.png';
+RUR.vis_robot.images[3].robot_n_img.src = 'src/images/sp_n.png';
 RUR.vis_robot.images[3].robot_w_img = new Image();
-RUR.vis_robot.images[3].robot_w_img.src = 'src/images/sp_w_35x35.png';
+RUR.vis_robot.images[3].robot_w_img.src = 'src/images/sp_w.png';
 RUR.vis_robot.images[3].robot_s_img = new Image();
-RUR.vis_robot.images[3].robot_s_img.src = 'src/images/sp_s_35x35.png';
+RUR.vis_robot.images[3].robot_s_img.src = 'src/images/sp_s.png';
 RUR.vis_robot.images[3].robot_random_img = new Image();
 RUR.vis_robot.images[3].robot_random_img.src = 'src/images/robot_random.png';
 
 RUR.vis_robot.style = 0;
 
-RUR.vis_robot.set_offsets = function(){
-    if (RUR.LARGE_WORLD){
-        if (RUR.vis_robot.style==0 || RUR.vis_robot.style==1){
-            RUR.vis_robot.x_offset = 4;
-             RUR.vis_robot.y_offset = 4;
-        } else {
-            RUR.vis_robot.x_offset = 2;
-            RUR.vis_robot.y_offset = 2;
-        }
-    } else {
-        if (RUR.vis_robot.style==0 || RUR.vis_robot.style==1){
-            RUR.vis_robot.x_offset = 10;
-             RUR.vis_robot.y_offset = 8;
-        } else {
-            RUR.vis_robot.x_offset = 5;
-            RUR.vis_robot.y_offset = 4;
-        }
-    }
-}
+// RUR.vis_robot.set_offsets = function(){
+//     if (RUR.LARGE_WORLD){
+//         if (RUR.vis_robot.style==0 || RUR.vis_robot.style==1){
+//             RUR.vis_robot.x_offset = 4;
+//              RUR.vis_robot.y_offset = 4;
+//         } else {
+//             RUR.vis_robot.x_offset = 2;
+//             RUR.vis_robot.y_offset = 2;
+//         }
+//     } else {
+//         if (RUR.vis_robot.style==0 || RUR.vis_robot.style==1){
+//             RUR.vis_robot.x_offset = 10;
+//              RUR.vis_robot.y_offset = 8;
+//         } else {
+//             RUR.vis_robot.x_offset = 5;
+//             RUR.vis_robot.y_offset = 4;
+//         }
+//     }
+// }
 
 RUR.vis_robot.select_style = function (arg) {
     var style;
@@ -86,7 +86,7 @@ RUR.vis_robot.select_style = function (arg) {
         RUR.vis_robot.style = 0;
         style = 0;
     }
-    RUR.vis_robot.set_offsets();
+    // RUR.vis_robot.set_offsets();
 
     style = RUR.vis_robot.style;
     RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
@@ -140,13 +140,24 @@ RUR.vis_robot.draw = function (robot) {
         return;
     }
 
-    x = robot.x * RUR.WALL_LENGTH + RUR.vis_robot.x_offset;
-    y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.y_offset;
+    x = robot.x * RUR.WALL_LENGTH; // + RUR.vis_robot.x_offset;
+    y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH; // + RUR.vis_robot.y_offset;
 
+    var thick = RUR.WALL_THICKNESS;
+    x = robot.x*RUR.WALL_LENGTH + thick/2;
+    y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + thick/2;
 
     switch(robot.orientation){
         case RUR.EAST:
-            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
+            if (robot.model != undefined){
+                console.log(robot.model);
+                console.log(RUR.vis_robot.images);
+                RUR.ROBOT_CTX.drawImage(RUR.vis_robot.images[robot.model].robot_e_img, x, y,
+                    RUR.vis_robot.images[robot.model].robot_e_img.width*RUR.SCALE,
+                    RUR.vis_robot.images[robot.model].robot_e_img.height*RUR.SCALE);
+            } else {
+                RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
+            }
             break;
         case RUR.NORTH:
             RUR.ROBOT_CTX.drawImage(RUR.vis_robot.n_img, x, y, RUR.vis_robot.n_img.width*RUR.SCALE, RUR.vis_robot.n_img.height*RUR.SCALE);
