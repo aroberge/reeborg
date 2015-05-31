@@ -203,23 +203,23 @@ function toggle_editing_mode () {
         editing_world_enable_run();
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.draw_all();
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
         }
     } else {
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;
-        RUR.vis_world.draw_background();
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.draw_all();
         editing_world_disable_run();
         RUR.we.show_pre_post_code();
     }
 }
 
 RUR.we.refresh_world_edited = function () {
+    // todo: see if we could draw fewer...
     RUR.vis_world.draw_all();
 };
 

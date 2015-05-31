@@ -3851,12 +3851,80 @@ RUR.vis_robot.set_trace_style("default");
 
 RUR.vis_world = {};
 
+
+RUR.vis_world.compute_world_geometry = function() {
+    "use strict";
+    if (RUR.LARGE_WORLD) {
+        RUR.WALL_LENGTH = 20;
+        RUR.WALL_THICKNESS = 2;
+        RUR.SCALE = 0.5;
+        RUR.BACKGROUND_CTX.font = "8px sans-serif";
+    } else {
+        RUR.WALL_LENGTH = 40;
+        RUR.WALL_THICKNESS = 4;
+        RUR.SCALE = 1;
+        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
+    }
+    RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
+    RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
+}
+
+RUR.vis_world.draw_all = function () {
+    "use strict";
+    RUR.vis_world.compute_world_geometry();
+
+    if (RUR.current_world.blank_canvas) {
+        if (RUR.we.editing_world) {
+            alert("Editing of blank canvas is not supported.");
+            return;
+         }
+        RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        return;
+    }
+
+    RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
+    RUR.vis_world.draw_coordinates(); // on BACKGROUND_CTX
+
+    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+    RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.vis_world.draw_goal();  // on GOAL_CTX
+
+    RUR.vis_world.refresh()
+};
+
+
+RUR.vis_world.refresh = function () {
+    "use strict";
+    // meant to be called at each step
+    // does not draw background (i.e. coordinates and grid walls)
+    // does not draw goals - they should not change during a running program
+    // does not clear trace
+
+    RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.vis_world.draw_foreground_walls(RUR.current_world.walls); // on OBJECTS_CTX
+    RUR.vis_world.draw_all_objects(RUR.current_world.objects);  // on OBJECTS_CTX
+          // RUR.vis_world.draw_all_objects also called by draw_goal, and draws on GOAL_CTX
+
+    // do not clear BACKGROUND_CTX here
+    RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
+
+    RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.vis_world.draw_robots(RUR.current_world.robots);  // on ROBOT_CTX
+    RUR.vis_world.compile_info();  // on ROBOT_CTX
+    RUR.vis_world.draw_info();     // on ROBOT_CTX
+};
+
+
 RUR.vis_world.draw_coordinates = function() {
     "use strict";
     var x, y, ctx = RUR.BACKGROUND_CTX;
-    if (RUR.current_world.blank_canvas) {
-        return;
-    }
 
     ctx.fillStyle = RUR.COORDINATES_COLOR;
     y = RUR.HEIGHT + 5 - RUR.WALL_LENGTH/2;
@@ -3874,25 +3942,14 @@ RUR.vis_world.draw_coordinates = function() {
 };
 
 
-RUR.vis_world.draw_background = function () {
-    "use strict";
-    var i, j, ctx = RUR.BACKGROUND_CTX;
-
-    ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    if (RUR.current_world.blank_canvas) {
-        return;
-    }
-
-    RUR.vis_world.draw_grid_walls();
-    RUR.vis_world.draw_coordinates();
-
-};
-
 RUR.vis_world.draw_grid_walls = function(){
-    var i, j, ctx = RUR.BACKGROUND_CTX;
+    var i, j, ctx;
     if (RUR.we.editing_world) {
-        ctx = RUR.GOAL_CTX;     // have the appear above the tiles
+        ctx = RUR.GOAL_CTX;     // have the appear above the tiles while editing
+    } else {
+        ctx = RUR.BACKGROUND_CTX;
     }
+
     ctx.fillStyle = RUR.SHADOW_WALL_COLOR;
     for (i = 1; i <= RUR.COLS; i++) {
         for (j = 1; j <= RUR.ROWS; j++) {
@@ -3908,9 +3965,6 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
 
     ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
-    if (RUR.current_world.blank_canvas) {
-        return;
-    }
 
     // border walls (x and y axis)
     ctx.fillStyle = RUR.WALL_COLOR;
@@ -3969,15 +4023,8 @@ RUR.vis_world.draw_east_wall = function(ctx, i, j, goal) {
 };
 
 RUR.vis_world.draw_robots = function (robots) {
-    var robot, info = '';
-    RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    if (RUR.current_world.blank_canvas) {
-        return;
-    }
-
-    // drawn on RUR.ROBOT_CTX
-    RUR.vis_world.compile_info();
-    RUR.vis_world.draw_info();
+    "use strict";
+    var robot;
 
     if (!robots || robots[0] === undefined) {
         return;
@@ -3992,6 +4039,7 @@ RUR.vis_world.draw_robots = function (robots) {
 };
 
 RUR.vis_world.draw_robot_clones = function(robot){
+    "use strict";
     var i, clone;
     RUR.ROBOT_CTX.save();
     RUR.ROBOT_CTX.globalAlpha = 0.4;
@@ -4006,15 +4054,12 @@ RUR.vis_world.draw_robot_clones = function(robot){
     RUR.ROBOT_CTX.restore();
 }
 
-
-
 RUR.vis_world.draw_goal = function () {
     "use strict";
-    var g, goal, key, keys, i, j, k, image, ctx = RUR.GOAL_CTX;
+    var goal, ctx = RUR.GOAL_CTX;
 
-    ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    if (RUR.we.editing_world){  // have to appear above tiles.
-        RUR.vis_world.draw_grid_walls();
+    if (RUR.we.editing_world){  // have to appear above tiles;
+        RUR.vis_world.draw_grid_walls();  //  so this is a convenient canvas
     }
 
     if (RUR.current_world.goal === undefined) {
@@ -4023,72 +4068,64 @@ RUR.vis_world.draw_goal = function () {
 
     goal = RUR.current_world.goal;
     if (goal.position !== undefined) {
-        if (goal.position.image !== undefined &&
-            typeof goal.position.image === 'string' &&
-            RUR.home_images[goal.position.image] !== undefined){
-            image = RUR.home_images[goal.position.image].image;
-        } else {    // For anyone wondering, this step might be needed only when using older world
-                    // files that were created when there was not a choice
-                    // of image for indicating the home position.
-            image = RUR.home_images.green_home_tile.image;
-        }
-        if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
-                RUR.GOAL_CTX.save();
-                RUR.GOAL_CTX.globalAlpha = 0.5;
-                for (i=0; i < goal.possible_positions.length; i++){
-                        g = goal.possible_positions[i];
-                        RUR.vis_world.draw_single_object(image, g[0], g[1], RUR.GOAL_CTX);
-                }
-                RUR.GOAL_CTX.restore();
-        } else {
-            RUR.vis_world.draw_single_object(image, goal.position.x, goal.position.y, RUR.GOAL_CTX);
-        }
+        RUR.vis_world.draw_goal_position(goal, ctx);
     }
     if (goal.objects !== undefined){
         RUR.vis_world.draw_all_objects(goal.objects, true);
     }
 
     if (goal.walls !== undefined){
-        ctx.fillStyle = RUR.WALL_COLOR;
-        keys = Object.keys(goal.walls);
-        for (key=0; key < keys.length; key++){
-            k = keys[key].split(",");
-            i = parseInt(k[0], 10);
-            j = parseInt(k[1], 10);
-            if ( goal.walls[keys[key]].indexOf("north") !== -1) {
-                RUR.vis_world.draw_north_wall(ctx, i, j, true);
+        RUR.vis_world.draw_goal_walls(goal, ctx);
+    }
+};
+
+
+RUR.vis_world.draw_goal_position = function (goal, ctx) {
+    "use strict";
+    var image, i, g;
+
+    if (goal.position.image !== undefined &&
+        typeof goal.position.image === 'string' &&
+        RUR.home_images[goal.position.image] !== undefined){
+        image = RUR.home_images[goal.position.image].image;
+    } else {    // For anyone wondering, this step might be needed only when using older world
+                // files that were created when there was not a choice
+                // of image for indicating the home position.
+        image = RUR.home_images.green_home_tile.image;
+    }
+    if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
+            ctx.save();
+            ctx.globalAlpha = 0.5;
+            for (i=0; i < goal.possible_positions.length; i++){
+                    g = goal.possible_positions[i];
+                    RUR.vis_world.draw_single_object(image, g[0], g[1], ctx);
             }
-            if (goal.walls[keys[key]].indexOf("east") !== -1) {
-                RUR.vis_world.draw_east_wall(ctx, i, j, true);
-            }
+            ctx.restore();
+    } else {
+        RUR.vis_world.draw_single_object(image, goal.position.x, goal.position.y, ctx);
+    }
+};
+
+RUR.vis_world.draw_goal_walls = function (goal, ctx) {
+    "use strict";
+    var key, keys, i, j, k;
+    ctx.fillStyle = RUR.WALL_COLOR;
+    keys = Object.keys(goal.walls);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        if ( goal.walls[keys[key]].indexOf("north") !== -1) {
+            RUR.vis_world.draw_north_wall(ctx, i, j, true);
+        }
+        if (goal.walls[keys[key]].indexOf("east") !== -1) {
+            RUR.vis_world.draw_east_wall(ctx, i, j, true);
         }
     }
-};
-
-RUR.vis_world.draw_all = function () {
-    "use strict";
-    if (RUR.LARGE_WORLD) {
-        RUR.WALL_LENGTH = 20;
-        RUR.WALL_THICKNESS = 2;
-        RUR.SCALE = 0.5;
-        RUR.BACKGROUND_CTX.font = "8px sans-serif";
-    } else {
-        RUR.WALL_LENGTH = 40;
-        RUR.WALL_THICKNESS = 4;
-        RUR.SCALE = 1;
-        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
-    }
-//    RUR.vis_robot.set_offsets()
-    RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
-    RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
-
-    RUR.vis_world.draw_background();
-    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.vis_world.draw_goal();
-    RUR.vis_world.refresh();
-};
+}
 
 RUR.vis_world.clear_trace = function(){
+    "use strict";
     // potentially useful as it can be called from a user's program.
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 };
@@ -4151,19 +4188,6 @@ RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
     ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
 };
 
-
-RUR.vis_world.refresh = function () {
-    "use strict";
-    var i, t, toks, min_, max_, goal, robot, clone, clones=[], color1_temp, color2_temp, position;
-
-    // does not draw background
-    // does not clear trace
-
-    RUR.vis_world.draw_foreground_walls(RUR.current_world.walls);
-    RUR.vis_world.draw_tiles(RUR.current_world.tiles);
-    RUR.vis_world.draw_all_objects(RUR.current_world.objects);
-    RUR.vis_world.draw_robots(RUR.current_world.robots);
-};
 
 
 RUR.vis_world.compile_info = function() {
@@ -4230,7 +4254,7 @@ RUR.vis_world.draw_info = function() {
         return;
     }
     // make sure it appears on top of everything (except possibly robots)
-    ctx = RUR.ROBOT_CTX;  // Note: draw in draw_robots so it is not erased
+    ctx = RUR.ROBOT_CTX;
 
     keys = Object.keys(RUR.vis_world.information);
     for (key=0; key < keys.length; key++){
@@ -4323,9 +4347,7 @@ RUR.world.reset = function () {
         delete RUR.MAX_NB_ROBOTS;
     }
     RUR.MAX_STEPS = 1000;
-    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.vis_world.draw_goal();
-    RUR.vis_world.refresh();
+    RUR.vis_world.draw_all();
 };
 
 RUR.world.add_robot = function (robot) {
@@ -4553,23 +4575,23 @@ function toggle_editing_mode () {
         editing_world_enable_run();
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.draw_all();
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
         }
     } else {
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;
-        RUR.vis_world.draw_background();
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.draw_all();
         editing_world_disable_run();
         RUR.we.show_pre_post_code();
     }
 }
 
 RUR.we.refresh_world_edited = function () {
+    // todo: see if we could draw fewer...
     RUR.vis_world.draw_all();
 };
 
