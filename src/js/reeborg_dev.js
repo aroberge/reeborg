@@ -2822,8 +2822,6 @@ RUR.rec.check_goal= function (frame) {
             goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
             goal_status.message += RUR.translate("<li class='failure'>One or more objects are not at the correct location.</li>");
-            console.log("g.objects = ", g.objects);
-            console.log("world.objects = ", world.objects);
             goal_status.success = false;
         }
     }
@@ -3853,9 +3851,9 @@ RUR.vis_robot.set_trace_style("default");
 
 RUR.vis_world = {};
 
-RUR.vis_world.draw_coordinates = function(ctx) {
+RUR.vis_world.draw_coordinates = function() {
     "use strict";
-    var x, y;
+    var x, y, ctx = RUR.BACKGROUND_CTX;
     if (RUR.current_world.blank_canvas) {
         return;
     }
@@ -3885,7 +3883,16 @@ RUR.vis_world.draw_background = function () {
         return;
     }
 
-    // grid walls
+    RUR.vis_world.draw_grid_walls();
+    RUR.vis_world.draw_coordinates();
+
+};
+
+RUR.vis_world.draw_grid_walls = function(){
+    var i, j, ctx = RUR.BACKGROUND_CTX;
+    if (RUR.we.editing_world) {
+        ctx = RUR.GOAL_CTX;     // have the appear above the tiles
+    }
     ctx.fillStyle = RUR.SHADOW_WALL_COLOR;
     for (i = 1; i <= RUR.COLS; i++) {
         for (j = 1; j <= RUR.ROWS; j++) {
@@ -3893,10 +3900,7 @@ RUR.vis_world.draw_background = function () {
             RUR.vis_world.draw_east_wall(ctx, i, j);
         }
     }
-
-    RUR.vis_world.draw_coordinates(ctx);
-
-};
+}
 
 RUR.vis_world.draw_foreground_walls = function (walls) {
     "use strict";
@@ -3907,7 +3911,6 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
     if (RUR.current_world.blank_canvas) {
         return;
     }
-
 
     // border walls (x and y axis)
     ctx.fillStyle = RUR.WALL_COLOR;
@@ -4008,7 +4011,11 @@ RUR.vis_world.draw_robot_clones = function(robot){
 RUR.vis_world.draw_goal = function () {
     "use strict";
     var g, goal, key, keys, i, j, k, image, ctx = RUR.GOAL_CTX;
+
     ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    if (RUR.we.editing_world){  // have to appear above tiles.
+        RUR.vis_world.draw_grid_walls();
+    }
 
     if (RUR.current_world.goal === undefined) {
         return;
@@ -4553,6 +4560,7 @@ function toggle_editing_mode () {
     } else {
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;
+        RUR.vis_world.draw_background();
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.we.refresh_world_edited();

@@ -242,8 +242,6 @@ RUR.rec.check_goal= function (frame) {
             goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
             goal_status.message += RUR.translate("<li class='failure'>One or more objects are not at the correct location.</li>");
-            console.log("g.objects = ", g.objects);
-            console.log("world.objects = ", world.objects);
             goal_status.success = false;
         }
     }

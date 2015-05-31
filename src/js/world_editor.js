@@ -210,6 +210,7 @@ function toggle_editing_mode () {
     } else {
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;
+        RUR.vis_world.draw_background();
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.we.refresh_world_edited();
