@@ -375,26 +375,28 @@ RUR.we.show_world_info = function (no_grid) {
     }
 
     robots = RUR.current_world.robots;
-    for (r=0; r<robots.length; r++){
-        robot = robots[r];
-        x = robot.x;
-        y = robot.y;
-        if (robot.start_positions != undefined && robot.start_positions.length > 1){
-            x = RUR.translate("random location");
-            y = ''
-        }
-        no_object = true;
-        for (obj in robot.objects){
-            if (robot.objects.hasOwnProperty(obj)) {
-                if (no_object) {
-                    no_object = false;
-                    information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>"
-                }
-                information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
+    if (robots != undefined && robots.length != undefined){
+        for (r=0; r<robots.length; r++){
+            robot = robots[r];
+            x = robot.x;
+            y = robot.y;
+            if (robot.start_positions != undefined && robot.start_positions.length > 1){
+                x = RUR.translate("random location");
+                y = ''
             }
-        }
-        if (no_object){
-            information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>"
+            no_object = true;
+            for (obj in robot.objects){
+                if (robot.objects.hasOwnProperty(obj)) {
+                    if (no_object) {
+                        no_object = false;
+                        information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>"
+                    }
+                    information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
+                }
+            }
+            if (no_object){
+                information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>"
+            }
         }
     }
 
@@ -666,7 +668,7 @@ RUR.we.show_pre_post_code = function() {
 
 RUR.we._add_object = function (specific_object){
     "use strict";
-    var position, x, y, query;
+    var position, x, y, query, tmp;
     position = RUR.we.calculate_grid_position();
     x = position[0];
     y = position[1];
@@ -679,7 +681,11 @@ RUR.we._add_object = function (specific_object){
 
 RUR.we.add_object = function (specific_object, x, y, nb){
     "use strict";
-    var coords, translated_arg;
+    var coords, translated_arg, tmp;
+    try {
+        tmp = parseInt(nb, 10);
+        nb = tmp;
+    } catch (e) {}
 
     translated_arg = RUR.translate_to_english(specific_object);
     if (RUR.objects.known_objects.indexOf(translated_arg) == -1){

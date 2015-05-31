@@ -2822,6 +2822,8 @@ RUR.rec.check_goal= function (frame) {
             goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
             goal_status.message += RUR.translate("<li class='failure'>One or more objects are not at the correct location.</li>");
+            console.log("g.objects = ", g.objects);
+            console.log("world.objects = ", world.objects);
             goal_status.success = false;
         }
     }
@@ -2853,6 +2855,9 @@ RUR.rec.check_goal= function (frame) {
 // to perform an action; we catch any such potential problem here
 RUR.rec.check_robots_on_tiles = function(frame){
     var tile, robots, robot, coords;
+    if (frame.world.robots == undefined){
+        return;
+    }
     for (robot=0; robot < frame.world.robots.length; robot++){
         tile = RUR.control.get_tile_at_position(frame.world.robots[robot]);
         if (tile) {
@@ -4713,26 +4718,28 @@ RUR.we.show_world_info = function (no_grid) {
     }
 
     robots = RUR.current_world.robots;
-    for (r=0; r<robots.length; r++){
-        robot = robots[r];
-        x = robot.x;
-        y = robot.y;
-        if (robot.start_positions != undefined && robot.start_positions.length > 1){
-            x = RUR.translate("random location");
-            y = ''
-        }
-        no_object = true;
-        for (obj in robot.objects){
-            if (robot.objects.hasOwnProperty(obj)) {
-                if (no_object) {
-                    no_object = false;
-                    information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>"
-                }
-                information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
+    if (robots != undefined && robots.length != undefined){
+        for (r=0; r<robots.length; r++){
+            robot = robots[r];
+            x = robot.x;
+            y = robot.y;
+            if (robot.start_positions != undefined && robot.start_positions.length > 1){
+                x = RUR.translate("random location");
+                y = ''
             }
-        }
-        if (no_object){
-            information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>"
+            no_object = true;
+            for (obj in robot.objects){
+                if (robot.objects.hasOwnProperty(obj)) {
+                    if (no_object) {
+                        no_object = false;
+                        information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>"
+                    }
+                    information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
+                }
+            }
+            if (no_object){
+                information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>"
+            }
         }
     }
 
@@ -5004,7 +5011,7 @@ RUR.we.show_pre_post_code = function() {
 
 RUR.we._add_object = function (specific_object){
     "use strict";
-    var position, x, y, query;
+    var position, x, y, query, tmp;
     position = RUR.we.calculate_grid_position();
     x = position[0];
     y = position[1];
@@ -5017,7 +5024,11 @@ RUR.we._add_object = function (specific_object){
 
 RUR.we.add_object = function (specific_object, x, y, nb){
     "use strict";
-    var coords, translated_arg;
+    var coords, translated_arg, tmp;
+    try {
+        tmp = parseInt(nb, 10);
+        nb = tmp;
+    } catch (e) {}
 
     translated_arg = RUR.translate_to_english(specific_object);
     if (RUR.objects.known_objects.indexOf(translated_arg) == -1){

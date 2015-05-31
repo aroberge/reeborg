@@ -242,6 +242,8 @@ RUR.rec.check_goal= function (frame) {
             goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
             goal_status.message += RUR.translate("<li class='failure'>One or more objects are not at the correct location.</li>");
+            console.log("g.objects = ", g.objects);
+            console.log("world.objects = ", world.objects);
             goal_status.success = false;
         }
     }
@@ -273,6 +275,9 @@ RUR.rec.check_goal= function (frame) {
 // to perform an action; we catch any such potential problem here
 RUR.rec.check_robots_on_tiles = function(frame){
     var tile, robots, robot, coords;
+    if (frame.world.robots == undefined){
+        return;
+    }
     for (robot=0; robot < frame.world.robots.length; robot++){
         tile = RUR.control.get_tile_at_position(frame.world.robots[robot]);
         if (tile) {
