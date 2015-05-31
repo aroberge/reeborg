@@ -272,9 +272,13 @@ padding:3px;}
   font-family: Verdana, sans-serif;
   font-style: italic;}
 #stdout {margin-top: 10px;
+}
+
+.reeborg-print {
   font-size: 14px;
   font-family: 'Orbitron', sans-serif;
 }
+
 #Reeborg-writes {background-color: white;}
 
 
