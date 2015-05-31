@@ -440,7 +440,8 @@ RUR.control.carries_object = function (robot, obj) {
 };
 
 RUR.control.set_model = function(robot, model){
-     robot.model = model;
+    robot.model = model;
+    RUR.rec.record_frame()
  };
 
 

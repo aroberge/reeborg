@@ -794,7 +794,8 @@ RUR.control.carries_object = function (robot, obj) {
 };
 
 RUR.control.set_model = function(robot, model){
-     robot.model = model;
+    robot.model = model;
+    RUR.rec.record_frame()
  };
 
 
@@ -3631,6 +3632,13 @@ RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
 RUR.vis_robot.images[0].robot_random_img = new Image();
 RUR.vis_robot.images[0].robot_random_img.src = 'src/images/robot_random.png';
 
+// all images are taken to be centered on a tile 40x40 - however, let's
+// compute it for one of them...
+
+RUR.vis_robot.width = RUR.vis_robot.images[0].robot_e_img.width;
+RUR.vis_robot.height = RUR.vis_robot.images[0].robot_e_img.height;
+
+
 // rover type
 RUR.vis_robot.images[1].robot_e_img = new Image();
 RUR.vis_robot.images[1].robot_e_img.src = 'src/images/rover_e.png';
@@ -3668,26 +3676,6 @@ RUR.vis_robot.images[3].robot_random_img = new Image();
 RUR.vis_robot.images[3].robot_random_img.src = 'src/images/robot_random.png';
 
 RUR.vis_robot.style = 0;
-
-// RUR.vis_robot.set_offsets = function(){
-//     if (RUR.LARGE_WORLD){
-//         if (RUR.vis_robot.style==0 || RUR.vis_robot.style==1){
-//             RUR.vis_robot.x_offset = 4;
-//              RUR.vis_robot.y_offset = 4;
-//         } else {
-//             RUR.vis_robot.x_offset = 2;
-//             RUR.vis_robot.y_offset = 2;
-//         }
-//     } else {
-//         if (RUR.vis_robot.style==0 || RUR.vis_robot.style==1){
-//             RUR.vis_robot.x_offset = 10;
-//              RUR.vis_robot.y_offset = 8;
-//         } else {
-//             RUR.vis_robot.x_offset = 5;
-//             RUR.vis_robot.y_offset = 4;
-//         }
-//     }
-// }
 
 RUR.vis_robot.select_style = function (arg) {
     var style;
@@ -3746,46 +3734,56 @@ RUR.vis_robot.random_img.onload = function () {
 
 RUR.vis_robot.draw = function (robot) {
     "use strict";
-    var x, y;
+    var x, y, width, height, image;
     if (!robot) {
         return;
     }
-
-    x = robot.x * RUR.WALL_LENGTH; // + RUR.vis_robot.x_offset;
-    y = RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH; // + RUR.vis_robot.y_offset;
-
-    var thick = RUR.WALL_THICKNESS;
-    x = robot.x*RUR.WALL_LENGTH + thick/2;
-    y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + thick/2;
+    width = RUR.vis_robot.width * RUR.SCALE;
+    height = RUR.vis_robot.height * RUR.SCALE;
+    x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
+    y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
 
     switch(robot.orientation){
         case RUR.EAST:
             if (robot.model != undefined){
-                console.log(robot.model);
-                console.log(RUR.vis_robot.images);
-                RUR.ROBOT_CTX.drawImage(RUR.vis_robot.images[robot.model].robot_e_img, x, y,
-                    RUR.vis_robot.images[robot.model].robot_e_img.width*RUR.SCALE,
-                    RUR.vis_robot.images[robot.model].robot_e_img.height*RUR.SCALE);
+                image = RUR.vis_robot.images[robot.model].robot_e_img;
             } else {
-                RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
+                image = RUR.vis_robot.e_img;
             }
             break;
         case RUR.NORTH:
-            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.n_img, x, y, RUR.vis_robot.n_img.width*RUR.SCALE, RUR.vis_robot.n_img.height*RUR.SCALE);
+            if (robot.model != undefined){
+                image = RUR.vis_robot.images[robot.model].robot_n_img;
+            } else {
+                image = RUR.vis_robot.n_img;
+            }
             break;
         case RUR.WEST:
-            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.w_img, x, y, RUR.vis_robot.w_img.width*RUR.SCALE, RUR.vis_robot.w_img.height*RUR.SCALE);
+            if (robot.model != undefined){
+                image = RUR.vis_robot.images[robot.model].robot_w_img;
+            } else {
+                image = RUR.vis_robot.w_img;
+            }
             break;
         case RUR.SOUTH:
-            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.s_img, x, y, RUR.vis_robot.s_img.width*RUR.SCALE, RUR.vis_robot.s_img.height*RUR.SCALE);
+            if (robot.model != undefined){
+                image = RUR.vis_robot.images[robot.model].robot_s_img;
+            } else {
+                image = RUR.vis_robot.s_img;
+            }
             break;
         case -1:
-            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.random_img, x, y, RUR.vis_robot.random_img.width*RUR.SCALE,
-                                    RUR.vis_robot.random_img.height*RUR.SCALE);
+            if (robot.model != undefined){
+                image = RUR.vis_robot.images[robot.model].robot_random_img;
+            } else {
+                image = RUR.vis_robot.random_img;
+            }
             break;
         default:
-            RUR.ROBOT_CTX.drawImage(RUR.vis_robot.e_img, x, y, RUR.vis_robot.e_img.width*RUR.SCALE, RUR.vis_robot.e_img.height*RUR.SCALE);
+            image = RUR.vis_robot.e_img;
         }
+
+    RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
     if (RUR.we.editing_world){
         return;
     }
