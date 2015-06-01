@@ -1580,7 +1580,7 @@ RUR.tiles.water = {};
 RUR.tiles.water.fatal = true;
 RUR.tiles.water.detectable = true;
 RUR.tiles.water.message = RUR.translate("I'm in water!");
-RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will drawn if it moves to this location.");
+RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will drown if it moves to this location.");
 RUR.tiles.water.image = new Image();
 RUR.tiles.water.image.src = 'src/images/water.png';
 RUR.tiles.water.image.onload = function () {
@@ -4338,7 +4338,7 @@ RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
 RUR.vis_world.compile_info = function() {
     // compiles the information about objects and goal found at each
     // grid location, so that we can determine what should be
-    // drawn - if anything.
+    // drown - if anything.
     var coords, obj, quantity;
     RUR.vis_world.information = {};
     if (RUR.current_world.objects != undefined) {
