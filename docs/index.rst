@@ -61,6 +61,8 @@ the focus is different for each of them.
 .. toctree::
    :maxdepth: 2
 
+   commands
+   objects
    students
    teachers
    translators
