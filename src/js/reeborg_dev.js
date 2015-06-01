@@ -327,8 +327,8 @@ RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
 RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
 
 RUR.WALL_LENGTH = 40;   // These can be adjusted
-RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.LARGE_WORLD become true.
-RUR.LARGE_WORLD = false;
+RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.SMALL_TILES become true.
+RUR.SMALL_TILES = false;
 
 RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
@@ -3618,8 +3618,8 @@ RUR.ui.load_user_worlds = function () {
 
 
 RUR.ui.resize = function () {
-    RUR.LARGE_WORLD = !RUR.LARGE_WORLD;
-    RUR.current_world.large_world = RUR.LARGE_WORLD;
+    RUR.SMALL_TILES = !RUR.SMALL_TILES;
+    RUR.current_world.small_tiles = RUR.SMALL_TILES;
     RUR.vis_world.draw_all();
 };
 
@@ -3936,7 +3936,7 @@ RUR.vis_robot.draw_trace = function (robot) {
     ctx.lineWidth = RUR.vis_robot.trace_thickness;
     ctx.lineCap = "round";
     // overrides user choice for large world (small grid size)
-    if(RUR.LARGE_WORLD) {
+    if(RUR.SMALL_TILES) {
         RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
         // RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 2;
@@ -3986,7 +3986,7 @@ RUR.vis_world = {};
 
 RUR.vis_world.compute_world_geometry = function() {
     "use strict";
-    if (RUR.LARGE_WORLD) {
+    if (RUR.SMALL_TILES) {
         RUR.WALL_LENGTH = 20;
         RUR.WALL_THICKNESS = 2;
         RUR.SCALE = 0.5;
@@ -4466,10 +4466,10 @@ RUR.world.import_world = function (json_string) {
             body._prev_orientation = body.orientation;
         }
     }
-    if (RUR.current_world.large_world !== undefined) {
-        RUR.LARGE_WORLD = RUR.current_world.large_world;
+    if (RUR.current_world.small_tiles !== undefined) {
+        RUR.SMALL_TILES = RUR.current_world.small_tiles;
     } else {
-        RUR.LARGE_WORLD = false;
+        RUR.SMALL_TILES = false;
     }
     RUR.world.saved_world = RUR.world.clone_world();
     RUR.vis_world.draw_all();

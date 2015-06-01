@@ -197,8 +197,8 @@ RUR.ui.load_user_worlds = function () {
 
 
 RUR.ui.resize = function () {
-    RUR.LARGE_WORLD = !RUR.LARGE_WORLD;
-    RUR.current_world.large_world = RUR.LARGE_WORLD;
+    RUR.SMALL_TILES = !RUR.SMALL_TILES;
+    RUR.current_world.small_tiles = RUR.SMALL_TILES;
     RUR.vis_world.draw_all();
 };
 
