@@ -5198,7 +5198,7 @@ RUR.we.add_object = function (specific_object, x, y, nb){
 
     if (nb==0) {
         delete RUR.current_world.objects[coords][specific_object];
-        if (Object.keys(RUR.current_world.objects).length === 0){
+        if (Object.keys(RUR.current_world.objects[coords]).length === 0){
             delete RUR.current_world.objects[coords];
         }
         if (Object.keys(RUR.current_world.objects).length === 0){
