@@ -157,5 +157,20 @@ RUR.translation["Ice: Reeborg <b>cannot</b> detect this and will slide and move 
 RUR.translation["Grass: usually safe."] = "Grass: usually safe.";
 RUR.translation["Gravel: usually safe."] = "Gravel: usually safe.";
 RUR.translation["I'm in water!"] = "I'm in water!";
-RUR.translation["Water: Reeborg <b>can</b> detect this but will drawn if it moves to this location."] = "Water: Reeborg <b>can</b> detect this but will drawn if it moves to this location.";
+RUR.translation["Water: Reeborg <b>can</b> detect this but will drown if it moves to this location."] = "Water: Reeborg <b>can</b> detect this but will drown if it moves to this location.";
 RUR.translation["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green_home_tile: Reeborg <b>can</b> detect this tile using at_goal().";
+
+
+//===
+RUR.translation_to_english["box"] = "box";
+RUR.translation["box"] = "box";
+RUR.translation["Useful bridge here!"] = "Useful bridge here!";
+RUR.translation_to_english["bridge"] = "bridge";
+RUR.translation["Something is blocking the way!"] = "Something is blocking the way!";
+RUR.translation["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this tile using at_goal().";
+RUR.translation["green home tile:"] = "green home tile:";
+RUR.translation["home:"] = "home:";
+RUR.translation["racing flag:"] = "racing flag:";
+RUR.translation["house:"] = "house:";
+
+
