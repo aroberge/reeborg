@@ -84,7 +84,8 @@ RUR.control.move = function (robot) {
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
     "use strict";
     RUR.we.add_object(obj, x, y, 0);
-    if (RUR.objects[obj].in_water){  // e.g. push box in water, and it becomes a bridge
+    if (RUR.objects[obj].in_water
+        && RUR.control.get_tile_at_position(to_x, to_y) == RUR.tiles.water){
         RUR.we.add_object(RUR.objects[obj].in_water, to_x, to_y, 1);
     } else {
         RUR.we.add_object(obj, to_x, to_y, 1);
