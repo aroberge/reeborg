@@ -68,6 +68,7 @@ RUR.vis_world.refresh = function () {
 
     RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
 
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls); // on OBJECTS_CTX

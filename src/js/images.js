@@ -239,6 +239,8 @@ RUR.objects.tulip.image_goal.onload = function () {
 RUR.objects.known_objects.push("tulip");
 
 RUR.objects.box = {};
+RUR.objects.box.pushable = true;
+RUR.objects.box.in_water = "bridge";
 RUR.objects.box.ctx = RUR.ROBOT_CTX;
 RUR.objects.box.image = new Image();
 RUR.objects.box.image.src = 'src/images/box.png';
@@ -255,6 +257,18 @@ RUR.objects.box.image_goal.onload = function () {
     }
 };
 RUR.objects.known_objects.push("box");
+
+RUR.objects.bridge = {};
+RUR.objects.bridge.ctx = RUR.SECOND_LAYER_CTX;
+RUR.objects.bridge.brige = true;
+RUR.objects.bridge.image = new Image();
+RUR.objects.bridge.image.src = 'src/images/bridge.png';
+RUR.objects.bridge.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.known_objects.push("bridge");
 
 
 RUR.tiles.mud = {};

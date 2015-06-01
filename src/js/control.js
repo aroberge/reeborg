@@ -8,7 +8,9 @@
 RUR.control = {};
 
 RUR.control.move = function (robot) {
-    var tile;
+    "use strict";
+    var tile, pushable_object_in_front, pushable_object_beyond,
+        wall_beyond, x_beyond, y_beyond;
 
     if (RUR.control.wall_in_front(robot, true)) {
         throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
@@ -19,29 +21,58 @@ RUR.control.move = function (robot) {
     }
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
+
+    x_beyond = robot.x;  // if robot is moving vertically, it x coordinate does not change
+    y_beyond = robot.y;
+
     switch (robot.orientation){
     case RUR.EAST:
         robot.x += 1;
+        x_beyond = robot.x + 1;
         break;
     case RUR.NORTH:
         robot.y += 1;
+        y_beyond = robot.y + 1;
         break;
     case RUR.WEST:
         robot.x -= 1;
+        x_beyond = robot.x - 1;
         break;
     case RUR.SOUTH:
         robot.y -= 1;
+        y_beyond = robot.y - 1;
         break;
     default:
         throw new Error("Should not happen: unhandled case in RUR.control.move().");
     }
+
+    pushable_object_in_front = RUR.pushable_object_in_front(robot.x, robot.y);
+
+    if (pushable_object_in_front) {
+        // computed from the new position:
+        pushable_object_beyond = RUR.pushable_object_in_front(x_beyond, y_beyond);
+        wall_beyond = RUR.control.wall_in_front(robot, true);
+        if (pushable_object_beyond || wall_beyond){
+            robot.x = robot._prev_x;
+            robot.y = robot._prev_y;
+            throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
+        } else {
+            RUR.control.move_object(pushable_object_in_front, robot.x, robot.y,
+            x_beyond, y_beyond);
+        }
+    }
+
     RUR.control.sound_id = "#move-sound";
     RUR.rec.record_frame("debug", "RUR.control.move");
 
     tile = RUR.control.get_tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
-            throw new RUR.ReeborgError(tile.message);
+            if (tile == RUR.tiles.water && RUR.control.object_here(robot, "bridge")) {
+                RUR.control.write(RUR.translate("Useful bridge here!\n"));
+            } else {
+                throw new RUR.ReeborgError(tile.message);
+            }
         }
         if (tile.slippery){
             RUR.control.write(tile.message + "\n");
@@ -49,6 +80,17 @@ RUR.control.move = function (robot) {
         }
     }
 };
+
+RUR.control.move_object = function(obj, x, y, to_x, to_y){
+    "use strict";
+    RUR.we.add_object(obj, x, y, 0);
+    if (RUR.objects[obj].in_water){  // e.g. push box in water, and it becomes a bridge
+        RUR.we.add_object(RUR.objects[obj].in_water, to_x, to_y, 1);
+    } else {
+        RUR.we.add_object(obj, to_x, to_y, 1);
+    }
+}
+
 
 RUR.control.turn_left = function(robot, no_frame){
     "use strict";
@@ -384,12 +426,13 @@ RUR.control.object_here = function (robot, obj) {
     obj_here =  RUR.current_world.objects[coords];
     all_objects = [];
 
+
     for (obj_type in obj_here) {
         if (obj_here.hasOwnProperty(obj_type)) {
-            all_objects.push(RUR.translate(obj_type));
-            if (RUR.translate(obj_type) == obj){
+            if (obj!= undefined && obj_type == RUR.translate_to_english(obj)) {
                 return true;
             }
+            all_objects.push(RUR.translate(obj_type));
         }
     }
 
@@ -481,10 +524,29 @@ RUR.control.play_sound = function (sound_id) {
 
 
 RUR.control.get_tile_at_position = function (x, y) {
+    "use strict";
     var coords = x + "," + y;
     if (RUR.current_world.tiles === undefined) return false;
     if (RUR.current_world.tiles[coords] === undefined) return false;
     return RUR.tiles[RUR.current_world.tiles[coords]];
+};
+
+RUR.pushable_object_in_front = function(x, y) {
+    "use strict";
+    var objects_here, obj_here, obj_type, coords = x + ',' + y;
+    if (RUR.current_world.objects === undefined) return false;
+    if (RUR.current_world.objects[coords] === undefined) return false;
+    objects_here = RUR.current_world.objects[coords];
+    console.log("objects = ", RUR.current_world.objects);
+
+    for (obj_type in objects_here) {
+        if (objects_here.hasOwnProperty(obj_type)) {
+            console.log("obj_type = ", obj_type);
+            if (RUR.objects[obj_type].pushable) {
+                return obj_type;
+            }
+        }
+    }
 };
 
 RUR.control.set_max_nb_robots = function(nb){
