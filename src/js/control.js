@@ -68,7 +68,7 @@ RUR.control.move = function (robot) {
     tile = RUR.control.get_tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
-            if (tile == RUR.tiles.water && RUR.control.object_here(robot, "bridge")) {
+            if (tile == RUR.tiles.water && RUR.control.top_tile_here(robot, "bridge")) {
                 RUR.control.write(RUR.translate("Useful bridge here!\n"));
             } else {
                 throw new RUR.ReeborgError(tile.message);
@@ -86,7 +86,7 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
     RUR.we.add_object(obj, x, y, 0);
     if (RUR.objects[obj].in_water
         && RUR.control.get_tile_at_position(to_x, to_y) == RUR.tiles.water){
-        RUR.we.add_object(RUR.objects[obj].in_water, to_x, to_y, 1);
+        RUR.we.add_top_tile(RUR.objects[obj].in_water, to_x, to_y, 1);
     } else {
         RUR.we.add_object(obj, to_x, to_y, 1);
     }
@@ -446,6 +446,27 @@ RUR.control.object_here = function (robot, obj) {
     }
 };
 
+RUR.control.top_tile_here = function (robot, tile) {
+    var tile_here, tile_type, all_top_tiles;
+    var coords = robot.x + "," + robot.y;
+
+    if (RUR.current_world.top_tiles == undefined ||
+        RUR.current_world.top_tiles[coords] == undefined) {
+        return false;
+    }
+
+    tile_here =  RUR.current_world.top_tiles[coords];
+
+    for (tile_type in tile_here) {
+        if (tile_here.hasOwnProperty(tile_type)) {
+            if (tile!= undefined && tile_type == RUR.translate_to_english(tile)) {
+                return true;
+            }
+        }
+    }
+    return false;
+};
+
 
 RUR.control.carries_object = function (robot, obj) {
     /* if the object is specified, we return either true or false
@@ -538,11 +559,9 @@ RUR.pushable_object_in_front = function(x, y) {
     if (RUR.current_world.objects === undefined) return false;
     if (RUR.current_world.objects[coords] === undefined) return false;
     objects_here = RUR.current_world.objects[coords];
-    console.log("objects = ", RUR.current_world.objects);
 
     for (obj_type in objects_here) {
         if (objects_here.hasOwnProperty(obj_type)) {
-            console.log("obj_type = ", obj_type);
             if (RUR.objects[obj_type].pushable) {
                 return obj_type;
             }

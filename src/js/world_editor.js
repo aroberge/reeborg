@@ -882,3 +882,32 @@ RUR.we.toggle_tile = function (tile){
         delete RUR.current_world.tiles[coords];
     }
 };
+
+
+RUR.we.add_top_tile = function (specific_object, x, y, nb){
+    "use strict";
+    var coords, translated_arg, tmp;
+    try {
+        tmp = parseInt(nb, 10);
+        nb = tmp;
+    } catch (e) {}
+
+    translated_arg = RUR.translate_to_english(specific_object);
+
+    specific_object = translated_arg;
+    coords = x + "," + y;
+    RUR.we.ensure_key_exist(RUR.current_world, "top_tiles");
+    RUR.we.ensure_key_exist(RUR.current_world.top_tiles, coords);
+
+    if (nb==0) {
+        delete RUR.current_world.top_tiles[coords][specific_object];
+        if (Object.keys(RUR.current_world.top_tiles[coords]).length === 0){
+            delete RUR.current_world.top_tiles[coords];
+        }
+        if (Object.keys(RUR.current_world.top_tiles).length === 0){
+            delete RUR.current_world.top_tiles;
+        }
+    } else {
+        RUR.current_world.top_tiles[coords][specific_object] = nb;
+    }
+};

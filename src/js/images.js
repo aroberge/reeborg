@@ -8,8 +8,8 @@
 RUR.objects = {};
 RUR.objects.known_objects = [];
 RUR.tiles = {};
+RUR.top_tiles = {};
 RUR.home_images = {};
-
 
 RUR.objects.token = {};
 RUR.objects.token.image = new Image();
@@ -258,18 +258,6 @@ RUR.objects.box.image_goal.onload = function () {
 };
 RUR.objects.known_objects.push("box");
 
-RUR.objects.bridge = {};
-RUR.objects.bridge.ctx = RUR.SECOND_LAYER_CTX;
-RUR.objects.bridge.brige = true;
-RUR.objects.bridge.image = new Image();
-RUR.objects.bridge.image.src = 'src/images/bridge.png';
-RUR.objects.bridge.image.onload = function () {
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
-};
-RUR.objects.known_objects.push("bridge");
-
 
 RUR.tiles.mud = {};
 RUR.tiles.mud.fatal = true;
@@ -361,6 +349,18 @@ RUR.home_images.racing_flag.image.src = 'src/images/racing_flag.png';
 RUR.home_images.racing_flag.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_goal();
+    }
+};
+
+
+RUR.top_tiles.bridge = {};
+RUR.top_tiles.bridge.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.bridge.brige = true;
+RUR.top_tiles.bridge.image = new Image();
+RUR.top_tiles.bridge.image.src = 'src/images/bridge.png';
+RUR.top_tiles.bridge.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
     }
 };
 

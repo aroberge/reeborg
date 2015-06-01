@@ -422,7 +422,7 @@ RUR.control.move = function (robot) {
     tile = RUR.control.get_tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
-            if (tile == RUR.tiles.water && RUR.control.object_here(robot, "bridge")) {
+            if (tile == RUR.tiles.water && RUR.control.top_tile_here(robot, "bridge")) {
                 RUR.control.write(RUR.translate("Useful bridge here!\n"));
             } else {
                 throw new RUR.ReeborgError(tile.message);
@@ -440,7 +440,7 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
     RUR.we.add_object(obj, x, y, 0);
     if (RUR.objects[obj].in_water
         && RUR.control.get_tile_at_position(to_x, to_y) == RUR.tiles.water){
-        RUR.we.add_object(RUR.objects[obj].in_water, to_x, to_y, 1);
+        RUR.we.add_top_tile(RUR.objects[obj].in_water, to_x, to_y, 1);
     } else {
         RUR.we.add_object(obj, to_x, to_y, 1);
     }
@@ -800,6 +800,27 @@ RUR.control.object_here = function (robot, obj) {
     }
 };
 
+RUR.control.top_tile_here = function (robot, tile) {
+    var tile_here, tile_type, all_top_tiles;
+    var coords = robot.x + "," + robot.y;
+
+    if (RUR.current_world.top_tiles == undefined ||
+        RUR.current_world.top_tiles[coords] == undefined) {
+        return false;
+    }
+
+    tile_here =  RUR.current_world.top_tiles[coords];
+
+    for (tile_type in tile_here) {
+        if (tile_here.hasOwnProperty(tile_type)) {
+            if (tile!= undefined && tile_type == RUR.translate_to_english(tile)) {
+                return true;
+            }
+        }
+    }
+    return false;
+};
+
 
 RUR.control.carries_object = function (robot, obj) {
     /* if the object is specified, we return either true or false
@@ -892,11 +913,9 @@ RUR.pushable_object_in_front = function(x, y) {
     if (RUR.current_world.objects === undefined) return false;
     if (RUR.current_world.objects[coords] === undefined) return false;
     objects_here = RUR.current_world.objects[coords];
-    console.log("objects = ", RUR.current_world.objects);
 
     for (obj_type in objects_here) {
         if (objects_here.hasOwnProperty(obj_type)) {
-            console.log("obj_type = ", obj_type);
             if (RUR.objects[obj_type].pushable) {
                 return obj_type;
             }
@@ -1245,8 +1264,8 @@ $(document).ready(function() {
 RUR.objects = {};
 RUR.objects.known_objects = [];
 RUR.tiles = {};
+RUR.top_tiles = {};
 RUR.home_images = {};
-
 
 RUR.objects.token = {};
 RUR.objects.token.image = new Image();
@@ -1495,18 +1514,6 @@ RUR.objects.box.image_goal.onload = function () {
 };
 RUR.objects.known_objects.push("box");
 
-RUR.objects.bridge = {};
-RUR.objects.bridge.ctx = RUR.SECOND_LAYER_CTX;
-RUR.objects.bridge.brige = true;
-RUR.objects.bridge.image = new Image();
-RUR.objects.bridge.image.src = 'src/images/bridge.png';
-RUR.objects.bridge.image.onload = function () {
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
-};
-RUR.objects.known_objects.push("bridge");
-
 
 RUR.tiles.mud = {};
 RUR.tiles.mud.fatal = true;
@@ -1598,6 +1605,18 @@ RUR.home_images.racing_flag.image.src = 'src/images/racing_flag.png';
 RUR.home_images.racing_flag.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_goal();
+    }
+};
+
+
+RUR.top_tiles.bridge = {};
+RUR.top_tiles.bridge.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.bridge.brige = true;
+RUR.top_tiles.bridge.image = new Image();
+RUR.top_tiles.bridge.image.src = 'src/images/bridge.png';
+RUR.top_tiles.bridge.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
     }
 };
 
@@ -4016,6 +4035,9 @@ RUR.vis_world.refresh = function () {
         // RUR.vis_world.draw_all_objects also called by draw_goal, and draws on GOAL_CTX
         // and, draws some objects on ROBOT_CTX
 
+    // top tiles: goal is false, tile is true
+    RUR.vis_world.draw_all_objects(RUR.current_world.top_tiles, false, true); // likely on RUR.SECOND_LAYER_CTX
+
     // do not clear BACKGROUND_CTX here
     RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
 
@@ -4249,7 +4271,7 @@ RUR.vis_world.draw_tiles = function (tiles){
     }
 };
 
-RUR.vis_world.draw_all_objects = function (objects, goal){
+RUR.vis_world.draw_all_objects = function (objects, goal, tile){
     "use strict";
     var i, j, image, ctx, coords, specific_object, objects_here, obj_name, grid_pos;
     if (objects === undefined) {
@@ -4264,7 +4286,11 @@ RUR.vis_world.draw_all_objects = function (objects, goal){
             j = parseInt(grid_pos[1], 10);
             for (obj_name in objects_here){
                 if (objects_here.hasOwnProperty(obj_name)){
-                    specific_object = RUR.objects[obj_name];
+                    if (tile){
+                        specific_object = RUR.top_tiles[obj_name];
+                    } else {
+                        specific_object = RUR.objects[obj_name];
+                    }
                     if (goal) {
                         ctx = RUR.GOAL_CTX;
                         image = specific_object.image_goal;
@@ -5354,5 +5380,34 @@ RUR.we.toggle_tile = function (tile){
         RUR.current_world.tiles[coords] = tile;
     } else {
         delete RUR.current_world.tiles[coords];
+    }
+};
+
+
+RUR.we.add_top_tile = function (specific_object, x, y, nb){
+    "use strict";
+    var coords, translated_arg, tmp;
+    try {
+        tmp = parseInt(nb, 10);
+        nb = tmp;
+    } catch (e) {}
+
+    translated_arg = RUR.translate_to_english(specific_object);
+
+    specific_object = translated_arg;
+    coords = x + "," + y;
+    RUR.we.ensure_key_exist(RUR.current_world, "top_tiles");
+    RUR.we.ensure_key_exist(RUR.current_world.top_tiles, coords);
+
+    if (nb==0) {
+        delete RUR.current_world.top_tiles[coords][specific_object];
+        if (Object.keys(RUR.current_world.top_tiles[coords]).length === 0){
+            delete RUR.current_world.top_tiles[coords];
+        }
+        if (Object.keys(RUR.current_world.top_tiles).length === 0){
+            delete RUR.current_world.top_tiles;
+        }
+    } else {
+        RUR.current_world.top_tiles[coords][specific_object] = nb;
     }
 };

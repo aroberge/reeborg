@@ -76,6 +76,9 @@ RUR.vis_world.refresh = function () {
         // RUR.vis_world.draw_all_objects also called by draw_goal, and draws on GOAL_CTX
         // and, draws some objects on ROBOT_CTX
 
+    // top tiles: goal is false, tile is true
+    RUR.vis_world.draw_all_objects(RUR.current_world.top_tiles, false, true); // likely on RUR.SECOND_LAYER_CTX
+
     // do not clear BACKGROUND_CTX here
     RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
 
@@ -309,7 +312,7 @@ RUR.vis_world.draw_tiles = function (tiles){
     }
 };
 
-RUR.vis_world.draw_all_objects = function (objects, goal){
+RUR.vis_world.draw_all_objects = function (objects, goal, tile){
     "use strict";
     var i, j, image, ctx, coords, specific_object, objects_here, obj_name, grid_pos;
     if (objects === undefined) {
@@ -324,7 +327,11 @@ RUR.vis_world.draw_all_objects = function (objects, goal){
             j = parseInt(grid_pos[1], 10);
             for (obj_name in objects_here){
                 if (objects_here.hasOwnProperty(obj_name)){
-                    specific_object = RUR.objects[obj_name];
+                    if (tile){
+                        specific_object = RUR.top_tiles[obj_name];
+                    } else {
+                        specific_object = RUR.objects[obj_name];
+                    }
                     if (goal) {
                         ctx = RUR.GOAL_CTX;
                         image = specific_object.image_goal;
