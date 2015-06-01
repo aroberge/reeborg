@@ -238,6 +238,25 @@ RUR.objects.tulip.image_goal.onload = function () {
 };
 RUR.objects.known_objects.push("tulip");
 
+RUR.objects.box = {};
+RUR.objects.box.ctx = RUR.ROBOT_CTX;
+RUR.objects.box.image = new Image();
+RUR.objects.box.image.src = 'src/images/box.png';
+RUR.objects.box.image_goal = new Image();
+RUR.objects.box.image_goal.src = 'src/images/box_goal.png';
+RUR.objects.box.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+RUR.objects.box.image_goal.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_goal();
+    }
+};
+RUR.objects.known_objects.push("box");
+
+
 RUR.tiles.mud = {};
 RUR.tiles.mud.fatal = true;
 RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");

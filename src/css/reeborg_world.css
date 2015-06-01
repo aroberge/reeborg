@@ -27,6 +27,21 @@ canvas {
 .edit-canvas {
     position: relative;
 }
+
+
+/* layering */
+#background_canvas {z-index: 1}
+#second_layer_canvas {z-index: 2}
+#goal_canvas {z-index: 3}
+#objects_canvas {z-index: 4}
+#trace_canvas {z-index: 5}
+#robot_canvas {z-index: 6}
+
+#Reeborg-concludes {z-index: 7}
+#Reeborg-writes {z-index: 7}
+#Reeborg-shouts {z-index: 7}
+#World-info {z-index: 7}
+
 code {background-color: #f8f8f8; font-size:12px; font-weight: bold;
      font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace; }
 
@@ -362,18 +377,13 @@ padding:3px;}
 #edit-world-submenus-wrapper {
     min-height: 100px;
 }
-.edit-world-submenus li, .edit-world-canvas li, .edit-goal-canvas li, #edit-tile li {
+.edit-world-canvas li, .edit-goal-canvas li, #edit-tile li {
  float: left;
  list-style: none;
  position: relative;
  text-align: center;
  display: inline;
 }
-.edit-world-submenus li {
- width: 100px;
-}
-
-
 
 #additional-code {
   margin-top: 200px;

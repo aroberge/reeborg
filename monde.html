@@ -162,7 +162,7 @@
 
     <div id="edit-world-submenus-wrapper">
         <p id="cmd-result">Sélectionnez l'action à performer dans le menu ci-dessous.</p>
-        <ul class="edit-world-submenus" id="edit-world-turn" style="display:none">
+        <ul class="edit-world-canvas" id="edit-world-turn" style="display:none">
             <li><a href="javascript:RUR.we.turn_robot(0);"><img src="src/images/robot_e.png" alt="robot: est"></a><br><span>est</span></li>
             <li><a href="javascript:RUR.we.turn_robot(1);"><img src="src/images/robot_n.png" alt="robot: nord"></a><br><span>nord</span></li>
             <li><a href="javascript:RUR.we.turn_robot(2);"><img src="src/images/robot_w.png" alt="robot: ouest"></a><br><span>ouest</span></li>
@@ -183,8 +183,9 @@
             <li><a href="javascript:RUR.we.select('object-carrot');"><img src="src/images/carrot.png" alt="carotte"></a></li>
             <li><a href="javascript:RUR.we.select('object-tulip');"><img src="src/images/tulip.png" alt="tulipe"></a></li>
             <li><a href="javascript:RUR.we.select('object-daisy');"><img src="src/images/daisy.png" alt="marguerite"></a></li>
+            <li class="not-for-robot"><a href="javascript:RUR.we.select('object-box');"><img src="src/images/box.png" alt="wooden box"></a></li>
         </ul>
-        <ul class="edit-world-tiles" id="edit-tile" style="display:none">
+        <ul class="edit-world-canvas" class="edit-world-tiles" id="edit-tile" style="display:none">
             <li><a href="javascript:RUR.we.select('tile-mud');"><img src="src/images/mud.png" alt="boue"></a></li>
             <li><a href="javascript:RUR.we.select('tile-water');"><img src="src/images/water.png" alt="eau"></a></li>
             <li><a href="javascript:RUR.we.select('tile-grass');"><img src="src/images/grass.png" alt="gazon"></a></li>
@@ -205,6 +206,7 @@
             <li><a href="javascript:RUR.we.select('goal-carrot');"><img src="src/images/carrot_goal.png" alt="carotte"></a></li>
             <li><a href="javascript:RUR.we.select('goal-tulip');"><img src="src/images/tulip_goal.png" alt="tulipe"></a></li>
             <li><a href="javascript:RUR.we.select('goal-daisy');"><img src="src/images/daisy_goal.png" alt="marguerite"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-box');"><img src="src/images/box_goal.png" alt="wooden box"></a></li>
         </ul>
         <ul class="edit-goal-canvas" id="edit-goal-position" style="display:none">
             <li><a href="javascript:RUR.we.select('position-green_home_tile');"><img src="src/images/green_home_tile.png" alt="maison"></a></a></li>

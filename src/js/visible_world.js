@@ -63,15 +63,21 @@ RUR.vis_world.refresh = function () {
     // does not draw goals - they should not change during a running program
     // does not clear trace
 
+    // start by clearing all the relevant contexts first.
+    // some objects are drown on their own contexts.
+
     RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls); // on OBJECTS_CTX
     RUR.vis_world.draw_all_objects(RUR.current_world.objects);  // on OBJECTS_CTX
-          // RUR.vis_world.draw_all_objects also called by draw_goal, and draws on GOAL_CTX
+        // RUR.vis_world.draw_all_objects also called by draw_goal, and draws on GOAL_CTX
+        // and, draws some objects on ROBOT_CTX
 
     // do not clear BACKGROUND_CTX here
     RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
 
-    RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_robots(RUR.current_world.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
     RUR.vis_world.draw_info();     // on ROBOT_CTX
@@ -309,12 +315,6 @@ RUR.vis_world.draw_all_objects = function (objects, goal){
         return;
     }
 
-    if (goal) {
-        ctx = RUR.GOAL_CTX;
-    } else {
-        ctx = RUR.OBJECTS_CTX;
-    }
-
     for (coords in objects){
         if (objects.hasOwnProperty(coords)){
             objects_here = objects[coords];
@@ -325,8 +325,13 @@ RUR.vis_world.draw_all_objects = function (objects, goal){
                 if (objects_here.hasOwnProperty(obj_name)){
                     specific_object = RUR.objects[obj_name];
                     if (goal) {
+                        ctx = RUR.GOAL_CTX;
                         image = specific_object.image_goal;
+                    } else if (specific_object.ctx != undefined){
+                        ctx = specific_object.ctx;
+                        image = specific_object.image;
                     } else {
+                        ctx = RUR.OBJECTS_CTX;
                         image = specific_object.image;
                     }
                     RUR.vis_world.draw_single_object(image, i, j, ctx);

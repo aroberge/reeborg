@@ -26,6 +26,7 @@ RUR.we.edit_world = function  () {
         case "object-carrot":
         case "object-tulip":
         case "object-daisy":
+        case "object-box":
             value = RUR.we.edit_world_flag.substring(7);
             RUR.we._add_object(value);
             break;
@@ -61,6 +62,7 @@ RUR.we.edit_world = function  () {
         case "goal-carrot":
         case "goal-tulip":
         case "goal-daisy":
+        case "goal-box":
             value = RUR.we.edit_world_flag.substring(5);
             RUR.we._add_goal_objects(value);
             break;
@@ -76,10 +78,8 @@ RUR.we.edit_world = function  () {
 RUR.we.select = function (choice) {
     "use strict"
     var value;
-    $(".edit-world-submenus").hide();
     $(".edit-world-canvas").hide();
     $(".edit-goal-canvas").hide();
-    $("#edit-world-tiles").hide();
     $("#edit-goal-position").hide();
     RUR.we.edit_world_flag = choice;
     switch (choice) {
@@ -102,11 +102,11 @@ RUR.we.select = function (choice) {
             break;
         case "robot-objects":
             RUR.we.__give_to_robot = true;
-            $(".edit-world-canvas").show();
+            $("#edit-world-objects").show();
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-objects":
-            $(".edit-world-canvas").show();
+            $("#edit-world-objects").show();
             RUR.we.__give_to_robot = false;
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
@@ -126,13 +126,20 @@ RUR.we.select = function (choice) {
         case "object-carrot":
         case "object-tulip":
         case "object-daisy":
+        case "object-box":
             value = choice.substring(7);
-            $(".edit-world-canvas").show();
+            $("#edit-world-objects").show();
             if (RUR.we.__give_to_robot) {
+                $(".not-for-robot").hide();
                 RUR.we._give_objects_to_robot(value);
                 RUR.we.edit_world_flag = '';
             } else {
-                $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                $(".not-for-robot").show();
+                if (value == "box"){
+                    $("#cmd-result").html(RUR.translate("Click on world to add single object.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                } else {
+                    $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                }
             }
             break;
         case "tile-mud":
@@ -175,8 +182,15 @@ RUR.we.select = function (choice) {
         case "goal-carrot":
         case "goal-tulip":
         case "goal-daisy":
+        case "goal-box":
             value = choice.substring(5);
             $("#edit-goal-objects").show();
+            if (value == "box"){
+            $("#cmd-result").html(RUR.translate("Click on world to set number of single goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+            } else {
+            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+            }
+
             $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "goal-no-objects":
@@ -673,6 +687,16 @@ RUR.we._add_object = function (specific_object){
     position = RUR.we.calculate_grid_position();
     x = position[0];
     y = position[1];
+    if (specific_object == "box") {
+        if (RUR.current_world.objects != undefined &&
+            RUR.current_world.objects[x+','+y] != undefined &&
+            RUR.current_world.objects[x+','+y]["box"] == 1){
+            RUR.we.add_object("box", x, y, 0);
+        } else {
+            RUR.we.add_object("box", x, y, 1);
+        }
+        return;
+    }
     query = prompt(RUR.translate("Enter number of objects desired at that location.").supplant({obj: specific_object}));
     if (query != null){
         RUR.we.add_object(specific_object, x, y, query);
@@ -719,6 +743,11 @@ RUR.we._add_goal_objects = function (specific_object){
     x = position[0];
     y = position[1];
     coords = x + "," + y;
+
+    if (specific_object == "box") {
+        RUR.we.add_goal_objects("box", x, y, 1);
+        return;
+    }
 
     query = prompt(RUR.translate("Enter number of objects desired as a goal at that location."));
     if (query == null){
