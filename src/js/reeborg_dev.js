@@ -437,9 +437,17 @@ RUR.control.move = function (robot) {
 
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
     "use strict";
+    var bridge_already_there = false;
+    if (RUR.control.get_top_tile_at_position(to_x, to_y).bridge != undefined){
+        bridge_already_there = true;
+    }
+
+
     RUR.we.add_object(obj, x, y, 0);
+    console.log("top tile = ", RUR.control.get_top_tile_at_position(to_x, to_y))
     if (RUR.objects[obj].in_water
-        && RUR.control.get_tile_at_position(to_x, to_y) == RUR.tiles.water){
+        && RUR.control.get_tile_at_position(to_x, to_y) == RUR.tiles.water
+        && !bridge_already_there){
         RUR.we.add_top_tile(RUR.objects[obj].in_water, to_x, to_y, 1);
     } else {
         RUR.we.add_object(obj, to_x, to_y, 1);
@@ -906,6 +914,15 @@ RUR.control.get_tile_at_position = function (x, y) {
     if (RUR.current_world.tiles[coords] === undefined) return false;
     return RUR.tiles[RUR.current_world.tiles[coords]];
 };
+
+RUR.control.get_top_tile_at_position = function (x, y) {
+    "use strict";
+    var coords = x + "," + y;
+    if (RUR.current_world.top_tiles === undefined) return false;
+    if (RUR.current_world.top_tiles[coords] === undefined) return false;
+    return RUR.current_world.top_tiles[coords];
+};
+
 
 RUR.pushable_object_in_front = function(x, y) {
     "use strict";
