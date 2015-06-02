@@ -83,10 +83,6 @@ RUR.we.select = function (choice) {
     $("#edit-goal-position").hide();
     RUR.we.edit_world_flag = choice;
     switch (choice) {
-        case "world-info":
-            $("#world-info-button").click();
-            $("#cmd-result").html(RUR.translate("Click on world to get information.")).effect("highlight", {color: "gold"}, 1500);
-            break;
         case "robot-place":
             $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
             break;

@@ -126,6 +126,7 @@ RUR.vis_robot.draw = function (robot) {
     if (!robot) {
         return;
     }
+    console.log("entering vis_robot.draw, robot = ", robot);
     width = RUR.vis_robot.width * RUR.SCALE;
     height = RUR.vis_robot.height * RUR.SCALE;
     x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
@@ -171,6 +172,7 @@ RUR.vis_robot.draw = function (robot) {
             image = RUR.vis_robot.e_img;
         }
 
+    console.log("in vis_robot.draw, image = ", image);
     RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
     if (RUR.we.editing_world){
         return;

@@ -1189,7 +1189,7 @@ $(document).ready(function() {
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
 
-    $("#World-info").dialog({autoOpen:false, width:600,  height:400, maximize: false, position:"top",
+    $("#World-info").dialog({autoOpen:false, width:600,  height:300, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#world-info-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
 
     $("#world-info-button").on("click", function() {
@@ -3896,6 +3896,7 @@ RUR.vis_robot.draw = function (robot) {
     if (!robot) {
         return;
     }
+    console.log("entering vis_robot.draw, robot = ", robot);
     width = RUR.vis_robot.width * RUR.SCALE;
     height = RUR.vis_robot.height * RUR.SCALE;
     x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
@@ -3941,6 +3942,7 @@ RUR.vis_robot.draw = function (robot) {
             image = RUR.vis_robot.e_img;
         }
 
+    console.log("in vis_robot.draw, image = ", image);
     RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
     if (RUR.we.editing_world){
         return;
@@ -4092,7 +4094,7 @@ RUR.vis_world.refresh = function () {
 
     // start by clearing all the relevant contexts first.
     // some objects are drown on their own contexts.
-
+    console.log("Entering refresh;")
     RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -4108,7 +4110,7 @@ RUR.vis_world.refresh = function () {
 
     // do not clear BACKGROUND_CTX here
     RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
-
+    console.log("current robots = ", RUR.current_world.robots);
     RUR.vis_world.draw_robots(RUR.current_world.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
     RUR.vis_world.draw_info();     // on ROBOT_CTX
@@ -4218,6 +4220,7 @@ RUR.vis_world.draw_east_wall = function(ctx, i, j, goal) {
 RUR.vis_world.draw_robots = function (robots) {
     "use strict";
     var robot;
+    console.log("entering draw_robots; robots = ", robots);
 
     if (!robots || robots[0] === undefined) {
         return;
@@ -4445,8 +4448,9 @@ RUR.vis_world.compile_partial_info = function(objects, color){
 RUR.vis_world.draw_info = function() {
     var i, j, coords, keys, key, info, ctx;
     var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
-
+    console.log("Entering draw_info");
     if (RUR.vis_world.information === undefined) {
+        console.log("Leaving draw_info");
         return;
     }
     // make sure it appears on top of everything (except possibly robots)
@@ -4651,10 +4655,6 @@ RUR.we.select = function (choice) {
     $("#edit-goal-position").hide();
     RUR.we.edit_world_flag = choice;
     switch (choice) {
-        case "world-info":
-            $("#world-info-button").click();
-            $("#cmd-result").html(RUR.translate("Click on world to get information.")).effect("highlight", {color: "gold"}, 1500);
-            break;
         case "robot-place":
             $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
             break;

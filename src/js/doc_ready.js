@@ -237,7 +237,7 @@ $(document).ready(function() {
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
 
-    $("#World-info").dialog({autoOpen:false, width:600,  height:400, maximize: false, position:"top",
+    $("#World-info").dialog({autoOpen:false, width:600,  height:300, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#world-info-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
 
     $("#world-info-button").on("click", function() {
