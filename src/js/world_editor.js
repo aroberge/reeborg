@@ -710,10 +710,6 @@ RUR.we._add_object = function (specific_object){
 RUR.we.add_object = function (specific_object, x, y, nb){
     "use strict";
     var coords, translated_arg, tmp;
-    try {
-        tmp = parseInt(nb, 10);
-        nb = tmp;
-    } catch (e) {}
 
     translated_arg = RUR.translate_to_english(specific_object);
     if (RUR.objects.known_objects.indexOf(translated_arg) == -1){

@@ -1010,57 +1010,6 @@ $(document).ready(function() {
 
   });
 
-
-
-//     var form;
-
-//     RUR.cd.form_give_to_robot = $("#form-give-to-robot");
-//     RUR.cd.form_add_object_to_world = $("#form-add-object-to-world");
-
-//     RUR.cd.hidden_dialog_give_to_robot = $("#dialog-give-objects-to-robot");
-//     RUR.cd.hidden_dialog_add_objects = $("#dialog-add-objects");
-
-//     RUR.cd.input_give_number = $("#input-give-number");
-//     RUR.cd.input_infinite = $("#input-infinite");
-//     RUR.cd.input_add_number = $("#input-add-number");
-//     RUR.cd.input_max_number = $("#input-max-number");
-
-
-//     RUR.cd.give_to_robot = function () {
-
-//         console.log('number', RUR.cd.input_give_number.val());
-//         console.log('infinite', RUR.cd.input_infinite.prop("checked"));
-//         RUR.cd.dialog_give_to_robot.dialog("close");
-//     };
-
-
-//      RUR.cd.dialog_give_to_robot =  $("#form-give-to-robot").dialog({
-//       autoOpen: false,
-//       height: 300,
-//       width: 350,
-//       modal: true,
-//       buttons: {
-//         "Give to robot":RUR.cd.give_to_robot,
-//         Cancel: function() {
-//           RUR.cd.dialog_give_to_robot.dialog("close");
-//         }
-//       },
-//       close: function() {
-//         RUR.cd.form_give_to_robot.reset();
-//       }
-//     });
-
-//     form = RUR.cd.dialog_give_to_robot.find("form").on("submit", function( event ) {
-//       event.preventDefault();
-//       RUR.cd.give_to_robot();
-//     });
-
-//     $("#give-objects").button().on("click", function() {
-//         console.log("click");
-//       RUR.cd.dialog_give_to_robot.dialog("open");
-//     });
-// });
-
 /* Author: André Roberge
    License: MIT
  */
@@ -5404,10 +5353,6 @@ RUR.we._add_object = function (specific_object){
 RUR.we.add_object = function (specific_object, x, y, nb){
     "use strict";
     var coords, translated_arg, tmp;
-    try {
-        tmp = parseInt(nb, 10);
-        nb = tmp;
-    } catch (e) {}
 
     translated_arg = RUR.translate_to_english(specific_object);
     if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
