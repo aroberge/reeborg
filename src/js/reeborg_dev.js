@@ -321,6 +321,38 @@ RUR.OBJECTS_CTX = document.getElementById("objects_canvas").getContext("2d");
 RUR.TRACE_CTX = document.getElementById("trace_canvas").getContext("2d");
 RUR.ROBOT_CTX = document.getElementById("robot_canvas").getContext("2d");
 
+
+
+RUR.quick_test = function (cols, rows) {
+    var height, width;
+    height = (rows+1.5) * RUR.WALL_LENGTH;
+    width = (cols+1.5) * RUR.WALL_LENGTH;
+    // RUR.ROWS = rows;
+    // RUR.COLS = cols;
+    RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
+    RUR.BACKGROUND_CANVAS.width = width;
+    RUR.BACKGROUND_CANVAS.height = height;
+    RUR.second_layer_canvas = document.getElementById("second_layer_canvas");
+    RUR.second_layer_canvas.width = width;
+    RUR.second_layer_canvas.height = height;
+    RUR.goal_canvas = document.getElementById("goal_canvas");
+    RUR.goal_canvas.width = width;
+    RUR.goal_canvas.height = height;
+    RUR.objects_canvas = document.getElementById("objects_canvas");
+    RUR.objects_canvas.width = width;
+    RUR.objects_canvas.height = height;
+    RUR.trace_canvas = document.getElementById("trace_canvas");
+    RUR.trace_canvas.width = width;
+    RUR.trace_canvas.height = height;
+    RUR.robot_canvas = document.getElementById("robot_canvas");
+    RUR.robot_canvas.width = width;
+    RUR.robot_canvas.height = height;
+    RUR.HEIGHT = height;
+    RUR.WIDTH = width;
+    RUR.vis_world.draw_all();
+};
+
+
 RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
 
 RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
@@ -423,7 +455,7 @@ RUR.control.move = function (robot) {
     if (tile) {
         if (tile.fatal){
             if (tile == RUR.tiles.water && RUR.control.top_tile_here(robot, "bridge")) {
-                RUR.control.write(RUR.translate("Useful bridge here!\n"));
+                RUR.control.write(RUR.translate("Useful bridge here!") + "\n");
             } else {
                 throw new RUR.ReeborgError(tile.message);
             }
@@ -3476,7 +3508,6 @@ RUR.ui.run = function () {
     $("#step").attr("disabled", "true");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
-    $("#world-info-button").click();
 
     clearTimeout(RUR.rec.timer);
     RUR.runner.run(RUR.rec.play);
@@ -3501,7 +3532,6 @@ RUR.ui.step = function () {
     $("#stop").removeAttr("disabled");
     $("#reverse-step").removeAttr("disabled");
     clearTimeout(RUR.rec.timer);
-    $("#world-info-button").click();
 };
 
 
@@ -4025,6 +4055,7 @@ RUR.vis_world.compute_world_geometry = function() {
     }
     RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
     RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
+    console.log(" in visible_world, cols = ", RUR.COLS);
 }
 
 RUR.vis_world.draw_all = function () {
