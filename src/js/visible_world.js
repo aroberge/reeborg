@@ -8,6 +8,34 @@
 RUR.vis_world = {};
 
 
+RUR.vis_world.change_dimensions = function (cols, rows) {
+    var height, width;
+    height = (rows+1.5) * RUR.WALL_LENGTH;
+    width = (cols+1.5) * RUR.WALL_LENGTH;
+    RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
+    RUR.BACKGROUND_CANVAS.width = width;
+    RUR.BACKGROUND_CANVAS.height = height;
+    RUR.second_layer_canvas = document.getElementById("second_layer_canvas");
+    RUR.second_layer_canvas.width = width;
+    RUR.second_layer_canvas.height = height;
+    RUR.goal_canvas = document.getElementById("goal_canvas");
+    RUR.goal_canvas.width = width;
+    RUR.goal_canvas.height = height;
+    RUR.objects_canvas = document.getElementById("objects_canvas");
+    RUR.objects_canvas.width = width;
+    RUR.objects_canvas.height = height;
+    RUR.trace_canvas = document.getElementById("trace_canvas");
+    RUR.trace_canvas.width = width;
+    RUR.trace_canvas.height = height;
+    RUR.robot_canvas = document.getElementById("robot_canvas");
+    RUR.robot_canvas.width = width;
+    RUR.robot_canvas.height = height;
+    RUR.HEIGHT = height;
+    RUR.WIDTH = width;
+    RUR.vis_world.draw_all();
+};
+
+
 RUR.vis_world.compute_world_geometry = function() {
     "use strict";
     if (RUR.SMALL_TILES) {
