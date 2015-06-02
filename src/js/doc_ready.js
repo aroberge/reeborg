@@ -184,10 +184,10 @@ $(document).ready(function() {
             toggle_editing_mode();
         } else {
             $("#edit-world-panel").dialog("close");
-            $("#edit-world-panel").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:800,  height:600, maximize: false, position:"top"});
+            $("#edit-world-panel").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:800,  height:700, maximize: false, position:"top"});
         }
     });
-    $("#edit-world-panel").dialog({minimize: false, maximize: false, autoOpen:false, width:800,  height:600, maximize: false, position:"top",
+    $("#edit-world-panel").dialog({minimize: false, maximize: false, autoOpen:false, width:800,  height:700, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#edit-world").addClass("blue-gradient").removeClass("reverse-blue-gradient");
                                               toggle_editing_mode();}});
 

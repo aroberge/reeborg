@@ -241,16 +241,27 @@
             <li><a href="javascript:RUR.we.select('goal-no-objects');">No objects left in the world</a></li>
           </ul>
         </ul>
-    <div id="additional-code">
-      <p>The following buttons copy text from the editor; for the first two, the code will be run either before or
-         after the user's program; for the third, the description will be added to the world information displayed when
-         clicking on the world canvas.<br>
-        <button class="blue-gradient" id="insert-pre-code" onclick="RUR.we.insert_pre_code();">Insert pre-code</button>
-        <button class="blue-gradient" id="insert-post-code" onclick="RUR.we.insert_post_code();">Insert post-code</button>
-        <button class="blue-gradient" id="insert-post-code" onclick="RUR.we.add_description();">Copy description</button>
-      </p>
-      <div id="code-copied"></div>
-    </div>
+      <div id="additional-code">
+        <p>The following buttons copy text from the textareas below; for the first two, the code will be run either before or
+           after the user's program; for the third, the description will be added to the world information displayed when
+           clicking on the world canvas.<br>
+
+          <table>
+              <tr>
+                  <td><button class="blue-gradient" id="insert-pre-code" onclick="RUR.we.insert_pre_code();">Insert pre-code</button></td>
+                  <td><button class="blue-gradient" id="insert-post-code" onclick="RUR.we.insert_post_code();">Insert post-code</button></td>
+                  <td><button class="blue-gradient" id="insert-post-code" onclick="RUR.we.add_description();">Copy description</button></td>
+              </tr>
+              <tr>
+                  <td><textarea id="pre-code">"pre-code"</textarea></td>
+                  <td><textarea id="post-code">"post-code"</textarea></td>
+                  <td><textarea id="description">Description</textarea></td>
+              </tr>
+          </table>
+
+        </p>
+        <div id="code-copied"></div>
+      </div>
 
 </div>
 

@@ -1137,10 +1137,10 @@ $(document).ready(function() {
             toggle_editing_mode();
         } else {
             $("#edit-world-panel").dialog("close");
-            $("#edit-world-panel").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:800,  height:600, maximize: false, position:"top"});
+            $("#edit-world-panel").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:800,  height:700, maximize: false, position:"top"});
         }
     });
-    $("#edit-world-panel").dialog({minimize: false, maximize: false, autoOpen:false, width:800,  height:600, maximize: false, position:"top",
+    $("#edit-world-panel").dialog({minimize: false, maximize: false, autoOpen:false, width:800,  height:700, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#edit-world").addClass("blue-gradient").removeClass("reverse-blue-gradient");
                                               toggle_editing_mode();}});
 
@@ -4802,6 +4802,24 @@ function toggle_editing_mode () {
     }
 }
 
+RUR.we.show_pre_post_code = function () {
+    if (RUR.current_world.pre_code != undefined) {
+        $("#pre-code").val(RUR.current_world.pre_code);
+    } else {
+        $("#pre-code").val("pre-code");
+    }
+    if (RUR.current_world.post_code != undefined) {
+        $("#post-code").val(RUR.current_world.post_code);
+    } else {
+        $("#post-code").val("post-code");
+    }
+    if (RUR.current_world.description != undefined) {
+        $("#description").val(RUR.current_world.description);
+    } else {
+        $("#description").val("Description");
+    }
+};
+
 RUR.we.refresh_world_edited = function () {
     // todo: see if we could draw fewer...
     RUR.vis_world.draw_all();
@@ -5216,38 +5234,25 @@ RUR.we.ensure_key_exist = function(obj, key){
 };
 
 RUR.we.insert_pre_code = function() {
-    if (RUR.current_world.pre_code === undefined){
-        RUR.current_world.pre_code = '';
-        RUR.current_world.post_code = '';
-    }
-    RUR.current_world.pre_code = editor.getValue();
-    RUR.we.show_pre_post_code();
+    console.log($("#pre-code").value);
+    RUR.current_world.pre_code = $("#pre-code").val();
+    RUR.we.confirm_update();
 }
 
 RUR.we.insert_post_code = function() {
-    if (RUR.current_world.post_code === undefined){
-        RUR.current_world.pre_code = '';
-        RUR.current_world.post_code = '';
-    }
-    RUR.current_world.post_code = editor.getValue();
-    RUR.we.show_pre_post_code();
+    RUR.current_world.post_code = $("#post-code").val();
+    RUR.we.confirm_update();
 }
 
 RUR.we.add_description = function() {
-    if (RUR.current_world.description === undefined){
-        RUR.current_world.description = '';
-    }
-    RUR.current_world.description = editor.getValue();
+    RUR.current_world.description = $("#description").val();
+    RUR.we.confirm_update();
     RUR.we.show_world_info();
 }
 
-RUR.we.show_pre_post_code = function() {
-    if (RUR.current_world.pre_code == undefined) {
-        $("#code-copied").html('');
-        return;
-    }
-    $("#code-copied").html("<br>pre-code: <pre>" + RUR.current_world.pre_code +
-                           "</pre>post-code:<pre>" + RUR.current_world.post_code + "</pre>");
+RUR.we.confirm_update = function() {
+    $("#code-copied").html("updated").effect("highlight", {color: "gold"}, 1500);
+    console.log("RUR.current_world = ", RUR.current_world);
 }
 
 
