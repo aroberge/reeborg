@@ -90,7 +90,7 @@
     </div>
 </div>
 
-<div id="world-edit-buttons" title="Changing world">
+<div id="world-edit-buttons" title="Changing world" style="display:none;">
     <select id="select_world" title="Select world">
       <option value="src/worlds/alone.json" selected>Alone</option>
       <option value="src/worlds/alone.json" selected>Lonely</option>
@@ -169,7 +169,7 @@
             <li id="random-orientation"><a href="javascript:RUR.we.turn_robot(-1);"><img src="src/images/robot_random.png" alt="robot: random orientation"></a><br><span>Random</span></li>
         </ul>
         <ul class="edit-world-canvas" id="edit-world-objects" style="display:none">
-            <li><a href="javascript:RUR.we.select('object-token');"><img src="src/images/token.png" alt="token"></a></a></li>
+            <li><a href="javascript:RUR.we.select('object-token');"><img src="src/images/token.png" alt="token"></a></li>
             <li><a href="javascript:RUR.we.select('object-star');"><img src="src/images/star.png" alt="star"></a></li>
             <li><a href="javascript:RUR.we.select('object-triangle');"><img src="src/images/triangle.png" alt="triangle"></a></li>
             <li><a href="javascript:RUR.we.select('object-square');"><img src="src/images/square.png" alt="square"></a></li>
@@ -192,7 +192,7 @@
             <li><a href="javascript:RUR.we.select('tile-ice');"><img src="src/images/ice.png" alt="ice tile"></a></li>
         </ul>
         <ul class="edit-goal-canvas" id="edit-goal-objects" style="display:none">
-            <li><a href="javascript:RUR.we.select('goal-token');"><img src="src/images/token_goal.png" alt="token"></a></a></li>
+            <li><a href="javascript:RUR.we.select('goal-token');"><img src="src/images/token_goal.png" alt="token"></a></li>
             <li><a href="javascript:RUR.we.select('goal-star');"><img src="src/images/star_goal.png" alt="star"></a></li>
             <li><a href="javascript:RUR.we.select('goal-triangle');"><img src="src/images/triangle_goal.png" alt="triangle"></a></li>
             <li><a href="javascript:RUR.we.select('goal-square');"><img src="src/images/square_goal.png" alt="square"></a></li>
@@ -208,9 +208,9 @@
             <li><a href="javascript:RUR.we.select('goal-box');"><img src="src/images/box_goal.png" alt="wooden box"></a></li>
         </ul>
         <ul class="edit-goal-canvas" id="edit-goal-position" style="display:none">
-            <li><a href="javascript:RUR.we.select('position-green_home_tile');"><img src="src/images/green_home_tile.png" alt="home"></a></a></li>
-            <li><a href="javascript:RUR.we.select('position-house');"><img src="src/images/house.png" alt="home"></a></a></li>
-            <li><a href="javascript:RUR.we.select('position-racing_flag');"><img src="src/images/racing_flag.png" alt="home"></a></a></li>
+            <li><a href="javascript:RUR.we.select('position-green_home_tile');"><img src="src/images/green_home_tile.png" alt="home"></a></li>
+            <li><a href="javascript:RUR.we.select('position-house');"><img src="src/images/house.png" alt="home"></a></li>
+            <li><a href="javascript:RUR.we.select('position-racing_flag');"><img src="src/images/racing_flag.png" alt="home"></a></li>
         </ul>
     </div>
 
@@ -494,6 +494,25 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 <audio id="error-sound" preload>
   <source src="src/sounds/glitch-sound.wav" type="audio/x-wav">
 </audio>
+
+<div id="dialog-form" title="Add object" style="display:none;">
+  <p>Choose zero to remove any existing
+    "<span id="add-object-name">object</span>" at this location.
+    If "Maximum" is set to a value greater than the "Number of objects", a number
+    of objects, between these two values, will be chosen randomly each time
+    a program is run.</p>
+  <form>
+    <fieldset>
+      <label for="input-add-number">Number of objects:</label>
+      <input type="number" name="input-add-number" id="input-add-number" min="0" value="1"><br>
+      <label for="maximum-number">Maximum: </label>
+      <input type="number" name="maximum-number" id="maximum-number" min="0" value="0"><br>
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
 
 <!--online-->
 <a style="display:none" title="Real Time Analytics" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>

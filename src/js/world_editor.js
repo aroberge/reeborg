@@ -250,6 +250,7 @@ RUR.we.show_pre_post_code = function () {
 RUR.we.refresh_world_edited = function () {
     // todo: see if we could draw fewer...
     RUR.vis_world.draw_all();
+    RUR.we.show_world_info();
 };
 
 function editing_world_enable_run(){
@@ -697,10 +698,12 @@ RUR.we._add_object = function (specific_object){
         }
         return;
     }
-    query = prompt(RUR.translate("Enter number of objects desired at that location.").supplant({obj: specific_object}));
-    if (query != null){
-        RUR.we.add_object(specific_object, x, y, query);
-    }
+
+    RUR.we.specific_object = specific_object;
+    RUR.we.x = x;
+    RUR.we.y = y;
+    $("#add-object-name").html(RUR.we.specific_object);
+    RUR.cd.dialog_add_object.dialog("open");
 };
 
 

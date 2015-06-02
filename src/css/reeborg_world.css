@@ -81,27 +81,21 @@ a[href^="http"] {
 }
 
 
-/*   edit world at bottom of canvas */
 fieldset {display: inline-block;
     border-radius: 10px;
     color: #123264;
     border: solid #123264;
-    padding-top: 0;
 }
+
+fieldset input {float:right;}
 
 legend { color: #123264;}
 
-/*
-#world-fieldset {width: 550px;
-  position: absolute;
-  top: -40px;
-}*/
 
 #edit-world {
   margin-right: 30px;
 }
 
-/* #file-fieldset{margin-left: 40px;} */
 
 #highlight {
   border: 0;

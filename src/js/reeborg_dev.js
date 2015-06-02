@@ -956,6 +956,113 @@ RUR.control.get_world_map = function () {
 };
 /* Author: André Roberge
    License: MIT
+
+   Defining base name space and various constants.
+ */
+
+/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+
+RUR.cd = {};
+
+$(document).ready(function() {
+
+    RUR.cd.input_add_number = $("#input-add-number"),
+    RUR.cd.maximum_number = $("#maximum-number"),
+
+
+    RUR.cd.add_objects = function () {
+        console.log("entering add_objects");
+        RUR.cd.input_add_number_result = parseInt(RUR.cd.input_add_number.val(), 10);
+        RUR.cd.input_maximum_result = parseInt(RUR.cd.maximum_number.val(), 10);
+        console.log("min, max = ", RUR.cd.input_add_number_result, RUR.cd.input_maximum_result);
+        if (RUR.cd.input_maximum_result > RUR.cd.input_add_number_result){
+            query =  RUR.cd.input_add_number_result + "-" + RUR.cd.input_maximum_result;
+        } else {
+            query = RUR.cd.input_add_number_result;
+        }
+        console.log("query = ", query);
+        RUR.we.add_object(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
+        RUR.we.refresh_world_edited();
+        RUR.cd.dialog_add_object.dialog("close");
+        return true;
+    };
+
+    RUR.cd.dialog_add_object = $("#dialog-form").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "Add objects": RUR.cd.add_objects,
+            Cancel: function() {
+                RUR.cd.dialog_add_object.dialog("close");
+            }
+        },
+        close: function() {
+            RUR.cd.add_number_form[0].reset();
+        }
+    });
+
+    RUR.cd.add_number_form = RUR.cd.dialog_add_object.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        RUR.cd.add_objects();
+    });
+
+  });
+
+
+
+//     var form;
+
+//     RUR.cd.form_give_to_robot = $("#form-give-to-robot");
+//     RUR.cd.form_add_object_to_world = $("#form-add-object-to-world");
+
+//     RUR.cd.hidden_dialog_give_to_robot = $("#dialog-give-objects-to-robot");
+//     RUR.cd.hidden_dialog_add_objects = $("#dialog-add-objects");
+
+//     RUR.cd.input_give_number = $("#input-give-number");
+//     RUR.cd.input_infinite = $("#input-infinite");
+//     RUR.cd.input_add_number = $("#input-add-number");
+//     RUR.cd.input_max_number = $("#input-max-number");
+
+
+//     RUR.cd.give_to_robot = function () {
+
+//         console.log('number', RUR.cd.input_give_number.val());
+//         console.log('infinite', RUR.cd.input_infinite.prop("checked"));
+//         RUR.cd.dialog_give_to_robot.dialog("close");
+//     };
+
+
+//      RUR.cd.dialog_give_to_robot =  $("#form-give-to-robot").dialog({
+//       autoOpen: false,
+//       height: 300,
+//       width: 350,
+//       modal: true,
+//       buttons: {
+//         "Give to robot":RUR.cd.give_to_robot,
+//         Cancel: function() {
+//           RUR.cd.dialog_give_to_robot.dialog("close");
+//         }
+//       },
+//       close: function() {
+//         RUR.cd.form_give_to_robot.reset();
+//       }
+//     });
+
+//     form = RUR.cd.dialog_give_to_robot.find("form").on("submit", function( event ) {
+//       event.preventDefault();
+//       RUR.cd.give_to_robot();
+//     });
+
+//     $("#give-objects").button().on("click", function() {
+//         console.log("click");
+//       RUR.cd.dialog_give_to_robot.dialog("open");
+//     });
+// });
+
+/* Author: André Roberge
+   License: MIT
  */
 
 /*jshint -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
@@ -4837,6 +4944,7 @@ RUR.we.show_pre_post_code = function () {
 RUR.we.refresh_world_edited = function () {
     // todo: see if we could draw fewer...
     RUR.vis_world.draw_all();
+    RUR.we.show_world_info();
 };
 
 function editing_world_enable_run(){
@@ -5284,10 +5392,12 @@ RUR.we._add_object = function (specific_object){
         }
         return;
     }
-    query = prompt(RUR.translate("Enter number of objects desired at that location.").supplant({obj: specific_object}));
-    if (query != null){
-        RUR.we.add_object(specific_object, x, y, query);
-    }
+
+    RUR.we.specific_object = specific_object;
+    RUR.we.x = x;
+    RUR.we.y = y;
+    $("#add-object-name").html(RUR.we.specific_object);
+    RUR.cd.dialog_add_object.dialog("open");
 };
 
 
