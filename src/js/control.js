@@ -90,7 +90,6 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
 
 
     RUR.we.add_object(obj, x, y, 0);
-    console.log("top tile = ", RUR.control.get_top_tile_at_position(to_x, to_y))
     if (RUR.objects[obj].in_water
         && RUR.control.get_tile_at_position(to_x, to_y) == RUR.tiles.water
         && !bridge_already_there){

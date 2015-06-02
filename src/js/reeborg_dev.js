@@ -444,7 +444,6 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
 
 
     RUR.we.add_object(obj, x, y, 0);
-    console.log("top tile = ", RUR.control.get_top_tile_at_position(to_x, to_y))
     if (RUR.objects[obj].in_water
         && RUR.control.get_tile_at_position(to_x, to_y) == RUR.tiles.water
         && !bridge_already_there){
@@ -5234,7 +5233,6 @@ RUR.we.ensure_key_exist = function(obj, key){
 };
 
 RUR.we.insert_pre_code = function() {
-    console.log($("#pre-code").value);
     RUR.current_world.pre_code = $("#pre-code").val();
     RUR.we.confirm_update();
 }
@@ -5252,7 +5250,6 @@ RUR.we.add_description = function() {
 
 RUR.we.confirm_update = function() {
     $("#code-copied").html("updated").effect("highlight", {color: "gold"}, 1500);
-    console.log("RUR.current_world = ", RUR.current_world);
 }
 
 
