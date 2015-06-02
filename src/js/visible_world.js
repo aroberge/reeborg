@@ -97,7 +97,9 @@ RUR.vis_world.refresh = function () {
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
-
+    if (RUR.__debug) {
+        RUR.vis_world.sanity_check(0);
+    }
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls); // on OBJECTS_CTX
     RUR.vis_world.draw_all_objects(RUR.current_world.objects);  // on OBJECTS_CTX
         // RUR.vis_world.draw_all_objects also called by draw_goal, and draws on GOAL_CTX
@@ -108,10 +110,35 @@ RUR.vis_world.refresh = function () {
 
     // do not clear BACKGROUND_CTX here
     RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
-    console.log("current robots = ", RUR.current_world.robots);
+    if (RUR.__debug) {
+        console.log("current robots = ", RUR.current_world.robots);
+    }
     RUR.vis_world.draw_robots(RUR.current_world.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
     RUR.vis_world.draw_info();     // on ROBOT_CTX
+    if (RUR.__debug) {
+        RUR.vis_world.sanity_check(100);
+    }
+};
+
+RUR.vis_world.sanity_check = function(offset) {
+    // An intermittent bug sometimes  causes the robot NOT to be drawn.
+    // This sanity check is performed so as to see if any unexpected
+    // canvas clearing occurs.
+
+    RUR.BACKGROUND_CTX.fillStyle = "red";
+    RUR.SECOND_LAYER_CTX.fillStyle = "green";
+    RUR.GOAL_CTX.fillStyle = "yellow";
+    RUR.OBJECTS_CTX.fillStyle = "blue";
+    RUR.TRACE_CTX.fillStyle = "cyan";
+    RUR.ROBOT_CTX.fillStyle = "magenta";
+
+    RUR.BACKGROUND_CTX.fillRect(0+offset, 0, 10, 10);
+    RUR.SECOND_LAYER_CTX.fillRect(10+offset, 0, 10, 10);
+    RUR.GOAL_CTX.fillRect(20+offset, 0, 10, 10);
+    RUR.OBJECTS_CTX.fillRect(30+offset, 0, 10, 10);
+    RUR.TRACE_CTX.fillRect(40+offset, 0, 10, 10);
+    RUR.ROBOT_CTX.fillRect(50+offset, 0, 10, 10);
 };
 
 
@@ -155,8 +182,6 @@ RUR.vis_world.draw_grid_walls = function(){
 RUR.vis_world.draw_foreground_walls = function (walls) {
     "use strict";
     var keys, key, i, j, k, ctx = RUR.OBJECTS_CTX;
-
-    ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
 
     // border walls (x and y axis)
