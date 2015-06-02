@@ -93,7 +93,6 @@ RUR.vis_world.refresh = function () {
 
     // start by clearing all the relevant contexts first.
     // some objects are drown on their own contexts.
-    console.log("Entering refresh;")
     RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -219,8 +218,6 @@ RUR.vis_world.draw_east_wall = function(ctx, i, j, goal) {
 RUR.vis_world.draw_robots = function (robots) {
     "use strict";
     var robot;
-    console.log("entering draw_robots; robots = ", robots);
-
     if (!robots || robots[0] === undefined) {
         return;
     }
@@ -447,7 +444,9 @@ RUR.vis_world.compile_partial_info = function(objects, color){
 RUR.vis_world.draw_info = function() {
     var i, j, coords, keys, key, info, ctx;
     var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
-    console.log("Entering draw_info; info = ", RUR.vis_world.information);
+    if (RUR.__debug) {
+            console.log("Entering draw_info; info = ", RUR.vis_world.information);
+    }
     if (RUR.vis_world.information === undefined) {
         console.log("Leaving draw_info");
         return;
@@ -465,7 +464,9 @@ RUR.vis_world.draw_info = function() {
             text_width = ctx.measureText(info).width/2;
             ctx.font = RUR.BACKGROUND_CTX.font;
             ctx.fillStyle = RUR.vis_world.information[coords][2];
-            console.log("filling info = ", info);
+            if (RUR.__debug){
+                console.log("filling info = ", info);
+            }
             ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
         }
     }

@@ -126,7 +126,9 @@ RUR.vis_robot.draw = function (robot) {
     if (!robot) {
         return;
     }
-    console.log("entering vis_robot.draw, robot = ", robot);
+    if (RUR.__debug){
+        console.log("entering vis_robot.draw, robot = ", robot);
+    }
     width = RUR.vis_robot.width * RUR.SCALE;
     height = RUR.vis_robot.height * RUR.SCALE;
     x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
@@ -171,8 +173,11 @@ RUR.vis_robot.draw = function (robot) {
         default:
             image = RUR.vis_robot.e_img;
         }
-
-    console.log("in vis_robot.draw, image = ", image);
+    if (RUR.__debug){
+        console.log("in vis_robot.draw, image = ", image);
+        console.log("    x, y, width, height =", x, y, width, height);
+        console.log("   context = ", RUR.ROBOT_CTX);
+    }
     RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
     if (RUR.we.editing_world){
         return;
