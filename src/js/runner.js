@@ -55,7 +55,7 @@ RUR.runner.assign_initial_values = function () {
                             try {
                                 objects_here[obj] = total_nb_objects[obj];
                             } catch (e) {
-                                $("#World-info").dialog("open");
+                                $("#world-info-button").click();
                                 $("#World-info").html("<b>Warning</b> Trying to assign a goal when no corresponding objects are found in the world.");
                             }
                         }

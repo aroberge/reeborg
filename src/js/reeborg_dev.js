@@ -1147,6 +1147,21 @@ $(document).ready(function() {
     $("#about-div").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#about-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
 
+
+    $("#world-edit-buttons").dialog({autoOpen:false, width:550,  height:180, maximize: false, position:"center",
+        beforeClose: function( event, ui ) {$("#world-select").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+
+    $("#world-select").on("click", function() {
+        if ($("#world-select").hasClass("reverse-blue-gradient")) {
+            $("#world-edit-buttons").dialog("open");
+        } else {
+            $("#world-edit-buttons").dialog("close");
+        }
+        return;
+    });
+
+
+
     $("#about-button").on("click", function() {
         if ($("#about-button").hasClass("reverse-blue-gradient")) {
             $("#about-div").dialog("open");
@@ -1174,7 +1189,18 @@ $(document).ready(function() {
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
-    $("#World-info").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250});
+
+    $("#World-info").dialog({autoOpen:false, width:600,  height:400, maximize: false, position:"top",
+        beforeClose: function( event, ui ) {$("#world-info-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+
+    $("#world-info-button").on("click", function() {
+        if ($("#world-info-button").hasClass("reverse-blue-gradient")) {
+            $("#World-info").dialog("open");
+        } else {
+            $("#World-info").dialog("close");
+        }
+        return;
+    });
 
 
     editor.widgets = [];
@@ -3107,7 +3133,7 @@ RUR.runner.assign_initial_values = function () {
                             try {
                                 objects_here[obj] = total_nb_objects[obj];
                             } catch (e) {
-                                $("#World-info").dialog("open");
+                                $("#world-info-button").click();
                                 $("#World-info").html("<b>Warning</b> Trying to assign a goal when no corresponding objects are found in the world.");
                             }
                         }
@@ -3450,7 +3476,7 @@ RUR.ui.run = function () {
     $("#step").attr("disabled", "true");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
-    $("#World-info").dialog("close");
+    $("#world-info-button").click();
 
     clearTimeout(RUR.rec.timer);
     RUR.runner.run(RUR.rec.play);
@@ -3475,7 +3501,7 @@ RUR.ui.step = function () {
     $("#stop").removeAttr("disabled");
     $("#reverse-step").removeAttr("disabled");
     clearTimeout(RUR.rec.timer);
-    $("#World-info").dialog("close");
+    $("#world-info-button").click();
 };
 
 
@@ -4801,7 +4827,7 @@ RUR.we.show_world_info = function (no_grid) {
     var topic, no_object, r, robot, robots;
 
     information = "";
-    $("#World-info").dialog("open");
+    //$("#World-info").dialog("open");
     if (!no_grid) {
         position = RUR.we.calculate_grid_position();
         x = position[0];

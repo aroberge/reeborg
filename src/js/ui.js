@@ -29,7 +29,7 @@ RUR.ui.run = function () {
     $("#step").attr("disabled", "true");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
-    $("#World-info").dialog("close");
+    $("#world-info-button").click();
 
     clearTimeout(RUR.rec.timer);
     RUR.runner.run(RUR.rec.play);
@@ -54,7 +54,7 @@ RUR.ui.step = function () {
     $("#stop").removeAttr("disabled");
     $("#reverse-step").removeAttr("disabled");
     clearTimeout(RUR.rec.timer);
-    $("#World-info").dialog("close");
+    $("#world-info-button").click();
 };
 
 

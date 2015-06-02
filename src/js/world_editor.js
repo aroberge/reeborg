@@ -284,7 +284,7 @@ RUR.we.show_world_info = function (no_grid) {
     var topic, no_object, r, robot, robots;
 
     information = "";
-    $("#World-info").dialog("open");
+    //$("#World-info").dialog("open");
     if (!no_grid) {
         position = RUR.we.calculate_grid_position();
         x = position[0];

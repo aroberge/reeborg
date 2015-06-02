@@ -50,11 +50,6 @@ nav a{margin:0; display: inline-block;}
 nav a:last-child{border-radius: 0 20px 20px 0;}
 nav a:first-child{border-radius: 20px 0 0 20px;}
 
-select {margin-top: 20px;
-    float:left;
-    margin-right:10px;
-}
-
 button, #contents-button {
   height: 37px;
   position: relative;
@@ -96,16 +91,17 @@ fieldset {display: inline-block;
 
 legend { color: #123264;}
 
+/*
 #world-fieldset {width: 550px;
   position: absolute;
   top: -40px;
-}
+}*/
 
 #edit-world {
-  top: 20px;
+  margin-right: 30px;
 }
 
-#file-fieldset{margin-left: 40px;}
+/* #file-fieldset{margin-left: 40px;} */
 
 #highlight {
   border: 0;
@@ -242,10 +238,6 @@ padding:3px;}
   top: 42px;
 }
 
-#world-edit-buttons {
-  position: absolute;
-  bottom: -40px;
-}
 #image-choice-buttons {
   float: right;
 }
@@ -261,7 +253,7 @@ padding:3px;}
   position: absolute;
   top: 5px;
 }
-#game-controls button, #world-controls button, #world-edit-buttons button {margin-right: 4px;}
+#game-controls button, #world-controls button, #world-edit-buttons button {margin-right: 4px; float: none;}
 
 #world-panel {
     width: 620px;

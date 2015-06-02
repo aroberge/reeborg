@@ -194,6 +194,21 @@ $(document).ready(function() {
     $("#about-div").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#about-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
 
+
+    $("#world-edit-buttons").dialog({autoOpen:false, width:550,  height:180, maximize: false, position:"center",
+        beforeClose: function( event, ui ) {$("#world-select").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+
+    $("#world-select").on("click", function() {
+        if ($("#world-select").hasClass("reverse-blue-gradient")) {
+            $("#world-edit-buttons").dialog("open");
+        } else {
+            $("#world-edit-buttons").dialog("close");
+        }
+        return;
+    });
+
+
+
     $("#about-button").on("click", function() {
         if ($("#about-button").hasClass("reverse-blue-gradient")) {
             $("#about-div").dialog("open");
@@ -221,7 +236,18 @@ $(document).ready(function() {
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
-    $("#World-info").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250});
+
+    $("#World-info").dialog({autoOpen:false, width:600,  height:400, maximize: false, position:"top",
+        beforeClose: function( event, ui ) {$("#world-info-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+
+    $("#world-info-button").on("click", function() {
+        if ($("#world-info-button").hasClass("reverse-blue-gradient")) {
+            $("#World-info").dialog("open");
+        } else {
+            $("#World-info").dialog("close");
+        }
+        return;
+    });
 
 
     editor.widgets = [];

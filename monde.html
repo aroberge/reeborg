@@ -24,9 +24,8 @@
    <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">Monde</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Éditeur</button>
     <button class="blue-gradient" id="help-button">Aide</button>
-    <button id="permalink" class="blue-gradient" label="url-form" title="Créez un permalien" onclick="RUR.create_permalink();">
-      Permalien
-    </button>
+    <button class="blue-gradient" id="world-select">Changer de monde</button>
+    <button class="blue-gradient" id="world-info-button">Information</button>
     <form>
         <input type="radio" name="programming_language" value="python-fr" checked> Python
         <input type="radio" name="programming_language" value="javascript-fr" > Javascript
@@ -81,30 +80,9 @@
   <div id="Reeborg-concludes" class="reeborg-print" title="Reeborg dit : J'ai fini !" style="display:none"></div>
   <div id="Reeborg-writes" title="Reeborg écrit :" style="display:none"><span id="narrates"></span><pre id="stdout" class="reeborg-print"></pre></div>
   <div id="Reeborg-shouts" class="reeborg-print" title="Reeborg crie: Quelque chose ne va pas !" style="display:none"></div>
-  <div id="World-info" title="Information à propos de cet endroit." style="display:none"></div>
+  <div id="World-info" title="Cliquez sur le monde pour obtenir de l'information." style="display:none"></div>
 
-    <div id="world-edit-buttons">
-  <fieldset id="world-fieldset" style="width:590px;"><legend>Monde</legend>
-    <select id="select_world" title="Sélectionner un monde">
-      <option value="src/worlds/alone.json" selected>Seul</option>
-      <option value="src/worlds/alone2.json" selected>Vraiment seul</option>
-      <option value="src/worlds/empty_world.json">Vide</option>
-      <option value="src/worlds/blank.json">Le canevas graphique</option>
-    </select>
 
-      <button class="blue-gradient" id="edit-world" title="Édition du monde">Édition</button>
-      <fieldset id="file-fieldset"><legend>Fichier</legend>
-      <button class="blue-gradient" id="save-world" title="Enregistrer le monde dans un fichier">Enreg.</button>
-      <button class="blue-gradient" id="load-world" title="Ouvrir à partir d'un fichier">Ouvrir</button>
-      </fieldset>
-      <fieldset><legend>Navigateur</legend>
-      <button class="blue-gradient" id="memorize-world" title="Enregistrer dans le navigateur (stockage local)">Enreg.</button>
-      <button class="blue-gradient" id="delete-world" title="Supprimer du navigateur (stockage local)" style="display: none;">
-        Suppr.
-      </button>
-              </fieldset>
-    </fieldset>
-    </div>
     <div id="image-choice-buttons">
       <button id="classic-image" title="Classique"><img src="src/images/robot_e.png" alt="Classique"></button>
       <button id="rover-type" title="Robot à roues"><img src="src/images/rover_e.png" alt="Robot à roues"></button>
@@ -112,7 +90,30 @@
       <button id="solar-panel-type" title="Robot avec panneau solaire"><img src="src/images/sp_e.png" alt="Robot avec panneau solaire"></button>
     </div>
 </div>
+<div id="world-edit-buttons" title="Changer le monde">
+  <select id="select_world" title="Sélectionner un monde">
+    <option value="src/worlds/alone.json" selected>Seul</option>
+    <option value="src/worlds/alone2.json" selected>Vraiment seul</option>
+    <option value="src/worlds/empty_world.json">Vide</option>
+    <option value="src/worlds/blank.json">Le canevas graphique</option>
+  </select>
 
+    <button class="blue-gradient" id="edit-world" title="Édition du monde">Édition</button>
+      <button id="permalink" class="blue-gradient" label="url-form" title="Créer un permalien" onclick="RUR.create_permalink();">
+        Permalink
+      </button>
+    <br>
+    <fieldset id="file-fieldset"><legend>Fichier</legend>
+    <button class="blue-gradient" id="save-world" title="Enregistrer le monde dans un fichier">Enregistrer</button>
+    <button class="blue-gradient" id="load-world" title="Ouvrir à partir d'un fichier">Ouvrir</button>
+    </fieldset>
+    <fieldset><legend>Navigateur</legend>
+      <button class="blue-gradient" id="memorize-world" title="Enregistrer dans le navigateur (stockage local)">Enregistrer.</button>
+      <button class="blue-gradient" id="delete-world" title="Supprimer du navigateur (stockage local)" style="display: none;">
+      Supprimer
+      </button>
+    </fieldset>
+</div>
 <div id="editor-panel" class="active" >
   <input type="file" id="fileInput" style="display:none;">
   <div id="tabs">
@@ -170,7 +171,7 @@
             <li id="random-orientation"><a href="javascript:RUR.we.turn_robot(-1);"><img src="src/images/robot_random.png" alt="robot: orientation aléatoire"></a><br><span>aléatoire</span></li>
         </ul>
         <ul class="edit-world-canvas" id="edit-world-objects" style="display:none">
-            <li><a href="javascript:RUR.we.select('object-token');"><img src="src/images/token.png" alt="jeton"></a></a></li>
+            <li><a href="javascript:RUR.we.select('object-token');"><img src="src/images/token.png" alt="jeton"></a></li>
             <li><a href="javascript:RUR.we.select('object-star');"><img src="src/images/star.png" alt="étoile"></a></li>
             <li><a href="javascript:RUR.we.select('object-triangle');"><img src="src/images/triangle.png" alt="triangle"></a></li>
             <li><a href="javascript:RUR.we.select('object-square');"><img src="src/images/square.png" alt="carré"></a></li>
@@ -193,7 +194,7 @@
             <li><a href="javascript:RUR.we.select('tile-ice');"><img src="src/images/ice.png" alt="glace"></a></li>
         </ul>
         <ul class="edit-goal-canvas" id="edit-goal-objects" style="display:none">
-            <li><a href="javascript:RUR.we.select('goal-token');"><img src="src/images/token_goal.png" alt="jeton"></a></a></li>
+            <li><a href="javascript:RUR.we.select('goal-token');"><img src="src/images/token_goal.png" alt="jeton"></a></li>
             <li><a href="javascript:RUR.we.select('goal-star');"><img src="src/images/star_goal.png" alt="étoile"></a></li>
             <li><a href="javascript:RUR.we.select('goal-triangle');"><img src="src/images/triangle_goal.png" alt="triangle"></a></li>
             <li><a href="javascript:RUR.we.select('goal-square');"><img src="src/images/square_goal.png" alt="carré"></a></li>
@@ -209,9 +210,9 @@
             <li><a href="javascript:RUR.we.select('goal-box');"><img src="src/images/box_goal.png" alt="wooden box"></a></li>
         </ul>
         <ul class="edit-goal-canvas" id="edit-goal-position" style="display:none">
-            <li><a href="javascript:RUR.we.select('position-green_home_tile');"><img src="src/images/green_home_tile.png" alt="maison"></a></a></li>
-            <li><a href="javascript:RUR.we.select('position-house');"><img src="src/images/house.png" alt="maison"></a></a></li>
-            <li><a href="javascript:RUR.we.select('position-racing_flag');"><img src="src/images/racing_flag.png" alt="maison"></a></a></li>
+            <li><a href="javascript:RUR.we.select('position-green_home_tile');"><img src="src/images/green_home_tile.png" alt="maison"></a></li>
+            <li><a href="javascript:RUR.we.select('position-house');"><img src="src/images/house.png" alt="maison"></a></li>
+            <li><a href="javascript:RUR.we.select('position-racing_flag');"><img src="src/images/racing_flag.png" alt="maison"></a></li>
         </ul>
     </div>
 
