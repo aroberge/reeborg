@@ -313,6 +313,10 @@ RUR.NORTH = 1;
 RUR.WEST = 2;
 RUR.SOUTH = 3;
 
+// all images are of this size.
+RUR.TILE_SIZE = 40;
+
+
 RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
 RUR.BACKGROUND_CTX = RUR.BACKGROUND_CANVAS.getContext("2d");
 RUR.SECOND_LAYER_CTX = document.getElementById("second_layer_canvas").getContext("2d");
@@ -3790,13 +3794,6 @@ RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
 RUR.vis_robot.images[0].robot_random_img = new Image();
 RUR.vis_robot.images[0].robot_random_img.src = 'src/images/robot_random.png';
 
-// all images are taken to be centered on a tile 40x40 - however, let's
-// compute it for one of them...
-
-RUR.vis_robot.width = RUR.vis_robot.images[0].robot_e_img.width;
-RUR.vis_robot.height = RUR.vis_robot.images[0].robot_e_img.height;
-
-
 // rover type
 RUR.vis_robot.images[1].robot_e_img = new Image();
 RUR.vis_robot.images[1].robot_e_img.src = 'src/images/rover_e.png';
@@ -3896,11 +3893,12 @@ RUR.vis_robot.draw = function (robot) {
     if (!robot) {
         return;
     }
-    if (RUR.__debug){
-        console.log("entering vis_robot.draw, robot = ", robot);
-    }
-    width = RUR.vis_robot.width * RUR.SCALE;
-    height = RUR.vis_robot.height * RUR.SCALE;
+
+    // all images are taken to be centered on a tile 40x40, which are scaled
+    //  appropriately
+    width = RUR.TILE_SIZE * RUR.SCALE;
+    height = RUR.TILE_SIZE * RUR.SCALE;
+
     x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
     y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
 
@@ -3943,11 +3941,6 @@ RUR.vis_robot.draw = function (robot) {
         default:
             image = RUR.vis_robot.e_img;
         }
-    if (RUR.__debug){
-        console.log("in vis_robot.draw, image = ", image);
-        console.log("    x, y, width, height =", x, y, width, height);
-        console.log("   context = ", RUR.ROBOT_CTX);
-    }
     RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
     if (RUR.we.editing_world){
         return;
@@ -4116,9 +4109,6 @@ RUR.vis_world.refresh = function () {
 
     // do not clear BACKGROUND_CTX here
     RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
-    if (RUR.__debug) {
-        console.log("current robots = ", RUR.current_world.robots);
-    }
     RUR.vis_world.draw_robots(RUR.current_world.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
     RUR.vis_world.draw_info();     // on ROBOT_CTX
@@ -4475,11 +4465,7 @@ RUR.vis_world.compile_partial_info = function(objects, color){
 RUR.vis_world.draw_info = function() {
     var i, j, coords, keys, key, info, ctx;
     var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
-    if (RUR.__debug) {
-            console.log("Entering draw_info; info = ", RUR.vis_world.information);
-    }
     if (RUR.vis_world.information === undefined) {
-        console.log("Leaving draw_info");
         return;
     }
     // make sure it appears on top of everything (except possibly robots)
@@ -4495,9 +4481,6 @@ RUR.vis_world.draw_info = function() {
             text_width = ctx.measureText(info).width/2;
             ctx.font = RUR.BACKGROUND_CTX.font;
             ctx.fillStyle = RUR.vis_world.information[coords][2];
-            if (RUR.__debug){
-                console.log("filling info = ", info);
-            }
             ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
         }
     }

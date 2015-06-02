@@ -20,13 +20,6 @@ RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
 RUR.vis_robot.images[0].robot_random_img = new Image();
 RUR.vis_robot.images[0].robot_random_img.src = 'src/images/robot_random.png';
 
-// all images are taken to be centered on a tile 40x40 - however, let's
-// compute it for one of them...
-
-RUR.vis_robot.width = RUR.vis_robot.images[0].robot_e_img.width;
-RUR.vis_robot.height = RUR.vis_robot.images[0].robot_e_img.height;
-
-
 // rover type
 RUR.vis_robot.images[1].robot_e_img = new Image();
 RUR.vis_robot.images[1].robot_e_img.src = 'src/images/rover_e.png';
@@ -126,11 +119,12 @@ RUR.vis_robot.draw = function (robot) {
     if (!robot) {
         return;
     }
-    if (RUR.__debug){
-        console.log("entering vis_robot.draw, robot = ", robot);
-    }
-    width = RUR.vis_robot.width * RUR.SCALE;
-    height = RUR.vis_robot.height * RUR.SCALE;
+
+    // all images are taken to be centered on a tile 40x40, which are scaled
+    //  appropriately
+    width = RUR.TILE_SIZE * RUR.SCALE;
+    height = RUR.TILE_SIZE * RUR.SCALE;
+
     x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
     y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
 
@@ -173,11 +167,6 @@ RUR.vis_robot.draw = function (robot) {
         default:
             image = RUR.vis_robot.e_img;
         }
-    if (RUR.__debug){
-        console.log("in vis_robot.draw, image = ", image);
-        console.log("    x, y, width, height =", x, y, width, height);
-        console.log("   context = ", RUR.ROBOT_CTX);
-    }
     RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
     if (RUR.we.editing_world){
         return;

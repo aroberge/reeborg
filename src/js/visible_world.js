@@ -110,9 +110,6 @@ RUR.vis_world.refresh = function () {
 
     // do not clear BACKGROUND_CTX here
     RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
-    if (RUR.__debug) {
-        console.log("current robots = ", RUR.current_world.robots);
-    }
     RUR.vis_world.draw_robots(RUR.current_world.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
     RUR.vis_world.draw_info();     // on ROBOT_CTX
@@ -469,11 +466,7 @@ RUR.vis_world.compile_partial_info = function(objects, color){
 RUR.vis_world.draw_info = function() {
     var i, j, coords, keys, key, info, ctx;
     var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
-    if (RUR.__debug) {
-            console.log("Entering draw_info; info = ", RUR.vis_world.information);
-    }
     if (RUR.vis_world.information === undefined) {
-        console.log("Leaving draw_info");
         return;
     }
     // make sure it appears on top of everything (except possibly robots)
@@ -489,9 +482,6 @@ RUR.vis_world.draw_info = function() {
             text_width = ctx.measureText(info).width/2;
             ctx.font = RUR.BACKGROUND_CTX.font;
             ctx.fillStyle = RUR.vis_world.information[coords][2];
-            if (RUR.__debug){
-                console.log("filling info = ", info);
-            }
             ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
         }
     }

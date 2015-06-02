@@ -12,6 +12,10 @@ RUR.NORTH = 1;
 RUR.WEST = 2;
 RUR.SOUTH = 3;
 
+// all images are of this size.
+RUR.TILE_SIZE = 40;
+
+
 RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
 RUR.BACKGROUND_CTX = RUR.BACKGROUND_CANVAS.getContext("2d");
 RUR.SECOND_LAYER_CTX = document.getElementById("second_layer_canvas").getContext("2d");
