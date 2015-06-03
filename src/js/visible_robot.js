@@ -185,7 +185,7 @@ RUR.vis_robot.draw_trace = function (robot) {
     ctx.lineWidth = RUR.vis_robot.trace_thickness;
     ctx.lineCap = "round";
     // overrides user choice for large world (small grid size)
-    if(RUR.SMALL_TILES) {
+    if(RUR.current_world.small_tiles) {
         RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
         // RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 2;

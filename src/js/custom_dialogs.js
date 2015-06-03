@@ -76,11 +76,9 @@ $(document).ready(function() {
         var max_x, max_y;
         max_x = parseInt(RUR.cd.input_max_x.val(), 10);
         max_y = parseInt(RUR.cd.input_max_y.val(), 10);
-        RUR.SMALL_TILES = RUR.cd.use_small_tiles.prop("checked");
+        RUR.current_world.small_tiles = RUR.cd.use_small_tiles.prop("checked");
 
-        RUR.vis_world.compute_world_geometry(); // based on tile size
-        RUR.vis_world.set_dimensions(max_x, max_y);
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.compute_world_geometry(max_x, max_y); // based on tile size
         RUR.cd.dialog_set_dimensions.dialog("close");
         return true;
     };

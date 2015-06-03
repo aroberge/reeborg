@@ -316,6 +316,10 @@ RUR.SOUTH = 3;
 // all images are of this size.
 RUR.TILE_SIZE = 40;
 
+// current default canvas size.
+RUR.DEFAULT_HEIGHT = 550;
+RUR.DEFAULT_WIDTH = 625;
+
 RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
 RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
 RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
@@ -330,8 +334,8 @@ RUR.ROBOT_CTX = document.getElementById("robot_canvas").getContext("2d");
 RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
 
 RUR.WALL_LENGTH = 40;   // These can be adjusted
-RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.SMALL_TILES become true.
-RUR.SMALL_TILES = false;
+RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.current_world.small_tiles become true.
+
 RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
 // the current default values of RUR.COLS and RUR.ROWS on the fixed-size
@@ -1031,11 +1035,9 @@ $(document).ready(function() {
         var max_x, max_y;
         max_x = parseInt(RUR.cd.input_max_x.val(), 10);
         max_y = parseInt(RUR.cd.input_max_y.val(), 10);
-        RUR.SMALL_TILES = RUR.cd.use_small_tiles.prop("checked");
+        RUR.current_world.small_tiles = RUR.cd.use_small_tiles.prop("checked");
 
-        RUR.vis_world.compute_world_geometry(); // based on tile size
-        RUR.vis_world.set_dimensions(max_x, max_y);
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.compute_world_geometry(max_x, max_y); // based on tile size
         RUR.cd.dialog_set_dimensions.dialog("close");
         return true;
     };
@@ -3836,13 +3838,6 @@ RUR.ui.load_user_worlds = function () {
     }
 };
 
-
-RUR.ui.resize = function () {
-    RUR.SMALL_TILES = !RUR.SMALL_TILES;
-    RUR.current_world.small_tiles = RUR.SMALL_TILES;
-    RUR.vis_world.draw_all();
-};
-
 RUR.ui.highlight = function (arg) {
     if (RUR._highlight) {
         RUR._highlight = false;
@@ -4152,7 +4147,7 @@ RUR.vis_robot.draw_trace = function (robot) {
     ctx.lineWidth = RUR.vis_robot.trace_thickness;
     ctx.lineCap = "round";
     // overrides user choice for large world (small grid size)
-    if(RUR.SMALL_TILES) {
+    if(RUR.current_world.small_tiles) {
         RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
         // RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 2;
@@ -4199,38 +4194,10 @@ RUR.vis_robot.set_trace_style("default");
 
 RUR.vis_world = {};
 
-
-RUR.vis_world.set_dimensions = function (cols, rows) {
-    var height, width;
-    height = (rows+1.5) * RUR.WALL_LENGTH;
-    width = (cols+1.5) * RUR.WALL_LENGTH;
-    RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
-    RUR.BACKGROUND_CANVAS.width = width;
-    RUR.BACKGROUND_CANVAS.height = height;
-    RUR.second_layer_canvas = document.getElementById("second_layer_canvas");
-    RUR.second_layer_canvas.width = width;
-    RUR.second_layer_canvas.height = height;
-    RUR.goal_canvas = document.getElementById("goal_canvas");
-    RUR.goal_canvas.width = width;
-    RUR.goal_canvas.height = height;
-    RUR.objects_canvas = document.getElementById("objects_canvas");
-    RUR.objects_canvas.width = width;
-    RUR.objects_canvas.height = height;
-    RUR.trace_canvas = document.getElementById("trace_canvas");
-    RUR.trace_canvas.width = width;
-    RUR.trace_canvas.height = height;
-    RUR.robot_canvas = document.getElementById("robot_canvas");
-    RUR.robot_canvas.width = width;
-    RUR.robot_canvas.height = height;
-    RUR.HEIGHT = height;
-    RUR.WIDTH = width;
-    RUR.vis_world.draw_all();
-};
-
-
-RUR.vis_world.compute_world_geometry = function() {
+RUR.vis_world.compute_world_geometry = function(cols, rows) {
     "use strict";
-    if (RUR.SMALL_TILES) {
+    var height, width, changed_dimensions=false;
+    if (RUR.current_world.small_tiles) {
         RUR.WALL_LENGTH = 20;
         RUR.WALL_THICKNESS = 2;
         RUR.SCALE = 0.5;
@@ -4241,13 +4208,48 @@ RUR.vis_world.compute_world_geometry = function() {
         RUR.SCALE = 1;
         RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
     }
+
+    if (cols != undefined && rows != undefined){
+        height = (rows+1.5) * RUR.WALL_LENGTH;
+        width = (cols+1.5) * RUR.WALL_LENGTH;
+    } else {
+        height = (RUR.ROWS+1.5) * RUR.WALL_LENGTH;
+        width = (RUR.COLS+1.5) * RUR.WALL_LENGTH;
+    }
+
+    if (height != RUR.HEIGHT || width != RUR.WIDTH){
+        RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
+        RUR.BACKGROUND_CANVAS.width = width;
+        RUR.BACKGROUND_CANVAS.height = height;
+        RUR.second_layer_canvas = document.getElementById("second_layer_canvas");
+        RUR.second_layer_canvas.width = width;
+        RUR.second_layer_canvas.height = height;
+        RUR.goal_canvas = document.getElementById("goal_canvas");
+        RUR.goal_canvas.width = width;
+        RUR.goal_canvas.height = height;
+        RUR.objects_canvas = document.getElementById("objects_canvas");
+        RUR.objects_canvas.width = width;
+        RUR.objects_canvas.height = height;
+        RUR.trace_canvas = document.getElementById("trace_canvas");
+        RUR.trace_canvas.width = width;
+        RUR.trace_canvas.height = height;
+        RUR.robot_canvas = document.getElementById("robot_canvas");
+        RUR.robot_canvas.width = width;
+        RUR.robot_canvas.height = height;
+        RUR.HEIGHT = height;
+        RUR.WIDTH = width;
+    }
+
     RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
     RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
+    RUR.current_world.rows = RUR.ROWS;
+    RUR.current_world.cols = RUR.COLS;
+    RUR.vis_world.draw_all();
 }
 
 RUR.vis_world.draw_all = function () {
     "use strict";
-    RUR.vis_world.compute_world_geometry();
+    //RUR.vis_world.compute_world_geometry();
 
     if (RUR.current_world.blank_canvas) {
         if (RUR.we.editing_world) {
@@ -4728,6 +4730,8 @@ RUR.world.import_world = function (json_string) {
         console.log(e);
         return;
     }
+
+
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
             body = RUR.current_world.robots[0];
@@ -4736,11 +4740,12 @@ RUR.world.import_world = function (json_string) {
             body._prev_orientation = body.orientation;
         }
     }
-    if (RUR.current_world.small_tiles !== undefined) {
-        RUR.SMALL_TILES = RUR.current_world.small_tiles;
-    } else {
-        RUR.SMALL_TILES = false;
-    }
+
+    RUR.current_world.small_tiles = RUR.current_world.small_tiles || false;
+    RUR.current_world.rows = RUR.current_world.rows || RUR.MAX_Y;
+    RUR.current_world.cols = RUR.current_world.cols || RUR.MAX_X;
+    RUR.vis_world.compute_world_geometry(RUR.current_world.cols, RUR.current_world.rows);
+
     RUR.world.saved_world = RUR.world.clone_world();
     RUR.vis_world.draw_all();
     if (RUR.we.editing_world) {

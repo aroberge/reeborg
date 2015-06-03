@@ -42,6 +42,8 @@ RUR.world.import_world = function (json_string) {
         console.log(e);
         return;
     }
+
+
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
             body = RUR.current_world.robots[0];
@@ -50,11 +52,12 @@ RUR.world.import_world = function (json_string) {
             body._prev_orientation = body.orientation;
         }
     }
-    if (RUR.current_world.small_tiles !== undefined) {
-        RUR.SMALL_TILES = RUR.current_world.small_tiles;
-    } else {
-        RUR.SMALL_TILES = false;
-    }
+
+    RUR.current_world.small_tiles = RUR.current_world.small_tiles || false;
+    RUR.current_world.rows = RUR.current_world.rows || RUR.MAX_Y;
+    RUR.current_world.cols = RUR.current_world.cols || RUR.MAX_X;
+    RUR.vis_world.compute_world_geometry(RUR.current_world.cols, RUR.current_world.rows);
+
     RUR.world.saved_world = RUR.world.clone_world();
     RUR.vis_world.draw_all();
     if (RUR.we.editing_world) {

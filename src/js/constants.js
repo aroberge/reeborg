@@ -15,6 +15,10 @@ RUR.SOUTH = 3;
 // all images are of this size.
 RUR.TILE_SIZE = 40;
 
+// current default canvas size.
+RUR.DEFAULT_HEIGHT = 550;
+RUR.DEFAULT_WIDTH = 625;
+
 RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
 RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
 RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
@@ -29,8 +33,8 @@ RUR.ROBOT_CTX = document.getElementById("robot_canvas").getContext("2d");
 RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
 
 RUR.WALL_LENGTH = 40;   // These can be adjusted
-RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.SMALL_TILES become true.
-RUR.SMALL_TILES = false;
+RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.current_world.small_tiles become true.
+
 RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
 // the current default values of RUR.COLS and RUR.ROWS on the fixed-size

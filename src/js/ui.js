@@ -193,13 +193,6 @@ RUR.ui.load_user_worlds = function () {
     }
 };
 
-
-RUR.ui.resize = function () {
-    RUR.SMALL_TILES = !RUR.SMALL_TILES;
-    RUR.current_world.small_tiles = RUR.SMALL_TILES;
-    RUR.vis_world.draw_all();
-};
-
 RUR.ui.highlight = function (arg) {
     if (RUR._highlight) {
         RUR._highlight = false;
