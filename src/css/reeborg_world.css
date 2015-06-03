@@ -87,7 +87,9 @@ fieldset {display: inline-block;
     border: solid #123264;
 }
 
-fieldset input {float:right;}
+fieldset label { display:block;}
+fieldset label input {float:right;}
+fieldset label input[type="checkbox"] {float: left;}
 
 legend { color: #123264;}
 

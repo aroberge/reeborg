@@ -316,9 +316,11 @@ RUR.SOUTH = 3;
 // all images are of this size.
 RUR.TILE_SIZE = 40;
 
-
 RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
-RUR.BACKGROUND_CTX = RUR.BACKGROUND_CANVAS.getContext("2d");
+RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
+RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
+
+RUR.BACKGROUND_CTX = document.getElementById("background_canvas").getContext("2d");
 RUR.SECOND_LAYER_CTX = document.getElementById("second_layer_canvas").getContext("2d");
 RUR.GOAL_CTX = document.getElementById("goal_canvas").getContext("2d");
 RUR.OBJECTS_CTX = document.getElementById("objects_canvas").getContext("2d");
@@ -327,15 +329,20 @@ RUR.ROBOT_CTX = document.getElementById("robot_canvas").getContext("2d");
 
 RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
 
-RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
-RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
-
 RUR.WALL_LENGTH = 40;   // These can be adjusted
 RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.SMALL_TILES become true.
 RUR.SMALL_TILES = false;
-
 RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
+// the current default values of RUR.COLS and RUR.ROWS on the fixed-size
+// canvas work out to be 14 and 12 respectively: these seem to be appropriate
+// values for the lower entry screen resolution.  The following are meant
+// to be essentially synonymous - but are also meant to be used only if/when
+// specific values are not used in the "new" dialog that allows them to be specified
+// worlds created.  Everywhere else, RUR.COLS and RUR.ROWS should be used.
+RUR.MAX_X = 14;
+RUR.MAX_Y = 12;
+RUR.USE_SMALL_TILES = false;  // keep as unchanged default
 
 RUR.WALL_COLOR = "brown";   // changed (toggled) in world_editor.js
 RUR.SHADOW_WALL_COLOR= "#f0f0f0";    // changed (toggled) in world_editor.js
@@ -343,20 +350,9 @@ RUR.GOAL_WALL_COLOR = "black";
 RUR.COORDINATES_COLOR = "black";
 RUR.AXIS_LABEL_COLOR = "brown";
 
-RUR.STAR_COLOR = "red";
-RUR.TRIANGLE_COLOR = "green";
-RUR.SQUARE_COLOR = "blue";
-RUR.SHAPE_OUTLINE_COLOR = "grey";
-RUR.ORIENTATION_TILE_COLOR = "black";
-
-RUR.MUD_COLOR = "#794c13";
-
-RUR.TEXT_COLOR = "black";
-
 RUR.MAX_STEPS = 1000;
 RUR.MIN_TIME_SOUND = 250;
-
-RUR.total_images = 0;/* Author: André Roberge
+/* Author: André Roberge
    License: MIT
  */
 
@@ -972,9 +968,13 @@ $(document).ready(function() {
     RUR.cd.unlimited_number = $("#unlimited-number"),
     RUR.cd.input_goal_number = $("#input-goal-number"),
     RUR.cd.all_objects = $("#all-objects");
-
+    RUR.cd.input_max_x = $("#input-max-x");
+    RUR.cd.input_max_y = $("#input-max-y");
+    RUR.cd.use_small_tiles = $("#use-small-tiles");
 
     RUR.cd.add_objects = function () {
+        "use strict";
+        var query;
         RUR.cd.input_add_number_result = parseInt(RUR.cd.input_add_number.val(), 10);
         RUR.cd.input_maximum_result = parseInt(RUR.cd.maximum_number.val(), 10);
         if (RUR.cd.input_maximum_result > RUR.cd.input_add_number_result){
@@ -990,6 +990,8 @@ $(document).ready(function() {
 
 
     RUR.cd.give_objects = function () {
+        "use strict";
+        var query;
         RUR.cd.input_give_number_result = parseInt(RUR.cd.input_give_number.val(), 10);
         RUR.cd.unlimited_number_result = RUR.cd.unlimited_number.prop("checked");
         if (RUR.cd.unlimited_number_result){
@@ -1005,6 +1007,8 @@ $(document).ready(function() {
 
 
     RUR.cd.goal_objects = function () {
+        "use strict";
+        var query;
         RUR.cd.input_goal_number_result = parseInt(RUR.cd.input_goal_number.val(), 10);
         RUR.cd.all_objects_result = RUR.cd.all_objects.prop("checked");
         if (RUR.cd.all_objects_result){
@@ -1019,13 +1023,28 @@ $(document).ready(function() {
     };
 
 
+    RUR.cd.set_dimensions = function () {
+        "use strict";
+        var max_x, max_y;
+        max_x = parseInt(RUR.cd.input_max_x.val(), 10);
+        max_y = parseInt(RUR.cd.input_max_y.val(), 10);
+        RUR.SMALL_TILES = RUR.cd.use_small_tiles.prop("checked");
+
+        RUR.vis_world.compute_world_geometry(); // based on tile size
+        RUR.vis_world.set_dimensions(max_x, max_y);
+        RUR.we.refresh_world_edited();
+        RUR.cd.dialog_set_dimensions.dialog("close");
+        return true;
+    };
+
+
     RUR.cd.dialog_add_object = $("#dialog-form").dialog({
         autoOpen: false,
         height: 400,
         width: 500,
         modal: true,
         buttons: {
-            "Add objects": RUR.cd.add_objects,
+            "OK": RUR.cd.add_objects,
             Cancel: function() {
                 RUR.cd.dialog_add_object.dialog("close");
             }
@@ -1040,14 +1059,13 @@ $(document).ready(function() {
         RUR.cd.add_objects();
     });
 
-
     RUR.cd.dialog_give_object = $("#dialog-form2").dialog({
         autoOpen: false,
         height: 400,
         width: 500,
         modal: true,
         buttons: {
-            "give objects": RUR.cd.give_objects,
+            "OK": RUR.cd.give_objects,
             Cancel: function() {
                 RUR.cd.dialog_give_object.dialog("close");
             }
@@ -1068,7 +1086,7 @@ $(document).ready(function() {
         width: 500,
         modal: true,
         buttons: {
-            "Add objects": RUR.cd.goal_objects,
+            "OK": RUR.cd.goal_objects,
             Cancel: function() {
                 RUR.cd.dialog_goal_object.dialog("close");
             }
@@ -1083,8 +1101,29 @@ $(document).ready(function() {
         RUR.cd.goal_objects();
     });
 
-  });
 
+    RUR.cd.dialog_set_dimensions = $("#dialog-form4").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "OK": RUR.cd.set_dimensions,
+            Cancel: function() {
+                RUR.cd.dialog_set_dimensions.dialog("close");
+            }
+        },
+        close: function() {
+            RUR.cd.set_dimensions_form[0].reset();
+        }
+    });
+
+    RUR.cd.set_dimensions_form = RUR.cd.dialog_set_dimensions.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        RUR.cd.set_dimensions();
+    });
+
+});
 /* Author: André Roberge
    License: MIT
  */
@@ -4158,7 +4197,7 @@ RUR.vis_robot.set_trace_style("default");
 RUR.vis_world = {};
 
 
-RUR.vis_world.change_dimensions = function (cols, rows) {
+RUR.vis_world.set_dimensions = function (cols, rows) {
     var height, width;
     height = (rows+1.5) * RUR.WALL_LENGTH;
     width = (cols+1.5) * RUR.WALL_LENGTH;

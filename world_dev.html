@@ -215,12 +215,7 @@
     </div>
 
     <ul id="edit-world-nav">
-        <li class="a-like">World
-          <ul>
-            <li><a href="javascript:RUR.ui.resize();">Toggle size</a></li>
-          </ul>
-        </li>
-
+        <li><a href="javascript:RUR.cd.dialog_set_dimensions.dialog('open');">World dimensions</a></li>
         <li class="a-like">Robot <ul>
             <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Add robot</a></li>
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-place');"> Position(s)</a></li>
@@ -503,10 +498,12 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
     a program is run.</p>
   <form>
     <fieldset>
-      <label for="input-add-number">Number of objects:</label>
-      <input type="number" name="input-add-number" id="input-add-number" min="0" value="1"><br>
-      <label for="maximum-number">Maximum: </label>
-      <input type="number" name="maximum-number" id="maximum-number" min="0" value="0">
+      <label for="input-add-number">Number of objects:
+        <input type="number" name="input-add-number" id="input-add-number" min="0" value="1">
+      </label><br>
+      <label for="maximum-number">Maximum:
+        <input type="number" name="maximum-number" id="maximum-number" min="0" value="0">
+      </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
@@ -521,10 +518,12 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
     </p>
   <form>
     <fieldset>
-      <label for="input-give-number">Number of objects:</label>
-      <input type="number" name="input-give-number" id="input-give-number" min="0" value="1"><br>
-      <input type="checkbox" name="unlimited-number" id="unlimited-number">
-            <label for="unlimited-number">Unlimited </label>
+      <label for="input-give-number">Number of objects:
+        <input type="number" name="input-give-number" id="input-give-number" min="0" value="1">
+      </label><br>
+      <label for="unlimited-number">
+        <input type="checkbox" name="unlimited-number" id="unlimited-number">
+            Unlimited </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
@@ -539,15 +538,40 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
     </p>
   <form>
     <fieldset>
-      <label for="input-goal-number">Number of objects:</label>
-      <input type="number" name="input-goal-number" id="input-goal-number" min="0" value="1"><br>
-      <label for="all-objects">All such objects </label>
-      <input type="checkbox" name="all-objects" id="all-objects">
+      <label for="input-goal-number">Number of objects:
+        <input type="number" name="input-goal-number" id="input-goal-number" min="0" value="1"></label>
+      <br>
+      <label for="all-objects">
+        <input type="checkbox" name="all-objects" id="all-objects">
+      All such objects </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
   </form>
 </div>
+
+<div id="dialog-form4" title="Set the world's dimensions" style="display:none;">
+  <p>If so desired, you can set the size of the world to be different from the
+    default dimensions.  Please remember that smaller resolution screen may not
+    be able to display very large worlds.
+    </p>
+  <form>
+    <fieldset>
+      <label for="input-max-x">Maximum x value:
+        <input type="number" name="input-max-x" id="input-max-x" min="1" value="14"></label>
+      <br>
+      <label for="input-max-y">Maximum y value:
+        <input type="number" name="input-max-y" id="input-max-y" min="1" value="12"></label>
+      <br>
+      <label for="use-small-tiles">
+      <input type="checkbox" name="use-small-tiles" id="use-small-tiles">
+      Use small tiles</label>
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
 
 <!--online-->
 <a style="display:none" title="Real Time Analytics" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>

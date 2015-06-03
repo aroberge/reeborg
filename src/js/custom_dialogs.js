@@ -16,9 +16,13 @@ $(document).ready(function() {
     RUR.cd.unlimited_number = $("#unlimited-number"),
     RUR.cd.input_goal_number = $("#input-goal-number"),
     RUR.cd.all_objects = $("#all-objects");
-
+    RUR.cd.input_max_x = $("#input-max-x");
+    RUR.cd.input_max_y = $("#input-max-y");
+    RUR.cd.use_small_tiles = $("#use-small-tiles");
 
     RUR.cd.add_objects = function () {
+        "use strict";
+        var query;
         RUR.cd.input_add_number_result = parseInt(RUR.cd.input_add_number.val(), 10);
         RUR.cd.input_maximum_result = parseInt(RUR.cd.maximum_number.val(), 10);
         if (RUR.cd.input_maximum_result > RUR.cd.input_add_number_result){
@@ -34,6 +38,8 @@ $(document).ready(function() {
 
 
     RUR.cd.give_objects = function () {
+        "use strict";
+        var query;
         RUR.cd.input_give_number_result = parseInt(RUR.cd.input_give_number.val(), 10);
         RUR.cd.unlimited_number_result = RUR.cd.unlimited_number.prop("checked");
         if (RUR.cd.unlimited_number_result){
@@ -49,6 +55,8 @@ $(document).ready(function() {
 
 
     RUR.cd.goal_objects = function () {
+        "use strict";
+        var query;
         RUR.cd.input_goal_number_result = parseInt(RUR.cd.input_goal_number.val(), 10);
         RUR.cd.all_objects_result = RUR.cd.all_objects.prop("checked");
         if (RUR.cd.all_objects_result){
@@ -63,13 +71,28 @@ $(document).ready(function() {
     };
 
 
+    RUR.cd.set_dimensions = function () {
+        "use strict";
+        var max_x, max_y;
+        max_x = parseInt(RUR.cd.input_max_x.val(), 10);
+        max_y = parseInt(RUR.cd.input_max_y.val(), 10);
+        RUR.SMALL_TILES = RUR.cd.use_small_tiles.prop("checked");
+
+        RUR.vis_world.compute_world_geometry(); // based on tile size
+        RUR.vis_world.set_dimensions(max_x, max_y);
+        RUR.we.refresh_world_edited();
+        RUR.cd.dialog_set_dimensions.dialog("close");
+        return true;
+    };
+
+
     RUR.cd.dialog_add_object = $("#dialog-form").dialog({
         autoOpen: false,
         height: 400,
         width: 500,
         modal: true,
         buttons: {
-            "Add objects": RUR.cd.add_objects,
+            "OK": RUR.cd.add_objects,
             Cancel: function() {
                 RUR.cd.dialog_add_object.dialog("close");
             }
@@ -84,14 +107,13 @@ $(document).ready(function() {
         RUR.cd.add_objects();
     });
 
-
     RUR.cd.dialog_give_object = $("#dialog-form2").dialog({
         autoOpen: false,
         height: 400,
         width: 500,
         modal: true,
         buttons: {
-            "give objects": RUR.cd.give_objects,
+            "OK": RUR.cd.give_objects,
             Cancel: function() {
                 RUR.cd.dialog_give_object.dialog("close");
             }
@@ -112,7 +134,7 @@ $(document).ready(function() {
         width: 500,
         modal: true,
         buttons: {
-            "Add objects": RUR.cd.goal_objects,
+            "OK": RUR.cd.goal_objects,
             Cancel: function() {
                 RUR.cd.dialog_goal_object.dialog("close");
             }
@@ -127,5 +149,26 @@ $(document).ready(function() {
         RUR.cd.goal_objects();
     });
 
-  });
 
+    RUR.cd.dialog_set_dimensions = $("#dialog-form4").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "OK": RUR.cd.set_dimensions,
+            Cancel: function() {
+                RUR.cd.dialog_set_dimensions.dialog("close");
+            }
+        },
+        close: function() {
+            RUR.cd.set_dimensions_form[0].reset();
+        }
+    });
+
+    RUR.cd.set_dimensions_form = RUR.cd.dialog_set_dimensions.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        RUR.cd.set_dimensions();
+    });
+
+});

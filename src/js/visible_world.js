@@ -8,7 +8,7 @@
 RUR.vis_world = {};
 
 
-RUR.vis_world.change_dimensions = function (cols, rows) {
+RUR.vis_world.set_dimensions = function (cols, rows) {
     var height, width;
     height = (rows+1.5) * RUR.WALL_LENGTH;
     width = (cols+1.5) * RUR.WALL_LENGTH;
