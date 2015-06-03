@@ -4201,12 +4201,10 @@ RUR.vis_world.compute_world_geometry = function(cols, rows) {
         RUR.WALL_LENGTH = 20;
         RUR.WALL_THICKNESS = 2;
         RUR.SCALE = 0.5;
-        RUR.BACKGROUND_CTX.font = "8px sans-serif";
     } else {
         RUR.WALL_LENGTH = 40;
         RUR.WALL_THICKNESS = 4;
         RUR.SCALE = 1;
-        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
     }
 
     if (cols != undefined && rows != undefined){
@@ -4240,6 +4238,14 @@ RUR.vis_world.compute_world_geometry = function(cols, rows) {
         RUR.WIDTH = width;
     }
 
+    // background context may have change - hence wait until here
+    // to set
+    if (RUR.current_world.small_tiles) {
+        RUR.BACKGROUND_CTX.font = "8px sans-serif";
+    } else {
+        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
+    }
+
     RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
     RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
     RUR.current_world.rows = RUR.ROWS;
@@ -4249,7 +4255,6 @@ RUR.vis_world.compute_world_geometry = function(cols, rows) {
 
 RUR.vis_world.draw_all = function () {
     "use strict";
-    //RUR.vis_world.compute_world_geometry();
 
     if (RUR.current_world.blank_canvas) {
         if (RUR.we.editing_world) {
