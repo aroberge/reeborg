@@ -138,8 +138,8 @@ RUR.translation["A wall must be built south of this location."] = "A wall must b
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
 RUR.translation["No such world!"] = "No such world!";
-RUR.translation["Enter world name to save"] = "Enter world name to save";
-RUR.translation["Enter world name to delete"] = "Enter world name to delete";
+RUR.translation["Enter world name to save"] = "Enter world name to save; names in use: ";
+RUR.translation["Enter world name to delete"] = "Enter world name to delete; existing worlds: ";
 
 
 // in runner.js

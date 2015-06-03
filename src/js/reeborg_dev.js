@@ -1213,7 +1213,17 @@ $(document).ready(function() {
     });
 
     $("#memorize-world").on("click", function(evt) {
-        var response = prompt(RUR.translate("Enter world name to save"));
+        var existing_names, i, key, response;
+        existing_names = ' [';
+
+        for (i = 0; i <= localStorage.length - 1; i++) {
+            key = localStorage.key(i);
+            if (key.slice(0, 11) === "user_world:") {
+                existing_names += key.substring(11) + ", ";
+            }
+        }
+        existing_names += "]";
+        response = prompt(RUR.translate("Enter world name to save") + existing_names);
         if (response !== null) {
             RUR.storage.save_world(response.trim());
             $('#delete-world').show();
@@ -1221,7 +1231,17 @@ $(document).ready(function() {
     });
 
     $("#delete-world").on("click", function(evt) {
-        var response = prompt(RUR.translate("Enter world name to delete"));
+        var existing_names, i, key, response;
+        existing_names = ' [';
+
+        for (i = 0; i <= localStorage.length - 1; i++) {
+            key = localStorage.key(i);
+            if (key.slice(0, 11) === "user_world:") {
+                existing_names += key.substring(11) + ", ";
+            }
+        }
+        existing_names += "]";
+        response = prompt(RUR.translate("Enter world name to delete") + existing_names);
         if (response !== null) {
             RUR.storage.delete_world(response.trim());
         }

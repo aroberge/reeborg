@@ -130,8 +130,8 @@ RUR.translation["A wall must be built south of this location."] = "Un mur doit �
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
 RUR.translation["No such world!"] = "Ce monde n'existe pas !";
-RUR.translation["Enter world name to save"] = "Quel nom doit-on utiliser pour ce monde?";
-RUR.translation["Enter world name to delete"] = "Écrivez le nom du monde à supprimer.";
+RUR.translation["Enter world name to save"] = "Quel nom doit-on utiliser pour ce monde? Noms utilisés:";
+RUR.translation["Enter world name to delete"] = "Écrivez le nom du monde à supprimer; mondes existant:";
 RUR.translation["Goal to achieve:"] = "Résultat désiré :";
 
 
