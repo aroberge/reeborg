@@ -530,7 +530,23 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
   </form>
 </div>
 
-
+<div id="dialog-form3" title="Set goal number for object" style="display:none;">
+  <p>Choose a number of
+    "<span id="goal-object-name">object</span>" to use as a goal.
+    Click on the checkbox if you wish that number to be equal to the
+    total number of such objects found in the world at the beginning.
+    </p>
+  <form>
+    <fieldset>
+      <label for="input-goal-number">Number of objects:</label>
+      <input type="number" name="input-goal-number" id="input-goal-number" min="0" value="1"><br>
+      <label for="all-objects">All such objects </label>
+      <input type="checkbox" name="all-objects" id="all-objects">
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
 
 <!--online-->
 <a style="display:none" title="Real Time Analytics" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>

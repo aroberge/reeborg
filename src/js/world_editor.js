@@ -754,24 +754,11 @@ RUR.we._add_goal_objects = function (specific_object){
         return;
     }
 
-    query = prompt(RUR.translate("Enter number of objects desired as a goal at that location."));
-    if (query == null){
-        return;
-    }
-    if (query != "all"){
-        try {
-            query = parseInt(query, 10);
-            if (isNaN(query)){
-                $("#cmd-result").html(RUR.translate("Only integer values or 'all' please!")).effect("highlight", {color: "gold"}, 1500);
-                return;
-            }
-        } catch (e) {
-                $("#cmd-result").html(RUR.translate("Only integer values or 'all' please!")).effect("highlight", {color: "gold"}, 1500);
-            return;
-        }
-    }
-
-    RUR.we.add_goal_objects(specific_object, x, y, query)
+    RUR.we.specific_object = specific_object;
+    RUR.we.x = x;
+    RUR.we.y = y;
+    $("#goal-object-name").html(RUR.we.specific_object);
+    RUR.cd.dialog_goal_object.dialog("open");
 };
 
 RUR.we.add_goal_objects = function (specific_object, x, y, nb){

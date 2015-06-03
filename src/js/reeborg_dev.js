@@ -970,18 +970,18 @@ $(document).ready(function() {
     RUR.cd.maximum_number = $("#maximum-number"),
     RUR.cd.input_give_number = $("#input-give-number"),
     RUR.cd.unlimited_number = $("#unlimited-number"),
+    RUR.cd.input_goal_number = $("#input-goal-number"),
+    RUR.cd.all_objects = $("#all-objects");
+
 
     RUR.cd.add_objects = function () {
-        console.log("entering add_objects");
         RUR.cd.input_add_number_result = parseInt(RUR.cd.input_add_number.val(), 10);
         RUR.cd.input_maximum_result = parseInt(RUR.cd.maximum_number.val(), 10);
-        console.log("min, max = ", RUR.cd.input_add_number_result, RUR.cd.input_maximum_result);
         if (RUR.cd.input_maximum_result > RUR.cd.input_add_number_result){
             query =  RUR.cd.input_add_number_result + "-" + RUR.cd.input_maximum_result;
         } else {
             query = RUR.cd.input_add_number_result;
         }
-        console.log("query = ", query);
         RUR.we.add_object(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
         RUR.we.refresh_world_edited();
         RUR.cd.dialog_add_object.dialog("close");
@@ -990,19 +990,31 @@ $(document).ready(function() {
 
 
     RUR.cd.give_objects = function () {
-        console.log("entering give_objects");
         RUR.cd.input_give_number_result = parseInt(RUR.cd.input_give_number.val(), 10);
         RUR.cd.unlimited_number_result = RUR.cd.unlimited_number.prop("checked");
-        console.log("nb, unlimited = ", RUR.cd.input_give_number_result, RUR.cd.unlimited_number_result);
         if (RUR.cd.unlimited_number_result){
             query =  "inf";
         } else {
             query = RUR.cd.input_give_number_result;
         }
-        console.log("query = ", query);
         RUR.we.give_objects_to_robot(RUR.we.specific_object, query);
         RUR.we.refresh_world_edited();
         RUR.cd.dialog_give_object.dialog("close");
+        return true;
+    };
+
+
+    RUR.cd.goal_objects = function () {
+        RUR.cd.input_goal_number_result = parseInt(RUR.cd.input_goal_number.val(), 10);
+        RUR.cd.all_objects_result = RUR.cd.all_objects.prop("checked");
+        if (RUR.cd.all_objects_result){
+            query =  "all";
+        } else {
+            query = RUR.cd.input_goal_number_result;
+        }
+        RUR.we.add_goal_objects(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
+        RUR.we.refresh_world_edited();
+        RUR.cd.dialog_goal_object.dialog("close");
         return true;
     };
 
@@ -1050,7 +1062,26 @@ $(document).ready(function() {
         RUR.cd.give_objects();
     });
 
+    RUR.cd.dialog_goal_object = $("#dialog-form3").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "Add objects": RUR.cd.goal_objects,
+            Cancel: function() {
+                RUR.cd.dialog_goal_object.dialog("close");
+            }
+        },
+        close: function() {
+            RUR.cd.goal_number_form[0].reset();
+        }
+    });
 
+    RUR.cd.goal_number_form = RUR.cd.dialog_goal_object.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        RUR.cd.goal_objects();
+    });
 
   });
 
@@ -5441,24 +5472,11 @@ RUR.we._add_goal_objects = function (specific_object){
         return;
     }
 
-    query = prompt(RUR.translate("Enter number of objects desired as a goal at that location."));
-    if (query == null){
-        return;
-    }
-    if (query != "all"){
-        try {
-            query = parseInt(query, 10);
-            if (isNaN(query)){
-                $("#cmd-result").html(RUR.translate("Only integer values or 'all' please!")).effect("highlight", {color: "gold"}, 1500);
-                return;
-            }
-        } catch (e) {
-                $("#cmd-result").html(RUR.translate("Only integer values or 'all' please!")).effect("highlight", {color: "gold"}, 1500);
-            return;
-        }
-    }
-
-    RUR.we.add_goal_objects(specific_object, x, y, query)
+    RUR.we.specific_object = specific_object;
+    RUR.we.x = x;
+    RUR.we.y = y;
+    $("#goal-object-name").html(RUR.we.specific_object);
+    RUR.cd.dialog_goal_object.dialog("open");
 };
 
 RUR.we.add_goal_objects = function (specific_object, x, y, nb){
