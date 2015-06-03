@@ -968,7 +968,8 @@ $(document).ready(function() {
 
     RUR.cd.input_add_number = $("#input-add-number"),
     RUR.cd.maximum_number = $("#maximum-number"),
-
+    RUR.cd.input_give_number = $("#input-give-number"),
+    RUR.cd.unlimited_number = $("#unlimited-number"),
 
     RUR.cd.add_objects = function () {
         console.log("entering add_objects");
@@ -986,6 +987,25 @@ $(document).ready(function() {
         RUR.cd.dialog_add_object.dialog("close");
         return true;
     };
+
+
+    RUR.cd.give_objects = function () {
+        console.log("entering give_objects");
+        RUR.cd.input_give_number_result = parseInt(RUR.cd.input_give_number.val(), 10);
+        RUR.cd.unlimited_number_result = RUR.cd.unlimited_number.prop("checked");
+        console.log("nb, unlimited = ", RUR.cd.input_give_number_result, RUR.cd.unlimited_number_result);
+        if (RUR.cd.unlimited_number_result){
+            query =  "inf";
+        } else {
+            query = RUR.cd.input_give_number_result;
+        }
+        console.log("query = ", query);
+        RUR.we.give_objects_to_robot(RUR.we.specific_object, query);
+        RUR.we.refresh_world_edited();
+        RUR.cd.dialog_give_object.dialog("close");
+        return true;
+    };
+
 
     RUR.cd.dialog_add_object = $("#dialog-form").dialog({
         autoOpen: false,
@@ -1007,6 +1027,30 @@ $(document).ready(function() {
         event.preventDefault();
         RUR.cd.add_objects();
     });
+
+
+    RUR.cd.dialog_give_object = $("#dialog-form2").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "give objects": RUR.cd.give_objects,
+            Cancel: function() {
+                RUR.cd.dialog_give_object.dialog("close");
+            }
+        },
+        close: function() {
+            RUR.cd.give_number_form[0].reset();
+        }
+    });
+
+    RUR.cd.give_number_form = RUR.cd.dialog_give_object.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        RUR.cd.give_objects();
+    });
+
+
 
   });
 
@@ -5135,12 +5179,18 @@ RUR.we.place_robot = function () {
 
 RUR.we._give_objects_to_robot = function (specific_object){
     "use strict";
-    var query;
-    query = prompt(RUR.translate("Enter number of objects to give to robot.").supplant({obj: specific_object}));
-    if (query != null){
-        RUR.we.give_objects_to_robot(specific_object, query);
-        RUR.we.show_world_info(true);
-    }
+
+    RUR.we.specific_object = specific_object;
+    $("#give-object-name").html(RUR.we.specific_object);
+    RUR.cd.dialog_give_object.dialog("open");
+
+
+    // var query;
+    // query = prompt(RUR.translate("Enter number of objects to give to robot.").supplant({obj: specific_object}));
+    // if (query != null){
+    //     RUR.we.give_objects_to_robot(specific_object, query);
+    //     RUR.we.show_world_info(true);
+    // }
 };
 
 

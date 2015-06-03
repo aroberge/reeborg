@@ -492,12 +492,18 @@ RUR.we.place_robot = function () {
 
 RUR.we._give_objects_to_robot = function (specific_object){
     "use strict";
-    var query;
-    query = prompt(RUR.translate("Enter number of objects to give to robot.").supplant({obj: specific_object}));
-    if (query != null){
-        RUR.we.give_objects_to_robot(specific_object, query);
-        RUR.we.show_world_info(true);
-    }
+
+    RUR.we.specific_object = specific_object;
+    $("#give-object-name").html(RUR.we.specific_object);
+    RUR.cd.dialog_give_object.dialog("open");
+
+
+    // var query;
+    // query = prompt(RUR.translate("Enter number of objects to give to robot.").supplant({obj: specific_object}));
+    // if (query != null){
+    //     RUR.we.give_objects_to_robot(specific_object, query);
+    //     RUR.we.show_world_info(true);
+    // }
 };
 
 
