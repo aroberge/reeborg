@@ -4858,6 +4858,8 @@ RUR.we.select = function (choice) {
     $(".edit-world-canvas").hide();
     $(".edit-goal-canvas").hide();
     $("#edit-goal-position").hide();
+    $("#edit-world-objects").hide();
+    $(".not-for-robot").hide();
     RUR.we.edit_world_flag = choice;
     switch (choice) {
         case "robot-place":
@@ -4877,10 +4879,12 @@ RUR.we.select = function (choice) {
         case "robot-objects":
             RUR.we.__give_to_robot = true;
             $("#edit-world-objects").show();
+            $(".not-for-robot").hide();
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-objects":
             $("#edit-world-objects").show();
+            $(".not-for-robot").show();
             RUR.we.__give_to_robot = false;
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
