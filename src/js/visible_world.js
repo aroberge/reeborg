@@ -189,6 +189,13 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
     for (i = 1; i <= RUR.COLS; i++) {
         RUR.vis_world.draw_north_wall(ctx, i, 0);
     }
+    for (j = 1; j <= RUR.ROWS; j++) {
+        RUR.vis_world.draw_east_wall(ctx, RUR.COLS, j);
+    }
+    for (i = 1; i <= RUR.COLS; i++) {
+        RUR.vis_world.draw_north_wall(ctx, i, RUR.ROWS);
+    }
+
 
     if (walls === undefined || walls == {}) {
         return;

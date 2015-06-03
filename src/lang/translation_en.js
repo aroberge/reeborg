@@ -72,7 +72,6 @@ RUR.translation["object"] = "object";
 RUR.translation["I don't have any object to put down!"] = "I don't have any {obj} to put down!";
 RUR.translation["There is already a wall here!"] = "There is already a wall here!";
 RUR.translation["Ouch! I hit a wall!"] = "Ouch! I hit a wall!";
-RUR.translation["I am afraid of the void!"] = "I am afraid of the void!";
 RUR.translation["Done!"] = "Done!";  // and recorder.js
 RUR.translation["There is no position as a goal in this world!"] = "There is no position as a goal in this world!";
 RUR.translation["There is no goal in this world!"] = "There is no goal in this world!";

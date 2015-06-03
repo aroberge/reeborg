@@ -369,10 +369,7 @@ RUR.control.move = function (robot) {
     if (RUR.control.wall_in_front(robot, true)) {
         throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
     }
-    if ((robot.y === RUR.ROWS && robot.orientation === RUR.NORTH) ||
-        (robot.x === RUR.COLS && robot.orientation === RUR.EAST)) {
-        throw new RUR.ReeborgError(RUR.translate("I am afraid of the void!"));
-    }
+
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
 
@@ -672,12 +669,18 @@ RUR.control.wall_in_front = function (robot, flag) {
     switch (robot.orientation){
     case RUR.EAST:
         coords = robot.x + "," + robot.y;
+        if (robot.x == RUR.COLS){
+            return true;
+        }
         if (RUR.control.is_wall_at(coords, "east")) {
             return true;
         }
         break;
     case RUR.NORTH:
         coords = robot.x + "," + robot.y;
+        if (robot.y == RUR.ROWS){
+            return true;
+        }
         if (RUR.control.is_wall_at(coords, "north")) {
             return true;
         }
@@ -4378,6 +4381,13 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
     for (i = 1; i <= RUR.COLS; i++) {
         RUR.vis_world.draw_north_wall(ctx, i, 0);
     }
+    for (j = 1; j <= RUR.ROWS; j++) {
+        RUR.vis_world.draw_east_wall(ctx, RUR.COLS, j);
+    }
+    for (i = 1; i <= RUR.COLS; i++) {
+        RUR.vis_world.draw_north_wall(ctx, i, RUR.ROWS);
+    }
+
 
     if (walls === undefined || walls == {}) {
         return;
