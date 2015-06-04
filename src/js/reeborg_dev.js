@@ -1904,35 +1904,6 @@ RUR.top_tiles.bridge.image.onload = function () {
     }
 };
 
-RUR.top_tiles.fence1 = {};
-RUR.top_tiles.fence1.fatal = true;
-RUR.top_tiles.fence1.detectable = true;
-RUR.top_tiles.fence1.message = RUR.translate("I hit a fence!");
-RUR.top_tiles.fence1.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
-RUR.top_tiles.fence1.ctx = RUR.SECOND_LAYER_CTX;
-RUR.top_tiles.fence1.image = new Image();
-RUR.top_tiles.fence1.image.src = 'src/images/fence1.png';
-RUR.top_tiles.fence1.image.onload = function () {
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
-};
-
-RUR.top_tiles.fence2 = {};
-RUR.top_tiles.fence2.fatal = true;
-RUR.top_tiles.fence2.detectable = true;
-RUR.top_tiles.fence2.message = RUR.translate("I hit a fence!");
-RUR.top_tiles.fence2.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
-RUR.top_tiles.fence2.ctx = RUR.SECOND_LAYER_CTX;
-RUR.top_tiles.fence2.image = new Image();
-RUR.top_tiles.fence2.image.src = 'src/images/fence2.png';
-RUR.top_tiles.fence2.image.onload = function () {
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
-};
-
-
 RUR.top_tiles.fence4 = {};
 RUR.top_tiles.fence4.fatal = true;
 RUR.top_tiles.fence4.detectable = true;
@@ -4966,8 +4937,6 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_tile(value);
             break;
         case "toptile-bridge":
-        case "toptile-fence1":
-        case "toptile-fence2":
         case "toptile-fence4":
         case "toptile-fence5":
         case "toptile-fence6":
@@ -5094,8 +5063,6 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on world to toggle tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "toptile-bridge":
-        case "toptile-fence1":
-        case "toptile-fence2":
         case "toptile-fence4":
         case "toptile-fence5":
         case "toptile-fence6":

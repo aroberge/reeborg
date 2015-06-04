@@ -39,8 +39,6 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_tile(value);
             break;
         case "toptile-bridge":
-        case "toptile-fence1":
-        case "toptile-fence2":
         case "toptile-fence4":
         case "toptile-fence5":
         case "toptile-fence6":
@@ -167,8 +165,6 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on world to toggle tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "toptile-bridge":
-        case "toptile-fence1":
-        case "toptile-fence2":
         case "toptile-fence4":
         case "toptile-fence5":
         case "toptile-fence6":
