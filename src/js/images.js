@@ -364,6 +364,10 @@ RUR.top_tiles.bridge.image.onload = function () {
 };
 
 RUR.top_tiles.fence1 = {};
+RUR.top_tiles.fence1.fatal = true;
+RUR.top_tiles.fence1.detectable = true;
+RUR.top_tiles.fence1.message = RUR.translate("I hit a fence!");
+RUR.top_tiles.fence1.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.top_tiles.fence1.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.fence1.image = new Image();
 RUR.top_tiles.fence1.image.src = 'src/images/fence1.png';
@@ -374,6 +378,10 @@ RUR.top_tiles.fence1.image.onload = function () {
 };
 
 RUR.top_tiles.fence2 = {};
+RUR.top_tiles.fence2.fatal = true;
+RUR.top_tiles.fence2.detectable = true;
+RUR.top_tiles.fence2.message = RUR.translate("I hit a fence!");
+RUR.top_tiles.fence2.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.top_tiles.fence2.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.fence2.image = new Image();
 RUR.top_tiles.fence2.image.src = 'src/images/fence2.png';
@@ -385,6 +393,10 @@ RUR.top_tiles.fence2.image.onload = function () {
 
 
 RUR.top_tiles.fence4 = {};
+RUR.top_tiles.fence4.fatal = true;
+RUR.top_tiles.fence4.detectable = true;
+RUR.top_tiles.fence4.message = RUR.translate("I hit a fence!");
+RUR.top_tiles.fence4.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.top_tiles.fence4.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.fence4.image = new Image();
 RUR.top_tiles.fence4.image.src = 'src/images/fence4.png';
@@ -395,6 +407,10 @@ RUR.top_tiles.fence4.image.onload = function () {
 };
 
 RUR.top_tiles.fence5 = {};
+RUR.top_tiles.fence5.fatal = true;
+RUR.top_tiles.fence5.detectable = true;
+RUR.top_tiles.fence5.message = RUR.translate("I hit a fence!");
+RUR.top_tiles.fence5.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.top_tiles.fence5.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.fence5.image = new Image();
 RUR.top_tiles.fence5.image.src = 'src/images/fence5.png';
@@ -405,6 +421,10 @@ RUR.top_tiles.fence5.image.onload = function () {
 };
 
 RUR.top_tiles.fence6 = {};
+RUR.top_tiles.fence6.fatal = true;
+RUR.top_tiles.fence6.detectable = true;
+RUR.top_tiles.fence6.message = RUR.translate("I hit a fence!");
+RUR.top_tiles.fence6.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.top_tiles.fence6.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.fence6.image = new Image();
 RUR.top_tiles.fence6.image.src = 'src/images/fence6.png';
@@ -415,6 +435,10 @@ RUR.top_tiles.fence6.image.onload = function () {
 };
 
 RUR.top_tiles.fence7 = {};
+RUR.top_tiles.fence7.fatal = true;
+RUR.top_tiles.fence7.detectable = true;
+RUR.top_tiles.fence7.message = RUR.translate("I hit a fence!");
+RUR.top_tiles.fence7.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.top_tiles.fence7.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.fence7.image = new Image();
 RUR.top_tiles.fence7.image.src = 'src/images/fence7.png';

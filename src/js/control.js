@@ -9,7 +9,7 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     "use strict";
-    var tile, pushable_object_in_front, pushable_object_beyond,
+    var tile, tiles, tilename, pushable_object_in_front, pushable_object_beyond,
         wall_beyond, x_beyond, y_beyond;
 
     if (RUR.control.wall_in_front(robot, true)) {
@@ -76,6 +76,18 @@ RUR.control.move = function (robot) {
             RUR.control.move(robot);
         }
     }
+
+    tiles = RUR.control.get_top_tile_at_position(robot.x, robot.y);
+    if (tiles) {
+        for (tilename in tiles) {
+            if (RUR.top_tiles[tilename] !== undefined && RUR.top_tiles[tilename].fatal) {
+                robot.x = robot._prev_x;
+                robot.y = robot._prev_y;
+                throw new RUR.ReeborgError(RUR.top_tiles[tilename].message);
+            }
+        }
+    }
+
 };
 
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
