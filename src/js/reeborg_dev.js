@@ -420,7 +420,7 @@ RUR.control.move = function (robot) {
     RUR.control.sound_id = "#move-sound";
     RUR.rec.record_frame("debug", "RUR.control.move");
 
-    tile = RUR.control.get_tiles_at_position(robot.x, robot.y);
+    tile = RUR.control.get_tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
             if (tile == RUR.tiles.water && RUR.control.top_tile_here(robot, "bridge")) {
