@@ -41,7 +41,6 @@ RUR.we.edit_world = function  () {
         case "toptile-bridge":
         case "toptile-fence1":
         case "toptile-fence2":
-        case "toptile-fence3":
         case "toptile-fence4":
         case "toptile-fence5":
         case "toptile-fence6":
@@ -170,7 +169,6 @@ RUR.we.select = function (choice) {
         case "toptile-bridge":
         case "toptile-fence1":
         case "toptile-fence2":
-        case "toptile-fence3":
         case "toptile-fence4":
         case "toptile-fence5":
         case "toptile-fence6":

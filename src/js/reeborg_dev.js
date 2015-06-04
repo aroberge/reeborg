@@ -1882,15 +1882,6 @@ RUR.top_tiles.fence2.image.onload = function () {
     }
 };
 
-RUR.top_tiles.fence3 = {};
-RUR.top_tiles.fence3.ctx = RUR.SECOND_LAYER_CTX;
-RUR.top_tiles.fence3.image = new Image();
-RUR.top_tiles.fence3.image.src = 'src/images/fence3.png';
-RUR.top_tiles.fence3.image.onload = function () {
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
-};
 
 RUR.top_tiles.fence4 = {};
 RUR.top_tiles.fence4.ctx = RUR.SECOND_LAYER_CTX;
@@ -4911,7 +4902,6 @@ RUR.we.edit_world = function  () {
         case "toptile-bridge":
         case "toptile-fence1":
         case "toptile-fence2":
-        case "toptile-fence3":
         case "toptile-fence4":
         case "toptile-fence5":
         case "toptile-fence6":
@@ -5040,7 +5030,6 @@ RUR.we.select = function (choice) {
         case "toptile-bridge":
         case "toptile-fence1":
         case "toptile-fence2":
-        case "toptile-fence3":
         case "toptile-fence4":
         case "toptile-fence5":
         case "toptile-fence6":
