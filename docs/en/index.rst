@@ -70,12 +70,13 @@ the focus is different for each of them.
    artists
 
 
+Please ignore
+=============
+
+The following is for my own use - keeping track of what needs to be done.
+Of course, anyone wanting to volunteer to help is welcome! ;-)
+
+
 .. todolist::
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`
 
