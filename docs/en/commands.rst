@@ -1,10 +1,11 @@
 Basic commands
 ==============
 
-.. important::
+.. note::
 
-    In this section, we assume that the world in which Reeborg is
-    has only one kind of object at a given time.
+    Reeborg's World uses Python 3 syntax (thanks to Brython) and follows
+    the PEP 8 naming convention.
+
 
 Reeborg's World is defined on a grid.  Reeborg's action take place
 on a single grid location **or** Reeborg can move from one grid
@@ -29,6 +30,13 @@ Before ``move()``   After ``move()``
 .. |move_w_after| image:: ../images/move_w_after.png
 .. |move_s_before| image:: ../images/move_s_before.png
 .. |move_s_after| image:: ../images/move_s_after.png
+
+
+.. important::
+
+    In this section, we assume that the world in which Reeborg is
+    has only one kind of object at a given time.
+
 
 at_goal(): condition which is "true" if Reeborg has reached "home"
 build_wall(): adds a wall right in front of where Reeborg is

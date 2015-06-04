@@ -52,13 +52,36 @@ Background tiles
 
 :grass: |grass|  Harmless for Reeborg to walk on.
 :gravel: |gravel|  Harmless for Reeborg to walk on.
-:ice: |ice| Causes Reeborg to slip and continue it movement towards the next
-  tile.  This could be problematic if an obstacle lies there.  Reeborg cannot
-  detect ice before stepping into it.
 :water: |water| Can cause Reeborg to drown.  Fortunately, Reeborg can
   detect it using front_is_clear().
 :mud: |mud| Can cause Reeborg to get hopelessly stuck.  Reeborg cannot
   detect mud before stepping into it.
+:ice: |ice| Causes Reeborg to slip and continue it movement towards the next
+  tile.  This could be problematic if an obstacle lies there.  Reeborg cannot
+  detect ice before stepping into it.
+
+|slip|
+
+Special objects
+---------------
+
+Special objects, like normal objects, are drawn above background tiles.
+However, they can not be picked up by Reeborg and they can change the
+expected behaviour of a tile.
+
+:bridge: |bridge|  Allows Reeborg to cross safely over water.  Reeborg will
+  always express its happiness at being able to cross over a bridge instead
+  of falling in water.
+:fences:  |fence4| - |fence5| - |fence6| - |fence7|
+  Can be detected by Reeborg.  If Reeborg is asked to move where a fence is
+  located, Reeborg will attempt to jump over it but will fail miserably.
+  Note that to make enclosed areas, you might have to overlap the image of the
+  last one over one of the other three images.
+:box: |box| Boxes are pushed out of the way by Reeborg ... provided something
+  else, like a wall or another box, etc., is not preventing the box to move.
+  A box pushed by Reeborg in the water will float and become a bridge allowing
+  Reeborg to safely cross over water.
+
 
 
 .. |apple| image:: ../images/apple.png
@@ -81,4 +104,15 @@ Background tiles
 .. |ice| image:: ../images/ice.png
 .. |water| image:: ../images/water.png
 .. |mud| image:: ../images/mud.png
+.. |slip| image:: ../images/ice_slip.gif
+
+.. |bridge| image:: ../images/bridge.png
+.. |box| image:: ../images/box.png
+.. |fence4| image:: ../images/fence4.png
+.. |fence5| image:: ../images/fence5.png
+.. |fence6| image:: ../images/fence6.png
+.. |fence7| image:: ../images/fence7.png
+
+
+
 
