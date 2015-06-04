@@ -2,14 +2,14 @@
    License: MIT
  */
 
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*jshint  -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR*/
 
 RUR.vis_world = {};
 
-RUR.vis_world.compute_world_geometry = function(cols, rows) {
+RUR.vis_world.compute_world_geometry = function (cols, rows) {
     "use strict";
-    var height, width, changed_dimensions=false;
+    var height, width, changed_dimensions = false;
     if (RUR.current_world.small_tiles) {
         RUR.WALL_LENGTH = 20;
         RUR.WALL_THICKNESS = 2;
@@ -20,15 +20,15 @@ RUR.vis_world.compute_world_geometry = function(cols, rows) {
         RUR.SCALE = 1;
     }
 
-    if (cols != undefined && rows != undefined){
-        height = (rows+1.5) * RUR.WALL_LENGTH;
-        width = (cols+1.5) * RUR.WALL_LENGTH;
+    if (cols !== undefined && rows !== undefined) {
+        height = (rows + 1.5) * RUR.WALL_LENGTH;
+        width = (cols + 1.5) * RUR.WALL_LENGTH;
     } else {
-        height = (RUR.ROWS+1.5) * RUR.WALL_LENGTH;
-        width = (RUR.COLS+1.5) * RUR.WALL_LENGTH;
+        height = (RUR.ROWS + 1.5) * RUR.WALL_LENGTH;
+        width = (RUR.COLS + 1.5) * RUR.WALL_LENGTH;
     }
 
-    if (height != RUR.HEIGHT || width != RUR.WIDTH){
+    if (height !== RUR.HEIGHT || width !== RUR.WIDTH) {
         RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
         RUR.BACKGROUND_CANVAS.width = width;
         RUR.BACKGROUND_CANVAS.height = height;
@@ -64,7 +64,7 @@ RUR.vis_world.compute_world_geometry = function(cols, rows) {
     RUR.current_world.rows = RUR.ROWS;
     RUR.current_world.cols = RUR.COLS;
     RUR.vis_world.draw_all();
-}
+};
 
 RUR.vis_world.draw_all = function () {
     "use strict";
@@ -92,7 +92,7 @@ RUR.vis_world.draw_all = function () {
     RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_goal();  // on GOAL_CTX
 
-    RUR.vis_world.refresh()
+    RUR.vis_world.refresh();
 };
 
 
@@ -186,7 +186,7 @@ RUR.vis_world.draw_grid_walls = function(){
             RUR.vis_world.draw_east_wall(ctx, i, j);
         }
     }
-}
+};
 
 RUR.vis_world.draw_foreground_walls = function (walls) {
     "use strict";
@@ -263,7 +263,7 @@ RUR.vis_world.draw_robots = function (robots) {
         return;
     }
     for (robot=0; robot < robots.length; robot++){
-        if (robots[robot].start_positions != undefined && robots[robot].start_positions.length > 1){
+        if (robots[robot].start_positions !== undefined && robots[robot].start_positions.length > 1){
             RUR.vis_world.draw_robot_clones(robots[robot]);
         } else {
             RUR.vis_robot.draw(robots[robot]); // draws trace automatically
@@ -285,7 +285,7 @@ RUR.vis_world.draw_robot_clones = function(robot){
             RUR.vis_robot.draw(clone);
     }
     RUR.ROBOT_CTX.restore();
-}
+};
 
 RUR.vis_world.draw_goal = function () {
     "use strict";
@@ -355,7 +355,7 @@ RUR.vis_world.draw_goal_walls = function (goal, ctx) {
             RUR.vis_world.draw_east_wall(ctx, i, j, true);
         }
     }
-}
+};
 
 RUR.vis_world.clear_trace = function(){
     "use strict";
@@ -402,7 +402,7 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
                     if (goal) {
                         ctx = RUR.GOAL_CTX;
                         image = specific_object.image_goal;
-                    } else if (specific_object.ctx != undefined){
+                    } else if (specific_object.ctx !== undefined){
                         ctx = specific_object.ctx;
                         image = specific_object.image;
                     } else {
@@ -432,22 +432,24 @@ RUR.vis_world.compile_info = function() {
     // drown - if anything.
     var coords, obj, quantity;
     RUR.vis_world.information = {};
-    if (RUR.current_world.objects != undefined) {
+    if (RUR.current_world.objects !== undefined) {
         RUR.vis_world.compile_partial_info(RUR.current_world.objects, 'black');
     }
-    if (RUR.current_world.goal != undefined &&
-        RUR.current_world.goal.objects != undefined) {
+    if (RUR.current_world.goal !== undefined &&
+        RUR.current_world.goal.objects !== undefined) {
         RUR.vis_world.compile_partial_info(RUR.current_world.goal.objects, 'blue');
     }
 };
 
 RUR.vis_world.compile_partial_info = function(objects, color){
+    "use strict";
+    var coords, obj, quantity;
     for (coords in objects) {
         if (objects.hasOwnProperty(coords)){
             // objects found here
             for(obj in objects[coords]){
                 if (objects[coords].hasOwnProperty(obj)){
-                    if (RUR.vis_world.information[coords] != undefined){
+                    if (RUR.vis_world.information[coords] !== undefined){
                         if (RUR.vis_world.information[coords][0] != obj) { // already at least one other object there
                             RUR.vis_world.information[coords] = [undefined, "?"];  // assign impossible object
                         } else if (RUR.vis_world.information[coords][1] == objects[coords][obj]) { // same object, same quantity
@@ -471,7 +473,7 @@ RUR.vis_world.compile_partial_info = function(objects, color){
                                 quantity = parseInt(quantity, 10);
                             } catch (e) {
                                 quantity = "?";
-                                console.log("WARNING: this should not happen in RUR.vis_world.compile_info")
+                                console.log("WARNING: this should not happen in RUR.vis_world.compile_info");
                             }
                         }
                         RUR.vis_world.information[coords] = [obj, quantity, color];
@@ -504,4 +506,4 @@ RUR.vis_world.draw_info = function() {
             ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
         }
     }
-}
+};

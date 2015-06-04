@@ -5,16 +5,17 @@
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals RUR, $*/
 
 RUR.cd = {};
 
 $(document).ready(function() {
 
-    RUR.cd.input_add_number = $("#input-add-number"),
-    RUR.cd.maximum_number = $("#maximum-number"),
-    RUR.cd.input_give_number = $("#input-give-number"),
-    RUR.cd.unlimited_number = $("#unlimited-number"),
-    RUR.cd.input_goal_number = $("#input-goal-number"),
+    RUR.cd.input_add_number = $("#input-add-number");
+    RUR.cd.maximum_number = $("#maximum-number");
+    RUR.cd.input_give_number = $("#input-give-number");
+    RUR.cd.unlimited_number = $("#unlimited-number");
+    RUR.cd.input_goal_number = $("#input-goal-number");
     RUR.cd.all_objects = $("#all-objects");
     RUR.cd.input_max_x = $("#input-max-x");
     RUR.cd.input_max_y = $("#input-max-y");

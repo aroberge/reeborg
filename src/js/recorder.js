@@ -100,12 +100,12 @@ RUR.rec.loop = function () {
 RUR.rec.display_frame = function () {
     // set current world to frame being played.
     "use strict";
-    var frame, goal_status;
+    var frame, goal_status, i;
 
     //track line number and highlight line to be executed
     if (RUR.programming_language === "python" && RUR._highlight) {
         try {
-            for (var i=0; i < RUR._previous_line.length; i++){
+            for (i=0; i < RUR._previous_line.length; i++){
                 editor.removeLineClass(RUR._previous_line[i], 'background', 'editor-highlight');
             }
         }catch (e) {}
@@ -273,7 +273,7 @@ RUR.rec.check_goal= function (frame) {
 // to perform an action; we catch any such potential problem here
 RUR.rec.check_robots_on_tiles = function(frame){
     var tile, robots, robot, coords;
-    if (frame.world.robots == undefined){
+    if (frame.world.robots === undefined){
         return;
     }
     for (robot=0; robot < frame.world.robots.length; robot++){

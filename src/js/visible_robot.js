@@ -62,7 +62,7 @@ RUR.vis_robot.select_style = function (arg) {
     var style;
     RUR.vis_robot.style = parseInt(arg, 10);
     style = RUR.vis_robot.style;
-    if ( !(style==0 || style==1 || style==2 || style==3)){
+    if ( !(style ===0 || style==1 || style==2 || style==3)){
         RUR.vis_robot.style = 0;
         style = 0;
     }
@@ -130,35 +130,35 @@ RUR.vis_robot.draw = function (robot) {
 
     switch(robot.orientation){
         case RUR.EAST:
-            if (robot.model != undefined){
+            if (robot.model !== undefined){
                 image = RUR.vis_robot.images[robot.model].robot_e_img;
             } else {
                 image = RUR.vis_robot.e_img;
             }
             break;
         case RUR.NORTH:
-            if (robot.model != undefined){
+            if (robot.model !== undefined){
                 image = RUR.vis_robot.images[robot.model].robot_n_img;
             } else {
                 image = RUR.vis_robot.n_img;
             }
             break;
         case RUR.WEST:
-            if (robot.model != undefined){
+            if (robot.model !== undefined){
                 image = RUR.vis_robot.images[robot.model].robot_w_img;
             } else {
                 image = RUR.vis_robot.w_img;
             }
             break;
         case RUR.SOUTH:
-            if (robot.model != undefined){
+            if (robot.model !== undefined){
                 image = RUR.vis_robot.images[robot.model].robot_s_img;
             } else {
                 image = RUR.vis_robot.s_img;
             }
             break;
         case -1:
-            if (robot.model != undefined){
+            if (robot.model !== undefined){
                 image = RUR.vis_robot.images[robot.model].robot_random_img;
             } else {
                 image = RUR.vis_robot.random_img;

@@ -204,10 +204,10 @@ $(document).ready(function() {
             toggle_editing_mode();
         } else {
             $("#edit-world-panel").dialog("close");
-            $("#edit-world-panel").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:800,  height:700, maximize: false, position:"top"});
+            $("#edit-world-panel").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:800,  height:700, position:"top"});
         }
     });
-    $("#edit-world-panel").dialog({minimize: false, maximize: false, autoOpen:false, width:800,  height:700, maximize: false, position:"top",
+    $("#edit-world-panel").dialog({minimize: false, maximize: false, autoOpen:false, width:800,  height:700, position:"top",
         beforeClose: function( event, ui ) {$("#edit-world").addClass("blue-gradient").removeClass("reverse-blue-gradient");
                                               toggle_editing_mode();}});
 
@@ -355,7 +355,7 @@ $(document).ready(function() {
     }
     if(url_query.queryKey.css !== undefined) {
         var new_css = decodeURIComponent(url_query.queryKey.css);
-        eval(new_css);
+        eval(new_css);  // jshint ignore:line
     }
     // for embedding
     addEventListener("message", receiveMessage, false);

@@ -141,7 +141,7 @@ RUR.reset_programming_language = function(choice){
 
 RUR.update_permalink = function (arg) {
     var url_query;
-    if (arg != undefined) {
+    if (arg !== undefined) {
         url_query = parseUri(arg);
     } else {
         url_query = parseUri($("#url_input_textarea").val());
@@ -172,7 +172,7 @@ RUR.update_permalink = function (arg) {
 
     if(url_query.queryKey.css !== undefined) {
         var new_css = decodeURIComponent(url_query.queryKey.css);
-        eval(new_css);
+        eval(new_css);    // jshint ignore:line
     }
     $("#url_input").hide();
     $("#permalink").removeClass('reverse-blue-gradient');

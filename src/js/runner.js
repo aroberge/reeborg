@@ -11,12 +11,13 @@ RUR.runner = {};
 RUR.runner.interpreted = false;
 
 RUR.runner.assign_initial_values = function () {
+    "use strict";
     var coords, obj, objects, objects_here, nb, range, robot;
-    var total_nb_objects = {};
+    var position, goal, total_nb_objects = {};
 
    // First, deal with objects
 
-    if (RUR.current_world.objects != undefined){
+    if (RUR.current_world.objects !== undefined){
         objects = RUR.current_world.objects;
         for (coords in objects){
             if (objects.hasOwnProperty(coords)){
@@ -29,7 +30,7 @@ RUR.runner.assign_initial_values = function () {
                             nb = RUR.randint(parseInt(range[0], 10), parseInt(range[1], 10));
                             objects_here[obj] = nb;
                         }
-                        if (total_nb_objects[obj] == undefined){
+                        if (total_nb_objects[obj] === undefined){
                             total_nb_objects[obj] = parseInt(nb, 10);
                         } else {
                             total_nb_objects[obj] += parseInt(nb, 10);
@@ -42,8 +43,8 @@ RUR.runner.assign_initial_values = function () {
 
     // then look for "goals" with "all" as value;
 
-    if (RUR.current_world.goal != undefined &&
-        RUR.current_world.goal.objects != undefined){
+    if (RUR.current_world.goal !== undefined &&
+        RUR.current_world.goal.objects !== undefined){
         objects = RUR.current_world.goal.objects;
         for (coords in objects){
             if (objects.hasOwnProperty(coords)){
@@ -66,7 +67,7 @@ RUR.runner.assign_initial_values = function () {
     }
 
     // next, initial position for robot
-    if (RUR.current_world.robots != undefined && RUR.current_world.robots.length == 1){
+    if (RUR.current_world.robots !== undefined && RUR.current_world.robots.length == 1){
         robot = RUR.current_world.robots[0];
         if (robot.start_positions !== undefined) {
             position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
@@ -84,7 +85,7 @@ RUR.runner.assign_initial_values = function () {
 
     // then final position for robot
 
-    if (RUR.current_world.goal != undefined &&
+    if (RUR.current_world.goal !== undefined &&
         RUR.current_world.goal.possible_positions !== undefined &&
         RUR.current_world.goal.possible_positions.length > 1) {
         goal = RUR.current_world.goal;
@@ -93,7 +94,7 @@ RUR.runner.assign_initial_values = function () {
         goal.position.y = position[1];
         delete goal.possible_positions;
     }
-    if (RUR.current_world.goal != undefined) {
+    if (RUR.current_world.goal !== undefined) {
         RUR.vis_world.draw_goal();
     }
     RUR.rec.record_frame("debug", "RUR.runner.assign_initial_values");
@@ -175,7 +176,7 @@ RUR.runner.eval_javascript = function (src) {
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
-    var pre_code = '', post_code = ''
+    var pre_code = '', post_code = '';
     RUR.reset_definitions();
     if (RUR.current_world.pre_code){
         pre_code = RUR.current_world.pre_code;
@@ -203,7 +204,8 @@ RUR.runner.compile_coffee = function() {
 };
 
 RUR.runner.simplify_python_traceback = function(e) {
-    var message, error_name, other_info;
+    "use strict";
+    var message, error_name, other_info, diagnostic;
     other_info = '';
     if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
         if (RUR._automatic_highlight_off) {
@@ -213,7 +215,7 @@ RUR.runner.simplify_python_traceback = function(e) {
         }
         message = e.$message;
         error_name = e.__name__;
-        diagnostic = ''
+        diagnostic = '';
         switch (error_name) {
             case "SyntaxError":
                 try {
@@ -223,7 +225,7 @@ RUR.runner.simplify_python_traceback = function(e) {
                     } else if (RUR.runner.check_func_parentheses(e.args[1][3])){
                         other_info += RUR.translate("<br>Perhaps you forgot to add parentheses ().");
                     }
-                } catch (e) {
+                } catch (e) { // jshint ignore:line
                     other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
                 }
                 break;
@@ -234,7 +236,7 @@ RUR.runner.simplify_python_traceback = function(e) {
                     if (e.args[1][3].indexOf("RUR.set_lineno_highlight([") == -1){
                         other_info += "<br><code>" + e.args[1][3] + "</code>";
                     }
-                } catch (e) {
+                } catch (e) {  // jshint ignore:line
                     other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
                 }
                 break;
@@ -242,7 +244,7 @@ RUR.runner.simplify_python_traceback = function(e) {
                 try {
                     other_info = RUR.runner.find_line_number(message);
                     other_info += RUR.translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
-                } catch (e) {
+                } catch (e) {  // jshint ignore:line
                     other_info = "I could not analyze this error; you might want to contact my programmer.";
                 }
                 break;
@@ -296,7 +298,7 @@ RUR.runner.find_line_number = function(bad_code) {
         return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
     }
     return '';
-}
+};
 
 
 RUR.runner.check_colons = function(line_of_code) {

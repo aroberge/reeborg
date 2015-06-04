@@ -75,7 +75,7 @@ RUR.world.clone_world = function (world) {
 
 RUR.world.reset = function () {
     RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
-    if (RUR.MAX_NB_ROBOTS != undefined){
+    if (RUR.MAX_NB_ROBOTS !== undefined){
         delete RUR.MAX_NB_ROBOTS;
     }
     RUR.MAX_STEPS = 1000;
@@ -86,7 +86,7 @@ RUR.world.add_robot = function (robot) {
     if (RUR.current_world.robots === undefined){
         RUR.current_world.robots = [];
     }
-    if (RUR.MAX_NB_ROBOTS != undefined &&
+    if (RUR.MAX_NB_ROBOTS !== undefined &&
         RUR.MAX_NB_ROBOTS == RUR.current_world.robots.length){
         throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
     }
@@ -96,7 +96,7 @@ RUR.world.add_robot = function (robot) {
 
 
 RUR.world.__remove_default_robot = function () {
-    if (RUR.MAX_NB_ROBOTS != undefined){
+    if (RUR.MAX_NB_ROBOTS !== undefined){
         throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
     } else {
         RUR.current_world.robots = [];
