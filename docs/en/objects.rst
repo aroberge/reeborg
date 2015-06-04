@@ -80,8 +80,9 @@ expected behaviour of a tile.
 :box: |box| Boxes are pushed out of the way by Reeborg ... provided something
   else, like a wall or another box, etc., is not preventing the box to move.
   A box pushed by Reeborg in the water will float and become a bridge allowing
-  Reeborg to safely cross over water.
+  Reeborg to safely cross over water.  The example below illustrates this
 
+|box-blocked|
 
 
 .. |apple| image:: ../images/apple.png
@@ -112,7 +113,7 @@ expected behaviour of a tile.
 .. |fence5| image:: ../images/fence5.png
 .. |fence6| image:: ../images/fence6.png
 .. |fence7| image:: ../images/fence7.png
-
+.. |box-blocked| image:: ../images/box_blocked.gif
 
 
 
