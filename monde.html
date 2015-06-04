@@ -9,7 +9,7 @@
 <link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon">
 <link rel="icon" href="src/images/favicon.ico" type="image/icon">
 <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
-<link href='http://fonts.googleapis.com/css?family=Orbitron:700' rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Orbitron:700" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">
 <link rel="stylesheet" href="src/css/reeborg_world.css"> <!-- load after codemirror.css -->
@@ -19,7 +19,7 @@
 <body onload="brython({debug:1, pythonpath:['src/python']})">
 
 <header class="blue-gradient green-border">
-  <a id="logo" href="index_fr.html" class="fake_button"><img src="src/images/robot_e.png">Le monde de Reeborg</a>
+  <a id="logo" href="index_fr.html" class="fake_button"><img src="src/images/robot_e.png" alt="logo">Le monde de Reeborg</a>
   <div id="header-child">
    <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">Monde</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Éditeur</button>
@@ -54,16 +54,16 @@
     <button class="blue-gradient" id="run" title="exécution" onclick="RUR.ui.run();">
       <img src="src/images/play.png" alt="exécution">
     </button>
-    <button class="blue-gradient" id="step" title="une commande" disabled="vrai" onclick="RUR.ui.step();">
+    <button class="blue-gradient" id="step" title="une commande" disabled onclick="RUR.ui.step();">
       <img src="src/images/step.png" alt="une commande">
     </button>
-    <button class="blue-gradient" id="pause" title="pause" disabled="vrai" onclick="RUR.ui.pause();">
+    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.ui.pause();">
       <img src="src/images/pause.png" alt="pause">
     </button>
-    <button class="blue-gradient" id="stop" title="stop" disabled="vrai" onclick="RUR.ui.stop();">
+    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.ui.stop();">
       <img src="src/images/stop.png" alt="stop">
     </button>
-    <button class="blue-gradient" id="reload" title="recommencer" disabled="vrai" onclick="RUR.ui.reload();">
+    <button class="blue-gradient" id="reload" title="recommencer" disabled onclick="RUR.ui.reload();">
       <img src="src/images/reload.png" alt="recommencer">
     </button>
 
@@ -93,7 +93,7 @@
 <div id="world-edit-buttons" title="Changer le monde">
   <select id="select_world" title="Sélectionner un monde">
     <option value="src/worlds/alone.json" selected>Seul</option>
-    <option value="src/worlds/alone2.json" selected>Vraiment seul</option>
+    <option value="src/worlds/alone2.json">Vraiment seul</option>
     <option value="src/worlds/empty_world.json">Vide</option>
     <option value="src/worlds/blank.json">Le canevas graphique</option>
   </select>
@@ -186,7 +186,7 @@
             <li><a href="javascript:RUR.we.select('object-daisy');"><img src="src/images/daisy.png" alt="marguerite"></a></li>
             <li class="not-for-robot"><a href="javascript:RUR.we.select('object-box');"><img src="src/images/box.png" alt="wooden box"></a></li>
         </ul>
-        <ul class="edit-world-canvas" class="edit-world-tiles" id="edit-tile" style="display:none">
+        <ul class="edit-world-canvas edit-world-tiles" id="edit-tile" style="display:none">
             <li><a href="javascript:RUR.we.select('tile-mud');"><img src="src/images/mud.png" alt="boue"></a></li>
             <li><a href="javascript:RUR.we.select('tile-water');"><img src="src/images/water.png" alt="eau"></a></li>
             <li><a href="javascript:RUR.we.select('tile-grass');"><img src="src/images/grass.png" alt="gazon"></a></li>
@@ -244,11 +244,12 @@
         dans les zones de texte ci-dessous; pour les deux premier, le code sera exécuté soit immédiatement avant ou
         immédiatement après le code du programmeur. Le troisième bouton permet d'ajouter une
         description au sujet de ce monde.
+        </p>
         <table>
             <tr>
                 <td><button class="blue-gradient" id="insert-pre-code" onclick="RUR.we.insert_pre_code();">Insert pre-code</button></td>
                 <td><button class="blue-gradient" id="insert-post-code" onclick="RUR.we.insert_post_code();">Insert post-code</button></td>
-                <td><button class="blue-gradient" id="insert-post-code" onclick="RUR.we.add_description();">Copy description</button></td>
+                <td><button class="blue-gradient" id="insert-description" onclick="RUR.we.add_description();">Copy description</button></td>
             </tr>
             <tr>
                 <td><textarea id="pre-code">"pre-code"</textarea></td>
@@ -256,7 +257,7 @@
                 <td><textarea id="description">Description</textarea></td>
             </tr>
         </table>
-      </p>
+
       <div id="code-copied"></div>
     </div>
 
@@ -573,7 +574,7 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
 
 
 <!--online-->
-<a style="display:none" title="Real Time Analytics" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<a style="display:none" title="Real Time Analytics" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif"/></a>
 <script type="text/javascript">
 var clicky_site_ids = clicky_site_ids || [];
 clicky_site_ids.push(100788691);

@@ -9,7 +9,7 @@
 <link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon">
 <link rel="icon" href="src/images/favicon.ico" type="image/icon">
 <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
-<link href='http://fonts.googleapis.com/css?family=Orbitron:700' rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Orbitron:700" rel="stylesheet" type="text/css">
 
 <!--offline-- <link rel="stylesheet" href="offline/codemirror-3.0/lib/codemirror.css"> <!--/offline-->
 <!--online-->  <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.0/codemirror.css">  <!--/online-->
@@ -55,16 +55,16 @@
     <button class="blue-gradient" id="run" title="run" onclick="RUR.ui.run();">
       <img src="src/images/play.png" alt="run">
     </button>
-    <button class="blue-gradient" id="step" title="step" disabled="true" onclick="RUR.ui.step();">
+    <button class="blue-gradient" id="step" title="step" disabled onclick="RUR.ui.step();">
       <img src="src/images/step.png" alt="step">
     </button>
-    <button class="blue-gradient" id="pause" title="pause" disabled="true" onclick="RUR.ui.pause();">
+    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.ui.pause();">
       <img src="src/images/pause.png" alt="pause">
     </button>
-    <button class="blue-gradient" id="stop" title="stop" disabled="true" onclick="RUR.ui.stop();">
+    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.ui.stop();">
       <img src="src/images/stop.png" alt="stop">
     </button>
-    <button class="blue-gradient" id="reload" title="reload" disabled="true" onclick="RUR.ui.reload();">
+    <button class="blue-gradient" id="reload" title="reload" disabled onclick="RUR.ui.reload();">
       <img src="src/images/reload.png" alt="reload">
     </button>
 
@@ -93,7 +93,7 @@
 <div id="world-edit-buttons" title="Changing world" style="display:none;">
     <select id="select_world" title="Select world">
       <option value="src/worlds/alone.json" selected>Alone</option>
-      <option value="src/worlds/alone.json" selected>Lonely</option>
+      <option value="src/worlds/alone2.json" >Lonely</option>
       <option value="src/worlds/empty_world.json">Empty</option>
       <option value="src/worlds/blank.json">Graphics canvas</option>
     </select>
@@ -234,17 +234,19 @@
             <li><a href="javascript:RUR.we.select('goal-objects');">Objects</a></li>
             <li><a href="javascript:RUR.we.select('goal-no-objects');">No objects left in the world</a></li>
           </ul>
+        </li>
         </ul>
       <div id="additional-code">
         <p>The following buttons copy text from the textareas below; for the first two, the code will be run either before or
            after the user's program; for the third, the description will be added to the world information displayed when
            clicking on the world canvas.<br>
+        </p>
 
           <table>
               <tr>
                   <td><button class="blue-gradient" id="insert-pre-code" onclick="RUR.we.insert_pre_code();">Insert pre-code</button></td>
                   <td><button class="blue-gradient" id="insert-post-code" onclick="RUR.we.insert_post_code();">Insert post-code</button></td>
-                  <td><button class="blue-gradient" id="insert-post-code" onclick="RUR.we.add_description();">Copy description</button></td>
+                  <td><button class="blue-gradient" id="insert-description" onclick="RUR.we.add_description();">Copy description</button></td>
               </tr>
               <tr>
                   <td><textarea id="pre-code">"pre-code"</textarea></td>
@@ -253,7 +255,6 @@
               </tr>
           </table>
 
-        </p>
         <div id="code-copied"></div>
       </div>
 
@@ -432,7 +433,7 @@ your choice.</p>
     <p>Inspired by Guido van Robot, itself inspired by the original Karel the Robot
     created by Richard Pattis, Reeborg first appeared in RUR-PLE, a program I created
     to learn Python, picking up programming as a hobby.</p>
-    </p>
+
     <p> I hope you enjoy learning computer programming with Reeborg.</p>
     <p>Feel free to contact me at
     <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
@@ -574,7 +575,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 
 
 <!--online-->
-<a style="display:none" title="Real Time Analytics" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<a style="display:none" title="Real Time Analytics" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif"/></a>
 <script type="text/javascript">
 var clicky_site_ids = clicky_site_ids || [];
 clicky_site_ids.push(100788691);
