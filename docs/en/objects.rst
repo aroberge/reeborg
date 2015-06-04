@@ -61,24 +61,24 @@ Background tiles
   detect mud before stepping into it.
 
 
-.. |apple| image:: /images/apple.png
-.. |banana| image:: /images/banana.png
-.. |carrot| image:: /images/carrot.png
-.. |daisy| image:: /images/daisy.png
-.. |dandelion| image:: /images/dandelion.png
-.. |leaf| image:: /images/leaf.png
-.. |orange| image:: /images/orange.png
-.. |strawberry| image:: /images/strawberry.png
-.. |tulip| image:: /images/tulip.png
-.. |square| image:: /images/square.png
-.. |star| image:: /images/star.png
-.. |triangle| image:: /images/triangle.png
-.. |impossible-triangle| image:: /images/impossible-triangle.png
-.. |token| image:: /images/token.png
+.. |apple| image:: ../images/apple.png
+.. |banana| image:: ../images/banana.png
+.. |carrot| image:: ../images/carrot.png
+.. |daisy| image:: ../images/daisy.png
+.. |dandelion| image:: ../images/dandelion.png
+.. |leaf| image:: ../images/leaf.png
+.. |orange| image:: ../images/orange.png
+.. |strawberry| image:: ../images/strawberry.png
+.. |tulip| image:: ../images/tulip.png
+.. |square| image:: ../images/square.png
+.. |star| image:: ../images/star.png
+.. |triangle| image:: ../images/triangle.png
+.. |impossible-triangle| image:: ../images/impossible-triangle.png
+.. |token| image:: ../images/token.png
 
-.. |grass| image:: /images/grass.png
-.. |gravel| image:: /images/gravel.png
-.. |ice| image:: /images/ice.png
-.. |water| image:: /images/water.png
-.. |mud| image:: /images/mud.png
+.. |grass| image:: ../images/grass.png
+.. |gravel| image:: ../images/gravel.png
+.. |ice| image:: ../images/ice.png
+.. |water| image:: ../images/water.png
+.. |mud| image:: ../images/mud.png
 

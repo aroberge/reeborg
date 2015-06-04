@@ -21,14 +21,14 @@ Before ``move()``   After ``move()``
 
 
 
-.. |move_e_before| image:: /images/move_e_before.png
-.. |move_e_after| image:: /images/move_e_after.png
-.. |move_n_before| image:: /images/move_n_before.png
-.. |move_n_after| image:: /images/move_n_after.png
-.. |move_w_before| image:: /images/move_w_before.png
-.. |move_w_after| image:: /images/move_w_after.png
-.. |move_s_before| image:: /images/move_s_before.png
-.. |move_s_after| image:: /images/move_s_after.png
+.. |move_e_before| image:: ../images/move_e_before.png
+.. |move_e_after| image:: ../images/move_e_after.png
+.. |move_n_before| image:: ../images/move_n_before.png
+.. |move_n_after| image:: ../images/move_n_after.png
+.. |move_w_before| image:: ../images/move_w_before.png
+.. |move_w_after| image:: ../images/move_w_after.png
+.. |move_s_before| image:: ../images/move_s_before.png
+.. |move_s_after| image:: ../images/move_s_after.png
 
 at_goal(): condition which is "true" if Reeborg has reached "home"
 build_wall(): adds a wall right in front of where Reeborg is
