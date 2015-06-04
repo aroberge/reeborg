@@ -77,7 +77,7 @@ RUR.control.move = function (robot) {
         }
     }
 
-    tiles = RUR.control.get_top_tile_at_position(robot.x, robot.y);
+    tiles = RUR.control.get_top_tiles_at_position(robot.x, robot.y);
     if (tiles) {
         for (tilename in tiles) {
             if (RUR.top_tiles[tilename] !== undefined && RUR.top_tiles[tilename].fatal) {
@@ -371,7 +371,7 @@ RUR.control.wall_in_front = function (robot, flag) {
 };
 
 RUR.control.tile_in_front = function (robot) {
-
+    // returns single tile
     switch (robot.orientation){
     case RUR.EAST:
         return RUR.control.get_tile_at_position(robot.x+1, robot.y);
@@ -386,8 +386,26 @@ RUR.control.tile_in_front = function (robot) {
     }
 };
 
+
+RUR.control.top_tiles_in_front = function (robot) {
+    // returns list of tiles
+    switch (robot.orientation){
+    case RUR.EAST:
+        return RUR.control.get_top_tiles_at_position(robot.x+1, robot.y);
+    case RUR.NORTH:
+        return RUR.control.get_top_tiles_at_position(robot.x, robot.y+1);
+    case RUR.WEST:
+        return RUR.control.get_top_tiles_at_position(robot.x-1, robot.y);
+    case RUR.SOUTH:
+        return RUR.control.get_top_tiles_at_position(robot.x, robot.y-1);
+    default:
+        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.top_tiles_in_front().");
+    }
+};
+
+
 RUR.control.front_is_clear = function(robot, flag){
-    var tile;
+    var tile, tiles, tilename;
     if( RUR.control.wall_in_front(robot, flag)) {
         return false;
     }
@@ -397,6 +415,18 @@ RUR.control.front_is_clear = function(robot, flag){
             return false;
         }
     }
+
+    tiles = RUR.control.top_tiles_in_front(robot);
+    if (tiles) {
+        for (tilename in tiles) {
+            if (RUR.top_tiles[tilename] !== undefined &&
+                RUR.top_tiles[tilename].detectable &&
+                RUR.top_tiles[tilename].fatal) {
+                return false
+            }
+        }
+    }
+
     return true;
 };
 
@@ -576,7 +606,7 @@ RUR.control.get_tile_at_position = function (x, y) {
     return RUR.tiles[RUR.current_world.tiles[coords]];
 };
 
-RUR.control.get_top_tile_at_position = function (x, y) {
+RUR.control.get_top_tiles_at_position = function (x, y) {
     "use strict";
     var coords = x + "," + y;
     if (RUR.current_world.top_tiles === undefined) return false;
