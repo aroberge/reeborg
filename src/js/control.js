@@ -62,7 +62,7 @@ RUR.control.move = function (robot) {
     RUR.control.sound_id = "#move-sound";
     RUR.rec.record_frame("debug", "RUR.control.move");
 
-    tile = RUR.control.get_tile_at_position(robot.x, robot.y);
+    tile = RUR.control.get_tiles_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
             if (tile == RUR.tiles.water && RUR.control.top_tile_here(robot, "bridge")) {
@@ -93,7 +93,7 @@ RUR.control.move = function (robot) {
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
     "use strict";
     var bridge_already_there = false;
-    if (RUR.control.get_top_tile_at_position(to_x, to_y).bridge !== undefined){
+    if (RUR.control.get_top_tiles_at_position(to_x, to_y).bridge !== undefined){
         bridge_already_there = true;
     }
 

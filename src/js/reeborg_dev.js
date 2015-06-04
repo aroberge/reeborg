@@ -420,7 +420,7 @@ RUR.control.move = function (robot) {
     RUR.control.sound_id = "#move-sound";
     RUR.rec.record_frame("debug", "RUR.control.move");
 
-    tile = RUR.control.get_tile_at_position(robot.x, robot.y);
+    tile = RUR.control.get_tiles_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
             if (tile == RUR.tiles.water && RUR.control.top_tile_here(robot, "bridge")) {
@@ -451,7 +451,7 @@ RUR.control.move = function (robot) {
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
     "use strict";
     var bridge_already_there = false;
-    if (RUR.control.get_top_tile_at_position(to_x, to_y).bridge !== undefined){
+    if (RUR.control.get_top_tiles_at_position(to_x, to_y).bridge !== undefined){
         bridge_already_there = true;
     }
 
@@ -5706,7 +5706,14 @@ RUR.we._add_goal_objects = function (specific_object){
     coords = x + "," + y;
 
     if (specific_object == "box") {
-        RUR.we.add_goal_objects("box", x, y, 1);
+        if (RUR.current_world.goal !== undefined &&
+            RUR.current_world.goal.objects !== undefined &&
+            RUR.current_world.goal.objects[coords] !== undefined &&
+            RUR.current_world.goal.objects[coords].box ==1){
+                RUR.we.add_goal_objects("box", x, y, 0);
+        } else {
+            RUR.we.add_goal_objects("box", x, y, 1);
+        }
         return;
     }
 
@@ -5841,7 +5848,7 @@ RUR.we.toggle_toptile = function (tile){
     x = position[0];
     y = position[1];
 
-    if (RUR.control.get_top_tile_at_position(x, y)[tile] !== undefined) {
+    if (RUR.control.get_top_tiles_at_position(x, y)[tile] !== undefined) {
         RUR.we.add_top_tile(tile, x, y, 0);
     } else {
         RUR.we.add_top_tile(tile, x, y, 1);
