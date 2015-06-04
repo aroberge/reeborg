@@ -355,7 +355,6 @@ RUR.home_images.racing_flag.image.onload = function () {
 
 RUR.top_tiles.bridge = {};
 RUR.top_tiles.bridge.ctx = RUR.SECOND_LAYER_CTX;
-RUR.top_tiles.bridge.brige = true;
 RUR.top_tiles.bridge.image = new Image();
 RUR.top_tiles.bridge.image.src = 'src/images/bridge.png';
 RUR.top_tiles.bridge.image.onload = function () {

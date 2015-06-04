@@ -38,6 +38,11 @@ RUR.we.edit_world = function  () {
             value = RUR.we.edit_world_flag.substring(5);
             RUR.we.toggle_tile(value);
             break;
+        case "toptile-bridge":
+            value = RUR.we.edit_world_flag.substring(8);
+            console.log("value", value);
+            RUR.we.toggle_toptile(value);
+            break;
         case "world-walls":
             RUR.we.toggle_wall();
             break;
@@ -115,6 +120,10 @@ RUR.we.select = function (choice) {
             $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
             break;
+        case "world-toptiles":
+            $("#edit-top-tile").show();
+            $("#cmd-result").html(RUR.translate("Click on desired top tile below.")).effect("highlight", {color: "gold"}, 1500);
+            break;
         case "object-token":
         case "object-star":
         case "object-triangle":
@@ -151,6 +160,11 @@ RUR.we.select = function (choice) {
             value = choice.substring(5);
             $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "toptile-bridge":
+            value = choice.substring(8);
+            $("#edit-top-tile").show();
+            $("#cmd-result").html(RUR.translate("Click on world to toggle top tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "world-walls":
             $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);
@@ -880,20 +894,40 @@ RUR.we.toggle_tile = function (tile){
 };
 
 
+RUR.we.toggle_toptile = function (tile){
+    // will remove the position if clicked again with tile of same type.
+    "use strict";
+    var x, y, position;
+
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+
+    if (RUR.control.get_top_tile_at_position(x, y)[tile] !== undefined) {
+        RUR.we.add_top_tile(tile, x, y, 0);
+    } else {
+        RUR.we.add_top_tile(tile, x, y, 1);
+    }
+};
+
+
 RUR.we.add_top_tile = function (specific_object, x, y, nb){
     "use strict";
     var coords, translated_arg, tmp;
+
+    translated_arg = RUR.translate_to_english(specific_object);
+    specific_object = translated_arg;
+
+    coords = x + "," + y;
+    RUR.we.ensure_key_exist(RUR.current_world, "top_tiles");
+    RUR.we.ensure_key_exist(RUR.current_world.top_tiles, coords);
+
+
     try {
         tmp = parseInt(nb, 10);
         nb = tmp;
     } catch (e) {}
 
-    translated_arg = RUR.translate_to_english(specific_object);
-
-    specific_object = translated_arg;
-    coords = x + "," + y;
-    RUR.we.ensure_key_exist(RUR.current_world, "top_tiles");
-    RUR.we.ensure_key_exist(RUR.current_world.top_tiles, coords);
 
     if (nb === 0) {
         delete RUR.current_world.top_tiles[coords][specific_object];
