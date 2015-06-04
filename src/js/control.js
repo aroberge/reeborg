@@ -49,6 +49,14 @@ RUR.control.move = function (robot) {
         // computed from the new position:
         pushable_object_beyond = RUR.pushable_object_in_front(x_beyond, y_beyond);
         wall_beyond = RUR.control.wall_in_front(robot, true);
+        tiles = RUR.control.get_top_tiles_at_position(x_beyond, y_beyond);
+        if (tiles) {
+            for (tilename in tiles) {
+                if (RUR.top_tiles[tilename] !== undefined && RUR.top_tiles[tilename].fatal) {
+                    wall_beyond = true;
+                }
+            }
+        }
         if (pushable_object_beyond || wall_beyond){
             robot.x = robot._prev_x;
             robot.y = robot._prev_y;
