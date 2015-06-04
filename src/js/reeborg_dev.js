@@ -1862,7 +1862,75 @@ RUR.top_tiles.bridge.image.onload = function () {
     }
 };
 
-/*
+RUR.top_tiles.fence1 = {};
+RUR.top_tiles.fence1.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence1.image = new Image();
+RUR.top_tiles.fence1.image.src = 'src/images/fence1.png';
+RUR.top_tiles.fence1.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence2 = {};
+RUR.top_tiles.fence2.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence2.image = new Image();
+RUR.top_tiles.fence2.image.src = 'src/images/fence2.png';
+RUR.top_tiles.fence2.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence3 = {};
+RUR.top_tiles.fence3.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence3.image = new Image();
+RUR.top_tiles.fence3.image.src = 'src/images/fence3.png';
+RUR.top_tiles.fence3.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence4 = {};
+RUR.top_tiles.fence4.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence4.image = new Image();
+RUR.top_tiles.fence4.image.src = 'src/images/fence4.png';
+RUR.top_tiles.fence4.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence5 = {};
+RUR.top_tiles.fence5.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence5.image = new Image();
+RUR.top_tiles.fence5.image.src = 'src/images/fence5.png';
+RUR.top_tiles.fence5.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence6 = {};
+RUR.top_tiles.fence6.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence6.image = new Image();
+RUR.top_tiles.fence6.image.src = 'src/images/fence6.png';
+RUR.top_tiles.fence6.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence7 = {};
+RUR.top_tiles.fence7.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence7.image = new Image();
+RUR.top_tiles.fence7.image.src = 'src/images/fence7.png';
+RUR.top_tiles.fence7.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};/*
  * jQuery UI Dialog 1.8.16
  * w/ Minimize & Maximize Support
  * by Elijah Horton (fieryprophet@yahoo.com)
@@ -4841,8 +4909,14 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_tile(value);
             break;
         case "toptile-bridge":
+        case "toptile-fence1":
+        case "toptile-fence2":
+        case "toptile-fence3":
+        case "toptile-fence4":
+        case "toptile-fence5":
+        case "toptile-fence6":
+        case "toptile-fence7":
             value = RUR.we.edit_world_flag.substring(8);
-            console.log("value", value);
             RUR.we.toggle_toptile(value);
             break;
         case "world-walls":
@@ -4964,6 +5038,13 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on world to toggle tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "toptile-bridge":
+        case "toptile-fence1":
+        case "toptile-fence2":
+        case "toptile-fence3":
+        case "toptile-fence4":
+        case "toptile-fence5":
+        case "toptile-fence6":
+        case "toptile-fence7":
             value = choice.substring(8);
             $("#edit-top-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle top tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);

@@ -363,3 +363,72 @@ RUR.top_tiles.bridge.image.onload = function () {
     }
 };
 
+RUR.top_tiles.fence1 = {};
+RUR.top_tiles.fence1.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence1.image = new Image();
+RUR.top_tiles.fence1.image.src = 'src/images/fence1.png';
+RUR.top_tiles.fence1.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence2 = {};
+RUR.top_tiles.fence2.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence2.image = new Image();
+RUR.top_tiles.fence2.image.src = 'src/images/fence2.png';
+RUR.top_tiles.fence2.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence3 = {};
+RUR.top_tiles.fence3.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence3.image = new Image();
+RUR.top_tiles.fence3.image.src = 'src/images/fence3.png';
+RUR.top_tiles.fence3.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence4 = {};
+RUR.top_tiles.fence4.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence4.image = new Image();
+RUR.top_tiles.fence4.image.src = 'src/images/fence4.png';
+RUR.top_tiles.fence4.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence5 = {};
+RUR.top_tiles.fence5.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence5.image = new Image();
+RUR.top_tiles.fence5.image.src = 'src/images/fence5.png';
+RUR.top_tiles.fence5.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence6 = {};
+RUR.top_tiles.fence6.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence6.image = new Image();
+RUR.top_tiles.fence6.image.src = 'src/images/fence6.png';
+RUR.top_tiles.fence6.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
+RUR.top_tiles.fence7 = {};
+RUR.top_tiles.fence7.ctx = RUR.SECOND_LAYER_CTX;
+RUR.top_tiles.fence7.image = new Image();
+RUR.top_tiles.fence7.image.src = 'src/images/fence7.png';
+RUR.top_tiles.fence7.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};

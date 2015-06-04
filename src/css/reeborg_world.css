@@ -372,6 +372,9 @@ padding:3px;}
  text-align: center;
  display: inline;
 }
+.edit-world-canvas li img {
+  margin-right: 10px;
+}
 
 #additional-code {
   margin-top: 200px;
