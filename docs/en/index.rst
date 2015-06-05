@@ -30,17 +30,24 @@ website), and does not require any registration or login.
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
+   :numbered:
 
    who
    tour
    commands
    objects
+   advanced
+   creating
    students
    teachers
    translators
-   developers
    artists
+   developers
+   unique
+   weakness
+   comparison
+
    todo
 
 
