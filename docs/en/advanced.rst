@@ -28,3 +28,4 @@ Really advanced programming
 Python's standard library with JSON example to obtain the state of the
 world as a dict.
 
+Mention view_source and inspect, etc.
