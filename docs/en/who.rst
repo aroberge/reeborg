@@ -1,12 +1,20 @@
 Who is Reeborg?
 ================
 
+
+.. figure:: ../images/reeborg_costume.jpg
+   :figwidth: 40%
+   :align: right
+
+   Life-size Reeborg in New Jersey, USA.
+
+   *Photo courtesy of A. Judkis.*
+
+
 Reeborg is a robot; not a modern high quality robot, but a rather
 old one, put together rather quickly. **You** are going to be a good
 programmer, unlike the maker of Reeborg, who wrote a program littered with
 bugs.
-
-|costume|
 
 
 #. Reeborg has an oil leak. Oil leaks are damaging for the environment
@@ -61,4 +69,3 @@ following:
    what is known as an infinite loop, outside of Reeborg's control. If
    worse comes to worst, you can always just reload the web page.
 
-.. |costume| image:: ../images/reeborg_costume.jpg

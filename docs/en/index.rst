@@ -6,18 +6,27 @@
 Welcome to Reeborg's World's documentation!
 ===========================================
 
+.. figure:: ../images/reeborg_judkis.jpg
+   :figwidth: 35%
+   :align: right
 
-|reeborg_mini|
+   This is a model of Reeborg made by a student in New Jersey (USA) who
+   learned Python with RUR-PLE, an older version of Reeborg's World
+   that has been available as a desktop program since 2004.
 
-.. |reeborg_mini| image:: ../images/reeborg_judkis.jpg
-
+   *Photo courtesy of A. Judkis.*
 
 
 Reeborg's World is an adaptation of Richard Pattis's *Karel the robot*.
-It supports three programming languages (Python, Javascript and CoffeeScript) although
-the focus is on Python which is my favourite programming language and, I believe,
+It supports three programming languages (Python, Javascript and CoffeeScript).
+However, the focus of this documentation is on Python which is my
+favourite programming language and, I believe,
 the ideal one to use for teaching programming concepts.  Unless otherwise
 noted, this documentation refers to the Python version.
+
+
+Reeborg's World is free: free to use, free to copy (and put on a school's
+website), and does not require any registration or login.
 
 
 .. toctree::

@@ -1,11 +1,14 @@
 Information for students
 ========================
 
+.. figure:: ../images/student.jpg
+   :figwidth: 40%
+   :align: right
 
+   Student using Reeborg's World in California, USA.
 
-|student|
+   *Photo courtesy of A. Castano.*
 
-.. |student| image:: ../images/student.jpg
 
 .. todo::
 

@@ -46,3 +46,11 @@ It can also accept OOP-style programming.
 .. todo::
 
    more to come ...
+
+
+
+.. figure:: ../images/rurple_book.png
+
+   Two books (red for teacher, blue for students)
+   produced by Samsung Korea based on RUR-PLE, the desktop
+   program precursor to Reeborg's World.
