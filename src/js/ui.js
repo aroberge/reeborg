@@ -83,6 +83,8 @@ RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
     $("#highlight-impossible").hide();
     $("#stdout").html("");
+    $("#_write").html("");
+    $(".view_source").remove();
     $("#narrates").html("");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");

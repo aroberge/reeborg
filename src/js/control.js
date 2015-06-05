@@ -580,6 +580,14 @@ RUR.control.write = function () {
     RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
 };
 
+RUR.control._write = function () {
+    var output_string = '';
+    for (var i = 0; i < arguments.length; i++) {
+        output_string += arguments[i].toString();
+  }
+    RUR.rec.record_frame("output", {"element": "#_write", "message": output_string});
+};
+
 RUR.control.narration = function (arg) {
     RUR.rec.record_frame("output", {"element": "#narrates", "message": arg, "html": true});
 };

@@ -195,11 +195,12 @@ RUR.inspect = function (obj){
             result += props + "\n";
         }
     }
-    RUR.control.write(result);
+    RUR.control._write(result);
 };
 
 RUR.view_source = function(fn) {
-    $("#last-pre").before("<pre class='js_code'>" + fn + "</pre>" );
+    $("#Reeborg-writes").dialog("open");
+    $("#_write").before("<pre class='js_code view_source'>" + fn + "</pre>" );
     $('.js_code').each(function() {
         var $this = $(this), $code = $this.text();
         $this.removeClass("js_code");
@@ -936,6 +937,14 @@ RUR.control.write = function () {
         output_string += arguments[i].toString();
   }
     RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
+};
+
+RUR.control._write = function () {
+    var output_string = '';
+    for (var i = 0; i < arguments.length; i++) {
+        output_string += arguments[i].toString();
+  }
+    RUR.rec.record_frame("output", {"element": "#_write", "message": output_string});
 };
 
 RUR.control.narration = function (arg) {
@@ -3835,6 +3844,8 @@ RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
     $("#highlight-impossible").hide();
     $("#stdout").html("");
+    $("#_write").html("");
+    $(".view_source").remove();
     $("#narrates").html("");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");

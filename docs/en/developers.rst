@@ -38,14 +38,10 @@ it easier to explore the code.  For example, in Reeborg's World,
 select **Javascript** as a
 programming language and run the following program::
 
-    write(RUR.control.front_is_clear);
+    view_source(RUR.control.turn_left)
 
-You will see the code of that function extracted from the source, and somewhat
-readable (it is not as readable as it used to be given a new font used
-for Reeborg's writing - note to self: this could be improved upon).
-This would not be nearly as clear if the code was minified - and I made
-use of such example in an older tutorial to help students figure out
-how to implement new features by writing their own program.
+You will see the code of that function extracted from the source and
+inserted into a CodeMirror instance with formatting intact.
 
 Human-language specific Javascript files are found in
 https://github.com/aroberge/reeborg/tree/master/src/lang
