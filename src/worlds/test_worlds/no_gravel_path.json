@@ -1,0 +1,220 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "orientation": 0,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0
+    }
+  ],
+  "walls": {
+    "1,1": [
+      "north"
+    ],
+    "2,1": [
+      "north"
+    ],
+    "3,1": [
+      "north"
+    ],
+    "3,2": [
+      "east"
+    ],
+    "4,3": [
+      "north"
+    ],
+    "3,3": [
+      "east"
+    ],
+    "4,1": [
+      "east"
+    ],
+    "4,2": [
+      "east"
+    ],
+    "5,2": [
+      "north"
+    ],
+    "6,2": [
+      "north"
+    ],
+    "7,2": [
+      "north"
+    ],
+    "7,3": [
+      "east"
+    ],
+    "8,3": [
+      "north"
+    ],
+    "9,3": [
+      "north"
+    ],
+    "10,3": [
+      "north"
+    ],
+    "10,4": [
+      "east"
+    ],
+    "10,5": [
+      "east"
+    ],
+    "11,5": [
+      "north",
+      "east"
+    ],
+    "12,4": [
+      "north"
+    ],
+    "13,4": [
+      "north",
+      "east"
+    ],
+    "14,3": [
+      "north"
+    ],
+    "9,4": [
+      "north"
+    ],
+    "9,5": [
+      "east",
+      "north"
+    ],
+    "8,5": [
+      "north"
+    ],
+    "7,5": [
+      "north"
+    ],
+    "6,5": [
+      "north"
+    ],
+    "5,5": [
+      "north"
+    ],
+    "4,6": [
+      "east"
+    ],
+    "4,7": [
+      "east"
+    ],
+    "4,8": [
+      "east",
+      "north"
+    ],
+    "3,8": [
+      "north"
+    ],
+    "2,9": [
+      "east"
+    ],
+    "2,10": [
+      "east"
+    ],
+    "2,11": [
+      "east",
+      "north"
+    ],
+    "1,11": [
+      "north"
+    ],
+    "4,4": [
+      "east"
+    ],
+    "5,4": [
+      "north"
+    ],
+    "6,4": [
+      "north"
+    ],
+    "7,4": [
+      "north"
+    ],
+    "8,4": [
+      "north"
+    ],
+    "10,9": [
+      "north"
+    ],
+    "11,9": [
+      "north"
+    ],
+    "11,10": [
+      "east"
+    ],
+    "11,11": [
+      "east"
+    ],
+    "12,11": [
+      "north"
+    ],
+    "12,12": [
+      "east"
+    ],
+    "14,10": [
+      "north"
+    ],
+    "13,10": [
+      "north"
+    ],
+    "12,10": [
+      "east"
+    ],
+    "12,9": [
+      "east"
+    ],
+    "12,8": [
+      "north"
+    ],
+    "11,8": [
+      "east"
+    ],
+    "12,7": [
+      "north"
+    ],
+    "13,7": [
+      "north"
+    ],
+    "13,8": [
+      "east"
+    ],
+    "13,9": [
+      "east"
+    ],
+    "14,9": [
+      "north"
+    ],
+    "9,10": [
+      "east"
+    ],
+    "10,10": [
+      "north"
+    ],
+    "10,11": [
+      "east"
+    ],
+    "10,12": [
+      "east"
+    ]
+  },
+  "description": "Using <code>move()</code>, <code>turn_left()</code>, <code>front_is_clear()</code>, <code>right_is_clear()</code>, <code>at_goal()</code> and the Python keywords <code>if, else, elif, while, not, def</code>, have Reeborg decide on its own how to follow the path so it can go home.\n<br>--<br><em>En utilisant <code>avance()</code>, <code>tourne_a_gauche()</code>, <code>rien_devant()</code>, <code>rien_a_droite()</code>, <code>au_but()</code> et les mots Python <code>if, else, elif, while, not, def</code>, aidez Reeborg à trouver son chemin par lui-même pour qu'il puisse retourner à sa maison en suivant le sentier.</em>",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "tiles": {},
+  "goal": {
+    "possible_positions": [
+      [
+        14,
+        12
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 14,
+      "y": 12
+    }
+  }
+}

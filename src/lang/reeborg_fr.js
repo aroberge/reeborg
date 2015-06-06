@@ -9,12 +9,12 @@ var RUR = RUR || {};
 
 //required for lint.js
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, ReeborgError, rien_devant, rien_a_droite, "+
-                    " face_au_nord, termine, depose, prend, objet_ici, selectionne_monde,"+
-                    " jeton_ici, a_des_jetons, ecrit, au_but, au_but_orientation, selectionne_defi," +
+                    " face_au_nord, termine, depose, prend, objet_ici, Monde,"+
+                    " jeton_ici, a_des_jetons, ecrit, au_but, au_but_orientation," +
                     " construit_un_mur, pense, pause, repete, voir_source, son, confirmer, dis */\n";
 
-var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite, selectionne_defi,
-    face_au_nord, termine, depose, prend, objet_ici, selectionne_monde, jeton_ici,
+var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
+    face_au_nord, termine, depose, prend, objet_ici, Monde, jeton_ici,
     a_des_jetons, ecrit, au_but, au_but_orientation, construit_un_mur, pense,
     pause, repete, voir_source, son, RobotUsage,
     nombre_de_commandes, dis, confirmer;
@@ -77,8 +77,7 @@ RUR.reset_definitions = function () {
     dis = RUR.control.say;
     pause = RUR.control.pause;
     // defined in ui.js
-    selectionne_monde = RUR.ui.select_world;
-    selectionne_defi = RUR.ui.select_challenge;
+    Monde = RUR.ui.load_world;
     nombre_de_robots = RUR._set_max_nb_robots_;
 
     // The following are for OOP programming in Javascript and CoffeeScript

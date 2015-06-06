@@ -1,4 +1,4 @@
-World("gravel_path")
+World("/test_worlds/no_gravel_path")
 think(0)
 def turn_right():
     turn_left()

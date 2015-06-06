@@ -9,15 +9,15 @@ var RUR = RUR || {};
 
 // required for lint.js
 var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_clear, "+
-                    " is_facing_north, done, put, take, object_here, select_world, select_challenge,"+
+                    " is_facing_north, done, put, take, object_here, World,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, pause, repeat, sound," +
                     "RUR, inspect, view_source, verify, say, library, _write" +
     // do not translate  nor include the following instructions; they help make rur-ple created programs *almost* compatible
                     "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, set_max_steps*/\n";
 
-var move, turn_left, inspect, front_is_clear, right_is_clear, select_challenge,
-    is_facing_north, done, put, take, object_here, select_world, token_here,
+var move, turn_left, inspect, front_is_clear, right_is_clear,
+    is_facing_north, done, put, take, object_here, World, token_here,
     has_token, write, _write, at_goal, at_goal_orientation, build_wall, think,
     pause, repeat, view_source, sound, UsedRobot,
     set_max_steps, say, verify, ReeborgError;
@@ -84,8 +84,7 @@ RUR.reset_definitions = function () {
     say = RUR.control.say;
     pause = RUR.control.pause;
     // defined in ui.js
-    select_world = RUR.ui.select_world;
-    select_challenge = RUR.ui.select_challenge;
+    World = RUR.ui.load_world;
     set_max_nb_robots = RUR._set_max_nb_robots_;
 
 
