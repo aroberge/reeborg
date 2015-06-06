@@ -7,6 +7,11 @@ Information for teachers
     so that I can keep you informed of important changes.  I would also
     like to have an idea of who uses it.
 
+.. important::
+
+    (to be verified) I can save world definitions on my server so that these
+    could be loaded via select_challenge().
+
 
 
 Reeborg's World support a simple function-based programming style; for

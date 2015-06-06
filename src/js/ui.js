@@ -130,7 +130,7 @@ RUR.ui.select_world = function (s, silent) {
 };
 
 RUR.ui.load_file = function (filename, name, replace, elt, i) {
-    $.ajax({url: "src/json/" + filename + ".json",
+    $.ajax({url: "src/worlds/" + filename + ".json",
         async: false,
         error: function(e){
             RUR.ui.load_file_error = true;
@@ -138,12 +138,12 @@ RUR.ui.load_file = function (filename, name, replace, elt, i) {
         success: function(data){
             RUR.world.import_world(data);
             if (replace) {
-                elt.options[i].value = "src/json/" + filename + ".json";
+                elt.options[i].value = "src/worlds/" + filename + ".json";
                 elt.value = elt.options[i].value;
             } else {
                 $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                                      ).val("src/json/" + filename + ".json").html(name));
-                $('#select_world').val("src/json/" + filename + ".json");
+                                      ).val("src/worlds/" + filename + ".json").html(name));
+                $('#select_world').val("src/worlds/" + filename + ".json");
             }
             $("#select_world").change();
         }
@@ -153,15 +153,19 @@ RUR.ui.load_file = function (filename, name, replace, elt, i) {
 RUR.ui.select_challenge = function (filename) {
     // this is for worlds that are defined in a file not available from the
     // drop-down menu.
-    var name = "Challenge", elt = document.getElementById("select_world");
+    "use strict";
+    var elt = document.getElementById("select_world");
     RUR.ui.load_file_error = false;
+
+    // first look within already known worlds, either pre-defined or
+    // loaded and saved in local storage
     for (var i=0; i < elt.options.length; i++){
-        if (elt.options[i].text === name) {
+        if (elt.options[i].text === filename) {
             if (elt.options[i].selected) {
-                if (elt.options[i].value === "src/json/" + filename + ".json") {
+                if (elt.options[i].value === "src/worlds/" + filename + ".json") {
                     return;   // already selected, can run program
                 } else {
-                    RUR.ui.load_file(filename, name, true, elt, i);
+                    RUR.ui.load_file(filename, filename, true, elt, i);
                     if (RUR.ui.load_file_error) {
                         throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
                     }
@@ -170,7 +174,9 @@ RUR.ui.select_challenge = function (filename) {
             }
         }
     }
-    RUR.ui.load_file(filename, name, false);
+
+    // the requested world was not previously known.
+    RUR.ui.load_file(filename, filename, false);
     if (RUR.ui.load_file_error) {
         throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
     }
