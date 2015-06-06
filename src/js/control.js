@@ -420,7 +420,9 @@ RUR.control.front_is_clear = function(robot, flag){
     tile = RUR.control.tile_in_front(robot);
     if (tile) {
         if (tile.detectable && tile.fatal){
-            return false;
+            if (!(tile == RUR.tiles.water && RUR.control._bridge_present)){
+                return false;
+            }
         }
     }
 
@@ -437,6 +439,21 @@ RUR.control.front_is_clear = function(robot, flag){
 
     return true;
 };
+
+
+RUR.control._bridge_present = function(robot) {
+    var tiles, tilename;
+        tiles = RUR.control.top_tiles_in_front(robot);
+    if (tiles) {
+        for (tilename in tiles) {
+            if (tilename == "bridge") {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 
 RUR.control.right_is_clear = function(robot){
     var result;
