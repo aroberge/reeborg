@@ -191,7 +191,8 @@ RUR.load_permalink = function (filename) {
     $.ajax({url: "src/worlds/permalinks/" + filename,
         async: false,
         error: function(e){
-            throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
+            $("#Reeborg-shouts").html(RUR.translate("Could not find permalink")).dialog("open");
+            RUR.ui.stop();
         },
         success: function(data){
             RUR.update_permalink(data);
