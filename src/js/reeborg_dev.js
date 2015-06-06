@@ -779,9 +779,13 @@ RUR.control.front_is_clear = function(robot, flag){
     tile = RUR.control.tile_in_front(robot);
     if (tile) {
         if (tile.detectable && tile.fatal){
-            if (!(tile == RUR.tiles.water && RUR.control._bridge_present)){
-                return false;
-            }
+                if (tile == RUR.tiles.water) {
+                    if (!RUR.control._bridge_present(robot)){
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
         }
     }
 
