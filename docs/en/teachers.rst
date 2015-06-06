@@ -1,17 +1,69 @@
 Information for teachers
 ========================
 
-.. important::
+.. important:: Please help reduce bandwidth usage.
 
-    If you are a teacher using Reeborg's World, please get in touch with me
-    so that I can keep you informed of important changes.  I would also
-    like to have an idea of who uses it.
+    If http://reeborg.ca/world_dev.html is loaded in your browser, you
+    can update its contents in a number of ways explained below.
 
-.. important::
 
-    (to be verified) I can save world definitions on my server so that these
-    could be loaded via select_challenge().
+Reducing bandwidth
+------------------
 
+There are many features you can use to reduce bandwidth usage and have
+Reeborg's world be more responsive.   The first way is better illustrated
+by an example.
+
+Assuming you have
+http://reeborg.ca/world_dev.html already in a browser tab,  write the
+following one-liner in the editor and run this program (twice).
+
+.. code-block:: python
+
+    World("gravel_path")
+
+The first time the program is executed, the correct world is selected.
+The second time the program is executed, this instruction is ignored
+and the rest of the program (left up to you to write) is executed.
+
+Once the world is loaded, you might want to click on the
+"World info" button at the top, and then click anywhere on the world
+and see some information about this world, including a description
+of the task to accomplish.
+
+A world using exactly the same logic, but with a radically different
+appearance, can be loaded using
+
+.. code-block:: python
+
+    World("/test_worlds/no_gravel_path")
+
+Notice how this world is located in a subdirectory.
+
+World hosting
+*************
+
+I will host the worlds you create on my website so that they can
+be easily loaded using the above method and reduce bandwidth usage.
+Your worlds will be in your own subdirectory.
+However, I do have a request: you must agree to give me permission
+to make at least one of your worlds available to others
+by listing it on the `World contributed by users <contributed.html>`_
+page with proper attribution.
+
+Ideally, I would like to get permission to list **all** the worlds
+you create and that are hosted on my server.  If everyone does so,
+teaching resources will grow and become more useful to everyone as
+time goes on.
+
+Updated the world using permalinks
+**********************************
+
+To be explained.
+
+
+Programming paradigms
+---------------------
 
 
 Reeborg's World support a simple function-based programming style; for

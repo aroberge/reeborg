@@ -6,6 +6,14 @@
 Welcome to Reeborg's World's documentation!
 ===========================================
 
+
+.. important:: Please help reduce bandwidth usage.
+
+    If http://reeborg.ca/world_dev.html is loaded in your browser, you
+    can update its contents in a number of ways explained in the
+    Information for teacher's section and elsewhere.
+
+
 .. figure:: ../images/reeborg_judkis.jpg
    :figwidth: 35%
    :align: right
@@ -28,7 +36,6 @@ noted, this documentation refers to the Python version.
 Reeborg's World is free: free to use, free to copy (and put on a school's
 website), and does not require any registration or login.
 
-
 .. toctree::
    :maxdepth: 3
    :numbered:
@@ -39,6 +46,7 @@ website), and does not require any registration or login.
    objects
    advanced
    creating
+   contributed
    students
    teachers
    translators

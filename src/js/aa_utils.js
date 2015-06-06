@@ -186,6 +186,20 @@ RUR.cancel_permalink = function () {
 };
 
 
+RUR.load_permalink = function (filename) {
+    "use strict";
+    $.ajax({url: "src/worlds/permalinks/" + filename,
+        async: false,
+        error: function(e){
+            throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
+        },
+        success: function(data){
+            RUR.update_permalink(data);
+            RUR.ui.reload();
+        }
+    }, "text");
+};
+
 RUR.inspect = function (obj){
     var props, result = "";
     for (props in obj) {
