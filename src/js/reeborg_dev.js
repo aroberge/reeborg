@@ -1936,6 +1936,7 @@ RUR.top_tiles.bridge = {};
 RUR.top_tiles.bridge.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.bridge.image = new Image();
 RUR.top_tiles.bridge.image.src = 'src/images/bridge.png';
+RUR.top_tiles.bridge.info = RUR.translate("Bridge:") + RUR.translate("Reeborg <b>can</b> detect this and will know that it allows safe passage over water.");
 RUR.top_tiles.bridge.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh();
@@ -1943,6 +1944,7 @@ RUR.top_tiles.bridge.image.onload = function () {
 };
 
 RUR.top_tiles.fence4 = {};
+RUR.top_tiles.fence4.name = "fence";
 RUR.top_tiles.fence4.fatal = true;
 RUR.top_tiles.fence4.detectable = true;
 RUR.top_tiles.fence4.message = RUR.translate("I hit a fence!");
@@ -1957,6 +1959,7 @@ RUR.top_tiles.fence4.image.onload = function () {
 };
 
 RUR.top_tiles.fence5 = {};
+RUR.top_tiles.fence5.name = "fence";
 RUR.top_tiles.fence5.fatal = true;
 RUR.top_tiles.fence5.detectable = true;
 RUR.top_tiles.fence5.message = RUR.translate("I hit a fence!");
@@ -1971,6 +1974,7 @@ RUR.top_tiles.fence5.image.onload = function () {
 };
 
 RUR.top_tiles.fence6 = {};
+RUR.top_tiles.fence6.name = "fence";
 RUR.top_tiles.fence6.fatal = true;
 RUR.top_tiles.fence6.detectable = true;
 RUR.top_tiles.fence6.message = RUR.translate("I hit a fence!");
@@ -1985,6 +1989,7 @@ RUR.top_tiles.fence6.image.onload = function () {
 };
 
 RUR.top_tiles.fence7 = {};
+RUR.top_tiles.fence7.name = "fence";
 RUR.top_tiles.fence7.fatal = true;
 RUR.top_tiles.fence7.detectable = true;
 RUR.top_tiles.fence7.message = RUR.translate("I hit a fence!");
@@ -5261,6 +5266,7 @@ RUR.we.show_world_info = function (no_grid) {
     // enabled in doc_ready.js
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
     var topic, no_object, r, robot, robots;
+    var tiles, tilename, fence_noted = false;
 
     information = "";
     //$("#World-info").dialog("open");
@@ -5285,6 +5291,28 @@ RUR.we.show_world_info = function (no_grid) {
             information += "<br>" + tile.info;
         }
     }
+
+    tiles = RUR.control.get_top_tiles_at_position(x, y);
+    if (tiles) {
+        for (tilename in tiles) {
+            tile = RUR.top_tiles[tilename];
+            if (tile.info){
+                if (topic){
+                    topic = false;
+                    information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
+                }
+                if (tile.name == "fence") {
+                    if (!fence_noted) {
+                        fence_noted = true;
+                        information += "<br>" + tile.info;
+                    }
+                } else {
+                    information +=  "<br>" + tile.info;;
+                }
+            }
+        }
+    }
+
     obj = RUR.current_world.objects;
     topic = true;
     if (obj !== undefined && obj[coords] !== undefined){

@@ -323,6 +323,7 @@ RUR.we.show_world_info = function (no_grid) {
     // enabled in doc_ready.js
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
     var topic, no_object, r, robot, robots;
+    var tiles, tilename, fence_noted = false;
 
     information = "";
     //$("#World-info").dialog("open");
@@ -347,6 +348,28 @@ RUR.we.show_world_info = function (no_grid) {
             information += "<br>" + tile.info;
         }
     }
+
+    tiles = RUR.control.get_top_tiles_at_position(x, y);
+    if (tiles) {
+        for (tilename in tiles) {
+            tile = RUR.top_tiles[tilename];
+            if (tile.info){
+                if (topic){
+                    topic = false;
+                    information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
+                }
+                if (tile.name == "fence") {
+                    if (!fence_noted) {
+                        fence_noted = true;
+                        information += "<br>" + tile.info;
+                    }
+                } else {
+                    information +=  "<br>" + tile.info;;
+                }
+            }
+        }
+    }
+
     obj = RUR.current_world.objects;
     topic = true;
     if (obj !== undefined && obj[coords] !== undefined){
