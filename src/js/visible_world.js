@@ -219,10 +219,12 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
         k = keys[key].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        if ( walls[keys[key]].indexOf("north") !== -1) {
+        if ( walls[keys[key]].indexOf("north") !== -1 &&
+            i <= RUR.COLS && j <= RUR.ROWS) {
             RUR.vis_world.draw_north_wall(ctx, i, j);
         }
-        if (walls[keys[key]].indexOf("east") !== -1) {
+        if (walls[keys[key]].indexOf("east") !== -1 &&
+            i <= RUR.COLS && j <= RUR.ROWS) {
             RUR.vis_world.draw_east_wall(ctx, i, j);
         }
     }
@@ -348,10 +350,12 @@ RUR.vis_world.draw_goal_walls = function (goal, ctx) {
         k = keys[key].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        if ( goal.walls[keys[key]].indexOf("north") !== -1) {
+        if ( goal.walls[keys[key]].indexOf("north") !== -1 &&
+            i <= RUR.COLS && j <= RUR.ROWS) {
             RUR.vis_world.draw_north_wall(ctx, i, j, true);
         }
-        if (goal.walls[keys[key]].indexOf("east") !== -1) {
+        if (goal.walls[keys[key]].indexOf("east") !== -1 &&
+            i <= RUR.COLS && j <= RUR.ROWS) {
             RUR.vis_world.draw_east_wall(ctx, i, j, true);
         }
     }
@@ -392,24 +396,26 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
             grid_pos = coords.split(",");
             i = parseInt(grid_pos[0], 10);
             j = parseInt(grid_pos[1], 10);
-            for (obj_name in objects_here){
-                if (objects_here.hasOwnProperty(obj_name)){
-                    if (tile){
-                        specific_object = RUR.top_tiles[obj_name];
-                    } else {
-                        specific_object = RUR.objects[obj_name];
+            if (i <= RUR.COLS && j <= RUR.ROWS) {
+                for (obj_name in objects_here){
+                    if (objects_here.hasOwnProperty(obj_name)){
+                        if (tile){
+                            specific_object = RUR.top_tiles[obj_name];
+                        } else {
+                            specific_object = RUR.objects[obj_name];
+                        }
+                        if (goal) {
+                            ctx = RUR.GOAL_CTX;
+                            image = specific_object.image_goal;
+                        } else if (specific_object.ctx !== undefined){
+                            ctx = specific_object.ctx;
+                            image = specific_object.image;
+                        } else {
+                            ctx = RUR.OBJECTS_CTX;
+                            image = specific_object.image;
+                        }
+                        RUR.vis_world.draw_single_object(image, i, j, ctx);
                     }
-                    if (goal) {
-                        ctx = RUR.GOAL_CTX;
-                        image = specific_object.image_goal;
-                    } else if (specific_object.ctx !== undefined){
-                        ctx = specific_object.ctx;
-                        image = specific_object.image;
-                    } else {
-                        ctx = RUR.OBJECTS_CTX;
-                        image = specific_object.image;
-                    }
-                    RUR.vis_world.draw_single_object(image, i, j, ctx);
                 }
             }
         }
@@ -419,6 +425,9 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
 RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
     var thick = RUR.WALL_THICKNESS;
     var x, y;
+    if (i > RUR.COLS || j > RUR.ROWS){
+        return;
+    }
     x = i*RUR.WALL_LENGTH + thick/2;
     y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
     ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
@@ -499,7 +508,7 @@ RUR.vis_world.draw_info = function() {
         i = parseInt(coords[0], 10);
         j = parseInt(coords[1], 10);
         info = RUR.vis_world.information[coords][1];
-        if (info != 1){
+        if (info != 1 && i <= RUR.COLS && j <= RUR.ROWS){
             text_width = ctx.measureText(info).width/2;
             ctx.font = RUR.BACKGROUND_CTX.font;
             ctx.fillStyle = RUR.vis_world.information[coords][2];

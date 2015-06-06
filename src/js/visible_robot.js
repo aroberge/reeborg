@@ -119,6 +119,9 @@ RUR.vis_robot.draw = function (robot) {
     if (!robot) {
         return;
     }
+    if (robot.x > RUR.COLS || robot.y > RUR.ROWS) {
+        return;
+    }
 
     // all images are taken to be centered on a tile 40x40, which are scaled
     //  appropriately
@@ -178,6 +181,9 @@ RUR.vis_robot.draw = function (robot) {
 RUR.vis_robot.draw_trace = function (robot) {
     "use strict";
     if (robot === undefined || robot._is_leaky === false || robot.orientation === -1) {
+        return;
+    }
+    if (robot.x > RUR.COLS || robot.y > RUR.ROWS) {
         return;
     }
     var ctx = RUR.TRACE_CTX;
