@@ -9,7 +9,7 @@ var RUR = RUR || {};
 
 // required for lint.js
 var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_clear, "+
-                    " is_facing_north, done, put, take, object_here, World,"+
+                    " is_facing_north, done, put, take, object_here, World, Permalink,"+
                     " token_here, has_token, write, at_goal, at_goal_orientation," +
                     " build_wall, think, pause, repeat, sound," +
                     "RUR, inspect, view_source, verify, say, library, _write" +
@@ -17,7 +17,7 @@ var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_c
                     "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, set_max_steps*/\n";
 
 var move, turn_left, inspect, front_is_clear, right_is_clear,
-    is_facing_north, done, put, take, object_here, World, token_here,
+    is_facing_north, done, put, take, object_here, World, Permalink, token_here,
     has_token, write, _write, at_goal, at_goal_orientation, build_wall, think,
     pause, repeat, view_source, sound, UsedRobot,
     set_max_steps, say, verify, ReeborgError;
@@ -85,6 +85,7 @@ RUR.reset_definitions = function () {
     pause = RUR.control.pause;
     // defined in ui.js
     World = RUR.ui.load_world;
+    Permalink = RUR.load_permalink;
     set_max_nb_robots = RUR._set_max_nb_robots_;
 
 

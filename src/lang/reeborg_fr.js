@@ -9,12 +9,12 @@ var RUR = RUR || {};
 
 //required for lint.js
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, ReeborgError, rien_devant, rien_a_droite, "+
-                    " face_au_nord, termine, depose, prend, objet_ici, Monde,"+
+                    " face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,"+
                     " jeton_ici, a_des_jetons, ecrit, au_but, au_but_orientation," +
                     " construit_un_mur, pense, pause, repete, voir_source, son, confirmer, dis */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
-    face_au_nord, termine, depose, prend, objet_ici, Monde, jeton_ici,
+    face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien, jeton_ici,
     a_des_jetons, ecrit, au_but, au_but_orientation, construit_un_mur, pense,
     pause, repete, voir_source, son, RobotUsage,
     nombre_de_commandes, dis, confirmer;
@@ -78,6 +78,7 @@ RUR.reset_definitions = function () {
     pause = RUR.control.pause;
     // defined in ui.js
     Monde = RUR.ui.load_world;
+    Permalien = RUR.load_permalink;
     nombre_de_robots = RUR._set_max_nb_robots_;
 
     // The following are for OOP programming in Javascript and CoffeeScript
