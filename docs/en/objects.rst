@@ -53,9 +53,11 @@ Background tiles
 :grass: |grass|  Harmless for Reeborg to walk on.
 :gravel: |gravel|  Harmless for Reeborg to walk on.
 :water: |water| Can cause Reeborg to drown.  Fortunately, Reeborg can
-  detect it using front_is_clear().
+  detect it using ``front_is_clear()``.
 :mud: |mud| Can cause Reeborg to get hopelessly stuck.  Reeborg cannot
   detect mud before stepping into it.
+:brick wall: |bricks|  Reeborg can crash into this; fortuntaly, it can
+    detect it using ``front_is_clear()``.
 :ice: |ice| Causes Reeborg to slip and continue it movement towards the next
   tile.  This could be problematic if an obstacle lies there.  Reeborg cannot
   detect ice before stepping into it.
@@ -127,6 +129,7 @@ one of these images is used:
 .. |ice| image:: ../images/ice.png
 .. |water| image:: ../images/water.png
 .. |mud| image:: ../images/mud.png
+.. |bricks| image:: ../images/bricks.png
 .. |slip| image:: ../images/ice_slip.gif
 
 .. |bridge| image:: ../images/bridge.png
