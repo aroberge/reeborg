@@ -5053,6 +5053,15 @@ RUR.we.edit_world = function  () {
             value = RUR.we.edit_world_flag.substring(5);
             RUR.we.toggle_tile(value);
             break;
+        case "fill-mud":
+        case "fill-water":
+        case "fill-gravel":
+        case "fill-ice":
+        case "fill-grass":
+        case "fill-bricks":
+            value = RUR.we.edit_world_flag.substring(5);
+            RUR.we.fill_with_tile(value);
+            break;
         case "toptile-bridge":
         case "toptile-fence4":
         case "toptile-fence5":
@@ -5138,6 +5147,10 @@ RUR.we.select = function (choice) {
             $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
             break;
+        case "world-fill-tiles":
+            $("#fill-tile").show();
+            $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
+            break;
         case "world-toptiles":
             $("#edit-top-tile").show();
             $("#cmd-result").html(RUR.translate("Click on desired top tile below.")).effect("highlight", {color: "gold"}, 1500);
@@ -5179,6 +5192,16 @@ RUR.we.select = function (choice) {
             value = choice.substring(5);
             $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "fill-mud":
+        case "fill-water":
+        case "fill-ice":
+        case "fill-gravel":
+        case "fill-grass":
+        case "fill-bricks":
+            value = choice.substring(5);
+            $("#fill-tile").show();
+            $("#cmd-result").html(RUR.translate("Click on world to fill with given tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "toptile-bridge":
         case "toptile-fence4":
@@ -5946,6 +5969,18 @@ RUR.we.toggle_tile = function (tile){
         RUR.current_world.tiles[coords] = tile;
     } else {
         delete RUR.current_world.tiles[coords];
+    }
+};
+
+RUR.we.fill_with_tile = function (tile) {
+    var x, y, coords;
+
+    RUR.we.ensure_key_exist(RUR.current_world, "tiles");
+    for (x = 1; x <= RUR.COLS; x++) {
+        for (y = 1; y <= RUR.ROWS; y++) {
+            coords = x + "," + y;
+            RUR.current_world.tiles[coords] = tile;
+        }
     }
 };
 
