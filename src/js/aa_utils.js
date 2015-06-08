@@ -185,10 +185,23 @@ RUR.cancel_permalink = function () {
     $("#permalink").addClass('blue-gradient');
 };
 
+// from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
+$.ajaxPrefilter( function (options) {
+  if (options.crossDomain && jQuery.support.cors) {
+    var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+    options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+  }
+});
 
 RUR.load_permalink = function (filename) {
     "use strict";
-    $.ajax({url: "src/worlds/permalinks/" + filename,
+    var url;
+    if (filename.substring(0,4).toLowerCase() == "http") {
+        url = filename
+    } else {
+        url = "src/worlds/permalinks/" + filename;
+    }
+    $.ajax({url: url,
         async: false,
         error: function(e){
             $("#Reeborg-shouts").html(RUR.translate("Could not find permalink")).dialog("open");
@@ -200,6 +213,7 @@ RUR.load_permalink = function (filename) {
         }
     }, "text");
 };
+
 
 RUR.inspect = function (obj){
     var props, result = "";
