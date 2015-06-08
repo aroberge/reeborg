@@ -43,6 +43,11 @@ Notice how this world is located in a subdirectory.
 World hosting
 *************
 
+.. note::
+
+    Les équivalents français de ``World`` et ``Permalink`` sont
+    ``Monde`` et ``Permalien``.
+
 I will host the worlds you create on my website so that they can
 be easily loaded using the above method and reduce bandwidth usage.
 Your worlds will be in your own subdirectory.
@@ -59,7 +64,19 @@ time goes on.
 Updated the world using permalinks
 **********************************
 
-To be explained.
+A second, similar way, is to use hosted permalinks.  For example,
+you can try the following:
+
+.. code-block:: python
+
+    Permalink("test_permalink")
+
+Permalinks can encode world state as well as editor and library
+content - thus can be used to show a complete solution.  If permalinks
+are hosted, a pure "world" version (without any program) would be made;
+permalinks themselves will not be divulged on a public site unless
+they only contain program stubs (and/or simple library content).
+
 
 
 Programming paradigms

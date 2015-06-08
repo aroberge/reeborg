@@ -84,6 +84,28 @@ expected behaviour of a tile.
 
 |box-blocked|
 
+Goals
+-----
+
+Reeborg, must accomplish certain goals, like reaching a final position,
+or dropping certain objects at a certain location.
+To indicate that one (or more) object must be dropped at a given
+position, these grey images are used:
+
+|apple_goal| |banana_goal| |carrot_goal|
+|daisy_goal| |dandelion_goal| |leaf_goal| |orange_goal|
+|strawberry_goal| |tulip_goal| |square_goal| |star_goal|
+|triangle_goal| |token_goal|
+
+
+To indicate that Reeborg must end its task at a given final position,
+one of these images is used:
+
+|green_home_tile| |house| |racing_flag|
+
+.. |green_home_tile| image:: ../images/green_home_tile.png
+.. |house| image:: ../images/house.png
+.. |racing_flag| image:: ../images/racing_flag.png
 
 .. |apple| image:: ../images/apple.png
 .. |banana| image:: ../images/banana.png
@@ -115,5 +137,17 @@ expected behaviour of a tile.
 .. |fence7| image:: ../images/fence7.png
 .. |box-blocked| image:: ../images/box_blocked.gif
 
-
+.. |apple_goal| image:: ../images/apple_goal.png
+.. |banana_goal| image:: ../images/banana_goal.png
+.. |carrot_goal| image:: ../images/carrot_goal.png
+.. |daisy_goal| image:: ../images/daisy_goal.png
+.. |dandelion_goal| image:: ../images/dandelion_goal.png
+.. |leaf_goal| image:: ../images/leaf_goal.png
+.. |orange_goal| image:: ../images/orange_goal.png
+.. |strawberry_goal| image:: ../images/strawberry_goal.png
+.. |tulip_goal| image:: ../images/tulip_goal.png
+.. |square_goal| image:: ../images/square_goal.png
+.. |star_goal| image:: ../images/star_goal.png
+.. |triangle_goal| image:: ../images/triangle_goal.png
+.. |token_goal| image:: ../images/token_goal.png
 

@@ -1,6 +1,14 @@
 Information for developers
 ==========================
 
+.. note::
+
+   Currently, there are no unit tests.
+
+
+   I know, I know ...
+
+
 Reeborg's World code is on Github
 https://github.com/aroberge/reeborg
 
@@ -42,6 +50,8 @@ programming language and run the following program::
 
 You will see the code of that function extracted from the source and
 inserted into a CodeMirror instance with formatting intact.
+If you attempt to do the same from Python, you will see some Javascript
+code translated by Brython ... which will be less than useful.
 
 Human-language specific Javascript files are found in
 https://github.com/aroberge/reeborg/tree/master/src/lang

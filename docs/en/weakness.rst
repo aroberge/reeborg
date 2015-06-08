@@ -62,7 +62,7 @@ Feedback for programming errors could be improved
 -------------------------------------------------
 
 Currently, if a Python program fails with some types
-of errors like `SyntaxError`, `IndentationError`, or `NameError`, some
+of errors like ``SyntaxError``, ``IndentationError``, or ``NameError``, some
 limited analysis is performed in an attempt to identify some
 common mistakes (e.g. missing colons, or missing parentheses).
 This could be expanded to cover more types of errors and identify
@@ -70,6 +70,6 @@ more potential problems.
 
 It has been suggested that if a program runs successfully, but a given
 task has not been accomplished successfully, that a program be analyzed
-to look at common errors (e.g. writing `if object_here:`, which would
-be treated as being always `True`  instead of `if object_here():`) and
+to look at common errors (e.g. writing ``if object_here:``, which would
+be treated as being always ``True``  instead of ``if object_here():``) and
 report if any such errors are identified.
