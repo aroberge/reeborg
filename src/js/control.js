@@ -9,7 +9,8 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     "use strict";
-    var tile, tiles, tilename, pushable_object_in_front, pushable_object_beyond,
+    var tile, tiles, tilename, fatal_tile_beyond,
+        pushable_object_here, pushable_object_beyond,
         wall_beyond, x_beyond, y_beyond;
 
     if (RUR.control.wall_in_front(robot, true)) {
@@ -43,17 +44,34 @@ RUR.control.move = function (robot) {
         throw new Error("Should not happen: unhandled case in RUR.control.move().");
     }
 
-    pushable_object_in_front = RUR.pushable_object_in_front(robot.x, robot.y);
+    pushable_object_here = RUR.control.pushable_object_here(robot.x, robot.y);
 
-    if (pushable_object_in_front) {
-        pushable_object_beyond = RUR.pushable_object_in_front(x_beyond, y_beyond);
-        wall_beyond = !RUR.control.front_is_clear(robot, true);
-        if (pushable_object_beyond || wall_beyond){
+    if (pushable_object_here) {
+        // we had assume that we have made a successful move as nothing was
+        // blocking the robot which is now at its next position.
+        // However, something may have prevented the pushable object from
+        // actually being pushed
+        wall_beyond = RUR.control.wall_in_front(robot, true);
+        pushable_object_beyond = RUR.control.pushable_object_here(x_beyond, y_beyond);
+        fatal_tile_beyond = RUR.control.get_tile_at_position(x_beyond, y_beyond);
+        if (fatal_tile_beyond) {
+            if (fatal_tile_beyond.fatal) {
+                if (fatal_tile_beyond == RUR.tiles.water && pushable_object_here == "box") {
+                    fatal_tile_beyond = false;
+                } else {
+                    fatal_tile_beyond = true;
+                }
+            } else {
+                fatal_tile_beyond = false;
+            }
+        }
+
+        if (pushable_object_beyond || wall_beyond || fatal_tile_beyond) {
             robot.x = robot._prev_x;
             robot.y = robot._prev_y;
             throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
         } else {
-            RUR.control.move_object(pushable_object_in_front, robot.x, robot.y,
+            RUR.control.move_object(pushable_object_here, robot.x, robot.y,
             x_beyond, y_beyond);
         }
     }
@@ -643,7 +661,7 @@ RUR.control.get_top_tiles_at_position = function (x, y) {
 };
 
 
-RUR.pushable_object_in_front = function(x, y) {
+RUR.control.pushable_object_here = function(x, y) {
     "use strict";
     var objects_here, obj_here, obj_type, coords = x + ',' + y;
     if (RUR.current_world.objects === undefined) return false;
