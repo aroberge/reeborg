@@ -430,7 +430,6 @@ RUR.control.move = function (robot) {
         fatal_tile_beyond = RUR.control.get_tile_at_position(x_beyond, y_beyond);
         if (fatal_tile_beyond) {
             if (fatal_tile_beyond.fatal) {
-                console.log("pushable_object_here", pushable_object_here);
                 if (fatal_tile_beyond == RUR.tiles.water && pushable_object_here == "box") {
                     fatal_tile_beyond = false;
                 } else {
