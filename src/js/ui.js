@@ -90,9 +90,7 @@ RUR.ui.reload = function() {
     $("#Reeborg-shouts").dialog("close");
     // reset the options in case the user has dragged the dialogs as it would
     // then open at the top left of the window
-    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
-                                              autoOpen:false, width:500,
-                                              position:{my: "top", at: "bottom", of: $("header")}});
+    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.runner.interpreted = false;

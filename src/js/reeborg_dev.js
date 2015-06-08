@@ -1470,8 +1470,7 @@ $(document).ready(function() {
     });
 
 
-    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
-                                    position:{my: "top", at: "bottom", of: $("header")}});
+    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
@@ -3897,9 +3896,7 @@ RUR.ui.reload = function() {
     $("#Reeborg-shouts").dialog("close");
     // reset the options in case the user has dragged the dialogs as it would
     // then open at the top left of the window
-    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
-                                              autoOpen:false, width:500,
-                                              position:{my: "top", at: "bottom", of: $("header")}});
+    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.runner.interpreted = false;
