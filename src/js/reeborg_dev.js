@@ -1910,6 +1910,20 @@ RUR.tiles.water.image.onload = function () {
     }
 };
 
+RUR.tiles.bricks = {};
+RUR.tiles.bricks.fatal = true;
+RUR.tiles.bricks.solid = true;
+RUR.tiles.bricks.detectable = true;
+RUR.tiles.bricks.message = RUR.translate("Crash!");
+RUR.tiles.bricks.info = RUR.translate("brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.");
+RUR.tiles.bricks.image = new Image();
+RUR.tiles.bricks.image.src = 'src/images/bricks.png';
+RUR.tiles.bricks.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
 RUR.home_images.green_home_tile = {};
 RUR.home_images.green_home_tile.fatal = true;
 RUR.home_images.green_home_tile.detectable = true;
@@ -5015,6 +5029,7 @@ RUR.we.edit_world = function  () {
         case "tile-gravel":
         case "tile-ice":
         case "tile-grass":
+        case "tile-bricks":
             value = RUR.we.edit_world_flag.substring(5);
             RUR.we.toggle_tile(value);
             break;
@@ -5140,6 +5155,7 @@ RUR.we.select = function (choice) {
         case "tile-ice":
         case "tile-gravel":
         case "tile-grass":
+        case "tile-bricks":
             value = choice.substring(5);
             $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);

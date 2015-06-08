@@ -316,6 +316,20 @@ RUR.tiles.water.image.onload = function () {
     }
 };
 
+RUR.tiles.bricks = {};
+RUR.tiles.bricks.fatal = true;
+RUR.tiles.bricks.solid = true;
+RUR.tiles.bricks.detectable = true;
+RUR.tiles.bricks.message = RUR.translate("Crash!");
+RUR.tiles.bricks.info = RUR.translate("brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.");
+RUR.tiles.bricks.image = new Image();
+RUR.tiles.bricks.image.src = 'src/images/bricks.png';
+RUR.tiles.bricks.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+};
+
 RUR.home_images.green_home_tile = {};
 RUR.home_images.green_home_tile.fatal = true;
 RUR.home_images.green_home_tile.detectable = true;

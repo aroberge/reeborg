@@ -35,6 +35,7 @@ RUR.we.edit_world = function  () {
         case "tile-gravel":
         case "tile-ice":
         case "tile-grass":
+        case "tile-bricks":
             value = RUR.we.edit_world_flag.substring(5);
             RUR.we.toggle_tile(value);
             break;
@@ -160,6 +161,7 @@ RUR.we.select = function (choice) {
         case "tile-ice":
         case "tile-gravel":
         case "tile-grass":
+        case "tile-bricks":
             value = choice.substring(5);
             $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
