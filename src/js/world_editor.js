@@ -218,6 +218,9 @@ RUR.we.select = function (choice) {
         case "goal-no-objects":
             $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no object left as a goal.")).effect("highlight", {color: "gold"}, 1500);
             break;
+        case "set-dimensions":
+            RUR.cd.dialog_set_dimensions.dialog('open');
+            break;
     }
 };
 

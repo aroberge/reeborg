@@ -153,7 +153,7 @@ $(document).ready(function() {
         autoOpen: false,
         height: 400,
         width: 500,
-        modal: true,
+        //modal: true,
         buttons: {
             "OK": RUR.cd.set_dimensions,
             Cancel: function() {

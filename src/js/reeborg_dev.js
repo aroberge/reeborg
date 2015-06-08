@@ -1208,7 +1208,7 @@ $(document).ready(function() {
         autoOpen: false,
         height: 400,
         width: 500,
-        modal: true,
+        //modal: true,
         buttons: {
             "OK": RUR.cd.set_dimensions,
             Cancel: function() {
@@ -5197,6 +5197,9 @@ RUR.we.select = function (choice) {
             break;
         case "goal-no-objects":
             $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no object left as a goal.")).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "set-dimensions":
+            RUR.cd.dialog_set_dimensions.dialog('open');
             break;
     }
 };
