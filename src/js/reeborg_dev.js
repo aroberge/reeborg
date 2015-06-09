@@ -5883,18 +5883,22 @@ RUR.we.add_goal_objects = function (specific_object, x, y, nb){
     RUR.we.ensure_key_exist(RUR.current_world.goal.objects, coords);
     if (nb === 0) {
         delete RUR.current_world.goal.objects[coords][specific_object];
-        if (Object.keys(RUR.current_world.goal.objects).length === 0){
+        console.log("deleted object goal", specific_object);
+        console.log("goal here before cleaning up", RUR.current_world.goal.objects[coords]);
+        if (JSON.stringify(RUR.current_world.goal.objects[coords]) === '{}'){
+            console.log("length is zero");
             delete RUR.current_world.goal.objects[coords];
         }
-        if (Object.keys(RUR.current_world.goal.objects).length === 0){
+        if (JSON.stringify(RUR.current_world.goal.objects) === '{}'){
             delete RUR.current_world.goal.objects;
         }
-        if (Object.keys(RUR.current_world.goal).length === 0){
+        if (JSON.stringify(RUR.current_world.goal) === '{}'){
             delete RUR.current_world.goal;
         }
     } else {
         RUR.current_world.goal.objects[coords][specific_object] = nb;
     }
+    console.log("done with adding goal; current goal here:", RUR.current_world.goal.objects[coords]);
 };
 
 
