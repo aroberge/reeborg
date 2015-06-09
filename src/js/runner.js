@@ -95,6 +95,7 @@ RUR.runner.assign_initial_values = function () {
         delete goal.possible_positions;
     }
     if (RUR.current_world.goal !== undefined) {
+        RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.vis_world.draw_goal();
     }
     RUR.rec.record_frame("debug", "RUR.runner.assign_initial_values");

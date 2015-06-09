@@ -3563,6 +3563,7 @@ RUR.runner.assign_initial_values = function () {
         delete goal.possible_positions;
     }
     if (RUR.current_world.goal !== undefined) {
+        RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.vis_world.draw_goal();
     }
     RUR.rec.record_frame("debug", "RUR.runner.assign_initial_values");
@@ -6051,7 +6052,6 @@ RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
         }
     }
     if (RUR.current_world.goal !== undefined) {
-        console.log(RUR.current_world.goal);
         if (RUR.current_world.goal.possible_positions !== undefined) {
             delete RUR.current_world.goal.possible_positions;
             delete RUR.current_world.goal.position;
