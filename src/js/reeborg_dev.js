@@ -397,7 +397,8 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     "use strict";
-    var tile, tiles, tilename, fatal_tile_beyond, fatal_top_tile_beyond,
+    var tile, tiles, tilename, tile_beyond, solid_tile_beyond,
+        top_tiles_beyond, solid_top_tile_beyond,
         pushable_object_here, pushable_object_beyond,
         wall_beyond, x_beyond, y_beyond;
 
@@ -441,22 +442,24 @@ RUR.control.move = function (robot) {
         // actually being pushed
         wall_beyond = RUR.control.wall_in_front(robot, true);
         pushable_object_beyond = RUR.control.pushable_object_here(x_beyond, y_beyond);
-        fatal_tile_beyond = RUR.control.get_tile_at_position(x_beyond, y_beyond);
-        fatal_top_tile_beyond = RUR.control.get_top_tiles_at_position(x_beyond, y_beyond);
-
-        if (fatal_tile_beyond) {
-            if (fatal_tile_beyond.fatal) {
-                if (fatal_tile_beyond == RUR.tiles.water && pushable_object_here == "box") {
-                    fatal_tile_beyond = false;
-                } else {
-                    fatal_tile_beyond = true;
-                }
+        tile_beyond = RUR.control.get_tile_at_position(x_beyond, y_beyond);
+        if (tile_beyond && tile_beyond.solid) {
+            solid_tile_beyond = true;
             } else {
-                fatal_tile_beyond = false;
+            solid_tile_beyond = false;
+        }
+
+        top_tiles_beyond = RUR.control.get_top_tiles_at_position(x_beyond, y_beyond);
+        solid_top_tile_beyond = false;
+        if (top_tiles_beyond) {
+            for (tilename in top_tiles_beyond) {
+                if (RUR.top_tiles[tilename] !== undefined && RUR.top_tiles[tilename].solid) {
+                    solid_top_tile_beyond = true;
+                }
             }
         }
 
-        if (pushable_object_beyond || wall_beyond || fatal_tile_beyond || fatal_top_tile_beyond) {
+        if (pushable_object_beyond || wall_beyond || solid_tile_beyond || solid_top_tile_beyond) {
             robot.x = robot._prev_x;
             robot.y = robot._prev_y;
             throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
@@ -494,7 +497,6 @@ RUR.control.move = function (robot) {
             }
         }
     }
-
 };
 
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
@@ -2000,6 +2002,7 @@ RUR.top_tiles.bridge.image.onload = function () {
 RUR.top_tiles.fence4 = {};
 RUR.top_tiles.fence4.name = "fence";
 RUR.top_tiles.fence4.fatal = true;
+RUR.top_tiles.fence4.solid = true;
 RUR.top_tiles.fence4.detectable = true;
 RUR.top_tiles.fence4.message = RUR.translate("I hit a fence!");
 RUR.top_tiles.fence4.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
@@ -2015,6 +2018,7 @@ RUR.top_tiles.fence4.image.onload = function () {
 RUR.top_tiles.fence5 = {};
 RUR.top_tiles.fence5.name = "fence";
 RUR.top_tiles.fence5.fatal = true;
+RUR.top_tiles.fence5.solid = true;
 RUR.top_tiles.fence5.detectable = true;
 RUR.top_tiles.fence5.message = RUR.translate("I hit a fence!");
 RUR.top_tiles.fence5.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
@@ -2030,6 +2034,7 @@ RUR.top_tiles.fence5.image.onload = function () {
 RUR.top_tiles.fence6 = {};
 RUR.top_tiles.fence6.name = "fence";
 RUR.top_tiles.fence6.fatal = true;
+RUR.top_tiles.fence6.solid = true;
 RUR.top_tiles.fence6.detectable = true;
 RUR.top_tiles.fence6.message = RUR.translate("I hit a fence!");
 RUR.top_tiles.fence6.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
@@ -2045,6 +2050,7 @@ RUR.top_tiles.fence6.image.onload = function () {
 RUR.top_tiles.fence7 = {};
 RUR.top_tiles.fence7.name = "fence";
 RUR.top_tiles.fence7.fatal = true;
+RUR.top_tiles.fence7.solid = true;
 RUR.top_tiles.fence7.detectable = true;
 RUR.top_tiles.fence7.message = RUR.translate("I hit a fence!");
 RUR.top_tiles.fence7.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
