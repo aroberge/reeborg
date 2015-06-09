@@ -1157,7 +1157,8 @@ $(document).ready(function() {
         max_y = parseInt(RUR.cd.input_max_y.val(), 10);
         RUR.current_world.small_tiles = RUR.cd.use_small_tiles.prop("checked");
 
-        RUR.vis_world.compute_world_geometry(max_x, max_y); // based on tile size
+        RUR.we._trim_world(max_x, max_y, RUR.COLS, RUR.ROWS);   // remove extra objects
+        RUR.vis_world.compute_world_geometry(max_x, max_y);
         RUR.cd.dialog_set_dimensions.dialog("close");
         return true;
     };
@@ -6032,3 +6033,67 @@ RUR.we.add_top_tile = function (specific_object, x, y, nb){
         RUR.current_world.top_tiles[coords][specific_object] = nb;
     }
 };
+
+
+RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
+    var x, y, coords;
+
+    for (x = min_x+1; x <= max_x; x++) {
+        for (y = 1; y <= max_y; y++) {
+            coords = x + "," + y;
+            RUR.we._remove_all_at_location(coords);
+        }
+    }
+    for (x = 1; x <= max_x; x++) {
+        for (y = min_y+1; y <= max_y; y++) {
+            coords = x + "," + y;
+            RUR.we._remove_all_at_location(coords);
+        }
+    }
+    if (RUR.current_world.goal !== undefined) {
+        console.log(RUR.current_world.goal);
+        if (RUR.current_world.goal.possible_positions !== undefined) {
+            delete RUR.current_world.goal.possible_positions;
+            delete RUR.current_world.goal.position;
+            alert(RUR.translate("WARNING: deleted final positions choices while resizing world!"))
+        }
+    }
+};
+
+RUR.we._remove_all_at_location = function(coords) {
+    // trading efficiency for clarity
+    if (RUR.current_world.tiles !== undefined) {
+        if (RUR.current_world.tiles[coords] != undefined){
+            delete RUR.current_world.tiles[coords];
+        }
+    }
+    if (RUR.current_world.top_tiles !== undefined) {
+        if (RUR.current_world.top_tiles[coords] != undefined){
+            delete RUR.current_world.top_tiles[coords];
+        }
+    }
+    if (RUR.current_world.objects !== undefined) {
+        if (RUR.current_world.objects[coords] != undefined){
+            delete RUR.current_world.objects[coords];
+        }
+    }
+    if (RUR.current_world.walls !== undefined) {
+        if (RUR.current_world.walls[coords] != undefined){
+            delete RUR.current_world.walls[coords];
+        }
+    }
+    if (RUR.current_world.goal !== undefined) {
+        if (RUR.current_world.goal.objects !== undefined) {
+            if (RUR.current_world.goal.objects[coords] != undefined){
+                delete RUR.current_world.goal.objects[coords];
+            }
+        }
+    }
+    if (RUR.current_world.goal !== undefined) {
+        if (RUR.current_world.goal.walls !== undefined) {
+            if (RUR.current_world.goal.walls[coords] != undefined){
+                delete RUR.current_world.goal.walls[coords];
+            }
+        }
+    }
+}

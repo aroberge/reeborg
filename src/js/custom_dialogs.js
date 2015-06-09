@@ -79,7 +79,8 @@ $(document).ready(function() {
         max_y = parseInt(RUR.cd.input_max_y.val(), 10);
         RUR.current_world.small_tiles = RUR.cd.use_small_tiles.prop("checked");
 
-        RUR.vis_world.compute_world_geometry(max_x, max_y); // based on tile size
+        RUR.we._trim_world(max_x, max_y, RUR.COLS, RUR.ROWS);   // remove extra objects
+        RUR.vis_world.compute_world_geometry(max_x, max_y);
         RUR.cd.dialog_set_dimensions.dialog("close");
         return true;
     };
