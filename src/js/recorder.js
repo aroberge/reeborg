@@ -102,6 +102,10 @@ RUR.rec.display_frame = function () {
     "use strict";
     var frame, goal_status, i;
 
+    if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
+        return RUR.rec.conclude();
+    }
+
     //track line number and highlight line to be executed
     if (RUR.programming_language === "python" && RUR._highlight) {
         try {
@@ -114,12 +118,15 @@ RUR.rec.display_frame = function () {
                 editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame+1][i], 'background', 'editor-highlight');
             }
             RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame+1];
-        } catch (e) {}
+        } catch (e) {
+            try {  // try adding back to capture last line of program
+                for (i=0; i < RUR._previous_line.length; i++){
+                    editor.addLineClass(RUR._previous_line[i], 'background', 'editor-highlight');
+                }
+            }catch (e) {}
+        }
     }
 
-    if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
-        return RUR.rec.conclude();
-    }
     frame = RUR.rec.frames[RUR.rec.current_frame];
     RUR.rec.current_frame++;
 
@@ -161,14 +168,6 @@ RUR.rec.display_frame = function () {
 };
 
 RUR.rec.conclude = function () {
-
-/*  Experimental code */
-    if (RUR.programming_language === "python" && RUR._highlight) {
-        try{
-            editor.removeLineClass(RUR._previous_line, 'background', 'editor-highlight');
-        } catch(e) {}
-   }
-/* ===================== */
     var frame, goal_status;
     frame = RUR.rec.frames[RUR.rec.nb_frames-1];
     if (frame !== undefined && frame.world !== undefined && frame.world.goal !== undefined){
