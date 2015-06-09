@@ -9,7 +9,7 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     "use strict";
-    var tile, tiles, tilename, fatal_tile_beyond,
+    var tile, tiles, tilename, fatal_tile_beyond, fatal_top_tile_beyond,
         pushable_object_here, pushable_object_beyond,
         wall_beyond, x_beyond, y_beyond;
 
@@ -54,6 +54,8 @@ RUR.control.move = function (robot) {
         wall_beyond = RUR.control.wall_in_front(robot, true);
         pushable_object_beyond = RUR.control.pushable_object_here(x_beyond, y_beyond);
         fatal_tile_beyond = RUR.control.get_tile_at_position(x_beyond, y_beyond);
+        fatal_top_tile_beyond = RUR.control.get_top_tiles_at_position(x_beyond, y_beyond);
+
         if (fatal_tile_beyond) {
             if (fatal_tile_beyond.fatal) {
                 if (fatal_tile_beyond == RUR.tiles.water && pushable_object_here == "box") {
@@ -66,7 +68,7 @@ RUR.control.move = function (robot) {
             }
         }
 
-        if (pushable_object_beyond || wall_beyond || fatal_tile_beyond) {
+        if (pushable_object_beyond || wall_beyond || fatal_tile_beyond || fatal_top_tile_beyond) {
             robot.x = robot._prev_x;
             robot.y = robot._prev_y;
             throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
