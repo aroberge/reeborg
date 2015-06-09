@@ -5038,6 +5038,7 @@ RUR.we.edit_world = function  () {
         case "object-banana":
         case "object-apple":
         case "object-orange":
+        case "object-leaf":
         case "object-dandelion":
         case "object-carrot":
         case "object-tulip":
@@ -5092,6 +5093,7 @@ RUR.we.edit_world = function  () {
         case "goal-banana":
         case "goal-apple":
         case "goal-orange":
+        case "goal-leaf":
         case "goal-dandelion":
         case "goal-carrot":
         case "goal-tulip":
@@ -5165,6 +5167,7 @@ RUR.we.select = function (choice) {
         case "object-banana":
         case "object-apple":
         case "object-orange":
+        case "object-leaf":
         case "object-dandelion":
         case "object-carrot":
         case "object-tulip":
@@ -5241,6 +5244,7 @@ RUR.we.select = function (choice) {
         case "goal-banana":
         case "goal-apple":
         case "goal-orange":
+        case "goal-leaf":
         case "goal-dandelion":
         case "goal-carrot":
         case "goal-tulip":
