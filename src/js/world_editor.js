@@ -855,8 +855,6 @@ RUR.we.set_goal_position = function (home){
     var position, world=RUR.current_world, robot, arr=[], pos, present=false, goal;
 
     $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
-    $("#edit-world-turn").show();
-    $("#random-orientation").hide();
 
     RUR.we.ensure_key_exist(world, "goal");
     goal = world.goal;
