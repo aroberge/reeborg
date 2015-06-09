@@ -1,10 +1,7 @@
 Information for developers
 ==========================
 
-.. note::
-
-   Currently, there are no unit tests.
-
+.. topic:: There are no unit tests
 
    I know, I know ...
 

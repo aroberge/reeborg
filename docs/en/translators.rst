@@ -36,8 +36,8 @@ you can type and run the following program:
     move()
     avance()   # French equivalent
 
-For this level of tranlsation, all that is needed is a ~reeborg_xx.py~~ file,
-where ~xx~ is the standard two-letter code for a given language.
+For this level of tranlsation, all that is needed is a ``reeborg_xx.py`` file,
+where ``xx`` is the standard two-letter code for a given language.
 
 Before starting this work, you might want to see if Reeborg's World (i.e. Brython)
 support the character set used by your language: Brython's unicode support

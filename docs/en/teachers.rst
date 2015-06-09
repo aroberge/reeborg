@@ -11,8 +11,10 @@ Reducing bandwidth
 ------------------
 
 There are many features you can use to reduce bandwidth usage and have
-Reeborg's world be more responsive.   The first way is better illustrated
-by an example.
+Reeborg's world be more responsive.   I will document three here.
+
+Preferred way: World hosting
+****************************
 
 Assuming you have
 http://reeborg.ca/world_dev.html already in a browser tab,  write the
@@ -40,12 +42,10 @@ appearance, can be loaded using
 
 Notice how this world is located in a subdirectory.
 
-World hosting
-*************
+.. topic::  Version française
 
-.. note::
-
-    Les équivalents français de ``World`` et ``Permalink`` sont
+    Si vous utilisez http://reeborg.ca/monde.html,
+    les équivalents français de ``World`` et ``Permalink`` sont
     ``Monde`` et ``Permalien``.
 
 I will host the worlds you create on my website so that they can
@@ -61,8 +61,8 @@ you create and that are hosted on my server.  If everyone does so,
 teaching resources will grow and become more useful to everyone as
 time goes on.
 
-Updated the world using permalinks
-**********************************
+Second way: using hosted permalinks
+***********************************
 
 A second, similar way, is to use hosted permalinks.  For example,
 you can try the following:
@@ -72,11 +72,32 @@ you can try the following:
     Permalink("test_permalink")
 
 Permalinks can encode world state as well as editor and library
-content - thus can be used to show a complete solution.  If permalinks
-are hosted, a pure "world" version (without any program) would be made;
-permalinks themselves will not be divulged on a public site unless
-they only contain program stubs (and/or simple library content).
+content - thus can be used to show a complete solution.  If you don't
+have your own website, I will host your permalinks for you.
+All I ask in exchange is to be able to make available to others
+at least one of the worlds/challenges you have created.
 
+
+Third way: hosting your own permalinks
+**************************************
+
+If you have your own website where you can put files,
+and you have contributed at least one word to the public collection (!),
+then you can host your own permalinks.
+[Obviously, you can do this without telling me nor contributing a world.]
+Here's an example of a permalink I have put on a different server:
+
+.. code-block:: python
+
+    Permalink("http://personnel.usainteanne.ca/aroberge/reeborg/test_sokoban1")
+
+Other ways
+**********
+
+There are other ways of loading up worlds (e.g. loading a world from
+a local file, copying/pasting the content of a permalink into the
+permalink textarea and clicking on the "update" button, etc.), but the
+above three are the recommended methods.
 
 
 Programming paradigms

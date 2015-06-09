@@ -7,7 +7,7 @@ Welcome to Reeborg's World's documentation!
 ===========================================
 
 
-.. important:: Please help reduce bandwidth usage.
+.. topic:: Please help reduce bandwidth usage.
 
     If http://reeborg.ca/world_dev.html is loaded in your browser, you
     can update its contents in a number of ways explained in the
