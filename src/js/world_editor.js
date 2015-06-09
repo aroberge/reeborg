@@ -878,6 +878,7 @@ RUR.we.set_goal_position = function (home){
         pos = goal.possible_positions[i];
         if(pos[0]==position[0] && pos[1]==position[1]){
             present = true;
+            break;
         } else {
             arr.push(pos);
             goal.position.x = pos[0];

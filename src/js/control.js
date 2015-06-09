@@ -67,6 +67,7 @@ RUR.control.move = function (robot) {
             for (tilename in top_tiles_beyond) {
                 if (RUR.top_tiles[tilename] !== undefined && RUR.top_tiles[tilename].solid) {
                     solid_top_tile_beyond = true;
+                    break;
                 }
             }
         }
