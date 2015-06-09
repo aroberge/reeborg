@@ -1,6 +1,8 @@
 Quick tour of Reeborg's World
 ==============================
 
+Running programs
+----------------
 
 Example of running programs illustrated below:
 
@@ -22,17 +24,30 @@ Example of running programs illustrated below:
 
 |running|
 
+Receiving feedback
+------------------
 
 Reeborg's world is designed to give clear feedback when a problem is
 encountered (for example, Reeborg hits a wall while attempting to move,
 or attempts to pick up an object where none is to be found).  Various
 "worlds/tasks" can be created requiring Reeborg to be at a certain
 location at the end of a program, or to have moved objects to a certain
-location.  Here again, clear feedback is given.
+location.  Below you see three examples of such feedback being given.
 
 |feedback|
 
 
+Creating new worlds and tasks
+-----------------------------
+
+Creating new worlds and basic tasks is easy to accomplish with the
+world editor.  These worlds are first saved in the browser and can
+be exported either as json files (for the world only) or as
+specially crafted permalinks, which includes the code written
+in the editor and the library.
+
+|edit-world|
 
 .. |running| image:: ../images/running_programs.gif
 .. |feedback| image:: ../images/feedback.gif
+.. |edit-world| image:: ../images/edit_world.gif
