@@ -107,16 +107,13 @@ RUR.translation["Click on world to set home position for robot."] = "Click on wo
 RUR.translation["Click on world to toggle additional walls to build."] = "Click on world to toggle additional walls to build.";
 RUR.translation["Click on desired goal object below."] = "Click on desired goal object below.";
 RUR.translation["Click on world to set number of goal objects."] = "Click on world to set number of goal {obj}; use a specific number or 'all'.";
-RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Click on world at x=1, y=1 to confirm having no object left in the entire world as a goal.";
 RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for Reeborg to carry (use 'inf' for infinite number or a-b to indicate random integer values from a to b inclusively)";
 RUR.translation[" is not a valid value!"] = " is not a valid value!";
-RUR.translation["Goal: no object left in world."] = "Goal: no object left in world.";
 RUR.translation["Enter number of objects desired at that location."] = "Click on world to set number {obj}; (use a-b to indicate random integer values from a to b inclusively).";
 RUR.translation["Objects found here:"] = "Objects found here:";
 RUR.translation["Description"] = "Description";
 RUR.translation["A robot located here carries no objects."] = "A robot located at {x},{y} carries no objects.";
 RUR.translation["Goal to achieve:"] = "Goal to achieve:";
-RUR.translation["Note: no object must be left in this world at the end of the program."] = "Note: no object must be left in this world at the end of the program.";
 RUR.translation["A robot located here carries:"] = "A robot located at {x},{y} carries:";
 RUR.translation["random location"] = "random location";
 RUR.translation["Enter number of objects to give to robot."] = "Enter number of {obj} to give to robot."

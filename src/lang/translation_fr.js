@@ -100,15 +100,12 @@ RUR.translation["Click on world to set home position for robot."] = "Cliquez sur
 RUR.translation["Click on world to toggle additional walls to build."] = "Cliquez sur le monde pour ajouter/supprimer des murs à construire.";
 RUR.translation["Click on desired goal object below."] = "Cliquez sur l'objet désiré comme 'but'.";
 RUR.translation["Click on world to set number of goal objects."] = "Cliquez sur le monde pour fixer le nombre d'objet '{obj}' comme but; utilisez un nombre spécifique ou 'all' pour signifier tous les objets de ce type à mettre à cet endroit.";
-RUR.translation["Click on world at x=1, y=1 to have no object left as a goal."] = "Cliquez sur le monde en x=1, y=1 pour confirmer avoir comme but aucun objet qui reste dans le monde.";
 RUR.translation["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg (utilisez 'inf' pour un nombre infini ou a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
 RUR.translation[" is not a valid value!"] = " n'est pas une valeur valide!";
-RUR.translation["Goal: no object left in world."] = "But: aucun objet qui reste dans le monde.";
 RUR.translation["Enter number of objects desired at that location."] = "Cliquez sur le monde pour fixer le nombre d'objet '{obj}' désiré à cet endroit; (utilisez a-b pour indiquer un nombre entier aléatoire entre a et b inclusivement).";
 RUR.translation["Objects found here:"] = "Objets trouvés ici:";
 RUR.translation["Description"] = "Description";
 RUR.translation["A robot located here carries no objects."] = "A robot situé à {x},{y} ne transporte aucun objet.";
-RUR.translation["Note: no object must be left in this world at the end of the program."] = "Note: aucun objet ne doit rester dans ce monde à la fin de l'exécution du programme.";
 RUR.translation["A robot located here carries:"] = "Un robot situé à {x},{y} transporte:";
 RUR.translation["random location"] = "une position choisie au hasard";
 RUR.translation["Enter number of objects to give to robot."] = "Quel nombre de {obj} voulez-vous donner au robot?"

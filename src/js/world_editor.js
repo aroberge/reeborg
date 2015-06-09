@@ -86,9 +86,6 @@ RUR.we.edit_world = function  () {
             value = RUR.we.edit_world_flag.substring(5);
             RUR.we._add_goal_objects(value);
             break;
-        case "goal-no-objects":
-            RUR.we.set_goal_no_objects();
-            break;
         default:
             break;
     }
@@ -243,9 +240,6 @@ RUR.we.select = function (choice) {
             }
 
             $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "goal-no-objects":
-            $("#cmd-result").html(RUR.translate("Click on world at x=1, y=1 to have no object left as a goal.")).effect("highlight", {color: "gold"}, 1500);
             break;
         case "set-dimensions":
             RUR.cd.dialog_set_dimensions.dialog('open');
@@ -435,21 +429,6 @@ RUR.we.show_world_info = function (no_grid) {
         }
     }
 
-    no_object = true;
-    if (goals !== undefined){
-        obj = goals.objects;
-        topic = true;
-        if (obj !== undefined){
-            for (coords in obj) {
-                if (obj.hasOwnProperty(coords)) {
-                    no_object = false;
-                }
-            }
-        }
-    } else {
-        no_object = false;
-    }
-
 
     if (goals !== undefined){
         if (goals.walls !== undefined && coords) {
@@ -479,10 +458,6 @@ RUR.we.show_world_info = function (no_grid) {
             y += 1;
             coords = x + "," + y;
         }
-    }
-
-    if (no_object){
-        information += "<br><br><b>" + RUR.translate("Note: no object must be left in this world at the end of the program.") + "</b>";
     }
 
     robots = RUR.current_world.robots;
@@ -859,10 +834,7 @@ RUR.we.add_goal_objects = function (specific_object, x, y, nb){
     RUR.we.ensure_key_exist(RUR.current_world.goal.objects, coords);
     if (nb === 0) {
         delete RUR.current_world.goal.objects[coords][specific_object];
-        console.log("deleted object goal", specific_object);
-        console.log("goal here before cleaning up", RUR.current_world.goal.objects[coords]);
         if (JSON.stringify(RUR.current_world.goal.objects[coords]) === '{}'){
-            console.log("length is zero");
             delete RUR.current_world.goal.objects[coords];
         }
         if (JSON.stringify(RUR.current_world.goal.objects) === '{}'){
@@ -874,7 +846,6 @@ RUR.we.add_goal_objects = function (specific_object, x, y, nb){
     } else {
         RUR.current_world.goal.objects[coords][specific_object] = nb;
     }
-    console.log("done with adding goal; current goal here:", RUR.current_world.goal.objects[coords]);
 };
 
 
@@ -932,20 +903,6 @@ RUR.we.set_goal_position = function (home){
         $("#edit-world-turn").hide();
     }
 };
-
-RUR.we.set_goal_no_objects = function(){
-    "use strict";
-    var position;
-    position = RUR.we.calculate_grid_position();
-    if (position[0] !== 1 || position[1] !== 1) {
-        $("#cmd-result").html(RUR.translate("No effect.")).effect("highlight", {color: "gold"}, 1500);
-        return;
-    }
-    RUR.we.ensure_key_exist(RUR.current_world, "goal");
-    RUR.current_world.goal.objects = {};
-    $("#cmd-result").html(RUR.translate("Goal: no object left in world.")).effect("highlight", {color: "gold"}, 1500);
-};
-
 
 RUR.we.toggle_tile = function (tile){
     // will remove the position if clicked again with tile of same type.
