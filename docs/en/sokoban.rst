@@ -11,8 +11,13 @@ Sokoban
 
 From http://en.wikipedia.org/wiki/Sokoban
 
-*The game is played on a board of squares, where each square is a floor or a wall. Some floor squares contain boxes, and some floor squares are marked as storage locations.
-The player is confined to the board, and may move horizontally or vertically onto empty squares (never through walls or boxes). The player can also move into a box, which pushes it into the square beyond. Boxes may not be pushed into other boxes or walls, and they cannot be pulled. The puzzle is solved when all boxes are at storage locations.*
+*The game is played on a board of squares, where each square is a floor or a wall.
+Some floor squares contain boxes, and some floor squares are marked as storage locations.
+The player is confined to the board, and may move horizontally or
+vertically onto empty squares (never through walls or boxes).
+The player can also move into a box, which pushes it into the square beyond.
+Boxes may not be pushed into other boxes or walls, and they cannot be pulled.
+The puzzle is solved when all boxes are at storage locations.*
 
 
 Sokoban and Reeborg's World
@@ -96,16 +101,13 @@ Sokoban for advanced students
 
         # First, use the builtin JSON Javascript function as it can
         # show a nicely formatted representation of the world;
-        # this should have been implemented in the Brython module
+        # this should have been implemented in the Brython json module
         # but is currently missing.
         world_str = window.JSON.stringify(RUR.current_world, None, 2);
-
-        # The font used by Reeborg for print is not very readable for some
-        # special characters; use a different output method.
-        RUR.control._write(world_str)
+        print(world_str)
 
         # Convert the json world representation into a Python dict
-        # using Brython's module.
+        # using Brython's json module.
         world_dict = json.loads(world_str)
 
         # We can now use Python's standard notation for dicts and lists
