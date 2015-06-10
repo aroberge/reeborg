@@ -29,15 +29,21 @@ Reeborg's World is an adaptation of Richard Pattis's *Karel the robot*.
 It supports three programming languages (Python, Javascript and CoffeeScript).
 However, the focus of this documentation is on Python which is my
 favourite programming language and, I believe,
-the ideal one to use for teaching programming concepts.  Unless otherwise
-noted, this documentation refers to the Python version.
+the ideal one to use for teaching programming concepts.
 
 
 Reeborg's World is **free**: *free* to use, *free* to copy (and put on a school's
 website), and does not require any registration or login.
 Unlike some other existing code learning website, it does not force
-learners to follow a pre-defined path; teachers are *free* to create their
+learners to follow a pre-defined path; educators are *free* to create their
 own learning material and make use of Reeborg's World.
+
+.. note::
+
+    I have one small request for educators: if you use Reeborg's World, please
+    consider contact me and sharing **at least** one of your custom-designed
+    worlds that I will include in this documentation
+    so that others may be inspired by it.
 
 Task Driven Learning
 --------------------
@@ -60,14 +66,15 @@ picture of the object in shades of grey.
    :numbered:
 
    who
+   students
    tour
    commands
    objects
+   sokoban
    advanced
    creating
    contributed
-   students
-   teachers
+   educators
    translators
    artists
    developers

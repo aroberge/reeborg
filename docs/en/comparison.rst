@@ -3,6 +3,7 @@ Comparison with other implementations
 
 In what follows, I make some quick "first-impressions" comparisons
 between Reeborg's World and other *Karel the robot*-inspired implementations.
+I only mention those that require the student to write code.
 Please feel free to contact me to correct any misrepresentation I may
 have made of the other "Karel the robot" implementations.
 
@@ -18,7 +19,8 @@ The simplest valid program is::
 
     move()
 
-That's it.
+That's it: a single instruction.  What could be simpler when
+teaching beginners?
 
 If one wants to use an OOP approach instead (starting with
 an empty world), the simplest valid program is::
@@ -46,6 +48,9 @@ and importing code from a library) after they have learned the basics.
 Also, having a visually rich world environment can make programming tasks
 both more appealing and more varied than in simpler worlds.
 
+When it comes to other implementation, notice how everything (using
+a library, using OOP techniques) is often required right from the start,
+making it a challenge for beginners to get started.
 
 Karel the robot
 ---------------
@@ -86,6 +91,7 @@ The simplest program is:
 The graphical representation of the world is rather limited, and only
 one type of object is found, like in the original Karel the Robot.
 
+
 Monty Karel
 -----------
 
@@ -103,6 +109,10 @@ Here's the simplest program:
         karel.move()
         karel.turnOff()
 
+For a basic "Hello world" type of program, this is a rather complicated
+one which hides Python's strength when it comes to simplicity and
+readability.
+
 The graphical representation of the world is rather limited, and only
 one type of object is found, like in the original Karel the Robot.
 
@@ -111,16 +121,23 @@ Karel J. Robot
 
 The makers of Karel++ have also a Java version.
 (http://csis.pace.edu/~bergin/KarelJava2ed/Karel++JavaEdition.html)
-Here's the simplest program:
+Here's the simplest program based on my reading of the documentation:
 
 .. code-block:: java
 
-    public static void main(String [] args)
+    package kareltherobot;
+
+    public class SomeName implements Directions
     {
-        UrRobot Karel = new UrRobot(1, 1, East, 0);
-        Karel.move();
-        Karel.turnOff();
+        public static void main(String [] args)
+        {
+            UrRobot Karel = new UrRobot(1, 1, East, 0);
+            Karel.move();
+            Karel.turnOff();
+        }
     }
+
+
 
 Java being Java ... there is a lot of extra "cruft", including a number
 of keywords, that has to be included when writing even the simplest program.
@@ -157,6 +174,10 @@ must be accomplished.
 The simplest valid program, using the Python version, would be::
 
     self.moveRight()
+
+However, the simplest task requires more than one such command.
+Furthermore, there is absolutely no explanation given at the beginning
+as to why this complicated syntax (*why ``self.``*?) must be used.
 
 While I envy the richness of the graphical environment, I find it a bit
 overwhelming and inflexible to use.

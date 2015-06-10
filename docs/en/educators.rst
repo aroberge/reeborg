@@ -1,5 +1,5 @@
-Information for teachers
-========================
+Information for educators
+=========================
 
 .. important:: Please help reduce bandwidth usage.
 

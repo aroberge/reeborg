@@ -11,10 +11,9 @@ Who is Reeborg?
    *Photo courtesy of A. Judkis.*
 
 
-Reeborg is a robot; not a modern high quality robot, but a rather
+Reeborg is a programmable robot; not a modern high quality robot, but a rather
 old one, put together rather quickly. **You** are going to be a good
-programmer, unlike the maker of Reeborg, who wrote a program littered with
-bugs.
+programmer, unlike the maker of Reeborg, who wrote created a faulty robot.
 
 
 #. Reeborg has an oil leak. Oil leaks are damaging for the environment
