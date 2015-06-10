@@ -264,7 +264,10 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
 
     if (RUR.current_world.objects[coords][obj] === 0){
         delete RUR.current_world.objects[coords][obj];
-        if (!RUR.control.object_here(robot)){
+        // WARNING: do not change this silly comparison to false
+        // to anything else ... []==false is true  but []==[] is false
+        // and ![] is false
+        if (RUR.control.object_here(robot) == false){
             delete RUR.current_world.objects[coords];
         }
     }
@@ -504,12 +507,7 @@ RUR.control.at_goal = function (robot) {
 };
 
 RUR.control.object_here = function (robot, obj) {
-    /* if the object is specified, we return either true or false
-       depending on whether or not we found such an object at the
-       robot location.
 
-       If no object is specified, we return a list of object founds here,
-       or false if no object was found.  */
     var obj_here, obj_type, all_objects;
     var coords = robot.x + "," + robot.y;
 
@@ -517,7 +515,7 @@ RUR.control.object_here = function (robot, obj) {
 
     if (RUR.current_world.objects === undefined ||
         RUR.current_world.objects[coords] === undefined) {
-        return false;
+        return [];
     }
 
     obj_here =  RUR.current_world.objects[coords];
@@ -527,16 +525,16 @@ RUR.control.object_here = function (robot, obj) {
     for (obj_type in obj_here) {
         if (obj_here.hasOwnProperty(obj_type)) {
             if (obj!== undefined && obj_type == RUR.translate_to_english(obj)) {
-                return true;
+                return [obj_type];
             }
             all_objects.push(RUR.translate(obj_type));
         }
     }
 
     if (obj !== undefined) {
-        return false;
+        return [];
     } else if (all_objects.length === 0){
-        return false;
+        return [];
     } else {
         return all_objects;
     }
@@ -565,18 +563,12 @@ RUR.control.top_tile_here = function (robot, tile) {
 
 
 RUR.control.carries_object = function (robot, obj) {
-    /* if the object is specified, we return either true or false
-       depending on whether or not we found such an object carried
-       by the robot.
-
-       If no object is specified, we return a list of object founds here,
-       or false if no object was found.  */
     var obj_carried, obj_type, all_objects;
 
     RUR.rec.record_frame("debug", "RUR.control.object_here");
 
     if (robot === undefined || robot.objects === undefined) {
-        return false;
+        return [];
     }
 
     obj_carried =  robot.objects;
@@ -586,15 +578,15 @@ RUR.control.carries_object = function (robot, obj) {
         if (obj_carried.hasOwnProperty(obj_type)) {
             all_objects.push(RUR.translate(obj_type));
             if (RUR.translate(obj_type) == obj){
-                return true;
+                return [obj_type];
             }
         }
     }
 
     if (obj !== undefined) {
-        return false;
+        return [];
     } else if (all_objects.length === 0){
-        return false;
+        return [];
     } else {
         return all_objects;
     }
