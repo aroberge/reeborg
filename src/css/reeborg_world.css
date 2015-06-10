@@ -278,8 +278,8 @@ padding:3px;}
 }
 
 .reeborg-print {
-  font-size: 14px;
-  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  font-family: 'Roboto Mono', monospace;
 }
 
 #Reeborg-writes {background-color: white;}
