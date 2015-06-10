@@ -3495,10 +3495,16 @@ RUR.runner.assign_initial_values = function () {
                         if (nb.toString().indexOf("-") != -1){
                             range = nb.split("-");
                             nb = RUR.randint(parseInt(range[0], 10), parseInt(range[1], 10));
-                            objects_here[obj] = nb;
+                            if (nb != 0){
+                                objects_here[obj] = nb;
+                            } else {
+                                delete objects_here[obj];
+                            }
                         }
                         if (total_nb_objects[obj] === undefined){
-                            total_nb_objects[obj] = parseInt(nb, 10);
+                            if (parseInt(nb, 10) != 0) {
+                                total_nb_objects[obj] = parseInt(nb, 10);
+                            }
                         } else {
                             total_nb_objects[obj] += parseInt(nb, 10);
                         }
