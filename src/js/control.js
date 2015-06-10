@@ -247,7 +247,7 @@ RUR.control.take = function(robot, arg){
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, translated_arg);
         }
-    }  else if (objects_here.length === 0 || !objects_here){
+    }  else if (objects_here.length === 0 || objects_here == false){
         throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
@@ -258,11 +258,10 @@ RUR.control.take = function(robot, arg){
 
 RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     var objects_here, coords;
-
     coords = robot.x + "," + robot.y;
     RUR.current_world.objects[coords][obj] -= 1;
 
-    if (RUR.current_world.objects[coords][obj] === 0){
+    if (RUR.current_world.objects[coords][obj] == 0){
         delete RUR.current_world.objects[coords][obj];
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
@@ -524,7 +523,7 @@ RUR.control.object_here = function (robot, obj) {
 
     for (obj_type in obj_here) {
         if (obj_here.hasOwnProperty(obj_type)) {
-            if (obj!== undefined && obj_type == RUR.translate_to_english(obj)) {
+            if (obj !== undefined && obj_type == RUR.translate_to_english(obj)) {
                 return [obj_type];
             }
             all_objects.push(RUR.translate(obj_type));
