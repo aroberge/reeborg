@@ -88,12 +88,6 @@ the above can simply be written as::
     do 3:
         turnLeft
 
-The function ``repeat()`` was included in Reeborg's World in an attempt to capture
-this simplicity.  Thus, to do three left turns, one would write::
-
-    repeat( turn_left, 3)
-
-
 .. note::
 
     A relatively simple implementation of ``repeat`` in Python is:
@@ -103,6 +97,16 @@ this simplicity.  Thus, to do three left turns, one would write::
         def repeat(fn, n):
             for i in range(n):
                 fn()
+
+
+The function ``repeat()`` was included in Reeborg's World in an attempt to capture
+this simplicity.  Thus, to do three left turns, one would write::
+
+    repeat( turn_left, 3)
+
+
+Communications from Reeborg
+---------------------------
 
 To communicate information to the user, Reeborg can use Python's ``print()``
 function.  The output of this function appears in an html preformatted
@@ -127,34 +131,76 @@ Below, we illustrate an example where Reeborg must
 
 1. remove the weeds and keep a running count of their total
 2. count the number of strawberries at each location
-3. go back home and write down this information.
+3. write down the information.
 
 Note that the world has been designed so that an arbitrary number of
 weeds (from 0 to 3) and strawberries (1 to 10) can be found
 at each location; these numbers are randomly chosen each time.
 
+A few things to note about the example shown below:
 
+1. We have increased ``RUR.MAX_STEPS`` from its default value of 1000 to
+   2000; we found that, sometimes it would stop before completing the task.
+   The way Reeborg programs are run is that they are first executed very
+   quickly, without anything shown as happening on the screen.  Meanwhile,
+   various instructions trigger the recording of "frames" which can be played back
+   one at a time (or even in reverse!), creating the animation you see.
+   If the number of recording frames exceeds the maximum value, the program
+   stops: this is to help prevent (some) infinite loops.
+2. We've made the animation proceed as quickly as possible by using
+   ``think(0)`` and disabling code highlighting.
+3. At the beginning, we show the "world information"; we can see that the
+   values of weeds (dandelions) are indicated as being between 0 and 3,
+   and between 1 and 10 for strawberries.
+4. We then execute a single instruction and show that specific values
+   for the number of weeds and strawberries have now been selected;
+   this is done randomly each time.
+
+|list|
+
+.. |list| image:: ../images/list.gif
+
+*If you are very observant, you may have noticed that the font used
+by Reeborg is different than that of previous examples. As I wrote
+this documentation, I came to realize that the previous font, which
+looked to me more suitable for a robot, was not very readable for certain
+characters, like ``{}`` which are important for programming.
+The search continues for the ideal font...*
 
 Return statement
 ----------------
 
-explain
+As we have seen, Reeborg can determine if it is facing North ...
+or not.  However, we can help it figure out when it is facing other
+directions.  For example, we know that if Reeborg is facing South,
+and then makes two left turns, it will be facing North.  Two more
+left turns and Reeborg returns to its original orientation.
+This suggests the following:
 
-Object-Oriented Programming
----------------------------
+.. code-block:: python
 
-object creation; different robot models, inheritance (fixing reeborg)
+    def is_facing_south():
+        turn_left()
+        turn_left()
+        remember = is_facing_north()
+        turn_left()
+        turn_left()
+        return remember
 
-talk about recording frames
+Arguably a bit clumsy, but it works.   Something similar can be
+done to obtain a ``left_is_clear()`` function.
 
+We can extend the idea used for the ``repeat()`` function  and use
+``return`` in clever ways to do things like:
 
-self.facing_south() using comparison with RUR.SOUTH
+.. code-block:: py3
 
+    def do_while(fn, condition):
+        def until():
+            while condition():
+                fn()
+        return until
 
-Really advanced programming
-----------------------------
+    walk_to_the_wall = do_while(move, front_is_clear)
+    walk_to_the_wall()
 
-Python's standard library with JSON example to obtain the state of the
-world as a dict.
-
-Mention view_source and inspect, etc.

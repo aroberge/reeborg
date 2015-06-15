@@ -33,6 +33,8 @@ extensions = [
     'sphinx.ext.todo',
 ]
 
+highlight_language = 'py3'
+
 todo_include_todos = True
 
 # Add any paths that contain templates here, relative to this directory.

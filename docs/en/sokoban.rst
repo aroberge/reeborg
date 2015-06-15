@@ -82,7 +82,7 @@ Sokoban for advanced students
 
 .. Topic:: For experts only
 
-   **The following will not make sense, unless you are a very, very, VERY
+   **The following will not make sense, unless you are an
    advanced programmer.**
 
     Sokoban puzzles can be solved using search techniques taught to

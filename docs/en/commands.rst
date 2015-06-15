@@ -6,6 +6,23 @@ Basic commands
     Reeborg's World uses Python 3 syntax (thanks to Brython) and follows
     the PEP 8 naming convention (with some minor exceptions).
 
+.. topic:: Note for complete beginners
+
+   *We have a problem!*  As a complete beginner, if you don't know
+   anything about Python (and programming), you might find the following
+   descriptions confusing as I use Python syntax to illustrate how the basic
+   commands work.  However, in order to explain the Python syntax, I need
+   you to know what the basic commands do ...
+
+   My suggestion:  read through this once, not spending
+   too much time if you find something confusing.  Then read the next
+   two sections, first the one about objects that you can find in
+   Reeborg's World, followed by the other page,
+   which gives you a quick introduction to Python, where I will
+   once again make use of similar examples.  After having read
+   through these pages, come back here ... and everything should
+   make a lot more sense.
+
 
 In this section, we focus on simple worlds and document
 commands that Reeborg can follow.  Commands are Python functions.

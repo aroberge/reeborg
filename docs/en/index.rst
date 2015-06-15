@@ -70,8 +70,13 @@ picture of the object in shades of grey.
    tour
    commands
    objects
-   sokoban
+   python1
+   python2
+   library
+   exception
    advanced
+   oop
+   sokoban
    creating
    contributed
    educators

@@ -1,0 +1,14 @@
+
+<textarea id="permalink-css-source" style="width:600px; height:200px;"></textarea>
+<br>
+<button onclick="encode_css()" class="blue-gradient">Create permalink code</button>
+<div id="permalink-result"></div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+function encode_css() {
+  var source = $("#permalink-css-source").val();
+  $("#permalink-result").html("&css="+ encodeURIComponent(source));
+}
+</script>

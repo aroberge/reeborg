@@ -4,6 +4,10 @@
 
 @import url("basic.css");
 
+.strike {
+  text-decoration: line-through;
+}
+
 /* -- page layout ----------------------------------------------------------- */
 
 div.red p.admonition-title {background-color: red !important;}
