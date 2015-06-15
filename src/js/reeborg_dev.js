@@ -3519,6 +3519,9 @@ RUR.runner.assign_initial_values = function () {
                         }
                     }
                 }
+                if (Object.keys(RUR.current_world.objects[coords]).length === 0){
+                    delete RUR.current_world.objects[coords];
+                }
             }
         }
     }
