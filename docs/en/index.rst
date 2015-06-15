@@ -83,7 +83,7 @@ picture of the object in shades of grey.
    translators
    artists
    developers
-   unique
+   howto
    weakness
    comparison
 
