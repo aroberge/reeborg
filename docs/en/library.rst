@@ -1,4 +1,4 @@
-A quick Python introduction: part 3, Using the Library
+A quick Python introduction: part 3, Using the library
 ======================================================
 
 When programmer make use of a given function in different programs,
@@ -8,14 +8,14 @@ their other programs can use the functions that are found in the
 library.
 
 You are likely going to use the function ``turn_right()`` **a lot!** Instead of
-rewriting it each time, I suggest that you will click on the **Library** tab and
+rewriting it each time, I suggest that you will click on the **library** tab and
 write it there. Oh, and you should also write ``turn_around()`` there as
 well.
 
 Then, when you want to use the functions defined in your library, you will
 simply type ``from library import`` (followed by the function names, separated
 by commas) on its own line in the Python Code editor.  ``library`` is the name
-that *I* have chosen to represent the code that is in the Library tab.
+that *I* have chosen to represent the code that is in the library tab.
 As you will see elsewhere, Python comes with other libraries containing
 code that you can use.
 
@@ -60,19 +60,23 @@ In those instances, you can use the keyword ``as``::
 Importing everything
 ---------------------
 
-Very occasionally, you will find it convenient to use a library
+Very occasionally, you will find it convenient to use another Python library
 that contains so many functions that it is very tedious (and difficult to
 remember) to write the all when doing::
 
-    from library_name import function1, function2, function3, ...
+    from python_library import function1, function2, function3, ...
 
-and you don't want to use ``library_name.`` in front of every single function.
+and you don't want to use ``python_library.`` in front of every single function.
 In those instances, you can use the following syntax::
+
+
+    from python_library import *
+
+The ``*`` is a shortcut meaning "everything".  As a concrete example, you
+can try::
 
     from reeborg_fr import *
 
 If you try the above, it will import a French version of all the
 commands that Reeborg knows.  Thus, you could write either the English
 ``move()`` or the French ``avance()`` and Reeborg will move forward.
-
-
