@@ -952,7 +952,7 @@ RUR.control.top_tile_here = function (robot, tile) {
 RUR.control.carries_object = function (robot, obj) {
     var obj_carried, obj_type, all_objects;
 
-    RUR.rec.record_frame("debug", "RUR.control.object_here");
+    RUR.rec.record_frame("debug", "RUR.control.carries_object");
 
     if (robot === undefined || robot.objects === undefined) {
         return [];
@@ -4226,7 +4226,7 @@ RUR.vis_robot.images[3].robot_random_img.src = 'src/images/robot_random.png';
 
 RUR.vis_robot.style = 0;
 
-RUR.vis_robot.select_style = function (arg) {
+RUR.vis_robot.select_default_model = function (arg) {
     var style;
     RUR.vis_robot.style = parseInt(arg, 10);
     style = RUR.vis_robot.style;
@@ -4246,9 +4246,9 @@ RUR.vis_robot.select_style = function (arg) {
         RUR.vis_world.refresh();
     }
 
-    localStorage.setItem("robot_style", arg);
+    localStorage.setItem("robot_default_model", arg);
 };
-RUR.vis_robot.select_style(localStorage.getItem("robot_style"));
+RUR.vis_robot.select_default_model(localStorage.getItem("robot_default_model"));
 
 // the following is to try to ensure that the images are loaded before the "final"
 // original drawing is made
