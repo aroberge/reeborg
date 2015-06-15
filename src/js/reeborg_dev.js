@@ -329,7 +329,10 @@ RUR._set_max_steps_ = function(n){
 RUR._set_max_nb_robots_ = function(n){
   RUR.control.set_max_nb_robots(n);
 };
-/* Author: André Roberge
+
+RUR._set_trace_color_ = function(color){
+  RUR.current_world.robots[0].trace_color = color;
+}/* Author: André Roberge
    License: MIT
 
    Defining base name space and various constants.
@@ -386,7 +389,8 @@ RUR.AXIS_LABEL_COLOR = "brown";
 
 RUR.MAX_STEPS = 1000;
 RUR.MIN_TIME_SOUND = 250;
-/* Author: André Roberge
+
+RUR.DEFAULT_TRACE_COLOR = "seagreen";/* Author: André Roberge
    License: MIT
  */
 
@@ -981,6 +985,11 @@ RUR.control.carries_object = function (robot, obj) {
 
 RUR.control.set_model = function(robot, model){
     robot.model = model;
+    RUR.rec.record_frame();
+ };
+
+RUR.control.set_trace_color = function(robot, color){
+    robot.trace_color = color;
     RUR.rec.record_frame();
  };
 
@@ -4355,13 +4364,16 @@ RUR.vis_robot.draw_trace = function (robot) {
         return;
     }
     var ctx = RUR.TRACE_CTX;
-    ctx.strokeStyle = RUR.vis_robot.trace_color;
+    if (robot.trace_color != undefined){
+        ctx.strokeStyle = robot.trace_color;
+    } else {
+        ctx.strokeStyle = RUR.vis_robot.trace_color;
+    }
     ctx.lineWidth = RUR.vis_robot.trace_thickness;
     ctx.lineCap = "round";
     // overrides user choice for large world (small grid size)
     if(RUR.current_world.small_tiles) {
         RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
-        // RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 2;
     } else {
         RUR.vis_robot.set_trace_style(RUR.TRACE_STYLE);
@@ -4385,13 +4397,13 @@ RUR.vis_robot.set_trace_style = function (choice){
     RUR.TRACE_STYLE = choice;
     if (choice === "thick") {
         RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
-        RUR.vis_robot.trace_color = "seagreen";
+        RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
         RUR.vis_robot.trace_thickness = 4;
     } else if (choice === "none") {
         RUR.vis_robot.trace_color = "rgba(0,0,0,0)";
     } else if (choice === "default") {
         RUR.vis_robot.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
-        RUR.vis_robot.trace_color = "seagreen";
+        RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
         RUR.vis_robot.trace_thickness = 1;
     }
 };

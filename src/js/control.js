@@ -596,6 +596,11 @@ RUR.control.set_model = function(robot, model){
     RUR.rec.record_frame();
  };
 
+RUR.control.set_trace_color = function(robot, color){
+    robot.trace_color = color;
+    RUR.rec.record_frame();
+ };
+
 
 RUR.control.write = function () {
     var output_string = '';

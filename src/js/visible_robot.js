@@ -187,13 +187,16 @@ RUR.vis_robot.draw_trace = function (robot) {
         return;
     }
     var ctx = RUR.TRACE_CTX;
-    ctx.strokeStyle = RUR.vis_robot.trace_color;
+    if (robot.trace_color != undefined){
+        ctx.strokeStyle = robot.trace_color;
+    } else {
+        ctx.strokeStyle = RUR.vis_robot.trace_color;
+    }
     ctx.lineWidth = RUR.vis_robot.trace_thickness;
     ctx.lineCap = "round";
     // overrides user choice for large world (small grid size)
     if(RUR.current_world.small_tiles) {
         RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
-        // RUR.vis_robot.trace_color = "seagreen";
         RUR.vis_robot.trace_thickness = 2;
     } else {
         RUR.vis_robot.set_trace_style(RUR.TRACE_STYLE);
@@ -217,13 +220,13 @@ RUR.vis_robot.set_trace_style = function (choice){
     RUR.TRACE_STYLE = choice;
     if (choice === "thick") {
         RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
-        RUR.vis_robot.trace_color = "seagreen";
+        RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
         RUR.vis_robot.trace_thickness = 4;
     } else if (choice === "none") {
         RUR.vis_robot.trace_color = "rgba(0,0,0,0)";
     } else if (choice === "default") {
         RUR.vis_robot.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
-        RUR.vis_robot.trace_color = "seagreen";
+        RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
         RUR.vis_robot.trace_thickness = 1;
     }
 };

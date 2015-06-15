@@ -13,8 +13,8 @@ write it there. Oh, and you should also write ``turn_around()`` there as
 well.
 
 Then, when you want to use the functions defined in your library, you will
-simply type ``from my_lib import`` (followed by the function names, separated
-by commas) on its own line in the Python Code editor.  ``my_lib`` is the name
+simply type ``from library import`` (followed by the function names, separated
+by commas) on its own line in the Python Code editor.  ``library`` is the name
 that *I* have chosen to represent the code that is in the Library tab.
 As you will see elsewhere, Python comes with other libraries containing
 code that you can use.
@@ -32,12 +32,12 @@ Other notation: ``import`` without ``from``
 Instead of importing specific functions, you can simply import the
 name of the library::
 
-    import my_lib
+    import library
 
 Then, if you want to use a function from the library, you need to add
-``my_lib.`` in front of its name as in::
+``library.`` in front of its name as in::
 
-    my_lib.turn_right()
+    library.turn_right()
 
 This is useful if you are using multiple libraries that may have
 some functions having the same name (but different meaning): by
@@ -52,7 +52,7 @@ for a function - either because the original name is too long,
 or because you already have a different function with the same name.
 In those instances, you can use the keyword ``as``::
 
-    from my_lib import turn_right as right
+    from library import turn_right as right
 
     right()        # use it
     turn_right()   # not defined!!!!

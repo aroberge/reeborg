@@ -65,3 +65,7 @@ RUR._set_max_steps_ = function(n){
 RUR._set_max_nb_robots_ = function(n){
   RUR.control.set_max_nb_robots(n);
 };
+
+RUR._set_trace_color_ = function(color){
+  RUR.current_world.robots[0].trace_color = color;
+}
