@@ -564,7 +564,7 @@ RUR.control.top_tile_here = function (robot, tile) {
 RUR.control.carries_object = function (robot, obj) {
     var obj_carried, obj_type, all_objects;
 
-    RUR.rec.record_frame("debug", "RUR.control.object_here");
+    RUR.rec.record_frame("debug", "RUR.control.carries_object");
 
     if (robot === undefined || robot.objects === undefined) {
         return [];
