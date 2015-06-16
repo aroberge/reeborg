@@ -2,7 +2,10 @@ Comparison with other implementations
 =====================================
 
 In what follows, I make some quick "first-impressions" comparisons
-between Reeborg's World and other *Karel the robot*-inspired implementations.
+between Reeborg's World and other *Karel the robot*-inspired implementations,
+by comparing the simplest program for each implementation.
+
+
 I only mention those that require the student to write code.
 Please feel free to contact me to correct any misrepresentation I may
 have made of the other "Karel the robot" implementations.

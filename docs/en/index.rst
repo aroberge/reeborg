@@ -66,8 +66,9 @@ picture of the object in shades of grey.
    :numbered:
 
    who
-   students
    tour
+   students
+   educators
    commands
    objects
    python1
@@ -77,13 +78,11 @@ picture of the object in shades of grey.
    advanced
    oop
    sokoban
-   creating
    contributed
-   educators
    translators
    artists
    developers
    howto
    weakness
    comparison
-
+   canvas

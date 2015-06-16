@@ -5,6 +5,10 @@ Information for developers
 
    I know, I know ...
 
+   In the meantime, you can try running ``Permalink("comprehensive_test")``
+   as an example; the first time you run it, the world and program will
+   simply be loaded.  The second time is the real test...
+
 
 Reeborg's World code is on Github
 https://github.com/aroberge/reeborg
