@@ -10,17 +10,17 @@ var RUR = RUR || {};
 //required for lint.js
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, ReeborgError, rien_devant, rien_a_droite, "+
                     " face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,"+
-                    " jeton_ici, a_des_jetons, ecrit, au_but, au_but_orientation," +
-                    " construit_un_mur, pense, pause, repete, voir_source, son, confirmer, dis */\n";
+                    "transporte, ecrit, au_but, au_but_orientation," +
+                    " construit_un_mur, pense, pause, repete, voir_source, son, confirmer */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
-    face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien, jeton_ici,
-    a_des_jetons, ecrit, au_but, au_but_orientation, construit_un_mur, pense,
+    face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,
+    transporte, ecrit, au_but, construit_un_mur, pense,
     pause, repete, voir_source, son, RobotUsage,
-    nombre_de_commandes, dis, confirmer;
+    nombre_de_commandes, confirmer;
 
 RUR.confirmer = function(test) {
-    var reeborg, robots, monde, jetons, orientation;
+    var reeborg, robots, monde, orientation;
     var est, nord, sud, ouest;
     var js_test;
     est = RUR.EAST;
@@ -30,7 +30,6 @@ RUR.confirmer = function(test) {
     monde = RUR.current_world;
     robots = monde.robots;
     reeborg = robots[0];
-    jetons = reeborg.tokens;
     orientation = reeborg.orientation;
 
     // if language is Python ... require spaces around logical operators to simplify
@@ -52,14 +51,12 @@ RUR.reset_definitions = function () {
     confirmer = RUR.confirmer;
     // robot commands - defined in commands.js
     au_but = RUR._at_goal_;
-    au_but_orientation = RUR._at_goal_orientation_;
     construit_un_mur = RUR._build_wall_;
     rien_devant = RUR._front_is_clear;
-    a_des_jetons = RUR._has_token_;
+    transporte = RUR._carries_object_;
     face_au_nord = RUR._facing_north_;
     avance = RUR._move_;
     depose = RUR._put_;
-    jeton_ici = RUR._token_here;
     rien_a_droite = RUR._right_is_clear;
     objet_ici = RUR._object_here;
     prend = RUR._take_;
@@ -74,7 +71,6 @@ RUR.reset_definitions = function () {
     termine = RUR.control.done;
     son = RUR.control.sound;
     pense = RUR.control.think;
-    dis = RUR.control.say;
     pause = RUR.control.pause;
     // defined in ui.js
     Monde = RUR.ui.load_world;
@@ -91,10 +87,6 @@ RUR.reset_definitions = function () {
         RUR.control.at_goal(this.body);
     };
 
-    RobotUsage.prototype.au_but_orientation = function () {
-        RUR.control.at_goal_orientation(this.body);
-    };
-
     RobotUsage.prototype.construit_un_mur = function () {
         RUR.control.build_wall(this.body);
     };
@@ -103,8 +95,8 @@ RUR.reset_definitions = function () {
         RUR.control.front_is_clear(this.body);
     };
 
-    RobotUsage.prototype.a_des_jetons = function () {
-        RUR.control.has_token(this.body);
+    RobotUsage.prototype.carries_object = function () {
+        RUR.control.carries_object(this.body);
     };
 
     RobotUsage.prototype.face_au_nord = function () {
@@ -119,9 +111,6 @@ RUR.reset_definitions = function () {
         RUR.control.put(this.body);
     };
 
-    RobotUsage.prototype.jeton_ici = function () {
-        RUR.control.token_here(this.body);
-    };
 
     RobotUsage.prototype.rien_a_droite = function () {
         RUR.control.right_is_clear(this.body);

@@ -177,7 +177,7 @@ One "obvious" way might be as follows:
 
 1. Create a copy of the desired world.
 2. Remove the robot
-3.Save the world under a different name
+3. Save the world under a different name
    (if using the same browser to show the example) or a usb key
    (and load it in a different browser, if planning the work at home
    and using it in the classroom)
@@ -189,9 +189,13 @@ students would see when they would attempt to work on it with their robot.
 
 There is a better way!
 
-Either in the "pre" code, or in the library (*so that it is not shown
-in the main program and the execution is not highlighted, resulting
-in a frame with no robot present*) you can use the instruction::
+.. note::
+
+   By using this code in the "pre" code, or in the library, we ensure that
+   the line executed is not "highlighted" and have a frame with no robot
+   present.
+
+Either in the "pre" code, or in the library you can use the instruction::
 
    RUR.world.__remove_default_robot()
 
@@ -202,30 +206,160 @@ basic instruction like ``move()` or ``turn_left()``
 will work on your robot as-is: by design,
 they work with the first robot created without requiring the instance name.
 
-Library
--------
+Have a look at::
 
-explain
+    Permalink("test_remove")
+
+to see an example where a new robot, capable of turning right directly,
+is defined in the library and replaces the default robot.
+Something like this can be used to demonstrate the path taken by a robot
+without giving
+
+
+
+Enhanced goals
+--------------
+
+You know that you can set some "goals" for Reeborg to accomplish using the
+graphical world editor.
+When a world is designed to contain goals, at the end of the program's
+execution, the state of the world is compared with that expected from the goals,
+and a pop-up dialog is shown, indicating how each goal was met.
+
+Reeborg's world includes a non-documented function called ``verify()` in the
+English version, and ``confirmer()`` in the French version,
+which can be used to perform some other tests.
+
+For example, suppose we want the robot to end facing East.  This can
+be done by adding::
+
+    verify("orientation == East")
+
+at the end (perhaps using the **post** code; however, remember to
+redefine ``done()`` in this case).
+
+In order for this utility function to be available in both
+Javascript and Python, it has been written in Javascript.
+As a result, not all Python code is possible.
+As you know, in Python, chained comparisons such as::
+
+    0 < x < 5
+
+are possible; however, this is not the case in Javascript.
+So, we would write instead:
+
+.. code-block:: python
+
+    0 < x and x < 5
+
+If you know Javascript, you know that the logical ``and`` parameter
+is ``&&`` ...
+so you may wonder how we can use ``and``.
+The reason (if you look at the code below) is that a simple
+replacement is made, where ``and`` is replaced by ``&&`` so that
+Python programs using ``verify()`` can be written in a more natural way.
+Note that all Python logical operators
+(``and``, ``or``, ``not``) should be
+surrounded by spaces for the replacement to take place.
+
+It should also be noted that some of these tests may not behave as
+expected.  Whenever possible, it is likely better to use the following pattern::
+
+    try:
+        assert some_python_expression
+    except AssertionError:
+        raise ReeborgError("Some appropriate message")
+
+You can try the example::
+
+    Permalink("test_verify")
+
+to see some such tests.
+
+
+Actual code for ``verify()``
+****************************
+
+When this document was written, this was the definition of
+``verify()``.
+
+.. code-block:: javascript
+
+    RUR.verify = function(test) {
+        var reeborg, robots, world, orientation;
+        var east, East, west, West, north, North, south, South;
+        var js_test;
+        east = East = RUR.EAST;
+        west = West = RUR.WEST;
+        north = North = RUR.NORTH;
+        south = South = RUR.SOUTH;
+        world = RUR.current_world;
+        robots = world.robots;
+        reeborg = robots[0];
+        orientation = reeborg.orientation;
+
+        // if language is Python ... require spaces around logical operators to simplify
+        js_test = test.replace(/ and /g, '&&');
+        js_test = js_test.replace(/ or /g, '||');
+        js_test = js_test.replace(/ not /g, '!');
+        // True and False should not necessary to use ... but just in case
+        js_test = js_test.replace(/False/g, 'false');
+        js_test = js_test.replace(/True/g, 'true');
+
+        if (eval(js_test)){ // jshint ignore:line
+            return;
+        }
+        throw ReeborgError("Failed: <br>"+test);
+    };
+
+
+Actual code for ``confirmer()``
+********************************
+
+.. code-block:: javascript
+
+    RUR.confirmer = function(test) {
+        var reeborg, robots, monde, orientation;
+        var est, nord, sud, ouest;
+        var js_test;
+        est = RUR.EAST;
+        ouest = RUR.WEST;
+        nord = RUR.NORTH;
+        sud = RUR.SOUTH;
+        monde = RUR.current_world;
+        robots = monde.robots;
+        reeborg = robots[0];
+        orientation = reeborg.orientation;
+
+        // if language is Python ... require spaces around logical operators to simplify
+        js_test = test.replace(/ and /g, '&&');
+        js_test = js_test.replace(/ or /g, '||');
+        js_test = js_test.replace(/ not /g, '!');
+        // True and False should not necessary to use ... but just in case
+        js_test = js_test.replace(/False/g, 'false');
+        js_test = js_test.replace(/True/g, 'true');
+
+        if (eval(js_test)){ // jshint ignore:line
+            return;
+        }
+        throw ReeborgError("Échec : <br>"+test);
+    };
 
 Easy collaboration with TogetherJS
 ----------------------------------
 
-explain
+From **Additional menu** at the top, you can find the button
+"Collaboration": this activates Mozilla's TogetherJS which allows two, or
+more, users to effectively interact on the same webpage.
 
-Sharing of programs with permalinks
------------------------------------
 
-explain other means as well (saving files)
 
-Web version with access to vast standard library
+Using Python's standard library
 -------------------------------------------------
 
-explain, and perhaps use the JSON example
+Brython comes with a significant portion of Python's standard
+library.
 
-Easy progression from simple function to OOP
---------------------------------------------
-
-Give examples
 
 Possibility to write programs using different languages
 -------------------------------------------------------
@@ -233,10 +367,39 @@ Possibility to write programs using different languages
 Support for Python, Javascript and CoffeeScript.  Other languages
 could be supported as well if they have a javascript transpiler.
 
+Stepping back and forth through program execution
+--------------------------------------------------
+
+Programs are executed in two steps: first, the program is run
+and a series of "frames", representing the complete state of
+the world at that time, are recorded.  Second, these frames
+are played back one at a time.
+
+From the **Additional menu**, one has access to a "step back"
+button which steps backwards, one frame at a time, instead of
+forward.
+
+An example of such use might be to run a program quickly,
+by setting ``think(0)`` up to a "crucial" point at which
+the program is paused using ``pause()``.  From that point on,
+the program could be run either forward or backward, one frame at a time,
+allowing to focus on one particular aspect being demonstrated.
+
 Easy support for multiple human languages
 -----------------------------------------
 
-Mention also Guido van Robot
+As mentioned elsewhere, it is fairly straightforward to
+port Reeborg's World so that languages other than English
+can be used.  Currently, only French is completely supported.
+Thus, one can write::
+
+    from reeborg_fr import *
+
+    avance()           # equivalent to move()
+    tourne_a_gauche()  # equivalent to turn_left()
+
+However, French users should use http://reeborg.ca/monde.html
+which has a French User Interface.
 
 Possibility to integrate within a Learning Management System
 ------------------------------------------------------------
@@ -244,7 +407,6 @@ Possibility to integrate within a Learning Management System
 One teacher in Lithuania has made Reeborg's World accessible within Moodle
 for students tasks that are then marked automatically.  Ideally, such use
 should be made with local copies of Reeborg's World.
-
 
 
 Changing the User Interface
@@ -274,7 +436,7 @@ Copy **all** of your required code (not forgetting semi-colons...) into the text
 For example, suppose you wanted to hide the choice of programming
 language selection; you could do so using the following jQuery code:
 
-..code-block:: javascript
+.. code-block:: javascript
 
     $("#header-child form").hide();
 

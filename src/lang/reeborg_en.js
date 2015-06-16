@@ -9,16 +9,16 @@ var RUR = RUR || {};
 
 // required for lint.js
 var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_clear, "+
-                    " is_facing_north, done, put, take, object_here, World, Permalink,"+
-                    " token_here, has_token, write, at_goal, at_goal_orientation," +
+                    " is_facing_north, done, put, take, World, Permalink,"+
+                    " object_here, carries_object, write, at_goal, at_goal_orientation," +
                     " build_wall, think, pause, repeat, sound," +
                     "RUR, inspect, view_source, verify, say, library, _write" +
     // do not translate  nor include the following instructions; they help make rur-ple created programs *almost* compatible
                     "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, set_max_steps*/\n";
 
 var move, turn_left, inspect, front_is_clear, right_is_clear,
-    is_facing_north, done, put, take, object_here, World, Permalink, token_here,
-    has_token, write, _write, at_goal, at_goal_orientation, build_wall, think,
+    is_facing_north, done, put, take, object_here, World, Permalink,
+    carries_object, write, _write, at_goal, at_goal_orientation, build_wall, think,
     pause, repeat, view_source, sound, UsedRobot,
     set_max_steps, say, verify, ReeborgError;
 
@@ -27,7 +27,7 @@ var move, turn_left, inspect, front_is_clear, right_is_clear,
 var put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, next_to_a_beeper, set_delay, facing_north;
 
 RUR.verify = function(test) {
-    var reeborg, robots, world, tokens, orientation;
+    var reeborg, robots, world, orientation;
     var east, East, west, West, north, North, south, South;
     var js_test;
     east = East = RUR.EAST;
@@ -37,7 +37,6 @@ RUR.verify = function(test) {
     world = RUR.current_world;
     robots = world.robots;
     reeborg = robots[0];
-    tokens = reeborg.tokens;
     orientation = reeborg.orientation;
 
     // if language is Python ... require spaces around logical operators to simplify
@@ -61,13 +60,13 @@ RUR.reset_definitions = function () {
     at_goal_orientation = RUR._at_goal_orientation_;
     build_wall = RUR._build_wall_;
     front_is_clear = RUR._front_is_clear_;
-    has_token = RUR._has_token_;
+    carries_object = RUR._carries_object_;
     is_facing_north = RUR._is_facing_north_;
     move = RUR._move_;
     put = RUR._put_;
-    token_here = RUR._token_here_;
-    right_is_clear = RUR._right_is_clear_;
     object_here = RUR._object_here_;
+    right_is_clear = RUR._right_is_clear_;
+    token_here = RUR._token_here_;
     take = RUR._take_;
     turn_left = RUR._turn_left_;
     repeat = RUR._repeat_;
@@ -110,8 +109,8 @@ RUR.reset_definitions = function () {
         RUR.control.front_is_clear(this.body);
     };
 
-    UsedRobot.prototype.has_token = function () {
-        RUR.control.has_token(this.body);
+    UsedRobot.prototype.carries_object = function () {
+        RUR.control.carries_object(this.body);
     };
 
     UsedRobot.prototype.is_facing_north = function () {
@@ -153,9 +152,9 @@ RUR.reset_definitions = function () {
     put_beeper = put;
     pick_beeper = take;
     turn_off = done;
-    on_beeper = token_here;
-    next_to_a_beeper = token_here;
-    carries_beepers = has_token;
+    on_beeper = object_here;
+    next_to_a_beeper = object_here;
+    carries_beepers = carries_object;
     set_delay = think;
     facing_north = is_facing_north;
 };
