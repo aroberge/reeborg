@@ -3539,13 +3539,22 @@ RUR.runner.assign_initial_values = function () {
                         nb = objects_here[obj];
                         if (nb == "all") {
                             try {
-                                objects_here[obj] = total_nb_objects[obj];
+                                if (total_nb_objects[obj] !== undefined) {
+                                    objects_here[obj] = total_nb_objects[obj];
+                                } else {
+                                    delete objects[coords][obj];
+                                }
                             } catch (e) {
                                 $("#world-info-button").click();
                                 $("#World-info").html("<b>Warning</b> Trying to assign a goal when no corresponding objects are found in the world.");
                             }
                         }
                     }
+                }
+                console.log("goal = ", RUR.current_world.goal.objects[coords] );
+                console.log("keys length = ", Object.keys(RUR.current_world.goal.objects[coords]).length);
+                if (Object.keys(RUR.current_world.goal.objects[coords]).length === 0){
+                    delete RUR.current_world.goal.objects[coords];
                 }
             }
         }
