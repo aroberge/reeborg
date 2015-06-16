@@ -22,18 +22,6 @@ Lack of clear and simple to follow programming tutorial
 
 Give a link to the old tutorial
 
-Better, more interesting graphics
----------------------------------
-
-Show some image from CodeCombat or others.
-
-
-User Interface can be too confusing
------------------------------------
-
-Explain the problem faced in trying to keep the UI simple while attempting
-to give easy access to advanced features.  This can result in too many
-"floating windows".
 
 No gamification
 ----------------
@@ -50,8 +38,8 @@ save the current "accomplishment status"  (encoded in some way as to help
 prevent "cheating")) in a file, and load such file so that the status
 could be transported to update the status in another browser.
 
-Not easy to create a copy on a school's website
------------------------------------------------
+Not trivially easy to create a copy on a school's website
+-----------------------------------------------------------
 
 Ideally, there should be a simple single-file (zipped) containing a
 all relevant files that could be used to make a copy of the entire
