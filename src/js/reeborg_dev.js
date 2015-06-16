@@ -3551,8 +3551,6 @@ RUR.runner.assign_initial_values = function () {
                         }
                     }
                 }
-                console.log("goal = ", RUR.current_world.goal.objects[coords] );
-                console.log("keys length = ", Object.keys(RUR.current_world.goal.objects[coords]).length);
                 if (Object.keys(RUR.current_world.goal.objects[coords]).length === 0){
                     delete RUR.current_world.goal.objects[coords];
                 }

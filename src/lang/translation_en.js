@@ -44,7 +44,7 @@ RUR.translation_to_english["dandelion"] = "dandelion";
 
 // in rur_utils.js
 RUR.translation["# 'from my_lib import *' in Python Code is required to use\n# the code in this library. \n\n"] =
-    "# 'from my_lib import *' in Python Code is required to use\n# the code in this library. \n\n";
+    "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
 RUR.translation.move = "move";
 RUR.translation["Python Code"] = "Python Code";
 RUR.translation["Javascript Code"] = "Javascript Code";
