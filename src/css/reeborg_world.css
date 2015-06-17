@@ -259,16 +259,19 @@ padding:3px;}
 }
 #world-panel, #editor-panel {
     margin-top: 32px;
-    position: relative;
+    position: absolute;
     display: none;
     height: 600px;
     padding: 0 5px;
     vertical-align: top;
 }
+#editor-panel {
+  left: 650px;
+}
 
 #world-panel { background-color: white;}
 
-#world-panel.active, #editor-panel.active {display: inline-block; z-index: 1;}
+#world-panel.active, #editor-panel.active {display: block; z-index: 1;}
 
 #narrates {font-size:16px;
   color:blue;
