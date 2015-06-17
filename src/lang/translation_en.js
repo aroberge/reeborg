@@ -17,37 +17,36 @@ RUR.translation_to_english = {};
 
 
 // required for object-handling functions e.g. take(object), put(object)
-RUR.translation.triangle = "triangle";
-RUR.translation.star = "star";
-RUR.translation.square = "square";
-RUR.translation.token = "token";
-RUR.translation_to_english["star"] = "star";
-RUR.translation_to_english["square"] = "square";
-RUR.translation_to_english["triangle"] = "triangle";
-RUR.translation_to_english["token"] = "token";
-RUR.translation_to_english["leaf"] = "leaf";
-RUR.translation_to_english["box"] = "box";
-RUR.translation_to_english["daisy"] = "daisy";
-
-RUR.translation["strawberry"] = "strawberry";
-RUR.translation["carrot"] = "carrot";
 RUR.translation["apple"] = "apple";
-RUR.translation["banana"] = "banana";
-RUR.translation["orange"] = "orange";
-RUR.translation["tulip"] = "tulip";
-RUR.translation["dandelion"] = "dandelion";
-RUR.translation["leaf"] = "leaf";
-RUR.translation["box"] = "box";
-RUR.translation["daisy"] = "daisy";
-
-
-RUR.translation_to_english["strawberry"] = "strawberry";
-RUR.translation_to_english["carrot"] = "carrot";
 RUR.translation_to_english["apple"] = "apple";
+RUR.translation["banana"] = "banana";
 RUR.translation_to_english["banana"] = "banana";
-RUR.translation_to_english["orange"] = "orange";
-RUR.translation_to_english["tulip"] = "tulip";
+RUR.translation["box"] = "box";
+RUR.translation_to_english["box"] = "box";
+RUR.translation["bridge"] = "bridge";
+RUR.translation_to_english["bridge"] = "bridge";
+RUR.translation["carrot"] = "carrot";
+RUR.translation_to_english["carrot"] = "carrot";
+RUR.translation["daisy"] = "daisy";
+RUR.translation_to_english["daisy"] = "daisy";
+RUR.translation["dandelion"] = "dandelion";
 RUR.translation_to_english["dandelion"] = "dandelion";
+RUR.translation["leaf"] = "leaf";
+RUR.translation_to_english["leaf"] = "leaf";
+RUR.translation["orange"] = "orange";
+RUR.translation_to_english["orange"] = "orange";
+RUR.translation.square = "square";
+RUR.translation_to_english["square"] = "square";
+RUR.translation.star = "star";
+RUR.translation_to_english["star"] = "star";
+RUR.translation["strawberry"] = "strawberry";
+RUR.translation_to_english["strawberry"] = "strawberry";
+RUR.translation.token = "token";
+RUR.translation_to_english["token"] = "token";
+RUR.translation.triangle = "triangle";
+RUR.translation_to_english["triangle"] = "triangle";
+RUR.translation["tulip"] = "tulip";
+RUR.translation_to_english["tulip"] = "tulip";
 
 // in rur_utils.js
 RUR.translation["# 'from my_lib import *' in Python Code is required to use\n# the code in this library. \n\n"] =

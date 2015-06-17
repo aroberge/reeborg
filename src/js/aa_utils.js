@@ -20,6 +20,7 @@ RUR.translate = function (s) {
     } else {
         console.log("Translation needed for");
         console.log("%c" + s, "color:blue;font-weight:bold;");
+        console.log("called from ", arguments.callee.caller);
         return s;
     }
 };
@@ -30,6 +31,7 @@ RUR.translate_to_english = function (s) {
     } else {
         console.log("Translation to English needed for");
         console.log("%c" + s, "color:green;font-weight:bold;");
+        console.log("called from ", arguments.callee.caller);
         return s;
     }
 };

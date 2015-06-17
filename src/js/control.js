@@ -88,7 +88,7 @@ RUR.control.move = function (robot) {
     tile = RUR.control.get_tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
-            if (tile == RUR.tiles.water && RUR.control.top_tile_here(robot, "bridge")) {
+            if (tile == RUR.tiles.water && RUR.control.top_tile_here(robot, RUR.translate("bridge"))) {
                 RUR.control.write(RUR.translate("Useful bridge here!") + "\n");
             } else {
                 throw new RUR.ReeborgError(tile.message);

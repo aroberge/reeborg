@@ -11,38 +11,36 @@ RUR.translation_to_english = {};
 
 
 // required for object-handling functions e.g. take(object), put(object)
-RUR.translation.triangle = "triangle";
-RUR.translation.star = "étoile";
-RUR.translation.square = "carré";
-RUR.translation.token = "jeton";
-RUR.translation_to_english["étoile"] = "star";
-RUR.translation_to_english["carré"] = "square";
-RUR.translation_to_english["triangle"] = "triangle";
-RUR.translation_to_english["jeton"] = "token";
-RUR.translation_to_english["feuille"] = "leaf";
-RUR.translation_to_english["marguerite"] = "daisy";
-
-RUR.translation["strawberry"] = "fraise";
-RUR.translation["carrot"] = "carotte";
 RUR.translation["apple"] = "pomme";
-RUR.translation["banana"] = "banane";
-RUR.translation["orange"] = "orange";
-RUR.translation["tulip"] = "tulipe";
-RUR.translation["dandelion"] = "pissenlit";
-RUR.translation["leaf"] = "feuille";
-RUR.translation["box"] = "boîte";
-RUR.translation["daisy"] = "marguerite";
-
-
-RUR.translation_to_english["fraise"] = "strawberry";
-RUR.translation_to_english["carotte"] = "carrot";
 RUR.translation_to_english["pomme"] = "apple";
+RUR.translation["banana"] = "banane";
 RUR.translation_to_english["banane"] = "banana";
-RUR.translation_to_english["orange"] = "orange";
-RUR.translation_to_english["tulipe"] = "tulip";
-RUR.translation_to_english["pissenlit"] = "dandelion";
+RUR.translation["box"] = "boîte";
 RUR.translation_to_english["boîte"] = "box";
-
+RUR.translation["bridge"] = "pont";
+RUR.translation_to_english["pont"] = "bridge";
+RUR.translation["carrot"] = "carotte";
+RUR.translation_to_english["carotte"] = "carrot";
+RUR.translation["daisy"] = "marguerite";
+RUR.translation_to_english["marguerite"] = "daisy";
+RUR.translation["dandelion"] = "pissenlit";
+RUR.translation_to_english["pissenlit"] = "dandelion";
+RUR.translation["leaf"] = "feuille";
+RUR.translation_to_english["feuille"] = "leaf";
+RUR.translation["orange"] = "orange";
+RUR.translation_to_english["orange"] = "orange";
+RUR.translation.square = "carré";
+RUR.translation_to_english["carré"] = "square";
+RUR.translation.star = "étoile";
+RUR.translation_to_english["étoile"] = "star";
+RUR.translation["strawberry"] = "fraise";
+RUR.translation_to_english["fraise"] = "strawberry";
+RUR.translation.token = "jeton";
+RUR.translation_to_english["jeton"] = "token";
+RUR.translation.triangle = "triangle";
+RUR.translation_to_english["triangle"] = "triangle";
+RUR.translation["tulip"] = "tulipe";
+RUR.translation_to_english["tulipe"] = "tulip";
 
 // in rur_utils.js
 RUR.translation["# 'from my_lib import *' in Python Code is required to use\n# the code in this library. \n\n"] =

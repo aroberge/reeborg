@@ -259,7 +259,6 @@ RUR.we.change_edit_robot_menu = function () {
 };
 
 function toggle_editing_mode () {
-    // $("#edit-world-panel").toggleClass("active");
     if (RUR.we.editing_world) {
         RUR.we.editing_world = false;
         editing_world_enable_run();
@@ -299,7 +298,6 @@ RUR.we.show_pre_post_code = function () {
 };
 
 RUR.we.refresh_world_edited = function () {
-    // todo: see if we could draw fewer...
     RUR.vis_world.draw_all();
     RUR.we.show_world_info();
 };
@@ -352,7 +350,6 @@ RUR.we.show_world_info = function (no_grid) {
     var tiles, tilename, fence_noted = false;
 
     information = "";
-    //$("#World-info").dialog("open");
     if (!no_grid) {
         position = RUR.we.calculate_grid_position();
         x = position[0];
@@ -551,14 +548,6 @@ RUR.we._give_objects_to_robot = function (specific_object){
     RUR.we.specific_object = specific_object;
     $("#give-object-name").html(RUR.we.specific_object);
     RUR.cd.dialog_give_object.dialog("open");
-
-
-    // var query;
-    // query = prompt(RUR.translate("Enter number of objects to give to robot.").supplant({obj: specific_object}));
-    // if (query != null){
-    //     RUR.we.give_objects_to_robot(specific_object, query);
-    //     RUR.we.show_world_info(true);
-    // }
 };
 
 
@@ -770,14 +759,11 @@ RUR.we._add_object = function (specific_object){
 
 RUR.we.add_object = function (specific_object, x, y, nb){
     "use strict";
-    var coords, translated_arg, tmp;
-
-    translated_arg = RUR.translate_to_english(specific_object);
-    if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
+    var coords, tmp;
+    if (RUR.objects.known_objects.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
 
-    specific_object = translated_arg;
     coords = x + "," + y;
     RUR.we.ensure_key_exist(RUR.current_world, "objects");
     RUR.we.ensure_key_exist(RUR.current_world.objects, coords);
@@ -954,10 +940,7 @@ RUR.we.toggle_toptile = function (tile){
 
 RUR.we.add_top_tile = function (specific_object, x, y, nb){
     "use strict";
-    var coords, translated_arg, tmp;
-
-    translated_arg = RUR.translate_to_english(specific_object);
-    specific_object = translated_arg;
+    var coords, tmp;
 
     coords = x + "," + y;
     RUR.we.ensure_key_exist(RUR.current_world, "top_tiles");
