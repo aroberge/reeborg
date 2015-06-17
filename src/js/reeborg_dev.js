@@ -5530,6 +5530,21 @@ RUR.we.show_world_info = function (no_grid) {
     }
 
 
+    goals = RUR.current_world.goal;
+    if (goals !== undefined &&
+         (goals.possible_positions !== undefined || goals.position !== undefined)){
+        if (topic){
+            topic = false;
+            information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
+        }
+        if (goals.possible_positions !== undefined && goals.possible_positions.length > 2) {
+            information += "<br>" + RUR.translate("The final required position of the robot will be chosen at random.");
+        } else {
+            information += "<br>" + RUR.translate("The final position of the robot must be (x, y) = ") +
+                           "(" + goals.position.x + ", " + goals.position.y + ")";
+        }
+    }
+
     if (RUR.current_world.description) {
         information += "<br><br><b>" + RUR.translate("Description") + "</b><br>" + RUR.current_world.description;
     }

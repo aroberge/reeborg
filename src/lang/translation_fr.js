@@ -127,7 +127,8 @@ RUR.translation["A wall must be built east of this location."] = "Un mur doit ê
 RUR.translation["A wall must be built north of this location."] = "Un mur doit être construit au nord de cet endroit.";
 RUR.translation["A wall must be built west of this location."] = "Un mur doit être construit à l'ouest de cet endroit.";
 RUR.translation["A wall must be built south of this location."] = "Un mur doit être construit au sud de cet endroit.";
-
+RUR.translation["The final required position of the robot will be chosen at random."] = "La position finale requise pour Reeborg sera choisie au hasard.";
+RUR.translation["The final position of the robot must be (x, y) = "] = "La position finale de Reeborg doit être (x, y) = ";
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
