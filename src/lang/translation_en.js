@@ -25,6 +25,9 @@ RUR.translation_to_english["star"] = "star";
 RUR.translation_to_english["square"] = "square";
 RUR.translation_to_english["triangle"] = "triangle";
 RUR.translation_to_english["token"] = "token";
+RUR.translation_to_english["leaf"] = "leaf";
+RUR.translation_to_english["box"] = "box";
+RUR.translation_to_english["daisy"] = "daisy";
 
 RUR.translation["strawberry"] = "strawberry";
 RUR.translation["carrot"] = "carrot";
@@ -33,6 +36,10 @@ RUR.translation["banana"] = "banana";
 RUR.translation["orange"] = "orange";
 RUR.translation["tulip"] = "tulip";
 RUR.translation["dandelion"] = "dandelion";
+RUR.translation["leaf"] = "leaf";
+RUR.translation["box"] = "box";
+RUR.translation["daisy"] = "daisy";
+
 
 RUR.translation_to_english["strawberry"] = "strawberry";
 RUR.translation_to_english["carrot"] = "carrot";
