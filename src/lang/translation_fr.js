@@ -154,12 +154,15 @@ RUR.translation["Gravel: usually safe."] = "Gravier: habituellement sans problè
 RUR.translation["I'm in water!"] = "Je suis dans l'eau!";
 RUR.translation["Water: Reeborg <b>can</b> detect this but will drown if it moves to this location."] = "Eau: Reeborg <b>peut</b> détecter ceci mais il se noiera s'il s'y déplace.";
 RUR.translation["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "tuile verte: Reeborg <b>peut</b> détecter ceci avec au_but().";
+RUR.translation["Crash!"] = "Crash!";
+RUR.translation["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Mur de brique: Reeborg <b>peut</b> détecter ceci mais il se fera mal s'il essaie de passer au travers.";
+RUR.translation["I hit a fence!"] = "J'ai frappé une clôture!";
+RUR.translation["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Clôture: Reeborg <b>peut</b> détecter ceci mais il ne peut pas passer au travers.";
+RUR.translation["Bridge:"] = "Pont: ";
+RUR.translation["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté."
 
 
 // =========
-
-RUR.translation_to_english["boîte"] = "box";
-RUR.translation["box"] = "boîte";
 RUR.translation["Useful bridge here!"] = "Un pont très utile ici!";
 RUR.translation_to_english["pont"] = "bridge";
 RUR.translation["Something is blocking the way!"] = "Quelque chose bloque le chemin!";
@@ -168,3 +171,8 @@ RUR.translation["green home tile:"] = "tuile verte pour l'arrivée:";
 RUR.translation["home:"] = "la maison:";
 RUR.translation["racing flag:"] = "drapeau d'arrivée:";
 RUR.translation["house:"] = "maison:";
+
+RUR.translation["fence4"] = "clôture";
+RUR.translation["fence5"] = "clôture";
+RUR.translation["fence6"] = "clôture";
+RUR.translation["fence7"] = "clôture";

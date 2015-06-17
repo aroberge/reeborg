@@ -161,18 +161,24 @@ RUR.translation["Gravel: usually safe."] = "Gravel: usually safe.";
 RUR.translation["I'm in water!"] = "I'm in water!";
 RUR.translation["Water: Reeborg <b>can</b> detect this but will drown if it moves to this location."] = "Water: Reeborg <b>can</b> detect this but will drown if it moves to this location.";
 RUR.translation["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green_home_tile: Reeborg <b>can</b> detect this tile using at_goal().";
+RUR.translation["Crash!"] = "Crash!";
+RUR.translation["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.";
+RUR.translation["I hit a fence!"] = "I hit a fence!";
+RUR.translation["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
+RUR.translation["Bridge:"] = "Bridge: ";
+RUR.translation["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>can</b> detect this and will know that it allows safe passage over water."
 
 
 //===
-RUR.translation_to_english["box"] = "box";
-RUR.translation["box"] = "box";
 RUR.translation["Useful bridge here!"] = "Useful bridge here!";
-RUR.translation_to_english["bridge"] = "bridge";
 RUR.translation["Something is blocking the way!"] = "Something is blocking the way!";
-RUR.translation["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this tile using at_goal().";
+RUR.translation["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this using at_goal().";
 RUR.translation["green home tile:"] = "green home tile:";
 RUR.translation["home:"] = "home:";
 RUR.translation["racing flag:"] = "racing flag:";
 RUR.translation["house:"] = "house:";
 
-
+RUR.translation["fence4"] = "fence";
+RUR.translation["fence5"] = "fence";
+RUR.translation["fence6"] = "fence";
+RUR.translation["fence7"] = "fence";
