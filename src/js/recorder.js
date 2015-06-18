@@ -195,7 +195,8 @@ RUR.rec.conclude = function () {
 RUR.rec.handle_error = function (frame) {
     var goal_status;
     //Brython adds information to error messages; we want to remove it from the following comparison
-    if (frame.error.message.split("\n")[0] === RUR.translate("Done!").split("\n")[0]){
+    if (frame.error.message !== undefined &&
+        frame.error.message.split("\n")[0] === RUR.translate("Done!").split("\n")[0]){
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
