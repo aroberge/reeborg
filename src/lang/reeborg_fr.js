@@ -52,13 +52,13 @@ RUR.reset_definitions = function () {
     // robot commands - defined in commands.js
     au_but = RUR._at_goal_;
     construit_un_mur = RUR._build_wall_;
-    rien_devant = RUR._front_is_clear;
+    rien_devant = RUR._front_is_clear_;
     transporte = RUR._carries_object_;
-    face_au_nord = RUR._facing_north_;
+    face_au_nord = RUR._is_facing_north_;
     avance = RUR._move_;
     depose = RUR._put_;
-    rien_a_droite = RUR._right_is_clear;
-    objet_ici = RUR._object_here;
+    rien_a_droite = RUR._right_is_clear_;
+    objet_ici = RUR._object_here_;
     prend = RUR._take_;
     tourne_a_gauche = RUR._turn_left_;
     repete = RUR._repeat_;
