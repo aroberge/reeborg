@@ -33,7 +33,7 @@
         <input type="radio" name="programming_language" value="javascript-en" > Javascript
         <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
     </form>
-    <button id="more-menus-button" class="blue-gradient" label="url-form" title="Menu additionnel">
+    <button id="more-menus-button" class="blue-gradient" label="url-form" title="Additional menu">
       Additional menu
     </button>
     <button class="blue-gradient" id="about-button" style="float:right">About</button>
@@ -403,41 +403,53 @@ your choice.</p>
   </p>
 <hr>
   <h3>Python only</h3>
-  <p>
-    <button class="blue-gradient" id="save-library" title="Save library">Save the library</button>
-    <span class="description">
-      Saves the content of the library in a file.
-    </span>
-  </p>
+  <div id="python-additional-menu">
+    <p>
+      <button class="blue-gradient" id="save-library" title="Save library">Save the library</button>
+      <span class="description">
+        Saves the content of the library in a file.
+      </span>
+    </p>
 
-  <p>
-    <button class="blue-gradient" id="load-library" title="Import library">Import a library</button>
-    <span class="description">
-      Opens a file and use its content to replace the current content of the Library.
-    </span>
-  </p>
+    <p>
+      <button class="blue-gradient" id="load-library" title="Import library">Import a library</button>
+      <span class="description">
+        Opens a file and use its content to replace the current content of the Library.
+      </span>
+    </p>
+
+    <p>
+      <button class="blue-gradient" onClick="RUR.testing.test_permalink('comprehensive_test')"
+        >Comprehensive test</button>
+      <span class="description">
+        Runs a comprehensive test.  Meant to be used by developers.
+      </span>
+    </p>
+  </div>
 <hr>
   <h3>Javascript only</h3>
-  <p>
-    <button id="lint-js" class="blue-gradient float-right" title="Lint: syntax verification" onclick="RUR.editorUpdateHints()">
-      "Lint"
-    </button>
-    <span class="description">
-      Uses JSHint to see if any syntax errors are present and, if so, indicate it in the editor.
-    </span>
-  </p>
+  <div id="javascript-additional-menu">
+    <p>
+      <button class="blue-gradient" title="Lint: syntax verification" onclick="RUR.editorUpdateHints()">
+        "Lint"
+      </button>
+      <span class="description">
+        Uses JSHint to see if any syntax errors are present and, if so, indicate it in the editor.
+      </span>
+    </p>
+  </div>
 <hr>
   <h3>CoffeeScript only</h3>
-  <p>
-    <button class="blue-gradient" id="compile-coffee" title="Compile Coffee" onclick="RUR.runner.compile_coffee();">
-      Translate CoffeeScript
-    </button>
-    <span class="description"> For CoffeeScript programming only.<br>
-      Translates the CoffeeScript code in the editor into Javascript and prints the result.
-    </span>
-  </p>
-
-
+  <div id="coffeescript-additional-menu">
+    <p>
+      <button class="blue-gradient" onclick="RUR.runner.compile_coffee();">
+        Translate CoffeeScript
+      </button>
+      <span class="description">
+        Translates the CoffeeScript code in the editor into Javascript and prints the result.
+      </span>
+    </p>
+  </div>
 </div>
 
 

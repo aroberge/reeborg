@@ -97,10 +97,9 @@ RUR.reset_programming_language = function(choice){
     try {
         localStorage.setItem("last_programming_language_" + human_language, RUR.settings.current_language);
     } catch (e) {}
-    $("#load-library").attr("disabled", "true");
-    $("#save-library").attr("disabled", "true");
-    $("#compile-coffee").attr("disabled", "true");
-    $("#lint-js").attr("disabled", "true");
+    $("#python-additional-menu p button").attr("disabled", "true");
+    $("#coffeescript-additional-menu p button").attr("disabled", "true");
+    $("#javascript-additional-menu p button").attr("disabled", "true");
     $("#library-link").parent().hide();
     $("#highlight").hide();
     switch(RUR.settings.current_language){
@@ -114,8 +113,7 @@ RUR.reset_programming_language = function(choice){
             // show language specific
             $("#highlight").show();
             $("#library-link").parent().show();
-            $("#load-library").removeAttr("disabled");
-            $("#save-library").removeAttr("disabled");
+            $("#python-additional-menu p button").removeAttr("disabled");
             break;
         case 'javascript-' + human_language :
             RUR.settings.editor = "editor_js_" + human_language;
@@ -124,7 +122,7 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").click();
             editor.setOption("mode", "javascript");
             // show language specific
-            $("#lint-js").removeAttr("disabled");
+            $("#javascript-additional-menu p button").removeAttr("disabled");
             break;
         case 'coffeescript-' + human_language :
             RUR.settings.editor = "editor_coffee_" + human_language;
@@ -133,7 +131,7 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").click();
             editor.setOption("mode", "coffeescript");
             // show language specific
-            $("#compile-coffee").removeAttr("disabled");
+            $("#coffeescript-additional-menu p button").removeAttr("disabled");
             break;
     }
     try {

@@ -390,6 +390,7 @@ window['translate_python'] = translate_python
   </p>
 <hr>
   <h3>Python seulement</h3>
+  <div id="python-additional-menu">
   <p>
     <button class="blue-gradient" id="save-library" title="enregistrer la bibliothèque">Enregistrer la bibliothèque</button>
     <span class="description">  Pour la programmation en Python seulement. <br>
@@ -404,31 +405,39 @@ window['translate_python'] = translate_python
       par le contenu du fichier choisi.
     </span>
   </p>
-
+    <p>
+      <button class="blue-gradient" onClick="RUR.testing.test_permalien('comprehensive_test_fr')"
+        >test comprehensif</button>
+      <span class="description">
+        Pour les développeurs: exécute un test compréhensif.
+      </span>
+    </p>
+  </div>
 <hr>
   <h3>Javascript seulement</h3>
-
-  <p>
-    <button id="lint-js" class="blue-gradient float-right" title="Lint: vérification de la syntaxe" onclick="RUR.editorUpdateHints()">
-      "Lint"
-    </button>
-    <span class="description"> Pour la programmation en Javascript seulement.<br>
-      Vérifie la syntaxe en utilisant JSHint et ajoute des indicateurs d'erreurs dans l'éditeur
-      le cas échéant.
-    </span>
-  </p>
+  <div id="javascript-additional-menu">
+    <p>
+      <button class="blue-gradient" title="Lint: vérification de la syntaxe" onclick="RUR.editorUpdateHints()">
+        "Lint"
+      </button>
+      <span class="description"> Pour la programmation en Javascript seulement.<br>
+        Vérifie la syntaxe en utilisant JSHint et ajoute des indicateurs d'erreurs dans l'éditeur
+        le cas échéant.
+      </span>
+    </p>
+  </div>
 <hr>
   <h3>CoffeeScript seulement</h3>
-  <p>
-    <button class="blue-gradient" id="compile-coffee" title="Converstir Coffee" onclick="RUR.runner.compile_coffee();">
-      Convertir CoffeeScript
-    </button>
-    <span class="description"> Pour la programmation en CoffeeScript seulement.<br>
-      Converti le code CoffeeScript présent dans l'éditeur en code Javascript; le résultat
-      est imprimé dans le journal de Reeborg.
-    </span>
-  </p>
-
+  <div id="coffeescript-additional-menu">
+    <p>
+      <button class="blue-gradient" onclick="RUR.runner.compile_coffee();">
+        Convertir CoffeeScript
+      </button>
+      <span class="description"> Converti le code CoffeeScript présent dans l'éditeur en code Javascript
+        et "print" le résultat.
+      </span>
+    </p>
+  </div>
 </div>
 
 <div id="about-div" title="À propos" style="display:none">
