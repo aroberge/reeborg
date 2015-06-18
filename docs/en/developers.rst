@@ -5,10 +5,10 @@ Information for developers
 
    I know, I know ...
 
-   In the meantime, you can try running ``Permalink("comprehensive_test")``
-   as an example; the first time you run it, the world and program will
-   simply be loaded.  The second time is the real test...
-
+   In the meantime, you can select "Additional menu" and look
+   at the various choices.  When this document was last updated,
+   there were two functional tests for Python and one for Javascript for
+   the English version of the site (and one each for the French version).
 
 Reeborg's World code is on Github
 https://github.com/aroberge/reeborg
@@ -60,6 +60,19 @@ https://github.com/aroberge/reeborg/tree/master/src/lang
 Some Python files that are required are found deep in a subdirectory
 of the Brython distribution
 https://github.com/aroberge/reeborg/tree/master/src/libraries/brython/Lib/site-packages
+
+Using the javascript console in the browser, if you work with Python
+and define::
+
+    RUR.__debug = any_value   # I suggest to use false
+
+the modified version of the user's program, including the highlighting
+information will be printed to the console; this could be helpful
+if errors occur when highlighting is turned on, but not if it is turned off.
+
+If ``RUR.__debug`` is set to any "true" value, additional information
+is printed to the Javascript console.  I use this occasionnally if I want
+to roughly "trace" a program's execution, to help find an error.
 
 The information given above is probably enough to get you started.
 Please feel free to contact me if you have any questions.

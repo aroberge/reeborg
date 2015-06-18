@@ -78,11 +78,11 @@ picture of the object in shades of grey.
    advanced
    oop
    sokoban
+   howto
    contributed
    translators
    artists
    developers
-   howto
    weakness
    comparison
    canvas

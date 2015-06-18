@@ -48,13 +48,11 @@ which only perform a superficial analysis of the user's program.
 This information is used during the playback
 (https://github.com/aroberge/reeborg/blob/master/src/js/recorder.js#L109).
 
-One glaring omission is the total lack of support for triple quoted string.
-
 In the absence of a robust highlighting procedure, it may very well happen
 that requesting code highlighting will result in the insertion of lines
 of code that will raise Exceptions when the Python program is executed.
 
-This highlighting is only available for Python programmes.
+This highlighting is only available for Python programs.
 
 
 No gamification
