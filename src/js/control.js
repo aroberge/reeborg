@@ -14,7 +14,7 @@ RUR.control.move = function (robot) {
         pushable_object_here, pushable_object_beyond,
         wall_beyond, x_beyond, y_beyond;
 
-    if (RUR.control.wall_in_front(robot, true)) {
+    if (RUR.control.wall_in_front(robot)) {
         throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
     }
 
@@ -52,7 +52,7 @@ RUR.control.move = function (robot) {
         // blocking the robot which is now at its next position.
         // However, something may have prevented the pushable object from
         // actually being pushed
-        wall_beyond = RUR.control.wall_in_front(robot, true);
+        wall_beyond = RUR.control.wall_in_front(robot);
         pushable_object_beyond = RUR.control.pushable_object_here(x_beyond, y_beyond);
         tile_beyond = RUR.control.get_tile_at_position(x_beyond, y_beyond);
         if (tile_beyond && tile_beyond.solid) {
@@ -344,11 +344,8 @@ RUR.control.build_wall = function (robot){
 };
 
 
-RUR.control.wall_in_front = function (robot, flag) {
+RUR.control.wall_in_front = function (robot) {
     var coords;
-    if (!flag) {
-        RUR.rec.record_frame("debug", "RUR.control.wall_in_front");
-    }
     switch (robot.orientation){
     case RUR.EAST:
         coords = robot.x + "," + robot.y;
@@ -428,9 +425,9 @@ RUR.control.top_tiles_in_front = function (robot) {
 };
 
 
-RUR.control.front_is_clear = function(robot, flag){
+RUR.control.front_is_clear = function(robot){
     var tile, tiles, tilename;
-    if( RUR.control.wall_in_front(robot, flag)) {
+    if( RUR.control.wall_in_front(robot)) {
         return false;
     }
     tile = RUR.control.tile_in_front(robot);
@@ -478,26 +475,23 @@ RUR.control._bridge_present = function(robot) {
 RUR.control.right_is_clear = function(robot){
     var result;
     RUR.control.__turn_right(robot, true);
-    result = RUR.control.front_is_clear(robot, true);
+    result = RUR.control.front_is_clear(robot);
     RUR.control.turn_left(robot, true);
     return result;
 };
 
 RUR.control.is_facing_north = function (robot) {
-    RUR.rec.record_frame("debug", "RUR.control.is_facing_north");
     return robot.orientation === RUR.NORTH;
 };
 
 RUR.control.think = function (delay) {
     RUR.rec.delay = delay;
-    RUR.rec.record_frame("debug", "RUR.control.think");
 };
 
 RUR.control.at_goal = function (robot) {
     var goal = RUR.current_world.goal;
     if (goal !== undefined){
         if (goal.position !== undefined) {
-             RUR.rec.record_frame("debug", "RUR.control.at_goal");
             return (robot.x === goal.position.x && robot.y === goal.position.y);
         }
         throw new RUR.ReeborgError(RUR.translate("There is no position as a goal in this world!"));
@@ -509,8 +503,6 @@ RUR.control.object_here = function (robot, obj) {
 
     var obj_here, obj_type, all_objects;
     var coords = robot.x + "," + robot.y;
-
-    RUR.rec.record_frame("debug", "RUR.control.object_here");
 
     if (RUR.current_world.objects === undefined ||
         RUR.current_world.objects[coords] === undefined) {
@@ -564,8 +556,6 @@ RUR.control.top_tile_here = function (robot, tile) {
 RUR.control.carries_object = function (robot, obj) {
     var obj_carried, obj_type, all_objects;
 
-    RUR.rec.record_frame("debug", "RUR.control.carries_object");
-
     if (robot === undefined || robot.objects === undefined) {
         return [];
     }
@@ -598,7 +588,6 @@ RUR.control.set_model = function(robot, model){
 
 RUR.control.set_trace_color = function(robot, color){
     robot.trace_color = color;
-    RUR.rec.record_frame();
  };
 
 
