@@ -138,7 +138,7 @@ $(document).ready(function() {
         existing_names += "]";
         response = prompt(RUR.translate("Enter world name to save") + existing_names);
         if (response !== null) {
-            RUR.storage.save_world(response.trim());
+            RUR.storage._save_world(response.trim());
             $('#delete-world').show();
         }
     });

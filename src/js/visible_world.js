@@ -9,7 +9,7 @@ RUR.vis_world = {};
 
 RUR.vis_world.compute_world_geometry = function (cols, rows) {
     "use strict";
-    var height, width, changed_dimensions = false;
+    var height, width;
     if (RUR.current_world.small_tiles) {
         RUR.WALL_LENGTH = 20;
         RUR.WALL_THICKNESS = 2;

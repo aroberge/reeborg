@@ -7,19 +7,25 @@
 
 RUR.storage = {};
 
-RUR.storage.save_world = function (name){
+RUR.storage._save_world = function (name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
         if (!window.confirm(RUR.translate("Name already exist; confirm that you want to replace its content."))){
             return;
         }
     }
+    RUR.storage.save_world(name);
+};
+
+RUR.storage.save_world = function (name){
+    "use strict";
     localStorage.setItem("user_world:"+ name, RUR.world.export_world(RUR.current_world));
     $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
                               ).val("user_world:" + name).html(name));
     $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
     $("#select_world").change();
 };
+
 
 RUR.storage.delete_world = function (name){
     "use strict";
