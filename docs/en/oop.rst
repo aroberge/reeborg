@@ -144,6 +144,12 @@ a very much unnecessary complication.
 The real explanation is much more complicated, and may risk to bore you,
 but it will be brief.
 
+.. note::
+
+   Python programmers use a convention where variable names that start
+   with an underscore, like ``_prev_x`` are meant to indicate that they are "private" and
+   should normally not be changed by another programmer.
+
 Reeborg's code was first written in Javascript.  And you can use
 Javascript to write programs for Reeborg, just as easily as you
 can using Python.
@@ -161,13 +167,6 @@ object.  Changing this attribute does not change what object
 
 Fourth, ``orientation`` is actually an integer taking the
 values 0 to 3.
-
-
-.. note::
-
-   Python programmers use a convention where variable names that start
-   with an underscore, like ``_prev_x`` are meant to indicate that they are "private" and
-   should normally not be changed by another programmer.
 
 So, let's put these four ingredients together to write a better
 robot that can properly turn right.

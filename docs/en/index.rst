@@ -86,3 +86,4 @@ picture of the object in shades of grey.
    weakness
    comparison
    canvas
+   mazes

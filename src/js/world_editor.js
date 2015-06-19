@@ -987,6 +987,10 @@ RUR.we.add_top_tile = function (specific_object, x, y, nb){
     }
 };
 
+RUR.we.remove_all = function () {
+    RUR.current_world.robots = [];
+    RUR.we._trim_world(0,0, RUR.COLS, RUR.ROWS);
+}
 
 RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
     var x, y, coords;

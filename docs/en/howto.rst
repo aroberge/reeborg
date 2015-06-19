@@ -67,7 +67,10 @@ Load up::
 
     Permalink("simple_demo2")
 
-to see an example of this.
+to see an example of this.  Valid names color, to be used to
+the argument of ``set_trace_color()`` include html named colors,
+rgb values, and rgba values - the latter being useful to make a
+trace temporarily invisible.
 
 
 |simple_demo2b|
