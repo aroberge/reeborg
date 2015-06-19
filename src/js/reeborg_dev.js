@@ -5117,7 +5117,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_toptile(value);
             break;
         case "world-walls":
-            RUR.we.toggle_wall();
+            RUR.we._toggle_wall();
             break;
         case "position-green_home_tile":
         case "position-house":
@@ -5722,12 +5722,17 @@ RUR.we.calculate_wall_position = function () {
     return [x, y, orientation];
 };
 
-RUR.we.toggle_wall = function () {
-    var position, x, y, orientation, coords, index;
+RUR.we._toggle_wall = function () {
+    var position, x, y, orientation;
     position = RUR.we.calculate_wall_position();
     x = position[0];
     y = position[1];
     orientation = position[2];
+    RUR.we.toggle_wall(x, y, orientation);
+};
+
+RUR.we.toggle_wall = function (x, y, orientation) {
+    var coords, index;
     coords = x + "," + y;
 
     RUR.we.ensure_key_exist(RUR.current_world, "walls");
@@ -5745,6 +5750,7 @@ RUR.we.toggle_wall = function () {
         }
     }
 };
+
 
 
 RUR.we.toggle_goal_wall = function () {
