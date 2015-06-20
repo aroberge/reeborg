@@ -99,11 +99,13 @@ This is easily implemented using recursion::
 
 .. |maze_gen2| image:: ../images/maze_gen2.gif
 
-The above algorithm, adapted from
-http://rosettacode.org/wiki/Maze_generation#Python,
+The above algorithm is adapted from
+http://rosettacode.org/wiki/Maze_generation#Python.
+An interesting feature of that algorithm is that it
 appends extra fake visited list items to avoid generating an ``IndexError``
 when reaching index values greater than the size of the lists,
 cleverly making use of the fact that ``[-1]`` refers to the last item in a list.
+(I wouldn't have thought of that on my own.)
 
 
 The entire code is the following::
