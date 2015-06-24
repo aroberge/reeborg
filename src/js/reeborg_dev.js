@@ -1407,19 +1407,19 @@ $(document).ready(function() {
     });
 
     $("#classic-image").on("click", function(evt) {
-        RUR.vis_robot.select_style(0);
+        RUR.vis_robot.select_default_model(0);
     });
 
     $("#rover-type").on("click", function(evt) {
-        RUR.vis_robot.select_style(1);
+        RUR.vis_robot.select_default_model(1);
     });
 
     $("#3d-red-type").on("click", function(evt) {
-        RUR.vis_robot.select_style(2);
+        RUR.vis_robot.select_default_model(2);
     });
 
     $("#solar-panel-type").on("click", function(evt) {
-        RUR.vis_robot.select_style(3);
+        RUR.vis_robot.select_default_model(3);
     });
 
     $("#robot_canvas").on("click", function (evt) {
