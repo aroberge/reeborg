@@ -19,14 +19,17 @@ RUR.rec.reset = function() {
     RUR.rec.playback = false;
     RUR.rec.delay = 300;
     clearTimeout(RUR.rec.timer);
-    if (RUR.programming_language === "python" && RUR._highlight) {
-        try {
-            for (var i=0; i < RUR._previous_line.length; i++){
-                editor.removeLineClass(RUR._previous_line[i], 'background', 'editor-highlight');
-            }
-        }catch (e) {}
+    if (RUR.programming_language === "python" &&
+        RUR._highlight &&
+        RUR.rec._max_lineno_highlighted !== undefined) {
+        for (var i=0; i <= RUR.rec._max_lineno_highlighted; i++){
+            try {
+                editor.removeLineClass(i, 'background', 'editor-highlight');
+            }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
+        }
     }
-    RUR._previous_line = undefined;
+    RUR.rec._previous_lines = [];
+    RUR.rec._max_lineno_highlighted = 0;
 };
 RUR.rec.reset();
 
@@ -100,7 +103,7 @@ RUR.rec.loop = function () {
 RUR.rec.display_frame = function () {
     // set current world to frame being played.
     "use strict";
-    var frame, goal_status, i;
+    var frame, goal_status, i, next_frame_line_numbers;
 
     if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
         return RUR.rec.conclude();
@@ -109,21 +112,26 @@ RUR.rec.display_frame = function () {
     //track line number and highlight line to be executed
     if (RUR.programming_language === "python" && RUR._highlight) {
         try {
-            for (i=0; i < RUR._previous_line.length; i++){
-                editor.removeLineClass(RUR._previous_line[i], 'background', 'editor-highlight');
+            for (i = 0; i < RUR.rec._previous_lines.length; i++){
+                editor.removeLineClass(RUR.rec._previous_lines[i], 'background', 'editor-highlight');
             }
-        }catch (e) {}
-        try {
-            for(i=0; i<RUR.rec._line_numbers [RUR.rec.current_frame+1].length; i++){
-                editor.addLineClass(RUR.rec._line_numbers [RUR.rec.current_frame+1][i], 'background', 'editor-highlight');
+        }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
+        if (RUR.rec._line_numbers [RUR.rec.current_frame+1] !== undefined){
+            next_frame_line_numbers = RUR.rec._line_numbers [RUR.rec.current_frame+1];
+            for(i = 0; i < next_frame_line_numbers.length; i++){
+                editor.addLineClass(next_frame_line_numbers[i], 'background', 'editor-highlight');
             }
-            RUR._previous_line = RUR.rec._line_numbers [RUR.rec.current_frame+1];
-        } catch (e) {
+            i = next_frame_line_numbers.length - 1;
+            if (RUR.rec._max_lineno_highlighted < next_frame_line_numbers[i]) {
+                RUR.rec._max_lineno_highlighted = next_frame_line_numbers[i];
+            }
+            RUR.rec._previous_lines = RUR.rec._line_numbers [RUR.rec.current_frame+1];
+        } else {
             try {  // try adding back to capture last line of program
-                for (i=0; i < RUR._previous_line.length; i++){
-                    editor.addLineClass(RUR._previous_line[i], 'background', 'editor-highlight');
+                for (i=0; i < RUR.rec._previous_lines.length; i++){
+                    editor.addLineClass(RUR.rec._previous_lines[i], 'background', 'editor-highlight');
                 }
-            }catch (e) {}
+            }catch (e) {console.log("diagnostic: error was raised while trying to addLineClass", e);}
         }
     }
 
