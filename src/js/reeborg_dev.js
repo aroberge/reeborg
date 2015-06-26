@@ -3830,6 +3830,7 @@ RUR.storage._save_world = function (name){
         if (!window.confirm(RUR.translate("Name already exist; confirm that you want to replace its content."))){
             return;
         }
+        RUR.storage.delete_world(name);
     }
     RUR.storage.save_world(name);
 };
