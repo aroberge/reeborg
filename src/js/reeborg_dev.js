@@ -4134,16 +4134,6 @@ RUR.ui.add_help = function(usage, _id, lang, warning){
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
-if (!Array.prototype.remove){
-    // Array remove - By John Resig (MIT Licensed) from http://ejohn.org/blog/javascript-array-remove/
-    Array.prototype.remove = function(from, to) {
-        "use strict";
-        var rest = this.slice((to || from) + 1 || this.length);
-        this.length = from < 0 ? this.length + from : from;
-        return this.push.apply(this, rest);
-    };
-}
-
 /*
     Original script title: "Object.identical.js"; version 1.12
     Copyright (c) 2011, Chris O'Brien, prettycode.org
@@ -5758,7 +5748,7 @@ RUR.we.toggle_wall = function (x, y, orientation) {
         if (index === -1) {
             RUR.current_world.walls[coords].push(orientation);
         } else {
-            RUR.current_world.walls[coords].remove(index);
+            RUR.current_world.walls[coords].splice(index, 1);
             if (RUR.current_world.walls[coords].length === 0){
                 delete RUR.current_world.walls[coords];
             }
@@ -5785,7 +5775,7 @@ RUR.we.toggle_goal_wall = function () {
         if (index === -1) {
             RUR.current_world.goal.walls[coords].push(orientation);
         } else {
-            RUR.current_world.goal.walls[coords].remove(index);
+            RUR.current_world.goal.walls[coords].splice(index, 1);
             if (Object.keys(RUR.current_world.goal.walls[coords]).length === 0){
                 delete RUR.current_world.goal.walls[coords];
                 if (Object.keys(RUR.current_world.goal.walls).length === 0) {

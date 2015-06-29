@@ -684,7 +684,7 @@ RUR.we.toggle_wall = function (x, y, orientation) {
         if (index === -1) {
             RUR.current_world.walls[coords].push(orientation);
         } else {
-            RUR.current_world.walls[coords].remove(index);
+            RUR.current_world.walls[coords].splice(index, 1);
             if (RUR.current_world.walls[coords].length === 0){
                 delete RUR.current_world.walls[coords];
             }
@@ -711,7 +711,7 @@ RUR.we.toggle_goal_wall = function () {
         if (index === -1) {
             RUR.current_world.goal.walls[coords].push(orientation);
         } else {
-            RUR.current_world.goal.walls[coords].remove(index);
+            RUR.current_world.goal.walls[coords].splice(index, 1);
             if (Object.keys(RUR.current_world.goal.walls[coords]).length === 0){
                 delete RUR.current_world.goal.walls[coords];
                 if (Object.keys(RUR.current_world.goal.walls).length === 0) {
