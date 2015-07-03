@@ -44,7 +44,7 @@ RUR.reset_code_in_editors = function () {
     if (RUR.programming_language == "javascript") {
         editor_default = default_instruction + "();";
     } else if (RUR.programming_language == "python") {
-        library_default = RUR.translate("# 'from my_lib import *' in Python Code is required to use\n# the code in this library. \n\n");
+        library_default = RUR.translate("# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n");
         library_content = localStorage.getItem(RUR.settings.library);
         if (!library_content){
             library_content = library_default;
@@ -1245,6 +1245,49 @@ $(document).ready(function() {
 
 });
 /* Author: André Roberge
+   License: MIT
+ */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, RUR */
+
+RUR.custom_menu = {};
+
+RUR.custom_menu.make = function (contents) {
+    "use strict";
+    var i;
+    $("#custom-world-menu").remove();
+    $("#header-child").append('<select id="custom-world-menu"></select>');
+    $("#custom-world-menu").css("margin-top", "10px").css("margin-left", "20px");
+    for(i=0; i<contents.length; i++){
+        $('#custom-world-menu').append( $('<option></option>').val(contents[i][0]).html(contents[i][1]));
+    }
+
+    $("#custom-world-menu").change(function() {
+        RUR.custom_menu.load_file($(this).val());
+    });
+    $("#custom-world-menu").change();
+};
+
+RUR.custom_menu.load_file = function (url) {
+    "use strict";
+    $.ajax({url: url,
+        async: false,
+        error: function(e){
+            $("#Reeborg-shouts").html(RUR.translate("Could not find link")).dialog("open");
+            RUR.ui.stop();
+        },
+        success: function(data){
+            if (typeof data == "string"){
+                RUR.update_permalink(data);
+                RUR.ui.reload();
+            } else {
+                RUR.world.import_world(data, true);
+                RUR.we.show_pre_post_code();
+            }
+        }
+    });
+};/* Author: André Roberge
    License: MIT
  */
 
@@ -3817,6 +3860,8 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
 };
 /* Author: André Roberge
    License: MIT
+
+   Utilities for dealing with html LocalStorage.
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
@@ -4988,20 +5033,23 @@ RUR.world.export_world = function () {
     return JSON.stringify(RUR.current_world, null, 2);
 };
 
-RUR.world.import_world = function (json_string) {
+RUR.world.import_world = function (json_string, already_parsed) {
     var body;
     if (json_string === undefined){
         return {};
     }
-    try {
-        RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
-    } catch (e) {
-        console.log("exception caught in import_world");
-        console.log(json_string);
-        console.log(e);
-        return;
+    if (already_parsed === undefined){
+        try {
+            RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
+        } catch (e) {
+            console.log("exception caught in import_world");
+            console.log(json_string);
+            console.log(e);
+            return;
+        }
+    } else {
+        RUR.current_world = json_string;
     }
-
 
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {

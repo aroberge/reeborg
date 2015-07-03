@@ -49,7 +49,7 @@ RUR.translation["tulip"] = "tulip";
 RUR.translation_to_english["tulip"] = "tulip";
 
 // in rur_utils.js
-RUR.translation["# 'from my_lib import *' in Python Code is required to use\n# the code in this library. \n\n"] =
+RUR.translation["# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n"] =
     "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
 RUR.translation.move = "move";
 RUR.translation["Python Code"] = "Python Code";
@@ -94,7 +94,7 @@ RUR.translation["Unknown orientation for robot."] = "Unknown orientation for rob
 // in ui.js
 RUR.translation["World selected"] = "World {world} selected";
 RUR.translation["Could not find world"] = "Could not find world {world}";
-RUR.translation["Object names"] = " my_lib, token, star, triangle, square, etc.";
+RUR.translation["Object names"] = " library, token, star, triangle, square, etc.";
 
 
 // in doc_ready.js

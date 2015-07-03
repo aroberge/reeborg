@@ -43,7 +43,7 @@ RUR.translation["tulip"] = "tulipe";
 RUR.translation_to_english["tulipe"] = "tulip";
 
 // in rur_utils.js
-RUR.translation["# 'from my_lib import *' in Python Code is required to use\n# the code in this library. \n\n"] =
+RUR.translation["# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n"] =
     "# 'from biblio import *' dans l'onglet Code Python est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
 RUR.translation.move = "avance";
 RUR.translation["Python Code"] = "Code Python";

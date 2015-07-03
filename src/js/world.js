@@ -29,20 +29,23 @@ RUR.world.export_world = function () {
     return JSON.stringify(RUR.current_world, null, 2);
 };
 
-RUR.world.import_world = function (json_string) {
+RUR.world.import_world = function (json_string, already_parsed) {
     var body;
     if (json_string === undefined){
         return {};
     }
-    try {
-        RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
-    } catch (e) {
-        console.log("exception caught in import_world");
-        console.log(json_string);
-        console.log(e);
-        return;
+    if (already_parsed === undefined){
+        try {
+            RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
+        } catch (e) {
+            console.log("exception caught in import_world");
+            console.log(json_string);
+            console.log(e);
+            return;
+        }
+    } else {
+        RUR.current_world = json_string;
     }
-
 
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
