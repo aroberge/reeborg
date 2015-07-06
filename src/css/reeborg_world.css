@@ -71,9 +71,6 @@ a.left-link, a.right-link, button, a.fake_button{
 p button.blue-gradient {
   float: none;
 }
-span.description {
-    margin-left: 15px;
-}
 
 a[href^="http"] {
     padding-right:16px;
@@ -92,12 +89,6 @@ fieldset label input {float:right;}
 fieldset label input[type="checkbox"] {float: left;}
 
 legend { color: #123264;}
-
-
-#edit-world {
-  margin-right: 30px;
-}
-
 
 #highlight {
   border: 0;

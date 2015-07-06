@@ -26,8 +26,8 @@
     <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">World</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
     <button class="blue-gradient" id="world-info-button">World info</button>
-    <button id="more-menus-button" class="blue-gradient" title="Additional menu">
-      Additional menu
+    <button id="more-menus-button" class="blue-gradient" title="Additional options">
+      Additional options
     </button>
   </div>
 
@@ -327,7 +327,7 @@ window['translate_python'] = translate_python
     <ul id="toc"></ul>
 </div>
 
-<div id="more-menus" title="Additional menu" style="display:none">
+<div id="more-menus" title="Additional options" style="display:none">
 
   <h3>Programming language</h3>
     <form>
@@ -344,7 +344,6 @@ window['translate_python'] = translate_python
     useful information about this site.
   </p>
 
-
 <hr>
 <h3>World: selection, creation, ...</h3>
   <p> You can choose one of the few pre-existing worlds:
@@ -353,16 +352,18 @@ window['translate_python'] = translate_python
       <option value="src/worlds/gravel_path.json" selected>gravel_path</option>
       <option value="src/worlds/blank.json">blank</option>
     </select>
+    <br>
+    <em>Note: worlds created by you and saved in your browser will also be
+      available through this selection.</em>
   </p>
 
   <p>
-      <button class="blue-gradient" id="edit-world" title="Edit world">Edit world</button> You can create
+      <button class="blue-gradient" id="edit-world">Edit world</button> You can create
       your own world by editing the current one.
   </p>
   <p>
-    <button id="permalink" class="blue-gradient" label="url-form" onclick="RUR.create_permalink();">
-      Permalink
-    </button> To save the complete content (current state of the world, content of the code editor and,
+    <button id="permalink" class="blue-gradient" onclick="RUR.create_permalink();">Permalink</button>
+    To save the complete content (current state of the world, content of the code editor and,
   if programming using Python, content of the library), click on the permalink button.
   This will create a permalink which can be saved by copying it and pasting it in a location of
   your choice.  Alternatively, you can copy a permalink into the dialog that will appear if
@@ -376,111 +377,89 @@ window['translate_python'] = translate_python
   <p>
     <button class="blue-gradient" id="load-world">Open world from file</button>
     Loads a world from a file on your computer.
-
   </p>
 
   <p><button class="blue-gradient" id="memorize-world">Save world to browser</button>
      Saves a copy of the current state of the world in the browser's memory
-     (Local Storage) under a chosen name.
+     (Local Storage) under a chosen name, and makes it available as a valid
+     selection with the pre-existing worlds above.
    </p>
 
-  <p><button class="blue-gradient" id="delete-world"style="display: none;">Delete world from browser</button>
+  <p><button class="blue-gradient" id="delete-world" style="display: none;">Delete world from browser</button>
     Deletes a known world from the browser's memory (Local Storage).
   </p>
 
   <p>
-    <button class="blue-gradient" id="save-editor" title="Save program">Save program to file</button>
-    <span class="description"> Saves the content of the editor in a file.
-    </span>
+    <button class="blue-gradient" id="save-editor">Save program to file</button>
+     Saves the content of the editor in a file.
   </p>
 
   <p>
-    <button class="blue-gradient" id="load-editor" title="Import program">Import program from file</button>
-    <span class="description"> Opens a local file and use its content to replace the content of the Code editor.
-    </span>
+    <button class="blue-gradient" id="load-editor">Import program from file</button>
+     Opens a local file and use its content to replace the content of the Code editor.
   </p>
 
 <hr>
 <h3>Special execution features</h3>
   <p>
-    <button class="blue-gradient" id="reverse-step" title="Reverse step" onclick="RUR.ui.reverse_step();">
+    <button class="blue-gradient" id="reverse-step" onclick="RUR.ui.reverse_step();">
       <img src="src/images/reverse_step.png" alt="reverse step">
     </button>
-    <span class="description"> Reverses the previous execution step.
-    </span>
+     Reverses the previous execution step.
   </p>
 
   <p>
-    <button class="blue-gradient" title="Erase trace" onclick="RUR.vis_world.clear_trace();">Erase trace</button>
-    <span class="description"> Erases the trace left by Reeborg. This can be useful to focus on what happens
+    <button class="blue-gradient" onclick="RUR.vis_world.clear_trace();">Erase trace</button>
+     Erases the trace left by Reeborg. This can be useful to focus on what happens
       after a program is paused.
-    </span>
   </p>
 
 <hr>
   <p>
     <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaboration</button>
-    <span class="description"> Tool which permits collaboration with one or more other user
+     Tool which permits collaboration with one or more other user
       using Mozilla's TogetherJS.
-    </span>
   </p>
-
 
 <hr>
   <h3>Python only</h3>
   <div id="python-additional-menu">
     <p>
-      <button class="blue-gradient" id="save-library" title="Save library">Save the library</button>
-      <span class="description">
+      <button class="blue-gradient" id="save-library">Save the library</button>
         Saves the content of the library in a file.
-      </span>
     </p>
 
     <p>
-      <button class="blue-gradient" id="load-library" title="Import library">Import library from a file</button>
-      <span class="description">
+      <button class="blue-gradient" id="load-library">Import library from a file</button>
         Opens a file and use its content to replace the current content of the Library.
-      </span>
     </p>
 
     <p>
       <button class="blue-gradient" onClick="RUR.testing.test_permalink('comprehensive_test')">
         Comprehensive test</button>
-      <span class="description">
         Runs a comprehensive test.  Meant to be used by developers.
-      </span>
     </p>
     <p>
       <button class="blue-gradient" onClick="RUR.testing.test_permalink('test_highlight')">
         Highlighting test</button>
-      <span class="description">
         Runs a test showing lines of code being highlighted in blocks.
         Meant to be used by developers, stepping through the code one instruction at a time.
-      </span>
     </p>
-
-
   </div>
 <hr>
   <h3>Javascript only</h3>
   <div id="javascript-additional-menu">
     <p>
-      <button class="blue-gradient" title="Lint: syntax verification" onclick="RUR.editorUpdateHints()">
+      <button class="blue-gradient" onclick="RUR.editorUpdateHints()">
         "Lint"
       </button>
-      <span class="description">
         Uses JSHint to see if any syntax errors are present and, if so, indicate it in the editor.
-      </span>
     </p>
     <p>
       <button class="blue-gradient" onClick="RUR.testing.test_permalink('comprehensive_test_js')">
         Comprehensive test</button>
-      <span class="description">
         Runs a comprehensive test.  Meant to be used by developers.
-      </span>
     </p>
-
-
   </div>
 <hr>
   <h3>CoffeeScript only</h3>
@@ -489,9 +468,7 @@ window['translate_python'] = translate_python
       <button class="blue-gradient" onclick="RUR.runner.compile_coffee();">
         Translate CoffeeScript
       </button>
-      <span class="description">
         Translates the CoffeeScript code in the editor into Javascript and prints the result.
-      </span>
     </p>
   </div>
 </div>
@@ -649,7 +626,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 
 
 <!--online-->
-<a style="display:none" title="Real Time Analytics" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif"/></a>
+<a style="display:none" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif"/></a>
 <script type="text/javascript">
 var clicky_site_ids = clicky_site_ids || [];
 clicky_site_ids.push(100788691);
