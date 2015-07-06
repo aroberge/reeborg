@@ -68,7 +68,7 @@ a.left-link, a.right-link, button, a.fake_button{
     border-bottom: 0;
 }
 
-p button.blue-gradient {
+p button {
   float: none;
 }
 
