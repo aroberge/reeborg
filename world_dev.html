@@ -25,29 +25,21 @@
   <div id="header-child">
     <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">World</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
-    <button class="blue-gradient" id="help-button">Help</button>
-    <button class="blue-gradient" id="world-select">Change world</button>
     <button class="blue-gradient" id="world-info-button">World info</button>
-    <form>
-        <input type="radio" name="programming_language" value="python-en" checked> Python
-        <input type="radio" name="programming_language" value="javascript-en" > Javascript
-        <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
-    </form>
-    <button id="more-menus-button" class="blue-gradient" label="url-form" title="Additional menu">
+    <button id="more-menus-button" class="blue-gradient" title="Additional menu">
       Additional menu
     </button>
-    <button class="blue-gradient" id="about-button" style="float:right">About</button>
   </div>
 
 </header>
-  <div id="url_input">
+<div id="url_input" style="display:none">
   <p>Copy the permalink and press cancel, or replace by new one and press Update.</p>
-  <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
+    <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
   <p>
-  <button class="blue-gradient" id="ok-permalink" onclick="RUR.update_permalink();">Update</button>
-  <button class="blue-gradient" id="cancel-permalink" onclick="RUR.cancel_permalink();">Cancel</button>
+    <button class="blue-gradient" id="ok-permalink" onclick="RUR.update_permalink();">Update</button>
+    <button class="blue-gradient" id="cancel-permalink" onclick="RUR.cancel_permalink();">Cancel</button>
   </p>
-  </div>
+</div>
 
 <div id="world-panel" class="active" >
 
@@ -93,32 +85,6 @@
       <button id="solar-panel-type" title="Solar Panel Robot"><img src="src/images/sp_e.png" alt="Solar Panel Robot"></button>
     </div>
 </div>
-
-<div id="world-edit-buttons" title="Changing world" style="display:none;">
-    <select id="select_world" title="Select world">
-      <option value="src/worlds/alone.json" selected>alone</option>
-      <option value="src/worlds/gravel_path.json" selected>gravel_path</option>
-      <option value="src/worlds/blank.json">blank</option>
-    </select>
-
-      <button class="blue-gradient" id="edit-world" title="Edit world">Edit</button>
-      <button id="permalink" class="blue-gradient" label="url-form" title="Create a permalink" onclick="RUR.create_permalink();">
-        Permalink
-      </button>
-      <br>
-      <fieldset id="file-fieldset"><legend>File</legend>
-      <button class="blue-gradient" id="save-world" title="Save world to file">Save</button>
-      <button class="blue-gradient" id="load-world" title="Load world from file">Open</button>
-      </fieldset>
-      <fieldset><legend>Browser</legend>
-      <button class="blue-gradient" id="memorize-world" title="Save world in browser memory (local storage)">Save</button>
-      <button class="blue-gradient" id="delete-world" title="Delete world from browser memory (local storage)" style="display: none;">
-        Delete
-      </button>
-      </fieldset>
-
-</div>
-
 
 <div id="editor-panel" class="active" >
   <input type="file" id="fileInput" style="display:none;">
@@ -361,18 +327,86 @@ window['translate_python'] = translate_python
     <ul id="toc"></ul>
 </div>
 
-<div id="more-menus" title="Other options" style="display:none">
+<div id="more-menus" title="Additional menu" style="display:none">
 
-<p>To save the complete content (current state of the world, content of the code editor and,
-if programming using Python, content of the library), use the permalink button at the top.
-This will create a permalink which can be saved by copying it and pasting it in a location of
-your choice.</p>
+  <h3>Programming language</h3>
+    <form>
+        <input type="radio" name="programming_language" value="python-en" checked> Python
+        <input type="radio" name="programming_language" value="javascript-en" > Javascript
+        <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
+    </form></p>
+  <p>
+    <button class="blue-gradient" id="help-button">Help</button>
+    Displays a description of available commands
+  </p>
+  <p>
+    <button class="blue-gradient" id="about-button">About</button> Some potentially
+    useful information about this site.
+  </p>
 
+
+<hr>
+<h3>World: selection, creation, ...</h3>
+  <p> You can choose one of the few pre-existing worlds:
+    <select id="select_world" title="Select world">
+      <option value="src/worlds/alone.json" selected>alone</option>
+      <option value="src/worlds/gravel_path.json" selected>gravel_path</option>
+      <option value="src/worlds/blank.json">blank</option>
+    </select>
+  </p>
+
+  <p>
+      <button class="blue-gradient" id="edit-world" title="Edit world">Edit world</button> You can create
+      your own world by editing the current one.
+  </p>
+  <p>
+    <button id="permalink" class="blue-gradient" label="url-form" onclick="RUR.create_permalink();">
+      Permalink
+    </button> To save the complete content (current state of the world, content of the code editor and,
+  if programming using Python, content of the library), click on the permalink button.
+  This will create a permalink which can be saved by copying it and pasting it in a location of
+  your choice.  Alternatively, you can copy a permalink into the dialog that will appear if
+  you click on this button and then click on "update" to change the existing world.
+  </p>
+
+  <p>
+    <button class="blue-gradient" id="save-world">Save world to file</button>
+    Saves the world (as a json object) to a file on your computer.
+  </p>
+  <p>
+    <button class="blue-gradient" id="load-world">Open world from file</button>
+    Loads a world from a file on your computer.
+
+  </p>
+
+  <p><button class="blue-gradient" id="memorize-world">Save world to browser</button>
+     Saves a copy of the current state of the world in the browser's memory
+     (Local Storage) under a chosen name.
+   </p>
+
+  <p><button class="blue-gradient" id="delete-world"style="display: none;">Delete world from browser</button>
+    Deletes a known world from the browser's memory (Local Storage).
+  </p>
+
+  <p>
+    <button class="blue-gradient" id="save-editor" title="Save program">Save program to file</button>
+    <span class="description"> Saves the content of the editor in a file.
+    </span>
+  </p>
+
+  <p>
+    <button class="blue-gradient" id="load-editor" title="Import program">Import program from file</button>
+    <span class="description"> Opens a local file and use its content to replace the content of the Code editor.
+    </span>
+  </p>
+
+<hr>
+<h3>Special execution features</h3>
   <p>
     <button class="blue-gradient" id="reverse-step" title="Reverse step" onclick="RUR.ui.reverse_step();">
       <img src="src/images/reverse_step.png" alt="reverse step">
     </button>
-    <span class="description"> Reverses the previous step.
+    <span class="description"> Reverses the previous execution step.
     </span>
   </p>
 
@@ -383,6 +417,7 @@ your choice.</p>
     </span>
   </p>
 
+<hr>
   <p>
     <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaboration</button>
     <span class="description"> Tool which permits collaboration with one or more other user
@@ -390,17 +425,7 @@ your choice.</p>
     </span>
   </p>
 
-  <p>
-    <button class="blue-gradient" id="save-editor" title="Save program">Save program</button>
-    <span class="description"> Saves the content of the editor in a file.
-    </span>
-  </p>
 
-  <p>
-    <button class="blue-gradient" id="load-editor" title="Import program">Import a program</button>
-    <span class="description"> Opens a local file and use its content to replace the content of the Code editor.
-    </span>
-  </p>
 <hr>
   <h3>Python only</h3>
   <div id="python-additional-menu">
@@ -412,7 +437,7 @@ your choice.</p>
     </p>
 
     <p>
-      <button class="blue-gradient" id="load-library" title="Import library">Import a library</button>
+      <button class="blue-gradient" id="load-library" title="Import library">Import library from a file</button>
       <span class="description">
         Opens a file and use its content to replace the current content of the Library.
       </span>
@@ -477,10 +502,7 @@ your choice.</p>
         <a href="http://www.reddit.com/r/reeborg">here</a>.
       <a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</small></p>
 
-    <a href="#about">About Reeborg</a><br>
-    <a href="#contribute">Contribute</a><br>
-
-     <h2 id="about">About Reeborg</h2>
+     <h2>About Reeborg</h2>
 
     <p>Inspired by Guido van Robot, itself inspired by the original Karel the Robot
     created by Richard Pattis, Reeborg first appeared in RUR-PLE, a program I created
@@ -498,7 +520,7 @@ your choice.</p>
     You might also want to make a copy of this site on a local server.</p>
 
 
-     <h2 id="contribute">Contribute</h2>
+     <h2>Contribute</h2>
 
      <p> I am just a self-taught programmer, with no training in web design, graphics, etc.
     I would gladly welcome any suggestions or contributions to</p>
