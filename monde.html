@@ -23,18 +23,11 @@
   <div id="header-child">
    <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">Monde</button>
     <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Éditeur</button>
-    <button class="blue-gradient" id="help-button">Aide</button>
-    <button class="blue-gradient" id="world-select">Changer de monde</button>
     <button class="blue-gradient" id="world-info-button">Information</button>
-    <form>
-        <input type="radio" name="programming_language" value="python-fr" checked> Python
-        <input type="radio" name="programming_language" value="javascript-fr" > Javascript
-        <input type="radio" name="programming_language" value="coffeescript-fr" > CoffeeScript
-    </form>
-    <button id="more-menus-button" class="blue-gradient" label="url-form" title="Menu additionnel">
+
+    <button id="more-menus-button" class="blue-gradient" title="Menu additionnel">
       Menu additionnel
     </button>
-    <button class="blue-gradient" id="about-button" style="float:right">À propos</button>
   </div>
 
 </header>
@@ -90,29 +83,7 @@
       <button id="solar-panel-type" title="Robot avec panneau solaire"><img src="src/images/sp_e.png" alt="Robot avec panneau solaire"></button>
     </div>
 </div>
-<div id="world-edit-buttons" title="Changer le monde">
-  <select id="select_world" title="Sélectionner un monde">
-      <option value="src/worlds/alone.json" selected>alone</option>
-      <option value="src/worlds/gravel_path.json" selected>gravel_path</option>
-      <option value="src/worlds/blank.json">blank</option>
-  </select>
 
-    <button class="blue-gradient" id="edit-world" title="Édition du monde">Édition</button>
-      <button id="permalink" class="blue-gradient" label="url-form" title="Créer un permalien" onclick="RUR.create_permalink();">
-        Permalink
-      </button>
-    <br>
-    <fieldset id="file-fieldset"><legend>Fichier</legend>
-    <button class="blue-gradient" id="save-world" title="Enregistrer le monde dans un fichier">Enregistrer</button>
-    <button class="blue-gradient" id="load-world" title="Ouvrir à partir d'un fichier">Ouvrir</button>
-    </fieldset>
-    <fieldset><legend>Navigateur</legend>
-      <button class="blue-gradient" id="memorize-world" title="Enregistrer dans le navigateur (stockage local)">Enregistrer.</button>
-      <button class="blue-gradient" id="delete-world" title="Supprimer du navigateur (stockage local)" style="display: none;">
-      Supprimer
-      </button>
-    </fieldset>
-</div>
 <div id="editor-panel" class="active" >
   <input type="file" id="fileInput" style="display:none;">
   <div id="tabs">
@@ -348,12 +319,89 @@ window['translate_python'] = translate_python
 </div>
 
 
-<div id="more-menus" title="Autres options" style="display:none">
+<div id="more-menus" title="Menu additionnel" style="display:none">
 
-<p>Pour sauvegarder le contenu complet (état actual du monde, contenu de l'éditeur de code et,
-  si vous programmez en Python, le contenu de la bibliothèque), cliquez sur le bouton "permalien".
-  Ceci va créer un permalien que vous pouvez copiez et collez à l'endroit de votre choix (courriel,
-  éditeur de texte, etc.). </p>
+<h3>Langages de programmation</h3>
+  <form>
+    <input type="radio" name="programming_language" value="python-fr" checked> Python
+    <input type="radio" name="programming_language" value="javascript-fr" > Javascript
+    <input type="radio" name="programming_language" value="coffeescript-fr" > CoffeeScript
+  </form>
+
+  <p>
+    <button class="blue-gradient" id="help-button">Aide</button>
+    Affiche une description des commandes disponibles.
+  </p>
+  <p>
+    <button class="blue-gradient" id="about-button">À propos</button>
+    Affiche des informations au sujet de ce site.
+  </p>
+
+<h3>Monde: sélection, création, ...</h3>
+  <p> Vous pouvez choisir un des mondes pré-définis:
+    <select id="select_world" title="Sélectionner un monde">
+      <option value="src/worlds/alone.json" selected>alone</option>
+      <option value="src/worlds/gravel_path.json" selected>gravel_path</option>
+      <option value="src/worlds/blank.json">blank</option>
+    </select>
+    <br>
+    <em>Note: les mondes que vous créez et sauvegardez dans votre
+      navigateur seront ajoutés automatiquement à la liste des mondes
+      disponibles.</em>
+  </p>
+
+  <p>
+      <button class="blue-gradient" id="edit-world">Édition du monde</button>
+      Vous pouvez créer vos propres mondes en modifiant un monde existant.
+  </p>
+
+  <p>
+    <button id="permalink" class="blue-gradient" onclick="RUR.create_permalink();">Permalien</button>
+    Pour sauvegarder le contenu complet (état actuel du monde, contenu de
+    l'éditeur, de la bibliothèque, etc.), cliquez sur le
+    bouton Permalien: ceci créera un permalien que vous pourrez
+    copier et sauvegarder à l'endroit de votre choix.
+    Alternativement, vous pouvez copier un autre permalien dans la
+    fenêtre qui apparaitra et cliquer sur le bouton de mise à jour pour
+    changer le monde existant.
+  </p>
+
+  <p>
+    <button class="blue-gradient" id="save-world">Sauvegarder le monde dans
+      un fichier</button>
+      Sauvegarde le monde dans un fichier sur votre ordinateur.
+  </p>
+  <p>
+    <button class="blue-gradient" id="load-world">Ouvrir un monde</button>
+    Ouvre un monde à partir d'un fichier.
+  </p>
+
+  <p><button class="blue-gradient" id="memorize-world">Sauvegarder le monde dans votre navigateur</button>
+    Sauvegarde une copie de l'état actuel du monde dans la mémoire
+    de votre navigateur avec un nom que vous lui donnez; ceci le
+    rendra disponible parmi la sélection de mondes pré-définis
+    mentionnés ci-dessus.
+   </p>
+
+  <p><button class="blue-gradient" id="delete-world" style="display: none;">Effacer le monde du navigateur</button>
+    Élimine un monde connu de la mémoire de votre nagivageur.
+  </p>
+
+  <p>
+    <button class="blue-gradient" id="save-editor">Sauvegarder le programme dans un fichier</button>
+    Sauvegarde le contenu de l'éditeur dans un fichier.
+     Saves the content of the editor in a file.
+  </p>
+
+  <p>
+    <button class="blue-gradient" id="load-editor">Ouvrir un programme</button>
+    Ouvre un fichier local et remplace le contenu de l'éditeur par le contenu
+    du fichier.
+  </p>
+
+
+<hr>
+<h3>Options d'exécution</h3>
 
   <p>
     <button class="blue-gradient" id="reverse-step" title="Renverse la commande" onclick="RUR.ui.reverse_step();">
@@ -454,11 +502,8 @@ window['translate_python'] = translate_python
     <a href="https://groups.google.com/forum/?fromgroups#!forum/reeborg">dans ce forum</a>.
   <a href="https://code.google.com/p/reeborg/issues/list">Les rapports de bogues</a> sont les bienvenus!</small></p>
 
-<a href="#about">À propos de Reeborg</a><br>
-<a href="#contribute">Contribuez</a><br>
 
-
-     <h2 id="about">À propos de Reeborg</h2>
+     <h2>À propos de Reeborg</h2>
 
     <p>Inspiré par Guido van Robot, lui-même inspiré par le robot Karel conçu
   par Richard Pattis, Reeborg est apparu en premier dans RUR-PLE, un logiciel
@@ -479,7 +524,7 @@ majeurs.</b> Vous
 voudrez possiblement faire une copie de ce site sur votre propre serveur; si
 vous avez besoin d'aide, n'hésitez pas à me contacter.</p>
 
- <h2 id="contribute">Contribuez</h2>
+ <h2>Contribuez</h2>
 
  <p> Je ne suis qu'un programmeur autodidacte, sans formation en design web, graphisme, etc.
  J'invite toute suggestion ou contribution visant à
