@@ -77,6 +77,7 @@ a[href^="http"] {
     background:transparent url(../images/external_link.png) right no-repeat;
 }
 
+#select_world {border: 2px solid blue;}
 
 fieldset {display: inline-block;
     border-radius: 10px;

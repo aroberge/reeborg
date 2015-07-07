@@ -189,6 +189,8 @@ $(document).ready(function() {
         beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
 
     $("#help-button").on("click", function() {
+        $("#help-button").toggleClass("blue-gradient");
+        $("#help-button").toggleClass("reverse-blue-gradient");
         if ($("#help-button").hasClass("reverse-blue-gradient")) {
             $("#help").dialog("open");
         } else {
@@ -214,7 +216,6 @@ $(document).ready(function() {
     $("#about-div").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
         beforeClose: function( event, ui ) {$("#about-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
 
-
     $("#world-edit-buttons").dialog({autoOpen:false, width:550,  height:180, maximize: false, position:"center",
         beforeClose: function( event, ui ) {$("#world-select").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
 
@@ -228,8 +229,9 @@ $(document).ready(function() {
     });
 
 
-
     $("#about-button").on("click", function() {
+        $("#about-button").toggleClass("blue-gradient");
+        $("#about-button").toggleClass("reverse-blue-gradient");
         if ($("#about-button").hasClass("reverse-blue-gradient")) {
             $("#about-div").dialog("open");
         } else {
