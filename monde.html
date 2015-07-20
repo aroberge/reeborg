@@ -296,6 +296,7 @@ window['translate_python'] = translate_python
     indentUnit: 4,
     viewportMargin: Infinity
   });
+  editor.widgets = [];
   var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
     mode:  {name: "python", version: 3},
     tabMode: 'indent',

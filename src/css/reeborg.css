@@ -5,7 +5,7 @@ button[disabled]{
     background: #eee;
     color: #ccc;
 }
-header {position: absolute; top: 0; left: 0; z-index: 10; width: 99.9%;}
+header {position: absolute; top: 0; left: 0; z-index: 10; width: 99.9%; color: white;}
 h1 {font-size: 1.7em; color: #224488;}
 h2 {font-size: 1.3em; color: #224488;}
 h3 {font-size: 1.1em; color: #224488;}
