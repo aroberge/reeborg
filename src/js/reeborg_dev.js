@@ -1296,47 +1296,138 @@ RUR.custom_menu.load_file = function (url) {
           save_world, delete_world, parseUri*/
 
 $(document).ready(function() {
+    "use strict";
 
     RUR.ui.load_user_worlds();
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.ui.select_world("Alone");
+        RUR.ui.select_world("alone");
     }
-    // init
-    var child, button_closed = false;
 
-    $("#header-child button").on("click", function(){
-        var index, label, children;
-        $(this).toggleClass("active");
-        $(this).toggleClass("blue-gradient");
-        $(this).toggleClass("reverse-blue-gradient");
-        label = $(this).attr("label");
-
-        children = $("#panels").children();
-        for (index = 0; index < children.length; index++){
-            child = $(children[index]);
-            if (child.attr("id") === label) {
-                child.toggleClass("active");
+    function create_and_activate_dialog(button, element, add_options, special_fn) {
+        var options = {
+        minimize: false,
+        maximize: false,
+        autoOpen: false,
+        width: 800,
+        height: 600,
+        position: {my: "center", at: "center", of: window},
+        beforeClose: function( event, ui ) {
+                button.addClass("blue-gradient").removeClass("reverse-blue-gradient");
+                if (special_fn !== undefined){
+                    special_fn();
+                }
             }
+        };
+        for (var attrname in add_options) {
+            options[attrname] = add_options[attrname];
         }
 
-        if (label === "world-panel"){
-            $("#world-panel").toggleClass("active");
-        }  else if (label === "editor-panel"){
-            $("#editor-panel").toggleClass("active");
-        }
+        button.on("click", function(evt) {
+            element.dialog(options);
+            button.toggleClass("blue-gradient");
+            button.toggleClass("reverse-blue-gradient");
+            if (button.hasClass("reverse-blue-gradient")) {
+                element.dialog("open");
+            } else {
+                element.dialog("close");
+            }
+            if (special_fn !== undefined){
+                special_fn();
+            }
+        });
+    }
 
+    create_and_activate_dialog($("#edit-world"), $("#edit-world-panel"), {}, toggle_editing_mode);
+    create_and_activate_dialog($("#help-button"), $("#help"), {});
+    create_and_activate_dialog($("#about-button"), $("#about-div"), {});
+    create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
+    create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600});
+    /** Dialogs creation */
+
+    // $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
+    //     beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+
+    // $("#about-div").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
+    //     beforeClose: function( event, ui ) {$("#about-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+
+    // $("#World-info").dialog({autoOpen:false, width:600,  height:300, maximize: false, position:"top",
+    //     beforeClose: function( event, ui ) {$("#world-info-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+
+    // $("#more-menus").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
+    //     beforeClose: function( event, ui ) {$("#more-menus-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
+
+
+    /** Button actions */
+
+
+    $("#world-panel-button").on("click", function (evt) {
+        RUR.ui.toggle_panel($("#world-panel-button"), $("#world-panel"))
     });
 
-    $(function() {
-        $("#tabs").tabs({
+    $("#editor-panel-button").on("click", function (evt) {
+        RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
+    });
+
+    // $("#help-button").on("click", function (evt) {
+    //     RUR.ui.toggle_dialog($("#help-button"), $("#help"))
+    // });
+
+    // $("#about-button").on("click", function (evt) {
+    //     RUR.ui.toggle_dialog($("#about-button"), $("#about-div"));
+    // });
+
+    // $("#world-info-button").on("click", function(evt) {
+    //     RUR.ui.toggle_dialog($("#world-info-button"), $("#World-info"));
+    // });
+
+    // $("#more-menus-button").on("click", function(evt) {
+    //     RUR.ui.toggle_dialog($("#more-menus-button"), $("#more-menus"));
+    // });
+
+    $("#editor-link").on("click", function(evt){
+        if (RUR.programming_language == "python"){
+            $("#highlight").show();
+        }
+    });
+
+    $("#library-link").on("click", function(evt){
+        $("#highlight").hide();
+    });
+
+
+    $("#save-editor").on("click", function(evt) {
+        var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
+        saveAs(blob, "filename");  // saveAs defined in src/libraries/filesaver.js
+    });
+
+    $("#save-library").on("click", function(evt) {
+        var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
+        saveAs(blob, "filename");
+    });
+
+    $("#save-world").on("click", function(evt) {
+        var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
+        saveAs(blob, "filename");
+    });
+
+
+    $("#load-editor").on("click", function(evt) {
+        load_file(editor);
+    });
+
+    $("#load-library").on("click", function(evt) {
+        load_file(library);
+    });
+
+
+    $("#tabs").tabs({
             heightStyle: "auto",
             activate: function(event, ui){
                 editor.refresh();
                 library.refresh();
             }
-        });
     });
 
     $("#editor-panel").resizable({
@@ -1346,16 +1437,6 @@ $(document).ready(function() {
         }
     }).draggable({cursor: "move", handle: "ul"});
 
-    $("#editor-link").on("click", function(){
-        if (RUR.programming_language == "python"){
-            $("#highlight").show();
-        }
-    });
-    $("#library-link").on("click", function(){
-        $("#highlight").hide();
-    });
-
-    var FILENAME = "filename";
 
     var load_file = function(obj) {
         $("#fileInput").click();
@@ -1371,29 +1452,10 @@ $(document).ready(function() {
         });
     };
 
-    $("#load-editor").on("click", function(evt) {
-        load_file(editor);
-    });
-
-    $("#load-library").on("click", function(evt) {
-        load_file(library);
-    });
-
-    $("#save-editor").on("click", function(evt) {
-        var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, FILENAME);
-    });
-
-    $("#save-library").on("click", function(evt) {
-        var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, FILENAME);
-    });
 
 
-    $("#save-world").on("click", function(evt) {
-        var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, FILENAME);
-    });
+
+
 
 
     $("#load-world").on("click", function(evt) {
@@ -1415,38 +1477,11 @@ $(document).ready(function() {
     });
 
     $("#memorize-world").on("click", function(evt) {
-        var existing_names, i, key, response;
-        existing_names = ' [';
-
-        for (i = 0; i <= localStorage.length - 1; i++) {
-            key = localStorage.key(i);
-            if (key.slice(0, 11) === "user_world:") {
-                existing_names += key.substring(11) + ", ";
-            }
-        }
-        existing_names += "]";
-        response = prompt(RUR.translate("Enter world name to save") + existing_names);
-        if (response !== null) {
-            RUR.storage._save_world(response.trim());
-            $('#delete-world').show();
-        }
+        RUR.storage.memorize_world();
     });
 
     $("#delete-world").on("click", function(evt) {
-        var existing_names, i, key, response;
-        existing_names = ' [';
-
-        for (i = 0; i <= localStorage.length - 1; i++) {
-            key = localStorage.key(i);
-            if (key.slice(0, 11) === "user_world:") {
-                existing_names += key.substring(11) + ", ";
-            }
-        }
-        existing_names += "]";
-        response = prompt(RUR.translate("Enter world name to delete") + existing_names);
-        if (response !== null) {
-            RUR.storage.delete_world(response.trim());
-        }
+        RUR.storage.remove_world();
     });
 
     $("#classic-image").on("click", function(evt) {
@@ -1474,92 +1509,12 @@ $(document).ready(function() {
         RUR.we.show_world_info();
     });
 
-    $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
-        beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
-
-    $("#help-button").on("click", function() {
-        $("#help-button").toggleClass("active");
-        $("#help-button").toggleClass("blue-gradient");
-        $("#help-button").toggleClass("reverse-blue-gradient");
-        if ($("#help-button").hasClass("reverse-blue-gradient")) {
-            $("#help").dialog("open");
-        } else {
-            $("#help").dialog("close");
-        }
-        return;
-    });
-
-    $("#edit-world").on("click", function(evt) {
-        if ($("#edit-world").hasClass("blue-gradient")) {
-            $("#edit-world-panel").dialog("open");
-            $("#edit-world").addClass("reverse-blue-gradient").removeClass("blue-gradient");
-            toggle_editing_mode();
-        } else {
-            $("#edit-world-panel").dialog("close");
-            $("#edit-world-panel").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:800,  height:700, position:"top"});
-        }
-    });
-    $("#edit-world-panel").dialog({minimize: false, maximize: false, autoOpen:false, width:800,  height:700, position:"top",
-        beforeClose: function( event, ui ) {$("#edit-world").addClass("blue-gradient").removeClass("reverse-blue-gradient");
-                                              toggle_editing_mode();}});
-
-    $("#about-div").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
-        beforeClose: function( event, ui ) {$("#about-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
-
-    $("#world-edit-buttons").dialog({autoOpen:false, width:550,  height:180, maximize: false, position:"center",
-        beforeClose: function( event, ui ) {$("#world-select").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
-
-    $("#world-select").on("click", function() {
-        if ($("#world-select").hasClass("reverse-blue-gradient")) {
-            $("#world-edit-buttons").dialog("open");
-        } else {
-            $("#world-edit-buttons").dialog("close");
-        }
-        return;
-    });
-
-
-    $("#about-button").on("click", function() {
-        $("#about-button").toggleClass("active");
-        $("#about-button").toggleClass("blue-gradient");
-        $("#about-button").toggleClass("reverse-blue-gradient");
-        if ($("#about-button").hasClass("reverse-blue-gradient")) {
-            $("#about-div").dialog("open");
-        } else {
-            $("#about-div").dialog("close");
-        }
-        return;
-    });
-
-    $("#more-menus").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
-        beforeClose: function( event, ui ) {$("#more-menus-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
-
-    $("#more-menus-button").on("click", function() {
-        if ($("#more-menus-button").hasClass("reverse-blue-gradient")) {
-            $("#more-menus").dialog("open");
-        } else {
-            $("#more-menus").dialog("close");
-        }
-        return;
-    });
-
 
     $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
 
-    $("#World-info").dialog({autoOpen:false, width:600,  height:300, maximize: false, position:"top",
-        beforeClose: function( event, ui ) {$("#world-info-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
-
-    $("#world-info-button").on("click", function() {
-        if ($("#world-info-button").hasClass("reverse-blue-gradient")) {
-            $("#World-info").dialog("open");
-        } else {
-            $("#World-info").dialog("close");
-        }
-        return;
-    });
 
 
     editor.widgets = [];
@@ -1590,8 +1545,10 @@ $(document).ready(function() {
 
     try {
         RUR.reset_code_in_editors();
-    } catch (e){ console.log(e);alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
-                }
+    } catch (e){
+        console.log(e);
+        alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
+    }
 
     RUR.ui.set_ready_to_run();
 
@@ -3873,6 +3830,24 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
 
 RUR.storage = {};
 
+RUR.storage.memorize_world = function () {
+    var existing_names, i, key, response;
+    existing_names = ' [';
+
+    for (i = 0; i <= localStorage.length - 1; i++) {
+        key = localStorage.key(i);
+        if (key.slice(0, 11) === "user_world:") {
+            existing_names += key.substring(11) + ", ";
+        }
+    }
+    existing_names += "]";
+    response = prompt(RUR.translate("Enter world name to save") + existing_names);
+    if (response !== null) {
+        RUR.storage._save_world(response.trim());
+        $('#delete-world').show();
+    }
+};
+
 RUR.storage._save_world = function (name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
@@ -3917,6 +3892,23 @@ RUR.storage.delete_world = function (name){
         }
     }
     $('#delete-world').hide();
+};
+
+RUR.storage.remove_world = function () {
+    var existing_names, i, key, response;
+    existing_names = ' [';
+
+    for (i = 0; i <= localStorage.length - 1; i++) {
+        key = localStorage.key(i);
+        if (key.slice(0, 11) === "user_world:") {
+            existing_names += key.substring(11) + ", ";
+        }
+    }
+    existing_names += "]";
+    response = prompt(RUR.translate("Enter world name to delete") + existing_names);
+    if (response !== null) {
+        RUR.storage.delete_world(response.trim());
+    }
 };/* Author: André Roberge
    License: MIT
  */
@@ -4177,6 +4169,23 @@ RUR.ui.add_help = function(usage, _id, lang, warning){
     }
     $("#toc").after(usage);
     $("#toc").prepend('<li><a href="#basic-commands-' + _id + '">' + lang + "</a></li>");
+};
+
+
+RUR.ui.toggle_dialog = function (button, element) {
+    button.toggleClass("blue-gradient");
+    button.toggleClass("reverse-blue-gradient");
+    if (button.hasClass("reverse-blue-gradient")) {
+        element.dialog("open");
+    } else {
+        element.dialog("close");
+    }
+};
+
+RUR.ui.toggle_panel = function (button, element) {
+    button.toggleClass("blue-gradient");
+    button.toggleClass("reverse-blue-gradient");
+    element.toggleClass("active");
 };/* Author: André Roberge
    License: MIT  */
 

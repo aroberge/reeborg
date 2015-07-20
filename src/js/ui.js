@@ -235,3 +235,10 @@ RUR.ui.add_help = function(usage, _id, lang, warning){
     $("#toc").after(usage);
     $("#toc").prepend('<li><a href="#basic-commands-' + _id + '">' + lang + "</a></li>");
 };
+
+
+RUR.ui.toggle_panel = function (button, element) {
+    button.toggleClass("blue-gradient");
+    button.toggleClass("reverse-blue-gradient");
+    element.toggleClass("active");
+};
