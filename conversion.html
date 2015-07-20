@@ -62,7 +62,7 @@ below that button) the corresponding content in the new format.<br>
 <p>
 <textarea id="new-world" style="width:600px; height:200px;"></textarea>
 </p>
-<hr>
+
 
 <h2>Permalinks conversion: from old Reeborg's World</h2>
 <p>
@@ -78,7 +78,18 @@ to point to the right html file.<br>
 <p>
 <textarea id="new-permalink" style="width:600px; height:200px;"></textarea>
 </p>
-<hr>
+
+<h2>Conversion of worlds from RUR-PLE</h2>
+<p>Worlds for RUR-PLE, which are found in files with a ".wld" extension,
+   can be converted to json strings which can be copy/pasted into
+   files used by the new Reeborg's World version.<br>
+<textarea id="old-rurple-world" style="width:600px; height:200px;"></textarea>
+<br>
+<button onclick="do_convert_rurple_world()" class="blue-gradient">Convert RUR-PLE world</button>
+</p>
+<p>
+<textarea id="new-rurple-world" style="width:600px; height:200px;"></textarea>
+</p>
 
 </div>
 
@@ -95,6 +106,10 @@ function do_convert_world() {
 function do_convert_permalink() {
   var source = $("#old-permalink").val();
   $("#new-permalink").html(convert_permalink(source));
+}
+function do_convert_rurple_world() {
+  var source = $("#old-rurple-world").val();
+  $("#new-rurple-world").html(convert_rurple_world(source));
 }
 </script>
 

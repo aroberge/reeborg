@@ -153,3 +153,79 @@ function convert_permalink(old_permalink){
     }
     return new_permalink;
 }
+
+function convert_rurple_world (wld_file) {
+    var coord, i, world_info, new_coord, reeborg, orientation, world = {"robots": []};
+
+    wld_file = wld_file.replace(/\(/g, '"').replace(/\)/g, '"').replace(/ /g, '');
+    eval(wld_file);
+    if (avenues !== undefined) {
+        world.cols = avenues;
+    }
+
+    if (streets !== undefined) {
+        world.rows = streets;
+    }
+
+    if (beepers !== undefined) {
+        world.objects = {};
+        for (coord in beepers) {
+            if (beepers.hasOwnProperty(coord)) {
+                world.objects[coord] = {"token": beepers[coord]};
+            }
+        }
+    }
+
+    if (walls !== undefined) {
+        world.walls = {};
+        for (i=0; i<walls.length; i++) {
+            coord = walls[i];
+            wall_info = locate_wall(coord);
+            new_coord = wall_info.x + "," + wall_info.y;
+            if (world.walls[new_coord] === undefined) {
+                world.walls[new_coord] = [wall_info.side];
+            } else {
+                world.walls[new_coord].push(wall_info.side);
+            }
+        }
+    }
+
+    if (robot !== undefined) {
+        robot = robot.split(",");
+        reeborg = {};
+        reeborg.x = parseInt(robot[0]);
+        reeborg.y = parseInt(robot[1]);
+        if (robot[2].toLowerCase() == 'e'){}
+        orientation = {"e":0, "n":1, "w":2, "s":3};
+        reeborg.orientation = orientation[eval(robot[2]).toLowerCase()];
+        reeborg.objects = {"token": robot[3]};
+        world.robots.push(reeborg);
+    }
+
+    return JSON.stringify(world);
+}
+
+function locate_wall(coord) {
+    /* In RUR-PLE, the location of walls was obtained by dividing
+       each of the coordinates x and y by 2. Only one of x and y was
+       even.  If x was even, we had a North wall, otherwise it was an
+       east wall. */
+    var x, y;
+    coord = coord.split(",");
+    wall = {};
+
+    x = parseInt(coord[0]);
+    y = parseInt(coord[1]);
+    wall.x = Math.floor(x/2);
+    wall.y = Math.floor(y/2);
+    if (x%2 === 0) {
+        wall.side = "east";
+        wall.y += 1;
+    } else {
+        wall.side = "north";
+        wall.x += 1;
+    }
+
+
+    return wall;
+}
