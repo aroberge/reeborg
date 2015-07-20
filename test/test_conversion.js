@@ -89,5 +89,12 @@ QUnit.test( "Converting newspaper example", function(assert) {
 });
 
 
+QUnit.module( "Converting RUR-PLE's worlds." );
 
-
+QUnit.test( "Comprehensive RUR-PLE world", function(assert) {
+    var old, converted, new_;
+    old="avenues=8\nstreets=8\nrobot=(3,1,'W',2)\nwalls=[\n(6,5),\n(7,6),\n(8,5),\n(7,4)\n]\nbeepers={\n(2,1):2\n}";
+    new_ = '{"robots":[{"x":3,"y":1,"orientation":2,"objects":{"token":"2"}}],"cols":8,"rows":8,"objects":{"2,1":{"token":2}},"walls":{"3,3":["east"],"4,3":["north","east"],"4,2":["north"]}}';
+    converted = convert_rurple_world(old);
+    equal(converted, new_, "conversion from rurple to new format." );
+});
