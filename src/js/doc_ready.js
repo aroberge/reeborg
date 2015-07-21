@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     function create_and_activate_dialog(button, element, add_options, special_fn) {
         var options = {
-        minimize: false,
+        minimize: true,
         maximize: false,
         autoOpen: false,
         width: 800,
