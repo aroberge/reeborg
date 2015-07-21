@@ -211,7 +211,7 @@ RUR.control._robot_put_down_object = function (robot, obj) {
             }
         }
     }
-    if (robot.objects != "infinite") {
+    if (robot.objects[obj] != "infinite") {
         robot.objects[obj] -= 1;
         if (robot.objects[obj] === 0) {
             delete robot.objects[obj];
