@@ -61,8 +61,8 @@ RUR.reset_code_in_editors = function () {
     editor.setValue(editor_content);
 };
 
-
-RUR.create_permalink = function () {
+RUR._create_permalink = function () {
+    "use strict";
     var proglang, world, _editor, _library, url_query, permalink, parts;
     var human_language = document.documentElement.lang;
     url_query = parseUri(window.location.href);
@@ -81,6 +81,14 @@ RUR.create_permalink = function () {
     } else {
         permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor;
     }
+    return permalink;
+};
+
+
+RUR.create_permalink = function () {
+    var permalink;
+
+    permalink = RUR._create_permalink();
 
     $("#url_input_textarea").val(permalink);
     $("#url_input").toggle();
@@ -1344,22 +1352,7 @@ $(document).ready(function() {
     create_and_activate_dialog($("#about-button"), $("#about-div"), {});
     create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
     create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600});
-    /** Dialogs creation */
 
-    // $("#help").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
-    //     beforeClose: function( event, ui ) {$("#help-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
-
-    // $("#about-div").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
-    //     beforeClose: function( event, ui ) {$("#about-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
-
-    // $("#World-info").dialog({autoOpen:false, width:600,  height:300, maximize: false, position:"top",
-    //     beforeClose: function( event, ui ) {$("#world-info-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
-
-    // $("#more-menus").dialog({autoOpen:false, width:800,  height:600, maximize: false, position:"top",
-    //     beforeClose: function( event, ui ) {$("#more-menus-button").addClass("blue-gradient").removeClass("reverse-blue-gradient");}});
-
-
-    /** Button actions */
 
 
     $("#world-panel-button").on("click", function (evt) {
@@ -1370,21 +1363,6 @@ $(document).ready(function() {
         RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
     });
 
-    // $("#help-button").on("click", function (evt) {
-    //     RUR.ui.toggle_dialog($("#help-button"), $("#help"))
-    // });
-
-    // $("#about-button").on("click", function (evt) {
-    //     RUR.ui.toggle_dialog($("#about-button"), $("#about-div"));
-    // });
-
-    // $("#world-info-button").on("click", function(evt) {
-    //     RUR.ui.toggle_dialog($("#world-info-button"), $("#World-info"));
-    // });
-
-    // $("#more-menus-button").on("click", function(evt) {
-    //     RUR.ui.toggle_dialog($("#more-menus-button"), $("#more-menus"));
-    // });
 
     $("#editor-link").on("click", function(evt){
         if (RUR.programming_language == "python"){
@@ -1404,6 +1382,11 @@ $(document).ready(function() {
 
     $("#save-library").on("click", function(evt) {
         var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
+        saveAs(blob, "filename");
+    });
+
+    $("#save-permalink").on("click", function(evt) {
+        var blob = new Blob([RUR._create_permalink()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, "filename");
     });
 
@@ -1514,11 +1497,6 @@ $(document).ready(function() {
     $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                  position:{my: "bottom", at: "bottom-20", of: window}});
-
-
-
-    editor.widgets = [];
-    library.widgets = [];
 
     $("#select_world").change(function() {
         var data, val = $(this).val();
@@ -4171,16 +4149,6 @@ RUR.ui.add_help = function(usage, _id, lang, warning){
     $("#toc").prepend('<li><a href="#basic-commands-' + _id + '">' + lang + "</a></li>");
 };
 
-
-RUR.ui.toggle_dialog = function (button, element) {
-    button.toggleClass("blue-gradient");
-    button.toggleClass("reverse-blue-gradient");
-    if (button.hasClass("reverse-blue-gradient")) {
-        element.dialog("open");
-    } else {
-        element.dialog("close");
-    }
-};
 
 RUR.ui.toggle_panel = function (button, element) {
     button.toggleClass("blue-gradient");

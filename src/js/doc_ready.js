@@ -88,6 +88,11 @@ $(document).ready(function() {
         saveAs(blob, "filename");
     });
 
+    $("#save-permalink").on("click", function(evt) {
+        var blob = new Blob([RUR._create_permalink()], {type: "text/javascript;charset=utf-8"});
+        saveAs(blob, "filename");
+    });
+
     $("#save-world").on("click", function(evt) {
         var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
         saveAs(blob, "filename");

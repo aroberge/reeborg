@@ -208,8 +208,8 @@ function convert_rurple_world (wld_file) {
 function locate_wall(coord) {
     /* In RUR-PLE, the location of walls was obtained by dividing
        each of the coordinates x and y by 2. Only one of x and y was
-       even.  If x was even, we had a North wall, otherwise it was an
-       east wall. */
+       even.  If x was even, we had an East wall, otherwise it was a
+       North wall. */
     var x, y;
     coord = coord.split(",");
     wall = {};

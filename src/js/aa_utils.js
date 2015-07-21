@@ -61,8 +61,8 @@ RUR.reset_code_in_editors = function () {
     editor.setValue(editor_content);
 };
 
-
-RUR.create_permalink = function () {
+RUR._create_permalink = function () {
+    "use strict";
     var proglang, world, _editor, _library, url_query, permalink, parts;
     var human_language = document.documentElement.lang;
     url_query = parseUri(window.location.href);
@@ -81,6 +81,14 @@ RUR.create_permalink = function () {
     } else {
         permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor;
     }
+    return permalink;
+};
+
+
+RUR.create_permalink = function () {
+    var permalink;
+
+    permalink = RUR._create_permalink();
 
     $("#url_input_textarea").val(permalink);
     $("#url_input").toggle();
