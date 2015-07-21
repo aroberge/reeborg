@@ -148,11 +148,13 @@ RUR.ui.load_world = function (filename) {
     "use strict";
     var elt = document.getElementById("select_world");
     RUR.ui.load_file_error = false;
+    console.log("filename = ", filename);
 
     // first look within already known worlds, either pre-defined or
     // loaded and saved in local storage
     for (var i=0; i < elt.options.length; i++){
         if (elt.options[i].text === filename) {
+            console.log("text =", elt.options[i].text);
             if (elt.options[i].selected) {
                 if (elt.options[i].value === "src/worlds/" + filename + ".json") {
                     /* A new world can be selected via a user program using the

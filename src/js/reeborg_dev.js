@@ -2892,6 +2892,77 @@ RUR.testing.run_test = function() {
     RUR.ui.run();
 };
 /* Author: André Roberge
+   License: MIT  */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals RUR, $, CodeMirror, ReeborgError, editor, library, removeHints, parseUri */
+
+/* Intended to provide information about objects carried by robot */
+
+RUR.tooltip = {};
+RUR.tooltip.canvas = document.getElementById("tooltip");
+RUR.tooltip.ctx = RUR.tooltip.canvas.getContext("2d");
+
+// request mousemove events
+$("#robot_canvas").mousemove(function (evt) {
+    RUR.we.mouse_x = evt.pageX;
+    RUR.we.mouse_y = evt.pageY;
+    RUR.tooltip.handleMouseMove(evt);
+});
+
+RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
+    var x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
+    var size = 40, objects_carried;
+
+    world = RUR.current_world;
+    x = evt.pageX - $("#robot_canvas").offset().left;
+    y = evt.pageY - $("#robot_canvas").offset().top;
+    position = RUR.we.calculate_grid_position();
+    RUR.tooltip.canvas.style.left = "-200px";
+    if (!RUR.we.mouse_contained_flag) {
+        return;
+    }
+
+    mouse_above_robot = false;
+    if (world.robots !== undefined) {
+        for (i=0; i < world.robots.length; i++) {
+            robot = world.robots[i];
+            if (robot.start_positions === undefined) {
+                robot.start_positions = [[robot.x, robot.y]];
+            }
+            for (j=0; j < robot.start_positions.length; j++){
+                pos = robot.start_positions[j];
+                if(pos[0]==position[0] && pos[1]==position[1] && robot.objects !== undefined){
+                    mouse_above_robot = true;
+                    objects_carried = Object.keys(robot.objects);
+                    break;
+                }
+            }
+            if (mouse_above_robot) {
+                break;
+            }
+        }
+    }
+
+    if (mouse_above_robot){
+        RUR.tooltip.canvas = document.getElementById("tooltip");
+        RUR.tooltip.canvas.height = size;
+        RUR.tooltip.canvas.width = size*objects_carried.length;
+        RUR.tooltip.canvas.style.left = x+20 + "px";
+        RUR.tooltip.canvas.style.top = y + "px";
+        RUR.tooltip.ctx.clearRect(0, 0, RUR.tooltip.canvas.width, RUR.tooltip.canvas.height);
+        for (i=0; i < objects_carried.length; i++){
+            image = RUR.objects[objects_carried[i]].image;
+            nb_obj = robot.objects[objects_carried[i]];
+            if (nb_obj == "infinite") {
+                nb_obj = "∞";
+            }
+            RUR.tooltip.ctx.drawImage(image, i*size, 0, image.width, image.height);
+            RUR.tooltip.ctx.fillText(nb_obj, i*size+1, size-1);
+        }
+    }
+};
+/* Author: André Roberge
    License: MIT
  */
 
@@ -3041,11 +3112,13 @@ RUR.ui.load_world = function (filename) {
     "use strict";
     var elt = document.getElementById("select_world");
     RUR.ui.load_file_error = false;
+    console.log("filename = ", filename);
 
     // first look within already known worlds, either pre-defined or
     // loaded and saved in local storage
     for (var i=0; i < elt.options.length; i++){
         if (elt.options[i].text === filename) {
+            console.log("text =", elt.options[i].text);
             if (elt.options[i].selected) {
                 if (elt.options[i].value === "src/worlds/" + filename + ".json") {
                     /* A new world can be selected via a user program using the
@@ -3942,7 +4015,7 @@ RUR.vis_world.compile_partial_info = function(objects, color){
 
 RUR.vis_world.draw_info = function() {
     var i, j, coords, keys, key, info, ctx;
-    var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
+    var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
     if (RUR.vis_world.information === undefined) {
         return;
     }
@@ -4400,15 +4473,20 @@ RUR.we.calculate_grid_position = function () {
     y /= RUR.WALL_LENGTH;
     y = Math.floor(y);
 
+    RUR.we.mouse_contained_flag = true;  // used in tooltip.js
     if (x < 1 ) {
         x = 1;
+        RUR.we.mouse_contained_flag = false;
     } else if (x > RUR.COLS) {
         x = RUR.COLS;
+        RUR.we.mouse_contained_flag = false;
     }
     if (y < 1 ) {
         y = 1;
+        RUR.we.mouse_contained_flag = false;
     } else if (y > RUR.ROWS) {
         y = RUR.ROWS;
+        RUR.we.mouse_contained_flag = false;
     }
     return [x, y];
 };

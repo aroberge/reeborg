@@ -68,6 +68,7 @@
     <canvas id="objects_canvas" width="625" height="550"></canvas>
     <canvas id="trace_canvas" width="625" height="550"></canvas>
     <canvas id="robot_canvas" width="625" height="550"></canvas>
+    <canvas id="tooltip" width=40 height=40></canvas>
   </div>
 
   <div id="Reeborg-concludes" class="reeborg-print" title="Reeborg dit : J'ai fini !" style="display:none"></div>
@@ -341,9 +342,9 @@ window['translate_python'] = translate_python
 <h3>Monde: sélection, création, ...</h3>
   <p> Vous pouvez choisir un des mondes pré-définis:
     <select id="select_world" title="Sélectionner un monde">
-      <option value="src/worlds/alone.json" selected>alone</option>
-      <option value="src/worlds/gravel_path.json" selected>gravel_path</option>
-      <option value="src/worlds/blank.json">blank</option>
+      <option value="src/worlds/alone.json" selected>Seul</option>
+      <option value="src/worlds/gravel_path.json" selected>Sentier de gravier</option>
+      <option value="src/worlds/blank.json">Canevas graphique</option>
     </select>
     <br>
     <em>Note: les mondes que vous créez et sauvegardez dans votre

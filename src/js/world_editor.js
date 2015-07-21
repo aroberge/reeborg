@@ -327,15 +327,20 @@ RUR.we.calculate_grid_position = function () {
     y /= RUR.WALL_LENGTH;
     y = Math.floor(y);
 
+    RUR.we.mouse_contained_flag = true;  // used in tooltip.js
     if (x < 1 ) {
         x = 1;
+        RUR.we.mouse_contained_flag = false;
     } else if (x > RUR.COLS) {
         x = RUR.COLS;
+        RUR.we.mouse_contained_flag = false;
     }
     if (y < 1 ) {
         y = 1;
+        RUR.we.mouse_contained_flag = false;
     } else if (y > RUR.ROWS) {
         y = RUR.ROWS;
+        RUR.we.mouse_contained_flag = false;
     }
     return [x, y];
 };

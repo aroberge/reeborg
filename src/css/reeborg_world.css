@@ -85,6 +85,16 @@ canvas {
     z-index: 6;
 }
 
+#tooltip {
+    z-index: 8;
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: 10px;
+    position: absolute;
+    left: -200px;
+    top: 100px;
+}
+
 #Reeborg-concludes {
     z-index: 7;
 }

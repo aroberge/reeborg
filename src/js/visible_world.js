@@ -495,7 +495,7 @@ RUR.vis_world.compile_partial_info = function(objects, color){
 
 RUR.vis_world.draw_info = function() {
     var i, j, coords, keys, key, info, ctx;
-    var size = 12*RUR.SCALE, scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
+    var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
     if (RUR.vis_world.information === undefined) {
         return;
     }
