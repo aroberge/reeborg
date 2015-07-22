@@ -3977,7 +3977,7 @@ RUR.vis_world.draw_animated_tiles = function (){
     }
     if (animated) {
         clearTimeout(RUR.animation_frame_id);
-        RUR.animation_frame_id = setTimeout(RUR.vis_world.draw_animated_tiles, 250);
+        RUR.animation_frame_id = setTimeout(RUR.vis_world.draw_animated_tiles, 120);
     }
 };
 
