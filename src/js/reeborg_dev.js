@@ -1611,7 +1611,7 @@ RUR.objects.token.image_goal = new Image();
 RUR.objects.token.image_goal.src = 'src/images/token_goal.png';  // modified from above
 RUR.objects.token.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.token.image_goal.onload = function () {
@@ -1629,7 +1629,7 @@ RUR.objects.star.image_goal = new Image();
 RUR.objects.star.image_goal.src = 'src/images/star_goal.png';  // modified from above
 RUR.objects.star.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.star.image_goal.onload = function () {
@@ -1646,7 +1646,7 @@ RUR.objects.triangle.image_goal = new Image();
 RUR.objects.triangle.image_goal.src = 'src/images/triangle_goal.png';  // modified from above
 RUR.objects.triangle.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.triangle.image_goal.onload = function () {
@@ -1664,7 +1664,7 @@ RUR.objects.square.image_goal = new Image();
 RUR.objects.square.image_goal.src = 'src/images/square_goal.png';  // modified from above
 RUR.objects.square.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.square.image_goal.onload = function () {
@@ -1682,7 +1682,7 @@ RUR.objects.strawberry.image_goal = new Image();
 RUR.objects.strawberry.image_goal.src = 'src/images/strawberry_goal.png';  // modified from above
 RUR.objects.strawberry.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.strawberry.image_goal.onload = function () {
@@ -1699,7 +1699,7 @@ RUR.objects.banana.image_goal = new Image();
 RUR.objects.banana.image_goal.src = 'src/images/banana_goal.png';  // modified from above
 RUR.objects.banana.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.banana.image_goal.onload = function () {
@@ -1717,7 +1717,7 @@ RUR.objects.apple.image_goal = new Image();
 RUR.objects.apple.image_goal.src = 'src/images/apple_goal.png';  // modified from above
 RUR.objects.apple.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.apple.image_goal.onload = function () {
@@ -1735,7 +1735,7 @@ RUR.objects.leaf.image_goal = new Image();
 RUR.objects.leaf.image_goal.src = 'src/images/leaf_goal.png';  // modified from above
 RUR.objects.leaf.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.leaf.image_goal.onload = function () {
@@ -1752,7 +1752,7 @@ RUR.objects.carrot.image_goal = new Image();
 RUR.objects.carrot.image_goal.src = 'src/images/carrot_goal.png';  // modified from above
 RUR.objects.carrot.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.carrot.image_goal.onload = function () {
@@ -1769,7 +1769,7 @@ RUR.objects.dandelion.image_goal = new Image();
 RUR.objects.dandelion.image_goal.src = 'src/images/dandelion_goal.png';  // modified from above
 RUR.objects.dandelion.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.dandelion.image_goal.onload = function () {
@@ -1787,7 +1787,7 @@ RUR.objects.orange.image_goal = new Image();
 RUR.objects.orange.image_goal.src = 'src/images/orange_goal.png';  // modified from above
 RUR.objects.orange.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.orange.image_goal.onload = function () {
@@ -1804,7 +1804,7 @@ RUR.objects.daisy.image_goal = new Image();
 RUR.objects.daisy.image_goal.src = 'src/images/daisy_goal.png';  // modified from above
 RUR.objects.daisy.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.daisy.image_goal.onload = function () {
@@ -1821,7 +1821,7 @@ RUR.objects.tulip.image_goal = new Image();
 RUR.objects.tulip.image_goal.src = 'src/images/tulip_goal.png';  // modified from above
 RUR.objects.tulip.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.tulip.image_goal.onload = function () {
@@ -1841,7 +1841,7 @@ RUR.objects.box.image_goal = new Image();
 RUR.objects.box.image_goal.src = 'src/images/box_goal.png';
 RUR.objects.box.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 RUR.objects.box.image_goal.onload = function () {
@@ -1860,7 +1860,7 @@ RUR.tiles.mud.image = new Image();
 RUR.tiles.mud.image.src = 'src/images/mud.png';
 RUR.tiles.mud.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 
@@ -1872,7 +1872,7 @@ RUR.tiles.ice.image = new Image();
 RUR.tiles.ice.image.src = 'src/images/ice.png';
 RUR.tiles.ice.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 
@@ -1882,7 +1882,7 @@ RUR.tiles.grass.image.src = 'src/images/grass.png';
 RUR.tiles.grass.info = RUR.translate("Grass: usually safe.");
 RUR.tiles.grass.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 
@@ -1892,7 +1892,7 @@ RUR.tiles.gravel.image.src = 'src/images/gravel.png';
 RUR.tiles.gravel.info = RUR.translate("Gravel: usually safe.");
 RUR.tiles.gravel.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 
@@ -1903,9 +1903,55 @@ RUR.tiles.water.message = RUR.translate("I'm in water!");
 RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will drown if it moves to this location.");
 RUR.tiles.water.image = new Image();
 RUR.tiles.water.image.src = 'src/images/water.png';
+RUR.tiles.water.image2 = new Image();
+RUR.tiles.water.image2.src = 'src/images/water2.png';
+RUR.tiles.water.image3 = new Image();
+RUR.tiles.water.image3.src = 'src/images/water3.png';
+RUR.tiles.water.image4 = new Image();
+RUR.tiles.water.image4.src = 'src/images/water4.png';
+RUR.tiles.water.image5 = new Image();
+RUR.tiles.water.image5.src = 'src/images/water5.png';
+RUR.tiles.water.image6 = new Image();
+RUR.tiles.water.image6.src = 'src/images/water6.png';
+RUR.tiles.water.choose_image = function () {
+    var choice = Math.floor(Math.random() * 6) + 1;
+    switch (choice) {
+        case 1: return RUR.tiles.water.image;
+        case 2: return RUR.tiles.water.image2;
+        case 3: return RUR.tiles.water.image3;
+        case 4: return RUR.tiles.water.image4;
+        case 5: return RUR.tiles.water.image5;
+        case 6: return RUR.tiles.water.image6;
+    }
+}
 RUR.tiles.water.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
+    }
+};
+RUR.tiles.water.image2.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_all();
+    }
+};
+RUR.tiles.water.image3.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_all();
+    }
+};
+RUR.tiles.water.image4.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_all();
+    }
+};
+RUR.tiles.water.image5.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_all();
+    }
+};
+RUR.tiles.water.image6.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_all();
     }
 };
 
@@ -1919,7 +1965,7 @@ RUR.tiles.bricks.image = new Image();
 RUR.tiles.bricks.image.src = 'src/images/bricks.png';
 RUR.tiles.bricks.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 
@@ -1967,7 +2013,7 @@ RUR.top_tiles.bridge.image.src = 'src/images/bridge.png';
 RUR.top_tiles.bridge.info = RUR.translate("Bridge:") + RUR.translate("Reeborg <b>can</b> detect this and will know that it allows safe passage over water.");
 RUR.top_tiles.bridge.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 
@@ -1983,7 +2029,7 @@ RUR.top_tiles.fence4.image = new Image();
 RUR.top_tiles.fence4.image.src = 'src/images/fence4.png';
 RUR.top_tiles.fence4.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 
@@ -1999,7 +2045,7 @@ RUR.top_tiles.fence5.image = new Image();
 RUR.top_tiles.fence5.image.src = 'src/images/fence5.png';
 RUR.top_tiles.fence5.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 
@@ -2015,7 +2061,7 @@ RUR.top_tiles.fence6.image = new Image();
 RUR.top_tiles.fence6.image.src = 'src/images/fence6.png';
 RUR.top_tiles.fence6.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };
 
@@ -2031,7 +2077,7 @@ RUR.top_tiles.fence7.image = new Image();
 RUR.top_tiles.fence7.image.src = 'src/images/fence7.png';
 RUR.top_tiles.fence7.image.onload = function () {
     if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
+        RUR.vis_world.draw_all();
     }
 };/* Author: André Roberge
    License: MIT
@@ -3594,6 +3640,8 @@ RUR.vis_world.draw_all = function () {
             alert("Editing of blank canvas is not supported.");
             return;
          }
+        clearTimeout(RUR.animation_frame_id);
+        RUR.animation_frame_id = undefined;
         RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -3606,6 +3654,8 @@ RUR.vis_world.draw_all = function () {
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
     RUR.vis_world.draw_coordinates(); // on BACKGROUND_CTX
+    RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
+    RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
 
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
@@ -3640,8 +3690,7 @@ RUR.vis_world.refresh = function () {
     // top tiles: goal is false, tile is true
     RUR.vis_world.draw_all_objects(RUR.current_world.top_tiles, false, true); // likely on RUR.SECOND_LAYER_CTX
 
-    // do not clear BACKGROUND_CTX here
-    RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
+
     RUR.vis_world.draw_robots(RUR.current_world.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
     RUR.vis_world.draw_info();     // on ROBOT_CTX
@@ -3889,7 +3938,7 @@ RUR.vis_world.clear_trace = function(){
 
 RUR.vis_world.draw_tiles = function (tiles){
     "use strict";
-    var i, j, k, keys, key, image;
+    var i, j, k, keys, key, image, tile;
     if (tiles === undefined) {
         return;
     }
@@ -3898,10 +3947,40 @@ RUR.vis_world.draw_tiles = function (tiles){
         k = keys[key].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        image = RUR.tiles[tiles[keys[key]]].image;
-        RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
+        tile = RUR.tiles[tiles[keys[key]]];
+        if (tile.choose_image === undefined){
+            image = tile.image;
+            RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
+        }
     }
 };
+
+RUR.vis_world.draw_animated_tiles = function (){
+    "use strict";
+    var i, j, k, keys, key, image, tile, tiles, animated=false;
+
+    tiles = RUR.current_world.tiles;
+    if (tiles === undefined) {
+        return;
+    }
+    keys = Object.keys(tiles);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        tile = RUR.tiles[tiles[keys[key]]];
+        if (tile.choose_image !== undefined){
+            image = tile.choose_image();
+            animated = true;
+            RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
+        }
+    }
+    if (animated) {
+        clearTimeout(RUR.animation_frame_id);
+        RUR.animation_frame_id = setTimeout(RUR.vis_world.draw_animated_tiles, 250);
+    }
+};
+
 
 RUR.vis_world.draw_all_objects = function (objects, goal, tile){
     "use strict";

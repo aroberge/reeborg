@@ -74,6 +74,8 @@ RUR.vis_world.draw_all = function () {
             alert("Editing of blank canvas is not supported.");
             return;
          }
+        clearTimeout(RUR.animation_frame_id);
+        RUR.animation_frame_id = undefined;
         RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -86,6 +88,8 @@ RUR.vis_world.draw_all = function () {
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
     RUR.vis_world.draw_coordinates(); // on BACKGROUND_CTX
+    RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
+    RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
 
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
@@ -120,8 +124,7 @@ RUR.vis_world.refresh = function () {
     // top tiles: goal is false, tile is true
     RUR.vis_world.draw_all_objects(RUR.current_world.top_tiles, false, true); // likely on RUR.SECOND_LAYER_CTX
 
-    // do not clear BACKGROUND_CTX here
-    RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
+
     RUR.vis_world.draw_robots(RUR.current_world.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
     RUR.vis_world.draw_info();     // on ROBOT_CTX
@@ -369,7 +372,7 @@ RUR.vis_world.clear_trace = function(){
 
 RUR.vis_world.draw_tiles = function (tiles){
     "use strict";
-    var i, j, k, keys, key, image;
+    var i, j, k, keys, key, image, tile;
     if (tiles === undefined) {
         return;
     }
@@ -378,10 +381,40 @@ RUR.vis_world.draw_tiles = function (tiles){
         k = keys[key].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        image = RUR.tiles[tiles[keys[key]]].image;
-        RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
+        tile = RUR.tiles[tiles[keys[key]]];
+        if (tile.choose_image === undefined){
+            image = tile.image;
+            RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
+        }
     }
 };
+
+RUR.vis_world.draw_animated_tiles = function (){
+    "use strict";
+    var i, j, k, keys, key, image, tile, tiles, animated=false;
+
+    tiles = RUR.current_world.tiles;
+    if (tiles === undefined) {
+        return;
+    }
+    keys = Object.keys(tiles);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        tile = RUR.tiles[tiles[keys[key]]];
+        if (tile.choose_image !== undefined){
+            image = tile.choose_image();
+            animated = true;
+            RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
+        }
+    }
+    if (animated) {
+        clearTimeout(RUR.animation_frame_id);
+        RUR.animation_frame_id = setTimeout(RUR.vis_world.draw_animated_tiles, 250);
+    }
+};
+
 
 RUR.vis_world.draw_all_objects = function (objects, goal, tile){
     "use strict";
