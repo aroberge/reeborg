@@ -54,7 +54,7 @@ $(document).ready(function() {
     create_and_activate_dialog($("#help-button"), $("#help"), {});
     create_and_activate_dialog($("#about-button"), $("#about-div"), {});
     create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
-    create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600});
+    create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600}, RUR.we.show_world_info);
 
 
 

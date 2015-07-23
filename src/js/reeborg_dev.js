@@ -1351,7 +1351,7 @@ $(document).ready(function() {
     create_and_activate_dialog($("#help-button"), $("#help"), {});
     create_and_activate_dialog($("#about-button"), $("#about-div"), {});
     create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
-    create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600});
+    create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600}, RUR.we.show_world_info);
 
 
 
@@ -4580,13 +4580,18 @@ RUR.we.show_world_info = function (no_grid) {
     var tiles, tilename, fence_noted = false;
 
     information = "";
+
+    if (RUR.current_world.description) {
+        information +="<b>" + RUR.translate("Description") + "</b><br>" + RUR.current_world.description + "<hr>";
+    }
+
     if (!no_grid) {
         position = RUR.we.calculate_grid_position();
         x = position[0];
         y = position[1];
         coords = x + "," + y;
         if (!isNaN(x)){
-            information = "x = " + x + ", y = " + y;
+            information += "x = " + x + ", y = " + y;
         }
     }
 
@@ -4727,10 +4732,6 @@ RUR.we.show_world_info = function (no_grid) {
             information += "<br>" + RUR.translate("The final position of the robot must be (x, y) = ") +
                            "(" + goals.position.x + ", " + goals.position.y + ")";
         }
-    }
-
-    if (RUR.current_world.description) {
-        information += "<br><br><b>" + RUR.translate("Description") + "</b><br>" + RUR.current_world.description;
     }
 
     $("#World-info").html(information);
