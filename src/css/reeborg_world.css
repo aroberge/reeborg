@@ -134,10 +134,9 @@ nav a:first-child {
     border-radius: 20px 0 0 20px;
 }
 
-button, #contents-button {
+button {
     font-weight: bold;
     position: relative;
-    float: left;
     height: 37px;
     margin: 0;
 }
@@ -164,7 +163,7 @@ a[href^='http'] {
 }
 
 #select_world {
-    border: 2px solid blue;
+    margin: 10px;
 }
 
 fieldset {
@@ -453,15 +452,6 @@ p.try {
     float: left;
     margin: 0;
     padding: 0;
-}
-
-#language_switcher {
-    font-size: 25px;
-    float: right;
-    margin-right: 50px;
-    padding: 3px;
-    text-decoration: none;
-    color: white;
 }
 
 #run {

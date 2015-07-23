@@ -24,11 +24,17 @@
   <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">Reeborg's World</a>
   <div id="header-child">
     <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">World</button>
-    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
+    <select id="select_world" title="Select world">
+      <option value="src/worlds/alone.json" selected>alone</option>
+      <option value="src/worlds/gravel_path.json" selected>gravel_path</option>
+      <option value="src/worlds/blank.json">blank</option>
+    </select>
     <button class="blue-gradient" id="world-info-button">World info</button>
+    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
     <button id="more-menus-button" class="blue-gradient" title="Additional options">
       Additional options
     </button>
+
   </div>
 
 </header>
@@ -348,18 +354,7 @@ window['translate_python'] = translate_python
   </p>
 
 <hr>
-<h3>World: selection, creation, ...</h3>
-  <p> You can choose one of the few pre-existing worlds:
-    <select id="select_world" title="Select world">
-      <option value="src/worlds/alone.json" selected>alone</option>
-      <option value="src/worlds/gravel_path.json" selected>gravel_path</option>
-      <option value="src/worlds/blank.json">blank</option>
-    </select>
-    <br>
-    <em>Note: worlds created by you and saved in your browser will also be
-      available through this selection.</em>
-  </p>
-
+<h3>World: creation, edition, ...</h3>
   <p>
       <button class="blue-gradient" id="edit-world">Edit world</button> You can create
       your own world by editing the current one.
