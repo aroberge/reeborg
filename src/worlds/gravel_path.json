@@ -6,7 +6,8 @@
       "orientation": 0,
       "_prev_x": 1,
       "_prev_y": 1,
-      "_prev_orientation": 0
+      "_prev_orientation": 0,
+      "objects" : {"token": 2, "star": 1, "triangle": "infinite"}
     }
   ],
   "walls": {},
