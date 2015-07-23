@@ -65,12 +65,12 @@ For example, the program::
     Mov()
 
 will raise a ``NameError``, since ``Mov`` is an unknown command.
-The program
+The program::
 
     move()
       move()
 
-will raise an ``IndentationError``.  The program
+will raise an ``IndentationError``.  The program::
 
     move)
 
