@@ -202,8 +202,9 @@ $(document).ready(function() {
                                  position:{my: "bottom", at: "bottom-20", of: window}});
 
     $("#select_world").change(function() {
-        var data, val = $(this).val();
-        RUR.settings.world_name = $(this).find(':selected').text();
+        var data, val = $(this).find(':selected').val();
+        console.log("change triggered, val =", val);
+        RUR.settings.world = $(this).find(':selected').text();
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}

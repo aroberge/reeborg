@@ -1499,8 +1499,9 @@ $(document).ready(function() {
                                  position:{my: "bottom", at: "bottom-20", of: window}});
 
     $("#select_world").change(function() {
-        var data, val = $(this).val();
-        RUR.settings.world_name = $(this).find(':selected').text();
+        var data, val = $(this).find(':selected').val();
+        console.log("change triggered, val =", val);
+        RUR.settings.world = $(this).find(':selected').text();
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
@@ -2858,9 +2859,11 @@ RUR.storage._save_world = function (name){
         if (!window.confirm(RUR.translate("Name already exist; confirm that you want to replace its content."))){
             return;
         }
-        RUR.storage.delete_world(name);
+        // replace existing
+        localStorage.setItem("user_world:"+ name, RUR.world.export_world(RUR.current_world));
+    } else {
+        RUR.storage.save_world(name);
     }
-    RUR.storage.save_world(name);
 };
 
 RUR.storage.save_world = function (name){
@@ -2869,7 +2872,6 @@ RUR.storage.save_world = function (name){
     $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
                               ).val("user_world:" + name).html(name));
     $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
-    $("#select_world").change();
 };
 
 
