@@ -240,6 +240,11 @@ legend {
     background-image: none;
 }
 
+#ui-dialog-title-Reeborg-concludes + a,
+#ui-dialog-title-Reeborg-shouts + a {
+  display: none;
+}
+
 .ui-tabs .ui-tabs-nav li:hover,
 button:hover:enabled,
 a.fake_button:hover,
