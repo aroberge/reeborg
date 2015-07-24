@@ -62,7 +62,6 @@ RUR.world.import_world = function (json_string, already_parsed) {
     RUR.vis_world.compute_world_geometry(RUR.current_world.cols, RUR.current_world.rows);
 
     RUR.world.saved_world = RUR.world.clone_world();
-    RUR.vis_world.draw_all();
     if (RUR.we.editing_world) {
         RUR.we.change_edit_robot_menu();
     }

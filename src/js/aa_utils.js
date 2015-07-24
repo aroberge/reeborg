@@ -205,7 +205,7 @@ RUR.load_permalink = function (filename) {
     "use strict";
     var url;
     if (filename.substring(0,4).toLowerCase() == "http") {
-        url = filename
+        url = filename;
     } else {
         url = "src/worlds/permalinks/" + filename;
     }

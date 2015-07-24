@@ -205,7 +205,7 @@ RUR.load_permalink = function (filename) {
     "use strict";
     var url;
     if (filename.substring(0,4).toLowerCase() == "http") {
-        url = filename
+        url = filename;
     } else {
         url = "src/worlds/permalinks/" + filename;
     }
@@ -3132,7 +3132,13 @@ RUR.ui.select_world = function (s, silent) {
 
 RUR.ui.load_file = function (filename, replace, elt, i) {
     "use strict";
-    $.ajax({url: "src/worlds/" + filename + ".json",
+    var url;
+    if (filename.substring(0,4).toLowerCase() == "http") {
+        url = filename;
+    } else {
+        url = "src/worlds/" + filename + ".json";
+    }
+    $.ajax({url: url,
         async: false,
         error: function(e){
             RUR.ui.load_file_error = true;
@@ -3140,12 +3146,12 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
         success: function(data){
             RUR.world.import_world(data);
             if (replace) {
-                elt.options[i].value = "src/worlds/" + filename + ".json";
+                elt.options[i].value = url;
                 elt.value = elt.options[i].value;
             } else {
                 $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                                      ).val("src/worlds/" + filename + ".json").html(filename));
-                $('#select_world').val("src/worlds/" + filename + ".json");
+                                      ).val(url).html(filename));
+                $('#select_world').val(url);
             }
             $("#select_world").change();
         }
@@ -3158,22 +3164,20 @@ RUR.ui.load_world = function (filename) {
     "use strict";
     var elt = document.getElementById("select_world");
     RUR.ui.load_file_error = false;
-    console.log("filename = ", filename);
-
     // first look within already known worlds, either pre-defined or
     // loaded and saved in local storage
     for (var i=0; i < elt.options.length; i++){
         if (elt.options[i].text === filename) {
-            console.log("text =", elt.options[i].text);
             if (elt.options[i].selected) {
-                if (elt.options[i].value === "src/worlds/" + filename + ".json") {
-                    /* A new world can be selected via a user program using the
-                      world() function. When this is done, and if the
-                      world is changed by this selection, an alert is first
-                      shown and the program is otherwise not run. Executing the
-                      program a second time will work as the correct world will
-                      be displayed.
-                    */
+                /* A new world can be selected via a user program using the
+                  world() function. When this is done, and if the
+                  world is changed by this selection, an alert is first
+                  shown and the program is otherwise not run. Executing the
+                  program a second time will work as the correct world will
+                  be displayed.
+                */
+                if (elt.options[i].value === filename ||
+                    elt.options[i].value === "src/worlds/" + filename + ".json") {
                     return;   // already selected, can run program
                 } else {
                     RUR.ui.load_file(filename, true, elt, i);
@@ -4179,7 +4183,6 @@ RUR.world.import_world = function (json_string, already_parsed) {
     RUR.vis_world.compute_world_geometry(RUR.current_world.cols, RUR.current_world.rows);
 
     RUR.world.saved_world = RUR.world.clone_world();
-    RUR.vis_world.draw_all();
     if (RUR.we.editing_world) {
         RUR.we.change_edit_robot_menu();
     }
