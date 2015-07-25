@@ -123,11 +123,11 @@ RUR.ui.select_world = function (s, silent) {
 RUR.ui.load_file = function (filename, replace, elt, i) {
     "use strict";
     var url;
-    if (filename.substring(0,4).toLowerCase() == "http") {
-        url = filename;
-    } else {
-        url = "src/worlds/" + filename + ".json";
+    url=filename;
+    if (filename.substring(0,11) == "src/worlds/") {
+        filename = filename.replace("src/worlds/", '').replace(".json", '');
     }
+    console.log("url = ", url);
     $.ajax({url: url,
         async: false,
         error: function(e){
@@ -151,36 +151,44 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
 RUR.ui.load_world = function (filename) {
     // this is for worlds that are defined in a file not available from the
     // drop-down menu.
+
+    /* A new world can be selected via a user program using the
+      World() function which is an alias for RUR.ui.load_world.
+      When this is done, and if the
+      world is changed by this selection, an alert is first
+      shown and the program is otherwise not run. Executing the
+      program a second time will work as the correct world will
+      be displayed.
+    */
+
     "use strict";
-    var elt = document.getElementById("select_world");
+    var url, elt = document.getElementById("select_world");
     RUR.ui.load_file_error = false;
     // first look within already known worlds, either pre-defined or
     // loaded and saved in local storage
     for (var i=0; i < elt.options.length; i++){
-        if (elt.options[i].text === filename) {
+        console.log(filename, elt.options[i].text, filename === elt.options[i].text, elt.options[i].value);
+        if (elt.options[i].text === filename && elt.options[i].value.substring(0,10) != "user_world") {
             if (elt.options[i].selected) {
-                /* A new world can be selected via a user program using the
-                  world() function. When this is done, and if the
-                  world is changed by this selection, an alert is first
-                  shown and the program is otherwise not run. Executing the
-                  program a second time will work as the correct world will
-                  be displayed.
-                */
-                if (elt.options[i].value === filename ||
-                    elt.options[i].value === "src/worlds/" + filename + ".json") {
-                    return;   // already selected, can run program
-                } else {
-                    RUR.ui.load_file(filename, true, elt, i);
-                    if (RUR.ui.load_file_error) {
-                        throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
-                    }
-                    throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
+                // Correct world already selected: we're good to go.
+                return;
+            } else {
+                RUR.ui.load_file(elt.options[i].value, true, elt, i);
+                if (RUR.ui.load_file_error) {
+                    throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
                 }
+                throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
             }
         }
     }
     // the requested world was not previously known.
-    RUR.ui.load_file(filename, false);
+    if (filename.substring(0,4).toLowerCase() == "http") {
+        url = filename;
+    } else {
+        url = "src/worlds/" + filename + ".json";
+    }
+
+    RUR.ui.load_file(url, false);
     if (RUR.ui.load_file_error) {
         throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
     }

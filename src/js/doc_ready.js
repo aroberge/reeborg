@@ -203,7 +203,6 @@ $(document).ready(function() {
 
     $("#select_world").change(function() {
         var data, val = $(this).find(':selected').val();
-        console.log("change triggered, val =", val);
         RUR.settings.world = $(this).find(':selected').text();
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());

@@ -30,7 +30,7 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
         return;
     }
 
-    mouse_above_robot = false;
+    //mouse_above_robot = false;
     if (world.robots !== undefined) {
         for (i=0; i < world.robots.length; i++) {
             robot = world.robots[i];
@@ -39,10 +39,12 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
             }
             for (j=0; j < robot.start_positions.length; j++){
                 pos = robot.start_positions[j];
-                if(pos[0]==position[0] && pos[1]==position[1] && robot.objects !== undefined){
+                if(pos[0]==position[0] && pos[1]==position[1]){
                     mouse_above_robot = true;
-                    objects_carried = Object.keys(robot.objects);
-                    break;
+                    if (robot.objects !== undefined){
+                        objects_carried = Object.keys(robot.objects);
+                        break;
+                    }
                 }
             }
             if (mouse_above_robot) {
@@ -51,10 +53,15 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
         }
     }
 
-    if (mouse_above_robot){
-        RUR.tooltip.canvas = document.getElementById("tooltip");
-        RUR.tooltip.canvas.height = size;
+    RUR.tooltip.canvas = document.getElementById("tooltip");
+    RUR.tooltip.canvas.height = size;
+    if (objects_carried !== undefined) {
         RUR.tooltip.canvas.width = size*objects_carried.length;
+    } else {
+        RUR.tooltip.canvas.width = size;
+        objects_carried = [];
+    }
+    if (mouse_above_robot){
         RUR.tooltip.canvas.style.left = x+20 + "px";
         RUR.tooltip.canvas.style.top = y + "px";
         RUR.tooltip.ctx.clearRect(0, 0, RUR.tooltip.canvas.width, RUR.tooltip.canvas.height);
