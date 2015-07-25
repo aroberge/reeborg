@@ -8,6 +8,7 @@
 RUR.ui = {};
 
 RUR.ui.stop_called = false;
+RUR.ui.new_world_selected = false;
 
 RUR.ui.set_ready_to_run = function () {
     $("#stop").attr("disabled", "true");
@@ -127,7 +128,6 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
     if (filename.substring(0,11) == "src/worlds/") {
         filename = filename.replace("src/worlds/", '').replace(".json", '');
     }
-    console.log("url = ", url);
     $.ajax({url: url,
         async: false,
         error: function(e){
@@ -167,7 +167,6 @@ RUR.ui.load_world = function (filename) {
     // first look within already known worlds, either pre-defined or
     // loaded and saved in local storage
     for (var i=0; i < elt.options.length; i++){
-        console.log(filename, elt.options[i].text, filename === elt.options[i].text, elt.options[i].value);
         if (elt.options[i].text === filename && elt.options[i].value.substring(0,10) != "user_world") {
             if (elt.options[i].selected) {
                 // Correct world already selected: we're good to go.
@@ -177,6 +176,8 @@ RUR.ui.load_world = function (filename) {
                 if (RUR.ui.load_file_error) {
                     throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
                 }
+                RUR.ui.new_world_selected = true;
+                RUR.rec.frames = [];
                 throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
             }
         }
@@ -192,6 +193,8 @@ RUR.ui.load_world = function (filename) {
     if (RUR.ui.load_file_error) {
         throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
     }
+    RUR.ui.new_world_selected = true;
+    RUR.rec.frames = [];
     throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
 };
 

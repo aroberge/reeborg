@@ -2288,6 +2288,13 @@ RUR.rec.display_frame = function () {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {
+        if (RUR.ui.new_world_selected) {
+            RUR.ui.new_world_selected = false;
+            RUR.ui.stop();
+            RUR.ui.reload();
+            RUR.rec.playback = false;
+            return;
+        }
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
         if (frame.output.other_element && frame.output.html){  // for clear_print
@@ -3026,6 +3033,7 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
 RUR.ui = {};
 
 RUR.ui.stop_called = false;
+RUR.ui.new_world_selected = false;
 
 RUR.ui.set_ready_to_run = function () {
     $("#stop").attr("disabled", "true");
@@ -3145,7 +3153,6 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
     if (filename.substring(0,11) == "src/worlds/") {
         filename = filename.replace("src/worlds/", '').replace(".json", '');
     }
-    console.log("url = ", url);
     $.ajax({url: url,
         async: false,
         error: function(e){
@@ -3169,32 +3176,33 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
 RUR.ui.load_world = function (filename) {
     // this is for worlds that are defined in a file not available from the
     // drop-down menu.
+
+    /* A new world can be selected via a user program using the
+      World() function which is an alias for RUR.ui.load_world.
+      When this is done, and if the
+      world is changed by this selection, an alert is first
+      shown and the program is otherwise not run. Executing the
+      program a second time will work as the correct world will
+      be displayed.
+    */
+
     "use strict";
     var url, elt = document.getElementById("select_world");
     RUR.ui.load_file_error = false;
     // first look within already known worlds, either pre-defined or
     // loaded and saved in local storage
     for (var i=0; i < elt.options.length; i++){
-        console.log(filename, elt.options[i].text, filename === elt.options[i].text, elt.options[i].value);
         if (elt.options[i].text === filename && elt.options[i].value.substring(0,10) != "user_world") {
             if (elt.options[i].selected) {
-                /* A new world can be selected via a user program using the
-                  world() function. When this is done, and if the
-                  world is changed by this selection, an alert is first
-                  shown and the program is otherwise not run. Executing the
-                  program a second time will work as the correct world will
-                  be displayed.
-                */
+                // Correct world already selected: we're good to go.
                 return;
-                // if (elt.options[i].text === filename ||
-                //     elt.options[i].value === "src/worlds/" + filename + ".json") {
-                //     return;   // already selected, can run program
-                // }
             } else {
                 RUR.ui.load_file(elt.options[i].value, true, elt, i);
                 if (RUR.ui.load_file_error) {
                     throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
                 }
+                RUR.ui.new_world_selected = true;
+                RUR.rec.frames = [];
                 throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
             }
         }
@@ -3210,6 +3218,8 @@ RUR.ui.load_world = function (filename) {
     if (RUR.ui.load_file_error) {
         throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
     }
+    RUR.ui.new_world_selected = true;
+    RUR.rec.frames = [];
     throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
 };
 

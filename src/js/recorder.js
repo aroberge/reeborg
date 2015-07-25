@@ -154,6 +154,13 @@ RUR.rec.display_frame = function () {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {
+        if (RUR.ui.new_world_selected) {
+            RUR.ui.new_world_selected = false;
+            RUR.ui.stop();
+            RUR.ui.reload();
+            RUR.rec.playback = false;
+            return;
+        }
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
         if (frame.output.other_element && frame.output.html){  // for clear_print
