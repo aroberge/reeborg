@@ -1260,6 +1260,7 @@ $(document).ready(function() {
 /*globals $, RUR */
 
 RUR.custom_menu = {};
+RUR.custom_menu.new_menu_added = false;
 
 RUR.custom_menu.make = function (contents, replace) {
     "use strict";
@@ -1276,14 +1277,15 @@ RUR.custom_menu.make = function (contents, replace) {
     }
 
     if (replace) {
-        $("#select_world").replaceWith($("#custom_menu"));
+        $("#select_world").replaceWith($("#custom-world-menu"));
     }
-
 
     $("#custom-world-menu").change(function() {
         RUR.custom_menu.load_file($(this).val());
     });
     $("#custom-world-menu").change();
+
+    RUR.custom_menu.new_menu_added = true;  // will modify program execution
 };
 
 RUR.custom_menu.load_file = function (url) {
@@ -2249,6 +2251,12 @@ RUR.rec.display_frame = function () {
     var frame, goal_status, i, next_frame_line_numbers;
 
     if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
+        if (RUR.custom_menu.new_menu_added) {
+            RUR.custom_menu.new_menu_added = false;
+            RUR.ui.stop();
+            RUR.ui.reload();
+            RUR.rec.playback = false;
+            return;}
         return RUR.rec.conclude();
     }
 

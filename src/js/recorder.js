@@ -106,6 +106,12 @@ RUR.rec.display_frame = function () {
     var frame, goal_status, i, next_frame_line_numbers;
 
     if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
+        if (RUR.custom_menu.new_menu_added) {
+            RUR.custom_menu.new_menu_added = false;
+            RUR.ui.stop();
+            RUR.ui.reload();
+            RUR.rec.playback = false;
+            return;}
         return RUR.rec.conclude();
     }
 

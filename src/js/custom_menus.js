@@ -6,6 +6,7 @@
 /*globals $, RUR */
 
 RUR.custom_menu = {};
+RUR.custom_menu.new_menu_added = false;
 
 RUR.custom_menu.make = function (contents, replace) {
     "use strict";
@@ -22,14 +23,15 @@ RUR.custom_menu.make = function (contents, replace) {
     }
 
     if (replace) {
-        $("#select_world").replaceWith($("#custom_menu"));
+        $("#select_world").replaceWith($("#custom-world-menu"));
     }
-
 
     $("#custom-world-menu").change(function() {
         RUR.custom_menu.load_file($(this).val());
     });
     $("#custom-world-menu").change();
+
+    RUR.custom_menu.new_menu_added = true;  // will modify program execution
 };
 
 RUR.custom_menu.load_file = function (url) {
