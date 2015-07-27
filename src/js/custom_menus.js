@@ -7,15 +7,24 @@
 
 RUR.custom_menu = {};
 
-RUR.custom_menu.make = function (contents) {
+RUR.custom_menu.make = function (contents, replace) {
     "use strict";
     var i;
-    $("#custom-world-menu").remove();
-    $("#header-child").append('<select id="custom-world-menu"></select>');
+    if ($("#custom-world-menu").length > 0) { // already exists
+        $("#custom-world-menu").html();
+    } else {
+        $("#header-child").append('<select id="custom-world-menu"></select>');
+    }
+
     $("#custom-world-menu").css("margin-top", "10px").css("margin-left", "20px");
     for(i=0; i<contents.length; i++){
         $('#custom-world-menu').append( $('<option></option>').val(contents[i][0]).html(contents[i][1]));
     }
+
+    if (replace) {
+        $("#select_world").replaceWith($("#custom_menu"));
+    }
+
 
     $("#custom-world-menu").change(function() {
         RUR.custom_menu.load_file($(this).val());
