@@ -69,7 +69,7 @@ writers.  However, there are two main drawbacks to using them in this way:
 .. note::
 
     Permalinks can also be loaded as the default world using the html 
-    ``select``.  See ... for example.
+    ``select``.  See ``Gravel path (solution)`` for an example.
    
 One way around this is to copy the content of the permalink (on Windows,
 this is done by right-clicking on the link and choosing the appropriate
@@ -105,11 +105,12 @@ call will be ignored and the rest of the program will be executed as is.
 Note that this will work whether the selection is simply for a "world" or if
 if it is for a permalink; however, in the latter case, the editor's content
 will be replaced by the relevant content from the permalink.   For example,
-try executing the following::
+try executing the following one-line program::
 
-    World("... some permalink")
+    World("Gravel path (solution)")
     
-Notice how the html ``select`` has been changed after running this program.
+Notice how the html ``select`` has been changed after running this program
+and how the editor now contains a "solution" to this task.
 
 There are two other ways in which the ``World()`` function can be used.
 
