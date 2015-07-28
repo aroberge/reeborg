@@ -78,6 +78,7 @@ picture of the object in shades of grey.
    advanced
    oop
    sokoban
+   worlds
    howto
    contributed
    translators

@@ -22,23 +22,4 @@ RUR.custom_menu.make = function (contents) {
     RUR.custom_menu.new_menu_added = true;  // will modify program execution
 };
 
-
-
-// RUR.custom_menu.load_world = function (filename) {
-//     "use strict";
-//     var url, elt = document.getElementById("custom-world-menu");
-
-//     for (var i=0; i < elt.options.length; i++){
-//         if (elt.options[i].text === filename) {
-//             if (elt.options[i].selected) {
-//                 // Correct world already selected: we're good to go.
-//                 return;
-//             } else {
-//                 RUR.custom_menu.load_file(elt.options[i].value);
-//                 RUR.ui.new_world_selected = true;
-//                 RUR.rec.frames = [];
-//                 throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
-//             }
-//         }
-//     }
-// };
+MakeCustomMenu = RUR.custom_menu.make;
