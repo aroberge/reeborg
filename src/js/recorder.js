@@ -30,6 +30,13 @@ RUR.rec.reset = function() {
     }
     RUR.rec._previous_lines = [];
     RUR.rec._max_lineno_highlighted = 0;
+    try  {
+        RUR.custom_menu.new_menu_added = false;
+        RUR.ui.new_world_selected = false;
+    } catch (e) {
+        // these flags are possibly not defined when this is first loaded.
+    }
+
 };
 RUR.rec.reset();
 

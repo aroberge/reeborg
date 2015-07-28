@@ -29,12 +29,13 @@ RUR.world.export_world = function () {
     return JSON.stringify(RUR.current_world, null, 2);
 };
 
-RUR.world.import_world = function (json_string, already_parsed) {
+RUR.world.import_world = function (json_string) {
     var body;
     if (json_string === undefined){
+        console.log("Problem: no argument passed to RUR.world.import_world");
         return {};
     }
-    if (already_parsed === undefined){
+    if (typeof json_string == "string"){
         try {
             RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
         } catch (e) {
@@ -43,7 +44,7 @@ RUR.world.import_world = function (json_string, already_parsed) {
             console.log(e);
             return;
         }
-    } else {
+    } else {  // already parsed
         RUR.current_world = json_string;
     }
 

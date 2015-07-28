@@ -74,9 +74,7 @@ RUR.reset_definitions = function () {
     son = RUR.control.sound;
     pense = RUR.control.think;
     pause = RUR.control.pause;
-    // defined in ui.js
-    Monde = RUR.ui.load_world;
-    Permalien = RUR.load_permalink;
+    Monde = RUR.file_io.load_world_file;
     nombre_de_robots = RUR._set_max_nb_robots_;
 
     // The following are for OOP programming in Javascript and CoffeeScript

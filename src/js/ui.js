@@ -148,56 +148,6 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
     }, "text");
 };
 
-RUR.ui.load_world = function (filename) {
-    // this is for worlds that are defined in a file not available from the
-    // drop-down menu.
-
-    /* A new world can be selected via a user program using the
-      World() function which is an alias for RUR.ui.load_world.
-      When this is done, and if the
-      world is changed by this selection, an alert is first
-      shown and the program is otherwise not run. Executing the
-      program a second time will work as the correct world will
-      be displayed.
-    */
-
-    "use strict";
-    var url, elt = document.getElementById("select_world");
-    RUR.ui.load_file_error = false;
-    // first look within already known worlds, either pre-defined or
-    // loaded and saved in local storage
-    for (var i=0; i < elt.options.length; i++){
-        if (elt.options[i].text === filename && elt.options[i].value.substring(0,10) != "user_world") {
-            if (elt.options[i].selected) {
-                // Correct world already selected: we're good to go.
-                return;
-            } else {
-                RUR.ui.load_file(elt.options[i].value, true, elt, i);
-                if (RUR.ui.load_file_error) {
-                    throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
-                }
-                RUR.ui.new_world_selected = true;
-                RUR.rec.frames = [];
-                throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
-            }
-        }
-    }
-    // the requested world was not previously known.
-    if (filename.substring(0,4).toLowerCase() == "http") {
-        url = filename;
-    } else {
-        url = "src/worlds/" + filename + ".json";
-    }
-
-    RUR.ui.load_file(url, false);
-    if (RUR.ui.load_file_error) {
-        throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: filename}));
-    }
-    RUR.ui.new_world_selected = true;
-    RUR.rec.frames = [];
-    throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
-};
-
 RUR.ui.load_user_worlds = function () {
     var key, name, i, user_world_present;
     for (i = localStorage.length - 1; i >= 0; i--) {

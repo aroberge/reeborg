@@ -83,9 +83,7 @@ RUR.reset_definitions = function () {
     think = RUR.control.think;
     say = RUR.control.say;
     pause = RUR.control.pause;
-    // defined in ui.js
-    World = RUR.ui.load_world;
-    Permalink = RUR.load_permalink;
+    World = RUR.file_io.load_world_file;
     set_max_nb_robots = RUR._set_max_nb_robots_;
 
 

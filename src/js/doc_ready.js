@@ -139,11 +139,6 @@ $(document).ready(function() {
     };
 
 
-
-
-
-
-
     $("#load-world").on("click", function(evt) {
         $("#fileInput").click();
         var fileInput = document.getElementById('fileInput');
@@ -202,25 +197,10 @@ $(document).ready(function() {
                                  position:{my: "bottom", at: "bottom-20", of: window}});
 
     $("#select_world").change(function() {
-        var data, val = $(this).find(':selected').val();
-        RUR.settings.world = $(this).find(':selected').text();
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
-
-        if (val.substring(0,11) === "user_world:"){
-            data = localStorage.getItem(val);
-            RUR.world.import_world(data);
-            RUR.we.show_pre_post_code();
-        } else {
-            $.get(val, function(data) {
-                RUR.world.import_world(data);
-                RUR.we.show_pre_post_code();
-                // jquery is sometimes too intelligent; it can guess
-                // if the imported object is a string ... or a json object
-                // I need a string here;  so make sure to prevent it from identifying.
-            }, "text");
-        }
+        RUR.file_io.load_world_file($(this).val(), true);
     });
 
 

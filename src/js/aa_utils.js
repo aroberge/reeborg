@@ -147,7 +147,7 @@ RUR.reset_programming_language = function(choice){
     } catch (e) {}
 };
 
-RUR.update_permalink = function (arg) {
+RUR.update_permalink = function (arg, existing) {
     var url_query;
     if (arg !== undefined) {
         url_query = parseUri(arg);
@@ -162,13 +162,14 @@ RUR.update_permalink = function (arg) {
         RUR.reset_programming_language(prog_lang);
 
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        var name = "PERMALINK";
-        localStorage.setItem("user_world:"+ name, RUR.world.export_world());
-        $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                                  ).val("user_world:" + name).html(name));
-        $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
-        $("#select_world").change();
-        $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
+        if (!existing){
+            localStorage.setItem("user_world:PERMALINK", RUR.world.export_world());
+            $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+                                      ).val("user_world:" + name).html("PERMALINK"));
+            $('#select_world').val("user_world:" + "PERMALINK");  // reload as updating select choices blanks the world.
+            $("#select_world").change();
+            $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
+        }
 
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
     }
