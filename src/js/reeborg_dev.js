@@ -1277,26 +1277,7 @@ RUR.custom_menu.make = function (contents) {
     RUR.custom_menu.new_menu_added = true;  // will modify program execution
 };
 
-
-
-// RUR.custom_menu.load_world = function (filename) {
-//     "use strict";
-//     var url, elt = document.getElementById("custom-world-menu");
-
-//     for (var i=0; i < elt.options.length; i++){
-//         if (elt.options[i].text === filename) {
-//             if (elt.options[i].selected) {
-//                 // Correct world already selected: we're good to go.
-//                 return;
-//             } else {
-//                 RUR.custom_menu.load_file(elt.options[i].value);
-//                 RUR.ui.new_world_selected = true;
-//                 RUR.rec.frames = [];
-//                 throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: filename}));
-//             }
-//         }
-//     }
-// };
+MakeCustomMenu = RUR.custom_menu.make;
 /* Author: André Roberge
    License: MIT
  */
@@ -1312,7 +1293,7 @@ $(document).ready(function() {
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.ui.select_world("alone");
+        RUR.ui.select_world("Alone");
     }
 
     function create_and_activate_dialog(button, element, add_options, special_fn) {
@@ -1499,7 +1480,9 @@ $(document).ready(function() {
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
-        RUR.file_io.load_world_file($(this).val(), true);
+        if ($(this).val() !== null) {
+            RUR.file_io.load_world_file($(this).val(), true);
+        }
     });
 
 
@@ -1587,20 +1570,39 @@ RUR.file_io = {};
 RUR.file_io.load_world_file = function (url, existing) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
-    var data;
-    
+    var data, i, change_selected_value=false, elt = document.getElementById("select_world");
+
+    if (url === null) {
+        console.log("ignoring null url in RUR.file_io.load_world_file");
+        return;
+    }
+
+    for (i=0; i < elt.options.length; i++){
+        if (elt.options[i].text === url) {
+            if (elt.options[i].selected) {
+                // Correct world already selected: we're good to go.
+                return;
+            } else {
+                url = elt.options[i].value;
+                change_selected_value = url;
+                break;
+            }
+        }
+    }
+
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
         RUR.world.import_world(data);
         RUR.we.show_pre_post_code();
         RUR.ui.new_world_selected = true;
         RUR.rec.frames = [];
-    } else {    
+    } else {
         $.ajax({url: url,
-            async: false,
+            async: true,
             error: function(e){
-                $("#Reeborg-shouts").html(RUR.translate("Could not find link")).dialog("open");
+                RUR.rec.frames = [];
                 RUR.ui.stop();
+                $("#Reeborg-shouts").html(RUR.translate("Could not find link") + url).dialog("open");
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
@@ -1612,13 +1614,13 @@ RUR.file_io.load_world_file = function (url, existing) {
                 }
                 RUR.ui.new_world_selected = true;
                 RUR.rec.frames = [];
+                if (change_selected_value) {
+                    $("#select_world").val(url);
+                }
             }
         });
     }
-    RUR.we.show_pre_post_code();
-};
-
-WW = RUR.file_io.load_world_file;/* Author: André Roberge
+};/* Author: André Roberge
    License: MIT
  */
 
@@ -2970,14 +2972,23 @@ RUR.storage.remove_world = function () {
 
 RUR.testing = {};
 
-RUR.testing.test_permalink = function (permalink){
-    editor.setValue('Permalink("' + permalink + '")');
+RUR.testing._test_permalink = function(permalink, function_name) {
+    var url_query, base_url;
+    url_query = parseUri(window.location.href);
+    base_url = url_query.protocol + "://" + url_query.host;
+    if (url_query.port){
+        base_url += ":" + url_query.port;
+    }
+    editor.setValue(function_name + '("' + base_url + permalink + '")');
     RUR.testing.run_test();
 };
 
+RUR.testing.test_permalink = function (permalink){
+    RUR.testing._test_permalink(permalink, "World");
+};
+
 RUR.testing.test_permalien = function (permalink){
-    editor.setValue('Permalien("' + permalink + '")');
-    RUR.testing.run_test();
+    RUR.testing._test_permalink(permalink, "Monde")
 };
 
 RUR.testing.run_test = function() {

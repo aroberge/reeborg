@@ -411,6 +411,7 @@ One teacher in Lithuania has made Reeborg's World accessible within Moodle
 for students tasks that are then marked automatically.  Ideally, such use
 should be made with local copies of Reeborg's World.
 
+.. _changing-the-user-interface:
 
 Changing the User Interface
 ---------------------------

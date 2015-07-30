@@ -13,7 +13,7 @@ $(document).ready(function() {
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
-        RUR.ui.select_world("alone");
+        RUR.ui.select_world("Alone");
     }
 
     function create_and_activate_dialog(button, element, add_options, special_fn) {
@@ -200,7 +200,9 @@ $(document).ready(function() {
         try {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
-        RUR.file_io.load_world_file($(this).val(), true);
+        if ($(this).val() !== null) {
+            RUR.file_io.load_world_file($(this).val(), true);
+        }
     });
 
 
