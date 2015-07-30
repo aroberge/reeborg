@@ -1,7 +1,5 @@
 /* Author: André Roberge
    License: MIT
-
-   Utilities for dealing with html LocalStorage.
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */

@@ -1441,10 +1441,6 @@ $(document).ready(function() {
         RUR.storage.memorize_world();
     });
 
-    $("#delete-world").on("click", function(evt) {
-        RUR.storage.remove_world();
-    });
-
     $("#classic-image").on("click", function(evt) {
         RUR.vis_robot.select_default_model(0);
     });
@@ -1522,8 +1518,7 @@ $(document).ready(function() {
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
         name = "PERMALINK";
         localStorage.setItem("user_world:"+ name, RUR.world.export_world());
-        $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                                  ).val("user_world:" + name).html(name));
+        RUR.storage.append_world_name(name);
         $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
         $("#select_world").change();
         $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
@@ -1558,8 +1553,6 @@ $(document).ready(function() {
 
 /* Author: André Roberge
    License: MIT
-
-   Utilities for dealing with html LocalStorage.
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
@@ -2917,13 +2910,43 @@ RUR.storage._save_world = function (name){
 RUR.storage.save_world = function (name){
     "use strict";
     localStorage.setItem("user_world:"+ name, RUR.world.export_world(RUR.current_world));
-    $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                              ).val("user_world:" + name).html(name));
+    RUR.storage.append_world_name(name);
     $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
 };
 
 
+RUR.storage.append_world_name = function (name){
+    /* appends name to world selector and to list of possible worlds to delete */
+    $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+                              ).val("user_world:" + name).html(name));
+    $('#delete-world h3').append('<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world('
+            + "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
+}
+
 RUR.storage.delete_world = function (name){
+    "use strict";
+    var i, key;
+    localStorage.removeItem("user_world:" + name);
+    $("select option[value='" + "user_world:" + name +"']").remove();
+
+    try {
+        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
+    } catch (e) {
+        $("#select_world").selectedIndex = 0;
+    }
+    $("#select_world").change();
+
+    for (i = localStorage.length - 1; i >= 0; i--) {
+        key = localStorage.key(i);
+        if (key.slice(0, 11) === "user_world:") {
+            return;
+        }
+    }
+    $('#delete-world').hide();
+};
+
+
+RUR.storage.delete_world_old = function (name){
     "use strict";
     var i, key;
     if (localStorage.getItem("user_world:" + name) === null){
@@ -2947,6 +2970,7 @@ RUR.storage.delete_world = function (name){
     }
     $('#delete-world').hide();
 };
+
 
 RUR.storage.remove_world = function () {
     var existing_names, i, key, response;
@@ -3225,20 +3249,14 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
 };
 
 RUR.ui.load_user_worlds = function () {
-    var key, name, i, user_world_present;
+    var key, name, i;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
             name = key.slice(11);
-            if (name !== "PERMALINK") {
-                $('#select_world').append( $('<option style="background-color:#ff9"></option>'
-                              ).val("user_world:" + name).html(name));
-                user_world_present = true;
-            }
+            RUR.storage.append_world_name(name);
+            $('#delete-world').show();
         }
-    }
-    if (user_world_present){
-        $('#delete-world').show();
     }
 };
 

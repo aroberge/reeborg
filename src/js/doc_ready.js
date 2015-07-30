@@ -161,10 +161,6 @@ $(document).ready(function() {
         RUR.storage.memorize_world();
     });
 
-    $("#delete-world").on("click", function(evt) {
-        RUR.storage.remove_world();
-    });
-
     $("#classic-image").on("click", function(evt) {
         RUR.vis_robot.select_default_model(0);
     });
@@ -242,8 +238,7 @@ $(document).ready(function() {
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
         name = "PERMALINK";
         localStorage.setItem("user_world:"+ name, RUR.world.export_world());
-        $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                                  ).val("user_world:" + name).html(name));
+        RUR.storage.append_world_name(name);
         $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
         $("#select_world").change();
         $('#delete-world').show(); // so that user can remove PERMALINK from select if desired

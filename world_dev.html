@@ -31,6 +31,7 @@
       <option value="src/worlds/rain1.json">Rain 1</option>
       <option value="src/worlds/rain2.json">Rain 2</option>
       <option value="src/worlds/simple_path.json">Simple path</option>
+      <option value="src/worlds/permalinks/documentation_menu">Make Documentation menu</option>
       <option value="src/worlds/blank.json">Blank canvas</option>
     </select>
     <button class="blue-gradient" id="world-info-button">World info</button>
@@ -393,10 +394,12 @@ window['translate_python'] = translate_python
      selection with the pre-existing worlds above.
    </p>
 
-  <p><button class="blue-gradient" id="delete-world" style="display: none;">Delete world from browser</button>
-    Deletes a known world from the browser's memory (Local Storage).
-  </p>
+  <div id="delete-world" style="display:none;">
+  <h3>The following refers to worlds currently stored in your browser which you can delete:</h3>
+  </div>
 
+  <hr>
+  <h3>Program in editor</h3>
   <p>
     <button class="blue-gradient" id="save-editor">Save program to file</button>
      Saves the content of the editor in a file.
@@ -406,6 +409,7 @@ window['translate_python'] = translate_python
     <button class="blue-gradient" id="load-editor">Import program from file</button>
      Opens a local file and use its content to replace the content of the Code editor.
   </p>
+
 
 <hr>
 <h3>Special execution features</h3>

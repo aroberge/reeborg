@@ -149,20 +149,14 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
 };
 
 RUR.ui.load_user_worlds = function () {
-    var key, name, i, user_world_present;
+    var key, name, i;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
             name = key.slice(11);
-            if (name !== "PERMALINK") {
-                $('#select_world').append( $('<option style="background-color:#ff9"></option>'
-                              ).val("user_world:" + name).html(name));
-                user_world_present = true;
-            }
+            RUR.storage.append_world_name(name);
+            $('#delete-world').show();
         }
-    }
-    if (user_world_present){
-        $('#delete-world').show();
     }
 };
 
