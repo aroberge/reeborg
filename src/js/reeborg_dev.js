@@ -2909,6 +2909,7 @@ RUR.storage._save_world = function (name){
     } else {
         RUR.storage.save_world(name);
     }
+    RUR.world.saved_world = RUR.world.clone_world();
 };
 
 RUR.storage.save_world = function (name){
