@@ -1,17 +1,37 @@
-{
-   "robots": [
-      {
-         "x": 1,
-         "y": 3,
-         "tokens": 0,
-         "orientation": 3,
-         "prev_orientation": 0
-      }
-   ],
-   "goal": {
-      "position": {
-         "x" : 1,
-         "y": 1
-      }
-   }
+﻿{
+  "robots": [
+    {
+      "x": 1,
+      "y": 3,
+      "tokens": 0,
+      "orientation": 3,
+      "prev_orientation": 0,
+      "_prev_x": 1,
+      "_prev_y": 3,
+      "_prev_orientation": 3,
+      "start_positions": [
+        [
+          1,
+          3
+        ]
+      ]
+    }
+  ],
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "goal": {
+    "possible_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 1,
+      "y": 1
+    }
+  },
+  "description": "Write a program so that Reeborg can go home."
 }

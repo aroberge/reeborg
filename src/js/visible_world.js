@@ -135,7 +135,8 @@ RUR.vis_world.refresh = function () {
 
 RUR.vis_world.sanity_check = function(offset) {
     // An intermittent bug sometimes  causes the robot NOT to be drawn.
-    // This sanity check is performed so as to see if any unexpected
+    // This sanity check is, enabled when the debug option is turned on,
+    // is performed so as to see if any unexpected
     // canvas clearing occurs.
 
     RUR.BACKGROUND_CTX.fillStyle = "red";
@@ -474,36 +475,40 @@ RUR.vis_world.compile_info = function() {
     // drown - if anything.
     var coords, obj, quantity;
     RUR.vis_world.information = {};
-    if (RUR.current_world.objects !== undefined) {
-        RUR.vis_world.compile_partial_info(RUR.current_world.objects, 'black');
-    }
+    RUR.vis_world.goal_information = {};
+    RUR.vis_world.goal_present = false;
     if (RUR.current_world.goal !== undefined &&
         RUR.current_world.goal.objects !== undefined) {
-        RUR.vis_world.compile_partial_info(RUR.current_world.goal.objects, 'blue');
+        RUR.vis_world.compile_partial_info(RUR.current_world.goal.objects,
+            RUR.vis_world.goal_information, 'goal');
+            RUR.vis_world.goal_present = true;
+    }
+
+
+    if (RUR.current_world.objects !== undefined) {
+        RUR.vis_world.compile_partial_info(RUR.current_world.objects,
+            RUR.vis_world.information, 'objects');
     }
 };
 
-RUR.vis_world.compile_partial_info = function(objects, color){
+RUR.vis_world.compile_partial_info = function(objects, information, type){
     "use strict";
-    var coords, obj, quantity;
+    var coords, obj, quantity, color, goal_information;
+    if (type=="objects") {
+        color = "black";
+        goal_information = RUR.vis_world.goal_information;
+    } else {
+        color = "blue";
+    }
+
     for (coords in objects) {
         if (objects.hasOwnProperty(coords)){
             // objects found here
             for(obj in objects[coords]){
                 if (objects[coords].hasOwnProperty(obj)){
-                    if (RUR.vis_world.information[coords] !== undefined){
-                        if (RUR.vis_world.information[coords][0] != obj) { // already at least one other object there
-                            RUR.vis_world.information[coords] = [undefined, "?"];  // assign impossible object
-                        } else if (RUR.vis_world.information[coords][1] == objects[coords][obj]) { // same object, same quantity
-                               if (objects[coords][obj] == 1){
-                                    RUR.vis_world.information[coords] = [obj, '', 'black'];  // don't show number for 1
-                               } else {
-                                    RUR.vis_world.information[coords] = [obj, objects[coords][obj], 'green'];
-                               }
-                        } else {  // same object, different quantities
-                            RUR.vis_world.information[coords] = [obj, 'X', 'red'];
-                        }
-
+                    if (information[coords] !== undefined){
+                        // already at least one other object there
+                        information[coords] = [undefined, "?"];  // assign impossible object
                     } else {
                         quantity = objects[coords][obj];
                         if (quantity.toString().indexOf("-") != -1) {
@@ -518,7 +523,15 @@ RUR.vis_world.compile_partial_info = function(objects, color){
                                 console.log("WARNING: this should not happen in RUR.vis_world.compile_info");
                             }
                         }
-                        RUR.vis_world.information[coords] = [obj, quantity, color];
+                        if (typeof quantity == 'number' && goal_information !== undefined) {
+                            if ( goal_information[coords] !== undefined &&  goal_information[coords][1] == objects[coords][obj]) {
+                            information[coords] = [obj, objects[coords][obj], 'green'];
+                            } else {
+                                information[coords] = [obj, objects[coords][obj], 'red'];
+                            }
+                        } else {
+                            information[coords] = [obj, quantity, color];
+                        }
                     }
                 }
             }
@@ -529,23 +542,45 @@ RUR.vis_world.compile_partial_info = function(objects, color){
 RUR.vis_world.draw_info = function() {
     var i, j, coords, keys, key, info, ctx;
     var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
-    if (RUR.vis_world.information === undefined) {
+    if (RUR.vis_world.information === undefined &&
+        RUR.vis_world.goal_information === undefined) {
         return;
     }
     // make sure it appears on top of everything (except possibly robots)
     ctx = RUR.ROBOT_CTX;
 
-    keys = Object.keys(RUR.vis_world.information);
-    for (key=0; key < keys.length; key++){
-        coords = keys[key].split(",");
-        i = parseInt(coords[0], 10);
-        j = parseInt(coords[1], 10);
-        info = RUR.vis_world.information[coords][1];
-        if (info != 1 && i <= RUR.COLS && j <= RUR.ROWS){
-            text_width = ctx.measureText(info).width/2;
-            ctx.font = RUR.BACKGROUND_CTX.font;
-            ctx.fillStyle = RUR.vis_world.information[coords][2];
-            ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
+    if (RUR.vis_world.information !== undefined) {
+        keys = Object.keys(RUR.vis_world.information);
+        for (key=0; key < keys.length; key++){
+            coords = keys[key].split(",");
+            i = parseInt(coords[0], 10);
+            j = parseInt(coords[1], 10);
+            info = RUR.vis_world.information[coords][1];
+            if (i <= RUR.COLS && j <= RUR.ROWS){
+                text_width = ctx.measureText(info).width/2;
+                ctx.font = RUR.BACKGROUND_CTX.font;
+                ctx.fillStyle = RUR.vis_world.information[coords][2];
+                // information drawn to left side of object
+                ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
+            }
         }
     }
+
+    if (RUR.vis_world.goal_information !== undefined) {
+        keys = Object.keys(RUR.vis_world.goal_information);
+        for (key=0; key < keys.length; key++){
+            coords = keys[key].split(",");
+            i = parseInt(coords[0], 10);
+            j = parseInt(coords[1], 10);
+            info = RUR.vis_world.goal_information[coords][1];
+            if (info != 1 && i <= RUR.COLS && j <= RUR.ROWS){
+                text_width = ctx.measureText(info).width/2;
+                ctx.font = RUR.BACKGROUND_CTX.font;
+                ctx.fillStyle = RUR.vis_world.goal_information[coords][2];
+                // information drawn to right side of object
+                ctx.fillText(info, (i+0.8)*scale, Y - (j)*scale);
+            }
+        }
+    }
+
 };
