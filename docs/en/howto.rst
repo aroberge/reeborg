@@ -12,7 +12,7 @@ Simple task
 
 First, we consider a simple task.  Load the following::
 
-    Permalink("simple_demo1")
+    World("Demo 1")
 
 The initial task to accomplish looks like:
 
@@ -25,6 +25,10 @@ and the final result is as follows:
 |simple_demo1f|
 
 .. |simple_demo1f| image:: ../images/simple_demo1f.png
+
+This demo is saved as a permalink, including code in the editor
+**and** in the library; it is also available from the
+html ``select`` element at the top.
 
 
 Different traces: style
@@ -65,7 +69,7 @@ Different robots can have different trace colors or can even change
 the color of the trace left behind at any point within a program.
 Load up::
 
-    Permalink("simple_demo2")
+    World("Demo 2")
 
 to see an example of this.  Valid names color, to be used to
 the argument of ``set_trace_color()`` include html named colors,
@@ -98,7 +102,7 @@ a specific model (integer from 0 to 3) using the following::
 
 This is also demonstrated in::
 
-    Permalink("simple_demo2")
+    World("Demo 2")
 
 mentioned above.
 
@@ -123,7 +127,7 @@ amongst a given set.
 
 All of these are demonstrated in the example::
 
-    Permalink("simple_demo3")
+    World("Demo 3")
 
 |simple_demo3|
 

@@ -14,7 +14,11 @@ RUR.custom_menu.make = function (contents) {
     $("#select_world").html('');
 
     for(i=0; i<contents.length; i++){
-        $('#select_world').append( $('<option></option>').val(contents[i][0]).html(contents[i][1]));
+        if (contents[i][0].indexOf('menu') != -1) {
+            $('#select_world').append( $('<option class="select-menu"></option>').val(contents[i][0]).html(contents[i][1]));
+        } else {
+            $('#select_world').append( $('<option></option>').val(contents[i][0]).html(contents[i][1]));
+        }
     }
 
     $("#select_world").change();

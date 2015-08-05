@@ -1269,7 +1269,11 @@ RUR.custom_menu.make = function (contents) {
     $("#select_world").html('');
 
     for(i=0; i<contents.length; i++){
-        $('#select_world').append( $('<option></option>').val(contents[i][0]).html(contents[i][1]));
+        if (contents[i][0].indexOf('menu') != -1) {
+            $('#select_world').append( $('<option class="select-menu"></option>').val(contents[i][0]).html(contents[i][1]));
+        } else {
+            $('#select_world').append( $('<option></option>').val(contents[i][0]).html(contents[i][1]));
+        }
     }
 
     $("#select_world").change();
@@ -2917,7 +2921,7 @@ RUR.storage.save_world = function (name){
 
 RUR.storage.append_world_name = function (name){
     /* appends name to world selector and to list of possible worlds to delete */
-    $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+    $('#select_world').append( $('<option class="select-local-storage" selected="true"></option>'
                               ).val("user_world:" + name).html(name));
     $('#delete-world h3').append('<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world('
             + "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
@@ -3239,7 +3243,7 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
                 elt.options[i].value = url;
                 elt.value = elt.options[i].value;
             } else {
-                $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+                $('#select_world').append( $('<option class="select-local-storage" selected="true"></option>'
                                       ).val(url).html(filename));
                 $('#select_world').val(url);
             }

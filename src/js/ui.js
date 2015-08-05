@@ -139,7 +139,7 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
                 elt.options[i].value = url;
                 elt.value = elt.options[i].value;
             } else {
-                $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+                $('#select_world').append( $('<option class="select-local-storage" selected="true"></option>'
                                       ).val(url).html(filename));
                 $('#select_world').val(url);
             }

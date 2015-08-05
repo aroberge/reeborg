@@ -165,6 +165,13 @@ a[href^='http'] {
 #select_world {
     margin: 10px;
 }
+.select-menu {
+    background-color:#9ff;
+}
+.select-local-storage {
+    background-color:#ff9;
+}
+
 
 fieldset {
     display: inline-block;
@@ -430,6 +437,11 @@ p.try {
 .user_note {
     margin: 0 10px 0 10px;
     border: 1px solid #ccc;
+}
+
+.inline-block {
+    display: inline-block;
+    margin: 10px;
 }
 
 #logo {

@@ -50,7 +50,7 @@ RUR.storage.save_world = function (name){
 
 RUR.storage.append_world_name = function (name){
     /* appends name to world selector and to list of possible worlds to delete */
-    $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
+    $('#select_world').append( $('<option class="select-local-storage" selected="true"></option>'
                               ).val("user_world:" + name).html(name));
     $('#delete-world h3').append('<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world('
             + "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');

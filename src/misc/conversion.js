@@ -94,7 +94,7 @@ function convert_world (old_world){
             new_world.goal.objects = {};
             for (coord in new_world.goal.tokens) {
                 if (new_world.goal.tokens.hasOwnProperty(coord)) {
-                    new_world.goal.objects[coord] = {"tokens":new_world.goal.tokens[coord]};
+                    new_world.goal.objects[coord] = {"token":new_world.goal.tokens[coord]};
                 }
             }
             delete new_world.goal.tokens;
