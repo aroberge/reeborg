@@ -1,18 +1,5 @@
-.. Reeborg's World documentation master file, created by
-   sphinx-quickstart on Sun May 31 17:47:43 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to Reeborg's World's documentation!
 ===========================================
-
-
-.. topic:: Please help reduce bandwidth usage.
-
-    If http://reeborg.ca/world_dev.html is loaded in your browser, you
-    can update its contents in a number of ways explained in the
-    Information for teacher's section and elsewhere.
-
 
 .. figure:: ../images/reeborg_judkis.jpg
    :figwidth: 35%
