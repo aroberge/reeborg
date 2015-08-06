@@ -1282,7 +1282,59 @@ RUR.custom_menu.make = function (contents) {
 };
 
 MakeCustomMenu = RUR.custom_menu.make;
-/* Author: André Roberge
+
+RUR.make_default_menu = function(language) {
+    switch (language) {
+        case 'en': RUR.make_default_menu_en();
+                   break;
+        case 'fr': RUR.make_default_menu_fr();
+                   break;
+        default: RUR.make_default_menu_en();
+    }
+}
+
+
+RUR.make_default_menu_en = function () {
+    "use strict";
+    var contents, worlds = 'src/worlds/';
+
+    contents = [
+        [worlds + 'alone.json', 'Alone'],
+        [worlds + 'empty.json', 'Empty'],
+        [worlds + 'simple_path.json', 'Simple path'],
+        [worlds + 'gravel_path.json', 'Gravel path'],
+        [worlds + 'gravel_path',
+                           'Gravel path (solution)'],
+        [worlds + 'rain1.json', 'Rain 1'],
+        [worlds + 'rain2.json', 'Rain 2'],
+        [worlds + 'menus/documentation_en', 'Documentation menu'],
+        [worlds + 'menus/tutorial_en', 'Tutorial menu'],
+        [worlds + 'blank.json', 'Blank canvas'],
+        ];
+
+    RUR.custom_menu.make(contents);
+};
+
+RUR.make_default_menu_fr = function () {
+    "use strict";
+    var contents, worlds = 'src/worlds/';
+
+    contents = [
+        [worlds + 'alone.json', 'Seul'],
+        [worlds + 'empty.json', 'Vide'],
+        [worlds + 'simple_path.json', 'Simple sentier'],
+        [worlds + 'gravel_path.json', 'Sentier de gravier'],
+        [worlds + 'gravel_path_fr',
+                           'Sentier de gravier (solution)'],
+        [worlds + 'rain1.json', 'Pluie 1'],
+        [worlds + 'rain2.json', 'Pluie 2'],
+        [worlds + 'menus/documentation_en', 'Documentation (menu anglais)'],
+        [worlds + 'menus/tutorial_en', 'Tutoriel: menu'],
+        [worlds + 'blank.json', 'Canevas graphique'],
+        ];
+
+    RUR.custom_menu.make(contents);
+};/* Author: André Roberge
    License: MIT
  */
 
@@ -1296,9 +1348,7 @@ $(document).ready(function() {
     RUR.ui.load_user_worlds();
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
-    } catch (e) {
-        RUR.ui.select_world("Alone");
-    }
+    } catch (e) { }
 
     function create_and_activate_dialog(button, element, add_options, special_fn) {
         var options = {
@@ -1503,6 +1553,9 @@ $(document).ready(function() {
     var prog_lang, url_query, name;
     var human_language = document.documentElement.lang;
     RUR._highlight = true;
+
+    RUR.make_default_menu(human_language);
+
     $('input[type=radio][name=programming_language]').on('change', function(){
         RUR.reset_programming_language($(this).val());
         if ($(this).val() == "python-"+human_language){
@@ -1548,11 +1601,12 @@ $(document).ready(function() {
         var new_css = decodeURIComponent(url_query.queryKey.css);
         eval(new_css);  // jshint ignore:line
     }
-    // for embedding
+    // for embedding in iframe
     addEventListener("message", receiveMessage, false);
     function receiveMessage(event){
         RUR.update_permalink(event.data);
     }
+
 });
 
 /* Author: André Roberge

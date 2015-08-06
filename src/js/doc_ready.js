@@ -12,9 +12,7 @@ $(document).ready(function() {
     RUR.ui.load_user_worlds();
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
-    } catch (e) {
-        RUR.ui.select_world("Alone");
-    }
+    } catch (e) { }
 
     function create_and_activate_dialog(button, element, add_options, special_fn) {
         var options = {
@@ -219,6 +217,9 @@ $(document).ready(function() {
     var prog_lang, url_query, name;
     var human_language = document.documentElement.lang;
     RUR._highlight = true;
+
+    RUR.make_default_menu(human_language);
+
     $('input[type=radio][name=programming_language]').on('change', function(){
         RUR.reset_programming_language($(this).val());
         if ($(this).val() == "python-"+human_language){
@@ -264,10 +265,11 @@ $(document).ready(function() {
         var new_css = decodeURIComponent(url_query.queryKey.css);
         eval(new_css);  // jshint ignore:line
     }
-    // for embedding
+    // for embedding in iframe
     addEventListener("message", receiveMessage, false);
     function receiveMessage(event){
         RUR.update_permalink(event.data);
     }
+
 });
 
