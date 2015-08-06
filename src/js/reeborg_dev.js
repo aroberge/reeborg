@@ -1279,6 +1279,8 @@ RUR.custom_menu.make = function (contents) {
     $("#select_world").change();
 
     RUR.custom_menu.new_menu_added = true;  // will modify program execution
+
+    editor.setValue(RUR.translate("move") + "()");
 };
 
 MakeCustomMenu = RUR.custom_menu.make;
