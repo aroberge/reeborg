@@ -96,11 +96,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="else.html"
                         title="next chapter">17. Listen to me ... or else ....</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/at_goal.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/at_goal.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -135,7 +137,7 @@ position where Reeborg finds himself, Reeborg can also determine if he
 reached the coloured square which we described before as Reeborg&#8217;s home.
 In many worlds, it makes more sense to think of this as Reeborg&#8217;s goal
 destination, rather than home, and the function that Reeborg uses to
-determine this is <tt class="docutils literal"><span class="pre">at_goal()</span></tt>. Here&#8217;s the outline of a solution that
+determine this is <code class="docutils literal"><span class="pre">at_goal()</span></code>. Here&#8217;s the outline of a solution that
 should work in all four worlds mentioned above.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">move_until_done</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">at_goal</span><span class="p">():</span>
@@ -169,13 +171,13 @@ have determined this, try running it to confirm your understanding.</p>
 a second, a program that Reeborg could follow to race over these hurdles
 would alternate between two instructions</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">move()</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">jump_over_hurdle()</span></tt></li>
+<li><code class="docutils literal"><span class="pre">move()</span></code></li>
+<li><code class="docutils literal"><span class="pre">jump_over_hurdle()</span></code></li>
 </ul>
-<p>with the appropriate definition for <tt class="docutils literal"><span class="pre">jump_over_hurdle()</span></tt>. If you could
-include a test (<tt class="docutils literal"><span class="pre">if</span></tt> statement) at some point to see if you have
+<p>with the appropriate definition for <code class="docutils literal"><span class="pre">jump_over_hurdle()</span></code>. If you could
+include a test (<code class="docutils literal"><span class="pre">if</span></code> statement) at some point to see if you have
 reached the goal, you could use the above to create a new function, that
-we could call <tt class="docutils literal"><span class="pre">move_and_jump_until_done()</span></tt> so that a program suitable
+we could call <code class="docutils literal"><span class="pre">move_and_jump_until_done()</span></code> so that a program suitable
 for both worlds <strong>Hurdles&nbsp;1</strong> and <strong>Hurdles&nbsp;2</strong> would be:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">repeat</span><span class="p">(</span><span class="n">move_and_jump_until_done</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
 </pre></div>
@@ -234,7 +236,7 @@ for both worlds <strong>Hurdles&nbsp;1</strong> and <strong>Hurdles&nbsp;2</stro
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

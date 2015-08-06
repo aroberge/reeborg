@@ -92,11 +92,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="harvest3.html"
                         title="next chapter">35. More harvesting challenges</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/return.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/return.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -129,7 +131,7 @@ of him or immediately to his right, and can see tokens only when he is
 literally standing on top of them. Reeborg has also a (somewhat broken)
 compass which he can used to find out if is is facing north ... or not.
 To find out if he is facing north, you can ask Reeborg to do the test
-<tt class="docutils literal"><span class="pre">is_facing_north()</span></tt>.</p>
+<code class="docutils literal"><span class="pre">is_facing_north()</span></code>.</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
 <p>Choosing an appropriate world, write a short program that will ensure
@@ -138,9 +140,9 @@ starting orientation is.</p>
 </div>
 <div class="section" id="getting-results-from-functions">
 <h2>34.1. Getting results from functions<a class="headerlink" href="#getting-results-from-functions" title="Permalink to this headline">¶</a></h2>
-<p>Tests like <tt class="docutils literal"><span class="pre">is_facing_north()</span></tt> are actually Python functions. They
-differ from other functions like <tt class="docutils literal"><span class="pre">turn_left()</span></tt> or <tt class="docutils literal"><span class="pre">move()</span></tt> in that
-they <tt class="docutils literal"><span class="pre">return</span></tt> a value. Let&#8217;s start by considering a simple example:</p>
+<p>Tests like <code class="docutils literal"><span class="pre">is_facing_north()</span></code> are actually Python functions. They
+differ from other functions like <code class="docutils literal"><span class="pre">turn_left()</span></code> or <code class="docutils literal"><span class="pre">move()</span></code> in that
+they <code class="docutils literal"><span class="pre">return</span></code> a value. Let&#8217;s start by considering a simple example:</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">interrupted_two_steps</span><span class="p">():</span>
@@ -152,9 +154,9 @@ they <tt class="docutils literal"><span class="pre">return</span></tt> a value. 
 </pre></div>
 </div>
 </div>
-<p>As you can see, the return statement prevents the second <tt class="docutils literal"><span class="pre">move()</span></tt> from
+<p>As you can see, the return statement prevents the second <code class="docutils literal"><span class="pre">move()</span></code> from
 being executed.
-The <tt class="docutils literal"><span class="pre">return</span></tt> keyword can actually be accompanied by something else.</p>
+The <code class="docutils literal"><span class="pre">return</span></code> keyword can actually be accompanied by something else.</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
 <p>For example, try the following:</p>
@@ -166,8 +168,8 @@ The <tt class="docutils literal"><span class="pre">return</span></tt> keyword ca
 </pre></div>
 </div>
 </div>
-<p>As you have tried it, you noticed that <tt class="docutils literal"><span class="pre">north()</span></tt> was giving the same
-result as <tt class="docutils literal"><span class="pre">is_facing_north()</span></tt>; that is the effect of the <tt class="docutils literal"><span class="pre">return</span></tt>
+<p>As you have tried it, you noticed that <code class="docutils literal"><span class="pre">north()</span></code> was giving the same
+result as <code class="docutils literal"><span class="pre">is_facing_north()</span></code>; that is the effect of the <code class="docutils literal"><span class="pre">return</span></code>
 statement. We can use this to have Reeborg be able to identify
 orientations other than North. First, note that if Reeborg turns left 4
 times, he will be back to its initial orientation; we do want Reeborg to
@@ -176,7 +178,7 @@ Now, suppose we would like to know if Reeborg was facing South. We could
 ask Reeborg to turn left twice, note if his orientation is North (which
 it should be if he was facing South) or not, turn left twice more, to go
 back to its original orientation, and tell us what he remembered using
-the <tt class="docutils literal"><span class="pre">return</span></tt> statement. One thing we need to do: have Reeborg use a
+the <code class="docutils literal"><span class="pre">return</span></code> statement. One thing we need to do: have Reeborg use a
 <em>variable</em> to remember its orientation after two left turns:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">is_facing_south</span><span class="p">():</span>
     <span class="n">turn_left</span><span class="p">()</span>
@@ -207,7 +209,7 @@ dizzy.</p>
 <p class="topic-title first">Mini-quiz!</p>
 <p>Write a program that has Reeborg face West, no matter what his original
 orientation is. Test it with Reeborg in various starting orientations,
-by giving him a few <tt class="docutils literal"><span class="pre">turn_left()</span></tt> instructions first.</p>
+by giving him a few <code class="docutils literal"><span class="pre">turn_left()</span></code> instructions first.</p>
 </div>
 </div>
 <div class="section" id="how-to-think-about-return">
@@ -220,17 +222,17 @@ by giving him a few <tt class="docutils literal"><span class="pre">turn_left()</
 <span class="o">...</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>In this case, the call to <tt class="docutils literal"><span class="pre">some_function()</span></tt> on the last line gets
-replaced by the value of <tt class="docutils literal"><span class="pre">something</span></tt> which is what follows the
-<tt class="docutils literal"><span class="pre">return</span></tt> keyword. If nothing follows <tt class="docutils literal"><span class="pre">return</span></tt> the result is
-<tt class="docutils literal"><span class="pre">undefined</span></tt>.</p>
+<p>In this case, the call to <code class="docutils literal"><span class="pre">some_function()</span></code> on the last line gets
+replaced by the value of <code class="docutils literal"><span class="pre">something</span></code> which is what follows the
+<code class="docutils literal"><span class="pre">return</span></code> keyword. If nothing follows <code class="docutils literal"><span class="pre">return</span></code> the result is
+<code class="docutils literal"><span class="pre">undefined</span></code>.</p>
 <div class="topic">
 <p class="topic-title first">More returns</p>
 <p>Reeborg can determine if there is a wall in front of him, using
-<tt class="docutils literal"><span class="pre">front_is_clear()</span></tt>, or if there is a wall to his right, using
-<tt class="docutils literal"><span class="pre">right_is_clear()</span></tt>. Write a test that has Reeborg turn left 4 times,
+<code class="docutils literal"><span class="pre">front_is_clear()</span></code>, or if there is a wall to his right, using
+<code class="docutils literal"><span class="pre">right_is_clear()</span></code>. Write a test that has Reeborg turn left 4 times,
 so that he ends up back in the same orientation that he started with,
-but that returns <tt class="docutils literal"><span class="pre">True</span></tt> if there is no wall to his left.</p>
+but that returns <code class="docutils literal"><span class="pre">True</span></code> if there is no wall to his left.</p>
 </div>
 <div class="topic">
 <p class="topic-title first">Challenges!</p>
@@ -268,7 +270,7 @@ solutions.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

@@ -81,7 +81,7 @@
               <ul>
 <li><a class="reference internal" href="#">17. Listen to me ... or else ....</a><ul>
 <li><a class="reference internal" href="#two-choices">17.1. Two choices...</a></li>
-<li><a class="reference internal" href="#how-to-think-about-if-else">17.2. How to think about <tt class="docutils literal"><span class="pre">if/else</span></tt></a></li>
+<li><a class="reference internal" href="#how-to-think-about-if-else">17.2. How to think about <code class="docutils literal"><span class="pre">if/else</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -92,11 +92,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="hurdles3.html"
                         title="next chapter">18. Hurdles yet again!</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/else.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/else.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -119,11 +121,11 @@
   <div class="section" id="listen-to-me-or-else">
 <h1>17. Listen to me ... or else ....<a class="headerlink" href="#listen-to-me-or-else" title="Permalink to this headline">¶</a></h1>
 <p>While learning how to program may be fun, you should not spend all your
-time in front of the computer. <tt class="docutils literal"><span class="pre">if</span></tt> it rains, keep reading, otherwise,
+time in front of the computer. <code class="docutils literal"><span class="pre">if</span></code> it rains, keep reading, otherwise,
 go outside and play! (Yes, even you grandpa!)</p>
 <div class="section" id="two-choices">
 <h2>17.1. Two choices...<a class="headerlink" href="#two-choices" title="Permalink to this headline">¶</a></h2>
-<p>Let&#8217;s rewrite the sentence that starts with <tt class="docutils literal"><span class="pre">if</span></tt> above:</p>
+<p>Let&#8217;s rewrite the sentence that starts with <code class="docutils literal"><span class="pre">if</span></code> above:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">it</span> <span class="n">rains</span><span class="p">,</span>
     <span class="n">keep</span> <span class="n">reading</span><span class="p">,</span>
 <span class="n">otherwise</span><span class="p">,</span>
@@ -138,11 +140,11 @@ go outside and play! (Yes, even you grandpa!)</p>
 </pre></div>
 </div>
 <p>Yes, Python includes the possibility of more than one choice with
-the keyword <tt class="docutils literal"><span class="pre">else</span></tt>. Let&#8217;s use it with another example. Reeborg can see
+the keyword <code class="docutils literal"><span class="pre">else</span></code>. Let&#8217;s use it with another example. Reeborg can see
 if there&#8217;s a wall right in front him. Consider world <strong>Around&nbsp;1</strong>. You will
-use a new condition, <tt class="docutils literal"><span class="pre">front_is_clear()</span></tt> which Reeborg uses to
+use a new condition, <code class="docutils literal"><span class="pre">front_is_clear()</span></code> which Reeborg uses to
 determine if there&#8217;s a wall in front of him or not, together with the
-<tt class="docutils literal"><span class="pre">if/else</span></tt> pair to write a program that will guide Reeborg around the
+<code class="docutils literal"><span class="pre">if/else</span></code> pair to write a program that will guide Reeborg around the
 world. Something like the following:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">move_or_turn</span> <span class="p">():</span>
     <span class="k">if</span> <span class="n">front_is_clear</span><span class="p">():</span>
@@ -162,12 +164,12 @@ that Reeborg deposits a token at each corner?</p>
 </div>
 </div>
 <div class="section" id="how-to-think-about-if-else">
-<h2>17.2. How to think about <tt class="docutils literal"><span class="pre">if/else</span></tt><a class="headerlink" href="#how-to-think-about-if-else" title="Permalink to this headline">¶</a></h2>
-<p>We have seen how <tt class="docutils literal"><span class="pre">def</span></tt>s and <tt class="docutils literal"><span class="pre">if</span></tt> statements could be thought
+<h2>17.2. How to think about <code class="docutils literal"><span class="pre">if/else</span></code><a class="headerlink" href="#how-to-think-about-if-else" title="Permalink to this headline">¶</a></h2>
+<p>We have seen how <code class="docutils literal"><span class="pre">def</span></code>s and <code class="docutils literal"><span class="pre">if</span></code> statements could be thought
 of as being (sometimes) equivalent to inserting a code block; the
-exception was when the condition of the <tt class="docutils literal"><span class="pre">if</span></tt> statement was <tt class="docutils literal"><span class="pre">False</span></tt>,
+exception was when the condition of the <code class="docutils literal"><span class="pre">if</span></code> statement was <code class="docutils literal"><span class="pre">False</span></code>,
 in which case we ignored the code block which is equivalent to deleting
-it. <tt class="docutils literal"><span class="pre">if/else</span></tt> statements can be thought as inserting one or the other
+it. <code class="docutils literal"><span class="pre">if/else</span></code> statements can be thought as inserting one or the other
 code block. Thus</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
 <span class="k">if</span> <span class="bp">True</span><span class="p">:</span>
@@ -230,7 +232,7 @@ code block. Thus</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

@@ -6,7 +6,7 @@
     this image: |image0|
 
 
-.. |image0| image:: ../../src/images/square.png
+.. |image0| image:: ../../src/images/square_path.png
 
 .. hint::
 

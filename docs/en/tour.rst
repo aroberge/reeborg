@@ -32,7 +32,7 @@ encountered (for example, Reeborg hits a wall while attempting to move,
 or attempts to pick up an object where none is to be found).  Various
 "worlds/tasks" can be created requiring Reeborg to be at a certain
 location at the end of a program, or to have moved objects to a certain
-location.  Below you see three examples of such feedback being given.
+location.  Below you see four examples of such feedback being given.
 
 |feedback|
 

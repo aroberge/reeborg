@@ -95,11 +95,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="home.html"
                         title="next chapter">2. Test driven learning</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/move.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/move.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -126,16 +128,16 @@ single instruction:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">move()</span></tt> is an example of a Python <strong>function</strong>.
-A function has a name; in this case, it is <tt class="docutils literal"><span class="pre">move</span></tt>.
+<p><code class="docutils literal"><span class="pre">move()</span></code> is an example of a Python <strong>function</strong>.
+A function has a name; in this case, it is <code class="docutils literal"><span class="pre">move</span></code>.
 Valid names must start with either a letter or the underscore character &#8220;_&#8221;
 and may contain letters, numbers or the underscore character &#8220;_&#8221;.
-The name of the function is followed by <tt class="docutils literal"><span class="pre">()</span></tt>. This tells Reeborg (Python)
+The name of the function is followed by <code class="docutils literal"><span class="pre">()</span></code>. This tells Reeborg (Python)
 that the function must be <em>executed</em> or <em>called</em> (which are two synonyms).
 This function must be on a line of its own. [We will see exception to this
 rule later on.]</p>
 <p>Occasionnally we will make <strong>flowcharts</strong> which are graphical representations of a program.
-In a flowchart, a single instruction like <tt class="docutils literal"><span class="pre">move()</span></tt> might be represented
+In a flowchart, a single instruction like <code class="docutils literal"><span class="pre">move()</span></code> might be represented
 as follows:</p>
 <div class="figure align-center">
 <img alt="_images/move1.jpg" src="_images/move1.jpg" />
@@ -149,7 +151,7 @@ as follows:</p>
 and ending at &#8220;Stop&#8221;.</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
-<p>Add a second <tt class="docutils literal"><span class="pre">move()</span></tt> instruction so that Reeborg takes two steps instead
+<p>Add a second <code class="docutils literal"><span class="pre">move()</span></code> instruction so that Reeborg takes two steps instead
 of only one.</p>
 </div>
 <div class="admonition hint">
@@ -164,7 +166,7 @@ To see how Reeborg react to some errors, I will ask you to intentionally
 introduce one error in the program.</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
-<p>Change <tt class="docutils literal"><span class="pre">move()</span></tt> to <tt class="docutils literal"><span class="pre">Move()</span></tt> (with an uppercase M) and try to
+<p>Change <code class="docutils literal"><span class="pre">move()</span></code> to <code class="docutils literal"><span class="pre">Move()</span></code> (with an uppercase M) and try to
 execute the program.</p>
 </div>
 <div class="section" id="what-happened">
@@ -221,7 +223,7 @@ than what I suggest and try different things just to explore further.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

@@ -91,11 +91,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="recursion3.html"
                         title="next chapter">32. More recursion</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/recursion2.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/recursion2.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -137,14 +139,14 @@ By this, I mean that this instruction:</p>
 </pre></div>
 </div>
 <p>Let&#8217;s assume that the first time we execute these instructions,
-<tt class="docutils literal"><span class="pre">at_goal</span></tt> is <tt class="docutils literal"><span class="pre">false</span></tt> and hence <tt class="docutils literal"><span class="pre">not</span> <span class="pre">at_goal()</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> ... like
-it was for world <strong>Home&nbsp;1</strong>. In this case, the above calls to <tt class="docutils literal"><span class="pre">move</span></tt> and
-<tt class="docutils literal"><span class="pre">go_home()</span></tt> are executed, and the above code is equivalent to:</p>
+<code class="docutils literal"><span class="pre">at_goal</span></code> is <code class="docutils literal"><span class="pre">false</span></code> and hence <code class="docutils literal"><span class="pre">not</span> <span class="pre">at_goal()</span></code> is <code class="docutils literal"><span class="pre">true</span></code> ... like
+it was for world <strong>Home&nbsp;1</strong>. In this case, the above calls to <code class="docutils literal"><span class="pre">move</span></code> and
+<code class="docutils literal"><span class="pre">go_home()</span></code> are executed, and the above code is equivalent to:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
 <span class="n">go_home</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>We can now replace the call to <tt class="docutils literal"><span class="pre">go_home()</span></tt> by its definition:</p>
+<p>We can now replace the call to <code class="docutils literal"><span class="pre">go_home()</span></code> by its definition:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
     <span class="n">move</span><span class="p">()</span>
@@ -152,10 +154,10 @@ it was for world <strong>Home&nbsp;1</strong>. In this case, the above calls to 
 </pre></div>
 </div>
 <p>and could, in theory, keep going like this forever, always replacing the
-call to <tt class="docutils literal"><span class="pre">go_home()</span></tt> by its definition.</p>
+call to <code class="docutils literal"><span class="pre">go_home()</span></code> by its definition.</p>
 <p>However, we don&#8217;t want that as we want things to end eventually ...
 which they do fortunately for world <strong>Home&nbsp;1</strong>. In that case after a
-second <tt class="docutils literal"><span class="pre">move()</span></tt>, <tt class="docutils literal"><span class="pre">at_goal()</span></tt> would be true and and the <tt class="docutils literal"><span class="pre">if</span></tt> statement
+second <code class="docutils literal"><span class="pre">move()</span></code>, <code class="docutils literal"><span class="pre">at_goal()</span></code> would be true and and the <code class="docutils literal"><span class="pre">if</span></code> statement
 would be ignored.  Thus, the code in this case is equivalent to:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
 <span class="n">move</span><span class="p">()</span>
@@ -207,7 +209,7 @@ An explanation follows in the next lesson.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

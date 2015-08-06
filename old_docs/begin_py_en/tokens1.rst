@@ -9,13 +9,14 @@ having him do so can be simply written as follows::
     put()
 
 Select world **Tokens 1**. There is a token right next to Reeborg. Note the
-number 1 inside it: the number will change depending on the number of
-tokens at that location. Next square, we see the outline of a token,
-with the number 1 outside it. This tells us that we should have Reeborg
+number 1 in red next to it: the number will change depending on the number of
+tokens at that location.  The fact that the number is written in red indicates
+that this does not correspond to the expected final result.
+Next square, we see the a token in shades of grey. This tells us that we should have Reeborg
 put one token at that location. Once this is done, we can see that it
-has been done correctly by comparing the number of tokens at that
-location (number inside the gold coloured token) and the expected
-number.
+has been done correctly by, the number of tokens should be written in green.
+Finally, after the grey token, there is a green square: this indicates where
+Reeborg should end up after having accomplished its task.
 
 .. topic:: Try it!
 

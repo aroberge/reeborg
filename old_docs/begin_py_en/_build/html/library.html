@@ -92,11 +92,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="newspaper2.html"
                         title="next chapter">13. Newspaper delivery revisited</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/library.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/library.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -123,23 +125,23 @@ rather than redefining it in each program they write, they put them in
 special programs called <strong>libraries</strong> and they have a way to ensure that
 their other programs can use the functions that are found in the
 library.</p>
-<p>You are going to use the function <tt class="docutils literal"><span class="pre">turn_right()</span></tt> <strong>a lot!</strong> Instead of
+<p>You are going to use the function <code class="docutils literal"><span class="pre">turn_right()</span></code> <strong>a lot!</strong> Instead of
 rewriting it each time (remember Rule # 3), what you are going to do is
 to write it <strong>once</strong> (more) but, this time, instead of writing it in the
 editor with the <strong>Python Code</strong> tab, you will click on the <strong>Library</strong> tab and
-write it there. Oh, and you should also write <tt class="docutils literal"><span class="pre">turn_around()</span></tt> there as
+write it there. Oh, and you should also write <code class="docutils literal"><span class="pre">turn_around()</span></code> there as
 well.</p>
 <p>Then, when you want to use the functions defined in your library, you will
-simply type <tt class="docutils literal"><span class="pre">from</span> <span class="pre">my_lib</span> <span class="pre">import</span></tt> (followed by the function names, separated
+simply type <code class="docutils literal"><span class="pre">from</span> <span class="pre">my_lib</span> <span class="pre">import</span></code> (followed by the function names, separated
 by commas) on its own line in the Python Code editor.</p>
 <div class="topic">
 <p class="topic-title first">Do this!</p>
-<p>After writing the functions <tt class="docutils literal"><span class="pre">turn_right()</span></tt> and <tt class="docutils literal"><span class="pre">turn_around()</span></tt> in
+<p>After writing the functions <code class="docutils literal"><span class="pre">turn_right()</span></code> and <code class="docutils literal"><span class="pre">turn_around()</span></code> in
 the library, go back to the Python Code editor (so you no longer see your
 functions) and write a short
 program that nonetheless uses them to make sure that they work as
 expected. If they don&#8217;t, go back and fix them.  Remember to use
-<tt class="docutils literal"><span class="pre">from</span> <span class="pre">my_lib</span> <span class="pre">import</span> <span class="pre">turn_right,</span> <span class="pre">turn_around</span></tt> in your main program.</p>
+<code class="docutils literal"><span class="pre">from</span> <span class="pre">my_lib</span> <span class="pre">import</span> <span class="pre">turn_right,</span> <span class="pre">turn_around</span></code> in your main program.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
@@ -161,13 +163,13 @@ here is such a program:</p>
 add it to your library so that you don&#8217;t have to redefine it every time.</p>
 <div class="section" id="different-ways-to-import">
 <h2>12.1. Different ways to import<a class="headerlink" href="#different-ways-to-import" title="Permalink to this headline">¶</a></h2>
-<p>So far, we have seen the Python keyword <tt class="docutils literal"><span class="pre">import</span></tt> in two different types of statements:</p>
+<p>So far, we have seen the Python keyword <code class="docutils literal"><span class="pre">import</span></code> in two different types of statements:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">reeborg_fr</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">my_lib</span> <span class="k">import</span> <span class="n">turn_right</span><span class="p">,</span> <span class="n">turn_around</span>
 </pre></div>
 </div>
-<p>In the first one, the <tt class="docutils literal"><span class="pre">*</span></tt> means <em>whatever name you find</em>; thus, any function or
-alias found in the library (<tt class="docutils literal"><span class="pre">reeborg_fr</span></tt> is a library) is made available.
+<p>In the first one, the <code class="docutils literal"><span class="pre">*</span></code> means <em>whatever name you find</em>; thus, any function or
+alias found in the library (<code class="docutils literal"><span class="pre">reeborg_fr</span></code> is a library) is made available.
 The problem with using this <em>import everything</em> is that it can happen that
 a library defines a function with exactly the same name as one you defined ...
 and the one that will be executed may be the one defined in the library instead
@@ -254,7 +256,7 @@ for humans, by choosing function names that are meaningful.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

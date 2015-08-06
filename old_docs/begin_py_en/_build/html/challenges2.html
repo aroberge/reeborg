@@ -97,11 +97,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="recursion.html"
                         title="next chapter">30. Recursion</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/challenges2.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/challenges2.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -124,7 +126,7 @@
   <div class="section" id="revisiting-some-challenges">
 <h1>29. Revisiting some challenges<a class="headerlink" href="#revisiting-some-challenges" title="Permalink to this headline">¶</a></h1>
 <p>It is time to solve some of the challenges introduced early on.</p>
-<p>Using <tt class="docutils literal"><span class="pre">while</span></tt>, <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">else</span></tt>, etc., you will write programs that
+<p>Using <code class="docutils literal"><span class="pre">while</span></code>, <code class="docutils literal"><span class="pre">if</span></code>, <code class="docutils literal"><span class="pre">else</span></code>, etc., you will write programs that
 will be able to accomplish various tasks. In writing these programs, you
 should keep the following in mind:</p>
 <ol class="arabic simple">
@@ -170,8 +172,8 @@ collect all the tokens which represent plants to harvest.</p>
 <p>Notice how one can view the world <strong>Harvest&nbsp;1</strong> as having horizontal (or
 vertical) rows having the same length, while world <strong>Harvest&nbsp;2</strong> can be seen
 as having diagonal rows having the same length.</p>
-<p>One possible approach is to define a function <tt class="docutils literal"><span class="pre">harvest_one_row</span></tt> and a
-second one called <tt class="docutils literal"><span class="pre">harvest_two_rows</span></tt> as well as <tt class="docutils literal"><span class="pre">move_to_first_row</span></tt>.
+<p>One possible approach is to define a function <code class="docutils literal"><span class="pre">harvest_one_row</span></code> and a
+second one called <code class="docutils literal"><span class="pre">harvest_two_rows</span></code> as well as <code class="docutils literal"><span class="pre">move_to_first_row</span></code>.
 Using these, can write a general solution. Note that these individual
 functions may have to be different in different worlds.</p>
 <p>With suitable function definitions, the programs for either world
@@ -195,7 +197,7 @@ windows in his house were all open. So Reeborg went back to his house
 and stopped in front of the door, unsure of how to proceed.</p>
 <div class="topic">
 <p class="topic-title first">Do it!</p>
-<p>Using the <tt class="docutils literal"><span class="pre">build_wall()</span></tt> instruction, help Reeborg close the windows
+<p>Using the <code class="docutils literal"><span class="pre">build_wall()</span></code> instruction, help Reeborg close the windows
 of his house. When Reeborg finishes his task, he will stand in the
 doorway, watching the rain fall, waiting for it to stop before he can go
 back and play outside. The world is <strong>Storm&nbsp;1</strong>.</p>
@@ -227,7 +229,7 @@ leading to the curb, <strong>Storm&nbsp;3</strong>, as well as the driveway: <st
 <p class="topic-title first">Do it!</p>
 <p>Following the instructions in your program,
 Reeborg should collect all the litter, and put it in the garbage can,
-and close the lid, using <tt class="docutils literal"><span class="pre">build_wall()</span></tt>.</p>
+and close the lid, using <code class="docutils literal"><span class="pre">build_wall()</span></code>.</p>
 </div>
 </div>
 <div class="section" id="more-yard-work">
@@ -290,7 +292,7 @@ location along the other location (a vertical line).</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

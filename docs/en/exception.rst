@@ -38,9 +38,9 @@ the following pattern is usually used::
         # right type of exception.
 
 You might want to try the example illustrated below.
-To select the maze, run the program::
-
-    World("maze")
+To select the maze shown so that you can try things out,
+you need to make sure you have the Documentation menu loaded
+and select "Big maze".
 
 |random|
 

@@ -18,11 +18,9 @@ show it in action in one example.
 
 This is going too fast for you to see exactly what's going on.
 If you want to load the maze so that you can try things out,
-run the following program::
-
-    World("maze")
-
-It will be up to you to write the code; I explain how below.
+you need to make sure you have the Documentation menu loaded
+and select "Big maze"; it will then
+be up to you to write the code. I explain how to do so below.
 
 We know that Reeborg can ``move()`` and ``turn_left()``.
 We also know that we can define a ``turn_right()`` instruction.

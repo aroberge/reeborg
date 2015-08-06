@@ -83,11 +83,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="diary.html"
                         title="next chapter">36. Reeborg&#8217;s diary</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/harvest3.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/harvest3.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -115,11 +117,11 @@ harvested. Have a look at worlds <strong>Harvest&nbsp;5a</strong>, <strong>Harve
 <strong>Harvest&nbsp;5d</strong>. As he enters the field, Reeborg sees the type of fruit that
 needs to be harvested as his aunt put a sample there. He picks it up and
 proceed to harvest all fruits of the similar type.</p>
-<p>Reeborg uses the function <tt class="docutils literal"><span class="pre">object_here()</span></tt> which return one of
-<tt class="docutils literal"><span class="pre">&quot;star&quot;,</span> <span class="pre">&quot;triangle&quot;,</span> <span class="pre">&quot;square&quot;</span></tt> or <tt class="docutils literal"><span class="pre">&quot;token&quot;</span></tt> depending if one these
+<p>Reeborg uses the function <code class="docutils literal"><span class="pre">object_here()</span></code> which return one of
+<code class="docutils literal"><span class="pre">&quot;star&quot;,</span> <span class="pre">&quot;triangle&quot;,</span> <span class="pre">&quot;square&quot;</span></code> or <code class="docutils literal"><span class="pre">&quot;token&quot;</span></code> depending if one these
 objects is found, or return zero otherwise.</p>
 <p>There is also a
-function <tt class="docutils literal"><span class="pre">token_here()</span></tt> that returns either the number of tokens found
+function <code class="docutils literal"><span class="pre">token_here()</span></code> that returns either the number of tokens found
 at the current location. Using
 these, you can complete the following outline of a solution that will
 work for each of these four worlds.</p>
@@ -128,8 +130,8 @@ work for each of these four worlds.</p>
 <p class="last">There are two new things in the code below which makes is a bit difficult to
 understand when you read it for the first time.
 First, we define a new function that takes an <strong>argument</strong>, in
-this case <tt class="docutils literal"><span class="pre">fruit</span></tt>.  Second, we test to see if two quantities
-are equal by using two consecutive equal signs: <tt class="docutils literal"><span class="pre">==</span></tt>.</p>
+this case <code class="docutils literal"><span class="pre">fruit</span></code>.  Second, we test to see if two quantities
+are equal by using two consecutive equal signs: <code class="docutils literal"><span class="pre">==</span></code>.</p>
 </div>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">think</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c"># optional; so it does not take too long...</span>
 
@@ -192,7 +194,7 @@ are equal by using two consecutive equal signs: <tt class="docutils literal"><sp
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

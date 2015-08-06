@@ -83,11 +83,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="repeat.html"
                         title="next chapter">14. Repeat</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/newspaper2.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/newspaper2.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -254,7 +256,7 @@ problem, with a few added comments.</p>
 <p>This solution is quite long ... and it is easy to make mistakes when
 typing it. We note however that there are quite a few repeated code
 segments for which we could create functions. We have already defined
-<tt class="docutils literal"><span class="pre">turn_right()</span></tt> and <tt class="docutils literal"><span class="pre">turn_around()</span></tt>; let&#8217;s use them and define a few
+<code class="docutils literal"><span class="pre">turn_right()</span></code> and <code class="docutils literal"><span class="pre">turn_around()</span></code>; let&#8217;s use them and define a few
 others.</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -356,7 +358,7 @@ that we could deliver a newspaper to Mr. Babbage, in world <strong>Newspaper&nbs
 <p>Later, we will see how we can write a single program, shorter than the
 above, that will enable us to deliver newspapers to either Ms. Lovelace
 or Mr. Babbage.</p>
-<p>Since functions like <tt class="docutils literal"><span class="pre">get_money()</span></tt>, <tt class="docutils literal"><span class="pre">climb_up_three_floors</span></tt>, etc.,
+<p>Since functions like <code class="docutils literal"><span class="pre">get_money()</span></code>, <code class="docutils literal"><span class="pre">climb_up_three_floors</span></code>, etc.,
 are specific to this problem, it is probably <strong>not</strong> a good idea to save
 them in the library; you don&#8217;t want to have too many functions in your
 library so that you are always able to remember all that are there. If
@@ -389,7 +391,7 @@ then it is a good idea to put it in your library.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

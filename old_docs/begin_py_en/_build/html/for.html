@@ -80,7 +80,7 @@
               <h3>Table Of Contents</h3>
               <ul>
 <li><a class="reference internal" href="#">39. For loops</a><ul>
-<li><a class="reference internal" href="#reeborg-s-repeat">39.1. Reeborg&#8217;s <tt class="docutils literal"><span class="pre">repeat()</span></tt></a></li>
+<li><a class="reference internal" href="#reeborg-s-repeat">39.1. Reeborg&#8217;s <code class="docutils literal"><span class="pre">repeat()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -91,11 +91,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="better_repeat.html"
                         title="next chapter">40. A better <strong>repeat()</strong></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/for.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/for.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -117,7 +119,7 @@
             
   <div class="section" id="for-loops">
 <h1>39. For loops<a class="headerlink" href="#for-loops" title="Permalink to this headline">¶</a></h1>
-<p>As we have seen, <tt class="docutils literal"><span class="pre">while</span></tt> loops can be used with numbers using the
+<p>As we have seen, <code class="docutils literal"><span class="pre">while</span></code> loops can be used with numbers using the
 following pattern:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>                 <span class="c"># initialization</span>
 <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">max_value</span> <span class="p">:</span> <span class="c"># condition to end the loop</span>
@@ -126,15 +128,15 @@ following pattern:</p>
 </pre></div>
 </div>
 <p>Another way to write <strong>exactly the same program meaning</strong> is to use a
-<tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
+<code class="docutils literal"><span class="pre">for</span></code> loop:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_value</span><span class="p">):</span>
    <span class="o">...</span>
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">for</span></tt> loop in Python can be used for much more than counting items.
+<p>The <code class="docutils literal"><span class="pre">for</span></code> loop in Python can be used for much more than counting items.
 However, this will not be covered in this tutorial.</p>
-<p>Using the <tt class="docutils literal"><span class="pre">for</span></tt> loop syntax, we can have a different definition for a
-<tt class="docutils literal"><span class="pre">repeat</span></tt>-like function:</p>
+<p>Using the <code class="docutils literal"><span class="pre">for</span></code> loop syntax, we can have a different definition for a
+<code class="docutils literal"><span class="pre">repeat</span></code>-like function:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_repeat</span><span class="p">(</span><span class="n">some_function</span><span class="p">,</span> <span class="n">max_value</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_value</span><span class="p">):</span>
         <span class="n">some_function</span><span class="p">()</span>
@@ -148,18 +150,18 @@ However, this will not be covered in this tutorial.</p>
 <p>Try the above program with world <strong>Around 1</strong>.</p>
 </div>
 <div class="section" id="reeborg-s-repeat">
-<h2>39.1. Reeborg&#8217;s <tt class="docutils literal"><span class="pre">repeat()</span></tt><a class="headerlink" href="#reeborg-s-repeat" title="Permalink to this headline">¶</a></h2>
+<h2>39.1. Reeborg&#8217;s <code class="docutils literal"><span class="pre">repeat()</span></code><a class="headerlink" href="#reeborg-s-repeat" title="Permalink to this headline">¶</a></h2>
 <p>Open Reeborg&#8217;s diary and have Reeborg execute the single line program:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">view_source</span><span class="p">(</span> <span class="n">repeat</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>You will see a completely different code than the above as this will
-reveal the <tt class="docutils literal"><span class="pre">repeat</span></tt> function used by Reeborg ... and written using
-Javascript.  In fact, it uses Javascript&#8217;s version of a <tt class="docutils literal"><span class="pre">for</span></tt> loop
+reveal the <code class="docutils literal"><span class="pre">repeat</span></code> function used by Reeborg ... and written using
+Javascript.  In fact, it uses Javascript&#8217;s version of a <code class="docutils literal"><span class="pre">for</span></code> loop
 which looks very different from the Python version.
 If you compare the Javascript code with the Python one, you will likely
 agree that Python is a &#8220;cleaner&#8221; language, with fewer extra characters
-like <tt class="docutils literal"><span class="pre">;</span></tt> or <tt class="docutils literal"><span class="pre">}</span></tt>.</p>
+like <code class="docutils literal"><span class="pre">;</span></code> or <code class="docutils literal"><span class="pre">}</span></code>.</p>
 </div>
 </div>
 
@@ -188,7 +190,7 @@ like <tt class="docutils literal"><span class="pre">;</span></tt> or <tt class="
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

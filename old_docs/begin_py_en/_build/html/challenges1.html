@@ -103,11 +103,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="newspaper1.html"
                         title="next chapter">9. Newspaper delivery</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/challenges1.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/challenges1.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -153,7 +155,7 @@ from your computer using the <strong>Load</strong> button.</p>
 <p>If you do save your programs, you will have to note for which
 world they are designed. To do so you can use comments. Alternatively,
 and this is perhaps a better option, you can use the special command
-<tt class="docutils literal"><span class="pre">select_world(&quot;world_name_here&quot;)</span></tt> as the first instruction. For
+<code class="docutils literal"><span class="pre">select_world(&quot;world_name_here&quot;)</span></code> as the first instruction. For
 example, a solution to world Home&nbsp;1 would be:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">select_world</span><span class="p">(</span><span class="s">&quot;Home 1&quot;</span><span class="p">)</span>
 <span class="n">move</span><span class="p">()</span>
@@ -244,7 +246,7 @@ windows in his house were all open. So Reeborg went back to his house
 and stopped in front of the door, unsure of how to proceed.</p>
 <div class="topic">
 <p class="topic-title first">Try it!</p>
-<p>Using the <tt class="docutils literal"><span class="pre">build_wall()</span></tt> instruction, help Reeborg close the windows
+<p>Using the <code class="docutils literal"><span class="pre">build_wall()</span></code> instruction, help Reeborg close the windows
 of his house. When Reeborg finishes his task, he will stand in the
 doorway, watching the rain fall, waiting for it to stop before he can go
 back and play outside. The world is <strong>Storm&nbsp;1</strong>.</p>
@@ -263,7 +265,7 @@ both Reeborg and Erdna ... however, it will be a bit tricky.</p>
 Reeborg&#8217;s house. His parents asked him to go and clean up the path
 leading to the curb, <strong>Storm&nbsp;3</strong>, as well as the driveway: <strong>Storm&nbsp;4</strong>.</p>
 <p>Reeborg should collect all the litter, and put it in the garbage can,
-and close the lid, using <tt class="docutils literal"><span class="pre">build_wall()</span></tt>.</p>
+and close the lid, using <code class="docutils literal"><span class="pre">build_wall()</span></code>.</p>
 </div>
 <div class="section" id="more-yard-work">
 <h3>8.7.3. More yard work!<a class="headerlink" href="#more-yard-work" title="Permalink to this headline">¶</a></h3>
@@ -310,7 +312,7 @@ to write much shorter programs to solve these challenges.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

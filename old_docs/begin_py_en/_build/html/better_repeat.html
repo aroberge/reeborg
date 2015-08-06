@@ -95,11 +95,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="conclusion.html"
                         title="next chapter">42. Conclusion</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/better_repeat.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/better_repeat.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -127,26 +129,26 @@
 go through it more than once.  Feel free to continue with
 other tutorials instead.</p>
 </div>
-<p>You have seen how we can use our function <tt class="docutils literal"><span class="pre">repeat()</span></tt> to reduce the
+<p>You have seen how we can use our function <code class="docutils literal"><span class="pre">repeat()</span></code> to reduce the
 number of lines of code needed to accomplish the same thing. For
 example, if we want to simulate a right turn, we can write
-<tt class="docutils literal"><span class="pre">repeat(turn_left,&nbsp;3)</span></tt>, thus replacing three instructions with one.
+<code class="docutils literal"><span class="pre">repeat(turn_left,&nbsp;3)</span></code>, thus replacing three instructions with one.
 The problem with doing this in general is that it does not make the code
 much more readable since we do not introduce descriptive names. A better
-approach that we have seen is to use <tt class="docutils literal"><span class="pre">repeat()</span></tt> inside a well-named
+approach that we have seen is to use <code class="docutils literal"><span class="pre">repeat()</span></code> inside a well-named
 function definition like this:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">turn_right</span> <span class="p">():</span>
     <span class="n">repeat</span><span class="p">(</span><span class="n">turn_left</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>However, we can do this differently. First, we have just seen how
-<tt class="docutils literal"><span class="pre">repeat()</span></tt> can be defined using a for loop:</p>
+<code class="docutils literal"><span class="pre">repeat()</span></code> can be defined using a for loop:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">repeat</span> <span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="n">function</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Second, we need to remember what the <tt class="docutils literal"><span class="pre">return</span></tt> statement does in a
+<p>Second, we need to remember what the <code class="docutils literal"><span class="pre">return</span></code> statement does in a
 function. For example:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">some_function</span> <span class="p">():</span>
     <span class="c"># some lines of code</span>
@@ -157,7 +159,7 @@ function. For example:</p>
 </pre></div>
 </div>
 <p>Just like we can have functions as arguments of other functions, we can
-<tt class="docutils literal"><span class="pre">return</span></tt> functions!</p>
+<code class="docutils literal"><span class="pre">return</span></code> functions!</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">better_repeat</span> <span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">old_repeat</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -172,7 +174,7 @@ function. For example:</p>
 </div>
 <div class="topic">
 <p class="topic-title first">Try it!</p>
-<p>See how you can create a new function using the <tt class="docutils literal"><span class="pre">better_repeat()</span></tt> function.</p>
+<p>See how you can create a new function using the <code class="docutils literal"><span class="pre">better_repeat()</span></code> function.</p>
 </div>
 <div class="section" id="extending-this-idea">
 <h2>40.1. Extending this idea<a class="headerlink" href="#extending-this-idea" title="Permalink to this headline">¶</a></h2>
@@ -191,7 +193,7 @@ idea to conditions that need to be tested for...</p>
 <div class="topic">
 <p class="topic-title first">Try it!</p>
 <p>Try the above.  Then, when you are done, you might want to define
-<tt class="docutils literal"><span class="pre">do_while_not(fn,&nbsp;condition)</span></tt> where we are doing something until a
+<code class="docutils literal"><span class="pre">do_while_not(fn,&nbsp;condition)</span></code> where we are doing something until a
 condition is <strong>not</strong> satisfied.</p>
 </div>
 </div>
@@ -207,13 +209,13 @@ name to remember. One way to do it is as follows:</p>
         <span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Using this definition, <tt class="docutils literal"><span class="pre">turn_right()</span></tt> would be written as <tt class="docutils literal"><span class="pre">turn(3)</span></tt>
-and <tt class="docutils literal"><span class="pre">turn_around()</span></tt> would be written as <tt class="docutils literal"><span class="pre">turn(2)</span></tt>. Try it!</p>
+<p>Using this definition, <code class="docutils literal"><span class="pre">turn_right()</span></code> would be written as <code class="docutils literal"><span class="pre">turn(3)</span></code>
+and <code class="docutils literal"><span class="pre">turn_around()</span></code> would be written as <code class="docutils literal"><span class="pre">turn(2)</span></code>. Try it!</p>
 <div class="section" id="having-a-default-behaviour">
 <h2>41.1. Having a default behaviour<a class="headerlink" href="#having-a-default-behaviour" title="Permalink to this headline">¶</a></h2>
-<p>Remember how <tt class="docutils literal"><span class="pre">take()</span></tt> and <tt class="docutils literal"><span class="pre">take(&quot;token&quot;)</span></tt> are equivalent? Would it
-be nice to have something similar for <tt class="docutils literal"><span class="pre">turn()</span></tt> where <tt class="docutils literal"><span class="pre">turn()</span></tt>, with
-no argument, would be equivalent to a single <tt class="docutils literal"><span class="pre">turn_left()</span></tt>
+<p>Remember how <code class="docutils literal"><span class="pre">take()</span></code> and <code class="docutils literal"><span class="pre">take(&quot;token&quot;)</span></code> are equivalent? Would it
+be nice to have something similar for <code class="docutils literal"><span class="pre">turn()</span></code> where <code class="docutils literal"><span class="pre">turn()</span></code>, with
+no argument, would be equivalent to a single <code class="docutils literal"><span class="pre">turn_left()</span></code>
 instruction?</p>
 <p>This can be accomplished as follows:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">turn</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -224,7 +226,7 @@ instruction?</p>
 </pre></div>
 </div>
 <p>Note that, if a number less than 1 is passed as an
-argument, the <tt class="docutils literal"><span class="pre">for</span></tt> loop is skipped and Reeborg does not turn.</p>
+argument, the <code class="docutils literal"><span class="pre">for</span></code> loop is skipped and Reeborg does not turn.</p>
 <div class="topic">
 <p class="topic-title first">Try it!</p>
 <p>Write programs that make use of the code samples above.</p>
@@ -257,7 +259,7 @@ argument, the <tt class="docutils literal"><span class="pre">for</span></tt> loo
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

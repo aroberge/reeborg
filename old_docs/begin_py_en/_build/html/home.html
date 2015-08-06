@@ -92,11 +92,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="bugs.html"
                         title="next chapter">3. Darn bugs!</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/home.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/home.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -121,14 +123,22 @@
 <p>In order to help you learn Python, I will give you some tests: you
 have to program Reeborg to accomplish specific tasks and Reeborg itself
 will tell you if you got it right or wrong.</p>
-<p>Select the world <strong>Home&nbsp;1</strong>. Notice how the bottom left square is coloured
-differently: this is Reeborg&#8217;s home. Reeborg&#8217;s world is a simple grid.
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Select <strong>Documentation menu</strong> from the drop-down menu
+at the top of Reeborg&#8217;s World.
+You will see a program appear in the Python editor.
+Run this program: this will change the worlds that you can select
+from the drop-down menu.</p>
+</div>
+<p>Select the world <strong>Home&nbsp;1</strong>. Notice the house on the bottom left square:
+this is Reeborg&#8217;s home. Reeborg&#8217;s world is a simple grid.
 In <strong>Home&nbsp;1</strong>, Reeborg starts at the third square on the bottom row. It
-labels this square as <tt class="docutils literal"><span class="pre">x=3</span></tt> and <tt class="docutils literal"><span class="pre">y=1</span></tt>, using what is known as
+labels this square as <code class="docutils literal"><span class="pre">x=3</span></code> and <code class="docutils literal"><span class="pre">y=1</span></code>, using what is known as
 Cartesian coordinates.</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
-<p>With <strong>Home 1</strong> selected, write a program with a single <tt class="docutils literal"><span class="pre">move()</span></tt> instruction,
+<p>With <strong>Home 1</strong> selected, write a program with a single <code class="docutils literal"><span class="pre">move()</span></code> instruction,
 run it and notice what feedback Reeborg gives you.
 Then, change your program so that
 Reeborg go home.</p>
@@ -137,17 +147,15 @@ Reeborg go home.</p>
 <p class="topic-title first">Try two more!</p>
 <p>Select <strong>Home&nbsp;2</strong>. Notice how Reeborg is in a different location and is also
 facing you. Try running the exact same program and see what happens.</p>
-<p>Next, select <strong>Home&nbsp;3</strong>. Notice how there is a small black square in the
-home position. Try to run your program now.</p>
+<p>Next, select <strong>Home&nbsp;3</strong> and run your program.</p>
 </div>
 <div class="section" id="making-a-left-turn">
 <h2>2.1. Making a left turn<a class="headerlink" href="#making-a-left-turn" title="Permalink to this headline">¶</a></h2>
-<p>Last example ended with a program that did not quite work: something
-about Reeborg not being in the right orientation. If you look at the
-green home square, you will notice a small black square on its right
-edge: this is the direction Reeborg should be facing. In order to do so,
-we must add one more instruction to the program:</p>
+<p>Last example ended with a program that did not work, as Reeborg
+did not end up at his home.  To solve this problem, we need to
+add two instructions:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -156,8 +164,8 @@ we must add one more instruction to the program:</p>
 </div>
 <div class="topic">
 <p class="topic-title first">Try something else!</p>
-<p>What happens if, instead of using <tt class="docutils literal"><span class="pre">turn_left()</span></tt>, you use instead a
-third <tt class="docutils literal"><span class="pre">move()</span></tt> instruction?</p>
+<p>What happens if, instead you leave out the <code class="docutils literal"><span class="pre">turn_left()</span></code> instruction, y
+and keep the additional <code class="docutils literal"><span class="pre">move()</span></code> instruction?</p>
 </div>
 </div>
 <div class="section" id="a-different-view">
@@ -197,7 +205,7 @@ image, Reeborg can appear as follows when viewed from above: <img alt="image1" s
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

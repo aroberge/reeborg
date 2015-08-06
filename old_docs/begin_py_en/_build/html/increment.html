@@ -91,11 +91,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="while_num.html"
                         title="next chapter">38. While counting</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/increment.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/increment.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -121,9 +123,9 @@
 panels open. Select world <strong>Around&nbsp;1</strong>.</p>
 <p>Suppose we wanted to count the number of steps taken by Reeborg to
 reach the wall on the right from its starting position. One way to do
-this is to use a variable which I will name <tt class="docutils literal"><span class="pre">number_of_steps</span></tt> and give
+this is to use a variable which I will name <code class="docutils literal"><span class="pre">number_of_steps</span></code> and give
 it an initial value of 0. Then, each time that Reeborg takes a step, I
-will add 1 to the <em>previous</em> value of <tt class="docutils literal"><span class="pre">number_of_steps</span></tt>. This is done
+will add 1 to the <em>previous</em> value of <code class="docutils literal"><span class="pre">number_of_steps</span></code>. This is done
 in Python using the following syntax:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">number_of_steps</span> <span class="o">=</span> <span class="n">number_of_steps</span> <span class="o">+</span> <span class="mi">1</span>
 </pre></div>
@@ -152,7 +154,7 @@ left hand side as a way to remember that value. Thus, if we have:</p>
 </div>
 <p>Because this type of operation, known as <em>incrementing</em> a variable
 occurs so often, Python, and many other languages, allow the use of
-the following shortened notation, using the <tt class="docutils literal"><span class="pre">+=</span></tt> operator:</p>
+the following shortened notation, using the <code class="docutils literal"><span class="pre">+=</span></code> operator:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">n</span> <span class="o">+=</span> <span class="mi">3</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c"># outputs 4</span>
@@ -186,14 +188,14 @@ variable:</p>
 </pre></div>
 </div>
 </div>
-<p>In the above program, we use the <tt class="docutils literal"><span class="pre">global</span></tt> keyword to indicate to Python that
-the variable <tt class="docutils literal"><span class="pre">number_of_steps</span></tt> used inside the <tt class="docutils literal"><span class="pre">move_and_count_steps</span></tt> function
+<p>In the above program, we use the <code class="docutils literal"><span class="pre">global</span></code> keyword to indicate to Python that
+the variable <code class="docutils literal"><span class="pre">number_of_steps</span></code> used inside the <code class="docutils literal"><span class="pre">move_and_count_steps</span></code> function
 is assigned a value elsewhere.</p>
 <p>Note that when you run this program, the number of steps is printed <strong>before</strong>
 Reeborg moves.  This is because the program is first run behind the scene and
-played back like a movie, one frame at a time.  You can use the function <tt class="docutils literal"><span class="pre">write</span></tt>
-specific to Reeborg&#8217;s World instead of <tt class="docutils literal"><span class="pre">print</span></tt> if you want to see what Reeborg
-writes in its diary done as a programming step, like the <tt class="docutils literal"><span class="pre">move</span></tt> or <tt class="docutils literal"><span class="pre">turn_left</span></tt>
+played back like a movie, one frame at a time.  You can use the function <code class="docutils literal"><span class="pre">write</span></code>
+specific to Reeborg&#8217;s World instead of <code class="docutils literal"><span class="pre">print</span></code> if you want to see what Reeborg
+writes in its diary done as a programming step, like the <code class="docutils literal"><span class="pre">move</span></code> or <code class="docutils literal"><span class="pre">turn_left</span></code>
 functions.</p>
 <div class="topic">
 <p class="topic-title first">Your turn!</p>
@@ -230,7 +232,7 @@ mark what will be the end position.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

@@ -91,11 +91,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="refine4.html"
                         title="next chapter">25. Refinements: part 4</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/refine3.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/refine3.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -119,7 +121,7 @@
 <h1>24. Refinements: part 3<a class="headerlink" href="#refinements-part-3" title="Permalink to this headline">¶</a></h1>
 <p>As you should have noticed the program doesn&#8217;t work. What happens is
 that Reeborg gets in an infinite loop when there is no wall around him.
-We need to have him <tt class="docutils literal"><span class="pre">move()</span></tt> after turning right, as indicated below:</p>
+We need to have him <code class="docutils literal"><span class="pre">move()</span></code> after turning right, as indicated below:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">put</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
 <span class="n">move</span><span class="p">()</span>
 <span class="k">while</span> <span class="ow">not</span> <span class="n">token_here</span><span class="p">():</span>
@@ -168,7 +170,7 @@ out why before reading any further.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

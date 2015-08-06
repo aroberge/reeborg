@@ -91,11 +91,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="recursion4.html"
                         title="next chapter">33. Counting on recursion</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/recursion3.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/recursion3.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -142,13 +144,13 @@ world <strong>Home&nbsp;1</strong>. As usual, we consider the single instruction
 </pre></div>
 </div>
 <p>Since Reeborg has not reached its goal yet,
-the <tt class="docutils literal"><span class="pre">if</span></tt> statement block is executed:</p>
+the <code class="docutils literal"><span class="pre">if</span></code> statement block is executed:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
 <span class="n">go_home</span><span class="p">()</span>
 <span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Once again, we replace <tt class="docutils literal"><span class="pre">go_home()</span></tt> by its definition:</p>
+<p>Once again, we replace <code class="docutils literal"><span class="pre">go_home()</span></code> by its definition:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
     <span class="n">move</span><span class="p">()</span>
@@ -168,8 +170,8 @@ the <tt class="docutils literal"><span class="pre">if</span></tt> statement bloc
 <span class="n">turn_left</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>After the second <tt class="docutils literal"><span class="pre">move()</span></tt> instruction, Reeborg has reached its goal
-and the <tt class="docutils literal"><span class="pre">if</span></tt> statement block is not executed:</p>
+<p>After the second <code class="docutils literal"><span class="pre">move()</span></code> instruction, Reeborg has reached its goal
+and the <code class="docutils literal"><span class="pre">if</span></code> statement block is not executed:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
 <span class="n">move</span><span class="p">()</span>
 <span class="c">#if not at_goal():</span>
@@ -182,7 +184,7 @@ and the <tt class="docutils literal"><span class="pre">if</span></tt> statement 
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><tt class="docutils literal"><span class="pre">go_home</span></tt> is called three times ... and Reeborg does three left turns.
+<p class="last"><code class="docutils literal"><span class="pre">go_home</span></code> is called three times ... and Reeborg does three left turns.
 This is perhaps something that Reeborg can use to count ...  Remember this!</p>
 </div>
 <p>Thus, after reaching its goal, Reeborg does three left turns (a
@@ -242,7 +244,7 @@ at its goal before running the program?</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

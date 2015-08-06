@@ -5,8 +5,17 @@ In order to help you learn Python, I will give you some tests: you
 have to program Reeborg to accomplish specific tasks and Reeborg itself
 will tell you if you got it right or wrong.
 
-Select the world **Home 1**. Notice how the bottom left square is coloured
-differently: this is Reeborg's home. Reeborg's world is a simple grid.
+.. important::
+
+    Select **Documentation menu** from the drop-down menu
+    at the top of Reeborg's World.
+    You will see a program appear in the Python editor.
+    Run this program: this will change the worlds that you can select
+    from the drop-down menu.
+
+
+Select the world **Home 1**. Notice the house on the bottom left square:
+this is Reeborg's home. Reeborg's world is a simple grid.
 In **Home 1**, Reeborg starts at the third square on the bottom row. It
 labels this square as ``x=3`` and ``y=1``, using what is known as
 Cartesian coordinates.
@@ -23,20 +32,18 @@ Cartesian coordinates.
     Select **Home 2**. Notice how Reeborg is in a different location and is also
     facing you. Try running the exact same program and see what happens.
 
-    Next, select **Home 3**. Notice how there is a small black square in the
-    home position. Try to run your program now.
+    Next, select **Home 3** and run your program.
 
 
 Making a left turn
 ------------------
 
-Last example ended with a program that did not quite work: something
-about Reeborg not being in the right orientation. If you look at the
-green home square, you will notice a small black square on its right
-edge: this is the direction Reeborg should be facing. In order to do so,
-we must add one more instruction to the program::
+Last example ended with a program that did not work, as Reeborg
+did not end up at his home.  To solve this problem, we need to
+add two instructions::
 
     turn_left()
+    move()
 
 .. topic:: Try this!
 
@@ -44,8 +51,8 @@ we must add one more instruction to the program::
 
 .. topic:: Try something else!
 
-    What happens if, instead of using ``turn_left()``, you use instead a
-    third ``move()`` instruction?
+    What happens if, instead you leave out the ``turn_left()`` instruction, y
+    and keep the additional ``move()`` instruction?
 
 A different view
 ----------------

@@ -25,19 +25,13 @@ Unlike some other existing code learning website, it does not force
 learners to follow a pre-defined path; educators are *free* to create their
 own learning material and make use of Reeborg's World.
 
-.. note::
-
-    I have one small request for educators: if you use Reeborg's World, please
-    consider contact me and sharing **at least** one of your custom-designed
-    worlds that I will include in this documentation
-    so that others may be inspired by it.
-
 Task Driven Learning
 --------------------
 
 Reeborg's World is designed for *Task Driven Learning*: students are given
 tasks that Reeborg has to complete, and they must write programs instructing
 Reeborg how to do so.
+
 
 Tasks include having Reeborg move objects, build walls, or go to a
 particular location.  Objects in Reeborg's World are colourful; the

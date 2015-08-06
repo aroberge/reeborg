@@ -82,7 +82,7 @@
 <li><a class="reference internal" href="#">10. Rule number 3</a><ul>
 <li><a class="reference internal" href="#three-lefts-can-make-a-right">10.1. Three lefts can make a right</a></li>
 <li><a class="reference internal" href="#defining-functions">10.2. Defining functions</a></li>
-<li><a class="reference internal" href="#how-to-think-about-def">10.3. How to think about <tt class="docutils literal"><span class="pre">def</span></tt></a></li>
+<li><a class="reference internal" href="#how-to-think-about-def">10.3. How to think about <code class="docutils literal"><span class="pre">def</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -93,11 +93,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="turn_around.html"
                         title="next chapter">11. Turn around</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/rule3.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rule3.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -135,24 +137,24 @@ I repeat: <strong>do not repeat yourself!</strong></dd>
 exercises, didn&#8217;t you?), you must have realized that having Reeborg make
 three left turns in a row gives the same final result as if he were to
 make a single right turn. You are probably starting to find it quite
-tedious to have to write three <tt class="docutils literal"><span class="pre">turn_left()</span></tt> instructions each time
+tedious to have to write three <code class="docutils literal"><span class="pre">turn_left()</span></code> instructions each time
 you want to have Reeborg turn right. Wouldn&#8217;t it be nicer if you could
-simply write <tt class="docutils literal"><span class="pre">turn_right()</span></tt>?</p>
+simply write <code class="docutils literal"><span class="pre">turn_right()</span></code>?</p>
 <p>By the end of this lesson, you will be able to do just that.</p>
 </div>
 <div class="section" id="defining-functions">
 <h2>10.2. Defining functions<a class="headerlink" href="#defining-functions" title="Permalink to this headline">¶</a></h2>
 <p>What we have called <em>instructions</em> or <em>commands</em> so far are examples of
-Python <strong>functions</strong>. So, <tt class="docutils literal"><span class="pre">turn_left()</span></tt> is a function and so is
-<tt class="docutils literal"><span class="pre">move()</span></tt>. We can define a new Python function as follows:</p>
+Python <strong>functions</strong>. So, <code class="docutils literal"><span class="pre">turn_left()</span></code> is a function and so is
+<code class="docutils literal"><span class="pre">move()</span></code>. We can define a new Python function as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">some_well_chosen_name</span> <span class="p">():</span>
     <span class="c"># some lines of code</span>
     <span class="c"># indented at the same level</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">function</span></tt> is our first Python <strong>keyword</strong>. Keywords are words that
+<p><code class="docutils literal"><span class="pre">function</span></code> is our first Python <strong>keyword</strong>. Keywords are words that
 have a special meaning in a given programming language.
-Notice how a colon <tt class="docutils literal"><span class="pre">:</span></tt> precedes what
+Notice how a colon <code class="docutils literal"><span class="pre">:</span></code> precedes what
 is known as a <em>block of code</em> and constitutes the <em>body</em> of the
 function. It is <strong>required</strong> in Python to <em>indent</em> such blocks of code
 with the same number of spaces at the beginning of each line which, as a side-effect, makes it
@@ -165,17 +167,17 @@ easy to identify the function body for a human reader.</p>
 </pre></div>
 </div>
 <p>That&#8217;s it! You will now be able to avoid having to write three
-<tt class="docutils literal"><span class="pre">turn_left()</span></tt> functions in a row to simulate a right turn!</p>
+<code class="docutils literal"><span class="pre">turn_left()</span></code> functions in a row to simulate a right turn!</p>
 <div class="topic">
 <p class="topic-title first">Try it!</p>
-<p>Define the <tt class="docutils literal"><span class="pre">turn_right()</span></tt> function in a program and try to use it,
+<p>Define the <code class="docutils literal"><span class="pre">turn_right()</span></code> function in a program and try to use it,
 perhaps using the world Alone. If you don&#8217;t know what to try, just have
-Reeborg go around a square by alternating <tt class="docutils literal"><span class="pre">turn_right()</span></tt> and
-<tt class="docutils literal"><span class="pre">move()</span></tt> <strong>functions</strong> four times in a row.</p>
+Reeborg go around a square by alternating <code class="docutils literal"><span class="pre">turn_right()</span></code> and
+<code class="docutils literal"><span class="pre">move()</span></code> <strong>functions</strong> four times in a row.</p>
 </div>
 </div>
 <div class="section" id="how-to-think-about-def">
-<h2>10.3. How to think about <tt class="docutils literal"><span class="pre">def</span></tt><a class="headerlink" href="#how-to-think-about-def" title="Permalink to this headline">¶</a></h2>
+<h2>10.3. How to think about <code class="docutils literal"><span class="pre">def</span></code><a class="headerlink" href="#how-to-think-about-def" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Please note that this simplified explanation does not take into account what is known
@@ -213,16 +215,16 @@ involve blocks of code.</p>
  <span class="n">move</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>In other words, <tt class="docutils literal"><span class="pre">def</span></tt> defines a name that we can use as a synonym
+<p>In other words, <code class="docutils literal"><span class="pre">def</span></code> defines a name that we can use as a synonym
 for all the code that appears inside the code block, and whenever we see
 the synonym being <strong>called</strong> [that is, the name appears followed by
-<tt class="docutils literal"><span class="pre">()</span></tt>], we can think of it as being equivalent to inserting the code
+<code class="docutils literal"><span class="pre">()</span></code>], we can think of it as being equivalent to inserting the code
 block <em>as is</em> at that location.</p>
 <div class="topic">
 <p class="topic-title first">Try this!</p>
 <p>See if you can simplify your program for the newspaper delivery
 and making it easier to read and understand
-by using a <tt class="docutils literal"><span class="pre">turn_right()</span></tt> function.  Once you have done so, perhaps
+by using a <code class="docutils literal"><span class="pre">turn_right()</span></code> function.  Once you have done so, perhaps
 you can think of other ways in which you can simplify your program by
 defining other functions.</p>
 </div>
@@ -254,7 +256,7 @@ defining other functions.</p>
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {

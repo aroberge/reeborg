@@ -91,11 +91,13 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="summary1.html"
                         title="next chapter">7. Summary</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/rule2.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rule2.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -143,8 +145,8 @@ that are easier for people to understand: <em>comments</em>.</p>
 computer; they are meant to be read and understood only by humans.</p>
 <p>When using Python, one can write comments in one of two ways:</p>
 <ul class="simple">
-<li>By enclosing an arbitrary quantity of text between triple-quotes like <tt class="docutils literal"><span class="pre">&quot;&quot;&quot;</span> <span class="pre">...</span> <span class="pre">&quot;&quot;&quot;</span></tt> or <tt class="docutils literal"><span class="pre">'''</span> <span class="pre">...</span> <span class="pre">'''</span></tt>.</li>
-<li>By writing some text preceded by <tt class="docutils literal"><span class="pre">#</span></tt> on any given line.</li>
+<li>By enclosing an arbitrary quantity of text between triple-quotes like <code class="docutils literal"><span class="pre">&quot;&quot;&quot;</span> <span class="pre">...</span> <span class="pre">&quot;&quot;&quot;</span></code> or <code class="docutils literal"><span class="pre">'''</span> <span class="pre">...</span> <span class="pre">'''</span></code>.</li>
+<li>By writing some text preceded by <code class="docutils literal"><span class="pre">#</span></code> on any given line.</li>
 </ul>
 <p>I will first write a simple program without any comments followed by a
 second version with comments added and a third version ... slightly less
@@ -206,8 +208,8 @@ some &#8220;logical&#8221; blocks of code, to help see the pattern better. Toget
 the use of comments and insertion of blank lines can make a program much
 easier to read.</p>
 <p>Furthermore, while it does not make any difference to Reeborg, I have
-made sure to specify that it was <tt class="docutils literal"><span class="pre">&quot;token&quot;</span></tt> that I wanted Reeborg
-<tt class="docutils literal"><span class="pre">put</span></tt>; this makes it more clear to human readers.</p>
+made sure to specify that it was <code class="docutils literal"><span class="pre">&quot;token&quot;</span></code> that I wanted Reeborg
+<code class="docutils literal"><span class="pre">put</span></code>; this makes it more clear to human readers.</p>
 </div>
 </div>
 
@@ -236,7 +238,7 @@ made sure to specify that it was <tt class="docutils literal"><span class="pre">
         &copy; Copyright 
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script> 
   $(document).ready(function() {
