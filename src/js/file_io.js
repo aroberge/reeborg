@@ -18,7 +18,7 @@ RUR.file_io.load_world_file = function (url, existing) {
     }
 
     for (i=0; i < elt.options.length; i++){
-        if (elt.options[i].text === url) {
+        if (elt.options[i].text.toLowerCase() === url.toLowerCase()) {
             if (elt.options[i].selected) {
                 // Correct world already selected: we're good to go.
                 return;
@@ -42,7 +42,7 @@ RUR.file_io.load_world_file = function (url, existing) {
             error: function(e){
                 RUR.rec.frames = [];
                 RUR.ui.stop();
-                $("#Reeborg-shouts").html(RUR.translate("Could not find link") + url).dialog("open");
+                $("#Reeborg-shouts").html(RUR.translate("Could not find link: ") + url).dialog("open");
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
