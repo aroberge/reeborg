@@ -45,6 +45,28 @@ function convert_world (old_world){
         delete new_world.tokens;
     }
 
+    /* variable number of tokens
+       We have three variables defined - only one needs to be converted
+       */
+    if (new_world.tokens_range !== undefined) {
+        if (new_world.objects === undefined) {
+            new_world.objects = {};
+        }
+
+        for (coord in new_world.tokens_range) {
+            if (new_world.tokens_range.hasOwnProperty(coord)) {
+                new_world.objects[coord] = {"token":new_world.tokens_range[coord]};
+            }
+        }
+        delete new_world.tokens_range;
+    }
+    if (new_world.min_tokens !== undefined) {
+        delete new_world.min_tokens;
+    }
+    if (new_world.max_tokens !== undefined) {
+        delete new_world.max_tokens;
+    }
+
     /* Various shapes found in world */
     if (new_world.shapes !== undefined){
         if (new_world.objects === undefined) {
