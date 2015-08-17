@@ -26,6 +26,8 @@ RUR.custom_menu.make = function (contents) {
     RUR.custom_menu.new_menu_added = true;  // will modify program execution
 
     editor.setValue(RUR.translate("move") + "()");
+
+    RUR.ui.load_user_worlds();
 };
 
 MakeCustomMenu = RUR.custom_menu.make;
