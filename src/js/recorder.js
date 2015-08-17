@@ -49,7 +49,7 @@ RUR.rec.record_frame = function (name, obj) {
     }
 
     frame.delay = RUR.rec.delay;
-    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay > RUR.MIN_TIME_SOUND) {
+    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay >= RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
 

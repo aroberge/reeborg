@@ -160,7 +160,6 @@ RUR.update_permalink = function (arg, existing) {
         var prog_lang = url_query.queryKey.proglang;
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
-
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
         if (!existing){
             localStorage.setItem("user_world:PERMALINK", RUR.world.export_world());
@@ -1642,7 +1641,6 @@ RUR.file_io.load_world_file = function (url, existing) {
             }
         }
     }
-
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
         RUR.world.import_world(data);
@@ -1651,7 +1649,7 @@ RUR.file_io.load_world_file = function (url, existing) {
         RUR.rec.frames = [];
     } else {
         $.ajax({url: url,
-            async: true,
+            async: false,
             error: function(e){
                 RUR.rec.frames = [];
                 RUR.ui.stop();
@@ -2265,7 +2263,7 @@ RUR.rec.record_frame = function (name, obj) {
     }
 
     frame.delay = RUR.rec.delay;
-    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay > RUR.MIN_TIME_SOUND) {
+    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay >= RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
 
@@ -3296,6 +3294,7 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
         },
         success: function(data){
             RUR.world.import_world(data);
+            console.log("in ui.load_file, data = ", data);
             if (replace) {
                 elt.options[i].value = url;
                 elt.value = elt.options[i].value;

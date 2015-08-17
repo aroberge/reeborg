@@ -160,7 +160,6 @@ RUR.update_permalink = function (arg, existing) {
         var prog_lang = url_query.queryKey.proglang;
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
-
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
         if (!existing){
             localStorage.setItem("user_world:PERMALINK", RUR.world.export_world());

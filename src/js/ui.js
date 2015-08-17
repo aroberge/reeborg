@@ -135,6 +135,7 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
         },
         success: function(data){
             RUR.world.import_world(data);
+            console.log("in ui.load_file, data = ", data);
             if (replace) {
                 elt.options[i].value = url;
                 elt.value = elt.options[i].value;

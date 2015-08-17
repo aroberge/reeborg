@@ -29,7 +29,6 @@ RUR.file_io.load_world_file = function (url, existing) {
             }
         }
     }
-
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
         RUR.world.import_world(data);
@@ -38,7 +37,7 @@ RUR.file_io.load_world_file = function (url, existing) {
         RUR.rec.frames = [];
     } else {
         $.ajax({url: url,
-            async: true,
+            async: false,
             error: function(e){
                 RUR.rec.frames = [];
                 RUR.ui.stop();
