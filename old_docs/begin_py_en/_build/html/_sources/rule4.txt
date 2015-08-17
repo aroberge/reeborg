@@ -24,7 +24,7 @@ somewhat more verbose than we think we might need::
     when we come back to the place we put the token
     down. ''''
 
-    while not token_here():
+    while not object_here():
         if right_is_clear():  # keep to the right
             turn_right()
             move()
@@ -64,7 +64,7 @@ and writing the comments differently::
         else:
             turn_left()
 
-    found_starting_point = token_here
+    found_starting_point = object_here
 
     #######
     ##  End of definitions above; program execution below .
@@ -97,7 +97,7 @@ programs:
 
     **Rule # 4**
         Steps to follow when writing a program:
-        
+
         #. start simple;
         #. introduce small changes, one at a time;
         #. make sure that each of the changes you have introduced do not

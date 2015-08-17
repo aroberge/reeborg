@@ -25,7 +25,7 @@ should work in all four worlds mentioned above.
         if at_goal():
             # something
         move()
-        if token_here():
+        if object_here():
             # something
             # something else
             # something else again

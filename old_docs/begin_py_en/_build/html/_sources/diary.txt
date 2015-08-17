@@ -1,10 +1,6 @@
 Reeborg's diary
 ===============
 
-Click on the **World** button at the top to hide Reeborg's world; click
-also on the **Diary** button to reveal Reeborg's diary, the place where
-our favourite robot writes.
-
 Have Reeborg execute the following program::
 
     print(42)
@@ -16,12 +12,6 @@ about life, the universe and everything [#]_ in his diary.
 
 Writing text
 ------------
-
-.. note::
-
-   In addition to ``print``, which is a Python function, Reeborg's World
-   includes a function named ``write`` which behaves slighlty differently
-   as we will see later.  You may try it instead of ``print`` if you want.
 
 In programming terms, a *character* is any letter, number or symbol that
 can be printed and a *string of characters*, or simply *string*, is any
@@ -77,10 +67,10 @@ We have already seen the idea of using different names (variables) as synonyms.
 Let's use this idea again as explore
 mathematical operations some more::
 
-    length = 4;
-    width = 6;
-    area = length * width;  # area of a rectangle
-    print(area)  # will output 24
+    length = 4
+    width = 6
+    area = length * width  # area of a rectangle
+    print(area)            # will output 24
 
 .. topic:: Try it!
 
@@ -93,6 +83,6 @@ A word of caution
 
    The *character* "2" is not the same as the *number* 2.
 
-Finally, note that spaces around operators, like ``+``, are ignored by
+Finally, note that **spaces** around operators, like ``+``, are ignored by
 Python; however they often make a program easier to read for humans.
 

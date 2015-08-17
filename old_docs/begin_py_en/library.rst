@@ -11,12 +11,12 @@ library.
 You are going to use the function ``turn_right()`` **a lot!** Instead of
 rewriting it each time (remember Rule # 3), what you are going to do is
 to write it **once** (more) but, this time, instead of writing it in the
-editor with the **Python Code** tab, you will click on the **Library** tab and
+editor with the **Python Code** tab, you will click on the **library** tab and
 write it there. Oh, and you should also write ``turn_around()`` there as
 well.
 
 Then, when you want to use the functions defined in your library, you will
-simply type ``from my_lib import`` (followed by the function names, separated
+simply type ``from library import`` (followed by the function names, separated
 by commas) on its own line in the Python Code editor.
 
 .. topic:: Do this!
@@ -26,14 +26,14 @@ by commas) on its own line in the Python Code editor.
    functions) and write a short
    program that nonetheless uses them to make sure that they work as
    expected. If they don't, go back and fix them.  Remember to use
-   ``from my_lib import turn_right, turn_around`` in your main program.
+   ``from library import turn_right, turn_around`` in your main program.
 
 .. hint::
 
    With the appropriate functions defined in the library,
    here is such a program::
 
-       from my_lib import turn_right, turn_around
+       from library import turn_right, turn_around
        move()
        turn_around()
        move()
@@ -54,7 +54,7 @@ Different ways to import
 So far, we have seen the Python keyword ``import`` in two different types of statements::
 
     from reeborg_fr import *
-    from my_lib import turn_right, turn_around
+    from library import turn_right, turn_around
 
 In the first one, the ``*`` means *whatever name you find*; thus, any function or
 alias found in the library (``reeborg_fr`` is a library) is made available.

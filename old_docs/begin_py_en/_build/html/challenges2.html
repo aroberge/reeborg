@@ -83,10 +83,12 @@
 <li><a class="reference internal" href="#before-harvesting">29.1. Before harvesting</a></li>
 <li><a class="reference internal" href="#ready-to-harvest">29.2. Ready to harvest</a></li>
 <li><a class="reference internal" href="#stormy-weather">29.3. Stormy weather</a></li>
-<li><a class="reference internal" href="#reeborg-s-friend-s-turn">29.4. Reeborg&#8217;s friend&#8217;s turn.</a></li>
-<li><a class="reference internal" href="#after-the-storm">29.5. After the storm</a></li>
-<li><a class="reference internal" href="#more-yard-work">29.6. More yard work!</a></li>
-<li><a class="reference internal" href="#finding-the-center">29.7. Finding the center</a></li>
+<li><a class="reference internal" href="#reeborg-s-friend-s-turn">29.4. Reeborg&#8217;s friend&#8217;s turn.</a><ul>
+<li><a class="reference internal" href="#after-the-storm">29.4.1. After the storm</a></li>
+<li><a class="reference internal" href="#more-yard-work">29.4.2. More yard work!</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#finding-the-center">29.5. Finding the center</a></li>
 </ul>
 </li>
 </ul>
@@ -146,19 +148,11 @@ to them later.</p>
 </div>
 <div class="section" id="before-harvesting">
 <h2>29.1. Before harvesting<a class="headerlink" href="#before-harvesting" title="Permalink to this headline">¶</a></h2>
-<p>Select world <strong>Harvest&nbsp;4</strong> which occurred shortly after the garden was
+<p>Select world <strong>Harvest&nbsp;3</strong> which occurred shortly after the garden was
 seeded. Some carrot seeds sprouted well, others yielded two or three
 plants while some did not sprout at all. Help Reeborg weed out the
 excess seedlings, and plant some new seeds at locations where some were
-missing. Here is a suggestion for some vocabulary to use:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">var</span> <span class="n">carrot_here</span> <span class="o">=</span> <span class="n">token_here</span>
-<span class="n">var</span> <span class="n">plant_carrot_seed</span> <span class="o">=</span> <span class="n">put</span>
-<span class="n">var</span> <span class="n">remove_seedling</span> <span class="o">=</span> <span class="n">take</span>
-
-<span class="k">def</span> <span class="nf">ensure_one_carrot_at_spot</span><span class="p">():</span>
-    <span class="o">...</span>
-</pre></div>
-</div>
+missing.</p>
 <div class="topic">
 <p class="topic-title first">Do it!</p>
 <p>Write a program as described above.</p>
@@ -167,27 +161,9 @@ missing. Here is a suggestion for some vocabulary to use:</p>
 <div class="section" id="ready-to-harvest">
 <h2>29.2. Ready to harvest<a class="headerlink" href="#ready-to-harvest" title="Permalink to this headline">¶</a></h2>
 <p>The weeding went well (I hope!), the growing season is over and it is
-time to harvest. Select world <strong>Harvest&nbsp;1</strong> or <strong>Harvest&nbsp;2</strong> and have Reeborg
-collect all the tokens which represent plants to harvest.</p>
-<p>Notice how one can view the world <strong>Harvest&nbsp;1</strong> as having horizontal (or
-vertical) rows having the same length, while world <strong>Harvest&nbsp;2</strong> can be seen
-as having diagonal rows having the same length.</p>
-<p>One possible approach is to define a function <code class="docutils literal"><span class="pre">harvest_one_row</span></code> and a
-second one called <code class="docutils literal"><span class="pre">harvest_two_rows</span></code> as well as <code class="docutils literal"><span class="pre">move_to_first_row</span></code>.
-Using these, can write a general solution. Note that these individual
-functions may have to be different in different worlds.</p>
-<p>With suitable function definitions, the programs for either world
-<strong>Harvest&nbsp;1</strong> or <strong>Harvest&nbsp;2</strong> can be written as:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">move_to_first_row</span><span class="p">()</span>
-<span class="n">repeat</span><span class="p">(</span><span class="n">harvest_two_rows</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Note however that you may choose a different way to solve the problems
-than that which is described above.</p>
-<div class="topic">
-<p class="topic-title first">Do it!</p>
-<p>Write a program to do the harvesting as described.</p>
-</div>
+time to harvest. Select world <strong>Harvest&nbsp;1</strong> and/or <strong>Harvest&nbsp;2</strong> and have Reeborg
+collect all the carrots.  You should write a single program that would
+work for both worlds.</p>
 </div>
 <div class="section" id="stormy-weather">
 <h2>29.3. Stormy weather<a class="headerlink" href="#stormy-weather" title="Permalink to this headline">¶</a></h2>
@@ -200,12 +176,12 @@ and stopped in front of the door, unsure of how to proceed.</p>
 <p>Using the <code class="docutils literal"><span class="pre">build_wall()</span></code> instruction, help Reeborg close the windows
 of his house. When Reeborg finishes his task, he will stand in the
 doorway, watching the rain fall, waiting for it to stop before he can go
-back and play outside. The world is <strong>Storm&nbsp;1</strong>.</p>
+back and play outside. The world is <strong>Rain&nbsp;1</strong>.</p>
 </div>
 </div>
 <div class="section" id="reeborg-s-friend-s-turn">
 <h2>29.4. Reeborg&#8217;s friend&#8217;s turn.<a class="headerlink" href="#reeborg-s-friend-s-turn" title="Permalink to this headline">¶</a></h2>
-<p>Erdna, Reeborg&#8217;s friend, lives in a bigger house as shown on <strong>Storm&nbsp;2</strong>.
+<p>Erdna, Reeborg&#8217;s friend, lives in a bigger house as shown on <strong>Rain&nbsp;2</strong>.
 Erdna was playing outside with Reeborg when it started raining. Help
 Erdna close the windows in her house.</p>
 <div class="topic">
@@ -219,33 +195,26 @@ Reeborg and Erdna ... however, it might be a bit tricky.</p>
 have to take an extra step and, depending on the result, may have to
 turn around, go back and close that window.</p>
 </div>
-</div>
 <div class="section" id="after-the-storm">
-<h2>29.5. After the storm<a class="headerlink" href="#after-the-storm" title="Permalink to this headline">¶</a></h2>
-<p>The wind blew really hard last night. There is litter everywhere outside
+<h3>29.4.1. After the storm<a class="headerlink" href="#after-the-storm" title="Permalink to this headline">¶</a></h3>
+<p>The wind blew really hard last night. There are fallen leaves everywhere outside
 Reeborg&#8217;s house. His parents asked him to go and clean up the path
-leading to the curb, <strong>Storm&nbsp;3</strong>, as well as the driveway: <strong>Storm&nbsp;4</strong>.</p>
-<div class="topic">
-<p class="topic-title first">Do it!</p>
-<p>Following the instructions in your program,
-Reeborg should collect all the litter, and put it in the garbage can,
+leading to the curb, <strong>Storm&nbsp;1</strong>, as well as the driveway: <strong>Storm&nbsp;2</strong>.</p>
+<p>Reeborg should collect all the leaves, and put them in the compost bin,
 and close the lid, using <code class="docutils literal"><span class="pre">build_wall()</span></code>.</p>
 </div>
-</div>
 <div class="section" id="more-yard-work">
-<h2>29.6. More yard work!<a class="headerlink" href="#more-yard-work" title="Permalink to this headline">¶</a></h2>
+<h3>29.4.2. More yard work!<a class="headerlink" href="#more-yard-work" title="Permalink to this headline">¶</a></h3>
 <p>Reeborg&#8217;s parents are so proud of his work, that they ask him to pick up
-all the garbage that got blown away in their backyard during the
-windstorm, as illustrated on <strong>Storm&nbsp;5</strong>. Have Reeborg pick up all the
-garbage and put it in the garbage can.</p>
-<div class="topic">
-<p class="topic-title first">Try it!</p>
-<p>Your real challenge is to write a single program that can help Reeborg
-do the cleanup for all three locations.</p>
+all the leaves that got blown away in their backyard during the
+windstorm, as illustrated on <strong>Storm&nbsp;3</strong>. Have Reeborg pick up all the
+leaves and put it in the compost bin.</p>
+<p>Later, you will learn to write a single program that can help Reeborg do
+the cleanup for all three locations.</p>
 </div>
 </div>
 <div class="section" id="finding-the-center">
-<h2>29.7. Finding the center<a class="headerlink" href="#finding-the-center" title="Permalink to this headline">¶</a></h2>
+<h2>29.5. Finding the center<a class="headerlink" href="#finding-the-center" title="Permalink to this headline">¶</a></h2>
 <p>Have a look at the worlds <strong>Center&nbsp;1</strong> to <strong>Center&nbsp;3</strong>.</p>
 <div class="topic">
 <p class="topic-title first">Do this!</p>

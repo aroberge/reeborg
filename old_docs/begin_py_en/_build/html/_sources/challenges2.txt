@@ -27,19 +27,11 @@ Now, remember rule #1 ... and make sure that, this time, you solve
 Before harvesting
 -----------------
 
-Select world **Harvest 4** which occurred shortly after the garden was
+Select world **Harvest 3** which occurred shortly after the garden was
 seeded. Some carrot seeds sprouted well, others yielded two or three
 plants while some did not sprout at all. Help Reeborg weed out the
 excess seedlings, and plant some new seeds at locations where some were
-missing. Here is a suggestion for some vocabulary to use::
-
-
-    var carrot_here = token_here
-    var plant_carrot_seed = put
-    var remove_seedling = take
-
-    def ensure_one_carrot_at_spot():
-        ...
+missing.
 
 
 .. topic:: Do it!
@@ -51,31 +43,11 @@ Ready to harvest
 ----------------
 
 The weeding went well (I hope!), the growing season is over and it is
-time to harvest. Select world **Harvest 1** or **Harvest 2** and have Reeborg
-collect all the tokens which represent plants to harvest.
+time to harvest. Select world **Harvest 1** and/or **Harvest 2** and have Reeborg
+collect all the carrots.  You should write a single program that would
+work for both worlds.
 
-Notice how one can view the world **Harvest 1** as having horizontal (or
-vertical) rows having the same length, while world **Harvest 2** can be seen
-as having diagonal rows having the same length.
 
-One possible approach is to define a function ``harvest_one_row`` and a
-second one called ``harvest_two_rows`` as well as ``move_to_first_row``.
-Using these, can write a general solution. Note that these individual
-functions may have to be different in different worlds.
-
-With suitable function definitions, the programs for either world
-**Harvest 1** or **Harvest 2** can be written as::
-
-    move_to_first_row()
-    repeat(harvest_two_rows, 3)
-
-Note however that you may choose a different way to solve the problems
-than that which is described above.
-
-.. topic:: Do it!
-
-    Write a program to do the harvesting as described.
-    
 Stormy weather
 --------------
 
@@ -89,12 +61,12 @@ and stopped in front of the door, unsure of how to proceed.
     Using the ``build_wall()`` instruction, help Reeborg close the windows
     of his house. When Reeborg finishes his task, he will stand in the
     doorway, watching the rain fall, waiting for it to stop before he can go
-    back and play outside. The world is **Storm 1**.
+    back and play outside. The world is **Rain 1**.
 
 Reeborg's friend's turn.
 ------------------------
 
-Erdna, Reeborg's friend, lives in a bigger house as shown on **Storm 2**.
+Erdna, Reeborg's friend, lives in a bigger house as shown on **Rain 2**.
 Erdna was playing outside with Reeborg when it started raining. Help
 Erdna close the windows in her house.
 
@@ -110,35 +82,30 @@ Erdna close the windows in her house.
     turn around, go back and close that window.
 
 After the storm
----------------
+~~~~~~~~~~~~~~~
 
-The wind blew really hard last night. There is litter everywhere outside
+The wind blew really hard last night. There are fallen leaves everywhere outside
 Reeborg's house. His parents asked him to go and clean up the path
-leading to the curb, **Storm 3**, as well as the driveway: **Storm 4**.
+leading to the curb, **Storm 1**, as well as the driveway: **Storm 2**.
 
-.. topic:: Do it!
-
-    Following the instructions in your program, 
-    Reeborg should collect all the litter, and put it in the garbage can,
-    and close the lid, using ``build_wall()``.
+Reeborg should collect all the leaves, and put them in the compost bin,
+and close the lid, using ``build_wall()``.
 
 More yard work!
----------------
+~~~~~~~~~~~~~~~
 
 Reeborg's parents are so proud of his work, that they ask him to pick up
-all the garbage that got blown away in their backyard during the
-windstorm, as illustrated on **Storm 5**. Have Reeborg pick up all the
-garbage and put it in the garbage can.
+all the leaves that got blown away in their backyard during the
+windstorm, as illustrated on **Storm 3**. Have Reeborg pick up all the
+leaves and put it in the compost bin.
 
-.. topic:: Try it!
+Later, you will learn to write a single program that can help Reeborg do
+the cleanup for all three locations.
 
-    Your real challenge is to write a single program that can help Reeborg
-    do the cleanup for all three locations.
-    
 Finding the center
 ------------------
 
-Have a look at the worlds **Center 1** to **Center 3**. 
+Have a look at the worlds **Center 1** to **Center 3**.
 
 .. topic:: Do this!
 
@@ -151,7 +118,7 @@ Have a look at the worlds **Center 1** to **Center 3**.
     You may find it useful to have Reeborg, who carries two tokens,
     drop one token at each end of a line. Then,
     by picking one token at one end and moving it one step, going back and
-    forth until both tokens are at the same position, 
+    forth until both tokens are at the same position,
     the location of the center can be
     found. When you know how to do this in one dimension (along a horizontal
     line), you can use that location as the starting point to find the

@@ -18,14 +18,14 @@ by running a program in Reeborg's World.
 
 
 Hints are clickable and designed to provide useful pointers if you are
-not sure how to proceed. 
+not sure how to proceed.
 
 .. hint::
 
     Go to `Reeborg's world <../../world.html>`_, click on the "run" button
     (small white triangle on blue background)
-    and watch Reeborg takes its first step.  
-    You can also `view this short video <http://youtu.be/yTdw97KNgGM>`_ 
+    and watch Reeborg takes its first step.
+    You can also `view this short video <http://youtu.be/yTdw97KNgGM>`_
     to see what it looks like.  You may want to watch it in full screen with
     HD quality selected.
 
@@ -69,10 +69,10 @@ Contents:
    recursion3
    recursion4
    return
-   harvest3
    diary
    increment
    while_num
    for
+   harvest3
    better_repeat
    conclusion

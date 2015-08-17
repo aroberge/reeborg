@@ -10,7 +10,7 @@ to add a ``move()`` before we start the loop, as follows::
 
     put("token")
     move()
-    while not token_here():
+    while not object_here():
         if front_is_clear():
             move()
         else:
@@ -37,7 +37,7 @@ program that *attempts* to do just that::
 
     put("token")
     move()
-    while not token_here():
+    while not object_here():
         if right_is_clear():
             turn_right()
         elif front_is_clear():

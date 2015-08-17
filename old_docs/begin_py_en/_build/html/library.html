@@ -128,11 +128,11 @@ library.</p>
 <p>You are going to use the function <code class="docutils literal"><span class="pre">turn_right()</span></code> <strong>a lot!</strong> Instead of
 rewriting it each time (remember Rule # 3), what you are going to do is
 to write it <strong>once</strong> (more) but, this time, instead of writing it in the
-editor with the <strong>Python Code</strong> tab, you will click on the <strong>Library</strong> tab and
+editor with the <strong>Python Code</strong> tab, you will click on the <strong>library</strong> tab and
 write it there. Oh, and you should also write <code class="docutils literal"><span class="pre">turn_around()</span></code> there as
 well.</p>
 <p>Then, when you want to use the functions defined in your library, you will
-simply type <code class="docutils literal"><span class="pre">from</span> <span class="pre">my_lib</span> <span class="pre">import</span></code> (followed by the function names, separated
+simply type <code class="docutils literal"><span class="pre">from</span> <span class="pre">library</span> <span class="pre">import</span></code> (followed by the function names, separated
 by commas) on its own line in the Python Code editor.</p>
 <div class="topic">
 <p class="topic-title first">Do this!</p>
@@ -141,13 +141,13 @@ the library, go back to the Python Code editor (so you no longer see your
 functions) and write a short
 program that nonetheless uses them to make sure that they work as
 expected. If they don&#8217;t, go back and fix them.  Remember to use
-<code class="docutils literal"><span class="pre">from</span> <span class="pre">my_lib</span> <span class="pre">import</span> <span class="pre">turn_right,</span> <span class="pre">turn_around</span></code> in your main program.</p>
+<code class="docutils literal"><span class="pre">from</span> <span class="pre">library</span> <span class="pre">import</span> <span class="pre">turn_right,</span> <span class="pre">turn_around</span></code> in your main program.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p>With the appropriate functions defined in the library,
 here is such a program:</p>
-<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">my_lib</span> <span class="k">import</span> <span class="n">turn_right</span><span class="p">,</span> <span class="n">turn_around</span>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">library</span> <span class="k">import</span> <span class="n">turn_right</span><span class="p">,</span> <span class="n">turn_around</span>
 <span class="n">move</span><span class="p">()</span>
 <span class="n">turn_around</span><span class="p">()</span>
 <span class="n">move</span><span class="p">()</span>
@@ -165,7 +165,7 @@ add it to your library so that you don&#8217;t have to redefine it every time.</
 <h2>12.1. Different ways to import<a class="headerlink" href="#different-ways-to-import" title="Permalink to this headline">¶</a></h2>
 <p>So far, we have seen the Python keyword <code class="docutils literal"><span class="pre">import</span></code> in two different types of statements:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">reeborg_fr</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">my_lib</span> <span class="k">import</span> <span class="n">turn_right</span><span class="p">,</span> <span class="n">turn_around</span>
+<span class="kn">from</span> <span class="nn">library</span> <span class="k">import</span> <span class="n">turn_right</span><span class="p">,</span> <span class="n">turn_around</span>
 </pre></div>
 </div>
 <p>In the first one, the <code class="docutils literal"><span class="pre">*</span></code> means <em>whatever name you find</em>; thus, any function or

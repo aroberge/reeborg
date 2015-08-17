@@ -25,7 +25,7 @@ Take your time to think about the above algorithm. Then, consider this
 solution in code::
 
     put("token")
-    while not token_here():
+    while not object_here():
         if front_is_clear():
             move()
         else:

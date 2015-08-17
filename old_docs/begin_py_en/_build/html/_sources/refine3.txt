@@ -7,7 +7,7 @@ We need to have him ``move()`` after turning right, as indicated below::
 
     put("token")
     move()
-    while not token_here():
+    while not object_here():
         if right_is_clear():
             turn_right()
             move()

@@ -10,7 +10,7 @@ wall preventing him from moving first. Here's a solution to the problem::
     if not front_is_clear():
         turn_left()
     move()
-    while not token_here():
+    while not object_here():
         if right_is_clear():
             turn_right()
             move()
@@ -18,7 +18,7 @@ wall preventing him from moving first. Here's a solution to the problem::
             move()
         else:
             turn_left()
-    
+
 .. topic:: Try it!
 
     Test it now and see that it works. Can you imagine situations where it

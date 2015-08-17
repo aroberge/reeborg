@@ -86,7 +86,7 @@
 <li><a class="reference internal" href="#lost-in-a-maze">8.4. Lost in a maze</a></li>
 <li><a class="reference internal" href="#jumping-over-hurdles">8.5. Jumping over hurdles</a></li>
 <li><a class="reference internal" href="#harvest-time">8.6. Harvest time</a></li>
-<li><a class="reference internal" href="#stormy-weather">8.7. Stormy weather</a><ul>
+<li><a class="reference internal" href="#rainy-weather">8.7. Rainy weather</a><ul>
 <li><a class="reference internal" href="#reeborg-s-friend-s-turn">8.7.1. Reeborg&#8217;s friend&#8217;s turn.</a></li>
 <li><a class="reference internal" href="#after-the-storm">8.7.2. After the storm</a></li>
 <li><a class="reference internal" href="#more-yard-work">8.7.3. More yard work!</a></li>
@@ -155,9 +155,9 @@ from your computer using the <strong>Load</strong> button.</p>
 <p>If you do save your programs, you will have to note for which
 world they are designed. To do so you can use comments. Alternatively,
 and this is perhaps a better option, you can use the special command
-<code class="docutils literal"><span class="pre">select_world(&quot;world_name_here&quot;)</span></code> as the first instruction. For
+<code class="docutils literal"><span class="pre">World(&quot;world_name_here&quot;)</span></code> as the first instruction. For
 example, a solution to world Home&nbsp;1 would be:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">select_world</span><span class="p">(</span><span class="s">&quot;Home 1&quot;</span><span class="p">)</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">World</span><span class="p">(</span><span class="s">&quot;Home 1&quot;</span><span class="p">)</span>
 <span class="n">move</span><span class="p">()</span>
 <span class="n">move</span><span class="p">()</span>
 </pre></div>
@@ -225,21 +225,18 @@ spaced hurdles of world <strong>Hurdles&nbsp;3</strong> or the highly irregular 
 <div class="section" id="harvest-time">
 <h2>8.6. Harvest time<a class="headerlink" href="#harvest-time" title="Permalink to this headline">¶</a></h2>
 <p>Reeborg has been gardening and it is time to harvest. Select world
-<strong>Harvest&nbsp;1</strong>, <strong>Harvest&nbsp;2</strong> or <strong>Harvest&nbsp;3</strong> and have Reeborg collect all the
-tokens which represent plants to harvest.</p>
-<p>Notice how one can view the first worlds <strong>Harvest&nbsp;1</strong> and <strong>Harvest&nbsp;3</strong> as
-having horizontal (or vertical) rows having the same length, while world
-<strong>Harvest&nbsp;2</strong> can be seen as having diagonal rows having the same length.</p>
-<p>Alternatively, select world <strong>Harvest&nbsp;4</strong> which occurred earlier in the
+<strong>Harvest&nbsp;1</strong> or <strong>Harvest&nbsp;2</strong> and have Reeborg collect all the
+carrots.</p>
+<p>Alternatively, select world <strong>Harvest&nbsp;3</strong> which occurred earlier in the
 season. Reeborg had been planting some carrots; some sprouted fine,
 others did not, while at some location 2 or more seeds sprouted. Reeborg
 must remove the excess plants and reseed at locations where there are
-missing ones so that each plant site has only one plant (token).</p>
+missing ones so that each plant site has only one carrot.</p>
 <p><strong>You do not have to write a program this time.</strong>  Just think about how you
 would do it.</p>
 </div>
-<div class="section" id="stormy-weather">
-<h2>8.7. Stormy weather<a class="headerlink" href="#stormy-weather" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="rainy-weather">
+<h2>8.7. Rainy weather<a class="headerlink" href="#rainy-weather" title="Permalink to this headline">¶</a></h2>
 <p>It was a beautifully sunny day. Reeborg was playing outside with his
 friend. Suddenly, it started to rain and Reeborg remembered that the
 windows in his house were all open. So Reeborg went back to his house
@@ -249,11 +246,11 @@ and stopped in front of the door, unsure of how to proceed.</p>
 <p>Using the <code class="docutils literal"><span class="pre">build_wall()</span></code> instruction, help Reeborg close the windows
 of his house. When Reeborg finishes his task, he will stand in the
 doorway, watching the rain fall, waiting for it to stop before he can go
-back and play outside. The world is <strong>Storm&nbsp;1</strong>.</p>
+back and play outside. The world is <strong>Rain 1</strong>.</p>
 </div>
 <div class="section" id="reeborg-s-friend-s-turn">
 <h3>8.7.1. Reeborg&#8217;s friend&#8217;s turn.<a class="headerlink" href="#reeborg-s-friend-s-turn" title="Permalink to this headline">¶</a></h3>
-<p>Erdna, Reeborg&#8217;s friend, lives in a bigger house as shown on <strong>Storm&nbsp;2</strong>.
+<p>Erdna, Reeborg&#8217;s friend, lives in a bigger house as shown on <strong>Rain&nbsp;2</strong>.
 Erdna was playing outside with Reeborg when it started raining. Help
 Erdna close the windows in her house.</p>
 <p>Later, you will be able to write a single program that will work for
@@ -261,18 +258,18 @@ both Reeborg and Erdna ... however, it will be a bit tricky.</p>
 </div>
 <div class="section" id="after-the-storm">
 <h3>8.7.2. After the storm<a class="headerlink" href="#after-the-storm" title="Permalink to this headline">¶</a></h3>
-<p>The wind blew really hard last night. There is litter everywhere outside
+<p>The wind blew really hard last night. There are fallen leaves everywhere outside
 Reeborg&#8217;s house. His parents asked him to go and clean up the path
-leading to the curb, <strong>Storm&nbsp;3</strong>, as well as the driveway: <strong>Storm&nbsp;4</strong>.</p>
-<p>Reeborg should collect all the litter, and put it in the garbage can,
+leading to the curb, <strong>Storm&nbsp;1</strong>, as well as the driveway: <strong>Storm&nbsp;2</strong>.</p>
+<p>Reeborg should collect all the leaves, and put them in the compost bin,
 and close the lid, using <code class="docutils literal"><span class="pre">build_wall()</span></code>.</p>
 </div>
 <div class="section" id="more-yard-work">
 <h3>8.7.3. More yard work!<a class="headerlink" href="#more-yard-work" title="Permalink to this headline">¶</a></h3>
 <p>Reeborg&#8217;s parents are so proud of his work, that they ask him to pick up
-all the garbage that got blown away in their backyard during the
-windstorm, as illustrated on <strong>Storm&nbsp;5</strong>. Have Reeborg pick up all the
-garbage and put it in the garbage can.</p>
+all the leaves that got blown away in their backyard during the
+windstorm, as illustrated on <strong>Storm&nbsp;3</strong>. Have Reeborg pick up all the
+leaves and put it in the compost bin.</p>
 <p>Later, you will learn to write a single program that can help Reeborg do
 the cleanup for all three locations.</p>
 </div>

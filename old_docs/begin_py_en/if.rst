@@ -105,11 +105,11 @@ More useful that you might think...
 Having to specify ``True`` or ``False`` does not help Reeborg decide on
 its own. However, there are special functions that Reeborg recognizes
 that allow to decide things for himself. The first of these is
-``token_here()`` which tells Reeborg that there is at least one token at
+``object_here()`` which tells Reeborg that there is at least one object at
 the grid position where he is located. For example, if we want to ask
 Reeborg to collect tokens, one part of the code could be::
 
-    if token_here():
+    if object_here():
         take()
 
 Have a look at worlds **Tokens 1** and **Tokens 2**. In both cases, and assuming
@@ -131,7 +131,7 @@ Let's write the outline of a program that will work in both worlds
 
     def move_until_done():
         move()
-        if token_here():
+        if object_here():
             # something
             # something else
             # something else again

@@ -19,7 +19,7 @@ different number of tokens - so you can not use ``repeat()`` as you
 don't have a fixed number of repetitions.
 
 Reeborg starts with an infinite number of tokens in his pockets: so you
-can not use ``has_token()`` to figure out when to stop dropping tokens
+can not use ``carries_object()`` to figure out when to stop dropping tokens
 on the one spot.
 
 .. topic:: Try this!

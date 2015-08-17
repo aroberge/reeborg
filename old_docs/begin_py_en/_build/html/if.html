@@ -218,10 +218,10 @@ code inside the code block.</p>
 <p>Having to specify <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code> does not help Reeborg decide on
 its own. However, there are special functions that Reeborg recognizes
 that allow to decide things for himself. The first of these is
-<code class="docutils literal"><span class="pre">token_here()</span></code> which tells Reeborg that there is at least one token at
+<code class="docutils literal"><span class="pre">object_here()</span></code> which tells Reeborg that there is at least one object at
 the grid position where he is located. For example, if we want to ask
 Reeborg to collect tokens, one part of the code could be:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">token_here</span><span class="p">():</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">object_here</span><span class="p">():</span>
     <span class="n">take</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -242,7 +242,7 @@ it himself and declaring that he has finished.</p>
 <strong>Tokens&nbsp;1</strong> and <strong>Tokens&nbsp;2</strong>:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">move_until_done</span><span class="p">():</span>
     <span class="n">move</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">token_here</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">object_here</span><span class="p">():</span>
         <span class="c"># something</span>
         <span class="c"># something else</span>
         <span class="c"># something else again</span>

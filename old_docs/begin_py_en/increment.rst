@@ -1,8 +1,7 @@
 Increment
 =========
 
-Make sure you have the **Editor**, the **World** and the **Diary**
-panels open. Select world **Around 1**.
+Select world **Around 1**.
 
 Suppose we wanted to count the number of steps taken by Reeborg to
 reach the wall on the right from its starting position. One way to do
@@ -53,7 +52,7 @@ Counting steps
 --------------
 
 We are now ready to write a program to have Reeborg count the number of
-steps using world **Around 1**. 
+steps using world **Around 1**.
 
 .. topic:: Try it!
 
@@ -75,7 +74,7 @@ steps using world **Around 1**.
 
 In the above program, we use the ``global`` keyword to indicate to Python that
 the variable ``number_of_steps`` used inside the ``move_and_count_steps`` function
-is assigned a value elsewhere.  
+is assigned a value elsewhere.
 
 Note that when you run this program, the number of steps is printed **before**
 Reeborg moves.  This is because the program is first run behind the scene and

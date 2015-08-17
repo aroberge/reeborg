@@ -33,20 +33,3 @@ Using the ``for`` loop syntax, we can have a different definition for a
 
    Try the above program with world **Around 1**.
 
-
-Reeborg's ``repeat()``
-----------------------
-
-Open Reeborg's diary and have Reeborg execute the single line program::
-
-    view_source( repeat )
-
-You will see a completely different code than the above as this will
-reveal the ``repeat`` function used by Reeborg ... and written using
-Javascript.  In fact, it uses Javascript's version of a ``for`` loop
-which looks very different from the Python version.
-If you compare the Javascript code with the Python one, you will likely
-agree that Python is a "cleaner" language, with fewer extra characters
-like ``;`` or ``}``.
-
-

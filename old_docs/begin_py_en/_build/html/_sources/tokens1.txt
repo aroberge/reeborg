@@ -15,7 +15,7 @@ that this does not correspond to the expected final result.
 Next square, we see the a token in shades of grey. This tells us that we should have Reeborg
 put one token at that location. Once this is done, we can see that it
 has been done correctly by, the number of tokens should be written in green.
-Finally, after the grey token, there is a green square: this indicates where
+Finally, after the grey token, there is a pale green square: this indicates where
 Reeborg should end up after having accomplished its task.
 
 .. topic:: Try it!

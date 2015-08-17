@@ -124,7 +124,7 @@ that Reeborg gets in an infinite loop when there is no wall around him.
 We need to have him <code class="docutils literal"><span class="pre">move()</span></code> after turning right, as indicated below:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">put</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
 <span class="n">move</span><span class="p">()</span>
-<span class="k">while</span> <span class="ow">not</span> <span class="n">token_here</span><span class="p">():</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">object_here</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">right_is_clear</span><span class="p">():</span>
         <span class="n">turn_right</span><span class="p">()</span>
         <span class="n">move</span><span class="p">()</span>

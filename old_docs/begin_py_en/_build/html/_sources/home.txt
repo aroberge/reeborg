@@ -7,7 +7,7 @@ will tell you if you got it right or wrong.
 
 .. important::
 
-    Select **Documentation menu** from the drop-down menu
+    Select **Tutorial menu** from the drop-down menu
     at the top of Reeborg's World.
     You will see a program appear in the Python editor.
     Run this program: this will change the worlds that you can select

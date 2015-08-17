@@ -19,7 +19,7 @@ determine its next action; this will be useful later on.
 Important information about saving your work
 --------------------------------------------
 
-By making use of something known as *Local Storage*, Reeborg's World remembers  
+By making use of something known as *Local Storage*, Reeborg's World remembers
 the last program you work on in a given browser (Firefox or Chrome).
 However, it might be useful for you to save your programs on your computer,
 or on a usb key.  You can do this by clicking on the **Save** button at the
@@ -29,10 +29,10 @@ from your computer using the **Load** button.
 If you do save your programs, you will have to note for which
 world they are designed. To do so you can use comments. Alternatively,
 and this is perhaps a better option, you can use the special command
-``select_world("world_name_here")`` as the first instruction. For
+``World("world_name_here")`` as the first instruction. For
 example, a solution to world Home 1 would be::
 
-    select_world("Home 1")
+    World("Home 1")
     move()
     move()
 
@@ -47,10 +47,10 @@ Finding the center
 
 This is the first of our series of mini challenges.
 
-Have a look at the worlds **Center 1** to **Center 3**. 
+Have a look at the worlds **Center 1** to **Center 3**.
 In each case, you will have to write a
 program that has Reeborg put a token at the geometric center of the
-rectangular room he finds himself in. 
+rectangular room he finds himself in.
 
 .. topic:: Try this!
 
@@ -110,23 +110,19 @@ Harvest time
 ------------
 
 Reeborg has been gardening and it is time to harvest. Select world
-**Harvest 1**, **Harvest 2** or **Harvest 3** and have Reeborg collect all the
-tokens which represent plants to harvest.
+**Harvest 1** or **Harvest 2** and have Reeborg collect all the
+carrots.
 
-Notice how one can view the first worlds **Harvest 1** and **Harvest 3** as
-having horizontal (or vertical) rows having the same length, while world
-**Harvest 2** can be seen as having diagonal rows having the same length.
-
-Alternatively, select world **Harvest 4** which occurred earlier in the
+Alternatively, select world **Harvest 3** which occurred earlier in the
 season. Reeborg had been planting some carrots; some sprouted fine,
 others did not, while at some location 2 or more seeds sprouted. Reeborg
 must remove the excess plants and reseed at locations where there are
-missing ones so that each plant site has only one plant (token).
+missing ones so that each plant site has only one carrot.
 
 **You do not have to write a program this time.**  Just think about how you
 would do it.
 
-Stormy weather
+Rainy weather
 ---------------
 
 It was a beautifully sunny day. Reeborg was playing outside with his
@@ -139,12 +135,12 @@ and stopped in front of the door, unsure of how to proceed.
     Using the ``build_wall()`` instruction, help Reeborg close the windows
     of his house. When Reeborg finishes his task, he will stand in the
     doorway, watching the rain fall, waiting for it to stop before he can go
-    back and play outside. The world is **Storm 1**.
+    back and play outside. The world is **Rain 1**.
 
 Reeborg's friend's turn.
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Erdna, Reeborg's friend, lives in a bigger house as shown on **Storm 2**.
+Erdna, Reeborg's friend, lives in a bigger house as shown on **Rain 2**.
 Erdna was playing outside with Reeborg when it started raining. Help
 Erdna close the windows in her house.
 
@@ -154,20 +150,20 @@ both Reeborg and Erdna ... however, it will be a bit tricky.
 After the storm
 ~~~~~~~~~~~~~~~
 
-The wind blew really hard last night. There is litter everywhere outside
+The wind blew really hard last night. There are fallen leaves everywhere outside
 Reeborg's house. His parents asked him to go and clean up the path
-leading to the curb, **Storm 3**, as well as the driveway: **Storm 4**.
+leading to the curb, **Storm 1**, as well as the driveway: **Storm 2**.
 
-Reeborg should collect all the litter, and put it in the garbage can,
+Reeborg should collect all the leaves, and put them in the compost bin,
 and close the lid, using ``build_wall()``.
 
 More yard work!
 ~~~~~~~~~~~~~~~
 
 Reeborg's parents are so proud of his work, that they ask him to pick up
-all the garbage that got blown away in their backyard during the
-windstorm, as illustrated on **Storm 5**. Have Reeborg pick up all the
-garbage and put it in the garbage can.
+all the leaves that got blown away in their backyard during the
+windstorm, as illustrated on **Storm 3**. Have Reeborg pick up all the
+leaves and put it in the compost bin.
 
 Later, you will learn to write a single program that can help Reeborg do
 the cleanup for all three locations.
@@ -180,6 +176,5 @@ tedious as you have to write every single instruction that Reeborg must
 follow. However, they are good exercises to make you think like a robot.
 As you learn more about programming using Python, you will find ways
 to write much shorter programs to solve these challenges.
-
 
 .. |hurdles| image:: ../../src/images/hurdles.png
