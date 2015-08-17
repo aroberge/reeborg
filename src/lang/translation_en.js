@@ -171,7 +171,6 @@ RUR.translation["Reeborg <b>can</b> detect this and will know that it allows saf
 
 
 //===
-RUR.translation["Useful bridge here!"] = "Useful bridge here!";
 RUR.translation["Something is blocking the way!"] = "Something is blocking the way!";
 RUR.translation["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this using at_goal().";
 RUR.translation["green home tile:"] = "green home tile:";

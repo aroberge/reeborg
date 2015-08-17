@@ -164,7 +164,6 @@ RUR.translation["Reeborg <b>can</b> detect this and will know that it allows saf
 
 
 // =========
-RUR.translation["Useful bridge here!"] = "Un pont très utile ici!";
 RUR.translation_to_english["pont"] = "bridge";
 RUR.translation["Something is blocking the way!"] = "Quelque chose bloque le chemin!";
 RUR.translation["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>peut</b> détecter ceci avec au_but().";
