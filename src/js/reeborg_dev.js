@@ -1379,9 +1379,6 @@ $(document).ready(function() {
             } else {
                 element.dialog("close");
             }
-            if (special_fn !== undefined){
-                special_fn();
-            }
         });
     }
 
