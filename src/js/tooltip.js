@@ -56,7 +56,7 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
     RUR.tooltip.canvas = document.getElementById("tooltip");
     RUR.tooltip.canvas.height = size;
     if (objects_carried !== undefined) {
-        RUR.tooltip.canvas.width = size*objects_carried.length;
+        RUR.tooltip.canvas.width = size*Math.max(objects_carried.length, 1);
     } else {
         RUR.tooltip.canvas.width = size;
         objects_carried = [];

@@ -3135,7 +3135,7 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
     RUR.tooltip.canvas = document.getElementById("tooltip");
     RUR.tooltip.canvas.height = size;
     if (objects_carried !== undefined) {
-        RUR.tooltip.canvas.width = size*objects_carried.length;
+        RUR.tooltip.canvas.width = size*Math.max(objects_carried.length, 1);
     } else {
         RUR.tooltip.canvas.width = size;
         objects_carried = [];
@@ -4957,10 +4957,14 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
     if (nb === "inf"){
         robot.objects[obj] = "infinite";
     } else if (RUR.filterInt(nb) >= 0) {
-        if (nb === 0 && robot.objects[obj] !== undefined) {
-            delete robot.objects[obj];
-        } else {
+        nb = RUR.filterInt(nb)
+        if (nb != 0) {
             robot.objects[obj] = nb;
+        } else if (robot.objects[obj] !== undefined) {
+            delete robot.objects[obj];
+            if (Object.keys(robot.objects).length == 0) {
+                delete robot.objects;
+            }
         }
     } else {
         $("#Reeborg-shouts").html(nb + RUR.translate(" is not a valid value!")).dialog("open");
