@@ -42,6 +42,9 @@ $(document).ready(function() {
             } else {
                 element.dialog("close");
             }
+            if (special_fn !== undefined && element.dialog("isOpen")){
+                special_fn();
+            }
         });
     }
 
