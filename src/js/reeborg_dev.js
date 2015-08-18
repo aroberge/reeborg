@@ -1308,6 +1308,7 @@ RUR.make_default_menu_en = function () {
                            'Gravel path (solution)'],
         [worlds + 'rain1.json', 'Rain 1'],
         [worlds + 'rain2.json', 'Rain 2'],
+        [worlds + 'slalom.json', 'Slalom'],
         [worlds + 'menus/documentation_en', 'Documentation menu'],
         [worlds + 'menus/tutorial_en', 'Tutorial menu'],
         [worlds + 'blank.json', 'Blank canvas'],
@@ -1329,6 +1330,7 @@ RUR.make_default_menu_fr = function () {
                            'Sentier de gravier (solution)'],
         [worlds + 'rain1.json', 'Pluie 1'],
         [worlds + 'rain2.json', 'Pluie 2'],
+        [worlds + 'slalom.json', 'Slalom'],
         [worlds + 'menus/documentation_en', 'Documentation (menu anglais)'],
         [worlds + 'menus/tutorial_en', 'Tutoriel: menu'],
         [worlds + 'blank.json', 'Canevas graphique'],
@@ -1346,7 +1348,6 @@ RUR.make_default_menu_fr = function () {
 $(document).ready(function() {
     "use strict";
 
-    RUR.ui.load_user_worlds();
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) { }

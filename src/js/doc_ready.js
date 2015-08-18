@@ -9,7 +9,6 @@
 $(document).ready(function() {
     "use strict";
 
-    RUR.ui.load_user_worlds();
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) { }
