@@ -137,12 +137,15 @@ RUR.translation["A wall must be built west of this location."] = "A wall must be
 RUR.translation["A wall must be built south of this location."] = "A wall must be built south of this location.";
 RUR.translation["The final required position of the robot will be chosen at random."] = "The final required position of the robot will be chosen at random.";
 RUR.translation["The final position of the robot must be (x, y) = "] = "The final position of the robot must be (x, y) = ";
+RUR.translation["Click on world to fill with given tile."] = "Click on world to fill with given tile.";
+RUR.translation["Click on desired top tile below."] = "Click on desired top tile below.";
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
 RUR.translation["No such world!"] = "No such world!";
 RUR.translation["Enter world name to save"] = "Enter world name to save; names in use: ";
 RUR.translation["Enter world name to delete"] = "Enter world name to delete; existing worlds: ";
+RUR.translation["Delete "] = "Delete ";
 
 
 // in runner.js

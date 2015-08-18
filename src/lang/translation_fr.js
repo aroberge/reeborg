@@ -129,6 +129,8 @@ RUR.translation["A wall must be built west of this location."] = "Un mur doit ê
 RUR.translation["A wall must be built south of this location."] = "Un mur doit être construit au sud de cet endroit.";
 RUR.translation["The final required position of the robot will be chosen at random."] = "La position finale requise pour Reeborg sera choisie au hasard.";
 RUR.translation["The final position of the robot must be (x, y) = "] = "La position finale de Reeborg doit être (x, y) = ";
+RUR.translation["Click on world to fill with given tile."] = "Cliquez sur le monde pour remplir avec cet objet.";
+RUR.translation["Click on desired top tile below."] = "Cliquez sur l'image de fond désirée.";
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
@@ -136,7 +138,7 @@ RUR.translation["No such world!"] = "Ce monde n'existe pas !";
 RUR.translation["Enter world name to save"] = "Quel nom doit-on utiliser pour ce monde? Noms utilisés:";
 RUR.translation["Enter world name to delete"] = "Écrivez le nom du monde à supprimer; mondes existant:";
 RUR.translation["Goal to achieve:"] = "Résultat désiré :";
-
+RUR.translation["Delete "] = "Effacer ";
 
 // in runner.js
 RUR.translation["Error found at or near line {number}."] = "Erreur trouvée à la ligne {number} ou tout près.";
