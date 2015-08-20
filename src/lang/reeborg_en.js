@@ -18,7 +18,7 @@ var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_c
 
 var move, turn_left, inspect, front_is_clear, right_is_clear,
     is_facing_north, done, put, take, object_here, World, Permalink,
-    carries_object, write, _write, at_goal, at_goal_orientation, build_wall, think,
+    carries_object, write, _write, at_goal, build_wall, think,
     pause, repeat, view_source, sound, UsedRobot,
     set_max_steps, say, verify, ReeborgError, narration;
 
@@ -57,7 +57,6 @@ RUR.verify = function(test) {
 RUR.reset_definitions = function () {
     // RUR._x_ defined in commands.js
     at_goal = RUR._at_goal_;
-    at_goal_orientation = RUR._at_goal_orientation_;
     build_wall = RUR._build_wall_;
     front_is_clear = RUR._front_is_clear_;
     carries_object = RUR._carries_object_;
@@ -94,10 +93,6 @@ RUR.reset_definitions = function () {
 
     UsedRobot.prototype.at_goal = function () {
         RUR.control.at_goal(this.body);
-    };
-
-    UsedRobot.prototype.at_goal_orientation = function () {
-        RUR.control.at_goal_orientation(this.body);
     };
 
     UsedRobot.prototype.build_wall = function () {
