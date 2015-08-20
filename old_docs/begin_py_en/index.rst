@@ -9,7 +9,7 @@ Learn Python with Reeborg!
 ==========================
 
 Learning Python is easy with Reeborg.  All you have to do is read the tutorial
-and try all the examples in `Reeborg's world <../../world.html>`_.
+and try all the examples in `Reeborg's world <http://reeborg.ca/world.html>`_.
 I suggest that you keep the tutorial and Reeborg's World both open but
 in separate windows or tabs.
 
@@ -22,7 +22,7 @@ not sure how to proceed.
 
 .. hint::
 
-    Go to `Reeborg's world <../../world.html>`_, click on the "run" button
+    Go to `Reeborg's world <http://reeborg.ca/world.html>`_, click on the "run" button
     (small white triangle on blue background)
     and watch Reeborg takes its first step.
     You can also `view this short video <http://youtu.be/yTdw97KNgGM>`_
@@ -75,4 +75,13 @@ Contents:
    for
    harvest3
    better_repeat
+   oop
+   turn_right
+   turn_right2
+   javascript
+   modulo
+   facing_south
+   left_is_clear
+   leak
+   testing
    conclusion

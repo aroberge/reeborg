@@ -107,7 +107,7 @@
 
 <html>
   <head>
-    <meta charset="{{ encoding }}"> 
+    <meta charset="{{ encoding }}">
     {{ metatags }}
     {%- block htmltitle %}
     <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
@@ -149,7 +149,7 @@
     {%- endif %}
 {%- endblock %}
 {%- block extrahead %} {% endblock %}
-  
+
   <script>
     // intelligent scrolling of the sidebar content
     // copied from the sphinx website
@@ -179,10 +179,10 @@
         }
     });
     </script>
-  
+
   </head>
   <body>
-  
+
 {%- block header %}{% endblock %}
 
 {%- block relbar1 %}{{ relbar() }}{% endblock %}
@@ -220,7 +220,7 @@
       {%- if hasdoc('copyright') %}
         {% trans path=pathto('copyright'), copyright=copyright|e %}&copy; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}
       {%- else %}
-        {% trans copyright=copyright|e %}&copy; Copyright 
+        {% trans copyright=copyright|e %}&copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         {% endtrans %}
       {%- endif %}
@@ -233,11 +233,12 @@
     {%- endif %}
     </div>
 {%- endblock %}
-  <script> 
+  <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

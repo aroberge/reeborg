@@ -238,6 +238,7 @@
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>
