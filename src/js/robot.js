@@ -13,7 +13,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot.x = x || 1;
     robot.y = y || 1;
     robot.objects = {};
-    if (tokens !== undefined){
+    if (tokens !== undefined && tokens > 0){
         robot.objects.token = tokens;
     }
 

@@ -23,8 +23,8 @@ RUR.file_io.load_world_file = function (url, existing) {
                 // Correct world already selected: we're good to go.
                 return;
             } else {
-                url = elt.options[i].value;
                 change_selected_value = url;
+                url = elt.options[i].value;
                 break;
             }
         }
@@ -58,5 +58,8 @@ RUR.file_io.load_world_file = function (url, existing) {
                 }
             }
         });
+    }
+    if (change_selected_value) {
+        throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: change_selected_value}));
     }
 };

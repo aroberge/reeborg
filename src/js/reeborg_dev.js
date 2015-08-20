@@ -1636,8 +1636,8 @@ RUR.file_io.load_world_file = function (url, existing) {
                 // Correct world already selected: we're good to go.
                 return;
             } else {
-                url = elt.options[i].value;
                 change_selected_value = url;
+                url = elt.options[i].value;
                 break;
             }
         }
@@ -1671,6 +1671,9 @@ RUR.file_io.load_world_file = function (url, existing) {
                 }
             }
         });
+    }
+    if (change_selected_value) {
+        throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: change_selected_value}));
     }
 };/* Author: André Roberge
    License: MIT
@@ -2543,7 +2546,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot.x = x || 1;
     robot.y = y || 1;
     robot.objects = {};
-    if (tokens !== undefined){
+    if (tokens !== undefined && tokens > 0){
         robot.objects.token = tokens;
     }
 
@@ -4975,11 +4978,6 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
 };
 
 RUR.we.turn_robot = function (orientation) {
-    if (RUR.we.edit_world_flag === "goal-robot") {
-        RUR.we.set_goal_orientation(orientation);
-        RUR.we.refresh_world_edited();
-        return;
-    }
 
     RUR.current_world.robots[0].orientation = orientation;
     RUR.current_world.robots[0]._prev_orientation = orientation;
