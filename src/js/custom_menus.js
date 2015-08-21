@@ -11,6 +11,7 @@ RUR.custom_menu.new_menu_added = false;
 RUR.custom_menu.make = function (contents) {
     "use strict";
     var i;
+
     $("#select_world").html('');
 
     for(i=0; i<contents.length; i++){
@@ -21,13 +22,20 @@ RUR.custom_menu.make = function (contents) {
         }
     }
 
-    $("#select_world").change();
-
     RUR.custom_menu.new_menu_added = true;  // will modify program execution
+    RUR.ui.load_user_worlds("initial");
 
-    editor.setValue(RUR.translate("move") + "()");
+    if (RUR.settings.initial_world) {  // loaded the very first time
+        try {
+            RUR.ui.select_world(RUR.settings.initial_world, true);
+            RUR.settings.initial_world = null;
+        } catch (e) {}
+    } else {
+        editor.setValue(RUR.translate("move") + "()");
+        $("#select_world").selectedIndex = 0;
+        $("#select_world").change();
+    }
 
-    RUR.ui.load_user_worlds();
 };
 
 MakeCustomMenu = RUR.custom_menu.make;
@@ -45,19 +53,22 @@ RUR.make_default_menu = function(language) {
 
 RUR.make_default_menu_en = function () {
     "use strict";
-    var contents, worlds = 'src/worlds/';
+    var contents, worlds = 'src/worlds/', docs = 'src/worlds/documentation/';
 
     contents = [
         [worlds + 'alone.json', 'Alone'],
         [worlds + 'empty.json', 'Empty'],
+        [docs + 'simple_demo1', 'Demo 1 (solution)'],
+        [docs + 'simple_demo2', 'Demo 2 (solution)'],
+        [docs + 'simple_demo3', 'Demo 3 (solution)'],
         [worlds + 'simple_path.json', 'Simple path'],
         [worlds + 'gravel_path.json', 'Gravel path'],
         [worlds + 'gravel_path',
                            'Gravel path (solution)'],
+        [docs + 'big_maze.json', 'Big maze'],
         [worlds + 'rain1.json', 'Rain 1'],
         [worlds + 'rain2.json', 'Rain 2'],
         [worlds + 'slalom.json', 'Slalom'],
-        [worlds + 'menus/documentation_en', 'Documentation menu'],
         [worlds + 'menus/tutorial_en', 'Tutorial menu'],
         [worlds + 'blank.json', 'Blank canvas'],
         ];

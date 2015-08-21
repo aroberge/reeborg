@@ -101,7 +101,6 @@ RUR.ui.reload = function() {
 
 RUR.ui.select_world = function (s, silent) {
     var elt = document.getElementById("select_world");
-
     for (var i=0; i < elt.options.length; i++){
         if (elt.options[i].text === s) {
             if (elt.options[i].selected) {
@@ -149,13 +148,13 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
     }, "text");
 };
 
-RUR.ui.load_user_worlds = function () {
+RUR.ui.load_user_worlds = function (initial) {
     var key, name, i;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
             name = key.slice(11);
-            RUR.storage.append_world_name(name);
+            RUR.storage.append_world_name(name, initial);
             $('#delete-world').show();
         }
     }

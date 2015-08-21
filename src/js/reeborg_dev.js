@@ -1263,6 +1263,7 @@ RUR.custom_menu.new_menu_added = false;
 RUR.custom_menu.make = function (contents) {
     "use strict";
     var i;
+
     $("#select_world").html('');
 
     for(i=0; i<contents.length; i++){
@@ -1273,13 +1274,20 @@ RUR.custom_menu.make = function (contents) {
         }
     }
 
-    $("#select_world").change();
-
     RUR.custom_menu.new_menu_added = true;  // will modify program execution
+    RUR.ui.load_user_worlds("initial");
 
-    editor.setValue(RUR.translate("move") + "()");
+    if (RUR.settings.initial_world) {  // loaded the very first time
+        try {
+            RUR.ui.select_world(RUR.settings.initial_world, true);
+            RUR.settings.initial_world = null;
+        } catch (e) {}
+    } else {
+        editor.setValue(RUR.translate("move") + "()");
+        $("#select_world").selectedIndex = 0;
+        $("#select_world").change();
+    }
 
-    RUR.ui.load_user_worlds();
 };
 
 MakeCustomMenu = RUR.custom_menu.make;
@@ -1297,19 +1305,22 @@ RUR.make_default_menu = function(language) {
 
 RUR.make_default_menu_en = function () {
     "use strict";
-    var contents, worlds = 'src/worlds/';
+    var contents, worlds = 'src/worlds/', docs = 'src/worlds/documentation/';
 
     contents = [
         [worlds + 'alone.json', 'Alone'],
         [worlds + 'empty.json', 'Empty'],
+        [docs + 'simple_demo1', 'Demo 1 (solution)'],
+        [docs + 'simple_demo2', 'Demo 2 (solution)'],
+        [docs + 'simple_demo3', 'Demo 3 (solution)'],
         [worlds + 'simple_path.json', 'Simple path'],
         [worlds + 'gravel_path.json', 'Gravel path'],
         [worlds + 'gravel_path',
                            'Gravel path (solution)'],
+        [docs + 'big_maze.json', 'Big maze'],
         [worlds + 'rain1.json', 'Rain 1'],
         [worlds + 'rain2.json', 'Rain 2'],
         [worlds + 'slalom.json', 'Slalom'],
-        [worlds + 'menus/documentation_en', 'Documentation menu'],
         [worlds + 'menus/tutorial_en', 'Tutorial menu'],
         [worlds + 'blank.json', 'Blank canvas'],
         ];
@@ -1351,6 +1362,7 @@ $(document).ready(function() {
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) { }
+    RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
     function create_and_activate_dialog(button, element, add_options, special_fn) {
         var options = {
@@ -2978,10 +2990,15 @@ RUR.storage.save_world = function (name){
 };
 
 
-RUR.storage.append_world_name = function (name){
+RUR.storage.append_world_name = function (name, initial){
     /* appends name to world selector and to list of possible worlds to delete */
-    $('#select_world').append( $('<option class="select-local-storage" selected="true"></option>'
+    if (initial === undefined) { // new worlds are automatically selected
+        $('#select_world').append( $('<option class="select-local-storage" selected="true"></option>'
+                                  ).val("user_world:" + name).html(name));
+    } else {  // those are initially retrieve when loading the site
+        $('#select_world').append( $('<option class="select-local-storage"></option>'
                               ).val("user_world:" + name).html(name));
+    }
     $('#delete-world h3').append('<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world('
             + "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
 }
@@ -3264,7 +3281,6 @@ RUR.ui.reload = function() {
 
 RUR.ui.select_world = function (s, silent) {
     var elt = document.getElementById("select_world");
-
     for (var i=0; i < elt.options.length; i++){
         if (elt.options[i].text === s) {
             if (elt.options[i].selected) {
@@ -3312,13 +3328,13 @@ RUR.ui.load_file = function (filename, replace, elt, i) {
     }, "text");
 };
 
-RUR.ui.load_user_worlds = function () {
+RUR.ui.load_user_worlds = function (initial) {
     var key, name, i;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
             name = key.slice(11);
-            RUR.storage.append_world_name(name);
+            RUR.storage.append_world_name(name, initial);
             $('#delete-world').show();
         }
     }

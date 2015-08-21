@@ -12,6 +12,7 @@ $(document).ready(function() {
     try {
         RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) { }
+    RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
     function create_and_activate_dialog(button, element, add_options, special_fn) {
         var options = {
