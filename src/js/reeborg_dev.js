@@ -1274,7 +1274,6 @@ RUR.custom_menu.make = function (contents) {
         }
     }
 
-    RUR.custom_menu.new_menu_added = true;  // will modify program execution
     RUR.ui.load_user_worlds("initial");
 
     if (RUR.settings.initial_world) {  // loaded the very first time
@@ -1283,6 +1282,7 @@ RUR.custom_menu.make = function (contents) {
             RUR.settings.initial_world = null;
         } catch (e) {}
     } else {
+        RUR.custom_menu.new_menu_added = true;  // will modify program execution
         editor.setValue(RUR.translate("move") + "()");
         $("#select_world").selectedIndex = 0;
         $("#select_world").change();
