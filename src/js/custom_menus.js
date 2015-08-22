@@ -65,10 +65,12 @@ RUR.make_default_menu_en = function () {
         [worlds + 'gravel_path.json', 'Gravel path'],
         [worlds + 'gravel_path',
                            'Gravel path (solution)'],
-        [docs + 'big_maze.json', 'Big maze'],
         [worlds + 'rain1.json', 'Rain 1'],
         [worlds + 'rain2.json', 'Rain 2'],
         [worlds + 'slalom.json', 'Slalom'],
+        [docs + 'big_maze.json', 'Big maze'],
+        [worlds + 'maze_gen_py', 'Maze generation (Python)'],
+        [worlds + 'maze_gen_js', 'Maze generation (Javascript)'],
         [worlds + 'menus/tutorial_en', 'Tutorial menu'],
         [worlds + 'blank.json', 'Blank canvas'],
         ];
