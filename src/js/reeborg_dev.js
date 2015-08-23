@@ -1306,6 +1306,7 @@ RUR.make_default_menu = function(language) {
 RUR.make_default_menu_en = function () {
     "use strict";
     var contents, worlds = 'src/worlds/', docs = 'src/worlds/documentation/';
+    var permalinks = 'src/worlds/permalinks/';
 
     contents = [
         [worlds + 'alone.json', 'Alone'],
@@ -1320,6 +1321,9 @@ RUR.make_default_menu_en = function () {
         [worlds + 'rain1.json', 'Rain 1'],
         [worlds + 'rain2.json', 'Rain 2'],
         [worlds + 'slalom.json', 'Slalom'],
+        [permalinks + 'pre_post_demo', 'Pre & Post code demo'],
+        [permalinks + 'story', 'Story'],
+        [permalinks + 'test_remove', 'Robot replacement'],
         [docs + 'big_maze.json', 'Big maze'],
         [worlds + 'maze_gen_py', 'Maze generation (Python)'],
         [worlds + 'maze_gen_js', 'Maze generation (Javascript)'],
