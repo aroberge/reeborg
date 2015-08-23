@@ -12,12 +12,15 @@ Welcome to Reeborg's World's documentation!
    *Photo courtesy of A. Judkis.*
 
 
-Reeborg's World is an adaptation of Richard Pattis's *Karel the robot*.
+Reeborg's World is strongly inspired by Richard Pattis's
+`Karel the robot`_.
 It supports three programming languages (Python, Javascript and CoffeeScript).
 However, the focus of this documentation is on Python which is my
 favourite programming language and, I believe,
 the ideal one to use for teaching programming concepts.
 
+
+.. _Karel the robot: http://www.amazon.ca/Karel-Robot-Gentle-Introduction-Programming/dp/0471089281/ref=sr_1_6?s=books&ie=UTF8&qid=1440177128&sr=1-6
 
 Reeborg's World is **free**: *free* to use, *free* to copy (and put on a school's
 website), and does not require any registration or login.

@@ -34,11 +34,11 @@ html ``select`` element at the top.
 Different traces: style
 ------------------------
 
-By default, Reeborg leaves a trace slightly "off-center", thus showing clearly a difference between a left turn and a right turn
-(done by doing 3 left turns).  Perhaps you want to show the path taken by Reeborg, without giving any hint about
-using 3 left turns to turn right, like this:
-
-This can be done using the following code::
+By default, Reeborg leaves a trace slightly "off-center",
+thus showing clearly a difference between a left turn and a right turn
+(done by doing 3 left turns).
+Perhaps you want to show the path taken by Reeborg, without giving any hint about
+using 3 left turns to turn right;  this can be done using the following code::
 
     set_trace_style("thick")
 
@@ -157,17 +157,12 @@ either before the user's program is run, or after it is run, or both.
 
 .. |pre_post_code| image:: ../images/pre_post_code.png
 
-You can see a very simple example of this by selecting::
-
-    Permalink("pre_post_demo")
-
+You can see a very simple example of this by selecting the world
+**Pre & Post code demo**
 and then run the resulting program, which simply
 insert a print statement before and another one after the
 program in the editor.  A **much** longer example,
-illustrating the usage of ``narration()`` is::
-
-    Permalink("story")
-
+illustrating the usage of ``narration()`` is the world **Story**.
 This program adds a "twist" to the story, simply
 included for effect: make sure to let the program
 run to the end.
@@ -213,15 +208,9 @@ basic instruction like ``move()` or ``turn_left()``
 will work on your robot as-is: by design,
 they work with the first robot created without requiring the instance name.
 
-Have a look at::
-
-    Permalink("test_remove")
-
+Have a look at the world **Robot replacement**
 to see an example where a new robot, capable of turning right directly,
 is defined in the library and replaces the default robot.
-Something like this can be used to demonstrate the path taken by a robot
-without giving
-
 
 
 Enhanced goals

@@ -80,3 +80,5 @@ The English version is world.html and the French version is monde.html
 5. Translate the current
 documentation.
 
+6. Create a new default world menu and possibly translate/adapt
+the existing worlds.

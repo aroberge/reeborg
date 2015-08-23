@@ -24,11 +24,9 @@ If you don't, all is not lost.
 
 The current documentation contains all the basic information ... but
 is not written in an easy way to help beginners learn.
-You can try to follow some old tutorials I wrote,
-[http://reeborg.ca/docs/begin_py_en/, http://reeborg.ca/docs/oop_py_en/,
-http://reeborg.ca/docs/begin_py_fr/], the first two written in English and the
-third written in French.  However, many of the worlds described do not
-exist anymore - so you might have to create your own.  Feel free
+You can try to follow an old tutorial I wrote,
+[http://reeborg.ca/docs/begin_py_en/]; a French version which needs updating
+can be found at http://reeborg.ca/docs/begin_py_fr/.  Feel free
 to contact me, either by email, or by asking questions on a subreddit
 I created a while ago (http://www.reddit.com/r/reeborg) and which has
 been kept mostly hidden.

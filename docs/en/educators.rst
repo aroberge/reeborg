@@ -64,18 +64,18 @@ many Python modules found in Python's standard library.
 Advanced tasks
 ---------------
 
-If you have not done so, select "Documentation menu": this will
-bring up a program whose purpose is to change the default menu
-and bring up world choices used in this documentation.
-
-After having done so, select "Demo 1"; this will load up a world
+While Reeborg's World has been conceived as a tool for
+complete beginners, it can be used to good effect with very
+advanced students as well.  As an example, select the
+world "**Demo 1 (solution)**"; this will load up a world
 with a simple task to perform:
 
 |simple_demo1|
 
 .. |simple_demo1| image:: ../images/simple_demo1.png
 
-Note that a solution is already included in the editor.
+Note that a solution, which uses simple programming concepts,
+is already included in the editor.
 You may want to run it to see it in action.
 
 Once you are ready, replace the program in the editor

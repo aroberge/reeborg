@@ -328,9 +328,9 @@ Remember when you ran this code?
 
 We are going to do the equivalent with Javascript.
 
-At the very top of the Reeborg's World window, click to select
-Javascript instead of Python; it does not matter if you choose the
-strict version or the regular one.  Then run the following code:
+At the very top of the Reeborg's World window, click on
+**Additional options** and select
+Javascript instead of Python.  Then run the following code:
 
 .. code-block:: javascript
 

@@ -53,11 +53,14 @@ column or above the upper row.
 
 .. important::
 
-   The examples given here should be run in the "new" version:
-   http://reeborg.ca/world_dev.html
+   Maze generation examples, in Python and Javascript, are available
+   from the world menu.  Usually, the conversion by Brython of
+   Python code to Javascript code results in code that runs with
+   comparable speed to pure Javascript code.  However, for the
+   maze generation case, the Javascript code runs **much** faster.
 
-   You can load a complete example by running ``Permalink("maze_gen")``.
-
+   One can use the Javascript code to generate mazes (worlds i.e.
+   json files) that can be used later with either programming language.
 
 
 Once we have a grid filled with walls, we transform it into a maze as follows:
@@ -218,8 +221,9 @@ Note that we've also included various calls to ``pause()``, useful
 for having a closer look at various stages.
 
 **Note: while the frames are being recorded, the display
-is effectively frozen.** For example, it took 40 seconds before the following
-started to display:
+is effectively frozen.** [As mentioned above, the pure Javascript code
+is **much** faster and do not cause such long delays.]
+For example, it took 40 seconds before the following started to display:
 
 |maze_gen3|
 

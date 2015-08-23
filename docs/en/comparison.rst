@@ -41,7 +41,7 @@ the following program will be valid:
 
 .. code-block:: python
 
-    from my_lib import turn_right
+    from library import turn_right
     turn_right()
 
 So, the idea is to have the student deal with as few concepts as possible

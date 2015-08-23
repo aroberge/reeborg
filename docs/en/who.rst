@@ -13,7 +13,7 @@ Who is Reeborg?
 
 Reeborg is a programmable robot; not a modern high quality robot, but a rather
 old one, put together rather quickly. **You** are going to be a good
-programmer, unlike the maker of Reeborg, who wrote created a faulty robot.
+programmer, unlike the maker of Reeborg, who created a faulty robot.
 
 
 #. Reeborg has an oil leak. Oil leaks are damaging for the environment
@@ -24,19 +24,19 @@ programmer, unlike the maker of Reeborg, who wrote created a faulty robot.
    to fix Reeborg's leak ... hopefully you will learn how to do so.
 #. Reeborg's steering mechanism is not handled properly by Reeborg's
    program: it can only turn left. The maker of Reeborg, once again,
-   claims that this is a feature as it present you with an opportunity
-   to learn about functions. Reeborg disagrees. Indeed, by defining a simple
-   Python fuction, it is possible
+   claims that this is a feature as it presents you with an opportunity
+   to learn about functions. Reeborg disagrees...
+   Nonetheless, it is true that, by defining a simple Python fuction, it is possible
    to program a *workaround solution*, enabling Reeborg to turn right,
    although in a wasteful fashion.  Using more advanced Object-Oriented
    techniques, it is possible to fix this flaw properly, once and for all.
-#. Reeborg has a compass, enabling him to determine which direction he
+#. Reeborg has a compass, enabling it to determine which direction he
    is facing. Unfortunately, yet again, the program that enables Reeborg
-   to get the information from the compass has a bug: it only tells
-   Reeborg if he is facing North ... or not. Once again, you can
+   to get the information from the compass has a bug: the compass only tells
+   Reeborg if it is facing North ... or not. Once again, you can
    learn how to implement a workaround solution and later how to fix
    permanently Reeborg and get rid of what its maker calls a "feature".
-#. Reeborg can see if a wall is in front of him, and can also turn its
+#. Reeborg can see if a wall is in front of itself, and can also turn its
    head to the right to see if there is a wall there. However, a
    software "glitch" (which is another weasel term that software
    manufacturers use to avoid having to say that their product has a

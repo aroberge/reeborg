@@ -7,6 +7,7 @@
     complete programs to do something useful.
 
     The following is definitely not teaching you how to write useful programs.
+    However, it should help you learn a bit about Python.
 
 
 A quick Python introduction: part 1
