@@ -92,11 +92,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="summary1.html"
                         title="Chapitre suivant">7. Résumé</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/rule2.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rule2.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -148,8 +150,8 @@ d&#8217;autres humains.</p>
 deux façons:</p>
 <ul class="simple">
 <li>En imbriquant un texte arbitraire entre deux triplets d&#8217;apostrophes
-ou de guillemets, c&#8217;est-à-dire <tt class="docutils literal"><span class="pre">&quot;&quot;&quot;</span> <span class="pre">...</span> <span class="pre">&quot;&quot;&quot;</span></tt> ou <tt class="docutils literal"><span class="pre">'''</span> <span class="pre">...</span> <span class="pre">'''</span></tt>.</li>
-<li>En précédent une partie d&#8217;une ligne de texte par <tt class="docutils literal"><span class="pre">#</span></tt>.</li>
+ou de guillemets, c&#8217;est-à-dire <code class="docutils literal"><span class="pre">&quot;&quot;&quot;</span> <span class="pre">...</span> <span class="pre">&quot;&quot;&quot;</span></code> ou <code class="docutils literal"><span class="pre">'''</span> <span class="pre">...</span> <span class="pre">'''</span></code>.</li>
+<li>En précédent une partie d&#8217;une ligne de texte par <code class="docutils literal"><span class="pre">#</span></code>.</li>
 </ul>
 <p>Pour illustrer l&#8217;utilisation de commentaire, je vais tout d&#8217;abord écrire
 un programme sans utiliser de commentaires, puis le modifier pour
@@ -215,7 +217,7 @@ ainsi très utile pour détecter des erreurs.</p>
 sans code pour séparer les &#8220;blocs logiques&#8221; et mieux voir le patron
 suivi. Ceci permet également d&#8217;identifier l&#8217;erreur plus facilement.</p>
 <p>Également, et bien que ceci ne crée aucune différence pour Reeborg, j&#8217;ai
-spécifié <tt class="docutils literal"><span class="pre">&quot;jeton&quot;</span></tt> lorsque je voulais que Reeborg en <tt class="docutils literal"><span class="pre">depose</span></tt> un;
+spécifié <code class="docutils literal"><span class="pre">&quot;jeton&quot;</span></code> lorsque je voulais que Reeborg en <code class="docutils literal"><span class="pre">depose</span></code> un;
 ceci est plus clair pour un lecteur.</p>
 <p>Alors, quelle version est la plus facile à lire et à comprendre?...</p>
 </div>
@@ -246,13 +248,14 @@ ceci est plus clair pour un lecteur.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

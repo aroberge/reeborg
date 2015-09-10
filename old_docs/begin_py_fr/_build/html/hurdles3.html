@@ -81,7 +81,7 @@
               <h3>Table des Matières</h3>
               <ul>
 <li><a class="reference internal" href="#">18. Toujours les haies!</a><ul>
-<li><a class="reference internal" href="#comme-penser-aux-enonces-if-else-if-else">18.1. Comme penser aux énoncés <tt class="docutils literal"><span class="pre">if</span> <span class="pre">/</span> <span class="pre">else</span> <span class="pre">if</span> <span class="pre">/</span> <span class="pre">...</span> <span class="pre">/</span> <span class="pre">else</span></tt></a></li>
+<li><a class="reference internal" href="#comme-penser-aux-enonces-if-else-if-else">18.1. Comme penser aux énoncés <code class="docutils literal"><span class="pre">if</span> <span class="pre">/</span> <span class="pre">else</span> <span class="pre">if</span> <span class="pre">/</span> <span class="pre">...</span> <span class="pre">/</span> <span class="pre">else</span></code></a></li>
 <li><a class="reference internal" href="#de-retour-aux-haies">18.2. De retour aux haies</a></li>
 </ul>
 </li>
@@ -93,11 +93,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="not.html"
                         title="Chapitre suivant">19. Pas vrai!</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/hurdles3.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/hurdles3.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -132,24 +134,24 @@ Dans ce cas, Reeborg pourrait se retrouver dans la situation suivante:</p>
     <span class="n">va_nager</span><span class="p">()</span> <span class="c"># en supposant qu&#39;il fait chaud!</span>
 </pre></div>
 </div>
-<p>Notez l&#8217;utilisation de <tt class="docutils literal"><span class="pre">else</span></tt> pour les choix 2 et 3, et le <tt class="docutils literal"><span class="pre">if</span></tt>
+<p>Notez l&#8217;utilisation de <code class="docutils literal"><span class="pre">else</span></code> pour les choix 2 et 3, et le <code class="docutils literal"><span class="pre">if</span></code>
 additionnel pour le deuxième cas. Si on devait considérer d&#8217;autres types
 d&#8217;intempéries, comme la grêle, les orages, le brouillard, le crachin,
 etc., on pourrait ajouter d&#8217;autres choix en utilisant les blocs de code
-<tt class="docutils literal"><span class="pre">else</span> <span class="pre">if</span> <span class="pre">{...}</span></tt>.</p>
-<p>Remarquez l&#8217;utilisation de  <tt class="docutils literal"><span class="pre">elif</span></tt> (qui se veut une abréviation de &#8220;else if&#8221;
+<code class="docutils literal"><span class="pre">else</span> <span class="pre">if</span> <span class="pre">{...}</span></code>.</p>
+<p>Remarquez l&#8217;utilisation de  <code class="docutils literal"><span class="pre">elif</span></code> (qui se veut une abréviation de &#8220;else if&#8221;
 signifiant &#8220;sinon, si ...&#8221;) pour le deuxième choix.  Si on tenait compte
 de toutes les conditions météos possibles (brouillard, crachin, etc.), on pourrait
-ajouter d&#8217;autre blocs de code <tt class="docutils literal"><span class="pre">elif:</span> <span class="pre">...</span></tt>..</p>
+ajouter d&#8217;autre blocs de code <code class="docutils literal"><span class="pre">elif:</span> <span class="pre">...</span></code>..</p>
 <p>Voici une représentation graphique des choix auxquels Reeborg fait face:</p>
 <div class="figure align-center">
 <img alt="_images/elif2.jpg" src="_images/elif2.jpg" />
 </div>
 <div class="section" id="comme-penser-aux-enonces-if-else-if-else">
-<h2>18.1. Comme penser aux énoncés <tt class="docutils literal"><span class="pre">if</span> <span class="pre">/</span> <span class="pre">else</span> <span class="pre">if</span> <span class="pre">/</span> <span class="pre">...</span> <span class="pre">/</span> <span class="pre">else</span></tt><a class="headerlink" href="#comme-penser-aux-enonces-if-else-if-else" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Une série d&#8217;énoncés <tt class="docutils literal"><span class="pre">if</span> <span class="pre">/</span> <span class="pre">else</span> <span class="pre">if</span> <span class="pre">/</span> <span class="pre">...</span> <span class="pre">/</span> <span class="pre">else</span></tt> est équivalente à
+<h2>18.1. Comme penser aux énoncés <code class="docutils literal"><span class="pre">if</span> <span class="pre">/</span> <span class="pre">else</span> <span class="pre">if</span> <span class="pre">/</span> <span class="pre">...</span> <span class="pre">/</span> <span class="pre">else</span></code><a class="headerlink" href="#comme-penser-aux-enonces-if-else-if-else" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Une série d&#8217;énoncés <code class="docutils literal"><span class="pre">if</span> <span class="pre">/</span> <span class="pre">else</span> <span class="pre">if</span> <span class="pre">/</span> <span class="pre">...</span> <span class="pre">/</span> <span class="pre">else</span></code> est équivalente à
 insérer le <strong>premier</strong> bloc de code dont la condition est équivalente à
-<tt class="docutils literal"><span class="pre">True</span></tt>. Donc</p>
+<code class="docutils literal"><span class="pre">True</span></code>. Donc</p>
 <div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="k">False</span><span class="p">:</span>
     <span class="n">fonction_1</span><span class="p">()</span>
 <span class="k">elif</span> <span class="k">True</span><span class="p">:</span>
@@ -200,7 +202,7 @@ Votre programme ressemblait probablement à ce qui suit:</p>
 </div>
 <p>Ce programme ne fonctionnait pas avec <strong>Haies&nbsp;3</strong> parce qu&#8217;il suppose que
 les haies sont espacées régulièrement, ce qui n&#8217;est pas le cas pour
-<strong>Haies&nbsp;3</strong>. Utilisons la condition <tt class="docutils literal"><span class="pre">rien_devant()</span></tt> et le mot-clé <tt class="docutils literal"><span class="pre">else</span></tt>
+<strong>Haies&nbsp;3</strong>. Utilisons la condition <code class="docutils literal"><span class="pre">rien_devant()</span></code> et le mot-clé <code class="docutils literal"><span class="pre">else</span></code>
 pour résoudre ce problème.</p>
 <p>Le programme suivant devrait faire l&#8217;affaire en autant que vous ajoutiez
 les instructions qui manquent.</p>
@@ -216,7 +218,7 @@ les instructions qui manquent.</p>
         <span class="c"># instruction ...</span>
 </pre></div>
 </div>
-<p>Souvenez-vous que la série d&#8217;énoncés <tt class="docutils literal"><span class="pre">if/else</span></tt> résulte en un seul bloc
+<p>Souvenez-vous que la série d&#8217;énoncés <code class="docutils literal"><span class="pre">if/else</span></code> résulte en un seul bloc
 de code qui sera exécuté.</p>
 <div class="topic">
 <p class="topic-title first">Faites-le!</p>
@@ -255,13 +257,14 @@ hypothèse.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

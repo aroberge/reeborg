@@ -93,11 +93,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="france.html"
                         title="Chapitre suivant">4. Reeborg va en Espagne</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/bugs.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/bugs.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -212,7 +214,7 @@ cliquant sur le bouton <strong>pause</strong>. Ceci est semblable
 à ce qu&#8217;on appelle un <em>point d&#8217;arrêt</em> (&#8220;breakpoint&#8221;) dans un
 programme.</li>
 <li>Plutôt que de cliquer sur le bouton de pause, vous pouvez insérer
-l&#8217;instruction <tt class="docutils literal"><span class="pre">pause()</span></tt> à n&#8217;importe quel point du programme, ce
+l&#8217;instruction <code class="docutils literal"><span class="pre">pause()</span></code> à n&#8217;importe quel point du programme, ce
 qui aura exactement le même effet.</li>
 <li>Vous pouvez exécuter un programme <em>une instruction à la fois</em> en
 cliquant sur le bouton <em>une commande</em>.
@@ -262,13 +264,14 @@ redémarrer à zéro.</li>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

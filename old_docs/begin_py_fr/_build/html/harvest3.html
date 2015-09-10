@@ -84,11 +84,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="diary.html"
                         title="Chapitre suivant">36. Le journal de Reeborg</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/harvest3.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/harvest3.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -117,10 +119,10 @@ récolté. Jetez un coup d&#8217;oeil sur les mondes <strong>Récolte&nbsp;5a</s
 le type de fruit qui doit être récolté car sa tante en a déposé un à
 l&#8217;entrée. Il ramasse ce fruit et récolte tous les fruits semblables dans
 les champs..</p>
-<p>Reeborg utilise la fonction <tt class="docutils literal"><span class="pre">objet_ici()</span></tt> qui retourne l&#8217;une des
-valeurs <tt class="docutils literal"><span class="pre">&quot;étoile&quot;,</span> <span class="pre">&quot;triangle&quot;,</span> <span class="pre">&quot;carré&quot;</span></tt> s&#8217;il s&#8217;agit d&#8217;un de ces
-&#8220;fruits&#8221;, ou retourne <tt class="docutils literal"><span class="pre">0</span></tt> s&#8217;il s&#8217;agit d&#8217;un fruit indiqué par un jeton.
-À noter qu&#8217;il existe également une fonction, <tt class="docutils literal"><span class="pre">jeton_ici()</span></tt>, qui
+<p>Reeborg utilise la fonction <code class="docutils literal"><span class="pre">objet_ici()</span></code> qui retourne l&#8217;une des
+valeurs <code class="docutils literal"><span class="pre">&quot;étoile&quot;,</span> <span class="pre">&quot;triangle&quot;,</span> <span class="pre">&quot;carré&quot;</span></code> s&#8217;il s&#8217;agit d&#8217;un de ces
+&#8220;fruits&#8221;, ou retourne <code class="docutils literal"><span class="pre">0</span></code> s&#8217;il s&#8217;agit d&#8217;un fruit indiqué par un jeton.
+À noter qu&#8217;il existe également une fonction, <code class="docutils literal"><span class="pre">jeton_ici()</span></code>, qui
 retourne le nombre de jetons qui se trouvent à un endroit donné. En
 utilisant ces deux fonctions, et les autres instructions que vous
 connaissez, complétez le programme suivant pour qu&#8217;il puisse permettre à
@@ -130,8 +132,8 @@ Reeborg de récolter les bons fruits dans les 4 mondes mentionnés.</p>
 <p class="last">Il y a deux nouvelles choses dans le code ci-dessous qui peuvent le
 rendre un peu plus difficile à comprendre.
 En premier, nous définissons une fonction qui requiert un
-<strong>argument</strong>, qui est <tt class="docutils literal"><span class="pre">fruit</span></tt>.  En second, nous vérifions que
-deux quantités sont égales avec le double symbole d&#8217;égalité: <tt class="docutils literal"><span class="pre">==</span></tt>.</p>
+<strong>argument</strong>, qui est <code class="docutils literal"><span class="pre">fruit</span></code>.  En second, nous vérifions que
+deux quantités sont égales avec le double symbole d&#8217;égalité: <code class="docutils literal"><span class="pre">==</span></code>.</p>
 </div>
 <div class="code py3 highlight-py3"><div class="highlight"><pre><span class="n">pense</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c"># optionnel; pour faire le travail plus vite</span>
 
@@ -198,13 +200,14 @@ les mondes <strong>Récolte&nbsp;5a</strong>, <strong>Récolte&nbsp;5b</strong>,
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

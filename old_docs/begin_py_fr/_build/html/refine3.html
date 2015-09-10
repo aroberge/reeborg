@@ -84,11 +84,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="refine4.html"
                         title="Chapitre suivant">25. Améliorations: partie 4</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/refine3.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/refine3.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -113,7 +115,7 @@
 <p>Comme vous l&#8217;avez sans doute observé, le programme précédent ne
 fonctionne pas correctement: Reeborg se retrouve dans une boucle infinie
 lorsqu&#8217;il n&#8217;y a pas de mur près de lui. Pour résoudre le problème, il
-faut que Reeborg <tt class="docutils literal"><span class="pre">avance()</span></tt> aussitôt après avoir fait un virage à
+faut que Reeborg <code class="docutils literal"><span class="pre">avance()</span></code> aussitôt après avoir fait un virage à
 droite:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
 <span class="n">avance</span><span class="p">()</span>
@@ -162,13 +164,14 @@ sorte que votre programme fonctionne pour les trois mondes.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

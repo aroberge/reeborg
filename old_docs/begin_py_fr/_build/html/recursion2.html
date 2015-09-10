@@ -92,11 +92,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="recursion3.html"
                         title="Chapitre suivant">32. Encore de la récursivité</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/recursion2.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/recursion2.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -142,15 +144,15 @@ l&#8217;invocation:</p>
 </pre></div>
 </div>
 <p>Supposons que la première fois qu&#8217;on exécute ces instructions,
-<tt class="docutils literal"><span class="pre">au_but()</span></tt> soit faux (<tt class="docutils literal"><span class="pre">False</span></tt>) et donc <tt class="docutils literal"><span class="pre">not</span> <span class="pre">au_but()</span></tt> soit vrai
-(<tt class="docutils literal"><span class="pre">True</span></tt>) ... comme c&#8217;est le cas pour le monde <strong>But&nbsp;1</strong>. Dans ce cas,
-l&#8217;invocation <tt class="docutils literal"><span class="pre">va_au_but()</span></tt> est exécutée une deuxième fois et le code
+<code class="docutils literal"><span class="pre">au_but()</span></code> soit faux (<code class="docutils literal"><span class="pre">False</span></code>) et donc <code class="docutils literal"><span class="pre">not</span> <span class="pre">au_but()</span></code> soit vrai
+(<code class="docutils literal"><span class="pre">True</span></code>) ... comme c&#8217;est le cas pour le monde <strong>But&nbsp;1</strong>. Dans ce cas,
+l&#8217;invocation <code class="docutils literal"><span class="pre">va_au_but()</span></code> est exécutée une deuxième fois et le code
 ci-dessus est donc équivalent à:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
 <span class="n">va_au_but</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>On peut à nouveau remplacer l&#8217;invocation <tt class="docutils literal"><span class="pre">va_au_but()</span></tt> par sa
+<p>On peut à nouveau remplacer l&#8217;invocation <code class="docutils literal"><span class="pre">va_au_but()</span></code> par sa
 définition:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
@@ -162,8 +164,8 @@ définition:</p>
 remplacements de la fonction par sa définition <strong>si la condition restait
 toujours la même</strong>.</p>
 <p>Heureusement, ce n&#8217;est pas le cas pour le monde <strong>But&nbsp;1</strong>. Dans ce cas,
-après la deuxième invocation d&#8217;<tt class="docutils literal"><span class="pre">avance()</span></tt>, nous sommes <tt class="docutils literal"><span class="pre">au_but()</span></tt> et
-<tt class="docutils literal"><span class="pre">va_au_but()</span></tt> n&#8217;est pas invoqué une troisième fois. Le résultat est
+après la deuxième invocation d&#8217;<code class="docutils literal"><span class="pre">avance()</span></code>, nous sommes <code class="docutils literal"><span class="pre">au_but()</span></code> et
+<code class="docutils literal"><span class="pre">va_au_but()</span></code> n&#8217;est pas invoqué une troisième fois. Le résultat est
 donc équivalent à:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
@@ -217,13 +219,14 @@ Une explication vous sera fournie à la prochaine leçon.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

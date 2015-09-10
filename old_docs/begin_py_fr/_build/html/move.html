@@ -96,11 +96,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="home.html"
                         title="Chapitre suivant">2. Apprentissage guidé par des tâches</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/move.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/move.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -127,18 +129,18 @@ pas.  Dans l&#8217;onglet &#8220;code python&#8221; se trouve une seule instruct
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">avance()</span></tt> est un exemple d&#8217;une <strong>fonction</strong>.
-Une fonction a un nom; dans ce cas-ci, c&#8217;est <tt class="docutils literal"><span class="pre">avance</span></tt>.
+<p><code class="docutils literal"><span class="pre">avance()</span></code> est un exemple d&#8217;une <strong>fonction</strong>.
+Une fonction a un nom; dans ce cas-ci, c&#8217;est <code class="docutils literal"><span class="pre">avance</span></code>.
 Pour être valide, les noms doivent débuter soit par une lettre ou par le
 caractère de soulignement &#8220;_&#8221;,
 et peuvent contenir des lettres, des chiffres ou le caractère
 de soulignement.
-Le nom de le fonction peut être suivi par des parenthèses <tt class="docutils literal"><span class="pre">()</span></tt>.
+Le nom de le fonction peut être suivi par des parenthèses <code class="docutils literal"><span class="pre">()</span></code>.
 Ceci instruit Reeborg (Python) que la fonction doit être <em>exécutée</em>.
 La fonction doit être sur sa propre ligne (nous verrons des exceptions à ceci plus tard).</p>
 <p>Occasionnellement, nous ferons des <strong>organigrammes</strong> qui sont une représentation graphique
 d&#8217;un programme.  Dans un organigramme, une simple instruction comme
-<tt class="docutils literal"><span class="pre">avance()</span></tt> pourrait être représentée de la façon suivante:</p>
+<code class="docutils literal"><span class="pre">avance()</span></code> pourrait être représentée de la façon suivante:</p>
 <div class="figure align-center">
 <img alt="_images/avance1.png" src="_images/avance1.png" />
 </div>
@@ -150,7 +152,7 @@ comme suit:</p>
 <p>Dans un organigramme, la séquence des instructions suit les flèches.</p>
 <div class="topic">
 <p class="topic-title first">Essayez ceci!</p>
-<p>Ajouter une seconde instruction <tt class="docutils literal"><span class="pre">avance()</span></tt> faisant en sorte que Reeborg fasse deux pas plutôt qu&#8217;un seul.</p>
+<p>Ajouter une seconde instruction <code class="docutils literal"><span class="pre">avance()</span></code> faisant en sorte que Reeborg fasse deux pas plutôt qu&#8217;un seul.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
@@ -164,7 +166,7 @@ Pour voir comment Reeborg réagit lorsqu&#8217;il rencontre des erreurs, je vous
 d&#8217;en faire une de façon intentionnelle.</p>
 <div class="topic">
 <p class="topic-title first">Essayez ceci!</p>
-<p>Changez <tt class="docutils literal"><span class="pre">avance()</span></tt> à <tt class="docutils literal"><span class="pre">Avance()</span></tt> (avec un A majuscule) et exécutez le programme.</p>
+<p>Changez <code class="docutils literal"><span class="pre">avance()</span></code> à <code class="docutils literal"><span class="pre">Avance()</span></code> (avec un A majuscule) et exécutez le programme.</p>
 </div>
 <div class="section" id="qu-est-il-arrive">
 <h3>1.1.1. Qu&#8217;est-il arrivé?<a class="headerlink" href="#qu-est-il-arrive" title="Lien permanent vers ce titre">¶</a></h3>
@@ -229,13 +231,14 @@ votre compréhension.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

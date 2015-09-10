@@ -81,7 +81,7 @@
               <h3>Table des Matières</h3>
               <ul>
 <li><a class="reference internal" href="#">38. Reeborg compte</a><ul>
-<li><a class="reference internal" href="#definition-de-repete">38.1. Définition de <tt class="docutils literal"><span class="pre">repete()</span></tt>?</a></li>
+<li><a class="reference internal" href="#definition-de-repete">38.1. Définition de <code class="docutils literal"><span class="pre">repete()</span></code>?</a></li>
 <li><a class="reference internal" href="#portee-des-variables">38.2. Portée des variables</a></li>
 </ul>
 </li>
@@ -92,12 +92,14 @@
                         title="Chapitre précédent">37. Incrément</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="for.html"
-                        title="Chapitre suivant">39. Boucles <tt class="docutils literal"><span class="pre">for</span></tt></a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/while_num.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+                        title="Chapitre suivant">39. Boucles <code class="docutils literal"><span class="pre">for</span></code></a></p>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/while_num.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -132,19 +134,19 @@ pas pour éviter de frapper le mur.</p>
 <div class="topic">
 <p class="topic-title first">À votre tour!</p>
 <p><strong>Essayez!</strong> Puis, modifiez le programme pour écrire la valeur de la
-variable <tt class="docutils literal"><span class="pre">nombre_de_pas</span></tt> dans le journal de Reeborg à chaque fois que
+variable <code class="docutils literal"><span class="pre">nombre_de_pas</span></code> dans le journal de Reeborg à chaque fois que
 sa valeur change.</p>
 </div>
 <div class="section" id="definition-de-repete">
-<h2>38.1. Définition de <tt class="docutils literal"><span class="pre">repete()</span></tt>?<a class="headerlink" href="#definition-de-repete" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>38.1. Définition de <code class="docutils literal"><span class="pre">repete()</span></code>?<a class="headerlink" href="#definition-de-repete" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Dans le programme ci-dessus, Reeborg comptait le nombre de pas et en
 faisait un nombre total prédéterminé à l&#8217;avance. Nous avons vu comment
 faire la même chose précédemment utilisant une seule instruction:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">repete</span><span class="p">(</span><span class="n">avance</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Définissons une fonction que nous allons appeler <tt class="docutils literal"><span class="pre">mon_répète</span></tt> et qui
-<em>cachera</em> le code apparaissant dans la boucle <tt class="docutils literal"><span class="pre">while</span></tt> ci-dessus:</p>
+<p>Définissons une fonction que nous allons appeler <code class="docutils literal"><span class="pre">mon_répète</span></code> et qui
+<em>cachera</em> le code apparaissant dans la boucle <code class="docutils literal"><span class="pre">while</span></code> ci-dessus:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">mon_répète</span><span class="p">():</span>
     <span class="n">nombre_de_pas</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">nombre_de_pas</span> <span class="o">&lt;</span> <span class="mi">9</span><span class="p">:</span>
@@ -154,10 +156,10 @@ faire la même chose précédemment utilisant une seule instruction:</p>
 <span class="n">mon_répète</span><span class="p">()</span>   <span class="c"># on l&#39;utilise!</span>
 </pre></div>
 </div>
-<p>Cette fonction n&#8217;est pas très utile comparativement à <tt class="docutils literal"><span class="pre">repete()</span></tt>
+<p>Cette fonction n&#8217;est pas très utile comparativement à <code class="docutils literal"><span class="pre">repete()</span></code>
 puisque le nombre de pas à prendre ainsi que l&#8217;instruction à répéter
-(<tt class="docutils literal"><span class="pre">avance</span></tt>) doivent être codées spécifiquement. On peut faire mieux en
-<em>passant</em> des <strong>arguments</strong> à la fonction <tt class="docutils literal"><span class="pre">mon_répète</span></tt> comme ce qui
+(<code class="docutils literal"><span class="pre">avance</span></code>) doivent être codées spécifiquement. On peut faire mieux en
+<em>passant</em> des <strong>arguments</strong> à la fonction <code class="docutils literal"><span class="pre">mon_répète</span></code> comme ce qui
 suit:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">mon_répète</span><span class="p">(</span><span class="n">fonction_quelconque</span><span class="p">,</span> <span class="n">valeur_maximale</span><span class="p">):</span>
     <span class="n">nombre_de_pas</span> <span class="o">=</span> <span class="mi">0</span>
@@ -186,7 +188,7 @@ suit:</p>
 </pre></div>
 </div>
 <p>avec la définition précédente.  La définition précédente utilisait une
-version <strong>locale</strong> de la variable <tt class="docutils literal"><span class="pre">nombre_de_pas</span></tt>: sa valeur n&#8217;était pas
+version <strong>locale</strong> de la variable <code class="docutils literal"><span class="pre">nombre_de_pas</span></code>: sa valeur n&#8217;était pas
 connue à l&#8217;extérieur de la fonction.  La nouvelle version utilise
 une valeur globale, connue partout.</p>
 <p>On utilise le terme de <em>portée</em> d&#8217;une
@@ -226,13 +228,14 @@ le programme, ce qui peut mener à des bogues difficiles à retracer.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

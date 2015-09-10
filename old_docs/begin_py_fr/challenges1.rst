@@ -36,10 +36,10 @@ l'information indiquant pour quelle monde ce programme représente une
 solution. Une façon de le faire est d'ajouter un commentaire - ce que
 vous savez comment faire si vous avez lu les leçons précédentes. Une
 autre façon, peut-être plus utile, est d'avoir comme toute première
-instruction ``selectionne_monde("nom du monde ici");``. Par exemple, une
+instruction ``Monde("nom du monde ici");``. Par exemple, une
 solution au monde **But 1** aurait comme première instruction::
 
-    selectionne_monde("But 1")
+    Monde("But 1")
     avance()
     avance()
 

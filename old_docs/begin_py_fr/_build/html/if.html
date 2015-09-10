@@ -81,9 +81,9 @@
               <h3>Table des Matières</h3>
               <ul>
 <li><a class="reference internal" href="#">15. Si seulement ...</a><ul>
-<li><a class="reference internal" href="#le-mot-cle-if">15.1. Le mot-clé <tt class="docutils literal"><span class="pre">if</span></tt></a></li>
-<li><a class="reference internal" href="#enonce-if">15.2. Énoncé <tt class="docutils literal"><span class="pre">if</span></tt></a></li>
-<li><a class="reference internal" href="#comment-interpreter-les-enonces-if">15.3. Comment interpréter les énoncés <tt class="docutils literal"><span class="pre">if</span></tt></a></li>
+<li><a class="reference internal" href="#le-mot-cle-if">15.1. Le mot-clé <code class="docutils literal"><span class="pre">if</span></code></a></li>
+<li><a class="reference internal" href="#enonce-if">15.2. Énoncé <code class="docutils literal"><span class="pre">if</span></code></a></li>
+<li><a class="reference internal" href="#comment-interpreter-les-enonces-if">15.3. Comment interpréter les énoncés <code class="docutils literal"><span class="pre">if</span></code></a></li>
 <li><a class="reference internal" href="#plus-utile-que-vous-ne-le-pensez">15.4. PLus utile que vous ne le pensez...</a></li>
 </ul>
 </li>
@@ -95,11 +95,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="at_goal.html"
                         title="Chapitre suivant">16. Droit au but</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/if.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/if.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -125,7 +127,7 @@
 des programmes serait tellement plus simple ... <strong>OUPS&nbsp;!</strong> J&#8217;ai oublié
 de vous le mentionner: Reeborg <strong>peut</strong> prendre ses propres décisions!</p>
 <div class="section" id="le-mot-cle-if">
-<h2>15.1. Le mot-clé <tt class="docutils literal"><span class="pre">if</span></tt><a class="headerlink" href="#le-mot-cle-if" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>15.1. Le mot-clé <code class="docutils literal"><span class="pre">if</span></code><a class="headerlink" href="#le-mot-cle-if" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="topic">
 <p class="topic-title first">Do it!</p>
 <p>Sélectionnez le monde <strong>Seul</strong> et faites-en sorte que Reeborg exécute le
@@ -138,13 +140,13 @@ programme suivant</p>
 </pre></div>
 </div>
 </div>
-<p><tt class="docutils literal"><span class="pre">True</span></tt> (vrai) et <tt class="docutils literal"><span class="pre">False</span></tt> (faux) sont deux mots-clés Python.  Vous voudrez peut-être
+<p><code class="docutils literal"><span class="pre">True</span></code> (vrai) et <code class="docutils literal"><span class="pre">False</span></code> (faux) sont deux mots-clés Python.  Vous voudrez peut-être
 les interchanger juste pour voir.  Le mot anglais <strong>if</strong> est l&#8217;équivalent de la conjonction <strong>si</strong>
 en français.</p>
 </div>
 <div class="section" id="enonce-if">
-<h2>15.2. Énoncé <tt class="docutils literal"><span class="pre">if</span></tt><a class="headerlink" href="#enonce-if" title="Lien permanent vers ce titre">¶</a></h2>
-<p>L&#8217;<em>énoncé</em> <tt class="docutils literal"><span class="pre">if</span></tt> suit un patron semblable à celui de <tt class="docutils literal"><span class="pre">def</span></tt>:</p>
+<h2>15.2. Énoncé <code class="docutils literal"><span class="pre">if</span></code><a class="headerlink" href="#enonce-if" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L&#8217;<em>énoncé</em> <code class="docutils literal"><span class="pre">if</span></code> suit un patron semblable à celui de <code class="docutils literal"><span class="pre">def</span></code>:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">un_nom</span><span class="p">():</span>
     <span class="c"># bloc de code</span>
 
@@ -154,7 +156,7 @@ en français.</p>
 </div>
 </div>
 <div class="section" id="comment-interpreter-les-enonces-if">
-<h2>15.3. Comment interpréter les énoncés <tt class="docutils literal"><span class="pre">if</span></tt><a class="headerlink" href="#comment-interpreter-les-enonces-if" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>15.3. Comment interpréter les énoncés <code class="docutils literal"><span class="pre">if</span></code><a class="headerlink" href="#comment-interpreter-les-enonces-if" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Lorsque nous avons présenté les fonctions, nous avons expliqué comment
 on pouvait interpréter l&#8217;<strong>invocation</strong> d&#8217;une fonction comme étant
 équivalente à insérer le bloc de code du corps de la fonction à
@@ -174,7 +176,7 @@ l&#8217;endroit de l&#8217;invocation. Ainsi:</p>
 <span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Les énoncés <tt class="docutils literal"><span class="pre">if</span></tt> peuvent être interprétés de façon similaire, sauf que
+<p>Les énoncés <code class="docutils literal"><span class="pre">if</span></code> peuvent être interprétés de façon similaire, sauf que
 nous avons une <em>insertion</em> ou une <em>élimination</em> <strong>conditionnelle</strong> du
 bloc de code. Ainsi:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
@@ -206,7 +208,7 @@ bloc de code. Ainsi:</p>
 </div>
 <p>Il est important de noter que cette insertion ou élimination d&#8217;un bloc
 de code n&#8217;est pas quelque chose de permanent: si, pour quelque raison,
-l&#8217;exécution du programme faisait en sorte que l&#8217;énoncé <tt class="docutils literal"><span class="pre">if</span></tt> était
+l&#8217;exécution du programme faisait en sorte que l&#8217;énoncé <code class="docutils literal"><span class="pre">if</span></code> était
 répété à nouveau, la condition serait réévaluée à chaque fois, ce qui
 pourrait mener à des résultats différents d&#8217;une évaluation à l&#8217;autre.</p>
 <p>On peut représenter ceci par un organigramme:</p>
@@ -216,10 +218,10 @@ pourrait mener à des résultats différents d&#8217;une évaluation à l&#8217;
 </div>
 <div class="section" id="plus-utile-que-vous-ne-le-pensez">
 <h2>15.4. PLus utile que vous ne le pensez...<a class="headerlink" href="#plus-utile-que-vous-ne-le-pensez" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Avoir à spécifier <tt class="docutils literal"><span class="pre">true</span></tt> ou <tt class="docutils literal"><span class="pre">false</span></tt> dans un programme n&#8217;aide pas
+<p>Avoir à spécifier <code class="docutils literal"><span class="pre">true</span></code> ou <code class="docutils literal"><span class="pre">false</span></code> dans un programme n&#8217;aide pas
 Reeborg à décider de lui-même. Cependant, il existe des fonctions que
 Reeborg reconnaît comme lui indiquant des décisions à prendre. Une de
-ces fonctions est <tt class="docutils literal"><span class="pre">jeton_ici()</span></tt> qui indique à Reeborg si un ou
+ces fonctions est <code class="docutils literal"><span class="pre">jeton_ici()</span></code> qui indique à Reeborg si un ou
 plusieurs jetons se trouvent aux coordonnées où Reeborg est situé. Par
 exemple, si on demandait à Reeborg de collectionner des jetons, une
 partie du code pourrait être:</p>
@@ -235,10 +237,10 @@ qu&#8217;il a à faire lorsqu&#8217;il trouve un jeton est:</p>
 <li>avancer d&#8217;une case</li>
 <li>déposer ce jeton</li>
 <li>avancer d&#8217;une autre case</li>
-<li>et il a <tt class="docutils literal"><span class="pre">termine()</span></tt></li>
+<li>et il a <code class="docutils literal"><span class="pre">termine()</span></code></li>
 </ol>
 <p>où j&#8217;ai introduit une nouvelle instruction que Reeborg comprend:
-<tt class="docutils literal"><span class="pre">termine()</span></tt>. En fait, vous pouvez penser à cette instruction comme
+<code class="docutils literal"><span class="pre">termine()</span></code>. En fait, vous pouvez penser à cette instruction comme
 quelque chose que Reeborg dit lui-même lorsqu&#8217;il déclare avoir terminé
 une tâche.</p>
 <p>Écrivons donc le une esquisse d&#8217;un programme unique qui pourrait
@@ -297,13 +299,14 @@ dans les mondes <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

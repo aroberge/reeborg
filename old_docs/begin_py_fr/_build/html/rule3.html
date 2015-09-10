@@ -83,7 +83,7 @@
 <li><a class="reference internal" href="#">10. Règle numéro 3</a><ul>
 <li><a class="reference internal" href="#etre-gauche-trois-fois-peut-nous-rendre-a-droit">10.1. Être gauche trois fois peut nous rendre (a)droit</a></li>
 <li><a class="reference internal" href="#definir-des-fonctions">10.2. Définir des fonctions</a></li>
-<li><a class="reference internal" href="#comment-penser-a-def">10.3. Comment penser à <tt class="docutils literal"><span class="pre">def</span></tt></a></li>
+<li><a class="reference internal" href="#comment-penser-a-def">10.3. Comment penser à <code class="docutils literal"><span class="pre">def</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -94,11 +94,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="turn_around.html"
                         title="Chapitre suivant">11. Demi-tour!</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/rule3.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rule3.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -138,15 +140,15 @@ pas!</a></dd>
 que lorsqu&#8217;on demande à Reeborg de tourner trois fois vers la gauche
 ceci revient à la même chose que si on lui demandait de tourner une
 seule fois à droite. Mais c&#8217;est fastidieux d&#8217;écrire trois fois
-<tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt> alors qu&#8217;un simple <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt>
+<code class="docutils literal"><span class="pre">tourne_a_gauche()</span></code> alors qu&#8217;un simple <code class="docutils literal"><span class="pre">tourne_a_droite()</span></code>
 suffirait si Reeborg n&#8217;était pas défectueux. C&#8217;est le temps de remédier
 à ceci.</p>
 </div>
 <div class="section" id="definir-des-fonctions">
 <h2>10.2. Définir des fonctions<a class="headerlink" href="#definir-des-fonctions" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Ce que nous avons appelé <em>instructions</em> jusqu&#8217;ici étaient en fait des
-<strong>fonctions</strong> python. Donc <tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt> est une fonction,
-tout comme <tt class="docutils literal"><span class="pre">avance()</span></tt>.
+<strong>fonctions</strong> python. Donc <code class="docutils literal"><span class="pre">tourne_a_gauche()</span></code> est une fonction,
+tout comme <code class="docutils literal"><span class="pre">avance()</span></code>.
 Pour définir des fonctions en Python, on procède de la façon
 suivante:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">nom_bien_choisi</span><span class="p">():</span>
@@ -154,14 +156,14 @@ suivante:</p>
     <span class="c"># indentées au même niveau</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">def</span></tt> est notre premier <strong>mot-clé</strong> Python; les mot-clés sont
+<p><code class="docutils literal"><span class="pre">def</span></code> est notre premier <strong>mot-clé</strong> Python; les mot-clés sont
 des noms réservés dans un langage de programmation et qui possède un
-sens bien particulier à ce langage. Notez que le mot-clé <tt class="docutils literal"><span class="pre">function</span></tt> a
+sens bien particulier à ce langage. Notez que le mot-clé <code class="docutils literal"><span class="pre">function</span></code> a
 une couleur différente du reste du texte dans la définition de la
-fonction <tt class="docutils literal"><span class="pre">nom_bien_choisi</span></tt> ci-dessus; tous les mot-clés Python
+fonction <code class="docutils literal"><span class="pre">nom_bien_choisi</span></code> ci-dessus; tous les mot-clés Python
 seront de la même couleur lorsqu&#8217;ils apparaissent dans un programme
 informatique, ou une partie de programme informatique sur ce site. Notez
-également les deux points <tt class="docutils literal"><span class="pre">:</span></tt> qui précèdent ce qu&#8217;on appelle un <em>bloc
+également les deux points <code class="docutils literal"><span class="pre">:</span></code> qui précèdent ce qu&#8217;on appelle un <em>bloc
 de code</em> et constitue le <em>corps</em> de la fonction. Lorsqu&#8217;on programme
 en Python, on doit <em>indenter</em> de tels blocs de code ce qui, pour les humains,
 les rend plus facile à identifier.</p>
@@ -172,19 +174,19 @@ les rend plus facile à identifier.</p>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>C&#8217;est tout! Plus besoin d&#8217;écrire <tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt> trois fois de
+<p>C&#8217;est tout! Plus besoin d&#8217;écrire <code class="docutils literal"><span class="pre">tourne_a_gauche()</span></code> trois fois de
 suite à chaque fois que vous voulez que Reeborg tourne à droite!</p>
 <div class="topic">
 <p class="topic-title first">À votre tour!</p>
-<p>Définissez-vous même la fonction <tt class="docutils literal"><span class="pre">tourne_a_droite</span></tt> dans un
+<p>Définissez-vous même la fonction <code class="docutils literal"><span class="pre">tourne_a_droite</span></code> dans un
 programme et utilisez-la. Si vous êtes à cours d&#8217;inspiration quant au
 programme à écrire pour la tester, faites-en sorte que Reeborg suive un
-parcours en forme de carré, en alternant <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> et
-<tt class="docutils literal"><span class="pre">avance()</span></tt> à quatre reprises.</p>
+parcours en forme de carré, en alternant <code class="docutils literal"><span class="pre">tourne_a_droite()</span></code> et
+<code class="docutils literal"><span class="pre">avance()</span></code> à quatre reprises.</p>
 </div>
 </div>
 <div class="section" id="comment-penser-a-def">
-<h2>10.3. Comment penser à <tt class="docutils literal"><span class="pre">def</span></tt><a class="headerlink" href="#comment-penser-a-def" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>10.3. Comment penser à <code class="docutils literal"><span class="pre">def</span></code><a class="headerlink" href="#comment-penser-a-def" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Veuillez noter que ceci ne tient pas compte de la &#8220;portée&#8221; des variables qui
@@ -220,17 +222,17 @@ d&#8217;autres constructions de Python comportant des blocs de code.</p>
  <span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>En d&#8217;autres mots, <tt class="docutils literal"><span class="pre">def</span></tt> définit un nom que l&#8217;on peut utiliser
+<p>En d&#8217;autres mots, <code class="docutils literal"><span class="pre">def</span></code> définit un nom que l&#8217;on peut utiliser
 comme synonyme pour représenter un bloc de code; à chaque fois que l&#8217;on
 voit le synonyme être <em>invoqué</em> [c&#8217;est-à-dire que le nom apparaît suivi
-de parenthèses <tt class="docutils literal"><span class="pre">()</span></tt>], on peut penser à ceci comme étant équivalent à
+de parenthèses <code class="docutils literal"><span class="pre">()</span></code>], on peut penser à ceci comme étant équivalent à
 insérer à la place du synonyme le bloc de code constituant le corps de
 la fonction tel quel à cet endroit.</p>
 <div class="topic">
 <p class="topic-title first">À votre tour!</p>
 <p>Pouvez-vous simplifier votre programme de livraison de journaux et utiliser
-la fonction <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> qui est plus facile à lire et à comprendre que
-trois instructions <tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt> de suite?
+la fonction <code class="docutils literal"><span class="pre">tourne_a_droite()</span></code> qui est plus facile à lire et à comprendre que
+trois instructions <code class="docutils literal"><span class="pre">tourne_a_gauche()</span></code> de suite?
 Lorsque vous aurez fait ceci, essayer de trouver d&#8217;autres façons de simplifier
 votre programme en définissant d&#8217;autres fonctions.</p>
 </div>
@@ -262,13 +264,14 @@ votre programme en définissant d&#8217;autres fonctions.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

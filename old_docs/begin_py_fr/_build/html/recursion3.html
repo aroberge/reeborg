@@ -92,11 +92,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="recursion4.html"
                         title="Chapitre suivant">33. Compter sur la récursivité</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/recursion3.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/recursion3.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -143,14 +145,14 @@ toujours, nous commençons avec la première invocation:</p>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Après l&#8217;instruction <tt class="docutils literal"><span class="pre">avance()</span></tt>, Reeborg n&#8217;a pas atteint son but et le
-bloc <tt class="docutils literal"><span class="pre">if</span></tt> est exécuté:</p>
+<p>Après l&#8217;instruction <code class="docutils literal"><span class="pre">avance()</span></code>, Reeborg n&#8217;a pas atteint son but et le
+bloc <code class="docutils literal"><span class="pre">if</span></code> est exécuté:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
 <span class="n">va_au_but</span><span class="p">()</span>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Une fois de plus, on remplace <tt class="docutils literal"><span class="pre">va_au_but()</span></tt> par sa définition:</p>
+<p>Une fois de plus, on remplace <code class="docutils literal"><span class="pre">va_au_but()</span></code> par sa définition:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
@@ -160,8 +162,8 @@ bloc <tt class="docutils literal"><span class="pre">if</span></tt> est exécuté
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Après la deuxième invocation de l&#8217;instruction <tt class="docutils literal"><span class="pre">avance()</span></tt>, Reeborg a
-atteint son but et le bloc <tt class="docutils literal"><span class="pre">if</span></tt> n&#8217;est <strong>pas</strong> exécuté:</p>
+<p>Après la deuxième invocation de l&#8217;instruction <code class="docutils literal"><span class="pre">avance()</span></code>, Reeborg a
+atteint son but et le bloc <code class="docutils literal"><span class="pre">if</span></code> n&#8217;est <strong>pas</strong> exécuté:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -170,7 +172,7 @@ atteint son but et le bloc <tt class="docutils literal"><span class="pre">if</sp
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><tt class="docutils literal"><span class="pre">va_au_but</span></tt> est invoqué deux fois ... et Reeborg tourne deux fois à gauche.
+<p class="last"><code class="docutils literal"><span class="pre">va_au_but</span></code> est invoqué deux fois ... et Reeborg tourne deux fois à gauche.
 Peut-être que Reeborg peut utiliser cette tactique pour compter ... rappelez-vous de ceci!</p>
 </div>
 <p>Donc, après avoir atteint son but, Reeborg tourne deux fois à gauche
@@ -229,13 +231,14 @@ déjà à son but avant le début de l&#8217;exécution du programme?</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

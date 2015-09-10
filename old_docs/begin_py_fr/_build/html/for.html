@@ -80,8 +80,8 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">39. Boucles <tt class="docutils literal"><span class="pre">for</span></tt></a><ul>
-<li><a class="reference internal" href="#le-repete-de-reeborg">39.1. Le <tt class="docutils literal"><span class="pre">repete()</span></tt> de Reeborg</a></li>
+<li><a class="reference internal" href="#">39. Boucles <code class="docutils literal"><span class="pre">for</span></code></a><ul>
+<li><a class="reference internal" href="#le-repete-de-reeborg">39.1. Le <code class="docutils literal"><span class="pre">repete()</span></code> de Reeborg</a></li>
 </ul>
 </li>
 </ul>
@@ -92,11 +92,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="better_repeat.html"
                         title="Chapitre suivant">40. Un meilleur <strong>repete()</strong></a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/for.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/for.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -117,8 +119,8 @@
           <div class="body">
             
   <div class="section" id="boucles-for">
-<h1>39. Boucles <tt class="docutils literal"><span class="pre">for</span></tt><a class="headerlink" href="#boucles-for" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Comme nous l&#8217;avons vu, les boucles <tt class="docutils literal"><span class="pre">while</span></tt> peuvent être utilisées avec
+<h1>39. Boucles <code class="docutils literal"><span class="pre">for</span></code><a class="headerlink" href="#boucles-for" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Comme nous l&#8217;avons vu, les boucles <code class="docutils literal"><span class="pre">while</span></code> peuvent être utilisées avec
 des nombres suivant le patron:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>                      <span class="c"># initialisation</span>
 <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">valeur_maximale</span> <span class="p">:</span> <span class="c"># condition pour terminer</span>
@@ -127,16 +129,16 @@ des nombres suivant le patron:</p>
 </pre></div>
 </div>
 <p>Une autre façon d&#8217;écrire un bout de programme ayant <strong>exactement le
-même sens</strong> est d&#8217;utilisé une boucle <tt class="docutils literal"><span class="pre">for</span></tt>:</p>
+même sens</strong> est d&#8217;utilisé une boucle <code class="docutils literal"><span class="pre">for</span></code>:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">valeur_maximale</span><span class="p">):</span>
    <span class="o">...</span>
 </pre></div>
 </div>
-<p>La boucle <tt class="docutils literal"><span class="pre">for</span></tt> peut être utilisée pour plus de choses que simplement
+<p>La boucle <code class="docutils literal"><span class="pre">for</span></code> peut être utilisée pour plus de choses que simplement
 compter des objets.  Cependant, nous ne verrons pas ces autres exemples
 dans cette leçon.</p>
-<p>En utilisant une boucle <tt class="docutils literal"><span class="pre">for</span></tt>, on peut avoir une autre définition
-pour la fonction <tt class="docutils literal"><span class="pre">repete</span></tt>:</p>
+<p>En utilisant une boucle <code class="docutils literal"><span class="pre">for</span></code>, on peut avoir une autre définition
+pour la fonction <code class="docutils literal"><span class="pre">repete</span></code>:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">mon_repete</span><span class="p">(</span><span class="n">fonction_quelconque</span><span class="p">,</span> <span class="n">valeur_maximale</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">valeur_maximale</span><span class="p">):</span>
         <span class="n">fonction</span> <span class="n">quelconque</span><span class="p">()</span>
@@ -150,17 +152,17 @@ pour la fonction <tt class="docutils literal"><span class="pre">repete</span></t
 <p>Essayez le programme ci-dessus avec le monde <strong>Autour 1</strong>.</p>
 </div>
 <div class="section" id="le-repete-de-reeborg">
-<h2>39.1. Le <tt class="docutils literal"><span class="pre">repete()</span></tt> de Reeborg<a class="headerlink" href="#le-repete-de-reeborg" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>39.1. Le <code class="docutils literal"><span class="pre">repete()</span></code> de Reeborg<a class="headerlink" href="#le-repete-de-reeborg" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Ouvrez le journal de Reeborg et exécutez l&#8217;instruction suivante:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">voir_source</span><span class="p">(</span> <span class="n">repete</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>Vous verrez une fonction complètement différente de celle ci-dessus;
 cette fonction est celle utilisée dans le monde de Reeborg.  Cette fonction
-utilise la boucle <tt class="docutils literal"><span class="pre">for</span></tt> du langage de programmation Javascript.
+utilise la boucle <code class="docutils literal"><span class="pre">for</span></code> du langage de programmation Javascript.
 Si vous comparez le code Javascript avec le code Python, vous concluerez
 probablement que Python est plus simple que Javascript car il y a moins
-de caractères apparemment superflus tels que <tt class="docutils literal"><span class="pre">;</span></tt> ou <tt class="docutils literal"><span class="pre">}</span></tt>.</p>
+de caractères apparemment superflus tels que <code class="docutils literal"><span class="pre">;</span></code> ou <code class="docutils literal"><span class="pre">}</span></code>.</p>
 </div>
 </div>
 
@@ -189,13 +191,14 @@ de caractères apparemment superflus tels que <tt class="docutils literal"><span
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

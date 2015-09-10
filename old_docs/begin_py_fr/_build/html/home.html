@@ -93,11 +93,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="bugs.html"
                         title="Chapitre suivant">3. Fichus bogues!</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/home.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/home.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -123,15 +125,22 @@
 vais vous donner une série de tâches que Reeborg doit accomplir. Reeborg
 lui-même vous laissera savoir si les tâches en question ont été
 accomplies.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Sélectionner <strong>Tutoriel: menu</strong> parmi les choix de monde possibles
+au haut de l&#8217;écran: vous verrez apparaître un programme dans l&#8217;éditeur
+de code.  Exécutez ce programme: la sélection des mondes changera pour
+inclure ceux mentionnés dans ce tutoriel.</p>
+</div>
 <p>Choisissez le monde <strong>But 1</strong>. Voyez comment le carré en bas à gauche est
 d&#8217;une couleur différente: ceci identifie la maison de Reeborg. Le monde
 de Reeborg est un simple échiquier. Dans <strong>But 1</strong>, Reeborg part du
 troisième carré sur la rangée du bas. Ce carré a les coordonnées
-cartésiennes <tt class="docutils literal"><span class="pre">x=3</span></tt> et <tt class="docutils literal"><span class="pre">y=1</span></tt>.</p>
+cartésiennes <code class="docutils literal"><span class="pre">x=3</span></code> et <code class="docutils literal"><span class="pre">y=1</span></code>.</p>
 <div class="topic">
 <p class="topic-title first">Essayez ceci!</p>
 <p>Avec le monde <strong>But 1</strong> sélectionnez, écrivez un programme avec
-une seule instruction <tt class="docutils literal"><span class="pre">avance()</span></tt>, exécutez-le et portez attention
+une seule instruction <code class="docutils literal"><span class="pre">avance()</span></code>, exécutez-le et portez attention
 au message de Reeborg.  Puis, modifiez ce programme pour que Reeborg
 puisse aller à sa maison.</p>
 </div>
@@ -161,8 +170,8 @@ Ceci peut être réalisé en ajoutant l&#8217;instruction suivante:</p>
 </div>
 <div class="topic">
 <p class="topic-title first">Essayez une autre chose!</p>
-<p>Qu&#8217;arrive-t-il si, au lieu de <tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt>, vous ajoutez plutôt une
-troisième instruction <tt class="docutils literal"><span class="pre">avance()</span></tt>?</p>
+<p>Qu&#8217;arrive-t-il si, au lieu de <code class="docutils literal"><span class="pre">tourne_a_gauche()</span></code>, vous ajoutez plutôt une
+troisième instruction <code class="docutils literal"><span class="pre">avance()</span></code>?</p>
 </div>
 </div>
 <div class="section" id="un-autre-point-de-vue">
@@ -204,13 +213,14 @@ vu d&#8217;au-dessus:  <img alt="image1" src="_images/rover_e.png" /></p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

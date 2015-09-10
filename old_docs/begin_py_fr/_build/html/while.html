@@ -81,7 +81,7 @@
               <h3>Table des Matières</h3>
               <ul>
 <li><a class="reference internal" href="#">20. Tant que ...</a><ul>
-<li><a class="reference internal" href="#comment-penser-a-while">20.1. Comment penser à <tt class="docutils literal"><span class="pre">while</span></tt></a></li>
+<li><a class="reference internal" href="#comment-penser-a-while">20.1. Comment penser à <code class="docutils literal"><span class="pre">while</span></code></a></li>
 <li><a class="reference internal" href="#de-retour-aux-haies">20.2. De retour aux haies!</a></li>
 </ul>
 </li>
@@ -93,11 +93,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="newspaper3.html"
                         title="Chapitre suivant">21. Une nouvelle livraison de journaux</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/while.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/while.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -120,7 +122,7 @@
   <div class="section" id="tant-que">
 <h1>20. Tant que ...<a class="headerlink" href="#tant-que" title="Lien permanent vers ce titre">¶</a></h1>
 <p>Lorsqu&#8217;on veut répéter un bloc de code jusqu&#8217;à ce qu&#8217;une certaine
-condition soit satisfaite, on peut utiliser le mot-clé <tt class="docutils literal"><span class="pre">while</span></tt>, mot
+condition soit satisfaite, on peut utiliser le mot-clé <code class="docutils literal"><span class="pre">while</span></code>, mot
 anglais que l&#8217;on peut traduire par <strong>tant que</strong>. Par exemple, supposons
 que l&#8217;on veuille que Reeborg se déplace en ligne droite jusqu&#8217;à ce qu&#8217;il
 rencontre un mur. On pourrait écrire quelque chose comme:</p>
@@ -133,7 +135,7 @@ rencontre un mur. On pourrait écrire quelque chose comme:</p>
 </div>
 <p>en se croisant les doigts et espérant que 42 sera un nombre suffisant de
 répétitions pour atteindre le mur. Si on utilise plutôt le mot-clé
-<tt class="docutils literal"><span class="pre">while</span></tt>, qu&#8217;on peut traduire par &#8220;tant que&#8221;, on peut écrire:</p>
+<code class="docutils literal"><span class="pre">while</span></code>, qu&#8217;on peut traduire par &#8220;tant que&#8221;, on peut écrire:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">while</span> <span class="n">rien_devant</span><span class="p">():</span>
     <span class="n">avance</span><span class="p">()</span>
 </pre></div>
@@ -144,7 +146,7 @@ répétitions pour atteindre le mur. Si on utilise plutôt le mot-clé
 <img alt="_images/while_fr.jpg" src="_images/while_fr.jpg" />
 </div>
 <div class="section" id="comment-penser-a-while">
-<h2>20.1. Comment penser à <tt class="docutils literal"><span class="pre">while</span></tt><a class="headerlink" href="#comment-penser-a-while" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>20.1. Comment penser à <code class="docutils literal"><span class="pre">while</span></code><a class="headerlink" href="#comment-penser-a-while" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Supposons que l&#8217;on ait le code suivant:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">while</span> <span class="n">condition</span><span class="p">():</span>
     <span class="n">instruction_1</span><span class="p">()</span>
@@ -177,28 +179,28 @@ répétitions pour atteindre le mur. Si on utilise plutôt le mot-clé
 </pre></div>
 </div>
 <p>c&#8217;est-à-dire que le bloc de code est répété aussi souvent que la
-condition soit satisfaite (<tt class="docutils literal"><span class="pre">True</span></tt>). Qu&#8217;arrive-t-il si la condition est
+condition soit satisfaite (<code class="docutils literal"><span class="pre">True</span></code>). Qu&#8217;arrive-t-il si la condition est
 toujours satisfaite? Le bloc de code est répété éternellement et le
 programme ne termine jamais.</p>
 <p>Ceci n&#8217;est pas une bonne chose.</p>
 <p>Plutôt que d&#8217;utiliser la description de blocs de code répétés, les
 programmeurs décrivent ceci comme une <strong>boucle</strong>: en commençant par la
-première instruction, (<tt class="docutils literal"><span class="pre">instruction_1()</span></tt>) à l&#8217;intérieur du bloc de
+première instruction, (<code class="docutils literal"><span class="pre">instruction_1()</span></code>) à l&#8217;intérieur du bloc de
 code, on continue à exécuter les autres jusqu&#8217;à atteindre la dernière
-(<tt class="docutils literal"><span class="pre">instruction_3()</span></tt>), puis le programme complète la boucle et retourne
+(<code class="docutils literal"><span class="pre">instruction_3()</span></code>), puis le programme complète la boucle et retourne
 tout juste avant le début du bloc de code où la condition est de nouveau
 évaluée; si elle est satisfaite, la boucle se repete. Si la condition
 est toujours satisfaite, on repete ad vitam æternam et on a alors une
 <strong>boucle infinie</strong>.</p>
 <p>Conclusion: vous voulez vous assurez que la condition ne sera pas
-satisfaite (devenant équivalente à <tt class="docutils literal"><span class="pre">False</span></tt>) à quelque temps.</p>
+satisfaite (devenant équivalente à <code class="docutils literal"><span class="pre">False</span></code>) à quelque temps.</p>
 </div>
 <div class="section" id="de-retour-aux-haies">
 <h2>20.2. De retour aux haies!<a class="headerlink" href="#de-retour-aux-haies" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="topic">
 <p class="topic-title first">À votre tour !</p>
 <p>Retournez aux courses <strong>Haies&nbsp;1</strong>, <strong>Haies&nbsp;2</strong> et <strong>Haies&nbsp;3</strong>, et écrivez un seul
-programme pour ces trois courses sans utiliser <tt class="docutils literal"><span class="pre">repete()</span></tt>.</p>
+programme pour ces trois courses sans utiliser <code class="docutils literal"><span class="pre">repete()</span></code>.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
@@ -217,7 +219,7 @@ programme pour ces trois courses sans utiliser <tt class="docutils literal"><spa
 </div>
 </div>
 <p>C&#8217;est tout! Plus besoin d&#8217;un nombre arbitraire de répétitions. À partir
-de maintenant, n&#8217;utilisez plus <tt class="docutils literal"><span class="pre">repete()</span></tt> <strong>*sauf*</strong> si vous savez
+de maintenant, n&#8217;utilisez plus <code class="docutils literal"><span class="pre">repete()</span></code> <strong>*sauf*</strong> si vous savez
 <strong>exactement</strong> le nombre de fois qu&#8217;une certaine fonction doit être
 répétée.</p>
 </div>
@@ -248,13 +250,14 @@ répétée.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

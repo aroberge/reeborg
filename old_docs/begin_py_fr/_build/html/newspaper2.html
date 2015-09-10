@@ -84,11 +84,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="repeat.html"
                         title="Chapitre suivant">14. Répète</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/newspaper2.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/newspaper2.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -256,7 +258,7 @@ avec quelques commentaires rajoutés.</p>
 <p>Cette solution est plutôt longue ... et il est facile de faire des
 erreurs. On remarque cependant qu&#8217;il y a plusieurs répétitions, ce qui
 suggère qu&#8217;on peut définir plusieurs fonctions. Nous avons déjà défini
-<tt class="docutils literal"><span class="pre">tourne_a_droite</span></tt> et <tt class="docutils literal"><span class="pre">demi_tour</span></tt> qui devrait être dans votre
+<code class="docutils literal"><span class="pre">tourne_a_droite</span></code> et <code class="docutils literal"><span class="pre">demi_tour</span></code> qui devrait être dans votre
 bibliothèque. Utilisons-les et définissons d&#8217;autres fonctions.</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -358,7 +360,7 @@ Reeborg puisse livrer le journal de Monsieur Babbage dans <strong>Journal&nbsp;2
 <p>Plus tard, nous verrons comment on peut écrire un seul programme, plus
 court que celui ci-dessus, qui permettra à Reeborg de livrer des
 journaux à Madame Lovelace et à Monsieur Babbage.</p>
-<p>Puisque des fonctions comme <tt class="docutils literal"><span class="pre">prendre_la_monnaie()</span></tt>, <tt class="docutils literal"><span class="pre">monter_trois_etages</span></tt>,
+<p>Puisque des fonctions comme <code class="docutils literal"><span class="pre">prendre_la_monnaie()</span></code>, <code class="docutils literal"><span class="pre">monter_trois_etages</span></code>,
 etc., sont spécifiques à une tâche en particulier, ce n&#8217;est probablement
 <strong>pas</strong> une bonne idée de les sauvegarder dans la bibliothèque.</p>
 </div>
@@ -388,13 +390,14 @@ etc., sont spécifiques à une tâche en particulier, ce n&#8217;est probablemen
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

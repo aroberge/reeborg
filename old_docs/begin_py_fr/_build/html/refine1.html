@@ -92,11 +92,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="refine2.html"
                         title="Chapitre suivant">23. Améliorations: partie 2</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/refine1.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/refine1.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -129,7 +131,7 @@ suivante.</p>
 Reeborg fasse le tour de son monde une seule fois, et qu&#8217;il s&#8217;arrête
 lorsqu&#8217;il revient à son point de départ. Sélectionnez le monde <strong>Autour&nbsp;1</strong>.
 Nous avons vu quelque chose de très semblable lorsque nous avons
-présenté le test <tt class="docutils literal"><span class="pre">rien_devant()</span></tt> test. Voici l&#8217;esquisse d&#8217;une solution
+présenté le test <code class="docutils literal"><span class="pre">rien_devant()</span></code> test. Voici l&#8217;esquisse d&#8217;une solution
 qui présuppose que Reeborg ait avec lui au moins un jeton.</p>
 <ol class="arabic simple">
 <li>Déposer un jeton pour marquer le point de départ ainsi que celui
@@ -184,13 +186,14 @@ passer à la leçon suivante.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

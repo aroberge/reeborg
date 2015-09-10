@@ -104,11 +104,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="newspaper1.html"
                         title="Chapitre suivant">9. Livraison de journaux</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/challenges1.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/challenges1.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -159,9 +161,9 @@ l&#8217;information indiquant pour quelle monde ce programme représente une
 solution. Une façon de le faire est d&#8217;ajouter un commentaire - ce que
 vous savez comment faire si vous avez lu les leçons précédentes. Une
 autre façon, peut-être plus utile, est d&#8217;avoir comme toute première
-instruction <tt class="docutils literal"><span class="pre">selectionne_monde(&quot;nom</span> <span class="pre">du</span> <span class="pre">monde</span> <span class="pre">ici&quot;);</span></tt>. Par exemple, une
+instruction <code class="docutils literal"><span class="pre">Monde(&quot;nom</span> <span class="pre">du</span> <span class="pre">monde</span> <span class="pre">ici&quot;);</span></code>. Par exemple, une
 solution au monde <strong>But&nbsp;1</strong> aurait comme première instruction:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">selectionne_monde</span><span class="p">(</span><span class="s">&quot;But 1&quot;</span><span class="p">)</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">Monde</span><span class="p">(</span><span class="s">&quot;But 1&quot;</span><span class="p">)</span>
 <span class="n">avance</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
 </pre></div>
@@ -253,7 +255,7 @@ chez lui pour fermer les fenêtres mais arrêta au seuil de la porte,
 indécis quant à la meilleure façon de procéder.</p>
 <div class="topic">
 <p class="topic-title first">À votre tour!</p>
-<p>Utilisez la commande <tt class="docutils literal"><span class="pre">construit_un_mur()</span></tt> et aidez Reeborg à fermer
+<p>Utilisez la commande <code class="docutils literal"><span class="pre">construit_un_mur()</span></code> et aidez Reeborg à fermer
 les fenêtres de sa maison. Lorsque Reeborg aura terminé, il sera au
 seuil de la porte, regardant la pluie tomber et attendra patiemment
 qu&#8217;elle arrête pour qu&#8217;il puisse retourner jouer dehors. Le monde à
@@ -276,7 +278,7 @@ nettoyer le trottoir qui mène à la rue <strong>Tempête&nbsp;3</strong>, ainsi
 <strong>Tempête&nbsp;4</strong>.</p>
 <p>Reeborg doit ramasser tous les déchets (représentés par des jetons), et
 les mettre dans la poubelle en s&#8217;assurant de fermer le couvercle à
-l&#8217;aide de l&#8217;instruction <tt class="docutils literal"><span class="pre">construit_un_mur()</span></tt>.</p>
+l&#8217;aide de l&#8217;instruction <code class="docutils literal"><span class="pre">construit_un_mur()</span></code>.</p>
 </div>
 <div class="section" id="encore-du-travail">
 <h3>8.7.3. Encore du travail!<a class="headerlink" href="#encore-du-travail" title="Lien permanent vers ce titre">¶</a></h3>
@@ -322,13 +324,14 @@ permettant d&#8217;accomplir les diverses tâches confiées à Reeborg.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

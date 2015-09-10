@@ -97,11 +97,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="else.html"
                         title="Chapitre suivant">17. Écoutez-moi, sinon ...</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/at_goal.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/at_goal.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -138,7 +140,7 @@ que nous avons décrit précédemment comme indiquant qu&#8217;il est à sa
 maison. Dans plusieurs cas, il est plus logique de considérer ce carré
 comme étant la destination ou le but ultime de Reeborg, plutôt que
 simplement sa maison. Reeborg peut donc déterminer s&#8217;il a atteint son
-but par la condition <tt class="docutils literal"><span class="pre">au_but()</span></tt>. Voici l&#8217;esquisse d&#8217;un programme
+but par la condition <code class="docutils literal"><span class="pre">au_but()</span></code>. Voici l&#8217;esquisse d&#8217;un programme
 unique qui devrait permettre à Reeborg d&#8217;accomplir sa tâche pour chacun
 des quatre mondes mentionnés ci-dessus.</p>
 <div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">avance_jusque_tâche_terminée</span><span class="p">():</span>
@@ -176,13 +178,13 @@ atteindre (la maison de Reeborg). Un programme qui permettrait à Reeborg
 de terminer la course pourrait être constitué d&#8217;une alternance des deux
 instructions suivantes:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">avance()</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">saute()</span></tt></li>
+<li><code class="docutils literal"><span class="pre">avance()</span></code></li>
+<li><code class="docutils literal"><span class="pre">saute()</span></code></li>
 </ul>
-<p>en autant qu&#8217;on ait une définition appropriée pour <tt class="docutils literal"><span class="pre">saute()</span></tt>. Si vous
-pouviez inclure une condition (énoncé <tt class="docutils literal"><span class="pre">if</span></tt>) à quelque part pour
+<p>en autant qu&#8217;on ait une définition appropriée pour <code class="docutils literal"><span class="pre">saute()</span></code>. Si vous
+pouviez inclure une condition (énoncé <code class="docutils literal"><span class="pre">if</span></code>) à quelque part pour
 vérifier que vous avez atteint le but, vous pourriez alors définir une
-fonction que nous pourrions appeler <tt class="docutils literal"><span class="pre">avance_et_saut_jusqu_au_but()</span></tt> de
+fonction que nous pourrions appeler <code class="docutils literal"><span class="pre">avance_et_saut_jusqu_au_but()</span></code> de
 telle sorte qu&#8217;un programme unique suffirait pour les mondes Haies&nbsp;1 et
 Haies&nbsp;2:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">repete</span><span class="p">(</span><span class="n">avance_et_saute_jusqu_au_but</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
@@ -243,13 +245,14 @@ course <strong>Haies&nbsp;4</strong>?</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

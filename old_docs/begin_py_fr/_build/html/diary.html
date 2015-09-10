@@ -95,11 +95,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="increment.html"
                         title="Chapitre suivant">37. Incrément</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/diary.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/diary.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -135,8 +137,8 @@ guide du voyageur galactique</em>] dans son journal.</p>
 <h2>36.1. Écrire des textes<a class="headerlink" href="#ecrire-des-textes" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">En plus de la fonction Python <tt class="docutils literal"><span class="pre">print</span></tt>, le monde de Reeborg
-inclut une fonction <tt class="docutils literal"><span class="pre">ecrit</span></tt> qui fait presque la même chose.
+<p class="last">En plus de la fonction Python <code class="docutils literal"><span class="pre">print</span></code>, le monde de Reeborg
+inclut une fonction <code class="docutils literal"><span class="pre">ecrit</span></code> qui fait presque la même chose.
 Essayez de l&#8217;utiliser à l&#8217;occasion.</p>
 </div>
 <p>Dans le jargon de la programmation, un <em>caractère</em> est n&#8217;importe quelle
@@ -153,17 +155,17 @@ les instructions suivantes:</p>
 mêmes; à noter que ce ne sont <strong>pas</strong> des guillemets français « ». Si
 vous voulez inclure un guillemet dans une chaîne, vous pouvez soit
 utiliser des guillemets d&#8217;un type différent pour encadrer la chaîne, ou
-les précéder du <em>caractère d&#8217;échappement</em> <tt class="docutils literal"><span class="pre">\</span></tt>.</p>
+les précéder du <em>caractère d&#8217;échappement</em> <code class="docutils literal"><span class="pre">\</span></code>.</p>
 <div class="code py3 highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Ajourd&#39;hui.&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s">&#39;Aujourd</span><span class="se">\&#39;</span><span class="s">hui.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>On peut combiner les chaînes en utilisant le symbole d&#8217;addition <tt class="docutils literal"><span class="pre">+</span></tt>:</p>
+<p>On peut combiner les chaînes en utilisant le symbole d&#8217;addition <code class="docutils literal"><span class="pre">+</span></code>:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Au revoir! &quot;</span> <span class="o">+</span> <span class="s">&quot;Et merci pour tout.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Vous pouvez également débuter une nouvelle ligne en utilisant la
-<em>séquence d&#8217;échappement</em> <tt class="docutils literal"><span class="pre">\n</span></tt>:</p>
+<em>séquence d&#8217;échappement</em> <code class="docutils literal"><span class="pre">\n</span></code>:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;Merci. </span><span class="se">\n</span><span class="s">Essayez encore&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -212,7 +214,7 @@ inattendus:</p>
 <p class="first admonition-title">Avertissement</p>
 <p class="last">Le <em>caractère</em> &#8220;2&#8221; n&#8217;est pas le même que le <em>chiffre</em> 2.</p>
 </div>
-<p>Finalement, notez que les espaces autour des opérateurs comme <tt class="docutils literal"><span class="pre">+</span></tt>,
+<p>Finalement, notez que les espaces autour des opérateurs comme <code class="docutils literal"><span class="pre">+</span></code>,
 sont ignorés par Python; cependant, ils peuvent faciliter la lecture
 (et la compréhension) pour les humains.</p>
 </div>
@@ -243,13 +245,14 @@ sont ignorés par Python; cependant, ils peuvent faciliter la lecture
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

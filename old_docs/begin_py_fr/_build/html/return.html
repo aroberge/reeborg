@@ -93,11 +93,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="harvest3.html"
                         title="Chapitre suivant">35. D&#8217;autres récoltes</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/return.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/return.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -132,7 +134,7 @@ au-dessus d&#8217;eux. Reeborg a également une boussole qui fonctionne plus ou
 moins bien: il peut déterminer s&#8217;il fait face au nord ... ou non; pas
 moyen d&#8217;obtenir d&#8217;autre information au sujet de son orientation. Pour
 déterminer s&#8217;il fait face au nord, vous pouvez demander à Reeborg de
-faire le test <tt class="docutils literal"><span class="pre">face_au_nord()</span></tt>.</p>
+faire le test <code class="docutils literal"><span class="pre">face_au_nord()</span></code>.</p>
 <div class="topic">
 <p class="topic-title first">Orientez Reeborg!</p>
 <p>Sélectionnez un monde approprié et écrivez un court programme qui fera
@@ -141,10 +143,10 @@ nord, quelque soit son orientation de départ.</p>
 </div>
 <div class="section" id="obtenir-des-resultats-de-fonctions">
 <h2>34.1. Obtenir des résultats de fonctions<a class="headerlink" href="#obtenir-des-resultats-de-fonctions" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Les tests comme <tt class="docutils literal"><span class="pre">face_au_nord()</span></tt> sont des fonctions Python. Ces
+<p>Les tests comme <code class="docutils literal"><span class="pre">face_au_nord()</span></code> sont des fonctions Python. Ces
 fonctions diffèrent des autres fonctions telles que
-<tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt> ou <tt class="docutils literal"><span class="pre">avance()</span></tt> car elles <strong>*retournent*</strong> une
-valeur, utilisant le mot-clé <tt class="docutils literal"><span class="pre">return</span></tt>. Commençons par un exemple
+<code class="docutils literal"><span class="pre">tourne_a_gauche()</span></code> ou <code class="docutils literal"><span class="pre">avance()</span></code> car elles <strong>*retournent*</strong> une
+valeur, utilisant le mot-clé <code class="docutils literal"><span class="pre">return</span></code>. Commençons par un exemple
 simple et faites en sorte que Reeborg exécute le programme suivant.</p>
 <div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">interruption</span><span class="p">():</span>
     <span class="n">avance</span><span class="p">()</span>
@@ -154,9 +156,9 @@ simple et faites en sorte que Reeborg exécute le programme suivant.</p>
 <span class="n">interruption</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Le second <tt class="docutils literal"><span class="pre">avance()</span></tt> n&#8217;est pas exécuté: l&#8217;exécution de la fonction termine lorsque
-l&#8217;énoncé contenant le mot-clé <tt class="docutils literal"><span class="pre">return;</span></tt> est exécuté.</p>
-<p>Le mot-clé <tt class="docutils literal"><span class="pre">return</span></tt> peut être accompagné de quelque chose d&#8217;autre
+<p>Le second <code class="docutils literal"><span class="pre">avance()</span></code> n&#8217;est pas exécuté: l&#8217;exécution de la fonction termine lorsque
+l&#8217;énoncé contenant le mot-clé <code class="docutils literal"><span class="pre">return;</span></code> est exécuté.</p>
+<p>Le mot-clé <code class="docutils literal"><span class="pre">return</span></code> peut être accompagné de quelque chose d&#8217;autre
 comme l&#8217;exemple suivant le démontre.</p>
 <div class="topic">
 <p class="topic-title first">Essayez ceci!</p>
@@ -169,9 +171,9 @@ comme l&#8217;exemple suivant le démontre.</p>
 </div>
 </div>
 <p>Lorsque vous exécuterez ce programme, vous verrez que la fonction
-<tt class="docutils literal"><span class="pre">nord()</span></tt> donne exactement le même résultat que si vous utilisiez
-directement <tt class="docutils literal"><span class="pre">face_au_nord()</span></tt>; ceci est le résultat de l&#8217;utilisation de
-l&#8217;énoncé <tt class="docutils literal"><span class="pre">return</span></tt>. Nous pouvons utiliser ce résultat pour permettre à
+<code class="docutils literal"><span class="pre">nord()</span></code> donne exactement le même résultat que si vous utilisiez
+directement <code class="docutils literal"><span class="pre">face_au_nord()</span></code>; ceci est le résultat de l&#8217;utilisation de
+l&#8217;énoncé <code class="docutils literal"><span class="pre">return</span></code>. Nous pouvons utiliser ce résultat pour permettre à
 Reeborg d&#8217;identifier d&#8217;autres orientations que le nord (et réparer sa
 boussole). Tout d&#8217;abord, nous savons que si Reeborg tourne 4 fois à
 gauche, il reviendra à son orientation de départ: nous voulons garantir
@@ -180,7 +182,7 @@ que l&#8217;orientation de Reeborg à la fin du test sera la même qu&#8217;au d
 pouvons lui demander de tourner à gauche deux fois et noter si son
 orientation est face au nord (et donc qu&#8217;il était face au sud avant de
 tourner) ou non, et de tourner deux fois à gauche de nouveau. Utilisant
-le mot-clé <tt class="docutils literal"><span class="pre">return</span></tt>, Reeborg peut indiquer le résultat qu&#8217;il avait
+le mot-clé <code class="docutils literal"><span class="pre">return</span></code>, Reeborg peut indiquer le résultat qu&#8217;il avait
 noté après deux tours à gauche.</p>
 <div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">face_au_sud</span><span class="p">():</span>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -226,17 +228,17 @@ différentes orientations initiales de Reeborg.</p>
 <span class="o">...</span> <span class="o">=</span> <span class="n">fonction_quelconque</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Dans ce cas, l&#8217;invocation de <tt class="docutils literal"><span class="pre">fonction_quelconque()</span></tt> à la dernière
-ligne sera remplacée par la valeur de <tt class="docutils literal"><span class="pre">quelque_chose</span></tt> qui est la
-variable suivant le mot-clé <tt class="docutils literal"><span class="pre">return</span></tt>. S&#8217;il n&#8217;y a rien après
-<tt class="docutils literal"><span class="pre">return</span></tt>, alors le résultat est <tt class="docutils literal"><span class="pre">None</span></tt> (non défini).</p>
+<p>Dans ce cas, l&#8217;invocation de <code class="docutils literal"><span class="pre">fonction_quelconque()</span></code> à la dernière
+ligne sera remplacée par la valeur de <code class="docutils literal"><span class="pre">quelque_chose</span></code> qui est la
+variable suivant le mot-clé <code class="docutils literal"><span class="pre">return</span></code>. S&#8217;il n&#8217;y a rien après
+<code class="docutils literal"><span class="pre">return</span></code>, alors le résultat est <code class="docutils literal"><span class="pre">None</span></code> (non défini).</p>
 <div class="topic">
 <p class="topic-title first">Encore des retours</p>
 <p>Reeborg peut déterminer s&#8217;il y a un mur devant lui, utilisant
-<tt class="docutils literal"><span class="pre">rien_devant()</span></tt>, ou s&#8217;il y a un mur à sa droit en utilisant
-<tt class="docutils literal"><span class="pre">rien_a_droite()</span></tt>. Écrivez une fonction test qui fera en sorte
+<code class="docutils literal"><span class="pre">rien_devant()</span></code>, ou s&#8217;il y a un mur à sa droit en utilisant
+<code class="docutils literal"><span class="pre">rien_a_droite()</span></code>. Écrivez une fonction test qui fera en sorte
 que Reeborg fera 4 virages à gauches, et donc retournera à son
-orientation de départ, mais qui retournera <tt class="docutils literal"><span class="pre">True</span></tt> s&#8217;il
+orientation de départ, mais qui retournera <code class="docutils literal"><span class="pre">True</span></code> s&#8217;il
 n&#8217;y a <strong>pas</strong> de mur à sa gauche.</p>
 </div>
 <div class="topic">
@@ -277,13 +279,14 @@ aviez trouvée avant.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

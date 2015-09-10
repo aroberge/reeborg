@@ -92,11 +92,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="rule2.html"
                         title="Chapitre suivant">6. Règle numéro 2</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/tokens1.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tokens1.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -150,7 +152,7 @@ en a pas?</p>
 </div>
 <div class="section" id="etre-plus-specifique">
 <h2>5.1. Être plus spécifique<a class="headerlink" href="#etre-plus-specifique" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Lorsque vous demandez à Reeborg <tt class="docutils literal"><span class="pre">prend()</span></tt> ou <tt class="docutils literal"><span class="pre">depose()</span></tt>, Reeborg
+<p>Lorsque vous demandez à Reeborg <code class="docutils literal"><span class="pre">prend()</span></code> ou <code class="docutils literal"><span class="pre">depose()</span></code>, Reeborg
 comprend qu&#8217;il s&#8217;agit de prendre ou de déposer un jeton, son objet
 préféré. Cependant, il y a d&#8217;autres objets dans le monde de Reeborg. Il
 est parfois utile d&#8217;être plus spécifique et d&#8217;écrire:</p>
@@ -163,7 +165,7 @@ doubles. Vérifiez que ceci fonctionne!</p>
 <div class="topic">
 <p class="topic-title first">À votre tour!</p>
 <p>Écrivez un programme pour résoudre la tâche du monde <strong>Jetons 2</strong>.
-Utilisez <tt class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></tt> au lieu de simplement <tt class="docutils literal"><span class="pre">prend()</span></tt></p>
+Utilisez <code class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></code> au lieu de simplement <code class="docutils literal"><span class="pre">prend()</span></code></p>
 </div>
 </div>
 </div>
@@ -193,13 +195,14 @@ Utilisez <tt class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

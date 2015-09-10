@@ -6,6 +6,13 @@ vais vous donner une série de tâches que Reeborg doit accomplir. Reeborg
 lui-même vous laissera savoir si les tâches en question ont été
 accomplies.
 
+.. important::
+
+    Sélectionner **Tutoriel: menu** parmi les choix de monde possibles
+    au haut de l'écran: vous verrez apparaître un programme dans l'éditeur
+    de code.  Exécutez ce programme: la sélection des mondes changera pour
+    inclure ceux mentionnés dans ce tutoriel.
+
 Choisissez le monde **But 1**. Voyez comment le carré en bas à gauche est
 d'une couleur différente: ceci identifie la maison de Reeborg. Le monde
 de Reeborg est un simple échiquier. Dans **But 1**, Reeborg part du
@@ -63,7 +70,7 @@ Vous avez probablement remarqué que le robot Reeborg est vu de son
 côté, comme sur cette image |image0|, alors que son monde est vu d'au-dessus ....
 ce qui peut être mélangeant lorsque vous demandez à Reeborg de tourner à
 gauche.  Vous pouvez changer les images de Reeborg en cliquant sur l'image
-appropriée au-dessus de son monde, du côté droit.  
+appropriée au-dessus de son monde, du côté droit.
 Par exemple, lorsque Reeborg fait face à l'est,
 comme dans l'image ci-dessus vue de côté, en utilisant une autre série
 d'images, Reeborg peut apparaître de la façon suivante, comme s'il était

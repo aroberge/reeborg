@@ -81,7 +81,7 @@
               <h3>Table des Matières</h3>
               <ul>
 <li><a class="reference internal" href="#">11. Demi-tour!</a><ul>
-<li><a class="reference internal" href="#de-retour-a-tourne-a-droite">11.1. De retour à <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt></a></li>
+<li><a class="reference internal" href="#de-retour-a-tourne-a-droite">11.1. De retour à <code class="docutils literal"><span class="pre">tourne_a_droite()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -92,11 +92,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="library.html"
                         title="Chapitre suivant">12. La bibliothèque</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/turn_around.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/turn_around.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -120,7 +122,7 @@
 <h1>11. Demi-tour!<a class="headerlink" href="#demi-tour" title="Lien permanent vers ce titre">¶</a></h1>
 <p>En plus d&#8217;instruire Reeborg de tourner à droite, vous avez probablement
 eu à lui faire demi-tour à quelques reprises. On peut définir une
-fonction <tt class="docutils literal"><span class="pre">demi_tour()</span></tt> de la façon suivante:</p>
+fonction <code class="docutils literal"><span class="pre">demi_tour()</span></code> de la façon suivante:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">demi_tour</span><span class="p">():</span>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -128,8 +130,8 @@ fonction <tt class="docutils literal"><span class="pre">demi_tour()</span></tt> 
 </div>
 <p>Faites-le!</p>
 <div class="section" id="de-retour-a-tourne-a-droite">
-<h2>11.1. De retour à <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt><a class="headerlink" href="#de-retour-a-tourne-a-droite" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Vous vous souvenez de <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt>? Revoici sa définition:</p>
+<h2>11.1. De retour à <code class="docutils literal"><span class="pre">tourne_a_droite()</span></code><a class="headerlink" href="#de-retour-a-tourne-a-droite" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Vous vous souvenez de <code class="docutils literal"><span class="pre">tourne_a_droite()</span></code>? Revoici sa définition:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tourne_a_droite</span><span class="p">():</span>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -137,7 +139,7 @@ fonction <tt class="docutils literal"><span class="pre">demi_tour()</span></tt> 
 </pre></div>
 </div>
 <p>On remarque que les deux premières instructions sont identiques à la
-définition de <tt class="docutils literal"><span class="pre">demi_tour()</span></tt>. Lorsque quelque chose du genre arrive, il
+définition de <code class="docutils literal"><span class="pre">demi_tour()</span></code>. Lorsque quelque chose du genre arrive, il
 est bon de se rappeler de la règle numéro 3:</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
@@ -150,10 +152,10 @@ pas!</a></dd>
 </dl>
 </div>
 <p>Donc, nous avons une répétitions d&#8217;instructions. Bien que
-<tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> soit déjà toute simple, une bonne habitude à
+<code class="docutils literal"><span class="pre">tourne_a_droite()</span></code> soit déjà toute simple, une bonne habitude à
 développer en programmation informatique est de remplacer les parties de
 codes qui se répètent par une simple fonction. Donc, nous devrions
-redéfinir <tt class="docutils literal"><span class="pre">tourne_a_droite()</span></tt> de la façon suivante:</p>
+redéfinir <code class="docutils literal"><span class="pre">tourne_a_droite()</span></code> de la façon suivante:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tourne_a_droite</span><span class="p">():</span>
     <span class="n">demi_tour</span><span class="p">()</span>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -170,8 +172,8 @@ fonctions utilisées ... mais je n&#8217;ai pas d&#8217;exemples plus compliqué
 vous offrir à ce moment-ci pour illustrer cette idée très importante.</p>
 <div class="topic">
 <p class="topic-title first">À votre tour!</p>
-<p>Définissez la fonction <tt class="docutils literal"><span class="pre">recule()</span></tt> qui est l&#8217;opposé de la fonction
-<tt class="docutils literal"><span class="pre">avance()</span></tt>. Par ceci, je veux dire que si vous ceci devrait permettre
+<p>Définissez la fonction <code class="docutils literal"><span class="pre">recule()</span></code> qui est l&#8217;opposé de la fonction
+<code class="docutils literal"><span class="pre">avance()</span></code>. Par ceci, je veux dire que si vous ceci devrait permettre
 le code suivant:</p>
 <div class="highlight-py3"><div class="highlight"><pre> <span class="c"># départ au point x, y</span>
 <span class="n">avance</span><span class="p">()</span>
@@ -185,8 +187,8 @@ le code suivant:</p>
 <p>N&#8217;utilisez pas l&#8217;indice sauf si vous en avez absolument besoin!</p>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
-<p class="last">Vous voudrez probablement utiliser <tt class="docutils literal"><span class="pre">demi_tour()</span></tt> deux fois dans la définition
-de <tt class="docutils literal"><span class="pre">recule()</span></tt>.</p>
+<p class="last">Vous voudrez probablement utiliser <code class="docutils literal"><span class="pre">demi_tour()</span></code> deux fois dans la définition
+de <code class="docutils literal"><span class="pre">recule()</span></code>.</p>
 </div>
 </div>
 </div>
@@ -216,13 +218,14 @@ de <tt class="docutils literal"><span class="pre">recule()</span></tt>.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

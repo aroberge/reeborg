@@ -98,11 +98,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="recursion.html"
                         title="Chapitre suivant">30. Récursivité</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/challenges2.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/challenges2.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -126,7 +128,7 @@
 <h1>29. Revue de quelques missions<a class="headerlink" href="#revue-de-quelques-missions" title="Lien permanent vers ce titre">¶</a></h1>
 <p>C&#8217;est le temps de revoir certaines des missions que nous avions vu
 beaucoup plus tôt.</p>
-<p>En utilisant <tt class="docutils literal"><span class="pre">while</span></tt>, <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">else</span></tt>, etc., vous êtes maintenant en
+<p>En utilisant <code class="docutils literal"><span class="pre">while</span></code>, <code class="docutils literal"><span class="pre">if</span></code>, <code class="docutils literal"><span class="pre">else</span></code>, etc., vous êtes maintenant en
 mesure d&#8217;écrire des programmes qui permettront à Reeborg d&#8217;accomplir les
 tâches qui lui sont confiées. Cependant, gardez ce qui suit en tête:</p>
 <ol class="arabic simple">
@@ -179,8 +181,8 @@ récolter.</p>
 verticaux) de la même longueur alors que le monde <strong>Récolte&nbsp;2</strong> peut être
 perçu comme ayant des rangs diagonaux de la même longueur.</p>
 <p>Une approche possible aux problèmes des récoltes est de définir trois
-fonctions, <tt class="docutils literal"><span class="pre">récolte_un_rang</span></tt> et <tt class="docutils literal"><span class="pre">récolte_deux_rangs</span></tt> et
-<tt class="docutils literal"><span class="pre">avance_au_premier_rang</span></tt>; les définitions exactes de ces fonctions
+fonctions, <code class="docutils literal"><span class="pre">récolte_un_rang</span></code> et <code class="docutils literal"><span class="pre">récolte_deux_rangs</span></code> et
+<code class="docutils literal"><span class="pre">avance_au_premier_rang</span></code>; les définitions exactes de ces fonctions
 vont dépendre du monde sélectionné.</p>
 <p>Une fois ces fonctions définies, la solution du problème devient
 identique pour les deux mondes:</p>
@@ -204,7 +206,7 @@ chez lui pour fermer les fenêtres mais arrêta au seuil de la porte,
 indécis quant à la meilleure façon de procéder.</p>
 <div class="topic">
 <p class="topic-title first">À votre tour!</p>
-<p>Utilisez la commande <tt class="docutils literal"><span class="pre">construit_un_mur()</span></tt> et aidez Reeborg à fermer
+<p>Utilisez la commande <code class="docutils literal"><span class="pre">construit_un_mur()</span></code> et aidez Reeborg à fermer
 les fenêtres de sa maison. Lorsque Reeborg aura terminé, il sera au
 seuil de la porte, regardant la pluie tomber et attendra patiemment
 qu&#8217;elle arrête pour qu&#8217;il puisse retourner jouer dehors. Le monde à
@@ -240,7 +242,7 @@ nettoyer le trottoir qui mène à la rue <strong>Tempête&nbsp;3</strong>, ainsi
 <p class="topic-title first">À votre tour!</p>
 <p>Reeborg doit ramasser tous les déchets (représentés par des jetons), et
 les mettre dans la poubelle en s&#8217;assurant de fermer le couvercle à
-l&#8217;aide de l&#8217;instruction <tt class="docutils literal"><span class="pre">construit_un_mur()</span></tt>.</p>
+l&#8217;aide de l&#8217;instruction <code class="docutils literal"><span class="pre">construit_un_mur()</span></code>.</p>
 </div>
 </div>
 <div class="section" id="encore-du-travail">
@@ -300,13 +302,14 @@ algorithme.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>

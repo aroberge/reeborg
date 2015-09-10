@@ -84,11 +84,13 @@
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="challenges1.html"
                         title="Chapitre suivant">8. Introduction aux missions</a></p>
-  <h3>Cette page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/summary1.txt"
-           rel="nofollow">Montrer la source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/summary1.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none">
   <h3>Recherche rapide</h3>
     <form class="search" action="search.html" method="get">
@@ -133,15 +135,15 @@ d&#8217;autres programmeurs.</p>
 appris qu&#8217;un programme est une série d&#8217;instructions. Vous avez vu un
 total de 5 instructions différentes:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">avance()</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">tourne_a_gauche()</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">prend()</span></tt> ou <tt class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">depose()</span></tt> ou <tt class="docutils literal"><span class="pre">depose(&quot;jeton&quot;)</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">pause()</span></tt></li>
+<li><code class="docutils literal"><span class="pre">avance()</span></code></li>
+<li><code class="docutils literal"><span class="pre">tourne_a_gauche()</span></code></li>
+<li><code class="docutils literal"><span class="pre">prend()</span></code> ou <code class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></code></li>
+<li><code class="docutils literal"><span class="pre">depose()</span></code> ou <code class="docutils literal"><span class="pre">depose(&quot;jeton&quot;)</span></code></li>
+<li><code class="docutils literal"><span class="pre">pause()</span></code></li>
 </ul>
-<p>Il est possible que vous n&#8217;ayez pas utilisé l&#8217;instruction <tt class="docutils literal"><span class="pre">pause()</span></tt>
+<p>Il est possible que vous n&#8217;ayez pas utilisé l&#8217;instruction <code class="docutils literal"><span class="pre">pause()</span></code>
 lorsque je l&#8217;ai mentionné en parlant de bogues. Si vous ne l&#8217;avez pas
-fait, assurez-vous d&#8217;écrire un court programme incluant une <tt class="docutils literal"><span class="pre">pause()</span></tt>
+fait, assurez-vous d&#8217;écrire un court programme incluant une <code class="docutils literal"><span class="pre">pause()</span></code>
 comme instruction à quelque part au milieu d&#8217;un programme (donc excluant
 la première et la dernière instruction) pour que vous puissiez
 véritablement constater son effet.</p>
@@ -172,13 +174,14 @@ véritablement constater son effet.</p>
         &copy; Copyright
           <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
         
-       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+       - Créé en utilisant <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   <script>
   $(document).ready(function() {
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>
   </body>
