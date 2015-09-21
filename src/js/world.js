@@ -92,16 +92,18 @@ RUR.world.reset = function () {
     RUR.vis_world.draw_all();
 };
 
-RUR.world.add_robot = function (robot) {
+RUR.world.add_robot = function (robot, no_frame) {
     if (RUR.current_world.robots === undefined){
         RUR.current_world.robots = [];
     }
     if (RUR.MAX_NB_ROBOTS !== undefined &&
-        RUR.MAX_NB_ROBOTS == RUR.current_world.robots.length){
+        RUR.MAX_NB_ROBOTS >= RUR.current_world.robots.length){
         throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
     }
     RUR.current_world.robots.push(robot);
-    RUR.rec.record_frame();
+    if (no_frame != undefined){
+        RUR.rec.record_frame();
+    }
 };
 
 

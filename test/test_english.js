@@ -30,3 +30,17 @@ QUnit.test("import_world", function(assert) {
     RUR.world.import_world(JSON.stringify(RUR.unit_tests.empty_world));
     deepEqual(RUR.current_world, RUR.unit_tests.empty_world, "Empty world created by importing empty world as string." );
 });
+
+QUnit.test("add_robot", function(assert) {
+    RUR.current_world = RUR.world.clone_world(RUR.unit_tests.empty_world);
+    RUR.world.add_robot(1);
+    equal(RUR.current_world.robots[0], 1, "Added the number 1 as robot placeholder.");
+    RUR.world.add_robot(2);
+    equal(RUR.current_world.robots[1], 2, "Added the number 2 as second robot placeholder.");
+    RUR.current_world = RUR.world.clone_world(RUR.unit_tests.empty_world);
+    RUR.world.add_robot("frame1", true);
+    equal(RUR.current_world.robots[0], "frame1", "Added the string frame1 as robot placeholder, with recording frame on.");
+    RUR.world.add_robot("frame2", true);
+    equal(RUR.current_world.robots[1], "frame2", "Added the string frame2 as robot placeholder, with recording frame on.");
+    RUR.current_world = RUR.world.clone_world(RUR.unit_tests.empty_world);
+});
