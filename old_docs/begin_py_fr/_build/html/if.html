@@ -84,7 +84,7 @@
 <li><a class="reference internal" href="#le-mot-cle-if">15.1. Le mot-clé <code class="docutils literal"><span class="pre">if</span></code></a></li>
 <li><a class="reference internal" href="#enonce-if">15.2. Énoncé <code class="docutils literal"><span class="pre">if</span></code></a></li>
 <li><a class="reference internal" href="#comment-interpreter-les-enonces-if">15.3. Comment interpréter les énoncés <code class="docutils literal"><span class="pre">if</span></code></a></li>
-<li><a class="reference internal" href="#plus-utile-que-vous-ne-le-pensez">15.4. PLus utile que vous ne le pensez...</a></li>
+<li><a class="reference internal" href="#plus-utile-que-vous-ne-le-pensez">15.4. Plus utile que vous ne le pensez...</a></li>
 </ul>
 </li>
 </ul>
@@ -211,23 +211,33 @@ de code n&#8217;est pas quelque chose de permanent: si, pour quelque raison,
 l&#8217;exécution du programme faisait en sorte que l&#8217;énoncé <code class="docutils literal"><span class="pre">if</span></code> était
 répété à nouveau, la condition serait réévaluée à chaque fois, ce qui
 pourrait mener à des résultats différents d&#8217;une évaluation à l&#8217;autre.</p>
-<p>On peut représenter ceci par un organigramme:</p>
+<p>On peut représenter un énoncé <code class="docutils literal"><span class="pre">if</span></code> par un organigramme:</p>
 <div class="figure align-center">
 <img alt="_images/if2.jpg" src="_images/if2.jpg" />
 </div>
 </div>
 <div class="section" id="plus-utile-que-vous-ne-le-pensez">
-<h2>15.4. PLus utile que vous ne le pensez...<a class="headerlink" href="#plus-utile-que-vous-ne-le-pensez" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Avoir à spécifier <code class="docutils literal"><span class="pre">true</span></code> ou <code class="docutils literal"><span class="pre">false</span></code> dans un programme n&#8217;aide pas
+<h2>15.4. Plus utile que vous ne le pensez...<a class="headerlink" href="#plus-utile-que-vous-ne-le-pensez" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Avoir à spécifier <code class="docutils literal"><span class="pre">True</span></code> ou <code class="docutils literal"><span class="pre">False</span></code> dans un programme n&#8217;aide pas
 Reeborg à décider de lui-même. Cependant, il existe des fonctions que
 Reeborg reconnaît comme lui indiquant des décisions à prendre. Une de
-ces fonctions est <code class="docutils literal"><span class="pre">jeton_ici()</span></code> qui indique à Reeborg si un ou
-plusieurs jetons se trouvent aux coordonnées où Reeborg est situé. Par
+ces fonctions est <code class="docutils literal"><span class="pre">objet_ici()</span></code> qui indique à Reeborg si un ou
+plusieurs objets se trouvent aux coordonnées où Reeborg est situé. Par
 exemple, si on demandait à Reeborg de collectionner des jetons, une
 partie du code pourrait être:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">jeton_ici</span><span class="p">():</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">objet_ici</span><span class="p">():</span>
+    <span class="n">prend</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Si plusieurs objets pourraient se trouver dans un monde donné
+et qu&#8217;on ne s&#8217;intéresse qu&#8217;à un seul type d&#8217;objet, on peut spécifier
+le type en utilisant un argument:</p>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">objet_ici</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">):</span>
     <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
 </pre></div>
+</div>
 </div>
 <p>Examinez à tour de rôle les mondes <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>. Dans chaque
 cas, en supposant que Reeborg se déplace le long d&#8217;une ligne, tout ce
@@ -248,7 +258,7 @@ permettre à Reeborg d&#8217;accomplir la tâche dans les deux mondes mentionné
 ci-dessus, soit <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">avance_jusque_tâche_terminée</span><span class="p">():</span>
     <span class="n">avance</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">jeton_ici</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">objet_ici</span><span class="p">():</span>
         <span class="c"># quelque chose</span>
         <span class="c"># quelque chose d&#39;autre</span>
         <span class="c"># autre chose encore</span>

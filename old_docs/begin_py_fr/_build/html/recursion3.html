@@ -122,8 +122,8 @@
 <h1>32. Encore de la récursivité<a class="headerlink" href="#encore-de-la-recursivite" title="Lien permanent vers ce titre">¶</a></h1>
 <p>Le dernier programme que nous avons vu était le suivant:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">va_au_but</span><span class="p">():</span>
-    <span class="n">avance</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+        <span class="n">avance</span><span class="p">()</span>
         <span class="n">va_au_but</span><span class="p">()</span>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>
 
@@ -138,8 +138,8 @@ toujours, nous commençons avec la première invocation:</p>
 </pre></div>
 </div>
 <p>que nous remplaçons par le corps de la fonction telle que définie:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+    <span class="n">avance</span><span class="p">()</span>
     <span class="n">va_au_but</span><span class="p">()</span>
 
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -154,8 +154,8 @@ bloc <code class="docutils literal"><span class="pre">if</span></code> est exéc
 </div>
 <p>Une fois de plus, on remplace <code class="docutils literal"><span class="pre">va_au_but()</span></code> par sa définition:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
-<span class="n">avance</span><span class="p">()</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+    <span class="n">avance</span><span class="p">()</span>
     <span class="n">va_au_but</span><span class="p">()</span>
 
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -187,8 +187,8 @@ programme.</p>
 <p>Sans changer de monde, pouvez-vous prédire l&#8217;orientation finale de
 Reeborg s&#8217;il exécute le programme suivant?</p>
 <div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">va_au_but</span><span class="p">():</span>
-    <span class="n">avance</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+        <span class="n">avance</span><span class="p">()</span>
         <span class="n">va_au_but</span><span class="p">()</span>
         <span class="n">tourne_a_gauche</span><span class="p">()</span>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>

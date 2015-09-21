@@ -13,7 +13,7 @@ de ces bibliothèques.
 Vous allez utiliser la fonction ``tourne_a_droite()`` **souvent!**
 Plutôt que de la récrire à chaque fois (souvenez-vous de la règle numéro
 3), vous allez plutôt la récrire **une fois** de plus mais, cette
-fois-ci, vous allez cliquer sur l'onglet **Biblio.** et l'écrire à
+fois-ci, vous allez cliquer sur l'onglet **biblio.** et l'écrire à
 cet endroit. Vous devriez également y écrire ``demi_tour()``.
 
 Lorsque vous voudrez utiliser les fonctions définies dans votre bibliothèque,

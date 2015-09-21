@@ -123,8 +123,8 @@
 <p>Avant d&#8217;aborder un exemple un peu plus compliqué, revoyons l&#8217;exemple
 précédent et écrivons-le à nouveau.</p>
 <div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">va_au_but</span><span class="p">():</span>
-    <span class="n">avance</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+        <span class="n">avance</span><span class="p">()</span>
         <span class="n">va_au_but</span><span class="p">()</span>
 
 <span class="c"># définition complétée; on y va!</span>
@@ -138,8 +138,8 @@ l&#8217;invocation:</p>
 </pre></div>
 </div>
 <p>est équivalente à:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+    <span class="n">avance</span><span class="p">()</span>
     <span class="n">va_au_but</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -155,8 +155,8 @@ ci-dessus est donc équivalent à:</p>
 <p>On peut à nouveau remplacer l&#8217;invocation <code class="docutils literal"><span class="pre">va_au_but()</span></code> par sa
 définition:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
-<span class="n">avance</span><span class="p">()</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+    <span class="n">avance</span><span class="p">()</span>
     <span class="n">va_au_but</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -177,8 +177,8 @@ plus loin.</p>
 <h2>31.1. Petit changement...<a class="headerlink" href="#petit-changement" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Considérez le programme suivant:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">va_au_but</span><span class="p">():</span>
-    <span class="n">avance</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">au_but</span><span class="p">():</span>
+        <span class="n">avance</span><span class="p">()</span>
         <span class="n">va_au_but</span><span class="p">()</span>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>
 

@@ -40,4 +40,3 @@ corresponding worlds:
 
 At this point , it may appear impossible to write a single program that
 could handle both deliveries. However, you will soon find out how to do so.
-

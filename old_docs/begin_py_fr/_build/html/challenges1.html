@@ -87,7 +87,7 @@
 <li><a class="reference internal" href="#perdu-dans-un-labyrinthe">8.4. Perdu dans un labyrinthe</a></li>
 <li><a class="reference internal" href="#sauter-par-dessus-les-haies">8.5. Sauter par-dessus les haies</a></li>
 <li><a class="reference internal" href="#le-temps-des-recoltes">8.6. Le temps des récoltes</a></li>
-<li><a class="reference internal" href="#jour-de-tempete">8.7. Jour de tempête</a><ul>
+<li><a class="reference internal" href="#jour-de-pluie">8.7. Jour de pluie</a><ul>
 <li><a class="reference internal" href="#au-tour-de-l-amie-de-reeborg">8.7.1. Au tour de l&#8217;amie de Reeborg</a></li>
 <li><a class="reference internal" href="#apres-la-tempete">8.7.2. Après la tempête</a></li>
 <li><a class="reference internal" href="#encore-du-travail">8.7.3. Encore du travail!</a></li>
@@ -151,17 +151,18 @@ vous pouvez vous baser sur cette vue limitée pour décider quelle devrait
 se souvient du <strong>dernier</strong> programme que vous avez exécuté dans votre
 navigateur (Chrome ou Firefox). Cependant, ce serait parfois
 utile de sauvegarder un certain programme soit sur votre ordinateur
-ou sur un clé usb.  Pour ce faire, vous n&#8217;avez qu&#8217;à cliquer sur le
-bouton <strong>Sauvegarder</strong> à la droite de l&#8217;onglet pour l&#8217;éditeur Python.
+ou sur un clé usb.  Pour ce faire, vous n&#8217;avez qu&#8217;à cliquer en premier
+sur le bouton <strong>Menu additionnel</strong>; par la suite, cliquez sur le
+bouton <strong>Sauvegarder le programme dans un fichier</strong>.
 De la même façon, vous pouvez récupérer un programme en cliquant
-sur le bouton <strong>Charger</strong>.</p>
+sur le bouton <strong>Ouvrir un programme</strong>.</p>
 <p>Si vous
 sauvegardez un programme, il serait probablement utile d&#8217;ajouter de
 l&#8217;information indiquant pour quelle monde ce programme représente une
 solution. Une façon de le faire est d&#8217;ajouter un commentaire - ce que
 vous savez comment faire si vous avez lu les leçons précédentes. Une
 autre façon, peut-être plus utile, est d&#8217;avoir comme toute première
-instruction <code class="docutils literal"><span class="pre">Monde(&quot;nom</span> <span class="pre">du</span> <span class="pre">monde</span> <span class="pre">ici&quot;);</span></code>. Par exemple, une
+instruction <code class="docutils literal"><span class="pre">Monde(&quot;nom</span> <span class="pre">du</span> <span class="pre">monde</span> <span class="pre">ici&quot;)</span></code>. Par exemple, une
 solution au monde <strong>But&nbsp;1</strong> aurait comme première instruction:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">Monde</span><span class="p">(</span><span class="s">&quot;But 1&quot;</span><span class="p">)</span>
 <span class="n">avance</span><span class="p">()</span>
@@ -229,25 +230,20 @@ peut-être tenter votre chance avec celle des haies inégalement espacées
 <div class="section" id="le-temps-des-recoltes">
 <h2>8.6. Le temps des récoltes<a class="headerlink" href="#le-temps-des-recoltes" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Reeborg est à la ferme de sa tante et c&#8217;est le temps des récoltes.
-Sélectionnez un des mondes <strong>Récolte&nbsp;1</strong>, <strong>Récolte&nbsp;2</strong> ou <strong>Récolte&nbsp;3</strong> et faites
-en sorte que Reeborg ramasse tous les jetons qui représentent des
-plantes à récolter.</p>
-<p>Observez que les mondes <strong>Récolte&nbsp;1</strong> et <strong>Récolte&nbsp;3</strong> ont des rangées
-horizontales (ou verticales) ayant la même longueur alors que le monde
-Récolte&nbsp;2 peut être vu comme ayant des rangées diagonales ayant la même
-longueur.</p>
-<p>Pour une autre tâche, sélectionnez le monde <strong>Récolte&nbsp;4</strong> qui a eu lieu plus
+Sélectionnez un des mondes <strong>Récolte&nbsp;1</strong> ou <strong>Récolte&nbsp;2</strong> et faites
+en sorte que Reeborg ramasse toutes les carottes.</p>
+<p>Pour une autre tâche, sélectionnez le monde <strong>Récolte&nbsp;3</strong> qui a eu lieu plus
 tôt dans la saison. Reeborg avait planté des graines de carottes;
 certaines avaient poussé correctement alors que d&#8217;autres graines
 n&#8217;avaient pas germées; d&#8217;autres encore avaient été semées trop
 rapprochées les unes des autres. Reeborg doit enlever les carottes en
 excès, resemer aux endroits où les graines n&#8217;ont pas germé de façon à
-avoir une carotte (jeton) par endroit.</p>
+avoir une carotte par endroit.</p>
 <p><strong>Vous n&#8217;avez pas à écrire un programme à ce moment-ci.</strong>
 Cependant, pensez à quoi aurait l&#8217;air un tel programme.</p>
 </div>
-<div class="section" id="jour-de-tempete">
-<h2>8.7. Jour de tempête<a class="headerlink" href="#jour-de-tempete" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="jour-de-pluie">
+<h2>8.7. Jour de pluie<a class="headerlink" href="#jour-de-pluie" title="Lien permanent vers ce titre">¶</a></h2>
 <p>C&#8217;était une belle journée ensoleillée. Reeborg jouait dehors avec son
 amie. Soudainement, la pluie se mit à tomber et Reeborg se rappela que
 les fenêtres de sa maison étaient toutes ouvertes. Reeborg alla donc
@@ -259,12 +255,12 @@ indécis quant à la meilleure façon de procéder.</p>
 les fenêtres de sa maison. Lorsque Reeborg aura terminé, il sera au
 seuil de la porte, regardant la pluie tomber et attendra patiemment
 qu&#8217;elle arrête pour qu&#8217;il puisse retourner jouer dehors. Le monde à
-sélectionner est <strong>Tempête&nbsp;1</strong>.</p>
+sélectionner est <strong>Pluie 1</strong>.</p>
 </div>
 <div class="section" id="au-tour-de-l-amie-de-reeborg">
 <h3>8.7.1. Au tour de l&#8217;amie de Reeborg<a class="headerlink" href="#au-tour-de-l-amie-de-reeborg" title="Lien permanent vers ce titre">¶</a></h3>
 <p>Erdna, l&#8217;amie de Reeborg, vit dans une plus grande maison illustrée dans
-<strong>Tempête&nbsp;2</strong>. Erdna jouait avec Reeborg lorsque la pluie s&#8217;est mise à
+<strong>Pluie&nbsp;2</strong>. Erdna jouait avec Reeborg lorsque la pluie s&#8217;est mise à
 tomber. Aidez Erdna à fermer les fenêtres de sa maison.</p>
 <p>Plus tard, vous serez capable d&#8217;écrire un seul programme permettant à
 Reeborg et à Erdna de fermer les fenêtres de leur maison ... mais ça
@@ -272,19 +268,19 @@ vous demandera de la réflexion.</p>
 </div>
 <div class="section" id="apres-la-tempete">
 <h3>8.7.2. Après la tempête<a class="headerlink" href="#apres-la-tempete" title="Lien permanent vers ce titre">¶</a></h3>
-<p>Le vent a soufflé violemment la nuit dernière. Il y a des déchets
+<p>Le vent a soufflé violemment la nuit dernière. Il y a des feuilles mortes
 partout autour de la maison de Reeborg. Ses parents lui demandent de
-nettoyer le trottoir qui mène à la rue <strong>Tempête&nbsp;3</strong>, ainsi que l&#8217;allée
-<strong>Tempête&nbsp;4</strong>.</p>
-<p>Reeborg doit ramasser tous les déchets (représentés par des jetons), et
-les mettre dans la poubelle en s&#8217;assurant de fermer le couvercle à
+nettoyer le trottoir qui mène à la rue <strong>Tempête&nbsp;1</strong>, ainsi que l&#8217;allée
+<strong>Tempête&nbsp;2</strong>.</p>
+<p>Reeborg doit ramasser toutes les feuilles, et
+les mettre dans la boîte pour le compostage en s&#8217;assurant de fermer le couvercle à
 l&#8217;aide de l&#8217;instruction <code class="docutils literal"><span class="pre">construit_un_mur()</span></code>.</p>
 </div>
 <div class="section" id="encore-du-travail">
 <h3>8.7.3. Encore du travail!<a class="headerlink" href="#encore-du-travail" title="Lien permanent vers ce titre">¶</a></h3>
 <p>Les parents de Reeborg sont tellement content de son travail de
-nettoyage qu&#8217;ils lui demande de ramasser tous les déchets qui se sont
-retrouvés dans la cour, tel qu&#8217;illustré dans <strong>Tempête&nbsp;5</strong>.</p>
+nettoyage qu&#8217;ils lui demande de ramasser toutes les feuilles qui se sont
+retrouvées dans la cour, tel qu&#8217;illustré dans <strong>Tempête&nbsp;3</strong>.</p>
 <p>Plus tard, vous serez en mesure d&#8217;écrire un seul programme qui permettra
 d&#8217;accomplir les trois tâches de nettoyage.</p>
 </div>

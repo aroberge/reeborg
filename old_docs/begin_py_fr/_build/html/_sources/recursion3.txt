@@ -4,8 +4,8 @@ Encore de la récursivité
 Le dernier programme que nous avons vu était le suivant::
 
     def va_au_but():
-        avance()
         if not au_but():
+            avance()
             va_au_but()
         tourne_a_gauche()
 
@@ -20,8 +20,8 @@ toujours, nous commençons avec la première invocation::
 
 que nous remplaçons par le corps de la fonction telle que définie::
 
-    avance()
     if not au_but():
+        avance()
         va_au_but()
 
     tourne_a_gauche()
@@ -36,8 +36,8 @@ bloc ``if`` est exécuté::
 Une fois de plus, on remplace ``va_au_but()`` par sa définition::
 
     avance()
-    avance()
     if not au_but():
+        avance()
         va_au_but()
 
     tourne_a_gauche()
@@ -74,8 +74,8 @@ Reeborg s'il exécute le programme suivant?
 .. code:: py3
 
     def va_au_but():
-        avance()
         if not au_but():
+            avance()
             va_au_but()
             tourne_a_gauche()
         tourne_a_gauche()

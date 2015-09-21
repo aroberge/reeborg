@@ -51,8 +51,8 @@ add two instructions::
 
 .. topic:: Try something else!
 
-    What happens if, instead you leave out the ``turn_left()`` instruction, y
-    and keep the additional ``move()`` instruction?
+    What happens if, you leave out the ``turn_left()`` instruction, but
+    keep the additional ``move()`` instruction?
 
 A different view
 ----------------

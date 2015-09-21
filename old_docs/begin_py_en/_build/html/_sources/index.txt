@@ -9,7 +9,7 @@ Learn Python with Reeborg!
 ==========================
 
 Learning Python is easy with Reeborg.  All you have to do is read the tutorial
-and try all the examples in `Reeborg's world <../../world.html>`_.
+and try all the examples in `Reeborg's world <http://reeborg.ca/world.html>`_.
 I suggest that you keep the tutorial and Reeborg's World both open but
 in separate windows or tabs.
 

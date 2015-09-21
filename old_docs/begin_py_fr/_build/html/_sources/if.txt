@@ -97,24 +97,34 @@ l'exécution du programme faisait en sorte que l'énoncé ``if`` était
 répété à nouveau, la condition serait réévaluée à chaque fois, ce qui
 pourrait mener à des résultats différents d'une évaluation à l'autre.
 
-On peut représenter ceci par un organigramme:
+On peut représenter un énoncé ``if`` par un organigramme:
 
 .. figure:: ../../flowcharts/if2.jpg
    :align: center
 
-PLus utile que vous ne le pensez...
+Plus utile que vous ne le pensez...
 -----------------------------------
 
-Avoir à spécifier ``true`` ou ``false`` dans un programme n'aide pas
+Avoir à spécifier ``True`` ou ``False`` dans un programme n'aide pas
 Reeborg à décider de lui-même. Cependant, il existe des fonctions que
 Reeborg reconnaît comme lui indiquant des décisions à prendre. Une de
-ces fonctions est ``jeton_ici()`` qui indique à Reeborg si un ou
-plusieurs jetons se trouvent aux coordonnées où Reeborg est situé. Par
+ces fonctions est ``objet_ici()`` qui indique à Reeborg si un ou
+plusieurs objets se trouvent aux coordonnées où Reeborg est situé. Par
 exemple, si on demandait à Reeborg de collectionner des jetons, une
 partie du code pourrait être::
 
-    if jeton_ici():
-        prend("jeton")
+    if objet_ici():
+        prend()
+
+.. note::
+
+    Si plusieurs objets pourraient se trouver dans un monde donné
+    et qu'on ne s'intéresse qu'à un seul type d'objet, on peut spécifier
+    le type en utilisant un argument::
+
+        if objet_ici("jeton"):
+            prend("jeton")
+
 
 Examinez à tour de rôle les mondes **Jetons 1** et **Jetons 2**. Dans chaque
 cas, en supposant que Reeborg se déplace le long d'une ligne, tout ce
@@ -137,7 +147,7 @@ ci-dessus, soit **Jetons 1** et **Jetons 2**::
 
     def avance_jusque_tâche_terminée():
         avance()
-        if jeton_ici():
+        if objet_ici():
             # quelque chose
             # quelque chose d'autre
             # autre chose encore

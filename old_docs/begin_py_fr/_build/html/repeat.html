@@ -120,9 +120,8 @@ pour ceci puis présenter une fonction plus simple à comprendre,
 <code class="docutils literal"><span class="pre">repete()</span></code>, fonction unique au monde de Reeborg. Plus tard je vous
 expliquerai comment <code class="docutils literal"><span class="pre">repete()</span></code> est définie à l&#8217;aide du code utilisé
 habituellement.</p>
-<p>La façon standard s&#8217;appelle une <em>boucle ``for``</em> et est écrite de la
-façon suivante</p>
-<p>Repeat</p>
+<p>La façon standard s&#8217;appelle une <em>boucle</em> <code class="docutils literal"><span class="pre">for</span></code>
+et est écrite de la façon suivante:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="c"># diverses</span>
     <span class="c"># instructions</span>
@@ -133,9 +132,7 @@ façon suivante</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Souvenez-vous que <code class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></code> pourrait simplement être écrit comme <code class="docutils literal"><span class="pre">prend()</span></code>.</p>
 </div>
-<p>Maintenant que vous avez entrevu le code cryptique incluant deux
-mots-clés <code class="docutils literal"><span class="pre">for</span></code> et <code class="docutils literal"><span class="pre">in</span></code>, nous présentons plutôt la fonction
-<code class="docutils literal"><span class="pre">repete()</span></code>. Nous allons utiliser la fonction <code class="docutils literal"><span class="pre">prend_la_monnaie()</span></code> de la
+<p>Nous allons utiliser la fonction <code class="docutils literal"><span class="pre">prend_la_monnaie()</span></code> de la
 tâche de livraison de journaux que nous avons tout juste vue:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">prendre_la_monnaie</span><span class="p">():</span>
     <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
@@ -145,9 +142,21 @@ tâche de livraison de journaux que nous avons tout juste vue:</p>
     <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>pour démontrer l&#8217;utilisation de la boucle <code class="docutils literal"><span class="pre">for</span></code> ainsi
+que celle de la fonction <code class="docutils literal"><span class="pre">repete</span></code>.</p>
 <p>Le corps de <code class="docutils literal"><span class="pre">prendre_la_monnaie()</span></code> est constitué de 5 répétitions de
-<code class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></code>. Utilisant <code class="docutils literal"><span class="pre">repete()</span></code>, nous pouvons récrire ceci de
-la façon suivante::</p>
+<code class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></code>.</p>
+<p>Utilisant <code class="docutils literal"><span class="pre">for</span> <span class="pre">...</span> <span class="pre">in</span></code>, nous pouvons récrire ceci de
+la façon suivante:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">prendre_la_monnaie</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="n">prend</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>ou nous avons omis <code class="docutils literal"><span class="pre">&quot;jeton&quot;</span></code>, ce qui est notre choix
+et est valable ici.</p>
+<p>Utilisant <code class="docutils literal"><span class="pre">repete()</span></code>, nous pouvons récrire ceci de
+la façon suivante:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">prendre_la_monnaie</span><span class="p">():</span>
     <span class="n">repete</span><span class="p">(</span><span class="n">prend</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
@@ -163,7 +172,7 @@ parenthèses: on ne peut donc pas spécifier d&#8217;argument à cette deuxième
 <p class="topic-title first">À votre tour!</p>
 <p>Si vous avez toujours dans l&#8217;éditeur de code une copie
 du programme permettant à Reeborg de livrer le journal, modifiez-le de
-façon à utiliser <code class="docutils literal"><span class="pre">repete()</span></code> à toutes les fois que ceci permet de
+façon à utiliser <code class="docutils literal"><span class="pre">repete()</span></code> ou une boucle <code class="docutils literal"><span class="pre">for</span></code> à toutes les fois que ceci permet de
 raccourcir le code. Si vous n&#8217;avez pas une copie du programme, retourner
 à la leçon précédente et refaites-le en utilisant <code class="docutils literal"><span class="pre">repete()</span></code>.</p>
 </div>

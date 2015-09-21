@@ -7,8 +7,8 @@ précédent et écrivons-le à nouveau.
 .. code:: py3
 
     def va_au_but():
-        avance()
         if not au_but():
+            avance()
             va_au_but()
 
     # définition complétée; on y va!
@@ -22,8 +22,8 @@ l'invocation::
 
 est équivalente à::
 
-    avance()
     if not au_but():
+        avance()
         va_au_but()
 
 Supposons que la première fois qu'on exécute ces instructions,
@@ -39,8 +39,8 @@ On peut à nouveau remplacer l'invocation ``va_au_but()`` par sa
 définition::
 
     avance()
-    avance()
     if not au_but():
+        avance()
         va_au_but()
 
 et on pourrait, en théorie, continuer à faire éternellement des
@@ -64,8 +64,8 @@ Petit changement...
 Considérez le programme suivant::
 
     def va_au_but():
-        avance()
         if not au_but():
+            avance()
             va_au_but()
         tourne_a_gauche()
 

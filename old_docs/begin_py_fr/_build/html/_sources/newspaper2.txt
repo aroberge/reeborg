@@ -89,7 +89,7 @@ bibliothèque. Utilisons-les et définissons d'autres fonctions.
 .. code-block:: python
     :linenos:
 
-    import biblio
+    from biblio import tourne_a_droite, demi_tour
 
     def monter_un_etage():
         tourne_a_gauche()

@@ -132,9 +132,10 @@ au haut de l&#8217;écran: vous verrez apparaître un programme dans l&#8217;éd
 de code.  Exécutez ce programme: la sélection des mondes changera pour
 inclure ceux mentionnés dans ce tutoriel.</p>
 </div>
-<p>Choisissez le monde <strong>But 1</strong>. Voyez comment le carré en bas à gauche est
-d&#8217;une couleur différente: ceci identifie la maison de Reeborg. Le monde
-de Reeborg est un simple échiquier. Dans <strong>But 1</strong>, Reeborg part du
+<p>Choisissez le monde <strong>But 1</strong>. Le carré en bas à gauche est
+la maison de Reeborg.
+Le monde de Reeborg est un simple échiquier.
+Dans <strong>But 1</strong>, Reeborg part du
 troisième carré sur la rangée du bas. Ce carré a les coordonnées
 cartésiennes <code class="docutils literal"><span class="pre">x=3</span></code> et <code class="docutils literal"><span class="pre">y=1</span></code>.</p>
 <div class="topic">
@@ -149,19 +150,16 @@ puisse aller à sa maison.</p>
 <p>Sélectionez <strong>But 2</strong>.  Notez que Reeborg est à un endroit différent et
 qu&#8217;il vous fait face.   Exécutez exactement le même programme et observez
 le résultat.</p>
-<p>Ensuite, sélectionnez <strong>But 3</strong>.  Remarquez qu&#8217;il y a un tout petit carré noir
-au but de Reeborg.  Qu&#8217;arrive-t-il si vous exécutez votre programme?</p>
+<p>Ensuite, sélectionnez <strong>But 3</strong>. Qu&#8217;arrive-t-il si vous exécutez votre programme?</p>
 </div>
 <div class="section" id="tourner-a-gauche">
 <h2>2.1. Tourner à gauche<a class="headerlink" href="#tourner-a-gauche" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Le tout dernier exemple que vous avez essayé, si vous avez suivi
-les instructions, ne fonctionnait pas totalement: Reeborg a indiqué
-quelque chose à propos d&#8217;une mauvaise orientation.
-Si vous examinez le carré vert où se trouve Reeborg à la fin, vous verrez
-un petit carré noir près de la bordure droite du carré vert: ceci indique
-la direction à laquelle Reeborg doit faire face.
-Ceci peut être réalisé en ajoutant l&#8217;instruction suivante:</p>
+les instructions, ne fonctionnait pas puisque Reeborg n&#8217;avait pas
+terminé dans sa maison.
+Ceci peut être réalisé en ajoutant les deux instructions suivantes:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">tourne_a_gauche</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -171,7 +169,7 @@ Ceci peut être réalisé en ajoutant l&#8217;instruction suivante:</p>
 <div class="topic">
 <p class="topic-title first">Essayez une autre chose!</p>
 <p>Qu&#8217;arrive-t-il si, au lieu de <code class="docutils literal"><span class="pre">tourne_a_gauche()</span></code>, vous ajoutez plutôt une
-troisième instruction <code class="docutils literal"><span class="pre">avance()</span></code>?</p>
+autre instruction <code class="docutils literal"><span class="pre">avance()</span></code>?</p>
 </div>
 </div>
 <div class="section" id="un-autre-point-de-vue">

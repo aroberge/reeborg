@@ -13,7 +13,7 @@ first two rules for learning about programming.
         musical instrument: you have to **do it**, not simply read about it.
 
     **Rule # 2**
-    
+
         Write your computer programs to make them easy for **people** to
         read and understand.
 
@@ -27,8 +27,8 @@ different instructions:
 
 -  ``move()``
 -  ``turn_left()``
--  ``take()`` equivalent to ``take("token")``
--  ``put()`` equivalent to ``put("token")``
+-  ``take()`` or ``take("token")``
+-  ``put()`` or ``put("token")``
 -  ``pause()``
 
 You may or may not have used the ``pause()`` instruction which I only

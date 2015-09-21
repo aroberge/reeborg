@@ -11,12 +11,13 @@ en utilisant les instructions suivantes::
     depose()
 
 Sélectionnez le monde **Jetons 1**. Il y a un jeton tout juste à côté de
-Reeborg. On sait qu'il n'y en a qu'un parce qu'on voit le chiffre 1 à
-l'intérieur. Dans le carré suivant, on voit le contour d'un jeton
-(imaginaire) avec le numéro 1 à côté. Ceci indique que Reeborg doit
-déposer un seul jeton à cet endroit. Lorsque le tout sera complété, on
-pourra comparer le nombre de jetons déposés (chiffre à l'intérieur) avec
-le nombre de jetons recherché (chiffre à l'extérieur).
+Reeborg avec un chiffre 1 en rouge à côté: le chiffre 1 indique qu'il
+n'y a qu'un seul jeton à cet endroit; la couleur rouge indique que
+le jeton n'est pas à l'endroit désiré.
+Dans le carré suivant, on voit une image d'une jeton en ton de gris plutôt
+qu'en couleur: ceci indique que Reeborg doit
+déposer un seul jeton à cet endroit. Finalement, le carré suivant
+en vert pale indique l'endroit où Reeborg doit terminer son programme.
 
 .. topic:: À votre tour!
 

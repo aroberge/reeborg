@@ -22,15 +22,16 @@ Important information about saving your work
 By making use of something known as *Local Storage*, Reeborg's World remembers
 the last program you work on in a given browser (Firefox or Chrome).
 However, it might be useful for you to save your programs on your computer,
-or on a usb key.  You can do this by clicking on the **Save** button at the
-right of the Python editor tab.  Similarly, you can retrieve a program
-from your computer using the **Load** button.
+or on a usb key.  You can do this by first clicking on
+**Additional options** at the thop and then clicking on the
+**Save program to file** button.  Similarly, you can retrieve a program
+from your computer using the **Import program from file** button.
 
 If you do save your programs, you will have to note for which
 world they are designed. To do so you can use comments. Alternatively,
 and this is perhaps a better option, you can use the special command
 ``World("world_name_here")`` as the first instruction. For
-example, a solution to world Home 1 would be::
+example, a solution to world **Home 1** would be::
 
     World("Home 1")
     move()
