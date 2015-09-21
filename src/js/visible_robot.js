@@ -8,53 +8,55 @@
 RUR.vis_robot = {};
 RUR.vis_robot.images = [{}, {}, {}, {}];
 
+RUR.base_url = RUR.base_url || '';  // enable changing defaults for unit tests
+
 // classic
 RUR.vis_robot.images[0].robot_e_img = new Image();
-RUR.vis_robot.images[0].robot_e_img.src = 'src/images/robot_e.png';
+RUR.vis_robot.images[0].robot_e_img.src = RUR.base_url + 'src/images/robot_e.png';
 RUR.vis_robot.images[0].robot_n_img = new Image();
-RUR.vis_robot.images[0].robot_n_img.src = 'src/images/robot_n.png';
+RUR.vis_robot.images[0].robot_n_img.src = RUR.base_url + 'src/images/robot_n.png';
 RUR.vis_robot.images[0].robot_w_img = new Image();
-RUR.vis_robot.images[0].robot_w_img.src = 'src/images/robot_w.png';
+RUR.vis_robot.images[0].robot_w_img.src = RUR.base_url + 'src/images/robot_w.png';
 RUR.vis_robot.images[0].robot_s_img = new Image();
-RUR.vis_robot.images[0].robot_s_img.src = 'src/images/robot_s.png';
+RUR.vis_robot.images[0].robot_s_img.src = RUR.base_url + 'src/images/robot_s.png';
 RUR.vis_robot.images[0].robot_random_img = new Image();
-RUR.vis_robot.images[0].robot_random_img.src = 'src/images/robot_random.png';
+RUR.vis_robot.images[0].robot_random_img.src = RUR.base_url + 'src/images/robot_random.png';
 
 // rover type
 RUR.vis_robot.images[1].robot_e_img = new Image();
-RUR.vis_robot.images[1].robot_e_img.src = 'src/images/rover_e.png';
+RUR.vis_robot.images[1].robot_e_img.src = RUR.base_url + 'src/images/rover_e.png';
 RUR.vis_robot.images[1].robot_n_img = new Image();
-RUR.vis_robot.images[1].robot_n_img.src = 'src/images/rover_n.png';
+RUR.vis_robot.images[1].robot_n_img.src = RUR.base_url + 'src/images/rover_n.png';
 RUR.vis_robot.images[1].robot_w_img = new Image();
-RUR.vis_robot.images[1].robot_w_img.src = 'src/images/rover_w.png';
+RUR.vis_robot.images[1].robot_w_img.src = RUR.base_url + 'src/images/rover_w.png';
 RUR.vis_robot.images[1].robot_s_img = new Image();
-RUR.vis_robot.images[1].robot_s_img.src = 'src/images/rover_s.png';
+RUR.vis_robot.images[1].robot_s_img.src = RUR.base_url + 'src/images/rover_s.png';
 RUR.vis_robot.images[1].robot_random_img = new Image();
-RUR.vis_robot.images[1].robot_random_img.src = 'src/images/rover_random.png';
+RUR.vis_robot.images[1].robot_random_img.src = RUR.base_url + 'src/images/rover_random.png';
 
 // 3d red type
 RUR.vis_robot.images[2].robot_e_img = new Image();
-RUR.vis_robot.images[2].robot_e_img.src = 'src/images/plain_e.png';
+RUR.vis_robot.images[2].robot_e_img.src = RUR.base_url + 'src/images/plain_e.png';
 RUR.vis_robot.images[2].robot_n_img = new Image();
-RUR.vis_robot.images[2].robot_n_img.src = 'src/images/plain_n.png';
+RUR.vis_robot.images[2].robot_n_img.src = RUR.base_url + 'src/images/plain_n.png';
 RUR.vis_robot.images[2].robot_w_img = new Image();
-RUR.vis_robot.images[2].robot_w_img.src = 'src/images/plain_w.png';
+RUR.vis_robot.images[2].robot_w_img.src = RUR.base_url + 'src/images/plain_w.png';
 RUR.vis_robot.images[2].robot_s_img = new Image();
-RUR.vis_robot.images[2].robot_s_img.src = 'src/images/plain_s.png';
+RUR.vis_robot.images[2].robot_s_img.src = RUR.base_url + 'src/images/plain_s.png';
 RUR.vis_robot.images[2].robot_random_img = new Image();
-RUR.vis_robot.images[2].robot_random_img.src = 'src/images/robot_random.png';
+RUR.vis_robot.images[2].robot_random_img.src = RUR.base_url + 'src/images/robot_random.png';
 
 // solar panel type
 RUR.vis_robot.images[3].robot_e_img = new Image();
-RUR.vis_robot.images[3].robot_e_img.src = 'src/images/sp_e.png';
+RUR.vis_robot.images[3].robot_e_img.src = RUR.base_url + 'src/images/sp_e.png';
 RUR.vis_robot.images[3].robot_n_img = new Image();
-RUR.vis_robot.images[3].robot_n_img.src = 'src/images/sp_n.png';
+RUR.vis_robot.images[3].robot_n_img.src = RUR.base_url + 'src/images/sp_n.png';
 RUR.vis_robot.images[3].robot_w_img = new Image();
-RUR.vis_robot.images[3].robot_w_img.src = 'src/images/sp_w.png';
+RUR.vis_robot.images[3].robot_w_img.src = RUR.base_url + 'src/images/sp_w.png';
 RUR.vis_robot.images[3].robot_s_img = new Image();
-RUR.vis_robot.images[3].robot_s_img.src = 'src/images/sp_s.png';
+RUR.vis_robot.images[3].robot_s_img.src = RUR.base_url + 'src/images/sp_s.png';
 RUR.vis_robot.images[3].robot_random_img = new Image();
-RUR.vis_robot.images[3].robot_random_img.src = 'src/images/robot_random.png';
+RUR.vis_robot.images[3].robot_random_img.src = RUR.base_url + 'src/images/robot_random.png';
 
 RUR.vis_robot.style = 0;
 

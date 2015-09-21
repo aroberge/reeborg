@@ -50,6 +50,7 @@ RUR.world.import_world = function (json_string) {
 
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
+            RUR.robot.cleanup_objects(RUR.current_world.robots[0]);
             body = RUR.current_world.robots[0];
             body._prev_x = body.x;
             body._prev_y = body.y;

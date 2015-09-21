@@ -593,9 +593,6 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
             robot.objects[obj] = nb;
         } else if (robot.objects[obj] !== undefined) {
             delete robot.objects[obj];
-            if (Object.keys(robot.objects).length == 0) {
-                delete robot.objects;
-            }
         }
     } else {
         $("#Reeborg-shouts").html(nb + RUR.translate(" is not a valid value!")).dialog("open");

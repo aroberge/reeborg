@@ -51,3 +51,15 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     return robot;
 };
 
+RUR.robot.cleanup_objects = function (robot) {
+    "use strict";
+    var obj_name, objects_carried = {};
+    for (obj_name in robot.objects) {
+        if (robot.objects.hasOwnProperty(obj_name)){
+             if (robot.objects.obj_name == "infinite" || robot.objects.obj_name > 0){
+                objects_carried.obj_name = robot.objects.obj_name;
+             }
+        }
+    }
+    robot.objects = objects_carried;
+}

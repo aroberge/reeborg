@@ -434,9 +434,9 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
                 for (obj_name in objects_here){
                     if (objects_here.hasOwnProperty(obj_name)){
                         if (tile){
-                            specific_object = RUR.top_tiles[obj_name];
+                            specific_object = RUR.top_tiles[RUR.translate_to_english(obj_name)];
                         } else {
-                            specific_object = RUR.objects[obj_name];
+                            specific_object = RUR.objects[RUR.translate_to_english(obj_name)];
                         }
                         if (goal) {
                             ctx = RUR.GOAL_CTX;

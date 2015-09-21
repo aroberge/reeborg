@@ -238,7 +238,7 @@ RUR.control.take = function(robot, arg){
         }
     }
 
-    objects_here = RUR.control.object_here(robot, arg);
+    objects_here = RUR.control.object_here(robot, translated_arg);
     if (arg !== undefined) {
         if (objects_here.length === 0 || objects_here == false) {
             throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
@@ -256,6 +256,7 @@ RUR.control.take = function(robot, arg){
 
 RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     var objects_here, coords;
+    obj = RUR.translate_to_english(obj);
     coords = robot.x + "," + robot.y;
     RUR.current_world.objects[coords][obj] -= 1;
 

@@ -97,7 +97,7 @@ RUR.make_default_menu_fr = function () {
         [worlds + 'rain2.json', 'Pluie 2'],
         [worlds + 'slalom.json', 'Slalom'],
         [worlds + 'menus/documentation_en', 'Documentation (menu anglais)'],
-        [worlds + 'menus/tutorial_en', 'Tutoriel: menu'],
+        [worlds + 'menus/tutorial_fr', 'Tutoriel: menu'],
         [worlds + 'blank.json', 'Canevas graphique'],
         ];
 
