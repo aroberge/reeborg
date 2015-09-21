@@ -55,7 +55,7 @@ QUnit.test( "mud", function(assert) {
 QUnit.test( "Final tokens as goal", function(assert) {
     var old, converted, new_;
     old = '{"robots":[{"x":1,"y":1,"orientation":0}],"walls":{},"goal":{"tokens":{"4,1":3}}}';
-    new_ = '{"robots":[{"x":1,"y":1,"orientation":0}],"walls":{},"goal":{"objects":{"4,1":{"tokens":3}}}}';
+    new_ = '{"robots":[{"x":1,"y":1,"orientation":0}],"walls":{},"goal":{"objects":{"4,1":{"token":3}}}}';
     converted = convert_world(old);
     equal(converted, new_, "Final tokens as goal." );
 });
