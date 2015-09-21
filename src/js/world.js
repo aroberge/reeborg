@@ -21,6 +21,10 @@ RUR.world.create_empty_world = function (blank_canvas) {
     // code entered by the student
     world.pre_code = '';
     world.post_code = '';
+    world.small_tiles = false;
+    world.rows = RUR.MAX_Y;
+    world.cols = RUR.MAX_X;
+
     return world;
 };
 RUR.current_world = RUR.world.create_empty_world();
@@ -39,9 +43,10 @@ RUR.world.import_world = function (json_string) {
         try {
             RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
         } catch (e) {
-            console.log("exception caught in import_world");
+            console.log("Exception caught in import_world.");
             console.log(json_string);
             console.log(e);
+            RUR.world.create_empty_world();
             return;
         }
     } else {  // already parsed
