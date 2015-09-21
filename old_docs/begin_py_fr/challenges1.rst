@@ -25,10 +25,11 @@ En utilisant "l'entreposage local" (*Local Storage*), le Monde de Reeborg
 se souvient du **dernier** programme que vous avez exécuté dans votre
 navigateur (Chrome ou Firefox). Cependant, ce serait parfois
 utile de sauvegarder un certain programme soit sur votre ordinateur
-ou sur un clé usb.  Pour ce faire, vous n'avez qu'à cliquer sur le
-bouton **Sauvegarder** à la droite de l'onglet pour l'éditeur Python.
+ou sur un clé usb.  Pour ce faire, vous n'avez qu'à cliquer en premier
+sur le bouton **Menu additionnel**; par la suite, cliquez sur le
+bouton **Sauvegarder le programme dans un fichier**.
 De la même façon, vous pouvez récupérer un programme en cliquant
-sur le bouton **Charger**.
+sur le bouton **Ouvrir un programme**.
 
 Si vous
 sauvegardez un programme, il serait probablement utile d'ajouter de
@@ -36,7 +37,7 @@ l'information indiquant pour quelle monde ce programme représente une
 solution. Une façon de le faire est d'ajouter un commentaire - ce que
 vous savez comment faire si vous avez lu les leçons précédentes. Une
 autre façon, peut-être plus utile, est d'avoir comme toute première
-instruction ``Monde("nom du monde ici");``. Par exemple, une
+instruction ``Monde("nom du monde ici")``. Par exemple, une
 solution au monde **But 1** aurait comme première instruction::
 
     Monde("But 1")
@@ -116,28 +117,22 @@ Le temps des récoltes
 ---------------------
 
 Reeborg est à la ferme de sa tante et c'est le temps des récoltes.
-Sélectionnez un des mondes **Récolte 1**, **Récolte 2** ou **Récolte 3** et faites
-en sorte que Reeborg ramasse tous les jetons qui représentent des
-plantes à récolter.
+Sélectionnez un des mondes **Récolte 1** ou **Récolte 2** et faites
+en sorte que Reeborg ramasse toutes les carottes.
 
-Observez que les mondes **Récolte 1** et **Récolte 3** ont des rangées
-horizontales (ou verticales) ayant la même longueur alors que le monde
-Récolte 2 peut être vu comme ayant des rangées diagonales ayant la même
-longueur.
-
-Pour une autre tâche, sélectionnez le monde **Récolte 4** qui a eu lieu plus
+Pour une autre tâche, sélectionnez le monde **Récolte 3** qui a eu lieu plus
 tôt dans la saison. Reeborg avait planté des graines de carottes;
 certaines avaient poussé correctement alors que d'autres graines
 n'avaient pas germées; d'autres encore avaient été semées trop
 rapprochées les unes des autres. Reeborg doit enlever les carottes en
 excès, resemer aux endroits où les graines n'ont pas germé de façon à
-avoir une carotte (jeton) par endroit.
+avoir une carotte par endroit.
 
 **Vous n'avez pas à écrire un programme à ce moment-ci.**
 Cependant, pensez à quoi aurait l'air un tel programme.
 
 
-Jour de tempête
+Jour de pluie
 ---------------
 
 C'était une belle journée ensoleillée. Reeborg jouait dehors avec son
@@ -152,13 +147,13 @@ indécis quant à la meilleure façon de procéder.
     les fenêtres de sa maison. Lorsque Reeborg aura terminé, il sera au
     seuil de la porte, regardant la pluie tomber et attendra patiemment
     qu'elle arrête pour qu'il puisse retourner jouer dehors. Le monde à
-    sélectionner est **Tempête 1**.
+    sélectionner est **Pluie 1**.
 
 Au tour de l'amie de Reeborg
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Erdna, l'amie de Reeborg, vit dans une plus grande maison illustrée dans
-**Tempête 2**. Erdna jouait avec Reeborg lorsque la pluie s'est mise à
+**Pluie 2**. Erdna jouait avec Reeborg lorsque la pluie s'est mise à
 tomber. Aidez Erdna à fermer les fenêtres de sa maison.
 
 Plus tard, vous serez capable d'écrire un seul programme permettant à
@@ -168,21 +163,21 @@ vous demandera de la réflexion.
 Après la tempête
 ~~~~~~~~~~~~~~~~
 
-Le vent a soufflé violemment la nuit dernière. Il y a des déchets
+Le vent a soufflé violemment la nuit dernière. Il y a des feuilles mortes
 partout autour de la maison de Reeborg. Ses parents lui demandent de
-nettoyer le trottoir qui mène à la rue **Tempête 3**, ainsi que l'allée
-**Tempête 4**.
+nettoyer le trottoir qui mène à la rue **Tempête 1**, ainsi que l'allée
+**Tempête 2**.
 
-Reeborg doit ramasser tous les déchets (représentés par des jetons), et
-les mettre dans la poubelle en s'assurant de fermer le couvercle à
+Reeborg doit ramasser toutes les feuilles, et
+les mettre dans la boîte pour le compostage en s'assurant de fermer le couvercle à
 l'aide de l'instruction ``construit_un_mur()``.
 
 Encore du travail!
 ~~~~~~~~~~~~~~~~~~
 
 Les parents de Reeborg sont tellement content de son travail de
-nettoyage qu'ils lui demande de ramasser tous les déchets qui se sont
-retrouvés dans la cour, tel qu'illustré dans **Tempête 5**.
+nettoyage qu'ils lui demande de ramasser toutes les feuilles qui se sont
+retrouvées dans la cour, tel qu'illustré dans **Tempête 3**.
 
 Plus tard, vous serez en mesure d'écrire un seul programme qui permettra
 d'accomplir les trois tâches de nettoyage.

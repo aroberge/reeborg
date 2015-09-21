@@ -6,7 +6,7 @@
     cette image: |image0|
 
 
-.. |image0| image:: ../../src/images/square.png
+.. |image0| image:: ../../src/images/square_path.png
 
 .. hint::
 
@@ -50,7 +50,7 @@ On peut faire ceci facilement avec Python.
     Choisissez votre propres synonymes pour ``avance`` et ``tourne_a_gauche``
     et utilisez-les pour que Reeborg dessine un carré.  Si votre ordinateur
     a des hauts-parleurs, vous pouvez ajouter l'instruction ``son(True)``
-    au début de votre programme pour une petite surprise. a
+    au début de votre programme pour une petite surprise.
 
 Si vous le désirez, vous pouvez définir votre propre langage pour donner
 des instructions à Reeborg.
@@ -83,7 +83,8 @@ comme [e.g. writing ``avanzar()`` au lieu de ``avance()``],
 Si vous cliquez sur le bouton **Aide** en haut, vous verrez
 que la listes de commandes apparait en espagnol en plus de la
 version française précédente. (Au moment d'écrire ce tutoriel,
-l'information espagnole était incomplète.)
+l'information espagnole était incomplète ... et la version
+espagnole comportait plusieurs bogues.)
 
 Si vous voulez voir la version anglaise, faites plutôt::
 
@@ -91,7 +92,7 @@ Si vous voulez voir la version anglaise, faites plutôt::
 
 
 Ce genre d'instruction [``from module import *``] est quelque chose qui n'est pas
-recommandé généralement mais qui est tout à fait acceptable ici.  
+recommandé généralement mais qui est tout à fait acceptable ici.
 J'expliquerai en détails pourquoi dans un futur tutoriel.
 
 

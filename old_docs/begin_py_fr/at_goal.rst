@@ -29,7 +29,7 @@ des quatre mondes mentionnés ci-dessus.
             # quelque chose
 
         avance()
-        if jeton_ici():
+        if objet_ici():
             # quelque chose
             # quelque chose d'autre
             # autre chose encore
@@ -47,7 +47,7 @@ Vous avez bel et bien complété l'exercice ci-dessus, n'est-ce pas? ...
 
 .. topic:: Un autre exercice!
 
-    Sélectionnez soit **Maison 1** ou **Maison 2**. En analysant le programme
+    Sélectionnez soit **But 1** ou **But 2**. En analysant le programme
     que vous venez d'écrire, sans l'exécuter, est-ce que vous croyez qu'il
     est une solution pour ces deux mondes? Vérifiez votre compréhension en
     exécutant le programme.
@@ -56,7 +56,7 @@ Encore les haies!
 -----------------
 
 Examinez les mondes **Haies 1** et **Haies 2**. Ignorez pour l'instant le but à
-atteindre (la maison de Reeborg). Un programme qui permettrait à Reeborg
+atteindre. Un programme qui permettrait à Reeborg
 de terminer la course pourrait être constitué d'une alternance des deux
 instructions suivantes:
 
@@ -95,7 +95,6 @@ Haies 2::
 
 Une question pour vous
 ~~~~~~~~~~~~~~~~~~~~~~
-
 
 Est-ce que ce programme pourrait permettre à Reeborg de terminer la
 course **Haies 4**?

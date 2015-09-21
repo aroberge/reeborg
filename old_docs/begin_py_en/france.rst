@@ -48,7 +48,7 @@ Python.
 
     Choose your own names for ``move`` and ``turn_left`` and use them
     to make Reeborg draw a square.  If your computer has speakers, you
-    might want to add the instruction ``sound(true)`` at the very beginning
+    might want to add the instruction ``sound(True)`` at the very beginning
     of your program for a bit of added fun.
 
 Perhaps you could define your own language for giving instructions to

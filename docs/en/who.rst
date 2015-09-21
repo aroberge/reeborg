@@ -12,7 +12,7 @@ Who is Reeborg?
 
 
 Reeborg is a programmable robot; not a modern high quality robot, but a rather
-old one, put together rather quickly. **You** are going to be a good
+old one, put together rather poorly. **You** are going to be a good
 programmer, unlike the maker of Reeborg, who created a faulty robot.
 
 

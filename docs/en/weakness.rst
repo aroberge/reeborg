@@ -75,7 +75,9 @@ Not trivially easy to create a copy on a school's website
 
 Ideally, there should be a simple single-file (zipped) containing a
 all relevant files that could be used to make a copy of the entire
-site on a school's website.   This has not been done yet.
+site on a school's website: this could be required by some
+schools which limit access to a small number of external sites.
+However, I have not received any such request yet.
 
 
 Feedback for programming errors could be improved

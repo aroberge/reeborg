@@ -15,17 +15,11 @@ Dans ce cas, Reeborg pourrait se retrouver dans la situation suivante::
         va_nager() # en supposant qu'il fait chaud!
 
 Notez l'utilisation de ``else`` pour les choix 2 et 3, et le ``if``
-additionnel pour le deuxième cas. Si on devait considérer d'autres types
-d'intempéries, comme la grêle, les orages, le brouillard, le crachin,
-etc., on pourrait ajouter d'autres choix en utilisant les blocs de code
-``else if {...}``.
-
-
-
+additionnel pour le deuxième cas.
 Remarquez l'utilisation de  ``elif`` (qui se veut une abréviation de "else if"
-signifiant "sinon, si ...") pour le deuxième choix.  Si on tenait compte
+signifiant "autrement, si ...") pour le deuxième choix.  Si on tenait compte
 de toutes les conditions météos possibles (brouillard, crachin, etc.), on pourrait
-ajouter d'autre blocs de code ``elif: ...``..
+ajouter d'autre blocs de code ``elif: ...``.
 
 Voici une représentation graphique des choix auxquels Reeborg fait face:
 

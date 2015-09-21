@@ -25,10 +25,18 @@ suivantes.
     Assurez-vous de sauvegarder vos diverses solutions; vous
     voudrez peut-être les revoir plus tard.
 
+Prêt pour la récolte
+--------------------
+
+L'aménagement des semences s'est bien passé, et c'est le temps des
+récoltes. Sélectionnez le monde **Récolte 1** ou **Récolte 2** et faites en
+sorte que Reeborg ramasse toutes les carottes; vous devriez être
+en mesure de faire ceci à l'aide d'un seul programme pour les deux mondes.
+
 Avant les récoltes
 ------------------
 
-Sélectionnez le monde **Récolte 4** qui représente l'état du jardin peu de
+Sélectionnez le monde **Récolte 3** qui représente l'état du jardin peu de
 temps après les semences. Certaines graines de carottes ont bien germé,
 d'autres ont germé trop rapprochées les unes des autres, alors que
 certaines n'ont pas germées du tout. Aidez Reeborg à enlever les
@@ -38,7 +46,7 @@ carottes sont représentées par des jetons, ce qui suggère d'adopter le
 vocabulaire suivant::
 
 
-    carotte_ici = jeton_ici
+    carotte_ici = objet_ici
     sème_carotte = dépose
     enlève_carotte = prend
 
@@ -49,35 +57,6 @@ vocabulaire suivant::
 
     Écrivez un programme tel que décrit ci-dessus.
 
-Prêt pour la récolte
---------------------
-
-L'aménagement des semences s'est bien passé, et c'est le temps des
-récoltes. Sélectionnez le monde **Récolte 1** ou **Récolte 2** et faites en
-sorte que Reeborg ramasse tous les jetons qui représentent des plantes à
-récolter.
-
-On peut voir que le monde **Récolte 1** a des rangs horizontaux (ou
-verticaux) de la même longueur alors que le monde **Récolte 2** peut être
-perçu comme ayant des rangs diagonaux de la même longueur.
-
-Une approche possible aux problèmes des récoltes est de définir trois
-fonctions, ``récolte_un_rang`` et ``récolte_deux_rangs`` et
-``avance_au_premier_rang``; les définitions exactes de ces fonctions
-vont dépendre du monde sélectionné.
-
-Une fois ces fonctions définies, la solution du problème devient
-identique pour les deux mondes::
-
-    avance_au_premier_rang()
-    repete(récolte_deux_rangs, 3)
-
-Cela dit, vous pouvez choisir une approche différente de celle qui est
-suggérée ci-dessus.
-
-.. topic:: Faites-le!
-
-    Écrivez un programme tel que décrit ci-dessus.
 
 Le mauvais temps
 ----------------
@@ -94,13 +73,13 @@ indécis quant à la meilleure façon de procéder.
     les fenêtres de sa maison. Lorsque Reeborg aura terminé, il sera au
     seuil de la porte, regardant la pluie tomber et attendra patiemment
     qu'elle arrête pour qu'il puisse retourner jouer dehors. Le monde à
-    sélectionner est **Tempête 1**.
+    sélectionner est **Pluie 1**.
 
 Au tour de l'amie de Reeborg
 ----------------------------
 
 Erdna, l'amie de Reeborg, vit dans une plus grande maison illustrée dans
-**Tempête 2**. Erdna jouait avec Reeborg lorsque la pluie s'est mise à
+**Pluie 2**. Erdna jouait avec Reeborg lorsque la pluie s'est mise à
 tomber.
 
 .. topic:: À votre tour!
@@ -116,13 +95,13 @@ tomber.
     et déterminer ce qu'il faut faire basé sur le résultat qui avait été
     noté.
 
-Après la tempête
+Après la pluie
 ----------------
 
 Le vent a soufflé violemment la nuit dernière. Il y a des déchets
 partout autour de la maison de Reeborg. Ses parents lui demandent de
-nettoyer le trottoir qui mène à la rue **Tempête 3**, ainsi que l'allée
-**Tempête 4**.
+nettoyer le trottoir qui mène à la rue **Tempête 1**, ainsi que l'allée
+**Tempête 2**.
 
 .. topic:: À votre tour!
 
@@ -135,7 +114,7 @@ Encore du travail!
 
 Les parents de Reeborg sont tellement content de son travail de
 nettoyage qu'ils lui demande de ramasser tous les déchets qui se sont
-retrouvés dans la cour, tel qu'illustré dans **Tempête 5**.
+retrouvés dans la cour, tel qu'illustré dans **Tempête 3**.
 
 .. topic:: À votre tour!
 
@@ -157,7 +136,8 @@ importe le monde choisis
     utile pour lui de **déposer** des jetons en premier à l'extrémité d'une ligne.
     Puis, en ramassant un jeton à un bout de la ligne et en le déposant dans la case à côté,
     puis en faisans la même chose à l'autre bout de la ligne, Reeborg
-    devrait pouvoir trouver le centre s'il répète ceci suffisamment de fois. Lorsque vous savez faire ceci en une
+    devrait pouvoir trouver le centre s'il répète ceci suffisamment de fois.
+    Lorsque vous savez faire ceci en une
     dimension (le long d'une ligne horizontale), vous pouvez utiliser cet
     endroit comme début d'une ligne verticale où vous pouvez répéter cet
     algorithme.

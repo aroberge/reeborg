@@ -13,9 +13,10 @@ accomplies.
     de code.  Exécutez ce programme: la sélection des mondes changera pour
     inclure ceux mentionnés dans ce tutoriel.
 
-Choisissez le monde **But 1**. Voyez comment le carré en bas à gauche est
-d'une couleur différente: ceci identifie la maison de Reeborg. Le monde
-de Reeborg est un simple échiquier. Dans **But 1**, Reeborg part du
+Choisissez le monde **But 1**. Le carré en bas à gauche est
+la maison de Reeborg.
+Le monde de Reeborg est un simple échiquier.
+Dans **But 1**, Reeborg part du
 troisième carré sur la rangée du bas. Ce carré a les coordonnées
 cartésiennes ``x=3`` et ``y=1``.
 
@@ -34,22 +35,19 @@ cartésiennes ``x=3`` et ``y=1``.
     qu'il vous fait face.   Exécutez exactement le même programme et observez
     le résultat.
 
-    Ensuite, sélectionnez **But 3**.  Remarquez qu'il y a un tout petit carré noir
-    au but de Reeborg.  Qu'arrive-t-il si vous exécutez votre programme?
+    Ensuite, sélectionnez **But 3**. Qu'arrive-t-il si vous exécutez votre programme?
 
 
 Tourner à gauche
 ----------------
 
 Le tout dernier exemple que vous avez essayé, si vous avez suivi
-les instructions, ne fonctionnait pas totalement: Reeborg a indiqué
-quelque chose à propos d'une mauvaise orientation.
-Si vous examinez le carré vert où se trouve Reeborg à la fin, vous verrez
-un petit carré noir près de la bordure droite du carré vert: ceci indique
-la direction à laquelle Reeborg doit faire face.
-Ceci peut être réalisé en ajoutant l'instruction suivante::
+les instructions, ne fonctionnait pas puisque Reeborg n'avait pas
+terminé dans sa maison.
+Ceci peut être réalisé en ajoutant les deux instructions suivantes::
 
     tourne_a_gauche()
+    avance()
 
 .. topic:: Essayez ceci!
 
@@ -58,7 +56,7 @@ Ceci peut être réalisé en ajoutant l'instruction suivante::
 .. topic:: Essayez une autre chose!
 
     Qu'arrive-t-il si, au lieu de ``tourne_a_gauche()``, vous ajoutez plutôt une
-    troisième instruction ``avance()``?
+    autre instruction ``avance()``?
 
 Un autre point de vue
 ---------------------

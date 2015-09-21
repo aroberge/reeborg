@@ -266,13 +266,6 @@ expected.  Whenever possible, it is likely better to use the following pattern::
     except AssertionError:
         raise ReeborgError("Some appropriate message")
 
-You can try the example::
-
-    Permalink("test_verify")
-
-to see some such tests.
-
-
 Actual code for ``verify()``
 ****************************
 
@@ -348,21 +341,6 @@ From **Additional menu** at the top, you can find the button
 "Collaboration": this activates Mozilla's TogetherJS which allows two, or
 more, users to effectively interact on the same webpage.
 
-
-
-Using Python's standard library
--------------------------------------------------
-
-Brython comes with a significant portion of Python's standard
-library.
-
-
-Possibility to write programs using different languages
--------------------------------------------------------
-
-Support for Python, Javascript and CoffeeScript.  Other languages
-could be supported as well if they have a javascript transpiler.
-
 Stepping back and forth through program execution
 --------------------------------------------------
 
@@ -397,6 +375,27 @@ Thus, one can write::
 However, French users should use http://reeborg.ca/monde.html
 which has a French User Interface.
 
+Using Python's standard library
+-------------------------------------------------
+
+Brython comes with a significant portion of Python's standard
+library; however only pure Python modules are supported.
+
+
+Possibility to write programs using different languages
+-------------------------------------------------------
+
+Support for Python, Javascript and CoffeeScript.  Other languages
+could be supported as well if they have a javascript transpiler.
+
+Embedding in an iframe
+----------------------
+
+.. todo::
+
+    It is possible to embed Reeborg's World in a different website
+    using an html ``iframe``.  I need to explain how to do this.
+
 Possibility to integrate within a Learning Management System
 ------------------------------------------------------------
 
@@ -412,18 +411,7 @@ Changing the User Interface
 If you know Javascript, html and css, and possibly how to use the jQuery library,
 you can customize the look of Reeborg's World by running code
 with a specially crafted permalink; the changes made will
-remain until the site is reloaded.  For example,
-if you run the program::
-
-    Permalink("simple_ui")
-
-almost every item menu from the top bar will be removed with
-the exclusion of "Help" and "World info".  You simply have to run
-the program::
-
-    Permalink("normal_ui")
-
-to recover the normal User Interface.
+remain until the site is reloaded.
 
 If you want to make your own changes, you might want to
 open Reeborg's World into a separate tab and enable the javascript console.

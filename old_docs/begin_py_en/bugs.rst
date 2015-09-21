@@ -103,9 +103,6 @@ following:
    I will explain how you can do this later.
 #. You can have Reeborg write some information at any given point inside
    a program; again, I will explain how you can do this later.
-#. At the top of Reeborg's world appears some information about the position and
-   number of tokens (to be explained later) carried by the first few
-   robots in the world (yes, you can have multiple robots...).
 #. Finally, you can stop a program at any point by pressing the **stop**
    button; this unfortunately may not work if you create
    what is known as an infinite loop, outside of Reeborg's control. If

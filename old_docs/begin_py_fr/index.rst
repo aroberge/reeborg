@@ -72,14 +72,19 @@ Table des matières:
    recursion3
    recursion4
    return
-   harvest3
    diary
    increment
    while_num
    for
+   harvest3
    better_repeat
+   oop
+   turn_right
+   turn_right2
+   javascript
+   modulo
+   facing_south
+   left_is_clear
+   leak
+   testing
    conclusion
-
-
-
-

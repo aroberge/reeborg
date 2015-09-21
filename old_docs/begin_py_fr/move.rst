@@ -55,9 +55,7 @@ d'en faire une de façon intentionnelle.
 Qu'est-il arrivé?
 ~~~~~~~~~~~~~~~~~
 
-Tout d'abord, je note que le message d'erreur indique **NameError** et le
-mot *'Avance'* est identifié comme étant "undefined"; 
-ceci signifie que *'Avance'* n'est pas défini.
+Tout d'abord, je note que le message d'erreur indique **NameError**:
 Les messages d'erreurs comportent parfois des termes anglais, mais ceci est
 malheureusement incontournable...
 
