@@ -11,12 +11,13 @@ var RUR = RUR || {};
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, ReeborgError, rien_devant, rien_a_droite, "+
                     " face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,"+
                     "transporte, ecrit, au_but, au_but_orientation, narration," +
+                    "mur_devant, mur_a_droite,"
                     " construit_un_mur, pense, pause, repete, voir_source, son, confirmer */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
     face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,
     transporte, ecrit, au_but, construit_un_mur, pense, narration,
-    pause, repete, voir_source, son, RobotUsage,
+    pause, repete, voir_source, son, RobotUsage, mur_devant, mur_a_droite,
     nombre_de_commandes, confirmer;
 
 RUR.confirmer = function(test) {
@@ -53,11 +54,13 @@ RUR.reset_definitions = function () {
     au_but = RUR._at_goal_;
     construit_un_mur = RUR._build_wall_;
     rien_devant = RUR._front_is_clear_;
+    mur_devant = RUR._wall_in_front_;
     transporte = RUR._carries_object_;
     face_au_nord = RUR._is_facing_north_;
     avance = RUR._move_;
     depose = RUR._put_;
     rien_a_droite = RUR._right_is_clear_;
+    mur_a_droite = RUR._wall_on_right_;
     objet_ici = RUR._object_here_;
     prend = RUR._take_;
     tourne_a_gauche = RUR._turn_left_;
@@ -95,6 +98,11 @@ RUR.reset_definitions = function () {
         RUR.control.front_is_clear(this.body);
     };
 
+    RobotUsage.prototype.mur_devant = function () {
+        RUR.control.wall_in_front(this.body);
+    };
+
+
     RobotUsage.prototype.carries_object = function () {
         RUR.control.carries_object(this.body);
     };
@@ -115,6 +123,11 @@ RUR.reset_definitions = function () {
     RobotUsage.prototype.rien_a_droite = function () {
         RUR.control.right_is_clear(this.body);
     };
+
+    RobotUsage.prototype.mur_a_droite = function () {
+        RUR.control.wall_on_right(this.body);
+    };
+
 
     RobotUsage.prototype.objet_ici = function () {
         RUR.control.object_here(this.body);

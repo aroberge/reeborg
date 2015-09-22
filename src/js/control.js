@@ -295,7 +295,7 @@ RUR.control.is_wall_at = function (coords, orientation) {
 
 RUR.control.build_wall = function (robot){
     var coords, orientation, x, y, walls;
-    if (!RUR.control.front_is_clear(robot)){
+    if (RUR.control.wall_in_front(robot)){
         throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
     }
 
@@ -389,6 +389,14 @@ RUR.control.wall_in_front = function (robot) {
     }
     return false;
 };
+
+RUR.control.wall_on_right = function (robot) {
+    var result;
+    RUR.control.__turn_right(robot, true);
+    result = RUR.control.wall_in_front(robot);
+    RUR.control.turn_left(robot, true);
+    return result;
+}
 
 RUR.control.tile_in_front = function (robot) {
     // returns single tile

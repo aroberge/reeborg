@@ -291,6 +291,11 @@ RUR._front_is_clear_ = function() {
   return RUR.control.front_is_clear(RUR.current_world.robots[0]);
 };
 
+RUR._wall_in_front_ = function() {
+  return RUR.control.wall_in_front(RUR.current_world.robots[0]);
+};
+
+
 RUR._is_facing_north_ = function () {
     return RUR.control.is_facing_north(RUR.current_world.robots[0]);
 };
@@ -306,6 +311,11 @@ RUR._put_ = function(arg) {
 RUR._right_is_clear_ = function() {
   return RUR.control.right_is_clear(RUR.current_world.robots[0]);
 };
+
+RUR._wall_on_right_ = function() {
+  return RUR.control.wall_on_right(RUR.current_world.robots[0]);
+};
+
 
 RUR._object_here_ = function (arg) {
     return RUR.control.object_here(RUR.current_world.robots[0], arg);
@@ -695,7 +705,7 @@ RUR.control.is_wall_at = function (coords, orientation) {
 
 RUR.control.build_wall = function (robot){
     var coords, orientation, x, y, walls;
-    if (!RUR.control.front_is_clear(robot)){
+    if (RUR.control.wall_in_front(robot)){
         throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
     }
 
@@ -789,6 +799,14 @@ RUR.control.wall_in_front = function (robot) {
     }
     return false;
 };
+
+RUR.control.wall_on_right = function (robot) {
+    var result;
+    RUR.control.__turn_right(robot, true);
+    result = RUR.control.wall_in_front(robot);
+    RUR.control.turn_left(robot, true);
+    return result;
+}
 
 RUR.control.tile_in_front = function (robot) {
     // returns single tile
@@ -2608,10 +2626,12 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
 RUR.robot.cleanup_objects = function (robot) {
     "use strict";
     var obj_name, objects_carried = {};
+    console.log("objects", robot.objects);
     for (obj_name in robot.objects) {
         if (robot.objects.hasOwnProperty(obj_name)){
-             if (robot.objects.obj_name == "infinite" || robot.objects.obj_name > 0){
-                objects_carried.obj_name = robot.objects.obj_name;
+            console.log("name", robot.objects.obj_name, robot.objects[obj_name]);
+             if (robot.objects[obj_name] == "infinite" || robot.objects[obj_name] > 0){
+                objects_carried[obj_name] = robot.objects[obj_name];
              }
         }
     }
@@ -4326,6 +4346,10 @@ RUR.world.create_empty_world = function (blank_canvas) {
     // code entered by the student
     world.pre_code = '';
     world.post_code = '';
+    world.small_tiles = false;
+    world.rows = RUR.MAX_Y;
+    world.cols = RUR.MAX_X;
+
     return world;
 };
 RUR.current_world = RUR.world.create_empty_world();
@@ -4344,9 +4368,10 @@ RUR.world.import_world = function (json_string) {
         try {
             RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
         } catch (e) {
-            console.log("exception caught in import_world");
+            console.log("Exception caught in import_world.");
             console.log(json_string);
             console.log(e);
+            RUR.world.create_empty_world();
             return;
         }
     } else {  // already parsed
@@ -4392,16 +4417,18 @@ RUR.world.reset = function () {
     RUR.vis_world.draw_all();
 };
 
-RUR.world.add_robot = function (robot) {
+RUR.world.add_robot = function (robot, no_frame) {
     if (RUR.current_world.robots === undefined){
         RUR.current_world.robots = [];
     }
     if (RUR.MAX_NB_ROBOTS !== undefined &&
-        RUR.MAX_NB_ROBOTS == RUR.current_world.robots.length){
+        RUR.MAX_NB_ROBOTS >= RUR.current_world.robots.length){
         throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
     }
     RUR.current_world.robots.push(robot);
-    RUR.rec.record_frame();
+    if (no_frame != undefined){
+        RUR.rec.record_frame();
+    }
 };
 
 

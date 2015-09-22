@@ -19,6 +19,11 @@ RUR._front_is_clear_ = function() {
   return RUR.control.front_is_clear(RUR.current_world.robots[0]);
 };
 
+RUR._wall_in_front_ = function() {
+  return RUR.control.wall_in_front(RUR.current_world.robots[0]);
+};
+
+
 RUR._is_facing_north_ = function () {
     return RUR.control.is_facing_north(RUR.current_world.robots[0]);
 };
@@ -34,6 +39,11 @@ RUR._put_ = function(arg) {
 RUR._right_is_clear_ = function() {
   return RUR.control.right_is_clear(RUR.current_world.robots[0]);
 };
+
+RUR._wall_on_right_ = function() {
+  return RUR.control.wall_on_right(RUR.current_world.robots[0]);
+};
+
 
 RUR._object_here_ = function (arg) {
     return RUR.control.object_here(RUR.current_world.robots[0], arg);
