@@ -54,10 +54,8 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
 RUR.robot.cleanup_objects = function (robot) {
     "use strict";
     var obj_name, objects_carried = {};
-    console.log("objects", robot.objects);
     for (obj_name in robot.objects) {
         if (robot.objects.hasOwnProperty(obj_name)){
-            console.log("name", robot.objects.obj_name, robot.objects[obj_name]);
              if (robot.objects[obj_name] == "infinite" || robot.objects[obj_name] > 0){
                 objects_carried[obj_name] = robot.objects[obj_name];
              }
