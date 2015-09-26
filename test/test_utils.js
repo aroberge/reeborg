@@ -40,8 +40,19 @@ function _reset () {
 
 
 function _run_javascript(world_url, program_url) {
+    return _run_program(world_url, program_url, "javascript");
+}
+
+
+function _run_python(world_url, program_url) {
+    return _run_program(world_url, program_url, "python");
+}
+
+
+function _run_program(world_url, program_url, language) {
     var last_frame, world;
-    RUR.programming_language = "javascript";
+    _reset();
+    RUR.programming_language = language;
 
     _load_world_file(world_url);
     _load_program(program_url);
@@ -49,7 +60,6 @@ function _run_javascript(world_url, program_url) {
     last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
     return RUR.rec.check_goal(last_frame);
 }
-
 
 
 // Initial world should be created upon loading world.js module

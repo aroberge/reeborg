@@ -1,0 +1,2 @@
+move()
+Move()  # syntax error

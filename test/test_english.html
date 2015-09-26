@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.18.0.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
   <script src="../src/libraries/brython/brython.js"></script>
   <script>
     var RUR = {};
@@ -16,6 +17,7 @@
     RUR.settings.library = "library_py_en";
     RUR.programming_language = "python";
   </script>
+  <style>.ui-dialog {display:none !important}</style>
 </head>
 <body onload="brython({debug:1, pythonpath:['../../../../test/src']})">
 
@@ -29,6 +31,28 @@
     <canvas id="tooltip" width=40 height=40></canvas>
   </div>
 
+  <div id="Reeborg-concludes" style="display:none;"></div>
+  <div id="Reeborg-shouts"></div>
+  <div id="Reeborg-writes"></div>
+  <script>
+    $("#Reeborg-concludes").dialog();
+    $("#Reeborg-shouts").dialog();
+    $("#Reeborg-writes").dialog();
+  </script>
+
+  <script type="text/python3">
+  from browser import window
+  import common_def         # reassigns stdin and stdout
+  from reeborg_en import *  # will insert the relevant help information
+
+  highlight = False
+
+  def translate_python(src, dummy, pre_code='', post_code=''):
+      common_def.generic_translate_python(src, "library", "from reeborg_en import *",
+        highlight, pre_code=pre_code, post_code=post_code)
+
+  window['translate_python'] = translate_python
+  </script>
 
   <h1>Test of English version</h1>
   <div id="qunit"></div>
@@ -39,6 +63,8 @@
   <script src="../src/js/commands.js"></script>
   <script src="../src/js/constants.js"></script>
   <script src="../src/js/control.js"></script>
+  <script src="../src/js/custom_dialogs.js"></script>
+  <script src="../src/js/custom_menus.js"></script>
   <script src="../src/js/file_io.js"></script>
   <script src="../src/js/images.js"></script>
   <script src="../src/js/recorder.js"></script>
