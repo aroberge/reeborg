@@ -19,25 +19,25 @@ QUnit.test("import_world", function(assert) {
 });
 
 QUnit.test("add_robot", function(assert) {
-    _reset();
+    RUR.unit_tests.reset();
     RUR.world.add_robot(1);
     equal(RUR.current_world.robots[0], 1, "Added the number 1 as robot placeholder.");
     RUR.world.add_robot(2);
     equal(RUR.current_world.robots[1], 2, "Added the number 2 as second robot placeholder.");
-    _reset();
+    RUR.unit_tests.reset();
     RUR.world.add_robot("frame1", true);
     equal(RUR.current_world.robots[0], "frame1", "Added the string frame1 as robot placeholder, with recording frame on.");
     RUR.world.add_robot("frame2", true);
     equal(RUR.current_world.robots[1], "frame2", "Added the string frame2 as robot placeholder, with recording frame on.");
-    _reset();
+    RUR.unit_tests.reset();
 });
 
 
 QUnit.module("Testing framework self-consistency", {
   beforeEach: function() {
-    _reset();  },
+    RUR.unit_tests.reset();  },
   afterEach: function() {
-    _reset();
+    RUR.unit_tests.reset();
   }
 });
 QUnit.test("Load world", function(assert) {
@@ -61,23 +61,30 @@ QUnit.test("Load world", function(assert) {
         small_tiles: false
     };
 
-    _load_world_file(url);
+    RUR.unit_tests.load_world_file(url);
     deepEqual(world_alone, RUR.current_world, "Ensuring loading world is done properly in testing framework.");
 });
 
 QUnit.module("runner.js : Javascript programs");
 QUnit.test("Centre 1", function(assert) {
     var world_url = "../../src/worlds/tutorial_en/center1.json";
-    ok(_run_javascript(world_url, "src/test_center1.js").success, "Centre1 run successfully.");
-    notOk(_run_javascript(world_url, "src/test_center1_fail.js").success, "Failing program recognized as such.");
-    notOk(_run_javascript(world_url, "src/test_syntax_fail.js").success, "Failing program (syntax error) recognized as such.");
+    ok(RUR.unit_tests.run_javascript(world_url, "src/test_center1.js").success, "Centre1 run successfully.");
+    notOk(RUR.unit_tests.run_javascript(world_url, "src/test_center1_fail.js").success, "Failing program recognized as such.");
+    notOk(RUR.unit_tests.run_javascript(world_url, "src/test_syntax_fail.js").success, "Failing program (syntax error) recognized as such.");
 });
 
 
-QUnit.module("runner.js : Python programs");
+QUnit.module("runner.js : Python programs", {
+  beforeEach: function() {
+    // prepare something for all following tests
+  },
+  afterEach: function() {
+    // clean up after each test
+  }
+});
 QUnit.test("Centre 1", function(assert) {
     var world_url = "../../src/worlds/tutorial_en/center1.json";
-    ok(_run_python(world_url, "src/test_center1.py").success, "Centre1 run successfully.");
-    notOk(_run_python(world_url, "src/test_center1_fail.py").success, "Failing program recognized as such.");
-    notOk(_run_python(world_url, "src/test_syntax_fail.py").success, "Failing program (syntax error) recognized as such.");
+    ok(RUR.unit_tests.run_python(world_url, "src/test_center1.py").success, "Centre1 run successfully.");
+    notOk(RUR.unit_tests.run_python(world_url, "src/test_center1_fail.py").success, "Failing program recognized as such.");
+    notOk(RUR.unit_tests.run_python(world_url, "src/test_syntax_fail.py").success, "Failing program (syntax error) recognized as such.");
 });

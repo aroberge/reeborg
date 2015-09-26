@@ -1,6 +1,6 @@
 RUR.unit_tests = {};
 
-_load_world_file = function (url) {
+RUR.unit_tests.load_world_file = function (url) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
     var data, i;
@@ -17,7 +17,7 @@ _load_world_file = function (url) {
 };
 
 
-_load_program = function (url) {
+RUR.unit_tests.load_program = function (url) {
     /** Loads a program */
     "use strict";
     var data, i;
@@ -33,29 +33,29 @@ _load_program = function (url) {
     });
 };
 
-function _reset () {
+RUR.unit_tests.reset = function () {
     RUR.current_world = RUR.world.clone_world(RUR.unit_tests.empty_world);
     RUR.rec.frames = [];
 }
 
 
-function _run_javascript(world_url, program_url) {
-    return _run_program(world_url, program_url, "javascript");
+RUR.unit_tests.run_javascript = function (world_url, program_url) {
+    return RUR.unit_tests.run_program(world_url, program_url, "javascript");
 }
 
 
-function _run_python(world_url, program_url) {
-    return _run_program(world_url, program_url, "python");
+RUR.unit_tests.run_python = function (world_url, program_url) {
+    return RUR.unit_tests.run_program(world_url, program_url, "python");
 }
 
 
-function _run_program(world_url, program_url, language) {
+RUR.unit_tests.run_program = function(world_url, program_url, language) {
     var last_frame, world;
-    _reset();
+    RUR.unit_tests.reset();
     RUR.programming_language = language;
 
-    _load_world_file(world_url);
-    _load_program(program_url);
+    RUR.unit_tests.load_world_file(world_url);
+    RUR.unit_tests.load_program(program_url);
     RUR.runner.eval(RUR.unit_tests.program);
     last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
     return RUR.rec.check_goal(last_frame);
