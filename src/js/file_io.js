@@ -41,7 +41,8 @@ RUR.file_io.load_world_file = function (url, existing) {
             error: function(e){
                 RUR.rec.frames = [];
                 RUR.ui.stop();
-                $("#Reeborg-shouts").html(RUR.translate("Could not find link: ") + url).dialog("open");
+                RUR.cd.show_feedback("#Reeborg-shouts",
+                                    RUR.translate("Could not find link: ") + url);
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){

@@ -212,7 +212,7 @@ RUR.load_permalink = function (filename) {
     $.ajax({url: url,
         async: false,
         error: function(e){
-            $("#Reeborg-shouts").html(RUR.translate("Could not find permalink")).dialog("open");
+            RUR.cd.show_feedback("#Reeborg-shouts", RUR.translate("Could not find permalink"));
             RUR.ui.stop();
         },
         success: function(data){

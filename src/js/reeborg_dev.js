@@ -212,7 +212,7 @@ RUR.load_permalink = function (filename) {
     $.ajax({url: url,
         async: false,
         error: function(e){
-            $("#Reeborg-shouts").html(RUR.translate("Could not find permalink")).dialog("open");
+            RUR.cd.show_feedback("#Reeborg-shouts", RUR.translate("Could not find permalink"));
             RUR.ui.stop();
         },
         success: function(data){
@@ -1097,8 +1097,6 @@ RUR.control.get_world_map = function () {
 };
 /* Author: André Roberge
    License: MIT
-
-   Defining base name space and various constants.
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
@@ -1117,6 +1115,12 @@ $(document).ready(function() {
     RUR.cd.input_max_x = $("#input-max-x");
     RUR.cd.input_max_y = $("#input-max-y");
     RUR.cd.use_small_tiles = $("#use-small-tiles");
+
+
+    RUR.cd.show_feedback = function (element, content) {
+        $(element).html(content).dialog("open");
+    };
+
 
     RUR.cd.add_objects = function () {
         "use strict";
@@ -1691,7 +1695,8 @@ RUR.file_io.load_world_file = function (url, existing) {
             error: function(e){
                 RUR.rec.frames = [];
                 RUR.ui.stop();
-                $("#Reeborg-shouts").html(RUR.translate("Could not find link: ") + url).dialog("open");
+                RUR.cd.show_feedback("#Reeborg-shouts",
+                                    RUR.translate("Could not find link: ") + url);
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
@@ -2461,18 +2466,21 @@ RUR.rec.conclude = function () {
             if (RUR.control.sound_flag) {
                 RUR.control.play_sound("#success-sound");
             }
-            $("#Reeborg-concludes").html(goal_status.message).dialog("open");
+            RUR.cd.show_feedback("#Reeborg-concludes", goal_status.message);
         } else {
             if (RUR.control.sound_flag) {
                 RUR.control.play_sound("#error-sound");
             }
-            $("#Reeborg-shouts").html(goal_status.message).dialog("open");
+            RUR.cd.show_feedback("#Reeborg-shouts", goal_status.message);
         }
     } else {
         if (RUR.control.sound_flag) {
             RUR.control.play_sound("#success-sound");
         }
-        $("#Reeborg-concludes").html("<p class='center'>" + RUR.translate("Last instruction completed!") + "</p>").dialog("open");
+        RUR.cd.show_feedback("#Reeborg-concludes",
+                             "<p class='center'>" +
+                             RUR.translate("Last instruction completed!") +
+                             "</p>");
     }
     return "stopped";
 };
@@ -2488,13 +2496,14 @@ RUR.rec.handle_error = function (frame) {
             if (RUR.control.sound_flag) {
                 RUR.control.play_sound("#success-sound");
             }
-            $("#Reeborg-concludes").html(RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>")).dialog("open");
+            RUR.cd.show_feedback("#Reeborg-concludes",
+                RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else {
         if (RUR.control.sound_flag) {
             RUR.control.play_sound("#error-sound");
         }
-        $("#Reeborg-shouts").html(frame.error.message).dialog("open");
+        RUR.cd.show_feedback("#Reeborg-shouts", frame.error.message);
     }
     RUR.ui.stop();
     return "stopped";
@@ -2626,10 +2635,8 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
 RUR.robot.cleanup_objects = function (robot) {
     "use strict";
     var obj_name, objects_carried = {};
-    console.log("objects", robot.objects);
     for (obj_name in robot.objects) {
         if (robot.objects.hasOwnProperty(obj_name)){
-            console.log("name", robot.objects.obj_name, robot.objects[obj_name]);
              if (robot.objects[obj_name] == "infinite" || robot.objects[obj_name] > 0){
                 objects_carried[obj_name] = robot.objects[obj_name];
              }
@@ -2811,10 +2818,9 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             }
             RUR.rec.record_frame("error", e);
         } else {
-            $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" +
-                                      message + "</h4><p>" + other_info +
-                                      '</p>').dialog("open");
-            RUR.ui.stop();
+            RUR.cd.show_feedback("#Reeborg-shouts",
+                                    "<h3>" + error_name + "</h3><h4>" +
+                                    message + "</h4><p>" + other_info + '</p>');
             return true;
         }
     }
@@ -3070,7 +3076,7 @@ RUR.storage.delete_world_old = function (name){
     "use strict";
     var i, key;
     if (localStorage.getItem("user_world:" + name) === null){
-        $("#Reeborg-shouts").html(RUR.translate("No such world!")).dialog("open");
+        RUR.cd.show_feedback("#Reeborg-shouts", RUR.translate("No such world!"));
         return;
     }
     localStorage.removeItem("user_world:" + name);
@@ -5036,7 +5042,7 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
             delete robot.objects[obj];
         }
     } else {
-        $("#Reeborg-shouts").html(nb + RUR.translate(" is not a valid value!")).dialog("open");
+        RUR.cd.show_feedback("#Reeborg-shouts", nb + RUR.translate(" is not a valid value!"));
     }
 };
 

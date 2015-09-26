@@ -89,7 +89,7 @@ RUR.storage.delete_world_old = function (name){
     "use strict";
     var i, key;
     if (localStorage.getItem("user_world:" + name) === null){
-        $("#Reeborg-shouts").html(RUR.translate("No such world!")).dialog("open");
+        RUR.cd.show_feedback("#Reeborg-shouts", RUR.translate("No such world!"));
         return;
     }
     localStorage.removeItem("user_world:" + name);

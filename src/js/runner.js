@@ -173,10 +173,9 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             }
             RUR.rec.record_frame("error", e);
         } else {
-            $("#Reeborg-shouts").html("<h3>" + error_name + "</h3><h4>" +
-                                      message + "</h4><p>" + other_info +
-                                      '</p>').dialog("open");
-            RUR.ui.stop();
+            RUR.cd.show_feedback("#Reeborg-shouts",
+                                    "<h3>" + error_name + "</h3><h4>" +
+                                    message + "</h4><p>" + other_info + '</p>');
             return true;
         }
     }

@@ -1,7 +1,5 @@
 /* Author: André Roberge
    License: MIT
-
-   Defining base name space and various constants.
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
@@ -20,6 +18,12 @@ $(document).ready(function() {
     RUR.cd.input_max_x = $("#input-max-x");
     RUR.cd.input_max_y = $("#input-max-y");
     RUR.cd.use_small_tiles = $("#use-small-tiles");
+
+
+    RUR.cd.show_feedback = function (element, content) {
+        $(element).html(content).dialog("open");
+    };
+
 
     RUR.cd.add_objects = function () {
         "use strict";

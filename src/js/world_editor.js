@@ -595,7 +595,7 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
             delete robot.objects[obj];
         }
     } else {
-        $("#Reeborg-shouts").html(nb + RUR.translate(" is not a valid value!")).dialog("open");
+        RUR.cd.show_feedback("#Reeborg-shouts", nb + RUR.translate(" is not a valid value!"));
     }
 };
 
