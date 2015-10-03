@@ -5,11 +5,10 @@
   <title>Reeborg: English version tests</title>
   <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.18.0.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-  <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
   <script src="../src/libraries/brython/brython.js"></script>
   <script>
-    var RUR = {};
+    var RUR = {}, editor = {}, library = {};
     RUR.base_url = "../";
     RUR.settings = {};
     RUR.settings.world = "world";
@@ -58,29 +57,32 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
 
-  <script src="../src/lang/translation_en.js"></script>
-  <script src="../src/js/aa_utils.js"></script>
-  <script src="../src/js/commands.js"></script>
-  <script src="../src/js/constants.js"></script>
-  <script src="../src/js/control.js"></script>
-  <script src="../src/js/custom_dialogs.js"></script>
-  <script src="../src/js/custom_menus.js"></script>
-  <script src="../src/js/file_io.js"></script>
-  <script src="../src/js/images.js"></script>
-  <script src="../src/js/recorder.js"></script>
-  <script src="../src/js/robot.js"></script>
-  <script src="../src/js/runner.js"></script>
-  <script src="../src/js/storage.js"></script>
-  <script src="../src/js/tooltip.js"></script>
-  <script src="../src/js/ui.js"></script>
-  <script src="../src/js/utils.js"></script>
-  <script src="../src/js/visible_robot.js"></script>
-  <script src="../src/js/visible_world.js"></script>
-  <script src="../src/js/world.js"></script>
-  <script src="../src/js/world_editor.js"></script>
-  <script src="../src/lang/reeborg_en.js"></script>
+  <script src="../src/lang/translation_en.js" data-cover></script>
+  <script src="../src/js/aa_utils.js" data-cover></script>
+  <script src="../src/js/commands.js" data-cover></script>
+  <script src="../src/js/constants.js" data-cover></script>
+  <script src="../src/js/control.js" data-cover></script>
+  <script src="../src/js/custom_dialogs.js" data-cover></script>
+  <script src="../src/js/custom_menus.js" data-cover></script>
+  <script src="../src/js/file_io.js" data-cover></script>
+  <script src="../src/js/images.js" data-cover></script>
+  <script src="../src/js/recorder.js" data-cover></script>
+  <script src="../src/js/robot.js" data-cover></script>
+  <script src="../src/js/runner.js" data-cover></script>
+  <script src="../src/js/storage.js" data-cover></script>
+  <script src="../src/js/tooltip.js" data-cover></script>
+  <script src="../src/js/ui.js" data-cover></script>
+  <script src="../src/js/utils.js" data-cover></script>
+  <script src="../src/js/visible_robot.js" data-cover></script>
+  <script src="../src/js/visible_world.js" data-cover></script>
+  <script src="../src/js/world.js" data-cover></script>
+  <script src="../src/js/world_editor.js" data-cover></script>
+  <script src="../src/lang/reeborg_en.js" data-cover></script>
 
+  <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
+  <script src="blanket.min.js"></script>
   <script src="test_utils.js"></script>
   <script src="test_english.js"></script>
+
 </body>
 </html>

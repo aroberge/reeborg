@@ -65,26 +65,273 @@ QUnit.test("Load world", function(assert) {
     deepEqual(world_alone, RUR.current_world, "Ensuring loading world is done properly in testing framework.");
 });
 
-QUnit.module("runner.js : Javascript programs");
+QUnit.module(" runner.js : Javascript programs");
 QUnit.test("Centre 1", function(assert) {
     var world_url = "../../src/worlds/tutorial_en/center1.json";
-    ok(RUR.unit_tests.run_javascript(world_url, "src/test_center1.js").success, "Centre1 run successfully.");
-    notOk(RUR.unit_tests.run_javascript(world_url, "src/test_center1_fail.js").success, "Failing program recognized as such.");
-    notOk(RUR.unit_tests.run_javascript(world_url, "src/test_syntax_fail.js").success, "Failing program (syntax error) recognized as such.");
+    ok(RUR.unit_tests.eval_javascript(world_url, "src/test_center1.js").success, "Centre1 run successfully.");
+    notOk(RUR.unit_tests.eval_javascript(world_url, "src/test_center1_fail.js").success, "Failing program recognized as such.");
+    notOk(RUR.unit_tests.eval_javascript(world_url, "src/test_syntax_fail.js").success, "Failing program (syntax error) recognized as such.");
 });
 
 
-QUnit.module("runner.js : Python programs", {
-  beforeEach: function() {
-    // prepare something for all following tests
-  },
-  afterEach: function() {
-    // clean up after each test
-  }
-});
+QUnit.module("Failing Python programs");
 QUnit.test("Centre 1", function(assert) {
     var world_url = "../../src/worlds/tutorial_en/center1.json";
-    ok(RUR.unit_tests.run_python(world_url, "src/test_center1.py").success, "Centre1 run successfully.");
-    notOk(RUR.unit_tests.run_python(world_url, "src/test_center1_fail.py").success, "Failing program recognized as such.");
-    notOk(RUR.unit_tests.run_python(world_url, "src/test_syntax_fail.py").success, "Failing program (syntax error) recognized as such.");
+    notOk(RUR.unit_tests.eval_python(world_url, "src/test_center1_fail.py").success, "Failing program recognized as such.");
+    notOk(RUR.unit_tests.eval_python(world_url, "src/test_syntax_fail.py").success, "Failing program (syntax error) recognized as such.");
+});
+
+
+QUnit.module("Tutorial worlds: Python programs");
+
+QUnit.test("Around 1, 2, 3, 4", function(assert) {
+    "use strict";
+    var frames, last_frame, base_url, world_file;
+
+    base_url = "../../src/worlds/tutorial_en/";
+    world_file = "around1.json";
+    frames = RUR.unit_tests.run_python(base_url + world_file, "src/around_en.py");
+    equal(frames.length, 40, "Nb of frames for solution for world " + world_file);
+    last_frame = frames[frames.length-1];
+    equal(last_frame.world.robots[0].x, 1, "x-position of robot.");
+    equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
+    equal(last_frame.world.robots[0].objects.token, "infinite", "Nb of tokens carried.");
+    equal(last_frame.world.objects['1,1'].token, 1, "Token put down.");
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<p class='center'>Last instruction completed!</p>",
+        "Feedback text ok.");
+
+    world_file = "around2.json";
+    frames = RUR.unit_tests.run_python(base_url + world_file, "src/around_en.py");
+    equal(frames.length, 44, "Nb of frames for solution for world " + world_file);
+    last_frame = frames[frames.length-1];
+    equal(last_frame.world.robots[0].x, 1, "x-position of robot.");
+    equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
+    equal(last_frame.world.robots[0].objects.token, "infinite", "Nb of tokens carried.");
+    equal(last_frame.world.objects['1,1'].token, 1, "Token put down.");
+
+    world_file = "around3.json";
+    frames = RUR.unit_tests.run_python(base_url + world_file);
+    equal(frames.length, 55, "Nb of frames for solution for world " + world_file);
+    last_frame = frames[frames.length-1];
+    equal(last_frame.world.robots[0].x, 2, "x-position of robot.");
+    equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
+    equal(last_frame.world.robots[0].objects.token, "infinite", "Nb of tokens carried.");
+    equal(last_frame.world.objects['2,1'].token, 1, "Token put down.");
+
+    world_file = "around4.json";
+    frames = RUR.unit_tests.run_python(base_url + world_file);
+    equal(frames.length, 61, "Nb of frames for solution for world " + world_file);
+    last_frame = frames[frames.length-1];
+    equal(last_frame.world.robots[0].x, 2, "x-position of robot.");
+    equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
+    equal(last_frame.world.robots[0].objects.token, "infinite", "Nb of tokens carried.");
+    equal(last_frame.world.objects['2,1'].token, 1, "Token put down.");
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<p class='center'>Last instruction completed!</p>",
+        "Feedback text ok.");
+});
+
+
+QUnit.test("Center 1, 2, 3", function(assert) {
+    var base_url, i, world_files;
+    base_url = "../../src/worlds/tutorial_en/";
+    world_files = ["center1.json", "center2.json", "center3.json"];
+    RUR.unit_tests.load_program("src/center_en.py");
+    for (i in world_files) {
+        ok(RUR.unit_tests.eval_python(base_url + world_files[i]).success,
+                                      world_files[i] + " run successfully.");
+    }
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>All objects are at the correct location.</li></u>",
+        "Feedback text ok.");
+});
+
+
+QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
+    var base_url, i, world_files;
+    base_url = "../../src/worlds/tutorial_en/";
+    world_files = ["hurdle1.json", "hurdle2.json", "hurdle3.json", "hurdle4.json"];
+    RUR.unit_tests.load_program("src/hurdle_en.py");
+    for (i in world_files) {
+        ok(RUR.unit_tests.eval_python(base_url + world_files[i]).success,
+                                      world_files[i] + " run successfully.");
+    }
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
+        "Feedback text ok.");
+});
+
+QUnit.test("Maze 1, 2", function(assert) {
+    var base_url, i, world_files;
+    base_url = "../../src/worlds/tutorial_en/";
+    world_files = ["maze1.json", "maze2.json"];
+
+    // The general program for the hurdles works for the maze world!
+    RUR.unit_tests.load_program("src/hurdle_en.py");
+    //**************************************************
+    for (i in world_files) {
+        ok(RUR.unit_tests.eval_python(base_url + world_files[i]).success,
+                                      world_files[i] + " run successfully.");
+    }
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
+        "Feedback text ok.");
+});
+
+
+QUnit.test("Home 1, 2, 3", function(assert) {
+    var base_url, i, world_files;
+    base_url = "../../src/worlds/tutorial_en/";
+    world_files = ["home1.json", "home2.json", "home3.json"];
+    RUR.unit_tests.load_program("src/home_en.py");
+    for (i in world_files) {
+        ok(RUR.unit_tests.eval_python(base_url + world_files[i]).success,
+                                      world_files[i] + " run successfully.");
+    }
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
+        "Feedback text ok.");
+});
+
+
+QUnit.test("Harvests", function(assert) {
+    "use strict";
+    var frames, last_frame, base_url, world_file;
+    base_url = "../../src/worlds/tutorial_en/";
+
+    world_file = "harvest1.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/harvest1_en.py").success,
+                                      world_file + " run successfully.");
+
+    last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
+    equal(last_frame.world.robots[0].objects.carrot, "infinite", "Nb of carrots carried.");
+
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>All objects are at the correct location.</li></u>",
+        "Feedback text ok.");
+
+    world_file = "harvest2.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/harvest2_en.py").success,
+                                      world_file + " run successfully.");
+
+    world_file = "harvest3.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/harvest3_en.py").success,
+                                      world_file + " run successfully.");
+
+    world_file = "harvest4a.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/harvest4_en.py").success,
+                                      world_file + " run successfully.");
+    // reuse same program
+    world_file = "harvest4b.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file).success,
+                                      world_file + " run successfully.");
+    world_file = "harvest4c.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file).success,
+                                      world_file + " run successfully.");
+    world_file = "harvest4d.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file).success,
+                                      world_file + " run successfully.");
+});
+
+
+QUnit.test("Tokens", function(assert) {
+    "use strict";
+    var frames, last_frame, base_url, world_file;
+    base_url = "../../src/worlds/tutorial_en/";
+
+    world_file = "tokens1.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/tokens1234_en.py").success,
+                                      world_file + " run successfully.");
+
+    last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
+    deepEqual(last_frame.world.robots[0].objects, {}, "No objects carried.");
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
+        "<li class='success'>Reeborg is at the correct y position.</li>" +
+        "<li class='success'>All objects are at the correct location.</li></u>",
+        "Feedback text ok.");
+
+    world_file = "tokens2.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file).success,
+                                      world_file + " run successfully.");
+    world_file = "tokens3.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file).success,
+                                      world_file + " run successfully.");
+    world_file = "tokens4.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file).success,
+                                      world_file + " run successfully.");
+
+    world_file = "tokens5.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/tokens56_en.py").success,
+                                      world_file + " run successfully.");
+    world_file = "tokens6.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file).success,
+                                      world_file + " run successfully.");
+
+});
+
+QUnit.test("Rain", function(assert) {
+    "use strict";
+    var frames, last_frame, base_url, world_file;
+    base_url = "../../src/worlds/tutorial_en/";
+
+    world_file = "rain1.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/rain_en.py").success,
+                                      world_file + " run successfully.");
+
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
+        "<li class='success'>Reeborg is at the correct y position.</li>" +
+        "<li class='success'>All walls have been built correctly.</li></u>",
+        "Feedback text ok.");
+
+    world_file = "rain2.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file).success,
+                                      world_file + " run successfully.");
+});
+
+
+QUnit.test("Newspaper", function(assert) {
+    "use strict";
+    var frames, last_frame, base_url, world_file;
+    base_url = "../../src/worlds/tutorial_en/";
+
+    world_file = "newspaper1.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/newspaper_en.py").success,
+                                      world_file + " run successfully.");
+
+    last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
+    deepEqual(last_frame.world.robots[0].objects, {"token": 5}, "5 tokens carried.");
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
+        "<li class='success'>Reeborg is at the correct y position.</li>" +
+        "<li class='success'>All objects are at the correct location.</li></u>",
+        "Feedback text ok.");
+
+    world_file = "newspaper2.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file).success,
+                                      world_file + " run successfully.");
+    last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
+    deepEqual(last_frame.world.robots[0].objects, {"token": 3}, "3 tokens carried.");
 });

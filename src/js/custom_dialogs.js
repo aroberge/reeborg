@@ -5,7 +5,13 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, $*/
 
+RUR = RUR || {};
 RUR.cd = {};
+
+RUR.cd.show_feedback = function (element, content) {
+    $(element).html(content).dialog("open");
+};
+
 
 $(document).ready(function() {
 
@@ -18,11 +24,6 @@ $(document).ready(function() {
     RUR.cd.input_max_x = $("#input-max-x");
     RUR.cd.input_max_y = $("#input-max-y");
     RUR.cd.use_small_tiles = $("#use-small-tiles");
-
-
-    RUR.cd.show_feedback = function (element, content) {
-        $(element).html(content).dialog("open");
-    };
 
 
     RUR.cd.add_objects = function () {
