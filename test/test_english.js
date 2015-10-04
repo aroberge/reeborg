@@ -335,3 +335,63 @@ QUnit.test("Newspaper", function(assert) {
     last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
     deepEqual(last_frame.world.robots[0].objects, {"token": 3}, "3 tokens carried.");
 });
+
+QUnit.test("Storm 1, 2, 3; also tests library", function(assert) {
+    "use strict";
+    var frames, last_frame, base_url, world_file;
+    base_url = "../../src/worlds/tutorial_en/";
+
+    world_file = "storm1.json";
+
+    // Need to use run_python instead of eval_python to have initially
+    // random values set.
+    frames = RUR.unit_tests.run_python(base_url + world_file, "src/storm1_en.py");
+    last_frame = frames[frames.length-1];
+    deepEqual(last_frame.world.robots[0].objects, {}, "Testing storm1: no objects carried.");
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
+        "<li class='success'>Reeborg is at the correct y position.</li>" +
+        "<li class='success'>All objects are at the correct location.</li>" +
+        "<li class='success'>All walls have been built correctly.</li></u>",
+        "Feedback text ok.");
+
+
+    // loading library indirectly
+    RUR.unit_tests.load_program("src/storm_library_en.py");
+    RUR.unit_tests.library = RUR.unit_tests.program;
+
+    world_file = "storm2.json";
+
+    // Need to use run_python instead of eval_python to have initially
+    // random values set.
+    frames = RUR.unit_tests.run_python(base_url + world_file, "src/storm2_en.py");
+    last_frame = frames[frames.length-1];
+    deepEqual(last_frame.world.robots[0].objects, {}, "Testing storm2: no objects carried.");
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
+        "<li class='success'>Reeborg is at the correct y position.</li>" +
+        "<li class='success'>All objects are at the correct location.</li>" +
+        "<li class='success'>All walls have been built correctly.</li></u>",
+        "Feedback text ok.");
+
+    world_file = "storm3.json";
+    // reuse library as is ...
+
+    // Need to use run_python instead of eval_python to have initially
+    // random values set.
+    frames = RUR.unit_tests.run_python(base_url + world_file, "src/storm3_en.py");
+    last_frame = frames[frames.length-1];
+    deepEqual(last_frame.world.robots[0].objects, {}, "Testing storm3: no objects carried.");
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
+        "<li class='success'>Reeborg is at the correct y position.</li>" +
+        "<li class='success'>All objects are at the correct location.</li>" +
+        "<li class='success'>All walls have been built correctly.</li></u>",
+        "Feedback text ok.");
+});
