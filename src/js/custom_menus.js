@@ -22,7 +22,11 @@ RUR.custom_menu.make = function (contents) {
         }
     }
 
-    RUR.ui.load_user_worlds("initial");
+    if (RUR.ui.user_worlds_loaded === undefined) {
+        RUR.ui.load_user_worlds("initial");
+        RUR.ui.user_worlds_loaded = true;
+    }
+
 
     if (RUR.settings.initial_world) {  // loaded the very first time
         try {

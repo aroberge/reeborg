@@ -1102,7 +1102,13 @@ RUR.control.get_world_map = function () {
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, $*/
 
+RUR = RUR || {};
 RUR.cd = {};
+
+RUR.cd.show_feedback = function (element, content) {
+    $(element).html(content).dialog("open");
+};
+
 
 $(document).ready(function() {
 
@@ -1115,11 +1121,6 @@ $(document).ready(function() {
     RUR.cd.input_max_x = $("#input-max-x");
     RUR.cd.input_max_y = $("#input-max-y");
     RUR.cd.use_small_tiles = $("#use-small-tiles");
-
-
-    RUR.cd.show_feedback = function (element, content) {
-        $(element).html(content).dialog("open");
-    };
 
 
     RUR.cd.add_objects = function () {
@@ -1297,7 +1298,11 @@ RUR.custom_menu.make = function (contents) {
         }
     }
 
-    RUR.ui.load_user_worlds("initial");
+    if (RUR.ui.user_worlds_loaded === undefined) {
+        RUR.ui.load_user_worlds("initial");
+        RUR.ui.user_worlds_loaded = true;
+    }
+
 
     if (RUR.settings.initial_world) {  // loaded the very first time
         try {
