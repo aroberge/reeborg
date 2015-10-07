@@ -1364,22 +1364,61 @@ RUR.make_default_menu_en = function () {
 
 RUR.make_default_menu_fr = function () {
     "use strict";
-    var contents, worlds = 'src/worlds/';
+    var base_url, contents, menus, worlds = 'src/worlds/';
+
+    base_url = 'src/worlds/tutorial_en/';
+    menus = 'src/worlds/menus/';
+    worlds = 'src/worlds/';
+
 
     contents = [
-        [worlds + 'alone.json', 'Seul'],
-        [worlds + 'empty.json', 'Vide'],
+        ['src/worlds/alone.json', 'Seul'],
+        ['src/worlds/empty.json', 'Vide'],
+        [base_url + 'around1.json', 'Autour 1'],
+        [base_url + 'around2.json', 'Autour 2'],
+        [base_url + 'around3.json', 'Autour 3'],
+        [base_url + 'around4.json', 'Autour 4'],
+        [base_url + 'home1.json', 'But 1'],
+        [base_url + 'home2.json', 'But 2'],
+        [base_url + 'home3.json', 'But 3'],
+        [base_url + 'center1.json', 'Centrer 1'],
+        [base_url + 'center2.json', 'Centrer 2'],
+        [base_url + 'center3.json', 'Centrer 3'],
+        [base_url + 'hurdle1.json', 'Haies 1'],
+        [base_url + 'hurdle2.json', 'Haies 2'],
+        [base_url + 'hurdle3.json', 'Haies 3'],
+        [base_url + 'hurdle4.json', 'Haies 4'],
+        [base_url + 'tokens1.json', 'Jetons 1'],
+        [base_url + 'tokens2.json', 'Jetons 2'],
+        [base_url + 'tokens3.json', 'Jetons 3'],
+        [base_url + 'tokens4.json', 'Jetons 4'],
+        [base_url + 'tokens5.json', 'Jetons 5'],
+        [base_url + 'tokens6.json', 'Jetons 6'],
+        [base_url + 'newspaper1.json', 'Journal 1'],
+        [base_url + 'newspaper2.json', 'Journal 2'],
+        [base_url + 'maze1.json', 'Labyrinthe 1'],
+        [base_url + 'maze2.json', 'Labyrinthe 2'],
+        [base_url + 'rain1.json', 'Pluie 1'],
+        [base_url + 'rain2.json', 'Pluie 2'],
+        [base_url + 'harvest1.json', 'Récolte 1'],
+        [base_url + 'harvest2.json', 'Récolte 2'],
+        [base_url + 'harvest3.json', 'Récolte 3'],
+        [base_url + 'harvest4a.json', 'Récolte 4a'],
+        [base_url + 'harvest4b.json', 'Récolte 4b'],
+        [base_url + 'harvest4c.json', 'Récolte 4c'],
+        [base_url + 'harvest4d.json', 'Récolte 4d'],
+        [base_url + 'storm1.json', 'Tempête 1'],
+        [base_url + 'storm2.json', 'Tempête 2'],
+        [base_url + 'storm3.json', 'Tempête 3'],
+        // [menus + 'default_fr', 'Menu par défaut'],
+        [worlds + 'menus/documentation_fr', 'Documentation (menu anglais)'],
         [worlds + 'simple_path.json', 'Simple sentier'],
         [worlds + 'gravel_path.json', 'Sentier de gravier'],
         [worlds + 'gravel_path_fr',
                            'Sentier de gravier (solution)'],
-        [worlds + 'rain1.json', 'Pluie 1'],
-        [worlds + 'rain2.json', 'Pluie 2'],
         [worlds + 'slalom.json', 'Slalom'],
-        [worlds + 'menus/documentation_en', 'Documentation (menu anglais)'],
-        [worlds + 'menus/tutorial_fr', 'Tutoriel: menu'],
-        [worlds + 'blank.json', 'Canevas graphique'],
-        ];
+        ['src/worlds/blank.json', 'Canevas graphique'],
+    ]
 
     RUR.custom_menu.make(contents);
 };/* Author: André Roberge
