@@ -129,8 +129,8 @@ RUR.reset_definitions = function () {
     };
 
 
-    RobotUsage.prototype.objet_ici = function () {
-        RUR.control.object_here(this.body);
+    RobotUsage.prototype.objet_ici = function (obj) {
+        RUR.control.object_here(this.body, obj);
     };
 
     RobotUsage.prototype.prend = function () {

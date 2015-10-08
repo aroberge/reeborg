@@ -139,8 +139,8 @@ RUR.reset_definitions = function () {
         RUR.control.wall_on_right(this.body);
     };
 
-    UsedRobot.prototype.object_here = function () {
-        RUR.control.object_here(this.body);
+    UsedRobot.prototype.object_here = function (obj) {
+        RUR.control.object_here(this.body, obj);
     };
 
     UsedRobot.prototype.take = function () {
