@@ -1,4 +1,4 @@
-{
+﻿{
   "robots": [
     {
       "x": 1,
@@ -86,6 +86,6 @@
     }
   },
   "small_tiles": false,
-  "rows": 12,
-  "cols": 14
+  "rows": 9,
+  "cols": 11
 }
