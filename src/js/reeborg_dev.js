@@ -1364,9 +1364,11 @@ RUR.make_default_menu_en = function () {
 
 RUR.make_default_menu_fr = function () {
     "use strict";
-    var base_url, contents, menus, worlds = 'src/worlds/';
+    var base_url, base_url2, contents, menus, worlds;
 
     base_url = 'src/worlds/tutorial_en/';
+    base_url2 = 'src/worlds/tutorial_fr/';
+
     menus = 'src/worlds/menus/';
     worlds = 'src/worlds/';
 
@@ -1374,10 +1376,10 @@ RUR.make_default_menu_fr = function () {
     contents = [
         ['src/worlds/alone.json', 'Seul'],
         ['src/worlds/empty.json', 'Vide'],
-        [base_url + 'around1.json', 'Autour 1'],
-        [base_url + 'around2.json', 'Autour 2'],
-        [base_url + 'around3.json', 'Autour 3'],
-        [base_url + 'around4.json', 'Autour 4'],
+        [base_url2 + 'around1.json', 'Autour 1'],
+        [base_url2 + 'around2.json', 'Autour 2'],
+        [base_url2 + 'around3.json', 'Autour 3'],
+        [base_url2 + 'around4.json', 'Autour 4'],
         [base_url + 'home1.json', 'But 1'],
         [base_url + 'home2.json', 'But 2'],
         [base_url + 'home3.json', 'But 3'],
