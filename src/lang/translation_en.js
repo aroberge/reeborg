@@ -100,6 +100,9 @@ RUR.translation["Object names"] = " library, token, star, triangle, square, etc.
 // in doc_ready.js
 RUR.translation["Invalid world file."] = "Invalid world file.";
 
+// in file_io.js
+RUR.translation["Could not find link: "] = "Could not find link: ";
+
 
 // in world_editor.js
 RUR.translation["Click on world to move robot."] = "Click on world to add or remove possible starting positions for Reeborg.";

@@ -93,6 +93,9 @@ RUR.translation["Object names"] = " biblio, jeton, étoile, triangle, carré, et
 RUR.translation["Invalid world file."] = "Fichier monde invalide.";
 
 
+// in file_io.js
+RUR.translation["Could not find link: "] = "Lien introuvable : ";
+
 // in world_editor.js
 
 RUR.translation["Click on world to move robot."] = "Cliquez sur le monde pour ajouter ou supprimer des positions de départ possibles pour Reeborg.";
