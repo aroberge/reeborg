@@ -18,7 +18,7 @@ ce qui suit.
     depose("jeton")
 
     # On trouve une direction où un mur ne bloque pas le chemin
-    if not rien_devant():
+    while not rien_devant():
         tourne_a_gauche()
     avance()
 
