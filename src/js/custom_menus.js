@@ -120,6 +120,7 @@ RUR.make_default_menu_fr = function () {
         [base_url + 'tokens4.json', 'Jetons 4'],
         [base_url + 'tokens5.json', 'Jetons 5'],
         [base_url + 'tokens6.json', 'Jetons 6'],
+        [base_url + 'newspaper0.json', 'Journal 0'],
         [base_url + 'newspaper1.json', 'Journal 1'],
         [base_url + 'newspaper2.json', 'Journal 2'],
         [base_url + 'maze1.json', 'Labyrinthe 1'],

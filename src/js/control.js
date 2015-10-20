@@ -523,7 +523,7 @@ RUR.control.object_here = function (robot, obj) {
     for (obj_type in obj_here) {
         if (obj_here.hasOwnProperty(obj_type)) {
             if (obj !== undefined && obj_type == RUR.translate_to_english(obj)) {
-                return [obj_type];
+                return [RUR.translate(obj_type)];
             }
             all_objects.push(RUR.translate(obj_type));
         }
