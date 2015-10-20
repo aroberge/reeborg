@@ -5,71 +5,62 @@ Comme nous l'avons vu, il arrive souvent que l'on doive répéter une
 instruction donnée un certains nombre de fois. Il y a une façon standard
 de faire ceci en Python ... mais ceci requiert de comprendre trop de
 nouveaux concepts à la fois. Je vais juste vous montrer le code requis
-pour ceci puis présenter une fonction plus simple à comprendre,
-``repete()``, fonction unique au monde de Reeborg. Plus tard je vous
-expliquerai comment ``repete()`` est définie à l'aide du code utilisé
-habituellement.
+pour ceci puis présenter un mot clé plus simple à comprendre,
+``repeat``, unique au monde de Reeborg.
 
 La façon standard s'appelle une *boucle* ``for``
-et est écrite de la façon suivante:
+et est écrite de la façon suivante::
 
-.. code-block:: python
-
-    for i in range(n):
+    for _ in range(n):
         # diverses
         # instructions
         # ici
 
+
 .. note::
 
-   Souvenez-vous que ``prend("jeton")`` pourrait simplement être écrit comme ``prend()``.
+   ``repeat`` est un mot anglais qu'on pourrait traduire en français
+   par **répète**.
 
-Nous allons utiliser la fonction ``prend_la_monnaie()`` de la
-tâche de livraison de journaux que nous avons tout juste vue::
+Dans le monde de Reeborg, on peut écrire une *boucle* ``repeat``
+de la façon suivante::
 
-    def prendre_la_monnaie():
-        prend("jeton")
-        prend("jeton")
-        prend("jeton")
-        prend("jeton")
-        prend("jeton")
+    repeat n:    # "n" est un nombre entier
+        # diverses
+        # instructions
+        # ici
 
-pour démontrer l'utilisation de la boucle ``for`` ainsi
-que celle de la fonction ``repete``.
 
-Le corps de ``prendre_la_monnaie()`` est constitué de 5 répétitions de
-``prend("jeton")``.
+Par exemple, le code suivant ferait en sorte que Reeborg dessine
+un carré::
 
-Utilisant ``for ... in``, nous pouvons récrire ceci de
-la façon suivante::
+    repeat 4:
+        avance()
+        tourne_a_gauche()
 
-    def prendre_la_monnaie():
-        for i in range(5):
-            prend()
 
-ou nous avons omis ``"jeton"``, ce qui est notre choix
-et est valable ici.
+En utilisant ``repeat`` on peut récrire certains fonctions
+sans avoir à répéter des instructions, comme par exemple::
 
-Utilisant ``repete()``, nous pouvons récrire ceci de
-la façon suivante::
+    def tourne_a_droite():
+        repeat 3:
+            tourne_a_gauche()
 
-    def prendre_la_monnaie():
-        repete(prend, 5)
-
-Notez que les parenthèses ``()`` ne sont **pas** incluse pour
-``prend`` comme *argument* de ``repete()``. Donc, en utilisant
-``repete()``, nous avons une autre façon d'éliminer les répétitions dans
-nos programmes. Cela dit, si j'avais eu à spécifier l'argument
-``"jeton"``, je n'aurais pas pu utiliser ``repete`` car il ne prend
-que le nom d'une fonction comme argument (ainsi que le nombre de répétitions) sans
-parenthèses: on ne peut donc pas spécifier d'argument à cette deuxième fonction.
 
 .. topic:: À votre tour!
 
     Si vous avez toujours dans l'éditeur de code une copie
-    du programme permettant à Reeborg de livrer le journal, modifiez-le de
-    façon à utiliser ``repete()`` ou une boucle ``for`` à toutes les fois que ceci permet de
-    raccourcir le code. Si vous n'avez pas une copie du programme, retourner
-    à la leçon précédente et refaites-le en utilisant ``repete()``.
+    du programme permettant à Reeborg de livrer le journal à Monsieur Pattis,
+    modifiez-le de façon à utiliser une boucle ``repeat``
+    à toutes les fois que ceci permet de raccourcir le code.
 
 
+.. admonition:: Pour les enseignants
+
+    Comme ce tutoriel reporte à plus tard l'introduction du concept
+    de variables ainsi que de l'utilisation d'arguments de fonctions,
+    j'ai jugé préférable de modifier la syntaxe traditionnelle de Python
+    en ajoutant le mot-clé ``repeat`` pour éviter d'introduire trois
+    concepts différents en même temps (les boucles, les variables, le
+    arguments de fonction).   Ceci est un choix personnel, et tout à fait
+    subjectif.

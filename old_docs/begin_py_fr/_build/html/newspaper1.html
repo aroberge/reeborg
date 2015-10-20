@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>9. Livraison de journaux &mdash; Apprenez Python avec Reeborg</title>
+    <title>8. Livraison de journaux &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="10. Règle numéro 3" href="rule3.html" />
-    <link rel="prev" title="8. Introduction aux missions" href="challenges1.html" /> 
+    <link rel="next" title="9. Règle numéro 3" href="rule3.html" />
+    <link rel="prev" title="7. Introduction aux missions" href="challenges1.html" /> 
 
   <script>
     // intelligent scrolling of the sidebar content
@@ -64,10 +64,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="rule3.html" title="10. Règle numéro 3"
+             <a href="rule3.html" title="9. Règle numéro 3"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="challenges1.html" title="8. Introduction aux missions"
+             <a href="challenges1.html" title="7. Introduction aux missions"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
@@ -80,10 +80,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="challenges1.html"
-                        title="Chapitre précédent">8. Introduction aux missions</a></p>
+                        title="Chapitre précédent">7. Introduction aux missions</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="rule3.html"
-                        title="Chapitre suivant">10. Règle numéro 3</a></p>
+                        title="Chapitre suivant">9. Règle numéro 3</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
@@ -111,7 +111,7 @@
           <div class="body">
             
   <div class="section" id="livraison-de-journaux">
-<h1>9. Livraison de journaux<a class="headerlink" href="#livraison-de-journaux" title="Lien permanent vers ce titre">¶</a></h1>
+<h1>8. Livraison de journaux<a class="headerlink" href="#livraison-de-journaux" title="Lien permanent vers ce titre">¶</a></h1>
 <p>Reeborg a un emploi: il livre le journal <em>l&#8217;Étoile du nord</em>. Plusieurs
 des clients de Reeborg ne vivent pas au rez-de-chaussée de leur édifice.
 Pour ceux-ci, Reeborg doit suivre la procédure suivante:</p>
@@ -119,41 +119,47 @@ Pour ceux-ci, Reeborg doit suivre la procédure suivante:</p>
 <li>Prendre une seule copie du journal (ce serait trop lourd de les
 transporter tous à la fois).</li>
 <li>Grimper le nombre d&#8217;étages requis pour rejoindre la porte du client..</li>
-<li>Prendre la monnaie (jetons) laissée par les clients.</li>
+<li>Sauf dans un cas décrit ci-dessous, prendre la monnaie (jetons) laissée par les clients.</li>
 <li>Laisser une copie du journal, appelé plus simplement l&#8217;<em>étoile</em> sur
 le seuil de porte.</li>
 <li>Redescendre au rez-de-chaussée.</li>
 </ol>
-<p>Bien que Reeborg ait plusieurs clients, j&#8217;en ai seulement inclus deux
+<p>Bien que Reeborg ait plusieurs clients, j&#8217;en ai seulement inclus trois
 pour votre attention:</p>
 <ul class="simple">
-<li>La gentille Ada Lovelace, qui vit au troisième étage de son édifice,
+<li>Richard Pattis, créateur de Karel (un ancêtre de Reeborg) chez qui
+Reeborg laisse toujours une copie gratuite du journal; Richard
+Pattis habite au troisième étage de son édifice et le monde
+correspondant est <strong>Journal 0</strong>.</li>
+<li>La gentille Ada Lovelace, qui vit également au troisième étage de son édifice,
 et qui laisse toujours quelques pièces de monnaie de plus comme
 cadeau pour Reeborg; son monde est <strong>Journal&nbsp;1</strong>.</li>
 <li>Le vieux grognon Charles Babbage, qui vit au cinquième étage et qui
 paie toujours le montant exact, sans laisser de pourboire pour
 Reeborg; son monde est <strong>Journal&nbsp;2</strong>.</li>
 </ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">En programmation informatique, on commence souvent à compter à partir de zéro
+plutôt qu&#8217;à partir de 1.  Puisque ces mondes font référence à trois
+personnes connue en informatique, j&#8217;ai pensé qu&#8217;il serait juste de
+numéroter ces mondes à partir de zéro.</p>
+</div>
+<p>Écrire des programmes pour des mondes contenant deux types d&#8217;objets
+(comme des étoiles <strong>et</strong> des jetons) est plus compliqué que ce qu&#8217;on
+a vu jusqu&#8217;à maintenant; nous verrons comment faire ceci plus tard.
+Pour l&#8217;instant, nous allons nous concentrer sur le monde <strong>Journal 0</strong>.
+Plus tard, nous verrons comment Reeborg peut faire les livraisons
+dans les mondes <strong>Journal 1</strong> et <strong>Journal 2</strong>.</p>
 <div class="topic">
 <p class="topic-title first">À votre tour!</p>
-<p>Utilisant les instructions:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">prend</span><span class="p">(</span><span class="s">&quot;étoile&quot;</span><span class="p">)</span>   <span class="c"># préparer pour transporter</span>
-<span class="n">depose</span><span class="p">(</span><span class="s">&quot;étoile&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>faites en sorte que Reeborg fasse au moins une livraison au client de
-votre choix. Assurez-vous d&#8217;écrire les deux instructions ci-dessus
-<strong>exactement</strong> de la façon dont elles apparaissent; en particulier, le
-mot <em>étoile</em> doit être écrit avec un accent aigu sur le e.</p>
+<p>Faites en sorte que Reeborg aille livrer un journal chez Monsieur Pattis</p>
 </div>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">Sauvegarder votre programme; vous aurez l&#8217;occasion de l&#8217;utiliser à nouveau
 sous peu.</p>
 </div>
-<p>Il peut vous sembler impossible d&#8217;écrire un seul programme qui ferait la
-livraison correctement aux deux clients ... mais vous verrez un peu plus
-tard comment on peut le faire.</p>
 </div>
 
 
@@ -166,10 +172,10 @@ tard comment on peut le faire.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="rule3.html" title="10. Règle numéro 3"
+             <a href="rule3.html" title="9. Règle numéro 3"
              >suivant</a></li>
         <li class="right" >
-             <a href="challenges1.html" title="8. Introduction aux missions"
+             <a href="challenges1.html" title="7. Introduction aux missions"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
@@ -188,6 +194,10 @@ tard comment on peut le faire.</p>
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+
+      $('.admonition-pour-les-enseignants').children().hide();
+      $('.admonition-pour-les-enseignants p.admonition-title').show().css('cursor', 'pointer');
+      $('.admonition-pour-les-enseignants p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
       $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>5. Collection de jetons &mdash; Apprenez Python avec Reeborg</title>
+    <title>4. Collection de jetons &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="6. Règle numéro 2" href="rule2.html" />
-    <link rel="prev" title="4. Reeborg va en Espagne" href="france.html" /> 
+    <link rel="next" title="5. Règle numéro 2" href="rule2.html" />
+    <link rel="prev" title="3. Fichus bogues!" href="bugs.html" /> 
 
   <script>
     // intelligent scrolling of the sidebar content
@@ -64,10 +64,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="rule2.html" title="6. Règle numéro 2"
+             <a href="rule2.html" title="5. Règle numéro 2"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="france.html" title="4. Reeborg va en Espagne"
+             <a href="bugs.html" title="3. Fichus bogues!"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
@@ -78,20 +78,12 @@
   
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-              <h3>Table des Matières</h3>
-              <ul>
-<li><a class="reference internal" href="#">5. Collection de jetons</a><ul>
-<li><a class="reference internal" href="#etre-plus-specifique">5.1. Être plus spécifique</a></li>
-</ul>
-</li>
-</ul>
-
   <h4>Sujet précédent</h4>
-  <p class="topless"><a href="france.html"
-                        title="Chapitre précédent">4. Reeborg va en Espagne</a></p>
+  <p class="topless"><a href="bugs.html"
+                        title="Chapitre précédent">3. Fichus bogues!</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="rule2.html"
-                        title="Chapitre suivant">6. Règle numéro 2</a></p>
+                        title="Chapitre suivant">5. Règle numéro 2</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
@@ -119,7 +111,7 @@
           <div class="body">
             
   <div class="section" id="collection-de-jetons">
-<h1>5. Collection de jetons<a class="headerlink" href="#collection-de-jetons" title="Lien permanent vers ce titre">¶</a></h1>
+<h1>4. Collection de jetons<a class="headerlink" href="#collection-de-jetons" title="Lien permanent vers ce titre">¶</a></h1>
 <p>Certains aiment collectionner les timbres, d&#8217;autres collectionnent les
 pièces de monnaie; Reeborg, lui, aime collectionner les jetons. Il
 utilise son imagination pour représenter toute sorte d&#8217;objet par des
@@ -151,23 +143,18 @@ deux tâches.</p>
 pas avec lui? Qu&#8217;arrive-t-il s&#8217;il essaie d&#8217;en ramasser un là où il n&#8217;y
 en a pas?</p>
 </div>
-<div class="section" id="etre-plus-specifique">
-<h2>5.1. Être plus spécifique<a class="headerlink" href="#etre-plus-specifique" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Lorsque vous demandez à Reeborg <code class="docutils literal"><span class="pre">prend()</span></code> ou <code class="docutils literal"><span class="pre">depose()</span></code>, Reeborg
-comprend qu&#8217;il s&#8217;agit de prendre ou de déposer un jeton, son objet
-préféré. Cependant, il y a d&#8217;autres objets dans le monde de Reeborg. Il
-est parfois utile d&#8217;être plus spécifique et d&#8217;écrire:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">);</span>
-<span class="n">depose</span><span class="p">(</span><span class="s">&#39;jeton&#39;</span><span class="p">);</span>
+<div class="admonition-pour-les-enseignants admonition">
+<p class="first admonition-title">Pour les enseignants</p>
+<p>Pour les premières tâches présentées aux étudiants, les mondes ont
+été conçus de façon à ce qu&#8217;il n&#8217;y ait qu&#8217;un seul type d&#8217;objet.
+Pour les mondes ayant plus d&#8217;un type d&#8217;objets, il faut parfois
+utiliser des arguments de fonctions tels que:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+<span class="n">depose</span><span class="p">(</span><span class="s">&#39;jeton&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>On note que le mot <strong>jeton</strong> est entouré soit de guillemets simples ou
-doubles. Vérifiez que ceci fonctionne!</p>
-<div class="topic">
-<p class="topic-title first">À votre tour!</p>
-<p>Écrivez un programme pour résoudre la tâche du monde <strong>Jetons 2</strong>.
-Utilisez <code class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></code> au lieu de simplement <code class="docutils literal"><span class="pre">prend()</span></code></p>
-</div>
+<p class="last">Dans ce tutoriel, la discussion des arguments des fonctions est
+reportée à plus tard.</p>
 </div>
 </div>
 
@@ -181,10 +168,10 @@ Utilisez <code class="docutils literal"><span class="pre">prend(&quot;jeton&quot
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="rule2.html" title="6. Règle numéro 2"
+             <a href="rule2.html" title="5. Règle numéro 2"
              >suivant</a></li>
         <li class="right" >
-             <a href="france.html" title="4. Reeborg va en Espagne"
+             <a href="bugs.html" title="3. Fichus bogues!"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
@@ -203,6 +190,10 @@ Utilisez <code class="docutils literal"><span class="pre">prend(&quot;jeton&quot
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+
+      $('.admonition-pour-les-enseignants').children().hide();
+      $('.admonition-pour-les-enseignants p.admonition-title').show().css('cursor', 'pointer');
+      $('.admonition-pour-les-enseignants p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
       $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>

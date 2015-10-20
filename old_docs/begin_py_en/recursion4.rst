@@ -15,7 +15,7 @@ Reeborg must drop all the tokens collected on that square and move to
 the next square.
 
 The exact same program must work with world **Tokens 6**, which has a
-different number of tokens - so you can not use ``repeat()`` as you
+different number of tokens - so you can not use ``repeat`` as you
 don't have a fixed number of repetitions.
 
 Reeborg starts with an infinite number of tokens in his pockets: so you

@@ -1,8 +1,11 @@
 Premier programme
 =================
 
+.. figure:: ../../src/images/avance.png
+   :align: left
+
 Si vous avez suivi les instructions correctement, Reeborg a fait ses premiers
-pas.  Dans l'onglet "code python" se trouve une seule instruction::
+pas.  Dans l'onglet "Code Python" se trouve une seule instruction::
 
     avance()
 
@@ -13,7 +16,7 @@ caractère de soulignement "_",
 et peuvent contenir des lettres, des chiffres ou le caractère
 de soulignement.
 Le nom de le fonction peut être suivi par des parenthèses ``()``.
-Ceci instruit Reeborg (Python) que la fonction doit être *exécutée*.
+La présence des parenthèses indique à Reeborg (Python) que la fonction doit être *exécutée*.
 La fonction doit être sur sa propre ligne (nous verrons des exceptions à ceci plus tard).
 
 Occasionnellement, nous ferons des **organigrammes** qui sont une représentation graphique

@@ -35,20 +35,12 @@ Si vous
 sauvegardez un programme, il serait probablement utile d'ajouter de
 l'information indiquant pour quelle monde ce programme représente une
 solution. Une façon de le faire est d'ajouter un commentaire - ce que
-vous savez comment faire si vous avez lu les leçons précédentes. Une
-autre façon, peut-être plus utile, est d'avoir comme toute première
-instruction ``Monde("nom du monde ici")``. Par exemple, une
-solution au monde **But 1** aurait comme première instruction::
+vous savez comment faire si vous avez lu les leçons précédentes::
 
-    Monde("But 1")
+    # Solution du monde But 1
     avance()
     avance()
 
-.. topic:: À votre tour!
-
-    Essayez d'exécuter ce programme sans sélectionner **But 1** en
-    premier. Puis, exécuter ce programme une deuxième fois sans rien changer
-    d'autre.
 
 Trouver le centre
 -----------------
@@ -191,3 +183,29 @@ Cependant, ceci vous a permis de vous mettre dans la peau d'un robot et vous
 aidera à utiliser Javascript pour écrire des programmes beaucoup plus court
 permettant d'accomplir les diverses tâches confiées à Reeborg.
 
+.. admonition:: Pour les enseignants
+
+    Si vous avez expliqué l'utilisation d'arguments de fonctions, il pourrait
+    être utile de suggérer l'utilisation de la commande ``Monde()`` plutôt
+    que de simplement écrire un commentaire::
+
+        Monde("But 1")
+        avance()
+        avance()
+
+    Si le monde choisi à l'écran n'est pas le monde "But 1", l'exécution de
+    ce programme fera en sorte que la sélection change au monde "But 1",
+    et le reste du programme sera ignoré.  Si on l'exécute une deuxième fois
+    (alors que le monde choisi est bel et bien "But 1"), l'instruction
+    ``Monde()`` sera ignorée et le reste du programme sera exécuté correctement.
+
+    Au lieu de monde prédéfini, vous pouvez utilisez des mondes définis
+    à quelque part sur le web.  Par exemple::
+
+        Monde("http://personnel.usainteanne.ca/aroberge/reeborg/token.json")
+        avance()
+        avance()
+        prend()
+
+    devrait en principe fonctionner.  Au moment où j'écrit cette note, il
+    y a un bogue (https://github.com/aroberge/reeborg/issues/199)

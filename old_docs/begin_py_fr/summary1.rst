@@ -29,8 +29,8 @@ total de 5 instructions différentes:
 
 -  ``avance()``
 -  ``tourne_a_gauche()``
--  ``prend()`` ou ``prend("jeton")``
--  ``depose()`` ou ``depose("jeton")``
+-  ``prend()``
+-  ``depose()``
 -  ``pause()``
 
 Il est possible que vous n'ayez pas utilisé l'instruction ``pause()``

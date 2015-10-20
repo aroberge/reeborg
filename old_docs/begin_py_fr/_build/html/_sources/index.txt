@@ -16,10 +16,8 @@ Avant de débuter le tutoriel proprement dit, faites en sorte que
 Reeborg fasse son tout premier pas en exécutant un programme dans
 le monde de Reeborg.
 
-Veuillez noter que les **Indices** peuvent être cliqués pour
-permettre d'avoir accès à des suggestions utiles si vous n'êtes pas
-certains de la marche à suivre.
-
+Si vous n'êtes pas certain de la marche à suivre, cliquez sur
+l'**indice** ci-dessous.
 
 .. hint::
 
@@ -33,6 +31,18 @@ certains de la marche à suivre.
     vidéo en mode plein écran avec la qualité HD.
 
 
+De la même façon que les élèves et les étudiants sont invités à cliquer
+sur les **indices**, les enseignants sont invités à en faire de même sur
+les notes écrites à leur intention.
+
+.. admonition:: Pour les enseignants
+
+    Vous trouverez des notes, généralement au bas des pages,
+    expliquant certains détails au sujet de l'approche choisie
+    pour la présentation de différents sujets.  Par exemple,
+    il y a une de ces notes tout au bas de cette page
+
+
 Table des matières:
 
 .. toctree::
@@ -42,7 +52,6 @@ Table des matières:
    move
    home
    bugs
-   france
    tokens1
    rule2
    summary1
@@ -51,6 +60,7 @@ Table des matières:
    rule3
    turn_around
    library
+   reading
    newspaper2
    repeat
    if
@@ -88,3 +98,17 @@ Table des matières:
    leak
    testing
    conclusion
+
+
+
+.. warning::
+
+    Ce tutoriel est en plein milieu d'une revision majeure.
+
+.. admonition:: Pour les enseignants
+
+    L'approche que j'ai choisie d'utiliser est d'éviter aussi longtemps
+    que possible d'utiliser des variables ainsi que des fonctions avec
+    des arguments.  Cette approche reflète l'approche utilisée par
+    Pattis avec le Karel original pour lequel les variables n'existaient pas.
+

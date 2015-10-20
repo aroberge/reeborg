@@ -124,8 +124,11 @@
             
   <div class="section" id="premier-programme">
 <h1>1. Premier programme<a class="headerlink" href="#premier-programme" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="figure align-left">
+<img alt="_images/avance.png" src="_images/avance.png" />
+</div>
 <p>Si vous avez suivi les instructions correctement, Reeborg a fait ses premiers
-pas.  Dans l&#8217;onglet &#8220;code python&#8221; se trouve une seule instruction:</p>
+pas.  Dans l&#8217;onglet &#8220;Code Python&#8221; se trouve une seule instruction:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -136,7 +139,7 @@ caractère de soulignement &#8220;_&#8221;,
 et peuvent contenir des lettres, des chiffres ou le caractère
 de soulignement.
 Le nom de le fonction peut être suivi par des parenthèses <code class="docutils literal"><span class="pre">()</span></code>.
-Ceci instruit Reeborg (Python) que la fonction doit être <em>exécutée</em>.
+La présence des parenthèses indique à Reeborg (Python) que la fonction doit être <em>exécutée</em>.
 La fonction doit être sur sa propre ligne (nous verrons des exceptions à ceci plus tard).</p>
 <p>Occasionnellement, nous ferons des <strong>organigrammes</strong> qui sont une représentation graphique
 d&#8217;un programme.  Dans un organigramme, une simple instruction comme
@@ -236,6 +239,10 @@ votre compréhension.</p>
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+
+      $('.admonition-pour-les-enseignants').children().hide();
+      $('.admonition-pour-les-enseignants p.admonition-title').show().css('cursor', 'pointer');
+      $('.admonition-pour-les-enseignants p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
       $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>

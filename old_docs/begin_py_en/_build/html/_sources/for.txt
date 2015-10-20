@@ -2,6 +2,30 @@
 For loops
 =========
 
+First, a look at ``while``
+--------------------------
+
+Select world **Around 1**. You have seen before that Reeborg takes 9 steps
+before reaching the first square where he is blocked by having a wall in
+front of him. Let's use the increment operator to have Reeborg keep
+track of the number of steps and stop just before hitting a wall::
+
+    number_of_steps = 0;
+    while number_of_steps < 9 :  # "<" means "less than"
+        move()
+        number_of_steps += 1
+
+.. topic:: Try it!
+
+
+    Try to run the above. Then, modify the program to write the value of
+    ``number_of_steps`` in Reeborg's Diary each time it is incremented.
+
+
+Now, it's time for ``for``
+--------------------------
+
+
 As we have seen, ``while`` loops can be used with numbers using the
 following pattern::
 
@@ -17,19 +41,19 @@ Another way to write **exactly the same program meaning** is to use a
        ...
 
 The ``for`` loop in Python can be used for much more than counting items.
-However, this will not be covered in this tutorial.
+However, this will not be covered for now.
 
-Using the ``for`` loop syntax, we can have a different definition for a
-``repeat``-like function::
+What about ``repeat``?
+-----------------------
 
-    def my_repeat(some_function, max_value):
-        for n in range(max_value):
-            some_function()
+As we had mentioned before, Reeborg's World includes ``repeat`` as
+a keyword that is **not** found in Python.  Using ``repeat``, the above
+``for`` loop would, in principle, be written as::
 
-    my_repeat(move, 9);
-    my_repeat(turn_left, 4);
+    repeat max_value:
+        ...
 
-.. topic:: Try it!
-
-   Try the above program with world **Around 1**.
+**provided that** ``max_value`` **was an actual number**.
+From now on, we will not use ``repeat`` and will use instead the
+normal Python way using a ``for`` loop.
 

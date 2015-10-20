@@ -114,10 +114,8 @@
 <p>Often, we will find that we want to repeat a series of instructions a
 fixed number of times. There is a way in Python to do so ... but it
 has too many new concepts to explain at this time. I will just show you
-the code, and immediately introduce <code class="docutils literal"><span class="pre">repeat()</span></code>, a simpler replacement
-for it, unique to Reeborg&#8217;s World.
-Later, when you know more about Python, I will explain how
-<code class="docutils literal"><span class="pre">repeat()</span></code> is defined in terms of the standard way. The standard way
+the code, and immediately introduce <code class="docutils literal"><span class="pre">repeat</span></code>, a simpler replacement
+for it, unique to Reeborg&#8217;s World.  The standard way
 is known as a <strong>for loop</strong> and is written as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="c"># some</span>
@@ -127,11 +125,12 @@ is known as a <strong>for loop</strong> and is written as follows:</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Remember that <code class="docutils literal"><span class="pre">take(&quot;token&quot;)</span></code> could more simply be written as <code class="docutils literal"><span class="pre">take()</span></code>.</p>
+<p class="last">Using <code class="docutils literal"><span class="pre">repeat</span></code> will not work in Python programs meant to be
+run outside of Reeborg&#8217;s World.</p>
 </div>
 <p>Now that you have seen this cryptic code which includes two Python
 keywords, <code class="docutils literal"><span class="pre">for</span></code> and <code class="docutils literal"><span class="pre">in</span></code>, as well as a built-in function, <code class="docutils literal"><span class="pre">range</span></code>,
-let&#8217;s introduce instead <code class="docutils literal"><span class="pre">repeat()</span></code>.
+let&#8217;s introduce instead <code class="docutils literal"><span class="pre">repeat</span></code>.
 We will use the example <code class="docutils literal"><span class="pre">get_money()</span></code> from the previous newspaper
 delivery example:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">get_money</span><span class="p">():</span>
@@ -143,22 +142,20 @@ delivery example:</p>
 </pre></div>
 </div>
 <p>Inside <code class="docutils literal"><span class="pre">get_money()</span></code>, we repeat 5 times the command <code class="docutils literal"><span class="pre">take()</span></code>.
-Using <code class="docutils literal"><span class="pre">repeat()</span></code>, we can rewrite the above as follows:</p>
+Using <code class="docutils literal"><span class="pre">repeat</span></code>, we can rewrite the above as follows:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">get_money</span><span class="p">():</span>
-    <span class="n">repeat</span><span class="p">(</span><span class="n">take</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">repeat</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that I have <strong>not</strong> included the parentheses <code class="docutils literal"><span class="pre">()</span></code> for
-<code class="docutils literal"><span class="pre">take</span></code> inside <code class="docutils literal"><span class="pre">repeat()</span></code>. If I had to specify the <em>argument</em>
-<code class="docutils literal"><span class="pre">&quot;token&quot;</span></code>, I would not have been able to use <code class="docutils literal"><span class="pre">repeat</span></code> as it makes
-use only of the name of the function, without calling it using <code class="docutils literal"><span class="pre">()</span></code>.
-Now, by using <code class="docutils literal"><span class="pre">repeat()</span></code> we have yet
+<p>Now, by using <code class="docutils literal"><span class="pre">repeat</span></code> we have yet
 another way to eliminate repetitions in our code.</p>
 <div class="topic">
 <p class="topic-title first">Try it!</p>
 <p>Change your program for the newspaper problem so that
-you use <code class="docutils literal"><span class="pre">repeat()</span></code> wherever it would shorten the code. If you did not save it,
-go back to the previous lesson and redo it using <code class="docutils literal"><span class="pre">repeat()</span></code>.</p>
+you use <code class="docutils literal"><span class="pre">repeat</span></code> wherever it would shorten the code.
+If you did not save it,
+go back to the previous lesson and redo it using <code class="docutils literal"><span class="pre">repeat</span></code>.</p>
 </div>
 </div>
 

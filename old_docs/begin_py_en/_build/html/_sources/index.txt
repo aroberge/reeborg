@@ -71,10 +71,8 @@ Contents:
    return
    diary
    increment
-   while_num
    for
    harvest3
-   better_repeat
    oop
    turn_right
    turn_right2

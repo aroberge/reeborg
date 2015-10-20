@@ -78,23 +78,23 @@ sont automatiquement présentés d'une autre couleur à l'écran.
     avance()  # Chaque instruction est sur une seule ligne
     avance()
     tourne_a_gauche() # Reeborg sait seulement tourner à gauche
-    depose("jeton")  # On suppose que Reeborg a suffisamment de jetons
+    depose()
 
     # On répète les instructions ci-dessus trois fois de plus
     # pour compléter le carré.
     avance()
     avance()
     tourne_a_gauche()
-    depose("jeton")
+    depose()
 
     avance()
     tourne_à_gauche()
-    depose("jeton")
+    depose()
 
     avance()
     avance()
     tourne_a_gauche()
-    depose("jeton")
+    depose()
 
 
 Les commentaires ajoutés au programme ci-dessus ne sont pas
@@ -109,10 +109,18 @@ Notez qu'en plus d'ajouter des commentaires, j'ai inséré quelques lignes
 sans code pour séparer les "blocs logiques" et mieux voir le patron
 suivi. Ceci permet également d'identifier l'erreur plus facilement.
 
-Également, et bien que ceci ne crée aucune différence pour Reeborg, j'ai
-spécifié ``"jeton"`` lorsque je voulais que Reeborg en ``depose`` un;
-ceci est plus clair pour un lecteur.
-
-
 Alors, quelle version est la plus facile à lire et à comprendre?...
 
+
+.. admonition:: Pour les enseignants
+
+    Dans une version précédente de ce tutoriel, j'utilisais les
+    arguments de fonctions et, dans l'exemple commenté ci-dessus,
+    j'avais écrit::
+
+        depose('jeton')
+
+    au lieu de simplement écrire ``depose()`` et j'avais écrit
+    ce qui suit: *Également, et bien que ceci ne crée aucune différence
+    pour Reeborg, j’ai spécifié "jeton" lorsque je voulais que
+    Reeborg en dépose un; ceci est plus clair pour un lecteur.*

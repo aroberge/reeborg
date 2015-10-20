@@ -37,21 +37,15 @@ en vert pale indique l'endroit où Reeborg doit terminer son programme.
     en a pas?
 
 
-Être plus spécifique
---------------------
+.. admonition:: Pour les enseignants
 
-Lorsque vous demandez à Reeborg ``prend()`` ou ``depose()``, Reeborg
-comprend qu'il s'agit de prendre ou de déposer un jeton, son objet
-préféré. Cependant, il y a d'autres objets dans le monde de Reeborg. Il
-est parfois utile d'être plus spécifique et d'écrire::
+    Pour les premières tâches présentées aux étudiants, les mondes ont
+    été conçus de façon à ce qu'il n'y ait qu'un seul type d'objet.
+    Pour les mondes ayant plus d'un type d'objets, il faut parfois
+    utiliser des arguments de fonctions tels que::
 
-    prend("jeton");
-    depose('jeton');
+        prend("jeton")
+        depose('jeton')
 
-On note que le mot **jeton** est entouré soit de guillemets simples ou
-doubles. Vérifiez que ceci fonctionne!
-
-.. topic:: À votre tour!
-
-    Écrivez un programme pour résoudre la tâche du monde **Jetons 2**.
-    Utilisez ``prend("jeton")`` au lieu de simplement ``prend()``
+    Dans ce tutoriel, la discussion des arguments des fonctions est
+    reportée à plus tard.

@@ -13,7 +13,7 @@ de ces bibliothèques.
 Vous allez utiliser la fonction ``tourne_a_droite()`` **souvent!**
 Plutôt que de la récrire à chaque fois (souvenez-vous de la règle numéro
 3), vous allez plutôt la récrire **une fois** de plus mais, cette
-fois-ci, vous allez cliquer sur l'onglet **biblio.** et l'écrire à
+fois-ci, vous allez cliquer sur l'onglet **biblio** et l'écrire à
 cet endroit. Vous devriez également y écrire ``demi_tour()``.
 
 Lorsque vous voudrez utiliser les fonctions définies dans votre bibliothèque,
@@ -26,14 +26,10 @@ de votre programme dans l'éditeur.
 
   Après avoir défini les fonctions ``tourne_a_droite()`` et ``demi_tour()``
   dans votre bibliothèque, écrivez un court programme dans l'éditeur "Code Python"
-  qui utilise ces fonctions.  Assurez-vous d'utiliser ``from biblio import tourne_a_droite, demi_tour``
-  dans votre programme.
-
-
-.. hint::
-
-   Si vous avez défini les fonctions requises dans votre bibliothèque, un
-   exemple d'un tel programme est le suivant::
+  qui utilise ces fonctions.
+  Assurez-vous d'utiliser ``from biblio import tourne_a_droite, demi_tour``
+  dans votre programme.  Par exemple, vous pourriez essayer le programme
+  suivant::
 
        from biblio import tourne_a_droite, demi_tour
        avance()
@@ -49,60 +45,39 @@ de votre programme dans l'éditeur.
 vous l'utilisez dans plus d'un programme, c'est probablement une bonne
 idée de l'ajouter à votre bibliothèque pour vous éviter des répétitions.
 
+Reeborg peut comprendre l'anglais
+---------------------------------
+
+Il existe une bibliothèque spéciale dont l'utilisation permet à Reeborg
+de comprendre l'anglais.  Par exemple, au lieu d'``avance`` et de
+``tourne_a_gauche``, l'utilisation de la bibliothèque
+``reeborg_en`` peut faire en sorte que les équivalents anglais
+``move`` et ``turn_left`` soit utilisé comme suit::
+
+    from reeborg_en import move, turn_left
+
+    move()
+    turn_left()
+
+.. topic:: À votre tour!
+
+    Écrivez un court programme qui utilise les fonctions de la bibliothèque
+    anglaise.
 
 
-Exercice de lecture
--------------------
+.. admonition:: Pour les enseignants
 
-Vous rappelez-vous de ce qui suit?
+    Lorsqu'on importe la bibliothèque ``reeborg_en``, l'aide disponible
+    (accessible via "Menu additionel" -> "Aide") est mis à jour pour
+    inclure toutes les instructions anglaises possiblement disponible.
+    La seule restriction est que les arguments de fonctions,
+    comme ``"jeton"`` dans ``prend("jeton")`` doivent toujours être
+    écrits en français, même si on utilise la version anglaise
+    ``take("jeton")``.    Pour utiliser une version totalement en anglais,
+    on doit aller sur le site
+    `Reeborg's World <http://reeborg.ca/world.html>`_
 
-.. important::
+    Si vous voulez créer une autre version, par exemple une version en espagnol,
+    svp contactez-moi.
 
-    **Règle numéro 2**
-
-        Écrivez vos programmes pour qu'il soit facile à lire et à comprendre
-        par des **humains**.
-
-Pouvez-vous déterminez ce que fait le programme suivant, simplement
-en le lisant et sans l'exécuter?
-
-.. code-block:: py3
-
-    def a():
-        tourne_a_gauche()
-        tourne_a_gauche()
-
-    def b():
-        tourne_a_gauche()
-        a()
-
-    def c():
-        avance()
-        avance()
-
-    def d():
-        c()
-        b()
-
-    def e():
-        d()
-        d()
-        d()
-        d()
-
-    tourne_a_gauche()
-    e()
-    b()
-
-Pas vraiment facile, n'est-ce pas?
-
-.. topic:: Vérifiez!
-
-    Lorsque vous serez convaincu de savoir ce que fait le programme ci-dessus,
-    vérifiez votre compréhension en l'exécutant.
-
-
-Cet exercice devrait vous aider à mieux comprendre pourquoi il est utile
-d'écrire des programmes en utilisant des fonctions avec des noms
-bien choisis.
 

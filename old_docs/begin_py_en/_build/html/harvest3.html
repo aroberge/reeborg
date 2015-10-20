@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>39. More harvesting challenges &mdash; Learn Python with Reeborg</title>
+    <title>38. More harvesting challenges &mdash; Learn Python with Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Learn Python with Reeborg" href="index.html" />
-    <link rel="next" title="40. A better repeat()" href="better_repeat.html" />
-    <link rel="prev" title="38. For loops" href="for.html" /> 
+    <link rel="next" title="39. Introduction to OOP in Python with Reeborg" href="oop.html" />
+    <link rel="prev" title="37. For loops" href="for.html" /> 
 
   <script>
     // intelligent scrolling of the sidebar content
@@ -63,10 +63,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="better_repeat.html" title="40. A better repeat()"
+             <a href="oop.html" title="39. Introduction to OOP in Python with Reeborg"
              accesskey="N">next</a></li>
         <li class="right" >
-             <a href="for.html" title="38. For loops"
+             <a href="for.html" title="37. For loops"
              accesskey="P">previous</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World
@@ -79,10 +79,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="for.html"
-                        title="previous chapter">38. For loops</a></p>
+                        title="previous chapter">37. For loops</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="better_repeat.html"
-                        title="next chapter">40. A better <strong>repeat()</strong></a></p>
+  <p class="topless"><a href="oop.html"
+                        title="next chapter">39. Introduction to OOP in Python with Reeborg</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -110,21 +110,23 @@
           <div class="body">
             
   <div class="section" id="more-harvesting-challenges">
-<h1>39. More harvesting challenges<a class="headerlink" href="#more-harvesting-challenges" title="Permalink to this headline">¶</a></h1>
+<h1>38. More harvesting challenges<a class="headerlink" href="#more-harvesting-challenges" title="Permalink to this headline">¶</a></h1>
 <p>Reeborg&#8217;s aunt is a fruit farmer. In her fields, many types of fruits
 can be found. On a given day, only a certain kind of fruit needs to be
-harvested. Have a look at worlds <strong>Harvest&nbsp;5a</strong>, <strong>Harvest&nbsp;5b</strong>, <strong>Harvest&nbsp;5c</strong> and
-<strong>Harvest&nbsp;5d</strong>. As he enters the field, Reeborg sees the type of fruit that
+harvested. Have a look at worlds <strong>Harvest 4a</strong>, <strong>Harvest 4b</strong>, <strong>Harvest 4c</strong> and
+<strong>Harvest 4d</strong>. As he enters the field, Reeborg sees the type of fruit that
 needs to be harvested as his aunt put a sample there. He picks it up and
 proceed to harvest all fruits of the similar type.</p>
-<p>Reeborg uses the function <code class="docutils literal"><span class="pre">object_here()</span></code> which return one of
-<code class="docutils literal"><span class="pre">&quot;star&quot;,</span> <span class="pre">&quot;triangle&quot;,</span> <span class="pre">&quot;square&quot;</span></code> or <code class="docutils literal"><span class="pre">&quot;token&quot;</span></code> depending if one these
-objects is found, or return zero otherwise.</p>
-<p>There is also a
-function <code class="docutils literal"><span class="pre">token_here()</span></code> that returns either the number of tokens found
-at the current location. Using
-these, you can complete the following outline of a solution that will
-work for each of these four worlds.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">To fully understand this section, one needs to know about Python lists,
+and, in particular, list indexing
+which is something I have not covered yet.  I need to do this.</p>
+</div>
+<p>Reeborg uses the function <code class="docutils literal"><span class="pre">object_here()</span></code> which return a <strong>list</strong> containing
+the names of the objects found at that location; for the <strong>Harvest 4</strong> worlds,
+the possible objects are <code class="docutils literal"><span class="pre">&quot;apple,</span> <span class="pre">&quot;banana&quot;,</span> <span class="pre">&quot;orange&quot;</span></code> or <code class="docutils literal"><span class="pre">&quot;strawberry&quot;</span></code>
+depending if one these objects is found.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">There are two new things in the code below which makes is a bit difficult to
@@ -156,16 +158,17 @@ are equal by using two consecutive equal signs: <code class="docutils literal"><
     <span class="n">move_to_next_row</span><span class="p">()</span>
 
 <span class="n">move</span><span class="p">()</span>
-<span class="n">selection</span> <span class="o">=</span> <span class="n">object_here</span><span class="p">()</span>
+<span class="n">selection</span> <span class="o">=</span> <span class="n">object_here</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>   <span class="c"># select the object name from the list</span>
 <span class="n">take</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
 <span class="n">go_to_first_row</span><span class="p">()</span>
-<span class="n">repeat</span><span class="p">(</span><span class="n">complete_one_row</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+    <span class="n">complete_one_row</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
 <p class="topic-title first">Try it!</p>
 <p>Complete the above program so that it works in all four worlds:
-<strong>Harvest&nbsp;5a</strong>, <strong>Harvest&nbsp;5b</strong>, <strong>Harvest&nbsp;5c</strong> and <strong>Harvest&nbsp;5d</strong>.</p>
+<strong>Harvest 4a</strong>, <strong>Harvest 4b</strong>, <strong>Harvest 4c</strong> and <strong>Harvest 4d</strong>.</p>
 </div>
 </div>
 
@@ -179,10 +182,10 @@ are equal by using two consecutive equal signs: <code class="docutils literal"><
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="better_repeat.html" title="40. A better repeat()"
+             <a href="oop.html" title="39. Introduction to OOP in Python with Reeborg"
              >next</a></li>
         <li class="right" >
-             <a href="for.html" title="38. For loops"
+             <a href="for.html" title="37. For loops"
              >previous</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Reeborg's World

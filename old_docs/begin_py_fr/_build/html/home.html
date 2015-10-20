@@ -121,17 +121,13 @@
             
   <div class="section" id="apprentissage-guide-par-des-taches">
 <h1>2. Apprentissage guidé par des tâches<a class="headerlink" href="#apprentissage-guide-par-des-taches" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="figure align-left">
+<img alt="_images/select_but.png" src="_images/select_but.png" />
+</div>
 <p>Dans le but de vous aider à apprendre à programmer en Python, je
 vais vous donner une série de tâches que Reeborg doit accomplir. Reeborg
 lui-même vous laissera savoir si les tâches en question ont été
 accomplies.</p>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">Sélectionner <strong>Tutoriel: menu</strong> parmi les choix de monde possibles
-au haut de l&#8217;écran: vous verrez apparaître un programme dans l&#8217;éditeur
-de code.  Exécutez ce programme: la sélection des mondes changera pour
-inclure ceux mentionnés dans ce tutoriel.</p>
-</div>
 <p>Choisissez le monde <strong>But 1</strong>. Le carré en bas à gauche est
 la maison de Reeborg.
 Le monde de Reeborg est un simple échiquier.
@@ -182,7 +178,8 @@ appropriée au-dessus de son monde, du côté droit.
 Par exemple, lorsque Reeborg fait face à l&#8217;est,
 comme dans l&#8217;image ci-dessus vue de côté, en utilisant une autre série
 d&#8217;images, Reeborg peut apparaître de la façon suivante, comme s&#8217;il était
-vu d&#8217;au-dessus:  <img alt="image1" src="_images/rover_e.png" /></p>
+vu d&#8217;au-dessus:</p>
+<p><img alt="image1" src="_images/rover_e.png" /></p>
 </div>
 </div>
 
@@ -218,6 +215,10 @@ vu d&#8217;au-dessus:  <img alt="image1" src="_images/rover_e.png" /></p>
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+
+      $('.admonition-pour-les-enseignants').children().hide();
+      $('.admonition-pour-les-enseignants p.admonition-title').show().css('cursor', 'pointer');
+      $('.admonition-pour-les-enseignants p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
       $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>

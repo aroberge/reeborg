@@ -138,7 +138,9 @@ Let's write the outline of a program that will work in both worlds
             # yet one more
             done()
 
-    repeat(move_until_done, 42)
+    repeat 42:
+        move_until_done()
+
 
 Why 42? ... well, I just want to be sure that Reeborg will take enough
 steps no matter what world he is in. So far, all the worlds are small

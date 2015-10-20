@@ -77,7 +77,8 @@ something like this
             done()
         jump_over_hurdle()
 
-    repeat(move_and_jump_until_done, 42)
+    repeat 42:
+        move_and_jump_until_done()
 
 The reason it is not working for **Hurdles 3** is that it is written with
 the assumption that the hurdles are evenly spaced. Let's use our new
@@ -99,7 +100,8 @@ provided you fill in the missing pieces.
         else:
             # something
 
-    repeat(run_jump_or_finish, 42)
+    repeat 42:
+        run_jump_or_finish()
 
 Note the structure of the ``if/elif/else`` statements; as is mentioned above,
 you should see that it gives three independent choices: only one of them

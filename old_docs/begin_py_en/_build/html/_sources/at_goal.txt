@@ -30,7 +30,8 @@ should work in all four worlds mentioned above.
             # something else
             # something else again
 
-    repeat(move_until_done, 42)
+    repeat 42:
+        move_until_done()
 
 Complete the above (in the Python Code editor) and make sure it works for all
 four worlds mentioned above.
@@ -63,7 +64,8 @@ reached the goal, you could use the above to create a new function, that
 we could call ``move_and_jump_until_done()`` so that a program suitable
 for both worlds **Hurdles 1** and **Hurdles 2** would be::
 
-    repeat(move_and_jump_until_done, 42)
+    repeat 42:
+        move_and_jump_until_done()
 
 .. topic:: Do it!
 
@@ -83,7 +85,8 @@ for both worlds **Hurdles 1** and **Hurdles 2** would be::
             done()
         # something
 
-    repeat(move_and_jump_until_done, 42)
+    repeat 42:
+        move_and_jump_until_done()
 
 
 A question for you

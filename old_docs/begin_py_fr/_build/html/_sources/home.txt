@@ -1,17 +1,13 @@
 Apprentissage guidé par des tâches
 ==================================
 
+.. figure:: ../../src/images/select_but.png
+   :align: left
+
 Dans le but de vous aider à apprendre à programmer en Python, je
 vais vous donner une série de tâches que Reeborg doit accomplir. Reeborg
 lui-même vous laissera savoir si les tâches en question ont été
 accomplies.
-
-.. important::
-
-    Sélectionner **Tutoriel: menu** parmi les choix de monde possibles
-    au haut de l'écran: vous verrez apparaître un programme dans l'éditeur
-    de code.  Exécutez ce programme: la sélection des mondes changera pour
-    inclure ceux mentionnés dans ce tutoriel.
 
 Choisissez le monde **But 1**. Le carré en bas à gauche est
 la maison de Reeborg.
@@ -19,7 +15,6 @@ Le monde de Reeborg est un simple échiquier.
 Dans **But 1**, Reeborg part du
 troisième carré sur la rangée du bas. Ce carré a les coordonnées
 cartésiennes ``x=3`` et ``y=1``.
-
 
 .. topic:: Essayez ceci!
 
@@ -72,4 +67,6 @@ appropriée au-dessus de son monde, du côté droit.
 Par exemple, lorsque Reeborg fait face à l'est,
 comme dans l'image ci-dessus vue de côté, en utilisant une autre série
 d'images, Reeborg peut apparaître de la façon suivante, comme s'il était
-vu d'au-dessus:  |image1|
+vu d'au-dessus:
+
+|image1|

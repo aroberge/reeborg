@@ -9,7 +9,7 @@ Le mot-clé ``if``
 -----------------
 
 
-.. topic:: Do it!
+.. topic:: Faites ceci!
 
     Sélectionnez le monde **Seul** et faites-en sorte que Reeborg exécute le
     programme suivant
@@ -23,8 +23,8 @@ Le mot-clé ``if``
             tourne_a_gauche()
 
 ``True`` (vrai) et ``False`` (faux) sont deux mots-clés Python.  Vous voudrez peut-être
-les interchanger juste pour voir.  Le mot anglais **if** est l'équivalent de la conjonction **si**
-en français.
+les interchanger juste pour voir.  Le mot anglais ``if`` est l'équivalent
+de la conjonction ``si`` en français.
 
 
 Énoncé ``if``
@@ -116,14 +116,7 @@ partie du code pourrait être::
     if objet_ici():
         prend()
 
-.. note::
 
-    Si plusieurs objets pourraient se trouver dans un monde donné
-    et qu'on ne s'intéresse qu'à un seul type d'objet, on peut spécifier
-    le type en utilisant un argument::
-
-        if objet_ici("jeton"):
-            prend("jeton")
 
 
 Examinez à tour de rôle les mondes **Jetons 1** et **Jetons 2**. Dans chaque
@@ -134,12 +127,10 @@ qu'il a à faire lorsqu'il trouve un jeton est:
 #. avancer d'une case
 #. déposer ce jeton
 #. avancer d'une autre case
-#. et il a ``termine()``
+#. et il ``termine()``
 
 où j'ai introduit une nouvelle instruction que Reeborg comprend:
-``termine()``. En fait, vous pouvez penser à cette instruction comme
-quelque chose que Reeborg dit lui-même lorsqu'il déclare avoir terminé
-une tâche.
+``termine()``.
 
 Écrivons donc le une esquisse d'un programme unique qui pourrait
 permettre à Reeborg d'accomplir la tâche dans les deux mondes mentionnés
@@ -154,7 +145,8 @@ ci-dessus, soit **Jetons 1** et **Jetons 2**::
             # une de plus
             termine()
 
-    repete(avance_jusque_tâche_terminée, 42)
+    repeat 42:
+        avance_jusque_tâche_terminée()
 
 Pourquoi 42? ... Je n'ai pas de véritable raisons pour ce choix. Tout ce
 que je veux est que Reeborg avance suffisamment de fois pour compléter
@@ -170,3 +162,12 @@ On fera mieux plus tard.
     Copiez le code ci-dessus dans l'éditeur de code, ajouter
     les instructions manquantes, et vérifiez que votre programme fonctionne
     dans les mondes **Jetons 1** et **Jetons 2**.
+
+.. admonition:: Pour les enseignants
+
+    Si plusieurs objets pourraient se trouver dans un monde donné
+    et qu'on ne s'intéresse qu'à un seul type d'objet, on peut spécifier
+    le type en utilisant un argument::
+
+        if objet_ici("jeton"):
+            prend("jeton")

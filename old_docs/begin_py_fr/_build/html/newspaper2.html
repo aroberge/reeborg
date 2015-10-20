@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>13. Autre livraison de journaux &mdash; Apprenez Python avec Reeborg</title>
+    <title>13. Autre livraison de journal &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
     <link rel="next" title="14. Répète" href="repeat.html" />
-    <link rel="prev" title="12. La bibliothèque" href="library.html" /> 
+    <link rel="prev" title="12. Exercice de lecture" href="reading.html" /> 
 
   <script>
     // intelligent scrolling of the sidebar content
@@ -67,7 +67,7 @@
              <a href="repeat.html" title="14. Répète"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="library.html" title="12. La bibliothèque"
+             <a href="reading.html" title="12. Exercice de lecture"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
@@ -79,8 +79,8 @@
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Sujet précédent</h4>
-  <p class="topless"><a href="library.html"
-                        title="Chapitre précédent">12. La bibliothèque</a></p>
+  <p class="topless"><a href="reading.html"
+                        title="Chapitre précédent">12. Exercice de lecture</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="repeat.html"
                         title="Chapitre suivant">14. Répète</a></p>
@@ -110,11 +110,11 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="autre-livraison-de-journaux">
-<h1>13. Autre livraison de journaux<a class="headerlink" href="#autre-livraison-de-journaux" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Retournons à l&#8217;exemple de la livraison des journaux; nous allons
-considérer le cas de la livraison à la gentille Ada Lovelace dans
-<strong>Journal&nbsp;1</strong>. Ci-dessous est la première solution que vous avez du trouver,
+  <div class="section" id="autre-livraison-de-journal">
+<h1>13. Autre livraison de journal<a class="headerlink" href="#autre-livraison-de-journal" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Retournons à l&#8217;exemple de la livraison des journaux à Monsieur
+Pattis et le monde
+<strong>Journal&nbsp;0</strong>. Ci-dessous est la première solution que vous avez du trouver,
 avec quelques commentaires rajoutés.</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -176,15 +176,7 @@ avec quelques commentaires rajoutés.</p>
 58
 59
 60
-61
-62
-63
-64
-65
-66
-67
-68
-69</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">prend</span><span class="p">(</span><span class="s">&quot;étoile&quot;</span><span class="p">)</span>
+61</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">prend</span><span class="p">()</span>  <span class="c"># le journal</span>
 
 <span class="c"># monter au premier</span>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -213,15 +205,7 @@ avec quelques commentaires rajoutés.</p>
 <span class="n">avance</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
 
-<span class="c"># prendre la monnaie</span>
-<span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-<span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-<span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-<span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-<span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-
-<span class="c"># déposer un journal</span>
-<span class="n">depose</span><span class="p">(</span><span class="s">&quot;étoile&quot;</span><span class="p">)</span>
+<span class="n">depose</span><span class="p">()</span>  <span class="c"># le journal</span>
 
 <span class="c"># demi-tour</span>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -236,7 +220,7 @@ avec quelques commentaires rajoutés.</p>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
 
-<span class="c"># descendre un étage</span>
+<span class="c"># descendre un autre étage</span>
 <span class="n">avance</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -245,7 +229,7 @@ avec quelques commentaires rajoutés.</p>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
 
-<span class="c"># descendre un étage</span>
+<span class="c"># descendre un autre étage</span>
 <span class="n">avance</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
 <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -293,14 +277,7 @@ bibliothèque. Utilisons-les et définissons d&#8217;autres fonctions.</p>
 31
 32
 33
-34
-35
-36
-37
-38
-39
-40
-41</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">biblio</span> <span class="kn">import</span> <span class="n">tourne_a_droite</span><span class="p">,</span> <span class="n">demi_tour</span>
+34</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">biblio</span> <span class="kn">import</span> <span class="n">tourne_a_droite</span><span class="p">,</span> <span class="n">demi_tour</span>
 
 <span class="k">def</span> <span class="nf">monter_un_etage</span><span class="p">():</span>
     <span class="n">tourne_a_gauche</span><span class="p">()</span>
@@ -326,19 +303,12 @@ bibliothèque. Utilisons-les et définissons d&#8217;autres fonctions.</p>
     <span class="n">descendre_un_etage</span><span class="p">()</span>
     <span class="n">descendre_un_etage</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">prendre_la_monnaie</span><span class="p">():</span>
-    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-
 <span class="c"># === Fin des définitions ===</span>
 
-<span class="n">prend</span><span class="p">(</span><span class="s">&quot;étoile&quot;</span><span class="p">)</span>
+<span class="n">prend</span><span class="p">()</span>  <span class="c"># le journal</span>
 <span class="n">monter_trois_etages</span><span class="p">()</span>
 <span class="n">prendre_la_monnaie</span><span class="p">()</span>
-<span class="n">depose</span><span class="p">(</span><span class="s">&quot;étoile&quot;</span><span class="p">)</span> <span class="c"># déposer un journal</span>
+<span class="n">depose</span><span class="p">()</span>  <span class="c"># le journal</span>
 <span class="n">demi_tour</span><span class="p">()</span>
 <span class="n">descendre_trois_etages</span><span class="p">()</span>
 </pre></div>
@@ -351,18 +321,15 @@ fonctions requises, il est facile d&#8217;écrire un programme: 6 lignes
 suffisent pour faire en sorte que Reeborg livre le journal et retourne
 au rez-de-chaussée. Les définitions de fonctions permettent donc
 d&#8217;éviter plein de répétitions, et facilitent la compréhension.</p>
-<p>Vous devriez pouvoir facilement modifier le programme ci-dessus pour que
-Reeborg puisse livrer le journal de Monsieur Babbage dans <strong>Journal&nbsp;2</strong>.</p>
 <div class="topic">
 <p class="topic-title first">Allez-y!</p>
-<p>Modifiez le programme pour faire la livraison du journal de M. Babbage.</p>
+<p>Écrivez le programme ci-dessus et assurez-vous qu&#8217;il fonctionne.
+Lorsque ce sera fait, vous serez prêt à apprendre un autre truc
+qui permettra de le simplifier encore davantage.</p>
 </div>
-<p>Plus tard, nous verrons comment on peut écrire un seul programme, plus
-court que celui ci-dessus, qui permettra à Reeborg de livrer des
-journaux à Madame Lovelace et à Monsieur Babbage.</p>
-<p>Puisque des fonctions comme <code class="docutils literal"><span class="pre">prendre_la_monnaie()</span></code>, <code class="docutils literal"><span class="pre">monter_trois_etages</span></code>,
+<p>Puisque des fonctions comme <code class="docutils literal"><span class="pre">monter_un_etage</span></code>, <code class="docutils literal"><span class="pre">monter_trois_etages</span></code>,
 etc., sont spécifiques à une tâche en particulier, ce n&#8217;est probablement
-<strong>pas</strong> une bonne idée de les sauvegarder dans la bibliothèque.</p>
+pas une bonne idée de les sauvegarder dans la bibliothèque.</p>
 </div>
 
 
@@ -378,7 +345,7 @@ etc., sont spécifiques à une tâche en particulier, ce n&#8217;est probablemen
              <a href="repeat.html" title="14. Répète"
              >suivant</a></li>
         <li class="right" >
-             <a href="library.html" title="12. La bibliothèque"
+             <a href="reading.html" title="12. Exercice de lecture"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
@@ -397,6 +364,10 @@ etc., sont spécifiques à une tâche en particulier, ce n&#8217;est probablemen
       $('.hint').children().hide();
       $('.hint p.admonition-title').show().css('cursor', 'pointer');
       $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+
+      $('.admonition-pour-les-enseignants').children().hide();
+      $('.admonition-pour-les-enseignants p.admonition-title').show().css('cursor', 'pointer');
+      $('.admonition-pour-les-enseignants p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
       $( 'a[href^="http://"]' ).attr( 'target','_blank' )
   });
   </script>

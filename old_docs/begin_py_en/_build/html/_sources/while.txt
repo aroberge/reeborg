@@ -13,7 +13,8 @@ like the following:
         if front_is_clear():
             move()
 
-    repeat(move_until_wall, 42)
+    repeat 42:
+        move_until_wall()
 
 and hoped that 42 would have been a number of repetitions sufficient to
 reach a wall. Using ``while``, we can write the following::
@@ -84,7 +85,7 @@ Back to hurdles!
 .. topic:: Your turn!
 
     Go back to **Hurdles 1**, **Hurdles 2** and **Hurdles 3**, and write a single
-    program for all three world, using ``while`` and without using ``repeat()``.
+    program for all three world, using ``while`` and without using ``repeat``.
 
 .. hint::
 
@@ -100,6 +101,6 @@ Back to hurdles!
            run_or_jump()
 
 That's it! No more arbitrary repetitions! From now on, you should only
-use ``repeat()`` when you know **exactly** how many times a given
+use ``repeat`` when you know **exactly** how many times a given
 function must be repeated.
 

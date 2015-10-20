@@ -1,16 +1,16 @@
-Autre livraison de journaux
+Autre livraison de journal
 ===========================
 
-Retournons à l'exemple de la livraison des journaux; nous allons
-considérer le cas de la livraison à la gentille Ada Lovelace dans
-**Journal 1**. Ci-dessous est la première solution que vous avez du trouver,
+Retournons à l'exemple de la livraison des journaux à Monsieur
+Pattis et le monde
+**Journal 0**. Ci-dessous est la première solution que vous avez du trouver,
 avec quelques commentaires rajoutés.
 
 
 .. code-block:: python
     :linenos:
 
-    prend("étoile")
+    prend()  # le journal
 
     # monter au premier
     tourne_a_gauche()
@@ -39,15 +39,7 @@ avec quelques commentaires rajoutés.
     avance()
     avance()
 
-    # prendre la monnaie
-    prend("jeton")
-    prend("jeton")
-    prend("jeton")
-    prend("jeton")
-    prend("jeton")
-
-    # déposer un journal
-    depose("étoile")
+    depose()  # le journal
 
     # demi-tour
     tourne_a_gauche()
@@ -62,7 +54,7 @@ avec quelques commentaires rajoutés.
     tourne_a_gauche()
     tourne_a_gauche()
 
-    # descendre un étage
+    # descendre un autre étage
     avance()
     avance()
     tourne_a_gauche()
@@ -71,7 +63,7 @@ avec quelques commentaires rajoutés.
     tourne_a_gauche()
     tourne_a_gauche()
 
-    # descendre un étage
+    # descendre un autre étage
     avance()
     avance()
     tourne_a_gauche()
@@ -115,19 +107,12 @@ bibliothèque. Utilisons-les et définissons d'autres fonctions.
         descendre_un_etage()
         descendre_un_etage()
 
-    def prendre_la_monnaie():
-        prend("jeton")
-        prend("jeton")
-        prend("jeton")
-        prend("jeton")
-        prend("jeton")
-
     # === Fin des définitions ===
 
-    prend("étoile")
+    prend()  # le journal
     monter_trois_etages()
     prendre_la_monnaie()
-    depose("étoile") # déposer un journal
+    depose()  # le journal
     demi_tour()
     descendre_trois_etages()
 
@@ -140,19 +125,14 @@ suffisent pour faire en sorte que Reeborg livre le journal et retourne
 au rez-de-chaussée. Les définitions de fonctions permettent donc
 d'éviter plein de répétitions, et facilitent la compréhension.
 
-Vous devriez pouvoir facilement modifier le programme ci-dessus pour que
-Reeborg puisse livrer le journal de Monsieur Babbage dans **Journal 2**.
 
 .. topic:: Allez-y!
 
-    Modifiez le programme pour faire la livraison du journal de M. Babbage.
+    Écrivez le programme ci-dessus et assurez-vous qu'il fonctionne.
+    Lorsque ce sera fait, vous serez prêt à apprendre un autre truc
+    qui permettra de le simplifier encore davantage.
 
-Plus tard, nous verrons comment on peut écrire un seul programme, plus
-court que celui ci-dessus, qui permettra à Reeborg de livrer des
-journaux à Madame Lovelace et à Monsieur Babbage.
 
-Puisque des fonctions comme ``prendre_la_monnaie()``, ``monter_trois_etages``,
+Puisque des fonctions comme ``monter_un_etage``, ``monter_trois_etages``,
 etc., sont spécifiques à une tâche en particulier, ce n'est probablement
-**pas** une bonne idée de les sauvegarder dans la bibliothèque.
-
-
+pas une bonne idée de les sauvegarder dans la bibliothèque.

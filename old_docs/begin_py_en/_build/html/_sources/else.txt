@@ -41,12 +41,13 @@ world. Something like the following:
         else:
             # something else
 
-    repeat(move_or_turn, 40)
-    
+    repeat 40:
+        move_or_turn()
+
 .. topic:: Try it!
 
     Write a program using the code above so that Reeborg goes around world
-    **Around 1**.  
+    **Around 1**.
     After you are done, can you modify the program (by adding one line) so
     that Reeborg deposits a token at each corner?
 

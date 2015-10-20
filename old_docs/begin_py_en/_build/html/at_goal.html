@@ -148,7 +148,8 @@ should work in all four worlds mentioned above.</p>
         <span class="c"># something else</span>
         <span class="c"># something else again</span>
 
-<span class="n">repeat</span><span class="p">(</span><span class="n">move_until_done</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+    <span class="n">move_until_done</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Complete the above (in the Python Code editor) and make sure it works for all
@@ -179,7 +180,8 @@ include a test (<code class="docutils literal"><span class="pre">if</span></code
 reached the goal, you could use the above to create a new function, that
 we could call <code class="docutils literal"><span class="pre">move_and_jump_until_done()</span></code> so that a program suitable
 for both worlds <strong>Hurdles&nbsp;1</strong> and <strong>Hurdles&nbsp;2</strong> would be:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">repeat</span><span class="p">(</span><span class="n">move_and_jump_until_done</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+    <span class="n">move_and_jump_until_done</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -199,7 +201,8 @@ for both worlds <strong>Hurdles&nbsp;1</strong> and <strong>Hurdles&nbsp;2</stro
         <span class="n">done</span><span class="p">()</span>
     <span class="c"># something</span>
 
-<span class="n">repeat</span><span class="p">(</span><span class="n">move_and_jump_until_done</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+    <span class="n">move_and_jump_until_done</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
