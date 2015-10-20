@@ -257,6 +257,7 @@ QUnit.test("Tokens", function(assert) {
     world_file = "tokens1.json";
     ok(RUR.unit_tests.eval_python(base_url + world_file, "src/tokens1234_fr.py").success,
                                       world_file + " run successfully.");
+    // Note: the program tokens1234_fr.py also test some translation
 
     last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
     deepEqual(last_frame.world.robots[0].objects, {}, "No objects carried.");
@@ -314,6 +315,11 @@ QUnit.test("Newspaper", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
     base_url = "../../src/worlds/tutorial_en/";
+
+    world_file = "newspaper0.json";
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/newspaper0_fr.py").success,
+                                      world_file + " run successfully.");
+
 
     world_file = "newspaper1.json";
     ok(RUR.unit_tests.eval_python(base_url + world_file, "src/newspaper_fr.py").success,

@@ -2,6 +2,8 @@
 pense(0)
 while not objet_ici():
     avance()
+assert objet_ici() == ['jeton']
+assert objet_ici('jeton') == ['jeton']
 prend()
 avance()
 depose()
