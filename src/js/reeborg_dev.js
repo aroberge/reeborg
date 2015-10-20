@@ -1014,6 +1014,7 @@ RUR.control.write = function () {
     for (var i = 0; i < arguments.length; i++) {
         output_string += arguments[i].toString();
   }
+  output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
     RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
 };
 
