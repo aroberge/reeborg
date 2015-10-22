@@ -15,8 +15,8 @@ a pas de jetons. À cet endroit, Reeborg doit déposer tous les jetons
 qu'il a ramassé puis se déplacer au carré suivant.
 
 Le même programme peut être utilisé pour le monde **Jetons 6**, qui a un
-nombre différent de jetons; vous ne pouvez donc pas utiliser la fonction
-``repete()`` si vous voulez avoir un seul programme pour les deux
+nombre différent de jetons; vous ne pouvez donc pas utiliser la boucle
+``repeat`` si vous voulez avoir un seul programme pour les deux
 mondes.
 
 Reeborg commence avec un nombre illimité de jetons dans ses poches; vous
@@ -32,16 +32,18 @@ problèmes.
     def collectionne():
         # instruction
         # instruction
-        if condition:
+        if condition:  # quelle doit être la condition ici?...
             # instruction
         #instruction
 
-    collectionne ()
+    collectionne()
     avance()
 
 .. topic:: À votre tour!
 
     Écrivez le programme décrit ci-dessus et vérifiez qu'il fonctionne correctement.
+    N'oubliez pas que la "condition" doit être invoqué avec des parenthèses ...
+    comme  ``au_but()`` ou ``objet_ici()``.
 
 
 .. topic:: Missions récursives

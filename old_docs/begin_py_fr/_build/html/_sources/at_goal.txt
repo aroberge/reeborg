@@ -7,7 +7,7 @@ pas de même pour **Jetons 3** et **Jetons 4**.
 
 .. topic:: Vérifiez ceci!
 
-   Essayez votre programme avec ces quatre mondes différents.
+   Essayez votre programme avec ces deux autres mondes différents.
 
 Une autre condition
 -------------------
@@ -34,7 +34,8 @@ des quatre mondes mentionnés ci-dessus.
             # quelque chose d'autre
             # autre chose encore
 
-    repete(avance_jusque_tâche_terminée, 42)
+    repeat 42:
+        avance_jusque_tâche_terminée()
 
 Utilisant l'esquisse ci-dessus, écrivez dans l'éditeur de code le
 programme requis et vérifiez qu'il fonctionne bel et bien dans chacun
@@ -70,7 +71,8 @@ fonction que nous pourrions appeler ``avance_et_saut_jusqu_au_but()`` de
 telle sorte qu'un programme unique suffirait pour les mondes Haies 1 et
 Haies 2::
 
-    repete(avance_et_saute_jusqu_au_but, 42)
+    repeat 42:
+        avance_et_saute_jusqu_au_but()
 
 .. topic:: Faites-le !
 
@@ -81,7 +83,8 @@ Haies 2::
 
     Votre programme devrait ressembler à ceci::
 
-        from biblio import *  # ou spécifiez le nom des fonctions
+        from biblio import tourne_a_droite
+
         def saute():
             # quelques lignes de code
 
@@ -91,10 +94,11 @@ Haies 2::
                 termine()
             # quelque chose
 
-        repete(avance_et_saut_jusqu_au_but, 42)
+        repeat 42:
+            avance_et_saute_jusqu_au_but()
 
 Une question pour vous
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Est-ce que ce programme pourrait permettre à Reeborg de terminer la
-course **Haies 4**?
+course **Haies 3**?

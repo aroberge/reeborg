@@ -7,9 +7,9 @@ lorsqu'il n'y a pas de mur près de lui. Pour résoudre le problème, il
 faut que Reeborg ``avance()`` aussitôt après avoir fait un virage à
 droite::
 
-    depose("jeton")
+    depose()
     avance()
-    while not jeton_ici():
+    while not objet_ici():
         if rien_a_droite():
             tourne_a_droite()
             avance()
@@ -21,7 +21,7 @@ droite::
 
 .. topic:: Encore plus complexe!
 
-    Sélectionnez **Autour 3**; est-ce que le programme fonctionne?
+    Sélectionnez le monde **Autour 3**; est-ce que le programme fonctionne?
 
 Comme vous l'avez sans doute deviné, la réponse est malheureusement non.
 Essayez de déterminer pourquoi et possiblement de trouver la solution de

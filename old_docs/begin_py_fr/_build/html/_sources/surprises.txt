@@ -6,7 +6,7 @@ que::
 
     marque_point_départ_et_avance()
 
-    while not trouve_point_départ():
+    while not objet_ici():
         suis_le_mur_à_droite()
 
 soit remplacé par::

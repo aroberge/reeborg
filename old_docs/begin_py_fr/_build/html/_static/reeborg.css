@@ -102,7 +102,7 @@ div.related ul li a.logo{float: left; padding: 2px 20px 0 0; margin-right: 30px;
     2px 5px 10px rgba(0,0,0,.35), 5px 10px 10px rgba(0,0,0,.45);
 }
 img.logo{margin-right:10px; padding-left:10px;}
-
+div.related ul li a span.logo{position:relative; top:-10px !important;}
 
 dl {
     margin-left: 10px;

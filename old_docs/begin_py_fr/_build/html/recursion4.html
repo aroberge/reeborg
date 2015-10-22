@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>33. Compter sur la récursivité &mdash; Apprenez Python avec Reeborg</title>
+    <title>32. Compter sur la récursivité &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="34. return" href="return.html" />
-    <link rel="prev" title="32. Encore de la récursivité" href="recursion3.html" /> 
+    <link rel="next" title="33. Les variables" href="variables.html" />
+    <link rel="prev" title="31. Encore de la récursivité" href="recursion3.html" /> 
 
   <script>
     // intelligent scrolling of the sidebar content
@@ -64,13 +64,13 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="return.html" title="34. return"
+             <a href="variables.html" title="33. Les variables"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="recursion3.html" title="32. Encore de la récursivité"
+             <a href="recursion3.html" title="31. Encore de la récursivité"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>
@@ -80,10 +80,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="recursion3.html"
-                        title="Chapitre précédent">32. Encore de la récursivité</a></p>
+                        title="Chapitre précédent">31. Encore de la récursivité</a></p>
   <h4>Sujet suivant</h4>
-  <p class="topless"><a href="return.html"
-                        title="Chapitre suivant">34. return</a></p>
+  <p class="topless"><a href="variables.html"
+                        title="Chapitre suivant">33. Les variables</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
@@ -111,7 +111,7 @@
           <div class="body">
             
   <div class="section" id="compter-sur-la-recursivite">
-<h1>33. Compter sur la récursivité<a class="headerlink" href="#compter-sur-la-recursivite" title="Lien permanent vers ce titre">¶</a></h1>
+<h1>32. Compter sur la récursivité<a class="headerlink" href="#compter-sur-la-recursivite" title="Lien permanent vers ce titre">¶</a></h1>
 <p>Reeborg sait comment compter ... mais nous n&#8217;avons pas encore vu ceci et
 nous ne le verrons pour quelque temps encore. Si vous avez appris la
 programmation ailleurs, vous savez probablement comment utiliser des
@@ -124,8 +124,8 @@ ces deux instructions jusqu&#8217;à ce qu&#8217;il se trouve à un endroit où 
 a pas de jetons. À cet endroit, Reeborg doit déposer tous les jetons
 qu&#8217;il a ramassé puis se déplacer au carré suivant.</p>
 <p>Le même programme peut être utilisé pour le monde <strong>Jetons&nbsp;6</strong>, qui a un
-nombre différent de jetons; vous ne pouvez donc pas utiliser la fonction
-<code class="docutils literal"><span class="pre">repete()</span></code> si vous voulez avoir un seul programme pour les deux
+nombre différent de jetons; vous ne pouvez donc pas utiliser la boucle
+<code class="docutils literal"><span class="pre">repeat</span></code> si vous voulez avoir un seul programme pour les deux
 mondes.</p>
 <p>Reeborg commence avec un nombre illimité de jetons dans ses poches; vous
 ne pouvez donc pas utiliser le test <code class="docutils literal"><span class="pre">a_des_jetons()</span></code> pour permettre à
@@ -136,17 +136,19 @@ problèmes.</p>
 <div class="code py3 highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">collectionne</span><span class="p">():</span>
     <span class="c"># instruction</span>
     <span class="c"># instruction</span>
-    <span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">condition</span><span class="p">:</span>  <span class="c"># quelle doit être la condition ici?...</span>
         <span class="c"># instruction</span>
     <span class="c">#instruction</span>
 
-<span class="n">collectionne</span> <span class="p">()</span>
+<span class="n">collectionne</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
 <p class="topic-title first">À votre tour!</p>
-<p>Écrivez le programme décrit ci-dessus et vérifiez qu&#8217;il fonctionne correctement.</p>
+<p>Écrivez le programme décrit ci-dessus et vérifiez qu&#8217;il fonctionne correctement.
+N&#8217;oubliez pas que la &#8220;condition&#8221; doit être invoqué avec des parenthèses ...
+comme  <code class="docutils literal"><span class="pre">au_but()</span></code> ou <code class="docutils literal"><span class="pre">objet_ici()</span></code>.</p>
 </div>
 <div class="topic">
 <p class="topic-title first">Missions récursives</p>
@@ -165,13 +167,13 @@ en utilisant la récursivité plutôt que des boucles <code class="docutils lite
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="return.html" title="34. return"
+             <a href="variables.html" title="33. Les variables"
              >suivant</a></li>
         <li class="right" >
-             <a href="recursion3.html" title="32. Encore de la récursivité"
+             <a href="recursion3.html" title="31. Encore de la récursivité"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>

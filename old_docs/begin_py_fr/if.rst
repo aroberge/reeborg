@@ -165,9 +165,20 @@ On fera mieux plus tard.
 
 .. admonition:: Pour les enseignants
 
+    La fonction ``objet_ici()`` retourne une liste des types d'objets
+    trouvés à un endroit donné.  Par exemple, s'il y a des étoiles et
+    des jetons, ``objet_ici()`` pourrait retourner ``["étoile", "jeton"]``
+    ou ``["jeton", "étoile"]``.  Si aucun objet n'est présent, une liste
+    vide est retournée.  Comme vous le savez sans doute, Python considère
+    une liste vide comme étant l'équivalent de ``False`` dans un énoncé
+    ``if``, et une liste non vide comme étant l'équivalent de ``True``.
+
     Si plusieurs objets pourraient se trouver dans un monde donné
     et qu'on ne s'intéresse qu'à un seul type d'objet, on peut spécifier
     le type en utilisant un argument::
 
         if objet_ici("jeton"):
             prend("jeton")
+
+    S'il y a un ou des jetons de présent, la fonction retournera la liste
+    ``["jeton"]``; sinon, elle retournera une liste vide.

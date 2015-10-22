@@ -31,7 +31,7 @@ mot-clé ``else``. Utilisons-le avec un autre exemple. Reeborg peut voir
 s'il y a ou non un mur devant lui. Sélectionnez le monde **Autour 1**. À
 l'aide de la nouvelle condition, ``rien_devant()``, que Reeborg utilise
 pour déterminer s'il y a ou non un mur devant lui, on peut utiliser la
-combinaison ``if/else`` ``if/else`` pour écrire un programme permettant
+combinaison ``if/else`` pour écrire un programme permettant
 à Reeborg de faire le tour du monde. Quelque chose comme ce qui suit
 suffit::
 
@@ -41,7 +41,8 @@ suffit::
         else:
             # faire autre chose
 
-    repete(avance_ou_tourne, 40)
+    repeat 40:
+       avance_ou_tourne()
 
 .. topic:: Faites-le!
 

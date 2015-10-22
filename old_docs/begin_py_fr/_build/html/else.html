@@ -70,7 +70,7 @@
              <a href="at_goal.html" title="16. Droit au but"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>
@@ -147,7 +147,7 @@ mot-clé <code class="docutils literal"><span class="pre">else</span></code>. Ut
 s&#8217;il y a ou non un mur devant lui. Sélectionnez le monde <strong>Autour&nbsp;1</strong>. À
 l&#8217;aide de la nouvelle condition, <code class="docutils literal"><span class="pre">rien_devant()</span></code>, que Reeborg utilise
 pour déterminer s&#8217;il y a ou non un mur devant lui, on peut utiliser la
-combinaison <code class="docutils literal"><span class="pre">if/else</span></code> <code class="docutils literal"><span class="pre">if/else</span></code> pour écrire un programme permettant
+combinaison <code class="docutils literal"><span class="pre">if/else</span></code> pour écrire un programme permettant
 à Reeborg de faire le tour du monde. Quelque chose comme ce qui suit
 suffit:</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">avance_ou_tourne</span><span class="p">():</span>
@@ -156,7 +156,8 @@ suffit:</p>
     <span class="k">else</span><span class="p">:</span>
         <span class="c"># faire autre chose</span>
 
-<span class="n">repete</span><span class="p">(</span><span class="n">avance_ou_tourne</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">repeat</span> <span class="mi">40</span><span class="p">:</span>
+   <span class="n">avance_ou_tourne</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -226,7 +227,7 @@ Ainsi</p>
              <a href="at_goal.html" title="16. Droit au but"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>

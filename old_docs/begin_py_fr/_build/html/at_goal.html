@@ -70,7 +70,7 @@
              <a href="if.html" title="15. Si seulement ..."
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>
@@ -130,7 +130,7 @@ d&#8217;accomplir sa tâche pour les mondes <strong>Jetons&nbsp;1</strong> et <s
 pas de même pour <strong>Jetons&nbsp;3</strong> et <strong>Jetons&nbsp;4</strong>.</p>
 <div class="topic">
 <p class="topic-title first">Vérifiez ceci!</p>
-<p>Essayez votre programme avec ces quatre mondes différents.</p>
+<p>Essayez votre programme avec ces deux autres mondes différents.</p>
 </div>
 <div class="section" id="une-autre-condition">
 <h2>16.1. Une autre condition<a class="headerlink" href="#une-autre-condition" title="Lien permanent vers ce titre">¶</a></h2>
@@ -153,7 +153,8 @@ des quatre mondes mentionnés ci-dessus.</p>
         <span class="c"># quelque chose d&#39;autre</span>
         <span class="c"># autre chose encore</span>
 
-<span class="n">repete</span><span class="p">(</span><span class="n">avance_jusque_tâche_terminée</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+    <span class="n">avance_jusque_tâche_terminée</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Utilisant l&#8217;esquisse ci-dessus, écrivez dans l&#8217;éditeur de code le
@@ -187,7 +188,8 @@ vérifier que vous avez atteint le but, vous pourriez alors définir une
 fonction que nous pourrions appeler <code class="docutils literal"><span class="pre">avance_et_saut_jusqu_au_but()</span></code> de
 telle sorte qu&#8217;un programme unique suffirait pour les mondes Haies&nbsp;1 et
 Haies&nbsp;2:</p>
-<div class="highlight-py3"><div class="highlight"><pre><span class="n">repete</span><span class="p">(</span><span class="n">avance_et_saute_jusqu_au_but</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+    <span class="n">avance_et_saute_jusqu_au_but</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -198,7 +200,8 @@ terminer la course.</p>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
 <p>Votre programme devrait ressembler à ceci:</p>
-<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">biblio</span> <span class="k">import</span> <span class="o">*</span>  <span class="c"># ou spécifiez le nom des fonctions</span>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">biblio</span> <span class="k">import</span> <span class="n">tourne_a_droite</span>
+
 <span class="k">def</span> <span class="nf">saute</span><span class="p">():</span>
     <span class="c"># quelques lignes de code</span>
 
@@ -208,14 +211,15 @@ terminer la course.</p>
         <span class="n">termine</span><span class="p">()</span>
     <span class="c"># quelque chose</span>
 
-<span class="n">repete</span><span class="p">(</span><span class="n">avance_et_saut_jusqu_au_but</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+    <span class="n">avance_et_saute_jusqu_au_but</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="une-question-pour-vous">
 <h3>16.3.1. Une question pour vous<a class="headerlink" href="#une-question-pour-vous" title="Lien permanent vers ce titre">¶</a></h3>
 <p>Est-ce que ce programme pourrait permettre à Reeborg de terminer la
-course <strong>Haies&nbsp;4</strong>?</p>
+course <strong>Haies&nbsp;3</strong>?</p>
 </div>
 </div>
 </div>
@@ -236,7 +240,7 @@ course <strong>Haies&nbsp;4</strong>?</p>
              <a href="if.html" title="15. Si seulement ..."
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>

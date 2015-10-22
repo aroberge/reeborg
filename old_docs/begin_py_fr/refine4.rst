@@ -8,12 +8,12 @@ avant de le faire. Voici une solution possible.
 
 .. code:: py3
 
-    depose("jeton")
+    depose()
     if not rien_devant():
         tourne_a_gauche()
     avance()
 
-    while not jeton_ici():
+    while not objet_ici():
         if rien_a_droite():
             tourne_a_droite()
             avance()

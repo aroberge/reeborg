@@ -12,10 +12,10 @@ ce qui suit.
 
 .. code:: py3
 
-    from biblio import *
+    from biblio import tourne_a_droite
 
     # On note le point de départ en déposant un jeton
-    depose("jeton")
+    depose()
 
     # On trouve une direction où un mur ne bloque pas le chemin
     while not rien_devant():
@@ -25,7 +25,7 @@ ce qui suit.
     # On sait qu'on a fait le tour du monde lorsqu'on revient
     # au point de départ, là où on a déposé un jeton.
 
-    while not jeton_ici():
+    while not objet_ici():
         if rien_a_droite():    # on garde la droite
             tourne_a_droite()
             avance()
@@ -53,10 +53,10 @@ que le programme a deux parties:
        ce qu'il revienne à son point de départ.
     '''
 
-    from biblio import *
+    from biblio import tourne_a_droite
 
     def marque_point_départ_et_avance():
-        depose("jeton")
+        depose()
         while not rien_devant():
             tourne_a_gauche()
         avance()
@@ -70,14 +70,13 @@ que le programme a deux parties:
         else:
             tourne_a_gauche()
 
-    trouve_point_départ = jeton_ici
 
     ####################
     # fin des définitions ci-dessus; l'exécution suit
 
     marque_point_départ_et_avance()
 
-    while not trouve_point_départ():
+    while not objet_ici():
         suis_le_mur_à_droite()
 
 

@@ -8,9 +8,9 @@ en cherchant pour un jeton qui, évidemment, se trouvait là où il était.
 Donc, la boucle ``while`` n'était jamais exécutée. Voici un programme
 modifié qui devrait fonctionner::
 
-    depose("jeton")
+    depose()
     avance()
-    while not jeton_ici():
+    while not objet_ici():
         if rien_devant():
             avance()
         else:
@@ -33,9 +33,10 @@ Identifier le problème
 
 .. note::
 
-    N'oubliez pas d'inclure ``from biblio import *``.
+    N'oubliez pas d'inclure ``from biblio import tourne_a_droite``.
 
-Comme vous avez pu le constater en exécutant le programme ci-dessus, le
+Comme vous avez pu le constater en exécutant le programme ci-dessus
+dans le monde **Autour 2**, le
 résultat n'était pas celui désiré: Reeborg prend un raccourci et ne fait
 pas le tour du monde. Le problème est que nous avions supposé que
 Reeborg n'ait que deux options: avancer ou tourner à gauche. Nous
@@ -47,9 +48,9 @@ est une tentative de résoudre le problème.
 
 .. code:: py3
 
-    depose("jeton")
+    depose()
     avance()
-    while not jeton_ici():
+    while not objet_ici():
         if rien_a_droite():
             tourne_a_droite()
         elif rien_devant():

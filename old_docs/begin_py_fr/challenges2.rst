@@ -41,17 +41,7 @@ temps après les semences. Certaines graines de carottes ont bien germé,
 d'autres ont germé trop rapprochées les unes des autres, alors que
 certaines n'ont pas germées du tout. Aidez Reeborg à enlever les
 carottes en excès et à semer à nouveau lorsque c'est requis de telle
-sorte qu'il n'y ait qu'une seule carotte par endroit. Dans ce monde, les
-carottes sont représentées par des jetons, ce qui suggère d'adopter le
-vocabulaire suivant::
-
-
-    carotte_ici = objet_ici
-    sème_carotte = dépose
-    enlève_carotte = prend
-
-    def une_seule_carotte():
-      ...
+sorte qu'il n'y ait qu'une seule carotte par endroit.
 
 .. topic:: Faites-le!
 
@@ -105,9 +95,12 @@ nettoyer le trottoir qui mène à la rue **Tempête 1**, ainsi que l'allée
 
 .. topic:: À votre tour!
 
-    Reeborg doit ramasser tous les déchets (représentés par des jetons), et
+    Reeborg doit ramasser toutes les feuilles, et
     les mettre dans la poubelle en s'assurant de fermer le couvercle à
-    l'aide de l'instruction ``construit_un_mur()``.
+    l'aide de l'instruction ``construit_un_mur()``.  Il peut vérifier
+    s'il transporte des objets (des feuilles mortes ici) en utilisant
+    la condition ``transporte()`` soit dans un énoncé ``if`` ou dans
+    un énoncé ``while``.
 
 Encore du travail!
 ------------------
@@ -128,7 +121,8 @@ Examinez les mondes **Centrer 1** à **Centrer 3**. En commençant avec le cas
 plus simple, faites des améliorations progressives et écrivez un
 programme faisant en sorte que Reeborg dépose un jeton au centre
 géométrique de la pièce rectangulaire dans laquelle il se trouve, peu
-importe le monde choisis
+importe le monde choisi.  À noter que ceci est un exercice
+un peu plus difficile.
 
 .. hint::
 

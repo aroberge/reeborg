@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="21. Une nouvelle livraison de journaux" href="newspaper3.html" />
+    <link rel="next" title="21. Améliorations: partie 1" href="refine1.html" />
     <link rel="prev" title="19. Pas vrai!" href="not.html" /> 
 
   <script>
@@ -64,13 +64,13 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="newspaper3.html" title="21. Une nouvelle livraison de journaux"
+             <a href="refine1.html" title="21. Améliorations: partie 1"
              accesskey="N">suivant</a></li>
         <li class="right" >
              <a href="not.html" title="19. Pas vrai!"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>
@@ -91,8 +91,8 @@
   <p class="topless"><a href="not.html"
                         title="Chapitre précédent">19. Pas vrai!</a></p>
   <h4>Sujet suivant</h4>
-  <p class="topless"><a href="newspaper3.html"
-                        title="Chapitre suivant">21. Une nouvelle livraison de journaux</a></p>
+  <p class="topless"><a href="refine1.html"
+                        title="Chapitre suivant">21. Améliorations: partie 1</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
@@ -130,7 +130,8 @@ rencontre un mur. On pourrait écrire quelque chose comme:</p>
     <span class="k">if</span> <span class="n">rien_devant</span><span class="p">():</span>
         <span class="n">avance</span><span class="p">()</span>
 
-<span class="n">repete</span><span class="p">(</span><span class="n">avance_au_mur</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+    <span class="n">avance_au_mur</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>en se croisant les doigts et espérant que 42 sera un nombre suffisant de
@@ -200,7 +201,7 @@ satisfaite (devenant équivalente à <code class="docutils literal"><span class=
 <div class="topic">
 <p class="topic-title first">À votre tour !</p>
 <p>Retournez aux courses <strong>Haies&nbsp;1</strong>, <strong>Haies&nbsp;2</strong> et <strong>Haies&nbsp;3</strong>, et écrivez un seul
-programme pour ces trois courses sans utiliser <code class="docutils literal"><span class="pre">repete()</span></code>.</p>
+programme pour ces trois courses en utilisant <code class="docutils literal"><span class="pre">while</span></code>.</p>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Indice</p>
@@ -219,7 +220,7 @@ programme pour ces trois courses sans utiliser <code class="docutils literal"><s
 </div>
 </div>
 <p>C&#8217;est tout! Plus besoin d&#8217;un nombre arbitraire de répétitions. À partir
-de maintenant, n&#8217;utilisez plus <code class="docutils literal"><span class="pre">repete()</span></code> <strong>*sauf*</strong> si vous savez
+de maintenant, n&#8217;utilisez plus <code class="docutils literal"><span class="pre">repeat</span></code> <strong>sauf</strong> si vous savez
 <strong>exactement</strong> le nombre de fois qu&#8217;une certaine fonction doit être
 répétée.</p>
 </div>
@@ -235,13 +236,13 @@ répétée.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="newspaper3.html" title="21. Une nouvelle livraison de journaux"
+             <a href="refine1.html" title="21. Améliorations: partie 1"
              >suivant</a></li>
         <li class="right" >
              <a href="not.html" title="19. Pas vrai!"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>

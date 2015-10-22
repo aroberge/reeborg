@@ -31,8 +31,8 @@ considérer la solution suivante.
 
 .. code:: py3
 
-    depose("jeton");
-    while not jeton_ici():
+    depose();
+    while not objet_ici():
         if rien_devant():
             avance()
         else

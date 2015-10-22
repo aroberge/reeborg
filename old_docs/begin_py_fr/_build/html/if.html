@@ -70,7 +70,7 @@
              <a href="repeat.html" title="14. Répète"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>
@@ -129,7 +129,7 @@ de vous le mentionner: Reeborg <strong>peut</strong> prendre ses propres décisi
 <div class="section" id="le-mot-cle-if">
 <h2>15.1. Le mot-clé <code class="docutils literal"><span class="pre">if</span></code><a class="headerlink" href="#le-mot-cle-if" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="topic">
-<p class="topic-title first">Do it!</p>
+<p class="topic-title first">Faites ceci!</p>
 <p>Sélectionnez le monde <strong>Seul</strong> et faites-en sorte que Reeborg exécute le
 programme suivant</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="bp">True</span><span class="p">:</span>
@@ -141,8 +141,8 @@ programme suivant</p>
 </div>
 </div>
 <p><code class="docutils literal"><span class="pre">True</span></code> (vrai) et <code class="docutils literal"><span class="pre">False</span></code> (faux) sont deux mots-clés Python.  Vous voudrez peut-être
-les interchanger juste pour voir.  Le mot anglais <strong>if</strong> est l&#8217;équivalent de la conjonction <strong>si</strong>
-en français.</p>
+les interchanger juste pour voir.  Le mot anglais <code class="docutils literal"><span class="pre">if</span></code> est l&#8217;équivalent
+de la conjonction <code class="docutils literal"><span class="pre">si</span></code> en français.</p>
 </div>
 <div class="section" id="enonce-if">
 <h2>15.2. Énoncé <code class="docutils literal"><span class="pre">if</span></code><a class="headerlink" href="#enonce-if" title="Lien permanent vers ce titre">¶</a></h2>
@@ -229,16 +229,6 @@ partie du code pourrait être:</p>
     <span class="n">prend</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>Si plusieurs objets pourraient se trouver dans un monde donné
-et qu&#8217;on ne s&#8217;intéresse qu&#8217;à un seul type d&#8217;objet, on peut spécifier
-le type en utilisant un argument:</p>
-<div class="last highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">objet_ici</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">):</span>
-    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <p>Examinez à tour de rôle les mondes <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>. Dans chaque
 cas, en supposant que Reeborg se déplace le long d&#8217;une ligne, tout ce
 qu&#8217;il a à faire lorsqu&#8217;il trouve un jeton est:</p>
@@ -247,12 +237,10 @@ qu&#8217;il a à faire lorsqu&#8217;il trouve un jeton est:</p>
 <li>avancer d&#8217;une case</li>
 <li>déposer ce jeton</li>
 <li>avancer d&#8217;une autre case</li>
-<li>et il a <code class="docutils literal"><span class="pre">termine()</span></code></li>
+<li>et il <code class="docutils literal"><span class="pre">termine()</span></code></li>
 </ol>
 <p>où j&#8217;ai introduit une nouvelle instruction que Reeborg comprend:
-<code class="docutils literal"><span class="pre">termine()</span></code>. En fait, vous pouvez penser à cette instruction comme
-quelque chose que Reeborg dit lui-même lorsqu&#8217;il déclare avoir terminé
-une tâche.</p>
+<code class="docutils literal"><span class="pre">termine()</span></code>.</p>
 <p>Écrivons donc le une esquisse d&#8217;un programme unique qui pourrait
 permettre à Reeborg d&#8217;accomplir la tâche dans les deux mondes mentionnés
 ci-dessus, soit <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>:</p>
@@ -265,7 +253,8 @@ ci-dessus, soit <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>
         <span class="c"># une de plus</span>
         <span class="n">termine</span><span class="p">()</span>
 
-<span class="n">repete</span><span class="p">(</span><span class="n">avance_jusque_tâche_terminée</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+    <span class="n">avance_jusque_tâche_terminée</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Pourquoi 42? ... Je n&#8217;ai pas de véritable raisons pour ce choix. Tout ce
@@ -280,6 +269,25 @@ On fera mieux plus tard.</p>
 <p>Copiez le code ci-dessus dans l&#8217;éditeur de code, ajouter
 les instructions manquantes, et vérifiez que votre programme fonctionne
 dans les mondes <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>.</p>
+</div>
+<div class="admonition-pour-les-enseignants admonition">
+<p class="first admonition-title">Pour les enseignants</p>
+<p>La fonction <code class="docutils literal"><span class="pre">objet_ici()</span></code> retourne une liste des types d&#8217;objets
+trouvés à un endroit donné.  Par exemple, s&#8217;il y a des étoiles et
+des jetons, <code class="docutils literal"><span class="pre">objet_ici()</span></code> pourrait retourner <code class="docutils literal"><span class="pre">[&quot;étoile&quot;,</span> <span class="pre">&quot;jeton&quot;]</span></code>
+ou <code class="docutils literal"><span class="pre">[&quot;jeton&quot;,</span> <span class="pre">&quot;étoile&quot;]</span></code>.  Si aucun objet n&#8217;est présent, une liste
+vide est retournée.  Comme vous le savez sans doute, Python considère
+une liste vide comme étant l&#8217;équivalent de <code class="docutils literal"><span class="pre">False</span></code> dans un énoncé
+<code class="docutils literal"><span class="pre">if</span></code>, et une liste non vide comme étant l&#8217;équivalent de <code class="docutils literal"><span class="pre">True</span></code>.</p>
+<p>Si plusieurs objets pourraient se trouver dans un monde donné
+et qu&#8217;on ne s&#8217;intéresse qu&#8217;à un seul type d&#8217;objet, on peut spécifier
+le type en utilisant un argument:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">objet_ici</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">):</span>
+    <span class="n">prend</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="last">S&#8217;il y a un ou des jetons de présent, la fonction retournera la liste
+<code class="docutils literal"><span class="pre">[&quot;jeton&quot;]</span></code>; sinon, elle retournera une liste vide.</p>
 </div>
 </div>
 </div>
@@ -300,7 +308,7 @@ dans les mondes <strong>Jetons&nbsp;1</strong> et <strong>Jetons&nbsp;2</strong>
              <a href="repeat.html" title="14. Répète"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>

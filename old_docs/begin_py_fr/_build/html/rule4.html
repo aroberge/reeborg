@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>27. Règle numéro 4 &mdash; Apprenez Python avec Reeborg</title>
+    <title>26. Règle numéro 4 &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="28. Surprises!" href="surprises.html" />
-    <link rel="prev" title="25. Améliorations: partie 4" href="refine4.html" /> 
+    <link rel="next" title="27. Surprises!" href="surprises.html" />
+    <link rel="prev" title="24. Améliorations: partie 4" href="refine4.html" /> 
 
   <script>
     // intelligent scrolling of the sidebar content
@@ -64,13 +64,13 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="surprises.html" title="28. Surprises!"
+             <a href="surprises.html" title="27. Surprises!"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="refine4.html" title="25. Améliorations: partie 4"
+             <a href="refine4.html" title="24. Améliorations: partie 4"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>
@@ -80,18 +80,18 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">27. Règle numéro 4</a><ul>
-<li><a class="reference internal" href="#conclusion">27.1. Conclusion</a></li>
+<li><a class="reference internal" href="#">26. Règle numéro 4</a><ul>
+<li><a class="reference internal" href="#conclusion">26.1. Conclusion</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="refine4.html"
-                        title="Chapitre précédent">25. Améliorations: partie 4</a></p>
+                        title="Chapitre précédent">24. Améliorations: partie 4</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="surprises.html"
-                        title="Chapitre suivant">28. Surprises!</a></p>
+                        title="Chapitre suivant">27. Surprises!</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
@@ -119,7 +119,7 @@
           <div class="body">
             
   <div class="section" id="regle-numero-4">
-<h1>27. Règle numéro 4<a class="headerlink" href="#regle-numero-4" title="Lien permanent vers ce titre">¶</a></h1>
+<h1>26. Règle numéro 4<a class="headerlink" href="#regle-numero-4" title="Lien permanent vers ce titre">¶</a></h1>
 <p>Dans les leçons précédentes, nous avons composé un programme qui permet
 à Reeborg d&#8217;accomplir plusieurs tâches de complexité variable. Le but de
 ce programme était de permettre à Reeborg de faire le tour de son monde.
@@ -128,10 +128,10 @@ devrait être claire, son but ne serait pas nécessairement clair pour
 quelqu&#8217;un qui le lirait pour une première fois. Une façon d&#8217;expliquer le
 but de ce programme serait peut-être de rajouter des commentaires comme
 ce qui suit.</p>
-<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">biblio</span> <span class="k">import</span> <span class="o">*</span>
+<div class="code py3 highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">biblio</span> <span class="k">import</span> <span class="n">tourne_a_droite</span>
 
 <span class="c"># On note le point de départ en déposant un jeton</span>
-<span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+<span class="n">depose</span><span class="p">()</span>
 
 <span class="c"># On trouve une direction où un mur ne bloque pas le chemin</span>
 <span class="k">while</span> <span class="ow">not</span> <span class="n">rien_devant</span><span class="p">():</span>
@@ -141,7 +141,7 @@ ce qui suit.</p>
 <span class="c"># On sait qu&#39;on a fait le tour du monde lorsqu&#39;on revient</span>
 <span class="c"># au point de départ, là où on a déposé un jeton.</span>
 
-<span class="k">while</span> <span class="ow">not</span> <span class="n">jeton_ici</span><span class="p">():</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">objet_ici</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">rien_a_droite</span><span class="p">():</span>    <span class="c"># on garde la droite</span>
         <span class="n">tourne_a_droite</span><span class="p">()</span>
         <span class="n">avance</span><span class="p">()</span>
@@ -167,10 +167,10 @@ que le programme a deux parties:</p>
 <span class="sd">   ce qu&#39;il revienne à son point de départ.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">biblio</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">biblio</span> <span class="k">import</span> <span class="n">tourne_a_droite</span>
 
 <span class="k">def</span> <span class="nf">marque_point_départ_et_avance</span><span class="p">():</span>
-    <span class="n">depose</span><span class="p">(</span><span class="s">&quot;jeton&quot;</span><span class="p">)</span>
+    <span class="n">depose</span><span class="p">()</span>
     <span class="k">while</span> <span class="ow">not</span> <span class="n">rien_devant</span><span class="p">():</span>
         <span class="n">tourne_a_gauche</span><span class="p">()</span>
     <span class="n">avance</span><span class="p">()</span>
@@ -184,14 +184,13 @@ que le programme a deux parties:</p>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">tourne_a_gauche</span><span class="p">()</span>
 
-<span class="n">trouve_point_départ</span> <span class="o">=</span> <span class="n">jeton_ici</span>
 
 <span class="c">####################</span>
 <span class="c"># fin des définitions ci-dessus; l&#39;exécution suit</span>
 
 <span class="n">marque_point_départ_et_avance</span><span class="p">()</span>
 
-<span class="k">while</span> <span class="ow">not</span> <span class="n">trouve_point_départ</span><span class="p">():</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">objet_ici</span><span class="p">():</span>
     <span class="n">suis_le_mur_à_droite</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -199,7 +198,7 @@ que le programme a deux parties:</p>
 <p><strong>N.B.: Il serait peut-être utile de faire une copie de la fonction
 ``suis_le_mur_à_droite()`` dans votre bibliothèque.</strong></p>
 <div class="section" id="conclusion">
-<h2>27.1. Conclusion<a class="headerlink" href="#conclusion" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>26.1. Conclusion<a class="headerlink" href="#conclusion" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Nous avons commencé par un simple problème (faire le tour d&#8217;un monde
 rectangulaire), et, en changeant la solution un tout petit peu à chaque
 fois (ce qu&#8217;on appelle faire des <em>améliorations progressives</em>), nous
@@ -243,13 +242,13 @@ que nous venons de compléter prêt à être exécuté.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="surprises.html" title="28. Surprises!"
+             <a href="surprises.html" title="27. Surprises!"
              >suivant</a></li>
         <li class="right" >
-             <a href="refine4.html" title="25. Améliorations: partie 4"
+             <a href="refine4.html" title="24. Améliorations: partie 4"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>Le monde de Reeborg
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
             </a></li>
         <li><a href="index.html">Apprenez Python avec Reeborg</a></li> 
       </ul>

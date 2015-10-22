@@ -69,7 +69,6 @@ Table des matières:
    hurdles3
    not
    while
-   newspaper3
    refine1
    refine2
    refine3
@@ -81,6 +80,7 @@ Table des matières:
    recursion2
    recursion3
    recursion4
+   variables
    return
    diary
    increment

@@ -90,7 +90,8 @@ Votre programme ressemblait probablement à ce qui suit::
             termine()
         saute()
 
-    repete(avance_et_saute_jusqu_au_but, 42)
+    repeat 42:
+        avance_et_saute_jusqu_au_but()
 
 Ce programme ne fonctionnait pas avec **Haies 3** parce qu'il suppose que
 les haies sont espacées régulièrement, ce qui n'est pas le cas pour

@@ -11,7 +11,8 @@ rencontre un mur. On pourrait écrire quelque chose comme::
         if rien_devant():
             avance()
 
-    repete(avance_au_mur, 42)
+    repeat 42:
+        avance_au_mur()
 
 en se croisant les doigts et espérant que 42 sera un nombre suffisant de
 répétitions pour atteindre le mur. Si on utilise plutôt le mot-clé
@@ -90,7 +91,7 @@ De retour aux haies!
 .. topic:: À votre tour !
 
     Retournez aux courses **Haies 1**, **Haies 2** et **Haies 3**, et écrivez un seul
-    programme pour ces trois courses sans utiliser ``repete()``.
+    programme pour ces trois courses en utilisant ``while``.
 
 .. hint::
 
@@ -108,7 +109,7 @@ De retour aux haies!
             cours_ou_saute()
 
 C'est tout! Plus besoin d'un nombre arbitraire de répétitions. À partir
-de maintenant, n'utilisez plus ``repete()`` ***sauf*** si vous savez
+de maintenant, n'utilisez plus ``repeat`` **sauf** si vous savez
 **exactement** le nombre de fois qu'une certaine fonction doit être
 répétée.
 
