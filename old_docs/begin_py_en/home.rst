@@ -5,15 +5,6 @@ In order to help you learn Python, I will give you some tests: you
 have to program Reeborg to accomplish specific tasks and Reeborg itself
 will tell you if you got it right or wrong.
 
-.. important::
-
-    Select **Tutorial menu** from the drop-down menu
-    at the top of Reeborg's World.
-    You will see a program appear in the Python editor.
-    Run this program: this will change the worlds that you can select
-    from the drop-down menu.
-
-
 Select the world **Home 1**. Notice the house on the bottom left square:
 this is Reeborg's home. Reeborg's world is a simple grid.
 In **Home 1**, Reeborg starts at the third square on the bottom row. It
