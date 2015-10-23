@@ -1,6 +1,18 @@
 Incrément
 =========
 
+.. todo::
+
+   Revoir d'abord l'exemple::
+
+        longueur = 4
+        largeur = 6
+        aire = longueur * largeur
+
+   en détails, se concentrant sur l'association de la variable
+   ``aire`` avec l'objet (chiffre) 24 qui est calculé en premier, puis à qui
+   on associe le nom de la variable.
+
 Assurez-vous d'avoir les panneaux **Éditeur**, **Monde** et **Journal**
 ouverts. Sélectionnez le monde **Autour 1**.
 
@@ -72,6 +84,12 @@ une variable décrites ci-dessus.
         avance_et_compte()
 
     print(nombre_de_pas)  # devrait être 9
+
+.. todo::
+
+   Éliminez la fonction et reporter à plus tard la discussion du
+   mot-clé ``global``
+
 
 Dans le programme ci-dessus, on utilise le mot-clé ``global`` pour indiquer
 à Python que la variable ``nombre_de_pas`` utilisée à l'intérieur de la

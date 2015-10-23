@@ -116,11 +116,11 @@ Alors, quelle version est la plus facile à lire et à comprendre?...
 
     Dans une version précédente de ce tutoriel, j'utilisais les
     arguments de fonctions et, dans l'exemple commenté ci-dessus,
-    j'avais écrit::
+    j'avais utilisé::
 
         depose('jeton')
 
-    au lieu de simplement écrire ``depose()`` et j'avais écrit
+    au lieu de simplement ``depose()`` et j'avais écrit
     ce qui suit: *Également, et bien que ceci ne crée aucune différence
     pour Reeborg, j’ai spécifié "jeton" lorsque je voulais que
     Reeborg en dépose un; ceci est plus clair pour un lecteur.*

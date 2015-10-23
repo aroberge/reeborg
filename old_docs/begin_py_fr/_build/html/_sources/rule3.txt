@@ -38,6 +38,13 @@ suivante::
         # des lignes de code
         # indentées au même niveau
 
+.. note::
+
+   Lorsqu'on défini une fonction, on fait suivre son nom de
+   parenthèses ``()``; dans ce cas-ci cependant, la présence
+   de parenthèses n'indique **pas** qu'on exécute la fonction.
+
+
 
 ``def`` est notre premier **mot-clé** Python; les mot-clés sont
 des noms réservés dans un langage de programmation et qui possède un

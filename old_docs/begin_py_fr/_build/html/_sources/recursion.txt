@@ -52,3 +52,21 @@ s'invoque elle-même basé sur une certaine condition.
 Lorsque vous aurez exécuté le programme ci-dessus et compris comment il
 fonctionne, passez à la leçon suivante où nous verrons un exemple un peu
 plus compliqué.
+
+.. admonition:: Pour les enseignants
+
+    Certains considèrent le concept de la récursivité comme étant très
+    difficile à saisir pour les étudiants.
+    Sentez-vous donc tout à fait libre d'ignorer les sections portant
+    sur ce sujet.
+
+    J'ai choisi de le présenter ici parce que, d'une part,
+    j'avais tous les éléments requis pour le faire et que, d'autre part,
+    l'introduction récente du concept des boucles ``while`` et
+    le remplacement possible d'une telle boucle par une fonction récursive,
+    et vice-versa, offre une occasion de renforcer le concept
+    de blocs répétés par une boucle (récursive ou non).
+    Si on attend à plus tard, lorsque les étudiants sont très familiers
+    avec le concept des boucles ``while`` qui sont devenues "faciles"
+    à utiliser, le concept de recursivité, qui est totalement nouveau,
+    semble soudainement "très difficile" en comparaison.

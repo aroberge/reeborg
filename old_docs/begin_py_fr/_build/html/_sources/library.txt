@@ -16,6 +16,11 @@ Plutôt que de la récrire à chaque fois (souvenez-vous de la règle numéro
 fois-ci, vous allez cliquer sur l'onglet **biblio** et l'écrire à
 cet endroit. Vous devriez également y écrire ``demi_tour()``.
 
+.. |biblio| image:: ../../src/images/biblio.png
+
+|biblio|
+
+
 Lorsque vous voudrez utiliser les fonctions définies dans votre bibliothèque,
 il vous suffira d'écrire ``from biblio import`` (suivi du nom des fonctions que
 vous avez définies, séparés par des virgules) comme toute première ligne

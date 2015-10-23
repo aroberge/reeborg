@@ -1,26 +1,76 @@
 Le journal de Reeborg
 =====================
 
-Cliquez sur le bouton **Monde** au haut de l'écran pour cacher le monde
-de Reeborg. Cliquez également sur le bouton **Journal** pour voir le
-journal de Reeborg, là où notre robot favori écrit.
-
 Exécutez le programme suivant::
 
-    print(42)
+    print()
 
-Vous devriez voir que Reeborg écrit la réponse à la question ultime au
-sujet de la Vie, de l'Univers et du Reste [du moins selon le livre *Le
-guide du voyageur galactique*] dans son journal.
+Vous devriz voir une fenêtre flottante vide apparaître dont
+le titre est *Reeborg écrit:*.
+Cette fenêtre flottante est le journal de Reeborg.
+Sentez-vous libre de la déplacer ailleurs sur l'écran.
+
+Exécutez maintenant le programme qui suit::
+
+    print(avance)
+
+Au moment où j'écris ce tutoriel, le résultat est le suivant::
+
+    <function _move_>
+
+Le mot anglais ``function`` signifie *fonction*; le mot ``_move_``
+est le nom de la fonction ``avance`` tel que connu secrètement par
+Reeborg.   On peut vérifier ceci en exécutant le programme suivant::
+
+    marche = avance
+    print(avance)
+    print(marche)
+
+Le résultat est::
+
+    <function _move_>
+    <function _move_>
+
+.. note::
+
+    ``pass`` est un mot-clé Python signifiant "ne fait rien";
+    c'est un mot utile pour prendre la place d'un bloc de
+    code qui est requis pour respecter l'indentation mais dont
+    nous n'avons pas besoin autrement.
+
+Si vous définissez une autre fonction, comme par exemple::
+
+    def bonjour():
+        pass
+
+    print(bonjour)
+
+le résultat sera::
+
+    <function bonjour>
+
+Une fonction peut avoir un argument
+-----------------------------------
+
+En informatique, le mot **argument** réfère à une variable
+qui détermine le résultat d'une fonction.  Par exemple,
+pour le programme ci-dessus::
+
+    print(avance)
+
+la variable ``avance`` est l'argument de la fonction ``print``.
+L'argument d'une fonction apparait entre les parenthèses qui
+indiquent qu'on veut que la fonction soit exécutée.
 
 Écrire des textes
 -----------------
 
-.. note::
+Écrire le nom d'une fonction comme on l'a fait ci-dessus en
+invoquant la fonction ``print``
+est quelque chose qu'on fait très, très, **très** rarement
+en programmation.  La plupart du temps, si on écrit
+quelque chose, c'est plutôt du texte.
 
-    En plus de la fonction Python ``print``, le monde de Reeborg
-    inclut une fonction ``ecrit`` qui fait presque la même chose.
-    Essayez de l'utiliser à l'occasion.
 
 Dans le jargon de la programmation, un *caractère* est n'importe quelle
 lettre, chiffre ou symbole qui peut être imprimé, et une *chaîne de
@@ -54,11 +104,24 @@ Vous pouvez également débuter une nouvelle ligne en utilisant la
 
     print("Merci. \nEssayez encore")
 
+.. topic:: Vérifiez par vous-mêmes
+
+    Assurez-vous de vérifier que vous comprenez bien le tout en
+    reproduisant les exemples de programmes ci-dessus pour écrire
+    des textes simples.
+
+
 Reeborg connaît les maths
 -------------------------
 
 Exécutez le programme suivant et observez le résultat dans le journal de
 Reeborg.
+
+.. note::
+
+    Notez que les espaces autour des opérateurs comme ``+`` et ``*``,
+    sont ignorés par Python; cependant, ils peuvent faciliter la lecture
+    (et la compréhension) pour les humains.
 
 .. topic:: Faites des maths!
 
@@ -71,6 +134,18 @@ Reeborg.
         print( 1 + 3 * 2 ) # multiplication avant addition
         print( (1 + 3) * 2 )  # Les parenthèses indiquent l'ordre des opérations
 
+Dans les exemples ci-dessus, le résultat était toujours un nombre
+entier **sauf** pour la division qui donnait un nombre décimal:
+``6 / 2`` donne ``3.0``.   Python suit la convention anglaise et
+utilise un point au lieu d'une virgule pour séparer la partie
+entière de la partie décimale.
+
+Si on veut que le résultat de la division soit un nombre entier,
+on utilisera plutôt un double symbole de division::
+
+    print( 6 // 2 )  # division entière
+
+
 Utilisation des variables
 -------------------------
 
@@ -82,7 +157,7 @@ contexte mathématique.
 
     longueur = 4
     largeur = 6
-    aire = longueur * largeur;  # aire d'un rectangle
+    aire = longueur * largeur
     print(aire)  # imprimera 24
 
 .. topic:: À votre tour!
@@ -102,8 +177,18 @@ inattendus:
 
 .. warning::
 
-    Le *caractère* "2" n'est pas le même que le *chiffre* 2.
+    Le *caractère* "2" n'est pas le même objet que le *chiffre* 2.
 
-Finalement, notez que les espaces autour des opérateurs comme ``+``,
-sont ignorés par Python; cependant, ils peuvent faciliter la lecture
-(et la compréhension) pour les humains.
+Arguments multiples
+-------------------
+
+Certaines fonctions, dont ``print()`` peuvent accepter plusieurs
+arguments; les différents arguments sont représentés par des virgules.
+Pour démontrer ceci, nous pouvons faire une légère modification
+au programme démontrant le calcul de l'aire d'un rectangle::
+
+    longueur = 4
+    largeur = 6
+    aire = longueur * largeur
+    print("L'aire du rectangle de longueur", longueur,
+          "et de largeur", largeur, "est", aire)

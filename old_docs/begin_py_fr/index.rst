@@ -63,11 +63,13 @@ Table des matières:
    reading
    newspaper2
    repeat
+   summary2
    if
    at_goal
    else
    hurdles3
    not
+   summary3
    while
    refine1
    refine2
@@ -80,15 +82,21 @@ Table des matières:
    recursion2
    recursion3
    recursion4
+   summary4
    variables
-   return
    diary
+   newspaper3
+   listes
+   string_index
+   for
+   slice
+   return
    increment
    while_num
-   for
    harvest3
    better_repeat
    oop
+   methods
    turn_right
    turn_right2
    javascript

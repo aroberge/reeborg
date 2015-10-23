@@ -33,7 +33,11 @@ Identifier le problème
 
 .. note::
 
-    N'oubliez pas d'inclure ``from biblio import tourne_a_droite``.
+    N'oubliez pas d'inclure
+
+    .. code:: py3
+
+        from biblio import tourne_a_droite
 
 Comme vous avez pu le constater en exécutant le programme ci-dessus
 dans le monde **Autour 2**, le
@@ -43,7 +47,8 @@ Reeborg n'ait que deux options: avancer ou tourner à gauche. Nous
 n'avons pas tenu compte de situations où Reeborg devrait tourner à
 droite. Donc, ce que Reeborg devrait faire est en premier de vérifier
 s'il y a un mur à sa droite; si la réponse est non, alors il doit faire
-un virage à droite pour suivre le mur. Voici un programme modifié qui
+un virage à droite pour suivre le mur.
+La fonction requise pour ceci est ``rien_a_droite()``. Voici un programme modifié qui
 est une tentative de résoudre le problème.
 
 .. code:: py3

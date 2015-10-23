@@ -13,6 +13,13 @@ Pour ceux-ci, Reeborg doit suivre la procédure suivante:
    le seuil de porte.
 #. Redescendre au rez-de-chaussée.
 
+.. note::
+
+    En programmation informatique, on commence souvent à compter à partir de zéro
+    plutôt qu'à partir de 1.  Puisque ces mondes font référence à trois
+    personnes connue en informatique, j'ai pensé qu'il serait juste de
+    numéroter ces mondes à partir de zéro.
+
 Bien que Reeborg ait plusieurs clients, j'en ai seulement inclus trois
 pour votre attention:
 
@@ -27,13 +34,6 @@ pour votre attention:
    paie toujours le montant exact, sans laisser de pourboire pour
    Reeborg; son monde est **Journal 2**.
 
-.. note::
-
-    En programmation informatique, on commence souvent à compter à partir de zéro
-    plutôt qu'à partir de 1.  Puisque ces mondes font référence à trois
-    personnes connue en informatique, j'ai pensé qu'il serait juste de
-    numéroter ces mondes à partir de zéro.
-
 Écrire des programmes pour des mondes contenant deux types d'objets
 (comme des étoiles **et** des jetons) est plus compliqué que ce qu'on
 a vu jusqu'à maintenant; nous verrons comment faire ceci plus tard.
@@ -45,7 +45,7 @@ dans les mondes **Journal 1** et **Journal 2**.
 
 .. topic:: À votre tour!
 
-  Faites en sorte que Reeborg aille livrer un journal chez Monsieur Pattis
+  Faites en sorte que Reeborg aille livrer un journal chez Monsieur Pattis.
 
 .. important::
 

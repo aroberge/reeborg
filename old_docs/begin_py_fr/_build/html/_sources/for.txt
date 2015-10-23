@@ -1,6 +1,15 @@
 Boucles ``for``
 ===============
 
+.. todo::
+
+   Changer ceci pour introduire les boucles ``for`` d'abord en
+   utilisant des listes, puis des chaînes (par exemple: épeler un nom),
+   pour finalement terminer avec le fameux idiome ``for _ in range(n)``.
+
+
+
+
 Comme nous l'avons vu, les boucles ``while`` peuvent être utilisées avec
 des nombres suivant le patron::
 

@@ -23,7 +23,7 @@ en vert pale indique l'endroit où Reeborg doit terminer son programme.
 
     Écrivez un programme pour accomplir cette tâche. Est-ce que
     votre programme peut également, sans aucun changement, accomplir la
-    tâche du monde Jetons 2? La réponse devrait être non ... mais, plus
+    tâche du monde **Jetons 2**? La réponse devrait être non ... mais, plus
     tard, vous apprendrez à écrire un seul programme pouvant accomplir ces
     deux tâches.
 

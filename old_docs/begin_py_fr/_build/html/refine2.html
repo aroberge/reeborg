@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>22. Améliorations: partie 2 &mdash; Apprenez Python avec Reeborg</title>
+    <title>24. Améliorations: partie 2 &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="23. Améliorations: partie 3" href="refine3.html" />
-    <link rel="prev" title="21. Améliorations: partie 1" href="refine1.html" /> 
+    <link rel="next" title="25. Améliorations: partie 3" href="refine3.html" />
+    <link rel="prev" title="23. Améliorations: partie 1" href="refine1.html" /> 
 
   <script>
     // intelligent scrolling of the sidebar content
@@ -64,10 +64,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="refine3.html" title="23. Améliorations: partie 3"
+             <a href="refine3.html" title="25. Améliorations: partie 3"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="refine1.html" title="21. Améliorations: partie 1"
+             <a href="refine1.html" title="23. Améliorations: partie 1"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
@@ -80,19 +80,19 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">22. Améliorations: partie 2</a><ul>
-<li><a class="reference internal" href="#un-monde-un-peu-plus-complexe">22.1. Un monde un peu plus complexe</a></li>
-<li><a class="reference internal" href="#identifier-le-probleme">22.2. Identifier le problème</a></li>
+<li><a class="reference internal" href="#">24. Améliorations: partie 2</a><ul>
+<li><a class="reference internal" href="#un-monde-un-peu-plus-complexe">24.1. Un monde un peu plus complexe</a></li>
+<li><a class="reference internal" href="#identifier-le-probleme">24.2. Identifier le problème</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="refine1.html"
-                        title="Chapitre précédent">21. Améliorations: partie 1</a></p>
+                        title="Chapitre précédent">23. Améliorations: partie 1</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="refine3.html"
-                        title="Chapitre suivant">23. Améliorations: partie 3</a></p>
+                        title="Chapitre suivant">25. Améliorations: partie 3</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
@@ -120,7 +120,7 @@
           <div class="body">
             
   <div class="section" id="ameliorations-partie-2">
-<h1>22. Améliorations: partie 2<a class="headerlink" href="#ameliorations-partie-2" title="Lien permanent vers ce titre">¶</a></h1>
+<h1>24. Améliorations: partie 2<a class="headerlink" href="#ameliorations-partie-2" title="Lien permanent vers ce titre">¶</a></h1>
 <p>Je suis certain que vous avez trouvé la source du problème de la
 solution présentée lors de la dernière leçon: Reeborg déposait un jeton
 et, avant même de se déplacer, il vérifiait s&#8217;il était arrivé à son but
@@ -141,17 +141,20 @@ modifié qui devrait fonctionner:</p>
 <p>Assurez-vous que votre programme fonctionne avant de poursuivre la lecture.</p>
 </div>
 <div class="section" id="un-monde-un-peu-plus-complexe">
-<h2>22.1. Un monde un peu plus complexe<a class="headerlink" href="#un-monde-un-peu-plus-complexe" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>24.1. Un monde un peu plus complexe<a class="headerlink" href="#un-monde-un-peu-plus-complexe" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Essayons de modifier le programme pour qu&#8217;il puisse également être une
 solution pour le monde <strong>Autour&nbsp;2</strong>. Sélectionnez donc ce monde et exécuter
 le programme que vous avez déjà sans le modifier pour voir ce qui
 arrive.</p>
 </div>
 <div class="section" id="identifier-le-probleme">
-<h2>22.2. Identifier le problème<a class="headerlink" href="#identifier-le-probleme" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>24.2. Identifier le problème<a class="headerlink" href="#identifier-le-probleme" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">N&#8217;oubliez pas d&#8217;inclure <code class="docutils literal"><span class="pre">from</span> <span class="pre">biblio</span> <span class="pre">import</span> <span class="pre">tourne_a_droite</span></code>.</p>
+<p>N&#8217;oubliez pas d&#8217;inclure</p>
+<div class="code py3 last highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">biblio</span> <span class="k">import</span> <span class="n">tourne_a_droite</span>
+</pre></div>
+</div>
 </div>
 <p>Comme vous avez pu le constater en exécutant le programme ci-dessus
 dans le monde <strong>Autour 2</strong>, le
@@ -161,7 +164,8 @@ Reeborg n&#8217;ait que deux options: avancer ou tourner à gauche. Nous
 n&#8217;avons pas tenu compte de situations où Reeborg devrait tourner à
 droite. Donc, ce que Reeborg devrait faire est en premier de vérifier
 s&#8217;il y a un mur à sa droite; si la réponse est non, alors il doit faire
-un virage à droite pour suivre le mur. Voici un programme modifié qui
+un virage à droite pour suivre le mur.
+La fonction requise pour ceci est <code class="docutils literal"><span class="pre">rien_a_droite()</span></code>. Voici un programme modifié qui
 est une tentative de résoudre le problème.</p>
 <div class="code py3 highlight-py3"><div class="highlight"><pre><span class="n">depose</span><span class="p">()</span>
 <span class="n">avance</span><span class="p">()</span>
@@ -194,10 +198,10 @@ leçon suivante.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="refine3.html" title="23. Améliorations: partie 3"
+             <a href="refine3.html" title="25. Améliorations: partie 3"
              >suivant</a></li>
         <li class="right" >
-             <a href="refine1.html" title="21. Améliorations: partie 1"
+             <a href="refine1.html" title="23. Améliorations: partie 1"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>

@@ -20,7 +20,7 @@ nombre différent de jetons; vous ne pouvez donc pas utiliser la boucle
 mondes.
 
 Reeborg commence avec un nombre illimité de jetons dans ses poches; vous
-ne pouvez donc pas utiliser le test ``a_des_jetons()`` pour permettre à
+ne pouvez donc pas utiliser le test ``transporte()`` pour permettre à
 Reeborg de déterminer quand il doit arrêter de déposer des jetons.
 
 Pour satisfaire à toutes les contraintes mentionnées, vous allez

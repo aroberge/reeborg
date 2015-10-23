@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>40. Un meilleur repete() &mdash; Apprenez Python avec Reeborg</title>
+    <title>47. Un meilleur repete() &mdash; Apprenez Python avec Reeborg</title>
     
     <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Apprenez Python avec Reeborg" href="index.html" />
-    <link rel="next" title="42. Introduction to OOP in Python with Reeborg" href="oop.html" />
-    <link rel="prev" title="39. D’autres récoltes" href="harvest3.html" /> 
+    <link rel="next" title="49. Introduction to OOP in Python with Reeborg" href="oop.html" />
+    <link rel="prev" title="46. D’autres récoltes" href="harvest3.html" /> 
 
   <script>
     // intelligent scrolling of the sidebar content
@@ -64,10 +64,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="oop.html" title="42. Introduction to OOP in Python with Reeborg"
+             <a href="oop.html" title="49. Introduction to OOP in Python with Reeborg"
              accesskey="N">suivant</a></li>
         <li class="right" >
-             <a href="harvest3.html" title="39. D’autres récoltes"
+             <a href="harvest3.html" title="46. D’autres récoltes"
              accesskey="P">précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>
@@ -80,22 +80,22 @@
         <div class="sphinxsidebarwrapper">
               <h3>Table des Matières</h3>
               <ul>
-<li><a class="reference internal" href="#">40. Un meilleur <strong>repete()</strong></a><ul>
-<li><a class="reference internal" href="#extension-de-cette-idee">40.1. Extension de cette idée</a></li>
+<li><a class="reference internal" href="#">47. Un meilleur <strong>repete()</strong></a><ul>
+<li><a class="reference internal" href="#extension-de-cette-idee">47.1. Extension de cette idée</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#une-autre-facon-de-repeter">41. Une autre façon de répéter</a><ul>
-<li><a class="reference internal" href="#comportement-par-defaut">41.1. Comportement par défaut</a></li>
+<li><a class="reference internal" href="#une-autre-facon-de-repeter">48. Une autre façon de répéter</a><ul>
+<li><a class="reference internal" href="#comportement-par-defaut">48.1. Comportement par défaut</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="harvest3.html"
-                        title="Chapitre précédent">39. D&#8217;autres récoltes</a></p>
+                        title="Chapitre précédent">46. D&#8217;autres récoltes</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="oop.html"
-                        title="Chapitre suivant">42. Introduction to OOP in Python with Reeborg</a></p>
+                        title="Chapitre suivant">49. Introduction to OOP in Python with Reeborg</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
@@ -123,7 +123,7 @@
           <div class="body">
             
   <div class="section" id="un-meilleur-repete">
-<h1>40. Un meilleur <strong>repete()</strong><a class="headerlink" href="#un-meilleur-repete" title="Lien permanent vers ce titre">¶</a></h1>
+<h1>47. Un meilleur <strong>repete()</strong><a class="headerlink" href="#un-meilleur-repete" title="Lien permanent vers ce titre">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Cette leçon couvre des concepts très avancés. Si vous ne comprenez
@@ -179,7 +179,7 @@ fonctions, on peut <em>retourner</em> des fonctions!</p>
 <p>Vérifiez que le code ci-dessus fonctionne correctement.</p>
 </div>
 <div class="section" id="extension-de-cette-idee">
-<h2>40.1. Extension de cette idée<a class="headerlink" href="#extension-de-cette-idee" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>47.1. Extension de cette idée<a class="headerlink" href="#extension-de-cette-idee" title="Lien permanent vers ce titre">¶</a></h2>
 <p>En plus d&#8217;utiliser cette approche pour des répétions, on peut l&#8217;utiliser
 pour des conditions devant être vérifiées.</p>
 <div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">faire_pendant</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">condition</span><span class="p">):</span>
@@ -202,7 +202,7 @@ qu&#8217;une condition ne soit <strong>pas</strong> satisfaite.</p>
 </div>
 </div>
 <div class="section" id="une-autre-facon-de-repeter">
-<h1>41. Une autre façon de répéter<a class="headerlink" href="#une-autre-facon-de-repeter" title="Lien permanent vers ce titre">¶</a></h1>
+<h1>48. Une autre façon de répéter<a class="headerlink" href="#une-autre-facon-de-repeter" title="Lien permanent vers ce titre">¶</a></h1>
 <p>Nous pouvons également utiliser une façon différente de répéter une
 certaine instruction, qui est spécifique à cette instruction.
 Supposons que l&#8217;on veuille <em>tourner à droite</em> ou <em>faire demi-tour</em>
@@ -216,7 +216,7 @@ Une façon de faire ceci serait la suivante:</p>
 <p>En utilisant cette définition, <code class="docutils literal"><span class="pre">tourne_a_droite()</span></code> serait <code class="docutils literal"><span class="pre">tourne(3)</span></code>
 et <code class="docutils literal"><span class="pre">demi_tour()</span></code> serait <code class="docutils literal"><span class="pre">tourne(2)</span></code>. Essayez!</p>
 <div class="section" id="comportement-par-defaut">
-<h2>41.1. Comportement par défaut<a class="headerlink" href="#comportement-par-defaut" title="Lien permanent vers ce titre">¶</a></h2>
+<h2>48.1. Comportement par défaut<a class="headerlink" href="#comportement-par-defaut" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Vous vous rappelez du fait que <code class="docutils literal"><span class="pre">prend()</span></code> et <code class="docutils literal"><span class="pre">prend(&quot;jeton&quot;)</span></code> sont équivalents?
 Ne serait-il pas utile d&#8217;avoir quelque chose de semblable pour <code class="docutils literal"><span class="pre">tourne()</span></code> où <code class="docutils literal"><span class="pre">tourne()</span></code>,
 sans argument, serait équivalent à <code class="docutils literal"><span class="pre">tourne_a_gauche()</span></code>?</p>
@@ -247,10 +247,10 @@ sans argument, serait équivalent à <code class="docutils literal"><span class=
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-             <a href="oop.html" title="42. Introduction to OOP in Python with Reeborg"
+             <a href="oop.html" title="49. Introduction to OOP in Python with Reeborg"
              >suivant</a></li>
         <li class="right" >
-             <a href="harvest3.html" title="39. D’autres récoltes"
+             <a href="harvest3.html" title="46. D’autres récoltes"
              >précédent</a> |</li>
         <li><a class="logo" href="../../index_en.html" class="fake_button">
               <img class="logo"  src="_static/robot_e.png" alt="Logo"/><span class="logo">Le monde de Reeborg</span>

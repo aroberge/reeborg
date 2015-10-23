@@ -53,6 +53,25 @@ Ceci peut être réalisé en ajoutant les deux instructions suivantes::
     Qu'arrive-t-il si, au lieu de ``tourne_a_gauche()``, vous ajoutez plutôt une
     autre instruction ``avance()``?
 
+.. important::
+
+    J'ai choisi de définir la fonction ``tourne_a_gauche()`` sans
+    accent grave sur le "a"  (donc au lieu de ``tourne_à_gauche()``).
+    Plusieurs langage de programmation (dont les premières versions du
+    langage Python) ne permettent pas d'écrire des noms de fonctions
+    avec des lettres comportant des accents.  Donc, les programmeurs
+    se sont habitués à seulement utiliser des lettres sans accents,
+    ce qui leur permettait  en plus de collaborer
+    avec des programmeurs d'autres pays.
+    Par exemple, imaginez que vous collaborez avec un programmeur
+    polonais qui utiliserait le nom de fonction ``ćęń``: il
+    ne serait pas facile pour vous d'écrire un programme utilisant
+    une telle fonction parce que votre clavier n'a pas les accents
+    requis.
+
+    Vous verrez également plus tard que j'utilise le nom
+    ``depose`` au lieu de ``dépose`` pour cette même raison.
+
 Un autre point de vue
 ---------------------
 

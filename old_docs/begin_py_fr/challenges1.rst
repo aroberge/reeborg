@@ -207,5 +207,5 @@ permettant d'accomplir les diverses tâches confiées à Reeborg.
         avance()
         prend()
 
-    devrait en principe fonctionner.  Au moment où j'écrit cette note, il
+    devrait en principe fonctionner.  Au moment où j'écris cette note, il
     y a un bogue (https://github.com/aroberge/reeborg/issues/199)
