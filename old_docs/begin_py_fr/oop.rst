@@ -1,166 +1,180 @@
-Introduction to OOP in Python with Reeborg
-==========================================
+Introduction à la POO en Python avec Reeborg
+============================================
 
 
 .. important::
 
-   Traduction française à venir ...
+   Traduction française à terminer ...
 
-As you know, Reeborg is in poor shape.
-It can only turn to its left, its compass is broken as
-it can only be used to determine whether or not Reeborg is facing North.
-Reeborg cannot turn its head left, so it cannot find out if there is
-a wall to its left without turning its entire body.
-Finally, it leaks oil which is bad for itself and the environment.
+Comme vous le savez, Reeborg est en bien mauvais état.
+Il peut seulement tourner vers sa gauche; sa boussole est brisée,
+elle lui permet seulement de déterminer s'il fait face au nord ou non.
+Reeborg ne peut pas tourner sa tête vers sa gauche; il ne peut donc
+pas détecter s'il y a un mur à sa gauche sans tourner entièrement
+son corps.
+Finalement, il a une fuite d'huile ce qui est très mauvais
+pour l'environnement.
 
-Using the power of Object-Oriented Programming, you will learn how to
-fix Reeborg and how to give it additional capabilities.
+Utilisant la **Programmation Orientée Objet** (POO), vous allez
+apprendre à réparer Reeborg et à lui donner des capacités
+additionnelles.
+
 
 .. note::
 
-   **For the advanced reader**
+   **Pour les experts !**
 
-   If you are not a beginner Python programmer and are experimenting on
-   your own based on what you already know,
-   you may find that some advanced but valid Python code you write
-   will occasionally raise some unexpected exceptions.  The reason is that most
-   of the code powering Reeborg's world is written in Javascript and
-   there's only a thin layer that has been written in Python using
-   Brython.  As a result some Javascript objects, methods or attributes
-   are not directly available.  Furthermore, animations are done by
-   cloning and saving the world state as a JSON string; if you
-   attempt to create your own class using some objects already present,
-   you may unknowingly create a circular reference which will prevent
-   the cloning and raise an exception.
+   Si vous connaissez déjà la programmation Python et vous utilisez
+   le monde de Reeborg simplement pour vous amuser à utiliser ce que vous
+   connaissez déjà, il peut arriver (très rarement je l'espère)
+   que vous écriviez du code complètement
+   valide mais dont le résultat ne soit pas conforme à vos attentes.
+   La raison pour ceci est que le Monde de Reeborg a été écrit principalement
+   en Javascript, avec une simple interface pour Python utilisant Brython.
+   Le résultat est que certains objets, méthodes ou attributs Javascript
+   ne sont pas disponibles directement.  De plus, les animations sont
+   faites en clonant l'état du monde et en le sauvegardant dans le
+   format JSON; si vous tentez de créer vos propres classes utilisant
+   des objets déjà présents, il pourrait arriver que vous créiez des
+   références circulaires qui vont résulter en des exceptions.
 
-   I could have written the entire program in Python using Brython ...
-   but it would have made the situation worse if I had tried to use
-   the result to enable programmers to use Javascript or CoffeeScript
-   as their language of choice -- which they can do now.
+   En utilisant Brython, j'aurais pu écrire le logiciel entièrement en Python
+   ... mais ceci n'aurait pas permis (du moins pas facilement) de pouvoir
+   utiliser le site pour programmer Reeborg en utilisant
+   Javascript ou CoffeeScript au lieu de Python, ce qui est possible
+   présentement.
 
 
-The dot notation
-================
+La notation "pointée"
+=====================
 
-We are going to learn about a modern programming style called
-Object-Oriented Programming [OOP].
-Before we start writing object-oriented programs,
-we will first learn how to read and understand the notation used.
+Nous allons apprendre un style de programmation moderne
+appelé la Programmation Orientée Objet [POO].
+Mais avant d'écrire des programmes orientés-objet,
+nous devons tout d'abord apprendre à lire et à comprendre
+la notation utilisée.
 
-All in a dog's day
+
+Une vie de chien?
 ------------------
 
-Fido is a dog. During a typical day, he does various actions: he eats,
-runs, sleeps, etc. Here's how an object-oriented programmer might write
-this::
+Milou est un chien.
+Pendant une journée typique, il fait diverses actions:
+il mange, il court, il dort, etc.   Voici comment
+un programmeur utilisant la POO pourrait écrire ceci::
 
-    Fido = Dog()
-    Fido.eats()
-    Fido.runs()
-    Fido.sleeps()
 
-In addition, Fido has various qualities or attributes. These are
-variables, like we have seen before except that they "belong" to Fido.
-It is tall (for a dog) and its hair is black. Here's how the programmer
-might write the same things::
+    Milou = Chien()
+    Milou.mange()
+    Milou.court()
+    Milou.dort()
 
-    Fido.size = "tall";
-    Fido.hair_colour = "black";
+De plus, Milou a diverses qualités ou attributs.
+Ces attributs sont des variables, comme nous avons vu auparavant,
+sauf qu'elles "appartiennent" à Milou.
+Par exemple, Milou est petit et son poil est noir.
+Un programmeur pourrait décrire ceci comme suit::
 
-In the object-oriented language, we have the following:
+    Milou.taille = "petit"
+    Milou.couleur_de_poil = "noir"
 
--  ``Dog`` is an example of a *class* of **objects**.
--  ``Fido`` is an **instance** (or particular object) in the Dog class.
--  ``eats(), runs()`` and ``sleeps()`` are **methods** of the Dog class;
-   **methods** are essentially like **functions** which we have seen before (the
-   only difference is that they *belong* in a given
-   class/object/instance).
--  ``size`` and ``hair_colour`` are attributes of a given
-   instance/object; attributes can take any value that a "normal"
-   variable can take.
--  The connection between the attributes or the methods with the object
-   is indicated by a "dot" (".") written between them.
+Dans le langage de la programmation orientée objet, nous avons ce qui suit:
 
-Objects can also have other objects that belong to them, each with their
-own methods or attributes::
+-  ``Chien`` est un exemple d'une **classe** d'objets.
+-  ``Milou`` est une **instance** (objet) de la classe Chien.
+-  ``mange(), court()`` et ``dort()`` sont des **méthodes** de la classe Chien;
+   les **méthodes** sont essentiellement la même chose que les **fonctions**
+   que nous avons vu précédemment: la seule différence est qu'elles
+   "appartiennent" à une classe ou une instance de la classe donnée.
+-  ``taille`` et ``couleur_de_poil`` sont des attributs d'une instance donnée;
+   les attributs peuvent prendre n'importe quelle valeur qu'une variable "normale"
+   pourrait prendre.
+-  La relation entre un attribut ou une méthode et l'objet auquel il ou elle
+   appartient est indiqué par un point écrit entre les deux.
 
-    Fido.tail.wags()
-    Fido.tail.type = "bushy";
-    Fido.left_front_paw.moves()
-    Fido.head.mouth.teeth.canine.hurts()
+Les objets peuvent avoir d'autres objets qui leur "appartiennent",
+chacun avec ses propres méthodes ou attributs::
 
-Let's now see how Reeborg uses the dot notation.
+    Milou.queue.remue()
+    Milou.queue.type = "fournie";
+    Milou.patte_avant_gauche.bouge()
+    Milou.tête.bouche.dents.canine.est_douloureuse()
 
-A Used Robot gets his name
+Voyons maintenant comment Reeborg utilise la notation pointée.
+
+Un robot usagé est baptisé
 --------------------------
 
-So far, all the programs we wrote instructing Reeborg to accomplish
-tasks have been written without using the dot notation. Let's change
-this, starting with a simple example.
+Jusqu'à maintenant, nous avons écrit des programmes sans utiliser
+la notation pointée.  C'est le temps d'apprendre à le faire,
+en commençant avec un exemple simple.
 
-First, we start by selecting the world **Empty** which has no robot in it.
+En premier, sélectionnez le monde **Vide** qui n'a aucun robot présent.
 
-Now, you might remember what we said about Reeborg: it is old and faulty
-... since it is a Used Robot. [We will learn how to fix it and its
-friends later.] So, we will create our first instance of a ``UsedRobot``
-and name it, appropriately, Reeborg! We will then instruct it to take
-one step.
+J'ai mentionné à plusieurs reprises que Reeborg était un robot usagé ...
+Nous allons donc créer notre première instance d'un ``RobotUsage``
+(sans accent aigu sur le e) et lui donner un nom familier!
+Ensuite, nous allons lui demander de faire un pas vers l'avant.
 
-.. topic:: Try it!
+.. topic:: À votre tour !
 
-   Create a robot and have it take its first step using the following code::
+   Créez un robot et faites-le avancer d'un pas en utilisant le programme
+   suivant::
 
-      reeborg = UsedRobot()
-      reeborg.move()
+      reeborg = RobotUsage()
+      reeborg.avance()
 
-   When you are done, try to write a more complicated program, having Reeborg's
-   name preceding any command given to him.
+   Lorsque vous aurez terminé, essayez d'écrire un programme plus complexe,
+   en utilisant d'autres instructions.
 
 .. important::
 
-   You may have noticed that I named the robot ``reeborg`` with all lower case
-   letters.  It is a convention in Python (and many other programming languages)
-   to give a name starting with a lower case letter to *instances* of a class of objects,
-   reserving names that start with an upper case letter, like ``UsedRobot``, for
-   classes of objects.
+   Vous avez probablement remarqué que j'ai écrit le nom ``reeborg`` tout en
+   lettres minuscules.  Lorsqu'on écrit des programmes en utilisant Python
+   (ainsi que plusieurs autres langages informatiques), on utilise souvent
+   la convention de donner des noms tout en lettres minuscules aux
+   *instances* des classes d'objets, et de réserver les noms débutant avec
+   une majuscule pour les classes elles-mêmes.  Donc ici, j'ai la classe
+   d'objets ``RobotUsage`` et le nom d'une instance ``reeborg``.
 
-   **However**, I will often **not** follow this convention in naming Reeborg and
-   other robots.
-
-Many robots
------------
-
-.. topic:: Try this!
-
-   Select the world **Empty** which has no robot in it.  Then enter the following
-   code::
-
-       reeborg = UsedRobot()
-       reeborg.move()
-       erdna = UsedRobot()
-       erdna.turn_left()
-       erdna.move()
-       reeborg.move()
-
-   You can add even more robots!
+   **Cependant** ... je ne suivrai pas toujours cette convention dans ce
+   tutoriel; je suis trop habitué à écrire Reeborg avec un R majuscule.
 
 
-For the advanced reader
------------------------
+Plusieurs robots
+----------------
 
-In addition to the dot notation, there is another way to get the value of
-attributes or methods that belong to an object in Python.  Suppose I have a ``Dog()``
-as above, for which I can have the following::
+.. topic:: Essayez ceci!
 
-    Fido.size = "tall"
-    Fido.run()  # is an action that Fido can do
+   Sélectionnez le monde **Vide**, donc sans robots.  Puis exécutez le
+   code suivant::
 
-With Python, one can use the built-in function ``getattr``, whose name
-is meant to remind of "get attribute", as follows::
+       reeborg = RobotUsage()
+       reeborg.avance()
+       erdna = RobotUsage()
+       erdna.tourne_a_gauche()
+       erdna.avance()
+       reeborg.avance()
 
-    how_big = getattr(Fido, "size")    # equivalent to how_big = "tall"
-    action = getattr(Fido, "run")
-    action()       # equivalent to Fido.run()
+   Vous pouvez ajouter d'autres robots si vous le désirez!
 
-``getattr`` can be very useful in some contexts but its use is overly
-complicated for what we need to do in Reeborg's world.
+Pour les programmeurs expérimentés
+-----------------------------------
+
+En plus de la notation pointée, il y a une autre façon d'obtenir la valeur
+d'un attribut ou d'une méthode qui appartient à un objet en Python.
+Supposons que j'ai la classe ``Chien`` comprenant ceci::
+
+    milou = Chien()
+    milou.taille = "petit"
+    milou.court()   # action possible
+
+Avec Python, la fonction ``getattr``  (de l'anglais *get attribute*)
+permet de faire ce qui suit::
+
+    la_taille = getattr(milou, "taille")   # donne "petit" pour la_taille
+    action = getattr(milou, "court")
+    action()     # équivalent de milou.court()
+
+``getattr`` peut être très utile dans certains contextes, mais probablement
+pas pour les tâches possibles du Monde de Reeborg.
