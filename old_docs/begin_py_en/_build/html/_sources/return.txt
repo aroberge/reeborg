@@ -1,6 +1,13 @@
 Return
 ======
 
+
+.. todo::
+
+   Add an explanation about the fact that a function always
+   returns a value; if no return value is explictly written,
+   then the function returns  ``None``.
+
 .. note::
 
     North is toward the top of the screen; East
@@ -90,7 +97,7 @@ dizzy if you keep track of all left turns that Reeborg has to make: when
 its orientation is not South, for each left turn that he makes to change
 its orientation, he must make 4 more to determine its new orientation!
 
-In a future tutorial, when we talk about Object-Oriented Programming, 
+In a future tutorial, when we talk about Object-Oriented Programming,
 we will find a way, by digging in Reeborg's built-in program, to
 fix its compass and have it determine its orientation without getting
 dizzy.
