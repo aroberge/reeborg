@@ -1,165 +1,196 @@
-Many right turns
+Virage à droite
 ================
 
+Sélectionnez le monde **Vide**, sans robots.  Puis, définissez
+ce qui suit::
 
-.. important::
+    def tourne_a_droite(nom_du_robot):
+        for _ in range(3):
+            nom_du_robot.tourne_a_gauche()
 
-   Traduction française à venir ...
+Remarquez que, contrairement à ce que l'on faisait auparavant,
+on a la variable ``nom_du_robot`` que l'on utilise comme argument
+de la fonction ``tourne_a_droite``.
+
+Voici comment utiliser cette fonction::
+
+    Reeborg = RobotUsage()
+    Erdna = RobotUsage(4, 3)  # crée un robot à un endroit différent!
+
+    Reeborg.avance()
+    tourne_a_droite(Reeborg)
+    Erdna.tourne_a_gauche()
+    tourne_a_droite(Erdna)
+
+.. topic:: Faites-le!
+
+   Définissez ``tourne_a_droite`` et utilisez cette fonction dans un programme,
+   comme nous l'avons fait ci-dessus.
+
+Cette approche fonctionne... mais c'est bizarre d'avoir à utiliser
+une *fonction* pour faire des virages à droite et une *méthode*
+pour faire des virages à gauche.  Il doit y avoir une meilleure façon ...
+
+Une autre classe
+----------------
+
+``RobotUsage`` est un exemple de ce qu'on appelle une **classe** d'objets.
+Une classe est une collection d'objets qui partagent des méthodes (fonctions)
+ainsi que des attributs.  Ci-dessous, je vais vous montrer comment créer
+une copie conforme d'une classe existante; après, on verra comment créer
+une classe qui ne sera pas identique à une classe déjà existante.
 
 
-Select the world Empty which has no robot in it. Next define the
-following function::
+.. topic:: Faites ceci!
 
-    def turn_right(robot):
-        robot.turn_left()
-        robot.turn_left()
-        robot.turn_left()
+   Pour créer une nouvelle classe d'objets, on utilise le mot-clé
+   ``class`` comme ceci::
 
-Note how we pass the variable ``robot`` as an argument to the function
-and how we use it inside the function; this variable will be the robot's
-name.
-
-After defining this function, you can use it as follows::
-
-    Reeborg = UsedRobot()
-    Erdna = UsedRobot(4, 3)  # creating a robot at a different location!
-
-    Reeborg.move()
-    turn_right(Reeborg)
-    Erdna.turn_left()
-    turn_right(Erdna)
-
-.. topic:: Try it!
-
-   Define ``turn_right`` and use it with a program like the one written just
-   above.
-
-This works ... but it does not look right since the *function* that is
-used to make the robots turn right uses a different syntax from the
-*method* that is used to make them turn left. There has to be a better way...
-
-
-Derived classes
----------------
-
-``UsedRobot`` is an example of a Python ``class``.  You can think of a
-"class" as a collection of objects that have common methods (functions) and
-attributes.  What I am going to show
-you now is to create a new ``class`` that inherits from an existing one.
-After having done that, we'll see how we can create new classes that do more
-than simply inheriting from existing ones.
-
-.. topic:: Try this!
-
-   Try the following code::
-
-        class UsedRobotClone(UsedRobot):
+        class RobotUsageClone(RobotUsage):
             pass
 
-        Reeborg = UsedRobotClone()
-        Erdna = UsedRobotClone(4, 3)
+        # comme précédemment, on définit une fonction pour
+        # faire des virages à droite. Notez que l'indentation
+        # de "def" est au même niveau que celle de "class"
 
-        def turn_right(robot):
-            robot.turn_left()
-            robot.turn_left()
-            robot.turn_left()
+        def tourne_a_droite(nom_du_robot):
+            for _ in range(3):
+                nom_du_robot.tourne_a_gauche()
 
-        Reeborg.move()
-        turn_right(Reeborg)
-        Erdna.turn_left()
-        turn_right(Erdna)
+        Reeborg = RobotUsageClone()
+        Erdna = RobotUsageClone(4, 3)
 
-   It should do the exact same thing as the previous example, even though
-   we use a different ``class`` to create new robots.
+        Reeborg.avance()
+        tourne_a_droite(Reeborg)
+        Erdna.tourne_a_gauche()
+        tourne_a_droite(Erdna)
 
-``pass`` is a Python keyword that means "do nothing".  It is inserted when we
-do not want to do anything special but need something so that the block
-structure (indentation) is interpreted correctly by Python.
 
-Time to do a little be more than just creating a clone of the existing class.
+   Cette nouvelle classe d'objets fonctionne exactement de la même
+   façon que la classe original ``RobotUsage``.  À noter que ``pass``
+   est un mot-clé Python qui signifie "ne fait rien".  On l'utilise
+   lorsqu'on veut créer un bloc de code pour respecter la syntaxe
+   Python (l'indentation du bloc en particulier), mais qu'on n'a pas
+   besoin que ce bloc comporte des instructions particulières.
 
-Designing a new class
----------------------
+Lorsque vous aurez reproduit l'exemple ci-dessus, ce sera le temps
+de créer une nouvelle classe qui fait plus que la classe originale.
 
-I will show you first how we can fix our robot so that it knows how to turn right,
-and explain what I did afterwords.
+Une nouvelle classe
+-------------------
+
+Ce que j'aimerais faire, c'est de concevoir une nouvelle classe qui
+a une **méthode** appelée ``tourne_a_droite`` au lieu d'avoir à créer
+une fonction.  Tout ce que j'ai à faire est d'insérer la définition
+de la fonction comme un bloc de code appartenant à la nouvelle
+classe (on indique ceci par l'indentation), au lieu d'une
+fonction séparée.
 
 .. code-block:: py3
 
-    class RepairedRobot(UsedRobot):
-        def turn_right( this_RepairedRobot ):
-            for i in range(3):
-                this_RepairedRobot.turn_left()
+    class RobotRéparé(RobotUsage):
+        def tourne_a_droite(nom_du_robot):
+            for _ in range(3):
+                nom_du_robot.tourne_a_gauche()
 
 
-Here's how we can then use this new class of objects::
+Et voici comment on peut utiliser cette nouvelle classe::
 
-    new_Reeborg = RepairedRobot()
-    new_Erdna = RepairedRobot(4, 3)
+    reeborg = RobotRéparé()
+    erdna = RobotRéparé(4, 3)
 
-    new_Reeborg.turn_left()    # as before
-    new_Reeborg.turn_right()   # new method!
+    reeborg.tourne_a_gauche()   # comme auparavant
+    reeborg.tourne_a_droite()   # nouvelle méthode!
 
-    new_Erdna.turn_right()     # this one works too!
+    erdna.tourne_a_droite()     # Ceci fonctionne aussi!
 
-.. topic:: Try it!
+.. topic:: À votre tour!
 
-   Try the above code and make sure it works.  **However**, you might want
-   to choose a slightly shorter name than ``this_RepairedRobot``.
-
-
-Explanation
-~~~~~~~~~~~
+   Reproduisez le programme ci-dessus, et assurez-vous que le
+   tout fonctionne correctement.
 
 
-The Python keyword ``class`` indicates that we are going to define a new
-type of function, one that creates objects.
-What follows class is ``RepairedRobot(UsedRobot)``.
-``RepairedRobot`` is the name of our new class;
-by writing ``UsedRobot`` between the parentheses,
-we ensure that the new class ``RepairedRobot`` inherits all the methods and
-attributes that ``UsedRobot`` had. Thus, when we write::
+Explication plus détaillée
+--------------------------
 
-    new_Reeborg = RepairedRobot()
+.. todo::
 
-we create a new robot "named" ``new_Reeborg`` which can do (at least all)
-the same things that the old::
+    L'explication suivante repose sur un texte non encore écrit au
+    sujet de l'utilisation de ``return`` pour les fonctions.
 
-    Reeborg = UsedRobot()
+Nous avons vu comment on définissait et utilisait une fonction::
 
-could do.
+    def ma_fonction():           # définir
+        ...
 
-Next, inside the new class, as indicated by the indented block,
-we define a new method, ``turn_right()``.
-By defining it inside the class, we take the first step to insure that all the
-robots that are created by calling ``RepairedRobot()`` will be able to turn right!
+    résultat = ma_fonction()     # invoquer
 
-The second step that is required is to tell Python that the method will
-"belong" to the particular object that has been created.
-To do so, we used above the variable ``this_RepairedRobot``
-which will refer to new_Reeborg, new_Erdna, etc., depending on what object is created.
-When we write::
+In l'invoquant ainsi, on associe à la variable ``résultat`` soit la
+valeur désignée par l'utilisation du mot-clé ``return`` ou la
+valeur ``None`` si ``return`` n'est pas utilisé.
 
-    new_Reeborg = RepairedRobot()
+La définition d'une classe d'objet et son invocation suivent le même
+patron::
 
-Python creates a new instance of the class ``RepairedRobot`` and defines
-all the methods, effectively replacing the first argument of the method
-(``this_RepairedRobot``) by the name of the instance (``new_Reeborg``).
+    classe MaClasse():            # définition
+        ...
 
-Now, ``this_RepairedRobot`` is rather a long name to type.
-By convention, another variable name is used: ``self``.
-Thus, to follow the normal convention, I should have written::
+    instance = MaClasse()         # invocation
 
-    class RepairedRobot(UsedRobot):
-        def turn_right(self):
-            for i in range(3):
-                self.turn_left()
+Par défaut, l'invocation d'une classe "retourne" automatiquement un
+objet sans avoir à utiliser le mot-clé ``return``.
+
+Si on veut qu'une classe "hérite" les méthodes et attributs d'une
+autre classe, il suffit d'ajouter celle-ci comme argument de la
+nouvelle classe::
+
+
+    classe Enfant(Parent):
+        ...
+
+Lorsqu'on invoque une méthode d'une instance donnée, Python substitue
+automatiquement le nom de l'instance comme premier argument de la
+méthode::
+
+
+    instance = MaClasse()
+
+    instance.ma_méthode(argument_2, argument 3, ...)
+
+    # Si ma_méthode était une fonction, on aurait plutôt écrit
+    # ma_méthode(instance, argument_2, argument3, ...)
+
+
+Conventions importantes
+-----------------------
 
 .. important::
 
-   It is extremely important that you try the code for the ``RepairedRobot``
-   class, either using ``self`` or ``this_RepairedRobot``
-   before moving on to the next lesson.
+  Les programmeurs Python suivent deux conventions importantes lors
+  de la définition des classes et des méthodes.  L'idée de ces conventions
+  est d'être capable automatiquement de reconnaître la nature de certains
+  objets.
 
+Par convention, les noms de classes débutent par une lettre majuscule.
+Si le nom d'une classe est constitué de plusieurs mots, chaque mot
+débute par une lettre majuscule.  Ainsi, la classe à laquelle appartient
+Reeborg est ``RobotUsage``.  Si on avait un nom de variable, on utiliserait
+plutôt des lettres minuscules et on séparerait les mots par des
+caractères de soulignement: ``robot_usage`` comme on l'a vu avec
+``tourne_a_gauche``.
 
+Une deuxième convention est que le premier argument d'une méthode
+est désigné par le mot ``self``  (qu'on peut traduire par "soi-même")
+au lieu du nom ``nom_du_robot`` que j'avais utilisé auparavant.
+Ainsi, pour respecter cette convention, j'aurais dû écrire plus tôt::
 
+    class RobotRéparé(RobotUsage):
+        def tourne_a_droite(self):
+            for _ in range(3):
+                self.tourne_a_gauche()
+
+Si vous regardez de très près, vous pourrez peut-être constater que
+le mot ``self`` n'est pas écrit en noir mais plutôt en vert comme
+la fonction ``range``: ceci est fait automatiquement par le logiciel
+qui convertit mon texte en une page web, ce logiciel reconnaissant le
+mot ``self`` comme étant un mot utilisé par convention en Python.

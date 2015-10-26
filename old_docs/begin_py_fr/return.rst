@@ -1,6 +1,12 @@
 return
 ======
 
+.. todo::
+
+   Ajouter une explication sur le fait que toute fonction
+   retourne une valeur; si rien n'est indiqué de façon explicite,
+   alors la valeur retournée est ``None``.
+
 
 .. note::
 

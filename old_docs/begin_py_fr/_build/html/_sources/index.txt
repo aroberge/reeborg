@@ -89,6 +89,8 @@ Table des matières:
    listes
    string_index
    for
+   arguments1a
+   arguments1b
    slice
    return
    increment
@@ -97,7 +99,9 @@ Table des matières:
    better_repeat
    oop
    methods
+   dir
    turn_right
+   arguments2
    turn_right2
    javascript
    modulo
@@ -106,12 +110,11 @@ Table des matières:
    leak
    testing
    conclusion
-
-
+   future_ideas
 
 .. warning::
 
-    Ce tutoriel est en plein milieu d'une revision majeure.
+    Une révision majeure de ce tutoriel est présentement en cours.
 
 .. admonition:: Pour les enseignants
 
@@ -119,4 +122,12 @@ Table des matières:
     que possible d'utiliser des variables ainsi que des fonctions avec
     des arguments.  Cette approche reflète l'approche utilisée par
     Pattis avec le Karel original pour lequel les variables n'existaient pas.
+
+    Cependant, dans ce tutoriel, je vais au-delà de ce qui était possible
+    avec le Karel de Pattis et j'essaie de couvrir autant de concepts
+    que possibles en programmation Python.   Au-delà des concepts de base
+    de la programmation, ce tutoriel offre ainsi un matériel d'enrichissement
+    complémentaire à celui d'une approche plus traditionnelle, et permet
+    de bien visualiser ce qui se passe dans un programme donné dans un
+    contexte qui leur est familier.
 
