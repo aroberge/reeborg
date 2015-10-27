@@ -41,3 +41,7 @@ explorer et à possiblement rajouter à ce tutoriel:
 - Ajouter une note pour enseignants (à un endroit approprié) expliquant que
   les fonctions de base sont essentiellement de méthodes qui sont invoquées
   pour la première instance d'un robot dans un monde donné.
+
+- Utilisez la classe ``Satellite`` qui a la méthode ``obtient_carte()``
+  [``get_world_map`` en anglais] pour obtenir un dict Python contenant
+  l'information au sujet du monde.
