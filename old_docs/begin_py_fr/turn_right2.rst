@@ -1,169 +1,198 @@
-Turn right ??
-=============
+Virage à droite ??
+===================
+
+À la fin d'une section précédente, je vous ai menti.  J'ai écrit que
+le code suivant permettait de réparer Reeborg::
+
+    class RobotRéparé(RobotUsage):
+        def tourne_a_droite(self):
+            for _ in range(3):
+                self.tourne_a_gauche()
+
+Ce n'est pas vrai.  Reeborg n'est **pas** réparé: il a encore besoin
+de faire trois virages à gauche et ne peut pas virer directement vers
+sa droite.   Pour véritablement le réparer, nous allons avoir besoin
+d'examiner le code secret qui permet à Reeborg de fonctionner.
+Ceci va prend un peu de temps, mais ça va valoir la peine.
+En cours de route, on va en apprendre davantage sur Python ...
+et nous apprendrons des rudiments de code Javascript!
 
 
-.. important::
+.. sidebar:: Pourquoi utiliser ``examine``?
 
-   Traduction française à venir ...
+  J'ai parfois besoin de changer certaines parties de mes programmes
+  [bien sûr, ce n'est **jamais** en raison de bogues puisque mes
+  programmes n'ont **jamais** de bogues ;-)].
+  Il pourrait donc arriver que le code que je décrit ici est légèrement
+  différent de celui qui fait fonctionner le monde de Reeborg lorsque
+  vous lirez ce tutoriel.  En utilisant ``examine``, vous pourrez
+  voir le code qui permet à Reeborg de fonctionner **maintenant** (et
+  pas celui qui existait au moment où j'ai écrit ce tutoriel).
+  Si le code que vous voyez en utilisant ``examine`` est différent
+  de celui qui est décrit dans ce tutoriel, et que ceci vous empêche
+  de comprendre ce qui se passe, svp, contactez-moi.
 
 
-In the last lesson, I mislead you.  Here's the code we ended with::
+Explorons le code de Reeborg
+----------------------------
 
-    class RepairedRobot(UsedRobot):
-        def turn_right(self):
-            for i in range(3):
-                self.turn_left()
+Exécutez le programme suivant::
 
-The robot is **not** repaired: it still accomplishes right turns by turning
-left three times.  We really need to fix this.  However, in order to do
-so, we will need to learn a bit more about the actual program that controls
-the robot.   This is going to be a bit long, but very worthwhile in the end.
-Along the way, you will learn new Python concepts ... and you will even
-see some and understand some Javascript code!
+    reeborg = RobotUsage()
+    examine(reeborg)
 
-.. sidebar:: Why use ``inpect``?
-
-   I sometimes change things in my programs [of course, **never**
-   because my programs contain bugs ;-)] and it may just happen that the
-   code I describe in this tutorial is slightly different from the one that
-   happens to be used in Reeborg's World as you are reading this.  If the
-   differences are small, I do not plan to revise the entire set of tutorials
-   every time I make a change.  By having you using ``inspect`` to follow along with me,
-   you should be able to figure out how to make things work; if not, contact me!
-
-Digging into Reeborg's code
----------------------------
-
-Open Reeborg's Diary.  If you want, you can also hide the world by clicking
-on the "World" button.
-
-Enter and execute the following code and look at the result in the Diary::
-
-    r = UsedRobot()
-    inspect(r)
-
-``inspect`` is a Javascript function, understood by Python/Brython,
-that I wrote to enable you to see an
-object's methods and attributes. Right now, it does not tell us much.
-Here is what I get when I do this::
+``examine`` est une fonction Javascript, comprise par Python/Brython,
+que j'ai écrit afin de vous permettre d'identifier les méthodes et attributs
+d'un objet.   Le résultat de l'exécution du programme ci-dessus
+ne vous dira probablement pas grand'chose.  Voici ce que j'observe
+dans le journal de Reeborg lorsque j'exécute ce programme::
 
     __class__
     body
 
+On ne sais pas à ce moment-ci si ces noms représentes des méthodes ou
+des attributs.  ``__call__`` débute et termine avec deux caractères de
+soulignement: il s'agit d'une convention en Python pour dénoter des
+commandes internes à Python qui sont **principalement** réservées
+pour des programmeurs avancés.  Dans ce cas-ci, par expérience, je reconnais
+qu'il s'agit du nom d'une méthode.
+
+``body``, qui est un mot anglais signifiant "corps", est l'autre nom; on sait
+donc que ``reeborg.body`` est *quelque chose*.
+Exécutons donc le programme suivant::
+
+    reeborg = RobotUsage()
+    examine(reeborg.body)
+
 .. note::
 
-   I use a single letter ``r`` for the robot name as this is a very short
-   program and I don't need a descriptive name.
+    Les programmeurs Python utilisent souvent une convention où les noms
+    de variables qui débutent avec un simple caractère de soulignement, comme
+    ``_prev_x``, indiquent que ces variables sont "privées" et ne devraient
+    normalement pas être changées par un autre programmeur.
 
-We do not know if they are methods or attributes.  ``__call__`` starts
-and ends with two underscore characters; this is a convention in the Python
-world to denote some internal Python code that is **mostly** reserved
-for advanced programmers.  The other is ``body``.
-So, we know that ``r.body`` is
-*something*.  Run the following code::
+Vous devriez voir quelque chose qui ressemble à ceci, sans les commentaires
+que j'ai rajoutés et qui donne un guide de traduction française::
 
-    r = UsedRobot()
-    inspect(r.body)
+  x
+  y
+  objects              # objet
+  orientation
+  _is_leaky            # "a une fuite"
+  _prev_x              # prev == previous signifiant précédent
+  _prev_y
+  _prev_orientation
+
+Vous avez déjà vu des rétroactions du genre **Reeborg est à la bonne
+coordonnée x** et la même chose pour **y**; ceci suggère que
+``x`` et ``y`` font probablement référence à la position de Reeborg.
+En tant que programmeur, vous devriez avoir le réflexe d'écrire immédiatement
+un programme pour vérifier
+
+.. |no_highlight| image:: ../../src/images/no_highlight.png
+
+
+.. topic:: Faites ceci!
+
+   .. important::
+
+       Annulez le surlignement des lignes de code pendant l'exécution,
+       autrement vous n'obtiendrez pas le résultat souhaité.
+
+       |no_highlight|
+
+
+       J'expliquerai par la suite pourquoi le résultat obtenu est différent
+       si on n'annule pas le surlignement des lignes de code.
+
+
+   Avec le monde **Vide**, exécutez le programme suivant::
+
+      sauteur = RobotUsage()
+      sauteur.body.x = 8
+      sauteur.body.y = 10
+
+Le résultat que vous devriez voir est simplement un robot créé aux
+coordonnées ``x=1, y=1`` ... ce qui n'est probablement pas ce à quoi
+vous vous attendiez ....
+
+.. topic:: Faites ceci!
+
+    Ajoutez l'instruction suivante::
+
+        sauteur.tourne_a_gauche()
+
+    à la fin de votre programme, et exécutez-le à nouveau.
+
+
+Qu'est-ce qui s'est passé?
+--------------------------
+
+Lorsqu'un programme est exécuté dans le monde de Reeborg,
+il est enregistré secrètement en coulisses,
+puis le résultat est démontré comme une animation dans un film.
+Ceci se fait en deux étapes:
+
+#. Le code Python est exécuté en entier.  Chaque instruction qui a comme
+   résultat un changement dans l'état du  monde (par exemple, la position
+   ou l'orientation de Reeborg change) fait en sorte que l'état du monde
+   est enregistré pour être recréé dans un "tableau".
+
+#. Le résultat du programme est par la suite montré, un "tableau" à la fois
+   avec un certain délai (qui peut être modifié par la fonction ``pense()``),
+   ce qui donne l'apparence de mouvement.
+
+Les instructions
+
+.. code-block:: py3
+
+      sauteur.body.x = 8
+      sauteur.body.y = 10
+
+ne sont pas des instructions identifies comme étant des instructions qui
+doivent faire en sorte qu'il y ait un enregistrement de l'état du monde.
+Par contre, l'instruction ``sauteur.tourne_a_gauche`` est reconnue et
+fait en sorte que l'état du monde soit enregistré.
 
 .. note::
 
-   Python programmers use a convention where variable names that start
-   with an underscore, like ``_prev_x`` are meant to indicate that they are "private" and
-   should normally not be changed by another programmer.
+    **L'effet du surlignement de code**
 
-You should see something like::
+    Avant que votre programme ne soit exécuté, si le surlignement de code
+    est activé, votre programme est modifié pour faire en sorte que
+    chaque ligne qui apparait dans l'éditeur soit accompagnée par une
+    autre ligne de code qui note le numéro de la ligne de code à exécuter
+    et fait un enregistrement de l'état du monde.
 
-    x
-    y
-    tokens
-    orientation
-    _is_leaky
-    _prev_x
-    _prev_y
-    _prev_orientation
-    triangle
-    square
-    star
-
-You certainly recognize the words ``tokens``, ``star``, ``triangle`` and
-``square`` from the challenges mentioned in the beginner's tutorial.
-Also, various challenges told you that *Reeborg is at the correct* ``x``
-*position*, and similarly for ``y``.  So it would seem likely that ``x``
-and ``y`` refer to Reeborg's position.  As a programmer, your first reflex
-should be write a program and see if this is the case.
-
-.. topic:: Try this!
-
-   Select the world **Empty** and execute the following code::
-
-      jumper = UsedRobot()  # mutant robot that teleports itself
-      jumper.body.x = 8
-      jumper.body.y = 10
-
-All you should see is a robot created at ``x=1, y=1`` ... which might not be
-what you have expected.
-
-.. topic:: Try this!
-
-    Add the following instruction::
-
-        jumper.turn_left()
-
-    at the end of your program and run it again.
+Ce qu'on aimerait savoir est comment faire en sorte qu'on enregistre l'état
+du monde lorsqu'on utilise une instruction non-reconnue par
+Reeborg comme étant une instruction
+qui change l'état du monde.   Pour ce faire, nous allons devoir examiner
+le code Javascript utilisé par le Monde de Reeborg.
 
 
-What happened?
---------------
-
-You may recall from previous tutorials that Reeborg's actions are recorded
-(like a movie) and played back one "frame" at a time.  The recording of a given
-state happens when some special instructions are given.  By changing the value
-of the attribute ``x`` or ``y`` of the ``jumper.body`` object, you do not
-trigger a frame recording.  However, by adding a ``turn_left()`` instruction at the
-end, we do make a recording of the situation, which shows us that the previous
-instructions did indeed change the robot's position.
-
-So, how can we trigger a frame recording without using an existing method which
-could cause the robot to not end up in our desired position or orientation?
-The answer will be provided by looking at the Javascript code powering most of
-Reeborg's World.
 
 Javascript !?
 -------------
 
-If we are going to look at some Javascript code and you are reading this
-tutorial with Python as your first (and only) programming language, you might
-be wondering if you made a mistake in choosing Python over Javascript.
+Puisque nous allons examiner du code Javascript, et que vous lisez
+ce tutoriel presque certainement parce que vous êtes un débutant
+en programmation et que Python est votre tout premier langage, vous
+vous demandez peut-être si vous avez fait erreur en choisissant
+Python plutôt que Javascript...
 
-Don't worry, you did not.
+Ne vous inquiétez pas, vous aviez fait le bon choix.
 
-You already know about libraries; chances are there are some functions
-defined in yours on `Reeborg's World <http://reeborg.ca/world.html>`_.
-Libraries are sometimes written in a different language
-than the main programming one.  For numerical work, Fortran has long been
-the language of choice and most numerical libraries have been written
-in Fortran.  Many other libraries have been written in the C language.
+Vous avez déjà appris qu'il existe des bibliothèques qui peuvent
+être utilisées dans vos programmes.  Pour ceux qui font des
+calculs numériques, les bibliothèques qu'ils utilisent sont
+souvent écrites dans le langage Fortran.  En fait, plusieurs
+programmeurs Python utilisent de telles bibliothèques.
 
-Python is sometimes described as a glue language.  You can write Python
-programs that make use of functions found in Fortran and C libraries.
-Usually, to make use of such libraries, one refers to documentation written
-that indicates what functions can be called and how.
+Pour le web, le langage de choix est habituellement Javascript.
+Puisque le Monde de Reeborg vit sur le web, il n'est pas étonnant
+qu'une grande partie de son code soit écrit en Javascript.
 
-You can think of the Javascript code powering most of Reeborg's world as
-a special library.  However, no documentation on that library exists.
-The way to find out about the functions existing in this library are to look
-at the code itself, which is what we are about to do.  However, before we
-do this, you should take a quick crash course on Javascript.
-
-.. topic:: Do this!
-
-   Read the one page tutorial on
-   `Converting Python code into Javascript <../js_py_en/conversion.html>`_.
-   By doing the reverse steps, you could convert Javascript into Python.
-   The quick tutorial will teach you enough to be able to get all
-   the information you need from the Javascript code inside Reeborg's World.
-   Make sure to come back to this page when you are done, so that you can
-   continue with this tutorial.
-
-Now that you have read the quick tutorial on converting Python code into
-Javascript, it is time to read some Javascript code.
+La prochaine section débutera avec une brève comparaison entre
+Python et Javascript, ce qui devrait être assez pour vous permettre de déchiffrer
+et comprendre le code Javascript que vous verrez.

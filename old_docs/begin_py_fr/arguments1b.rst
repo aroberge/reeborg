@@ -71,3 +71,19 @@ Voici quelques exemples::
     # pos_1 aura la valeur 2; pos_2 aura la valeur 3;
     # mot_1 aura la valeur 5; mot_2 aura la valeur 4;
     # mot_3 aura sa valeur par défaut ('bonjour')
+
+Pour les programmeurs très avancés
+----------------------------------
+
+Il est possible de spécifier la présence d'arguments mots-clés
+sans spécifier de valeur par défaut en utilisant le symbole ``*``
+comme argument précédent les arguments mots-clés **dans la définition
+de la fonction**.
+
+.. code-block:: py3
+
+    def ma_fonction(*, a):
+        print(a)
+
+    ma_fonction(a=3)     # va imprimer 3
+    ma_fonction(3)       # va générer une erreur

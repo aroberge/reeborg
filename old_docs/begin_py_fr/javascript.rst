@@ -4,67 +4,178 @@ Javascript
 
 .. important::
 
-   Traduction française à venir ...
+   Traduction française à terminer ...
+
+Convertir des programmes **simples** du langage Python au langage Javascript,
+ou vice-versa, peut souvent être fait facilement.  Ci-dessous,
+vous trouverez deux programmes équivalents; j'ai rajouté des lignes vides
+dans la version Python pour que les deux programmes soient mieux alignés.
 
 
-Remember when you ran this code?
+.. list-table::
 
-.. code-block:: py3
+   * - .. code-block:: py3
 
-    r = UsedRobot()
-    inspect(r)
+            ''' Solution au monde Autour 4 en Python:
+                un simple programme.'''
 
-We are going to do the equivalent with Javascript.
+            def tourne_a_droite():
+                for _ in range(3):
+                    tourne_a_gauche()
 
-At the very top of the Reeborg's World window, click to select
-Javascript instead of Python; it does not matter if you choose the
-strict version or the regular one.  Then run the following code:
+
+
+            def marque_point_depart_et_avance():
+                depose("jeton")
+                while not rien_devant():
+                    tourne_a_gauche()
+                avance()
+
+
+
+            def suit_le_mur_a_droite():
+                if rien_a_droite():
+                    tourne_a_droite()
+                    avance()
+                elif rien_devant():
+                    avance()
+                else:
+                    tourne_a_gauche()
+
+
+            #  Exécution ci-dessous
+
+            marque_point_depart_et_avance()
+
+            while not au_but():
+                suit_le_mur_a_droite()
+
+     - .. code-block:: javascript
+
+            /* Solution au monde Autour 4 en Javascript:
+               un simple programme.            */
+
+            function tourne_a_droite() {
+                for (var i=1; i <=3; i++) {
+                    tourne_a_gauche();
+                }
+            }
+
+            function marque_point_depart_et_avance() {
+                depose("jeton");
+                while (!rien_devant()) {
+                    tourne_a_gauche();
+                }
+                avance();
+            }
+
+            function suit_le_mur_a_droite(){
+                if (rien_a_droite()){
+                    tourne_a_droite();
+                    avance();
+                } else if (rien_devant()) {
+                    avance();
+                } else {
+                    tourne_a_gauche();
+                }
+
+            // Exécution ci-dessous
+
+            marque_point_depart_et_avance();
+
+            while (!au_but()){
+                suit_le_mur_a_droite();
+            }
+
+Pour convertir des programmes simples de Python à Javascript, on peut
+suivre le guide suivant.
+
+
+- Remplacer le mot-clé ``def`` par ``function``.
+- Remplacer les deux points ``:`` qui indiquent le début d'un bloc par ``{``.
+- Ajouter ``}`` à la fin d'un bloc de code.
+- Entourer les conditions dans les énoncés ``if`` et ``while`` par des parenthèses ``(...)``.
+- Ajouter des points-virgules ``;`` à la fin de chaque énoncé.
+- Remplacer le mot-clé ``not`` par le symbole ``!``.
+- Remplacer le mot-clé ``and`` par les symboles ``&&``.
+- Remplacer le mot-clé ``or``  par le symboles ``||``.
+- Remplacer les mot-clés ``True`` et ``False``  par ``true`` et ``false``.
+- Remplacer le mot-clé ``elif`` par ``else if``.
+- Replace le symbole de commentaires en bout de ligne ``#`` par ``//``
+- Replace les trois apostrophes qui entourent un commentaire ``''' ... '''`` par ``/* ... */``.
+
+Une chose que je n'ai pas indiquée est la correspondance entre les boucles ``for``
+pour chaque langage.
+
+.. topic:: Qu'en pensez-vous?
+
+  Avec tous les symboles supplémentaires qu'il utilise, ne trouvez-vous pas que
+  Javascript est plus compliqué à lire - et donc que Python est un meilleur choix
+  pour apprendre la programmation?
+
+Exploration Javascript
+----------------------
+
+
+Vous devez vous rappeler du programme Python suivant::
+
+    reeborg = RobotUsage()
+    examine(reeborg)
+
+Vous allez écrire un programme équivalent en utilisant Javascript.
+
+En haut du Monde de Reeborg, cliquez sur le bouton "Menu additionnel"
+puis choisissez Javascript (au lieu de Python qui est sélectionné
+par défaut).
+
+.. image:: ../../src/images/menu_javascript_fr.png
+
+
+Ensuite, exécutez le programme suivant:
 
 .. code-block:: javascript
 
-   var r = new UsedRobot();
-   inspect(r);
+   var reeborg = new RobotUsage();
+    examine(reeborg);
 
-Here is what I see when I do this::
+Voici ce que je vois quand je fais ceci::
 
     body
-    at_goal()
-    at_goal_orientation()
-    build_wall()
-    front_is_clear()
-    has_token()
-    is_facing_north()
-    move()
-    put()
-    token_here()
-    right_is_clear()
-    object_here()
-    take()
-    turn_left()
+    au_but()
+    construit_un_mur()
+    rien_devant()
+    mur_devant()
+    carries_object()
+    face_au_nord()
+    avance()
+    depose()
+    rien_a_droite()
+    mur_a_droite()
+    objet_ici()
+    prend()
+    tourne_a_gauche()
 
 
-So, nothing that starts and end with a double underscore, and we see
-``body`` as we had in the
-Python code, but will also see some familiar methods like
-``at_goal()``, ``move()`` and many others.
+Rien avec des doubles caractères de soulignement; on retrouve
+``body`` et plusieurs autres méthodes (avec les parenthèses) que
+l'on reconnait.  On est bien parti!
 
-Now we are ready to look at some code.
 
-.. topic:: Do this!
+.. topic:: Droit au code!
 
-   Execute the following Javascript code and look at the result
-   in the Diary.
+   Toujours avec Javascript, exécutez le programme suivant.
 
    .. code-block:: javascript
 
-       var r = new UsedRobot();
-       view_source(r.turn_left);
+        var reeborg = new RobotUsage();
+        voir_source(reeborg.tourne_a_gauche);
 
-   Make sure the code is exactly as written above.  Note that I use
-   ``view_source`` instead of ``inspect`` which, as it turns out, would
-   not help me at all in this case.
+   Assurez-vous d'écrire le programme exactement comme je l'ai
+   fait ci-dessus.  Notez que j'ai utilisé
+   ``voir_source`` au lieu de ``examine``; ces deux fonctions
+   sont des fonctions unique au Monde de Reeborg.
 
-Based on the result that I see printed in Reeborg's Diary
+Lorsque j'exécute le programme ci-dessus, voici ce que **je** vois:
 
 .. code-block:: javascript
 
@@ -72,16 +183,17 @@ Based on the result that I see printed in Reeborg's Diary
            RUR.control.turn_left(this.body);
        }
 
-my next guess is to execute the following.
+Ceci me suggère d'explorer comme suit.
 
 .. code-block:: javascript
 
-   var r = new UsedRobot();
-   view_source(RUR.control.turn_left);
+    var reeborg = new RobotUsage();
+    voir_source(RUR.control.turn_left);
 
-After doing so, I see the following:
+Et voici le résultat au moment où j'exécute le programme:
 
 .. code-block:: javascript
+   :emphasize-lines: 10
 
    function (robot, no_frame){
        "use strict";
@@ -95,12 +207,12 @@ After doing so, I see the following:
        RUR.rec.record_frame();
    }
 
-As mentioned above, you might see something slightly different.
-Here is the equivalent Python code:
+Voici ce en quoi ressemblerait le code Python équivalent:
 
 .. code-block:: py3
+   :emphasize-lines: 10
 
-    def unknown_function_name (robot, no_frame):
+    def _ (robot, no_frame):
         robot._prev_orientation = robot.orientation
         robot._prev_x = robot.x
         robot._prev_y = robot.y
@@ -111,46 +223,52 @@ Here is the equivalent Python code:
         RUR.control.sound_id = "#turn-sound"
         RUR.rec.record_frame()
 
-We will come back to this code sample later; for now, remember that we were
-talking about "recording frames" ... It looks as though the last instruction
-is the one we were looking for.  Time to go back to coding in Python.
-Select Python as the programming language at the top of Reeborg's World window
-before running the following program.
+Nous reviendrons aux détails de cette fonction prochainement.  Pour l'instant,
+j'attire votre attention sur la ligne surlignée en jaune pâle::
 
-.. topic:: Try this!
+        RUR.rec.record_frame()
 
-   Select world **Empty** and run the following code to
-   confirm that you can add new capabilities to
-   Reeborg and show its effect properly at each step.
+C'est cette fonction qui fait un enregistrement ("record" en anglais
+signifie "enregistrer").  C'est le temps de faire de petits tests pour
+vérifier ceci.
 
-   .. code-block:: py3
 
-      class Teleporter(UsedRobot):
+.. topic:: Faites ceci!
 
-         def jump(self, x, y):
-            self.body.x = x
-            self.body.y = y
-            RUR.rec.record_frame()
+    Avec le monde **Vide**, exécutez le programme suivant::
 
-      jumper = Teleporter()
-      jumper.jump(3, 5)
-      jumper.jump(7, 2)
+      class Teleporteur(RobotUsage):
 
-.. topic:: Your turn!
+          def teleport(self, x, y):
+              self.body.x = x
+              self.body.y = y
+              RUR.rec.record_frame()
+
+      scotty = Teleporteur()
+      scotty.teleport(4, 5)
+      scotty.teleport(6, 3)
+
+    N'oubliez pas de désactiver le surlignement de code.
+
+    Je note que la trace d'huile ne correspond pas au déplacement attendu...
+    on verra sous peu pourquoi.
+
+
+.. topic:: À votre tour!
 
    Design a robot class that can "hop" horizontally, only increasing
-   the ``x`` coordinate by 1 each time (like in a ``move`` method) but
+   the ``x`` coordinate par 1 each time (like in a ``avance`` method) but
    effectively jumping over walls.  Create a robot instance and have
-   it solve the hurdles challenges, **Hurdles 1** to **Hurdles 4**, by going
+   it solve the hurdles challenges, **Hurdles 1** to **Hurdles 4**, par going
    in a straight line, straight through walls!  For each existing world,
    you will first have to click on "Edit World" and
-   remove the robot already present.  You may find it useful to then click
+   reavance the robot already present.  You may find it useful to then click
    on "browser:Save" so that you can reload this robot-free world if needed.
    A complete solution can be written in only 7 lines of code.
 
 .. hint::
 
-   You can move the robot in the desired way by incrementing its x
+   You can avance the robot in the desired way par incrementing its x
    variable as follows::
 
        self.body.x += 1
