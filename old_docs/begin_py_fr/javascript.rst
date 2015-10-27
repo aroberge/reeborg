@@ -256,20 +256,35 @@ vérifier ceci.
 
 .. topic:: À votre tour!
 
-   Design a robot class that can "hop" horizontally, only increasing
-   the ``x`` coordinate par 1 each time (like in a ``avance`` method) but
-   effectively jumping over walls.  Create a robot instance and have
-   it solve the hurdles challenges, **Hurdles 1** to **Hurdles 4**, par going
-   in a straight line, straight through walls!  For each existing world,
-   you will first have to click on "Edit World" and
-   reavance the robot already present.  You may find it useful to then click
-   on "browser:Save" so that you can reload this robot-free world if needed.
-   A complete solution can be written in only 7 lines of code.
+
+   Créez une class qui peut "sauter" horizontalement, changeant la
+   valeur de la coordonnée ``x`` lorsque la méthode ``saute`` est
+   invoquée.  Puis, créez une instance de votre nouvelle classe
+   et faites assurez-vous que le programme ci-dessous fonctionne
+   pour les mondes **Haies 1** à **Haies 4**.  Notez que la
+   fonction ``disparait()`` fait disparaître le robot qui était
+   là au début.   Tout ce qu'il vous suffit de faire est de remplacer
+   la ligne ``pass`` par deux lignes de code: une pour que le robot
+   se déplace, et l'autre pour enregistrer l'état du  monde.
+
+   .. code-block:: py3
+
+      disparait()
+
+      class Sauteur(RobotUsage):
+
+          def saute(self):
+              pass
+
+      reeborg = Sauteur()
+      while not au_but():
+          reeborg.saute()
+
 
 .. hint::
 
-   You can avance the robot in the desired way par incrementing its x
-   variable as follows::
+   Vous pouvez faire avancer le robot en utilisant la méthode d'incrémenter
+   une variable::
 
        self.body.x += 1
 
