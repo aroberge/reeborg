@@ -4508,7 +4508,7 @@ RUR.world.reset = function () {
     RUR.vis_world.draw_all();
 };
 
-RUR.world.add_robot = function (robot, no_frame) {
+RUR.world.add_robot = function (robot) {
     if (RUR.current_world.robots === undefined){
         RUR.current_world.robots = [];
     }
@@ -4517,9 +4517,7 @@ RUR.world.add_robot = function (robot, no_frame) {
         throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
     }
     RUR.current_world.robots.push(robot);
-    if (no_frame != undefined){
-        RUR.rec.record_frame();
-    }
+    RUR.rec.record_frame();
 };
 
 
