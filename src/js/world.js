@@ -109,6 +109,6 @@ RUR.world.__remove_default_robot = function () {
     if (RUR.MAX_NB_ROBOTS !== undefined){
         throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
     } else {
-        RUR.current_world.robots = [];
+        RUR.current_world.robots.splice(0, 1);
     }
 };
