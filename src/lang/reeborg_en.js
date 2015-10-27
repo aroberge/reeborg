@@ -13,7 +13,7 @@ var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_c
                     " object_here, carries_object, write, at_goal, at_goal_orientation," +
                     " build_wall, think, pause, repeat, sound, narration," +
                     "RUR, inspect, view_source, verify, say, library, _write, " +
-                    "wall_in_front, wall_on_right, " +
+                    "wall_in_front, wall_on_right, disappear," +
     // do not translate  nor include the following instructions; they help make rur-ple created programs *almost* compatible
                     "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, set_max_steps*/\n";
 
@@ -22,7 +22,7 @@ var move, turn_left, inspect, front_is_clear, right_is_clear,
     carries_object, write, _write, at_goal, build_wall, think,
     pause, repeat, view_source, sound, UsedRobot,
     set_max_steps, say, verify, ReeborgError, narration,
-    wall_in_front, wall_on_right;
+    wall_in_front, wall_on_right, disappear;
 
 // do not translate the following three instructions; they are included only
 // so that most basic programs from rur-ple would run "as-is"
@@ -88,6 +88,7 @@ RUR.reset_definitions = function () {
     pause = RUR.control.pause;
     World = RUR.file_io.load_world_file;
     set_max_nb_robots = RUR._set_max_nb_robots_;
+    disappear = RUR.world.__remove_default_robot;
 
 
     UsedRobot = function (x, y, orientation, tokens)  {
