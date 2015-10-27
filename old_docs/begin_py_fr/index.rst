@@ -131,3 +131,7 @@ Table des matières:
     de bien visualiser ce qui se passe dans un programme donné dans un
     contexte qui leur est familier.
 
+    Si vous avez des exercices additionnels
+    (en particulier, des tâches pour Reeborg) que
+    vous trouvez utiles pour vos étudiants, j'apprécierais beaucoup si
+    vous pouviez les partager pour que je puisse améliorer ce tutoriel.

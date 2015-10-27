@@ -1,11 +1,6 @@
 Introduction à la POO en Python avec Reeborg
 ============================================
 
-
-.. important::
-
-   Traduction française à terminer ...
-
 Comme vous le savez, Reeborg est en bien mauvais état.
 Il peut seulement tourner vers sa gauche; sa boussole est brisée,
 elle lui permet seulement de déterminer s'il fait face au nord ou non.
