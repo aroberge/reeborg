@@ -1,4 +1,4 @@
-Nothing to the left?
+Rien à gauche?
 ====================
 
 
@@ -6,88 +6,87 @@ Nothing to the left?
 
    Traduction française à venir ...
 
-As you know, Reeborg can see if there is a wall blocking its way,
-using ``front_is_clear``; he can also see if there is a wall
-to its right usign ``right_is_clear``, but cannot do the same
-on its left.  You are going to fix that.
+Comme vous le savez, Reeborg peut voir s'il y a un obstacle
+qui bloque son chemin avec ``rien_devant()``; il peut également
+déterminer s'il y a un obstacle à sa droite avec ``rien_a_droite()``.
+Malheureusement, il ne peut pas détecter des obstacles à sa gauche.
+Vous allez corriger ceci.
 
-Exploring the source code
--------------------------
 
-Let's look at the source code. Using::
+Exploration du code
+-------------------
 
-    view_source(front_is_clear)
+.. important::
 
-we see:
+    Assurez-vous de sélectionner Javascript comme langue de programmation.
 
-.. code-block:: javascript
+Explorons le code en exécutant ce qui suit::
 
-  function () {
-        return RUR.control.front_is_clear(RUR.current_world.robots[0]);
-      }
+    voir_source(rien_devant)
 
-with a similar result for ``view_source(right_is_clear)``.  Let's
-dig further.  By running::
-
-    view_source(RUR.control.front_is_clear)
-
-I get the following code (you might get something slightly different)
+Le résultat que je vois est le suivant:
 
 .. code-block:: javascript
 
-    function (robot, flag){
-        var coords;
-        if (!flag) {
-            RUR.rec.record_frame();
+    function () {
+      return RUR.control.front_is_clear(RUR.current_world.robots[0]);
+    }
+
+.. note::
+
+    On peut traduire ``front_is_clear`` par ``rien_devant``, et
+    ``right_is_clear`` par ``rien_a_droite``.
+
+
+avec un résultat semblable pour ``voir_source(rien_a_droite)``.  Poursuivons
+notre exploration en exécutant ce qui suit::
+
+    voir_source(RUR.control.front_is_clear)
+
+Le résultat que j'obtiens, et qui est très différent de celui que
+j'avais obtenu lorsque je préparais la première version de ce tutoriel,
+est le suivant:
+
+.. code-block:: javascript
+
+    function (robot){
+        var tile, tiles, tilename;
+        if( RUR.control.wall_in_front(robot)) {
+            return false;
         }
-        switch (robot.orientation){
-        case RUR.EAST:
-            coords = robot.x + "," + robot.y;
-            if (RUR.control.is_wall_at(coords, "east")) {
-                return false;
+        tile = RUR.control.tile_in_front(robot);
+        if (tile) {
+            if (tile.detectable && tile.fatal){
+                    if (tile == RUR.tiles.water) {
+                        if (!RUR.control._bridge_present(robot)){
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
             }
-            break;
-        case RUR.NORTH:
-            coords = robot.x + "," + robot.y;
-            if (RUR.control.is_wall_at(coords, "north")) {
-                return false;
-            }
-            break;
-        case RUR.WEST:
-            if (robot.x===1){
-                return false;
-            } else {
-                coords = (robot.x-1) + "," + robot.y; // do math first before building strings
-                if (RUR.control.is_wall_at(coords, "east")) {
-                    return false;
+        }
+
+        tiles = RUR.control.top_tiles_in_front(robot);
+        if (tiles) {
+            for (tilename in tiles) {
+                if (RUR.top_tiles[tilename] !== undefined &&
+                    RUR.top_tiles[tilename].detectable &&
+                    RUR.top_tiles[tilename].fatal) {
+                    return false
                 }
             }
-            break;
-        case RUR.SOUTH:
-            if (robot.y===1){
-                return false;
-            } else {
-                coords = robot.x + "," + (robot.y-1);  // do math first before building strings
-                if (RUR.control.is_wall_at(coords, "north")) {
-                    return false;
-                }
-            }
-            break;
-        default:
-            throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.front_is_clear().");
         }
+
         return true;
     }
 
-This is a bit daunting.  It uses a Javascript construct ``switch/case`` that does not exist in Python.
-Still, you can get a sense of what it does by using the following trick:
-If you when you have ``switch(A) ... case B ... case C ....`` think of this as
-``if A==B .... elif A==C ...``.   We could implement the equivalent in Python for a ``left_is_clear`` method,
-but there is a better way.   Look at the following::
+Bon, tout cela est très compliqué ... essayons plutôt ce qui suit::
 
-   view_source(right_is_clear)
+    voir_source(RUR.control.right_is_clear)
 
-The result I see is this:
+
+Ah, ceci semble beaucoup plus simple!  Voici le résultat que je vois:
 
 .. code-block:: javascript
 
@@ -99,43 +98,95 @@ The result I see is this:
         return result;
     }
 
-You see, Reeborg's designers had implemented a prototype version enabling
-Reeborg to turn right.  They used Python's convention of starting a method
-name with two consecutive underscore to denote something "private" that is
-not meant for outsiders to use -- or, at least, they consider it not ready
-to be used.
+Tenant compte du fait qu'en Javascript on a besoin de déclarer les
+variables locales, ce qui n'est pas requis en Python, voici comment
+on pourrait écrire une fonction équivalente en Python::
 
-Looking at the entire function, here what happens:
+    def function(robot):
+        RUR.control.__turn_right(robot, True)
+        result = RUR.control.front_is_clear(robot, True)
+        RUR.control.turn_left(robot, True)
+        return result
 
-#. Reeborg turns to its right
-#. Reeborg uses ``front_is_clear`` to see if there is a wall in front of its new orientation
-#. Reeborg turns back to its original position
+avec la traduction française correspondante::
 
-Note the use of a second argument ``true`` in the various methods.
-If we look at the corresponding code using ``view_source``, we see that
-``true`` is the value assigned to the variable ``no_frame`` which
-has the effect of not recording the frame.  So, when Reeborg turns right (or left),
-we do not actually see it happen on the screen.  Sneaky!...
+    def fonction(robot):
+        RUR.control.__tourne_a_droite(robot, True)
+        résultat = RUR.control.rien_devant(robot, True)
+        RUR.control.tourne_a_gauche(robot, True)
+        return résultat
 
-.. topic:: Your turn!
+Comme on peut le voir, le créateur de Reeborg a inclus le prototype
+d'une fonction permettant à Reeborg de tourner directement à droite:
+``RUR.control.__turn_right``.  Il a utilisé la convention Python d'utiliser
+un nom qui débute avec deux caractères de soulignement pour dénoter un
+objet "privé", qui n'est pas à l'intention des programmeurs externes
+comme nous.
 
-   First, modify your ``turn_right`` method so that it accepts a default argument with
-   the value ``False`` given as a default.  This means, that your it should start as follows::
+Voici un résumé de l'effet de la fonction:
 
-       def turn_right(self, no_frame=False):
+#. Reeborg tourne à sa droite.
+#. Reeborg utilise ``front_is_clear()`` pour déterminer s'il y a un obstacle
+   devant lui.  En réutilisant une fonction bien testée (sans bogues!), on
+   respecte la règle numéro 3: **Ne vous répétez pas**.
+#. Reeborg retourne à son orientation de départ.
+
+Notez l'utilisation du second argument ``true`` dans les diverses méthodes.
+Si on examine le code **Javascript**, en faisant par exemple::
+
+    voir_source(RUR.control.__turn_right)
+
+on observe le résultat suivant:
+
+.. code-block:: javascript
+   :emphasize-lines: 8
+
+    function (robot, no_frame){
+        "use strict";
+        robot._prev_orientation = (robot.orientation+2)%4; // fix so that oil trace looks right
+        robot._prev_x = robot.x;
+        robot._prev_y = robot.y;
+        robot.orientation += 3;
+        robot.orientation %= 4;
+        if (no_frame) return;
+        RUR.rec.record_frame("debug", "RUR.control.__turn_right");
+    }
+
+Donc, si le deuxième argument de la fonction, ``no_frame``, est "vrai", alors
+la fonction "retourne" avant que l'enregistrement ne se fasse: on ne voit donc
+pas son effet à l'écran.  *Il est très malin ce programmeur...*
 
 
-   Make sure that if ``no_frame`` is set equal to ``True`` when the method is called,
-   no frame recording will take place.
+.. topic:: À votre tour!
 
-   Then, using the logic of the above ``right_is_clear`` Javascript function,
-   implement a ``left_is_clear`` method for your RepairedRobot class.  Make sure that you
-   pass a second argument of ``True`` to all methods you call within ``left_is_clear``.
+   Modifiez votre méthode ``tourne_a_droite`` de la classe
+   pour qu'elle accepte un argument avec la valeur ``False`` par défaut.
+   Par exemple, vous pourriez commencer avec::
 
-   Finally, test it in the world **Empty** with the following code::
+       def tourne_a_droite(self, no_frame=False):
 
-       reeborg = RepairedRobot()
-       while reeborg.left_is_clear():
-           reeborg.turn_left()
+   Ensuite, assurez-vous que si on attribute la valeur ``True`` à
+   ``no_frame`` lorsque la méthode est invoquée, aucun enregistrement n'aura lieu.
 
-   If you have done things properly, Reeborg should make a single left turn.
+
+   Ensuite, en vous inspirant de la logique de la méthode Javascript
+   ``rien_a_droite`` ci-dessus, ajouter une méthode ``rien_a_gauche``
+   à votre classe ``RobotRéparé``.   Vous voudrez probalement ajouter l'argument
+   ``True`` à chaque fois que vous invoquerez un virage à l'intérieur de
+   la méthode ``rien_a_gauche``.
+
+   **Je suggère que vous placiez votre classe ``RobotRéparé`` dans votre
+   bibliothèque.**
+
+   Finalement vous pouvez tester votre méthode avec le monde **Vide**
+   et le code ci-dessous::
+
+      from biblio import RobotRéparé
+
+      reeborg = RobotRéparé()
+
+      while reeborg.rien_a_gauche():
+          reeborg.tourne_a_gauche()
+
+   Si vous avez bien fait le tout correctement, Reeborg devrait faire
+   un seul virage à gauche avant que le programme ne termine.
