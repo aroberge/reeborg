@@ -27,7 +27,8 @@ tourne_a_droite()
 
 while not mur_devant():
     avance()
-repete(tourne_a_gauche, 3)
+repeat 3:
+    tourne_a_gauche()
 avance()
 while transporte("feuille"):
     depose("feuille")

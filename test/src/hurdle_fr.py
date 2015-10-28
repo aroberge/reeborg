@@ -2,7 +2,8 @@
 pense(0)
 
 def tourne_a_droite():
-    repete(tourne_a_gauche, 3)
+    repeat 3:
+        tourne_a_gauche()
 
 def follow_right_wall():
     if rien_a_droite():

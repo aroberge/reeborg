@@ -1,11 +1,13 @@
 # solution to Newspaper 1, 2
 pense(0)
 
-def demi_tour():
-    repete(tourne_a_gauche, 2)
-
 def tourne_a_droite():
-    repete(tourne_a_gauche, 3)
+    repeat 3:
+        tourne_a_gauche()
+
+def demi_tour():
+    repeat 2:
+        tourne_a_gauche()
 
 def up():
     tourne_a_gauche()

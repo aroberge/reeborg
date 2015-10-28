@@ -8,10 +8,13 @@ def reseed_one_row():
         depose()
         avance()
 # go to first row
-repete(avance, 2)
+repeat 2:
+    avance()
 tourne_a_gauche()
-repete(avance, 2)
-repete(tourne_a_gauche, 3)
+repeat 2:
+    avance()
+repeat 3:
+    tourne_a_gauche()
 for j in range(3):
     reseed_one_row()
     tourne_a_gauche()
@@ -19,8 +22,10 @@ for j in range(3):
     tourne_a_gauche()
     avance()
     reseed_one_row()
-    repete(tourne_a_gauche, 3)
+    repeat 3:
+        tourne_a_gauche()
     avance()
-    repete(tourne_a_gauche, 3)
+    repeat 3:
+        tourne_a_gauche()
     avance()
 

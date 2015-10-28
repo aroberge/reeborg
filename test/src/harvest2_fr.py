@@ -7,10 +7,13 @@ def pick_one_row():
             prend("carotte")
         avance()
 # go to first row
-repete(avance, 2)
+repeat 2:
+    avance()
 tourne_a_gauche()
-repete(avance, 2)
-repete(tourne_a_gauche, 3)
+repeat 2:
+    avance()
+repeat 3:
+    tourne_a_gauche()
 for j in range(3):
     pick_one_row()
     tourne_a_gauche()
@@ -18,8 +21,10 @@ for j in range(3):
     tourne_a_gauche()
     avance()
     pick_one_row()
-    repete(tourne_a_gauche, 3)
+    repeat 3:
+        tourne_a_gauche()
     avance()
-    repete(tourne_a_gauche, 3)
+    repeat 3:
+        tourne_a_gauche()
     avance()
 

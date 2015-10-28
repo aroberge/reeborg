@@ -1,4 +1,6 @@
 ﻿def tourne_a_droite():
-    repete(tourne_a_gauche, 3)
+    repeat 3:
+        tourne_a_gauche()
 def demi_tour():
-    repete(tourne_a_gauche, 2)
+    repeat 2:
+        tourne_a_gauche()
