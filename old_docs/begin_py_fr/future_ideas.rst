@@ -36,12 +36,19 @@ explorer et à possiblement rajouter à ce tutoriel:
 - Faire une variation de Pluie 2 avec du pré-code qui ne permet pas
   de détecter l'eau.
 
-- Créer une fonction ``disparait`` qui enlève Reeborg d'un monde existant.
+- Documenter la fonction ``disparait`` qui enlève Reeborg d'un monde existant.
 
 - Ajouter une note pour enseignants (à un endroit approprié) expliquant que
   les fonctions de base sont essentiellement de méthodes qui sont invoquées
   pour la première instance d'un robot dans un monde donné.
 
-- Utilisez la classe ``Satellite`` qui a la méthode ``obtient_carte()``
-  [``get_world_map`` en anglais] pour obtenir un dict Python contenant
-  l'information au sujet du monde.
+- Utilisez la classe ``Cartographe`` qui a la méthode ``imprime()``
+  [``show`` en anglais] et la propriété ``monde`` [``world`` en anglais],
+  cette dernière étant un dict Python contenant
+  l'information au sujet du monde.  Une idée possible serait de débuter
+  avec un monde où le but à atteindre et la position de départ sont
+  choisis de façon aléatoire, et voir à ce que Reeborg retrouve son
+  chemin le plus directement possible; exiger de modifier avance()
+  pour compter le nombre de pas à faire et comparer avec le résultat attendu.
+  Ceci peut être fait soit pour un objet carte indépendant, ou en
+  utilisant l'héritage multiple.
