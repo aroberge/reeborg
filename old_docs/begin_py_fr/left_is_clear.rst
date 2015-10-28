@@ -1,11 +1,6 @@
 Rien à gauche?
 ====================
 
-
-.. important::
-
-   Traduction française à venir ...
-
 Comme vous le savez, Reeborg peut voir s'il y a un obstacle
 qui bloque son chemin avec ``rien_devant()``; il peut également
 déterminer s'il y a un obstacle à sa droite avec ``rien_a_droite()``.
