@@ -74,6 +74,9 @@ RUR.translation["Ouch! I hit a wall!"] = "Ouch! J'ai frappé un mur!";
 RUR.translation["Done!"] = "Terminé !";  // and recorder.js
 RUR.translation["There is no position as a goal in this world!"] = "Aucune position n'a été spécifiée comme but dans ce monde!";
 RUR.translation["There is no goal in this world!"] = "Il n'y a pas de but dans ce monde!";
+RUR.translation["I carry too many different objects. I don't know which one to put down!"] = "Je transporte trop d'objets: je ne sais pas lequel déposer!";
+RUR.translation["Many objects are here; I do not know which one to take!"] = "Beaucoup d'objets différents sont ici; je ne sais pas lequel prendre!";
+
 
 // in robot.js (and possibly others)
 RUR.translation.east = "est";
