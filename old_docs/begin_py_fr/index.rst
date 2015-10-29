@@ -85,6 +85,7 @@ Table des matières:
    summary4
    variables
    diary
+   return
    newspaper3
    listes
    string_index
@@ -92,7 +93,6 @@ Table des matières:
    arguments1a
    arguments1b
    slice
-   return
    increment
    while_num
    harvest3

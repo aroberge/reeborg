@@ -117,12 +117,6 @@ Reeborg connaît les maths
 Exécutez le programme suivant et observez le résultat dans le journal de
 Reeborg.
 
-.. note::
-
-    Notez que les espaces autour des opérateurs comme ``+`` et ``*``,
-    sont ignorés par Python; cependant, ils peuvent faciliter la lecture
-    (et la compréhension) pour les humains.
-
 .. topic:: Faites des maths!
 
     Essayez les exemples suivants::
@@ -132,7 +126,15 @@ Reeborg.
         print( 3 - 2 )  # soustraction
         print( 6 / 2 )  # division
         print( 1 + 3 * 2 ) # multiplication avant addition
-        print( (1 + 3) * 2 )  # Les parenthèses indiquent l'ordre des opérations
+
+        # Mais, les parenthèses permettent de changer l'ordre des opérations
+        print( (1 + 3) * 2 )
+
+.. note::
+
+    Notez que les espaces autour des opérateurs comme ``+`` et ``*``,
+    sont ignorés par Python; cependant, ils peuvent faciliter la lecture
+    (et la compréhension) pour les humains.
 
 Dans les exemples ci-dessus, le résultat était toujours un nombre
 entier **sauf** pour la division qui donnait un nombre décimal:

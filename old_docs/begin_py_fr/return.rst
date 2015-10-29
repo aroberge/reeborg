@@ -1,13 +1,6 @@
 return
 ======
 
-.. todo::
-
-   Ajouter une explication sur le fait que toute fonction
-   retourne une valeur; si rien n'est indiqué de façon explicite,
-   alors la valeur retournée est ``None``.
-
-
 .. note::
 
     Le nord est vers le haut de l'écran; l'est est vers la droite, l'ouest
@@ -29,13 +22,32 @@ faire le test ``face_au_nord()``.
     en sorte que Reeborg tourne vers la gauche jusqu'à ce qu'il soit face au
     nord, quelque soit son orientation de départ.
 
+
+Une petite expérience
+---------------------
+
+Exécutez le programme suivant::
+
+    repeat 4:
+        tourne_a_gauche()
+        print( face_au_nord() ) # notez les parenthèses pour face_au_nord()
+
+    print("-----------")
+    print( tourne_a_gauche() )
+
+Prenez note des résultats qui apparaissent dans le journal de Reeborg.
+
 Obtenir des résultats de fonctions
 ----------------------------------
 
 Les tests comme ``face_au_nord()`` sont des fonctions Python. Ces
 fonctions diffèrent des autres fonctions telles que
-``tourne_a_gauche()`` ou ``avance()`` car elles ***retournent*** une
-valeur, utilisant le mot-clé ``return``. Commençons par un exemple
+``tourne_a_gauche()`` ou ``avance()`` car elles **retournent** une
+valeur utile, utilisant le mot-clé ``return``.
+Une fonction comme ``tourne_a_gauche()`` retourne la valeur ``None``,
+un mot-clé Python, qu'on pourrait traduire par "aucun".
+
+Commençons par un exemple
 simple et faites en sorte que Reeborg exécute le programme suivant.
 
 .. code:: py3
@@ -50,6 +62,15 @@ simple et faites en sorte que Reeborg exécute le programme suivant.
 
 Le second ``avance()`` n'est pas exécuté: l'exécution de la fonction termine lorsque
 l'énoncé contenant le mot-clé ``return;`` est exécuté.
+Si vous changez la dernière instruction::
+
+    interruption()
+
+par::
+
+    print( interruption() )
+
+vous verrez que la valeur qui est imprimée est ``None``.
 
 Le mot-clé ``return`` peut être accompagné de quelque chose d'autre
 comme l'exemple suivant le démontre.
@@ -147,9 +168,5 @@ variable suivant le mot-clé ``return``. S'il n'y a rien après
     Utilisez la fonction test que vous avez écrite pour permettre à Reeborg
     de trouver la sortie des mondes **Labyrinthe 1** et **Labyrinthe 2**
     en suivant le mur du côté **gauche** plutôt que le mur du côté droit
-    comme on l'avait vu avant.  Ensuite, faites la même chose pour
-    **Tempête 1** et **Tempête 2**, c'est-à-dire en ayant Reeborg faire le
-    tour de la maison dans une direction opposée à la solution que vous
-    aviez trouvée avant.
-
+    comme on l'avait vu avant.
 
