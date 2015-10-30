@@ -93,7 +93,9 @@ RUR.unit_tests.run_program = function(world_url, program_url, language) {
     RUR.programming_language = language;
     RUR.runner.interpreted = false;
 
-    RUR.unit_tests.load_world_file(world_url);
+    if (world_url !== null) {
+        RUR.unit_tests.load_world_file(world_url);
+    }
     if (program_url !== undefined) {    // otherwise, reuse same program
         RUR.unit_tests.load_program(program_url);
     }

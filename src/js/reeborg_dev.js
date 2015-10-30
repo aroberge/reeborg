@@ -1777,7 +1777,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     selected = RUR.world_select.get_selected();
 
     if (selected.shortname.toLowerCase() === shortname.toLowerCase()) {
-        return; // Correct world already selected: we're good to go.
+        return "no world change";
     } else if (selected.url === url && shortname != selected.shortname) {
         RUR.world_select.replace_shortname(url, shortname);
         return;
@@ -1795,11 +1795,10 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         RUR.ui.stop();
         RUR.ui.prevent_playback = true;
     }
-
     if (RUR.file_io.status === "no link") {
         RUR.cd.show_feedback("#Reeborg-shouts",
                 RUR.translate("Could not find link: ") + url);
-        throw new RUR.ReeborgError("ignore");
+        throw new RUR.ReeborgError("no link");
     } else if (RUR.file_io.status === "success") {
         if (new_world) {
             RUR.world_select.append_world({url:url, shortname:new_world});
@@ -1807,11 +1806,9 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         RUR.world_select.set_url(url);
         RUR.cd.show_feedback("#Reeborg-shouts",
             RUR.translate("World selected").supplant({world: shortname}));
-        throw new RUR.ReeborgError("ignore");
+        throw new RUR.ReeborgError("success");
     }
 };
-
-
 
 RUR.file_io.load_world_file = function (url) {
     /** Loads a bare world file (json) or more complex permalink */

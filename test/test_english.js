@@ -85,6 +85,33 @@ QUnit.test("Load world without running program", function(assert) {
 });
 
 
+QUnit.test("Load world by running Python programs", function(assert) {
+    "use strict";
+    var frames, last_frame, contents;
+    RUR.unit_tests.reset();
+    contents = [["../../src/worlds/tutorial_en/home1.json", "Home 1"],
+                ["../../src/worlds/tutorial_en/home2.json", "Home 2"]]
+    RUR.custom_menu.make(contents);
+
+    // first select world Home 2 as our current default
+    assert.throws(function() {RUR.file_io.load_world_from_program('Home 2')},
+                 "Raised expected error");
+
+    // select world from program
+    RUR.unit_tests.run_python(null, "src/select_home1_en.py");
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-shouts", "Feedback element expected.");
+    equal(RUR.unit_tests.content, "World Home 1 selected");
+
+    // second time runs the rest of the program as the correct world is selected
+    RUR.unit_tests.run_python(null, "src/select_home1_en.py");
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.content,
+        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
+        "Feedback text ok.");
+
+});
+
 QUnit.module(" runner.js : Javascript programs");
 QUnit.test("Centre 1", function(assert) {
     var world_url = "../../src/worlds/tutorial_en/center1.json";
