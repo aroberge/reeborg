@@ -42,6 +42,7 @@ RUR.world_select.get_selected = function () {
 
 RUR.world_select.url_from_shortname = function (shortname) {
     // if exists, returns the corresponding url
+    "use strict";
     var i, select;
     select = document.getElementById("select_world");
     shortname = shortname.toLowerCase();
@@ -52,6 +53,20 @@ RUR.world_select.url_from_shortname = function (shortname) {
         }
     }
     return undefined;
+};
+
+RUR.world_select.replace_shortname = function (url, shortname) {
+    "use strict";
+    var i, select;
+    select = document.getElementById("select_world");
+    url = url.toLowerCase()
+
+    for (i=0; i < select.options.length; i++){
+        if (select.options[i].value.toLowerCase() === url) {
+            select.options[i].text = shortname;
+            return;
+        }
+    }
 };
 
 RUR.world_select.append_world = function (arg) {

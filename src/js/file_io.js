@@ -24,6 +24,11 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
 
         World(url, shortname) where url is a world or permalink located elsewhere
             and shortname is the name to appear in the html select.
+
+        If "url" already exists and is the selected world BUT shortname is
+        different than the existing name, a call
+        World(url, shortname)
+        will result in the shortname being updated.
     */
     "use strict";
     var selected, possible_url, new_world=false, new_selection=false;
@@ -45,7 +50,10 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     selected = RUR.world_select.get_selected();
 
     if (selected.shortname.toLowerCase() === shortname.toLowerCase()) {
-        return; // Correct world already selected: we're good to go.
+        return "no world change";
+    } else if (selected.url === url && shortname != selected.shortname) {
+        RUR.world_select.replace_shortname(url, shortname);
+        return;
     } else if (RUR.world_select.url_from_shortname(shortname)!==undefined){
         url = RUR.world_select.url_from_shortname(shortname);
         new_selection = shortname;
@@ -60,11 +68,10 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         RUR.ui.stop();
         RUR.ui.prevent_playback = true;
     }
-
     if (RUR.file_io.status === "no link") {
         RUR.cd.show_feedback("#Reeborg-shouts",
                 RUR.translate("Could not find link: ") + url);
-        throw new RUR.ReeborgError("ignore");
+        throw new RUR.ReeborgError("no link");
     } else if (RUR.file_io.status === "success") {
         if (new_world) {
             RUR.world_select.append_world({url:url, shortname:new_world});
@@ -72,15 +79,9 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         RUR.world_select.set_url(url);
         RUR.cd.show_feedback("#Reeborg-shouts",
             RUR.translate("World selected").supplant({world: shortname}));
-        throw new RUR.ReeborgError("ignore");
+        throw new RUR.ReeborgError("success");
     }
-    RUR.rec.frames = [];
-    RUR.ui.stop();
-    RUR.ui.prevent_playback = true;
-    RUR.ui.new_world_selected = true;
 };
-
-
 
 RUR.file_io.load_world_file = function (url) {
     /** Loads a bare world file (json) or more complex permalink */
@@ -89,9 +90,13 @@ RUR.file_io.load_world_file = function (url) {
 
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
+        if (data === null) {
+            RUR.file_io.status = "no link";
+            return;
+        }
         RUR.world.import_world(data);
         RUR.we.show_pre_post_code();
-        RUR.ui.new_world_selected = true;
+        RUR.file_io.status = "success";
         RUR.rec.frames = [];
     } else {
         $.ajax({url: url,

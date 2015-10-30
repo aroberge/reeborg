@@ -65,6 +65,26 @@ QUnit.test("Load world", function(assert) {
     deepEqual(world_alone, RUR.current_world, "Ensuring loading world is done properly in testing framework.");
 });
 
+QUnit.module("file_io.js tests");
+QUnit.test("Load world without running program", function(assert) {
+    RUR.unit_tests.reset();
+    contents = [["../../src/worlds/tutorial_en/home1.json", "Home 1"]]
+    RUR.custom_menu.make(contents);
+    assert.throws(function() {RUR.file_io.load_world_from_program('Home 1')},
+                 "Raised expected error");
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-shouts", "Feedback element ok.");
+    equal(RUR.unit_tests.content, "World Home 1 selected");
+
+    equal(RUR.file_io.load_world_from_program('Home 1'), "no world change", "Loading world twice ok");
+
+    assert.throws(function() {RUR.file_io.load_world_from_program('Alone')},
+                 "Raised expected error");
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-shouts", "Feedback element ok.");
+    equal(RUR.unit_tests.content, "Could not find link: Alone");
+
+});
+
+
 QUnit.module(" runner.js : Javascript programs");
 QUnit.test("Centre 1", function(assert) {
     var world_url = "../../src/worlds/tutorial_en/center1.json";

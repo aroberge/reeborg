@@ -8,7 +8,6 @@
 RUR.ui = {};
 
 RUR.ui.stop_called = false;
-RUR.ui.new_world_selected = false;
 RUR.ui.prevent_playback = false;
 
 RUR.ui.set_ready_to_run = function () {

@@ -1751,6 +1751,11 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
 
         World(url, shortname) where url is a world or permalink located elsewhere
             and shortname is the name to appear in the html select.
+
+        If "url" already exists and is the selected world BUT shortname is
+        different than the existing name, a call
+        World(url, shortname)
+        will result in the shortname being updated.
     */
     "use strict";
     var selected, possible_url, new_world=false, new_selection=false;
@@ -1773,6 +1778,9 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
 
     if (selected.shortname.toLowerCase() === shortname.toLowerCase()) {
         return; // Correct world already selected: we're good to go.
+    } else if (selected.url === url && shortname != selected.shortname) {
+        RUR.world_select.replace_shortname(url, shortname);
+        return;
     } else if (RUR.world_select.url_from_shortname(shortname)!==undefined){
         url = RUR.world_select.url_from_shortname(shortname);
         new_selection = shortname;
@@ -1801,10 +1809,6 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
             RUR.translate("World selected").supplant({world: shortname}));
         throw new RUR.ReeborgError("ignore");
     }
-    RUR.rec.frames = [];
-    RUR.ui.stop();
-    RUR.ui.prevent_playback = true;
-    RUR.ui.new_world_selected = true;
 };
 
 
@@ -1816,9 +1820,13 @@ RUR.file_io.load_world_file = function (url) {
 
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
+        if (data === null) {
+            RUR.file_io.status = "no link";
+            return;
+        }
         RUR.world.import_world(data);
         RUR.we.show_pre_post_code();
-        RUR.ui.new_world_selected = true;
+        RUR.file_io.status = "success";
         RUR.rec.frames = [];
     } else {
         $.ajax({url: url,
@@ -2414,12 +2422,6 @@ RUR.rec.reset = function() {
     }
     RUR.rec._previous_lines = [];
     RUR.rec._max_lineno_highlighted = 0;
-    try  {
-        RUR.ui.new_world_selected = false;
-    } catch (e) {
-        // this flag is possibly not defined when this is first loaded.
-    }
-
 };
 RUR.rec.reset();
 
@@ -2548,13 +2550,6 @@ RUR.rec.display_frame = function () {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {
-        if (RUR.ui.new_world_selected) {
-            RUR.ui.new_world_selected = false;
-            RUR.ui.stop();
-            RUR.ui.reload();
-            RUR.rec.playback = false;
-            return;
-        }
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
         if (frame.output.other_element && frame.output.html){  // for clear_print
@@ -3329,7 +3324,6 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
 RUR.ui = {};
 
 RUR.ui.stop_called = false;
-RUR.ui.new_world_selected = false;
 RUR.ui.prevent_playback = false;
 
 RUR.ui.set_ready_to_run = function () {
@@ -5613,6 +5607,7 @@ RUR.world_select.get_selected = function () {
 
 RUR.world_select.url_from_shortname = function (shortname) {
     // if exists, returns the corresponding url
+    "use strict";
     var i, select;
     select = document.getElementById("select_world");
     shortname = shortname.toLowerCase();
@@ -5623,6 +5618,20 @@ RUR.world_select.url_from_shortname = function (shortname) {
         }
     }
     return undefined;
+};
+
+RUR.world_select.replace_shortname = function (url, shortname) {
+    "use strict";
+    var i, select;
+    select = document.getElementById("select_world");
+    url = url.toLowerCase()
+
+    for (i=0; i < select.options.length; i++){
+        if (select.options[i].value.toLowerCase() === url) {
+            select.options[i].text = shortname;
+            return;
+        }
+    }
 };
 
 RUR.world_select.append_world = function (arg) {

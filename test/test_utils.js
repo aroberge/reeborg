@@ -3,6 +3,7 @@ RUR.unit_tests = {};
 RUR.unit_tests.reset = function () {
     RUR.current_world = RUR.world.clone_world(RUR.unit_tests.empty_world);
     RUR.rec.reset();
+    RUR.ui.prevent_playback = false;
     RUR.unit_tests.feedback_element = undefined;
     RUR.unit_tests.content = undefined;
     RUR.unit_tests.set_mocks();
@@ -119,6 +120,10 @@ RUR.unit_tests.empty_world = {robots: [],
 
 editor.getValue = function() {
     return RUR.unit_tests.program || '';
+};
+
+editor.setValue = function(arg) {
+    RUR.unit_tests.program = arg;
 };
 
 library.getValue = function() {
