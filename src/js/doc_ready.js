@@ -10,8 +10,11 @@ $(document).ready(function() {
     "use strict";
 
     try {
-        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
-    } catch (e) { }
+        RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
+        //RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
+    } catch (e) {
+        RUR.world_select.set_default();
+    }
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
     function create_and_activate_dialog(button, element, add_options, special_fn) {
@@ -195,7 +198,7 @@ $(document).ready(function() {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
         if ($(this).val() !== null) {
-            RUR.file_io.load_world_file($(this).val(), true);
+            RUR.file_io.load_world_file($(this).val());
         }
     });
 
@@ -237,12 +240,9 @@ $(document).ready(function() {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        name = "PERMALINK";
+        name = RUR.translate("PERMALINK");
         localStorage.setItem("user_world:"+ name, RUR.world.export_world());
-        RUR.storage.append_world_name(name);
-        $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
-        $("#select_world").change();
-        $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
+        RUR.storage.save_world(name);
 
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
@@ -270,6 +270,5 @@ $(document).ready(function() {
     function receiveMessage(event){
         RUR.update_permalink(event.data);
     }
-
 });
 

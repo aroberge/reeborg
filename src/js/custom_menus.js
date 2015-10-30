@@ -6,20 +6,16 @@
 /*globals $, RUR */
 
 RUR.custom_menu = {};
-RUR.custom_menu.new_menu_added = false;
 
 RUR.custom_menu.make = function (contents) {
     "use strict";
-    var i;
+    var i, url;
 
-    $("#select_world").html('');
+    RUR.world_select.empty_menu();
 
     for(i=0; i<contents.length; i++){
-        if (contents[i][0].indexOf('menu') != -1) {
-            $('#select_world').append( $('<option class="select-menu"></option>').val(contents[i][0]).html(contents[i][1]));
-        } else {
-            $('#select_world').append( $('<option></option>').val(contents[i][0]).html(contents[i][1]));
-        }
+        RUR.world_select.append_world( {url:contents[i][0],
+                                        shortname:contents[i][1]});
     }
 
     if (RUR.ui.user_worlds_loaded === undefined) {
@@ -27,19 +23,20 @@ RUR.custom_menu.make = function (contents) {
         RUR.ui.user_worlds_loaded = true;
     }
 
-
     if (RUR.settings.initial_world) {  // loaded the very first time
-        try {
-            RUR.ui.select_world(RUR.settings.initial_world, true);
-            RUR.settings.initial_world = null;
-        } catch (e) {}
+        url = RUR.world_select.url_from_shortname(RUR.settings.initial_world);
+        RUR.settings.initial_world = null;
+        if (url !== undefined) {
+            try {
+                RUR.world_select.set_url(url);
+            } catch (e) {
+                RUR.world_select.set_default();
+            }
+        }
     } else {
-        RUR.custom_menu.new_menu_added = true;  // will modify program execution
         editor.setValue(RUR.translate("move") + "()");
-        $("#select_world").selectedIndex = 0;
-        $("#select_world").change();
+        RUR.world_select.set_default();
     }
-
 };
 
 MakeCustomMenu = RUR.custom_menu.make;

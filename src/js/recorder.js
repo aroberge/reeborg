@@ -31,10 +31,9 @@ RUR.rec.reset = function() {
     RUR.rec._previous_lines = [];
     RUR.rec._max_lineno_highlighted = 0;
     try  {
-        RUR.custom_menu.new_menu_added = false;
         RUR.ui.new_world_selected = false;
     } catch (e) {
-        // these flags are possibly not defined when this is first loaded.
+        // this flag is possibly not defined when this is first loaded.
     }
 
 };
@@ -43,6 +42,9 @@ RUR.rec.reset();
 RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
     var frame = {};
+    if (RUR.ui.prevent_playback){
+        return;
+    }
     frame.world = RUR.world.clone_world();
     if (name !== undefined) {
         frame[name] = obj;
@@ -93,6 +95,7 @@ RUR.rec.play = function () {
 RUR.rec.loop = function () {
     "use strict";
     var frame_info;
+
     if (!RUR.rec.playback){
         return;
     }
@@ -113,12 +116,6 @@ RUR.rec.display_frame = function () {
     var frame, goal_status, i, next_frame_line_numbers;
 
     if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
-        if (RUR.custom_menu.new_menu_added) {
-            RUR.custom_menu.new_menu_added = false;
-            RUR.ui.stop();
-            RUR.ui.reload();
-            RUR.rec.playback = false;
-            return;}
         return RUR.rec.conclude();
     }
 
@@ -197,6 +194,7 @@ RUR.rec.display_frame = function () {
 
 RUR.rec.conclude = function () {
     var frame, goal_status;
+
     frame = RUR.rec.frames[RUR.rec.nb_frames-1];
     if (frame !== undefined && frame.world !== undefined && frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);

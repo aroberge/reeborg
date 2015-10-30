@@ -9,8 +9,10 @@ RUR.ui = {};
 
 RUR.ui.stop_called = false;
 RUR.ui.new_world_selected = false;
+RUR.ui.prevent_playback = false;
 
 RUR.ui.set_ready_to_run = function () {
+    RUR.ui.prevent_playback = false;
     $("#stop").attr("disabled", "true");
     $("#pause").attr("disabled", "true");
     $("#run").removeAttr("disabled");
@@ -120,33 +122,6 @@ RUR.ui.select_world = function (s, silent) {
     throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: s}));
 };
 
-RUR.ui.load_file = function (filename, replace, elt, i) {
-    "use strict";
-    var url;
-    url=filename;
-    if (filename.substring(0,11) == "src/worlds/") {
-        filename = filename.replace("src/worlds/", '').replace(".json", '');
-    }
-    $.ajax({url: url,
-        async: false,
-        error: function(e){
-            RUR.ui.load_file_error = true;
-        },
-        success: function(data){
-            RUR.world.import_world(data);
-            console.log("in ui.load_file, data = ", data);
-            if (replace) {
-                elt.options[i].value = url;
-                elt.value = elt.options[i].value;
-            } else {
-                $('#select_world').append( $('<option class="select-local-storage" selected="true"></option>'
-                                      ).val(url).html(filename));
-                $('#select_world').val(url);
-            }
-            $("#select_world").change();
-        }
-    }, "text");
-};
 
 RUR.ui.load_user_worlds = function (initial) {
     var key, name, i;

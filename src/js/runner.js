@@ -133,6 +133,10 @@ RUR.runner.run = function (playback) {
         // "playback" is a function called to play back the code in a sequence of frames
         // or a "null function", f(){} can be passed if the code is not
         // dependent on the robot world.
+        if (RUR.ui.prevent_playback) {
+            RUR.ui.stop();
+            return;
+        }
         if (playback() === "stopped") {
             RUR.ui.stop();
         }

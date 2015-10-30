@@ -94,7 +94,7 @@ RUR.translation["Object names"] = " biblio, jeton, étoile, triangle, carré, et
 
 // in doc_ready.js
 RUR.translation["Invalid world file."] = "Fichier monde invalide.";
-
+RUR.translation["PERMALINK"] = "PERMALIEN";
 
 // in file_io.js
 RUR.translation["Could not find link: "] = "Lien introuvable : ";

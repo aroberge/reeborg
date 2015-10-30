@@ -147,8 +147,8 @@ RUR.reset_programming_language = function(choice){
     } catch (e) {}
 };
 
-RUR.update_permalink = function (arg, existing) {
-    var url_query;
+RUR.update_permalink = function (arg) {
+    var url_query, name;
     if (arg !== undefined) {
         url_query = parseUri(arg);
     } else {
@@ -161,15 +161,7 @@ RUR.update_permalink = function (arg, existing) {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        if (!existing){
-            localStorage.setItem("user_world:PERMALINK", RUR.world.export_world());
-            $('#select_world').append( $('<option style="background-color:#ff9" selected="true"></option>'
-                                      ).val("user_world:" + name).html("PERMALINK"));
-            $('#select_world').val("user_world:" + "PERMALINK");  // reload as updating select choices blanks the world.
-            $("#select_world").change();
-            $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
-        }
-
+        RUR.storage.save_world(RUR.translate("PERMALINK"));
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
     }
 
@@ -1283,20 +1275,16 @@ $(document).ready(function() {
 /*globals $, RUR */
 
 RUR.custom_menu = {};
-RUR.custom_menu.new_menu_added = false;
 
 RUR.custom_menu.make = function (contents) {
     "use strict";
-    var i;
+    var i, url;
 
-    $("#select_world").html('');
+    RUR.world_select.empty_menu();
 
     for(i=0; i<contents.length; i++){
-        if (contents[i][0].indexOf('menu') != -1) {
-            $('#select_world').append( $('<option class="select-menu"></option>').val(contents[i][0]).html(contents[i][1]));
-        } else {
-            $('#select_world').append( $('<option></option>').val(contents[i][0]).html(contents[i][1]));
-        }
+        RUR.world_select.append_world( {url:contents[i][0],
+                                        shortname:contents[i][1]});
     }
 
     if (RUR.ui.user_worlds_loaded === undefined) {
@@ -1304,19 +1292,20 @@ RUR.custom_menu.make = function (contents) {
         RUR.ui.user_worlds_loaded = true;
     }
 
-
     if (RUR.settings.initial_world) {  // loaded the very first time
-        try {
-            RUR.ui.select_world(RUR.settings.initial_world, true);
-            RUR.settings.initial_world = null;
-        } catch (e) {}
+        url = RUR.world_select.url_from_shortname(RUR.settings.initial_world);
+        RUR.settings.initial_world = null;
+        if (url !== undefined) {
+            try {
+                RUR.world_select.set_url(url);
+            } catch (e) {
+                RUR.world_select.set_default();
+            }
+        }
     } else {
-        RUR.custom_menu.new_menu_added = true;  // will modify program execution
         editor.setValue(RUR.translate("move") + "()");
-        $("#select_world").selectedIndex = 0;
-        $("#select_world").change();
+        RUR.world_select.set_default();
     }
-
 };
 
 MakeCustomMenu = RUR.custom_menu.make;
@@ -1474,8 +1463,11 @@ $(document).ready(function() {
     "use strict";
 
     try {
-        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
-    } catch (e) { }
+        RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
+        //RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
+    } catch (e) {
+        RUR.world_select.set_default();
+    }
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
     function create_and_activate_dialog(button, element, add_options, special_fn) {
@@ -1659,7 +1651,7 @@ $(document).ready(function() {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
         if ($(this).val() !== null) {
-            RUR.file_io.load_world_file($(this).val(), true);
+            RUR.file_io.load_world_file($(this).val());
         }
     });
 
@@ -1701,12 +1693,9 @@ $(document).ready(function() {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        name = "PERMALINK";
+        name = RUR.translate("PERMALINK");
         localStorage.setItem("user_world:"+ name, RUR.world.export_world());
-        RUR.storage.append_world_name(name);
-        $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
-        $("#select_world").change();
-        $('#delete-world').show(); // so that user can remove PERMALINK from select if desired
+        RUR.storage.save_world(name);
 
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
@@ -1734,7 +1723,6 @@ $(document).ready(function() {
     function receiveMessage(event){
         RUR.update_permalink(event.data);
     }
-
 });
 
 /* Author: André Roberge
@@ -1746,28 +1734,86 @@ $(document).ready(function() {
 
 RUR.file_io = {};
 
-RUR.file_io.load_world_file = function (url, existing) {
-    /** Loads a bare world file (json) or more complex permalink */
-    "use strict";
-    var data, i, change_selected_value=false, elt = document.getElementById("select_world");
+RUR.file_io.load_world_from_program = function (url, shortname) {
+    /*  Loads a world or permalink from a user's program using World()
 
-    if (url === null) {
-        console.log("ignoring null url in RUR.file_io.load_world_file");
+    Possible choices:
+        World(shortname)  where shortname is an existing name in html select
+            example:  World ("Home 1")
+
+            Another case is where a world in saved in local storage;
+            in this case, the url must be modified by the user as in
+            World("user_world:My World")
+
+        World(url)  where url is a world or permalink located elsewhere
+            example: World("http://personnel.usainteanne.ca/aroberge/reeborg/token.json")
+            In this case, the url will be used as a shortname to appear in the menu
+
+        World(url, shortname) where url is a world or permalink located elsewhere
+            and shortname is the name to appear in the html select.
+    */
+    "use strict";
+    var selected, possible_url, new_world=false, new_selection=false;
+    RUR.file_io.status = undefined;
+
+    if (url === undefined) {
+        RUR.control.write(RUR.translate("World() needs an argument."))
         return;
     }
 
-    for (i=0; i < elt.options.length; i++){
-        if (elt.options[i].text.toLowerCase() === url.toLowerCase()) {
-            if (elt.options[i].selected) {
-                // Correct world already selected: we're good to go.
-                return;
-            } else {
-                change_selected_value = url;
-                url = elt.options[i].value;
-                break;
-            }
+    if (shortname === undefined) {
+        shortname = url;
+        possible_url = RUR.world_select.url_from_shortname(shortname);
+        if (possible_url !== undefined){
+            url = possible_url;
         }
     }
+
+    selected = RUR.world_select.get_selected();
+
+    if (selected.shortname.toLowerCase() === shortname.toLowerCase()) {
+        return; // Correct world already selected: we're good to go.
+    } else if (RUR.world_select.url_from_shortname(shortname)!==undefined){
+        url = RUR.world_select.url_from_shortname(shortname);
+        new_selection = shortname;
+    }  else {
+        new_world = shortname;
+    }
+
+    RUR.file_io.load_world_file(url);
+
+    if (RUR.file_io.status !== undefined) {
+        RUR.rec.frames = [];
+        RUR.ui.stop();
+        RUR.ui.prevent_playback = true;
+    }
+
+    if (RUR.file_io.status === "no link") {
+        RUR.cd.show_feedback("#Reeborg-shouts",
+                RUR.translate("Could not find link: ") + url);
+        throw new RUR.ReeborgError("ignore");
+    } else if (RUR.file_io.status === "success") {
+        if (new_world) {
+            RUR.world_select.append_world({url:url, shortname:new_world});
+        }
+        RUR.world_select.set_url(url);
+        RUR.cd.show_feedback("#Reeborg-shouts",
+            RUR.translate("World selected").supplant({world: shortname}));
+        throw new RUR.ReeborgError("ignore");
+    }
+    RUR.rec.frames = [];
+    RUR.ui.stop();
+    RUR.ui.prevent_playback = true;
+    RUR.ui.new_world_selected = true;
+};
+
+
+
+RUR.file_io.load_world_file = function (url) {
+    /** Loads a bare world file (json) or more complex permalink */
+    "use strict";
+    var data, i, selected, possible_url, new_selection=false, new_world = false;
+
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
         RUR.world.import_world(data);
@@ -1778,29 +1824,20 @@ RUR.file_io.load_world_file = function (url, existing) {
         $.ajax({url: url,
             async: false,
             error: function(e){
-                RUR.rec.frames = [];
-                RUR.ui.stop();
-                RUR.cd.show_feedback("#Reeborg-shouts",
-                                    RUR.translate("Could not find link: ") + url);
+                RUR.file_io.status = "no link";
+                console.log("error in ajax from RUR.file_io.")
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
-                    RUR.update_permalink(data, existing);
+                    RUR.update_permalink(data);
                     RUR.ui.reload();
                 } else {
                     RUR.world.import_world(data);
                     RUR.we.show_pre_post_code();
                 }
-                RUR.ui.new_world_selected = true;
-                RUR.rec.frames = [];
-                if (change_selected_value) {
-                    $("#select_world").val(url);
-                }
+                RUR.file_io.status = "success";
             }
         });
-    }
-    if (change_selected_value) {
-        throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: change_selected_value}));
     }
 };/* Author: André Roberge
    License: MIT
@@ -2378,10 +2415,9 @@ RUR.rec.reset = function() {
     RUR.rec._previous_lines = [];
     RUR.rec._max_lineno_highlighted = 0;
     try  {
-        RUR.custom_menu.new_menu_added = false;
         RUR.ui.new_world_selected = false;
     } catch (e) {
-        // these flags are possibly not defined when this is first loaded.
+        // this flag is possibly not defined when this is first loaded.
     }
 
 };
@@ -2390,6 +2426,9 @@ RUR.rec.reset();
 RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
     var frame = {};
+    if (RUR.ui.prevent_playback){
+        return;
+    }
     frame.world = RUR.world.clone_world();
     if (name !== undefined) {
         frame[name] = obj;
@@ -2440,6 +2479,7 @@ RUR.rec.play = function () {
 RUR.rec.loop = function () {
     "use strict";
     var frame_info;
+
     if (!RUR.rec.playback){
         return;
     }
@@ -2460,12 +2500,6 @@ RUR.rec.display_frame = function () {
     var frame, goal_status, i, next_frame_line_numbers;
 
     if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
-        if (RUR.custom_menu.new_menu_added) {
-            RUR.custom_menu.new_menu_added = false;
-            RUR.ui.stop();
-            RUR.ui.reload();
-            RUR.rec.playback = false;
-            return;}
         return RUR.rec.conclude();
     }
 
@@ -2544,6 +2578,7 @@ RUR.rec.display_frame = function () {
 
 RUR.rec.conclude = function () {
     var frame, goal_status;
+
     frame = RUR.rec.frames[RUR.rec.nb_frames-1];
     if (frame !== undefined && frame.world !== undefined && frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
@@ -2863,6 +2898,10 @@ RUR.runner.run = function (playback) {
         // "playback" is a function called to play back the code in a sequence of frames
         // or a "null function", f(){} can be passed if the code is not
         // dependent on the robot world.
+        if (RUR.ui.prevent_playback) {
+            RUR.ui.stop();
+            return;
+        }
         if (playback() === "stopped") {
             RUR.ui.stop();
         }
@@ -3115,23 +3154,21 @@ RUR.storage._save_world = function (name){
 
 RUR.storage.save_world = function (name){
     "use strict";
-    localStorage.setItem("user_world:"+ name, RUR.world.export_world(RUR.current_world));
+    var url = "user_world:"+ name;
+    localStorage.setItem(url, RUR.world.export_world(RUR.current_world));
     RUR.storage.append_world_name(name);
-    $('#select_world').val("user_world:" + name);  // reload as updating select choices blanks the world.
 };
 
+RUR.storage.append_world_name = function (name){
+    "use strict";
+    var url = "user_world:"+ name;
+    RUR.world_select.append_world({url:url, shortname:name, local_storage:true});
+    RUR.world_select.set_url(url);  // reload as updating select choices blanks the world.
 
-RUR.storage.append_world_name = function (name, initial){
     /* appends name to world selector and to list of possible worlds to delete */
-    if (initial === undefined) { // new worlds are automatically selected
-        $('#select_world').append( $('<option class="select-local-storage" selected="true"></option>'
-                                  ).val("user_world:" + name).html(name));
-    } else {  // those are initially retrieve when loading the site
-        $('#select_world').append( $('<option class="select-local-storage"></option>'
-                              ).val("user_world:" + name).html(name));
-    }
     $('#delete-world h3').append('<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world('
             + "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
+    $('#delete-world').show();
 }
 
 RUR.storage.delete_world = function (name){
@@ -3141,37 +3178,10 @@ RUR.storage.delete_world = function (name){
     $("select option[value='" + "user_world:" + name +"']").remove();
 
     try {
-        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
+        RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
     } catch (e) {
-        $("#select_world").selectedIndex = 0;
+        RUR.world_select.set_default();
     }
-    $("#select_world").change();
-
-    for (i = localStorage.length - 1; i >= 0; i--) {
-        key = localStorage.key(i);
-        if (key.slice(0, 11) === "user_world:") {
-            return;
-        }
-    }
-    $('#delete-world').hide();
-};
-
-
-RUR.storage.delete_world_old = function (name){
-    "use strict";
-    var i, key;
-    if (localStorage.getItem("user_world:" + name) === null){
-        RUR.cd.show_feedback("#Reeborg-shouts", RUR.translate("No such world!"));
-        return;
-    }
-    localStorage.removeItem("user_world:" + name);
-    $("select option[value='" + "user_world:" + name +"']").remove();
-    try {
-        RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
-    } catch (e) {
-        RUR.ui.select_world("Alone");
-    }
-    $("#select_world").change();
 
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
@@ -3320,8 +3330,10 @@ RUR.ui = {};
 
 RUR.ui.stop_called = false;
 RUR.ui.new_world_selected = false;
+RUR.ui.prevent_playback = false;
 
 RUR.ui.set_ready_to_run = function () {
+    RUR.ui.prevent_playback = false;
     $("#stop").attr("disabled", "true");
     $("#pause").attr("disabled", "true");
     $("#run").removeAttr("disabled");
@@ -3431,33 +3443,6 @@ RUR.ui.select_world = function (s, silent) {
     throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: s}));
 };
 
-RUR.ui.load_file = function (filename, replace, elt, i) {
-    "use strict";
-    var url;
-    url=filename;
-    if (filename.substring(0,11) == "src/worlds/") {
-        filename = filename.replace("src/worlds/", '').replace(".json", '');
-    }
-    $.ajax({url: url,
-        async: false,
-        error: function(e){
-            RUR.ui.load_file_error = true;
-        },
-        success: function(data){
-            RUR.world.import_world(data);
-            console.log("in ui.load_file, data = ", data);
-            if (replace) {
-                elt.options[i].value = url;
-                elt.value = elt.options[i].value;
-            } else {
-                $('#select_world').append( $('<option class="select-local-storage" selected="true"></option>'
-                                      ).val(url).html(filename));
-                $('#select_world').val(url);
-            }
-            $("#select_world").change();
-        }
-    }, "text");
-};
 
 RUR.ui.load_user_worlds = function (initial) {
     var key, name, i;
@@ -5584,4 +5569,85 @@ RUR.we._remove_all_at_location = function(coords) {
             }
         }
     }
-}
+}/* Author: André Roberge
+   License: MIT
+ */
+
+/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
+/*globals $, RUR */
+
+/*  Purpose of this file: abstract handling of menus so that all jQuery
+    dependencies (and possibly obscure syntax in some cases) can be pulled
+    away from other files.
+
+    The world menu is currently an html select element with
+    id = select_world.  Doing a global search for "#select_world" should
+    only find items in this file.
+*/
+
+RUR.world_select = {};
+
+RUR.world_select.empty_menu = function () {
+    $("#select_world").html('');
+};
+
+RUR.world_select.set_default = function () {
+    $("#select_world").selectedIndex = 0;
+    $("#select_world").change();
+};
+
+RUR.world_select.set_url = function (url) {
+    $('#select_world').val(url);
+    $("#select_world").change();
+};
+
+RUR.world_select.get_selected = function () {
+    "use strict";
+    var select, index, url, shortname;
+    select = document.getElementById("select_world");
+    index = select.selectedIndex;
+    url = select.options[index].value;
+    shortname = select.options[index].text;
+    return {url:url, shortname:shortname};
+};
+
+RUR.world_select.url_from_shortname = function (shortname) {
+    // if exists, returns the corresponding url
+    var i, select;
+    select = document.getElementById("select_world");
+    shortname = shortname.toLowerCase();
+
+    for (i=0; i < select.options.length; i++){
+        if (select.options[i].text.toLowerCase() === shortname) {
+            return select.options[i].value;
+        }
+    }
+    return undefined;
+};
+
+RUR.world_select.append_world = function (arg) {
+    "use strict";
+    var option_elt, url, shortname;
+    url = arg.url;
+
+    if (arg.shortname !== undefined) {
+        shortname = arg.shortname;
+    } else {
+        shortname = url;
+    }
+
+    // allow for special styling of any url containing the string "menu".
+    if (url.indexOf('menu') != -1) {
+        option_elt = '<option class="select-menu"></option>';
+    } else if (arg.local_storage != undefined){
+        option_elt = '<option class="select-local-storage"></option>';
+    } else {
+        option_elt = '<option></option>';
+    }
+
+
+    // todo: ensure that the same url is not appended twice with the
+    // same shortname
+    // if shortname==url for existing one, allow overriding name.
+    $('#select_world').append( $(option_elt).val(url).html(shortname));
+};
