@@ -202,10 +202,12 @@ permettant d'accomplir les diverses tâches confiées à Reeborg.
     Au lieu de monde prédéfini, vous pouvez utilisez des mondes définis
     à quelque part sur le web.  Par exemple::
 
-        Monde("http://personnel.usainteanne.ca/aroberge/reeborg/token.json")
+        Monde("http://personnel.usainteanne.ca/aroberge/reeborg/token.json",
+              "test jeton")
         avance()
         avance()
         prend()
 
-    devrait en principe fonctionner.  Au moment où j'écris cette note, il
-    y a un bogue (https://github.com/aroberge/reeborg/issues/199)
+    devrait en principe fonctionner, et ajouter ce nouveau monde au menu
+    des mondes disponibles. Notez le deuxième argument (optionnel) qui
+    permet d'avoir un nom plus court apparaissant dans le sélecteur.
