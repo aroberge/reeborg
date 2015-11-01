@@ -48,3 +48,15 @@ RUR.kbd.tab = function () {
     doc.execCommand("indentMore");
     doc.focus();
 };
+
+RUR.kbd.shift_tab = function () {
+    "use strict";
+    var doc;
+    if ($("#tabs").tabs('option', 'active') == 0) {
+        doc = editor;
+    } else {
+        doc = library;
+    }
+    doc.execCommand("indentLess");
+    doc.focus();
+};

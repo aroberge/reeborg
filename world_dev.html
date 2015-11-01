@@ -341,7 +341,8 @@ window['translate_python'] = translate_python
     viewportMargin: Infinity
   });
   library.setOption("extraKeys", {
-      Tab: betterTab
+      Tab: betterTab,
+    "Shift-Tab": shiftTab
     });
 </script>
 
@@ -694,8 +695,8 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="separator" onclick='RUR.kbd.insert("()");'>&nbsp;&nbsp;( )&nbsp;&nbsp;</li>
        <li class="separator" onclick='RUR.kbd.insert("{}");'>&nbsp;&nbsp;{ }&nbsp;&nbsp;</li>
        <li class="separator" onclick='RUR.kbd.insert("[]");'>&nbsp;[ ]&nbsp;</li>
-
        <li class="separator" onclick='RUR.kbd.tab();'>TAB</li>
+       <li class="separator" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
        <li class="separator" onclick='RUR.kbd.enter();'>Enter</li>
     </ul>
     <style>
