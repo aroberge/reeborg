@@ -60,3 +60,51 @@ RUR.kbd.shift_tab = function () {
     doc.execCommand("indentLess");
     doc.focus();
 };
+
+RUR.kbd.select = function (choice) {
+    "use strict";
+    $(".kbd_command").hide();
+    $(".kbd_condition").hide();
+    $(".kbd_python").hide();
+    $(".kbd_special").hide();
+    if ($("#kbd_command_btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd_command_btn").removeClass("reverse-blue-gradient");
+        $("#kbd_command_btn").addClass("blue-gradient");
+    } else if ($("#kbd_condition_btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd_condition_btn").removeClass("reverse-blue-gradient");
+        $("#kbd_condition_btn").addClass("blue-gradient");
+    } else if ($("#kbd_python_btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd_python_btn").removeClass("reverse-blue-gradient");
+        $("#kbd_python_btn").addClass("blue-gradient");
+    } else if ($("#kbd_special_btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd_special_btn").removeClass("reverse-blue-gradient");
+        $("#kbd_special_btn").addClass("blue-gradient");
+    }
+    switch (choice) {
+        case "kbd_condition":
+            $(".kbd_condition").show();
+            $("#kbd_condition_btn").removeClass("blue-gradient");
+            $("#kbd_condition_btn").addClass("reverse-blue-gradient");
+            break;
+        case "kbd_python":
+            $(".kbd_python").show();
+            $("#kbd_python_btn").removeClass("blue-gradient");
+            $("#kbd_python_btn").addClass("reverse-blue-gradient");
+            break;
+        case "kbd_special":
+            $(".kbd_special").show();
+            $("#kbd_special_btn").removeClass("blue-gradient");
+            $("#kbd_special_btn").addClass("reverse-blue-gradient");
+            break;
+        case "kbd_command":
+        default:
+            $(".kbd_command").show();
+            $("#kbd_command_btn").removeClass("blue-gradient");
+            $("#kbd_command_btn").addClass("reverse-blue-gradient");
+    }
+};
+
+$(document).ready(function() {
+    "use strict";
+    RUR.kbd.select();
+});

@@ -13,7 +13,6 @@
 
 <!--offline <link rel="stylesheet" href="offline/codemirror-5.8.0/lib/codemirror.css"> /offline-->
 <!--online-->  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.css">  <!--/online-->
-<link rel="stylesheet" href="offline/codemirror-5.8.0/theme/cobalt.css"> <!-- load after codemirror.css -->
 <link rel="stylesheet" href="src/css/reeborg_world.css"> <!-- load after codemirror.css -->
 <title>Reeborg's world</title>
     <script src="src/libraries/brython/brython.js"></script>
@@ -315,7 +314,6 @@ window['translate_python'] = translate_python
   function shiftTab(cm){
     cm.execCommand("indentLess");
   }
-
 
   var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     mode:  {name: "python", version: 3},
@@ -654,57 +652,66 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 
 <div id="special-keyboard" title="Reeborg's basic keyboard" style="display:none">
   <div id="touch-buttons">
-    <ul class="buttons">
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>move()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>turn_left()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>take()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>put()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>build_wall()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>pause()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>done()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>think(100)</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
+      <button id="kbd_command_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_command");'>
+        Commands</button>
+      <button id="kbd_condition_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_condition");'>
+        Conditions</button>
+      <button id="kbd_python_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_python");'>
+        Python</button>
+      <button id="kbd_special_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_special");'>
+        Special characters</button>
+    <ul class="kbd_command">
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>move()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>turn_left()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>take()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>put()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>build_wall()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>pause()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>done()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>think(100)</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
     </ul>
-    <ul class="buttons" >
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);'>at_goal()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);'>front_is_clear()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);'>right_is_clear()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);'>wall_in_front()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);'>wall_on_right()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML");'>object_here()</li>
-       <li class="command" onclick='RUR.kbd.insert(this.innerHTML);'>carries_object()</li>
+    <ul class="kbd_condition" >
+       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>at_goal()</li>
+       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>front_is_clear()</li>
+       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>right_is_clear()</li>
+       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>wall_in_front()</li>
+       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>wall_on_right()</li>
+       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML");'>object_here()</li>
+       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>carries_object()</li>
     </ul>
-    <ul class="buttons">
-       <li class="baseword" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>def ? ( ):</li>
-       <li class="baseword" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>if ? :</li>
-       <li class="baseword" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>elif ? :</li>
-       <li class="baseword" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>else:</li>
-       <li class="baseword" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>while ? :</li>
-       <li class="baseword" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>repeat ? :</li>
-       <li class="baseword" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>from library import ?</li>
-       <li class="baseword" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>for ? in  range( ? ):</li>
+    <ul class="kbd_python">
+       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>def ? ( ):</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>if ? :</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>elif ? :</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>else:</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>while ? :</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>repeat ? :</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>from library import ?</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>for ? in  range( ? ):</li>
     </ul>
-    <ul class="buttons">
-       <li class="separator" onclick='RUR.kbd.insert(":");'>&nbsp;&nbsp;:&nbsp;&nbsp;</li>
-       <li class="separator" onclick='RUR.kbd.insert(";");'>&nbsp;&nbsp;;&nbsp;&nbsp;</li>
-       <li class="separator" onclick='RUR.kbd.insert("#");'>&nbsp;&nbsp;#&nbsp;&nbsp;</li>
-       <li class="separator" onclick='RUR.kbd.insert("=");'>&nbsp;&nbsp;=&nbsp;&nbsp;</li>
-       <li class="separator" onclick='RUR.kbd.insert("\"");'>&nbsp;&nbsp;"&nbsp;&nbsp;</li>
-       <li class="separator" onclick='RUR.kbd.insert();'>&nbsp;&nbsp;'&nbsp;&nbsp;</li>
-       <li class="separator" onclick='RUR.kbd.insert("()");'>&nbsp;&nbsp;( )&nbsp;&nbsp;</li>
-       <li class="separator" onclick='RUR.kbd.insert("{}");'>&nbsp;&nbsp;{ }&nbsp;&nbsp;</li>
-       <li class="separator" onclick='RUR.kbd.insert("[]");'>&nbsp;[ ]&nbsp;</li>
-       <li class="separator" onclick='RUR.kbd.tab();'>TAB</li>
-       <li class="separator" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
-       <li class="separator" onclick='RUR.kbd.enter();'>Enter</li>
+    <ul class="kbd_special">
+       <li class="kbd_special" onclick='RUR.kbd.insert(":");'>&nbsp;&nbsp;:&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert(";");'>&nbsp;&nbsp;;&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert("#");'>&nbsp;&nbsp;#&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert("=");'>&nbsp;&nbsp;=&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert("\"");'>&nbsp;&nbsp;"&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert();'>&nbsp;&nbsp;'&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert("()");'>&nbsp;&nbsp;( )&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert("{}");'>&nbsp;&nbsp;{ }&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert("[]");'>&nbsp;[ ]&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.tab();'>TAB</li>
+       <li class="kbd_special" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
+       <li class="kbd_special" onclick='RUR.kbd.enter();'>Enter</li>
     </ul>
     <style>
-       ul.buttons > li { display: inline-block;
+        #touch-buttons ul li { background: white; z-index:10000 ;
+        display: inline-block;
         border: 1px solid silver;
         cursor: pointer;
-        height: 20px; margin: 5px; padding: 10px; line-height:30px; }
-       div#touch-buttons { background: white; z-index:10000 ; }
-       ul.buttons {padding-left:0; margin-left:0; padding-top:0; margin-top:0}
+        height: 20px; margin: 5px; padding: 10px; line-height:30px;
+        }
+        #touch-buttons ul {padding-left:0; margin-left:0; padding-top:0; margin-top:0}
     </style>
   </div>
 </div>
