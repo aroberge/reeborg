@@ -710,6 +710,10 @@ p.try {
     padding: 10px;
 }
 
+#keyboard-buttons ul li img {
+    height: 32px;
+}
+
 #keyboard-buttons ul li:hover {
     background: #ffd;
 }

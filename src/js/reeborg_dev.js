@@ -2376,6 +2376,18 @@ RUR.kbd.undo = function () {
     doc.focus();
 };
 
+RUR.kbd.redo = function () {
+    "use strict";
+    var doc;
+    if ($("#tabs").tabs('option', 'active') == 0) {
+        doc = editor;
+    } else {
+        doc = library;
+    }
+    doc.redo();
+    doc.focus();
+};
+
 RUR.kbd.enter = function () {
     "use strict";
     var doc;
