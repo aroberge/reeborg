@@ -9,6 +9,9 @@ RUR.kbd = {};
 RUR.kbd.insert = function (txt){
     "use strict";
     var doc, cursor, line, pos;
+    if (txt === undefined) {
+        txt = "'";
+    }
 
     if ($("#tabs").tabs('option', 'active') == 0) {
         doc = editor;
@@ -22,6 +25,30 @@ RUR.kbd.insert = function (txt){
        ch: cursor.ch // set the character position to the end of the line
     }
     doc.replaceRange(txt, pos); // adds a new line
+    doc.focus();
+};
+
+RUR.kbd.undo = function () {
+    "use strict";
+    var doc;
+    if ($("#tabs").tabs('option', 'active') == 0) {
+        doc = editor;
+    } else {
+        doc = library;
+    }
+    doc.undo();
+    doc.focus();
+};
+
+RUR.kbd.redo = function () {
+    "use strict";
+    var doc;
+    if ($("#tabs").tabs('option', 'active') == 0) {
+        doc = editor;
+    } else {
+        doc = library;
+    }
+    doc.redo();
     doc.focus();
 };
 
@@ -65,6 +92,7 @@ RUR.kbd.select = function (choice) {
     "use strict";
     $(".kbd_command").hide();
     $(".kbd_condition").hide();
+    $(".kbd_objects").hide();
     $(".kbd_python").hide();
     $(".kbd_special").hide();
     if ($("#kbd_command_btn").hasClass("reverse-blue-gradient")) {
@@ -76,6 +104,9 @@ RUR.kbd.select = function (choice) {
     } else if ($("#kbd_python_btn").hasClass("reverse-blue-gradient")) {
         $("#kbd_python_btn").removeClass("reverse-blue-gradient");
         $("#kbd_python_btn").addClass("blue-gradient");
+    } else if ($("#kbd_objects_btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd_objects_btn").removeClass("reverse-blue-gradient");
+        $("#kbd_objects_btn").addClass("blue-gradient");
     } else if ($("#kbd_special_btn").hasClass("reverse-blue-gradient")) {
         $("#kbd_special_btn").removeClass("reverse-blue-gradient");
         $("#kbd_special_btn").addClass("blue-gradient");
@@ -85,6 +116,11 @@ RUR.kbd.select = function (choice) {
             $(".kbd_condition").show();
             $("#kbd_condition_btn").removeClass("blue-gradient");
             $("#kbd_condition_btn").addClass("reverse-blue-gradient");
+            break;
+        case "kbd_objects":
+            $(".kbd_objects").show();
+            $("#kbd_objects_btn").removeClass("blue-gradient");
+            $("#kbd_objects_btn").addClass("reverse-blue-gradient");
             break;
         case "kbd_python":
             $(".kbd_python").show();

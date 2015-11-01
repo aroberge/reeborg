@@ -651,15 +651,19 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 </div>
 
 <div id="special-keyboard" title="Reeborg's basic keyboard" style="display:none">
-  <div id="touch-buttons">
+  <div id="keyboard-buttons">
       <button id="kbd_command_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_command");'>
         Commands</button>
       <button id="kbd_condition_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_condition");'>
         Conditions</button>
       <button id="kbd_python_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_python");'>
         Python</button>
+      <button id="kbd_objects_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_objects");'>
+        Objects</button>
       <button id="kbd_special_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_special");'>
-        Special characters</button>
+        Special</button>
+      <button onclick='RUR.kbd.undo()'>UNDO</button>
+      <button onclick='RUR.kbd.redo()'>REDO</button>
     <ul class="kbd_command">
        <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>move()</li>
        <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>turn_left()</li>
@@ -670,6 +674,8 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>done()</li>
        <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>think(100)</li>
        <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>sound(True)</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>World(" ? ")</li>
     </ul>
     <ul class="kbd_condition" >
        <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>at_goal()</li>
@@ -679,6 +685,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>wall_on_right()</li>
        <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML");'>object_here()</li>
        <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>carries_object()</li>
+       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>is_facing_north()</li>
     </ul>
     <ul class="kbd_python">
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>def ? ( ):</li>
@@ -689,14 +696,35 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>repeat ? :</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>from library import ?</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>for ? in  range( ? ):</li>
+       <br>
+      <span>Remember: <code>repeat</code> is not a Python keyword; it only works here.</span>
+    </ul>
+    <ul class="kbd_objects" >
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"token"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"apple"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"banana"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"carrot"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"daisy"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"dandelion"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"leaf"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"orange"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"square"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"star"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"strawberry"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"triangle"</li>
+       <li class="kbd_objects" onclick='RUR.kbd.insert(this.innerHTML);'>"tulip"</li>
     </ul>
     <ul class="kbd_special">
        <li class="kbd_special" onclick='RUR.kbd.insert(":");'>&nbsp;&nbsp;:&nbsp;&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.insert(";");'>&nbsp;&nbsp;;&nbsp;&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.insert("#");'>&nbsp;&nbsp;#&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert("=");'>&nbsp;&nbsp;=&nbsp;&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.insert("\"");'>&nbsp;&nbsp;"&nbsp;&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.insert();'>&nbsp;&nbsp;'&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert("=");'>&nbsp;&nbsp;=&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert("<");'>&nbsp;&nbsp;&lt;&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert(">");'>&nbsp;&nbsp;&gt;&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert("&");'>&nbsp;&nbsp;&amp;&nbsp;&nbsp;</li>
+       <li class="kbd_special" onclick='RUR.kbd.insert("|");'>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.insert("()");'>&nbsp;&nbsp;( )&nbsp;&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.insert("{}");'>&nbsp;&nbsp;{ }&nbsp;&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.insert("[]");'>&nbsp;[ ]&nbsp;</li>
@@ -704,15 +732,6 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_special" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
        <li class="kbd_special" onclick='RUR.kbd.enter();'>Enter</li>
     </ul>
-    <style>
-        #touch-buttons ul li { background: white; z-index:10000 ;
-        display: inline-block;
-        border: 1px solid silver;
-        cursor: pointer;
-        height: 20px; margin: 5px; padding: 10px; line-height:30px;
-        }
-        #touch-buttons ul {padding-left:0; margin-left:0; padding-top:0; margin-top:0}
-    </style>
   </div>
 </div>
 

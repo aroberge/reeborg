@@ -252,8 +252,7 @@ button:hover:enabled,
 a.fake_button:hover,
 .green-gradient,
 a.left-link:hover,
-a.right-link:hover,
-#language_switcher:hover {
+a.right-link:hover {
     background-color: #75a110;
     background-image: -webkit-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
     background-image: -moz-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
@@ -700,4 +699,24 @@ p.try {
     float: right;
     height: 36px;
     border: 0;
+}
+
+#keyboard-buttons ul li { background: white; z-index:10000 ;
+    display: inline-block;
+    border: 1px solid silver;
+    cursor: pointer;
+    height: 20px;
+    margin: 5px;
+    padding: 10px;
+}
+
+#keyboard-buttons ul li:hover {
+    background: #ffd;
+}
+
+#keyboard-buttons ul {
+    padding-left:0;
+    margin-left:0;
+    padding-top:0;
+    margin-top:0;
 }
