@@ -13,7 +13,7 @@
 
 <!--offline <link rel="stylesheet" href="offline/codemirror-5.8.0/lib/codemirror.css"> /offline-->
 <!--online-->  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.css">  <!--/online-->
-
+<link rel="stylesheet" href="offline/codemirror-5.8.0/theme/cobalt.css"> <!-- load after codemirror.css -->
 <link rel="stylesheet" href="src/css/reeborg_world.css"> <!-- load after codemirror.css -->
 <title>Reeborg's world</title>
     <script src="src/libraries/brython/brython.js"></script>
@@ -304,15 +304,6 @@ window['translate_python'] = translate_python
 
 
 <script>
-  var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-    mode:  {name: "python", version: 3},
-    tabMode: 'indent',
-    lineNumbers: true,
-    theme: 'reeborg-dark',
-    indentUnit: 4,
-    viewportMargin: Infinity
-  });
-
   function betterTab(cm) {
     if (cm.somethingSelected()) {
       cm.indentSelection("add");
@@ -321,17 +312,25 @@ window['translate_python'] = translate_python
         Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");
     }
   }
-
   function shiftTab(cm){
     cm.execCommand("indentLess");
   }
 
+
+  var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+    mode:  {name: "python", version: 3},
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4,
+    viewportMargin: Infinity
+  });
   editor.setOption("extraKeys", {
     Tab: betterTab,
     "Shift-Tab": shiftTab
   });
-
   editor.widgets = [];
+
   var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
     mode:  {name: "python", version: 3},
     tabMode: 'indent',

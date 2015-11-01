@@ -692,8 +692,8 @@ p.try {
     margin-top: 200px;
 }
 
-.editor-highlight {
-    background-color: #2d5ab4;
+.editor-highlight, .cm-s-reeborg-dark div.CodeMirror-selected {
+    background: #2d5ab4;
 }
 
 #highlight {
