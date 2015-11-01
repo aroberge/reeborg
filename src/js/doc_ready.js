@@ -56,8 +56,8 @@ $(document).ready(function() {
     create_and_activate_dialog($("#about-button"), $("#about-div"), {});
     create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
     create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600}, RUR.we.show_world_info);
-
-
+    create_and_activate_dialog($("#special-keyboard-button"), $("#special-keyboard"),
+            {autoOpen:false, width:800,  height:350, maximize: false, position:"left"});
 
     $("#world-panel-button").on("click", function (evt) {
         RUR.ui.toggle_panel($("#world-panel-button"), $("#world-panel"))
