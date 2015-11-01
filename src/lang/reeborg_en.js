@@ -86,7 +86,7 @@ RUR.reset_definitions = function () {
     think = RUR.control.think;
     say = RUR.control.say;
     pause = RUR.control.pause;
-    World = RUR.file_io.load_world_file;
+    World = RUR.file_io.load_world_from_program;
     set_max_nb_robots = RUR._set_max_nb_robots_;
     disappear = RUR.world.__remove_default_robot;
 

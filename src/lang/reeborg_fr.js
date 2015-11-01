@@ -77,7 +77,7 @@ RUR.reset_definitions = function () {
     son = RUR.control.sound;
     pense = RUR.control.think;
     pause = RUR.control.pause;
-    Monde = RUR.file_io.load_world_file;
+    Monde = RUR.file_io.load_world_from_program;
     nombre_de_robots = RUR._set_max_nb_robots_;
     disparait = RUR.world.__remove_default_robot;
 
