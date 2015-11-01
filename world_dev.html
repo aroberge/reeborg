@@ -658,25 +658,28 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
         Conditions</button>
       <button id="kbd_python_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_python");'>
         Python</button>
+      <button id="kbd_javascript_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_javascript");'>
+        Javascript/Coffeescript</button>
       <button id="kbd_objects_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_objects");'>
         Objects</button>
       <button id="kbd_special_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_special");'>
         Special</button>
-      <button onclick='RUR.kbd.undo()'>UNDO</button>
-      <button onclick='RUR.kbd.redo()'>REDO</button>
     <ul class="kbd_command">
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>move()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>turn_left()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>take()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>put()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>build_wall()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>pause()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>done()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>think(100)</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>sound(True)</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>World(" ? ")</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>UsedRobot()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>move()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>turn_left()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>take()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>put()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>build_wall()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pause()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>done()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>think(100)</li>
+       <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
+       <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>write(" ? ")</li>
+       <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>sound(True)</li>
+       <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>sound(true)</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>World(" ? ")</li>
+       <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>UsedRobot()</li>
+       <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>new UsedRobot()</li>
     </ul>
     <ul class="kbd_condition" >
        <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>at_goal()</li>
@@ -706,10 +709,28 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>or</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>continue</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>break</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>return ?</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
-
        <br>
       <span>Remember: <code>repeat</code> is not a Python keyword; it only works here.</span>
+    </ul>
+    <ul class="kbd_javascript">
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>var</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>function ? { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>if ( ? ) { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>else if ( ? ) { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>else { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>while ( ? ) { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>for (? ; ? ; ?) { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>true</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>false</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert2(this.innerHTML);'>return ?</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>undefined</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>!</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>&amp;&amp;</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>||</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>continue</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>break</li>
     </ul>
     <ul class="kbd_objects" >
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"token\"");'>
@@ -757,6 +778,8 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_special" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
        <li class="kbd_special" onclick='RUR.kbd.enter();'>Enter</li>
     </ul>
+    <button onclick='RUR.kbd.undo()'>UNDO</button>
+    <button onclick='RUR.kbd.redo()'>REDO</button>
   </div>
 </div>
 

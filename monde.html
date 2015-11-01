@@ -672,6 +672,8 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
         Conditions</button>
       <button id="kbd_python_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_python");'>
         Python</button>
+      <button id="kbd_javascript_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_javascript");'>
+        Javascript/Coffeescript</button>
       <button id="kbd_objects_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_objects");'>
         Objets</button>
       <button id="kbd_special_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_special");'>
@@ -721,6 +723,24 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
        <br>
       <span>Rappel: <code>repeat</code> n'est pas un véritable mot-clé Python.</span>
+    </ul>
+    <ul class="kbd_javascript">
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>var</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>function ? { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>if ( ? ) { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>else if ( ? ) { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>else { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>while ( ? ) { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>for (? ; ? ; ?) { }</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>true</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>false</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert2(this.innerHTML);'>return ?</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>undefined</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>!</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>&amp;&amp;</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>||</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>continue</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>break</li>
     </ul>
     <ul class="kbd_objects" >
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"jeton\"");'>

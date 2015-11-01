@@ -5,6 +5,32 @@
 /*globals $, RUR, editor, library */
 
 RUR.kbd = {};
+RUR.kbd.prog_lang = "python";
+
+RUR.kbd.set_programming_language = function (lang) {
+    switch (lang) {
+        case "python":
+            RUR.kbd.prog_lang = "python";
+            $("#kbd_python_btn").show();
+            $("#kbd_javascript_btn").hide();
+            break;
+        case "javascript":
+        case "coffeescript":
+            RUR.kbd.prog_lang = "javascript";
+            $("#kbd_python_btn").hide();
+            $("#kbd_javascript_btn").show();
+            break;
+    }
+    RUR.kbd.select(RUR.kbd.prog_lang);
+};
+
+RUR.kbd.insert2 = function (txt){
+    if (RUR.kbd.prog_lang == "javascript") {
+        RUR.kbd.insert(txt + ";");
+    } else {
+        RUR.kbd.insert(txt);
+    }
+};
 
 RUR.kbd.insert = function (txt){
     "use strict";
@@ -94,6 +120,7 @@ RUR.kbd.select = function (choice) {
     $(".kbd_condition").hide();
     $(".kbd_objects").hide();
     $(".kbd_python").hide();
+    $(".kbd_javascript").hide();
     $(".kbd_special").hide();
     if ($("#kbd_command_btn").hasClass("reverse-blue-gradient")) {
         $("#kbd_command_btn").removeClass("reverse-blue-gradient");
@@ -104,6 +131,9 @@ RUR.kbd.select = function (choice) {
     } else if ($("#kbd_python_btn").hasClass("reverse-blue-gradient")) {
         $("#kbd_python_btn").removeClass("reverse-blue-gradient");
         $("#kbd_python_btn").addClass("blue-gradient");
+    } else if ($("#kbd_javascript_btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd_javascript_btn").removeClass("reverse-blue-gradient");
+        $("#kbd_javascript_btn").addClass("blue-gradient");
     } else if ($("#kbd_objects_btn").hasClass("reverse-blue-gradient")) {
         $("#kbd_objects_btn").removeClass("reverse-blue-gradient");
         $("#kbd_objects_btn").addClass("blue-gradient");
@@ -127,6 +157,11 @@ RUR.kbd.select = function (choice) {
             $("#kbd_python_btn").removeClass("blue-gradient");
             $("#kbd_python_btn").addClass("reverse-blue-gradient");
             break;
+        case "kbd_javascript":
+            $(".kbd_javascript").show();
+            $("#kbd_javascript_btn").removeClass("blue-gradient");
+            $("#kbd_javascript_btn").addClass("reverse-blue-gradient");
+            break;
         case "kbd_special":
             $(".kbd_special").show();
             $("#kbd_special_btn").removeClass("blue-gradient");
@@ -137,6 +172,14 @@ RUR.kbd.select = function (choice) {
             $(".kbd_command").show();
             $("#kbd_command_btn").removeClass("blue-gradient");
             $("#kbd_command_btn").addClass("reverse-blue-gradient");
+    }
+
+    if (RUR.kbd.prog_lang == "python") {
+        $(".only_py").show();
+        $(".only_js").hide();
+    } else {
+        $(".only_js").show();
+        $(".only_py").hide();
     }
 };
 

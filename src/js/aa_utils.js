@@ -122,6 +122,7 @@ RUR.reset_programming_language = function(choice){
             $("#highlight").show();
             $("#library-link").parent().show();
             $("#python-additional-menu p button").removeAttr("disabled");
+            RUR.kbd.set_programming_language("python");
             break;
         case 'javascript-' + human_language :
             RUR.settings.editor = "editor_js_" + human_language;
@@ -131,6 +132,7 @@ RUR.reset_programming_language = function(choice){
             editor.setOption("mode", "javascript");
             // show language specific
             $("#javascript-additional-menu p button").removeAttr("disabled");
+            RUR.kbd.set_programming_language("javascript");
             break;
         case 'coffeescript-' + human_language :
             RUR.settings.editor = "editor_coffee_" + human_language;
@@ -140,6 +142,7 @@ RUR.reset_programming_language = function(choice){
             editor.setOption("mode", "coffeescript");
             // show language specific
             $("#coffeescript-additional-menu p button").removeAttr("disabled");
+            RUR.kbd.set_programming_language("coffeescript");
             break;
     }
     try {
