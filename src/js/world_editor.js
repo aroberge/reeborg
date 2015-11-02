@@ -29,7 +29,11 @@ RUR.we.edit_world = function  () {
         case "object-daisy":
         case "object-box":
             value = RUR.we.edit_world_flag.substring(7);
-            RUR.we._add_object(value);
+            if (RUR.we.decorative_objects) {
+                RUR.we._add_decorative_object(value);
+            } else {
+                RUR.we._add_object(value);
+            }
             break;
         case "tile-mud":
         case "tile-water":
@@ -122,9 +126,16 @@ RUR.we.select = function (choice) {
             $(".not-for-robot").hide();
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "world-objects":
+        case "decorative-objects":
+            RUR.we.decorative_objects = true;
             $("#edit-world-objects").show();
-            $(".not-for-robot").show();
+            RUR.we.__give_to_robot = false;
+            $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "world-objects":
+            RUR.we.decorative_objects = false;
+            $("#edit-world-objects").show();
+            $(".not-for-robot").show();  // box
             RUR.we.__give_to_robot = false;
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
@@ -161,7 +172,9 @@ RUR.we.select = function (choice) {
                 RUR.we._give_objects_to_robot(value);
                 RUR.we.edit_world_flag = '';
             } else {
-                $(".not-for-robot").show();
+                if (RUR.we.decorative_objects) {
+                    $(".not-for-robot").show();
+                }
                 if (value == "box"){
                     $("#cmd-result").html(RUR.translate("Click on world to add single object.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
                 } else {
@@ -777,6 +790,31 @@ RUR.we._add_object = function (specific_object){
     RUR.we.y = y;
     $("#add-object-name").html(RUR.we.specific_object);
     RUR.cd.dialog_add_object.dialog("open");
+};
+
+
+RUR.we._add_decorative_object = function (specific_object){
+    "use strict";
+    // only one decorative object is allowed per grid position
+    var position, x, y, coords;
+    position = RUR.we.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    coords = x + "," + y;
+
+    if (RUR.objects.known_objects.indexOf(specific_object) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
+    }
+
+    RUR.we.ensure_key_exist(RUR.current_world, "decorative_objects");
+    RUR.we.ensure_key_exist(RUR.current_world.decorative_objects, coords);
+
+    if (RUR.current_world.decorative_objects[coords][specific_object] != undefined) {
+        delete RUR.current_world.decorative_objects[coords];
+    } else {
+        RUR.current_world.decorative_objects[coords] = {};
+        RUR.current_world.decorative_objects[coords][specific_object] = 1;
+    }
 };
 
 

@@ -117,6 +117,7 @@ RUR.vis_world.refresh = function () {
         RUR.vis_world.sanity_check(0);
     }
     RUR.vis_world.draw_foreground_walls(RUR.current_world.walls); // on OBJECTS_CTX
+    RUR.vis_world.draw_all_objects(RUR.current_world.decorative_objects);
     RUR.vis_world.draw_all_objects(RUR.current_world.objects);  // on OBJECTS_CTX
         // RUR.vis_world.draw_all_objects also called by draw_goal, and draws on GOAL_CTX
         // and, draws some objects on ROBOT_CTX
