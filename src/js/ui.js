@@ -149,6 +149,17 @@ RUR.ui.highlight = function (arg) {
     }
 };
 
+RUR.ui.user_no_highlight = function () {
+    // meant to be used in a Python program (under a different name)
+    // to ensure highlighting is turned off.
+    if (RUR._highlight) {
+        RUR._highlight = false;
+        $("#not-ok-image").show();
+        $("#ok-image").hide();
+    }
+};
+
+
 RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
     reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
     step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',

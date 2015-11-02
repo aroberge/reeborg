@@ -1513,7 +1513,7 @@ $(document).ready(function() {
     create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
     create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600}, RUR.we.show_world_info);
     create_and_activate_dialog($("#special-keyboard-button"), $("#special-keyboard"),
-            {autoOpen:false, width:600,  height:300, maximize: false, position:"left"});
+            {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
 
     $("#world-panel-button").on("click", function (evt) {
         RUR.ui.toggle_panel($("#world-panel-button"), $("#world-panel"))
@@ -3652,6 +3652,17 @@ RUR.ui.highlight = function (arg) {
         $("#ok-image").show();
     }
 };
+
+RUR.ui.user_no_highlight = function () {
+    // meant to be used in a Python program (under a different name)
+    // to ensure highlighting is turned off.
+    if (RUR._highlight) {
+        RUR._highlight = false;
+        $("#not-ok-image").show();
+        $("#ok-image").hide();
+    }
+};
+
 
 RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
     reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
