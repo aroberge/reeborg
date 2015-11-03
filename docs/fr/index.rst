@@ -1,25 +1,3 @@
-.. topic:: Préambule
-
-  Comme vous le verrez dans ce document, je présente certaines règles à suivre
-  pour que vos programmes soient mieux conçus.
-  Une de ces règles est la suivante:
-
-  .. important::
-    **Règle numéro 3**
-
-        Lorsque vous écrivez des programmes informatiques, ne vous répétez
-        pas.
-        Je répète: `ne vous répétez
-        pas! <http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas>`__
-
-  J'ai décidé de suivre cette règle en préparant ce document.
-  Plutôt que d'écrire un tutoriel destiné uniquement aux apprenants, et
-  un autre document destinés aux enseignants, et encore un autre destiné
-  aux développeurs, etc., j'ai choisi de tout mettre dans un seul document
-  (en version française et anglaise).  Ainsi, lorsque je fais des
-  changements, je n'ai qu'un seul document à mettre à jour dans les deux
-  langues plutôt que 3 ou 4 comme j'avais auparavant.
-
 .. warning::
 
       Ce document est en révision majeure, avec certaines sections disponibles
