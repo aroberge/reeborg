@@ -114,13 +114,15 @@ Alors, quelle version est la plus facile à lire et à comprendre?...
 
 .. admonition:: Pour les enseignants
 
-    Dans une version précédente de ce tutoriel, j'utilisais les
-    arguments de fonctions et, dans l'exemple commenté ci-dessus,
-    j'avais utilisé::
+    Si vous avez déjà expliqué l'utilisation d'arguments de fonctions,
+    il serait probablement préférable de modifier l'exemple commenté ci-dessus,
+    pour remplacer::
+
+        depose()
+
+    par::
 
         depose('jeton')
 
-    au lieu de simplement ``depose()`` et j'avais écrit
-    ce qui suit: *Également, et bien que ceci ne crée aucune différence
-    pour Reeborg, j’ai spécifié "jeton" lorsque je voulais que
-    Reeborg en dépose un; ceci est plus clair pour un lecteur.*
+    sur la base du principe que ceci devient moins plus clair pour quelqu'un
+    qui lit le programme.

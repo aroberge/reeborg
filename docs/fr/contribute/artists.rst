@@ -1,16 +1,14 @@
-Information for artists
+Pour les artistes
 ===========================
 
-Using nice images can enhance the learning environment and make it
-much more appealing, especially for younger learners.   However,
-I am well aware of my own limitations when it comes to making nice looking
-images.
+L'utilisation de belles images peut enrichir l'environnement d'apprentissage
+et le rendre plus convivial, surtout pour les plus jeunes apprenant.
+Je reconnais cependant avoir des talents artistiques très limités...
 
-The current version of Reeborg's World uses png images with transparent backgrounds
-and size 40 by 40 pixels.
-[This unusual size has been chosen for historical reasons.]
-Many of these images have been adapted from
-images found on https://openclipart.org.
+La version actuelle du Monde de Reeborg utilise des images png avec
+fond transparent et une taille de 40 par 40 pixels.
+Plusieurs des images utilisées ici ont été adaptées d'images trouvées
+sur le site https://openclipart.org et permettant les adaptations.
 
-If you would like to contribute some additional and/or nicer artwork, please
-get in touch.
+Si vous désirez contribuer d'autres images, ou de meilleures images
+que celles que j'utilise, SVP n'hésitez pas à me contacter.

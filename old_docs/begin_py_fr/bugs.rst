@@ -62,6 +62,14 @@ de *trait intéressant du caractère* de leur programme. **Vous** allez
 devenir de bons programmeurs, contrairement aux créateurs de Reeborg
 dont le programme est rempli de bogues.
 
+.. figure:: ../images/reeborg_costume.jpg
+   :figwidth: 40%
+   :align: right
+
+   Reeborg, grandeur nature (New Jersey, États-Unis)
+
+   *Photo courtoisie de A. Judkis.*
+
 #. Reeborg a une fuite d'huile. De telle fuite sont dommageables pour
    l'environnement et pas très pratique pour Reeborg qui doit refaire le
    plein de façon périodique, lorsqu'il n'est pas occupé à accomplir les
@@ -113,7 +121,7 @@ plusieurs des trucs suivants:
    cliquant sur le bouton *une commande*.
    Si vous faites ceci, vous remarquerez peut-être que les instructions
    sont surlignées avant d'être exécutées.  Dans des cas très rares,
-   il peut arriver que le surlignage puisse causer des problèmes pour 
+   il peut arriver que le surlignage puisse causer des problèmes pour
    l'exécution de certains programmes; vous pouvez désactiver le
    surlignage en cliquant sur un bouton en haut du code.
 #. Vous pouvez changer la vitesse d’exécution (le temps entre deux

@@ -31,7 +31,7 @@ considérer la solution suivante.
 
 .. code:: py3
 
-    depose();
+    depose()
     while not objet_ici():
         if rien_devant():
             avance()
