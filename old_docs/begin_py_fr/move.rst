@@ -91,3 +91,30 @@ précise pour le faire.  Parfois, cette raison ne vous sera pas évidente, mais
 je vous encourage fortement de toujours essayer.  En fait, je vous encourage
 à essayer d'autres exemples de votre cru, ce qui vous permettra d'approfondir
 votre compréhension.
+
+Un outil pour vous aider
+------------------------
+
+Tout en haut du Monde de Reeborg, vous verrez un bouton intitulé
+**Clavier de Reeborg**.  Si vous cliquez dessus, un clavier spécial
+apparaitra.  En cliquant sur différent bouton, vous pouvez insérer
+des instructions utiles pour Reeborg ... tout en évitant de faire
+des erreurs en oubliant des parenthèses requises, ou en épelant incorrectement
+un mot.
+
+.. admonition:: Pour les enseignants
+
+    Le clavier de Reeborg peut être particulièrement utile pour trois
+    catégories de programmeurs: les plus jeunes, qui ne maitrise pas
+    un clavier "normal", ceux qui utilisent des écrans tactiles
+    avec clavier virtuels, et ceux qui utilisent un clavier avec
+    certains symboles requis difficiles à entrer.
+
+    Au moment où j'édite ce tutoriel pour rajouter cette note,
+    je viens tout juste de rajouter le clavier de Reeborg ainsi qu'une
+    commande (``pas de surlignement``) qui n'est pas documentée dans
+    ce tutoriel (ni dans l'aide en ligne).  Ceci risque d'arriver au
+    sujet d'autres commandes ... n'hésitez pas à me contacter si vous
+    voyer des erreurs (possiblement par omission) dans ce tutoriel
+    pour que je puisse les corriger.
+
