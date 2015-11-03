@@ -507,18 +507,25 @@ RUR.control.at_goal = function (robot) {
 };
 
 RUR.control.object_here = function (robot, obj) {
+    return RUR.control.__object_here(robot, obj, RUR.current_world.objects);
+};
+
+RUR.control.decorative_object_here = function (robot, obj) {
+    return RUR.control.__object_here(robot, obj, RUR.current_world.decorative_objects);
+};
+
+RUR.control.__object_here = function (robot, obj, _objects) {
 
     var obj_here, obj_type, all_objects;
     var coords = robot.x + "," + robot.y;
 
-    if (RUR.current_world.objects === undefined ||
-        RUR.current_world.objects[coords] === undefined) {
+    if (_objects === undefined ||
+        _objects[coords] === undefined) {
         return [];
     }
 
-    obj_here =  RUR.current_world.objects[coords];
+    obj_here =  _objects[coords];
     all_objects = [];
-
 
     for (obj_type in obj_here) {
         if (obj_here.hasOwnProperty(obj_type)) {
@@ -537,6 +544,7 @@ RUR.control.object_here = function (robot, obj) {
         return all_objects;
     }
 };
+
 
 RUR.control.top_tile_here = function (robot, tile) {
     var tile_here, tile_type, all_top_tiles;

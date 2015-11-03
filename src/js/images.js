@@ -241,6 +241,7 @@ RUR.objects.tulip.image_goal.onload = function () {
 RUR.objects.known_objects.push("tulip");
 
 RUR.objects.box = {};
+RUR.objects.box.name = "box";
 RUR.objects.box.pushable = true;
 RUR.objects.box.in_water = "bridge";
 RUR.objects.box.ctx = RUR.ROBOT_CTX;
@@ -262,6 +263,7 @@ RUR.objects.known_objects.push("box");
 
 
 RUR.tiles.mud = {};
+RUR.tiles.mud.name = "mud";
 RUR.tiles.mud.fatal = true;
 RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");
 RUR.tiles.mud.info = RUR.translate("Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.");
@@ -274,6 +276,7 @@ RUR.tiles.mud.image.onload = function () {
 };
 
 RUR.tiles.ice = {};
+RUR.tiles.ice.name = "ice";
 RUR.tiles.ice.slippery = true;
 RUR.tiles.ice.message = RUR.translate("I'm slipping on ice!");
 RUR.tiles.ice.info = RUR.translate("Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.");
@@ -286,6 +289,7 @@ RUR.tiles.ice.image.onload = function () {
 };
 
 RUR.tiles.grass = {};
+RUR.tiles.grass.name = "grass";
 RUR.tiles.grass.image = new Image();
 RUR.tiles.grass.image.src = RUR.base_url + 'src/images/grass.png';
 RUR.tiles.grass.info = RUR.translate("Grass: usually safe.");
@@ -296,6 +300,7 @@ RUR.tiles.grass.image.onload = function () {
 };
 
 RUR.tiles.gravel = {};
+RUR.tiles.gravel.name = "gravel";
 RUR.tiles.gravel.image = new Image();
 RUR.tiles.gravel.image.src = RUR.base_url + 'src/images/gravel.png';
 RUR.tiles.gravel.info = RUR.translate("Gravel: usually safe.");
@@ -306,6 +311,7 @@ RUR.tiles.gravel.image.onload = function () {
 };
 
 RUR.tiles.water = {};
+RUR.tiles.water.name = "water";
 RUR.tiles.water.fatal = true;
 RUR.tiles.water.detectable = true;
 RUR.tiles.water.message = RUR.translate("I'm in water!");
@@ -365,6 +371,7 @@ RUR.tiles.water.image6.onload = function () {
 };
 
 RUR.tiles.bricks = {};
+RUR.tiles.bricks.name = "brick wall";
 RUR.tiles.bricks.fatal = true;
 RUR.tiles.bricks.solid = true;
 RUR.tiles.bricks.detectable = true;
@@ -379,7 +386,6 @@ RUR.tiles.bricks.image.onload = function () {
 };
 
 RUR.home_images.green_home_tile = {};
-RUR.home_images.green_home_tile.fatal = true;
 RUR.home_images.green_home_tile.detectable = true;
 RUR.home_images.green_home_tile.info = RUR.translate("green home tile:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
 RUR.home_images.green_home_tile.image = new Image();
@@ -391,7 +397,6 @@ RUR.home_images.green_home_tile.image.onload = function () {
 };
 
 RUR.home_images.house = {};
-RUR.home_images.house.fatal = true;
 RUR.home_images.house.detectable = true;
 RUR.home_images.house.info = RUR.translate("house:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
 RUR.home_images.house.image = new Image();
@@ -403,7 +408,6 @@ RUR.home_images.house.image.onload = function () {
 };
 
 RUR.home_images.racing_flag = {};
-RUR.home_images.racing_flag.fatal = true;
 RUR.home_images.racing_flag.detectable = true;
 RUR.home_images.racing_flag.info = RUR.translate("racing flag:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
 RUR.home_images.racing_flag.image = new Image();
@@ -416,6 +420,7 @@ RUR.home_images.racing_flag.image.onload = function () {
 
 
 RUR.top_tiles.bridge = {};
+RUR.top_tiles.bridge.name = "bridge";
 RUR.top_tiles.bridge.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.bridge.image = new Image();
 RUR.top_tiles.bridge.image.src = RUR.base_url + 'src/images/bridge.png';
