@@ -5040,7 +5040,6 @@ RUR.we.change_edit_robot_menu = function () {
 function toggle_editing_mode () {
     if (RUR.we.editing_world) {
         RUR.we.editing_world = false;
-        //editing_world_enable_run();
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
@@ -5055,7 +5054,6 @@ function toggle_editing_mode () {
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();
-        //editing_world_disable_run();
         RUR.we.set_extra_code();
     }
     RUR.reset_programming_language(RUR.settings.current_language);
@@ -5091,18 +5089,6 @@ RUR.we.refresh_world_edited = function () {
     RUR.we.show_world_info();
 };
 
-function editing_world_enable_run(){
-    $("#run").removeAttr("disabled");
-    $("#step").removeAttr("disabled");
-}
-
-function editing_world_disable_run() {
-    $("#stop").attr("disabled", "true");
-    $("#pause").attr("disabled", "true");
-    $("#run").attr("disabled", "true");
-    $("#step").attr("disabled", "true");
-    $("#reload").attr("disabled", "true");
-}
 
 RUR.we.calculate_grid_position = function () {
     var ctx, x, y;
