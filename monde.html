@@ -103,11 +103,13 @@
         <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
       </button>
       <li><a id="library-link" href="#library">biblio</a></li>
+      <li><a id="pre-code-link" href="#pre-code-div">Pre</a></li>
+      <li><a id="post-code-link" href="#post-code-div">Post</a></li>
+      <li><a id="description-link" href="#description-div">Desc.</a></li>
 
     </ul>
     <div id="editor">
       <textarea id="code" name="code">avance()</textarea>
-
     </div>
     <div id="library">
       <textarea id="library-code" name="library-code">
@@ -122,6 +124,15 @@
 
         Avez-vous essayé Firefox ou Chrome ? */
       </textarea>
+    </div>
+    <div id="pre-code-div">
+      <textarea id="pre-code" name="pre-code">'pre-code here'</textarea>
+    </div>
+    <div id="post-code-div">
+      <textarea id="post-code" name="post-code">'post-code here'</textarea>
+    </div>
+    <div id="description-div">
+      <textarea id="description" name="description"><!-- description --></textarea>
     </div>
   </div>
   <div id="highlight-impossible" style="display:none; background-color:gold;">
@@ -236,39 +247,18 @@
             <li><a href="javascript:RUR.we.select('goal-objects');">Objets</a></li>
         </ul></li>
     </ul>
-
-    <div id="additional-code">
-      <p>Les boutons qui suivent permettent de copier le texte se trouvant
-        dans les zones de texte ci-dessous; pour les deux premier, le code sera exécuté soit immédiatement avant ou
-        immédiatement après le code du programmeur. Le troisième bouton permet d'ajouter une
-        description au sujet de ce monde.
-        </p>
-        <table>
-            <tr>
-                <td><button class="blue-gradient" id="insert-pre-code" onclick="RUR.we.insert_pre_code();">Insert pre-code</button></td>
-                <td><button class="blue-gradient" id="insert-post-code" onclick="RUR.we.insert_post_code();">Insert post-code</button></td>
-                <td><button class="blue-gradient" id="insert-description" onclick="RUR.we.add_description();">Copy description</button></td>
-            </tr>
-            <tr>
-                <td><textarea id="pre-code">"pre-code"</textarea></td>
-                <td><textarea id="post-code">"post-code"</textarea></td>
-                <td><textarea id="description">Description</textarea></td>
-            </tr>
-        </table>
-
-      <div id="code-copied"></div>
-    </div>
-
 </div>
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.js"></script>
-<script async src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/javascript/javascript.js"></script>
-<!--<script src="src/libraries/codemirror/python.js"></script>-->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/python/python.js"></script>
-<script async src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/coffeescript/coffeescript.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+<script async src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/javascript/javascript.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/python/python.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/css/css.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/xml/xml.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/htmlmixed/htmlmixed.min.js"></script>
+<script async src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/coffeescript/coffeescript.min.js"></script>
 <script>
   var RUR = {};
   RUR.settings = {};
@@ -332,6 +322,45 @@ window['translate_python'] = translate_python
       Tab: betterTab,
     "Shift-Tab": shiftTab
     });
+
+  var pre_code_editor = CodeMirror.fromTextArea(document.getElementById('pre-code'), {
+    mode:  {name: "python", version: 3},
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4,
+    viewportMargin: Infinity
+  });
+  pre_code_editor.setOption("extraKeys", {
+      Tab: betterTab,
+    "Shift-Tab": shiftTab
+    });
+  var post_code_editor = CodeMirror.fromTextArea(document.getElementById('post-code'), {
+    mode:  {name: "python", version: 3},
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4,
+    viewportMargin: Infinity
+  });
+  post_code_editor.setOption("extraKeys", {
+      Tab: betterTab,
+    "Shift-Tab": shiftTab
+    });
+
+  var description_editor = CodeMirror.fromTextArea(document.getElementById('description'), {
+    mode:  {name: "htmlmixed"},
+    tabMode: 'indent',
+    lineNumbers: true,
+    theme: 'reeborg-dark',
+    indentUnit: 4,
+    viewportMargin: Infinity
+  });
+  description_editor.setOption("extraKeys", {
+      Tab: betterTab,
+    "Shift-Tab": shiftTab
+    });
+
 </script>
 
 <script async src="src/libraries/jshint.js"></script>

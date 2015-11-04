@@ -110,6 +110,11 @@ RUR.reset_programming_language = function(choice){
     $("#javascript-additional-menu p button").attr("disabled", "true");
     $("#library-link").parent().hide();
     $("#highlight").hide();
+
+    $("#pre-code-link").parent().hide();
+    $("#post-code-link").parent().hide();
+    $("#description-link").parent().hide();
+
     switch(RUR.settings.current_language){
         case 'python-' + human_language :
             RUR.settings.editor = "editor_py_" + human_language;
@@ -117,6 +122,8 @@ RUR.reset_programming_language = function(choice){
             RUR.programming_language = "python";
             $("#editor-link").html(RUR.translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
+            pre_code_editor.setOption("mode", {name: "python", version: 3});
+            post_code_editor.setOption("mode", {name: "python", version: 3});
             library.setOption("mode", {name: "python", version: 3});
             // show language specific
             $("#highlight").show();
@@ -130,6 +137,8 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").html(RUR.translate("Javascript Code"));
             $("#editor-link").click();
             editor.setOption("mode", "javascript");
+            pre_code_editor.setOption("mode", "javascript");
+            post_code_editor.setOption("mode", "javascript");
             // show language specific
             $("#javascript-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("javascript");
@@ -140,6 +149,8 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").html(RUR.translate("CoffeeScript Code"));
             $("#editor-link").click();
             editor.setOption("mode", "coffeescript");
+            pre_code_editor.setOption("mode", "coffeescript");
+            post_code_editor.setOption("mode", "coffeescript");
             // show language specific
             $("#coffeescript-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("coffeescript");
@@ -148,6 +159,12 @@ RUR.reset_programming_language = function(choice){
     try {
         RUR.reset_code_in_editors();
     } catch (e) {}
+
+    if (RUR.we.editing_world) {
+        $("#pre-code-link").parent().show();
+        $("#post-code-link").parent().show();
+        $("#description-link").parent().show();
+    }
 };
 
 RUR.update_permalink = function (arg) {

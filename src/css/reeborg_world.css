@@ -369,7 +369,8 @@ p.try {
     color: #cef;
 }
 
-.cm-s-reeborg-dark .cm-keyword {
+.cm-s-reeborg-dark .cm-keyword,
+.cm-s-reeborg-dark .cm-tag {
     color: #fbde2d;
 }
 

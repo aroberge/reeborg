@@ -95,7 +95,7 @@ RUR.file_io.load_world_file = function (url) {
             return;
         }
         RUR.world.import_world(data);
-        RUR.we.show_pre_post_code();
+        RUR.we.set_extra_code();
         RUR.file_io.status = "success";
         RUR.rec.frames = [];
     } else {
@@ -111,7 +111,7 @@ RUR.file_io.load_world_file = function (url) {
                     RUR.ui.reload();
                 } else {
                     RUR.world.import_world(data);
-                    RUR.we.show_pre_post_code();
+                    RUR.we.set_extra_code();
                 }
                 RUR.file_io.status = "success";
             }

@@ -1,0 +1,101 @@
+﻿{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "orientation": 0,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ],
+      "objects": {}
+    }
+  ],
+  "walls": {},
+  "description": "Have Reeborg follow the gravel path as indicated.<br><img src='src/images/simple_path.gif'.<br>",
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 10,
+  "tiles": {
+    "1,1": "gravel",
+    "1,2": "grass",
+    "1,3": "grass",
+    "1,4": "grass",
+    "1,5": "grass",
+    "1,6": "grass",
+    "2,1": "gravel",
+    "2,2": "grass",
+    "2,3": "grass",
+    "2,4": "grass",
+    "2,5": "grass",
+    "2,6": "grass",
+    "3,1": "gravel",
+    "3,2": "grass",
+    "3,3": "grass",
+    "3,4": "grass",
+    "3,5": "grass",
+    "3,6": "grass",
+    "4,1": "gravel",
+    "4,2": "grass",
+    "4,3": "gravel",
+    "4,4": "gravel",
+    "4,5": "gravel",
+    "4,6": "grass",
+    "5,1": "gravel",
+    "5,2": "grass",
+    "5,3": "gravel",
+    "5,4": "grass",
+    "5,5": "gravel",
+    "5,6": "grass",
+    "6,1": "gravel",
+    "6,2": "gravel",
+    "6,3": "gravel",
+    "6,4": "gravel",
+    "6,5": "gravel",
+    "6,6": "grass",
+    "7,1": "grass",
+    "7,2": "grass",
+    "7,3": "gravel",
+    "7,4": "grass",
+    "7,5": "grass",
+    "7,6": "grass",
+    "8,1": "grass",
+    "8,2": "grass",
+    "8,3": "gravel",
+    "8,4": "grass",
+    "8,5": "grass",
+    "8,6": "grass",
+    "9,1": "grass",
+    "9,2": "grass",
+    "9,3": "gravel",
+    "9,4": "grass",
+    "9,5": "grass",
+    "9,6": "grass",
+    "10,1": "grass",
+    "10,2": "grass",
+    "10,3": "gravel",
+    "10,4": "grass",
+    "10,5": "grass",
+    "10,6": "grass"
+  },
+  "goal": {
+    "possible_positions": [
+      [
+        10,
+        3
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 10,
+      "y": 3
+    }
+  },
+  "post_code": "_desired_path = [\n(2,1), (3,1), (4,1), (5,1), (6,1), (6,2), (6,3), (6,4), (6,5), (5,5), (4,5), (4,4), (4,3), (5,3), (6,3), (7,3), (8,3), (9,3), (10,3)]\n\nif _desired_path != _path_followed:\n    raise ReeborgError(\"Le chemin suivi n'est pas celui demandé!\")\n\n",
+  "pre_code": "_path_followed = []\nold_move = avance\ndef avance():\n    reeborg = RUR.current_world.robots[0]\n    old_move()\n    _path_followed.append((reeborg.x, reeborg.y))\n"
+}

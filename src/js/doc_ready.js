@@ -69,7 +69,7 @@ $(document).ready(function() {
 
 
     $("#editor-link").on("click", function(evt){
-        if (RUR.programming_language == "python"){
+        if (RUR.programming_language == "python" && !RUR.we.editing_world){
             $("#highlight").show();
         }
     });
@@ -78,6 +78,15 @@ $(document).ready(function() {
         $("#highlight").hide();
     });
 
+    $("#pre-code-link").on("click", function(evt){
+        $("#highlight").hide();
+    });
+    $("#post-code-link").on("click", function(evt){
+        $("#highlight").hide();
+    });
+    $("#description-link").on("click", function(evt){
+        $("#highlight").hide();
+    });
 
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
@@ -114,6 +123,9 @@ $(document).ready(function() {
             activate: function(event, ui){
                 editor.refresh();
                 library.refresh();
+                pre_code_editor.refresh();
+                post_code_editor.refresh();
+                description_editor.refresh();
             }
     });
 
@@ -121,6 +133,9 @@ $(document).ready(function() {
         resize: function() {
             editor.setSize(null, $(this).height()-40);
             library.setSize(null, $(this).height()-40);
+            pre_code_editor.setSize(null, $(this).height()-40);
+            post_code_editor.setSize(null, $(this).height()-40);
+            description_editor.setSize(null, $(this).height()-40);
         }
     }).draggable({cursor: "move", handle: "ul"});
 
@@ -270,5 +285,8 @@ $(document).ready(function() {
     function receiveMessage(event){
         RUR.update_permalink(event.data);
     }
+
+
+    RUR.we.set_extra_code();
 });
 

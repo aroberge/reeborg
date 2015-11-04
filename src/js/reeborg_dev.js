@@ -110,6 +110,11 @@ RUR.reset_programming_language = function(choice){
     $("#javascript-additional-menu p button").attr("disabled", "true");
     $("#library-link").parent().hide();
     $("#highlight").hide();
+
+    $("#pre-code-link").parent().hide();
+    $("#post-code-link").parent().hide();
+    $("#description-link").parent().hide();
+
     switch(RUR.settings.current_language){
         case 'python-' + human_language :
             RUR.settings.editor = "editor_py_" + human_language;
@@ -117,6 +122,8 @@ RUR.reset_programming_language = function(choice){
             RUR.programming_language = "python";
             $("#editor-link").html(RUR.translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
+            pre_code_editor.setOption("mode", {name: "python", version: 3});
+            post_code_editor.setOption("mode", {name: "python", version: 3});
             library.setOption("mode", {name: "python", version: 3});
             // show language specific
             $("#highlight").show();
@@ -130,6 +137,8 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").html(RUR.translate("Javascript Code"));
             $("#editor-link").click();
             editor.setOption("mode", "javascript");
+            pre_code_editor.setOption("mode", "javascript");
+            post_code_editor.setOption("mode", "javascript");
             // show language specific
             $("#javascript-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("javascript");
@@ -140,6 +149,8 @@ RUR.reset_programming_language = function(choice){
             $("#editor-link").html(RUR.translate("CoffeeScript Code"));
             $("#editor-link").click();
             editor.setOption("mode", "coffeescript");
+            pre_code_editor.setOption("mode", "coffeescript");
+            post_code_editor.setOption("mode", "coffeescript");
             // show language specific
             $("#coffeescript-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("coffeescript");
@@ -148,6 +159,12 @@ RUR.reset_programming_language = function(choice){
     try {
         RUR.reset_code_in_editors();
     } catch (e) {}
+
+    if (RUR.we.editing_world) {
+        $("#pre-code-link").parent().show();
+        $("#post-code-link").parent().show();
+        $("#description-link").parent().show();
+    }
 };
 
 RUR.update_permalink = function (arg) {
@@ -915,6 +932,9 @@ RUR.control.object_here = function (robot, obj) {
     return RUR.control.__object_here(robot, obj, RUR.current_world.objects);
 };
 
+RUR.control.decorative_object_here = function (robot, obj) {
+    return RUR.control.__object_here(robot, obj, RUR.current_world.decorative_objects);
+};
 
 RUR.control.__object_here = function (robot, obj, _objects) {
 
@@ -1450,7 +1470,7 @@ RUR.make_default_menu_fr = function () {
         [base_url + 'storm3.json', 'Tempête 3'],
         // [menus + 'default_fr', 'Menu par défaut'],
         [worlds + 'menus/documentation_fr', 'Documentation (menu anglais)'],
-        [worlds + 'simple_path.json', 'Simple sentier'],
+        [worlds + 'simple_path_fr.json', 'Simple sentier'],
         [worlds + 'gravel_path.json', 'Sentier de gravier'],
         [worlds + 'gravel_path_fr',
                            'Sentier de gravier (solution)'],
@@ -1530,7 +1550,7 @@ $(document).ready(function() {
 
 
     $("#editor-link").on("click", function(evt){
-        if (RUR.programming_language == "python"){
+        if (RUR.programming_language == "python" && !RUR.we.editing_world){
             $("#highlight").show();
         }
     });
@@ -1539,6 +1559,15 @@ $(document).ready(function() {
         $("#highlight").hide();
     });
 
+    $("#pre-code-link").on("click", function(evt){
+        $("#highlight").hide();
+    });
+    $("#post-code-link").on("click", function(evt){
+        $("#highlight").hide();
+    });
+    $("#description-link").on("click", function(evt){
+        $("#highlight").hide();
+    });
 
     $("#save-editor").on("click", function(evt) {
         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
@@ -1575,6 +1604,9 @@ $(document).ready(function() {
             activate: function(event, ui){
                 editor.refresh();
                 library.refresh();
+                pre_code_editor.refresh();
+                post_code_editor.refresh();
+                description_editor.refresh();
             }
     });
 
@@ -1582,6 +1614,9 @@ $(document).ready(function() {
         resize: function() {
             editor.setSize(null, $(this).height()-40);
             library.setSize(null, $(this).height()-40);
+            pre_code_editor.setSize(null, $(this).height()-40);
+            post_code_editor.setSize(null, $(this).height()-40);
+            description_editor.setSize(null, $(this).height()-40);
         }
     }).draggable({cursor: "move", handle: "ul"});
 
@@ -1731,6 +1766,9 @@ $(document).ready(function() {
     function receiveMessage(event){
         RUR.update_permalink(event.data);
     }
+
+
+    RUR.we.set_extra_code();
 });
 
 /* Author: André Roberge
@@ -1830,7 +1868,7 @@ RUR.file_io.load_world_file = function (url) {
             return;
         }
         RUR.world.import_world(data);
-        RUR.we.show_pre_post_code();
+        RUR.we.set_extra_code();
         RUR.file_io.status = "success";
         RUR.rec.frames = [];
     } else {
@@ -1846,7 +1884,7 @@ RUR.file_io.load_world_file = function (url) {
                     RUR.ui.reload();
                 } else {
                     RUR.world.import_world(data);
-                    RUR.we.show_pre_post_code();
+                    RUR.we.set_extra_code();
                 }
                 RUR.file_io.status = "success";
             }
@@ -2169,7 +2207,7 @@ RUR.tiles.water.name = "water";
 RUR.tiles.water.fatal = true;
 RUR.tiles.water.detectable = true;
 RUR.tiles.water.message = RUR.translate("I'm in water!");
-RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will drown if it moves to this location.");
+RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.");
 RUR.tiles.water.image = new Image();
 RUR.tiles.water.image.src = RUR.base_url + 'src/images/water.png';
 RUR.tiles.water.image2 = new Image();
@@ -3077,6 +3115,9 @@ RUR.runner.assign_initial_values = function () {
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
+    if (RUR.we.editing_world && !RUR.runner.interpreted) {
+        RUR.world.saved_world = RUR.world.clone_world(RUR.current_world);
+    }
     if (!RUR.runner.interpreted) {
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
         RUR.runner.assign_initial_values();
@@ -3148,28 +3189,32 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
 
 RUR.runner.eval_javascript = function (src) {
     // do not "use strict"
+    var pre_code, post_code;
+    pre_code = pre_code_editor.getValue();
+    post_code = post_code_editor.getValue();
     RUR.reset_definitions();
+    src = pre_code + "\n" + src + "\n" + post_code;
     eval(src); // jshint ignore:line
 };
 
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
-    var pre_code = '', post_code = '';
+    var pre_code, post_code;
     RUR.reset_definitions();
-    if (RUR.current_world.pre_code){
-        pre_code = RUR.current_world.pre_code;
-    }
-    if (RUR.current_world.post_code){
-        post_code = RUR.current_world.post_code;
-    }
+    pre_code = pre_code_editor.getValue();
+    post_code = post_code_editor.getValue();
     translate_python(src, RUR._highlight, pre_code, post_code);
 };
 
 
 RUR.runner.eval_coffee = function (src) {
     // do not  "use strict"
+    var pre_code, post_code;
+    pre_code = pre_code_editor.getValue();
+    post_code = post_code_editor.getValue();
     RUR.reset_definitions();
+    src = pre_code + "\n" + src + "\n" + post_code;
     eval(CoffeeScript.compile(src)); // jshint ignore:line
 };
 
@@ -4658,6 +4703,8 @@ RUR.world.import_world = function (json_string) {
         RUR.current_world = json_string;
     }
 
+    RUR.we.set_extra_code();
+
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
             RUR.robot.cleanup_objects(RUR.current_world.robots[0]);
@@ -4993,41 +5040,51 @@ RUR.we.change_edit_robot_menu = function () {
 function toggle_editing_mode () {
     if (RUR.we.editing_world) {
         RUR.we.editing_world = false;
-        editing_world_enable_run();
+        //editing_world_enable_run();
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
+        RUR.we.update_extra_code();
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
         }
+        $("#editor-link").trigger('click');
     } else {
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();
-        editing_world_disable_run();
-        RUR.we.show_pre_post_code();
+        //editing_world_disable_run();
+        RUR.we.set_extra_code();
     }
+    RUR.reset_programming_language(RUR.settings.current_language);
 }
 
-RUR.we.show_pre_post_code = function () {
-    if (RUR.current_world.pre_code !== undefined) {
-        $("#pre-code").val(RUR.current_world.pre_code);
-    } else {
-        $("#pre-code").val("pre-code");
+RUR.we.set_extra_code = function () {
+    try {
+        pre_code_editor.setValue(RUR.current_world.pre_code);
+    } catch(e) {
+        pre_code_editor.setValue("'pre-code'");
     }
-    if (RUR.current_world.post_code !== undefined) {
-        $("#post-code").val(RUR.current_world.post_code);
-    } else {
-        $("#post-code").val("post-code");
+    try  {
+        post_code_editor.setValue(RUR.current_world.post_code);
+    } catch (e) {
+        post_code_editor.setValue("'post-code'");
     }
-    if (RUR.current_world.description !== undefined) {
-        $("#description").val(RUR.current_world.description);
-    } else {
-        $("#description").val("Description");
+    try {
+        description_editor.setValue(RUR.current_world.description);
+    } catch(e) {
+        description_editor.setValue("<!-- description -->");
     }
 };
+
+RUR.we.update_extra_code = function () {
+    RUR.current_world.pre_code = pre_code_editor.getValue();
+    RUR.current_world.post_code = post_code_editor.getValue();
+    RUR.current_world.description = description_editor.getValue();
+};
+
 
 RUR.we.refresh_world_edited = function () {
     RUR.vis_world.draw_all();
@@ -5464,26 +5521,6 @@ RUR.we.ensure_key_exist = function(obj, key){
     if (obj[key] === undefined){
         obj[key] = {};
     }
-};
-
-RUR.we.insert_pre_code = function() {
-    RUR.current_world.pre_code = $("#pre-code").val();
-    RUR.we.confirm_update();
-};
-
-RUR.we.insert_post_code = function() {
-    RUR.current_world.post_code = $("#post-code").val();
-    RUR.we.confirm_update();
-};
-
-RUR.we.add_description = function() {
-    RUR.current_world.description = $("#description").val();
-    RUR.we.confirm_update();
-    RUR.we.show_world_info();
-};
-
-RUR.we.confirm_update = function() {
-    $("#code-copied").html("updated").effect("highlight", {color: "gold"}, 1500);
 };
 
 

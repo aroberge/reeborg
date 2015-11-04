@@ -53,6 +53,8 @@ RUR.world.import_world = function (json_string) {
         RUR.current_world = json_string;
     }
 
+    RUR.we.set_extra_code();
+
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
             RUR.robot.cleanup_objects(RUR.current_world.robots[0]);

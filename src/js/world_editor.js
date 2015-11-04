@@ -274,41 +274,51 @@ RUR.we.change_edit_robot_menu = function () {
 function toggle_editing_mode () {
     if (RUR.we.editing_world) {
         RUR.we.editing_world = false;
-        editing_world_enable_run();
+        //editing_world_enable_run();
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
+        RUR.we.update_extra_code();
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
         }
+        $("#editor-link").trigger('click');
     } else {
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();
-        editing_world_disable_run();
-        RUR.we.show_pre_post_code();
+        //editing_world_disable_run();
+        RUR.we.set_extra_code();
     }
+    RUR.reset_programming_language(RUR.settings.current_language);
 }
 
-RUR.we.show_pre_post_code = function () {
-    if (RUR.current_world.pre_code !== undefined) {
-        $("#pre-code").val(RUR.current_world.pre_code);
-    } else {
-        $("#pre-code").val("pre-code");
+RUR.we.set_extra_code = function () {
+    try {
+        pre_code_editor.setValue(RUR.current_world.pre_code);
+    } catch(e) {
+        pre_code_editor.setValue("'pre-code'");
     }
-    if (RUR.current_world.post_code !== undefined) {
-        $("#post-code").val(RUR.current_world.post_code);
-    } else {
-        $("#post-code").val("post-code");
+    try  {
+        post_code_editor.setValue(RUR.current_world.post_code);
+    } catch (e) {
+        post_code_editor.setValue("'post-code'");
     }
-    if (RUR.current_world.description !== undefined) {
-        $("#description").val(RUR.current_world.description);
-    } else {
-        $("#description").val("Description");
+    try {
+        description_editor.setValue(RUR.current_world.description);
+    } catch(e) {
+        description_editor.setValue("<!-- description -->");
     }
 };
+
+RUR.we.update_extra_code = function () {
+    RUR.current_world.pre_code = pre_code_editor.getValue();
+    RUR.current_world.post_code = post_code_editor.getValue();
+    RUR.current_world.description = description_editor.getValue();
+};
+
 
 RUR.we.refresh_world_edited = function () {
     RUR.vis_world.draw_all();
@@ -745,26 +755,6 @@ RUR.we.ensure_key_exist = function(obj, key){
     if (obj[key] === undefined){
         obj[key] = {};
     }
-};
-
-RUR.we.insert_pre_code = function() {
-    RUR.current_world.pre_code = $("#pre-code").val();
-    RUR.we.confirm_update();
-};
-
-RUR.we.insert_post_code = function() {
-    RUR.current_world.post_code = $("#post-code").val();
-    RUR.we.confirm_update();
-};
-
-RUR.we.add_description = function() {
-    RUR.current_world.description = $("#description").val();
-    RUR.we.confirm_update();
-    RUR.we.show_world_info();
-};
-
-RUR.we.confirm_update = function() {
-    $("#code-copied").html("updated").effect("highlight", {color: "gold"}, 1500);
 };
 
 

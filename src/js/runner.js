@@ -119,6 +119,9 @@ RUR.runner.assign_initial_values = function () {
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
+    if (RUR.we.editing_world && !RUR.runner.interpreted) {
+        RUR.world.saved_world = RUR.world.clone_world(RUR.current_world);
+    }
     if (!RUR.runner.interpreted) {
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
         RUR.runner.assign_initial_values();
@@ -190,28 +193,32 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
 
 RUR.runner.eval_javascript = function (src) {
     // do not "use strict"
+    var pre_code, post_code;
+    pre_code = pre_code_editor.getValue();
+    post_code = post_code_editor.getValue();
     RUR.reset_definitions();
+    src = pre_code + "\n" + src + "\n" + post_code;
     eval(src); // jshint ignore:line
 };
 
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
-    var pre_code = '', post_code = '';
+    var pre_code, post_code;
     RUR.reset_definitions();
-    if (RUR.current_world.pre_code){
-        pre_code = RUR.current_world.pre_code;
-    }
-    if (RUR.current_world.post_code){
-        post_code = RUR.current_world.post_code;
-    }
+    pre_code = pre_code_editor.getValue();
+    post_code = post_code_editor.getValue();
     translate_python(src, RUR._highlight, pre_code, post_code);
 };
 
 
 RUR.runner.eval_coffee = function (src) {
     // do not  "use strict"
+    var pre_code, post_code;
+    pre_code = pre_code_editor.getValue();
+    post_code = post_code_editor.getValue();
     RUR.reset_definitions();
+    src = pre_code + "\n" + src + "\n" + post_code;
     eval(CoffeeScript.compile(src)); // jshint ignore:line
 };
 

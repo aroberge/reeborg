@@ -173,7 +173,7 @@ RUR.make_default_menu_fr = function () {
         [base_url + 'storm3.json', 'Tempête 3'],
         // [menus + 'default_fr', 'Menu par défaut'],
         [worlds + 'menus/documentation_fr', 'Documentation (menu anglais)'],
-        [worlds + 'simple_path.json', 'Simple sentier'],
+        [worlds + 'simple_path_fr.json', 'Simple sentier'],
         [worlds + 'gravel_path.json', 'Sentier de gravier'],
         [worlds + 'gravel_path_fr',
                            'Sentier de gravier (solution)'],
