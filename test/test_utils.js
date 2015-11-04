@@ -131,3 +131,26 @@ editor.setValue = function(arg) {
 library.getValue = function() {
     return RUR.unit_tests.library || '';
 };
+
+pre_code_editor = {};
+post_code_editor = {};
+description_editor = {};
+pre_code_editor.getValue = function () {
+    return RUR.unit_tests.pre_code || '';
+};
+post_code_editor.getValue = function () {
+    return RUR.unit_tests.post_code || '';
+};
+description_editor.getValue = function () {
+    return RUR.unit_tests.description || '';
+};
+
+pre_code_editor.setValue = function (code) {
+    RUR.unit_tests.pre_code = code;
+};
+post_code_editor.setValue = function (code) {
+    RUR.unit_tests.post_code = code;
+};
+description_editor.setValue = function (code) {
+    RUR.unit_tests.description = code;
+};
