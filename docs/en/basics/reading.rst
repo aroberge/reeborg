@@ -1,31 +1,28 @@
-Exercice de lecture
--------------------
+Reading exercise
+================
 
-Vous rappelez-vous de ce qui suit?
+Remember the following?
 
 .. important::
 
-    **Règle numéro 2**
+    **Rule # 2**
+        Write your computer programs to make them easy for **people** to
+        read and understand.
 
-        Écrivez vos programmes pour qu'il soit facile à lire et à comprendre
-        par des **humains**.
-
-Pouvez-vous déterminez ce que fait le programme suivant, simplement
-en le lisant et sans l'exécuter?
-
-.. code-block:: py3
+Can you figure out on your own what the following program does, without
+copying it in the editor and having Reeborg obey the instructions?::
 
     def a():
-        tourne_a_gauche()
-        tourne_a_gauche()
+        turn_left()
+        turn_left()
 
     def b():
-        tourne_a_gauche()
+        turn_left()
         a()
 
     def c():
-        avance()
-        avance()
+        move()
+        move()
 
     def d():
         c()
@@ -37,18 +34,16 @@ en le lisant et sans l'exécuter?
         d()
         d()
 
-    tourne_a_gauche()
+    turn_left()
     e()
     b()
 
-Pas vraiment facile, n'est-ce pas?
+Not so easy, is it?
 
-.. topic:: Vérifiez!
+.. topic:: Test it!
 
-    Lorsque vous serez convaincu de savoir ce que fait le programme ci-dessus,
-    vérifiez votre compréhension en l'exécutant.
+    Once you think you have figured out what the above code does, copy it in
+    the editor and run it to confirm your understanding.
 
-
-Cet exercice devrait vous aider à mieux comprendre pourquoi il est utile
-d'écrire des programmes en utilisant des fonctions avec des noms
-bien choisis.
+This should help you to understand why it is important to write programs
+for humans, by choosing function names that are meaningful.

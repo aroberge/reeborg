@@ -4,10 +4,6 @@
 
 @import url("basic.css");
 
-.strike {
-  text-decoration: line-through;
-}
-
 /* -- page layout ----------------------------------------------------------- */
 
 div.red p.admonition-title {background-color: red !important;}
@@ -106,7 +102,7 @@ div.related ul li a.logo{float: left; padding: 2px 20px 0 0; margin-right: 30px;
     2px 5px 10px rgba(0,0,0,.35), 5px 10px 10px rgba(0,0,0,.45);
 }
 img.logo{margin-right:10px; padding-left:10px;}
-
+div.related ul li a span.logo{position:relative; top:-10px !important;}
 
 dl {
     margin-left: 10px;
@@ -348,7 +344,9 @@ div.quotebar {
 .toctree-wrapper ul {
     list-style: none;
 }
-
+.toctree-l1 > a {
+    font-size: 120%; font-weight: bold;
+}
 /* -- sidebars -------------------------------------------------------------- */
 
 div.sidebar {
@@ -425,7 +423,7 @@ div.admonition p.admonition-title
     color: white;
     border-bottom: 1px solid #eee8d5;
     font-weight: bold;
-    background-color: #268bd2;
+    background-color: #663399;
 }
 
 div.warning p.admonition-title,

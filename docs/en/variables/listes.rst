@@ -1,15 +1,14 @@
-Les listes
+Lists
 ==========
 
-Ceci doit être inséré à quelque part ...
 
 .. todo::
 
-   Expliquer le concept de listes et de sélection d'un élément par un
-   index.
+    Explain what lists are and how one can select a single element
+    using its index.
 
-   Faire un exemple avec un monde où on doit déplacer des plantes d'une
-   rangée à une autre, en gardant le même nombre à chaque endroit.
-
-   Auparavant, faire un exemple avec un seul nombre d'objet (choisi de façon
-   aléatoire) qu'on doit transporter ailleurs.
+    Have an example in a world where one must move plants from one
+    row to another, keeping the same number of plants at each spot.
+    But before, make sure a similar example will have been done
+    with a single set of plants, using increments to count the number
+    of plants.

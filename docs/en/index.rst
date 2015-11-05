@@ -1,81 +1,75 @@
-.. warning::
 
-  This document is in the middle of a major revision.
-  Some sections might be missing text, or have French text
-  as placeholder.
+Learn Python with Reeborg!
+==========================
 
-Apprenez Python avec Reeborg!
-=============================
+Learning Python is easy with Reeborg.  All you have to do is read the tutorial
+and try all the examples in `Reeborg's world <http://reeborg.ca/world.html>`_.
+I suggest that you keep the tutorial and Reeborg's World both open but
+in separate windows or tabs.
 
-C'est facile d'apprendre Python avec Reeborg.  Tout ce que vous avez
-à faire dest de lire ce tutoriel et de faire tous les exemples
-en utilisant `Le monde de Reeborg <http://reeborg.ca/monde.html>`_.
-Je vous suggère d'avoir le tutoriel et le monde de Reeborg ouverts
-en même temps, soit dans des fenêtres ou des onglets séparés.
+Before you actually start the tutorial, have Reeborg take its first step
+by running a program in Reeborg's World.
 
-Avant de débuter le tutoriel proprement dit, faites en sorte que
-Reeborg fasse son tout premier pas en exécutant un programme dans
-le monde de Reeborg.
 
-Si vous n'êtes pas certain de la marche à suivre, cliquez sur
-l'**indice** ci-dessous.
+Hints are clickable and designed to provide useful pointers if you are
+not sure how to proceed.
 
 .. hint::
 
-    Allez au `Monde de Reeborg <http://reeborg.ca/monde.html>`_,
-    et cliquez sur le bouton "exécution"
-    (petit triangle blanc sur fond bleu)
-    et observez Reeborg faire son premier pas.
-    Vous pouvez aussi visionnez
-    `cette courte vidéo en anglais <http://youtu.be/yTdw97KNgGM>`_
-    pour voir de quoi cela a l'air.  Vous voudrez probablement voir la
-    vidéo en mode plein écran avec la qualité HD.
+    Go to `Reeborg's world <http://reeborg.ca/world.html>`_, click on the "run" button
+    (small white triangle on blue background)
+    and watch Reeborg takes its first step.
+    You can also `view this short video <http://youtu.be/yTdw97KNgGM>`_
+    to see what it looked like ... in a slightly older version.
+    You may want to watch it in full screen with HD quality selected.
 
-Vous désirez apprendre la programmation?
+
+You want to learn computer programming?
 ----------------------------------------
 
 .. figure:: ../images/student.jpg
    :figwidth: 40%
    :align: right
 
-   Élève utilisant le Monde de Reeborg en Californie (États-Unis)
+   Student using Reeborg's World in California, USA.
 
-   *Photo courtoisie de A. Castano.*
+   *Photo courtesy of A. Castano.*
 
-**Le Monde de Reeborg a été conçu pour vous!**
+**Reeborg's World has been designed for you!**
 
-En créant le Monde de Reeborg, mon but était d'offrir un environnement
-convivial pour apprendre les concepts de la programmation informatique.
-Bien qu'il soit possible d'utiliser Javascript comme langage de programmation
-dans le Monde de Reeborg, je me concentre sur Python, un langage mieux conçu
-que Javascript, aussi bien pour les débutants que pour les
-programmeurs plus avancés.
+The idea I had in mind when I created Reeborg's World was to create
+a friendly place to learn programming concepts.
+While it is possible to use Javascript, the "normal" language of the web,
+as a programming language to make Reeborg work,
+I've decided to focus on Python which is a more
+versatile language and one that is easier to use by beginners and
+advanced programmers alike.
 
-Ce tutoriel est écrit en premier pour vous.  Cela dit, j'ai inclus
-des informations pour les enseignants ainsi que pour d'autres types
-d'utilisateurs du Monde de Reeborg. Vous pouvez ignorer ces informations
-supplémentaires sans craintes: les sections écrites pour vous devraient
-contenir toute les informations dont vous devriez avoir besoin
-pour votre apprentissage.
+This tutorial was first written for you and help you learn computer programming.
+However, I have also included
+some information for teachers as well as other users of Reeborg's World.
+You can ignore such additional information without worrying that you are
+missing something important as you are learning programming concepts.
 
-.. admonition:: Pour les enseignants, tuteurs, développeurs, etc.
+
+.. admonition:: For educators, developpers, mentors, etc.
 
     .. figure:: ../images/reeborg_judkis.jpg
        :figwidth: 35%
        :align: right
 
-       Cette figurine de Reeborg a été faite par un étudiant du New Jersey
-       (États-Unis) qui a appris la programmation Python à l'aide de
-       RUR-PLE, un précurseur du Monde de Reeborg.
+       This is a model of Reeborg made by a student in New Jersey (USA) who
+       learned Python with RUR-PLE, an older version of Reeborg's World
+       that has been available as a desktop program since 2004.
 
-       *Photo courtoisie de A. Judkis.*
+       *Photo courtesy of A. Judkis.*
 
-    Vous trouverez des notes, généralement au bas des pages,
-    expliquant certains détails au sujet de l'approche choisie
-    pour la présentation de différents sujets.  Par exemple,
-    il y a une de ces notes tout au bas de cette page
+    You will often find special notes, usually found at the bottom of a
+    page, giving some additional details about choices made in presenting
+    the learning material.  For example, there is one such (long) note
+    at the very bottom of this page.
 
-Ce document est divisé en sept parties majeures.
+This document has been divided into seven major parts.
 
 .. toctree::
    :maxdepth: 1
@@ -89,7 +83,7 @@ Ce document est divisé en sept parties majeures.
    G. Contribute!  <contribute/index>
 
 
-De façon plus détaillée, on a ce qui suit.
+Here is a more detailed look:
 
 .. toctree::
 
@@ -102,60 +96,108 @@ De façon plus détaillée, on a ce qui suit.
    G. Contribute!  <contribute/index>
 
 
-.. admonition:: Pour les enseignants
+.. admonition:: For teachers
 
-    Le Monde de Reeborg a été grandement inspiré par le
-    `Robot Karel`_ inventé par Richard Pattis.
-    Trois langages de programmation (Python, Javascript et CoffeeScript)
-    peuvent être utilisés pour contrôler le robot.
-    Cependant, ce tutoriel est basé sur Python qui est mon langage favori
-    et que plusieurs considèrent comme un langage idéal pour enseigner
-    les concepts de la programmation à des débutants.
+    .. figure:: ../images/rurple_book.png
 
-    .. _Robot Karel: http://www.amazon.ca/Karel-Robot-Gentle-Introduction-Programming/dp/0471089281/ref=sr_1_6?s=books&ie=UTF8&qid=1440177128&sr=1-6
-
-    L'approche que j'ai choisie d'utiliser est d'éviter aussi longtemps
-    que possible d'utiliser des variables ainsi que des fonctions avec
-    des arguments.  Cette approche reflète l'approche utilisée par
-    Pattis avec le Karel original pour lequel les variables n'existaient pas.
-    Cette approche est utilisée dans les deux premières parties:
-
-    .. toctree::
-      :maxdepth: 1
-
-      A. Basic tutorial <basics/index>
-      B. Recursion <recursion/index>
+       *Two books (red for teacher, blue for students)
+       produced by Samsung Korea based on RUR-PLE, the desktop
+       program precursor to Reeborg's World.*
 
 
-    Cependant, dans ce tutoriel, je vais au-delà de ce qui était possible
-    avec le Karel de Pattis et j'essaie de couvrir autant de concepts
-    que possibles en programmation Python.   Au-delà des concepts de base
-    de la programmation, ce tutoriel offre ainsi un matériel d'enrichissement
-    complémentaire à celui d'une approche plus traditionnelle, et permet
-    de bien visualiser ce qui se passe dans un programme donné dans un
-    contexte qui leur est familier.
+    Reeborg's World had been strongly inspired by Richard Pattis's
+    `Karel the robot`_.
+    Three programming languages (Python, Javascript and CoffeeScript)
+    can be used to control the virtual robot.
+    However, this tutorial is focuses on Python which is my favourite
+    programming language and that many consider to be an ideal language
+    to teach programming concepts to beginners.
 
-    L'utilisation du Monde de Reeborg est **gratuite** et vous êtes libre
-    de copier le site (et de le mettre sur un serveur local);
-    aucune inscription n'est requise de la part des utilisateurs.
+    .. _Karel the robot: http://www.amazon.ca/Karel-Robot-Gentle-Introduction-Programming/dp/0471089281/ref=sr_1_6?s=books&ie=UTF8&qid=1440177128&sr=1-6
 
-    **Apprentissage guidé par les tâches**
+    In this tutorial, I postpone the introduction of variables as long as
+    possible, and do the same for function arguments.
+    This approach reflects that of Pattis's original Karel which did
+    not have any variables.  This is the focus of the first two
+    main parts of this tutorial, namely **Basic tutorial** and **Recursion**.
 
-    Le Monde de Reeborg a été conçu pour un *apprentissage guidé par les
-    tâches*: les apprenants doivent écrire des programmes permettant à Reeborg
-    d'accomplir la tâche qui est décrite.  Lorsqu'un programme est terminé,
-    une comparaison est faite de façon automatique entre ce qui est attendu
-    de l'état du monde et ce qui est observé; par la suite, une rétroaction
-    est fournie immédiatement à l'apprenant.
+    Reeborg's World has been created with the goal of simplifying Pattis's
+    idea as much as possible, while still making it possible to
+    introduce very advanced programming concepts.  So, instead of the
+    "simple" **first program** found in some tutorials supposedly aimed
+    at complete beginners:
 
-    Les tâches peuvent exiger à Reeborg de déplacer des objets, de construire
-    des murs ou d'aller à un endroit donné.  Dans le Monde de Reeborg,
-    les objets sont en couleurs; si un objet doit être déplacé à un endroit donné,
-    cet endroit est indiqué par une image en ton de gris du même objet.
+    .. code-block:: java
+
+        public class HelloWorld {
+            public static void main(String[] args) {
+                System.out.println("Hello, World");
+            }
+        }
+
+    the simplest valid program in Reeborg's World is::
+
+        move()
+
+    That's it: a single instruction.  What could be simpler when
+    teaching beginners?
+
+    However, one is not limited to simple functions.
+    For example, if one wants to use an OOP approach instead,
+    the simplest valid program, which has Reeborg actually do the
+    equivalent to the single ``move()`` instruction above, is::
+
+        reeborg = UsedRobot()
+        reeborg.move()
+
+    Similarly, because using standard libraries is something useful, students
+    can first learn about libraries by writing their own code and, in doing so,
+    they learn that library modules are just programs like any others.
+    Assuming they have defined a function, say ``turn_right()``, in their library,
+    the following program will be valid:
+
+    .. code-block:: python
+
+        from library import turn_right
+        turn_right()
+
+    So, the idea is to have the student deal with as few concepts as possible
+    to write programs, only learning new concepts (such as using variables,
+    or Object-Oriented notation, or importing code from a library)
+    after they have learned the basics.
+    One guiding principle in writing this tutorial has been to introduce
+    only one programming concept at a time.
+
+    However, the simplicity of the approach used in Reeborg's World
+    does not mean that what can be done is limited to the basics of the
+    virtual robot world.
+    The Python version of Reeborg's World is based on Brython_, and includes
+    many Python modules found in Python's standard library which can be used
+    to write advanced programs.
+
+    .. _Brython: http://brython.info
+
+    **Task Driven Learning**
+
+    Reeborg's World is designed for *Task Driven Learning*: students are given
+    tasks that Reeborg has to complete, and they must write programs instructing
+    Reeborg how to do so.
+
+    Tasks include having Reeborg move objects, build walls, or go to a
+    particular location.  Objects in Reeborg's World are colourful; the
+    places they be must moved to by Reeborg are indicated by having a
+    picture of the object in shades of grey.
 
     .. image:: ../images/simple_task.gif
 
-    Si vous avez des exercices additionnels
-    (en particulier, des tâches pour Reeborg) que
-    vous trouvez utiles pour vos étudiants, j'apprécierais beaucoup si
-    vous pouviez les partager pour que je puisse améliorer ce tutoriel.
+    If you have some examples (particularly tasks for Reeborg)
+    that you find useful for your students, I would appreciate
+    if you could share them with me so as to improve this tutorial.
+
+    **Free**
+
+    Reeborg's World is **free**: *free* to use, *free* to copy (and put on a school's
+    website), and does not require any registration or login.
+    Unlike some other existing code learning website, it does not force
+    learners to follow a pre-defined path; educators are *free* to create their
+    own learning material while making use of Reeborg's World.

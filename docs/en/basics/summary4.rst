@@ -1,15 +1,14 @@
-Résumé
-======
+Summary
+=======
 
-Depuis le résumé précédent, nous avons vu un nouveau mot-clé,
-``while``, et deux fonction supplémentaires,
-``rien_a_droite()`` et ``transporte()``.
-Nous avons vu également le concept de récursivité.
+Since the last summary, we have seen one more Python keyword,
+``while``, and two additional functions,
+``right_is_clear()`` and ``carries_objects()``.
 
-Mots-clés Python
+Python keywords
 ----------------
 
-En ordre alphabétique, nous avons vu les mots-clés suivants:
+In alphabetical order, we have seen the following Python keywords:
 
 -  ``def``
 -  ``elif``
@@ -22,25 +21,26 @@ En ordre alphabétique, nous avons vu les mots-clés suivants:
 -  ``True``
 -  ``while``
 
-Fonctions spécifiques au monde de Reeborg
+Functions specific to Reeborg's World
 -----------------------------------------
 
-Nous avons vu les fonctions suivantes qui mènent
-à des actions spécifiques:
+We have seen the following functions which bring
+about a change in Reeborg's behaviour or in the state
+of its world:
 
--  ``avance()``
--  ``construit_un_mur()``
--  ``depose()``
+-  ``move()``
+-  ``build_wall()``
+-  ``put()``
 -  ``pause()``
--  ``prend()``
--  ``termine()``
--  ``tourne_a_gauche()``
+-  ``take()``
+-  ``done()``
+-  ``turn_left()``
 
-Nous avons vu également les fonctions suivantes
-qui informent Reeborg sur l'état de son monde:
+We have also seen the following functions which tell Reeborg
+something about the state of its world:
 
--  ``au_but()``
--  ``objet_ici()``
--  ``rien_a_droite()``
--  ``rien_devant()``
--  ``transporte()``
+-  ``at_goal()``
+-  ``object_here()``
+-  ``right_is_clear()``
+-  ``front_is_clear()``
+-  ``carries_object()``

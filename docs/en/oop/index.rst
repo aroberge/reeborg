@@ -1,19 +1,15 @@
-La programmation orientée objet
-===============================
+Introduction to OOP in Python with Reeborg
+==========================================
 
+As you know, Reeborg is in poor shape.
+It can only turn to its left, its compass is broken as
+it can only be used to determine whether or not Reeborg is facing North.
+Reeborg cannot turn its head left, so it cannot find out if there is
+a wall to its left without turning its entire body.
+Finally, it leaks oil which is bad for itself and the environment.
 
-Comme vous le savez, Reeborg est en bien mauvais état.
-Il peut seulement tourner vers sa gauche; sa boussole est brisée,
-elle lui permet seulement de déterminer s'il fait face au nord ou non.
-Reeborg ne peut pas tourner sa tête vers sa gauche; il ne peut donc
-pas détecter s'il y a un mur à sa gauche sans tourner entièrement
-son corps.
-Finalement, il a une fuite d'huile ce qui est très mauvais
-pour l'environnement.
-
-Utilisant la **Programmation Orientée Objet** (POO), vous allez
-apprendre à réparer Reeborg et à lui donner des capacités
-additionnelles.
+Using the power of Object-Oriented Programming, you will learn how to
+fix Reeborg and how to give it additional capabilities.
 
 
 .. toctree::
@@ -37,24 +33,22 @@ additionnelles.
 
 
 
-.. topic:: Pour les experts !
+.. topic:: For advanced programmers!
 
-   Si vous connaissez déjà la programmation Python et vous utilisez
-   le monde de Reeborg simplement pour vous amuser à utiliser ce que vous
-   connaissez déjà, il peut arriver (très rarement je l'espère)
-   que vous écriviez du code complètement
-   valide mais dont le résultat ne soit pas conforme à vos attentes.
-   La raison pour ceci est que le Monde de Reeborg a été écrit principalement
-   en Javascript, avec une simple interface pour Python utilisant Brython.
-   Le résultat est que certains objets, méthodes ou attributs Javascript
-   ne sont pas disponibles directement.  De plus, les animations sont
-   faites en clonant l'état du monde et en le sauvegardant dans le
-   format JSON; si vous tentez de créer vos propres classes utilisant
-   des objets déjà présents, il pourrait arriver que vous créiez des
-   références circulaires qui vont résulter en des exceptions.
+   If you are not a beginner Python programmer and are experimenting on
+   your own based on what you already know,
+   you may find that some advanced but valid Python code you write
+   will occasionally raise some unexpected exceptions.  The reason is that most
+   of the code powering Reeborg's world is written in Javascript and
+   there's only a thin layer that has been written in Python using
+   Brython.  As a result some Javascript objects, methods or attributes
+   are not directly available.  Furthermore, animations are done by
+   cloning and saving the world state as a JSON string; if you
+   attempt to create your own class using some objects already present,
+   you may unknowingly create a circular reference which will prevent
+   the cloning and raise an exception.
 
-   En utilisant Brython, j'aurais pu écrire le logiciel entièrement en Python
-   ... mais ceci n'aurait pas permis (du moins pas facilement) de pouvoir
-   utiliser le site pour programmer Reeborg en utilisant
-   Javascript ou CoffeeScript au lieu de Python, ce qui est possible
-   présentement.
+   I could have written the entire program in Python using Brython ...
+   but it would have made the situation worse if I had tried to use
+   the result to enable programmers to use Javascript or CoffeeScript
+   as their language of choice -- which they can do now.

@@ -1,9 +1,10 @@
-Contribuez!
+Contribute!
 ============
 
-Que vous soyez programmeur, apprenant, enseignant, artistes, traducteurs,
-ou autre, je vous invite chaleureusement à partager vos idées et vos
-talents et à contribuer au développement de ce site.
+Whether you are a programmer, learner, educator, artist, translator,
+or other, I invite you to share your ideas and talents and contribute
+to the development of this site.
+
 
 .. toctree::
    :maxdepth: 2

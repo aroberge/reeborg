@@ -1,4 +1,4 @@
-Référence du Monde de Reeborg
+Reeborg's World Reference
 =============================
 
 

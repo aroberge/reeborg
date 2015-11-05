@@ -1,23 +1,21 @@
-Résumé
-======
+Summary
+=======
 
-C'est le temps de faire une revue de ce que vous avez appris jusqu'à
-maintenant.
+It is now time to review what we have learned since the last Summary.
 
-Nous avons vu nos premiers mots-clé Python, ``def``, ``from``, ``import``.
+We have seen our first Python keywords, ``def``, ``from``, ``import``.
 
-Nous avons vu le concept de boucle et un mot-clé unique
-au monde de Reeborg: ``repeat``.
+We have seen the concept of looping, and a keyword unique
+to Reeborg's World: ``repeat``.
 
-Nous avons vu une sixième fonction spécifique au monde de
-Reeborg, soit ``construit_un_mur()``, en plus des cinq autres que nous
-avions vu précédemment, soit:
+We have seen a sixth function specific to Reeborg's World, that is
+``build_wall()``, in addition to the five we had seen before:
 
--  ``avance()``
--  ``tourne_a_gauche()``
--  ``prend()``
--  ``depose()``
+-  ``move()``
+-  ``turn_left()``
+-  ``take()``
+-  ``put()``
 -  ``pause()``
 
-Nous sommes maintenant prêts à aborder des concepts très important
-en informatique, touchant la prise de décision entre divers choix possibles.
+We are now ready to learn about some very important programming concepts
+dealing with deciding automatically between different possibilities.

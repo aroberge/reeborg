@@ -83,7 +83,7 @@ Ce document est divisé en sept parties majeures.
    B. Récursitivité <recursion/index>
    C. Les variables <variables/index>
    D. La programmation orientée objet <oop/index>
-   E. Référence du Monde de Reebor <reference/index>
+   E. Référence du Monde de Reeborg <reference/index>
    F. Python: un bref survol <python/index>
    G. Contribuez!  <contribute/index>
 
@@ -96,13 +96,20 @@ De façon plus détaillée, on a ce qui suit.
    B. Récursitivité <recursion/index>
    C. Les variables <variables/index>
    D. La programmation orientée objet <oop/index>
-   E. Référence du Monde de Reebor <reference/index>
+   E. Référence du Monde de Reeborg <reference/index>
    F. Python: un bref survol <python/index>
    G. Contribuez!  <contribute/index>
 
 
 
 .. admonition:: Pour les enseignants
+
+    .. figure:: ../images/rurple_book.png
+
+       *Deux livres (rouge pour les enseignants, bleu pour les élèves)
+       produit par Samsung Korea et basé sur RUR-PLE, le programme traditionnel
+       précurseur du Monde de Reeborg.*
+
 
     Le Monde de Reeborg a été grandement inspiré par le
     `Robot Karel`_ inventé par Richard Pattis.
@@ -118,14 +125,49 @@ De façon plus détaillée, on a ce qui suit.
     que possible d'utiliser des variables ainsi que des fonctions avec
     des arguments.  Cette approche reflète l'approche utilisée par
     Pattis avec le Karel original pour lequel les variables n'existaient pas.
-    Cette approche est utilisée dans les deux premières parties:
+    Cette approche est utilisée dans les deux premières parties, soit
+    le **Tutoriel de base**, et la **Récursivité**.
 
-    .. toctree::
-      :maxdepth: 1
+    Le Monde de Reeborg a été créé avec le but de simplifier autant
+    que possible l'idée originale de Pattis tout en permettant de
+    démontrer des concepts de programmation avancés.  Ceci veut dire
+    qu'au lieu du "programme le plus simple":
 
-      A. Tutoriel de base <basics/index>
-      B. Récursitivité <recursion/index>
+    .. code-block:: java
 
+        public class HelloWorld {
+            public static void main(String[] args) {
+                System.out.println("Bonjour monde!");
+            }
+        }
+
+    présenté dans certains cours soit-disant destinés aux débutants,
+    le programme valide le plus simple dans le Monde de Reeborg est::
+
+        avance()
+
+    Une seule instruction: qu'est-ce qui pourrait être plus simple
+    que cela pour enseigner à des débutants?
+
+    Cependant, vous n'êtes pas limités à n'utiliser que de simple
+    fonctions.  Par exemple, si vous désirez utiliser une approche
+    de Programmation Orientée Objet, vous pouvez écrire un programme
+    comme le suivant::
+
+        reeborg = RobotUsage()
+        reeborg.avance()
+
+    Ou encore, si vous voulez enseigner un concept comme l'utilisation
+    de fonctions ou classes définies dans un bibliothèque standard,
+    vous pouvez débuter par un exemple utilisant une bibliothèque
+    avec des fonctions définies par les apprenants::
+
+        from biblio import tourne_a_droite
+        tourne_a_droite()
+
+    L'idée de base de mon approche est de faire en sorte que
+    l'apprenant n'ait à apprendre de nouveaux concepts qu'un seul
+    à la fois, avec une progression simple.
 
     Cependant, dans ce tutoriel, je vais au-delà de ce qui était possible
     avec le Karel de Pattis et j'essaie de couvrir autant de concepts
@@ -134,10 +176,6 @@ De façon plus détaillée, on a ce qui suit.
     complémentaire à celui d'une approche plus traditionnelle, et permet
     de bien visualiser ce qui se passe dans un programme donné dans un
     contexte qui leur est familier.
-
-    L'utilisation du Monde de Reeborg est **gratuite** et vous êtes libre
-    de copier le site (et de le mettre sur un serveur local);
-    aucune inscription n'est requise de la part des utilisateurs.
 
     **Apprentissage guidé par les tâches**
 
@@ -159,3 +197,9 @@ De façon plus détaillée, on a ce qui suit.
     (en particulier, des tâches pour Reeborg) que
     vous trouvez utiles pour vos étudiants, j'apprécierais beaucoup si
     vous pouviez les partager pour que je puisse améliorer ce tutoriel.
+
+    **Gratuit et libre**
+
+    L'utilisation du Monde de Reeborg est **gratuite** et vous êtes libre
+    de copier le site (et de le mettre sur un serveur local);
+    aucune inscription n'est requise de la part des utilisateurs.

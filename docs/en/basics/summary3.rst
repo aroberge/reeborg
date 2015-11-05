@@ -1,11 +1,8 @@
-Résumé
-======
+Summary
+=======
 
-C'est le temps de faire une revue de ce que vous avez appris jusqu'à
-maintenant.
-
-Depuis le résumé précédent,
-nous avons vu 6 nouveaux mots-clés Python:
+It is yet time again to review what we have learned.  We now have seen
+six additional Python keywords:
 
 -  ``if``
 -  ``elif``
@@ -14,29 +11,28 @@ nous avons vu 6 nouveaux mots-clés Python:
 -  ``False``
 -  ``not``
 
-qui s'ajoutent à ceux que nous avions vu auparavant:
+in addition to the three we had first seen.:
 
 -  ``def``
 -  ``from``
 -  ``import``
 
-Nous avons vu trois fonctions qui informent Reeborg
-sur l'état de son monde:
+We have seen three functions which help inform Reeborg about the
+state of its world:
 
--  ``objet_ici()``
--  ``au_but()``
--  ``rien_devant()``
+-  ``object_here()``
+-  ``at_goal()``
+-  ``front_is_clear()``
 
-Nous avons également vu une autre fonction:
+We have also seen another function:
 
--  ``termine()``
+-  ``done()``
 
-Ces fonctions s'aujoutent
-à celles que nous avions vu précédemment, soit:
+which is in addition to:
 
--  ``avance()``
--  ``tourne_a_gauche()``
--  ``prend()``
--  ``depose()``
+-  ``move()``
+-  ``turn_left()``
+-  ``take()``
+-  ``put()``
 -  ``pause()``
--  ``construit_un_mur()``
+-  ``build_wall()``

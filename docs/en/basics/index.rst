@@ -1,4 +1,4 @@
-Tutoriel de base
+Basic Tutorial
 ================
 
 .. toctree::

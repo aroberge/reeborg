@@ -1,4 +1,4 @@
-Python: Un bref survol
+Python: A brief overview
 ========================
 
 

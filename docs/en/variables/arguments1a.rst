@@ -1,65 +1,84 @@
-Argument de fonction
+Function arguments
 ====================
 
-Nous avons vu que, lorsqu'il y a plus d'une sorte d'objets dans
-le monde de Reeborg, il faut parfois spécifier lequel on veut
-prendre ou déposer en utilisant un argument de fonction, comme par exemple::
+We have seen that, when there are more than one type of objects
+in Reeborg's World, we must sometimes specify which object
+Reeborg must take or put down by using a function argument as in::
 
-    prend("jeton")
-    depose("étoile")
+    take("token")
+    put("star")
 
-Définir une fonction qui requiert un argument est une chose très simple
-à faire: il suffit d'ajouter l'argument entre les parenthèses de la
-fonction.   Par exemple, supposons que nous voulions définir une fonction
-qui fait en sorte que Reeborg tourne un certain nombre de fois vers
-sa gauche en spécifiant un nombre.  Par exemple, ``tourne(1)`` correspondrait
-à une simple instruction ``tourne_a_gauche()``, alors que ``tourne(3)``
-correspondrait à trois virages à gauche, et donc équivaut à un virage à droite.
-Voici comment on peut faire ceci::
+However, we have not seen yet how to define such a function.
+It is actually fairly easy: all we have to do is include a variable as
+an argument between the parentheses when defining the function.
+For example, suppose we want to define a function ``turn()`` that
+would take a number as its argument so that the number indicates
+the number of left turn we want Reeborg to make.  Thus
+``turn(1)`` would correspond to a single left turn whereas
+``turn(3)`` would correspond to three left turns (which, as we know,
+amounts to having Reeborg make a right turn).  One way to
+do this is as follows::
 
-    def tourne(nombre):
-        for _ in range(nombre):
-            tourne_a_gauche()
+    def turn(number):
+        for _ in range(number):
+            turn_left()
 
-.. topic:: À votre tour!
 
-    Définissez une fonction ``tourne`` et vérifiez que le tout fonctionne
-    correctement!
+.. topic:: Your turn!
 
-Plusieurs arguments
+    Define such a ``turn`` function and try it out in a program.
+
+
+Many arguments
 -------------------
 
-Vous vous souvenez sûrement du fait que la fonction ``print`` accepte
-plus d'un argument.  Si vous voulez définir une fonction qui accepte
-plus d'un argument, il suffit d'inclure les arguments désirés, séparés
-par des virgules, dans la définition de la fonction::
+If you recall, ``print()`` can take more than one argument, with
+each argument separated by a comma.  You can probably guess how
+we can define a similar function::
 
-   def ma_function(argument_1, argument_2, ...):
-      # bloc de code
+   def my_function(argument_1, argument_2, ...):
+      # code block
 
-Par exemple, vous savez que dans le Monde de Reeborg, on peut répéter
-une certaine fonction un certain nombre de fois de la façon suivante::
+Suppose that, like above, we want to be able to specify a number
+of turns ... and also a number of moves ... and a number of *whatever*.
+We could define a function like ``turn`` for each type of repeated
+action; however, there is a more general way which only requires
+to define a single function, which we will call my_repeat (**repeat** would
+have been a better name, but it's a special Reeborg keyword).
+Here's a possible definition::
 
-    for _ in range(3):
-        tourne_a_gauche()
+    def my_repeat(function, number):
+        for _ in range(number):
+            function()
 
-    # ou
+So, if we call it with ``turn_left`` and ``3`` as arguments::
 
-    for _ in range(4):
-        avance()
+    my_repeat(turn_left, 3)
 
-Supposons que nous voulions définir une fonction équivalente à ceci,
-c'est-à-dire qui fait en sorte qu'une  autre fonction (premier argument)
-soit répétée un certain nombre de fois (deuxième argument)::
+it will be interpreted as::
 
-    répète(tourne_a_gauche, 3)
+    for _ in range(3):   # number is replaced by 3
+        turn_left()      # function is replaced by turn_left
 
-On peut faire ceci de la façon suivante::
+which we recognize as our familiar ``turn_right`` equivalent.
+However, having defined ``my_repeat`` we can use it with different
+numbers and functions, such as::
 
-    def répète(fonction, nombre):
-        for _ in range(nombre):
-            fonction()             # fonction invoquée par ()
+    my_repeat(move, 4)   # move 4 steps
 
-.. topic:: À votre tour!
 
-    Définissez une fonction ``répète`` et utilisez-la dans un programme.
+.. topic:: Your turn!
+
+    Define such a ``my_repeat`` function and try it out in a program.
+
+.. important::
+
+    Unlike ``print()``, which can take an arbitrary number of arguments,
+    the functions we have defined so far will always require a set number
+    of arguments  (1 for ``turn``, 2 for ``my_repeat``). You should check
+    what happens if you give a different number of arguments than what
+    was indicated when defining the function.
+
+    Creating functions which can accept an arbitrary number of arguments
+    is something which we will see later, after we have seen a few other
+    concepts.
