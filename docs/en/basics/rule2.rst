@@ -66,7 +66,7 @@ comments as they appear in a different colour and font style.
 
     '''  This is an example of
     a simple program where Reeborg draws a square,
-    leaving a token behind at each corner. ''' 
+    leaving a token behind at each corner. '''
 
     move()  # Python commands are on separate lines
     move()
@@ -77,16 +77,16 @@ comments as they appear in a different colour and font style.
     move()
     move()
     turn_left()
-    put("token")
+    put()
 
     move()
     turn_left()
-    put("token")
+    put()
 
     move()
     move()
     turn_left()
-    put("token")
+    put()
 
 The above are not particularly good comments, but at least one of them
 should have helped you find what was wrong with the program. You might
@@ -100,6 +100,19 @@ some "logical" blocks of code, to help see the pattern better. Together,
 the use of comments and insertion of blank lines can make a program much
 easier to read.
 
-Furthermore, while it does not make any difference to Reeborg, I have
-made sure to specify that it was ``"token"`` that I wanted Reeborg
-``put``; this makes it more clear to human readers.
+
+
+.. admonition:: For teachers
+
+    If you have already explained how to use function arguments, may I suggest
+    that you modify the example above to replace::
+
+        put()
+
+    by::
+
+        put('token')
+
+    the rationale being that this makes the intent of the program clearer
+    for someone who is just reading the code.
+

@@ -1,9 +1,12 @@
-
-
 First program
 =============
 
-So, you just had Reeborg take its very first step. In the editor panel, there is a
+.. figure:: ../../../src/images/move.png
+   :align: left
+
+If you followed the instructions given at the very beginning
+of this tutorial, you just had Reeborg take its very first step.
+In the editor panel, there is a
 single instruction::
 
     move()
@@ -85,3 +88,27 @@ Every time I suggest you try something, I have a reason for doing
 so.  Sometimes it will not be apparent right away, but I really encourage
 you to try it.  I would even suggest to you that you should do more
 than what I suggest and try different things just to explore further.
+
+A special tool to help you
+---------------------------
+
+At the very top of Reeborg's World, you will find a button
+titled **Reeborg's keyboard**.  If you click on it, a special
+keyboard will appear.  By clicking on a each button, the corresponding
+instruction, Python keyword, etc., will be inserted in the editor
+automatically.   This can be useful to ensure that names are
+spelled out correctly and that required parentheses are not forgotten.
+
+
+.. admonition:: For teachers
+
+    Reeborg's keyboard could be especially useful for three categories
+    of users: the younger ones, who find typing on a normal keyboard
+    difficult, those that use a touch screen, and those that use a non-English
+    keyboard and may have trouble entering some symbols required for Python.
+
+    As I am writing this note, Reeborg's keyboard includes one
+    instruction (``no_highlight()``) which is not documented in this
+    tutorial nor in the online help.  This type of omission could happen
+    with other instructions ... if that is the case, please contact me
+    so that I can make the required corrections.

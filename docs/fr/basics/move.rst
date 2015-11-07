@@ -4,7 +4,8 @@ Premier programme
 .. figure:: ../../../src/images/avance.png
    :align: left
 
-Si vous avez suivi les instructions correctement, Reeborg a fait ses premiers
+Si vous avez suivi correctement les instructions indiquées à la page
+d'accueil de ce tutoriel, Reeborg a fait ses premiers
 pas.  Dans l'onglet "Code Python" se trouve une seule instruction::
 
     avance()

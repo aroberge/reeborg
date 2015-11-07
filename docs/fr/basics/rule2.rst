@@ -124,5 +124,5 @@ Alors, quelle version est la plus facile à lire et à comprendre?...
 
         depose('jeton')
 
-    sur la base du principe que ceci devient moins plus clair pour quelqu'un
+    sur la base du principe que ceci devient plus clair pour quelqu'un
     qui lit le programme.

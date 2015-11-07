@@ -1,6 +1,10 @@
 Test driven learning
 ====================
 
+.. figure:: ../../../src/images/select_home.png
+   :align: left
+
+
 In order to help you learn Python, I will give you some tests: you
 have to program Reeborg to accomplish specific tasks and Reeborg itself
 will tell you if you got it right or wrong.

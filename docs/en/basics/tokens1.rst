@@ -31,21 +31,14 @@ Reeborg should end up after having accomplished its task.
     carry one? What happens if Reeborg attempts to take a token where there
     is none to be found?
 
-Being more specific
--------------------
+.. admonition:: For teachers
 
-When you ask Reeborg to ``take()`` or ``put()`` something, he knows you
-are taking about tokens, his favourite objects. However, there are other
-objects that exist in Reeborg's world. So, if you want to be more
-specific, you can write instead::
+    For the first tasks mentioned in this tutorial, worlds have been
+    designed such that only one type of object is present.
+    When more than one type of objects are present, it is sometimes
+    required to include a function argument specifying which
+    object is to be handled, as in::
 
-    take("token")
-    put('token')
+        take("token")
+        put('token')
 
-Note that the word **token** is surrounded by quotes, either single or
-double quotes. Try it out!
-
-.. topic:: Try it!
-
-   Write a program to solve world **Tokens 2** and using ``take("token")``
-   instead of simply ``take()``.

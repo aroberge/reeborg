@@ -28,20 +28,11 @@ or on a usb key.  You can do this by first clicking on
 from your computer using the **Import program from file** button.
 
 If you do save your programs, you will have to note for which
-world they are designed. To do so you can use comments. Alternatively,
-and this is perhaps a better option, you can use the special command
-``World("world_name_here")`` as the first instruction. For
-example, a solution to world **Home 1** would be::
+world they are designed. To do so you can use comments::
 
-    World("Home 1")
+    # Solution to world Home 1
     move()
     move()
-
-.. topic:: Try it!
-
-    Without selecting world **Home 1**, run the program above.  The first
-    time it will simply select the correct world and stop. If you try running it a
-    second time, it will run with the right world selected.
 
 Finding the center
 -------------------
@@ -179,3 +170,35 @@ As you learn more about programming using Python, you will find ways
 to write much shorter programs to solve these challenges.
 
 .. |hurdles| image:: ../../../src/images/hurdles.png
+
+.. admonition:: For teachers
+
+    If you have already explained how to use function arguments, it might
+    be useful to suggest the use of the ``World()`` function instead
+    of simply using comments::
+
+        World("Home 1")
+        move()
+        move()
+
+    If the world currently displayed is not
+    **Home 1**, then running this program will result in the selected
+    world changing to **Home 1** and the rest of the program will be ignored.
+    Running it a second time (when the world shown **is** the desired
+    world **Home 1**), the ``World()`` function will be ignored and the rest
+    of the program will be executed.
+
+    Instead of using pre-defined worlds, you can use any world accessible
+    by a URL somewhere on the web.  For example, you might want to
+    try the following::
+
+        World("http://personnel.usainteanne.ca/aroberge/reeborg/token.json",
+              "Token test")
+        move()
+        move()
+        take()
+
+    Running this program should add one more world to the current selection.
+    Note the second (optional) argument to ``World`` which, if provided,
+    is used as the name appearing in the world selector.
+

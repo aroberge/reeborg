@@ -27,8 +27,8 @@ different instructions:
 
 -  ``move()``
 -  ``turn_left()``
--  ``take()`` or ``take("token")``
--  ``put()`` or ``put("token")``
+-  ``take()``
+-  ``put()``
 -  ``pause()``
 
 You may or may not have used the ``pause()`` instruction which I only
