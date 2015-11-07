@@ -18,29 +18,32 @@ is known as a **for loop** and is written as follows:
 .. note::
 
    Using ``repeat`` will not work in Python programs meant to be
-   run outside of Reeborg's World.
+   run outside of Reeborg's World. A **loop** is a block of
+   instructions that is repeated.
 
-Now that you have seen this cryptic code which includes two Python
-keywords, ``for`` and ``in``, as well as a built-in function, ``range``,
-let's introduce instead ``repeat``.
-We will use the example ``get_money()`` from the previous newspaper
-delivery example::
+In Reeborg's World, we can write a ``repeat`` *loop* as follows::
 
-    def get_money():
-        take("token")
-        take("token")
-        take("token")
-        take("token")
-        take("token")
+    repeat n:    # "n" is a whole number
+        # some
+        # instructions
+        # here
 
-Inside ``get_money()``, we repeat 5 times the command ``take()``.
-Using ``repeat``, we can rewrite the above as follows::
+For example, the following code will make Reeborg trace a square::
 
-    def get_money():
-        repeat 5:
-            take("token")
+    repeat 4:
+        move()
+        turn_left()
 
-Now, by using ``repeat`` we have yet
+
+By using ``repeat``, we can rewrite some function definitions without
+having to repeat instructions::
+
+    def turn_right():
+        repeat 3:
+            turn_left()
+
+
+So, by using ``repeat`` we have yet
 another way to eliminate repetitions in our code.
 
 .. topic:: Try it!
@@ -50,3 +53,10 @@ another way to eliminate repetitions in our code.
     If you did not save it,
     go back to the previous lesson and redo it using ``repeat``.
 
+.. admonition:: For educators
+
+    My reason for having ``repeat`` as an addition to Python's
+    standard notation was to avoid having to introduce 4 concepts
+    at the same time (loops, variables as in ``_`` in ``for _ in range(n)``,
+    builtin functions like ``range`` as well as the concept of
+    function arguments).

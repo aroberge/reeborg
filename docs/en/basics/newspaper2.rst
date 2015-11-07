@@ -4,13 +4,13 @@ Newspaper delivery revisited
 ============================
 
 Let's go back to our newspaper delivery example; we'll consider the
-delivery to Ms. Ada Lovelace in **Newspaper 1**. Below is a solution to that
+delivery to Richard Pattis in **Newspaper 0**. Below is a solution to that
 problem, with a few added comments.
 
 .. code-block:: python
    :linenos:
 
-    take("star")
+    take() # the star newspaper
 
     # climb up first floor
     turn_left()
@@ -39,15 +39,7 @@ problem, with a few added comments.
     move()
     move()
 
-    # get money
-    take("token")
-    take("token")
-    take("token")
-    take("token")
-    take("token")
-
-    # leave paper
-    put("star")
+    put() # put down the newspaper
 
     # turn around
     turn_left()
@@ -89,7 +81,7 @@ others.
 .. code-block:: python
    :linenos:
 
-    rom my_lib import turn_right, turn_around
+    from my_lib import turn_right, turn_around
 
     def climb_up_one_floor():
         turn_left()
@@ -115,19 +107,12 @@ others.
         climb_down_one_floor()
         climb_down_one_floor()
 
-    def get_money():
-        take("token")
-        take("token")
-        take("token")
-        take("token")
-        take("token")
 
     # === End of definitions ===
 
-    take("star")
+    take()  # the star newspaper
     climb_up_three_floors()
-    get_money()
-    put("star") # leave paper
+    put() # leave paper
     turn_around()
     climb_down_three_floors()
 
@@ -135,23 +120,18 @@ Each function contains no more than 5 instructions; it's much easier to
 verify that each function does what it is supposed to do than verifying
 an entire list of commands like we have previously. Once we know that
 the functions do what they are supposed to do, making use of them allow
-us to write a complete program in 6 more lines of code - again, much
+us to write a complete program in 5 more lines of code - again, much
 easier to verify that it is right. All together, using functions to
 avoid repetitions, we end up with a shorter program that is also much
 easier to read.
 
-It should be fairly simple to modify the above function definitions so
-that we could deliver a newspaper to Mr. Babbage, in world **Newspaper 2.**
+.. topic:: Your turn!
 
-.. topic:: Do it!
+    Write the above program and make sure it works correctly.
+    Once this is done, you will be ready to learn another trick
+    to make it even simpler.
 
-   Modify the above program so as to deliver a newspaper to Mr. Babbage.
-
-Later, we will see how we can write a single program, shorter than the
-above, that will enable us to deliver newspapers to either Ms. Lovelace
-or Mr. Babbage.
-
-Since functions like ``get_money()``, ``climb_up_three_floors``, etc.,
+Since functions like ``climb_up_one_floor()``, ``climb_up_three_floors``, etc.,
 are specific to this problem, it is probably **not** a good idea to save
 them in the library; you don't want to have too many functions in your
 library so that you are always able to remember all that are there. If

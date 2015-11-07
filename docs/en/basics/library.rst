@@ -15,6 +15,9 @@ editor with the **Python Code** tab, you will click on the **library** tab and
 write it there. Oh, and you should also write ``turn_around()`` there as
 well.
 
+.. image:: ../../../src/images/library.png
+
+
 Then, when you want to use the functions defined in your library, you will
 simply type ``from library import`` (followed by the function names, separated
 by commas) on its own line in the Python Code editor.
@@ -48,26 +51,31 @@ From now on, whenever you define a function that you use more than once,
 add it to your library so that you don't have to redefine it every time.
 
 
-Different ways to import
-------------------------
+Reeborg can understand French
+---------------------------------
 
-So far, we have seen the Python keyword ``import`` in two different types of statements::
+There exists a special library which enables Reeborg to understand
+French.  For example, instead of writing ``move()``, one can write ``avance()``
+and Reeborg will do the right thing.  For example, try the following::
 
-    from reeborg_fr import *
-    from library import turn_right, turn_around
+    from reeborg_fr import avance, tourne_a_gauche
 
-In the first one, the ``*`` means *whatever name you find*; thus, any function or
-alias found in the library (``reeborg_fr`` is a library) is made available.
-The problem with using this *import everything* is that it can happen that
-a library defines a function with exactly the same name as one you defined ...
-and the one that will be executed may be the one defined in the library instead
-of your own.
+    avance()
+    tourne_a_gauche()
 
-For this reason, it is much better to be explicit and specify which names we
-want to import from the library.
+.. topic:: Your turn!
 
-There is a third way to import things from a library, but we will wait until
-the next tutorial after we explain what the *dot notation* means to introduce
-this third way.
+    Write a short program which uses the functions of the French library.
 
+.. admonition:: For teachers
 
+    When the French library is imported, the online help
+    (available via "Addition options" -> "Help") is updated to include
+    all the French functions available.  The only restriction however
+    is that function arguments, such as ``"token"`` in ``take("token")``
+    **must** still be specified in English.  To use a version
+    completely translated in French, you must go to
+    `Le monde de Reeborg <http://reeborg.ca/monde.html>`_
+
+    If you would like to create a new version, a Spanish version for example,
+    please contact me.

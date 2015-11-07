@@ -111,7 +111,6 @@ bibliothèque. Utilisons-les et définissons d'autres fonctions.
 
     prend()  # le journal
     monter_trois_etages()
-    prendre_la_monnaie()
     depose()  # le journal
     demi_tour()
     descendre_trois_etages()
@@ -120,7 +119,7 @@ Chaque fonction de contient pas plus de 5 instructions; c'est très
 facile de vérifier que chaque fonction est correctement définie
 individuellement comparativement à ce que nous avions à faire auparavant
 avec la longue liste de définitions. Une fois que l'on a défini les
-fonctions requises, il est facile d'écrire un programme: 6 lignes
+fonctions requises, il est facile d'écrire un programme: 5 lignes
 suffisent pour faire en sorte que Reeborg livre le journal et retourne
 au rez-de-chaussée. Les définitions de fonctions permettent donc
 d'éviter plein de répétitions, et facilitent la compréhension.
