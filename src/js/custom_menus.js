@@ -87,6 +87,7 @@ RUR.make_default_menu_en = function () {
         [tutorial_en + 'hurdle4.json', 'Hurdle 4'],
         [tutorial_en + 'maze1.json', 'Maze 1'],
         [tutorial_en + 'maze2.json', 'Maze 2'],
+        [tutorial_en + 'newspaper0.json', 'Newspaper 0'],
         [tutorial_en + 'newspaper1.json', 'Newspaper 1'],
         [tutorial_en + 'newspaper2.json', 'Newspaper 2'],
         [tutorial_en + 'rain1.json', 'Rain 1'],
