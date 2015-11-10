@@ -20,12 +20,13 @@ qui s'ajoutent à ceux que nous avions vu auparavant:
 -  ``from``
 -  ``import``
 
-Nous avons vu trois fonctions qui informent Reeborg
+Nous avons vu quatre fonctions qui informent Reeborg
 sur l'état de son monde:
 
 -  ``objet_ici()``
 -  ``au_but()``
 -  ``rien_devant()``
+-  ``mur_devant()``
 
 Nous avons également vu une autre fonction:
 

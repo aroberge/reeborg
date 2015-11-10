@@ -34,7 +34,7 @@ problèmes.
         # instruction
         if condition:  # quelle doit être la condition ici?...
             # instruction
-        #instruction
+        # instruction
 
     collectionne()
     avance()

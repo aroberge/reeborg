@@ -1,6 +1,8 @@
 Récursivité
 ===========
 
+.. index:: recursivité
+
 Si vous faites une recherche sur Internet pour la définition de
 récursivité vous verrez **parfois** (et, **très souvent**, pour la
 définition du terme anglais *recursion*) quelque chose comme ce qui

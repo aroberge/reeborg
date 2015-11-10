@@ -11,6 +11,15 @@ it will fail if you try it for worlds **Tokens 3** and **Tokens 4**.
 Another condition
 -----------------
 
+.. note::
+
+    ``at_goal()``:  |green_home_tile| |house| |racing_flag|
+
+    .. |green_home_tile| image:: ../../images/green_home_tile.png
+    .. |house| image:: ../../images/house.png
+    .. |racing_flag| image:: ../../images/racing_flag.png
+
+
 In addition to being able to find out if tokens are located at the
 position where Reeborg finds himself, Reeborg can also determine if he
 reached the coloured square which we described before as Reeborg's home.

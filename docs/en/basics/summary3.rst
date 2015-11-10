@@ -17,12 +17,13 @@ in addition to the three we had first seen.:
 -  ``from``
 -  ``import``
 
-We have seen three functions which help inform Reeborg about the
+We have seen four functions which help inform Reeborg about the
 state of its world:
 
 -  ``object_here()``
 -  ``at_goal()``
 -  ``front_is_clear()``
+-  ``wall_in_front()``
 
 We have also seen another function:
 

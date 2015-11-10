@@ -105,6 +105,15 @@ On peut représenter un énoncé ``if`` par un organigramme:
 Plus utile que vous ne le pensez...
 -----------------------------------
 
+.. note::
+
+   Le terme général utilisé pour décrire une fonction
+   donnant un résultat équivalent à ``True`` ou ``False``
+   dans un énoncé ``if`` est une **condition**::
+
+       if condition:
+           ...
+
 Avoir à spécifier ``True`` ou ``False`` dans un programme n'aide pas
 Reeborg à décider de lui-même. Cependant, il existe des fonctions que
 Reeborg reconnaît comme lui indiquant des décisions à prendre. Une de

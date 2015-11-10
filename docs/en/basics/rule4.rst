@@ -13,7 +13,7 @@ introduce more meaningful words. Let's start by adding comments,
 somewhat more verbose than we think we might need::
 
     # We mark the starting point by putting down a token
-    put("token")
+    put()
 
     # We find a clear direction and start moving
     while not front_is_clear():
@@ -50,7 +50,7 @@ and writing the comments differently::
         back to his starting point. '''
 
     def mark_starting_point_and_move():
-        put("token")
+        put()
         while not front_is_clear():
             turn_left()
         move()

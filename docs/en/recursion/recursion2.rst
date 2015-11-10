@@ -22,7 +22,7 @@ By this, I mean that this instruction::
 
 Let's assume that the first time we execute these instructions,
 ``at_goal`` is ``false`` and hence ``not at_goal()`` is ``true`` ... like
-it was for world **Home 1**. In this case, the above calls to ``move`` and 
+it was for world **Home 1**. In this case, the above calls to ``move`` and
 ``go_home()`` are executed, and the above code is equivalent to::
 
         move()
@@ -41,7 +41,7 @@ call to ``go_home()`` by its definition.
 However, we don't want that as we want things to end eventually ...
 which they do fortunately for world **Home 1**. In that case after a
 second ``move()``, ``at_goal()`` would be true and and the ``if`` statement
-would be ignored.  Thus, the code in this case is equivalent to:: 
+would be ignored.  Thus, the code in this case is equivalent to::
 
         move()
         move()
@@ -64,6 +64,8 @@ Consider the program below::
     # now do it!
     go_home()
 
-Try to figure out what it does before trying to have Reeborg execute it.
-An explanation follows in the next lesson.
+.. topic:: Think about it
+
+    Try to figure out what it does before trying to have Reeborg execute it.
+    An explanation follows in the next lesson.
 

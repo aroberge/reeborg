@@ -44,3 +44,5 @@ something about the state of its world:
 -  ``right_is_clear()``
 -  ``front_is_clear()``
 -  ``carries_object()``
+-  ``wall_in_front()``
+-  ``wall_on_right()``

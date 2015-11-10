@@ -10,7 +10,7 @@ Le dernier programme que nous avons vu était le suivant::
         tourne_a_gauche()
 
     # définition complétée; on y va!
-    va_au_but()
+    va_au_but()    # invoqué une première fois
 
 Vous avez fort probablement compris comment il fonctionne. Néanmoins,
 analysons-le en supposant que Reeborg est dans le monde **But 1**. Comme
@@ -22,7 +22,7 @@ que nous remplaçons par le corps de la fonction telle que définie::
 
     if not au_but():
         avance()
-        va_au_but()
+        va_au_but()   # deuxième invocation
 
     tourne_a_gauche()
 
@@ -30,7 +30,7 @@ Après l'instruction ``avance()``, Reeborg n'a pas atteint son but et le
 bloc ``if`` est exécuté::
 
     avance()
-    va_au_but()
+    va_au_but()       # deuxième invocation
     tourne_a_gauche()
 
 Une fois de plus, on remplace ``va_au_but()`` par sa définition::
@@ -38,7 +38,7 @@ Une fois de plus, on remplace ``va_au_but()`` par sa définition::
     avance()
     if not au_but():
         avance()
-        va_au_but()
+        va_au_but()   # troisième invocation
 
     tourne_a_gauche()
     tourne_a_gauche()
@@ -48,15 +48,19 @@ atteint son but et le bloc ``if`` n'est **pas** exécuté::
 
     avance()
     avance()
+    if not au_but():
+         avance()       # ne sera pas exécuté
+         va_au_but()    # ne sera pas exécuté
+    tourne_a_gauche()
     tourne_a_gauche()
     tourne_a_gauche()
 
 .. note::
 
-   ``va_au_but`` est invoqué deux fois ... et Reeborg tourne deux fois à gauche.
+   ``va_au_but`` est invoqué trois fois ... et Reeborg tourne trois fois à gauche.
    Peut-être que Reeborg peut utiliser cette tactique pour compter ... rappelez-vous de ceci!
 
-Donc, après avoir atteint son but, Reeborg tourne deux fois à gauche
+Donc, après avoir atteint son but, Reeborg tourne trois fois à gauche
 (une petite danse pour célébrer peut-être?) avant de terminer le
 programme.
 

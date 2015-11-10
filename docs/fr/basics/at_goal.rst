@@ -12,6 +12,15 @@ pas de même pour **Jetons 3** et **Jetons 4**.
 Une autre condition
 -------------------
 
+.. note::
+
+    ``au_but()``:  |green_home_tile| |house| |racing_flag|
+
+    .. |green_home_tile| image:: ../../images/green_home_tile.png
+    .. |house| image:: ../../images/house.png
+    .. |racing_flag| image:: ../../images/racing_flag.png
+
+
 En plus d'être capable de déterminer si des jetons se trouvent là où il
 est, Reeborg peut aussi déterminer s'il se trouve sur le carré coloré
 que nous avons décrit précédemment comme indiquant qu'il est à sa
@@ -40,6 +49,7 @@ des quatre mondes mentionnés ci-dessus.
 Utilisant l'esquisse ci-dessus, écrivez dans l'éditeur de code le
 programme requis et vérifiez qu'il fonctionne bel et bien dans chacun
 des quatre mondes mentionnés.
+
 
 Quelque chose de complètement différent ...
 -------------------------------------------

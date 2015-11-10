@@ -102,6 +102,15 @@ We can represent the above using a flowchart:
 More useful that you might think...
 -----------------------------------
 
+.. note::
+
+    The general term used to describe a function that gives a result
+    equivalent to ``True`` or ``False`` in an ``if`` statement is **condition**::
+
+       if condition:
+           ...
+
+
 Having to specify ``True`` or ``False`` does not help Reeborg decide on
 its own. However, there are special functions that Reeborg recognizes
 that allow to decide things for himself. The first of these is
@@ -152,3 +161,22 @@ enough that this should be fine. I agree, it does not seem very smart
     Copy the above in the Code editor, filling in the missing
     commands, and test your program on both worlds **Tokens 1** and **Tokens 2**.
 
+.. admonition:: For educators
+
+    The function ``object_here()`` returns a list of object types (as strings)
+    found at a given location.  For example, if there are stars and tokens
+    at the same location, ``object_here()`` could return ``["star", "token"]``
+    or ``["token", "star"]``. If no object is present, an empty list is
+    returned.  As you likely already know, Python treats an empty list as
+    being equivalent to ``False`` in an ``if`` statement, and a non-empty
+    list as equivalent to ``True``.
+
+    If many objects could potentially be found in a given world, and we
+    are interested in only one object type, we can specify it as a function
+    argument::
+
+        if object_here("token"):
+            take("token")
+
+    ``object_here("token")`` will either return an empty list or the list
+    ``["token"]``.

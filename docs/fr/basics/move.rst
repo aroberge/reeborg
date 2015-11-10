@@ -1,6 +1,8 @@
 Premier programme
 =================
 
+.. index:: avance()
+
 .. figure:: ../../../src/images/avance.png
    :align: left
 

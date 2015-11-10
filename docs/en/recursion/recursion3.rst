@@ -11,7 +11,7 @@ The last program we considered was the following::
         turn_left()
 
     # now do it!
-    go_home()
+    go_home()      # first call
 
 By now, you probably have figured out how it works; at the very least,
 you should have tried to run it! Let's analyze it assuming we run it in
@@ -23,14 +23,14 @@ which gets replace by the body of the function definition::
 
     if not at_goal():
         move()
-        go_home()
+        go_home()    # second call
     turn_left()
 
 Since Reeborg has not reached its goal yet,
 the ``if`` statement block is executed::
 
     move()
-    go_home()
+    go_home()        # second call
     turn_left()
 
 Once again, we replace ``go_home()`` by its definition::
@@ -38,7 +38,7 @@ Once again, we replace ``go_home()`` by its definition::
     move()
     if not at_goal():
         move()
-        go_home()
+        go_home()    # third call
     turn_left()
     turn_left()
 
@@ -48,7 +48,7 @@ and do it one more time::
     move()
     if not at_goal():
         move()
-        go_home()
+        go_home()    # would be fourth call
     turn_left()
     turn_left()
     turn_left()
@@ -58,9 +58,9 @@ and the ``if`` statement block is not executed::
 
     move()
     move()
-    #if not at_goal():
-    #    move()
-    #    go_home()
+    if not at_goal():
+        move()      # not called
+        go_home()   # not called
     turn_left()
     turn_left()
     turn_left()
@@ -95,10 +95,10 @@ final orientation if he executes the following program?
 
     # now do it!
     go_home()
-    
+
 .. topic:: Do this!
 
-    Try to figure out the above program without running it 
+    Try to figure out the above program without running it
     and then check your understanding
     by seeing Reeborg in action.  What would happen if Reeborg were already
     at its goal before running the program?

@@ -8,7 +8,7 @@ not next to a token. Since we were next to a token, we never go the
 chance to get in the ``while`` loop. Perhaps we can change the program
 to add a ``move()`` before we start the loop, as follows::
 
-    put("token")
+    put()
     move()
     while not object_here():
         if front_is_clear():
@@ -26,6 +26,12 @@ Not so simple world
 Let's try the program we wrote on a slightly more complicated world
 **Around 2**.
 
+.. note::
+
+    Do not forget to include::
+
+        from library import turn_right
+
 When you try your program, you will see that the result is not exactly
 what we wanted: Reeborg takes a shortcut, and doesn't go all the way
 around. The problem is that we assumed that Reeborg only had to move
@@ -35,7 +41,7 @@ Reeborg needs to do is first to check on his right to see if there is
 still a wall; if not, we have him make a right turn. Here's a modified
 program that *attempts* to do just that::
 
-    put("token")
+    put()
     move()
     while not object_here():
         if right_is_clear():

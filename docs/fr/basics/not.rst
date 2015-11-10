@@ -76,3 +76,24 @@ est également inclus dans chaque bloc de code.
         else:
             # instruction ...
 
+Une autre option
+-----------------
+
+Vous avez vu comment on peut changer l'ordre des conditions dans
+un bloc de code ``if/elif/else`` mais réussir à accomplir la même tâche.
+Deux programmeurs vont souvent utiliser des stratégies différentes
+pour obtenir le même résultat final.  Il y a d'autres possibilités qui
+peuvent mener à avoir des programmes différents par différents programmeurs:
+l'utilisation de fonctions différentes.
+
+La fonction ``rien_devant()`` indique à Reeborg s'il y a ou non un mur
+qui bloque son chemin.  Il en sera de même pour de l'**eau**, des
+**murs de briques**, des **clôtures**, etc., objets que nous n'avons
+pas vus encore mais que nous pourrions rencontrer dans de futurs mondes.
+Cependant, il existe une fonction plus spécifique aux murs, appelée
+``mur_devant()``; je vous en laisse deviner la logique.
+
+.. topic:: Essayez!
+
+    Écrivez un programme utilisant ``mur_devant()`` au lieu de l'équivalent
+    ``not rien_devant()``.

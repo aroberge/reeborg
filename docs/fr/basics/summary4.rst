@@ -41,6 +41,8 @@ qui informent Reeborg sur l'état de son monde:
 
 -  ``au_but()``
 -  ``objet_ici()``
+-  ``mur_a_droite()``
+-  ``mur_devant()``
 -  ``rien_a_droite()``
 -  ``rien_devant()``
 -  ``transporte()``

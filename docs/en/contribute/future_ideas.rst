@@ -52,3 +52,5 @@ explorer et à possiblement rajouter à ce tutoriel:
   pour compter le nombre de pas à faire et comparer avec le résultat attendu.
   Ceci peut être fait soit pour un objet carte indépendant, ou en
   utilisant l'héritage multiple.
+
+- Memoization and decorators

@@ -1,6 +1,8 @@
 First program
 =============
 
+.. index:: move()
+
 .. figure:: ../../../src/images/move.png
    :align: left
 

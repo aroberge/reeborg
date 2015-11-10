@@ -32,7 +32,7 @@ on the one spot.
             # something
             if some_condition:
                 # something
-            #something
+            # something
 
         collect()
         move()

@@ -56,9 +56,13 @@ friend. Suddenly, it started to rain and Reeborg remembered that the
 windows in his house were all open. So Reeborg went back to his house
 and stopped in front of the door, unsure of how to proceed.
 
+.. index:: wall_on_right(), wall_in_front()
+
 .. topic:: Do it!
 
-    Using the ``build_wall()`` instruction, help Reeborg close the windows
+    Using the ``build_wall()`` instruction and either ``wall_on_right()``
+    or ``wall_in_front()``, or both, but **not** ``right_is_clear()``
+    nor ``front_is_clear()``, help Reeborg close the windows
     of his house. When Reeborg finishes his task, he will stand in the
     doorway, watching the rain fall, waiting for it to stop before he can go
     back and play outside. The world is **Rain 1**.
@@ -73,7 +77,8 @@ Erdna close the windows in her house.
 .. topic:: Try it!
 
     Your challenge is to write a single program that will work for both
-    Reeborg and Erdna ... however, it might be a bit tricky.
+    Reeborg and Erdna, again without using ``right_is_clear()``
+    nor ``front_is_clear()``... however, it might be a bit tricky.
 
 .. hint::
 
@@ -81,8 +86,18 @@ Erdna close the windows in her house.
     have to take an extra step and, depending on the result, may have to
     turn around, go back and close that window.
 
+.. topic:: Do it again!
+
+    This time, write a program that does make use of ``right_is_clear()``
+    or ``front_is_clear()``, in addition to ``wall_on_right()``
+    or ``wall_in_front()`` to allow Reeborg and Erdna to close the windows
+    in their houses.  The number of steps (``move()`` and ``turn_left()``)
+    taken by the robots should be reduced since they can get more information
+    about their world directly.
+
+
 After the storm
-~~~~~~~~~~~~~~~
+---------------
 
 The wind blew really hard last night. There are fallen leaves everywhere outside
 Reeborg's house. His parents asked him to go and clean up the path
@@ -92,7 +107,7 @@ Reeborg should collect all the leaves, and put them in the compost bin,
 and close the lid, using ``build_wall()``.
 
 More yard work!
-~~~~~~~~~~~~~~~
+---------------
 
 Reeborg's parents are so proud of his work, that they ask him to pick up
 all the leaves that got blown away in their backyard during the

@@ -1,30 +1,31 @@
-Récursivité
-===========
+Recursion
+=========
 
-Si vous faites une recherche sur Internet pour la définition de
-récursivité vous verrez **parfois** (et, **très souvent**, pour la
-définition du terme anglais *recursion*) quelque chose comme ce qui
-suit:
+.. index:: recursion
 
-**Récursivité**
-    Voir récursivité.
+If you look up on the Internet for a definition of recursion, you will
+often see something like the following:
 
-Ceci est une blague ... qui malheureusement peut donner la mauvaise idée
-de ce qu'est la récursivité.
+**Recursion**
+    See recursion.
 
-Si vous étiez un programme informatique qui tentait d'interpréter la
-définition ci-dessus, vous seriez pris dans une boucle infinie. Puisque
-vous lisez ce texte, c'est soit que vous avez sauté par-dessus la
-définition **ou** que vous ne lisez pas comme un ordinateur.
+This is wrong, wrong, *wrong*, **wrong** .... WRONG!
 
-La récursivité en informatique est parfois décrite comme un concept
-difficile à comprendre. Ce n'est pas le cas: si vous comprenez les
-boucles, vous pouvez comprendre la récursivité.
+If you were a computer program, trying to parse the above definition,
+you would get stuck in an infinite loop. Since you are reading this, it
+means that either you did not behave like a computer and got stuck in an
+infinite loop OR that you did not read everything here and, in
+particular, skipped over the above definition.
 
-La récursivité est une démarche qui fait référence à l'objet de la
-démarche. Pour les programmes informatiques, ceci veut dire qu'on répète
-des instructions ... un peu comme dans une boucle. Et, comme pour les
-boucles, il est important de ne pas répéter *à l'infini*.
+Recursion is sometimes described as being difficult to grasp. Do not
+believe this. If you understand loops, you can understand recursion.
+
+So, what is recursion you ask?...
+
+Recursion is the process of repeating items in a self-similar way. For
+computer programs, it means repeating instructions - like in a loop.
+And, like in a loop, we do not want to get stuck forever.
+
 
 .. toctree::
    :maxdepth: 2
@@ -36,20 +37,18 @@ boucles, il est important de ne pas répéter *à l'infini*.
    recursion4
 
 
-.. admonition:: Pour les enseignants
+.. admonition:: For educators
 
-    Certains considèrent le concept de la récursivité comme étant très
-    difficile à saisir pour les étudiants.
-    Sentez-vous donc tout à fait libre d'ignorer les sections portant
-    sur ce sujet.
+    Some consider recursion to be a very difficult concept to grasp;
+    you should feel free to skip over this part which essentially
+    stands alone.
 
-    J'ai choisi de le présenter ici parce que, d'une part,
-    j'avais tous les éléments requis pour le faire et que, d'autre part,
-    l'introduction récente du concept des boucles ``while`` et
-    le remplacement possible d'une telle boucle par une fonction récursive,
-    et vice-versa, offre une occasion de renforcer le concept
-    de blocs répétés par une boucle (récursive ou non).
-    Si on attend à plus tard, lorsque les étudiants sont très familiers
-    avec le concept des boucles ``while`` qui sont devenues "faciles"
-    à utiliser, le concept de recursivité, qui est totalement nouveau,
-    semble soudainement "très difficile" en comparaison.
+    I've chosen to introducer recursion here because, on the one hand
+    all the required prerequisites have been seen and, on the other hand,
+    the recent introduction of the ``while`` loop which can often
+    be replaced by recursion, and vice-versa, gives an opportunity to
+    strengthen the understanding of looping.  If one waits until later,
+    when the student is thoroughly familiar with ``while`` loops which
+    has become second nature to them, the concept of recursion may look
+    to them as something very different and suddenly "very difficult"
+    in comparison.

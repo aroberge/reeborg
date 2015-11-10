@@ -25,14 +25,6 @@ suivantes.
     Assurez-vous de sauvegarder vos diverses solutions; vous
     voudrez peut-être les revoir plus tard.
 
-Prêt pour la récolte
---------------------
-
-L'aménagement des semences s'est bien passé, et c'est le temps des
-récoltes. Sélectionnez le monde **Récolte 1** ou **Récolte 2** et faites en
-sorte que Reeborg ramasse toutes les carottes; vous devriez être
-en mesure de faire ceci à l'aide d'un seul programme pour les deux mondes.
-
 Avant les récoltes
 ------------------
 
@@ -47,6 +39,14 @@ sorte qu'il n'y ait qu'une seule carotte par endroit.
 
     Écrivez un programme tel que décrit ci-dessus.
 
+Prêt pour la récolte
+--------------------
+
+L'aménagement des semences s'est bien passé, du moins je l'espèere,
+et c'est le temps des récoltes.
+Sélectionnez le monde **Récolte 1** ou **Récolte 2** et faites en
+sorte que Reeborg ramasse toutes les carottes; vous devriez être
+en mesure de faire ceci à l'aide d'un seul programme pour les deux mondes.
 
 Le mauvais temps
 ----------------
@@ -57,9 +57,13 @@ les fenêtres de sa maison étaient toutes ouvertes. Reeborg alla donc
 chez lui pour fermer les fenêtres mais arrêta au seuil de la porte,
 indécis quant à la meilleure façon de procéder.
 
+.. index:: mur_a_droite(), mur_devant()
+
 .. topic:: À votre tour!
 
-    Utilisez la commande ``construit_un_mur()`` et aidez Reeborg à fermer
+    Utilisez la commande ``construit_un_mur()``, ainsi que possiblement
+    ``mur_a_droite()`` ou ``mur_devant()``, ou les deux, mais **pas**
+    ``rien_devant()`` ni ``rien_a_droite()``, aidez Reeborg à fermer
     les fenêtres de sa maison. Lorsque Reeborg aura terminé, il sera au
     seuil de la porte, regardant la pluie tomber et attendra patiemment
     qu'elle arrête pour qu'il puisse retourner jouer dehors. Le monde à
@@ -75,7 +79,8 @@ tomber.
 .. topic:: À votre tour!
 
     Aidez Erdna à fermer les fenêtres de sa maison.   Le véritable défi est d'avoir
-    à la fin un seul programme qui fonctionne dans les deux cas.
+    à la fin un seul programme qui fonctionne dans les deux cas et qui n'utilise
+    ni ``rien_devant()`` ni ``rien_a_droite()``.
 
 .. hint::
 
@@ -84,6 +89,16 @@ tomber.
     robot d'un pas de plus, de noter le résultat, puis de reculer d'un pas
     et déterminer ce qu'il faut faire basé sur le résultat qui avait été
     noté.
+
+.. topic:: Nouvelle solution
+
+    Cette fois-ci, écrivez un programme qui utilise soit ``rien_devant()`` ou
+    ``rien_a_droite()`` en plus de `mur_a_droite()`` ou ``mur_devant()``,
+    et faites en sorte que Reeborg et Erdna ferment les fenêtres de leur
+    maison.  Le nombre d'actions (``avance()`` et ``tourne_a_gauche()``)
+    faites par les robots devrait
+    être plus petit car ils peuvent obtenir plus d'information au sujet de
+    leur monde en utilisant plus de *conditions*.
 
 Après la pluie
 ----------------

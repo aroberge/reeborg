@@ -24,7 +24,7 @@ token at the beginning:
 Take your time to think about the above algorithm. Then, consider this
 solution in code::
 
-    put("token")
+    put()
     while not object_here():
         if front_is_clear():
             move()

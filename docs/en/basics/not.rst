@@ -10,9 +10,9 @@ Python's **not**.
 Time to be negative.
 --------------------
 
-Python, we can indicate that something is not true by writing ``not True`` 
+Python, we can indicate that something is not true by writing ``not True``
 which is synonymous of ``False``. Likewise, ``not False`` is
-equivalent to ``True``. 
+equivalent to ``True``.
 
 Please, make Reeborg happy
 --------------------------
@@ -34,7 +34,7 @@ parts of it went something like this:
 
     Make Reeborg happy by re-writing this program in three other versions,
     by choosing different combinations of the negation keyword ``not`` **and**
-    different combinations of ``if/elif/else``. 
+    different combinations of ``if/elif/else``.
 
 You should use the three code samples below but pay close
 attention to where the ``not`` keyword occur **and** to what is actually
@@ -74,3 +74,23 @@ included in each code block.
         else:
             # something
 
+Another option
+--------------
+
+You have just seen how it is possible to change the order
+in which the conditions appear in an ``if/elif/else`` code block while
+still accomplishing the same goal.  Two different programmers will often
+use different strategies to get the same final result.  There are other
+ways in which different programmers will write different but equivalent
+programs: by using different functions.
+
+The function ``front_is_clear()`` will tell Reeborg whether or not a
+wall is blocking its way.  It will do the same for **water**, **brick walls**,
+**fences**, etc., which we have not seen yet but likely will in future worlds.
+There is a function that is more specific to wall; it is called
+``wall_in_front()``; I leave it up to you to guess what it does.
+
+.. topic:: Try it!
+
+    Write a program using ``wall_in_front()`` instead of the equivalent
+    ``not front_is_clear()``.
