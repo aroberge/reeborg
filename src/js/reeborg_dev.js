@@ -39,14 +39,15 @@ RUR.translate_to_english = function (s) {
 
 RUR.reset_code_in_editors = function () {
     var library_default, library_content, editor_content, editor_default,
-        default_instruction = RUR.translate("move");
+        default_instruction = RUR.translate("move"),
+        library_default_en = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
 
     if (RUR.programming_language == "javascript") {
         editor_default = default_instruction + "();";
     } else if (RUR.programming_language == "python") {
-        library_default = RUR.translate("# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n");
+        library_default = RUR.translate(library_default_en);
         library_content = localStorage.getItem(RUR.settings.library);
-        if (!library_content){
+        if (!library_content || library_content == library_default_en){
             library_content = library_default;
         }
         library.setValue(library_content);
