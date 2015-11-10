@@ -1,6 +1,8 @@
 Collection de jetons
 ====================
 
+.. index:: prend(), depose()
+
 Certains aiment collectionner les timbres, d'autres collectionnent les
 pièces de monnaie; Reeborg, lui, aime collectionner les jetons. Il
 utilise son imagination pour représenter toute sorte d'objet par des

@@ -1,6 +1,8 @@
 La bibliothèque
 ===============
 
+.. index:: from ... import
+
 Lorsque des programmeurs utilisent la même fonction dans plusieurs
 programmes, plutôt que de la redéfinir dans chaque programme ils la
 mettent dans un programme spécial qui s'appelle une **bibliothèque**

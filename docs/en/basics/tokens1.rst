@@ -1,6 +1,8 @@
 A token of appreciation
 =======================
 
+.. index:: take(), put()
+
 Reeborg likes to collect tokens. When he finds one on the ground, most
 often he takes it; sometimes he puts one down as well. The commands for
 having him do so can be simply written as follows::
@@ -31,7 +33,7 @@ Reeborg should end up after having accomplished its task.
     carry one? What happens if Reeborg attempts to take a token where there
     is none to be found?
 
-.. admonition:: For teachers
+.. admonition:: For educators
 
     For the first tasks mentioned in this tutorial, worlds have been
     designed such that only one type of object is present.

@@ -2,13 +2,14 @@
 Learn Python with Reeborg!
 ==========================
 
+
 Learning Python is easy with Reeborg.  All you have to do is read the tutorial
 and try all the examples in `Reeborg's world <http://reeborg.ca/world.html>`_.
 I suggest that you keep the tutorial and Reeborg's World both open but
 in separate windows or tabs.
 
 Before you actually start the tutorial, have Reeborg take its first step
-by running a program in Reeborg's World.
+by running a program in `Reeborg's world <http://reeborg.ca/world.html>`_.
 
 
 Hints are clickable and designed to provide useful pointers if you are
@@ -51,24 +52,6 @@ some information for teachers as well as other users of Reeborg's World.
 You can ignore such additional information without worrying that you are
 missing something important as you are learning programming concepts.
 
-
-.. admonition:: For educators, developpers, mentors, etc.
-
-    .. figure:: ../images/reeborg_judkis.jpg
-       :figwidth: 35%
-       :align: right
-
-       This is a model of Reeborg made by a student in New Jersey (USA) who
-       learned Python with RUR-PLE, an older version of Reeborg's World
-       that has been available as a desktop program since 2004.
-
-       *Photo courtesy of A. Judkis.*
-
-    You will often find special notes, usually found at the bottom of a
-    page, giving some additional details about choices made in presenting
-    the learning material.  For example, there is one such (long) note
-    at the very bottom of this page.
-
 This document has been divided into seven major parts.
 
 .. toctree::
@@ -82,21 +65,11 @@ This document has been divided into seven major parts.
    F. Python: a brief overview <python/index>
    G. Contribute!  <contribute/index>
 
-
-Here is a more detailed look:
-
-.. toctree::
-
-   A. Basic tutorial <basics/index>
-   B. Recursion <recursion/index>
-   C. Variables <variables/index>
-   D. Object Oriented Programming <oop/index>
-   E. Reeborg's World Reference <reference/index>
-   F. Python: a brief overview <python/index>
-   G. Contribute!  <contribute/index>
+If you click on any of the above part title, you will be taken to a
+page with a more detailed table of contents for that part.
 
 
-.. admonition:: For teachers
+.. admonition:: For educators
 
     .. figure:: ../images/rurple_book.png
 

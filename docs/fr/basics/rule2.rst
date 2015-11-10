@@ -1,6 +1,8 @@
 Règle numéro 2
 ==============
 
+.. index:: Règle numéro 2
+
 J'ai déjà mentionné la première règle pour apprendre la programmation
 informatique: vous devez écrire des programmes (et les tester) et non
 simplement lire au sujet de la programmation. C'est maintenant le temps
@@ -20,6 +22,8 @@ par elles-mêmes. Il est vrai que les langages informatiques sont conçus
 pour vous permettre de donner des instructions aux ordinateurs. Ces
 langages sont beaucoup plus simples que les langues humaines et sont
 également utilisés pour partager des idées entre programmeurs.
+
+.. index:: #, commentaires, " " " (triplet), ' ' ' (triplet)
 
 Commentaires
 ------------

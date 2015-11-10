@@ -89,6 +89,8 @@ Sometimes to find the cause of bugs, it can help to break the normal
 flow of the program. To this end you may do one or more of the
 following:
 
+.. index:: pause()
+
 #. You can *pause* a program as it is running by pressing the **pause**
    button. This is similar to what people refer to as
    setting a *breakpoint* in a computer program

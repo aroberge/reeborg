@@ -81,7 +81,7 @@ others.
 .. code-block:: python
    :linenos:
 
-    from my_lib import turn_right, turn_around
+    from library import turn_right, turn_around
 
     def climb_up_one_floor():
         turn_left()

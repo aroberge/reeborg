@@ -2,6 +2,8 @@
 Using the Library
 =================
 
+.. index:: from ... import
+
 When programmer make use of a given function in different programs,
 rather than redefining it in each program they write, they put them in
 special programs called **libraries** and they have a way to ensure that
@@ -67,7 +69,7 @@ and Reeborg will do the right thing.  For example, try the following::
 
     Write a short program which uses the functions of the French library.
 
-.. admonition:: For teachers
+.. admonition:: For educators
 
     When the French library is imported, the online help
     (available via "Addition options" -> "Help") is updated to include

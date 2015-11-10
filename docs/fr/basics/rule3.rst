@@ -1,6 +1,8 @@
 Règle numéro 3
 ==============
 
+.. index:: Règle numéro 3
+
 Après avoir aidé Reeborg à accomplir ses tâches, vous devez être prêt
 pour apprendre et comprendre la troisième règle de programmation:
 
@@ -27,6 +29,8 @@ suffirait si Reeborg n'était pas défectueux. C'est le temps de remédier
 
 Définir des fonctions
 ---------------------
+
+.. index:: ! def
 
 Ce que nous avons appelé *instructions* jusqu'ici étaient en fait des
 **fonctions** python. Donc ``tourne_a_gauche()`` est une fonction,

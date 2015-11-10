@@ -65,7 +65,6 @@
             {%- endif %}
             {%- endblock %}
             {%- block sidebarrel %}
-<p class="topless"><a href="{{pathto("../en/"+pagename)}}">{{"English version"}}</a></p>
             {%- include "relations.html" %}
             {%- endblock %}
             {%- block sidebarsourcelink %}
@@ -76,6 +75,9 @@
             {%- endif %}
             {%- block sidebarsearch %}
             {%- include "searchbox.html" %}
+            {%- endblock %}
+            {%- block version %}
+<h4><a href="{{pathto("../en/"+pagename)}}">{{"English version"}}</a></h4>
             {%- endblock %}
           {%- endif %}
         </div>

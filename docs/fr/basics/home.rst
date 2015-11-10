@@ -32,6 +32,7 @@ cartésiennes ``x=3`` et ``y=1``.
 
     Ensuite, sélectionnez **But 3**. Qu'arrive-t-il si vous exécutez votre programme?
 
+.. index:: tourne_a_gauche()
 
 Tourner à gauche
 ----------------

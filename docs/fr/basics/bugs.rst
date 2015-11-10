@@ -110,6 +110,8 @@ Pour déterminer la cause d'un bogue, il est parfois utile d'interrompre
 le flot normal d'un programme. À cette fin, vous pouvez utiliser un ou
 plusieurs des trucs suivants:
 
+.. index:: pause()
+
 #. Vous pouvez *pauser* un programme en voie d'exécution simplement en
    cliquant sur le bouton **pause**. Ceci est semblable
    à ce qu'on appelle un *point d'arrêt* ("breakpoint") dans un

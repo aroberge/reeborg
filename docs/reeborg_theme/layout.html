@@ -35,7 +35,8 @@
         {%- endfor %}
         {%- block rootrellink %}
         <li><a class="logo" href="../../index_en.html" class="fake_button">
-              <img class="logo"  src="{{ pathto('_static/' + logo, 1) }}" alt="Logo"/>Reeborg's World
+              <img class="logo"  src="{{ pathto('_static/' + logo, 1) }}" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
             </a></li>
         <li><a href="{{ pathto(master_doc) }}">{{ shorttitle|e }}</a></li>
         {%- endblock %}
@@ -65,7 +66,6 @@
             {%- endif %}
             {%- endblock %}
             {%- block sidebarrel %}
-<p class="topless"><a href="{{pathto("../fr/"+pagename)}}">{{"Version française"}}</a></p>
             {%- include "relations.html" %}
             {%- endblock %}
             {%- block sidebarsourcelink %}
@@ -74,9 +74,12 @@
             {%- if customsidebar %}
             {%- include customsidebar %}
             {%- endif %}
-<!--             {%- block sidebarsearch %}
+            {%- block sidebarsearch %}
             {%- include "searchbox.html" %}
-            {%- endblock %} -->
+            {%- endblock %}
+            {%- block version %}
+<h4><a href="{{pathto("../fr/"+pagename)}}">{{"Version française"}}</a></h4>
+            {%- endblock %}
           {%- endif %}
         </div>
       </div>

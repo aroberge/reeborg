@@ -1,6 +1,8 @@
 Rule number 2
 =============
 
+.. index:: Rule # 2
+
 I have already mentioned the first rule for learning how to program: you
 must write programs (and test them) and not simply read about
 programming. Now, I am about to tell you the second rule which is one of
@@ -20,6 +22,8 @@ communicate with computers, just as human languages have evolved to
 allow humans to communicate with each other. But computer languages,
 which are much simpler than human languages, are often used by
 programmers to share their work with other programmers.
+
+.. index:: #, comments, " " " (triple), ' ' ' (triple)
 
 Comments
 --------
@@ -102,7 +106,7 @@ easier to read.
 
 
 
-.. admonition:: For teachers
+.. admonition:: For educators
 
     If you have already explained how to use function arguments, may I suggest
     that you modify the example above to replace::

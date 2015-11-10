@@ -1,20 +1,15 @@
-.. warning::
-
-      Ce document est en révision majeure, avec certaines sections disponibles
-      uniquement en version anglaise.
-
 Apprenez Python avec Reeborg!
 =============================
 
 C'est facile d'apprendre Python avec Reeborg.  Tout ce que vous avez
 à faire dest de lire ce tutoriel et de faire tous les exemples
-en utilisant `Le monde de Reeborg <http://reeborg.ca/monde.html>`_.
+en utilisant le `Monde de Reeborg <http://reeborg.ca/monde.html>`_.
 Je vous suggère d'avoir le tutoriel et le monde de Reeborg ouverts
 en même temps, soit dans des fenêtres ou des onglets séparés.
 
 Avant de débuter le tutoriel proprement dit, faites en sorte que
-Reeborg fasse son tout premier pas en exécutant un programme dans
-le monde de Reeborg.
+Reeborg fasse son tout premier pas en exécutant un programme dans le
+`Monde de Reeborg <http://reeborg.ca/monde.html>`_.
 
 Si vous n'êtes pas certain de la marche à suivre, cliquez sur
 l'**indice** ci-dessous.
@@ -57,23 +52,6 @@ supplémentaires sans craintes: les sections écrites pour vous devraient
 contenir toute les informations dont vous devriez avoir besoin
 pour votre apprentissage.
 
-.. admonition:: Pour les enseignants, tuteurs, développeurs, etc.
-
-    .. figure:: ../images/reeborg_judkis.jpg
-       :figwidth: 35%
-       :align: right
-
-       Cette figurine de Reeborg a été faite par un étudiant du New Jersey
-       (États-Unis) qui a appris la programmation Python à l'aide de
-       RUR-PLE, un précurseur du Monde de Reeborg.
-
-       *Photo courtoisie de A. Judkis.*
-
-    Vous trouverez des notes, généralement au bas des pages,
-    expliquant certains détails au sujet de l'approche choisie
-    pour la présentation de différents sujets.  Par exemple,
-    il y a une de ces notes tout au bas de cette page
-
 Ce document est divisé en sept parties majeures.
 
 .. toctree::
@@ -87,19 +65,9 @@ Ce document est divisé en sept parties majeures.
    F. Python: un bref survol <python/index>
    G. Contribuez!  <contribute/index>
 
-
-De façon plus détaillée, on a ce qui suit.
-
-.. toctree::
-
-   A. Tutoriel de base <basics/index>
-   B. Récursitivité <recursion/index>
-   C. Les variables <variables/index>
-   D. La programmation orientée objet <oop/index>
-   E. Référence du Monde de Reeborg <reference/index>
-   F. Python: un bref survol <python/index>
-   G. Contribuez!  <contribute/index>
-
+Si vous cliquez sur un des liens ci-dessus, vous serez redirigé vers
+une page qui incluera une table des matières plus détaillée pour la
+partie en question.
 
 
 .. admonition:: Pour les enseignants

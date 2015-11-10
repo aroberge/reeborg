@@ -29,6 +29,7 @@ Cartesian coordinates.
 
     Next, select **Home 3** and run your program.
 
+.. index:: turn_left()
 
 Making a left turn
 ------------------

@@ -2,6 +2,8 @@
 Rule number 3
 =============
 
+.. index:: Rule # 3
+
 By now, you should be ready to learn about the third rule for writing
 computer programs efficiently.
 
@@ -31,18 +33,20 @@ What we have called *instructions* or *commands* so far are examples of
 Python **functions**. So, ``turn_left()`` is a function and so is
 ``move()``. We can define a new Python function as follows:
 
+.. index:: ! def
+
 .. code-block:: python
 
     def some_well_chosen_name ():
-        # some lines of code 
+        # some lines of code
         # indented at the same level
 
 
 ``function`` is our first Python **keyword**. Keywords are words that
 have a special meaning in a given programming language.
-Notice how a colon ``:`` precedes what 
+Notice how a colon ``:`` precedes what
 is known as a *block of code* and constitutes the *body* of the
-function. It is **required** in Python to *indent* such blocks of code 
+function. It is **required** in Python to *indent* such blocks of code
 with the same number of spaces at the beginning of each line which, as a side-effect, makes it
 easy to identify the function body for a human reader.
 

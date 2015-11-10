@@ -1,6 +1,7 @@
 Introduction to the challenges
 ==============================
 
+
 In this lesson, I introduce briefly most of the challenges (tasks) that
 Reeborg has to accomplish and which you can select from the menu
 above Reeborg's world. What you
@@ -122,6 +123,8 @@ friend. Suddenly, it started to rain and Reeborg remembered that the
 windows in his house were all open. So Reeborg went back to his house
 and stopped in front of the door, unsure of how to proceed.
 
+.. index:: build_wall()
+
 .. topic:: Try it!
 
     Using the ``build_wall()`` instruction, help Reeborg close the windows
@@ -171,7 +174,7 @@ to write much shorter programs to solve these challenges.
 
 .. |hurdles| image:: ../../../src/images/hurdles.png
 
-.. admonition:: For teachers
+.. admonition:: For educators
 
     If you have already explained how to use function arguments, it might
     be useful to suggest the use of the ``World()`` function instead

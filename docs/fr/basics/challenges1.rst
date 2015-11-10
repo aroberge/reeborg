@@ -133,6 +133,8 @@ les fenêtres de sa maison étaient toutes ouvertes. Reeborg alla donc
 chez lui pour fermer les fenêtres mais arrêta au seuil de la porte,
 indécis quant à la meilleure façon de procéder.
 
+.. index:: construit_un_mur()
+
 .. topic:: À votre tour!
 
     Utilisez la commande ``construit_un_mur()`` et aidez Reeborg à fermer

@@ -83,6 +83,8 @@ ci-dessus?  Sinon, je vous implore de le faire.  Voyez-vous, la
 règle la plus importante que vous devez suivre pour apprendre
 à programmer est la suivante:
 
+.. index:: Règle no 1
+
 .. important::
 
     Règle no 1

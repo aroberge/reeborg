@@ -78,6 +78,8 @@ Did you try all that I suggested to you above?  If not,
 I urge you to go back to do it.  You see, the most important rule you
 must follow if you wish to learn programming is the following:
 
+.. index:: Rule # 1
+
 .. important::
 
     Rule # 1
@@ -102,7 +104,7 @@ automatically.   This can be useful to ensure that names are
 spelled out correctly and that required parentheses are not forgotten.
 
 
-.. admonition:: For teachers
+.. admonition:: For educators
 
     Reeborg's keyboard could be especially useful for three categories
     of users: the younger ones, who find typing on a normal keyboard
