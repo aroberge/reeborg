@@ -1,6 +1,16 @@
 Increment
 =========
 
+.. todo::
+
+    rewrite this and use **Storm 1** as an example; disable
+    ``carries_object()`` and have Reeborg count the number of leaves
+    instead.
+
+    Introduce the global keyword.
+
+
+
 Select world **Around 1**.
 
 Suppose we wanted to count the number of steps taken by Reeborg to

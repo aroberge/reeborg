@@ -3,6 +3,14 @@ Incrément
 
 .. todo::
 
+    rewrite this and use **Storm 1** as an example; disable
+    ``carries_object()`` and have Reeborg count the number of leaves
+    instead.
+
+    Introduce the global keyword.
+
+.. todo::
+
    Revoir d'abord l'exemple::
 
         longueur = 4

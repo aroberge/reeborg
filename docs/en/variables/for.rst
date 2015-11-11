@@ -2,6 +2,20 @@
 For loops
 =========
 
+.. todo::
+
+   Do::
+
+       for item in a_list:
+          #
+       for letter in word:
+          #
+       for _ in range(n):
+          #
+
+
+
+
 First, a look at ``while``
 --------------------------
 

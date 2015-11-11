@@ -75,7 +75,7 @@ comments as they appear in a different colour and font style.
     move()  # Python commands are on separate lines
     move()
     turn_left() # Reeborg only knows to turn left
-    put("token")  # we assume that Reeborg carries enough tokens
+    put()  # we assume that Reeborg carries enough tokens
 
     # we repeat the above three more times to complete the square
     move()

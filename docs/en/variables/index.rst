@@ -44,11 +44,12 @@ could define another name (variable) for it as follows::
    newspaper3
    world
    increment
-   return
    listes
    string_index
    for
+   return
    arguments1a
    arguments1b
    slice
    harvest3
+
