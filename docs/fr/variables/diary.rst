@@ -1,6 +1,8 @@
 Le journal de Reeborg
 =====================
 
+.. index:: print(), argument de fonction
+
 Exécutez le programme suivant::
 
     print()
@@ -9,6 +11,17 @@ Vous devriz voir une fenêtre flottante vide apparaître dont
 le titre est *Reeborg écrit:*.
 Cette fenêtre flottante est le journal de Reeborg.
 Sentez-vous libre de la déplacer ailleurs sur l'écran.
+
+.. note::
+
+    **Important:** l'exemple à droite n'exécute pas la fonction ``avance``;
+    si nous faisons::
+
+        print( avance() )
+
+    de telle sorte que ``avance`` soit exécutée, ``None``, un mot-clé Python,
+    sera écrit dans le journal de Reeborg.  Nous expliquerons plus tard la
+    raison pour ceci.
 
 Exécutez maintenant le programme qui suit::
 
@@ -89,6 +102,8 @@ vous voulez inclure un guillemet dans une chaîne, vous pouvez soit
 utiliser des guillemets d'un type différent pour encadrer la chaîne, ou
 les précéder du *caractère d'échappement* ``\``.
 
+.. index:: \', \", \n, charactère d'échappement, séquence d'échappement
+
 .. code:: py3
 
     print("Ajourd'hui.")
@@ -116,6 +131,8 @@ Reeborg connaît les maths
 
 Exécutez le programme suivant et observez le résultat dans le journal de
 Reeborg.
+
+.. index:: +, *, -, /, //
 
 .. topic:: Faites des maths!
 
@@ -167,25 +184,18 @@ contexte mathématique.
     Reproduisez l'exemple ci-dessus, puis inventez vos propres exemples.
 
 
-Avis
-----
-
-Combiner des chaînes et des nombres peut donner des résultats
-inattendus:
-
-.. code:: py3
-
-    print("2" + 2)
-
 .. warning::
 
     Le *caractère* "2" n'est pas le même objet que le *chiffre* 2.
+    Essayez ce qui suit::
+
+        print("2" + 2)
 
 Arguments multiples
 -------------------
 
 Certaines fonctions, dont ``print()`` peuvent accepter plusieurs
-arguments; les différents arguments sont représentés par des virgules.
+arguments; les différents arguments sont séparés par des virgules.
 Pour démontrer ceci, nous pouvons faire une légère modification
 au programme démontrant le calcul de l'aire d'un rectangle::
 

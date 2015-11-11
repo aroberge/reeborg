@@ -1,6 +1,8 @@
 Not ... true!
 =============
 
+.. index:: ! not
+
 Reeborg is upset. It's **not** raining; it's **not** snowing. Yet, he
 cannot go outside and practise for his hurdles race.
 
@@ -76,6 +78,8 @@ included in each code block.
 
 Another option
 --------------
+
+.. index:: wall_in_front()
 
 You have just seen how it is possible to change the order
 in which the conditions appear in an ``if/elif/else`` code block while

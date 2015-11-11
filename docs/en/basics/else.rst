@@ -1,6 +1,8 @@
 Listen to me ... or else ....
 =============================
 
+.. index:: ! else
+
 While learning how to program may be fun, you should not spend all your
 time in front of the computer. ``if`` it rains, keep reading, otherwise,
 go outside and play! (Yes, even you grandpa!)
@@ -21,7 +23,7 @@ If this were Python, we might have written it like this instead:
 
     if it_rains():
         keep_reading()
-    else
+    else:
         go_outside_and_play()
 
 Yes, Python includes the possibility of more than one choice with

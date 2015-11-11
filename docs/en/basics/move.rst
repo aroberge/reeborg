@@ -1,7 +1,7 @@
 First program
 =============
 
-.. index:: move()
+.. index:: move(), function
 
 .. figure:: ../../../src/images/move.png
    :align: left

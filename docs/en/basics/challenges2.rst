@@ -56,7 +56,7 @@ friend. Suddenly, it started to rain and Reeborg remembered that the
 windows in his house were all open. So Reeborg went back to his house
 and stopped in front of the door, unsure of how to proceed.
 
-.. index:: wall_on_right(), wall_in_front()
+.. index:: wall_on_right(), right_is_clear()
 
 .. topic:: Do it!
 
@@ -99,12 +99,20 @@ Erdna close the windows in her house.
 After the storm
 ---------------
 
+.. index:: carries_object()
+
 The wind blew really hard last night. There are fallen leaves everywhere outside
 Reeborg's house. His parents asked him to go and clean up the path
 leading to the curb, **Storm 1**, as well as the driveway: **Storm 2**.
 
-Reeborg should collect all the leaves, and put them in the compost bin,
-and close the lid, using ``build_wall()``.
+.. topic:: Your turn!
+
+    Reeborg must collect all the leaves and put them in the compost bin,
+    making sure to close the lid using ``build_wall()``.  Reeborg
+    can determine if it carries objects (dead leaves here) by
+    using the condition ``carries_object()`` either in an ``if``
+    statement or a ``while`` statement.
+
 
 More yard work!
 ---------------
@@ -114,8 +122,10 @@ all the leaves that got blown away in their backyard during the
 windstorm, as illustrated on **Storm 3**. Have Reeborg pick up all the
 leaves and put it in the compost bin.
 
-Later, you will learn to write a single program that can help Reeborg do
-the cleanup for all three locations.
+.. topic:: Your turn!
+
+    Write a program that will work in all three **Storm** worlds.
+
 
 Finding the center
 ------------------
@@ -126,7 +136,9 @@ Have a look at the worlds **Center 1** to **Center 3**.
 
     Write a **single**
     program that has Reeborg put a token at the geometric center of the
-    rectangular room he finds himself in.
+    rectangular room he finds himself in. Begin with
+    the simplest case, making progressive improvements to tackle the
+    more complicated cases.  Note that this is a more challenging task.
 
 .. hint::
 

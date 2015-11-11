@@ -1,6 +1,8 @@
 Repeat
 ======
 
+.. index:: repeat
+
 Often, we will find that we want to repeat a series of instructions a
 fixed number of times. There is a way in Python to do so ... but it
 has too many new concepts to explain at this time. I will just show you
@@ -60,3 +62,8 @@ another way to eliminate repetitions in our code.
     at the same time (loops, variables as in ``_`` in ``for _ in range(n)``,
     builtin functions like ``range`` as well as the concept of
     function arguments).
+
+    By design the ``n`` in ``repeat n`` **must** be an integer literal;
+    it cannot be a variable.  When students learn about variables, they
+    should learn the proper Python syntax to do loops and forget about
+    the non-standard ``repeat``.

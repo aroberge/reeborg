@@ -13,6 +13,14 @@ proceed to harvest all fruits of the similar type.
     To fully understand this section, one needs to know about Python lists,
     and, in particular, list indexing
     which is something I have not covered yet.  I need to do this.
+    Also, in the example below, I need to separate out and have something like::
+
+        objects = object_here()
+        selection = objects[0]
+
+        # followed by
+
+        selection = object_here()[0]
 
 Reeborg uses the function ``object_here()`` which return a **list** containing
 the names of the objects found at that location; for the **Harvest 4** worlds,

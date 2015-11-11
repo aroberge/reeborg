@@ -1,6 +1,8 @@
 Finding the right spot
 ======================
 
+.. index:: at_goal()
+
 While the program you just wrote works for worlds **Tokens 1** and **Tokens 2**,
 it will fail if you try it for worlds **Tokens 3** and **Tokens 4**.
 

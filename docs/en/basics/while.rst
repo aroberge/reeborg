@@ -1,6 +1,8 @@
 For a ``while``
 ===============
 
+.. index:: ! while
+
 When we want to repeat some instructions until a certain condition is
 satisfied, Python gives us a simpler way to write this using a new
 keyword: ``while``. For example, suppose we want to have Reeborg keep

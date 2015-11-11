@@ -1,7 +1,7 @@
 Premier programme
 =================
 
-.. index:: avance()
+.. index:: avance(), fonction
 
 .. figure:: ../../../src/images/avance.png
    :align: left
@@ -75,19 +75,19 @@ d'erreurs seront effacées. Assurez-vous que ceci soit bel et bien le
 cas.
 
 
-Règle no 1
-----------
+Règle numéro 1
+--------------
 
 Est-ce que vous avez bel et bien essayez toutes les suggestions
 ci-dessus?  Sinon, je vous implore de le faire.  Voyez-vous, la
 règle la plus importante que vous devez suivre pour apprendre
 à programmer est la suivante:
 
-.. index:: Règle no 1
+.. index:: Règle numéro 1
 
 .. important::
 
-    Règle no 1
+    Règle numéro 1
         Apprendre la programmation informatique est comme apprendre à jouer
         d'un instrument de musique: il faut le faire et non pas se contenter de lire à ce sujet.
 
@@ -117,7 +117,7 @@ un mot.
 
     Au moment où j'édite ce tutoriel pour rajouter cette note,
     je viens tout juste de rajouter le clavier de Reeborg ainsi qu'une
-    commande (``pas de surlignement``) qui n'est pas documentée dans
+    commande (``pas de surlignement()``) qui n'est pas documentée dans
     ce tutoriel (ni dans l'aide en ligne).  Ceci risque d'arriver au
     sujet d'autres commandes ... n'hésitez pas à me contacter si vous
     voyer des erreurs (possiblement par omission) dans ce tutoriel

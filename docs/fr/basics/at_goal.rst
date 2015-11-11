@@ -1,6 +1,8 @@
 Droit au but
 ============
 
+.. index:: au_but()
+
 Bien que le programme que vous venez d'écrire permette à Reeborg
 d'accomplir sa tâche pour les mondes **Jetons 1** et **Jetons 2**, il n'en sera
 pas de même pour **Jetons 3** et **Jetons 4**.

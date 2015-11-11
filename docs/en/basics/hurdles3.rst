@@ -1,6 +1,8 @@
 Hurdles yet again!
 ==================
 
+.. index:: ! elif
+
 Reeborg lives in Canada where it not only can rain or be sunny, but snow
 can also be falling ... usually not all three at the same time ... but
 it does happen... Let's suppose that only one of those can happen. Then,
@@ -61,6 +63,8 @@ etc.
 
 Back to hurdles
 ---------------
+
+.. index:: front_is_clear()
 
 Just two lessons ago, you wrote a program that worked for worlds
 **Hurdles 1** and **Hurdles 2** but not for **Hurdles 3**. Your program was likely

@@ -1,6 +1,8 @@
 Pas vrai!
 =========
 
+.. index:: ! not
+
 Reeborg est fâché. Il ne pleut **pas**; il ne neige **pas**; mais
 Reeborg ne peut **pas** aller jouer dehors et s’entraîner pour la course
 aux haies. Il doit attendre que vous appreniez la négation en
@@ -78,6 +80,8 @@ est également inclus dans chaque bloc de code.
 
 Une autre option
 -----------------
+
+.. index:: mur_devant()
 
 Vous avez vu comment on peut changer l'ordre des conditions dans
 un bloc de code ``if/elif/else`` mais réussir à accomplir la même tâche.

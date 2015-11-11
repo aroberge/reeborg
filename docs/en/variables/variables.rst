@@ -1,131 +1,132 @@
 
-
-
 .. note::
 
-   En français, on appelle *synonymes* deux noms qui ont la même signification.
-   Il peut être utile de penser à une *variable* comme étant un
-   synonyme pour un objet donné.
+    In English, the word *synonym* is used to describe different words
+    that have hte same meaning. It can be useful to think of *variables*
+    as being *synonyms* for a given object.
 
-Plusieurs noms pour un même objet
-----------------------------------
 
-Nous avons obtenu précédemment, en parlant des améliorations progressives,
-une façon d'écrire une solution pour le monde **Autour 4** qui était la
-suivante::
 
-    from biblio import tourne_a_droite
+Many names for the same object
+------------------------------
 
-    # On note le point de départ en déposant un jeton
-    depose()
+In a previous example, when talking about *refinements*,
+we got a solution for the world **Around 4** that was as follows::
 
-    # On trouve une direction où un mur ne bloque pas le chemin
-    while not rien_devant():
-        tourne_a_gauche()
-    avance()
+    from library import turn_right
 
-    # On sait qu'on a fait le tour du monde lorsqu'on revient
-    # au point de départ, là où on a déposé un jeton.
+    # We mark the starting point by putting down a token
+    put()
 
-    while not objet_ici():
-        if rien_a_droite():    # on garde la droite
-            tourne_a_droite()
-            avance()
-        elif rien_devant():    # on avance ... suivant le mur
-            avance()
+    # We find a clear direction and start moving
+    while not front_is_clear():
+        turn_left()
+    move()
+
+    '''  We know we will have gone around the world
+    when we come back to the place we put the token
+    down. ''''
+
+    while not object_here():
+        if right_is_clear():  # keep to the right
+            turn_right()
+            move()
+        elif front_is_clear():    # move ... following the right wall
+            move()
         else:
-            tourne_a_gauche()  # on suit le mur
+            turn_left()  # follow the wall by turning left
 
+Then, we define new functions to better describe the core of
+this solution, thus reducing the need to add comments.
+One of these functions, which is the only one we will retain as is,
+was the following::
 
-Par la suite, on avait défini de nouvelles fonctions pour mieux
-capturer l'essentiel de cette solution, en réduisant le besoin
-d'écrire des commentaires.  Une de ces fonctions, la seule que
-nous allons utiliser ici, était la suivante::
-
-    def suis_le_mur_à_droite():
-        if rien_a_droite():
-            tourne_a_droite()
-            avance()
-        elif rien_devant():
-            avance()
+    def follow_right_wall():
+        if right_is_clear():
+            turn_right()
+            move()
+        elif front_is_clear():
+            move()
         else:
-            tourne_a_gauche()
+            turn_left()
 
-Ici, nous allons utiliser une autre façon de rendre le tout
-plus clair en utilisant des variables.  Par exemple,
-au lieu d'écrire::
+Let us now use another way to combine this function with the rest
+of the program written in a clear way using variables.
+For exmple, instead of writing::
 
-    # On note le point de départ en déposant un jeton
-    depose()
+    # We mark the starting point by putting down a token
+    put()
 
-On écrira plutôt::
+we write::
 
-    marque_le_point_de_départ = depose
+    mark_starting_point = put
+    mark_starting_point()
 
-    marque_le_point_de_départ()
+Similarly, instead of writing::
 
-De la même façon, au lieu d'écrire::
+    # We find a clear direction and start moving
+    while not front_is_clear():
+        turn_left()
+    move()
 
-    # On trouve une direction où un mur ne bloque pas le chemin
-    while not rien_devant():
-        tourne_a_gauche()
+we write::
 
-on écrira plutôt::
+    path_is_blocked = wall_in_front  # use this instead of "not front_is_clear"
 
-    chemin_bloqué = mur_devant  # au lieu d'utiliser la négation de rien_devant!
+    while path_is_blocked:
+        turn_left()
 
-    while chemin_bloqué():
-        tourne_a_gauche()
+    move()
 
-Également, au lieu d'écrire::
+Also, instead of writing::
 
+    '''  We know we will have gone around the world
+    when we come back to the place we put the token
+    down. ''''
 
-    # On sait qu'on a fait le tour du monde lorsqu'on revient
-    # au point de départ, là où on a déposé un jeton.
+    while not object_here():
+       ...
 
-    while not objet_ici():
+we write::
 
-on écrira::
+    back_to_starting_point = object_here
 
-    revenu_au_point_de_départ = objet_ici
-    while not revenu_au_point_de_départ():
-
-
-Faisons tous ces changements, en écrivant d'abord les défitions de nouveaux noms
-de variables, suivi du reste du programme::
+    while not back_to_starting_point():
+        ...
 
 
-    from biblio import tourne_a_droite
+So, let's put all these changes together and rewrite our program,
+first by defining our new vocabulary (variables) and then using it::
 
-    marque_le_point_de_départ = depose
-    revenu_au_point_de_départ = objet_ici
-    chemin_bloqué = mur_devant
 
-    def suis_le_mur_à_droite():
-        if rien_a_droite():
-            tourne_a_droite()
-            avance()
-        elif rien_devant():
-            avance()
+    from library import turn_right
+
+    mark_starting_point = put
+    path_is_blocked = wall_in_front
+    back_to_starting_point = object_here
+
+    def follow_right_wall():
+        if right_is_clear():
+            turn_right()
+            move()
+        elif front_is_clear():
+            move()
         else:
-            tourne_a_gauche()
+            turn_left()
 
-    # --- fin des définitions et début du programme
+    # end of definitions -- begin actual program
 
-    marque_le_point_de_départ()
+    mark_starting_point()
+    while path_is_blocked():
+        turn_left()
+    move()
 
-    while chemin_bloqué():
-        tourne_a_gauche()
-    avance()
+    while not back_to_starting_point():
+        follow_right_wall()
 
-    while not revenu_au_point_de_départ():
-        suis_le_mur_à_droite():
-
-
-Beaucoup moins de commentaires que précédemment, tout en gardant le
-sens du programme aussi clair avec des bons noms de variables.
-L'avantage d'utiliser des variables est que Python exécute le code correspondant
-et, si le résultat est différent de ce qui était prévu, on le constate
-immédiatement.
-Par contre, Python ignore les commentaires; si les commentaires ne représentent
-pas vraiment ce qui est fait dans le code, Python ne peut pas nous l'indiquer.
+Much fewer comments than before, yet the meaning of the program is
+still very clear.  One significant advantage of using well chosen
+variables (names) instead of comments is that Python will execute
+the code but **not** the comment; so if the code is wrong, we will
+see it right away; if the comments are wrong, Python cannot indicate
+it to us.

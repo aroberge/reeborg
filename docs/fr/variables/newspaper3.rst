@@ -86,7 +86,9 @@ Pour l'argent, on utilise ``"jeton"``.
 
    Modifiez le programme pour spécifier quel type d'objet Reeborg doit
    prendre ou déposer.  Vérifiez que votre programme fonctionne correctment
-   pour les deux mondes, **Journal 1** et **Journal 2**.
+   pour les deux mondes, **Journal 1** et **Journal 2**.  Vous pouvez
+   utiliser ``pense()`` si vous voulez accélérer ou ralentir les mouvements
+   de Reeborg.
 
 .. topic:: Vérification
 

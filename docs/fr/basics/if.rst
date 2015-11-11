@@ -8,6 +8,9 @@ de vous le mentionner: Reeborg **peut** prendre ses propres décisions!
 Le mot-clé ``if``
 -----------------
 
+.. index:: ! if
+.. index:: ! True
+.. index:: ! False
 
 .. topic:: Faites ceci!
 
@@ -105,6 +108,8 @@ On peut représenter un énoncé ``if`` par un organigramme:
 Plus utile que vous ne le pensez...
 -----------------------------------
 
+.. index:: objet_ici(), termine()
+
 .. note::
 
    Le terme général utilisé pour décrire une fonction
@@ -124,9 +129,6 @@ partie du code pourrait être::
 
     if objet_ici():
         prend()
-
-
-
 
 Examinez à tour de rôle les mondes **Jetons 1** et **Jetons 2**. Dans chaque
 cas, en supposant que Reeborg se déplace le long d'une ligne, tout ce

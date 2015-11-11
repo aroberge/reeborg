@@ -8,6 +8,10 @@ its own.
 Python keyword: ``if``
 --------------------------
 
+.. index:: ! if
+.. index:: ! True
+.. index:: ! False
+
 .. topic:: Do it!
 
     Select an appropriate world (perhaps **Alone**), and have Reeborg execute
@@ -110,6 +114,7 @@ More useful that you might think...
        if condition:
            ...
 
+.. index:: object_here(), done()
 
 Having to specify ``True`` or ``False`` does not help Reeborg decide on
 its own. However, there are special functions that Reeborg recognizes

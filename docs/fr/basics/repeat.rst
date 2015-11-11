@@ -1,6 +1,8 @@
 Répète
 ======
 
+.. index:: repeat
+
 Comme nous l'avons vu, il arrive souvent que l'on doive répéter une
 instruction donnée un certains nombre de fois. Il y a une façon standard
 de faire ceci en Python ... mais ceci requiert de comprendre trop de
@@ -19,6 +21,8 @@ et est écrite de la façon suivante::
 
 .. note::
 
+   Si vous écrivez des programmes Python ailleurs que dans le Monde
+   de Reeborg, ``repeat`` ne sera pas reconnu comme étant un nom valide.
    ``repeat`` est un mot anglais qu'on pourrait traduire en français
    par **répète**.  Le mot "boucle" désigne un bloc d'instructions
    qui peut être répété plusieurs fois.
@@ -66,4 +70,12 @@ sans avoir à répéter des instructions, comme par exemple::
     les variables comme la variable ``_`` dans ``for _ in range(n)``,
     les fonctions "builtin" comme ``range``,
     ainsi que le concept d'arguments de fonction).
-    Ceci est un choix personnel, et tout à fait subjectif.
+
+    J'ai choisi de façon intentionnelle d'obliger que ``n`` dans
+    l'expression ``repeat n`` soit absolument un entier sous forme
+    de chiffre et non sous forme de variable.  Lorsque les étudiants
+    apprennent ce qu'est une variable, et qu'ils veulent l'utiliser
+    dans les boucles, ils devraient apprendre la véritable syntaxe
+    Python et oublier la notation ``repeat`` qui ne sera pas
+    reconnue par Python.
+

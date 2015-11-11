@@ -41,15 +41,15 @@ Par exemple, si vous trouvez que ``tourne_a_gauche()`` est trop long
 
    variables
    diary
-   return
+   think
    newspaper3
+   world
+   increment
+   return
    listes
    string_index
    for
    arguments1a
    arguments1b
    slice
-   increment
-   while_num
    harvest3
-   better_repeat

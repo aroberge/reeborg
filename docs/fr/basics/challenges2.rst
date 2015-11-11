@@ -57,7 +57,7 @@ les fenêtres de sa maison étaient toutes ouvertes. Reeborg alla donc
 chez lui pour fermer les fenêtres mais arrêta au seuil de la porte,
 indécis quant à la meilleure façon de procéder.
 
-.. index:: mur_a_droite(), mur_devant()
+.. index:: mur_a_droite(), rien_a_droite()
 
 .. topic:: À votre tour!
 
@@ -103,6 +103,8 @@ tomber.
 Après la pluie
 ----------------
 
+.. index:: transporte()
+
 Le vent a soufflé violemment la nuit dernière. Il y a des déchets
 partout autour de la maison de Reeborg. Ses parents lui demandent de
 nettoyer le trottoir qui mène à la rue **Tempête 1**, ainsi que l'allée
@@ -132,12 +134,16 @@ retrouvés dans la cour, tel qu'illustré dans **Tempête 3**.
 Trouver le centre
 -----------------
 
-Examinez les mondes **Centrer 1** à **Centrer 3**. En commençant avec le cas le
-plus simple, faites des améliorations progressives et écrivez un
-programme faisant en sorte que Reeborg dépose un jeton au centre
-géométrique de la pièce rectangulaire dans laquelle il se trouve, peu
-importe le monde choisi.  À noter que ceci est un exercice
-un peu plus difficile.
+Examinez les mondes **Centrer 1** à **Centrer 3**.
+
+.. topic:: Un défi!
+
+    En commençant avec le cas le
+    plus simple, faites des améliorations progressives et écrivez un
+    programme faisant en sorte que Reeborg dépose un jeton au centre
+    géométrique de la pièce rectangulaire dans laquelle il se trouve, peu
+    importe le monde choisi.  À noter que ceci est un exercice
+    un peu plus difficile.
 
 .. hint::
 

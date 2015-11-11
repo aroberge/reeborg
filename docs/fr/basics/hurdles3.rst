@@ -1,6 +1,8 @@
 Toujours les haies!
 ===================
 
+.. index:: ! elif
+
 Reeborg vit au Canada où non seulement il peut pleuvoir ou faire soleil,
 mais où la neige peut également tomber ... habituellement pas les trois
 (pluie, neige et soleil) en même temps ... mais ça arrive parfois...
@@ -75,6 +77,8 @@ etc.
 
 De retour aux haies
 -------------------
+
+.. index:: rien_devant()
 
 Deux leçons passées, vous avez écrit un programme qui permettait à
 Reeborg de terminer les courses **Haies 1** et **Haies 2** mais pas **Haies 3**.

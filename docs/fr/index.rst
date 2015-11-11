@@ -52,7 +52,7 @@ supplémentaires sans craintes: les sections écrites pour vous devraient
 contenir toute les informations dont vous devriez avoir besoin
 pour votre apprentissage.
 
-Ce document est divisé en sept parties majeures.
+Ce document est divisé en neuf parties majeures.
 
 .. toctree::
    :maxdepth: 1
@@ -61,9 +61,11 @@ Ce document est divisé en sept parties majeures.
    B. Récursitivité <recursion/index>
    C. Les variables <variables/index>
    D. La programmation orientée objet <oop/index>
-   E. Référence du Monde de Reeborg <reference/index>
-   F. Python: un bref survol <python/index>
-   G. Contribuez!  <contribute/index>
+   E. Fonctions d'ordre supérieur <functional/index>
+   F. Exercices supplémentaires <exercises/index>
+   G. Référence du Monde de Reeborg <reference/index>
+   H. Python: un bref survol <python/index>
+   I. Contribuez!  <contribute/index>
 
 Si vous cliquez sur un des liens ci-dessus, vous serez redirigé vers
 une page qui incluera une table des matières plus détaillée pour la
@@ -103,7 +105,7 @@ partie en question.
 
     .. code-block:: java
 
-        public class HelloWorld {
+        public class BonjourMonde {
             public static void main(String[] args) {
                 System.out.println("Bonjour monde!");
             }

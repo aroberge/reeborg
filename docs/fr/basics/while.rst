@@ -1,6 +1,8 @@
 Tant que ...
 ============
 
+.. index:: ! while
+
 Lorsqu'on veut répéter un bloc de code jusqu'à ce qu'une certaine
 condition soit satisfaite, on peut utiliser le mot-clé ``while``, mot
 anglais que l'on peut traduire par **tant que**. Par exemple, supposons

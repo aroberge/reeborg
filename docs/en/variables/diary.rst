@@ -1,25 +1,96 @@
 Reeborg's diary
 ===============
 
+.. index:: print(), function argument
+
 Have Reeborg execute the following program::
 
-    print(42)
+    print()
 
-You should see that Reeborg wrote the answer to the ultimate question
-about life, the universe and everything [#]_ in his diary.
+You should see a pop-up window appear with the title *Reeborg writes:*.
+This window is Reeborg's diary.  Feel free to move it around
+on your computer screen.
 
-.. [#] At least according to *The Hitchhiker's guide to the Galaxy*
+.. note::
+
+    **Important:** the example on the right does not execute the
+    function ``move``; if we do::
+
+        print( move() )
+
+    so that ``move`` is executed, the Python keyword ``None`` will
+    be printed.  What that is the case will be explained later.
+
+Now, run the following program::
+
+    print(move)
+
+At the time I wrote this tutorial, the result in Reeborg's diary was
+
+    <function _move_>
+
+``_move_`` is the secret name of the ``move`` function as known
+to Reeborg. We can verify this by running the following::
+
+    step = move
+    print(step)
+    print(move)
+
+The result is::
+
+    <function _move_>
+    <function _move_>
+
+.. note::
+
+    ``pass`` is a Python keyword which meand "do nothing".
+    It is useful to take the place of a block of code which
+    is required for having the proper structure (indentation) in a
+    program but which is not otherwise needed.
+
+If you define a completely new function, like::
+
+    def hello():
+        pass
+
+    print(hello)
+
+the result will be::
+
+    <function hello>
+
+
+A function can have an argument
+-------------------------------
+
+In computer programs, the word **argument** refers to a variable
+that determines the result of a function.
+For example, as we have seen::
+
+    print(move)
+
+the variable ``move`` is the argument of the function ``print()``.
+The argument of a function appears between the parentheses which
+indicate that the function is called.
+
 
 Writing text
 ------------
 
+Writing the name of a function like we have done above by
+using the ``print()`` function is something that is done
+**extremely** rarely when writing programs.
+What is done much, much more often is to write text.
+
 In programming terms, a *character* is any letter, number or symbol that
 can be printed and a *string of characters*, or simply *string*, is any
-combination of character that can be printed. For example, try the
+sequence of character that can be printed. For example, try the
 following::
 
     print("Hello world!")
     print('Hello again.')
+
+.. index:: \', \", \n, escape character, escape sequence
 
 Note that the quotes that surround the *string* have to be the same,
 either double quotes like ", or single quotes like '. To have a string
@@ -46,6 +117,8 @@ We can also start on a new line using the following *escape sequence*:
 Reeborg knows mathematics
 -------------------------
 
+.. index:: +, *, -, /, //
+
 .. topic:: Try this!
 
     Try running the following program and look at the output in Reeborg's
@@ -59,6 +132,21 @@ Reeborg knows mathematics
         print( 6 / 2 )  # dividing numbers
         print( 1 + 3 * 2 ) # multiplication is done before addition
         print( (1 + 3) * 2 )  # using parentheses to change normal order of operations
+
+.. note::
+
+    Note that spaces around the operators like ``+`` and ``*``
+    are ignored by Python; however, they can make it easier for humans
+    to read the code.
+
+In the above examples, the result was always an integer (or whole number)
+except when dividing numbers which gave a **floating point** number:
+``6 / 2`` gives ``3.0``.
+
+If we want the result of dividing two numbers to be an integer,
+we use the double division sign instead::
+
+    print( 6 // 2 )  # integer division
 
 Using variables
 ---------------
@@ -76,13 +164,25 @@ mathematical operations some more::
 
     Make up your own examples and run them.
 
-A word of caution
------------------
 
 .. important::
 
-   The *character* "2" is not the same as the *number* 2.
+   The *character* "2" is not the same as the *number* 2.  Try out
+   the following::
 
-Finally, note that **spaces** around operators, like ``+``, are ignored by
-Python; however they often make a program easier to read for humans.
+       print("2" + 2)
+
+Multiple arguments
+-------------------
+
+Some functions, like ``print()``, can take many arguments: the
+various arguments are separated by commas.
+To illustrate this, try out the following program::
+
+
+    length = 4
+    width = 6
+    area = length * width
+    print("The area of a rectangle of length", length,
+          "and width", width, "is", area)
 

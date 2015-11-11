@@ -1,39 +1,38 @@
-Les variables
+Variables
 ==============
 
-Au tout début de ce tutoriel, nous avions écrit ce qui suit:
+At the very beginning of this tutorial, we wrote the following:
 
 .. epigraph::
 
-    ``avance()`` est un exemple d'une **fonction**.
-    Une fonction a un nom; dans ce cas-ci, c'est ``avance``.
-    Pour être valide, les noms doivent débuter soit par une lettre ou par le
-    caractère de soulignement "_",
-    et peuvent contenir des lettres, des chiffres ou le caractère
-    de soulignement.
-    Le nom de le fonction peut être suivi par des parenthèses ``()``.
-    La présence des parenthèses indique à Reeborg (Python) que la fonction doit être *exécutée*.
+    ``move()`` is an example of a Python **function**.
+    A function has a name; in this case, it is ``move``.
+    Valid names must start with either a letter or the underscore character "_"
+    and may contain letters, numbers or the underscore character "_".
+    The name of the function is followed by ``()``. This tells Reeborg (Python)
+    that the function must be *executed* or *called* (which are two synonyms).
 
-Les fonctions sont un exemple de ce qu'on appelle des **objets** en programmation.
-On peut associer un, ou plusieurs noms à un objet.  On appelle **variable**
-le nom qu'on associe à un objet.  En programmation Python, on utilise
-le signe d'égalité ``=`` pour associer un nom (variable)
-à un objet de la façon suivante::
+Functions are an example of what we call an **object**.
+We can give one or many names to a given object.  We call
+**variable** the name that we give to an object.
+Python uses the equal sign ``=`` to associate a name (variable) and
+an object in the following way::
 
-    variable = objet
 
-Par exemple, si vous trouvez que ``tourne_a_gauche()`` est trop long
-à écrire, vous pouvez définir une nouvelle variable comme suit::
+    variable = object
 
-    gauche = tourne_a_gauche    # pas de parenthèses !
-    gauche()                    # on l'utilise
+For example, if you find that ``turn_left()`` is too long to write, you
+could define another name (variable) for it as follows::
 
-.. topic:: À votre tour!
 
-    Utilisez un nouveau nom (variable) pour au moins une fonction dans
-    un programme et utilisez le nouveau nom à la place de l'ancien.
-    **Est-ce que vous pouvez utilisez deux noms différents pour un
-    même objet dans un programme?**
+    left = turn_left    # no parentheses!
+    left()              # use it
+
+.. topic:: Your turn!
+
+    Use a new name (variable) for at least one existing function in a program.
+    **Can you use two different names to refer to the same object in a
+    single program?**
 
 .. toctree::
    :maxdepth: 2
@@ -41,15 +40,15 @@ Par exemple, si vous trouvez que ``tourne_a_gauche()`` est trop long
 
    variables
    diary
-   return
+   think
    newspaper3
+   world
+   increment
+   return
    listes
    string_index
    for
    arguments1a
    arguments1b
    slice
-   increment
-   while_num
    harvest3
-   better_repeat

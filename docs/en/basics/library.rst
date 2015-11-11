@@ -2,7 +2,7 @@
 Using the Library
 =================
 
-.. index:: from ... import
+.. index:: ! from ... import
 
 When programmer make use of a given function in different programs,
 rather than redefining it in each program they write, they put them in

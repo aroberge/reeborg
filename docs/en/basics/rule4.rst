@@ -93,6 +93,8 @@ problems. We also used more descriptive names for parts of the
 understand. This is a strategy you should use when writing your own
 programs:
 
+.. index:: Rule # 4
+
 .. important::
 
     **Rule # 4**

@@ -100,6 +100,8 @@ parties de l'algorithme ce qui a rendu le programme plus facile à lire
 et à comprendre. Ceci est une stratégie que vous devriez adopter dans la
 conception de vos programmes:
 
+.. index:: Règle numéro 4
+
 .. important::
 
     **Règle numéro 4**

@@ -52,7 +52,7 @@ some information for teachers as well as other users of Reeborg's World.
 You can ignore such additional information without worrying that you are
 missing something important as you are learning programming concepts.
 
-This document has been divided into seven major parts.
+This document has been divided into nine major parts.
 
 .. toctree::
    :maxdepth: 1
@@ -61,9 +61,11 @@ This document has been divided into seven major parts.
    B. Recursion <recursion/index>
    C. Variables <variables/index>
    D. Object Oriented Programming <oop/index>
-   E. Reeborg's World Reference <reference/index>
-   F. Python: a brief overview <python/index>
-   G. Contribute!  <contribute/index>
+   E. Higher-Order Functions <functional/index>
+   F. Programming Exercises <exercises/index>
+   G. Reeborg's World Reference <reference/index>
+   H. Python: a brief overview <python/index>
+   I. Contribute!  <contribute/index>
 
 If you click on any of the above part title, you will be taken to a
 page with a more detailed table of contents for that part.
