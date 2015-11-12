@@ -1,0 +1,92 @@
+﻿{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "orientation": 0,
+      "objects": {},
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "5,1": [
+      "north"
+    ],
+    "4,1": [
+      "north"
+    ],
+    "3,1": [
+      "north"
+    ],
+    "2,1": [
+      "north"
+    ],
+    "11,1": [
+      "east",
+      "north"
+    ],
+    "6,1": [
+      "north"
+    ],
+    "7,1": [
+      "north"
+    ],
+    "8,1": [
+      "north"
+    ],
+    "9,1": [
+      "north"
+    ],
+    "10,1": [
+      "north"
+    ],
+    "1,2": [
+      "north",
+      "east"
+    ]
+  },
+  "goal": {
+    "walls": {
+      "1,1": [
+        "north"
+      ]
+    },
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "objects": {
+      "1,2": {
+        "leaf": "all"
+      }
+    }
+  },
+  "objects": {
+    "8,1": {
+      "leaf": "2-5"
+    },
+    "11,1": {
+      "leaf": "1-4"
+    },
+    "7,1": {
+      "leaf": 1
+    },
+    "5,1": {
+      "leaf": "4-6"
+    }
+  },
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "description": "Have Reeborg collect all the leaves and put them in the compost.\nYou are not allowed to use carries_object().\n",
+  "pre_code": "def carries_object():\n    raise ReeborgError(\"You are not allowed to use carries_object()\")\n   ",
+  "post_code": "'post-code'"
+}
