@@ -5064,6 +5064,7 @@ RUR.we.change_edit_robot_menu = function () {
 function toggle_editing_mode () {
     if (RUR.we.editing_world) {
         RUR.we.editing_world = false;
+        RUR.runner.interpreted = false;
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
