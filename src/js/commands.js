@@ -69,7 +69,7 @@ RUR._repeat_ = function (f, n) {
 };
 
 RUR._set_max_steps_ = function(n){
-    RUR.MAX_STEPS_ = n;
+    RUR.MAX_STEPS = n;
 };
 
 RUR._set_max_nb_robots_ = function(n){

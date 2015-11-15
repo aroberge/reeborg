@@ -605,6 +605,10 @@ RUR.control.set_trace_color = function(robot, color){
     robot.trace_color = color;
  };
 
+RUR.control.set_trace_style = function(robot, style){
+    robot.trace_style = style;
+ };
+
 
 RUR.control.write = function () {
     var output_string = '';

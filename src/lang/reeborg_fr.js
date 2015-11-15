@@ -65,7 +65,7 @@ RUR.reset_definitions = function () {
     prend = RUR._take_;
     tourne_a_gauche = RUR._turn_left_;
     repete = RUR._repeat_;
-    nombre_de_commandes = RUR._set_max_steps_;
+    nombre_d_instructions = RUR._set_max_steps_;
     // utilities - defined in rur_utils.js
     examine = RUR.inspect;
     voir_source = RUR.view_source;

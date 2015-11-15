@@ -194,15 +194,17 @@ RUR.vis_robot.draw_trace = function (robot) {
     } else {
         ctx.strokeStyle = RUR.vis_robot.trace_color;
     }
-    ctx.lineWidth = RUR.vis_robot.trace_thickness;
-    ctx.lineCap = "round";
+
     // overrides user choice for large world (small grid size)
     if(RUR.current_world.small_tiles) {
         RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
         RUR.vis_robot.trace_thickness = 2;
     } else {
-        RUR.vis_robot.set_trace_style(RUR.TRACE_STYLE);
+        RUR.vis_robot.set_trace_style(RUR.TRACE_STYLE, robot);
     }
+
+    ctx.lineWidth = RUR.vis_robot.trace_thickness;
+    ctx.lineCap = "round";
 
     ctx.beginPath();
     // ensure that _prev_orientation and orientation are within bounds as these could be messed
@@ -214,12 +216,15 @@ RUR.vis_robot.draw_trace = function (robot) {
     ctx.stroke();
 };
 
-RUR.vis_robot.set_trace_style = function (choice){
+RUR.vis_robot.set_trace_style = function (choice, robot){
     "use strict";
     if (choice === undefined) {
         return;
     }
     RUR.TRACE_STYLE = choice;
+    if (robot !== undefined && robot.trace_style !== undefined){
+        choice = robot.trace_style;
+    }
     if (choice === "thick") {
         RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
         RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
