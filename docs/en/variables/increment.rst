@@ -17,85 +17,182 @@ Suppose we wanted to count the number of steps taken by Reeborg to
 reach the wall on the right from its starting position. One way to do
 this is to use a variable which I will name ``number_of_steps`` and give
 it an initial value of 0. Then, each time that Reeborg takes a step, I
-will add 1 to the *previous* value of ``number_of_steps``. This is done
-in Python using the following syntax::
+will add 1 to the *previous* value of ``number_of_steps``.
 
-    number_of_steps = number_of_steps + 1
+Simple enough?
 
-**Do not think of this as a mathematical equation!** Clearly, if this
-were a mathematical equation, the variable on the left hand side of the
-"equal sign" would not have the same value as the terms on the right
-hand side. However, in Python, and many other programming languages,
-"=" is known as the **assignment operator**: Python determines the
-value on the right hand side of "=" and use the variable name on the
-left hand side as a way to remember that value. Thus, if we have::
+Before I write a Python program to do just that, let's do an experiment.
+
+.. topic:: Try this!
+
+    Run the following program::
+
+        n = 1
+        n = n + 3
+        print(n)
+
+    What did you see?    Then, try running the following::
+
+        a = a + 3
+        print(a)
+
+
+Remember when we saw variables and the assignment operator ``=``.
+A variable is a name given to an object so that we can refer to it
+using that name.  The basic form is::
+
+    variable = object
+
+One example we gave before was::
+
+    length = 4
+    width = 6
+    area = length * width  # area of a rectangle
+    print(area)            # will output 24
+
+To figure out what object ``area`` refers to, Python needs to
+replace the variables ``length`` and ``width`` by the object they refer to::
+
+    area = 4 * 6
+
+However, ``4 * 6`` is still not an object: it is the product of two
+objects.  So Python needs to do some more work and get::
+
+    area = 24
+
+Now, we truly have an equation with a name (variable) on the left-hand side
+of the assignment operator ``=``, and an object (``24``) on the right
+hand-side.  Let's go back to the previous example::
 
     n = 1
     n = n + 3
-    print(n)  # outputs 4
 
-it is equivalent to::
-
-    n = 1
-    n = 1 + 3  # notice how we use "1" instead of "n"
-    print(n)  # outputs 4
-
-
-.. topic:: Try it!
-
-   Try to run the above code and see what is printed in Reeborg's Diary.
-
-Because this type of operation, known as *incrementing* a variable
-occurs so often, Python, and many other languages, allow the use of
-the following shortened notation, using the ``+=`` operator::
+Having the same variable name ``n`` appearing
+on both sides of the assignment operator does not change the logic:
+first we find out which **single** object is meant on the right-hand side,
+and only then do we assign a name to it.
+Thus, the line of code::
 
     n = 1
-    n += 3
-    print(n)  # outputs 4
 
-.. topic:: Try it!
+instructs Python that whenever we write ``n`` we mean it to be thought of
+as ``1``.  The next line of code is::
 
-   Try running programs like the ones above to make sure you understand
-   these ways to increment the numerical value of a variable.
+    n = n + 3
 
-Counting steps
---------------
+This is clearly not a standard mathematical operation!
+Remember, we just saw that the assignment operator tells Python
+to assign a new name to an object.  Here, the object is obtained via::
 
-We are now ready to write a program to have Reeborg count the number of
-steps using world **Around 1**.
+    n + 3
 
-.. topic:: Try it!
+We've already instructed Python
+that we want ``n`` to refer to ``1``.   Thus ``n + 3`` should be thought
+of as ``1 + 3``.   Python knows how to add integers, and it can
+replace this sum of two integers by a single one: ``4``.
+Thus, ``n + 3`` refers to the object ``4``, and the line of code::
 
-    Copy the code below in the editor to run it. Ideally, you should then modify it to
-    try the other ways we have seen and that can be used to *increment* a
-    variable::
+    n = n + 3
+
+really means::
+
+    n = 4
+
+And this line can be thought of as telling Python *whatever* ``n`` *meant before,
+forget about it, and think of it as meaning* ``4`` *from now on.*
+
+What about ``a = a + 3``?  Python first looks at the right hand side ``a + 3``,
+finds a variable ``a`` which has not been assigned to any object before,
+so it doesn't know what to do with it.
+
+.. topic:: Counting steps
+
+    It is time to have Reeborg count the number of steps needed to
+    reach the wall in front of him in world **Around 1**.
+    Do this with the following program::
 
         number_of_steps = 0
 
-        def move_and_count_steps():
-            global number_of_steps
-            move()
-            number_of_steps += 1
-
         while front_is_clear():
-            move_and_count_steps()
+            number_of_steps = number_of_steps + 1
+            move()
 
-        print(number_of_steps)  # should be 9
+        print(number_of_steps)
 
-In the above program, we use the ``global`` keyword to indicate to Python that
-the variable ``number_of_steps`` used inside the ``move_and_count_steps`` function
-is assigned a value elsewhere.
+.. topic:: Your turn
 
-Note that when you run this program, the number of steps is printed **before**
-Reeborg moves.  This is because the program is first run behind the scene and
-played back like a movie, one frame at a time.  You can use the function ``write``
-specific to Reeborg's World instead of ``print`` if you want to see what Reeborg
-writes in its diary done as a programming step, like the ``move`` or ``turn_left``
-functions.
+    Have Reeborg go all the way once around world **Around 1**.
+    Along the way, Reeborg should could the number of steps **and**
+    the number of left turns, printing both of these values
+    at the end.
 
-.. topic:: Your turn!
 
-    Write a program so that Reeborg goes all the way around world **Around 1** and have him
-    count the number of steps **and** the number of left turns, writing them
-    in his diary at the end. You should start by putting a token down to
-    mark what will be the end position.
+Augmented assignment operators
+------------------------------
+
+.. index:: augmented assignment operators
+
+.. index:: +=, -=, /=, *=, //=, **=
+
+In Python programs, we often need to do something like::
+
+    number_of_steps = number_of_steps + 1
+
+or::
+
+    pizza_slices = pizza_slices - 1
+
+Not only this is long to write, but it also does not respect
+Rule # 3: **Do not repeat yourself**, since we have the same variable
+name written **twice** on the same line.
+There is a shorter way to write such lines of code which avoid
+repetitions, using what are known as **augmented assignment operators**.
+
+We can rewrite the above lines of code as::
+
+    number_of_steps += 1
+    pizza_slices -= 1
+
+For each mathematical operator, ``+, -, /, //, *, **``, there is a corresponding
+augmented assignment operator ``+=, -=, /=, //=, *=, **=``.
+
+.. important::
+
+   When using augmented assignment operators, do not leave a space between the
+   different symbols.  Thus, write ``+=`` and not ``+  =``.
+
+.. topic:: Your turn
+
+    Have Reeborg go all the way once around world **Around 1**.
+    Along the way, Reeborg should could the number of steps **and**
+    the number of left turns, printing both of these values
+    at the end.  This time, use augmented assignment operators.
+
+
+
+
+
+Comparison operators
+--------------------
+
+It is sometimes very useful to compare objects. We'll start with numbers.
+
+.. topic:: Try this!
+
+    .. code-block:: py3
+
+        print( 2 == 2)  # are the two numbers equal
+        print( 2 == 3)
+
+        print( 2 != 2)  # are the two numbers different
+        print( 2 != 3)
+
+
+Back to the yard work
+---------------------
+
+At the end of the previous lesson, you were left with a task for Reeborg
+that couldn't be done because you couldn't use ``carries_object()``.
+However, you should now know how to keep track of the number of leaves
+picked up so that you can know how many to put down.
+

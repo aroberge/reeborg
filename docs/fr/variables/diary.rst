@@ -147,6 +147,9 @@ Reeborg.
         # Mais, les parenthèses permettent de changer l'ordre des opérations
         print( (1 + 3) * 2 )
 
+        print( 2 ** 5 ) # puissance ... 2**5 = 2 * 2 * 2 * 2* 2
+
+
 .. note::
 
     Notez que les espaces autour des opérateurs comme ``+`` et ``*``,

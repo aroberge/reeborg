@@ -131,7 +131,11 @@ Reeborg knows mathematics
         print( 3 - 2 )  # subtracting numbers
         print( 6 / 2 )  # dividing numbers
         print( 1 + 3 * 2 ) # multiplication is done before addition
-        print( (1 + 3) * 2 )  # using parentheses to change normal order of operations
+
+        # using parentheses to change normal order of operations
+        print( (1 + 3) * 2 )
+
+        print( 2 ** 5 ) # power ... 2**5 = 2 * 2 * 2 * 2* 2
 
 .. note::
 

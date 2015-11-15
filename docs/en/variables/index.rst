@@ -44,6 +44,8 @@ could define another name (variable) for it as follows::
    newspaper3
    world
    increment
+   scope
+   comparison
    listes
    string_index
    for

@@ -89,3 +89,7 @@ Save your work
 You might want to save your program in a file on your computer by clicking on
 the "Additional options" button, followed by "Save program to file".
 Later, you will be able to retrieve it by clicking on "Import program from file".
+
+.. admonition:: For educators
+
+    To do: explain how permalinks can be used instead
