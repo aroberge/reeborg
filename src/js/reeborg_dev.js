@@ -1119,7 +1119,7 @@ RUR.control.set_max_nb_robots = function(nb){
 };
 
 RUR.control.get_world_map = function () {
-    return JSON.stringify(RUR.current_world);
+    return JSON.stringify(RUR.current_world, None, 2);
 };
 /* Author: André Roberge
    License: MIT
