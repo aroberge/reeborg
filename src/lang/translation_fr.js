@@ -180,7 +180,7 @@ RUR.translation["home:"] = "la maison:";
 RUR.translation["racing flag:"] = "drapeau d'arrivée:";
 RUR.translation["house:"] = "maison:";
 
-RUR.translation["fence4"] = "clôture";
-RUR.translation["fence5"] = "clôture";
-RUR.translation["fence6"] = "clôture";
-RUR.translation["fence7"] = "clôture";
+RUR.translation["fence_right"] = "clôture";
+RUR.translation["fence_left"] = "clôture";
+RUR.translation["fence_double"] = "clôture";
+RUR.translation["fence_vertical"] = "clôture";

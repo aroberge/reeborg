@@ -186,7 +186,7 @@ RUR.translation["home:"] = "home:";
 RUR.translation["racing flag:"] = "racing flag:";
 RUR.translation["house:"] = "house:";
 
-RUR.translation["fence4"] = "fence";
-RUR.translation["fence5"] = "fence";
-RUR.translation["fence6"] = "fence";
-RUR.translation["fence7"] = "fence";
+RUR.translation["fence_right"] = "fence";
+RUR.translation["fence_left"] = "fence";
+RUR.translation["fence_double"] = "fence";
+RUR.translation["fence_vertical"] = "fence";

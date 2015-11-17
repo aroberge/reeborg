@@ -54,10 +54,10 @@ RUR.we.edit_world = function  () {
             RUR.we.fill_with_tile(value);
             break;
         case "toptile-bridge":
-        case "toptile-fence4":
-        case "toptile-fence5":
-        case "toptile-fence6":
-        case "toptile-fence7":
+        case "toptile-fence_right":
+        case "toptile-fence_left":
+        case "toptile-fence_double":
+        case "toptile-fence_vertical":
             value = RUR.we.edit_world_flag.substring(8);
             RUR.we.toggle_toptile(value);
             break;
@@ -203,10 +203,10 @@ RUR.we.select = function (choice) {
             $("#cmd-result").html(RUR.translate("Click on world to fill with given tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
         case "toptile-bridge":
-        case "toptile-fence4":
-        case "toptile-fence5":
-        case "toptile-fence6":
-        case "toptile-fence7":
+        case "toptile-fence_right":
+        case "toptile-fence_left":
+        case "toptile-fence_double":
+        case "toptile-fence_vertical":
             value = choice.substring(8);
             $("#edit-top-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle top tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
