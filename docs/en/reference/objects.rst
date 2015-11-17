@@ -74,7 +74,7 @@ expected behaviour of a tile.
 :bridge: |bridge|  Allows Reeborg to cross safely over water.  Reeborg will
   always express its happiness at being able to cross over a bridge instead
   of falling in water.
-:fences:  |fence4| - |fence5| - |fence6| - |fence7|
+:fences:  |fence_right| - |fence_left| - |fence_double| - |fence_vertical|
   Can be detected by Reeborg.  If Reeborg is asked to move where a fence is
   located, Reeborg will attempt to jump over it but will fail miserably.
   Note that to make enclosed areas, you might have to overlap the image of the
@@ -134,10 +134,10 @@ one of these images is used:
 
 .. |bridge| image:: ../../images/bridge.png
 .. |box| image:: ../../images/box.png
-.. |fence4| image:: ../../images/fence4.png
-.. |fence5| image:: ../../images/fence5.png
-.. |fence6| image:: ../../images/fence6.png
-.. |fence7| image:: ../../images/fence7.png
+.. |fence_right| image:: ../../images/fence_right.png
+.. |fence_left| image:: ../../images/fence_left.png
+.. |fence_double| image:: ../../images/fence_double.png
+.. |fence_vertical| image:: ../../images/fence_vertical.png
 .. |box-blocked| image:: ../../images/box_blocked.gif
 
 .. |apple_goal| image:: ../../images/apple_goal.png
