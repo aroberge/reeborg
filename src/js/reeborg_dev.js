@@ -2344,6 +2344,7 @@ RUR.top_tiles.fence_right.image.onload = function () {
         RUR.vis_world.draw_all();
     }
 };
+RUR.top_tiles.fence4 = RUR.top_tiles.fence_right;  // compatibility with old worlds
 
 RUR.top_tiles.fence_left = {};
 RUR.top_tiles.fence_left.name = "fence";
@@ -2360,6 +2361,7 @@ RUR.top_tiles.fence_left.image.onload = function () {
         RUR.vis_world.draw_all();
     }
 };
+RUR.top_tiles.fence5 = RUR.top_tiles.fence_left;
 
 RUR.top_tiles.fence_double = {};
 RUR.top_tiles.fence_double.name = "fence";
@@ -2376,6 +2378,7 @@ RUR.top_tiles.fence_double.image.onload = function () {
         RUR.vis_world.draw_all();
     }
 };
+RUR.top_tiles.fence6 = RUR.top_tiles.fence_double;
 
 RUR.top_tiles.fence_vertical = {};
 RUR.top_tiles.fence_vertical.name = "fence";
@@ -2391,7 +2394,9 @@ RUR.top_tiles.fence_vertical.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
     }
-};/*  Handler of special on-screen keyboard
+};
+RUR.top_tiles.fence7 = RUR.top_tiles.fence_vertical;
+/*  Handler of special on-screen keyboard
 */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
