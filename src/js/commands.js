@@ -81,5 +81,9 @@ RUR._set_trace_color_ = function(color){
 }
 
 RUR._recording_ = function(bool) {
-  RUR.rec.do_no_record = bool;
+  if (bool) {
+    RUR.rec.do_not_record = false;
+  } else {
+    RUR.rec.do_not_record = true;
+  }
 }

@@ -366,7 +366,11 @@ RUR._set_trace_color_ = function(color){
 }
 
 RUR._recording_ = function(bool) {
-  RUR.rec.do_no_record = bool;
+  if (bool) {
+    RUR.rec.do_not_record = false;
+  } else {
+    RUR.rec.do_not_record = true;
+  }
 }/* Author: André Roberge
    License: MIT
 
@@ -556,26 +560,24 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
 };
 
 
-RUR.control.turn_left = function(robot, no_frame){
+RUR.control.turn_left = function(robot){
     "use strict";
     robot._prev_orientation = robot.orientation;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
     robot.orientation += 1;  // could have used "++" instead of "+= 1"
     robot.orientation %= 4;
-    if (no_frame) return;
     RUR.control.sound_id = "#turn-sound";
     RUR.rec.record_frame("debug", "RUR.control.turn_left");
 };
 
-RUR.control.__turn_right = function(robot, no_frame){
+RUR.control.__turn_right = function(robot){
     "use strict";
     robot._prev_orientation = (robot.orientation+2)%4; // fix so that oil trace looks right
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
     robot.orientation += 3;
     robot.orientation %= 4;
-    if (no_frame) return;
     RUR.rec.record_frame("debug", "RUR.control.__turn_right");
 };
 
@@ -819,9 +821,11 @@ RUR.control.wall_in_front = function (robot) {
 
 RUR.control.wall_on_right = function (robot) {
     var result;
-    RUR.control.__turn_right(robot, true);
+    RUR._recording_(false);
+    RUR.control.__turn_right(robot);
     result = RUR.control.wall_in_front(robot);
-    RUR.control.turn_left(robot, true);
+    RUR.control.turn_left(robot);
+    RUR._recording_(true);
     return result;
 }
 
@@ -908,9 +912,11 @@ RUR.control._bridge_present = function(robot) {
 
 RUR.control.right_is_clear = function(robot){
     var result;
-    RUR.control.__turn_right(robot, true);
+    RUR._recording_(false);
+    RUR.control.__turn_right(robot);
     result = RUR.control.front_is_clear(robot);
-    RUR.control.turn_left(robot, true);
+    RUR.control.turn_left(robot);
+    RUR._recording_(true);
     return result;
 };
 
