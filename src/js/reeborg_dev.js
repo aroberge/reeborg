@@ -363,6 +363,10 @@ RUR._set_max_nb_robots_ = function(n){
 
 RUR._set_trace_color_ = function(color){
   RUR.current_world.robots[0].trace_color = color;
+}
+
+RUR._recording_ = function(bool) {
+  RUR.rec.do_no_record = bool;
 }/* Author: André Roberge
    License: MIT
 
@@ -2657,6 +2661,7 @@ RUR.rec.reset = function() {
     RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
     RUR.rec.delay = 300;
+    RUR.rec.do_not_record = false;
     clearTimeout(RUR.rec.timer);
     if (RUR.programming_language === "python" &&
         RUR._highlight &&
@@ -2675,6 +2680,9 @@ RUR.rec.reset();
 RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
     var frame = {};
+    if (RUR.rec.do_not_record) {
+        return;
+    }
     if (RUR.ui.prevent_playback){
         return;
     }
@@ -4795,11 +4803,11 @@ RUR.world.add_robot = function (robot) {
 };
 
 
-RUR.world.__remove_default_robot = function () {
+RUR.world.remove_robots = function () {
     if (RUR.MAX_NB_ROBOTS !== undefined){
         throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
     } else {
-        RUR.current_world.robots.splice(0, 1);
+        RUR.current_world.robots = [];
     }
 };
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */

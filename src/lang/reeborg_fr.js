@@ -11,14 +11,14 @@ var RUR = RUR || {};
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, ReeborgError, rien_devant, rien_a_droite, "+
                     " face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,"+
                     "transporte, ecrit, au_but, au_but_orientation, narration," +
-                    "mur_devant, mur_a_droite, disparait,"
+                    "mur_devant, mur_a_droite, disparait, enregistrement,"
                     " construit_un_mur, pense, pause, repete, voir_source, son, confirmer */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
     face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,
     transporte, ecrit, au_but, construit_un_mur, pense, narration, disparait,
     pause, repete, voir_source, son, RobotUsage, mur_devant, mur_a_droite,
-    nombre_de_commandes, confirmer;
+    nombre_de_commandes, confirmer, enregistrement;
 
 RUR.confirmer = function(test) {
     var reeborg, robots, monde, orientation;
@@ -80,6 +80,7 @@ RUR.reset_definitions = function () {
     Monde = RUR.file_io.load_world_from_program;
     nombre_de_robots = RUR._set_max_nb_robots_;
     disparait = RUR.world.remove_robots;
+    enregistrement = RUR._recording_;
 
     // The following are for OOP programming in Javascript and CoffeeScript
 
