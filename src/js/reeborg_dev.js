@@ -5083,6 +5083,11 @@ function toggle_editing_mode () {
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
         RUR.we.update_extra_code();
+        try {
+            localStorage.setItem(RUR.settings.editor, editor.getValue());
+            localStorage.setItem(RUR.settings.library, library.getValue());
+        } catch (e) {}
+
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
         }
