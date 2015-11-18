@@ -18,6 +18,7 @@ RUR.rec.reset = function() {
     RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
     RUR.rec.delay = 300;
+    RUR.rec.do_not_record = false;
     clearTimeout(RUR.rec.timer);
     if (RUR.programming_language === "python" &&
         RUR._highlight &&
@@ -36,6 +37,9 @@ RUR.rec.reset();
 RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
     var frame = {};
+    if (RUR.rec.do_not_record) {
+        return;
+    }
     if (RUR.ui.prevent_playback){
         return;
     }

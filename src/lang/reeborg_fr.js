@@ -79,7 +79,7 @@ RUR.reset_definitions = function () {
     pause = RUR.control.pause;
     Monde = RUR.file_io.load_world_from_program;
     nombre_de_robots = RUR._set_max_nb_robots_;
-    disparait = RUR.world.__remove_default_robot;
+    disparait = RUR.world.remove_robots;
 
     // The following are for OOP programming in Javascript and CoffeeScript
 

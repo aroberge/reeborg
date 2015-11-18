@@ -79,3 +79,7 @@ RUR._set_max_nb_robots_ = function(n){
 RUR._set_trace_color_ = function(color){
   RUR.current_world.robots[0].trace_color = color;
 }
+
+RUR._recording_ = function(bool) {
+  RUR.rec.do_no_record = bool;
+}
