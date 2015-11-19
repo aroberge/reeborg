@@ -9,7 +9,7 @@ Lorsque nous avons présenté ``return`` dans `une leçon précédente <../varia
 nous avons vu comment nous pouvions définir un test permettant à Reeborg
 de déterminer d'il faisait face au sud de la façon suivante::
 
-    def face_au_sud():
+    def est_face_au_sud():
         tourne_a_gauche()
         tourne_a_gauche()
         orientation = est_face_au_nord()
@@ -19,22 +19,22 @@ de déterminer d'il faisait face au sud de la façon suivante::
 
 
     # on oriente Reeborg pour qu'il soit face au sud comme test
-    while not face_au_sud():
+    while not est_face_au_sud():
         tourne_a_gauche()
 
 .. topic:: À votre tour!
 
-    Définissez une **méthode** ``face_au_sud`` en remplaçant ``pass`` par
+    Définissez une **méthode** ``est_face_au_sud`` en remplaçant ``pass`` par
     les lignes de code appropriées.
 
     .. code-block:: py3
 
         class RobotRéparé(RobotUsage):
-            def face_au_sud(self):
+            def est_face_au_sud(self):
                 pass
 
         reeborg = RobotRéparé(3, 3)
-        while not reeborg.face_au_sud():
+        while not reeborg.est_face_au_sud():
             reeborg.tourne_a_gauche()
 
     Reeborg ne devrait **pas** tourner à l'écran pendant qu'il détermine
@@ -61,7 +61,7 @@ de déterminer d'il faisait face au sud de la façon suivante::
 
 .. topic:: Encore davantage!
 
-    Écrivez et testez les méthodes ``face_a_l_est()`` et ``face_a_l_ouest()``.
+    Écrivez et testez les méthodes ``est_face_a_l_est()`` et ``est_face_a_l_ouest()``.
 
 
 Une petite adaptation
@@ -74,7 +74,7 @@ dans n'importe quelle direction.
 .. topic:: Essayez!
 
     Écrivez le code pour 4 méthodes de plus, une pour chaque orientation,
-    en commençant avec ``au_nord()`` qui fera en sorte que Reeborg se tourne
+    en commençant avec ``tourne_face_au_nord()`` qui fera en sorte que Reeborg se tourne
     immédiatement dans l'orientation demandée d'un seul mouvement.
     Assurez-vous d'enregistrer le résultat du mouvement avec
     ``RUR.rec.record_frame()``.

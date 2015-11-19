@@ -103,7 +103,7 @@ noté après deux tours à gauche.
 
 .. code:: py3
 
-    def face_au_sud():
+    def est_face_au_sud():
         tourne_a_gauche()
         tourne_a_gauche()
         orientation = est_face_au_nord()
@@ -113,7 +113,7 @@ noté après deux tours à gauche.
 
 
     # on oriente Reeborg pour qu'il soit face au sud comme test
-    while not face_au_sud():
+    while not est_face_au_sud():
         tourne_a_gauche()
 
 .. topic:: À votre tour!
