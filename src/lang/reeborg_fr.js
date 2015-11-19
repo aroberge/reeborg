@@ -9,13 +9,13 @@ var RUR = RUR || {};
 
 //required for lint.js
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, ReeborgError, rien_devant, rien_a_droite, "+
-                    " face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,"+
+                    " est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,"+
                     "transporte, ecrit, au_but, au_but_orientation, narration," +
                     "mur_devant, mur_a_droite, disparait, enregistrement,"
                     " construit_un_mur, pense, pause, repete, voir_source, son, confirmer */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
-    face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,
+    est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,
     transporte, ecrit, au_but, construit_un_mur, pense, narration, disparait,
     pause, repete, voir_source, son, RobotUsage, mur_devant, mur_a_droite,
     nombre_de_commandes, confirmer, enregistrement;
@@ -56,7 +56,7 @@ RUR.reset_definitions = function () {
     rien_devant = RUR._front_is_clear_;
     mur_devant = RUR._wall_in_front_;
     transporte = RUR._carries_object_;
-    face_au_nord = RUR._is_facing_north_;
+    est_face_au_nord = RUR._is_facing_north_;
     avance = RUR._move_;
     depose = RUR._put_;
     rien_a_droite = RUR._right_is_clear_;
@@ -109,7 +109,7 @@ RUR.reset_definitions = function () {
         RUR.control.carries_object(this.body);
     };
 
-    RobotUsage.prototype.face_au_nord = function () {
+    RobotUsage.prototype.est_face_au_nord = function () {
         RUR.control.is_facing_north(this.body);
     };
 

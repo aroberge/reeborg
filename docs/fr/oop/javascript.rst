@@ -149,7 +149,7 @@ Voici ce que je vois quand je fais ceci::
     rien_devant()
     mur_devant()
     carries_object()
-    face_au_nord()
+    est_face_au_nord()
     avance()
     depose()
     rien_a_droite()

@@ -30,7 +30,7 @@ def seek_center():
 
 
 seek_along_line()
-while not face_au_nord():
+while not est_face_au_nord():
     tourne_a_gauche()
 # restart with two tokens in hand
 prend()

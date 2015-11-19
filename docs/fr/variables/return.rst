@@ -14,7 +14,7 @@ au-dessus d'eux. Reeborg a également une boussole qui fonctionne plus ou
 moins bien: il peut déterminer s'il fait face au nord ... ou non; pas
 moyen d'obtenir d'autre information au sujet de son orientation. Pour
 déterminer s'il fait face au nord, vous pouvez demander à Reeborg de
-faire le test ``face_au_nord()``.
+faire le test ``est_face_au_nord()``.
 
 .. topic:: Orientez Reeborg!
 
@@ -30,7 +30,7 @@ Exécutez le programme suivant::
 
     repeat 4:
         tourne_a_gauche()
-        print( face_au_nord() ) # notez les parenthèses pour face_au_nord()
+        print( est_face_au_nord() ) # notez les parenthèses pour est_face_au_nord()
 
     print("-----------")
     print( tourne_a_gauche() )
@@ -40,7 +40,7 @@ Prenez note des résultats qui apparaissent dans le journal de Reeborg.
 Obtenir des résultats de fonctions
 ----------------------------------
 
-Les tests comme ``face_au_nord()`` sont des fonctions Python. Ces
+Les tests comme ``est_face_au_nord()`` sont des fonctions Python. Ces
 fonctions diffèrent des autres fonctions telles que
 ``tourne_a_gauche()`` ou ``avance()`` car elles **retournent** une
 valeur utile, utilisant le mot-clé ``return``.
@@ -80,14 +80,14 @@ comme l'exemple suivant le démontre.
     .. code-block:: py3
 
         def nord():
-           return face_au_nord()
+           return est_face_au_nord()
 
         while not nord():
             tourne_a_gauche()
 
 Lorsque vous exécuterez ce programme, vous verrez que la fonction
 ``nord()`` donne exactement le même résultat que si vous utilisiez
-directement ``face_au_nord()``; ceci est le résultat de l'utilisation de
+directement ``est_face_au_nord()``; ceci est le résultat de l'utilisation de
 l'énoncé ``return``. Nous pouvons utiliser ce résultat pour permettre à
 Reeborg d'identifier d'autres orientations que le nord (et réparer sa
 boussole). Tout d'abord, nous savons que si Reeborg tourne 4 fois à
@@ -106,7 +106,7 @@ noté après deux tours à gauche.
     def face_au_sud():
         tourne_a_gauche()
         tourne_a_gauche()
-        orientation = face_au_nord()
+        orientation = est_face_au_nord()
         tourne_a_gauche()
         tourne_a_gauche()
         return orientation

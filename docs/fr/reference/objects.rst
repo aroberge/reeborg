@@ -50,7 +50,7 @@ have been adapted from http://openclipart.com]
 Background tiles
 ----------------
 
-:grass: |grass|  Harmless for Reeborg to walk on.
+:grass: |grass| |pale_grass| Harmless for Reeborg to walk on.
 :gravel: |gravel|  Harmless for Reeborg to walk on.
 :water: |water| Can cause Reeborg to drown.  Fortunately, Reeborg can
   detect it using ``front_is_clear()``.
@@ -125,6 +125,7 @@ one of these images is used:
 .. |token| image:: ../../../src/images/token.png
 
 .. |grass| image:: ../../../src/images/grass.png
+.. |pale_grass| image:: ../../../src/images/pale_grass.png
 .. |gravel| image:: ../../../src/images/gravel.png
 .. |ice| image:: ../../../src/images/ice.png
 .. |water| image:: ../../../src/images/water.png

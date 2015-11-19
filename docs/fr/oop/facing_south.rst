@@ -3,7 +3,7 @@ Face au sud
 
 La boussole de Reeborg est brisée; il peut seulement l'utiliser
 pour déterminer s'il fait face au nord, en utilisant,
-``face_au_nord()``, mais c'est tout.
+``est_face_au_nord()``, mais c'est tout.
 
 Lorsque nous avons présenté ``return`` dans `une leçon précédente <../variables/return.html>`_
 nous avons vu comment nous pouvions définir un test permettant à Reeborg
@@ -12,7 +12,7 @@ de déterminer d'il faisait face au sud de la façon suivante::
     def face_au_sud():
         tourne_a_gauche()
         tourne_a_gauche()
-        orientation = face_au_nord()
+        orientation = est_face_au_nord()
         tourne_a_gauche()
         tourne_a_gauche()
         return orientation
@@ -44,7 +44,7 @@ de déterminer d'il faisait face au sud de la façon suivante::
 
    Plutôt que de tourner à gauche en utilisant ``reeborg.tourne_a_gauche()``,
    changez plutôt la valeur de l'attribut ``orientation`` avant, et après
-   utiliser ``orientation = self.face_au_nord()``
+   utiliser ``orientation = self.est_face_au_nord()``
 
 .. topic:: Faites-le d'une autre façon!
 

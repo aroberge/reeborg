@@ -76,7 +76,7 @@ Assurez-vous d'exécuter ce code et de comparer avec le résultat que je vois::
   construit_un_mur
   couleur_de_trace
   depose
-  face_au_nord
+  est_face_au_nord
   modèle
   mur_a_droite
   mur_devant
