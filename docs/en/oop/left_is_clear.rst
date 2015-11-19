@@ -152,6 +152,11 @@ Looking at the entire function, here what happens:
 #. Reeborg uses ``front_is_clear`` to see if there is a wall in front of its new orientation
 #. Reeborg turns back to its original position
 
+.. important::
+
+    The following explanation using ``no_frame`` is no longer valid; it
+    needs to be revised.
+
 Note the use of a second argument ``true`` in the various methods.
 If we look at the corresponding code using ``view_source``, we see that
 ``true`` is the value assigned to the variable ``no_frame`` which
@@ -163,7 +168,7 @@ we do not actually see it happen on the screen.  Sneaky!...
    First, modify your ``turn_right`` method so that it accepts a default argument with
    the value ``False`` given as a default.  This means, that your it should start as follows::
 
-       def turn_right(self, no_frame=False):
+       def turn_right(self):
 
 
    Make sure that if ``no_frame`` is set equal to ``True`` when the method is called,

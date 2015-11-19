@@ -87,29 +87,35 @@ Ah, ceci semble beaucoup plus simple!  Voici le résultat que je vois:
 
     function (robot){
         var result;
-        RUR.control.__turn_right(robot, true);
-        result = RUR.control.front_is_clear(robot, true);
-        RUR.control.turn_left(robot, true);
+        RUR._recording_(false);
+        RUR.control.__turn_right(robot);
+        result = RUR.control.front_is_clear(robot);
+        RUR.control.turn_left(robot);
+        RUR._recording_(true);
         return result;
     }
 
 Tenant compte du fait qu'en Javascript on a besoin de déclarer les
 variables locales, ce qui n'est pas requis en Python, voici comment
-on pourrait écrire une fonction équivalente en Python::
+on **pourrait** écrire une fonction équivalente en Python::
 
     def function(robot):
-        RUR.control.__turn_right(robot, True)
-        result = RUR.control.front_is_clear(robot, True)
-        RUR.control.turn_left(robot, True)
+        RUR._recording_(False)
+        RUR.control.__turn_right(robot)
+        result = RUR.control.front_is_clear(robot)
+        RUR.control.turn_left(robot)
+        RUR._recording_(True)
         return result
 
-avec la traduction française correspondante::
+et voici la traduction française correspondante::
 
     def fonction(robot):
-        RUR.control.__tourne_a_droite(robot, True)
-        résultat = RUR.control.rien_devant(robot, True)
-        RUR.control.tourne_a_gauche(robot, True)
-        return résultat
+        RUR._enregistrement_(False)
+        RUR.control.__tourne_a_droite(robot)
+        résultat = RUR.control.rien_devant(robot)
+        RUR.control.tourne_a_gauche(robot)
+        RUR._enregistrement_(True)
+        return résultat;
 
 Comme on peut le voir, le créateur de Reeborg a inclus le prototype
 d'une fonction permettant à Reeborg de tourner directement à droite:
@@ -120,55 +126,35 @@ comme nous.
 
 Voici un résumé de l'effet de la fonction:
 
+#. On arrête un enregistrement
 #. Reeborg tourne à sa droite.
-#. Reeborg utilise ``front_is_clear()`` pour déterminer s'il y a un obstacle
+#. Reeborg utilise ``RUR.control.front_is_clear()``, l'équivalent de
+   ``rien_devant``, pour déterminer s'il y a un obstacle
    devant lui.  En réutilisant une fonction bien testée (sans bogues!), on
    respecte la règle numéro 3: **Ne vous répétez pas**.
 #. Reeborg retourne à son orientation de départ.
+#. On reprend l'enregistrement
+#. La valeur du résultat est retournée.
 
-Notez l'utilisation du second argument ``true`` dans les diverses méthodes.
-Si on examine le code **Javascript**, en faisant par exemple::
+L'arrêt temporaire de l'enregistrement fait en sorte qu'on ne voit
+jamais à l'écran les mouvements de Reeborg lorsqu'il tourne tout d'abord à sa
+droite avant de retourner à son orientation de départ.
+*Il est très malin ce programmeur...*
 
-    voir_source(RUR.control.__turn_right)
+.. important::
 
-on observe le résultat suivant:
-
-.. code-block:: javascript
-   :emphasize-lines: 8
-
-    function (robot, no_frame){
-        "use strict";
-        robot._prev_orientation = (robot.orientation+2)%4; // fix so that oil trace looks right
-        robot._prev_x = robot.x;
-        robot._prev_y = robot.y;
-        robot.orientation += 3;
-        robot.orientation %= 4;
-        if (no_frame) return;
-        RUR.rec.record_frame("debug", "RUR.control.__turn_right");
-    }
-
-Donc, si le deuxième argument de la fonction, ``no_frame``, est "vrai", alors
-la fonction "retourne" avant que l'enregistrement ne se fasse: on ne voit donc
-pas son effet à l'écran.  *Il est très malin ce programmeur...*
+    Assurez-vous de sélectionner Python comme langue de programmation pour
+    ce qui suit.
 
 
 .. topic:: À votre tour!
 
-   Modifiez votre méthode ``tourne_a_droite`` de la classe
-   pour qu'elle accepte un argument avec la valeur ``False`` par défaut.
-   Par exemple, vous pourriez commencer avec::
-
-       def tourne_a_droite(self, no_frame=False):
-
-   Ensuite, assurez-vous que si on attribute la valeur ``True`` à
-   ``no_frame`` lorsque la méthode est invoquée, aucun enregistrement n'aura lieu.
-
-
    Ensuite, en vous inspirant de la logique de la méthode Javascript
    ``rien_a_droite`` ci-dessus, ajouter une méthode ``rien_a_gauche``
-   à votre classe ``RobotRéparé``.   Vous voudrez probalement ajouter l'argument
-   ``True`` à chaque fois que vous invoquerez un virage à l'intérieur de
-   la méthode ``rien_a_gauche``.
+   à votre classe ``RobotRéparé``.   Au lieu d'utiliser la méthode Javascript
+   ``RUR._recording_()`` pour arrêter ou reprendre l'enregistrement,
+   vous devriez utiliser la fonction Python ``enregistrement()`` dont
+   je vous ai caché l'existence jusqu'ici.
 
    **Je suggère que vous placiez votre classe ``RobotRéparé`` dans votre
    bibliothèque.**

@@ -199,7 +199,7 @@ There is a better way!
 
 Either in the "pre" code, or in the library you can use the instruction::
 
-   RUR.world.__remove_default_robot()
+   RUR.world.remove_robots()
 
 as the very first instruction in your program, and
 then create an instance of your robot with the desired enhanced capabilities.

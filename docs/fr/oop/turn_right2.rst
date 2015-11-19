@@ -2,7 +2,7 @@ Virage à droite ??
 ===================
 
 À la fin d'une section précédente, je vous ai menti.  J'ai écrit que
-le code suivant permettait de réparer Reeborg::
+le code suivant permettait de **réparer** Reeborg::
 
     class RobotRéparé(RobotUsage):
         def tourne_a_droite(self):
@@ -18,19 +18,19 @@ En cours de route, on va en apprendre davantage sur Python ...
 et nous apprendrons des rudiments de code Javascript!
 
 
-.. sidebar:: Pourquoi utiliser ``examine``?
+.. sidebar:: Pourquoi utiliser ``dir()``?
 
   J'ai parfois besoin de changer certaines parties de mes programmes
   [bien sûr, ce n'est **jamais** en raison de bogues puisque mes
   programmes n'ont **jamais** de bogues ;-)].
   Il pourrait donc arriver que le code que je décrit ici est légèrement
   différent de celui qui fait fonctionner le monde de Reeborg lorsque
-  vous lirez ce tutoriel.  En utilisant ``examine``, vous pourrez
+  vous lirez ce tutoriel.  En utilisant ``dir``, vous pourrez
   voir le code qui permet à Reeborg de fonctionner **maintenant** (et
   pas celui qui existait au moment où j'ai écrit ce tutoriel).
-  Si le code que vous voyez en utilisant ``examine`` est différent
-  de celui qui est décrit dans ce tutoriel, et que ceci vous empêche
-  de comprendre ce qui se passe, svp, contactez-moi.
+  Si le code que vous voyez en utilisant ``dir`` est différent
+  de celui qui est décrit dans ce tutoriel, et que **ceci vous empêche
+  de comprendre ce qui se passe, svp, contactez-moi.**
 
 
 Explorons le code de Reeborg
@@ -39,30 +39,64 @@ Explorons le code de Reeborg
 Exécutez le programme suivant::
 
     reeborg = RobotUsage()
-    examine(reeborg)
+    print(dir(reeborg))
 
-``examine`` est une fonction Javascript, comprise par Python/Brython,
-que j'ai écrit afin de vous permettre d'identifier les méthodes et attributs
-d'un objet.   Le résultat de l'exécution du programme ci-dessus
-ne vous dira probablement pas grand'chose.  Voici ce que j'observe
+``dir`` est une fonction Python qui permet d'obtenir une liste des attributs d'un
+objet ainsi que de ses méthodes.
+Le résultat de l'exécution du programme du programme peut sembler
+intimidant; voici ce que j'observe
 dans le journal de Reeborg lorsque j'exécute ce programme::
 
-    __class__
-    body
+    ['__bases__', '__class__', '__delattr__', '__dict__' ...
+
 
 On ne sais pas à ce moment-ci si ces noms représentes des méthodes ou
-des attributs.  ``__call__`` débute et termine avec deux caractères de
+des attributs.  ``__bases__``, comme plusieurs autres noms,
+débute et termine avec deux caractères de
 soulignement: il s'agit d'une convention en Python pour dénoter des
 commandes internes à Python qui sont **principalement** réservées
-pour des programmeurs avancés.  Dans ce cas-ci, par expérience, je reconnais
-qu'il s'agit du nom d'une méthode.
+pour des programmeurs avancés.  Pour mieux voir ce qui se passe,
+nous allons imprimer un seul nom d'attribut par ligne,
+en omettant ceux qui commencent avec deux
+caractères de soulignement.  Pour ce faire, nous allons
+utiliser la méthode ``starts with`` des chaînes
+(*startswith* pouvant être traduit par *commence avec*) comme
+ceci::
 
-``body``, qui est un mot anglais signifiant "corps", est l'autre nom; on sait
-donc que ``reeborg.body`` est *quelque chose*.
-Exécutons donc le programme suivant::
+  reeborg = RobotUsage()
+  for attr in dir(reeborg):
+      if not attr.startswith("__"):
+          print(attr)
 
-    reeborg = RobotUsage()
-    examine(reeborg.body)
+Assurez-vous d'exécuter ce code et de comparer avec le résultat que je vois::
+
+  au_but
+  avance
+  body
+  construit_un_mur
+  couleur_de_trace
+  depose
+  face_au_nord
+  modèle
+  mur_a_droite
+  mur_devant
+  objet_ici
+  prend
+  rien_a_droite
+  rien_devant
+  style_de_trace
+  tourne_a_gauche
+  transporte
+
+On retrouve le nom de plusieurs méthodes qu'on a vu auparavant ... mais
+il y a un mot anglais, ``body``, signifiant "corps", qui est définitivement
+nouveau.
+Exécutons donc le programme suivant pour voir si ``reeborg.body`` a d'autres
+attributs::
+
+  reeborg = RobotUsage()
+  for attr in dir(reeborg.body):
+      print(attr)
 
 .. note::
 
@@ -72,16 +106,18 @@ Exécutons donc le programme suivant::
     normalement pas être changées par un autre programmeur.
 
 Vous devriez voir quelque chose qui ressemble à ceci, sans les commentaires
-que j'ai rajoutés et qui donne un guide de traduction française::
+que j'ai rajoutés et qui donnent un guide de traduction française::
 
-  x
-  y
-  objects              # objet
-  orientation
-  _is_leaky            # "a une fuite"
-  _prev_x              # prev == previous signifiant précédent
-  _prev_y
-  _prev_orientation
+    _is_leaky          # "a une fuite"
+    _prev_orientation  # prev == previous,
+                       # signifiant précédent
+    _prev_x
+    _prev_y
+    objects            # objets
+    orientation
+    x
+    y
+
 
 Vous avez déjà vu des rétroactions du genre **Reeborg est à la bonne
 coordonnée x** et la même chose pour **y**; ceci suggère que
@@ -94,23 +130,23 @@ un programme pour vérifier
 
 .. topic:: Faites ceci!
 
-   .. important::
-
-       Annulez le surlignement des lignes de code pendant l'exécution,
-       autrement vous n'obtiendrez pas le résultat souhaité.
-
-       |no_highlight|
-
-
-       J'expliquerai par la suite pourquoi le résultat obtenu est différent
-       si on n'annule pas le surlignement des lignes de code.
-
-
    Avec le monde **Vide**, exécutez le programme suivant::
 
+      pas_de_surlignement()   # voir note
       sauteur = RobotUsage()
       sauteur.body.x = 8
       sauteur.body.y = 10
+
+   .. note::
+
+       J'ai inclus une fonction pour annuler le surlignement des
+       lignes de code pendant l'exécution,
+
+       |no_highlight|
+
+       autrement le résultat souhaité ne serait pas observé.
+       J'expliquerai par la suite pourquoi le résultat obtenu est différent
+       si on n'annule pas le surlignement des lignes de code.
 
 Le résultat que vous devriez voir est simplement un robot créé aux
 coordonnées ``x=1, y=1`` ... ce qui n'est probablement pas ce à quoi
@@ -149,7 +185,7 @@ Les instructions
       sauteur.body.x = 8
       sauteur.body.y = 10
 
-ne sont pas des instructions identifies comme étant des instructions qui
+ne sont pas des instructions identifiées comme étant des instructions qui
 doivent faire en sorte qu'il y ait un enregistrement de l'état du monde.
 Par contre, l'instruction ``sauteur.tourne_a_gauche`` est reconnue et
 fait en sorte que l'état du monde soit enregistré.

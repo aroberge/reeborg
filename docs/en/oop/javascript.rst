@@ -76,14 +76,13 @@ After doing so, I see the following:
 
 .. code-block:: javascript
 
-   function (robot, no_frame){
+   function (robot){
        "use strict";
        robot._prev_orientation = robot.orientation;
        robot._prev_x = robot.x;
        robot._prev_y = robot.y;
        robot.orientation += 1;  // could have used "++" instead of "+= 1"
        robot.orientation %= 4;
-       if (no_frame) return;
        RUR.control.sound_id = "#turn-sound";
        RUR.rec.record_frame();
    }
@@ -93,14 +92,12 @@ Here is the equivalent Python code:
 
 .. code-block:: py3
 
-    def unknown_function_name (robot, no_frame):
+    def unknown_function_name (robot):
         robot._prev_orientation = robot.orientation
         robot._prev_x = robot.x
         robot._prev_y = robot.y
         robot.orientation += 1
         robot.orientation %= 4
-        if no_frame:
-            return
         RUR.control.sound_id = "#turn-sound"
         RUR.rec.record_frame()
 

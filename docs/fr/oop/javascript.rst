@@ -1,11 +1,6 @@
 Javascript
 ==========
 
-
-.. important::
-
-   Traduction française à terminer ...
-
 Convertir des programmes **simples** du langage Python au langage Javascript,
 ou vice-versa, peut souvent être fait facilement.  Ci-dessous,
 vous trouverez deux programmes équivalents; j'ai rajouté des lignes vides
@@ -120,7 +115,10 @@ Exploration Javascript
 Vous devez vous rappeler du programme Python suivant::
 
     reeborg = RobotUsage()
-    examine(reeborg)
+    for attr in dir(reeborg):
+        if not attr.startswith("__"):
+            print(attr)
+
 
 Vous allez écrire un programme équivalent en utilisant Javascript.
 
@@ -131,11 +129,16 @@ par défaut).
 .. image:: ../../../src/images/menu_javascript_fr.png
 
 
-Ensuite, exécutez le programme suivant:
+Javascript n'a pas de fonction comme ``dir()`` qui liste les attributs d'un
+objet; de plus, la fonction ``print()`` est utilisée pour imprimer un document
+sur du papier en utilisant une imprimante branchée à un ordinateur ...
+ce qui ne serait pas souhaité ici.   Le monde de Reeborg utilise à la
+place une fonction appelée ``examine()`` qui permet d'examiner les attributs
+d'un objet.  Exécutez le programme suivant pour voir ce que ça donne:
 
 .. code-block:: javascript
 
-   var reeborg = new RobotUsage();
+    var reeborg = new RobotUsage();
     examine(reeborg);
 
 Voici ce que je vois quand je fais ceci::
@@ -163,6 +166,8 @@ l'on reconnait.  On est bien parti!
 
 .. topic:: Droit au code!
 
+   On a vu qu'il fallait rajouter une instruction ``sauteur.tourne_a_gauche()``
+   pour voir le résultat du changement de coordonnées ``x`` et ``y``.
    Toujours avec Javascript, exécutez le programme suivant.
 
    .. code-block:: javascript
@@ -183,7 +188,9 @@ Lorsque j'exécute le programme ci-dessus, voici ce que **je** vois:
            RUR.control.turn_left(this.body);
        }
 
-Ceci me suggère d'explorer comme suit.
+C'est une fonction dont le seul but semble être d'invoquer
+la méthode ``RUR.control.turn_left``.
+Ceci me suggère d'explorer la source de cette méthode comme suit.
 
 .. code-block:: javascript
 
@@ -195,14 +202,13 @@ Et voici le résultat au moment où j'exécute le programme:
 .. code-block:: javascript
    :emphasize-lines: 10
 
-   function (robot, no_frame){
+   function (robot){
        "use strict";
        robot._prev_orientation = robot.orientation;
        robot._prev_x = robot.x;
        robot._prev_y = robot.y;
        robot.orientation += 1;  // could have used "++" instead of "+= 1"
        robot.orientation %= 4;
-       if (no_frame) return;
        RUR.control.sound_id = "#turn-sound";
        RUR.rec.record_frame();
    }
@@ -210,16 +216,14 @@ Et voici le résultat au moment où j'exécute le programme:
 Voici ce en quoi ressemblerait le code Python équivalent:
 
 .. code-block:: py3
-   :emphasize-lines: 10
+   :emphasize-lines: 8
 
-    def _ (robot, no_frame):
+    def _ (robot):
         robot._prev_orientation = robot.orientation
         robot._prev_x = robot.x
         robot._prev_y = robot.y
         robot.orientation += 1
         robot.orientation %= 4
-        if no_frame:
-            return
         RUR.control.sound_id = "#turn-sound"
         RUR.rec.record_frame()
 
@@ -237,6 +241,7 @@ vérifier ceci.
 
     Avec le monde **Vide**, exécutez le programme suivant::
 
+      pas_de_surlignement()
       class Teleporteur(RobotUsage):
 
           def teleport(self, x, y):
@@ -247,8 +252,6 @@ vérifier ceci.
       scotty = Teleporteur()
       scotty.teleport(4, 5)
       scotty.teleport(6, 3)
-
-    N'oubliez pas de désactiver le surlignement de code.
 
     Je note que la trace d'huile ne correspond pas au déplacement attendu...
     on verra sous peu pourquoi.
@@ -270,6 +273,7 @@ vérifier ceci.
    .. code-block:: py3
 
       disparait()
+      pas_de_surlignement()
 
       class Sauteur(RobotUsage):
 

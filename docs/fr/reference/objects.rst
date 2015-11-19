@@ -105,52 +105,52 @@ one of these images is used:
 
 |green_home_tile| |house| |racing_flag|
 
-.. |green_home_tile| image:: ../../images/green_home_tile.png
-.. |house| image:: ../../images/house.png
-.. |racing_flag| image:: ../../images/racing_flag.png
+.. |green_home_tile| image:: ../../../src/images/green_home_tile.png
+.. |house| image:: ../../../src/images/house.png
+.. |racing_flag| image:: ../../../src/images/racing_flag.png
 
-.. |apple| image:: ../../images/apple.png
-.. |banana| image:: ../../images/banana.png
-.. |carrot| image:: ../../images/carrot.png
-.. |daisy| image:: ../../images/daisy.png
-.. |dandelion| image:: ../../images/dandelion.png
-.. |leaf| image:: ../../images/leaf.png
-.. |orange| image:: ../../images/orange.png
-.. |strawberry| image:: ../../images/strawberry.png
-.. |tulip| image:: ../../images/tulip.png
-.. |square| image:: ../../images/square.png
-.. |star| image:: ../../images/star.png
-.. |triangle| image:: ../../images/triangle.png
+.. |apple| image:: ../../../src/images/apple.png
+.. |banana| image:: ../../../src/images/banana.png
+.. |carrot| image:: ../../../src/images/carrot.png
+.. |daisy| image:: ../../../src/images/daisy.png
+.. |dandelion| image:: ../../../src/images/dandelion.png
+.. |leaf| image:: ../../../src/images/leaf.png
+.. |orange| image:: ../../../src/images/orange.png
+.. |strawberry| image:: ../../../src/images/strawberry.png
+.. |tulip| image:: ../../../src/images/tulip.png
+.. |square| image:: ../../../src/images/square.png
+.. |star| image:: ../../../src/images/star.png
+.. |triangle| image:: ../../../src/images/triangle.png
 .. |impossible-triangle| image:: ../../images/impossible-triangle.png
-.. |token| image:: ../../images/token.png
+.. |token| image:: ../../../src/images/token.png
 
-.. |grass| image:: ../../images/grass.png
-.. |gravel| image:: ../../images/gravel.png
-.. |ice| image:: ../../images/ice.png
-.. |water| image:: ../../images/water.png
-.. |mud| image:: ../../images/mud.png
-.. |bricks| image:: ../../images/bricks.png
+.. |grass| image:: ../../../src/images/grass.png
+.. |gravel| image:: ../../../src/images/gravel.png
+.. |ice| image:: ../../../src/images/ice.png
+.. |water| image:: ../../../src/images/water.png
+.. |mud| image:: ../../../src/images/mud.png
+.. |bricks| image:: ../../../src/images/bricks.png
 .. |slip| image:: ../../images/ice_slip.gif
 
-.. |bridge| image:: ../../images/bridge.png
-.. |box| image:: ../../images/box.png
-.. |fence_right| image:: ../../images/fence_right.png
-.. |fence_left| image:: ../../images/fence_left.png
-.. |fence_double| image:: ../../images/fence_double.png
-.. |fence_vertical| image:: ../../images/fence_vertical.png
+.. |bridge| image:: ../../../src/images/bridge.png
+.. |box| image:: ../../../src/images/box.png
+.. |fence_right| image:: ../../../src/images/fence_right.png
+.. |fence_left| image:: ../../../src/images/fence_left.png
+.. |fence_double| image:: ../../../src/images/fence_double.png
+.. |fence_vertical| image:: ../../../src/images/fence_vertical.png
 .. |box-blocked| image:: ../../images/box_blocked.gif
 
-.. |apple_goal| image:: ../../images/apple_goal.png
-.. |banana_goal| image:: ../../images/banana_goal.png
-.. |carrot_goal| image:: ../../images/carrot_goal.png
-.. |daisy_goal| image:: ../../images/daisy_goal.png
-.. |dandelion_goal| image:: ../../images/dandelion_goal.png
-.. |leaf_goal| image:: ../../images/leaf_goal.png
-.. |orange_goal| image:: ../../images/orange_goal.png
-.. |strawberry_goal| image:: ../../images/strawberry_goal.png
-.. |tulip_goal| image:: ../../images/tulip_goal.png
-.. |square_goal| image:: ../../images/square_goal.png
-.. |star_goal| image:: ../../images/star_goal.png
-.. |triangle_goal| image:: ../../images/triangle_goal.png
-.. |token_goal| image:: ../../images/token_goal.png
+.. |apple_goal| image:: ../../../src/images/apple_goal.png
+.. |banana_goal| image:: ../../../src/images/banana_goal.png
+.. |carrot_goal| image:: ../../../src/images/carrot_goal.png
+.. |daisy_goal| image:: ../../../src/images/daisy_goal.png
+.. |dandelion_goal| image:: ../../../src/images/dandelion_goal.png
+.. |leaf_goal| image:: ../../../src/images/leaf_goal.png
+.. |orange_goal| image:: ../../../src/images/orange_goal.png
+.. |strawberry_goal| image:: ../../../src/images/strawberry_goal.png
+.. |tulip_goal| image:: ../../../src/images/tulip_goal.png
+.. |square_goal| image:: ../../../src/images/square_goal.png
+.. |star_goal| image:: ../../../src/images/star_goal.png
+.. |triangle_goal| image:: ../../../src/images/triangle_goal.png
+.. |token_goal| image:: ../../../src/images/token_goal.png
 

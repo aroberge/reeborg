@@ -15,14 +15,13 @@ chose de semblable):
 .. code-block:: javascript
    :emphasize-lines: 7
 
-   function (robot, no_frame){
+   function (robot){
        "use strict";
        robot._prev_orientation = robot.orientation;
        robot._prev_x = robot.x;
        robot._prev_y = robot.y;
        robot.orientation += 1;  // could have used "++" instead of "+= 1"
        robot.orientation %= 4;
-       if (no_frame) return;
        RUR.control.sound_id = "#turn-sound";
        RUR.rec.record_frame();
    }
@@ -40,7 +39,7 @@ Python comme langage de programmation et d'exécuter le programme suivant:
 .. code-block:: py3
 
     for i in range(10):
-        print(i, i%4)
+        print(i, i % 4)
 
 
 Vous devriez voir deux colonnes de chiffres.
@@ -183,7 +182,9 @@ bibliothèque puis en utilisant
 
     from biblio import RobotRéparé
 
-dans votre programme.
+dans votre programme.  Les instructions supplémentaires, pour montrer
+le surlignement de code dans **l'éditeur** n'ont aucun effet sur
+le code **dans la bibliothèque**.
 
 .. topic:: À votre tour!
 

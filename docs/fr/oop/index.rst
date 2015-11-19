@@ -37,7 +37,7 @@ additionnelles.
 
 
 
-.. topic:: Pour les experts !
+.. admonition:: Pour les experts !
 
    Si vous connaissez déjà la programmation Python et vous utilisez
    le monde de Reeborg simplement pour vous amuser à utiliser ce que vous

@@ -15,7 +15,7 @@ the following outline as a model::
         def __init__(self, x=1, y=1, orientation='e', tokens=0, leaky=False):
             pass
 
-        def turn_right(self, no_frame=False):
+        def turn_right(self):
             pass
 
         def turn_around(self):
