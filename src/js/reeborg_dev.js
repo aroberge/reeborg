@@ -2207,6 +2207,17 @@ RUR.tiles.grass.image.onload = function () {
     }
 };
 
+RUR.tiles.pale_grass = {};
+RUR.tiles.pale_grass.name = "grass";
+RUR.tiles.pale_grass.image = new Image();
+RUR.tiles.pale_grass.image.src = RUR.base_url + 'src/images/pale_grass.png';
+RUR.tiles.pale_grass.info = RUR.translate("Grass: usually safe.");
+RUR.tiles.pale_grass.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_all();
+    }
+};
+
 RUR.tiles.gravel = {};
 RUR.tiles.gravel.name = "gravel";
 RUR.tiles.gravel.image = new Image();
@@ -4858,6 +4869,7 @@ RUR.we.edit_world = function  () {
         case "tile-gravel":
         case "tile-ice":
         case "tile-grass":
+        case "tile-pale_grass":
         case "tile-bricks":
             value = RUR.we.edit_world_flag.substring(5);
             RUR.we.toggle_tile(value);
@@ -4867,6 +4879,7 @@ RUR.we.edit_world = function  () {
         case "fill-gravel":
         case "fill-ice":
         case "fill-grass":
+        case "fill-pale_grass":
         case "fill-bricks":
             value = RUR.we.edit_world_flag.substring(5);
             RUR.we.fill_with_tile(value);
@@ -5005,6 +5018,7 @@ RUR.we.select = function (choice) {
         case "tile-ice":
         case "tile-gravel":
         case "tile-grass":
+        case "tile-pale_grass":
         case "tile-bricks":
             value = choice.substring(5);
             $("#edit-tile").show();
@@ -5015,6 +5029,7 @@ RUR.we.select = function (choice) {
         case "fill-ice":
         case "fill-gravel":
         case "fill-grass":
+        case "fill-pale_grass":
         case "fill-bricks":
             value = choice.substring(5);
             $("#fill-tile").show();

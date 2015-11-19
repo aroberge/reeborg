@@ -299,6 +299,17 @@ RUR.tiles.grass.image.onload = function () {
     }
 };
 
+RUR.tiles.pale_grass = {};
+RUR.tiles.pale_grass.name = "grass";
+RUR.tiles.pale_grass.image = new Image();
+RUR.tiles.pale_grass.image.src = RUR.base_url + 'src/images/pale_grass.png';
+RUR.tiles.pale_grass.info = RUR.translate("Grass: usually safe.");
+RUR.tiles.pale_grass.image.onload = function () {
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.draw_all();
+    }
+};
+
 RUR.tiles.gravel = {};
 RUR.tiles.gravel.name = "gravel";
 RUR.tiles.gravel.image = new Image();
