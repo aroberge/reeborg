@@ -1,76 +1,83 @@
-Facing South
+Face au sud
 ============
 
+La boussole de Reeborg est brisée; il peut seulement l'utiliser
+pour déterminer s'il fait face au nord, en utilisant,
+``face_au_nord()``, mais c'est tout.
 
-.. important::
+Lorsque nous avons présenté ``return`` dans `une leçon précédente <../variables/return.html>`_
+nous avons vu comment nous pouvions définir un test permettant à Reeborg
+de déterminer d'il faisait face au sud de la façon suivante::
 
-   Traduction française à venir ...
+    def face_au_sud():
+        tourne_a_gauche()
+        tourne_a_gauche()
+        orientation = face_au_nord()
+        tourne_a_gauche()
+        tourne_a_gauche()
+        return orientation
 
 
-Reeborg's compass is broken; he can use it to determine if he is
-facing North using ``facing_north()``, but that's it.
+    # on oriente Reeborg pour qu'il soit face au sud comme test
+    while not face_au_sud():
+        tourne_a_gauche()
 
-When we introduced ``return`` in `a previous tutorial <../begin_py_en/return>`_
-we saw how we could define a test so that Reeborg could determine if
-he was facing South, using the following::
+.. topic:: À votre tour!
 
-    def is_facing_south():
-        turn_left()
-        turn_left()
-        remember = is_facing_north()
-        turn_left()
-        turn_left()
-        return remember
-
-    # now, ensure that Reeborg is facing South
-    while not is_facing_south():
-        turn_left()
-
-.. topic:: Do this!
-
-    Define a method ``is_facing_North`` by replacing ``pass`` by the appropriate
-    lines of code.
+    Définissez une **méthode** ``face_au_sud`` en remplaçant ``pass`` par
+    les lignes de code appropriées.
 
     .. code-block:: py3
 
-        class RepairedRobot(UsedRobot):
-            def is_facing_south(self):
+        class RobotRéparé(RobotUsage):
+            def face_au_sud(self):
                 pass
 
-        reeborg = RepairedRobot(3, 3)
-        while not reeborg.is_facing_south():
-            reeborg.turn_left()
+        reeborg = RobotRéparé(3, 3)
+        while not reeborg.face_au_sud():
+            reeborg.tourne_a_gauche()
 
-    Reeborg should **not** turn on the screen as it determines its direction.
+    Reeborg ne devrait **pas** tourner à l'écran pendant qu'il détermine
+    son orientation.
 
 .. hint::
 
-   Instead of doing a left turn using ``reeborg.turn_left()``, change the value
-   of the ``orientation`` prior to using ``remember = is_facing_north()``
+   Plutôt que de tourner à gauche en utilisant ``reeborg.tourne_a_gauche()``,
+   changez plutôt la valeur de l'attribut ``orientation`` avant, et après
+   utiliser ``orientation = self.face_au_nord()``
 
-.. topic:: Do it another way!
+.. topic:: Faites-le d'une autre façon!
 
-   There are two ways to have Reeborg determine its orientation.  One is by using
-   a code similar to the **function** ``is_facing_south()`` written above and
-   introduced in the lesson about ``return``.
-   The other way is to dig in the Javascript code, using ``inspect`` and ``view_source``
-   and see how it could possibly be implemented in a single line of code, without the
-   need to use a variable like ``remember``.
+   Il y a deux façons permettant à Reeborg de déterminer directement
+   son orientation.  Une d'entre elle est mentionnée dans l'indice ci-dessus et
+   utilise une variable ``orientation``, suivant le modèle
+   d'une `leçon précédente <../variables/return.html>`_.
+   Une autre façon, encore plus directe, peut être suggérée en explorant
+   le code **Javascript** grâce aux fonctions ``examine()`` et ``voir_source()``.
+   Ce que vous avez peut-être besoin de savoir est que les mots français
+   nord, sud, est, ouest, sont traduits en anglais par north, south, east, west.
 
-.. topic:: Do even more!
 
-   Implement the methods ``is_facing_east()`` and ``is_facing_west()``.  Make sure
-   to test them by running some programs that make use of them.
 
-Extend this idea
-----------------
+.. topic:: Encore davantage!
 
-If Reeborg's compass is fixed, it means that Reeborg should be able to orient itself
-rapidly to face any direction as required.
+    Écrivez et testez les méthodes ``face_a_l_est()`` et ``face_a_l_ouest()``.
 
-.. topic:: Try this!
 
-    Design four methods, one for each direction starting with ``face_north()`` which
-    will have Reeborg turn immediately to face the required direction in a single step.
-    Make sure that you record that step as a "frame".  You do not have to worry about
-    the appearance of the oil leak.
+Une petite adaptation
+---------------------
+
+Si la boussole de Reeborg est réparée, il devrait pouvoir s'orienter rapidement
+dans n'importe quelle direction.
+
+
+.. topic:: Essayez!
+
+    Écrivez le code pour 4 méthodes de plus, une pour chaque orientation,
+    en commençant avec ``au_nord()`` qui fera en sorte que Reeborg se tourne
+    immédiatement dans l'orientation demandée d'un seul mouvement.
+    Assurez-vous d'enregistrer le résultat du mouvement avec
+    ``RUR.rec.record_frame()``.
+    Ne vous inquiétez pas si la tache d'huile a des apparences bizarres lorsque
+    vous utilisez ces méthodes dans un programme (ce que vous allez faire
+    bien sûr, n'est-ce pas?)
