@@ -1,128 +1,150 @@
-Fixing the leak
-===============
+Réparation de la fuite
+======================
 
-
-.. important::
-
-   Traduction française à venir ...
-
-As you know, Reeborg has an oil leak.
-It is time to fix it.
-Let's go back to using Python instead of Javascript and review the code that
-triggers the oil leak.
+Comme vous le savez, Reeborg a une fuite d'huile.
+C'est le temps de la réparer.
+Retournons à Python comme langage de programmation, et explorons
+ce qui peut bien causer cette fuite d'huile.
+Pour ce faire, exécutez le programme que vous avez vu
+précédemment.
 
 .. code-block:: py3
 
-    r = UsedRobot()
-    inspect(r.body)
+    reeborg = RobotUsage()
+    for attr in dir(reeborg.body):
+        print(attr)
 
-You should see something like::
+Vous devriez voir quelque chose qui ressemble à ceci, sans
+les commenataires que j'ai rajoutés::
 
-    x
-    y
-    objects
-    orientation
-    _is_leaky
+    _is_leaky          # "a une fuite"
+    _prev_orientation  # prev == previous,
+                       # signifiant précédent
     _prev_x
     _prev_y
-    _prev_orientation
+    objects            # objets
+    orientation
+    x
+    y
 
-We recognize the private (i.e. starting with an underscore character)
-variable ``_is_leaky``.  Let's see what value it has.
+Donc, on voit une variable "privée" (indiquée comme telle par le
+programmeur qui lui a donné un nom débutant par un caractère de soulignement)
+appelée ``_is_leaky``.  Vérifions sa valeur:
 
 .. code-block:: py3
 
-    r = UsedRobot()
-    print(r.body._is_leaky)
+    reeborg = RobotUsage()
+    print(reeborg.body._is_leaky)
 
-And the result is ``True``.  This suggest that we can take
-care of the leak by assigning the value of ``False`` to this variable.
-Let's do a quick test.
+Et le résultat devrait être ``True``.  Ceci suggère que si
+on lui attribuait plutôt la valeur ``False``, on éliminerait
+peut-être la fuite.  Faisons donc un test rapide.
 
-.. topic:: Try this!
+.. topic:: Vérifiez!
 
-   Select world **Empty** and run the following code::
+    Exécutez le code suivant::
 
-        reeborg = UsedRobot()
+        pas_de_surlignement()
+        Monde("Vide")
+        reeborg = RobotUsage()
 
         reeborg.body._is_leaky = False
-        reeborg.move()
+        reeborg.avance()
         reeborg.body._is_leaky = True
-        reeborg.move()
+        reeborg.avance()
         reeborg.body._is_leaky = False
-        reeborg.move()
+        reeborg.avance()
         reeborg.body._is_leaky = True
-        reeborg.move()
+        reeborg.avance()
 
-The above test should have confirmed our hypothesis.
-(Remember to try it; I might have changed the code powering Reeborg's site since this tutorial
-was written.)  So, all we need to do when creating a robot it so immediately
-set its ``_is_leaky`` body attribute to ``False``, as follows::
+    Si vous aviez déjà choisi le monde **Vide**, vous devrez possiblement
+    exécuter le code à deux reprises pour voir l'effet correctement en s'assurant
+    que le surlignement a été désactivé **avant** l'exécution du programme.
 
-    r = UsedRobot()
-    r.body._is_leaky = False
+Ce petit test devrait avoir servi à confirmer notre hypothèse.
+(**Rappel:** il est possible que le code du site ait changé depuis que
+j'ai écrit ce tutoriel; vous devriez donc vérifier si ça fonctionne
+toujours.)  Donc, tout ce que nous devons faire pour réparer la fuite est
+de changer l'attribut ``_is_leaky`` à la valeur ``False`` immédiatement
+après avoir créé un nouveau robot::
 
-This is not very elegant.  One would think that it should be possible to do it
-when creating the robot instance ... and indeed that is the case.  Let's see how.
+    reeborg = RobotUsage()
+    reeborg.body._is_leaky = False
 
-Introducing ``__init__``
-------------------------
+Un seul petit problème: ceci n'est pas très élégant car on débute toujours
+avec un robot ayant une fuite, qu'il faut par la suite réparer.
+Ce serait tellement mieux si on pouvait faire la réparation avant et qu'on
+ne crée que des robots sans fuites.
 
-Python has a special method named ``__init__`` that is called when an instance
-is created.  Let's quit the robot world (you can close the World panel but keep
-the Diary open) for a short while to learn about this special method.
 
-.. topic:: Try this!
+Nous présentons ``__init__``
+-----------------------------
 
-    Run the following code::
+.. note::
 
-        class MyClass(object):
+    Python utilise certaines méthodes spéciales (parfois désignées sous
+    le nom de "magiques") dont le nom débute avec **deux** caractères
+    de soulignement et se termine également avec **deux** caractères de soulignement.
+
+Python a une méthode spéciale nommée ``__init__`` qui est exécutée lorsqu'une
+instance est créée.  Quittons brièvement le monde des robots pour
+explorer l'effet de cette méthode.
+
+.. topic:: Allez-y!
+
+    Exécutez le programme suivant::
+
+        class MaClasse(object):
             def __init__(self):
                 self.x = 1
 
-        my_object = MyClass()
-        print(my_object.x)
+        mon_objet = MaClasse()
+        print(mon_objet.x)
 
+Ceci devrait vous donner une idée sur la façon de réparer la fuite.
+Je parie que vous pensez à quelque chose comme ce qui suit.
 
-By running the above code, you might think that you know what to do to fix
-our robot so that it is not leaky.
+.. topic:: Réparons!
 
-.. topic:: Try this!
-
-    Does the following code fixes the leak?
+    Est-ce que le programme suivant répare la fuite?
 
     .. code-block:: py3
 
-        class FixedRobot(UsedRobot):
+        class RobotRéparé(RobotUsage):
             def __init__(self):
                 self.body._is_leaky = False
 
-        r = FixedRobot()
-        r.move()
+        r = RobotRéparé()
+        r.avance()
 
-More about ``__init__``
------------------------
+Plus de détails au sujet de ``__init__``
+----------------------------------------
 
-As you just saw (you should really run the above code), it did not work
-at all, and generated an error message.  So, let's not be so
-hasty this time: we will look at a few more examples of creating classes
-before going back to the robot world.
+Comme vous l'avez vu en exécutant le programme ci-dessus
+(ce que vous avez fait, *n'est-ce pas?*), ça n'a pas
+fonctionné du tout et, en fait, une erreur a même été notée.
+Ceci indique qu'on a du oublier quelque chose au sujet de la méthode
+``__init__`` que nous allons explorer davantage, encore une
+fois en oubliant temporairement au sujet des robots.
 
-.. topic:: Try this!
+.. topic:: Essayez-ceci!
 
-    Run the following code::
+    Exécutez le programme suivant une première fois::
 
-        class MyClass(object):
+        class MaClasse(object):
             def __init__(self, x):
                 self.x = x
 
-        my_object = MyClass(1)
-        print(my_object.x)
-        #my_other_object = MyClass()
-        #print(my_other_object.x)
+        mon_objet = MaClasse(1)
+        print(mon_objet.x)
 
-    If you uncomment the last two lines, it will not work; make sure
-    your try it.
+        # mon_autre_objet = MaClasse()
+        # print(mon_autre_objet.x)
+
+    Puis, changez les deux dernières lignes pour qu'elles ne soient
+    plus des commentaires, mais des lignes de code indentées correctement,
+    et exécutez le programme à nouveau.
+
 
 Positional arguments
 ~~~~~~~~~~~~~~~~~~~~

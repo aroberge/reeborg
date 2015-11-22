@@ -66,6 +66,7 @@ Ce document est divisé en neuf parties majeures.
    G. Référence du Monde de Reeborg <reference/index>
    H. Python: un bref survol <python/index>
    I. Contribuez!  <contribute/index>
+   help
 
 Si vous cliquez sur un des liens ci-dessus, vous serez redirigé vers
 une page qui incluera une table des matières plus détaillée pour la
