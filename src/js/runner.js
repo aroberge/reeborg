@@ -147,7 +147,7 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
-    var error_name, message, response, other_info;
+    var error_name, message, response, other_info, from_python;
     other_info = '';
     try {
         if (RUR.programming_language === "javascript") {

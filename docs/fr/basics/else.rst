@@ -5,7 +5,7 @@
 
 Apprendre la programmation informatique peut être très amusant, mais
 vous ne devriez pas passer toute votre vie devant un écran d'ordinateur.
-Si il pleut, continuez à lire, sinon allez jouer dehors! (Oui, même vous
+**Si il pleut, continuez à lire, sinon allez jouer dehors!** (Oui, même vous
 grand-père!)
 
 Deux choix...

@@ -3179,13 +3179,16 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
-    var error_name, message, response, other_info;
+    var error_name, message, response, other_info, from_python;
     other_info = '';
     try {
         if (RUR.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
         } else if (RUR.programming_language === "python") {
             RUR.runner.eval_python(src);
+            // if (RUR.__python_error) {
+            //     throw RUR.__python_error;
+            // }
         } else if (RUR.programming_language === "coffee") {
             RUR.runner.eval_coffee(src);
         } else {

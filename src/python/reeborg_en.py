@@ -1,0 +1,220 @@
+from browser import window
+
+from reeborg_common import *
+
+__id = "en"
+
+_usage_ = '''
+<h2 id="%s">Basic commands</h2>
+<p>Note: In Javascript, <code>true</code> and <code>false</code> are all written in lower cases,
+whereas in Python, <code>True</code> and <code>False</code> start with an upper case letter.
+We use Python's notation below.</p>
+<ul>
+    <li><code>at_goal()</code>: condition which is <code>True</code>
+        if Reeborg has reached "home"</li>
+    <li><code>build_wall()</code>: adds a wall right in front of where Reeborg is</li>
+    <li><code>done()</code>: instructs the program to stop (end) at that point.</li>
+    <li><code>front_is_clear()</code>: <code>True</code> if nothing is blocking Reeborg's way</li>
+    <li><code>wall_in_front()</code>: <code>True</code> if a wall is blocking Reeborg's way</li>
+    <li><code>is_facing_north()</code>: <code>True</code> if Reeborg is facing North
+        (towards the top of the screen)</li>
+    <li><code>move()</code></li>
+    <li><code>put()</code> or <code>put("object")</code> where object is one of
+      <code>"token"</code>,
+      <code>"triangle"</code>, <code>"square"</code>, <code>"star"</code>, etc.</li>
+    <li><code>right_is_clear()</code>: <code>True</code> if no obstacle is to the immediate
+        right of Reeborg</li>
+    <li><code>wall_on_right()</code>: <code>True</code> if a wall is to the immediate
+        right of Reeborg</li>
+    <li><code>repeat(f, n)</code>: executes ``f()`` n times</li>
+    <li><code>object_here()</code>: returns an empty list equivalent to
+    <code>False</code> if there is no object at Reeborg's location, otherwise
+    it returns a list containing the names of the objects found at that location.
+    We can also give a specific name as an argument and it will return either an
+    empty list or a list containing the name of the object
+    if at least one such object is found at that location.</li>
+    <li><code>carries_object()</code> gives information about objects carried by
+    Reeborg; usage is similar to <code>object_here()</code>.</li>
+    <li><code>take()</code> or <code>take("object")</code> where object is one of
+        <code>"token"</code>, <code>"triangle"</code>, <code>"square"</code> or
+        <code>"star"</code></li>
+    <li><code>turn_left()</code></li>
+</ul>
+<p>To create additional robots, one can use <code>UsedRobot()</code> preceeded by
+<code>new</code> if using Javascript.</p>
+<p>In addition, the following commands are available and are not tied to
+any robot in particular.</p>
+<ul>
+    <li><code>from library import *</code>: for <b>Python</b>, includes the code found in the
+         library tab</li>
+    <li><code>inspect(object)</code>: shows result in Reeborg's Diary</li>
+    <li><code>pause()</code>; can be called with an argument in milliseconds which indicates the
+    time after which it will automatically resume.</li>
+    <li><code>sound(boolean)</code>: turns sound on and off,
+        with boolean = <code>True</code> or <code>False</code> (uppercase) in Python,
+        or <code>true</code> or <code>false</code> (lowercase) in Javascript.
+        Off by default if called with no argument or if the delay between actions is
+        less than 250ms.</li>
+    <li><code>think(number)</code>: sets the amount of time in milliseconds between each robot
+         action.</li>
+    <li><code>World(string)</code>: selects a given world</li>
+    <li><code>print(string)</code>: only valid with Python.  Somewhat equivalent to
+         <code>write</code>.</li>
+</ul>
+''' % ("basic-commands-" + __id)
+
+RUR = window.RUR
+RUR.ui.add_help(_usage_, __id, "English",
+            "Instead of my_lib, token, star, triangle, and square, use: ")
+
+# RUR._x_ defined in commands.js
+at_goal = RUR._at_goal_
+build_wall = RUR._build_wall_
+front_is_clear = RUR._front_is_clear_
+wall_in_front = RUR._wall_in_front_
+is_facing_north = RUR._is_facing_north_
+move = RUR._move_
+put = RUR._put_
+right_is_clear = RUR._right_is_clear_
+wall_on_right = RUR._wall_on_right_
+take = RUR._take_
+turn_left = RUR._turn_left_
+
+set_max_steps = RUR._set_max_steps_
+set_max_nb_robots = RUR._set_max_nb_robots_
+# defined in rur_utils.js
+inspect = RUR.inspect
+view_source = RUR.view_source
+# defined in control.js
+write = RUR.control._write
+done = RUR.control.done
+sound = RUR.control.sound
+think = RUR.control.think
+pause = RUR.control.pause
+narration = RUR.control.narration
+clear_print = RUR.control.clear_print
+set_trace_color = RUR._set_trace_color_
+set_trace_style = RUR.vis_robot.set_trace_style
+MakeCustomMenu = RUR.custom_menu.make
+
+World = RUR.file_io.load_world_from_program
+
+disappear = RUR.world.remove_robots
+no_highlight = RUR.ui.user_no_highlight
+
+new_robot_images = RUR.vis_robot.new_robot_images
+
+
+def recording(arg):
+    RUR._recording_(arg)
+
+# keep compatibility for Andres C.
+say = print
+
+
+def object_here(arg=None):
+    if arg is not None:
+        ans = RUR._object_here_(arg)
+    else:
+        ans = RUR._object_here_()
+    return list(ans)  # convert from Javascript list-like object to proper Python list
+
+
+def carries_object(arg=None):
+    if arg is not None:
+        ans = RUR._carries_object_(arg)
+    else:
+        ans = RUR._carries_object_()
+    return list(ans)
+
+
+def repeat(f, n):
+    if not isinstance(n, int):
+        raise ReeborgError("The second argument to 'repeat' should be an integer.")
+    for i in range(n):
+        f()
+
+# The following is the only language specific function which can only be used in monde.html,
+# not when imported from world.html
+try:
+    verify = RUR.verify
+except AttributeError:
+    pass
+
+
+class UsedRobot(object):
+    def __init__(self, x=1, y=1, orientation='e', tokens=None):
+        if tokens is None:
+            robot = RUR.robot.create_robot(x, y, orientation)
+        else:
+            robot = RUR.robot.create_robot(x, y, orientation, tokens)
+        self.body = robot
+        RUR.world.add_robot(self.body)
+
+    def move(self):
+        RUR.control.move(self.body)
+
+    def at_goal(self):
+        return RUR.control.at_goal(self.body)
+
+    def build_wall(self):
+        RUR.control.build_wall(self.body)
+
+    def front_is_clear(self, no_frame=False):
+        return RUR.control.front_is_clear(self.body, no_frame)
+
+    def wall_in_front(self):
+        return RUR.control.wall_in_front(self.body)
+
+    def is_facing_north(self):
+        return RUR.control.is_facing_north(self.body)
+
+    def put(self, arg=False):
+        RUR.control.put(self.body, arg)
+
+    def right_is_clear(self):
+        return RUR.control.right_is_clear(self.body)
+
+    def wall_on_right(self):
+        return RUR.control.wall_on_right(self.body)
+
+    def object_here(self, obj=None):
+        if obj is not None:
+            return list(RUR.control.object_here(self.body, obj))
+        else:
+            return list(RUR.control.object_here(self.body))
+
+    def carries_object(self, obj=''):
+        if obj is not None:
+            return list(RUR.control.carries_object(self.body, obj))
+        else:
+            return list(RUR.control.carries_object(self.body))
+
+    def take(self, arg=False):
+        RUR.control.take(self.body, arg)
+
+    def turn_left(self, no_frame=False):
+        RUR.control.turn_left(self.body, no_frame)
+
+    def set_model(self, model):
+        RUR.control.set_model(self.body, model)
+
+    def set_trace_color(self, color):
+        RUR.control.set_trace_color(self.body, color)
+
+    def set_trace_style(self, style):
+        RUR.control.set_trace_style(self.body, style)
+
+
+class SatelliteInfo():
+
+    @property
+    def world_map(self):
+        '''returns a dict containing information about world.
+        '''
+        import json
+        return json.loads(RUR.control.get_world_map())
+
+    def print_world_map(self):
+        '''prints a formatted copy of the world'''
+        print(RUR.control.get_world_map())
