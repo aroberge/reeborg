@@ -118,6 +118,7 @@ def insert_highlight_info(src):
     new_lines = [tracing_line('', [0], frame=True)]
     use_next_indent = False
     saved_lineno_group = None
+    skip_docstring = 0
 
     line_info.reverse()
     current_group = line_info.pop()
@@ -139,7 +140,11 @@ def insert_highlight_info(src):
             new_lines.append(tracing_line(indent, saved_lineno_group, frame=True))
             use_next_indent = False
 
-        if first_word in '''pass def class continue break if from import
+        if first_word in 'def class'.split():
+            new_lines.append(tracing_line(indent, current_group, frame=True))
+            new_lines.append(line)
+            skip_docstring = 2
+        elif first_word in '''pass continue break if from import
                             del return raise try with yield'''.split():
             new_lines.append(tracing_line(indent, current_group, frame=True))
             new_lines.append(line)
@@ -164,9 +169,11 @@ def insert_highlight_info(src):
             new_lines.append(tracing_line(indent, current_group))
             new_lines.append(line)
         else:
-            if lineno == current_group[0]:
+            if lineno == current_group[0] and skip_docstring <= 0:
                 new_lines.append(tracing_line(indent, current_group, frame=True))
             new_lines.append(line)
+
+        skip_docstring -= 1
 
     return '\n'.join(new_lines), False
 
