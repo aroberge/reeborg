@@ -15,17 +15,8 @@ def __write(data):
 def __write_err(data):
     window.RUR.control.write("<b style='color:red'>" + str(data) + "</b>")
 
-
 sys.stdout.write = __write
 sys.stderr.write = __write_err
-
-
-class ReeborgError(Exception):
-    def __init__(self, value):
-        self.reeborg_shouts = value
-
-    def __str__(self):
-        return repr(self.reeborg_shouts)
 
 
 def Help(obj=None):
@@ -37,12 +28,12 @@ def Help(obj=None):
     try:
         out.append("<h2>{}</h2>".format(obj.__name__))
         if hasattr(obj, "__doc__"):
-            doc = "<p>{}</p>".format(obj.__doc__)
+            doc = "<p>{}</p>".format(str(obj.__doc__))
             out.append(doc.replace("\n", "<br>"))
         else:
             out.append("<p>No docstring found.</p>")
-    except:
-        pass
+    except Exception as e:
+        window.console.log("exception in Help", e.__name__)
 
     for attr in dir(obj):
         if attr == "__class__":
@@ -53,7 +44,7 @@ def Help(obj=None):
                 doc = "<p>{}</p>".format(getattr(obj, attr).__doc__)
                 out.append(doc.replace("\n", "<br>"))
     if not out:
-        raise ReeborgError("This object has no docstring.")
+        raise AttributeError("This object has no docstring.")
     else:
         window.narration("".join(out))
 
@@ -87,8 +78,8 @@ def generic_translate_python(src, lib, lang_import, highlight,
         del sys.modules[lib]
 
     globals_ = {}
+    globals_.update(globals())
     globals_['dir_py'] = dir_py
-    #globals_['ReeborgError'] = ReeborgError
     globals_['Help'] = Help
 
     src = transform(src)
@@ -96,12 +87,14 @@ def generic_translate_python(src, lib, lang_import, highlight,
 
     if highlight:
         temp_src, problem = insert_highlight_info(src)
-        if hasattr(window.RUR, "__debug"):
-            window.console.log(temp_src)
         if not problem:
             src = temp_src
         else:
             exec("RUR.ui.highlight('{}')".format(problem), globals_)
             window.jQuery("#highlight-impossible").show()
+    if hasattr(window.RUR, "__debug"):
+        window.console.log("processed source:")
+        window.console.log(src)
+
     src = "help=Help\n" + pre_code + "\n" + src + "\n" + post_code
     exec(src, globals_)
