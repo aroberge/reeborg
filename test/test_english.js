@@ -68,7 +68,7 @@ QUnit.test("Load world", function(assert) {
 QUnit.module("file_io.js tests");
 QUnit.test("Load world without running program", function(assert) {
     RUR.unit_tests.reset();
-    contents = [["../../src/worlds/tutorial_en/home1.json", "Home 1"]]
+    contents = [["/src/worlds/tutorial_en/home1.json", "Home 1"]]
     RUR.custom_menu.make(contents);
     assert.throws(function() {RUR.file_io.load_world_from_program('Home 1')},
                  "Raised expected error");
