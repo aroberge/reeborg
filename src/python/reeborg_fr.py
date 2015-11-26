@@ -8,7 +8,6 @@ try:
     from browser import window
     RUR = window.RUR
 except:
-    import sys
     print("\n --> Skipping importing from browser for sphinx.\n")
 
 # The following is the only language specific function; it can be used in
@@ -60,7 +59,7 @@ def au_but():
     """Indique si Reeborg a atteint la position demandée.
 
     Returns:
-        True si Reeborg a atteint son but.
+        True si Reeborg a atteint son but, False autrement.
     """
     return RUR._at_goal_()
 
@@ -108,12 +107,19 @@ def face_au_nord():
     raise ReeborgError("face_au_nord() est désuet; utilisez est_face_au_nord()")
 
 
-def nombre_d_instructions(nb):
-    RUR._set_max_steps_(nb)
-
-
-def nombre_de_robots(nb):
-    RUR._set_max_nb_robots_(nb)
+def dir_py(obj):
+    """Liste les attributs et méthodes d'un objet Python,
+       excluant ceux dont les noms débutent par deux caractères
+       de soulignement qui sont considérés comme privés.
+    """
+    attrs = []
+    for attr in dir(obj):
+        if attr.startswith("__"):
+            continue
+        if callable(getattr(obj, attr)):
+            attr += "()"
+        attrs.append(attr)
+    print("\n".join(attrs))
 
 
 def dir_js(obj):
@@ -123,7 +129,7 @@ def dir_js(obj):
 
 def voir_source_js(fn):
     """Affiche le code source d'une fonction Javascript."""
-    RUR.view_source(obj)  # defined in rur_utils.js
+    RUR.view_source(fn)  # defined in rur_utils.js
 
 
 def termine():
@@ -154,54 +160,62 @@ def pause(ms=None):
 
 
 def Monde(url, shortname=None):
+    """Permet de sélectioner un monde donné à l'intérieur d'un programme.
+       Si le monde présentement utilisé est différent, le résultat de l'exécution
+       de cette instruction fera en sorte que le monde spécifié par le paramètre
+       `url` sera choisi sans que le reste du programme ne soit déjà exécuté.
+       Si le monde spécifié est déjà le monde choisi, la fonction `Monde(...)`
+       est ignorée et le reste du programme est exécuté.
+
+       Le monde spécifié sera ajouté au sélecteur s'il n'est pas déjà présent.
+
+       Args:
+            url: deux choix possibles, soit un nom apparaissant dans le
+                 sélecteur de monde, ou un lien à un document accessible
+                 via Internet.
+            shortname: paramètre optionnel; si ce paramètre est choisi, le nom
+                       apparaissant dans le sélecteur sera shortname.
+
+       Exemples:
+
+           >>> Monde("But 1")  # monde inclus par défaut
+           >>> Monde("http://reeborg.ca/mon_monde")   # exemple fictif
+           # le nom http://reeborg.ca/mon_monde sera ajouté au sélecteur
+           >>> Monde("http://reeborg.ca/mon_monde", "Bonjour")
+           # le nom Bonjour sera ajouté au sélecteur pour indiquer ce monde.
+    """
+
     if shortname is None:
         RUR.file_io.load_world_from_program(url)
     else:
         RUR.file_io.load_world_from_program(url, shortname)
 
 
-def narration(html):
-    RUR.control.narration(html)
-
-
 def clear_print():
+    """Efface le texte précédemment écrit avec des fonctions print()."""
     RUR.control.clear_print()
 
 
-def couleur_de_trace(couleur):
-    RUR._set_trace_color_(couleur)
-
-
-def style_de_trace(style):
-    RUR.vis_robot.set_trace_style(style)  # add argument translation
-
-
-def MenuPersonalisé(contenu):
-    RUR.custom_menu.make(contenu)
-
-
-def disparait():
+def zero_robots():
+    """Élimine tous les robots existants"""
     RUR.world.remove_robots()
 
 
 def pas_de_surlignement():
+    """Empêche le surlignement de lignes de code d'être effectué.
+       Pour véritablement éliminer tout effet lié au surlignement de
+       lignes de code, il peut être nécessaire d'exécuter un programme
+       à deux reprises."""
     RUR.ui.user_no_highlight()
 
 
 def enregistrement(bool):
+    """Arrête ou redémarre les enregistrement d'actions de Reeborg.
+
+    Args:
+        bool: True si on veut avoir des enregistrement, False autrement
+    """
     RUR._recording_(bool)
-
-
-def nouvelles_images_de_robot(images):
-    if "est" in images:
-        images["east"] = images["est"]
-    if "ouest" in images:
-        images["west"] = images["ouest"]
-    if "nord" in images:
-        images["north"] = images["nord"]
-    if "sud" in images:
-        images["south"] = images["sud"]
-    RUR.vis_robot.new_robot_images(images)
 
 
 def objet_ici(obj=None):
@@ -258,6 +272,46 @@ def transporte(obj=None):
     else:
         ans = RUR._carries_object_()
     return list(ans)
+
+
+def couleur_de_trace(couleur):
+    """Change la couleur de trace du robot.
+
+       Args:
+            couleur: quatre formats sont possibles soit les noms de
+                     couleur du web (en anglais), les formats rgb et rgba,
+                     et la notation hexadécimale.
+
+       Exemples possibles::
+
+            >>> couleur_de_trace("red")  # nom de couleur en anglais
+            >>> couleur_de_trace("rgb(125, 0, 0)")
+            >>> couleur_de_trace("rgba(125, 0, 0, 0.5)")
+            >>> couleur_de_trace("#FF00FF")
+    """
+    RUR._set_trace_color_(couleur)
+
+
+def style_de_trace(style=None):
+    """Change le style de trace du robot.
+
+       Args:
+            style: "épais" ou "epais" (sans accent) pour une trace
+                   plus visible, "invisible" pour une trace invisible(!),
+                   "normal" ou ne pas spécifier d'argument pour avoir
+                   le style normal.
+
+                   La trace plus épaisse est centrée et ne permet pas
+                   de voir qu'un virage à droite est constitué de trois
+                   virages à gauche, ni de distinguer les aller-retours.
+    """
+    if style in ["épais", "epais"]:
+        style = "thick"
+    elif style == "invisible":
+        style = "none"
+    elif style in [None, "normal"]:
+        style = "default"
+    RUR.vis_robot.set_trace_style(style)
 
 
 class RobotUsage(object):
@@ -406,13 +460,45 @@ class RobotUsage(object):
         else:
             return list(RUR.control.carries_object(self.body))
 
-    def modèle(self, model):
+    def modele(self, model):
+        """Permet de choisir le modèle du robot.
+
+           Args:
+              model: un nombre de 0 à 3.
+        """
         RUR.control.set_model(self.body, model)
 
     def couleur_de_trace(self, color):
+        """Change la couleur de trace du robot.
+
+           Args:
+                couleur: quatre formats sont possibles soit les noms de
+                         couleur du web (en anglais), les formats rgb et rgba,
+                         et la notation hexadécimale.
+
+           Exemples possibles::
+
+                >>> reeborg = RobotUsage()
+                >>> reeborg.couleur_de_trace("red")  # nom de couleur en anglais
+                >>> reeborg.couleur_de_trace("rgb(125, 0, 0)")
+                >>> reeborg.couleur_de_trace("rgba(125, 0, 0, 0.5)")
+                >>> reeborg.couleur_de_trace("#FF00FF")
+        """
         RUR.control.set_trace_color(self.body, color)
 
     def style_de_trace(self, style):
+        """Change le style de trace du robot.
+
+           Args:
+                style: "épais" ou "epais" (sans accent) pour une trace
+                       plus visible, "invisible" pour une trace invisible(!),
+                       "normal" ou ne pas spécifier d'argument pour avoir
+                       le style normal.
+
+                       La trace plus épaisse est centrée et ne permet pas
+                       de voir qu'un virage à droite est constitué de trois
+                       virages à gauche, ni de distinguer les aller-retours.
+        """
         RUR.control.set_trace_style(self.body, style)
 
 
@@ -457,3 +543,54 @@ class InfoSatellite():
     def imprime_carte(self):
         """imprime une copie formattée de la carte"""
         print(RUR.control.get_world_map())
+
+
+def nouvelles_images_de_robot(images):
+    """Surtout destiné aux créateurs de mondes, ceci permet de remplacer
+    les images utilisées pour le robot par d'autres images.
+
+    Une explication plus détaillée viendra.
+    """
+    if "est" in images:
+        images["east"] = images["est"]
+    if "ouest" in images:
+        images["west"] = images["ouest"]
+    if "nord" in images:
+        images["north"] = images["nord"]
+    if "sud" in images:
+        images["south"] = images["sud"]
+    RUR.vis_robot.new_robot_images(images)
+
+
+def narration(html):
+    """Surtout destiné aux créateurs de monde, la fonction narration() est
+       semblable à print() sauf:
+
+           * qu'elle accepte du texte html
+
+           * que tout texte html précédemment présent est effacé et
+             remplacé par le nouveau texte.
+    """
+    RUR.control.narration(html)
+
+
+def nombre_de_commandes(nb):
+    """Surtout destiné aux créateurs de mondes,
+       ceci permet de changer le nombre maximal d'instructions ou commandes
+       exécutées par un robot.
+    """
+    RUR._set_max_steps_(nb)
+
+
+def nombre_de_robots(nb):
+    """Surtout destiné aux créateurs de mondes,
+       ceci permet de changer le nombre maximal de robots
+       permis dans un monde donné.
+    """
+    RUR._set_max_nb_robots_(nb)
+
+
+def MenuPersonalise(contenu):
+    """À l'intention des éducateurs.  Permet de créer des menus de monde
+       personalisés.  Voir la documentation pour plus de détails."""
+    RUR.custom_menu.make(contenu)
