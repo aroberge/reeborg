@@ -21,7 +21,7 @@ var move, turn_left, inspect, front_is_clear, right_is_clear,
     is_facing_north, done, put, take, object_here, World, Permalink,
     carries_object, write, _write, at_goal, build_wall, think,
     pause, repeat, view_source, sound, UsedRobot,
-    set_max_steps, say, verify, ReeborgError, narration,
+    set_max_steps, say, verify, ReeborgError, WallCollisionError, narration,
     wall_in_front, wall_on_right, disappear, recording;
 
 // do not translate the following three instructions; they are included only
