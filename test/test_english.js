@@ -95,12 +95,12 @@ QUnit.test("Load world by running Python programs", function(assert) {
 
     // first select world Home 2 as our current default
     assert.throws(function() {RUR.file_io.load_world_from_program('Home 2')},
-                 "Raised expected error");
+                 "Raised expected error from loading Home 2");
 
     // select world from program
-    RUR.unit_tests.run_python(null, "src/select_home1_en.py");
+    RUR.unit_tests.run_python(null, "/test/src/select_home1_en.py");
     equal(RUR.unit_tests.feedback_element, "#Reeborg-shouts", "Feedback element expected.");
-    equal(RUR.unit_tests.content, "World Home 1 selected");
+    equal(RUR.unit_tests.content, "World Home 1 selected by url");
 
     // second time runs the rest of the program as the correct world is selected
     RUR.unit_tests.run_python(null, "src/select_home1_en.py");
