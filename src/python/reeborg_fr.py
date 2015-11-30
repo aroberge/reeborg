@@ -1,5 +1,5 @@
-"""Ce module contient les commandes qui peuvent être incluse dans
-un programme du Monde de Reeborg.
+"""Ce module contient les fonctions, classes et exceptions qui peuvent être
+utilisées dans un programme Python pour le Monde de Reeborg.
 """
 
 # When generating documentation using sphinx, these modules are both
@@ -159,7 +159,7 @@ def pause(ms=None):
         RUR.control.pause(ms)
 
 
-def Monde(url, shortname=None):
+def Monde(url, nom=None):
     """Permet de sélectioner un monde donné à l'intérieur d'un programme.
        Si le monde présentement utilisé est différent, le résultat de l'exécution
        de cette instruction fera en sorte que le monde spécifié par le paramètre
@@ -173,8 +173,8 @@ def Monde(url, shortname=None):
             url: deux choix possibles, soit un nom apparaissant dans le
                  sélecteur de monde, ou un lien à un document accessible
                  via Internet.
-            shortname: paramètre optionnel; si ce paramètre est choisi, le nom
-                       apparaissant dans le sélecteur sera shortname.
+            nom: paramètre optionnel; si ce paramètre est choisi, le nom
+                       apparaissant dans le sélecteur sera nom.
 
        Exemples:
 
@@ -185,18 +185,18 @@ def Monde(url, shortname=None):
            # le nom Bonjour sera ajouté au sélecteur pour indiquer ce monde.
     """
 
-    if shortname is None:
+    if nom is None:
         RUR.file_io.load_world_from_program(url)
     else:
-        RUR.file_io.load_world_from_program(url, shortname)
+        RUR.file_io.load_world_from_program(url, nom)
 
 
-def clear_print():
+def efface_print():
     """Efface le texte précédemment écrit avec des fonctions print()."""
     RUR.control.clear_print()
 
 
-def zero_robots():
+def plus_de_robots():
     """Élimine tous les robots existants"""
     RUR.world.remove_robots()
 
@@ -292,7 +292,7 @@ def couleur_de_trace(couleur):
     RUR._set_trace_color_(couleur)
 
 
-def style_de_trace(style=None):
+def style_de_trace(style="normal"):
     """Change le style de trace du robot.
 
        Args:
@@ -300,6 +300,10 @@ def style_de_trace(style=None):
                    plus visible, "invisible" pour une trace invisible(!),
                    "normal" ou ne pas spécifier d'argument pour avoir
                    le style normal.
+
+                   Le choix "invisible" est équivalent à
+                   couleur_de_trace("rgba(0, 0, 0, 0)") c'est-à-dire
+                   une couleur complètement transparente.
 
                    La trace plus épaisse est centrée et ne permet pas
                    de voir qu'un virage à droite est constitué de trois
@@ -309,23 +313,24 @@ def style_de_trace(style=None):
         style = "thick"
     elif style == "invisible":
         style = "none"
-    elif style in [None, "normal"]:
+    elif style == "normal":
         style = "default"
+    else:
+        raise ReeborgError("Valeur de style inconnue pour style_de_trace().")
     RUR.vis_robot.set_trace_style(style)
 
 
 class RobotUsage(object):
-    """Créé un robot usagé.
-
-       Args:
-           x: coordonnée horizontale; un entier supérieur ou égal à 1
-           y: coordonnée vertical; un entier supérieur ou égal à 1
-           orientation: une des valeurs suivante: "nord", "sud", "est", "ouest"
-           jeton: nombre initial de jetons à donner au robot;
-                  un entier supérieur ou égal à 1,
-                  ou la valeur "inf" pour un nombre infini.
-        """
     def __init__(self, x=1, y=1, orientation='est', jetons=None):
+        """Créé un robot usagé.
+
+           Args:
+               x: coordonnée horizontale; un entier supérieur ou égal à 1
+               y: coordonnée vertical; un entier supérieur ou égal à 1
+               orientation: une des valeurs suivante: "nord", "sud", "est", "ouest"
+               jeton: nombre initial de jetons à donner au robot;
+                      un entier positif, ou la chaîne "inf" pour un nombre infini.
+        """
         if jetons is None:
             robot = RUR.robot.create_robot(x, y, orientation)
         else:
@@ -344,17 +349,17 @@ class RobotUsage(object):
         """Dépose un objet.  Si Reeborg transporte plus d'un type d'objet,
            on doit spécifier lequel sinon ceci causera une exception."""
         if obj is None:
-            RUR._put_()
+            RUR.control.put(self.body, False)
         else:
-            RUR._put_(obj)
+            RUR.control.put(self.body, obj)
 
     def prend(self, obj=None):
         """Prend un objet.  Si plus d'un type d'objet se trouve à l'endroit où
            Reeborg est, on doit spécifier lequel sinon ceci causera une exception."""
         if obj is None:
-            RUR._take_()
+            RUR.control.take(self.body, False)
         else:
-            RUR._take_(obj)
+            RUR.control.take(self.body, obj)
 
     def construit_un_mur(self):
         """Indique à Reeborg de construire un mur devant sa position."""
@@ -460,15 +465,15 @@ class RobotUsage(object):
         else:
             return list(RUR.control.carries_object(self.body))
 
-    def modele(self, model):
+    def modele(self, modele):
         """Permet de choisir le modèle du robot.
 
            Args:
-              model: un nombre de 0 à 3.
+              modele: un nombre de 0 à 3.
         """
-        RUR.control.set_model(self.body, model)
+        RUR.control.set_model(self.body, modele)
 
-    def couleur_de_trace(self, color):
+    def couleur_de_trace(self, couleur):
         """Change la couleur de trace du robot.
 
            Args:
@@ -484,7 +489,7 @@ class RobotUsage(object):
                 >>> reeborg.couleur_de_trace("rgba(125, 0, 0, 0.5)")
                 >>> reeborg.couleur_de_trace("#FF00FF")
         """
-        RUR.control.set_trace_color(self.body, color)
+        RUR.control.set_trace_color(self.body, couleur)
 
     def style_de_trace(self, style):
         """Change le style de trace du robot.
@@ -499,6 +504,14 @@ class RobotUsage(object):
                        de voir qu'un virage à droite est constitué de trois
                        virages à gauche, ni de distinguer les aller-retours.
         """
+        if style in ["épais", "epais"]:
+            style = "thick"
+        elif style == "invisible":
+            style = "none"
+        elif style == "normal":
+            style = "default"
+        else:
+            raise ReeborgError("Valeur de style inconnue pour style_de_trace().")
         RUR.control.set_trace_style(self.body, style)
 
 
@@ -519,13 +532,25 @@ class ReeborgError(Exception):
                 tourne_a_gauche()
     """
 
-    def __init__(self, valeur):
-        self.reeborg_shouts = valeur
+    def __init__(self, message):
+        self.reeborg_shouts = message
 
     def __str__(self):
         return repr(self.reeborg_shouts)
 try:
     window['ReeborgError'] = ReeborgError
+except:
+    pass
+
+
+class WallCollisionError(ReeborgError):
+    """Exception spécifique au monde de Reeborg.
+
+       A lieu lorsque Reeborg frappe un mur
+    """
+    pass
+try:
+    window['WallCollisionError'] = WallCollisionError
 except:
     pass
 
@@ -574,17 +599,22 @@ def narration(html):
     RUR.control.narration(html)
 
 
-def nombre_de_commandes(nb):
+def max_nb_instructions(nb):
     """Surtout destiné aux créateurs de mondes,
-       ceci permet de changer le nombre maximal d'instructions ou commandes
+       ceci permet de changer le nombre maximal d'instructions
        exécutées par un robot.
     """
     RUR._set_max_steps_(nb)
 
 
-def nombre_de_robots(nb):
+def nombre_d_instructions(nb):
+    raise ReeborgError(
+        "nombre_d_instructions() a été remplacé par max_nb_instructions().")
+
+
+def max_nb_robots(nb):
     """Surtout destiné aux créateurs de mondes,
-       ceci permet de changer le nombre maximal de robots
+       ceci permet de limiter le nombre de robots
        permis dans un monde donné.
     """
     RUR._set_max_nb_robots_(nb)
