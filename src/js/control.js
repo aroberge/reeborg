@@ -15,7 +15,7 @@ RUR.control.move = function (robot) {
         wall_beyond, x_beyond, y_beyond;
 
     if (RUR.control.wall_in_front(robot)) {
-        throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
+        throw new RUR.WallCollisionError(RUR.translate("Ouch! I hit a wall!"));
     }
 
     robot._prev_x = robot.x;
@@ -294,7 +294,7 @@ RUR.control.is_wall_at = function (coords, orientation) {
 RUR.control.build_wall = function (robot){
     var coords, orientation, x, y, walls;
     if (RUR.control.wall_in_front(robot)){
-        throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
+        throw new RUR.WallCollisionError(RUR.translate("There is already a wall here!"));
     }
 
     switch (robot.orientation){

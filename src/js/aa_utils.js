@@ -14,6 +14,14 @@ RUR.ReeborgError = function (message) {
     this.message = message;
 };
 
+RUR.WallCollisionError = function (message) {
+    if (RUR.programming_language == "python"){
+        return WallCollisionError(message);
+    }
+    this.name = "WallCollisionError";
+    this.message = message;
+};
+
 RUR.translate = function (s) {
     if (RUR.translation[s] !== undefined) {
         return RUR.translation[s];

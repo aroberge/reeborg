@@ -169,15 +169,18 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             message = response.message;
             other_info = response.other_info;
             error_name = response.error_name;
+            e.message = "<h3>" + error_name + "</h3><h4>" +
+                                    message + "</h4><p>" + other_info + '</p>';
         } else {
             error_name = e.name;
             message = e.message;
-        }
-
-        if (error_name === "ReeborgError"){
+            other_info = '';
             if (e.reeborg_shouts !== undefined) {
                 e.message = e.reeborg_shouts;
             }
+        }
+
+        if (error_name === "ReeborgError"  || error_name === "WallCollisionError"){
             RUR.rec.record_frame("error", e);
         } else {
             RUR.cd.show_feedback("#Reeborg-shouts",
@@ -286,7 +289,11 @@ RUR.runner.simplify_python_traceback = function(e) {
         }
     } else {
         message = e.reeborg_shouts;
-        error_name = "ReeborgError";
+        if (e.__name__ == undefined) {
+            error_name = "ReeborgError";
+        } else {
+            error_name = e.__name__;
+        }
     }
     return {message:message, other_info:other_info, error_name:error_name};
 };

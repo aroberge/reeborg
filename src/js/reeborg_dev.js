@@ -14,6 +14,14 @@ RUR.ReeborgError = function (message) {
     this.message = message;
 };
 
+RUR.WallCollisionError = function (message) {
+    if (RUR.programming_language == "python"){
+        return WallCollisionError(message);
+    }
+    this.name = "WallCollisionError";
+    this.message = message;
+};
+
 RUR.translate = function (s) {
     if (RUR.translation[s] !== undefined) {
         return RUR.translation[s];
@@ -446,7 +454,7 @@ RUR.control.move = function (robot) {
         wall_beyond, x_beyond, y_beyond;
 
     if (RUR.control.wall_in_front(robot)) {
-        throw new RUR.ReeborgError(RUR.translate("Ouch! I hit a wall!"));
+        throw new RUR.WallCollisionError(RUR.translate("Ouch! I hit a wall!"));
     }
 
     robot._prev_x = robot.x;
@@ -725,7 +733,7 @@ RUR.control.is_wall_at = function (coords, orientation) {
 RUR.control.build_wall = function (robot){
     var coords, orientation, x, y, walls;
     if (RUR.control.wall_in_front(robot)){
-        throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
+        throw new RUR.WallCollisionError(RUR.translate("There is already a wall here!"));
     }
 
     switch (robot.orientation){
@@ -3186,9 +3194,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             RUR.runner.eval_javascript(src);
         } else if (RUR.programming_language === "python") {
             RUR.runner.eval_python(src);
-            // if (RUR.__python_error) {
-            //     throw RUR.__python_error;
-            // }
         } else if (RUR.programming_language === "coffee") {
             RUR.runner.eval_coffee(src);
         } else {
@@ -3204,15 +3209,18 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             message = response.message;
             other_info = response.other_info;
             error_name = response.error_name;
+            e.message = "<h3>" + error_name + "</h3><h4>" +
+                                    message + "</h4><p>" + other_info + '</p>';
         } else {
             error_name = e.name;
             message = e.message;
-        }
-
-        if (error_name === "ReeborgError"){
+            other_info = '';
             if (e.reeborg_shouts !== undefined) {
                 e.message = e.reeborg_shouts;
             }
+        }
+
+        if (error_name === "ReeborgError"  || error_name === "WallCollisionError"){
             RUR.rec.record_frame("error", e);
         } else {
             RUR.cd.show_feedback("#Reeborg-shouts",
@@ -3321,7 +3329,11 @@ RUR.runner.simplify_python_traceback = function(e) {
         }
     } else {
         message = e.reeborg_shouts;
-        error_name = "ReeborgError";
+        if (e.__name__ == undefined) {
+            error_name = "ReeborgError";
+        } else {
+            error_name = e.__name__;
+        }
     }
     return {message:message, other_info:other_info, error_name:error_name};
 };

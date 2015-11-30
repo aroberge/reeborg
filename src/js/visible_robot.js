@@ -229,7 +229,7 @@ RUR.vis_robot.set_trace_style = function (choice, robot){
         RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
         RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
         RUR.vis_robot.trace_thickness = 4;
-    } else if (choice === "none") {
+    } else if (choice === "invisible") {
         RUR.vis_robot.trace_color = "rgba(0,0,0,0)";
     } else if (choice === "default") {
         RUR.vis_robot.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
