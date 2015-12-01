@@ -250,12 +250,7 @@ RUR.runner.simplify_python_traceback = function(e) {
     "use strict";
     var message, error_name, other_info, diagnostic;
     other_info = '';
-    if (e.reeborg_shouts === undefined) {  // src/brython/Lib/site-packages/reeborg_common.py
-        if (RUR._automatic_highlight_off) {
-            RUR._automatic_highlight_off = false;
-            $("#highlight-impossible").hide();
-            RUR.ui.highlight(); // turn it back on - we found another problem.
-        }
+    if (e.reeborg_shouts === undefined) {
         message = e.$message;
         error_name = e.__name__;
         diagnostic = '';

@@ -137,9 +137,6 @@ RUR.ui.load_user_worlds = function (initial) {
 RUR.ui.highlight = function () {
     if (RUR._highlight) {
         RUR._highlight = false;
-        if (arg){
-            RUR._automatic_highlight_off = true;
-        }
         $("#not-ok-image").show();
         $("#ok-image").hide();
     } else {
