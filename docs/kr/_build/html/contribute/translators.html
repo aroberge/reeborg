@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>2. Information for translators &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Contribute!" href="index.html" />
+    <link rel="next" title="3. Information for artists" href="artists.html" />
+    <link rel="prev" title="1. World contributed by users" href="contributed.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="artists.html" title="3. Information for artists"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="contributed.html" title="1. World contributed by users"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Contribute!</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="contributed.html"
+                        title="previous chapter">1. World contributed by users</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="artists.html"
+                        title="next chapter">3. Information for artists</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/contribute/translators.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/contribute/translators.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="information-for-translators">
+<h1>2. Information for translators<a class="headerlink" href="#information-for-translators" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Currently, the English development is currently taking place with a different
+html document than the one referred to here.</p>
+</div>
+<div class="figure align-right" id="id1" style="width: 30%">
+<img alt="../_images/korean.png" src="../_images/korean.png" />
+<p class="caption"><span class="caption-text"><em>Samsung Korea has produced books and distributed them for free to students
+using RUR-PLE (the desktop program, precursor
+to Reeborg&#8217;s World) in South Korea as a means to teach them
+about &#8220;computational thinking&#8221;.</em></span></p>
+</div>
+<p>There are 5 different possible translations tasks into a different (human)
+language.  Before you start on any translation, you should get in touch with me
+to ensure that your work is not being duplicated.</p>
+<p>1. Use the current English (or French) version of the website
+but enhanced by having available robot commands in language X.</p>
+<p>For example, if you go to <a class="reference external" href="http://reeborg.ca/world.html">http://reeborg.ca/world.html</a>,
+you can type and run the following program:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">reeborg_fr</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">move</span><span class="p">()</span>
+<span class="n">avance</span><span class="p">()</span>   <span class="c"># French equivalent</span>
+</pre></div>
+</div>
+<p>For this level of tranlsation, all that is needed is a <code class="docutils literal"><span class="pre">reeborg_xx.py</span></code> file,
+where <code class="docutils literal"><span class="pre">xx</span></code> is the standard two-letter code for a given language.</p>
+<p>Before starting this work, you might want to see if Reeborg&#8217;s World (i.e. Brython)
+support the character set used by your language: Brython&#8217;s unicode support
+is not as complete as that of the standard Python distribution, nor as
+complete as Javascript itself.  One way to verify, is to define
+a function into your own language.  For example, I chose not to use
+accented letters in French when writing instructions.  However, Brython would
+allow me to do the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>def tourne_à_droite():       # notice the accent on à
+    for i in range(3):
+        tourne_a_gauche()
+</pre></div>
+</div>
+<p>If you go to <a class="reference external" href="https://github.com/aroberge/reeborg/tree/master/src/libraries/brython/Lib/site-packages">https://github.com/aroberge/reeborg/tree/master/src/libraries/brython/Lib/site-packages</a>
+you will see three such language files
+(one for English, one for French, and the third, incomplete and most likely buggy one for Spanish).
+You can use either the English or the French one as a model.</p>
+<p>2. Translate the English messages provided by Reeborg.
+There are two examples of such files
+(translation_en.js and translation_fr.js) located here at
+<a class="reference external" href="https://github.com/aroberge/reeborg/tree/master/src/lang">https://github.com/aroberge/reeborg/tree/master/src/lang</a>.</p>
+<div class="figure align-left" style="width: 30%">
+<img alt="../_images/korean2.png" src="../_images/korean2.png" />
+</div>
+<p>3. Do the equivalent to 1 above, but for Javascript instead of Python;
+these files (reeborg_en.js and reeborg_fr.js) are also located in
+<a class="reference external" href="https://github.com/aroberge/reeborg/tree/master/src/lang">https://github.com/aroberge/reeborg/tree/master/src/lang</a>.</p>
+<p>4. Have a special world page with interface in a different language.
+These are html files located in <a class="reference external" href="https://github.com/aroberge/reeborg">https://github.com/aroberge/reeborg</a>
+The English version is world.html and the French version is monde.html</p>
+<p>5. Translate the current
+documentation.</p>
+<p>6. Create a new default world menu and possibly translate/adapt
+the existing worlds.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="artists.html" title="3. Information for artists"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="contributed.html" title="1. World contributed by users"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Contribute!</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Reeborg’s World Reference &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="next" title="1. Quick tour of Reeborg’s World" href="tour.html" />
+    <link rel="prev" title="Programming exercises" href="../exercises/index.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="tour.html" title="1. Quick tour of Reeborg’s World"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="../exercises/index.html" title="Programming exercises"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../exercises/index.html"
+                        title="previous chapter">Programming exercises</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tour.html"
+                        title="next chapter">1. Quick tour of Reeborg&#8217;s World</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/reference/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/reference/index.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="reeborg-s-world-reference">
+<h1>Reeborg&#8217;s World Reference<a class="headerlink" href="#reeborg-s-world-reference" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tour.html">1. Quick tour of Reeborg&#8217;s World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tour.html#running-programs">1.1. Running programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tour.html#receiving-feedback">1.2. Receiving feedback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tour.html#creating-new-worlds-and-tasks">1.3. Creating new worlds and tasks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">2. Basic commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#movement">2.1. Movement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#move">2.1.1. <code class="docutils literal"><span class="pre">move()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#turn-left">2.1.2. <code class="docutils literal"><span class="pre">turn_left()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#handling-objects">2.2. Handling objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#take">2.2.1. <code class="docutils literal"><span class="pre">take()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#put">2.2.2. <code class="docutils literal"><span class="pre">put()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#getting-information-about-the-world-around">2.3. Getting information about the world around</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#is-facing-north">2.3.1. <code class="docutils literal"><span class="pre">is_facing_north()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#at-goal">2.3.2. <code class="docutils literal"><span class="pre">at_goal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#front-is-clear">2.3.3. <code class="docutils literal"><span class="pre">front_is_clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#right-is-clear">2.3.4. <code class="docutils literal"><span class="pre">right_is_clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#object-here">2.3.5. <code class="docutils literal"><span class="pre">object_here()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#carries-object">2.3.6. <code class="docutils literal"><span class="pre">carries_object()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#interruptions">2.4. Interruptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#pause">2.4.1. <code class="docutils literal"><span class="pre">pause()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#done">2.4.2. <code class="docutils literal"><span class="pre">done()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#think">2.4.3. <code class="docutils literal"><span class="pre">think()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#changing-the-world">2.5. Changing the world</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands.html#build-wall">2.5.1. <code class="docutils literal"><span class="pre">build_wall()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3. Objects, background images, etc.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#basic-objects">3.1. Basic objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#background-tiles">3.2. Background tiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#special-objects">3.3. Special objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#goals">3.4. Goals</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sokoban.html">4. Sokoban</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sokoban.html#sokoban-and-reeborg-s-world">4.1. Sokoban and Reeborg&#8217;s World</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sokoban.html#more-challenges">4.2. More challenges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sokoban.html#why-sokoban">4.3. Why sokoban?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sokoban.html#sokoban-for-advanced-students">4.4. Sokoban for advanced students</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="worlds.html">5. Custom worlds: making them available</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="worlds.html#default-worlds">5.1. Default worlds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="worlds.html#creating-worlds">5.2. Creating worlds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="worlds.html#using-permalinks">5.3. Using Permalinks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="worlds.html#using-the-world-function">5.4. Using the <code class="docutils literal"><span class="pre">World()</span></code> function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="worlds.html#creating-custom-menus">5.5. Creating custom menus</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">6. Advanced features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#simple-task">6.1. Simple task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#different-traces-style">6.2. Different traces: style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#different-traces-color">6.3. Different traces: color</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#different-robot-models">6.4. Different robot models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#random-worlds">6.5. Random worlds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#adding-code-to-be-run-in-addition-to-user-s-program">6.6. Adding code to be run in addition to user&#8217;s program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#replacing-the-default-robot">6.7. Replacing the default robot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#enhanced-goals">6.8. Enhanced goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#actual-code-for-verify">6.8.1. Actual code for <code class="docutils literal"><span class="pre">verify()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#actual-code-for-confirmer">6.8.2. Actual code for <code class="docutils literal"><span class="pre">confirmer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#easy-collaboration-with-togetherjs">6.9. Easy collaboration with TogetherJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#stepping-back-and-forth-through-program-execution">6.10. Stepping back and forth through program execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#easy-support-for-multiple-human-languages">6.11. Easy support for multiple human languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#using-python-s-standard-library">6.12. Using Python&#8217;s standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#possibility-to-write-programs-using-different-languages">6.13. Possibility to write programs using different languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#embedding-in-an-iframe">6.14. Embedding in an iframe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#possibility-to-integrate-within-a-learning-management-system">6.15. Possibility to integrate within a Learning Management System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#changing-the-user-interface">6.16. Changing the User Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="weakness.html">7. Current weaknesses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="weakness.html#inadequate-support-for-input">7.1. Inadequate support for input()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="weakness.html#occasional-problems-with-code-highlighting">7.2. Occasional problems with code highlighting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="weakness.html#no-gamification">7.3. No gamification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="weakness.html#not-trivially-easy-to-create-a-copy-on-a-school-s-website">7.4. Not trivially easy to create a copy on a school&#8217;s website</a></li>
+<li class="toctree-l2"><a class="reference internal" href="weakness.html#feedback-for-programming-errors-could-be-improved">7.5. Feedback for programming errors could be improved</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="comparison.html">8. Comparison with other implementations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="comparison.html#first-reeborg-s-world">8.1. First, Reeborg&#8217;s World</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison.html#karel-the-robot">8.2. Karel the robot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison.html#karel">8.3. Karel++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison.html#monty-karel">8.4. Monty Karel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison.html#karel-j-robot">8.5. Karel J. Robot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison.html#guido-van-robot">8.6. Guido van Robot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison.html#code-combat">8.7. Code Combat</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">9. Graphical canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mazes.html">10. Mazes</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="tour.html" title="1. Quick tour of Reeborg’s World"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="../exercises/index.html" title="Programming exercises"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

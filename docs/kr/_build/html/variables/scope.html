@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>7. Scope: local vs global &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Variables" href="index.html" />
+    <link rel="next" title="8. Comparison operators" href="comparison.html" />
+    <link rel="prev" title="6. Increment" href="increment.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="comparison.html" title="8. Comparison operators"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="increment.html" title="6. Increment"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Variables</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">7. Scope: local vs global</a><ul>
+<li><a class="reference internal" href="#the-need-for-scope">7.1. The need for scope</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="increment.html"
+                        title="previous chapter">6. Increment</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="comparison.html"
+                        title="next chapter">8. Comparison operators</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/variables/scope.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/variables/scope.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="scope-local-vs-global">
+<h1>7. Scope: local vs global<a class="headerlink" href="#scope-local-vs-global" title="Permalink to this headline">¶</a></h1>
+<p>First, a friendly reminder:</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<dl class="last docutils">
+<dt>Rule # 1</dt>
+<dd>Learning about computer programming is like learning to play
+a musical instrument: you have to <strong>do it</strong>, not simply read
+about it.</dd>
+</dl>
+</div>
+<p>Now that I have your attention, it is important that you try these
+on your own before reading further.</p>
+<div class="topic">
+<p class="topic-title first">Run these programs</p>
+<p>First run the following:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="c"># First program</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;inside test: &quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="n">test</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then, this one:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="c"># Second program</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;inside test&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="n">test</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&quot;after test&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And another one:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="c"># Third program</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;inside test&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">test</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&quot;after test&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And yet one more:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="c"># Fourth program</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">a</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;inside test&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">test</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&quot;after test&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>What is going on? ...</p>
+<div class="section" id="the-need-for-scope">
+<h2>7.1. The need for scope<a class="headerlink" href="#the-need-for-scope" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="index-0"></span><p id="index-1">As I am writing this, the main program file that powers Reeborg&#8217;s World,
+<a class="reference external" href="https://github.com/aroberge/reeborg/blob/master/src/js/reeborg_dev.js">https://github.com/aroberge/reeborg/blob/master/src/js/reeborg_dev.js</a>,
+contains approximately 6000 lines of code: this is likely quite a bit more
+than the programs you have written so far!  People working in collaboration
+will write programs that contains hundreds of thousands if not millions
+lines of code.  As you can imagine, it is impossible to find meaningful
+names for variables that would have a unique meaning throughout
+entire programs.  Suppose you and I collaborate to write a really, really
+long program.  If I define the variable <code class="docutils literal"><span class="pre">length</span></code> to be <code class="docutils literal"><span class="pre">32</span></code> and
+you define a variable with the same name elsewhere and give it the value <code class="docutils literal"><span class="pre">45</span></code>,
+we could have a problem when using this variable.</p>
+<p>Python, and most other programming languages, has a solution for this problem:
+variables that are defined within a function, are known only within this function.
+Thus, if you write a function and use a variable named <code class="docutils literal"><span class="pre">length</span></code> and
+I write another function and also use a variable named <code class="docutils literal"><span class="pre">length</span></code>, these
+will be treated as being different variables by Python.</p>
+<p>We say that these variables are <strong>local</strong> to the function, or that
+they have a <strong>local scope</strong>.</p>
+<p>Let&#8217;s look back at the first program above.  We define a variable named
+<code class="docutils literal"><span class="pre">a</span></code> inside a function <code class="docutils literal"><span class="pre">test()</span></code>.  This variable is considered to be
+<strong>local</strong> to that function; giving it a value does not affect the value
+of the variable <code class="docutils literal"><span class="pre">a</span></code> <strong>outside</strong> that function: the two variables are
+considered to be different.</p>
+<p>In the second program, we do <strong>not</strong> define a variable <code class="docutils literal"><span class="pre">a</span></code> inside
+the function <code class="docutils literal"><span class="pre">test()</span></code>; that is, we do not have a line like:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">something</span>
+</pre></div>
+</div>
+<p>inside that function.   When we <code class="docutils literal"><span class="pre">print</span></code> the value of the variable,
+Python recognizes that it is a variable likely defined outside the
+function (known as the <strong>global</strong> scope in Python), looks up in this
+global scope, finds a variable with that name, and uses it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Believe it or not, the description here is a simplification.
+There is another Python keyword, <code class="docutils literal"><span class="pre">nonlocal</span></code>, that refers to
+some intermediate scope between <strong>local</strong> and <strong>global</strong>.
+However, you will not need to use it for any of the programs
+in Reeborg&#8217;s World.</p>
+</div>
+<p>In the third program, Python finds that there is a variable <code class="docutils literal"><span class="pre">a</span></code> local
+to the function (which means it is defined inside the function) since there
+is a line:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">something</span>   <span class="c"># with something equal to 3 here...</span>
+</pre></div>
+</div>
+<p>So, Python determines that, inside the function, <code class="docutils literal"><span class="pre">a</span></code> always refer
+to the <strong>local</strong> variable.  Since we attempt to print its value
+before we assign it, Python tells us it cannot do this.</p>
+<p>Finally, in the fourth program, we have added the line:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">global</span> <span class="n">a</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">global</span></code> is a Python keyword that tells Python that the variable
+<code class="docutils literal"><span class="pre">a</span></code> is the one defined outside the function  (in the <em>global</em> scope).
+So, it already has a known value when the line:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;inside test&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is executed.  The following line, <code class="docutils literal"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">3</span></code>, changes the value of
+<code class="docutils literal"><span class="pre">a</span></code> so that, after executing <code class="docutils literal"><span class="pre">test()</span></code>, <code class="docutils literal"><span class="pre">a</span></code> has this new value.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p>Many people find the concept of <strong>scope</strong> confusing the first time
+they see it.  You may want to run the 4 programs again (and again!)
+and read the explanation a few times.</p>
+<p class="last">Then, even if it is not entirely clear, you can safely move on
+to the next section.  As you write more programs, the concept of
+scope will become more familiar.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="comparison.html" title="8. Comparison operators"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="increment.html" title="6. Increment"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Variables</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

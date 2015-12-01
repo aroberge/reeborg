@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>4. Counting on recursion &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Recursion" href="index.html" />
+    <link rel="next" title="Variables" href="../variables/index.html" />
+    <link rel="prev" title="3. More recursion" href="recursion3.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="../variables/index.html" title="Variables"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="recursion3.html" title="3. More recursion"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Recursion</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="recursion3.html"
+                        title="previous chapter">3. More recursion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../variables/index.html"
+                        title="next chapter">Variables</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/recursion/recursion4.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/recursion/recursion4.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="counting-on-recursion">
+<h1>4. Counting on recursion<a class="headerlink" href="#counting-on-recursion" title="Permalink to this headline">¶</a></h1>
+<p>Reeborg knows how to count ... but we have not seen that yet and will
+not for a while. If you know some Python other than what you&#8217;ve
+learned here, you might already know how to make Reeborg count using
+numerical variables; however, I ask you to not use those in what
+follows.</p>
+<p>Select world <strong>Tokens&nbsp;5</strong>. Where Reeborg stands, a single token can be
+found. You know how to make Reeborg take the token and move to the next
+square. I ask you to do this and have Reeborg repeat these two steps
+until he finds itself on a square where no token is to be found. Then,
+Reeborg must drop all the tokens collected on that square and move to
+the next square.</p>
+<p>The exact same program must work with world <strong>Tokens&nbsp;6</strong>, which has a
+different number of tokens - so you can not use <code class="docutils literal"><span class="pre">repeat</span></code> as you
+don&#8217;t have a fixed number of repetitions.</p>
+<p>Reeborg starts with an infinite number of tokens in his pockets: so you
+can not use <code class="docutils literal"><span class="pre">carries_object()</span></code> to figure out when to stop dropping tokens
+on the one spot.</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<p>Use recursion to write a solution to this problem. An outline
+of a solution can be found below:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">collect</span><span class="p">():</span>
+    <span class="c"># something</span>
+    <span class="c"># something</span>
+    <span class="k">if</span> <span class="n">some_condition</span><span class="p">:</span>
+        <span class="c"># something</span>
+    <span class="c"># something</span>
+
+<span class="n">collect</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title first">Recursive challenges</p>
+<p>Review all of the previous challenges and try writing new solutions using
+recursion instead of <code class="docutils literal"><span class="pre">while</span></code> loops.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="../variables/index.html" title="Variables"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="recursion3.html" title="3. More recursion"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Recursion</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>
