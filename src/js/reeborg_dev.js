@@ -3332,6 +3332,7 @@ RUR.runner.simplify_python_traceback = function(e) {
                 }
                 break;
             case "Internal Javascript error: SyntaxError":
+            case "Internal Javascript error: TypeError":
                 error_name = "Invalid Python Code";
                 message = '';
                 other_info = RUR.translate("I cannot help you with this problem.");
