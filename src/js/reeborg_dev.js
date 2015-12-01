@@ -1918,7 +1918,8 @@ RUR.file_io.load_world_file = function (url, shortname) {
             }
         });
     }
-};/* Author: André Roberge
+};
+/* Author: André Roberge
    License: MIT
  */
 
@@ -3813,7 +3814,8 @@ RUR.ui.toggle_panel = function (button, element) {
     button.toggleClass("blue-gradient");
     button.toggleClass("reverse-blue-gradient");
     element.toggleClass("active");
-};/* Author: André Roberge
+};
+/* Author: André Roberge
    License: MIT  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
