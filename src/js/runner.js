@@ -192,7 +192,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             }
         }
 
-        if (error_name === "ReeborgError"  || error_name === "WallCollisionError"){
+        if (e.reeborg_shouts !== undefined){
             RUR.rec.record_frame("error", e);
         } else {
             RUR.cd.show_feedback("#Reeborg-shouts",
