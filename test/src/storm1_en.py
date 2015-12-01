@@ -8,7 +8,8 @@ turn_left()
 turn_left()
 while not wall_in_front():
     move()
-repeat(turn_left, 3)
+repeat 3:
+    turn_left()
 move()
 while carries_object("leaf"):
     put("leaf")

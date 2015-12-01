@@ -41,7 +41,7 @@ QUnit.module("Testing framework self-consistency", {
   }
 });
 QUnit.test("Load world", function(assert) {
-    var url = "../../src/worlds/alone.json";
+    var url = "/src/worlds/alone.json";
     var world_alone = {
         robots: [
                 {
@@ -67,18 +67,18 @@ QUnit.test("Load world", function(assert) {
 
 QUnit.module(" runner.js : Javascript programs");
 QUnit.test("Centre 1", function(assert) {
-    var world_url = "../../src/worlds/tutorial_en/center1.json";
-    ok(RUR.unit_tests.eval_javascript(world_url, "src/test_center1_fr.js").success, "Centre1 run successfully.");
-    notOk(RUR.unit_tests.eval_javascript(world_url, "src/test_center1_fail_fr.js").success, "Failing program recognized as such.");
-    notOk(RUR.unit_tests.eval_javascript(world_url, "src/test_syntax_fail_fr.js").success, "Failing program (syntax error) recognized as such.");
+    var world_url = "/src/worlds/tutorial_en/center1.json";
+    ok(RUR.unit_tests.eval_javascript(world_url, "/test/src/test_center1_fr.js").success, "Centre1 run successfully.");
+    notOk(RUR.unit_tests.eval_javascript(world_url, "/test/src/test_center1_fail_fr.js").success, "Failing program recognized as such.");
+    notOk(RUR.unit_tests.eval_javascript(world_url, "/test/src/test_syntax_fail_fr.js").success, "Failing program (syntax error) recognized as such.");
 });
 
 
 QUnit.module("Failing Python programs");
 QUnit.test("Centre 1", function(assert) {
-    var world_url = "../../src/worlds/tutorial_en/center1.json";
-    notOk(RUR.unit_tests.eval_python(world_url, "src/test_center1_fail_fr.py").success, "Failing program recognized as such.");
-    notOk(RUR.unit_tests.eval_python(world_url, "src/test_syntax_fail_fr.py").success, "Failing program (syntax error) recognized as such.");
+    var world_url = "/src/worlds/tutorial_en/center1.json";
+    notOk(RUR.unit_tests.eval_python(world_url, "/test/src/test_center1_fail_fr.py").success, "Failing program recognized as such.");
+    notOk(RUR.unit_tests.eval_python(world_url, "/test/src/test_syntax_fail_fr.py").success, "Failing program (syntax error) recognized as such.");
 });
 
 
@@ -88,9 +88,9 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
 
-    base_url = "../../src/worlds/tutorial_en/";
+    base_url = "/src/worlds/tutorial_en/";
     world_file = "around1.json";
-    frames = RUR.unit_tests.run_python(base_url + world_file, "src/around_fr.py");
+    frames = RUR.unit_tests.run_python(base_url + world_file, "/test/src/around_fr.py");
     equal(frames.length, 40, "Nb of frames for solution for world " + world_file);
     last_frame = frames[frames.length-1];
     equal(last_frame.world.robots[0].x, 1, "x-position of robot.");
@@ -104,7 +104,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
         "Feedback text ok.");
 
     world_file = "around2.json";
-    frames = RUR.unit_tests.run_python(base_url + world_file, "src/around_fr.py");
+    frames = RUR.unit_tests.run_python(base_url + world_file, "/test/src/around_fr.py");
     equal(frames.length, 44, "Nb of frames for solution for world " + world_file);
     last_frame = frames[frames.length-1];
     equal(last_frame.world.robots[0].x, 1, "x-position of robot.");
@@ -139,9 +139,9 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
 
 QUnit.test("Center 1, 2, 3", function(assert) {
     var base_url, i, world_files;
-    base_url = "../../src/worlds/tutorial_en/";
+    base_url = "/src/worlds/tutorial_en/";
     world_files = ["center1.json", "center2.json", "center3.json"];
-    RUR.unit_tests.load_program("src/center_fr.py");
+    RUR.unit_tests.load_program("/test/src/center_fr.py");
     for (i in world_files) {
         ok(RUR.unit_tests.eval_python(base_url + world_files[i]).success,
                                       world_files[i] + " run successfully.");
@@ -156,9 +156,9 @@ QUnit.test("Center 1, 2, 3", function(assert) {
 
 QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     var base_url, i, world_files;
-    base_url = "../../src/worlds/tutorial_en/";
+    base_url = "/src/worlds/tutorial_en/";
     world_files = ["hurdle1.json", "hurdle2.json", "hurdle3.json", "hurdle4.json"];
-    RUR.unit_tests.load_program("src/hurdle_fr.py");
+    RUR.unit_tests.load_program("/test/src/hurdle_fr.py");
     for (i in world_files) {
         ok(RUR.unit_tests.eval_python(base_url + world_files[i]).success,
                                       world_files[i] + " run successfully.");
@@ -172,11 +172,11 @@ QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
 
 QUnit.test("Maze 1, 2", function(assert) {
     var base_url, i, world_files;
-    base_url = "../../src/worlds/tutorial_en/";
+    base_url = "/src/worlds/tutorial_en/";
     world_files = ["maze1.json", "maze2.json"];
 
     // The general program for the hurdles works for the maze world!
-    RUR.unit_tests.load_program("src/hurdle_fr.py");
+    RUR.unit_tests.load_program("/test/src/hurdle_fr.py");
     //**************************************************
     for (i in world_files) {
         ok(RUR.unit_tests.eval_python(base_url + world_files[i]).success,
@@ -192,9 +192,9 @@ QUnit.test("Maze 1, 2", function(assert) {
 
 QUnit.test("Home 1, 2, 3", function(assert) {
     var base_url, i, world_files;
-    base_url = "../../src/worlds/tutorial_en/";
+    base_url = "/src/worlds/tutorial_en/";
     world_files = ["home1.json", "home2.json", "home3.json"];
-    RUR.unit_tests.load_program("src/home_fr.py");
+    RUR.unit_tests.load_program("/test/src/home_fr.py");
     for (i in world_files) {
         ok(RUR.unit_tests.eval_python(base_url + world_files[i]).success,
                                       world_files[i] + " run successfully.");
@@ -210,10 +210,10 @@ QUnit.test("Home 1, 2, 3", function(assert) {
 QUnit.test("Harvests", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
-    base_url = "../../src/worlds/tutorial_en/";
+    base_url = "/src/worlds/tutorial_en/";
 
     world_file = "harvest1.json";
-    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/harvest1_fr.py").success,
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "/test/src/harvest1_fr.py").success,
                                       world_file + " run successfully.");
 
     last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
@@ -226,15 +226,15 @@ QUnit.test("Harvests", function(assert) {
         "Feedback text ok.");
 
     world_file = "harvest2.json";
-    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/harvest2_fr.py").success,
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "/test/src/harvest2_fr.py").success,
                                       world_file + " run successfully.");
 
     world_file = "harvest3.json";
-    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/harvest3_fr.py").success,
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "/test/src/harvest3_fr.py").success,
                                       world_file + " run successfully.");
 
     world_file = "harvest4a.json";
-    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/harvest4_fr.py").success,
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "/test/src/harvest4_fr.py").success,
                                       world_file + " run successfully.");
     // reuse same program
     world_file = "harvest4b.json";
@@ -252,10 +252,10 @@ QUnit.test("Harvests", function(assert) {
 QUnit.test("Tokens", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
-    base_url = "../../src/worlds/tutorial_en/";
+    base_url = "/src/worlds/tutorial_en/";
 
     world_file = "tokens1.json";
-    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/tokens1234_fr.py").success,
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "/test/src/tokens1234_fr.py").success,
                                       world_file + " run successfully.");
     // Note: the program tokens1234_fr.py also test some translation
 
@@ -280,7 +280,7 @@ QUnit.test("Tokens", function(assert) {
                                       world_file + " run successfully.");
 
     world_file = "tokens5.json";
-    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/tokens56_fr.py").success,
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "/test/src/tokens56_fr.py").success,
                                       world_file + " run successfully.");
     world_file = "tokens6.json";
     ok(RUR.unit_tests.eval_python(base_url + world_file).success,
@@ -291,10 +291,10 @@ QUnit.test("Tokens", function(assert) {
 QUnit.test("Rain", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
-    base_url = "../../src/worlds/tutorial_en/";
+    base_url = "/src/worlds/tutorial_en/";
 
     world_file = "rain1.json";
-    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/rain_fr.py").success,
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "/test/src/rain_fr.py").success,
                                       world_file + " run successfully.");
 
     RUR.rec.conclude();
@@ -314,15 +314,15 @@ QUnit.test("Rain", function(assert) {
 QUnit.test("Newspaper", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
-    base_url = "../../src/worlds/tutorial_en/";
+    base_url = "/src/worlds/tutorial_en/";
 
     world_file = "newspaper0.json";
-    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/newspaper0_fr.py").success,
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "/test/src/newspaper0_fr.py").success,
                                       world_file + " run successfully.");
 
 
     world_file = "newspaper1.json";
-    ok(RUR.unit_tests.eval_python(base_url + world_file, "src/newspaper_fr.py").success,
+    ok(RUR.unit_tests.eval_python(base_url + world_file, "/test/src/newspaper_fr.py").success,
                                       world_file + " run successfully.");
 
     last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
@@ -345,13 +345,13 @@ QUnit.test("Newspaper", function(assert) {
 QUnit.test("Storm 1, 2, 3; also tests library", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
-    base_url = "../../src/worlds/tutorial_en/";
+    base_url = "/src/worlds/tutorial_en/";
 
     world_file = "storm1.json";
 
     // Need to use run_python instead of eval_python to have initially
     // random values set.
-    frames = RUR.unit_tests.run_python(base_url + world_file, "src/storm1_fr.py");
+    frames = RUR.unit_tests.run_python(base_url + world_file, "/test/src/storm1_fr.py");
     last_frame = frames[frames.length-1];
     deepEqual(last_frame.world.robots[0].objects, {}, "Testing storm1: no objects carried.");
     RUR.rec.conclude();
@@ -365,14 +365,14 @@ QUnit.test("Storm 1, 2, 3; also tests library", function(assert) {
 
 
     // loading library indirectly
-    RUR.unit_tests.load_program("src/storm_library_fr.py");
+    RUR.unit_tests.load_program("/test/src/storm_library_fr.py");
     RUR.unit_tests.library = RUR.unit_tests.program;
 
     world_file = "storm2.json";
 
     // Need to use run_python instead of eval_python to have initially
     // random values set.
-    frames = RUR.unit_tests.run_python(base_url + world_file, "src/storm2_fr.py");
+    frames = RUR.unit_tests.run_python(base_url + world_file, "/test/src/storm2_fr.py");
     last_frame = frames[frames.length-1];
     deepEqual(last_frame.world.robots[0].objects, {}, "Testing storm2: no objects carried.");
     RUR.rec.conclude();
@@ -389,7 +389,7 @@ QUnit.test("Storm 1, 2, 3; also tests library", function(assert) {
 
     // Need to use run_python instead of eval_python to have initially
     // random values set.
-    frames = RUR.unit_tests.run_python(base_url + world_file, "src/storm3_fr.py");
+    frames = RUR.unit_tests.run_python(base_url + world_file, "/test/src/storm3_fr.py");
     last_frame = frames[frames.length-1];
     deepEqual(last_frame.world.robots[0].objects, {}, "Testing storm3: no objects carried.");
     RUR.rec.conclude();

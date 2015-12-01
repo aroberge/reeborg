@@ -1,4 +1,6 @@
 ﻿def turn_right():
-    repeat(turn_left, 3)
+    repeat 3:
+        turn_left()
 def turn_around():
-    repeat(turn_left, 2)
+    repeat 2:
+        turn_left()

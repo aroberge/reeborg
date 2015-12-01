@@ -3,6 +3,7 @@ RUR.unit_tests = {};
 RUR.unit_tests.reset = function () {
     RUR.current_world = RUR.world.clone_world(RUR.unit_tests.empty_world);
     RUR.rec.reset();
+    RUR._highlight = false;
     RUR.ui.prevent_playback = false;
     RUR.unit_tests.feedback_element = undefined;
     RUR.unit_tests.content = undefined;

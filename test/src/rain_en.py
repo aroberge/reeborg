@@ -2,15 +2,17 @@
 think(0)
 
 def turn_around():
-    repeat(turn_left, 2)
+    repeat 2:
+        turn_left()
 
 def turn_right():
-    repeat(turn_left, 3)
+    repeat 3:
+        turn_left()
 
 def identify_window():
     assert not wall_on_right()
     move()
-    if right_is_clear():        
+    if right_is_clear():
         turn_around()
         move()
         turn_left()
@@ -22,7 +24,7 @@ def identify_window():
         build_wall()
         turn_left()
         move()
-        
+
 while not at_goal():
     move()
 turn_right()

@@ -7,7 +7,7 @@ def clear_row():
         move()
         while object_here("leaf"):
             take()
-            
+
 def go_to_next_row():
     turn_left()
     move()
@@ -27,7 +27,8 @@ turn_right()
 
 while not wall_in_front():
     move()
-repeat(turn_left, 3)
+repeat 3:
+    turn_left()
 move()
 while carries_object("leaf"):
     put("leaf")
