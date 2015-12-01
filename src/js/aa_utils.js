@@ -176,7 +176,7 @@ RUR.reset_programming_language = function(choice){
     }
 };
 
-RUR.update_permalink = function (arg) {
+RUR.update_permalink = function (arg, shortname) {
     var url_query, name;
     if (arg !== undefined) {
         url_query = parseUri(arg);
@@ -190,7 +190,11 @@ RUR.update_permalink = function (arg) {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        RUR.storage.save_world(RUR.translate("PERMALINK"));
+        if (shortname != undefined) {
+            RUR.storage.save_world(shortname);
+        } else {
+            RUR.storage.save_world(RUR.translate("PERMALINK"));
+        }
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
     }
 
@@ -222,13 +226,13 @@ $.ajaxPrefilter( function (options) {
   }
 });
 
-RUR.load_permalink = function (filename) {
+RUR.load_permalink = function (filename, shortname) {
     "use strict";
     var url;
     if (filename.substring(0,4).toLowerCase() == "http") {
         url = filename;
     } else {
-        url = "src/worlds/permalinks/" + filename;
+        url = "/src/worlds/permalinks/" + filename;
     }
     $.ajax({url: url,
         async: false,
@@ -237,7 +241,7 @@ RUR.load_permalink = function (filename) {
             RUR.ui.stop();
         },
         success: function(data){
-            RUR.update_permalink(data);
+            RUR.update_permalink(data, shortname);
             RUR.ui.reload();
         }
     }, "text");

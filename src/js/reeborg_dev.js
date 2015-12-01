@@ -176,7 +176,7 @@ RUR.reset_programming_language = function(choice){
     }
 };
 
-RUR.update_permalink = function (arg) {
+RUR.update_permalink = function (arg, shortname) {
     var url_query, name;
     if (arg !== undefined) {
         url_query = parseUri(arg);
@@ -190,7 +190,11 @@ RUR.update_permalink = function (arg) {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        RUR.storage.save_world(RUR.translate("PERMALINK"));
+        if (shortname != undefined) {
+            RUR.storage.save_world(shortname);
+        } else {
+            RUR.storage.save_world(RUR.translate("PERMALINK"));
+        }
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
     }
 
@@ -222,13 +226,13 @@ $.ajaxPrefilter( function (options) {
   }
 });
 
-RUR.load_permalink = function (filename) {
+RUR.load_permalink = function (filename, shortname) {
     "use strict";
     var url;
     if (filename.substring(0,4).toLowerCase() == "http") {
         url = filename;
     } else {
-        url = "src/worlds/permalinks/" + filename;
+        url = "/src/worlds/permalinks/" + filename;
     }
     $.ajax({url: url,
         async: false,
@@ -237,7 +241,7 @@ RUR.load_permalink = function (filename) {
             RUR.ui.stop();
         },
         success: function(data){
-            RUR.update_permalink(data);
+            RUR.update_permalink(data, shortname);
             RUR.ui.reload();
         }
     }, "text");
@@ -1375,11 +1379,11 @@ RUR.make_default_menu = function(language) {
 RUR.make_default_menu_en = function () {
     "use strict";
     var contents,
-        tutorial_en = 'src/worlds/tutorial_en/',
-        menus = 'src/worlds/menus/',
-        worlds = 'src/worlds/',
-        docs = 'src/worlds/documentation/',
-        permalinks = 'src/worlds/permalinks/';
+        tutorial_en = '/src/worlds/tutorial_en/',
+        menus = '/src/worlds/menus/',
+        worlds = '/src/worlds/',
+        docs = '/src/worlds/documentation/',
+        permalinks = '/src/worlds/permalinks/';
 
     contents = [
         [worlds + 'alone.json', 'Alone'],
@@ -1445,16 +1449,16 @@ RUR.make_default_menu_fr = function () {
     "use strict";
     var base_url, base_url2, contents, menus, worlds;
 
-    base_url = 'src/worlds/tutorial_en/';
-    base_url2 = 'src/worlds/tutorial_fr/';
+    base_url = '/src/worlds/tutorial_en/';
+    base_url2 = '/src/worlds/tutorial_fr/';
 
-    menus = 'src/worlds/menus/';
-    worlds = 'src/worlds/';
+    menus = '/src/worlds/menus/';
+    worlds = '/src/worlds/';
 
 
     contents = [
-        ['src/worlds/alone.json', 'Seul'],
-        ['src/worlds/empty.json', 'Vide'],
+        ['/src/worlds/alone.json', 'Seul'],
+        ['/src/worlds/empty.json', 'Vide'],
         [base_url2 + 'around1.json', 'Autour 1'],
         [base_url2 + 'around2.json', 'Autour 2'],
         [base_url2 + 'around3.json', 'Autour 3'],
@@ -1499,7 +1503,7 @@ RUR.make_default_menu_fr = function () {
         [worlds + 'gravel_path_fr',
                            'Sentier de gravier (solution)'],
         [worlds + 'slalom.json', 'Slalom'],
-        ['src/worlds/blank.json', 'Canevas graphique'],
+        ['/src/worlds/blank.json', 'Canevas graphique'],
     ]
 
     RUR.custom_menu.make(contents);
@@ -1858,7 +1862,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         new_world = shortname;
     }
 
-    RUR.file_io.load_world_file(url);
+    RUR.file_io.load_world_file(url, shortname);
 
     if (RUR.file_io.status !== undefined) {
         RUR.rec.frames = [];
@@ -1880,7 +1884,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     }
 };
 
-RUR.file_io.load_world_file = function (url) {
+RUR.file_io.load_world_file = function (url, shortname) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
     var data, i, selected, possible_url, new_selection=false, new_world = false;
@@ -1904,7 +1908,7 @@ RUR.file_io.load_world_file = function (url) {
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
-                    RUR.update_permalink(data);
+                    RUR.update_permalink(data, shortname);
                     RUR.ui.reload();
                 } else {
                     RUR.world.import_world(data);
@@ -1931,9 +1935,9 @@ RUR.base_url = RUR.base_url || '';  // enable changing defaults for unit tests
 
 RUR.objects.token = {};
 RUR.objects.token.image = new Image();
-RUR.objects.token.image.src = RUR.base_url + 'src/images/token.png';  // adapted from openclipart
+RUR.objects.token.image.src = RUR.base_url + '/src/images/token.png';  // adapted from openclipart
 RUR.objects.token.image_goal = new Image();
-RUR.objects.token.image_goal.src = RUR.base_url + 'src/images/token_goal.png';  // modified from above
+RUR.objects.token.image_goal.src = RUR.base_url + '/src/images/token_goal.png';  // modified from above
 RUR.objects.token.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -1949,9 +1953,9 @@ RUR.objects.known_objects.push("token");
 
 RUR.objects.star = {};
 RUR.objects.star.image = new Image();
-RUR.objects.star.image.src = RUR.base_url + 'src/images/star.png';  // adapted from openclipart
+RUR.objects.star.image.src = RUR.base_url + '/src/images/star.png';  // adapted from openclipart
 RUR.objects.star.image_goal = new Image();
-RUR.objects.star.image_goal.src = RUR.base_url + 'src/images/star_goal.png';  // modified from above
+RUR.objects.star.image_goal.src = RUR.base_url + '/src/images/star_goal.png';  // modified from above
 RUR.objects.star.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -1966,9 +1970,9 @@ RUR.objects.known_objects.push("star");
 
 RUR.objects.triangle = {};
 RUR.objects.triangle.image = new Image();
-RUR.objects.triangle.image.src = RUR.base_url + 'src/images/triangle.png';  // adapted from openclipart
+RUR.objects.triangle.image.src = RUR.base_url + '/src/images/triangle.png';  // adapted from openclipart
 RUR.objects.triangle.image_goal = new Image();
-RUR.objects.triangle.image_goal.src = RUR.base_url + 'src/images/triangle_goal.png';  // modified from above
+RUR.objects.triangle.image_goal.src = RUR.base_url + '/src/images/triangle_goal.png';  // modified from above
 RUR.objects.triangle.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -1984,9 +1988,9 @@ RUR.objects.known_objects.push("triangle");
 
 RUR.objects.square = {};
 RUR.objects.square.image = new Image();
-RUR.objects.square.image.src = RUR.base_url + 'src/images/square.png';
+RUR.objects.square.image.src = RUR.base_url + '/src/images/square.png';
 RUR.objects.square.image_goal = new Image();
-RUR.objects.square.image_goal.src = RUR.base_url + 'src/images/square_goal.png';  // modified from above
+RUR.objects.square.image_goal.src = RUR.base_url + '/src/images/square_goal.png';  // modified from above
 RUR.objects.square.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2002,9 +2006,9 @@ RUR.objects.known_objects.push("square");
 
 RUR.objects.strawberry = {};
 RUR.objects.strawberry.image = new Image();
-RUR.objects.strawberry.image.src = RUR.base_url + 'src/images/strawberry.png';
+RUR.objects.strawberry.image.src = RUR.base_url + '/src/images/strawberry.png';
 RUR.objects.strawberry.image_goal = new Image();
-RUR.objects.strawberry.image_goal.src = RUR.base_url + 'src/images/strawberry_goal.png';  // modified from above
+RUR.objects.strawberry.image_goal.src = RUR.base_url + '/src/images/strawberry_goal.png';  // modified from above
 RUR.objects.strawberry.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2019,9 +2023,9 @@ RUR.objects.known_objects.push("strawberry");
 
 RUR.objects.banana = {};
 RUR.objects.banana.image = new Image();
-RUR.objects.banana.image.src = RUR.base_url + 'src/images/banana.png';
+RUR.objects.banana.image.src = RUR.base_url + '/src/images/banana.png';
 RUR.objects.banana.image_goal = new Image();
-RUR.objects.banana.image_goal.src = RUR.base_url + 'src/images/banana_goal.png';  // modified from above
+RUR.objects.banana.image_goal.src = RUR.base_url + '/src/images/banana_goal.png';  // modified from above
 RUR.objects.banana.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2037,9 +2041,9 @@ RUR.objects.known_objects.push("banana");
 
 RUR.objects.apple = {};
 RUR.objects.apple.image = new Image();
-RUR.objects.apple.image.src = RUR.base_url + 'src/images/apple.png';
+RUR.objects.apple.image.src = RUR.base_url + '/src/images/apple.png';
 RUR.objects.apple.image_goal = new Image();
-RUR.objects.apple.image_goal.src = RUR.base_url + 'src/images/apple_goal.png';  // modified from above
+RUR.objects.apple.image_goal.src = RUR.base_url + '/src/images/apple_goal.png';  // modified from above
 RUR.objects.apple.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2055,9 +2059,9 @@ RUR.objects.known_objects.push("apple");
 
 RUR.objects.leaf = {};
 RUR.objects.leaf.image = new Image();
-RUR.objects.leaf.image.src = RUR.base_url + 'src/images/leaf.png';
+RUR.objects.leaf.image.src = RUR.base_url + '/src/images/leaf.png';
 RUR.objects.leaf.image_goal = new Image();
-RUR.objects.leaf.image_goal.src = RUR.base_url + 'src/images/leaf_goal.png';  // modified from above
+RUR.objects.leaf.image_goal.src = RUR.base_url + '/src/images/leaf_goal.png';  // modified from above
 RUR.objects.leaf.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2072,9 +2076,9 @@ RUR.objects.known_objects.push("leaf");
 
 RUR.objects.carrot = {};
 RUR.objects.carrot.image = new Image();
-RUR.objects.carrot.image.src = RUR.base_url + 'src/images/carrot.png';
+RUR.objects.carrot.image.src = RUR.base_url + '/src/images/carrot.png';
 RUR.objects.carrot.image_goal = new Image();
-RUR.objects.carrot.image_goal.src = RUR.base_url + 'src/images/carrot_goal.png';  // modified from above
+RUR.objects.carrot.image_goal.src = RUR.base_url + '/src/images/carrot_goal.png';  // modified from above
 RUR.objects.carrot.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2089,9 +2093,9 @@ RUR.objects.known_objects.push("carrot");
 
 RUR.objects.dandelion = {};
 RUR.objects.dandelion.image = new Image();
-RUR.objects.dandelion.image.src = RUR.base_url + 'src/images/dandelion.png';
+RUR.objects.dandelion.image.src = RUR.base_url + '/src/images/dandelion.png';
 RUR.objects.dandelion.image_goal = new Image();
-RUR.objects.dandelion.image_goal.src = RUR.base_url + 'src/images/dandelion_goal.png';  // modified from above
+RUR.objects.dandelion.image_goal.src = RUR.base_url + '/src/images/dandelion_goal.png';  // modified from above
 RUR.objects.dandelion.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2107,9 +2111,9 @@ RUR.objects.known_objects.push("dandelion");
 
 RUR.objects.orange = {};
 RUR.objects.orange.image = new Image();
-RUR.objects.orange.image.src = RUR.base_url + 'src/images/orange.png';
+RUR.objects.orange.image.src = RUR.base_url + '/src/images/orange.png';
 RUR.objects.orange.image_goal = new Image();
-RUR.objects.orange.image_goal.src = RUR.base_url + 'src/images/orange_goal.png';  // modified from above
+RUR.objects.orange.image_goal.src = RUR.base_url + '/src/images/orange_goal.png';  // modified from above
 RUR.objects.orange.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2124,9 +2128,9 @@ RUR.objects.known_objects.push("orange");
 
 RUR.objects.daisy = {};
 RUR.objects.daisy.image = new Image();
-RUR.objects.daisy.image.src = RUR.base_url + 'src/images/daisy.png';
+RUR.objects.daisy.image.src = RUR.base_url + '/src/images/daisy.png';
 RUR.objects.daisy.image_goal = new Image();
-RUR.objects.daisy.image_goal.src = RUR.base_url + 'src/images/daisy_goal.png';  // modified from above
+RUR.objects.daisy.image_goal.src = RUR.base_url + '/src/images/daisy_goal.png';  // modified from above
 RUR.objects.daisy.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2141,9 +2145,9 @@ RUR.objects.known_objects.push("daisy");
 
 RUR.objects.tulip = {};
 RUR.objects.tulip.image = new Image();
-RUR.objects.tulip.image.src = RUR.base_url + 'src/images/tulip.png';
+RUR.objects.tulip.image.src = RUR.base_url + '/src/images/tulip.png';
 RUR.objects.tulip.image_goal = new Image();
-RUR.objects.tulip.image_goal.src = RUR.base_url + 'src/images/tulip_goal.png';  // modified from above
+RUR.objects.tulip.image_goal.src = RUR.base_url + '/src/images/tulip_goal.png';  // modified from above
 RUR.objects.tulip.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2162,9 +2166,9 @@ RUR.objects.box.pushable = true;
 RUR.objects.box.in_water = "bridge";
 RUR.objects.box.ctx = RUR.ROBOT_CTX;
 RUR.objects.box.image = new Image();
-RUR.objects.box.image.src = RUR.base_url + 'src/images/box.png';
+RUR.objects.box.image.src = RUR.base_url + '/src/images/box.png';
 RUR.objects.box.image_goal = new Image();
-RUR.objects.box.image_goal.src = RUR.base_url + 'src/images/box_goal.png';
+RUR.objects.box.image_goal.src = RUR.base_url + '/src/images/box_goal.png';
 RUR.objects.box.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2184,7 +2188,7 @@ RUR.tiles.mud.fatal = true;
 RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");
 RUR.tiles.mud.info = RUR.translate("Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.");
 RUR.tiles.mud.image = new Image();
-RUR.tiles.mud.image.src = RUR.base_url + 'src/images/mud.png';
+RUR.tiles.mud.image.src = RUR.base_url + '/src/images/mud.png';
 RUR.tiles.mud.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2197,7 +2201,7 @@ RUR.tiles.ice.slippery = true;
 RUR.tiles.ice.message = RUR.translate("I'm slipping on ice!");
 RUR.tiles.ice.info = RUR.translate("Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.");
 RUR.tiles.ice.image = new Image();
-RUR.tiles.ice.image.src = RUR.base_url + 'src/images/ice.png';
+RUR.tiles.ice.image.src = RUR.base_url + '/src/images/ice.png';
 RUR.tiles.ice.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2207,7 +2211,7 @@ RUR.tiles.ice.image.onload = function () {
 RUR.tiles.grass = {};
 RUR.tiles.grass.name = "grass";
 RUR.tiles.grass.image = new Image();
-RUR.tiles.grass.image.src = RUR.base_url + 'src/images/grass.png';
+RUR.tiles.grass.image.src = RUR.base_url + '/src/images/grass.png';
 RUR.tiles.grass.info = RUR.translate("Grass: usually safe.");
 RUR.tiles.grass.image.onload = function () {
     if (RUR.vis_world !== undefined) {
@@ -2218,7 +2222,7 @@ RUR.tiles.grass.image.onload = function () {
 RUR.tiles.pale_grass = {};
 RUR.tiles.pale_grass.name = "grass";
 RUR.tiles.pale_grass.image = new Image();
-RUR.tiles.pale_grass.image.src = RUR.base_url + 'src/images/pale_grass.png';
+RUR.tiles.pale_grass.image.src = RUR.base_url + '/src/images/pale_grass.png';
 RUR.tiles.pale_grass.info = RUR.translate("Grass: usually safe.");
 RUR.tiles.pale_grass.image.onload = function () {
     if (RUR.vis_world !== undefined) {
@@ -2229,7 +2233,7 @@ RUR.tiles.pale_grass.image.onload = function () {
 RUR.tiles.gravel = {};
 RUR.tiles.gravel.name = "gravel";
 RUR.tiles.gravel.image = new Image();
-RUR.tiles.gravel.image.src = RUR.base_url + 'src/images/gravel.png';
+RUR.tiles.gravel.image.src = RUR.base_url + '/src/images/gravel.png';
 RUR.tiles.gravel.info = RUR.translate("Gravel: usually safe.");
 RUR.tiles.gravel.image.onload = function () {
     if (RUR.vis_world !== undefined) {
@@ -2244,17 +2248,17 @@ RUR.tiles.water.detectable = true;
 RUR.tiles.water.message = RUR.translate("I'm in water!");
 RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.");
 RUR.tiles.water.image = new Image();
-RUR.tiles.water.image.src = RUR.base_url + 'src/images/water.png';
+RUR.tiles.water.image.src = RUR.base_url + '/src/images/water.png';
 RUR.tiles.water.image2 = new Image();
-RUR.tiles.water.image2.src = RUR.base_url + 'src/images/water2.png';
+RUR.tiles.water.image2.src = RUR.base_url + '/src/images/water2.png';
 RUR.tiles.water.image3 = new Image();
-RUR.tiles.water.image3.src = RUR.base_url + 'src/images/water3.png';
+RUR.tiles.water.image3.src = RUR.base_url + '/src/images/water3.png';
 RUR.tiles.water.image4 = new Image();
-RUR.tiles.water.image4.src = RUR.base_url + 'src/images/water4.png';
+RUR.tiles.water.image4.src = RUR.base_url + '/src/images/water4.png';
 RUR.tiles.water.image5 = new Image();
-RUR.tiles.water.image5.src = RUR.base_url + 'src/images/water5.png';
+RUR.tiles.water.image5.src = RUR.base_url + '/src/images/water5.png';
 RUR.tiles.water.image6 = new Image();
-RUR.tiles.water.image6.src = RUR.base_url + 'src/images/water6.png';
+RUR.tiles.water.image6.src = RUR.base_url + '/src/images/water6.png';
 RUR.tiles.water.choose_image = function () {
     var choice = Math.floor(Math.random() * 6) + 1;
     switch (choice) {
@@ -2305,7 +2309,7 @@ RUR.tiles.bricks.detectable = true;
 RUR.tiles.bricks.message = RUR.translate("Crash!");
 RUR.tiles.bricks.info = RUR.translate("brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.");
 RUR.tiles.bricks.image = new Image();
-RUR.tiles.bricks.image.src = RUR.base_url + 'src/images/bricks.png';
+RUR.tiles.bricks.image.src = RUR.base_url + '/src/images/bricks.png';
 RUR.tiles.bricks.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2316,7 +2320,7 @@ RUR.home_images.green_home_tile = {};
 RUR.home_images.green_home_tile.detectable = true;
 RUR.home_images.green_home_tile.info = RUR.translate("green home tile:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
 RUR.home_images.green_home_tile.image = new Image();
-RUR.home_images.green_home_tile.image.src = RUR.base_url + 'src/images/green_home_tile.png';
+RUR.home_images.green_home_tile.image.src = RUR.base_url + '/src/images/green_home_tile.png';
 RUR.home_images.green_home_tile.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_goal();
@@ -2327,7 +2331,7 @@ RUR.home_images.house = {};
 RUR.home_images.house.detectable = true;
 RUR.home_images.house.info = RUR.translate("house:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
 RUR.home_images.house.image = new Image();
-RUR.home_images.house.image.src = RUR.base_url + 'src/images/house.png';
+RUR.home_images.house.image.src = RUR.base_url + '/src/images/house.png';
 RUR.home_images.house.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_goal();
@@ -2338,7 +2342,7 @@ RUR.home_images.racing_flag = {};
 RUR.home_images.racing_flag.detectable = true;
 RUR.home_images.racing_flag.info = RUR.translate("racing flag:") + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
 RUR.home_images.racing_flag.image = new Image();
-RUR.home_images.racing_flag.image.src = RUR.base_url + 'src/images/racing_flag.png';
+RUR.home_images.racing_flag.image.src = RUR.base_url + '/src/images/racing_flag.png';
 RUR.home_images.racing_flag.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_goal();
@@ -2350,7 +2354,7 @@ RUR.top_tiles.bridge = {};
 RUR.top_tiles.bridge.name = "bridge";
 RUR.top_tiles.bridge.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.bridge.image = new Image();
-RUR.top_tiles.bridge.image.src = RUR.base_url + 'src/images/bridge.png';
+RUR.top_tiles.bridge.image.src = RUR.base_url + '/src/images/bridge.png';
 RUR.top_tiles.bridge.info = RUR.translate("Bridge:") + RUR.translate("Reeborg <b>can</b> detect this and will know that it allows safe passage over water.");
 RUR.top_tiles.bridge.image.onload = function () {
     if (RUR.vis_world !== undefined) {
@@ -2367,7 +2371,7 @@ RUR.top_tiles.fence_right.message = RUR.translate("I hit a fence!");
 RUR.top_tiles.fence_right.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.top_tiles.fence_right.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.fence_right.image = new Image();
-RUR.top_tiles.fence_right.image.src = RUR.base_url + 'src/images/fence_right.png';
+RUR.top_tiles.fence_right.image.src = RUR.base_url + '/src/images/fence_right.png';
 RUR.top_tiles.fence_right.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2384,7 +2388,7 @@ RUR.top_tiles.fence_left.message = RUR.translate("I hit a fence!");
 RUR.top_tiles.fence_left.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.top_tiles.fence_left.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.fence_left.image = new Image();
-RUR.top_tiles.fence_left.image.src = RUR.base_url + 'src/images/fence_left.png';
+RUR.top_tiles.fence_left.image.src = RUR.base_url + '/src/images/fence_left.png';
 RUR.top_tiles.fence_left.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2401,7 +2405,7 @@ RUR.top_tiles.fence_double.message = RUR.translate("I hit a fence!");
 RUR.top_tiles.fence_double.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.top_tiles.fence_double.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.fence_double.image = new Image();
-RUR.top_tiles.fence_double.image.src = RUR.base_url + 'src/images/fence_double.png';
+RUR.top_tiles.fence_double.image.src = RUR.base_url + '/src/images/fence_double.png';
 RUR.top_tiles.fence_double.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -2418,7 +2422,7 @@ RUR.top_tiles.fence_vertical.message = RUR.translate("I hit a fence!");
 RUR.top_tiles.fence_vertical.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.top_tiles.fence_vertical.ctx = RUR.SECOND_LAYER_CTX;
 RUR.top_tiles.fence_vertical.image = new Image();
-RUR.top_tiles.fence_vertical.image.src = RUR.base_url + 'src/images/fence_vertical.png';
+RUR.top_tiles.fence_vertical.image.src = RUR.base_url + '/src/images/fence_vertical.png';
 RUR.top_tiles.fence_vertical.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -3189,11 +3193,23 @@ RUR.runner.run = function (playback) {
 RUR.runner.eval = function(src) {  // jshint ignore:line
     var error_name, message, response, other_info, from_python;
     other_info = '';
+
+    /* At some point around version 3.2.0, Brython changed the way it
+       handled uncaught errors, and no longer pass a "nice" object
+       to the surrounding Javascript environment - since this is not
+       the way Brython programmers normally do things.   While this
+       has been changed back some time after version 3.2.3, we nonetheless
+       guard against any future changes by doing our own handling. */
+
+    RUR.__python_error = false;
     try {
         if (RUR.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
         } else if (RUR.programming_language === "python") {
             RUR.runner.eval_python(src);
+            if (RUR.__python_error) {
+                throw RUR.__python_error;
+            }
         } else if (RUR.programming_language === "coffee") {
             RUR.runner.eval_coffee(src);
         } else {
@@ -3506,23 +3522,23 @@ RUR.storage.remove_world = function () {
 
 RUR.testing = {};
 
-RUR.testing._test_permalink = function(permalink, function_name) {
+RUR.testing._test_permalink = function(permalink, function_name, name) {
     var url_query, base_url;
     url_query = parseUri(window.location.href);
     base_url = url_query.protocol + "://" + url_query.host;
     if (url_query.port){
         base_url += ":" + url_query.port;
     }
-    editor.setValue(function_name + '("' + base_url + permalink + '")');
+    editor.setValue(function_name + '("' + base_url + permalink + '","' + name + '")');
     RUR.testing.run_test();
 };
 
-RUR.testing.test_permalink = function (permalink){
-    RUR.testing._test_permalink(permalink, "World");
+RUR.testing.test_permalink = function (permalink, name){
+    RUR.testing._test_permalink(permalink, "World", name);
 };
 
-RUR.testing.test_permalien = function (permalink){
-    RUR.testing._test_permalink(permalink, "Monde")
+RUR.testing.test_permalien = function (permalink, name){
+    RUR.testing._test_permalink(permalink, "Monde", name)
 };
 
 RUR.testing.run_test = function() {
@@ -3888,51 +3904,51 @@ RUR.base_url = RUR.base_url || '';  // enable changing defaults for unit tests
 
 // classic
 RUR.vis_robot.images[0].robot_e_img = new Image();
-RUR.vis_robot.images[0].robot_e_img.src = RUR.base_url + 'src/images/robot_e.png';
+RUR.vis_robot.images[0].robot_e_img.src = RUR.base_url + '/src/images/robot_e.png';
 RUR.vis_robot.images[0].robot_n_img = new Image();
-RUR.vis_robot.images[0].robot_n_img.src = RUR.base_url + 'src/images/robot_n.png';
+RUR.vis_robot.images[0].robot_n_img.src = RUR.base_url + '/src/images/robot_n.png';
 RUR.vis_robot.images[0].robot_w_img = new Image();
-RUR.vis_robot.images[0].robot_w_img.src = RUR.base_url + 'src/images/robot_w.png';
+RUR.vis_robot.images[0].robot_w_img.src = RUR.base_url + '/src/images/robot_w.png';
 RUR.vis_robot.images[0].robot_s_img = new Image();
-RUR.vis_robot.images[0].robot_s_img.src = RUR.base_url + 'src/images/robot_s.png';
+RUR.vis_robot.images[0].robot_s_img.src = RUR.base_url + '/src/images/robot_s.png';
 RUR.vis_robot.images[0].robot_random_img = new Image();
-RUR.vis_robot.images[0].robot_random_img.src = RUR.base_url + 'src/images/robot_random.png';
+RUR.vis_robot.images[0].robot_random_img.src = RUR.base_url + '/src/images/robot_random.png';
 
 // rover type
 RUR.vis_robot.images[1].robot_e_img = new Image();
-RUR.vis_robot.images[1].robot_e_img.src = RUR.base_url + 'src/images/rover_e.png';
+RUR.vis_robot.images[1].robot_e_img.src = RUR.base_url + '/src/images/rover_e.png';
 RUR.vis_robot.images[1].robot_n_img = new Image();
-RUR.vis_robot.images[1].robot_n_img.src = RUR.base_url + 'src/images/rover_n.png';
+RUR.vis_robot.images[1].robot_n_img.src = RUR.base_url + '/src/images/rover_n.png';
 RUR.vis_robot.images[1].robot_w_img = new Image();
-RUR.vis_robot.images[1].robot_w_img.src = RUR.base_url + 'src/images/rover_w.png';
+RUR.vis_robot.images[1].robot_w_img.src = RUR.base_url + '/src/images/rover_w.png';
 RUR.vis_robot.images[1].robot_s_img = new Image();
-RUR.vis_robot.images[1].robot_s_img.src = RUR.base_url + 'src/images/rover_s.png';
+RUR.vis_robot.images[1].robot_s_img.src = RUR.base_url + '/src/images/rover_s.png';
 RUR.vis_robot.images[1].robot_random_img = new Image();
-RUR.vis_robot.images[1].robot_random_img.src = RUR.base_url + 'src/images/rover_random.png';
+RUR.vis_robot.images[1].robot_random_img.src = RUR.base_url + '/src/images/rover_random.png';
 
 // 3d red type
 RUR.vis_robot.images[2].robot_e_img = new Image();
-RUR.vis_robot.images[2].robot_e_img.src = RUR.base_url + 'src/images/plain_e.png';
+RUR.vis_robot.images[2].robot_e_img.src = RUR.base_url + '/src/images/plain_e.png';
 RUR.vis_robot.images[2].robot_n_img = new Image();
-RUR.vis_robot.images[2].robot_n_img.src = RUR.base_url + 'src/images/plain_n.png';
+RUR.vis_robot.images[2].robot_n_img.src = RUR.base_url + '/src/images/plain_n.png';
 RUR.vis_robot.images[2].robot_w_img = new Image();
-RUR.vis_robot.images[2].robot_w_img.src = RUR.base_url + 'src/images/plain_w.png';
+RUR.vis_robot.images[2].robot_w_img.src = RUR.base_url + '/src/images/plain_w.png';
 RUR.vis_robot.images[2].robot_s_img = new Image();
-RUR.vis_robot.images[2].robot_s_img.src = RUR.base_url + 'src/images/plain_s.png';
+RUR.vis_robot.images[2].robot_s_img.src = RUR.base_url + '/src/images/plain_s.png';
 RUR.vis_robot.images[2].robot_random_img = new Image();
-RUR.vis_robot.images[2].robot_random_img.src = RUR.base_url + 'src/images/robot_random.png';
+RUR.vis_robot.images[2].robot_random_img.src = RUR.base_url + '/src/images/robot_random.png';
 
 // solar panel type
 RUR.vis_robot.images[3].robot_e_img = new Image();
-RUR.vis_robot.images[3].robot_e_img.src = RUR.base_url + 'src/images/sp_e.png';
+RUR.vis_robot.images[3].robot_e_img.src = RUR.base_url + '/src/images/sp_e.png';
 RUR.vis_robot.images[3].robot_n_img = new Image();
-RUR.vis_robot.images[3].robot_n_img.src = RUR.base_url + 'src/images/sp_n.png';
+RUR.vis_robot.images[3].robot_n_img.src = RUR.base_url + '/src/images/sp_n.png';
 RUR.vis_robot.images[3].robot_w_img = new Image();
-RUR.vis_robot.images[3].robot_w_img.src = RUR.base_url + 'src/images/sp_w.png';
+RUR.vis_robot.images[3].robot_w_img.src = RUR.base_url + '/src/images/sp_w.png';
 RUR.vis_robot.images[3].robot_s_img = new Image();
-RUR.vis_robot.images[3].robot_s_img.src = RUR.base_url + 'src/images/sp_s.png';
+RUR.vis_robot.images[3].robot_s_img.src = RUR.base_url + '/src/images/sp_s.png';
 RUR.vis_robot.images[3].robot_random_img = new Image();
-RUR.vis_robot.images[3].robot_random_img.src = RUR.base_url + 'src/images/robot_random.png';
+RUR.vis_robot.images[3].robot_random_img.src = RUR.base_url + '/src/images/robot_random.png';
 
 RUR.vis_robot.style = 0;
 
@@ -4105,7 +4121,7 @@ RUR.vis_robot.set_trace_style = function (choice, robot){
         RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
         RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
         RUR.vis_robot.trace_thickness = 4;
-    } else if (choice === "none") {
+    } else if (choice === "invisible") {
         RUR.vis_robot.trace_color = "rgba(0,0,0,0)";
     } else if (choice === "default") {
         RUR.vis_robot.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
@@ -5959,8 +5975,13 @@ RUR.world_select.get_selected = function () {
     var select, index, url, shortname;
     select = document.getElementById("select_world");
     index = select.selectedIndex;
-    url = select.options[index].value;
-    shortname = select.options[index].text;
+    try {
+        url = select.options[index].value;
+        shortname = select.options[index].text;
+    } catch (e) {
+        url = select.options[0].value;
+        shortname = select.options[0].text;
+    }
     return {url:url, shortname:shortname};
 };
 

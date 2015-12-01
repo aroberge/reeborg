@@ -97,4 +97,7 @@ def generic_translate_python(src, lib, lang_import, highlight,
         window.console.log(src)
 
     src = "help=Help\n" + pre_code + "\n" + src + "\n" + post_code
-    exec(src, globals_)
+    try:
+        exec(src, globals_)
+    except Exception as e:
+        window.RUR.__python_error = e

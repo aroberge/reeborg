@@ -61,7 +61,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         new_world = shortname;
     }
 
-    RUR.file_io.load_world_file(url);
+    RUR.file_io.load_world_file(url, shortname);
 
     if (RUR.file_io.status !== undefined) {
         RUR.rec.frames = [];
@@ -83,7 +83,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     }
 };
 
-RUR.file_io.load_world_file = function (url) {
+RUR.file_io.load_world_file = function (url, shortname) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
     var data, i, selected, possible_url, new_selection=false, new_world = false;
@@ -107,7 +107,7 @@ RUR.file_io.load_world_file = function (url) {
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
-                    RUR.update_permalink(data);
+                    RUR.update_permalink(data, shortname);
                     RUR.ui.reload();
                 } else {
                     RUR.world.import_world(data);

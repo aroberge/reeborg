@@ -8,18 +8,20 @@
 <meta name="license" content="CC BY-NC-SA 3.0">
 <link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon">
 <link rel="icon" href="src/images/favicon.ico" type="image/icon">
-<link href="src/css/jquery-ui.custom.min.css" rel="stylesheet" >
+<link href="/src/css/jquery-ui.custom.min.css" rel="stylesheet" >
 <link href='http://fonts.googleapis.com/css?family=Roboto+Mono:700' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.css">
-<link rel="stylesheet" href="src/css/reeborg_world.css"> <!-- load after codemirror.css -->
-<title>Le monde de Reeborg</title>
-    <script src="src/libraries/brython/brython.js"></script>
+<link rel="stylesheet" href="/src/css/reeborg_world.css"> <!-- load after codemirror.css -->
+<title>Brython's latest - Le monde de Reeborg</title>
+<script type="text/javascript"
+    src="https://cdn.rawgit.com/brython-dev/brython/master/www/src/brython.js">
+</script>
 </head>
 <body onload="brython({debug:1, pythonpath:['/src/python']})">
 
 <header class="blue-gradient green-border">
-  <a id="logo" href="index_fr.html" class="fake_button"><img src="src/images/robot_e.png" alt="logo">Le monde de Reeborg</a>
+  <a id="logo" href="/index_fr.html" class="fake_button"><img src="/src/images/robot_e.png" alt="logo">Le monde de Reeborg</a>
   <div id="header-child">
    <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">Monde</button>
     <select id="select_world" title="Sélectionner un monde">
@@ -47,19 +49,19 @@
 
   <div id="world-controls">
     <button class="blue-gradient" id="run" title="exécution" onclick="RUR.ui.run();">
-      <img src="src/images/play.png" alt="exécution">
+      <img src="/src/images/play.png" alt="exécution">
     </button>
     <button class="blue-gradient" id="step" title="une commande" disabled onclick="RUR.ui.step();">
-      <img src="src/images/step.png" alt="une commande">
+      <img src="/src/images/step.png" alt="une commande">
     </button>
     <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.ui.pause();">
-      <img src="src/images/pause.png" alt="pause">
+      <img src="/src/images/pause.png" alt="pause">
     </button>
     <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.ui.stop();">
-      <img src="src/images/stop.png" alt="stop">
+      <img src="/src/images/stop.png" alt="stop">
     </button>
     <button class="blue-gradient" id="reload" title="recommencer" disabled onclick="RUR.ui.reload();">
-      <img src="src/images/reload.png" alt="recommencer">
+      <img src="/src/images/reload.png" alt="recommencer">
     </button>
 
   </div>
@@ -84,10 +86,10 @@
 
 
     <div id="image-choice-buttons">
-      <button id="classic-image" title="Classique"><img src="src/images/robot_e.png" alt="Classique"></button>
-      <button id="rover-type" title="Robot à roues"><img src="src/images/rover_e.png" alt="Robot à roues"></button>
-      <button id="3d-red-type" title="Robot rouge 3D"><img src="src/images/plain_e.png" alt="Robot rouge 3D"></button>
-      <button id="solar-panel-type" title="Robot avec panneau solaire"><img src="src/images/sp_e.png" alt="Robot avec panneau solaire"></button>
+      <button id="classic-image" title="Classique"><img src="/src/images/robot_e.png" alt="Classique"></button>
+      <button id="rover-type" title="Robot à roues"><img src="/src/images/rover_e.png" alt="Robot à roues"></button>
+      <button id="3d-red-type" title="Robot rouge 3D"><img src="/src/images/plain_e.png" alt="Robot rouge 3D"></button>
+      <button id="solar-panel-type" title="Robot avec panneau solaire"><img src="/src/images/sp_e.png" alt="Robot avec panneau solaire"></button>
     </div>
 </div>
 
@@ -98,9 +100,9 @@
       <li><a id="editor-link" href="#editor">Code Python</a></li>
 
       <button id="highlight" class="blue-gradient float-right" title="surligner" onclick="RUR.ui.highlight()">
-        <img src="src/images/highlight.png" alt="surligner">
-        <img src="src/images/ok.png" alt="ok" id="ok-image">
-        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
+        <img src="/src/images/highlight.png" alt="surligner">
+        <img src="/src/images/ok.png" alt="ok" id="ok-image">
+        <img src="/src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
       </button>
       <li><a id="library-link" href="#library">biblio</a></li>
       <li><a id="pre-code-link" href="#pre-code-div">Pre</a></li>
@@ -155,73 +157,73 @@
     <div id="edit-world-submenus-wrapper">
         <p id="cmd-result">Sélectionnez l'action à performer dans le menu ci-dessous.</p>
         <ul class="edit-world-canvas" id="edit-world-turn" style="display:none">
-            <li><a href="javascript:RUR.we.turn_robot(0);"><img src="src/images/robot_e.png" alt="robot: est"></a><br><span>est</span></li>
-            <li><a href="javascript:RUR.we.turn_robot(1);"><img src="src/images/robot_n.png" alt="robot: nord"></a><br><span>nord</span></li>
-            <li><a href="javascript:RUR.we.turn_robot(2);"><img src="src/images/robot_w.png" alt="robot: ouest"></a><br><span>ouest</span></li>
-            <li><a href="javascript:RUR.we.turn_robot(3);"><img src="src/images/robot_s.png" alt="robot: sud"></a><br><span>sud</span></li>
-            <li id="random-orientation"><a href="javascript:RUR.we.turn_robot(-1);"><img src="src/images/robot_random.png" alt="robot: orientation aléatoire"></a><br><span>aléatoire</span></li>
+            <li><a href="javascript:RUR.we.turn_robot(0);"><img src="/src/images/robot_e.png" alt="robot: est"></a><br><span>est</span></li>
+            <li><a href="javascript:RUR.we.turn_robot(1);"><img src="/src/images/robot_n.png" alt="robot: nord"></a><br><span>nord</span></li>
+            <li><a href="javascript:RUR.we.turn_robot(2);"><img src="/src/images/robot_w.png" alt="robot: ouest"></a><br><span>ouest</span></li>
+            <li><a href="javascript:RUR.we.turn_robot(3);"><img src="/src/images/robot_s.png" alt="robot: sud"></a><br><span>sud</span></li>
+            <li id="random-orientation"><a href="javascript:RUR.we.turn_robot(-1);"><img src="/src/images/robot_random.png" alt="robot: orientation aléatoire"></a><br><span>aléatoire</span></li>
         </ul>
         <ul class="edit-world-canvas" id="edit-world-objects" style="display:none">
-            <li><a href="javascript:RUR.we.select('object-token');"><img src="src/images/token.png" alt="jeton"></a></li>
-            <li><a href="javascript:RUR.we.select('object-star');"><img src="src/images/star.png" alt="étoile"></a></li>
-            <li><a href="javascript:RUR.we.select('object-triangle');"><img src="src/images/triangle.png" alt="triangle"></a></li>
-            <li><a href="javascript:RUR.we.select('object-square');"><img src="src/images/square.png" alt="carré"></a></li>
-            <li><a href="javascript:RUR.we.select('object-strawberry');"><img src="src/images/strawberry.png" alt="fraise"></a></li>
-            <li><a href="javascript:RUR.we.select('object-banana');"><img src="src/images/banana.png" alt="banane"></a></li>
-            <li><a href="javascript:RUR.we.select('object-orange');"><img src="src/images/orange.png" alt="orange"></a></li>
-            <li><a href="javascript:RUR.we.select('object-apple');"><img src="src/images/apple.png" alt="pomme"></a></li>
-            <li><a href="javascript:RUR.we.select('object-leaf');"><img src="src/images/leaf.png" alt="feuille"></a></li>
-            <li><a href="javascript:RUR.we.select('object-dandelion');"><img src="src/images/dandelion.png" alt="pissenlit"></a></li>
-            <li><a href="javascript:RUR.we.select('object-carrot');"><img src="src/images/carrot.png" alt="carotte"></a></li>
-            <li><a href="javascript:RUR.we.select('object-tulip');"><img src="src/images/tulip.png" alt="tulipe"></a></li>
-            <li><a href="javascript:RUR.we.select('object-daisy');"><img src="src/images/daisy.png" alt="marguerite"></a></li>
-            <li class="not-for-robot"><a href="javascript:RUR.we.select('object-box');"><img src="src/images/box.png" alt="wooden box"></a></li>
+            <li><a href="javascript:RUR.we.select('object-token');"><img src="/src/images/token.png" alt="jeton"></a></li>
+            <li><a href="javascript:RUR.we.select('object-star');"><img src="/src/images/star.png" alt="étoile"></a></li>
+            <li><a href="javascript:RUR.we.select('object-triangle');"><img src="/src/images/triangle.png" alt="triangle"></a></li>
+            <li><a href="javascript:RUR.we.select('object-square');"><img src="/src/images/square.png" alt="carré"></a></li>
+            <li><a href="javascript:RUR.we.select('object-strawberry');"><img src="/src/images/strawberry.png" alt="fraise"></a></li>
+            <li><a href="javascript:RUR.we.select('object-banana');"><img src="/src/images/banana.png" alt="banane"></a></li>
+            <li><a href="javascript:RUR.we.select('object-orange');"><img src="/src/images/orange.png" alt="orange"></a></li>
+            <li><a href="javascript:RUR.we.select('object-apple');"><img src="/src/images/apple.png" alt="pomme"></a></li>
+            <li><a href="javascript:RUR.we.select('object-leaf');"><img src="/src/images/leaf.png" alt="feuille"></a></li>
+            <li><a href="javascript:RUR.we.select('object-dandelion');"><img src="/src/images/dandelion.png" alt="pissenlit"></a></li>
+            <li><a href="javascript:RUR.we.select('object-carrot');"><img src="/src/images/carrot.png" alt="carotte"></a></li>
+            <li><a href="javascript:RUR.we.select('object-tulip');"><img src="/src/images/tulip.png" alt="tulipe"></a></li>
+            <li><a href="javascript:RUR.we.select('object-daisy');"><img src="/src/images/daisy.png" alt="marguerite"></a></li>
+            <li class="not-for-robot"><a href="javascript:RUR.we.select('object-box');"><img src="/src/images/box.png" alt="wooden box"></a></li>
         </ul>
         <ul class="edit-world-canvas edit-world-tiles" id="edit-tile" style="display:none">
-            <li><a href="javascript:RUR.we.select('tile-mud');"><img src="src/images/mud.png" alt="boue"></a></li>
-            <li><a href="javascript:RUR.we.select('tile-water');"><img src="src/images/water.png" alt="eau"></a></li>
-            <li><a href="javascript:RUR.we.select('tile-grass');"><img src="src/images/grass.png" alt="gazon"></a></li>
-            <li><a href="javascript:RUR.we.select('tile-pale_grass');"><img src="src/images/pale_grass.png" alt="gazon"></a></li>
-            <li><a href="javascript:RUR.we.select('tile-gravel');"><img src="src/images/gravel.png" alt="gravier"></a></li>
-            <li><a href="javascript:RUR.we.select('tile-ice');"><img src="src/images/ice.png" alt="glace"></a></li>
-            <li><a href="javascript:RUR.we.select('tile-bricks');"><img src="src/images/bricks.png" alt="mur de briques"></a></li>
+            <li><a href="javascript:RUR.we.select('tile-mud');"><img src="/src/images/mud.png" alt="boue"></a></li>
+            <li><a href="javascript:RUR.we.select('tile-water');"><img src="/src/images/water.png" alt="eau"></a></li>
+            <li><a href="javascript:RUR.we.select('tile-grass');"><img src="/src/images/grass.png" alt="gazon"></a></li>
+            <li><a href="javascript:RUR.we.select('tile-pale_grass');"><img src="/src/images/pale_grass.png" alt="gazon"></a></li>
+            <li><a href="javascript:RUR.we.select('tile-gravel');"><img src="/src/images/gravel.png" alt="gravier"></a></li>
+            <li><a href="javascript:RUR.we.select('tile-ice');"><img src="/src/images/ice.png" alt="glace"></a></li>
+            <li><a href="javascript:RUR.we.select('tile-bricks');"><img src="/src/images/bricks.png" alt="mur de briques"></a></li>
         </ul>
         <ul class="edit-world-canvas" id="fill-tile" style="display:none">
-            <li><a href="javascript:RUR.we.select('fill-mud');"><img src="src/images/mud.png" alt="boue"></a></li>
-            <li><a href="javascript:RUR.we.select('fill-water');"><img src="src/images/water.png" alt="eau"></a></li>
-            <li><a href="javascript:RUR.we.select('fill-grass');"><img src="src/images/grass.png" alt="gazon"></a></li>
-            <li><a href="javascript:RUR.we.select('fill-pale_grass');"><img src="src/images/pale_grass.png" alt="gazon"></a></li>
-            <li><a href="javascript:RUR.we.select('fill-gravel');"><img src="src/images/gravel.png" alt="gravier"></a></li>
-            <li><a href="javascript:RUR.we.select('fill-ice');"><img src="src/images/ice.png" alt="glace"></a></li>
-            <li><a href="javascript:RUR.we.select('fill-bricks');"><img src="src/images/bricks.png" alt="mur de briques"></a></li>
+            <li><a href="javascript:RUR.we.select('fill-mud');"><img src="/src/images/mud.png" alt="boue"></a></li>
+            <li><a href="javascript:RUR.we.select('fill-water');"><img src="/src/images/water.png" alt="eau"></a></li>
+            <li><a href="javascript:RUR.we.select('fill-grass');"><img src="/src/images/grass.png" alt="gazon"></a></li>
+            <li><a href="javascript:RUR.we.select('fill-pale_grass');"><img src="/src/images/pale_grass.png" alt="gazon"></a></li>
+            <li><a href="javascript:RUR.we.select('fill-gravel');"><img src="/src/images/gravel.png" alt="gravier"></a></li>
+            <li><a href="javascript:RUR.we.select('fill-ice');"><img src="/src/images/ice.png" alt="glace"></a></li>
+            <li><a href="javascript:RUR.we.select('fill-bricks');"><img src="/src/images/bricks.png" alt="mur de briques"></a></li>
         </ul>
         <ul class="edit-world-canvas" id="edit-top-tile" style="display:none">
-            <li><a href="javascript:RUR.we.select('toptile-bridge');"><img src="src/images/bridge.png" alt="pont"></a></li>
-            <li><a href="javascript:RUR.we.select('toptile-fence_right');"><img src="src/images/fence_right.png" alt="cloture"></a></li>
-            <li><a href="javascript:RUR.we.select('toptile-fence_left');"><img src="src/images/fence_left.png" alt="cloture"></a></li>
-            <li><a href="javascript:RUR.we.select('toptile-fence_double');"><img src="src/images/fence_double.png" alt="cloture"></a></li>
-            <li><a href="javascript:RUR.we.select('toptile-fence_vertical');"><img src="src/images/fence_vertical.png" alt="cloture"></a></li>
+            <li><a href="javascript:RUR.we.select('toptile-bridge');"><img src="/src/images/bridge.png" alt="pont"></a></li>
+            <li><a href="javascript:RUR.we.select('toptile-fence_right');"><img src="/src/images/fence_right.png" alt="cloture"></a></li>
+            <li><a href="javascript:RUR.we.select('toptile-fence_left');"><img src="/src/images/fence_left.png" alt="cloture"></a></li>
+            <li><a href="javascript:RUR.we.select('toptile-fence_double');"><img src="/src/images/fence_double.png" alt="cloture"></a></li>
+            <li><a href="javascript:RUR.we.select('toptile-fence_vertical');"><img src="/src/images/fence_vertical.png" alt="cloture"></a></li>
         </ul>
         <ul class="edit-goal-canvas" id="edit-goal-objects" style="display:none">
-            <li><a href="javascript:RUR.we.select('goal-token');"><img src="src/images/token_goal.png" alt="jeton"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-star');"><img src="src/images/star_goal.png" alt="étoile"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-triangle');"><img src="src/images/triangle_goal.png" alt="triangle"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-square');"><img src="src/images/square_goal.png" alt="carré"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-strawberry');"><img src="src/images/strawberry_goal.png" alt="fraise"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-banana');"><img src="src/images/banana_goal.png" alt="banane"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-orange');"><img src="src/images/orange_goal.png" alt="orange"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-apple');"><img src="src/images/apple_goal.png" alt="pomme"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-leaf');"><img src="src/images/leaf_goal.png" alt="feuille"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-dandelion');"><img src="src/images/dandelion_goal.png" alt="pissenlit"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-carrot');"><img src="src/images/carrot_goal.png" alt="carotte"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-tulip');"><img src="src/images/tulip_goal.png" alt="tulipe"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-daisy');"><img src="src/images/daisy_goal.png" alt="marguerite"></a></li>
-            <li><a href="javascript:RUR.we.select('goal-box');"><img src="src/images/box_goal.png" alt="wooden box"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-token');"><img src="/src/images/token_goal.png" alt="jeton"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-star');"><img src="/src/images/star_goal.png" alt="étoile"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-triangle');"><img src="/src/images/triangle_goal.png" alt="triangle"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-square');"><img src="/src/images/square_goal.png" alt="carré"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-strawberry');"><img src="/src/images/strawberry_goal.png" alt="fraise"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-banana');"><img src="/src/images/banana_goal.png" alt="banane"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-orange');"><img src="/src/images/orange_goal.png" alt="orange"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-apple');"><img src="/src/images/apple_goal.png" alt="pomme"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-leaf');"><img src="/src/images/leaf_goal.png" alt="feuille"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-dandelion');"><img src="/src/images/dandelion_goal.png" alt="pissenlit"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-carrot');"><img src="/src/images/carrot_goal.png" alt="carotte"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-tulip');"><img src="/src/images/tulip_goal.png" alt="tulipe"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-daisy');"><img src="/src/images/daisy_goal.png" alt="marguerite"></a></li>
+            <li><a href="javascript:RUR.we.select('goal-box');"><img src="/src/images/box_goal.png" alt="wooden box"></a></li>
         </ul>
         <ul class="edit-goal-canvas" id="edit-goal-position" style="display:none">
-            <li><a href="javascript:RUR.we.select('position-green_home_tile');"><img src="src/images/green_home_tile.png" alt="maison"></a></li>
-            <li><a href="javascript:RUR.we.select('position-house');"><img src="src/images/house.png" alt="maison"></a></li>
-            <li><a href="javascript:RUR.we.select('position-racing_flag');"><img src="src/images/racing_flag.png" alt="maison"></a></li>
+            <li><a href="javascript:RUR.we.select('position-green_home_tile');"><img src="/src/images/green_home_tile.png" alt="maison"></a></li>
+            <li><a href="javascript:RUR.we.select('position-house');"><img src="/src/images/house.png" alt="maison"></a></li>
+            <li><a href="javascript:RUR.we.select('position-racing_flag');"><img src="/src/images/racing_flag.png" alt="maison"></a></li>
         </ul>
     </div>
 
@@ -269,16 +271,15 @@
   RUR.settings.library = "library_py_fr";
   RUR.programming_language = "python";
 </script>
-<script src="src/lang/translation_fr.js"></script>
-<script src="src/js/reeborg_dev.js"></script>
-<script src="src/lang/reeborg_fr.js"></script>
-<script src="src/libraries/jquery.ui.dialog.minmax.js"></script>
-<script src="src/libraries/coffee-script.js"></script>
+<script src="/src/lang/translation_fr.js"></script>
+<script src="/src/js/reeborg_dev.js"></script>
+<script src="/src/lang/reeborg_fr.js"></script>
+<script src="/src/libraries/jquery.ui.dialog.minmax.js"></script>
+<script src="/src/libraries/coffee-script.js"></script>
 
 <script type="text/python3">
 from browser import window
 import common_def
-from reeborg_fr import *
 
 def translate_python(src, highlight, pre_code='', post_code=''):
     common_def.generic_translate_python(src, "biblio", "from reeborg_fr import *", highlight, pre_code=pre_code, post_code=post_code)
@@ -365,8 +366,8 @@ window['translate_python'] = translate_python
 
 </script>
 
-<script async src="src/libraries/jshint.js"></script>
-<script async src="src/libraries/filesaver.js"></script>
+<script async src="/src/libraries/jshint.js"></script>
+<script async src="/src/libraries/filesaver.js"></script>
 
 <script>
   TogetherJSConfig_cloneClicks = true;
@@ -460,7 +461,7 @@ window['translate_python'] = translate_python
 
   <p>
     <button class="blue-gradient" id="reverse-step" title="Renverse la commande" onclick="RUR.ui.reverse_step();">
-      <img src="src/images/reverse_step.png" alt="Renverse la commande">
+      <img src="/src/images/reverse_step.png" alt="Renverse la commande">
     </button>
     <span class="description"> Renverse l'instruction précédemment exécutée.
     </span>
@@ -497,7 +498,7 @@ window['translate_python'] = translate_python
     </span>
   </p>
     <p>
-      <button class="blue-gradient" onClick="RUR.testing.test_permalien('/src/worlds/permalinks/comprehensive_test_fr')"
+      <button class="blue-gradient" onClick="RUR.testing.test_permalien('/src/worlds/permalinks/comprehensive_test_fr', 'Test compréhensif')"
         >test comprehensif</button>
       <span class="description">
         Pour les développeurs: exécute un test compréhensif.
@@ -588,30 +589,30 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
 
 
 <audio id="put-sound" preload>
-  <source src="src/sounds/toc.wav" type="audio/x-wav">
+  <source src="/src/sounds/toc.wav" type="audio/x-wav">
 </audio>
 
 <audio id="take-sound" preload>
-  <source src="src/sounds/pick.wav" type="audio/x-wav">
+  <source src="/src/sounds/pick.wav" type="audio/x-wav">
 </audio>
 <audio id="write-sound" preload>
-  <source src="src/sounds/type.wav" type="audio/x-wav">
+  <source src="/src/sounds/type.wav" type="audio/x-wav">
 </audio>
 
   <audio id="move-sound" preload>
-  <source src="src/sounds/move.wav" type="audio/x-wav">
+  <source src="/src/sounds/move.wav" type="audio/x-wav">
 </audio>
 <audio id="turn-sound" preload>
-  <source src="src/sounds/turn.wav" type="audio/x-wav">
+  <source src="/src/sounds/turn.wav" type="audio/x-wav">
 </audio>
 <audio id="build-sound" preload>
-  <source src="src/sounds/brick.wav" type="audio/x-wav">
+  <source src="/src/sounds/brick.wav" type="audio/x-wav">
 </audio>
 <audio id="success-sound" preload>
-  <source src="src/sounds/success.wav" type="audio/x-wav">
+  <source src="/src/sounds/success.wav" type="audio/x-wav">
 </audio>
 <audio id="error-sound" preload>
-  <source src="src/sounds/glitch-sound.wav" type="audio/x-wav">
+  <source src="/src/sounds/glitch-sound.wav" type="audio/x-wav">
 </audio>
 
 <div id="dialog-form" title="Add object in the world" style="display:none;">
@@ -779,31 +780,31 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
     </ul>
     <ul class="kbd_objects" >
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"jeton\"");'>
-         <img src="src/images/token.png" title="jeton"></li>
+         <img src="/src/images/token.png" title="jeton"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"pomme\"");'>
-        <img src="src/images/apple.png" title="pomme"></li>
+        <img src="/src/images/apple.png" title="pomme"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"banane\"");'>
-        <img src="src/images/banana.png" title="banane"></li>
+        <img src="/src/images/banana.png" title="banane"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"carotte\"");'>
-        <img src="src/images/carrot.png" title="carotte"></li>
+        <img src="/src/images/carrot.png" title="carotte"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"marguerite\"");'>
-        <img src="src/images/daisy.png" title="marguerite"></li>
+        <img src="/src/images/daisy.png" title="marguerite"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"pissenlit\"");'>
-        <img src="src/images/dandelion.png" title="pissentlit"></li>
+        <img src="/src/images/dandelion.png" title="pissentlit"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"feuille\"");'>
-        <img src="src/images/leaf.png" title="feuille"></li>
+        <img src="/src/images/leaf.png" title="feuille"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"orange\"");'>
-        <img src="src/images/orange.png" title="orange"></li>
+        <img src="/src/images/orange.png" title="orange"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"carré\"");'>
-        <img src="src/images/square.png" title="carré"></li>
+        <img src="/src/images/square.png" title="carré"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"étoile\"");'>
-        <img src="src/images/star.png" title="étoile"></li>
+        <img src="/src/images/star.png" title="étoile"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"fraise\"");'>
-        <img src="src/images/strawberry.png" title="fraise"></li>
+        <img src="/src/images/strawberry.png" title="fraise"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"triangle\"");'>
-        <img src="src/images/triangle.png" title="triangle"></li>
+        <img src="/src/images/triangle.png" title="triangle"></li>
        <li class="kbd_objects" onclick='RUR.kbd.insert("\"tulipe\"");'>
-        <img src="src/images/tulip.png" title="tulipe"></li>
+        <img src="/src/images/tulip.png" title="tulipe"></li>
     </ul>
     <ul class="kbd_special">
        <li class="kbd_special" onclick='RUR.kbd.insert(":");'>&nbsp;&nbsp;:&nbsp;&nbsp;</li>

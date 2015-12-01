@@ -35,8 +35,13 @@ RUR.world_select.get_selected = function () {
     var select, index, url, shortname;
     select = document.getElementById("select_world");
     index = select.selectedIndex;
-    url = select.options[index].value;
-    shortname = select.options[index].text;
+    try {
+        url = select.options[index].value;
+        shortname = select.options[index].text;
+    } catch (e) {
+        url = select.options[0].value;
+        shortname = select.options[0].text;
+    }
     return {url:url, shortname:shortname};
 };
 

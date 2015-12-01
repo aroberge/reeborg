@@ -184,7 +184,6 @@ def Monde(url, nom=None):
            >>> Monde("http://reeborg.ca/mon_monde", "Bonjour")
            # le nom Bonjour sera ajouté au sélecteur pour indiquer ce monde.
     """
-
     if nom is None:
         RUR.file_io.load_world_from_program(url)
     else:

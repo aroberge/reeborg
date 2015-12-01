@@ -149,11 +149,23 @@ RUR.runner.run = function (playback) {
 RUR.runner.eval = function(src) {  // jshint ignore:line
     var error_name, message, response, other_info, from_python;
     other_info = '';
+
+    /* At some point around version 3.2.0, Brython changed the way it
+       handled uncaught errors, and no longer pass a "nice" object
+       to the surrounding Javascript environment - since this is not
+       the way Brython programmers normally do things.   While this
+       has been changed back some time after version 3.2.3, we nonetheless
+       guard against any future changes by doing our own handling. */
+
+    RUR.__python_error = false;
     try {
         if (RUR.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
         } else if (RUR.programming_language === "python") {
             RUR.runner.eval_python(src);
+            if (RUR.__python_error) {
+                throw RUR.__python_error;
+            }
         } else if (RUR.programming_language === "coffee") {
             RUR.runner.eval_coffee(src);
         } else {
