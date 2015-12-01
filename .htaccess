@@ -11,5 +11,5 @@ Header set Cache-Control "max-age=43200"
 </FilesMatch>
 RemoveHandler .py
 
-Redirect /docs/begin_py_en/ http://reeborg.ca/docs/en/index.html
-Redirect /docs/begin_py_fr/ http://reeborg.ca/docs/fr/index.html
+RedirectMatch 301 ^/docs/begin_py_fr(.*) http://reeborg.ca/docs/fr/index.html
+RedirectMatch 301 ^/docs/begin_py_en(.*) http://reeborg.ca/docs/en/index.html
