@@ -43,50 +43,52 @@
   </script>
 
   <script type="text/python3">
-  from browser import window
-  import common_def         # reassigns stdin and stdout
-  from reeborg_en import *  # will insert the relevant help information
+from browser import window
+from _importlib import optimize_import_for_path
+optimize_import_for_path('/src/python', 'py')
+optimize_import_for_path('/test/src', 'py')
+import common_def
 
-  highlight = False
+highlight = False
 
-  def translate_python(src, dummy, pre_code='', post_code=''):
-      common_def.generic_translate_python(src, "library", "from reeborg_en import *",
-        highlight, pre_code=pre_code, post_code=post_code)
+def translate_python(src, dummy, pre_code='', post_code=''):
+    common_def.generic_translate_python(src, "library", "from reeborg_en import *",
+      highlight, pre_code=pre_code, post_code=post_code)
 
-  window['translate_python'] = translate_python
+window['translate_python'] = translate_python
   </script>
 
   <h1>Test of English version</h1>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
 
-  <script src="../src/lang/translation_en.js" data-cover></script>
-  <script src="../src/js/aa_utils.js" data-cover></script>
-  <script src="../src/js/commands.js" data-cover></script>
-  <script src="../src/js/constants.js" data-cover></script>
-  <script src="../src/js/control.js" data-cover></script>
-  <script src="../src/js/custom_dialogs.js" data-cover></script>
-  <script src="../src/js/custom_menus.js" data-cover></script>
-  <script src="../src/js/file_io.js" data-cover></script>
-  <script src="../src/js/images.js" data-cover></script>
-  <script src="../src/js/recorder.js" data-cover></script>
-  <script src="../src/js/robot.js" data-cover></script>
-  <script src="../src/js/runner.js" data-cover></script>
-  <script src="../src/js/storage.js" data-cover></script>
-  <script src="../src/js/tooltip.js" data-cover></script>
-  <script src="../src/js/ui.js" data-cover></script>
-  <script src="../src/js/utils.js" data-cover></script>
-  <script src="../src/js/visible_robot.js" data-cover></script>
-  <script src="../src/js/visible_world.js" data-cover></script>
-  <script src="../src/js/world.js" data-cover></script>
-  <script src="../src/js/world_editor.js" data-cover></script>
-  <script src="../src/js/world_select.js" data-cover></script>
-  <script src="../src/lang/reeborg_en.js" data-cover></script>
+  <script src="/src/lang/translation_en.js" data-cover></script>
+  <script src="/src/js/aa_utils.js" data-cover></script>
+  <script src="/src/js/commands.js" data-cover></script>
+  <script src="/src/js/constants.js" data-cover></script>
+  <script src="/src/js/control.js" data-cover></script>
+  <script src="/src/js/custom_dialogs.js" data-cover></script>
+  <script src="/src/js/custom_menus.js" data-cover></script>
+  <script src="/src/js/file_io.js" data-cover></script>
+  <script src="/src/js/images.js" data-cover></script>
+  <script src="/src/js/recorder.js" data-cover></script>
+  <script src="/src/js/robot.js" data-cover></script>
+  <script src="/src/js/runner.js" data-cover></script>
+  <script src="/src/js/storage.js" data-cover></script>
+  <script src="/src/js/tooltip.js" data-cover></script>
+  <script src="/src/js/ui.js" data-cover></script>
+  <script src="/src/js/utils.js" data-cover></script>
+  <script src="/src/js/visible_robot.js" data-cover></script>
+  <script src="/src/js/visible_world.js" data-cover></script>
+  <script src="/src/js/world.js" data-cover></script>
+  <script src="/src/js/world_editor.js" data-cover></script>
+  <script src="/src/js/world_select.js" data-cover></script>
+  <script src="/src/lang/reeborg_en.js" data-cover></script>
 
   <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
-  <script src="blanket.min.js"></script>
-  <script src="test_utils.js"></script>
-  <script src="test_english.js"></script>
+  <script src="/test/js/blanket.min.js"></script>
+  <script src="/test/js/test_utils.js"></script>
+  <script src="/test/js/test_english.js"></script>
 
 </body>
 </html>
