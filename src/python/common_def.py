@@ -90,7 +90,6 @@ def generic_translate_python(src, lib, lang_import, highlight,
         if not problem:
             src = temp_src
         else:
-            exec("RUR.ui.highlight('{}')".format(problem), globals_)
             window.jQuery("#highlight-impossible").show()
     if hasattr(window.RUR, "__debug"):
         window.console.log("processed source:")
