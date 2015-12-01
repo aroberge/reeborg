@@ -3760,7 +3760,7 @@ RUR.ui.load_user_worlds = function (initial) {
     }
 };
 
-RUR.ui.highlight = function (arg) {
+RUR.ui.highlight = function () {
     if (RUR._highlight) {
         RUR._highlight = false;
         if (arg){
