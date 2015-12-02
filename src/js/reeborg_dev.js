@@ -1561,7 +1561,6 @@ $(document).ready(function() {
     }
 
     create_and_activate_dialog($("#edit-world"), $("#edit-world-panel"), {}, toggle_editing_mode);
-    create_and_activate_dialog($("#help-button"), $("#help"), {});
     create_and_activate_dialog($("#about-button"), $("#about-div"), {});
     create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
     create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600}, RUR.we.show_world_info);
@@ -1798,7 +1797,6 @@ $(document).ready(function() {
 
     RUR.we.set_extra_code();
 });
-
 /* Author: André Roberge
    License: MIT
  */
@@ -3785,22 +3783,6 @@ RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gr
     step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
     pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
     stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
-
-RUR.ui.add_help = function(usage, _id, lang, warning){
-
-    if (RUR.ui._added_lang === undefined) {
-        RUR.ui._added_lang = [lang];
-    } else if (RUR.ui._added_lang.indexOf(lang)== -1) {
-        RUR.ui._added_lang.push(lang);
-    } else {
-        return;
-    }
-    if (document.documentElement.lang != _id){
-        $("#help").prepend('<span style="color:darkred">' + warning + RUR.translate("Object names") + "</span><br>");
-    }
-    $("#toc").after(usage);
-    $("#toc").prepend('<li><a href="#basic-commands-' + _id + '">' + lang + "</a></li>");
-};
 
 
 RUR.ui.toggle_panel = function (button, element) {
