@@ -114,7 +114,9 @@ code {
     font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
     font-size: 12px;
     font-weight: bold;
-    background-color: #f8f8f8;
+    border: 1px solid green;
+    border-radius: 5px;
+    padding: 2px;
 }
 
 nav {
@@ -262,7 +264,7 @@ a.right-link:hover {
 }
 
 .alert .ui-widget-header {
-    background-color: red;
+    background-color: #c80000;
     background-image: none;
 }
 
@@ -294,7 +296,7 @@ li.success:after {
 
 .failure {
     list-style: none;
-    color: red;
+    color: #c80000;
 }
 
 li.failure:after {

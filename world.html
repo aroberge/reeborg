@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="/src/css/reeborg_world.css"> <!-- load after codemirror.css -->
 <title>Reeborg's world</title>
 <script type="text/javascript"
-    src="http://cdn.rawgit.com/brython-dev/brython/bdea4d6a82f2368af65d287823d859f9b01bc3fa/www/src/brython.js">
+    src="http://cdn.rawgit.com/brython-dev/brython/3c551ae3bf6d29191f7f62bf0d2ce987d70fc340/www/src/brython.js">
 </script>
 </head>
 <body onload="brython({debug:1, pythonpath:['/src/python']})">
@@ -396,22 +396,19 @@ window['translate_python'] = translate_python
 </script>
 <script async src="https://togetherjs.com/togetherjs-min.js"></script>
 
-<div id="help" title="Help" style="display:none">
-    <ul id="toc"></ul>
-</div>
 
 <div id="more-menus" title="Additional options" style="display:none">
 
   <h3>Programming language</h3>
+
     <form>
       <input type="radio" name="programming_language" value="python-en" checked> Python
       <input type="radio" name="programming_language" value="javascript-en" > Javascript
       <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
     </form></p>
-  <p>
-    <button class="blue-gradient" id="help-button">Help</button>
-    Displays a description of available commands.
-  </p>
+
+<h3>Help</h3>
+    <p>If you need help, please <a href="http://reeborg.ca/docs/en">consult the documentation.</a></p>
   <p>
     <button class="blue-gradient" id="about-button">About</button> Some potentially
     useful information about this site.
