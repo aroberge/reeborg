@@ -73,10 +73,12 @@ The need for scope
 
 
 
-As I am writing this, the main program file that powers Reeborg's World,
+As I am writing this, the main Javascript program file that powers Reeborg's World,
 https://github.com/aroberge/reeborg/blob/master/src/js/reeborg_dev.js,
 contains approximately 6000 lines of code: this is likely quite a bit more
-than the programs you have written so far!  People working in collaboration
+than the programs you have written so far!  (There are a few additional
+program files, including some written in Python, of course!)
+People working in collaboration
 will write programs that contains hundreds of thousands if not millions
 lines of code.  As you can imagine, it is impossible to find meaningful
 names for variables that would have a unique meaning throughout
@@ -87,8 +89,8 @@ we could have a problem when using this variable.
 
 Python, and most other programming languages, has a solution for this problem:
 variables that are defined within a function, are known only within this function.
-Thus, if you write a function and use a variable named ``length`` and
-I write another function and also use a variable named ``length``, these
+Thus, if **you** write a function and use a variable named ``length`` and
+if **I** write another function and also use a variable named ``length``, these
 will be treated as being different variables by Python.
 
 We say that these variables are **local** to the function, or that
@@ -126,20 +128,22 @@ is a line::
 
 So, Python determines that, inside the function, ``a`` always refer
 to the **local** variable.  Since we attempt to print its value
-before we assign it, Python tells us it cannot do this.
+before we assign it, Python tells us it, in its own way, that it
+cannot do this.
 
 Finally, in the fourth program, we have added the line::
 
     global a
 
 ``global`` is a Python keyword that tells Python that the variable
-``a`` is the one defined outside the function  (in the *global* scope).
+``a`` used **inside** the function is the same one defined **outside**
+the function  (in the *global* scope).
 So, it already has a known value when the line::
 
     print("inside test", a)
 
 is executed.  The following line, ``a = 3``, changes the value of
-``a`` so that, after executing ``test()``, ``a`` has this new value.
+``a`` so that, after executing ``test()``, ``a`` has this new value everywhere.
 
 .. important::
 
@@ -149,4 +153,4 @@ is executed.  The following line, ``a = 3``, changes the value of
 
     Then, even if it is not entirely clear, you can safely move on
     to the next section.  As you write more programs, the concept of
-    scope will become more familiar.
+    scope will become easier to understand.

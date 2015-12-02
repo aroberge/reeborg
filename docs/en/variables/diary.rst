@@ -7,30 +7,33 @@ Have Reeborg execute the following program::
 
     print()
 
-You should see a pop-up window appear with the title *Reeborg writes:*.
+You should see a pop-up window appear with the title **Reeborg writes:**.
 This window is Reeborg's diary.  Feel free to move it around
 on your computer screen.
 
 .. note::
 
     **Important:** the example on the right does not execute the
-    function ``move``; if we do::
+    function ``move``; however, if we do::
 
         print( move() )
 
     so that ``move`` is executed, the Python keyword ``None`` will
-    be printed.  What that is the case will be explained later.
+    be printed.  Why that is the case will be explained later.
 
 Now, run the following program::
 
     print(move)
 
-At the time I wrote this tutorial, the result in Reeborg's diary was
+At the time I revised this tutorial, the result in Reeborg's diary was::
 
-    <function _move_>
+    <function move>
 
-``_move_`` is the secret name of the ``move`` function as known
-to Reeborg. We can verify this by running the following::
+(previously, instead of ``move``, ``_move_`` was the name that appeared for
+reason that you might guess after having read this page.)
+What if we were to define another variable (name) for the same object (function)?
+
+.. code-block:: py3
 
     step = move
     print(step)
@@ -38,26 +41,26 @@ to Reeborg. We can verify this by running the following::
 
 The result is::
 
-    <function _move_>
-    <function _move_>
+    <function move>
+    <function move>
 
-.. note::
+This shows clearly that ``=`` simply gives a name to an object,
+the object in this case being what Python calls ``<function move>``
+when asked to print it.
+On the other hand, if we define a completely new function, like::
 
-    ``pass`` is a Python keyword which meand "do nothing".
-    It is useful to take the place of a block of code which
-    is required for having the proper structure (indentation) in a
-    program but which is not otherwise needed.
+    #  step = move
+    def step():
+        move()
 
-If you define a completely new function, like::
-
-    def hello():
-        pass
-
-    print(hello)
+    print(step)
 
 the result will be::
 
-    <function hello>
+    <function step>
+
+which is a different object from ``<function move>`` even though,
+if called, ``step()`` would have the exact same result as ``move()``.
 
 
 A function can have an argument

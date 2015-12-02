@@ -50,6 +50,12 @@ was the following::
         else:
             turn_left()
 
+.. important::
+
+    Remember: comments are ignored by Python.  It is therefore always
+    preferable to write a program so that its intent is clear from
+    the way the code itself is written.
+
 Let us now use another way to combine this function with the rest
 of the program written in a clear way using variables.
 For exmple, instead of writing::
@@ -128,5 +134,4 @@ Much fewer comments than before, yet the meaning of the program is
 still very clear.  One significant advantage of using well chosen
 variables (names) instead of comments is that Python will execute
 the code but **not** the comment; so if the code is wrong, we will
-see it right away; if the comments are wrong, Python cannot indicate
-it to us.
+see it right away; if the comments are wrong, Python cannot tell us.

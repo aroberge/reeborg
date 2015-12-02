@@ -53,14 +53,6 @@ Pour faire ceci, vous pouvez utiliser la fonction
 le temps (additionel) en millisecondes requis par Reeborg
 pour faire chaque action.
 
-So far, you have written programs where Reeborg execute each step
-at a steady rate.  In a way, it is as though Reeborg **thinks**
-for a short while before executing each instruction.
-Actually, you can control the (additional) time it takes for
-Reeborg to show the result of any action.  To do this, you
-can use the function ``think(ms)`` where ``ms`` is an integer
-argument that represents the (additional) time taken by
-Reeborg to perform any action.
 
 .. topic:: À votre tour!
 

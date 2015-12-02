@@ -51,6 +51,13 @@ nous allons utiliser ici, était la suivante::
         else:
             tourne_a_gauche()
 
+.. important::
+
+    Rappel: les commentaires sont ignorés par Python. Il est donc toujours
+    préférable de faire en sorte que l'intention d'un programme soit bien
+    décrite par la façon dont il est écrit.
+
+
 Ici, nous allons utiliser une autre façon de rendre le tout
 plus clair en utilisant des variables.  Par exemple,
 au lieu d'écrire::

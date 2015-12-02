@@ -1,13 +1,6 @@
 Return
 ======
 
-
-.. todo::
-
-   Add an explanation about the fact that a function always
-   returns a value; if no return value is explictly written,
-   then the function returns  ``None``.
-
 .. note::
 
     North is toward the top of the screen; East
@@ -23,38 +16,62 @@ To find out if he is facing north, you can ask Reeborg to do the test
 ``is_facing_north()``.
 
 
-.. topic:: Try this!
+.. topic:: Programming time!
 
-    Choosing an appropriate world, write a short program that will ensure
+    Run the following program to select a simple world that has Reeborg
+    start in an arbitrary orientation::
+
+        World("/src/worlds/face_north.json", "Face north")
+
+    Then, write a short program that will ensure
     that Reeborg will turn left until he faces north, no matter what his
     starting orientation is.
+
+A few experiments
+-----------------
+
+Select world **Alone** and execute the following program::
+
+    repeat 4:
+        print("turn_left: ", turn_left() )
+        print("is_facing_north: ", is_facing_north() )
+
+Do you notice anything interesting?
+
+After you are done, execute the following program::
+
+    def interrupted_two_steps():
+        move()
+        return
+        move()
+
+    print(interrupted_two_steps())
+
+Notice how Reeborg does only one move.
+
+Finally, run the following::
+
+    def three():
+        return 3
+
+    print(three())
 
 Getting results from functions
 ------------------------------
 
+.. note::
+
+    If a function has no ``return`` statement, or if the ``return``
+    keyword is alone on a line of its own, a Python function will
+    return a value of ``None``, which is another Python keyword.
+
 Tests like ``is_facing_north()`` are actually Python functions. They
 differ from other functions like ``turn_left()`` or ``move()`` in that
-they ``return`` a value. Let's start by considering a simple example:
+they ``return`` a potentially useful value.
 
 .. topic:: Try this!
 
-    .. code-block:: py3
-
-        def interrupted_two_steps():
-            move()
-            return
-            move()
-
-        interrupted_two_steps()
-
-
-As you can see, the return statement prevents the second ``move()`` from
-being executed.
-The ``return`` keyword can actually be accompanied by something else.
-
-.. topic:: Try this!
-
-    For example, try the following::
+    Try the following::
 
         def north():
            return is_facing_north()
@@ -73,7 +90,7 @@ ask Reeborg to turn left twice, note if his orientation is North (which
 it should be if he was facing South) or not, turn left twice more, to go
 back to its original orientation, and tell us what he remembered using
 the ``return`` statement. One thing we need to do: have Reeborg use a
-*variable* to remember its orientation after two left turns::
+**variable** to remember its orientation after two left turns::
 
     def is_facing_south():
         turn_left()
@@ -105,8 +122,9 @@ dizzy.
 .. topic:: Mini-quiz!
 
     Write a program that has Reeborg face West, no matter what his original
-    orientation is. Test it with Reeborg in various starting orientations,
-    by giving him a few ``turn_left()`` instructions first.
+    orientation is. Test your program with this world::
+
+        World("/src/worlds/face_west.json", "Face west")
 
 How to think about return
 -------------------------
@@ -122,7 +140,7 @@ Suppose we have the following::
 In this case, the call to ``some_function()`` on the last line gets
 replaced by the value of ``something`` which is what follows the
 ``return`` keyword. If nothing follows ``return`` the result is
-``undefined``.
+``None``.
 
 .. topic:: More returns
 
@@ -140,5 +158,3 @@ replaced by the value of ``something`` which is what follows the
     challenges for worlds **Storm 1** and **Storm 2**, that is, go around the
     one-room houses in the opposite direction compared with your previous
     solutions.
-
-

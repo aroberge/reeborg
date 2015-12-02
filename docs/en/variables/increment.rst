@@ -1,15 +1,6 @@
 Increment
 =========
 
-.. todo::
-
-    rewrite this and use **Storm 1** as an example; disable
-    ``carries_object()`` and have Reeborg count the number of leaves
-    instead.
-
-    Introduce the global keyword.
-
-
 
 Select world **Around 1**.
 
@@ -36,6 +27,16 @@ Before I write a Python program to do just that, let's do an experiment.
         a = a + 3
         print(a)
 
+    Very different result, isn't it?
+
+
+In computer programming, the action of changing the value of a variable
+so that it increases is called *incrementing* a variable.
+When the variable decreases, we use the verb **decrement** instead.
+
+
+Understanding increments
+------------------------
 
 Remember when we saw variables and the assignment operator ``=``.
 A variable is a name given to an object so that we can refer to it
@@ -103,7 +104,8 @@ forget about it, and think of it as meaning* ``4`` *from now on.*
 
 What about ``a = a + 3``?  Python first looks at the right hand side ``a + 3``,
 finds a variable ``a`` which has not been assigned to any object before,
-so it doesn't know what to do with it.
+so it doesn't know what to do with it, and lets us know by giving
+an error message.
 
 .. topic:: Counting steps
 
@@ -124,7 +126,8 @@ so it doesn't know what to do with it.
     Have Reeborg go all the way once around world **Around 1**.
     Along the way, Reeborg should could the number of steps **and**
     the number of left turns, printing both of these values
-    at the end.
+    at the end.  **Important** Do this **without** defining your own
+    functions.
 
 
 Augmented assignment operators
@@ -140,7 +143,7 @@ In Python programs, we often need to do something like::
 
 or::
 
-    pizza_slices = pizza_slices - 1
+    pizza_slices = pizza_slices - 2
 
 Not only this is long to write, but it also does not respect
 Rule # 3: **Do not repeat yourself**, since we have the same variable
@@ -151,7 +154,7 @@ repetitions, using what are known as **augmented assignment operators**.
 We can rewrite the above lines of code as::
 
     number_of_steps += 1
-    pizza_slices -= 1
+    pizza_slices -= 2
 
 For each mathematical operator, ``+, -, /, //, *, **``, there is a corresponding
 augmented assignment operator ``+=, -=, /=, //=, *=, **=``.
@@ -166,33 +169,16 @@ augmented assignment operator ``+=, -=, /=, //=, *=, **=``.
     Have Reeborg go all the way once around world **Around 1**.
     Along the way, Reeborg should could the number of steps **and**
     the number of left turns, printing both of these values
-    at the end.  This time, use augmented assignment operators.
+    at the end.  This time, **use augmented assignment operators**.
 
 
-
-
-
-Comparison operators
---------------------
-
-It is sometimes very useful to compare objects. We'll start with numbers.
-
-.. topic:: Try this!
-
-    .. code-block:: py3
-
-        print( 2 == 2)  # are the two numbers equal
-        print( 2 == 3)
-
-        print( 2 != 2)  # are the two numbers different
-        print( 2 != 3)
-
-
-Back to the yard work
----------------------
+Back to the yard work?
+----------------------
 
 At the end of the previous lesson, you were left with a task for Reeborg
 that couldn't be done because you couldn't use ``carries_object()``.
-However, you should now know how to keep track of the number of leaves
-picked up so that you can know how many to put down.
+While you now know how to keep track of the number of leaves picked
+up by Reeborg, there are two more programming concepts we must
+learn so that Reeborg can accomplish his task.  We will do this
+in the following two sections.
 

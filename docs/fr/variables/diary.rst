@@ -8,14 +8,14 @@ Exécutez le programme suivant::
     print()
 
 Vous devriz voir une fenêtre flottante vide apparaître dont
-le titre est *Reeborg écrit:*.
+le titre est **Reeborg écrit:**.
 Cette fenêtre flottante est le journal de Reeborg.
 Sentez-vous libre de la déplacer ailleurs sur l'écran.
 
 .. note::
 
     **Important:** l'exemple à droite n'exécute pas la fonction ``avance``;
-    si nous faisons::
+    par contre, si nous faisons::
 
         print( avance() )
 
@@ -27,13 +27,21 @@ Exécutez maintenant le programme qui suit::
 
     print(avance)
 
-Au moment où j'écris ce tutoriel, le résultat est le suivant::
+Au moment où je **corrige** ce tutoriel, le résultat est le suivant::
 
-    <function _move_>
+    <function avance>
 
-Le mot anglais ``function`` signifie *fonction*; le mot ``_move_``
-est le nom de la fonction ``avance`` tel que connu secrètement par
-Reeborg.   On peut vérifier ceci en exécutant le programme suivant::
+Précédemment, le résultat était ``<function _move_>``.  Vous serez
+probablement en mesure de deviner pourquoi sous peu.
+
+Le mot anglais ``function`` signifie *fonction*; le mot ``move`` est un mot
+anglais qui est habituellement traduit par *bouge* mais qui peut également
+signifier *avance*.
+
+Qu'arriverait-il si on définissait un autre nom (une variable) pour désigner
+la même fonction?
+
+.. code-block:: py3
 
     marche = avance
     print(avance)
@@ -41,26 +49,30 @@ Reeborg.   On peut vérifier ceci en exécutant le programme suivant::
 
 Le résultat est::
 
-    <function _move_>
-    <function _move_>
+    <function avance>
+    <function avance>
 
-.. note::
+On voit bien ici que ``=`` sert simplement à donner un autre nom à un
+objet; l'objet lui-même, ce que Python désigne par ``<function avance>`` ici,
+ne change pas.
 
-    ``pass`` est un mot-clé Python signifiant "ne fait rien";
-    c'est un mot utile pour prendre la place d'un bloc de
-    code qui est requis pour respecter l'indentation mais dont
-    nous n'avons pas besoin autrement.
+Par contre, si on définit une autre fonction, comme par exemple::
 
-Si vous définissez une autre fonction, comme par exemple::
+    # marche = avance
 
-    def bonjour():
-        pass
+    def marche():
+        avance
 
-    print(bonjour)
+    print(marche)
 
 le résultat sera::
 
-    <function bonjour>
+    <function marche>
+
+qui est un objet différent de ``<function avance>``;
+cependant, ``marche()`` et ``avance()`` auront le même résultat si on
+les invoque.
+
 
 Une fonction peut avoir un argument
 -----------------------------------
