@@ -2,7 +2,7 @@
 리보그(Reeborg)와 파이썬 배우기!
 ==========================
 
-파이썬을 배우는 것은 리보그와 함께라면 쉬워요.
+파이썬을 배우는 것은 리보그와 함께라면 쉬워요. 해야되는 일은 튵토리얼을 잘 일고 예제를 시도해 보면 된다.
 Learning Python is easy with Reeborg.  All you have to do is read the tutorial
 and try all the examples in `Reeborg's world <http://reeborg.ca/world.html>`_.
 I suggest that you keep the tutorial and Reeborg's World both open but
