@@ -13,7 +13,7 @@ def __write(data):
 
 
 def __write_err(data):
-    window.RUR.control.write("<b style='color:red'>" + str(data) + "</b>")
+    window.RUR.control._write("<b style='color:red'>" + str(data) + "</b>")
 
 sys.stdout.write = __write
 sys.stderr.write = __write_err
