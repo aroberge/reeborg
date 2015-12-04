@@ -1,65 +1,54 @@
-Test driven learning
+시험 주도 학습
 ====================
 
 .. figure:: ../../../src/images/select_home.png
    :align: left
 
+파이썬을 학습하는데 도움이 되도록, 저자가 시험문제를 낸다: 리보그를 프로그램해서 특정한 작업을 성취하게 한다.
+리보그가 스스로 작업을 해보고 작업을 잘 수행했는지 혹은 잘못 수행했는지 알려준다.
 
-In order to help you learn Python, I will give you some tests: you
-have to program Reeborg to accomplish specific tasks and Reeborg itself
-will tell you if you got it right or wrong.
+**Home 1** 세상을 선택한다. 좌측하단 정사각형에 위치한 집에 주목한다: 리보그 집이다. 리보그 세상은 단순한 격자다.
+**Home 1**에서 리보그는 맨 아래줄에 세번째 정사각형에서 출발한다. 데카르트 좌표계를 사용해서 ``x=3``, ``y=1``으로 표식한다.
 
-Select the world **Home 1**. Notice the house on the bottom left square:
-this is Reeborg's home. Reeborg's world is a simple grid.
-In **Home 1**, Reeborg starts at the third square on the bottom row. It
-labels this square as ``x=3`` and ``y=1``, using what is known as
-Cartesian coordinates.
+.. topic:: 시도해 보기!
 
-.. topic:: Try this!
+    **Home 1**을 선택하고, ``move()`` 단일 명령어를 갖는 프로그램을 작성하고 실행한다.
+    리보그가 어떤 피드백을 주는지 주목한다. 그리고 나서, 프로그램을 수정해서 리보그가 집에 들어가게 한다.
 
-    With **Home 1** selected, write a program with a single ``move()`` instruction,
-    run it and notice what feedback Reeborg gives you.
-    Then, change your program so that
-    Reeborg go home.
+.. topic:: 두번째 시도해 보기!
 
-.. topic:: Try two more!
+    **Home 2**을 선택한다. 리보그가 다른 위치에 있고, 여러분을 또한 대면하고 있음에 주목한다. 
+    정확하게 동일한 프로그램을 실행하고 무슨 일이 발생하는지 살펴보라.
 
-    Select **Home 2**. Notice how Reeborg is in a different location and is also
-    facing you. Try running the exact same program and see what happens.
-
-    Next, select **Home 3** and run your program.
+    다음으로, **Home 3**을 선택하고 프로그램을 실행한다.
 
 .. index:: turn_left()
 
-Making a left turn
+왼쪽으로 돌기
 ------------------
 
-Last example ended with a program that did not work, as Reeborg
-did not end up at his home.  To solve this problem, we need to
-add two instructions::
+리보그가 집으로 도착하지 않는 것으로 끝이 나서, 마지막 예제는 제대로 동작하지 않는 프로그램으로 마무리가 되었다.
+이러한 문제를 해결하기 위해서, 명령어 두개를 추가할 필요가 있다::
 
     turn_left()
     move()
 
-.. topic:: Try this!
+.. topic:: 시도해 보기!
 
-    Make sure that Reeborg goes home in **Home 3**.
+    **Home 3**에서 리보그가 집에 확실히 들어갔는지 확인한다.
 
-.. topic:: Try something else!
+.. topic:: 다른 것 시도해 보기!
 
-    What happens if, you leave out the ``turn_left()`` instruction, but
-    keep the additional ``move()`` instruction?
+    만약 ``turn_left()`` 명령어를 빼먹고, 추가 ``move()`` 명령어를 간직하면 무슨 일이 일어날까?
 
-A different view
+다른 관점
 ----------------
 
 .. |image0| image:: ../../../src/images/robot_e.png
 .. |image1| image:: ../../../src/images/rover_e.png
 
-You may have noticed that Reeborg (the robot itself) is seen from its
-side, such as |image0| whereas his world is seen from above ... which
-you might perhaps find confusing especially when you instruct Reeborg to
-turn left. You can change the way Reeborg is seen by either using the
-clicking on the appropriate image above Reeborg's world.
-For example, when facing East, such as the side view above, using a different
-image, Reeborg can appear as follows when viewed from above: |image1|
+리보그(로봇 자체)는 |image0| 처럼 옆에서 본 모습이지만, 반면에 세상은 위에서 바라본 것이라는 것을 알아챘을 것이다...
+리보그로 하여금 왼쪽으로 돌게 할 때 특히 혼동스러울수도 있다. 리보스 세상 상단에 적절한 이미지를 선택해서 리보그가 보여지는 방향을
+변경할 수 있다. 
+예를 들어, 위에서 옆이 보이는 것처럼 동쪽을 향했을 때, 
+다른 이미지를 사용해서 위에서 봤을 때 직관적으로 동일한 느낌이 가도록 다음과 같이 리보그를 나타나게 할 수 있다: |image1|
