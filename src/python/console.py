@@ -107,7 +107,13 @@ class Interpreter():
         console.focus()
         cursorToEnd()
         self.editor_ns = {'__name__': 'Reeborg console'}
-        exec("from reeborg_en import *", self.editor_ns)
+        lang = document.documentElement.lang
+        if lang == 'en':
+            exec("from reeborg_en import *", self.editor_ns)
+            self.editor_ns["done"] = RUR.rec.check_current_world_status
+        elif lang == 'fr':
+            exec("from reeborg_fr import *", self.editor_ns)
+            self.editor_ns["termine"] = RUR.rec.check_current_world_status
 
     def set_currentLine(self, src):
         if self.status == "main":
@@ -155,11 +161,12 @@ class Interpreter():
         except SyntaxError as msg:
             self.handle_syntax_error(msg)
         except Exception as e:
-            if hasattr(e, 'reeborg_shouts'):
+            if e.__name__ in ['ReeborgError', 'WallCollisionError']:
                 print("{}: {}".format(e.__name__,
-                                      RUR.translate(e.reeborg_shouts)))
+                      RUR.translate(getattr(e, 'reeborg_shouts'))))
             else:
-                traceback.print_exc()
+                exc = __BRYTHON__.current_exception
+                print("{}: {}".format(e.__name__, exc.args[0]))
             console.value += '>>> '
             self.status = "main"
 

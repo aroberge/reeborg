@@ -62,6 +62,8 @@
     </button>
     <button class="blue-gradient" id="reload" title="recommencer" disabled onclick="RUR.ui.reload();">
       <img src="/src/images/reload.png" alt="recommencer">
+      <button class="blue-gradient" id="reload2" title="recommencer" disabled onclick="RUR.ui.reload2();">
+          <img src="/src/images/reload.png" alt="recommencer">
     </button>
 
   </div>
@@ -143,6 +145,7 @@
   </div>
 </div>
 
+<textarea id="py_console" rows=35, cols=81 style="display:none"></textarea>
 
 <div style="display:none;" id="edit-world-panel" title="Créez vos propres mondes !">
   <p><button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">Fermer
@@ -288,7 +291,7 @@ def translate_python(src, highlight, pre_code='', post_code=''):
 
 window['translate_python'] = translate_python
 </script>
-
+<script type="text/python3" src="/src/python/console.py"></script>
 
 <script>
   function betterTab(cm) {

@@ -2940,8 +2940,19 @@ RUR.rec.handle_error = function (frame) {
     return "stopped";
 };
 
+RUR.rec.check_current_world_status = function() {
+    // this function is to check goals from the Python console.
+    frame = {};
+    frame.world = RUR.current_world;
+    goal_status = RUR.rec.check_goal(frame);
+    if (goal_status.success) {
+        RUR.cd.show_feedback("#Reeborg-concludes", goal_status.message);
+    } else {
+        RUR.cd.show_feedback("#Reeborg-shouts", goal_status.message);
+    }
+};
 
-RUR.rec.check_goal= function (frame) {
+RUR.rec.check_goal = function (frame) {
     var g, world, goal_status = {}, result;
     g = frame.world.goal;
     world = frame.world;
