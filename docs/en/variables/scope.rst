@@ -117,8 +117,8 @@ global scope, finds a variable with that name, and uses it.
     Believe it or not, the description here is a simplification.
     There is another Python keyword, ``nonlocal``, that refers to
     some intermediate scope between **local** and **global**.
-    However, you will not need to use it for any of the programs
-    in Reeborg's World.
+    However, when I wrote this tutorial, I couldn't find any example relevant to
+    Reeborg's World where it was useful to use ``nonlocal``.
 
 In the third program, Python finds that there is a variable ``a`` local
 to the function (which means it is defined inside the function) since there
@@ -147,10 +147,25 @@ is executed.  The following line, ``a = 3``, changes the value of
 
 .. important::
 
-    Many people find the concept of **scope** confusing the first time
-    they see it.  You may want to run the 4 programs again (and again!)
-    and read the explanation a few times.
+    Whenever an experienced programmer sees a function with one or
+    more variable names listed in a ``global`` statement, that programmer
+    begins to worry: instead of just trying to understand that function, the
+    programmer must figure out where else those variables might have been
+    assigned some value, and how this could affect how the function will
+    work.
 
-    Then, even if it is not entirely clear, you can safely move on
-    to the next section.  As you write more programs, the concept of
-    scope will become easier to understand.
+    For this reason, experienced programmers always attempt to use other tools,
+    which you have not yet learned about, to avoid having to use global
+    variables.  However, it is important that you learn how to use global
+    variables and, more importantly, **when** to do so.
+
+Confused?
+---------
+
+Many people find the concept of **scope** confusing the first time
+they see it.  You may want to run the 4 programs again (and again!)
+and read the explanation a few times.
+
+Then, even if it is not entirely clear, you can safely move on
+to the next section.  As you write more programs, the concept of
+scope will become easier to understand.

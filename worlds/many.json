@@ -1,0 +1,34 @@
+﻿{
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 2,
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {},
+      "orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "objects": {
+    "2,1": {
+      "token": 1,
+      "triangle": 2,
+      "banana": 1,
+      "carrot": 1
+    }
+  },
+  "pre_code": "'pre-code'",
+  "post_code": "'post-code'",
+  "description": "Multiple objects"
+}
