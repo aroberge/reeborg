@@ -32,9 +32,19 @@ RUR.kbd.insert2 = function (txt){
     }
 };
 
+RUR.kbd.insert_in_console = function (txt) {
+    var console = $("#py_console");
+    console.val(console.val() + txt);
+    console.focus();
+}
+
 RUR.kbd.insert = function (txt){
     "use strict";
     var doc, cursor, line, pos;
+    if (RUR._active_console) {
+        RUR.kbd.insert_in_console(txt);
+        return;
+    }
     if (txt === undefined) {
         txt = "'";
     }

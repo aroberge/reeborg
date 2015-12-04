@@ -37,6 +37,13 @@ RUR.rec.reset();
 RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
     var frame = {};
+
+    if (RUR.programming_language === "python" && RUR._immediate_playback) {
+        RUR.vis_world.refresh();
+        return;
+    }
+
+
     if (RUR.rec.do_not_record) {
         return;
     }

@@ -1572,9 +1572,25 @@ $(document).ready(function() {
     });
 
     $("#editor-panel-button").on("click", function (evt) {
+        if ($("#editor-panel-button").hasClass("reverse-blue-gradient")) {
+            $("#py_console").show();
+            RUR.ui.show_only_reload2(true);
+            window.restart_repl();
+            RUR._saved_highlight_value = RUR._highlight;
+            RUR._highlight = false;
+            RUR._immediate_playback = true;
+            RUR._active_console = true;
+        } else {
+            $("#py_console").hide();
+            RUR.ui.show_only_reload2(false);
+            RUR._highlight = RUR._saved_highlight_value;
+            RUR._immediate_playback = false;
+            RUR.ui.reload();
+            RUR._active_console = false;
+        }
         RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
     });
-
+    RUR.ui.show_only_reload2(false);
 
     $("#editor-link").on("click", function(evt){
         if (RUR.programming_language == "python" && !RUR.we.editing_world){
@@ -2462,9 +2478,19 @@ RUR.kbd.insert2 = function (txt){
     }
 };
 
+RUR.kbd.insert_in_console = function (txt) {
+    var console = $("#py_console");
+    console.val(console.val() + txt);
+    console.focus();
+}
+
 RUR.kbd.insert = function (txt){
     "use strict";
     var doc, cursor, line, pos;
+    if (RUR._active_console) {
+        RUR.kbd.insert_in_console(txt);
+        return;
+    }
     if (txt === undefined) {
         txt = "'";
     }
@@ -2708,6 +2734,13 @@ RUR.rec.reset();
 RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
     var frame = {};
+
+    if (RUR.programming_language === "python" && RUR._immediate_playback) {
+        RUR.vis_world.refresh();
+        return;
+    }
+
+
     if (RUR.rec.do_not_record) {
         return;
     }
@@ -3631,6 +3664,28 @@ RUR.ui = {};
 RUR.ui.stop_called = false;
 RUR.ui.prevent_playback = false;
 
+RUR.ui.show_only_reload2 = function (bool) {
+    if (bool) {
+        $("#stop").hide();
+        $("#pause").hide();
+        $("#run").hide();
+        $("#step").hide();
+        $("#reverse-step").hide();
+        $("#reload").hide();
+        $("#reload2").show();
+        $("#reload2").removeAttr("disabled");
+    } else {
+        $("#stop").show();
+        $("#pause").show();
+        $("#run").show();
+        $("#step").show();
+        $("#reverse-step").show();
+        $("#reload").show();
+        $("#reload2").hide();
+    }
+};
+
+
 RUR.ui.set_ready_to_run = function () {
     RUR.ui.prevent_playback = false;
     $("#stop").attr("disabled", "true");
@@ -3704,6 +3759,10 @@ RUR.ui.stop = function () {
 
 RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
+    RUR.ui.reload2();
+}
+
+RUR.ui.reload2 = function() {
     $("#highlight-impossible").hide();
     $("#stdout").html("");
     $("#_write").html("");
@@ -3720,6 +3779,8 @@ RUR.ui.reload = function() {
     RUR.control.sound_flag = false;
     RUR.rec.reset();
 };
+
+
 
 RUR.ui.select_world = function (s, silent) {
     var elt = document.getElementById("select_world");

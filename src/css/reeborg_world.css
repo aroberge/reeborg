@@ -110,6 +110,13 @@ canvas {
     z-index: 7;
 }
 
+#py_console {
+    position: absolute;
+    top: 100px;
+    left: 650px;
+    font-weight: bold;
+}
+
 code {
     font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
     font-size: 12px;

@@ -63,9 +63,25 @@ $(document).ready(function() {
     });
 
     $("#editor-panel-button").on("click", function (evt) {
+        if ($("#editor-panel-button").hasClass("reverse-blue-gradient")) {
+            $("#py_console").show();
+            RUR.ui.show_only_reload2(true);
+            window.restart_repl();
+            RUR._saved_highlight_value = RUR._highlight;
+            RUR._highlight = false;
+            RUR._immediate_playback = true;
+            RUR._active_console = true;
+        } else {
+            $("#py_console").hide();
+            RUR.ui.show_only_reload2(false);
+            RUR._highlight = RUR._saved_highlight_value;
+            RUR._immediate_playback = false;
+            RUR.ui.reload();
+            RUR._active_console = false;
+        }
         RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
     });
-
+    RUR.ui.show_only_reload2(false);
 
     $("#editor-link").on("click", function(evt){
         if (RUR.programming_language == "python" && !RUR.we.editing_world){

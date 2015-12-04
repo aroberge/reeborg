@@ -64,6 +64,8 @@
     </button>
     <button class="blue-gradient" id="reload" title="reload" disabled onclick="RUR.ui.reload();">
       <img src="/src/images/reload.png" alt="reload">
+    <button class="blue-gradient" id="reload2" title="reload" disabled onclick="RUR.ui.reload2();">
+        <img src="/src/images/reload.png" alt="reload">
     </button>
 
   </div>
@@ -140,6 +142,8 @@
     A problem with your code has caused me to turn off the code highlighting.
   </div>
 </div>
+
+<textarea id="py_console" rows=35, cols=81 style="display:none"></textarea>
 
 <div style="display:none;"  id="edit-world-panel" title="World editor">
   <p><button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">Close [will offer to save changed world]</button>
@@ -306,7 +310,7 @@ def translate_python(src, highlight, pre_code='', post_code=''):
 
 window['translate_python'] = translate_python
 </script>
-
+<script type="text/python3" src="/src/python/console.py"></script>
 
 <script>
   function betterTab(cm) {
@@ -755,7 +759,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>return ?</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
        <br>
-      <span>Remember: <code>repeat</code> is not a Python keyword; it only works here.</span>
+      <span>Remember: <code>repeat</code> is not a Python keyword; it only works in the Python code editor.</span>
     </ul>
     <ul class="kbd_javascript">
        <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>var</li>
