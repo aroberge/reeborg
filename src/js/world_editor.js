@@ -319,12 +319,28 @@ RUR.we.set_extra_code = function () {
     } catch(e) {
         description_editor.setValue("<!-- description -->");
     }
+    if (RUR.current_world.editor != undefined) {
+        editor.setValue(RUR.current_world.editor);
+    }
+    if (RUR.current_world.library != undefined) {
+        library.setValue(RUR.current_world.library);
+    }
 };
 
 RUR.we.update_extra_code = function () {
     RUR.current_world.pre_code = pre_code_editor.getValue();
     RUR.current_world.post_code = post_code_editor.getValue();
     RUR.current_world.description = description_editor.getValue();
+    if ($('#save_editor')[0].checked) {
+        RUR.current_world.editor = editor.getValue();
+    } else {
+        RUR.current_world.editor = null;
+    }
+    if ($('#save_library')[0].checked) {
+        RUR.current_world.library = library.getValue();
+    } else {
+        RUR.current_world.library = null;
+    }
 };
 
 

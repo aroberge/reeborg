@@ -145,7 +145,10 @@
 <textarea id="py_console" rows=35, cols=81 style="display:none"></textarea>
 
 <div style="display:none;"  id="edit-world-panel" title="World editor">
-  <p><button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">Close [will offer to save changed world]</button>
+  <p> <input type="checkbox" name="save_editor" value="save_editor" id="save_editor">Add editor content to world
+      <input type="checkbox" name="save_library" value="save_library" id="save_library">Add library content to world
+    <br>
+    <button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">Close [will offer to save changed world]</button>
   <br>
     If you want to share your world (and corresponding challenges) with others,
         save it to a file, or better yet, save everything using a permalink

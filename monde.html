@@ -147,7 +147,10 @@
 <textarea id="py_console" rows=35, cols=81 style="display:none"></textarea>
 
 <div style="display:none;" id="edit-world-panel" title="Créez vos propres mondes !">
-  <p><button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">Fermer
+  <p>  <input type="checkbox" name="save_editor" value="save_editor" id="save_editor">Inclure le contenu de l'éditeur
+    <input type="checkbox" name="save_library" value="save_library" id="save_library">Inclure le contenu de la bibliothèque
+    <br>
+    <button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">Fermer
    [et offre de sauvegarder si le monde a changé]</button>
   <br>
   Si vous désirez partager votre monde (et le défi correspondant) avec d'autres
