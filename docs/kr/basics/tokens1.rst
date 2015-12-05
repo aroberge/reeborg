@@ -1,45 +1,39 @@
-A token of appreciation
-=======================
+감사의 표시
+==============================================
 
 .. index:: take(), put()
 
-Reeborg likes to collect tokens. When he finds one on the ground, most
-often he takes it; sometimes he puts one down as well. The commands for
-having him do so can be simply written as follows::
+제목에 **a token of appreciation** 을 감사의 표시로 번역하여 토큰을 소개하고 있다.
+
+
+리보그는 토큰(token) 수집을 좋아한다. 땅바닥에 토큰을 발견하면, 대게 리보그는 줍는다; 종종 리보그가 토큰을 놓기도 한다.
+리보그가 토큰을 놓고 줍는 명령어는 아래와 같이 작성할 수 있다::
 
     take()
     put()
 
-Select world **Tokens 1**. There is a token right next to Reeborg. Note the
-number 1 in red next to it: the number will change depending on the number of
-tokens at that location.  The fact that the number is written in red indicates
-that this does not correspond to the expected final result.
-Next square, we see the a token in shades of grey. This tells us that we should have Reeborg
-put one token at that location. Once this is done, we can see that it
-has been done correctly by, the number of tokens should be written in green.
-Finally, after the grey token, there is a pale green square: this indicates where
-Reeborg should end up after having accomplished its task.
+**Tokens 1** 세상을 선택한다. 리보그 바로 우측에 토큰이 있다. 
+리보그 바로 우측에 토큰이 있다. 토근 옆에 붉은 색으로 숫자 1이 적혀있다: 숫자는 해당 지점에 토큰 숫자에 따라 변한다.
+숫자가 붉은 색으로 적혀 있다는 사실이 기대되는 최종 결과에 대응되지 않는다는 것을 나타낸다.
+옆에 정사각형에, 회색 모양의 토큰을 볼 수 있다. 리보그가 해당 지점에 토큰 한개를 놓아야 된다는 것을 일러주고 있다.
+올바르게 수행되고 나면, 녹색으로 토큰 숫자가 적혀야 된다. 마지막으로, 회색토큰 다음에, 희미한 녹색 정사각형이 있다:
+작업을 완수한 후에 리보그가 최종적으로 종료해야 되는 위치를 나타낸다.
 
-.. topic:: Try it!
+.. topic:: 시도해 보기!
 
-   Write a program to accomplish this task. Can your program also work,
-   without any changes for world **Tokens 2**? The answer should be no, for now
-   ... but, later, you will learn how to write a single program that can
-   work properly for both worlds.
+   **Tokens 1** 세상에 나온 작업을 완수하는 프로그램을 작성하시오.
+   **Tokens 2** 세상에 대해 어떤 변경없이 작성한 프로그램이 동작하나요?
+   지금으로서, 대답은 아니오가 된다... 하지만, 추후 양쪽 세상 모두에 적절하게 동작하는 단일 프로그램을 작성하는 방법을 배울 것이다.
 
-.. topic:: Try something else!
+.. topic:: 다른 것 시도해 보기!
 
-    What happens if Reeborg attempts to put down a token when he does not
-    carry one? What happens if Reeborg attempts to take a token where there
-    is none to be found?
+    만약 리보그가 토큰을 보유하고 있지 않는 때, 토큰을 땅바닥에 놓으려고 하면 무슨 일이 발생할까?
+    만약 땅바닥에 발견될 토큰이 없을 때 토큰을 주으려고 하면 무슨 일이 발생할까?
 
-.. admonition:: For educators
+.. admonition:: 선생님께
 
-    For the first tasks mentioned in this tutorial, worlds have been
-    designed such that only one type of object is present.
-    When more than one type of objects are present, it is sometimes
-    required to include a function argument specifying which
-    object is to be handled, as in::
+    이번 사용설명서에 언급된 첫번째 작업 목적으로 세상이 설계되어서, 단지 한가지 유형의 객체만 제시되어 있다.
+    한가지 이상 유형의 객체가 제시될 때, 어떤 객체가 처리될 것인지 지정하는 함수 인자를 포함하도록 요구되는데, 다음과 같다::
 
         take("token")
         put('token')
