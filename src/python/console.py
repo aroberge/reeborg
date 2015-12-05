@@ -166,7 +166,7 @@ class Interpreter():
                 print("{}: {}".format(e.__name__,
                       RUR.translate(getattr(e, 'reeborg_shouts'))))
             else:
-                exc = __BRYTHON__.current_exception
+                exc = __BRYTHON__.current_exception  # NOQA
                 print("{}: {}".format(e.__name__, exc.args[0]))
             console.value += '>>> '
             self.status = "main"

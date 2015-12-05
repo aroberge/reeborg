@@ -6,6 +6,8 @@
 
 // aa_utils.js : name starting with aa so that it is loaded first :-/
 
+var RUR = RUR || {};
+RUR._active_console = false;
 RUR.ReeborgError = function (message) {
     if (RUR.programming_language == "python"){
         return ReeborgError(message);
@@ -295,7 +297,8 @@ RUR.set_lineno_highlight = function(lineno, frame) {
         RUR.rec.record_frame();
         return true;
     }
-};/* Author: André Roberge
+};
+/* Author: André Roberge
    License: MIT
  */
 
@@ -1574,6 +1577,8 @@ $(document).ready(function() {
     $("#editor-panel-button").on("click", function (evt) {
         if ($("#editor-panel-button").hasClass("reverse-blue-gradient")) {
             $("#py_console").show();
+            $("#kbd_python_btn").hide();
+            $("#kbd_py_console_btn").show();
             RUR.ui.show_only_reload2(true);
             window.restart_repl();
             RUR._saved_highlight_value = RUR._highlight;
@@ -1582,6 +1587,8 @@ $(document).ready(function() {
             RUR._active_console = true;
         } else {
             $("#py_console").hide();
+            $("#kbd_python_btn").show();
+            $("#kbd_py_console_btn").hide();
             RUR.ui.show_only_reload2(false);
             RUR._highlight = RUR._saved_highlight_value;
             RUR._immediate_playback = false;
@@ -1589,6 +1596,7 @@ $(document).ready(function() {
             RUR._active_console = false;
         }
         RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
+        RUR.kbd.select();
     });
     RUR.ui.show_only_reload2(false);
 
@@ -2457,17 +2465,24 @@ RUR.kbd.set_programming_language = function (lang) {
     switch (lang) {
         case "python":
             RUR.kbd.prog_lang = "python";
-            $("#kbd_python_btn").show();
+            if (RUR._active_console){
+                $("#kbd_python_btn").hide();
+                $("#kbd_py_console_btn").show();
+            } else {
+                $("#kbd_python_btn").show();
+                $("#kbd_py_console_btn").hide();
+            }
             $("#kbd_javascript_btn").hide();
             break;
         case "javascript":
         case "coffeescript":
             RUR.kbd.prog_lang = "javascript";
             $("#kbd_python_btn").hide();
+            $("#kbd_py_console_btn").hide();
             $("#kbd_javascript_btn").show();
             break;
     }
-    RUR.kbd.select(RUR.kbd.prog_lang);
+    RUR.kbd.select();
 };
 
 RUR.kbd.insert2 = function (txt){
@@ -2583,6 +2598,7 @@ RUR.kbd.select = function (choice) {
     $(".kbd_condition").hide();
     $(".kbd_objects").hide();
     $(".kbd_python").hide();
+    $(".kbd_py_console").hide();
     $(".kbd_javascript").hide();
     $(".kbd_special").hide();
     if ($("#kbd_command_btn").hasClass("reverse-blue-gradient")) {
@@ -2594,6 +2610,9 @@ RUR.kbd.select = function (choice) {
     } else if ($("#kbd_python_btn").hasClass("reverse-blue-gradient")) {
         $("#kbd_python_btn").removeClass("reverse-blue-gradient");
         $("#kbd_python_btn").addClass("blue-gradient");
+    } else if ($("#kbd_py_console_btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd_py_console_btn").removeClass("reverse-blue-gradient");
+        $("#kbd_py_console_btn").addClass("blue-gradient");
     } else if ($("#kbd_javascript_btn").hasClass("reverse-blue-gradient")) {
         $("#kbd_javascript_btn").removeClass("reverse-blue-gradient");
         $("#kbd_javascript_btn").addClass("blue-gradient");
@@ -2619,6 +2638,11 @@ RUR.kbd.select = function (choice) {
             $(".kbd_python").show();
             $("#kbd_python_btn").removeClass("blue-gradient");
             $("#kbd_python_btn").addClass("reverse-blue-gradient");
+            break;
+        case "kbd_py_console":
+            $(".kbd_py_console").show();
+            $("#kbd_py_console_btn").removeClass("blue-gradient");
+            $("#kbd_py_console_btn").addClass("reverse-blue-gradient");
             break;
         case "kbd_javascript":
             $(".kbd_javascript").show();
@@ -3786,12 +3810,13 @@ RUR.ui.stop = function () {
 RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
     RUR.ui.reload2();
-}
+    $("#highlight-impossible").hide();
+    RUR.runner.interpreted = false;
+    RUR.control.sound_flag = false;
+};
 
 RUR.ui.reload2 = function() {
-    $("#highlight-impossible").hide();
     $("#stdout").html("");
-    $("#_write").html("");
     $(".view_source").remove();
     $("#narrates").html("");
     $("#Reeborg-concludes").dialog("close");
@@ -3801,12 +3826,9 @@ RUR.ui.reload2 = function() {
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     RUR.world.reset();
-    RUR.runner.interpreted = false;
-    RUR.control.sound_flag = false;
     RUR.rec.reset();
+    restart_repl();
 };
-
-
 
 RUR.ui.select_world = function (s, silent) {
     var elt = document.getElementById("select_world");

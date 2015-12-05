@@ -106,12 +106,13 @@ RUR.ui.stop = function () {
 RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
     RUR.ui.reload2();
-}
+    $("#highlight-impossible").hide();
+    RUR.runner.interpreted = false;
+    RUR.control.sound_flag = false;
+};
 
 RUR.ui.reload2 = function() {
-    $("#highlight-impossible").hide();
     $("#stdout").html("");
-    $("#_write").html("");
     $(".view_source").remove();
     $("#narrates").html("");
     $("#Reeborg-concludes").dialog("close");
@@ -121,12 +122,9 @@ RUR.ui.reload2 = function() {
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     RUR.world.reset();
-    RUR.runner.interpreted = false;
-    RUR.control.sound_flag = false;
     RUR.rec.reset();
+    restart_repl();
 };
-
-
 
 RUR.ui.select_world = function (s, silent) {
     var elt = document.getElementById("select_world");

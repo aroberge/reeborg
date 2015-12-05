@@ -6,6 +6,8 @@
 
 // aa_utils.js : name starting with aa so that it is loaded first :-/
 
+var RUR = RUR || {};
+RUR._active_console = false;
 RUR.ReeborgError = function (message) {
     if (RUR.programming_language == "python"){
         return ReeborgError(message);

@@ -83,7 +83,6 @@
     <div id="Reeborg-writes" title="Reeborg writes:" style="display:none">
       <span id="narrates"></span>
       <pre id="stdout" class="reeborg-print"></pre>
-      <pre id="_write"></pre>
     </div>
     <div id="Reeborg-shouts" class="reeborg-print" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
     <div id="World-info" title="Click on the world to get some additional information." style="display:none"></div>
@@ -704,6 +703,8 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
         Conditions</button>
       <button id="kbd_python_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_python");'>
         Python</button>
+        <button id="kbd_py_console_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_py_console");'>
+          Python</button>
       <button id="kbd_javascript_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_javascript");'>
         Javascript/Coffeescript</button>
       <button id="kbd_objects_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_objects");'>
@@ -760,6 +761,27 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
        <br>
       <span>Remember: <code>repeat</code> is not a Python keyword.</span>
+    </ul>
+    <ul class="kbd_py_console">
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>def</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>if</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>elif</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>else:</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>while</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>from library import </li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>for</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>in</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>range(</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>True</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>False</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>None</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>not</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>and</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>or</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>continue</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>break</li>
+       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
+       <br>
     </ul>
     <ul class="kbd_javascript">
        <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>var</li>

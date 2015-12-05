@@ -65,6 +65,8 @@ $(document).ready(function() {
     $("#editor-panel-button").on("click", function (evt) {
         if ($("#editor-panel-button").hasClass("reverse-blue-gradient")) {
             $("#py_console").show();
+            $("#kbd_python_btn").hide();
+            $("#kbd_py_console_btn").show();
             RUR.ui.show_only_reload2(true);
             window.restart_repl();
             RUR._saved_highlight_value = RUR._highlight;
@@ -73,6 +75,8 @@ $(document).ready(function() {
             RUR._active_console = true;
         } else {
             $("#py_console").hide();
+            $("#kbd_python_btn").show();
+            $("#kbd_py_console_btn").hide();
             RUR.ui.show_only_reload2(false);
             RUR._highlight = RUR._saved_highlight_value;
             RUR._immediate_playback = false;
@@ -80,6 +84,7 @@ $(document).ready(function() {
             RUR._active_console = false;
         }
         RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
+        RUR.kbd.select();
     });
     RUR.ui.show_only_reload2(false);
 

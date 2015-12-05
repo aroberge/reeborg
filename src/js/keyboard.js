@@ -11,17 +11,24 @@ RUR.kbd.set_programming_language = function (lang) {
     switch (lang) {
         case "python":
             RUR.kbd.prog_lang = "python";
-            $("#kbd_python_btn").show();
+            if (RUR._active_console){
+                $("#kbd_python_btn").hide();
+                $("#kbd_py_console_btn").show();
+            } else {
+                $("#kbd_python_btn").show();
+                $("#kbd_py_console_btn").hide();
+            }
             $("#kbd_javascript_btn").hide();
             break;
         case "javascript":
         case "coffeescript":
             RUR.kbd.prog_lang = "javascript";
             $("#kbd_python_btn").hide();
+            $("#kbd_py_console_btn").hide();
             $("#kbd_javascript_btn").show();
             break;
     }
-    RUR.kbd.select(RUR.kbd.prog_lang);
+    RUR.kbd.select();
 };
 
 RUR.kbd.insert2 = function (txt){
@@ -137,6 +144,7 @@ RUR.kbd.select = function (choice) {
     $(".kbd_condition").hide();
     $(".kbd_objects").hide();
     $(".kbd_python").hide();
+    $(".kbd_py_console").hide();
     $(".kbd_javascript").hide();
     $(".kbd_special").hide();
     if ($("#kbd_command_btn").hasClass("reverse-blue-gradient")) {
@@ -148,6 +156,9 @@ RUR.kbd.select = function (choice) {
     } else if ($("#kbd_python_btn").hasClass("reverse-blue-gradient")) {
         $("#kbd_python_btn").removeClass("reverse-blue-gradient");
         $("#kbd_python_btn").addClass("blue-gradient");
+    } else if ($("#kbd_py_console_btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd_py_console_btn").removeClass("reverse-blue-gradient");
+        $("#kbd_py_console_btn").addClass("blue-gradient");
     } else if ($("#kbd_javascript_btn").hasClass("reverse-blue-gradient")) {
         $("#kbd_javascript_btn").removeClass("reverse-blue-gradient");
         $("#kbd_javascript_btn").addClass("blue-gradient");
@@ -173,6 +184,11 @@ RUR.kbd.select = function (choice) {
             $(".kbd_python").show();
             $("#kbd_python_btn").removeClass("blue-gradient");
             $("#kbd_python_btn").addClass("reverse-blue-gradient");
+            break;
+        case "kbd_py_console":
+            $(".kbd_py_console").show();
+            $("#kbd_py_console_btn").removeClass("blue-gradient");
+            $("#kbd_py_console_btn").addClass("reverse-blue-gradient");
             break;
         case "kbd_javascript":
             $(".kbd_javascript").show();
