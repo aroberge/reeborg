@@ -328,7 +328,7 @@ RUR.control.build_wall = function (robot){
     walls = RUR.current_world.walls;
     if (walls === undefined){
         walls = {};
-        RUR.current_world.walls = {};
+        RUR.current_world.walls = walls;
     }
 
     if (walls[coords] === undefined){
