@@ -90,7 +90,14 @@ RUR.kbd.redo = function () {
 
 RUR.kbd.enter = function () {
     "use strict";
-    var doc;
+    var doc, ev;
+    if (RUR._active_console) {
+        ev = {};
+        ev.keyCode = 13;
+        ev.preventDefault = function () {};
+        myKeyPress(ev);
+        return;
+    }
     if ($("#tabs").tabs('option', 'active') == 0) {
         doc = editor;
     } else {

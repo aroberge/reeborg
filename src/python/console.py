@@ -51,6 +51,7 @@ def myKeyPress(event):
         repl.process_code(src)
         cursorToEnd()
         event.preventDefault()
+window['myKeyPress'] = myKeyPress
 
 
 def myKeyDown(event):
