@@ -162,7 +162,7 @@ You can see a very simple example of this by selecting the world
 and then run the resulting program, which simply
 insert a print statement before and another one after the
 program in the editor.  A **much** longer example,
-illustrating the usage of ``narration()`` is the world **Story**.
+illustrating the usage of ``print_html()`` is the world **Story**.
 This program adds a "twist" to the story, simply
 included for effect: make sure to let the program
 run to the end.

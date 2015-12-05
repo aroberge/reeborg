@@ -17,7 +17,7 @@ try:
 except:
     pass
 
-## ==== actions
+# ==== actions
 
 
 # RUR._x_ defined in commands.js
@@ -59,7 +59,7 @@ def build_wall():
     RUR._build_wall_()
 
 
-## ==== information about the world
+# ==== information about the world
 
 
 def at_goal():
@@ -149,15 +149,17 @@ def sound(bool):
 
 
 def think(ms):
-    """Set a time delay (in milliseconds) between Reeborg's actions played back."""
+    """Set a time delay (in milliseconds) between Reeborg's actions
+       played back.
+    """
     RUR.control.think(ms)
 
 
 def pause(ms=None):
     """Pauses a program's execution (playback).
 
-       If an argument (time in milliseconds) is given, the execution automatically
-       resumes after this time has elapsed.
+       If an argument (time in milliseconds) is given, the execution
+       automatically resumes after this time has elapsed.
     """
     if ms is None:
         RUR.control.pause()
@@ -225,7 +227,7 @@ def object_here(obj=None):
         ans = RUR._object_here_(obj)
     else:
         ans = RUR._object_here_()
-    return list(ans)  # convert from Javascript list-like object to proper Python list
+    return list(ans)  # convert from JS list-like object to proper Python list
 
 
 def carries_object(obj=None):
@@ -259,8 +261,8 @@ def set_trace_color(color):
     """Change the color of the trace (oil leak).
 
        Args:
-            color (string): four formats are possible: named color, rgb and rgba,
-                   and hexadecimal notation.
+            color (string): four formats are possible: named color,
+                   rgb and rgba, and hexadecimal notation.
 
        Examples::
 
@@ -303,7 +305,8 @@ def World(url, shortname=None):
        If the desired world is already selected, this command is ignored
        and the rest of the program is executed.
 
-       If the world is not already present in the html selector, it will be added.
+       If the world is not already present in the html selector,
+       it will be added.
 
        Args:
             url: two possible choices: either a name appearing in the html
@@ -320,7 +323,8 @@ def World(url, shortname=None):
            >>> World("http://reeborg.ca/my_world")   # fictitious example
            # the name http://reeborg.ca/my_world will be added to the selector
            >>> World("http://reeborg.ca/my_world", "Hello")
-           # The name "Hello" will be shown in the selector instead of the full url
+           # The name "Hello" will be shown in the selector instead
+           # of the full url
     """
     if shortname is None:
         RUR.file_io.load_world_from_program(url)
@@ -335,11 +339,12 @@ class UsedRobot(object):
             Args:
                x: horizontal coordinate; an integer greater or equal to 1.
                y: vertical coordinate; an integer greater or equal to 1.
-               orientation (string): case-insensitive value, one of "e" or "east",
+               orientation (string): case-insensitive value,
+                            one of "e" or "east",
                             "w" or "west", "n" or "north", "s" or "south".
                tokens: Initial number of tokens to give to the robot;
-                       its value must be a positive integer, or the string "inf"
-                       to indicate an infinite quantity.
+                       its value must be a positive integer, or the string
+                       "inf" to indicate an infinite quantity.
         """
         if tokens is None:
             robot = RUR.robot.create_robot(x, y, orientation)
@@ -361,7 +366,9 @@ class UsedRobot(object):
         return RUR.control.at_goal(self.body)
 
     def build_wall(self):
-        """Instructs Reeborg to build a wall at the location in front of itself."""
+        """Instructs Reeborg to build a wall at the location in
+           front of itself.
+        """
         RUR.control.build_wall(self.body)
 
     def front_is_clear(self, no_frame=False):
@@ -429,7 +436,8 @@ class UsedRobot(object):
 
         Returns:
             a list of the type of objects found.  If no object is present,
-            or if the specified object is not found, the result is an empty list.
+            or if the specified object is not found, the result is an
+            empty list.
 
         Examples:
 
@@ -488,8 +496,8 @@ class UsedRobot(object):
         """Change the color of the trace (oil leak).
 
            Args:
-                color (string): four formats are possible: named color, rgb and rgba,
-                       and hexadecimal notation.
+                color (string): four formats are possible: named color,
+                       rgb and rgba, and hexadecimal notation.
 
            Examples::
 
@@ -505,8 +513,8 @@ class UsedRobot(object):
         """Change the trace style of the robot.
 
            Args:
-                style: "thick", "invisible" and "default" are the three possible
-                       arguments.  "invisible" is equivalent to
+                style: "thick", "invisible" and "default" are the three
+                       possible arguments.  "invisible" is equivalent to
                        set_trace_color("rgba(0, 0, 0, 0)"), that is it sets
                        the colour to a completely transparent value.
 
@@ -592,15 +600,15 @@ def max_nb_robots(nb):
 
 
 def narration(html):
-    """Intended primarily for world creators, this function is similar to
-       print() except that:
-
-            * it can handle html input
-
-            * any text present due to previous calls to narration() will
-              be erased and replaced by the new text.
-    """
+    raise ReeborgError("narration is obsolete; use print_html().")
     RUR.control.narration(html)
+
+
+def print_html(html):
+    """Intended primarily for world creators, this function is similar to
+       print() except it can make use of html input.
+    """
+    RUR.control.print_html(html)
 
 
 def new_robot_images(images):

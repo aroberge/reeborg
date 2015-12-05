@@ -1076,7 +1076,7 @@ RUR.control._write = function () {
     RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
 };
 
-RUR.control.narration = function (arg) {
+RUR.control.print_html = function (arg) {
     RUR.rec.record_frame("output", {"element": "#narrates", "message": arg, "html": true});
 };
 

@@ -112,8 +112,8 @@ To communicate information to the user, Reeborg can use Python's ``print()``
 function.  The output of this function appears in an html preformatted
 element, which ensures that line breaks and other spacings are properly reproduced.
 
-There exists another function, ``narration()`` which can take as it argument
-any html code, and will print it accordingly.  By default, the output of ``narration()``
+There exists another function, ``print_html()`` which can take as it argument
+any html code, and will print it accordingly.  By default, the output of ``print_html()``
 is coloured blue, but this can be changed by the user familiar with html and css.
 
 

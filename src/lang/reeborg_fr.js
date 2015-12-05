@@ -10,13 +10,13 @@ var RUR = RUR || {};
 //required for lint.js
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, ReeborgError, rien_devant, rien_a_droite, "+
                     " est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,"+
-                    "transporte, ecrit, au_but, au_but_orientation, narration," +
+                    "transporte, ecrit, au_but, au_but_orientation, print_html," +
                     "mur_devant, mur_a_droite, disparait, enregistrement,"
                     " construit_un_mur, pense, pause, repete, voir_source, son, confirmer */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
     est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,
-    transporte, ecrit, au_but, construit_un_mur, pense, narration, disparait,
+    transporte, ecrit, au_but, construit_un_mur, pense, print_html, disparait,
     pause, repete, voir_source, son, RobotUsage, mur_devant, mur_a_droite,
     nombre_de_commandes, confirmer, enregistrement;
 
@@ -72,7 +72,7 @@ RUR.reset_definitions = function () {
     // defined in control.js
     ecrit = RUR.control.write;
     _write = RUR.control._write;
-    narration = RUR.control.narration;
+    print_html = RUR.control.print_html;
     termine = RUR.control.done;
     son = RUR.control.sound;
     pense = RUR.control.think;

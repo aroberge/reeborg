@@ -11,7 +11,7 @@ var RUR = RUR || {};
 var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_clear, "+
                     " is_facing_north, done, put, take, World, Permalink,"+
                     " object_here, carries_object, write, at_goal, at_goal_orientation," +
-                    " build_wall, think, pause, repeat, sound, narration," +
+                    " build_wall, think, pause, repeat, sound, print_html," +
                     "RUR, inspect, view_source, verify, say, library, _write, " +
                     "wall_in_front, wall_on_right, disappear, recording," +
     // do not translate  nor include the following instructions; they help make rur-ple created programs *almost* compatible
@@ -21,7 +21,7 @@ var move, turn_left, inspect, front_is_clear, right_is_clear,
     is_facing_north, done, put, take, object_here, World, Permalink,
     carries_object, write, _write, at_goal, build_wall, think,
     pause, repeat, view_source, sound, UsedRobot,
-    set_max_steps, say, verify, ReeborgError, WallCollisionError, narration,
+    set_max_steps, say, verify, ReeborgError, WallCollisionError, print_html,
     wall_in_front, wall_on_right, disappear, recording;
 
 // do not translate the following three instructions; they are included only
@@ -80,7 +80,7 @@ RUR.reset_definitions = function () {
     // defined in control.js
     write = RUR.control.write;
     _write = RUR.control._write;
-    narration = RUR.control.narration;
+    print_html = RUR.control.print_html;
     done = RUR.control.done;
     sound = RUR.control.sound;
     think = RUR.control.think;

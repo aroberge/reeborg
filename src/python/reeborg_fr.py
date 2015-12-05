@@ -17,7 +17,7 @@ try:
 except:
     pass
 
-## ==== actions
+# ==== actions
 
 
 def avance():
@@ -41,7 +41,8 @@ def depose(obj=None):
 
 def prend(obj=None):
     """Prend un objet.  Si plus d'un type d'objet se trouve à l'endroit où
-       Reeborg est, on doit spécifier lequel sinon ceci causera une exception."""
+       Reeborg est, on doit spécifier lequel sinon ceci causera une exception.
+    """
     if obj is None:
         RUR._take_()
     else:
@@ -52,7 +53,7 @@ def construit_un_mur():
     """Indique à Reeborg de construire un mur devant sa position."""
     RUR._build_wall_()
 
-## ==== information about the world
+# ==== information about the world
 
 
 def au_but():
@@ -65,7 +66,8 @@ def au_but():
 
 
 def rien_devant():
-    """Indique si un obstacle (mur, clôture, eau, mur de brique, etc.) bloque le chemin.
+    """Indique si un obstacle (mur, clôture, eau, mur de brique, etc.)
+       bloque le chemin.
 
     Returns:
        True si le chemin est non bloqué, False autrement."""
@@ -104,7 +106,8 @@ def est_face_au_nord():
 
 def face_au_nord():
     # obsolete
-    raise ReeborgError("face_au_nord() est désuet; utilisez est_face_au_nord()")
+    raise ReeborgError("face_au_nord() est désuet;" +
+                       " utilisez est_face_au_nord()")
 
 
 def dir_py(obj):
@@ -161,13 +164,15 @@ def pause(ms=None):
 
 def Monde(url, nom=None):
     """Permet de sélectioner un monde donné à l'intérieur d'un programme.
-       Si le monde présentement utilisé est différent, le résultat de l'exécution
-       de cette instruction fera en sorte que le monde spécifié par le paramètre
-       `url` sera choisi sans que le reste du programme ne soit déjà exécuté.
-       Si le monde spécifié est déjà le monde choisi, la fonction `Monde(...)`
-       est ignorée et le reste du programme est exécuté.
+       Si le monde présentement utilisé est différent, le résultat de
+       l'exécution de cette instruction fera en sorte que le monde spécifié
+       par le paramètre `url` sera choisi sans que le reste du programme
+       ne soit déjà exécuté. Si le monde spécifié est déjà le monde
+       choisi, la fonction `Monde(...)` est ignorée et le reste
+       du programme est exécuté.
 
-       Le monde spécifié sera ajouté au sélecteur s'il n'est pas déjà présent.
+       Le monde spécifié sera ajouté au sélecteur s'il n'est pas
+       déjà présent.
 
        Args:
             url: deux choix possibles, soit un nom apparaissant dans le
@@ -242,7 +247,7 @@ def objet_ici(obj=None):
         ans = RUR._object_here_(obj)
     else:
         ans = RUR._object_here_()
-    return list(ans)  # convert from Javascript list-like object to proper Python list
+    return list(ans)  # convert from js list-like object to proper Python list
 
 
 def transporte(obj=None):
@@ -326,9 +331,11 @@ class RobotUsage(object):
            Args:
                x: coordonnée horizontale; un entier supérieur ou égal à 1
                y: coordonnée vertical; un entier supérieur ou égal à 1
-               orientation: une des valeurs suivante: "nord", "sud", "est", "ouest"
+               orientation: une des valeurs suivante: "nord", "sud",
+                            est", "ouest"
                jeton: nombre initial de jetons à donner au robot;
-                      un entier positif, ou la chaîne "inf" pour un nombre infini.
+                      un entier positif, ou la chaîne "inf" pour un
+                      nombre infini.
         """
         if jetons is None:
             robot = RUR.robot.create_robot(x, y, orientation)
@@ -354,7 +361,9 @@ class RobotUsage(object):
 
     def prend(self, obj=None):
         """Prend un objet.  Si plus d'un type d'objet se trouve à l'endroit où
-           Reeborg est, on doit spécifier lequel sinon ceci causera une exception."""
+           Reeborg est, on doit spécifier lequel sinon ceci causera une
+           exception.
+        """
         if obj is None:
             RUR.control.take(self.body, False)
         else:
@@ -408,7 +417,8 @@ class RobotUsage(object):
 
     def face_au_nord(self):
         # obsolete
-        raise ReeborgError("face_au_nord() est désuet; utilisez est_face_au_nord()")
+        raise ReeborgError("face_au_nord() est désuet;" +
+                           "utilisez est_face_au_nord()")
 
     def objet_ici(self, obj=None):
         """ Indique si un ou des types d'objets se trouvent à la position du robot.
@@ -445,9 +455,9 @@ class RobotUsage(object):
                 chaîne de caractères.
 
         Returns:
-            une liste d'objets retrouvés.  Si Reeborg ne transporte aucun objet,
-            ou si un objet spécifié comme paramètre n'est pas présent,
-            le résultat est une liste vide.
+            une liste d'objets retrouvés.  Si Reeborg ne transporte
+            aucun objet, ou si un objet spécifié comme paramètre n'est pas
+            présent, le résultat est une liste vide.
 
         Exemples possibles:
 
@@ -483,7 +493,7 @@ class RobotUsage(object):
            Exemples possibles::
 
                 >>> reeborg = RobotUsage()
-                >>> reeborg.couleur_de_trace("red")  # nom de couleur en anglais
+                >>> reeborg.couleur_de_trace("red")  # nom anglais de couleur
                 >>> reeborg.couleur_de_trace("rgb(125, 0, 0)")
                 >>> reeborg.couleur_de_trace("rgba(125, 0, 0, 0.5)")
                 >>> reeborg.couleur_de_trace("#FF00FF")
@@ -510,7 +520,8 @@ class RobotUsage(object):
         elif style == "normal":
             style = "default"
         else:
-            raise ReeborgError("Valeur de style inconnue pour style_de_trace().")
+            raise ReeborgError(
+                    "Valeur de style inconnue pour style_de_trace().")
         RUR.control.set_trace_style(self.body, style)
 
 
@@ -520,7 +531,7 @@ class ReeborgError(Exception):
        Exemples possible::
 
             def termine():
-                message = "Vous ne devez pas utiliser termine() pour cette tâche."
+                message = "Vous ne devez pas utiliser termine()."
                 raise ReeborgError(message)
 
             #---- ou ------
@@ -587,15 +598,14 @@ def nouvelles_images_de_robot(images):
 
 
 def narration(html):
-    """Surtout destiné aux créateurs de monde, la fonction narration() est
-       semblable à print() sauf:
+    raise ReeborgError("narration() a été remplacée par print_html().")
 
-           * qu'elle accepte du texte html
 
-           * que tout texte html précédemment présent est effacé et
-             remplacé par le nouveau texte.
+def print_html(html):
+    """Surtout destiné aux créateurs de monde, la fonction print_html() est
+       semblable à print() sauf qu'elle accepte du texte html.
     """
-    RUR.control.narration(html)
+    RUR.control.print_html(html)
 
 
 def max_nb_instructions(nb):

@@ -120,6 +120,10 @@ class Interpreter():
         self.restart()
 
     def restart(self):
+        sys.stdout.write = sys.stderr.write = console.append
+        for item in ["editor", "editeur", "library", "biblio"]:
+            if item in sys.modules:
+                del sys.modules[item]
         self.status = "main"
         self.current = 0
         self.history = []

@@ -15,9 +15,6 @@ def __write(data):
 def __write_err(data):
     window.RUR.control._write("<b style='color:red'>" + str(data) + "</b>")
 
-sys.stdout.write = __write
-sys.stderr.write = __write_err
-
 
 def Help(obj=None):
     '''Usage: help(obj)'''   # yes: lowercase!!!
@@ -61,7 +58,7 @@ def dir_py(obj):
                 else:
                     out.append(attr)
         except AttributeError:  # javascript extension, as in supplant()
-            pass                # string prototype extension, can cause problems
+            pass              # string prototype extension, can cause problems
     print("\n".join(out))
 
 
@@ -70,10 +67,13 @@ def generic_translate_python(src, lib, lang_import, highlight,
     ''' Translate Python code into Javascript and execute
 
         src: source code in editor
-        lib: string - language specific lib (e.g. "library" in English, "biblio" in French)
+        lib: string - language specific lib
+             (e.g. "library" in English, "biblio" in French)
              already imported in html file
         lang_import: something like "from reeborg_en import *"
     '''
+    sys.stdout.write = __write
+    sys.stderr.write = __write_err
     if lib in sys.modules:
         del sys.modules[lib]
 
