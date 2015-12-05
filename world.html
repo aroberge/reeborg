@@ -717,17 +717,17 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>take()</li>
        <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>put()</li>
        <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>build_wall()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pause()</li>
+       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pause()</li>
        <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>done()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>think(100)</li>
-       <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
+       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>think(100)</li>
+       <li class="kbd_command only_py no_console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
        <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>write(" ? ")</li>
-       <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>sound(True)</li>
+       <li class="kbd_command only_py no_console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>sound(True)</li>
        <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>sound(true)</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>World(" ? ")</li>
+       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>World(" ? ")</li>
        <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>UsedRobot()</li>
        <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>new UsedRobot()</li>
-       <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>no_highlight()</li>
+       <li class="kbd_command only_py no_console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>no_highlight()</li>
     </ul>
     <ul class="kbd_condition" >
        <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>at_goal()</li>
@@ -844,7 +844,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_special" onclick='RUR.kbd.insert("{}");'>&nbsp;&nbsp;{ }&nbsp;&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.insert("[]");'>&nbsp;[ ]&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.tab();'>TAB</li>
-       <li class="kbd_special" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
+       <li class="kbd_special no_console" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
        <li class="kbd_special" onclick='RUR.kbd.enter();'>Enter</li>
     </ul>
     <button onclick='RUR.kbd.undo()'>UNDO</button>

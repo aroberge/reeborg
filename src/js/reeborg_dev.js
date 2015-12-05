@@ -2571,6 +2571,11 @@ RUR.kbd.enter = function () {
 RUR.kbd.tab = function () {
     "use strict";
     var doc;
+    if (RUR._active_console) {
+        RUR.kbd.insert_in_console('    ');
+        return;
+    }
+
     if ($("#tabs").tabs('option', 'active') == 0) {
         doc = editor;
     } else {
@@ -2601,6 +2606,7 @@ RUR.kbd.select = function (choice) {
     $(".kbd_py_console").hide();
     $(".kbd_javascript").hide();
     $(".kbd_special").hide();
+    $(".no_console").hide();
     if ($("#kbd_command_btn").hasClass("reverse-blue-gradient")) {
         $("#kbd_command_btn").removeClass("reverse-blue-gradient");
         $("#kbd_command_btn").addClass("blue-gradient");
@@ -2663,6 +2669,9 @@ RUR.kbd.select = function (choice) {
 
     if (RUR.kbd.prog_lang == "python") {
         $(".only_py").show();
+        if (RUR._active_console) {
+            $(".no_console").hide();
+        }
         $(".only_js").hide();
     } else {
         $(".only_js").show();
