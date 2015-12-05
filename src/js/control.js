@@ -631,11 +631,11 @@ RUR.control._write = function () {
 };
 
 RUR.control.print_html = function (arg) {
-    RUR.rec.record_frame("output", {"element": "#narrates", "message": arg, "html": true});
+    RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true});
 };
 
 RUR.control.clear_print = function () {
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true, "other_element": "#narrates"});
+    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true});
 };
 
 RUR.control.sound_flag = false;

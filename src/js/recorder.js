@@ -171,10 +171,6 @@ RUR.rec.display_frame = function () {
     } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
-        if (frame.output.other_element && frame.output.html){  // for clear_print
-            $(frame.output.element).html(frame.output.message);
-            $(frame.output.other_element).html(frame.output.message);
-        }
         if (frame.output.html){
             $(frame.output.element).html(frame.output.message);
         } else {

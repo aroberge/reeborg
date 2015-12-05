@@ -1077,11 +1077,11 @@ RUR.control._write = function () {
 };
 
 RUR.control.print_html = function (arg) {
-    RUR.rec.record_frame("output", {"element": "#narrates", "message": arg, "html": true});
+    RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true});
 };
 
 RUR.control.clear_print = function () {
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true, "other_element": "#narrates"});
+    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true});
 };
 
 RUR.control.sound_flag = false;
@@ -2909,10 +2909,6 @@ RUR.rec.display_frame = function () {
     } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
-        if (frame.output.other_element && frame.output.html){  // for clear_print
-            $(frame.output.element).html(frame.output.message);
-            $(frame.output.other_element).html(frame.output.message);
-        }
         if (frame.output.html){
             $(frame.output.element).html(frame.output.message);
         } else {
@@ -3827,7 +3823,7 @@ RUR.ui.reload = function() {
 RUR.ui.reload2 = function() {
     $("#stdout").html("");
     $(".view_source").remove();
-    $("#narrates").html("");
+    $("#print_html").html("");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
     // reset the options in case the user has dragged the dialogs as it would

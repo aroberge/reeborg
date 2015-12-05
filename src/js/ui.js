@@ -114,7 +114,7 @@ RUR.ui.reload = function() {
 RUR.ui.reload2 = function() {
     $("#stdout").html("");
     $(".view_source").remove();
-    $("#narrates").html("");
+    $("#print_html").html("");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
     // reset the options in case the user has dragged the dialogs as it would
