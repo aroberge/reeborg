@@ -1,29 +1,22 @@
-Summary
+요약
 =======
 
-It is time to review what you have learned so far. In addition to
-getting familiar with the environment on this site, you have learned the
-first two rules for learning about programming.
+지금까지 학습한 것을 되세길 시간이다. 이 웹사이트에 대한 환경에 친숙해지는 것에 더해서, 프로그래밍에 관한 첫 두가지 규칙을 학습했다.
 
 .. important::
 
-    **Rule # 1**
+    **규칙 # 1**
 
-        Learning about computer programming is like learning to play a
-        musical instrument: you have to **do it**, not simply read about it.
+        컴퓨터 프로그램을 배우는 것은 마치 음악 악기를 배우는 것과 같습니다: 단지 읽는 것만으로는 부족하고, 여러분이 **직접 프로그램을 작성** 해봐야 합니다.
 
-    **Rule # 2**
+    **규칙 # 2**
 
-        Write your computer programs to make them easy for **people** to
-        read and understand.
+        **다른 사람** 이 읽고 이해하기 쉽게 컴퓨터 프로그램을 작성한다.
 
-Related to Rule # 2, we have seen how we can include *comments* as a
-mean to communicate some information to other humans, information that
-will be ignored by the computer.
+규칙 # 2와 연관해서, 컴퓨터가 무시하는 정보지만, 다른 사람과 정보를 주고받는 수단으로 *주석* 을 어떻게 포함하는지 살펴봤다. 
 
-While I have not mentioned this explicitly, you have also learned that a
-program is a series of instructions. You have seen a total of 5
-different instructions:
+저자가 명시적으로 언급하지는 않았지만, 프로그램은 일련의 명령어라는 것을 학습했다. 
+서로 다른 5가지 명령어도 살펴봤다:
 
 -  ``move()``
 -  ``turn_left()``
@@ -31,9 +24,5 @@ different instructions:
 -  ``put()``
 -  ``pause()``
 
-You may or may not have used the ``pause()`` instruction which I only
-mentioned in passing when talking about bugs. If you have not done so,
-you might want to write a short program that includes it just to see
-what happens; make sure that the ``pause()`` instruction is neither the
-first instruction nor the last one so that you can plainly see what it does.
+``pause()`` 명령어를 사용했을 수도 사용하지 않았을 수도 있는데, 버그에 관해 얘기할 때 지나가면서 언급했다. 만약 ``pause()`` 명령어를 사용하지 않았다면, 간단한 프로그램을 작성해서 어떻게 동작하는지 살펴보라; ``pause()`` 명령어가 첫 명령어 혹은 마지막 명령어가 되지 않도록 해서 분명하게 어떻게 동작하는지 살펴본다.
 
