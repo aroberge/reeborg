@@ -2,105 +2,79 @@
 리보그와 파이썬 배우기!
 ==========================
 
-파이썬을 배우는 것은 리보그와 함께라면 쉬워요. 해야되는 일은 튵토리얼을 잘 일고 예제를 시도해 보면 된다.
-Learning Python is easy with Reeborg.  All you have to do is read the tutorial
-and try all the examples in `Reeborg's world <http://reeborg.ca/world.html>`_.
-I suggest that you keep the tutorial and Reeborg's World both open but
-in separate windows or tabs.
+파이썬을 배우는 것은 리보그와 함께라면 쉬워요. 해야되는 일은 사용설명서를 잘 읽고 `Reeborg's world <http://reeborg.ca/world.html>`_ 에 나온 예제를 시도해 보면 된다.
+사용설명서와 리보그 세상을 별도 윈도우 혹은 탭에 함께 열어 놓고 실습할 것을 권장한다.
 
-Before you actually start the tutorial, have Reeborg take its first step
-by running a program in `Reeborg's world <http://reeborg.ca/world.html>`_.
+실제로 사용설명서를 시작하기 전에, `Reeborg's world <http://reeborg.ca/world.html>`_ 에서 프로그램을 실행해서 리보그가 첫 걸음을 떼도록 한다.
 
-
-Hints are clickable and designed to provide useful pointers if you are
-not sure how to proceed.
+힌트를 클릭할 수 있어서, 만약 어떻게 나아갈지 확신이 없다면 유용한 지침을 제공하도록 설계되었다.
 
 .. hint::
 
-    Go to `Reeborg's world <http://reeborg.ca/world.html>`_, click on the "run" button
-    (small white triangle on blue background)
-    and watch Reeborg takes its first step.
-    You can also `view this short video <http://youtu.be/yTdw97KNgGM>`_
-    to see what it looked like ... in a slightly older version.
-    You may want to watch it in full screen with HD quality selected.
+    `Reeborg's world <http://reeborg.ca/world.html>`_ 로 가서 "run" 버튼(파란 배경에 작은 흰색 삼각형)을 클릭해서 리보그가 첫 걸음을 떼는 것을 지켜본다. 영문으로된 다소 오래 되었지만, 리보그가 어떤 느낌인지 간을 보기 위해서 `짧은 동영상 <http://youtu.be/yTdw97KNgGM>`_ 을 켜본다. HD 품질을 선택해서 전체 화면에서 볼 수도 있다.
 
 
-You want to learn computer programming?
-----------------------------------------
+컴퓨터 프로그래밍을 학습하고자 합니까?
+------------------------------------------------
 
 .. figure:: ../images/student.jpg
    :figwidth: 40%
    :align: right
 
-   Student using Reeborg's World in California, USA.
+   미국 캘리포니아에서 학생들이 리보그 세상을 사용합니다.
 
-   *Photo courtesy of A. Castano.*
+   *사진 출처 A. Castano.*
 
-**Reeborg's World has been designed for you!**
+**리보그 세상(Reeborg's World)은 여러분을 위해서 설계되었습니다!**
 
-The idea I had in mind when I created Reeborg's World was to create
-a friendly place to learn programming concepts.
-While it is possible to use Javascript, the "normal" language of the web,
-as a programming language to make Reeborg work,
-I've decided to focus on Python which is a more
-versatile language and one that is easier to use by beginners and
-advanced programmers alike.
+저자가 리보그 세상을 창조할 때 마음속에 갖은 생각은 프로그래밍 개념을 배우는데 친숙한 장소를 만드는 것이였다.
+리보그가 동작하게 만드는 프로그래밍 언어로서 웹의 "정규" 언어인 자바스크립트로도 가능하지만, 
+저자는 파이썬에 집중하도록 결정했는데 좀더 다재다능한 언어로 초보자와 고급 프로그래머 모두 사용하기 쉽기 때문이다.
 
-This tutorial was first written for you and help you learn computer programming.
-However, I have also included
-some information for teachers as well as other users of Reeborg's World.
-You can ignore such additional information without worrying that you are
-missing something important as you are learning programming concepts.
+이 사용설명서는 먼저 여러분을 위해 컴퓨터 프로그래밍을 배우는데 도움이 되도록 제작되었다.
+하지만, 리보그 세상의 다른 사용자 뿐만 아니라 선생님을 위한 정보도 포함하고 있다. 
+프로그래밍 개념을 학습해 나가면서 중요한 무언가를 빼먹고 있다는 걱정하지 말고 일부 부가적인 정보는 무시할 수 있다.
 
-This document has been divided into nine major parts.
+이 문서는 9개 주요 부분으로 나눠진다.
 
 .. toctree::
    :maxdepth: 1
 
-   A. Basic tutorial <basics/index>
-   B. Recursion <recursion/index>
-   C. Variables <variables/index>
-   D. Object Oriented Programming <oop/index>
-   E. Higher-Order Functions <functional/index>
-   F. Programming Exercises <exercises/index>
-   G. Reeborg's World Reference <reference/index>
-   H. Python: a brief overview <python/index>
-   I. Contribute!  <contribute/index>
+   A. 기본 사용설명서 <basics/index>
+   B. 재귀(Recursion) <recursion/index>
+   C. 변수(Variables) <variables/index>
+   D. 객체지향 프로그래밍 <oop/index>
+   E. 고차 함수 <functional/index>
+   F. 프로그래밍 연습문제 <exercises/index>
+   G. 리보그 세상 찾아보기 <reference/index>
+   H. 파이썬: 간략한 개요 <python/index>
+   I. 기여!  <contribute/index>
 
-If you click on any of the above part title, you will be taken to a
-page with a more detailed table of contents for that part.
+만약 상기 제목중 아무것이나 클릭하게 되면, 해당부문 좀더 상세한 목차를 갖는 페이지로 이동하게 된다.
 
 
-.. admonition:: For educators
+.. admonition:: 선생님께
 
     .. figure:: ../images/rurple_book.png
 
-       *Two books (red for teacher, blue for students)
-       produced by Samsung Korea based on RUR-PLE, the desktop
-       program precursor to Reeborg's World.*
+       *러플(RUR-PLE)기반한 삼성전자에서 만든 책 두권(빨간색은 선생님, 파란색은 학생),
+       러플은 리보그 세상의 선구자격이 되는 데스크톱 프로그램.*
 
 
-    Reeborg's World had been strongly inspired by Richard Pattis's
-    `Karel the robot`_.
-    Three programming languages (Python, Javascript and CoffeeScript)
-    can be used to control the virtual robot.
-    However, this tutorial is focuses on Python which is my favourite
-    programming language and that many consider to be an ideal language
-    to teach programming concepts to beginners.
+    리보그 세상(Reeborg's World)은 리챠드 패티스(Richard Pattis)의 
+    `Karel the robot`_ 에 강하게 영감을 받았다.
+    프로그래밍 언어 세가지(파이썬, 자바스크립트, 커피스크립트)를 사용해서 가상 로봇을 제어할 수 있다.
+    하지만, 이 사용설명서는 파이썬에 집중하는데, 저자가 선호하는 프로그래밍 언어이며 많은 전문가들이
+    시작하는 분들께 프로그래밍 개념을 가르치기에 이상적인 언어로 간주하고 있다.
 
     .. _Karel the robot: http://www.amazon.ca/Karel-Robot-Gentle-Introduction-Programming/dp/0471089281/ref=sr_1_6?s=books&ie=UTF8&qid=1440177128&sr=1-6
 
-    In this tutorial, I postpone the introduction of variables as long as
-    possible, and do the same for function arguments.
-    This approach reflects that of Pattis's original Karel which did
-    not have any variables.  This is the focus of the first two
-    main parts of this tutorial, namely **Basic tutorial** and **Recursion**.
+    이번 사용설명서에서는 가능하면 길게 변수 소개를 뒤로 미루는데, 함수인자에 대해서도 동일하다.
+    이 접근법은 어떤 변수도 갖지 않는 패티스의 원조 캐럴(Karel)의 방향을 반영한다.
+    캐럴은 이번 사용설명서의 첫 두 주요부분에서 집중하고 있다. 여기서는 **기본 사용설명서** 와 **재귀** 다.
 
-    Reeborg's World has been created with the goal of simplifying Pattis's
-    idea as much as possible, while still making it possible to
-    introduce very advanced programming concepts.  So, instead of the
-    "simple" **first program** found in some tutorials supposedly aimed
-    at complete beginners:
+    리보그 세상은 가능하면 최대한 패티스의 생각을 단순화하는 목적으로 창조되었지만, 여전히 매우 고급 프로그래밍 개념을 소개하는 것도 가능하게 한다.
+    그래서, 일부 사용설명서에서 발견되는 "단순한" **첫번째 프로그램** 대신에 완전 초심자를 목표 독자로 하고 있다:
 
     .. code-block:: java
 
@@ -110,69 +84,51 @@ page with a more detailed table of contents for that part.
             }
         }
 
-    the simplest valid program in Reeborg's World is::
+    리보그 세상에서 가장 단순한 적법한 프로그램은 다음과 같다::
 
         move()
 
-    That's it: a single instruction.  What could be simpler when
-    teaching beginners?
+    이게 다입니다: 단일 명령어. 초보자를 가르칠 때, 더 간단할 수 있을까요?
 
-    However, one is not limited to simple functions.
-    For example, if one wants to use an OOP approach instead,
-    the simplest valid program, which has Reeborg actually do the
-    equivalent to the single ``move()`` instruction above, is::
+    하지만, 단순한 함수에만 제약된 것은 아니다. 예를 들어, 대신에 객체지향 프로그래밍(OOP) 접근법을 사용할려고 한다면,
+    가장 단순한 적법한 프로그램(실질적으로 리보그로 하여금 ``move()`` 명령어에 대응)은 다음과 같다::
 
         reeborg = UsedRobot()
         reeborg.move()
 
-    Similarly, because using standard libraries is something useful, students
-    can first learn about libraries by writing their own code and, in doing so,
-    they learn that library modules are just programs like any others.
-    Assuming they have defined a function, say ``turn_right()``, in their library,
-    the following program will be valid:
+    유사하게, 표준 라이브러리를 사용이 유용하기 때문에, 본인 코드를 작성하면서 학생이 먼저 라이브러리를 배울 수 있다.
+    그렇게 함으로써, 라이브러리 모듈이 다른 것과 같이 단지 프로그램이라는 것을 배우게 된다.
+    라이브러리에 가령 ``turn_right()`` 함수를 정의했다고 가정하고 나면, 다음 프로그램은 적법하다:
 
     .. code-block:: python
 
         from library import turn_right
         turn_right()
 
-    So, the idea is to have the student deal with as few concepts as possible
-    to write programs, only learning new concepts (such as using variables,
-    or Object-Oriented notation, or importing code from a library)
-    after they have learned the basics.
-    One guiding principle in writing this tutorial has been to introduce
-    only one programming concept at a time.
+    그래서, 기본적인 생각은 프로그램을 작성하는데 가능하면 적은 개념을 다뤄야 된다는 것이다.
+    기본기를 학습한 후에 단지 새로운 개념만 학습하면 된다. 
+    예를 들어 새로운 개념에는 변수 사용, 객체지향 표기법, 라이브러리에서 코드 가져오기 같은 것이 포함된다.
+    이 사용설명서를 작성하는데 있어 한가지 지도원리는 한번에 한가지 프로그래밍 개념만 소개하는 것이다.
 
-    However, the simplicity of the approach used in Reeborg's World
-    does not mean that what can be done is limited to the basics of the
-    virtual robot world.
-    The Python version of Reeborg's World is based on Brython_, and includes
-    many Python modules found in Python's standard library which can be used
-    to write advanced programs.
+    그렇다고, 리보그 세상에 사용된 접근법의 단순성이 가상 로봇 세상의 기본적인 것에만 제한된다는 것을 의미하는 것은 아니다.
+    리보그 세상의 파이썬 버젼은 Brython_ 에 기반하고 있다. 그래서 고급 프로그램을 작성하는데 사용될 수 있는 
+    파이썬 표준 라이브러리에서 발견되는 많은 파이썬 모듈을 포함하고 있다.
 
     .. _Brython: http://brython.info
 
-    **Task Driven Learning**
+    리보그 세상은 **작업 기반 학습** 으로 설계되었다: 학생에게 리보그가 완수해야 되는 작업이 주어지고,
+    학생이 프로그램을 작성해서 리보그가 작업을 수행하는 방법에 대해서 명령을 줘야만 된다.
 
-    Reeborg's World is designed for *Task Driven Learning*: students are given
-    tasks that Reeborg has to complete, and they must write programs instructing
-    Reeborg how to do so.
-
-    Tasks include having Reeborg move objects, build walls, or go to a
-    particular location.  Objects in Reeborg's World are colourful; the
-    places they be must moved to by Reeborg are indicated by having a
-    picture of the object in shades of grey.
+    작업에는 리보그가 물체를 이동하고, 벽을 세우거나, 특정 지점으로 이동하는 것이 포함된다.
+    리보그 세상에서 물체는 다양한 색체를 띈다; 리보그가 이동해야만 되는 장소는 회색 모양 물체 그림으로 표기된다.
 
     .. image:: ../images/simple_task.gif
 
-    If you have some examples (particularly tasks for Reeborg)
-    that you find useful for your students, I would appreciate
-    if you could share them with me so as to improve this tutorial.
+    만약 지도하는 학생에게 유용한 예제(특히 리보그에 대한 작업)를 갖고 있다면, 이 사용설명서를 향상하는데 공유해준다면 감사드립니다.
 
-    **Free**
+    **자유와 무료**
 
-    Reeborg's World is **free**: *free* to use, *free* to copy (and put on a school's
-    website), and does not require any registration or login.
-    Unlike some other existing code learning website, it does not force
-    learners to follow a pre-defined path; educators are *free* to create their
-    own learning material while making use of Reeborg's World.
+    리보그 세상은 **자유롭습니다.** : 사용하는 *자유* , 복재할 *자유* (그리고 학교 웹사이트에 심어 놓을 수 있다),
+    어떤 가입 혹은 로그인을 필요하지 않는다.
+    다른 현존하는 코드 학습 웹사이트와 달리, 학습자가 사전에 정의된 경로를 따르게 가용하지 않는다;
+    지도하는 선생님이 리보그 세상을 사용하면서 자신의 학습 교재를 *자유* 로이 생성할 수 있다.
