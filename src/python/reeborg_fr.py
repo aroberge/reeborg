@@ -601,11 +601,11 @@ def narration(html):
     raise ReeborgError("narration() a été remplacée par print_html().")
 
 
-def print_html(html):
+def print_html(html, append=False):
     """Surtout destiné aux créateurs de monde, la fonction print_html() est
        semblable à print() sauf qu'elle accepte du texte html.
     """
-    RUR.control.print_html(html)
+    RUR.control.print_html(html, append)
 
 
 def max_nb_instructions(nb):

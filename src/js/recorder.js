@@ -40,6 +40,14 @@ RUR.rec.record_frame = function (name, obj) {
 
     if (RUR.programming_language === "python" && RUR._immediate_playback) {
         RUR.vis_world.refresh();
+        if (name !== undefined && name == "output") {
+            if (obj.html && obj.append){
+                $(obj.element).append(obj.message);
+            } else if (obj.html) {
+                $(obj.element).html(obj.message);
+            }
+            $("#Reeborg-writes").dialog("open");
+        }
         return;
     }
 
@@ -171,7 +179,9 @@ RUR.rec.display_frame = function () {
     } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     } else if (frame.output !== undefined) {
-        if (frame.output.html){
+        if (frame.output.html && frame.output.append){
+            $(frame.output.element).append(frame.output.message);
+        } else if (frame.output.html) {
             $(frame.output.element).html(frame.output.message);
         } else {
             $(frame.output.element).append(frame.output.message);

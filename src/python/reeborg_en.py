@@ -604,11 +604,11 @@ def narration(html):
     RUR.control.narration(html)
 
 
-def print_html(html):
+def print_html(html, append=False):
     """Intended primarily for world creators, this function is similar to
        print() except it can make use of html input.
     """
-    RUR.control.print_html(html)
+    RUR.control.print_html(html, append)
 
 
 def new_robot_images(images):

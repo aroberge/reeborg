@@ -630,8 +630,12 @@ RUR.control._write = function () {
     RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
 };
 
-RUR.control.print_html = function (arg) {
-    RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true});
+RUR.control.print_html = function (arg, append) {
+    if (append) {
+        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true, "append": true});
+    } else {
+        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true});
+    }
 };
 
 RUR.control.clear_print = function () {
