@@ -1,4 +1,4 @@
-Test driven learning
+Task driven learning
 ====================
 
 .. figure:: ../../../src/images/select_home.png
