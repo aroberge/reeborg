@@ -119,6 +119,9 @@ RUR.runner.assign_initial_values = function () {
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
+    if (RUR._watch){
+        RUR._watch_variables = $("#watch_var_input").val();
+    }
     if (RUR.we.editing_world && !RUR.runner.interpreted) {
         RUR.world.saved_world = RUR.world.clone_world(RUR.current_world);
     }
@@ -219,11 +222,12 @@ RUR.runner.eval_javascript = function (src) {
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
-    var pre_code, post_code;
+    var pre_code, post_code, highlight;
     RUR.reset_definitions();
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
-    translate_python(src, RUR._highlight, pre_code, post_code);
+    highlight = RUR._highlight || (RUR._watch && RUR._watch_variables);
+    translate_python(src, highlight, pre_code, post_code);
 };
 
 

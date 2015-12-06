@@ -99,6 +99,11 @@
   <div id="tabs">
     <ul>
       <li><a id="editor-link" href="#editor">Code Python</a></li>
+      <button id="watch_variables" class="blue-gradient" title="observe variables" onclick="RUR.ui.watch()">
+          <img id="watch_yes" src="/src/images/magnifying_yes.png" alt="observe" style="display:none">
+          <img id="watch_no" src="/src/images/magnifying_no.png" alt="observe">
+      </button>
+      <input type="text" name="watch_var_input" id="watch_var_input" style="display:none">
 
       <button id="highlight" class="blue-gradient float-right" title="surligner" onclick="RUR.ui.highlight()">
         <img src="/src/images/highlight.png" alt="surligner">

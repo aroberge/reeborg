@@ -21,7 +21,7 @@ def extract_first_word(mystr, separators):
     return mystr, ''
 
 
-def tracing_line(indent, current_group, frame=False):
+def tracing_line(indent, current_group, frame=False, last_line=False):
     '''Construct the tracing line'''
     tracecall_name = 'RUR.set_lineno_highlight'
     if hasattr(window.RUR, '_watch_variables'):
@@ -29,10 +29,16 @@ def tracing_line(indent, current_group, frame=False):
         watch = indent + "watch(" + str(var) + ", loc=locals())\n"
     else:
         watch = ''
-    if frame:
-        trace = indent + tracecall_name + '(%s, True)' % current_group
-    else:
-        trace = indent + tracecall_name + '(%s)' % current_group
+    if last_line:
+        return watch
+    if hasattr(window.RUR, '_highlight'):
+        if getattr(window.RUR, '_highlight'):
+            if frame:
+                trace = indent + tracecall_name + '(%s, True)' % current_group
+            else:
+                trace = indent + tracecall_name + '(%s)' % current_group
+        else:
+            trace = ''
     return watch + trace
 
 
@@ -181,6 +187,7 @@ def insert_highlight_info(src):
 
         skip_docstring -= 1
 
+    new_lines.append(tracing_line(indent, '', last_line=True))
     return '\n'.join(new_lines), False
 
 if __name__ == '__main__':

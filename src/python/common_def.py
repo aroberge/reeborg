@@ -54,7 +54,7 @@ def Help(obj=None):
     if not out:
         raise AttributeError("This object has no docstring.")
     else:
-        window.narration("".join(out))
+        window.print_html("".join(out))
 
 
 def dir_py(obj):

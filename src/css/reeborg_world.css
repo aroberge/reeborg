@@ -205,11 +205,6 @@ legend {
     color: #123264;
 }
 
-#highlight {
-    height: 36px;
-    border: 0;
-}
-
 #resize {
     float: right;
 }
@@ -714,9 +709,25 @@ p.try {
     background: #2d5ab4;
 }
 
-#highlight {
+#highlight{
     float: right;
     height: 36px;
+    border: 0;
+}
+#watch_variable {
+    height: 36px;
+    border: 0;
+    float: left;
+}
+#watch_yes, #watch_no {
+    float:left;
+    border: 0;
+}
+
+#watch_var_input {
+    position: relative;
+    top: -5px;
+    padding: 0;
     border: 0;
 }
 
