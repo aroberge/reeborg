@@ -2801,13 +2801,13 @@ RUR.rec.record_frame = function (name, obj) {
         return;
     }
 
-    // Used mainly to add watch variables to previous frame
-    if (name !== undefined && name == "output" &&
-        obj.element == "#print_html" && obj.append == undefined &&
-        RUR.rec.nb_frames > 1) {
-        RUR.rec.frames[RUR.rec.nb_frames-1]["output"] = obj;
-        return;
-    }
+    // // Used mainly to add watch variables to previous frame
+    // if (name !== undefined && name == "output" &&
+    //     obj.element == "#print_html" && obj.append == undefined &&
+    //     RUR.rec.nb_frames > 1) {
+    //     RUR.rec.frames[RUR.rec.nb_frames-1]["output"] = obj;
+    //     return;
+    // }
 
 
     frame.world = RUR.world.clone_world();
