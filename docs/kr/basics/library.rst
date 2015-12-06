@@ -1,42 +1,34 @@
 
-Using the Library
-=================
+라이브러리 사용하기
+=====================
 
 .. index:: ! from ... import
 
-When programmer make use of a given function in different programs,
-rather than redefining it in each program they write, they put them in
-special programs called **libraries** and they have a way to ensure that
-their other programs can use the functions that are found in the
-library.
+프로그래머가 작성하는 각 프로그램에 다시 정의하기보다, 다른 프로그램에 있는 함수를 사용할 때, 
+**라이브러리(library)** 라고 불리는 특별한 프로그램을 넣고, 작성하는 다른 프로그램이 
+라이브러리에서 찾을 수 있는 함수를 사용할 수 있게 하는 방법이 있다.
 
-You are going to use the function ``turn_right()`` **a lot!** Instead of
-rewriting it each time (remember Rule # 3), what you are going to do is
-to write it **once** (more) but, this time, instead of writing it in the
-editor with the **Python Code** tab, you will click on the **library** tab and
-write it there. Oh, and you should also write ``turn_around()`` there as
-well.
+매번 다시 작성하는 대신에(세번째 규칙을 기억하라) ``turn_right()`` 함수를 **매우 많이** 사용할 것이다. 
+여러분이 해야할 것은 **한번(이상)** 작성하는 것이다. 하지만, 이번에는 **Python Code** 탭에 편집기로 
+코드를 작성하는 대신에, **library** 탭을 클릭하고, 그곳에서 작성할 것이다.
+오, ``turn_around()`` 함수를 물론 거기에도 작성해야만 된다.
 
 .. image:: ../../../src/images/library.png
 
+그리고 나서, 라이브러리에서 정의된 함수를 사용하려면, 단순히 파이썬 코드 편집기에 라인에 
+``from library import`` (함수명이 다음에 오고, 콤마로 구분한다) 를 타이핑한다.
 
-Then, when you want to use the functions defined in your library, you will
-simply type ``from library import`` (followed by the function names, separated
-by commas) on its own line in the Python Code editor.
+.. topic:: 다음을 수행하라!
 
-.. topic:: Do this!
-
-   After writing the functions ``turn_right()`` and ``turn_around()`` in
-   the library, go back to the Python Code editor (so you no longer see your
-   functions) and write a short
-   program that nonetheless uses them to make sure that they work as
-   expected. If they don't, go back and fix them.  Remember to use
-   ``from library import turn_right, turn_around`` in your main program.
+   라이브러리에서 ``turn_right()`` 와 ``turn_around()`` 함수를 작성한 후에,
+   Python Code 편집기로 되돌아가서, 예상한대로 동작되는지 확실히 하도록 이들 함수를 사용하는 
+   짧은 프로그램을 작성한다. 
+   만약 동작하지 않으면, 돌아가서 고친다. 주메인 프로그램에서 ``from library import turn_right, turn_around`` 사용을
+   기억하라.
 
 .. hint::
 
-   With the appropriate functions defined in the library,
-   here is such a program::
+   라이브러리에 정의된 적절한 함수를 갖는 그런 프로그램이 다음에 있다::
 
        from library import turn_right, turn_around
        move()
@@ -46,38 +38,30 @@ by commas) on its own line in the Python Code editor.
        move()
        turn_around()
        move()
-       turn_left()  # back at starting position
+       turn_left()  # 출발 지점으로 원위치
 
+이제부터, 한번 이상 사용할 함수를 정의할 때마다, 라이브러리에 추가해서, 매번 재정의할 필요가 없다.
 
-From now on, whenever you define a function that you use more than once,
-add it to your library so that you don't have to redefine it every time.
+리보그가 프랑스말을 이해할 수 있다.
+--------------------------------------
 
-
-Reeborg can understand French
----------------------------------
-
-There exists a special library which enables Reeborg to understand
-French.  For example, instead of writing ``move()``, one can write ``avance()``
-and Reeborg will do the right thing.  For example, try the following::
+리보그가 프랑스말을 이해할 수 있게 하는 특수 라이브러리가 있다. 예를 들어,
+``move()`` 를 작성하는 대신에, ``avance()`` 을 작성할 수 있고, 리보그가 올바른 작업을 수행하게 한다.
+예를 들어, 다음을 시도해본다::
 
     from reeborg_fr import avance, tourne_a_gauche
 
     avance()
     tourne_a_gauche()
 
-.. topic:: Your turn!
+.. topic:: 여러분 차례!
 
-    Write a short program which uses the functions of the French library.
+    프랑스어 라이브러리 함수를 사용하는 짧은 프로그램을 작성하라.
 
-.. admonition:: For educators
+.. admonition:: 선생님께
 
-    When the French library is imported, the online help
-    (available via "Addition options" -> "Help") is updated to include
-    all the French functions available.  The only restriction however
-    is that function arguments, such as ``"token"`` in ``take("token")``
-    **must** still be specified in English.  To use a version
-    completely translated in French, you must go to
-    `Le monde de Reeborg <http://reeborg.ca/monde.html>`_
+    프랑스어 라이브러리를 가져오면, 온라인 도움말("Addition options" -> "Help" 에서 이용가능)이 갱신되어 이용가능한 모든 프랑스어 함수가 포함된다.
+    하지만, 유일한 제약이 있는데, ``take("token")`` 에서 ``"token"`` 같은 함수 인자는 여전히 영어로 구체화되야만 된다.
+    프랑스어로 완역된 버젼을 사용하려면, `Le monde de Reeborg <http://reeborg.ca/monde.html>`_ 으로 이동해야 된다.
 
-    If you would like to create a new version, a Spanish version for example,
-    please contact me.
+    만약 예를 들어 스페인어 같은 새로운 버젼을 생성하고자 한다면, 저자에게 연락주세요.
