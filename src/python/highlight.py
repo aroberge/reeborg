@@ -24,10 +24,16 @@ def extract_first_word(mystr, separators):
 def tracing_line(indent, current_group, frame=False):
     '''Construct the tracing line'''
     tracecall_name = 'RUR.set_lineno_highlight'
-    if frame:
-        return indent + tracecall_name + '(%s, True)' % current_group
+    if hasattr(window.RUR, '_watch_variables'):
+        var = getattr(window.RUR, '_watch_variables').split(",")
+        watch = indent + "watch(" + str(var) + ", loc=locals())\n"
     else:
-        return indent + tracecall_name + '(%s)' % current_group
+        watch = ''
+    if frame:
+        trace = indent + tracecall_name + '(%s, True)' % current_group
+    else:
+        trace = indent + tracecall_name + '(%s)' % current_group
+    return watch + trace
 
 
 def replace_brackets(src):

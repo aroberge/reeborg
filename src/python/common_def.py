@@ -16,6 +16,17 @@ def __write_err(data):
     window.RUR.control._write("<b style='color:red'>" + str(data) + "</b>")
 
 
+def watch(args, loc={}):
+    out = []
+    f = "<span class='watch_name'>{}</span>: <span class='watch_value'>{}</span>"  # NOQA
+    for arg in args:
+        try:
+            out.append(f.format(arg, eval(arg, globals(), loc)))
+        except:
+            pass
+    window.print_html("<br>".join(out))
+
+
 def Help(obj=None):
     '''Usage: help(obj)'''   # yes: lowercase!!!
     if obj is None:
@@ -81,6 +92,7 @@ def generic_translate_python(src, lib, lang_import, highlight,
     globals_.update(globals())
     globals_['dir_py'] = dir_py
     globals_['Help'] = Help
+    globals_['watch'] = watch
 
     src = transform(src)
     exec(lang_import, globals_)

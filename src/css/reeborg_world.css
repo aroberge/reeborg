@@ -581,10 +581,20 @@ p.try {
     display: block;
 }
 
-#narrates {
+#print_html {
     font-family: Verdana, sans-serif;
     font-size: 16px;
     color: blue;
+}
+
+.watch_value {
+    color: black;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.watch_name {
+    color: #248;
+    font-weight: bold;
 }
 
 #stdout {

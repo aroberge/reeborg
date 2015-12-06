@@ -606,6 +606,7 @@ def print_html(html, append=False):
        semblable à print() sauf qu'elle accepte du texte html.
     """
     RUR.control.print_html(html, append)
+window['print_html'] = print_html
 
 
 def max_nb_instructions(nb):

@@ -609,6 +609,7 @@ def print_html(html, append=False):
        print() except it can make use of html input.
     """
     RUR.control.print_html(html, append)
+window['print_html'] = print_html
 
 
 def new_robot_images(images):
