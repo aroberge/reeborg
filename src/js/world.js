@@ -61,7 +61,7 @@ RUR.world.import_world = function (json_string) {
             body = RUR.current_world.robots[0];
             body._prev_x = body.x;
             body._prev_y = body.y;
-            body._prev_orientation = body.orientation;
+            body._prev_orientation = body._orientation;
         }
     }
 

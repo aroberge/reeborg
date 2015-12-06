@@ -470,7 +470,7 @@ RUR.control.move = function (robot) {
     x_beyond = robot.x;  // if robot is moving vertically, it x coordinate does not change
     y_beyond = robot.y;
 
-    switch (robot.orientation){
+    switch (robot._orientation){
     case RUR.EAST:
         robot.x += 1;
         x_beyond = robot.x + 1;
@@ -577,22 +577,22 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
 
 RUR.control.turn_left = function(robot){
     "use strict";
-    robot._prev_orientation = robot.orientation;
+    robot._prev_orientation = robot._orientation;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-    robot.orientation += 1;  // could have used "++" instead of "+= 1"
-    robot.orientation %= 4;
+    robot._orientation += 1;  // could have used "++" instead of "+= 1"
+    robot._orientation %= 4;
     RUR.control.sound_id = "#turn-sound";
     RUR.rec.record_frame("debug", "RUR.control.turn_left");
 };
 
 RUR.control.__turn_right = function(robot){
     "use strict";
-    robot._prev_orientation = (robot.orientation+2)%4; // fix so that oil trace looks right
+    robot._prev_orientation = (robot._orientation+2)%4; // fix so that oil trace looks right
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-    robot.orientation += 3;
-    robot.orientation %= 4;
+    robot._orientation += 3;
+    robot._orientation %= 4;
     RUR.rec.record_frame("debug", "RUR.control.__turn_right");
 };
 
@@ -743,7 +743,7 @@ RUR.control.build_wall = function (robot){
         throw new RUR.WallCollisionError(RUR.translate("There is already a wall here!"));
     }
 
-    switch (robot.orientation){
+    switch (robot._orientation){
     case RUR.EAST:
         coords = robot.x + "," + robot.y;
         orientation = "east";
@@ -789,7 +789,7 @@ RUR.control.build_wall = function (robot){
 
 RUR.control.wall_in_front = function (robot) {
     var coords;
-    switch (robot.orientation){
+    switch (robot._orientation){
     case RUR.EAST:
         coords = robot.x + "," + robot.y;
         if (robot.x == RUR.COLS){
@@ -846,7 +846,7 @@ RUR.control.wall_on_right = function (robot) {
 
 RUR.control.tile_in_front = function (robot) {
     // returns single tile
-    switch (robot.orientation){
+    switch (robot._orientation){
     case RUR.EAST:
         return RUR.control.get_tile_at_position(robot.x+1, robot.y);
     case RUR.NORTH:
@@ -863,7 +863,7 @@ RUR.control.tile_in_front = function (robot) {
 
 RUR.control.top_tiles_in_front = function (robot) {
     // returns list of tiles
-    switch (robot.orientation){
+    switch (robot._orientation){
     case RUR.EAST:
         return RUR.control.get_top_tiles_at_position(robot.x+1, robot.y);
     case RUR.NORTH:
@@ -936,7 +936,7 @@ RUR.control.right_is_clear = function(robot){
 };
 
 RUR.control.is_facing_north = function (robot) {
-    return robot.orientation === RUR.NORTH;
+    return robot._orientation === RUR.NORTH;
 };
 
 RUR.control.think = function (delay) {
@@ -3109,24 +3109,24 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     }
 
     if (orientation === undefined){
-        robot.orientation = RUR.EAST;
+        robot._orientation = RUR.EAST;
     } else {
         switch (orientation.toLowerCase()){
         case "e":
         case RUR.translation.east:
-            robot.orientation = RUR.EAST;
+            robot._orientation = RUR.EAST;
             break;
         case "n":
         case RUR.translation.north:
-            robot.orientation = RUR.NORTH;
+            robot._orientation = RUR.NORTH;
             break;
         case "w":
         case RUR.translation.west:
-            robot.orientation = RUR.WEST;
+            robot._orientation = RUR.WEST;
             break;
         case "s":
         case RUR.translation.south:
-            robot.orientation = RUR.SOUTH;
+            robot._orientation = RUR.SOUTH;
             break;
         default:
             throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
@@ -3137,7 +3137,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot._is_leaky = true;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-    robot._prev_orientation = robot.orientation;
+    robot._prev_orientation = robot._orientation;
 
     return robot;
 };
@@ -3248,9 +3248,9 @@ RUR.runner.assign_initial_values = function () {
             robot._prev_y = robot.y;
             delete robot.start_positions;
         }
-        if (robot.orientation == -1){
-            RUR.current_world.robots[0].orientation = RUR.randint(0, 3);
-            RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0].orientation;
+        if (robot._orientation == -1){
+            RUR.current_world.robots[0]._orientation = RUR.randint(0, 3);
+            RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0]._orientation;
         }
     }
 
@@ -4155,7 +4155,7 @@ RUR.vis_robot.draw = function (robot) {
     x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
     y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
 
-    switch(robot.orientation){
+    switch(robot._orientation){
         case RUR.EAST:
             if (robot.model !== undefined){
                 image = RUR.vis_robot.images[robot.model].robot_e_img;
@@ -4204,7 +4204,7 @@ RUR.vis_robot.draw = function (robot) {
 
 RUR.vis_robot.draw_trace = function (robot) {
     "use strict";
-    if (robot === undefined || robot._is_leaky === false || robot.orientation === -1) {
+    if (robot === undefined || robot._is_leaky === false || robot._orientation === -1) {
         return;
     }
     if (robot.x > RUR.COLS || robot.y > RUR.ROWS) {
@@ -4233,8 +4233,8 @@ RUR.vis_robot.draw_trace = function (robot) {
     // up by a user program and crash the robot program with a message sent to the console and nothing else.
     ctx.moveTo(robot._prev_x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation%4][0],
                     RUR.HEIGHT - (robot._prev_y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation%4][1]);
-    ctx.lineTo(robot.x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot.orientation%4][0],
-                    RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot.orientation%4][1]);
+    ctx.lineTo(robot.x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._orientation%4][0],
+                    RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._orientation%4][1]);
     ctx.stroke();
 };
 
@@ -4935,7 +4935,7 @@ RUR.world.import_world = function (json_string) {
             body = RUR.current_world.robots[0];
             body._prev_x = body.x;
             body._prev_y = body.y;
-            body._prev_orientation = body.orientation;
+            body._prev_orientation = body._orientation;
         }
     }
 
@@ -5626,7 +5626,7 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
 
 RUR.we.turn_robot = function (orientation) {
 
-    RUR.current_world.robots[0].orientation = orientation;
+    RUR.current_world.robots[0]._orientation = orientation;
     RUR.current_world.robots[0]._prev_orientation = orientation;
     RUR.we.refresh_world_edited();
 };

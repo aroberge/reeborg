@@ -636,7 +636,7 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
 
 RUR.we.turn_robot = function (orientation) {
 
-    RUR.current_world.robots[0].orientation = orientation;
+    RUR.current_world.robots[0]._orientation = orientation;
     RUR.current_world.robots[0]._prev_orientation = orientation;
     RUR.we.refresh_world_edited();
 };

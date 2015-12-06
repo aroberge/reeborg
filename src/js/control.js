@@ -24,7 +24,7 @@ RUR.control.move = function (robot) {
     x_beyond = robot.x;  // if robot is moving vertically, it x coordinate does not change
     y_beyond = robot.y;
 
-    switch (robot.orientation){
+    switch (robot._orientation){
     case RUR.EAST:
         robot.x += 1;
         x_beyond = robot.x + 1;
@@ -131,22 +131,22 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
 
 RUR.control.turn_left = function(robot){
     "use strict";
-    robot._prev_orientation = robot.orientation;
+    robot._prev_orientation = robot._orientation;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-    robot.orientation += 1;  // could have used "++" instead of "+= 1"
-    robot.orientation %= 4;
+    robot._orientation += 1;  // could have used "++" instead of "+= 1"
+    robot._orientation %= 4;
     RUR.control.sound_id = "#turn-sound";
     RUR.rec.record_frame("debug", "RUR.control.turn_left");
 };
 
 RUR.control.__turn_right = function(robot){
     "use strict";
-    robot._prev_orientation = (robot.orientation+2)%4; // fix so that oil trace looks right
+    robot._prev_orientation = (robot._orientation+2)%4; // fix so that oil trace looks right
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-    robot.orientation += 3;
-    robot.orientation %= 4;
+    robot._orientation += 3;
+    robot._orientation %= 4;
     RUR.rec.record_frame("debug", "RUR.control.__turn_right");
 };
 
@@ -297,7 +297,7 @@ RUR.control.build_wall = function (robot){
         throw new RUR.WallCollisionError(RUR.translate("There is already a wall here!"));
     }
 
-    switch (robot.orientation){
+    switch (robot._orientation){
     case RUR.EAST:
         coords = robot.x + "," + robot.y;
         orientation = "east";
@@ -343,7 +343,7 @@ RUR.control.build_wall = function (robot){
 
 RUR.control.wall_in_front = function (robot) {
     var coords;
-    switch (robot.orientation){
+    switch (robot._orientation){
     case RUR.EAST:
         coords = robot.x + "," + robot.y;
         if (robot.x == RUR.COLS){
@@ -400,7 +400,7 @@ RUR.control.wall_on_right = function (robot) {
 
 RUR.control.tile_in_front = function (robot) {
     // returns single tile
-    switch (robot.orientation){
+    switch (robot._orientation){
     case RUR.EAST:
         return RUR.control.get_tile_at_position(robot.x+1, robot.y);
     case RUR.NORTH:
@@ -417,7 +417,7 @@ RUR.control.tile_in_front = function (robot) {
 
 RUR.control.top_tiles_in_front = function (robot) {
     // returns list of tiles
-    switch (robot.orientation){
+    switch (robot._orientation){
     case RUR.EAST:
         return RUR.control.get_top_tiles_at_position(robot.x+1, robot.y);
     case RUR.NORTH:
@@ -490,7 +490,7 @@ RUR.control.right_is_clear = function(robot){
 };
 
 RUR.control.is_facing_north = function (robot) {
-    return robot.orientation === RUR.NORTH;
+    return robot._orientation === RUR.NORTH;
 };
 
 RUR.control.think = function (delay) {

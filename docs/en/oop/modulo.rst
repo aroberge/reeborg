@@ -15,11 +15,11 @@ I saw the following:
 
    function (robot){
        "use strict";
-       robot._prev_orientation = robot.orientation;
+       robot._prev_orientation = robot._orientation;
        robot._prev_x = robot.x;
        robot._prev_y = robot.y;
-       robot.orientation += 1;  // could have used "++" instead of "+= 1"
-       robot.orientation %= 4;
+       robot._orientation += 1;  // could have used "++" instead of "+= 1"
+       robot._orientation %= 4;
        RUR.control.sound_id = "#turn-sound";
        RUR.rec.record_frame();
    }
@@ -63,8 +63,8 @@ Since a right turn is equivalent to 3 left turns, this suggest that we increase 
 
       class RepairedRobot(UsedRobot):
           def turn_right(self):
-              self.body.orientation += 3
-              self.body.orientation %= 4
+              self.body._orientation += 3
+              self.body._orientation %= 4
               RUR.rec.record_frame()
 
       reeborg = RepairedRobot(3, 3)  # away from walls
@@ -86,7 +86,7 @@ to the current one after the move.   Here's the code to do this::
       def turn_right(self):
 
           # save previous values to know from where to start drawing
-          self.body._prev_orientation = self.body.orientation
+          self.body._prev_orientation = self.body._orientation
           self.body._prev_x = self.body.x
           self.body._prev_y = self.body.y
 
@@ -95,8 +95,8 @@ to the current one after the move.   Here's the code to do this::
           self.body._prev_orientation %= 4
 
           # do right turn
-          self.body.orientation += 3
-          self.body.orientation %= 4
+          self.body._orientation += 3
+          self.body._orientation %= 4
           RUR.rec.record_frame()
 
   reeborg = RepairedRobot(3, 3)  # away from walls

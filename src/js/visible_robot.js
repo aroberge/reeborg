@@ -133,7 +133,7 @@ RUR.vis_robot.draw = function (robot) {
     x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
     y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
 
-    switch(robot.orientation){
+    switch(robot._orientation){
         case RUR.EAST:
             if (robot.model !== undefined){
                 image = RUR.vis_robot.images[robot.model].robot_e_img;
@@ -182,7 +182,7 @@ RUR.vis_robot.draw = function (robot) {
 
 RUR.vis_robot.draw_trace = function (robot) {
     "use strict";
-    if (robot === undefined || robot._is_leaky === false || robot.orientation === -1) {
+    if (robot === undefined || robot._is_leaky === false || robot._orientation === -1) {
         return;
     }
     if (robot.x > RUR.COLS || robot.y > RUR.ROWS) {
@@ -211,8 +211,8 @@ RUR.vis_robot.draw_trace = function (robot) {
     // up by a user program and crash the robot program with a message sent to the console and nothing else.
     ctx.moveTo(robot._prev_x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation%4][0],
                     RUR.HEIGHT - (robot._prev_y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation%4][1]);
-    ctx.lineTo(robot.x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot.orientation%4][0],
-                    RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot.orientation%4][1]);
+    ctx.lineTo(robot.x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._orientation%4][0],
+                    RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._orientation%4][1]);
     ctx.stroke();
 };
 

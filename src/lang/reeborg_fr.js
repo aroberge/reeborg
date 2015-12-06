@@ -31,7 +31,7 @@ RUR.confirmer = function(test) {
     monde = RUR.current_world;
     robots = monde.robots;
     reeborg = robots[0];
-    orientation = reeborg.orientation;
+    orientation = reeborg._orientation;
 
     // if language is Python ... require spaces around logical operators to simplify
     js_test = test.replace(/ and /g, '&&');

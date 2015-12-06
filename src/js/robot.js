@@ -18,24 +18,24 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     }
 
     if (orientation === undefined){
-        robot.orientation = RUR.EAST;
+        robot._orientation = RUR.EAST;
     } else {
         switch (orientation.toLowerCase()){
         case "e":
         case RUR.translation.east:
-            robot.orientation = RUR.EAST;
+            robot._orientation = RUR.EAST;
             break;
         case "n":
         case RUR.translation.north:
-            robot.orientation = RUR.NORTH;
+            robot._orientation = RUR.NORTH;
             break;
         case "w":
         case RUR.translation.west:
-            robot.orientation = RUR.WEST;
+            robot._orientation = RUR.WEST;
             break;
         case "s":
         case RUR.translation.south:
-            robot.orientation = RUR.SOUTH;
+            robot._orientation = RUR.SOUTH;
             break;
         default:
             throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
@@ -46,7 +46,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot._is_leaky = true;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-    robot._prev_orientation = robot.orientation;
+    robot._prev_orientation = robot._orientation;
 
     return robot;
 };

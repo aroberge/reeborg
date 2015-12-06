@@ -204,11 +204,11 @@ Et voici le résultat au moment où j'exécute le programme:
 
    function (robot){
        "use strict";
-       robot._prev_orientation = robot.orientation;
+       robot._prev_orientation = robot._orientation;
        robot._prev_x = robot.x;
        robot._prev_y = robot.y;
-       robot.orientation += 1;  // could have used "++" instead of "+= 1"
-       robot.orientation %= 4;
+       robot._orientation += 1;  // could have used "++" instead of "+= 1"
+       robot._orientation %= 4;
        RUR.control.sound_id = "#turn-sound";
        RUR.rec.record_frame();
    }
@@ -219,11 +219,11 @@ Voici ce en quoi ressemblerait le code Python équivalent:
    :emphasize-lines: 8
 
     def _ (robot):
-        robot._prev_orientation = robot.orientation
+        robot._prev_orientation = robot._orientation
         robot._prev_x = robot.x
         robot._prev_y = robot.y
-        robot.orientation += 1
-        robot.orientation %= 4
+        robot._orientation += 1
+        robot._orientation %= 4
         RUR.control.sound_id = "#turn-sound"
         RUR.rec.record_frame()
 

@@ -17,11 +17,11 @@ chose de semblable):
 
    function (robot){
        "use strict";
-       robot._prev_orientation = robot.orientation;
+       robot._prev_orientation = robot._orientation;
        robot._prev_x = robot.x;
        robot._prev_y = robot.y;
-       robot.orientation += 1;  // could have used "++" instead of "+= 1"
-       robot.orientation %= 4;
+       robot._orientation += 1;  // could have used "++" instead of "+= 1"
+       robot._orientation %= 4;
        RUR.control.sound_id = "#turn-sound";
        RUR.rec.record_frame();
    }
@@ -57,7 +57,7 @@ que 7 divisé par 4 donnait 1 et trois quarts, puis 1,75 ....
 
 Donc, l'opérateur modulo calcule le reste de la division par un entier.
 Dans le code Javascript ci-dessous, l'opérateur modulo est utilisé
-pour faire en sorte que la valeur de ``robot.orientation`` soit toujours
+pour faire en sorte que la valeur de ``robot._orientation`` soit toujours
 un chiffre entier entre 0 et 3; pour faire un virage à gauche, on augmente
 sa valeur par 1 puis on calcule le reste de la division par 4.
 Puisqu'un virage à droite est équivalent à un virage à gauche, ceci suggère
@@ -71,8 +71,8 @@ par 4.   Essayons donc de faire ceci.
 
         class RobotRéparé(RobotUsage):
             def tourne_a_droite(self):
-                self.body.orientation += 3
-                self.body.orientation %= 4
+                self.body._orientation += 3
+                self.body._orientation %= 4
                 RUR.rec.record_frame()
 
         reeborg = RobotRéparé(3, 3)  # loin des murs
@@ -132,7 +132,7 @@ Voici le code correspondant::
 
             # Les valeurs avant le virage sont notées comme étant
             # les valeurs précédant le virage à droite
-            self.body._prev_orientation = self.body.orientation
+            self.body._prev_orientation = self.body._orientation
             self.body._prev_x = self.body.x
             self.body._prev_y = self.body.y
 
@@ -141,8 +141,8 @@ Voici le code correspondant::
             self.body._prev_orientation %= 4
 
             # on fait un virage à droite
-            self.body.orientation += 3
-            self.body.orientation %= 4
+            self.body._orientation += 3
+            self.body._orientation %= 4
 
             # on enregistre le résultat
             RUR.rec.record_frame()

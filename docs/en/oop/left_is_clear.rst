@@ -75,7 +75,7 @@ Here is what I see
 
     function (robot) {
         var coords;
-        switch (robot.orientation){
+        switch (robot._orientation){
         case RUR.EAST:
             coords = robot.x + "," + robot.y;
             if (robot.x == RUR.COLS){

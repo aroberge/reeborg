@@ -8,6 +8,8 @@ try:
     from browser import window
     RUR = window.RUR
 except:
+    from collections import defaultdict
+    window = defaultdict(str)
     print("\n --> Skipping importing from browser for sphinx.\n")
 
 # The following is the only language specific function; it can be used in
