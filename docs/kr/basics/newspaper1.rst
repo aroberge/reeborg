@@ -1,50 +1,39 @@
 
-Newspaper delivery
+신문 배달
 ==================
 
-Reeborg has a new job: he delivers the *Northern Star* newspaper. Many
-of Reeborg's customers do not live on the ground floor of their
-building. For each of these customers, Reeborg has to do the following
+리보그가 새 직업을 얻었다: 리보그가 *북동지역 스타(Northern Star)* 신문을 배달한다.
+많은 리보그 고객이 빌딩 1층에 살고 있지는 않다. 이런 고객 각각을 위해서, 리보그는 다음을 수행해야 된다.
 
-#. Pick up a single copy of the newspaper (it would be too heavy to
-   carry them all up the stairs).
-#. Climb up the required number of floors to reach the customer's door.
-#. With the exception of one customer, mentioned below, get the money (tokens) left by the customer.
-#. Leave a copy of the newspaper (simply nicknamed the *star*) behind.
-#. Climb down to the ground level
+#. 신문 한부만 집는다 (너무 무거위서 신문 전부를 갖고 모든 계단을 오를 수는 없다).
+#. 고객 문에 도달하도록 필요한 계단 수만큼 올라간다.
+#. 아래에 언급된, 고객 한명을 제외하고, 고객이 놓아둔 돈(토큰)을 받는다.
+#. 신문 한부(단순히 *별* 이라는 별명이 붙음)를 뒤에 남긴다.
+#. 다시 지상으로 걸어 내려온다.
 
 .. note::
 
-    In computer programming, we generally start counting at zero instead of 1.
-    Since these worlds refer to three famous
-    people in computer science, I thought it would be appropriate to number these worlds starting at zero.
+    컴퓨터 프로그래밍에서, 일반적으로 1 대신에 0에서부터 세기 시작한다.
+    여기 세상이 컴퓨터 과학에서 유명한 세명을 지칭하기 때문에, 세상을 0에서부터 번호를 붙이는 것이 적절하다고 본다.
 
-While Reeborg has many clients, I only included three with their
-corresponding worlds:
+리보그에게는 많은 고객이 있지만, 고객 세명엥 상응하는 세계만 포함한다:
 
--  Richard Pattis, creator of Karel (an ancestor of Reeborg);
-   Reeborg always leaves a free copy of the newspaper at Pattis's home.
-   Richard Pattis lives on the third floor of his building;
-   the corresponding world is **Newspaper 0**.
--  The nice Ms. Ada Lovelace, who lives on the third floor of her
-   building, always leaves a couple of extra tokens as a gift to
-   Reeborg; hers is world **Newspaper 1**.
--  The old curmudgeon Mr. Charles Babbage, who lives on the fifth floor,
-   always pays the exact amount, leaving no tip for Reeborg; his world
-   is **Newspaper 2**
+-  리차드 패티스(Richard Pattis)은 리보그 조상으로 캐럴(Karel)의 창시자다;
+   리보그는 항상 패티스 집에 무료 신문 한부를 놓아둔다.
+   리차드 패티스는 3층 집에 살고 있다; 상응하는 세상은 **Newspaper 0** .
+-  3층에 살고 있는 멋진 아다 러브레이스 (Ms. Ada Lovelace)는 리보그에게 선물로 토큰 한쌍을 놓아 둔다;
+   **Newspaper 1** 이 대응되는 세상이다.
+-  괴팍한 노인 챨스 배비지(Charles Babbage)는 5층에 살고 있고, 항상 정확한 돈을 지불하고, 리보그에게 팁을 주지 않는다;
+   **Newspaper 3** 이 대응되는 세상이다.
 
-Writing programs for worlds containing two
-types of objects (like a star **and** some
-tokens) is more complicated than what we have seen so far;
-we will see how to do this later.  For now, let's
-focus on world **Newspaper 0** which has only
-one object.  Later we will learn how to teach
-Reeborg to do deliveries in worlds **Newspaper 1** and **Newspaper 2**.
+두가지 유형의 객체(별과 토큰)를 포함하는 세상에 대한 프로그램을 작성하는 것은 지금까지 살펴본 것보다 더 복잡하다;
+나중에 어떻게 이것을 처리하는지 볼 것이다. 지금으로서는, 한가지 객체를 갖고 있는 **Newspaper 0** 세상에만 집중하자.
+나중에 **Newspaper 1** 과 **Newspaper 2** 세상에 리보그가 어떻게 신문배달을 할지 배울 것이다.
 
-.. topic:: Try it!
+.. topic:: 시도해 보기!
 
-    Make Reeborg deliver a newspaper to Dr. Pattis.
+    리보그로 하여금 신문을 패티스 박사에게 배달하도록 한다.
 
 .. important::
 
-   Save your program; you will come back and use it again soon.
+   프로그램을 저장하라; 다시 돌아와서 조만간 다시 사용할 것이다.
