@@ -116,6 +116,7 @@ console.textarea.bind('click', myMouseClick)
 
 
 class Interpreter():
+
     def __init__(self):
         self.restart()
 
@@ -133,10 +134,25 @@ class Interpreter():
         lang = document.documentElement.lang
         if lang == 'en':
             exec("from reeborg_en import *", self.namespace)
-            self.namespace["done"] = RUR.rec.check_current_world_status
+            self.namespace["done"] = self.done
         elif lang == 'fr':
             exec("from reeborg_fr import *", self.namespace)
-            self.namespace["termine"] = RUR.rec.check_current_world_status
+            self.namespace["termine"] = self.done
+        self.run_pre()
+
+    def run_pre(self):
+        try:
+            exec(RUR.current_world.pre_code, self.namespace)
+        except:
+            pass
+
+    def done(self):
+        try:
+            exec(RUR.current_world.post_code, self.namespace)
+        except Exception as e:
+            if e.__name__ == "ReeborgError":
+                raise
+        RUR.rec.check_current_world_status()
 
     def set_current_line(self, src):
         if self.status == "main":
