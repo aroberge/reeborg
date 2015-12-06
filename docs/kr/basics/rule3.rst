@@ -12,9 +12,6 @@
         프로그램을 작성할 때, 되풀이 반복하지 마세요.
         다시 말씀드립니다. **되풀이 반복하지 마세요!**
 
-        When writing computer programs, do not repeat yourself.
-        I repeat: **do not repeat yourself!**
-
 좌회선 세번하면 우회전한다.
 ----------------------------
 
