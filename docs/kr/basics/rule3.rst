@@ -1,129 +1,116 @@
 
-Rule number 3
+세번째 규칙
 =============
 
-.. index:: Rule # 3
+.. index:: 규칙 # 3
 
-By now, you should be ready to learn about the third rule for writing
-computer programs efficiently.
+이제, 컴퓨터 프로그램을 효과적으로 작성하는 세번째 규칙을 학습할 준비가 되었다.
 
 .. important::
 
-    **Rule # 3**
+    **규칙 # 3**
+        프로그램을 작성할 때, 되풀이 반복하지 마세요.
+        다시 말씀드립니다. **되풀이 반복하지 마세요!**
+
         When writing computer programs, do not repeat yourself.
         I repeat: **do not repeat yourself!**
 
-Three lefts can make a right
+좌회선 세번하면 우회전한다.
 ----------------------------
 
-Since you have written quite a few programs by now (you have done the
-exercises, didn't you?), you must have realized that having Reeborg make
-three left turns in a row gives the same final result as if he were to
-make a single right turn. You are probably starting to find it quite
-tedious to have to write three ``turn_left()`` instructions each time
-you want to have Reeborg turn right. Wouldn't it be nicer if you could
-simply write ``turn_right()``?
+지금까지 프로그램 몇개를 작성했기 때문에, 리보그가 세번 연속해서 좌회전하면 마치 우회전 한번 한것과 같은 결과가 됨을 인식해야만 된다.
+리보그가 매번 우회전할 때마다, ``turn_left()`` 명령어를 세번 작성하는 것이 꽤 지겹다는 것을 아마도 알게 된다.
+만약 단순히 ``turn_right()`` 작성하게 되면 멋지지 않겠는가?
 
-By the end of this lesson, you will be able to do just that.
+이번 학습 말미에서, 단지 이것만 할 수 있게 된다.
 
-Defining functions
+함수 정의
 ------------------
 
-What we have called *instructions* or *commands* so far are examples of
-Python **functions**. So, ``turn_left()`` is a function and so is
-``move()``. We can define a new Python function as follows:
+지금까지 *지시(instructions)* 혹은 *명령어(commands)* 이라고 부른 것이 파이썬 **함수(function)** 의 사례다.
+다음과 같이 새로운 파이썬 함수를 정의할 수 있다:
 
 .. index:: ! def
 
 .. code-block:: python
 
     def some_well_chosen_name ():
-        # some lines of code
-        # indented at the same level
+        # 코드를 여기 적는다.
+        # 같은 열에 들여쓰기 한다.
 
 
-``function`` is our first Python **keyword**. Keywords are words that
-have a special meaning in a given programming language.
-Notice how a colon ``:`` precedes what
-is known as a *block of code* and constitutes the *body* of the
-function. It is **required** in Python to *indent* such blocks of code
-with the same number of spaces at the beginning of each line which, as a side-effect, makes it
-easy to identify the function body for a human reader.
+``def`` 가 첫번째 파이썬 **키워드(keyword)** 다. 키워드는 해당 프로그래밍 언어에서 특별한 의미가 있는 단어다.
+콜론 ``:`` 이 *코드 덩어리* 로 알려진 것보다 선행하고, 함수 *몸통(body)* 을 구성하는 방법에 주목한다.
+각줄 시작지점에 동일 숫자 공백을 갖는 코드 덩어리를 들여쓰기하는 것이 파이썬에서 **필요하다.** 
+들여쓰기를 하는 것이 사람 독자가 함수 몸통을 식별하기 쉽게 만든다.
 
-Let's write our first Python function::
+첫번째 파이썬 함수를 작성해 보자::
 
     def turn_right():
         turn_left()
         turn_left()
         turn_left()
 
-That's it! You will now be able to avoid having to write three
-``turn_left()`` functions in a row to simulate a right turn!
+됐다! 우회전을 하는데, ``turn_left()`` 함수를 세번 작성하는 것을 이제 회피할 수 있다.
 
-.. topic:: Try it!
+.. topic:: 시도해 보기!
 
-    Define the ``turn_right()`` function in a program and try to use it,
-    perhaps using the world Alone. If you don't know what to try, just have
-    Reeborg go around a square by alternating ``turn_right()`` and
-    ``move()`` **functions** four times in a row.
+    프로그램에서 ``turn_right()`` 함수를 정의하고, 아마도 ``Alone`` 세상에서 사용해보자.
+    무엇을 시도할지 확실히 모른다면, 연속해서 4번 ``turn_right()`` 와 ``move()`` **함수** 를 
+    번갈아 실행해서 리보그가 정사각형을 돌아다니게 한다.
 
-How to think about ``def``
+``def`` 에 관해 생각하는 방법
 -------------------------------
 
 .. note::
 
-   Please note that this simplified explanation does not take into account what is known
-   as *variable scope* which is something that we will cover later.
+   단순화한 설명은 *변수 범위(variable scope)* 로 알려진 것을 고려하지 않음에 주목한다. 나중에 다룰 것이다.
 
-You have just seen how to define a function in Python. Chances are,
-you understood right away how to think about them but, just in case,
-here's a more detailed explanation which will help you to not only
-understand how functions work, but also other Python construct that
-involve blocks of code.
+파이썬에서 함수를 정의하는 방법을 방금 살펴봤다.
+가능성이 함수에 관해 생각하는 방법을 바로 이해할 수 있지만, 행여나 
+다음에 좀더 자세한 설명이 있어서, 여러분이 함수 동작하는 방법과 코드 덩어리에 관계된 다른 파이썬 생성자를 이해할 수 있게 한다.
 
-Suppose we have the following:
+다음 코드가 있다고 가정하자:
 
 .. code-block:: python
    :emphasize-lines: 7
 
-    def turn_right():  # begin of code block follows
+    def turn_right():  # 코드 덩어리 시작
         turn_left()
         turn_left()
-        turn_left()   # end of code block
+        turn_left()   # 코드 덩어리 끝
 
     move()
     turn_right()
     move()
 
-This is equivalent to the following:
+상기 코드는 다음과 동치다:
 
 .. code-block:: python
    :emphasize-lines: 9, 10, 11
 
-    # define a function
+    # 함수를 정의한다
     def turn_right():
         turn_left()
         turn_left()
         turn_left()
 
     move()
-    # begin of code block inside turn_right()
+    # turn_right() 내부 코드 덩어리 시작 
     turn_left()
     turn_left()
     turn_left()
-    # end of code block
+    # 코드 덩어리 끝
     move()
 
-In other words, ``def`` defines a name that we can use as a synonym
-for all the code that appears inside the code block, and whenever we see
-the synonym being **called** [that is, the name appears followed by
-``()``], we can think of it as being equivalent to inserting the code
-block *as is* at that location.
+다른 말로, ``def`` 는 코드 덩어리 내부에 나타낸 모든 코드에 대해서 동의어로 사용할 수 있는 명칭이다.
+동의어가 **호출(called)** 되는 [즉, 함수 명칭 다음에 ()이 붙는다] 것을 볼 때마다, 해당 지점에
+*있는 그대로* 코드 덩어리를 삽입하는 것에 상응하는 것으로 간주할 수 있다. 
 
-.. topic:: Try this!
 
-   See if you can simplify your program for the newspaper delivery
-   and making it easier to read and understand
-   by using a ``turn_right()`` function.  Once you have done so, perhaps
-   you can think of other ways in which you can simplify your program by
-   defining other functions.
+.. topic:: 시도해 보기!
+
+   신문배달 문제에서 작성한 프로그램을 단순화할 수 있는지, ``turn_right()`` 함수를 사용해서 
+   가독성이 좋고 이해하기 더 쉽게 만들 수 있는지 알아보라.
+   이렇게 작업하고 나면, 아마도 다른 함수를 정의해서 작성한 프로그램을 단순화할 수 있는 다른 방법을 
+   생각할 수도 있다.
