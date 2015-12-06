@@ -42,7 +42,7 @@ Python **functions**. So, ``turn_left()`` is a function and so is
         # indented at the same level
 
 
-``function`` is our first Python **keyword**. Keywords are words that
+``def`` is our first Python **keyword**. Keywords are words that
 have a special meaning in a given programming language.
 Notice how a colon ``:`` precedes what
 is known as a *block of code* and constitutes the *body* of the
