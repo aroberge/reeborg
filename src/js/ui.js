@@ -175,13 +175,9 @@ RUR.ui.highlight = function () {
 RUR.ui.watch = function () {
     if (RUR._watch) {
         RUR._watch = false;
-        $("#watch_no").show();
-        $("#watch_yes").hide();
         $("#watch_var_input").hide();
     } else {
         RUR._watch = true;
-        $("#watch_no").hide();
-        $("#watch_yes").show();
         $("#watch_var_input").show();
     }
 };
