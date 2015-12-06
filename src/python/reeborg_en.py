@@ -135,7 +135,7 @@ def dir_js(obj):
 
 def view_source_js(fn):
     """Shows the source code of a Javascript function."""
-    RUR.view_source(fn)  # defined in rur_utils.js
+    RUR.output.view_source(fn)  # defined in rur_utils.js
 
 
 def done():
@@ -169,7 +169,7 @@ def pause(ms=None):
 
 def clear_print():
     """Erase all the text previously written using a call to print()."""
-    RUR.control.clear_print()
+    RUR.output.clear_print()
 
 
 def remove_robots():
@@ -608,7 +608,7 @@ def print_html(html, append=False):
     """Intended primarily for world creators, this function is similar to
        print() except it can make use of html input.
     """
-    RUR.control.print_html(html, append)
+    RUR.output.print_html(html, append)
 window['print_html'] = print_html
 
 

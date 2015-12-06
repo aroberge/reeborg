@@ -76,11 +76,11 @@ RUR.reset_definitions = function () {
     set_max_steps = RUR._set_max_steps_;
     // defined in rur_utils.js
     inspect = RUR.inspect;
-    view_source = RUR.view_source;
+    view_source = RUR.output.view_source;
     // defined in control.js
-    write = RUR.control.write;
-    _write = RUR.control._write;
-    print_html = RUR.control.print_html;
+    write = RUR.output.write;
+    _write = RUR.output._write;
+    print_html = RUR.output.print_html;
     done = RUR.control.done;
     sound = RUR.control.sound;
     think = RUR.control.think;

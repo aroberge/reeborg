@@ -68,11 +68,11 @@ RUR.reset_definitions = function () {
     nombre_d_instructions = RUR._set_max_steps_;
     // utilities - defined in rur_utils.js
     examine = RUR.inspect;
-    voir_source = RUR.view_source;
+    voir_source = RUR.output.view_source;
     // defined in control.js
-    ecrit = RUR.control.write;
-    _write = RUR.control._write;
-    print_html = RUR.control.print_html;
+    ecrit = RUR.output.write;
+    _write = RUR.output._write;
+    print_html = RUR.output.print_html;
     termine = RUR.control.done;
     son = RUR.control.sound;
     pense = RUR.control.think;

@@ -259,25 +259,7 @@ RUR.inspect = function (obj){
             result += props + "\n";
         }
     }
-    RUR.control._write(result);
-};
-
-RUR.view_source = function(fn) {
-    $("#Reeborg-writes").dialog("open");
-    $("#_write").before("<pre class='js_code view_source'>" + fn + "</pre>" );
-    $('.js_code').each(function() {
-        var $this = $(this), $code = $this.text();
-        $this.removeClass("js_code");
-        $this.addClass("jscode");
-        $this.empty();
-        var myCodeMirror = CodeMirror(this, {
-            value: $code,
-            mode: 'javascript',
-            lineNumbers: !$this.is('.inline'),
-            readOnly: true,
-            theme: 'reeborg-dark'
-        });
-    });
+    RUR.output._write(result);
 };
 
 // Returns a random integer between min and max (both included)
@@ -539,7 +521,7 @@ RUR.control.move = function (robot) {
             }
         }
         if (tile.slippery){
-            RUR.control.write(tile.message + "\n");
+            RUR.output.write(tile.message + "\n");
             RUR.control.move(robot);
         }
     }
@@ -1056,37 +1038,6 @@ RUR.control.set_trace_color = function(robot, color){
 RUR.control.set_trace_style = function(robot, style){
     robot.trace_style = style;
  };
-
-
-RUR.control.write = function () {
-    var output_string = '';
-    RUR.control.sound_id = "#write-sound";
-    for (var i = 0; i < arguments.length; i++) {
-        output_string += arguments[i].toString();
-  }
-  output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
-};
-
-RUR.control._write = function () {
-    var output_string = '';
-    for (var i = 0; i < arguments.length; i++) {
-        output_string += arguments[i].toString();
-  }
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
-};
-
-RUR.control.print_html = function (arg, append) {
-    if (append) {
-        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true, "append": true});
-    } else {
-        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true});
-    }
-};
-
-RUR.control.clear_print = function () {
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true});
-};
 
 RUR.control.sound_flag = false;
 RUR.control.sound = function(on){
@@ -1739,10 +1690,18 @@ $(document).ready(function() {
     });
 
 
-    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
+                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert",
+                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
-                                 position:{my: "bottom", at: "bottom-20", of: window}});
+                                    position:{my: "bottom", at: "bottom-20", of: window}});
+    $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "explores",
+                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-announces").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "announces",
+                                    position:{my: "bottom", at: "bottom-80", of: window}});
+    $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250, dialogClass: "watches",
+                                    position:{my: "bottom", at: "bottom-140", of: window}});
 
     $("#select_world").change(function() {
         try {
@@ -1862,7 +1821,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     RUR.file_io.status = undefined;
 
     if (url === undefined) {
-        RUR.control.write(RUR.translate("World() needs an argument."))
+        RUR.output.write(RUR.translate("World() needs an argument."))
         return;
     }
 
@@ -2740,7 +2699,57 @@ RUR.editorUpdateHints = function() {
             }));
         }
     });
-};/* Author: André Roberge
+};RUR.output = {};
+
+RUR.output.write = function () {
+    var output_string = '';
+    RUR.control.sound_id = "#write-sound";
+    for (var i = 0; i < arguments.length; i++) {
+        output_string += arguments[i].toString();
+  }
+  output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
+};
+
+RUR.output._write = function () {
+    var output_string = '';
+    for (var i = 0; i < arguments.length; i++) {
+        output_string += arguments[i].toString();
+  }
+    RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
+};
+
+
+RUR.output.print_html = function (arg, append) {
+    if (append) {
+        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true, "append": true});
+    } else {
+        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true});
+    }
+};
+
+RUR.output.clear_print = function () {
+    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true});
+};
+
+RUR.output.view_source = function(fn) {
+    $("#Reeborg-explores").dialog("open");
+    RUR.cd.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" )
+    $('.js_code').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.removeClass("js_code");
+        $this.addClass("jscode");
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode: 'javascript',
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-dark'
+        });
+    });
+};
+/* Author: André Roberge
    License: MIT
 
    Defining base name space and various constants.

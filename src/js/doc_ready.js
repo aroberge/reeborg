@@ -223,10 +223,18 @@ $(document).ready(function() {
     });
 
 
-    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
+                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert",
+                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
-                                 position:{my: "bottom", at: "bottom-20", of: window}});
+                                    position:{my: "bottom", at: "bottom-20", of: window}});
+    $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
+                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-announces").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "announces",
+                                    position:{my: "bottom", at: "bottom-80", of: window}});
+    $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250, dialogClass: "watches",
+                                    position:{my: "bottom", at: "bottom-140", of: window}});
 
     $("#select_world").change(function() {
         try {

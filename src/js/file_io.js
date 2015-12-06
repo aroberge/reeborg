@@ -35,7 +35,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     RUR.file_io.status = undefined;
 
     if (url === undefined) {
-        RUR.control.write(RUR.translate("World() needs an argument."))
+        RUR.output.write(RUR.translate("World() needs an argument."))
         return;
     }
 

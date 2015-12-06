@@ -259,25 +259,7 @@ RUR.inspect = function (obj){
             result += props + "\n";
         }
     }
-    RUR.control._write(result);
-};
-
-RUR.view_source = function(fn) {
-    $("#Reeborg-writes").dialog("open");
-    $("#_write").before("<pre class='js_code view_source'>" + fn + "</pre>" );
-    $('.js_code').each(function() {
-        var $this = $(this), $code = $this.text();
-        $this.removeClass("js_code");
-        $this.addClass("jscode");
-        $this.empty();
-        var myCodeMirror = CodeMirror(this, {
-            value: $code,
-            mode: 'javascript',
-            lineNumbers: !$this.is('.inline'),
-            readOnly: true,
-            theme: 'reeborg-dark'
-        });
-    });
+    RUR.output._write(result);
 };
 
 // Returns a random integer between min and max (both included)

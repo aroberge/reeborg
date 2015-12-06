@@ -93,7 +93,7 @@ RUR.control.move = function (robot) {
             }
         }
         if (tile.slippery){
-            RUR.control.write(tile.message + "\n");
+            RUR.output.write(tile.message + "\n");
             RUR.control.move(robot);
         }
     }
@@ -610,37 +610,6 @@ RUR.control.set_trace_color = function(robot, color){
 RUR.control.set_trace_style = function(robot, style){
     robot.trace_style = style;
  };
-
-
-RUR.control.write = function () {
-    var output_string = '';
-    RUR.control.sound_id = "#write-sound";
-    for (var i = 0; i < arguments.length; i++) {
-        output_string += arguments[i].toString();
-  }
-  output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
-};
-
-RUR.control._write = function () {
-    var output_string = '';
-    for (var i = 0; i < arguments.length; i++) {
-        output_string += arguments[i].toString();
-  }
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
-};
-
-RUR.control.print_html = function (arg, append) {
-    if (append) {
-        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true, "append": true});
-    } else {
-        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true});
-    }
-};
-
-RUR.control.clear_print = function () {
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true});
-};
 
 RUR.control.sound_flag = false;
 RUR.control.sound = function(on){

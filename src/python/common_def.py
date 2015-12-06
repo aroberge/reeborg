@@ -5,15 +5,15 @@ from preprocess import transform
 
 
 def _write(data):
-    window.RUR.control._write(str(data))
+    window.RUR.output._write(str(data))
 
 
 def __write(data):
-    window.RUR.control.write(str(data))
+    window.RUR.output.write(str(data))
 
 
 def __write_err(data):
-    window.RUR.control._write("<b style='color:red'>" + str(data) + "</b>")
+    window.RUR.output._write("<b style='color:red'>" + str(data) + "</b>")
 
 
 def watch(args, loc={}):

@@ -134,7 +134,7 @@ def dir_js(obj):
 
 def voir_source_js(fn):
     """Affiche le code source d'une fonction Javascript."""
-    RUR.view_source(fn)  # defined in rur_utils.js
+    RUR.output.view_source(fn)  # defined in rur_utils.js
 
 
 def termine():
@@ -199,7 +199,7 @@ def Monde(url, nom=None):
 
 def efface_print():
     """Efface le texte précédemment écrit avec des fonctions print()."""
-    RUR.control.clear_print()
+    RUR.output.clear_print()
 
 
 def plus_de_robots():
@@ -607,7 +607,7 @@ def print_html(html, append=False):
     """Surtout destiné aux créateurs de monde, la fonction print_html() est
        semblable à print() sauf qu'elle accepte du texte html.
     """
-    RUR.control.print_html(html, append)
+    RUR.output.print_html(html, append)
 window['print_html'] = print_html
 
 
