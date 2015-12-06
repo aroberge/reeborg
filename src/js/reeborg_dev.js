@@ -3153,7 +3153,13 @@ RUR.robot.cleanup_objects = function (robot) {
         }
     }
     robot.objects = objects_carried;
-} /* Author: André Roberge
+    // handling legacy notation
+    if (robot.orientation != undefined){
+        robot._orientation = robot.orientation;
+        robot.orientation = null;
+    }
+}
+ /* Author: André Roberge
    License: MIT
  */
 
@@ -4140,6 +4146,11 @@ RUR.vis_robot.random_img.onload = function () {
 RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y, width, height, image;
+    // handling legacy Code
+    if (robot.orientation != undefined) {
+        robot._orientation = robot.orientation;
+        robot.orientation = null;
+    }
     if (!robot) {
         return;
     }
@@ -4281,8 +4292,6 @@ if (images.random != undefined) {
 }
 RUR.vis_robot.select_default_model(0);
 };
-
-
 /* Author: André Roberge
    License: MIT
  */

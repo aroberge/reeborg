@@ -62,4 +62,9 @@ RUR.robot.cleanup_objects = function (robot) {
         }
     }
     robot.objects = objects_carried;
+    // handling legacy notation
+    if (robot.orientation != undefined){
+        robot._orientation = robot.orientation;
+        robot.orientation = null;
+    }
 }

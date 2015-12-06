@@ -118,6 +118,11 @@ RUR.vis_robot.random_img.onload = function () {
 RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y, width, height, image;
+    // handling legacy Code
+    if (robot.orientation != undefined) {
+        robot._orientation = robot.orientation;
+        robot.orientation = null;
+    }
     if (!robot) {
         return;
     }
@@ -259,5 +264,3 @@ if (images.random != undefined) {
 }
 RUR.vis_robot.select_default_model(0);
 };
-
-
