@@ -1693,7 +1693,7 @@ $(document).ready(function() {
                                     position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "proclaims",
                                     position:{my: "bottom", at: "bottom-80", of: window}});
-    $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250, dialogClass: "watches",
+    $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                     position:{my: "bottom", at: "bottom-140", of: window}});
 
     $("#select_world").change(function() {
@@ -3940,15 +3940,11 @@ RUR.ui.highlight = function () {
 RUR.ui.watch = function () {
     if (RUR._watch) {
         RUR._watch = false;
-        // $("#not-ok-watch").show();
-        // $("#ok-watch").hide();
         $("#watch_variables").html("");
         $("#Reeborg-watches").dialog("close");
     } else {
         RUR._watch = true;
-        // $("#not-ok-watch").hide();
-        // $("#ok-watch").show();
-        $("#watch_variables").html("<p>Reeborg will take longer than usual to think.</p>");
+        $("#watch_variables").html("");
         $("#Reeborg-watches").dialog("open");
     }
 };

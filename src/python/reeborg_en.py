@@ -354,7 +354,24 @@ class UsedRobot(object):
         RUR.world.add_robot(self.body)
 
     def __str__(self):
-        return "UsedRobot at ({}, {})".format(self.body.x, self.body.y)
+        location = "({}, {})".format(self.body.x, self.body.y)
+        if self.body._orientation == RUR.EAST:
+            facing = "facing East"
+        elif self.body._orientation == RUR.WEST:
+            facing = "facing West"
+        elif self.body._orientation == RUR.NORTH:
+            facing = "facing North"
+        elif self.body._orientation == RUR.SOUTH:
+            facing = "facing South"
+
+        if 'token' in self.body.objects:
+            if self.body.objects['token'] == 'inf':
+                carries = "carries an infinite number of tokens."
+            else:
+                carries = 'carries %s tokens' % self.body.objects['token']
+        else:
+            carries = 'carries no tokens'
+        return "UsedRobot at {} {} {}.".format(location, facing, carries)
 
     def move(self):
         """Move forward, by one grid position."""

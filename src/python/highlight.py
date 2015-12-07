@@ -26,7 +26,7 @@ def tracing_line(indent, current_group, frame=False, last_line=False):
     tracecall_name = 'RUR.set_lineno_highlight'
     if hasattr(window.RUR, '_watch'):
         if getattr(window.RUR, '_watch'):
-            watch = indent + "__watch(filter_user_vars(set(locals().keys()), system_default_vars), loc=locals())\n"
+            watch = indent + "__watch(system_default_vars, loc=locals(), gl=globals())\n"
     else:
         watch = ''
     if last_line:

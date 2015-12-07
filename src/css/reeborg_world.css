@@ -596,19 +596,46 @@ p.try {
     color: blue;
 }
 
+#watch_variables div {
+    border-bottom: 1px dashed #3e7e10;
+    margin: 4px;
+}
+
 .watch_value {
+    display: inline-block;
     color: black;
     font-family: 'Roboto Mono', monospace;
+    max-width: 500px;
+    padding-left: 1em;
 }
 
 .changed_value {
+    display: inline-block;
     color: red;
     font-family: 'Roboto Mono', monospace;
+    max-width: 500px;
+    padding-left: 1em;
 }
 
 .watch_name {
-    color: #248;
+    color: black;
     font-weight: bold;
+    float: left;
+}
+
+.changed_name {
+    color: red;
+    font-weight: bold;
+    float: left;
+}
+
+.watch_title {
+    background-color: #3e7e10;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5;
+    padding-left: 3em;
+    padding-right: 3em;
 }
 
 #stdout {
@@ -738,10 +765,6 @@ p.try {
     border: 0;
     float: left;
 }
-/*#ok_watch, #not_ok_watch {
-    float:left;
-    border: 0;
-}*/
 
 #keyboard-buttons ul li { background: white; z-index:10000 ;
     display: inline-block;

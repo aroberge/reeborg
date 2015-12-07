@@ -346,8 +346,29 @@ class RobotUsage(object):
         self.body = robot
         RUR.world.add_robot(self.body)
 
+    def __repr__(self):
+        return self.__str__()
+
     def __str__(self):
-        return "RobotUsage situé à ({}, {})".format(self.body.x, self.body.y)
+        location = "({}, {})".format(self.body.x, self.body.y)
+
+        if self.body._orientation == RUR.EAST:
+            facing = "est face à l'est"
+        elif self.body._orientation == RUR.WEST:
+            facing = "est face à l'ouest"
+        elif self.body._orientation == RUR.NORTH:
+            facing = "est face au nord"
+        elif self.body._orientation == RUR.SOUTH:
+            facing = "est face au sud"
+
+        if 'token' in self.body.objects:
+            if self.body.objects['token'] == 'inf':
+                carries = "transporte un nombre infini de jetons."
+            else:
+                carries = 'transporte %s jetons' % self.body.objects['token']
+        else:
+            carries = 'ne transporte pas de jetons'
+        return "RobotUsage situé en {} {} {}.".format(location, facing, carries)  # NOQA
 
     def avance(self):
         """avance d'une case"""
@@ -525,8 +546,7 @@ class RobotUsage(object):
         elif style == "normal":
             style = "default"
         else:
-            raise ReeborgError(
-                    "Valeur de style inconnue pour style_de_trace().")
+            raise ReeborgError("Valeur de style inconnue pour style_de_trace().")  # NOQA
         RUR.control.set_trace_style(self.body, style)
 
 

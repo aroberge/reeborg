@@ -17,39 +17,66 @@ def __write_err(data):
 
 
 previous_watch_values = {}
-
-
-def filter_user_vars(variables, system_default_vars):
-    return variables - system_default_vars
-
-
-def __watch(args, loc={}):
+def __watch(default, loc={}, gl={}):
     global previous_watch_values
-    old = "<span class='watch_name'>%s</span>: <span class='watch_value'>%s</span>"  # NOQA
-    new = "<span class='changed_value'>%s</span>: <span class='changed_value'>%s</span>"  # NOQA
-    changed = "<span class='watch_name'>%s</span>: <span class='changed_value'>%s</span>"  # NOQA
+    old = "<span class='watch_name'>%s:</span> <span class='watch_value'>%s</span>"  # NOQA
+    new = "<span class='changed_name'>%s:</span> <span class='changed_value'>%s</span>"  # NOQA
+    changed = "<span class='watch_name'>%s:</span> <span class='changed_value'>%s</span>"  # NOQA
+    div = "<div>%s</div>"
+    title = "<span class='watch_title'>%s</span>"
     current_watch_values = {}
     out = []
-    for arg in args:
+    no_new_local = True
+    for arg in loc:
         if arg in ['system_default_vars', 'line_info']:
             continue
-        if arg in loc:
-            value = repr(loc[arg]) + " [local]"
-        elif arg in globals():
-            value = repr(globals()[arg]) + " [global]"
-        else:
+        elif arg in default:
             continue
-        value = value.replace("&", "&amp;"
-                    ).replace("<", "&lt;"    # NOQA
-                    ).replace(">", "&gt;")   # NOQA
+        else:
+            if no_new_local:
+                no_new_local = False
+                out.append(title % window.RUR.translate("Local variables"))
+            value = str(loc[arg])
+            value = value.replace("&", "&amp;"
+                        ).replace("<", "&lt;"
+                        ).replace(">", "&gt;")
+            current_watch_values[arg] = value
 
         if arg not in previous_watch_values:
-            out.append(new % (arg, value))
+            out.append(div % (new % (arg, value)))
         elif value != previous_watch_values[arg]:
-            out.append(changed % (arg, value))
+            out.append(div % (changed % (arg, value)))
         else:
-            out.append(old % (arg, value))
-    window.RUR.output.watch_variables("<br>".join(out))
+            out.append(div % (old % (arg, value)))
+
+    no_new_global = True
+    for arg in gl:
+        if arg in ['system_default_vars', 'line_info']:
+            continue
+        elif arg in default:
+            continue
+        elif arg in loc:
+            continue
+        else:
+            if no_new_global:
+                no_new_global = False
+                if not no_new_local:
+                    out.append("")
+                out.append(title % window.RUR.translate("Global variables"))
+            value = repr(gl[arg])
+            value = value.replace("&", "&amp;"
+                        ).replace("<", "&lt;"
+                        ).replace(">", "&gt;")
+            current_watch_values[arg] = value
+
+        if arg not in previous_watch_values:
+            out.append(div % (new % (arg, value)))
+        elif value != previous_watch_values[arg]:
+            out.append(div % (changed % (arg, value)))
+        else:
+            out.append(div % (old % (arg, value)))
+
+    window.RUR.output.watch_variables("".join(out))
     previous_watch_values = current_watch_values
 
 
@@ -91,7 +118,7 @@ def dir_py(obj):
         try:
             if not attr.startswith("__"):
                 if callable(getattr(obj, attr)):
-                    out.append(attr+"()")
+                    out.append(attr + "()")
                 else:
                     out.append(attr)
         except AttributeError:  # javascript extension, as in supplant()

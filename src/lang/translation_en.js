@@ -190,3 +190,7 @@ RUR.translation["fence_right"] = "fence";
 RUR.translation["fence_left"] = "fence";
 RUR.translation["fence_double"] = "fence";
 RUR.translation["fence_vertical"] = "fence";
+
+//=== in common_def.py
+RUR.translation["Local variables"] = "Local variables";
+RUR.translation["Global variables"] = "Global variables";

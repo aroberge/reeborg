@@ -184,3 +184,7 @@ RUR.translation["fence_right"] = "clôture";
 RUR.translation["fence_left"] = "clôture";
 RUR.translation["fence_double"] = "clôture";
 RUR.translation["fence_vertical"] = "clôture";
+
+//=== in common_def.py
+RUR.translation["Local variables"] = "Variables locales";
+RUR.translation["Global variables"] = "Variables globales";

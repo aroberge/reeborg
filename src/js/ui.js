@@ -176,15 +176,11 @@ RUR.ui.highlight = function () {
 RUR.ui.watch = function () {
     if (RUR._watch) {
         RUR._watch = false;
-        // $("#not-ok-watch").show();
-        // $("#ok-watch").hide();
         $("#watch_variables").html("");
         $("#Reeborg-watches").dialog("close");
     } else {
         RUR._watch = true;
-        // $("#not-ok-watch").hide();
-        // $("#ok-watch").show();
-        $("#watch_variables").html("<p>Reeborg will take longer than usual to think.</p>");
+        $("#watch_variables").html("");
         $("#Reeborg-watches").dialog("open");
     }
 };
