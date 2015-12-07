@@ -1,16 +1,15 @@
-Reading exercise
-================
+연습문제 읽어서 해독하기
+==========================
 
-Remember the following?
+다음 규칙을 기억하나요?
 
 .. important::
 
-    **Rule # 2**
-        Write your computer programs to make them easy for **people** to
-        read and understand.
+    **규칙 # 2**
+        **다른 사람** 이 읽고 이해하기 쉽게 컴퓨터 프로그램을 작성한다.
 
-Can you figure out on your own what the following program does, without
-copying it in the editor and having Reeborg obey the instructions?::
+편집기에 코드를 복사해서 리보그가 명령어를 수행하지 않고도, 
+다음 프로그램이 수행하는 것을 스스로 이해할 수 있나요?::
 
     def a():
         turn_left()
@@ -38,12 +37,10 @@ copying it in the editor and having Reeborg obey the instructions?::
     e()
     b()
 
-Not so easy, is it?
+쉽지 않습니다. 그렇죠?
 
-.. topic:: Test it!
+.. topic:: 시험해 보기!
 
-    Once you think you have figured out what the above code does, copy it in
-    the editor and run it to confirm your understanding.
+    상기 코드가 무엇을 하는지 알아냈다고 생각되면, 편집기에 코드를 복사해서 넣고 이해한 것을 확인하도록 실행해 보라.
 
-This should help you to understand why it is important to write programs
-for humans, by choosing function names that are meaningful.
+의미가 있는 함수 명칭을 선택함으로써, 사람을 위한 프로그램을 작성하는 것이 왜 중요한지 이해하는데 상기 코드가 도움이 되었으면 한다.
