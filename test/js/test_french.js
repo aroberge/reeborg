@@ -47,7 +47,7 @@ QUnit.test("Load world", function(assert) {
                 {
                   "x": 1,
                   "y": 1,
-                  "orientation": 0,
+                  "_orientation": 0,
                   "_prev_x": 1,
                   "_prev_y": 1,
                   "_prev_orientation": 0,
