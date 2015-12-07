@@ -1,21 +1,21 @@
-If only ...
-===========
+만약 ...면 좋을텐데
+====================
 
-If only Reeborg could decide on its own, writing programs would be much
-simpler ... **WAIT !** Didn't I tell you: Reeborg can make decisions on
-its own.
+만약 리보그가 스스로 의사결정을 한기만 한다면, 프로그램 작성하는 것이 훨씬 더 단순해질텐데...
+**잠시만!** 제가 여러분에게 말하지 않았나요: 리보그는 스스로 의사결정을 할 수 있어요.
 
-Python keyword: ``if``
+파이썬 키워드: ``if``
 --------------------------
 
 .. index:: ! if
 .. index:: ! True
 .. index:: ! False
+.. index:: ! 참
+.. index:: ! 거짓
 
-.. topic:: Do it!
+.. topic:: 직접 해보세요!
 
-    Select an appropriate world (perhaps **Alone**), and have Reeborg execute
-    the program below.
+    적절한 세상(아마도 **Alone** )을 선택하고, 리보그가 아래 프로그램을 실행하게 만든다.
 
 .. code-block:: python
 
@@ -25,46 +25,44 @@ Python keyword: ``if``
     if False:
         turn_left()
 
-``True`` and ``False`` are Python keywords as well. You might want
-to interchange them and run the program again to see what happens.
+``True`` 와 ``False`` 도 파이썬 키워드다.
+이 둘을 서로 바꿔서 프로그램을 실행하고 무슨 일이 발생하는지 살펴보라.
 
-``if`` statement
+``if`` 문장
 ----------------
 
-The so-called ``if`` **statement** follows a pattern somewhat similar to
-that of ``function``\ s :
+소위 ``if`` **문장(statement)** 은 ``function`` 와 다소 유사한 패턴을 따른다:
 
 .. code-block:: python
 
     def some_name():
-        # block of code
+        # 코드 덩어리
 
     if some_condition:
-        # block of code
+        # 코드 덩어리
 
-How to think of ``if`` statements
----------------------------------
+``if`` 문장을 생각하는 방법
+------------------------------------
 
-When we introduced functions, we explained how we could think of a
-function **call** as being somewhat equivalent to inserting the code block for
-the function definition at that point in the program. Thus::
+함수를 설명할 때, 함수 **호출** 을 프로그램 특정 지점에 함수 정의에 대한 코드 덩어리를 삽입하는 것에 상응하는 방법으로 설명했다.
+따라서::
 
     move()
     turn_right()  # function call
     move()
 
-is equivalent to::
+상기 코드는 다음과 동치관계가 된다.::
 
     move()
-    # begin of code block inside turn_right()
+    # turn_right() 함수 내부 코드 덩어리 시작
     turn_left()
     turn_left()
     turn_left()
-    # end of code block
+    # 코드 덩이리 끝
     move()
 
-``if`` statements can be thought in similar terms, except that we have a
-*conditional* insertion (or rather **deletion**!). Thus::
+``if`` 문장을 *조건부* 삽입 (혹은 **삭제** !)를 갖는다는 점을 제외하고, 유사하게 생각할 수 있다. 
+그래서::
 
     move()
     if True:
@@ -72,14 +70,14 @@ is equivalent to::
         turn_left()
     move()
 
-is equivalent to::
+상기 코드는 다음과 동치관계가 된다.::
 
     move()
     turn_left()
     turn_left()
     move()
 
-whereas::
+반면에::
 
     move()
     if False:
@@ -87,10 +85,12 @@ whereas::
         turn_left()
     move()
 
-is equivalent to::
+상기 코드는 다음과 동치관계가 된다.::
 
     move()
     move()
+
+
 
 Note that thinking of it this way does not mean that such a deletion
 would be done permanently: if, somehow, our program *looped back* and
