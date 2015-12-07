@@ -91,21 +91,16 @@ $(document).ready(function() {
     $("#editor-link").on("click", function(evt){
         if (RUR.programming_language == "python" && !RUR.we.editing_world){
             $("#highlight").show();
+            $("#watch_variables_btn").show();
+        } else {
+            $("#highlight").hide();
+            $("#watch_variables_btn").hide();
         }
     });
 
     $("#library-link").on("click", function(evt){
         $("#highlight").hide();
-    });
-
-    $("#pre-code-link").on("click", function(evt){
-        $("#highlight").hide();
-    });
-    $("#post-code-link").on("click", function(evt){
-        $("#highlight").hide();
-    });
-    $("#description-link").on("click", function(evt){
-        $("#highlight").hide();
+        $("#watch_variables_btn").hide();
     });
 
     $("#save-editor").on("click", function(evt) {
@@ -268,11 +263,6 @@ $(document).ready(function() {
 
     $('input[type=radio][name=programming_language]').on('change', function(){
         RUR.reset_programming_language($(this).val());
-        if ($(this).val() == "python-"+human_language){
-            $("#highlight").show();
-        } else {
-            $("#highlight").hide();
-        }
     });
     url_query = parseUri(window.location.href);
     if (url_query.queryKey.proglang !== undefined &&

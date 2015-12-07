@@ -267,6 +267,7 @@ a.right-link:hover {
 
 .alert .ui-widget-header {
     background-color: #c80000;
+    border-bottom: 1px solid #c80000;
     background-image: none;
 }
 
@@ -277,6 +278,19 @@ a.right-link:hover {
     background-image: -ms-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
     background-image: -o-linear-gradient(top, #beff7f, #96c423 50%, #75a110);
     background-image: -linear-gradient(top, #beff7f, #96c423 50%, #75a110);
+}
+
+
+.proclaims .ui-widget-header {
+    background-color: #663399;
+    border-bottom: 1px solid #663399;
+    background-image: none;
+}
+
+.watches .ui-widget-header {
+    background-color: #3e7e10;
+    border-bottom: 1px solid #3e7e10;
+    background-image: none;
 }
 
 .green-border {
@@ -587,6 +601,11 @@ p.try {
     font-family: 'Roboto Mono', monospace;
 }
 
+.changed_value {
+    color: red;
+    font-family: 'Roboto Mono', monospace;
+}
+
 .watch_name {
     color: #248;
     font-weight: bold;
@@ -714,22 +733,15 @@ p.try {
     height: 36px;
     border: 0;
 }
-#watch_variable {
+#watch_variables_btn {
     height: 36px;
     border: 0;
     float: left;
 }
-#watch_yes, #watch_no {
+/*#ok_watch, #not_ok_watch {
     float:left;
     border: 0;
-}
-
-#watch_var_input {
-    position: relative;
-    top: -5px;
-    padding: 0;
-    border: 0;
-}
+}*/
 
 #keyboard-buttons ul li { background: white; z-index:10000 ;
     display: inline-block;

@@ -137,7 +137,6 @@ RUR.reset_programming_language = function(choice){
             post_code_editor.setOption("mode", {name: "python", version: 3});
             library.setOption("mode", {name: "python", version: 3});
             // show language specific
-            $("#highlight").show();
             $("#library-link").parent().show();
             $("#python-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("python");
@@ -146,7 +145,6 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.editor = "editor_js_" + human_language;
             RUR.programming_language = "javascript";
             $("#editor-link").html(RUR.translate("Javascript Code"));
-            $("#editor-link").click();
             editor.setOption("mode", "javascript");
             pre_code_editor.setOption("mode", "javascript");
             post_code_editor.setOption("mode", "javascript");
@@ -158,7 +156,6 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.editor = "editor_coffee_" + human_language;
             RUR.programming_language = "coffee";
             $("#editor-link").html(RUR.translate("CoffeeScript Code"));
-            $("#editor-link").click();
             editor.setOption("mode", "coffeescript");
             pre_code_editor.setOption("mode", "coffeescript");
             post_code_editor.setOption("mode", "coffeescript");
@@ -167,6 +164,7 @@ RUR.reset_programming_language = function(choice){
             RUR.kbd.set_programming_language("coffeescript");
             break;
     }
+    $("#editor-link").click();
     try {
         RUR.reset_code_in_editors();
     } catch (e) {}
@@ -1558,21 +1556,16 @@ $(document).ready(function() {
     $("#editor-link").on("click", function(evt){
         if (RUR.programming_language == "python" && !RUR.we.editing_world){
             $("#highlight").show();
+            $("#watch_variables_btn").show();
+        } else {
+            $("#highlight").hide();
+            $("#watch_variables_btn").hide();
         }
     });
 
     $("#library-link").on("click", function(evt){
         $("#highlight").hide();
-    });
-
-    $("#pre-code-link").on("click", function(evt){
-        $("#highlight").hide();
-    });
-    $("#post-code-link").on("click", function(evt){
-        $("#highlight").hide();
-    });
-    $("#description-link").on("click", function(evt){
-        $("#highlight").hide();
+        $("#watch_variables_btn").hide();
     });
 
     $("#save-editor").on("click", function(evt) {
@@ -1735,11 +1728,6 @@ $(document).ready(function() {
 
     $('input[type=radio][name=programming_language]').on('change', function(){
         RUR.reset_programming_language($(this).val());
-        if ($(this).val() == "python-"+human_language){
-            $("#highlight").show();
-        } else {
-            $("#highlight").hide();
-        }
     });
     url_query = parseUri(window.location.href);
     if (url_query.queryKey.proglang !== undefined &&
@@ -2731,6 +2719,10 @@ RUR.output.print_html = function (arg, append) {
     }
 };
 
+RUR.output.watch_variables = function (arg) {
+    RUR.rec.record_frame("watch_variables", {"element": "#watch_variables", "message": arg});
+};
+
 
 RUR.output.view_source = function(fn) {
     $("#Reeborg-explores").dialog("open");
@@ -2966,6 +2958,11 @@ RUR.rec.display_frame = function () {
             $(frame.print_html.element).html(frame.print_html.message);
         }
         $("#Reeborg-proclaims").dialog("open");
+    }
+
+    if (frame.watch_variables !== undefined) {
+        $(frame.watch_variables.element).html(frame.watch_variables.message);
+        $("#Reeborg-watches").dialog("open");
     }
 
     RUR.current_world = frame.world;
@@ -3307,9 +3304,6 @@ RUR.runner.assign_initial_values = function () {
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
-    if (RUR._watch){
-        RUR._watch_variables = $("#watch_var_input").val();
-    }
     if (RUR.we.editing_world && !RUR.runner.interpreted) {
         RUR.world.saved_world = RUR.world.clone_world(RUR.current_world);
     }
@@ -3414,7 +3408,7 @@ RUR.runner.eval_python = function (src) {
     RUR.reset_definitions();
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
-    highlight = RUR._highlight || (RUR._watch && RUR._watch_variables);
+    highlight = RUR._highlight || RUR._watch;
     translate_python(src, highlight, pre_code, post_code);
 };
 
@@ -3887,6 +3881,7 @@ RUR.ui.reload2 = function() {
     $("#print_html").html("");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
+    $("#watch_variables").html("");
     // reset the options in case the user has dragged the dialogs as it would
     // then open at the top left of the window
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
@@ -3945,10 +3940,16 @@ RUR.ui.highlight = function () {
 RUR.ui.watch = function () {
     if (RUR._watch) {
         RUR._watch = false;
-        $("#watch_var_input").hide();
+        // $("#not-ok-watch").show();
+        // $("#ok-watch").hide();
+        $("#watch_variables").html("");
+        $("#Reeborg-watches").dialog("close");
     } else {
         RUR._watch = true;
-        $("#watch_var_input").show();
+        // $("#not-ok-watch").hide();
+        // $("#ok-watch").show();
+        $("#watch_variables").html("<p>Reeborg will take longer than usual to think.</p>");
+        $("#Reeborg-watches").dialog("open");
     }
 };
 
@@ -5325,6 +5326,8 @@ function toggle_editing_mode () {
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();
         RUR.we.set_extra_code();
+        $("#highlight").hide();
+        $("#watch_variables_btn").hide();
     }
     RUR.reset_programming_language(RUR.settings.current_language);
 }

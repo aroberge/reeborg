@@ -217,6 +217,11 @@ RUR.rec.display_frame = function () {
         $("#Reeborg-proclaims").dialog("open");
     }
 
+    if (frame.watch_variables !== undefined) {
+        $(frame.watch_variables.element).html(frame.watch_variables.message);
+        $("#Reeborg-watches").dialog("open");
+    }
+
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
         RUR.control.play_sound(frame.sound_id);

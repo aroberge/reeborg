@@ -353,6 +353,9 @@ class UsedRobot(object):
         self.body = robot
         RUR.world.add_robot(self.body)
 
+    def __str__(self):
+        return "UsedRobot at ({}, {})".format(self.body.x, self.body.y)
+
     def move(self):
         """Move forward, by one grid position."""
         RUR.control.move(self.body)

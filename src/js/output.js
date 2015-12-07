@@ -30,6 +30,10 @@ RUR.output.print_html = function (arg, append) {
     }
 };
 
+RUR.output.watch_variables = function (arg) {
+    RUR.rec.record_frame("watch_variables", {"element": "#watch_variables", "message": arg});
+};
+
 
 RUR.output.view_source = function(fn) {
     $("#Reeborg-explores").dialog("open");

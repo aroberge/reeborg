@@ -24,9 +24,9 @@ def extract_first_word(mystr, separators):
 def tracing_line(indent, current_group, frame=False, last_line=False):
     '''Construct the tracing line'''
     tracecall_name = 'RUR.set_lineno_highlight'
-    if hasattr(window.RUR, '_watch_variables'):
-        var = getattr(window.RUR, '_watch_variables').split(",")
-        watch = indent + "watch(" + str(var) + ", loc=locals())\n"
+    if hasattr(window.RUR, '_watch'):
+        if getattr(window.RUR, '_watch'):
+            watch = indent + "__watch(filter_user_vars(set(locals().keys()), system_default_vars), loc=locals())\n"
     else:
         watch = ''
     if last_line:

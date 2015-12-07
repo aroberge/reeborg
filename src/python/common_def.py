@@ -16,15 +16,36 @@ def __write_err(data):
     window.RUR.output._write("<b style='color:red'>" + str(data) + "</b>")
 
 
-def watch(args, loc={}):
+previous_watch_values = {}
+
+
+def filter_user_vars(variables, system_default_vars):
+    return variables - system_default_vars
+
+
+def __watch(args, loc={}):
+    global previous_watch_values
+    old = "<span class='watch_name'>{}</span>: <span class='watch_value'>{}</span>"  # NOQA
+    new = "<span class='changed_value'>{}</span>: <span class='changed_value'>{}</span>"  # NOQA
+    changed = "<span class='watch_name'>{}</span>: <span class='changed_value'>{}</span>"  # NOQA
+    current_watch_values = {}
     out = []
-    f = "<span class='watch_name'>{}</span>: <span class='watch_value'>{}</span>"  # NOQA
     for arg in args:
+        if arg in ['system_default_vars', 'line_info']:
+            continue
         try:
-            out.append(f.format(arg, eval(arg, globals(), loc)))
+            value = str(eval(arg, globals(), loc))
+            current_watch_values[arg] = value
         except:
-            pass
-    window.print_html("<br>".join(out))
+            continue
+        if arg not in previous_watch_values:
+            out.append(new.format(arg, value))
+        elif value != str(previous_watch_values[arg]):
+            out.append(changed.format(arg, value))
+        else:
+            out.append(old.format(arg, value))
+    window.RUR.output.watch_variables("<br>".join(out))
+    previous_watch_values = current_watch_values
 
 
 def Help(obj=None):
@@ -92,10 +113,13 @@ def generic_translate_python(src, lib, lang_import, highlight,
     globals_.update(globals())
     globals_['dir_py'] = dir_py
     globals_['Help'] = Help
-    globals_['watch'] = watch
+    globals_['__watch'] = __watch
+    globals_['__v'] = None
+    globals_['previous_watch_values'] = {}
 
     src = transform(src)
     exec(lang_import, globals_)
+    # globals_['system_default_vars'] = set([key for key in globals_])
 
     if highlight:
         temp_src, problem = insert_highlight_info(src)
@@ -108,7 +132,9 @@ def generic_translate_python(src, lib, lang_import, highlight,
         window.console.log("processed source:")
         window.console.log(src)
 
-    src = "help=Help\n" + pre_code + "\n" + src + "\n" + post_code
+    # include v again to reset its value
+    __v = "system_default_vars = set(locals().keys())\n"
+    src = "help=Help\n" + pre_code + "\n" + __v + src + "\n" + post_code
     try:
         exec(src, globals_)
     except Exception as e:

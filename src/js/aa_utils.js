@@ -137,7 +137,6 @@ RUR.reset_programming_language = function(choice){
             post_code_editor.setOption("mode", {name: "python", version: 3});
             library.setOption("mode", {name: "python", version: 3});
             // show language specific
-            $("#highlight").show();
             $("#library-link").parent().show();
             $("#python-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("python");
@@ -146,7 +145,6 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.editor = "editor_js_" + human_language;
             RUR.programming_language = "javascript";
             $("#editor-link").html(RUR.translate("Javascript Code"));
-            $("#editor-link").click();
             editor.setOption("mode", "javascript");
             pre_code_editor.setOption("mode", "javascript");
             post_code_editor.setOption("mode", "javascript");
@@ -158,7 +156,6 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.editor = "editor_coffee_" + human_language;
             RUR.programming_language = "coffee";
             $("#editor-link").html(RUR.translate("CoffeeScript Code"));
-            $("#editor-link").click();
             editor.setOption("mode", "coffeescript");
             pre_code_editor.setOption("mode", "coffeescript");
             post_code_editor.setOption("mode", "coffeescript");
@@ -167,6 +164,7 @@ RUR.reset_programming_language = function(choice){
             RUR.kbd.set_programming_language("coffeescript");
             break;
     }
+    $("#editor-link").click();
     try {
         RUR.reset_code_in_editors();
     } catch (e) {}

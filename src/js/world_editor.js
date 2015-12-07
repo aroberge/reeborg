@@ -299,6 +299,8 @@ function toggle_editing_mode () {
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();
         RUR.we.set_extra_code();
+        $("#highlight").hide();
+        $("#watch_variables_btn").hide();
     }
     RUR.reset_programming_language(RUR.settings.current_language);
 }

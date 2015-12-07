@@ -88,7 +88,9 @@
     <div id="Reeborg-proclaims" title="Reeborg proclaims:" style="display:none">
         <div id="print_html"></div>
     </div>
-    <div id="Reeborg-watches" class="reeborg-print" title="Reeborg watches some variables!" style="display:none"></div>
+    <div id="Reeborg-watches" class="reeborg-print" title="Reeborg watches some variables!" style="display:none">
+        <div id="watch_variables"></div>
+    </div>
 
     <div id="World-info" title="Click on the world to get some additional information." style="display:none"></div>
 
@@ -105,20 +107,24 @@
   <div id="tabs">
     <ul>
       <li><a id="editor-link" href="#editor">Python Code</a></li>
-      <button id="watch_variables" class="blue-gradient" title="watch_variables" onclick="RUR.ui.watch()">
-          <img id="watch_yes" src="/src/images/magnifying_yes.png" alt="watch">
+
+      <li><a id="library-link" href="#library">library</a></li>
+      <li><a id="pre-code-link" href="#pre-code-div">Pre</a></li>
+      <li><a id="post-code-link" href="#post-code-div">Post</a></li>
+      <li><a id="description-link" href="#description-div">Desc.</a></li>
+
+      <button id="watch_variables_btn" class="blue-gradient" title="watch_variables" onclick="RUR.ui.watch()">
+          <img src="/src/images/magnifying_yes.png" alt="watch">
+          <!-- <img src="/src/images/ok.png" alt="ok" id="ok-watch" style="display:none">
+          <img src="/src/images/not_ok.png" alt="not ok" id="not-ok-watch"> -->
       </button>
-      <input type="text" name="watch_var_input" placeholder="var1, var2, ..." id="watch_var_input" style="display:none">
 
       <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
         <img src="/src/images/highlight.png" alt="highlight">
         <img src="/src/images/ok.png" alt="ok" id="ok-image">
         <img src="/src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
       </button>
-      <li><a id="library-link" href="#library">library</a></li>
-      <li><a id="pre-code-link" href="#pre-code-div">Pre</a></li>
-      <li><a id="post-code-link" href="#post-code-div">Post</a></li>
-      <li><a id="description-link" href="#description-div">Desc.</a></li>
+
 
     </ul>
     <div id="editor">

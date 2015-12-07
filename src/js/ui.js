@@ -117,6 +117,7 @@ RUR.ui.reload2 = function() {
     $("#print_html").html("");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
+    $("#watch_variables").html("");
     // reset the options in case the user has dragged the dialogs as it would
     // then open at the top left of the window
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot_canvas")}});
@@ -175,10 +176,16 @@ RUR.ui.highlight = function () {
 RUR.ui.watch = function () {
     if (RUR._watch) {
         RUR._watch = false;
-        $("#watch_var_input").hide();
+        // $("#not-ok-watch").show();
+        // $("#ok-watch").hide();
+        $("#watch_variables").html("");
+        $("#Reeborg-watches").dialog("close");
     } else {
         RUR._watch = true;
-        $("#watch_var_input").show();
+        // $("#not-ok-watch").hide();
+        // $("#ok-watch").show();
+        $("#watch_variables").html("<p>Reeborg will take longer than usual to think.</p>");
+        $("#Reeborg-watches").dialog("open");
     }
 };
 

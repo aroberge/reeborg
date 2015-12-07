@@ -346,6 +346,9 @@ class RobotUsage(object):
         self.body = robot
         RUR.world.add_robot(self.body)
 
+    def __str__(self):
+        return "RobotUsage situé à ({}, {})".format(self.body.x, self.body.y)
+
     def avance(self):
         """avance d'une case"""
         RUR.control.move(self.body)
