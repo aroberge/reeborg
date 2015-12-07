@@ -7,7 +7,7 @@ RUR.output.write = function () {
         output_string += arguments[i].toString();
   }
   output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
+    RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
 
 RUR.output._write = function () {
@@ -15,21 +15,21 @@ RUR.output._write = function () {
     for (var i = 0; i < arguments.length; i++) {
         output_string += arguments[i].toString();
   }
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
-};
-
-
-RUR.output.print_html = function (arg, append) {
-    if (append) {
-        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true, "append": true});
-    } else {
-        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true});
-    }
+    RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
 
 RUR.output.clear_print = function () {
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true});
+    RUR.rec.record_frame("stdout", {"element": "#stdout", "clear": true});
 };
+
+RUR.output.print_html = function (arg, append) {
+    if (append) {
+        RUR.rec.record_frame("print_html", {"element": "#print_html", "message": arg, "append": true});
+    } else {
+        RUR.rec.record_frame("print_html", {"element": "#print_html", "message": arg});
+    }
+};
+
 
 RUR.output.view_source = function(fn) {
     $("#Reeborg-explores").dialog("open");

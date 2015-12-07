@@ -65,6 +65,6 @@ RUR.robot.cleanup_objects = function (robot) {
     // handling legacy notation
     if (robot.orientation != undefined){
         robot._orientation = robot.orientation;
-        robot.orientation = null;
+        delete robot.orientation;
     }
 }

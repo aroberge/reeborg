@@ -40,13 +40,13 @@ RUR.rec.record_frame = function (name, obj) {
 
     if (RUR.programming_language === "python" && RUR._immediate_playback) {
         RUR.vis_world.refresh();
-        if (name !== undefined && name == "output") {
-            if (obj.html && obj.append){
+        if (name !== undefined && name == "print_html") {
+            if (obj.append){
                 $(obj.element).append(obj.message);
-            } else if (obj.html) {
+            } else {
                 $(obj.element).html(obj.message);
             }
-            $("#Reeborg-writes").dialog("open");
+            $("#Reeborg-proclaims").dialog("open");
         }
         return;
     }
@@ -180,23 +180,41 @@ RUR.rec.display_frame = function () {
     if (RUR.__debug && frame.debug) {
         console.log("debug: ", frame.debug);
     }
+
+    // many of these are exlusive of others ... but to give more flexibility
+    // in adding options (and prevent bugs!!), we do not use an
+    // if/else if/... structure, but rather a series of if clauses.
+
+
     if (frame.delay !== undefined){
         RUR.rec.delay = frame.delay;
     }
+
     if (frame.pause) {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
-    } else if (frame.error !== undefined) {
+    }
+
+    if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
-    } else if (frame.output !== undefined) {
-        if (frame.output.html && frame.output.append){
-            $(frame.output.element).append(frame.output.message);
-        } else if (frame.output.html) {
-            $(frame.output.element).html(frame.output.message);
+    }
+
+    if (frame.stdout !== undefined) {
+        if (frame.stdout.clear) { // for clearprint
+            $(frame.stdout.element).html('');
         } else {
-            $(frame.output.element).append(frame.output.message);
+            $(frame.stdout.element).append(frame.stdout.message);
         }
         $("#Reeborg-writes").dialog("open");
+    }
+
+    if (frame.print_html !== undefined) {
+        if (frame.print_html.append){
+            $(frame.print_html.element).append(frame.print_html.message);
+        } else {
+            $(frame.print_html.element).html(frame.print_html.message);
+        }
+        $("#Reeborg-proclaims").dialog("open");
     }
 
     RUR.current_world = frame.world;

@@ -231,7 +231,7 @@ $(document).ready(function() {
                                     position:{my: "bottom", at: "bottom-20", of: window}});
     $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
                                     position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-announces").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "announces",
+    $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "proclaims",
                                     position:{my: "bottom", at: "bottom-80", of: window}});
     $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250, dialogClass: "watches",
                                     position:{my: "bottom", at: "bottom-140", of: window}});

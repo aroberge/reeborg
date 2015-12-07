@@ -1696,9 +1696,9 @@ $(document).ready(function() {
                                     position:{my: "center", at: "center", of: $("#robot_canvas")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                     position:{my: "bottom", at: "bottom-20", of: window}});
-    $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "explores",
+    $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
                                     position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-announces").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "announces",
+    $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "proclaims",
                                     position:{my: "bottom", at: "bottom-80", of: window}});
     $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250, dialogClass: "watches",
                                     position:{my: "bottom", at: "bottom-140", of: window}});
@@ -2708,7 +2708,7 @@ RUR.output.write = function () {
         output_string += arguments[i].toString();
   }
   output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
+    RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
 
 RUR.output._write = function () {
@@ -2716,21 +2716,21 @@ RUR.output._write = function () {
     for (var i = 0; i < arguments.length; i++) {
         output_string += arguments[i].toString();
   }
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": output_string});
-};
-
-
-RUR.output.print_html = function (arg, append) {
-    if (append) {
-        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true, "append": true});
-    } else {
-        RUR.rec.record_frame("output", {"element": "#print_html", "message": arg, "html": true});
-    }
+    RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
 
 RUR.output.clear_print = function () {
-    RUR.rec.record_frame("output", {"element": "#stdout", "message": '', "html": true});
+    RUR.rec.record_frame("stdout", {"element": "#stdout", "clear": true});
 };
+
+RUR.output.print_html = function (arg, append) {
+    if (append) {
+        RUR.rec.record_frame("print_html", {"element": "#print_html", "message": arg, "append": true});
+    } else {
+        RUR.rec.record_frame("print_html", {"element": "#print_html", "message": arg});
+    }
+};
+
 
 RUR.output.view_source = function(fn) {
     $("#Reeborg-explores").dialog("open");
@@ -2791,13 +2791,13 @@ RUR.rec.record_frame = function (name, obj) {
 
     if (RUR.programming_language === "python" && RUR._immediate_playback) {
         RUR.vis_world.refresh();
-        if (name !== undefined && name == "output") {
-            if (obj.html && obj.append){
+        if (name !== undefined && name == "print_html") {
+            if (obj.append){
                 $(obj.element).append(obj.message);
-            } else if (obj.html) {
+            } else {
                 $(obj.element).html(obj.message);
             }
-            $("#Reeborg-writes").dialog("open");
+            $("#Reeborg-proclaims").dialog("open");
         }
         return;
     }
@@ -2931,23 +2931,41 @@ RUR.rec.display_frame = function () {
     if (RUR.__debug && frame.debug) {
         console.log("debug: ", frame.debug);
     }
+
+    // many of these are exlusive of others ... but to give more flexibility
+    // in adding options (and prevent bugs!!), we do not use an
+    // if/else if/... structure, but rather a series of if clauses.
+
+
     if (frame.delay !== undefined){
         RUR.rec.delay = frame.delay;
     }
+
     if (frame.pause) {
         RUR.ui.pause(frame.pause.pause_time);
         return "pause";
-    } else if (frame.error !== undefined) {
+    }
+
+    if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
-    } else if (frame.output !== undefined) {
-        if (frame.output.html && frame.output.append){
-            $(frame.output.element).append(frame.output.message);
-        } else if (frame.output.html) {
-            $(frame.output.element).html(frame.output.message);
+    }
+
+    if (frame.stdout !== undefined) {
+        if (frame.stdout.clear) { // for clearprint
+            $(frame.stdout.element).html('');
         } else {
-            $(frame.output.element).append(frame.output.message);
+            $(frame.stdout.element).append(frame.stdout.message);
         }
         $("#Reeborg-writes").dialog("open");
+    }
+
+    if (frame.print_html !== undefined) {
+        if (frame.print_html.append){
+            $(frame.print_html.element).append(frame.print_html.message);
+        } else {
+            $(frame.print_html.element).html(frame.print_html.message);
+        }
+        $("#Reeborg-proclaims").dialog("open");
     }
 
     RUR.current_world = frame.world;
@@ -3165,7 +3183,7 @@ RUR.robot.cleanup_objects = function (robot) {
     // handling legacy notation
     if (robot.orientation != undefined){
         robot._orientation = robot.orientation;
-        robot.orientation = null;
+        delete robot.orientation;
     }
 }
  /* Author: André Roberge
