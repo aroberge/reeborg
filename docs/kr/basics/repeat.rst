@@ -1,69 +1,56 @@
-Repeat
+반복
 ======
 
 .. index:: repeat
+.. index:: 반복
 
-Often, we will find that we want to repeat a series of instructions a
-fixed number of times. There is a way in Python to do so ... but it
-has too many new concepts to explain at this time. I will just show you
-the code, and immediately introduce ``repeat``, a simpler replacement
-for it, unique to Reeborg's World.  The standard way
-is known as a **for loop** and is written as follows:
+종종, 정해진 횟수만큼 일련의 함수를 반복하고 싶을 것이다. 파이썬에는 그렇게 하는 방법이 있다...
+하지만, 이번에 설명하기에는 너무나 많은 새로운 개념이 있다. 
+여러분에게 단지 코드만 보여주고 나서 즉시, ``repeat`` 명령어를 소개하는데, 리보그 세상에만 유일한 
+더 단순한 함수에 대한 대안이다. 표준적인 방식은 **for 루프(for loop)** 로 알려진 것으로 다음과 같이 작성된다:
 
 .. code-block:: python
 
     for i in range(n):
-        # some
-        # instructions
-        # here
+        # 명령어를 
+        # 여기에
+        # 작성한다.
 
 .. note::
 
-   Using ``repeat`` will not work in Python programs meant to be
-   run outside of Reeborg's World. A **loop** is a block of
-   instructions that is repeated.
+   ``repeat`` 명령어는 리보그 월드 바깥세상을 의미하는 파이썬 프로그램에서는 동작하지 않는다.
+   **루프(loop)** 는 명령어 덩어리로 반복된다.
 
-In Reeborg's World, we can write a ``repeat`` *loop* as follows::
+리보그 세상에서, ``repeat`` *루프* 를 다음과 같이 작성한다::
 
-    repeat n:    # "n" is a whole number
-        # some
-        # instructions
-        # here
+    repeat n:    # "n" 은 정수다.
+        # 명령어를
+        # 여기에 
+        # 작성한다.
 
-For example, the following code will make Reeborg trace a square::
+예를 들어, 다음 코드는 리보그가 정사각형을 그리게 만든다::
 
     repeat 4:
         move()
         turn_left()
 
-
-By using ``repeat``, we can rewrite some function definitions without
-having to repeat instructions::
+``repeat`` 명령어를 사용해서, 명령어를 반복할 필요없이, 함수 정의를 다시 작성할 수 있다::
 
     def turn_right():
         repeat 3:
             turn_left()
 
 
-So, by using ``repeat`` we have yet
-another way to eliminate repetitions in our code.
+그래서, ``repeat`` 을 사용함으로써, 코드에 반복을 제거하는 또 다른 방법을 얻게 되었다.
 
-.. topic:: Try it!
+.. topic:: 시도해 보기!
 
-    Change your program for the newspaper problem so that
-    you use ``repeat`` wherever it would shorten the code.
-    If you did not save it,
-    go back to the previous lesson and redo it using ``repeat``.
+    코드를 줄일 수 있는 어느 곳이나, ``repeat`` 명령어를 사용해서 신문배달 문제에 대한 프로그램을 변경하라.
+    만약 저장을 하지 않았다면, 이전 학습으로 되돌아가서 ``repeat`` 명령어를 사용해서 다시 작성하라.
 
-.. admonition:: For educators
+.. admonition:: 선생님께
 
-    My reason for having ``repeat`` as an addition to Python's
-    standard notation was to avoid having to introduce 4 concepts
-    at the same time (loops, variables as in ``_`` in ``for _ in range(n)``,
-    builtin functions like ``range`` as well as the concept of
-    function arguments).
+    파이썬 표준 표기법에 추가해서 ``repeat`` 명령어를 도입한 사유는 동시에 4가지 개념(루프, ``for _ in range(n)``에서 ``_``에 들어가는 변수, ``range`` 같은 내장함수, 함수 인자 개념)을 소개하는 것을 회피하기 위함이다.
 
-    By design the ``n`` in ``repeat n`` **must** be an integer literal;
-    it cannot be a variable.  When students learn about variables, they
-    should learn the proper Python syntax to do loops and forget about
-    the non-standard ``repeat``.
+    설계상으로 ``repeat n`` 에 ``n`` 은 정수만 **된다** ; 변수가 될 수 없다.
+    학생이 변수에 관해서 배울 때, 루프 반복을 하는 적절한 파이썬 구문을 배우고 비표준 ``repeat`` 은 잊어야 된다.
