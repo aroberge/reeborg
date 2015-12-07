@@ -15,47 +15,50 @@ def __write(data):
 def __write_err(data):
     window.RUR.output._write("<b style='color:red'>" + str(data) + "</b>")
 
+def html_escape(obj):
+    return str(obj).replace("&", "&amp"
+                  ).replace("<", "&lt;"   # NOQA
+                  ).replace(">", "&gt;")  # NOQA
 
+
+old = "<span class='watch_name'>%s:</span> <span class='watch_value'>%s</span>"  # NOQA
+new = "<span class='changed_name'>%s:</span> <span class='changed_value'>%s</span>"  # NOQA
+changed = "<span class='watch_name'>%s:</span> <span class='changed_value'>%s</span>"  # NOQA
+div = "<div>%s</div>"
+title = "<span class='watch_title'>%s</span>"
 previous_watch_values = {}
+
+
+def append_watch(arg, value, out):
+    global previous_watch_values
+    if arg not in previous_watch_values:
+        out.append(div % (new % (arg, value)))
+    elif value != previous_watch_values[arg]:
+        out.append(div % (changed % (arg, value)))
+    else:
+        out.append(div % (old % (arg, value)))
+
+
 def __watch(default, loc={}, gl={}):
     global previous_watch_values
-    old = "<span class='watch_name'>%s:</span> <span class='watch_value'>%s</span>"  # NOQA
-    new = "<span class='changed_name'>%s:</span> <span class='changed_value'>%s</span>"  # NOQA
-    changed = "<span class='watch_name'>%s:</span> <span class='changed_value'>%s</span>"  # NOQA
-    div = "<div>%s</div>"
-    title = "<span class='watch_title'>%s</span>"
+    ignore = ['system_default_vars', 'line_info']
     current_watch_values = {}
     out = []
     no_new_local = True
     for arg in loc:
-        if arg in ['system_default_vars', 'line_info']:
-            continue
-        elif arg in default:
+        if arg in default or arg in ignore:
             continue
         else:
             if no_new_local:
                 no_new_local = False
                 out.append(title % window.RUR.translate("Local variables"))
-            value = str(loc[arg])
-            value = value.replace("&", "&amp;"
-                        ).replace("<", "&lt;"
-                        ).replace(">", "&gt;")
+            value = html_escape(loc[arg])
             current_watch_values[arg] = value
-
-        if arg not in previous_watch_values:
-            out.append(div % (new % (arg, value)))
-        elif value != previous_watch_values[arg]:
-            out.append(div % (changed % (arg, value)))
-        else:
-            out.append(div % (old % (arg, value)))
+        append_watch(arg, value, out)
 
     no_new_global = True
     for arg in gl:
-        if arg in ['system_default_vars', 'line_info']:
-            continue
-        elif arg in default:
-            continue
-        elif arg in loc:
+        if arg in default or arg in loc or arg in ignore:
             continue
         else:
             if no_new_global:
@@ -63,18 +66,9 @@ def __watch(default, loc={}, gl={}):
                 if not no_new_local:
                     out.append("")
                 out.append(title % window.RUR.translate("Global variables"))
-            value = repr(gl[arg])
-            value = value.replace("&", "&amp;"
-                        ).replace("<", "&lt;"
-                        ).replace(">", "&gt;")
+            value = html_escape(gl[arg])
             current_watch_values[arg] = value
-
-        if arg not in previous_watch_values:
-            out.append(div % (new % (arg, value)))
-        elif value != previous_watch_values[arg]:
-            out.append(div % (changed % (arg, value)))
-        else:
-            out.append(div % (old % (arg, value)))
+        append_watch(arg, value, out)
 
     window.RUR.output.watch_variables("".join(out))
     previous_watch_values = current_watch_values
@@ -154,12 +148,16 @@ def generic_translate_python(src, lib, lang_import, highlight,
     # globals_['system_default_vars'] = set([key for key in globals_])
 
     if highlight:
-        temp_src, problem = insert_highlight_info(src)
-        if not problem:
-            src = temp_src
-        else:
-            window.RUR.ui.highlight()
-            window.jQuery("#highlight-impossible").show()
+        try:
+            temp_src, problem = insert_highlight_info(src)
+            if not problem:
+                src = temp_src
+            else:
+                window.RUR.ui.highlight()
+                window.jQuery("#highlight-impossible").show()
+        except Exception as e:
+            window.RUR.__python_error = e
+            return
     if hasattr(window.RUR, "__debug"):
         window.console.log("processed source:")
         window.console.log(src)
