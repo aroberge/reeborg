@@ -25,25 +25,30 @@ def filter_user_vars(variables, system_default_vars):
 
 def __watch(args, loc={}):
     global previous_watch_values
-    old = "<span class='watch_name'>{}</span>: <span class='watch_value'>{}</span>"  # NOQA
-    new = "<span class='changed_value'>{}</span>: <span class='changed_value'>{}</span>"  # NOQA
-    changed = "<span class='watch_name'>{}</span>: <span class='changed_value'>{}</span>"  # NOQA
+    old = "<span class='watch_name'>%s</span>: <span class='watch_value'>%s</span>"  # NOQA
+    new = "<span class='changed_value'>%s</span>: <span class='changed_value'>%s</span>"  # NOQA
+    changed = "<span class='watch_name'>%s</span>: <span class='changed_value'>%s</span>"  # NOQA
     current_watch_values = {}
     out = []
     for arg in args:
         if arg in ['system_default_vars', 'line_info']:
             continue
-        try:
-            value = str(eval(arg, globals(), loc))
-            current_watch_values[arg] = value
-        except:
-            continue
-        if arg not in previous_watch_values:
-            out.append(new.format(arg, value))
-        elif value != str(previous_watch_values[arg]):
-            out.append(changed.format(arg, value))
+        if arg in loc:
+            value = repr(loc[arg]) + " [local]"
+        elif arg in globals():
+            value = repr(globals()[arg]) + " [global]"
         else:
-            out.append(old.format(arg, value))
+            continue
+        value = value.replace("&", "&amp;"
+                    ).replace("<", "&lt;"    # NOQA
+                    ).replace(">", "&gt;")   # NOQA
+
+        if arg not in previous_watch_values:
+            out.append(new % (arg, value))
+        elif value != previous_watch_values[arg]:
+            out.append(changed % (arg, value))
+        else:
+            out.append(old % (arg, value))
     window.RUR.output.watch_variables("<br>".join(out))
     previous_watch_values = current_watch_values
 
