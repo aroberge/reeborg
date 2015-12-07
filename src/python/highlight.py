@@ -26,7 +26,7 @@ def tracing_line(indent, current_group, frame=False, last_line=False):
     tracecall_name = 'RUR.set_lineno_highlight'
     if hasattr(window.RUR, '_watch'):
         if getattr(window.RUR, '_watch'):
-            watch = indent + "__watch(system_default_vars, loc=locals(), gl=globals())\n"
+            watch = indent + "__watch(system_default_vars, loc=locals(), gl=globals())\n"  # NOQA
     else:
         watch = ''
     if last_line:
@@ -82,7 +82,7 @@ def check_balanced_brackets(src):
     triple_single = 0
     for nb, line in enumerate(lines):
         if line.endswith("\\"):
-            return "Continuation line with backslash"  # we do not handle this case
+            return "Continuation line with backslash"  # we do not handle this
         if (paren_count == square_count == curly_count ==
                 triple_double == triple_single == 0):
             new_group = []
@@ -125,7 +125,7 @@ def insert_highlight_info(src):
         return src, True
     elif line_info == "Continuation line with backslash":
         return src, line_info
-    src = src.replace('\t', '    ')  # standard tab spacing - just in case they are used
+    src = src.replace('\t', '    ')
     lines = src.split("\n")
     new_lines = [tracing_line('', [0], frame=True)]
     use_next_indent = False
@@ -144,12 +144,12 @@ def insert_highlight_info(src):
 
         line_wo_indent = line.lstrip()
         indent = line[:-len(line_wo_indent)]
-        first_word, remaining = extract_first_word(line_wo_indent, ' #=([{:\'"\\')
+        first_word, remaining = extract_first_word(line_wo_indent, ' #=([{:\'"\\')  # NOQA
         if use_next_indent:
             if saved_lineno_group[-1] >= lineno:
                 new_lines.append(line)
                 continue
-            new_lines.append(tracing_line(indent, saved_lineno_group, frame=True))
+            new_lines.append(tracing_line(indent, saved_lineno_group, frame=True))  # NOQA
             use_next_indent = False
 
         if first_word in 'def class'.split():
@@ -170,8 +170,9 @@ def insert_highlight_info(src):
             use_next_indent = True
             saved_lineno_group = current_group
         elif first_word == 'elif':
-            new_lines.append(indent + first_word + tracing_line(' ', current_group, frame=True)
-                             + ' and' + remaining)
+            new_lines.append(indent + first_word +
+                             tracing_line(' ', current_group, frame=True) +
+                             ' and' + remaining)
         elif '=' in line_wo_indent:
             new_lines.append(tracing_line(indent, current_group, frame=True))
             new_lines.append(line)
@@ -182,7 +183,7 @@ def insert_highlight_info(src):
             new_lines.append(line)
         else:
             if lineno == current_group[0] and skip_docstring <= 0:
-                new_lines.append(tracing_line(indent, current_group, frame=True))
+                new_lines.append(tracing_line(indent, current_group, frame=True))  # NOQA
             new_lines.append(line)
 
         skip_docstring -= 1
