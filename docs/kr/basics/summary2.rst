@@ -1,15 +1,13 @@
-Summary
+요약
 =======
 
-It is now time to review what we have learned since the last Summary.
+지난 요약에서부터 학습한 것을 재고할 시간이다.
 
-We have seen our first Python keywords, ``def``, ``from``, ``import``.
+처음으로 파이썬 키워드를 봤다, ``def``, ``from``, ``import``.
 
-We have seen the concept of looping, and a keyword unique
-to Reeborg's World: ``repeat``.
+루프 개념과 리보그 세상에만 유일하게 존재하는 키워드 ``repeat`` 도 살펴봤다.
 
-We have seen a sixth function specific to Reeborg's World, that is
-``build_wall()``, in addition to the five we had seen before:
+이전에 살펴봤던 5가지 명령어에 추가해서, 리보그 세상에만 있는 ``build_wall()``, 6번째 함수를 살펴봤다:
 
 -  ``move()``
 -  ``turn_left()``
@@ -17,5 +15,4 @@ We have seen a sixth function specific to Reeborg's World, that is
 -  ``put()``
 -  ``pause()``
 
-We are now ready to learn about some very important programming concepts
-dealing with deciding automatically between different possibilities.
+다른 가능성 사이에서 자동으로 의사결정을 처리하는 매우 중요한 프로그래밍 개념을 학습할 준비를 마쳤다.
