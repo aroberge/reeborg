@@ -90,98 +90,77 @@
     move()
     move()
 
+이런 방식의 사고가 ``if`` 문장에 있는 삭제가 영구적이라는 것을 의미하지 않음에 주목한다; 만약 프로그램을 *다시 루프돌리고* 코드의 해당 부분을 다시 반복하면, ``if`` 문장이 매번 다시 평가되어 코드 덩어리 내부 해당 코드줄을 실행할지 실행하지 않을지 결정하게 된다.
 
-
-Note that thinking of it this way does not mean that such a deletion
-would be done permanently: if, somehow, our program *looped back* and
-repeated this part of the code again, the ``if`` statement would be
-reevaluated each time to decide whether or not to execute the lines of
-code inside the code block.
-
-We can represent the above using a flowchart:
+흐름도를 사용해서 상기 내용을 다음과 같이 나타낼 수 있다:
 
 .. figure:: ../../../flowcharts/if.jpg
    :align: center
 
-More useful that you might think...
------------------------------------
+좀더 유용할 수 있는 것...
+--------------------------------------
 
 .. note::
 
-    The general term used to describe a function that gives a result
-    equivalent to ``True`` or ``False`` in an ``if`` statement is **condition**::
+    ``if`` 문장에서 ``참(True)`` 혹은 ``거짓(False)`` 와 동치되는 결과를 주는 함수를 기술하는데 사용되는 일반적인 용어가 **조건(condition)** 이다.::
 
-       if condition:
+       if 조건:
            ...
 
 .. index:: object_here(), done()
 
-Having to specify ``True`` or ``False`` does not help Reeborg decide on
-its own. However, there are special functions that Reeborg recognizes
-that allow to decide things for himself. The first of these is
-``object_here()`` which tells Reeborg that there is at least one object at
-the grid position where he is located. For example, if we want to ask
-Reeborg to collect tokens, one part of the code could be::
+``True`` 혹은 ``False`` 를 명세해야 되는 것이 리보그 스스로 결정결정을 하는데 도움이 되지는 못한다. 하지만, 스스로 무언가를 결정하도록 리보그가 인식할 수 있는 특수 함수가 있다. 
+첫번째가  ``object_here()`` 로 리보그로 하여금 리보그가 위치하고 있는 격자 위치에 적어도 물체가 한개 있는지 일러준다.
+예를 들어, 리보그로 하여금 토큰을 모으도록 요청하면, 코드 한 부분이 다음과 같을 것이다:::
 
     if object_here():
         take()
 
-Have a look at worlds **Tokens 1** and **Tokens 2**. In both cases, and assuming
-that Reeborg moves forward in a straight line, when he finds a token,
-all he as to do is:
+**Tokens 1** 와 **Tokens 2** 세상을 살펴보라.
+양쪽 경우에, 리보그가 직선을 따라 앞으로 이동한다고 가정하고, 
+토큰을 발견하면, 리보그가 해야 되는 일은 다음과 같다:
 
-#. take it
-#. move to the next grid
-#. put the token down
-#. move one more step
-#. and he is ``done()``
+#. 토큰을 집는다.
+#. 다음 칸으로 이동한다.
+#. 토큰을 자리에 놓는다.
+#. 한칸 더 이동한다.
+#. 그리고 나서 작업을 완수: ``done()``
 
-where I have introduced a new command that Reeborg understands:
-``done()``. Actually, you should think of this command as Reeborg saying
-it himself and declaring that he has finished.
+여기에 리보그가 이해하는 새로운 명령어가 소개되었다: ``done()``. 실제로, 리보그가 본인에게 스스로 작업을 완수했음을 공표하는 명령어로 간주해야 된다.
 
-Let's write the outline of a program that will work in both worlds
-**Tokens 1** and **Tokens 2**::
+**Tokens 1** 과 **Tokens 2** 양쪽 세상 모두에서 동작하는 프로그램에 대한 개괄적인 개요를 작성하자::
 
     def move_until_done():
         move()
         if object_here():
-            # something
-            # something else
-            # something else again
-            # yet one more
+            # 무언가 수행한다.
+            # 다른 무언가 수행한다.
+            # 다시 다른 무언가 수행한다.
+            # 한가지 더 있다.
             done()
 
     repeat 42:
         move_until_done()
 
+왜 42?... 리보그가 어떤 세상에 있는지 관계없이 리보그가 충분하게 작업하도록 확실히 하고자 해서 그렇다. 
+지금까지, 세상 모두가 42개 정도면 충분할 정도로 작았다. 그다지 똑똑하지 않아 보이는데 동의합니다. 나중에 이 문제를 어떻게 고치는지 보게될 됩니다.
 
-Why 42? ... well, I just want to be sure that Reeborg will take enough
-steps no matter what world he is in. So far, all the worlds are small
-enough that this should be fine. I agree, it does not seem very smart
-... We'll see how to fix that later.
+.. topic:: 시도해 보기!
 
-.. topic:: Try it!
+    코드 편집기에 상기 코드를 복사해서, 빠진 명령어를 채워넣는다. 그리고 **Tokens 1** 과 **Tokens 2** 양쪽 세상에 작성한 프로그램을 테스트한다.
 
-    Copy the above in the Code editor, filling in the missing
-    commands, and test your program on both worlds **Tokens 1** and **Tokens 2**.
+.. admonition:: 선생님께
 
-.. admonition:: For educators
+    ``object_here()`` 함수는 해당 지점에서 발견한 (문자열로) 객체 자료형 리스트를 반환한다. 
+    예를 들어, 동일 지점에 별과 토큰이 있다면, 
+    ``object_here()`` 함수는 ``["star", "token"]`` 혹은 ``["token", "star"]`` 을 반환한다.
+    만약 객체가 하나도 없다면, 빈 리스트가 반환된다.
+    이미 여러분이 인지하고 있듯이, 파이썬에서 빈 리스트는 ``if`` 문에서 ``거짓(False)``와 등치관계가 되고, 비어 있지 않는 리스트는 ``참(True)``과 등치관계가 된다.
 
-    The function ``object_here()`` returns a list of object types (as strings)
-    found at a given location.  For example, if there are stars and tokens
-    at the same location, ``object_here()`` could return ``["star", "token"]``
-    or ``["token", "star"]``. If no object is present, an empty list is
-    returned.  As you likely already know, Python treats an empty list as
-    being equivalent to ``False`` in an ``if`` statement, and a non-empty
-    list as equivalent to ``True``.
-
-    If many objects could potentially be found in a given world, and we
-    are interested in only one object type, we can specify it as a function
-    argument::
+    해당 세상에서 많은 객체가 잠재적으로 찾았는데 단지 한가지 객체 유형에만 관심이 간다면, 함수 인자로 이를 명세할 수 있다::
 
         if object_here("token"):
             take("token")
 
-    ``object_here("token")`` will either return an empty list or the list
-    ``["token"]``.
+    ``object_here("token")`` 함수는 빈 리스트 혹은 
+    ``["token"]`` 리스트를 반환하게 된다. 
