@@ -119,7 +119,7 @@ RECORDING = ["move", "avance",
              "clear_print"]
 
 
-def insert_highlight_info(src):
+def insert_highlight_info(src):  # NOQA
     line_info = check_balanced_brackets(src)
     if not line_info:
         return src, True

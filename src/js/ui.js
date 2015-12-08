@@ -164,22 +164,26 @@ RUR.ui.load_user_worlds = function (initial) {
 RUR.ui.highlight = function () {
     if (RUR._highlight) {
         RUR._highlight = false;
-        $("#not-ok-image").show();
-        $("#ok-image").hide();
+        $("#highlight").addClass("blue-gradient");
+        $("#highlight").removeClass("reverse-blue-gradient");
     } else {
         RUR._highlight = true;
-        $("#not-ok-image").hide();
-        $("#ok-image").show();
+        $("#highlight").addClass("reverse-blue-gradient");
+        $("#highlight").removeClass("blue-gradient");
     }
 };
 
 RUR.ui.watch = function () {
     if (RUR._watch) {
         RUR._watch = false;
+        $("#watch_variables_btn").addClass("blue-gradient");
+        $("#watch_variables_btn").removeClass("reverse-blue-gradient");
         $("#watch_variables").html("");
         $("#Reeborg-watches").dialog("close");
     } else {
         RUR._watch = true;
+        $("#watch_variables_btn").addClass("reverse-blue-gradient");
+        $("#watch_variables_btn").removeClass("blue-gradient");
         $("#watch_variables").html("");
         $("#Reeborg-watches").dialog("open");
     }
@@ -191,8 +195,8 @@ RUR.ui.user_no_highlight = function () {
     // to ensure highlighting is turned off.
     if (RUR._highlight) {
         RUR._highlight = false;
-        $("#not-ok-image").show();
-        $("#ok-image").hide();
+        $("#highlight").addClass("blue-gradient");
+        $("#highlight").removeClass("reverse-blue-gradient");
     }
 };
 

@@ -143,6 +143,10 @@ nav a:first-child {
     border-radius: 20px 0 0 20px;
 }
 
+#highlight, #watch_variables_btn {
+    height: 40px;
+}
+
 button {
     font-weight: bold;
     position: relative;
@@ -754,16 +758,8 @@ p.try {
 .editor-highlight, .cm-s-reeborg-dark div.CodeMirror-selected {
     background: #2d5ab4;
 }
-
-#highlight{
+.float-right {
     float: right;
-    height: 36px;
-    border: 0;
-}
-#watch_variables_btn {
-    height: 36px;
-    border: 0;
-    float: left;
 }
 
 #keyboard-buttons ul li { background: white; z-index:10000 ;
