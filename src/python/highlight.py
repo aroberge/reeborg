@@ -24,9 +24,10 @@ def extract_first_word(mystr, separators):
 def tracing_line(indent, current_group, frame=False, last_line=False):
     '''Construct the tracing line'''
     tracecall_name = 'RUR.set_lineno_highlight'
+    watch_string = "__watch(system_default_vars, loc=locals(), gl=globals())\n"
     if hasattr(window.RUR, '_watch'):
         if getattr(window.RUR, '_watch'):
-            watch = indent + "__watch(system_default_vars, loc=locals(), gl=globals())\n"  # NOQA
+            watch = indent + watch_string
     else:
         watch = ''
     if last_line:
