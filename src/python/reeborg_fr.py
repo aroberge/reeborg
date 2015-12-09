@@ -18,44 +18,9 @@ try:
     confirmer = RUR.confirmer
 except:
     pass
-
-# ==== actions
-
-
-def avance():
-    """Avance d'une case"""
-    RUR._move_()
-
-
-def tourne_a_gauche():
-    """Reeborg tourne à sa gauche."""
-    RUR._turn_left_()
-
-
-def depose(obj=None):
-    """Dépose un objet.  Si Reeborg transporte plus d'un type d'objet,
-       on doit spécifier lequel sinon ceci causera une exception."""
-    if obj is None:
-        RUR._put_()
-    else:
-        RUR._put_(obj)
-
-
-def prend(obj=None):
-    """Prend un objet.  Si plus d'un type d'objet se trouve à l'endroit où
-       Reeborg est, on doit spécifier lequel sinon ceci causera une exception.
-    """
-    if obj is None:
-        RUR._take_()
-    else:
-        RUR._take_(obj)
-
-
-def construit_un_mur():
-    """Indique à Reeborg de construire un mur devant sa position."""
-    RUR._build_wall_()
-
-# ==== information about the world
+# All functions from Javascript used below should have names of the form
+# RUR._xyz_ and be defined in commands.js; functions and methods should appear
+# in the same order as they appear in the English version.
 
 
 def au_but():
@@ -67,49 +32,47 @@ def au_but():
     return RUR._at_goal_()
 
 
-def rien_devant():
-    """Indique si un obstacle (mur, clôture, eau, mur de brique, etc.)
-       bloque le chemin.
+def construit_un_mur():
+    """Indique à Reeborg de construire un mur devant sa position."""
+    RUR._build_wall_()
+
+
+def transporte(obj=None):
+    """ Indique si Reeborg transporte un ou des objets.
+
+    Args:
+        obj: paramètre optionnel qui est le nom d'un objet sous forme de
+            chaîne de caractères.
 
     Returns:
-       True si le chemin est non bloqué, False autrement."""
-    return RUR._front_is_clear_()
+        une liste d'objets retrouvés.  Si Reeborg ne transporte aucun objet,
+        ou si un objet spécifié comme paramètre n'est pas présent,
+        le résultat est une liste vide.
+
+    Exemples possibles:
+
+        >>> transporte()
+        ["jeton", "pomme"]
+        >>> transporte("jeton")
+        ["jeton"]
+        >>> transporte("fraise")
+        []
+    """
+    if obj is not None:
+        ans = RUR._carries_object_(obj)
+    else:
+        ans = RUR._carries_object_()
+    return list(ans)
 
 
-def mur_devant():
-    """Indique si un mur bloque le chemin.
-
-    Returns:
-       True si un mur est devant, False autrement."""
-    return RUR._wall_in_front_()
+def efface_print():
+    """Efface le texte précédemment écrit avec des fonctions print()."""
+    RUR.output.clear_print()
 
 
-def rien_a_droite():
-    """Indique si un obstacle (mur, clôture, eau, mur de brique, etc.)
-       se trouve à la droite immédiate de Reeborg.
-
-    Returns:
-       True si un obstacle est à la droite, False autrement."""
-    return RUR._right_is_clear_()
-
-
-def mur_a_droite():
-    """Indique si un mur se trouve immédiatement à la droite de Reeborg.
-
-    Returns:
-       True si un mur est à la droite, False autrement."""
-    return RUR._wall_on_right_()
-
-
-def est_face_au_nord():
-    """Indique si Reeborg fait face au nord (haut de l'écran) ou non."""
-    return RUR._is_facing_north_()
-
-
-def face_au_nord():
-    # obsolete
-    raise ReeborgError("face_au_nord() est désuet;" +
-                       " utilisez est_face_au_nord()")
+def dir_js(obj):
+    """Liste les attributs et méthodes d'un objet Javascript."""
+    RUR.inspect(obj)  # defined in rur_utils.js
 
 
 def dir_py(obj):
@@ -127,84 +90,28 @@ def dir_py(obj):
     print("\n".join(attrs))
 
 
-def dir_js(obj):
-    """Liste les attributs et méthodes d'un objet Javascript."""
-    RUR.inspect(obj)  # defined in rur_utils.js
-
-
-def voir_source_js(fn):
-    """Affiche le code source d'une fonction Javascript."""
-    RUR.output.view_source(fn)  # defined in rur_utils.js
-
-
 def termine():
     """Termine l'exécution d'un programme."""
     RUR.control.done()
 
 
-def son(bool):
-    """Active ou désactive les effets sonores."""
-    RUR.control.sound(bool)
+def rien_devant():
+    """Indique si un obstacle (mur, clôture, eau, mur de brique, etc.)
+       bloque le chemin.
+
+    Returns:
+       True si le chemin est non bloqué, False autrement."""
+    return RUR._front_is_clear_()
 
 
-def pense(ms):
-    """Fixe un délai entre les actions de Reeborg à l'écran."""
-    RUR.control.think(ms)
+def est_face_au_nord():
+    """Indique si Reeborg fait face au nord (haut de l'écran) ou non."""
+    return RUR._is_facing_north_()
 
 
-def pause(ms=None):
-    """Pause l'éxecution du programme à l'écran.
-
-       Si un argument (temps, en millisecondes) est fourni, l'exécution
-       redémarre automatiquement après que ce temps ait été écoulé.
-    """
-    if ms is None:
-        RUR.control.pause()
-    else:
-        RUR.control.pause(ms)
-
-
-def Monde(url, nom=None):
-    """Permet de sélectioner un monde donné à l'intérieur d'un programme.
-       Si le monde présentement utilisé est différent, le résultat de
-       l'exécution de cette instruction fera en sorte que le monde spécifié
-       par le paramètre `url` sera choisi sans que le reste du programme
-       ne soit déjà exécuté. Si le monde spécifié est déjà le monde
-       choisi, la fonction `Monde(...)` est ignorée et le reste
-       du programme est exécuté.
-
-       Le monde spécifié sera ajouté au sélecteur s'il n'est pas
-       déjà présent.
-
-       Args:
-            url: deux choix possibles, soit un nom apparaissant dans le
-                 sélecteur de monde, ou un lien à un document accessible
-                 via Internet.
-            nom: paramètre optionnel; si ce paramètre est choisi, le nom
-                       apparaissant dans le sélecteur sera nom.
-
-       Exemples:
-
-           >>> Monde("But 1")  # monde inclus par défaut
-           >>> Monde("http://reeborg.ca/mon_monde")   # exemple fictif
-           # le nom http://reeborg.ca/mon_monde sera ajouté au sélecteur
-           >>> Monde("http://reeborg.ca/mon_monde", "Bonjour")
-           # le nom Bonjour sera ajouté au sélecteur pour indiquer ce monde.
-    """
-    if nom is None:
-        RUR.file_io.load_world_from_program(url)
-    else:
-        RUR.file_io.load_world_from_program(url, nom)
-
-
-def efface_print():
-    """Efface le texte précédemment écrit avec des fonctions print()."""
-    RUR.output.clear_print()
-
-
-def plus_de_robots():
-    """Élimine tous les robots existants"""
-    RUR.world.remove_robots()
+def avance():
+    """Avance d'une case"""
+    RUR._move_()
 
 
 def pas_de_surlignement():
@@ -213,15 +120,6 @@ def pas_de_surlignement():
        lignes de code, il peut être nécessaire d'exécuter un programme
        à deux reprises."""
     RUR.ui.user_no_highlight()
-
-
-def enregistrement(bool):
-    """Arrête ou redémarre les enregistrement d'actions de Reeborg.
-
-    Args:
-        bool: True si on veut avoir des enregistrement, False autrement
-    """
-    RUR._recording_(bool)
 
 
 def objet_ici(obj=None):
@@ -252,32 +150,48 @@ def objet_ici(obj=None):
     return list(ans)  # convert from js list-like object to proper Python list
 
 
-def transporte(obj=None):
-    """ Indique si Reeborg transporte un ou des objets.
+def pause(ms=None):
+    """Pause l'éxecution du programme à l'écran.
+
+       Si un argument (temps, en millisecondes) est fourni, l'exécution
+       redémarre automatiquement après que ce temps ait été écoulé.
+    """
+    if ms is None:
+        RUR.control.pause()
+    else:
+        RUR.control.pause(ms)
+
+
+def depose(obj=None):
+    """Dépose un objet.  Si Reeborg transporte plus d'un type d'objet,
+       on doit spécifier lequel sinon ceci causera une exception."""
+    if obj is None:
+        RUR._put_()
+    else:
+        RUR._put_(obj)
+
+
+def enregistrement(bool):
+    """Arrête ou redémarre les enregistrement d'actions de Reeborg.
 
     Args:
-        obj: paramètre optionnel qui est le nom d'un objet sous forme de
-            chaîne de caractères.
+        bool: True si on veut avoir des enregistrement, False autrement
+    """
+    RUR._recording_(bool)
+
+
+def plus_de_robots():
+    """Élimine tous les robots existants"""
+    RUR.world.remove_robots()
+
+
+def rien_a_droite():
+    """Indique si un obstacle (mur, clôture, eau, mur de brique, etc.)
+       se trouve à la droite immédiate de Reeborg.
 
     Returns:
-        une liste d'objets retrouvés.  Si Reeborg ne transporte aucun objet,
-        ou si un objet spécifié comme paramètre n'est pas présent,
-        le résultat est une liste vide.
-
-    Exemples possibles:
-
-        >>> transporte()
-        ["jeton", "pomme"]
-        >>> transporte("jeton")
-        ["jeton"]
-        >>> transporte("fraise")
-        []
-    """
-    if obj is not None:
-        ans = RUR._carries_object_(obj)
-    else:
-        ans = RUR._carries_object_()
-    return list(ans)
+       True si un obstacle est à la droite, False autrement."""
+    return RUR._right_is_clear_()
 
 
 def couleur_de_trace(couleur):
@@ -326,6 +240,85 @@ def style_de_trace(style="normal"):
     RUR.vis_robot.set_trace_style(style)
 
 
+def son(bool):
+    """Active ou désactive les effets sonores."""
+    RUR.control.sound(bool)
+
+
+def prend(obj=None):
+    """Prend un objet.  Si plus d'un type d'objet se trouve à l'endroit où
+       Reeborg est, on doit spécifier lequel sinon ceci causera une exception.
+    """
+    if obj is None:
+        RUR._take_()
+    else:
+        RUR._take_(obj)
+
+
+def pense(ms):
+    """Fixe un délai entre les actions de Reeborg à l'écran."""
+    RUR.control.think(ms)
+
+
+def tourne_a_gauche():
+    """Reeborg tourne à sa gauche."""
+    RUR._turn_left_()
+
+
+def mur_devant():
+    """Indique si un mur bloque le chemin.
+
+    Returns:
+       True si un mur est devant, False autrement."""
+    return RUR._wall_in_front_()
+
+
+def mur_a_droite():
+    """Indique si un mur se trouve immédiatement à la droite de Reeborg.
+
+    Returns:
+       True si un mur est à la droite, False autrement."""
+    return RUR._wall_on_right_()
+
+
+def voir_source_js(fn):
+    """Affiche le code source d'une fonction Javascript."""
+    RUR.output.view_source(fn)  # defined in rur_utils.js
+
+
+def Monde(url, nom=None):
+    """Permet de sélectioner un monde donné à l'intérieur d'un programme.
+       Si le monde présentement utilisé est différent, le résultat de
+       l'exécution de cette instruction fera en sorte que le monde spécifié
+       par le paramètre `url` sera choisi sans que le reste du programme
+       ne soit déjà exécuté. Si le monde spécifié est déjà le monde
+       choisi, la fonction `Monde(...)` est ignorée et le reste
+       du programme est exécuté.
+
+       Le monde spécifié sera ajouté au sélecteur s'il n'est pas
+       déjà présent.
+
+       Args:
+            url: deux choix possibles, soit un nom apparaissant dans le
+                 sélecteur de monde, ou un lien à un document accessible
+                 via Internet.
+            nom: paramètre optionnel; si ce paramètre est choisi, le nom
+                       apparaissant dans le sélecteur sera nom.
+
+       Exemples:
+
+           >>> Monde("But 1")  # monde inclus par défaut
+           >>> Monde("http://reeborg.ca/mon_monde")   # exemple fictif
+           # le nom http://reeborg.ca/mon_monde sera ajouté au sélecteur
+           >>> Monde("http://reeborg.ca/mon_monde", "Bonjour")
+           # le nom Bonjour sera ajouté au sélecteur pour indiquer ce monde.
+    """
+    if nom is None:
+        RUR.file_io.load_world_from_program(url)
+    else:
+        RUR.file_io.load_world_from_program(url, nom)
+
+
 class RobotUsage(object):
     def __init__(self, x=1, y=1, orientation='est', jetons=None):
         """Créé un robot usagé.
@@ -345,9 +338,6 @@ class RobotUsage(object):
             robot = RUR.robot.create_robot(x, y, orientation, jetons)
         self.body = robot
         RUR.world.add_robot(self.body)
-
-    def __repr__(self):
-        return self.__str__()
 
     def __str__(self):
         location = "({}, {})".format(self.body.x, self.body.y)
@@ -659,3 +649,12 @@ def MenuPersonalise(contenu):
     """À l'intention des éducateurs.  Permet de créer des menus de monde
        personalisés.  Voir la documentation pour plus de détails."""
     RUR.custom_menu.make(contenu)
+
+
+# Obsolete functions below
+
+
+def face_au_nord():
+    # obsolete
+    raise ReeborgError("face_au_nord() est désuet;" +
+                       " utilisez est_face_au_nord()")
