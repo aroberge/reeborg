@@ -9,6 +9,12 @@
 $(document).ready(function() {
     "use strict";
 
+    if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
+        alert("Reeborg's World is possibly broken by the latest version of Firefox. "+
+              "Under testing, it works with Google Chrome and Microsoft Edge. "+ 
+          "Le monde de Reeborg ne fonctionne plus avec la nouvelle version de Firefox.");
+    }
+
     try {
         RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
         //RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
