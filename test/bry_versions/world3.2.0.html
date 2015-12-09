@@ -14,9 +14,9 @@
 <!--offline <link rel="stylesheet" href="offline/codemirror-5.8.0/lib/codemirror.css"> /offline-->
 <!--online-->  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.css">  <!--/online-->
 <link rel="stylesheet" href="/src/css/reeborg_world.css"> <!-- load after codemirror.css -->
-<title>Brython latest Reeborg's world</title>
+<title>Brython 3.2.0 Reeborg's world</title>
 <script type="text/javascript"
-    src="https://cdn.rawgit.com/brython-dev/brython/master/www/src/brython.js">
+    src="https://cdn.rawgit.com/brython-dev/brython/3.2.0/www/src/brython.js">
 </script>
 </head>
 <body onload="brython({debug:1, pythonpath:['/src/python']})">
@@ -64,8 +64,6 @@
     </button>
     <button class="blue-gradient" id="reload" title="reload" disabled onclick="RUR.ui.reload();">
       <img src="/src/images/reload.png" alt="reload">
-    <button class="blue-gradient" id="reload2" title="reload" disabled onclick="RUR.ui.reload2();">
-        <img src="/src/images/reload.png" alt="reload">
     </button>
 
   </div>
@@ -81,17 +79,11 @@
 
     <div id="Reeborg-concludes" class="reeborg-print" title="Reeborg says: I'm done!" style="display:none"></div>
     <div id="Reeborg-writes" title="Reeborg writes:" style="display:none">
+      <span id="narrates"></span>
       <pre id="stdout" class="reeborg-print"></pre>
+      <pre id="_write"></pre>
     </div>
     <div id="Reeborg-shouts" class="reeborg-print" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
-    <div id="Reeborg-explores" title="Reeborg explores some Javascript code" style="display:none"></div>
-    <div id="Reeborg-proclaims" title="Reeborg proclaims:" style="display:none">
-        <div id="print_html"></div>
-    </div>
-    <div id="Reeborg-watches" class="reeborg-print" title="Reeborg watches some variables!" style="display:none">
-        <div id="watch_variables"></div>
-    </div>
-
     <div id="World-info" title="Click on the world to get some additional information." style="display:none"></div>
 
       <div id="image-choice-buttons">
@@ -107,22 +99,20 @@
   <div id="tabs">
     <ul>
       <li><a id="editor-link" href="#editor">Python Code</a></li>
-
+      <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
+        <img src="/src/images/highlight.png" alt="highlight">
+        <img src="/src/images/ok.png" alt="ok" id="ok-image">
+        <img src="/src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
+      </button>
       <li><a id="library-link" href="#library">library</a></li>
       <li><a id="pre-code-link" href="#pre-code-div">Pre</a></li>
       <li><a id="post-code-link" href="#post-code-div">Post</a></li>
       <li><a id="description-link" href="#description-div">Desc.</a></li>
 
-      <button id="watch_variables_btn" class="blue-gradient float-right" title="watch_variables" onclick="RUR.ui.watch()">
-          <img src="/src/images/magnifying_yes.png" alt="watch">
-      </button>
-      <button id="highlight" class="reverse-blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
-        <img src="/src/images/highlight.png" alt="highlight">
-      </button>
-
     </ul>
     <div id="editor">
       <textarea id="code" name="code">move()</textarea>
+
     </div>
     <div id="library">
       <textarea id="library-code" name="library-code">
@@ -151,13 +141,8 @@
   </div>
 </div>
 
-<textarea id="py_console" rows=35, cols=81 style="display:none"></textarea>
-
 <div style="display:none;"  id="edit-world-panel" title="World editor">
-  <p> <input type="checkbox" name="save_editor" value="save_editor" id="save_editor">Add editor content to world
-      <input type="checkbox" name="save_library" value="save_library" id="save_library">Add library content to world
-    <br>
-    <button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">Close [will offer to save changed world]</button>
+  <p><button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">Close [will offer to save changed world]</button>
   <br>
     If you want to share your world (and corresponding challenges) with others,
         save it to a file, or better yet, save everything using a permalink
@@ -314,7 +299,6 @@ from browser import window
 from _importlib import optimize_import_for_path
 optimize_import_for_path('/src/python', 'py')
 import common_def
-import console
 
 def translate_python(src, highlight, pre_code='', post_code=''):
     common_def.generic_translate_python(src, "library", "from reeborg_en import *",
@@ -322,6 +306,7 @@ def translate_python(src, highlight, pre_code='', post_code=''):
 
 window['translate_python'] = translate_python
 </script>
+
 
 <script>
   function betterTab(cm) {
@@ -411,19 +396,22 @@ window['translate_python'] = translate_python
 </script>
 <script async src="https://togetherjs.com/togetherjs-min.js"></script>
 
+<div id="help" title="Help" style="display:none">
+    <ul id="toc"></ul>
+</div>
 
 <div id="more-menus" title="Additional options" style="display:none">
 
   <h3>Programming language</h3>
-
     <form>
       <input type="radio" name="programming_language" value="python-en" checked> Python
       <input type="radio" name="programming_language" value="javascript-en" > Javascript
       <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
     </form></p>
-
-<h3>Help</h3>
-    <p>If you need help, please <a href="http://reeborg.ca/docs/en">consult the documentation.</a></p>
+  <p>
+    <button class="blue-gradient" id="help-button">Help</button>
+    Displays a description of available commands.
+  </p>
   <p>
     <button class="blue-gradient" id="about-button">About</button> Some potentially
     useful information about this site.
@@ -715,8 +703,6 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
         Conditions</button>
       <button id="kbd_python_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_python");'>
         Python</button>
-        <button id="kbd_py_console_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_py_console");'>
-          Python</button>
       <button id="kbd_javascript_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_javascript");'>
         Javascript/Coffeescript</button>
       <button id="kbd_objects_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_objects");'>
@@ -729,17 +715,17 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>take()</li>
        <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>put()</li>
        <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>build_wall()</li>
-       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pause()</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pause()</li>
        <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>done()</li>
-       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>think(100)</li>
-       <li class="kbd_command only_py no_console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>think(100)</li>
+       <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
        <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>write(" ? ")</li>
-       <li class="kbd_command only_py no_console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>sound(True)</li>
+       <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>sound(True)</li>
        <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>sound(true)</li>
-       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>World(" ? ")</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>World(" ? ")</li>
        <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>UsedRobot()</li>
        <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>new UsedRobot()</li>
-       <li class="kbd_command only_py no_console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>no_highlight()</li>
+       <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>no_highlight()</li>
     </ul>
     <ul class="kbd_condition" >
        <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>at_goal()</li>
@@ -772,28 +758,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>return ?</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
        <br>
-      <span>Remember: <code>repeat</code> is not a Python keyword.</span>
-    </ul>
-    <ul class="kbd_py_console">
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>def</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>if</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>elif</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>else:</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>while</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>from library import </li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>for</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>in</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>range(</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>True</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>False</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>None</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>not</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>and</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>or</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>continue</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>break</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
-       <br>
+      <span>Remember: <code>repeat</code> is not a Python keyword; it only works here.</span>
     </ul>
     <ul class="kbd_javascript">
        <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>var</li>
@@ -856,7 +821,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_special" onclick='RUR.kbd.insert("{}");'>&nbsp;&nbsp;{ }&nbsp;&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.insert("[]");'>&nbsp;[ ]&nbsp;</li>
        <li class="kbd_special" onclick='RUR.kbd.tab();'>TAB</li>
-       <li class="kbd_special no_console" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
+       <li class="kbd_special" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
        <li class="kbd_special" onclick='RUR.kbd.enter();'>Enter</li>
     </ul>
     <button onclick='RUR.kbd.undo()'>UNDO</button>
