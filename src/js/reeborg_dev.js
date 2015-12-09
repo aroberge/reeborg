@@ -280,10 +280,22 @@ RUR.set_lineno_highlight = function(lineno, frame) {
 };
 /* Author: André Roberge
    License: MIT
+
+The purpose of this module is to act as an intermediary between end user
+modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
+the other modules.  This way, in theory, refactoring can take place in the
+basic javascript code without affecting the end user code.
+
+The one allowed exception is for human language specific functions
+(say "verify") that are defined in Javascript and need to be made available
+in other languages, such as Python; these functions should be defined in
+reeborg_xx.js where xx is the human language two-letter code.
+
+Convention: all function names follow the pattern RUR._xyz_
  */
 
-/*jshint browser:true, devel:true, white:false, plusplus:false */
-/*globals $, CodeMirror, editor, library, parseUri */
+/*jshint devel:true, white:false, plusplus:false */
+
 
 var RUR = RUR || {};
 
@@ -302,7 +314,6 @@ RUR._front_is_clear_ = function() {
 RUR._wall_in_front_ = function() {
   return RUR.control.wall_in_front(RUR.current_world.robots[0]);
 };
-
 
 RUR._is_facing_north_ = function () {
     return RUR.control.is_facing_north(RUR.current_world.robots[0]);
@@ -324,7 +335,6 @@ RUR._wall_on_right_ = function() {
   return RUR.control.wall_on_right(RUR.current_world.robots[0]);
 };
 
-
 RUR._object_here_ = function (arg) {
     return RUR.control.object_here(RUR.current_world.robots[0], arg);
 };
@@ -332,7 +342,6 @@ RUR._object_here_ = function (arg) {
 RUR._carries_object_ = function (arg) {
     return RUR.control.carries_object(RUR.current_world.robots[0], arg);
 };
-
 
 RUR._take_ = function(arg) {
     RUR.control.take(RUR.current_world.robots[0], arg);
@@ -358,7 +367,7 @@ RUR._set_max_nb_robots_ = function(n){
 
 RUR._set_trace_color_ = function(color){
   RUR.current_world.robots[0].trace_color = color;
-}
+};
 
 RUR._recording_ = function(bool) {
   if (bool) {
@@ -366,7 +375,8 @@ RUR._recording_ = function(bool) {
   } else {
     RUR.rec.do_not_record = true;
   }
-}/* Author: André Roberge
+};
+/* Author: André Roberge
    License: MIT
 
    Defining base name space and various constants.
@@ -1473,6 +1483,12 @@ RUR.make_default_menu_fr = function () {
 
 $(document).ready(function() {
     "use strict";
+
+    if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
+        alert("Reeborg's World is possibly broken by the latest version of Firefox. "+
+              "Under testing, it works with Google Chrome and Microsoft Edge. "+ 
+          "Le monde de Reeborg ne fonctionne plus avec la nouvelle version de Firefox.");
+    }
 
     try {
         RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
@@ -3888,7 +3904,7 @@ RUR.ui.reload2 = function() {
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.rec.reset();
-    restart_repl();
+    window.restart_repl();
 };
 
 RUR.ui.select_world = function (s, silent) {

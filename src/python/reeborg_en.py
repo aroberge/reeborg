@@ -17,49 +17,9 @@ try:
 except:
     pass
 
-# ==== actions
-
-
-# RUR._x_ defined in commands.js
-
-def move():
-    """Move forward, by one grid position."""
-    RUR._move_()
-
-
-def turn_left():
-    """Reeborg turns to its left."""
-    RUR._turn_left_()
-
-
-def put(obj=None):
-    """Puts down an object.  If Reeborg carries more than one type of objects,
-       the type must be specified as an argument, otherwise an exception
-       will be raised.
-    """
-    if obj is None:
-        RUR._put_()
-    else:
-        RUR._put_(obj)
-
-
-def take(obj=None):
-    """Takes an object.  If more than one type of objects is at Reeborg's location,
-       the type must be specified as an argument, otherwise an exception
-       will be raised.
-    """
-    if obj is None:
-        RUR._take_()
-    else:
-        RUR._take_(obj)
-
-
-def build_wall():
-    """Instructs Reeborg to build a wall at the location in front of itself."""
-    RUR._build_wall_()
-
-
-# ==== information about the world
+# All functions from Javascript used below should have names of the form
+# RUR._xyz_ and be defined in commands.js; functions and methods should appear
+# alphabetically in this English version.
 
 
 def at_goal():
@@ -71,46 +31,46 @@ def at_goal():
     return RUR._at_goal_()
 
 
-def front_is_clear():
-    """Indicates if an obstacle (wall, fence, water, etc.) blocks the path.
+def build_wall():
+    """Instructs Reeborg to build a wall at the location in front of itself."""
+    RUR._build_wall_()
+
+
+def carries_object(obj=None):
+    """Indicates whether Reeborg carries an object or not.
+
+    Args:
+        obj: optional parameter which is the name of an object as a string.
 
     Returns:
-       True if the path is clear (not blocked), False otherwise.
+        a list of the type of objects carried by Reeborg.
+        If Reeborg carries no object, or not the specified one,
+        the result is an empty list.
+
+    Examples:
+
+        >>> carries_object()
+        ["token", "apple"]
+        >>> carries_object("token")
+        ["token"]
+        >>> carries_object("banana")
+        []
     """
-    return RUR._front_is_clear_()
+    if obj is not None:
+        ans = RUR._carries_object_(obj)
+    else:
+        ans = RUR._carries_object_()
+    return list(ans)
 
 
-def wall_in_front():
-    """Indicates if a wall blocks the way.
-
-    Returns:
-       True if the path blocked by a wall, False otherwise.
-    """
-    return RUR._wall_in_front_()
+def clear_print():
+    """Erase all the text previously written using a call to print()."""
+    RUR.output.clear_print()
 
 
-def right_is_clear():
-    """Indicates if an obstacle (wall, fence, water, etc.) is on the
-       immediate right of Reeborg.
-
-    Returns:
-       True if an obstacle is on Reeborg's right, False otherwise.
-    """
-    return RUR._right_is_clear_()
-
-
-def wall_on_right():
-    """Indicates if an wall is on the immediate right of Reeborg.
-
-    Returns:
-       True if a wall is on Reeborg's right, False otherwise.
-    """
-    return RUR._wall_on_right_()
-
-
-def is_facing_north():
-    """Indicates if Reeborg is facing North (top of the screen) or not."""
-    return RUR._is_facing_north_()
+def dir_js(obj):
+    """Lists attributes and methods of a Javascript object."""
+    RUR.inspect(obj)  # defined in rur_utils.js
 
 
 def dir_py(obj):
@@ -128,53 +88,28 @@ def dir_py(obj):
     print("\n".join(attrs))
 
 
-def dir_js(obj):
-    """Lists attributes and methods of a Javascript object."""
-    RUR.inspect(obj)  # defined in rur_utils.js
-
-
-def view_source_js(fn):
-    """Shows the source code of a Javascript function."""
-    RUR.output.view_source(fn)  # defined in rur_utils.js
-
-
 def done():
     """Causes a program's execution to end."""
     RUR.control.done()
 
 
-def sound(bool):
-    """Activate or deactivate sound effects."""
-    RUR.control.sound(bool)
+def front_is_clear():
+    """Indicates if an obstacle (wall, fence, water, etc.) blocks the path.
 
-
-def think(ms):
-    """Set a time delay (in milliseconds) between Reeborg's actions
-       played back.
+    Returns:
+       True if the path is clear (not blocked), False otherwise.
     """
-    RUR.control.think(ms)
+    return RUR._front_is_clear_()
 
 
-def pause(ms=None):
-    """Pauses a program's execution (playback).
-
-       If an argument (time in milliseconds) is given, the execution
-       automatically resumes after this time has elapsed.
-    """
-    if ms is None:
-        RUR.control.pause()
-    else:
-        RUR.control.pause(ms)
+def is_facing_north():
+    """Indicates if Reeborg is facing North (top of the screen) or not."""
+    return RUR._is_facing_north_()
 
 
-def clear_print():
-    """Erase all the text previously written using a call to print()."""
-    RUR.output.clear_print()
-
-
-def remove_robots():
-    """Remove all robots found in the world."""
-    RUR.world.remove_robots()
+def move():
+    """Move forward, by one grid position."""
+    RUR._move_()
 
 
 def no_highlight():
@@ -189,19 +124,6 @@ def no_highlight():
        but they will not be if the program is run a second time.
     """
     RUR.ui.user_no_highlight()
-
-
-def recording(bool):
-    """Stops or starts recording changes occuring in the world.
-
-    Args:
-        bool: True if recording is desired, False otherwise.
-    """
-    RUR._recording_(bool)
-
-
-def say():
-    raise ReeborgError("say() is no longer supported; use print() instead.")
 
 
 def object_here(obj=None):
@@ -230,31 +152,51 @@ def object_here(obj=None):
     return list(ans)  # convert from JS list-like object to proper Python list
 
 
-def carries_object(obj=None):
-    """Indicates whether Reeborg carries an object or not.
+def pause(ms=None):
+    """Pauses a program's execution (playback).
+
+       If an argument (time in milliseconds) is given, the execution
+       automatically resumes after this time has elapsed.
+    """
+    if ms is None:
+        RUR.control.pause()
+    else:
+        RUR.control.pause(ms)
+
+
+def put(obj=None):
+    """Puts down an object.  If Reeborg carries more than one type of objects,
+       the type must be specified as an argument, otherwise an exception
+       will be raised.
+    """
+    if obj is None:
+        RUR._put_()
+    else:
+        RUR._put_(obj)
+
+
+def recording(bool):
+    """Stops or starts recording changes occuring in the world.
 
     Args:
-        obj: optional parameter which is the name of an object as a string.
+        bool: True if recording is desired, False otherwise.
+    """
+    RUR._recording_(bool)
+
+
+def remove_robots():
+    """Remove all robots found in the world."""
+    RUR.world.remove_robots()
+
+
+def right_is_clear():
+    """Indicates if an obstacle (wall, fence, water, etc.) is on the
+       immediate right of Reeborg.
 
     Returns:
-        a list of the type of objects carried by Reeborg.
-        If Reeborg carries no object, or not the specified one,
-        the result is an empty list.
-
-    Examples:
-
-        >>> carries_object()
-        ["token", "apple"]
-        >>> carries_object("token")
-        ["token"]
-        >>> carries_object("banana")
-        []
+       True if an obstacle is on Reeborg's right, False otherwise.
     """
-    if obj is not None:
-        ans = RUR._carries_object_(obj)
-    else:
-        ans = RUR._carries_object_()
-    return list(ans)
+    return RUR._right_is_clear_()
 
 
 def set_trace_color(color):
@@ -293,6 +235,57 @@ def set_trace_style(style="default"):
     if style not in ["thick", "default", "invisible"]:
         raise ReeborgError("Unrecognized style in set_trace_style().")
     RUR.vis_robot.set_trace_style(style)
+
+
+def sound(bool):
+    """Activate or deactivate sound effects."""
+    RUR.control.sound(bool)
+
+
+def take(obj=None):
+    """Takes an object.  If more than one type of objects is at Reeborg's location,
+       the type must be specified as an argument, otherwise an exception
+       will be raised.
+    """
+    if obj is None:
+        RUR._take_()
+    else:
+        RUR._take_(obj)
+
+
+def think(ms):
+    """Set a time delay (in milliseconds) between Reeborg's actions
+       played back.
+    """
+    RUR.control.think(ms)
+
+
+def turn_left():
+    """Reeborg turns to its left."""
+    RUR._turn_left_()
+
+
+def wall_in_front():
+    """Indicates if a wall blocks the way.
+
+    Returns:
+       True if the path blocked by a wall, False otherwise.
+    """
+    return RUR._wall_in_front_()
+
+
+def wall_on_right():
+    """Indicates if an wall is on the immediate right of Reeborg.
+
+    Returns:
+       True if a wall is on Reeborg's right, False otherwise.
+    """
+    return RUR._wall_on_right_()
+
+
+def view_source_js(fn):
+    """Shows the source code of a Javascript function."""
+    RUR.output.view_source(fn)  # defined in rur_utils.js
 
 
 def World(url, shortname=None):
@@ -619,11 +612,6 @@ def max_nb_robots(nb):
     RUR._set_max_nb_robots_(nb)
 
 
-def narration(html):
-    raise ReeborgError("narration is obsolete; use print_html().")
-    RUR.control.narration(html)
-
-
 def print_html(html, append=False):
     """Intended primarily for world creators, this function is similar to
        print() except it can make use of html input.
@@ -644,3 +632,14 @@ def MakeCustomMenu(content):
     menus.  See the documentation for more details.
     """
     RUR.custom_menu.make(content)
+
+
+# Obsolete functions below
+
+
+def narration(html):
+    raise ReeborgError("narration is obsolete; use print_html().")
+
+
+def say():
+    raise ReeborgError("say() is no longer supported; use print() instead.")
