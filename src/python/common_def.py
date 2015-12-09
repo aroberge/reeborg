@@ -157,6 +157,7 @@ def generic_translate_python(src, lib, lang_import, highlight,
                 window.jQuery("#highlight-impossible").show()
         except Exception as e:
             window.RUR.__python_error = e
+            window.console.log("problem with hightlight:", e)
             return
     if hasattr(window.RUR, "__debug"):
         window.console.log("processed source:")

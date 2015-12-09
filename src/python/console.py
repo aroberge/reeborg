@@ -65,7 +65,7 @@ def myMouseClick(event):
 def myKeyPress(event):
     if event.keyCode == 9:  # tab key
         event.preventDefault()
-        console.append(' '*4)
+        console.append(' ' * 4)
     elif event.keyCode == 13:  # return
         src = console.get_text()
         repl.set_current_line(src)
@@ -192,7 +192,7 @@ class Interpreter():
         try:
             _ = self.namespace['_'] = eval(self.current_line, self.namespace)
             if _ is not None:
-                console.append(repr(_)+'\n')
+                console.append(repr(_) + '\n')
             console.prompt()
             self.status = "main"
         except IndentationError:
