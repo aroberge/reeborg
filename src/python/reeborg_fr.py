@@ -76,9 +76,9 @@ def dir_js(obj):
 
 
 def dir_py(obj):
-    """Liste les attributs et méthodes d'un objet Python,
-       excluant ceux dont les noms débutent par deux caractères
-       de soulignement qui sont considérés comme privés.
+    """Lists attributes and methods of a Python object, excluding
+       those whose name start with a double underscore and are
+       considered to be private.
     """
     attrs = []
     for attr in dir(obj):
@@ -87,7 +87,8 @@ def dir_py(obj):
         if callable(getattr(obj, attr)):
             attr += "()"
         attrs.append(attr)
-    print("\n".join(attrs))
+    print_html(str("\n".join(attrs)).replace("&", "&amp").replace("<", "&lt;"
+                  ).replace(">", "&gt;").replace("\n", "<br>"))
 
 
 def termine():

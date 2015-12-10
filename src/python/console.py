@@ -138,6 +138,8 @@ class Interpreter():
         elif lang == 'fr':
             exec("from reeborg_fr import *", self.namespace)
             self.namespace["termine"] = self.done
+        self.namespace["Help"] = window["Help"]
+        exec("__BRYTHON__.builtins.help = Help", self.namespace)
         self.run_pre()
 
     def run_pre(self):

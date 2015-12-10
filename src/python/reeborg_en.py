@@ -85,7 +85,8 @@ def dir_py(obj):
         if callable(getattr(obj, attr)):
             attr += "()"
         attrs.append(attr)
-    print("\n".join(attrs))
+    print_html(str("\n".join(attrs)).replace("&", "&amp").replace("<", "&lt;"
+                  ).replace(">", "&gt;").replace("\n", "<br>"))
 
 
 def done():

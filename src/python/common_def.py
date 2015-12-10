@@ -74,12 +74,24 @@ def __watch(default, loc={}, gl={}):
     previous_watch_values = current_watch_values
 
 
+def default_help():
+    '''list available commands'''
+    lang = window.document.documentElement.lang
+    exclude = ["toString", "window", "RUR", "say", "face_au_nord", "narration"]
+    if lang == 'en':
+        import reeborg_en
+        dir_py(reeborg_en, exclude=exclude)
+    elif lang == 'fr':
+        import reeborg_fr
+        dir_py(reeborg_fr, exclude=exclude)
+
+
 def Help(obj=None):
     '''Usage: help(obj)'''   # yes: lowercase!!!
-    if obj is None:
-        print(Help.__doc__)
-        return
     out = []
+    if obj is None:
+        default_help()
+        return
     try:
         out.append("<h2>{}</h2>".format(obj.__name__))
         if hasattr(obj, "__doc__"):
@@ -102,14 +114,18 @@ def Help(obj=None):
         raise AttributeError("This object has no docstring.")
     else:
         window.print_html("".join(out))
+window["Help"] = Help
 
 
-def dir_py(obj):
+def dir_py(obj, exclude=None):
     '''Prints all "public" attributes of an object, one per line, identifying
        which ones are callable by appending parentheses to their name.'''
     out = []
     for attr in dir(obj):
         try:
+            if exclude:
+                if attr in exclude:
+                    continue
             if not attr.startswith("__"):
                 if callable(getattr(obj, attr)):
                     out.append(attr + "()")
@@ -117,7 +133,7 @@ def dir_py(obj):
                     out.append(attr)
         except AttributeError:  # javascript extension, as in supplant()
             pass              # string prototype extension, can cause problems
-    print("\n".join(out))
+    window["print_html"](html_escape("\n".join(out)).replace("\n", "<br>"))
 
 
 def generic_translate_python(src, lib, lang_import, highlight,
