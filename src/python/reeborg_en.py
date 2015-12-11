@@ -65,12 +65,12 @@ def carries_object(obj=None):
 
 def clear_print():
     """Erase all the text previously written using a call to print()."""
-    RUR.output.clear_print()
+    RUR._clear_print_()
 
 
 def dir_js(obj):
     """Lists attributes and methods of a Javascript object."""
-    RUR.inspect(obj)  # defined in rur_utils.js
+    RUR._inspect_(obj)
 
 
 def dir_py(obj):
@@ -91,7 +91,7 @@ def dir_py(obj):
 
 def done():
     """Causes a program's execution to end."""
-    RUR.control.done()
+    RUR._done_()
 
 
 def front_is_clear():
@@ -124,7 +124,7 @@ def no_highlight():
        using this function, the extra instructions are still present,
        but they will not be if the program is run a second time.
     """
-    RUR.ui.user_no_highlight()
+    RUR._no_highlight_()
 
 
 def object_here(obj=None):
@@ -160,9 +160,9 @@ def pause(ms=None):
        automatically resumes after this time has elapsed.
     """
     if ms is None:
-        RUR.control.pause()
+        RUR._pause_()
     else:
-        RUR.control.pause(ms)
+        RUR._pause_(ms)
 
 
 def put(obj=None):
@@ -187,7 +187,7 @@ def recording(bool):
 
 def remove_robots():
     """Remove all robots found in the world."""
-    RUR.world.remove_robots()
+    RUR._remove_robots_()
 
 
 def right_is_clear():
@@ -235,12 +235,12 @@ def set_trace_style(style="default"):
     """
     if style not in ["thick", "default", "invisible"]:
         raise ReeborgError("Unrecognized style in set_trace_style().")
-    RUR.vis_robot.set_trace_style(style)
+    RUR._set_trace_style_(style)
 
 
 def sound(bool):
     """Activate or deactivate sound effects."""
-    RUR.control.sound(bool)
+    RUR._sound_(bool)
 
 
 def take(obj=None):
@@ -258,12 +258,17 @@ def think(ms):
     """Set a time delay (in milliseconds) between Reeborg's actions
        played back.
     """
-    RUR.control.think(ms)
+    RUR._think_(ms)
 
 
 def turn_left():
     """Reeborg turns to its left."""
     RUR._turn_left_()
+
+
+def view_source_js(fn):
+    """Shows the source code of a Javascript function."""
+    RUR._view_source_js_(fn)
 
 
 def wall_in_front():
@@ -282,11 +287,6 @@ def wall_on_right():
        True if a wall is on Reeborg's right, False otherwise.
     """
     return RUR._wall_on_right_()
-
-
-def view_source_js(fn):
-    """Shows the source code of a Javascript function."""
-    RUR.output.view_source(fn)  # defined in rur_utils.js
 
 
 def World(url, shortname=None):

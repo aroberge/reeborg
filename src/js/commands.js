@@ -29,8 +29,16 @@ RUR._build_wall_ = function() {
     RUR.control.build_wall(RUR.current_world.robots[0]);
 };
 
+RUR._clear_print_ = function() {
+    RUR.output.clear_print();
+};
+
 RUR._carries_object_ = function (arg) {
     return RUR.control.carries_object(RUR.current_world.robots[0], arg);
+};
+
+RUR._done_ = function () {
+    RUR.control.done();
 };
 
 RUR._front_is_clear_ = function() {
@@ -42,16 +50,32 @@ RUR._is_facing_north_ = function () {
     return RUR.control.is_facing_north(RUR.current_world.robots[0]);
 };
 
+RUR._inspect_ = function (obj) {
+    RUR.inspect(obj);
+};
+
 RUR._move_ = function () {
     RUR.control.move(RUR.current_world.robots[0]);
+};
+
+RUR._no_highlight_ = function () {
+    RUR.ui.user_no_highlight();
 };
 
 RUR._object_here_ = function (arg) {
     return RUR.control.object_here(RUR.current_world.robots[0], arg);
 };
 
+RUR._pause_ = function (ms) {
+    RUR.control.pause(ms);
+};
+
 RUR._put_ = function(arg) {
     RUR.control.put(RUR.current_world.robots[0], arg);
+};
+
+RUR._remove_robots = function () {
+    RUR.world.remove_robots();
 };
 
 RUR._right_is_clear_ = function() {
@@ -70,12 +94,28 @@ RUR._set_trace_color_ = function(color){
     RUR.current_world.robots[0].trace_color = color;
 };
 
+RUR._set_trace_style_ = function(style){
+    RUR.vis_robot.set_trace_style(style);
+};
+
+RUR._sound_ = function (bool) {
+    RUR.control.sound(bool);
+};
+
 RUR._take_ = function(arg) {
     RUR.control.take(RUR.current_world.robots[0], arg);
 };
 
+RUR._think_ = function (ms) {
+    RUR.control.think(ms);
+};
+
 RUR._turn_left_ = function () {
     RUR.control.turn_left(RUR.current_world.robots[0]);
+};
+
+RUR._view_source_js_ = function (obj) {
+    RUR.output.view_source(obj);
 };
 
 RUR._wall_in_front_ = function() {

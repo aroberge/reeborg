@@ -67,12 +67,12 @@ def transporte(obj=None):
 
 def efface_print():
     """Efface le texte précédemment écrit avec des fonctions print()."""
-    RUR.output.clear_print()
+    RUR._clear_print_()
 
 
 def dir_js(obj):
     """Liste les attributs et méthodes d'un objet Javascript."""
-    RUR.inspect(obj)  # defined in rur_utils.js
+    RUR._inspect_(obj)
 
 
 def dir_py(obj):
@@ -93,7 +93,7 @@ def dir_py(obj):
 
 def termine():
     """Termine l'exécution d'un programme."""
-    RUR.control.done()
+    RUR._done_()
 
 
 def rien_devant():
@@ -120,7 +120,7 @@ def pas_de_surlignement():
        Pour véritablement éliminer tout effet lié au surlignement de
        lignes de code, il peut être nécessaire d'exécuter un programme
        à deux reprises."""
-    RUR.ui.user_no_highlight()
+    RUR._no_highlight_()
 
 
 def objet_ici(obj=None):
@@ -158,9 +158,9 @@ def pause(ms=None):
        redémarre automatiquement après que ce temps ait été écoulé.
     """
     if ms is None:
-        RUR.control.pause()
+        RUR._pause_()
     else:
-        RUR.control.pause(ms)
+        RUR._pause_(ms)
 
 
 def depose(obj=None):
@@ -183,7 +183,7 @@ def enregistrement(bool):
 
 def plus_de_robots():
     """Élimine tous les robots existants"""
-    RUR.world.remove_robots()
+    RUR._remove_robots_()
 
 
 def rien_a_droite():
@@ -238,12 +238,12 @@ def style_de_trace(style="normal"):
         style = "default"
     else:
         raise ReeborgError("Valeur de style inconnue pour style_de_trace().")
-    RUR.vis_robot.set_trace_style(style)
+    RUR._set_trace_style_(style)
 
 
 def son(bool):
     """Active ou désactive les effets sonores."""
-    RUR.control.sound(bool)
+    RUR._sound_(bool)
 
 
 def prend(obj=None):
@@ -258,12 +258,17 @@ def prend(obj=None):
 
 def pense(ms):
     """Fixe un délai entre les actions de Reeborg à l'écran."""
-    RUR.control.think(ms)
+    RUR._think_(ms)
 
 
 def tourne_a_gauche():
     """Reeborg tourne à sa gauche."""
     RUR._turn_left_()
+
+
+def voir_source_js(fn):
+    """Affiche le code source d'une fonction Javascript."""
+    RUR._view_source_js_(fn)
 
 
 def mur_devant():
@@ -280,11 +285,6 @@ def mur_a_droite():
     Returns:
        True si un mur est à la droite, False autrement."""
     return RUR._wall_on_right_()
-
-
-def voir_source_js(fn):
-    """Affiche le code source d'une fonction Javascript."""
-    RUR.output.view_source(fn)  # defined in rur_utils.js
 
 
 def Monde(url, nom=None):
