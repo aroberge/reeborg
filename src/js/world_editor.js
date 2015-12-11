@@ -291,7 +291,7 @@ function toggle_editing_mode () {
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
         }
-        $("#editor-link").trigger('click');
+        $("#editor-tab").trigger('click');
     } else {
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;

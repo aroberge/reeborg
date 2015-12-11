@@ -120,7 +120,7 @@ RUR.reset_programming_language = function(choice){
     $("#python-additional-menu p button").attr("disabled", "true");
     $("#coffeescript-additional-menu p button").attr("disabled", "true");
     $("#javascript-additional-menu p button").attr("disabled", "true");
-    $("#library-link").parent().hide();
+    $("#library-tab").parent().hide();
     $("#highlight").hide();
 
     $("#pre-code-link").parent().hide();
@@ -132,20 +132,20 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.editor = "editor_py_" + human_language;
             RUR.settings.library = "library_py_" + human_language;
             RUR.programming_language = "python";
-            $("#editor-link").html(RUR.translate("Python Code"));
+            $("#editor-tab").html(RUR.translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
             pre_code_editor.setOption("mode", {name: "python", version: 3});
             post_code_editor.setOption("mode", {name: "python", version: 3});
             library.setOption("mode", {name: "python", version: 3});
             // show language specific
-            $("#library-link").parent().show();
+            $("#library-tab").parent().show();
             $("#python-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("python");
             break;
         case 'javascript-' + human_language :
             RUR.settings.editor = "editor_js_" + human_language;
             RUR.programming_language = "javascript";
-            $("#editor-link").html(RUR.translate("Javascript Code"));
+            $("#editor-tab").html(RUR.translate("Javascript Code"));
             editor.setOption("mode", "javascript");
             pre_code_editor.setOption("mode", "javascript");
             post_code_editor.setOption("mode", "javascript");
@@ -156,7 +156,7 @@ RUR.reset_programming_language = function(choice){
         case 'coffeescript-' + human_language :
             RUR.settings.editor = "editor_coffee_" + human_language;
             RUR.programming_language = "coffee";
-            $("#editor-link").html(RUR.translate("CoffeeScript Code"));
+            $("#editor-tab").html(RUR.translate("CoffeeScript Code"));
             editor.setOption("mode", "coffeescript");
             pre_code_editor.setOption("mode", "coffeescript");
             post_code_editor.setOption("mode", "coffeescript");
@@ -165,7 +165,7 @@ RUR.reset_programming_language = function(choice){
             RUR.kbd.set_programming_language("coffeescript");
             break;
     }
-    $("#editor-link").click();
+    $("#editor-tab").click();
     try {
         RUR.reset_code_in_editors();
     } catch (e) {}
@@ -1767,7 +1767,7 @@ $(document).ready(function() {
          RUR.ui.toggle_panel($("#world-panel-button"), $("#world-panel"));
      });
 
-     $("#editor-link").on("click", function(evt){
+     $("#editor-tab").on("click", function(evt){
          if (RUR.programming_language == "python" && !RUR.we.editing_world){
              $("#highlight").show();
              $("#watch_variables_btn").show();
@@ -1777,7 +1777,7 @@ $(document).ready(function() {
          }
      });
 
-     $("#library-link").on("click", function(evt){
+     $("#library-tab").on("click", function(evt){
          $("#highlight").hide();
          $("#watch_variables_btn").hide();
      });
@@ -5389,7 +5389,7 @@ function toggle_editing_mode () {
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
         }
-        $("#editor-link").trigger('click');
+        $("#editor-tab").trigger('click');
     } else {
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;

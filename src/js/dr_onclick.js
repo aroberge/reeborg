@@ -11,7 +11,7 @@
          RUR.ui.toggle_panel($("#world-panel-button"), $("#world-panel"));
      });
 
-     $("#editor-link").on("click", function(evt){
+     $("#editor-tab").on("click", function(evt){
          if (RUR.programming_language == "python" && !RUR.we.editing_world){
              $("#highlight").show();
              $("#watch_variables_btn").show();
@@ -21,7 +21,7 @@
          }
      });
 
-     $("#library-link").on("click", function(evt){
+     $("#library-tab").on("click", function(evt){
          $("#highlight").hide();
          $("#watch_variables_btn").hide();
      });
