@@ -349,7 +349,7 @@ RUR.tiles.water.choose_image = function () {
         case 5: return RUR.tiles.water.image5;
         case 6: return RUR.tiles.water.image6;
     }
-}
+};
 RUR.tiles.water.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();

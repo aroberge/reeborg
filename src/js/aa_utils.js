@@ -6,7 +6,8 @@
 
 // aa_utils.js : name starting with aa so that it is loaded first :-/
 
-var RUR = RUR || {};
+var RUR = RUR || {};  // jshint ignore:line
+
 RUR._active_console = false;
 RUR.ReeborgError = function (message) {
     if (RUR.programming_language == "python"){
@@ -190,7 +191,7 @@ RUR.update_permalink = function (arg, shortname) {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        if (shortname != undefined) {
+        if (shortname !== undefined) {
             RUR.storage.save_world(shortname);
         } else {
             RUR.storage.save_world(RUR.translate("PERMALINK"));

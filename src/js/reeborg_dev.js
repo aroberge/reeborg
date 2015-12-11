@@ -6,7 +6,8 @@
 
 // aa_utils.js : name starting with aa so that it is loaded first :-/
 
-var RUR = RUR || {};
+var RUR = RUR || {};  // jshint ignore:line
+
 RUR._active_console = false;
 RUR.ReeborgError = function (message) {
     if (RUR.programming_language == "python"){
@@ -190,7 +191,7 @@ RUR.update_permalink = function (arg, shortname) {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        if (shortname != undefined) {
+        if (shortname !== undefined) {
             RUR.storage.save_world(shortname);
         } else {
             RUR.storage.save_world(RUR.translate("PERMALINK"));
@@ -283,7 +284,7 @@ RUR.set_lineno_highlight = function(lineno, frame) {
 
 The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
-the other modules.  This way, in theory, refactoring can take place in the
+the other modules.  This way, in theory, (most) refactoring can take place in the
 basic javascript code without affecting the end user code.
 
 The one allowed exception is for human language specific functions
@@ -292,6 +293,8 @@ in other languages, such as Python; these functions should be defined in
 reeborg_xx.js where xx is the human language two-letter code.
 
 Convention: all function names follow the pattern RUR._xyz_
+            Use four spaces for indentation
+            Order function names alphabetically (in English)
  */
 
 /*jshint devel:true, white:false, plusplus:false */
@@ -307,74 +310,110 @@ RUR._build_wall_ = function() {
     RUR.control.build_wall(RUR.current_world.robots[0]);
 };
 
-RUR._front_is_clear_ = function() {
-  return RUR.control.front_is_clear(RUR.current_world.robots[0]);
-};
-
-RUR._wall_in_front_ = function() {
-  return RUR.control.wall_in_front(RUR.current_world.robots[0]);
-};
-
-RUR._is_facing_north_ = function () {
-    return RUR.control.is_facing_north(RUR.current_world.robots[0]);
-};
-
-RUR._move_ = function () {
-    RUR.control.move(RUR.current_world.robots[0]);
-};
-
-RUR._put_ = function(arg) {
-    RUR.control.put(RUR.current_world.robots[0], arg);
-};
-
-RUR._right_is_clear_ = function() {
-  return RUR.control.right_is_clear(RUR.current_world.robots[0]);
-};
-
-RUR._wall_on_right_ = function() {
-  return RUR.control.wall_on_right(RUR.current_world.robots[0]);
-};
-
-RUR._object_here_ = function (arg) {
-    return RUR.control.object_here(RUR.current_world.robots[0], arg);
+RUR._clear_print_ = function() {
+    RUR.output.clear_print();
 };
 
 RUR._carries_object_ = function (arg) {
     return RUR.control.carries_object(RUR.current_world.robots[0], arg);
 };
 
-RUR._take_ = function(arg) {
-    RUR.control.take(RUR.current_world.robots[0], arg);
+RUR._done_ = function () {
+    RUR.control.done();
 };
 
-RUR._turn_left_ = function () {
-    RUR.control.turn_left(RUR.current_world.robots[0]);
+RUR._front_is_clear_ = function() {
+  return RUR.control.front_is_clear(RUR.current_world.robots[0]);
 };
 
-RUR._repeat_ = function (f, n) {
-  for (var i=0; i < n; i++){
-      f();
-  }
+
+RUR._is_facing_north_ = function () {
+    return RUR.control.is_facing_north(RUR.current_world.robots[0]);
+};
+
+RUR._inspect_ = function (obj) {
+    RUR.inspect(obj);
+};
+
+RUR._move_ = function () {
+    RUR.control.move(RUR.current_world.robots[0]);
+};
+
+RUR._no_highlight_ = function () {
+    RUR.ui.user_no_highlight();
+};
+
+RUR._object_here_ = function (arg) {
+    return RUR.control.object_here(RUR.current_world.robots[0], arg);
+};
+
+RUR._pause_ = function (ms) {
+    RUR.control.pause(ms);
+};
+
+RUR._put_ = function(arg) {
+    RUR.control.put(RUR.current_world.robots[0], arg);
+};
+
+RUR._remove_robots = function () {
+    RUR.world.remove_robots();
+};
+
+RUR._right_is_clear_ = function() {
+    return RUR.control.right_is_clear(RUR.current_world.robots[0]);
+};
+
+RUR._set_max_nb_robots_ = function(n){
+    RUR.control.set_max_nb_robots(n);
 };
 
 RUR._set_max_steps_ = function(n){
     RUR.MAX_STEPS = n;
 };
 
-RUR._set_max_nb_robots_ = function(n){
-  RUR.control.set_max_nb_robots(n);
+RUR._set_trace_color_ = function(color){
+    RUR.current_world.robots[0].trace_color = color;
 };
 
-RUR._set_trace_color_ = function(color){
-  RUR.current_world.robots[0].trace_color = color;
+RUR._set_trace_style_ = function(style){
+    RUR.vis_robot.set_trace_style(style);
+};
+
+RUR._sound_ = function (bool) {
+    RUR.control.sound(bool);
+};
+
+RUR._take_ = function(arg) {
+    RUR.control.take(RUR.current_world.robots[0], arg);
+};
+
+RUR._think_ = function (ms) {
+    RUR.control.think(ms);
+};
+
+RUR._turn_left_ = function () {
+    RUR.control.turn_left(RUR.current_world.robots[0]);
+};
+
+RUR._view_source_js_ = function (obj) {
+    RUR.output.view_source(obj);
+};
+
+RUR._wall_in_front_ = function() {
+    return RUR.control.wall_in_front(RUR.current_world.robots[0]);
+};
+
+
+RUR._wall_on_right_ = function() {
+    return RUR.control.wall_on_right(RUR.current_world.robots[0]);
 };
 
 RUR._recording_ = function(bool) {
-  if (bool) {
-    RUR.rec.do_not_record = false;
-  } else {
-    RUR.rec.do_not_record = true;
-  }
+    if (bool) {
+        RUR.rec.do_not_record = false;
+    } else {
+        RUR.rec.do_not_record = true;
+    }
 };
 /* Author: André Roberge
    License: MIT
@@ -1486,7 +1525,7 @@ $(document).ready(function() {
 
     if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
         alert("Reeborg's World is possibly broken by the latest version of Firefox. "+
-              "Under testing, it works with Google Chrome and Microsoft Edge. "+ 
+              "Under testing, it works with Google Chrome and Microsoft Edge. "+
           "Le monde de Reeborg ne fonctionne plus avec la nouvelle version de Firefox.");
     }
 
@@ -1539,9 +1578,7 @@ $(document).ready(function() {
     create_and_activate_dialog($("#special-keyboard-button"), $("#special-keyboard"),
             {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
 
-    $("#world-panel-button").on("click", function (evt) {
-        RUR.ui.toggle_panel($("#world-panel-button"), $("#world-panel"))
-    });
+
 
     $("#editor-panel-button").on("click", function (evt) {
         if ($("#editor-panel-button").hasClass("reverse-blue-gradient")) {
@@ -1569,50 +1606,8 @@ $(document).ready(function() {
     });
     RUR.ui.show_only_reload2(false);
 
-    $("#editor-link").on("click", function(evt){
-        if (RUR.programming_language == "python" && !RUR.we.editing_world){
-            $("#highlight").show();
-            $("#watch_variables_btn").show();
-        } else {
-            $("#highlight").hide();
-            $("#watch_variables_btn").hide();
-        }
-    });
 
-    $("#library-link").on("click", function(evt){
-        $("#highlight").hide();
-        $("#watch_variables_btn").hide();
-    });
-
-    $("#save-editor").on("click", function(evt) {
-        var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, "filename");  // saveAs defined in src/libraries/filesaver.js
-    });
-
-    $("#save-library").on("click", function(evt) {
-        var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, "filename");
-    });
-
-    $("#save-permalink").on("click", function(evt) {
-        var blob = new Blob([RUR._create_permalink()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, "filename");
-    });
-
-    $("#save-world").on("click", function(evt) {
-        var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
-        saveAs(blob, "filename");
-    });
-
-
-    $("#load-editor").on("click", function(evt) {
-        load_file(editor);
-    });
-
-    $("#load-library").on("click", function(evt) {
-        load_file(library);
-    });
-
+    RUR.dr_onclick();
 
     $("#tabs").tabs({
             heightStyle: "auto",
@@ -1667,35 +1662,6 @@ $(document).ready(function() {
             };
             reader.readAsText(file);
         });
-    });
-
-    $("#memorize-world").on("click", function(evt) {
-        RUR.storage.memorize_world();
-    });
-
-    $("#classic-image").on("click", function(evt) {
-        RUR.vis_robot.select_default_model(0);
-    });
-
-    $("#rover-type").on("click", function(evt) {
-        RUR.vis_robot.select_default_model(1);
-    });
-
-    $("#3d-red-type").on("click", function(evt) {
-        RUR.vis_robot.select_default_model(2);
-    });
-
-    $("#solar-panel-type").on("click", function(evt) {
-        RUR.vis_robot.select_default_model(3);
-    });
-
-    $("#robot_canvas").on("click", function (evt) {
-        RUR.we.mouse_x = evt.pageX;
-        RUR.we.mouse_y = evt.pageY;
-        if (RUR.we.editing_world) {
-            RUR.we.edit_world();
-        }
-        RUR.we.show_world_info();
     });
 
 
@@ -1788,6 +1754,95 @@ $(document).ready(function() {
 
     RUR.we.set_extra_code();
 });
+/* Author: André Roberge
+   License: MIT
+ */
+
+
+// called by doc_ready.js
+
+ RUR.dr_onclick = function () {
+
+     $("#world-panel-button").on("click", function (evt) {
+         RUR.ui.toggle_panel($("#world-panel-button"), $("#world-panel"));
+     });
+
+     $("#editor-link").on("click", function(evt){
+         if (RUR.programming_language == "python" && !RUR.we.editing_world){
+             $("#highlight").show();
+             $("#watch_variables_btn").show();
+         } else {
+             $("#highlight").hide();
+             $("#watch_variables_btn").hide();
+         }
+     });
+
+     $("#library-link").on("click", function(evt){
+         $("#highlight").hide();
+         $("#watch_variables_btn").hide();
+     });
+
+
+     $("#save-editor").on("click", function(evt) {
+         var blob = new Blob([editor.getValue()], {type: "text/javascript;charset=utf-8"});
+         saveAs(blob, "filename");  // saveAs defined in src/libraries/filesaver.js
+     });
+
+     $("#save-library").on("click", function(evt) {
+         var blob = new Blob([library.getValue()], {type: "text/javascript;charset=utf-8"});
+         saveAs(blob, "filename");
+     });
+
+     $("#save-permalink").on("click", function(evt) {
+         var blob = new Blob([RUR._create_permalink()], {type: "text/javascript;charset=utf-8"});
+         saveAs(blob, "filename");
+     });
+
+     $("#save-world").on("click", function(evt) {
+         var blob = new Blob([RUR.world.export_world()], {type: "text/javascript;charset=utf-8"});
+         saveAs(blob, "filename");
+     });
+
+
+     $("#load-editor").on("click", function(evt) {
+         load_file(editor);
+     });
+
+
+     $("#load-library").on("click", function(evt) {
+         load_file(library);
+     });
+
+     $("#memorize-world").on("click", function(evt) {
+         RUR.storage.memorize_world();
+     });
+
+     $("#classic-image").on("click", function(evt) {
+         RUR.vis_robot.select_default_model(0);
+     });
+
+     $("#rover-type").on("click", function(evt) {
+         RUR.vis_robot.select_default_model(1);
+     });
+
+     $("#3d-red-type").on("click", function(evt) {
+         RUR.vis_robot.select_default_model(2);
+     });
+
+     $("#solar-panel-type").on("click", function(evt) {
+         RUR.vis_robot.select_default_model(3);
+     });
+
+     $("#robot_canvas").on("click", function (evt) {
+         RUR.we.mouse_x = evt.pageX;
+         RUR.we.mouse_y = evt.pageY;
+         if (RUR.we.editing_world) {
+             RUR.we.edit_world();
+         }
+         RUR.we.show_world_info();
+     });
+
+ };
 /* Author: André Roberge
    License: MIT
  */
@@ -2259,7 +2314,7 @@ RUR.tiles.water.choose_image = function () {
         case 5: return RUR.tiles.water.image5;
         case 6: return RUR.tiles.water.image6;
     }
-}
+};
 RUR.tiles.water.image.onload = function () {
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.draw_all();
@@ -3904,7 +3959,7 @@ RUR.ui.reload2 = function() {
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.rec.reset();
-    window.restart_repl();
+    restart_repl();
 };
 
 RUR.ui.select_world = function (s, silent) {
