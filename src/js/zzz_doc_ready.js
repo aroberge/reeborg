@@ -1,6 +1,3 @@
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, toggle_contents_button, update_controls, saveAs, toggle_editing_mode,
@@ -17,83 +14,17 @@ $(document).ready(function() {
 
     try {
         RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
-        //RUR.ui.select_world(localStorage.getItem(RUR.settings.world), true);
     } catch (e) {
         RUR.world_select.set_default();
     }
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
-    function create_and_activate_dialog(button, element, add_options, special_fn) {
-        var options = {
-        minimize: true,
-        maximize: false,
-        autoOpen: false,
-        width: 800,
-        height: 600,
-        position: {my: "center", at: "center", of: window},
-        beforeClose: function( event, ui ) {
-                button.addClass("blue-gradient").removeClass("reverse-blue-gradient");
-                if (special_fn !== undefined){
-                    special_fn();
-                }
-            }
-        };
-        for (var attrname in add_options) {
-            options[attrname] = add_options[attrname];
-        }
 
-        button.on("click", function(evt) {
-            element.dialog(options);
-            button.toggleClass("blue-gradient");
-            button.toggleClass("reverse-blue-gradient");
-            if (button.hasClass("reverse-blue-gradient")) {
-                element.dialog("open");
-            } else {
-                element.dialog("close");
-            }
-            if (special_fn !== undefined && element.dialog("isOpen")){
-                special_fn();
-            }
-        });
-    }
+    RUR.zz_dr_dialogs();
+    RUR.zz_dr_onclick();
+    RUR.zz_dr_onchange();
 
-    create_and_activate_dialog($("#edit-world"), $("#edit-world-panel"), {}, toggle_editing_mode);
-    create_and_activate_dialog($("#about-button"), $("#about-div"), {});
-    create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
-    create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600}, RUR.we.show_world_info);
-    create_and_activate_dialog($("#special-keyboard-button"), $("#special-keyboard"),
-            {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
-
-
-
-    $("#editor-panel-button").on("click", function (evt) {
-        if ($("#editor-panel-button").hasClass("reverse-blue-gradient")) {
-            $("#py_console").show();
-            $("#kbd_python_btn").hide();
-            $("#kbd_py_console_btn").show();
-            RUR.ui.show_only_reload2(true);
-            window.restart_repl();
-            RUR._saved_highlight_value = RUR._highlight;
-            RUR._highlight = false;
-            RUR._immediate_playback = true;
-            RUR._active_console = true;
-        } else {
-            $("#py_console").hide();
-            $("#kbd_python_btn").show();
-            $("#kbd_py_console_btn").hide();
-            RUR.ui.show_only_reload2(false);
-            RUR._highlight = RUR._saved_highlight_value;
-            RUR._immediate_playback = false;
-            RUR.ui.reload();
-            RUR._active_console = false;
-        }
-        RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
-        RUR.kbd.select();
-    });
     RUR.ui.show_only_reload2(false);
-
-
-    RUR.dr_onclick();
 
     $("#tabs").tabs({
             heightStyle: "auto",
@@ -117,68 +48,16 @@ $(document).ready(function() {
     }).draggable({cursor: "move", handle: "ul"});
 
 
-    var load_file = function(obj) {
-        $("#fileInput").click();
-        var fileInput = document.getElementById('fileInput');
-        fileInput.addEventListener('change', function(e) {
-            var file = fileInput.files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                obj.setValue(reader.result);
-                fileInput.value = '';
-            };
-            reader.readAsText(file);
-        });
-    };
-
-
-    $("#load-world").on("click", function(evt) {
-        $("#fileInput").click();
-        var fileInput = document.getElementById('fileInput');
-        fileInput.addEventListener('change', function(e) {
-            var file = fileInput.files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    RUR.world.import_world(reader.result);
-                } catch (e) {
-                    alert(RUR.translate("Invalid world file."));
-                }
-                fileInput.value = '';
-            };
-            reader.readAsText(file);
-        });
-    });
-
-
-    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
-                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert",
-                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
-                                    position:{my: "bottom", at: "bottom-20", of: window}});
-    $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
-                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "proclaims",
-                                    position:{my: "bottom", at: "bottom-80", of: window}});
-    $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
-                                    position:{my: "bottom", at: "bottom-140", of: window}});
-
-    $("#select_world").change(function() {
-        try {
-            localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
-        } catch (e) {}
-        if ($(this).val() !== null) {
-            RUR.file_io.load_world_file($(this).val());
-        }
-    });
-
-
     try {
         RUR.reset_code_in_editors();
     } catch (e){
         console.log(e);
         alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
+    }
+    // for embedding in iframe
+    addEventListener("message", receiveMessage, false);
+    function receiveMessage(event){
+        RUR.update_permalink(event.data);
     }
 
     RUR.ui.set_ready_to_run();
@@ -194,9 +73,7 @@ $(document).ready(function() {
 
     RUR.make_default_menu(human_language);
 
-    $('input[type=radio][name=programming_language]').on('change', function(){
-        RUR.reset_programming_language($(this).val());
-    });
+
     url_query = parseUri(window.location.href);
     if (url_query.queryKey.proglang !== undefined &&
        url_query.queryKey.world !== undefined &&
@@ -231,12 +108,6 @@ $(document).ready(function() {
         var new_css = decodeURIComponent(url_query.queryKey.css);
         eval(new_css);  // jshint ignore:line
     }
-    // for embedding in iframe
-    addEventListener("message", receiveMessage, false);
-    function receiveMessage(event){
-        RUR.update_permalink(event.data);
-    }
-
 
     RUR.we.set_extra_code();
 });
