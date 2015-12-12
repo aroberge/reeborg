@@ -321,10 +321,10 @@ RUR.we.set_extra_code = function () {
     } catch(e) {
         description_editor.setValue("<!-- description -->");
     }
-    if (RUR.current_world.editor != undefined) {
+    if (RUR.current_world.editor !== undefined) {
         editor.setValue(RUR.current_world.editor);
     }
-    if (RUR.current_world.library != undefined) {
+    if (RUR.current_world.library !== undefined) {
         library.setValue(RUR.current_world.library);
     }
 };
@@ -386,7 +386,7 @@ RUR.we.show_world_info = function (no_grid) {
     "use strict";
     // shows the information about a given grid position
     // when the user clicks on the canvas at that grid position.
-    // enabled in doc_ready.js
+    // enabled in zz_dr_onclick.js
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
     var topic, no_object, r, robot, robots;
     var tiles, tilename, fence_noted = false;
@@ -434,7 +434,7 @@ RUR.we.show_world_info = function (no_grid) {
                         information += "<br>" + tile.info;
                     }
                 } else {
-                    information +=  "<br>" + tile.info;;
+                    information +=  "<br>" + tile.info;
                 }
             }
         }
@@ -625,8 +625,8 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
     if (nb === "inf"){
         robot.objects[obj] = "infinite";
     } else if (RUR.filterInt(nb) >= 0) {
-        nb = RUR.filterInt(nb)
-        if (nb != 0) {
+        nb = RUR.filterInt(nb);
+        if (nb !== 0) {
             robot.objects[obj] = nb;
         } else if (robot.objects[obj] !== undefined) {
             delete robot.objects[obj];
@@ -813,7 +813,7 @@ RUR.we._add_decorative_object = function (specific_object){
     RUR.we.ensure_key_exist(RUR.current_world, "decorative_objects");
     RUR.we.ensure_key_exist(RUR.current_world.decorative_objects, coords);
 
-    if (RUR.current_world.decorative_objects[coords][specific_object] != undefined) {
+    if (RUR.current_world.decorative_objects[coords][specific_object] !== undefined) {
         delete RUR.current_world.decorative_objects[coords];
     } else {
         RUR.current_world.decorative_objects[coords] = {};
@@ -1034,7 +1034,7 @@ RUR.we.add_top_tile = function (specific_object, x, y, nb){
 RUR.we.remove_all = function () {
     RUR.current_world.robots = [];
     RUR.we._trim_world(0,0, RUR.COLS, RUR.ROWS);
-}
+};
 
 RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
     var x, y, coords;
@@ -1055,7 +1055,7 @@ RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
         if (RUR.current_world.goal.possible_positions !== undefined) {
             delete RUR.current_world.goal.possible_positions;
             delete RUR.current_world.goal.position;
-            alert(RUR.translate("WARNING: deleted final positions choices while resizing world!"))
+            alert(RUR.translate("WARNING: deleted final positions choices while resizing world!"));
         }
     }
 };
@@ -1063,37 +1063,37 @@ RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
 RUR.we._remove_all_at_location = function(coords) {
     // trading efficiency for clarity
     if (RUR.current_world.tiles !== undefined) {
-        if (RUR.current_world.tiles[coords] != undefined){
+        if (RUR.current_world.tiles[coords] !== undefined){
             delete RUR.current_world.tiles[coords];
         }
     }
     if (RUR.current_world.top_tiles !== undefined) {
-        if (RUR.current_world.top_tiles[coords] != undefined){
+        if (RUR.current_world.top_tiles[coords] !== undefined){
             delete RUR.current_world.top_tiles[coords];
         }
     }
     if (RUR.current_world.objects !== undefined) {
-        if (RUR.current_world.objects[coords] != undefined){
+        if (RUR.current_world.objects[coords] !== undefined){
             delete RUR.current_world.objects[coords];
         }
     }
     if (RUR.current_world.walls !== undefined) {
-        if (RUR.current_world.walls[coords] != undefined){
+        if (RUR.current_world.walls[coords] !== undefined){
             delete RUR.current_world.walls[coords];
         }
     }
     if (RUR.current_world.goal !== undefined) {
         if (RUR.current_world.goal.objects !== undefined) {
-            if (RUR.current_world.goal.objects[coords] != undefined){
+            if (RUR.current_world.goal.objects[coords] !== undefined){
                 delete RUR.current_world.goal.objects[coords];
             }
         }
     }
     if (RUR.current_world.goal !== undefined) {
         if (RUR.current_world.goal.walls !== undefined) {
-            if (RUR.current_world.goal.walls[coords] != undefined){
+            if (RUR.current_world.goal.walls[coords] !== undefined){
                 delete RUR.current_world.goal.walls[coords];
             }
         }
     }
-}
+};
