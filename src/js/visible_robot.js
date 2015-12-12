@@ -1,6 +1,3 @@
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -119,7 +116,7 @@ RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y, width, height, image;
     // handling legacy Code
-    if (robot.orientation != undefined) {
+    if (robot.orientation !== undefined) {
         robot._orientation = robot.orientation;
         robot.orientation = null;
     }
@@ -194,7 +191,7 @@ RUR.vis_robot.draw_trace = function (robot) {
         return;
     }
     var ctx = RUR.TRACE_CTX;
-    if (robot.trace_color != undefined){
+    if (robot.trace_color !== undefined){
         ctx.strokeStyle = robot.trace_color;
     } else {
         ctx.strokeStyle = RUR.vis_robot.trace_color;
@@ -247,19 +244,19 @@ RUR.vis_robot.set_trace_style("default");
 
 RUR.vis_robot.new_robot_images = function (images) {
 
-if (images.east != undefined) {
+if (images.east !== undefined) {
     RUR.vis_robot.images[0].robot_e_img.src = images.east;
 }
-if (images.west != undefined) {
+if (images.west !== undefined) {
     RUR.vis_robot.images[0].robot_w_img.src = images.west;
 }
-if (images.north != undefined) {
+if (images.north !== undefined) {
     RUR.vis_robot.images[0].robot_n_img.src = images.north;
 }
-if (images.south != undefined) {
+if (images.south !== undefined) {
     RUR.vis_robot.images[0].robot_s_img.src = images.south;
 }
-if (images.random != undefined) {
+if (images.random !== undefined) {
     RUR.vis_robot.images[0].robot_random_img.src = images.random;
 }
 RUR.vis_robot.select_default_model(0);

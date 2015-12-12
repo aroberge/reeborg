@@ -1,6 +1,3 @@
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -49,7 +46,7 @@ RUR.make_default_menu = function(language) {
                    break;
         default: RUR.make_default_menu_en();
     }
-}
+};
 
 
 RUR.make_default_menu_en = function () {
@@ -180,7 +177,7 @@ RUR.make_default_menu_fr = function () {
                            'Sentier de gravier (solution)'],
         [worlds + 'slalom.json', 'Slalom'],
         ['/src/worlds/blank.json', 'Canevas graphique'],
-    ]
+    ];
 
     RUR.custom_menu.make(contents);
 };

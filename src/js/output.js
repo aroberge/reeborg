@@ -6,7 +6,7 @@ RUR.output.write = function () {
     for (var i = 0; i < arguments.length; i++) {
         output_string += arguments[i].toString();
   }
-  output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
     RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
 
@@ -37,7 +37,7 @@ RUR.output.watch_variables = function (arg) {
 
 RUR.output.view_source = function(fn) {
     $("#Reeborg-explores").dialog("open");
-    RUR.cd.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" )
+    RUR.cd.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" );
     $('.js_code').each(function() {
         var $this = $(this), $code = $this.text();
         $this.removeClass("js_code");

@@ -1,7 +1,3 @@
- /* Author: André Roberge
-   License: MIT
- */
-
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, editorUpdateHints,
   translate_python, CoffeeScript */
@@ -28,14 +24,14 @@ RUR.runner.assign_initial_values = function () {
                         if (nb.toString().indexOf("-") != -1){
                             range = nb.split("-");
                             nb = RUR.randint(parseInt(range[0], 10), parseInt(range[1], 10));
-                            if (nb != 0){
+                            if (nb !== 0){
                                 objects_here[obj] = nb;
                             } else {
                                 delete objects_here[obj];
                             }
                         }
                         if (total_nb_objects[obj] === undefined){
-                            if (parseInt(nb, 10) != 0) {
+                            if (parseInt(nb, 10) !== 0) {
                                 total_nb_objects[obj] = parseInt(nb, 10);
                             }
                         } else {
@@ -298,7 +294,7 @@ RUR.runner.simplify_python_traceback = function(e) {
         }
     } else {
         message = e.reeborg_shouts;
-        if (e.__name__ == undefined) {
+        if (e.__name__ === undefined) {
             error_name = "ReeborgError";
         } else {
             error_name = e.__name__;

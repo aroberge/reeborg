@@ -4,7 +4,6 @@ called by zzz_doc_ready.js
 */
 RUR.zz_dr_onclick = function () {
 
-
     function load_file (obj) {
         $("#fileInput").click();
         var fileInput = document.getElementById('fileInput');

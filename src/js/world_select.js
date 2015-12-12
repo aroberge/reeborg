@@ -1,7 +1,3 @@
-/* Author: André Roberge
-   License: MIT
- */
-
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -64,7 +60,7 @@ RUR.world_select.replace_shortname = function (url, shortname) {
     "use strict";
     var i, select;
     select = document.getElementById("select_world");
-    url = url.toLowerCase()
+    url = url.toLowerCase();
 
     for (i=0; i < select.options.length; i++){
         if (select.options[i].value.toLowerCase() === url) {
@@ -88,7 +84,7 @@ RUR.world_select.append_world = function (arg) {
     // allow for special styling of any url containing the string "menu".
     if (url.indexOf('menu') != -1) {
         option_elt = '<option class="select-menu"></option>';
-    } else if (arg.local_storage != undefined){
+    } else if (arg.local_storage !== undefined){
         option_elt = '<option class="select-local-storage"></option>';
     } else {
         option_elt = '<option></option>';

@@ -1,6 +1,3 @@
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -63,8 +60,8 @@ RUR.robot.cleanup_objects = function (robot) {
     }
     robot.objects = objects_carried;
     // handling legacy notation
-    if (robot.orientation != undefined){
+    if (robot.orientation !== undefined){
         robot._orientation = robot.orientation;
         delete robot.orientation;
     }
-}
+};

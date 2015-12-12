@@ -1,7 +1,4 @@
-/* Author: André Roberge
-   License: MIT
-
-The purpose of this module is to act as an intermediary between end user
+/*  The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
 the other modules.  This way, in theory, (most) refactoring can take place in the
 basic javascript code without affecting the end user code.

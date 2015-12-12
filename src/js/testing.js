@@ -1,6 +1,3 @@
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, editor */
@@ -23,7 +20,7 @@ RUR.testing.test_permalink = function (permalink, name){
 };
 
 RUR.testing.test_permalien = function (permalink, name){
-    RUR.testing._test_permalink(permalink, "Monde", name)
+    RUR.testing._test_permalink(permalink, "Monde", name);
 };
 
 RUR.testing.run_test = function() {

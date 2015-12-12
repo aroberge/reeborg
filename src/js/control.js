@@ -1,6 +1,3 @@
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -238,12 +235,12 @@ RUR.control.take = function(robot, arg){
 
     objects_here = RUR.control.object_here(robot, arg);
     if (arg !== undefined) {
-        if (objects_here.length === 0 || objects_here == false) {
+        if (objects_here.length === 0 || objects_here === false) {
             throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
-    }  else if (objects_here.length === 0 || objects_here == false){
+    }  else if (objects_here.length === 0 || objects_here === false){
         throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
@@ -258,12 +255,12 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     coords = robot.x + "," + robot.y;
     RUR.current_world.objects[coords][obj] -= 1;
 
-    if (RUR.current_world.objects[coords][obj] == 0){
+    if (RUR.current_world.objects[coords][obj] === 0){
         delete RUR.current_world.objects[coords][obj];
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
-        if (RUR.control.object_here(robot) == false){
+        if (RUR.control.object_here(robot) === false){
             delete RUR.current_world.objects[coords];
         }
     }
@@ -396,7 +393,7 @@ RUR.control.wall_on_right = function (robot) {
     RUR.control.turn_left(robot);
     RUR._recording_(true);
     return result;
-}
+};
 
 RUR.control.tile_in_front = function (robot) {
     // returns single tile
@@ -456,7 +453,7 @@ RUR.control.front_is_clear = function(robot){
             if (RUR.top_tiles[tilename] !== undefined &&
                 RUR.top_tiles[tilename].detectable &&
                 RUR.top_tiles[tilename].fatal) {
-                return false
+                return false;
             }
         }
     }
@@ -476,7 +473,7 @@ RUR.control._bridge_present = function(robot) {
         }
     }
     return false;
-}
+};
 
 
 RUR.control.right_is_clear = function(robot){

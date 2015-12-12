@@ -56,4 +56,4 @@ RUR.zz_dr_dialogs = function () {
                                     position:{my: "bottom", at: "bottom-140", of: window}});
 
 
-}
+};

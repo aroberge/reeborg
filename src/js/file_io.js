@@ -1,6 +1,3 @@
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -35,7 +32,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     RUR.file_io.status = undefined;
 
     if (url === undefined) {
-        RUR.output.write(RUR.translate("World() needs an argument."))
+        RUR.output.write(RUR.translate("World() needs an argument."));
         return;
     }
 
@@ -103,7 +100,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
             async: false,
             error: function(e){
                 RUR.file_io.status = "no link";
-                console.log("error in ajax from RUR.file_io.")
+                console.log("error in ajax from RUR.file_io.");
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){

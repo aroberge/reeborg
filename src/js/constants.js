@@ -1,6 +1,4 @@
-/* Author: André Roberge
-   License: MIT
-
+/* 
    Defining base name space and various constants.
  */
 

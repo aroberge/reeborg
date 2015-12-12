@@ -43,7 +43,7 @@ RUR.kbd.insert_in_console = function (txt) {
     var console = $("#py_console");
     console.val(console.val() + txt);
     console.focus();
-}
+};
 
 RUR.kbd.insert = function (txt){
     "use strict";
@@ -56,7 +56,7 @@ RUR.kbd.insert = function (txt){
         txt = "'";
     }
 
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;

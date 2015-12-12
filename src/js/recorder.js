@@ -1,8 +1,3 @@
-/* Author: André Roberge
-   License: MIT
-
-   Defining base name space and various constants.
- */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR , editor, __BRYTHON__*/
@@ -286,11 +281,11 @@ RUR.rec.check_current_world_status = function() {
     // this function is to check goals from the Python console.
     frame = {};
     frame.world = RUR.current_world;
-    if (frame.world.goal == undefined){
+    if (frame.world.goal === undefined){
         RUR.cd.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
-                             "</p>")
+                             "</p>");
     } else {
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {

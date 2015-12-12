@@ -1,6 +1,4 @@
-/* Author: André Roberge
-   License: MIT
-
+/*
    Utilities for dealing with html LocalStorage.
  */
 
@@ -55,10 +53,11 @@ RUR.storage.append_world_name = function (name){
     RUR.world_select.set_url(url);  // reload as updating select choices blanks the world.
 
     /* appends name to world selector and to list of possible worlds to delete */
-    $('#delete-world h3').append('<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world('
-            + "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
+    $('#delete-world h3').append(
+        '<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world(' +
+            "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
     $('#delete-world').show();
-}
+};
 
 RUR.storage.delete_world = function (name){
     "use strict";
