@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>2. A quick Python introduction: part 2 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Python: A brief overview" href="index.html" />
+    <link rel="next" title="3. A quick Python introduction: part 3, Using the library" href="library.html" />
+    <link rel="prev" title="1. A quick Python introduction: part 1" href="python1.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="library.html" title="3. A quick Python introduction: part 3, Using the library"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="python1.html" title="1. A quick Python introduction: part 1"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Python: A brief overview</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">2. A quick Python introduction: part 2</a><ul>
+<li><a class="reference internal" href="#keywords-and">2.1. Keywords  <code class="docutils literal"><span class="pre">and</span></code></a></li>
+<li><a class="reference internal" href="#keywords-elif-and-else">2.2. Keywords <code class="docutils literal"><span class="pre">elif</span></code> and <code class="docutils literal"><span class="pre">else</span></code></a></li>
+<li><a class="reference internal" href="#keyword-or">2.3. Keyword <code class="docutils literal"><span class="pre">or</span></code></a></li>
+<li><a class="reference internal" href="#keywords-break-and-continue">2.4. Keywords <code class="docutils literal"><span class="pre">break</span></code> and <code class="docutils literal"><span class="pre">continue</span></code></a></li>
+<li><a class="reference internal" href="#summary-of-logical-keywords">2.5. Summary of logical keywords</a></li>
+<li><a class="reference internal" href="#summary-of-control-flow-keywords">2.6. Summary of control flow keywords</a></li>
+<li><a class="reference internal" href="#one-more-keyword-pass">2.7. One more keyword: <code class="docutils literal"><span class="pre">pass</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="python1.html"
+                        title="previous chapter">1. A quick Python introduction: part 1</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="library.html"
+                        title="next chapter">3. A quick Python introduction: part 3, Using the library</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/python/python2.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/python/python2.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="a-quick-python-introduction-part-2">
+<h1>2. A quick Python introduction: part 2<a class="headerlink" href="#a-quick-python-introduction-part-2" title="Permalink to this headline">¶</a></h1>
+<p>By now, you should have understood the code
+use to illustrate the basic commands known in Reeborg&#8217;s World.  In this
+section, I will introduce a few more Python keywords and functions, mostly
+by showing some brief examples.</p>
+<div class="section" id="keywords-and">
+<h2>2.1. Keywords  <code class="docutils literal"><span class="pre">and</span></code><a class="headerlink" href="#keywords-and" title="Permalink to this headline">¶</a></h2>
+<p>Suppose we Reeborg needs to find its way out of a maze... Actually, let&#8217;s
+show it in action in one example.</p>
+<p><img alt="maze" src="../_images/maze.gif" /></p>
+<p>This is going too fast for you to see exactly what&#8217;s going on.
+If you want to load the maze so that you can try things out,
+you need to make sure you have the Documentation menu loaded
+and select &#8220;Big maze&#8221;; it will then
+be up to you to write the code. I explain how to do so below.</p>
+<p>We know that Reeborg can <code class="docutils literal"><span class="pre">move()</span></code> and <code class="docutils literal"><span class="pre">turn_left()</span></code>.
+We also know that we can define a <code class="docutils literal"><span class="pre">turn_right()</span></code> instruction.
+These three instructions are enough to follow a
+twisting path in a maze to find the exit.</p>
+<p>The problem is knowing which path to follow...</p>
+<p>We want to have Reeborg decide on its own which path to follow.
+We know that Reeborg can determine if it can move forward
+safely, by using <code class="docutils literal"><span class="pre">front_is_clear()</span></code>, and that it can determine
+if the path to its right is clear, using <code class="docutils literal"><span class="pre">right_is_clear()</span></code>.</p>
+<p>There are three types of situation that Reeborg could find
+itself in.  First, both the path in front, and the path to its
+right could be blocked by walls.</p>
+<p><img alt="maze_turn_left" src="../_images/maze_turn_left.png" /></p>
+<p>In this case, the only sensible thing for Reeborg to do would
+be to turn left.  In Python code, we could write this as:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="ow">not</span> <span class="n">front_is_clear</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">right_is_clear</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here, I have used the Python keyword <code class="docutils literal"><span class="pre">and</span></code> to indicate that
+both conditions were required.  I can perhaps make the logic
+easier to see using parentheses to group together some terms:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">front_is_clear</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">right_is_clear</span><span class="p">()):</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Second, Reeborg could find that the path to its right is blocked,
+but not the path forward.</p>
+<p><img alt="maze_move" src="../_images/maze_move.png" /></p>
+<p>Here, the sensible thing would be to move forward; the option of
+turning left (again) would simply make it spin on the spot:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">front_is_clear</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">right_is_clear</span><span class="p">()):</span>
+    <span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Third, Reeborg could find that the path to its right is clear:</p>
+<p><img alt="maze_turn_right" src="../_images/maze_turn_right.png" /></p>
+<p>In this case, Reeborg should take advantage of this opportunity
+to turn right, which it couldn&#8217;t do in the previous cases,
+<strong>and</strong> to take a step in that direction:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">right_is_clear</span><span class="p">():</span>
+    <span class="n">turn_right</span><span class="p">()</span>
+    <span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>By adopting this strategy, Reeborg would end up doing its best
+to move forward while keeping a wall immediately to its right.
+So, we could encode these three steps into a single function as
+follows:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">follow_right_wall</span><span class="p">():</span>
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">front_is_clear</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">right_is_clear</span><span class="p">()):</span>
+        <span class="n">turn_left</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">front_is_clear</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">right_is_clear</span><span class="p">()):</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">right_is_clear</span><span class="p">():</span>
+        <span class="n">turn_right</span><span class="p">()</span>
+        <span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Once this function is defined, as well as <code class="docutils literal"><span class="pre">turn_right()</span></code>,
+all that is needed for Reeborg to exit the maze is the
+following:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">while</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+    <span class="n">follow_right_wall</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Try it out!</p>
+<p>Before reading further, try the above.  You should be able to
+confirm that it works.</p>
+</div>
+</div>
+<div class="section" id="keywords-elif-and-else">
+<h2>2.2. Keywords <code class="docutils literal"><span class="pre">elif</span></code> and <code class="docutils literal"><span class="pre">else</span></code><a class="headerlink" href="#keywords-elif-and-else" title="Permalink to this headline">¶</a></h2>
+<p>The above strategy relied on three mutually exclusive cases.
+In the first two, the right path was blocked, which was not the
+case for the third case.  What distinguished the first and
+second cases was whether or not the front path was free of
+obstacles.  This can be understood by carefully reading of the
+code ... but there is a better way.</p>
+<p>Python includes two keywords, <code class="docutils literal"><span class="pre">elif</span></code> and <code class="docutils literal"><span class="pre">else</span></code> to complement
+an <code class="docutils literal"><span class="pre">if</span></code> statement and indicate cases that should be considered
+as mutually exclusive; by this, we mean that Python will execute
+the first code block (and only that one) for which the stated
+condition is satisfied. Since <code class="docutils literal"><span class="pre">else</span></code> does not have any condition
+attached, if other conditions have not been met, then the code
+there is always executed; otherwise, it is skipped over.
+Here&#8217;s how we can rewrite
+<code class="docutils literal"><span class="pre">follow_right_wall()</span></code> using these keywords:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">follow_right_wall</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">right_is_clear</span><span class="p">():</span>
+        <span class="n">turn_right</span><span class="p">()</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">front_is_clear</span><span class="p">():</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Much simpler to read and to understand, once you know that <strong>only one</strong>
+of these choices is going to be executed.</p>
+<p>By the way, this kind of construct always include only one <code class="docutils literal"><span class="pre">if</span></code> <em>clause</em>,
+it can include any number (from zero to whatever) of <code class="docutils literal"><span class="pre">elif</span></code> <em>clauses</em>,
+and include zero or one <code class="docutils literal"><span class="pre">else</span></code> <em>clause</em>.</p>
+</div>
+<div class="section" id="keyword-or">
+<h2>2.3. Keyword <code class="docutils literal"><span class="pre">or</span></code><a class="headerlink" href="#keyword-or" title="Permalink to this headline">¶</a></h2>
+<p>If we have two conditions:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">condition_1</span> <span class="ow">or</span> <span class="n">condition_2</span><span class="p">:</span>
+    <span class="n">do_something</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>the <code class="docutils literal"><span class="pre">if</span></code> clause will be executed, as long as one of the two conditions
+is equivalent to <code class="docutils literal"><span class="pre">True</span></code>; when using <code class="docutils literal"><span class="pre">and</span></code>, we needed <strong>both</strong> conditions
+to be equivalent to <code class="docutils literal"><span class="pre">True</span></code>.  For example:</p>
+<p><img alt="test_or" src="../_images/test_or.gif" /></p>
+</div>
+<div class="section" id="keywords-break-and-continue">
+<h2>2.4. Keywords <code class="docutils literal"><span class="pre">break</span></code> and <code class="docutils literal"><span class="pre">continue</span></code><a class="headerlink" href="#keywords-break-and-continue" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">break</span></code> allows to &#8220;get out&#8221; of a loop (either a <code class="docutils literal"><span class="pre">for</span></code> loop
+or a <code class="docutils literal"><span class="pre">while</span></code> loop) and continue code execution with the code
+that comes after the loop.</p>
+<p><code class="docutils literal"><span class="pre">continue</span></code> stops execution <strong>within</strong> a loop, and goes back
+to the beginning of the loop.</p>
+<p>Here are two examples, one for each keyword.</p>
+<p><img alt="test_break" src="../_images/test_break.gif" /></p>
+<p><img alt="test_continue" src="../_images/test_continue.gif" /></p>
+</div>
+<div class="section" id="summary-of-logical-keywords">
+<h2>2.5. Summary of logical keywords<a class="headerlink" href="#summary-of-logical-keywords" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">not</span></code>, <code class="docutils literal"><span class="pre">and</span></code>, and <code class="docutils literal"><span class="pre">or</span></code> are known as logical keywords, used with
+the <em>boolean</em> keywords <code class="docutils literal"><span class="pre">True</span></code> and <code class="docutils literal"><span class="pre">False</span></code> or their equivalent.</p>
+</div>
+<div class="section" id="summary-of-control-flow-keywords">
+<h2>2.6. Summary of control flow keywords<a class="headerlink" href="#summary-of-control-flow-keywords" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">for</span></code> (together with <code class="docutils literal"><span class="pre">in</span></code>), <code class="docutils literal"><span class="pre">while</span></code>, <code class="docutils literal"><span class="pre">if</span></code>, <code class="docutils literal"><span class="pre">elif</span></code>, <code class="docutils literal"><span class="pre">else</span></code>,
+<code class="docutils literal"><span class="pre">break</span></code>, and <code class="docutils literal"><span class="pre">continue</span></code> are often referred to as control flow keywords
+as they &#8220;control the flow&#8221; of execution of the code, determining if some
+parts of the code need to be repeated or skipped.</p>
+</div>
+<div class="section" id="one-more-keyword-pass">
+<h2>2.7. One more keyword: <code class="docutils literal"><span class="pre">pass</span></code><a class="headerlink" href="#one-more-keyword-pass" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes, you want to write a program that will have multiple
+<code class="docutils literal"><span class="pre">if/elif/else</span></code> clauses or some function which you have not yet defined,
+etc., but you&#8217;d like to test part of it to see if it works as expected.
+You may then find the keyword <code class="docutils literal"><span class="pre">pass</span></code> to be useful.  This keyword
+tells Python to do ... nothing.  How is that useful you ask?
+Here&#8217;s a bit of a contrived example:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">follow_right_wall</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">right_is_clear</span><span class="p">():</span>
+        <span class="k">pass</span>             <span class="c"># need to figure out what to do here</span>
+    <span class="k">elif</span> <span class="n">front_is_clear</span><span class="p">():</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Using <code class="docutils literal"><span class="pre">pass</span></code> above allows us to write the code with the proper indentation,
+so that it can be run without any syntax errors.
+There are other potential uses of this keyword, but this should give you
+a good idea of its common use.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="library.html" title="3. A quick Python introduction: part 3, Using the library"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="python1.html" title="1. A quick Python introduction: part 1"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Python: A brief overview</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

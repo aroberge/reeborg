@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>리보그(Reeborg)와 파이썬 배우기! &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="#" />
+    <link rel="next" title="Basic Tutorial" href="basics/index.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="basics/index.html" title="Basic Tutorial"
+             accesskey="N">next</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="#">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">리보그(Reeborg)와 파이썬 배우기!</a><ul>
+<li><a class="reference internal" href="#you-want-to-learn-computer-programming">You want to learn computer programming?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="basics/index.html"
+                        title="next chapter">Basic Tutorial</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../fr/index.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="reeborg">
+<h1>리보그(Reeborg)와 파이썬 배우기!<a class="headerlink" href="#reeborg" title="Permalink to this headline">¶</a></h1>
+<p>파이썬을 배우는 것은 리보그와 함께라면 쉬워요.
+Learning Python is easy with Reeborg.  All you have to do is read the tutorial
+and try all the examples in <a class="reference external" href="http://reeborg.ca/world.html">Reeborg&#8217;s world</a>.
+I suggest that you keep the tutorial and Reeborg&#8217;s World both open but
+in separate windows or tabs.</p>
+<p>Before you actually start the tutorial, have Reeborg take its first step
+by running a program in <a class="reference external" href="http://reeborg.ca/world.html">Reeborg&#8217;s world</a>.</p>
+<p>Hints are clickable and designed to provide useful pointers if you are
+not sure how to proceed.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">Go to <a class="reference external" href="http://reeborg.ca/world.html">Reeborg&#8217;s world</a>, click on the &#8220;run&#8221; button
+(small white triangle on blue background)
+and watch Reeborg takes its first step.
+You can also <a class="reference external" href="http://youtu.be/yTdw97KNgGM">view this short video</a>
+to see what it looked like ... in a slightly older version.
+You may want to watch it in full screen with HD quality selected.</p>
+</div>
+<div class="section" id="you-want-to-learn-computer-programming">
+<h2>You want to learn computer programming?<a class="headerlink" href="#you-want-to-learn-computer-programming" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-right" id="id3" style="width: 40%">
+<img alt="_images/student.jpg" src="_images/student.jpg" />
+<p class="caption"><span class="caption-text">Student using Reeborg&#8217;s World in California, USA.</span></p>
+<div class="legend">
+<em>Photo courtesy of A. Castano.</em></div>
+</div>
+<p><strong>Reeborg&#8217;s World has been designed for you!</strong></p>
+<p>The idea I had in mind when I created Reeborg&#8217;s World was to create
+a friendly place to learn programming concepts.
+While it is possible to use Javascript, the &#8220;normal&#8221; language of the web,
+as a programming language to make Reeborg work,
+I&#8217;ve decided to focus on Python which is a more
+versatile language and one that is easier to use by beginners and
+advanced programmers alike.</p>
+<p>This tutorial was first written for you and help you learn computer programming.
+However, I have also included
+some information for teachers as well as other users of Reeborg&#8217;s World.
+You can ignore such additional information without worrying that you are
+missing something important as you are learning programming concepts.</p>
+<p>This document has been divided into nine major parts.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basics/index.html">A. Basic tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recursion/index.html">B. Recursion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variables/index.html">C. Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oop/index.html">D. Object Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional/index.html">E. Higher-Order Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises/index.html">F. Programming Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">G. Reeborg&#8217;s World Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python/index.html">H. Python: a brief overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/index.html">I. Contribute!</a></li>
+</ul>
+</div>
+<p>If you click on any of the above part title, you will be taken to a
+page with a more detailed table of contents for that part.</p>
+<div class="admonition-for-educators admonition">
+<p class="first admonition-title">For educators</p>
+<div class="figure" id="id4">
+<img alt="_images/rurple_book.png" src="_images/rurple_book.png" />
+<p class="caption"><span class="caption-text"><em>Two books (red for teacher, blue for students)
+produced by Samsung Korea based on RUR-PLE, the desktop
+program precursor to Reeborg&#8217;s World.</em></span></p>
+</div>
+<p>Reeborg&#8217;s World had been strongly inspired by Richard Pattis&#8217;s
+<a class="reference external" href="http://www.amazon.ca/Karel-Robot-Gentle-Introduction-Programming/dp/0471089281/ref=sr_1_6?s=books&amp;ie=UTF8&amp;qid=1440177128&amp;sr=1-6">Karel the robot</a>.
+Three programming languages (Python, Javascript and CoffeeScript)
+can be used to control the virtual robot.
+However, this tutorial is focuses on Python which is my favourite
+programming language and that many consider to be an ideal language
+to teach programming concepts to beginners.</p>
+<p>In this tutorial, I postpone the introduction of variables as long as
+possible, and do the same for function arguments.
+This approach reflects that of Pattis&#8217;s original Karel which did
+not have any variables.  This is the focus of the first two
+main parts of this tutorial, namely <strong>Basic tutorial</strong> and <strong>Recursion</strong>.</p>
+<p>Reeborg&#8217;s World has been created with the goal of simplifying Pattis&#8217;s
+idea as much as possible, while still making it possible to
+introduce very advanced programming concepts.  So, instead of the
+&#8220;simple&#8221; <strong>first program</strong> found in some tutorials supposedly aimed
+at complete beginners:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Hello, World&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>the simplest valid program in Reeborg&#8217;s World is:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>That&#8217;s it: a single instruction.  What could be simpler when
+teaching beginners?</p>
+<p>However, one is not limited to simple functions.
+For example, if one wants to use an OOP approach instead,
+the simplest valid program, which has Reeborg actually do the
+equivalent to the single <code class="docutils literal"><span class="pre">move()</span></code> instruction above, is:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">reeborg</span> <span class="o">=</span> <span class="n">UsedRobot</span><span class="p">()</span>
+<span class="n">reeborg</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Similarly, because using standard libraries is something useful, students
+can first learn about libraries by writing their own code and, in doing so,
+they learn that library modules are just programs like any others.
+Assuming they have defined a function, say <code class="docutils literal"><span class="pre">turn_right()</span></code>, in their library,
+the following program will be valid:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">library</span> <span class="kn">import</span> <span class="n">turn_right</span>
+<span class="n">turn_right</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>So, the idea is to have the student deal with as few concepts as possible
+to write programs, only learning new concepts (such as using variables,
+or Object-Oriented notation, or importing code from a library)
+after they have learned the basics.
+One guiding principle in writing this tutorial has been to introduce
+only one programming concept at a time.</p>
+<p>However, the simplicity of the approach used in Reeborg&#8217;s World
+does not mean that what can be done is limited to the basics of the
+virtual robot world.
+The Python version of Reeborg&#8217;s World is based on <a class="reference external" href="http://brython.info">Brython</a>, and includes
+many Python modules found in Python&#8217;s standard library which can be used
+to write advanced programs.</p>
+<p><strong>Task Driven Learning</strong></p>
+<p>Reeborg&#8217;s World is designed for <em>Task Driven Learning</em>: students are given
+tasks that Reeborg has to complete, and they must write programs instructing
+Reeborg how to do so.</p>
+<p>Tasks include having Reeborg move objects, build walls, or go to a
+particular location.  Objects in Reeborg&#8217;s World are colourful; the
+places they be must moved to by Reeborg are indicated by having a
+picture of the object in shades of grey.</p>
+<img alt="_images/simple_task.gif" src="_images/simple_task.gif" />
+<p>If you have some examples (particularly tasks for Reeborg)
+that you find useful for your students, I would appreciate
+if you could share them with me so as to improve this tutorial.</p>
+<p><strong>Free</strong></p>
+<p class="last">Reeborg&#8217;s World is <strong>free</strong>: <em>free</em> to use, <em>free</em> to copy (and put on a school&#8217;s
+website), and does not require any registration or login.
+Unlike some other existing code learning website, it does not force
+learners to follow a pre-defined path; educators are <em>free</em> to create their
+own learning material while making use of Reeborg&#8217;s World.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="basics/index.html" title="Basic Tutorial"
+             >next</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="#">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>5. More advanced programming &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Python: A brief overview" href="index.html" />
+    <link rel="next" title="6. Object-Oriented Programming" href="oop.html" />
+    <link rel="prev" title="4. A quick Python introduction: part 4, Exceptions" href="exception.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="oop.html" title="6. Object-Oriented Programming"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="exception.html" title="4. A quick Python introduction: part 4, Exceptions"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Python: A brief overview</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">5. More advanced programming</a><ul>
+<li><a class="reference internal" href="#worlds-with-multiple-types-of-objects">5.1. Worlds with multiple types of objects</a></li>
+<li><a class="reference internal" href="#other-functions-with-arguments">5.2. Other functions with arguments</a></li>
+<li><a class="reference internal" href="#communications-from-reeborg">5.3. Communications from Reeborg</a></li>
+<li><a class="reference internal" href="#working-with-lists">5.4. Working with lists</a></li>
+<li><a class="reference internal" href="#return-statement">5.5. Return statement</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="exception.html"
+                        title="previous chapter">4. A quick Python introduction: part 4, Exceptions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="oop.html"
+                        title="next chapter">6. Object-Oriented Programming</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/python/advanced.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/python/advanced.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="more-advanced-programming">
+<h1>5. More advanced programming<a class="headerlink" href="#more-advanced-programming" title="Permalink to this headline">¶</a></h1>
+<p>Having more than one type of objects makes it possible to learn more
+advanced programming concept in a natural way.  Here we have a brief
+look at what is possible to do.</p>
+<div class="section" id="worlds-with-multiple-types-of-objects">
+<h2>5.1. Worlds with multiple types of objects<a class="headerlink" href="#worlds-with-multiple-types-of-objects" title="Permalink to this headline">¶</a></h2>
+<p>As we have seen, when Reeborg is instructed to <code class="docutils literal"><span class="pre">take()</span></code> or <code class="docutils literal"><span class="pre">put()</span></code>
+an object, he can do so with no ambiguity when there is only one
+type of objects.  But what if Reeborg carries two (or more) different
+types of objects and we ask him to <code class="docutils literal"><span class="pre">put()</span></code> one down?</p>
+<p><img alt="put_error" src="../_images/put_error.gif" /></p>
+<p>As we can see, doing so causes Reeborg to complain.  To have Reeborg
+accomplish the task properly, we need to specify which type
+of object using a function <em>argument</em> - in this case, a Python string
+with the name of the object.</p>
+<p><img alt="put_ok" src="../_images/put_ok.gif" /></p>
+<p>Both <code class="docutils literal"><span class="pre">take()</span></code> and <code class="docutils literal"><span class="pre">put()</span></code> can take a Python string with the name
+of an object as an argument.  In addition, so can
+<code class="docutils literal"><span class="pre">object_here()</span></code> and <code class="docutils literal"><span class="pre">carries_object()</span></code> as can be seen in the example
+below.</p>
+<p><img alt="take_star" src="../_images/take_star.gif" /></p>
+<p>Notice how there are two types of objects (a star and a square)
+initially at the same location: when this is the case, a question
+mark is shown instead of an integer representing the number of
+objects (if greater than one).  Information about the exact number
+of objects at this location could be obtained by clicking
+on the &#8220;World info&#8221; button at the very top and then by clicking
+on the image of the objects at that particular location.</p>
+<p>Both <code class="docutils literal"><span class="pre">object_here()</span></code> and <code class="docutils literal"><span class="pre">carries_object()</span></code> return Python lists, with
+an empty list being treated as equivalent to <code class="docutils literal"><span class="pre">False</span></code>.</p>
+<p><img alt="object_here_list" src="../_images/object_here_list.gif" /></p>
+</div>
+<div class="section" id="other-functions-with-arguments">
+<h2>5.2. Other functions with arguments<a class="headerlink" href="#other-functions-with-arguments" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the above functions, a few others in Reeborg&#8217;s World
+can take one or more arguments.  For example, we have already seen <code class="docutils literal"><span class="pre">pause()</span></code>:
+when used without an argument, it requires the user to click on the &#8220;run&#8221; or
+&#8220;step&#8221; button for Reeborg to resume its movements.  However, we can
+give it an integer as an argument and it will then only pause for a time
+equal to the number given ... in milliseconds.  Thus, to pause for one
+second, we would write <code class="docutils literal"><span class="pre">pause(1000)</span></code>.</p>
+<p>Another function which we haven&#8217;t seen yet is <code class="docutils literal"><span class="pre">repeat()</span></code>.  In Python, if
+we want to repeat lines of code a fixed number of times, we typically
+use a for loop.  For example, to turn right, Reeborg must do three consecutive
+left turns which can be written as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This is not immediately obvious to beginners.  The situation is even worse
+if we use Javascript:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">turn_left</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By contrast, using the mini-language of Guido van Robot (<a class="reference external" href="http://gvr.sourceforge.net">http://gvr.sourceforge.net</a>),
+the above can simply be written as:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">do</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">turnLeft</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>A relatively simple implementation of <code class="docutils literal"><span class="pre">repeat</span></code> in Python is:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">repeat</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">fn</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The function <code class="docutils literal"><span class="pre">repeat()</span></code> was included in Reeborg&#8217;s World in an attempt to capture
+this simplicity.  Thus, to do three left turns, one would write:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">repeat</span><span class="p">(</span> <span class="n">turn_left</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="communications-from-reeborg">
+<h2>5.3. Communications from Reeborg<a class="headerlink" href="#communications-from-reeborg" title="Permalink to this headline">¶</a></h2>
+<p>To communicate information to the user, Reeborg can use Python&#8217;s <code class="docutils literal"><span class="pre">print()</span></code>
+function.  The output of this function appears in an html preformatted
+element, which ensures that line breaks and other spacings are properly reproduced.</p>
+<p>There exists another function, <code class="docutils literal"><span class="pre">narration()</span></code> which can take as it argument
+any html code, and will print it accordingly.  By default, the output of <code class="docutils literal"><span class="pre">narration()</span></code>
+is coloured blue, but this can be changed by the user familiar with html and css.</p>
+</div>
+<div class="section" id="working-with-lists">
+<h2>5.4. Working with lists<a class="headerlink" href="#working-with-lists" title="Permalink to this headline">¶</a></h2>
+<p>In addition to <code class="docutils literal"><span class="pre">object_here()</span></code> and <code class="docutils literal"><span class="pre">carries_object()</span></code> mentioned above,
+Reeborg&#8217;s World gives plenty of  possibilities of working with lists.
+For example, one could ask Reeborg to move some objects arranged on a grid
+to a new location, keeping the same grid structure: this could be done
+with lists of lists.</p>
+<p>Below, we illustrate an example where Reeborg must</p>
+<ol class="arabic simple">
+<li>remove the weeds and keep a running count of their total</li>
+<li>count the number of strawberries at each location</li>
+<li>write down the information.</li>
+</ol>
+<p>Note that the world has been designed so that an arbitrary number of
+weeds (from 0 to 3) and strawberries (1 to 10) can be found
+at each location; these numbers are randomly chosen each time.</p>
+<p>A few things to note about the example shown below:</p>
+<ol class="arabic simple">
+<li>We have increased <code class="docutils literal"><span class="pre">RUR.MAX_STEPS</span></code> from its default value of 1000 to
+2000; we found that, sometimes it would stop before completing the task.
+The way Reeborg programs are run is that they are first executed very
+quickly, without anything shown as happening on the screen.  Meanwhile,
+various instructions trigger the recording of &#8220;frames&#8221; which can be played back
+one at a time (or even in reverse!), creating the animation you see.
+If the number of recording frames exceeds the maximum value, the program
+stops: this is to help prevent (some) infinite loops.</li>
+<li>We&#8217;ve made the animation proceed as quickly as possible by using
+<code class="docutils literal"><span class="pre">think(0)</span></code> and disabling code highlighting.</li>
+<li>At the beginning, we show the &#8220;world information&#8221;; we can see that the
+values of weeds (dandelions) are indicated as being between 0 and 3,
+and between 1 and 10 for strawberries.</li>
+<li>We then execute a single instruction and show that specific values
+for the number of weeds and strawberries have now been selected;
+this is done randomly each time.</li>
+</ol>
+<p><img alt="list" src="../_images/list.gif" /></p>
+<p><em>If you are very observant, you may have noticed that the font used
+by Reeborg is different than that of previous examples. As I wrote
+this documentation, I came to realize that the previous font, which
+looked to me more suitable for a robot, was not very readable for certain
+characters, like ``{}`` which are important for programming.
+The search continues for the ideal font...</em></p>
+</div>
+<div class="section" id="return-statement">
+<h2>5.5. Return statement<a class="headerlink" href="#return-statement" title="Permalink to this headline">¶</a></h2>
+<p>As we have seen, Reeborg can determine if it is facing North ...
+or not.  However, we can help it figure out when it is facing other
+directions.  For example, we know that if Reeborg is facing South,
+and then makes two left turns, it will be facing North.  Two more
+left turns and Reeborg returns to its original orientation.
+This suggests the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">is_facing_south</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">remember</span> <span class="o">=</span> <span class="n">is_facing_north</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">remember</span>
+</pre></div>
+</div>
+<p>Arguably a bit clumsy, but it works.   Something similar can be
+done to obtain a <code class="docutils literal"><span class="pre">left_is_clear()</span></code> function.</p>
+<p>We can extend the idea used for the <code class="docutils literal"><span class="pre">repeat()</span></code> function  and use
+<code class="docutils literal"><span class="pre">return</span></code> in clever ways to do things like:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">do_while</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">condition</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">until</span><span class="p">():</span>
+        <span class="k">while</span> <span class="n">condition</span><span class="p">():</span>
+            <span class="n">fn</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">until</span>
+
+<span class="n">walk_to_the_wall</span> <span class="o">=</span> <span class="n">do_while</span><span class="p">(</span><span class="n">move</span><span class="p">,</span> <span class="n">front_is_clear</span><span class="p">)</span>
+<span class="n">walk_to_the_wall</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="oop.html" title="6. Object-Oriented Programming"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="exception.html" title="4. A quick Python introduction: part 4, Exceptions"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Python: A brief overview</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

@@ -24,7 +24,7 @@ By making use of something known as *Local Storage*, Reeborg's World remembers
 the last program you work on in a given browser (Firefox or Chrome).
 However, it might be useful for you to save your programs on your computer,
 or on a usb key.  You can do this by first clicking on
-**Additional options** at the thop and then clicking on the
+**Additional options** at the top and then clicking on the
 **Save program to file** button.  Similarly, you can retrieve a program
 from your computer using the **Import program from file** button.
 

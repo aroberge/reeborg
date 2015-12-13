@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Variables &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="next" title="1. Many names for the same object" href="variables.html" />
+    <link rel="prev" title="4. Counting on recursion" href="../recursion/recursion4.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="variables.html" title="1. Many names for the same object"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="../recursion/recursion4.html" title="4. Counting on recursion"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../recursion/recursion4.html"
+                        title="previous chapter">4. Counting on recursion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="variables.html"
+                        title="next chapter">1. Many names for the same object</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/variables/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/variables/index.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="variables">
+<h1>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h1>
+<p>At the very beginning of this tutorial, we wrote the following:</p>
+<blockquote class="epigraph">
+<div><code class="docutils literal"><span class="pre">move()</span></code> is an example of a Python <strong>function</strong>.
+A function has a name; in this case, it is <code class="docutils literal"><span class="pre">move</span></code>.
+Valid names must start with either a letter or the underscore character &#8220;_&#8221;
+and may contain letters, numbers or the underscore character &#8220;_&#8221;.
+The name of the function is followed by <code class="docutils literal"><span class="pre">()</span></code>. This tells Reeborg (Python)
+that the function must be <em>executed</em> or <em>called</em> (which are two synonyms).</div></blockquote>
+<p>Functions are an example of what we call an <strong>object</strong>.
+We can give one or many names to a given object.  We call
+<strong>variable</strong> the name that we give to an object.
+Python uses the equal sign <code class="docutils literal"><span class="pre">=</span></code> to associate a name (variable) and
+an object in the following way:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">variable</span> <span class="o">=</span> <span class="nb">object</span>
+</pre></div>
+</div>
+<p>For example, if you find that <code class="docutils literal"><span class="pre">turn_left()</span></code> is too long to write, you
+could define another name (variable) for it as follows:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">left</span> <span class="o">=</span> <span class="n">turn_left</span>    <span class="c"># no parentheses!</span>
+<span class="n">left</span><span class="p">()</span>              <span class="c"># use it</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Your turn!</p>
+<p>Use a new name (variable) for at least one existing function in a program.
+<strong>Can you use two different names to refer to the same object in a
+single program?</strong></p>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variables.html">1. Many names for the same object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diary.html">2. Reeborg&#8217;s diary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="diary.html#a-function-can-have-an-argument">2.1. A function can have an argument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diary.html#writing-text">2.2. Writing text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diary.html#reeborg-knows-mathematics">2.3. Reeborg knows mathematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diary.html#using-variables">2.4. Using variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diary.html#multiple-arguments">2.5. Multiple arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="think.html">3. Pause and think</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="think.html#think">3.1. Think</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="newspaper3.html">4. Newspaper delivery revisited again</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="newspaper3.html#function-arguments">4.1. Function arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="world.html">5. World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="world.html#programming-exercise">5.1. Programming exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="world.html#loading-a-remote-world">5.2. Loading a remote world</a></li>
+<li class="toctree-l2"><a class="reference internal" href="world.html#loading-a-remote-world-again">5.3. Loading a remote world, again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="world.html#save-your-work">5.4. Save your work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="increment.html">6. Increment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="increment.html#augmented-assignment-operators">6.1. Augmented assignment operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="increment.html#comparison-operators">6.2. Comparison operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="increment.html#back-to-the-yard-work">6.3. Back to the yard work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scope.html">7. Scope: local vs global</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scope.html#the-need-for-scope">7.1. The need for scope</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="comparison.html">8. Comparison operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="listes.html">9. Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string_index.html">10. A character in a string</a></li>
+<li class="toctree-l1"><a class="reference internal" href="for.html">11. For loops</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="for.html#first-a-look-at-while">11.1. First, a look at <code class="docutils literal"><span class="pre">while</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="for.html#now-it-s-time-for-for">11.2. Now, it&#8217;s time for <code class="docutils literal"><span class="pre">for</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="for.html#what-about-repeat">11.3. What about <code class="docutils literal"><span class="pre">repeat</span></code>?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="return.html">12. Return</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="return.html#getting-results-from-functions">12.1. Getting results from functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="return.html#how-to-think-about-return">12.2. How to think about return</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="arguments1a.html">13. Function arguments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arguments1a.html#many-arguments">13.1. Many arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="arguments1b.html">14. Argument par défaut</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arguments1b.html#pour-les-plus-avances">14.1. Pour les plus avancés</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arguments1b.html#pour-les-programmeurs-tres-avances">14.2. Pour les programmeurs très avancés</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="slice.html">15. slices...</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harvest3.html">16. More harvesting challenges</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="variables.html" title="1. Many names for the same object"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="../recursion/recursion4.html" title="4. Counting on recursion"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

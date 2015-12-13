@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>5. Idées à explorer &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Contribute!" href="index.html" />
+    <link rel="prev" title="4. Information for developers" href="developers.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="developers.html" title="4. Information for developers"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Contribute!</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="developers.html"
+                        title="previous chapter">4. Information for developers</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/contribute/future_ideas.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/contribute/future_ideas.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="idees-a-explorer">
+<h1>5. Idées à explorer<a class="headerlink" href="#idees-a-explorer" title="Permalink to this headline">¶</a></h1>
+<p>Ceci est simplement un aide-mémoire pour certaines idées à
+explorer et à possiblement rajouter à ce tutoriel:</p>
+<ul>
+<li><p class="first">Expliquer les méthodes dites magiques de Python en m&#8217;inspirant du billet
+que j&#8217;ai écrit en anglais à ce sujet
+<a class="reference external" href="http://aroberge.blogspot.ca/2015/10/cryptic-reeborg.html">http://aroberge.blogspot.ca/2015/10/cryptic-reeborg.html</a></p>
+</li>
+<li><p class="first">Créer une fonction qui retourne la carte du monde comme un dict</p>
+</li>
+<li><p class="first">Créer un objet <code class="docutils literal"><span class="pre">Détecteur</span></code> qui a une méthode permettant de détecter
+la boue (ce que Reeborg ne peut pas faire).  Puis, créer une nouvelle
+classe de robots en héritant de deux classes:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">class</span> <span class="nc">SuperRobot</span><span class="p">(</span><span class="n">RobotUsage</span><span class="p">,</span> <span class="n">Détecteur</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Faire la <strong>Récolte 1</strong> en créant une liste de robots, un par rangée,
+qui sont capables de récolter une seule rangée.</p>
+</li>
+<li><p class="first">Faire les récoltes 4a, 4b, 4c en créant des robots travailleurs qui
+reçoivent des instructions de Reeborg leur indiquant quel fruit
+doit être récolté; comme pour l&#8217;exemple précédent, chaque travailleur
+est responsable d&#8217;une seule rangée.</p>
+</li>
+<li><p class="first">Voir à implémenter une solution de labyrinthe utilisant &#8220;depth first&#8221; vs
+&#8220;breadth first&#8221;</p>
+</li>
+<li><p class="first">Créer un monde où Reeborg collecte des jetons, chaque jetons indiquant
+un virage à gauche, vers un but; retracer les pas sans l&#8217;aide des jetons.
+Utiliser divers moyens pour le faire (liste d&#8217;instructions inversées,
+dictionnaires, etc.)</p>
+</li>
+<li><p class="first">Faire une variation de Pluie 2 avec du pré-code qui ne permet pas
+de détecter l&#8217;eau.</p>
+</li>
+<li><p class="first">Documenter la fonction <code class="docutils literal"><span class="pre">disparait</span></code> qui enlève Reeborg d&#8217;un monde existant.</p>
+</li>
+<li><p class="first">Ajouter une note pour enseignants (à un endroit approprié) expliquant que
+les fonctions de base sont essentiellement de méthodes qui sont invoquées
+pour la première instance d&#8217;un robot dans un monde donné.</p>
+</li>
+<li><p class="first">Utilisez la classe <code class="docutils literal"><span class="pre">Cartographe</span></code> qui a la méthode <code class="docutils literal"><span class="pre">imprime()</span></code>
+[<code class="docutils literal"><span class="pre">show</span></code> en anglais] et la propriété <code class="docutils literal"><span class="pre">monde</span></code> [<code class="docutils literal"><span class="pre">world</span></code> en anglais],
+cette dernière étant un dict Python contenant
+l&#8217;information au sujet du monde.  Une idée possible serait de débuter
+avec un monde où le but à atteindre et la position de départ sont
+choisis de façon aléatoire, et voir à ce que Reeborg retrouve son
+chemin le plus directement possible; exiger de modifier avance()
+pour compter le nombre de pas à faire et comparer avec le résultat attendu.
+Ceci peut être fait soit pour un objet carte indépendant, ou en
+utilisant l&#8217;héritage multiple.</p>
+</li>
+<li><p class="first">Memoization and decorators</p>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="developers.html" title="4. Information for developers"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Contribute!</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>
