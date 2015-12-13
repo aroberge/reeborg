@@ -40,8 +40,8 @@
   </p>
   <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
   <p>
-  <button class="blue-gradient" id="ok-permalink" onclick="RUR.update_permalink();">Mettre à jour</button>
-  <button class="blue-gradient" id="cancel-permalink" onclick="RUR.cancel_permalink();">Annuler</button>
+  <button class="blue-gradient" id="ok-permalink" onclick="RUR.permalink.update();">Mettre à jour</button>
+  <button class="blue-gradient" id="cancel-permalink" onclick="RUR.permalink.cancel();">Annuler</button>
   </p>
   </div>
 
@@ -415,7 +415,7 @@ window['translate_python'] = translate_python
   </p>
 
   <p>
-    <button id="permalink" class="blue-gradient" onclick="RUR.create_permalink();">Permalien</button>
+    <button id="permalink" class="blue-gradient" onclick="RUR.permalink.create();">Permalien</button>
     Pour sauvegarder le contenu complet (état actuel du monde, contenu de
     l'éditeur, de la bibliothèque, etc.), cliquez sur le
     bouton Permalien: ceci créera un permalien que vous pourrez

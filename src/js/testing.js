@@ -1,6 +1,4 @@
-
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR, editor */
+/* comprenhensive tests run from the Additional Options menu */
 
 RUR.testing = {};
 

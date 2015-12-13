@@ -235,12 +235,18 @@ RUR.control.take = function(robot, arg){
 
     objects_here = RUR.control.object_here(robot, arg);
     if (arg !== undefined) {
-        if (objects_here.length === 0 || objects_here === false) {
+        // WARNING: do not change this silly comparison to false
+        // to anything else ... []==false is true  but []==[] is false
+        // and ![] is false
+        if (objects_here.length === 0 || objects_here == false) { // jshint ignore:line
             throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
-    }  else if (objects_here.length === 0 || objects_here === false){
+        // WARNING: do not change this silly comparison to false
+        // to anything else ... []==false is true  but []==[] is false
+        // and ![] is false
+    }  else if (objects_here.length === 0 || objects_here == false){ // jshint ignore:line
         throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
@@ -260,7 +266,7 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
-        if (RUR.control.object_here(robot) === false){
+        if (RUR.control.object_here(robot) == false){ // jshint ignore:line
             delete RUR.current_world.objects[coords];
         }
     }

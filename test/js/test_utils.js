@@ -55,7 +55,7 @@ RUR.unit_tests.set_mocks = function() {
 
 RUR.unit_tests.eval_javascript = function (world_url, program_url) {
     return RUR.unit_tests.eval_program(world_url, program_url, "javascript");
-}
+};
 
 
 RUR.unit_tests.eval_python = function (world_url, program_url) {

@@ -1,7 +1,4 @@
 
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
-
 RUR.file_io = {};
 
 RUR.file_io.load_world_from_program = function (url, shortname) {
@@ -104,7 +101,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
-                    RUR.update_permalink(data, shortname);
+                    RUR.permalink.update(data, shortname);
                     RUR.ui.reload();
                 } else {
                     RUR.world.import_world(data);

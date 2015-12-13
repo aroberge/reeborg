@@ -1,8 +1,3 @@
-/* Author: André Roberge
-   License: MIT  */
-
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR, $, CodeMirror, ReeborgError, editor, library, removeHints, parseUri */
 
 // aa_utils.js : name starting with aa so that it is loaded first :-/
 
@@ -73,42 +68,8 @@ RUR.reset_code_in_editors = function () {
     editor.setValue(editor_content);
 };
 
-RUR._create_permalink = function () {
-    "use strict";
-    var proglang, world, _editor, _library, url_query, permalink, parts;
-    var human_language = document.documentElement.lang;
-    url_query = parseUri(window.location.href);
-
-    permalink = url_query.protocol + "://" + url_query.host;
-    if (url_query.port){
-        permalink += ":" + url_query.port;
-    }
-    permalink += url_query.path;
-    proglang = RUR.programming_language + "-" + human_language;
-    world = encodeURIComponent(RUR.world.export_world());
-    _editor = encodeURIComponent(editor.getValue());
-    if (RUR.programming_language == "python") {
-        _library = encodeURIComponent(library.getValue());
-        permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
-    } else {
-        permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor;
-    }
-    return permalink;
-};
 
 
-RUR.create_permalink = function () {
-    var permalink;
-
-    permalink = RUR._create_permalink();
-
-    $("#url_input_textarea").val(permalink);
-    $("#url_input").toggle();
-    $("#ok-permalink").removeAttr("disabled");
-    $("#cancel-permalink").removeAttr("disabled");
-
-    return false;
-};
 
 RUR.reset_programming_language = function(choice){
     var human_language = document.documentElement.lang;
@@ -177,47 +138,6 @@ RUR.reset_programming_language = function(choice){
     }
 };
 
-RUR.update_permalink = function (arg, shortname) {
-    var url_query, name;
-    if (arg !== undefined) {
-        url_query = parseUri(arg);
-    } else {
-        url_query = parseUri($("#url_input_textarea").val());
-    }
-    if (url_query.queryKey.proglang !== undefined &&
-       url_query.queryKey.world !== undefined &&
-       url_query.queryKey.editor !== undefined) {
-        var prog_lang = url_query.queryKey.proglang;
-        $('input[type=radio][name=programming_language]').val([prog_lang]);
-        RUR.reset_programming_language(prog_lang);
-        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        if (shortname !== undefined) {
-            RUR.storage.save_world(shortname);
-        } else {
-            RUR.storage.save_world(RUR.translate("PERMALINK"));
-        }
-        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
-    }
-
-    if (RUR.programming_language == "python" &&
-       url_query.queryKey.library !== undefined) {
-        library.setValue(decodeURIComponent(url_query.queryKey.library));
-    }
-
-    if(url_query.queryKey.css !== undefined) {
-        var new_css = decodeURIComponent(url_query.queryKey.css);
-        eval(new_css);    // jshint ignore:line
-    }
-    $("#url_input").hide();
-    $("#permalink").removeClass('reverse-blue-gradient');
-    $("#permalink").addClass('blue-gradient');
-};
-
-RUR.cancel_permalink = function () {
-    $('#url_input').hide();
-    $("#permalink").removeClass('reverse-blue-gradient');
-    $("#permalink").addClass('blue-gradient');
-};
 
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
 $.ajaxPrefilter( function (options) {
@@ -226,27 +146,6 @@ $.ajaxPrefilter( function (options) {
     options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
   }
 });
-
-RUR.load_permalink = function (filename, shortname) {
-    "use strict";
-    var url;
-    if (filename.substring(0,4).toLowerCase() == "http") {
-        url = filename;
-    } else {
-        url = "/src/worlds/permalinks/" + filename;
-    }
-    $.ajax({url: url,
-        async: false,
-        error: function(e){
-            RUR.cd.show_feedback("#Reeborg-shouts", RUR.translate("Could not find permalink"));
-            RUR.ui.stop();
-        },
-        success: function(data){
-            RUR.update_permalink(data, shortname);
-            RUR.ui.reload();
-        }
-    }, "text");
-};
 
 
 RUR.inspect = function (obj){
@@ -279,10 +178,7 @@ RUR.set_lineno_highlight = function(lineno, frame) {
         return true;
     }
 };
-/* Author: André Roberge
-   License: MIT
-
-The purpose of this module is to act as an intermediary between end user
+/*  The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
 the other modules.  This way, in theory, (most) refactoring can take place in the
 basic javascript code without affecting the end user code.
@@ -415,9 +311,7 @@ RUR._recording_ = function(bool) {
         RUR.rec.do_not_record = true;
     }
 };
-/* Author: André Roberge
-   License: MIT
-
+/* 
    Defining base name space and various constants.
  */
 
@@ -473,9 +367,7 @@ RUR.AXIS_LABEL_COLOR = "brown";
 RUR.MAX_STEPS = 1000;
 RUR.MIN_TIME_SOUND = 250;
 
-RUR.DEFAULT_TRACE_COLOR = "seagreen";/* Author: André Roberge
-   License: MIT
- */
+RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -713,12 +605,18 @@ RUR.control.take = function(robot, arg){
 
     objects_here = RUR.control.object_here(robot, arg);
     if (arg !== undefined) {
-        if (objects_here.length === 0 || objects_here == false) {
+        // WARNING: do not change this silly comparison to false
+        // to anything else ... []==false is true  but []==[] is false
+        // and ![] is false
+        if (objects_here.length === 0 || objects_here == false) { // jshint ignore:line
             throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
-    }  else if (objects_here.length === 0 || objects_here == false){
+        // WARNING: do not change this silly comparison to false
+        // to anything else ... []==false is true  but []==[] is false
+        // and ![] is false
+    }  else if (objects_here.length === 0 || objects_here == false){ // jshint ignore:line
         throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
@@ -733,12 +631,12 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     coords = robot.x + "," + robot.y;
     RUR.current_world.objects[coords][obj] -= 1;
 
-    if (RUR.current_world.objects[coords][obj] == 0){
+    if (RUR.current_world.objects[coords][obj] === 0){
         delete RUR.current_world.objects[coords][obj];
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
-        if (RUR.control.object_here(robot) == false){
+        if (RUR.control.object_here(robot) == false){ // jshint ignore:line
             delete RUR.current_world.objects[coords];
         }
     }
@@ -871,7 +769,7 @@ RUR.control.wall_on_right = function (robot) {
     RUR.control.turn_left(robot);
     RUR._recording_(true);
     return result;
-}
+};
 
 RUR.control.tile_in_front = function (robot) {
     // returns single tile
@@ -931,7 +829,7 @@ RUR.control.front_is_clear = function(robot){
             if (RUR.top_tiles[tilename] !== undefined &&
                 RUR.top_tiles[tilename].detectable &&
                 RUR.top_tiles[tilename].fatal) {
-                return false
+                return false;
             }
         }
     }
@@ -951,7 +849,7 @@ RUR.control._bridge_present = function(robot) {
         }
     }
     return false;
-}
+};
 
 
 RUR.control.right_is_clear = function(robot){
@@ -1148,14 +1046,9 @@ RUR.control.set_max_nb_robots = function(nb){
 RUR.control.get_world_map = function () {
     return JSON.stringify(RUR.current_world, null, 2);
 };
-/* Author: André Roberge
-   License: MIT
- */
-
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, $*/
 
-RUR = RUR || {};
 RUR.cd = {};
 
 RUR.cd.show_feedback = function (element, content) {
@@ -1327,9 +1220,6 @@ $(document).ready(function() {
     });
 
 });
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -1368,7 +1258,6 @@ RUR.custom_menu.make = function (contents) {
     }
 };
 
-MakeCustomMenu = RUR.custom_menu.make;
 
 RUR.make_default_menu = function(language) {
     switch (language) {
@@ -1378,7 +1267,7 @@ RUR.make_default_menu = function(language) {
                    break;
         default: RUR.make_default_menu_en();
     }
-}
+};
 
 
 RUR.make_default_menu_en = function () {
@@ -1509,15 +1398,10 @@ RUR.make_default_menu_fr = function () {
                            'Sentier de gravier (solution)'],
         [worlds + 'slalom.json', 'Slalom'],
         ['/src/worlds/blank.json', 'Canevas graphique'],
-    ]
+    ];
 
     RUR.custom_menu.make(contents);
-};/* Author: André Roberge
-   License: MIT
- */
-
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
+};
 
 RUR.file_io = {};
 
@@ -1549,7 +1433,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     RUR.file_io.status = undefined;
 
     if (url === undefined) {
-        RUR.output.write(RUR.translate("World() needs an argument."))
+        RUR.output.write(RUR.translate("World() needs an argument."));
         return;
     }
 
@@ -1617,11 +1501,11 @@ RUR.file_io.load_world_file = function (url, shortname) {
             async: false,
             error: function(e){
                 RUR.file_io.status = "no link";
-                console.log("error in ajax from RUR.file_io.")
+                console.log("error in ajax from RUR.file_io.");
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
-                    RUR.update_permalink(data, shortname);
+                    RUR.permalink.update(data, shortname);
                     RUR.ui.reload();
                 } else {
                     RUR.world.import_world(data);
@@ -1632,9 +1516,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
         });
     }
 };
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -2188,7 +2069,7 @@ RUR.kbd.insert_in_console = function (txt) {
     var console = $("#py_console");
     console.val(console.val() + txt);
     console.focus();
-}
+};
 
 RUR.kbd.insert = function (txt){
     "use strict";
@@ -2201,7 +2082,7 @@ RUR.kbd.insert = function (txt){
         txt = "'";
     }
 
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -2211,7 +2092,7 @@ RUR.kbd.insert = function (txt){
     pos = { // create a new object to avoid mutation of the original selection
        line: cursor.line,
        ch: cursor.ch // set the character position to the end of the line
-    }
+   };
     doc.replaceRange(txt, pos); // adds a new line
     doc.focus();
 };
@@ -2219,7 +2100,7 @@ RUR.kbd.insert = function (txt){
 RUR.kbd.undo = function () {
     "use strict";
     var doc;
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -2231,7 +2112,7 @@ RUR.kbd.undo = function () {
 RUR.kbd.redo = function () {
     "use strict";
     var doc;
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -2250,7 +2131,7 @@ RUR.kbd.enter = function () {
         myKeyPress(ev);
         return;
     }
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -2267,7 +2148,7 @@ RUR.kbd.tab = function () {
         return;
     }
 
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -2279,7 +2160,7 @@ RUR.kbd.tab = function () {
 RUR.kbd.shift_tab = function () {
     "use strict";
     var doc;
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -2351,7 +2232,7 @@ RUR.kbd.select = function (choice) {
             $("#kbd_special_btn").removeClass("blue-gradient");
             $("#kbd_special_btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_command":
+        case "kbd_command":  // jshint ignore:line
         default:
             $(".kbd_command").show();
             $("#kbd_command_btn").removeClass("blue-gradient");
@@ -2369,14 +2250,6 @@ RUR.kbd.select = function (choice) {
         $(".only_py").hide();
     }
 };
-
-$(document).ready(function() {
-    "use strict";
-    RUR.kbd.select();
-});
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, editor, library, RUR, JSHINT, globals_ */
@@ -2427,7 +2300,8 @@ RUR.editorUpdateHints = function() {
             }));
         }
     });
-};RUR.output = {};
+};
+RUR.output = {};
 
 RUR.output.write = function () {
     var output_string = '';
@@ -2435,7 +2309,7 @@ RUR.output.write = function () {
     for (var i = 0; i < arguments.length; i++) {
         output_string += arguments[i].toString();
   }
-  output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
     RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
 
@@ -2466,7 +2340,7 @@ RUR.output.watch_variables = function (arg) {
 
 RUR.output.view_source = function(fn) {
     $("#Reeborg-explores").dialog("open");
-    RUR.cd.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" )
+    RUR.cd.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" );
     $('.js_code').each(function() {
         var $this = $(this), $code = $this.text();
         $this.removeClass("js_code");
@@ -2481,14 +2355,125 @@ RUR.output.view_source = function(fn) {
         });
     });
 };
-/* Author: André Roberge
-   License: MIT
 
-   Defining base name space and various constants.
- */
+RUR.permalink = {};
+
+// parseUri 1.2.2
+// (c) Steven Levithan <stevenlevithan.com>
+// MIT License
+
+function parseUri (str) {
+	var	o   = parseUri.options,
+		m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+		uri = {},
+		i   = 14;
+
+	while (i--) uri[o.key[i]] = m[i] || "";
+
+	uri[o.q.name] = {};
+	uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+		if ($1) uri[o.q.name][$1] = $2;
+	});
+
+	return uri;
+}
+
+parseUri.options = {
+	strictMode: false,
+	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+	q:   {
+		name:   "queryKey",
+		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+	},
+	parser: {
+		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+	}
+};
+
+
+RUR.permalink.__create = function () {
+    "use strict";
+    var proglang, world, _editor, _library, url_query, permalink, parts;
+    var human_language = document.documentElement.lang;
+    url_query = parseUri(window.location.href);
+
+    permalink = url_query.protocol + "://" + url_query.host;
+    if (url_query.port){
+        permalink += ":" + url_query.port;
+    }
+    permalink += url_query.path;
+    proglang = RUR.programming_language + "-" + human_language;
+    world = encodeURIComponent(RUR.world.export_world());
+    _editor = encodeURIComponent(editor.getValue());
+    if (RUR.programming_language == "python") {
+        _library = encodeURIComponent(library.getValue());
+        permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
+    } else {
+        permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor;
+    }
+    return permalink;
+};
+
+
+RUR.permalink.create = function () {
+    var permalink;
+
+    permalink = RUR.permalink.__create();
+
+    $("#url_input_textarea").val(permalink);
+    $("#url_input").toggle();
+    $("#ok-permalink").removeAttr("disabled");
+    $("#cancel-permalink").removeAttr("disabled");
+
+    return false;
+};
+
+
+RUR.permalink.update = function (arg, shortname) {
+    var url_query, name;
+    if (arg !== undefined) {
+        url_query = parseUri(arg);
+    } else {
+        url_query = parseUri($("#url_input_textarea").val());
+    }
+    if (url_query.queryKey.proglang !== undefined &&
+       url_query.queryKey.world !== undefined &&
+       url_query.queryKey.editor !== undefined) {
+        var prog_lang = url_query.queryKey.proglang;
+        $('input[type=radio][name=programming_language]').val([prog_lang]);
+        RUR.reset_programming_language(prog_lang);
+        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
+        if (shortname !== undefined) {
+            RUR.storage.save_world(shortname);
+        } else {
+            RUR.storage.save_world(RUR.translate("PERMALINK"));
+        }
+        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
+    }
+
+    if (RUR.programming_language == "python" &&
+       url_query.queryKey.library !== undefined) {
+        library.setValue(decodeURIComponent(url_query.queryKey.library));
+    }
+
+    if(url_query.queryKey.css !== undefined) {
+        var new_css = decodeURIComponent(url_query.queryKey.css);
+        eval(new_css);    // jshint ignore:line
+    }
+    $("#url_input").hide();
+    $("#permalink").removeClass('reverse-blue-gradient');
+    $("#permalink").addClass('blue-gradient');
+};
+
+RUR.permalink.cancel = function () {
+    $('#url_input').hide();
+    $("#permalink").removeClass('reverse-blue-gradient');
+    $("#permalink").addClass('blue-gradient');
+};
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR , editor, __BRYTHON__*/
+/*globals $, RUR , editor*/
 
 RUR.rec = {};
 
@@ -2515,7 +2500,7 @@ RUR.rec.reset = function() {
     RUR.rec._previous_lines = [];
     RUR.rec._max_lineno_highlighted = 0;
 };
-RUR.rec.reset();
+
 
 RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
@@ -2769,11 +2754,11 @@ RUR.rec.check_current_world_status = function() {
     // this function is to check goals from the Python console.
     frame = {};
     frame.world = RUR.current_world;
-    if (frame.world.goal == undefined){
+    if (frame.world.goal === undefined){
         RUR.cd.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
-                             "</p>")
+                             "</p>");
     } else {
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
@@ -2853,9 +2838,6 @@ RUR.rec.check_robots_on_tiles = function(frame){
         }
     }
 };
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -2918,15 +2900,11 @@ RUR.robot.cleanup_objects = function (robot) {
     }
     robot.objects = objects_carried;
     // handling legacy notation
-    if (robot.orientation != undefined){
+    if (robot.orientation !== undefined){
         robot._orientation = robot.orientation;
         delete robot.orientation;
     }
-}
- /* Author: André Roberge
-   License: MIT
- */
-
+};
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, editorUpdateHints,
   translate_python, CoffeeScript */
@@ -2953,14 +2931,14 @@ RUR.runner.assign_initial_values = function () {
                         if (nb.toString().indexOf("-") != -1){
                             range = nb.split("-");
                             nb = RUR.randint(parseInt(range[0], 10), parseInt(range[1], 10));
-                            if (nb != 0){
+                            if (nb !== 0){
                                 objects_here[obj] = nb;
                             } else {
                                 delete objects_here[obj];
                             }
                         }
                         if (total_nb_objects[obj] === undefined){
-                            if (parseInt(nb, 10) != 0) {
+                            if (parseInt(nb, 10) !== 0) {
                                 total_nb_objects[obj] = parseInt(nb, 10);
                             }
                         } else {
@@ -3223,7 +3201,7 @@ RUR.runner.simplify_python_traceback = function(e) {
         }
     } else {
         message = e.reeborg_shouts;
-        if (e.__name__ == undefined) {
+        if (e.__name__ === undefined) {
             error_name = "ReeborgError";
         } else {
             error_name = e.__name__;
@@ -3292,9 +3270,7 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     }
     return false;  // no missing parentheses
 };
-/* Author: André Roberge
-   License: MIT
-
+/*
    Utilities for dealing with html LocalStorage.
  */
 
@@ -3349,10 +3325,11 @@ RUR.storage.append_world_name = function (name){
     RUR.world_select.set_url(url);  // reload as updating select choices blanks the world.
 
     /* appends name to world selector and to list of possible worlds to delete */
-    $('#delete-world h3').append('<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world('
-            + "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
+    $('#delete-world h3').append(
+        '<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world(' +
+            "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
     $('#delete-world').show();
-}
+};
 
 RUR.storage.delete_world = function (name){
     "use strict";
@@ -3391,12 +3368,8 @@ RUR.storage.remove_world = function () {
     if (response !== null) {
         RUR.storage.delete_world(response.trim());
     }
-};/* Author: André Roberge
-   License: MIT
- */
-
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR, editor */
+};
+/* comprenhensive tests run from the Additional Options menu */
 
 RUR.testing = {};
 
@@ -3416,7 +3389,7 @@ RUR.testing.test_permalink = function (permalink, name){
 };
 
 RUR.testing.test_permalien = function (permalink, name){
-    RUR.testing._test_permalink(permalink, "Monde", name)
+    RUR.testing._test_permalink(permalink, "Monde", name);
 };
 
 RUR.testing.run_test = function() {
@@ -3424,8 +3397,6 @@ RUR.testing.run_test = function() {
     RUR.ui.reload();
     RUR.ui.run();
 };
-/* Author: André Roberge
-   License: MIT  */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, $, CodeMirror, ReeborgError, editor, library, removeHints, parseUri */
@@ -3502,9 +3473,6 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
         }
     }
 };
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -3693,7 +3661,6 @@ RUR.ui.watch = function () {
     }
 };
 
-
 RUR.ui.user_no_highlight = function () {
     // meant to be used in a Python program (under a different name)
     // to ensure highlighting is turned off.
@@ -3704,24 +3671,11 @@ RUR.ui.user_no_highlight = function () {
     }
 };
 
-
-RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
-    reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
-    step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
-    pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
-    stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
-
-
 RUR.ui.toggle_panel = function (button, element) {
     button.toggleClass("blue-gradient");
     button.toggleClass("reverse-blue-gradient");
     element.toggleClass("active");
 };
-/* Author: André Roberge
-   License: MIT  */
-
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR */
 
 /*
     Original script title: "Object.identical.js"; version 1.12
@@ -3762,41 +3716,6 @@ String.prototype.supplant = function (o) {
         }
     );
 };
-
-// parseUri 1.2.2
-// (c) Steven Levithan <stevenlevithan.com>
-// MIT License
-
-function parseUri (str) {
-	var	o   = parseUri.options,
-		m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
-		uri = {},
-		i   = 14;
-
-	while (i--) uri[o.key[i]] = m[i] || "";
-
-	uri[o.q.name] = {};
-	uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
-		if ($1) uri[o.q.name][$1] = $2;
-	});
-
-	return uri;
-}
-
-parseUri.options = {
-	strictMode: false,
-	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
-	q:   {
-		name:   "queryKey",
-		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
-	},
-	parser: {
-		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
-	}
-};/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -3915,7 +3834,7 @@ RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y, width, height, image;
     // handling legacy Code
-    if (robot.orientation != undefined) {
+    if (robot.orientation !== undefined) {
         robot._orientation = robot.orientation;
         robot.orientation = null;
     }
@@ -3990,7 +3909,7 @@ RUR.vis_robot.draw_trace = function (robot) {
         return;
     }
     var ctx = RUR.TRACE_CTX;
-    if (robot.trace_color != undefined){
+    if (robot.trace_color !== undefined){
         ctx.strokeStyle = robot.trace_color;
     } else {
         ctx.strokeStyle = RUR.vis_robot.trace_color;
@@ -4043,26 +3962,23 @@ RUR.vis_robot.set_trace_style("default");
 
 RUR.vis_robot.new_robot_images = function (images) {
 
-if (images.east != undefined) {
+if (images.east !== undefined) {
     RUR.vis_robot.images[0].robot_e_img.src = images.east;
 }
-if (images.west != undefined) {
+if (images.west !== undefined) {
     RUR.vis_robot.images[0].robot_w_img.src = images.west;
 }
-if (images.north != undefined) {
+if (images.north !== undefined) {
     RUR.vis_robot.images[0].robot_n_img.src = images.north;
 }
-if (images.south != undefined) {
+if (images.south !== undefined) {
     RUR.vis_robot.images[0].robot_s_img.src = images.south;
 }
-if (images.random != undefined) {
+if (images.random !== undefined) {
     RUR.vis_robot.images[0].robot_random_img.src = images.random;
 }
 RUR.vis_robot.select_default_model(0);
 };
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint  -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR*/
@@ -4649,9 +4565,6 @@ RUR.vis_world.draw_info = function() {
     }
 
 };
-/* Author: André Roberge
-   License: MIT
- */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -5864,10 +5777,6 @@ RUR.we._remove_all_at_location = function(coords) {
         }
     }
 };
-/* Author: André Roberge
-   License: MIT
- */
-
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -5930,7 +5839,7 @@ RUR.world_select.replace_shortname = function (url, shortname) {
     "use strict";
     var i, select;
     select = document.getElementById("select_world");
-    url = url.toLowerCase()
+    url = url.toLowerCase();
 
     for (i=0; i < select.options.length; i++){
         if (select.options[i].value.toLowerCase() === url) {
@@ -5954,7 +5863,7 @@ RUR.world_select.append_world = function (arg) {
     // allow for special styling of any url containing the string "menu".
     if (url.indexOf('menu') != -1) {
         option_elt = '<option class="select-menu"></option>';
-    } else if (arg.local_storage != undefined){
+    } else if (arg.local_storage !== undefined){
         option_elt = '<option class="select-local-storage"></option>';
     } else {
         option_elt = '<option></option>';
@@ -6024,7 +5933,7 @@ RUR.zz_dr_dialogs = function () {
                                     position:{my: "bottom", at: "bottom-140", of: window}});
 
 
-}
+};
 
 /*jshint -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, toggle_contents_button, update_controls, saveAs, toggle_editing_mode,
@@ -6038,42 +5947,23 @@ $(document).ready(function() {
               "Under testing, it works with Google Chrome and Microsoft Edge. "+
           "Le monde de Reeborg ne fonctionne plus avec la nouvelle version de Firefox.");
     }
-
+    RUR.rec.reset();
     try {
         RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
     } catch (e) {
         RUR.world_select.set_default();
     }
+
+    // check if this is needed or does conflict with MakeCustomMenu
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
 
     RUR.zz_dr_dialogs();
     RUR.zz_dr_onclick();
     RUR.zz_dr_onchange();
+    RUR.zz_dr_editor_ui();
 
     RUR.ui.show_only_reload2(false);
-
-    $("#tabs").tabs({
-            heightStyle: "auto",
-            activate: function(event, ui){
-                editor.refresh();
-                library.refresh();
-                pre_code_editor.refresh();
-                post_code_editor.refresh();
-                description_editor.refresh();
-            }
-    });
-
-    $("#editor-panel").resizable({
-        resize: function() {
-            editor.setSize(null, $(this).height()-40);
-            library.setSize(null, $(this).height()-40);
-            pre_code_editor.setSize(null, $(this).height()-40);
-            post_code_editor.setSize(null, $(this).height()-40);
-            description_editor.setSize(null, $(this).height()-40);
-        }
-    }).draggable({cursor: "move", handle: "ul"});
-
 
     try {
         RUR.reset_code_in_editors();
@@ -6084,13 +5974,12 @@ $(document).ready(function() {
     // for embedding in iframe
     addEventListener("message", receiveMessage, false);
     function receiveMessage(event){
-        RUR.update_permalink(event.data);
+        RUR.permalink.update(event.data);
     }
 
     RUR.ui.set_ready_to_run();
-
+    RUR.kbd.select();
 });
-
 
 
 $(document).ready(function() {
@@ -6138,6 +6027,32 @@ $(document).ready(function() {
 
     RUR.we.set_extra_code();
 });
+/* Sets up the UI for various editors.
+
+called by zzz_doc_ready.js
+*/
+RUR.zz_dr_editor_ui = function () {
+    $("#tabs").tabs({
+            heightStyle: "auto",
+            activate: function(event, ui){
+                editor.refresh();
+                library.refresh();
+                pre_code_editor.refresh();
+                post_code_editor.refresh();
+                description_editor.refresh();
+            }
+    });
+
+    $("#editor-panel").resizable({
+        resize: function() {
+            editor.setSize(null, $(this).height()-40);
+            library.setSize(null, $(this).height()-40);
+            pre_code_editor.setSize(null, $(this).height()-40);
+            post_code_editor.setSize(null, $(this).height()-40);
+            description_editor.setSize(null, $(this).height()-40);
+        }
+    }).draggable({cursor: "move", handle: "ul"});
+};
 /* Sets up what happens when various changes happened in various html elements.
 
 called by zzz_doc_ready.js
@@ -6163,7 +6078,6 @@ RUR.zz_dr_onchange = function () {
 called by zzz_doc_ready.js
 */
 RUR.zz_dr_onclick = function () {
-
 
     function load_file (obj) {
         $("#fileInput").click();
@@ -6232,7 +6146,7 @@ RUR.zz_dr_onclick = function () {
     });
 
     $("#save-permalink").on("click", function (evt) {
-        var blob = new Blob([RUR._create_permalink()], {
+        var blob = new Blob([RUR.permalink.__create()], {
             type: "text/javascript;charset=utf-8"
         });
         saveAs(blob, "filename");

@@ -42,8 +42,8 @@
   <p>Copy the permalink and press cancel, or replace by new one and press Update.</p>
     <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
   <p>
-    <button class="blue-gradient" id="ok-permalink" onclick="RUR.update_permalink();">Update</button>
-    <button class="blue-gradient" id="cancel-permalink" onclick="RUR.cancel_permalink();">Cancel</button>
+    <button class="blue-gradient" id="ok-permalink" onclick="RUR.permalink.update();">Update</button>
+    <button class="blue-gradient" id="cancel-permalink" onclick="RUR.permalink.cancel();">Cancel</button>
   </p>
 </div>
 
@@ -424,7 +424,7 @@ window['translate_python'] = translate_python
       your own world by editing the current one.
   </p>
   <p>
-    <button id="permalink" class="blue-gradient" onclick="RUR.create_permalink();">Permalink</button>
+    <button id="permalink" class="blue-gradient" onclick="RUR.permalink.create();">Permalink</button>
     To save the complete content (current state of the world, content of the code editor and,
   if programming using Python, content of the library), click on the permalink button.
   This will create a permalink which can be saved by copying it and pasting it in a location of

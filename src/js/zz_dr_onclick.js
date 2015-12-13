@@ -71,7 +71,7 @@ RUR.zz_dr_onclick = function () {
     });
 
     $("#save-permalink").on("click", function (evt) {
-        var blob = new Blob([RUR._create_permalink()], {
+        var blob = new Blob([RUR.permalink.__create()], {
             type: "text/javascript;charset=utf-8"
         });
         saveAs(blob, "filename");

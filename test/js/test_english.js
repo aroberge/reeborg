@@ -69,16 +69,16 @@ QUnit.module("file_io.js tests");
 QUnit.test("Load world without running program", function(assert) {
     RUR.unit_tests.reset();
     contents = [["/src/worlds/tutorial_en/home1.json", "Home 1"],
-                ["/src/worlds/tutorial_en/home2.json", "Home 2"]]
+                ["/src/worlds/tutorial_en/home2.json", "Home 2"]];
     RUR.custom_menu.make(contents);
-    assert.throws(function() {RUR.file_io.load_world_from_program('Home 2')},
+    assert.throws(function() {RUR.file_io.load_world_from_program('Home 2');},
                  "Raised expected error");
     equal(RUR.unit_tests.feedback_element, "#Reeborg-shouts", "Feedback element ok.");
     equal(RUR.unit_tests.content, "World Home 2 selected");
 
     equal(RUR.file_io.load_world_from_program('Home 2'), "no world change", "Loading world twice ok");
 
-    assert.throws(function() {RUR.file_io.load_world_from_program('Alone')},
+    assert.throws(function() {RUR.file_io.load_world_from_program('Alone');},
                  "Raised expected error");
     equal(RUR.unit_tests.feedback_element, "#Reeborg-shouts", "Feedback element ok.");
     equal(RUR.unit_tests.content, "Could not find link: Alone");
@@ -91,11 +91,11 @@ QUnit.test("Load world by running Python programs", function(assert) {
     var frames, last_frame, contents;
     RUR.unit_tests.reset();
     contents = [["/src/worlds/tutorial_en/home1.json", "Home 1"],
-                ["/src/worlds/tutorial_en/home2.json", "Home 2"]]
+                ["/src/worlds/tutorial_en/home2.json", "Home 2"]];
     RUR.custom_menu.make(contents);
 
     // first select world Home 2 as our current default
-    assert.throws(function() {RUR.file_io.load_world_from_program('Home 2')},
+    assert.throws(function() {RUR.file_io.load_world_from_program('Home 2');},
                  "Raised expected error from loading Home 2");
 
     // select world from program
@@ -107,7 +107,7 @@ QUnit.test("Load world by running Python programs", function(assert) {
     RUR.unit_tests.run_python(null, "/test/src/select_home1_en.py");
     RUR.rec.conclude();
     console.log(RUR.rec.frames);
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
         "Feedback text ok.");
@@ -147,7 +147,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
     equal(last_frame.world.robots[0].objects.token, "infinite", "Nb of tokens carried.");
     equal(last_frame.world.objects['1,1'].token, 1, "Token put down.");
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<p class='center'>Last instruction completed!</p>",
         "Feedback text ok.");
@@ -179,7 +179,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
     equal(last_frame.world.robots[0].objects.token, "infinite", "Nb of tokens carried.");
     equal(last_frame.world.objects['2,1'].token, 1, "Token put down.");
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<p class='center'>Last instruction completed!</p>",
         "Feedback text ok.");
@@ -196,7 +196,7 @@ QUnit.test("Center 1, 2, 3", function(assert) {
                                       world_files[i] + " run successfully.");
     }
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>All objects are at the correct location.</li></u>",
         "Feedback text ok.");
@@ -213,7 +213,7 @@ QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
                                       world_files[i] + " run successfully.");
     }
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
         "Feedback text ok.");
@@ -232,7 +232,7 @@ QUnit.test("Maze 1, 2", function(assert) {
                                       world_files[i] + " run successfully.");
     }
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
         "Feedback text ok.");
@@ -249,7 +249,7 @@ QUnit.test("Home 1, 2, 3", function(assert) {
                                       world_files[i] + " run successfully.");
     }
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
         "Feedback text ok.");
@@ -269,7 +269,7 @@ QUnit.test("Harvests", function(assert) {
     equal(last_frame.world.robots[0].objects.carrot, "infinite", "Nb of carrots carried.");
 
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>All objects are at the correct location.</li></u>",
         "Feedback text ok.");
@@ -310,7 +310,7 @@ QUnit.test("Tokens", function(assert) {
     last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
     deepEqual(last_frame.world.robots[0].objects, {}, "No objects carried.");
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
@@ -346,7 +346,7 @@ QUnit.test("Rain", function(assert) {
                                       world_file + " run successfully.");
 
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
@@ -371,7 +371,7 @@ QUnit.test("Newspaper", function(assert) {
     last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
     deepEqual(last_frame.world.robots[0].objects, {"token": 5}, "5 tokens carried.");
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
@@ -398,7 +398,7 @@ QUnit.test("Storm 1, 2, 3; also tests library", function(assert) {
     last_frame = frames[frames.length-1];
     deepEqual(last_frame.world.robots[0].objects, {}, "Testing storm1: no objects carried.");
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
@@ -419,7 +419,7 @@ QUnit.test("Storm 1, 2, 3; also tests library", function(assert) {
     last_frame = frames[frames.length-1];
     deepEqual(last_frame.world.robots[0].objects, {}, "Testing storm2: no objects carried.");
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
@@ -436,7 +436,7 @@ QUnit.test("Storm 1, 2, 3; also tests library", function(assert) {
     last_frame = frames[frames.length-1];
     deepEqual(last_frame.world.robots[0].objects, {}, "Testing storm3: no objects carried.");
     RUR.rec.conclude();
-    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.")
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +

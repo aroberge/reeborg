@@ -186,7 +186,6 @@ RUR.ui.watch = function () {
     }
 };
 
-
 RUR.ui.user_no_highlight = function () {
     // meant to be used in a Python program (under a different name)
     // to ensure highlighting is turned off.
@@ -196,14 +195,6 @@ RUR.ui.user_no_highlight = function () {
         $("#highlight").removeClass("reverse-blue-gradient");
     }
 };
-
-
-RUR.ui.buttons = {execute_button: '<img src="src/images/play.png" class="blue-gradient" alt="run"/>',
-    reload_button: '<img src="src/images/reload.png" class="blue-gradient" alt="reload"/>',
-    step_button: '<img src="src/images/step.png" class="blue-gradient" alt="step"/>',
-    pause_button: '<img src="src/images/pause.png" class="blue-gradient" alt="pause"/>',
-    stop_button: '<img src="src/images/stop.png" class="blue-gradient" alt="stop"/>'};
-
 
 RUR.ui.toggle_panel = function (button, element) {
     button.toggleClass("blue-gradient");

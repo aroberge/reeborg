@@ -36,7 +36,6 @@ RUR.custom_menu.make = function (contents) {
     }
 };
 
-MakeCustomMenu = RUR.custom_menu.make;
 
 RUR.make_default_menu = function(language) {
     switch (language) {

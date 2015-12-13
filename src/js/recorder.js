@@ -1,6 +1,6 @@
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR , editor, __BRYTHON__*/
+/*globals $, RUR , editor*/
 
 RUR.rec = {};
 
@@ -27,7 +27,7 @@ RUR.rec.reset = function() {
     RUR.rec._previous_lines = [];
     RUR.rec._max_lineno_highlighted = 0;
 };
-RUR.rec.reset();
+
 
 RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone

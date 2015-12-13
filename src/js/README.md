@@ -17,11 +17,14 @@ The individual files are concatenated into a single file, currently named
 `reeborg_dev.js`, using a windows batch file.
 
 The concatenation is done alphabetically.  For clarity, I have chosen to
-include at the very end the file whose content is executed after the
-html document has been loaded
+include at the very end the almost all the files whose content is
+executed after the html document has been loaded
 [i.e. using the `$(document).ready(function() {...});` idiom]
 by naming it `zzz_doc_ready.js`.  As this file's content became unwieldy,
 I decided to create individual files prefixed by `zz_dr_`
 [`zz_` to be included near the end, `dr` short for `doc_ready`]
 whose content often includes only one type of initialization
 (e.g. determine what happens when one click on various elements).
+The one exception to this rule is for `custom_dialogs.js` which is loaded
+earlier mostly for historical reasons
+[Nothing would be gained by changing the way it is dealt with currently.]

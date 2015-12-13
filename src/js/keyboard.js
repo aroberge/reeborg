@@ -66,7 +66,7 @@ RUR.kbd.insert = function (txt){
     pos = { // create a new object to avoid mutation of the original selection
        line: cursor.line,
        ch: cursor.ch // set the character position to the end of the line
-    }
+   };
     doc.replaceRange(txt, pos); // adds a new line
     doc.focus();
 };
@@ -74,7 +74,7 @@ RUR.kbd.insert = function (txt){
 RUR.kbd.undo = function () {
     "use strict";
     var doc;
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -86,7 +86,7 @@ RUR.kbd.undo = function () {
 RUR.kbd.redo = function () {
     "use strict";
     var doc;
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -105,7 +105,7 @@ RUR.kbd.enter = function () {
         myKeyPress(ev);
         return;
     }
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -122,7 +122,7 @@ RUR.kbd.tab = function () {
         return;
     }
 
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -134,7 +134,7 @@ RUR.kbd.tab = function () {
 RUR.kbd.shift_tab = function () {
     "use strict";
     var doc;
-    if ($("#tabs").tabs('option', 'active') == 0) {
+    if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
     } else {
         doc = library;
@@ -206,7 +206,7 @@ RUR.kbd.select = function (choice) {
             $("#kbd_special_btn").removeClass("blue-gradient");
             $("#kbd_special_btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_command":
+        case "kbd_command":  // jshint ignore:line
         default:
             $(".kbd_command").show();
             $("#kbd_command_btn").removeClass("blue-gradient");
@@ -224,8 +224,3 @@ RUR.kbd.select = function (choice) {
         $(".only_py").hide();
     }
 };
-
-$(document).ready(function() {
-    "use strict";
-    RUR.kbd.select();
-});

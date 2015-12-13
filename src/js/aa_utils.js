@@ -1,5 +1,3 @@
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR, $, CodeMirror, ReeborgError, editor, library, removeHints, parseUri */
 
 // aa_utils.js : name starting with aa so that it is loaded first :-/
 
@@ -70,42 +68,8 @@ RUR.reset_code_in_editors = function () {
     editor.setValue(editor_content);
 };
 
-RUR._create_permalink = function () {
-    "use strict";
-    var proglang, world, _editor, _library, url_query, permalink, parts;
-    var human_language = document.documentElement.lang;
-    url_query = parseUri(window.location.href);
-
-    permalink = url_query.protocol + "://" + url_query.host;
-    if (url_query.port){
-        permalink += ":" + url_query.port;
-    }
-    permalink += url_query.path;
-    proglang = RUR.programming_language + "-" + human_language;
-    world = encodeURIComponent(RUR.world.export_world());
-    _editor = encodeURIComponent(editor.getValue());
-    if (RUR.programming_language == "python") {
-        _library = encodeURIComponent(library.getValue());
-        permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
-    } else {
-        permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor;
-    }
-    return permalink;
-};
 
 
-RUR.create_permalink = function () {
-    var permalink;
-
-    permalink = RUR._create_permalink();
-
-    $("#url_input_textarea").val(permalink);
-    $("#url_input").toggle();
-    $("#ok-permalink").removeAttr("disabled");
-    $("#cancel-permalink").removeAttr("disabled");
-
-    return false;
-};
 
 RUR.reset_programming_language = function(choice){
     var human_language = document.documentElement.lang;
@@ -174,47 +138,6 @@ RUR.reset_programming_language = function(choice){
     }
 };
 
-RUR.update_permalink = function (arg, shortname) {
-    var url_query, name;
-    if (arg !== undefined) {
-        url_query = parseUri(arg);
-    } else {
-        url_query = parseUri($("#url_input_textarea").val());
-    }
-    if (url_query.queryKey.proglang !== undefined &&
-       url_query.queryKey.world !== undefined &&
-       url_query.queryKey.editor !== undefined) {
-        var prog_lang = url_query.queryKey.proglang;
-        $('input[type=radio][name=programming_language]').val([prog_lang]);
-        RUR.reset_programming_language(prog_lang);
-        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        if (shortname !== undefined) {
-            RUR.storage.save_world(shortname);
-        } else {
-            RUR.storage.save_world(RUR.translate("PERMALINK"));
-        }
-        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
-    }
-
-    if (RUR.programming_language == "python" &&
-       url_query.queryKey.library !== undefined) {
-        library.setValue(decodeURIComponent(url_query.queryKey.library));
-    }
-
-    if(url_query.queryKey.css !== undefined) {
-        var new_css = decodeURIComponent(url_query.queryKey.css);
-        eval(new_css);    // jshint ignore:line
-    }
-    $("#url_input").hide();
-    $("#permalink").removeClass('reverse-blue-gradient');
-    $("#permalink").addClass('blue-gradient');
-};
-
-RUR.cancel_permalink = function () {
-    $('#url_input').hide();
-    $("#permalink").removeClass('reverse-blue-gradient');
-    $("#permalink").addClass('blue-gradient');
-};
 
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
 $.ajaxPrefilter( function (options) {
@@ -223,27 +146,6 @@ $.ajaxPrefilter( function (options) {
     options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
   }
 });
-
-RUR.load_permalink = function (filename, shortname) {
-    "use strict";
-    var url;
-    if (filename.substring(0,4).toLowerCase() == "http") {
-        url = filename;
-    } else {
-        url = "/src/worlds/permalinks/" + filename;
-    }
-    $.ajax({url: url,
-        async: false,
-        error: function(e){
-            RUR.cd.show_feedback("#Reeborg-shouts", RUR.translate("Could not find permalink"));
-            RUR.ui.stop();
-        },
-        success: function(data){
-            RUR.update_permalink(data, shortname);
-            RUR.ui.reload();
-        }
-    }, "text");
-};
 
 
 RUR.inspect = function (obj){

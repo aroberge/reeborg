@@ -11,42 +11,23 @@ $(document).ready(function() {
               "Under testing, it works with Google Chrome and Microsoft Edge. "+
           "Le monde de Reeborg ne fonctionne plus avec la nouvelle version de Firefox.");
     }
-
+    RUR.rec.reset();
     try {
         RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
     } catch (e) {
         RUR.world_select.set_default();
     }
+
+    // check if this is needed or does conflict with MakeCustomMenu
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
 
     RUR.zz_dr_dialogs();
     RUR.zz_dr_onclick();
     RUR.zz_dr_onchange();
+    RUR.zz_dr_editor_ui();
 
     RUR.ui.show_only_reload2(false);
-
-    $("#tabs").tabs({
-            heightStyle: "auto",
-            activate: function(event, ui){
-                editor.refresh();
-                library.refresh();
-                pre_code_editor.refresh();
-                post_code_editor.refresh();
-                description_editor.refresh();
-            }
-    });
-
-    $("#editor-panel").resizable({
-        resize: function() {
-            editor.setSize(null, $(this).height()-40);
-            library.setSize(null, $(this).height()-40);
-            pre_code_editor.setSize(null, $(this).height()-40);
-            post_code_editor.setSize(null, $(this).height()-40);
-            description_editor.setSize(null, $(this).height()-40);
-        }
-    }).draggable({cursor: "move", handle: "ul"});
-
 
     try {
         RUR.reset_code_in_editors();
@@ -57,13 +38,12 @@ $(document).ready(function() {
     // for embedding in iframe
     addEventListener("message", receiveMessage, false);
     function receiveMessage(event){
-        RUR.update_permalink(event.data);
+        RUR.permalink.update(event.data);
     }
 
     RUR.ui.set_ready_to_run();
-
+    RUR.kbd.select();
 });
-
 
 
 $(document).ready(function() {
