@@ -88,6 +88,4 @@ $(document).ready(function() {
         var new_css = decodeURIComponent(url_query.queryKey.css);
         eval(new_css);  // jshint ignore:line
     }
-
-    RUR.we.set_extra_code();
 });

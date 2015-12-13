@@ -74,7 +74,17 @@ RUR.permalink.create = function () {
 
 
 RUR.permalink.update = function (arg, shortname) {
+    "use strict";
     var url_query, name;
+
+	if (RUR.permalink_update_previous_arg === undefined) {
+		RUR.permalink_update_previous_arg = arg;
+	} else if (RUR.permalink_update_previous_arg === arg) {
+		return;
+	} else {
+		RUR.permalink_update_previous_arg = arg;
+	}
+
     if (arg !== undefined) {
         url_query = parseUri(arg);
     } else {

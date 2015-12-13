@@ -1484,7 +1484,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
 RUR.file_io.load_world_file = function (url, shortname) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
-    var data, i, selected, possible_url, new_selection=false, new_world = false;
+    var data;
 
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
@@ -1493,7 +1493,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
             return;
         }
         RUR.world.import_world(data);
-        RUR.we.set_extra_code();
         RUR.file_io.status = "success";
         RUR.rec.frames = [];
     } else {
@@ -1501,7 +1500,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
             async: false,
             error: function(e){
                 RUR.file_io.status = "no link";
-                console.log("error in ajax from RUR.file_io.");
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
@@ -1509,7 +1507,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
                     RUR.ui.reload();
                 } else {
                     RUR.world.import_world(data);
-                    RUR.we.set_extra_code();
                 }
                 RUR.file_io.status = "success";
             }
@@ -2431,7 +2428,17 @@ RUR.permalink.create = function () {
 
 
 RUR.permalink.update = function (arg, shortname) {
+    "use strict";
     var url_query, name;
+
+	if (RUR.permalink_update_previous_arg === undefined) {
+		RUR.permalink_update_previous_arg = arg;
+	} else if (RUR.permalink_update_previous_arg === arg) {
+		return;
+	} else {
+		RUR.permalink_update_previous_arg = arg;
+	}
+
     if (arg !== undefined) {
         url_query = parseUri(arg);
     } else {
@@ -5844,9 +5851,10 @@ RUR.world_select.replace_shortname = function (url, shortname) {
     for (i=0; i < select.options.length; i++){
         if (select.options[i].value.toLowerCase() === url) {
             select.options[i].text = shortname;
-            return;
+            return true;
         }
     }
+    return false;
 };
 
 RUR.world_select.append_world = function (arg) {
@@ -5868,12 +5876,10 @@ RUR.world_select.append_world = function (arg) {
     } else {
         option_elt = '<option></option>';
     }
-
-
-    // todo: ensure that the same url is not appended twice with the
-    // same shortname
-    // if shortname==url for existing one, allow overriding name.
-    $('#select_world').append( $(option_elt).val(url).html(shortname));
+    // Append only if new world.
+    if (!RUR.world_select.replace_shortname(url, shortname)) {
+        $('#select_world').append( $(option_elt).val(url).html(shortname));
+    }
 };
 // called by zzz_doc_ready.js
 RUR.zz_dr_dialogs = function () {
@@ -6024,8 +6030,6 @@ $(document).ready(function() {
         var new_css = decodeURIComponent(url_query.queryKey.css);
         eval(new_css);  // jshint ignore:line
     }
-
-    RUR.we.set_extra_code();
 });
 /* Sets up the UI for various editors.
 
@@ -6064,14 +6068,13 @@ RUR.zz_dr_onchange = function () {
     });
 
     $("#select_world").change(function() {
-        try {
-            localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
-        } catch (e) {}
         if ($(this).val() !== null) {
             RUR.file_io.load_world_file($(this).val());
         }
+        try {
+            localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
+        } catch (e) {}
     });
-
 };
 /* Sets up what happens when the user clicks on various html elements.
 

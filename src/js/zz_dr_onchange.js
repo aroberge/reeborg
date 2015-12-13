@@ -9,12 +9,11 @@ RUR.zz_dr_onchange = function () {
     });
 
     $("#select_world").change(function() {
-        try {
-            localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
-        } catch (e) {}
         if ($(this).val() !== null) {
             RUR.file_io.load_world_file($(this).val());
         }
+        try {
+            localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
+        } catch (e) {}
     });
-
 };

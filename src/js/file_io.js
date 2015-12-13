@@ -80,7 +80,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
 RUR.file_io.load_world_file = function (url, shortname) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
-    var data, i, selected, possible_url, new_selection=false, new_world = false;
+    var data;
 
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
@@ -89,7 +89,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
             return;
         }
         RUR.world.import_world(data);
-        RUR.we.set_extra_code();
         RUR.file_io.status = "success";
         RUR.rec.frames = [];
     } else {
@@ -97,7 +96,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
             async: false,
             error: function(e){
                 RUR.file_io.status = "no link";
-                console.log("error in ajax from RUR.file_io.");
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
@@ -105,7 +103,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
                     RUR.ui.reload();
                 } else {
                     RUR.world.import_world(data);
-                    RUR.we.set_extra_code();
                 }
                 RUR.file_io.status = "success";
             }

@@ -65,9 +65,10 @@ RUR.world_select.replace_shortname = function (url, shortname) {
     for (i=0; i < select.options.length; i++){
         if (select.options[i].value.toLowerCase() === url) {
             select.options[i].text = shortname;
-            return;
+            return true;
         }
     }
+    return false;
 };
 
 RUR.world_select.append_world = function (arg) {
@@ -89,10 +90,8 @@ RUR.world_select.append_world = function (arg) {
     } else {
         option_elt = '<option></option>';
     }
-
-
-    // todo: ensure that the same url is not appended twice with the
-    // same shortname
-    // if shortname==url for existing one, allow overriding name.
-    $('#select_world').append( $(option_elt).val(url).html(shortname));
+    // Append only if new world.
+    if (!RUR.world_select.replace_shortname(url, shortname)) {
+        $('#select_world').append( $(option_elt).val(url).html(shortname));
+    }
 };
