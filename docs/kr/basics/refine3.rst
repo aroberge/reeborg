@@ -1,9 +1,9 @@
-Refinements: part 3
+정교화: 3부
 ===================
 
-As you should have noticed the program doesn't work. What happens is
-that Reeborg gets in an infinite loop when there is no wall around him.
-We need to have him ``move()`` after turning right, as indicated below::
+알아채셨겠지만, 프로그램은 작동을 하지 않는다. 
+리보그 주변에 벽이 없는 상태에서 리보그가 무한 반복상태에 놓여지게 된다. 
+아래와 같이 오른쪽을 회전을 한 후에 리보그가 ``move()`` 명령문으로 한 칸 앞으로 이동할 필요가 있다::
 
     put()
     move()
@@ -16,13 +16,12 @@ We need to have him ``move()`` after turning right, as indicated below::
         else:
             turn_left()
 
-More complicated world
+좀더 복잡한 세상
 ----------------------
 
-.. topic:: Another world!
+.. topic:: 또다른 세상!
 
-    Now, consider **Around 3**; will our program work?
+    이제 **Around 3** 세상을 고려해보자; 작성된 프로그램이 동작하나요?
 
-As you probably guessed, unfortunately the answer is no. Try to figure
-out why before reading any further.
+불행하게도, 정답은 ‘아니오’ 입니다. 더 이상 학습을 진행하기 전에 왜 그런지 알아보도록 한다.
 

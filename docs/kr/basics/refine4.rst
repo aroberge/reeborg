@@ -1,10 +1,9 @@
 
-Refinements: part 4
+정교화: 4부
 ===================
 
-As you most likely found out, we were too hasty in asking Reeborg to
-move forward after putting down a token. We need to check if there is a
-wall preventing him from moving first. Here's a solution to the problem::
+여러분 대부분 알아내셨듯이, 토큰을 내려 놓은 후에 너무나도 서둘러서 리보그에게 앞으로 전진하게 명령을 한 것이다. 
+앞으로 움직이기 전에 벽이 있는지를 확인하는 단계가 필요하다. 여기에 문제에 대한 해답이 있다::
 
     put()
     if not front_is_clear():
@@ -19,20 +18,20 @@ wall preventing him from moving first. Here's a solution to the problem::
         else:
             turn_left()
 
-.. topic:: Try it!
+.. topic:: 시도해 보기!
 
-    Test it now and see that it works. Can you imagine situations where it
-    might not work?
+    지금 당장 테스트해보고 정상적으로 작동하는지 확인한다. 
+    이 프로그램이 동작할 것 같지 않는 상황을 상상할 수 있나요?
 
-Refinements: part 5
+정교화: 5부
 ===================
 
-Consider world **Around 4**
+**Around 4** 세상을 고려한다.
 
-.. topic:: Try it!
+.. topic:: 시도해 보기!
 
-    Does the program written previously work with it?
+    앞서 작성한 프로그램이 작동하나요?
 
-As you probably guessed, if you didn't try it (you should, really!), it
-does not. To make it work, we need to replace the ``if`` we just added
-by a ``while``. Try it!
+아마도 생각하듯이, 이 프로그램은 작동하지 않는다. 
+만약 시도하지 않았다면 정말 시도해봐야 합니다.
+정상적으로 작동시키기 위해서, 방금 전에 추가한 ``while`` 명령문을 ``if`` 명령문으로 바꿀 필요가 있다. 시도해 보세요!

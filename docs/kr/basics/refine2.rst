@@ -1,12 +1,12 @@
 
-Refinements: part 2
+정교화: 2부
 ===================
 
-Here's the cause of the problem we had at the end of part 1: we put down
-a token and, before we had the chance to move, tested to see if we were
-not next to a token. Since we were next to a token, we never go the
-chance to get in the ``while`` loop. Perhaps we can change the program
-to add a ``move()`` before we start the loop, as follows::
+1부의 마지막에 우리가 직면한 문제의 원인이 다음에 있다:
+토큰을 내려놓는다. 앞으로 이동하기 전에 토큰이 있지 않은지를 확인하는 테스트를 한다. 
+토크에 있어서, ``while`` 루프 명령문에 들어갈 기회가 전혀 없다. 
+아마도 반복 명령문을 실행하기 전에 ``move()`` 명령문을 아래와 같이 추가하여 수정한다.
+
 
     put()
     move()
@@ -16,30 +16,28 @@ to add a ``move()`` before we start the loop, as follows::
         else:
             turn_left()
 
-.. topic:: Try it!
+.. topic:: 시도해 보기!
 
-   Make sure the above program works before moving on.
+   다음으로 넘어가기 전에, 상기 프로그램을 확인한다.
 
-Not so simple world
--------------------
+그다지 단순하지 않는 세상
+--------------------------
 
-Let's try the program we wrote on a slightly more complicated world
-**Around 2**.
+좀더 복잡한 **Around 2** 세상에 작성한 프로그램을 시도해 보자.
 
 .. note::
 
-    Do not forget to include::
+    다음을 포함하는 것을 잊지마세요::
 
         from library import turn_right
 
-When you try your program, you will see that the result is not exactly
-what we wanted: Reeborg takes a shortcut, and doesn't go all the way
-around. The problem is that we assumed that Reeborg only had to move
-forward or turn left to go around the world; we never took into account
-situations where we would have wanted him to make a right turn. What
-Reeborg needs to do is first to check on his right to see if there is
-still a wall; if not, we have him make a right turn. Here's a modified
-program that *attempts* to do just that::
+프로그램을 실행하면, 결과는 우리가 원하는 것이 정확히 아니다: 
+리보그가 지름길을 택해서 가고, 벽을 따라 움직이지는 않는다.
+문제는 리보그가 벽을 따라 움직일 때 단지 앞으로 전진만 하거나, 왼쪽으로만 회전하는 것을 가정했다: 
+리보그가 오른쪽으로 회전하는 상황에 대해서는 고려를 전혀 하지 않았다. 
+리보그에게 필요한 것은 첫째 오른쪽에 여전히 벽이 있는지를 확인하는 것이다. 
+만약 벽이 없다면, 리보그가 오른쪽으로 회전을 해야만 한다. 
+오른쪽으로 회전하려고 *시도하는* 수정된 프로그램이 있다::
 
     put()
     move()
@@ -51,8 +49,9 @@ program that *attempts* to do just that::
         else:
             turn_left()
 
-.. topic:: Your turn!
+.. topic:: 여러분 차례!
 
-    Does it work? Read it carefully to decide for yourself. Then try it to
-    confirm your opinion by running the program, or make any change you
-    think appropriate.
+    정상적으로 잘 동작합니까? 
+    결정을 내리기 위해서 주의 깊게 읽어보세요. 
+    그리고 나서, 프로그램을 실행해서 여러분의 의견을 확인하기 위해 직접 시도해 보거나, 
+    본인이 생각하는 적절한 변경을 한다.
