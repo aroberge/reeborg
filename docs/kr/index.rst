@@ -41,14 +41,14 @@
    :maxdepth: 1
 
    A. 기본 사용설명서 <basics/index>
-   B. 재귀(Recursion) <recursion/index>
-   C. 변수(Variables) <variables/index>
-   D. 객체지향 프로그래밍 <oop/index>
-   E. 고차 함수 <functional/index>
-   F. 프로그래밍 연습문제 <exercises/index>
-   G. 리보그 세상 찾아보기 <reference/index>
-   H. 파이썬: 간략한 개요 <python/index>
-   I. 기여!  <contribute/index>
+   B. 재귀(Recursion): 준비중 <recursion/index>
+   C. 변수(Variables): 준비중 <variables/index>
+   D. 객체지향 프로그래밍: 준비중 <oop/index>
+   E. 고차 함수: 준비중 <functional/index>
+   F. 프로그래밍 연습문제: 준비중 <exercises/index>
+   G. 리보그 세상 찾아보기: 준비중 <reference/index>
+   H. 파이썬: 간략한 개요: 준비중 <python/index>
+   I. 기여!: 준비중  <contribute/index>
 
 만약 상기 제목중 아무것이나 클릭하게 되면, 해당부문 좀더 상세한 목차를 갖는 페이지로 이동하게 된다.
 

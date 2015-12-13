@@ -1,53 +1,38 @@
-Rule number 4
+4번째 규칙
 =============
 
-In the preceding lessons, we have designed a program that works in many
-more situations than just the original one we considered. (We could come
-up with other situations where it would not work ... but we have done
-enough for this exercise.) This program, before we forget, is to allow
-Reeborg to explore his world, going around once. While the program is
-rather short, and its structure should be clear at this point, it might
-not be so obvious to someone who just happened to see it for the first
-time. It's probably a good idea either to add comments and/or to
-introduce more meaningful words. Let's start by adding comments,
-somewhat more verbose than we think we might need::
+앞선 수업에서, 최초 고안한 것보다 더 많은 상황에서 동작하는 프로그램을 설계했다. (동작하지 않는 다른 상황을 제안할 수 있지만, 연습문제로 충분히 했다.)
+잊기 전에, 작성한 프로그램은 리보그가 벽을 따라 세상을 한번 탐색하도록 작성되었다. 프로그램이 다소 짧아 구조가 명확하게 보일 수 있지만, 처음으로 프로그램을 읽는 사람에게는 명확하게 보이지 않을 수 있다. 주석을 추가하든지 좀더 의미가 있는 단어를 사용하는 것이 좋은 생각이 된다. 생각하는 것 보다 다소 단어나 말이 길어지는 것처럼 보일 수 있지만, 주석을 추가해 시작해 봅시다::
 
-    # We mark the starting point by putting down a token
+    # 토큰을 내려 놓는 것으로 시작점을 표시한다.
     put()
 
-    # We find a clear direction and start moving
+    # 막히지 않는 방향을 찾아 이동을 시작한다.
     while not front_is_clear():
         turn_left()
     move()
 
-    '''  We know we will have gone around the world
-    when we come back to the place we put the token
-    down. ''''
+    '''  토큰을 내려 놓은 장소로 돌아갔을 때,
+    세상을 돌아 다닌 것을 알게 된다. ''''
 
     while not object_here():
-        if right_is_clear():  # keep to the right
+        if right_is_clear():  # 우측 방향으로 돈다.
             turn_right()
             move()
-        elif front_is_clear():    # move ... following the right wall
+        elif front_is_clear():    # 이동 ... 오른쪽 벽을 따라
             move()
         else:
-            turn_left()  # follow the wall by turning left
+            turn_left()  # 왼쪽으로 돌아 벽을 따라간다
 
-While this sort of clarifies our intent for each instruction, it is
-not really that helpful in summarizing the method (also known as the
-*algorithm*) used in solving the problem. Therefore, these comments
-might not be as helpful to another reader as we might have wished.
-Reading over the comments, we note that the program has two parts:
-#. mark the starting point;
-#. follow the right wall until we come back to the start.
+이런 유형 방법이 각 명령문에 대한 의도를 명확히 하지만, 문제를 해결하는데 사용되는 *알고리즘(Algorithm)* 으로 알려진 방법을 요약하는 데는 그다지 도움이 되지 않는다. 따라서, 이렇게 주석을 다는 것은 여러분이 희망하는 다른 프로그램을 읽는 분들에게는 도움이 되지 않을지도 모른다. 주석을 읽으면, 작성된 프로그램이 두 개의 부분으로 구성된 것을 주목한다.
 
+#. 첫 시작 지점을 표시한다.
+#. 처음 시작 지점으로 돌아올때까지 오른쪽 벽을 따라 계속 이동한다.
 
-Let's rewrite this program so that these two parts become clearer,
-and writing the comments differently::
+프로그램을 다시 작성해서, 두 부분이 좀더 명확해 지도록 주석을 다르게 작성한다::
 
-    ''' This program instructs Reeborg to go around his world
-        counterclockwise, stopping when he comes
-        back to his starting point. '''
+    ''' 이 프로그램은 리보그가 반시계 방향으로 벽을 따라 돌아
+        처음 시작한 지점으로 다시 돌아와서 멈추는 프로그램입니다. '''
 
     def mark_starting_point_and_move():
         put()
@@ -67,7 +52,7 @@ and writing the comments differently::
     found_starting_point = object_here
 
     #######
-    ##  End of definitions above; program execution below .
+    ##  함수 명령문 정의 끝; 아래 프로그램 실행.
     #######
 
     mark_starting_point_and_move()
@@ -75,40 +60,29 @@ and writing the comments differently::
     while not found_starting_point():
         follow_right_wall()
 
-Isn't this much clearer?
+이것이 좀더 명확하지 않습니까?
 
-**Note: you might want to make a copy of** ``follow_right_wall()`` **in your
-library so that you can use it if you need it again.**
+**주의: 라이브러리에 ``follow_right_wall()`` 함수를 복사해 넣어 다시 필요할 때 사용할 수 있게 한다.**
 
-Conclusion
+결론
 ----------
 
-We started with a simple problem to solve (going around a rectangular
-world) and, by improving little by little (also called *stepwise
-refinement*), we manage to write a program that could be used to solve
-many different problems. At each step, we kept the changes small, and
-made sure we had a working solution, before considering more complex
-problems. We also used more descriptive names for parts of the
-*algorithm* which made the program easier to read and, hopefully, to
-understand. This is a strategy you should use when writing your own
-programs:
+해결할 수 있는 간단한 문제(직사각형 세상을 따라 돌아다님)에서 출발했고, 조금씩 조금씩 개선해서(*단계적 정제(stepwise refinement)* 라고도 부름), 다른 많은 문제를 해결하는데 사용할 수 있는 프로그램을 작성하게 되었다. 각 단계에서 변경사항을 적게하고, 더 복잡한 문제를 고려하기 전에, 확실히 동작하는 해법이 되는지 확인한다. 프로그램을 읽기 쉽고, 이해하기 쉽게 만드는 *알고리즘* 부분에 좀더 서술적인 명칭을 사용하기도 했다. 이것이 본인 자신의 프로그램을 작성할 때 사용해야 되는 전략이다:
 
-.. index:: Rule # 4
+.. index:: 4번째 규칙
 
 .. important::
 
-    **Rule # 4**
-        Steps to follow when writing a program:
+    **규칙 # 4**
+        프로그램을 작성할 때 지킬 절차:
 
-        #. start simple;
-        #. introduce small changes, one at a time;
-        #. make sure that each of the changes you have introduced do not
-           invalidate the work you have done before;
-        #. add descriptive comments that don't simply repeat what each instruction does; and
-        #. choose descriptive names.
+        #. 간단하고, 작게 시작합니다
+        #. 한번에 작은 수정사항, 변경을 합니다.
+        #. 각 단계의 수정 변경 사항이 전에 작성한 것과 잘 작동하는지 확인하세요.
+        #. 각 명령문이 수행하는 것을 단순 반복하지 않는 적절한 주석을 추가하세요.
+        #. 서술적인 이름을 사용하세요.
 
-The last two parts are essentially the same as Rule # 2.
+마지막 두 부분은 본질적으로 규칙 # 2와 같다.
 
-Now, make sure you have the working program in the editor before moving
-to next lesson.
+이제, 다음 수업으로 이동하기 전에, 편집기에서 동작하는 프로그램인지 확인한다.
 

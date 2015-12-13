@@ -1,152 +1,108 @@
 
-Revisiting some challenges
+도전과제 재방문
 ==========================
 
-It is time to solve some of the challenges introduced early on.
+앞에서 소개된 도전문제를 해결할 시간이 되었다.
 
-Using ``while``, ``if``, ``else``, etc., you will write programs that
-will be able to accomplish various tasks. In writing these programs, you
-should keep the following in mind:
+``while``, ``if``, ``else`` 등을 사용해서, 
+다양한 작업을 완수할 수 있는 프로그램을 작성한다.
+이런 프로그램을 작성하면서, 다음 사항을 명심해야만 된다:
 
-#. Remember rule #2 and choose names that are descriptive for the
-   problems you are attempting to solve
-#. Follow the principles given in rule #4: start by solving simpler
-   problems first and generalize your solution so that it can be applied
-   to more than one problem
-#. Remember rule #3: avoid repeating code as much as possible.
+#. 규칙 #2를 기억하고, 해결하려는 문제에 대해 기술하는 명칭을 선택한다.
+#. 규칙 #4에 나온 원칙을 지킨다: 먼저 단순한 문제를 풀면서 시작하고,
+   해법을 일반화해서 한문제 이상에 적용될 수 있게 한다.   
+#. 규칙 #3을 기억한다: 가능하면 반복되는 코드는 피한다.
 
-Now, remember rule #1 ... and make sure that, this time, you solve
-**all** the challenges mentioned below.
+이제, 규칙 #1을 기억하라... 이번에는 아래 언급된 **모든** 도전과제를 해결했는지 확실히 한다.
 
 .. important::
 
-    Make sure you save your various solutions as you might want to come back
-    to them later.
+    나중에 다시 해법을 찾을 수 있어, 다양한 해법을 저장했는지 확실히 한다.
 
 
-Before harvesting
+추수하기 전
 -----------------
 
-Select world **Harvest 3** which occurred shortly after the garden was
-seeded. Some carrot seeds sprouted well, others yielded two or three
-plants while some did not sprout at all. Help Reeborg weed out the
-excess seedlings, and plant some new seeds at locations where some were
-missing.
+정원에 씨를 뿌린 직후 발생한 상황을 나타내는 **Harvest 3** 세상을 선택한다. 당근 일부는 잘 발아 되었고, 몇몇 곳에서 씨앗 두개가 발아를 했고, 다른 곳에서는 발아를 하지 않았다. 리보그가 정원에서 김을 매는 것을 도와주세요. 두 개의 당근이 있는 곳이 있거나, 당근이 하나도 없는 곳이 있으면 안 됩니다. 과다한 당근은 뽑아내고, 빠진 곳은 씨를 뿌려 넣어야 된다.
 
 
-.. topic:: Do it!
+.. topic:: 직접 해보기!
 
-    Write a program as described above.
+    위에서 기술된대로 프로그램을 작성하라.
 
 
-Ready to harvest
+추수 준비
 ----------------
 
-The weeding went well (I hope!), the growing season is over and it is
-time to harvest. Select world **Harvest 1** and/or **Harvest 2** and have Reeborg
-collect all the carrots.  You should write a single program that would
-work for both worlds.
+김매는 것이 잘 진행됐고, 생육 계절은 끝나서 추수할 시간이 되었다.
+**Harvest 1** 와/혹은 **Harvest 2** 세상을 선택해서 
+리보그가 모든 당근을 모으게 한다. 두개 세상 모두에서 동작하는 단일 프로그램을 작성해야만 된다.
 
 
-Stormy weather
---------------
+폭풍우가 치는 날씨
+---------------------
 
-It was a beautifully sunny day. Reeborg was playing outside with his
-friend. Suddenly, it started to rain and Reeborg remembered that the
-windows in his house were all open. So Reeborg went back to his house
-and stopped in front of the door, unsure of how to proceed.
+아름답도록 햇살이 가득한 날입니다. 리보그가 친구와 밖에서 놀고 있어요. 갑자기, 비가 내렸는데 리보그가 집의 모든 창문을 열어 놓고 나온 것을 기억해 냈습니다. 그래서 리보그는 황급히 집으로 돌아와서 집 앞 문턱에 멈췄는데, 어떻게 창문을 닫아야 할지 확신할 수 없었습니다
 
 .. index:: wall_on_right(), right_is_clear()
 
 .. topic:: Do it!
 
-    Using the ``build_wall()`` instruction and either ``wall_on_right()``
-    or ``wall_in_front()``, or both, but **not** ``right_is_clear()``
-    nor ``front_is_clear()``, help Reeborg close the windows
-    of his house. When Reeborg finishes his task, he will stand in the
-    doorway, watching the rain fall, waiting for it to stop before he can go
-    back and play outside. The world is **Rain 1**.
+    명령어 ``build_wall()`` 와 ``wall_on_right()`` 혹은 ``wall_in_front()``, 혹은 모두 사용하지만, **not** ``right_is_clear()``, ``front_is_clear()``은 사용하지 말고, 리보그가 집의 모든 창문을 닫도록 도와주세요. 리보그가 작업을 마쳤을 때, 문 앞에 서서, 다시 돌아가서 밖에서 놀기 전 상황인 비가 그치기를 기다리면서, 비 내리는 것을 지켜보고 있을 것입니다. 세상은 **Rain 1** 이다.
 
-Reeborg's friend's turn.
+리보그 친구 순서
 ------------------------
 
-Erdna, Reeborg's friend, lives in a bigger house as shown on **Rain 2**.
-Erdna was playing outside with Reeborg when it started raining. Help
-Erdna close the windows in her house.
+리보그 친구 에드나(Erdna)는 **Rain 2** 세상에 나온 좀더 큰 집에 살고 있습니다. 비가 오기 시작했을 때, 에드나는 리보그와 함께 밖에서 놀고 있었습니다. 에드나가 집의 창문을 모두 닫도록 도와주세요.
 
-.. topic:: Try it!
+.. topic:: 시도해 보기!
 
-    Your challenge is to write a single program that will work for both
-    Reeborg and Erdna, again without using ``right_is_clear()``
-    nor ``front_is_clear()``... however, it might be a bit tricky.
+    도전과제는 리보그와 에드나 모두에게 작동하는 단일 프로그램을 작성하는 것이다. 
+    마찬가지로 ``right_is_clear()`` 혹은 ``front_is_clear()`` 어떤것도 사용하지 않는다. 하지만, 약간 까다로울 것이다.
 
 .. hint::
 
-    To determine if there's a window at a given location, a robot may
-    have to take an extra step and, depending on the result, may have to
-    turn around, go back and close that window.
+    해당 지점에 창문이 있는지 알아내려면,
+    추가적인 단계가 필요하고, 결과에 따라서, 뒤로 돌고 뒤로 가서 해당 창문을 닫는다.
 
-.. topic:: Do it again!
+.. topic:: 다시 해보기!
 
-    This time, write a program that does make use of ``right_is_clear()``
-    or ``front_is_clear()``, in addition to ``wall_on_right()``
-    or ``wall_in_front()`` to allow Reeborg and Erdna to close the windows
-    in their houses.  The number of steps (``move()`` and ``turn_left()``)
-    taken by the robots should be reduced since they can get more information
-    about their world directly.
+    이번에는, 리보그와 에드나가 집에 창문을 닫는데 ``wall_on_right()`` 혹은 ``wall_in_front()`` 함수를 사용하는데 더해서, ``right_is_clear()`` 이나 ``front_is_clear()`` 함수를 사용하는 프로그램을 작성한다.
+    로봇이 밟는 단계 (``move()`` 와 ``turn_left()``) 횟수는 줄어야 되는데 이유는 직접 세상에 관한 더 많은 정보를 얻을 수 있기 때문이다.    
 
 
-After the storm
----------------
+폭풍이 지나간 후에
+-------------------
 
 .. index:: carries_object()
 
-The wind blew really hard last night. There are fallen leaves everywhere outside
-Reeborg's house. His parents asked him to go and clean up the path
-leading to the curb, **Storm 1**, as well as the driveway: **Storm 2**.
+지난밤에 바람이 정말 심하게 불었다. 리보그 집 밖에 쓰레기가 여기저기 널려 있다. 리보그 부모님이 리보그에게 차도(**Storm 1**)뿐만 아니라 장외시장으로 가는 길도 말끔하게 청소하라고 했다: **Storm 2**.
 
-.. topic:: Your turn!
+.. topic:: 여러분 차례!
 
-    Reeborg must collect all the leaves and put them in the compost bin,
-    making sure to close the lid using ``build_wall()``.  Reeborg
-    can determine if it carries objects (dead leaves here) by
-    using the condition ``carries_object()`` either in an ``if``
-    statement or a ``while`` statement.
+    리보그는 모든 나뭇잎을 모아서 시작 지점의 북쪽에 있는 쓰레기 통에 담아 놓아야 하고, ``build_wall()`` 함수를 사용해서 뚜껑을 확실히 닫도록 한다. 
+    ``if`` 문과 ``while`` 문 둘중 하나에 있는 조건 ``carries_object()``를 사용해서 리보그는 물체(여기서 죽은 나뭇잎)를 갖고 있는지 판단할 수 있다.
 
 
-More yard work!
----------------
+마당 청소 좀더 하기!
+---------------------------
 
-Reeborg's parents are so proud of his work, that they ask him to pick up
-all the leaves that got blown away in their backyard during the
-windstorm, as illustrated on **Storm 3**. Have Reeborg pick up all the
-leaves and put it in the compost bin.
+리보그의 부모님은 아들의 처리한 일을 자랑스러워 하며, 지난 밤 폭풍에 날아간 뒷마당 나뭇잎 모두 주워 담으라고 했다. 상황은 **Storm 3** 에 나와 있다. 리보그는 모든 쓰레기를 주워서 쓰레기통에 넣어야 된다.
 
-.. topic:: Your turn!
+.. topic:: 여러분 차례!
 
-    Write a program that will work in all three **Storm** worlds.
+    세가지 **Storm** 세상 모두에서 동작하는 프로그램을 작성하라.
 
 
-Finding the center
+중심 찾기
 ------------------
 
-Have a look at the worlds **Center 1** to **Center 3**.
+**Center 1** 에서 **Center 3** 까지 세상을 둘러본다.
 
-.. topic:: Do this!
+.. topic:: 직접 해보기!
 
-    Write a **single**
-    program that has Reeborg put a token at the geometric center of the
-    rectangular room he finds himself in. Begin with
-    the simplest case, making progressive improvements to tackle the
-    more complicated cases.  Note that this is a more challenging task.
+    리보그 본인이 위치한 직사각형 방에 기하적인 중심에 토큰을 놓는 **단일** 프로그램을 작성하라. 가장 단순한 사례로 시작하고, 점진적으로 개선해서 더 복잡한 사례를 다루게 만든다. 이것이 더 도전적인 과제임에 주의한다.
 
 .. hint::
 
-    You may find it useful to have Reeborg, who carries two tokens,
-    drop one token at each end of a line. Then,
-    by picking one token at one end and moving it one step, going back and
-    forth until both tokens are at the same position,
-    the location of the center can be
-    found. When you know how to do this in one dimension (along a horizontal
-    line), you can use that location as the starting point to find the
-    location along the other location (a vertical line).
+    토큰 두개를 소지한 리보그가 각 줄 끝지점에 토큰 한개를 놓게 하는 것이 유용하다는 것을 알게된다. 그리고 나서, 한쪽 끝에 토큰을 집고 한단계 옆으로 옮기를 반복해서 양쪽 토근이 같은 위치에 있게 해서, 중심 위치를 찾을 수 있다. (수평선을 따라) 일차원에서 어떻게 하는지 알게될 되면, 시작점으로 해당 지점을 사용해서 (수직선을 따라) 다른 지점을 따라 중앙을 찾을 수 있다.
