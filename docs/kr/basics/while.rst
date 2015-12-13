@@ -1,13 +1,12 @@
-For a ``while``
+``while`` 문
 ===============
 
 .. index:: ! while
 
-When we want to repeat some instructions until a certain condition is
-satisfied, Python gives us a simpler way to write this using a new
-keyword: ``while``. For example, suppose we want to have Reeborg keep
-moving until it reaches a wall. Previously, we might have done something
-like the following:
+어떤 조건이 만족될 때까지 명령문을 반복하기 원할 때, 
+파이썬에서 좀더 간단한 방식으로 프로그램을 작성할 수 있는 새로운 키워드(``while``)를 사용할 수 있다.
+예를 들어, 리보그가 벽에 도달할 때까지 계속 움직이게 한다고 가정하자.
+이전에, 다음과 같이 코드를 작성해서 수행했다:
 
 .. code-block:: python
 
@@ -18,31 +17,30 @@ like the following:
     repeat 42:
         move_until_wall()
 
-and hoped that 42 would have been a number of repetitions sufficient to
-reach a wall. Using ``while``, we can write the following::
+42 횟수가 벽에 도달할 충분한 반복 횟수가 되길 희망했다.
+``while`` 을 사용해서는 다음과 같이 작성할 수 있다::
 
     while front_is_clear():
         move()
 
-That's it! No more guessing and asking something to be performed a large
-number of time just to ensure that it will be enough.
+이것이다! 충분할만큼 매우 큰 횟수를 작업을 수행하도록 더이상 추측하거나 물어볼 필요가 없다.
 
-Here's a flowchart for this simple program:
+상기 간단한 프로그램에 대한 순서도가 다음에 나와 있다:
 
 .. figure:: ../../../flowcharts/while.jpg
    :align: center
 
-How to think about ``while``
-----------------------------
+``while`` 관해서 생각하는 방법
+-------------------------------------
 
-Suppose we have the following::
+다음 코드가 있다고 가정하자::
 
     while condition():
         do_1()
         do_2()
         do_3()
 
-You can think of this as being equivalent to::
+이것을 다음에 사응하는 것으로 간주할 수 있다::
 
     if condition():
         do_1()
@@ -62,47 +60,42 @@ You can think of this as being equivalent to::
         do_3()
     ....
 
-which is to say that the block of code is repeated as long as the
-condition remains ``True``. So, what happens if the condition is always
-``True``? The block of code is repeated for ever and the program never
-ends.
+상기 코드는 조건이 ``참(True)`` 으로 만족되는 동안 코드 덩어리가 반복됨을 알 수 있다.
+그래서, 조건이 항상 ``참(True)`` 이면 무슨 일이 생길까요?
+코드 덩어리는 영원히 반복되고, 프로그램은 절대로 끝나지 않아요.
 
-This is bad.
+이것은 좋지 않아요.
 
-Instead of using this description of repeated blocks of code,
-programmers describe this as a **loop**: that is, you start with the
-first instruction (``do_1()``) inside the code block, continue with all
-the others until you reach the last instruction (``do_3()``), then
-***loop* back**, or go back, to the test just before the beginning of
-the block and see if the condition is satisfied; if not, you repeat once
-again the cycle. If the condition never becomes ``False``, you keep
-repeating and end up with an **infinite loop**.
+반복되는 코드 덩어리 기술을 사용하는 대신에, 프로그래머는 이것을 **루프(loop)** 로 기술한다:
+즉, 코드 덩어리 내부 첫번째 명령어 (``do_1()``)가 시작되고,
+마지막 명령어 (``do_3()``)에 도달할 때까지 계속된다. 그리고 나면,
+**루프 백(loop back)** 즉, 다시 되돌아 와서 코드 덩어리 시작 바로 앞에 시험을 하고 
+조건이 충족되었는지 살펴본다; 만약 충족되지 않았다면, 사이클 주기를 한번더 반복한다.
+만약 조건이 절대로 ``거짓(False)`` 으로 되지 않으면, 반복을 계속하고 **무한 루프(infinite loop)** 에 빠지게 된다.
 
-Conclusion: you want to make sure that the condition will become
-``False`` at some point.
+결론: 조건이 어느 지점에서 ``거짓(False)`` 이 되는지 확실히 한다.
 
-Back to hurdles!
-----------------
+장애물로 되돌아 와서!
+------------------------
 
-.. topic:: Your turn!
+.. topic:: 여러분 차례!
 
-    Go back to **Hurdles 1**, **Hurdles 2** and **Hurdles 3**, and write a single
-    program for all three world, using ``while`` and without using ``repeat``.
+    **Hurdles 1**, **Hurdles 2**, **Hurdles 3** 세상으로 되돌아 가서, 
+    ``repeat`` 을 사용하지 말고, ``while`` 문을 사용해서 3가지 세상 모두에 동작하는 단일 프로그램을 작성한다.
 
 .. hint::
 
-    Your program might look like the following::
+    작성한 프로그램은 다음과 같을 것이다::
 
        def jump_over_hurdle():
-           # suitable definition
+           # 적절한 정의
 
        def run_or_jump ():
-           # suitable definition
+           # 적절한 정의
 
        while not at_goal():
            run_or_jump()
 
-That's it! No more arbitrary repetitions! From now on, you should only
-use ``repeat`` when you know **exactly** how many times a given
-function must be repeated.
+이것이다! 더이상 임의 반복은 없다! 이제부터, 해당되는 함수를 주어진 횟수만 **정확하게** 알고 있을 때만,
+``repeat`` 함수를 사용해야 된다.
 
