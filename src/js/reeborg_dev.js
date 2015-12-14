@@ -5008,10 +5008,10 @@ RUR.we.set_extra_code = function () {
     } catch(e) {
         description_editor.setValue("<!-- description -->");
     }
-    if (RUR.current_world.editor !== undefined) {
+    if (RUR.current_world.editor) {
         editor.setValue(RUR.current_world.editor);
     }
-    if (RUR.current_world.library !== undefined) {
+    if (RUR.current_world.library) {
         library.setValue(RUR.current_world.library);
     }
 };
