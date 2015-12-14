@@ -9,7 +9,7 @@ from browser import document, window
 RUR = window['RUR']
 
 
-class Console:
+class PyConsole:
     def __init__(self):
         self.textarea = document['py_console']
 
@@ -54,65 +54,65 @@ class Console:
         col = self.get_col()
         self.textarea.value = self.textarea.value[:pos - col + 4]
 
-console = Console()
-sys.stdout.write = sys.stderr.write = console.append
+py_console = PyConsole()
+sys.stdout.write = sys.stderr.write = py_console.append
 
 
 def myMouseClick(event):
-    console.cursor_to_end()
+    py_console.cursor_to_end()
 
 
 def myKeyPress(event):
     if event.keyCode == 9:  # tab key
         event.preventDefault()
-        console.append(' ' * 4)
+        py_console.append(' ' * 4)
     elif event.keyCode == 13:  # return
-        src = console.get_text()
+        src = py_console.get_text()
         repl.set_current_line(src)
-        console.append('\n')
+        py_console.append('\n')
         if repl.status == 'main' and not repl.current_line.strip():
-            console.prompt()
+            py_console.prompt()
             event.preventDefault()
             return
         repl.process_code(src)
-        console.cursor_to_end()
+        py_console.cursor_to_end()
         event.preventDefault()
 window['myKeyPress'] = myKeyPress
 
 
 def myKeyDown(event):
     if event.keyCode == 37:  # left arrow
-        sel = console.get_col()
+        sel = py_console.get_col()
         if sel < 5:
             event.preventDefault()
             event.stopPropagation()
     elif event.keyCode == 36:  # line start
-        pos = console.selection_start()
-        col = console.get_col()
-        console.set_selection_range(pos - col + 4, pos - col + 4)
+        pos = py_console.selection_start()
+        col = py_console.get_col()
+        py_console.set_selection_range(pos - col + 4, pos - col + 4)
         event.preventDefault()
     elif event.keyCode == 38:  # up
         if repl.current > 0:
-            console.remove_current_line()
+            py_console.remove_current_line()
             repl.current -= 1
-            console.append(repl.history[repl.current])
+            py_console.append(repl.history[repl.current])
         event.preventDefault()
     elif event.keyCode == 40:  # down
         if repl.current < len(repl.history) - 1:
-            console.remove_current_line()
+            py_console.remove_current_line()
             repl.current += 1
-            console.append(repl.history[repl.current])
+            py_console.append(repl.history[repl.current])
         event.preventDefault()
     elif event.keyCode == 8:  # backspace
-        src = console.get_text()
+        src = py_console.get_text()
         lstart = src.rfind('\n')
         if (lstart == -1 and len(src) < 5) or (len(src) - lstart < 6):
             event.preventDefault()
             event.stopPropagation()
 
-console.textarea.bind('keypress', myKeyPress)
-console.textarea.bind('keydown', myKeyDown)
-console.textarea.bind('click', myMouseClick)
+py_console.textarea.bind('keypress', myKeyPress)
+py_console.textarea.bind('keydown', myKeyDown)
+py_console.textarea.bind('click', myMouseClick)
 
 
 class Interpreter():
@@ -121,7 +121,7 @@ class Interpreter():
         self.restart()
 
     def restart(self):
-        sys.stdout.write = sys.stderr.write = console.append
+        sys.stdout.write = sys.stderr.write = py_console.append
         for item in ["editor", "editeur", "library", "biblio"]:
             if item in sys.modules:
                 del sys.modules[item]
@@ -129,7 +129,7 @@ class Interpreter():
         self.current = 0
         self.history = []
         self.current_line = ''
-        console.refresh()
+        py_console.refresh()
         self.namespace = {'__name__': 'Reeborg console'}
         lang = document.documentElement.lang
         if lang == 'en':
@@ -172,45 +172,45 @@ class Interpreter():
         msg = str(msg)
         if (msg == 'invalid syntax : triple string end not found' or
                 msg.startswith('Unbalanced bracket')):
-            console.more()
+            py_console.more()
             self.status = "multiline"
         elif msg == 'eval() argument must be an expression':
             try:
                 exec(self.current_line, self.namespace)
             except:
                 traceback.print_exc()
-            console.prompt()
+            py_console.prompt()
             self.status = "main"
         elif msg == 'decorator expects function':
-            console.more()
+            py_console.more()
             self.status = "block"
         else:
             traceback.print_exc()
-            console.append("\n")
-            console.prompt()
+            py_console.append("\n")
+            py_console.prompt()
             self.status = "main"
 
     def process_statement(self, src):
         try:
             _ = self.namespace['_'] = eval(self.current_line, self.namespace)
             if _ is not None:
-                console.append(repr(_) + '\n')
-            console.prompt()
+                py_console.append(repr(_) + '\n')
+            py_console.prompt()
             self.status = "main"
         except IndentationError:
-            console.more()
+            py_console.more()
             self.status = "block"
         except SyntaxError as msg:
             self.handle_syntax_error(msg)
         except Exception as e:
             if e.__name__ in ['ReeborgError', 'WallCollisionError']:
-                console.append("{}: {}".format(e.__name__,
+                py_console.append("{}: {}".format(e.__name__,
                     RUR.translate(getattr(e, 'reeborg_shouts'))))  # NOQA
             else:
                 exc = __BRYTHON__.current_exception  # NOQA
-                console.append("{}: {}".format(e.__name__, exc.args[0]))
-            console.append("\n")
-            console.prompt()
+                py_console.append("{}: {}".format(e.__name__, exc.args[0]))
+            py_console.append("\n")
+            py_console.prompt()
             self.status = "main"
 
     def process_block(self, src):
@@ -225,7 +225,7 @@ class Interpreter():
                 print(repr(_))
         except:
             traceback.print_exc()
-        console.prompt()
+        py_console.prompt()
 
     def process_code(self, src):
         self.history.append(self.current_line)
@@ -235,13 +235,13 @@ class Interpreter():
         elif self.current_line == "":  # end of block
             self.process_block(src)
         else:
-            console.more()
+            py_console.more()
 
 repl = Interpreter()
 window["restart_repl"] = repl.restart
 
-RUR.console_loaded = True
-window.console.log("console loaded")
+RUR.py_console_loaded = True
+window.console.log("py_console loaded")
 
 _copyright = """Copyright (c) 2015, André Roberge andre.roberge@gmail.com
 All Rights Reserved.

@@ -314,7 +314,7 @@ from browser import window
 from _importlib import optimize_import_for_path
 optimize_import_for_path('/src/python', 'py')
 import common_def
-import console
+import repl
 
 def translate_python(src, highlight, pre_code='', post_code=''):
     common_def.generic_translate_python(src, "library", "from reeborg_en import *",
