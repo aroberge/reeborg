@@ -88,4 +88,17 @@ $(document).ready(function() {
         var new_css = decodeURIComponent(url_query.queryKey.css);
         eval(new_css);  // jshint ignore:line
     }
+
+    function everything_loaded () {
+        if (RUR.objects.loaded_images == RUR.objects.nb_images &&
+            RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images &&
+            RUR.reeborg_loaded && RUR.console_loaded && RUR.common_def_loaded){
+            RUR.vis_world.draw_all();
+            console.log("done");
+        } else {
+            requestAnimationFrame(everything_loaded);
+        }
+    }
+    everything_loaded ();
+
 });

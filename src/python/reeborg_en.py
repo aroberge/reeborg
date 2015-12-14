@@ -634,6 +634,8 @@ def MakeCustomMenu(content):
     """
     RUR.custom_menu.make(content)
 
+RUR.reeborg_loaded = True
+window.console.log("reeborg loaded")
 
 # Obsolete functions below
 

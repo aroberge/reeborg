@@ -5,6 +5,10 @@
 RUR.vis_robot = {};
 RUR.vis_robot.images = [{}, {}, {}, {}];
 
+// we will keep track if we have loaded all images
+RUR.vis_robot.loaded_images = 0;
+RUR.vis_robot.nb_images = 0;
+
 RUR.base_url = RUR.base_url || '';  // enable changing defaults for unit tests
 
 // classic
@@ -85,30 +89,25 @@ RUR.vis_robot.select_default_model(localStorage.getItem("robot_default_model"));
 // original drawing is made
 
 RUR.vis_robot.e_img.onload = function () {
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
+    RUR.vis_robot.loaded_images += 1;
 };
+RUR.vis_robot.nb_images += 1;
 RUR.vis_robot.w_img.onload = function () {
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
+    RUR.vis_robot.loaded_images += 1;
 };
+RUR.vis_robot.nb_images += 1;
 RUR.vis_robot.n_img.onload = function () {
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
+    RUR.vis_robot.loaded_images += 1;
 };
+RUR.vis_robot.nb_images += 1;
 RUR.vis_robot.s_img.onload = function () {
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
+    RUR.vis_robot.loaded_images += 1;
 };
+RUR.vis_robot.nb_images += 1;
 RUR.vis_robot.random_img.onload = function () {
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
+    RUR.vis_robot.loaded_images += 1;
 };
+RUR.vis_robot.nb_images += 1;
 
 
 

@@ -651,6 +651,7 @@ def MenuPersonalise(contenu):
        personalisés.  Voir la documentation pour plus de détails."""
     RUR.custom_menu.make(contenu)
 
+RUR.reeborg_loaded = True
 
 # Obsolete functions below
 

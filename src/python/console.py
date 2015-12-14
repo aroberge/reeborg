@@ -240,6 +240,9 @@ class Interpreter():
 repl = Interpreter()
 window["restart_repl"] = repl.restart
 
+RUR.console_loaded = True
+window.console.log("console loaded")
+
 _copyright = """Copyright (c) 2015, André Roberge andre.roberge@gmail.com
 All Rights Reserved.
 

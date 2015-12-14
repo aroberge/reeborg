@@ -3,6 +3,11 @@ from browser import window
 from highlight import insert_highlight_info
 from preprocess import transform
 
+lang = window.document.documentElement.lang
+if lang == 'en':
+    import reeborg_en
+elif lang == 'fr':
+    import reeborg_fr
 
 def _write(data):
     window.RUR.output._write(str(data))
@@ -76,13 +81,10 @@ def __watch(default, loc={}, gl={}):
 
 def default_help():
     '''list available commands'''
-    lang = window.document.documentElement.lang
     exclude = ["toString", "window", "RUR", "say", "face_au_nord", "narration"]
     if lang == 'en':
-        import reeborg_en
         dir_py(reeborg_en, exclude=exclude)
     elif lang == 'fr':
-        import reeborg_fr
         dir_py(reeborg_fr, exclude=exclude)
 
 
@@ -186,3 +188,6 @@ def generic_translate_python(src, lib, lang_import, highlight,
         exec(src, globals_)
     except Exception as e:
         window.RUR.__python_error = e
+
+window.RUR.common_def_loaded = True
+window.console.log("common_def_loaded")
