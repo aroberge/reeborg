@@ -69,8 +69,6 @@ RUR.reset_code_in_editors = function () {
 };
 
 
-
-
 RUR.reset_programming_language = function(choice){
     var human_language = document.documentElement.lang;
     RUR.removeHints();
@@ -83,6 +81,7 @@ RUR.reset_programming_language = function(choice){
     $("#javascript-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
     $("#highlight").hide();
+    $("#py_console").hide();
 
     $("#pre-code-link").parent().hide();
     $("#post-code-link").parent().hide();
@@ -101,6 +100,9 @@ RUR.reset_programming_language = function(choice){
             // show language specific
             $("#library-tab").parent().show();
             $("#python-additional-menu p button").removeAttr("disabled");
+            if (RUR._active_console) {
+                $("#py_console").show();
+            }
             RUR.kbd.set_programming_language("python");
             break;
         case 'javascript-' + human_language :
@@ -6196,6 +6198,7 @@ RUR.zz_dr_onclick = function () {
         } else {
             show_editor_hide_console();
         }
+        RUR.reset_programming_language(RUR.settings.current_language);
         RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
         RUR.kbd.select();
     });

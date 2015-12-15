@@ -150,6 +150,7 @@ RUR.zz_dr_onclick = function () {
         } else {
             show_editor_hide_console();
         }
+        RUR.reset_programming_language(RUR.settings.current_language);
         RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
         RUR.kbd.select();
     });
