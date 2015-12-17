@@ -5910,10 +5910,12 @@ $(document).ready(function() {
     RUR._browser = "unknown";
 
     if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
-        alert("Python programming does not work when using Firefox. "+
-              "It does works with Google Chrome, Opera and Microsoft Edge. "+
-          "On ne peut plus utiliser Python avec version de Firefox.");
+        alert("Code highlighting and variables watch do not work with Firefox. "+
+              "They do work with Google Chrome, Opera and Microsoft Edge. "+
+          "Certaines fonctions ne fonctionnent pas avec Firefox.");
         RUR._highlight = false;
+        $("#highlight").addClass("blue-gradient");
+        $("#highlight").removeClass("reverse-blue-gradient");
         RUR.ui.watch = function () {
             alert("Not supported with Firefox.");
         };
@@ -6001,8 +6003,7 @@ $(document).ready(function() {
     }
 
     function everything_loaded () {
-        var loaded, total_images, py_modules=0,
-            human_language = document.documentElement.lang;
+        var loaded, total_images, py_modules=0;
         if (RUR.objects.loaded_images == RUR.objects.nb_images &&
             RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images &&
                 (RUR._browser == "Firefox" ||
@@ -6012,11 +6013,6 @@ $(document).ready(function() {
                 )){
             RUR.vis_world.draw_all();
             $("#splash-screen").hide();
-
-            if (RUR._browser == "Firefox") {
-                RUR.reset_programming_language("javascript-" + human_language);
-            }
-            
         } else {
             loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
             total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
