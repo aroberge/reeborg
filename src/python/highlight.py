@@ -10,6 +10,8 @@ try:
 except:
     pass
 
+_watch = False
+_highlight = True
 
 def extract_first_word(mystr, separators):
     """ Splits a string into 2 parts without using regexp
@@ -23,23 +25,22 @@ def extract_first_word(mystr, separators):
 
 def tracing_line(indent, current_group, frame=False, last_line=False):
     '''Construct the tracing line'''
+    global _watch, _highlight
     tracecall_name = 'RUR.set_lineno_highlight'
-    watch_string = "__watch(system_default_vars, loc=locals(), gl=globals())\n"
-    if hasattr(window.RUR, '_watch'):
-        if getattr(window.RUR, '_watch'):
-            watch = indent + watch_string
+    watch_string = "_watch_(system_default_vars, loc=locals(), gl=globals())\n"
+    if _watch:
+        watch = indent + watch_string
     else:
         watch = ''
     if last_line:
         return watch
-    if hasattr(window.RUR, '_highlight'):
-        if getattr(window.RUR, '_highlight'):
-            if frame:
-                trace = indent + tracecall_name + '(%s, True)' % current_group
-            else:
-                trace = indent + tracecall_name + '(%s)' % current_group
+    if _highlight:
+        if frame:
+            trace = indent + tracecall_name + '(%s, True)' % current_group
         else:
-            trace = ''
+            trace = indent + tracecall_name + '(%s)' % current_group
+    else:
+        trace = ''
     return watch + trace
 
 
@@ -120,7 +121,10 @@ RECORDING = ["move", "avance",
              "clear_print"]
 
 
-def insert_highlight_info(src):  # NOQA
+def insert_highlight_info(src, watch=False, highlight=True):  # NOQA
+    global _watch, _highlight
+    _watch = watch
+    _highlight = highlight
     line_info = check_balanced_brackets(src)
     if not line_info:
         return src, True

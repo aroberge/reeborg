@@ -303,8 +303,9 @@ from _importlib import optimize_import_for_path
 optimize_import_for_path('/src/python', 'py')
 import common_def
 
-def translate_python(src, highlight, pre_code='', post_code=''):
-    common_def.generic_translate_python(src, "biblio", "from reeborg_fr import *", highlight, pre_code=pre_code, post_code=post_code)
+def translate_python(src, highlight, pre_code='', post_code='', watch=False):
+    common_def.generic_translate_python(src, "biblio", "from reeborg_fr import *",
+      highlight, pre_code=pre_code, post_code=post_code, watch=watch)
 
 window['translate_python'] = translate_python
 </script>

@@ -48,7 +48,7 @@ def append_watch(arg, value, out):
         out.append(div % (old % (arg, value)))
 
 
-def __watch(default, loc={}, gl={}):
+def _watch_(default, loc={}, gl={}):
     global previous_watch_values
     ignore = ['system_default_vars', 'line_info']
     current_watch_values = {}
@@ -143,7 +143,7 @@ def dir_py(obj, exclude=None):
 
 
 def generic_translate_python(src, lib, lang_import, highlight,
-                             pre_code='', post_code=''):
+                             pre_code='', post_code='', watch=False):
     ''' Translate Python code into Javascript and execute
 
         src: source code in editor
@@ -161,8 +161,8 @@ def generic_translate_python(src, lib, lang_import, highlight,
     globals_.update(globals())
     globals_['dir_py'] = dir_py
     globals_['Help'] = Help
-    globals_['__watch'] = __watch
-    globals_['__v'] = None
+    globals_['_watch_'] = _watch_
+    globals_['_v_'] = None
     globals_['previous_watch_values'] = {}
 
     src = transform(src)
@@ -171,7 +171,8 @@ def generic_translate_python(src, lib, lang_import, highlight,
 
     if highlight:
         try:
-            temp_src, problem = insert_highlight_info(src)
+            temp_src, problem = insert_highlight_info(src, highlight=highlight,
+                                                      watch=watch)
             if not problem:
                 src = temp_src
             else:
@@ -186,8 +187,8 @@ def generic_translate_python(src, lib, lang_import, highlight,
         window.console.log(src)
 
     # include v again to reset its value
-    __v = "system_default_vars = set(locals().keys())\n"
-    src = "help=Help\n" + pre_code + "\n" + __v + src + "\n" + post_code
+    _v_ = "system_default_vars = set(locals().keys())\n"
+    src = "help=Help\n" + pre_code + "\n" + _v_ + src + "\n" + post_code
     try:
         exec(src, globals_)
     except Exception as e:
