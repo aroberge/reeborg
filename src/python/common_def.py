@@ -3,8 +3,9 @@ from browser import window
 try:
     from highlight import insert_highlight_info
 except Exception as e:
-    window.console.log(e)
-    window.RUR._highlight = False
+    print("problem in common_def")
+    # window.console.log(e)
+    # window.RUR._highlight = False
 from preprocess import transform
 
 lang = window.document.documentElement.lang
@@ -169,7 +170,7 @@ def generic_translate_python(src, lib, lang_import, highlight,
     exec(lang_import, globals_)
     # globals_['system_default_vars'] = set([key for key in globals_])
 
-    if highlight:
+    if highlight or watch:
         try:
             temp_src, problem = insert_highlight_info(src, highlight=highlight,
                                                       watch=watch)
