@@ -1,6 +1,10 @@
 import sys
 from browser import window
-from highlight import insert_highlight_info
+try:
+    from highlight import insert_highlight_info
+except Exception as e:
+    window.console.log(e)
+    window.RUR._highlight = False
 from preprocess import transform
 
 lang = window.document.documentElement.lang
