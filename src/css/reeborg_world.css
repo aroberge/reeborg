@@ -762,7 +762,7 @@ p.try {
     float: right;
 }
 
-#keyboard-buttons ul li { background: white; z-index:10000 ;
+#keyboard-buttons ul li { background: white; z-index:11 ;
     display: inline-block;
     border: 1px solid silver;
     cursor: pointer;
@@ -784,4 +784,19 @@ p.try {
     margin-left:0;
     padding-top:0;
     margin-top:0;
+}
+
+#splash-screen {
+    background: rgba(0, 0, 100, 0.5);
+    position: absolute;
+    width: 99%;
+    height: 99%;
+    z-index: 20;
+}
+#splash-screen-center {
+    color: white;
+    position: relative;
+    z-index: 21;
+    top: 200px;
+    left: 500px;
 }

@@ -5989,12 +5989,26 @@ $(document).ready(function() {
     }
 
     function everything_loaded () {
+        var loaded, total_images, py_modules=0;
         if (RUR.objects.loaded_images == RUR.objects.nb_images &&
             RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images &&
-            RUR.reeborg_loaded && RUR.console_loaded && RUR.common_def_loaded){
+            RUR.reeborg_loaded && RUR.py_console_loaded && RUR.common_def_loaded){
             RUR.vis_world.draw_all();
-            console.log("done");
+            $("#splash-screen").hide();
         } else {
+            loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
+            total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
+            if (RUR.reeborg_loaded) {
+                py_modules ++;
+            }
+            if (RUR.py_console_loaded) {
+                py_modules ++;
+            }
+            if (RUR.common_def_loaded) {
+                py_modules ++;
+            }
+            $("#splash-text").html("Images: " + loaded + "/" + total_images +
+                                   "<br>Python modules: " + py_modules + "/3");
             requestAnimationFrame(everything_loaded);
         }
     }

@@ -652,9 +652,9 @@ def MenuPersonalise(contenu):
     RUR.custom_menu.make(contenu)
 
 RUR.reeborg_loaded = True
+window.console.log("reeborg loaded")
 
 # Obsolete functions below
-
 
 def face_au_nord():
     # obsolete
