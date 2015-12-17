@@ -3561,7 +3561,10 @@ RUR.ui.reload2 = function() {
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.rec.reset();
-    restart_repl();
+    try {
+        restart_repl();
+    } catch (e) {}      // firefox no longer works :(
+
 };
 
 RUR.ui.select_world = function (s, silent) {
@@ -5904,11 +5907,20 @@ RUR.zz_dr_dialogs = function () {
 
 $(document).ready(function() {
     "use strict";
+    RUR._browser = "unknown";
 
     if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
-        alert("Reeborg's World is possibly broken by the latest version of Firefox. "+
-              "Under testing, it works with Google Chrome and Microsoft Edge. "+
-          "Le monde de Reeborg ne fonctionne plus avec la nouvelle version de Firefox.");
+        alert("Python programming does not work when using Firefox. "+
+              "It does works with Google Chrome, Opera and Microsoft Edge. "+
+          "On ne peut plus utiliser Python avec version de Firefox.");
+        RUR._highlight = false;
+        RUR.ui.watch = function () {
+            alert("Not supported with Firefox.");
+        };
+        RUR.ui.highlight = function () {
+            alert("Not supported with Firefox.");
+        };
+        RUR._browser = "Firefox";
     }
     RUR.rec.reset();
     try {
@@ -5989,12 +6001,22 @@ $(document).ready(function() {
     }
 
     function everything_loaded () {
-        var loaded, total_images, py_modules=0;
+        var loaded, total_images, py_modules=0,
+            human_language = document.documentElement.lang;
         if (RUR.objects.loaded_images == RUR.objects.nb_images &&
             RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images &&
-            RUR.reeborg_loaded && RUR.py_console_loaded && RUR.common_def_loaded){
+                (RUR._browser == "Firefox" ||
+                    (RUR.reeborg_loaded &&
+                      RUR.py_console_loaded &&
+                      RUR.common_def_loaded)
+                )){
             RUR.vis_world.draw_all();
             $("#splash-screen").hide();
+
+            if (RUR._browser == "Firefox") {
+                RUR.reset_programming_language("javascript-" + human_language);
+            }
+            
         } else {
             loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
             total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
@@ -6188,7 +6210,9 @@ RUR.zz_dr_onclick = function () {
         $("#kbd_python_btn").hide();
         $("#kbd_py_console_btn").show();
         RUR.ui.show_only_reload2(true);
-        window.restart_repl();
+        try {
+            restart_repl();
+        } catch (e) {}      // firefox no longer works :( 
         RUR._saved_highlight_value = RUR._highlight;
         RUR._highlight = false;
         RUR._immediate_playback = true;

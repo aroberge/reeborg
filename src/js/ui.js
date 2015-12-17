@@ -121,7 +121,10 @@ RUR.ui.reload2 = function() {
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot_canvas")}});
     RUR.world.reset();
     RUR.rec.reset();
-    restart_repl();
+    try {
+        restart_repl();
+    } catch (e) {}      // firefox no longer works :(
+
 };
 
 RUR.ui.select_world = function (s, silent) {

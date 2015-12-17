@@ -126,7 +126,9 @@ RUR.zz_dr_onclick = function () {
         $("#kbd_python_btn").hide();
         $("#kbd_py_console_btn").show();
         RUR.ui.show_only_reload2(true);
-        window.restart_repl();
+        try {
+            restart_repl();
+        } catch (e) {}      // firefox no longer works :( 
         RUR._saved_highlight_value = RUR._highlight;
         RUR._highlight = false;
         RUR._immediate_playback = true;
