@@ -51,9 +51,9 @@ import common_def
 
 highlight = False
 
-def translate_python(src, dummy, pre_code='', post_code=''):
+def translate_python(src, highlight, pre_code='', post_code='', watch=False):
     common_def.generic_translate_python(src, "library", "from reeborg_en import *",
-      highlight, pre_code=pre_code, post_code=post_code)
+      highlight, pre_code=pre_code, post_code=post_code, watch=watch)
 
 window['translate_python'] = translate_python
   </script>
