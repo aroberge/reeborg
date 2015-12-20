@@ -219,8 +219,7 @@ RUR.runner.eval_python = function (src) {
     RUR.reset_definitions();
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
-    //highlight = RUR._highlight || RUR._watch;
-    translate_python(src, RUR._highlight, pre_code, post_code, RUR._watch);
+    translate_python(src, RUR._highlight, RUR._watch_vars, pre_code, post_code);
 };
 
 

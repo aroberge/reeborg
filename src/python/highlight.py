@@ -29,11 +29,11 @@ def tracing_line(indent, current_group, frame=False, last_line=False):
     tracecall_name = 'RUR.set_lineno_highlight'
     watch_string = "_watch_(system_default_vars, loc=locals(), gl=globals())\n"
     if _watch:
-        watch = indent + watch_string
+        watch_info = indent + watch_string
     else:
-        watch = ''
+        watch_info = ''
     if last_line:
-        return watch
+        return watch_info
     if _highlight:
         if frame:
             trace = indent + tracecall_name + '(%s, True)' % current_group
@@ -41,7 +41,7 @@ def tracing_line(indent, current_group, frame=False, last_line=False):
             trace = indent + tracecall_name + '(%s)' % current_group
     else:
         trace = ''
-    return watch + trace
+    return watch_info + trace
 
 
 def replace_brackets(src):
@@ -121,9 +121,9 @@ RECORDING = ["move", "avance",
              "clear_print"]
 
 
-def insert_highlight_info(src, watch=False, highlight=True):  # NOQA
+def insert_highlight_info(src, highlight=True, var_watch=False):  # NOQA
     global _watch, _highlight
-    _watch = watch
+    _watch = var_watch
     _highlight = highlight
     line_info = check_balanced_brackets(src)
     if not line_info:

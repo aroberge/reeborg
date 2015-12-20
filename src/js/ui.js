@@ -173,15 +173,15 @@ RUR.ui.highlight = function () {
     }
 };
 
-RUR.ui.watch = function () {
-    if (RUR._watch) {
-        RUR._watch = false;
+RUR.ui.watch_variables = function () {
+    if (RUR._watch_vars) {
+        RUR._watch_vars = false;
         $("#watch_variables_btn").addClass("blue-gradient");
         $("#watch_variables_btn").removeClass("reverse-blue-gradient");
         $("#watch_variables").html("");
         $("#Reeborg-watches").dialog("close");
     } else {
-        RUR._watch = true;
+        RUR._watch_vars = true;
         $("#watch_variables_btn").addClass("reverse-blue-gradient");
         $("#watch_variables_btn").removeClass("blue-gradient");
         $("#watch_variables").html("");

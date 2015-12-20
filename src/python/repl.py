@@ -3,10 +3,23 @@
 Copyright information at the end'''
 
 import sys
-import traceback
 from browser import document, window
-
 RUR = window['RUR']
+
+
+def print_exc():
+    exc = __BRYTHON__.current_exception  # NOQA
+    if isinstance(exc, SyntaxError):
+        print('\n module %s line %s' % (exc.args[1], exc.args[2]))
+        offset = exc.args[3]
+        print('\n  ' + exc.args[4])
+        print('\n  ' + offset * ' ' + '^')
+    else:
+        print(exc.info)
+    print('\n' + exc.__name__)
+    if exc.args:
+        print(': %s' % exc.args[0])
+    print('\n')
 
 
 class PyConsole:
@@ -178,14 +191,14 @@ class Interpreter():
             try:
                 exec(self.current_line, self.namespace)
             except:
-                traceback.print_exc()
+                print_exc()
             py_console.prompt()
             self.status = "main"
         elif msg == 'decorator expects function':
             py_console.more()
             self.status = "block"
         else:
-            traceback.print_exc()
+            print_exc()
             py_console.append("\n")
             py_console.prompt()
             self.status = "main"
@@ -224,7 +237,7 @@ class Interpreter():
             if _ is not None:
                 print(repr(_))
         except:
-            traceback.print_exc()
+            print_exc()
         py_console.prompt()
 
     def process_code(self, src):
@@ -240,8 +253,8 @@ class Interpreter():
 repl = Interpreter()
 window["restart_repl"] = repl.restart
 
-RUR.py_console_loaded = True
-window.console.log("py_console loaded")
+# RUR.py_console_loaded = True
+# window.console.log("py_console loaded")
 
 _copyright = """Copyright (c) 2015, André Roberge andre.roberge@gmail.com
 All Rights Reserved.

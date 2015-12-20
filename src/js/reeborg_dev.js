@@ -3091,8 +3091,7 @@ RUR.runner.eval_python = function (src) {
     RUR.reset_definitions();
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
-    //highlight = RUR._highlight || RUR._watch;
-    translate_python(src, RUR._highlight, pre_code, post_code, RUR._watch);
+    translate_python(src, RUR._highlight, RUR._watch_vars, pre_code, post_code);
 };
 
 
@@ -3613,15 +3612,15 @@ RUR.ui.highlight = function () {
     }
 };
 
-RUR.ui.watch = function () {
-    if (RUR._watch) {
-        RUR._watch = false;
+RUR.ui.watch_variables = function () {
+    if (RUR._watch_vars) {
+        RUR._watch_vars = false;
         $("#watch_variables_btn").addClass("blue-gradient");
         $("#watch_variables_btn").removeClass("reverse-blue-gradient");
         $("#watch_variables").html("");
         $("#Reeborg-watches").dialog("close");
     } else {
-        RUR._watch = true;
+        RUR._watch_vars = true;
         $("#watch_variables_btn").addClass("reverse-blue-gradient");
         $("#watch_variables_btn").removeClass("blue-gradient");
         $("#watch_variables").html("");
@@ -5909,19 +5908,21 @@ $(document).ready(function() {
     "use strict";
     RUR._browser = "unknown";
 
-    if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
-        alert("Python programming does not work when using Firefox. "+
-              "It does works with Google Chrome, Opera and Microsoft Edge. "+
-          "On ne peut plus utiliser Python avec version de Firefox.");
-        RUR._highlight = false;
-        RUR.ui.watch = function () {
-            alert("Not supported with Firefox.");
-        };
-        RUR.ui.highlight = function () {
-            alert("Not supported with Firefox.");
-        };
-        RUR._browser = "Firefox";
-    }
+    // if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
+    //     alert("Code highlighting and variables watch do not work with Firefox. "+
+    //           "They do work with Google Chrome, Opera and Microsoft Edge. "+
+    //       "Certaines fonctions ne fonctionnent pas avec Firefox.");
+    //     RUR._highlight = false;
+    //     $("#highlight").addClass("blue-gradient");
+    //     $("#highlight").removeClass("reverse-blue-gradient");
+    //     RUR.ui.watch_variables = function () {
+    //         alert("Not supported with Firefox.");
+    //     };
+    //     RUR.ui.highlight = function () {
+    //         alert("Not supported with Firefox.");
+    //     };
+    //     RUR._browser = "Firefox";
+    // }
     RUR.rec.reset();
     try {
         RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
@@ -6001,36 +6002,15 @@ $(document).ready(function() {
     }
 
     function everything_loaded () {
-        var loaded, total_images, py_modules=0,
-            human_language = document.documentElement.lang;
+        var loaded, total_images, py_modules=0;
         if (RUR.objects.loaded_images == RUR.objects.nb_images &&
-            RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images &&
-                (RUR._browser == "Firefox" ||
-                    (RUR.reeborg_loaded &&
-                      RUR.py_console_loaded &&
-                      RUR.common_def_loaded)
-                )){
+            RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images){
             RUR.vis_world.draw_all();
             $("#splash-screen").hide();
-
-            if (RUR._browser == "Firefox") {
-                RUR.reset_programming_language("javascript-" + human_language);
-            }
-            
         } else {
             loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
             total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
-            if (RUR.reeborg_loaded) {
-                py_modules ++;
-            }
-            if (RUR.py_console_loaded) {
-                py_modules ++;
-            }
-            if (RUR.common_def_loaded) {
-                py_modules ++;
-            }
-            $("#splash-text").html("Images: " + loaded + "/" + total_images +
-                                   "<br>Python modules: " + py_modules + "/3");
+            $("#splash-text").html("Images: " + loaded + "/" + total_images);
             requestAnimationFrame(everything_loaded);
         }
     }

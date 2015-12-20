@@ -118,7 +118,7 @@
       <li><a id="post-code-link" href="#post-code-div">Post</a></li>
       <li><a id="description-link" href="#description-div">Desc.</a></li>
 
-      <button id="watch_variables_btn" class="blue-gradient float-right" title="observe variables" onclick="RUR.ui.watch()">
+      <button id="watch_variables_btn" class="blue-gradient float-right" title="observe variables" onclick="RUR.ui.watch_variables()">
           <img src="/src/images/magnifying_yes.png" alt="observe">
       </button>
       <button id="highlight" class="reverse-blue-gradient float-right" title="surligner" onclick="RUR.ui.highlight()">
@@ -301,11 +301,11 @@
 from browser import window
 from _importlib import optimize_import_for_path
 optimize_import_for_path('/src/python', 'py')
-import common_def
+from common_def import generic_translate_python
 
-def translate_python(src, highlight, pre_code='', post_code='', watch=False):
-    common_def.generic_translate_python(src, "biblio", "from reeborg_fr import *",
-      highlight, pre_code=pre_code, post_code=post_code, watch=watch)
+def translate_python(src, highlight, var_watch, pre_code, post_code):
+    generic_translate_python(src, "biblio", "from reeborg_fr import *",
+      highlight, var_watch, pre_code, post_code)
 
 window['translate_python'] = translate_python
 </script>

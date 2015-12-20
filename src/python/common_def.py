@@ -143,8 +143,8 @@ def dir_py(obj, exclude=None):
     window["print_html"](html_escape("\n".join(out)).replace("\n", "<br>"))
 
 
-def generic_translate_python(src, lib, lang_import, highlight,
-                             pre_code='', post_code='', watch=False):
+def generic_translate_python(src, lib, lang_import, highlight, var_watch,
+                             pre_code='', post_code=''):
     ''' Translate Python code into Javascript and execute
 
         src: source code in editor
@@ -170,10 +170,10 @@ def generic_translate_python(src, lib, lang_import, highlight,
     exec(lang_import, globals_)
     # globals_['system_default_vars'] = set([key for key in globals_])
 
-    if highlight or watch:
+    if highlight or var_watch:
         try:
             temp_src, problem = insert_highlight_info(src, highlight=highlight,
-                                                      watch=watch)
+                                                      var_watch=var_watch)
             if not problem:
                 src = temp_src
             else:
