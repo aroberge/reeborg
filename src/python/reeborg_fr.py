@@ -32,6 +32,13 @@ def au_but():
     return RUR._at_goal_()
 
 
+def observer(expr):
+    """Ajoute une expression Python valide (donnée comme une chaîne)
+       à la liste des variables à observer.
+    """
+    RUR.add_watch(expr)
+
+
 def construit_un_mur():
     """Indique à Reeborg de construire un mur devant sa position."""
     RUR._build_wall_()
@@ -68,6 +75,11 @@ def transporte(obj=None):
 def efface_print():
     """Efface le texte précédemment écrit avec des fonctions print()."""
     RUR._clear_print_()
+
+
+def robot_par_defaut():
+    """Retourne un objet javascript qui est le robot par défaut."""
+    return RUR.current_world.robots[0]
 
 
 def dir_js(obj):

@@ -2452,6 +2452,7 @@ RUR.rec.reset = function() {
     RUR.rec.playback = false;
     RUR.rec.delay = 300;
     RUR.rec.do_not_record = false;
+    RUR.watched_expressions = [];
     clearTimeout(RUR.rec.timer);
     if (RUR.programming_language === "python" &&
         RUR._highlight &&

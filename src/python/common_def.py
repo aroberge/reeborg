@@ -4,9 +4,12 @@ try:
     from highlight import insert_highlight_info
 except Exception as e:
     print("problem in common_def")
-    # window.console.log(e)
-    # window.RUR._highlight = False
 from preprocess import transform
+
+def _add_watch(expr):
+    window.RUR.watched_expressions.append(expr)
+
+window.RUR.add_watch = _add_watch
 
 lang = window.document.documentElement.lang
 if lang == 'en':
@@ -78,6 +81,15 @@ def _watch_(default, loc={}, gl={}):
                 out.append(title % window.RUR.translate("Global variables"))
             value = html_escape(gl[arg])
             current_watch_values[arg] = value
+        append_watch(arg, value, out)
+
+    no_new_expr = True
+    for arg in window.RUR.watched_expressions:
+        if no_new_expr:
+            no_new_expr = False
+            out.append(title % window.RUR.translate("Watched expressions"))
+        value = html_escape(eval(arg, gl, loc))
+        current_watch_values[arg] = value
         append_watch(arg, value, out)
 
     window.RUR.output.watch_variables("".join(out))

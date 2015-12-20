@@ -31,6 +31,13 @@ def at_goal():
     return RUR._at_goal_()
 
 
+def add_watch(expr):
+    """Adds a valid Python expression (given as a string) to
+       the watch list.
+    """
+    RUR.add_watch(expr)
+
+
 def build_wall():
     """Instructs Reeborg to build a wall at the location in front of itself."""
     RUR._build_wall_()
@@ -66,6 +73,11 @@ def carries_object(obj=None):
 def clear_print():
     """Erase all the text previously written using a call to print()."""
     RUR._clear_print_()
+
+
+def default_robot():
+    """Returns a Javascript object that is currently the default robot"""
+    return RUR.current_world.robots[0]
 
 
 def dir_js(obj):
