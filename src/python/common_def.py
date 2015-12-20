@@ -88,7 +88,10 @@ def _watch_(default, loc={}, gl={}):
         if no_new_expr:
             no_new_expr = False
             out.append(title % window.RUR.translate("Watched expressions"))
-        value = html_escape(eval(arg, gl, loc))
+        try:
+            value = html_escape(eval(arg, gl, loc))
+        except Exception as e:
+            value = repr(e)
         current_watch_values[arg] = value
         append_watch(arg, value, out)
 
