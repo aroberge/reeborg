@@ -123,7 +123,9 @@ RUR.ui.reload2 = function() {
     RUR.rec.reset();
     try {
         restart_repl();
-    } catch (e) {}      // firefox no longer works :(
+    } catch (e) {
+        console.log("can not restart repl", e);
+    }      // firefox no longer works :(
 
 };
 

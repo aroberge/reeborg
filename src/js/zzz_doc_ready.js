@@ -5,23 +5,30 @@
 
 $(document).ready(function() {
     "use strict";
-    RUR._browser = "unknown";
+    var prog_lang, url_query, name;
+    var human_language = document.documentElement.lang;
+    RUR._highlight = true;
+    RUR._python_loaded = false;
 
-    // if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
-    //     alert("Code highlighting and variables watch do not work with Firefox. "+
-    //           "They do work with Google Chrome, Opera and Microsoft Edge. "+
-    //       "Certaines fonctions ne fonctionnent pas avec Firefox.");
-    //     RUR._highlight = false;
-    //     $("#highlight").addClass("blue-gradient");
-    //     $("#highlight").removeClass("reverse-blue-gradient");
-    //     RUR.ui.watch_variables = function () {
-    //         alert("Not supported with Firefox.");
-    //     };
-    //     RUR.ui.highlight = function () {
-    //         alert("Not supported with Firefox.");
-    //     };
-    //     RUR._browser = "Firefox";
-    // }
+    function everything_loaded () {
+        var loaded, total_images, py_modules=0;
+        if (RUR.objects.loaded_images == RUR.objects.nb_images &&
+            RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images){
+            RUR.vis_world.draw_all();
+            $("#splash-screen").hide();
+        } else {
+            loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
+            total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
+            if (!RUR._python_loaded) {
+                $("#splash-text").html("Loading Python modules. <br>Images: " + loaded + "/" + total_images);
+            } else {
+                $("#splash-text").html("Images: " + loaded + "/" + total_images);
+            }
+            requestAnimationFrame(everything_loaded);
+        }
+    }
+    everything_loaded();
+
     RUR.rec.reset();
     try {
         RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
@@ -37,6 +44,8 @@ $(document).ready(function() {
     RUR.zz_dr_onclick();
     RUR.zz_dr_onchange();
     RUR.zz_dr_editor_ui();
+
+    brython({debug:1, pythonpath:['/src/python']});
 
     RUR.ui.show_only_reload2(false);
 
@@ -54,13 +63,6 @@ $(document).ready(function() {
 
     RUR.ui.set_ready_to_run();
     RUR.kbd.select();
-});
-
-
-$(document).ready(function() {
-    var prog_lang, url_query, name;
-    var human_language = document.documentElement.lang;
-    RUR._highlight = true;
 
     RUR.make_default_menu(human_language);
 
@@ -100,19 +102,6 @@ $(document).ready(function() {
         eval(new_css);  // jshint ignore:line
     }
 
-    function everything_loaded () {
-        var loaded, total_images, py_modules=0;
-        if (RUR.objects.loaded_images == RUR.objects.nb_images &&
-            RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images){
-            RUR.vis_world.draw_all();
-            $("#splash-screen").hide();
-        } else {
-            loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
-            total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
-            $("#splash-text").html("Images: " + loaded + "/" + total_images);
-            requestAnimationFrame(everything_loaded);
-        }
-    }
-    everything_loaded ();
+
 
 });

@@ -128,7 +128,9 @@ RUR.zz_dr_onclick = function () {
         RUR.ui.show_only_reload2(true);
         try {
             restart_repl();
-        } catch (e) {}      // firefox no longer works :( 
+        } catch (e) {
+            console.log("trying to restart repl failure", e);
+        }      // firefox no longer works :(
         RUR._saved_highlight_value = RUR._highlight;
         RUR._highlight = false;
         RUR._immediate_playback = true;

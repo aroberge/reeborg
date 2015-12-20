@@ -6,7 +6,6 @@ import sys
 from browser import document, window
 RUR = window['RUR']
 
-
 def print_exc():
     exc = __BRYTHON__.current_exception  # NOQA
     if isinstance(exc, SyntaxError):
@@ -131,9 +130,13 @@ py_console.textarea.bind('click', myMouseClick)
 class Interpreter():
 
     def __init__(self):
-        self.restart()
+        try:
+            self.restart()
+        except Exception as e:
+            py_console.append("Problem in attempting to (re)start Interpreter.")
 
     def restart(self):
+        py_console.refresh()
         sys.stdout.write = sys.stderr.write = py_console.append
         for item in ["editor", "editeur", "library", "biblio"]:
             if item in sys.modules:
@@ -142,9 +145,12 @@ class Interpreter():
         self.current = 0
         self.history = []
         self.current_line = ''
-        py_console.refresh()
+
         self.namespace = {'__name__': 'Reeborg console'}
-        lang = document.documentElement.lang
+        try:
+            lang = document.documentElement.lang
+        except:
+            lang = 'en'
         if lang == 'en':
             exec("from reeborg_en import *", self.namespace)
             self.namespace["done"] = self.done
@@ -252,9 +258,8 @@ class Interpreter():
 
 repl = Interpreter()
 window["restart_repl"] = repl.restart
+RUR.py_console_loaded = True
 
-# RUR.py_console_loaded = True
-# window.console.log("py_console loaded")
 
 _copyright = """Copyright (c) 2015, André Roberge andre.roberge@gmail.com
 All Rights Reserved.
