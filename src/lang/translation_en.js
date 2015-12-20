@@ -9,7 +9,7 @@
      2. to have strings that can take some parameters that are replaced at run-time.
 
 */
-
+/* jshint -W069 */
 var RUR = RUR || {};
 
 RUR.translation = {};
@@ -127,7 +127,7 @@ RUR.translation["A robot located here carries no objects."] = "A robot located a
 RUR.translation["Goal to achieve:"] = "Goal to achieve:";
 RUR.translation["A robot located here carries:"] = "A robot located at {x},{y} carries:";
 RUR.translation["random location"] = "random location";
-RUR.translation["Enter number of objects to give to robot."] = "Enter number of {obj} to give to robot."
+RUR.translation["Enter number of objects to give to robot."] = "Enter number of {obj} to give to robot.";
 RUR.translation["Special information about this location:"] = "Special information about this location:";
 RUR.translation["Click on world to toggle tile."] = "Click on world to toggle {tile} tile.";
 RUR.translation["Click on desired tile below."] = "Click on desired tile below.";
@@ -175,7 +175,7 @@ RUR.translation["brick wall: Reeborg <b>can</b> detect this but will hurt himsel
 RUR.translation["I hit a fence!"] = "I hit a fence!";
 RUR.translation["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
 RUR.translation["Bridge:"] = "Bridge: ";
-RUR.translation["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>can</b> detect this and will know that it allows safe passage over water."
+RUR.translation["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
 
 
 //===
@@ -194,3 +194,4 @@ RUR.translation["fence_vertical"] = "fence";
 //=== in common_def.py
 RUR.translation["Local variables"] = "Local variables";
 RUR.translation["Global variables"] = "Global variables";
+RUR.translation["Watched expressions"] = "Watched expressions";

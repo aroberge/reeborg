@@ -2,8 +2,8 @@
    License: MIT
  */
 
-/*jshint browser:true, devel:true, white:false, plusplus:false */
-
+/*jshint browser:true, devel:true, white:false, plusplus:false*/
+/* jshint -W069 */
 var RUR = RUR || {};
 
 RUR.translation = {};
@@ -120,7 +120,7 @@ RUR.translation["Description"] = "Description";
 RUR.translation["A robot located here carries no objects."] = "A robot situé à {x},{y} ne transporte aucun objet.";
 RUR.translation["A robot located here carries:"] = "Un robot situé à {x},{y} transporte:";
 RUR.translation["random location"] = "une position choisie au hasard";
-RUR.translation["Enter number of objects to give to robot."] = "Quel nombre de {obj} voulez-vous donner au robot?"
+RUR.translation["Enter number of objects to give to robot."] = "Quel nombre de {obj} voulez-vous donner au robot?";
 RUR.translation["Special information about this location:"] = "Information particulière au sujet de cet endroit:";
 RUR.translation["Click on world to toggle tile."] = "Cliquez sur le monde pour ajouter/supprimer une image de fond: '{tile}'.";
 RUR.translation["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous.";
@@ -168,7 +168,7 @@ RUR.translation["brick wall: Reeborg <b>can</b> detect this but will hurt himsel
 RUR.translation["I hit a fence!"] = "J'ai frappé une clôture!";
 RUR.translation["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Clôture: Reeborg <b>peut</b> détecter ceci mais il ne peut pas passer au travers.";
 RUR.translation["Bridge:"] = "Pont: ";
-RUR.translation["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté."
+RUR.translation["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
 
 
 // =========
@@ -188,3 +188,4 @@ RUR.translation["fence_vertical"] = "clôture";
 //=== in common_def.py
 RUR.translation["Local variables"] = "Variables locales";
 RUR.translation["Global variables"] = "Variables globales";
+RUR.translation["Watched expressions"] = "Watched expressions";
