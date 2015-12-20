@@ -18,7 +18,7 @@
     src="http://cdn.rawgit.com/brython-dev/brython/3c551ae3bf6d29191f7f62bf0d2ce987d70fc340/www/src/brython.js">
 </script>
 </head>
-<body onload="brython({debug:1, pythonpath:['/src/python']})">
+<body>
 
 <div id="splash-screen">
   <p id="splash-screen-center">
@@ -308,8 +308,9 @@ def translate_python(src, highlight, var_watch, pre_code, post_code):
       highlight, var_watch, pre_code, post_code)
 
 window['translate_python'] = translate_python
+import repl
+window.RUR._python_loaded = True
 </script>
-<script type="text/python3" src="/src/python/repl.py"></script>
 
 <script>
   function betterTab(cm) {

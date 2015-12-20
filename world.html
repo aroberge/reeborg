@@ -20,7 +20,7 @@
 </script>
 
 </head>
-<body onload="brython({debug:1, pythonpath:['/src/python']})">
+<body>
 
 <div id="splash-screen">
   <p id="splash-screen-center">
@@ -328,8 +328,9 @@ def translate_python(src, highlight, var_watch, pre_code, post_code):
      generic_translate_python(src, "library", "from reeborg_en import *", highlight, var_watch, pre_code, post_code)
 
 window['translate_python'] = translate_python
+import repl
+window.RUR._python_loaded = True
 </script>
-<script type="text/python3" src="/src/python/repl.py"></script>
 
 <script>
   function betterTab(cm) {
