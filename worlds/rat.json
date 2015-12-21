@@ -1,0 +1,46 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+  "small_tiles": false,
+  "rows": 9,
+  "cols": 8,
+  "objects": {
+    "2,4": {
+      "banana": 1
+    },
+    "6,5": {
+      "banana": 1
+    },
+    "5,2": {
+      "banana": 1
+    },
+    "7,3": {
+      "apple": 1
+    },
+    "3,7": {
+      "apple": 1
+    }
+  },
+  "pre_code": "'pre-code'",
+  "post_code": "'post-code'",
+  "editor": "nouvelles_images_de_robot({\n    \"ouest\":\"http://prototheque.free.fr/ellipses/reeborg/rats/ratW.png\",\n    \"est\": \"http://prototheque.free.fr/ellipses/reeborg/rats/ratE.png\",\n    \"nord\": \"http://prototheque.free.fr/ellipses/reeborg/rats/ratN.png\",\n    \"sud\": \"http://prototheque.free.fr/ellipses/reeborg/rats/ratS.png\"}\n    )\n\n__prend = prend\n\ndef prend(obj=None):\n    if 'pomme' in objet_ici() :\n        raise ReeborgError('Arhg je suis mort !<img src=\"http://prototheque.free.fr/ellipses/reeborg/rats/ratS.png\">')\n    else : \n        __prend(obj)\n    \nstyle_de_trace('invisible')\n\ndef avance_et_regarde():\n    avance()\n    if 'banane' in objet_ici() : \n        prend()\n        \ndef avance_et_regarde():\n    avance()\n    if objet_ici() : \n        prend()\n    \npense(0)\nrepeat 4 :\n    repeat 7 :\n       avance_et_regarde()\n    tourne_a_gauche()\n    avance_et_regarde()\n    tourne_a_gauche()\n    repeat 7 : \n        avance_et_regarde()\n    repeat 3 : \n        tourne_a_gauche()\n    avance_et_regarde()\n    repeat 3 : \n        tourne_a_gauche()\n",
+  "library": null
+}
