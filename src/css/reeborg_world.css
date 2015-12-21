@@ -562,7 +562,7 @@ p.try {
     margin-right: 4px;
 }
 
-#world-panel {
+#world-panel, #blockly-wrapper {
     width: 620px;
 }
 
@@ -571,17 +571,27 @@ p.try {
 }
 
 #world-panel,
-#editor-panel {
+#editor-panel, #blockly-wrapper {
     position: absolute;
-    display: none;
     height: 600px;
     margin-top: 32px;
     padding: 0 5px;
     vertical-align: top;
 }
 
+#world-panel,
 #editor-panel {
+    display: none;
+}
+
+#editor-panel, #blockly-wrapper {
     left: 650px;
+}
+
+#blocklyDiv {
+    height: 600px;
+    width: 600px;
+    position: relative;
 }
 
 #world-panel {

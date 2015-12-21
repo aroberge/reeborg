@@ -17,17 +17,40 @@ RUR.zz_dr_onchange = function () {
         } catch (e) {}
     });
 
+
+    $.fn.redraw = function(){
+      $(this).each(function(){
+        var redraw = this.offsetHeight;
+      });
+    };
+
     $("#python_choices").change(function() {
         if($(this).val() == "editor") {
             show_python_editor();
             hide_console();
+            hide_python_blockly();
             $("#editor-panel").addClass("active");
-        } else {
+        } else if($(this).val() == "repl") {
             hide_python_editor();
             show_console();
+            hide_python_blockly();
+            $("#editor-panel").removeClass("active");
+        } else {
+            hide_python_editor();
+            hide_console();
+            show_python_blockly();
             $("#editor-panel").removeClass("active");
         }
     });
+
+    function show_python_blockly () {
+        $("#blockly-wrapper").show();
+        window.dispatchEvent(new Event('resize'));
+    }
+
+    function hide_python_blockly () {
+        $("#blockly-wrapper").hide();
+    }
 
     function show_python_editor () {
         $("#kbd_python_btn").show();
@@ -59,20 +82,5 @@ RUR.zz_dr_onchange = function () {
         RUR._immediate_playback = false;
         RUR._active_console = false;
     }
-
-    // $("#editor-panel-button").on("click", function (evt) {
-    //     if ($("#editor-panel-button").hasClass("reverse-blue-gradient")) {
-    //         hide_editor_show_console();
-    //     } else {
-    //         show_editor_hide_console();
-    //     }
-    //     RUR.reset_programming_language(RUR.settings.current_language);
-    //     RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
-    //     RUR.kbd.select();
-    // });
-
-
-
-
 
 };

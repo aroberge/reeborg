@@ -44,6 +44,7 @@
     <select id="python_choices" title="Select programming mode">
         <option value="editor">Editor</option>
         <option value="repl">Interpreter</option>
+        <option value="blockly">Blockly</option>
     </select>
 
     <button id="more-menus-button" class="blue-gradient" title="Additional options">
@@ -62,6 +63,19 @@
     <button class="blue-gradient" id="cancel-permalink" onclick="RUR.permalink.cancel();">Cancel</button>
   </p>
 </div>
+
+<div id="blockly-wrapper">
+    <div id="blocklyDiv"></div>
+</div>
+<xml id="toolbox" style="display: none">
+  <block type="controls_if"></block>
+  <block type="controls_repeat_ext"></block>
+  <block type="logic_compare"></block>
+  <block type="math_number"></block>
+  <block type="math_arithmetic"></block>
+  <block type="text"></block>
+  <block type="text_print"></block>
+</xml>
 
 <div id="world-panel" class="active" >
 
@@ -418,6 +432,10 @@ window.RUR._python_loaded = True
     });
 
 </script>
+
+<script src="/blockly/blockly_compressed.js"></script>
+<script src="/blockly/blocks_compressed.js"></script>
+<script src="/blockly/msg/js/en.js"></script>
 
 <script async src="/src/libraries/jshint.js"></script>
 <script async src="/src/libraries/filesaver.js"></script>
