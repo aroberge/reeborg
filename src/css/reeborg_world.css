@@ -481,8 +481,8 @@ p.try {
 
 #logo img {
     position: absolute;
-    top: 5px;
-    left: 5px;
+    top: 0;
+    left: -5px;
     float: left;
     margin: 0;
     padding: 0;
@@ -607,7 +607,7 @@ p.try {
 
 .watch_value {
     display: inline-block;
-    color: black;
+    color: blue;
     font-family: 'Roboto Mono', monospace;
     max-width: 500px;
     padding-left: 1em;
