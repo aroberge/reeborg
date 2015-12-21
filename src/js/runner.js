@@ -121,12 +121,17 @@ RUR.runner.run = function (playback) {
     if (!RUR.runner.interpreted) {
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
         RUR.runner.assign_initial_values();
-        src = editor.getValue();
+
+        if (RUR.blockly.active) {
+            src = Blockly.Python.workspaceToCode(RUR.blockly.workspace);
+        } else {
+            src = editor.getValue();
+        }
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
     }
     if (!fatal_error_found) {
         try {
-            localStorage.setItem(RUR.settings.editor, editor.getValue());
+            localStorage.setItem(RUR.settings.editor, src);
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
         // "playback" is a function called to play back the code in a sequence of frames

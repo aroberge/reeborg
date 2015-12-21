@@ -102,13 +102,7 @@ $(document).ready(function() {
         eval(new_css);  // jshint ignore:line
     }
 
-    var workspace = Blockly.inject('blocklyDiv',
-          {toolbox: document.getElementById('toolbox')});
 
-    $("#blocklyDiv").resizable({
-        resize: function() {
-            $("#blocklyDiv:first-child").setSize(null, $(this).height()-1);
-        }
-    }).draggable({cursor: "move", handle: "ul"});
+    $("#python_choices").val("editor").change();
 
 });

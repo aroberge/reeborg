@@ -42,9 +42,9 @@
         <option value="coffeescript-en">CoffeeScript</option>
     </select>
     <select id="python_choices" title="Select programming mode">
+        <option value="blockly">Blockly</option>
         <option value="editor">Editor</option>
         <option value="repl">Interpreter</option>
-        <option value="blockly">Blockly</option>
     </select>
 
     <button id="more-menus-button" class="blue-gradient" title="Additional options">
@@ -68,6 +68,7 @@
     <div id="blocklyDiv"></div>
 </div>
 <xml id="toolbox" style="display: none">
+  <block type="_move_"></block>
   <block type="controls_if"></block>
   <block type="controls_repeat_ext"></block>
   <block type="logic_compare"></block>
@@ -334,6 +335,12 @@
   RUR.programming_language = "python";
 </script>
 <script src="/src/lang/translation_en.js"></script>
+
+<script src="/blockly/blockly_compressed.js"></script>
+<script src="/blockly/blocks_compressed.js"></script>
+<script src="/blockly/msg/js/en.js"></script>
+<script src="/blockly/generators/python.js"></script>
+
 <script src="/src/js/reeborg_dev.js"></script>
 <script src="/src/lang/reeborg_en.js"></script>
 <script src="/src/libraries/jquery.ui.dialog.minmax.js"></script>
@@ -432,10 +439,6 @@ window.RUR._python_loaded = True
     });
 
 </script>
-
-<script src="/blockly/blockly_compressed.js"></script>
-<script src="/blockly/blocks_compressed.js"></script>
-<script src="/blockly/msg/js/en.js"></script>
 
 <script async src="/src/libraries/jshint.js"></script>
 <script async src="/src/libraries/filesaver.js"></script>

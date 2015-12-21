@@ -17,39 +17,33 @@ RUR.zz_dr_onchange = function () {
         } catch (e) {}
     });
 
-
-    $.fn.redraw = function(){
-      $(this).each(function(){
-        var redraw = this.offsetHeight;
-      });
-    };
-
     $("#python_choices").change(function() {
         if($(this).val() == "editor") {
             show_python_editor();
             hide_console();
-            hide_python_blockly();
+            hide_blockly();
             $("#editor-panel").addClass("active");
         } else if($(this).val() == "repl") {
             hide_python_editor();
             show_console();
-            hide_python_blockly();
+            hide_blockly();
             $("#editor-panel").removeClass("active");
         } else {
             hide_python_editor();
             hide_console();
-            show_python_blockly();
+            show_blockly();
             $("#editor-panel").removeClass("active");
         }
     });
 
-    function show_python_blockly () {
+    function show_blockly () {
         $("#blockly-wrapper").show();
-        window.dispatchEvent(new Event('resize'));
+        RUR.blockly.active = true;
     }
 
-    function hide_python_blockly () {
+    function hide_blockly () {
         $("#blockly-wrapper").hide();
+        RUR.blockly.active = false;
     }
 
     function show_python_editor () {

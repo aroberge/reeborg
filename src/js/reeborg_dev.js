@@ -2999,12 +2999,17 @@ RUR.runner.run = function (playback) {
     if (!RUR.runner.interpreted) {
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
         RUR.runner.assign_initial_values();
-        src = editor.getValue();
+
+        if (RUR.blockly.active) {
+            src = Blockly.Python.workspaceToCode(RUR.blockly.workspace);
+        } else {
+            src = editor.getValue();
+        }
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
     }
     if (!fatal_error_found) {
         try {
-            localStorage.setItem(RUR.settings.editor, editor.getValue());
+            localStorage.setItem(RUR.settings.editor, src);
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
         // "playback" is a function called to play back the code in a sequence of frames
@@ -6011,16 +6016,39 @@ $(document).ready(function() {
         eval(new_css);  // jshint ignore:line
     }
 
-    var workspace = Blockly.inject('blocklyDiv',
-          {toolbox: document.getElementById('toolbox')});
 
-    $("#blocklyDiv").resizable({
-        resize: function() {
-            $("#blocklyDiv:first-child").setSize(null, $(this).height()-1);
-        }
-    }).draggable({cursor: "move", handle: "ul"});
+    $("#python_choices").val("editor").change();
 
 });
+Blockly.Blocks['_move_'] = {
+  /**
+   * Block for moving forward.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(290);
+    this.appendDummyInput().appendField("move()");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("move forward");
+  }
+};
+
+Blockly.Python['_move_'] = function(block) {
+  // Generate Python for moving forward.
+  return 'move()\n';
+};
+
+
+RUR.blockly = {};
+RUR.blockly.workspace = Blockly.inject('blocklyDiv',
+          {toolbox: document.getElementById('toolbox')});
+
+$("#blocklyDiv").resizable({
+    resize: function() {
+        $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
+    }
+}).draggable({cursor: "move", handle: "ul"});
 /* Sets up the UI for various editors.
 
 called by zzz_doc_ready.js
@@ -6066,39 +6094,33 @@ RUR.zz_dr_onchange = function () {
         } catch (e) {}
     });
 
-
-    $.fn.redraw = function(){
-      $(this).each(function(){
-        var redraw = this.offsetHeight;
-      });
-    };
-
     $("#python_choices").change(function() {
         if($(this).val() == "editor") {
             show_python_editor();
             hide_console();
-            hide_python_blockly();
+            hide_blockly();
             $("#editor-panel").addClass("active");
         } else if($(this).val() == "repl") {
             hide_python_editor();
             show_console();
-            hide_python_blockly();
+            hide_blockly();
             $("#editor-panel").removeClass("active");
         } else {
             hide_python_editor();
             hide_console();
-            show_python_blockly();
+            show_blockly();
             $("#editor-panel").removeClass("active");
         }
     });
 
-    function show_python_blockly () {
+    function show_blockly () {
         $("#blockly-wrapper").show();
-        window.dispatchEvent(new Event('resize'));
+        RUR.blockly.active = true;
     }
 
-    function hide_python_blockly () {
+    function hide_blockly () {
         $("#blockly-wrapper").hide();
+        RUR.blockly.active = false;
     }
 
     function show_python_editor () {
