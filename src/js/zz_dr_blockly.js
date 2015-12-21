@@ -29,7 +29,7 @@ Blockly.JavaScript['text_print'] = function(block) {
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
   return RUR.translate("write")+'(' + argument0 + '\n);\n';
 };
-
+Blockly.Python.INDENT = '    ';
 
 RUR.blockly = {};
 RUR.blockly.workspace = Blockly.inject('blocklyDiv',

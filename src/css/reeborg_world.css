@@ -481,8 +481,8 @@ p.try {
 
 #logo img {
     position: absolute;
-    top: 5px;
-    left: 5px;
+    top: 0;
+    left: -5px;
     float: left;
     margin: 0;
     padding: 0;
@@ -798,10 +798,14 @@ p.try {
 
 #splash-screen {
     background: rgba(0, 0, 100, 0.5);
-    position: absolute;
-    width: 99%;
-    height: 99%;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 99.9%;
+    height: 99.9%;
     z-index: 20;
+    margin:0;
+    padding:0;
 }
 #splash-screen-center {
     color: white;

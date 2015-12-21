@@ -3006,13 +3006,12 @@ RUR.runner.run = function (playback) {
 
         if (RUR.blockly.active) {
             if (RUR.programming_language == "python") {
-                src = Blockly.Python.workspaceToCode(RUR.blockly.workspace);
+                editor.setValue(Blockly.Python.workspaceToCode(RUR.blockly.workspace));
             } else {
-                src = Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace);
+                editor.setValue(Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace));
             }
-        } else {
-            src = editor.getValue();
         }
+        src = editor.getValue();
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
     }
     if (!fatal_error_found) {
@@ -6059,7 +6058,7 @@ Blockly.JavaScript['text_print'] = function(block) {
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
   return RUR.translate("write")+'(' + argument0 + '\n);\n';
 };
-
+Blockly.Python.INDENT = '    ';
 
 RUR.blockly = {};
 RUR.blockly.workspace = Blockly.inject('blocklyDiv',
@@ -6117,33 +6116,33 @@ RUR.zz_dr_onchange = function () {
 
     $("#python_choices").change(function() {
         if($(this).val() == "editor") {
+            $("#editor-panel").addClass("active");
             show_python_editor();
             hide_console();
             hide_blockly();
-            $("#editor-panel").addClass("active");
         } else if($(this).val() == "repl") {
+            $("#editor-panel").removeClass("active");
             hide_python_editor();
             show_console();
             hide_blockly();
-            $("#editor-panel").removeClass("active");
         } else {
+            $("#editor-panel").removeClass("active");
             hide_python_editor();
             hide_console();
             show_blockly();
-            $("#editor-panel").removeClass("active");
         }
     });
 
     $("#javascript_choices").change(function() {
         if($(this).val() == "editor") {
+            $("#editor-panel").addClass("active");
             show_javascript_editor();
             hide_blockly();
-            $("#editor-panel").addClass("active");
         } else {
+            $("#editor-panel").removeClass("active");
             hide_python_editor();
             hide_console();
             show_blockly();
-            $("#editor-panel").removeClass("active");
         }
     });
 
@@ -6156,6 +6155,7 @@ RUR.zz_dr_onchange = function () {
         }
         $("#special-keyboard-button").hide();
         $("#Reeborg-watches").dialog("close");
+        window.dispatchEvent(new Event('resize')); // important to ensure that blockly is visible
     }
 
     function hide_blockly () {
@@ -6167,6 +6167,7 @@ RUR.zz_dr_onchange = function () {
     function show_javascript_editor () {
         $("#kbd_javascript_btn").show();
         RUR.ui.reload();
+        editor.refresh();
     }
     function hide_javascript_editor () {
         $("#kbd_javascript_btn").hide();
@@ -6177,6 +6178,7 @@ RUR.zz_dr_onchange = function () {
         $("#kbd_python_btn").show();
         RUR._highlight = RUR._saved_highlight_value;
         RUR.ui.reload();
+        editor.refresh();
     }
     function hide_python_editor () {
         $("#kbd_python_btn").hide();

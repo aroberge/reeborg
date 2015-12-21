@@ -19,33 +19,33 @@ RUR.zz_dr_onchange = function () {
 
     $("#python_choices").change(function() {
         if($(this).val() == "editor") {
+            $("#editor-panel").addClass("active");
             show_python_editor();
             hide_console();
             hide_blockly();
-            $("#editor-panel").addClass("active");
         } else if($(this).val() == "repl") {
+            $("#editor-panel").removeClass("active");
             hide_python_editor();
             show_console();
             hide_blockly();
-            $("#editor-panel").removeClass("active");
         } else {
+            $("#editor-panel").removeClass("active");
             hide_python_editor();
             hide_console();
             show_blockly();
-            $("#editor-panel").removeClass("active");
         }
     });
 
     $("#javascript_choices").change(function() {
         if($(this).val() == "editor") {
+            $("#editor-panel").addClass("active");
             show_javascript_editor();
             hide_blockly();
-            $("#editor-panel").addClass("active");
         } else {
+            $("#editor-panel").removeClass("active");
             hide_python_editor();
             hide_console();
             show_blockly();
-            $("#editor-panel").removeClass("active");
         }
     });
 
@@ -58,6 +58,7 @@ RUR.zz_dr_onchange = function () {
         }
         $("#special-keyboard-button").hide();
         $("#Reeborg-watches").dialog("close");
+        window.dispatchEvent(new Event('resize')); // important to ensure that blockly is visible
     }
 
     function hide_blockly () {
@@ -69,6 +70,7 @@ RUR.zz_dr_onchange = function () {
     function show_javascript_editor () {
         $("#kbd_javascript_btn").show();
         RUR.ui.reload();
+        editor.refresh();
     }
     function hide_javascript_editor () {
         $("#kbd_javascript_btn").hide();
@@ -79,6 +81,7 @@ RUR.zz_dr_onchange = function () {
         $("#kbd_python_btn").show();
         RUR._highlight = RUR._saved_highlight_value;
         RUR.ui.reload();
+        editor.refresh();
     }
     function hide_python_editor () {
         $("#kbd_python_btn").hide();

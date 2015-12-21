@@ -124,13 +124,12 @@ RUR.runner.run = function (playback) {
 
         if (RUR.blockly.active) {
             if (RUR.programming_language == "python") {
-                src = Blockly.Python.workspaceToCode(RUR.blockly.workspace);
+                editor.setValue(Blockly.Python.workspaceToCode(RUR.blockly.workspace));
             } else {
-                src = Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace);
+                editor.setValue(Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace));
             }
-        } else {
-            src = editor.getValue();
         }
+        src = editor.getValue();
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
     }
     if (!fatal_error_found) {
