@@ -87,6 +87,8 @@ RUR.reset_programming_language = function(choice){
     $("#post-code-link").parent().hide();
     $("#description-link").parent().hide();
     $("#python_choices").hide();
+    $("#javascript_choices").hide();
+    $("#special-keyboard-button").show();
 
     switch(RUR.settings.current_language){
         case 'python-' + human_language :
@@ -109,6 +111,8 @@ RUR.reset_programming_language = function(choice){
             RUR.kbd.set_programming_language("python");
             break;
         case 'javascript-' + human_language :
+            $("#javascript_choices").show();
+            $("#javascript_choices").change();
             $("#editor-panel").addClass("active");
             RUR.settings.editor = "editor_js_" + human_language;
             RUR.programming_language = "javascript";
@@ -3001,7 +3005,11 @@ RUR.runner.run = function (playback) {
         RUR.runner.assign_initial_values();
 
         if (RUR.blockly.active) {
-            src = Blockly.Python.workspaceToCode(RUR.blockly.workspace);
+            if (RUR.programming_language == "python") {
+                src = Blockly.Python.workspaceToCode(RUR.blockly.workspace);
+            } else {
+                src = Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace);
+            }
         } else {
             src = editor.getValue();
         }
@@ -6034,10 +6042,25 @@ Blockly.Blocks['_move_'] = {
   }
 };
 
+
 Blockly.Python['_move_'] = function(block) {
   // Generate Python for moving forward.
   return 'move()\n';
 };
+
+Blockly.JavaScript['_move_'] = function(block) {
+  // Generate Python for moving forward.
+  return 'move();\n';
+};
+
+// over-riding default
+Blockly.JavaScript['text_print'] = function(block) {
+  // Print statement.
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return 'write(' + argument0 + ');\n';
+};
+
 
 
 RUR.blockly = {};
@@ -6113,15 +6136,44 @@ RUR.zz_dr_onchange = function () {
         }
     });
 
+    $("#javascript_choices").change(function() {
+        if($(this).val() == "editor") {
+            show_javascript_editor();
+            hide_blockly();
+            $("#editor-panel").addClass("active");
+        } else {
+            hide_python_editor();
+            hide_console();
+            show_blockly();
+            $("#editor-panel").removeClass("active");
+        }
+    });
+
+
     function show_blockly () {
         $("#blockly-wrapper").show();
         RUR.blockly.active = true;
+        if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
+            $("#special-keyboard-button").click();
+        }
+        $("#special-keyboard-button").hide();
+        $("#Reeborg-watches").dialog("close");
     }
 
     function hide_blockly () {
         $("#blockly-wrapper").hide();
         RUR.blockly.active = false;
+        $("#special-keyboard-button").show();
     }
+
+    function show_javascript_editor () {
+        $("#kbd_javascript_btn").show();
+        RUR.ui.reload();
+    }
+    function hide_javascript_editor () {
+        $("#kbd_javascript_btn").hide();
+    }
+
 
     function show_python_editor () {
         $("#kbd_python_btn").show();

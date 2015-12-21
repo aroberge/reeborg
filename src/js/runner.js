@@ -123,7 +123,11 @@ RUR.runner.run = function (playback) {
         RUR.runner.assign_initial_values();
 
         if (RUR.blockly.active) {
-            src = Blockly.Python.workspaceToCode(RUR.blockly.workspace);
+            if (RUR.programming_language == "python") {
+                src = Blockly.Python.workspaceToCode(RUR.blockly.workspace);
+            } else {
+                src = Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace);
+            }
         } else {
             src = editor.getValue();
         }

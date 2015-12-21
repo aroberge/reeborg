@@ -47,6 +47,11 @@
         <option value="repl">Interpreter</option>
     </select>
 
+    <select id="javascript_choices" title="Select programming mode" style="display:none">
+        <option value="blockly">Blockly</option>
+        <option value="editor">Editor</option>
+    </select>
+
     <button id="more-menus-button" class="blue-gradient" title="Additional options">
       Additional options
     </button>
@@ -338,8 +343,9 @@
 
 <script src="/blockly/blockly_compressed.js"></script>
 <script src="/blockly/blocks_compressed.js"></script>
+<script src="/blockly/javascript_compressed.js"></script>
 <script src="/blockly/msg/js/en.js"></script>
-<script src="/blockly/generators/python.js"></script>
+<script src="/blockly/python_compressed.js"></script>
 
 <script src="/src/js/reeborg_dev.js"></script>
 <script src="/src/lang/reeborg_en.js"></script>

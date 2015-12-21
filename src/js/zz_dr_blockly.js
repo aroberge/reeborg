@@ -12,10 +12,25 @@ Blockly.Blocks['_move_'] = {
   }
 };
 
+
 Blockly.Python['_move_'] = function(block) {
   // Generate Python for moving forward.
   return 'move()\n';
 };
+
+Blockly.JavaScript['_move_'] = function(block) {
+  // Generate Python for moving forward.
+  return 'move();\n';
+};
+
+// over-riding default
+Blockly.JavaScript['text_print'] = function(block) {
+  // Print statement.
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return 'write(' + argument0 + ');\n';
+};
+
 
 
 RUR.blockly = {};

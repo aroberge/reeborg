@@ -87,6 +87,8 @@ RUR.reset_programming_language = function(choice){
     $("#post-code-link").parent().hide();
     $("#description-link").parent().hide();
     $("#python_choices").hide();
+    $("#javascript_choices").hide();
+    $("#special-keyboard-button").show();
 
     switch(RUR.settings.current_language){
         case 'python-' + human_language :
@@ -109,6 +111,8 @@ RUR.reset_programming_language = function(choice){
             RUR.kbd.set_programming_language("python");
             break;
         case 'javascript-' + human_language :
+            $("#javascript_choices").show();
+            $("#javascript_choices").change();
             $("#editor-panel").addClass("active");
             RUR.settings.editor = "editor_js_" + human_language;
             RUR.programming_language = "javascript";

@@ -36,15 +36,44 @@ RUR.zz_dr_onchange = function () {
         }
     });
 
+    $("#javascript_choices").change(function() {
+        if($(this).val() == "editor") {
+            show_javascript_editor();
+            hide_blockly();
+            $("#editor-panel").addClass("active");
+        } else {
+            hide_python_editor();
+            hide_console();
+            show_blockly();
+            $("#editor-panel").removeClass("active");
+        }
+    });
+
+
     function show_blockly () {
         $("#blockly-wrapper").show();
         RUR.blockly.active = true;
+        if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
+            $("#special-keyboard-button").click();
+        }
+        $("#special-keyboard-button").hide();
+        $("#Reeborg-watches").dialog("close");
     }
 
     function hide_blockly () {
         $("#blockly-wrapper").hide();
         RUR.blockly.active = false;
+        $("#special-keyboard-button").show();
     }
+
+    function show_javascript_editor () {
+        $("#kbd_javascript_btn").show();
+        RUR.ui.reload();
+    }
+    function hide_javascript_editor () {
+        $("#kbd_javascript_btn").hide();
+    }
+
 
     function show_python_editor () {
         $("#kbd_python_btn").show();
