@@ -195,3 +195,8 @@ RUR.translation["fence_vertical"] = "fence";
 RUR.translation["Local variables"] = "Local variables";
 RUR.translation["Global variables"] = "Global variables";
 RUR.translation["Watched expressions"] = "Watched expressions";
+
+// in zz_dr_blockly.js
+
+RUR.translation["move forward"] = "move forward";
+RUR.translation["write"] = "write";

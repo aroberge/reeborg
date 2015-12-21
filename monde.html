@@ -31,11 +31,24 @@
 <header class="blue-gradient green-border">
   <a id="logo" href="/index_fr.html" class="fake_button"><img src="/src/images/robot_e.png" alt="logo">Le monde de Reeborg</a>
   <div id="header-child">
-   <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">Monde</button>
     <select id="select_world" title="Sélectionner un monde">
     </select>
     <button class="blue-gradient" id="world-info-button">Description</button>
-    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Éditeur</button>
+    <select id="select_programming_language" title="Select programming language">
+        <option value="python-fr">Python</option>
+        <option value="javascript-fr">Javascript</option>
+        <option value="coffeescript-fr">CoffeeScript</option>
+    </select>
+    <select id="python_choices" title="Select programming mode">
+        <option value="blockly">Blockly</option>
+        <option value="editor">Éditeur</option>
+        <option value="repl">Interprète</option>
+    </select>
+    <select id="javascript_choices" title="Select programming mode" style="display:none">
+        <option value="blockly">Blockly</option>
+        <option value="editor">Éditeur</option>
+    </select>
+
     <button id="more-menus-button" class="blue-gradient" title="Menu additionnel">
       Menu additionnel
     </button>
@@ -52,6 +65,20 @@
   <button class="blue-gradient" id="cancel-permalink" onclick="RUR.permalink.cancel();">Annuler</button>
   </p>
   </div>
+
+<div id="blockly-wrapper">
+  <div id="blocklyDiv"></div>
+</div>
+<xml id="toolbox" style="display: none">
+<block type="_move_"></block>
+<block type="controls_if"></block>
+<block type="controls_repeat_ext"></block>
+<block type="logic_compare"></block>
+<block type="math_number"></block>
+<block type="math_arithmetic"></block>
+<block type="text"></block>
+<block type="text_print"></block>
+</xml>
 
 <div id="world-panel" class="active" >
 
@@ -292,6 +319,13 @@
   RUR.programming_language = "python";
 </script>
 <script src="/src/lang/translation_fr.js"></script>
+
+<script src="/blockly/blockly_compressed.js"></script>
+<script src="/blockly/blocks_compressed.js"></script>
+<script src="/blockly/javascript_compressed.js"></script>
+<script src="/blockly/msg/js/fr.js"></script>
+<script src="/blockly/python_compressed.js"></script>
+
 <script src="/src/js/reeborg_dev.js"></script>
 <script src="/src/lang/reeborg_fr.js"></script>
 <script src="/src/libraries/jquery.ui.dialog.minmax.js"></script>
@@ -399,13 +433,6 @@ window.RUR._python_loaded = True
 <script async src="https://togetherjs.com/togetherjs-min.js"></script>
 
 <div id="more-menus" title="Menu additionnel" style="display:none">
-
-<h3>Langages de programmation</h3>
-  <form>
-    <input type="radio" name="programming_language" value="python-fr" checked> Python
-    <input type="radio" name="programming_language" value="javascript-fr" > Javascript
-    <input type="radio" name="programming_language" value="coffeescript-fr" > CoffeeScript
-  </form>
 
   <h3>Aide</h3>
   <p>Si vous avez besoin d'aide, svp
@@ -781,6 +808,7 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>or</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>continue</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>break</li>
+       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>return ?</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
        <br>
       <span>Rappel: <code>repeat</code> n'est pas un véritable mot-clé Python.</span>
@@ -876,7 +904,7 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
 </div>
 
 <!--online-->
-<a style="display:none" title="Real Time Analytics" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif"/></a>
+<a style="display:none" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif"/></a>
 <script type="text/javascript">
 var clicky_site_ids = clicky_site_ids || [];
 clicky_site_ids.push(100788691);
