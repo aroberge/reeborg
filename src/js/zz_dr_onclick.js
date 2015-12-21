@@ -36,11 +36,6 @@ RUR.zz_dr_onclick = function () {
         });
     });
 
-
-    $("#world-panel-button").on("click", function (evt) {
-        RUR.ui.toggle_panel($("#world-panel-button"), $("#world-panel"));
-    });
-
     $("#editor-tab").on("click", function (evt) {
         if (RUR.programming_language == "python" && !RUR.we.editing_world) {
             $("#highlight").show();
@@ -119,43 +114,5 @@ RUR.zz_dr_onclick = function () {
             RUR.we.edit_world();
         }
         RUR.we.show_world_info();
-    });
-
-    function hide_editor_show_console() {
-        $("#py_console").show();
-        $("#kbd_python_btn").hide();
-        $("#kbd_py_console_btn").show();
-        RUR.ui.show_only_reload2(true);
-        try {
-            restart_repl();
-        } catch (e) {
-            console.log("trying to restart repl failure", e);
-        }      // firefox no longer works :(
-        RUR._saved_highlight_value = RUR._highlight;
-        RUR._highlight = false;
-        RUR._immediate_playback = true;
-        RUR._active_console = true;
-    }
-
-    function show_editor_hide_console() {
-        $("#py_console").hide();
-        $("#kbd_python_btn").show();
-        $("#kbd_py_console_btn").hide();
-        RUR.ui.show_only_reload2(false);
-        RUR._highlight = RUR._saved_highlight_value;
-        RUR._immediate_playback = false;
-        RUR.ui.reload();
-        RUR._active_console = false;
-    }
-
-    $("#editor-panel-button").on("click", function (evt) {
-        if ($("#editor-panel-button").hasClass("reverse-blue-gradient")) {
-            hide_editor_show_console();
-        } else {
-            show_editor_hide_console();
-        }
-        RUR.reset_programming_language(RUR.settings.current_language);
-        RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
-        RUR.kbd.select();
     });
 };

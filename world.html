@@ -33,12 +33,19 @@
 <header class="blue-gradient green-border">
   <a id="logo" href="index_en.html" class="fake_button"><img src="/src/images/robot_e.png">Reeborg's World</a>
   <div id="header-child">
-    <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">World</button>
     <select id="select_world" title="Select world">
-
     </select>
     <button class="blue-gradient" id="world-info-button">World info</button>
-    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
+    <select id="select_programming_language" title="Select programming language">
+        <option value="python-en">Python</option>
+        <option value="javascript-en">Javascript</option>
+        <option value="coffeescript-en">CoffeeScript</option>
+    </select>
+    <select id="python_choices" title="Select programming mode">
+        <option value="editor">Editor</option>
+        <option value="repl">Interpreter</option>
+    </select>
+
     <button id="more-menus-button" class="blue-gradient" title="Additional options">
       Additional options
     </button>
@@ -423,18 +430,10 @@ window.RUR._python_loaded = True
 
 <div id="more-menus" title="Additional options" style="display:none">
 
-  <h3>Programming language</h3>
-
-    <form>
-      <input type="radio" name="programming_language" value="python-en" checked> Python
-      <input type="radio" name="programming_language" value="javascript-en" > Javascript
-      <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
-    </form></p>
-
 <h3>Help</h3>
     <p>If you need help, please <a href="http://reeborg.ca/docs/en" target="_blank">consult the documentation</a>
     or, when using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to
-    get help on the <code>move()</code> function, etc.</p>
+    get help on the <code>move()</code> function, etc. You can also click on <b>Reeborg's keyboard</b>.</p>
   <p>
     <button class="blue-gradient" id="about-button">About</button> Some potentially
     useful information about this site.

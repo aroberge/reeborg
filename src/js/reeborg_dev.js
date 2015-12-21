@@ -86,9 +86,12 @@ RUR.reset_programming_language = function(choice){
     $("#pre-code-link").parent().hide();
     $("#post-code-link").parent().hide();
     $("#description-link").parent().hide();
+    $("#python_choices").hide();
 
     switch(RUR.settings.current_language){
         case 'python-' + human_language :
+            $("#python_choices").show();
+            $("#python_choices").change();
             RUR.settings.editor = "editor_py_" + human_language;
             RUR.settings.library = "library_py_" + human_language;
             RUR.programming_language = "python";
@@ -106,6 +109,7 @@ RUR.reset_programming_language = function(choice){
             RUR.kbd.set_programming_language("python");
             break;
         case 'javascript-' + human_language :
+            $("#editor-panel").addClass("active");
             RUR.settings.editor = "editor_js_" + human_language;
             RUR.programming_language = "javascript";
             $("#editor-tab").html(RUR.translate("Javascript Code"));
@@ -117,6 +121,7 @@ RUR.reset_programming_language = function(choice){
             RUR.kbd.set_programming_language("javascript");
             break;
         case 'coffeescript-' + human_language :
+            $("#editor-panel").addClass("active");
             RUR.settings.editor = "editor_coffee_" + human_language;
             RUR.programming_language = "coffee";
             $("#editor-tab").html(RUR.translate("CoffeeScript Code"));
@@ -6041,7 +6046,7 @@ called by zzz_doc_ready.js
 */
 RUR.zz_dr_onchange = function () {
 
-    $('input[type=radio][name=programming_language]').on('change', function(){
+    $("#select_programming_language").change(function() {
         RUR.reset_programming_language($(this).val());
     });
 
@@ -6053,6 +6058,65 @@ RUR.zz_dr_onchange = function () {
             localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
         } catch (e) {}
     });
+
+    $("#python_choices").change(function() {
+        if($(this).val() == "editor") {
+            show_python_editor();
+            hide_console();
+            $("#editor-panel").addClass("active");
+        } else {
+            hide_python_editor();
+            show_console();
+            $("#editor-panel").removeClass("active");
+        }
+    });
+
+    function show_python_editor () {
+        $("#kbd_python_btn").show();
+        RUR._highlight = RUR._saved_highlight_value;
+        RUR.ui.reload();
+    }
+    function hide_python_editor () {
+        $("#kbd_python_btn").hide();
+        RUR._saved_highlight_value = RUR._highlight;
+        RUR._saved_highlight_value = RUR._highlight;
+        RUR._highlight = false;
+    }
+    function show_console() {
+        $("#py_console").show();
+        $("#kbd_py_console_btn").show();
+        RUR.ui.show_only_reload2(true);
+        try {
+            restart_repl();
+        } catch (e) {
+            console.log("trying to restart repl failure", e);
+        }
+        RUR._immediate_playback = true;
+        RUR._active_console = true;
+    }
+    function hide_console() {
+        $("#py_console").hide();
+        $("#kbd_py_console_btn").hide();
+        RUR.ui.show_only_reload2(false);
+        RUR._immediate_playback = false;
+        RUR._active_console = false;
+    }
+
+    // $("#editor-panel-button").on("click", function (evt) {
+    //     if ($("#editor-panel-button").hasClass("reverse-blue-gradient")) {
+    //         hide_editor_show_console();
+    //     } else {
+    //         show_editor_hide_console();
+    //     }
+    //     RUR.reset_programming_language(RUR.settings.current_language);
+    //     RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
+    //     RUR.kbd.select();
+    // });
+
+
+
+
+
 };
 /* Sets up what happens when the user clicks on various html elements.
 
@@ -6090,11 +6154,6 @@ RUR.zz_dr_onclick = function () {
             };
             reader.readAsText(file);
         });
-    });
-
-
-    $("#world-panel-button").on("click", function (evt) {
-        RUR.ui.toggle_panel($("#world-panel-button"), $("#world-panel"));
     });
 
     $("#editor-tab").on("click", function (evt) {
@@ -6175,43 +6234,5 @@ RUR.zz_dr_onclick = function () {
             RUR.we.edit_world();
         }
         RUR.we.show_world_info();
-    });
-
-    function hide_editor_show_console() {
-        $("#py_console").show();
-        $("#kbd_python_btn").hide();
-        $("#kbd_py_console_btn").show();
-        RUR.ui.show_only_reload2(true);
-        try {
-            restart_repl();
-        } catch (e) {
-            console.log("trying to restart repl failure", e);
-        }      // firefox no longer works :(
-        RUR._saved_highlight_value = RUR._highlight;
-        RUR._highlight = false;
-        RUR._immediate_playback = true;
-        RUR._active_console = true;
-    }
-
-    function show_editor_hide_console() {
-        $("#py_console").hide();
-        $("#kbd_python_btn").show();
-        $("#kbd_py_console_btn").hide();
-        RUR.ui.show_only_reload2(false);
-        RUR._highlight = RUR._saved_highlight_value;
-        RUR._immediate_playback = false;
-        RUR.ui.reload();
-        RUR._active_console = false;
-    }
-
-    $("#editor-panel-button").on("click", function (evt) {
-        if ($("#editor-panel-button").hasClass("reverse-blue-gradient")) {
-            hide_editor_show_console();
-        } else {
-            show_editor_hide_console();
-        }
-        RUR.reset_programming_language(RUR.settings.current_language);
-        RUR.ui.toggle_panel($("#editor-panel-button"), $("#editor-panel"));
-        RUR.kbd.select();
     });
 };
