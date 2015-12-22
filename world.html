@@ -50,12 +50,12 @@
         <option value="blockly">Blockly</option>
         <option value="editor">Editor</option>
     </select>
-
+    <label id="visible_blockly">
+        <input type="checkbox" id="editor_visible_blockly" value="visible">Keep editor visible</label>
     <button id="more-menus-button" class="blue-gradient" title="Additional options">
       Additional options
     </button>
     <button class="blue-gradient" id="special-keyboard-button">Reeborg's keyboard</button>
-    <label id="visible_blockly"><input type="checkbox" id="editor_visible_blockly" value="visible">Keep editor visible</label>
   </div>
 
 </header>
@@ -74,6 +74,7 @@
 </div>
 <xml id="toolbox" style="display: none">
   <block type="_move_"></block>
+  <block type="_turn_left_"></block>
   <block type="controls_if"></block>
   <block type="controls_repeat_ext"></block>
   <block type="logic_compare"></block>

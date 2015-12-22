@@ -200,3 +200,5 @@ RUR.translation["Watched expressions"] = "Watched expressions";
 
 RUR.translation["move forward"] = "move forward";
 RUR.translation["write"] = "write";
+RUR.translation["turn left"] = "turn left";
+RUR.translation["turn_left"] = "turn_left";
