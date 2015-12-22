@@ -39,4 +39,6 @@ $("#blocklyDiv").resizable({
     resize: function() {
         $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
     }
-}).draggable({cursor: "move", handle: "ul"});
+});
+
+$("#blockly-wrapper").draggable({cursor: "move", handle: "p"});

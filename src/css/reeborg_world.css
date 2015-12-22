@@ -488,6 +488,19 @@ p.try {
     padding: 0;
 }
 
+#move-handle {
+    background-color: #248;
+    border-bottom: 3px solid #75a110;
+    margin:0;
+    cursor:move;
+    max-width: 100px;
+}
+
+#visible_blockly {
+    display:none;
+    color:white;
+}
+
 #run {
     margin-left: 0;
 }
@@ -575,22 +588,27 @@ p.try {
     position: absolute;
     height: 600px;
     margin-top: 32px;
-    padding: 0 5px;
     vertical-align: top;
 }
 
 #world-panel,
 #editor-panel {
     display: none;
+    padding: 0 5px;
 }
 
-#editor-panel, #blockly-wrapper {
+#editor-panel {
     left: 650px;
+}
+#blockly-wrapper {
+    left: 630px;
+    padding: 0;
+    z-index: 22;
 }
 
 #blocklyDiv {
-    height: 600px;
-    width: 600px;
+    height: 100%;
+    width: 100%;
     position: relative;
 }
 
