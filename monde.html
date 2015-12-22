@@ -50,11 +50,10 @@
     </select>
     <label id="visible_blockly">
         <input type="checkbox" id="editor_visible_blockly" value="visible">Garder l'éditeur visible</label>
+    <button class="blue-gradient" id="special-keyboard-button">Clavier de Reeborg</button>
     <button id="more-menus-button" class="blue-gradient" title="Menu additionnel">
       Menu additionnel
     </button>
-    <button class="blue-gradient" id="special-keyboard-button">Clavier de Reeborg</button>
-
   </div>
 
 </header>
@@ -68,21 +67,25 @@
   </p>
   </div>
 
-<div id="blockly-wrapper">
-  <p id="move-handle">&nbsp;</p>
-  <div id="blocklyDiv"></div>
-</div>
-<xml id="toolbox" style="display: none">
-<block type="_move_"></block>
-<block type="_turn_left_"></block>
-<block type="controls_if"></block>
-<block type="controls_repeat_ext"></block>
-<block type="logic_compare"></block>
-<block type="math_number"></block>
-<block type="math_arithmetic"></block>
-<block type="text"></block>
-<block type="text_print"></block>
-</xml>
+  <div id="blockly-wrapper">
+      <p id="move-handle" class="green-gradient">&nbsp;</p>
+      <div id="blocklyDiv"></div>
+  </div>
+  <xml id="toolbox" style="display: none">
+      <category name="Control" colour="210">
+        <block type="_move_"></block>
+        <block type="_turn_left_"></block>
+      </category>
+      <category name="Logic" colour="230">
+        <block type="controls_if"></block>
+        <block type="controls_repeat_ext"></block>
+        <block type="logic_compare"></block>
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="text"></block>
+        <block type="text_print"></block>
+       </category>
+  </xml>
 
 <div id="world-panel" class="active" >
 
