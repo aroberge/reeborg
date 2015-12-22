@@ -66,4 +66,13 @@ $("#blocklyDiv").resizable({
     }
 });
 
-$("#blockly-wrapper").draggable({cursor: "move", handle: "p"});
+$("#blockly-wrapper").draggable({
+    cursor: "move",
+    handle: "p",
+    drag: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    },
+    stop: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    }
+});

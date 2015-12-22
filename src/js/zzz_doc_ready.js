@@ -86,7 +86,9 @@ $(document).ready(function() {
         prog_lang = localStorage.getItem("last_programming_language_" + human_language);
         switch (prog_lang) {
             case 'python-' + human_language:
+                $("#python_choices").val("editor").change();  // jshint ignore:line
             case 'javascript-' + human_language:
+                $("#javascript_choices").val("editor").change(); // jshint ignore:line
             case 'coffeescript-' + human_language:
                 $('input[type=radio][name=programming_language]').val([prog_lang]);
                 RUR.reset_programming_language(prog_lang);
@@ -101,8 +103,5 @@ $(document).ready(function() {
         var new_css = decodeURIComponent(url_query.queryKey.css);
         eval(new_css);  // jshint ignore:line
     }
-
-
-    $("#python_choices").val("editor").change();
 
 });

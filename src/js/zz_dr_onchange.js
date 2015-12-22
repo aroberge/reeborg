@@ -69,6 +69,7 @@ RUR.zz_dr_onchange = function () {
 
     function hide_blockly () {
         $("#blockly-wrapper").hide();
+        window.dispatchEvent(new Event('resize'));
         $("#visible_blockly").hide();
         RUR.blockly.active = false;
         $("#special-keyboard-button").show();

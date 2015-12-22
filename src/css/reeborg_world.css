@@ -603,7 +603,7 @@ p.try {
 #blockly-wrapper {
     left: 630px;
     padding: 0;
-    z-index: 9;
+    display: none;
 }
 
 #blocklyDiv {

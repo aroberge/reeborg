@@ -6007,7 +6007,9 @@ $(document).ready(function() {
         prog_lang = localStorage.getItem("last_programming_language_" + human_language);
         switch (prog_lang) {
             case 'python-' + human_language:
+                $("#python_choices").val("editor").change();  // jshint ignore:line
             case 'javascript-' + human_language:
+                $("#javascript_choices").val("editor").change(); // jshint ignore:line
             case 'coffeescript-' + human_language:
                 $('input[type=radio][name=programming_language]').val([prog_lang]);
                 RUR.reset_programming_language(prog_lang);
@@ -6022,9 +6024,6 @@ $(document).ready(function() {
         var new_css = decodeURIComponent(url_query.queryKey.css);
         eval(new_css);  // jshint ignore:line
     }
-
-
-    $("#python_choices").val("editor").change();
 
 });
 /* jshint -W069 */
@@ -6095,7 +6094,16 @@ $("#blocklyDiv").resizable({
     }
 });
 
-$("#blockly-wrapper").draggable({cursor: "move", handle: "p"});
+$("#blockly-wrapper").draggable({
+    cursor: "move",
+    handle: "p",
+    drag: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    },
+    stop: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    }
+});
 /* Sets up the UI for various editors.
 
 called by zzz_doc_ready.js
@@ -6193,6 +6201,7 @@ RUR.zz_dr_onchange = function () {
 
     function hide_blockly () {
         $("#blockly-wrapper").hide();
+        window.dispatchEvent(new Event('resize'));
         $("#visible_blockly").hide();
         RUR.blockly.active = false;
         $("#special-keyboard-button").show();
