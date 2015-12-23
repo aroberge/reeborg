@@ -488,6 +488,19 @@ p.try {
     padding: 0;
 }
 
+#move-handle {
+    margin:0;
+    cursor:move;
+    background-color: #ddd;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#visible_blockly {
+    display:none;
+    color:white;
+}
+
 #run {
     margin-left: 0;
 }
@@ -562,7 +575,7 @@ p.try {
     margin-right: 4px;
 }
 
-#world-panel {
+#world-panel, #blockly-wrapper {
     width: 620px;
 }
 
@@ -571,17 +584,32 @@ p.try {
 }
 
 #world-panel,
-#editor-panel {
+#editor-panel, #blockly-wrapper {
     position: absolute;
-    display: none;
-    height: 600px;
     margin-top: 32px;
-    padding: 0 5px;
     vertical-align: top;
+    display: none;
+}
+
+#world-panel,
+#editor-panel {
+    height: 600px;
+    padding: 0 5px;
 }
 
 #editor-panel {
     left: 650px;
+}
+#blockly-wrapper {
+    left: 640px;
+    padding: 0;
+    height: 580px;
+}
+
+#blocklyDiv {
+    height: 100%;
+    width: 100%;
+    position: relative;
 }
 
 #world-panel {
@@ -788,10 +816,14 @@ p.try {
 
 #splash-screen {
     background: rgba(0, 0, 100, 0.5);
-    position: absolute;
-    width: 99%;
-    height: 99%;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 99.9%;
+    height: 99.9%;
     z-index: 20;
+    margin:0;
+    padding:0;
 }
 #splash-screen-center {
     color: white;

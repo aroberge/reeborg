@@ -195,3 +195,34 @@ RUR.translation["fence_vertical"] = "fence";
 RUR.translation["Local variables"] = "Local variables";
 RUR.translation["Global variables"] = "Global variables";
 RUR.translation["Watched expressions"] = "Watched expressions";
+
+// in zz_dr_blockly.js
+
+RUR.translation["move forward"] = "move forward";
+RUR.translation["write"] = "write";
+RUR.translation["turn left"] = "turn left";
+RUR.translation["turn_left"] = "turn_left";
+RUR.translation["take"] = "take";
+RUR.translation["take object"] = "take object";
+RUR.translation["put"] = "put";
+RUR.translation["put object"] = "put object";
+RUR.translation["pause"] = "pause";
+RUR.translation["Pause the program's execution."] = "Pause the program's execution.";
+RUR.translation["build_wall"] = "build_wall";
+RUR.translation["Build a wall in front of the robot."] = "Build a wall in front of the robot.";
+RUR.translation["done"] = "done";
+RUR.translation["End the program's execution."] = "End the program's execution.";
+RUR.translation["True if a wall is blocking the way."] = "True if a wall is blocking the way";
+RUR.translation["wall_in_front"] = "wall_in_front";
+RUR.translation["wall_on_right"] = "wall_on_right";
+RUR.translation["True if nothing is blocking the way."] = "True if nothing is blocking the way.";
+RUR.translation["front_is_clear"] = "front_is_clear";
+RUR.translation["right_is_clear"] = "right_is_clear";
+RUR.translation["at_goal"] = "at_goal";
+RUR.translation["True if desired destination."] = "True if desired destination.";
+RUR.translation["carries_object"] = "carries_object";
+RUR.translation["True if robot carries at least one object."] = "True if robot carries at least one object.";
+RUR.translation["object_here"] = "object_here";
+RUR.translation["True if there is at least one object here."] = "True if there is at least one object here.";
+RUR.translation["is_facing_north"] = "is_facing_north";
+RUR.translation["True if robot is facing North."] = "True if robot is facing North.";

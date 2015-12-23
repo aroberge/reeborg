@@ -33,17 +33,29 @@
 <header class="blue-gradient green-border">
   <a id="logo" href="index_en.html" class="fake_button"><img src="/src/images/robot_e.png">Reeborg's World</a>
   <div id="header-child">
-    <button class="active reverse-blue-gradient" id="world-panel-button" label="world-panel">World</button>
     <select id="select_world" title="Select world">
-
     </select>
     <button class="blue-gradient" id="world-info-button">World info</button>
-    <button class="active reverse-blue-gradient" id="editor-panel-button" label="editor-panel">Editor</button>
+    <select id="select_programming_language" title="Select programming language">
+        <option value="python-en">Python</option>
+        <option value="javascript-en">Javascript</option>
+        <option value="coffeescript-en">CoffeeScript</option>
+    </select>
+    <select id="python_choices" title="Select programming mode">
+        <option value="blockly">Blockly</option>
+        <option value="editor">Editor</option>
+        <option value="repl">Interpreter</option>
+    </select>
+    <select id="javascript_choices" title="Select programming mode" style="display:none">
+        <option value="blockly">Blockly</option>
+        <option value="editor">Editor</option>
+    </select>
+    <label id="visible_blockly">
+        <input type="checkbox" id="editor_visible_blockly" value="visible">Keep editor visible</label>
+    <button class="blue-gradient" id="special-keyboard-button">Reeborg's keyboard</button>
     <button id="more-menus-button" class="blue-gradient" title="Additional options">
       Additional options
     </button>
-    <button class="blue-gradient" id="special-keyboard-button">Reeborg's keyboard</button>
-
   </div>
 
 </header>
@@ -55,6 +67,75 @@
     <button class="blue-gradient" id="cancel-permalink" onclick="RUR.permalink.cancel();">Cancel</button>
   </p>
 </div>
+
+<div id="blockly-wrapper">
+    <p id="move-handle">&nbsp;</p>
+    <div id="blocklyDiv"></div>
+</div>
+<xml id="toolbox" style="display: none">
+    <category name="Basic commands" colour="120">
+      <block type="_move_"></block>
+      <block type="_turn_left_"></block>
+      <block type="_take_"></block>
+      <block type="_put_"></block>
+      <block type="_build_wall_"></block>
+      <block type="_pause_"></block>
+      <block type="_done_"></block>
+    </category>
+    <category name="Defining" colour="290" custom="PROCEDURE"></category>
+    <category name="Loops" colour="230">
+      <block type="controls_repeat_ext">
+          <value name="TIMES">
+              <block type="math_number"></block>
+          </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+      <block type="controls_flow_statements"></block>
+    </category>
+    <category name="Decisions" colour="240">
+        <block type="_if_"></block>
+        <block type="_if_else_"></block>
+        <block type="_if_else_if_else_"></block>
+    </category>
+    <category name="Conditions" colour="240">
+        <block type="_at_goal_"></block>
+        <block type="_carries_object_"></block>
+        <block type="_object_here_"></block>
+        <block type="_is_facing_north_"></block>
+        <block type="_front_or_right_is_clear_"></block>
+        <block type="_wall_in_front_or_right_"></block>
+        <block type="logic_negate"></block>
+    </category>
+     <category name="Using variables" colour="20">
+         <category name="Objects" colour="20">
+             <block type="_token_"></block>
+             <block type="_apple_"></block>
+             <block type="_banana_"></block>
+             <block type="_orange_"></block>
+             <block type="_strawberry_"></block>
+             <block type="_triangle_"></block>
+             <block type="_square_"></block>
+             <block type="_star_"></block>
+             <block type="_daisy_"></block>
+             <block type="_dandelion_"></block>
+             <block type="_tulip_"></block>
+             <block type="_leaf_"></block>
+         </category>
+         <category name="Commands" colour="120">
+             <block type="_take_or_put_"></block>
+         </category>
+         <category name="Conditions" colour="240">
+             <block type="_carries_object_or_here_"></block>
+         </category>
+         <category name="Other" colour="290">
+            <block type="math_number"></block>
+            <block type="text"></block>
+            <block type="text_print"></block>
+            <block type="controls_if"></block>
+            <block type="logic_compare"></block>
+         </category>
+     </category>
+</xml>
 
 <div id="world-panel" class="active" >
 
@@ -313,6 +394,13 @@
   RUR.programming_language = "python";
 </script>
 <script src="/src/lang/translation_en.js"></script>
+
+<script src="/src/blockly/blockly_compressed.js"></script>
+<script src="/src/blockly/blocks_compressed.js"></script>
+<script src="/src/blockly/javascript_compressed.js"></script>
+<script src="/src/blockly/en.js"></script>
+<script src="/src/blockly/python_compressed.js"></script>
+
 <script src="/src/js/reeborg_dev.js"></script>
 <script src="/src/lang/reeborg_en.js"></script>
 <script src="/src/libraries/jquery.ui.dialog.minmax.js"></script>
@@ -423,18 +511,10 @@ window.RUR._python_loaded = True
 
 <div id="more-menus" title="Additional options" style="display:none">
 
-  <h3>Programming language</h3>
-
-    <form>
-      <input type="radio" name="programming_language" value="python-en" checked> Python
-      <input type="radio" name="programming_language" value="javascript-en" > Javascript
-      <input type="radio" name="programming_language" value="coffeescript-en" > CoffeeScript
-    </form></p>
-
 <h3>Help</h3>
     <p>If you need help, please <a href="http://reeborg.ca/docs/en" target="_blank">consult the documentation</a>
     or, when using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to
-    get help on the <code>move()</code> function, etc.</p>
+    get help on the <code>move()</code> function, etc. You can also click on <b>Reeborg's keyboard</b>.</p>
   <p>
     <button class="blue-gradient" id="about-button">About</button> Some potentially
     useful information about this site.
@@ -816,7 +896,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>for (? ; ? ; ?) { }</li>
        <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>true</li>
        <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>false</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert2(this.innerHTML);'>return ?</li>
+       <li class="kbd_javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>return ?</li>
        <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>undefined</li>
        <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>!</li>
        <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>&amp;&amp;</li>
