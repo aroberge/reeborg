@@ -46,23 +46,31 @@ RUR.zz_dr_onchange = function () {
 
     $('#editor_visible_blockly').change(function() {
         if ($('#editor_visible_blockly')[0].checked) {
-            $("#editor-panel").addClass("active");
+            if (RUR.programming_language == "python"){
+                show_python_editor();
+            } else {
+                show_javascript_editor();
+            }
         } else {
-            $("#editor-panel").removeClass("active");
+            if (RUR.programming_language == "python"){
+                hide_python_editor();
+            } else {
+                hide_javascript_editor();
+            }
         }
     });
 
     function show_blockly () {
+        RUR.blockly.active = true;
         $("#blockly-wrapper").show();
         $("#visible_blockly").show();
-        RUR.blockly.active = true;
         if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
             $("#special-keyboard-button").click();
         }
         $("#special-keyboard-button").hide();
         $("#Reeborg-watches").dialog("close");
         if ($('#editor_visible_blockly')[0].checked) {
-            $("#editor-panel").addClass("active");
+            show_python_editor();
         }
         window.dispatchEvent(new Event('resize')); // important to ensure that blockly is visible
     }
@@ -90,14 +98,13 @@ RUR.zz_dr_onchange = function () {
     function show_python_editor () {
         $("#editor-panel").addClass("active");
         $("#kbd_python_btn").show();
-        RUR._highlight = RUR._saved_highlight_value;
+        RUR._highlight = RUR._highlight || RUR._saved_highlight_value;
         RUR.ui.reload();
         editor.refresh();
     }
     function hide_python_editor () {
         $("#editor-panel").removeClass("active");
         $("#kbd_python_btn").hide();
-        RUR._saved_highlight_value = RUR._highlight;
         RUR._saved_highlight_value = RUR._highlight;
         RUR._highlight = false;
     }
