@@ -151,7 +151,7 @@ RUR.runner.run = function (playback) {
 };
 
 RUR.runner.eval = function(src) {  // jshint ignore:line
-    var error_name, message, response, other_info, from_python;
+    var error_name, message, response, other_info, from_python, error;
     other_info = '';
 
     /* At some point around version 3.2.0, Brython changed the way it
@@ -180,24 +180,27 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         if (RUR.__debug){
             console.dir(e);
         }
+        error = {};
         if (RUR.programming_language === "python") {
+            error.reeborg_shouts = e.reeborg_shouts;
             response = RUR.runner.simplify_python_traceback(e);
             message = response.message;
             other_info = response.other_info;
             error_name = response.error_name;
-            e.message = "<h3>" + error_name + "</h3><h4>" +
+            error.message = "<h3>" + error_name + "</h3><h4>" +
                                     message + "</h4><p>" + other_info + '</p>';
         } else {
             error_name = e.name;
             message = e.message;
             other_info = '';
             if (e.reeborg_shouts !== undefined) {
-                e.message = e.reeborg_shouts;
+                error.message = e.reeborg_shouts;
+                error.reeborg_shouts = e.reeborg_shouts;
             }
         }
 
         if (e.reeborg_shouts !== undefined){
-            RUR.rec.record_frame("error", e);
+            RUR.rec.record_frame("error", error);
         } else {
             RUR.cd.show_feedback("#Reeborg-shouts",
                                     "<h3>" + error_name + "</h3><h4>" +
