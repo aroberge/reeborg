@@ -6031,6 +6031,36 @@ $(document).ready(function() {
 RUR.color_basic = 120;
 RUR.color_condition = 240;
 RUR.done_colour = "#aa0000";
+RUR.blockly = {};
+
+/****  Begin over-riding Blockly's default */
+Blockly.Blocks.loops.HUE = 230;
+
+Blockly.JavaScript['text_print'] = function(block) {
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return RUR.translate("write")+'(' + argument0 + ');\n';
+};
+
+Blockly.makeColour = function(hue) {
+  if (hue === RUR.done_colour){
+      return hue;
+  }
+  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
+      Blockly.HSV_VALUE * 255);
+};
+
+if (document.documentElement.lang=="fr") {
+    Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "pour";
+    Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = "pour";
+}
+Blockly.Python.INDENT = '    ';
+Blockly.JavaScript.INDENT = '    ';
+Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
+
+/****  End of over-riding Blockly's default */
+
+
 
 Blockly.Blocks['_move_'] = {
   init: function() {
@@ -6252,30 +6282,118 @@ Blockly.JavaScript['_is_facing_north_'] = function(block) {
 };
 
 
-/****  Begin over-riding Blockly's default */
-Blockly.JavaScript['text_print'] = function(block) {
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
-      Blockly.JavaScript.ORDER_NONE) || '\'\'';
-  return RUR.translate("write")+'(' + argument0 + ');\n';
-};
-Blockly.Python.INDENT = '    ';
-Blockly.Blocks.loops.HUE = 230;
+/** Simple if skeletton from
+https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#k8aine
+****/
 
-Blockly.makeColour = function(hue) {
-  if (hue === RUR.done_colour){
-      return hue;
+Blockly.Blocks['_if_'] = {
+  init: function() {
+    this.appendValueInput("condition")
+        .setCheck("Boolean")
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+    this.appendStatementInput("then")
+        .setCheck(null)
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(210);
+    // this.setTooltip('');
   }
-  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
-      Blockly.HSV_VALUE * 255);
+};
+Blockly.JavaScript['_if_'] = function(block) {
+  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
+  return "if (" + value_condition + ") {\n" + statements_then + "}\n";
+
+};
+Blockly.Python['_if_'] = function(block) {
+  var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+  var statements_then = Blockly.Python.statementToCode(block, 'then');
+  return "if " + value_condition + ":\n" + statements_then;
 };
 
-if (document.documentElement.lang=="fr") {
-    Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "pour";
-    Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = "pour";
-}
-/****  End of over-riding Blockly's default */
 
-RUR.blockly = {};
+Blockly.Blocks['_if_else_'] = {
+  init: function() {
+    this.appendValueInput("condition")
+        .setCheck("Boolean")
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+    this.appendStatementInput("then")
+        .setCheck(null)
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+    this.appendStatementInput("else")
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+  }
+};
+Blockly.JavaScript['_if_else_'] = function(block) {
+  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
+  var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
+  return "if (" + value_condition + ") {\n" + statements_then + "} else {\n" + statements_else+"}\n";
+};
+Blockly.Python['_if_else_'] = function(block) {
+  var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+  var statements_then = Blockly.Python.statementToCode(block, 'then');
+  var statements_else = Blockly.Python.statementToCode(block, 'else');
+  return "if " + value_condition + ":\n" + statements_then + "else:\n" + statements_else;
+};
+
+
+Blockly.Blocks['_if_else_if_else_'] = {
+  init: function() {
+    this.appendValueInput("condition")
+        .setCheck("Boolean")
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+    this.appendStatementInput("do")
+        .setCheck(null)
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.appendValueInput("condition2")
+        .setCheck("Boolean")
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+    this.appendStatementInput("do2")
+        .setCheck(null)
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+    this.appendStatementInput("else")
+        .setCheck(null)
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+  }
+};
+Blockly.JavaScript['_if_else_if_else_'] = function(block) {
+  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
+  var value_condition2 = Blockly.JavaScript.valueToCode(block, 'condition2', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_do2 = Blockly.JavaScript.statementToCode(block, 'do2');
+  var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
+  return "if (" + value_condition + ") {\n" + statements_do +
+         "} else if (" + value_condition2 + ") {\n" + statements_do2 +
+         "} else {\n" + statements_else+"}\n";
+};
+Blockly.Python['_if_else_if_else_'] = function(block) {
+  var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+  var statements_do = Blockly.Python.statementToCode(block, 'do');
+  var value_condition2 = Blockly.Python.valueToCode(block, 'condition2', Blockly.Python.ORDER_ATOMIC);
+  var statements_do2 = Blockly.Python.statementToCode(block, 'do2');
+  var statements_else = Blockly.Python.statementToCode(block, 'else');
+  return "if " + value_condition + ":\n" + statements_do +
+         "elif " + value_condition2 + ":\n" + statements_do2 +
+         "else:\n" + statements_else;
+};
+
+
+
+
 RUR.blockly.workspace = Blockly.inject('blocklyDiv',
           {toolbox: document.getElementById('toolbox')});
 
