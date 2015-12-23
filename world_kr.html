@@ -15,9 +15,20 @@
 <!--online-->  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.css">  <!--/online-->
 <link rel="stylesheet" href="src/css/reeborg_world.css"> <!-- load after codemirror.css -->
 <title>리보그의 세계</title>
-    <script src="src/libraries/brython/brython.js"></script>
+<script type="text/javascript"
+    src="http://cdn.rawgit.com/brython-dev/brython/3c551ae3bf6d29191f7f62bf0d2ce987d70fc340/www/src/brython.js">
+</script>
+
 </head>
-<body onload="brython({debug:1, pythonpath:['../../../python']})">
+<body>
+
+<div id="splash-screen">
+  <p id="splash-screen-center">
+    <img src="src/images/square_splash.gif" alt="splash screen">
+    <br>
+    <span id="splash-text">Loading ...</span>
+  </p>
+</div>
 
 <header class="blue-gradient green-border">
   <a id="logo" href="index_en.html" class="fake_button"><img src="src/images/robot_e.png">리보그의 세계</a>
@@ -48,19 +59,19 @@
 <div id="world-panel" class="active" >
 
   <div id="world-controls">
-    <button class="blue-gradient" id="run" title="run" onclick="RUR.ui.run();">
+    <button class="blue-gradient" id="run" title="실행" onclick="RUR.ui.run();">
       <img src="src/images/play.png" alt="run">
     </button>
-    <button class="blue-gradient" id="step" title="step" disabled onclick="RUR.ui.step();">
+    <button class="blue-gradient" id="step" title="스탭" disabled onclick="RUR.ui.step();">
       <img src="src/images/step.png" alt="step">
     </button>
-    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.ui.pause();">
+    <button class="blue-gradient" id="pause" title="일시정지" disabled onclick="RUR.ui.pause();">
       <img src="src/images/pause.png" alt="pause">
     </button>
-    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.ui.stop();">
+    <button class="blue-gradient" id="stop" title="정지" disabled onclick="RUR.ui.stop();">
       <img src="src/images/stop.png" alt="stop">
     </button>
-    <button class="blue-gradient" id="reload" title="reload" disabled onclick="RUR.ui.reload();">
+    <button class="blue-gradient" id="reload" title="다시 실행" disabled onclick="RUR.ui.reload();">
       <img src="src/images/reload.png" alt="reload">
     </button>
 
@@ -97,20 +108,22 @@
   <div id="tabs">
     <ul>
       <li><a id="editor-link" href="#editor">파이썬 코드</a></li>
-      <button id="highlight" class="blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
-        <img src="src/images/highlight.png" alt="highlight">
-        <img src="src/images/ok.png" alt="ok" id="ok-image">
-        <img src="src/images/not_ok.png" alt="not ok" id="not-ok-image" style="display:none">
-      </button>
+
       <li><a id="library-link" href="#library">라이브러리</a></li>
       <li><a id="pre-code-link" href="#pre-code-div">Pre</a></li>
       <li><a id="post-code-link" href="#post-code-div">포스트</a></li>
       <li><a id="description-link" href="#description-div">Desc.</a></li>
 
+      <button id="watch_variables_btn" class="blue-gradient float-right" title="watch_variables" onclick="RUR.ui.watch_variables()">
+          <img src="/src/images/magnifying_yes.png" alt="watch">
+      </button>
+      <button id="highlight" class="reverse-blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
+        <img src="/src/images/highlight.png" alt="highlight">
+      </button>
+
     </ul>
     <div id="editor">
       <textarea id="code" name="code">move()</textarea>
-
     </div>
     <div id="library">
       <textarea id="library-code" name="library-code">
@@ -405,8 +418,10 @@ window['translate_python'] = translate_python
       <input type="radio" name="programming_language" value="coffeescript-en" > 커피스크립트
     </form></p>
   <p>
-    <button class="blue-gradient" id="help-button">도움말</button>
-    기존 세계를 수정하여 자신 만의 세계를 만들 수 있습니다.
+    <h3>도움말</h3>
+        <p>도움이 필요하시다면, <a href="http://reeborg.ca/docs/kr" target="_blank">이 문서</a>를 보시길 바랍니다.
+        파이썬을 사용하신다면, <code>help()</code> 코드를 실행해서 명령어 목록을 보세요 아니면, <code>help(move)</code>을 실행해서
+         <code>move()</code> 함수에 대한 도움말, 등을 얻으세요.</p>
   </p>
   <p>
     <button class="blue-gradient" id="about-button">정보</button> 기존 세계를 수정하여 자신 만의 세계를 만들 수 있습니다.
@@ -430,7 +445,7 @@ window['translate_python'] = translate_python
 
   <p>
     <button class="blue-gradient" id="save-world">파일로 저장</button>
-    json파일로 세계를 컴퓨터에 저장합니다.
+    (json 확장자로) 세계를 컴퓨터에 저장합니다.
   </p>
   <p>
     <button class="blue-gradient" id="load-world">파일로 불러오기</button>
@@ -475,9 +490,8 @@ window['translate_python'] = translate_python
 
 <hr>
   <p>
-    <button class="blue-gradient" onclick="TogetherJS(this); return false;">협력</button>
-     Tool which permits collaboration with one or more other user
-      using Mozilla's TogetherJS.
+    <button class="blue-gradient" onclick="TogetherJS(this); return false;">협업</button>
+     다른 사용자는 Mozilla의 TogetherJS를 이용하여 협업에 참여 할 수 있습니다.
   </p>
 
 <hr>
@@ -509,14 +523,14 @@ window['translate_python'] = translate_python
   <div id="javascript-additional-menu">
     <p>
       <button class="blue-gradient" onclick="RUR.editorUpdateHints()">
-        "Lint"
+        Lint
       </button>
-        Uses JSHint to see if any syntax errors are present and, if so, indicate it in the editor.
+        JSHint를 사용해서 문법 오류를 보여줍니다.
     </p>
     <p>
       <button class="blue-gradient" onClick="RUR.testing.test_permalink('/src/worlds/permalinks/comprehensive_test_js')">
-        Comprehensive test</button>
-        Runs a comprehensive test.  Meant to be used by developers.
+        종합적 시험</button>
+        종합적 시험을 실행합니다.  개발자용으로 쓰입니다.
     </p>
   </div>
 <hr>
