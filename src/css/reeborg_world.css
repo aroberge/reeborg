@@ -491,7 +491,9 @@ p.try {
 #move-handle {
     margin:0;
     cursor:move;
-    max-width: 100px;
+    background-color: #ddd;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 #visible_blockly {
