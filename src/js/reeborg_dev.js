@@ -10,6 +10,7 @@ RUR.ReeborgError = function (message) {
     }
     this.name = "ReeborgError";
     this.message = message;
+    this.reeborg_shouts = message;
 };
 
 RUR.WallCollisionError = function (message) {
@@ -18,6 +19,7 @@ RUR.WallCollisionError = function (message) {
     }
     this.name = "WallCollisionError";
     this.message = message;
+    this.reeborg_shouts = message;    
 };
 
 RUR.translate = function (s) {
