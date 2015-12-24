@@ -49,7 +49,7 @@ Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUN
 Blockly.Blocks['_move_'] = {
   init: function() {
     this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(RUR.translate("move")+"()");
+    this.appendDummyInput().appendField(RUR.translate("move"));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(RUR.translate("move forward"));
@@ -66,7 +66,7 @@ Blockly.JavaScript['_move_'] = function(block) {
 Blockly.Blocks['_turn_left_'] = {
   init: function() {
     this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(RUR.translate("turn_left")+"() \u21BA");
+    this.appendDummyInput().appendField(RUR.translate("turn_left")+" \u21BA");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(RUR.translate("turn left"));
@@ -83,7 +83,7 @@ Blockly.JavaScript['_turn_left_'] = function(block) {
 Blockly.Blocks['_take_'] = {
   init: function() {
     this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(RUR.translate("take")+"()");
+    this.appendDummyInput().appendField(RUR.translate("take"));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(RUR.translate("take object"));
@@ -100,7 +100,7 @@ Blockly.JavaScript['_take_'] = function(block) {
 Blockly.Blocks['_put_'] = {
   init: function() {
     this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(RUR.translate("put")+"()");
+    this.appendDummyInput().appendField(RUR.translate("put"));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(RUR.translate("put object"));
@@ -117,7 +117,7 @@ Blockly.JavaScript['_put_'] = function(block) {
 Blockly.Blocks['_pause_'] = {
   init: function() {
     this.setColour(30);
-    this.appendDummyInput().appendField(RUR.translate("pause")+"()");
+    this.appendDummyInput().appendField(RUR.translate("pause"));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(RUR.translate("Pause the program's execution."));
@@ -134,7 +134,7 @@ Blockly.JavaScript['_pause_'] = function(block) {
 Blockly.Blocks['_build_wall_'] = {
   init: function() {
     this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(RUR.translate("build_wall")+"()");
+    this.appendDummyInput().appendField(RUR.translate("build_wall"));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(RUR.translate("Build a wall in front of the robot."));
@@ -151,7 +151,7 @@ Blockly.JavaScript['_build_wall_'] = function(block) {
 Blockly.Blocks['_done_'] = {
   init: function() {
     this.setColour(RUR.done_colour);
-    this.appendDummyInput().appendField(RUR.translate("done")+"()");
+    this.appendDummyInput().appendField(RUR.translate("done"));
     this.setPreviousStatement(true);
     this.setTooltip(RUR.translate("End the program's execution."));
   }
@@ -167,8 +167,8 @@ Blockly.JavaScript['_done_'] = function(block) {
 Blockly.Blocks['_wall_in_front_or_right_'] = {
   init: function() {
     var choices =  [
-        [RUR.translate("wall_in_front")+"()", RUR.translate("wall_in_front")+"()"],
-        [RUR.translate("wall_on_right")+"()", RUR.translate("wall_on_right")+"()"]];
+        [RUR.translate("wall_in_front"), RUR.translate("wall_in_front")],
+        [RUR.translate("wall_on_right"), RUR.translate("wall_on_right")]];
     this.setColour(RUR.color_condition);
     this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
     this.setOutput(true, "Boolean");
@@ -176,18 +176,18 @@ Blockly.Blocks['_wall_in_front_or_right_'] = {
   }
 };
 Blockly.Python['_wall_in_front_or_right_'] = function(block) {
-  return [block.getFieldValue('choice')];
+  return [block.getFieldValue('choice')+'()'];
 };
 Blockly.JavaScript['_wall_in_front_or_right_'] = function(block) {
-  return [block.getFieldValue('choice')];
+  return [block.getFieldValue('choice')+'()'];
 };
 
 
 Blockly.Blocks['_front_or_right_is_clear_'] = {
   init: function() {
     var choices =  [
-        [RUR.translate("front_is_clear")+"()", RUR.translate("front_is_clear")+"()"],
-        [RUR.translate("right_is_clear")+"()", RUR.translate("right_is_clear")+"()"]];
+        [RUR.translate("front_is_clear"), RUR.translate("front_is_clear")],
+        [RUR.translate("right_is_clear"), RUR.translate("right_is_clear")]];
     this.setColour(RUR.color_condition);
     this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
     this.setOutput(true, "Boolean");
@@ -195,17 +195,17 @@ Blockly.Blocks['_front_or_right_is_clear_'] = {
   }
 };
 Blockly.Python['_front_or_right_is_clear_'] = function(block) {
-  return [block.getFieldValue('choice')];
+  return [block.getFieldValue('choice')+'()'];
 };
 Blockly.JavaScript['_front_or_right_is_clear_'] = function(block) {
-  return [block.getFieldValue('choice')];
+  return [block.getFieldValue('choice')+'()'];
 };
 
 
 Blockly.Blocks['_at_goal_'] = {
   init: function() {
     this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(RUR.translate("at_goal")+"()");
+    this.appendDummyInput().appendField(RUR.translate("at_goal"));
     this.setOutput(true, "Boolean");
     this.setTooltip(RUR.translate("True if desired destination."));
   }
@@ -221,7 +221,7 @@ Blockly.JavaScript['_at_goal_'] = function(block) {
 Blockly.Blocks['_carries_object_'] = {
   init: function() {
     this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(RUR.translate("carries_object")+"()");
+    this.appendDummyInput().appendField(RUR.translate("carries_object"));
     this.setOutput(true, "Boolean");
     this.setTooltip(RUR.translate("True if robot carries at least one object."));
   }
@@ -237,7 +237,7 @@ Blockly.JavaScript['_carries_object_'] = function(block) {
 Blockly.Blocks['_object_here_'] = {
   init: function() {
     this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(RUR.translate("object_here")+"()");
+    this.appendDummyInput().appendField(RUR.translate("object_here"));
     this.setOutput(true, "Boolean");
     this.setTooltip(RUR.translate("True if there is at least one object here."));
   }
@@ -253,7 +253,7 @@ Blockly.JavaScript['_object_here_'] = function(block) {
 Blockly.Blocks['_is_facing_north_'] = {
   init: function() {
     this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(RUR.translate("is_facing_north")+"()");
+    this.appendDummyInput().appendField(RUR.translate("is_facing_north"));
     this.setOutput(true, "Boolean");
     this.setTooltip(RUR.translate("True if robot is facing North."));
   }
