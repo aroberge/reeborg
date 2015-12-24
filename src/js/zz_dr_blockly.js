@@ -632,8 +632,16 @@ Blockly.Python['_if_else_if_else_'] = function(block) {
 
 
 
-RUR.blockly.workspace = Blockly.inject('blocklyDiv',
-          {toolbox: document.getElementById('toolbox')});
+RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
+    toolbox: document.getElementById('toolbox'),
+    zoom:{
+        controls: true,
+        wheel: true,
+        startScale: 1.0,
+        maxScale: 3,
+        minScale: 0.3,
+        scaleSpeed: 1.2},
+    trashcan: true});
 
 $("#blocklyDiv").resizable({
     resize: function() {
