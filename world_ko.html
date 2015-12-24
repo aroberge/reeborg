@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en"> <!-- should be "ko" but currently not supported  -->
 <head>
 <meta charset="utf-8">
 <meta name="description" content="Free Interactive Programming Tutorials">
@@ -14,7 +14,7 @@
 <!--offline <link rel="stylesheet" href="offline/codemirror-5.8.0/lib/codemirror.css"> /offline-->
 <!--online-->  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.css">  <!--/online-->
 <link rel="stylesheet" href="/src/css/reeborg_world.css"> <!-- load after codemirror.css -->
-<title>Reeborg's world</title>
+<title>리보그의 세계</title>
 <script type="text/javascript"
     src="http://cdn.rawgit.com/brython-dev/brython/3c551ae3bf6d29191f7f62bf0d2ce987d70fc340/www/src/brython.js">
 </script>
@@ -31,11 +31,11 @@
 </div>
 
 <header class="blue-gradient green-border">
-  <a id="logo" href="index_en.html" class="fake_button"><img src="/src/images/robot_e.png">Reeborg's World</a>
+  <a id="logo" href="index_en.html" class="fake_button"><img src="/src/images/robot_e.png">리보그의 세계</a>
   <div id="header-child">
     <select id="select_world" title="Select world">
     </select>
-    <button class="blue-gradient" id="world-info-button">World info</button>
+    <button class="blue-gradient" id="world-info-button">세계 정보</button>
     <select id="select_programming_language" title="Select programming language">
         <option value="python-en">Python</option>
         <option value="javascript-en">Javascript</option>
@@ -52,19 +52,19 @@
     </select>
     <label id="visible_blockly">
         <input type="checkbox" id="editor_visible_blockly" value="visible">Keep editor visible</label>
-    <button class="blue-gradient" id="special-keyboard-button">Reeborg's keyboard</button>
-    <button id="more-menus-button" class="blue-gradient" title="Additional options">
-      Additional options
+    <button class="blue-gradient" id="special-keyboard-button">리보그의 키보드</button>
+    <button id="more-menus-button" class="blue-gradient" title="추가 설정">
+      추가 설정
     </button>
   </div>
 
 </header>
 <div id="url_input" style="display:none">
-  <p>Copy the permalink and press cancel, or replace by new one and press Update.</p>
+  <p>퍼머링크를 복사하고 취소를 누르세요, 아니면 새로 교체하고 업데이트를 누르세요.</p>
     <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
   <p>
-    <button class="blue-gradient" id="ok-permalink" onclick="RUR.permalink.update();">Update</button>
-    <button class="blue-gradient" id="cancel-permalink" onclick="RUR.permalink.cancel();">Cancel</button>
+    <button class="blue-gradient" id="ok-permalink" onclick="RUR.update_permalink();">업데이트</button>
+    <button class="blue-gradient" id="cancel-permalink" onclick="RUR.cancel_permalink();">취소</button>
   </p>
 </div>
 
@@ -142,19 +142,19 @@
 <div id="world-panel" class="active" >
 
   <div id="world-controls">
-    <button class="blue-gradient" id="run" title="run" onclick="RUR.ui.run();">
+    <button class="blue-gradient" id="run" title="실행" onclick="RUR.ui.run();">
       <img src="/src/images/play.png" alt="run">
     </button>
-    <button class="blue-gradient" id="step" title="step" disabled onclick="RUR.ui.step();">
+    <button class="blue-gradient" id="step" title="스탭" disabled onclick="RUR.ui.step();">
       <img src="/src/images/step.png" alt="step">
     </button>
-    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.ui.pause();">
+    <button class="blue-gradient" id="pause" title="일시정지" disabled onclick="RUR.ui.pause();">
       <img src="/src/images/pause.png" alt="pause">
     </button>
-    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.ui.stop();">
+    <button class="blue-gradient" id="stop" title="정지" disabled onclick="RUR.ui.stop();">
       <img src="/src/images/stop.png" alt="stop">
     </button>
-    <button class="blue-gradient" id="reload" title="reload" disabled onclick="RUR.ui.reload();">
+    <button class="blue-gradient" id="reload" title="다시 실행" disabled onclick="RUR.ui.reload();">
       <img src="/src/images/reload.png" alt="reload">
     </button>
     <button class="blue-gradient" id="reload2" title="reload" disabled onclick="RUR.ui.reload2();">
@@ -172,11 +172,11 @@
     <canvas id="tooltip" width=40 height=40></canvas>
   </div>
 
-    <div id="Reeborg-concludes" class="reeborg-print" title="Reeborg says: I'm done!" style="display:none"></div>
-    <div id="Reeborg-writes" title="Reeborg writes:" style="display:none">
+    <div id="Reeborg-concludes" class="reeborg-print" title="리보그 : 다했어요 " style="display:none"></div>
+    <div id="Reeborg-writes" title="리보그 쓰기:" style="display:none">
       <pre id="stdout" class="reeborg-print"></pre>
     </div>
-    <div id="Reeborg-shouts" class="reeborg-print" title="Reeborg shouts: Something is wrong!" style="display:none"></div>
+    <div id="Reeborg-shouts" class="reeborg-print" title="리보그 : 뭔가가 잘못 됬어요!" style="display:none"></div>
     <div id="Reeborg-explores" title="Reeborg explores some Javascript code" style="display:none"></div>
     <div id="Reeborg-proclaims" title="Reeborg states:" style="display:none">
         <div id="print_html"></div>
@@ -185,13 +185,13 @@
         <div id="watch_variables"></div>
     </div>
 
-    <div id="World-info" title="Click on the world to get some additional information." style="display:none"></div>
+    <div id="World-info" title="추가 정보를 얻기 위해 세계를 클릭합니다." style="display:none"></div>
 
       <div id="image-choice-buttons">
-      <button id="classic-image" title="Classic image"><img src="/src/images/robot_e.png" alt="Classic image"></button>
-      <button id="rover-type" title="Rover"><img src="/src/images/rover_e.png" alt="Rover"></button>
-      <button id="3d-red-type" title="3D rover"><img src="/src/images/plain_e.png" alt="3d rover"></button>
-      <button id="solar-panel-type" title="Solar Panel Robot"><img src="/src/images/sp_e.png" alt="Solar Panel Robot"></button>
+      <button id="classic-image" title="오래된 로봇"><img src="/src/images/robot_e.png" alt="Classic image"></button>
+      <button id="rover-type" title="로버"><img src="/src/images/rover_e.png" alt="Rover"></button>
+      <button id="3d-red-type" title="3D 로버"><img src="/src/images/plain_e.png" alt="3d rover"></button>
+      <button id="solar-panel-type" title="태양 패널 로봇"><img src="/src/images/sp_e.png" alt="Solar Panel Robot"></button>
     </div>
 </div>
 
@@ -199,11 +199,11 @@
   <input type="file" id="fileInput" style="display:none;">
   <div id="tabs">
     <ul>
-      <li><a id="editor-tab" href="#editor">Python Code</a></li>
+      <li><a id="editor-link" href="#editor">Python Code</a></li>
 
-      <li><a id="library-tab" href="#library">library</a></li>
+      <li><a id="library-link" href="#library">라이브러리</a></li>
       <li><a id="pre-code-link" href="#pre-code-div">Pre</a></li>
-      <li><a id="post-code-link" href="#post-code-div">Post</a></li>
+      <li><a id="post-code-link" href="#post-code-div">포스트</a></li>
       <li><a id="description-link" href="#description-div">Desc.</a></li>
 
       <button id="watch_variables_btn" class="blue-gradient float-right" title="watch_variables" onclick="RUR.ui.watch_variables()">
@@ -219,14 +219,14 @@
     </div>
     <div id="library">
       <textarea id="library-code" name="library-code">
-      /* Sorry - if you see this, it means that
-      your browser is incapable of using the
-      library the way it has been designed.
+        /* 죄송합니다 - 당신이 이 코드를 본다면
+         당신의 브라우저가 라이브러리로 설계된 방식을
+          쓰지 못하고 있습니다.
 
-      You could write code here ... but it will
-      not be saved in your browser for your next visit.
+        여기에 코드를 작성할 수 있지만..
+        다음 방문시 저장되지 않습니다.
 
-      Have you tried Firefox or Chrome? */
+        크롬이나 파이어폭스를 시도해 보셨나요 ? */
       </textarea>
     </div>
     <div id="pre-code-div">
@@ -240,7 +240,7 @@
     </div>
   </div>
   <div id="highlight-impossible" style="display:none; background-color:gold;">
-    A problem with your code has caused me to turn off the code highlighting.
+    구문 강조를 꺼서 문제가 발생했습니다.
   </div>
 </div>
 
@@ -248,18 +248,16 @@
 
 <div style="display:none;"  id="edit-world-panel" title="World editor">
     <p> <input type="checkbox" name="save_editor" value="save_editor" id="save_editor">Add editor content to world
-      <input type="checkbox" name="save_library" value="save_library" id="save_library">Add library content to world
-    <br>
-    <button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">Close [will offer to save changed world]</button>
+        <input type="checkbox" name="save_library" value="save_library" id="save_library">Add library content to world
+      <br>
+  <p><button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">닫기 [변경된 세계를 저장하기 위해 제공됩니다]</button>
   <br>
-    If you want to share your world (and corresponding challenges) with others,
-        save it to a file, or better yet, save everything using a permalink
-        and send it to
+    월드를 공유하고 싶다면 파일을 저장하세요 아니면, 퍼머링크를 사용해서 공유하세요
       <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a>.
     </p>
 
     <div id="edit-world-submenus-wrapper">
-        <p id="cmd-result">Select action to perform from menu below.</p>
+        <p id="cmd-result">아래 메뉴에서 수행할 작업을 선택합니다.</p>
         <ul class="edit-world-canvas" id="edit-world-turn" style="display:none">
             <li><a href="javascript:RUR.we.turn_robot(0);"><img src="/src/images/robot_e.png" alt="robot: east"></a><br><span>East</span></li>
             <li><a href="javascript:RUR.we.turn_robot(1);"><img src="/src/images/robot_n.png" alt="robot: north"></a><br><span>North</span></li>
@@ -332,26 +330,27 @@
     </div>
 
     <ul id="edit-world-nav">
-        <li><a href="javascript:RUR.we.select('set-dimensions');">World dimensions</a></li>
-        <li class="a-like">Robot <ul>
-            <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> Add robot</a></li>
-            <li class="robot-present"><a href="javascript:RUR.we.select('robot-place');"> Position(s)</a></li>
-            <li class="robot-present"><a href="javascript:RUR.we.select('robot-orientation');"> Turn</a></li>
-            <li class="robot-present"><a href="javascript:RUR.we.select('robot-objects');">Objects</a></li>
+        <li><a href="javascript:RUR.we.select('set-dimensions');">세계 크기</a></li>
+        <li class="a-like">로봇 <ul>
+            <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> 로봇 추가</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-place');"> 위치(들)</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-orientation');"> 회전</a></li>
+            <li class="robot-present"><a href="javascript:RUR.we.select('robot-objects'
+            );">객체</a></li>
         </ul></li>
 
-        <li class="a-like">Add <ul>
-            <li><a href="javascript:RUR.we.select('world-walls');">Walls</a></li>
-            <li><a href="javascript:RUR.we.select('world-objects');">Objects</a></li>
-            <li><a href="javascript:RUR.we.select('world-tiles');">Tiles</a></li>
-            <li><a href="javascript:RUR.we.select('world-fill-tiles');">Fill</a></li>
-            <li><a href="javascript:RUR.we.select('world-toptiles');">Special objects</a></li>
-          <li><a href="javascript:RUR.we.select('decorative-objects');">Decorative objects</a></li>
+        <li class="a-like">추가 <ul>
+            <li><a href="javascript:RUR.we.select('world-walls');">벽</a></li>
+            <li><a href="javascript:RUR.we.select('world-objects');">객체</a></li>
+            <li><a href="javascript:RUR.we.select('world-tiles');">타일들</a></li>
+            <li><a href="javascript:RUR.we.select('world-fill-tiles');">체우기</a></li>
+            <li><a href="javascript:RUR.we.select('world-toptiles');">특정 객체</a></li>
+          <li><a href="javascript:RUR.we.select('decorative-objects');">꾸미기용 객체</a></li>
         </ul></li>
-        <li class="a-like">Goal <ul>
-            <li><a href="javascript:RUR.we.select('goal-robot');">Robot</a></li>
-            <li><a href="javascript:RUR.we.select('goal-wall');">Walls</a></li>
-            <li><a href="javascript:RUR.we.select('goal-objects');">Objects</a></li>
+        <li class="a-like">목표 <ul>
+            <li><a href="javascript:RUR.we.select('goal-robot');">로봇</a></li>
+            <li><a href="javascript:RUR.we.select('goal-wall');">벽</a></li>
+            <li><a href="javascript:RUR.we.select('goal-objects');">객체</a></li>
         </ul></li>
     </ul>
 </div>
@@ -401,7 +400,7 @@
 <script src="/src/blockly/blockly_compressed.js"></script>
 <script src="/src/blockly/blocks_compressed.js"></script>
 <script src="/src/blockly/javascript_compressed.js"></script>
-<script src="/src/blockly/en.js"></script>
+<script src="/src/blockly/ko.js"></script>
 <script src="/src/blockly/python_compressed.js"></script>
 
 <script src="/src/js/reeborg_dev.js"></script>
@@ -422,6 +421,7 @@ window['translate_python'] = translate_python
 import repl
 window.RUR._python_loaded = True
 </script>
+
 
 <script>
   function betterTab(cm) {
@@ -512,140 +512,131 @@ window.RUR._python_loaded = True
 <script async src="https://togetherjs.com/togetherjs-min.js"></script>
 
 
-<div id="more-menus" title="Additional options" style="display:none">
+<div id="more-menus" title="추가 설정" style="display:none">
 
-<h3>Help</h3>
-    <p>If you need help, please <a href="http://reeborg.ca/docs/en" target="_blank">consult the documentation</a>
-    or, when using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to
-    get help on the <code>move()</code> function, etc. You can also click on <b>Reeborg's keyboard</b>.</p>
+    <h3>도움말</h3>
+        <p>도움이 필요하시다면, <a href="http://reeborg.ca/docs/kr" target="_blank">이 문서</a>를 보시길 바랍니다.
+        파이썬을 사용하신다면, <code>help()</code> 코드를 실행해서 명령어 목록을 보세요 아니면, <code>help(move)</code>을 실행해서
+         <code>move()</code> 함수에 대한 도움말, 등을 얻으세요.</p>
+  </p>
   <p>
-    <button class="blue-gradient" id="about-button">About</button> Some potentially
-    useful information about this site.
+    <button class="blue-gradient" id="about-button">정보</button> 기존 세계를 수정하여 자신 만의 세계를 만들 수 있습니다.
   </p>
 
 <hr>
-<h3>World: creation, edition, ...</h3>
   <p>
-      <button class="blue-gradient" id="edit-world">Edit world</button> You can create
-      your own world by editing the current one.
+    <h3>세계 : 창조, 수정..</h3>
+      <button class="blue-gradient" id="edit-world">세계 수정</button> 기존 세계를 수정하여 자신 만의 세계를 만들 수 있습니다.
   </p>
   <p>
-    <button id="permalink" class="blue-gradient" onclick="RUR.permalink.create();">Permalink</button>
-    To save the complete content (current state of the world, content of the code editor and,
-  if programming using Python, content of the library), click on the permalink button.
-  This will create a permalink which can be saved by copying it and pasting it in a location of
-  your choice.  Alternatively, you can copy a permalink into the dialog that will appear if
-  you click on this button and then click on "update" to change the existing world.
+    <button id="permalink" class="blue-gradient" onclick="RUR.create_permalink();">퍼머링크</button>
+    완성된 내용을 저장하려면, 퍼머링크 버튼을 클릭하세요.
+  복사되어 저장된 위치를 골라서 퍼머링크를 만들 수 있습니다.
   </p>
 
   <p>
-    <button id="save-permalink" class="blue-gradient">Save permalink</button>
-    Saves a copy of the permalink to a file. This could be useful if you are creating your own world
-    selection.
+    <button id="save-permalink" class="blue-gradient">퍼머 저장</button>
+    파일의 퍼머링크 복사본을 저장합니다. 자신의 세계를 만들때 유용합니다.
   </p>
 
   <p>
-    <button class="blue-gradient" id="save-world">Save world to file</button>
-    Saves the world (as a json object) to a file on your computer.
+    <button class="blue-gradient" id="save-world">파일로 저장</button>
+    (json 확장자로) 세계를 컴퓨터에 저장합니다.
   </p>
   <p>
-    <button class="blue-gradient" id="load-world">Open world from file</button>
-    Loads a world from a file on your computer.
+    <button class="blue-gradient" id="load-world">파일로 불러오기</button>
+    컴퓨터안의 파일로 세계를 불러옵니다.
   </p>
 
-  <p><button class="blue-gradient" id="memorize-world">Save world to browser</button>
-     Saves a copy of the current state of the world in the browser's memory
-     (Local Storage) under a chosen name, and makes it available as a valid
-     selection with the pre-existing worlds above.
+  <p><button class="blue-gradient" id="memorize-world">브라우저로 저장</button>
+     브라우저 메모리 세계에 현재 상태의 복사본을 저장합니다.
+     선택한 이름으로(로컬 저장소) 유효하게 사용할 수 있도록 기존 세계를 열 수 있습니다.
    </p>
 
   <div id="delete-world" style="display:none;">
-  <h3>The following refers to worlds currently stored in your browser which you can delete:</h3>
+  <h3>버튼을 클릭하면 브라우져의 메모리에 저장된 세계를 제거합니다:</h3>
   </div>
 
   <hr>
-  <h3>Program in editor</h3>
+  <h3>에디터</h3>
   <p>
-    <button class="blue-gradient" id="save-editor">Save program to file</button>
-     Saves the content of the editor in a file.
+    <button class="blue-gradient" id="save-editor">파일로 저장</button>
+     에디터의 소스코드를 저장합니다.
   </p>
 
   <p>
-    <button class="blue-gradient" id="load-editor">Import program from file</button>
-     Opens a local file and use its content to replace the content of the Code editor.
+    <button class="blue-gradient" id="load-editor">파일로 불러오기</button>
+     로컬 저장소를 열고 소스코드를 불러옵니다.
   </p>
 
 
 <hr>
-<h3>Special execution features</h3>
+<h3>미래에 생겨날 기능</h3>
   <p>
     <button class="blue-gradient" id="reverse-step" onclick="RUR.ui.reverse_step();">
       <img src="/src/images/reverse_step.png" alt="reverse step">
+      이전 실행 상태를 되돌립니다.
     </button>
-     Reverses the previous execution step.
   </p>
 
   <p>
-    <button class="blue-gradient" onclick="RUR.vis_world.clear_trace();">Erase trace</button>
-     Erases the trace left by Reeborg. This can be useful to focus on what happens
-      after a program is paused.
+    <button class="blue-gradient" onclick="RUR.vis_world.clear_trace();">흔적 지우기</button>
+     흔적을 리보그만 남기고 지웁니다. 이 기능은 프로그램이 멈추었을때 유용합니다.
   </p>
 
 <hr>
   <p>
-    <button class="blue-gradient" onclick="TogetherJS(this); return false;">Collaboration</button>
-     Tool which permits collaboration with one or more other user
-      using Mozilla's TogetherJS.
+    <button class="blue-gradient" onclick="TogetherJS(this); return false;">협업</button>
+     다른 사용자는 Mozilla의 TogetherJS를 이용하여 협업에 참여 할 수 있습니다.
   </p>
 
 <hr>
-  <h3>Python only</h3>
+  <h3>파이썬 전용</h3>
   <div id="python-additional-menu">
     <p>
-      <button class="blue-gradient" id="save-library">Save the library</button>
-        Saves the content of the library in a file.
+      <button class="blue-gradient" id="save-library">라이브러리 저장</button>
+        파일 라이브러리의 내용을 저장합니다.
     </p>
 
     <p>
-      <button class="blue-gradient" id="load-library">Import library from a file</button>
-        Opens a file and use its content to replace the current content of the Library.
+      <button class="blue-gradient" id="load-library">파일에서 라이브러리를 가져오기</button>
+        파일을 열고 라이브러리의 컨테츠를 지금 사용합니다.
     </p>
 
     <p>
-      <button class="blue-gradient" onClick="RUR.testing.test_permalink('/src/worlds/permalinks/comprehensive_test', 'comprehensive test')">
-        Comprehensive test</button>
-        Runs a comprehensive test.  Meant to be used by developers.
+      <button class="blue-gradient" onClick="RUR.testing.test_permalink('/src/worlds/permalinks/comprehensive_test')">
+        종합적 시험</button>
+        종합적인 시험을 실행합니다. 개발자용 입니다.
     </p>
     <p>
-      <button class="blue-gradient" onClick="RUR.testing.test_permalink('/src/worlds/permalinks/test_highlight', 'Highlight test')">
-        Highlighting test</button>
-        Runs a test showing lines of code being highlighted in blocks.
-        Meant to be used by developers, stepping through the code one instruction at a time.
+      <button class="blue-gradient" onClick="RUR.testing.test_permalink('/src/worlds/permalinks/test_highlight')">
+        구문강조 시험</button>
+        라인의 코드 블럭들을 시험 삼아 구문강조합니다.
     </p>
   </div>
 <hr>
-  <h3>Javascript only</h3>
+  <h3>자바스크립트 전용</h3>
   <div id="javascript-additional-menu">
     <p>
       <button class="blue-gradient" onclick="RUR.editorUpdateHints()">
-        "Lint"
+        Lint
       </button>
-        Uses JSHint to see if any syntax errors are present and, if so, indicate it in the editor.
+        JSHint를 사용해서 문법 오류를 보여줍니다.
     </p>
     <p>
       <button class="blue-gradient" onClick="RUR.testing.test_permalink('/src/worlds/permalinks/comprehensive_test_js')">
-        Comprehensive test</button>
-        Runs a comprehensive test.  Meant to be used by developers.
+        종합적 시험</button>
+        종합적 시험을 실행합니다.  개발자용으로 쓰입니다.
     </p>
   </div>
 <hr>
-  <h3>CoffeeScript only</h3>
+  <h3>커피스크립트 전용</h3>
   <div id="coffeescript-additional-menu">
     <p>
       <button class="blue-gradient" onclick="RUR.runner.compile_coffee();">
-        Translate CoffeeScript
+        커피스크립트 번역
       </button>
-        Translates the CoffeeScript code in the editor into Javascript and prints the result.
+        에디터 안의 커피스크립트 코드를 자바스크립트의 출력 결과값으로 바꿉니다.
     </p>
   </div>
 </div>
@@ -653,10 +644,10 @@ window.RUR._python_loaded = True
 
 <div id="about-div" title="About" style="display:none">
     <p><small style="color:#900;">Discussions, questions, comments about Reeborg take place
-        <a href="http://www.reddit.com/r/reeborg">here</a>.
-      <a href="https://github.com/aroberge/reeborg/issues">Bug reports</a> are welcome!</small></p>
+        <a href="http://www.reddit.com/r/reeborg">여기</a>.
+      <a href="https://github.com/aroberge/reeborg/issues">버그 제보</a>는 환영합니다!</small></p>
 
-     <h2>About Reeborg</h2>
+     <h2>리보그에 대해..</h2>
 
     <p>Inspired by Guido van Robot, itself inspired by the original Karel the Robot
     created by Richard Pattis, Reeborg first appeared in RUR-PLE, a program I created
@@ -721,16 +712,16 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 
 <div id="dialog-form" title="Add object in the world" style="display:none;">
   <p>Choose zero to remove any existing
-    "<span id="add-object-name">object</span>" at this location.
+    "<span id="add-object-name">객체</span>"가 이 위치에 있습니다.
     If "Maximum" is set to a value greater than the "Number of objects", a number
     of objects, between these two values, will be chosen randomly each time
     a program is run.</p>
   <form>
     <fieldset>
-      <label for="input-add-number">Number of objects:
+      <label for="input-add-number">객체의 수:
         <input type="number" name="input-add-number" id="input-add-number" min="0" value="1">
       </label><br>
-      <label for="maximum-number">Maximum:
+      <label for="maximum-number">최대 값:
         <input type="number" name="maximum-number" id="maximum-number" min="0" value="0">
       </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
@@ -741,13 +732,13 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 
 
 <div id="dialog-form2" title="Give object to robot" style="display:none;">
-  <p>Choose a number of
-    "<span id="give-object-name">object</span>" for the robot to carry.
-    Click on the checkbox if you wish that number to be unlimited.
+  <p>로봇이 운반 할
+    "<span id="give-object-name">객체의</span>" 수를 고르세요.
+    더 많은 수를 원한다면 체크박스를 클릭하세요.
     </p>
   <form>
     <fieldset>
-      <label for="input-give-number">Number of objects:
+      <label for="input-give-number">객체의 수:
         <input type="number" name="input-give-number" id="input-give-number" min="0" value="1">
       </label><br>
       <label for="unlimited-number">
@@ -760,14 +751,14 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 </div>
 
 <div id="dialog-form3" title="Set goal number for object" style="display:none;">
-  <p>Choose a number of
-    "<span id="goal-object-name">object</span>" to use as a goal.
+  <p>목표물에 사용될
+    "<span id="goal-object-name">객체</span>"수를 고르세요.
     Click on the checkbox if you wish that number to be equal to the
     total number of such objects found in the world at the beginning.
     </p>
   <form>
     <fieldset>
-      <label for="input-goal-number">Number of objects:
+      <label for="input-goal-number">객체의 수:
         <input type="number" name="input-goal-number" id="input-goal-number" min="0" value="1"></label>
       <br>
       <label for="all-objects">
@@ -786,37 +777,37 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
     </p>
   <form>
     <fieldset>
-      <label for="input-max-x">Maximum x value:
+      <label for="input-max-x">최대 x 값:
         <input type="number" name="input-max-x" id="input-max-x" min="1" value="14"></label>
       <br>
-      <label for="input-max-y">Maximum y value:
+      <label for="input-max-y">최대 y 값:
         <input type="number" name="input-max-y" id="input-max-y" min="1" value="12"></label>
       <br>
       <label for="use-small-tiles">
       <input type="checkbox" name="use-small-tiles" id="use-small-tiles">
-      Use small tiles</label>
+      작은 타일 사용하기</label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
   </form>
 </div>
 
-<div id="special-keyboard" title="Reeborg's basic keyboard" style="display:none">
+<div id="special-keyboard" title="리보그의 기본적인 키보드" style="display:none">
   <div id="keyboard-buttons">
       <button id="kbd_command_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_command");'>
-        Commands</button>
+        명령어</button>
       <button id="kbd_condition_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_condition");'>
-        Conditions</button>
+        상태</button>
       <button id="kbd_python_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_python");'>
-        Python</button>
+        파이썬</button>
         <button id="kbd_py_console_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_py_console");'>
-          Python</button>
+          파이썬</button>
       <button id="kbd_javascript_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_javascript");'>
-        Javascript/Coffeescript</button>
+        자비스크립트/커피스크립트</button>
       <button id="kbd_objects_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_objects");'>
-        Objects</button>
+        객체</button>
       <button id="kbd_special_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_special");'>
-        Special</button>
+        특수키</button>
     <ul class="kbd_command">
        <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>move()</li>
        <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>turn_left()</li>
@@ -830,7 +821,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>write(" ? ")</li>
        <li class="kbd_command only_py no_console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>sound(True)</li>
        <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>sound(true)</li>
-       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>World(" ? ")</li>
+       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>World(" ? ")</li>
        <li class="kbd_command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>UsedRobot()</li>
        <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>new UsedRobot()</li>
        <li class="kbd_command only_py no_console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>no_highlight()</li>
@@ -866,7 +857,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>return ?</li>
        <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
        <br>
-      <span>Remember: <code>repeat</code> is not a Python keyword.</span>
+      <span>주의: <code>repeat</code>는 여기에서만 작동하는 파이썬 키워드입니다.</span>
     </ul>
     <ul class="kbd_py_console">
        <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>def</li>
@@ -953,8 +944,8 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
        <li class="kbd_special no_console" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
        <li class="kbd_special" onclick='RUR.kbd.enter();'>Enter</li>
     </ul>
-    <button onclick='RUR.kbd.undo()'>UNDO</button>
-    <button onclick='RUR.kbd.redo()'>REDO</button>
+    <button onclick='RUR.kbd.undo()'>되돌리기</button>
+    <button onclick='RUR.kbd.redo()'>다시 실행</button>
   </div>
 </div>
 

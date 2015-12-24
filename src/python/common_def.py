@@ -16,6 +16,8 @@ if lang == 'en':
     import reeborg_en
 elif lang == 'fr':
     import reeborg_fr
+else:
+    import reeborg_en
 
 def _write(data):
     window.RUR.output._write(str(data))
@@ -106,6 +108,8 @@ def default_help():
         dir_py(reeborg_en, exclude=exclude)
     elif lang == 'fr':
         dir_py(reeborg_fr, exclude=exclude)
+    else:
+        dir_py(reeborg_en, exclude=exclude)
 
 
 def Help(obj=None):
