@@ -6091,9 +6091,9 @@ Blockly.Blocks['_sound_'] = {
 Blockly.JavaScript['_sound_'] = function(block) {
   var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
   if (checkbox_sound) {
-      return RUR.translate("sound") + "(true)\n";
+      return RUR.translate("sound") + "(true);\n";
   } else {
-      return RUR.translate("sound") + "(false)\n";
+      return RUR.translate("sound") + "(false);\n";
   }
 };
 Blockly.Python['_sound_'] = function(block) {
@@ -6103,6 +6103,28 @@ Blockly.Python['_sound_'] = function(block) {
   } else {
       return RUR.translate("sound") + "(False)\n";
   }
+};
+
+
+Blockly.Blocks['_think_'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck("Number")
+        .appendField(RUR.translate("think"));
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(20);
+    this.setTooltip(RUR.translate("Delay between actions; default is 300 ms."));
+  }
+};
+Blockly.Python['_think_'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  return RUR.translate("think") + "("+value_name+")\n";
+};
+Blockly.JavaScript['_think_'] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  return RUR.translate("think") + "("+value_name+");\n";
 };
 
 
