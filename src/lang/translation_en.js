@@ -144,6 +144,7 @@ RUR.translation["The final required position of the robot will be chosen at rand
 RUR.translation["The final position of the robot must be (x, y) = "] = "The final position of the robot must be (x, y) = ";
 RUR.translation["Click on world to fill with given tile."] = "Click on world to fill with given tile.";
 RUR.translation["Click on desired top tile below."] = "Click on desired top tile below.";
+RUR.translation["Enter url of image to use as background."] = "Enter url of image to use as background.";
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";

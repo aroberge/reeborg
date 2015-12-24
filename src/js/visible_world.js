@@ -83,7 +83,19 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
+
+    if (RUR.we.editing_world) {
+        if (RUR.background_image.src) {
+            RUR.vis_world.draw_single_object(RUR.background_image, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
+        }
+        RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
+    } else {
+        RUR.vis_world.draw_grid_walls();
+        if (RUR.background_image.src) {
+            RUR.vis_world.draw_single_object(RUR.background_image, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
+        }
+    }
+
     RUR.vis_world.draw_coordinates(); // on BACKGROUND_CTX
     RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
     RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX

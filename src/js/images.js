@@ -8,6 +8,10 @@ RUR.top_tiles = {};
 RUR.home_images = {};
 RUR.objects.known_objects = [];
 
+// allow for the possibility of a background image
+RUR.background_image = new Image();
+RUR.background_image.src = '';
+
 // we will keep track if we have loaded all images
 RUR.objects.loaded_images = 0;
 RUR.objects.nb_images = 0;

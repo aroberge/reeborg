@@ -134,6 +134,9 @@ RUR.we.select = function (choice) {
             RUR.we.__give_to_robot = false;
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
+        case "background-image":
+            RUR.we.get_background_image();
+            break;
         case "world-objects":
             RUR.we.decorative_objects = false;
             $("#edit-world-objects").show();
@@ -1096,4 +1099,11 @@ RUR.we._remove_all_at_location = function(coords) {
             }
         }
     }
+};
+
+RUR.we.get_background_image = function () {
+    var url = window.prompt(RUR.translate("Enter url of image to use as background."));
+    RUR.current_world.background_image = url;
+    RUR.background_image.src = url;
+    RUR.vis_world.draw_all();
 };

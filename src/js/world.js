@@ -62,6 +62,15 @@ RUR.world.import_world = function (json_string) {
         }
     }
 
+    if (RUR.current_world.background_image !== undefined) {
+        RUR.background_image.src = RUR.current_world.background_image;
+        RUR.background_image.onload = function () {
+            RUR.vis_world.draw_all();
+        };
+    } else {
+        RUR.background_image.src = '';
+    }
+
     RUR.current_world.small_tiles = RUR.current_world.small_tiles || false;
     RUR.current_world.rows = RUR.current_world.rows || RUR.MAX_Y;
     RUR.current_world.cols = RUR.current_world.cols || RUR.MAX_X;

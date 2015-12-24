@@ -1536,6 +1536,10 @@ RUR.top_tiles = {};
 RUR.home_images = {};
 RUR.objects.known_objects = [];
 
+// allow for the possibility of a background image
+RUR.background_image = new Image();
+RUR.background_image.src = '';
+
 // we will keep track if we have loaded all images
 RUR.objects.loaded_images = 0;
 RUR.objects.nb_images = 0;
@@ -4053,7 +4057,19 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
+
+    if (RUR.we.editing_world) {
+        if (RUR.background_image.src) {
+            RUR.vis_world.draw_single_object(RUR.background_image, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
+        }
+        RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
+    } else {
+        RUR.vis_world.draw_grid_walls();
+        if (RUR.background_image.src) {
+            RUR.vis_world.draw_single_object(RUR.background_image, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
+        }
+    }
+
     RUR.vis_world.draw_coordinates(); // on BACKGROUND_CTX
     RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
     RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
@@ -4618,6 +4634,15 @@ RUR.world.import_world = function (json_string) {
         }
     }
 
+    if (RUR.current_world.background_image !== undefined) {
+        RUR.background_image.src = RUR.current_world.background_image;
+        RUR.background_image.onload = function () {
+            RUR.vis_world.draw_all();
+        };
+    } else {
+        RUR.background_image.src = '';
+    }
+
     RUR.current_world.small_tiles = RUR.current_world.small_tiles || false;
     RUR.current_world.rows = RUR.current_world.rows || RUR.MAX_Y;
     RUR.current_world.cols = RUR.current_world.cols || RUR.MAX_X;
@@ -4802,6 +4827,9 @@ RUR.we.select = function (choice) {
             $("#edit-world-objects").show();
             RUR.we.__give_to_robot = false;
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
+            break;
+        case "background-image":
+            RUR.we.get_background_image();
             break;
         case "world-objects":
             RUR.we.decorative_objects = false;
@@ -5765,6 +5793,13 @@ RUR.we._remove_all_at_location = function(coords) {
             }
         }
     }
+};
+
+RUR.we.get_background_image = function () {
+    var url = window.prompt(RUR.translate("Enter url of image to use as background."));
+    RUR.current_world.background_image = url;
+    RUR.background_image.src = url;
+    RUR.vis_world.draw_all();
 };
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
