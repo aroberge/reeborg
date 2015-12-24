@@ -46,6 +46,15 @@ have been adapted from http://openclipart.com]
 
 |impossible-triangle|
 
+Decorative objets
+-----------------
+
+The objects above can also be drawn purely as decorative objects.
+When this is done, Reeborg cannot interact with them, and they are not
+taken into account when deciding if a task has been accomplished or not.
+
+Whereas the number of "normal" objects found at a given location is indicated,
+no number is drawn for decorative objects.
 
 Background tiles
 ----------------
@@ -63,6 +72,24 @@ Background tiles
   detect ice before stepping into it.
 
 |slip|
+
+
+Background image
+----------------
+
+It is possible to specify a single image to be used as background for the
+entire world. This is done by providing an address (URL) where the image
+file can be found.
+
+When editing a world, the wall grid is drawn above that image so that it
+is visible; in execution mode, this grid is drawn behind.  However, "real"
+walls are drawn above the background image and are thus visible.
+
+The background image is drawn as-is: its size is not ajusted in any way
+(except when small tiles are used).  To figure out the size of the image
+required, one simply has to count the number of grid squares: each square
+is 40 by 40 pixels.
+
 
 Special objects
 ---------------
@@ -154,4 +181,3 @@ one of these images is used:
 .. |star_goal| image:: ../../../src/images/star_goal.png
 .. |triangle_goal| image:: ../../../src/images/triangle_goal.png
 .. |token_goal| image:: ../../../src/images/token_goal.png
-

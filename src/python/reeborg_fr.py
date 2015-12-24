@@ -663,9 +663,11 @@ def MenuPersonalise(contenu):
        personalisés.  Voir la documentation pour plus de détails."""
     RUR.custom_menu.make(contenu)
 
-RUR.reeborg_loaded = True
-window.console.log("reeborg loaded")
-
+try:
+    RUR.reeborg_loaded = True
+    window.console.log("reeborg loaded")
+except:
+    pass
 # Obsolete functions below
 
 def face_au_nord():

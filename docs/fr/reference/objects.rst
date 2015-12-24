@@ -1,107 +1,134 @@
-Objects, background images, etc.
+Objets, images de fond, etc.
 ================================
 
-In addition to walls, which can block Reeborg's path, there are a number
-of images that are used to represent various objects.
+En plus des murs, qui peuvent bloquer le chemin de Reeborg, plusieurs
+différentes images peuvent être utilisés pour représenter des objets.
 
 
-Basic objects
--------------
+Objets de base
+--------------
 
-Reeborg can interact with various objects.  He can ``take()``
-and ``put()`` down the following such objects, in particular,
-|token| **token**, Reeborg's favourite object.  Tokens are like coins, except
-most people find them of little value, especially with the smiling face
-image; Reeborg begs to differ.
+Reeborg peut manipuler différents objets.  Il peut prendre [``prend()``]
+et déposer [``depose()``] les objets suivants dont, en particulier,
+les **jetons**
+|token| qui sont les objets préférés de Reeborg.
+Les jetons sont un peu comme des pièces de monnaie sauf que la plupart
+des gens les trouvent sans valeur; Reeborg n'est certainement pas d'accord.
 
-If there are more than one
-object present, and Reeborg needs to specify which object to ``take()`` or
-``put()`` down, Reeborg uses the name of the object as a string of character,
-as in ``put("token")``  or ``take('token')``  [both single and double quotes
-can be used, as long as they occur in pairs.]
+Si plus d'un type d'objet est présent, Reeborg devra spécifier lequel par
+le biais d'un argument fourni sous forme de chaîne de caractères, comme par exemple
+``depose("jeton")``  ou ``prend('jeton')``  [les guillemets droits ou les apostrophes
+peuvent être utilisés selon le choix, en autant qu'ils apparaissent en paires.]
 
-In addition to tokens, Reeborg can interact with various geometrical
-shapes, fruits, flowers, vegetables, etc.  [Many of these images
-have been adapted from http://openclipart.com]
+En plus de jetons, Reeborg peut manipuler les objets suivants.
+[Plusieurs des images ont été
+modifiées d'images trouvées sur http://openclipart.com]
 
 
-:apple: |apple|
-:banana: |banana|
-:carrot: |carrot|
-:daisy: |daisy|
-:dandelion: |dandelion|  While they can be pretty, dandelions are
-  usually considered to be weeds - and often need to be removed from the world.
-:leaf: |leaf|  Reeborg doesn't particularly likes leaves.
-  The presence of a leaf (or more) in Reeborg's World usually
-  indicates that Fall has arrived, the leaves are falling from the trees,
-  and Reeborg must rake them instead of playing.  Given the opportunity,
-  Reeborg always prefer to play.
+:pomme: |apple|
+:banane: |banana|
+:carotte: |carrot|
+:marguerite: |daisy|
+:pissenlit: |dandelion|  Les pissenlits sont souvent considérés comme étant
+  indésirable et doivent être enlevés.
+:feuille: |leaf|  Reeborg n'aime pas vraiment les feuilles. La présence de
+  feuilles indique généralement que l'automne est arrivée et que Reeborg doit
+  les ramasser plutôt que de s'amuser.  S'il a le choix, Reeborg préfère
+  toujours s'amuser.
 :orange: |orange|
-:strawberry: |strawberry|
-:tulip: |tulip|
-:square: |square|
-:star: |star|
-:triangle: |triangle|  A triangle of this kind could only exist inside
-  Reeborg's World.  Here's a close-up view of this triangle.
+:fraise: |strawberry|
+:tulipe: |tulip|
+:carré: |square|
+:étoile: |star|
+:triangle: |triangle|  Un triangle semblable ne peut exister que dans le
+  monde de Reeborg.  Voici un gros plan de ce triangle.
 
 |impossible-triangle|
 
+Objets décoratifs
+-----------------
 
-Background tiles
+Les objets ci-dessus peuvent également être dessinés comme des objets purement
+décoratifs. Lorsque c'est le cas, Reeborg ne peut pas les manipuler, et ils
+n'interfèrent pas avec la détermination du but à accomplir pour une tâche donnée.
+
+Le nombre d'objets "normaux" se trouvant à un endroit est indiqué dans la case
+où se trouve un ou des objets.  Pour les objets décoratifs, aucun nombre n'est
+indiqué.
+
+
+Tuiles de fond
 ----------------
 
-:grass: |grass| |pale_grass| Harmless for Reeborg to walk on.
-:gravel: |gravel|  Harmless for Reeborg to walk on.
-:water: |water| Can cause Reeborg to drown.  Fortunately, Reeborg can
-  detect it using ``front_is_clear()``.
-:mud: |mud| Can cause Reeborg to get hopelessly stuck.  Reeborg cannot
-  detect mud before stepping into it.
-:brick wall: |bricks|  Reeborg can crash into this; fortuntaly, it can
-    detect it using ``front_is_clear()``.
-:ice: |ice| Causes Reeborg to slip and continue it movement towards the next
-  tile.  This could be problematic if an obstacle lies there.  Reeborg cannot
-  detect ice before stepping into it.
+:gazon: |grass| |pale_grass| Sans problème pour Reeborg.
+:gravier: |gravel|  Sans problème pour Reeborg.
+:eau: |water| Peut causer certains problèmes (rouille ... noyade) à Reeborg.
+  Heureusement, celui-ci peut détecter la présence de l'eau en utilisant
+  ``rien_devant()``.
+:boue: |mud| Reeborg a tendance à s'embourber complètement dans la boue.
+  Et il ne parvient pas à détecter la boue avant qu'il ne soit trop tard.
+  Donc, à éviter complètement.
+:mur de brique: |bricks|  Également à éviter; heureusement, Reeborg peut détecter
+  la présence de tels murs en utilisant ``rien_devant()``.
+:glace: |ice| Fait en sorte que Reeborg glisse et continue son mouvement
+  tout droit. Ceci peut être problématique si un obstacle se trouve plus loin
+  devant. Reeborg ne peut pas détecter la présence de glace avant qu'il ne
+  soit trop tard.
 
 |slip|
 
-Special objects
+Image de fond
+-------------
+
+Il est possible de spécifier une seule image utilisée comme image de fond
+pour l'ensemble du monde.  Ceci est fait en fournissant l'adresse (URL) où
+on peut trouver le fichier de l'image.  En mode d'édition, l'image sera tracée
+derrière la grille indiquant la position des murs.  En mode d'exécution, l'image
+sera tracée par-dessus cette grille, mais derrière les vrais murs.
+
+La taille de ces images de fond n'est aucunement modifiée (sauf pour les
+mondes dessinés avec de petites cases).  Pour déterminer
+la dimension de l'image, il suffit de compter le nombre de cases: chacune des
+cases est un carré de 40 pixels de côté.
+
+
+Objets spéciaux
 ---------------
 
-Special objects, like normal objects, are drawn above background tiles.
-However, they can not be picked up by Reeborg and they can change the
-expected behaviour of a tile.
+Les objets spéciaux, comme les objets décoratifs, ne peuvent pas être
+manipuler par Reeborg. Cependant, il peuvent avoir un effet sur
+le comportement de Reeborg.
 
-:bridge: |bridge|  Allows Reeborg to cross safely over water.  Reeborg will
-  always express its happiness at being able to cross over a bridge instead
-  of falling in water.
-:fences:  |fence_right| - |fence_left| - |fence_double| - |fence_vertical|
-  Can be detected by Reeborg.  If Reeborg is asked to move where a fence is
-  located, Reeborg will attempt to jump over it but will fail miserably.
-  Note that to make enclosed areas, you might have to overlap the image of the
-  last one over one of the other three images.
-:box: |box| Boxes are pushed out of the way by Reeborg ... provided something
-  else, like a wall or another box, etc., is not preventing the box to move.
-  A box pushed by Reeborg in the water will float and become a bridge allowing
-  Reeborg to safely cross over water.  The example below illustrates this
+
+:pont: |bridge|  Permet à Reeborg de traverser un cours d'eau.
+:clôtures:  |fence_right| - |fence_left| - |fence_double| - |fence_vertical|
+  Peuvent être détectés par Reeborg. Si on demande à Reeborg de se déplacer
+  au travers d'une clôture (en pensant peut-être qu'il sauterait par dessus),
+  Reeborg échouera.  Veuillez noter que vous pouvez superposer différents types
+  de clôtures pour créer un espace qui sera visuellement fermé.
+:boîtes: |box| Les boîtes sont poussées par Reeborg ... en autant qu'aucun
+  autre obstacle (mur, clôture, autre boîte, etc.) ne bloque le chemin.
+  Une boîte poussée dans l'eau par Reeborg flottera, et deviendra un pont lui
+  permettant de traverser un cours d'eau.  L'exemple ci-dessous (en anglais)
+  illustre ceci.
 
 |box-blocked|
 
-Goals
------
+Les buts
+--------
 
-Reeborg, must accomplish certain goals, like reaching a final position,
-or dropping certain objects at a certain location.
-To indicate that one (or more) object must be dropped at a given
-position, these grey images are used:
+Reeborg peut accomplir certains buts, comme atteindre une position finale,
+ou laisser tomber certains objets à des endroits pré-déterminés.
+Pour indiquer qu'un ou des objets doivent être déposés à un endroit donné,
+des images en tons de gris sont utilisées.
 
 |apple_goal| |banana_goal| |carrot_goal|
 |daisy_goal| |dandelion_goal| |leaf_goal| |orange_goal|
 |strawberry_goal| |tulip_goal| |square_goal| |star_goal|
 |triangle_goal| |token_goal|
 
-
-To indicate that Reeborg must end its task at a given final position,
-one of these images is used:
+Finalement, pour indiquer que Reeborg doit terminer une tâche à un
+endroit donné, l'une des images suivantes sera utilisée:
 
 |green_home_tile| |house| |racing_flag|
 
@@ -154,4 +181,3 @@ one of these images is used:
 .. |star_goal| image:: ../../../src/images/star_goal.png
 .. |triangle_goal| image:: ../../../src/images/triangle_goal.png
 .. |token_goal| image:: ../../../src/images/token_goal.png
-
