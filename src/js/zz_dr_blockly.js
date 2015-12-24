@@ -45,6 +45,37 @@ Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUN
 
 /****  End of over-riding Blockly's default */
 
+Blockly.Blocks['_sound_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(RUR.translate("sound"))
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "SOUND");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(20);
+    this.setTooltip('');
+  }
+};
+Blockly.JavaScript['_sound_'] = function(block) {
+  var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
+  if (checkbox_sound) {
+      return RUR.translate("sound") + "(true)\n";
+  } else {
+      return RUR.translate("sound") + "(false)\n";
+  }
+};
+Blockly.Python['_sound_'] = function(block) {
+  var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
+  if (checkbox_sound) {
+      return RUR.translate("sound") + "(True)\n";
+  } else {
+      return RUR.translate("sound") + "(False)\n";
+  }
+};
+
+
 
 Blockly.Blocks['_move_'] = {
   init: function() {

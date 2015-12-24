@@ -226,3 +226,4 @@ RUR.translation["object_here"] = "object_here";
 RUR.translation["True if there is at least one object here."] = "True if there is at least one object here.";
 RUR.translation["is_facing_north"] = "is_facing_north";
 RUR.translation["True if robot is facing North."] = "True if robot is facing North.";
+RUR.translation["sound"] = "sound";
