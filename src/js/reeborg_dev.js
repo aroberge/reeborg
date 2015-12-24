@@ -5797,6 +5797,9 @@ RUR.we._remove_all_at_location = function(coords) {
 
 RUR.we.get_background_image = function () {
     var url = window.prompt(RUR.translate("Enter url of image to use as background."));
+    if (!url) {
+        url = '';
+    }
     RUR.current_world.background_image = url;
     RUR.background_image.src = url;
     RUR.vis_world.draw_all();
