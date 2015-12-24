@@ -6043,7 +6043,7 @@ Blockly.JavaScript['text_print'] = function(block) {
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
   return RUR.translate("write")+'(' + argument0 + ');\n';
 };
-Blockly.Msg.TEXT_PRINT_TITLE = "print";
+Blockly.Msg.TEXT_PRINT_TITLE = "print %1";
 Blockly.makeColour = function(hue) {
   if (hue === RUR.done_colour){
       return hue;
@@ -6062,8 +6062,18 @@ Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
 Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
 Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
 
-/****  End of over-riding Blockly's default */
+// removing mutator for simple function definitions as per
+// https://groups.google.com/d/msg/blockly/_rrwh-Lc-sE/cHAk5yNfhUEJ
 
+(function(){var old = Blockly.Blocks.procedures_defnoreturn.init;
+    Blockly.Blocks.procedures_defnoreturn.init =
+    function(){old.call(this);
+        this.setMutator(undefined);
+        // this.setColour(RUR.color_basic);
+    };
+})();
+
+/****  End of over-riding Blockly's default */
 
 
 Blockly.Blocks['_move_'] = {
@@ -6659,9 +6669,6 @@ Blockly.Python['_if_else_if_else_'] = function(block) {
          "else:\n" + statements_else;
 };
 
-
-
-
 RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
     toolbox: document.getElementById('toolbox'),
     zoom:{
@@ -6672,6 +6679,7 @@ RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
         minScale: 0.3,
         scaleSpeed: 1.2},
     trashcan: true});
+
 
 $("#blocklyDiv").resizable({
     resize: function() {
