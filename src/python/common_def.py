@@ -131,11 +131,15 @@ def Help(obj=None):
     for attr in dir(obj):
         if attr == "__class__":
             continue
-        if hasattr(getattr(obj, attr), "__doc__"):
-            if getattr(obj, attr).__doc__:
-                out.append("<h3>{}</h3>".format(attr))
-                doc = "<p>{}</p>".format(getattr(obj, attr).__doc__)
-                out.append(doc.replace("\n", "<br>"))
+        try:
+            if hasattr(getattr(obj, attr), "__doc__"):
+                if getattr(obj, attr).__doc__:
+
+                        out.append("<h3>{}</h3>".format(attr))
+                        doc = "<p>{}</p>".format(getattr(obj, attr).__doc__)
+                        out.append(doc.replace("\n", "<br>"))
+        except AttributeError:
+            pass
     if not out:
         raise AttributeError("This object has no docstring.")
     else:
