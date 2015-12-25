@@ -11,7 +11,7 @@ var RUR = RUR || {};
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, ReeborgError, rien_devant, rien_a_droite, "+
                     " est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,"+
                     "transporte, ecrit, au_but, au_but_orientation, print_html," +
-                    "mur_devant, mur_a_droite, disparait, enregistrement,"
+                    "mur_devant, mur_a_droite, disparait, enregistrement," +
                     " construit_un_mur, pense, pause, repete, voir_source, son, confirmer */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
@@ -82,7 +82,7 @@ RUR.reset_definitions = function () {
     disparait = RUR.world.remove_robots;
     enregistrement = RUR._recording_;
 
-    // The following are for OOP programming in Javascript and CoffeeScript
+    // The following are for OOP programming in Javascript
 
     RobotUsage = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);

@@ -39,7 +39,6 @@
     <select id="select_programming_language" title="Select programming language">
         <option value="python-en">Python</option>
         <option value="javascript-en">Javascript</option>
-        <option value="coffeescript-en">CoffeeScript</option>
     </select>
     <select id="python_choices" title="Select programming mode">
         <option value="blockly">Blockly</option>
@@ -382,11 +381,6 @@
 <!--offline <script src="offline/codemirror-5.8.0/mode/python/python.js"></script> /offline-->
 <!--online--> <script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/python/python.min.js"></script> <!--/online-->
 
-<!--offline <script src="offline/codemirror-5.8.0/mode/coffeescript/coffeescript.js"></script> /offline-->
-<!--online--> <script async src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/coffeescript/coffeescript.min.js"></script> <!--/online-->
-
-
-
 <script>
   var RUR = {};
   RUR.settings = {};
@@ -406,7 +400,6 @@
 <script src="/src/js/reeborg_dev.js"></script>
 <script src="/src/lang/reeborg_en.js"></script>
 <script src="/src/libraries/jquery.ui.dialog.minmax.js"></script>
-<script src="/src/libraries/coffee-script.js"></script>
 
 <script type="text/python3">
 from browser import window
@@ -629,16 +622,6 @@ window.RUR._python_loaded = True
         종합적 시험을 실행합니다.  개발자용으로 쓰입니다.
     </p>
   </div>
-<hr>
-  <h3>커피스크립트 전용</h3>
-  <div id="coffeescript-additional-menu">
-    <p>
-      <button class="blue-gradient" onclick="RUR.runner.compile_coffee();">
-        커피스크립트 번역
-      </button>
-        에디터 안의 커피스크립트 코드를 자바스크립트의 출력 결과값으로 바꿉니다.
-    </p>
-  </div>
 </div>
 
 
@@ -803,7 +786,7 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
         <button id="kbd_py_console_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_py_console");'>
           파이썬</button>
       <button id="kbd_javascript_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_javascript");'>
-        자비스크립트/커피스크립트</button>
+        자비스크립트</button>
       <button id="kbd_objects_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_objects");'>
         객체</button>
       <button id="kbd_special_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_special");'>

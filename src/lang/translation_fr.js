@@ -48,7 +48,6 @@ RUR.translation["# 'from library import *' in Python Code is required to use\n# 
 RUR.translation.move = "avance";
 RUR.translation["Python Code"] = "Code Python";
 RUR.translation["Javascript Code"] = "Code Javascript";
-RUR.translation["CoffeeScript Code"] = "Code CoffeeScript";
 
 // in recorder.js
 RUR.translation["Too many steps:"] = "Trop d'instructions: {max_steps}";

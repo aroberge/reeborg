@@ -89,10 +89,6 @@ $(document).ready(function() {
                 $("#python_choices").val("editor").change();  // jshint ignore:line
             case 'javascript-' + human_language:
                 $("#javascript_choices").val("editor").change(); // jshint ignore:line
-            case 'coffeescript-' + human_language:
-                $('input[type=radio][name=programming_language]').val([prog_lang]);
-                RUR.reset_programming_language(prog_lang);
-                break;
             default:
                 RUR.reset_programming_language('python-' + human_language);
         }

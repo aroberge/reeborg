@@ -19,7 +19,7 @@ RUR.WallCollisionError = function (message) {
     }
     this.name = "WallCollisionError";
     this.message = message;
-    this.reeborg_shouts = message;    
+    this.reeborg_shouts = message;
 };
 
 RUR.translate = function (s) {
@@ -60,8 +60,6 @@ RUR.reset_code_in_editors = function () {
         }
         library.setValue(library_content);
         editor_default = default_instruction + "()";
-    }  else if (RUR.programming_language == "coffee") {
-        editor_default = default_instruction + "()";
     }
     editor_content = localStorage.getItem(RUR.settings.editor);
     if (!editor_content){
@@ -79,7 +77,6 @@ RUR.reset_programming_language = function(choice){
         localStorage.setItem("last_programming_language_" + human_language, RUR.settings.current_language);
     } catch (e) {}
     $("#python-additional-menu p button").attr("disabled", "true");
-    $("#coffeescript-additional-menu p button").attr("disabled", "true");
     $("#javascript-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
     $("#highlight").hide();
@@ -125,18 +122,6 @@ RUR.reset_programming_language = function(choice){
             // show language specific
             $("#javascript-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("javascript");
-            break;
-        case 'coffeescript-' + human_language :
-            $("#editor-panel").addClass("active");
-            RUR.settings.editor = "editor_coffee_" + human_language;
-            RUR.programming_language = "coffee";
-            $("#editor-tab").html(RUR.translate("CoffeeScript Code"));
-            editor.setOption("mode", "coffeescript");
-            pre_code_editor.setOption("mode", "coffeescript");
-            post_code_editor.setOption("mode", "coffeescript");
-            // show language specific
-            $("#coffeescript-additional-menu p button").removeAttr("disabled");
-            RUR.kbd.set_programming_language("coffeescript");
             break;
     }
     $("#editor-tab").click();
@@ -1743,7 +1728,6 @@ RUR.kbd.set_programming_language = function (lang) {
             $("#kbd_javascript_btn").hide();
             break;
         case "javascript":
-        case "coffeescript":
             RUR.kbd.prog_lang = "javascript";
             $("#kbd_python_btn").hide();
             $("#kbd_py_console_btn").hide();
@@ -2612,7 +2596,7 @@ RUR.robot.cleanup_objects = function (robot) {
 };
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, editorUpdateHints,
-  translate_python, CoffeeScript */
+  translate_python,*/
 
 RUR.runner = {};
 
@@ -2782,8 +2766,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             if (RUR.__python_error) {
                 throw RUR.__python_error;
             }
-        } else if (RUR.programming_language === "coffee") {
-            RUR.runner.eval_coffee(src);
         } else {
             alert("Unrecognized programming language.");
             return true;
@@ -2843,26 +2825,6 @@ RUR.runner.eval_python = function (src) {
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
     translate_python(src, RUR._highlight, RUR._watch_vars, pre_code, post_code);
-};
-
-
-RUR.runner.eval_coffee = function (src) {
-    // do not  "use strict"
-    var pre_code, post_code;
-    pre_code = pre_code_editor.getValue();
-    post_code = post_code_editor.getValue();
-    RUR.reset_definitions();
-    src = pre_code + "\n" + src + "\n" + post_code;
-    eval(CoffeeScript.compile(src)); // jshint ignore:line
-};
-
-RUR.runner.compile_coffee = function() {
-    if (RUR.programming_language !== "coffee") {
-        return;
-    }
-    var js_code = CoffeeScript.compile(editor.getValue());
-    $("#stdout").html(js_code);
-    $("#Reeborg-writes").dialog("open");
 };
 
 RUR.runner.simplify_python_traceback = function(e) {
@@ -5705,10 +5667,6 @@ $(document).ready(function() {
                 $("#python_choices").val("editor").change();  // jshint ignore:line
             case 'javascript-' + human_language:
                 $("#javascript_choices").val("editor").change(); // jshint ignore:line
-            case 'coffeescript-' + human_language:
-                $('input[type=radio][name=programming_language]').val([prog_lang]);
-                RUR.reset_programming_language(prog_lang);
-                break;
             default:
                 RUR.reset_programming_language('python-' + human_language);
         }

@@ -19,7 +19,7 @@ RUR.WallCollisionError = function (message) {
     }
     this.name = "WallCollisionError";
     this.message = message;
-    this.reeborg_shouts = message;    
+    this.reeborg_shouts = message;
 };
 
 RUR.translate = function (s) {
@@ -60,8 +60,6 @@ RUR.reset_code_in_editors = function () {
         }
         library.setValue(library_content);
         editor_default = default_instruction + "()";
-    }  else if (RUR.programming_language == "coffee") {
-        editor_default = default_instruction + "()";
     }
     editor_content = localStorage.getItem(RUR.settings.editor);
     if (!editor_content){
@@ -79,7 +77,6 @@ RUR.reset_programming_language = function(choice){
         localStorage.setItem("last_programming_language_" + human_language, RUR.settings.current_language);
     } catch (e) {}
     $("#python-additional-menu p button").attr("disabled", "true");
-    $("#coffeescript-additional-menu p button").attr("disabled", "true");
     $("#javascript-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
     $("#highlight").hide();
@@ -125,18 +122,6 @@ RUR.reset_programming_language = function(choice){
             // show language specific
             $("#javascript-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("javascript");
-            break;
-        case 'coffeescript-' + human_language :
-            $("#editor-panel").addClass("active");
-            RUR.settings.editor = "editor_coffee_" + human_language;
-            RUR.programming_language = "coffee";
-            $("#editor-tab").html(RUR.translate("CoffeeScript Code"));
-            editor.setOption("mode", "coffeescript");
-            pre_code_editor.setOption("mode", "coffeescript");
-            post_code_editor.setOption("mode", "coffeescript");
-            // show language specific
-            $("#coffeescript-additional-menu p button").removeAttr("disabled");
-            RUR.kbd.set_programming_language("coffeescript");
             break;
     }
     $("#editor-tab").click();

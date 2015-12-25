@@ -1,6 +1,6 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, editorUpdateHints,
-  translate_python, CoffeeScript */
+  translate_python,*/
 
 RUR.runner = {};
 
@@ -170,8 +170,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             if (RUR.__python_error) {
                 throw RUR.__python_error;
             }
-        } else if (RUR.programming_language === "coffee") {
-            RUR.runner.eval_coffee(src);
         } else {
             alert("Unrecognized programming language.");
             return true;
@@ -231,26 +229,6 @@ RUR.runner.eval_python = function (src) {
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
     translate_python(src, RUR._highlight, RUR._watch_vars, pre_code, post_code);
-};
-
-
-RUR.runner.eval_coffee = function (src) {
-    // do not  "use strict"
-    var pre_code, post_code;
-    pre_code = pre_code_editor.getValue();
-    post_code = post_code_editor.getValue();
-    RUR.reset_definitions();
-    src = pre_code + "\n" + src + "\n" + post_code;
-    eval(CoffeeScript.compile(src)); // jshint ignore:line
-};
-
-RUR.runner.compile_coffee = function() {
-    if (RUR.programming_language !== "coffee") {
-        return;
-    }
-    var js_code = CoffeeScript.compile(editor.getValue());
-    $("#stdout").html(js_code);
-    $("#Reeborg-writes").dialog("open");
 };
 
 RUR.runner.simplify_python_traceback = function(e) {

@@ -37,7 +37,6 @@
     <select id="select_programming_language" title="Select programming language">
         <option value="python-fr">Python</option>
         <option value="javascript-fr">Javascript</option>
-        <option value="coffeescript-fr">CoffeeScript</option>
     </select>
     <select id="python_choices" title="Select programming mode">
         <option value="blockly">Blockly</option>
@@ -370,7 +369,6 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/css/css.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/xml/xml.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/htmlmixed/htmlmixed.min.js"></script>
-<script async src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/coffeescript/coffeescript.min.js"></script>
 <script>
   var RUR = {};
   RUR.settings = {};
@@ -390,7 +388,6 @@
 <script src="/src/js/reeborg_dev.js"></script>
 <script src="/src/lang/reeborg_fr.js"></script>
 <script src="/src/libraries/jquery.ui.dialog.minmax.js"></script>
-<script src="/src/libraries/coffee-script.js"></script>
 
 <script type="text/python3">
 from browser import window
@@ -637,18 +634,6 @@ window.RUR._python_loaded = True
     </p>
 
   </div>
-<hr>
-  <h3>CoffeeScript seulement</h3>
-  <div id="coffeescript-additional-menu">
-    <p>
-      <button class="blue-gradient" onclick="RUR.runner.compile_coffee();">
-        Convertir CoffeeScript
-      </button>
-      <span class="description"> Converti le code CoffeeScript présent dans l'éditeur en code Javascript
-        et "print" le résultat.
-      </span>
-    </p>
-  </div>
 </div>
 
 <div id="about-div" title="À propos" style="display:none">
@@ -819,7 +804,7 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
       <button id="kbd_py_console_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_py_console");'>
         Python</button>
       <button id="kbd_javascript_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_javascript");'>
-        Javascript/Coffeescript</button>
+        Javascript</button>
       <button id="kbd_objects_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_objects");'>
         Objets</button>
       <button id="kbd_special_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_special");'>

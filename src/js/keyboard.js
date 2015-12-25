@@ -21,7 +21,6 @@ RUR.kbd.set_programming_language = function (lang) {
             $("#kbd_javascript_btn").hide();
             break;
         case "javascript":
-        case "coffeescript":
             RUR.kbd.prog_lang = "javascript";
             $("#kbd_python_btn").hide();
             $("#kbd_py_console_btn").hide();
