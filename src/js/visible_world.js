@@ -567,13 +567,11 @@ RUR.vis_world.draw_info = function() {
             j = parseInt(coords[1], 10);
             info = RUR.vis_world.information[coords][1];
             if (i <= RUR.COLS && j <= RUR.ROWS){
-                if (info != 1 || RUR.vis_world.goal_present) {
-                    text_width = ctx.measureText(info).width/2;
-                    ctx.font = RUR.BACKGROUND_CTX.font;
-                    ctx.fillStyle = RUR.vis_world.information[coords][2];
-                    // information drawn to left side of object
-                    ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
-                }
+                text_width = ctx.measureText(info).width/2;
+                ctx.font = RUR.BACKGROUND_CTX.font;
+                ctx.fillStyle = RUR.vis_world.information[coords][2];
+                // information drawn to left side of object
+                ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
             }
         }
     }
@@ -585,7 +583,7 @@ RUR.vis_world.draw_info = function() {
             i = parseInt(coords[0], 10);
             j = parseInt(coords[1], 10);
             info = RUR.vis_world.goal_information[coords][1];
-            if (info != 1 && i <= RUR.COLS && j <= RUR.ROWS){
+            if (i <= RUR.COLS && j <= RUR.ROWS){
                 text_width = ctx.measureText(info).width/2;
                 ctx.font = RUR.BACKGROUND_CTX.font;
                 ctx.fillStyle = RUR.vis_world.goal_information[coords][2];
@@ -594,5 +592,4 @@ RUR.vis_world.draw_info = function() {
             }
         }
     }
-
 };

@@ -9,88 +9,46 @@ RUR.we.edit_world = function  () {
     "use strict";
     // usually triggered when canvas is clicked if editing world;
     // call explicitly if needed.
-    var value;
-    switch (RUR.we.edit_world_flag) {
-        case "robot-place":
-            RUR.we.place_robot();
+    var value, split, root;
+    split = RUR.we.edit_world_flag.split("-");
+    root = split[0];
+    value = split[1];
+    switch (root) {
+        case "robot":
+            if (value == "place") {
+                RUR.we.place_robot();
+            }
             break;
-        case "object-token":
-        case "object-star":
-        case "object-triangle":
-        case "object-square":
-        case "object-strawberry":
-        case "object-banana":
-        case "object-apple":
-        case "object-orange":
-        case "object-leaf":
-        case "object-dandelion":
-        case "object-carrot":
-        case "object-tulip":
-        case "object-daisy":
-        case "object-box":
-            value = RUR.we.edit_world_flag.substring(7);
+        case "object":
             if (RUR.we.decorative_objects) {
                 RUR.we._add_decorative_object(value);
             } else {
                 RUR.we._add_object(value);
             }
             break;
-        case "tile-mud":
-        case "tile-water":
-        case "tile-gravel":
-        case "tile-ice":
-        case "tile-grass":
-        case "tile-pale_grass":
-        case "tile-bricks":
-            value = RUR.we.edit_world_flag.substring(5);
+        case "tile":
             RUR.we.toggle_tile(value);
             break;
-        case "fill-mud":
-        case "fill-water":
-        case "fill-gravel":
-        case "fill-ice":
-        case "fill-grass":
-        case "fill-pale_grass":
-        case "fill-bricks":
-            value = RUR.we.edit_world_flag.substring(5);
+        case "fill":
             RUR.we.fill_with_tile(value);
             break;
-        case "toptile-bridge":
-        case "toptile-fence_right":
-        case "toptile-fence_left":
-        case "toptile-fence_double":
-        case "toptile-fence_vertical":
-            value = RUR.we.edit_world_flag.substring(8);
+        case "toptile":
             RUR.we.toggle_toptile(value);
             break;
-        case "world-walls":
-            RUR.we._toggle_wall();
+        case "world":
+            if (value == "walls") {
+                RUR.we._toggle_wall();
+            }
             break;
-        case "position-green_home_tile":
-        case "position-house":
-        case "position-racing_flag":
-            value = RUR.we.edit_world_flag.substring(9);
+        case "position":
             RUR.we.set_goal_position(value);
             break;
-        case "goal-wall":
-            RUR.we.toggle_goal_wall();
-            break;
-        case "goal-token":
-        case "goal-star":
-        case "goal-triangle":
-        case "goal-square":
-        case "goal-strawberry":
-        case "goal-banana":
-        case "goal-apple":
-        case "goal-orange":
-        case "goal-leaf":
-        case "goal-dandelion":
-        case "goal-carrot":
-        case "goal-tulip":
-        case "goal-daisy":
-        case "goal-box":
-            value = RUR.we.edit_world_flag.substring(5);
-            RUR.we._add_goal_objects(value);
+        case "goal":
+            if (value == "wall") {
+                RUR.we.toggle_goal_wall();
+            } else {
+                RUR.we._add_goal_objects(value);
+            }
             break;
         default:
             break;
