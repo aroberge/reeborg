@@ -242,21 +242,51 @@ RUR.vis_robot.set_trace_style = function (choice, robot){
 RUR.vis_robot.set_trace_style("default");
 
 RUR.vis_robot.new_robot_images = function (images) {
+    var model = 0;
+    if (images.model !== undefined) {
+        switch (images.model) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                model = images.model;
+                break;
+            default:
+                model = 0;
+        }
+    }
 
-if (images.east !== undefined) {
-    RUR.vis_robot.images[0].robot_e_img.src = images.east;
-}
-if (images.west !== undefined) {
-    RUR.vis_robot.images[0].robot_w_img.src = images.west;
-}
-if (images.north !== undefined) {
-    RUR.vis_robot.images[0].robot_n_img.src = images.north;
-}
-if (images.south !== undefined) {
-    RUR.vis_robot.images[0].robot_s_img.src = images.south;
-}
-if (images.random !== undefined) {
-    RUR.vis_robot.images[0].robot_random_img.src = images.random;
-}
-RUR.vis_robot.select_default_model(0);
+    if (images.east !== undefined) {
+        RUR.vis_robot.images[model].robot_e_img.src = images.east;
+    }
+    if (images.west !== undefined) {
+        RUR.vis_robot.images[model].robot_w_img.src = images.west;
+    }
+    if (images.north !== undefined) {
+        RUR.vis_robot.images[model].robot_n_img.src = images.north;
+    }
+    if (images.south !== undefined) {
+        RUR.vis_robot.images[model].robot_s_img.src = images.south;
+    }
+    if (images.random !== undefined) {
+        RUR.vis_robot.images[model].robot_random_img.src = images.random;
+    }
+
+    // change the image displayed in the html file.
+    switch (model) {
+        case 0:
+            $("#classic-image img").attr("src", images.east);
+            break;
+        case 1:
+            $("#rover-type img").attr("src", images.east);
+            break;
+        case 2:
+            $("#3d-red-type img").attr("src", images.east);
+            break;
+        case 3:
+            $("#solar-panel-type img").attr("src", images.east);
+            break;
+    }
+
+    RUR.vis_robot.select_default_model(model);
 };

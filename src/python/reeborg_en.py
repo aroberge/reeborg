@@ -637,7 +637,7 @@ def new_robot_images(images):
     """Allow to replace the images used for the robot.  More details will
        be provided soon.
     """
-    RUR.vis_robot.new_robot_images(images)
+    RUR._new_robot_images_(images)
 
 
 def MakeCustomMenu(content):

@@ -11,14 +11,14 @@ var RUR = RUR || {};
 var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, ReeborgError, rien_devant, rien_a_droite, "+
                     " est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,"+
                     "transporte, ecrit, au_but, au_but_orientation, print_html," +
-                    "mur_devant, mur_a_droite, disparait, enregistrement," +
+                    "mur_devant, mur_a_droite, disparait, enregistrement, nouvelles_images_de_robot," +
                     " construit_un_mur, pense, pause, repete, voir_source, son, confirmer */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
     est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,
     transporte, ecrit, au_but, construit_un_mur, pense, print_html, disparait,
     pause, repete, voir_source, son, RobotUsage, mur_devant, mur_a_droite,
-    nombre_de_commandes, confirmer, enregistrement;
+    nombre_de_commandes, confirmer, enregistrement, nouvelles_images_de_robot;
 
 RUR.confirmer = function(test) {
     var reeborg, robots, monde, orientation;
@@ -82,8 +82,23 @@ RUR.reset_definitions = function () {
     disparait = RUR.world.remove_robots;
     enregistrement = RUR._recording_;
 
-    // The following are for OOP programming in Javascript
+    nouvelles_images_de_robot = function (image) {
+        if (images.est !== undefined) {
+            images.east = images.est;
+        }
+        if (images.ouest !== undefined) {
+            images.west = images.ouest;
+        }
+        if (images.sud !== undefined) {
+            images.south = images.sud;
+        }
+        if (images.nord !== undefined) {
+            images.north = images.nord;
+        }
+        RUR._new_robot_images_(images);
+    };
 
+    // The following are for OOP programming in Javascript
     RobotUsage = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.world.add_robot(this.body);

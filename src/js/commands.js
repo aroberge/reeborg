@@ -59,6 +59,10 @@ RUR._no_highlight_ = function () {
     RUR.ui.user_no_highlight();
 };
 
+RUR._new_robot_images_ = function (images) {
+    RUR.vis_robot.new_robot_images(images);
+};
+
 RUR._object_here_ = function (arg) {
     return RUR.control.object_here(RUR.current_world.robots[0], arg);
 };

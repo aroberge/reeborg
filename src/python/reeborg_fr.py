@@ -622,7 +622,7 @@ def nouvelles_images_de_robot(images):
         images["north"] = images["nord"]
     if "sud" in images:
         images["south"] = images["sud"]
-    RUR.vis_robot.new_robot_images(images)
+    RUR._new_robot_images_(images)
 
 
 def narration(html):
