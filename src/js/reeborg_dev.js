@@ -4747,6 +4747,13 @@ RUR.we.edit_world = function  () {
     RUR.we.refresh_world_edited();
 };
 
+RUR.we.alert_1 = function (txt) {
+    $("#cmd-result").html(RUR.translate(txt)).effect("highlight", {color: "gold"}, 1500);
+};
+RUR.we.alert_2 = function (txt, value) {
+    $("#cmd-result").html(RUR.translate(txt).supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+};
+
 RUR.we.select = function (choice) {
     "use strict";
     var value, split, root;
@@ -4763,16 +4770,16 @@ RUR.we.select = function (choice) {
         case "robot":
             switch (value) {
             case "place":
-                $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on world to move robot.");
                 break;
             case "add":
-                $("#cmd-result").html(RUR.translate("Added robot.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Added robot.");
                 RUR.we.add_robot();
                 RUR.we.edit_world();
                 RUR.we.change_edit_robot_menu();
                 break;
             case "orientation":
-                $("#cmd-result").html(RUR.translate("Click on image to turn robot")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on image to turn robot");
                 $("#edit-world-turn").show();
                 $("#random-orientation").show();
                 break;
@@ -4780,7 +4787,7 @@ RUR.we.select = function (choice) {
                 RUR.we.__give_to_robot = true;
                 $("#edit-world-objects").show();
                 $(".not-for-robot").hide();
-                $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on desired object below.");
                 break;
             }
             break;
@@ -4788,7 +4795,7 @@ RUR.we.select = function (choice) {
             RUR.we.decorative_objects = true;
             $("#edit-world-objects").show();
             RUR.we.__give_to_robot = false;
-            $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
+            RUR.we.alert_1("Click on desired object below.");
             break;
         case "background":
             RUR.we.get_background_image();
@@ -4800,22 +4807,22 @@ RUR.we.select = function (choice) {
                 $("#edit-world-objects").show();
                 $(".not-for-robot").show();  // box
                 RUR.we.__give_to_robot = false;
-                $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on desired object below.");
                 break;
             case "tiles":
                 $("#edit-tile").show();
-                $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on desired tile below.");
                 break;
             case "fill_tiles":
                 $("#fill-tile").show();
-                $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on desired tile below.");
                 break;
             case "toptiles":
                 $("#edit-top-tile").show();
-                $("#cmd-result").html(RUR.translate("Click on desired top tile below.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on desired top tile below.");
                 break;
             case "walls":
-                $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on world to toggle walls.");
                 break;
             }
             break;
@@ -4830,48 +4837,48 @@ RUR.we.select = function (choice) {
                     $(".not-for-robot").show();
                 }
                 if (value == "box"){
-                    $("#cmd-result").html(RUR.translate("Click on world to add single object.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                    RUR.we.alert_2("Click on world to add single object.", value);
                 } else {
-                    $("#cmd-result").html(RUR.translate("Click on world to add object.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                    RUR.we.alert_2("Click on world to add object.", value);
                 }
             }
             break;
         case "tile":
             $("#edit-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+            RUR.we.alert_2("Click on world to toggle tile.", value);
             break;
         case "fill":
             $("#fill-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on world to fill with given tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+            RUR.we.alert_2("Click on world to fill with given tile.", value);
             break;
         case "toptile":
             $("#edit-top-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on world to toggle top tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+            RUR.we.alert_2("Click on world to toggle top tile.", value);
             break;
         case "position":
-            $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
+            RUR.we.alert_1("Click on world to set home position for robot.");
             break;
         case "goal":
             switch (value) {
             case "robot":
                 $("#edit-goal-position").show();
-                $("#cmd-result").html(RUR.translate("Click on image desired to indicate the final position of the robot.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on image desired to indicate the final position of the robot.");
                 break;
             case "wall":
-                $("#cmd-result").html(RUR.translate("Click on world to toggle additional walls to build.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on world to toggle additional walls to build.");
                 break;
             case "objects":
                 $("#edit-goal-objects").show();
-                $("#cmd-result").html(RUR.translate("Click on desired goal object below.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_1("Click on desired goal object below.");
                 break;
             default:
                 $("#edit-goal-objects").show();
                 if (value == "box"){
-                $("#cmd-result").html(RUR.translate("Click on world to set number of single goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_2("Click on world to set number of single goal objects.", value);
                 } else {
-                $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_2("Click on world to set number of goal objects.", value);
                 }
-                $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.alert_2("Click on world to set number of goal objects.", value);
                 break;
             }
         break;
@@ -5719,6 +5726,7 @@ RUR.we.get_background_image = function () {
     var url = window.prompt(RUR.translate("Enter url of image to use as background."));
     if (!url) {
         url = '';
+        delete RUR.background_image.src;
     }
     RUR.current_world.background_image = url;
     RUR.background_image.src = url;
