@@ -132,8 +132,8 @@ class Interpreter():
     def __init__(self):
         try:
             self.restart()
-        except Exception as e:
-            py_console.append("Problem in attempting to (re)start Interpreter.")
+        except:
+            py_console.append("Problem in attempting to (re)start Interpreter")
 
     def restart(self):
         py_console.refresh()
@@ -158,6 +158,7 @@ class Interpreter():
             exec("from reeborg_fr import *", self.namespace)
             self.namespace["termine"] = self.done
         self.namespace["Help"] = window["Help"]
+        self.namespace["init"] = window.RUR.runner.assign_initial_values
         exec("__BRYTHON__.builtins.help = Help", self.namespace)
         self.run_pre()
 

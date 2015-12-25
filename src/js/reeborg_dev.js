@@ -2706,6 +2706,7 @@ RUR.runner.assign_initial_values = function () {
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.vis_world.draw_goal();
     }
+    RUR.vis_world.refresh();
 };
 
 
