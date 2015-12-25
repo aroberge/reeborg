@@ -499,7 +499,7 @@ window.RUR._python_loaded = True
       Tab: betterTab,
     "Shift-Tab": shiftTab
     });
-    
+
 var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-editor'), {
   mode:  {name: "javascript"},
   tabMode: 'indent',
@@ -722,16 +722,16 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 
 <div id="dialog-form" title="Add object in the world" style="display:none;">
   <p>Choose zero to remove any existing
-    "<span id="add-object-name">object</span>" at this location.
-    If "Maximum" is set to a value greater than the "Number of objects", a number
+    <code><span id="add-object-name">object</span></code> at this location.
+    If <code>Maximum</code> is set to a value greater than the <code>Number of objects</code>, a number
     of objects, between these two values, will be chosen randomly each time
     a program is run.</p>
   <form>
     <fieldset>
-      <label for="input-add-number">Number of objects:
+      <label for="input-add-number"><code>Number of objects</code>:
         <input type="number" name="input-add-number" id="input-add-number" min="0" value="1">
       </label><br>
-      <label for="maximum-number">Maximum:
+      <label for="maximum-number"><code>Maximum</code>:
         <input type="number" name="maximum-number" id="maximum-number" min="0" value="0">
       </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
@@ -743,12 +743,12 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 
 <div id="dialog-form2" title="Give object to robot" style="display:none;">
   <p>Choose a number of
-    "<span id="give-object-name">object</span>" for the robot to carry.
+    <code><span id="give-object-name">object</span></code> for the robot to carry.
     Click on the checkbox if you wish that number to be unlimited.
     </p>
   <form>
     <fieldset>
-      <label for="input-give-number">Number of objects:
+      <label for="input-give-number"><code>Number of objects</code>:
         <input type="number" name="input-give-number" id="input-give-number" min="0" value="1">
       </label><br>
       <label for="unlimited-number">
@@ -762,13 +762,13 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 
 <div id="dialog-form3" title="Set goal number for object" style="display:none;">
   <p>Choose a number of
-    "<span id="goal-object-name">object</span>" to use as a goal.
+    <code><span id="goal-object-name">object</span></code> to use as a goal.
     Click on the checkbox if you wish that number to be equal to the
     total number of such objects found in the world at the beginning.
     </p>
   <form>
     <fieldset>
-      <label for="input-goal-number">Number of objects:
+      <label for="input-goal-number"><code>Number of objects</code>:
         <input type="number" name="input-goal-number" id="input-goal-number" min="0" value="1"></label>
       <br>
       <label for="all-objects">

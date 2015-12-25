@@ -4963,7 +4963,7 @@ RUR.we._give_objects_to_robot = function (specific_object){
     "use strict";
 
     RUR.we.specific_object = specific_object;
-    $("#give-object-name").html(RUR.we.specific_object);
+    $("#give-object-name").html(RUR.translate(specific_object));
     RUR.cd.dialog_give_object.dialog("open");
 };
 
@@ -5151,7 +5151,7 @@ RUR.we._add_object = function (specific_object){
     RUR.we.specific_object = specific_object;
     RUR.we.x = x;
     RUR.we.y = y;
-    $("#add-object-name").html(RUR.we.specific_object);
+    $("#add-object-name").html(RUR.translate(specific_object));
     RUR.cd.dialog_add_object.dialog("open");
 };
 
@@ -5229,7 +5229,7 @@ RUR.we._add_goal_objects = function (specific_object){
     RUR.we.specific_object = specific_object;
     RUR.we.x = x;
     RUR.we.y = y;
-    $("#goal-object-name").html(RUR.we.specific_object);
+    $("#goal-object-name").html(RUR.translate(specific_object));
     RUR.cd.dialog_goal_object.dialog("open");
 };
 

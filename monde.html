@@ -729,18 +729,19 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
   <source src="/src/sounds/glitch-sound.wav" type="audio/x-wav">
 </audio>
 
-<div id="dialog-form" title="Add object in the world" style="display:none;">
-  <p>Choose zero to remove any existing
-    "<span id="add-object-name">object</span>" at this location.
-    If "Maximum" is set to a value greater than the "Number of objects", a number
-    of objects, between these two values, will be chosen randomly each time
-    a program is run.</p>
+<div id="dialog-form" title="Modifier le nombre d'objets dans le monde" style="display:none;">
+  <p>Choisissez la valeur zéro pour ne pas avoir un(e)
+    <code><span id="add-object-name">object</span></code> à cet endroit.
+    Si <code>Maximum</code> a une valeur supérieure à <code>Nombre d'objets</code>
+    alors un nombre aléatoire d'objets, entre ces deux valeurs, sera choisi
+    au tout début de l'exécution d'un programme.
+  </p>
   <form>
     <fieldset>
-      <label for="input-add-number">Number of objects:
+      <label for="input-add-number"><code>Nombre d'objets</code>:
         <input type="number" name="input-add-number" id="input-add-number" min="0" value="1">
       </label><br>
-      <label for="maximum-number">Maximum:
+      <label for="maximum-number"><code>Maximum</code>:
         <input type="number" name="maximum-number" id="maximum-number" min="0" value="0">
       </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
@@ -750,61 +751,62 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
 </div>
 
 
-<div id="dialog-form2" title="Give object to robot" style="display:none;">
-  <p>Choose a number of
-    "<span id="give-object-name">object</span>" for the robot to carry.
-    Click on the checkbox if you wish that number to be unlimited.
+<div id="dialog-form2" title="Donner des objets à Reeborg" style="display:none;">
+  <p>Choisissez un nombre de
+    <code><span id="give-object-name">object</span></code> que Reeborg aura en
+    sa possession au début du programme.
+    Cliquez sur la case à cocher si vous voulez un nombre illimité.
     </p>
   <form>
     <fieldset>
-      <label for="input-give-number">Number of objects:
+      <label for="input-give-number"><code>Nombre d'objets</code>:
         <input type="number" name="input-give-number" id="input-give-number" min="0" value="1">
       </label><br>
       <label for="unlimited-number">
         <input type="checkbox" name="unlimited-number" id="unlimited-number">
-            Unlimited </label>
+            Nombre illimité </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
   </form>
 </div>
 
-<div id="dialog-form3" title="Set goal number for object" style="display:none;">
-  <p>Choose a number of
-    "<span id="goal-object-name">object</span>" to use as a goal.
-    Click on the checkbox if you wish that number to be equal to the
-    total number of such objects found in the world at the beginning.
+<div id="dialog-form3" title="Nombre d'objets désirés" style="display:none;">
+  <p>Choisissez un nombre pour
+    <code><span id="goal-object-name">object</span></code> utilisé comme but.
+    Cliquez sur la case à cocher si vous désirez que le nombre d'objet soit égal
+    au nombre total d'objet de ce genre présent dans le monde au tout début.
     </p>
   <form>
     <fieldset>
-      <label for="input-goal-number">Number of objects:
+      <label for="input-goal-number"><code>Nombre d'objets</code>:
         <input type="number" name="input-goal-number" id="input-goal-number" min="0" value="1"></label>
       <br>
       <label for="all-objects">
         <input type="checkbox" name="all-objects" id="all-objects">
-      All such objects </label>
+      Tous les objets de ce genre </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
   </form>
 </div>
 
-<div id="dialog-form4" title="Set the world's dimensions" style="display:none;">
-  <p>If so desired, you can set the size of the world to be different from the
-    default dimensions.  Please remember that smaller resolution screen may not
-    be able to display very large worlds.
+<div id="dialog-form4" title="Dimensions du monde" style="display:none;">
+    <p>Vous pouvez changer les dimensions (hauteur et largeur) du
+    monde. Rappelez-vous que les mondes très grands pourraient être difficile à
+    visualiser sur des écrans plus petits.
     </p>
   <form>
     <fieldset>
-      <label for="input-max-x">Maximum x value:
+      <label for="input-max-x"><code>Valeur maximale pour "x"</code>:
         <input type="number" name="input-max-x" id="input-max-x" min="1" value="14"></label>
       <br>
-      <label for="input-max-y">Maximum y value:
+      <label for="input-max-y"><code>Valeur maximale pour "y"</code>:
         <input type="number" name="input-max-y" id="input-max-y" min="1" value="12"></label>
       <br>
       <label for="use-small-tiles">
       <input type="checkbox" name="use-small-tiles" id="use-small-tiles">
-      Use small tiles</label>
+      Utilisez une petite grille</label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
