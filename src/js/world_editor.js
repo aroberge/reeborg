@@ -58,77 +58,77 @@ RUR.we.edit_world = function  () {
 
 RUR.we.select = function (choice) {
     "use strict";
-    var value;
+    var value, split, root;
+    RUR.we.edit_world_flag = choice;
+    split = choice.split("-");
+    root = split[0];
+    value = split[1];
     $(".edit-world-canvas").hide();
     $(".edit-goal-canvas").hide();
     $("#edit-goal-position").hide();
     $("#edit-world-objects").hide();
     $(".not-for-robot").hide();
-    RUR.we.edit_world_flag = choice;
-    switch (choice) {
-        case "robot-place":
-            $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
+    switch (root) {
+        case "robot":
+            switch (value) {
+            case "place":
+                $("#cmd-result").html(RUR.translate("Click on world to move robot.")).effect("highlight", {color: "gold"}, 1500);
+                break;
+            case "add":
+                $("#cmd-result").html(RUR.translate("Added robot.")).effect("highlight", {color: "gold"}, 1500);
+                RUR.we.add_robot();
+                RUR.we.edit_world();
+                RUR.we.change_edit_robot_menu();
+                break;
+            case "orientation":
+                $("#cmd-result").html(RUR.translate("Click on image to turn robot")).effect("highlight", {color: "gold"}, 1500);
+                $("#edit-world-turn").show();
+                $("#random-orientation").show();
+                break;
+            case "objects":
+                RUR.we.__give_to_robot = true;
+                $("#edit-world-objects").show();
+                $(".not-for-robot").hide();
+                $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
+                break;
+            }
             break;
-        case "robot-add":
-            $("#cmd-result").html(RUR.translate("Added robot.")).effect("highlight", {color: "gold"}, 1500);
-            RUR.we.add_robot();
-            RUR.we.edit_world();
-            RUR.we.change_edit_robot_menu();
-            break;
-        case "robot-orientation":
-            $("#cmd-result").html(RUR.translate("Click on image to turn robot")).effect("highlight", {color: "gold"}, 1500);
-            $("#edit-world-turn").show();
-            $("#random-orientation").show();
-            break;
-        case "robot-objects":
-            RUR.we.__give_to_robot = true;
-            $("#edit-world-objects").show();
-            $(".not-for-robot").hide();
-            $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "decorative-objects":
+        case "decorative":
             RUR.we.decorative_objects = true;
             $("#edit-world-objects").show();
             RUR.we.__give_to_robot = false;
             $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "background-image":
+        case "background":
             RUR.we.get_background_image();
             break;
-        case "world-objects":
-            RUR.we.decorative_objects = false;
-            $("#edit-world-objects").show();
-            $(".not-for-robot").show();  // box
-            RUR.we.__give_to_robot = false;
-            $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
+        case "world":
+            switch (value) {
+            case "objects":
+                RUR.we.decorative_objects = false;
+                $("#edit-world-objects").show();
+                $(".not-for-robot").show();  // box
+                RUR.we.__give_to_robot = false;
+                $("#cmd-result").html(RUR.translate("Click on desired object below.")).effect("highlight", {color: "gold"}, 1500);
+                break;
+            case "tiles":
+                $("#edit-tile").show();
+                $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
+                break;
+            case "fill_tiles":
+                $("#fill-tile").show();
+                $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
+                break;
+            case "toptiles":
+                $("#edit-top-tile").show();
+                $("#cmd-result").html(RUR.translate("Click on desired top tile below.")).effect("highlight", {color: "gold"}, 1500);
+                break;
+            case "walls":
+                $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);
+                break;
+            }
             break;
-        case "world-tiles":
-            $("#edit-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "world-fill-tiles":
-            $("#fill-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on desired tile below.")).effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "world-toptiles":
-            $("#edit-top-tile").show();
-            $("#cmd-result").html(RUR.translate("Click on desired top tile below.")).effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "object-token":
-        case "object-star":
-        case "object-triangle":
-        case "object-square":
-        case "object-strawberry":
-        case "object-banana":
-        case "object-apple":
-        case "object-orange":
-        case "object-leaf":
-        case "object-dandelion":
-        case "object-carrot":
-        case "object-tulip":
-        case "object-daisy":
-        case "object-box":
-            value = choice.substring(7);
+        case "object":
             $("#edit-world-objects").show();
             if (RUR.we.__give_to_robot) {
                 $(".not-for-robot").hide();
@@ -145,81 +145,46 @@ RUR.we.select = function (choice) {
                 }
             }
             break;
-        case "tile-mud":
-        case "tile-water":
-        case "tile-ice":
-        case "tile-gravel":
-        case "tile-grass":
-        case "tile-pale_grass":
-        case "tile-bricks":
-            value = choice.substring(5);
+        case "tile":
             $("#edit-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "fill-mud":
-        case "fill-water":
-        case "fill-ice":
-        case "fill-gravel":
-        case "fill-grass":
-        case "fill-pale_grass":
-        case "fill-bricks":
-            value = choice.substring(5);
+        case "fill":
             $("#fill-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to fill with given tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "toptile-bridge":
-        case "toptile-fence_right":
-        case "toptile-fence_left":
-        case "toptile-fence_double":
-        case "toptile-fence_vertical":
-            value = choice.substring(8);
+        case "toptile":
             $("#edit-top-tile").show();
             $("#cmd-result").html(RUR.translate("Click on world to toggle top tile.").supplant({tile: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "world-walls":
-            $("#cmd-result").html(RUR.translate("Click on world to toggle walls.")).effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "goal-robot":
-            $("#edit-goal-position").show();
-            $("#cmd-result").html(RUR.translate("Click on image desired to indicate the final position of the robot.")).effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "position-green_home_tile":
-        case "position-house":
-        case "position-racing_flag":
+        case "position":
             $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
             break;
-        case "goal-wall":
-            $("#cmd-result").html(RUR.translate("Click on world to toggle additional walls to build.")).effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "goal-objects":
-            $("#edit-goal-objects").show();
-            $("#cmd-result").html(RUR.translate("Click on desired goal object below.")).effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "goal-token":
-        case "goal-star":
-        case "goal-triangle":
-        case "goal-square":
-        case "goal-strawberry":
-        case "goal-banana":
-        case "goal-apple":
-        case "goal-orange":
-        case "goal-leaf":
-        case "goal-dandelion":
-        case "goal-carrot":
-        case "goal-tulip":
-        case "goal-daisy":
-        case "goal-box":
-            value = choice.substring(5);
-            $("#edit-goal-objects").show();
-            if (value == "box"){
-            $("#cmd-result").html(RUR.translate("Click on world to set number of single goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
-            } else {
-            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+        case "goal":
+            switch (value) {
+            case "robot":
+                $("#edit-goal-position").show();
+                $("#cmd-result").html(RUR.translate("Click on image desired to indicate the final position of the robot.")).effect("highlight", {color: "gold"}, 1500);
+                break;
+            case "wall":
+                $("#cmd-result").html(RUR.translate("Click on world to toggle additional walls to build.")).effect("highlight", {color: "gold"}, 1500);
+                break;
+            case "objects":
+                $("#edit-goal-objects").show();
+                $("#cmd-result").html(RUR.translate("Click on desired goal object below.")).effect("highlight", {color: "gold"}, 1500);
+                break;
+            default:
+                $("#edit-goal-objects").show();
+                if (value == "box"){
+                $("#cmd-result").html(RUR.translate("Click on world to set number of single goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                } else {
+                $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                }
+                $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+                break;
             }
-
-            $("#cmd-result").html(RUR.translate("Click on world to set number of goal objects.").supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
-            break;
-        case "set-dimensions":
+        break;
+        case "set":
             RUR.cd.dialog_set_dimensions.dialog('open');
             break;
     }
