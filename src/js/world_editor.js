@@ -254,6 +254,12 @@ RUR.we.set_extra_code = function () {
     } catch(e) {
         description_editor.setValue("<!-- description -->");
     }
+    try {
+        onload_editor.setValue(RUR.current_world.onload);
+    } catch(e) {
+        onload_editor.setValue("/* Javascript */");
+    }
+
     if (RUR.current_world.editor) {
         editor.setValue(RUR.current_world.editor);
     }
@@ -266,6 +272,7 @@ RUR.we.update_extra_code = function () {
     RUR.current_world.pre_code = pre_code_editor.getValue();
     RUR.current_world.post_code = post_code_editor.getValue();
     RUR.current_world.description = description_editor.getValue();
+    RUR.current_world.onload = onload_editor.getValue();
     if ($('#save_editor')[0].checked) {
         RUR.current_world.editor = editor.getValue();
     } else {

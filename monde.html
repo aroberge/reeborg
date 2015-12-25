@@ -203,6 +203,7 @@
       <li><a id="pre-code-link" href="#pre-code-div">Pre</a></li>
       <li><a id="post-code-link" href="#post-code-div">Post</a></li>
       <li><a id="description-link" href="#description-div">Desc.</a></li>
+      <li><a id="onload-editor-link" href="#onload-editor-div">onload</a></li>
 
       <button id="watch_variables_btn" class="blue-gradient float-right" title="observe variables" onclick="RUR.ui.watch_variables()">
           <img src="/src/images/magnifying_yes.png" alt="observe">
@@ -238,6 +239,10 @@
     <div id="description-div">
       <textarea id="description" name="description"><!-- description --></textarea>
     </div>
+    <div id="onload-editor-div">
+      <textarea id="onload-editor" name="onload-editor">/*  Javascript code */</textarea>
+    </div>
+
   </div>
   <div id="highlight-impossible" style="display:none; background-color:gold;">
     Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le
@@ -479,6 +484,19 @@ window.RUR._python_loaded = True
       Tab: betterTab,
     "Shift-Tab": shiftTab
     });
+
+var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-editor'), {
+  mode:  {name: "javascript"},
+  tabMode: 'indent',
+  lineNumbers: true,
+  theme: 'reeborg-dark',
+  indentUnit: 4,
+  viewportMargin: Infinity
+});
+ onload_editor.setOption("extraKeys", {
+    Tab: betterTab,
+  "Shift-Tab": shiftTab
+  });
 
 </script>
 

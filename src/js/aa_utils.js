@@ -85,6 +85,7 @@ RUR.reset_programming_language = function(choice){
     $("#pre-code-link").parent().hide();
     $("#post-code-link").parent().hide();
     $("#description-link").parent().hide();
+    $("#onload-editor-link").parent().hide();
     $("#python_choices").hide();
     $("#javascript_choices").hide();
     $("#special-keyboard-button").show();
@@ -100,7 +101,6 @@ RUR.reset_programming_language = function(choice){
             editor.setOption("mode", {name: "python", version: 3});
             pre_code_editor.setOption("mode", {name: "python", version: 3});
             post_code_editor.setOption("mode", {name: "python", version: 3});
-            library.setOption("mode", {name: "python", version: 3});
             // show language specific
             $("#library-tab").parent().show();
             $("#python-additional-menu p button").removeAttr("disabled");
@@ -133,6 +133,7 @@ RUR.reset_programming_language = function(choice){
         $("#pre-code-link").parent().show();
         $("#post-code-link").parent().show();
         $("#description-link").parent().show();
+        $("#onload-editor-link").parent().show();        
     }
 };
 

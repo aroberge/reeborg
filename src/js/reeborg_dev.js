@@ -85,6 +85,7 @@ RUR.reset_programming_language = function(choice){
     $("#pre-code-link").parent().hide();
     $("#post-code-link").parent().hide();
     $("#description-link").parent().hide();
+    $("#onload-editor-link").parent().hide();
     $("#python_choices").hide();
     $("#javascript_choices").hide();
     $("#special-keyboard-button").show();
@@ -100,7 +101,6 @@ RUR.reset_programming_language = function(choice){
             editor.setOption("mode", {name: "python", version: 3});
             pre_code_editor.setOption("mode", {name: "python", version: 3});
             post_code_editor.setOption("mode", {name: "python", version: 3});
-            library.setOption("mode", {name: "python", version: 3});
             // show language specific
             $("#library-tab").parent().show();
             $("#python-additional-menu p button").removeAttr("disabled");
@@ -133,6 +133,7 @@ RUR.reset_programming_language = function(choice){
         $("#pre-code-link").parent().show();
         $("#post-code-link").parent().show();
         $("#description-link").parent().show();
+        $("#onload-editor-link").parent().show();        
     }
 };
 
@@ -4363,6 +4364,10 @@ RUR.world.import_world = function (json_string) {
         RUR.background_image.src = '';
     }
 
+    if (RUR.current_world.onload !== undefined) {
+        eval(RUR.current_world.onload);  // jshint ignore:line
+    }
+
     RUR.current_world.small_tiles = RUR.current_world.small_tiles || false;
     RUR.current_world.rows = RUR.current_world.rows || RUR.MAX_Y;
     RUR.current_world.cols = RUR.current_world.cols || RUR.MAX_X;
@@ -4668,6 +4673,12 @@ RUR.we.set_extra_code = function () {
     } catch(e) {
         description_editor.setValue("<!-- description -->");
     }
+    try {
+        onload_editor.setValue(RUR.current_world.onload);
+    } catch(e) {
+        onload_editor.setValue("/* Javascript */");
+    }
+
     if (RUR.current_world.editor) {
         editor.setValue(RUR.current_world.editor);
     }
@@ -4680,6 +4691,7 @@ RUR.we.update_extra_code = function () {
     RUR.current_world.pre_code = pre_code_editor.getValue();
     RUR.current_world.post_code = post_code_editor.getValue();
     RUR.current_world.description = description_editor.getValue();
+    RUR.current_world.onload = onload_editor.getValue();
     if ($('#save_editor')[0].checked) {
         RUR.current_world.editor = editor.getValue();
     } else {
@@ -6449,6 +6461,7 @@ RUR.zz_dr_editor_ui = function () {
                 pre_code_editor.refresh();
                 post_code_editor.refresh();
                 description_editor.refresh();
+                onload_editor.refresh();
             }
     });
 
@@ -6459,6 +6472,7 @@ RUR.zz_dr_editor_ui = function () {
             pre_code_editor.setSize(null, $(this).height()-40);
             post_code_editor.setSize(null, $(this).height()-40);
             description_editor.setSize(null, $(this).height()-40);
+            onload_editor.setSize(null, $(this).height()-40);
         }
     }).draggable({cursor: "move", handle: "ul"});
 };

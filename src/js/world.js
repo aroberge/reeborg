@@ -71,6 +71,10 @@ RUR.world.import_world = function (json_string) {
         RUR.background_image.src = '';
     }
 
+    if (RUR.current_world.onload !== undefined) {
+        eval(RUR.current_world.onload);  // jshint ignore:line
+    }
+
     RUR.current_world.small_tiles = RUR.current_world.small_tiles || false;
     RUR.current_world.rows = RUR.current_world.rows || RUR.MAX_Y;
     RUR.current_world.cols = RUR.current_world.cols || RUR.MAX_X;
