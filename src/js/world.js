@@ -31,7 +31,8 @@ RUR.world.export_world = function () {
 };
 
 RUR.world.import_world = function (json_string) {
-    var body;
+    "use strict";
+    var body, editor_content, library_content;
     if (json_string === undefined){
         console.log("Problem: no argument passed to RUR.world.import_world");
         return {};
@@ -71,7 +72,8 @@ RUR.world.import_world = function (json_string) {
         RUR.background_image.src = '';
     }
 
-    if (RUR.current_world.onload !== undefined) {
+    if (RUR.current_world.onload !== undefined &&
+        RUR.current_world.onload != "/* Javascript */") {
         eval(RUR.current_world.onload);  // jshint ignore:line
     }
 

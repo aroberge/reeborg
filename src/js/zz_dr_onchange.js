@@ -9,6 +9,10 @@ RUR.zz_dr_onchange = function () {
     });
 
     $("#select_world").change(function() {
+        if (RUR.storage.appending_world_name_flag){
+            RUR.storage.appending_world_name_flag = false;
+            return;
+        }
         if ($(this).val() !== null) {
             RUR.file_io.load_world_file($(this).val());
         }

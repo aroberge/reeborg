@@ -39,7 +39,7 @@ $(document).ready(function() {
     // check if this is needed or does conflict with MakeCustomMenu
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
-
+    RUR.cd.create_custom_dialogs();
     RUR.zz_dr_dialogs();
     RUR.zz_dr_onclick();
     RUR.zz_dr_onchange();

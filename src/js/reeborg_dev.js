@@ -1059,7 +1059,7 @@ RUR.cd.show_feedback = function (element, content) {
 };
 
 
-$(document).ready(function() {
+RUR.cd.create_custom_dialogs = function() {
 
     RUR.cd.input_add_number = $("#input-add-number");
     RUR.cd.maximum_number = $("#maximum-number");
@@ -1070,7 +1070,6 @@ $(document).ready(function() {
     RUR.cd.input_max_x = $("#input-max-x");
     RUR.cd.input_max_y = $("#input-max-y");
     RUR.cd.use_small_tiles = $("#use-small-tiles");
-
 
     RUR.cd.add_objects = function () {
         "use strict";
@@ -1135,7 +1134,6 @@ $(document).ready(function() {
         RUR.cd.dialog_set_dimensions.dialog("close");
         return true;
     };
-
 
     RUR.cd.dialog_add_object = $("#dialog-form").dialog({
         autoOpen: false,
@@ -1221,8 +1219,7 @@ $(document).ready(function() {
         event.preventDefault();
         RUR.cd.set_dimensions();
     });
-
-});
+};
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -1484,10 +1481,21 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     }
 };
 
+RUR.file_io.last_url_loaded = undefined;
+RUR.file_io.last_shortname_loaded = undefined;
+
 RUR.file_io.load_world_file = function (url, shortname) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
     var data;
+
+    if (RUR.file_io.last_url_loaded == url &&
+        RUR.file_io.last_shortname_loaded == shortname) {
+            return;
+    } else {
+        RUR.file_io.last_url_loaded = url;
+        RUR.file_io.last_shortname_loaded = shortname;
+    }
 
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
@@ -2964,6 +2972,7 @@ RUR.storage = {};
 
 RUR.storage.memorize_world = function () {
     var existing_names, i, key, response;
+    console.log("memorize_world called");
     existing_names = ' [';
 
     for (i = 0; i <= localStorage.length - 1; i++) {
@@ -3004,6 +3013,7 @@ RUR.storage.save_world = function (name){
 RUR.storage.append_world_name = function (name){
     "use strict";
     var url = "user_world:"+ name;
+    RUR.storage.appending_world_name_flag = true;
     RUR.world_select.append_world({url:url, shortname:name, local_storage:true});
     RUR.world_select.set_url(url);  // reload as updating select choices blanks the world.
 
@@ -4324,7 +4334,8 @@ RUR.world.export_world = function () {
 };
 
 RUR.world.import_world = function (json_string) {
-    var body;
+    "use strict";
+    var body, editor_content, library_content;
     if (json_string === undefined){
         console.log("Problem: no argument passed to RUR.world.import_world");
         return {};
@@ -4364,7 +4375,8 @@ RUR.world.import_world = function (json_string) {
         RUR.background_image.src = '';
     }
 
-    if (RUR.current_world.onload !== undefined) {
+    if (RUR.current_world.onload !== undefined &&
+        RUR.current_world.onload != "/* Javascript */") {
         eval(RUR.current_world.onload);  // jshint ignore:line
     }
 
@@ -4639,8 +4651,11 @@ function toggle_editing_mode () {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
-
+        console.log("ready to compare old and new");
+        console.log("new = ", RUR.current_world);
+        console.log("old = ", RUR.world.saved_world);
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
+            console.log("worlds not identical.");
             $("#memorize-world").trigger('click');
         }
         $("#editor-tab").trigger('click');
@@ -4658,6 +4673,8 @@ function toggle_editing_mode () {
 }
 
 RUR.we.set_extra_code = function () {
+    "use strict";
+    var response;
     try {
         pre_code_editor.setValue(RUR.current_world.pre_code);
     } catch(e) {
@@ -4673,33 +4690,53 @@ RUR.we.set_extra_code = function () {
     } catch(e) {
         description_editor.setValue("<!-- description -->");
     }
-    try {
-        onload_editor.setValue(RUR.current_world.onload);
-    } catch(e) {
-        onload_editor.setValue("/* Javascript */");
+    if (RUR.current_world.onload) {
+        try {
+            onload_editor.setValue(RUR.current_world.onload);
+        } catch(e) {
+            onload_editor.setValue("/* Javascript */");
+        }
     }
-
     if (RUR.current_world.editor) {
-        editor.setValue(RUR.current_world.editor);
+        if (editor.getValue() != RUR.current_world.editor) {
+            response = confirm(RUR.translate("Replace editor content"));
+            if (response) {
+                try {
+                    editor.setValue(RUR.current_world.editor);
+                } catch(e) {}
+            }
+        }
     }
     if (RUR.current_world.library) {
-        library.setValue(RUR.current_world.library);
+        if (library.getValue() != RUR.current_world.library) {
+            response = confirm(RUR.translate("Replace library content"));
+            if (response) {
+                try {
+                    library.setValue(RUR.current_world.library);
+                } catch(e) {}
+            }
+        }
     }
 };
 
 RUR.we.update_extra_code = function () {
+    console.log("update_extra_code called");
     RUR.current_world.pre_code = pre_code_editor.getValue();
     RUR.current_world.post_code = post_code_editor.getValue();
     RUR.current_world.description = description_editor.getValue();
     RUR.current_world.onload = onload_editor.getValue();
     if ($('#save_editor')[0].checked) {
+        console.log("saving editor content");
         RUR.current_world.editor = editor.getValue();
     } else {
+        console.log("no editor content");
         RUR.current_world.editor = null;
     }
     if ($('#save_library')[0].checked) {
+        console.log("saving library content");
         RUR.current_world.library = library.getValue();
     } else {
+        console.log("no library content");
         RUR.current_world.library = null;
     }
 };
@@ -5664,7 +5701,7 @@ $(document).ready(function() {
     // check if this is needed or does conflict with MakeCustomMenu
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
-
+    RUR.cd.create_custom_dialogs();
     RUR.zz_dr_dialogs();
     RUR.zz_dr_onclick();
     RUR.zz_dr_onchange();
@@ -6487,6 +6524,10 @@ RUR.zz_dr_onchange = function () {
     });
 
     $("#select_world").change(function() {
+        if (RUR.storage.appending_world_name_flag){
+            RUR.storage.appending_world_name_flag = false;
+            return;
+        }
         if ($(this).val() !== null) {
             RUR.file_io.load_world_file($(this).val());
         }

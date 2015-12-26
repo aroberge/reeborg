@@ -9,6 +9,7 @@ RUR.storage = {};
 
 RUR.storage.memorize_world = function () {
     var existing_names, i, key, response;
+    console.log("memorize_world called");
     existing_names = ' [';
 
     for (i = 0; i <= localStorage.length - 1; i++) {
@@ -18,7 +19,7 @@ RUR.storage.memorize_world = function () {
         }
     }
     existing_names += "]";
-    response = prompt(RUR.translate("Enter world name to save") + existing_names);
+    response = window.prompt(RUR.translate("Enter world name to save") + existing_names);
     if (response !== null) {
         RUR.storage._save_world(response.trim());
         $('#delete-world').show();
@@ -49,6 +50,7 @@ RUR.storage.save_world = function (name){
 RUR.storage.append_world_name = function (name){
     "use strict";
     var url = "user_world:"+ name;
+    RUR.storage.appending_world_name_flag = true;
     RUR.world_select.append_world({url:url, shortname:name, local_storage:true});
     RUR.world_select.set_url(url);  // reload as updating select choices blanks the world.
 
@@ -92,7 +94,7 @@ RUR.storage.remove_world = function () {
         }
     }
     existing_names += "]";
-    response = prompt(RUR.translate("Enter world name to delete") + existing_names);
+    response = window.prompt(RUR.translate("Enter world name to delete") + existing_names);
     if (response !== null) {
         RUR.storage.delete_world(response.trim());
     }

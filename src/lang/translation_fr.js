@@ -137,6 +137,9 @@ RUR.translation["The final position of the robot must be (x, y) = "] = "La posit
 RUR.translation["Click on world to fill with given tile."] = "Cliquez sur le monde pour remplir avec cet objet.";
 RUR.translation["Click on desired top tile below."] = "Cliquez sur l'image de fond désirée.";
 RUR.translation["Enter url of image to use as background."] = "Fournir l'adresse (URL) de l'image à utiliser.";
+RUR.translation["Replace editor content"] = "Voulez-vous remplacer le contenu du code de votre éditeur par celui défini par le créateur du monde?";
+RUR.translation["Replace library content"] = "Voulez-vous remplacer le contenu du code de votre biliothèque par celui défini par le créateur du monde?";
+
 
 // in storage.js
 RUR.translation["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";

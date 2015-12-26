@@ -8,7 +8,7 @@ RUR.cd.show_feedback = function (element, content) {
 };
 
 
-$(document).ready(function() {
+RUR.cd.create_custom_dialogs = function() {
 
     RUR.cd.input_add_number = $("#input-add-number");
     RUR.cd.maximum_number = $("#maximum-number");
@@ -19,7 +19,6 @@ $(document).ready(function() {
     RUR.cd.input_max_x = $("#input-max-x");
     RUR.cd.input_max_y = $("#input-max-y");
     RUR.cd.use_small_tiles = $("#use-small-tiles");
-
 
     RUR.cd.add_objects = function () {
         "use strict";
@@ -84,7 +83,6 @@ $(document).ready(function() {
         RUR.cd.dialog_set_dimensions.dialog("close");
         return true;
     };
-
 
     RUR.cd.dialog_add_object = $("#dialog-form").dialog({
         autoOpen: false,
@@ -170,5 +168,4 @@ $(document).ready(function() {
         event.preventDefault();
         RUR.cd.set_dimensions();
     });
-
-});
+};

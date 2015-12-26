@@ -220,8 +220,11 @@ function toggle_editing_mode () {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
-
+        console.log("ready to compare old and new");
+        console.log("new = ", RUR.current_world);
+        console.log("old = ", RUR.world.saved_world);
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
+            console.log("worlds not identical.");
             $("#memorize-world").trigger('click');
         }
         $("#editor-tab").trigger('click');
@@ -239,6 +242,8 @@ function toggle_editing_mode () {
 }
 
 RUR.we.set_extra_code = function () {
+    "use strict";
+    var response;
     try {
         pre_code_editor.setValue(RUR.current_world.pre_code);
     } catch(e) {
@@ -254,33 +259,53 @@ RUR.we.set_extra_code = function () {
     } catch(e) {
         description_editor.setValue("<!-- description -->");
     }
-    try {
-        onload_editor.setValue(RUR.current_world.onload);
-    } catch(e) {
-        onload_editor.setValue("/* Javascript */");
+    if (RUR.current_world.onload) {
+        try {
+            onload_editor.setValue(RUR.current_world.onload);
+        } catch(e) {
+            onload_editor.setValue("/* Javascript */");
+        }
     }
-
     if (RUR.current_world.editor) {
-        editor.setValue(RUR.current_world.editor);
+        if (editor.getValue() != RUR.current_world.editor) {
+            response = confirm(RUR.translate("Replace editor content"));
+            if (response) {
+                try {
+                    editor.setValue(RUR.current_world.editor);
+                } catch(e) {}
+            }
+        }
     }
     if (RUR.current_world.library) {
-        library.setValue(RUR.current_world.library);
+        if (library.getValue() != RUR.current_world.library) {
+            response = confirm(RUR.translate("Replace library content"));
+            if (response) {
+                try {
+                    library.setValue(RUR.current_world.library);
+                } catch(e) {}
+            }
+        }
     }
 };
 
 RUR.we.update_extra_code = function () {
+    console.log("update_extra_code called");
     RUR.current_world.pre_code = pre_code_editor.getValue();
     RUR.current_world.post_code = post_code_editor.getValue();
     RUR.current_world.description = description_editor.getValue();
     RUR.current_world.onload = onload_editor.getValue();
     if ($('#save_editor')[0].checked) {
+        console.log("saving editor content");
         RUR.current_world.editor = editor.getValue();
     } else {
+        console.log("no editor content");
         RUR.current_world.editor = null;
     }
     if ($('#save_library')[0].checked) {
+        console.log("saving library content");
         RUR.current_world.library = library.getValue();
     } else {
+        console.log("no library content");
         RUR.current_world.library = null;
     }
 };
