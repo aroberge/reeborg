@@ -48,6 +48,9 @@ RUR.translation_to_english["triangle"] = "triangle";
 RUR.translation["tulip"] = "tulip";
 RUR.translation_to_english["tulip"] = "tulip";
 
+// in world.js
+RUR.translation["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
+
 // in rur_utils.js
 RUR.translation["# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n"] =
     "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";

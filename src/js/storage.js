@@ -22,6 +22,7 @@ RUR.storage.memorize_world = function () {
     response = window.prompt(RUR.translate("Enter world name to save") + existing_names);
     if (response !== null) {
         RUR.storage._save_world(response.trim());
+        RUR.world.saved_world = RUR.world.clone_world();
         $('#delete-world').show();
     }
 };

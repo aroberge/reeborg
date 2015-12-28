@@ -115,4 +115,25 @@ RUR.zz_dr_onclick = function () {
         }
         RUR.we.show_world_info();
     });
+
+    $("#add_editor_to_world").on("click", function(evt) {
+        if ($(this).prop("checked")) {
+            console.log("saving editor content");
+            RUR.current_world.editor = editor.getValue();
+        } else {
+            console.log("no editor content");
+            RUR.current_world.editor = null;
+        }
+    });
+
+    $("#add_library_to_world").on("click", function(evt) {
+        if ($(this).prop("checked")) {
+            console.log("saving library content");
+            RUR.current_world.library = library.getValue();
+        } else {
+            console.log("no library content");
+            RUR.current_world.library = null;
+        }
+    });
+
 };

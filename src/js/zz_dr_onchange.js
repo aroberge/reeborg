@@ -21,6 +21,7 @@ RUR.zz_dr_onchange = function () {
         } catch (e) {}
     });
 
+
     $("#python_choices").change(function() {
         if($(this).val() == "editor") {
             show_python_editor();

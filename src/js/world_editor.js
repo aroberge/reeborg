@@ -215,7 +215,7 @@ function toggle_editing_mode () {
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
-        RUR.we.update_extra_code();
+        RUR.world.editors_update_extra_code();
         try {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
@@ -234,82 +234,12 @@ function toggle_editing_mode () {
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();
-        RUR.we.set_extra_code();
+        RUR.world.editors_set_default_values();
         $("#highlight").hide();
         $("#watch_variables_btn").hide();
     }
     RUR.reset_programming_language(RUR.settings.current_language);
 }
-
-RUR.we.set_extra_code = function () {
-    "use strict";
-    var response;
-    try {
-        pre_code_editor.setValue(RUR.current_world.pre_code);
-    } catch(e) {
-        pre_code_editor.setValue("'pre-code'");
-    }
-    try  {
-        post_code_editor.setValue(RUR.current_world.post_code);
-    } catch (e) {
-        post_code_editor.setValue("'post-code'");
-    }
-    try {
-        description_editor.setValue(RUR.current_world.description);
-    } catch(e) {
-        description_editor.setValue("<!-- description -->");
-    }
-    if (RUR.current_world.onload) {
-        try {
-            onload_editor.setValue(RUR.current_world.onload);
-        } catch(e) {
-            onload_editor.setValue("/* Javascript */");
-        }
-    }
-    if (RUR.current_world.editor) {
-        if (editor.getValue() != RUR.current_world.editor) {
-            response = confirm(RUR.translate("Replace editor content"));
-            if (response) {
-                try {
-                    editor.setValue(RUR.current_world.editor);
-                } catch(e) {}
-            }
-        }
-    }
-    if (RUR.current_world.library) {
-        if (library.getValue() != RUR.current_world.library) {
-            response = confirm(RUR.translate("Replace library content"));
-            if (response) {
-                try {
-                    library.setValue(RUR.current_world.library);
-                } catch(e) {}
-            }
-        }
-    }
-};
-
-RUR.we.update_extra_code = function () {
-    console.log("update_extra_code called");
-    RUR.current_world.pre_code = pre_code_editor.getValue();
-    RUR.current_world.post_code = post_code_editor.getValue();
-    RUR.current_world.description = description_editor.getValue();
-    RUR.current_world.onload = onload_editor.getValue();
-    if ($('#save_editor')[0].checked) {
-        console.log("saving editor content");
-        RUR.current_world.editor = editor.getValue();
-    } else {
-        console.log("no editor content");
-        RUR.current_world.editor = null;
-    }
-    if ($('#save_library')[0].checked) {
-        console.log("saving library content");
-        RUR.current_world.library = library.getValue();
-    } else {
-        console.log("no library content");
-        RUR.current_world.library = null;
-    }
-};
-
 
 RUR.we.refresh_world_edited = function () {
     RUR.vis_world.draw_all();
