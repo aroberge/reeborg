@@ -253,7 +253,7 @@
     <p> <input type="checkbox" name="add_editor_to_world" value="add_editor_to_world" id="add_editor_to_world">Add editor content to world
         <input type="checkbox" name="add_library_to_world" value="add_library_to_world" id="add_library_to_world">Add library content to world
       <br>
-  <p><button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">닫기 [변경된 세계를 저장하기 위해 제공됩니다]</button>
+      <button class="blue-gradient" onclick="javascript:RUR.storage.memorize_world();">Save world in browser</button>
   <br>
     월드를 공유하고 싶다면 파일을 저장하세요 아니면, 퍼머링크를 사용해서 공유하세요
       <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a>.
@@ -786,6 +786,19 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
       <label for="use-small-tiles">
       <input type="checkbox" name="use-small-tiles" id="use-small-tiles">
       작은 타일 사용하기</label>
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
+<div id="dialog-form5" title="Save world in browser" style="display:none;">
+  <p id="existing-world-names"></p>
+  <form>
+    <fieldset>
+      <label for="world-name">Name:
+        <input type="text" name="world-name" id="world-name">
+      </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>

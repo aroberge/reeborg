@@ -10,16 +10,15 @@ RUR.storage = {};
 RUR.storage.memorize_world = function () {
     var existing_names, i, key, response;
 
-    if (localStorage.length > 0) {
-        existing_names = 'Existing names: ';
-    } else {
-        existing_names = '';
-    }
-
+    existing_names = '';
     for (i = 0; i <= localStorage.length - 1; i++) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
-            existing_names += key.substring(11) + ", ";
+            if (!existing_names) {
+                existing_names = "Existing names: " + key.substring(11);
+            } else {
+                existing_names += "," + key.substring(11);
+            }
         }
     }
 

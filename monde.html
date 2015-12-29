@@ -256,8 +256,7 @@
   <p>  <input type="checkbox" name="add_editor_to_world" value="add_editor_to_world" id="add_editor_to_world">Inclure le contenu de l'éditeur
     <input type="checkbox" name="add_library_to_world" value="add_library_to_world" id="add_library_to_world">Inclure le contenu de la bibliothèque
     <br>
-    <button class="blue-gradient" onclick="javascript:$('#edit-world-panel').dialog('close');">Fermer
-   [et offre de sauvegarder si le monde a changé]</button>
+   <button class="blue-gradient" onclick="javascript:RUR.storage.memorize_world();">Sauvegarder dans le navigateur</button>
   <br>
   Si vous désirez partager votre monde (et le défi correspondant) avec d'autres
         utilisateurs, sauvegardez-le dans un fichier ou, mieux encore, créez un permalien
@@ -807,6 +806,19 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
       <label for="use-small-tiles">
       <input type="checkbox" name="use-small-tiles" id="use-small-tiles">
       Utilisez une petite grille</label>
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
+<div id="dialog-form5" title="Save world in browser" style="display:none;">
+  <p id="existing-world-names"></p>
+  <form>
+    <fieldset>
+      <label for="world-name">Name:
+        <input type="text" name="world-name" id="world-name">
+      </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
