@@ -19,6 +19,7 @@ RUR.cd.create_custom_dialogs = function() {
     RUR.cd.input_max_x = $("#input-max-x");
     RUR.cd.input_max_y = $("#input-max-y");
     RUR.cd.use_small_tiles = $("#use-small-tiles");
+    RUR.cd.saved_world_name = $("#world-name");
 
     RUR.cd.add_objects = function () {
         "use strict";
@@ -70,7 +71,6 @@ RUR.cd.create_custom_dialogs = function() {
         return true;
     };
 
-
     RUR.cd.set_dimensions = function () {
         "use strict";
         var max_x, max_y;
@@ -82,6 +82,14 @@ RUR.cd.create_custom_dialogs = function() {
         RUR.vis_world.compute_world_geometry(max_x, max_y);
         RUR.cd.dialog_set_dimensions.dialog("close");
         return true;
+    };
+
+    RUR.cd.save_world = function () {
+        "use strict";
+        RUR.storage._save_world(RUR.cd.saved_world_name.val().trim());
+        RUR.world.saved_world = RUR.world.clone_world();
+        RUR.cd.dialog_save_world.dialog("close");
+        $('#delete-world').show();
     };
 
     RUR.cd.dialog_add_object = $("#dialog-form").dialog({
@@ -163,9 +171,29 @@ RUR.cd.create_custom_dialogs = function() {
             RUR.cd.set_dimensions_form[0].reset();
         }
     });
-
     RUR.cd.set_dimensions_form = RUR.cd.dialog_set_dimensions.find("form").on("submit", function( event ) {
         event.preventDefault();
         RUR.cd.set_dimensions();
     });
+
+    RUR.cd.dialog_save_world = $("#dialog-form5").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "OK": RUR.cd.save_world,
+            Cancel: function() {
+                RUR.cd.dialog_save_world.dialog("close");
+            }
+        },
+        close: function() {
+            RUR.cd.save_world_form[0].reset();
+        }
+    });
+    RUR.cd.save_world_form = RUR.cd.dialog_save_world.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        RUR.cd.save_world();
+    });
+
 };

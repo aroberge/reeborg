@@ -230,16 +230,16 @@
       </textarea>
     </div>
     <div id="pre-code-div">
-      <textarea id="pre-code" name="pre-code">'pre-code here'</textarea>
+      <textarea id="pre-code" name="pre-code"></textarea>
     </div>
     <div id="post-code-div">
-      <textarea id="post-code" name="post-code">'post-code here'</textarea>
+      <textarea id="post-code" name="post-code"></textarea>
     </div>
     <div id="description-div">
-      <textarea id="description" name="description"><!-- description --></textarea>
+      <textarea id="description" name="description"></textarea>
     </div>
     <div id="onload-editor-div">
-      <textarea id="onload-editor" name="onload-editor">/*  Javascript code */</textarea>
+      <textarea id="onload-editor" name="onload-editor"></textarea>
     </div>
   </div>
   <div id="highlight-impossible" style="display:none; background-color:gold;">
@@ -796,6 +796,19 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
       <label for="use-small-tiles">
       <input type="checkbox" name="use-small-tiles" id="use-small-tiles">
       Use small tiles</label>
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
+<div id="dialog-form5" title="Save world in browser" style="display:none;">
+  <p id="existing-world-names"></p>
+  <form>
+    <fieldset>
+      <label for="world-name">Name:
+        <input type="text" name="world-name" id="world-name">
+      </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>

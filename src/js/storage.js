@@ -9,8 +9,12 @@ RUR.storage = {};
 
 RUR.storage.memorize_world = function () {
     var existing_names, i, key, response;
-    console.log("memorize_world called");
-    existing_names = ' [';
+
+    if (localStorage.length > 0) {
+        existing_names = 'Existing names: ';
+    } else {
+        existing_names = '';
+    }
 
     for (i = 0; i <= localStorage.length - 1; i++) {
         key = localStorage.key(i);
@@ -18,13 +22,11 @@ RUR.storage.memorize_world = function () {
             existing_names += key.substring(11) + ", ";
         }
     }
-    existing_names += "]";
-    response = window.prompt(RUR.translate("Enter world name to save") + existing_names);
-    if (response !== null) {
-        RUR.storage._save_world(response.trim());
-        RUR.world.saved_world = RUR.world.clone_world();
-        $('#delete-world').show();
+
+    if (existing_names) {
+        $("#existing-world-names").html(existing_names);
     }
+    RUR.cd.dialog_save_world.dialog("open");
 };
 
 RUR.storage._save_world = function (name){

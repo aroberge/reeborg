@@ -1070,6 +1070,7 @@ RUR.cd.create_custom_dialogs = function() {
     RUR.cd.input_max_x = $("#input-max-x");
     RUR.cd.input_max_y = $("#input-max-y");
     RUR.cd.use_small_tiles = $("#use-small-tiles");
+    RUR.cd.saved_world_name = $("#world-name");
 
     RUR.cd.add_objects = function () {
         "use strict";
@@ -1121,7 +1122,6 @@ RUR.cd.create_custom_dialogs = function() {
         return true;
     };
 
-
     RUR.cd.set_dimensions = function () {
         "use strict";
         var max_x, max_y;
@@ -1133,6 +1133,14 @@ RUR.cd.create_custom_dialogs = function() {
         RUR.vis_world.compute_world_geometry(max_x, max_y);
         RUR.cd.dialog_set_dimensions.dialog("close");
         return true;
+    };
+
+    RUR.cd.save_world = function () {
+        "use strict";
+        RUR.storage._save_world(RUR.cd.saved_world_name.val().trim());
+        RUR.world.saved_world = RUR.world.clone_world();
+        RUR.cd.dialog_save_world.dialog("close");
+        $('#delete-world').show();
     };
 
     RUR.cd.dialog_add_object = $("#dialog-form").dialog({
@@ -1214,11 +1222,31 @@ RUR.cd.create_custom_dialogs = function() {
             RUR.cd.set_dimensions_form[0].reset();
         }
     });
-
     RUR.cd.set_dimensions_form = RUR.cd.dialog_set_dimensions.find("form").on("submit", function( event ) {
         event.preventDefault();
         RUR.cd.set_dimensions();
     });
+
+    RUR.cd.dialog_save_world = $("#dialog-form5").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "OK": RUR.cd.save_world,
+            Cancel: function() {
+                RUR.cd.dialog_save_world.dialog("close");
+            }
+        },
+        close: function() {
+            RUR.cd.save_world_form[0].reset();
+        }
+    });
+    RUR.cd.save_world_form = RUR.cd.dialog_save_world.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        RUR.cd.save_world();
+    });
+
 };
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
@@ -1401,41 +1429,6 @@ RUR.make_default_menu_fr = function () {
     ];
 
     RUR.custom_menu.make(contents);
-};
-RUR.editors = {};
-
-RUR.editors.default_values = { 'pre-code': 'pre-code', 'post-code': 'post-code',
-    'description': 'description', 'onload': '/* Javascript */' };
-
-/* When a world is edited, as we are about to leave the editing mode,
-   a comparison of the world before editing and after is performed.
-   If the content of the world before and after has changed, including that
-   of the editors, this is taken as an indication that the world should
-   perhaps be saved.  Some worlds are saved without having some content in
-   the extra editors (perhaps because they were created before new editors
-   were added, or since the new cleanup procedure was introduced). To avoid
-   erroneous indication that the world content has changed, we use the
-   set_default_values method and its counterpart remove_default_values.
-*/
-RUR.editors.set_default_values = function (world) {
-    "use strict";
-    var edit, editors;
-    editors = RUR.editors.default_values;
-    for (edit in editors){
-        if (!world[edit]){
-            world[edit] = editors[edit];
-        }
-    }
-};
-RUR.editors.remove_default_values = function (world) {
-    "use strict";
-    var edit, editors;
-    editors = RUR.editors.default_values;
-    for (edit in editors){
-        if (world[edit] == editors[edit]){
-            delete world[edit];
-        }
-    }
 };
 
 RUR.file_io = {};
@@ -3007,8 +3000,12 @@ RUR.storage = {};
 
 RUR.storage.memorize_world = function () {
     var existing_names, i, key, response;
-    console.log("memorize_world called");
-    existing_names = ' [';
+
+    if (localStorage.length > 0) {
+        existing_names = 'Existing names: ';
+    } else {
+        existing_names = '';
+    }
 
     for (i = 0; i <= localStorage.length - 1; i++) {
         key = localStorage.key(i);
@@ -3016,13 +3013,19 @@ RUR.storage.memorize_world = function () {
             existing_names += key.substring(11) + ", ";
         }
     }
-    existing_names += "]";
-    response = window.prompt(RUR.translate("Enter world name to save") + existing_names);
-    if (response !== null) {
-        RUR.storage._save_world(response.trim());
-        RUR.world.saved_world = RUR.world.clone_world();
-        $('#delete-world').show();
+
+    if (existing_names) {
+        $("#existing-world-names").html(existing_names);
     }
+    RUR.cd.dialog_save_world.dialog("open");
+
+    //
+    // response = window.prompt(RUR.translate("Enter world name to save") + existing_names);
+    // if (response !== null) {
+    //     RUR.storage._save_world(response.trim());
+    //     RUR.world.saved_world = RUR.world.clone_world();
+    //     $('#delete-world').show();
+    // }
 };
 
 RUR.storage._save_world = function (name){
@@ -4355,8 +4358,6 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.objects = {};
     // allow teacher to insert code to be run before and after the
     // code entered by the student
-    world.pre_code = '';
-    world.post_code = '';
     world.small_tiles = false;
     world.rows = RUR.MAX_Y;
     world.cols = RUR.MAX_X;
@@ -4390,7 +4391,7 @@ RUR.world.import_world = function (json_string) {
         RUR.current_world = json_string;
     }
 
-    RUR.we.set_extra_code();
+    console.log("imported world", RUR.current_world);
 
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
@@ -4426,12 +4427,15 @@ RUR.world.import_world = function (json_string) {
     RUR.current_world.cols = RUR.current_world.cols || RUR.MAX_X;
     RUR.vis_world.compute_world_geometry(RUR.current_world.cols, RUR.current_world.rows);
 
-    if(RUR.current_world.editor !== undefined){
-        $("#add_editor_to_world").prop("checked", true);
-    }
-    if(RUR.current_world.library !== undefined){
-        $("#add_library_to_world").prop("checked", true);
-    }
+    $("#add_editor_to_world").prop("checked",
+                                   RUR.current_world.editor !== undefined);
+    $("#add_library_to_world").prop("checked",
+                                    RUR.current_world.library !== undefined);
+
+    // clean up if necessary
+    console.log("cleaning up");
+    RUR.current_world = RUR.world.editors_remove_default_values(RUR.current_world);
+    console.log("world after cleaning up.", RUR.current_world);
 
     RUR.world.saved_world = RUR.world.clone_world();
     if (RUR.we.editing_world) {
@@ -4477,6 +4481,91 @@ RUR.world.remove_robots = function () {
         RUR.current_world.robots = [];
     }
 };
+
+/* When a world is edited, as we are about to leave the editing mode,
+   a comparison of the world before editing and after is performed.
+   If the content of the world before and after has changed, including that
+   of the editors, this is taken as an indication that the world should
+   perhaps be saved.  Some worlds are saved without having some content in
+   the extra editors (perhaps because they were created before new editors
+   were added, or since the new cleanup procedure was introduced). To avoid
+   erroneous indication that the world content has changed, we use the
+   following.
+*/
+RUR.world.editors_default_values = { 'pre_code': 'pre-code', 'post_code': 'post-code',
+    'description': 'description', 'onload': '/* Javascript */' };
+
+RUR.world.editors_set_default_values = function (world) {
+    "use strict";
+    var edit, editors;
+    editors = RUR.world.editors_default_values;
+    console.log("setting default values; world before", world);
+    for (edit in editors){
+        if (!world[edit]){
+            world[edit] = editors[edit];
+        }
+    }
+    console.log("setting default values; world after", world);
+    return world;
+
+};
+RUR.world.editors_remove_default_values = function (world) {
+    "use strict";
+    var edit, editors;
+    console.log("entering remove_default_values; world before:", world);
+    editors = RUR.world.editors_default_values;
+    for (edit in editors) {
+        if (world[edit] === undefined) {
+            console.log(edit, "-> undefined");
+            continue;
+        }
+        console.log("compare", edit, world[edit], editors[edit], world[edit] == editors[edit]);
+        console.log("trim.length ", world[edit].trim().length);
+        if (world[edit] == editors[edit] || world[edit].trim().length < 3) {
+            try {
+                delete world[edit];
+                console.log("deleted");
+            } catch (e) {}
+        }
+    }
+    console.log("about to leave remove_default_values; world =", world);
+    return world;
+};
+
+RUR.world.update_from_editors = function (world) {
+    /* When editing a world, new content may be inserted in the additional
+       editors.  This function updates the world to include this content,
+       while removing the irrelevant, default */
+    console.log("update_extra_code called");
+    world.pre_code = pre_code_editor.getValue();
+    world.post_code = post_code_editor.getValue();
+    world.description = description_editor.getValue();
+    world.onload = onload_editor.getValue();
+    //
+    return RUR.world.editors_remove_default_values(world);
+};
+
+
+// if (RUR.current_world.editor) {
+//     if (editor.getValue() != RUR.current_world.editor) {
+//         response = confirm(RUR.translate("Replace editor content"));
+//         if (response) {
+//             try {
+//                 editor.setValue(RUR.current_world.editor);
+//             } catch(e) {}
+//         }
+//     }
+// }
+// if (RUR.current_world.library) {
+//     if (library.getValue() != RUR.current_world.library) {
+//         response = confirm(RUR.translate("Replace library content"));
+//         if (response) {
+//             try {
+//                 library.setValue(RUR.current_world.library);
+//             } catch(e) {}
+//         }
+//     }
+// }
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -4694,11 +4783,11 @@ function toggle_editing_mode () {
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
-        RUR.we.update_extra_code();
         try {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
+        RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
         console.log("ready to compare old and new");
         console.log("new = ", RUR.current_world);
         console.log("old = ", RUR.world.saved_world);
@@ -4713,68 +4802,12 @@ function toggle_editing_mode () {
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();
-        RUR.we.set_extra_code();
+        RUR.current_world = RUR.world.editors_set_default_values(RUR.current_world);
         $("#highlight").hide();
         $("#watch_variables_btn").hide();
     }
     RUR.reset_programming_language(RUR.settings.current_language);
 }
-
-RUR.we.set_extra_code = function () {
-    "use strict";
-    var response;
-    try {
-        pre_code_editor.setValue(RUR.current_world.pre_code);
-    } catch(e) {
-        pre_code_editor.setValue("'pre-code'");
-    }
-    try  {
-        post_code_editor.setValue(RUR.current_world.post_code);
-    } catch (e) {
-        post_code_editor.setValue("'post-code'");
-    }
-    try {
-        description_editor.setValue(RUR.current_world.description);
-    } catch(e) {
-        description_editor.setValue("<!-- description -->");
-    }
-    if (RUR.current_world.onload) {
-        try {
-            onload_editor.setValue(RUR.current_world.onload);
-        } catch(e) {
-            onload_editor.setValue("/* Javascript */");
-        }
-    }
-    if (RUR.current_world.editor) {
-        if (editor.getValue() != RUR.current_world.editor) {
-            response = confirm(RUR.translate("Replace editor content"));
-            if (response) {
-                try {
-                    editor.setValue(RUR.current_world.editor);
-                } catch(e) {}
-            }
-        }
-    }
-    if (RUR.current_world.library) {
-        if (library.getValue() != RUR.current_world.library) {
-            response = confirm(RUR.translate("Replace library content"));
-            if (response) {
-                try {
-                    library.setValue(RUR.current_world.library);
-                } catch(e) {}
-            }
-        }
-    }
-};
-
-RUR.we.update_extra_code = function () {
-    console.log("update_extra_code called");
-    RUR.current_world.pre_code = pre_code_editor.getValue();
-    RUR.current_world.post_code = post_code_editor.getValue();
-    RUR.current_world.description = description_editor.getValue();
-    RUR.current_world.onload = onload_editor.getValue();
-};
-
 
 RUR.we.refresh_world_edited = function () {
     RUR.vis_world.draw_all();

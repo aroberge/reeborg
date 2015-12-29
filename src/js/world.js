@@ -16,8 +16,6 @@ RUR.world.create_empty_world = function (blank_canvas) {
     world.objects = {};
     // allow teacher to insert code to be run before and after the
     // code entered by the student
-    world.pre_code = '';
-    world.post_code = '';
     world.small_tiles = false;
     world.rows = RUR.MAX_Y;
     world.cols = RUR.MAX_X;
@@ -50,6 +48,8 @@ RUR.world.import_world = function (json_string) {
     } else {  // already parsed
         RUR.current_world = json_string;
     }
+
+    console.log("imported world", RUR.current_world);
 
     if (RUR.current_world.robots !== undefined) {
         if (RUR.current_world.robots[0] !== undefined) {
@@ -85,20 +85,20 @@ RUR.world.import_world = function (json_string) {
     RUR.current_world.cols = RUR.current_world.cols || RUR.MAX_X;
     RUR.vis_world.compute_world_geometry(RUR.current_world.cols, RUR.current_world.rows);
 
-    if(RUR.current_world.editor !== undefined){
-        $("#add_editor_to_world").prop("checked", true);
-    }
-    if(RUR.current_world.library !== undefined){
-        $("#add_library_to_world").prop("checked", true);
-    }
+    $("#add_editor_to_world").prop("checked",
+                                   RUR.current_world.editor !== undefined);
+    $("#add_library_to_world").prop("checked",
+                                    RUR.current_world.library !== undefined);
 
-    // clean up old worlds
-    RUR.world.editors_remove_default_values(RUR.current_world);
-
+    // make a clean (predictable) copy
+    RUR.current_world = RUR.world.editors_remove_default_values(RUR.current_world);
     RUR.world.saved_world = RUR.world.clone_world();
+    // restore defaults everywhere for easier comparison when editing
+    RUR.current_world = RUR.world.editors_set_default_values(RUR.current_world);
+    RUR.world.update_editors(RUR.current_world);
+
     if (RUR.we.editing_world) {
         RUR.we.change_edit_robot_menu();
-        RUR.editors.set_default_values();
     }
 };
 
@@ -151,7 +151,7 @@ RUR.world.remove_robots = function () {
    erroneous indication that the world content has changed, we use the
    following.
 */
-RUR.world.editors_default_values = { 'pre-code': 'pre-code', 'post-code': 'post-code',
+RUR.world.editors_default_values = { 'pre_code': 'pre code', 'post_code': 'post code',
     'description': 'description', 'onload': '/* Javascript */' };
 
 RUR.world.editors_set_default_values = function (world) {
@@ -163,52 +163,41 @@ RUR.world.editors_set_default_values = function (world) {
             world[edit] = editors[edit];
         }
     }
+    return world;
 };
+
 RUR.world.editors_remove_default_values = function (world) {
     "use strict";
     var edit, editors;
     editors = RUR.world.editors_default_values;
     for (edit in editors) {
-        if (!world[edit]) {
+        if (world[edit] === undefined) {
             continue;
         }
-        if (world[edit] == editors[edit] || world[edit].trim() === '') {
-            delete world[edit];
+        if (world[edit] == editors[edit] || world[edit].trim().length < 3) {
+            try {
+                delete world[edit];
+            } catch (e) {}
         }
     }
+    return world;
 };
 
-RUR.world.editors_update_extra_code = function () {
+RUR.world.update_from_editors = function (world) {
     /* When editing a world, new content may be inserted in the additional
        editors.  This function updates the world to include this content,
        while removing the irrelevant, default */
-    console.log("update_extra_code called");
-    RUR.current_world.pre_code = pre_code_editor.getValue();
-    RUR.current_world.post_code = post_code_editor.getValue();
-    RUR.current_world.description = description_editor.getValue();
-    RUR.current_world.onload = onload_editor.getValue();
-    //
-    RUR.editors.remove_default_values();
+    world.pre_code = pre_code_editor.getValue();
+    world.post_code = post_code_editor.getValue();
+    world.description = description_editor.getValue();
+    world.onload = onload_editor.getValue();
+    return RUR.world.editors_remove_default_values(world);
 };
 
-
-// if (RUR.current_world.editor) {
-//     if (editor.getValue() != RUR.current_world.editor) {
-//         response = confirm(RUR.translate("Replace editor content"));
-//         if (response) {
-//             try {
-//                 editor.setValue(RUR.current_world.editor);
-//             } catch(e) {}
-//         }
-//     }
-// }
-// if (RUR.current_world.library) {
-//     if (library.getValue() != RUR.current_world.library) {
-//         response = confirm(RUR.translate("Replace library content"));
-//         if (response) {
-//             try {
-//                 library.setValue(RUR.current_world.library);
-//             } catch(e) {}
-//         }
-//     }
-// }
+RUR.world.update_editors = function (world) {
+   pre_code_editor.setValue(world.pre_code);
+   post_code_editor.setValue(world.post_code);
+   description_editor.setValue(world.description);
+   onload_editor.setValue(world.onload);
+   // todo: conditionally update editor and library.
+};

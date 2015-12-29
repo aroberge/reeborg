@@ -209,22 +209,18 @@ RUR.we.change_edit_robot_menu = function () {
 };
 
 function toggle_editing_mode () {
-    if (RUR.we.editing_world) {
+    if (RUR.we.editing_world) {  // done editing
         RUR.we.editing_world = false;
         RUR.runner.interpreted = false;
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
-        RUR.world.editors_update_extra_code();
         try {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
-        console.log("ready to compare old and new");
-        console.log("new = ", RUR.current_world);
-        console.log("old = ", RUR.world.saved_world);
+        RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
-            console.log("worlds not identical.");
             $("#memorize-world").trigger('click');
         }
         $("#editor-tab").trigger('click');
@@ -234,7 +230,7 @@ function toggle_editing_mode () {
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();
-        RUR.world.editors_set_default_values();
+        // RUR.current_world = RUR.world.editors_set_default_values(RUR.current_world);
         $("#highlight").hide();
         $("#watch_variables_btn").hide();
     }
