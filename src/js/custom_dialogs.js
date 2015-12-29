@@ -164,10 +164,23 @@ RUR.cd.create_custom_dialogs = function() {
         event.preventDefault();
         RUR.cd.save_world();
     });
-    RUR.cd_save_world = function () {
+    RUR.cd.save_world = function () {
         RUR.storage._save_world($("#world-name").val().trim());
         RUR.world.saved_world = RUR.world.clone_world();
         RUR.cd.dialog_save_world.dialog("close");
         $('#delete-world').show();
     };
+
+    RUR.cd.dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            Cancel: function() {
+                RUR.cd.dialog_update_editors_from_world.dialog("close");
+            }
+        }
+    });
+
 };

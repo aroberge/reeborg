@@ -118,22 +118,32 @@ RUR.zz_dr_onclick = function () {
 
     $("#add_editor_to_world").on("click", function(evt) {
         if ($(this).prop("checked")) {
-            console.log("saving editor content");
             RUR.current_world.editor = editor.getValue();
         } else {
-            console.log("no editor content");
             RUR.current_world.editor = null;
         }
     });
 
     $("#add_library_to_world").on("click", function(evt) {
         if ($(this).prop("checked")) {
-            console.log("saving library content");
             RUR.current_world.library = library.getValue();
         } else {
-            console.log("no library content");
             RUR.current_world.library = null;
         }
     });
 
+    $("#update-editor-content-btn").on("click", function(evt) {
+        editor.setValue(RUR.current_world.editor);
+        $("#update-editor-content").hide();
+        if (! $("#update-library-content").is(":visible")) {
+            RUR.cd.dialog_update_editors_from_world.dialog("close");
+        }
+    });
+    $("#update-library-content-btn").on("click", function(evt) {
+        library.setValue(RUR.current_world.library);
+        $("#update-library-content").hide();
+        if (! $("#update-editor-content").is(":visible")) {
+            RUR.cd.dialog_update_editors_from_world.dialog("close");
+        }
+    });
 };

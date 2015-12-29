@@ -88,6 +88,22 @@ RUR.world.import_world = function (json_string) {
     $("#add_library_to_world").prop("checked",
                                     RUR.current_world.library !== undefined);
 
+    if (RUR.current_world.editor !== undefined &&
+        RUR.current_world.editor !== editor.getValue()) {
+        RUR.cd.dialog_update_editors_from_world.dialog("open");
+        $("#update-editor-content").show();
+    } else {
+        $("#update-editor-content").hide();
+    }
+    if (RUR.programming_language === "python" &&
+        RUR.current_world.library !== undefined &&
+        RUR.current_world.library !== library.getValue()) {
+        RUR.cd.dialog_update_editors_from_world.dialog("open");
+        $("#update-library-content").show();
+    } else {
+        $("#update-library-content").hide();
+    }
+
     // make a clean (predictable) copy
     RUR.current_world = RUR.world.editors_remove_default_values(RUR.current_world);
     RUR.world.saved_world = RUR.world.clone_world();
@@ -149,8 +165,12 @@ RUR.world.remove_robots = function () {
    erroneous indication that the world content has changed, we use the
    following.
 */
-RUR.world.editors_default_values = { 'pre_code': 'pre code', 'post_code': 'post code',
-    'description': 'description', 'onload': '/* Javascript */' };
+RUR.world.editors_default_values = {
+    'pre_code': '"pre code"',
+    'post_code': '"post code"',
+    'description': 'description',
+    'onload': '/* Javascript */'
+};
 
 RUR.world.editors_set_default_values = function (world) {
     "use strict";
