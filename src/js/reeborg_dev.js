@@ -1135,7 +1135,7 @@ RUR.cd.create_custom_dialogs = function() {
         return true;
     };
 
-    RUR.cd.dialog_add_object = $("#dialog-form").dialog({
+    RUR.cd.dialog_add_object = $("#dialog-add-object").dialog({
         autoOpen: false,
         height: 400,
         width: 500,
@@ -1156,7 +1156,7 @@ RUR.cd.create_custom_dialogs = function() {
         RUR.cd.add_objects();
     });
 
-    RUR.cd.dialog_give_object = $("#dialog-form2").dialog({
+    RUR.cd.dialog_give_object = $("#dialog-give-object").dialog({
         autoOpen: false,
         height: 400,
         width: 500,
@@ -1177,7 +1177,7 @@ RUR.cd.create_custom_dialogs = function() {
         RUR.cd.give_objects();
     });
 
-    RUR.cd.dialog_goal_object = $("#dialog-form3").dialog({
+    RUR.cd.dialog_goal_object = $("#dialog-goal-object").dialog({
         autoOpen: false,
         height: 400,
         width: 500,
@@ -1199,7 +1199,7 @@ RUR.cd.create_custom_dialogs = function() {
     });
 
 
-    RUR.cd.dialog_set_dimensions = $("#dialog-form4").dialog({
+    RUR.cd.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
         autoOpen: false,
         height: 400,
         width: 500,
@@ -1221,7 +1221,7 @@ RUR.cd.create_custom_dialogs = function() {
 
 
 
-    RUR.cd.dialog_save_world = $("#dialog-form5").dialog({
+    RUR.cd.dialog_save_world = $("#dialog-save-world").dialog({
         autoOpen: false,
         height: 400,
         width: 500,
