@@ -1,29 +1,29 @@
 
-Recursion: a simple example
+재귀: 간단한 예제
 ============================
 
-
-The simplest example of recursion is that of a single recursive function,
-that is a function that calls itself::
+재귀에 대한 가장 간단한 예제는 재귀 함수가 하나인 것이다.
+다음은 자신을 호출하는 함수다::
 
     def recursive():
         if not completed_task():
             ...
-            recursive()  # the same function is called ...
+            recursive()  # 동일 함수가 호출됨 ...
 
-Let's consider a real program for Reeborg to execute.
+리보그가 실행하는 실제 프로그램을 고려해 보자.
 
-.. topic:: Try this!
+.. topic:: 시도해 보기!
 
-    Select **Home 1** and have Reeborg do the following::
+    세상 **Home 1** 을 선택한다. 리보그가 다음을 수행하게 한다::
 
         def go_home():
             if not at_goal():
                 move()
                 go_home()
 
-        # now do it!
+        # 지금 실행한다!
         go_home()
 
-Once you have tried the above and tried to understood it, go to the
-next lesson where we will review it and consider a slightly trickier example.
+상기 프로그램을 실행한 뒤에 이해하려고 노력한다.
+다음 학습으로 넘어가서 작성한 프로그램을 검토할 것이다.
+약간 더 까다로운 예제를 고려해보자.
