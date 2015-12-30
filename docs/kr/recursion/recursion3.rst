@@ -85,17 +85,19 @@
 다시 동일한 세상을 사용해서,
 다음 프로그램을 실행하면, 리보그가 마지막으로 향하는 방향을 알아낼 수 있을까?
 
-.. code-block:: py3
+.. hint::
 
-    def go_home():
-        move()
-        if not at_goal():
-            go_home()
+    .. code-block:: py3
+    
+        def go_home():
+            move()
+            if not at_goal():
+                go_home()
+                turn_left()
             turn_left()
-        turn_left()
-
-    # 지금 실행한다!
-    go_home()
+    
+        # 지금 실행한다!
+        go_home()
 
 .. topic:: 직접 작성해 본다!
 
