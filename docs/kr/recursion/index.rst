@@ -1,31 +1,30 @@
-Recursion
+재귀(Recursion)
 =========
 
 .. index:: recursion
+.. index:: 재귀
 
-If you look up on the Internet for a definition of recursion, you will
-often see something like the following:
+재귀에 대한 정의를 인터넷에서 검색하면, 다음과 같은 정의를 종종 보게 된다:
 
-**Recursion**
-    See recursion.
+**재귀**
+    재귀 참조.
 
-This is wrong, wrong, *wrong*, **wrong** .... WRONG!
+이것은 잘못, 잘못, *잘못*, **잘못**, ... 정말 잘못되었다!
 
-If you were a computer program, trying to parse the above definition,
-you would get stuck in an infinite loop. Since you are reading this, it
-means that either you did not behave like a computer and got stuck in an
-infinite loop OR that you did not read everything here and, in
-particular, skipped over the above definition.
+여러분이 컴퓨터 프로그램으로, 상기 정의에 따라 파싱하려고 하면, 
+무한 루프(infinite loop)에 빠지게 된다. 
+상기 정의를 읽게 되면, 컴퓨터처럼 동작하지 못하고 무한루프에 빠지게 되거나,
+여기 나와 있는 모든 것을 읽지 못하고 특히 위에 나온 정의를 그냥 넘어가게 됨을 의미한다.
 
-Recursion is sometimes described as being difficult to grasp. Do not
-believe this. If you understand loops, you can understand recursion.
+재귀는 때때로 이해하기 어려운 것으로 기술된다.
+이 말을 믿지 마세요.
+루프를 이해하면, 재귀도 이해할 수 있다.
 
-So, what is recursion you ask?...
+그래서, 여러분이 알고자 하는 재귀는 무엇일까?...
 
-Recursion is the process of repeating items in a self-similar way. For
-computer programs, it means repeating instructions - like in a loop.
-And, like in a loop, we do not want to get stuck forever.
-
+재귀는 본인과 유사한 방식으로 항목을 반복 수행하는 과정(process)이다.
+컴퓨터 프로그램에 대해서, 루프처럼 반복되는 명령어를 의미한다.
+그리고, 루프에서처럼, 영원히 꼼짝 못하게 되고 싶지는 않을 것이다.
 
 .. toctree::
    :maxdepth: 2
@@ -37,18 +36,15 @@ And, like in a loop, we do not want to get stuck forever.
    recursion4
 
 
-.. admonition:: For educators
+.. admonition:: 선생님께
 
-    Some consider recursion to be a very difficult concept to grasp;
-    you should feel free to skip over this part which essentially
-    stands alone.
+    일부 선생님이 재귀를 이해하기 매우 어려운 개념으로 간주한다;
+    이 부분을 근본적으로 별도 학습으로 간주해서 자유롭게 건너뛸 수 있다.
 
-    I've chosen to introducer recursion here because, on the one hand
-    all the required prerequisites have been seen and, on the other hand,
-    the recent introduction of the ``while`` loop which can often
-    be replaced by recursion, and vice-versa, gives an opportunity to
-    strengthen the understanding of looping.  If one waits until later,
-    when the student is thoroughly familiar with ``while`` loops which
-    has become second nature to them, the concept of recursion may look
-    to them as something very different and suddenly "very difficult"
-    in comparison.
+    여기서 재귀를 선택한 이유는 한편으로는 전제조건으로 필요한 모든 것을 살펴봤고,
+    다른 한편으로는 ``while`` 루프에 대한 소개를 재귀로 대체할 수 있고 
+    반대로도 말이 되고, 루프에 대한 이해를 강화하는 기회도 제공한다.
+    나중에까지 기다리게 되면, 학생이 부차적인 것이 되어야 하는 ``while`` 루프에 너무 친숙해져서,
+    재귀에 대한 개념이 상대적으로 갑자기 "매우 어렵고", 
+    매우 다른 것으로 보여지게 되는 위험이 있다.
+
