@@ -1,59 +1,59 @@
-Tricky recursion
+까다로운 재귀
 ================
 
-Before considering a slightly more complex example, let's review the
-preceding example::
+약간 더 복잡한 예제를 고려하기 전에,
+이전 예제를 재검토하자::
 
     def go_home():
         if not at_goal():
             move()
             go_home()
 
-    # now do it!
+    # 지금 실행한다!
     go_home()
 
-Now, remember how I explained that when a function is called, we can
-think of it as replacing the function call by the body of that function.
-By this, I mean that this instruction::
+이제, 함수가 호출될 때, 저자가 설명한 것을 기억한다.
+함수 몸통으로 함수호출을 교체하는 것으로 간주할 수 있다.
+이것에 따라서, 상기 프로그램은 다음이 된다::
 
     if not at_goal():
         move()
         go_home()
 
-Let's assume that the first time we execute these instructions,
-``at_goal`` is ``false`` and hence ``not at_goal()`` is ``true`` ... like
-it was for world **Home 1**. In this case, the above calls to ``move`` and
-``go_home()`` are executed, and the above code is equivalent to::
+**Home 1** 세상에서, 처음 명령어가 실행될 때, 
+``at_goal``은 ``false``가 되어, ``not at_goal()``은 ``true``가 된다고
+가정한다.
+``move`` 와 ``go_home()`` 에 대한 함수 호출이 실행되고,
+상기 코드는 다음과 동치가 된다::
 
         move()
         go_home()
 
-We can now replace the call to ``go_home()`` by its definition::
+``go_home()``에 대한 호출을 원래 정의로 교체할 수 있다::
 
         move()
         if not at_goal():
             move()
             go_home()
 
-and could, in theory, keep going like this forever, always replacing the
-call to ``go_home()`` by its definition.
+그리고, 이론적으로, 항상 ``go_home()``에 대한 함수 호출을 원래 함수정의로 
+대체함으로써, 영원히 진행할 수 있다.
 
-However, we don't want that as we want things to end eventually ...
-which they do fortunately for world **Home 1**. In that case after a
-second ``move()``, ``at_goal()`` would be true and and the ``if`` statement
-would be ignored.  Thus, the code in this case is equivalent to::
+하지만, 이런 상황은 원치는 않는데, 종국에는 끝마쳐야만 된다...
+**Home 1** 세상에서 다행스럽게도 수행한 작업이다.
+두번째 ``move()`` 다음 경우에, ``at_goal()``은 참이 되고,
+``if`` 문은 무시된다. 따라서, 이 경우에 코드는 다음과 동등하게 된다::
 
         move()
         move()
 
-**It is really important that you understand the above explanation
-before going any further.** So, make sure to read it again if necessary
-as we are going to consider a slightly trickier example.
+**더 진도를 나가기 전에, 상기 설명을 이해하는 것이 매우 중요하다.**
+약간 더 까다로운 예제를 풀어가면서 필요하다면, 몇번이고 반복해서 읽어 확실히 내 것으로 한다.
 
-Small change...
+작은 변경...
 ---------------
 
-Consider the program below::
+다음 프로그램을 생각해보자::
 
     def go_home():
         if not at_goal():
@@ -61,11 +61,11 @@ Consider the program below::
             go_home()
         turn_left()
 
-    # now do it!
+    # 지금 실행한다!
     go_home()
 
-.. topic:: Think about it
+.. topic:: 생각해보기
 
-    Try to figure out what it does before trying to have Reeborg execute it.
-    An explanation follows in the next lesson.
+    리보그가 상기 명령을 실행하기 전에, 어떤 작업을 수행하는지 알아낸다.
+    설명은 다음번 학습에 나와 있다.
 
