@@ -121,8 +121,8 @@ def Help(obj=None):
     try:
         out.append("<h2>{}</h2>".format(obj.__name__))
         if hasattr(obj, "__doc__"):
-            doc = "<p>{}</p>".format(str(obj.__doc__))
-            out.append(doc.replace("\n", "<br>"))
+            doc = "<pre>{}</pre>".format(str(obj.__doc__))
+            out.append(doc)
         else:
             out.append("<p>No docstring found.</p>")
     except Exception as e:
@@ -134,10 +134,9 @@ def Help(obj=None):
         try:
             if hasattr(getattr(obj, attr), "__doc__"):
                 if getattr(obj, attr).__doc__:
-
-                        out.append("<h3>{}</h3>".format(attr))
-                        doc = "<p>{}</p>".format(getattr(obj, attr).__doc__)
-                        out.append(doc.replace("\n", "<br>"))
+                    out.append("<h3>{}</h3>".format(attr))
+                    doc = "<pre>{}</pre>".format(getattr(obj, attr).__doc__)
+                    out.append(doc)
         except AttributeError:
             pass
     if not out:

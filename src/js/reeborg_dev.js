@@ -5689,7 +5689,7 @@ RUR.zz_dr_dialogs = function () {
                                     position:{my: "bottom", at: "bottom-20", of: window}});
     $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
                                     position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:600, dialogClass: "proclaims",
+    $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:800, dialogClass: "proclaims",
                                     position:{my: "bottom", at: "bottom-80", of: window}});
     $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                     position:{my: "bottom", at: "bottom-140", of: window}});
