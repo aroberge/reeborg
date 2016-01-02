@@ -1,4 +1,5 @@
 RUR.unit_tests = {};
+RUR.blockly = {};
 
 RUR.unit_tests.reset = function () {
     RUR.current_world = RUR.world.clone_world(RUR.unit_tests.empty_world);
@@ -113,8 +114,6 @@ RUR.unit_tests.initial_world = RUR.current_world;
 RUR.unit_tests.empty_world = {robots: [],
         objects: {},
         walls: {},
-        pre_code: '',
-        post_code: '',
         rows: RUR.MAX_Y,
         cols: RUR.MAX_X,
         small_tiles: false
@@ -136,6 +135,7 @@ library.getValue = function() {
 pre_code_editor = {};
 post_code_editor = {};
 description_editor = {};
+onload_editor = {};
 pre_code_editor.getValue = function () {
     return RUR.unit_tests.pre_code || '';
 };
@@ -144,6 +144,9 @@ post_code_editor.getValue = function () {
 };
 description_editor.getValue = function () {
     return RUR.unit_tests.description || '';
+};
+onload.getValue = function () {
+    return RUR.unit_tests.onload || "/* Javascript */";
 };
 
 pre_code_editor.setValue = function (code) {
@@ -154,4 +157,7 @@ post_code_editor.setValue = function (code) {
 };
 description_editor.setValue = function (code) {
     RUR.unit_tests.description = code;
+};
+onload_editor.setValue = function (code) {
+    RUR.unit_tests.onload = code;
 };

@@ -56,6 +56,9 @@ QUnit.test("Load world", function(assert) {
             ],
         walls: {},
         description: "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+        "onload": "/* Javascript */",
+        "post_code": "\"post code\"",
+        "pre_code": "\"pre code\"",
         rows: RUR.MAX_Y,
         cols: RUR.MAX_X,
         small_tiles: false
@@ -106,7 +109,6 @@ QUnit.test("Load world by running Python programs", function(assert) {
     // second time runs the rest of the program as the correct world is selected
     RUR.unit_tests.run_python(null, "/test/src/select_home1_en.py");
     RUR.rec.conclude();
-    console.log(RUR.rec.frames);
     equal(RUR.unit_tests.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",

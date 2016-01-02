@@ -45,16 +45,14 @@
 from browser import window
 from _importlib import optimize_import_for_path
 optimize_import_for_path('/src/python', 'py')
-optimize_import_for_path('/test/src', 'py')
-import common_def
+from common_def import generic_translate_python
 
-highlight = False
-
-def translate_python(src, highlight, watch, pre_code='', post_code=''):
-    common_def.generic_translate_python(src, "biblio", "from reeborg_fr import *",
-      highlight, watch, pre_code, post_code)
+def translate_python(src, highlight, var_watch, pre_code, post_code):
+    generic_translate_python(src, "biblio", "from reeborg_fr import *",
+      highlight, var_watch, pre_code, post_code)
 
 window['translate_python'] = translate_python
+window.RUR._python_loaded = True
   </script>
 
   <h1>Test of French version</h1>

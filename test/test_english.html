@@ -20,7 +20,7 @@
   </script>
   <style>.ui-dialog {display:none !important}</style>
 </head>
-<body onload="brython({debug:1, pythonpath:['/test/src', '/src/python']})">
+<body onload="brython({debug:1, pythonpath:['/src/python', '/test/src']})">
 
   <div id="canvas-wrapper" style="display:none;">
     <canvas id="background_canvas" width="625" height="550"></canvas>
@@ -46,16 +46,13 @@
 from browser import window
 from _importlib import optimize_import_for_path
 optimize_import_for_path('/src/python', 'py')
-optimize_import_for_path('/test/src', 'py')
-import common_def
+from common_def import generic_translate_python
 
-highlight = False
-
-def translate_python(src, highlight, watch, pre_code='', post_code=''):
-    common_def.generic_translate_python(src, "library", "from reeborg_en import *",
-      highlight, watch, pre_code, post_code)
+def translate_python(src, highlight, var_watch, pre_code, post_code):
+     generic_translate_python(src, "library", "from reeborg_en import *", highlight, var_watch, pre_code, post_code)
 
 window['translate_python'] = translate_python
+window.RUR._python_loaded = True
   </script>
 
   <h1>Test of English version</h1>
