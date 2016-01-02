@@ -244,8 +244,6 @@ def style_de_trace(style="normal"):
     """
     if style in ["épais", "epais"]:
         style = "thick"
-    elif style == "invisible":
-        style = "none"
     elif style == "normal":
         style = "default"
     else:
