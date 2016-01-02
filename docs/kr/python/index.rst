@@ -1,4 +1,4 @@
-Python: A brief overview
+파이썬: 개요
 ========================
 
 
