@@ -474,7 +474,11 @@ RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
     }
     x = i*RUR.WALL_LENGTH + thick/2;
     y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
-    ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
+    try{
+       ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
+   } catch (e) {
+       console.log("problem in draw_single_object", image, ctx);
+   }
 };
 
 
