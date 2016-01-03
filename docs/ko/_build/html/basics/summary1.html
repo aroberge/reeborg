@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>6. 요약 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="7. 도전과제 소개" href="challenges1.html" />
+    <link rel="prev" title="5. 2번째 규칙" href="rule2.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="challenges1.html" title="7. 도전과제 소개"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="rule2.html" title="5. 2번째 규칙"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rule2.html"
+                        title="previous chapter">5. 2번째 규칙</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="challenges1.html"
+                        title="next chapter">7. 도전과제 소개</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/summary1.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/summary1.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>6. 요약<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>지금까지 학습한 것을 되세길 시간이다. 이 웹사이트에 대한 환경에 친숙해지는 것에 더해서, 프로그래밍에 관한 첫 두가지 규칙을 학습했다.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p><strong>규칙 # 1</strong></p>
+<blockquote>
+<div>컴퓨터 프로그램을 배우는 것은 마치 음악 악기를 배우는 것과 같습니다: 단지 읽는 것만으로는 부족하고, 여러분이 <strong>직접 프로그램을 작성</strong> 해봐야 합니다.</div></blockquote>
+<p><strong>규칙 # 2</strong></p>
+<blockquote class="last">
+<div><strong>다른 사람</strong> 이 읽고 이해하기 쉽게 컴퓨터 프로그램을 작성한다.</div></blockquote>
+</div>
+<p>규칙 # 2와 연관해서, 컴퓨터가 무시하는 정보지만, 다른 사람과 정보를 주고받는 수단으로 <em>주석</em> 을 어떻게 포함하는지 살펴봤다.</p>
+<p>저자가 명시적으로 언급하지는 않았지만, 프로그램은 일련의 명령어라는 것을 학습했다.
+서로 다른 5가지 명령어도 살펴봤다:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">move()</span></code></li>
+<li><code class="docutils literal"><span class="pre">turn_left()</span></code></li>
+<li><code class="docutils literal"><span class="pre">take()</span></code></li>
+<li><code class="docutils literal"><span class="pre">put()</span></code></li>
+<li><code class="docutils literal"><span class="pre">pause()</span></code></li>
+</ul>
+<p><code class="docutils literal"><span class="pre">pause()</span></code> 명령어를 사용했을 수도 사용하지 않았을 수도 있는데, 버그에 관해 얘기할 때 지나가면서 언급했다. 만약 <code class="docutils literal"><span class="pre">pause()</span></code> 명령어를 사용하지 않았다면, 간단한 프로그램을 작성해서 어떻게 동작하는지 살펴보라; <code class="docutils literal"><span class="pre">pause()</span></code> 명령어가 첫 명령어 혹은 마지막 명령어가 되지 않도록 해서 분명하게 어떻게 동작하는지 살펴본다.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="challenges1.html" title="7. 도전과제 소개"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="rule2.html" title="5. 2번째 규칙"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

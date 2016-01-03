@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>9. 세번째 규칙 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="10. 돌아서다" href="turn_around.html" />
+    <link rel="prev" title="8. 신문 배달" href="newspaper1.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="turn_around.html" title="10. 돌아서다"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="newspaper1.html" title="8. 신문 배달"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">9. 세번째 규칙</a><ul>
+<li><a class="reference internal" href="#id2">9.1. 좌회선 세번하면 우회전한다.</a></li>
+<li><a class="reference internal" href="#id3">9.2. 함수 정의</a></li>
+<li><a class="reference internal" href="#def">9.3. <code class="docutils literal"><span class="pre">def</span></code> 에 관해 생각하는 방법</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="newspaper1.html"
+                        title="previous chapter">8. 신문 배달</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="turn_around.html"
+                        title="next chapter">10. 돌아서다</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/rule3.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/rule3.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>9. 세번째 규칙<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p id="index-0">이제, 컴퓨터 프로그램을 효과적으로 작성하는 세번째 규칙을 학습할 준비가 되었다.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<dl class="last docutils">
+<dt><strong>규칙 # 3</strong></dt>
+<dd>프로그램을 작성할 때, 되풀이 반복하지 마세요.
+다시 말씀드립니다. <strong>되풀이 반복하지 마세요!</strong></dd>
+</dl>
+</div>
+<div class="section" id="id2">
+<h2>9.1. 좌회선 세번하면 우회전한다.<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>지금까지 프로그램 몇개를 작성했기 때문에, 리보그가 세번 연속해서 좌회전하면 마치 우회전 한번 한것과 같은 결과가 됨을 인식해야만 된다.
+리보그가 매번 우회전할 때마다, <code class="docutils literal"><span class="pre">turn_left()</span></code> 명령어를 세번 작성하는 것이 꽤 지겹다는 것을 아마도 알게 된다.
+만약 단순히 <code class="docutils literal"><span class="pre">turn_right()</span></code> 작성하게 되면 멋지지 않겠는가?</p>
+<p>이번 학습 말미에서, 단지 이것만 할 수 있게 된다.</p>
+</div>
+<div class="section" id="id3">
+<h2>9.2. 함수 정의<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>지금까지 <em>지시(instructions)</em> 혹은 <em>명령어(commands)</em> 이라고 부른 것이 파이썬 <strong>함수(function)</strong> 의 사례다.
+다음과 같이 새로운 파이썬 함수를 정의할 수 있다:</p>
+<div class="highlight-python" id="index-1"><div class="highlight"><pre><span class="k">def</span> <span class="nf">some_well_chosen_name</span> <span class="p">():</span>
+    <span class="c"># 코드를 여기 적는다.</span>
+    <span class="c"># 같은 열에 들여쓰기 한다.</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">def</span></code> 가 첫번째 파이썬 <strong>키워드(keyword)</strong> 다. 키워드는 해당 프로그래밍 언어에서 특별한 의미가 있는 단어다.
+콜론 <code class="docutils literal"><span class="pre">:</span></code> 이 <em>코드 덩어리</em> 로 알려진 것보다 선행하고, 함수 <em>몸통(body)</em> 을 구성하는 방법에 주목한다.
+각줄 시작지점에 동일 숫자 공백을 갖는 코드 덩어리를 들여쓰기하는 것이 파이썬에서 <strong>필요하다.</strong>
+들여쓰기를 하는 것이 사람 독자가 함수 몸통을 식별하기 쉽게 만든다.</p>
+<p>첫번째 파이썬 함수를 작성해 보자:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">turn_right</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>됐다! 우회전을 하는데, <code class="docutils literal"><span class="pre">turn_left()</span></code> 함수를 세번 작성하는 것을 이제 회피할 수 있다.</p>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p>프로그램에서 <code class="docutils literal"><span class="pre">turn_right()</span></code> 함수를 정의하고, 아마도 <code class="docutils literal"><span class="pre">Alone</span></code> 세상에서 사용해보자.
+무엇을 시도할지 확실히 모른다면, 연속해서 4번 <code class="docutils literal"><span class="pre">turn_right()</span></code> 와 <code class="docutils literal"><span class="pre">move()</span></code> <strong>함수</strong> 를
+번갈아 실행해서 리보그가 정사각형을 돌아다니게 한다.</p>
+</div>
+</div>
+<div class="section" id="def">
+<h2>9.3. <code class="docutils literal"><span class="pre">def</span></code> 에 관해 생각하는 방법<a class="headerlink" href="#def" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">단순화한 설명은 <em>변수 범위(variable scope)</em> 로 알려진 것을 고려하지 않음에 주목한다. 나중에 다룰 것이다.</p>
+</div>
+<p>파이썬에서 함수를 정의하는 방법을 방금 살펴봤다.
+가능성이 함수에 관해 생각하는 방법을 바로 이해할 수 있지만, 행여나
+다음에 좀더 자세한 설명이 있어서, 여러분이 함수 동작하는 방법과 코드 덩어리에 관계된 다른 파이썬 생성자를 이해할 수 있게 한다.</p>
+<p>다음 코드가 있다고 가정하자:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="k">def</span> <span class="nf">turn_right</span><span class="p">():</span>  <span class="c"># 코드 덩어리 시작</span>
+     <span class="n">turn_left</span><span class="p">()</span>
+     <span class="n">turn_left</span><span class="p">()</span>
+     <span class="n">turn_left</span><span class="p">()</span>   <span class="c"># 코드 덩어리 끝</span>
+
+ <span class="n">move</span><span class="p">()</span>
+<span class="hll"> <span class="n">turn_right</span><span class="p">()</span>
+</span> <span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>상기 코드는 다음과 동치다:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="c"># 함수를 정의한다</span>
+ <span class="k">def</span> <span class="nf">turn_right</span><span class="p">():</span>
+     <span class="n">turn_left</span><span class="p">()</span>
+     <span class="n">turn_left</span><span class="p">()</span>
+     <span class="n">turn_left</span><span class="p">()</span>
+
+ <span class="n">move</span><span class="p">()</span>
+ <span class="c"># turn_right() 내부 코드 덩어리 시작</span>
+<span class="hll"> <span class="n">turn_left</span><span class="p">()</span>
+</span><span class="hll"> <span class="n">turn_left</span><span class="p">()</span>
+</span><span class="hll"> <span class="n">turn_left</span><span class="p">()</span>
+</span> <span class="c"># 코드 덩어리 끝</span>
+ <span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>다른 말로, <code class="docutils literal"><span class="pre">def</span></code> 는 코드 덩어리 내부에 나타낸 모든 코드에 대해서 동의어로 사용할 수 있는 명칭이다.
+동의어가 <strong>호출(called)</strong> 되는 [즉, 함수 명칭 다음에 ()이 붙는다] 것을 볼 때마다, 해당 지점에
+<em>있는 그대로</em> 코드 덩어리를 삽입하는 것에 상응하는 것으로 간주할 수 있다.</p>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p>신문배달 문제에서 작성한 프로그램을 단순화할 수 있는지, <code class="docutils literal"><span class="pre">turn_right()</span></code> 함수를 사용해서
+가독성이 좋고 이해하기 더 쉽게 만들 수 있는지 알아보라.
+이렇게 작업하고 나면, 아마도 다른 함수를 정의해서 작성한 프로그램을 단순화할 수 있는 다른 방법을
+생각할 수도 있다.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="turn_around.html" title="10. 돌아서다"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="newspaper1.html" title="8. 신문 배달"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

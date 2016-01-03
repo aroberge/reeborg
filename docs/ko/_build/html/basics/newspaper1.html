@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>8. 신문 배달 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="9. 세번째 규칙" href="rule3.html" />
+    <link rel="prev" title="7. 도전과제 소개" href="challenges1.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="rule3.html" title="9. 세번째 규칙"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="challenges1.html" title="7. 도전과제 소개"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="challenges1.html"
+                        title="previous chapter">7. 도전과제 소개</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="rule3.html"
+                        title="next chapter">9. 세번째 규칙</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/newspaper1.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/newspaper1.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>8. 신문 배달<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>리보그가 새 직업을 얻었다: 리보그가 <em>북동지역 스타(Northern Star)</em> 신문을 배달한다.
+많은 리보그 고객이 빌딩 1층에 살고 있지는 않다. 이런 고객 각각을 위해서, 리보그는 다음을 수행해야 된다.</p>
+<ol class="arabic simple">
+<li>신문 한부만 집는다 (너무 무거위서 신문 전부를 갖고 모든 계단을 오를 수는 없다).</li>
+<li>고객 문에 도달하도록 필요한 계단 수만큼 올라간다.</li>
+<li>아래에 언급된, 고객 한명을 제외하고, 고객이 놓아둔 돈(토큰)을 받는다.</li>
+<li>신문 한부(단순히 <em>별</em> 이라는 별명이 붙음)를 뒤에 남긴다.</li>
+<li>다시 지상으로 걸어 내려온다.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">컴퓨터 프로그래밍에서, 일반적으로 1 대신에 0에서부터 세기 시작한다.
+여기 세상이 컴퓨터 과학에서 유명한 세명을 지칭하기 때문에, 세상을 0에서부터 번호를 붙이는 것이 적절하다고 본다.</p>
+</div>
+<p>리보그에게는 많은 고객이 있지만, 고객 세명엥 상응하는 세계만 포함한다:</p>
+<ul class="simple">
+<li>리차드 패티스(Richard Pattis)은 리보그 조상으로 캐럴(Karel)의 창시자다;
+리보그는 항상 패티스 집에 무료 신문 한부를 놓아둔다.
+리차드 패티스는 3층 집에 살고 있다; 상응하는 세상은 <strong>Newspaper&nbsp;0</strong> .</li>
+<li>3층에 살고 있는 멋진 아다 러브레이스 (Ms. Ada Lovelace)는 리보그에게 선물로 토큰 한쌍을 놓아 둔다;
+<strong>Newspaper&nbsp;1</strong> 이 대응되는 세상이다.</li>
+<li>괴팍한 노인 챨스 배비지(Charles Babbage)는 5층에 살고 있고, 항상 정확한 돈을 지불하고, 리보그에게 팁을 주지 않는다;
+<strong>Newspaper&nbsp;3</strong> 이 대응되는 세상이다.</li>
+</ul>
+<p>두가지 유형의 객체(별과 토큰)를 포함하는 세상에 대한 프로그램을 작성하는 것은 지금까지 살펴본 것보다 더 복잡하다;
+나중에 어떻게 이것을 처리하는지 볼 것이다. 지금으로서는, 한가지 객체를 갖고 있는 <strong>Newspaper&nbsp;0</strong> 세상에만 집중하자.
+나중에 <strong>Newspaper&nbsp;1</strong> 과 <strong>Newspaper&nbsp;2</strong> 세상에 리보그가 어떻게 신문배달을 할지 배울 것이다.</p>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p>리보그로 하여금 신문을 패티스 박사에게 배달하도록 한다.</p>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">프로그램을 저장하라; 다시 돌아와서 조만간 다시 사용할 것이다.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="rule3.html" title="9. 세번째 규칙"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="challenges1.html" title="7. 도전과제 소개"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

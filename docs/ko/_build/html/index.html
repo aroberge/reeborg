@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>리보그와 파이썬 배우기! &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="#" />
+    <link rel="next" title="기본 사용설명서" href="basics/index.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="basics/index.html" title="기본 사용설명서"
+             accesskey="N">next</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="#">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">리보그와 파이썬 배우기!</a><ul>
+<li><a class="reference internal" href="#id5">컴퓨터 프로그래밍을 학습하고자 합니까?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="basics/index.html"
+                        title="next chapter">기본 사용설명서</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../fr/index.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>리보그와 파이썬 배우기!<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>파이썬을 배우는 것은 리보그와 함께라면 쉬워요. 해야되는 일은 사용설명서를 잘 읽고 <a class="reference external" href="http://reeborg.ca/world.html">Reeborg&#8217;s world</a> 에 나온 예제를 시도해 보면 된다.
+사용설명서와 리보그 세상을 별도 윈도우 혹은 탭에 함께 열어 놓고 실습할 것을 권장한다.</p>
+<p>실제로 사용설명서를 시작하기 전에, <a class="reference external" href="http://reeborg.ca/world.html">Reeborg&#8217;s world</a> 에서 프로그램을 실행해서 리보그가 첫 걸음을 떼도록 한다.</p>
+<p>힌트를 클릭할 수 있어서, 만약 어떻게 나아갈지 확신이 없다면 유용한 지침을 제공하도록 설계되었다.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last"><a class="reference external" href="http://reeborg.ca/world.html">Reeborg&#8217;s world</a> 로 가서 &#8220;run&#8221; 버튼(파란 배경에 작은 흰색 삼각형)을 클릭해서 리보그가 첫 걸음을 떼는 것을 지켜본다. 영문으로된 다소 오래 되었지만, 리보그가 어떤 느낌인지 간을 보기 위해서 <a class="reference external" href="http://youtu.be/yTdw97KNgGM">짧은 동영상</a> 을 켜본다. HD 품질을 선택해서 전체 화면에서 볼 수도 있다.</p>
+</div>
+<div class="section" id="id5">
+<h2>컴퓨터 프로그래밍을 학습하고자 합니까?<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-right" id="id6" style="width: 40%">
+<img alt="_images/student.jpg" src="_images/student.jpg" />
+<p class="caption"><span class="caption-text">미국 캘리포니아에서 학생들이 리보그 세상을 사용합니다.</span></p>
+<div class="legend">
+<em>사진 출처 A. Castano.</em></div>
+</div>
+<p><strong>리보그 세상(Reeborg&#8217;s World)은 여러분을 위해서 설계되었습니다!</strong></p>
+<p>저자가 리보그 세상을 창조할 때 마음속에 갖은 생각은 프로그래밍 개념을 배우는데 친숙한 장소를 만드는 것이였다.
+리보그가 동작하게 만드는 프로그래밍 언어로서 웹의 &#8220;정규&#8221; 언어인 자바스크립트로도 가능하지만,
+저자는 파이썬에 집중하도록 결정했는데 좀더 다재다능한 언어로 초보자와 고급 프로그래머 모두 사용하기 쉽기 때문이다.</p>
+<p>이 사용설명서는 먼저 여러분을 위해 컴퓨터 프로그래밍을 배우는데 도움이 되도록 제작되었다.
+하지만, 리보그 세상의 다른 사용자 뿐만 아니라 선생님을 위한 정보도 포함하고 있다.
+프로그래밍 개념을 학습해 나가면서 중요한 무언가를 빼먹고 있다는 걱정하지 말고 일부 부가적인 정보는 무시할 수 있다.</p>
+<p>이 문서는 9개 주요 부분으로 나눠진다.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basics/index.html">A. 기본 사용설명서</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recursion/index.html">B. 재귀(Recursion): 준비중</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variables/index.html">C. 변수(Variables): 준비중</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oop/index.html">D. 객체지향 프로그래밍: 준비중</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional/index.html">E. 고차 함수: 준비중</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises/index.html">F. 프로그래밍 연습문제: 준비중</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">G. 리보그 세상 찾아보기: 준비중</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python/index.html">H. 파이썬: 간략한 개요: 준비중</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/index.html">I. 기여!: 준비중</a></li>
+</ul>
+</div>
+<p>만약 상기 제목중 아무것이나 클릭하게 되면, 해당부문 좀더 상세한 목차를 갖는 페이지로 이동하게 된다.</p>
+<div class="admonition- admonition">
+<p class="first admonition-title">선생님께</p>
+<div class="figure" id="id7">
+<img alt="_images/rurple_book.png" src="_images/rurple_book.png" />
+<p class="caption"><span class="caption-text"><em>러플(RUR-PLE)기반한 삼성전자에서 만든 책 두권(빨간색은 선생님, 파란색은 학생),
+러플은 리보그 세상의 선구자격이 되는 데스크톱 프로그램.</em></span></p>
+</div>
+<p>리보그 세상(Reeborg&#8217;s World)은 리챠드 패티스(Richard Pattis)의
+<a class="reference external" href="http://www.amazon.ca/Karel-Robot-Gentle-Introduction-Programming/dp/0471089281/ref=sr_1_6?s=books&amp;ie=UTF8&amp;qid=1440177128&amp;sr=1-6">Karel the robot</a> 에 강하게 영감을 받았다.
+프로그래밍 언어 세가지(파이썬, 자바스크립트, 커피스크립트)를 사용해서 가상 로봇을 제어할 수 있다.
+하지만, 이 사용설명서는 파이썬에 집중하는데, 저자가 선호하는 프로그래밍 언어이며 많은 전문가들이
+시작하는 분들께 프로그래밍 개념을 가르치기에 이상적인 언어로 간주하고 있다.</p>
+<p>이번 사용설명서에서는 가능하면 길게 변수 소개를 뒤로 미루는데, 함수인자에 대해서도 동일하다.
+이 접근법은 어떤 변수도 갖지 않는 패티스의 원조 캐럴(Karel)의 방향을 반영한다.
+캐럴은 이번 사용설명서의 첫 두 주요부분에서 집중하고 있다. 여기서는 <strong>기본 사용설명서</strong> 와 <strong>재귀</strong> 다.</p>
+<p>리보그 세상은 가능하면 최대한 패티스의 생각을 단순화하는 목적으로 창조되었지만, 여전히 매우 고급 프로그래밍 개념을 소개하는 것도 가능하게 한다.
+그래서, 일부 사용설명서에서 발견되는 &#8220;단순한&#8221; <strong>첫번째 프로그램</strong> 대신에 완전 초심자를 목표 독자로 하고 있다:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Hello, World&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>리보그 세상에서 가장 단순한 적법한 프로그램은 다음과 같다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>이게 다입니다: 단일 명령어. 초보자를 가르칠 때, 더 간단할 수 있을까요?</p>
+<p>하지만, 단순한 함수에만 제약된 것은 아니다. 예를 들어, 대신에 객체지향 프로그래밍(OOP) 접근법을 사용할려고 한다면,
+가장 단순한 적법한 프로그램(실질적으로 리보그로 하여금 <code class="docutils literal"><span class="pre">move()</span></code> 명령어에 대응)은 다음과 같다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">reeborg</span> <span class="o">=</span> <span class="n">UsedRobot</span><span class="p">()</span>
+<span class="n">reeborg</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>유사하게, 표준 라이브러리를 사용이 유용하기 때문에, 본인 코드를 작성하면서 학생이 먼저 라이브러리를 배울 수 있다.
+그렇게 함으로써, 라이브러리 모듈이 다른 것과 같이 단지 프로그램이라는 것을 배우게 된다.
+라이브러리에 가령 <code class="docutils literal"><span class="pre">turn_right()</span></code> 함수를 정의했다고 가정하고 나면, 다음 프로그램은 적법하다:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">library</span> <span class="kn">import</span> <span class="n">turn_right</span>
+<span class="n">turn_right</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>그래서, 기본적인 생각은 프로그램을 작성하는데 가능하면 적은 개념을 다뤄야 된다는 것이다.
+기본기를 학습한 후에 단지 새로운 개념만 학습하면 된다.
+예를 들어 새로운 개념에는 변수 사용, 객체지향 표기법, 라이브러리에서 코드 가져오기 같은 것이 포함된다.
+이 사용설명서를 작성하는데 있어 한가지 지도원리는 한번에 한가지 프로그래밍 개념만 소개하는 것이다.</p>
+<p>그렇다고, 리보그 세상에 사용된 접근법의 단순성이 가상 로봇 세상의 기본적인 것에만 제한된다는 것을 의미하는 것은 아니다.
+리보그 세상의 파이썬 버젼은 <a class="reference external" href="http://brython.info">Brython</a> 에 기반하고 있다. 그래서 고급 프로그램을 작성하는데 사용될 수 있는
+파이썬 표준 라이브러리에서 발견되는 많은 파이썬 모듈을 포함하고 있다.</p>
+<p>리보그 세상은 <strong>작업 기반 학습</strong> 으로 설계되었다: 학생에게 리보그가 완수해야 되는 작업이 주어지고,
+학생이 프로그램을 작성해서 리보그가 작업을 수행하는 방법에 대해서 명령을 줘야만 된다.</p>
+<p>작업에는 리보그가 물체를 이동하고, 벽을 세우거나, 특정 지점으로 이동하는 것이 포함된다.
+리보그 세상에서 물체는 다양한 색체를 띈다; 리보그가 이동해야만 되는 장소는 회색 모양 물체 그림으로 표기된다.</p>
+<img alt="_images/simple_task.gif" src="_images/simple_task.gif" />
+<p>만약 지도하는 학생에게 유용한 예제(특히 리보그에 대한 작업)를 갖고 있다면, 이 사용설명서를 향상하는데 공유해준다면 감사드립니다.</p>
+<p><strong>자유와 무료</strong></p>
+<p class="last">리보그 세상은 <strong>자유롭습니다.</strong> : 사용하는 <em>자유</em> , 복재할 <em>자유</em> (그리고 학교 웹사이트에 심어 놓을 수 있다),
+어떤 가입 혹은 로그인을 필요하지 않는다.
+다른 현존하는 코드 학습 웹사이트와 달리, 학습자가 사전에 정의된 경로를 따르게 가용하지 않는다;
+지도하는 선생님이 리보그 세상을 사용하면서 자신의 학습 교재를 <em>자유</em> 로이 생성할 수 있다.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="basics/index.html" title="기본 사용설명서"
+             >next</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="#">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

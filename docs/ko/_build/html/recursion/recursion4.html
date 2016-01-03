@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>4. 재귀 횟수 세기 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="재귀(Recursion)" href="index.html" />
+    <link rel="next" title="Variables" href="../variables/index.html" />
+    <link rel="prev" title="3. 더 많은 재귀" href="recursion3.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="../variables/index.html" title="Variables"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="recursion3.html" title="3. 더 많은 재귀"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">재귀(Recursion)</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="recursion3.html"
+                        title="previous chapter">3. 더 많은 재귀</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../variables/index.html"
+                        title="next chapter">Variables</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/recursion/recursion4.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/recursion/recursion4.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>4. 재귀 횟수 세기<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>리보그는 세는 방법을 알고 있다... 하지만,
+세는 방법을 아직 보지는 못했고 한동안 그럴 것이다.
+여기서 지금까지 학습한 파이썬을 일부 알고 있다면,
+숫자 변수를 사용해서 리보그가 어떻게 셀 수 있는지 알고 있을 것이다;
+하지만, 여러분에게 그렇게 하지 않도록 부탁한다.</p>
+<p><strong>Tokens&nbsp;5</strong> 세상을 선택한다.
+리보그가 서있는 곳에, 토큰을 하나 발견할 수 있다.
+리보그가 토큰을 집어(<code class="docutils literal"><span class="pre">take()</span></code>) 다음 정사각형으로 이동하는지는(<code class="docutils literal"><span class="pre">move()</span></code>) 알고 있다.
+더이상 어떤 토큰도 찾을 수 없는 정사각형에 도착할 때까지 토큰을 집고, 이동하는 두 단계를
+리보그가 반복하도록 한다.
+그리고 나서, 정사각형에서 모은 모든 토근을 정사각형 한 곳에 놓고, 다음 정사각형으로 이동한다.</p>
+<p>정확하게 똑같은 프로그램이 <strong>Tokens&nbsp;6**에서도 동작해야만 된다.
+**Tokens&nbsp;6</strong> 세상에는 토큰 갯수가 다르다.
+그래서, 고정된 반복 횟수를 갖지 않기 때문에, <code class="docutils literal"><span class="pre">repeat</span></code> 명령어를 사용할 수 없다.</p>
+<p>리보그가 호주머니에 무한히 많은 토큰을 갖고 출발한다:
+그래서, 한 지점에 토큰 내려놓기를 언제 멈출지 알아낼 수 없어서 <a href="#id2"><span class="problematic" id="id3">``</span></a>carries_object()``도 사용할 수 없다.</p>
+<div class="topic">
+<p class="topic-title first">직접 시도해 보기!</p>
+<p>재귀를 사용해서 해당 문제를 해결하는 해법을 작성한다.
+해법에 대한 개요가 다음에 나와 있다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">collect</span><span class="p">():</span>
+    <span class="c"># 무언가 수행한다.</span>
+    <span class="c"># 무언가 수행한다.</span>
+    <span class="k">if</span> <span class="n">특정_조건</span><span class="p">:</span>
+        <span class="c"># 무언가 수행한다.</span>
+    <span class="c"># 무언가 수행한다.</span>
+
+<span class="n">collect</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p>기본 반복 명령어는 <code class="docutils literal"><span class="pre">take()</span></code> 와 <code class="docutils literal"><span class="pre">move()</span></code> 가 되고, 조건으로 <code class="docutils literal"><span class="pre">object_here()</span></code> 함수를 생각해볼 수 있다.</p>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">collect</span><span class="p">():</span>
+    <span class="n">take</span><span class="p">()</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">object_here</span><span class="p">():</span>
+        <span class="n">collect</span><span class="p">()</span>
+    <span class="n">put</span><span class="p">()</span>
+
+<span class="n">collect</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title first">재귀 도전과제</p>
+<p>이전에 수행했던 모든 도전과제를 재검토한다.
+<code class="docutils literal"><span class="pre">while</span></code> 루프 대신에 재귀를 사용하는 새로운 해법으로 코드를 작성한다.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="../variables/index.html" title="Variables"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="recursion3.html" title="3. 더 많은 재귀"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >재귀(Recursion)</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

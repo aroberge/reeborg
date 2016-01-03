@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>29. 놀라운 소식 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="30. 도전과제 재방문" href="challenges2.html" />
+    <link rel="prev" title="28. 4번째 규칙" href="rule4.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="challenges2.html" title="30. 도전과제 재방문"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="rule4.html" title="28. 4번째 규칙"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rule4.html"
+                        title="previous chapter">28. 4번째 규칙</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="challenges2.html"
+                        title="next chapter">30. 도전과제 재방문</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/surprises.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/surprises.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>29. 놀라운 소식<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>방금 작성한 프로그램을 변경한다. 그래서:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">mark_starting_point_and_move</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">found_starting_point</span><span class="p">():</span>
+    <span class="n">follow_right_wall</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>상기 프로그램은 다음과 같이 된다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">while</span> <span class="ow">not</span> <span class="n">at_goal</span><span class="p">():</span>
+    <span class="n">follow_right_wall</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p><strong>Hurdles&nbsp;1</strong>, <strong>Hurdles&nbsp;2</strong>, <strong>Hurdles&nbsp;3</strong> 세상에 프로그램을 실행하라.</p>
+</div>
+<p>장애물 도전 문제를 풀기 전에 작성한 것과 꽤 다른 이 프로그램이 마찬가지로 동작되는 것을 알게 된다.</p>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p>이제, <strong>Hurdles&nbsp;4</strong> 세상에 시도해 보자.</p>
+</div>
+<p>놀랍죠! 이전 프로그램은 동작하지 않지만, 이것은 동작한다! 왜 이 프로그램이 동작하는 이해할 수 있나요?</p>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p><strong>Maze&nbsp;1</strong> 혹은 <strong>Maze&nbsp;2</strong> 미로 세상에 동일한 변경 프로그램을 실행한다.</p>
+</div>
+<p>보았듯이, 이 간단한 프로그램은 미로를 탈출하는 방법을 알고 있다!</p>
+<p>상당히 놀랍죠!!</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="challenges2.html" title="30. 도전과제 재방문"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="rule4.html" title="28. 4번째 규칙"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

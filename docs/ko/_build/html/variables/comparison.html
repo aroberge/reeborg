@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>8. Comparison operators &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Variables" href="index.html" />
+    <link rel="next" title="9. Lists" href="listes.html" />
+    <link rel="prev" title="7. Scope: local vs global" href="scope.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="listes.html" title="9. Lists"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="scope.html" title="7. Scope: local vs global"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Variables</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="scope.html"
+                        title="previous chapter">7. Scope: local vs global</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="listes.html"
+                        title="next chapter">9. Lists</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/variables/comparison.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/variables/comparison.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="comparison-operators">
+<h1>8. Comparison operators<a class="headerlink" href="#comparison-operators" title="Permalink to this headline">¶</a></h1>
+<p>It is sometimes very useful to compare objects. We&#8217;ll start with numbers.</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">)</span>  <span class="c"># are the two numbers equal?</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">)</span>  <span class="c"># are the two numbers different?</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">3</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="p">)</span>  <span class="c"># is the first number smaller than the second?</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">3</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="p">)</span>  <span class="c"># is the first number greater than the second?</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">3</span> <span class="p">)</span>  <span class="c"># is the first number smaller than or equal to the second?</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">3</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="p">)</span>  <span class="c"># is the first number greater than or equal the second?</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">3</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="listes.html" title="9. Lists"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="scope.html" title="7. Scope: local vs global"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Variables</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

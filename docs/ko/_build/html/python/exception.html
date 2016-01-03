@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>4. 빠르게 파이썬 소개하기: 4부, 예외(exceptions) &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="파이썬: 개요" href="index.html" />
+    <link rel="next" title="5. More advanced programming" href="advanced.html" />
+    <link rel="prev" title="3. 빠르게 파이썬 소개하기: 3부, 라이브러리 사용" href="library.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="advanced.html" title="5. More advanced programming"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="library.html" title="3. 빠르게 파이썬 소개하기: 3부, 라이브러리 사용"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">파이썬: 개요</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">4. 빠르게 파이썬 소개하기: 4부, 예외(exceptions)</a><ul>
+<li><a class="reference internal" href="#raise">4.1. 키워드 <code class="docutils literal"><span class="pre">raise</span></code></a></li>
+<li><a class="reference internal" href="#try-except-finally">4.2. 예약어 <code class="docutils literal"><span class="pre">try</span></code>, <code class="docutils literal"><span class="pre">except</span></code>, <code class="docutils literal"><span class="pre">finally</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="library.html"
+                        title="previous chapter">3. 빠르게 파이썬 소개하기: 3부, 라이브러리 사용</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="advanced.html"
+                        title="next chapter">5. More advanced programming</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/python/exception.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/python/exception.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="exceptions">
+<h1>4. 빠르게 파이썬 소개하기: 4부, 예외(exceptions)<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h1>
+<p>리보그 세상은 파이썬 <strong>예외(exceptions)를</strong> 엄청 사용한다.</p>
+<div class="section" id="raise">
+<h2>4.1. 키워드 <code class="docutils literal"><span class="pre">raise</span></code><a class="headerlink" href="#raise" title="Permalink to this headline">¶</a></h2>
+<p>다음 프로그램을 실행해 보자:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">raise</span> <span class="n">ReeborgError</span><span class="p">(</span><span class="s">&quot;Surprise!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>상기 명령어를 실행하면 다음과 같은 것을 볼 것이다:</p>
+<p><img alt="raise" src="../_images/raise.gif" /></p>
+</div>
+<div class="section" id="try-except-finally">
+<h2>4.2. 예약어 <code class="docutils literal"><span class="pre">try</span></code>, <code class="docutils literal"><span class="pre">except</span></code>, <code class="docutils literal"><span class="pre">finally</span></code><a class="headerlink" href="#try-except-finally" title="Permalink to this headline">¶</a></h2>
+<p>예외를 발생(raise an exception)시키는 것이,
+다소 급작스럽지만, 프로그램 제어를 하는 또다른 방식이 된다.
+예외를 발생기키려고 하면, 다음 패턴이 흔히 사용되는 방식이다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="c"># 예외를 일으키는 코드...</span>
+    <span class="c"># 또다른 유형의 예외을 일으키는 코드...</span>
+    <span class="c"># 또다른 유형의 예외을 일으키는 코드...</span>
+<span class="k">except</span> <span class="n">ExceptionName1</span><span class="p">:</span>
+    <span class="c"># 예외를 처리한다.</span>
+<span class="k">except</span> <span class="n">ExceptionName2</span><span class="p">:</span>
+    <span class="c"># 또다른 예외를 처리한다.</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="c"># 올바른 유형의 예외가 인식되지 않더라도</span>
+    <span class="c"># 종국에 수행하는 작업</span>
+</pre></div>
+</div>
+<p>다음에 시연된 예제를 시도해 볼 수 있다.
+미로를 불러와서 이해하려고 하면, <code class="docutils literal"><span class="pre">Documentation</span></code> 메뉴를
+먼저 클릭하고, &#8220;Big maze&#8221;를 선택한다.</p>
+<p><img alt="random" src="../_images/random.gif" /></p>
+<p>위에서, 파이썬 <code class="docutils literal"><span class="pre">random</span></code> 모듈에서 <code class="docutils literal"><span class="pre">randint</span></code> 함수를 가져온다;
+매번 <code class="docutils literal"><span class="pre">while</span></code> 루프가 돌 때마다, 임의로 정수를 뽑도록 한다.
+<code class="docutils literal"><span class="pre">RUR.MAX_STEPS</span></code> 변수값을 10,000 으로 설정한다;
+이 변수로 해당 프로그램에서 실행될 수 있는 최대 명령어 수행횟수를 제어한다;
+기본디폴트 설정으로, 1,000 으로 설정되지만,
+전체 프로그램을 수행하기에는 충분해 보이지는 않는다.</p>
+<p>벽이 앞을 막고 있다면 <code class="docutils literal"><span class="pre">move()</span></code> 명령어가 <code class="docutils literal"><span class="pre">ReeborgError</span></code> 예외를 촉발한다;
+하지만, <code class="docutils literal"><span class="pre">turn_left()</span></code> 명령어는 결코 예외를 촉발할 수 없다.</p>
+<p>사용자 프로그램에 의해서 <code class="docutils literal"><span class="pre">ReeborgError</span></code> 또다른 예외가 발생될 수 있다.
+예를 들어, 프로그램이 다음과 같다면:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="n">Mov</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">NameError</span></code> 명칭 예외가 발생되는데, 이유는 <code class="docutils literal"><span class="pre">Mov</span></code> 가 알수없는 명령어가 되기 때문이다.
+프로그램이 다음과 같다면:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+  <span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">IndentationError</span></code> 들여쓰기 예외가 발생된다. 프로그램이 다음과 같다면:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">SyntaxError</span></code> 구문예외가 예외로 발생된다; 등등...</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="advanced.html" title="5. More advanced programming"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="library.html" title="3. 빠르게 파이썬 소개하기: 3부, 라이브러리 사용"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >파이썬: 개요</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

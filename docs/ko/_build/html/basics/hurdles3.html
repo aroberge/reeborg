@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>19. 다시 장애물! &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="20. 아니면 ... 참(true)!" href="not.html" />
+    <link rel="prev" title="18. 제말을 들어보세요... 그렇지 않다면..." href="else.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="not.html" title="20. 아니면 ... 참(true)!"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="else.html" title="18. 제말을 들어보세요... 그렇지 않다면..."
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">19. 다시 장애물!</a><ul>
+<li><a class="reference internal" href="#if-elif-else">19.1. <code class="docutils literal"><span class="pre">if/elif/</span> <span class="pre">...</span> <span class="pre">/else</span></code> 문장에 대해서 생각하는 방법</a></li>
+<li><a class="reference internal" href="#id2">19.2. 장애물로 돌아가서</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="else.html"
+                        title="previous chapter">18. 제말을 들어보세요... 그렇지 않다면...</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="not.html"
+                        title="next chapter">20. 아니면 ... 참(true)!</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/hurdles3.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/hurdles3.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>19. 다시 장애물!<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p id="index-0">리보그는 캐나다에서 살고 있는데, 캐나다는 비가 오거나 밝거나 눈이 내릴 수도 있다.
+통상 한번에 세가지 사건이 발생하지 않지만, 그러는 경우도 있다...
+세가지 경우 중에 한가지만 발생한다고 가정하자. 그러고 나면, 리보그는 다음 선택지에 마주하게 된다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">it_rains</span><span class="p">():</span>
+    <span class="n">play_indoors</span><span class="p">()</span>
+<span class="k">elif</span> <span class="n">it_snows</span><span class="p">():</span>
+    <span class="n">go_skiing</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">go_swimming</span><span class="p">()</span> <span class="c"># 충분히 덥다고 가정!</span>
+</pre></div>
+</div>
+<p>두번째 선택으로 <code class="docutils literal"><span class="pre">elif</span></code> (&#8220;else if&#8221;를 의미) 사용에 주목한다.
+예를 들어, 우박, 천둥, 안개, 이슬비 등과 같은 또다른 가능한 기상 현상을 생각하고 있다면,
+부가적인 <code class="docutils literal"><span class="pre">elif:</span> <span class="pre">...</span></code> 코드 덩어리를 사용하는 선택지를 추가할 수 있따.</p>
+<p>아래에 리보그가 직면한 선택을 시각적으로 표현하고 있다:</p>
+<div class="figure align-center">
+<img alt="../_images/elif.jpg" src="../_images/elif.jpg" />
+</div>
+<div class="section" id="if-elif-else">
+<h2>19.1. <code class="docutils literal"><span class="pre">if/elif/</span> <span class="pre">...</span> <span class="pre">/else</span></code> 문장에 대해서 생각하는 방법<a class="headerlink" href="#if-elif-else" title="Permalink to this headline">¶</a></h2>
+<p>일련의 <code class="docutils literal"><span class="pre">if/elif/</span> <span class="pre">...</span> <span class="pre">/else</span></code> 문장은 <code class="docutils literal"><span class="pre">참(True)</span></code> 으로 평가되는 <strong>첫번째</strong> 코드 덩어리를
+삽입하는 것과 상응한다. 따라서:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="k">False</span><span class="p">:</span>
+    <span class="n">do_1</span><span class="p">()</span>
+<span class="k">elif</span> <span class="k">True</span><span class="p">:</span>
+    <span class="n">do_2</span><span class="p">()</span>
+<span class="k">elif</span> <span class="k">True</span><span class="p">:</span>
+    <span class="n">do_3</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">do_4</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>상기 코드는 다음에 상응한다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">do_2</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>반면에:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="k">False</span><span class="p">:</span>
+    <span class="n">do_1</span><span class="p">()</span>
+<span class="k">elif</span> <span class="k">False</span><span class="p">:</span>
+    <span class="n">do_2</span><span class="p">()</span>
+<span class="k">elif</span> <span class="k">False</span><span class="p">:</span>
+    <span class="n">do_3</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">do_4</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>상기 코드는 다음에 상응한다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">do_4</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>등등.</p>
+</div>
+<div class="section" id="id2">
+<h2>19.2. 장애물로 돌아가서<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p id="index-1">방금 두 학습 전에, <strong>Hurdles&nbsp;1</strong> 과 <strong>Hurdles&nbsp;2</strong> 세상에 동작하지만, <strong>Hurdles&nbsp;3</strong> 세상에는
+동작하지 않는 프로그램을 작성했다.
+작성한 프로그램은 아마도 다음과 같을 것이다.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">jump_over_hurdle</span><span class="p">():</span>
+     <span class="c"># 적절한 정의</span>
+
+<span class="k">def</span> <span class="nf">move_and_jump_until_done</span><span class="p">():</span>
+     <span class="n">move</span><span class="p">()</span>
+     <span class="k">if</span> <span class="n">at_goal</span><span class="p">():</span>
+         <span class="n">done</span><span class="p">()</span>
+     <span class="n">jump_over_hurdle</span><span class="p">()</span>
+
+ <span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+     <span class="n">move_and_jump_until_done</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Hurdles&nbsp;3</strong> 세상에서 동작하지 않는 이유는 장애물이 동일 간격으로 되어 있다는 가정으로
+작성되었기 때문이다.
+코드를 변경하는데 신규 조건 <code class="docutils literal"><span class="pre">front_is_clear()</span></code> 와 키워드 <code class="docutils literal"><span class="pre">else</span></code> 를 사용해보자.</p>
+<p>빠진 부분에 적절한 코드를 채워넣기만 하면, 위에서 언급된 세상에 동작하는 새로운 프로그램이 다음에 있다.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">jump_over_hurdle</span><span class="p">():</span>
+     <span class="c"># 적절한 정의</span>
+
+<span class="k">def</span> <span class="nf">run_jump_or_finish</span> <span class="p">():</span>
+     <span class="k">if</span> <span class="n">at_goal</span><span class="p">():</span>
+         <span class="c"># 무언가 수행한다.</span>
+     <span class="k">elif</span> <span class="n">front_is_clear</span><span class="p">():</span>
+         <span class="c"># 무언가 수행한다.</span>
+     <span class="k">else</span><span class="p">:</span>
+         <span class="c"># 무언가 수행한다.</span>
+
+ <span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+     <span class="n">run_jump_or_finish</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">if/elif/else</span></code> 문장구조에 주목한다; 앞에서 언급했듯이,
+세가지 독립적인 선택지를 봐야 한다: 세가지 선택지 중에 단 하나만 실행될 것이다.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">move_and_jump_until_done</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">at_goal</span><span class="p">():</span>
+        <span class="n">done</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">front_is_clear</span><span class="p">():</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">jump_over_hurdle</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title first">직접 수행해 보기!</p>
+<p>그러한 프로그램을 작성해 보고, 제대로 동작하는지 확실히 한다.</p>
+</div>
+<p>어떤 것도 변경하지 않고, 상기 프로그램이 <strong>Hurdles&nbsp;4</strong> 세상에 돌아갈까? ...
+코드를 살펴보고 나면, 대답은 아니요라고 결론내릴 것 같다.
+직접 시도해서 확인할 수도 있다. <strong>Hurdles&nbsp;4</strong> 세상 뿐만 아니라 다른 세가지 세상에서
+리보그가 달릴 수 있는 프로그램을 작성할 때까지 시간이 <code class="docutils literal"><span class="pre">한동안(while)</span></code> 걸릴 것이다.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="not.html" title="20. 아니면 ... 참(true)!"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="else.html" title="18. 제말을 들어보세요... 그렇지 않다면..."
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

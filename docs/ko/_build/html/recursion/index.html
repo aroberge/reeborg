@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>재귀(Recursion) &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="next" title="1. 재귀: 간단한 예제" href="recursion1.html" />
+    <link rel="prev" title="31. 요약" href="../basics/summary4.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="recursion1.html" title="1. 재귀: 간단한 예제"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="../basics/summary4.html" title="31. 요약"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../basics/summary4.html"
+                        title="previous chapter">31. 요약</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="recursion1.html"
+                        title="next chapter">1. 재귀: 간단한 예제</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/recursion/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/recursion/index.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="recursion">
+<h1>재귀(Recursion)<a class="headerlink" href="#recursion" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="index-0"></span><p id="index-1">재귀에 대한 정의를 인터넷에서 검색하면, 다음과 같은 정의를 종종 보게 된다:</p>
+<dl class="docutils">
+<dt><strong>재귀</strong></dt>
+<dd>재귀 참조.</dd>
+</dl>
+<p>이것은 잘못, 잘못, <em>잘못</em>, <strong>잘못</strong>, ... 정말 잘못되었다!</p>
+<p>여러분이 컴퓨터 프로그램으로, 상기 정의에 따라 파싱하려고 하면,
+무한 루프(infinite loop)에 빠지게 된다.
+상기 정의를 읽게 되면, 컴퓨터처럼 동작하지 못하고 무한루프에 빠지게 되거나,
+여기 나와 있는 모든 것을 읽지 못하고 특히 위에 나온 정의를 그냥 넘어가게 됨을 의미한다.</p>
+<p>재귀는 때때로 이해하기 어려운 것으로 기술된다.
+이 말을 믿지 마세요.
+루프를 이해하면, 재귀도 이해할 수 있다.</p>
+<p>그래서, 여러분이 알고자 하는 재귀는 무엇일까?...</p>
+<p>재귀는 본인과 유사한 방식으로 항목을 반복 수행하는 과정(process)이다.
+컴퓨터 프로그램에 대해서, 루프처럼 반복되는 명령어를 의미한다.
+그리고, 루프에서처럼, 영원히 꼼짝 못하게 되고 싶지는 않을 것이다.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recursion1.html">1. 재귀: 간단한 예제</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recursion2.html">2. 까다로운 재귀</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="recursion2.html#id6">2.1. 작은 변경...</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="recursion3.html">3. 더 많은 재귀</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="recursion3.html#id6">3.1. 또다른 테스트</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="recursion4.html">4. 재귀 횟수 세기</a></li>
+</ul>
+</div>
+<div class="admonition- admonition">
+<p class="first admonition-title">선생님께</p>
+<p>일부 선생님이 재귀를 이해하기 매우 어려운 개념으로 간주한다;
+이 부분을 근본적으로 별도 학습으로 간주해서 자유롭게 건너뛸 수 있다.</p>
+<p class="last">여기서 재귀를 선택한 이유는 한편으로는 전제조건으로 필요한 모든 것을 살펴봤고,
+다른 한편으로는 <code class="docutils literal"><span class="pre">while</span></code> 루프에 대한 소개를 재귀로 대체할 수 있고
+반대로도 말이 되고, 루프에 대한 이해를 강화하는 기회도 제공한다.
+나중에까지 기다리게 되면, 학생이 부차적인 것이 되어야 하는 <code class="docutils literal"><span class="pre">while</span></code> 루프에 너무 친숙해져서,
+재귀에 대한 개념이 상대적으로 갑자기 &#8220;매우 어렵고&#8221;,
+매우 다른 것으로 보여지게 되는 위험이 있다.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="recursion1.html" title="1. 재귀: 간단한 예제"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="../basics/summary4.html" title="31. 요약"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

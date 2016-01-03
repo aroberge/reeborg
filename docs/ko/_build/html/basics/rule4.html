@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>28. 4번째 규칙 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="29. 놀라운 소식" href="surprises.html" />
+    <link rel="prev" title="26. 단계적 정제: 4부" href="refine4.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="surprises.html" title="29. 놀라운 소식"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="refine4.html" title="26. 단계적 정제: 4부"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">28. 4번째 규칙</a><ul>
+<li><a class="reference internal" href="#id2">28.1. 결론</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="refine4.html"
+                        title="previous chapter">26. 단계적 정제: 4부</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="surprises.html"
+                        title="next chapter">29. 놀라운 소식</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/rule4.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/rule4.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>28. 4번째 규칙<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>앞선 수업에서, 최초 고안한 것보다 더 많은 상황에서 동작하는 프로그램을 설계했다. (동작하지 않는 다른 상황을 제안할 수 있지만, 연습문제로 충분히 했다.)
+잊기 전에, 작성한 프로그램은 리보그가 벽을 따라 세상을 한번 탐색하도록 작성되었다. 프로그램이 다소 짧아 구조가 명확하게 보일 수 있지만, 처음으로 프로그램을 읽는 사람에게는 명확하게 보이지 않을 수 있다. 주석을 추가하든지 좀더 의미가 있는 단어를 사용하는 것이 좋은 생각이 된다. 생각하는 것 보다 다소 단어나 말이 길어지는 것처럼 보일 수 있지만, 주석을 추가해 시작해 봅시다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="c"># 토큰을 내려 놓는 것으로 시작점을 표시한다.</span>
+<span class="n">put</span><span class="p">()</span>
+
+<span class="c"># 막히지 않는 방향을 찾아 이동을 시작한다.</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">front_is_clear</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+
+<span class="sd">&#39;&#39;&#39;  토큰을 내려 놓은 장소로 돌아갔을 때,</span>
+<span class="sd">세상을 돌아 다닌 것을 알게 된다. &#39;&#39;&#39;</span><span class="s">&#39;</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">object_here</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">right_is_clear</span><span class="p">():</span>  <span class="c"># 우측 방향으로 돈다.</span>
+        <span class="n">turn_right</span><span class="p">()</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">front_is_clear</span><span class="p">():</span>    <span class="c"># 이동 ... 오른쪽 벽을 따라</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">turn_left</span><span class="p">()</span>  <span class="c"># 왼쪽으로 돌아 벽을 따라간다</span>
+</pre></div>
+</div>
+<p>이런 유형 방법이 각 명령문에 대한 의도를 명확히 하지만, 문제를 해결하는데 사용되는 <em>알고리즘(Algorithm)</em> 으로 알려진 방법을 요약하는 데는 그다지 도움이 되지 않는다. 따라서, 이렇게 주석을 다는 것은 여러분이 희망하는 다른 프로그램을 읽는 분들에게는 도움이 되지 않을지도 모른다. 주석을 읽으면, 작성된 프로그램이 두 개의 부분으로 구성된 것을 주목한다.</p>
+<ol class="arabic simple">
+<li>첫 시작 지점을 표시한다.</li>
+<li>처음 시작 지점으로 돌아올때까지 오른쪽 벽을 따라 계속 이동한다.</li>
+</ol>
+<p>프로그램을 다시 작성해서, 두 부분이 좀더 명확해 지도록 주석을 다르게 작성한다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="sd">&#39;&#39;&#39; 이 프로그램은 리보그가 반시계 방향으로 벽을 따라 돌아</span>
+<span class="sd">    처음 시작한 지점으로 다시 돌아와서 멈추는 프로그램입니다. &#39;&#39;&#39;</span>
+
+<span class="k">def</span> <span class="nf">mark_starting_point_and_move</span><span class="p">():</span>
+    <span class="n">put</span><span class="p">()</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">front_is_clear</span><span class="p">():</span>
+        <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">move</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">follow_right_wall</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">right_is_clear</span><span class="p">():</span>
+        <span class="n">turn_right</span><span class="p">()</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">front_is_clear</span><span class="p">():</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">turn_left</span><span class="p">()</span>
+
+<span class="n">found_starting_point</span> <span class="o">=</span> <span class="n">object_here</span>
+
+<span class="c">#######</span>
+<span class="c">##  함수 명령문 정의 끝; 아래 프로그램 실행.</span>
+<span class="c">#######</span>
+
+<span class="n">mark_starting_point_and_move</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">found_starting_point</span><span class="p">():</span>
+    <span class="n">follow_right_wall</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>이것이 좀더 명확하지 않습니까?</p>
+<p><strong>주의: 라이브러리에 ``follow_right_wall()`` 함수를 복사해 넣어 다시 필요할 때 사용할 수 있게 한다.</strong></p>
+<div class="section" id="id2">
+<h2>28.1. 결론<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>해결할 수 있는 간단한 문제(직사각형 세상을 따라 돌아다님)에서 출발했고, 조금씩 조금씩 개선해서(<em>단계적 정제(stepwise refinement)</em> 라고도 부름), 다른 많은 문제를 해결하는데 사용할 수 있는 프로그램을 작성하게 되었다. 각 단계에서 변경사항을 적게하고, 더 복잡한 문제를 고려하기 전에, 확실히 동작하는 해법이 되는지 확인한다. 프로그램을 읽기 쉽고, 이해하기 쉽게 만드는 <em>알고리즘</em> 부분에 좀더 서술적인 명칭을 사용하기도 했다. 이것이 본인 자신의 프로그램을 작성할 때 사용해야 되는 전략이다:</p>
+<div class="admonition important" id="index-0">
+<p class="first admonition-title">Important</p>
+<dl class="last docutils">
+<dt><strong>규칙 # 4</strong></dt>
+<dd><p class="first">프로그램을 작성할 때 지킬 절차:</p>
+<ol class="last arabic simple">
+<li>간단하고, 작게 시작합니다</li>
+<li>한번에 작은 수정사항, 변경을 합니다.</li>
+<li>각 단계의 수정 변경 사항이 전에 작성한 것과 잘 작동하는지 확인하세요.</li>
+<li>각 명령문이 수행하는 것을 단순 반복하지 않는 적절한 주석을 추가하세요.</li>
+<li>서술적인 이름을 사용하세요.</li>
+</ol>
+</dd>
+</dl>
+</div>
+<p>마지막 두 부분은 본질적으로 규칙 # 2와 같다.</p>
+<p>이제, 다음 수업으로 이동하기 전에, 편집기에서 동작하는 프로그램인지 확인한다.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="surprises.html" title="29. 놀라운 소식"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="refine4.html" title="26. 단계적 정제: 4부"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

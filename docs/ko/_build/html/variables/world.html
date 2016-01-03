@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>5. World &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Variables" href="index.html" />
+    <link rel="next" title="6. Increment" href="increment.html" />
+    <link rel="prev" title="4. Newspaper delivery revisited again" href="newspaper3.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="increment.html" title="6. Increment"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="newspaper3.html" title="4. Newspaper delivery revisited again"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Variables</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">5. World</a><ul>
+<li><a class="reference internal" href="#programming-exercise">5.1. Programming exercise</a></li>
+<li><a class="reference internal" href="#loading-a-remote-world">5.2. Loading a remote world</a></li>
+<li><a class="reference internal" href="#loading-a-remote-world-again">5.3. Loading a remote world, again</a></li>
+<li><a class="reference internal" href="#save-your-work">5.4. Save your work</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="newspaper3.html"
+                        title="previous chapter">4. Newspaper delivery revisited again</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="increment.html"
+                        title="next chapter">6. Increment</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/variables/world.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/variables/world.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="world">
+<h1>5. World<a class="headerlink" href="#world" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note" id="index-0">
+<p class="first admonition-title">Note</p>
+<p class="last">Since <code class="docutils literal"><span class="pre">World()</span></code> is a very special function, I decided not to follow
+the normal Python convention and have its name start with an
+uppercase letter.</p>
+</div>
+<p>Choose a world other than <strong>Home 1</strong>.  Then run the following program
+<strong>twice</strong>:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">World</span><span class="p">(</span><span class="s">&quot;Home 1&quot;</span><span class="p">)</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The first time you run it, you should see Reeborg informing you that the world has
+changed to <strong>Home 1</strong>, which you should be able to confirm by looking
+at the world.</p>
+<p>The second time you run it, because <strong>Home 1</strong> is already selected, the
+function <code class="docutils literal"><span class="pre">World()</span></code> is effectively ignored, and the rest of the program is
+executed.</p>
+<div class="section" id="programming-exercise">
+<h2>5.1. Programming exercise<a class="headerlink" href="#programming-exercise" title="Permalink to this headline">¶</a></h2>
+<p>Before I tell you more about <code class="docutils literal"><span class="pre">World()</span></code>, I want you to revisit a program
+you should have written before.</p>
+<div class="topic">
+<p class="topic-title first">Do this!  It&#8217;s important.</p>
+<p>Select world <strong>Storm 1</strong>.  Write a program that will make Reeborg
+collect all the leaves and put them in the compost bin.  Your program
+will very likely require you to use <code class="docutils literal"><span class="pre">carries_object()</span></code>.</p>
+</div>
+</div>
+<div class="section" id="loading-a-remote-world">
+<h2>5.2. Loading a remote world<a class="headerlink" href="#loading-a-remote-world" title="Permalink to this headline">¶</a></h2>
+<p>Look closely at the world <strong>Storm 1</strong>, taking note of where leaves are.</p>
+<p>Now, at the very top of the program you just wrote to have Reeborg pick up
+all the leaves in <strong>Storm 1</strong>, add the following line of code:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">World</span><span class="p">(</span><span class="s">&quot;http://reeborg.ca/worlds/not_storm1.json&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>[Note that it is a number &#8220;1&#8221; at the end of not_storm1, and not the letter &#8220;l&#8221;.]
+Run the program once: Reeborg should tell you that the world has been loaded
+properly.  Its appearance should be identical to what it was before.</p>
+<p>Note how the world name in the selector at the top is this very long name
+which was used as an argument to <code class="docutils literal"><span class="pre">World()</span></code>.</p>
+<p>Click on the &#8220;World info&#8221; button at the top.  You will find a brief description
+of the world, including the fact that you are not supposed to use
+<code class="docutils literal"><span class="pre">carries_object()</span></code>.  Ignore that, and run your program.  Take note of what
+happens.</p>
+</div>
+<div class="section" id="loading-a-remote-world-again">
+<h2>5.3. Loading a remote world, again<a class="headerlink" href="#loading-a-remote-world-again" title="Permalink to this headline">¶</a></h2>
+<p>So, your program did not work.  We will see how to fix this soon.
+In the meantime, I want you to try something else.  Change the first line
+of the program to read instead like the following:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">World</span><span class="p">(</span><span class="s">&quot;http://reeborg.ca/worlds/not_storm1.json&quot;</span><span class="p">,</span>
+      <span class="s">&quot;Not Storm 1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>I have added a second argument to the function <code class="docutils literal"><span class="pre">World()</span></code>.
+So as to avoid having a line of code that would be too long to be seen
+all at once in the editor, I have put the second argument on a different line.
+When Python sees an open parentheses <code class="docutils literal"><span class="pre">(</span></code> for a function argument, it
+continues to read if needed on other lines until it finds a closing <code class="docutils literal"><span class="pre">)</span></code>,
+and treats everything as though it was all on a single line.
+<strong>However</strong>, note that I did not split up the strings; I only put things on
+a new line after a comma, so that each function argument is on its own line.</p>
+<p>Now, run this.  Again, this will not solve the task at hand.  <strong>However</strong>,
+if you look at the top, the name that now appears for the world is
+<code class="docutils literal"><span class="pre">Not</span> <span class="pre">Storm</span> <span class="pre">1</span></code> instead of the long address that we had before.</p>
+</div>
+<div class="section" id="save-your-work">
+<h2>5.4. Save your work<a class="headerlink" href="#save-your-work" title="Permalink to this headline">¶</a></h2>
+<p>You might want to save your program in a file on your computer by clicking on
+the &#8220;Additional options&#8221; button, followed by &#8220;Save program to file&#8221;.
+Later, you will be able to retrieve it by clicking on &#8220;Import program from file&#8221;.</p>
+<div class="admonition-for-educators admonition">
+<p class="first admonition-title">For educators</p>
+<p class="last">To do: explain how permalinks can be used instead</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="increment.html" title="6. Increment"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="newspaper3.html" title="4. Newspaper delivery revisited again"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Variables</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

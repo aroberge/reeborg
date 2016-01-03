@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>1. 빠르게 파이썬 소개하기: 1부 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Python: A brief overview" href="index.html" />
+    <link rel="next" title="2. A quick Python introduction: part 2" href="python2.html" />
+    <link rel="prev" title="Python: A brief overview" href="index.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="python2.html" title="2. A quick Python introduction: part 2"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="index.html" title="Python: A brief overview"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Python: A brief overview</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">1. 빠르게 파이썬 소개하기: 1부</a><ul>
+<li><a class="reference internal" href="#id2">1.1. 파이썬 프로그램은 무엇인가?</a></li>
+<li><a class="reference internal" href="#id7">1.2. 함수란 무엇인가?</a></li>
+<li><a class="reference internal" href="#id8">1.3. (함수에 대한 ... 혹은 다른 &#8220;것&#8221;에 대한) 적법한 이름은 무엇일까?</a></li>
+<li><a class="reference internal" href="#id9">1.4. <code class="docutils literal"><span class="pre">#</span></code> 기호는 어떤 의미를 가질까?</a></li>
+<li><a class="reference internal" href="#def">1.5. 함수를 어떻게 정의할까? (파이썬 키워드 <code class="docutils literal"><span class="pre">def</span></code>)</a></li>
+<li><a class="reference internal" href="#id10">1.6. 함수를 호출하는 방법?</a></li>
+<li><a class="reference internal" href="#thing">1.7. <em>사물(thing)</em> 에 명칭을 부여하는 다른 방법은?</a></li>
+<li><a class="reference internal" href="#for-in">1.8. 명령어 반복 (파이썬 키워드 <code class="docutils literal"><span class="pre">for</span></code>, <code class="docutils literal"><span class="pre">in</span></code>)</a></li>
+<li><a class="reference internal" href="#if-true-false-not">1.9. 파이썬 키워드: <code class="docutils literal"><span class="pre">if</span></code>, <code class="docutils literal"><span class="pre">True</span></code>, <code class="docutils literal"><span class="pre">False</span></code>, <code class="docutils literal"><span class="pre">not</span></code></a></li>
+<li><a class="reference internal" href="#while">1.10. 파이썬 키워드: <code class="docutils literal"><span class="pre">while</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Python: A brief overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="python2.html"
+                        title="next chapter">2. A quick Python introduction: part 2</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/python/python1.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/python/python1.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>다음에 나온 교육 내용은 프로그래밍 교재는 <strong>아니다.</strong>
+프로그래밍 교재에는 설명이 있다; 프로그래밍 교재는
+문제를 해결하는데 학습한 것을 활용한 것에 대해 생각하게 만든다.
+프로그래밍 교재는 뭔가 유용한 것을 수애하는데 완전한 프로그램을
+작성하게 가르침을 준다.</p>
+<p class="last">다음에 나온 교재는 분명하게 유용한 프로그램을 작성하는 방법을 가르치지는 않는다.
+하지만, 파이썬에 대해 일부 배우는데 도움을 준다.</p>
+</div>
+<div class="section" id="id1">
+<h1>1. 빠르게 파이썬 소개하기: 1부<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>1.1. 파이썬 프로그램은 무엇인가?<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>파이썬 프로그램은 연속된 <a href="#id3"><span class="problematic" id="id4">*</span></a>문장(statement)*이다; 이런 문장이 통상 파일로 (그리고, 리보그 세상에 대한 파이썬 코드 편집기로) 작성되고, 간단한 경우에, 출현되는 순서로 실행된다.</p>
+<p>(작성된 코드와 애니메이션 이미지로) 다음에 시연되는 예제는 문장이 7개 포함되어 있다.
+각 명령문은 개별 라인에 <a href="#id5"><span class="problematic" id="id6">*</span></a>함수 호출(function call)*로 나타난다;
+예제에서, 서로 다른 함수 3개만 사용했다.</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">take</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+<span class="n">put</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="take_put" src="../_images/take_put.gif" /></p>
+</div>
+<div class="section" id="id7">
+<h2>1.2. 함수란 무엇인가?<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>함수는 연속된 문장에 주어진 <strong>명칭(name)</strong> 으로
+함수가 <strong>호출될(called)</strong> 때 파이썬이 실행할 수 있다.</p>
+<p><em>잘 모르겠죠?...</em></p>
+<p>계속, 읽어보세요.</p>
+</div>
+<div class="section" id="id8">
+<h2>1.3. (함수에 대한 ... 혹은 다른 &#8220;것&#8221;에 대한) 적법한 이름은 무엇일까?<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">적법한 이름을 구성하는 것에 대한 정확하고 아마도 가장 혼동되는
+기술은 식별자(<a class="reference external" href="https://docs.python.org/3.4/reference/lexical_analysis.html#identifiers">identifiers</a>) 사이트에서 찾을 수 있다.</p>
+</div>
+<p>정말 단순화해서, 적법한 명칭은 문자, 숫자, <em>밑줄 문자</em> (<code class="docutils literal"><span class="pre">_</span></code>) 로 구성된 어떤 집합으로,
+일부 예약 단어가 제외된다. 예약어는 파이썬 <em>키워드</em> 로 알려져 있고, 아래에서 살펴볼 것이다.
+적법한 명칭은 어떤 문자 혹은 밑줄 단어로 시작될 수 있지만, 숫자는 안된다.
+따라서, 적법한 명칭에는 다음이 포함된다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">reeborg</span>
+<span class="n">_interesting_name</span>
+<span class="n">C3pio</span>
+<span class="n">_</span>      <span class="c"># 파이썬 프로그래머가 나중에 기억할 필요없는 명칭을 사용할 때 흔히 사용한다.</span>
+<span class="n">UsedRobot</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>1.4. <code class="docutils literal"><span class="pre">#</span></code> 기호는 어떤 의미를 가질까?<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">#</span></code> 기호를 사용해서 주석의 시작을 표기한다.
+<em>주석</em> 은 프로그래머가 작성한 텍스트로, 다른 사람에게
+의미있게 읽혀지지만, 컴퓨터에게는 의미가 없어 무시된다.
+본 상황에서 리보그가 무시한다.
+편집기에서, 주석은 코드 나머지와 달리 다른 색깔로 표시되어,
+식별되기 쉽게 한다.</p>
+</div>
+<div class="section" id="def">
+<h2>1.5. 함수를 어떻게 정의할까? (파이썬 키워드 <code class="docutils literal"><span class="pre">def</span></code>)<a class="headerlink" href="#def" title="Permalink to this headline">¶</a></h2>
+<p>다음과 같이 파이썬 함수를 새로 정의할 수 있다:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">some_well_chosen_name</span> <span class="p">():</span>
+    <span class="c"># 코드 몇줄</span>
+    <span class="c"># 동일 선상으로 들여쓴다.</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">def</span></code> 가 첫번째 파이썬 <strong>키워드**가 된다.
+*코드 덩어리* 로 알려진 것에 선행해서 콜론 ``:`` 이 선행해서
+함수 *몸통(body)* 을 구성함에 주목한다.
+사람 독자가 함수 몸통을 쉽게 식별하도록,
+각 코드 라인 시작부분을 동일 선상으로 *들여쓰기* 하는 것이 파이썬에는 **요구된다.</strong></p>
+<p>첫번째 파이썬 함수를 작성하자:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">turn_right</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="def" src="../_images/def.gif" /></p>
+<p>상기 작성한 것을 반복: 함수가 <strong>호출될</strong> 때, 파이썬이
+실행할 수 있는 연속된 문장에 주어진 <strong>명칭</strong> 이 함수다.</p>
+</div>
+<div class="section" id="id10">
+<h2>1.6. 함수를 호출하는 방법?<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>간단히 함수명과 괄호를 친다.
+<code class="docutils literal"><span class="pre">move</span></code> 가 함수 명칭이고,
+<code class="docutils literal"><span class="pre">move()</span></code> 와 같이 작성하면 파이썬에게 함수를 실행하게 명령한다.</p>
+<p><strong>주목:</strong> 함수를 <em>정의할</em> 때도,  괄호를 적는다.
+하지만, 파이썬이 함수를 실행하지 않는다.
+이유는, <code class="docutils literal"><span class="pre">def</span></code> 키워드를 사용할 때는 파이썬이 (아직) 해당 함수를 실행하는 방법을
+모르지만, 곧 실행방법을 알게되기 때문이다.</p>
+<p>다음에 <code class="docutils literal"><span class="pre">turn_left()</span></code> 명령어 다음에 <code class="docutils literal"><span class="pre">move()</span></code> 명령을 수행하는 프로그램 예제가 나와 있다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span>     <span class="c"># 괄호가 없으면, 실행도 없다.</span>
+<span class="n">turn_left</span>
+<span class="n">move</span>
+<span class="n">put</span>
+<span class="n">take</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="paren" src="../_images/paren.gif" /></p>
+</div>
+<div class="section" id="thing">
+<h2>1.7. <em>사물(thing)</em> 에 명칭을 부여하는 다른 방법은?<a class="headerlink" href="#thing" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">만약 다른 프로그래밍 언어를 알고 있다면, 다른 언어에서
+<code class="docutils literal"><span class="pre">=</span></code> 이 의미하는 것을 잊어버릴 필요가 있다.</p>
+</div>
+<p>파이썬은 등호 <code class="docutils literal"><span class="pre">=</span></code> 를 사용해서 사물에 명칭을 부여할 수 있게 한다.
+방식은 다음과 같다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">name_given_by_you</span> <span class="o">=</span> <span class="n">something_known_to_Python</span>
+</pre></div>
+</div>
+<p>예를 들어, 다음과 같이 작성한다면:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">five</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">five</span></code> 에 대부분의 사람들이 <code class="docutils literal"><span class="pre">4</span></code> 로 간주하는 명칭이 되는데,
+파이썬은 아마도 <code class="docutils literal"><span class="pre">00000000000000000000000000000100</span></code> 으로 알게된다.</p>
+<p>파이썬이 알고 있는 주어진 &#8220;사물(thing)&#8221;은 여러분에게 다양한 명칭이 부여될 수 있다;
+파이썬은 이런 모든 명칭이 동등한 것으로 인식한다.</p>
+<p>파이썬에서, &#8220;사물(thing)&#8221;에 대한 기술적 용어는 <strong>객체(object)</strong> 다;
+파이썬에서, 파이썬이 알고 있는 모든 것은 <strong>객체다.</strong></p>
+<p><img alt="assign" src="../_images/assign.gif" /></p>
+</div>
+<div class="section" id="for-in">
+<h2>1.8. 명령어 반복 (파이썬 키워드 <code class="docutils literal"><span class="pre">for</span></code>, <code class="docutils literal"><span class="pre">in</span></code>)<a class="headerlink" href="#for-in" title="Permalink to this headline">¶</a></h2>
+<p>정해진 횟수를 반복하는데 사용되는 명령어로 파이썬 숙어가 있다.
+저자는 파이썬 숙어를 설명하지는 않을 것이다 - 적어도 이번 시점은 아니다.
+파이썬 소개 :strike:<a href="#id11"><span class="problematic" id="id12">`</span></a>수업`을 이어가는데 단지 필요할 뿐이다.</p>
+<p>(특정되지 않은) 명령어를 42회 반복한다고 가정하자.
+파이썬으로 반복작업을 수행하는 방법이 다음에 나와 있다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">42</span><span class="p">):</span>
+   <span class="c"># 명령어 코드를</span>
+   <span class="c"># 동일 선상에서</span>
+   <span class="c"># 들여쓰기를 해서</span>
+   <span class="c"># 계속해서</span>
+   <span class="c"># 적어 나간다.</span>
+</pre></div>
+</div>
+<p>상기 코드는 <strong>for</strong> 루프로 알려져 있다.</p>
+<p>상기 코드에서 파이썬 키워드 <strong>for</strong> 와 파이썬 키워드 <strong>in</strong> 사이에 <code class="docutils literal"><span class="pre">_</span></code> 이 사용된 것에 주목한다;
+저자는 어떤 명칭도 선택할 수 있지만, 어떤 명칭을 선택해도 상관이 없어서,
+앞에서 언급한 파이썬 관습을 채택했다.</p>
+<p>앞에서 살펴본 함수 정의를 다시 작성한 좀더 온전한 예제가 다음에 나와 있다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">turn_right</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>상기 예제에서, 반복되는 코드 덩어리는 단일 문장이 된다.</p>
+</div>
+<div class="section" id="if-true-false-not">
+<h2>1.9. 파이썬 키워드: <code class="docutils literal"><span class="pre">if</span></code>, <code class="docutils literal"><span class="pre">True</span></code>, <code class="docutils literal"><span class="pre">False</span></code>, <code class="docutils literal"><span class="pre">not</span></code><a class="headerlink" href="#if-true-false-not" title="Permalink to this headline">¶</a></h2>
+<p>다음 프로그램을 고려해 보자:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="k">True</span><span class="p">:</span>
+    <span class="n">move</span><span class="p">()</span>
+<span class="k">if</span> <span class="k">False</span><span class="p">:</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="k">True</span><span class="p">:</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="k">False</span><span class="p">:</span>
+    <span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>실행 결과가 다음에 나타나 있다:</p>
+<p><img alt="if" src="../_images/if.gif" /></p>
+<p><code class="docutils literal"><span class="pre">if</span></code> 문장은 일반적으로 다음과 같다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">조건</span><span class="p">:</span>
+   <span class="c"># 여러 줄로 된</span>
+   <span class="c"># 코드</span>
+   <span class="c"># 명령문</span>
+</pre></div>
+</div>
+<p><strong>만약(if)</strong> <code class="docutils literal"><span class="pre">조건(condition)</span></code> 이 <code class="docutils literal"><span class="pre">참(True)``과</span> <span class="pre">동치일</span> <span class="pre">때만,</span>
+<span class="pre">&quot;여러</span> <span class="pre">줄로</span> <span class="pre">된</span> <span class="pre">코드</span> <span class="pre">명령문(lines</span> <span class="pre">of</span> <span class="pre">code)&quot;이</span> <span class="pre">실행된다.</span>
+<span class="pre">``not</span> <span class="pre">False</span></code> 가 완전히 <code class="docutils literal"><span class="pre">True</span></code> 와 동치임에 주목한다.</p>
+<p>영어를 알고 있다면, 이 모든 것을 이해하기 쉽다:
+<code class="docutils literal"><span class="pre">if</span></code>, <code class="docutils literal"><span class="pre">True</span></code>, <code class="docutils literal"><span class="pre">False</span></code>, <code class="docutils literal"><span class="pre">not</span></code>, 그리고 많은 파이썬 키워드가
+영어 기본 의미에 충실하게 선택되었다.</p>
+</div>
+<div class="section" id="while">
+<h2>1.10. 파이썬 키워드: <code class="docutils literal"><span class="pre">while</span></code><a class="headerlink" href="#while" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">while</span></code> 문장은 일반적으로 다음과 같다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">while</span> <span class="n">조건</span><span class="p">:</span>
+   <span class="c"># 여러 줄로 된</span>
+   <span class="c"># 코드</span>
+   <span class="c"># 명령문</span>
+</pre></div>
+</div>
+<p><strong>...동안(while)</strong> 문은 <code class="docutils literal"><span class="pre">조건(condition)</span></code> 이 <code class="docutils literal"><span class="pre">참(True)</span></code> 과 동치일 때만,
+&#8220;여러 줄로 된 코드 명령문(lines of code)&#8221;이 실행되고, 계속해서 반복되고,
+<code class="docutils literal"><span class="pre">조건(condition)</span></code> 이 <code class="docutils literal"><span class="pre">거짓(False)</span></code> 과 동치일 때만 정지된다.</p>
+<p>다음에 기본 명령어를 소개했을 때, 일전에 살펴본 예제가 나와 있다:</p>
+<p><img alt="at_goal" src="../_images/at_goal.gif" /></p>
+<div class="topic">
+<p class="topic-title first">되돌아가서!</p>
+<p>파이썬 구문에 대한 첫번째 소개라면, &#8220;기본 사용설명서&#8221;로 되돌아가서
+다시 살펴보는 것이 아마도 좋은 접근법이 될 것이다:
+앞에서 살펴본 명령어보다 훨씬 더 의미있게 다가올 것이다.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="python2.html" title="2. A quick Python introduction: part 2"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="index.html" title="Python: A brief overview"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Python: A brief overview</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

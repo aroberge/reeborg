@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>16. 만약 ...면 좋을텐데 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="17. 올바른 지점 찾아가기" href="at_goal.html" />
+    <link rel="prev" title="15. 요약" href="summary2.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="at_goal.html" title="17. 올바른 지점 찾아가기"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="summary2.html" title="15. 요약"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">16. 만약 ...면 좋을텐데</a><ul>
+<li><a class="reference internal" href="#if">16.1. 파이썬 키워드: <code class="docutils literal"><span class="pre">if</span></code></a></li>
+<li><a class="reference internal" href="#id2">16.2. <code class="docutils literal"><span class="pre">if</span></code> 문장</a></li>
+<li><a class="reference internal" href="#id3">16.3. <code class="docutils literal"><span class="pre">if</span></code> 문장을 생각하는 방법</a></li>
+<li><a class="reference internal" href="#id4">16.4. 좀더 유용할 수 있는 것...</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="summary2.html"
+                        title="previous chapter">15. 요약</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="at_goal.html"
+                        title="next chapter">17. 올바른 지점 찾아가기</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/if.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/if.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>16. 만약 ...면 좋을텐데<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>만약 리보그가 스스로 의사결정을 한기만 한다면, 프로그램 작성하는 것이 훨씬 더 단순해질텐데...
+<strong>잠시만!</strong> 제가 여러분에게 말하지 않았나요: 리보그는 스스로 의사결정을 할 수 있어요.</p>
+<div class="section" id="if">
+<h2>16.1. 파이썬 키워드: <code class="docutils literal"><span class="pre">if</span></code><a class="headerlink" href="#if" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="index-0"></span><span class="target" id="index-1"></span><span class="target" id="index-2"></span><span class="target" id="index-3"></span><div class="topic" id="index-4">
+<p class="topic-title first">직접 해보세요!</p>
+<p>적절한 세상(아마도 <strong>Alone</strong> )을 선택하고, 리보그가 아래 프로그램을 실행하게 만든다.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">move</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="bp">False</span><span class="p">:</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">True</span></code> 와 <code class="docutils literal"><span class="pre">False</span></code> 도 파이썬 키워드다.
+이 둘을 서로 바꿔서 프로그램을 실행하고 무슨 일이 발생하는지 살펴보라.</p>
+</div>
+<div class="section" id="id2">
+<h2>16.2. <code class="docutils literal"><span class="pre">if</span></code> 문장<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>소위 <code class="docutils literal"><span class="pre">if</span></code> <strong>문장(statement)</strong> 은 <code class="docutils literal"><span class="pre">function</span></code> 와 다소 유사한 패턴을 따른다:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">some_name</span><span class="p">():</span>
+    <span class="c"># 코드 덩어리</span>
+
+<span class="k">if</span> <span class="n">some_condition</span><span class="p">:</span>
+    <span class="c"># 코드 덩어리</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>16.3. <code class="docutils literal"><span class="pre">if</span></code> 문장을 생각하는 방법<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>함수를 설명할 때, 함수 <strong>호출</strong> 을 프로그램 특정 지점에 함수 정의에 대한 코드 덩어리를 삽입하는 것에 상응하는 방법으로 설명했다.
+따라서:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="n">turn_right</span><span class="p">()</span>  <span class="c"># function call</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>상기 코드는 다음과 동치관계가 된다.:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="c"># turn_right() 함수 내부 코드 덩어리 시작</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="c"># 코드 덩이리 끝</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">if</span></code> 문장을 <em>조건부</em> 삽입 (혹은 <strong>삭제</strong> !)를 갖는다는 점을 제외하고, 유사하게 생각할 수 있다.
+그래서:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="k">if</span> <span class="k">True</span><span class="p">:</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>상기 코드는 다음과 동치관계가 된다.:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>반면에:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="k">if</span> <span class="k">False</span><span class="p">:</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>상기 코드는 다음과 동치관계가 된다.:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>이런 방식의 사고가 <code class="docutils literal"><span class="pre">if</span></code> 문장에 있는 삭제가 영구적이라는 것을 의미하지 않음에 주목한다; 만약 프로그램을 <em>다시 루프돌리고</em> 코드의 해당 부분을 다시 반복하면, <code class="docutils literal"><span class="pre">if</span></code> 문장이 매번 다시 평가되어 코드 덩어리 내부 해당 코드줄을 실행할지 실행하지 않을지 결정하게 된다.</p>
+<p>흐름도를 사용해서 상기 내용을 다음과 같이 나타낼 수 있다:</p>
+<div class="figure align-center">
+<img alt="../_images/if.jpg" src="../_images/if.jpg" />
+</div>
+</div>
+<div class="section" id="id4">
+<h2>16.4. 좀더 유용할 수 있는 것...<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><code class="docutils literal"><span class="pre">if</span></code> 문장에서 <code class="docutils literal"><span class="pre">참(True)</span></code> 혹은 <code class="docutils literal"><span class="pre">거짓(False)</span></code> 와 동치되는 결과를 주는 함수를 기술하는데 사용되는 일반적인 용어가 <strong>조건(condition)</strong> 이다.:</p>
+<div class="last highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">조건</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<p id="index-5"><code class="docutils literal"><span class="pre">True</span></code> 혹은 <code class="docutils literal"><span class="pre">False</span></code> 를 명세해야 되는 것이 리보그 스스로 결정결정을 하는데 도움이 되지는 못한다. 하지만, 스스로 무언가를 결정하도록 리보그가 인식할 수 있는 특수 함수가 있다.
+첫번째가  <code class="docutils literal"><span class="pre">object_here()</span></code> 로 리보그로 하여금 리보그가 위치하고 있는 격자 위치에 적어도 물체가 한개 있는지 일러준다.
+예를 들어, 리보그로 하여금 토큰을 모으도록 요청하면, 코드 한 부분이 다음과 같을 것이다::</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">object_here</span><span class="p">():</span>
+    <span class="n">take</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Tokens&nbsp;1</strong> 와 <strong>Tokens&nbsp;2</strong> 세상을 살펴보라.
+양쪽 경우에, 리보그가 직선을 따라 앞으로 이동한다고 가정하고,
+토큰을 발견하면, 리보그가 해야 되는 일은 다음과 같다:</p>
+<ol class="arabic simple">
+<li>토큰을 집는다.</li>
+<li>다음 칸으로 이동한다.</li>
+<li>토큰을 자리에 놓는다.</li>
+<li>한칸 더 이동한다.</li>
+<li>그리고 나서 작업을 완수: <code class="docutils literal"><span class="pre">done()</span></code></li>
+</ol>
+<p>여기에 리보그가 이해하는 새로운 명령어가 소개되었다: <code class="docutils literal"><span class="pre">done()</span></code>. 실제로, 리보그가 본인에게 스스로 작업을 완수했음을 공표하는 명령어로 간주해야 된다.</p>
+<p><strong>Tokens&nbsp;1</strong> 과 <strong>Tokens&nbsp;2</strong> 양쪽 세상 모두에서 동작하는 프로그램에 대한 개괄적인 개요를 작성하자:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">move_until_done</span><span class="p">():</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">object_here</span><span class="p">():</span>
+        <span class="c"># 무언가 수행한다.</span>
+        <span class="c"># 다른 무언가 수행한다.</span>
+        <span class="c"># 다시 다른 무언가 수행한다.</span>
+        <span class="c"># 한가지 더 있다.</span>
+        <span class="n">done</span><span class="p">()</span>
+
+<span class="n">repeat</span> <span class="mi">42</span><span class="p">:</span>
+    <span class="n">move_until_done</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>왜 42?... 리보그가 어떤 세상에 있는지 관계없이 리보그가 충분하게 작업하도록 확실히 하고자 해서 그렇다.
+지금까지, 세상 모두가 42개 정도면 충분할 정도로 작았다. 그다지 똑똑하지 않아 보이는데 동의합니다. 나중에 이 문제를 어떻게 고치는지 보게될 됩니다.</p>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p>코드 편집기에 상기 코드를 복사해서, 빠진 명령어를 채워넣는다. 그리고 <strong>Tokens&nbsp;1</strong> 과 <strong>Tokens&nbsp;2</strong> 양쪽 세상에 작성한 프로그램을 테스트한다.</p>
+</div>
+<div class="admonition- admonition">
+<p class="first admonition-title">선생님께</p>
+<p>함수 <code class="docutils literal"><span class="pre">object_here()</span></code> 는 해당 지점에서 발견한 (문자열로) 객체 자료형 리스트를 반환한다.
+예를 들어, 동일 지점에 별과 토큰이 있다면,
+<code class="docutils literal"><span class="pre">object_here()</span></code> 함수는 <code class="docutils literal"><span class="pre">[&quot;star&quot;,</span> <span class="pre">&quot;token&quot;]</span></code> 혹은 <code class="docutils literal"><span class="pre">[&quot;token&quot;,</span> <span class="pre">&quot;star&quot;]</span></code> 을 반환한다.
+만약 객체가 하나도 없다면, 빈 리스트가 반환된다.
+이미 여러분이 인지하고 있듯이, 파이썬에서 빈 리스트는 <code class="docutils literal"><span class="pre">if</span></code> 문에서 <a href="#id5"><span class="problematic" id="id6">``</span></a>거짓(False)``와 등치관계가 되고, 비어 있지 않는 리스트는 <a href="#id7"><span class="problematic" id="id8">``</span></a>참(True)``과 등치관계가 된다.</p>
+<p>해당 세상에서 많은 객체가 잠재적으로 찾았는데 단지 한가지 객체 유형에만 관심이 간다면, 함수 인자로 이를 명세할 수 있다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">if</span> <span class="n">object_here</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">):</span>
+    <span class="n">take</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="last"><code class="docutils literal"><span class="pre">object_here(&quot;token&quot;)</span></code> 함수는 빈 리스트 혹은
+<code class="docutils literal"><span class="pre">[&quot;token&quot;]</span></code> 리스트를 반환하게 된다.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="at_goal.html" title="17. 올바른 지점 찾아가기"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="summary2.html" title="15. 요약"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

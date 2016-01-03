@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>1. 첫번째 프로그램 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="2. 작업 주도 학습" href="home.html" />
+    <link rel="prev" title="기본 사용설명서" href="index.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="home.html" title="2. 작업 주도 학습"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="index.html" title="기본 사용설명서"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">1. 첫번째 프로그램</a><ul>
+<li><a class="reference internal" href="#errors">1.1. 오류(eRRoRs) 처리</a><ul>
+<li><a class="reference internal" href="#id2">1.1.1. 어떤 일이 발생했나요?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">1.2. 규칙 #1</a></li>
+<li><a class="reference internal" href="#id4">1.3. 여러분을 도와줄 특별한 도구</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">기본 사용설명서</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="home.html"
+                        title="next chapter">2. 작업 주도 학습</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/move.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/move.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>1. 첫번째 프로그램<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="figure align-left" id="index-0">
+<img alt="../_images/move.png" src="../_images/move.png" />
+</div>
+<p>사용지침서 초반에 주어진 명령지침을 따랐다면, 리보그 첫걸음을 방금 전에 내딛였다. 편집창(editor panel)에, 명령어가 하나있다.:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">move()</span></code> 는 파이썬 <strong>함수(function)</strong> 의 한가지 사례다. 함수는 이름이 있다; 이 경우에, 이름이 <code class="docutils literal"><span class="pre">move``다.</span> <span class="pre">적법한</span> <span class="pre">명칭은</span> <span class="pre">문자</span> <span class="pre">혹은</span> <span class="pre">밑줄</span> <span class="pre">문자</span> <span class="pre">&quot;_&quot;로</span> <span class="pre">시작해야</span> <span class="pre">되고,</span> <span class="pre">문자,</span> <span class="pre">숫자,</span> <span class="pre">혹은</span> <span class="pre">밑줄</span> <span class="pre">&quot;_&quot;을</span> <span class="pre">포함할</span> <span class="pre">수</span> <span class="pre">있다.</span>
+<span class="pre">함수</span> <span class="pre">명칭</span> <span class="pre">다음에</span> <span class="pre">``()</span></code> 괄호 적는다. 이것이 리보그(파이썬)으로 하여금 함수는 <em>실행되거나</em> 혹은 <em>호출되어야</em> 됨을 일러준다. 여기서 실행(execute)과 호출(call)은 유의어다. 함수는 그 차제로 한줄이여야만 된다. [추후에 이것에 대한 예외를 볼 것이다.]</p>
+<p>종종, 프로그램을 시각적으로 표현하는 <strong>순서도(flowchart)</strong> 를 그린다. 순서도로 표현하면, <code class="docutils literal"><span class="pre">move()</span></code> 같은 단일 명령어는 다음과 같이 표현될 수 이다:</p>
+<div class="figure align-center">
+<img alt="../_images/move1.jpg" src="../_images/move1.jpg" />
+</div>
+<p>그리고, 단일 명령어를 담고 있는 완전한 프로그램은 다음과 같이 표현될 수 있다:</p>
+<div class="figure align-center">
+<img alt="../_images/move.jpg" src="../_images/move.jpg" />
+</div>
+<p>순서도에서, 명령어 순서는 화살표를 따라간다. &#8220;시작(Start)&#8221;에서 출발해서 &#8220;중지(Stop)&#8221;에서 멈춘다.</p>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p>두번째 <code class="docutils literal"><span class="pre">move()</span></code> 명령어를 추가해서, 한번 전진하는 대신에 리보그가 두번 전진하게 한다.</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">코드를 적은 첫줄 시작점에 공백없이, 각 명령어가 해당 줄에 온전히 나타나야만 된다.</p>
+</div>
+<div class="section" id="errors">
+<h2>1.1. 오류(eRRoRs) 처리<a class="headerlink" href="#errors" title="Permalink to this headline">¶</a></h2>
+<p>컴퓨터 프로그램을 작성할 때, 아마도 많은 오류를 만들것이다. 리보그가 오류에 어떻게 반응하는지 살펴보기 위해서, 프로그램에 의도적으로 오류 한개를 도입해본다.</p>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p><code class="docutils literal"><span class="pre">move()</span></code> 를  <code class="docutils literal"><span class="pre">Move()</span></code> (대문자 M)로 변경하고 프로그램을 실행해 본다.</p>
+</div>
+<div class="section" id="id2">
+<h3>1.1.1. 어떤 일이 발생했나요?<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>리보그가 이해하는 언어, 파이썬은 &#8220;대소문자를 구별&#8221;한다; 즉, 소문자가 대문자와 다른 의미를 갖는다. 리보그가 오류처리하는 방법을 살펴봤기 때문에, 돌아가서, 프로그램을 고치고, 올바른 버젼으로 실행한다.</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>1.2. 규칙 #1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>위에서 저자가 제시한 모든 것을 시도해봤나요? 만약 그렇지 않다면, 다시 돌아가서 수행을 직접하도록 촉구합니다. 만약 프로그래밍을 배우려고 한다면 지켜야만 되는 가장 중요한 규칙이 다음에 나와있다:</p>
+<div class="admonition important" id="index-1">
+<p class="first admonition-title">Important</p>
+<dl class="last docutils">
+<dt>규칙 # 1</dt>
+<dd>컴퓨터 프로그램을 배우는 것은 마치 음악 악기를 배우는 것과 같습니다: 단지 읽는 것만으로는 부족하고, 여러분이 <strong>직접 프로그램을 작성</strong> 해봐야 합니다.</dd>
+</dl>
+</div>
+<p>매번 저자가 무언가 시도해보라고 제시할 때마다, 실습하는데 대해서 뭔가 이유가 있다. 때때로, 당장 명백해보지 않을 수도 있지만, 저자는 여러분이 실습하도록 적극 권장합니다. 저자가 제시하는 것 이상, 더 멀리 탐색하도록 다른 것도 직접하도록 적극 권장합니다.</p>
+</div>
+<div class="section" id="id4">
+<h2>1.3. 여러분을 도와줄 특별한 도구<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>리보그 세상(Reeborg&#8217;s World) 상단에, <strong>Reeborg&#8217;s keyboard</strong> 라는 이름의 버튼이 있다. 만약 이 버튼을 클릭하면, 특수 키보드가 나타난다. 각 버튼을 클릭함으로써, 상응하는 명령어, 파이썬 키워드 등이 자동으로 편집기에 삽입된다. 이름이 올바르게 입력되고, 필수 괄호를 빼먹지 않게 확실히 하는데 유용하다.</p>
+<div class="admonition- admonition">
+<p class="first admonition-title">선생님께</p>
+<p>리보그 키보드는 다음 세가지 범주에 속한 사용자에게 특히 유용하다: 정규 키보드를 타이핑하는데 어려움을 갖는 어린 친구들, 터치 화면을 사용하는 사용자, 비영문 자판을 사용하거나 파이썬에 필요한 일부 기호를 입력하는데 어려움을 갖는 사용자.</p>
+<p class="last">리보그 키보드에는 사용설명서에 문서화되지도 않고 온라인 도움말에도 나와 있지 않는 명령어가 하나 포함되어 있다. 이런 유형의 누락이 다른 명령어에도 일어날 수 있다... 만약 이런 경우가 있다면, 저자가 필요한 수정을 할 수 있도록 연락을 주세요.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="home.html" title="2. 작업 주도 학습"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="index.html" title="기본 사용설명서"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

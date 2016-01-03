@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>12. Return &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Variables" href="index.html" />
+    <link rel="next" title="13. Function arguments" href="arguments1a.html" />
+    <link rel="prev" title="11. For loops" href="for.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="arguments1a.html" title="13. Function arguments"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="for.html" title="11. For loops"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Variables</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">12. Return</a><ul>
+<li><a class="reference internal" href="#getting-results-from-functions">12.1. Getting results from functions</a></li>
+<li><a class="reference internal" href="#how-to-think-about-return">12.2. How to think about return</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="for.html"
+                        title="previous chapter">11. For loops</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="arguments1a.html"
+                        title="next chapter">13. Function arguments</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/variables/return.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/variables/return.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="return">
+<h1>12. Return<a class="headerlink" href="#return" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add an explanation about the fact that a function always
+returns a value; if no return value is explictly written,
+then the function returns  <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">North is toward the top of the screen; East
+is toward the right, West toward the left and South toward the bottom.</p>
+</div>
+<p>As you know, Reeborg is not exactly in good shape. He can only turn
+left, has an oil leak, can only see walls when they are right in front
+of him or immediately to his right, and can see tokens only when he is
+literally standing on top of them. Reeborg has also a (somewhat broken)
+compass which he can used to find out if is is facing north ... or not.
+To find out if he is facing north, you can ask Reeborg to do the test
+<code class="docutils literal"><span class="pre">is_facing_north()</span></code>.</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<p>Choosing an appropriate world, write a short program that will ensure
+that Reeborg will turn left until he faces north, no matter what his
+starting orientation is.</p>
+</div>
+<div class="section" id="getting-results-from-functions">
+<h2>12.1. Getting results from functions<a class="headerlink" href="#getting-results-from-functions" title="Permalink to this headline">¶</a></h2>
+<p>Tests like <code class="docutils literal"><span class="pre">is_facing_north()</span></code> are actually Python functions. They
+differ from other functions like <code class="docutils literal"><span class="pre">turn_left()</span></code> or <code class="docutils literal"><span class="pre">move()</span></code> in that
+they <code class="docutils literal"><span class="pre">return</span></code> a value. Let&#8217;s start by considering a simple example:</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">interrupted_two_steps</span><span class="p">():</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="k">return</span>
+    <span class="n">move</span><span class="p">()</span>
+
+<span class="n">interrupted_two_steps</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>As you can see, the return statement prevents the second <code class="docutils literal"><span class="pre">move()</span></code> from
+being executed.
+The <code class="docutils literal"><span class="pre">return</span></code> keyword can actually be accompanied by something else.</p>
+<div class="topic">
+<p class="topic-title first">Try this!</p>
+<p>For example, try the following:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">north</span><span class="p">():</span>
+   <span class="k">return</span> <span class="n">is_facing_north</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">north</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>As you have tried it, you noticed that <code class="docutils literal"><span class="pre">north()</span></code> was giving the same
+result as <code class="docutils literal"><span class="pre">is_facing_north()</span></code>; that is the effect of the <code class="docutils literal"><span class="pre">return</span></code>
+statement. We can use this to have Reeborg be able to identify
+orientations other than North. First, note that if Reeborg turns left 4
+times, he will be back to its initial orientation; we do want Reeborg to
+end the test in the same orientation as that which he had at the start.
+Now, suppose we would like to know if Reeborg was facing South. We could
+ask Reeborg to turn left twice, note if his orientation is North (which
+it should be if he was facing South) or not, turn left twice more, to go
+back to its original orientation, and tell us what he remembered using
+the <code class="docutils literal"><span class="pre">return</span></code> statement. One thing we need to do: have Reeborg use a
+<em>variable</em> to remember its orientation after two left turns:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">is_facing_south</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">remember</span> <span class="o">=</span> <span class="n">is_facing_north</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">remember</span>
+
+<span class="c"># now, ensure that Reeborg is facing South</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">is_facing_south</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Try it!</p>
+<p>It will not take you long, and you will be ready for the next exercise!</p>
+</div>
+<p>The above way works ... but, depending on its initial orientation, you might get
+dizzy if you keep track of all left turns that Reeborg has to make: when
+its orientation is not South, for each left turn that he makes to change
+its orientation, he must make 4 more to determine its new orientation!</p>
+<p>In a future tutorial, when we talk about Object-Oriented Programming,
+we will find a way, by digging in Reeborg&#8217;s built-in program, to
+fix its compass and have it determine its orientation without getting
+dizzy.</p>
+<div class="topic">
+<p class="topic-title first">Mini-quiz!</p>
+<p>Write a program that has Reeborg face West, no matter what his original
+orientation is. Test it with Reeborg in various starting orientations,
+by giving him a few <code class="docutils literal"><span class="pre">turn_left()</span></code> instructions first.</p>
+</div>
+</div>
+<div class="section" id="how-to-think-about-return">
+<h2>12.2. How to think about return<a class="headerlink" href="#how-to-think-about-return" title="Permalink to this headline">¶</a></h2>
+<p>Suppose we have the following:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">some_function</span> <span class="p">():</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">something</span>
+
+<span class="o">...</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In this case, the call to <code class="docutils literal"><span class="pre">some_function()</span></code> on the last line gets
+replaced by the value of <code class="docutils literal"><span class="pre">something</span></code> which is what follows the
+<code class="docutils literal"><span class="pre">return</span></code> keyword. If nothing follows <code class="docutils literal"><span class="pre">return</span></code> the result is
+<code class="docutils literal"><span class="pre">undefined</span></code>.</p>
+<div class="topic">
+<p class="topic-title first">More returns</p>
+<p>Reeborg can determine if there is a wall in front of him, using
+<code class="docutils literal"><span class="pre">front_is_clear()</span></code>, or if there is a wall to his right, using
+<code class="docutils literal"><span class="pre">right_is_clear()</span></code>. Write a test that has Reeborg turn left 4 times,
+so that he ends up back in the same orientation that he started with,
+but that returns <code class="docutils literal"><span class="pre">True</span></code> if there is no wall to his left.</p>
+</div>
+<div class="topic">
+<p class="topic-title first">Challenges!</p>
+<p>Use the test you have written to have Reeborg get out of worlds <strong>Maze&nbsp;1</strong> and
+<strong>Maze&nbsp;2</strong> by following the <strong>left</strong> wall. Do the same for solving
+challenges for worlds <strong>Storm&nbsp;1</strong> and <strong>Storm&nbsp;2</strong>, that is, go around the
+one-room houses in the opposite direction compared with your previous
+solutions.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="arguments1a.html" title="13. Function arguments"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="for.html" title="11. For loops"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Variables</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>파이썬: 개요 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="next" title="1. 빠르게 파이썬 소개하기: 1부" href="python1.html" />
+    <link rel="prev" title="10. Mazes" href="../reference/mazes.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="python1.html" title="1. 빠르게 파이썬 소개하기: 1부"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="../reference/mazes.html" title="10. Mazes"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../reference/mazes.html"
+                        title="previous chapter">10. Mazes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="python1.html"
+                        title="next chapter">1. 빠르게 파이썬 소개하기: 1부</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/python/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/python/index.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>파이썬: 개요<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python1.html">1. 빠르게 파이썬 소개하기: 1부</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python1.html#id2">1.1. 파이썬 프로그램은 무엇인가?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python1.html#id7">1.2. 함수란 무엇인가?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python1.html#id8">1.3. (함수에 대한 ... 혹은 다른 &#8220;것&#8221;에 대한) 적법한 이름은 무엇일까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python1.html#id9">1.4. <code class="docutils literal"><span class="pre">#</span></code> 기호는 어떤 의미를 가질까?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python1.html#def">1.5. 함수를 어떻게 정의할까? (파이썬 키워드 <code class="docutils literal"><span class="pre">def</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python1.html#id10">1.6. 함수를 호출하는 방법?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python1.html#thing">1.7. <em>사물(thing)</em> 에 명칭을 부여하는 다른 방법은?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python1.html#for-in">1.8. 명령어 반복 (파이썬 키워드 <code class="docutils literal"><span class="pre">for</span></code>, <code class="docutils literal"><span class="pre">in</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python1.html#if-true-false-not">1.9. 파이썬 키워드: <code class="docutils literal"><span class="pre">if</span></code>, <code class="docutils literal"><span class="pre">True</span></code>, <code class="docutils literal"><span class="pre">False</span></code>, <code class="docutils literal"><span class="pre">not</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python1.html#while">1.10. 파이썬 키워드: <code class="docutils literal"><span class="pre">while</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python2.html">2. 빠르게 파이썬 소개하기: 2부</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python2.html#and">2.1. 키워드  <code class="docutils literal"><span class="pre">and</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python2.html#elif-else">2.2. 키워드 <code class="docutils literal"><span class="pre">elif</span></code> 와 <code class="docutils literal"><span class="pre">else</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python2.html#or">2.3. 키워드 <code class="docutils literal"><span class="pre">or</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python2.html#break-continue">2.4. 키워드 <code class="docutils literal"><span class="pre">break</span></code> 와 <code class="docutils literal"><span class="pre">continue</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python2.html#id2">2.5. 논리 키워드에 대한 요약</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python2.html#id3">2.6. 제어 흐름 키워드 요약</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python2.html#pass">2.7. 키워드 하나 더: <code class="docutils literal"><span class="pre">pass</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">3. 빠르게 파이썬 소개하기: 3부, 라이브러리 사용</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="library.html#from-import">3.1. 다른 표기법: <code class="docutils literal"><span class="pre">from</span></code> 없는 <code class="docutils literal"><span class="pre">import</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="library.html#as">3.2. 키워드 <code class="docutils literal"><span class="pre">as</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="library.html#id2">3.3. 모든 것 가져오기</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html">4. 빠르게 파이썬 소개하기: 4부, 예외(exceptions)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="exception.html#raise">4.1. 키워드 <code class="docutils literal"><span class="pre">raise</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="exception.html#try-except-finally">4.2. 예약어 <code class="docutils literal"><span class="pre">try</span></code>, <code class="docutils literal"><span class="pre">except</span></code>, <code class="docutils literal"><span class="pre">finally</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">5. 고급 프로그래밍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id2">5.1. 다수 객체 유형을 갖는 세상</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id7">5.2. 인자를 갖는 다른 함수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#reeborg">5.3. Reeborg로부터 의사소통</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id8">5.4. 리스트로 작업</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#return-statement">5.5. 반환 문장(Return statement)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oop.html">6. 객체지향 프로그래밍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#id2">6.1. 객체지향 프로그래밍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#id3">6.2. 로봇 다수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#id4">6.3. 신형 로봇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#id5">6.4. 신형 로봇을 설계하는데 필요한 네가지 재료</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#id6">6.5. 기름 누수 고치기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#id7">6.6. 남쪽 지향하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#id8">6.7. 코드 탐색하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#id9">6.8. 자바스크립트 !??</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oop.html#move">6.9. 한번 이동 <code class="docutils literal"><span class="pre">move()</span></code> 에 관해서</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="python1.html" title="1. 빠르게 파이썬 소개하기: 1부"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="../reference/mazes.html" title="10. Mazes"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

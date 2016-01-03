@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>14. 반복 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="15. 요약" href="summary2.html" />
+    <link rel="prev" title="13. 신문배달 재방문" href="newspaper2.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="summary2.html" title="15. 요약"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="newspaper2.html" title="13. 신문배달 재방문"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="newspaper2.html"
+                        title="previous chapter">13. 신문배달 재방문</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="summary2.html"
+                        title="next chapter">15. 요약</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/repeat.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/repeat.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>14. 반복<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="index-0"></span><p id="index-1">종종, 정해진 횟수만큼 일련의 함수를 반복하고 싶을 것이다. 파이썬에는 그렇게 하는 방법이 있다...
+하지만, 이번에 설명하기에는 너무나 많은 새로운 개념이 있다.
+여러분에게 단지 코드만 보여주고 나서 즉시, <code class="docutils literal"><span class="pre">repeat</span></code> 명령어를 소개하는데, 리보그 세상에만 유일한
+더 단순한 함수에 대한 대안이다. 표준적인 방식은 <strong>for 루프(for loop)</strong> 로 알려진 것으로 다음과 같이 작성된다:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="c"># 명령어를</span>
+    <span class="c"># 여기에</span>
+    <span class="c"># 작성한다.</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">repeat</span></code> 명령어는 리보그 월드 바깥세상을 의미하는 파이썬 프로그램에서는 동작하지 않는다.
+<strong>루프(loop)</strong> 는 명령어 덩어리로 반복된다.</p>
+</div>
+<p>리보그 세상에서, <code class="docutils literal"><span class="pre">repeat</span></code> <em>루프</em> 를 다음과 같이 작성한다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">repeat</span> <span class="n">n</span><span class="p">:</span>    <span class="c"># &quot;n&quot; 은 정수다.</span>
+    <span class="c"># 명령어를</span>
+    <span class="c"># 여기에</span>
+    <span class="c"># 작성한다.</span>
+</pre></div>
+</div>
+<p>예를 들어, 다음 코드는 리보그가 정사각형을 그리게 만든다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">repeat</span> <span class="mi">4</span><span class="p">:</span>
+    <span class="n">move</span><span class="p">()</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">repeat</span></code> 명령어를 사용해서, 명령어를 반복할 필요없이, 함수 정의를 다시 작성할 수 있다:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">turn_right</span><span class="p">():</span>
+    <span class="n">repeat</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>그래서, <code class="docutils literal"><span class="pre">repeat</span></code> 을 사용함으로써, 코드에 반복을 제거하는 또 다른 방법을 얻게 되었다.</p>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p>코드를 줄일 수 있는 어느 곳이나, <code class="docutils literal"><span class="pre">repeat</span></code> 명령어를 사용해서 신문배달 문제에 대한 프로그램을 변경하라.
+만약 저장을 하지 않았다면, 이전 학습으로 되돌아가서 <code class="docutils literal"><span class="pre">repeat</span></code> 명령어를 사용해서 다시 작성하라.</p>
+</div>
+<div class="admonition- admonition">
+<p class="first admonition-title">선생님께</p>
+<p>파이썬 표준 표기법에 추가해서 <code class="docutils literal"><span class="pre">repeat</span></code> 명령어를 도입한 사유는 동시에 4가지 개념(루프, <code class="docutils literal"><span class="pre">for</span> <span class="pre">_</span> <span class="pre">in</span> <span class="pre">range(n)``에서</span> <span class="pre">``_``에</span> <span class="pre">들어가는</span> <span class="pre">변수,</span> <span class="pre">``range</span></code> 같은 내장함수, 함수 인자 개념)을 소개하는 것을 회피하기 위함이다.</p>
+<p class="last">설계상으로 <code class="docutils literal"><span class="pre">repeat</span> <span class="pre">n</span></code> 에 <code class="docutils literal"><span class="pre">n</span></code> 은 정수만 <strong>된다</strong> ; 변수가 될 수 없다.
+학생이 변수에 관해서 배울 때, 루프 반복을 하는 적절한 파이썬 구문을 배우고 비표준 <code class="docutils literal"><span class="pre">repeat</span></code> 은 잊어야 된다.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="summary2.html" title="15. 요약"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="newspaper2.html" title="13. 신문배달 재방문"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

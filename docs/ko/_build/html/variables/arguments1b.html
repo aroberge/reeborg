@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>14. Argument par défaut &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Variables" href="index.html" />
+    <link rel="next" title="15. slices..." href="slice.html" />
+    <link rel="prev" title="13. Function arguments" href="arguments1a.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="slice.html" title="15. slices..."
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="arguments1a.html" title="13. Function arguments"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Variables</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">14. Argument par défaut</a><ul>
+<li><a class="reference internal" href="#pour-les-plus-avances">14.1. Pour les plus avancés</a></li>
+<li><a class="reference internal" href="#pour-les-programmeurs-tres-avances">14.2. Pour les programmeurs très avancés</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="arguments1a.html"
+                        title="previous chapter">13. Function arguments</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="slice.html"
+                        title="next chapter">15. slices...</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/variables/arguments1b.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/variables/arguments1b.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="argument-par-defaut">
+<h1>14. Argument par défaut<a class="headerlink" href="#argument-par-defaut" title="Permalink to this headline">¶</a></h1>
+<p>Vous savez que, lorsqu&#8217;il n&#8217;y a qu&#8217;un seul type d&#8217;objets dans un monde
+donné, il n&#8217;est pas nécessaire de spécifier le type d&#8217;objet pour les
+fonctions <code class="docutils literal"><span class="pre">prend()</span></code> et <code class="docutils literal"><span class="pre">depose()</span></code>.  Ceci est un exemple de
+comportement par défaut d&#8217;une fonction.  Dans le cas de ces deux fonctions
+spécifiques au Monde de Reeborg, le code requis pour avoir un tel
+comportement par défaut dépend d&#8217;une façon assez compliquée de l&#8217;état
+particulier du monde.  Pour les cas plus habituels, Python offre une
+façon standard de spécifier un comportement par défaut.</p>
+<p>Par exemple, supposons que nous voulions définir une fonction <code class="docutils literal"><span class="pre">tourne()</span></code>
+qui fera en sorte que Reeborg fasse un simple virage à gauche si aucun
+argument n&#8217;est spécifié, mais peut faire plusieurs virages si on spécifie un
+argument, comme par exemple <code class="docutils literal"><span class="pre">tourne(3)</span></code>.  On peut définir une telle
+fonction de la façon suivante:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tourne</span><span class="p">(</span><span class="n">nombre</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nombre</span><span class="p">):</span>
+        <span class="n">tourne_a_gauche</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Vérifiez ceci!</p>
+<p>Écrivez un programme qui utilise une telle définition.  Vérifiez que
+l&#8217;invocation  <code class="docutils literal"><span class="pre">tourne()</span></code> donne le même résultat que
+<code class="docutils literal"><span class="pre">tourne(1)</span></code> ainsi que <code class="docutils literal"><span class="pre">tourne(n=1)</span></code>.</p>
+</div>
+<div class="section" id="pour-les-plus-avances">
+<h2>14.1. Pour les plus avancés<a class="headerlink" href="#pour-les-plus-avances" title="Permalink to this headline">¶</a></h2>
+<p>Il y a deux types d&#8217;arguments pour les fonctions:
+les arguments <strong>positionnels</strong> qui n&#8217;ont pas de valeur attribuée par défaut,
+et les arguments par <strong>mots-clés</strong> qui ont une valeur attribuée par défaut.</p>
+<p>Les arguments positionnels doivent apparaître en premier et sont requis
+lors de l&#8217;invocation d&#8217;une fonction.   Les arguments par mots-clés
+ne sont pas nécessairement requis lors de l&#8217;invocation d&#8217;une fonction.</p>
+<p>Une fois les arguments positionnels déterminés dans une invocation de fonction,
+les autres arguments, s&#8217;ils sont fournis simplement par une valeur sans
+spécifier de mot-clé, seront également déterminé sur une base positionnelle.
+Si on spécifie les mots-clés, on peut alors les invoquer dans n&#8217;importe quel
+ordre.</p>
+<p>Voici quelques exemples:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ma_fonction</span><span class="p">(</span><span class="n">pos_1</span><span class="p">,</span> <span class="n">pos_2</span><span class="p">,</span> <span class="n">mot_1</span><span class="o">=</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">mot_2</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">mot_3</span><span class="o">=</span><span class="s">&#39;bonjour&#39;</span><span class="p">):</span>
+   <span class="c"># bloc de code ici</span>
+
+<span class="c"># invocations:</span>
+
+<span class="n">ma_fonction</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>   <span class="c"># erreur de syntaxe: 2 arguments positionnels requis</span>
+
+<span class="n">ma_fonction</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c"># pos_1 aura la valeur 2; pos_2 aura la valeur 3;</span>
+<span class="c"># les arguments mots-clés auront leur valeur par défaut</span>
+
+<span class="n">ma_fonction</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="c"># pos_1 aura la valeur 2; pos_2 aura la valeur 3;</span>
+<span class="c"># mot_1 aura la valeur 4;</span>
+<span class="c"># les autres arguments mots-clés auront leur valeur par défaut</span>
+
+<span class="n">ma_fonction</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">mot_2</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="c"># pos_1 aura la valeur 2; pos_2 aura la valeur 3;</span>
+<span class="c"># mot_2 aura la valeur 4;</span>
+<span class="c"># les autres arguments mots-clés auront leur valeur par défaut</span>
+
+
+<span class="n">ma_fonction</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">mot_2</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">mot_1</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="c"># pos_1 aura la valeur 2; pos_2 aura la valeur 3;</span>
+<span class="c"># mot_1 aura la valeur 5; mot_2 aura la valeur 4;</span>
+<span class="c"># mot_3 aura sa valeur par défaut (&#39;bonjour&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pour-les-programmeurs-tres-avances">
+<h2>14.2. Pour les programmeurs très avancés<a class="headerlink" href="#pour-les-programmeurs-tres-avances" title="Permalink to this headline">¶</a></h2>
+<p>Il est possible de spécifier la présence d&#8217;arguments mots-clés
+sans spécifier de valeur par défaut en utilisant le symbole <code class="docutils literal"><span class="pre">*</span></code>
+comme argument précédent les arguments mots-clés <strong>dans la définition
+de la fonction</strong>.</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ma_fonction</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="n">ma_fonction</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>     <span class="c"># va imprimer 3</span>
+<span class="n">ma_fonction</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>       <span class="c"># va générer une erreur</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="slice.html" title="15. slices..."
+             >next</a> |</li>
+        <li class="right" >
+             <a href="arguments1a.html" title="13. Function arguments"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Variables</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

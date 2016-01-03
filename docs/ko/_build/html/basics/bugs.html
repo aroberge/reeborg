@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>3. 이놈의 버그! &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="4. 감사의 표시" href="tokens1.html" />
+    <link rel="prev" title="2. 작업 주도 학습" href="home.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="tokens1.html" title="4. 감사의 표시"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="home.html" title="2. 작업 주도 학습"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">3. 이놈의 버그!</a><ul>
+<li><a class="reference internal" href="#bug">3.1. 버그(Bug)란 무엇인가?</a></li>
+<li><a class="reference internal" href="#id2">3.2. 버그 다루기</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="home.html"
+                        title="previous chapter">2. 작업 주도 학습</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tokens1.html"
+                        title="next chapter">4. 감사의 표시</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/bugs.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/bugs.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>3. 이놈의 버그!<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>누구도 컴퓨터 버그에 관해서 얘기하는 것을 좋아하지 않아요. 하지만, 불행하게도 버그에 관해서 배워야 하고,
+특히 제거하는 방법에 관해서는 필히 학습해야만 됩니다.</p>
+<div class="section" id="bug">
+<h2>3.1. 버그(Bug)란 무엇인가?<a class="headerlink" href="#bug" title="Permalink to this headline">¶</a></h2>
+<p>컴퓨터 용어 <strong>버그(Bug)</strong> 의 어원은 하버드 대학 마크 II 컴퓨터 내부에서 나방이 발견된 실제 사건에 기원하는데,
+분명히 나방이 컴퓨터가 멈추게 하는 원인을 제공했습니다.
+컴퓨터 프로그래밍의 컴파일러 언어 개념을 발명한 저명한 컴퓨터 과학자이자 수학자이며 해군 장교인 Grace Murray Hopper가 이끄는 팀에서 발견되었습니다.
+Grace Hopper 박사는 종국에는 미해군 소장까지 진급했습니다.</p>
+<p>이 나방(Moth)은 하퍼의 기록지에 테이프되어 보관되었다. 흥미롭게도 기록지에는 다음과 같은 메모가 적혀있습니다. &#8220;버그가 발견된 첫 실제 사례(First actual case of bug being found.)&#8221;</p>
+<p><img alt="image0" src="../_images/first_bug.jpg" /></p>
+<p>그림은 <a class="reference external" href="http://www.history.navy.mil/photos/pers-us/uspers-h/g-hoppr.htm">미해군 역사박물관(U.S. Naval Historical Center)</a> 공공 기록보관소에서 가져왔음.</p>
+<p>사실, 기술적인 맥락에서 버그라는 단어는 옥스퍼드 영어 사전에는 토마스 에디슨에 기인한다고 적혀있습니다. 옥스퍼드 영어 사전에 따르면, 1889년 3월 11일 Pall Mall Gazette 판에는 다음과 같은 텍스트가 적혀있습니다.</p>
+<blockquote>
+<div>제가 듣기로는 에디슨씨가 측음기에 ‘버그’가 발견되어 두 밤을 샜습니다.
+버그는 풀기 어려운 문제를 해결하는 표현으로 어떤 가상의 벌레가 은밀하게 내부로 들어가서 모든 문제를 일으키는 것입니다.</div></blockquote>
+<p>원 &#8220;버그&#8221;는 실제로 벌레일지 모르지만, 사실 가상으로 보입니다.</p>
+<p>불행하게도, 컴퓨터 버그는 가상이지는 않습니다.</p>
+</div>
+<div class="section" id="id2">
+<h2>3.2. 버그 다루기<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>컴퓨터 전문용어인 버그는 프로그램이 예기치 않은 방식으로 작동하는 오류입니다.
+컴퓨터 프로그램을 작성한다면, 모든 사람이 그렇듯이 조만간 버그를 가질 것입니다.
+좋은 프로그래머는 버그를 제거하고, 프로그램이 예기치 않게 작동한다는 것을 알자마자 프로그램을 수정합니다.</p>
+<p>그다지 휼륭하지 못한 프로그래머는 &#8220;버그&#8221;가 정말로 버그가 아니라고 프로그램의 &#8220;기능(feature)&#8221;이라고 주장한다.
+프로그램이 버그로 지저분한 리보그 제작자와는 달리 <strong>여러분</strong> 은 훌륭한 프로그램가 될 것이다.</p>
+<ol class="arabic simple">
+<li>리보그는 기름을 누출한다. 기름 누출은 환경에 피해를 주고,
+작업을 완수하지 않을 때 부품을 보급해야 되는 리보그에게 불편하다.
+여느 프로그래머처럼 프로그램을 &#8220;추척&#8221;하는 것을 배우듯이,
+리보그 제작자는 여전히 리보그 경로를 따라갈 수 있게 하기 때문에 기능이라고 주장하고 있다.
+추후 리보그에 대한 누유문제를 고치는 방법을 학습할 것이다.
+버그를 추적하는 좀더 진화된 고급 기법, <em>디버거(debugger)</em> 로 알려진 방법의 사용은 이번 학습 범위 밖이다.</li>
+<li>리보그 조종 메커니즘이 리보그 프로그램으로 적절하게 다뤄지고 있지 않다: 리보그는 왼쪽으로만 회전할 수 있다.
+다시 한번, 리보그 메이커는 이것이 기능이라고 주장한는데, 기능에 관해서 학습할 기회를 제공하기 때문이다.
+리보그는 동의하지 않는다. 조만간 차선책(workaround)을 프로그램하는 방법을 학습할 것이다.
+차선책 해법은 낭비하는 방식이지만, 리보그가 우측 회전을 가능하게 한다.
+훨씬 뒤에는, 리보그를 정말로 고치는 방법을 학습해서 좌회전하는 것만큼 쉽게 우회전을 할 수 있게 한다.</li>
+<li>리보그는 나침판을 가지고 있어서, 리보그가 향하는 방향을 판단할 수 있게 한다.
+불행하게도, 리보그가 나침판으로부터 정보를 얻을 수 있는 프로그램에는 버그가 있다:
+나침판은 리보그에게 북쪽을 향하고 있거나... 그렇지 않다는 정보만 일러준다.
+다시 한번, 먼저 차선책으로 구현하는 해법을 배우고, 추후에 리보그를 영구적으로 고치는 방법을 학습해서,
+리보그 제조자가 &#8220;기능&#8221;이라고 부르는 것을 제거한다.</li>
+<li>리보그는 벽이 리보그 앞에 있는지를 알 수 있다. 또한 우측으로 머리를 돌려서 우측에도 벽이 있는지 알아낼 수 있다.
+하지만, &#8220;소프트웨어 작은 결함(Software Glitch)&#8221;이 있어서 머리를 왼쪽으로 돌릴 때,
+리보그 프로그램이 벽을 적절하게 인식하지 못하게 한다. &#8220;작은 결함(Glitch)&#8221;는 소프트웨어 제조자가 제품에 버그가 있다는
+것을 회피하는데 사용되는 또다른 교묘한 면피용어다.</li>
+</ol>
+<p>종종 버그 원인을 찾기 위해서, 정상적인 프로그램 흐름을 중지하는 것이 도움이 될 수 있다.
+이를 위해서 다음 중에서 하나 혹은 그 이상을 수행할 수 있다:</p>
+<ol class="arabic simple" id="index-0">
+<li><strong>pause</strong> 버튼을 눌러서 프로그램이 실행될 때 <em>임시정지(pause)</em> 시킬 수 있다.
+컴퓨터 프로그램에서 <em>중단점(breakpoint)</em> 을 설정한다고 하는 것과 유사하다.</li>
+<li>실제로 임시정지 버튼을 누르는 대신에, 프로그램 내부 임의 지점에 <code class="docutils literal"><span class="pre">pause()</span></code> 명령어를 타이핑해서 입력할 수 있다.
+이럴 경우 리보그는 임시정지하고, 계속 진행해야하는가에 대해서 여러분의 허가를 기다린다.</li>
+<li><em>execute one instruction and pause</em> 혹은 <strong>step</strong> 버튼을 눌러서,
+한번에 한 명령어로 프로그램을 한 걸음씩 밟아갈 수 있다. 기본 디폴트 설정으로 실행되는 줄이 강조된다;
+코드 편집기 상단 버튼을 클릭해서 강조기능을 끌 수 있다.</li>
+<li>프로그램 내부 임의 지점에서 실행 속도를 변경할 수 있다; 저자가 추후 속도를 변경하는 방법을 설명한다.</li>
+<li>프로그램 내부 주어진 지점에서 리보그가 정보를 작성하도록 만들 수 있다; 저자가 추후 할 수 있는 방법을 설명한다.</li>
+<li>마지막으로, <strong>stop</strong> 버튼을 눌러서 임의 지점에서 프로그램을 멈출 수 있다; 불행하게도 여러분이 무한루프를 생성했다면
+정지버튼이 먹히지 않는데 이것은 리보그 제어 밖이다.
+안좋은 상태가 최악이 되면, 항상 웹페이지를 다시 적재 리로드하는 수 박에 없다.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="tokens1.html" title="4. 감사의 표시"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="home.html" title="2. 작업 주도 학습"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

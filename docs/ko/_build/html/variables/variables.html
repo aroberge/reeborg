@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>1. Many names for the same object &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="Variables" href="index.html" />
+    <link rel="next" title="2. Reeborg’s diary" href="diary.html" />
+    <link rel="prev" title="Variables" href="index.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="diary.html" title="2. Reeborg’s diary"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="index.html" title="Variables"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">Variables</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Variables</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="diary.html"
+                        title="next chapter">2. Reeborg&#8217;s diary</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/variables/variables.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/variables/variables.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In English, the word <em>synonym</em> is used to describe different words
+that have hte same meaning. It can be useful to think of <em>variables</em>
+as being <em>synonyms</em> for a given object.</p>
+</div>
+<div class="section" id="many-names-for-the-same-object">
+<h1>1. Many names for the same object<a class="headerlink" href="#many-names-for-the-same-object" title="Permalink to this headline">¶</a></h1>
+<p>In a previous example, when talking about <em>refinements</em>,
+we got a solution for the world <strong>Around 4</strong> that was as follows:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">library</span> <span class="k">import</span> <span class="n">turn_right</span>
+
+<span class="c"># We mark the starting point by putting down a token</span>
+<span class="n">put</span><span class="p">()</span>
+
+<span class="c"># We find a clear direction and start moving</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">front_is_clear</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+
+<span class="sd">&#39;&#39;&#39;  We know we will have gone around the world</span>
+<span class="sd">when we come back to the place we put the token</span>
+<span class="sd">down. &#39;&#39;&#39;</span><span class="s">&#39;</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">object_here</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">right_is_clear</span><span class="p">():</span>  <span class="c"># keep to the right</span>
+        <span class="n">turn_right</span><span class="p">()</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">front_is_clear</span><span class="p">():</span>    <span class="c"># move ... following the right wall</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">turn_left</span><span class="p">()</span>  <span class="c"># follow the wall by turning left</span>
+</pre></div>
+</div>
+<p>Then, we define new functions to better describe the core of
+this solution, thus reducing the need to add comments.
+One of these functions, which is the only one we will retain as is,
+was the following:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="k">def</span> <span class="nf">follow_right_wall</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">right_is_clear</span><span class="p">():</span>
+        <span class="n">turn_right</span><span class="p">()</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">front_is_clear</span><span class="p">():</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">turn_left</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Let us now use another way to combine this function with the rest
+of the program written in a clear way using variables.
+For exmple, instead of writing:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="c"># We mark the starting point by putting down a token</span>
+<span class="n">put</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>we write:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">mark_starting_point</span> <span class="o">=</span> <span class="n">put</span>
+<span class="n">mark_starting_point</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Similarly, instead of writing:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="c"># We find a clear direction and start moving</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">front_is_clear</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>we write:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">path_is_blocked</span> <span class="o">=</span> <span class="n">wall_in_front</span>  <span class="c"># use this instead of &quot;not front_is_clear&quot;</span>
+
+<span class="k">while</span> <span class="n">path_is_blocked</span><span class="p">:</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+
+<span class="n">move</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Also, instead of writing:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="sd">&#39;&#39;&#39;  We know we will have gone around the world</span>
+<span class="sd">when we come back to the place we put the token</span>
+<span class="sd">down. &#39;&#39;&#39;</span><span class="s">&#39;</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">object_here</span><span class="p">():</span>
+   <span class="o">...</span>
+</pre></div>
+</div>
+<p>we write:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="n">back_to_starting_point</span> <span class="o">=</span> <span class="n">object_here</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">back_to_starting_point</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>So, let&#8217;s put all these changes together and rewrite our program,
+first by defining our new vocabulary (variables) and then using it:</p>
+<div class="highlight-py3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">library</span> <span class="k">import</span> <span class="n">turn_right</span>
+
+<span class="n">mark_starting_point</span> <span class="o">=</span> <span class="n">put</span>
+<span class="n">path_is_blocked</span> <span class="o">=</span> <span class="n">wall_in_front</span>
+<span class="n">back_to_starting_point</span> <span class="o">=</span> <span class="n">object_here</span>
+
+<span class="k">def</span> <span class="nf">follow_right_wall</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">right_is_clear</span><span class="p">():</span>
+        <span class="n">turn_right</span><span class="p">()</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">front_is_clear</span><span class="p">():</span>
+        <span class="n">move</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">turn_left</span><span class="p">()</span>
+
+<span class="c"># end of definitions -- begin actual program</span>
+
+<span class="n">mark_starting_point</span><span class="p">()</span>
+<span class="k">while</span> <span class="n">path_is_blocked</span><span class="p">():</span>
+    <span class="n">turn_left</span><span class="p">()</span>
+<span class="n">move</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">back_to_starting_point</span><span class="p">():</span>
+    <span class="n">follow_right_wall</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Much fewer comments than before, yet the meaning of the program is
+still very clear.  One significant advantage of using well chosen
+variables (names) instead of comments is that Python will execute
+the code but <strong>not</strong> the comment; so if the code is wrong, we will
+see it right away; if the comments are wrong, Python cannot indicate
+it to us.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="diary.html" title="2. Reeborg’s diary"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="index.html" title="Variables"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >Variables</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>

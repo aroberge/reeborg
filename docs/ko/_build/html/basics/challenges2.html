@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>30. 도전과제 재방문 &mdash; Learn Python with Reeborg</title>
+    
+    <link rel="stylesheet" href="../_static/reeborg.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Learn Python with Reeborg" href="../index.html" />
+    <link rel="up" title="기본 사용설명서" href="index.html" />
+    <link rel="next" title="31. 요약" href="summary4.html" />
+    <link rel="prev" title="29. 놀라운 소식" href="surprises.html" /> 
+
+  <script>
+    // intelligent scrolling of the sidebar content
+    // copied from the sphinx website
+    $(window).scroll(function() {
+    var sb = $('.sphinxsidebarwrapper');
+    var win = $(window);
+    var sbh = sb.height();
+    var offset = $('.sphinxsidebar').position()['top'];
+    var wintop = win.scrollTop();
+    var winbot = wintop + win.innerHeight();
+    var curtop = sb.position()['top'];
+    var curbot = curtop + sbh;
+    // does sidebar fit in window?
+    if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+              sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+              sb.css('top', $u.min([winbot - sbh - offset - 20,
+                            $(document).height() - sbh - 200]));
+          }
+        }
+    });
+    </script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59802572-14', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+             <a href="summary4.html" title="31. 요약"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+             <a href="surprises.html" title="29. 놀라운 소식"
+             accesskey="P">previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" accesskey="U">기본 사용설명서</a></li> 
+      </ul>
+    </div>
+  
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+              <h3>Table Of Contents</h3>
+              <ul>
+<li><a class="reference internal" href="#">30. 도전과제 재방문</a><ul>
+<li><a class="reference internal" href="#id2">30.1. 추수하기 전</a></li>
+<li><a class="reference internal" href="#id3">30.2. 추수 준비</a></li>
+<li><a class="reference internal" href="#id4">30.3. 폭풍우가 치는 날씨</a></li>
+<li><a class="reference internal" href="#id7">30.4. 리보그 친구 순서</a></li>
+<li><a class="reference internal" href="#id8">30.5. 폭풍이 지나간 후에</a></li>
+<li><a class="reference internal" href="#id11">30.6. 마당 청소 좀더 하기!</a></li>
+<li><a class="reference internal" href="#id12">30.7. 중심 찾기</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="surprises.html"
+                        title="previous chapter">29. 놀라운 소식</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="summary4.html"
+                        title="next chapter">31. 요약</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/basics/challenges2.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h4><a href="../../fr/basics/challenges2.html">Version française</a></h4>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+      <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This document is in the middle of a major revision.
+Some sections might be missing text, or have French text
+as placeholder.</p>
+</div>
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>30. 도전과제 재방문<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>앞에서 소개된 도전문제를 해결할 시간이 되었다.</p>
+<p><code class="docutils literal"><span class="pre">while</span></code>, <code class="docutils literal"><span class="pre">if</span></code>, <code class="docutils literal"><span class="pre">else</span></code> 등을 사용해서,
+다양한 작업을 완수할 수 있는 프로그램을 작성한다.
+이런 프로그램을 작성하면서, 다음 사항을 명심해야만 된다:</p>
+<ol class="arabic simple">
+<li>규칙 #2를 기억하고, 해결하려는 문제에 대해 기술하는 명칭을 선택한다.</li>
+<li>규칙 #4에 나온 원칙을 지킨다: 먼저 단순한 문제를 풀면서 시작하고,
+해법을 일반화해서 한문제 이상에 적용될 수 있게 한다.</li>
+<li>규칙 #3을 기억한다: 가능하면 반복되는 코드는 피한다.</li>
+</ol>
+<p>이제, 규칙 #1을 기억하라... 이번에는 아래 언급된 <strong>모든</strong> 도전과제를 해결했는지 확실히 한다.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">나중에 다시 해법을 찾을 수 있어, 다양한 해법을 저장했는지 확실히 한다.</p>
+</div>
+<div class="section" id="id2">
+<h2>30.1. 추수하기 전<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>정원에 씨를 뿌린 직후 발생한 상황을 나타내는 <strong>Harvest&nbsp;3</strong> 세상을 선택한다. 당근 일부는 잘 발아 되었고, 몇몇 곳에서 씨앗 두개가 발아를 했고, 다른 곳에서는 발아를 하지 않았다. 리보그가 정원에서 김을 매는 것을 도와주세요. 두 개의 당근이 있는 곳이 있거나, 당근이 하나도 없는 곳이 있으면 안 됩니다. 과다한 당근은 뽑아내고, 빠진 곳은 씨를 뿌려 넣어야 된다.</p>
+<div class="topic">
+<p class="topic-title first">직접 해보기!</p>
+<p>위에서 기술된대로 프로그램을 작성하라.</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>30.2. 추수 준비<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>김매는 것이 잘 진행됐고, 생육 계절은 끝나서 추수할 시간이 되었다.
+<strong>Harvest&nbsp;1</strong> 와/혹은 <strong>Harvest&nbsp;2</strong> 세상을 선택해서
+리보그가 모든 당근을 모으게 한다. 두개 세상 모두에서 동작하는 단일 프로그램을 작성해야만 된다.</p>
+</div>
+<div class="section" id="id4">
+<h2>30.3. 폭풍우가 치는 날씨<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>아름답도록 햇살이 가득한 날입니다. 리보그가 친구와 밖에서 놀고 있어요. 갑자기, 비가 내렸는데 리보그가 집의 모든 창문을 열어 놓고 나온 것을 기억해 냈습니다. 그래서 리보그는 황급히 집으로 돌아와서 집 앞 문턱에 멈췄는데, 어떻게 창문을 닫아야 할지 확신할 수 없었습니다</p>
+<div class="topic" id="index-0">
+<p class="topic-title first">Do it!</p>
+<p>명령어 <code class="docutils literal"><span class="pre">build_wall()</span></code> 와 <code class="docutils literal"><span class="pre">wall_on_right()</span></code> 혹은 <code class="docutils literal"><span class="pre">wall_in_front()</span></code>, 혹은 모두 사용하지만, <strong>not</strong> <code class="docutils literal"><span class="pre">right_is_clear()</span></code>, <a href="#id5"><span class="problematic" id="id6">``</span></a>front_is_clear()``은 사용하지 말고, 리보그가 집의 모든 창문을 닫도록 도와주세요. 리보그가 작업을 마쳤을 때, 문 앞에 서서, 다시 돌아가서 밖에서 놀기 전 상황인 비가 그치기를 기다리면서, 비 내리는 것을 지켜보고 있을 것입니다. 세상은 <strong>Rain&nbsp;1</strong> 이다.</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>30.4. 리보그 친구 순서<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>리보그 친구 에드나(Erdna)는 <strong>Rain 2</strong> 세상에 나온 좀더 큰 집에 살고 있습니다. 비가 오기 시작했을 때, 에드나는 리보그와 함께 밖에서 놀고 있었습니다. 에드나가 집의 창문을 모두 닫도록 도와주세요.</p>
+<div class="topic">
+<p class="topic-title first">시도해 보기!</p>
+<p>도전과제는 리보그와 에드나 모두에게 작동하는 단일 프로그램을 작성하는 것이다.
+마찬가지로 <code class="docutils literal"><span class="pre">right_is_clear()</span></code> 혹은 <code class="docutils literal"><span class="pre">front_is_clear()</span></code> 어떤것도 사용하지 않는다. 하지만, 약간 까다로울 것이다.</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">해당 지점에 창문이 있는지 알아내려면,
+추가적인 단계가 필요하고, 결과에 따라서, 뒤로 돌고 뒤로 가서 해당 창문을 닫는다.</p>
+</div>
+<div class="topic">
+<p class="topic-title first">다시 해보기!</p>
+<p>이번에는, 리보그와 에드나가 집에 창문을 닫는데 <code class="docutils literal"><span class="pre">wall_on_right()</span></code> 혹은 <code class="docutils literal"><span class="pre">wall_in_front()</span></code> 함수를 사용하는데 더해서, <code class="docutils literal"><span class="pre">right_is_clear()</span></code> 이나 <code class="docutils literal"><span class="pre">front_is_clear()</span></code> 함수를 사용하는 프로그램을 작성한다.
+로봇이 밟는 단계 (<code class="docutils literal"><span class="pre">move()</span></code> 와 <code class="docutils literal"><span class="pre">turn_left()</span></code>) 횟수는 줄어야 되는데 이유는 직접 세상에 관한 더 많은 정보를 얻을 수 있기 때문이다.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>30.5. 폭풍이 지나간 후에<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p id="index-1">지난밤에 바람이 정말 심하게 불었다. 리보그 집 밖에 쓰레기가 여기저기 널려 있다. 리보그 부모님이 리보그에게 차도(<strong>Storm&nbsp;1</strong>)뿐만 아니라 장외시장으로 가는 길도 말끔하게 청소하라고 했다: <strong>Storm&nbsp;2</strong>.</p>
+<div class="topic">
+<p class="topic-title first">여러분 차례!</p>
+<p>리보그는 모든 나뭇잎을 모아서 시작 지점의 북쪽에 있는 쓰레기 통에 담아 놓아야 하고, <code class="docutils literal"><span class="pre">build_wall()</span></code> 함수를 사용해서 뚜껑을 확실히 닫도록 한다.
+<code class="docutils literal"><span class="pre">if</span></code> 문과 <code class="docutils literal"><span class="pre">while</span></code> 문 둘중 하나에 있는 조건 <a href="#id9"><span class="problematic" id="id10">``</span></a>carries_object()``를 사용해서 리보그는 물체(여기서 죽은 나뭇잎)를 갖고 있는지 판단할 수 있다.</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>30.6. 마당 청소 좀더 하기!<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>리보그의 부모님은 아들의 처리한 일을 자랑스러워 하며, 지난 밤 폭풍에 날아간 뒷마당 나뭇잎 모두 주워 담으라고 했다. 상황은 <strong>Storm&nbsp;3</strong> 에 나와 있다. 리보그는 모든 쓰레기를 주워서 쓰레기통에 넣어야 된다.</p>
+<div class="topic">
+<p class="topic-title first">여러분 차례!</p>
+<p>세가지 <strong>Storm</strong> 세상 모두에서 동작하는 프로그램을 작성하라.</p>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>30.7. 중심 찾기<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p><strong>Center&nbsp;1</strong> 에서 <strong>Center&nbsp;3</strong> 까지 세상을 둘러본다.</p>
+<div class="topic">
+<p class="topic-title first">직접 해보기!</p>
+<p>리보그 본인이 위치한 직사각형 방에 기하적인 중심에 토큰을 놓는 <strong>단일</strong> 프로그램을 작성하라. 가장 단순한 사례로 시작하고, 점진적으로 개선해서 더 복잡한 사례를 다루게 만든다. 이것이 더 도전적인 과제임에 주의한다.</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">토큰 두개를 소지한 리보그가 각 줄 끝지점에 토큰 한개를 놓게 하는 것이 유용하다는 것을 알게된다. 그리고 나서, 한쪽 끝에 토큰을 집고 한단계 옆으로 옮기를 반복해서 양쪽 토근이 같은 위치에 있게 해서, 중심 위치를 찾을 수 있다. (수평선을 따라) 일차원에서 어떻게 하는지 알게될 되면, 시작점으로 해당 지점을 사용해서 (수직선을 따라) 다른 지점을 따라 중앙을 찾을 수 있다.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>  
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+             <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+             <a href="summary4.html" title="31. 요약"
+             >next</a> |</li>
+        <li class="right" >
+             <a href="surprises.html" title="29. 놀라운 소식"
+             >previous</a> |</li>
+        <li><a class="logo" href="../../index_en.html" class="fake_button">
+              <img class="logo"  src="../_static/robot_e.png" alt="Logo"/>
+              <span class="logo">Reeborg's World</span>
+            </a></li>
+        <li><a href="../index.html">Learn Python with Reeborg</a></li>
+          <li> &raquo;<a href="index.html" >기본 사용설명서</a></li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright
+          <a href="mailto:andre.roberge@gmail.com">André Roberge </a>
+        
+       - Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  <script>
+  $(document).ready(function() {
+      $('.hint').children().hide();
+      $('.hint p.admonition-title').show().css('cursor', 'pointer');
+      $('.hint p.admonition-title').click( function() {$(this).siblings().show().css('cursor', 'auto');})
+      $("a[href^='http']").attr('target','_blank');
+  });
+  </script>
+  </body>
+</html>
