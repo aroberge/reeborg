@@ -51,6 +51,10 @@ RUR._inspect_ = function (obj) {
     RUR.inspect(obj);
 };
 
+RUR._in_the_bag_ = function() {
+    return RUR.control.in_the_bag(RUR.current_world.robots[0]);
+};
+
 RUR._move_ = function () {
     RUR.control.move(RUR.current_world.robots[0]);
 };

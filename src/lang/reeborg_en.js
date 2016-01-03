@@ -20,7 +20,7 @@ var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_c
 var move, turn_left, inspect, front_is_clear, right_is_clear,
     is_facing_north, done, put, take, object_here, World, Permalink,
     carries_object, write, _write, at_goal, build_wall, think,
-    pause, repeat, view_source, sound, UsedRobot,
+    pause, repeat, view_source, sound, UsedRobot, in_the_bag,
     set_max_steps, say, verify, ReeborgError, WallCollisionError, print_html,
     wall_in_front, wall_on_right, disappear, recording, new_robot_images;
 
@@ -65,6 +65,7 @@ RUR.reset_definitions = function () {
     wall_in_front = RUR._wall_in_front_;
     carries_object = RUR._carries_object_;
     is_facing_north = RUR._is_facing_north_;
+    in_the_bag = RUR._in_the_bag_;
     move = RUR._move_;
     put = RUR._put_;
     object_here = RUR._object_here_;
@@ -115,6 +116,10 @@ RUR.reset_definitions = function () {
     };
 
     UsedRobot.prototype.carries_object = function () {
+        RUR.control.carries_object(this.body);
+    };
+
+    UsedRobot.prototype.in_the_bag = function () {
         RUR.control.carries_object(this.body);
     };
 

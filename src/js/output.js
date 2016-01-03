@@ -4,8 +4,12 @@ RUR.output.write = function () {
     var output_string = '';
     RUR.control.sound_id = "#write-sound";
     for (var i = 0; i < arguments.length; i++) {
-        output_string += arguments[i].toString();
-  }
+        if (typeof arguments[i] == "string") {
+            output_string += arguments[i];
+        } else {
+            output_string += JSON.stringify(arguments[i]);
+        }
+    }
     output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
     RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };

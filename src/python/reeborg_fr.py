@@ -121,6 +121,9 @@ def est_face_au_nord():
     """Indique si Reeborg fait face au nord (haut de l'écran) ou non."""
     return RUR._is_facing_north_()
 
+def dans_le_sac():  #py:in_the_bag
+    return dict(RUR._in_the_bag_())
+
 
 def avance():
     """Avance d'une case"""
@@ -392,7 +395,7 @@ class RobotUsage(object):
            exception.
         """
         if obj is None:
-            RUR.control.take(self.body, False)
+            RUR.control.take(self.body)
         else:
             RUR.control.take(self.body, obj)
 
@@ -441,6 +444,9 @@ class RobotUsage(object):
     def est_face_au_nord(self):
         """Indique si Reeborg fait face au nord (haut de l'écran) ou non."""
         return RUR.control.is_facing_north(self.body)
+
+    def dans_le_sac(self):  #py:UR.in_the_bag
+        return dict(RUR._in_the_bag_(self.body))
 
     def face_au_nord(self):
         # obsolete

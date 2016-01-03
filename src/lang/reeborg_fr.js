@@ -18,7 +18,8 @@ var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
     est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,
     transporte, ecrit, au_but, construit_un_mur, pense, print_html, disparait,
     pause, repete, voir_source, son, RobotUsage, mur_devant, mur_a_droite,
-    nombre_de_commandes, confirmer, enregistrement, nouvelles_images_de_robot;
+    nombre_de_commandes, confirmer, enregistrement, nouvelles_images_de_robot,
+    dans_le_sac;
 
 RUR.confirmer = function(test) {
     var reeborg, robots, monde, orientation;
@@ -57,6 +58,7 @@ RUR.reset_definitions = function () {
     mur_devant = RUR._wall_in_front_;
     transporte = RUR._carries_object_;
     est_face_au_nord = RUR._is_facing_north_;
+    dans_le_sac = RUR._in_the_bag_;
     avance = RUR._move_;
     depose = RUR._put_;
     rien_a_droite = RUR._right_is_clear_;
@@ -120,8 +122,12 @@ RUR.reset_definitions = function () {
     };
 
 
-    RobotUsage.prototype.carries_object = function () {
+    RobotUsage.prototype.transporte = function () {
         RUR.control.carries_object(this.body);
+    };
+
+    RobotUsage.prototype.dans_le_sac = function () {
+        RUR.control.in_the_bag(this.body);
     };
 
     RobotUsage.prototype.est_face_au_nord = function () {

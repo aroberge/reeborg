@@ -230,6 +230,10 @@ RUR._inspect_ = function (obj) {
     RUR.inspect(obj);
 };
 
+RUR._in_the_bag_ = function() {
+    return RUR.control.in_the_bag(RUR.current_world.robots[0]);
+};
+
 RUR._move_ = function () {
     RUR.control.move(RUR.current_world.robots[0]);
 };
@@ -973,6 +977,23 @@ RUR.control.carries_object = function (robot, obj) {
         return all_objects;
     }
 };
+
+RUR.control.in_the_bag = function (robot) {
+    var obj_carried, obj_type, all_objects;
+
+    if (robot === undefined || robot.objects === undefined) {
+        return {};
+    }
+    all_objects = {};
+
+    for (obj_type in robot.objects) {
+        if (robot.objects.hasOwnProperty(obj_type)) {
+            all_objects[RUR.translate(obj_type)] = robot.objects[obj_type];
+        }
+    }
+    return all_objects;
+};
+
 
 RUR.control.set_model = function(robot, model){
     robot.model = model;
@@ -2015,8 +2036,12 @@ RUR.output.write = function () {
     var output_string = '';
     RUR.control.sound_id = "#write-sound";
     for (var i = 0; i < arguments.length; i++) {
-        output_string += arguments[i].toString();
-  }
+        if (typeof arguments[i] == "string") {
+            output_string += arguments[i];
+        } else {
+            output_string += JSON.stringify(arguments[i]);
+        }
+    }
     output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
     RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };

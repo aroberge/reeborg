@@ -116,6 +116,9 @@ def front_is_clear():  #py:front_is_clear
     """
     return RUR._front_is_clear_()
 
+def in_the_bag():  #py:in_the_bag
+    return dict(RUR._in_the_bag_())
+
 
 def is_facing_north():  #py:is_facing_north
     """Indicates if Reeborg is facing North (top of the screen) or not."""
@@ -436,6 +439,9 @@ class UsedRobot(object):  #py:UR
         """Indicates if Reeborg is facing North (top of the screen) or not."""
         return RUR.control.is_facing_north(self.body)
 
+    def in_the_bag(self):  #py:UR.in_the_bag
+        return dict(RUR._in_the_bag_(self.body))
+
     def put(self, obj=None):  #py:UR.put
         """Puts down an object.  If Reeborg carries more than one type of objects,
            the type must be specified as an argument, otherwise an exception
@@ -452,7 +458,7 @@ class UsedRobot(object):  #py:UR
            will be raised.
         """
         if obj is None:
-            RUR.control.take(self.body, False)
+            RUR.control.take(self.body)
         else:
             RUR.control.take(self.body, obj)
 

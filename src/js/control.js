@@ -601,6 +601,23 @@ RUR.control.carries_object = function (robot, obj) {
     }
 };
 
+RUR.control.in_the_bag = function (robot) {
+    var obj_carried, obj_type, all_objects;
+
+    if (robot === undefined || robot.objects === undefined) {
+        return {};
+    }
+    all_objects = {};
+
+    for (obj_type in robot.objects) {
+        if (robot.objects.hasOwnProperty(obj_type)) {
+            all_objects[RUR.translate(obj_type)] = robot.objects[obj_type];
+        }
+    }
+    return all_objects;
+};
+
+
 RUR.control.set_model = function(robot, model){
     robot.model = model;
     RUR.rec.record_frame();
