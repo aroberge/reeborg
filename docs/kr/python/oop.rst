@@ -88,38 +88,33 @@
 지금까지 좋다... 하지만 그다지 향상되지는 않았다. 더욱 잘 할 수 있다.
 
 
-Four important ingredients for designing a better robot
+신형 로봇을 설계하는데 필요한 네가지 재료
 --------------------------------------------------------
 
-Before I show you the code required to make Reeborg turn right just
-as easily as it turns left, I need to explain three different
-implementation details of Reeborg's World.
+리보그가 왼쪽으로 회전하는 것만큼 오른쪽 회전을 하는데 필요한 코드를 보여주기 전에,
+리보그 세상에 대한 세가지 다른 구현방식을 설명할 필요가 있다.
 
-First, when you see a robot executing commands, its program has long
-finished its execution.  Each time some specific action is performed,
-a recording of the state of the entire world is done **without
-anything happening on the screen**. Once the program
-has finished its execution, the recording is played back to you which
-you then see as an animation.  Thus, if we are to design some new
-commands, we will need to somehow record the state of the world,
-and do it only once so that it appears to be done in a single step,
-and not having right turns being three left turns.
+먼저, 로봇이 명령어를 실행하는 것을 보면, 프로그램은 이미 오래전에 실행을 마쳤다.
+특정한 동작이 수행될 때, 전체 세상을 기록하는 작업이 **화면에 어떤 것도 표시되지 않고**
+수행된다. 프로그램이 실행을 마치게 되면, 기록된 것이 재생되어
+애니메이션으로 사용자에게 보여지게 된다. 
+따라서, 새로운 명령어를 설계할 때, 세상 상태정보를 기록하고, 단지 한번 수행할 필요가 있다. 
+그래서 명령어가 우회전이 세번 왼쪽으로 회전하는 것이 아니라, 
+단일 절차로 수행되는 것으로 보이게 된다.
 
-Secondly, when you see the oil leak being drawn, it is being drawn
-from one position to the next, as a straight line segment.
-It also is drawn is such a way that you can see where Reeborg has made
-a single turn or three turns, and if it retraced its steps, as
-lines are drawn at slightly different location depending on Reeborg's
-direction of movement.
+둘째로, 기름이 세는 것이 화면에 나타날 때, 
+한 지점에서 다른 지점으로 두 지점을 연결한 직선으로 그려지게 된다.
+리보그가 회전 한번 혹은 3번 회전할 때 이러한 방식으로 그려진 선을 보게된다.
+만약 한걸음 뒤로 물러서게 되면, 리보그 이동방향에 따라 약간 다른 지점에 직선이 그려지게 된다.
 
-Third ... well, I'll start by telling you a little story, and then
-give you the real explanation.
+세째로... 작은 이야기를 들여주고 나서, 실제 설명을 할 것이다.
 
-Reeborg has a brain and a body.  It does not make much sense to talk
-about the orientation of its brain ... but it does when it comes
-to its body.  Thus, its body can be assigned coordinates
-like ``x`` and ``y`` as well as an ``orientation``.
-In Object-Oriented notation, we will refer to this as
+리보그는 머리와 몸통을 갖추고 있다.
+머리 방향에 관해서 얘기를 하는 것은 그다지 의미가 없다...
+하지만, 몸통에 대해서는 방향이 의미가 있다.
+따라서, 몸통에 ``지향 방향(orientation)`` 뿐만 아니라 
+``x`` 와 ``y`` 같은 좌표를 할당될 수 있다.
+객체지향 표기법으로, 다음과 같이 지칭할 수 있다:
 
 .. code-block:: python
 
@@ -127,7 +122,7 @@ In Object-Oriented notation, we will refer to this as
     self.body.y
     self.body.orientation
 
-instead of the usual
+일반적인 표기법 대신에
 
 .. code-block:: python
 
@@ -135,39 +130,36 @@ instead of the usual
     self.y
     self.orientation
 
-Now, that's the nice story.  And if you are familiar with Object-Oriented
-programming with Python, you are probably telling yourself that this is
-a very much unnecessary complication.
+이제, 멋진 이야기가 되었다.
+파이썬 객체지향 프로그래밍에 친숙하다면, 아마도 이런 것이 
+훨씬 불필요하게 복잡하다고 느낄 수도 있다.
 
-The real explanation is much more complicated, and may risk to bore you,
-but it will be brief.
+실제 설명은 훨씬 더 복작하고, 여러분을 졸립게 할 수 있지만, 간략하게는 다음과 같다.
 
 .. note::
 
-   Python programmers use a convention where variable names that start
-   with an underscore, like ``_prev_x`` are meant to indicate that they are "private" and
-   should normally not be changed by another programmer.
+   파이썬 프로그래머가 ``_prev_x`` 처럼 밑줄로 시작되는 변수명을 사용하는 관례가 있다.
+   밑줄로 시작되는 변수는 "비공개(private)" 변수로 다른 프로그래머에 의해 일반적으로 변경될 수 않음을 나타낸다.
 
-Reeborg's code was first written in Javascript.  And you can use
-Javascript to write programs for Reeborg, just as easily as you
-can using Python.
+리보그 코드는 먼저 자바스크립트로 작성되었다.
+그래서 자바스크립트를 사용해서 
+파이썬을 사용해서 프로그램을 작성할 수 있는 것처럼,
+리보그 프로그램을 작성할 수 있다.
 
-Using Brython, I wrote a class that communicates with the Javascript
-"backend".  If I had written the code the second way (``self.x`` instead
-of ``self.body.x``), when I would have changed the value of self.x
-for a ``move()`` function ... the object to which ``self.x`` would have referred
-to would no longer be the coordinate of a robot, but rather an integer.
+Brython을 사용해서, 저자는 자바스크립트 "백엔드(backend)"로 
+의사소통하는 클래스를 작성했다.
+두번째 방식(``self.body.x`` 대신에 ``self.x``)으로 코드를 작성하게 되면,
+``move()`` 함수에 대해서 ``self.x`` 값을 변경하게 될 때...
+``self.x`` 가 지칭하는 객체는 더이상 로봇의 좌표가 아니라 정수 좌표가 된다.
 
-However, by writing the code the way I did, ``self.body`` refers to
-a Javascript object, and ``self.body.x`` refers to an attribute of this
-object.  Changing this attribute does not change what object
-``self.body`` is referring to.
+하지만, 저자가 작성한 방식으로 코드를 작성하게 되면, 
+``self.body`` 는 자바스크립트 객체를 참조하게 되고, 
+``self.body.x`` 는 객체의 속성을 참조하게 된다.
+속성을 변경하는 것이 ``self.body`` 가 참조하는 객체를 변경하지 않는다. 
 
-Fourth, ``orientation`` is actually an integer taking the
-values 0 to 3.
+넷째로, 지향 방향 ``orientation`` 은 실제로 0에서 3 사이 값을 취하는 정수다.
 
-So, let's put these four ingredients together to write a better
-robot that can properly turn right.
+그래서, 상기 네가지 재료를 함께 넣어서, 적절히 우회전하는 신형 로봇을 작성하게 된다.
 
 .. code-block:: py3
 
@@ -191,17 +183,16 @@ robot that can properly turn right.
             # record the new state of the world only once!
             RUR.rec.record_frame()
 
-Try it out!
+시도해 보기!
 
-By the way, if you wonder how one could have possibly guessed which
-names to use for the various attributes, just read on and you will
-find out how.
+그런데, 다양한 속성에 대해 어떤 명칭을 사용해야 되는지 추측하는 방법에 대해서 궁금증이 있다면,
+읽어보면 방법을 찾게 될 것이다.
 
 
-Fixing the leak
----------------
+기름 누수 고치기
+-------------------------------------
 
-Try the following:
+다음 코드를 시도해 본다:
 
 .. code-block:: py3
 
@@ -216,9 +207,7 @@ Try the following:
     reeborg.body._is_leaky = True
     reeborg.move()
 
-
-So, this tells us enough to see how to implement a robot
-whose leak can be fixed at will.
+그래서, 기름이 새는 로봇을 고치는 방법에 대해서 상기 코드가 충분한 정보를 제공하고 있다.
 
 .. code-block:: py3
 
@@ -234,8 +223,10 @@ whose leak can be fixed at will.
     leaky.move()
 
 
-Facing south
-------------
+남쪽 지향하기
+-------------------------
+
+
 
 We saw a clumsy way to have Reeborg determine if it was facing
 South or not.  Here's a better way:
