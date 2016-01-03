@@ -4137,7 +4137,7 @@ RUR.vis_world.clear_trace = function(){
 
 RUR.vis_world.draw_tiles = function (tiles){
     "use strict";
-    var i, j, k, keys, key, image, tile;
+    var i, j, k, keys, key, image, tile, colour;
     if (tiles === undefined) {
         return;
     }
@@ -4146,7 +4146,15 @@ RUR.vis_world.draw_tiles = function (tiles){
         k = keys[key].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
-        tile = RUR.tiles[tiles[keys[key]]];
+        if (tiles[keys[key]] !== undefined) {
+            tile = RUR.tiles[tiles[keys[key]]];
+            if (tile === undefined) {
+                colour = keys[key];
+                RUR.vis_world.draw_coloured_tile(colour, i, j, RUR.BACKGROUND_CTX);
+                continue;
+            }
+        }
+
         if (tile.choose_image === undefined){
             image = tile.image;
             RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
@@ -4168,6 +4176,9 @@ RUR.vis_world.draw_animated_tiles = function (){
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
         tile = RUR.tiles[tiles[keys[key]]];
+        if (tile === undefined) {
+            continue;
+        }
         if (tile.choose_image !== undefined){
             image = tile.choose_image();
             animated = true;
@@ -4178,6 +4189,19 @@ RUR.vis_world.draw_animated_tiles = function (){
         clearTimeout(RUR.animation_frame_id);
         RUR.animation_frame_id = setTimeout(RUR.vis_world.draw_animated_tiles, 120);
     }
+};
+
+RUR.vis_world.draw_coloured_tile = function (colour, i, j, ctx) {
+    var thick = RUR.WALL_THICKNESS;
+    var x, y, size;
+    if (i > RUR.COLS || j > RUR.ROWS){
+        return;
+    }
+    x = i*RUR.WALL_LENGTH + thick/2;
+    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
+    size = RUR.WALL_LENGTH*RUR.SCALE;
+    ctx.fillStyle = colour;
+    ctx.fillRect(x, y, size, size);
 };
 
 
@@ -6748,6 +6772,7 @@ RUR.zz_dr_onclick = function () {
                 try {
                     RUR.world.import_world(reader.result);
                 } catch (e) {  // jshint ignore:line
+                    console.log("invalid world", e);
                     alert(RUR.translate("Invalid world file."));
                 }
                 fileInput.value = '';

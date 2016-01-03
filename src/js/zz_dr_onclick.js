@@ -28,6 +28,7 @@ RUR.zz_dr_onclick = function () {
                 try {
                     RUR.world.import_world(reader.result);
                 } catch (e) {  // jshint ignore:line
+                    console.log("invalid world", e);
                     alert(RUR.translate("Invalid world file."));
                 }
                 fileInput.value = '';
