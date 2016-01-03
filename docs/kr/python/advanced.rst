@@ -1,71 +1,58 @@
-More advanced programming
+고급 프로그래밍
 =========================
 
-Having more than one type of objects makes it possible to learn more
-advanced programming concept in a natural way.  Here we have a brief
-look at what is possible to do.
+한가지 이상 객체 유형을 갖게 되면 자연스러운 방식으로 고급 프로그래밍을 학습할 수 있게 된다.
+다음에 어떻게 가능하지 간략하게 살펴보자.
 
-Worlds with multiple types of objects
+다수 객체 유형을 갖는 세상
 -------------------------------------
 
-As we have seen, when Reeborg is instructed to ``take()`` or ``put()``
-an object, he can do so with no ambiguity when there is only one
-type of objects.  But what if Reeborg carries two (or more) different
-types of objects and we ask him to ``put()`` one down?
+지금까지 살펴봤듯이, 리보그가 객체를 ``take()`` 혹은 ``put()`` 하도록 지시받으면,
+단지 한가지 유형의 객체만 있기 때문에, 모호성이 전혀 없이 작업을 수행할 수 있다.
+하지만, 리보그가 다른 유형의 객체를 두개 (그 이상) 지니고 다니면서,
+객체를 ``put()`` 해서 놓도록 지시하면 어떨까?
 
 |put_error|
 
 .. |put_error| image:: ../../images/put_error.gif
 
-
-As we can see, doing so causes Reeborg to complain.  To have Reeborg
-accomplish the task properly, we need to specify which type
-of object using a function *argument* - in this case, a Python string
-with the name of the object.
+위에서 보듯이, 상기와 같이 지시하면, 리보그가 불평하게 된다.
+리보그가 작업을 적절하게 완수하려면, 
+함수 *인자(argument)*를 사용해서 어떤 유형의 객체인지 명세할 필요가 있다 -
+이 경우에, 객체명을 갖는 파이썬 문자열로 명세한다.
 
 |put_ok|
 
 .. |put_ok| image:: ../../images/put_ok.gif
 
-Both ``take()`` and ``put()`` can take a Python string with the name
-of an object as an argument.  In addition, so can
-``object_here()`` and ``carries_object()`` as can be seen in the example
-below.
+``take()`` 와 ``put()`` 명령어는 객체 명칭을 갖는 파이썬 문자열을 인자로 받는다.
+추가로, 다음 예제에서 볼 수 있듯이, 
+``object_here()`` 와 ``carries_object()`` 도 동일하다.
 
 |take_star|
 
 .. |take_star| image:: ../../images/take_star.gif
 
-Notice how there are two types of objects (a star and a square)
-initially at the same location: when this is the case, a question
-mark is shown instead of an integer representing the number of
-objects (if greater than one).  Information about the exact number
-of objects at this location could be obtained by clicking
-on the "World info" button at the very top and then by clicking
-on the image of the objects at that particular location.
+상기 세상에서 동일 장소에 두가지 유형의 객체 (별과, 정사각형)가 있음에 주목한다:
+이 경우에, 물음표가 객체 숫자를 나타내는 정수 대신에 나와있다.
+해당 지점에 정확한 객체 숫자에 관한 정보는 상단에 "World info" 버튼을 클릭하고 나서,
+해당 지점에 객체 이미지를 클릭해서 얻어낼 수 있다.
 
-Both ``object_here()`` and ``carries_object()`` return Python lists, with
-an empty list being treated as equivalent to ``False``.
+``object_here()`` 와 ``carries_object()`` 명령어가 파이썬 리스트를 반환하는데,
+빈 리스트는 ``False``와 동등하게 처리된다.
 
 |object_here_list|
 
 .. |object_here_list| image:: ../../images/object_here_list.gif
 
-Other functions with arguments
+인자를 갖는 다른 함수
 -------------------------------
 
-In addition to the above functions, a few others in Reeborg's World
-can take one or more arguments.  For example, we have already seen ``pause()``:
-when used without an argument, it requires the user to click on the "run" or
-"step" button for Reeborg to resume its movements.  However, we can
-give it an integer as an argument and it will then only pause for a time
-equal to the number given ... in milliseconds.  Thus, to pause for one
-second, we would write ``pause(1000)``.
-
-Another function which we haven't seen yet is ``repeat()``.  In Python, if
-we want to repeat lines of code a fixed number of times, we typically
-use a for loop.  For example, to turn right, Reeborg must do three consecutive
-left turns which can be written as:
+상기 함수에 추가해서, 리보그 세상에 다른 함수는 하나 혹은 그이상 인자를 받을 수 있다.
+예를 들어, ``pause()`` 명령어를 살펴봤다:
+인자 없이 사용될 때, 리보그가 다시 이동하려면, "run" 혹은 "step" 버튼을 사용자가 클릭해야 된다.
+하지만, 정수를 인자로 넣을 수 있고, 1000분의 1초로 해당 숫자만큼 멈추게 된다.
+따라서, 1초 동안 멈추려면, ``pause(1000)`` 와 같이 작성한다:
 
 .. code-block:: python
 
@@ -73,8 +60,8 @@ left turns which can be written as:
         turn_left()
 
 
-This is not immediately obvious to beginners.  The situation is even worse
-if we use Javascript:
+상기 코드는 초보자에게 즉각적으로 명확하지는 않다.
+자바스크립트로 작성하면 상황은 더욱 심각해진다:
 
 .. code-block:: javascript
 
@@ -82,15 +69,15 @@ if we use Javascript:
         turn_left();
     }
 
-By contrast, using the mini-language of Guido van Robot (http://gvr.sourceforge.net),
-the above can simply be written as::
+대조적으로, 귀도 반 로봇 (http://gvr.sourceforge.net) 미니 언어를 사용하면,
+동일한 내용으로 상기 코드를 다음과 같이 단순히 작성할 수 있다::
 
     do 3:
         turnLeft
 
 .. note::
 
-    A relatively simple implementation of ``repeat`` in Python is:
+    파이썬으로 ``repeat`` 을 상대적으로 단순하게 구현하면 다음과 같다:
 
     .. code-block:: python
 
@@ -98,84 +85,75 @@ the above can simply be written as::
             for i in range(n):
                 fn()
 
-
-The function ``repeat()`` was included in Reeborg's World in an attempt to capture
-this simplicity.  Thus, to do three left turns, one would write::
+함수 ``repeat()`` 이 리보그 세상에 단순성을 나타내려는 노력으로 포함되어 있따.
+따라서, 왼쪽 세번 회전을 하려면, 다음과 같이 작성한다::
 
     repeat( turn_left, 3)
 
 
-Communications from Reeborg
+Reeborg로부터 의사소통
 ---------------------------
 
-To communicate information to the user, Reeborg can use Python's ``print()``
-function.  The output of this function appears in an html preformatted
-element, which ensures that line breaks and other spacings are properly reproduced.
+사용자에게 정보를 의사소통하는데, 리보그는 파이썬 ``print()`` 함수를 사용한다.
+``print()`` 함수 출력값이 html 미리 정의된 서식요소(preformatted element)로 나타난다.
+이를 통해 줄바꿈과 기타 공백이 적절하게 재현되도록 확실히 하게 된다.
 
-There exists another function, ``narration()`` which can take as it argument
-any html code, and will print it accordingly.  By default, the output of ``narration()``
-is coloured blue, but this can be changed by the user familiar with html and css.
+또다른 함수 ``narration()`` 은 인자로 어떤 html 코드로 받을 수 있고 출력도 할 수 있다.
+기본 디폴트 설정으로, ``narration()`` 출력결과는 파란색으로 표식되지만,
+사용자가 친숙한 html, css 조합으로 변경될 수 있다.
 
 
-
-Working with lists
+리스트로 작업
 -------------------
 
-In addition to ``object_here()`` and ``carries_object()`` mentioned above,
-Reeborg's World gives plenty of  possibilities of working with lists.
-For example, one could ask Reeborg to move some objects arranged on a grid
-to a new location, keeping the same grid structure: this could be done
-with lists of lists.
+위에서 언급된 ``object_here()`` 와 ``carries_object()`` 에 추가해서,
+리보그 세상이 리스트로 작업할 수 있는 엄청난 가능성을 제공한다.
+예를 들어, 리보그가 격자에 진열된 객체를,
+동일한 격자 구조를 유지한 채, 새로운 지점으로 옮기도록 할 수 있다:
+이 작업을 리스트에 대한 리스트로 수행할 수 있다.
 
-Below, we illustrate an example where Reeborg must
+아래에, 예제를 시연하고 있는데, 리보그가
 
-1. remove the weeds and keep a running count of their total
-2. count the number of strawberries at each location
-3. write down the information.
+1. 잡초를 제거하면서 총계를 세어나간다.
+2. 각 지점에 딸기 갯수를 센다.
+3. 정보를 적어 넣는다.
 
-Note that the world has been designed so that an arbitrary number of
-weeds (from 0 to 3) and strawberries (1 to 10) can be found
-at each location; these numbers are randomly chosen each time.
+임의 잡초 갯수(0에서 3)와 딸기 갯수(1에서 10)가 각 지점에서 발견되도록 세상을 설계했음에 주목한다;
+잡초와 딸기 갯수는 매번 임의로 선정된다.
 
-A few things to note about the example shown below:
+아래 예제에서 주목할 점이 몇가지 있다:
 
-1. We have increased ``RUR.MAX_STEPS`` from its default value of 1000 to
-   2000; we found that, sometimes it would stop before completing the task.
-   The way Reeborg programs are run is that they are first executed very
-   quickly, without anything shown as happening on the screen.  Meanwhile,
-   various instructions trigger the recording of "frames" which can be played back
-   one at a time (or even in reverse!), creating the animation you see.
-   If the number of recording frames exceeds the maximum value, the program
-   stops: this is to help prevent (some) infinite loops.
-2. We've made the animation proceed as quickly as possible by using
-   ``think(0)`` and disabling code highlighting.
-3. At the beginning, we show the "world information"; we can see that the
-   values of weeds (dandelions) are indicated as being between 0 and 3,
-   and between 1 and 10 for strawberries.
-4. We then execute a single instruction and show that specific values
-   for the number of weeds and strawberries have now been selected;
-   this is done randomly each time.
+1. ``RUR.MAX_STEPS`` 값을 기본 디폴트 설정값 1,000에서 2,000으로 증가시켰다;
+    종종 작업을 완수하기 전에 멈추는 것을 알게 되었다.
+    리보그 프로그램이 실행되는 방식이 화면에는 어떤 것도 보여지지 않고, 매우 빠르게 먼저 실행된다.
+    실행되는 동안에, 다양한 명령어가 한번에 하나씩(혹은 역순으로) 재생될 수 있는 "프레임(frame)"을 기록해서,
+    사용자가 볼 수 있는 애니메이션을 생성한다. 만약 프레임 기록 횟수가 최대값을 넘게되면,
+    프로그램은 정지한다: 이 기능이 무한 루프를 방지하도록 돕는다.
+2. ``think(0)`` 명령어를 사용해서 애니메이션을 매우 빠르게 진행시켜 코드가 강조되어 하이라이트 되는 
+    기능을 비활성화 시킨다.
+3. 시작 시점에, "world information"을 보여준다; 잡초(민들레) 값이 0에서 3이 되고, 
+    딸기 값이 1에서 10이 됨이 나타난다.
+4. 그리고 나서, 단일 명령어를 실행하면, 잡초와 딸기 갯수가 선택된 것을 보여준다;
+    매번 임의 방식으로 작업이 수행된다.
 
 |list|
 
 .. |list| image:: ../../images/list.gif
 
-*If you are very observant, you may have noticed that the font used
-by Reeborg is different than that of previous examples. As I wrote
-this documentation, I came to realize that the previous font, which
-looked to me more suitable for a robot, was not very readable for certain
-characters, like ``{}`` which are important for programming.
-The search continues for the ideal font...*
 
-Return statement
-----------------
+*만약 매우 관찰력이 좋다면, 리보그에서 사용되는 폰트가 이전 예제 폰트와 다름에 주목한다.
+이 문서를 작성할 때, 이전 폰트는 로봇에 좀더 적합한 것으로, ``{}`` 같은 특정 문자가 가독성이 
+떨어지는 것을 저자가 뒤늦게 인식하게 되었다. 가독성은 프로그래밍에서 매우 중요하다.
+이상적인 폰트에 대한 탐색은 계속된다...*
 
-As we have seen, Reeborg can determine if it is facing North ...
-or not.  However, we can help it figure out when it is facing other
-directions.  For example, we know that if Reeborg is facing South,
-and then makes two left turns, it will be facing North.  Two more
-left turns and Reeborg returns to its original orientation.
-This suggests the following:
+반환 문장(Return statement)
+------------------------------------------
+
+앞에서 살펴봤듯이, 리보그는 북쪽을 향하고 있느지 ... 아닌지 판단할 수 이따.
+하지만, 다른 방향을 향하도록 알아내도록 도움을 줄 수 있다.
+예를 들어, 리보그가 남쪽을 향하고 있다면, 왼쪽으로 두번 회전을 하면, 북쪽을 향하게 됨을 알고 있다.
+두번 더 왼쪽으로 회전하게 되면, 리보그가 원래 향하고 있는 방향으로 되돌아 오게 된다.
+이런 추론을 통해 다음이 제시된다:
 
 .. code-block:: python
 
@@ -187,11 +165,11 @@ This suggests the following:
         turn_left()
         return remember
 
-Arguably a bit clumsy, but it works.   Something similar can be
-done to obtain a ``left_is_clear()`` function.
+거의 틀림없이 다소 조약하지만, 어쨌든 동작한다.
+``left_is_clear()`` 함수를 작성하는데 유사한 방식으로 작업할 수도 있다.
 
-We can extend the idea used for the ``repeat()`` function  and use
-``return`` in clever ways to do things like:
+``repeat()`` 함수에 사용된 아이디어를 연장해서,
+다음과 같은 작업을 수행하는데, 더 현명한 방식으로 ``return``을 사용할 수 있다:
 
 .. code-block:: py3
 
