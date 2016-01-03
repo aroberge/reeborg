@@ -226,10 +226,8 @@ Brython을 사용해서, 저자는 자바스크립트 "백엔드(backend)"로
 남쪽 지향하기
 -------------------------
 
-
-
-We saw a clumsy way to have Reeborg determine if it was facing
-South or not.  Here's a better way:
+조약한 방식으로 리보그가 남쪽을 지향하고 있는지 아닌지를 판단할 수 있는 방법을 살펴봤다.
+다음에 더 나은 방식이 있다:
 
 .. code-block:: py3
 
@@ -243,18 +241,18 @@ South or not.  Here's a better way:
         reeborg.turn_left()
 
 
-
-So now you know how to fix Reeborg.
+그렇게 해서, 이제 리보그를 고치는 방법을 살펴봤다.
 
 
 .. warning::
 
-   The following is for those that are really curious and not afraid
-   to confront the unknown.
+   다음은 정말 호기심 많고, 알려지지 않는 것에 마추치기를 두려워하지 않는 학습자를 위한 것이다.
 
 
-Exploring the code
+코드 탐색하기
 ------------------
+
+리보그 코드는 GitHub에 있다. 
 
 Reeborg's code is on Github.  However, you do not need to go
 there to explore the code as I wrote some convenience functions
