@@ -1,82 +1,75 @@
-A quick Python introduction: part 3, Using the library
+빠르게 파이썬 소개하기: 3부, 라이브러리 사용
 ======================================================
 
-When programmer make use of a given function in different programs,
-rather than redefining it in each program they write, they put them in
-special programs called **libraries** and they have a way to ensure that
-their other programs can use the functions that are found in the
-library.
+프로그램에 함수를 재정의해서 프로그램을 작성하기보다,
+다른 프로그램에 있는 함수를 사용할 때, 
+**라이브러리(library)** 라는 특별한 프로그램에 함수를 넣고,
+라이브러리에 있는 함수를 다른 프로그램이 사용할 수 있도록 하는 방법을 제공한다.
 
-You are likely going to use the function ``turn_right()`` **a lot!** Instead of
-rewriting it each time, I suggest that you will click on the **library** tab and
-write it there. Oh, and you should also write ``turn_around()`` there as
-well.
+``turn_right()`` 함수를 매번 다시 작성하는 대신에 **엄청!** 많이 사용할 것이다.
+**library** 탭을 클릭하고 그곳에 함수 작성을 권장한다. ``turn_right()`` 함수도 
+그곳에 작성해야 된다.
 
-Then, when you want to use the functions defined in your library, you will
-simply type ``from library import`` (followed by the function names, separated
-by commas) on its own line in the Python Code editor.  ``library`` is the name
-that *I* have chosen to represent the code that is in the library tab.
-As you will see elsewhere, Python comes with other libraries containing
-code that you can use.
+그리고 나서, 라이브러리에 정의된 함수를 사용하고자 할때, 
+단순히 파이썬 코드 편집기에서 한줄로 
+``from library import`` (함수명을 콤마로 구분해서 쭉 적는다) 타이핑한다.
+``library`` 는 **library** 탭에 존재하는 코드를 나타내는 명칭이다.
+다른 곳에서 보듯이, 파이썬은 사용할 코드를 포함한 라이브러리를 다른 명칭으로 제공한다.
+
 
 |library|
 
 .. |library| image:: ../../images/library.gif
 
-From that point on, you can use ``turn_right()`` and ``turn_around()``
-as though you had defined them in the Python Code editor.
+이 지점부터, 마치 파이썬 코드 편집기에서 정의한 것처럼,
+``turn_right()`` 와 ``turn_around()`` 함수를 사용할 수 있다.
 
-Other notation: ``import`` without ``from``
--------------------------------------------
 
-Instead of importing specific functions, you can simply import the
-name of the library::
+다른 표기법: ``from`` 없는 ``import``
+------------------------------------------------
+
+특정 함수를 가져오는 대신에, 단순히 함수명을 가져오기 할 수 있다::
 
     import library
 
-Then, if you want to use a function from the library, you need to add
-``library.`` in front of its name as in::
+그리고 나서, 라이브러리에서 함수를 사용하려면,
+함수명 앞에 다음과 같이 ``library.`` 만 추가하면 된다::
 
     library.turn_right()
 
-This is useful if you are using multiple libraries that may have
-some functions having the same name (but different meaning): by
-adding the name of the library in front of the function, you know
-exactly which one is being called.
+동일한 명칭(하지만, 다른 의미)을 갖는 함수를 다수 라이브러리로 작업한다면 유용한 기능이다:
+함수명 앞에 라이브러리 명칭을 추가함으로써, 어떤 함수가 호출되는지 정확하게 확인할 수 있다.
 
-Keyword ``as``
---------------
+키워드 ``as``
+---------------------
 
-Occasionally, you might find it useful to use a different name
-for a function - either because the original name is too long,
-or because you already have a different function with the same name.
-In those instances, you can use the keyword ``as``::
+가끔, 함수에 다른 명칭을 사용하는 것이 유용할 수 있다 -
+최초 명칭이 너무 길거나, 동일 명칭을 갖는 다른 함수를 이미 사용하기 때문에 그렇다.
+이런 상황에서, 키워드 ``as`` 를 사용할 수 있다::
 
     from library import turn_right as right
 
     right()        # use it
     turn_right()   # not defined!!!!
 
-Importing everything
+모든 것 가져오기
 ---------------------
 
-Very occasionally, you will find it convenient to use another Python library
-that contains so many functions that it is very tedious (and difficult to
-remember) to write the all when doing::
+매우 가끔, 또다른 파이썬 라이브러리가 
+너무나 많은 함수를 포함하지만, 함수명을 모두 적는 것이 매우 귀찮고 (기억하기 어려운)  경우가 있다::
 
     from python_library import function1, function2, function3, ...
 
-and you don't want to use ``python_library.`` in front of every single function.
-In those instances, you can use the following syntax::
-
+하지만, 모든 단일 함수 앞에 ``python_library.`` 를 사용하고 싶지는 않다.
+이런 상황에서, 다음 구문을 사용할 수 있다::
 
     from python_library import *
 
-The ``*`` is a shortcut meaning "everything".  As a concrete example, you
-can try::
+``*`` 기호는 "모든 것" 을 의미하는 축약어로, 와일드카드 문자다.
+예제로 다음과 같이 시도해볼 수 있다::
 
     from reeborg_fr import *
 
-If you try the above, it will import a French version of all the
-commands that Reeborg knows.  Thus, you could write either the English
-``move()`` or the French ``avance()`` and Reeborg will move forward.
+만약 상기 명령어를 시도하게 되면, 리보그가 알고 있는 프랑스어로 된 모든 명령어를 가져온다.
+따라서, 영어로 ``move()``, 불어로 ``avance()`` 명령어를 작성하면,
+리보그가 전방으로 이동한다.
