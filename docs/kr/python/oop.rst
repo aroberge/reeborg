@@ -1,34 +1,31 @@
-Object-Oriented Programming
+객체지향 프로그래밍
 ===========================
 
 .. note::
+   
+   이번 학습의 목적이 객체지향 프로그램(Object-Oriented Programming)을
+   가르치는 것이 아니라, 리보그 세상에서 객체지향 프로그래밍을 사용해서
+   어떤 작업을 수행할 수 있는지 단순히 암시하는데 있다.
 
-   The purpose of this section is not to teach Object-Oriented Programming
-   but simply to give an indication of what can be done using
-   Object-Oriented Programming in Reeborg's World.
 
-
-
-Object-Oriented Programming
+객체지향 프로그래밍
 ---------------------------
 
-Let's assume you start with an empty world.  You can create a robot at
-the standard location (x=1, y=1) facing towards the East, and have
-it take one step with the following program:
+빈 세상에서 출발한다고 가정하자.
+표준위치(x=1, y=1)에서 동쪽을 향한 로봇을 생성하고 나서,
+다음 프로그램처럼 한발짝 앞으로 나가게 한다:
 
 .. code-block:: py3
 
     reeborg = UsedRobot()
     reeborg.move()
 
-This might explain what we mentioned at the beginning when we
-introduced Reeborg: it has an oil leak and is broken in many ways.
-This is not surprising given that it is a ``UsedRobot`` and not a
-``NewShinyRobot``.
+리보그를 소개할 때 처음에 언급한 것이 설명되어 있다:
+기름이 새고 여러 곳이 망가져 있다.
+중고 ``UsedRobot`` 으로 신상 ``NewShinyRobot`` 로봇이 아니라는 점이 전혀 놀랍지 않다.
 
-Now, sometimes, we might want to have Reeborg start from a different
-location, facing in a different way ... and perhaps carrying some tokens
-(but not other objects).  Try the following:
+이제, 리보그를 다른 지점에서 출발시키고, 다른 방향을 향하고 있고...
+아마도 (다른 객체는 아니고) 일부 토큰을 지니게 한다. 다음 프로그램을 실행해 본다:
 
 .. code-block:: py3
 
@@ -38,21 +35,21 @@ location, facing in a different way ... and perhaps carrying some tokens
     reeborg.turn_left()
     reeborg.move()
 
+``'w'`` 대신에, ``'e'``, ``'s'``, ``'n'`` 을 시도해 볼 수도 있다.
+어떤 의미인지는 충분히 유추할 것으로 확신한다.
 
-Instead of ``'w'``, you might want to try ``'e'``, ``'s'``, ``'n'``.
-I'm sure you can figure out what they mean.
-
-Multiple robots
+로봇 다수
 ---------------
 
-Time to try something different.  By the way, you may have noticed
-that there's no pictures in this section.  This is intentional: I want
-for you to try different things and just give you pointers as to what you can try.
+다른 색다른 것을 시도할 시간이다.
+그런데, 이번 학습에는 그림이 하나도 없다는 것을 알아챘을 것이다.
+의도적으로 그런 것이다: 저자는 여러분이 색다른 것을 시도하고, 색다른 것을 시도할 것에 대한
+지침만 제시할 뿐이다.
 
 .. code-block:: py3
 
     reeborg = UsedRobot(2, 3, 'w', 4)
-    reeborg.set_model(0)                 # The original! :-)
+    reeborg.set_model(0)                 # 오리지날 로봇! :-)
     while reeborg.carries_object("token"):
         put()
     reeborg.turn_left()
@@ -63,17 +60,18 @@ for you to try different things and just give you pointers as to what you can tr
     karel.turn_left()
     karel.move()
 
-    # now for a surprise!
+    # 이제 놀랄 시간!
     move()
 
-Notice the last ``move()`` command?  Take note of who moves and I will
-explain at the very end - provided you are still interested by then.
+마지막 ``move()`` 명령어에 주목?
+어떤 로봇이 이동하는지 주목한다.
+마지막에 저자가 설명할 것이다 - 그때까지 여전히 관심이 있다면 말이다.
 
 
-Better robots
+신형 로봇
 -------------
 
-Try the following:
+다음 코드를 돌려본다:
 
 .. code-block:: py3
 
@@ -84,10 +82,10 @@ Try the following:
             self.turn_left()
             self.turn_left()
 
-    reeborg = UsedRobot()
+    reeborg = BetterRobot()
     reeborg.turn_right()
 
-So far, so good ... but not much of an improvement.  We can do better.
+지금까지 좋다... 하지만 그다지 향상되지는 않았다. 더욱 잘 할 수 있다.
 
 
 Four important ingredients for designing a better robot
