@@ -1,78 +1,73 @@
-A quick Python introduction: part 4, Exceptions
+빠르게 파이썬 소개하기: 4부, 예외(exceptions)
 ================================================
 
-Reeborg's World uses Python's **exceptions** (and the Javascript equivalent)
-a lot.
+리보그 세상은 파이썬 **예외(exceptions)를** 엄청 사용한다.
 
-The keyword ``raise``
----------------------
+키워드 ``raise``
+------------------------
 
-Try running the following program::
+다음 프로그램을 실행해 보자::
 
     raise ReeborgError("Surprise!")
 
-You should see something like this:
+상기 명령어를 실행하면 다음과 같은 것을 볼 것이다:
 
 |raise|
 
 .. |raise| image:: ../../images/raise.gif
 
-The keywords ``try``, ``except``, and ``finally``
+예약어 ``try``, ``except``, ``finally``
 -------------------------------------------------
 
-Raising an exception is another way to control the flow of a program,
-although a rather abrupt one.   If one expect an exception to be raised,
-the following pattern is usually used::
+예외를 발생(raise an exception)시키는 것이,
+다소 급작스럽지만, 프로그램 제어를 하는 또다른 방식이 된다.
+예외를 발생기키려고 하면, 다음 패턴이 흔히 사용되는 방식이다::
 
     try:
-        # code that may
-        # raise an exception of one type ...
-        # or possibly different types
+        # 예외를 일으키는 코드...
+        # 또다른 유형의 예외을 일으키는 코드...
+        # 또다른 유형의 예외을 일으키는 코드...
     except ExceptionName1:
-        # deal with it
+        # 예외를 처리한다.
     except ExceptionName2:
-        # deal with this other exception
+        # 또다른 예외를 처리한다.
     finally:
-        # do this at the end
-        # no matter if we recognized the
-        # right type of exception.
+        # 올바른 유형의 예외가 인식되지 않더라도
+        # 종국에 수행하는 작업
 
-You might want to try the example illustrated below.
-To select the maze shown so that you can try things out,
-you need to make sure you have the Documentation menu loaded
-and select "Big maze".
+다음에 시연된 예제를 시도해 볼 수 있다.
+미로를 불러와서 이해하려고 하면, ``Documentation`` 메뉴를 
+먼저 클릭하고, "Big maze"를 선택한다.
 
 |random|
 
 .. |random| image:: ../../images/random.gif
 
-In the above, we import the ``randint`` function from
-Python's ``random`` module; this allow us to obtain a randomly
-selected integer each time we go through the ``while`` loop.
-We set ``RUR.MAX_STEPS`` to a value of 10,000; this variable
-controls the maximum number of instructions that
-can be executed in a given program; by default, it is set to 1000 but this
-would likely not be enough to go through the entire program.
+위에서, 파이썬 ``random`` 모듈에서 ``randint`` 함수를 가져온다;
+매번 ``while`` 루프가 돌 때마다, 임의로 정수를 뽑도록 한다.
+``RUR.MAX_STEPS`` 변수값을 10,000 으로 설정한다;
+이 변수로 해당 프로그램에서 실행될 수 있는 최대 명령어 수행횟수를 제어한다;
+기본디폴트 설정으로, 1,000 으로 설정되지만,
+전체 프로그램을 수행하기에는 충분해 보이지는 않는다. 
 
-``move()`` instructions can trigger a ``ReeborgError`` exception if a wall
-is in the way; however, ``turn_left()`` instructions can never trigger
-an exception.
+벽이 앞을 막고 있다면 ``move()`` 명령어가 ``ReeborgError`` 예외를 촉발한다;
+하지만, ``turn_left()`` 명령어는 결코 예외를 촉발할 수 없다.
 
-Other exceptions that ``ReeborgError`` might be raised by user's programs.
-For example, the program::
+사용자 프로그램에 의해서 ``ReeborgError`` 또다른 예외가 발생될 수 있다. 
+예를 들어, 프로그램이 다음과 같다면::
 
     move()
     Mov()
 
-will raise a ``NameError``, since ``Mov`` is an unknown command.
-The program::
+``NameError`` 명칭 예외가 발생되는데, 이유는 ``Mov`` 가 알수없는 명령어가 되기 때문이다.
+프로그램이 다음과 같다면::
 
     move()
       move()
 
-will raise an ``IndentationError``.  The program::
+``IndentationError`` 들여쓰기 예외가 발생된다. 프로그램이 다음과 같다면::
 
     move)
 
-will raise a ``SyntaxError``; etc.
+``SyntaxError`` 구문예외가 예외로 발생된다; 등등...
 
