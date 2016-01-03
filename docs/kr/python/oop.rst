@@ -253,40 +253,39 @@ Brython을 사용해서, 저자는 자바스크립트 "백엔드(backend)"로
 ------------------
 
 리보그 코드는 GitHub에 있다. 
-
-Reeborg's code is on Github.  However, you do not need to go
-there to explore the code as I wrote some convenience functions
-for you.  For example, running the following program:
+하지만, 저자가 일부 함수를 여러분을 대신해서 작성했기 때문에,
+코드를 탐색하려고 GitHub에 갈 필요는 없다.
+예를 들어, 다음과 같이 프로그램을 실행하면:
 
 .. code-block:: py3
 
     r = UsedRobot()
     inspect(r)
 
-``inspect`` is a Javascript function, understood by Python/Brython,
-that I wrote to enable you to see an
-object's methods and attributes. Right now, it does not tell us much.
-Here is what I get when I do this::
+Python/Brython이 이해되는 ``inspect`` 는 자바스크립트 함수로, 
+객체 메쏘드와 속성을 볼 수 있도록 작성했다.
+지금 당장, 그다지 많은 것을 알려주지는 않는다.
+상기 명령어를 실행할 때, 얻은 결과가 다음에 나와 있다::
 
     __class__
     body
 
 .. note::
 
-   I use a single letter ``r`` for the robot name as this is a very short
-   program and I don't need a descriptive name.
+   로봇 명칭으로 단일 문자 ``r`` 을 사용했다. 왜냐하면, 매우 짧은 프로그램으로 
+   기술적인 명칭이 필요하지 않아서 그렇다.
 
-We do not know if they are methods or attributes.  ``__class__`` starts
-and ends with two underscore characters; this is a convention in the Python
-world to denote some internal Python code that is **mostly** reserved
-for advanced programmers.  The other is ``body``.
-So, we know that ``r.body`` is
-*something*.  Run the following code::
+메쏘드나 속성인지 알 수가 없다.
+``__class__`` 는 밑줄 문자 두개로 시작하고 끝난ㄷ;
+파이썬 세계에서 고급 프로그래머를 위해서 **대체로** 예약된 내부 파이썬 코드를 
+표기하는 관례다. 다른 하나는 ``body`` 다.
+그래서 ``r.body`` 가 *어떤 것* 인지 알게 된다.
+다음 코드를 실행한다::
 
     r = UsedRobot()
     inspect(r.body)
 
-You should see something like::
+상기 명령어를 실행하면 다음을 보게 된다::
 
     x
     y
@@ -297,34 +296,36 @@ You should see something like::
     _prev_y
     _prev_orientation
 
-which you will likely recognize from the previous explanation.
+의미를 이전 설명을 통해서 아마도 인식하게 될 것 같다.
 
-Note that we don't see any methods, only attributes.  To see the actual
-methods, we need to switch the language to Javascript (you can do
-so at the very top of Reeborg's World.)
+어떤 메쏘드도 볼 수 없고, 속성만 볼 수 있음에 주목한다.
+실제 메쏘드를 보기 위해서,
+언어를 자바스크립트로 전환할 필요가 있다.
+(리보그 세상 최상단에서 언어를 전환할 수 있다.)
 
-Javascript !??
---------------
 
-Remember when you ran this code?
+자바스크립트 !??
+------------------------
+
+다음 코드를 실행한 것을 기억하는가?
 
 .. code-block:: py3
 
     r = UsedRobot()
     inspect(r)
 
-We are going to do the equivalent with Javascript.
+자바스크립트로 상응하는 것을 수행한다.
 
-At the very top of the Reeborg's World window, click on
-**Additional options** and select
-Javascript instead of Python.  Then run the following code:
+리보그 세상 윈도우의 최상단에, **Additional options** 을 클릭하고,
+파이썬 대신에 자바스크립트를 선택한다.
+그리고 나서, 다음 코드를 실행한다:
 
 .. code-block:: javascript
 
    var r = new UsedRobot();
    inspect(r);
 
-Here is what I see when I do this::
+다음에 코드를 실행할 때 출력결과가 나와 있다::
 
     body
     at_goal()
@@ -341,28 +342,26 @@ Here is what I see when I do this::
     take()
     turn_left()
 
+그래서, 이중 밑줄로 시작되고 끝나는 것은 아무것도 없다.
+파이썬 코드에서처럼 ``body`` 가 보인다.
+하지만, ``at_goal()``, ``move()`` 와 많이 친숙한 메쏘드도 볼 수 있다.
 
-So, nothing that starts and end with a double underscore, and we see
-``body`` as we had in the
-Python code, but will also see some familiar methods like
-``at_goal()``, ``move()`` and many others.
+이제, 코드를 자세히 살펴볼 준비가 되었다.
 
-Now we are ready to look at some code.
+.. topic:: 직적 수행해보기!
 
-.. topic:: Do this!
-
-   Execute the following Javascript code and look at the printed result.
+   다음 자바스크립트 코드를 실행해 보고, 출력된 결과를 살펴보라.
 
    .. code-block:: javascript
 
        var r = new UsedRobot();
        view_source(r.turn_left);
 
-   Make sure the code is exactly as written above.  Note that I use
-   ``view_source`` instead of ``inspect`` which, as it turns out, would
-   not help me at all in this case.
+   코드가 정확하게 위에 작성된 것과 같은지 확인한다.
+   ``inspect`` 대신에 ``view_source`` 를 사용한 것에 주목한다.
+   실행하면 밝혀지듯이, 이번 경우에는 전혀 도움이 되지 않는다.
 
-Based on the result that I see printed,
+출력된 결과는 다음과 같다.
 
 .. code-block:: javascript
 
@@ -370,13 +369,13 @@ Based on the result that I see printed,
            RUR.control.turn_left(this.body);
        }
 
-my next guess is to execute the following.
+다음 추측은 다음과 같이 실행하는 것이다.
 
 .. code-block:: javascript
 
    view_source(RUR.control.turn_left);
 
-After doing so, I see the following:
+상기 코드를 수행한 뒤에, 다음을 보게 된다:
 
 .. code-block:: javascript
 
@@ -391,26 +390,23 @@ After doing so, I see the following:
        RUR.rec.record_frame("debug", "RUR.control.turn_left");
    }
 
-So, this is the actual code that makes Reeborg turn left.
-As mentioned above, you might see something slightly different, so
-you should really try on your own.
+그래서, 상기 코드가 실제로 리보그가 좌회전하게 되는 코드다.
+앞에서 언급했듯이,
+다소 차이가 나는 것을 볼 수도 있다. 그래서, 스스로 직접 수행해 봐야만 된다.
 
-So now you know how to get at the secret code powering Reeborg's World
-without having to look for the source code repository.
+이제, 소스코드를 찾아보지 않고도, 리보그 세상을 움직이는 비밀코드를 얻는 방법을 알게 되었다.
 
 
-About the single ``move()``
----------------------------
+한번 이동 ``move()`` 에 관해서
+--------------------------------------
 
-Reeborg's World has been designed right from the start to work
-with multiple robots AND to make it easier for beginners to
-write simple programs with only one robot.  Robots are actually
-included in a Javascript Array (similar to a Python list) in the
-world description and an instruction like ``move()`` refers to the
-zeroth element of this array.
+리보그 세상은 처음부터 다수 로봇을 다룰 수 있고, **그리고**
+단지 로봇 한대로 단순한 프로그램을 초보자가 작성하기 쉽게 설계되었다.
+로봇은 실제로 세상정보가 기술된 자바스크립트 배열(파이썬 리스트와 유사)에 포함되어 있고,
+``move()`` 같은 명령어는 해당 배열 0번째 요소를 참조한다.
 
-When you start with an empty world, the robot array is empty.  As
-you create robot, they get added, with the first one being
-the zeroth element.  This is why, in the first example above
-where we have two robots, ``move()`` is equivalent to
-``reeborg.move()``.
+빈 세상에서 시작할 때, 로봇 배열은 비어있다.
+로봇을 생성하면, 첫번째로 0번 요소로, 로봇이 배열에 추가된다.
+로봇이 두대인 있는 첫번째 예제에서, 
+`move()`` 명령어가 ``reeborg.move()`` 명령어와 동치가 되는 이유가 된다.
+
