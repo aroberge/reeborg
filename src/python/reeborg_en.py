@@ -448,7 +448,7 @@ class UsedRobot(object):  #py:UR
            will be raised.
         """
         if obj is None:
-            RUR.control.put(self.body, False)
+            RUR.control.put(self.body)
         else:
             RUR.control.put(self.body, obj)
 

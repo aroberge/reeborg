@@ -385,7 +385,7 @@ class RobotUsage(object):
         """Dépose un objet.  Si Reeborg transporte plus d'un type d'objet,
            on doit spécifier lequel sinon ceci causera une exception."""
         if obj is None:
-            RUR.control.put(self.body, False)
+            RUR.control.put(self.body)
         else:
             RUR.control.put(self.body, obj)
 

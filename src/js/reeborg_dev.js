@@ -2049,8 +2049,12 @@ RUR.output.write = function () {
 RUR.output._write = function () {
     var output_string = '';
     for (var i = 0; i < arguments.length; i++) {
-        output_string += arguments[i].toString();
-  }
+        if (typeof arguments[i] == "string") {
+            output_string += arguments[i];
+        } else {
+            output_string += JSON.stringify(arguments[i]);
+        }
+    }
     RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
 
