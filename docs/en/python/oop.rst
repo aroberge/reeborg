@@ -84,7 +84,7 @@ Try the following:
             self.turn_left()
             self.turn_left()
 
-    reeborg = UsedRobot()
+    reeborg = BetterRobot()
     reeborg.turn_right()
 
 So far, so good ... but not much of an improvement.  We can do better.
