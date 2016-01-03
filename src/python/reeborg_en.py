@@ -22,7 +22,7 @@ except:
 # alphabetically in this English version.
 
 
-def at_goal():  #py:  #py:at_goal
+def at_goal():  #py:at_goal
     """Indicate if Reeborg has reached the desired location.
 
     Returns:
@@ -93,10 +93,10 @@ def dir_py(obj):  #py:dir_py
     """
     # do not translate the name of this function
     attrs = []
-    for attr in dir(obj):  #py:
-        if attr.startswith("__"):  #py:
+    for attr in dir(obj):
+        if attr.startswith("__"):
             continue
-        if callable(getattr(obj, attr)):  #py:
+        if callable(getattr(obj, attr)):
             attr += "()"
         attrs.append(attr)
     print_html(str("\n".join(attrs)).replace("&", "&amp").replace("<", "&lt;"
@@ -221,7 +221,7 @@ def set_trace_color(color):  #py:set_trace_color
     """Change the color of the trace (oil leak).
 
        Args:
-            color (string):  #py: four formats are possible: named color,
+            color (string): four formats are possible: named color,
                    rgb and rgba, and hexadecimal notation.
 
        Examples::
@@ -350,7 +350,7 @@ class UsedRobot(object):  #py:UR
             Args:
                x: horizontal coordinate; an integer greater or equal to 1.
                y: vertical coordinate; an integer greater or equal to 1.
-               orientation (string):  #py: case-insensitive value,
+               orientation (string):,
                             one of "e" or "east",
                             "w" or "west", "n" or "north", "s" or "south".
                tokens: Initial number of tokens to give to the robot;
@@ -435,12 +435,12 @@ class UsedRobot(object):  #py:UR
         """
         return RUR.control.wall_on_right(self.body)
 
+    def in_the_bag(self):  #py:UR.in_the_bag
+        return dict(RUR._in_the_bag_(self.body))
+
     def is_facing_north(self):  #py:UR.is_facing_north
         """Indicates if Reeborg is facing North (top of the screen) or not."""
         return RUR.control.is_facing_north(self.body)
-
-    def in_the_bag(self):  #py:UR.in_the_bag
-        return dict(RUR._in_the_bag_(self.body))
 
     def put(self, obj=None):  #py:UR.put
         """Puts down an object.  If Reeborg carries more than one type of objects,
@@ -530,7 +530,7 @@ class UsedRobot(object):  #py:UR
         """Change the color of the trace (oil leak).
 
            Args:
-                color (string):  #py: four formats are possible: named color,
+                color (string): four formats are possible: named color,
                        rgb and rgba, and hexadecimal notation.
 
            Examples::
@@ -613,7 +613,7 @@ class SatelliteInfo():  #py:SI
         import json
         return json.loads(RUR.control.get_world_map())
 
-    def print_world_map(self):  #py:Si.print_world_map
+    def print_world_map(self):  #py:SI.print_world_map
         '''Prints a formatted copy of the world'''
         print(RUR.control.get_world_map())
 
