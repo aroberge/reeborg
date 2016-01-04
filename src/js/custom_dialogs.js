@@ -16,7 +16,9 @@ RUR.cd.create_custom_dialogs = function() {
         width: 500,
         modal: true,
         buttons: {
-            "OK": RUR.cd.add_objects,
+            OK: function () {
+                RUR.cd.add_objects();
+            },
             Cancel: function() {
                 RUR.cd.dialog_add_object.dialog("close");
             }
@@ -51,7 +53,9 @@ RUR.cd.create_custom_dialogs = function() {
         width: 500,
         modal: true,
         buttons: {
-            "OK": RUR.cd.give_objects,
+            OK: function () {
+                RUR.cd.give_objects();
+            },
             Cancel: function() {
                 RUR.cd.dialog_give_object.dialog("close");
             }
@@ -86,7 +90,9 @@ RUR.cd.create_custom_dialogs = function() {
         width: 500,
         modal: true,
         buttons: {
-            "OK": RUR.cd.goal_objects,
+            OK: function () {
+                RUR.cd.goal_objects();
+            },
             Cancel: function() {
                 RUR.cd.dialog_goal_object.dialog("close");
             }
@@ -122,7 +128,9 @@ RUR.cd.create_custom_dialogs = function() {
         width: 500,
         //modal: true,
         buttons: {
-            "OK": RUR.cd.set_dimensions,
+            OK: function () {
+                RUR.cd.set_dimensions();
+            },
             Cancel: function() {
                 RUR.cd.dialog_set_dimensions.dialog("close");
             }
@@ -213,4 +221,36 @@ RUR.cd.create_custom_dialogs = function() {
         RUR.background_image.onload = RUR.vis_world.draw_all;
         RUR.cd.dialog_set_background_image.dialog("close");
     };
+
+
+    RUR.cd.dialog_select_colour = $("#dialog-select-colour").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            OK: function () {
+                RUR.cd.select_colour();
+            },
+            Cancel: function() {
+                RUR.cd.dialog_select_colour.dialog("close");
+            }
+        }
+    });
+    RUR.cd.select_colour_form = RUR.cd.dialog_select_colour.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        RUR.cd.select_colour();
+    });
+    RUR.cd.select_colour = function () {
+        var colour = $("#colour-selection").val();
+        if (!colour) {
+            colour = false;
+        }
+        RUR.cd.dialog_select_colour.dialog("close");
+        RUR.we.call_back(colour);
+        RUR.vis_world.draw_all();
+    };
+
+
+
 };

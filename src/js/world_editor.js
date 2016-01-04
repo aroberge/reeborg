@@ -850,6 +850,14 @@ RUR.we.toggle_tile = function (tile){
     "use strict";
     var x, y, position, coords, index;
 
+    if (!tile) {  // if we cancel the dialog
+        return;
+    } else if (tile === "colour") {
+        RUR.we.call_back = RUR.we.toggle_tile;
+        RUR.cd.dialog_select_colour.dialog("open");
+        return;
+    }
+
     position = RUR.we.calculate_grid_position();
     x = position[0];
     y = position[1];
@@ -866,6 +874,14 @@ RUR.we.toggle_tile = function (tile){
 
 RUR.we.fill_with_tile = function (tile) {
     var x, y, coords;
+
+    if (!tile) {    // if we cancel the dialog
+        return;
+    } else if (tile === "colour") {
+        RUR.we.call_back = RUR.we.fill_with_tile;
+        RUR.cd.dialog_select_colour.dialog("open");
+        return;
+    }
 
     RUR.we.ensure_key_exist(RUR.current_world, "tiles");
     for (x = 1; x <= RUR.COLS; x++) {

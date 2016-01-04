@@ -294,6 +294,7 @@
             <li><a href="javascript:RUR.we.select('tile-gravel');"><img src="/src/images/gravel.png" alt="gravel tile"></a></li>
             <li><a href="javascript:RUR.we.select('tile-ice');"><img src="/src/images/ice.png" alt="ice tile"></a></li>
             <li><a href="javascript:RUR.we.select('tile-bricks');"><img src="/src/images/bricks.png" alt="bricks tile"></a></li>
+            <li><a href="javascript:RUR.we.select('tile-colour');"><img src="/src/images/tile_colour.png" alt="colored tile"></a></li>
         </ul>
         <ul class="edit-world-canvas" id="fill-tile" style="display:none">
             <li><a href="javascript:RUR.we.select('fill-mud');"><img src="/src/images/mud.png" alt="mud tile"></a></li>
@@ -303,6 +304,7 @@
             <li><a href="javascript:RUR.we.select('fill-gravel');"><img src="/src/images/gravel.png" alt="gravel tile"></a></li>
             <li><a href="javascript:RUR.we.select('fill-ice');"><img src="/src/images/ice.png" alt="ice tile"></a></li>
             <li><a href="javascript:RUR.we.select('fill-bricks');"><img src="/src/images/bricks.png" alt="bricks tile"></a></li>
+            <li><a href="javascript:RUR.we.select('fill-colour');"><img src="/src/images/tile_colour.png" alt="colored tile"></a></li>
         </ul>
         <ul class="edit-world-canvas" id="edit-top-tile" style="display:none">
             <li><a href="javascript:RUR.we.select('toptile-bridge');"><img src="/src/images/bridge.png" alt="bridge tile"></a></li>
@@ -830,6 +832,18 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
     <fieldset>
       <label for="image-url">url:
         <input type="text" name="image-url" id="image-url">
+      </label>
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
+<div id="dialog-select-colour" title="Enter a colour" style="display:none;">
+  <form>
+    <fieldset>
+      <label for="colour-selection">Colour:&nbsp;
+        <input type="text" name="colour-selection" id="colour-selection">
       </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">

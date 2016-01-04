@@ -396,7 +396,7 @@ RUR.vis_world.draw_tiles = function (tiles){
         if (tiles[keys[key]] !== undefined) {
             tile = RUR.tiles[tiles[keys[key]]];
             if (tile === undefined) {
-                colour = keys[key];
+                colour = tiles[keys[key]];
                 RUR.vis_world.draw_coloured_tile(colour, i, j, RUR.BACKGROUND_CTX);
                 continue;
             }

@@ -297,6 +297,7 @@
             <li><a href="javascript:RUR.we.select('tile-gravel');"><img src="/src/images/gravel.png" alt="gravier"></a></li>
             <li><a href="javascript:RUR.we.select('tile-ice');"><img src="/src/images/ice.png" alt="glace"></a></li>
             <li><a href="javascript:RUR.we.select('tile-bricks');"><img src="/src/images/bricks.png" alt="mur de briques"></a></li>
+            <li><a href="javascript:RUR.we.select('tile-colour');"><img src="/src/images/tile_colour.png" alt="couleur"></a></li>
         </ul>
         <ul class="edit-world-canvas" id="fill-tile" style="display:none">
             <li><a href="javascript:RUR.we.select('fill-mud');"><img src="/src/images/mud.png" alt="boue"></a></li>
@@ -306,6 +307,7 @@
             <li><a href="javascript:RUR.we.select('fill-gravel');"><img src="/src/images/gravel.png" alt="gravier"></a></li>
             <li><a href="javascript:RUR.we.select('fill-ice');"><img src="/src/images/ice.png" alt="glace"></a></li>
             <li><a href="javascript:RUR.we.select('fill-bricks');"><img src="/src/images/bricks.png" alt="mur de briques"></a></li>
+            <li><a href="javascript:RUR.we.select('fill-colour');"><img src="/src/images/tile_colour.png" alt="couleur"></a></li>
         </ul>
         <ul class="edit-world-canvas" id="edit-top-tile" style="display:none">
             <li><a href="javascript:RUR.we.select('toptile-bridge');"><img src="/src/images/bridge.png" alt="pont"></a></li>
@@ -842,6 +844,19 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
     <fieldset>
       <label for="image-url">url:
         <input type="text" name="image-url" id="image-url">
+      </label>
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
+
+<div id="dialog-select-colour" title="Spécifiez une couleur" style="display:none;">
+  <form>
+    <fieldset>
+      <label for="colour-selection">Couleur :&nbsp;
+        <input type="text" name="colour-selection" id="colour-selection">
       </label>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
