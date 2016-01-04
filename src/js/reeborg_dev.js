@@ -2825,7 +2825,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
                 throw RUR.__python_error;
             }
         } else {
-            alert("Unrecognized programming language.");
+            alert("FATAL ERROR: Unrecognized programming language.");
             return true;
         }
     } catch (e) {
@@ -3822,7 +3822,8 @@ RUR.vis_world.draw_all = function () {
 
     if (RUR.current_world.blank_canvas) {
         if (RUR.we.editing_world) {
-            alert("Editing of blank canvas is not supported.");
+            RUR.cd.show_feedback("#Reeborg-shouts",
+                                RUR.translate("Editing of blank canvas is not supported."));
             return;
          }
         clearTimeout(RUR.animation_frame_id);
@@ -5544,7 +5545,8 @@ RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
         if (RUR.current_world.goal.possible_positions !== undefined) {
             delete RUR.current_world.goal.possible_positions;
             delete RUR.current_world.goal.position;
-            alert(RUR.translate("WARNING: deleted final positions choices while resizing world!"));
+            RUR.cd.show_feedback("#Reeborg-shouts",
+                                 RUR.translate("WARNING: deleted final positions choices while resizing world!"));
         }
     }
 };
@@ -5808,7 +5810,9 @@ $(document).ready(function() {
         RUR.reset_code_in_editors();
     } catch (e){
         console.log(e);
-        alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
+        RUR.cd.show_feedback("#Reeborg-shouts",
+                        "Your browser does not support localStorage. " +
+                        "You will not be able to save your functions in the library.");
     }
     // for embedding in iframe
     addEventListener("message", receiveMessage, false);
@@ -6773,7 +6777,8 @@ RUR.zz_dr_onclick = function () {
                     RUR.world.import_world(reader.result);
                 } catch (e) {  // jshint ignore:line
                     console.log("invalid world", e);
-                    alert(RUR.translate("Invalid world file."));
+                    RUR.cd.show_feedback("#Reeborg-shouts",
+                                         RUR.translate("Invalid world file."));
                 }
                 fileInput.value = '';
             };

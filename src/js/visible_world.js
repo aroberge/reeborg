@@ -68,7 +68,8 @@ RUR.vis_world.draw_all = function () {
 
     if (RUR.current_world.blank_canvas) {
         if (RUR.we.editing_world) {
-            alert("Editing of blank canvas is not supported.");
+            RUR.cd.show_feedback("#Reeborg-shouts",
+                                RUR.translate("Editing of blank canvas is not supported."));
             return;
          }
         clearTimeout(RUR.animation_frame_id);

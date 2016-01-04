@@ -53,7 +53,9 @@ $(document).ready(function() {
         RUR.reset_code_in_editors();
     } catch (e){
         console.log(e);
-        alert("Your browser does not support localStorage; you will not be able to save your functions in the library.");
+        RUR.cd.show_feedback("#Reeborg-shouts",
+                        "Your browser does not support localStorage. " +
+                        "You will not be able to save your functions in the library.");
     }
     // for embedding in iframe
     addEventListener("message", receiveMessage, false);

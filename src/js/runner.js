@@ -172,7 +172,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
                 throw RUR.__python_error;
             }
         } else {
-            alert("Unrecognized programming language.");
+            alert("FATAL ERROR: Unrecognized programming language.");
             return true;
         }
     } catch (e) {

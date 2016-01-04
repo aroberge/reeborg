@@ -29,7 +29,8 @@ RUR.zz_dr_onclick = function () {
                     RUR.world.import_world(reader.result);
                 } catch (e) {  // jshint ignore:line
                     console.log("invalid world", e);
-                    alert(RUR.translate("Invalid world file."));
+                    RUR.cd.show_feedback("#Reeborg-shouts",
+                                         RUR.translate("Invalid world file."));
                 }
                 fileInput.value = '';
             };

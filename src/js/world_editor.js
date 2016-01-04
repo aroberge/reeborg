@@ -946,7 +946,8 @@ RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
         if (RUR.current_world.goal.possible_positions !== undefined) {
             delete RUR.current_world.goal.possible_positions;
             delete RUR.current_world.goal.position;
-            alert(RUR.translate("WARNING: deleted final positions choices while resizing world!"));
+            RUR.cd.show_feedback("#Reeborg-shouts",
+                                 RUR.translate("WARNING: deleted final positions choices while resizing world!"));
         }
     }
 };
