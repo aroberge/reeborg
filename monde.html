@@ -837,6 +837,18 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
 </p>
 </div>
 
+<div id="dialog-set-background-image" title="Image de fond" style="display:none;">
+  <form>
+    <fieldset>
+      <label for="image-url">url:
+        <input type="text" name="image-url" id="image-url">
+      </label>
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
 <div id="special-keyboard" title="Le clavier spécial de Reeborg" style="display:none">
   <div id="keyboard-buttons">
       <button id="kbd_command_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_command");'>

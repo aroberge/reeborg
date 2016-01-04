@@ -154,7 +154,9 @@ RUR.cd.create_custom_dialogs = function() {
         width: 500,
         modal: true,
         buttons: {
-            "OK": RUR.cd_save_world,
+            OK: function () {
+                RUR.cd.save_world();
+            },
             Cancel: function() {
                 RUR.cd.dialog_save_world.dialog("close");
             }
@@ -183,4 +185,32 @@ RUR.cd.create_custom_dialogs = function() {
         }
     });
 
+    RUR.cd.dialog_set_background_image = $("#dialog-set-background-image").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            OK: function () {
+                RUR.cd.set_background_image();
+            },
+            Cancel: function() {
+                RUR.cd.dialog_set_background_image.dialog("close");
+            }
+        }
+    });
+    RUR.cd.set_background_image_form = RUR.cd.dialog_set_background_image.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        RUR.cd.set_background_image();
+    });
+    RUR.cd.set_background_image = function () {
+        var url = $("#image-url").val();
+        if (!url) {
+            url = '';
+        }
+        RUR.current_world.background_image = url;
+        RUR.background_image.src = url;
+        RUR.background_image.onload = RUR.vis_world.draw_all;
+        RUR.cd.dialog_set_background_image.dialog("close");
+    };
 };

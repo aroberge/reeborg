@@ -825,6 +825,18 @@ Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen
 </p>
 </div>
 
+<div id="dialog-set-background-image" title="Background image" style="display:none;">
+  <form>
+    <fieldset>
+      <label for="image-url">url:
+        <input type="text" name="image-url" id="image-url">
+      </label>
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
 <div id="special-keyboard" title="Reeborg's basic keyboard" style="display:none">
   <div id="keyboard-buttons">
       <button id="kbd_command_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_command");'>

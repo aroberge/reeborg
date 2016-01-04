@@ -83,21 +83,3 @@ RUR.storage.delete_world = function (name){
     }
     $('#delete-world').hide();
 };
-
-
-RUR.storage.remove_world = function () {
-    var existing_names, i, key, response;
-    existing_names = ' [';
-
-    for (i = 0; i <= localStorage.length - 1; i++) {
-        key = localStorage.key(i);
-        if (key.slice(0, 11) === "user_world:") {
-            existing_names += key.substring(11) + ", ";
-        }
-    }
-    existing_names += "]";
-    response = window.prompt(RUR.translate("Enter world name to delete") + existing_names);
-    if (response !== null) {
-        RUR.storage.delete_world(response.trim());
-    }
-};

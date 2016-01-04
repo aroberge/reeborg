@@ -107,7 +107,7 @@ RUR.we.select = function (choice) {
             RUR.we.alert_1("Click on desired object below.");
             break;
         case "background":
-            RUR.we.get_background_image();
+            RUR.cd.dialog_set_background_image.dialog("open");
             break;
         case "world":
             switch (value) {
@@ -988,15 +988,4 @@ RUR.we._remove_all_at_location = function(coords) {
             }
         }
     }
-};
-
-RUR.we.get_background_image = function () {
-    var url = window.prompt(RUR.translate("Enter url of image to use as background."));
-    if (!url) {
-        url = '';
-        delete RUR.background_image.src;
-    }
-    RUR.current_world.background_image = url;
-    RUR.background_image.src = url;
-    RUR.vis_world.draw_all();
 };

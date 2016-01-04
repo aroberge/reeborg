@@ -1226,7 +1226,9 @@ RUR.cd.create_custom_dialogs = function() {
         width: 500,
         modal: true,
         buttons: {
-            "OK": RUR.cd_save_world,
+            OK: function () {
+                RUR.cd.save_world();
+            },
             Cancel: function() {
                 RUR.cd.dialog_save_world.dialog("close");
             }
@@ -1255,6 +1257,34 @@ RUR.cd.create_custom_dialogs = function() {
         }
     });
 
+    RUR.cd.dialog_set_background_image = $("#dialog-set-background-image").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            OK: function () {
+                RUR.cd.set_background_image();
+            },
+            Cancel: function() {
+                RUR.cd.dialog_set_background_image.dialog("close");
+            }
+        }
+    });
+    RUR.cd.set_background_image_form = RUR.cd.dialog_set_background_image.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        RUR.cd.set_background_image();
+    });
+    RUR.cd.set_background_image = function () {
+        var url = $("#image-url").val();
+        if (!url) {
+            url = '';
+        }
+        RUR.current_world.background_image = url;
+        RUR.background_image.src = url;
+        RUR.background_image.onload = RUR.vis_world.draw_all;
+        RUR.cd.dialog_set_background_image.dialog("close");
+    };
 };
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
@@ -3090,24 +3120,6 @@ RUR.storage.delete_world = function (name){
     }
     $('#delete-world').hide();
 };
-
-
-RUR.storage.remove_world = function () {
-    var existing_names, i, key, response;
-    existing_names = ' [';
-
-    for (i = 0; i <= localStorage.length - 1; i++) {
-        key = localStorage.key(i);
-        if (key.slice(0, 11) === "user_world:") {
-            existing_names += key.substring(11) + ", ";
-        }
-    }
-    existing_names += "]";
-    response = window.prompt(RUR.translate("Enter world name to delete") + existing_names);
-    if (response !== null) {
-        RUR.storage.delete_world(response.trim());
-    }
-};
 /* comprenhensive tests run from the Additional Options menu */
 
 RUR.testing = {};
@@ -4706,7 +4718,7 @@ RUR.we.select = function (choice) {
             RUR.we.alert_1("Click on desired object below.");
             break;
         case "background":
-            RUR.we.get_background_image();
+            RUR.cd.dialog_set_background_image.dialog("open");
             break;
         case "world":
             switch (value) {
@@ -5587,17 +5599,6 @@ RUR.we._remove_all_at_location = function(coords) {
             }
         }
     }
-};
-
-RUR.we.get_background_image = function () {
-    var url = window.prompt(RUR.translate("Enter url of image to use as background."));
-    if (!url) {
-        url = '';
-        delete RUR.background_image.src;
-    }
-    RUR.current_world.background_image = url;
-    RUR.background_image.src = url;
-    RUR.vis_world.draw_all();
 };
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
