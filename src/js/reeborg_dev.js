@@ -1025,6 +1025,22 @@ RUR.control.play_sound = function (sound_id) {
     current_sound.play();
 };
 
+RUR.control.get_colour_at_position = function (x, y) {
+    if (RUR.control.get_tile_at_position(x, y)===false) {
+        return null;
+    } else if (RUR.control.get_tile_at_position(x, y)===undefined){
+        return RUR.current_world.tiles[x + "," + y];
+    } else {
+        return null;
+    }
+};
+
+RUR.control.set_colour_at_position = function (x, y, colour) {
+    "use strict";
+    RUR.we.ensure_key_exist(RUR.current_world, "tiles");
+    RUR.current_world.tiles[x + "," + y] = colour;
+    RUR.rec.record_frame("debug", "set_colour_at_position");
+};
 
 RUR.control.get_tile_at_position = function (x, y) {
     "use strict";
@@ -1322,9 +1338,6 @@ RUR.cd.create_custom_dialogs = function() {
         RUR.we.call_back(colour);
         RUR.vis_world.draw_all();
     };
-
-
-
 };
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
@@ -3904,7 +3917,7 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.vis_world.draw_coordinates(); // on BACKGROUND_CTX
-    RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
+
     RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
 
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -3928,6 +3941,9 @@ RUR.vis_world.refresh = function () {
     RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+    // tiles can change colour, so we redraw them
+    RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
 
     if (RUR.__debug) {
         RUR.vis_world.sanity_check(0);

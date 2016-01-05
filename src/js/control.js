@@ -648,6 +648,23 @@ RUR.control.play_sound = function (sound_id) {
     current_sound.play();
 };
 
+RUR.control.get_colour_at_position = function (x, y) {
+    if (RUR.control.get_tile_at_position(x, y)===false) {
+        return null;
+    } else if (RUR.control.get_tile_at_position(x, y)===undefined){
+        return RUR.current_world.tiles[x + "," + y];
+    } else {
+        return null;
+    }
+};
+
+RUR.control.set_tile_at_position = function (x, y, tile) {
+    "use strict";
+    // note: "tile" will most often be a colour.
+    RUR.we.ensure_key_exist(RUR.current_world, "tiles");
+    RUR.current_world.tiles[x + "," + y] = tile;
+    RUR.rec.record_frame("debug", "set_tile_at_position");
+};
 
 RUR.control.get_tile_at_position = function (x, y) {
     "use strict";

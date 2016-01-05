@@ -98,7 +98,7 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.vis_world.draw_coordinates(); // on BACKGROUND_CTX
-    RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
+
     RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
 
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -122,6 +122,9 @@ RUR.vis_world.refresh = function () {
     RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+    // tiles can change colour, so we redraw them
+    RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
 
     if (RUR.__debug) {
         RUR.vis_world.sanity_check(0);

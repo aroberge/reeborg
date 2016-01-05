@@ -250,7 +250,4 @@ RUR.cd.create_custom_dialogs = function() {
         RUR.we.call_back(colour);
         RUR.vis_world.draw_all();
     };
-
-
-
 };
