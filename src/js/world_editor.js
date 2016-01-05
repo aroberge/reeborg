@@ -210,6 +210,11 @@ RUR.we.change_edit_robot_menu = function () {
 
 function toggle_editing_mode () {
     if (RUR.we.editing_world) {  // done editing
+        $("#pre-code-link").parent().hide();
+        $("#post-code-link").parent().hide();
+        $("#description-link").parent().hide();
+        $("#onload-editor-link").parent().hide();
+
         RUR.we.editing_world = false;
         RUR.runner.interpreted = false;
         RUR.WALL_COLOR = "brown";
@@ -225,6 +230,12 @@ function toggle_editing_mode () {
         }
         $("#editor-tab").trigger('click');
     } else {
+
+        $("#pre-code-link").parent().show();
+        $("#post-code-link").parent().show();
+        $("#description-link").parent().show();
+        $("#onload-editor-link").parent().show();
+
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;
         RUR.WALL_COLOR = "black";
@@ -234,7 +245,6 @@ function toggle_editing_mode () {
         $("#highlight").hide();
         $("#watch_variables_btn").hide();
     }
-    RUR.reset_programming_language(RUR.settings.current_language);
 }
 
 RUR.we.refresh_world_edited = function () {

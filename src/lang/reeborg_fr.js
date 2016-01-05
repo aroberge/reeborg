@@ -19,7 +19,7 @@ var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
     transporte, ecrit, au_but, construit_un_mur, pense, print_html, disparait,
     pause, repete, voir_source, son, RobotUsage, mur_devant, mur_a_droite,
     nombre_de_commandes, confirmer, enregistrement, nouvelles_images_de_robot,
-    dans_le_sac;
+    dans_le_sac, plus_de_robots;
 
 RUR.confirmer = function(test) {
     var reeborg, robots, monde, orientation;
@@ -81,7 +81,7 @@ RUR.reset_definitions = function () {
     pause = RUR.control.pause;
     Monde = RUR.file_io.load_world_from_program;
     nombre_de_robots = RUR._set_max_nb_robots_;
-    disparait = RUR.world.remove_robots;
+    plus_de_robots = RUR._remove_robots_;
     enregistrement = RUR._recording_;
 
     nouvelles_images_de_robot = function (image) {
@@ -136,6 +136,10 @@ RUR.reset_definitions = function () {
 
     RobotUsage.prototype.avance = function () {
         RUR.control.move(this.body);
+    };
+
+    RobotUsage.prototype.modele = function(model) {
+        RUR.control.set_model(this.body, model);
     };
 
     RobotUsage.prototype.depose = function () {

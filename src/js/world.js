@@ -81,13 +81,7 @@ RUR.world.import_world = function (json_string) {
     }
 
     if (RUR.current_world.onload !== undefined) {
-        try {
-            eval(RUR.current_world.onload);  // jshint ignore:line
-        } catch (e) {
-            RUR.cd.show_feedback("#Reeborg-shouts",
-                RUR.translate("Problem with onload code.") + "<br><pre>" +
-                RUR.current_world.onload + "</pre>");
-        }
+        RUR.world.eval_onload();
     }
 
     RUR.current_world.small_tiles = RUR.current_world.small_tiles || false;
@@ -128,6 +122,18 @@ RUR.world.import_world = function (json_string) {
     }
 };
 
+RUR.world.eval_onload = function () {
+    try {
+        eval(RUR.current_world.onload);  // jshint ignore:line
+    } catch (e) {
+        RUR.cd.show_feedback("#Reeborg-shouts",
+            RUR.translate("Problem with onload code.") + "<br><pre>" +
+            RUR.current_world.onload + "</pre>");
+        console.log("error in onload:", e);
+    }
+};
+
+
 RUR.world.clone_world = function (world) {
     if (world === undefined) {
         return JSON.parse(JSON.stringify(RUR.current_world));
@@ -137,6 +143,9 @@ RUR.world.clone_world = function (world) {
 };
 
 RUR.world.reset = function () {
+    if (RUR.we.editing_world){
+        return;
+    }
     RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     if (RUR.MAX_NB_ROBOTS !== undefined){
         delete RUR.MAX_NB_ROBOTS;

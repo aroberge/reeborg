@@ -133,7 +133,7 @@ RUR.reset_programming_language = function(choice){
         $("#pre-code-link").parent().show();
         $("#post-code-link").parent().show();
         $("#description-link").parent().show();
-        $("#onload-editor-link").parent().show();        
+        $("#onload-editor-link").parent().show();
     }
 };
 
@@ -258,7 +258,7 @@ RUR._put_ = function(arg) {
     RUR.control.put(RUR.current_world.robots[0], arg);
 };
 
-RUR._remove_robots = function () {
+RUR._remove_robots_ = function () {
     RUR.world.remove_robots();
 };
 
@@ -3110,7 +3110,6 @@ RUR.storage = {};
 
 RUR.storage.memorize_world = function () {
     var existing_names, i, key, response;
-
     existing_names = '';
     for (i = 0; i <= localStorage.length - 1; i++) {
         key = localStorage.key(i);
@@ -4542,13 +4541,7 @@ RUR.world.import_world = function (json_string) {
     }
 
     if (RUR.current_world.onload !== undefined) {
-        try {
-            eval(RUR.current_world.onload);  // jshint ignore:line
-        } catch (e) {
-            RUR.cd.show_feedback("#Reeborg-shouts",
-                RUR.translate("Problem with onload code.") + "<br><pre>" +
-                RUR.current_world.onload + "</pre>");
-        }
+        RUR.world.eval_onload();
     }
 
     RUR.current_world.small_tiles = RUR.current_world.small_tiles || false;
@@ -4589,6 +4582,18 @@ RUR.world.import_world = function (json_string) {
     }
 };
 
+RUR.world.eval_onload = function () {
+    try {
+        eval(RUR.current_world.onload);  // jshint ignore:line
+    } catch (e) {
+        RUR.cd.show_feedback("#Reeborg-shouts",
+            RUR.translate("Problem with onload code.") + "<br><pre>" +
+            RUR.current_world.onload + "</pre>");
+        console.log("error in onload:", e);
+    }
+};
+
+
 RUR.world.clone_world = function (world) {
     if (world === undefined) {
         return JSON.parse(JSON.stringify(RUR.current_world));
@@ -4598,6 +4603,9 @@ RUR.world.clone_world = function (world) {
 };
 
 RUR.world.reset = function () {
+    if (RUR.we.editing_world){
+        return;
+    }
     RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
     if (RUR.MAX_NB_ROBOTS !== undefined){
         delete RUR.MAX_NB_ROBOTS;
@@ -4904,6 +4912,11 @@ RUR.we.change_edit_robot_menu = function () {
 
 function toggle_editing_mode () {
     if (RUR.we.editing_world) {  // done editing
+        $("#pre-code-link").parent().hide();
+        $("#post-code-link").parent().hide();
+        $("#description-link").parent().hide();
+        $("#onload-editor-link").parent().hide();
+
         RUR.we.editing_world = false;
         RUR.runner.interpreted = false;
         RUR.WALL_COLOR = "brown";
@@ -4913,12 +4926,19 @@ function toggle_editing_mode () {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
+        // create temporary copy
         RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
         }
         $("#editor-tab").trigger('click');
     } else {
+
+        $("#pre-code-link").parent().show();
+        $("#post-code-link").parent().show();
+        $("#description-link").parent().show();
+        $("#onload-editor-link").parent().show();
+
         RUR.we.change_edit_robot_menu();
         RUR.we.editing_world = true;
         RUR.WALL_COLOR = "black";
@@ -4928,7 +4948,6 @@ function toggle_editing_mode () {
         $("#highlight").hide();
         $("#watch_variables_btn").hide();
     }
-    RUR.reset_programming_language(RUR.settings.current_language);
 }
 
 RUR.we.refresh_world_edited = function () {
@@ -6808,7 +6827,6 @@ RUR.zz_dr_onchange = function () {
         $("#editor-panel").removeClass("active");
         $("#kbd_javascript_btn").hide();
     }
-
 
     function show_python_editor () {
         $("#editor-panel").addClass("active");

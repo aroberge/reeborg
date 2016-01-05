@@ -22,7 +22,8 @@ var move, turn_left, inspect, front_is_clear, right_is_clear,
     carries_object, write, _write, at_goal, build_wall, think,
     pause, repeat, view_source, sound, UsedRobot, in_the_bag,
     set_max_steps, say, verify, ReeborgError, WallCollisionError, print_html,
-    wall_in_front, wall_on_right, disappear, recording, new_robot_images;
+    wall_in_front, wall_on_right, disappear, recording, new_robot_images,
+    remove_robots;
 
 // do not translate the following three instructions; they are included only
 // so that most basic programs from rur-ple would run "as-is"
@@ -90,7 +91,7 @@ RUR.reset_definitions = function () {
     pause = RUR.control.pause;
     World = RUR.file_io.load_world_from_program;
     set_max_nb_robots = RUR._set_max_nb_robots_;
-    disappear = RUR.world.remove_robots;
+    remove_robots = RUR._remove_robots_;
     recording = RUR._recording_;
 
 
@@ -133,6 +134,10 @@ RUR.reset_definitions = function () {
 
     UsedRobot.prototype.put = function () {
         RUR.control.put(this.body);
+    };
+
+    UsedRobot.prototype.set_model = function(model) {
+        RUR.control.set_model(this.body, model);
     };
 
     UsedRobot.prototype.token_here = function () {

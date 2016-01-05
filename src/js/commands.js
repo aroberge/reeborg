@@ -79,7 +79,7 @@ RUR._put_ = function(arg) {
     RUR.control.put(RUR.current_world.robots[0], arg);
 };
 
-RUR._remove_robots = function () {
+RUR._remove_robots_ = function () {
     RUR.world.remove_robots();
 };
 

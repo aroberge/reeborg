@@ -133,7 +133,7 @@ RUR.reset_programming_language = function(choice){
         $("#pre-code-link").parent().show();
         $("#post-code-link").parent().show();
         $("#description-link").parent().show();
-        $("#onload-editor-link").parent().show();        
+        $("#onload-editor-link").parent().show();
     }
 };
 
