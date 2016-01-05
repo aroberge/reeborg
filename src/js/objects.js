@@ -158,7 +158,7 @@ RUR.add_home_image("house", "house:");
 RUR.add_home_image("racing_flag", "racing flag:");
 
 
-RUR.add_solid_object = function (name, nickname) {
+RUR.add_solid_object = function (name, url, nickname) {
     var obj = RUR.solid_objects;
     obj[name] = {};
     if (nickname === undefined) {
@@ -171,7 +171,11 @@ RUR.add_solid_object = function (name, nickname) {
     }
     obj[name].ctx = RUR.SECOND_LAYER_CTX;
     obj[name].image = new Image();
-    obj[name].image.src = RUR.base_url + '/src/images/' + name + '.png';
+    if (!url) {
+        obj[name].image.src = RUR.base_url + '/src/images/' + name + '.png';
+    } else {
+        obj[name].image.src = url;
+    }
     obj[name].image.onload = RUR.increment_loaded;
     RUR.objects.nb_images += 1;
 };
@@ -179,22 +183,22 @@ RUR.add_solid_object = function (name, nickname) {
 RUR.add_solid_object("bridge");
 RUR.solid_objects.bridge.info = RUR.translate("Bridge:") + RUR.translate("Reeborg <b>can</b> detect this and will know that it allows safe passage over water.");
 
-RUR.add_solid_object("fence_right", "fence");
+RUR.add_solid_object("fence_right", false, "fence");
 RUR.solid_objects.fence_right.message = RUR.translate("I hit a fence!");
 RUR.solid_objects.fence_right.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.solid_objects.fence4 = RUR.solid_objects.fence_right;  // compatibility with old worlds
 
-RUR.add_solid_object("fence_left", "fence");
+RUR.add_solid_object("fence_left", false, "fence");
 RUR.solid_objects.fence_left.message = RUR.translate("I hit a fence!");
 RUR.solid_objects.fence_left.info = RUR.solid_objects.fence_right.info;
 RUR.solid_objects.fence5 = RUR.solid_objects.fence_left;  // compatibility with old worlds
 
-RUR.add_solid_object("fence_double", "fence");
+RUR.add_solid_object("fence_double", false, "fence");
 RUR.solid_objects.fence_double.message = RUR.translate("I hit a fence!");
 RUR.solid_objects.fence_double.info = RUR.solid_objects.fence_right.info;
 RUR.solid_objects.fence6 = RUR.solid_objects.fence_double;  // compatibility with old worlds
 
-RUR.add_solid_object("fence_vertical", "fence");
+RUR.add_solid_object("fence_vertical", false, "fence");
 RUR.solid_objects.fence_vertical.message = RUR.translate("I hit a fence!");
 RUR.solid_objects.fence_vertical.info = RUR.solid_objects.fence_right.info;
 RUR.solid_objects.fence7 = RUR.solid_objects.fence_vertical;  // compatibility with old worlds
