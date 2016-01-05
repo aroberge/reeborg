@@ -144,7 +144,7 @@ RUR.translation["A wall must be built south of this location."] = "A wall must b
 RUR.translation["The final required position of the robot will be chosen at random."] = "The final required position of the robot will be chosen at random.";
 RUR.translation["The final position of the robot must be (x, y) = "] = "The final position of the robot must be (x, y) = ";
 RUR.translation["Click on world to fill with given tile."] = "Click on world to fill with given tile.";
-RUR.translation["Click on desired top tile below."] = "Click on desired top tile below.";
+RUR.translation["Click on desired object below."] = "Click on desired object below.";
 RUR.translation["Enter url of image to use as background."] = "Enter url of image to use as background.";
 RUR.translation["Replace editor content"] = "Do you wish to replace your editor code by that provided by the creator of this world?";
 RUR.translation["Replace library content"] = "Do you wish to replace your library code by that provided by the creator of this world?";

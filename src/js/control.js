@@ -6,8 +6,8 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     "use strict";
-    var tile, tiles, tilename, tile_beyond, solid_tile_beyond,
-        top_tiles_beyond, solid_top_tile_beyond,
+    var tile, tiles, name, objects, tile_beyond, solid_tile_beyond,
+        solids_beyond, solid_object_beyond,
         pushable_object_here, pushable_object_beyond,
         wall_beyond, x_beyond, y_beyond;
 
@@ -58,18 +58,18 @@ RUR.control.move = function (robot) {
             solid_tile_beyond = false;
         }
 
-        top_tiles_beyond = RUR.control.get_top_tiles_at_position(x_beyond, y_beyond);
-        solid_top_tile_beyond = false;
-        if (top_tiles_beyond) {
-            for (tilename in top_tiles_beyond) {
-                if (RUR.top_tiles[tilename] !== undefined && RUR.top_tiles[tilename].solid) {
-                    solid_top_tile_beyond = true;
+        solids_beyond = RUR.control.get_solid_objects_at_position(x_beyond, y_beyond);
+        solid_object_beyond = false;
+        if (solids_beyond) {
+            for (name in solids_beyond) {
+                if (RUR.solid_objects[name] !== undefined && RUR.solid_objects[name].solid) {
+                    solid_object_beyond = true;
                     break;
                 }
             }
         }
 
-        if (pushable_object_beyond || wall_beyond || solid_tile_beyond || solid_top_tile_beyond) {
+        if (pushable_object_beyond || wall_beyond || solid_tile_beyond || solid_object_beyond) {
             robot.x = robot._prev_x;
             robot.y = robot._prev_y;
             throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
@@ -85,7 +85,7 @@ RUR.control.move = function (robot) {
     tile = RUR.control.get_tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
-            if (!(tile == RUR.tiles.water && RUR.control.top_tile_here(robot, RUR.translate("bridge"))) ){
+            if (!(tile == RUR.tiles.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
                 throw new RUR.ReeborgError(tile.message);
             }
         }
@@ -95,13 +95,13 @@ RUR.control.move = function (robot) {
         }
     }
 
-    tiles = RUR.control.get_top_tiles_at_position(robot.x, robot.y);
-    if (tiles) {
-        for (tilename in tiles) {
-            if (RUR.top_tiles[tilename] !== undefined && RUR.top_tiles[tilename].fatal) {
+    objects = RUR.control.get_solid_objects_at_position(robot.x, robot.y);
+    if (objects) {
+        for (name in objects) {
+            if (RUR.solid_objects[name] !== undefined && RUR.solid_objects[name].fatal) {
                 robot.x = robot._prev_x;
                 robot.y = robot._prev_y;
-                throw new RUR.ReeborgError(RUR.top_tiles[tilename].message);
+                throw new RUR.ReeborgError(RUR.solid_objects[name].message);
             }
         }
     }
@@ -110,7 +110,7 @@ RUR.control.move = function (robot) {
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
     "use strict";
     var bridge_already_there = false;
-    if (RUR.control.get_top_tiles_at_position(to_x, to_y).bridge !== undefined){
+    if (RUR.control.get_solid_objects_at_position(to_x, to_y).bridge !== undefined){
         bridge_already_there = true;
     }
 
@@ -119,7 +119,7 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
     if (RUR.objects[obj].in_water &&
         RUR.control.get_tile_at_position(to_x, to_y) == RUR.tiles.water &&
         !bridge_already_there){
-        RUR.we.add_top_tile(RUR.objects[obj].in_water, to_x, to_y, 1);
+        RUR.we.add_solid_object(RUR.objects[obj].in_water, to_x, to_y, 1);
     } else {
         RUR.we.add_object(obj, to_x, to_y, 1);
     }
@@ -418,25 +418,25 @@ RUR.control.tile_in_front = function (robot) {
 };
 
 
-RUR.control.top_tiles_in_front = function (robot) {
+RUR.control.solid_objects_in_front = function (robot) {
     // returns list of tiles
     switch (robot._orientation){
     case RUR.EAST:
-        return RUR.control.get_top_tiles_at_position(robot.x+1, robot.y);
+        return RUR.control.get_solid_objects_at_position(robot.x+1, robot.y);
     case RUR.NORTH:
-        return RUR.control.get_top_tiles_at_position(robot.x, robot.y+1);
+        return RUR.control.get_solid_objects_at_position(robot.x, robot.y+1);
     case RUR.WEST:
-        return RUR.control.get_top_tiles_at_position(robot.x-1, robot.y);
+        return RUR.control.get_solid_objects_at_position(robot.x-1, robot.y);
     case RUR.SOUTH:
-        return RUR.control.get_top_tiles_at_position(robot.x, robot.y-1);
+        return RUR.control.get_solid_objects_at_position(robot.x, robot.y-1);
     default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.top_tiles_in_front().");
+        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.solid_objects_in_front().");
     }
 };
 
 
 RUR.control.front_is_clear = function(robot){
-    var tile, tiles, tilename;
+    var tile, tiles, solid, name;
     if( RUR.control.wall_in_front(robot)) {
         return false;
     }
@@ -453,12 +453,12 @@ RUR.control.front_is_clear = function(robot){
         }
     }
 
-    tiles = RUR.control.top_tiles_in_front(robot);
-    if (tiles) {
-        for (tilename in tiles) {
-            if (RUR.top_tiles[tilename] !== undefined &&
-                RUR.top_tiles[tilename].detectable &&
-                RUR.top_tiles[tilename].fatal) {
+    solid = RUR.control.solid_objects_in_front(robot);
+    if (solid) {
+        for (name in solid) {
+            if (RUR.solid_objects[name] !== undefined &&
+                RUR.solid_objects[name].detectable &&
+                RUR.solid_objects[name].fatal) {
                 return false;
             }
         }
@@ -469,11 +469,11 @@ RUR.control.front_is_clear = function(robot){
 
 
 RUR.control._bridge_present = function(robot) {
-    var tiles, tilename;
-        tiles = RUR.control.top_tiles_in_front(robot);
-    if (tiles) {
-        for (tilename in tiles) {
-            if (tilename == "bridge") {
+    var solid, name;
+        solid = RUR.control.solid_objects_in_front(robot);
+    if (solid) {
+        for (name in solid) {
+            if (name == "bridge") {
                 return true;
             }
         }
@@ -551,16 +551,16 @@ RUR.control.__object_here = function (robot, obj, _objects) {
 };
 
 
-RUR.control.top_tile_here = function (robot, tile) {
-    var tile_here, tile_type, all_top_tiles;
+RUR.control.solid_object_here = function (robot, tile) {
+    var tile_here, tile_type, all_solid_objects;
     var coords = robot.x + "," + robot.y;
 
-    if (RUR.current_world.top_tiles === undefined ||
-        RUR.current_world.top_tiles[coords] === undefined) {
+    if (RUR.current_world.solid_objects === undefined ||
+        RUR.current_world.solid_objects[coords] === undefined) {
         return false;
     }
 
-    tile_here =  RUR.current_world.top_tiles[coords];
+    tile_here =  RUR.current_world.solid_objects[coords];
 
     for (tile_type in tile_here) {
         if (tile_here.hasOwnProperty(tile_type)) {
@@ -674,12 +674,12 @@ RUR.control.get_tile_at_position = function (x, y) {
     return RUR.tiles[RUR.current_world.tiles[coords]];
 };
 
-RUR.control.get_top_tiles_at_position = function (x, y) {
+RUR.control.get_solid_objects_at_position = function (x, y) {
     "use strict";
     var coords = x + "," + y;
-    if (RUR.current_world.top_tiles === undefined) return false;
-    if (RUR.current_world.top_tiles[coords] === undefined) return false;
-    return RUR.current_world.top_tiles[coords];
+    if (RUR.current_world.solid_objects === undefined) return false;
+    if (RUR.current_world.solid_objects[coords] === undefined) return false;
+    return RUR.current_world.solid_objects[coords];
 };
 
 

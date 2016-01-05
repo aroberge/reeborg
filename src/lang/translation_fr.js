@@ -138,7 +138,7 @@ RUR.translation["A wall must be built south of this location."] = "Un mur doit �
 RUR.translation["The final required position of the robot will be chosen at random."] = "La position finale requise pour Reeborg sera choisie au hasard.";
 RUR.translation["The final position of the robot must be (x, y) = "] = "La position finale de Reeborg doit être (x, y) = ";
 RUR.translation["Click on world to fill with given tile."] = "Cliquez sur le monde pour remplir avec cet objet.";
-RUR.translation["Click on desired top tile below."] = "Cliquez sur l'image désirée.";
+RUR.translation["Click on desired object below."] = "Cliquez sur l'image désirée.";
 RUR.translation["Enter url of image to use as background."] = "Fournir l'adresse (URL) de l'image à utiliser.";
 RUR.translation["Replace editor content"] = "Voulez-vous remplacer le contenu du code de votre éditeur par celui défini par le créateur du monde?";
 RUR.translation["Replace library content"] = "Voulez-vous remplacer le contenu du code de votre biliothèque par celui défini par le créateur du monde?";

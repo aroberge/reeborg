@@ -149,7 +149,7 @@
       "box": 1
     }
   },
-  "top_tiles": {
+  "solid_objects": {
     "10,6": {
       "fence4": 1,
       "fence7": 1

@@ -1,9 +1,10 @@
 
 RUR.objects = {};
 RUR.tiles = {};
-RUR.top_tiles = {};
+RUR.solid_objects = {};
 RUR.home_images = {};
 RUR.objects.known_objects = [];
+RUR.tiles.known_tiles = [];
 
 // allow for the possibility of a background image
 RUR.background_image = new Image();
@@ -59,13 +60,18 @@ RUR.objects.box.in_water = "bridge";
 RUR.objects.box.ctx = RUR.ROBOT_CTX;
 
 
-RUR.add_tile_image = function (name) {
-    var tile = RUR.tiles;
-    tile[name] = {};
-    tile[name].name = name;
-    tile[name].image = new Image();
-    tile[name].image.src = RUR.base_url + '/src/images/' + name + '.png';
-    tile[name].image.onload = RUR.increment_loaded;
+RUR.add_tile_image = function (name, url) {
+    var tiles = RUR.tiles;
+    tiles[name] = {};
+    tiles[name].name = name;
+    tiles[name].image = new Image();
+    if (url===undefined) {
+        tiles[name].image.src = RUR.base_url + '/src/images/' + name + '.png';
+    } else {
+        tiles[name].image.src = url;
+    }
+    tiles[name].image.onload = RUR.increment_loaded;
+    tiles.known_tiles.push(name);
     RUR.objects.nb_images += 1;
 };
 
@@ -152,43 +158,43 @@ RUR.add_home_image("house", "house:");
 RUR.add_home_image("racing_flag", "racing flag:");
 
 
-RUR.add_top_tile = function (name, nickname) {
-    var tile = RUR.top_tiles;
-    tile[name] = {};
+RUR.add_solid_object = function (name, nickname) {
+    var obj = RUR.solid_objects;
+    obj[name] = {};
     if (nickname === undefined) {
-        tile[name].name = name;
+        obj[name].name = name;
     } else {
-        tile[name].name = nickname;
-        tile[name].fatal = true;
-        tile[name].solid = true;
-        tile[name].detectable = true;
+        obj[name].name = nickname;
+        obj[name].fatal = true;
+        obj[name].solid = true;
+        obj[name].detectable = true;
     }
-    tile[name].ctx = RUR.SECOND_LAYER_CTX;
-    tile[name].image = new Image();
-    tile[name].image.src = RUR.base_url + '/src/images/' + name + '.png';
-    tile[name].image.onload = RUR.increment_loaded;
+    obj[name].ctx = RUR.SECOND_LAYER_CTX;
+    obj[name].image = new Image();
+    obj[name].image.src = RUR.base_url + '/src/images/' + name + '.png';
+    obj[name].image.onload = RUR.increment_loaded;
     RUR.objects.nb_images += 1;
 };
 
-RUR.add_top_tile("bridge");
-RUR.top_tiles.bridge.info = RUR.translate("Bridge:") + RUR.translate("Reeborg <b>can</b> detect this and will know that it allows safe passage over water.");
+RUR.add_solid_object("bridge");
+RUR.solid_objects.bridge.info = RUR.translate("Bridge:") + RUR.translate("Reeborg <b>can</b> detect this and will know that it allows safe passage over water.");
 
-RUR.add_top_tile("fence_right", "fence");
-RUR.top_tiles.fence_right.message = RUR.translate("I hit a fence!");
-RUR.top_tiles.fence_right.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
-RUR.top_tiles.fence4 = RUR.top_tiles.fence_right;  // compatibility with old worlds
+RUR.add_solid_object("fence_right", "fence");
+RUR.solid_objects.fence_right.message = RUR.translate("I hit a fence!");
+RUR.solid_objects.fence_right.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
+RUR.solid_objects.fence4 = RUR.solid_objects.fence_right;  // compatibility with old worlds
 
-RUR.add_top_tile("fence_left", "fence");
-RUR.top_tiles.fence_left.message = RUR.translate("I hit a fence!");
-RUR.top_tiles.fence_left.info = RUR.top_tiles.fence_right.info;
-RUR.top_tiles.fence5 = RUR.top_tiles.fence_left;  // compatibility with old worlds
+RUR.add_solid_object("fence_left", "fence");
+RUR.solid_objects.fence_left.message = RUR.translate("I hit a fence!");
+RUR.solid_objects.fence_left.info = RUR.solid_objects.fence_right.info;
+RUR.solid_objects.fence5 = RUR.solid_objects.fence_left;  // compatibility with old worlds
 
-RUR.add_top_tile("fence_double", "fence");
-RUR.top_tiles.fence_double.message = RUR.translate("I hit a fence!");
-RUR.top_tiles.fence_double.info = RUR.top_tiles.fence_right.info;
-RUR.top_tiles.fence6 = RUR.top_tiles.fence_double;  // compatibility with old worlds
+RUR.add_solid_object("fence_double", "fence");
+RUR.solid_objects.fence_double.message = RUR.translate("I hit a fence!");
+RUR.solid_objects.fence_double.info = RUR.solid_objects.fence_right.info;
+RUR.solid_objects.fence6 = RUR.solid_objects.fence_double;  // compatibility with old worlds
 
-RUR.add_top_tile("fence_vertical", "fence");
-RUR.top_tiles.fence_vertical.message = RUR.translate("I hit a fence!");
-RUR.top_tiles.fence_vertical.info = RUR.top_tiles.fence_right.info;
-RUR.top_tiles.fence7 = RUR.top_tiles.fence_vertical;  // compatibility with old worlds
+RUR.add_solid_object("fence_vertical", "fence");
+RUR.solid_objects.fence_vertical.message = RUR.translate("I hit a fence!");
+RUR.solid_objects.fence_vertical.info = RUR.solid_objects.fence_right.info;
+RUR.solid_objects.fence7 = RUR.solid_objects.fence_vertical;  // compatibility with old worlds

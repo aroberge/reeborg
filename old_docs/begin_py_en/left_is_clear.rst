@@ -49,12 +49,12 @@ I get the following code (you might get something slightly different)
           }
       }
 
-      tiles = RUR.control.top_tiles_in_front(robot);
+      tiles = RUR.control.solid_objects_in_front(robot);
       if (tiles) {
           for (tilename in tiles) {
-              if (RUR.top_tiles[tilename] !== undefined &&
-                  RUR.top_tiles[tilename].detectable &&
-                  RUR.top_tiles[tilename].fatal) {
+              if (RUR.solid_objects[tilename] !== undefined &&
+                  RUR.solid_objects[tilename].detectable &&
+                  RUR.solid_objects[tilename].fatal) {
                   return false
               }
           }

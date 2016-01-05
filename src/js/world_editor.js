@@ -32,8 +32,8 @@ RUR.we.edit_world = function  () {
         case "fill":
             RUR.we.fill_with_tile(value);
             break;
-        case "toptile":
-            RUR.we.toggle_toptile(value);
+        case "solid_object":
+            RUR.we.toggle_solid_object(value);
             break;
         case "world":
             if (value == "walls") {
@@ -126,9 +126,9 @@ RUR.we.select = function (choice) {
                 $("#fill-tile").show();
                 RUR.we.alert_1("Click on desired tile below.");
                 break;
-            case "toptiles":
-                $("#edit-top-tile").show();
-                RUR.we.alert_1("Click on desired top tile below.");
+            case "solid_objects":
+                $("#edit-solid_object").show();
+                RUR.we.alert_1("Click on desired object below.");
                 break;
             case "walls":
                 RUR.we.alert_1("Click on world to toggle walls.");
@@ -160,9 +160,9 @@ RUR.we.select = function (choice) {
             $("#fill-tile").show();
             RUR.we.alert_2("Click on world to fill with given tile.", value);
             break;
-        case "toptile":
-            $("#edit-top-tile").show();
-            RUR.we.alert_2("Click on world to toggle top tile.", value);
+        case "solid_object":
+            $("#edit-solid_object").show();
+            RUR.we.alert_2("Click on world to toggle object.", value);
             break;
         case "position":
             RUR.we.alert_1("Click on world to set home position for robot.");
@@ -310,10 +310,10 @@ RUR.we.show_world_info = function (no_grid) {
         }
     }
 
-    tiles = RUR.control.get_top_tiles_at_position(x, y);
+    tiles = RUR.control.get_solid_objects_at_position(x, y);
     if (tiles) {
         for (tilename in tiles) {
-            tile = RUR.top_tiles[tilename];
+            tile = RUR.solid_objects[tilename];
             if (tile.info){
                 if (topic){
                     topic = false;
@@ -893,8 +893,8 @@ RUR.we.fill_with_tile = function (tile) {
 };
 
 
-RUR.we.toggle_toptile = function (tile){
-    // will remove the position if clicked again with tile of same type.
+RUR.we.toggle_solid_object = function (obj){
+    // will remove the position if clicked again with object of same type.
     "use strict";
     var x, y, position;
 
@@ -902,39 +902,37 @@ RUR.we.toggle_toptile = function (tile){
     x = position[0];
     y = position[1];
 
-    if (RUR.control.get_top_tiles_at_position(x, y)[tile] !== undefined) {
-        RUR.we.add_top_tile(tile, x, y, 0);
+    if (RUR.control.get_solid_objects_at_position(x, y)[obj] !== undefined) {
+        RUR.we.add_solid_object(obj, x, y, 0);
     } else {
-        RUR.we.add_top_tile(tile, x, y, 1);
+        RUR.we.add_solid_object(obj, x, y, 1);
     }
 };
 
 
-RUR.we.add_top_tile = function (specific_object, x, y, nb){
+RUR.we.add_solid_object = function (specific_object, x, y, nb){
     "use strict";
     var coords, tmp;
 
     coords = x + "," + y;
-    RUR.we.ensure_key_exist(RUR.current_world, "top_tiles");
-    RUR.we.ensure_key_exist(RUR.current_world.top_tiles, coords);
-
+    RUR.we.ensure_key_exist(RUR.current_world, "solid_objects");
+    RUR.we.ensure_key_exist(RUR.current_world.solid_objects, coords);
 
     try {
         tmp = parseInt(nb, 10);
         nb = tmp;
     } catch (e) {}
 
-
     if (nb === 0) {
-        delete RUR.current_world.top_tiles[coords][specific_object];
-        if (Object.keys(RUR.current_world.top_tiles[coords]).length === 0){
-            delete RUR.current_world.top_tiles[coords];
+        delete RUR.current_world.solid_objects[coords][specific_object];
+        if (Object.keys(RUR.current_world.solid_objects[coords]).length === 0){
+            delete RUR.current_world.solid_objects[coords];
         }
-        if (Object.keys(RUR.current_world.top_tiles).length === 0){
-            delete RUR.current_world.top_tiles;
+        if (Object.keys(RUR.current_world.solid_objects).length === 0){
+            delete RUR.current_world.solid_objects;
         }
     } else {
-        RUR.current_world.top_tiles[coords][specific_object] = nb;
+        RUR.current_world.solid_objects[coords][specific_object] = nb;
     }
 };
 
@@ -975,9 +973,9 @@ RUR.we._remove_all_at_location = function(coords) {
             delete RUR.current_world.tiles[coords];
         }
     }
-    if (RUR.current_world.top_tiles !== undefined) {
-        if (RUR.current_world.top_tiles[coords] !== undefined){
-            delete RUR.current_world.top_tiles[coords];
+    if (RUR.current_world.solid_objects !== undefined) {
+        if (RUR.current_world.solid_objects[coords] !== undefined){
+            delete RUR.current_world.solid_objects[coords];
         }
     }
     if (RUR.current_world.objects !== undefined) {

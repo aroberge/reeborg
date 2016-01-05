@@ -84,6 +84,7 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.animated_tiles = false;
 
     if (RUR.we.editing_world) {
         if (RUR.background_image.src) {
@@ -98,8 +99,6 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.vis_world.draw_coordinates(); // on BACKGROUND_CTX
-
-    RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
 
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
@@ -123,7 +122,10 @@ RUR.vis_world.refresh = function () {
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
-    // tiles can change colour, so we redraw them
+    // animated tiles are redrawn according to their own schedule
+    if (!RUR.animated_tiles) {
+        RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
+    }
     RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
 
     if (RUR.__debug) {
@@ -135,8 +137,8 @@ RUR.vis_world.refresh = function () {
         // RUR.vis_world.draw_all_objects also called by draw_goal, and draws on GOAL_CTX
         // and, draws some objects on ROBOT_CTX
 
-    // top tiles: goal is false, tile is true
-    RUR.vis_world.draw_all_objects(RUR.current_world.top_tiles, false, true); // likely on RUR.SECOND_LAYER_CTX
+    // objects: goal is false, tile is true
+    RUR.vis_world.draw_all_objects(RUR.current_world.solid_objects, false, true); // likely on RUR.SECOND_LAYER_CTX
 
 
     RUR.vis_world.draw_robots(RUR.current_world.robots);  // on ROBOT_CTX
@@ -414,12 +416,14 @@ RUR.vis_world.draw_tiles = function (tiles){
 
 RUR.vis_world.draw_animated_tiles = function (){
     "use strict";
-    var i, j, k, keys, key, image, tile, tiles, animated=false;
+    var i, j, k, keys, key, image, tile, tiles;
 
     tiles = RUR.current_world.tiles;
     if (tiles === undefined) {
         return;
     }
+
+    RUR.animated_tiles = false;
     keys = Object.keys(tiles);
     for (key=0; key < keys.length; key++){
         k = keys[key].split(",");
@@ -430,12 +434,12 @@ RUR.vis_world.draw_animated_tiles = function (){
             continue;
         }
         if (tile.choose_image !== undefined){
+            RUR.animated_tiles = true;
             image = tile.choose_image();
-            animated = true;
             RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
         }
     }
-    if (animated) {
+    if (RUR.animated_tiles) {
         clearTimeout(RUR.animation_frame_id);
         RUR.animation_frame_id = setTimeout(RUR.vis_world.draw_animated_tiles, 120);
     }
@@ -472,7 +476,7 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
                 for (obj_name in objects_here){
                     if (objects_here.hasOwnProperty(obj_name)){
                         if (tile){
-                            specific_object = RUR.top_tiles[obj_name];
+                            specific_object = RUR.solid_objects[obj_name];
                         } else {
                             specific_object = RUR.objects[obj_name];
                         }

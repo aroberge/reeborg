@@ -59,6 +59,18 @@ RUR.world.import_world = function (json_string) {
         }
     }
 
+    // Backward compatibility following change done on Jan 5, 2016
+    // top_tiles has been renamed solid_objects; to ensure compatibility of
+    // worlds created prior to using solid_objects, we change the old name
+    // following http://stackoverflow.com/a/14592469/558799
+    // thus ensuring that if a new world is created from an old one,
+    // it will have the new syntax.
+    if (RUR.current_world.top_tiles !== undefined) {
+        Object.defineProperty(RUR.current_world, "solid_objects",
+            Object.getOwnPropertyDescriptor(RUR.current_world, "top_tiles"));
+        delete RUR.current_world.top_tiles;
+    }
+
     if (RUR.current_world.background_image !== undefined) {
         RUR.background_image.src = RUR.current_world.background_image;
         RUR.background_image.onload = function () {
