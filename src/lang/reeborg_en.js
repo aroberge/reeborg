@@ -1,99 +1,62 @@
-/* Author: André Roberge
-   License: MIT
- */
+/** Since Javascript is a dynamic language, a user or world creator could
+    (possibly accidently) redefine a basic function, which could lead to some
+    apparent bugs.  For this reason, we include a function whose role is to
+    make it possible to reset the basic functions to their desired values.
 
-/*jshint browser:true, devel:true, white:false, plusplus:false */
-/*globals $, CodeMirror, editor, library, removeHints, parseUri */
+    These functions have to be known globally; the standard way would be to do:
+
+        var fn_name;
+        RUR.reset_definitions = function () {
+            fn_name = ...;
+            ...
+            UsedRobot.prototype.fn_name = ...
+        }
+
+    Instead we use the pattern following pattern which does not require to write
+    a separate declaration.
+
+        RUR.reset_definitions = function () {
+            window.fn_name = ...;
+            ...
+            UsedRobot.prototype.fn_name = ...
+        }
+**/
 
 var RUR = RUR || {};
 
-// required for lint.js
-var globals_ = "/*globals move, turn_left, UsedRobot, front_is_clear, right_is_clear, "+
-                    " is_facing_north, done, put, take, World, Permalink,"+
-                    " object_here, carries_object, write, at_goal, at_goal_orientation," +
-                    " build_wall, think, pause, repeat, sound, print_html," +
-                    "RUR, inspect, view_source, verify, say, library, _write, " +
-                    "wall_in_front, wall_on_right, disappear, recording, new_robot_images," +
-    // do not translate  nor include the following instructions; they help make rur-ple created programs *almost* compatible
-                    "put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, set_max_steps*/\n";
-
-var move, turn_left, inspect, front_is_clear, right_is_clear,
-    is_facing_north, done, put, take, object_here, World, Permalink,
-    carries_object, write, _write, at_goal, build_wall, think,
-    pause, repeat, view_source, sound, UsedRobot, in_the_bag,
-    set_max_steps, say, verify, ReeborgError, WallCollisionError, print_html,
-    wall_in_front, wall_on_right, disappear, recording, new_robot_images,
-    remove_robots;
-
-// do not translate the following three instructions; they are included only
-// so that most basic programs from rur-ple would run "as-is"
-var put_beeper, pick_beeper, turn_off, on_beeper, carries_beepers, next_to_a_beeper, set_delay, facing_north;
-
-RUR.verify = function(test) {
-    var reeborg, robots, world, orientation;
-    var east, East, west, West, north, North, south, South;
-    var js_test;
-    east = East = RUR.EAST;
-    west = West = RUR.WEST;
-    north = North = RUR.NORTH;
-    south = South = RUR.SOUTH;
-    world = RUR.current_world;
-    robots = world.robots;
-    reeborg = robots[0];
-    orientation = reeborg._orientation;
-
-    // if language is Python ... require spaces around logical operators to simplify
-    js_test = test.replace(/ and /g, '&&');
-    js_test = js_test.replace(/ or /g, '||');
-    js_test = js_test.replace(/ not /g, '!');
-    // True and False should not necessary to use ... but just in case
-    js_test = js_test.replace(/False/g, 'false');
-    js_test = js_test.replace(/True/g, 'true');
-
-    if (eval(js_test)){ // jshint ignore:line
-        return;
-    }
-    throw ReeborgError("Failed: <br>"+test);
-};
-
+var UsedRobot;
 
 RUR.reset_definitions = function () {
-    // RUR._x_ defined in commands.js
-    new_robot_images = RUR._new_robot_images_;
-    at_goal = RUR._at_goal_;
-    build_wall = RUR._build_wall_;
-    front_is_clear = RUR._front_is_clear_;
-    wall_in_front = RUR._wall_in_front_;
-    carries_object = RUR._carries_object_;
-    is_facing_north = RUR._is_facing_north_;
-    in_the_bag = RUR._in_the_bag_;
-    move = RUR._move_;
-    put = RUR._put_;
-    object_here = RUR._object_here_;
-    right_is_clear = RUR._right_is_clear_;
-    wall_on_right = RUR._wall_on_right_;
-    token_here = RUR._token_here_;
-    take = RUR._take_;
-    turn_left = RUR._turn_left_;
-    repeat = RUR._repeat_;
-    set_max_steps = RUR._set_max_steps_;
-    // defined in rur_utils.js
-    inspect = RUR.inspect;
-    view_source = RUR.output.view_source;
-    // defined in control.js
-    write = RUR.output.write;
-    _write = RUR.output._write;
-    print_html = RUR.output.print_html;
-    done = RUR.control.done;
-    sound = RUR.control.sound;
-    think = RUR.control.think;
-    say = RUR.control.say;
-    pause = RUR.control.pause;
-    World = RUR.file_io.load_world_from_program;
-    set_max_nb_robots = RUR._set_max_nb_robots_;
-    remove_robots = RUR._remove_robots_;
-    recording = RUR._recording_;
 
+    window.at_goal = RUR._at_goal_;
+    window.build_wall = RUR._build_wall_;
+    window.carries_object = RUR._carries_object_;
+    window.dir_js = RUR._inspect_;
+    window.done = RUR.control.done;
+    window.front_is_clear = RUR._front_is_clear_;
+    window.is_facing_north = RUR._is_facing_north_;
+    window.in_the_bag = RUR._in_the_bag_;
+    window.move = RUR._move_;
+    window.new_robot_images = RUR._new_robot_images_;
+    window.object_here = RUR._object_here_;
+    window.pause = RUR.control.pause;
+    window.print_html = RUR.output.print_html;
+    window.put = RUR._put_;
+    window.recording = RUR._recording_;
+    window.remove_robots = RUR._remove_robots_;
+    window.right_is_clear = RUR._right_is_clear_;
+    window.set_max_nb_robots = RUR._set_max_nb_robots_;
+    window.set_max_steps = RUR._set_max_steps_;
+    window.sound = RUR.control.sound;
+    window.take = RUR._take_;
+    window.think = RUR.control.think;
+    window.turn_left = RUR._turn_left_;
+    window.view_source_js = RUR._view_source_js_;
+    window.wall_in_front = RUR._wall_in_front_;
+    window.wall_on_right = RUR._wall_on_right_;
+    window.write = RUR.output.write;
+    window._write = RUR.output._write;
+    window.World = RUR.file_io.load_world_from_program;
 
     UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
@@ -108,73 +71,73 @@ RUR.reset_definitions = function () {
         RUR.control.build_wall(this.body);
     };
 
+    UsedRobot.prototype.carries_object = function () {
+        RUR.control.carries_object(this.body);
+    };
+
     UsedRobot.prototype.front_is_clear = function () {
         RUR.control.front_is_clear(this.body);
     };
 
-    UsedRobot.prototype.wall_in_front = function () {
-        RUR.control.wall_in_front(this.body);
-    };
 
-    UsedRobot.prototype.carries_object = function () {
-        RUR.control.carries_object(this.body);
+    UsedRobot.prototype.is_facing_north = function () {
+        RUR.control.is_facing_north(this.body);
     };
 
     UsedRobot.prototype.in_the_bag = function () {
         RUR.control.carries_object(this.body);
     };
 
-    UsedRobot.prototype.is_facing_north = function () {
-        RUR.control.is_facing_north(this.body);
-    };
 
     UsedRobot.prototype.move = function () {
         RUR.control.move(this.body);
-    };
-
-    UsedRobot.prototype.put = function () {
-        RUR.control.put(this.body);
-    };
-
-    UsedRobot.prototype.set_model = function(model) {
-        RUR.control.set_model(this.body, model);
-    };
-
-    UsedRobot.prototype.token_here = function () {
-        RUR.control.token_here(this.body);
-    };
-
-    UsedRobot.prototype.right_is_clear = function () {
-        RUR.control.right_is_clear(this.body);
-    };
-
-    UsedRobot.prototype.wall_on_right = function () {
-        RUR.control.wall_on_right(this.body);
     };
 
     UsedRobot.prototype.object_here = function (obj) {
         RUR.control.object_here(this.body, obj);
     };
 
+    UsedRobot.prototype.put = function () {
+        RUR.control.put(this.body);
+    };
+
+    UsedRobot.prototype.right_is_clear = function () {
+        RUR.control.right_is_clear(this.body);
+    };
+
+    UsedRobot.prototype.set_model = function(model) {
+        RUR.control.set_model(this.body, model);
+    };
+
     UsedRobot.prototype.take = function () {
         RUR.control.take(this.body);
+    };
+
+    UsedRobot.prototype.token_here = function () {
+        RUR.control.token_here(this.body);
     };
 
     UsedRobot.prototype.turn_left = function () {
         RUR.control.turn_left(this.body);
     };
 
-    verify = RUR.verify;
+    UsedRobot.prototype.wall_in_front = function () {
+        RUR.control.wall_in_front(this.body);
+    };
 
-    // English speficic and only for compatibility with rur-ple
+    UsedRobot.prototype.wall_on_right = function () {
+        RUR.control.wall_on_right(this.body);
+    };
+
+    // English specific and only for compatibility with rur-ple
     // do not translate the following
-    put_beeper = put;
-    pick_beeper = take;
-    turn_off = done;
-    on_beeper = object_here;
-    next_to_a_beeper = object_here;
-    carries_beepers = carries_object;
-    set_delay = think;
-    facing_north = is_facing_north;
+    window.put_beeper = put;
+    window.pick_beeper = take;
+    window.turn_off = done;
+    window.on_beeper = object_here;
+    window.next_to_a_beeper = object_here;
+    window.carries_beepers = carries_object;
+    window.set_delay = think;
+    window.facing_north = is_facing_north;
 };
 RUR.reset_definitions();

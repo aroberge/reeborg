@@ -26,12 +26,17 @@ RUR._build_wall_ = function() {
     RUR.control.build_wall(RUR.current_world.robots[0]);
 };
 
+RUR._carries_object_ = function (arg) {
+    return RUR.control.carries_object(RUR.current_world.robots[0], arg);
+};
+
 RUR._clear_print_ = function() {
     RUR.output.clear_print();
 };
 
-RUR._carries_object_ = function (arg) {
-    return RUR.control.carries_object(RUR.current_world.robots[0], arg);
+RUR._color_here_ = function () {
+    var robot = RUR.current_world.robots[0];
+    return RUR.control.get_color_at_position(robot.x, robot.y);
 };
 
 RUR._done_ = function () {
@@ -69,6 +74,13 @@ RUR._new_robot_images_ = function (images) {
 
 RUR._object_here_ = function (arg) {
     return RUR.control.object_here(RUR.current_world.robots[0], arg);
+};
+
+RUR._paint_square_ = function (color) {
+    // note that this can do more than simply setting the color: it can also
+    // set the tile type.
+    var robot = RUR.current_world.robots[0];
+    RUR.control.set_tile_at_position(x, y, color);
 };
 
 RUR._pause_ = function (ms) {
