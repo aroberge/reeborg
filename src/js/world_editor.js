@@ -761,9 +761,9 @@ RUR.we._add_goal_objects = function (specific_object){
             RUR.current_world.goal.objects !== undefined &&
             RUR.current_world.goal.objects[coords] !== undefined &&
             RUR.current_world.goal.objects[coords].box ==1){
-                RUR.we.add_goal_objects("box", x, y, 0);
+                RUR.we.add_goal_object("box", x, y, 0);
         } else {
-            RUR.we.add_goal_objects("box", x, y, 1);
+            RUR.we.add_goal_object("box", x, y, 1);
         }
         return;
     }
@@ -775,7 +775,7 @@ RUR.we._add_goal_objects = function (specific_object){
     RUR.cd.dialog_goal_object.dialog("open");
 };
 
-RUR.we.add_goal_objects = function (specific_object, x, y, nb){
+RUR.we.add_goal_object = function (specific_object, x, y, nb){
     "use strict";
     var coords;
 
@@ -797,6 +797,7 @@ RUR.we.add_goal_objects = function (specific_object, x, y, nb){
         }
     } else {
         RUR.current_world.goal.objects[coords][specific_object] = nb;
+        RUR.vis_world.draw_goal();
     }
 };
 

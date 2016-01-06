@@ -28,14 +28,15 @@ RUR.add_object_image = function (name, url, url_goal) {
     if (url === undefined) {
         obj[name].image.src = RUR.base_url + '/src/images/' + name + '.png';
         obj[name].image_goal.src = RUR.base_url + '/src/images/' + name + '_goal.png';
-
+        obj[name].image.onload = RUR.increment_loaded;
+        obj[name].image_goal.onload = RUR.increment_loaded;
+        obj.nb_images += 2;
     } else {
         obj[name].image.src = url;
         obj[name].image_goal.src = url_goal;
+        obj[name].image.onload = RUR.vis_world.refresh;
+        obj[name].image_goal.onload = RUR.vis_world.draw_goal;
     }
-    obj[name].image.onload = RUR.increment_loaded;
-    obj[name].image_goal.onload = RUR.increment_loaded;
-    obj.nb_images += 2;
     obj.known_objects.push(name);
 };
 

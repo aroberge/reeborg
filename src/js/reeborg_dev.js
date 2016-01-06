@@ -1200,7 +1200,7 @@ RUR.cd.create_custom_dialogs = function() {
         } else {
             query = RUR.cd.input_goal_number_result;
         }
-        RUR.we.add_goal_objects(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
+        RUR.we.add_goal_object(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
         RUR.we.refresh_world_edited();
         RUR.cd.dialog_goal_object.dialog("close");
         return true;
@@ -1950,14 +1950,15 @@ RUR.add_object_image = function (name, url, url_goal) {
     if (url === undefined) {
         obj[name].image.src = RUR.base_url + '/src/images/' + name + '.png';
         obj[name].image_goal.src = RUR.base_url + '/src/images/' + name + '_goal.png';
-
+        obj[name].image.onload = RUR.increment_loaded;
+        obj[name].image_goal.onload = RUR.increment_loaded;
+        obj.nb_images += 2;
     } else {
         obj[name].image.src = url;
         obj[name].image_goal.src = url_goal;
+        obj[name].image.onload = RUR.vis_world.refresh;
+        obj[name].image_goal.onload = RUR.vis_world.draw_goal;
     }
-    obj[name].image.onload = RUR.increment_loaded;
-    obj[name].image_goal.onload = RUR.increment_loaded;
-    obj.nb_images += 2;
     obj.known_objects.push(name);
 };
 
@@ -3110,6 +3111,7 @@ RUR.storage = {};
 
 RUR.storage.memorize_world = function () {
     var existing_names, i, key, response;
+
     existing_names = '';
     for (i = 0; i <= localStorage.length - 1; i++) {
         key = localStorage.key(i);
@@ -4926,7 +4928,6 @@ function toggle_editing_mode () {
             localStorage.setItem(RUR.settings.editor, editor.getValue());
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
-        // create temporary copy
         RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
         if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
@@ -5464,9 +5465,9 @@ RUR.we._add_goal_objects = function (specific_object){
             RUR.current_world.goal.objects !== undefined &&
             RUR.current_world.goal.objects[coords] !== undefined &&
             RUR.current_world.goal.objects[coords].box ==1){
-                RUR.we.add_goal_objects("box", x, y, 0);
+                RUR.we.add_goal_object("box", x, y, 0);
         } else {
-            RUR.we.add_goal_objects("box", x, y, 1);
+            RUR.we.add_goal_object("box", x, y, 1);
         }
         return;
     }
@@ -5478,7 +5479,7 @@ RUR.we._add_goal_objects = function (specific_object){
     RUR.cd.dialog_goal_object.dialog("open");
 };
 
-RUR.we.add_goal_objects = function (specific_object, x, y, nb){
+RUR.we.add_goal_object = function (specific_object, x, y, nb){
     "use strict";
     var coords;
 
@@ -5500,6 +5501,7 @@ RUR.we.add_goal_objects = function (specific_object, x, y, nb){
         }
     } else {
         RUR.current_world.goal.objects[coords][specific_object] = nb;
+        RUR.vis_world.draw_goal();
     }
 };
 
@@ -6827,6 +6829,7 @@ RUR.zz_dr_onchange = function () {
         $("#editor-panel").removeClass("active");
         $("#kbd_javascript_btn").hide();
     }
+
 
     function show_python_editor () {
         $("#editor-panel").addClass("active");

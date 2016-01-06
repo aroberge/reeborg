@@ -111,7 +111,7 @@ RUR.cd.create_custom_dialogs = function() {
         } else {
             query = RUR.cd.input_goal_number_result;
         }
-        RUR.we.add_goal_objects(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
+        RUR.we.add_goal_object(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
         RUR.we.refresh_world_edited();
         RUR.cd.dialog_goal_object.dialog("close");
         return true;
