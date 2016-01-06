@@ -18,15 +18,13 @@ def create_template(infile, outfile=None):
                 key = "#py:" + line.split("#py:")[1]
                 content.append(key)
 
-    content = "\n".join(content)
-
     if outfile is None:
         return content
     elif outfile == "print":
-        print(content)
+        print("\n".join(content))
     else:
         with open(outfile, 'w', encoding="utf-8") as template:
-            template.write(content)
+            template.write("\n".join(content))
 
 
 def py2json(infile, outfile=None):
@@ -73,7 +71,6 @@ def json2py(infile, template, outfile=None):
 if __name__ == '__main__':
     import sys
     METHODS = {"create_template": create_template,
-               "compare": compare,
                "py2json": py2json,
                "json2py": json2py
                }

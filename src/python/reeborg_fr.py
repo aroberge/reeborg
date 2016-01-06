@@ -84,7 +84,7 @@ def robot_par_defaut():  #py:default_robot
 
 def dir_js(obj):  #py:dir_js
     """Liste les attributs et méthodes d'un objet Javascript."""
-    RUR._inspect_(obj)
+    RUR._dir_js_(obj)
 
 
 def dir_py(obj):  #py:dir_py
@@ -333,6 +333,51 @@ def Monde(url, nom=None):  #py:World
         RUR.file_io.load_world_from_program(url)
     else:
         RUR.file_io.load_world_from_program(url, nom)
+
+
+def max_nb_instructions(nb):  #py:set_max_nb_instructions
+    """Surtout destiné aux créateurs de mondes,
+       ceci permet de changer le nombre maximal d'instructions
+       exécutées par un robot.
+    """
+    RUR._set_max_steps_(nb)
+
+def max_nb_robots(nb):  #py:set_max_nb_robots
+    """Surtout destiné aux créateurs de mondes,
+       ceci permet de limiter le nombre de robots
+       permis dans un monde donné.
+    """
+    RUR._set_max_nb_robots_(nb)
+
+
+def print_html(html, append=False):  #py:print_html
+    """Surtout destiné aux créateurs de monde, la fonction print_html() est
+       semblable à print() sauf qu'elle accepte du texte html.
+    """
+    RUR.output.print_html(html, append)
+window['print_html'] = print_html
+
+
+def nouvelles_images_de_robot(images):  #py:new_robot_images
+    """Surtout destiné aux créateurs de mondes, ceci permet de remplacer
+    les images utilisées pour le robot par d'autres images.
+
+    Une explication plus détaillée viendra.
+    """
+    if "est" in images:
+        images["east"] = images["est"]
+    if "ouest" in images:
+        images["west"] = images["ouest"]
+    if "nord" in images:
+        images["north"] = images["nord"]
+    if "sud" in images:
+        images["south"] = images["sud"]
+    RUR._new_robot_images_(images)
+
+def MenuPersonalise(contenu):  #py:MakeCustomMenu
+    """À l'intention des éducateurs.  Permet de créer des menus de monde
+       personalisés.  Voir la documentation pour plus de détails."""
+    RUR.custom_menu.make(contenu)
 
 
 class RobotUsage(object):  #py:UR
@@ -607,49 +652,6 @@ class InfoSatellite():  #py:SI
     def imprime_carte(self):  #py:SI.print_world_map
         """imprime une copie formattée de la carte"""
         print(RUR.control.get_world_map())
-
-
-def max_nb_instructions(nb):  #py:max_nb_instructions
-    """Surtout destiné aux créateurs de mondes,
-       ceci permet de changer le nombre maximal d'instructions
-       exécutées par un robot.
-    """
-    RUR._set_max_steps_(nb)
-
-def max_nb_robots(nb):  #py:max_nb_robots
-    """Surtout destiné aux créateurs de mondes,
-       ceci permet de limiter le nombre de robots
-       permis dans un monde donné.
-    """
-    RUR._set_max_nb_robots_(nb)
-
-def print_html(html, append=False):  #py:print_html
-    """Surtout destiné aux créateurs de monde, la fonction print_html() est
-       semblable à print() sauf qu'elle accepte du texte html.
-    """
-    RUR.output.print_html(html, append)
-window['print_html'] = print_html
-
-def nouvelles_images_de_robot(images):  #py:new_robot_images
-    """Surtout destiné aux créateurs de mondes, ceci permet de remplacer
-    les images utilisées pour le robot par d'autres images.
-
-    Une explication plus détaillée viendra.
-    """
-    if "est" in images:
-        images["east"] = images["est"]
-    if "ouest" in images:
-        images["west"] = images["ouest"]
-    if "nord" in images:
-        images["north"] = images["nord"]
-    if "sud" in images:
-        images["south"] = images["sud"]
-    RUR._new_robot_images_(images)
-
-def MenuPersonalise(contenu):  #py:MakeCustomMenu
-    """À l'intention des éducateurs.  Permet de créer des menus de monde
-       personalisés.  Voir la documentation pour plus de détails."""
-    RUR.custom_menu.make(contenu)
 
 try:
     RUR.reeborg_loaded = True

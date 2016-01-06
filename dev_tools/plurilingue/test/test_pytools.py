@@ -15,7 +15,7 @@ class TestTemplates(unittest.TestCase):
     def test_create_str(self):
         with open("utf8_test.template") as filename:
             content = filename.read()
-        self.assertEqual(pytools.create_template("utf8_test.py"), content)
+        self.assertEqual("\n".join(pytools.create_template("utf8_test.py")), content)  # NOQA
 
     def test_create_file(self):
         pytools.create_template("utf8_test.py", "junk")
