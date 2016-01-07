@@ -12,10 +12,10 @@ QUnit.test("import_world", function(assert) {
     // deepEqual(RUR.current_world, RUR.unit_tests.empty_world, "Empty world created by importing empty string." );
     //
     RUR.world.import_world(RUR.unit_tests.empty_world);
-    deepEqual(RUR.current_world, RUR.unit_tests.empty_world, "Empty world created by importing empty world as object." );
+    deepEqual(RUR.current_world, RUR.unit_tests.empty_world_with_extra, "Empty world created by importing empty world as object." );
     //
     RUR.world.import_world(JSON.stringify(RUR.unit_tests.empty_world));
-    deepEqual(RUR.current_world, RUR.unit_tests.empty_world, "Empty world created by importing empty world as string." );
+    deepEqual(RUR.current_world, RUR.unit_tests.empty_world_with_extra, "Empty world created by importing empty world as string." );
 });
 
 QUnit.test("add_robot", function(assert) {

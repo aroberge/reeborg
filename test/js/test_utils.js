@@ -119,6 +119,18 @@ RUR.unit_tests.empty_world = {robots: [],
         small_tiles: false
     };
 
+RUR.unit_tests.empty_world_with_extra = {robots: [],
+        objects: {},
+        walls: {},
+        rows: RUR.MAX_Y,
+        cols: RUR.MAX_X,
+        small_tiles: false,
+        pre_code: '"pre code"',
+        post_code: '"post code"',
+        description: 'description',
+        onload: '/* Javascript */'
+    };
+
 
 editor.getValue = function() {
     return RUR.unit_tests.program || '';

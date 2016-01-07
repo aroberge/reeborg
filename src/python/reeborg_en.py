@@ -66,8 +66,11 @@ def color_here():  #py:color_here
 
 
 def default_robot():  #py:default_robot
-    """Returns a Javascript object that is currently the default robot"""
-    return RUR._default_robot_()
+    """Returns a recreated version of the default robot."""
+    class Robot(UsedRobot):
+        def __init__(self):
+            self.body = RUR._default_robot_()
+    return Robot()
 
 
 def dir_js(obj):  #py:dir_js

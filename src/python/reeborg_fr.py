@@ -78,8 +78,11 @@ def efface_print():  #py:clear_print
 
 
 def robot_par_defaut():  #py:default_robot
-    """Retourne un objet javascript qui est le robot par défaut."""
-    return RUR.current_world.robots[0]
+    """Retourne un robot recréé pour correspondre au robot par défaut."""
+    class Robot(RobotUsage):
+        def __init__(self):
+            self.body = RUR._default_robot_()
+    return Robot()
 
 
 def dir_js(obj):  #py:dir_js
@@ -381,7 +384,7 @@ def MenuPersonalise(contenu):  #py:MakeCustomMenu
 
 
 class RobotUsage(object):  #py:UR
-    def __init__(self, x=1, y=1, orientation='est', jetons=None):  #py:UR.__init__
+    def __init__(self, x=1, y=1, orientation='est', jeton=None):  #py:UR.__init__
         """Créé un robot usagé.
 
            Args:
@@ -393,10 +396,10 @@ class RobotUsage(object):  #py:UR
                       un entier positif, ou la chaîne "inf" pour un
                       nombre infini.
         """
-        if jetons is None:
+        if jeton is None:
             robot = RUR.robot.create_robot(x, y, orientation)
         else:
-            robot = RUR.robot.create_robot(x, y, orientation, jetons)
+            robot = RUR.robot.create_robot(x, y, orientation, jeton)
         self.body = robot
         RUR.world.add_robot(self.body)
 
