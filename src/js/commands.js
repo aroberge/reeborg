@@ -35,7 +35,7 @@ RUR._color_here_ = function () {
     return RUR.control.get_color_at_position(robot.x, robot.y);
 };
 
-RUR._default_robot_ = function () {
+RUR._default_robot_body_ = function () { // simply returns body
     return RUR.current_world.robots[0];
 };
 

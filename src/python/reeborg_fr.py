@@ -76,7 +76,7 @@ def robot_par_defaut():  #py:default_robot
     """Retourne un robot recréé pour correspondre au robot par défaut."""
     class Robot(RobotUsage):
         def __init__(self):
-            self.body = RUR._default_robot_()
+            self.body = RUR._default_robot_body_()
     return Robot()
 
 

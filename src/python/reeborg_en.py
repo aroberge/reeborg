@@ -69,7 +69,7 @@ def default_robot():  #py:default_robot
     """Returns a recreated version of the default robot."""
     class Robot(UsedRobot):
         def __init__(self):
-            self.body = RUR._default_robot_()
+            self.body = RUR._default_robot_body_()
     return Robot()
 
 

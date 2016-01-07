@@ -31,6 +31,11 @@ RUR.reset_definitions = function () {
     window.at_goal = RUR._at_goal_;
     window.build_wall = RUR._build_wall_;
     window.carries_object = RUR._carries_object_;
+    window.default_robot = function () {
+        var r = Object.create(UsedRobot.prototype);
+        r.body = RUR._default_robot_body_();
+        return r;
+    };
     window.dir_js = RUR._dir_js_;
     window.done = RUR.control.done;
     window.front_is_clear = RUR._front_is_clear_;
@@ -57,6 +62,7 @@ RUR.reset_definitions = function () {
     window.write = RUR.output.write;
     window._write = RUR.output._write;
     window.World = RUR.file_io.load_world_from_program;
+
 
     UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
