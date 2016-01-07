@@ -10,6 +10,11 @@ var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
 
 RUR.reset_definitions = function () {
     // robot commands - defined in commands.js
+    window.robot_par_defaut = function () {
+        var r = Object.create(RobotUsage.prototype);
+        r.body = RUR._default_robot_body_();
+        return r;
+    };
     au_but = RUR._at_goal_;
     construit_un_mur = RUR._build_wall_;
     rien_devant = RUR._front_is_clear_;
