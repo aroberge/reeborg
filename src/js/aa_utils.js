@@ -71,7 +71,6 @@ RUR.reset_code_in_editors = function () {
 
 RUR.reset_programming_language = function(choice){
     var human_language = document.documentElement.lang;
-    RUR.removeHints();
     RUR.settings.current_language = choice;
     try {
         localStorage.setItem("last_programming_language_" + human_language, RUR.settings.current_language);
