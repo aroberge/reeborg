@@ -618,37 +618,9 @@ var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-edit
       <button class="blue-gradient" id="save-library">Save the library</button>
         Saves the content of the library in a file.
     </p>
-
     <p>
       <button class="blue-gradient" id="load-library">Import library from a file</button>
         Opens a file and use its content to replace the current content of the Library.
-    </p>
-
-    <p>
-      <button class="blue-gradient" onClick="RUR.testing.test_permalink('/src/worlds/permalinks/comprehensive_test', 'comprehensive test')">
-        Comprehensive test</button>
-        Runs a comprehensive test.  Meant to be used by developers.
-    </p>
-    <p>
-      <button class="blue-gradient" onClick="RUR.testing.test_permalink('/src/worlds/permalinks/test_highlight', 'Highlight test')">
-        Highlighting test</button>
-        Runs a test showing lines of code being highlighted in blocks.
-        Meant to be used by developers, stepping through the code one instruction at a time.
-    </p>
-  </div>
-<hr>
-  <h3>Javascript only</h3>
-  <div id="javascript-additional-menu">
-    <p>
-      <button class="blue-gradient" onclick="RUR.editorUpdateHints()">
-        "Lint"
-      </button>
-        Uses JSHint to see if any syntax errors are present and, if so, indicate it in the editor.
-    </p>
-    <p>
-      <button class="blue-gradient" onClick="RUR.testing.test_permalink('/src/worlds/permalinks/comprehensive_test_js')">
-        Comprehensive test</button>
-        Runs a comprehensive test.  Meant to be used by developers.
     </p>
   </div>
 </div>

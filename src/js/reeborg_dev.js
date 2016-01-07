@@ -77,7 +77,6 @@ RUR.reset_programming_language = function(choice){
         localStorage.setItem("last_programming_language_" + human_language, RUR.settings.current_language);
     } catch (e) {}
     $("#python-additional-menu p button").attr("disabled", "true");
-    $("#javascript-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
     $("#highlight").hide();
     $("#py_console").hide();
@@ -120,7 +119,6 @@ RUR.reset_programming_language = function(choice){
             pre_code_editor.setOption("mode", "javascript");
             post_code_editor.setOption("mode", "javascript");
             // show language specific
-            $("#javascript-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("javascript");
             break;
     }
@@ -3278,34 +3276,6 @@ RUR.storage.delete_world = function (name){
         }
     }
     $('#delete-world').hide();
-};
-/* comprenhensive tests run from the Additional Options menu */
-
-RUR.testing = {};
-
-RUR.testing._test_permalink = function(permalink, function_name, name) {
-    var url_query, base_url;
-    url_query = parseUri(window.location.href);
-    base_url = url_query.protocol + "://" + url_query.host;
-    if (url_query.port){
-        base_url += ":" + url_query.port;
-    }
-    editor.setValue(function_name + '("' + base_url + permalink + '","' + name + '")');
-    RUR.testing.run_test();
-};
-
-RUR.testing.test_permalink = function (permalink, name){
-    RUR.testing._test_permalink(permalink, "World", name);
-};
-
-RUR.testing.test_permalien = function (permalink, name){
-    RUR.testing._test_permalink(permalink, "Monde", name);
-};
-
-RUR.testing.run_test = function() {
-    RUR.ui.run();  // runs the permalink instruction, thus loading the appropriate test
-    RUR.ui.reload();
-    RUR.ui.run();
 };
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */

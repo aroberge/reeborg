@@ -77,7 +77,6 @@ RUR.reset_programming_language = function(choice){
         localStorage.setItem("last_programming_language_" + human_language, RUR.settings.current_language);
     } catch (e) {}
     $("#python-additional-menu p button").attr("disabled", "true");
-    $("#javascript-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
     $("#highlight").hide();
     $("#py_console").hide();
@@ -120,7 +119,6 @@ RUR.reset_programming_language = function(choice){
             pre_code_editor.setOption("mode", "javascript");
             post_code_editor.setOption("mode", "javascript");
             // show language specific
-            $("#javascript-additional-menu p button").removeAttr("disabled");
             RUR.kbd.set_programming_language("javascript");
             break;
     }
