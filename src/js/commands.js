@@ -3,11 +3,6 @@ modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
 the other modules.  This way, in theory, (most) refactoring can take place in the
 basic javascript code without affecting the end user code.
 
-The one allowed exception is for human language specific functions
-(say "verify") that are defined in Javascript and need to be made available
-in other languages, such as Python; these functions should be defined in
-reeborg_xx.js where xx is the human language two-letter code.
-
 Convention: all function names follow the pattern RUR._xyz_
             Use four spaces for indentation
             Order function names alphabetically (in English)

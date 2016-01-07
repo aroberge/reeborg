@@ -7,17 +7,12 @@ utilisées dans un programme Python pour le Monde de Reeborg.
 try:
     from browser import window
     RUR = window.RUR
-except:
+except ImportError:
     from collections import defaultdict
     window = defaultdict(str)
     print("\n --> Skipping importing from browser for sphinx.\n")
 
-# The following is the only language specific function; it can be used in
-# monde.html **only**, and not when imported from world.html or others
-try:
-    confirmer = RUR.confirmer
-except:
-    pass
+
 # All functions from Javascript used below should have names of the form
 # RUR._xyz_ and be defined in commands.js; functions and methods should appear
 # in the same order as they appear in the English version.

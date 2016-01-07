@@ -1,56 +1,14 @@
-/* Author: André Roberge
-   License: MIT
- */
-
-/*jshint browser:true, devel:true, white:false, plusplus:false */
-/*globals $, CodeMirror, editor, library, removeHints, parseUri, ReeborgError */
 
 var RUR = RUR || {};
-
-//required for lint.js
-var globals_ = "/*globals avance, tourne_a_gauche, RUR, examine, RobotUsage, ReeborgError, rien_devant, rien_a_droite, "+
-                    " est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,"+
-                    "transporte, ecrit, au_but, au_but_orientation, print_html," +
-                    "mur_devant, mur_a_droite, disparait, enregistrement, nouvelles_images_de_robot," +
-                    " construit_un_mur, pense, pause, repete, voir_source, son, confirmer */\n";
 
 var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
     est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,
     transporte, ecrit, au_but, construit_un_mur, pense, print_html, disparait,
     pause, repete, voir_source, son, RobotUsage, mur_devant, mur_a_droite,
-    nombre_de_commandes, confirmer, enregistrement, nouvelles_images_de_robot,
+    nombre_de_commandes, enregistrement, nouvelles_images_de_robot,
     dans_le_sac, plus_de_robots;
 
-RUR.confirmer = function(test) {
-    var reeborg, robots, monde, orientation;
-    var est, nord, sud, ouest;
-    var js_test;
-    est = RUR.EAST;
-    ouest = RUR.WEST;
-    nord = RUR.NORTH;
-    sud = RUR.SOUTH;
-    monde = RUR.current_world;
-    robots = monde.robots;
-    reeborg = robots[0];
-    orientation = reeborg._orientation;
-
-    // if language is Python ... require spaces around logical operators to simplify
-    js_test = test.replace(/ and /g, '&&');
-    js_test = js_test.replace(/ or /g, '||');
-    js_test = js_test.replace(/ not /g, '!');
-    // True and False should not necessary to use ... but just in case
-    js_test = js_test.replace(/False/g, 'false');
-    js_test = js_test.replace(/True/g, 'true');
-
-    if (eval(js_test)){ // jshint ignore:line
-        return;
-    }
-    throw ReeborgError("Échec : <br>"+test);
-};
-
 RUR.reset_definitions = function () {
-    // defined above
-    confirmer = RUR.confirmer;
     // robot commands - defined in commands.js
     au_but = RUR._at_goal_;
     construit_un_mur = RUR._build_wall_;
