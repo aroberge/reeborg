@@ -1,0 +1,20 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": -1,
+      "objects": {},
+      "_orientation": -1
+    }
+  ],
+  "walls": {},
+  "description": "Write a program so that Reeborg faces West.\nYou are not allowed to use <code>done()</code>.",
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 1,
+  "pre_code": "def done():\n    raise ReeborgError(\"You are not allowed to use done().\")\n",
+  "post_code": "def test():\n    r = default_robot()\n    if r.body._orientation != RUR.WEST:\n        raise ReeborgError(\"Reeborg is not facing west\")\ntest()"
+}

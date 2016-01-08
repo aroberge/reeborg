@@ -1,0 +1,265 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 4,
+      "_prev_x": 1,
+      "_prev_y": 4,
+      "_prev_orientation": -1,
+      "start_positions": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "objects": {},
+      "_orientation": -1
+    }
+  ],
+  "walls": {
+    "7,6": [
+      "north"
+    ],
+    "1,10": [
+      "north"
+    ]
+  },
+  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "objects": {
+    "2,1": {
+      "token": 1
+    },
+    "3,1": {
+      "triangle": 1
+    },
+    "4,1": {
+      "square": 1
+    },
+    "5,1": {
+      "strawberry": 1
+    },
+    "6,1": {
+      "banana": 1
+    },
+    "7,1": {
+      "orange": 1
+    },
+    "8,1": {
+      "apple": 1
+    },
+    "10,1": {
+      "dandelion": 1
+    },
+    "11,1": {
+      "carrot": 1
+    },
+    "12,1": {
+      "tulip": 1
+    },
+    "13,1": {
+      "daisy": 1
+    },
+    "9,1": {
+      "leaf": 1
+    },
+    "14,1": {
+      "star": 1
+    },
+    "9,7": {
+      "box": 1
+    },
+    "9,4": {
+      "box": 1
+    },
+    "2,11": {
+      "box": 1
+    },
+    "3,11": {
+      "box": 1
+    },
+    "4,11": {
+      "box": 1
+    },
+    "5,11": {
+      "box": 1
+    },
+    "7,5": {
+      "box": 1
+    },
+    "6,5": {
+      "box": 1
+    },
+    "5,5": {
+      "box": 1
+    },
+    "4,5": {
+      "box": 1
+    },
+    "3,5": {
+      "box": 1
+    },
+    "2,5": {
+      "box": 1
+    }
+  },
+  "goal": {
+    "objects": {
+      "2,2": {
+        "token": 1
+      },
+      "3,2": {
+        "triangle": 1
+      },
+      "4,2": {
+        "square": 1
+      },
+      "5,2": {
+        "strawberry": 1
+      },
+      "6,2": {
+        "banana": 1
+      },
+      "7,2": {
+        "orange": 1
+      },
+      "8,2": {
+        "apple": 1
+      },
+      "10,2": {
+        "dandelion": 1
+      },
+      "11,2": {
+        "carrot": 1
+      },
+      "12,2": {
+        "tulip": 1
+      },
+      "13,2": {
+        "daisy": 1
+      },
+      "9,2": {
+        "leaf": 1
+      },
+      "14,2": {
+        "star": 1
+      },
+      "9,3": {
+        "box": 1
+      },
+      "7,6": {
+        "box": 1
+      },
+      "6,6": {
+        "box": 1
+      },
+      "5,6": {
+        "box": 1
+      },
+      "3,6": {
+        "box": 1
+      },
+      "2,6": {
+        "box": 1
+      },
+      "2,12": {
+        "box": 1
+      },
+      "3,12": {
+        "box": 1
+      },
+      "4,12": {
+        "box": 1
+      },
+      "5,12": {
+        "box": 1
+      },
+      "4,6": {
+        "box": 1
+      }
+    },
+    "walls": {
+      "7,4": [
+        "east"
+      ]
+    },
+    "possible_positions": [
+      [
+        13,
+        10
+      ],
+      [
+        12,
+        10
+      ],
+      [
+        11,
+        10
+      ],
+      [
+        10,
+        10
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 10,
+      "y": 10
+    }
+  },
+  "tiles": {
+    "14,4": "ice",
+    "14,5": "water",
+    "14,6": "mud",
+    "14,7": "grass",
+    "14,8": "bricks",
+    "14,3": "gravel",
+    "9,6": "water",
+    "9,5": "water",
+    "6,7": "bricks",
+    "2,12": "mud",
+    "3,12": "grass",
+    "4,12": "gravel",
+    "5,12": "ice"
+  },
+  "solid_objects": {
+    "13,7": {
+      "fence4": 1
+    },
+    "12,7": {
+      "fence5": 1
+    },
+    "11,7": {
+      "fence6": 1
+    },
+    "10,7": {
+      "fence7": 1
+    },
+    "9,5": {
+      "bridge": 1
+    },
+    "5,7": {
+      "fence4": 1
+    },
+    "4,7": {
+      "fence5": 1
+    },
+    "3,7": {
+      "fence6": 1
+    },
+    "2,7": {
+      "fence7": 1
+    }
+  },
+  "editor": "var results = [];\nvar fail_begin = '<p style=\"color:red\">';\nvar fail_end = ': FAIL</p>';\nvar success_begin = '<p style=\"color:green\">';\nvar success_end = ': ok</p>';\nvar reeborg = robot_par_defaut();\n\nfunction heading(text){\n    results.push('<h2>'+text+'</h2>');\n}\n\nfunction record(name, ok){\n    if (ok) {\n        results.push(success_begin + name + success_end);\n    } else {\n        results.splice(0, 0, fail_begin + name + fail_end);\n    }\n}\n\nfunction show_results() {\n    print_html(results.join(' '));\n}\n\n\npense(0);\nvar FAIL = false;\nvar OK = true;\nvar i;\nheading(\"Any failing tests appear above this heading.\");\nrecord(\"This is not a failing test! Just confirming that recording works\", FAIL);\nfunction turn(n) {\n    var i;\n    if (n === undefined) {\n        tourne_a_gauche();\n    } else {\n        for (i=1; i <= n; i++) {\n            tourne_a_gauche();\n        }\n    }\n}\n\n// start at random position and orientation\n// test way to orient\nwhile (!est_face_au_nord()) {\n    turn();\n}\n\n// hitting wall properly recorded\nturn();  // face wall\ntry{\n    avance();\n    record(\"Hit wall\", FAIL);\n} catch (e) {\n    record(\"Hit wall\", OK);\n}\n\n\n// facing left wall; right should be clear\ntry{\n    if (!rien_a_droite()){\n        throw \"Problem\";\n    }\n    record(\"1. tested right_is_clear()\", OK);\n} catch (e) {\n    record(\"1. tested right_is_clear()\", FAIL);\n}\n\nturn();\n// facing south wall; right should NOT be clear\ntry{\n    if (!rien_a_droite()){\n        throw \"Should be thrown\";\n    }\n    record(\"2. tested right_is_clear()\", FAIL);\n} catch (e) {\n    record(\"2. tested right_is_clear()\", OK);\n}\n\n\nvar move = avance;\n\n// moving towards (1, 1)\nwhile (rien_devant()) {\n    move();\n}\n\nif (reeborg.body.x == 1 && reeborg.body.y == 1) {\n    record(\"At (1,1)\", OK);\n} else {\n    record(\"At (1,1)\", FAIL);\n}\n\nturn();\n\nvar items = ['jeton', 'triangle', 'carré', 'fraise',\n         'banane', 'orange', 'pomme', 'feuille',\n         'pissenlit', 'carotte', 'tulipe', 'marguerite', \n             'étoile'];\nvar item;\nfor (i=0; i<items.length; i++) {\n    move();\n    prend(items[i]);\n}\n\nturn();\nmove();\nturn();\nwhile (rien_devant()) {\n    move();\n}\nturn(2);\n\nfor (i=0; i<items.length; i++) {\n    move();\n    depose(items[i]);\n}\n\n// Trying different terrains\nturn();\nmove();  // on gravel\ntry {\n    move();  // on ice, will keep going\n    record(\"Caught water\", FAIL);\n} catch (e) {\n    record(\"Caught water\", OK);\n}\n    \n\ntry {\n    move();\n    record(\"Caught mud\", FAIL);\n} catch (e) {\n    record(\"Caught mud\", OK);\n}\n\n \n\nmove();  //on grass; safe\ntry {\n    move();  //on brick, will keep going\n    record(\"Caught brick\", FAIL);\n} catch (e) {\n    record(\"Caught brick\", OK); \n}\n\nturn();  // should always be safe\nmove();\n\nif (reeborg.body.x == 13 && reeborg.body.y == 8) {\n    record(\"At (13, 8)\", OK);\n} else {\n    record(\"At (13, 8)\", FAIL);\n}\n\nturn();\nfor (i=0; i <= 3; i++){\n     try {\n        move();\n        record(\"Caught fence\", FAIL);\n    } catch (e) {\n        record(\"Caught fence\", OK);\n        turn(3);\n        move();\n        turn();\n    } \n}\n\ntry {\n    move();\n    record(\"Push box in water\", OK);\n} catch (e) {\n    record(\"Push box in water\", FAIL);\n}\ntry {\n    move();\n    record(\"Box now bridge\", OK);\n} catch(e) {\n    record(\"Box now bridge\", FAIL);\n}\ntry {\n    move();\n    record(\"move over old bridge\", OK);\n} catch (e) {\n    record(\"move over old bridge\", FAIL);\n}\ntry {\n    move();\n    record(\"Push box to goal\", OK);\n} catch (e) {\n    record(\"Push box to goal\", FAIL);\n}\n\nturn(3);\nmove();\n\ntry {\n    construit_un_mur();\n    record(\"Building wall\", OK);\n} catch (e) {\n    record(\"Building wall\", FAIL);\n}\n\nturn();\nmove();\nturn(3);\nmove();\nturn(3);\nmove();\nitems = [\"wall\", \"brick\", \"fence1\", \"fence2\", \n              \"fence3\", \"fence4\"];\nfor (i=0; i<items.length; i++) {\n    try{\n        move();\n        move();\n        move();\n        record(\"Cannot push box into: \"+items[i], FAIL);\n    } catch (e) {\n        record(\"Cannot push box into: \"+items[i], OK);\n        turn(2);\n        move();\n        move();\n        turn(3);\n        move();\n        turn(3);\n    }\n}\n\nwhile (rien_devant()) {\n    move();\n}\n\nturn(3);\nmove();\nturn();\nitems = ['mud', 'grass', 'gravel', 'ice'];\nfor (i=0; i<items.length; i++) {\n    try{\n         move();\n         turn(2);\n         move();\n         turn();\n         move();\n         turn();\n         record(\"Can push box onto: \"+items[i], OK);\n    } catch (e) {\n         record(\"Can push box onto: \"+items[i], FAIL);\n    }\n}\n\nturn(3);\nwhile (!au_but()) {\n    move();\n}\nshow_results();\n\n"
+}
