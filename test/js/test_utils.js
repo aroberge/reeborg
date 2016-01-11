@@ -4,8 +4,8 @@ RUR.blockly = {};
 RUR.unit_tests.reset = function () {
     RUR.current_world = RUR.world.clone_world(RUR.unit_tests.empty_world);
     RUR.rec.reset();
-    RUR._highlight = false;
-    RUR.ui.prevent_playback = false;
+    RUR.state.highlight = false;
+    RUR.state.prevent_playback = false;
     RUR.unit_tests.feedback_element = undefined;
     RUR.unit_tests.content = undefined;
     RUR.unit_tests.set_mocks();
@@ -67,7 +67,7 @@ RUR.unit_tests.eval_python = function (world_url, program_url) {
 RUR.unit_tests.eval_program = function(world_url, program_url, language) {
     var last_frame, world;
     RUR.unit_tests.reset();
-    RUR.programming_language = language;
+    RUR.state.programming_language = language;
 
     RUR.unit_tests.load_world_file(world_url);
     if (program_url !== undefined) {    // otherwise, reuse same program
@@ -92,7 +92,7 @@ RUR.unit_tests.run_python = function (world_url, program_url) {
 RUR.unit_tests.run_program = function(world_url, program_url, language) {
     var world;
     RUR.unit_tests.reset();
-    RUR.programming_language = language;
+    RUR.state.programming_language = language;
     RUR.runner.interpreted = false;
 
     if (world_url !== null) {

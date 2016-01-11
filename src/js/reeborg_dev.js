@@ -1,11 +1,12 @@
 
 // aa_utils.js : name starting with aa so that it is loaded first :-/
+// TODO refactor so as to keep only translation functions here.
+
 
 var RUR = RUR || {};  // jshint ignore:line
 
-RUR._active_console = false;
 RUR.ReeborgError = function (message) {
-    if (RUR.programming_language == "python"){
+    if (RUR.state.programming_language == "python"){
         return ReeborgError(message);
     }
     this.name = "ReeborgError";
@@ -14,7 +15,7 @@ RUR.ReeborgError = function (message) {
 };
 
 RUR.WallCollisionError = function (message) {
-    if (RUR.programming_language == "python"){
+    if (RUR.state.programming_language == "python"){
         return WallCollisionError(message);
     }
     this.name = "WallCollisionError";
@@ -50,9 +51,9 @@ RUR.reset_code_in_editors = function () {
         default_instruction = RUR.translate("move"),
         library_default_en = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
 
-    if (RUR.programming_language == "javascript") {
+    if (RUR.state.programming_language == "javascript") {
         editor_default = default_instruction + "();";
-    } else if (RUR.programming_language == "python") {
+    } else if (RUR.state.programming_language == "python") {
         library_default = RUR.translate(library_default_en);
         library_content = localStorage.getItem(RUR.settings.library);
         if (!library_content || library_content == library_default_en){
@@ -70,10 +71,10 @@ RUR.reset_code_in_editors = function () {
 
 
 RUR.reset_programming_language = function(choice){
-    var human_language = document.documentElement.lang;
+    
     RUR.settings.current_language = choice;
     try {
-        localStorage.setItem("last_programming_language_" + human_language, RUR.settings.current_language);
+        localStorage.setItem("last_programming_language_" + RUR.state.human_language, RUR.settings.current_language);
     } catch (e) {}
     $("#python-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
@@ -89,12 +90,12 @@ RUR.reset_programming_language = function(choice){
     $("#special-keyboard-button").show();
 
     switch(RUR.settings.current_language){
-        case 'python-' + human_language :
+        case 'python-' + RUR.state.human_language :
             $("#python_choices").show();
             $("#python_choices").change();
-            RUR.settings.editor = "editor_py_" + human_language;
-            RUR.settings.library = "library_py_" + human_language;
-            RUR.programming_language = "python";
+            RUR.settings.editor = "editor_py_" + RUR.state.human_language;
+            RUR.settings.library = "library_py_" + RUR.state.human_language;
+            RUR.state.programming_language = "python";
             $("#editor-tab").html(RUR.translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
             pre_code_editor.setOption("mode", {name: "python", version: 3});
@@ -102,17 +103,17 @@ RUR.reset_programming_language = function(choice){
             // show language specific
             $("#library-tab").parent().show();
             $("#python-additional-menu p button").removeAttr("disabled");
-            if (RUR._active_console) {
+            if (RUR.state.input_method==="repl") {
                 $("#py_console").show();
             }
             RUR.kbd.set_programming_language("python");
             break;
-        case 'javascript-' + human_language :
+        case 'javascript-' + RUR.state.human_language :
             $("#javascript_choices").show();
             $("#javascript_choices").change();
             $("#editor-panel").addClass("active");
-            RUR.settings.editor = "editor_js_" + human_language;
-            RUR.programming_language = "javascript";
+            RUR.settings.editor = "editor_js_" + RUR.state.human_language;
+            RUR.state.programming_language = "javascript";
             $("#editor-tab").html(RUR.translate("Javascript Code"));
             editor.setOption("mode", "javascript");
             pre_code_editor.setOption("mode", "javascript");
@@ -211,7 +212,7 @@ RUR._color_here_ = function () {
     return RUR.control.get_color_at_position(robot.x, robot.y);
 };
 
-RUR._default_robot_body_ = function () {
+RUR._default_robot_body_ = function () { // simply returns body
     return RUR.current_world.robots[0];
 };
 
@@ -320,7 +321,7 @@ RUR._turn_left_ = function () {
 };
 
 RUR._view_source_js_ = function (obj) {
-    RUR.output.view_source(obj);
+    RUR.output.view_source_js(obj);
 };
 
 RUR._wall_in_front_ = function() {
@@ -1675,7 +1676,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     if (RUR.file_io.status !== undefined) {
         RUR.rec.frames = [];
         RUR.ui.stop();
-        RUR.ui.prevent_playback = true;
+        RUR.state.prevent_playback = true;
     }
     if (RUR.file_io.status === "no link") {
         RUR.cd.show_feedback("#Reeborg-shouts",
@@ -1738,17 +1739,12 @@ RUR.file_io.load_world_file = function (url, shortname) {
 /*  Handler of special on-screen keyboard
 */
 
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library */
-
 RUR.kbd = {};
-RUR.kbd.prog_lang = "python";
 
 RUR.kbd.set_programming_language = function (lang) {
     switch (lang) {
         case "python":
-            RUR.kbd.prog_lang = "python";
-            if (RUR._active_console){
+            if (RUR.state.input_method==="repl"){
                 $("#kbd_python_btn").hide();
                 $("#kbd_py_console_btn").show();
             } else {
@@ -1758,7 +1754,6 @@ RUR.kbd.set_programming_language = function (lang) {
             $("#kbd_javascript_btn").hide();
             break;
         case "javascript":
-            RUR.kbd.prog_lang = "javascript";
             $("#kbd_python_btn").hide();
             $("#kbd_py_console_btn").hide();
             $("#kbd_javascript_btn").show();
@@ -1768,7 +1763,7 @@ RUR.kbd.set_programming_language = function (lang) {
 };
 
 RUR.kbd.insert2 = function (txt){
-    if (RUR.kbd.prog_lang == "javascript") {
+    if (RUR.state.programming_language == "javascript") {
         RUR.kbd.insert(txt + ";");
     } else {
         RUR.kbd.insert(txt);
@@ -1784,7 +1779,7 @@ RUR.kbd.insert_in_console = function (txt) {
 RUR.kbd.insert = function (txt){
     "use strict";
     var doc, cursor, line, pos;
-    if (RUR._active_console) {
+    if (RUR.state.input_method==="repl") {
         RUR.kbd.insert_in_console(txt);
         return;
     }
@@ -1834,7 +1829,7 @@ RUR.kbd.redo = function () {
 RUR.kbd.enter = function () {
     "use strict";
     var doc, ev;
-    if (RUR._active_console) {
+    if (RUR.state.input_method==="repl") {
         ev = {};
         ev.keyCode = 13;
         ev.preventDefault = function () {};
@@ -1853,7 +1848,7 @@ RUR.kbd.enter = function () {
 RUR.kbd.tab = function () {
     "use strict";
     var doc;
-    if (RUR._active_console) {
+    if (RUR.state.input_method==="repl") {
         RUR.kbd.insert_in_console('    ');
         return;
     }
@@ -1949,9 +1944,9 @@ RUR.kbd.select = function (choice) {
             $("#kbd_command_btn").addClass("reverse-blue-gradient");
     }
 
-    if (RUR.kbd.prog_lang == "python") {
+    if (RUR.state.programming_language == "python") {
         $(".only_py").show();
-        if (RUR._active_console) {
+        if (RUR.state.input_method==="repl") {
             $(".no_console").hide();
         }
         $(".only_js").hide();
@@ -2210,7 +2205,7 @@ RUR.output.watch_variables = function (arg) {
 };
 
 
-RUR.output.view_source = function(fn) {
+RUR.output.view_source_js = function(fn) {
     $("#Reeborg-explores").dialog("open");
     RUR.cd.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" );
     $('.js_code').each(function() {
@@ -2267,7 +2262,6 @@ parseUri.options = {
 RUR.permalink.__create = function () {
     "use strict";
     var proglang, world, _editor, _library, url_query, permalink, parts;
-    var human_language = document.documentElement.lang;
     url_query = parseUri(window.location.href);
 
     permalink = url_query.protocol + "://" + url_query.host;
@@ -2275,10 +2269,10 @@ RUR.permalink.__create = function () {
         permalink += ":" + url_query.port;
     }
     permalink += url_query.path;
-    proglang = RUR.programming_language + "-" + human_language;
+    proglang = RUR.state.programming_language + "-" + RUR.state.human_language;
     world = encodeURIComponent(RUR.world.export_world());
     _editor = encodeURIComponent(editor.getValue());
-    if (RUR.programming_language == "python") {
+    if (RUR.state.programming_language == "python") {
         _library = encodeURIComponent(library.getValue());
         permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
     } else {
@@ -2334,15 +2328,11 @@ RUR.permalink.update = function (arg, shortname) {
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
     }
 
-    if (RUR.programming_language == "python" &&
+    if (RUR.state.programming_language == "python" &&
        url_query.queryKey.library !== undefined) {
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     }
 
-    if(url_query.queryKey.css !== undefined) {
-        var new_css = decodeURIComponent(url_query.queryKey.css);
-        eval(new_css);    // jshint ignore:line
-    }
     $("#url_input").hide();
     $("#permalink").removeClass('reverse-blue-gradient');
     $("#permalink").addClass('blue-gradient');
@@ -2371,8 +2361,8 @@ RUR.rec.reset = function() {
     RUR.rec.do_not_record = false;
     RUR.watched_expressions = [];
     clearTimeout(RUR.rec.timer);
-    if (RUR.programming_language === "python" &&
-        RUR._highlight &&
+    if (RUR.state.programming_language === "python" &&
+        RUR.state.highlight &&
         RUR.rec._max_lineno_highlighted !== undefined) {
         for (var i=0; i <= RUR.rec._max_lineno_highlighted; i++){
             try {
@@ -2389,7 +2379,9 @@ RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
     var frame = {};
 
-    if (RUR.programming_language === "python" && RUR._immediate_playback) {
+    /* if the REPL is active, we do not record anything, and show immediately
+       the updated world */
+    if (RUR.state.programming_language === "python" && RUR.state.input_method==="repl") {
         RUR.vis_world.refresh();
         if (name !== undefined && name == "print_html") {
             if (obj.append){
@@ -2406,7 +2398,7 @@ RUR.rec.record_frame = function (name, obj) {
     if (RUR.rec.do_not_record) {
         return;
     }
-    if (RUR.ui.prevent_playback){
+    if (RUR.state.prevent_playback){
         return;
     }
 
@@ -2429,7 +2421,7 @@ RUR.rec.record_frame = function (name, obj) {
         frame.sound_id = RUR.control.sound_id;
     }
 
-   if (RUR.programming_language === "python" && RUR._highlight) {
+   if (RUR.state.programming_language === "python" && RUR.state.highlight) {
        if (RUR.current_lineno !== undefined) {
            RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR.current_lineno;
        } else{
@@ -2494,7 +2486,7 @@ RUR.rec.display_frame = function () {
     }
 
     //track line number and highlight line to be executed
-    if (RUR.programming_language === "python" && RUR._highlight) {
+    if (RUR.state.programming_language === "python" && RUR.state.highlight) {
         try {
             for (i = 0; i < RUR.rec._previous_lines.length; i++){
                 editor.removeLineClass(RUR.rec._previous_lines[i], 'background', 'editor-highlight');
@@ -2912,7 +2904,7 @@ RUR.runner.run = function (playback) {
         RUR.runner.assign_initial_values();
 
         if (RUR.blockly.active) {
-            if (RUR.programming_language == "python") {
+            if (RUR.state.programming_language == "python") {
                 editor.setValue(Blockly.Python.workspaceToCode(RUR.blockly.workspace));
             } else {
                 editor.setValue(Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace));
@@ -2929,7 +2921,7 @@ RUR.runner.run = function (playback) {
         // "playback" is a function called to play back the code in a sequence of frames
         // or a "null function", f(){} can be passed if the code is not
         // dependent on the robot world.
-        if (RUR.ui.prevent_playback) {
+        if (RUR.state.prevent_playback) {
             RUR.ui.stop();
             return;
         }
@@ -2952,9 +2944,9 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
 
     RUR.__python_error = false;
     try {
-        if (RUR.programming_language === "javascript") {
+        if (RUR.state.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
-        } else if (RUR.programming_language === "python") {
+        } else if (RUR.state.programming_language === "python") {
             RUR.runner.eval_python(src);
             if (RUR.__python_error) {
                 throw RUR.__python_error;
@@ -2968,7 +2960,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             console.dir(e);
         }
         error = {};
-        if (RUR.programming_language === "python") {
+        if (RUR.state.programming_language === "python") {
             error.reeborg_shouts = e.reeborg_shouts;
             response = RUR.runner.simplify_python_traceback(e);
             message = response.message;
@@ -3017,7 +3009,7 @@ RUR.runner.eval_python = function (src) {
     RUR.reset_definitions();
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
-    translate_python(src, RUR._highlight, RUR._watch_vars, pre_code, post_code);
+    translate_python(src, RUR.state.highlight, RUR.state.watch_vars, pre_code, post_code);
 };
 
 RUR.runner.simplify_python_traceback = function(e) {
@@ -3140,6 +3132,40 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     }
     return false;  // no missing parentheses
 };
+/* Yes, I know, global variables are a terrible thing.
+   And, in a sense, the following are global variables recording a given
+   state.  However, by using this convention and documentating them in a
+   single place, it helps in avoiding the creation of inconsistent states.*/
+var RUR = RUR || {};
+
+RUR.state = {};
+
+// TODO: create RUR.state.do_highlight()
+
+// TODO: after simplifying the permalink, see if RUR.state.prevent_playback
+// is still needed.
+
+RUR.state.set_initial_values = function () {
+    /* Determines if the Python code in the editor is going to be
+       highlighted in sync with playback. */
+    RUR.state.highlight = true;
+
+    /* Determines if all images are loaded, with a splash screen shown
+       in the meantime.  This can help end-user identify problems
+       (if splash-screen does not go away) and prevent user from clicking on
+       buttons (e.g. "run") before everything is ready. */
+    RUR.state.images_loaded = false;
+
+    /* Determine if the Python REPL is active or not */
+    RUR.state.input_method==="repl" = false;
+
+    /* Should be self-explanatory */
+    RUR.state.human_language = document.documentElement.lang;
+    RUR.state.programming_language = "python"; // default
+
+    /* Python only: set to True if watching variables */
+    RUR.state.watch_vars = false;
+};
 /*
    Utilities for dealing with html LocalStorage.
  */
@@ -3225,22 +3251,22 @@ RUR.storage.delete_world = function (name){
     }
     $('#delete-world').hide();
 };
-
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR, $, CodeMirror, ReeborgError, editor, library, removeHints, parseUri */
-
 /* Intended to provide information about objects carried by robot */
 
 RUR.tooltip = {};
-RUR.tooltip.canvas = document.getElementById("tooltip");
-RUR.tooltip.ctx = RUR.tooltip.canvas.getContext("2d");
 
-// request mousemove events
-$("#robot_canvas").mousemove(function (evt) {
-    RUR.we.mouse_x = evt.pageX;
-    RUR.we.mouse_y = evt.pageY;
-    RUR.tooltip.handleMouseMove(evt);
-});
+RUR.tooltip.init = function () {  // call in zzz.doc_ready.js
+    RUR.tooltip.canvas = document.getElementById("tooltip");
+    RUR.tooltip.ctx = RUR.tooltip.canvas.getContext("2d");
+
+    // request mousemove events
+    $("#robot_canvas").mousemove(function (evt) {
+        RUR.we.mouse_x = evt.pageX;
+        RUR.we.mouse_y = evt.pageY;
+        RUR.tooltip.handleMouseMove(evt);
+    });
+};
+
 
 RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
     var x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
@@ -3278,7 +3304,6 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
         }
     }
 
-    RUR.tooltip.canvas = document.getElementById("tooltip");
     RUR.tooltip.canvas.height = size;
     if (objects_carried !== undefined) {
         RUR.tooltip.canvas.width = size*Math.max(objects_carried.length, 1);
@@ -3307,8 +3332,8 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
 
 RUR.ui = {};
 
-RUR.ui.stop_called = false;
-RUR.ui.prevent_playback = false;
+RUR.state.stop_called = false;
+RUR.state.prevent_playback = false;
 
 RUR.ui.show_only_reload2 = function (bool) {
     if (bool) {
@@ -3333,7 +3358,7 @@ RUR.ui.show_only_reload2 = function (bool) {
 
 
 RUR.ui.set_ready_to_run = function () {
-    RUR.ui.prevent_playback = false;
+    RUR.state.prevent_playback = false;
     $("#stop").attr("disabled", "true");
     $("#pause").attr("disabled", "true");
     $("#run").removeAttr("disabled");
@@ -3343,8 +3368,8 @@ RUR.ui.set_ready_to_run = function () {
 };
 
 RUR.ui.run = function () {
-    if (RUR.ui.stop_called){
-        RUR.ui.stop_called = false;
+    if (RUR.state.stop_called){
+        RUR.state.stop_called = false;
         RUR.ui.reload();
     }
     $("#stop").removeAttr("disabled");
@@ -3373,7 +3398,7 @@ RUR.ui.pause = function (ms) {
 
 RUR.ui.step = function () {
     RUR.runner.run(RUR.rec.display_frame);
-    RUR.ui.stop_called = false;
+    RUR.state.stop_called = false;
     $("#stop").removeAttr("disabled");
     $("#reverse-step").removeAttr("disabled");
     clearTimeout(RUR.rec.timer);
@@ -3386,7 +3411,7 @@ RUR.ui.reverse_step = function () {
         $("#reverse-step").attr("disabled", "true");
     }
     RUR.runner.run(RUR.rec.display_frame);
-    RUR.ui.stop_called = false;
+    RUR.state.stop_called = false;
     $("#stop").removeAttr("disabled");
     clearTimeout(RUR.rec.timer);
 };
@@ -3400,7 +3425,7 @@ RUR.ui.stop = function () {
     $("#step").attr("disabled", "true");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").removeAttr("disabled");
-    RUR.ui.stop_called = true;
+    RUR.state.stop_called = true;
 };
 
 RUR.ui.reload = function() {
@@ -3467,26 +3492,26 @@ RUR.ui.load_user_worlds = function (initial) {
 };
 
 RUR.ui.highlight = function () {
-    if (RUR._highlight) {
-        RUR._highlight = false;
+    if (RUR.state.highlight) {
+        RUR.state.highlight = false;
         $("#highlight").addClass("blue-gradient");
         $("#highlight").removeClass("reverse-blue-gradient");
     } else {
-        RUR._highlight = true;
+        RUR.state.highlight = true;
         $("#highlight").addClass("reverse-blue-gradient");
         $("#highlight").removeClass("blue-gradient");
     }
 };
 
 RUR.ui.watch_variables = function () {
-    if (RUR._watch_vars) {
-        RUR._watch_vars = false;
+    if (RUR.state.watch_vars) {
+        RUR.state.watch_vars = false;
         $("#watch_variables_btn").addClass("blue-gradient");
         $("#watch_variables_btn").removeClass("reverse-blue-gradient");
         $("#watch_variables").html("");
         $("#Reeborg-watches").dialog("close");
     } else {
-        RUR._watch_vars = true;
+        RUR.state.watch_vars = true;
         $("#watch_variables_btn").addClass("reverse-blue-gradient");
         $("#watch_variables_btn").removeClass("blue-gradient");
         $("#watch_variables").html("");
@@ -3497,8 +3522,8 @@ RUR.ui.watch_variables = function () {
 RUR.ui.user_no_highlight = function () {
     // meant to be used in a Python program (under a different name)
     // to ensure highlighting is turned off.
-    if (RUR._highlight) {
-        RUR._highlight = false;
+    if (RUR.state.highlight) {
+        RUR.state.highlight = false;
         $("#highlight").addClass("blue-gradient");
         $("#highlight").removeClass("reverse-blue-gradient");
     }
@@ -4575,7 +4600,7 @@ RUR.world.import_world = function (json_string) {
     } else {
         $("#update-editor-content").hide();
     }
-    if (RUR.programming_language === "python" &&
+    if (RUR.state.programming_language === "python" &&
         RUR.current_world.library !== undefined &&
         RUR.current_world.library !== library.getValue()) {
         RUR.cd.dialog_update_editors_from_world.dialog("open");
@@ -4712,7 +4737,6 @@ RUR.world.update_editors = function (world) {
    post_code_editor.setValue(world.post_code);
    description_editor.setValue(world.description);
    onload_editor.setValue(world.onload);
-   // todo: conditionally update editor and library.
 };
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -5887,16 +5911,12 @@ RUR.zz_dr_dialogs = function () {
 
 };
 
-/*jshint -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, toggle_contents_button, update_controls, saveAs, toggle_editing_mode,
-          save_world, delete_world, parseUri*/
-
 $(document).ready(function() {
     "use strict";
     var prog_lang, url_query, name;
-    var human_language = document.documentElement.lang;
-    RUR._highlight = true;
-    RUR._python_loaded = false;
+    RUR.state.human_language = document.documentElement.lang;
+
+    RUR.state.set_initial_values();
 
     function everything_loaded () {
         var loaded, total_images, py_modules=0;
@@ -5907,7 +5927,7 @@ $(document).ready(function() {
         } else {
             loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
             total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
-            if (!RUR._python_loaded) {
+            if (!RUR.state.images_loaded) {
                 $("#splash-text").html("Loading Python modules. <br>Images: " + loaded + "/" + total_images);
             } else {
                 $("#splash-text").html("Images: " + loaded + "/" + total_images);
@@ -5923,6 +5943,8 @@ $(document).ready(function() {
     } catch (e) {
         RUR.world_select.set_default();
     }
+
+    RUR.tooltip.init();
 
     // check if this is needed or does conflict with MakeCustomMenu
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
@@ -5954,7 +5976,7 @@ $(document).ready(function() {
     RUR.ui.set_ready_to_run();
     RUR.kbd.select();
 
-    RUR.make_default_menu(human_language);
+    RUR.make_default_menu(RUR.state.human_language);
 
 
     url_query = parseUri(window.location.href);
@@ -5973,21 +5995,17 @@ $(document).ready(function() {
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     } else {
-        prog_lang = localStorage.getItem("last_programming_language_" + human_language);
+        prog_lang = localStorage.getItem("last_programming_language_" + RUR.state.human_language);
         switch (prog_lang) {
-            case 'python-' + human_language:
+            case 'python-' + RUR.state.human_language:
                 $("#python_choices").val("editor").change();  // jshint ignore:line
-            case 'javascript-' + human_language:
+            case 'javascript-' + RUR.state.human_language:
                 $("#javascript_choices").val("editor").change(); // jshint ignore:line
             default:
-                RUR.reset_programming_language('python-' + human_language);
+                RUR.reset_programming_language('python-' + RUR.state.human_language);
         }
         // trigger it to load the initial world.
         $("#select_world").change();
-    }
-    if(url_query.queryKey.css !== undefined) {
-        var new_css = decodeURIComponent(url_query.queryKey.css);
-        eval(new_css);  // jshint ignore:line
     }
 });
 /* jshint -W069 */
@@ -6794,13 +6812,13 @@ RUR.zz_dr_onchange = function () {
 
     $('#editor_visible_blockly').change(function() {
         if ($('#editor_visible_blockly')[0].checked) {
-            if (RUR.programming_language == "python"){
+            if (RUR.state.programming_language == "python"){
                 show_python_editor();
             } else {
                 show_javascript_editor();
             }
         } else {
-            if (RUR.programming_language == "python"){
+            if (RUR.state.programming_language == "python"){
                 hide_python_editor();
             } else {
                 hide_javascript_editor();
@@ -6846,15 +6864,15 @@ RUR.zz_dr_onchange = function () {
     function show_python_editor () {
         $("#editor-panel").addClass("active");
         $("#kbd_python_btn").show();
-        RUR._highlight = RUR._highlight || RUR._saved_highlight_value;
+        RUR.state.highlight = RUR.state.highlight || RUR._saved_highlight_value;
         RUR.ui.reload();
         editor.refresh();
     }
     function hide_python_editor () {
         $("#editor-panel").removeClass("active");
         $("#kbd_python_btn").hide();
-        RUR._saved_highlight_value = RUR._highlight;
-        RUR._highlight = false;
+        RUR._saved_highlight_value = RUR.state.highlight;
+        RUR.state.highlight = false;
     }
     function show_console() {
         $("#py_console").show();
@@ -6865,15 +6883,13 @@ RUR.zz_dr_onchange = function () {
         } catch (e) {
             console.log("trying to restart repl failure", e);
         }
-        RUR._immediate_playback = true;
-        RUR._active_console = true;
+        RUR.state.input_method==="repl" = true;
     }
     function hide_console() {
         $("#py_console").hide();
         $("#kbd_py_console_btn").hide();
         RUR.ui.show_only_reload2(false);
-        RUR._immediate_playback = false;
-        RUR._active_console = false;
+        RUR.state.input_method==="repl" = false;
     }
 
 };
@@ -6918,7 +6934,7 @@ RUR.zz_dr_onclick = function () {
     });
 
     $("#editor-tab").on("click", function (evt) {
-        if (RUR.programming_language == "python" && !RUR.we.editing_world) {
+        if (RUR.state.programming_language == "python" && !RUR.we.editing_world) {
             $("#highlight").show();
             $("#watch_variables_btn").show();
         } else {

@@ -1,17 +1,12 @@
 /*  Handler of special on-screen keyboard
 */
 
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library */
-
 RUR.kbd = {};
-RUR.kbd.prog_lang = "python";
 
 RUR.kbd.set_programming_language = function (lang) {
     switch (lang) {
         case "python":
-            RUR.kbd.prog_lang = "python";
-            if (RUR._active_console){
+            if (RUR.state.input_method==="repl"){
                 $("#kbd_python_btn").hide();
                 $("#kbd_py_console_btn").show();
             } else {
@@ -21,7 +16,6 @@ RUR.kbd.set_programming_language = function (lang) {
             $("#kbd_javascript_btn").hide();
             break;
         case "javascript":
-            RUR.kbd.prog_lang = "javascript";
             $("#kbd_python_btn").hide();
             $("#kbd_py_console_btn").hide();
             $("#kbd_javascript_btn").show();
@@ -31,7 +25,7 @@ RUR.kbd.set_programming_language = function (lang) {
 };
 
 RUR.kbd.insert2 = function (txt){
-    if (RUR.kbd.prog_lang == "javascript") {
+    if (RUR.state.programming_language == "javascript") {
         RUR.kbd.insert(txt + ";");
     } else {
         RUR.kbd.insert(txt);
@@ -47,7 +41,7 @@ RUR.kbd.insert_in_console = function (txt) {
 RUR.kbd.insert = function (txt){
     "use strict";
     var doc, cursor, line, pos;
-    if (RUR._active_console) {
+    if (RUR.state.input_method==="repl") {
         RUR.kbd.insert_in_console(txt);
         return;
     }
@@ -97,7 +91,7 @@ RUR.kbd.redo = function () {
 RUR.kbd.enter = function () {
     "use strict";
     var doc, ev;
-    if (RUR._active_console) {
+    if (RUR.state.input_method==="repl") {
         ev = {};
         ev.keyCode = 13;
         ev.preventDefault = function () {};
@@ -116,7 +110,7 @@ RUR.kbd.enter = function () {
 RUR.kbd.tab = function () {
     "use strict";
     var doc;
-    if (RUR._active_console) {
+    if (RUR.state.input_method==="repl") {
         RUR.kbd.insert_in_console('    ');
         return;
     }
@@ -212,9 +206,9 @@ RUR.kbd.select = function (choice) {
             $("#kbd_command_btn").addClass("reverse-blue-gradient");
     }
 
-    if (RUR.kbd.prog_lang == "python") {
+    if (RUR.state.programming_language == "python") {
         $(".only_py").show();
-        if (RUR._active_console) {
+        if (RUR.state.input_method==="repl") {
             $(".no_console").hide();
         }
         $(".only_js").hide();

@@ -1,11 +1,12 @@
 
 // aa_utils.js : name starting with aa so that it is loaded first :-/
+// TODO refactor so as to keep only translation functions here.
+
 
 var RUR = RUR || {};  // jshint ignore:line
 
-RUR._active_console = false;
 RUR.ReeborgError = function (message) {
-    if (RUR.programming_language == "python"){
+    if (RUR.state.programming_language == "python"){
         return ReeborgError(message);
     }
     this.name = "ReeborgError";
@@ -14,7 +15,7 @@ RUR.ReeborgError = function (message) {
 };
 
 RUR.WallCollisionError = function (message) {
-    if (RUR.programming_language == "python"){
+    if (RUR.state.programming_language == "python"){
         return WallCollisionError(message);
     }
     this.name = "WallCollisionError";
@@ -48,11 +49,11 @@ RUR.translate_to_english = function (s) {
 RUR.reset_code_in_editors = function () {
     var library_default, library_content, editor_content, editor_default,
         default_instruction = RUR.translate("move"),
-        library_default_en = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
+        library_default_en = "# from library import *";
 
-    if (RUR.programming_language == "javascript") {
+    if (RUR.state.programming_language == "javascript") {
         editor_default = default_instruction + "();";
-    } else if (RUR.programming_language == "python") {
+    } else if (RUR.state.programming_language == "python") {
         library_default = RUR.translate(library_default_en);
         library_content = localStorage.getItem(RUR.settings.library);
         if (!library_content || library_content == library_default_en){
@@ -70,10 +71,10 @@ RUR.reset_code_in_editors = function () {
 
 
 RUR.reset_programming_language = function(choice){
-    var human_language = document.documentElement.lang;
+
     RUR.settings.current_language = choice;
     try {
-        localStorage.setItem("last_programming_language_" + human_language, RUR.settings.current_language);
+        localStorage.setItem("last_programming_language_" + RUR.state.human_language, RUR.settings.current_language);
     } catch (e) {}
     $("#python-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
@@ -89,12 +90,12 @@ RUR.reset_programming_language = function(choice){
     $("#special-keyboard-button").show();
 
     switch(RUR.settings.current_language){
-        case 'python-' + human_language :
+        case 'python-' + RUR.state.human_language :
             $("#python_choices").show();
             $("#python_choices").change();
-            RUR.settings.editor = "editor_py_" + human_language;
-            RUR.settings.library = "library_py_" + human_language;
-            RUR.programming_language = "python";
+            RUR.settings.editor = "editor_py_" + RUR.state.human_language;
+            RUR.settings.library = "library_py_" + RUR.state.human_language;
+            RUR.state.programming_language = "python";
             $("#editor-tab").html(RUR.translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
             pre_code_editor.setOption("mode", {name: "python", version: 3});
@@ -102,17 +103,17 @@ RUR.reset_programming_language = function(choice){
             // show language specific
             $("#library-tab").parent().show();
             $("#python-additional-menu p button").removeAttr("disabled");
-            if (RUR._active_console) {
+            if (RUR.state.input_method==="repl") {
                 $("#py_console").show();
             }
             RUR.kbd.set_programming_language("python");
             break;
-        case 'javascript-' + human_language :
+        case 'javascript-' + RUR.state.human_language :
             $("#javascript_choices").show();
             $("#javascript_choices").change();
             $("#editor-panel").addClass("active");
-            RUR.settings.editor = "editor_js_" + human_language;
-            RUR.programming_language = "javascript";
+            RUR.settings.editor = "editor_js_" + RUR.state.human_language;
+            RUR.state.programming_language = "javascript";
             $("#editor-tab").html(RUR.translate("Javascript Code"));
             editor.setOption("mode", "javascript");
             pre_code_editor.setOption("mode", "javascript");

@@ -38,6 +38,8 @@ tbody tr:nth-child(even) {
 </head>
 
 <body>
+  <input type="file" id="fileInput" style="display:none;">
+
   <h1>Example specifically designed for Reeborg's World</h1>
 
   <table>
@@ -58,6 +60,7 @@ tbody tr:nth-child(even) {
             <option value="utf8_mod_test.json">utf8_mod_test.json</option>
           </select>
           <button onclick="javascript:save_json();">Save</button>
+          <button onclick="javascript:open_json();">Open</button>
         </th>
       </tr>
     </thead>

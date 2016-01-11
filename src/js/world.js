@@ -101,7 +101,7 @@ RUR.world.import_world = function (json_string) {
     } else {
         $("#update-editor-content").hide();
     }
-    if (RUR.programming_language === "python" &&
+    if (RUR.state.programming_language === "python" &&
         RUR.current_world.library !== undefined &&
         RUR.current_world.library !== library.getValue()) {
         RUR.cd.dialog_update_editors_from_world.dialog("open");
@@ -238,5 +238,4 @@ RUR.world.update_editors = function (world) {
    post_code_editor.setValue(world.post_code);
    description_editor.setValue(world.description);
    onload_editor.setValue(world.onload);
-   // todo: conditionally update editor and library.
 };

@@ -43,7 +43,7 @@ RUR.output.watch_variables = function (arg) {
 };
 
 
-RUR.output.view_source = function(fn) {
+RUR.output.view_source_js = function(fn) {
     $("#Reeborg-explores").dialog("open");
     RUR.cd.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" );
     $('.js_code').each(function() {

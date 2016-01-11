@@ -1,0 +1,25 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "Testing highlight of Python code blocks.",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "editor": "# testing highlight in blocks\na = [1, 2,\n     3]\n\ndef test():\n    ''' a function with\n        a doctring'''\n\nprint(\"\"\"Hello\nWorld!\"\"\")\n\nif 'a' in ['b',\n           'a',\n           'c']:\n    print(\"ok\")\n\nif 'a' in ['b',\n           'c',\n           'd']:\n    print(\"wrong\")\nelif 'a' in ['e',\n             'f',\n             'g']:\n    print(\"wrong\")\nelse:\n    print(\"ok\")\n\nfor i in [1,\n          2,\n          3]:\n    print(i)\n\nx = 0\nwhile x in [0,\n            1,\n            2]:\n    x += 1\n    print(x)\n"
+}

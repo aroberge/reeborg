@@ -60,7 +60,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     if (RUR.file_io.status !== undefined) {
         RUR.rec.frames = [];
         RUR.ui.stop();
-        RUR.ui.prevent_playback = true;
+        RUR.state.prevent_playback = true;
     }
     if (RUR.file_io.status === "no link") {
         RUR.cd.show_feedback("#Reeborg-shouts",

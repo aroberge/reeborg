@@ -27,37 +27,43 @@ RUR.zz_dr_onchange = function () {
             show_python_editor();
             hide_console();
             hide_blockly();
+            RUR.state.input_method = "editor";
         } else if($(this).val() == "repl") {
             hide_python_editor();
             show_console();
             hide_blockly();
+            RUR.state.input_method = "repl";
         } else {
             hide_python_editor();
             hide_console();
             show_blockly();
+            RUR.state.input_method = "blockly";
         }
     });
 
     $("#javascript_choices").change(function() {
-        if($(this).val() == "editor") {
+        if($(this).val() == "blockly") {
+            hide_javascript_editor();
+            show_blockly();
+            RUR.state.input_method = "blockly";
+        } else {
             show_javascript_editor();
             hide_blockly();
-        } else {
-            hide_python_editor();
-            hide_console();
-            show_blockly();
+            RUR.state.input_method = "editor";
         }
     });
 
     $('#editor_visible_blockly').change(function() {
         if ($('#editor_visible_blockly')[0].checked) {
-            if (RUR.programming_language == "python"){
+            RUR.state.input_method = "editor";
+            if (RUR.state.programming_language == "python"){
                 show_python_editor();
             } else {
                 show_javascript_editor();
             }
         } else {
-            if (RUR.programming_language == "python"){
+            RUR.state.input_method = "blockly";
+            if (RUR.state.programming_language == "python"){
                 hide_python_editor();
             } else {
                 hide_javascript_editor();
@@ -66,7 +72,6 @@ RUR.zz_dr_onchange = function () {
     });
 
     function show_blockly () {
-        RUR.blockly.active = true;
         $("#blockly-wrapper").show();
         $("#visible_blockly").show();
         if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
@@ -84,7 +89,6 @@ RUR.zz_dr_onchange = function () {
         $("#blockly-wrapper").hide();
         window.dispatchEvent(new Event('resize'));
         $("#visible_blockly").hide();
-        RUR.blockly.active = false;
         $("#special-keyboard-button").show();
     }
 
@@ -103,15 +107,15 @@ RUR.zz_dr_onchange = function () {
     function show_python_editor () {
         $("#editor-panel").addClass("active");
         $("#kbd_python_btn").show();
-        RUR._highlight = RUR._highlight || RUR._saved_highlight_value;
+        RUR.state.highlight = RUR.state.highlight || RUR._saved_highlight_value;
         RUR.ui.reload();
         editor.refresh();
     }
     function hide_python_editor () {
         $("#editor-panel").removeClass("active");
         $("#kbd_python_btn").hide();
-        RUR._saved_highlight_value = RUR._highlight;
-        RUR._highlight = false;
+        RUR._saved_highlight_value = RUR.state.highlight;
+        RUR.state.highlight = false;
     }
     function show_console() {
         $("#py_console").show();
@@ -122,15 +126,11 @@ RUR.zz_dr_onchange = function () {
         } catch (e) {
             console.log("trying to restart repl failure", e);
         }
-        RUR._immediate_playback = true;
-        RUR._active_console = true;
     }
     function hide_console() {
         $("#py_console").hide();
         $("#kbd_py_console_btn").hide();
         RUR.ui.show_only_reload2(false);
-        RUR._immediate_playback = false;
-        RUR._active_console = false;
     }
 
 };

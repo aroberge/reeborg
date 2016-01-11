@@ -144,7 +144,7 @@ RUR._turn_left_ = function () {
 };
 
 RUR._view_source_js_ = function (obj) {
-    RUR.output.view_source(obj);
+    RUR.output.view_source_js(obj);
 };
 
 RUR._wall_in_front_ = function() {

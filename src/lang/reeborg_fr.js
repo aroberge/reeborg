@@ -1,53 +1,27 @@
-
+/* See reeborg_en.js */
 var RUR = RUR || {};
 
-var avance, tourne_a_gauche, examine, rien_devant, rien_a_droite,
-    est_face_au_nord, termine, depose, prend, objet_ici, Monde, Permalien,
-    transporte, ecrit, au_but, construit_un_mur, pense, print_html, disparait,
-    pause, repete, voir_source, son, RobotUsage, mur_devant, mur_a_droite,
-    nombre_de_commandes, enregistrement, nouvelles_images_de_robot,
-    dans_le_sac, plus_de_robots;
+var RobotUsage;
 
 RUR.reset_definitions = function () {
-    // robot commands - defined in commands.js
+
+    window.au_but = RUR._at_goal_;
+    window.construit_un_mur = RUR._build_wall_;
+    window.transporte = RUR._carries_object_;
     window.robot_par_defaut = function () {
         var r = Object.create(RobotUsage.prototype);
         r.body = RUR._default_robot_body_();
         return r;
     };
-    au_but = RUR._at_goal_;
-    construit_un_mur = RUR._build_wall_;
-    rien_devant = RUR._front_is_clear_;
-    mur_devant = RUR._wall_in_front_;
-    transporte = RUR._carries_object_;
-    est_face_au_nord = RUR._is_facing_north_;
-    dans_le_sac = RUR._in_the_bag_;
-    avance = RUR._move_;
-    depose = RUR._put_;
-    rien_a_droite = RUR._right_is_clear_;
-    mur_a_droite = RUR._wall_on_right_;
-    objet_ici = RUR._object_here_;
-    prend = RUR._take_;
-    tourne_a_gauche = RUR._turn_left_;
-    repete = RUR._repeat_;
-    nombre_d_instructions = RUR._set_max_steps_;
-    // utilities - defined in rur_utils.js
-    examine = RUR.inspect;
-    voir_source = RUR.output.view_source;
-    // defined in control.js
-    ecrit = RUR.output.write;
-    _write = RUR.output._write;
-    print_html = RUR.output.print_html;
-    termine = RUR.control.done;
-    son = RUR.control.sound;
-    pense = RUR.control.think;
-    pause = RUR.control.pause;
-    Monde = RUR.file_io.load_world_from_program;
-    nombre_de_robots = RUR._set_max_nb_robots_;
-    plus_de_robots = RUR._remove_robots_;
-    enregistrement = RUR._recording_;
+    window.dir_js = RUR._dir_js_;
+    window.termine = RUR.control.done;
+    window.rien_devant = RUR._front_is_clear_;
+    window.est_face_au_nord = RUR._is_facing_north_;
+    window.dans_le_sac = RUR._in_the_bag_;
+    window.avance = RUR._move_;
 
-    nouvelles_images_de_robot = function (image) {
+    mur_devant = RUR._wall_in_front_;
+    window.nouvelles_images_de_robot = function (image) {
         if (images.est !== undefined) {
             images.east = images.est;
         }
@@ -62,6 +36,25 @@ RUR.reset_definitions = function () {
         }
         RUR._new_robot_images_(images);
     };
+    window.objet_ici = RUR._object_here_;
+    window.pause = RUR.control.pause;
+    window.print_html = RUR.output.print_html;
+    window.depose = RUR._put_;
+    window.enregistrement = RUR._recording_;
+    window.plus_de_robots = RUR._remove_robots_;
+    window.rien_a_droite = RUR._right_is_clear_;
+    window.nombre_de_robots = RUR._set_max_nb_robots_;
+    window.nombre_d_instructions = RUR._set_max_steps_;
+    window.son = RUR.control.sound;
+    window.prend = RUR._take_;
+    window.pense = RUR.control.think;
+    window.tourne_a_gauche = RUR._turn_left_;
+    window.voir_source_js = RUR._view_source_js_;
+    window.mur_devant = RUR._wall_in_front_;
+    window.mur_a_droite = RUR._wall_on_right_;
+    window.ecrit = RUR.output.write;
+    window._write = RUR.output._write;
+    window.Monde = RUR.file_io.load_world_from_program;
 
     // The following are for OOP programming in Javascript
     RobotUsage = function (x, y, orientation, tokens)  {

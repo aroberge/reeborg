@@ -1,19 +1,19 @@
-
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR, $, CodeMirror, ReeborgError, editor, library, removeHints, parseUri */
-
 /* Intended to provide information about objects carried by robot */
 
 RUR.tooltip = {};
-RUR.tooltip.canvas = document.getElementById("tooltip");
-RUR.tooltip.ctx = RUR.tooltip.canvas.getContext("2d");
 
-// request mousemove events
-$("#robot_canvas").mousemove(function (evt) {
-    RUR.we.mouse_x = evt.pageX;
-    RUR.we.mouse_y = evt.pageY;
-    RUR.tooltip.handleMouseMove(evt);
-});
+RUR.tooltip.init = function () {  // call in zzz.doc_ready.js
+    RUR.tooltip.canvas = document.getElementById("tooltip");
+    RUR.tooltip.ctx = RUR.tooltip.canvas.getContext("2d");
+
+    // request mousemove events
+    $("#robot_canvas").mousemove(function (evt) {
+        RUR.we.mouse_x = evt.pageX;
+        RUR.we.mouse_y = evt.pageY;
+        RUR.tooltip.handleMouseMove(evt);
+    });
+};
+
 
 RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
     var x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
@@ -51,7 +51,6 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
         }
     }
 
-    RUR.tooltip.canvas = document.getElementById("tooltip");
     RUR.tooltip.canvas.height = size;
     if (objects_carried !== undefined) {
         RUR.tooltip.canvas.width = size*Math.max(objects_carried.length, 1);

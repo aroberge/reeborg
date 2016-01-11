@@ -39,7 +39,7 @@ RUR.zz_dr_onclick = function () {
     });
 
     $("#editor-tab").on("click", function (evt) {
-        if (RUR.programming_language == "python" && !RUR.we.editing_world) {
+        if (RUR.state.programming_language == "python" && !RUR.we.editing_world) {
             $("#highlight").show();
             $("#watch_variables_btn").show();
         } else {

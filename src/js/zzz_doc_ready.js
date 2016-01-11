@@ -1,14 +1,10 @@
 
-/*jshint -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, toggle_contents_button, update_controls, saveAs, toggle_editing_mode,
-          save_world, delete_world, parseUri*/
-
 $(document).ready(function() {
     "use strict";
     var prog_lang, url_query, name;
-    var human_language = document.documentElement.lang;
-    RUR._highlight = true;
-    RUR._python_loaded = false;
+    RUR.state.human_language = document.documentElement.lang;
+
+    RUR.state.set_initial_values();
 
     function everything_loaded () {
         var loaded, total_images, py_modules=0;
@@ -19,7 +15,7 @@ $(document).ready(function() {
         } else {
             loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
             total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
-            if (!RUR._python_loaded) {
+            if (!RUR.state.images_loaded) {
                 $("#splash-text").html("Loading Python modules. <br>Images: " + loaded + "/" + total_images);
             } else {
                 $("#splash-text").html("Images: " + loaded + "/" + total_images);
@@ -35,6 +31,8 @@ $(document).ready(function() {
     } catch (e) {
         RUR.world_select.set_default();
     }
+
+    RUR.tooltip.init();
 
     // check if this is needed or does conflict with MakeCustomMenu
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
@@ -66,7 +64,7 @@ $(document).ready(function() {
     RUR.ui.set_ready_to_run();
     RUR.kbd.select();
 
-    RUR.make_default_menu(human_language);
+    RUR.make_default_menu(RUR.state.human_language);
 
 
     url_query = parseUri(window.location.href);
@@ -85,20 +83,16 @@ $(document).ready(function() {
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     } else {
-        prog_lang = localStorage.getItem("last_programming_language_" + human_language);
+        prog_lang = localStorage.getItem("last_programming_language_" + RUR.state.human_language);
         switch (prog_lang) {
-            case 'python-' + human_language:
+            case 'python-' + RUR.state.human_language:
                 $("#python_choices").val("editor").change();  // jshint ignore:line
-            case 'javascript-' + human_language:
+            case 'javascript-' + RUR.state.human_language:
                 $("#javascript_choices").val("editor").change(); // jshint ignore:line
             default:
-                RUR.reset_programming_language('python-' + human_language);
+                RUR.reset_programming_language('python-' + RUR.state.human_language);
         }
         // trigger it to load the initial world.
         $("#select_world").change();
-    }
-    if(url_query.queryKey.css !== undefined) {
-        var new_css = decodeURIComponent(url_query.queryKey.css);
-        eval(new_css);  // jshint ignore:line
     }
 });

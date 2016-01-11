@@ -57,6 +57,25 @@ function save_json() {
 }
 
 
+function open_json() {
+    $("#fileInput").click();
+    var fileInput = document.getElementById('fileInput');
+    fileInput.addEventListener('change', function(e) {
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                update_new(reader.result);
+            } catch (e) {  // jshint ignore:line
+                console.log("invalid file", e);
+                alert("Invalid file");
+            }
+            fileInput.value = '';
+        };
+        reader.readAsText(file);
+    });
+}
+
 
 $(document).ready(function() {
     $("#select-reference").change(function() {

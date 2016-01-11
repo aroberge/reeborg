@@ -4,9 +4,6 @@
 
 RUR.ui = {};
 
-RUR.ui.stop_called = false;
-RUR.ui.prevent_playback = false;
-
 RUR.ui.show_only_reload2 = function (bool) {
     if (bool) {
         $("#stop").hide();
@@ -30,7 +27,7 @@ RUR.ui.show_only_reload2 = function (bool) {
 
 
 RUR.ui.set_ready_to_run = function () {
-    RUR.ui.prevent_playback = false;
+    RUR.state.prevent_playback = false;
     $("#stop").attr("disabled", "true");
     $("#pause").attr("disabled", "true");
     $("#run").removeAttr("disabled");
@@ -40,8 +37,8 @@ RUR.ui.set_ready_to_run = function () {
 };
 
 RUR.ui.run = function () {
-    if (RUR.ui.stop_called){
-        RUR.ui.stop_called = false;
+    if (RUR.state.stop_called){
+        RUR.state.stop_called = false;
         RUR.ui.reload();
     }
     $("#stop").removeAttr("disabled");
@@ -70,7 +67,7 @@ RUR.ui.pause = function (ms) {
 
 RUR.ui.step = function () {
     RUR.runner.run(RUR.rec.display_frame);
-    RUR.ui.stop_called = false;
+    RUR.state.stop_called = false;
     $("#stop").removeAttr("disabled");
     $("#reverse-step").removeAttr("disabled");
     clearTimeout(RUR.rec.timer);
@@ -83,7 +80,7 @@ RUR.ui.reverse_step = function () {
         $("#reverse-step").attr("disabled", "true");
     }
     RUR.runner.run(RUR.rec.display_frame);
-    RUR.ui.stop_called = false;
+    RUR.state.stop_called = false;
     $("#stop").removeAttr("disabled");
     clearTimeout(RUR.rec.timer);
 };
@@ -97,7 +94,7 @@ RUR.ui.stop = function () {
     $("#step").attr("disabled", "true");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").removeAttr("disabled");
-    RUR.ui.stop_called = true;
+    RUR.state.stop_called = true;
 };
 
 RUR.ui.reload = function() {
@@ -164,26 +161,26 @@ RUR.ui.load_user_worlds = function (initial) {
 };
 
 RUR.ui.highlight = function () {
-    if (RUR._highlight) {
-        RUR._highlight = false;
+    if (RUR.state.highlight) {
+        RUR.state.highlight = false;
         $("#highlight").addClass("blue-gradient");
         $("#highlight").removeClass("reverse-blue-gradient");
     } else {
-        RUR._highlight = true;
+        RUR.state.highlight = true;
         $("#highlight").addClass("reverse-blue-gradient");
         $("#highlight").removeClass("blue-gradient");
     }
 };
 
 RUR.ui.watch_variables = function () {
-    if (RUR._watch_vars) {
-        RUR._watch_vars = false;
+    if (RUR.state.watch_vars) {
+        RUR.state.watch_vars = false;
         $("#watch_variables_btn").addClass("blue-gradient");
         $("#watch_variables_btn").removeClass("reverse-blue-gradient");
         $("#watch_variables").html("");
         $("#Reeborg-watches").dialog("close");
     } else {
-        RUR._watch_vars = true;
+        RUR.state.watch_vars = true;
         $("#watch_variables_btn").addClass("reverse-blue-gradient");
         $("#watch_variables_btn").removeClass("blue-gradient");
         $("#watch_variables").html("");
@@ -194,8 +191,8 @@ RUR.ui.watch_variables = function () {
 RUR.ui.user_no_highlight = function () {
     // meant to be used in a Python program (under a different name)
     // to ensure highlighting is turned off.
-    if (RUR._highlight) {
-        RUR._highlight = false;
+    if (RUR.state.highlight) {
+        RUR.state.highlight = false;
         $("#highlight").addClass("blue-gradient");
         $("#highlight").removeClass("reverse-blue-gradient");
     }

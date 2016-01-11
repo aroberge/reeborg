@@ -38,7 +38,6 @@ parseUri.options = {
 RUR.permalink.__create = function () {
     "use strict";
     var proglang, world, _editor, _library, url_query, permalink, parts;
-    var human_language = document.documentElement.lang;
     url_query = parseUri(window.location.href);
 
     permalink = url_query.protocol + "://" + url_query.host;
@@ -46,10 +45,10 @@ RUR.permalink.__create = function () {
         permalink += ":" + url_query.port;
     }
     permalink += url_query.path;
-    proglang = RUR.programming_language + "-" + human_language;
+    proglang = RUR.state.programming_language + "-" + RUR.state.human_language;
     world = encodeURIComponent(RUR.world.export_world());
     _editor = encodeURIComponent(editor.getValue());
-    if (RUR.programming_language == "python") {
+    if (RUR.state.programming_language == "python") {
         _library = encodeURIComponent(library.getValue());
         permalink += "?proglang=" + proglang + "&world=" + world + "&editor=" + _editor + "&library=" + _library;
     } else {
@@ -105,15 +104,11 @@ RUR.permalink.update = function (arg, shortname) {
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
     }
 
-    if (RUR.programming_language == "python" &&
+    if (RUR.state.programming_language == "python" &&
        url_query.queryKey.library !== undefined) {
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     }
 
-    if(url_query.queryKey.css !== undefined) {
-        var new_css = decodeURIComponent(url_query.queryKey.css);
-        eval(new_css);    // jshint ignore:line
-    }
     $("#url_input").hide();
     $("#permalink").removeClass('reverse-blue-gradient');
     $("#permalink").addClass('blue-gradient');

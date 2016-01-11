@@ -123,8 +123,8 @@ RUR.runner.run = function (playback) {
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
         RUR.runner.assign_initial_values();
 
-        if (RUR.blockly.active) {
-            if (RUR.programming_language == "python") {
+        if (RUR.state.input_method === "blockly") {
+            if (RUR.state.programming_language == "python") {
                 editor.setValue(Blockly.Python.workspaceToCode(RUR.blockly.workspace));
             } else {
                 editor.setValue(Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace));
@@ -141,7 +141,7 @@ RUR.runner.run = function (playback) {
         // "playback" is a function called to play back the code in a sequence of frames
         // or a "null function", f(){} can be passed if the code is not
         // dependent on the robot world.
-        if (RUR.ui.prevent_playback) {
+        if (RUR.state.prevent_playback) {
             RUR.ui.stop();
             return;
         }
@@ -164,9 +164,9 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
 
     RUR.__python_error = false;
     try {
-        if (RUR.programming_language === "javascript") {
+        if (RUR.state.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
-        } else if (RUR.programming_language === "python") {
+        } else if (RUR.state.programming_language === "python") {
             RUR.runner.eval_python(src);
             if (RUR.__python_error) {
                 throw RUR.__python_error;
@@ -180,7 +180,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             console.dir(e);
         }
         error = {};
-        if (RUR.programming_language === "python") {
+        if (RUR.state.programming_language === "python") {
             error.reeborg_shouts = e.reeborg_shouts;
             response = RUR.runner.simplify_python_traceback(e);
             message = response.message;
@@ -229,7 +229,7 @@ RUR.runner.eval_python = function (src) {
     RUR.reset_definitions();
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
-    translate_python(src, RUR._highlight, RUR._watch_vars, pre_code, post_code);
+    translate_python(src, RUR.state.highlight, RUR.state.watch_vars, pre_code, post_code);
 };
 
 RUR.runner.simplify_python_traceback = function(e) {

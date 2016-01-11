@@ -16,8 +16,8 @@ RUR.rec.reset = function() {
     RUR.rec.do_not_record = false;
     RUR.watched_expressions = [];
     clearTimeout(RUR.rec.timer);
-    if (RUR.programming_language === "python" &&
-        RUR._highlight &&
+    if (RUR.state.programming_language === "python" &&
+        RUR.state.highlight &&
         RUR.rec._max_lineno_highlighted !== undefined) {
         for (var i=0; i <= RUR.rec._max_lineno_highlighted; i++){
             try {
@@ -34,7 +34,9 @@ RUR.rec.record_frame = function (name, obj) {
     // clone current world and store the clone
     var frame = {};
 
-    if (RUR.programming_language === "python" && RUR._immediate_playback) {
+    /* if the REPL is active, we do not record anything, and show immediately
+       the updated world */
+    if (RUR.state.programming_language === "python" && RUR.state.input_method==="repl") {
         RUR.vis_world.refresh();
         if (name !== undefined && name == "print_html") {
             if (obj.append){
@@ -51,7 +53,7 @@ RUR.rec.record_frame = function (name, obj) {
     if (RUR.rec.do_not_record) {
         return;
     }
-    if (RUR.ui.prevent_playback){
+    if (RUR.state.prevent_playback){
         return;
     }
 
@@ -74,7 +76,7 @@ RUR.rec.record_frame = function (name, obj) {
         frame.sound_id = RUR.control.sound_id;
     }
 
-   if (RUR.programming_language === "python" && RUR._highlight) {
+   if (RUR.state.programming_language === "python" && RUR.state.highlight) {
        if (RUR.current_lineno !== undefined) {
            RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR.current_lineno;
        } else{
@@ -139,7 +141,7 @@ RUR.rec.display_frame = function () {
     }
 
     //track line number and highlight line to be executed
-    if (RUR.programming_language === "python" && RUR._highlight) {
+    if (RUR.state.programming_language === "python" && RUR.state.highlight) {
         try {
             for (i = 0; i < RUR.rec._previous_lines.length; i++){
                 editor.removeLineClass(RUR.rec._previous_lines[i], 'background', 'editor-highlight');
