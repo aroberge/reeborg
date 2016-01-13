@@ -574,47 +574,35 @@ RUR.control.solid_object_here = function (robot, tile) {
 
 
 RUR.control.carries_object = function (robot, obj) {
-    var obj_carried, obj_type, all_objects;
+    var obj_type, all_objects, carried=false;
 
     if (robot === undefined || robot.objects === undefined) {
-        return [];
+        return 0;
     }
 
-    obj_carried =  robot.objects;
-    all_objects = [];
-
-    for (obj_type in obj_carried) {
-        if (obj_carried.hasOwnProperty(obj_type)) {
-            all_objects.push(RUR.translate(obj_type));
-            if (RUR.translate(obj_type) == obj){
-                return [obj_type];
-            }
-        }
-    }
-
-    if (obj !== undefined) {
-        return [];
-    } else if (all_objects.length === 0){
-        return [];
-    } else {
-        return all_objects;
-    }
-};
-
-RUR.control.in_the_bag = function (robot) {
-    var obj_carried, obj_type, all_objects;
-
-    if (robot === undefined || robot.objects === undefined) {
-        return {};
-    }
     all_objects = {};
 
-    for (obj_type in robot.objects) {
-        if (robot.objects.hasOwnProperty(obj_type)) {
-            all_objects[RUR.translate(obj_type)] = robot.objects[obj_type];
+    if (obj === undefined) {
+        for (obj_type in robot.objects) {
+            if (robot.objects.hasOwnProperty(obj_type)) {
+                all_objects[RUR.translate(obj_type)] = robot.objects[obj_type];
+                carried = true;
+            }
         }
+        if (carried) {
+            return all_objects;
+        } else {
+            return 0;
+        }
+    } else {
+        obj = RUR.translate_to_english(obj);
+        for (obj_type in robot.objects) {
+            if (robot.objects.hasOwnProperty(obj_type) && obj_type == obj) {
+                return robot.objects[obj_type];
+            }
+        }
+        return 0;
     }
-    return all_objects;
 };
 
 

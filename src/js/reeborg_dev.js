@@ -49,7 +49,7 @@ RUR.translate_to_english = function (s) {
 RUR.reset_code_in_editors = function () {
     var library_default, library_content, editor_content, editor_default,
         default_instruction = RUR.translate("move"),
-        library_default_en = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
+        library_default_en = "# from library import *";
 
     if (RUR.state.programming_language == "javascript") {
         editor_default = default_instruction + "();";
@@ -71,7 +71,7 @@ RUR.reset_code_in_editors = function () {
 
 
 RUR.reset_programming_language = function(choice){
-    
+
     RUR.settings.current_language = choice;
     try {
         localStorage.setItem("last_programming_language_" + RUR.state.human_language, RUR.settings.current_language);
@@ -231,10 +231,6 @@ RUR._front_is_clear_ = function() {
 
 RUR._is_facing_north_ = function () {
     return RUR.control.is_facing_north(RUR.current_world.robots[0]);
-};
-
-RUR._in_the_bag_ = function() {
-    return RUR.control.in_the_bag(RUR.current_world.robots[0]);
 };
 
 RUR._move_ = function () {
@@ -1043,47 +1039,35 @@ RUR.control.solid_object_here = function (robot, tile) {
 
 
 RUR.control.carries_object = function (robot, obj) {
-    var obj_carried, obj_type, all_objects;
+    var obj_type, all_objects, carried=false;
 
     if (robot === undefined || robot.objects === undefined) {
-        return [];
+        return 0;
     }
 
-    obj_carried =  robot.objects;
-    all_objects = [];
-
-    for (obj_type in obj_carried) {
-        if (obj_carried.hasOwnProperty(obj_type)) {
-            all_objects.push(RUR.translate(obj_type));
-            if (RUR.translate(obj_type) == obj){
-                return [obj_type];
-            }
-        }
-    }
-
-    if (obj !== undefined) {
-        return [];
-    } else if (all_objects.length === 0){
-        return [];
-    } else {
-        return all_objects;
-    }
-};
-
-RUR.control.in_the_bag = function (robot) {
-    var obj_carried, obj_type, all_objects;
-
-    if (robot === undefined || robot.objects === undefined) {
-        return {};
-    }
     all_objects = {};
 
-    for (obj_type in robot.objects) {
-        if (robot.objects.hasOwnProperty(obj_type)) {
-            all_objects[RUR.translate(obj_type)] = robot.objects[obj_type];
+    if (obj === undefined) {
+        for (obj_type in robot.objects) {
+            if (robot.objects.hasOwnProperty(obj_type)) {
+                all_objects[RUR.translate(obj_type)] = robot.objects[obj_type];
+                carried = true;
+            }
         }
+        if (carried) {
+            return all_objects;
+        } else {
+            return 0;
+        }
+    } else {
+        obj = RUR.translate_to_english(obj);
+        for (obj_type in robot.objects) {
+            if (robot.objects.hasOwnProperty(obj_type) && obj_type == obj) {
+                return robot.objects[obj_type];
+            }
+        }
+        return 0;
     }
-    return all_objects;
 };
 
 
@@ -2903,7 +2887,7 @@ RUR.runner.run = function (playback) {
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
         RUR.runner.assign_initial_values();
 
-        if (RUR.blockly.active) {
+        if (RUR.state.input_method === "blockly") {
             if (RUR.state.programming_language == "python") {
                 editor.setValue(Blockly.Python.workspaceToCode(RUR.blockly.workspace));
             } else {
@@ -3156,8 +3140,8 @@ RUR.state.set_initial_values = function () {
        buttons (e.g. "run") before everything is ready. */
     RUR.state.images_loaded = false;
 
-    /* Determine if the Python REPL is active or not */
-    RUR.state.input_method==="repl" = false;
+    /* Get program input from editor, blockly or repl? */
+    RUR.state.input_method = "editor";
 
     /* Should be self-explanatory */
     RUR.state.human_language = document.documentElement.lang;
@@ -3165,13 +3149,63 @@ RUR.state.set_initial_values = function () {
 
     /* Python only: set to True if watching variables */
     RUR.state.watch_vars = false;
+
+    /* if stop button has been clicked */
+    RUR.state.stop_called = false;
+
+    RUR.state.prevent_playback = false;
+};
+
+RUR.state.save = function () {
+    /* Saves the current state in local storage */
+
+    localStorage.setItem("programming_language", RUR.state.programming_language);
+};
+
+RUR.state.set_programming_language = function(lang){
+    if (lang === RUR.state.programming_language) {
+        return;
+    }
+    RUR.state.programming_language = lang;
+    switch(lang){
+        case 'javascript':
+            $("#python_choices").hide();
+            $("#javascript_choices").show();
+            $("#javascript_choices").change();
+            $("#editor-tab").html(RUR.translate("Javascript Code"));
+            editor.setOption("mode", "javascript");
+            pre_code_editor.setOption("mode", "javascript");
+            post_code_editor.setOption("mode", "javascript");
+            $("#library-tab").parent().hide();
+            $("#python-additional-menu p button").attr("disabled", "true");
+            $("#py_console").hide();
+            RUR.kbd.set_programming_language("javascript");
+            break;
+        case 'python':
+            $("#python_choices").show();
+            $("#javascript_choices").hide();
+            $("#python_choices").change();
+            $("#editor-tab").html(RUR.translate("Python Code"));
+            editor.setOption("mode", {name: "python", version: 3});
+            pre_code_editor.setOption("mode", {name: "python", version: 3});
+            post_code_editor.setOption("mode", {name: "python", version: 3});
+            $("#library-tab").parent().show();
+            $("#python-additional-menu p button").removeAttr("disabled");
+            RUR.kbd.set_programming_language("python");
+            break;
+        default:
+            console.log("PROBLEM: RUR.state.set_programming_language called without args.");
+    }
+    $("#editor-tab").click(); // also handles #highlight and #watch-vars
+
+    try {
+        RUR.reset_code_in_editors();
+    } catch (e) {}
+
 };
 /*
    Utilities for dealing with html LocalStorage.
  */
-
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
 
 RUR.storage = {};
 
@@ -3331,9 +3365,6 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
 /*globals $, RUR */
 
 RUR.ui = {};
-
-RUR.state.stop_called = false;
-RUR.state.prevent_playback = false;
 
 RUR.ui.show_only_reload2 = function (bool) {
     if (bool) {
@@ -6788,36 +6819,42 @@ RUR.zz_dr_onchange = function () {
             show_python_editor();
             hide_console();
             hide_blockly();
+            RUR.state.input_method = "editor";
         } else if($(this).val() == "repl") {
             hide_python_editor();
             show_console();
             hide_blockly();
+            RUR.state.input_method = "repl";
         } else {
             hide_python_editor();
             hide_console();
             show_blockly();
+            RUR.state.input_method = "blockly";
         }
     });
 
     $("#javascript_choices").change(function() {
-        if($(this).val() == "editor") {
+        if($(this).val() == "blockly") {
+            hide_javascript_editor();
+            show_blockly();
+            RUR.state.input_method = "blockly";
+        } else {
             show_javascript_editor();
             hide_blockly();
-        } else {
-            hide_python_editor();
-            hide_console();
-            show_blockly();
+            RUR.state.input_method = "editor";
         }
     });
 
     $('#editor_visible_blockly').change(function() {
         if ($('#editor_visible_blockly')[0].checked) {
+            RUR.state.input_method = "editor";
             if (RUR.state.programming_language == "python"){
                 show_python_editor();
             } else {
                 show_javascript_editor();
             }
         } else {
+            RUR.state.input_method = "blockly";
             if (RUR.state.programming_language == "python"){
                 hide_python_editor();
             } else {
@@ -6827,7 +6864,6 @@ RUR.zz_dr_onchange = function () {
     });
 
     function show_blockly () {
-        RUR.blockly.active = true;
         $("#blockly-wrapper").show();
         $("#visible_blockly").show();
         if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
@@ -6845,7 +6881,6 @@ RUR.zz_dr_onchange = function () {
         $("#blockly-wrapper").hide();
         window.dispatchEvent(new Event('resize'));
         $("#visible_blockly").hide();
-        RUR.blockly.active = false;
         $("#special-keyboard-button").show();
     }
 
@@ -6883,13 +6918,11 @@ RUR.zz_dr_onchange = function () {
         } catch (e) {
             console.log("trying to restart repl failure", e);
         }
-        RUR.state.input_method==="repl" = true;
     }
     function hide_console() {
         $("#py_console").hide();
         $("#kbd_py_console_btn").hide();
         RUR.ui.show_only_reload2(false);
-        RUR.state.input_method==="repl" = false;
     }
 
 };
