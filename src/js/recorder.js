@@ -232,7 +232,7 @@ RUR.rec.conclude = function () {
 
     if (RUR.rec.nb_frames > 0) {
         frame = RUR.rec.frames[RUR.rec.nb_frames-1];
-    } 
+    }
     if (frame === undefined) {
         frame = {};
         frame.world = RUR.world.clone_world();

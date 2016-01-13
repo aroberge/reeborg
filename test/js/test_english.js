@@ -124,6 +124,16 @@ QUnit.test("Centre 1", function(assert) {
     notOk(RUR.unit_tests.eval_javascript(world_url, "/test/src/test_syntax_fail.js").success, "Failing program (syntax error) recognized as such.");
 });
 
+QUnit.test("Failed goal with zero frame recorded", function(assert) {
+    RUR.unit_tests.reset();
+    RUR.state.programming_language = "javascript";
+    RUR.unit_tests.load_world_file("/src/worlds/tutorial_en/center1.json");
+    RUR.unit_tests.load_program("/test/src/test_center1_fail2.js");
+    RUR.runner.eval(RUR.unit_tests.program);
+    RUR.rec.conclude();
+    equal(RUR.unit_tests.feedback_element, "#Reeborg-shouts", "Failure properly recognized.");
+});
+
 
 QUnit.module("Failing Python programs");
 QUnit.test("Centre 1", function(assert) {
