@@ -47,24 +47,32 @@ def transporte(obj=None):  #py:carries_object
             chaîne de caractères.
 
     Returns:
-        une liste d'objets retrouvés.  Si Reeborg ne transporte aucun objet,
+        Si aucun argument n'est spécifié et que Reeborg transporte des
+        objets, un dict décrivant les objets transportés et leur nombre est
+        retourné.
+        Si un objet est spécifié comme argument et que Reeborg transporte
+        au moins un objet de ce type, le nombre de ces objets est retourné.
+        Si Reeborg ne transporte aucun objet,
         ou si un objet spécifié comme paramètre n'est pas présent,
-        le résultat est une liste vide.
+        le résultat est zéro.
 
     Exemples possibles:
 
         >>> transporte()
-        ["jeton", "pomme"]
+        {"jeton": 2, "pomme": 1}
         >>> transporte("jeton")
-        ["jeton"]
+        2
         >>> transporte("fraise")
-        []
+        0
     """
     if obj is not None:
-        ans = RUR._carries_object_(obj)
+        return RUR._carries_object_(obj)
     else:
         ans = RUR._carries_object_()
-    return list(ans)
+        if ans:
+            return dict(ans)
+        else:
+            return 0
 
 
 def efface_print():  #py:clear_print

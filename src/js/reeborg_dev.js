@@ -2559,8 +2559,14 @@ RUR.rec.display_frame = function () {
 RUR.rec.conclude = function () {
     var frame, goal_status;
 
-    frame = RUR.rec.frames[RUR.rec.nb_frames-1];
-    if (frame !== undefined && frame.world !== undefined && frame.world.goal !== undefined){
+    if (RUR.rec.nb_frames > 0) {
+        frame = RUR.rec.frames[RUR.rec.nb_frames-1];
+    } 
+    if (frame === undefined) {
+        frame = {};
+        frame.world = RUR.world.clone_world();
+    }
+    if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
             if (RUR.control.sound_flag) {

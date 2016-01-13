@@ -37,25 +37,30 @@ def carries_object(obj=None):  #py:carries_object
         obj: optional parameter which is the name of an object as a string.
 
     Returns:
-        a list of the type of objects carried by Reeborg.
+        If no argument is specified, a dict showing the objects carried
+        (name and number); if an argument is specified, it returns the number
+        of arguments carried.
+        a dict of the type of objects carried by Reeborg.
         If Reeborg carries no object, or not the specified one,
-        the result is an empty list.
+        the result is zero.
 
     Examples:
 
         >>> carries_object()
-        ["token", "apple"]
+        {"token": 2, "apple": 1}
         >>> carries_object("token")
-        ["token"]
+        2
         >>> carries_object("banana")
-        []
+        0
     """
     if obj is not None:
-        ans = RUR._carries_object_(obj)
+        return RUR._carries_object_(obj)
     else:
         ans = RUR._carries_object_()
-    return list(ans)
-
+        if ans:
+            return dict(ans)
+        else:
+            return 0
 
 def clear_print():  #py:clear_print
     """Erase all the text previously written using a call to print()."""
