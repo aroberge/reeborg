@@ -26,9 +26,7 @@ RUR._carries_object_ = function (arg) {
     return RUR.control.carries_object(RUR.current_world.robots[0], arg);
 };
 
-RUR._clear_print_ = function() {
-    RUR.output.clear_print();
-};
+RUR._clear_print_ = RUR.output.clear_print;
 
 RUR._color_here_ = function () {
     var robot = RUR.current_world.robots[0];
@@ -39,13 +37,9 @@ RUR._default_robot_body_ = function () { // simply returns body
     return RUR.current_world.robots[0];
 };
 
-RUR._dir_js_ = function (obj) {
-    RUR.inspect(obj);
-};
+RUR._dir_js_ = RUR.inspect;
 
-RUR._done_ = function () {
-    RUR.control.done();
-};
+RUR._done_ = RUR.control.done;
 
 RUR._front_is_clear_ = function() {
   return RUR.control.front_is_clear(RUR.current_world.robots[0]);
@@ -60,13 +54,9 @@ RUR._move_ = function () {
     RUR.control.move(RUR.current_world.robots[0]);
 };
 
-RUR._new_robot_images_ = function (images) {
-    RUR.vis_robot.new_robot_images(images);
-};
+RUR._new_robot_images_ = RUR.vis_robot.new_robot_images;
 
-RUR._no_highlight_ = function () {
-    RUR.ui.user_no_highlight();
-};
+RUR._no_highlight_ = RUR.ui.user_no_highlight;
 
 RUR._object_here_ = function (arg) {
     return RUR.control.object_here(RUR.current_world.robots[0], arg);
@@ -79,9 +69,7 @@ RUR._paint_square_ = function (color) {
     RUR.control.set_tile_at_position(x, y, color);
 };
 
-RUR._pause_ = function (ms) {
-    RUR.control.pause(ms);
-};
+RUR._pause_ = RUR.control.pause;
 
 RUR._print_html_ = function (html, append) {
     RUR.output.print_html(html, append);
@@ -99,9 +87,7 @@ RUR._recording_ = function(bool) {
     }
 };
 
-RUR._remove_robots_ = function () {
-    RUR.world.remove_robots();
-};
+RUR._remove_robots_ = RUR.world.remove_robots;
 
 RUR._right_is_clear_ = function() {
     return RUR.control.right_is_clear(RUR.current_world.robots[0]);
@@ -111,54 +97,43 @@ RUR._set_max_nb_instructions_ = function(n){
     RUR.MAX_STEPS = n;
 };
 
-RUR._set_max_nb_robots_ = function(n){
-    RUR.control.set_max_nb_robots(n);
-};
+RUR._set_max_nb_robots_ = RUR.control.set_max_nb_robots;
 
 RUR._set_trace_color_ = function(color){
     RUR.current_world.robots[0].trace_color = color;
 };
 
-RUR._set_trace_style_ = function(style){
-    RUR.vis_robot.set_trace_style(style);
-};
+RUR._set_trace_style_ = RUR.vis_robot.set_trace_style;
 
-RUR._sound_ = function (bool) {
-    RUR.control.sound(bool);
-};
+RUR._sound_ = RUR.control.sound;
 
 RUR._take_ = function(arg) {
     RUR.control.take(RUR.current_world.robots[0], arg);
 };
 
-RUR._think_ = function (ms) {
-    RUR.control.think(ms);
-};
+RUR._think_ = RUR.control.think;
 
 RUR._turn_left_ = function () {
     RUR.control.turn_left(RUR.current_world.robots[0]);
 };
 
-RUR._view_source_js_ = function (obj) {
-    RUR.output.view_source_js(obj);
-};
+RUR._view_source_js_ = RUR.output.view_source_js;
 
 RUR._wall_in_front_ = function() {
     return RUR.control.wall_in_front(RUR.current_world.robots[0]);
 };
 
+RUR._write_ = RUR.output.write;
+
+RUR.__write_ = RUR.output._write;
 
 RUR._wall_on_right_ = function() {
     return RUR.control.wall_on_right(RUR.current_world.robots[0]);
 };
 
-RUR._MakeCustomMenu_ = function (content){
-    RUR.custom_menu.make(content);
-};
+RUR._MakeCustomMenu_ = RUR.custom_menu.make;
 
-RUR._World_ = function (url, shortname) {
-    RUR.file_io.load_world_from_program(url, shortname);
-};
+RUR._World_ = RUR.file_io.load_world_from_program;
 
 /*  methods below */
 
@@ -176,10 +151,6 @@ RUR._UR.carries_object_ = function (robot, obj) {
 
 RUR._UR.front_is_clear_ = function (robot) {
     RUR.control.front_is_clear(robot);
-};
-
-RUR._UR.in_the_bag_ = function (robot) {
-    RUR.control.in_the_bag(robot);
 };
 
 RUR._UR.is_facing_north_ = function (robot) {

@@ -27,13 +27,6 @@ def au_but():  #py:at_goal
     return RUR._at_goal_()
 
 
-def observer(expr):  #py:add_watch
-    """Ajoute une expression Python valide (donnée comme une chaîne)
-       à la liste des variables à observer.
-    """
-    RUR.add_watch(expr)
-
-
 def construit_un_mur():  #py:build_wall
     """Indique à Reeborg de construire un mur devant sa position."""
     RUR._build_wall_()
@@ -93,22 +86,6 @@ def dir_js(obj):  #py:dir_js
     RUR._dir_js_(obj)
 
 
-def dir_py(obj):  #py:dir_py
-    """Lists attributes and methods of a Python object, excluding
-       those whose name start with a double underscore and are
-       considered to be private.
-    """
-    attrs = []
-    for attr in dir(obj):
-        if attr.startswith("__"):
-            continue
-        if callable(getattr(obj, attr)):
-            attr += "()"
-        attrs.append(attr)
-    print_html(str("\n".join(attrs)).replace("&", "&amp").replace("<", "&lt;"
-                  ).replace(">", "&gt;").replace("\n", "<br>"))
-
-
 def termine():  #py:done
     """Termine l'exécution d'un programme."""
     RUR._done_()
@@ -122,11 +99,6 @@ def rien_devant():  #py:front_is_clear
        True si le chemin est non bloqué, False autrement."""
     return RUR._front_is_clear_()
 
-
-def dans_le_sac():  #py:in_the_bag
-    return dict(RUR._in_the_bag_())
-
-
 def est_face_au_nord():  #py:is_facing_north
     """Indique si Reeborg fait face au nord (haut de l'écran) ou non."""
     return RUR._is_facing_north_()
@@ -134,6 +106,23 @@ def est_face_au_nord():  #py:is_facing_north
 def avance():  #py:move
     """Avance d'une case"""
     RUR._move_()
+
+
+def nouvelles_images_de_robot(images):  #py:new_robot_images
+    """Surtout destiné aux créateurs de mondes, ceci permet de remplacer
+    les images utilisées pour le robot par d'autres images.
+
+    Une explication plus détaillée viendra.
+    """
+    if "est" in images:
+        images["east"] = images["est"]
+    if "ouest" in images:
+        images["west"] = images["ouest"]
+    if "nord" in images:
+        images["north"] = images["nord"]
+    if "sud" in images:
+        images["south"] = images["sud"]
+    RUR._new_robot_images_(images)
 
 
 def pas_de_surlignement():  #py:no_highlight
@@ -172,6 +161,11 @@ def objet_ici(obj=None):  #py:object_here
     return list(ans)  # convert from js list-like object to proper Python list
 
 
+def colorie(couleur):  #py:paint_square
+    """Colorie la case où se trouve Reeborg avec la couleur spécifiée"""
+    RUR._paint_square_(couleur)
+
+
 def pause(ms=None):  #py:pause
     """Pause l'éxecution du programme à l'écran.
 
@@ -182,6 +176,14 @@ def pause(ms=None):  #py:pause
         RUR._pause_()
     else:
         RUR._pause_(ms)
+
+
+def print_html(html, append=False):  #py:print_html
+    """Surtout destiné aux créateurs de monde, la fonction print_html() est
+       semblable à print() sauf qu'elle accepte du texte html.
+    """
+    RUR._print_html_(html, append)
+window['print_html'] = print_html
 
 
 def depose(obj=None):  #py:put
@@ -214,6 +216,22 @@ def rien_a_droite():  #py:right_is_clear
     Returns:
        True si un obstacle est à la droite, False autrement."""
     return RUR._right_is_clear_()
+
+
+def max_nb_instructions(nb):  #py:set_max_nb_instructions
+    """Surtout destiné aux créateurs de mondes,
+       ceci permet de changer le nombre maximal d'instructions
+       exécutées par un robot.
+    """
+    RUR._set_max_steps_(nb)
+
+
+def max_nb_robots(nb):  #py:set_max_nb_robots
+    """Surtout destiné aux créateurs de mondes,
+       ceci permet de limiter le nombre de robots
+       permis dans un monde donné.
+    """
+    RUR._set_max_nb_robots_(nb)
 
 
 def couleur_de_trace(couleur):  #py:set_trace_color
@@ -308,6 +326,12 @@ def mur_a_droite():  #py:wall_on_right
     return RUR._wall_on_right_()
 
 
+def MenuPersonalise(contenu):  #py:MakeCustomMenu
+    """À l'intention des éducateurs.  Permet de créer des menus de monde
+       personalisés.  Voir la documentation pour plus de détails."""
+    RUR._MakeCustomMenu_(contenu)
+
+
 def Monde(url, nom=None):  #py:World
     """Permet de sélectioner un monde donné à l'intérieur d'un programme.
        Si le monde présentement utilisé est différent, le résultat de
@@ -336,54 +360,9 @@ def Monde(url, nom=None):  #py:World
            # le nom Bonjour sera ajouté au sélecteur pour indiquer ce monde.
     """
     if nom is None:
-        RUR.file_io.load_world_from_program(url)
+        RUR._World_(url)
     else:
-        RUR.file_io.load_world_from_program(url, nom)
-
-
-def max_nb_instructions(nb):  #py:set_max_nb_instructions
-    """Surtout destiné aux créateurs de mondes,
-       ceci permet de changer le nombre maximal d'instructions
-       exécutées par un robot.
-    """
-    RUR._set_max_steps_(nb)
-
-def max_nb_robots(nb):  #py:set_max_nb_robots
-    """Surtout destiné aux créateurs de mondes,
-       ceci permet de limiter le nombre de robots
-       permis dans un monde donné.
-    """
-    RUR._set_max_nb_robots_(nb)
-
-
-def print_html(html, append=False):  #py:print_html
-    """Surtout destiné aux créateurs de monde, la fonction print_html() est
-       semblable à print() sauf qu'elle accepte du texte html.
-    """
-    RUR.output.print_html(html, append)
-window['print_html'] = print_html
-
-
-def nouvelles_images_de_robot(images):  #py:new_robot_images
-    """Surtout destiné aux créateurs de mondes, ceci permet de remplacer
-    les images utilisées pour le robot par d'autres images.
-
-    Une explication plus détaillée viendra.
-    """
-    if "est" in images:
-        images["east"] = images["est"]
-    if "ouest" in images:
-        images["west"] = images["ouest"]
-    if "nord" in images:
-        images["north"] = images["nord"]
-    if "sud" in images:
-        images["south"] = images["sud"]
-    RUR._new_robot_images_(images)
-
-def MenuPersonalise(contenu):  #py:MakeCustomMenu
-    """À l'intention des éducateurs.  Permet de créer des menus de monde
-       personalisés.  Voir la documentation pour plus de détails."""
-    RUR.custom_menu.make(contenu)
+        RUR._World_(url, nom)
 
 
 class RobotUsage(object):  #py:UR
@@ -427,21 +406,53 @@ class RobotUsage(object):  #py:UR
             carries = 'ne transporte pas de jetons'
         return "RobotUsage situé en {} {} {}.".format(location, facing, carries)  # NOQA
 
-    def avance(self):  #py:UR.move
-        """avance d'une case"""
-        RUR.control.move(self.body)
-
     def au_but(self):  #py:UR.at_goal
         """Indique si Reeborg a atteint la position demandée.
 
         Returns:
             True si Reeborg a atteint son but.
         """
-        return RUR.control.at_goal(self.body)
+        return RUR._UR.at_goal_(self.body)
 
     def construit_un_mur(self):  #py:UR.build_wall
         """Indique à Reeborg de construire un mur devant sa position."""
-        RUR.control.build_wall(self.body)
+        RUR._UR.build_wall_(self.body)
+
+    def transporte(self, obj=None):  #py:UR.carries_object
+        """ Indique si Reeborg transporte un ou des objets.
+
+        Args:
+            obj: paramètre optionnel qui est le nom d'un objet sous forme de
+                chaîne de caractères.
+
+        Returns:
+            Si aucun argument n'est spécifié et que Reeborg transporte des
+            objets, un dict décrivant les objets transportés et leur nombre est
+            retourné.
+            Si un objet est spécifié comme argument et que Reeborg transporte
+            au moins un objet de ce type, le nombre de ces objets est retourné.
+            Si Reeborg ne transporte aucun objet,
+            ou si un objet spécifié comme paramètre n'est pas présent,
+            le résultat est zéro.
+
+        Exemples possibles:
+
+            >>> reeborg = RobotUsage()
+            >>> reeborg.transporte()
+            {"jeton": 2, "pomme": 1}
+            >>> reeborg.transporte("jeton")
+            2
+            >>> reeborg.transporte("fraise")
+            0
+        """
+        if obj is not None:
+            return RUR._UR.carries_object_(self.body, obj)
+        else:
+            ans = RUR._UR.carries_object_(self.body)
+            if ans:
+                return dict(ans)
+            else:
+                return 0
 
     def rien_devant(self):  #py:UR.front_is_clear
         """Indique si un obstacle (mur, clôture, eau, mur de brique, ) bloque
@@ -449,54 +460,15 @@ class RobotUsage(object):  #py:UR
 
         Returns:
            True si le chemin est non bloqué, False autrement."""
-        return RUR.control.front_is_clear(self.body)
-
-    def mur_devant(self):  #py:UR.wall_in_front
-        """Indique si un mur bloque le chemin.
-
-        Returns:
-           True si un mur est devant, False autrement."""
-        return RUR.control.wall_in_front(self.body)
-
-    def rien_a_droite(self):  #py:UR.right_is_clear
-        """Indique si un obstacle (mur, clôture, eau, mur de brique, etc.)
-           se trouve à la droite immédiate de Reeborg.
-
-        Returns:
-           True si un obstacle est à la droite, False autrement."""
-        return RUR.control.right_is_clear(self.body)
-
-    def mur_a_droite(self):  #py:UR.wall_on_right
-        """Indique si un mur se trouve immédiatement à la droite de Reeborg.
-
-        Returns:
-           True si un mur est à la droite, False autrement."""
-        return RUR.control.wall_on_right(self.body)
-
-    def dans_le_sac(self):  #py:UR.in_the_bag
-        return dict(RUR._in_the_bag_(self.body))
+        return RUR._UR.front_is_clear_(self.body)
 
     def est_face_au_nord(self):  #py:UR.is_facing_north
         """Indique si Reeborg fait face au nord (haut de l'écran) ou non."""
-        return RUR.control.is_facing_north(self.body)
+        return RUR._UR.is_facing_north_(self.body)
 
-    def depose(self, obj=None):  #py:UR.put
-        """Dépose un objet.  Si Reeborg transporte plus d'un type d'objet,
-           on doit spécifier lequel sinon ceci causera une exception."""
-        if obj is None:
-            RUR.control.put(self.body)
-        else:
-            RUR.control.put(self.body, obj)
-
-    def prend(self, obj=None):  #py:UR.take
-        """Prend un objet.  Si plus d'un type d'objet se trouve à l'endroit où
-           Reeborg est, on doit spécifier lequel sinon ceci causera une
-           exception.
-        """
-        if obj is None:
-            RUR.control.take(self.body)
-        else:
-            RUR.control.take(self.body, obj)
+    def avance(self):  #py:UR.move
+        """avance d'une case"""
+        RUR._UR.move_(self.body)
 
     def objet_ici(self, obj=None):  #py:UR.object_here
         """ Indique si un ou des types d'objets se trouvent à la position du robot.
@@ -521,39 +493,25 @@ class RobotUsage(object):  #py:UR
             []
         """
         if obj is not None:
-            return list(RUR.control.object_here(self.body, obj))
+            return list(RUR._UR.object_here_(self.body, obj))
         else:
-            return list(RUR.control.object_here(self.body))
+            return list(RUR._UR.object_here_(self.body))
 
-    def transporte(self, obj=None):  #py:UR.carries_object
-        """ Indique si Reeborg transporte un ou des objets.
+    def depose(self, obj=None):  #py:UR.put
+        """Dépose un objet.  Si Reeborg transporte plus d'un type d'objet,
+           on doit spécifier lequel sinon ceci causera une exception."""
+        if obj is None:
+            RUR._UR.put_(self.body)
+        else:
+            RUR._UR.put_(self.body, obj)
 
-        Args:
-            obj: paramètre optionnel qui est le nom d'un objet sous forme de
-                chaîne de caractères.
+    def rien_a_droite(self):  #py:UR.right_is_clear
+        """Indique si un obstacle (mur, clôture, eau, mur de brique, etc.)
+           se trouve à la droite immédiate de Reeborg.
 
         Returns:
-            une liste d'objets retrouvés.  Si Reeborg ne transporte
-            aucun objet, ou si un objet spécifié comme paramètre n'est pas
-            présent, le résultat est une liste vide.
-
-        Exemples possibles:
-
-            >>> reeborg = RobotUsage()
-            >>> reeborg.transporte()
-            ["jeton", "pomme"]
-            >>> reeborg.transporte("jeton")
-            ["jeton"]
-            >>> reeborg.transporte("fraise")
-            []
-        """
-        if obj is not None:
-            return list(RUR.control.carries_object(self.body, obj))
-        else:
-            return list(RUR.control.carries_object(self.body))
-
-    def tourne_a_gauche(self):  #py:UR.turn_left
-        RUR.control.turn_left(self.body)
+           True si un obstacle est à la droite, False autrement."""
+        return RUR._UR.right_is_clear_(self.body)
 
     def modele(self, modele):  #py:UR.set_model
         """Permet de choisir le modèle du robot.
@@ -561,7 +519,7 @@ class RobotUsage(object):  #py:UR
            Args:
               modele: un nombre de 0 à 3.
         """
-        RUR.control.set_model(self.body, modele)
+        RUR._UR.set_model_(self.body, modele)
 
     def couleur_de_trace(self, couleur):  #py:UR.set_trace_color
         """Change la couleur de trace du robot.
@@ -579,7 +537,7 @@ class RobotUsage(object):  #py:UR
                 >>> reeborg.couleur_de_trace("rgba(125, 0, 0, 0.5)")
                 >>> reeborg.couleur_de_trace("#FF00FF")
         """
-        RUR.control.set_trace_color(self.body, couleur)
+        RUR._UR.set_trace_color_(self.body, couleur)
 
     def style_de_trace(self, style):  #py:UR.set_trace_style
         """Change le style de trace du robot.
@@ -602,7 +560,59 @@ class RobotUsage(object):  #py:UR
             style = "default"
         else:
             raise ReeborgError("Valeur de style inconnue pour style_de_trace().")  # NOQA
-        RUR.control.set_trace_style(self.body, style)
+        RUR._UR.set_trace_style_(self.body, style)
+
+    def prend(self, obj=None):  #py:UR.take
+        """Prend un objet.  Si plus d'un type d'objet se trouve à l'endroit où
+           Reeborg est, on doit spécifier lequel sinon ceci causera une
+           exception.
+        """
+        if obj is None:
+            RUR._UR.take_(self.body)
+        else:
+            RUR._UR.take_(self.body, obj)
+
+    def tourne_a_gauche(self):  #py:UR.turn_left
+        RUR._UR.turn_left_(self.body)
+
+    def mur_devant(self):  #py:UR.wall_in_front
+        """Indique si un mur bloque le chemin.
+
+        Returns:
+           True si un mur est devant, False autrement."""
+        return RUR._UR.wall_in_front_(self.body)
+
+    def mur_a_droite(self):  #py:UR.wall_on_right
+        """Indique si un mur se trouve immédiatement à la droite de Reeborg.
+
+        Returns:
+           True si un mur est à la droite, False autrement."""
+        return RUR._UR.wall_on_right_(self.body)
+
+
+#py:python_specific
+
+def observer(expr):  #py:add_watch
+    """Ajoute une expression Python valide (donnée comme une chaîne)
+       à la liste des variables à observer.
+    """
+    RUR.add_watch(expr)
+
+
+def dir_py(obj):  #py:dir_py
+    """Lists attributes and methods of a Python object, excluding
+       those whose name start with a double underscore and are
+       considered to be private.
+    """
+    attrs = []
+    for attr in dir(obj):
+        if attr.startswith("__"):
+            continue
+        if callable(getattr(obj, attr)):
+            attr += "()"
+        attrs.append(attr)
+    print_html(str("\n".join(attrs)).replace("&", "&amp").replace("<", "&lt;"
+                  ).replace(">", "&gt;").replace("\n", "<br>"))
 
 
 class ReeborgError(Exception):  #py:RE
@@ -659,11 +669,6 @@ class InfoSatellite():  #py:SI
         """imprime une copie formattée de la carte"""
         print(RUR.control.get_world_map())
 
-try:
-    RUR.reeborg_loaded = True
-    window.console.log("reeborg loaded")
-except:
-    pass
 
 #py:obsolete
 # Do not tranlate the following

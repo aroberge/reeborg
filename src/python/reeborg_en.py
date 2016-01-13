@@ -103,10 +103,6 @@ def is_facing_north():  #py:is_facing_north
     return RUR._is_facing_north_()
 
 
-def in_the_bag():  #py:in_the_bag
-    return dict(RUR._in_the_bag_())
-
-
 def move():  #py:move
     """Move forward, by one grid position."""
     RUR._move_()
@@ -160,6 +156,7 @@ def object_here(obj=None):  #py:object_here
 
 
 def paint_square(color):  #py:paint_square
+    """Fills the grid square where Reeborg is located with the specified color"""
     RUR._paint_square_(color)
 
 
@@ -427,24 +424,32 @@ class UsedRobot(object):  #py:UR
             obj: optional parameter which is the name of an object as a string.
 
         Returns:
-            a list of the type of objects carried by Reeborg.
+            If no argument is specified, a dict showing the objects carried
+            (name and number); if an argument is specified, it returns the
+            number of arguments carried.
+            a dict of the type of objects carried by Reeborg.
             If Reeborg carries no object, or not the specified one,
-            the result is an empty list.
+            the result is zero.
 
         Examples:
 
             >>> reeborg = UsedRobot()
             >>> reeborg.carries_object()
-            ["token", "apple"]
+            {"token": 2, "apple": 1}
             >>> reeborg.carries_object("token")
-            ["token"]
+            2
             >>> reeborg.carries_object("banana")
-            []
+            0
         """
+
         if obj is not None:
-            return list(RUR._UR.carries_object_(self.body, obj))
+            return RUR._UR.carries_object_(self.body, obj)
         else:
-            return list(RUR._UR.carries_object_(self.body))
+            ans = RUR._UR.carries_object_(self.body)
+            if ans:
+                return dict(ans)
+            else:
+                return 0
 
     def front_is_clear(self):  #py:UR.front_is_clear
         """Indicates if an obstacle (wall, fence, water, etc.) blocks the path.
@@ -453,9 +458,6 @@ class UsedRobot(object):  #py:UR
            True if the path is clear (not blocked), False otherwise.
         """
         return RUR._UR.front_is_clear_(self.body)
-
-    def in_the_bag(self):  #py:UR.in_the_bag
-        return dict(RUR._UR.in_the_bag_(self.body))
 
     def is_facing_north(self):  #py:UR.is_facing_north
         """Indicates if Reeborg is facing North (top of the screen) or not."""

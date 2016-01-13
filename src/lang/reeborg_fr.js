@@ -14,10 +14,9 @@ RUR.reset_definitions = function () {
         return r;
     };
     window.dir_js = RUR._dir_js_;
-    window.termine = RUR.control.done;
+    window.termine = RUR._done_;
     window.rien_devant = RUR._front_is_clear_;
     window.est_face_au_nord = RUR._is_facing_north_;
-    window.dans_le_sac = RUR._in_the_bag_;
     window.avance = RUR._move_;
 
     mur_devant = RUR._wall_in_front_;
@@ -37,24 +36,25 @@ RUR.reset_definitions = function () {
         RUR._new_robot_images_(images);
     };
     window.objet_ici = RUR._object_here_;
-    window.pause = RUR.control.pause;
-    window.print_html = RUR.output.print_html;
+    window.pause = RUR._pause_;
+    window.print_html = RUR._print_html_;
     window.depose = RUR._put_;
     window.enregistrement = RUR._recording_;
     window.plus_de_robots = RUR._remove_robots_;
     window.rien_a_droite = RUR._right_is_clear_;
     window.nombre_de_robots = RUR._set_max_nb_robots_;
     window.nombre_d_instructions = RUR._set_max_steps_;
-    window.son = RUR.control.sound;
+    window.son = RUR._sound_;
     window.prend = RUR._take_;
-    window.pense = RUR.control.think;
+    window.pense = RUR._think_;
     window.tourne_a_gauche = RUR._turn_left_;
     window.voir_source_js = RUR._view_source_js_;
     window.mur_devant = RUR._wall_in_front_;
     window.mur_a_droite = RUR._wall_on_right_;
-    window.ecrit = RUR.output.write;
-    window._write = RUR.output._write;
-    window.Monde = RUR.file_io.load_world_from_program;
+    window.ecrit = RUR._write_;
+    window._write = RUR.__write_;
+    window.MenuPersonalise = RUR._MakeCustomMenu_;    
+    window.Monde = RUR._World_;
 
     // The following are for OOP programming in Javascript
     RobotUsage = function (x, y, orientation, tokens)  {
@@ -62,67 +62,73 @@ RUR.reset_definitions = function () {
         RUR.world.add_robot(this.body);
     };
     RobotUsage.prototype.au_but = function () {
-        RUR.control.at_goal(this.body);
+        RUR._UR.at_goal_(this.body);
     };
 
     RobotUsage.prototype.construit_un_mur = function () {
-        RUR.control.build_wall(this.body);
+        RUR._UR.build_wall_(this.body);
+    };
+
+    RobotUsage.prototype.transporte = function () {
+        RUR._UR.carries_object_(this.body);
     };
 
     RobotUsage.prototype.rien_devant = function () {
-        RUR.control.front_is_clear(this.body);
+        RUR._UR.front_is_clear_(this.body);
+    };
+
+    RobotUsage.prototype.est_face_au_nord = function () {
+        RUR._UR.is_facing_north_(this.body);
+    };
+
+    RobotUsage.prototype.avance = function () {
+        RUR._UR.move_(this.body);
+    };
+
+    RobotUsage.prototype.objet_ici = function (obj) {
+        RUR._UR.object_here_(this.body, obj);
+    };
+
+    RobotUsage.prototype.depose = function () {
+        RUR._UR.put_(this.body);
+    };
+
+    RobotUsage.prototype.rien_a_droite = function () {
+        RUR._UR.right_is_clear_(this.body);
+    };
+
+    RobotUsage.prototype.modele = function(model) {
+        RUR._UR.set_model_(this.body, model);
     };
 
     RobotUsage.prototype.mur_devant = function () {
         RUR.control.wall_in_front(this.body);
     };
 
-
-    RobotUsage.prototype.transporte = function () {
-        RUR.control.carries_object(this.body);
+    RobotUsage.prototype.couleur_de_trace = function (robot, color) {
+        RUR._UR.set_trace_color_(robot, color);
     };
 
-    RobotUsage.prototype.dans_le_sac = function () {
-        RUR.control.in_the_bag(this.body);
-    };
-
-    RobotUsage.prototype.est_face_au_nord = function () {
-        RUR.control.is_facing_north(this.body);
-    };
-
-    RobotUsage.prototype.avance = function () {
-        RUR.control.move(this.body);
-    };
-
-    RobotUsage.prototype.modele = function(model) {
-        RUR.control.set_model(this.body, model);
-    };
-
-    RobotUsage.prototype.depose = function () {
-        RUR.control.put(this.body);
-    };
-
-
-    RobotUsage.prototype.rien_a_droite = function () {
-        RUR.control.right_is_clear(this.body);
-    };
-
-    RobotUsage.prototype.mur_a_droite = function () {
-        RUR.control.wall_on_right(this.body);
-    };
-
-
-    RobotUsage.prototype.objet_ici = function (obj) {
-        RUR.control.object_here(this.body, obj);
+    RobotUsage.prototype.style_de_trace = function (robot, style) {
+        RUR._UR.set_trace_style_(robot, style);
     };
 
     RobotUsage.prototype.prend = function () {
-        RUR.control.take(this.body);
+        RUR._UR.take_(this.body);
     };
 
     RobotUsage.prototype.tourne_a_gauche = function () {
-        RUR.control.turn_left(this.body);
+        RUR._UR.turn_left_(this.body);
     };
+
+    RobotUsage.prototype.mur_devant = function () {
+        RUR._UR.wall_in_front_(this.body);
+    };
+
+    RobotUsage.prototype.mur_a_droite = function () {
+        RUR._UR.wall_on_right_(this.body);
+    };
+
 };
 
 RUR.reset_definitions();

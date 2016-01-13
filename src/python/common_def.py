@@ -216,6 +216,3 @@ def generic_translate_python(src, lib, lang_import, highlight, var_watch,
         exec(src, globals_)
     except Exception as e:
         window.RUR.__python_error = e
-
-window.RUR.common_def_loaded = True
-window.console.log("common_def_loaded")

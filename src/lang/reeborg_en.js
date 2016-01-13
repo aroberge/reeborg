@@ -37,31 +37,31 @@ RUR.reset_definitions = function () {
         return r;
     };
     window.dir_js = RUR._dir_js_;
-    window.done = RUR.control.done;
+    window.done = RUR._done_;
     window.front_is_clear = RUR._front_is_clear_;
     window.is_facing_north = RUR._is_facing_north_;
-    window.in_the_bag = RUR._in_the_bag_;
     window.move = RUR._move_;
     window.new_robot_images = RUR._new_robot_images_;
     window.object_here = RUR._object_here_;
-    window.pause = RUR.control.pause;
-    window.print_html = RUR.output.print_html;
+    window.pause = RUR._pause_;
+    window.print_html = RUR._print_html_;
     window.put = RUR._put_;
     window.recording = RUR._recording_;
     window.remove_robots = RUR._remove_robots_;
     window.right_is_clear = RUR._right_is_clear_;
     window.set_max_nb_robots = RUR._set_max_nb_robots_;
     window.set_max_steps = RUR._set_max_steps_;
-    window.sound = RUR.control.sound;
+    window.sound = RUR._sound_;
     window.take = RUR._take_;
-    window.think = RUR.control.think;
+    window.think = RUR._think_;
     window.turn_left = RUR._turn_left_;
     window.view_source_js = RUR._view_source_js_;
     window.wall_in_front = RUR._wall_in_front_;
     window.wall_on_right = RUR._wall_on_right_;
-    window.write = RUR.output.write;
-    window._write = RUR.output._write;
-    window.World = RUR.file_io.load_world_from_program;
+    window.write = RUR._write_;
+    window._write = RUR.__write_;
+    window.MakeCustomMenu = RUR._MakeCustomMenu_;
+    window.World = RUR._World_;
 
 
     UsedRobot = function (x, y, orientation, tokens)  {
@@ -70,69 +70,68 @@ RUR.reset_definitions = function () {
     };
 
     UsedRobot.prototype.at_goal = function () {
-        RUR.control.at_goal(this.body);
+        RUR._UR.at_goal_(this.body);
     };
 
     UsedRobot.prototype.build_wall = function () {
-        RUR.control.build_wall(this.body);
+        RUR._UR.build_wall_(this.body);
     };
 
     UsedRobot.prototype.carries_object = function () {
-        RUR.control.carries_object(this.body);
+        RUR._UR.carries_object_(this.body);
     };
 
     UsedRobot.prototype.front_is_clear = function () {
-        RUR.control.front_is_clear(this.body);
+        RUR._UR.front_is_clear_(this.body);
     };
-
 
     UsedRobot.prototype.is_facing_north = function () {
-        RUR.control.is_facing_north(this.body);
+        RUR._UR.is_facing_north_(this.body);
     };
-
-    UsedRobot.prototype.in_the_bag = function () {
-        RUR.control.carries_object(this.body);
-    };
-
 
     UsedRobot.prototype.move = function () {
-        RUR.control.move(this.body);
+        RUR._UR.move_(this.body);
     };
 
     UsedRobot.prototype.object_here = function (obj) {
-        RUR.control.object_here(this.body, obj);
+        RUR._UR.object_here_(this.body, obj);
     };
 
     UsedRobot.prototype.put = function () {
-        RUR.control.put(this.body);
+        RUR._UR.put_(this.body);
     };
 
     UsedRobot.prototype.right_is_clear = function () {
-        RUR.control.right_is_clear(this.body);
+        RUR._UR.right_is_clear_(this.body);
     };
 
     UsedRobot.prototype.set_model = function(model) {
-        RUR.control.set_model(this.body, model);
+        RUR._UR.set_model_(this.body, model);
+    };
+
+    UsedRobot.prototype.set_trace_color_ = function (robot, color) {
+        RUR._UR.set_trace_color_(robot, color);
+    };
+
+    UsedRobot.prototype.set_trace_style_ = function (robot, style) {
+        RUR._UR.set_trace_style_(robot, style);
     };
 
     UsedRobot.prototype.take = function () {
-        RUR.control.take(this.body);
+        RUR._UR.take_(this.body);
     };
 
-    UsedRobot.prototype.token_here = function () {
-        RUR.control.token_here(this.body);
-    };
 
     UsedRobot.prototype.turn_left = function () {
-        RUR.control.turn_left(this.body);
+        RUR._UR.turn_left_(this.body);
     };
 
     UsedRobot.prototype.wall_in_front = function () {
-        RUR.control.wall_in_front(this.body);
+        RUR._UR.wall_in_front_(this.body);
     };
 
     UsedRobot.prototype.wall_on_right = function () {
-        RUR.control.wall_on_right(this.body);
+        RUR._UR.wall_on_right_(this.body);
     };
 
     // English specific and only for compatibility with rur-ple
