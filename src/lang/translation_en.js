@@ -51,8 +51,7 @@ RUR.translation_to_english["tulip"] = "tulip";
 // in world.js
 RUR.translation["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
 
-RUR.translation["# from library import *"] =
-    "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
+RUR.translation["# from library import *"] = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
 RUR.translation.move = "move";
 RUR.translation["Python Code"] = "Python Code";
 RUR.translation["Javascript Code"] = "Javascript Code";
