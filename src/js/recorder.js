@@ -72,7 +72,7 @@ RUR.rec.record_frame = function (name, obj) {
     }
 
     frame.delay = RUR.rec.delay;
-    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay >= RUR.MIN_TIME_SOUND) {
+    if (RUR.control.sound_id && RUR.state.sound_on && frame.delay >= RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
 
@@ -240,18 +240,18 @@ RUR.rec.conclude = function () {
     if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
-            if (RUR.control.sound_flag) {
+            if (RUR.state.sound_on) {
                 RUR.control.play_sound("#success-sound");
             }
             RUR.cd.show_feedback("#Reeborg-concludes", goal_status.message);
         } else {
-            if (RUR.control.sound_flag) {
+            if (RUR.state.sound_on) {
                 RUR.control.play_sound("#error-sound");
             }
             RUR.cd.show_feedback("#Reeborg-shouts", goal_status.message);
         }
     } else {
-        if (RUR.control.sound_flag) {
+        if (RUR.state.sound_on) {
             RUR.control.play_sound("#success-sound");
         }
         RUR.cd.show_feedback("#Reeborg-concludes",
@@ -268,14 +268,14 @@ RUR.rec.handle_error = function (frame) {
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
-            if (RUR.control.sound_flag) {
+            if (RUR.state.sound_on) {
                 RUR.control.play_sound("#success-sound");
             }
             RUR.cd.show_feedback("#Reeborg-concludes",
                 RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else {
-        if (RUR.control.sound_flag) {
+        if (RUR.state.sound_on) {
             RUR.control.play_sound("#error-sound");
         }
         RUR.cd.show_feedback("#Reeborg-shouts", frame.error.message);

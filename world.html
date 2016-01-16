@@ -407,7 +407,7 @@
 <script src="/src/blockly/en.js"></script>
 <script src="/src/blockly/python_compressed.js"></script>
 
-<script src="/src/js/reeborg_dev.js"></script>
+<script src="/src/js/reeborg_dev.js" defer></script>
 <script src="/src/lang/reeborg_en.js"></script>
 <script src="/src/libraries/jquery.ui.dialog.minmax.js"></script>
 
@@ -422,7 +422,6 @@ def translate_python(src, highlight, var_watch, pre_code, post_code):
 
 window['translate_python'] = translate_python
 import repl
-window.RUR.state.images_loaded = True
 </script>
 
 <script>

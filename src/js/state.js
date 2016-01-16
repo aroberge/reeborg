@@ -7,6 +7,7 @@ var RUR = RUR || {};
 RUR.state = {};
 
 // TODO: create RUR.state.do_highlight()
+// this would be to combine all the flags required to have highlighting on
 
 // TODO: after simplifying the permalink, see if RUR.state.prevent_playback
 // is still needed.
@@ -36,6 +37,8 @@ RUR.state.set_initial_values = function () {
     RUR.state.stop_called = false;
 
     RUR.state.prevent_playback = false;
+
+    RUR.state.sound_on = false;
 };
 
 RUR.state.save = function () {

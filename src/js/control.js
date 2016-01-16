@@ -619,13 +619,13 @@ RUR.control.set_trace_style = function(robot, style){
     robot.trace_style = style;
  };
 
-RUR.control.sound_flag = false;
+RUR.state.sound_on = false;
 RUR.control.sound = function(on){
     if(!on){
-        RUR.control.sound_flag = false;
+        RUR.state.sound_on = false;
         return;
     }
-    RUR.control.sound_flag = true;
+    RUR.state.sound_on = true;
 };
 
 RUR.control.sound_id = undefined;

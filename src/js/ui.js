@@ -102,7 +102,7 @@ RUR.ui.reload = function() {
     RUR.ui.reload2();
     $("#highlight-impossible").hide();
     RUR.runner.interpreted = false;
-    RUR.control.sound_flag = false;
+    RUR.state.sound_on = false;
 };
 
 RUR.ui.reload2 = function() {

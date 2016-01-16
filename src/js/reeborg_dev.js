@@ -853,13 +853,13 @@ RUR.control.set_trace_style = function(robot, style){
     robot.trace_style = style;
  };
 
-RUR.control.sound_flag = false;
+RUR.state.sound_on = false;
 RUR.control.sound = function(on){
     if(!on){
-        RUR.control.sound_flag = false;
+        RUR.state.sound_on = false;
         return;
     }
-    RUR.control.sound_flag = true;
+    RUR.state.sound_on = true;
 };
 
 RUR.control.sound_id = undefined;
@@ -2170,7 +2170,7 @@ RUR.rec.record_frame = function (name, obj) {
     }
 
     frame.delay = RUR.rec.delay;
-    if (RUR.control.sound_id && RUR.control.sound_flag && frame.delay >= RUR.MIN_TIME_SOUND) {
+    if (RUR.control.sound_id && RUR.state.sound_on && frame.delay >= RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.control.sound_id;
     }
 
@@ -2338,18 +2338,18 @@ RUR.rec.conclude = function () {
     if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
-            if (RUR.control.sound_flag) {
+            if (RUR.state.sound_on) {
                 RUR.control.play_sound("#success-sound");
             }
             RUR.cd.show_feedback("#Reeborg-concludes", goal_status.message);
         } else {
-            if (RUR.control.sound_flag) {
+            if (RUR.state.sound_on) {
                 RUR.control.play_sound("#error-sound");
             }
             RUR.cd.show_feedback("#Reeborg-shouts", goal_status.message);
         }
     } else {
-        if (RUR.control.sound_flag) {
+        if (RUR.state.sound_on) {
             RUR.control.play_sound("#success-sound");
         }
         RUR.cd.show_feedback("#Reeborg-concludes",
@@ -2366,14 +2366,14 @@ RUR.rec.handle_error = function (frame) {
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
-            if (RUR.control.sound_flag) {
+            if (RUR.state.sound_on) {
                 RUR.control.play_sound("#success-sound");
             }
             RUR.cd.show_feedback("#Reeborg-concludes",
                 RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else {
-        if (RUR.control.sound_flag) {
+        if (RUR.state.sound_on) {
             RUR.control.play_sound("#error-sound");
         }
         RUR.cd.show_feedback("#Reeborg-shouts", frame.error.message);
@@ -2900,6 +2900,7 @@ var RUR = RUR || {};
 RUR.state = {};
 
 // TODO: create RUR.state.do_highlight()
+// this would be to combine all the flags required to have highlighting on
 
 // TODO: after simplifying the permalink, see if RUR.state.prevent_playback
 // is still needed.
@@ -2929,6 +2930,8 @@ RUR.state.set_initial_values = function () {
     RUR.state.stop_called = false;
 
     RUR.state.prevent_playback = false;
+
+    RUR.state.sound_on = false;
 };
 
 RUR.state.save = function () {
@@ -3239,7 +3242,7 @@ RUR.ui.reload = function() {
     RUR.ui.reload2();
     $("#highlight-impossible").hide();
     RUR.runner.interpreted = false;
-    RUR.control.sound_flag = false;
+    RUR.state.sound_on = false;
 };
 
 RUR.ui.reload2 = function() {
