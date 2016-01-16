@@ -131,7 +131,6 @@ RUR.unit_tests.empty_world_with_extra = {robots: [],
         onload: '/* Javascript */'
     };
 
-
 editor.getValue = function() {
     return RUR.unit_tests.program || '';
 };
