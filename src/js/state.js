@@ -2,7 +2,11 @@
    And, in a sense, the following are global variables recording a given
    state.  However, by using this convention and documentating them in a
    single place, it helps in avoiding the creation of inconsistent states.*/
-var RUR = RUR || {};
+
+require("./aa_utils.js");
+require("./keyboard.js");
+
+console.log("loading state");
 
 RUR.state = {};
 
@@ -57,7 +61,7 @@ RUR.state.set_programming_language = function(lang){
             $("#python_choices").hide();
             $("#javascript_choices").show();
             $("#javascript_choices").change();
-            $("#editor-tab").html(RUR.translate("Javascript Code"));
+            $("#editor-tab").html(Translate("Javascript Code"));
             editor.setOption("mode", "javascript");
             pre_code_editor.setOption("mode", "javascript");
             post_code_editor.setOption("mode", "javascript");
@@ -70,7 +74,7 @@ RUR.state.set_programming_language = function(lang){
             $("#python_choices").show();
             $("#javascript_choices").hide();
             $("#python_choices").change();
-            $("#editor-tab").html(RUR.translate("Python Code"));
+            $("#editor-tab").html(Translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
             pre_code_editor.setOption("mode", {name: "python", version: 3});
             post_code_editor.setOption("mode", {name: "python", version: 3});

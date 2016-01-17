@@ -2,6 +2,17 @@
 
 called by zzz_doc_ready.js
 */
+
+require("./aa_utils.js");
+require("./custom_dialogs.js");
+require("./world.js");
+require("./state.js");
+require("./world_editor.js");
+require("./permalink.js");
+require("./visible_robot.js");
+
+console.log("loading zz_dr_onclick");
+
 RUR.zz_dr_onclick = function () {
 
     function load_file (obj) {
@@ -30,7 +41,7 @@ RUR.zz_dr_onclick = function () {
                 } catch (e) {  // jshint ignore:line
                     console.log("invalid world", e);
                     RUR.cd.show_feedback("#Reeborg-shouts",
-                                         RUR.translate("Invalid world file."));
+                                         Translate("Invalid world file."));
                 }
                 fileInput.value = '';
             };

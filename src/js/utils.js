@@ -5,6 +5,8 @@
     http://github.com/prettycode/Object.identical.js
 */
 
+console.log("loading utils");
+
 Object.identical = function (a, b, sortArrays) {
 
     function sort(object) {

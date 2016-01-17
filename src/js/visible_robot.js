@@ -2,6 +2,13 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
+
+require("./constants.js");
+require("./world_editor.js"); /* TODO: can/should replace by state ... */
+// TODO: RUR.base_url -> need to change it to state...
+
+console.log("loading visible_robot");
+
 RUR.vis_robot = {};
 RUR.vis_robot.images = [{}, {}, {}, {}];
 

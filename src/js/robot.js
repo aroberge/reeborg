@@ -2,6 +2,11 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
+require("./constants.js");
+require("./aa_utils.js");
+
+console.log("loading robot");
+
 RUR.robot = {};
 
 RUR.robot.create_robot = function (x, y, orientation, tokens) {
@@ -19,7 +24,8 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     } else {
         switch (orientation.toLowerCase()){
         case "e":
-        case RUR.translation.east:
+        case RUR.translation.east:  /*TODO: see if we can get rid of this
+                                            and have incoming in English */
             robot._orientation = RUR.EAST;
             break;
         case "n":
@@ -35,7 +41,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
             robot._orientation = RUR.SOUTH;
             break;
         default:
-            throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
+            throw new RUR.ReeborgError(Translate("Unknown orientation for robot."));
         }
     }
 

@@ -66,7 +66,7 @@ def _watch_(default, loc={}, gl={}):
         else:
             if no_new_local:
                 no_new_local = False
-                out.append(title % window.RUR.translate("Local variables"))
+                out.append(title % window.Translate("Local variables"))
             value = html_escape(loc[arg])
             current_watch_values[arg] = value
         append_watch(arg, value, out)
@@ -80,7 +80,7 @@ def _watch_(default, loc={}, gl={}):
                 no_new_global = False
                 if not no_new_local:
                     out.append("")
-                out.append(title % window.RUR.translate("Global variables"))
+                out.append(title % window.Translate("Global variables"))
             value = html_escape(gl[arg])
             current_watch_values[arg] = value
         append_watch(arg, value, out)
@@ -89,7 +89,7 @@ def _watch_(default, loc={}, gl={}):
     for arg in window.RUR.watched_expressions:
         if no_new_expr:
             no_new_expr = False
-            out.append(title % window.RUR.translate("Watched expressions"))
+            out.append(title % window.Translate("Watched expressions"))
         try:
             value = html_escape(eval(arg, gl, loc))
         except Exception as e:

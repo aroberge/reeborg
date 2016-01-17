@@ -2,6 +2,18 @@
 /*globals $, RUR, editor, library, editorUpdateHints,
   translate_python,*/
 
+require("./aa_utils.js");
+require("./visible_world.js");
+require("./world_editor.js");
+require("./world.js");
+require("./state.js");
+require("./zz_dr_blockly.js");
+require("./ui.js");
+require("./custom_dialogs.js");
+require("./recorder.js");
+
+console.log("loading runner");
+
 RUR.runner = {};
 
 RUR.runner.interpreted = false;
@@ -245,16 +257,16 @@ RUR.runner.simplify_python_traceback = function(e) {
                 try {
                     other_info = RUR.runner.find_line_number(e.args[1][3]);
                     if (RUR.runner.check_colons(e.args[1][3])) {
-                        other_info += RUR.translate("<br>Perhaps a missing colon is the cause.");
+                        other_info += Translate("<br>Perhaps a missing colon is the cause.");
                     } else if (RUR.runner.check_func_parentheses(e.args[1][3])){
-                        other_info += RUR.translate("<br>Perhaps you forgot to add parentheses ().");
+                        other_info += Translate("<br>Perhaps you forgot to add parentheses ().");
                     }
                 } catch (e) { // jshint ignore:line
                     other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
                 }
                 break;
             case "IndentationError":
-                message = RUR.translate("The code is not indented correctly.");
+                message = Translate("The code is not indented correctly.");
                 try {
                     other_info = RUR.runner.find_line_number(e.args[1][3]);
                     if (e.args[1][3].indexOf("RUR.set_lineno_highlight([") == -1){
@@ -267,7 +279,7 @@ RUR.runner.simplify_python_traceback = function(e) {
             case "NameError":
                 try {
                     other_info = RUR.runner.find_line_number(message);
-                    other_info += RUR.translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
+                    other_info += Translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
                 } catch (e) {  // jshint ignore:line
                     other_info = "I could not analyze this error; you might want to contact my programmer.";
                 }
@@ -276,7 +288,7 @@ RUR.runner.simplify_python_traceback = function(e) {
             case "Internal Javascript error: TypeError":
                 error_name = "Invalid Python Code";
                 message = '';
-                other_info = RUR.translate("I cannot help you with this problem.");
+                other_info = Translate("I cannot help you with this problem.");
                 break;
             default:
                 other_info = "";
@@ -304,7 +316,7 @@ RUR.runner.find_line_number = function(bad_code) {
         bad_code = bad_code.replace("RUR.set_lineno_highlight([", "");
         lines = bad_code.split("]");
         lineno = lines[0] + 1;
-        return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
+        return Translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
     }
     lines = editor.getValue().split("\n");
     found = false;
@@ -324,7 +336,7 @@ RUR.runner.find_line_number = function(bad_code) {
         }
     }
     if (lineno) {
-        return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
+        return Translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
     }
     return '';
 };

@@ -2,6 +2,13 @@
    Utilities for dealing with html LocalStorage.
  */
 
+
+require("./aa_utils.js");
+require("./world.js");
+require("./custom_dialogs.js");
+require("./world_select.js");
+console.log("loading storage");
+
 RUR.storage = {};
 
 RUR.storage.memorize_world = function () {
@@ -28,7 +35,7 @@ RUR.storage.memorize_world = function () {
 RUR.storage._save_world = function (name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
-        if (!window.confirm(RUR.translate("Name already exist; confirm that you want to replace its content."))){
+        if (!window.confirm(Translate("Name already exist; confirm that you want to replace its content."))){
             return;
         }
         // replace existing
@@ -56,7 +63,7 @@ RUR.storage.append_world_name = function (name){
     /* appends name to world selector and to list of possible worlds to delete */
     $('#delete-world h3').append(
         '<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world(' +
-            "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
+            "'"+ name + "'" + ');$(this).remove()"">' + Translate('Delete ') + name + '</button>');
     $('#delete-world').show();
 };
 

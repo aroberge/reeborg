@@ -1,5 +1,9 @@
 /* Intended to provide information about objects carried by robot */
 
+
+require("./world_editor.js");
+console.log("loading tooltip");
+
 RUR.tooltip = {};
 
 RUR.tooltip.init = function () {  // call in zzz.doc_ready.js

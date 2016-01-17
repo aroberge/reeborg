@@ -1,4 +1,9 @@
 // called by zzz_doc_ready.js
+
+
+require("./world_editor.js"); // TODO: see if we can eliminate this
+console.log("loading zr_dr_dialogs");
+
 RUR.zz_dr_dialogs = function () {
 
     function create_and_activate_dialog(button, element, add_options, special_fn) {
@@ -35,7 +40,7 @@ RUR.zz_dr_dialogs = function () {
         });
     }
 
-    create_and_activate_dialog($("#edit-world"), $("#edit-world-panel"), {}, toggle_editing_mode);
+    create_and_activate_dialog($("#edit-world"), $("#edit-world-panel"), {}, RUR.we.toggle_editing_mode);
     create_and_activate_dialog($("#about-button"), $("#about-div"), {});
     create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
     create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600}, RUR.we.show_world_info);

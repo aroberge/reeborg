@@ -1,4 +1,15 @@
 
+
+
+require("./output.js");
+require("./recorder.js");
+require("./ui.js");
+require("./world.js");
+require("./custom_dialogs.js");
+require("./permalink.js");
+require("./aa_utils.js");
+console.log("loading file_io");
+
 RUR.file_io = {};
 
 RUR.file_io.load_world_from_program = function (url, shortname) {
@@ -29,7 +40,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     RUR.file_io.status = undefined;
 
     if (url === undefined) {
-        RUR.output.write(RUR.translate("World() needs an argument."));
+        RUR.output.write(Translate("World() needs an argument."));
         return;
     }
 
@@ -64,7 +75,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     }
     if (RUR.file_io.status === "no link") {
         RUR.cd.show_feedback("#Reeborg-shouts",
-                RUR.translate("Could not find link: ") + url);
+                Translate("Could not find link: ") + url);
         throw new RUR.ReeborgError("no link");
     } else if (RUR.file_io.status === "success") {
         if (new_world) {
@@ -72,7 +83,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         }
         RUR.world_select.set_url(url);
         RUR.cd.show_feedback("#Reeborg-shouts",
-            RUR.translate("World selected").supplant({world: shortname}));
+            Translate("World selected").supplant({world: shortname}));
         throw new RUR.ReeborgError("success");
     }
 };

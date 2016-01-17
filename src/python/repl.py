@@ -225,7 +225,7 @@ class Interpreter():
         except Exception as e:
             if e.__name__ in ['ReeborgError', 'WallCollisionError']:
                 py_console.append("{}: {}".format(e.__name__,
-                    RUR.translate(getattr(e, 'reeborg_shouts'))))  # NOQA
+                    Translate(getattr(e, 'reeborg_shouts'))))  # NOQA
             else:
                 exc = __BRYTHON__.current_exception  # NOQA
                 py_console.append("{}: {}".format(e.__name__, exc.args[0]))

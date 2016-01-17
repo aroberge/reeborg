@@ -2,6 +2,14 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
+require("./aa_utils.js");
+require("./state.js");
+require("./runner.js");
+require("./recorder.js");
+require("./world.js");
+require("./storage.js");
+console.log("loading ui");
+
 RUR.ui = {};
 
 RUR.ui.show_only_reload2 = function (bool) {
@@ -138,13 +146,13 @@ RUR.ui.select_world = function (s, silent) {
             if (silent) {
                 return;
             }
-            throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: s}));
+            throw new RUR.ReeborgError(Translate("World selected").supplant({world: s}));
         }
     }
     if (silent) {
         return;
     }
-    throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: s}));
+    throw new RUR.ReeborgError(Translate("Could not find world").supplant({world: s}));
 };
 
 

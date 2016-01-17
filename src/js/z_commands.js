@@ -10,8 +10,18 @@ Convention: all function names follow the pattern RUR._xyz_
 
 /*jshint devel:true, white:false, plusplus:false */
 
+require("./aa_utils.js");
+require("./constants.js");
+require("./control.js");
+require("./custom_menus.js");
+require("./file_io.js");
+require("./output.js");
+require("./visible_robot.js");
+require("./ui.js");
+require("./recorder.js"); //TODO: see if we can change to state
+require("./world.js");
+console.log("loading z_commands");
 
-var RUR = RUR || {};
 RUR._UR = {};
 
 RUR._at_goal_ = function () {

@@ -2,6 +2,8 @@
 
 called by zzz_doc_ready.js
 */
+
+console.log("loading zz_dr_editor_ui");
 RUR.zz_dr_editor_ui = function () {
     $("#tabs").tabs({
             heightStyle: "auto",

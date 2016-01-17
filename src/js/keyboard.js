@@ -1,6 +1,9 @@
 /*  Handler of special on-screen keyboard
 */
 
+require("./state.js");
+console.log("loading keyboard");
+
 RUR.kbd = {};
 
 RUR.kbd.set_programming_language = function (lang) {

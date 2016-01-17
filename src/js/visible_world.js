@@ -2,6 +2,13 @@
 /*jshint  -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR*/
 
+require("./aa_utils.js");
+require("./constants.js");
+require("./world_editor.js");
+require("./custom_dialogs.js");
+require("./objects.js");
+console.log("loading visible_world");
+
 RUR.vis_world = {};
 
 RUR.vis_world.compute_world_geometry = function (cols, rows) {
@@ -69,7 +76,7 @@ RUR.vis_world.draw_all = function () {
     if (RUR.current_world.blank_canvas) {
         if (RUR.we.editing_world) {
             RUR.cd.show_feedback("#Reeborg-shouts",
-                                RUR.translate("Editing of blank canvas is not supported."));
+                                Translate("Editing of blank canvas is not supported."));
             return;
          }
         clearTimeout(RUR.animation_frame_id);

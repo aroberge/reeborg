@@ -9,7 +9,7 @@
     id = select_world.  Doing a global search for "#select_world" should
     only find items in this file.
 */
-
+console.log("loading world_select");
 RUR.world_select = {};
 
 RUR.world_select.empty_menu = function () {

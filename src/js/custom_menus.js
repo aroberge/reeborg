@@ -2,6 +2,14 @@
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
+
+
+
+require("./world_select.js");
+require("./ui.js");
+require("./aa_utils.js");
+console.log("loading custom_menus");
+
 RUR.custom_menu = {};
 
 RUR.custom_menu.make = function (contents) {
@@ -31,7 +39,7 @@ RUR.custom_menu.make = function (contents) {
             }
         }
     } else {
-        editor.setValue(RUR.translate("move") + "()");
+        editor.setValue(Translate("move") + "()");
         RUR.world_select.set_default();
     }
 };

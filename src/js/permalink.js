@@ -1,4 +1,10 @@
 
+require("./state.js");
+require("./storage.js");
+require("./world.js");
+require("./aa_utils.js");
+
+console.log("loading permalink");
 RUR.permalink = {};
 
 // parseUri 1.2.2
@@ -33,6 +39,8 @@ parseUri.options = {
 		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
 	}
 };
+
+window.parseUri = parseUri;
 
 
 RUR.permalink.__create = function () {
@@ -99,7 +107,7 @@ RUR.permalink.update = function (arg, shortname) {
         if (shortname !== undefined) {
             RUR.storage.save_world(shortname);
         } else {
-            RUR.storage.save_world(RUR.translate("PERMALINK"));
+            RUR.storage.save_world(Translate("PERMALINK"));
         }
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
     }

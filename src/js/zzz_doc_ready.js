@@ -1,4 +1,24 @@
 
+require("./aa_utils.js");
+require("./state.js");
+require("./objects.js");
+require("./visible_robot.js");
+require("./zr_dr_dialogs.js");
+require("./zz_dr_onclick.js");
+require("./zz_dr_onchange.js");
+require("./zz_dr_editor_ui.js");
+require("./zz_dr_blockly.js");
+require("./recorder.js");
+require("./storage.js");
+require("./world_select.js");
+require("./world.js");
+require("./keyboard.js");
+require("./ui.js");
+require("./tooltip.js");
+require("./custom_menus.js");
+
+console.log("loading zzz_doc_ready");
+
 $(document).ready(function() {
     "use strict";
     var prog_lang, url_query, name;
@@ -76,7 +96,7 @@ $(document).ready(function() {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        name = RUR.translate("PERMALINK");
+        name = Translate("PERMALINK");
         localStorage.setItem("user_world:"+ name, RUR.world.export_world());
         RUR.storage.save_world(name);
 

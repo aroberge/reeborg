@@ -1,9 +1,9 @@
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // aa_utils.js : name starting with aa so that it is loaded first :-/
 // TODO refactor so as to keep only translation functions here.
 
-
-var RUR = RUR || {};  // jshint ignore:line
+console.log("loading aa_utils");
 
 RUR.ReeborgError = function (message) {
     if (RUR.state.programming_language == "python"){
@@ -23,18 +23,7 @@ RUR.WallCollisionError = function (message) {
     this.reeborg_shouts = message;
 };
 
-RUR.translate = function (s) {
-    if (RUR.translation[s] !== undefined) {
-        return RUR.translation[s];
-    } else {
-        console.log("Translation needed for");
-        console.log("%c" + s, "color:blue;font-weight:bold;");
-        console.log("called from ", arguments.callee.caller);
-        return s;
-    }
-};
-
-RUR.translate_to_english = function (s) {
+Translate_to_english = function (s) {
     if (RUR.translation_to_english[s] !== undefined) {
         return RUR.translation_to_english[s];
     } else {
@@ -48,13 +37,13 @@ RUR.translate_to_english = function (s) {
 
 RUR.reset_code_in_editors = function () {
     var library_default, library_content, editor_content, editor_default,
-        default_instruction = RUR.translate("move"),
+        default_instruction = Translate("move"),
         library_default_en = "# from library import *";
 
     if (RUR.state.programming_language == "javascript") {
         editor_default = default_instruction + "();";
     } else if (RUR.state.programming_language == "python") {
-        library_default = RUR.translate(library_default_en);
+        library_default = Translate(library_default_en);
         library_content = localStorage.getItem(RUR.settings.library);
         if (!library_content || library_content == library_default_en){
             library_content = library_default;
@@ -96,7 +85,7 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.editor = "editor_py_" + RUR.state.human_language;
             RUR.settings.library = "library_py_" + RUR.state.human_language;
             RUR.state.programming_language = "python";
-            $("#editor-tab").html(RUR.translate("Python Code"));
+            $("#editor-tab").html(Translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
             pre_code_editor.setOption("mode", {name: "python", version: 3});
             post_code_editor.setOption("mode", {name: "python", version: 3});
@@ -114,7 +103,7 @@ RUR.reset_programming_language = function(choice){
             $("#editor-panel").addClass("active");
             RUR.settings.editor = "editor_js_" + RUR.state.human_language;
             RUR.state.programming_language = "javascript";
-            $("#editor-tab").html(RUR.translate("Javascript Code"));
+            $("#editor-tab").html(Translate("Javascript Code"));
             editor.setOption("mode", "javascript");
             pre_code_editor.setOption("mode", "javascript");
             post_code_editor.setOption("mode", "javascript");
@@ -175,12 +164,16 @@ RUR.set_lineno_highlight = function(lineno, frame) {
         return true;
     }
 };
-/* 
+
+},{}],2:[function(require,module,exports){
+/*
    Defining base name space and various constants.
  */
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-var RUR = RUR || {};
+
+console.log("loading constants");
+
 
 RUR.EAST = 0;
 RUR.NORTH = 1;
@@ -233,8 +226,22 @@ RUR.MIN_TIME_SOUND = 250;
 
 RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
+},{}],3:[function(require,module,exports){
+
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
+
+
+
+
+require("./aa_utils.js");
+require("./constants.js");
+require("./objects.js");
+require("./output.js");
+require("./recorder.js");
+require("./state.js");
+require("./world_editor.js");
+console.log("loading controls");
 
 RUR.control = {};
 
@@ -246,7 +253,7 @@ RUR.control.move = function (robot) {
         wall_beyond, x_beyond, y_beyond;
 
     if (RUR.control.wall_in_front(robot)) {
-        throw new RUR.WallCollisionError(RUR.translate("Ouch! I hit a wall!"));
+        throw new RUR.WallCollisionError(Translate("Ouch! I hit a wall!"));
     }
 
     robot._prev_x = robot.x;
@@ -306,7 +313,7 @@ RUR.control.move = function (robot) {
         if (pushable_object_beyond || wall_beyond || solid_tile_beyond || solid_object_beyond) {
             robot.x = robot._prev_x;
             robot.y = robot._prev_y;
-            throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
+            throw new RUR.ReeborgError(Translate("Something is blocking the way!"));
         } else {
             RUR.control.move_object(pushable_object_here, robot.x, robot.y,
             x_beyond, y_beyond);
@@ -319,7 +326,7 @@ RUR.control.move = function (robot) {
     tile = RUR.control.get_tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
-            if (!(tile == RUR.tiles.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
+            if (!(tile == RUR.tiles.water && RUR.control.solid_object_here(robot, Translate("bridge"))) ){
                 throw new RUR.ReeborgError(tile.message);
             }
         }
@@ -386,7 +393,7 @@ RUR.control.pause = function (ms) {
 };
 
 RUR.control.done = function () {
-    throw new RUR.ReeborgError(RUR.translate("Done!"));
+    throw new RUR.ReeborgError(Translate("Done!"));
 };
 
 RUR.control.put = function(robot, arg){
@@ -394,9 +401,9 @@ RUR.control.put = function(robot, arg){
     RUR.control.sound_id = "#put-sound";
 
     if (arg !== undefined) {
-        translated_arg = RUR.translate_to_english(arg);
+        translated_arg = Translate_to_english(arg);
         if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
-            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
+            throw new RUR.ReeborgError(Translate("Unknown object").supplant({obj: arg}));
         }
     }
 
@@ -408,19 +415,19 @@ RUR.control.put = function(robot, arg){
         }
     }
     if (all_objects.length === 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
+        throw new RUR.ReeborgError(Translate("I don't have any object to put down!").supplant({obj: Translate("object")}));
     }
     if (arg !== undefined) {
         if (robot.objects[translated_arg] === undefined) {
-            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj:arg}));
+            throw new RUR.ReeborgError(Translate("I don't have any object to put down!").supplant({obj:arg}));
         }  else {
             RUR.control._robot_put_down_object(robot, translated_arg);
         }
     }  else {
         if (objects_carried.length === 0){
-            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
+            throw new RUR.ReeborgError(Translate("I don't have any object to put down!").supplant({obj: Translate("object")}));
         } else if (all_objects.length > 1){
-             throw new RUR.ReeborgError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
+             throw new RUR.ReeborgError(Translate("I carry too many different objects. I don't know which one to put down!"));
         } else {
             RUR.control._robot_put_down_object(robot, translated_arg);
         }
@@ -461,9 +468,9 @@ RUR.control.take = function(robot, arg){
     var translated_arg, objects_here;
     RUR.control.sound_id = "#take-sound";
     if (arg !== undefined) {
-        translated_arg = RUR.translate_to_english(arg);
+        translated_arg = Translate_to_english(arg);
         if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
-            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
+            throw new RUR.ReeborgError(Translate("Unknown object").supplant({obj: arg}));
         }
     }
 
@@ -473,7 +480,7 @@ RUR.control.take = function(robot, arg){
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
         if (objects_here.length === 0 || objects_here == false) { // jshint ignore:line
-            throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
+            throw new RUR.ReeborgError(Translate("No object found here").supplant({obj: arg}));
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
@@ -481,9 +488,9 @@ RUR.control.take = function(robot, arg){
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
     }  else if (objects_here.length === 0 || objects_here == false){ // jshint ignore:line
-        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
+        throw new RUR.ReeborgError(Translate("No object found here").supplant({obj: Translate("object")}));
     }  else if (objects_here.length > 1){
-        throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
+        throw new RUR.ReeborgError(Translate("Many objects are here; I do not know which one to take!"));
     } else {
         RUR.control._take_object_and_give_to_robot(robot, objects_here[0]);
     }
@@ -491,7 +498,7 @@ RUR.control.take = function(robot, arg){
 
 RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     var objects_here, coords;
-    obj = RUR.translate_to_english(obj);
+    obj = Translate_to_english(obj);
     coords = robot.x + "," + robot.y;
     RUR.current_world.objects[coords][obj] -= 1;
 
@@ -531,7 +538,7 @@ RUR.control.is_wall_at = function (coords, orientation) {
 RUR.control.build_wall = function (robot){
     var coords, orientation, x, y, walls;
     if (RUR.control.wall_in_front(robot)){
-        throw new RUR.WallCollisionError(RUR.translate("There is already a wall here!"));
+        throw new RUR.WallCollisionError(Translate("There is already a wall here!"));
     }
 
     switch (robot._orientation){
@@ -740,9 +747,9 @@ RUR.control.at_goal = function (robot) {
         if (goal.position !== undefined) {
             return (robot.x === goal.position.x && robot.y === goal.position.y);
         }
-        throw new RUR.ReeborgError(RUR.translate("There is no position as a goal in this world!"));
+        throw new RUR.ReeborgError(Translate("There is no position as a goal in this world!"));
     }
-    throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
+    throw new RUR.ReeborgError(Translate("There is no goal in this world!"));
 };
 
 RUR.control.object_here = function (robot, obj) {
@@ -768,10 +775,10 @@ RUR.control.__object_here = function (robot, obj, _objects) {
 
     for (obj_type in obj_here) {
         if (obj_here.hasOwnProperty(obj_type)) {
-            if (obj !== undefined && obj_type == RUR.translate_to_english(obj)) {
-                return [RUR.translate(obj_type)];
+            if (obj !== undefined && obj_type == Translate_to_english(obj)) {
+                return [Translate(obj_type)];
             }
-            all_objects.push(RUR.translate(obj_type));
+            all_objects.push(Translate(obj_type));
         }
     }
 
@@ -798,7 +805,7 @@ RUR.control.solid_object_here = function (robot, tile) {
 
     for (tile_type in tile_here) {
         if (tile_here.hasOwnProperty(tile_type)) {
-            if (tile!== undefined && tile_type == RUR.translate_to_english(tile)) {
+            if (tile!== undefined && tile_type == Translate_to_english(tile)) {
                 return true;
             }
         }
@@ -819,7 +826,7 @@ RUR.control.carries_object = function (robot, obj) {
     if (obj === undefined) {
         for (obj_type in robot.objects) {
             if (robot.objects.hasOwnProperty(obj_type)) {
-                all_objects[RUR.translate(obj_type)] = robot.objects[obj_type];
+                all_objects[Translate(obj_type)] = robot.objects[obj_type];
                 carried = true;
             }
         }
@@ -829,7 +836,7 @@ RUR.control.carries_object = function (robot, obj) {
             return 0;
         }
     } else {
-        obj = RUR.translate_to_english(obj);
+        obj = Translate_to_english(obj);
         for (obj_type in robot.objects) {
             if (robot.objects.hasOwnProperty(obj_type) && obj_type == obj) {
                 return robot.objects[obj_type];
@@ -923,7 +930,7 @@ RUR.control.pushable_object_here = function(x, y) {
 
 RUR.control.set_max_nb_robots = function(nb){
     if (RUR.MAX_NB_ROBOTS !== undefined){
-        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
+        throw new RUR.ReeborgError(Translate("Cheater! You are not allowed to change the number of robots this way!"));
     } else {
         RUR.MAX_NB_ROBOTS = nb;
     }
@@ -932,8 +939,19 @@ RUR.control.set_max_nb_robots = function(nb){
 RUR.control.get_world_map = function () {
     return JSON.stringify(RUR.current_world, null, 2);
 };
+
+},{"./aa_utils.js":1,"./constants.js":2,"./objects.js":9,"./output.js":10,"./recorder.js":12,"./state.js":15,"./world_editor.js":23}],4:[function(require,module,exports){
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, $*/
+
+
+
+
+require("./world_editor.js");
+require("./visible_world.js");
+require("./storage.js");
+require("./objects.js");
+console.log("loading custom_dialogs");
 
 RUR.cd = {};
 
@@ -1186,8 +1204,18 @@ RUR.cd.create_custom_dialogs = function() {
     };
 };
 
+},{"./objects.js":9,"./storage.js":16,"./visible_world.js":21,"./world_editor.js":23}],5:[function(require,module,exports){
+
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
+
+
+
+
+require("./world_select.js");
+require("./ui.js");
+require("./aa_utils.js");
+console.log("loading custom_menus");
 
 RUR.custom_menu = {};
 
@@ -1218,7 +1246,7 @@ RUR.custom_menu.make = function (contents) {
             }
         }
     } else {
-        editor.setValue(RUR.translate("move") + "()");
+        editor.setValue(Translate("move") + "()");
         RUR.world_select.set_default();
     }
 };
@@ -1368,6 +1396,19 @@ RUR.make_default_menu_fr = function () {
     RUR.custom_menu.make(contents);
 };
 
+},{"./aa_utils.js":1,"./ui.js":18,"./world_select.js":24}],6:[function(require,module,exports){
+
+
+
+require("./output.js");
+require("./recorder.js");
+require("./ui.js");
+require("./world.js");
+require("./custom_dialogs.js");
+require("./permalink.js");
+require("./aa_utils.js");
+console.log("loading file_io");
+
 RUR.file_io = {};
 
 RUR.file_io.load_world_from_program = function (url, shortname) {
@@ -1398,7 +1439,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     RUR.file_io.status = undefined;
 
     if (url === undefined) {
-        RUR.output.write(RUR.translate("World() needs an argument."));
+        RUR.output.write(Translate("World() needs an argument."));
         return;
     }
 
@@ -1433,7 +1474,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     }
     if (RUR.file_io.status === "no link") {
         RUR.cd.show_feedback("#Reeborg-shouts",
-                RUR.translate("Could not find link: ") + url);
+                Translate("Could not find link: ") + url);
         throw new RUR.ReeborgError("no link");
     } else if (RUR.file_io.status === "success") {
         if (new_world) {
@@ -1441,7 +1482,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         }
         RUR.world_select.set_url(url);
         RUR.cd.show_feedback("#Reeborg-shouts",
-            RUR.translate("World selected").supplant({world: shortname}));
+            Translate("World selected").supplant({world: shortname}));
         throw new RUR.ReeborgError("success");
     }
 };
@@ -1489,8 +1530,28 @@ RUR.file_io.load_world_file = function (url, shortname) {
         });
     }
 };
+
+},{"./aa_utils.js":1,"./custom_dialogs.js":4,"./output.js":10,"./permalink.js":11,"./recorder.js":12,"./ui.js":18,"./world.js":22}],7:[function(require,module,exports){
+window.RUR = RUR || {};
+Translate = function (s) {
+    if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
+        return RUR.translation[s];
+    } else {
+        //console.log("Translation needed for");
+        return s;
+    }
+};
+require("./aa_utils.js");
+require("./constants.js");
+require("./z_commands.js");
+require("./zzz_doc_ready.js");
+
+},{"./aa_utils.js":1,"./constants.js":2,"./z_commands.js":25,"./zzz_doc_ready.js":31}],8:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
+
+require("./state.js");
+console.log("loading keyboard");
 
 RUR.kbd = {};
 
@@ -1709,6 +1770,11 @@ RUR.kbd.select = function (choice) {
     }
 };
 
+},{"./state.js":15}],9:[function(require,module,exports){
+
+
+require("./aa_utils.js");
+console.log("loading objects");
 RUR.objects = {};
 RUR.tiles = {};
 RUR.solid_objects = {};
@@ -1788,31 +1854,31 @@ RUR.add_tile_image = function (name, url) {
 
 RUR.add_tile_image("mud");
 RUR.tiles.mud.fatal = true;
-RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");
-RUR.tiles.mud.info = RUR.translate("Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.");
+RUR.tiles.mud.message = Translate("I'm stuck in mud.");
+RUR.tiles.mud.info = Translate("Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.");
 
 RUR.add_tile_image("ice");
 RUR.tiles.ice.slippery = true;
-RUR.tiles.ice.message = RUR.translate("I'm slipping on ice!");
-RUR.tiles.ice.info = RUR.translate("Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.");
+RUR.tiles.ice.message = Translate("I'm slipping on ice!");
+RUR.tiles.ice.info = Translate("Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.");
 
 RUR.add_tile_image("grass");
-RUR.tiles.grass.info = RUR.translate("Grass: usually safe.");
+RUR.tiles.grass.info = Translate("Grass: usually safe.");
 
 RUR.add_tile_image("pale_grass");
-RUR.tiles.grass.info = RUR.translate("Grass: usually safe.");
+RUR.tiles.grass.info = Translate("Grass: usually safe.");
 RUR.tiles.pale_grass.name = "grass"; // replace
 
 RUR.add_tile_image("gravel");
-RUR.tiles.gravel.info = RUR.translate("Gravel: usually safe.");
+RUR.tiles.gravel.info = Translate("Gravel: usually safe.");
 
 
 RUR.tiles.water = {};
 RUR.tiles.water.name = "water";
 RUR.tiles.water.fatal = true;
 RUR.tiles.water.detectable = true;
-RUR.tiles.water.message = RUR.translate("I'm in water!");
-RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.");
+RUR.tiles.water.message = Translate("I'm in water!");
+RUR.tiles.water.info = Translate("Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.");
 RUR.tiles.water.image = new Image();
 RUR.tiles.water.image.src = RUR.base_url + '/src/images/water.png';
 RUR.tiles.water.image2 = new Image();
@@ -1849,15 +1915,15 @@ RUR.tiles.bricks.name = "brick wall"; // replace
 RUR.tiles.bricks.fatal = true;
 RUR.tiles.bricks.solid = true;
 RUR.tiles.bricks.detectable = true;
-RUR.tiles.bricks.message = RUR.translate("Crash!");
-RUR.tiles.bricks.info = RUR.translate("brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.");
+RUR.tiles.bricks.message = Translate("Crash!");
+RUR.tiles.bricks.info = Translate("brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.");
 
 
 RUR.add_home_image = function (name, info) {
     var home = RUR.home_images;
     home[name] = {};
     home[name].detectable = true;
-    home[name].info = RUR.translate(info) + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
+    home[name].info = Translate(info) + Translate("Reeborg <b>can</b> detect this tile using at_goal().");
     home[name].image = new Image();
     home[name].image.src = RUR.base_url + '/src/images/' + name + '.png';
     home[name].image.onload = RUR.increment_loaded;
@@ -1892,27 +1958,35 @@ RUR.add_solid_object = function (name, url, nickname) {
 };
 
 RUR.add_solid_object("bridge");
-RUR.solid_objects.bridge.info = RUR.translate("Bridge:") + RUR.translate("Reeborg <b>can</b> detect this and will know that it allows safe passage over water.");
+RUR.solid_objects.bridge.info = Translate("Bridge:") + Translate("Reeborg <b>can</b> detect this and will know that it allows safe passage over water.");
 
 RUR.add_solid_object("fence_right", false, "fence");
-RUR.solid_objects.fence_right.message = RUR.translate("I hit a fence!");
-RUR.solid_objects.fence_right.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
+RUR.solid_objects.fence_right.message = Translate("I hit a fence!");
+RUR.solid_objects.fence_right.info = Translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.solid_objects.fence4 = RUR.solid_objects.fence_right;  // compatibility with old worlds
 
 RUR.add_solid_object("fence_left", false, "fence");
-RUR.solid_objects.fence_left.message = RUR.translate("I hit a fence!");
+RUR.solid_objects.fence_left.message = Translate("I hit a fence!");
 RUR.solid_objects.fence_left.info = RUR.solid_objects.fence_right.info;
 RUR.solid_objects.fence5 = RUR.solid_objects.fence_left;  // compatibility with old worlds
 
 RUR.add_solid_object("fence_double", false, "fence");
-RUR.solid_objects.fence_double.message = RUR.translate("I hit a fence!");
+RUR.solid_objects.fence_double.message = Translate("I hit a fence!");
 RUR.solid_objects.fence_double.info = RUR.solid_objects.fence_right.info;
 RUR.solid_objects.fence6 = RUR.solid_objects.fence_double;  // compatibility with old worlds
 
 RUR.add_solid_object("fence_vertical", false, "fence");
-RUR.solid_objects.fence_vertical.message = RUR.translate("I hit a fence!");
+RUR.solid_objects.fence_vertical.message = Translate("I hit a fence!");
 RUR.solid_objects.fence_vertical.info = RUR.solid_objects.fence_right.info;
 RUR.solid_objects.fence7 = RUR.solid_objects.fence_vertical;  // compatibility with old worlds
+
+},{"./aa_utils.js":1}],10:[function(require,module,exports){
+
+
+require("./recorder.js");
+require("./custom_dialogs.js");
+console.log("loading output");
+
 RUR.output = {};
 
 RUR.output.write = function () {
@@ -1976,6 +2050,14 @@ RUR.output.view_source_js = function(fn) {
     });
 };
 
+},{"./custom_dialogs.js":4,"./recorder.js":12}],11:[function(require,module,exports){
+
+require("./state.js");
+require("./storage.js");
+require("./world.js");
+require("./aa_utils.js");
+
+console.log("loading permalink");
 RUR.permalink = {};
 
 // parseUri 1.2.2
@@ -2010,6 +2092,8 @@ parseUri.options = {
 		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
 	}
 };
+
+window.parseUri = parseUri;
 
 
 RUR.permalink.__create = function () {
@@ -2076,7 +2160,7 @@ RUR.permalink.update = function (arg, shortname) {
         if (shortname !== undefined) {
             RUR.storage.save_world(shortname);
         } else {
-            RUR.storage.save_world(RUR.translate("PERMALINK"));
+            RUR.storage.save_world(Translate("PERMALINK"));
         }
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
     }
@@ -2097,8 +2181,21 @@ RUR.permalink.cancel = function () {
     $("#permalink").addClass('blue-gradient');
 };
 
+},{"./aa_utils.js":1,"./state.js":15,"./storage.js":16,"./world.js":22}],12:[function(require,module,exports){
+
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR , editor*/
+
+require("./state.js");
+require("./visible_world.js");
+require("./custom_dialogs.js");
+require("./control.js");
+require("./constants.js");
+require("./aa_utils.js");
+require("./ui.js");
+require("./utils.js");
+
+console.log("loading recorder");
 
 RUR.rec = {};
 
@@ -2197,7 +2294,7 @@ RUR.rec.record_frame = function (name, obj) {
     RUR.rec.check_robots_on_tiles(frame);
 
     if (RUR.rec.nb_frames > RUR.MAX_STEPS + RUR.rec.extra_highlighting_frames) {
-        throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
+        throw new RUR.ReeborgError(Translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
 };
 
@@ -2354,7 +2451,7 @@ RUR.rec.conclude = function () {
         }
         RUR.cd.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
-                             RUR.translate("Last instruction completed!") +
+                             Translate("Last instruction completed!") +
                              "</p>");
     }
     return "stopped";
@@ -2362,7 +2459,7 @@ RUR.rec.conclude = function () {
 
 RUR.rec.handle_error = function (frame) {
     var goal_status;
-    if (frame.error.reeborg_shouts === RUR.translate("Done!")){
+    if (frame.error.reeborg_shouts === Translate("Done!")){
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
@@ -2370,7 +2467,7 @@ RUR.rec.handle_error = function (frame) {
                 RUR.control.play_sound("#success-sound");
             }
             RUR.cd.show_feedback("#Reeborg-concludes",
-                RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
+                Translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else {
         if (RUR.state.sound_on) {
@@ -2389,7 +2486,7 @@ RUR.rec.check_current_world_status = function() {
     if (frame.world.goal === undefined){
         RUR.cd.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
-                             RUR.translate("Last instruction completed!") +
+                             Translate("Last instruction completed!") +
                              "</p>");
     } else {
         goal_status = RUR.rec.check_goal(frame);
@@ -2409,24 +2506,24 @@ RUR.rec.check_goal = function (frame) {
     goal_status.success = true;
     if (g.position !== undefined){
         if (g.position.x === world.robots[0].x){
-            goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct x position.</li>");
+            goal_status.message += Translate("<li class='success'>Reeborg is at the correct x position.</li>");
         } else {
-            goal_status.message += RUR.translate("<li class='failure'>Reeborg is at the wrong x position.</li>");
+            goal_status.message += Translate("<li class='failure'>Reeborg is at the wrong x position.</li>");
             goal_status.success = false;
         }
         if (g.position.y === world.robots[0].y){
-            goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct y position.</li>");
+            goal_status.message += Translate("<li class='success'>Reeborg is at the correct y position.</li>");
         } else {
-            goal_status.message += RUR.translate("<li class='failure'>Reeborg is at the wrong y position.</li>");
+            goal_status.message += Translate("<li class='failure'>Reeborg is at the wrong y position.</li>");
             goal_status.success = false;
         }
     }
     if (g.objects !== undefined) {
         result = Object.identical(g.objects, world.objects, true);
         if (result){
-            goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
+            goal_status.message += Translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
-            goal_status.message += RUR.translate("<li class='failure'>One or more objects are not at the correct location.</li>");
+            goal_status.message += Translate("<li class='failure'>One or more objects are not at the correct location.</li>");
             goal_status.success = false;
         }
     }
@@ -2444,9 +2541,9 @@ RUR.rec.check_goal = function (frame) {
             }
         }
         if (result){
-            goal_status.message += RUR.translate("<li class='success'>All walls have been built correctly.</li>");
+            goal_status.message += Translate("<li class='success'>All walls have been built correctly.</li>");
         } else {
-            goal_status.message += RUR.translate("<li class='failure'>One or more walls missing or built at wrong location.</li>");
+            goal_status.message += Translate("<li class='failure'>One or more walls missing or built at wrong location.</li>");
             goal_status.success = false;
         }
     }
@@ -2471,8 +2568,15 @@ RUR.rec.check_robots_on_tiles = function(frame){
     }
 };
 
+},{"./aa_utils.js":1,"./constants.js":2,"./control.js":3,"./custom_dialogs.js":4,"./state.js":15,"./ui.js":18,"./utils.js":19,"./visible_world.js":21}],13:[function(require,module,exports){
+
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
+
+require("./constants.js");
+require("./aa_utils.js");
+
+console.log("loading robot");
 
 RUR.robot = {};
 
@@ -2491,7 +2595,8 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     } else {
         switch (orientation.toLowerCase()){
         case "e":
-        case RUR.translation.east:
+        case RUR.translation.east:  /*TODO: see if we can get rid of this
+                                            and have incoming in English */
             robot._orientation = RUR.EAST;
             break;
         case "n":
@@ -2507,7 +2612,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
             robot._orientation = RUR.SOUTH;
             break;
         default:
-            throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
+            throw new RUR.ReeborgError(Translate("Unknown orientation for robot."));
         }
     }
 
@@ -2537,9 +2642,23 @@ RUR.robot.cleanup_objects = function (robot) {
         delete robot.orientation;
     }
 };
+
+},{"./aa_utils.js":1,"./constants.js":2}],14:[function(require,module,exports){
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR, editor, library, editorUpdateHints,
   translate_python,*/
+
+require("./aa_utils.js");
+require("./visible_world.js");
+require("./world_editor.js");
+require("./world.js");
+require("./state.js");
+require("./zz_dr_blockly.js");
+require("./ui.js");
+require("./custom_dialogs.js");
+require("./recorder.js");
+
+console.log("loading runner");
 
 RUR.runner = {};
 
@@ -2784,16 +2903,16 @@ RUR.runner.simplify_python_traceback = function(e) {
                 try {
                     other_info = RUR.runner.find_line_number(e.args[1][3]);
                     if (RUR.runner.check_colons(e.args[1][3])) {
-                        other_info += RUR.translate("<br>Perhaps a missing colon is the cause.");
+                        other_info += Translate("<br>Perhaps a missing colon is the cause.");
                     } else if (RUR.runner.check_func_parentheses(e.args[1][3])){
-                        other_info += RUR.translate("<br>Perhaps you forgot to add parentheses ().");
+                        other_info += Translate("<br>Perhaps you forgot to add parentheses ().");
                     }
                 } catch (e) { // jshint ignore:line
                     other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
                 }
                 break;
             case "IndentationError":
-                message = RUR.translate("The code is not indented correctly.");
+                message = Translate("The code is not indented correctly.");
                 try {
                     other_info = RUR.runner.find_line_number(e.args[1][3]);
                     if (e.args[1][3].indexOf("RUR.set_lineno_highlight([") == -1){
@@ -2806,7 +2925,7 @@ RUR.runner.simplify_python_traceback = function(e) {
             case "NameError":
                 try {
                     other_info = RUR.runner.find_line_number(message);
-                    other_info += RUR.translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
+                    other_info += Translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
                 } catch (e) {  // jshint ignore:line
                     other_info = "I could not analyze this error; you might want to contact my programmer.";
                 }
@@ -2815,7 +2934,7 @@ RUR.runner.simplify_python_traceback = function(e) {
             case "Internal Javascript error: TypeError":
                 error_name = "Invalid Python Code";
                 message = '';
-                other_info = RUR.translate("I cannot help you with this problem.");
+                other_info = Translate("I cannot help you with this problem.");
                 break;
             default:
                 other_info = "";
@@ -2843,7 +2962,7 @@ RUR.runner.find_line_number = function(bad_code) {
         bad_code = bad_code.replace("RUR.set_lineno_highlight([", "");
         lines = bad_code.split("]");
         lineno = lines[0] + 1;
-        return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
+        return Translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
     }
     lines = editor.getValue().split("\n");
     found = false;
@@ -2863,7 +2982,7 @@ RUR.runner.find_line_number = function(bad_code) {
         }
     }
     if (lineno) {
-        return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
+        return Translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
     }
     return '';
 };
@@ -2891,11 +3010,17 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     }
     return false;  // no missing parentheses
 };
+
+},{"./aa_utils.js":1,"./custom_dialogs.js":4,"./recorder.js":12,"./state.js":15,"./ui.js":18,"./visible_world.js":21,"./world.js":22,"./world_editor.js":23,"./zz_dr_blockly.js":27}],15:[function(require,module,exports){
 /* Yes, I know, global variables are a terrible thing.
    And, in a sense, the following are global variables recording a given
    state.  However, by using this convention and documentating them in a
    single place, it helps in avoiding the creation of inconsistent states.*/
-var RUR = RUR || {};
+
+require("./aa_utils.js");
+require("./keyboard.js");
+
+console.log("loading state");
 
 RUR.state = {};
 
@@ -2950,7 +3075,7 @@ RUR.state.set_programming_language = function(lang){
             $("#python_choices").hide();
             $("#javascript_choices").show();
             $("#javascript_choices").change();
-            $("#editor-tab").html(RUR.translate("Javascript Code"));
+            $("#editor-tab").html(Translate("Javascript Code"));
             editor.setOption("mode", "javascript");
             pre_code_editor.setOption("mode", "javascript");
             post_code_editor.setOption("mode", "javascript");
@@ -2963,7 +3088,7 @@ RUR.state.set_programming_language = function(lang){
             $("#python_choices").show();
             $("#javascript_choices").hide();
             $("#python_choices").change();
-            $("#editor-tab").html(RUR.translate("Python Code"));
+            $("#editor-tab").html(Translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
             pre_code_editor.setOption("mode", {name: "python", version: 3});
             post_code_editor.setOption("mode", {name: "python", version: 3});
@@ -2981,9 +3106,18 @@ RUR.state.set_programming_language = function(lang){
     } catch (e) {}
 
 };
+
+},{"./aa_utils.js":1,"./keyboard.js":8}],16:[function(require,module,exports){
 /*
    Utilities for dealing with html LocalStorage.
  */
+
+
+require("./aa_utils.js");
+require("./world.js");
+require("./custom_dialogs.js");
+require("./world_select.js");
+console.log("loading storage");
 
 RUR.storage = {};
 
@@ -3011,7 +3145,7 @@ RUR.storage.memorize_world = function () {
 RUR.storage._save_world = function (name){
     "use strict";
     if (localStorage.getItem("user_world:" + name) !== null){
-        if (!window.confirm(RUR.translate("Name already exist; confirm that you want to replace its content."))){
+        if (!window.confirm(Translate("Name already exist; confirm that you want to replace its content."))){
             return;
         }
         // replace existing
@@ -3039,7 +3173,7 @@ RUR.storage.append_world_name = function (name){
     /* appends name to world selector and to list of possible worlds to delete */
     $('#delete-world h3').append(
         '<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world(' +
-            "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
+            "'"+ name + "'" + ');$(this).remove()"">' + Translate('Delete ') + name + '</button>');
     $('#delete-world').show();
 };
 
@@ -3063,7 +3197,13 @@ RUR.storage.delete_world = function (name){
     }
     $('#delete-world').hide();
 };
+
+},{"./aa_utils.js":1,"./custom_dialogs.js":4,"./world.js":22,"./world_select.js":24}],17:[function(require,module,exports){
 /* Intended to provide information about objects carried by robot */
+
+
+require("./world_editor.js");
+console.log("loading tooltip");
 
 RUR.tooltip = {};
 
@@ -3139,8 +3279,18 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
     }
 };
 
+},{"./world_editor.js":23}],18:[function(require,module,exports){
+
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
+
+require("./aa_utils.js");
+require("./state.js");
+require("./runner.js");
+require("./recorder.js");
+require("./world.js");
+require("./storage.js");
+console.log("loading ui");
 
 RUR.ui = {};
 
@@ -3278,13 +3428,13 @@ RUR.ui.select_world = function (s, silent) {
             if (silent) {
                 return;
             }
-            throw new RUR.ReeborgError(RUR.translate("World selected").supplant({world: s}));
+            throw new RUR.ReeborgError(Translate("World selected").supplant({world: s}));
         }
     }
     if (silent) {
         return;
     }
-    throw new RUR.ReeborgError(RUR.translate("Could not find world").supplant({world: s}));
+    throw new RUR.ReeborgError(Translate("Could not find world").supplant({world: s}));
 };
 
 
@@ -3344,11 +3494,15 @@ RUR.ui.toggle_panel = function (button, element) {
     element.toggleClass("active");
 };
 
+},{"./aa_utils.js":1,"./recorder.js":12,"./runner.js":14,"./state.js":15,"./storage.js":16,"./world.js":22}],19:[function(require,module,exports){
+
 /*
     Original script title: "Object.identical.js"; version 1.12
     Copyright (c) 2011, Chris O'Brien, prettycode.org
     http://github.com/prettycode/Object.identical.js
 */
+
+console.log("loading utils");
 
 Object.identical = function (a, b, sortArrays) {
 
@@ -3384,8 +3538,17 @@ String.prototype.supplant = function (o) {
     );
 };
 
+},{}],20:[function(require,module,exports){
+
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
+
+
+require("./constants.js");
+require("./world_editor.js"); /* TODO: can/should replace by state ... */
+// TODO: RUR.base_url -> need to change it to state...
+
+console.log("loading visible_robot");
 
 RUR.vis_robot = {};
 RUR.vis_robot.images = [{}, {}, {}, {}];
@@ -3676,8 +3839,17 @@ RUR.vis_robot.new_robot_images = function (images) {
     RUR.vis_robot.select_default_model(model);
 };
 
+},{"./constants.js":2,"./world_editor.js":23}],21:[function(require,module,exports){
+
 /*jshint  -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR*/
+
+require("./aa_utils.js");
+require("./constants.js");
+require("./world_editor.js");
+require("./custom_dialogs.js");
+require("./objects.js");
+console.log("loading visible_world");
 
 RUR.vis_world = {};
 
@@ -3746,7 +3918,7 @@ RUR.vis_world.draw_all = function () {
     if (RUR.current_world.blank_canvas) {
         if (RUR.we.editing_world) {
             RUR.cd.show_feedback("#Reeborg-shouts",
-                                RUR.translate("Editing of blank canvas is not supported."));
+                                Translate("Editing of blank canvas is not supported."));
             return;
          }
         clearTimeout(RUR.animation_frame_id);
@@ -4307,8 +4479,21 @@ RUR.vis_world.draw_info = function() {
     }
 };
 
+},{"./aa_utils.js":1,"./constants.js":2,"./custom_dialogs.js":4,"./objects.js":9,"./world_editor.js":23}],22:[function(require,module,exports){
+
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
+
+require("./aa_utils.js");
+require("./constants.js");
+require("./robot.js");
+require("./visible_world.js");
+require("./custom_dialogs.js");
+require("./state.js");
+require("./world_editor.js");
+require("./recorder.js");
+
+console.log("loading worlds");
 
 RUR.world = {};
 
@@ -4435,7 +4620,7 @@ RUR.world.eval_onload = function () {
         eval(RUR.current_world.onload);  // jshint ignore:line
     } catch (e) {
         RUR.cd.show_feedback("#Reeborg-shouts",
-            RUR.translate("Problem with onload code.") + "<br><pre>" +
+            Translate("Problem with onload code.") + "<br><pre>" +
             RUR.current_world.onload + "</pre>");
         console.log("error in onload:", e);
     }
@@ -4469,7 +4654,7 @@ RUR.world.add_robot = function (robot) {
     }
     if (RUR.MAX_NB_ROBOTS !== undefined &&
         RUR.MAX_NB_ROBOTS >= RUR.current_world.robots.length){
-        throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
+        throw new RUR.ReeborgError(Translate("You cannot create another robot!"));
     }
     RUR.current_world.robots.push(robot);
     RUR.rec.record_frame();
@@ -4478,7 +4663,7 @@ RUR.world.add_robot = function (robot) {
 
 RUR.world.remove_robots = function () {
     if (RUR.MAX_NB_ROBOTS !== undefined){
-        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
+        throw new RUR.ReeborgError(Translate("Cheater! You are not allowed to change the number of robots this way!"));
     } else {
         RUR.current_world.robots = [];
     }
@@ -4547,8 +4732,23 @@ RUR.world.update_editors = function (world) {
    description_editor.setValue(world.description);
    onload_editor.setValue(world.onload);
 };
+
+},{"./aa_utils.js":1,"./constants.js":2,"./custom_dialogs.js":4,"./recorder.js":12,"./robot.js":13,"./state.js":15,"./visible_world.js":21,"./world_editor.js":23}],23:[function(require,module,exports){
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
+
+require("./aa_utils.js");
+require("./constants.js");
+require("./control.js");
+require("./custom_dialogs.js");
+require("./objects.js");
+require("./robot.js");
+require("./runner.js");  // TODO: replace by state
+require("./world.js");
+require("./visible_world.js");
+require("./utils.js");
+console.log("loading world_editor");
+
 
 RUR.we = {};   // we == World Editor
 
@@ -4606,10 +4806,10 @@ RUR.we.edit_world = function  () {
 };
 
 RUR.we.alert_1 = function (txt) {
-    $("#cmd-result").html(RUR.translate(txt)).effect("highlight", {color: "gold"}, 1500);
+    $("#cmd-result").html(Translate(txt)).effect("highlight", {color: "gold"}, 1500);
 };
 RUR.we.alert_2 = function (txt, value) {
-    $("#cmd-result").html(RUR.translate(txt).supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
+    $("#cmd-result").html(Translate(txt).supplant({obj: Translate(value)})).effect("highlight", {color: "gold"}, 1500);
 };
 
 RUR.we.select = function (choice) {
@@ -4757,7 +4957,7 @@ RUR.we.change_edit_robot_menu = function () {
     }
 };
 
-function toggle_editing_mode () {
+RUR.we.toggle_editing_mode = function () {
     if (RUR.we.editing_world) {  // done editing
         $("#pre-code-link").parent().hide();
         $("#post-code-link").parent().hide();
@@ -4844,7 +5044,7 @@ RUR.we.show_world_info = function (no_grid) {
     information = "";
 
     if (RUR.current_world.description) {
-        information +="<b>" + RUR.translate("Description") + "</b><br>" + RUR.current_world.description + "<hr>";
+        information +="<b>" + Translate("Description") + "</b><br>" + RUR.current_world.description + "<hr>";
     }
 
     if (!no_grid) {
@@ -4863,7 +5063,7 @@ RUR.we.show_world_info = function (no_grid) {
         if (tile.info) {
             if (topic){
                 topic = false;
-                information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
+                information += "<br><br><b>" + Translate("Special information about this location:") + "</b>";
             }
             information += "<br>" + tile.info;
         }
@@ -4876,7 +5076,7 @@ RUR.we.show_world_info = function (no_grid) {
             if (tile.info){
                 if (topic){
                     topic = false;
-                    information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
+                    information += "<br><br><b>" + Translate("Special information about this location:") + "</b>";
                 }
                 if (tile.name == "fence") {
                     if (!fence_noted) {
@@ -4898,9 +5098,9 @@ RUR.we.show_world_info = function (no_grid) {
             if (obj_here.hasOwnProperty(obj_type)) {
                     if (topic){
                         topic = false;
-                        information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
+                        information += "<br><br><b>" + Translate("Objects found here:") + "</b>";
                     }
-               information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
+               information += "<br>" + Translate(obj_type) + ":" + obj_here[obj_type];
             }
         }
     }
@@ -4915,9 +5115,9 @@ RUR.we.show_world_info = function (no_grid) {
                 if (obj_here.hasOwnProperty(obj_type)) {
                     if (topic){
                         topic = false;
-                        information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
+                        information += "<br><br><b>" + Translate("Goal to achieve:") + "</b>";
                     }
-                   information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
+                   information += "<br>" + Translate(obj_type) + ":" + obj_here[obj_type];
                 }
             }
         }
@@ -4928,17 +5128,17 @@ RUR.we.show_world_info = function (no_grid) {
         if (goals.walls !== undefined && coords) {
             if (goals.walls[coords] !== undefined){
                 if (goals.walls[coords].indexOf("east") != -1) {
-                    information += "<br>" + RUR.translate("A wall must be built east of this location.");
+                    information += "<br>" + Translate("A wall must be built east of this location.");
                 }
                 if (goals.walls[coords].indexOf("north") != -1) {
-                    information += "<br>" + RUR.translate("A wall must be built north of this location.");
+                    information += "<br>" + Translate("A wall must be built north of this location.");
                 }
             }
             x -= 1;
             coords = x + "," + y;
             if (goals.walls[coords] !== undefined){
                 if (goals.walls[coords].indexOf("east") != -1) {
-                    information += "<br>" + RUR.translate("A wall must be built west of this location.");
+                    information += "<br>" + Translate("A wall must be built west of this location.");
                 }
             }
             x += 1;
@@ -4946,7 +5146,7 @@ RUR.we.show_world_info = function (no_grid) {
             coords = x + "," + y;
             if (goals.walls[coords] !== undefined){
                 if (goals.walls[coords].indexOf("north") != -1) {
-                    information += "<br>" + RUR.translate("A wall must be built south of this location.");
+                    information += "<br>" + Translate("A wall must be built south of this location.");
                 }
             }
             y += 1;
@@ -4961,7 +5161,7 @@ RUR.we.show_world_info = function (no_grid) {
             x = robot.x;
             y = robot.y;
             if (robot.start_positions !== undefined && robot.start_positions.length > 1){
-                x = RUR.translate("random location");
+                x = Translate("random location");
                 y = '';
             }
             no_object = true;
@@ -4969,13 +5169,13 @@ RUR.we.show_world_info = function (no_grid) {
                 if (robot.objects.hasOwnProperty(obj)) {
                     if (no_object) {
                         no_object = false;
-                        information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>";
+                        information += "<br><br><b>" + Translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>";
                     }
-                    information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
+                    information += "<br>" + Translate(obj) + ":" + robot.objects[obj];
                 }
             }
             if (no_object){
-                information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>";
+                information += "<br><br><b>" + Translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>";
             }
         }
     }
@@ -4986,12 +5186,12 @@ RUR.we.show_world_info = function (no_grid) {
          (goals.possible_positions !== undefined || goals.position !== undefined)){
         if (topic){
             topic = false;
-            information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
+            information += "<br><br><b>" + Translate("Goal to achieve:") + "</b>";
         }
         if (goals.possible_positions !== undefined && goals.possible_positions.length > 2) {
-            information += "<br>" + RUR.translate("The final required position of the robot will be chosen at random.");
+            information += "<br>" + Translate("The final required position of the robot will be chosen at random.");
         } else {
-            information += "<br>" + RUR.translate("The final position of the robot must be (x, y) = ") +
+            information += "<br>" + Translate("The final position of the robot must be (x, y) = ") +
                            "(" + goals.position.x + ", " + goals.position.y + ")";
         }
     }
@@ -5054,16 +5254,16 @@ RUR.we._give_objects_to_robot = function (specific_object){
     "use strict";
 
     RUR.we.specific_object = specific_object;
-    $("#give-object-name").html(RUR.translate(specific_object));
+    $("#give-object-name").html(Translate(specific_object));
     RUR.cd.dialog_give_object.dialog("open");
 };
 
 
 RUR.we.give_objects_to_robot = function (obj, nb, robot) {
-    var translated_arg = RUR.translate_to_english(obj);
+    var translated_arg = Translate_to_english(obj);
 
     if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: obj}));
+        throw new RUR.ReeborgError(Translate("Unknown object").supplant({obj: obj}));
     }
 
     obj = translated_arg;
@@ -5082,7 +5282,7 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
             delete robot.objects[obj];
         }
     } else {
-        RUR.cd.show_feedback("#Reeborg-shouts", nb + RUR.translate(" is not a valid value!"));
+        RUR.cd.show_feedback("#Reeborg-shouts", nb + Translate(" is not a valid value!"));
     }
 };
 
@@ -5242,7 +5442,7 @@ RUR.we._add_object = function (specific_object){
     RUR.we.specific_object = specific_object;
     RUR.we.x = x;
     RUR.we.y = y;
-    $("#add-object-name").html(RUR.translate(specific_object));
+    $("#add-object-name").html(Translate(specific_object));
     RUR.cd.dialog_add_object.dialog("open");
 };
 
@@ -5257,7 +5457,7 @@ RUR.we._add_decorative_object = function (specific_object){
     coords = x + "," + y;
 
     if (RUR.objects.known_objects.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
+        throw new RUR.ReeborgError(Translate("Unknown object").supplant({obj: specific_object}));
     }
 
     RUR.we.ensure_key_exist(RUR.current_world, "decorative_objects");
@@ -5276,7 +5476,7 @@ RUR.we.add_object = function (specific_object, x, y, nb){
     "use strict";
     var coords, tmp;
     if (RUR.objects.known_objects.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
+        throw new RUR.ReeborgError(Translate("Unknown object").supplant({obj: specific_object}));
     }
 
     coords = x + "," + y;
@@ -5320,7 +5520,7 @@ RUR.we._add_goal_objects = function (specific_object){
     RUR.we.specific_object = specific_object;
     RUR.we.x = x;
     RUR.we.y = y;
-    $("#goal-object-name").html(RUR.translate(specific_object));
+    $("#goal-object-name").html(Translate(specific_object));
     RUR.cd.dialog_goal_object.dialog("open");
 };
 
@@ -5356,7 +5556,7 @@ RUR.we.set_goal_position = function (home){
     "use strict";
     var position, world=RUR.current_world, robot, arr=[], pos, present=false, goal;
 
-    $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
+    $("#cmd-result").html(Translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
 
     RUR.we.ensure_key_exist(world, "goal");
     goal = world.goal;
@@ -5521,7 +5721,7 @@ RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
             delete RUR.current_world.goal.possible_positions;
             delete RUR.current_world.goal.position;
             RUR.cd.show_feedback("#Reeborg-shouts",
-                                 RUR.translate("WARNING: deleted final positions choices while resizing world!"));
+                                 Translate("WARNING: deleted final positions choices while resizing world!"));
         }
     }
 };
@@ -5563,6 +5763,8 @@ RUR.we._remove_all_at_location = function(coords) {
         }
     }
 };
+
+},{"./aa_utils.js":1,"./constants.js":2,"./control.js":3,"./custom_dialogs.js":4,"./objects.js":9,"./robot.js":13,"./runner.js":14,"./utils.js":19,"./visible_world.js":21,"./world.js":22}],24:[function(require,module,exports){
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -5574,7 +5776,7 @@ RUR.we._remove_all_at_location = function(coords) {
     id = select_world.  Doing a global search for "#select_world" should
     only find items in this file.
 */
-
+console.log("loading world_select");
 RUR.world_select = {};
 
 RUR.world_select.empty_menu = function () {
@@ -5660,1202 +5862,8 @@ RUR.world_select.append_world = function (arg) {
         $('#select_world').append( $(option_elt).val(url).html(shortname));
     }
 };
-// called by zzz_doc_ready.js
-RUR.zz_dr_dialogs = function () {
 
-    function create_and_activate_dialog(button, element, add_options, special_fn) {
-        var options = {
-        minimize: true,
-        maximize: false,
-        autoOpen: false,
-        width: 800,
-        height: 600,
-        position: {my: "center", at: "center", of: window},
-        beforeClose: function( event, ui ) {
-                button.addClass("blue-gradient").removeClass("reverse-blue-gradient");
-                if (special_fn !== undefined){
-                    special_fn();
-                }
-            }
-        };
-        for (var attrname in add_options) {
-            options[attrname] = add_options[attrname];
-        }
-
-        button.on("click", function(evt) {
-            element.dialog(options);
-            button.toggleClass("blue-gradient");
-            button.toggleClass("reverse-blue-gradient");
-            if (button.hasClass("reverse-blue-gradient")) {
-                element.dialog("open");
-            } else {
-                element.dialog("close");
-            }
-            if (special_fn !== undefined && element.dialog("isOpen")){
-                special_fn();
-            }
-        });
-    }
-
-    create_and_activate_dialog($("#edit-world"), $("#edit-world-panel"), {}, toggle_editing_mode);
-    create_and_activate_dialog($("#about-button"), $("#about-div"), {});
-    create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
-    create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600}, RUR.we.show_world_info);
-    create_and_activate_dialog($("#special-keyboard-button"), $("#special-keyboard"),
-            {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
-
-    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
-                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert",
-                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
-                                    position:{my: "bottom", at: "bottom-20", of: window}});
-    $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
-                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:800, dialogClass: "proclaims",
-                                    position:{my: "bottom", at: "bottom-80", of: window}});
-    $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
-                                    position:{my: "bottom", at: "bottom-140", of: window}});
-
-
-};
-
-$(document).ready(function() {
-    "use strict";
-    var prog_lang, url_query, name;
-    RUR.state.human_language = document.documentElement.lang;
-
-    RUR.state.set_initial_values();
-
-    function everything_loaded () {
-        var loaded, total_images, py_modules=0;
-        if (RUR.objects.loaded_images == RUR.objects.nb_images &&
-            RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images){
-            RUR.vis_world.draw_all();
-            $("#splash-screen").hide();
-        } else {
-            loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
-            total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
-            if (!RUR.state.images_loaded) {
-                $("#splash-text").html("Loading Python modules. <br>Images: " + loaded + "/" + total_images);
-            } else {
-                $("#splash-text").html("Images: " + loaded + "/" + total_images);
-            }
-            requestAnimationFrame(everything_loaded);
-        }
-    }
-    everything_loaded();
-
-    RUR.rec.reset();
-    try {
-        RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
-    } catch (e) {
-        RUR.world_select.set_default();
-    }
-
-    RUR.tooltip.init();
-
-    // check if this is needed or does conflict with MakeCustomMenu
-    RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
-
-    RUR.cd.create_custom_dialogs();
-    RUR.zz_dr_dialogs();
-    RUR.zz_dr_onclick();
-    RUR.zz_dr_onchange();
-    RUR.zz_dr_editor_ui();
-
-    brython({debug:1, pythonpath:['/src/python']});
-
-    RUR.ui.show_only_reload2(false);
-
-    try {
-        RUR.reset_code_in_editors();
-    } catch (e){
-        console.log(e);
-        RUR.cd.show_feedback("#Reeborg-shouts",
-                        "Your browser does not support localStorage. " +
-                        "You will not be able to save your functions in the library.");
-    }
-    // for embedding in iframe
-    addEventListener("message", receiveMessage, false);
-    function receiveMessage(event){
-        RUR.permalink.update(event.data);
-    }
-
-    RUR.ui.set_ready_to_run();
-    RUR.kbd.select();
-
-    RUR.make_default_menu(RUR.state.human_language);
-
-
-    url_query = parseUri(window.location.href);
-    if (url_query.queryKey.proglang !== undefined &&
-       url_query.queryKey.world !== undefined &&
-       url_query.queryKey.editor !== undefined &&
-       url_query.queryKey.library !== undefined) {
-        prog_lang = url_query.queryKey.proglang;
-        $('input[type=radio][name=programming_language]').val([prog_lang]);
-        RUR.reset_programming_language(prog_lang);
-        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        name = RUR.translate("PERMALINK");
-        localStorage.setItem("user_world:"+ name, RUR.world.export_world());
-        RUR.storage.save_world(name);
-
-        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
-        library.setValue(decodeURIComponent(url_query.queryKey.library));
-    } else {
-        prog_lang = localStorage.getItem("last_programming_language_" + RUR.state.human_language);
-        switch (prog_lang) {
-            case 'python-' + RUR.state.human_language:
-                $("#python_choices").val("editor").change();  // jshint ignore:line
-            case 'javascript-' + RUR.state.human_language:
-                $("#javascript_choices").val("editor").change(); // jshint ignore:line
-            default:
-                RUR.reset_programming_language('python-' + RUR.state.human_language);
-        }
-        // trigger it to load the initial world.
-        $("#select_world").change();
-    }
-});
-/* jshint -W069 */
-
-RUR.color_basic = 120;
-RUR.color_condition = 240;
-RUR.done_colour = "#aa0000";
-RUR.blockly = {};
-
-/****  Begin over-riding Blockly's default */
-Blockly.Blocks.loops.HUE = 230;
-
-Blockly.JavaScript['text_print'] = function(block) {
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
-      Blockly.JavaScript.ORDER_NONE) || '\'\'';
-  return RUR.translate("write")+'(' + argument0 + ');\n';
-};
-Blockly.Msg.TEXT_PRINT_TITLE = "print %1";
-Blockly.makeColour = function(hue) {
-  if (hue === RUR.done_colour){
-      return hue;
-  }
-  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
-      Blockly.HSV_VALUE * 255);
-};
-
-if (document.documentElement.lang=="fr") {
-    Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "pour";
-    Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = "pour";
-}
-Blockly.Python.INDENT = '    ';
-Blockly.JavaScript.INDENT = '    ';
-Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
-Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
-Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
-
-// removing mutator for simple function definitions as per
-// https://groups.google.com/d/msg/blockly/_rrwh-Lc-sE/cHAk5yNfhUEJ
-
-(function(){var old = Blockly.Blocks.procedures_defnoreturn.init;
-    Blockly.Blocks.procedures_defnoreturn.init =
-    function(){old.call(this);
-        this.setMutator(undefined);
-        // this.setColour(RUR.color_basic);
-    };
-})();
-
-/****  End of over-riding Blockly's default */
-
-Blockly.Blocks['_sound_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(RUR.translate("sound"))
-        .appendField(new Blockly.FieldCheckbox("TRUE"), "SOUND");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(20);
-    this.setTooltip('');
-  }
-};
-Blockly.JavaScript['_sound_'] = function(block) {
-  var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
-  if (checkbox_sound) {
-      return RUR.translate("sound") + "(true);\n";
-  } else {
-      return RUR.translate("sound") + "(false);\n";
-  }
-};
-Blockly.Python['_sound_'] = function(block) {
-  var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
-  if (checkbox_sound) {
-      return RUR.translate("sound") + "(True)\n";
-  } else {
-      return RUR.translate("sound") + "(False)\n";
-  }
-};
-
-
-Blockly.Blocks['_think_'] = {
-  init: function() {
-    this.appendValueInput("NAME")
-        .setCheck("Number")
-        .appendField(RUR.translate("think"));
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(20);
-    this.setTooltip(RUR.translate("Delay between actions; default is 300 ms."));
-  }
-};
-Blockly.Python['_think_'] = function(block) {
-  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-  return RUR.translate("think") + "("+value_name+")\n";
-};
-Blockly.JavaScript['_think_'] = function(block) {
-  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  return RUR.translate("think") + "("+value_name+");\n";
-};
-
-
-
-Blockly.Blocks['_move_'] = {
-  init: function() {
-    this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(RUR.translate("move"));
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(RUR.translate("move forward"));
-  }
-};
-Blockly.Python['_move_'] = function(block) {
-  return RUR.translate("move")+'()\n';
-};
-Blockly.JavaScript['_move_'] = function(block) {
-  return RUR.translate("move")+'();\n';
-};
-
-
-Blockly.Blocks['_turn_left_'] = {
-  init: function() {
-    this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(RUR.translate("turn_left")+" \u21BA");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(RUR.translate("turn left"));
-  }
-};
-Blockly.Python['_turn_left_'] = function(block) {
-  return RUR.translate("turn_left")+'()\n';
-};
-Blockly.JavaScript['_turn_left_'] = function(block) {
-  return RUR.translate("turn_left")+'();\n';
-};
-
-
-Blockly.Blocks['_take_'] = {
-  init: function() {
-    this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(RUR.translate("take"));
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(RUR.translate("take object"));
-  }
-};
-Blockly.Python['_take_'] = function(block) {
-  return RUR.translate("take")+'()\n';
-};
-Blockly.JavaScript['_take_'] = function(block) {
-  return RUR.translate("take")+'();\n';
-};
-
-
-Blockly.Blocks['_put_'] = {
-  init: function() {
-    this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(RUR.translate("put"));
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(RUR.translate("put object"));
-  }
-};
-Blockly.Python['_put_'] = function(block) {
-  return RUR.translate("put")+'()\n';
-};
-Blockly.JavaScript['_put_'] = function(block) {
-  return RUR.translate("put")+'();\n';
-};
-
-
-Blockly.Blocks['_pause_'] = {
-  init: function() {
-    this.setColour(30);
-    this.appendDummyInput().appendField(RUR.translate("pause"));
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(RUR.translate("Pause the program's execution."));
-  }
-};
-Blockly.Python['_pause_'] = function(block) {
-  return RUR.translate("pause")+'()\n';
-};
-Blockly.JavaScript['_pause_'] = function(block) {
-  return RUR.translate("pause")+'();\n';
-};
-
-
-Blockly.Blocks['_build_wall_'] = {
-  init: function() {
-    this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(RUR.translate("build_wall"));
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(RUR.translate("Build a wall in front of the robot."));
-  }
-};
-Blockly.Python['_build_wall_'] = function(block) {
-  return RUR.translate("build_wall")+'()\n';
-};
-Blockly.JavaScript['_build_wall_'] = function(block) {
-  return RUR.translate("build_wall")+'();\n';
-};
-
-
-Blockly.Blocks['_done_'] = {
-  init: function() {
-    this.setColour(RUR.done_colour);
-    this.appendDummyInput().appendField(RUR.translate("done"));
-    this.setPreviousStatement(true);
-    this.setTooltip(RUR.translate("End the program's execution."));
-  }
-};
-Blockly.Python['_done_'] = function(block) {
-  return RUR.translate("done")+'()\n';
-};
-Blockly.JavaScript['_done_'] = function(block) {
-  return RUR.translate("done")+'();\n';
-};
-
-
-Blockly.Blocks['_wall_in_front_or_right_'] = {
-  init: function() {
-    var choices =  [
-        [RUR.translate("wall_in_front"), RUR.translate("wall_in_front")],
-        [RUR.translate("wall_on_right"), RUR.translate("wall_on_right")]];
-    this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
-    this.setOutput(true, "Boolean");
-    this.setTooltip(RUR.translate("True if a wall is blocking the way."));
-  }
-};
-Blockly.Python['_wall_in_front_or_right_'] = function(block) {
-  return [block.getFieldValue('choice')+'()'];
-};
-Blockly.JavaScript['_wall_in_front_or_right_'] = function(block) {
-  return [block.getFieldValue('choice')+'()'];
-};
-
-
-Blockly.Blocks['_front_or_right_is_clear_'] = {
-  init: function() {
-    var choices =  [
-        [RUR.translate("front_is_clear"), RUR.translate("front_is_clear")],
-        [RUR.translate("right_is_clear"), RUR.translate("right_is_clear")]];
-    this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
-    this.setOutput(true, "Boolean");
-    this.setTooltip(RUR.translate("True if nothing is blocking the way."));
-  }
-};
-Blockly.Python['_front_or_right_is_clear_'] = function(block) {
-  return [block.getFieldValue('choice')+'()'];
-};
-Blockly.JavaScript['_front_or_right_is_clear_'] = function(block) {
-  return [block.getFieldValue('choice')+'()'];
-};
-
-
-Blockly.Blocks['_at_goal_'] = {
-  init: function() {
-    this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(RUR.translate("at_goal"));
-    this.setOutput(true, "Boolean");
-    this.setTooltip(RUR.translate("True if desired destination."));
-  }
-};
-Blockly.Python['_at_goal_'] = function(block) {
-  return [RUR.translate("at_goal")+'()'];
-};
-Blockly.JavaScript['_at_goal_'] = function(block) {
-  return [RUR.translate("at_goal")+'()'];
-};
-
-
-Blockly.Blocks['_carries_object_'] = {
-  init: function() {
-    this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(RUR.translate("carries_object"));
-    this.setOutput(true, "Boolean");
-    this.setTooltip(RUR.translate("True if robot carries at least one object."));
-  }
-};
-Blockly.Python['_carries_object_'] = function(block) {
-  return [RUR.translate("carries_object")+'()'];
-};
-Blockly.JavaScript['_carries_object_'] = function(block) {
-  return [RUR.translate("carries_object")+'()'];
-};
-
-
-Blockly.Blocks['_object_here_'] = {
-  init: function() {
-    this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(RUR.translate("object_here"));
-    this.setOutput(true, "Boolean");
-    this.setTooltip(RUR.translate("True if there is at least one object here."));
-  }
-};
-Blockly.Python['_object_here_'] = function(block) {
-  return [RUR.translate("object_here")+'()'];
-};
-Blockly.JavaScript['_object_here_'] = function(block) {
-  return [RUR.translate("object_here")+'()'];
-};
-
-
-Blockly.Blocks['_is_facing_north_'] = {
-  init: function() {
-    this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(RUR.translate("is_facing_north"));
-    this.setOutput(true, "Boolean");
-    this.setTooltip(RUR.translate("True if robot is facing North."));
-  }
-};
-Blockly.Python['_is_facing_north_'] = function(block) {
-  return [RUR.translate("is_facing_north")+'()'];
-};
-Blockly.JavaScript['_is_facing_north_'] = function(block) {
-  return [RUR.translate("is_facing_north")+'()'];
-};
-
-
-Blockly.Blocks['_star_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("star"))
-        .appendField(new Blockly.FieldImage("/src/images/star.png", 15, 15, RUR.translate("star")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_star_'] = function(block) {
-  return [RUR.translate("star")];
-};
-Blockly.JavaScript['_star_'] = function(block) {
-  return [RUR.translate("star")];
-};
-
-Blockly.Blocks['_token_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("token"))
-        .appendField(new Blockly.FieldImage("/src/images/token.png", 15, 15, RUR.translate("token")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_token_'] = function(block) {
-  return [RUR.translate("token")];
-};
-Blockly.JavaScript['_token_'] = function(block) {
-  return [RUR.translate("token")];
-};
-
-Blockly.Blocks['_apple_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("apple"))
-        .appendField(new Blockly.FieldImage("/src/images/apple.png", 15, 15, RUR.translate("apple")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_apple_'] = function(block) {
-  return [RUR.translate("apple")];
-};
-Blockly.JavaScript['_apple_'] = function(block) {
-  return [RUR.translate("apple")];
-};
-
-Blockly.Blocks['_carrot_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("carrot"))
-        .appendField(new Blockly.FieldImage("/src/images/carrot.png", 15, 15, RUR.translate("carrot")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_carrot_'] = function(block) {
-  return [RUR.translate("carrot")];
-};
-Blockly.JavaScript['_carrot_'] = function(block) {
-  return [RUR.translate("carrot")];
-};
-
-Blockly.Blocks['_dandelion_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("dandelion"))
-        .appendField(new Blockly.FieldImage("/src/images/dandelion.png", 15, 15, RUR.translate("dandelion")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_dandelion_'] = function(block) {
-  return [RUR.translate("dandelion")];
-};
-Blockly.JavaScript['_dandelion_'] = function(block) {
-  return [RUR.translate("dandelion")];
-};
-
-Blockly.Blocks['_daisy_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("daisy"))
-        .appendField(new Blockly.FieldImage("/src/images/daisy.png", 15, 15, RUR.translate("daisy")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_daisy_'] = function(block) {
-  return [RUR.translate("daisy")];
-};
-Blockly.JavaScript['_daisy_'] = function(block) {
-  return [RUR.translate("daisy")];
-};
-
-Blockly.Blocks['_triangle_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("triangle"))
-        .appendField(new Blockly.FieldImage("/src/images/triangle.png", 15, 15, RUR.translate("triangle")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_triangle_'] = function(block) {
-  return [RUR.translate("triangle")];
-};
-Blockly.JavaScript['_triangle_'] = function(block) {
-  return [RUR.translate("triangle")];
-};
-
-Blockly.Blocks['_square_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("square"))
-        .appendField(new Blockly.FieldImage("/src/images/square.png", 15, 15, RUR.translate("square")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_square_'] = function(block) {
-  return [RUR.translate("square")];
-};
-Blockly.JavaScript['_square_'] = function(block) {
-  return [RUR.translate("square")];
-};
-
-Blockly.Blocks['_strawberry_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("strawberry"))
-        .appendField(new Blockly.FieldImage("/src/images/strawberry.png", 15, 15, RUR.translate("strawberry")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_strawberry_'] = function(block) {
-  return [RUR.translate("strawberry")];
-};
-Blockly.JavaScript['_strawberry_'] = function(block) {
-  return [RUR.translate("strawberry")];
-};
-
-Blockly.Blocks['_leaf_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("leaf"))
-        .appendField(new Blockly.FieldImage("/src/images/leaf.png", 15, 15, RUR.translate("leaf")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_leaf_'] = function(block) {
-  return [RUR.translate("leaf")];
-};
-Blockly.JavaScript['_leaf_'] = function(block) {
-  return [RUR.translate("leaf")];
-};
-
-Blockly.Blocks['_banana_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("banana"))
-        .appendField(new Blockly.FieldImage("/src/images/banana.png", 15, 15, RUR.translate("banana")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_banana_'] = function(block) {
-  return [RUR.translate("banana")];
-};
-Blockly.JavaScript['_banana_'] = function(block) {
-  return [RUR.translate("banana")];
-};
-
-Blockly.Blocks['_orange_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("orange"))
-        .appendField(new Blockly.FieldImage("/src/images/orange.png", 15, 15, RUR.translate("orange")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_orange_'] = function(block) {
-  return [RUR.translate("orange")];
-};
-Blockly.JavaScript['_orange_'] = function(block) {
-  return [RUR.translate("orange")];
-};
-
-Blockly.Blocks['_tulip_'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(RUR.translate("tulip"))
-        .appendField(new Blockly.FieldImage("/src/images/tulip.png", 15, 15, RUR.translate("tulip")));
-    this.setOutput(true, "String");
-    this.setColour(0);
-  }
-};
-Blockly.Python['_tulip_'] = function(block) {
-  return [RUR.translate("tulip")];
-};
-Blockly.JavaScript['_tulip_'] = function(block) {
-  return [RUR.translate("tulip")];
-};
-
-
-
-
-
-
-
-
-
-Blockly.Blocks['_carries_object_or_here_'] = {
-  init: function() {
-    this.appendValueInput("action")
-        .setCheck("String")
-        .appendField(new Blockly.FieldDropdown([
-            [RUR.translate("carries_object"), RUR.translate("carries_object")],
-            [RUR.translate("object_here"), RUR.translate("object_here")]]), "condition");
-    this.setOutput(true, "Boolean");
-    this.setColour(RUR.color_condition);
-  }
-};
-Blockly.Python['_carries_object_or_here_'] = function(block) {
-  var dropdown_condition = block.getFieldValue('condition');
-  var value_action = Blockly.Python.valueToCode(block, 'action', Blockly.Python.ORDER_ATOMIC);
-  return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
-};
-Blockly.JavaScript['_carries_object_or_here_'] = function(block) {
-  var dropdown_condition = block.getFieldValue('condition');
-  var value_action = Blockly.JavaScript.valueToCode(block, 'action', Blockly.JavaScript.ORDER_ATOMIC);
-  return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
-};
-
-
-Blockly.Blocks['_take_or_put_'] = {
-  init: function() {
-    this.appendValueInput("obj")
-        .setCheck("String")
-        .appendField(new Blockly.FieldDropdown([
-            [RUR.translate("take"), RUR.translate("take")],
-            [RUR.translate("put"), RUR.translate("put")]]), "action");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(RUR.color_basic);
-  }
-};
-Blockly.Python['_take_or_put_'] = function(block) {
-  var dropdown_action = block.getFieldValue('action');
-  var value_obj = Blockly.Python.valueToCode(block, 'obj', Blockly.Python.ORDER_ATOMIC);
-  return dropdown_action + '("' + value_obj + '")\n';
-};
-Blockly.JavaScript['_take_or_put_'] = function(block) {
-  var dropdown_action = block.getFieldValue('action');
-  var value_obj = Blockly.JavaScript.valueToCode(block, 'obj', Blockly.JavaScript.ORDER_ATOMIC);
-  return dropdown_action + '("' + value_obj + '");\n';
-};
-
-
-
-/** Simple if skeletton from
-https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#k8aine
-****/
-
-Blockly.Blocks['_if_'] = {
-  init: function() {
-    this.appendValueInput("condition")
-        .setCheck("Boolean")
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
-    this.appendStatementInput("then")
-        .setCheck(null)
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(210);
-    // this.setTooltip('');
-  }
-};
-Blockly.JavaScript['_if_'] = function(block) {
-  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-  var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
-  return "if (" + value_condition + ") {\n" + statements_then + "}\n";
-
-};
-Blockly.Python['_if_'] = function(block) {
-  var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
-  var statements_then = Blockly.Python.statementToCode(block, 'then');
-  return "if " + value_condition + ":\n" + statements_then;
-};
-
-
-Blockly.Blocks['_if_else_'] = {
-  init: function() {
-    this.appendValueInput("condition")
-        .setCheck("Boolean")
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
-    this.appendStatementInput("then")
-        .setCheck(null)
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
-    this.appendStatementInput("else")
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(210);
-    this.setTooltip('');
-  }
-};
-Blockly.JavaScript['_if_else_'] = function(block) {
-  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-  var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
-  var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
-  return "if (" + value_condition + ") {\n" + statements_then + "} else {\n" + statements_else+"}\n";
-};
-Blockly.Python['_if_else_'] = function(block) {
-  var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
-  var statements_then = Blockly.Python.statementToCode(block, 'then');
-  var statements_else = Blockly.Python.statementToCode(block, 'else');
-  return "if " + value_condition + ":\n" + statements_then + "else:\n" + statements_else;
-};
-
-
-Blockly.Blocks['_if_else_if_else_'] = {
-  init: function() {
-    this.appendValueInput("condition")
-        .setCheck("Boolean")
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
-    this.appendStatementInput("do")
-        .setCheck(null)
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-    this.appendValueInput("condition2")
-        .setCheck("Boolean")
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
-    this.appendStatementInput("do2")
-        .setCheck(null)
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
-    this.appendStatementInput("else")
-        .setCheck(null)
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(210);
-    this.setTooltip('');
-  }
-};
-Blockly.JavaScript['_if_else_if_else_'] = function(block) {
-  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-  var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
-  var value_condition2 = Blockly.JavaScript.valueToCode(block, 'condition2', Blockly.JavaScript.ORDER_ATOMIC);
-  var statements_do2 = Blockly.JavaScript.statementToCode(block, 'do2');
-  var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
-  return "if (" + value_condition + ") {\n" + statements_do +
-         "} else if (" + value_condition2 + ") {\n" + statements_do2 +
-         "} else {\n" + statements_else+"}\n";
-};
-Blockly.Python['_if_else_if_else_'] = function(block) {
-  var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
-  var statements_do = Blockly.Python.statementToCode(block, 'do');
-  var value_condition2 = Blockly.Python.valueToCode(block, 'condition2', Blockly.Python.ORDER_ATOMIC);
-  var statements_do2 = Blockly.Python.statementToCode(block, 'do2');
-  var statements_else = Blockly.Python.statementToCode(block, 'else');
-  return "if " + value_condition + ":\n" + statements_do +
-         "elif " + value_condition2 + ":\n" + statements_do2 +
-         "else:\n" + statements_else;
-};
-
-RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
-    toolbox: document.getElementById('toolbox'),
-    zoom:{
-        controls: true,
-        wheel: true,
-        startScale: 1.0,
-        maxScale: 3,
-        minScale: 0.3,
-        scaleSpeed: 1.2},
-    trashcan: true});
-
-
-$("#blocklyDiv").resizable({
-    resize: function() {
-        $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
-        window.dispatchEvent(new Event('resize'));
-    }
-});
-
-$("#blockly-wrapper").draggable({
-    cursor: "move",
-    handle: "p",
-    drag: function( event, ui ) {
-        window.dispatchEvent(new Event('resize'));
-    },
-    stop: function( event, ui ) {
-        window.dispatchEvent(new Event('resize'));
-    }
-});
-/* Sets up the UI for various editors.
-
-called by zzz_doc_ready.js
-*/
-RUR.zz_dr_editor_ui = function () {
-    $("#tabs").tabs({
-            heightStyle: "auto",
-            activate: function(event, ui){
-                editor.refresh();
-                library.refresh();
-                pre_code_editor.refresh();
-                post_code_editor.refresh();
-                description_editor.refresh();
-                onload_editor.refresh();
-            }
-    });
-
-    $("#editor-panel").resizable({
-        resize: function() {
-            editor.setSize(null, $(this).height()-40);
-            library.setSize(null, $(this).height()-40);
-            pre_code_editor.setSize(null, $(this).height()-40);
-            post_code_editor.setSize(null, $(this).height()-40);
-            description_editor.setSize(null, $(this).height()-40);
-            onload_editor.setSize(null, $(this).height()-40);
-        }
-    }).draggable({cursor: "move", handle: "ul"});
-};
-/* Sets up what happens when various changes happened in various html elements.
-
-called by zzz_doc_ready.js
-*/
-RUR.zz_dr_onchange = function () {
-
-    $("#select_programming_language").change(function() {
-        RUR.reset_programming_language($(this).val());
-    });
-
-    $("#select_world").change(function() {
-        if (RUR.storage.appending_world_name_flag){
-            RUR.storage.appending_world_name_flag = false;
-            return;
-        }
-        if ($(this).val() !== null) {
-            RUR.file_io.load_world_file($(this).val());
-        }
-        try {
-            localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
-        } catch (e) {}
-    });
-
-
-    $("#python_choices").change(function() {
-        if($(this).val() == "editor") {
-            show_python_editor();
-            hide_console();
-            hide_blockly();
-            RUR.state.input_method = "editor";
-        } else if($(this).val() == "repl") {
-            hide_python_editor();
-            show_console();
-            hide_blockly();
-            RUR.state.input_method = "repl";
-        } else {
-            hide_python_editor();
-            hide_console();
-            show_blockly();
-            RUR.state.input_method = "blockly";
-        }
-    });
-
-    $("#javascript_choices").change(function() {
-        if($(this).val() == "blockly") {
-            hide_javascript_editor();
-            show_blockly();
-            RUR.state.input_method = "blockly";
-        } else {
-            show_javascript_editor();
-            hide_blockly();
-            RUR.state.input_method = "editor";
-        }
-    });
-
-    $('#editor_visible_blockly').change(function() {
-        if ($('#editor_visible_blockly')[0].checked) {
-            RUR.state.input_method = "editor";
-            if (RUR.state.programming_language == "python"){
-                show_python_editor();
-            } else {
-                show_javascript_editor();
-            }
-        } else {
-            RUR.state.input_method = "blockly";
-            if (RUR.state.programming_language == "python"){
-                hide_python_editor();
-            } else {
-                hide_javascript_editor();
-            }
-        }
-    });
-
-    function show_blockly () {
-        $("#blockly-wrapper").show();
-        $("#visible_blockly").show();
-        if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
-            $("#special-keyboard-button").click();
-        }
-        $("#special-keyboard-button").hide();
-        $("#Reeborg-watches").dialog("close");
-        if ($('#editor_visible_blockly')[0].checked) {
-            show_python_editor();
-        }
-        window.dispatchEvent(new Event('resize')); // important to ensure that blockly is visible
-    }
-
-    function hide_blockly () {
-        $("#blockly-wrapper").hide();
-        window.dispatchEvent(new Event('resize'));
-        $("#visible_blockly").hide();
-        $("#special-keyboard-button").show();
-    }
-
-    function show_javascript_editor () {
-        $("#editor-panel").addClass("active");
-        $("#kbd_javascript_btn").show();
-        RUR.ui.reload();
-        editor.refresh();
-    }
-    function hide_javascript_editor () {
-        $("#editor-panel").removeClass("active");
-        $("#kbd_javascript_btn").hide();
-    }
-
-
-    function show_python_editor () {
-        $("#editor-panel").addClass("active");
-        $("#kbd_python_btn").show();
-        RUR.state.highlight = RUR.state.highlight || RUR._saved_highlight_value;
-        RUR.ui.reload();
-        editor.refresh();
-    }
-    function hide_python_editor () {
-        $("#editor-panel").removeClass("active");
-        $("#kbd_python_btn").hide();
-        RUR._saved_highlight_value = RUR.state.highlight;
-        RUR.state.highlight = false;
-    }
-    function show_console() {
-        $("#py_console").show();
-        $("#kbd_py_console_btn").show();
-        RUR.ui.show_only_reload2(true);
-        try {
-            restart_repl();
-        } catch (e) {
-            console.log("trying to restart repl failure", e);
-        }
-    }
-    function hide_console() {
-        $("#py_console").hide();
-        $("#kbd_py_console_btn").hide();
-        RUR.ui.show_only_reload2(false);
-    }
-
-};
-/* Sets up what happens when the user clicks on various html elements.
-
-called by zzz_doc_ready.js
-*/
-RUR.zz_dr_onclick = function () {
-
-    function load_file (obj) {
-        $("#fileInput").click();
-        var fileInput = document.getElementById('fileInput');
-        fileInput.addEventListener('change', function(e) {
-            var file = fileInput.files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                obj.setValue(reader.result);
-                fileInput.value = '';
-            };
-            reader.readAsText(file);
-        });
-    }
-
-    $("#load-world").on("click", function(evt) {
-        $("#fileInput").click();
-        var fileInput = document.getElementById('fileInput');
-        fileInput.addEventListener('change', function(e) {
-            var file = fileInput.files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    RUR.world.import_world(reader.result);
-                } catch (e) {  // jshint ignore:line
-                    console.log("invalid world", e);
-                    RUR.cd.show_feedback("#Reeborg-shouts",
-                                         RUR.translate("Invalid world file."));
-                }
-                fileInput.value = '';
-            };
-            reader.readAsText(file);
-        });
-    });
-
-    $("#editor-tab").on("click", function (evt) {
-        if (RUR.state.programming_language == "python" && !RUR.we.editing_world) {
-            $("#highlight").show();
-            $("#watch_variables_btn").show();
-        } else {
-            $("#highlight").hide();
-            $("#watch_variables_btn").hide();
-        }
-    });
-
-    $("#library-tab").on("click", function (evt) {
-        $("#highlight").hide();
-        $("#watch_variables_btn").hide();
-    });
-
-    $("#save-editor").on("click", function (evt) {
-        var blob = new Blob([editor.getValue()], {
-            type: "text/javascript;charset=utf-8"
-        });
-        saveAs(blob, "filename"); // saveAs defined in src/libraries/filesaver.js
-    });
-
-    $("#save-library").on("click", function (evt) {
-        var blob = new Blob([library.getValue()], {
-            type: "text/javascript;charset=utf-8"
-        });
-        saveAs(blob, "filename");
-    });
-
-    $("#save-permalink").on("click", function (evt) {
-        var blob = new Blob([RUR.permalink.__create()], {
-            type: "text/javascript;charset=utf-8"
-        });
-        saveAs(blob, "filename");
-    });
-
-    $("#save-world").on("click", function (evt) {
-        RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
-        var blob = new Blob([RUR.world.export_world()], {
-            type: "text/javascript;charset=utf-8"
-        });
-        saveAs(blob, "filename.json", true);
-    });
-
-    $("#load-editor").on("click", function (evt) {
-        load_file(editor);
-    });
-
-    $("#load-library").on("click", function (evt) {
-        load_file(library);
-    });
-
-    $("#memorize-world").on("click", function (evt) {
-        RUR.storage.memorize_world();
-    });
-
-    $("#classic-image").on("click", function (evt) {
-        RUR.vis_robot.select_default_model(0);
-    });
-
-    $("#rover-type").on("click", function (evt) {
-        RUR.vis_robot.select_default_model(1);
-    });
-
-    $("#3d-red-type").on("click", function (evt) {
-        RUR.vis_robot.select_default_model(2);
-    });
-
-    $("#solar-panel-type").on("click", function (evt) {
-        RUR.vis_robot.select_default_model(3);
-    });
-
-    $("#robot_canvas").on("click", function (evt) {
-        RUR.we.mouse_x = evt.pageX;
-        RUR.we.mouse_y = evt.pageY;
-        if (RUR.we.editing_world) {
-            RUR.we.edit_world();
-        }
-        RUR.we.show_world_info();
-    });
-
-    $("#add_editor_to_world").on("click", function(evt) {
-        if ($(this).prop("checked")) {
-            RUR.current_world.editor = editor.getValue();
-        } else {
-            RUR.current_world.editor = null;
-        }
-    });
-
-    $("#add_library_to_world").on("click", function(evt) {
-        if ($(this).prop("checked")) {
-            RUR.current_world.library = library.getValue();
-        } else {
-            RUR.current_world.library = null;
-        }
-    });
-
-    $("#update-editor-content-btn").on("click", function(evt) {
-        editor.setValue(RUR.current_world.editor);
-        $("#update-editor-content").hide();
-        if (! $("#update-library-content").is(":visible")) {
-            RUR.cd.dialog_update_editors_from_world.dialog("close");
-        }
-    });
-    $("#update-library-content-btn").on("click", function(evt) {
-        library.setValue(RUR.current_world.library);
-        $("#update-library-content").hide();
-        if (! $("#update-editor-content").is(":visible")) {
-            RUR.cd.dialog_update_editors_from_world.dialog("close");
-        }
-    });
-};
+},{}],25:[function(require,module,exports){
 /*  The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
 the other modules.  This way, in theory, (most) refactoring can take place in the
@@ -6868,8 +5876,18 @@ Convention: all function names follow the pattern RUR._xyz_
 
 /*jshint devel:true, white:false, plusplus:false */
 
+require("./aa_utils.js");
+require("./constants.js");
+require("./control.js");
+require("./custom_menus.js");
+require("./file_io.js");
+require("./output.js");
+require("./visible_robot.js");
+require("./ui.js");
+require("./recorder.js"); //TODO: see if we can change to state
+require("./world.js");
+console.log("loading z_commands");
 
-var RUR = RUR || {};
 RUR._UR = {};
 
 RUR._at_goal_ = function () {
@@ -7058,3 +6076,1264 @@ RUR._UR.wall_in_front_ = function (robot) {
 RUR._UR.wall_on_right_ = function (robot) {
     RUR.control.wall_on_right(robot);
 };
+
+},{"./aa_utils.js":1,"./constants.js":2,"./control.js":3,"./custom_menus.js":5,"./file_io.js":6,"./output.js":10,"./recorder.js":12,"./ui.js":18,"./visible_robot.js":20,"./world.js":22}],26:[function(require,module,exports){
+// called by zzz_doc_ready.js
+
+
+require("./world_editor.js"); // TODO: see if we can eliminate this
+console.log("loading zr_dr_dialogs");
+
+RUR.zz_dr_dialogs = function () {
+
+    function create_and_activate_dialog(button, element, add_options, special_fn) {
+        var options = {
+        minimize: true,
+        maximize: false,
+        autoOpen: false,
+        width: 800,
+        height: 600,
+        position: {my: "center", at: "center", of: window},
+        beforeClose: function( event, ui ) {
+                button.addClass("blue-gradient").removeClass("reverse-blue-gradient");
+                if (special_fn !== undefined){
+                    special_fn();
+                }
+            }
+        };
+        for (var attrname in add_options) {
+            options[attrname] = add_options[attrname];
+        }
+
+        button.on("click", function(evt) {
+            element.dialog(options);
+            button.toggleClass("blue-gradient");
+            button.toggleClass("reverse-blue-gradient");
+            if (button.hasClass("reverse-blue-gradient")) {
+                element.dialog("open");
+            } else {
+                element.dialog("close");
+            }
+            if (special_fn !== undefined && element.dialog("isOpen")){
+                special_fn();
+            }
+        });
+    }
+
+    create_and_activate_dialog($("#edit-world"), $("#edit-world-panel"), {}, RUR.we.toggle_editing_mode);
+    create_and_activate_dialog($("#about-button"), $("#about-div"), {});
+    create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
+    create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600}, RUR.we.show_world_info);
+    create_and_activate_dialog($("#special-keyboard-button"), $("#special-keyboard"),
+            {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
+
+    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
+                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert",
+                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
+                                    position:{my: "bottom", at: "bottom-20", of: window}});
+    $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
+                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
+    $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:800, dialogClass: "proclaims",
+                                    position:{my: "bottom", at: "bottom-80", of: window}});
+    $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
+                                    position:{my: "bottom", at: "bottom-140", of: window}});
+
+
+};
+
+},{"./world_editor.js":23}],27:[function(require,module,exports){
+/* jshint -W069 */
+
+
+require("./aa_utils.js");
+
+console.log("loading zz_dr_blockly");
+
+RUR.blockly = {};
+RUR.color_basic = 120;
+RUR.color_condition = 240;
+RUR.done_colour = "#aa0000";
+
+/****  Begin over-riding Blockly's default */
+Blockly.Blocks.loops.HUE = 230;
+
+Blockly.JavaScript['text_print'] = function(block) {
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return Translate("write")+'(' + argument0 + ');\n';
+};
+Blockly.Msg.TEXT_PRINT_TITLE = "print %1";
+Blockly.makeColour = function(hue) {
+  if (hue === RUR.done_colour){
+      return hue;
+  }
+  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
+      Blockly.HSV_VALUE * 255);
+};
+
+if (document.documentElement.lang=="fr") {
+    Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "pour";
+    Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = "pour";
+}
+Blockly.Python.INDENT = '    ';
+Blockly.JavaScript.INDENT = '    ';
+Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
+Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
+Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
+
+// removing mutator for simple function definitions as per
+// https://groups.google.com/d/msg/blockly/_rrwh-Lc-sE/cHAk5yNfhUEJ
+
+(function(){var old = Blockly.Blocks.procedures_defnoreturn.init;
+    Blockly.Blocks.procedures_defnoreturn.init =
+    function(){old.call(this);
+        this.setMutator(undefined);
+        // this.setColour(RUR.color_basic);
+    };
+})();
+
+/****  End of over-riding Blockly's default */
+
+Blockly.Blocks['_sound_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(Translate("sound"))
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "SOUND");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(20);
+    this.setTooltip('');
+  }
+};
+Blockly.JavaScript['_sound_'] = function(block) {
+  var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
+  if (checkbox_sound) {
+      return Translate("sound") + "(true);\n";
+  } else {
+      return Translate("sound") + "(false);\n";
+  }
+};
+Blockly.Python['_sound_'] = function(block) {
+  var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
+  if (checkbox_sound) {
+      return Translate("sound") + "(True)\n";
+  } else {
+      return Translate("sound") + "(False)\n";
+  }
+};
+
+
+Blockly.Blocks['_think_'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck("Number")
+        .appendField(Translate("think"));
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(20);
+    this.setTooltip(Translate("Delay between actions; default is 300 ms."));
+  }
+};
+Blockly.Python['_think_'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  return Translate("think") + "("+value_name+")\n";
+};
+Blockly.JavaScript['_think_'] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  return Translate("think") + "("+value_name+");\n";
+};
+
+
+
+Blockly.Blocks['_move_'] = {
+  init: function() {
+    this.setColour(RUR.color_basic);
+    this.appendDummyInput().appendField(Translate("move"));
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Translate("move forward"));
+  }
+};
+Blockly.Python['_move_'] = function(block) {
+  return Translate("move")+'()\n';
+};
+Blockly.JavaScript['_move_'] = function(block) {
+  return Translate("move")+'();\n';
+};
+
+
+Blockly.Blocks['_turn_left_'] = {
+  init: function() {
+    this.setColour(RUR.color_basic);
+    this.appendDummyInput().appendField(Translate("turn_left")+" \u21BA");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Translate("turn left"));
+  }
+};
+Blockly.Python['_turn_left_'] = function(block) {
+  return Translate("turn_left")+'()\n';
+};
+Blockly.JavaScript['_turn_left_'] = function(block) {
+  return Translate("turn_left")+'();\n';
+};
+
+
+Blockly.Blocks['_take_'] = {
+  init: function() {
+    this.setColour(RUR.color_basic);
+    this.appendDummyInput().appendField(Translate("take"));
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Translate("take object"));
+  }
+};
+Blockly.Python['_take_'] = function(block) {
+  return Translate("take")+'()\n';
+};
+Blockly.JavaScript['_take_'] = function(block) {
+  return Translate("take")+'();\n';
+};
+
+
+Blockly.Blocks['_put_'] = {
+  init: function() {
+    this.setColour(RUR.color_basic);
+    this.appendDummyInput().appendField(Translate("put"));
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Translate("put object"));
+  }
+};
+Blockly.Python['_put_'] = function(block) {
+  return Translate("put")+'()\n';
+};
+Blockly.JavaScript['_put_'] = function(block) {
+  return Translate("put")+'();\n';
+};
+
+
+Blockly.Blocks['_pause_'] = {
+  init: function() {
+    this.setColour(30);
+    this.appendDummyInput().appendField(Translate("pause"));
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Translate("Pause the program's execution."));
+  }
+};
+Blockly.Python['_pause_'] = function(block) {
+  return Translate("pause")+'()\n';
+};
+Blockly.JavaScript['_pause_'] = function(block) {
+  return Translate("pause")+'();\n';
+};
+
+
+Blockly.Blocks['_build_wall_'] = {
+  init: function() {
+    this.setColour(RUR.color_basic);
+    this.appendDummyInput().appendField(Translate("build_wall"));
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Translate("Build a wall in front of the robot."));
+  }
+};
+Blockly.Python['_build_wall_'] = function(block) {
+  return Translate("build_wall")+'()\n';
+};
+Blockly.JavaScript['_build_wall_'] = function(block) {
+  return Translate("build_wall")+'();\n';
+};
+
+
+Blockly.Blocks['_done_'] = {
+  init: function() {
+    this.setColour(RUR.done_colour);
+    this.appendDummyInput().appendField(Translate("done"));
+    this.setPreviousStatement(true);
+    this.setTooltip(Translate("End the program's execution."));
+  }
+};
+Blockly.Python['_done_'] = function(block) {
+  return Translate("done")+'()\n';
+};
+Blockly.JavaScript['_done_'] = function(block) {
+  return Translate("done")+'();\n';
+};
+
+
+Blockly.Blocks['_wall_in_front_or_right_'] = {
+  init: function() {
+    var choices =  [
+        [Translate("wall_in_front"), Translate("wall_in_front")],
+        [Translate("wall_on_right"), Translate("wall_on_right")]];
+    this.setColour(RUR.color_condition);
+    this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
+    this.setOutput(true, "Boolean");
+    this.setTooltip(Translate("True if a wall is blocking the way."));
+  }
+};
+Blockly.Python['_wall_in_front_or_right_'] = function(block) {
+  return [block.getFieldValue('choice')+'()'];
+};
+Blockly.JavaScript['_wall_in_front_or_right_'] = function(block) {
+  return [block.getFieldValue('choice')+'()'];
+};
+
+
+Blockly.Blocks['_front_or_right_is_clear_'] = {
+  init: function() {
+    var choices =  [
+        [Translate("front_is_clear"), Translate("front_is_clear")],
+        [Translate("right_is_clear"), Translate("right_is_clear")]];
+    this.setColour(RUR.color_condition);
+    this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
+    this.setOutput(true, "Boolean");
+    this.setTooltip(Translate("True if nothing is blocking the way."));
+  }
+};
+Blockly.Python['_front_or_right_is_clear_'] = function(block) {
+  return [block.getFieldValue('choice')+'()'];
+};
+Blockly.JavaScript['_front_or_right_is_clear_'] = function(block) {
+  return [block.getFieldValue('choice')+'()'];
+};
+
+
+Blockly.Blocks['_at_goal_'] = {
+  init: function() {
+    this.setColour(RUR.color_condition);
+    this.appendDummyInput().appendField(Translate("at_goal"));
+    this.setOutput(true, "Boolean");
+    this.setTooltip(Translate("True if desired destination."));
+  }
+};
+Blockly.Python['_at_goal_'] = function(block) {
+  return [Translate("at_goal")+'()'];
+};
+Blockly.JavaScript['_at_goal_'] = function(block) {
+  return [Translate("at_goal")+'()'];
+};
+
+
+Blockly.Blocks['_carries_object_'] = {
+  init: function() {
+    this.setColour(RUR.color_condition);
+    this.appendDummyInput().appendField(Translate("carries_object"));
+    this.setOutput(true, "Boolean");
+    this.setTooltip(Translate("True if robot carries at least one object."));
+  }
+};
+Blockly.Python['_carries_object_'] = function(block) {
+  return [Translate("carries_object")+'()'];
+};
+Blockly.JavaScript['_carries_object_'] = function(block) {
+  return [Translate("carries_object")+'()'];
+};
+
+
+Blockly.Blocks['_object_here_'] = {
+  init: function() {
+    this.setColour(RUR.color_condition);
+    this.appendDummyInput().appendField(Translate("object_here"));
+    this.setOutput(true, "Boolean");
+    this.setTooltip(Translate("True if there is at least one object here."));
+  }
+};
+Blockly.Python['_object_here_'] = function(block) {
+  return [Translate("object_here")+'()'];
+};
+Blockly.JavaScript['_object_here_'] = function(block) {
+  return [Translate("object_here")+'()'];
+};
+
+
+Blockly.Blocks['_is_facing_north_'] = {
+  init: function() {
+    this.setColour(RUR.color_condition);
+    this.appendDummyInput().appendField(Translate("is_facing_north"));
+    this.setOutput(true, "Boolean");
+    this.setTooltip(Translate("True if robot is facing North."));
+  }
+};
+Blockly.Python['_is_facing_north_'] = function(block) {
+  return [Translate("is_facing_north")+'()'];
+};
+Blockly.JavaScript['_is_facing_north_'] = function(block) {
+  return [Translate("is_facing_north")+'()'];
+};
+
+
+Blockly.Blocks['_star_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("star"))
+        .appendField(new Blockly.FieldImage("/src/images/star.png", 15, 15, Translate("star")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_star_'] = function(block) {
+  return [Translate("star")];
+};
+Blockly.JavaScript['_star_'] = function(block) {
+  return [Translate("star")];
+};
+
+Blockly.Blocks['_token_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("token"))
+        .appendField(new Blockly.FieldImage("/src/images/token.png", 15, 15, Translate("token")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_token_'] = function(block) {
+  return [Translate("token")];
+};
+Blockly.JavaScript['_token_'] = function(block) {
+  return [Translate("token")];
+};
+
+Blockly.Blocks['_apple_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("apple"))
+        .appendField(new Blockly.FieldImage("/src/images/apple.png", 15, 15, Translate("apple")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_apple_'] = function(block) {
+  return [Translate("apple")];
+};
+Blockly.JavaScript['_apple_'] = function(block) {
+  return [Translate("apple")];
+};
+
+Blockly.Blocks['_carrot_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("carrot"))
+        .appendField(new Blockly.FieldImage("/src/images/carrot.png", 15, 15, Translate("carrot")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_carrot_'] = function(block) {
+  return [Translate("carrot")];
+};
+Blockly.JavaScript['_carrot_'] = function(block) {
+  return [Translate("carrot")];
+};
+
+Blockly.Blocks['_dandelion_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("dandelion"))
+        .appendField(new Blockly.FieldImage("/src/images/dandelion.png", 15, 15, Translate("dandelion")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_dandelion_'] = function(block) {
+  return [Translate("dandelion")];
+};
+Blockly.JavaScript['_dandelion_'] = function(block) {
+  return [Translate("dandelion")];
+};
+
+Blockly.Blocks['_daisy_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("daisy"))
+        .appendField(new Blockly.FieldImage("/src/images/daisy.png", 15, 15, Translate("daisy")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_daisy_'] = function(block) {
+  return [Translate("daisy")];
+};
+Blockly.JavaScript['_daisy_'] = function(block) {
+  return [Translate("daisy")];
+};
+
+Blockly.Blocks['_triangle_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("triangle"))
+        .appendField(new Blockly.FieldImage("/src/images/triangle.png", 15, 15, Translate("triangle")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_triangle_'] = function(block) {
+  return [Translate("triangle")];
+};
+Blockly.JavaScript['_triangle_'] = function(block) {
+  return [Translate("triangle")];
+};
+
+Blockly.Blocks['_square_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("square"))
+        .appendField(new Blockly.FieldImage("/src/images/square.png", 15, 15, Translate("square")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_square_'] = function(block) {
+  return [Translate("square")];
+};
+Blockly.JavaScript['_square_'] = function(block) {
+  return [Translate("square")];
+};
+
+Blockly.Blocks['_strawberry_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("strawberry"))
+        .appendField(new Blockly.FieldImage("/src/images/strawberry.png", 15, 15, Translate("strawberry")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_strawberry_'] = function(block) {
+  return [Translate("strawberry")];
+};
+Blockly.JavaScript['_strawberry_'] = function(block) {
+  return [Translate("strawberry")];
+};
+
+Blockly.Blocks['_leaf_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("leaf"))
+        .appendField(new Blockly.FieldImage("/src/images/leaf.png", 15, 15, Translate("leaf")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_leaf_'] = function(block) {
+  return [Translate("leaf")];
+};
+Blockly.JavaScript['_leaf_'] = function(block) {
+  return [Translate("leaf")];
+};
+
+Blockly.Blocks['_banana_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("banana"))
+        .appendField(new Blockly.FieldImage("/src/images/banana.png", 15, 15, Translate("banana")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_banana_'] = function(block) {
+  return [Translate("banana")];
+};
+Blockly.JavaScript['_banana_'] = function(block) {
+  return [Translate("banana")];
+};
+
+Blockly.Blocks['_orange_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("orange"))
+        .appendField(new Blockly.FieldImage("/src/images/orange.png", 15, 15, Translate("orange")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_orange_'] = function(block) {
+  return [Translate("orange")];
+};
+Blockly.JavaScript['_orange_'] = function(block) {
+  return [Translate("orange")];
+};
+
+Blockly.Blocks['_tulip_'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Translate("tulip"))
+        .appendField(new Blockly.FieldImage("/src/images/tulip.png", 15, 15, Translate("tulip")));
+    this.setOutput(true, "String");
+    this.setColour(0);
+  }
+};
+Blockly.Python['_tulip_'] = function(block) {
+  return [Translate("tulip")];
+};
+Blockly.JavaScript['_tulip_'] = function(block) {
+  return [Translate("tulip")];
+};
+
+
+
+
+
+
+
+
+
+Blockly.Blocks['_carries_object_or_here_'] = {
+  init: function() {
+    this.appendValueInput("action")
+        .setCheck("String")
+        .appendField(new Blockly.FieldDropdown([
+            [Translate("carries_object"), Translate("carries_object")],
+            [Translate("object_here"), Translate("object_here")]]), "condition");
+    this.setOutput(true, "Boolean");
+    this.setColour(RUR.color_condition);
+  }
+};
+Blockly.Python['_carries_object_or_here_'] = function(block) {
+  var dropdown_condition = block.getFieldValue('condition');
+  var value_action = Blockly.Python.valueToCode(block, 'action', Blockly.Python.ORDER_ATOMIC);
+  return [Translate(dropdown_condition)+'("'+ value_action +'")'];
+};
+Blockly.JavaScript['_carries_object_or_here_'] = function(block) {
+  var dropdown_condition = block.getFieldValue('condition');
+  var value_action = Blockly.JavaScript.valueToCode(block, 'action', Blockly.JavaScript.ORDER_ATOMIC);
+  return [Translate(dropdown_condition)+'("'+ value_action +'")'];
+};
+
+
+Blockly.Blocks['_take_or_put_'] = {
+  init: function() {
+    this.appendValueInput("obj")
+        .setCheck("String")
+        .appendField(new Blockly.FieldDropdown([
+            [Translate("take"), Translate("take")],
+            [Translate("put"), Translate("put")]]), "action");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(RUR.color_basic);
+  }
+};
+Blockly.Python['_take_or_put_'] = function(block) {
+  var dropdown_action = block.getFieldValue('action');
+  var value_obj = Blockly.Python.valueToCode(block, 'obj', Blockly.Python.ORDER_ATOMIC);
+  return dropdown_action + '("' + value_obj + '")\n';
+};
+Blockly.JavaScript['_take_or_put_'] = function(block) {
+  var dropdown_action = block.getFieldValue('action');
+  var value_obj = Blockly.JavaScript.valueToCode(block, 'obj', Blockly.JavaScript.ORDER_ATOMIC);
+  return dropdown_action + '("' + value_obj + '");\n';
+};
+
+
+
+/** Simple if skeletton from
+https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#k8aine
+****/
+
+Blockly.Blocks['_if_'] = {
+  init: function() {
+    this.appendValueInput("condition")
+        .setCheck("Boolean")
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+    this.appendStatementInput("then")
+        .setCheck(null)
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(210);
+    // this.setTooltip('');
+  }
+};
+Blockly.JavaScript['_if_'] = function(block) {
+  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
+  return "if (" + value_condition + ") {\n" + statements_then + "}\n";
+
+};
+Blockly.Python['_if_'] = function(block) {
+  var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+  var statements_then = Blockly.Python.statementToCode(block, 'then');
+  return "if " + value_condition + ":\n" + statements_then;
+};
+
+
+Blockly.Blocks['_if_else_'] = {
+  init: function() {
+    this.appendValueInput("condition")
+        .setCheck("Boolean")
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+    this.appendStatementInput("then")
+        .setCheck(null)
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+    this.appendStatementInput("else")
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+  }
+};
+Blockly.JavaScript['_if_else_'] = function(block) {
+  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
+  var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
+  return "if (" + value_condition + ") {\n" + statements_then + "} else {\n" + statements_else+"}\n";
+};
+Blockly.Python['_if_else_'] = function(block) {
+  var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+  var statements_then = Blockly.Python.statementToCode(block, 'then');
+  var statements_else = Blockly.Python.statementToCode(block, 'else');
+  return "if " + value_condition + ":\n" + statements_then + "else:\n" + statements_else;
+};
+
+
+Blockly.Blocks['_if_else_if_else_'] = {
+  init: function() {
+    this.appendValueInput("condition")
+        .setCheck("Boolean")
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+    this.appendStatementInput("do")
+        .setCheck(null)
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.appendValueInput("condition2")
+        .setCheck("Boolean")
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+    this.appendStatementInput("do2")
+        .setCheck(null)
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+    this.appendStatementInput("else")
+        .setCheck(null)
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+  }
+};
+Blockly.JavaScript['_if_else_if_else_'] = function(block) {
+  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
+  var value_condition2 = Blockly.JavaScript.valueToCode(block, 'condition2', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_do2 = Blockly.JavaScript.statementToCode(block, 'do2');
+  var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
+  return "if (" + value_condition + ") {\n" + statements_do +
+         "} else if (" + value_condition2 + ") {\n" + statements_do2 +
+         "} else {\n" + statements_else+"}\n";
+};
+Blockly.Python['_if_else_if_else_'] = function(block) {
+  var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+  var statements_do = Blockly.Python.statementToCode(block, 'do');
+  var value_condition2 = Blockly.Python.valueToCode(block, 'condition2', Blockly.Python.ORDER_ATOMIC);
+  var statements_do2 = Blockly.Python.statementToCode(block, 'do2');
+  var statements_else = Blockly.Python.statementToCode(block, 'else');
+  return "if " + value_condition + ":\n" + statements_do +
+         "elif " + value_condition2 + ":\n" + statements_do2 +
+         "else:\n" + statements_else;
+};
+
+RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
+    toolbox: document.getElementById('toolbox'),
+    zoom:{
+        controls: true,
+        wheel: true,
+        startScale: 1.0,
+        maxScale: 3,
+        minScale: 0.3,
+        scaleSpeed: 1.2},
+    trashcan: true});
+
+
+$("#blocklyDiv").resizable({
+    resize: function() {
+        $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
+        window.dispatchEvent(new Event('resize'));
+    }
+});
+
+$("#blockly-wrapper").draggable({
+    cursor: "move",
+    handle: "p",
+    drag: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    },
+    stop: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    }
+});
+
+},{"./aa_utils.js":1}],28:[function(require,module,exports){
+/* Sets up the UI for various editors.
+
+called by zzz_doc_ready.js
+*/
+
+console.log("loading zz_dr_editor_ui");
+RUR.zz_dr_editor_ui = function () {
+    $("#tabs").tabs({
+            heightStyle: "auto",
+            activate: function(event, ui){
+                editor.refresh();
+                library.refresh();
+                pre_code_editor.refresh();
+                post_code_editor.refresh();
+                description_editor.refresh();
+                onload_editor.refresh();
+            }
+    });
+
+    $("#editor-panel").resizable({
+        resize: function() {
+            editor.setSize(null, $(this).height()-40);
+            library.setSize(null, $(this).height()-40);
+            pre_code_editor.setSize(null, $(this).height()-40);
+            post_code_editor.setSize(null, $(this).height()-40);
+            description_editor.setSize(null, $(this).height()-40);
+            onload_editor.setSize(null, $(this).height()-40);
+        }
+    }).draggable({cursor: "move", handle: "ul"});
+};
+
+},{}],29:[function(require,module,exports){
+/* Sets up what happens when various changes happened in various html elements.
+
+called by zzz_doc_ready.js
+*/
+require("./aa_utils.js");
+require("./storage.js");
+require("./file_io.js");
+require("./state.js");
+require("./ui.js");
+
+console.log("loading zz_dr_onchange");
+
+RUR.zz_dr_onchange = function () {
+
+    $("#select_programming_language").change(function() {
+        RUR.reset_programming_language($(this).val());
+    });
+
+    $("#select_world").change(function() {
+        if (RUR.storage.appending_world_name_flag){
+            RUR.storage.appending_world_name_flag = false;
+            return;
+        }
+        if ($(this).val() !== null) {
+            RUR.file_io.load_world_file($(this).val());
+        }
+        try {
+            localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
+        } catch (e) {}
+    });
+
+
+    $("#python_choices").change(function() {
+        if($(this).val() == "editor") {
+            show_python_editor();
+            hide_console();
+            hide_blockly();
+            RUR.state.input_method = "editor";
+        } else if($(this).val() == "repl") {
+            hide_python_editor();
+            show_console();
+            hide_blockly();
+            RUR.state.input_method = "repl";
+        } else {
+            hide_python_editor();
+            hide_console();
+            show_blockly();
+            RUR.state.input_method = "blockly";
+        }
+    });
+
+    $("#javascript_choices").change(function() {
+        if($(this).val() == "blockly") {
+            hide_javascript_editor();
+            show_blockly();
+            RUR.state.input_method = "blockly";
+        } else {
+            show_javascript_editor();
+            hide_blockly();
+            RUR.state.input_method = "editor";
+        }
+    });
+
+    $('#editor_visible_blockly').change(function() {
+        if ($('#editor_visible_blockly')[0].checked) {
+            RUR.state.input_method = "editor";
+            if (RUR.state.programming_language == "python"){
+                show_python_editor();
+            } else {
+                show_javascript_editor();
+            }
+        } else {
+            RUR.state.input_method = "blockly";
+            if (RUR.state.programming_language == "python"){
+                hide_python_editor();
+            } else {
+                hide_javascript_editor();
+            }
+        }
+    });
+
+    function show_blockly () {
+        $("#blockly-wrapper").show();
+        $("#visible_blockly").show();
+        if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
+            $("#special-keyboard-button").click();
+        }
+        $("#special-keyboard-button").hide();
+        $("#Reeborg-watches").dialog("close");
+        if ($('#editor_visible_blockly')[0].checked) {
+            show_python_editor();
+        }
+        window.dispatchEvent(new Event('resize')); // important to ensure that blockly is visible
+    }
+
+    function hide_blockly () {
+        $("#blockly-wrapper").hide();
+        window.dispatchEvent(new Event('resize'));
+        $("#visible_blockly").hide();
+        $("#special-keyboard-button").show();
+    }
+
+    function show_javascript_editor () {
+        $("#editor-panel").addClass("active");
+        $("#kbd_javascript_btn").show();
+        RUR.ui.reload();
+        editor.refresh();
+    }
+    function hide_javascript_editor () {
+        $("#editor-panel").removeClass("active");
+        $("#kbd_javascript_btn").hide();
+    }
+
+
+    function show_python_editor () {
+        $("#editor-panel").addClass("active");
+        $("#kbd_python_btn").show();
+        RUR.state.highlight = RUR.state.highlight || RUR._saved_highlight_value;
+        RUR.ui.reload();
+        editor.refresh();
+    }
+    function hide_python_editor () {
+        $("#editor-panel").removeClass("active");
+        $("#kbd_python_btn").hide();
+        RUR._saved_highlight_value = RUR.state.highlight;
+        RUR.state.highlight = false;
+    }
+    function show_console() {
+        $("#py_console").show();
+        $("#kbd_py_console_btn").show();
+        RUR.ui.show_only_reload2(true);
+        try {
+            restart_repl();
+        } catch (e) {
+            console.log("trying to restart repl failure", e);
+        }
+    }
+    function hide_console() {
+        $("#py_console").hide();
+        $("#kbd_py_console_btn").hide();
+        RUR.ui.show_only_reload2(false);
+    }
+
+};
+
+},{"./aa_utils.js":1,"./file_io.js":6,"./state.js":15,"./storage.js":16,"./ui.js":18}],30:[function(require,module,exports){
+/* Sets up what happens when the user clicks on various html elements.
+
+called by zzz_doc_ready.js
+*/
+
+require("./aa_utils.js");
+require("./custom_dialogs.js");
+require("./world.js");
+require("./state.js");
+require("./world_editor.js");
+require("./permalink.js");
+require("./visible_robot.js");
+
+console.log("loading zz_dr_onclick");
+
+RUR.zz_dr_onclick = function () {
+
+    function load_file (obj) {
+        $("#fileInput").click();
+        var fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', function(e) {
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                obj.setValue(reader.result);
+                fileInput.value = '';
+            };
+            reader.readAsText(file);
+        });
+    }
+
+    $("#load-world").on("click", function(evt) {
+        $("#fileInput").click();
+        var fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', function(e) {
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    RUR.world.import_world(reader.result);
+                } catch (e) {  // jshint ignore:line
+                    console.log("invalid world", e);
+                    RUR.cd.show_feedback("#Reeborg-shouts",
+                                         Translate("Invalid world file."));
+                }
+                fileInput.value = '';
+            };
+            reader.readAsText(file);
+        });
+    });
+
+    $("#editor-tab").on("click", function (evt) {
+        if (RUR.state.programming_language == "python" && !RUR.we.editing_world) {
+            $("#highlight").show();
+            $("#watch_variables_btn").show();
+        } else {
+            $("#highlight").hide();
+            $("#watch_variables_btn").hide();
+        }
+    });
+
+    $("#library-tab").on("click", function (evt) {
+        $("#highlight").hide();
+        $("#watch_variables_btn").hide();
+    });
+
+    $("#save-editor").on("click", function (evt) {
+        var blob = new Blob([editor.getValue()], {
+            type: "text/javascript;charset=utf-8"
+        });
+        saveAs(blob, "filename"); // saveAs defined in src/libraries/filesaver.js
+    });
+
+    $("#save-library").on("click", function (evt) {
+        var blob = new Blob([library.getValue()], {
+            type: "text/javascript;charset=utf-8"
+        });
+        saveAs(blob, "filename");
+    });
+
+    $("#save-permalink").on("click", function (evt) {
+        var blob = new Blob([RUR.permalink.__create()], {
+            type: "text/javascript;charset=utf-8"
+        });
+        saveAs(blob, "filename");
+    });
+
+    $("#save-world").on("click", function (evt) {
+        RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
+        var blob = new Blob([RUR.world.export_world()], {
+            type: "text/javascript;charset=utf-8"
+        });
+        saveAs(blob, "filename.json", true);
+    });
+
+    $("#load-editor").on("click", function (evt) {
+        load_file(editor);
+    });
+
+    $("#load-library").on("click", function (evt) {
+        load_file(library);
+    });
+
+    $("#memorize-world").on("click", function (evt) {
+        RUR.storage.memorize_world();
+    });
+
+    $("#classic-image").on("click", function (evt) {
+        RUR.vis_robot.select_default_model(0);
+    });
+
+    $("#rover-type").on("click", function (evt) {
+        RUR.vis_robot.select_default_model(1);
+    });
+
+    $("#3d-red-type").on("click", function (evt) {
+        RUR.vis_robot.select_default_model(2);
+    });
+
+    $("#solar-panel-type").on("click", function (evt) {
+        RUR.vis_robot.select_default_model(3);
+    });
+
+    $("#robot_canvas").on("click", function (evt) {
+        RUR.we.mouse_x = evt.pageX;
+        RUR.we.mouse_y = evt.pageY;
+        if (RUR.we.editing_world) {
+            RUR.we.edit_world();
+        }
+        RUR.we.show_world_info();
+    });
+
+    $("#add_editor_to_world").on("click", function(evt) {
+        if ($(this).prop("checked")) {
+            RUR.current_world.editor = editor.getValue();
+        } else {
+            RUR.current_world.editor = null;
+        }
+    });
+
+    $("#add_library_to_world").on("click", function(evt) {
+        if ($(this).prop("checked")) {
+            RUR.current_world.library = library.getValue();
+        } else {
+            RUR.current_world.library = null;
+        }
+    });
+
+    $("#update-editor-content-btn").on("click", function(evt) {
+        editor.setValue(RUR.current_world.editor);
+        $("#update-editor-content").hide();
+        if (! $("#update-library-content").is(":visible")) {
+            RUR.cd.dialog_update_editors_from_world.dialog("close");
+        }
+    });
+    $("#update-library-content-btn").on("click", function(evt) {
+        library.setValue(RUR.current_world.library);
+        $("#update-library-content").hide();
+        if (! $("#update-editor-content").is(":visible")) {
+            RUR.cd.dialog_update_editors_from_world.dialog("close");
+        }
+    });
+};
+
+},{"./aa_utils.js":1,"./custom_dialogs.js":4,"./permalink.js":11,"./state.js":15,"./visible_robot.js":20,"./world.js":22,"./world_editor.js":23}],31:[function(require,module,exports){
+
+require("./aa_utils.js");
+require("./state.js");
+require("./objects.js");
+require("./visible_robot.js");
+require("./zr_dr_dialogs.js");
+require("./zz_dr_onclick.js");
+require("./zz_dr_onchange.js");
+require("./zz_dr_editor_ui.js");
+require("./zz_dr_blockly.js");
+require("./recorder.js");
+require("./storage.js");
+require("./world_select.js");
+require("./world.js");
+require("./keyboard.js");
+require("./ui.js");
+require("./tooltip.js");
+require("./custom_menus.js");
+
+console.log("loading zzz_doc_ready");
+
+$(document).ready(function() {
+    "use strict";
+    var prog_lang, url_query, name;
+    RUR.state.human_language = document.documentElement.lang;
+
+    RUR.state.set_initial_values();
+
+    function everything_loaded () {
+        var loaded, total_images, py_modules=0;
+        if (RUR.objects.loaded_images == RUR.objects.nb_images &&
+            RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images){
+            RUR.vis_world.draw_all();
+            $("#splash-screen").hide();
+        } else {
+            loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
+            total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
+            if (!RUR.state.images_loaded) {
+                $("#splash-text").html("Loading Python modules. <br>Images: " + loaded + "/" + total_images);
+            } else {
+                $("#splash-text").html("Images: " + loaded + "/" + total_images);
+            }
+            requestAnimationFrame(everything_loaded);
+        }
+    }
+    everything_loaded();
+
+    RUR.rec.reset();
+    try {
+        RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
+    } catch (e) {
+        RUR.world_select.set_default();
+    }
+
+    RUR.tooltip.init();
+
+    // check if this is needed or does conflict with MakeCustomMenu
+    RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
+
+    RUR.cd.create_custom_dialogs();
+    RUR.zz_dr_dialogs();
+    RUR.zz_dr_onclick();
+    RUR.zz_dr_onchange();
+    RUR.zz_dr_editor_ui();
+
+    brython({debug:1, pythonpath:['/src/python']});
+
+    RUR.ui.show_only_reload2(false);
+
+    try {
+        RUR.reset_code_in_editors();
+    } catch (e){
+        console.log(e);
+        RUR.cd.show_feedback("#Reeborg-shouts",
+                        "Your browser does not support localStorage. " +
+                        "You will not be able to save your functions in the library.");
+    }
+    // for embedding in iframe
+    addEventListener("message", receiveMessage, false);
+    function receiveMessage(event){
+        RUR.permalink.update(event.data);
+    }
+
+    RUR.ui.set_ready_to_run();
+    RUR.kbd.select();
+
+    RUR.make_default_menu(RUR.state.human_language);
+
+
+    url_query = parseUri(window.location.href);
+    if (url_query.queryKey.proglang !== undefined &&
+       url_query.queryKey.world !== undefined &&
+       url_query.queryKey.editor !== undefined &&
+       url_query.queryKey.library !== undefined) {
+        prog_lang = url_query.queryKey.proglang;
+        $('input[type=radio][name=programming_language]').val([prog_lang]);
+        RUR.reset_programming_language(prog_lang);
+        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
+        name = Translate("PERMALINK");
+        localStorage.setItem("user_world:"+ name, RUR.world.export_world());
+        RUR.storage.save_world(name);
+
+        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
+        library.setValue(decodeURIComponent(url_query.queryKey.library));
+    } else {
+        prog_lang = localStorage.getItem("last_programming_language_" + RUR.state.human_language);
+        switch (prog_lang) {
+            case 'python-' + RUR.state.human_language:
+                $("#python_choices").val("editor").change();  // jshint ignore:line
+            case 'javascript-' + RUR.state.human_language:
+                $("#javascript_choices").val("editor").change(); // jshint ignore:line
+            default:
+                RUR.reset_programming_language('python-' + RUR.state.human_language);
+        }
+        // trigger it to load the initial world.
+        $("#select_world").change();
+    }
+});
+
+},{"./aa_utils.js":1,"./custom_menus.js":5,"./keyboard.js":8,"./objects.js":9,"./recorder.js":12,"./state.js":15,"./storage.js":16,"./tooltip.js":17,"./ui.js":18,"./visible_robot.js":20,"./world.js":22,"./world_select.js":24,"./zr_dr_dialogs.js":26,"./zz_dr_blockly.js":27,"./zz_dr_editor_ui.js":28,"./zz_dr_onchange.js":29,"./zz_dr_onclick.js":30}]},{},[7]);
