@@ -10,7 +10,7 @@ Convention: all function names follow the pattern RUR._xyz_
 
 /*jshint devel:true, white:false, plusplus:false */
 
-require("./aa_utils.js");
+require("./translator.js");
 require("./constants.js");
 require("./control.js");
 require("./custom_menus.js");
@@ -20,7 +20,19 @@ require("./visible_robot.js");
 require("./ui.js");
 require("./recorder.js"); //TODO: see if we can change to state
 require("./world.js");
-console.log("loading z_commands");
+
+RUR.inspect = function (obj){
+    var props, result = "";
+    for (props in obj) {
+        if (typeof obj[props] === "function") {
+            result += props + "()\n";
+        } else{
+            result += props + "\n";
+        }
+    }
+    RUR.output._write(result);
+};
+
 
 RUR._UR = {};
 

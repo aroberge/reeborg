@@ -1,7 +1,7 @@
 
 
-require("./aa_utils.js");
-console.log("loading objects");
+require("./translator.js");
+
 RUR.objects = {};
 RUR.tiles = {};
 RUR.solid_objects = {};
@@ -81,31 +81,31 @@ RUR.add_tile_image = function (name, url) {
 
 RUR.add_tile_image("mud");
 RUR.tiles.mud.fatal = true;
-RUR.tiles.mud.message = Translate("I'm stuck in mud.");
-RUR.tiles.mud.info = Translate("Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.");
+RUR.tiles.mud.message = RUR.translate("I'm stuck in mud.");
+RUR.tiles.mud.info = RUR.translate("Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.");
 
 RUR.add_tile_image("ice");
 RUR.tiles.ice.slippery = true;
-RUR.tiles.ice.message = Translate("I'm slipping on ice!");
-RUR.tiles.ice.info = Translate("Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.");
+RUR.tiles.ice.message = RUR.translate("I'm slipping on ice!");
+RUR.tiles.ice.info = RUR.translate("Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.");
 
 RUR.add_tile_image("grass");
-RUR.tiles.grass.info = Translate("Grass: usually safe.");
+RUR.tiles.grass.info = RUR.translate("Grass: usually safe.");
 
 RUR.add_tile_image("pale_grass");
-RUR.tiles.grass.info = Translate("Grass: usually safe.");
+RUR.tiles.grass.info = RUR.translate("Grass: usually safe.");
 RUR.tiles.pale_grass.name = "grass"; // replace
 
 RUR.add_tile_image("gravel");
-RUR.tiles.gravel.info = Translate("Gravel: usually safe.");
+RUR.tiles.gravel.info = RUR.translate("Gravel: usually safe.");
 
 
 RUR.tiles.water = {};
 RUR.tiles.water.name = "water";
 RUR.tiles.water.fatal = true;
 RUR.tiles.water.detectable = true;
-RUR.tiles.water.message = Translate("I'm in water!");
-RUR.tiles.water.info = Translate("Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.");
+RUR.tiles.water.message = RUR.translate("I'm in water!");
+RUR.tiles.water.info = RUR.translate("Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.");
 RUR.tiles.water.image = new Image();
 RUR.tiles.water.image.src = RUR.base_url + '/src/images/water.png';
 RUR.tiles.water.image2 = new Image();
@@ -142,15 +142,15 @@ RUR.tiles.bricks.name = "brick wall"; // replace
 RUR.tiles.bricks.fatal = true;
 RUR.tiles.bricks.solid = true;
 RUR.tiles.bricks.detectable = true;
-RUR.tiles.bricks.message = Translate("Crash!");
-RUR.tiles.bricks.info = Translate("brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.");
+RUR.tiles.bricks.message = RUR.translate("Crash!");
+RUR.tiles.bricks.info = RUR.translate("brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.");
 
 
 RUR.add_home_image = function (name, info) {
     var home = RUR.home_images;
     home[name] = {};
     home[name].detectable = true;
-    home[name].info = Translate(info) + Translate("Reeborg <b>can</b> detect this tile using at_goal().");
+    home[name].info = RUR.translate(info) + RUR.translate("Reeborg <b>can</b> detect this tile using at_goal().");
     home[name].image = new Image();
     home[name].image.src = RUR.base_url + '/src/images/' + name + '.png';
     home[name].image.onload = RUR.increment_loaded;
@@ -185,24 +185,24 @@ RUR.add_solid_object = function (name, url, nickname) {
 };
 
 RUR.add_solid_object("bridge");
-RUR.solid_objects.bridge.info = Translate("Bridge:") + Translate("Reeborg <b>can</b> detect this and will know that it allows safe passage over water.");
+RUR.solid_objects.bridge.info = RUR.translate("Bridge:") + RUR.translate("Reeborg <b>can</b> detect this and will know that it allows safe passage over water.");
 
 RUR.add_solid_object("fence_right", false, "fence");
-RUR.solid_objects.fence_right.message = Translate("I hit a fence!");
-RUR.solid_objects.fence_right.info = Translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
+RUR.solid_objects.fence_right.message = RUR.translate("I hit a fence!");
+RUR.solid_objects.fence_right.info = RUR.translate("Fence: Reeborg <b>can</b> detect this but will be stopped by it.");
 RUR.solid_objects.fence4 = RUR.solid_objects.fence_right;  // compatibility with old worlds
 
 RUR.add_solid_object("fence_left", false, "fence");
-RUR.solid_objects.fence_left.message = Translate("I hit a fence!");
+RUR.solid_objects.fence_left.message = RUR.translate("I hit a fence!");
 RUR.solid_objects.fence_left.info = RUR.solid_objects.fence_right.info;
 RUR.solid_objects.fence5 = RUR.solid_objects.fence_left;  // compatibility with old worlds
 
 RUR.add_solid_object("fence_double", false, "fence");
-RUR.solid_objects.fence_double.message = Translate("I hit a fence!");
+RUR.solid_objects.fence_double.message = RUR.translate("I hit a fence!");
 RUR.solid_objects.fence_double.info = RUR.solid_objects.fence_right.info;
 RUR.solid_objects.fence6 = RUR.solid_objects.fence_double;  // compatibility with old worlds
 
 RUR.add_solid_object("fence_vertical", false, "fence");
-RUR.solid_objects.fence_vertical.message = Translate("I hit a fence!");
+RUR.solid_objects.fence_vertical.message = RUR.translate("I hit a fence!");
 RUR.solid_objects.fence_vertical.info = RUR.solid_objects.fence_right.info;
 RUR.solid_objects.fence7 = RUR.solid_objects.fence_vertical;  // compatibility with old worlds

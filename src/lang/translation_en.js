@@ -10,7 +10,7 @@
 
 */
 /* jshint -W069 */
-var RUR = RUR || {};
+window.RUR = RUR || {};
 
 RUR.translation = {};
 RUR.translation_to_english = {};

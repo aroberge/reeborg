@@ -22,7 +22,7 @@
         }
 **/
 
-var RUR = RUR || {};
+window.RUR = RUR || {};
 
 var UsedRobot;
 

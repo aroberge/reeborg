@@ -2,60 +2,6 @@
 // aa_utils.js : name starting with aa so that it is loaded first :-/
 // TODO refactor so as to keep only translation functions here.
 
-console.log("loading aa_utils");
-
-RUR.ReeborgError = function (message) {
-    if (RUR.state.programming_language == "python"){
-        return ReeborgError(message);
-    }
-    this.name = "ReeborgError";
-    this.message = message;
-    this.reeborg_shouts = message;
-};
-
-RUR.WallCollisionError = function (message) {
-    if (RUR.state.programming_language == "python"){
-        return WallCollisionError(message);
-    }
-    this.name = "WallCollisionError";
-    this.message = message;
-    this.reeborg_shouts = message;
-};
-
-Translate_to_english = function (s) {
-    if (RUR.translation_to_english[s] !== undefined) {
-        return RUR.translation_to_english[s];
-    } else {
-        console.log("Translation to English needed for");
-        console.log("%c" + s, "color:green;font-weight:bold;");
-        console.log("called from ", arguments.callee.caller);
-        return s;
-    }
-};
-
-
-RUR.reset_code_in_editors = function () {
-    var library_default, library_content, editor_content, editor_default,
-        default_instruction = Translate("move"),
-        library_default_en = "# from library import *";
-
-    if (RUR.state.programming_language == "javascript") {
-        editor_default = default_instruction + "();";
-    } else if (RUR.state.programming_language == "python") {
-        library_default = Translate(library_default_en);
-        library_content = localStorage.getItem(RUR.settings.library);
-        if (!library_content || library_content == library_default_en){
-            library_content = library_default;
-        }
-        library.setValue(library_content);
-        editor_default = default_instruction + "()";
-    }
-    editor_content = localStorage.getItem(RUR.settings.editor);
-    if (!editor_content){
-        editor_content = editor_default;
-    }
-    editor.setValue(editor_content);
-};
 
 
 RUR.reset_programming_language = function(choice){
@@ -84,7 +30,7 @@ RUR.reset_programming_language = function(choice){
             RUR.settings.editor = "editor_py_" + RUR.state.human_language;
             RUR.settings.library = "library_py_" + RUR.state.human_language;
             RUR.state.programming_language = "python";
-            $("#editor-tab").html(Translate("Python Code"));
+            $("#editor-tab").html(RUR.translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
             pre_code_editor.setOption("mode", {name: "python", version: 3});
             post_code_editor.setOption("mode", {name: "python", version: 3});
@@ -102,7 +48,7 @@ RUR.reset_programming_language = function(choice){
             $("#editor-panel").addClass("active");
             RUR.settings.editor = "editor_js_" + RUR.state.human_language;
             RUR.state.programming_language = "javascript";
-            $("#editor-tab").html(Translate("Javascript Code"));
+            $("#editor-tab").html(RUR.translate("Javascript Code"));
             editor.setOption("mode", "javascript");
             pre_code_editor.setOption("mode", "javascript");
             post_code_editor.setOption("mode", "javascript");
@@ -120,46 +66,5 @@ RUR.reset_programming_language = function(choice){
         $("#post-code-link").parent().show();
         $("#description-link").parent().show();
         $("#onload-editor-link").parent().show();
-    }
-};
-
-
-// from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
-$.ajaxPrefilter( function (options) {
-  if (options.crossDomain && jQuery.support.cors) {
-    var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
-    options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
-  }
-});
-
-
-RUR.inspect = function (obj){
-    var props, result = "";
-    for (props in obj) {
-        if (typeof obj[props] === "function") {
-            result += props + "()\n";
-        } else{
-            result += props + "\n";
-        }
-    }
-    RUR.output._write(result);
-};
-
-// Returns a random integer between min and max (both included)
-RUR.randint = function (min, max, previous) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-RUR.filterInt = function (value) {
-  if(/^\s*([0-9]+)\s*$/.test(value))
-    return parseInt(value, 10);
-  return undefined;
-};
-
-RUR.set_lineno_highlight = function(lineno, frame) {
-    RUR.current_lineno = lineno;
-    if (frame) {
-        RUR.rec.record_frame();
-        return true;
     }
 };

@@ -2,7 +2,7 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
 
-require("./aa_utils.js");
+require("./translator.js");
 require("./constants.js");
 require("./robot.js");
 require("./visible_world.js");
@@ -10,8 +10,8 @@ require("./custom_dialogs.js");
 require("./state.js");
 require("./world_editor.js");
 require("./recorder.js");
+require("./exceptions.js");
 
-console.log("loading worlds");
 
 RUR.world = {};
 
@@ -138,7 +138,7 @@ RUR.world.eval_onload = function () {
         eval(RUR.current_world.onload);  // jshint ignore:line
     } catch (e) {
         RUR.cd.show_feedback("#Reeborg-shouts",
-            Translate("Problem with onload code.") + "<br><pre>" +
+            RUR.translate("Problem with onload code.") + "<br><pre>" +
             RUR.current_world.onload + "</pre>");
         console.log("error in onload:", e);
     }
@@ -172,7 +172,7 @@ RUR.world.add_robot = function (robot) {
     }
     if (RUR.MAX_NB_ROBOTS !== undefined &&
         RUR.MAX_NB_ROBOTS >= RUR.current_world.robots.length){
-        throw new RUR.ReeborgError(Translate("You cannot create another robot!"));
+        throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
     }
     RUR.current_world.robots.push(robot);
     RUR.rec.record_frame();
@@ -181,7 +181,7 @@ RUR.world.add_robot = function (robot) {
 
 RUR.world.remove_robots = function () {
     if (RUR.MAX_NB_ROBOTS !== undefined){
-        throw new RUR.ReeborgError(Translate("Cheater! You are not allowed to change the number of robots this way!"));
+        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
     } else {
         RUR.current_world.robots = [];
     }

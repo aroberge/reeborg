@@ -1,9 +1,7 @@
 /* jshint -W069 */
 
 
-require("./aa_utils.js");
-
-console.log("loading zz_dr_blockly");
+require("./translator.js");
 
 RUR.blockly = {};
 RUR.color_basic = 120;
@@ -16,7 +14,7 @@ Blockly.Blocks.loops.HUE = 230;
 Blockly.JavaScript['text_print'] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
-  return Translate("write")+'(' + argument0 + ');\n';
+  return RUR.translate("write")+'(' + argument0 + ');\n';
 };
 Blockly.Msg.TEXT_PRINT_TITLE = "print %1";
 Blockly.makeColour = function(hue) {
@@ -54,7 +52,7 @@ Blockly.Blocks['_sound_'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(Translate("sound"))
+        .appendField(RUR.translate("sound"))
         .appendField(new Blockly.FieldCheckbox("TRUE"), "SOUND");
     this.setInputsInline(true);
     this.setPreviousStatement(true);
@@ -66,17 +64,17 @@ Blockly.Blocks['_sound_'] = {
 Blockly.JavaScript['_sound_'] = function(block) {
   var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
   if (checkbox_sound) {
-      return Translate("sound") + "(true);\n";
+      return RUR.translate("sound") + "(true);\n";
   } else {
-      return Translate("sound") + "(false);\n";
+      return RUR.translate("sound") + "(false);\n";
   }
 };
 Blockly.Python['_sound_'] = function(block) {
   var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
   if (checkbox_sound) {
-      return Translate("sound") + "(True)\n";
+      return RUR.translate("sound") + "(True)\n";
   } else {
-      return Translate("sound") + "(False)\n";
+      return RUR.translate("sound") + "(False)\n";
   }
 };
 
@@ -85,21 +83,21 @@ Blockly.Blocks['_think_'] = {
   init: function() {
     this.appendValueInput("NAME")
         .setCheck("Number")
-        .appendField(Translate("think"));
+        .appendField(RUR.translate("think"));
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
-    this.setTooltip(Translate("Delay between actions; default is 300 ms."));
+    this.setTooltip(RUR.translate("Delay between actions; default is 300 ms."));
   }
 };
 Blockly.Python['_think_'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-  return Translate("think") + "("+value_name+")\n";
+  return RUR.translate("think") + "("+value_name+")\n";
 };
 Blockly.JavaScript['_think_'] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  return Translate("think") + "("+value_name+");\n";
+  return RUR.translate("think") + "("+value_name+");\n";
 };
 
 
@@ -107,130 +105,130 @@ Blockly.JavaScript['_think_'] = function(block) {
 Blockly.Blocks['_move_'] = {
   init: function() {
     this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(Translate("move"));
+    this.appendDummyInput().appendField(RUR.translate("move"));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Translate("move forward"));
+    this.setTooltip(RUR.translate("move forward"));
   }
 };
 Blockly.Python['_move_'] = function(block) {
-  return Translate("move")+'()\n';
+  return RUR.translate("move")+'()\n';
 };
 Blockly.JavaScript['_move_'] = function(block) {
-  return Translate("move")+'();\n';
+  return RUR.translate("move")+'();\n';
 };
 
 
 Blockly.Blocks['_turn_left_'] = {
   init: function() {
     this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(Translate("turn_left")+" \u21BA");
+    this.appendDummyInput().appendField(RUR.translate("turn_left")+" \u21BA");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Translate("turn left"));
+    this.setTooltip(RUR.translate("turn left"));
   }
 };
 Blockly.Python['_turn_left_'] = function(block) {
-  return Translate("turn_left")+'()\n';
+  return RUR.translate("turn_left")+'()\n';
 };
 Blockly.JavaScript['_turn_left_'] = function(block) {
-  return Translate("turn_left")+'();\n';
+  return RUR.translate("turn_left")+'();\n';
 };
 
 
 Blockly.Blocks['_take_'] = {
   init: function() {
     this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(Translate("take"));
+    this.appendDummyInput().appendField(RUR.translate("take"));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Translate("take object"));
+    this.setTooltip(RUR.translate("take object"));
   }
 };
 Blockly.Python['_take_'] = function(block) {
-  return Translate("take")+'()\n';
+  return RUR.translate("take")+'()\n';
 };
 Blockly.JavaScript['_take_'] = function(block) {
-  return Translate("take")+'();\n';
+  return RUR.translate("take")+'();\n';
 };
 
 
 Blockly.Blocks['_put_'] = {
   init: function() {
     this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(Translate("put"));
+    this.appendDummyInput().appendField(RUR.translate("put"));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Translate("put object"));
+    this.setTooltip(RUR.translate("put object"));
   }
 };
 Blockly.Python['_put_'] = function(block) {
-  return Translate("put")+'()\n';
+  return RUR.translate("put")+'()\n';
 };
 Blockly.JavaScript['_put_'] = function(block) {
-  return Translate("put")+'();\n';
+  return RUR.translate("put")+'();\n';
 };
 
 
 Blockly.Blocks['_pause_'] = {
   init: function() {
     this.setColour(30);
-    this.appendDummyInput().appendField(Translate("pause"));
+    this.appendDummyInput().appendField(RUR.translate("pause"));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Translate("Pause the program's execution."));
+    this.setTooltip(RUR.translate("Pause the program's execution."));
   }
 };
 Blockly.Python['_pause_'] = function(block) {
-  return Translate("pause")+'()\n';
+  return RUR.translate("pause")+'()\n';
 };
 Blockly.JavaScript['_pause_'] = function(block) {
-  return Translate("pause")+'();\n';
+  return RUR.translate("pause")+'();\n';
 };
 
 
 Blockly.Blocks['_build_wall_'] = {
   init: function() {
     this.setColour(RUR.color_basic);
-    this.appendDummyInput().appendField(Translate("build_wall"));
+    this.appendDummyInput().appendField(RUR.translate("build_wall"));
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Translate("Build a wall in front of the robot."));
+    this.setTooltip(RUR.translate("Build a wall in front of the robot."));
   }
 };
 Blockly.Python['_build_wall_'] = function(block) {
-  return Translate("build_wall")+'()\n';
+  return RUR.translate("build_wall")+'()\n';
 };
 Blockly.JavaScript['_build_wall_'] = function(block) {
-  return Translate("build_wall")+'();\n';
+  return RUR.translate("build_wall")+'();\n';
 };
 
 
 Blockly.Blocks['_done_'] = {
   init: function() {
     this.setColour(RUR.done_colour);
-    this.appendDummyInput().appendField(Translate("done"));
+    this.appendDummyInput().appendField(RUR.translate("done"));
     this.setPreviousStatement(true);
-    this.setTooltip(Translate("End the program's execution."));
+    this.setTooltip(RUR.translate("End the program's execution."));
   }
 };
 Blockly.Python['_done_'] = function(block) {
-  return Translate("done")+'()\n';
+  return RUR.translate("done")+'()\n';
 };
 Blockly.JavaScript['_done_'] = function(block) {
-  return Translate("done")+'();\n';
+  return RUR.translate("done")+'();\n';
 };
 
 
 Blockly.Blocks['_wall_in_front_or_right_'] = {
   init: function() {
     var choices =  [
-        [Translate("wall_in_front"), Translate("wall_in_front")],
-        [Translate("wall_on_right"), Translate("wall_on_right")]];
+        [RUR.translate("wall_in_front"), RUR.translate("wall_in_front")],
+        [RUR.translate("wall_on_right"), RUR.translate("wall_on_right")]];
     this.setColour(RUR.color_condition);
     this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
     this.setOutput(true, "Boolean");
-    this.setTooltip(Translate("True if a wall is blocking the way."));
+    this.setTooltip(RUR.translate("True if a wall is blocking the way."));
   }
 };
 Blockly.Python['_wall_in_front_or_right_'] = function(block) {
@@ -244,12 +242,12 @@ Blockly.JavaScript['_wall_in_front_or_right_'] = function(block) {
 Blockly.Blocks['_front_or_right_is_clear_'] = {
   init: function() {
     var choices =  [
-        [Translate("front_is_clear"), Translate("front_is_clear")],
-        [Translate("right_is_clear"), Translate("right_is_clear")]];
+        [RUR.translate("front_is_clear"), RUR.translate("front_is_clear")],
+        [RUR.translate("right_is_clear"), RUR.translate("right_is_clear")]];
     this.setColour(RUR.color_condition);
     this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
     this.setOutput(true, "Boolean");
-    this.setTooltip(Translate("True if nothing is blocking the way."));
+    this.setTooltip(RUR.translate("True if nothing is blocking the way."));
   }
 };
 Blockly.Python['_front_or_right_is_clear_'] = function(block) {
@@ -263,273 +261,273 @@ Blockly.JavaScript['_front_or_right_is_clear_'] = function(block) {
 Blockly.Blocks['_at_goal_'] = {
   init: function() {
     this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(Translate("at_goal"));
+    this.appendDummyInput().appendField(RUR.translate("at_goal"));
     this.setOutput(true, "Boolean");
-    this.setTooltip(Translate("True if desired destination."));
+    this.setTooltip(RUR.translate("True if desired destination."));
   }
 };
 Blockly.Python['_at_goal_'] = function(block) {
-  return [Translate("at_goal")+'()'];
+  return [RUR.translate("at_goal")+'()'];
 };
 Blockly.JavaScript['_at_goal_'] = function(block) {
-  return [Translate("at_goal")+'()'];
+  return [RUR.translate("at_goal")+'()'];
 };
 
 
 Blockly.Blocks['_carries_object_'] = {
   init: function() {
     this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(Translate("carries_object"));
+    this.appendDummyInput().appendField(RUR.translate("carries_object"));
     this.setOutput(true, "Boolean");
-    this.setTooltip(Translate("True if robot carries at least one object."));
+    this.setTooltip(RUR.translate("True if robot carries at least one object."));
   }
 };
 Blockly.Python['_carries_object_'] = function(block) {
-  return [Translate("carries_object")+'()'];
+  return [RUR.translate("carries_object")+'()'];
 };
 Blockly.JavaScript['_carries_object_'] = function(block) {
-  return [Translate("carries_object")+'()'];
+  return [RUR.translate("carries_object")+'()'];
 };
 
 
 Blockly.Blocks['_object_here_'] = {
   init: function() {
     this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(Translate("object_here"));
+    this.appendDummyInput().appendField(RUR.translate("object_here"));
     this.setOutput(true, "Boolean");
-    this.setTooltip(Translate("True if there is at least one object here."));
+    this.setTooltip(RUR.translate("True if there is at least one object here."));
   }
 };
 Blockly.Python['_object_here_'] = function(block) {
-  return [Translate("object_here")+'()'];
+  return [RUR.translate("object_here")+'()'];
 };
 Blockly.JavaScript['_object_here_'] = function(block) {
-  return [Translate("object_here")+'()'];
+  return [RUR.translate("object_here")+'()'];
 };
 
 
 Blockly.Blocks['_is_facing_north_'] = {
   init: function() {
     this.setColour(RUR.color_condition);
-    this.appendDummyInput().appendField(Translate("is_facing_north"));
+    this.appendDummyInput().appendField(RUR.translate("is_facing_north"));
     this.setOutput(true, "Boolean");
-    this.setTooltip(Translate("True if robot is facing North."));
+    this.setTooltip(RUR.translate("True if robot is facing North."));
   }
 };
 Blockly.Python['_is_facing_north_'] = function(block) {
-  return [Translate("is_facing_north")+'()'];
+  return [RUR.translate("is_facing_north")+'()'];
 };
 Blockly.JavaScript['_is_facing_north_'] = function(block) {
-  return [Translate("is_facing_north")+'()'];
+  return [RUR.translate("is_facing_north")+'()'];
 };
 
 
 Blockly.Blocks['_star_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("star"))
-        .appendField(new Blockly.FieldImage("/src/images/star.png", 15, 15, Translate("star")));
+        .appendField(RUR.translate("star"))
+        .appendField(new Blockly.FieldImage("/src/images/star.png", 15, 15, RUR.translate("star")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_star_'] = function(block) {
-  return [Translate("star")];
+  return [RUR.translate("star")];
 };
 Blockly.JavaScript['_star_'] = function(block) {
-  return [Translate("star")];
+  return [RUR.translate("star")];
 };
 
 Blockly.Blocks['_token_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("token"))
-        .appendField(new Blockly.FieldImage("/src/images/token.png", 15, 15, Translate("token")));
+        .appendField(RUR.translate("token"))
+        .appendField(new Blockly.FieldImage("/src/images/token.png", 15, 15, RUR.translate("token")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_token_'] = function(block) {
-  return [Translate("token")];
+  return [RUR.translate("token")];
 };
 Blockly.JavaScript['_token_'] = function(block) {
-  return [Translate("token")];
+  return [RUR.translate("token")];
 };
 
 Blockly.Blocks['_apple_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("apple"))
-        .appendField(new Blockly.FieldImage("/src/images/apple.png", 15, 15, Translate("apple")));
+        .appendField(RUR.translate("apple"))
+        .appendField(new Blockly.FieldImage("/src/images/apple.png", 15, 15, RUR.translate("apple")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_apple_'] = function(block) {
-  return [Translate("apple")];
+  return [RUR.translate("apple")];
 };
 Blockly.JavaScript['_apple_'] = function(block) {
-  return [Translate("apple")];
+  return [RUR.translate("apple")];
 };
 
 Blockly.Blocks['_carrot_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("carrot"))
-        .appendField(new Blockly.FieldImage("/src/images/carrot.png", 15, 15, Translate("carrot")));
+        .appendField(RUR.translate("carrot"))
+        .appendField(new Blockly.FieldImage("/src/images/carrot.png", 15, 15, RUR.translate("carrot")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_carrot_'] = function(block) {
-  return [Translate("carrot")];
+  return [RUR.translate("carrot")];
 };
 Blockly.JavaScript['_carrot_'] = function(block) {
-  return [Translate("carrot")];
+  return [RUR.translate("carrot")];
 };
 
 Blockly.Blocks['_dandelion_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("dandelion"))
-        .appendField(new Blockly.FieldImage("/src/images/dandelion.png", 15, 15, Translate("dandelion")));
+        .appendField(RUR.translate("dandelion"))
+        .appendField(new Blockly.FieldImage("/src/images/dandelion.png", 15, 15, RUR.translate("dandelion")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_dandelion_'] = function(block) {
-  return [Translate("dandelion")];
+  return [RUR.translate("dandelion")];
 };
 Blockly.JavaScript['_dandelion_'] = function(block) {
-  return [Translate("dandelion")];
+  return [RUR.translate("dandelion")];
 };
 
 Blockly.Blocks['_daisy_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("daisy"))
-        .appendField(new Blockly.FieldImage("/src/images/daisy.png", 15, 15, Translate("daisy")));
+        .appendField(RUR.translate("daisy"))
+        .appendField(new Blockly.FieldImage("/src/images/daisy.png", 15, 15, RUR.translate("daisy")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_daisy_'] = function(block) {
-  return [Translate("daisy")];
+  return [RUR.translate("daisy")];
 };
 Blockly.JavaScript['_daisy_'] = function(block) {
-  return [Translate("daisy")];
+  return [RUR.translate("daisy")];
 };
 
 Blockly.Blocks['_triangle_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("triangle"))
-        .appendField(new Blockly.FieldImage("/src/images/triangle.png", 15, 15, Translate("triangle")));
+        .appendField(RUR.translate("triangle"))
+        .appendField(new Blockly.FieldImage("/src/images/triangle.png", 15, 15, RUR.translate("triangle")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_triangle_'] = function(block) {
-  return [Translate("triangle")];
+  return [RUR.translate("triangle")];
 };
 Blockly.JavaScript['_triangle_'] = function(block) {
-  return [Translate("triangle")];
+  return [RUR.translate("triangle")];
 };
 
 Blockly.Blocks['_square_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("square"))
-        .appendField(new Blockly.FieldImage("/src/images/square.png", 15, 15, Translate("square")));
+        .appendField(RUR.translate("square"))
+        .appendField(new Blockly.FieldImage("/src/images/square.png", 15, 15, RUR.translate("square")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_square_'] = function(block) {
-  return [Translate("square")];
+  return [RUR.translate("square")];
 };
 Blockly.JavaScript['_square_'] = function(block) {
-  return [Translate("square")];
+  return [RUR.translate("square")];
 };
 
 Blockly.Blocks['_strawberry_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("strawberry"))
-        .appendField(new Blockly.FieldImage("/src/images/strawberry.png", 15, 15, Translate("strawberry")));
+        .appendField(RUR.translate("strawberry"))
+        .appendField(new Blockly.FieldImage("/src/images/strawberry.png", 15, 15, RUR.translate("strawberry")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_strawberry_'] = function(block) {
-  return [Translate("strawberry")];
+  return [RUR.translate("strawberry")];
 };
 Blockly.JavaScript['_strawberry_'] = function(block) {
-  return [Translate("strawberry")];
+  return [RUR.translate("strawberry")];
 };
 
 Blockly.Blocks['_leaf_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("leaf"))
-        .appendField(new Blockly.FieldImage("/src/images/leaf.png", 15, 15, Translate("leaf")));
+        .appendField(RUR.translate("leaf"))
+        .appendField(new Blockly.FieldImage("/src/images/leaf.png", 15, 15, RUR.translate("leaf")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_leaf_'] = function(block) {
-  return [Translate("leaf")];
+  return [RUR.translate("leaf")];
 };
 Blockly.JavaScript['_leaf_'] = function(block) {
-  return [Translate("leaf")];
+  return [RUR.translate("leaf")];
 };
 
 Blockly.Blocks['_banana_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("banana"))
-        .appendField(new Blockly.FieldImage("/src/images/banana.png", 15, 15, Translate("banana")));
+        .appendField(RUR.translate("banana"))
+        .appendField(new Blockly.FieldImage("/src/images/banana.png", 15, 15, RUR.translate("banana")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_banana_'] = function(block) {
-  return [Translate("banana")];
+  return [RUR.translate("banana")];
 };
 Blockly.JavaScript['_banana_'] = function(block) {
-  return [Translate("banana")];
+  return [RUR.translate("banana")];
 };
 
 Blockly.Blocks['_orange_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("orange"))
-        .appendField(new Blockly.FieldImage("/src/images/orange.png", 15, 15, Translate("orange")));
+        .appendField(RUR.translate("orange"))
+        .appendField(new Blockly.FieldImage("/src/images/orange.png", 15, 15, RUR.translate("orange")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_orange_'] = function(block) {
-  return [Translate("orange")];
+  return [RUR.translate("orange")];
 };
 Blockly.JavaScript['_orange_'] = function(block) {
-  return [Translate("orange")];
+  return [RUR.translate("orange")];
 };
 
 Blockly.Blocks['_tulip_'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(Translate("tulip"))
-        .appendField(new Blockly.FieldImage("/src/images/tulip.png", 15, 15, Translate("tulip")));
+        .appendField(RUR.translate("tulip"))
+        .appendField(new Blockly.FieldImage("/src/images/tulip.png", 15, 15, RUR.translate("tulip")));
     this.setOutput(true, "String");
     this.setColour(0);
   }
 };
 Blockly.Python['_tulip_'] = function(block) {
-  return [Translate("tulip")];
+  return [RUR.translate("tulip")];
 };
 Blockly.JavaScript['_tulip_'] = function(block) {
-  return [Translate("tulip")];
+  return [RUR.translate("tulip")];
 };
 
 
@@ -545,8 +543,8 @@ Blockly.Blocks['_carries_object_or_here_'] = {
     this.appendValueInput("action")
         .setCheck("String")
         .appendField(new Blockly.FieldDropdown([
-            [Translate("carries_object"), Translate("carries_object")],
-            [Translate("object_here"), Translate("object_here")]]), "condition");
+            [RUR.translate("carries_object"), RUR.translate("carries_object")],
+            [RUR.translate("object_here"), RUR.translate("object_here")]]), "condition");
     this.setOutput(true, "Boolean");
     this.setColour(RUR.color_condition);
   }
@@ -554,12 +552,12 @@ Blockly.Blocks['_carries_object_or_here_'] = {
 Blockly.Python['_carries_object_or_here_'] = function(block) {
   var dropdown_condition = block.getFieldValue('condition');
   var value_action = Blockly.Python.valueToCode(block, 'action', Blockly.Python.ORDER_ATOMIC);
-  return [Translate(dropdown_condition)+'("'+ value_action +'")'];
+  return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
 };
 Blockly.JavaScript['_carries_object_or_here_'] = function(block) {
   var dropdown_condition = block.getFieldValue('condition');
   var value_action = Blockly.JavaScript.valueToCode(block, 'action', Blockly.JavaScript.ORDER_ATOMIC);
-  return [Translate(dropdown_condition)+'("'+ value_action +'")'];
+  return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
 };
 
 
@@ -568,8 +566,8 @@ Blockly.Blocks['_take_or_put_'] = {
     this.appendValueInput("obj")
         .setCheck("String")
         .appendField(new Blockly.FieldDropdown([
-            [Translate("take"), Translate("take")],
-            [Translate("put"), Translate("put")]]), "action");
+            [RUR.translate("take"), RUR.translate("take")],
+            [RUR.translate("put"), RUR.translate("put")]]), "action");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(RUR.color_basic);

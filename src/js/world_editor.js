@@ -1,7 +1,7 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
-require("./aa_utils.js");
+require("./translator.js");
 require("./constants.js");
 require("./control.js");
 require("./custom_dialogs.js");
@@ -10,13 +10,17 @@ require("./robot.js");
 require("./runner.js");  // TODO: replace by state
 require("./world.js");
 require("./visible_world.js");
-require("./utils.js");
-console.log("loading world_editor");
-
+require("./exceptions.js");
 
 RUR.we = {};   // we == World Editor
 
 RUR.we.__give_to_robot = false;
+
+function filterInt (value) {
+  if(/^\s*([0-9]+)\s*$/.test(value))
+    return parseInt(value, 10);
+  return undefined;
+}
 
 RUR.we.edit_world = function  () {
     "use strict";
@@ -70,10 +74,10 @@ RUR.we.edit_world = function  () {
 };
 
 RUR.we.alert_1 = function (txt) {
-    $("#cmd-result").html(Translate(txt)).effect("highlight", {color: "gold"}, 1500);
+    $("#cmd-result").html(RUR.translate(txt)).effect("highlight", {color: "gold"}, 1500);
 };
 RUR.we.alert_2 = function (txt, value) {
-    $("#cmd-result").html(Translate(txt).supplant({obj: Translate(value)})).effect("highlight", {color: "gold"}, 1500);
+    $("#cmd-result").html(RUR.translate(txt).supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
 };
 
 RUR.we.select = function (choice) {
@@ -258,7 +262,7 @@ RUR.we.toggle_editing_mode = function () {
         $("#highlight").hide();
         $("#watch_variables_btn").hide();
     }
-}
+};
 
 RUR.we.refresh_world_edited = function () {
     RUR.vis_world.draw_all();
@@ -308,7 +312,7 @@ RUR.we.show_world_info = function (no_grid) {
     information = "";
 
     if (RUR.current_world.description) {
-        information +="<b>" + Translate("Description") + "</b><br>" + RUR.current_world.description + "<hr>";
+        information +="<b>" + RUR.translate("Description") + "</b><br>" + RUR.current_world.description + "<hr>";
     }
 
     if (!no_grid) {
@@ -327,7 +331,7 @@ RUR.we.show_world_info = function (no_grid) {
         if (tile.info) {
             if (topic){
                 topic = false;
-                information += "<br><br><b>" + Translate("Special information about this location:") + "</b>";
+                information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
             }
             information += "<br>" + tile.info;
         }
@@ -340,7 +344,7 @@ RUR.we.show_world_info = function (no_grid) {
             if (tile.info){
                 if (topic){
                     topic = false;
-                    information += "<br><br><b>" + Translate("Special information about this location:") + "</b>";
+                    information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
                 }
                 if (tile.name == "fence") {
                     if (!fence_noted) {
@@ -362,9 +366,9 @@ RUR.we.show_world_info = function (no_grid) {
             if (obj_here.hasOwnProperty(obj_type)) {
                     if (topic){
                         topic = false;
-                        information += "<br><br><b>" + Translate("Objects found here:") + "</b>";
+                        information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
                     }
-               information += "<br>" + Translate(obj_type) + ":" + obj_here[obj_type];
+               information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
             }
         }
     }
@@ -379,9 +383,9 @@ RUR.we.show_world_info = function (no_grid) {
                 if (obj_here.hasOwnProperty(obj_type)) {
                     if (topic){
                         topic = false;
-                        information += "<br><br><b>" + Translate("Goal to achieve:") + "</b>";
+                        information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
                     }
-                   information += "<br>" + Translate(obj_type) + ":" + obj_here[obj_type];
+                   information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
                 }
             }
         }
@@ -392,17 +396,17 @@ RUR.we.show_world_info = function (no_grid) {
         if (goals.walls !== undefined && coords) {
             if (goals.walls[coords] !== undefined){
                 if (goals.walls[coords].indexOf("east") != -1) {
-                    information += "<br>" + Translate("A wall must be built east of this location.");
+                    information += "<br>" + RUR.translate("A wall must be built east of this location.");
                 }
                 if (goals.walls[coords].indexOf("north") != -1) {
-                    information += "<br>" + Translate("A wall must be built north of this location.");
+                    information += "<br>" + RUR.translate("A wall must be built north of this location.");
                 }
             }
             x -= 1;
             coords = x + "," + y;
             if (goals.walls[coords] !== undefined){
                 if (goals.walls[coords].indexOf("east") != -1) {
-                    information += "<br>" + Translate("A wall must be built west of this location.");
+                    information += "<br>" + RUR.translate("A wall must be built west of this location.");
                 }
             }
             x += 1;
@@ -410,7 +414,7 @@ RUR.we.show_world_info = function (no_grid) {
             coords = x + "," + y;
             if (goals.walls[coords] !== undefined){
                 if (goals.walls[coords].indexOf("north") != -1) {
-                    information += "<br>" + Translate("A wall must be built south of this location.");
+                    information += "<br>" + RUR.translate("A wall must be built south of this location.");
                 }
             }
             y += 1;
@@ -425,7 +429,7 @@ RUR.we.show_world_info = function (no_grid) {
             x = robot.x;
             y = robot.y;
             if (robot.start_positions !== undefined && robot.start_positions.length > 1){
-                x = Translate("random location");
+                x = RUR.translate("random location");
                 y = '';
             }
             no_object = true;
@@ -433,13 +437,13 @@ RUR.we.show_world_info = function (no_grid) {
                 if (robot.objects.hasOwnProperty(obj)) {
                     if (no_object) {
                         no_object = false;
-                        information += "<br><br><b>" + Translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>";
+                        information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>";
                     }
-                    information += "<br>" + Translate(obj) + ":" + robot.objects[obj];
+                    information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
                 }
             }
             if (no_object){
-                information += "<br><br><b>" + Translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>";
+                information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>";
             }
         }
     }
@@ -450,12 +454,12 @@ RUR.we.show_world_info = function (no_grid) {
          (goals.possible_positions !== undefined || goals.position !== undefined)){
         if (topic){
             topic = false;
-            information += "<br><br><b>" + Translate("Goal to achieve:") + "</b>";
+            information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
         }
         if (goals.possible_positions !== undefined && goals.possible_positions.length > 2) {
-            information += "<br>" + Translate("The final required position of the robot will be chosen at random.");
+            information += "<br>" + RUR.translate("The final required position of the robot will be chosen at random.");
         } else {
-            information += "<br>" + Translate("The final position of the robot must be (x, y) = ") +
+            information += "<br>" + RUR.translate("The final position of the robot must be (x, y) = ") +
                            "(" + goals.position.x + ", " + goals.position.y + ")";
         }
     }
@@ -518,16 +522,16 @@ RUR.we._give_objects_to_robot = function (specific_object){
     "use strict";
 
     RUR.we.specific_object = specific_object;
-    $("#give-object-name").html(Translate(specific_object));
+    $("#give-object-name").html(RUR.translate(specific_object));
     RUR.cd.dialog_give_object.dialog("open");
 };
 
 
 RUR.we.give_objects_to_robot = function (obj, nb, robot) {
-    var translated_arg = Translate_to_english(obj);
+    var translated_arg = RUR.translate_to_english(obj);
 
     if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
-        throw new RUR.ReeborgError(Translate("Unknown object").supplant({obj: obj}));
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: obj}));
     }
 
     obj = translated_arg;
@@ -538,15 +542,15 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
 
     if (nb === "inf"){
         robot.objects[obj] = "infinite";
-    } else if (RUR.filterInt(nb) >= 0) {
-        nb = RUR.filterInt(nb);
+    } else if (filterInt(nb) >= 0) {
+        nb = filterInt(nb);
         if (nb !== 0) {
             robot.objects[obj] = nb;
         } else if (robot.objects[obj] !== undefined) {
             delete robot.objects[obj];
         }
     } else {
-        RUR.cd.show_feedback("#Reeborg-shouts", nb + Translate(" is not a valid value!"));
+        RUR.cd.show_feedback("#Reeborg-shouts", nb + RUR.translate(" is not a valid value!"));
     }
 };
 
@@ -706,7 +710,7 @@ RUR.we._add_object = function (specific_object){
     RUR.we.specific_object = specific_object;
     RUR.we.x = x;
     RUR.we.y = y;
-    $("#add-object-name").html(Translate(specific_object));
+    $("#add-object-name").html(RUR.translate(specific_object));
     RUR.cd.dialog_add_object.dialog("open");
 };
 
@@ -721,7 +725,7 @@ RUR.we._add_decorative_object = function (specific_object){
     coords = x + "," + y;
 
     if (RUR.objects.known_objects.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(Translate("Unknown object").supplant({obj: specific_object}));
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
 
     RUR.we.ensure_key_exist(RUR.current_world, "decorative_objects");
@@ -740,7 +744,7 @@ RUR.we.add_object = function (specific_object, x, y, nb){
     "use strict";
     var coords, tmp;
     if (RUR.objects.known_objects.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(Translate("Unknown object").supplant({obj: specific_object}));
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
 
     coords = x + "," + y;
@@ -784,7 +788,7 @@ RUR.we._add_goal_objects = function (specific_object){
     RUR.we.specific_object = specific_object;
     RUR.we.x = x;
     RUR.we.y = y;
-    $("#goal-object-name").html(Translate(specific_object));
+    $("#goal-object-name").html(RUR.translate(specific_object));
     RUR.cd.dialog_goal_object.dialog("open");
 };
 
@@ -820,7 +824,7 @@ RUR.we.set_goal_position = function (home){
     "use strict";
     var position, world=RUR.current_world, robot, arr=[], pos, present=false, goal;
 
-    $("#cmd-result").html(Translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
+    $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
 
     RUR.we.ensure_key_exist(world, "goal");
     goal = world.goal;
@@ -985,7 +989,7 @@ RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
             delete RUR.current_world.goal.possible_positions;
             delete RUR.current_world.goal.position;
             RUR.cd.show_feedback("#Reeborg-shouts",
-                                 Translate("WARNING: deleted final positions choices while resizing world!"));
+                                 RUR.translate("WARNING: deleted final positions choices while resizing world!"));
         }
     }
 };

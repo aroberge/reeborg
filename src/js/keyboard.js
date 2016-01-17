@@ -2,7 +2,6 @@
 */
 
 require("./state.js");
-console.log("loading keyboard");
 
 RUR.kbd = {};
 

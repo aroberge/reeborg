@@ -66,7 +66,7 @@ def _watch_(default, loc={}, gl={}):
         else:
             if no_new_local:
                 no_new_local = False
-                out.append(title % window.Translate("Local variables"))
+                out.append(title % window.RUR.translate("Local variables"))
             value = html_escape(loc[arg])
             current_watch_values[arg] = value
         append_watch(arg, value, out)
@@ -80,7 +80,7 @@ def _watch_(default, loc={}, gl={}):
                 no_new_global = False
                 if not no_new_local:
                     out.append("")
-                out.append(title % window.Translate("Global variables"))
+                out.append(title % window.RUR.translate("Global variables"))
             value = html_escape(gl[arg])
             current_watch_values[arg] = value
         append_watch(arg, value, out)
@@ -89,7 +89,7 @@ def _watch_(default, loc={}, gl={}):
     for arg in window.RUR.watched_expressions:
         if no_new_expr:
             no_new_expr = False
-            out.append(title % window.Translate("Watched expressions"))
+            out.append(title % window.RUR.translate("Watched expressions"))
         try:
             value = html_escape(eval(arg, gl, loc))
         except Exception as e:
@@ -167,7 +167,7 @@ def dir_py(obj, exclude=None):
 
 def generic_translate_python(src, lib, lang_import, highlight, var_watch,
                              pre_code='', post_code=''):
-    ''' Translate Python code into Javascript and execute
+    ''' RUR.translate Python code into Javascript and execute
 
         src: source code in editor
         lib: string - language specific lib

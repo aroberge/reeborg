@@ -3,10 +3,8 @@
    state.  However, by using this convention and documentating them in a
    single place, it helps in avoiding the creation of inconsistent states.*/
 
-require("./aa_utils.js");
+require("./translator.js");
 require("./keyboard.js");
-
-console.log("loading state");
 
 RUR.state = {};
 
@@ -61,7 +59,7 @@ RUR.state.set_programming_language = function(lang){
             $("#python_choices").hide();
             $("#javascript_choices").show();
             $("#javascript_choices").change();
-            $("#editor-tab").html(Translate("Javascript Code"));
+            $("#editor-tab").html(RUR.translate("Javascript Code"));
             editor.setOption("mode", "javascript");
             pre_code_editor.setOption("mode", "javascript");
             post_code_editor.setOption("mode", "javascript");
@@ -74,7 +72,7 @@ RUR.state.set_programming_language = function(lang){
             $("#python_choices").show();
             $("#javascript_choices").hide();
             $("#python_choices").change();
-            $("#editor-tab").html(Translate("Python Code"));
+            $("#editor-tab").html(RUR.translate("Python Code"));
             editor.setOption("mode", {name: "python", version: 3});
             pre_code_editor.setOption("mode", {name: "python", version: 3});
             post_code_editor.setOption("mode", {name: "python", version: 3});
@@ -90,5 +88,27 @@ RUR.state.set_programming_language = function(lang){
     try {
         RUR.reset_code_in_editors();
     } catch (e) {}
+};
 
+RUR.reset_code_in_editors = function () {
+    var library_default, library_content, editor_content, editor_default,
+        default_instruction = RUR.translate("move"),
+        library_default_en = "# from library import *";
+
+    if (RUR.state.programming_language == "javascript") {
+        editor_default = default_instruction + "();";
+    } else if (RUR.state.programming_language == "python") {
+        library_default = RUR.translate(library_default_en);
+        library_content = localStorage.getItem(RUR.settings.library);
+        if (!library_content || library_content == library_default_en){
+            library_content = library_default;
+        }
+        library.setValue(library_content);
+        editor_default = default_instruction + "()";
+    }
+    editor_content = localStorage.getItem(RUR.settings.editor);
+    if (!editor_content){
+        editor_content = editor_default;
+    }
+    editor.setValue(editor_content);
 };

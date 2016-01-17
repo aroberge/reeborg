@@ -2,7 +2,6 @@
 
 
 require("./world_editor.js");
-console.log("loading tooltip");
 
 RUR.tooltip = {};
 

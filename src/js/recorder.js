@@ -7,13 +7,19 @@ require("./visible_world.js");
 require("./custom_dialogs.js");
 require("./control.js");
 require("./constants.js");
-require("./aa_utils.js");
+require("./translator.js");
 require("./ui.js");
-require("./utils.js");
-
-console.log("loading recorder");
+require("./exceptions.js");
 
 RUR.rec = {};
+
+RUR.set_lineno_highlight = function(lineno, frame) {
+    RUR.current_lineno = lineno;
+    if (frame) {
+        RUR.rec.record_frame();
+        return true;
+    }
+};
 
 RUR.rec.reset = function() {
     RUR.rec.nb_frames = 0;
@@ -110,7 +116,7 @@ RUR.rec.record_frame = function (name, obj) {
     RUR.rec.check_robots_on_tiles(frame);
 
     if (RUR.rec.nb_frames > RUR.MAX_STEPS + RUR.rec.extra_highlighting_frames) {
-        throw new RUR.ReeborgError(Translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
+        throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
 };
 
@@ -267,7 +273,7 @@ RUR.rec.conclude = function () {
         }
         RUR.cd.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
-                             Translate("Last instruction completed!") +
+                             RUR.translate("Last instruction completed!") +
                              "</p>");
     }
     return "stopped";
@@ -275,7 +281,7 @@ RUR.rec.conclude = function () {
 
 RUR.rec.handle_error = function (frame) {
     var goal_status;
-    if (frame.error.reeborg_shouts === Translate("Done!")){
+    if (frame.error.reeborg_shouts === RUR.translate("Done!")){
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
@@ -283,7 +289,7 @@ RUR.rec.handle_error = function (frame) {
                 RUR.control.play_sound("#success-sound");
             }
             RUR.cd.show_feedback("#Reeborg-concludes",
-                Translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
+                RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else {
         if (RUR.state.sound_on) {
@@ -302,7 +308,7 @@ RUR.rec.check_current_world_status = function() {
     if (frame.world.goal === undefined){
         RUR.cd.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
-                             Translate("Last instruction completed!") +
+                             RUR.translate("Last instruction completed!") +
                              "</p>");
     } else {
         goal_status = RUR.rec.check_goal(frame);
@@ -322,24 +328,24 @@ RUR.rec.check_goal = function (frame) {
     goal_status.success = true;
     if (g.position !== undefined){
         if (g.position.x === world.robots[0].x){
-            goal_status.message += Translate("<li class='success'>Reeborg is at the correct x position.</li>");
+            goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct x position.</li>");
         } else {
-            goal_status.message += Translate("<li class='failure'>Reeborg is at the wrong x position.</li>");
+            goal_status.message += RUR.translate("<li class='failure'>Reeborg is at the wrong x position.</li>");
             goal_status.success = false;
         }
         if (g.position.y === world.robots[0].y){
-            goal_status.message += Translate("<li class='success'>Reeborg is at the correct y position.</li>");
+            goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct y position.</li>");
         } else {
-            goal_status.message += Translate("<li class='failure'>Reeborg is at the wrong y position.</li>");
+            goal_status.message += RUR.translate("<li class='failure'>Reeborg is at the wrong y position.</li>");
             goal_status.success = false;
         }
     }
     if (g.objects !== undefined) {
         result = Object.identical(g.objects, world.objects, true);
         if (result){
-            goal_status.message += Translate("<li class='success'>All objects are at the correct location.</li>");
+            goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
-            goal_status.message += Translate("<li class='failure'>One or more objects are not at the correct location.</li>");
+            goal_status.message += RUR.translate("<li class='failure'>One or more objects are not at the correct location.</li>");
             goal_status.success = false;
         }
     }
@@ -357,9 +363,9 @@ RUR.rec.check_goal = function (frame) {
             }
         }
         if (result){
-            goal_status.message += Translate("<li class='success'>All walls have been built correctly.</li>");
+            goal_status.message += RUR.translate("<li class='success'>All walls have been built correctly.</li>");
         } else {
-            goal_status.message += Translate("<li class='failure'>One or more walls missing or built at wrong location.</li>");
+            goal_status.message += RUR.translate("<li class='failure'>One or more walls missing or built at wrong location.</li>");
             goal_status.success = false;
         }
     }

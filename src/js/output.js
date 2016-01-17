@@ -2,7 +2,6 @@
 
 require("./recorder.js");
 require("./custom_dialogs.js");
-console.log("loading output");
 
 RUR.output = {};
 

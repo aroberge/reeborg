@@ -1,11 +1,3 @@
-/*
-   Defining base name space and various constants.
- */
-
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-
-console.log("loading constants");
-
 
 RUR.EAST = 0;
 RUR.NORTH = 1;

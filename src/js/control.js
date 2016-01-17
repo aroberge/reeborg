@@ -4,7 +4,7 @@
 
 
 
-
+require("./translator.js");
 require("./aa_utils.js");
 require("./constants.js");
 require("./objects.js");
@@ -12,7 +12,7 @@ require("./output.js");
 require("./recorder.js");
 require("./state.js");
 require("./world_editor.js");
-console.log("loading controls");
+require("./exceptions.js");
 
 RUR.control = {};
 
@@ -24,7 +24,7 @@ RUR.control.move = function (robot) {
         wall_beyond, x_beyond, y_beyond;
 
     if (RUR.control.wall_in_front(robot)) {
-        throw new RUR.WallCollisionError(Translate("Ouch! I hit a wall!"));
+        throw new RUR.WallCollisionError(RUR.translate("Ouch! I hit a wall!"));
     }
 
     robot._prev_x = robot.x;
@@ -84,7 +84,7 @@ RUR.control.move = function (robot) {
         if (pushable_object_beyond || wall_beyond || solid_tile_beyond || solid_object_beyond) {
             robot.x = robot._prev_x;
             robot.y = robot._prev_y;
-            throw new RUR.ReeborgError(Translate("Something is blocking the way!"));
+            throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
         } else {
             RUR.control.move_object(pushable_object_here, robot.x, robot.y,
             x_beyond, y_beyond);
@@ -97,7 +97,7 @@ RUR.control.move = function (robot) {
     tile = RUR.control.get_tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
-            if (!(tile == RUR.tiles.water && RUR.control.solid_object_here(robot, Translate("bridge"))) ){
+            if (!(tile == RUR.tiles.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
                 throw new RUR.ReeborgError(tile.message);
             }
         }
@@ -164,7 +164,7 @@ RUR.control.pause = function (ms) {
 };
 
 RUR.control.done = function () {
-    throw new RUR.ReeborgError(Translate("Done!"));
+    throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
 
 RUR.control.put = function(robot, arg){
@@ -172,9 +172,9 @@ RUR.control.put = function(robot, arg){
     RUR.control.sound_id = "#put-sound";
 
     if (arg !== undefined) {
-        translated_arg = Translate_to_english(arg);
+        translated_arg = RUR.translate_to_english(arg);
         if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
-            throw new RUR.ReeborgError(Translate("Unknown object").supplant({obj: arg}));
+            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
     }
 
@@ -186,19 +186,19 @@ RUR.control.put = function(robot, arg){
         }
     }
     if (all_objects.length === 0){
-        throw new RUR.ReeborgError(Translate("I don't have any object to put down!").supplant({obj: Translate("object")}));
+        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
     }
     if (arg !== undefined) {
         if (robot.objects[translated_arg] === undefined) {
-            throw new RUR.ReeborgError(Translate("I don't have any object to put down!").supplant({obj:arg}));
+            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj:arg}));
         }  else {
             RUR.control._robot_put_down_object(robot, translated_arg);
         }
     }  else {
         if (objects_carried.length === 0){
-            throw new RUR.ReeborgError(Translate("I don't have any object to put down!").supplant({obj: Translate("object")}));
+            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
         } else if (all_objects.length > 1){
-             throw new RUR.ReeborgError(Translate("I carry too many different objects. I don't know which one to put down!"));
+             throw new RUR.ReeborgError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
         } else {
             RUR.control._robot_put_down_object(robot, translated_arg);
         }
@@ -239,9 +239,9 @@ RUR.control.take = function(robot, arg){
     var translated_arg, objects_here;
     RUR.control.sound_id = "#take-sound";
     if (arg !== undefined) {
-        translated_arg = Translate_to_english(arg);
+        translated_arg = RUR.translate_to_english(arg);
         if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
-            throw new RUR.ReeborgError(Translate("Unknown object").supplant({obj: arg}));
+            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
     }
 
@@ -251,7 +251,7 @@ RUR.control.take = function(robot, arg){
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
         if (objects_here.length === 0 || objects_here == false) { // jshint ignore:line
-            throw new RUR.ReeborgError(Translate("No object found here").supplant({obj: arg}));
+            throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
@@ -259,9 +259,9 @@ RUR.control.take = function(robot, arg){
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
     }  else if (objects_here.length === 0 || objects_here == false){ // jshint ignore:line
-        throw new RUR.ReeborgError(Translate("No object found here").supplant({obj: Translate("object")}));
+        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
-        throw new RUR.ReeborgError(Translate("Many objects are here; I do not know which one to take!"));
+        throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
     } else {
         RUR.control._take_object_and_give_to_robot(robot, objects_here[0]);
     }
@@ -269,7 +269,7 @@ RUR.control.take = function(robot, arg){
 
 RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     var objects_here, coords;
-    obj = Translate_to_english(obj);
+    obj = RUR.translate_to_english(obj);
     coords = robot.x + "," + robot.y;
     RUR.current_world.objects[coords][obj] -= 1;
 
@@ -309,7 +309,7 @@ RUR.control.is_wall_at = function (coords, orientation) {
 RUR.control.build_wall = function (robot){
     var coords, orientation, x, y, walls;
     if (RUR.control.wall_in_front(robot)){
-        throw new RUR.WallCollisionError(Translate("There is already a wall here!"));
+        throw new RUR.WallCollisionError(RUR.translate("There is already a wall here!"));
     }
 
     switch (robot._orientation){
@@ -518,9 +518,9 @@ RUR.control.at_goal = function (robot) {
         if (goal.position !== undefined) {
             return (robot.x === goal.position.x && robot.y === goal.position.y);
         }
-        throw new RUR.ReeborgError(Translate("There is no position as a goal in this world!"));
+        throw new RUR.ReeborgError(RUR.translate("There is no position as a goal in this world!"));
     }
-    throw new RUR.ReeborgError(Translate("There is no goal in this world!"));
+    throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };
 
 RUR.control.object_here = function (robot, obj) {
@@ -546,10 +546,10 @@ RUR.control.__object_here = function (robot, obj, _objects) {
 
     for (obj_type in obj_here) {
         if (obj_here.hasOwnProperty(obj_type)) {
-            if (obj !== undefined && obj_type == Translate_to_english(obj)) {
-                return [Translate(obj_type)];
+            if (obj !== undefined && obj_type == RUR.translate_to_english(obj)) {
+                return [RUR.translate(obj_type)];
             }
-            all_objects.push(Translate(obj_type));
+            all_objects.push(RUR.translate(obj_type));
         }
     }
 
@@ -576,7 +576,7 @@ RUR.control.solid_object_here = function (robot, tile) {
 
     for (tile_type in tile_here) {
         if (tile_here.hasOwnProperty(tile_type)) {
-            if (tile!== undefined && tile_type == Translate_to_english(tile)) {
+            if (tile!== undefined && tile_type == RUR.translate_to_english(tile)) {
                 return true;
             }
         }
@@ -597,7 +597,7 @@ RUR.control.carries_object = function (robot, obj) {
     if (obj === undefined) {
         for (obj_type in robot.objects) {
             if (robot.objects.hasOwnProperty(obj_type)) {
-                all_objects[Translate(obj_type)] = robot.objects[obj_type];
+                all_objects[RUR.translate(obj_type)] = robot.objects[obj_type];
                 carried = true;
             }
         }
@@ -607,7 +607,7 @@ RUR.control.carries_object = function (robot, obj) {
             return 0;
         }
     } else {
-        obj = Translate_to_english(obj);
+        obj = RUR.translate_to_english(obj);
         for (obj_type in robot.objects) {
             if (robot.objects.hasOwnProperty(obj_type) && obj_type == obj) {
                 return robot.objects[obj_type];
@@ -701,7 +701,7 @@ RUR.control.pushable_object_here = function(x, y) {
 
 RUR.control.set_max_nb_robots = function(nb){
     if (RUR.MAX_NB_ROBOTS !== undefined){
-        throw new RUR.ReeborgError(Translate("Cheater! You are not allowed to change the number of robots this way!"));
+        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
     } else {
         RUR.MAX_NB_ROBOTS = nb;
     }

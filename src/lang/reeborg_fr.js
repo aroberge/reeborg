@@ -1,5 +1,5 @@
 /* See reeborg_en.js */
-var RUR = RUR || {};
+window.RUR = RUR || {};
 
 var RobotUsage;
 
@@ -53,7 +53,7 @@ RUR.reset_definitions = function () {
     window.mur_a_droite = RUR._wall_on_right_;
     window.ecrit = RUR._write_;
     window._write = RUR.__write_;
-    window.MenuPersonalise = RUR._MakeCustomMenu_;    
+    window.MenuPersonalise = RUR._MakeCustomMenu_;
     window.Monde = RUR._World_;
 
     // The following are for OOP programming in Javascript

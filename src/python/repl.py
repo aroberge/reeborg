@@ -158,7 +158,7 @@ class Interpreter():
             exec("from reeborg_fr import *", self.namespace)
             self.namespace["termine"] = self.done
         self.namespace["Help"] = window["Help"]
-        self.namespace["init"] = window.RUR.runner.assign_initial_values
+        self.namespace["init"] = window.RUR.world_init.set
         exec("__BRYTHON__.builtins.help = Help", self.namespace)
         self.run_pre()
 
@@ -225,7 +225,7 @@ class Interpreter():
         except Exception as e:
             if e.__name__ in ['ReeborgError', 'WallCollisionError']:
                 py_console.append("{}: {}".format(e.__name__,
-                    Translate(getattr(e, 'reeborg_shouts'))))  # NOQA
+                    RUR.translate(getattr(e, 'reeborg_shouts'))))  # NOQA
             else:
                 exc = __BRYTHON__.current_exception  # NOQA
                 py_console.append("{}: {}".format(e.__name__, exc.args[0]))

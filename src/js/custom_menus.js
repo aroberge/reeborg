@@ -4,11 +4,9 @@
 
 
 
-
+require("./translator.js");
 require("./world_select.js");
 require("./ui.js");
-require("./aa_utils.js");
-console.log("loading custom_menus");
 
 RUR.custom_menu = {};
 
@@ -39,7 +37,7 @@ RUR.custom_menu.make = function (contents) {
             }
         }
     } else {
-        editor.setValue(Translate("move") + "()");
+        editor.setValue(RUR.translate("move") + "()");
         RUR.world_select.set_default();
     }
 };

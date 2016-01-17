@@ -2,7 +2,6 @@
 
 
 require("./world_editor.js"); // TODO: see if we can eliminate this
-console.log("loading zr_dr_dialogs");
 
 RUR.zz_dr_dialogs = function () {
 

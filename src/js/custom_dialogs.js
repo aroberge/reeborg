@@ -8,7 +8,6 @@ require("./world_editor.js");
 require("./visible_world.js");
 require("./storage.js");
 require("./objects.js");
-console.log("loading custom_dialogs");
 
 RUR.cd = {};
 

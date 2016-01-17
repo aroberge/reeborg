@@ -2,13 +2,12 @@
 
 called by zzz_doc_ready.js
 */
-require("./aa_utils.js");
+require("./translator.js");
 require("./storage.js");
 require("./file_io.js");
 require("./state.js");
 require("./ui.js");
-
-console.log("loading zz_dr_onchange");
+require("./aa_utils.js");
 
 RUR.zz_dr_onchange = function () {
 

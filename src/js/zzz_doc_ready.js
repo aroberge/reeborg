@@ -1,5 +1,5 @@
 
-require("./aa_utils.js");
+require("./translator.js");
 require("./state.js");
 require("./objects.js");
 require("./visible_robot.js");
@@ -16,8 +16,7 @@ require("./keyboard.js");
 require("./ui.js");
 require("./tooltip.js");
 require("./custom_menus.js");
-
-console.log("loading zzz_doc_ready");
+require("./aa_utils.js");
 
 $(document).ready(function() {
     "use strict";
@@ -96,7 +95,7 @@ $(document).ready(function() {
         $('input[type=radio][name=programming_language]').val([prog_lang]);
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        name = Translate("PERMALINK");
+        name = RUR.translate("PERMALINK");
         localStorage.setItem("user_world:"+ name, RUR.world.export_world());
         RUR.storage.save_world(name);
 

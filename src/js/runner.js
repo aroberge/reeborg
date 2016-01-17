@@ -2,7 +2,7 @@
 /*globals $, RUR, editor, library, editorUpdateHints,
   translate_python,*/
 
-require("./aa_utils.js");
+require("./translator.js");
 require("./visible_world.js");
 require("./world_editor.js");
 require("./world.js");
@@ -11,120 +11,11 @@ require("./zz_dr_blockly.js");
 require("./ui.js");
 require("./custom_dialogs.js");
 require("./recorder.js");
-
-console.log("loading runner");
+require("./world_init.js");
 
 RUR.runner = {};
 
 RUR.runner.interpreted = false;
-
-RUR.runner.assign_initial_values = function () {
-    "use strict";
-    var coords, obj, objects, objects_here, nb, range, robot;
-    var position, goal, total_nb_objects = {};
-
-   // First, deal with objects
-
-    if (RUR.current_world.objects !== undefined){
-        objects = RUR.current_world.objects;
-        for (coords in objects){
-            if (objects.hasOwnProperty(coords)){
-                objects_here = objects[coords];
-                for (obj in objects_here){
-                    if (objects_here.hasOwnProperty(obj)){
-                        nb = objects_here[obj];
-                        if (nb.toString().indexOf("-") != -1){
-                            range = nb.split("-");
-                            nb = RUR.randint(parseInt(range[0], 10), parseInt(range[1], 10));
-                            if (nb !== 0){
-                                objects_here[obj] = nb;
-                            } else {
-                                delete objects_here[obj];
-                            }
-                        }
-                        if (total_nb_objects[obj] === undefined){
-                            if (parseInt(nb, 10) !== 0) {
-                                total_nb_objects[obj] = parseInt(nb, 10);
-                            }
-                        } else {
-                            total_nb_objects[obj] += parseInt(nb, 10);
-                        }
-                    }
-                }
-                if (Object.keys(RUR.current_world.objects[coords]).length === 0){
-                    delete RUR.current_world.objects[coords];
-                }
-            }
-        }
-    }
-
-    // then look for "goals" with "all" as value;
-
-    if (RUR.current_world.goal !== undefined &&
-        RUR.current_world.goal.objects !== undefined){
-        objects = RUR.current_world.goal.objects;
-        for (coords in objects){
-            if (objects.hasOwnProperty(coords)){
-                objects_here = objects[coords];
-                for (obj in objects_here){
-                    if (objects_here.hasOwnProperty(obj)){
-                        nb = objects_here[obj];
-                        if (nb == "all") {
-                            try {
-                                if (total_nb_objects[obj] !== undefined) {
-                                    objects_here[obj] = total_nb_objects[obj];
-                                } else {
-                                    delete objects[coords][obj];
-                                }
-                            } catch (e) {
-                                $("#world-info-button").click();
-                                $("#World-info").html("<b>Warning</b> Trying to assign a goal when no corresponding objects are found in the world.");
-                            }
-                        }
-                    }
-                }
-                if (Object.keys(RUR.current_world.goal.objects[coords]).length === 0){
-                    delete RUR.current_world.goal.objects[coords];
-                }
-            }
-        }
-    }
-
-    // next, initial position for robot
-    if (RUR.current_world.robots !== undefined && RUR.current_world.robots.length == 1){
-        robot = RUR.current_world.robots[0];
-        if (robot.start_positions !== undefined) {
-            position = robot.start_positions[RUR.randint(0, robot.start_positions.length-1)];
-            robot.x = position[0];
-            robot.y = position[1];
-            robot._prev_x = robot.x;
-            robot._prev_y = robot.y;
-            delete robot.start_positions;
-        }
-        if (robot._orientation == -1){
-            RUR.current_world.robots[0]._orientation = RUR.randint(0, 3);
-            RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0]._orientation;
-        }
-    }
-
-    // then final position for robot
-
-    if (RUR.current_world.goal !== undefined &&
-        RUR.current_world.goal.possible_positions !== undefined &&
-        RUR.current_world.goal.possible_positions.length > 1) {
-        goal = RUR.current_world.goal;
-        position = goal.possible_positions[RUR.randint(0, goal.possible_positions.length-1)];
-        goal.position.x = position[0];
-        goal.position.y = position[1];
-        delete goal.possible_positions;
-    }
-    if (RUR.current_world.goal !== undefined) {
-        RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.vis_world.draw_goal();
-    }
-    RUR.vis_world.refresh();
-};
-
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
@@ -133,7 +24,7 @@ RUR.runner.run = function (playback) {
     }
     if (!RUR.runner.interpreted) {
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
-        RUR.runner.assign_initial_values();
+        RUR.world_init.set();
 
         if (RUR.state.input_method === "blockly") {
             if (RUR.state.programming_language == "python") {
@@ -257,16 +148,16 @@ RUR.runner.simplify_python_traceback = function(e) {
                 try {
                     other_info = RUR.runner.find_line_number(e.args[1][3]);
                     if (RUR.runner.check_colons(e.args[1][3])) {
-                        other_info += Translate("<br>Perhaps a missing colon is the cause.");
+                        other_info += RUR.translate("<br>Perhaps a missing colon is the cause.");
                     } else if (RUR.runner.check_func_parentheses(e.args[1][3])){
-                        other_info += Translate("<br>Perhaps you forgot to add parentheses ().");
+                        other_info += RUR.translate("<br>Perhaps you forgot to add parentheses ().");
                     }
                 } catch (e) { // jshint ignore:line
                     other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
                 }
                 break;
             case "IndentationError":
-                message = Translate("The code is not indented correctly.");
+                message = RUR.translate("The code is not indented correctly.");
                 try {
                     other_info = RUR.runner.find_line_number(e.args[1][3]);
                     if (e.args[1][3].indexOf("RUR.set_lineno_highlight([") == -1){
@@ -279,7 +170,7 @@ RUR.runner.simplify_python_traceback = function(e) {
             case "NameError":
                 try {
                     other_info = RUR.runner.find_line_number(message);
-                    other_info += Translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
+                    other_info += RUR.translate("<br>Perhaps you misspelled a word or forgot to define a function or a variable.");
                 } catch (e) {  // jshint ignore:line
                     other_info = "I could not analyze this error; you might want to contact my programmer.";
                 }
@@ -288,7 +179,7 @@ RUR.runner.simplify_python_traceback = function(e) {
             case "Internal Javascript error: TypeError":
                 error_name = "Invalid Python Code";
                 message = '';
-                other_info = Translate("I cannot help you with this problem.");
+                other_info = RUR.translate("I cannot help you with this problem.");
                 break;
             default:
                 other_info = "";
@@ -316,7 +207,7 @@ RUR.runner.find_line_number = function(bad_code) {
         bad_code = bad_code.replace("RUR.set_lineno_highlight([", "");
         lines = bad_code.split("]");
         lineno = lines[0] + 1;
-        return Translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
+        return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
     }
     lines = editor.getValue().split("\n");
     found = false;
@@ -336,7 +227,7 @@ RUR.runner.find_line_number = function(bad_code) {
         }
     }
     if (lineno) {
-        return Translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
+        return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
     }
     return '';
 };
