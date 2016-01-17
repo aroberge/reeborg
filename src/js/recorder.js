@@ -4,7 +4,6 @@
 
 require("./state.js");
 require("./visible_world.js");
-require("./custom_dialogs.js");
 require("./world_get.js");
 require("./constants.js");
 require("./translator.js");
@@ -267,18 +266,18 @@ RUR.rec.conclude = function () {
             if (RUR.state.sound_on) {
                 RUR.rec.play_sound("#success-sound");
             }
-            RUR.cd.show_feedback("#Reeborg-concludes", goal_status.message);
+            RUR.show_feedback("#Reeborg-concludes", goal_status.message);
         } else {
             if (RUR.state.sound_on) {
                 RUR.rec.play_sound("#error-sound");
             }
-            RUR.cd.show_feedback("#Reeborg-shouts", goal_status.message);
+            RUR.show_feedback("#Reeborg-shouts", goal_status.message);
         }
     } else {
         if (RUR.state.sound_on) {
             RUR.rec.play_sound("#success-sound");
         }
-        RUR.cd.show_feedback("#Reeborg-concludes",
+        RUR.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
                              "</p>");
@@ -295,14 +294,14 @@ RUR.rec.handle_error = function (frame) {
             if (RUR.state.sound_on) {
                 RUR.rec.play_sound("#success-sound");
             }
-            RUR.cd.show_feedback("#Reeborg-concludes",
+            RUR.show_feedback("#Reeborg-concludes",
                 RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else {
         if (RUR.state.sound_on) {
             RUR.rec.play_sound("#error-sound");
         }
-        RUR.cd.show_feedback("#Reeborg-shouts", frame.error.message);
+        RUR.show_feedback("#Reeborg-shouts", frame.error.message);
     }
     RUR.ui.stop();
     return "stopped";
@@ -313,16 +312,16 @@ RUR.rec.check_current_world_status = function() {
     frame = {};
     frame.world = RUR.current_world;
     if (frame.world.goal === undefined){
-        RUR.cd.show_feedback("#Reeborg-concludes",
+        RUR.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
                              "</p>");
     } else {
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
-            RUR.cd.show_feedback("#Reeborg-concludes", goal_status.message);
+            RUR.show_feedback("#Reeborg-concludes", goal_status.message);
         } else {
-            RUR.cd.show_feedback("#Reeborg-shouts", goal_status.message);
+            RUR.show_feedback("#Reeborg-shouts", goal_status.message);
         }
     }
 };

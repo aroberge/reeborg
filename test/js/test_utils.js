@@ -51,7 +51,7 @@ RUR.unit_tests.mock_show_feedback = function(element, content) {
 };
 
 RUR.unit_tests.set_mocks = function() {
-    RUR.cd.show_feedback = RUR.unit_tests.mock_show_feedback;
+    RUR.show_feedback = RUR.unit_tests.mock_show_feedback;
 };
 
 RUR.unit_tests.eval_javascript = function (world_url, program_url) {

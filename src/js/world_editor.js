@@ -540,7 +540,7 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
             delete robot.objects[obj];
         }
     } else {
-        RUR.cd.show_feedback("#Reeborg-shouts", nb + RUR.translate(" is not a valid value!"));
+        RUR.show_feedback("#Reeborg-shouts", nb + RUR.translate(" is not a valid value!"));
     }
 };
 
@@ -898,7 +898,7 @@ RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
         if (RUR.current_world.goal.possible_positions !== undefined) {
             delete RUR.current_world.goal.possible_positions;
             delete RUR.current_world.goal.position;
-            RUR.cd.show_feedback("#Reeborg-shouts",
+            RUR.show_feedback("#Reeborg-shouts",
                                  RUR.translate("WARNING: deleted final positions choices while resizing world!"));
         }
     }

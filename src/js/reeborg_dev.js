@@ -759,9 +759,7 @@ require("./objects.js");
 
 RUR.cd = {};
 
-RUR.cd.show_feedback = function (element, content) {
-    $(element).html(content).dialog("open");
-};
+
 
 
 RUR.cd.create_custom_dialogs = function() {
@@ -1219,13 +1217,10 @@ RUR.WallCollisionError = function (message) {
 
 },{}],7:[function(require,module,exports){
 
-
-
 require("./output.js");
 require("./recorder.js");
 require("./ui.js");
 require("./world.js");
-require("./custom_dialogs.js");
 require("./permalink.js");
 require("./translator.js");
 require("./exceptions.js");
@@ -1295,7 +1290,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         RUR.state.prevent_playback = true;
     }
     if (RUR.file_io.status === "no link") {
-        RUR.cd.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-shouts",
                 RUR.translate("Could not find link: ") + url);
         throw new RUR.ReeborgError("no link");
     } else if (RUR.file_io.status === "success") {
@@ -1303,7 +1298,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
             RUR.world_select.append_world({url:url, shortname:new_world});
         }
         RUR.world_select.set_url(url);
-        RUR.cd.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-shouts",
             RUR.translate("World selected").supplant({world: shortname}));
         throw new RUR.ReeborgError("success");
     }
@@ -1353,7 +1348,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
     }
 };
 
-},{"./custom_dialogs.js":4,"./exceptions.js":6,"./output.js":12,"./permalink.js":13,"./recorder.js":14,"./translator.js":20,"./ui.js":21,"./world.js":24}],8:[function(require,module,exports){
+},{"./exceptions.js":6,"./output.js":12,"./permalink.js":13,"./recorder.js":14,"./translator.js":20,"./ui.js":21,"./world.js":24}],8:[function(require,module,exports){
 window.RUR = RUR || {};
 
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
@@ -1409,6 +1404,10 @@ RUR.ensure_key_exists = function(obj, key){
     if (obj[key] === undefined){
         obj[key] = {};
     }
+};
+
+RUR.show_feedback = function (element, content) {
+    $(element).html(content).dialog("open");
 };
 
 require("./translator.js");
@@ -1868,7 +1867,6 @@ RUR.solid_objects.fence7 = RUR.solid_objects.fence_vertical;  // compatibility w
 
 
 require("./recorder.js");
-require("./custom_dialogs.js");
 require("./state.js");
 
 RUR.output = {};
@@ -1918,7 +1916,7 @@ RUR.output.watch_variables = function (arg) {
 
 RUR.output.view_source_js = function(fn) {
     $("#Reeborg-explores").dialog("open");
-    RUR.cd.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" );
+    RUR.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" );
     $('.js_code').each(function() {
         var $this = $(this), $code = $this.text();
         $this.removeClass("js_code");
@@ -1934,7 +1932,7 @@ RUR.output.view_source_js = function(fn) {
     });
 };
 
-},{"./custom_dialogs.js":4,"./recorder.js":14,"./state.js":17}],13:[function(require,module,exports){
+},{"./recorder.js":14,"./state.js":17}],13:[function(require,module,exports){
 
 require("./state.js");
 require("./storage.js");
@@ -2072,7 +2070,6 @@ RUR.permalink.cancel = function () {
 
 require("./state.js");
 require("./visible_world.js");
-require("./custom_dialogs.js");
 require("./world_get.js");
 require("./constants.js");
 require("./translator.js");
@@ -2335,18 +2332,18 @@ RUR.rec.conclude = function () {
             if (RUR.state.sound_on) {
                 RUR.rec.play_sound("#success-sound");
             }
-            RUR.cd.show_feedback("#Reeborg-concludes", goal_status.message);
+            RUR.show_feedback("#Reeborg-concludes", goal_status.message);
         } else {
             if (RUR.state.sound_on) {
                 RUR.rec.play_sound("#error-sound");
             }
-            RUR.cd.show_feedback("#Reeborg-shouts", goal_status.message);
+            RUR.show_feedback("#Reeborg-shouts", goal_status.message);
         }
     } else {
         if (RUR.state.sound_on) {
             RUR.rec.play_sound("#success-sound");
         }
-        RUR.cd.show_feedback("#Reeborg-concludes",
+        RUR.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
                              "</p>");
@@ -2363,14 +2360,14 @@ RUR.rec.handle_error = function (frame) {
             if (RUR.state.sound_on) {
                 RUR.rec.play_sound("#success-sound");
             }
-            RUR.cd.show_feedback("#Reeborg-concludes",
+            RUR.show_feedback("#Reeborg-concludes",
                 RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else {
         if (RUR.state.sound_on) {
             RUR.rec.play_sound("#error-sound");
         }
-        RUR.cd.show_feedback("#Reeborg-shouts", frame.error.message);
+        RUR.show_feedback("#Reeborg-shouts", frame.error.message);
     }
     RUR.ui.stop();
     return "stopped";
@@ -2381,16 +2378,16 @@ RUR.rec.check_current_world_status = function() {
     frame = {};
     frame.world = RUR.current_world;
     if (frame.world.goal === undefined){
-        RUR.cd.show_feedback("#Reeborg-concludes",
+        RUR.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
                              "</p>");
     } else {
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
-            RUR.cd.show_feedback("#Reeborg-concludes", goal_status.message);
+            RUR.show_feedback("#Reeborg-concludes", goal_status.message);
         } else {
-            RUR.cd.show_feedback("#Reeborg-shouts", goal_status.message);
+            RUR.show_feedback("#Reeborg-shouts", goal_status.message);
         }
     }
 };
@@ -2465,7 +2462,7 @@ RUR.rec.check_robots_on_tiles = function(frame){
     }
 };
 
-},{"./constants.js":2,"./custom_dialogs.js":4,"./exceptions.js":6,"./state.js":17,"./translator.js":20,"./ui.js":21,"./visible_world.js":23,"./world_get.js":26}],15:[function(require,module,exports){
+},{"./constants.js":2,"./exceptions.js":6,"./state.js":17,"./translator.js":20,"./ui.js":21,"./visible_world.js":23,"./world_get.js":26}],15:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -2550,7 +2547,6 @@ require("./world.js");
 require("./state.js");
 require("./zz_dr_blockly.js");
 require("./ui.js");
-require("./custom_dialogs.js");
 require("./recorder.js");
 require("./world_init.js");
 
@@ -2645,7 +2641,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         if (e.reeborg_shouts !== undefined){
             RUR.rec.record_frame("error", error);
         } else {
-            RUR.cd.show_feedback("#Reeborg-shouts",
+            RUR.show_feedback("#Reeborg-shouts",
                                     "<h3>" + error_name + "</h3><h4>" +
                                     message + "</h4><p>" + other_info + '</p>');
             return true;
@@ -2797,7 +2793,7 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     return false;  // no missing parentheses
 };
 
-},{"./custom_dialogs.js":4,"./recorder.js":14,"./state.js":17,"./translator.js":20,"./ui.js":21,"./visible_world.js":23,"./world.js":24,"./world_init.js":27,"./zz_dr_blockly.js":32}],17:[function(require,module,exports){
+},{"./recorder.js":14,"./state.js":17,"./translator.js":20,"./ui.js":21,"./visible_world.js":23,"./world.js":24,"./world_init.js":27,"./zz_dr_blockly.js":32}],17:[function(require,module,exports){
 /* Yes, I know, global variables are a terrible thing.
    And, in a sense, the following are global variables recording a given
    state.  However, by using this convention and documentating them in a
@@ -3632,7 +3628,6 @@ RUR.vis_robot.new_robot_images = function (images) {
 require("./translator.js");
 require("./constants.js");
 require("./state.js");
-require("./custom_dialogs.js");
 require("./objects.js");
 
 RUR.vis_world = {};
@@ -3701,7 +3696,7 @@ RUR.vis_world.draw_all = function () {
 
     if (RUR.current_world.blank_canvas) {
         if (RUR.state.editing_world) {
-            RUR.cd.show_feedback("#Reeborg-shouts",
+            RUR.show_feedback("#Reeborg-shouts",
                                 RUR.translate("Editing of blank canvas is not supported."));
             return;
          }
@@ -4263,7 +4258,7 @@ RUR.vis_world.draw_info = function() {
     }
 };
 
-},{"./constants.js":2,"./custom_dialogs.js":4,"./objects.js":11,"./state.js":17,"./translator.js":20}],24:[function(require,module,exports){
+},{"./constants.js":2,"./objects.js":11,"./state.js":17,"./translator.js":20}],24:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -4402,7 +4397,7 @@ RUR.world.eval_onload = function () {
     try {
         eval(RUR.current_world.onload);  // jshint ignore:line
     } catch (e) {
-        RUR.cd.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-shouts",
             RUR.translate("Problem with onload code.") + "<br><pre>" +
             RUR.current_world.onload + "</pre>");
         console.log("error in onload:", e);
@@ -5059,7 +5054,7 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
             delete robot.objects[obj];
         }
     } else {
-        RUR.cd.show_feedback("#Reeborg-shouts", nb + RUR.translate(" is not a valid value!"));
+        RUR.show_feedback("#Reeborg-shouts", nb + RUR.translate(" is not a valid value!"));
     }
 };
 
@@ -5417,7 +5412,7 @@ RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
         if (RUR.current_world.goal.possible_positions !== undefined) {
             delete RUR.current_world.goal.possible_positions;
             delete RUR.current_world.goal.position;
-            RUR.cd.show_feedback("#Reeborg-shouts",
+            RUR.show_feedback("#Reeborg-shouts",
                                  RUR.translate("WARNING: deleted final positions choices while resizing world!"));
         }
     }
@@ -7102,7 +7097,7 @@ RUR.zz_dr_onclick = function () {
                     RUR.world.import_world(reader.result);
                 } catch (e) {  // jshint ignore:line
                     console.log("invalid world", e);
-                    RUR.cd.show_feedback("#Reeborg-shouts",
+                    RUR.show_feedback("#Reeborg-shouts",
                                          RUR.translate("Invalid world file."));
                 }
                 fileInput.value = '';
@@ -7297,7 +7292,7 @@ $(document).ready(function() {
         RUR.reset_code_in_editors();
     } catch (e){
         console.log(e);
-        RUR.cd.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-shouts",
                         "Your browser does not support localStorage. " +
                         "You will not be able to save your functions in the library.");
     }

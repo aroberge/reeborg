@@ -136,7 +136,7 @@ RUR.world.eval_onload = function () {
     try {
         eval(RUR.current_world.onload);  // jshint ignore:line
     } catch (e) {
-        RUR.cd.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-shouts",
             RUR.translate("Problem with onload code.") + "<br><pre>" +
             RUR.current_world.onload + "</pre>");
         console.log("error in onload:", e);

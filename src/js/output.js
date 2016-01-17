@@ -1,7 +1,6 @@
 
 
 require("./recorder.js");
-require("./custom_dialogs.js");
 require("./state.js");
 
 RUR.output = {};
@@ -51,7 +50,7 @@ RUR.output.watch_variables = function (arg) {
 
 RUR.output.view_source_js = function(fn) {
     $("#Reeborg-explores").dialog("open");
-    RUR.cd.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" );
+    RUR.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" );
     $('.js_code').each(function() {
         var $this = $(this), $code = $this.text();
         $this.removeClass("js_code");

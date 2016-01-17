@@ -11,9 +11,7 @@ require("./objects.js");
 
 RUR.cd = {};
 
-RUR.cd.show_feedback = function (element, content) {
-    $(element).html(content).dialog("open");
-};
+
 
 
 RUR.cd.create_custom_dialogs = function() {

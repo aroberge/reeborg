@@ -55,6 +55,10 @@ RUR.ensure_key_exists = function(obj, key){
     }
 };
 
+RUR.show_feedback = function (element, content) {
+    $(element).html(content).dialog("open");
+};
+
 require("./translator.js");
 require("./constants.js");
 require("./z_commands.js");

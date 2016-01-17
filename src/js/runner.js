@@ -8,7 +8,6 @@ require("./world.js");
 require("./state.js");
 require("./zz_dr_blockly.js");
 require("./ui.js");
-require("./custom_dialogs.js");
 require("./recorder.js");
 require("./world_init.js");
 
@@ -103,7 +102,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         if (e.reeborg_shouts !== undefined){
             RUR.rec.record_frame("error", error);
         } else {
-            RUR.cd.show_feedback("#Reeborg-shouts",
+            RUR.show_feedback("#Reeborg-shouts",
                                     "<h3>" + error_name + "</h3><h4>" +
                                     message + "</h4><p>" + other_info + '</p>');
             return true;

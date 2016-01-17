@@ -5,7 +5,6 @@
 require("./translator.js");
 require("./constants.js");
 require("./state.js");
-require("./custom_dialogs.js");
 require("./objects.js");
 
 RUR.vis_world = {};
@@ -74,7 +73,7 @@ RUR.vis_world.draw_all = function () {
 
     if (RUR.current_world.blank_canvas) {
         if (RUR.state.editing_world) {
-            RUR.cd.show_feedback("#Reeborg-shouts",
+            RUR.show_feedback("#Reeborg-shouts",
                                 RUR.translate("Editing of blank canvas is not supported."));
             return;
          }

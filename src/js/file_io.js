@@ -1,11 +1,8 @@
 
-
-
 require("./output.js");
 require("./recorder.js");
 require("./ui.js");
 require("./world.js");
-require("./custom_dialogs.js");
 require("./permalink.js");
 require("./translator.js");
 require("./exceptions.js");
@@ -75,7 +72,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         RUR.state.prevent_playback = true;
     }
     if (RUR.file_io.status === "no link") {
-        RUR.cd.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-shouts",
                 RUR.translate("Could not find link: ") + url);
         throw new RUR.ReeborgError("no link");
     } else if (RUR.file_io.status === "success") {
@@ -83,7 +80,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
             RUR.world_select.append_world({url:url, shortname:new_world});
         }
         RUR.world_select.set_url(url);
-        RUR.cd.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-shouts",
             RUR.translate("World selected").supplant({world: shortname}));
         throw new RUR.ReeborgError("success");
     }

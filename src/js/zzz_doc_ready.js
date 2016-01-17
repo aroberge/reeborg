@@ -70,7 +70,7 @@ $(document).ready(function() {
         RUR.reset_code_in_editors();
     } catch (e){
         console.log(e);
-        RUR.cd.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-shouts",
                         "Your browser does not support localStorage. " +
                         "You will not be able to save your functions in the library.");
     }
