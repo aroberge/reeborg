@@ -282,6 +282,7 @@ RUR.rec.conclude = function () {
                              RUR.translate("Last instruction completed!") +
                              "</p>");
     }
+    RUR.ui.stop();
     return "stopped";
 };
 

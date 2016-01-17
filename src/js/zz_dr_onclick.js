@@ -144,18 +144,5 @@ RUR.zz_dr_onclick = function () {
         }
     });
 
-    $("#update-editor-content-btn").on("click", function(evt) {
-        editor.setValue(RUR.current_world.editor);
-        $("#update-editor-content").hide();
-        if (! $("#update-library-content").is(":visible")) {
-            RUR.cd.dialog_update_editors_from_world.dialog("close");
-        }
-    });
-    $("#update-library-content-btn").on("click", function(evt) {
-        library.setValue(RUR.current_world.library);
-        $("#update-library-content").hide();
-        if (! $("#update-editor-content").is(":visible")) {
-            RUR.cd.dialog_update_editors_from_world.dialog("close");
-        }
-    });
+
 };

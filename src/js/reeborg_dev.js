@@ -935,17 +935,6 @@ RUR.cd.create_custom_dialogs = function() {
         $('#delete-world').show();
     };
 
-    RUR.cd.dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
-        autoOpen: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            Cancel: function() {
-                RUR.cd.dialog_update_editors_from_world.dialog("close");
-            }
-        }
-    });
 
     RUR.cd.dialog_set_background_image = $("#dialog-set-background-image").dialog({
         autoOpen: false,
@@ -1221,6 +1210,7 @@ require("./output.js");
 require("./recorder.js");
 require("./ui.js");
 require("./world.js");
+require("./world_select.js");
 require("./permalink.js");
 require("./translator.js");
 require("./exceptions.js");
@@ -1348,7 +1338,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
     }
 };
 
-},{"./exceptions.js":6,"./output.js":12,"./permalink.js":13,"./recorder.js":14,"./translator.js":20,"./ui.js":21,"./world.js":24}],8:[function(require,module,exports){
+},{"./exceptions.js":6,"./output.js":12,"./permalink.js":13,"./recorder.js":14,"./translator.js":20,"./ui.js":21,"./world.js":24,"./world_select.js":28}],8:[function(require,module,exports){
 window.RUR = RUR || {};
 
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
@@ -2348,6 +2338,7 @@ RUR.rec.conclude = function () {
                              RUR.translate("Last instruction completed!") +
                              "</p>");
     }
+    RUR.ui.stop();
     return "stopped";
 };
 
@@ -2537,16 +2528,12 @@ RUR.robot.cleanup_objects = function (robot) {
 };
 
 },{"./constants.js":2,"./exceptions.js":6,"./translator.js":20}],16:[function(require,module,exports){
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, editorUpdateHints,
-  translate_python,*/
 
 require("./translator.js");
 require("./visible_world.js");
 require("./world.js");
 require("./state.js");
 require("./zz_dr_blockly.js");
-require("./ui.js");
 require("./recorder.js");
 require("./world_init.js");
 
@@ -2582,12 +2569,9 @@ RUR.runner.run = function (playback) {
         // or a "null function", f(){} can be passed if the code is not
         // dependent on the robot world.
         if (RUR.state.prevent_playback) {
-            RUR.ui.stop();
             return;
         }
-        if (playback() === "stopped") {
-            RUR.ui.stop();
-        }
+        playback();
     }
 };
 
@@ -2793,7 +2777,7 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     return false;  // no missing parentheses
 };
 
-},{"./recorder.js":14,"./state.js":17,"./translator.js":20,"./ui.js":21,"./visible_world.js":23,"./world.js":24,"./world_init.js":27,"./zz_dr_blockly.js":32}],17:[function(require,module,exports){
+},{"./recorder.js":14,"./state.js":17,"./translator.js":20,"./visible_world.js":23,"./world.js":24,"./world_init.js":27,"./zz_dr_blockly.js":32}],17:[function(require,module,exports){
 /* Yes, I know, global variables are a terrible thing.
    And, in a sense, the following are global variables recording a given
    state.  However, by using this convention and documentating them in a
@@ -4267,9 +4251,7 @@ require("./translator.js");
 require("./constants.js");
 require("./robot.js");
 require("./visible_world.js");
-require("./custom_dialogs.js");
 require("./state.js");
-require("./recorder.js");
 require("./exceptions.js");
 
 
@@ -4367,7 +4349,7 @@ RUR.world.import_world = function (json_string) {
 
     if (RUR.current_world.editor !== undefined &&
         RUR.current_world.editor !== editor.getValue()) {
-        RUR.cd.dialog_update_editors_from_world.dialog("open");
+        RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-editor-content").show();
     } else {
         $("#update-editor-content").hide();
@@ -4375,7 +4357,7 @@ RUR.world.import_world = function (json_string) {
     if (RUR.state.programming_language === "python" &&
         RUR.current_world.library !== undefined &&
         RUR.current_world.library !== library.getValue()) {
-        RUR.cd.dialog_update_editors_from_world.dialog("open");
+        RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-library-content").show();
     } else {
         $("#update-library-content").hide();
@@ -4426,26 +4408,6 @@ RUR.world.reset = function () {
     RUR.vis_world.draw_all();
 };
 
-RUR.world.add_robot = function (robot) {
-    if (RUR.current_world.robots === undefined){
-        RUR.current_world.robots = [];
-    }
-    if (RUR.MAX_NB_ROBOTS !== undefined &&
-        RUR.MAX_NB_ROBOTS >= RUR.current_world.robots.length){
-        throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
-    }
-    RUR.current_world.robots.push(robot);
-    RUR.rec.record_frame();
-};
-
-
-RUR.world.remove_robots = function () {
-    if (RUR.MAX_NB_ROBOTS !== undefined){
-        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
-    } else {
-        RUR.current_world.robots = [];
-    }
-};
 
 /* When a world is edited, as we are about to leave the editing mode,
    a comparison of the world before editing and after is performed.
@@ -4511,7 +4473,34 @@ RUR.world.update_editors = function (world) {
    onload_editor.setValue(world.onload);
 };
 
-},{"./constants.js":2,"./custom_dialogs.js":4,"./exceptions.js":6,"./recorder.js":14,"./robot.js":15,"./state.js":17,"./translator.js":20,"./visible_world.js":23}],25:[function(require,module,exports){
+RUR.world.dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
+    autoOpen: false,
+    height: 400,
+    width: 500,
+    modal: true,
+    buttons: {
+        Cancel: function() {
+            RUR.world.dialog_update_editors_from_world.dialog("close");
+        }
+    }
+});
+
+$("#update-editor-content-btn").on("click", function(evt) {
+    editor.setValue(RUR.current_world.editor);
+    $("#update-editor-content").hide();
+    if (! $("#update-library-content").is(":visible")) {
+        RUR.world.dialog_update_editors_from_world.dialog("close");
+    }
+});
+$("#update-library-content-btn").on("click", function(evt) {
+    library.setValue(RUR.current_world.library);
+    $("#update-library-content").hide();
+    if (! $("#update-editor-content").is(":visible")) {
+        RUR.world.dialog_update_editors_from_world.dialog("close");
+    }
+});
+
+},{"./constants.js":2,"./exceptions.js":6,"./robot.js":15,"./state.js":17,"./translator.js":20,"./visible_world.js":23}],25:[function(require,module,exports){
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -5782,6 +5771,7 @@ RUR.world_select.append_world = function (arg) {
 require("./objects.js");
 require("./exceptions.js");
 require("./visible_world.js");
+require("./recorder.js");
 
 RUR.world_set = {};
 
@@ -5861,7 +5851,28 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     }
 };
 
-},{"./exceptions.js":6,"./objects.js":11,"./visible_world.js":23}],30:[function(require,module,exports){
+RUR.world_set.add_robot = function (robot) {
+    if (RUR.current_world.robots === undefined){
+        RUR.current_world.robots = [];
+    }
+    if (RUR.MAX_NB_ROBOTS !== undefined &&
+        RUR.MAX_NB_ROBOTS >= RUR.current_world.robots.length){
+        throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
+    }
+    RUR.current_world.robots.push(robot);
+    RUR.rec.record_frame();
+};
+
+
+RUR.world_set.remove_robots = function () {
+    if (RUR.MAX_NB_ROBOTS !== undefined){
+        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
+    } else {
+        RUR.current_world.robots = [];
+    }
+};
+
+},{"./exceptions.js":6,"./objects.js":11,"./recorder.js":14,"./visible_world.js":23}],30:[function(require,module,exports){
 /*  The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
 the other modules.  This way, in theory, (most) refactoring can take place in the
@@ -5973,7 +5984,7 @@ RUR._recording_ = function(bool) {
     }
 };
 
-RUR._remove_robots_ = RUR.world.remove_robots;
+RUR._remove_robots_ = RUR.world_set.remove_robots;
 
 RUR._right_is_clear_ = function() {
     return RUR.control.right_is_clear(RUR.current_world.robots[0]);
@@ -7203,20 +7214,7 @@ RUR.zz_dr_onclick = function () {
         }
     });
 
-    $("#update-editor-content-btn").on("click", function(evt) {
-        editor.setValue(RUR.current_world.editor);
-        $("#update-editor-content").hide();
-        if (! $("#update-library-content").is(":visible")) {
-            RUR.cd.dialog_update_editors_from_world.dialog("close");
-        }
-    });
-    $("#update-library-content-btn").on("click", function(evt) {
-        library.setValue(RUR.current_world.library);
-        $("#update-library-content").hide();
-        if (! $("#update-editor-content").is(":visible")) {
-            RUR.cd.dialog_update_editors_from_world.dialog("close");
-        }
-    });
+
 };
 
 },{"./custom_dialogs.js":4,"./permalink.js":13,"./state.js":17,"./translator.js":20,"./visible_robot.js":22,"./world.js":24,"./world_editor.js":25}],36:[function(require,module,exports){

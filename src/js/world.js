@@ -6,9 +6,7 @@ require("./translator.js");
 require("./constants.js");
 require("./robot.js");
 require("./visible_world.js");
-require("./custom_dialogs.js");
 require("./state.js");
-require("./recorder.js");
 require("./exceptions.js");
 
 
@@ -106,7 +104,7 @@ RUR.world.import_world = function (json_string) {
 
     if (RUR.current_world.editor !== undefined &&
         RUR.current_world.editor !== editor.getValue()) {
-        RUR.cd.dialog_update_editors_from_world.dialog("open");
+        RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-editor-content").show();
     } else {
         $("#update-editor-content").hide();
@@ -114,7 +112,7 @@ RUR.world.import_world = function (json_string) {
     if (RUR.state.programming_language === "python" &&
         RUR.current_world.library !== undefined &&
         RUR.current_world.library !== library.getValue()) {
-        RUR.cd.dialog_update_editors_from_world.dialog("open");
+        RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-library-content").show();
     } else {
         $("#update-library-content").hide();
@@ -165,26 +163,6 @@ RUR.world.reset = function () {
     RUR.vis_world.draw_all();
 };
 
-RUR.world.add_robot = function (robot) {
-    if (RUR.current_world.robots === undefined){
-        RUR.current_world.robots = [];
-    }
-    if (RUR.MAX_NB_ROBOTS !== undefined &&
-        RUR.MAX_NB_ROBOTS >= RUR.current_world.robots.length){
-        throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
-    }
-    RUR.current_world.robots.push(robot);
-    RUR.rec.record_frame();
-};
-
-
-RUR.world.remove_robots = function () {
-    if (RUR.MAX_NB_ROBOTS !== undefined){
-        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
-    } else {
-        RUR.current_world.robots = [];
-    }
-};
 
 /* When a world is edited, as we are about to leave the editing mode,
    a comparison of the world before editing and after is performed.
@@ -249,3 +227,30 @@ RUR.world.update_editors = function (world) {
    description_editor.setValue(world.description);
    onload_editor.setValue(world.onload);
 };
+
+RUR.world.dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
+    autoOpen: false,
+    height: 400,
+    width: 500,
+    modal: true,
+    buttons: {
+        Cancel: function() {
+            RUR.world.dialog_update_editors_from_world.dialog("close");
+        }
+    }
+});
+
+$("#update-editor-content-btn").on("click", function(evt) {
+    editor.setValue(RUR.current_world.editor);
+    $("#update-editor-content").hide();
+    if (! $("#update-library-content").is(":visible")) {
+        RUR.world.dialog_update_editors_from_world.dialog("close");
+    }
+});
+$("#update-library-content-btn").on("click", function(evt) {
+    library.setValue(RUR.current_world.library);
+    $("#update-library-content").hide();
+    if (! $("#update-editor-content").is(":visible")) {
+        RUR.world.dialog_update_editors_from_world.dialog("close");
+    }
+});

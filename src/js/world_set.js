@@ -4,6 +4,7 @@
 require("./objects.js");
 require("./exceptions.js");
 require("./visible_world.js");
+require("./recorder.js");
 
 RUR.world_set = {};
 
@@ -80,5 +81,26 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
         }
     } else {
         RUR.current_world.solid_objects[coords][specific_object] = nb;
+    }
+};
+
+RUR.world_set.add_robot = function (robot) {
+    if (RUR.current_world.robots === undefined){
+        RUR.current_world.robots = [];
+    }
+    if (RUR.MAX_NB_ROBOTS !== undefined &&
+        RUR.MAX_NB_ROBOTS >= RUR.current_world.robots.length){
+        throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
+    }
+    RUR.current_world.robots.push(robot);
+    RUR.rec.record_frame();
+};
+
+
+RUR.world_set.remove_robots = function () {
+    if (RUR.MAX_NB_ROBOTS !== undefined){
+        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
+    } else {
+        RUR.current_world.robots = [];
     }
 };

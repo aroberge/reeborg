@@ -1,13 +1,9 @@
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR, editor, library, editorUpdateHints,
-  translate_python,*/
 
 require("./translator.js");
 require("./visible_world.js");
 require("./world.js");
 require("./state.js");
 require("./zz_dr_blockly.js");
-require("./ui.js");
 require("./recorder.js");
 require("./world_init.js");
 
@@ -43,12 +39,9 @@ RUR.runner.run = function (playback) {
         // or a "null function", f(){} can be passed if the code is not
         // dependent on the robot world.
         if (RUR.state.prevent_playback) {
-            RUR.ui.stop();
             return;
         }
-        if (playback() === "stopped") {
-            RUR.ui.stop();
-        }
+        playback();
     }
 };
 

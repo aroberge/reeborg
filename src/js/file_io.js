@@ -3,6 +3,7 @@ require("./output.js");
 require("./recorder.js");
 require("./ui.js");
 require("./world.js");
+require("./world_select.js");
 require("./permalink.js");
 require("./translator.js");
 require("./exceptions.js");

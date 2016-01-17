@@ -109,7 +109,7 @@ RUR._recording_ = function(bool) {
     }
 };
 
-RUR._remove_robots_ = RUR.world.remove_robots;
+RUR._remove_robots_ = RUR.world_set.remove_robots;
 
 RUR._right_is_clear_ = function() {
     return RUR.control.right_is_clear(RUR.current_world.robots[0]);

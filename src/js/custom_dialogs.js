@@ -187,17 +187,6 @@ RUR.cd.create_custom_dialogs = function() {
         $('#delete-world').show();
     };
 
-    RUR.cd.dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
-        autoOpen: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            Cancel: function() {
-                RUR.cd.dialog_update_editors_from_world.dialog("close");
-            }
-        }
-    });
 
     RUR.cd.dialog_set_background_image = $("#dialog-set-background-image").dialog({
         autoOpen: false,
