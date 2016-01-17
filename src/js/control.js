@@ -91,7 +91,7 @@ RUR.control.move = function (robot) {
         }
     }
 
-    RUR.control.sound_id = "#move-sound";
+    RUR.state.sound_id = "#move-sound";
     RUR.rec.record_frame("debug", "RUR.control.move");
 
     tile = RUR.control.get_tile_at_position(robot.x, robot.y);
@@ -145,7 +145,7 @@ RUR.control.turn_left = function(robot){
     robot._prev_y = robot.y;
     robot._orientation += 1;  // could have used "++" instead of "+= 1"
     robot._orientation %= 4;
-    RUR.control.sound_id = "#turn-sound";
+    RUR.state.sound_id = "#turn-sound";
     RUR.rec.record_frame("debug", "RUR.control.turn_left");
 };
 
@@ -169,7 +169,7 @@ RUR.control.done = function () {
 
 RUR.control.put = function(robot, arg){
     var translated_arg, objects_carried, obj_type, all_objects;
-    RUR.control.sound_id = "#put-sound";
+    RUR.state.sound_id = "#put-sound";
 
     if (arg !== undefined) {
         translated_arg = RUR.translate_to_english(arg);
@@ -237,7 +237,7 @@ RUR.control._robot_put_down_object = function (robot, obj) {
 
 RUR.control.take = function(robot, arg){
     var translated_arg, objects_here;
-    RUR.control.sound_id = "#take-sound";
+    RUR.state.sound_id = "#take-sound";
     if (arg !== undefined) {
         translated_arg = RUR.translate_to_english(arg);
         if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
@@ -351,7 +351,7 @@ RUR.control.build_wall = function (robot){
     } else {
         walls[coords].push(orientation);
     }
-    RUR.control.sound_id = "#build-sound";
+    RUR.state.sound_id = "#build-sound";
     RUR.rec.record_frame("debug", "RUR.control.build_wall");
 };
 
@@ -638,14 +638,6 @@ RUR.control.sound = function(on){
         return;
     }
     RUR.state.sound_on = true;
-};
-
-RUR.control.sound_id = undefined;
-RUR.control.play_sound = function (sound_id) {
-    var current_sound;
-    current_sound = $(sound_id)[0];
-    current_sound.load();
-    current_sound.play();
 };
 
 RUR.control.get_colour_at_position = function (x, y) {

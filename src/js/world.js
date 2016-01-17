@@ -128,8 +128,8 @@ RUR.world.import_world = function (json_string) {
     RUR.current_world = RUR.world.editors_set_default_values(RUR.current_world);
     RUR.world.update_editors(RUR.current_world);
 
-    if (RUR.we.editing_world) {
-        RUR.we.change_edit_robot_menu();
+    if (RUR.state.editing_world) {
+        RUR.we.change_edit_robot_menu();  // TODO: change this to state or something.
     }
 };
 
@@ -154,7 +154,7 @@ RUR.world.clone_world = function (world) {
 };
 
 RUR.world.reset = function () {
-    if (RUR.we.editing_world){
+    if (RUR.state.editing_world){
         return;
     }
     RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);

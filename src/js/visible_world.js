@@ -4,7 +4,7 @@
 
 require("./translator.js");
 require("./constants.js");
-require("./world_editor.js");
+require("./state.js");
 require("./custom_dialogs.js");
 require("./objects.js");
 
@@ -73,7 +73,7 @@ RUR.vis_world.draw_all = function () {
     "use strict";
 
     if (RUR.current_world.blank_canvas) {
-        if (RUR.we.editing_world) {
+        if (RUR.state.editing_world) {
             RUR.cd.show_feedback("#Reeborg-shouts",
                                 RUR.translate("Editing of blank canvas is not supported."));
             return;
@@ -92,7 +92,7 @@ RUR.vis_world.draw_all = function () {
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.animated_tiles = false;
 
-    if (RUR.we.editing_world) {
+    if (RUR.state.editing_world) {
         if (RUR.background_image.src) {
             RUR.vis_world.draw_single_object(RUR.background_image, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
         }
@@ -199,7 +199,7 @@ RUR.vis_world.draw_coordinates = function() {
 
 RUR.vis_world.draw_grid_walls = function(){
     var i, j, ctx;
-    if (RUR.we.editing_world) {
+    if (RUR.state.editing_world) {
         ctx = RUR.GOAL_CTX;     // have the appear above the tiles while editing
     } else {
         ctx = RUR.BACKGROUND_CTX;
@@ -319,7 +319,7 @@ RUR.vis_world.draw_goal = function () {
     "use strict";
     var goal, ctx = RUR.GOAL_CTX;
 
-    if (RUR.we.editing_world){  // have to appear above tiles;
+    if (RUR.state.editing_world){  // have to appear above tiles;
         RUR.vis_world.draw_grid_walls();  //  so this is a convenient canvas
     }
 

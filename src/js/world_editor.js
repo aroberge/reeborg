@@ -7,10 +7,10 @@ require("./control.js");
 require("./custom_dialogs.js");
 require("./objects.js");
 require("./robot.js");
-require("./runner.js");  // TODO: replace by state
 require("./world.js");
 require("./visible_world.js");
 require("./exceptions.js");
+require("./state.js");
 
 RUR.we = {};   // we == World Editor
 
@@ -226,14 +226,14 @@ RUR.we.change_edit_robot_menu = function () {
 };
 
 RUR.we.toggle_editing_mode = function () {
-    if (RUR.we.editing_world) {  // done editing
+    if (RUR.state.editing_world) {  // done editing
         $("#pre-code-link").parent().hide();
         $("#post-code-link").parent().hide();
         $("#description-link").parent().hide();
         $("#onload-editor-link").parent().hide();
 
-        RUR.we.editing_world = false;
-        RUR.runner.interpreted = false;
+        RUR.state.editing_world = false;
+        RUR.state.code_evaluated = false;
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
@@ -254,7 +254,7 @@ RUR.we.toggle_editing_mode = function () {
         $("#onload-editor-link").parent().show();
 
         RUR.we.change_edit_robot_menu();
-        RUR.we.editing_world = true;
+        RUR.state.editing_world = true;
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();

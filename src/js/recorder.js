@@ -13,6 +13,13 @@ require("./exceptions.js");
 
 RUR.rec = {};
 
+RUR.rec.play_sound = function (sound_id) {
+    var current_sound;
+    current_sound = $(sound_id)[0];
+    current_sound.load();
+    current_sound.play();
+};
+
 RUR.set_lineno_highlight = function(lineno, frame) {
     RUR.current_lineno = lineno;
     if (frame) {
@@ -89,8 +96,8 @@ RUR.rec.record_frame = function (name, obj) {
     }
 
     frame.delay = RUR.rec.delay;
-    if (RUR.control.sound_id && RUR.state.sound_on && frame.delay >= RUR.MIN_TIME_SOUND) {
-        frame.sound_id = RUR.control.sound_id;
+    if (RUR.state.sound_id && RUR.state.sound_on && frame.delay >= RUR.MIN_TIME_SOUND) {
+        frame.sound_id = RUR.state.sound_id;
     }
 
    if (RUR.state.programming_language === "python" && RUR.state.highlight) {
@@ -106,7 +113,7 @@ RUR.rec.record_frame = function (name, obj) {
     RUR.rec.frames[RUR.rec.nb_frames] = frame;
     RUR.rec.nb_frames++;
 
-    RUR.control.sound_id = undefined;
+    RUR.state.sound_id = undefined;
     if (name === "error"){
         return;
     }
@@ -239,7 +246,7 @@ RUR.rec.display_frame = function () {
 
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
-        RUR.control.play_sound(frame.sound_id);
+        RUR.rec.play_sound(frame.sound_id);
     }
     RUR.vis_world.refresh();
 };
@@ -258,18 +265,18 @@ RUR.rec.conclude = function () {
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
             if (RUR.state.sound_on) {
-                RUR.control.play_sound("#success-sound");
+                RUR.rec.play_sound("#success-sound");
             }
             RUR.cd.show_feedback("#Reeborg-concludes", goal_status.message);
         } else {
             if (RUR.state.sound_on) {
-                RUR.control.play_sound("#error-sound");
+                RUR.rec.play_sound("#error-sound");
             }
             RUR.cd.show_feedback("#Reeborg-shouts", goal_status.message);
         }
     } else {
         if (RUR.state.sound_on) {
-            RUR.control.play_sound("#success-sound");
+            RUR.rec.play_sound("#success-sound");
         }
         RUR.cd.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
@@ -286,14 +293,14 @@ RUR.rec.handle_error = function (frame) {
             return RUR.rec.conclude();
         } else {
             if (RUR.state.sound_on) {
-                RUR.control.play_sound("#success-sound");
+                RUR.rec.play_sound("#success-sound");
             }
             RUR.cd.show_feedback("#Reeborg-concludes",
                 RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else {
         if (RUR.state.sound_on) {
-            RUR.control.play_sound("#error-sound");
+            RUR.rec.play_sound("#error-sound");
         }
         RUR.cd.show_feedback("#Reeborg-shouts", frame.error.message);
     }

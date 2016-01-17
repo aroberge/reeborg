@@ -4,7 +4,6 @@
    single place, it helps in avoiding the creation of inconsistent states.*/
 
 require("./translator.js");
-require("./keyboard.js");
 
 RUR.state = {};
 
@@ -41,6 +40,10 @@ RUR.state.set_initial_values = function () {
     RUR.state.prevent_playback = false;
 
     RUR.state.sound_on = false;
+    RUR.state.sound_id = undefined;
+
+    RUR.state.editing_world = false;
+    RUR.state.code_evaluated = false;
 };
 
 RUR.state.save = function () {
@@ -49,46 +52,48 @@ RUR.state.save = function () {
     localStorage.setItem("programming_language", RUR.state.programming_language);
 };
 
-RUR.state.set_programming_language = function(lang){
-    if (lang === RUR.state.programming_language) {
-        return;
-    }
-    RUR.state.programming_language = lang;
-    switch(lang){
-        case 'javascript':
-            $("#python_choices").hide();
-            $("#javascript_choices").show();
-            $("#javascript_choices").change();
-            $("#editor-tab").html(RUR.translate("Javascript Code"));
-            editor.setOption("mode", "javascript");
-            pre_code_editor.setOption("mode", "javascript");
-            post_code_editor.setOption("mode", "javascript");
-            $("#library-tab").parent().hide();
-            $("#python-additional-menu p button").attr("disabled", "true");
-            $("#py_console").hide();
-            RUR.kbd.set_programming_language("javascript");
-            break;
-        case 'python':
-            $("#python_choices").show();
-            $("#javascript_choices").hide();
-            $("#python_choices").change();
-            $("#editor-tab").html(RUR.translate("Python Code"));
-            editor.setOption("mode", {name: "python", version: 3});
-            pre_code_editor.setOption("mode", {name: "python", version: 3});
-            post_code_editor.setOption("mode", {name: "python", version: 3});
-            $("#library-tab").parent().show();
-            $("#python-additional-menu p button").removeAttr("disabled");
-            RUR.kbd.set_programming_language("python");
-            break;
-        default:
-            console.log("PROBLEM: RUR.state.set_programming_language called without args.");
-    }
-    $("#editor-tab").click(); // also handles #highlight and #watch-vars
-
-    try {
-        RUR.reset_code_in_editors();
-    } catch (e) {}
-};
+// require("./keyboard.js");
+//
+// RUR.state.set_programming_language = function(lang){
+//     if (lang === RUR.state.programming_language) {
+//         return;
+//     }
+//     RUR.state.programming_language = lang;
+//     switch(lang){
+//         case 'javascript':
+//             $("#python_choices").hide();
+//             $("#javascript_choices").show();
+//             $("#javascript_choices").change();
+//             $("#editor-tab").html(RUR.translate("Javascript Code"));
+//             editor.setOption("mode", "javascript");
+//             pre_code_editor.setOption("mode", "javascript");
+//             post_code_editor.setOption("mode", "javascript");
+//             $("#library-tab").parent().hide();
+//             $("#python-additional-menu p button").attr("disabled", "true");
+//             $("#py_console").hide();
+//             RUR.kbd.set_programming_language("javascript");
+//             break;
+//         case 'python':
+//             $("#python_choices").show();
+//             $("#javascript_choices").hide();
+//             $("#python_choices").change();
+//             $("#editor-tab").html(RUR.translate("Python Code"));
+//             editor.setOption("mode", {name: "python", version: 3});
+//             pre_code_editor.setOption("mode", {name: "python", version: 3});
+//             post_code_editor.setOption("mode", {name: "python", version: 3});
+//             $("#library-tab").parent().show();
+//             $("#python-additional-menu p button").removeAttr("disabled");
+//             RUR.kbd.set_programming_language("python");
+//             break;
+//         default:
+//             console.log("PROBLEM: RUR.state.set_programming_language called without args.");
+//     }
+//     $("#editor-tab").click(); // also handles #highlight and #watch-vars
+//
+//     try {
+//         RUR.reset_code_in_editors();
+//     } catch (e) {}
+// };
 
 RUR.reset_code_in_editors = function () {
     var library_default, library_content, editor_content, editor_default,

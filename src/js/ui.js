@@ -110,7 +110,7 @@ RUR.ui.reload = function() {
     RUR.ui.set_ready_to_run();
     RUR.ui.reload2();
     $("#highlight-impossible").hide();
-    RUR.runner.interpreted = false;
+    RUR.state.code_evaluated = false;
     RUR.state.sound_on = false;
 };
 

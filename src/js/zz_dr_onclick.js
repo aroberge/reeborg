@@ -48,7 +48,7 @@ RUR.zz_dr_onclick = function () {
     });
 
     $("#editor-tab").on("click", function (evt) {
-        if (RUR.state.programming_language == "python" && !RUR.we.editing_world) {
+        if (RUR.state.programming_language == "python" && !RUR.state.editing_world) {
             $("#highlight").show();
             $("#watch_variables_btn").show();
         } else {
@@ -122,7 +122,7 @@ RUR.zz_dr_onclick = function () {
     $("#robot_canvas").on("click", function (evt) {
         RUR.we.mouse_x = evt.pageX;
         RUR.we.mouse_y = evt.pageY;
-        if (RUR.we.editing_world) {
+        if (RUR.state.editing_world) {
             RUR.we.edit_world();
         }
         RUR.we.show_world_info();

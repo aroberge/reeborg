@@ -4,7 +4,7 @@
 
 
 require("./constants.js");
-require("./world_editor.js"); /* TODO: can/should replace by state ... */
+require("./state.js");
 // TODO: RUR.base_url -> need to change it to state...
 
 RUR.vis_robot = {};
@@ -179,7 +179,7 @@ RUR.vis_robot.draw = function (robot) {
             image = RUR.vis_robot.e_img;
         }
     RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
-    if (RUR.we.editing_world){
+    if (RUR.state.editing_world){
         return;
     }
     RUR.vis_robot.draw_trace(robot);

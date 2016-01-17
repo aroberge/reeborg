@@ -2,12 +2,13 @@
 
 require("./recorder.js");
 require("./custom_dialogs.js");
+require("./state.js");
 
 RUR.output = {};
 
 RUR.output.write = function () {
     var output_string = '';
-    RUR.control.sound_id = "#write-sound";
+    RUR.state.sound_id = "#write-sound";
     for (var i = 0; i < arguments.length; i++) {
         if (typeof arguments[i] == "string") {
             output_string += arguments[i];

@@ -2,7 +2,8 @@
 // aa_utils.js : name starting with aa so that it is loaded first :-/
 // TODO refactor so as to keep only translation functions here.
 
-
+require("./state.js");
+require("./keyboard.js");
 
 RUR.reset_programming_language = function(choice){
 
@@ -61,7 +62,7 @@ RUR.reset_programming_language = function(choice){
         RUR.reset_code_in_editors();
     } catch (e) {}
 
-    if (RUR.we.editing_world) {
+    if (RUR.state.editing_world) {
         $("#pre-code-link").parent().show();
         $("#post-code-link").parent().show();
         $("#description-link").parent().show();

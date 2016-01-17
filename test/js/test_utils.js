@@ -93,7 +93,7 @@ RUR.unit_tests.run_program = function(world_url, program_url, language) {
     var world;
     RUR.unit_tests.reset();
     RUR.state.programming_language = language;
-    RUR.runner.interpreted = false;
+    RUR.state.code_evaluated = false;
 
     if (world_url !== null) {
         RUR.unit_tests.load_world_file(world_url);

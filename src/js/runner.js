@@ -4,7 +4,6 @@
 
 require("./translator.js");
 require("./visible_world.js");
-require("./world_editor.js");
 require("./world.js");
 require("./state.js");
 require("./zz_dr_blockly.js");
@@ -15,14 +14,14 @@ require("./world_init.js");
 
 RUR.runner = {};
 
-RUR.runner.interpreted = false;
+RUR.state.code_evaluated = false;
 
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
-    if (RUR.we.editing_world && !RUR.runner.interpreted) {
+    if (RUR.state.editing_world && !RUR.state.code_evaluated) {
         RUR.world.saved_world = RUR.world.clone_world(RUR.current_world);
     }
-    if (!RUR.runner.interpreted) {
+    if (!RUR.state.code_evaluated) {
         RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
         RUR.world_init.set();
 
@@ -110,7 +109,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             return true;
         }
     }
-    RUR.runner.interpreted = true;
+    RUR.state.code_evaluated = true;
     return false;
 };
 
