@@ -48,6 +48,13 @@ Object.identical = function (a, b, sortArrays) {
     return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
 };
 
+RUR.ensure_key_exists = function(obj, key){
+    "use strict";
+    if (obj[key] === undefined){
+        obj[key] = {};
+    }
+};
+
 require("./translator.js");
 require("./constants.js");
 require("./z_commands.js");

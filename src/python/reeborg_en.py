@@ -660,11 +660,11 @@ class SatelliteInfo():  #py:SI
         '''Returns a dict containing information about world.
         '''
         import json
-        return json.loads(RUR.control.get_world_map())
+        return json.loads(RUR.world_get.world_map())
 
     def print_world_map(self):  #py:SI.print_world_map
         '''Prints a formatted copy of the world'''
-        print(RUR.control.get_world_map())
+        print(RUR.world_get.world_map())
 
 
 #py:obsolete

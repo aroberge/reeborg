@@ -663,11 +663,11 @@ class InfoSatellite():  #py:SI
            sujet du monde.
         """
         import json
-        return json.loads(RUR.control.get_world_map())
+        return json.loads(RUR.world_get.world_map())
 
     def imprime_carte(self):  #py:SI.print_world_map
         """imprime une copie formattée de la carte"""
-        print(RUR.control.get_world_map())
+        print(RUR.world_get.world_map())
 
 
 #py:obsolete

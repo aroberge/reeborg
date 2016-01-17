@@ -15,7 +15,7 @@ require("./world.js");
 require("./keyboard.js");
 require("./ui.js");
 require("./tooltip.js");
-require("./custom_menus.js");
+require("./custom_world_select.js");
 require("./aa_utils.js");
 
 $(document).ready(function() {

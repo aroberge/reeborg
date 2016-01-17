@@ -8,7 +8,6 @@ require("./robot.js");
 require("./visible_world.js");
 require("./custom_dialogs.js");
 require("./state.js");
-require("./world_editor.js");
 require("./recorder.js");
 require("./exceptions.js");
 
@@ -129,7 +128,7 @@ RUR.world.import_world = function (json_string) {
     RUR.world.update_editors(RUR.current_world);
 
     if (RUR.state.editing_world) {
-        RUR.we.change_edit_robot_menu();  // TODO: change this to state or something.
+        RUR.menus.change_edit_robot();  // TODO: change this to state or something.
     }
 };
 

@@ -8,9 +8,9 @@ require("./translator.js");
 require("./world_select.js");
 require("./ui.js");
 
-RUR.custom_menu = {};
+RUR.custom_world_select = {};
 
-RUR.custom_menu.make = function (contents) {
+RUR.custom_world_select.make = function (contents) {
     "use strict";
     var i, url;
 
@@ -120,7 +120,7 @@ RUR.make_default_menu_en = function () {
         [worlds + 'blank.json', 'Blank canvas'],
         ];
 
-    RUR.custom_menu.make(contents);
+    RUR.custom_world_select.make(contents);
 };
 
 RUR.make_default_menu_fr = function () {
@@ -184,5 +184,5 @@ RUR.make_default_menu_fr = function () {
         ['/src/worlds/blank.json', 'Canevas graphique'],
     ];
 
-    RUR.custom_menu.make(contents);
+    RUR.custom_world_select.make(contents);
 };

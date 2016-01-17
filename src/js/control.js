@@ -2,8 +2,6 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
-
-
 require("./translator.js");
 require("./aa_utils.js");
 require("./constants.js");
@@ -11,8 +9,9 @@ require("./objects.js");
 require("./output.js");
 require("./recorder.js");
 require("./state.js");
-require("./world_editor.js");
 require("./exceptions.js");
+require("./world_get.js");
+require("./world_set.js");
 
 RUR.control = {};
 
@@ -54,7 +53,7 @@ RUR.control.move = function (robot) {
         throw new Error("Should not happen: unhandled case in RUR.control.move().");
     }
 
-    pushable_object_here = RUR.control.pushable_object_here(robot.x, robot.y);
+    pushable_object_here = RUR.world_get.pushable_object_at_position(robot.x, robot.y);
 
     if (pushable_object_here) {
         // we had assume that we have made a successful move as nothing was
@@ -62,15 +61,15 @@ RUR.control.move = function (robot) {
         // However, something may have prevented the pushable object from
         // actually being pushed
         wall_beyond = RUR.control.wall_in_front(robot);
-        pushable_object_beyond = RUR.control.pushable_object_here(x_beyond, y_beyond);
-        tile_beyond = RUR.control.get_tile_at_position(x_beyond, y_beyond);
+        pushable_object_beyond = RUR.world_get.pushable_object_at_position(x_beyond, y_beyond);
+        tile_beyond = RUR.world_get.tile_at_position(x_beyond, y_beyond);
         if (tile_beyond && tile_beyond.solid) {
             solid_tile_beyond = true;
             } else {
             solid_tile_beyond = false;
         }
 
-        solids_beyond = RUR.control.get_solid_objects_at_position(x_beyond, y_beyond);
+        solids_beyond = RUR.world_get.solid_objects_at_position(x_beyond, y_beyond);
         solid_object_beyond = false;
         if (solids_beyond) {
             for (name in solids_beyond) {
@@ -94,7 +93,7 @@ RUR.control.move = function (robot) {
     RUR.state.sound_id = "#move-sound";
     RUR.rec.record_frame("debug", "RUR.control.move");
 
-    tile = RUR.control.get_tile_at_position(robot.x, robot.y);
+    tile = RUR.world_get.tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
             if (!(tile == RUR.tiles.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
@@ -107,7 +106,7 @@ RUR.control.move = function (robot) {
         }
     }
 
-    objects = RUR.control.get_solid_objects_at_position(robot.x, robot.y);
+    objects = RUR.world_get.solid_objects_at_position(robot.x, robot.y);
     if (objects) {
         for (name in objects) {
             if (RUR.solid_objects[name] !== undefined && RUR.solid_objects[name].fatal) {
@@ -122,18 +121,18 @@ RUR.control.move = function (robot) {
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
     "use strict";
     var bridge_already_there = false;
-    if (RUR.control.get_solid_objects_at_position(to_x, to_y).bridge !== undefined){
+    if (RUR.world_get.solid_objects_at_position(to_x, to_y).bridge !== undefined){
         bridge_already_there = true;
     }
 
 
-    RUR.we.add_object(obj, x, y, 0);
+    RUR.world_set.add_object(obj, x, y, 0);
     if (RUR.objects[obj].in_water &&
-        RUR.control.get_tile_at_position(to_x, to_y) == RUR.tiles.water &&
+        RUR.world_get.tile_at_position(to_x, to_y) == RUR.tiles.water &&
         !bridge_already_there){
-        RUR.we.add_solid_object(RUR.objects[obj].in_water, to_x, to_y, 1);
+        RUR.world_set.add_solid_object(RUR.objects[obj].in_water, to_x, to_y, 1);
     } else {
-        RUR.we.add_object(obj, to_x, to_y, 1);
+        RUR.world_set.add_object(obj, to_x, to_y, 1);
     }
 };
 
@@ -223,9 +222,9 @@ RUR.control._robot_put_down_object = function (robot, obj) {
         }
     }
 
-    RUR.we.ensure_key_exist(RUR.current_world, "objects");
+    RUR.ensure_key_exists(RUR.current_world, "objects");
     coords = robot.x + "," + robot.y;
-    RUR.we.ensure_key_exist(RUR.current_world.objects, coords);
+    RUR.ensure_key_exists(RUR.current_world.objects, coords);
     if (RUR.current_world.objects[coords][obj] === undefined) {
         RUR.current_world.objects[coords][obj] = 1;
     } else {
@@ -245,7 +244,7 @@ RUR.control.take = function(robot, arg){
         }
     }
 
-    objects_here = RUR.control.object_here(robot, arg);
+    objects_here = RUR.world_get.object_at_robot_position(robot, arg);
     if (arg !== undefined) {
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
@@ -278,11 +277,11 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
-        if (RUR.control.object_here(robot) == false){ // jshint ignore:line
+        if (RUR.world_get.object_at_robot_position(robot) == false){ // jshint ignore:line
             delete RUR.current_world.objects[coords];
         }
     }
-    RUR.we.ensure_key_exist(robot, "objects");
+    RUR.ensure_key_exists(robot, "objects");
     if (robot.objects[obj] === undefined){
         robot.objects[obj] = 1;
     } else if (robot.objects[obj] == "infinite") {
@@ -294,17 +293,7 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
 };
 
 
-RUR.control.is_wall_at = function (coords, orientation) {
-    if (RUR.current_world.walls === undefined) {
-        return false;
-    }
-    if (RUR.current_world.walls[coords] !== undefined){
-        if (RUR.current_world.walls[coords].indexOf(orientation) !== -1) {
-            return true;
-        }
-    }
-    return false;
-};
+
 
 RUR.control.build_wall = function (robot){
     var coords, orientation, x, y, walls;
@@ -364,7 +353,7 @@ RUR.control.wall_in_front = function (robot) {
         if (robot.x == RUR.COLS){
             return true;
         }
-        if (RUR.control.is_wall_at(coords, "east")) {
+        if (RUR.world_get.is_wall_at(coords, "east")) {
             return true;
         }
         break;
@@ -373,7 +362,7 @@ RUR.control.wall_in_front = function (robot) {
         if (robot.y == RUR.ROWS){
             return true;
         }
-        if (RUR.control.is_wall_at(coords, "north")) {
+        if (RUR.world_get.is_wall_at(coords, "north")) {
             return true;
         }
         break;
@@ -382,7 +371,7 @@ RUR.control.wall_in_front = function (robot) {
             return true;
         } else {
             coords = (robot.x-1) + "," + robot.y; // do math first before building strings
-            if (RUR.control.is_wall_at(coords, "east")) {
+            if (RUR.world_get.is_wall_at(coords, "east")) {
                 return true;
             }
         }
@@ -392,7 +381,7 @@ RUR.control.wall_in_front = function (robot) {
             return true;
         } else {
             coords = robot.x + "," + (robot.y-1);  // do math first before building strings
-            if (RUR.control.is_wall_at(coords, "north")) {
+            if (RUR.world_get.is_wall_at(coords, "north")) {
                 return true;
             }
         }
@@ -417,13 +406,13 @@ RUR.control.tile_in_front = function (robot) {
     // returns single tile
     switch (robot._orientation){
     case RUR.EAST:
-        return RUR.control.get_tile_at_position(robot.x+1, robot.y);
+        return RUR.world_get.tile_at_position(robot.x+1, robot.y);
     case RUR.NORTH:
-        return RUR.control.get_tile_at_position(robot.x, robot.y+1);
+        return RUR.world_get.tile_at_position(robot.x, robot.y+1);
     case RUR.WEST:
-        return RUR.control.get_tile_at_position(robot.x-1, robot.y);
+        return RUR.world_get.tile_at_position(robot.x-1, robot.y);
     case RUR.SOUTH:
-        return RUR.control.get_tile_at_position(robot.x, robot.y-1);
+        return RUR.world_get.tile_at_position(robot.x, robot.y-1);
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.tile_in_front().");
     }
@@ -434,13 +423,13 @@ RUR.control.solid_objects_in_front = function (robot) {
     // returns list of tiles
     switch (robot._orientation){
     case RUR.EAST:
-        return RUR.control.get_solid_objects_at_position(robot.x+1, robot.y);
+        return RUR.world_get.solid_objects_at_position(robot.x+1, robot.y);
     case RUR.NORTH:
-        return RUR.control.get_solid_objects_at_position(robot.x, robot.y+1);
+        return RUR.world_get.solid_objects_at_position(robot.x, robot.y+1);
     case RUR.WEST:
-        return RUR.control.get_solid_objects_at_position(robot.x-1, robot.y);
+        return RUR.world_get.solid_objects_at_position(robot.x-1, robot.y);
     case RUR.SOUTH:
-        return RUR.control.get_solid_objects_at_position(robot.x, robot.y-1);
+        return RUR.world_get.solid_objects_at_position(robot.x, robot.y-1);
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.solid_objects_in_front().");
     }
@@ -523,46 +512,8 @@ RUR.control.at_goal = function (robot) {
     throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };
 
-RUR.control.object_here = function (robot, obj) {
-    return RUR.control.__object_here(robot, obj, RUR.current_world.objects);
-};
 
-RUR.control.decorative_object_here = function (robot, obj) {
-    return RUR.control.__object_here(robot, obj, RUR.current_world.decorative_objects);
-};
-
-RUR.control.__object_here = function (robot, obj, _objects) {
-
-    var obj_here, obj_type, all_objects;
-    var coords = robot.x + "," + robot.y;
-
-    if (_objects === undefined ||
-        _objects[coords] === undefined) {
-        return [];
-    }
-
-    obj_here =  _objects[coords];
-    all_objects = [];
-
-    for (obj_type in obj_here) {
-        if (obj_here.hasOwnProperty(obj_type)) {
-            if (obj !== undefined && obj_type == RUR.translate_to_english(obj)) {
-                return [RUR.translate(obj_type)];
-            }
-            all_objects.push(RUR.translate(obj_type));
-        }
-    }
-
-    if (obj !== undefined) {
-        return [];
-    } else if (all_objects.length === 0){
-        return [];
-    } else {
-        return all_objects;
-    }
-};
-
-
+// TODO: review this as it seems redundant ... and may not work as expected.
 RUR.control.solid_object_here = function (robot, tile) {
     var tile_here, tile_type, all_solid_objects;
     var coords = robot.x + "," + robot.y;
@@ -641,9 +592,9 @@ RUR.control.sound = function(on){
 };
 
 RUR.control.get_colour_at_position = function (x, y) {
-    if (RUR.control.get_tile_at_position(x, y)===false) {
+    if (RUR.world_get.tile_at_position(x, y)===false) {
         return null;
-    } else if (RUR.control.get_tile_at_position(x, y)===undefined){
+    } else if (RUR.world_get.tile_at_position(x, y)===undefined){
         return RUR.current_world.tiles[x + "," + y];
     } else {
         return null;
@@ -653,43 +604,11 @@ RUR.control.get_colour_at_position = function (x, y) {
 RUR.control.set_tile_at_position = function (x, y, tile) {
     "use strict";
     // note: "tile" will most often be a colour.
-    RUR.we.ensure_key_exist(RUR.current_world, "tiles");
+    RUR.ensure_key_exists(RUR.current_world, "tiles");
     RUR.current_world.tiles[x + "," + y] = tile;
     RUR.rec.record_frame("debug", "set_tile_at_position");
 };
 
-RUR.control.get_tile_at_position = function (x, y) {
-    "use strict";
-    var coords = x + "," + y;
-    if (RUR.current_world.tiles === undefined) return false;
-    if (RUR.current_world.tiles[coords] === undefined) return false;
-    return RUR.tiles[RUR.current_world.tiles[coords]];
-};
-
-RUR.control.get_solid_objects_at_position = function (x, y) {
-    "use strict";
-    var coords = x + "," + y;
-    if (RUR.current_world.solid_objects === undefined) return false;
-    if (RUR.current_world.solid_objects[coords] === undefined) return false;
-    return RUR.current_world.solid_objects[coords];
-};
-
-
-RUR.control.pushable_object_here = function(x, y) {
-    "use strict";
-    var objects_here, obj_here, obj_type, coords = x + ',' + y;
-    if (RUR.current_world.objects === undefined) return false;
-    if (RUR.current_world.objects[coords] === undefined) return false;
-    objects_here = RUR.current_world.objects[coords];
-
-    for (obj_type in objects_here) {
-        if (objects_here.hasOwnProperty(obj_type)) {
-            if (RUR.objects[obj_type].pushable) {
-                return obj_type;
-            }
-        }
-    }
-};
 
 RUR.control.set_max_nb_robots = function(nb){
     if (RUR.MAX_NB_ROBOTS !== undefined){
@@ -697,8 +616,4 @@ RUR.control.set_max_nb_robots = function(nb){
     } else {
         RUR.MAX_NB_ROBOTS = nb;
     }
-};
-
-RUR.control.get_world_map = function () {
-    return JSON.stringify(RUR.current_world, null, 2);
 };

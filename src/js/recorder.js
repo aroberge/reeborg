@@ -5,7 +5,7 @@
 require("./state.js");
 require("./visible_world.js");
 require("./custom_dialogs.js");
-require("./control.js");
+require("./world_get.js");
 require("./constants.js");
 require("./translator.js");
 require("./ui.js");
@@ -388,7 +388,7 @@ RUR.rec.check_robots_on_tiles = function(frame){
         return;
     }
     for (robot=0; robot < frame.world.robots.length; robot++){
-        tile = RUR.control.get_tile_at_position(frame.world.robots[robot]);
+        tile = RUR.world_get.tile_at_position(frame.world.robots[robot]);
         if (tile) {
             if (tile.fatal){
                 throw new RUR.ReeborgError(tile.message);

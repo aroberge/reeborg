@@ -73,7 +73,7 @@ QUnit.test("Load world without running program", function(assert) {
     RUR.unit_tests.reset();
     contents = [["/src/worlds/tutorial_en/home1.json", "Home 1"],
                 ["/src/worlds/tutorial_en/home2.json", "Home 2"]];
-    RUR.custom_menu.make(contents);
+    RUR.custom_world_select.make(contents);
     assert.throws(function() {RUR.file_io.load_world_from_program('Home 2');},
                  "Raised expected error");
     equal(RUR.unit_tests.feedback_element, "#Reeborg-shouts", "Feedback element ok.");
@@ -95,7 +95,7 @@ QUnit.test("Load world by running Python programs", function(assert) {
     RUR.unit_tests.reset();
     contents = [["/src/worlds/tutorial_en/home1.json", "Home 1"],
                 ["/src/worlds/tutorial_en/home2.json", "Home 2"]];
-    RUR.custom_menu.make(contents);
+    RUR.custom_world_select.make(contents);
 
     // first select world Home 2 as our current default
     assert.throws(function() {RUR.file_io.load_world_from_program('Home 2');},

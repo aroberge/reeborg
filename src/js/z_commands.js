@@ -13,7 +13,7 @@ Convention: all function names follow the pattern RUR._xyz_
 require("./translator.js");
 require("./constants.js");
 require("./control.js");
-require("./custom_menus.js");
+require("./custom_world_select.js");
 require("./file_io.js");
 require("./output.js");
 require("./visible_robot.js");
@@ -81,7 +81,7 @@ RUR._new_robot_images_ = RUR.vis_robot.new_robot_images;
 RUR._no_highlight_ = RUR.ui.user_no_highlight;
 
 RUR._object_here_ = function (arg) {
-    return RUR.control.object_here(RUR.current_world.robots[0], arg);
+    return RUR.world_get.object_at_robot_position(RUR.current_world.robots[0], arg);
 };
 
 RUR._paint_square_ = function (color) {
@@ -153,7 +153,7 @@ RUR._wall_on_right_ = function() {
     return RUR.control.wall_on_right(RUR.current_world.robots[0]);
 };
 
-RUR._MakeCustomMenu_ = RUR.custom_menu.make;
+RUR._MakeCustomMenu_ = RUR.custom_world_select.make;
 
 RUR._World_ = RUR.file_io.load_world_from_program;
 
@@ -184,7 +184,7 @@ RUR._UR.move_ = function (robot) {
 };
 
 RUR._UR.object_here_ = function (robot, obj) {
-    RUR.control.object_here(robot, obj);
+    RUR.world_get.object_at_robot_position(robot, obj);
 };
 
 RUR._UR.put_ = function (robot, obj) {
