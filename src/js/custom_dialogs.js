@@ -2,17 +2,13 @@
 /*globals RUR, $*/
 
 
-
-
 require("./world_editor.js");
 require("./visible_world.js");
 require("./storage.js");
 require("./objects.js");
+require("./world_set.js");
 
 RUR.cd = {};
-
-
-
 
 RUR.cd.create_custom_dialogs = function() {
 
@@ -44,7 +40,7 @@ RUR.cd.create_custom_dialogs = function() {
             query = RUR.cd.input_add_number_result;
         }
         RUR.world_set.add_object(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.refresh_world_edited();
         RUR.cd.dialog_add_object.dialog("close");
         return true;
     };
@@ -81,7 +77,7 @@ RUR.cd.create_custom_dialogs = function() {
             query = RUR.cd.input_give_number_result;
         }
         RUR.we.give_objects_to_robot(RUR.we.specific_object, query);
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.refresh_world_edited();
         RUR.cd.dialog_give_object.dialog("close");
         return true;
     };
@@ -118,7 +114,7 @@ RUR.cd.create_custom_dialogs = function() {
             query = RUR.cd.input_goal_number_result;
         }
         RUR.world_set.add_goal_object(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.refresh_world_edited();
         RUR.cd.dialog_goal_object.dialog("close");
         return true;
     };
@@ -127,40 +123,6 @@ RUR.cd.create_custom_dialogs = function() {
         RUR.cd.goal_objects();
     });
 
-
-    RUR.cd.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
-        autoOpen: false,
-        height: 400,
-        width: 500,
-        //modal: true,
-        buttons: {
-            OK: function () {
-                RUR.cd.set_dimensions();
-            },
-            Cancel: function() {
-                RUR.cd.dialog_set_dimensions.dialog("close");
-            }
-        },
-        close: function() {
-            RUR.cd.set_dimensions_form[0].reset();
-        }
-    });
-    RUR.cd.set_dimensions = function () {
-        "use strict";
-        var max_x, max_y;
-        max_x = parseInt($("#input-max-x").val(), 10);
-        max_y = parseInt($("#input-max-y").val(), 10);
-        RUR.current_world.small_tiles = $("#use-small-tiles").prop("checked");
-
-        RUR.we._trim_world(max_x, max_y, RUR.COLS, RUR.ROWS);   // remove extra objects
-        RUR.vis_world.compute_world_geometry(max_x, max_y);
-        RUR.cd.dialog_set_dimensions.dialog("close");
-        return true;
-    };
-    RUR.cd.set_dimensions_form = RUR.cd.dialog_set_dimensions.find("form").on("submit", function( event ) {
-        event.preventDefault();
-        RUR.cd.set_dimensions();
-    });
 
     RUR.cd.dialog_save_world = $("#dialog-save-world").dialog({
         autoOpen: false,

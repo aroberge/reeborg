@@ -381,7 +381,7 @@ class UsedRobot(object):  #py:UR
         else:
             robot = RUR.robot.create_robot(x, y, orientation, tokens)
         self.body = robot
-        RUR.world.add_robot(self.body)
+        RUR.world_set.add_robot(self.body)
 
     def __str__(self):  #py:UR.__str__
         location = "({}, {})".format(self.body.x, self.body.y)

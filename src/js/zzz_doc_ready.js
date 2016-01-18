@@ -3,7 +3,6 @@ require("./translator.js");
 require("./state.js");
 require("./objects.js");
 require("./visible_robot.js");
-require("./zr_dr_dialogs.js");
 require("./zz_dr_onclick.js");
 require("./zz_dr_onchange.js");
 require("./zz_dr_editor_ui.js");
@@ -57,7 +56,6 @@ $(document).ready(function() {
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
     RUR.cd.create_custom_dialogs();
-    RUR.zz_dr_dialogs();
     RUR.zz_dr_onclick();
     RUR.zz_dr_onchange();
     RUR.zz_dr_editor_ui();

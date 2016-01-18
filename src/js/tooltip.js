@@ -11,8 +11,8 @@ RUR.tooltip.init = function () {  // call in zzz.doc_ready.js
 
     // request mousemove events
     $("#robot_canvas").mousemove(function (evt) {
-        RUR.we.mouse_x = evt.pageX;
-        RUR.we.mouse_y = evt.pageY;
+        RUR.mouse_x = evt.pageX;
+        RUR.mouse_y = evt.pageY;
         RUR.tooltip.handleMouseMove(evt);
     });
 };

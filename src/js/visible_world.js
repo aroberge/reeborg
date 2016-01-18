@@ -9,6 +9,11 @@ require("./objects.js");
 
 RUR.vis_world = {};
 
+RUR.vis_world.refresh_world_edited = function () {
+    RUR.vis_world.draw_all();
+    RUR.world_get.world_info();
+};
+
 RUR.vis_world.compute_world_geometry = function (cols, rows) {
     "use strict";
     var height, width;

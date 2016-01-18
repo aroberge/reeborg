@@ -3,7 +3,6 @@
 /*globals $, RUR */
 
 require("./translator.js");
-require("./aa_utils.js");
 require("./constants.js");
 require("./objects.js");
 require("./output.js");

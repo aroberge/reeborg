@@ -36,7 +36,7 @@ RUR.rec.reset = function() {
     RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
     RUR.rec.delay = 300;
-    RUR.rec.do_not_record = false;
+    RUR.state.do_not_record = false;
     RUR.watched_expressions = [];
     clearTimeout(RUR.rec.timer);
     if (RUR.state.programming_language === "python" &&
@@ -73,7 +73,7 @@ RUR.rec.record_frame = function (name, obj) {
     }
 
 
-    if (RUR.rec.do_not_record) {
+    if (RUR.state.do_not_record) {
         return;
     }
     if (RUR.state.prevent_playback){

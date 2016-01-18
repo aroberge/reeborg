@@ -119,15 +119,6 @@ RUR.zz_dr_onclick = function () {
         RUR.vis_robot.select_default_model(3);
     });
 
-    $("#robot_canvas").on("click", function (evt) {
-        RUR.we.mouse_x = evt.pageX;
-        RUR.we.mouse_y = evt.pageY;
-        if (RUR.state.editing_world) {
-            RUR.we.edit_world();
-        }
-        RUR.we.show_world_info();
-    });
-
     $("#add_editor_to_world").on("click", function(evt) {
         if ($(this).prop("checked")) {
             RUR.current_world.editor = editor.getValue();

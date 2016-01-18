@@ -66,7 +66,7 @@ RUR.reset_definitions = function () {
 
     UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
-        RUR.world.add_robot(this.body);
+        RUR.world_set.add_robot(this.body);
     };
 
     UsedRobot.prototype.at_goal = function () {

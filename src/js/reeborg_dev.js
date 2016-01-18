@@ -71,7 +71,7 @@ RUR.reset_programming_language = function(choice){
     }
 };
 
-},{"./keyboard.js":9,"./state.js":17}],2:[function(require,module,exports){
+},{"./keyboard.js":10,"./state.js":18}],2:[function(require,module,exports){
 
 RUR.EAST = 0;
 RUR.NORTH = 1;
@@ -130,7 +130,6 @@ RUR.DEFAULT_TRACE_COLOR = "seagreen";
 /*globals $, RUR */
 
 require("./translator.js");
-require("./aa_utils.js");
 require("./constants.js");
 require("./objects.js");
 require("./output.js");
@@ -745,22 +744,18 @@ RUR.control.set_max_nb_robots = function(nb){
     }
 };
 
-},{"./aa_utils.js":1,"./constants.js":2,"./exceptions.js":6,"./objects.js":11,"./output.js":12,"./recorder.js":14,"./state.js":17,"./translator.js":20,"./world_get.js":26,"./world_set.js":29}],4:[function(require,module,exports){
+},{"./constants.js":2,"./exceptions.js":7,"./objects.js":12,"./output.js":13,"./recorder.js":15,"./state.js":18,"./translator.js":21,"./world_get.js":27,"./world_set.js":30}],4:[function(require,module,exports){
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, $*/
-
-
 
 
 require("./world_editor.js");
 require("./visible_world.js");
 require("./storage.js");
 require("./objects.js");
+require("./world_set.js");
 
 RUR.cd = {};
-
-
-
 
 RUR.cd.create_custom_dialogs = function() {
 
@@ -792,7 +787,7 @@ RUR.cd.create_custom_dialogs = function() {
             query = RUR.cd.input_add_number_result;
         }
         RUR.world_set.add_object(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.refresh_world_edited();
         RUR.cd.dialog_add_object.dialog("close");
         return true;
     };
@@ -829,7 +824,7 @@ RUR.cd.create_custom_dialogs = function() {
             query = RUR.cd.input_give_number_result;
         }
         RUR.we.give_objects_to_robot(RUR.we.specific_object, query);
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.refresh_world_edited();
         RUR.cd.dialog_give_object.dialog("close");
         return true;
     };
@@ -866,7 +861,7 @@ RUR.cd.create_custom_dialogs = function() {
             query = RUR.cd.input_goal_number_result;
         }
         RUR.world_set.add_goal_object(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
-        RUR.we.refresh_world_edited();
+        RUR.vis_world.refresh_world_edited();
         RUR.cd.dialog_goal_object.dialog("close");
         return true;
     };
@@ -875,40 +870,6 @@ RUR.cd.create_custom_dialogs = function() {
         RUR.cd.goal_objects();
     });
 
-
-    RUR.cd.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
-        autoOpen: false,
-        height: 400,
-        width: 500,
-        //modal: true,
-        buttons: {
-            OK: function () {
-                RUR.cd.set_dimensions();
-            },
-            Cancel: function() {
-                RUR.cd.dialog_set_dimensions.dialog("close");
-            }
-        },
-        close: function() {
-            RUR.cd.set_dimensions_form[0].reset();
-        }
-    });
-    RUR.cd.set_dimensions = function () {
-        "use strict";
-        var max_x, max_y;
-        max_x = parseInt($("#input-max-x").val(), 10);
-        max_y = parseInt($("#input-max-y").val(), 10);
-        RUR.current_world.small_tiles = $("#use-small-tiles").prop("checked");
-
-        RUR.we._trim_world(max_x, max_y, RUR.COLS, RUR.ROWS);   // remove extra objects
-        RUR.vis_world.compute_world_geometry(max_x, max_y);
-        RUR.cd.dialog_set_dimensions.dialog("close");
-        return true;
-    };
-    RUR.cd.set_dimensions_form = RUR.cd.dialog_set_dimensions.find("form").on("submit", function( event ) {
-        event.preventDefault();
-        RUR.cd.set_dimensions();
-    });
 
     RUR.cd.dialog_save_world = $("#dialog-save-world").dialog({
         autoOpen: false,
@@ -995,7 +956,7 @@ RUR.cd.create_custom_dialogs = function() {
     };
 };
 
-},{"./objects.js":11,"./storage.js":18,"./visible_world.js":23,"./world_editor.js":25}],5:[function(require,module,exports){
+},{"./objects.js":12,"./storage.js":19,"./visible_world.js":24,"./world_editor.js":26,"./world_set.js":30}],5:[function(require,module,exports){
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -1185,7 +1146,65 @@ RUR.make_default_menu_fr = function () {
     RUR.custom_world_select.make(contents);
 };
 
-},{"./translator.js":20,"./ui.js":21,"./world_select.js":28}],6:[function(require,module,exports){
+},{"./translator.js":21,"./ui.js":22,"./world_select.js":29}],6:[function(require,module,exports){
+
+RUR.dialogs = {};
+
+RUR.dialogs.create_and_activate = function(button, element, add_options, special_fn) {
+    var options = {
+    minimize: true,
+    maximize: false,
+    autoOpen: false,
+    width: 800,
+    height: 600,
+    position: {my: "center", at: "center", of: window},
+    beforeClose: function( event, ui ) {
+            button.addClass("blue-gradient").removeClass("reverse-blue-gradient");
+            if (special_fn !== undefined){
+                special_fn();
+            }
+        }
+    };
+    for (var attrname in add_options) {
+        options[attrname] = add_options[attrname];
+    }
+
+    button.on("click", function(evt) {
+        element.dialog(options);
+        button.toggleClass("blue-gradient");
+        button.toggleClass("reverse-blue-gradient");
+        if (button.hasClass("reverse-blue-gradient")) {
+            element.dialog("open");
+        } else {
+            element.dialog("close");
+        }
+        if (special_fn !== undefined && element.dialog("isOpen")){
+            special_fn();
+        }
+    });
+}
+
+
+RUR.dialogs.create_and_activate($("#about-button"), $("#about-div"), {});
+RUR.dialogs.create_and_activate($("#more-menus-button"), $("#more-menus"), {height:700});
+RUR.dialogs.create_and_activate($("#special-keyboard-button"), $("#special-keyboard"),
+        {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
+
+
+$("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
+                                position:{my: "center", at: "center", of: $("#robot_canvas")}});
+$("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert",
+                                position:{my: "center", at: "center", of: $("#robot_canvas")}});
+$("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
+                                position:{my: "bottom", at: "bottom-20", of: window}});
+$("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
+                                position:{my: "center", at: "center", of: $("#robot_canvas")}});
+$("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:800, dialogClass: "proclaims",
+                                position:{my: "bottom", at: "bottom-80", of: window}});
+$("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
+                                position:{my: "bottom", at: "bottom-140", of: window}});
+
+},{}],7:[function(require,module,exports){
 RUR.ReeborgError = function (message) {
     if (RUR.state.programming_language == "python"){
         return ReeborgError(message);
@@ -1204,7 +1223,7 @@ RUR.WallCollisionError = function (message) {
     this.reeborg_shouts = message;
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
 require("./output.js");
 require("./recorder.js");
@@ -1338,7 +1357,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
     }
 };
 
-},{"./exceptions.js":6,"./output.js":12,"./permalink.js":13,"./recorder.js":14,"./translator.js":20,"./ui.js":21,"./world.js":24,"./world_select.js":28}],8:[function(require,module,exports){
+},{"./exceptions.js":7,"./output.js":13,"./permalink.js":14,"./recorder.js":15,"./translator.js":21,"./ui.js":22,"./world.js":25,"./world_select.js":29}],9:[function(require,module,exports){
 window.RUR = RUR || {};
 
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
@@ -1405,7 +1424,7 @@ require("./constants.js");
 require("./z_commands.js");
 require("./zzz_doc_ready.js");
 
-},{"./constants.js":2,"./translator.js":20,"./z_commands.js":30,"./zzz_doc_ready.js":36}],9:[function(require,module,exports){
+},{"./constants.js":2,"./translator.js":21,"./z_commands.js":31,"./zzz_doc_ready.js":36}],10:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -1628,7 +1647,7 @@ RUR.kbd.select = function (choice) {
     }
 };
 
-},{"./state.js":17}],10:[function(require,module,exports){
+},{"./state.js":18}],11:[function(require,module,exports){
 
 RUR.menus = {};
 
@@ -1643,7 +1662,7 @@ RUR.menus.change_edit_robot = function () {
     }
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 
 require("./translator.js");
@@ -1853,7 +1872,7 @@ RUR.solid_objects.fence_vertical.message = RUR.translate("I hit a fence!");
 RUR.solid_objects.fence_vertical.info = RUR.solid_objects.fence_right.info;
 RUR.solid_objects.fence7 = RUR.solid_objects.fence_vertical;  // compatibility with old worlds
 
-},{"./translator.js":20}],12:[function(require,module,exports){
+},{"./translator.js":21}],13:[function(require,module,exports){
 
 
 require("./recorder.js");
@@ -1922,7 +1941,7 @@ RUR.output.view_source_js = function(fn) {
     });
 };
 
-},{"./recorder.js":14,"./state.js":17}],13:[function(require,module,exports){
+},{"./recorder.js":15,"./state.js":18}],14:[function(require,module,exports){
 
 require("./state.js");
 require("./storage.js");
@@ -2053,7 +2072,7 @@ RUR.permalink.cancel = function () {
     $("#permalink").addClass('blue-gradient');
 };
 
-},{"./aa_utils.js":1,"./state.js":17,"./storage.js":18,"./translator.js":20,"./world.js":24}],14:[function(require,module,exports){
+},{"./aa_utils.js":1,"./state.js":18,"./storage.js":19,"./translator.js":21,"./world.js":25}],15:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR , editor*/
@@ -2092,7 +2111,7 @@ RUR.rec.reset = function() {
     RUR.rec._line_numbers = [];
     RUR.rec.playback = false;
     RUR.rec.delay = 300;
-    RUR.rec.do_not_record = false;
+    RUR.state.do_not_record = false;
     RUR.watched_expressions = [];
     clearTimeout(RUR.rec.timer);
     if (RUR.state.programming_language === "python" &&
@@ -2129,7 +2148,7 @@ RUR.rec.record_frame = function (name, obj) {
     }
 
 
-    if (RUR.rec.do_not_record) {
+    if (RUR.state.do_not_record) {
         return;
     }
     if (RUR.state.prevent_playback){
@@ -2453,7 +2472,7 @@ RUR.rec.check_robots_on_tiles = function(frame){
     }
 };
 
-},{"./constants.js":2,"./exceptions.js":6,"./state.js":17,"./translator.js":20,"./ui.js":21,"./visible_world.js":23,"./world_get.js":26}],15:[function(require,module,exports){
+},{"./constants.js":2,"./exceptions.js":7,"./state.js":18,"./translator.js":21,"./ui.js":22,"./visible_world.js":24,"./world_get.js":27}],16:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -2527,7 +2546,7 @@ RUR.robot.cleanup_objects = function (robot) {
     }
 };
 
-},{"./constants.js":2,"./exceptions.js":6,"./translator.js":20}],16:[function(require,module,exports){
+},{"./constants.js":2,"./exceptions.js":7,"./translator.js":21}],17:[function(require,module,exports){
 
 require("./translator.js");
 require("./visible_world.js");
@@ -2777,7 +2796,7 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     return false;  // no missing parentheses
 };
 
-},{"./recorder.js":14,"./state.js":17,"./translator.js":20,"./visible_world.js":23,"./world.js":24,"./world_init.js":27,"./zz_dr_blockly.js":32}],17:[function(require,module,exports){
+},{"./recorder.js":15,"./state.js":18,"./translator.js":21,"./visible_world.js":24,"./world.js":25,"./world_init.js":28,"./zz_dr_blockly.js":32}],18:[function(require,module,exports){
 /* Yes, I know, global variables are a terrible thing.
    And, in a sense, the following are global variables recording a given
    state.  However, by using this convention and documentating them in a
@@ -2824,6 +2843,8 @@ RUR.state.set_initial_values = function () {
 
     RUR.state.editing_world = false;
     RUR.state.code_evaluated = false;
+
+    RUR.state.do_not_record = false;
 };
 
 RUR.state.save = function () {
@@ -2898,7 +2919,7 @@ RUR.reset_code_in_editors = function () {
     editor.setValue(editor_content);
 };
 
-},{"./translator.js":20}],18:[function(require,module,exports){
+},{"./translator.js":21}],19:[function(require,module,exports){
 /*
    Utilities for dealing with html LocalStorage.
  */
@@ -2988,7 +3009,7 @@ RUR.storage.delete_world = function (name){
     $('#delete-world').hide();
 };
 
-},{"./custom_dialogs.js":4,"./translator.js":20,"./world.js":24,"./world_select.js":28}],19:[function(require,module,exports){
+},{"./custom_dialogs.js":4,"./translator.js":21,"./world.js":25,"./world_select.js":29}],20:[function(require,module,exports){
 /* Intended to provide information about objects carried by robot */
 
 
@@ -3002,8 +3023,8 @@ RUR.tooltip.init = function () {  // call in zzz.doc_ready.js
 
     // request mousemove events
     $("#robot_canvas").mousemove(function (evt) {
-        RUR.we.mouse_x = evt.pageX;
-        RUR.we.mouse_y = evt.pageY;
+        RUR.mouse_x = evt.pageX;
+        RUR.mouse_y = evt.pageY;
         RUR.tooltip.handleMouseMove(evt);
     });
 };
@@ -3068,7 +3089,7 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
     }
 };
 
-},{"./world_editor.js":25}],20:[function(require,module,exports){
+},{"./world_editor.js":26}],21:[function(require,module,exports){
 RUR.translate = function (s) {
     if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
         return RUR.translation[s];
@@ -3089,7 +3110,7 @@ RUR.translate_to_english = function (s) {
     }
 };
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -3305,7 +3326,7 @@ RUR.ui.toggle_panel = function (button, element) {
     element.toggleClass("active");
 };
 
-},{"./exceptions.js":6,"./recorder.js":14,"./runner.js":16,"./state.js":17,"./storage.js":18,"./translator.js":20,"./world.js":24}],22:[function(require,module,exports){
+},{"./exceptions.js":7,"./recorder.js":15,"./runner.js":17,"./state.js":18,"./storage.js":19,"./translator.js":21,"./world.js":25}],23:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -3604,7 +3625,7 @@ RUR.vis_robot.new_robot_images = function (images) {
     RUR.vis_robot.select_default_model(model);
 };
 
-},{"./constants.js":2,"./state.js":17}],23:[function(require,module,exports){
+},{"./constants.js":2,"./state.js":18}],24:[function(require,module,exports){
 
 /*jshint  -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR*/
@@ -3615,6 +3636,11 @@ require("./state.js");
 require("./objects.js");
 
 RUR.vis_world = {};
+
+RUR.vis_world.refresh_world_edited = function () {
+    RUR.vis_world.draw_all();
+    RUR.world_get.world_info();
+};
 
 RUR.vis_world.compute_world_geometry = function (cols, rows) {
     "use strict";
@@ -4242,7 +4268,7 @@ RUR.vis_world.draw_info = function() {
     }
 };
 
-},{"./constants.js":2,"./objects.js":11,"./state.js":17,"./translator.js":20}],24:[function(require,module,exports){
+},{"./constants.js":2,"./objects.js":12,"./state.js":18,"./translator.js":21}],25:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -4500,7 +4526,7 @@ $("#update-library-content-btn").on("click", function(evt) {
     }
 });
 
-},{"./constants.js":2,"./exceptions.js":6,"./robot.js":15,"./state.js":17,"./translator.js":20,"./visible_world.js":23}],25:[function(require,module,exports){
+},{"./constants.js":2,"./exceptions.js":7,"./robot.js":16,"./state.js":18,"./translator.js":21,"./visible_world.js":24}],26:[function(require,module,exports){
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -4514,7 +4540,9 @@ require("./visible_world.js");
 require("./exceptions.js");
 require("./state.js");
 require("./world_get.js");
+require("./world_set.js");
 require("./menus.js");
+require("./dialogs.js");
 
 RUR.we = {};   // we == World Editor
 
@@ -4574,7 +4602,7 @@ RUR.we.edit_world = function  () {
         default:
             break;
     }
-    RUR.we.refresh_world_edited();
+    RUR.vis_world.refresh_world_edited();
 };
 
 RUR.we.alert_1 = function (txt) {
@@ -4713,7 +4741,7 @@ RUR.we.select = function (choice) {
             }
         break;
         case "set":
-            RUR.cd.dialog_set_dimensions.dialog('open');
+            RUR.world_set.dialog_set_dimensions.dialog('open');
             break;
     }
 };
@@ -4757,16 +4785,13 @@ RUR.we.toggle_editing_mode = function () {
     }
 };
 
-RUR.we.refresh_world_edited = function () {
-    RUR.vis_world.draw_all();
-    RUR.we.show_world_info();
-};
-
+RUR.dialogs.create_and_activate( $("#edit-world"), $("#edit-world-panel"),
+                                 {}, RUR.we.toggle_editing_mode);
 
 RUR.we.calculate_grid_position = function () {
     var ctx, x, y;
-    x = RUR.we.mouse_x - $("#robot_canvas").offset().left;
-    y = RUR.we.mouse_y - $("#robot_canvas").offset().top;
+    x = RUR.mouse_x - $("#robot_canvas").offset().left;
+    y = RUR.mouse_y - $("#robot_canvas").offset().top;
 
     x /= RUR.WALL_LENGTH;
     x = Math.floor(x);
@@ -4791,173 +4816,6 @@ RUR.we.calculate_grid_position = function () {
         RUR.we.mouse_contained_flag = false;
     }
     return [x, y];
-};
-
-RUR.we.show_world_info = function (no_grid) {
-    "use strict";
-    // shows the information about a given grid position
-    // when the user clicks on the canvas at that grid position.
-    // enabled in zz_dr_onclick.js
-    var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
-    var topic, no_object, r, robot, robots;
-    var tiles, tilename, fence_noted = false;
-
-    information = "";
-
-    if (RUR.current_world.description) {
-        information +="<b>" + RUR.translate("Description") + "</b><br>" + RUR.current_world.description + "<hr>";
-    }
-
-    if (!no_grid) {
-        position = RUR.we.calculate_grid_position();
-        x = position[0];
-        y = position[1];
-        coords = x + "," + y;
-        if (!isNaN(x)){
-            information += "x = " + x + ", y = " + y;
-        }
-    }
-
-    tile = RUR.world_get.tile_at_position(x, y);
-    topic = true;
-    if (tile){
-        if (tile.info) {
-            if (topic){
-                topic = false;
-                information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
-            }
-            information += "<br>" + tile.info;
-        }
-    }
-
-    tiles = RUR.world_get.solid_objects_at_position(x, y);
-    if (tiles) {
-        for (tilename in tiles) {
-            tile = RUR.solid_objects[tilename];
-            if (tile.info){
-                if (topic){
-                    topic = false;
-                    information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
-                }
-                if (tile.name == "fence") {
-                    if (!fence_noted) {
-                        fence_noted = true;
-                        information += "<br>" + tile.info;
-                    }
-                } else {
-                    information +=  "<br>" + tile.info;
-                }
-            }
-        }
-    }
-
-    obj = RUR.current_world.objects;
-    topic = true;
-    if (obj !== undefined && obj[coords] !== undefined){
-        obj_here = obj[coords];
-        for (obj_type in obj_here) {
-            if (obj_here.hasOwnProperty(obj_type)) {
-                    if (topic){
-                        topic = false;
-                        information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
-                    }
-               information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
-            }
-        }
-    }
-
-    goals = RUR.current_world.goal;
-    if (goals !== undefined){
-        obj = goals.objects;
-        topic = true;
-        if (obj !== undefined && obj[coords] !== undefined){
-            obj_here = obj[coords];
-            for (obj_type in obj_here) {
-                if (obj_here.hasOwnProperty(obj_type)) {
-                    if (topic){
-                        topic = false;
-                        information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
-                    }
-                   information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
-                }
-            }
-        }
-    }
-
-
-    if (goals !== undefined){
-        if (goals.walls !== undefined && coords) {
-            if (goals.walls[coords] !== undefined){
-                if (goals.walls[coords].indexOf("east") != -1) {
-                    information += "<br>" + RUR.translate("A wall must be built east of this location.");
-                }
-                if (goals.walls[coords].indexOf("north") != -1) {
-                    information += "<br>" + RUR.translate("A wall must be built north of this location.");
-                }
-            }
-            x -= 1;
-            coords = x + "," + y;
-            if (goals.walls[coords] !== undefined){
-                if (goals.walls[coords].indexOf("east") != -1) {
-                    information += "<br>" + RUR.translate("A wall must be built west of this location.");
-                }
-            }
-            x += 1;
-            y -= 1;
-            coords = x + "," + y;
-            if (goals.walls[coords] !== undefined){
-                if (goals.walls[coords].indexOf("north") != -1) {
-                    information += "<br>" + RUR.translate("A wall must be built south of this location.");
-                }
-            }
-            y += 1;
-            coords = x + "," + y;
-        }
-    }
-
-    robots = RUR.current_world.robots;
-    if (robots !== undefined && robots.length !== undefined){
-        for (r=0; r<robots.length; r++){
-            robot = robots[r];
-            x = robot.x;
-            y = robot.y;
-            if (robot.start_positions !== undefined && robot.start_positions.length > 1){
-                x = RUR.translate("random location");
-                y = '';
-            }
-            no_object = true;
-            for (obj in robot.objects){
-                if (robot.objects.hasOwnProperty(obj)) {
-                    if (no_object) {
-                        no_object = false;
-                        information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>";
-                    }
-                    information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
-                }
-            }
-            if (no_object){
-                information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>";
-            }
-        }
-    }
-
-
-    goals = RUR.current_world.goal;
-    if (goals !== undefined &&
-         (goals.possible_positions !== undefined || goals.position !== undefined)){
-        if (topic){
-            topic = false;
-            information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
-        }
-        if (goals.possible_positions !== undefined && goals.possible_positions.length > 2) {
-            information += "<br>" + RUR.translate("The final required position of the robot will be chosen at random.");
-        } else {
-            information += "<br>" + RUR.translate("The final position of the robot must be (x, y) = ") +
-                           "(" + goals.position.x + ", " + goals.position.y + ")";
-        }
-    }
-
-    $("#World-info").html(information);
 };
 
 
@@ -5051,7 +4909,7 @@ RUR.we.turn_robot = function (orientation) {
 
     RUR.current_world.robots[0]._orientation = orientation;
     RUR.current_world.robots[0]._prev_orientation = orientation;
-    RUR.we.refresh_world_edited();
+    RUR.vis_world.refresh_world_edited();
 };
 
 RUR.we.add_robot = function () {
@@ -5061,8 +4919,8 @@ RUR.we.add_robot = function () {
 
 RUR.we.calculate_wall_position = function () {
     var ctx, x, y, orientation, remain_x, remain_y, del_x, del_y;
-    x = RUR.we.mouse_x - $("#robot_canvas").offset().left;
-    y = RUR.we.mouse_y - $("#robot_canvas").offset().top;
+    x = RUR.mouse_x - $("#robot_canvas").offset().left;
+    y = RUR.mouse_y - $("#robot_canvas").offset().top;
 
     y = RUR.BACKGROUND_CANVAS.height - y;  // count from bottom
 
@@ -5377,80 +5235,23 @@ RUR.we.toggle_solid_object = function (obj){
 };
 
 
-RUR.we.remove_all = function () {
-    RUR.current_world.robots = [];
-    RUR.we._trim_world(0,0, RUR.COLS, RUR.ROWS);
-};
 
-RUR.we._trim_world = function (min_x, min_y, max_x, max_y) {
-    var x, y, coords;
+$("#robot_canvas").on("click", function (evt) {
+    RUR.mouse_x = evt.pageX;
+    RUR.mouse_y = evt.pageY;
+    if (RUR.state.editing_world) {
+        RUR.we.edit_world();
+    }
+    RUR.world_get.world_info();
+});
 
-    for (x = min_x+1; x <= max_x; x++) {
-        for (y = 1; y <= max_y; y++) {
-            coords = x + "," + y;
-            RUR.we._remove_all_at_location(coords);
-        }
-    }
-    for (x = 1; x <= max_x; x++) {
-        for (y = min_y+1; y <= max_y; y++) {
-            coords = x + "," + y;
-            RUR.we._remove_all_at_location(coords);
-        }
-    }
-    if (RUR.current_world.goal !== undefined) {
-        if (RUR.current_world.goal.possible_positions !== undefined) {
-            delete RUR.current_world.goal.possible_positions;
-            delete RUR.current_world.goal.position;
-            RUR.show_feedback("#Reeborg-shouts",
-                                 RUR.translate("WARNING: deleted final positions choices while resizing world!"));
-        }
-    }
-};
-
-RUR.we._remove_all_at_location = function(coords) {
-    // trading efficiency for clarity
-    if (RUR.current_world.tiles !== undefined) {
-        if (RUR.current_world.tiles[coords] !== undefined){
-            delete RUR.current_world.tiles[coords];
-        }
-    }
-    if (RUR.current_world.solid_objects !== undefined) {
-        if (RUR.current_world.solid_objects[coords] !== undefined){
-            delete RUR.current_world.solid_objects[coords];
-        }
-    }
-    if (RUR.current_world.objects !== undefined) {
-        if (RUR.current_world.objects[coords] !== undefined){
-            delete RUR.current_world.objects[coords];
-        }
-    }
-    if (RUR.current_world.walls !== undefined) {
-        if (RUR.current_world.walls[coords] !== undefined){
-            delete RUR.current_world.walls[coords];
-        }
-    }
-    if (RUR.current_world.goal !== undefined) {
-        if (RUR.current_world.goal.objects !== undefined) {
-            if (RUR.current_world.goal.objects[coords] !== undefined){
-                delete RUR.current_world.goal.objects[coords];
-            }
-        }
-    }
-    if (RUR.current_world.goal !== undefined) {
-        if (RUR.current_world.goal.walls !== undefined) {
-            if (RUR.current_world.goal.walls[coords] !== undefined){
-                delete RUR.current_world.goal.walls[coords];
-            }
-        }
-    }
-};
-
-},{"./constants.js":2,"./custom_dialogs.js":4,"./exceptions.js":6,"./menus.js":10,"./objects.js":11,"./robot.js":15,"./state.js":17,"./translator.js":20,"./visible_world.js":23,"./world.js":24,"./world_get.js":26}],26:[function(require,module,exports){
+},{"./constants.js":2,"./custom_dialogs.js":4,"./dialogs.js":6,"./exceptions.js":7,"./menus.js":11,"./objects.js":12,"./robot.js":16,"./state.js":18,"./translator.js":21,"./visible_world.js":24,"./world.js":25,"./world_get.js":27,"./world_set.js":30}],27:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
 
 require("./objects.js");
+require("./dialogs.js");
 
 RUR.world_get = {};
 
@@ -5537,15 +5338,183 @@ function object_of_type_here (robot, obj, object_type) {
     } else {
         return all_objects;
     }
-};
-
-
+}
 
 RUR.world_get.world_map = function () {
     return JSON.stringify(RUR.current_world, null, 2);
 };
 
-},{"./objects.js":11}],27:[function(require,module,exports){
+RUR.world_get.world_info = function (no_grid) {
+    "use strict";
+    // shows the information about a given grid position
+    // when the user clicks on the canvas at that grid position.
+    // enabled in zz_dr_onclick.js
+    var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
+    var topic, no_object, r, robot, robots;
+    var tiles, tilename, fence_noted = false;
+
+    information = "";
+
+    if (RUR.current_world.description) {
+        information +="<b>" + RUR.translate("Description") + "</b><br>" + RUR.current_world.description + "<hr>";
+    }
+
+    if (!no_grid) {
+        position = RUR.we.calculate_grid_position();
+        x = position[0];
+        y = position[1];
+        coords = x + "," + y;
+        if (!isNaN(x)){
+            information += "x = " + x + ", y = " + y;
+        }
+    }
+
+    tile = RUR.world_get.tile_at_position(x, y);
+    topic = true;
+    if (tile){
+        if (tile.info) {
+            if (topic){
+                topic = false;
+                information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
+            }
+            information += "<br>" + tile.info;
+        }
+    }
+
+    tiles = RUR.world_get.solid_objects_at_position(x, y);
+    if (tiles) {
+        for (tilename in tiles) {
+            tile = RUR.solid_objects[tilename];
+            if (tile.info){
+                if (topic){
+                    topic = false;
+                    information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
+                }
+                if (tile.name == "fence") {
+                    if (!fence_noted) {
+                        fence_noted = true;
+                        information += "<br>" + tile.info;
+                    }
+                } else {
+                    information +=  "<br>" + tile.info;
+                }
+            }
+        }
+    }
+
+    obj = RUR.current_world.objects;
+    topic = true;
+    if (obj !== undefined && obj[coords] !== undefined){
+        obj_here = obj[coords];
+        for (obj_type in obj_here) {
+            if (obj_here.hasOwnProperty(obj_type)) {
+                    if (topic){
+                        topic = false;
+                        information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
+                    }
+               information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
+            }
+        }
+    }
+
+    goals = RUR.current_world.goal;
+    if (goals !== undefined){
+        obj = goals.objects;
+        topic = true;
+        if (obj !== undefined && obj[coords] !== undefined){
+            obj_here = obj[coords];
+            for (obj_type in obj_here) {
+                if (obj_here.hasOwnProperty(obj_type)) {
+                    if (topic){
+                        topic = false;
+                        information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
+                    }
+                   information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
+                }
+            }
+        }
+    }
+
+
+    if (goals !== undefined){
+        if (goals.walls !== undefined && coords) {
+            if (goals.walls[coords] !== undefined){
+                if (goals.walls[coords].indexOf("east") != -1) {
+                    information += "<br>" + RUR.translate("A wall must be built east of this location.");
+                }
+                if (goals.walls[coords].indexOf("north") != -1) {
+                    information += "<br>" + RUR.translate("A wall must be built north of this location.");
+                }
+            }
+            x -= 1;
+            coords = x + "," + y;
+            if (goals.walls[coords] !== undefined){
+                if (goals.walls[coords].indexOf("east") != -1) {
+                    information += "<br>" + RUR.translate("A wall must be built west of this location.");
+                }
+            }
+            x += 1;
+            y -= 1;
+            coords = x + "," + y;
+            if (goals.walls[coords] !== undefined){
+                if (goals.walls[coords].indexOf("north") != -1) {
+                    information += "<br>" + RUR.translate("A wall must be built south of this location.");
+                }
+            }
+            y += 1;
+            coords = x + "," + y;
+        }
+    }
+
+    robots = RUR.current_world.robots;
+    if (robots !== undefined && robots.length !== undefined){
+        for (r=0; r<robots.length; r++){
+            robot = robots[r];
+            x = robot.x;
+            y = robot.y;
+            if (robot.start_positions !== undefined && robot.start_positions.length > 1){
+                x = RUR.translate("random location");
+                y = '';
+            }
+            no_object = true;
+            for (obj in robot.objects){
+                if (robot.objects.hasOwnProperty(obj)) {
+                    if (no_object) {
+                        no_object = false;
+                        information += "<br><br><b>" + RUR.translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>";
+                    }
+                    information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
+                }
+            }
+            if (no_object){
+                information += "<br><br><b>" + RUR.translate("A robot located here carries no objects.").supplant({x:x, y:y}) + "</b>";
+            }
+        }
+    }
+
+
+    goals = RUR.current_world.goal;
+    if (goals !== undefined &&
+         (goals.possible_positions !== undefined || goals.position !== undefined)){
+        if (topic){
+            topic = false;
+            information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
+        }
+        if (goals.possible_positions !== undefined && goals.possible_positions.length > 2) {
+            information += "<br>" + RUR.translate("The final required position of the robot will be chosen at random.");
+        } else {
+            information += "<br>" + RUR.translate("The final position of the robot must be (x, y) = ") +
+                           "(" + goals.position.x + ", " + goals.position.y + ")";
+        }
+    }
+
+    $("#World-info").html(information);
+};
+
+RUR.dialogs.create_and_activate( $("#world-info-button"), $("#World-info"),
+                                 {height:300, width:600}, RUR.world_get.world_info);
+
+},{"./dialogs.js":6,"./objects.js":12}],28:[function(require,module,exports){
 
 require("./visible_world.js");
 require("./constants.js");
@@ -5666,7 +5635,7 @@ RUR.world_init.set = function () {
     RUR.vis_world.refresh();
 };
 
-},{"./constants.js":2,"./visible_world.js":23}],28:[function(require,module,exports){
+},{"./constants.js":2,"./visible_world.js":24}],29:[function(require,module,exports){
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -5764,7 +5733,7 @@ RUR.world_select.append_world = function (arg) {
     }
 };
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /* In some ways, this is the counterpart of world_get.js
 */
 
@@ -5774,6 +5743,8 @@ require("./visible_world.js");
 require("./recorder.js");
 
 RUR.world_set = {};
+
+var set_dimension_form;
 
 RUR.world_set.add_object = function (specific_object, x, y, nb){
     "use strict";
@@ -5872,7 +5843,109 @@ RUR.world_set.remove_robots = function () {
     }
 };
 
-},{"./exceptions.js":6,"./objects.js":11,"./recorder.js":14,"./visible_world.js":23}],30:[function(require,module,exports){
+RUR.world_set.remove_all = function () {
+    RUR.current_world.robots = [];
+    trim_world(0,0, RUR.COLS, RUR.ROWS);
+};
+
+function trim_world (min_x, min_y, max_x, max_y) {
+    var x, y, coords;
+
+    for (x = min_x+1; x <= max_x; x++) {
+        for (y = 1; y <= max_y; y++) {
+            coords = x + "," + y;
+            remove_all_at_location(coords);
+        }
+    }
+    for (x = 1; x <= max_x; x++) {
+        for (y = min_y+1; y <= max_y; y++) {
+            coords = x + "," + y;
+            remove_all_at_location(coords);
+        }
+    }
+    if (RUR.current_world.goal !== undefined) {
+        if (RUR.current_world.goal.possible_positions !== undefined) {
+            delete RUR.current_world.goal.possible_positions;
+            delete RUR.current_world.goal.position;
+            RUR.show_feedback("#Reeborg-shouts",
+                                 RUR.translate("WARNING: deleted final positions choices while resizing world!"));
+        }
+    }
+}
+
+function remove_all_at_location (coords) {
+    // trading efficiency for clarity
+    if (RUR.current_world.tiles !== undefined) {
+        if (RUR.current_world.tiles[coords] !== undefined){
+            delete RUR.current_world.tiles[coords];
+        }
+    }
+    if (RUR.current_world.solid_objects !== undefined) {
+        if (RUR.current_world.solid_objects[coords] !== undefined){
+            delete RUR.current_world.solid_objects[coords];
+        }
+    }
+    if (RUR.current_world.objects !== undefined) {
+        if (RUR.current_world.objects[coords] !== undefined){
+            delete RUR.current_world.objects[coords];
+        }
+    }
+    if (RUR.current_world.walls !== undefined) {
+        if (RUR.current_world.walls[coords] !== undefined){
+            delete RUR.current_world.walls[coords];
+        }
+    }
+    if (RUR.current_world.goal !== undefined) {
+        if (RUR.current_world.goal.objects !== undefined) {
+            if (RUR.current_world.goal.objects[coords] !== undefined){
+                delete RUR.current_world.goal.objects[coords];
+            }
+        }
+    }
+    if (RUR.current_world.goal !== undefined) {
+        if (RUR.current_world.goal.walls !== undefined) {
+            if (RUR.current_world.goal.walls[coords] !== undefined){
+                delete RUR.current_world.goal.walls[coords];
+            }
+        }
+    }
+}
+
+RUR.world_set.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
+    autoOpen: false,
+    height: 400,
+    width: 500,
+    //modal: true,
+    buttons: {
+        OK: function () {
+            set_dimension();
+        },
+        Cancel: function() {
+            RUR.world_set.dialog_set_dimensions.dialog("close");
+        }
+    },
+    close: function() {
+        set_dimension_form[0].reset();
+    }
+});
+function set_dimension () {
+    "use strict";
+    var max_x, max_y;
+    max_x = parseInt($("#input-max-x").val(), 10);
+    max_y = parseInt($("#input-max-y").val(), 10);
+    RUR.current_world.small_tiles = $("#use-small-tiles").prop("checked");
+
+    trim_world(max_x, max_y, RUR.COLS, RUR.ROWS);   // remove extra objects
+    RUR.vis_world.compute_world_geometry(max_x, max_y);
+    RUR.world_set.dialog_set_dimensions.dialog("close");
+    return true;
+}
+set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit", function( event ) {
+    event.preventDefault();
+    set_dimension();
+});
+
+},{"./exceptions.js":7,"./objects.js":12,"./recorder.js":15,"./visible_world.js":24}],31:[function(require,module,exports){
 /*  The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
 the other modules.  This way, in theory, (most) refactoring can take place in the
@@ -5893,8 +5966,10 @@ require("./file_io.js");
 require("./output.js");
 require("./visible_robot.js");
 require("./ui.js");
-require("./recorder.js"); //TODO: see if we can change to state
+require("./state.js");
 require("./world.js");
+require("./world_set.js");
+
 
 RUR.inspect = function (obj){
     var props, result = "";
@@ -5978,9 +6053,9 @@ RUR._put_ = function(arg) {
 
 RUR._recording_ = function(bool) {
     if (bool) {
-        RUR.rec.do_not_record = false;
+        RUR.state.do_not_record = false;
     } else {
-        RUR.rec.do_not_record = true;
+        RUR.state.do_not_record = true;
     }
 };
 
@@ -6098,72 +6173,7 @@ RUR._UR.wall_on_right_ = function (robot) {
     RUR.control.wall_on_right(robot);
 };
 
-},{"./constants.js":2,"./control.js":3,"./custom_world_select.js":5,"./file_io.js":7,"./output.js":12,"./recorder.js":14,"./translator.js":20,"./ui.js":21,"./visible_robot.js":22,"./world.js":24}],31:[function(require,module,exports){
-// called by zzz_doc_ready.js
-
-
-require("./world_editor.js"); // TODO: see if we can eliminate this
-
-RUR.zz_dr_dialogs = function () {
-
-    function create_and_activate_dialog(button, element, add_options, special_fn) {
-        var options = {
-        minimize: true,
-        maximize: false,
-        autoOpen: false,
-        width: 800,
-        height: 600,
-        position: {my: "center", at: "center", of: window},
-        beforeClose: function( event, ui ) {
-                button.addClass("blue-gradient").removeClass("reverse-blue-gradient");
-                if (special_fn !== undefined){
-                    special_fn();
-                }
-            }
-        };
-        for (var attrname in add_options) {
-            options[attrname] = add_options[attrname];
-        }
-
-        button.on("click", function(evt) {
-            element.dialog(options);
-            button.toggleClass("blue-gradient");
-            button.toggleClass("reverse-blue-gradient");
-            if (button.hasClass("reverse-blue-gradient")) {
-                element.dialog("open");
-            } else {
-                element.dialog("close");
-            }
-            if (special_fn !== undefined && element.dialog("isOpen")){
-                special_fn();
-            }
-        });
-    }
-
-    create_and_activate_dialog($("#edit-world"), $("#edit-world-panel"), {}, RUR.we.toggle_editing_mode);
-    create_and_activate_dialog($("#about-button"), $("#about-div"), {});
-    create_and_activate_dialog($("#more-menus-button"), $("#more-menus"), {height:700});
-    create_and_activate_dialog($("#world-info-button"), $("#World-info"), {height:300, width:600}, RUR.we.show_world_info);
-    create_and_activate_dialog($("#special-keyboard-button"), $("#special-keyboard"),
-            {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
-
-    $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
-                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert",
-                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
-                                    position:{my: "bottom", at: "bottom-20", of: window}});
-    $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
-                                    position:{my: "center", at: "center", of: $("#robot_canvas")}});
-    $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:800, dialogClass: "proclaims",
-                                    position:{my: "bottom", at: "bottom-80", of: window}});
-    $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
-                                    position:{my: "bottom", at: "bottom-140", of: window}});
-
-
-};
-
-},{"./world_editor.js":25}],32:[function(require,module,exports){
+},{"./constants.js":2,"./control.js":3,"./custom_world_select.js":5,"./file_io.js":8,"./output.js":13,"./state.js":18,"./translator.js":21,"./ui.js":22,"./visible_robot.js":23,"./world.js":25,"./world_set.js":30}],32:[function(require,module,exports){
 /* jshint -W069 */
 
 
@@ -6891,7 +6901,7 @@ $("#blockly-wrapper").draggable({
     }
 });
 
-},{"./translator.js":20}],33:[function(require,module,exports){
+},{"./translator.js":21}],33:[function(require,module,exports){
 /* Sets up the UI for various editors.
 
 called by zzz_doc_ready.js
@@ -7067,7 +7077,7 @@ RUR.zz_dr_onchange = function () {
 
 };
 
-},{"./aa_utils.js":1,"./file_io.js":7,"./state.js":17,"./storage.js":18,"./translator.js":20,"./ui.js":21}],35:[function(require,module,exports){
+},{"./aa_utils.js":1,"./file_io.js":8,"./state.js":18,"./storage.js":19,"./translator.js":21,"./ui.js":22}],35:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 
 called by zzz_doc_ready.js
@@ -7189,15 +7199,6 @@ RUR.zz_dr_onclick = function () {
         RUR.vis_robot.select_default_model(3);
     });
 
-    $("#robot_canvas").on("click", function (evt) {
-        RUR.we.mouse_x = evt.pageX;
-        RUR.we.mouse_y = evt.pageY;
-        if (RUR.state.editing_world) {
-            RUR.we.edit_world();
-        }
-        RUR.we.show_world_info();
-    });
-
     $("#add_editor_to_world").on("click", function(evt) {
         if ($(this).prop("checked")) {
             RUR.current_world.editor = editor.getValue();
@@ -7217,13 +7218,12 @@ RUR.zz_dr_onclick = function () {
 
 };
 
-},{"./custom_dialogs.js":4,"./permalink.js":13,"./state.js":17,"./translator.js":20,"./visible_robot.js":22,"./world.js":24,"./world_editor.js":25}],36:[function(require,module,exports){
+},{"./custom_dialogs.js":4,"./permalink.js":14,"./state.js":18,"./translator.js":21,"./visible_robot.js":23,"./world.js":25,"./world_editor.js":26}],36:[function(require,module,exports){
 
 require("./translator.js");
 require("./state.js");
 require("./objects.js");
 require("./visible_robot.js");
-require("./zr_dr_dialogs.js");
 require("./zz_dr_onclick.js");
 require("./zz_dr_onchange.js");
 require("./zz_dr_editor_ui.js");
@@ -7277,7 +7277,6 @@ $(document).ready(function() {
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
     RUR.cd.create_custom_dialogs();
-    RUR.zz_dr_dialogs();
     RUR.zz_dr_onclick();
     RUR.zz_dr_onchange();
     RUR.zz_dr_editor_ui();
@@ -7336,4 +7335,4 @@ $(document).ready(function() {
     }
 });
 
-},{"./aa_utils.js":1,"./custom_world_select.js":5,"./keyboard.js":9,"./objects.js":11,"./recorder.js":14,"./state.js":17,"./storage.js":18,"./tooltip.js":19,"./translator.js":20,"./ui.js":21,"./visible_robot.js":22,"./world.js":24,"./world_select.js":28,"./zr_dr_dialogs.js":31,"./zz_dr_blockly.js":32,"./zz_dr_editor_ui.js":33,"./zz_dr_onchange.js":34,"./zz_dr_onclick.js":35}]},{},[8]);
+},{"./aa_utils.js":1,"./custom_world_select.js":5,"./keyboard.js":10,"./objects.js":12,"./recorder.js":15,"./state.js":18,"./storage.js":19,"./tooltip.js":20,"./translator.js":21,"./ui.js":22,"./visible_robot.js":23,"./world.js":25,"./world_select.js":29,"./zz_dr_blockly.js":32,"./zz_dr_editor_ui.js":33,"./zz_dr_onchange.js":34,"./zz_dr_onclick.js":35}]},{},[9]);

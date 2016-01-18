@@ -18,8 +18,10 @@ require("./file_io.js");
 require("./output.js");
 require("./visible_robot.js");
 require("./ui.js");
-require("./recorder.js"); //TODO: see if we can change to state
+require("./state.js");
 require("./world.js");
+require("./world_set.js");
+
 
 RUR.inspect = function (obj){
     var props, result = "";
@@ -103,9 +105,9 @@ RUR._put_ = function(arg) {
 
 RUR._recording_ = function(bool) {
     if (bool) {
-        RUR.rec.do_not_record = false;
+        RUR.state.do_not_record = false;
     } else {
-        RUR.rec.do_not_record = true;
+        RUR.state.do_not_record = true;
     }
 };
 

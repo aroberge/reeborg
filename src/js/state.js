@@ -44,6 +44,8 @@ RUR.state.set_initial_values = function () {
 
     RUR.state.editing_world = false;
     RUR.state.code_evaluated = false;
+
+    RUR.state.do_not_record = false;
 };
 
 RUR.state.save = function () {
