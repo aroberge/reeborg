@@ -15,15 +15,11 @@ require("./world_set.js");
 require("./menus.js");
 require("./dialogs.js");
 
+var filterInt = require("./utils/filterint.js").filterInt;
+
 RUR.we = {};   // we == World Editor
 
 RUR.we.__give_to_robot = false;
-
-function filterInt (value) {
-  if(/^\s*([0-9]+)\s*$/.test(value))
-    return parseInt(value, 10);
-  return undefined;
-}
 
 RUR.we.edit_world = function  () {
     "use strict";
