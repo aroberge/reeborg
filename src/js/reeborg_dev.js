@@ -744,7 +744,7 @@ RUR.control.set_max_nb_robots = function(nb){
     }
 };
 
-},{"./constants.js":2,"./exceptions.js":7,"./objects.js":12,"./output.js":13,"./recorder.js":15,"./state.js":18,"./translator.js":21,"./world_get.js":27,"./world_set.js":30}],4:[function(require,module,exports){
+},{"./constants.js":2,"./exceptions.js":7,"./objects.js":12,"./output.js":13,"./recorder.js":15,"./state.js":18,"./translator.js":21,"./world_get.js":31,"./world_set.js":34}],4:[function(require,module,exports){
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR, $*/
 
@@ -956,7 +956,7 @@ RUR.cd.create_custom_dialogs = function() {
     };
 };
 
-},{"./objects.js":12,"./storage.js":19,"./visible_world.js":24,"./world_editor.js":26,"./world_set.js":30}],5:[function(require,module,exports){
+},{"./objects.js":12,"./storage.js":19,"./visible_world.js":28,"./world_editor.js":30,"./world_set.js":34}],5:[function(require,module,exports){
 
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -1146,7 +1146,7 @@ RUR.make_default_menu_fr = function () {
     RUR.custom_world_select.make(contents);
 };
 
-},{"./translator.js":21,"./ui.js":22,"./world_select.js":29}],6:[function(require,module,exports){
+},{"./translator.js":21,"./ui.js":22,"./world_select.js":33}],6:[function(require,module,exports){
 
 RUR.dialogs = {};
 
@@ -1357,56 +1357,15 @@ RUR.file_io.load_world_file = function (url, shortname) {
     }
 };
 
-},{"./exceptions.js":7,"./output.js":13,"./permalink.js":14,"./recorder.js":15,"./translator.js":21,"./ui.js":22,"./world.js":25,"./world_select.js":29}],9:[function(require,module,exports){
+},{"./exceptions.js":7,"./output.js":13,"./permalink.js":14,"./recorder.js":15,"./translator.js":21,"./ui.js":22,"./world.js":29,"./world_select.js":33}],9:[function(require,module,exports){
 window.RUR = RUR || {};
 
-// from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
-$.ajaxPrefilter( function (options) {
-  if (options.crossDomain && jQuery.support.cors) {
-    var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
-    options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
-  }
-});
 
-// adapted from http://javascript.crockford.com/remedial.html
-String.prototype.supplant = function (o) {
-    return this.replace(
-        /\{([^{}]*)\}/g,
-        function (a, b) {
-            var r = o[b];
-            return typeof r === 'string' || typeof r === 'number' ? r : a;
-        }
-    );
-};
+/* require two modules that will automatically modify two global objects */
+require("./utils/cors.js");
+require("./utils/supplant.js");
 
-/*
-    Original script title: "Object.identical.js"; version 1.12
-    Copyright (c) 2011, Chris O'Brien, prettycode.org
-    http://github.com/prettycode/Object.identical.js
-*/
 
-Object.identical = function (a, b, sortArrays) {
-
-    function sort(object) {
-        if (sortArrays === true && Array.isArray(object)) {
-            return object.sort();
-        }
-        else if (typeof object !== "object" || object === null) {
-            return object;
-        } else if (Object.keys(object).length === 0){     // added by A.R. for Reeborg's World comparisons - issue 59
-            return undefined;
-        }
-
-        return Object.keys(object).sort().map(function(key) {
-            return {
-                key: key,
-                value: sort(object[key])
-            };
-        });
-    }
-
-    return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
-};
 
 RUR.ensure_key_exists = function(obj, key){
     "use strict";
@@ -1419,12 +1378,11 @@ RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
 
-require("./translator.js");
-require("./constants.js");
+
 require("./z_commands.js");
 require("./zzz_doc_ready.js");
 
-},{"./constants.js":2,"./translator.js":21,"./z_commands.js":31,"./zzz_doc_ready.js":36}],10:[function(require,module,exports){
+},{"./utils/cors.js":23,"./utils/supplant.js":26,"./z_commands.js":35,"./zzz_doc_ready.js":40}],10:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -2072,7 +2030,7 @@ RUR.permalink.cancel = function () {
     $("#permalink").addClass('blue-gradient');
 };
 
-},{"./aa_utils.js":1,"./state.js":18,"./storage.js":19,"./translator.js":21,"./world.js":25}],15:[function(require,module,exports){
+},{"./aa_utils.js":1,"./state.js":18,"./storage.js":19,"./translator.js":21,"./world.js":29}],15:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR , editor*/
@@ -2084,6 +2042,8 @@ require("./constants.js");
 require("./translator.js");
 require("./ui.js");
 require("./exceptions.js");
+
+var identical = require("./utils/identical.js").identical;
 
 RUR.rec = {};
 
@@ -2423,7 +2383,7 @@ RUR.rec.check_goal = function (frame) {
         }
     }
     if (g.objects !== undefined) {
-        result = Object.identical(g.objects, world.objects, true);
+        result = identical(g.objects, world.objects, true);
         if (result){
             goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
@@ -2472,7 +2432,7 @@ RUR.rec.check_robots_on_tiles = function(frame){
     }
 };
 
-},{"./constants.js":2,"./exceptions.js":7,"./state.js":18,"./translator.js":21,"./ui.js":22,"./visible_world.js":24,"./world_get.js":27}],16:[function(require,module,exports){
+},{"./constants.js":2,"./exceptions.js":7,"./state.js":18,"./translator.js":21,"./ui.js":22,"./utils/identical.js":25,"./visible_world.js":28,"./world_get.js":31}],16:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -2796,7 +2756,7 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     return false;  // no missing parentheses
 };
 
-},{"./recorder.js":15,"./state.js":18,"./translator.js":21,"./visible_world.js":24,"./world.js":25,"./world_init.js":28,"./zz_dr_blockly.js":32}],18:[function(require,module,exports){
+},{"./recorder.js":15,"./state.js":18,"./translator.js":21,"./visible_world.js":28,"./world.js":29,"./world_init.js":32,"./zz_dr_blockly.js":36}],18:[function(require,module,exports){
 /* Yes, I know, global variables are a terrible thing.
    And, in a sense, the following are global variables recording a given
    state.  However, by using this convention and documentating them in a
@@ -3009,7 +2969,7 @@ RUR.storage.delete_world = function (name){
     $('#delete-world').hide();
 };
 
-},{"./custom_dialogs.js":4,"./translator.js":21,"./world.js":25,"./world_select.js":29}],20:[function(require,module,exports){
+},{"./custom_dialogs.js":4,"./translator.js":21,"./world.js":29,"./world_select.js":33}],20:[function(require,module,exports){
 /* Intended to provide information about objects carried by robot */
 
 
@@ -3089,7 +3049,7 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
     }
 };
 
-},{"./world_editor.js":26}],21:[function(require,module,exports){
+},{"./world_editor.js":30}],21:[function(require,module,exports){
 RUR.translate = function (s) {
     if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
         return RUR.translation[s];
@@ -3326,7 +3286,80 @@ RUR.ui.toggle_panel = function (button, element) {
     element.toggleClass("active");
 };
 
-},{"./exceptions.js":7,"./recorder.js":15,"./runner.js":17,"./state.js":18,"./storage.js":19,"./translator.js":21,"./world.js":25}],23:[function(require,module,exports){
+},{"./exceptions.js":7,"./recorder.js":15,"./runner.js":17,"./state.js":18,"./storage.js":19,"./translator.js":21,"./world.js":29}],23:[function(require,module,exports){
+// from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
+
+// will modify a global object - no need to export anything.
+$.ajaxPrefilter( function (options) {
+  if (options.crossDomain && jQuery.support.cors) {
+    var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+    options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+  }
+});
+
+},{}],24:[function(require,module,exports){
+/* filterInt adapted from
+https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+*/
+
+exports.filterInt = function (value) {
+  if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+    return Number(value);
+  return undefined;
+};
+
+},{}],25:[function(require,module,exports){
+/*
+    Original script title: "Object.identical.js"; version 1.12
+    Copyright (c) 2011, Chris O'Brien, prettycode.org
+    http://github.com/prettycode/Object.identical.js
+
+    Modified to assume that order of arrays is irrelevant
+    (which it should be since this is meant to be used to
+    compare worlds.)  Also adapted to ignore empty objects
+    when doing comparison; for worlds, only non-empty objects
+    are meaningful and can be compared.
+*/
+
+exports.identical = function (a, b) {
+
+    function sort(object) {
+        if (Array.isArray(object)) {
+            return object.sort();
+        }
+        else if (typeof object !== "object" || object === null) {
+            return object;
+        } else if (Object.keys(object).length === 0){
+            return undefined;
+        }
+
+        return Object.keys(object).sort().map(function(key) {
+            return {
+                key: key,
+                value: sort(object[key])
+            };
+        });
+    }
+
+    return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
+};
+
+},{}],26:[function(require,module,exports){
+// adapted from http://javascript.crockford.com/remedial.html
+
+// will modify a global object - no need to export anything.
+
+String.prototype.supplant = function (o) {
+    return this.replace(
+        /\{([^{}]*)\}/g,
+        function (a, b) {
+            var r = o[b];
+            return typeof r === 'string' || typeof r === 'number' ? r : a;
+        }
+    );
+};
+
+},{}],27:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -3625,7 +3658,7 @@ RUR.vis_robot.new_robot_images = function (images) {
     RUR.vis_robot.select_default_model(model);
 };
 
-},{"./constants.js":2,"./state.js":18}],24:[function(require,module,exports){
+},{"./constants.js":2,"./state.js":18}],28:[function(require,module,exports){
 
 /*jshint  -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR*/
@@ -4268,7 +4301,7 @@ RUR.vis_world.draw_info = function() {
     }
 };
 
-},{"./constants.js":2,"./objects.js":12,"./state.js":18,"./translator.js":21}],25:[function(require,module,exports){
+},{"./constants.js":2,"./objects.js":12,"./state.js":18,"./translator.js":21}],29:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR */
@@ -4526,7 +4559,7 @@ $("#update-library-content-btn").on("click", function(evt) {
     }
 });
 
-},{"./constants.js":2,"./exceptions.js":7,"./robot.js":16,"./state.js":18,"./translator.js":21,"./visible_world.js":24}],26:[function(require,module,exports){
+},{"./constants.js":2,"./exceptions.js":7,"./robot.js":16,"./state.js":18,"./translator.js":21,"./visible_world.js":28}],30:[function(require,module,exports){
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -4544,15 +4577,12 @@ require("./world_set.js");
 require("./menus.js");
 require("./dialogs.js");
 
+var filterInt = require("./utils/filterint.js").filterInt;
+var identical = require("./utils/identical.js").identical;
+
 RUR.we = {};   // we == World Editor
 
 RUR.we.__give_to_robot = false;
-
-function filterInt (value) {
-  if(/^\s*([0-9]+)\s*$/.test(value))
-    return parseInt(value, 10);
-  return undefined;
-}
 
 RUR.we.edit_world = function  () {
     "use strict";
@@ -4763,7 +4793,7 @@ RUR.we.toggle_editing_mode = function () {
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
         RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
-        if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
+        if (!identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
         }
         $("#editor-tab").trigger('click');
@@ -5245,7 +5275,7 @@ $("#robot_canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./constants.js":2,"./custom_dialogs.js":4,"./dialogs.js":6,"./exceptions.js":7,"./menus.js":11,"./objects.js":12,"./robot.js":16,"./state.js":18,"./translator.js":21,"./visible_world.js":24,"./world.js":25,"./world_get.js":27,"./world_set.js":30}],27:[function(require,module,exports){
+},{"./constants.js":2,"./custom_dialogs.js":4,"./dialogs.js":6,"./exceptions.js":7,"./menus.js":11,"./objects.js":12,"./robot.js":16,"./state.js":18,"./translator.js":21,"./utils/filterint.js":24,"./utils/identical.js":25,"./visible_world.js":28,"./world.js":29,"./world_get.js":31,"./world_set.js":34}],31:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
@@ -5514,7 +5544,7 @@ RUR.world_get.world_info = function (no_grid) {
 RUR.dialogs.create_and_activate( $("#world-info-button"), $("#World-info"),
                                  {height:300, width:600}, RUR.world_get.world_info);
 
-},{"./dialogs.js":6,"./objects.js":12}],28:[function(require,module,exports){
+},{"./dialogs.js":6,"./objects.js":12}],32:[function(require,module,exports){
 
 require("./visible_world.js");
 require("./constants.js");
@@ -5635,7 +5665,7 @@ RUR.world_init.set = function () {
     RUR.vis_world.refresh();
 };
 
-},{"./constants.js":2,"./visible_world.js":24}],29:[function(require,module,exports){
+},{"./constants.js":2,"./visible_world.js":28}],33:[function(require,module,exports){
 /*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -5733,7 +5763,7 @@ RUR.world_select.append_world = function (arg) {
     }
 };
 
-},{}],30:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /* In some ways, this is the counterpart of world_get.js
 */
 
@@ -5945,7 +5975,7 @@ set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit
     set_dimension();
 });
 
-},{"./exceptions.js":7,"./objects.js":12,"./recorder.js":15,"./visible_world.js":24}],31:[function(require,module,exports){
+},{"./exceptions.js":7,"./objects.js":12,"./recorder.js":15,"./visible_world.js":28}],35:[function(require,module,exports){
 /*  The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
 the other modules.  This way, in theory, (most) refactoring can take place in the
@@ -6173,7 +6203,7 @@ RUR._UR.wall_on_right_ = function (robot) {
     RUR.control.wall_on_right(robot);
 };
 
-},{"./constants.js":2,"./control.js":3,"./custom_world_select.js":5,"./file_io.js":8,"./output.js":13,"./state.js":18,"./translator.js":21,"./ui.js":22,"./visible_robot.js":23,"./world.js":25,"./world_set.js":30}],32:[function(require,module,exports){
+},{"./constants.js":2,"./control.js":3,"./custom_world_select.js":5,"./file_io.js":8,"./output.js":13,"./state.js":18,"./translator.js":21,"./ui.js":22,"./visible_robot.js":27,"./world.js":29,"./world_set.js":34}],36:[function(require,module,exports){
 /* jshint -W069 */
 
 
@@ -6901,7 +6931,7 @@ $("#blockly-wrapper").draggable({
     }
 });
 
-},{"./translator.js":21}],33:[function(require,module,exports){
+},{"./translator.js":21}],37:[function(require,module,exports){
 /* Sets up the UI for various editors.
 
 called by zzz_doc_ready.js
@@ -6932,7 +6962,7 @@ RUR.zz_dr_editor_ui = function () {
     }).draggable({cursor: "move", handle: "ul"});
 };
 
-},{}],34:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /* Sets up what happens when various changes happened in various html elements.
 
 called by zzz_doc_ready.js
@@ -7077,7 +7107,7 @@ RUR.zz_dr_onchange = function () {
 
 };
 
-},{"./aa_utils.js":1,"./file_io.js":8,"./state.js":18,"./storage.js":19,"./translator.js":21,"./ui.js":22}],35:[function(require,module,exports){
+},{"./aa_utils.js":1,"./file_io.js":8,"./state.js":18,"./storage.js":19,"./translator.js":21,"./ui.js":22}],39:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 
 called by zzz_doc_ready.js
@@ -7218,7 +7248,7 @@ RUR.zz_dr_onclick = function () {
 
 };
 
-},{"./custom_dialogs.js":4,"./permalink.js":14,"./state.js":18,"./translator.js":21,"./visible_robot.js":23,"./world.js":25,"./world_editor.js":26}],36:[function(require,module,exports){
+},{"./custom_dialogs.js":4,"./permalink.js":14,"./state.js":18,"./translator.js":21,"./visible_robot.js":27,"./world.js":29,"./world_editor.js":30}],40:[function(require,module,exports){
 
 require("./translator.js");
 require("./state.js");
@@ -7335,4 +7365,4 @@ $(document).ready(function() {
     }
 });
 
-},{"./aa_utils.js":1,"./custom_world_select.js":5,"./keyboard.js":10,"./objects.js":12,"./recorder.js":15,"./state.js":18,"./storage.js":19,"./tooltip.js":20,"./translator.js":21,"./ui.js":22,"./visible_robot.js":23,"./world.js":25,"./world_select.js":29,"./zz_dr_blockly.js":32,"./zz_dr_editor_ui.js":33,"./zz_dr_onchange.js":34,"./zz_dr_onclick.js":35}]},{},[9]);
+},{"./aa_utils.js":1,"./custom_world_select.js":5,"./keyboard.js":10,"./objects.js":12,"./recorder.js":15,"./state.js":18,"./storage.js":19,"./tooltip.js":20,"./translator.js":21,"./ui.js":22,"./visible_robot.js":27,"./world.js":29,"./world_select.js":33,"./zz_dr_blockly.js":36,"./zz_dr_editor_ui.js":37,"./zz_dr_onchange.js":38,"./zz_dr_onclick.js":39}]},{},[9]);

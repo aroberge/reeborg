@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tape test/**/*.js | tap-dot",
     "build": "browserify ./src/js/index.js -o ./src/js/reeborg_dev.js"
   },
   "repository": {
@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/aroberge/reeborg#readme",
   "devDependencies": {
-    "browserify": "^13.0.0"
+    "browserify": "^13.0.0",
+    "tap-dot": "^1.0.1",
+    "tape": "^4.4.0"
   }
 }

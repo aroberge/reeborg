@@ -16,6 +16,7 @@ require("./menus.js");
 require("./dialogs.js");
 
 var filterInt = require("./utils/filterint.js").filterInt;
+var identical = require("./utils/identical.js").identical;
 
 RUR.we = {};   // we == World Editor
 
@@ -230,7 +231,7 @@ RUR.we.toggle_editing_mode = function () {
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
         RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
-        if (!Object.identical(RUR.current_world, RUR.world.saved_world)) {
+        if (!identical(RUR.current_world, RUR.world.saved_world)) {
             $("#memorize-world").trigger('click');
         }
         $("#editor-tab").trigger('click');

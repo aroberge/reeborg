@@ -10,6 +10,8 @@ require("./translator.js");
 require("./ui.js");
 require("./exceptions.js");
 
+var identical = require("./utils/identical.js").identical;
+
 RUR.rec = {};
 
 RUR.rec.play_sound = function (sound_id) {
@@ -348,7 +350,7 @@ RUR.rec.check_goal = function (frame) {
         }
     }
     if (g.objects !== undefined) {
-        result = Object.identical(g.objects, world.objects, true);
+        result = identical(g.objects, world.objects, true);
         if (result){
             goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
         } else {
