@@ -10,29 +10,7 @@ RUR.world_set = {};
 
 var set_dimension_form;
 
-RUR.world_set.add_object = function (specific_object, x, y, nb){
-    "use strict";
-    var coords, tmp;
-    if (RUR.objects.known_objects.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
-    }
 
-    coords = x + "," + y;
-    RUR.ensure_key_exists(RUR.current_world, "objects");
-    RUR.ensure_key_exists(RUR.current_world.objects, coords);
-
-    if (nb === 0) {
-        delete RUR.current_world.objects[coords][specific_object];
-        if (Object.keys(RUR.current_world.objects[coords]).length === 0){
-            delete RUR.current_world.objects[coords];
-        }
-        if (Object.keys(RUR.current_world.objects).length === 0){
-            delete RUR.current_world.objects;
-        }
-    } else {
-        RUR.current_world.objects[coords][specific_object] = nb;
-    }
-};
 
 RUR.world_set.add_goal_object = function (specific_object, x, y, nb){
     "use strict";
@@ -40,9 +18,9 @@ RUR.world_set.add_goal_object = function (specific_object, x, y, nb){
 
     coords = x + "," + y;
 
-    RUR.ensure_key_exists(RUR.current_world, "goal");
-    RUR.ensure_key_exists(RUR.current_world.goal, "objects");
-    RUR.ensure_key_exists(RUR.current_world.goal.objects, coords);
+    RUR._ensure_key_exists(RUR.current_world, "goal");
+    RUR._ensure_key_exists(RUR.current_world.goal, "objects");
+    RUR._ensure_key_exists(RUR.current_world.goal.objects, coords);
     if (nb === 0) {
         delete RUR.current_world.goal.objects[coords][specific_object];
         if (JSON.stringify(RUR.current_world.goal.objects[coords]) === '{}'){
@@ -65,8 +43,8 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     var coords, tmp;
 
     coords = x + "," + y;
-    RUR.ensure_key_exists(RUR.current_world, "solid_objects");
-    RUR.ensure_key_exists(RUR.current_world.solid_objects, coords);
+    RUR._ensure_key_exists(RUR.current_world, "solid_objects");
+    RUR._ensure_key_exists(RUR.current_world.solid_objects, coords);
 
     try {
         tmp = parseInt(nb, 10);

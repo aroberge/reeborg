@@ -1,3 +1,5 @@
+require("./utils/supplant.js");
+
 RUR.translate = function (s) {
     if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
         return RUR.translation[s];

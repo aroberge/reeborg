@@ -13,7 +13,11 @@ require("./state.js");
 require("./world_get.js");
 require("./world_set.js");
 require("./menus.js");
-require("./dialogs.js");
+require("./dialogs/create.js");
+
+var dialog_add_object = require("./dialogs/add_object.js").dialog_add_object;
+var dialog_give_object = require("./dialogs/give_object.js").dialog_give_object;
+
 
 var filterInt = require("./utils/filterint.js").filterInt;
 var identical = require("./utils/identical.js").identical;
@@ -253,7 +257,7 @@ RUR.we.toggle_editing_mode = function () {
     }
 };
 
-RUR.dialogs.create_and_activate( $("#edit-world"), $("#edit-world-panel"),
+RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
                                  {}, RUR.we.toggle_editing_mode);
 
 RUR.we.calculate_grid_position = function () {
@@ -340,9 +344,9 @@ RUR.we.place_robot = function () {
 RUR.we._give_objects_to_robot = function (specific_object){
     "use strict";
 
-    RUR.we.specific_object = specific_object;
+    RUR.state.specific_object = specific_object;
     $("#give-object-name").html(RUR.translate(specific_object));
-    RUR.cd.dialog_give_object.dialog("open");
+    dialog_give_object.dialog("open");
 };
 
 
@@ -357,7 +361,7 @@ RUR.we.give_objects_to_robot = function (obj, nb, robot) {
     if (robot === undefined){
         robot = RUR.current_world.robots[0];
     }
-    RUR.ensure_key_exists(robot, "objects");
+    RUR._ensure_key_exists(robot, "objects");
 
     if (nb === "inf"){
         robot.objects[obj] = "infinite";
@@ -452,7 +456,7 @@ RUR.we.toggle_wall = function (x, y, orientation) {
     var coords, index;
     coords = x + "," + y;
 
-    RUR.ensure_key_exists(RUR.current_world, "walls");
+    RUR._ensure_key_exists(RUR.current_world, "walls");
     if (RUR.current_world.walls[coords] === undefined){
         RUR.current_world.walls[coords] = [orientation];
     } else {
@@ -478,8 +482,8 @@ RUR.we.toggle_goal_wall = function () {
     orientation = position[2];
     coords = x + "," + y;
 
-    RUR.ensure_key_exists(RUR.current_world, "goal");
-    RUR.ensure_key_exists(RUR.current_world.goal, "walls");
+    RUR._ensure_key_exists(RUR.current_world, "goal");
+    RUR._ensure_key_exists(RUR.current_world.goal, "walls");
     if (RUR.current_world.goal.walls[coords] === undefined){
         RUR.current_world.goal.walls[coords] = [orientation];
     } else {
@@ -511,18 +515,18 @@ RUR.we._add_object = function (specific_object){
         if (RUR.current_world.objects !== undefined &&
             RUR.current_world.objects[x+','+y] !== undefined &&
             RUR.current_world.objects[x+','+y]["box"] == 1){  // jshint ignore:line
-            RUR.world_set.add_object("box", x, y, 0);
+            RUR.add_object_at_position("box", x, y, 0);
         } else {
-            RUR.world_set.add_object("box", x, y, 1);
+            RUR.add_object_at_position("box", x, y, 1);
         }
         return;
     }
 
-    RUR.we.specific_object = specific_object;
-    RUR.we.x = x;
-    RUR.we.y = y;
+    RUR.state.specific_object = specific_object;
+    RUR.state.x = x;
+    RUR.state.y = y;
     $("#add-object-name").html(RUR.translate(specific_object));
-    RUR.cd.dialog_add_object.dialog("open");
+    dialog_add_object.dialog("open");
 };
 
 
@@ -539,8 +543,8 @@ RUR.we._add_decorative_object = function (specific_object){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
 
-    RUR.ensure_key_exists(RUR.current_world, "decorative_objects");
-    RUR.ensure_key_exists(RUR.current_world.decorative_objects, coords);
+    RUR._ensure_key_exists(RUR.current_world, "decorative_objects");
+    RUR._ensure_key_exists(RUR.current_world.decorative_objects, coords);
 
     if (RUR.current_world.decorative_objects[coords][specific_object] !== undefined) {
         delete RUR.current_world.decorative_objects[coords];
@@ -574,9 +578,9 @@ RUR.we._add_goal_objects = function (specific_object){
         return;
     }
 
-    RUR.we.specific_object = specific_object;
-    RUR.we.x = x;
-    RUR.we.y = y;
+    RUR.state.specific_object = specific_object;
+    RUR.state.x = x;
+    RUR.state.y = y;
     $("#goal-object-name").html(RUR.translate(specific_object));
     RUR.cd.dialog_goal_object.dialog("open");
 };
@@ -591,15 +595,15 @@ RUR.we.set_goal_position = function (home){
 
     $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
 
-    RUR.ensure_key_exists(world, "goal");
+    RUR._ensure_key_exists(world, "goal");
     goal = world.goal;
 
     if (goal.possible_positions === undefined) {
-        RUR.ensure_key_exists(goal, "possible_positions");
+        RUR._ensure_key_exists(goal, "possible_positions");
         if (goal.position !== undefined) {
             goal.possible_positions = [[goal.position.x, goal.position.y]];
         } else {
-            RUR.ensure_key_exists(goal, "position");
+            RUR._ensure_key_exists(goal, "position");
         }
     }
 
@@ -656,7 +660,7 @@ RUR.we.toggle_tile = function (tile){
     y = position[1];
     coords = x + "," + y;
 
-    RUR.ensure_key_exists(RUR.current_world, "tiles");
+    RUR._ensure_key_exists(RUR.current_world, "tiles");
     if (RUR.current_world.tiles[coords] === undefined ||
         RUR.current_world.tiles[coords] != tile){
         RUR.current_world.tiles[coords] = tile;
@@ -676,7 +680,7 @@ RUR.we.fill_with_tile = function (tile) {
         return;
     }
 
-    RUR.ensure_key_exists(RUR.current_world, "tiles");
+    RUR._ensure_key_exists(RUR.current_world, "tiles");
     for (x = 1; x <= RUR.COLS; x++) {
         for (y = 1; y <= RUR.ROWS; y++) {
             coords = x + "," + y;

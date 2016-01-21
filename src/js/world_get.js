@@ -3,7 +3,7 @@
 */
 
 require("./objects.js");
-require("./dialogs.js");
+require("./dialogs/create.js");
 
 RUR.world_get = {};
 
@@ -263,5 +263,5 @@ RUR.world_get.world_info = function (no_grid) {
     $("#World-info").html(information);
 };
 
-RUR.dialogs.create_and_activate( $("#world-info-button"), $("#World-info"),
+RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:300, width:600}, RUR.world_get.world_info);

@@ -1,7 +1,7 @@
 
-RUR.dialogs = {};
+require("./../libs/jquery.ui.dialog.minmax.js");
 
-RUR.dialogs.create_and_activate = function(button, element, add_options, special_fn) {
+RUR.create_and_activate_dialogs = function(button, element, add_options, special_fn) {
     var options = {
     minimize: true,
     maximize: false,
@@ -33,12 +33,12 @@ RUR.dialogs.create_and_activate = function(button, element, add_options, special
             special_fn();
         }
     });
-}
+};
 
 
-RUR.dialogs.create_and_activate($("#about-button"), $("#about-div"), {});
-RUR.dialogs.create_and_activate($("#more-menus-button"), $("#more-menus"), {height:700});
-RUR.dialogs.create_and_activate($("#special-keyboard-button"), $("#special-keyboard"),
+RUR.create_and_activate_dialogs($("#about-button"), $("#about-div"), {});
+RUR.create_and_activate_dialogs($("#more-menus-button"), $("#more-menus"), {height:700});
+RUR.create_and_activate_dialogs($("#special-keyboard-button"), $("#special-keyboard"),
         {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
 
 

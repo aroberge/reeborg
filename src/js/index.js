@@ -5,15 +5,6 @@ window.RUR = RUR || {};
 require("./utils/cors.js");
 require("./utils/supplant.js");
 
-
-
-RUR.ensure_key_exists = function(obj, key){
-    "use strict";
-    if (obj[key] === undefined){
-        obj[key] = {};
-    }
-};
-
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };

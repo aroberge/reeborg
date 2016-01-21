@@ -125,13 +125,13 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
     }
 
 
-    RUR.world_set.add_object(obj, x, y, 0);
+    RUR.add_object_at_position(obj, x, y, 0);
     if (RUR.objects[obj].in_water &&
         RUR.world_get.tile_at_position(to_x, to_y) == RUR.tiles.water &&
         !bridge_already_there){
         RUR.world_set.add_solid_object(RUR.objects[obj].in_water, to_x, to_y, 1);
     } else {
-        RUR.world_set.add_object(obj, to_x, to_y, 1);
+        RUR.add_object_at_position(obj, to_x, to_y, 1);
     }
 };
 
@@ -221,9 +221,9 @@ RUR.control._robot_put_down_object = function (robot, obj) {
         }
     }
 
-    RUR.ensure_key_exists(RUR.current_world, "objects");
+    RUR._ensure_key_exists(RUR.current_world, "objects");
     coords = robot.x + "," + robot.y;
-    RUR.ensure_key_exists(RUR.current_world.objects, coords);
+    RUR._ensure_key_exists(RUR.current_world.objects, coords);
     if (RUR.current_world.objects[coords][obj] === undefined) {
         RUR.current_world.objects[coords][obj] = 1;
     } else {
@@ -280,7 +280,7 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
             delete RUR.current_world.objects[coords];
         }
     }
-    RUR.ensure_key_exists(robot, "objects");
+    RUR._ensure_key_exists(robot, "objects");
     if (robot.objects[obj] === undefined){
         robot.objects[obj] = 1;
     } else if (robot.objects[obj] == "infinite") {
@@ -603,7 +603,7 @@ RUR.control.get_colour_at_position = function (x, y) {
 RUR.control.set_tile_at_position = function (x, y, tile) {
     "use strict";
     // note: "tile" will most often be a colour.
-    RUR.ensure_key_exists(RUR.current_world, "tiles");
+    RUR._ensure_key_exists(RUR.current_world, "tiles");
     RUR.current_world.tiles[x + "," + y] = tile;
     RUR.rec.record_frame("debug", "set_tile_at_position");
 };

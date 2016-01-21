@@ -7,84 +7,16 @@ require("./visible_world.js");
 require("./storage.js");
 require("./objects.js");
 require("./world_set.js");
+require("./libs/jquery.ui.dialog.minmax.js");
+
 
 RUR.cd = {};
 
 RUR.cd.create_custom_dialogs = function() {
 
-    RUR.cd.dialog_add_object = $("#dialog-add-object").dialog({
-        autoOpen: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            OK: function () {
-                RUR.cd.add_objects();
-            },
-            Cancel: function() {
-                RUR.cd.dialog_add_object.dialog("close");
-            }
-        },
-        close: function() {
-            RUR.cd.add_objects_form[0].reset();
-        }
-    });
-    RUR.cd.add_objects = function () {
-        "use strict";
-        var query;
-        RUR.cd.input_add_number_result = parseInt($("#input-add-number").val(), 10);
-        RUR.cd.input_maximum_result = parseInt($("#maximum-number").val(), 10);
-        if (RUR.cd.input_maximum_result > RUR.cd.input_add_number_result){
-            query =  RUR.cd.input_add_number_result + "-" + RUR.cd.input_maximum_result;
-        } else {
-            query = RUR.cd.input_add_number_result;
-        }
-        RUR.world_set.add_object(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
-        RUR.vis_world.refresh_world_edited();
-        RUR.cd.dialog_add_object.dialog("close");
-        return true;
-    };
-    RUR.cd.add_objects_form = RUR.cd.dialog_add_object.find("form").on("submit", function( event ) {
-        event.preventDefault();
-        RUR.cd.add_objects();
-    });
 
-    RUR.cd.dialog_give_object = $("#dialog-give-object").dialog({
-        autoOpen: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            OK: function () {
-                RUR.cd.give_objects();
-            },
-            Cancel: function() {
-                RUR.cd.dialog_give_object.dialog("close");
-            }
-        },
-        close: function() {
-            RUR.cd.give_objects_form[0].reset();
-        }
-    });
-    RUR.cd.give_objects = function () {
-        "use strict";
-        var query;
-        RUR.cd.input_give_number_result = parseInt($("#input-give-number").val(), 10);
-        RUR.cd.unlimited_number_result = $("#unlimited-number").prop("checked");
-        if (RUR.cd.unlimited_number_result){
-            query =  "inf";
-        } else {
-            query = RUR.cd.input_give_number_result;
-        }
-        RUR.we.give_objects_to_robot(RUR.we.specific_object, query);
-        RUR.vis_world.refresh_world_edited();
-        RUR.cd.dialog_give_object.dialog("close");
-        return true;
-    };
-    RUR.cd.give_objects_form = RUR.cd.dialog_give_object.find("form").on("submit", function( event ) {
-        event.preventDefault();
-        RUR.cd.give_objects();
-    });
+
+
 
     RUR.cd.dialog_goal_object = $("#dialog-goal-object").dialog({
         autoOpen: false,
@@ -113,7 +45,7 @@ RUR.cd.create_custom_dialogs = function() {
         } else {
             query = RUR.cd.input_goal_number_result;
         }
-        RUR.world_set.add_goal_object(RUR.we.specific_object, RUR.we.x, RUR.we.y, query);
+        RUR.world_set.add_goal_object(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
         RUR.vis_world.refresh_world_edited();
         RUR.cd.dialog_goal_object.dialog("close");
         return true;

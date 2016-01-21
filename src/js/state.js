@@ -29,7 +29,7 @@ RUR.state.set_initial_values = function () {
 
     /* Should be self-explanatory */
     RUR.state.human_language = document.documentElement.lang;
-    RUR.state.programming_language = "python"; // default
+    RUR.state.programming_language = "javascript"; // default for testing
 
     /* Python only: set to True if watching variables */
     RUR.state.watch_vars = false;
@@ -46,6 +46,11 @@ RUR.state.set_initial_values = function () {
     RUR.state.code_evaluated = false;
 
     RUR.state.do_not_record = false;
+
+    /* The following are used to hold values while editing the world */
+    RUR.state.specific_object = undefined;
+    RUR.state.x = undefined;
+    RUR.state.y = undefined;
 };
 
 RUR.state.save = function () {
