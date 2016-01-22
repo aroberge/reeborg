@@ -26,11 +26,14 @@ h5, .h5 {
 }
 code {
   color: blue;
-  border-radius: 6px; font-size:12px; padding: 2px 3px; font-weight: bold;
-       font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
-
-
+  font-size:12px;
+  font-weight: bold;
+  font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
 }
+header {
+    display: none; /* repetitive for my purpose */
+}
+a[href*="#toc1"] {display: none;}
 .navbar, .navbar-default, .navbar-header {
     background-color: #123264;
     background-image: -webkit-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
@@ -65,7 +68,7 @@ details,
 figcaption,
 figure,
 footer,
-header,
+/*header,*/
 hgroup,
 main,
 menu,
