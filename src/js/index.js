@@ -1,3 +1,4 @@
+/** @namespace RUR */
 window.RUR = RUR || {};
 
 

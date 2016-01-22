@@ -7,9 +7,11 @@
     "test": "test"
   },
   "scripts": {
-    "test": "tape test/**/*.js | tap-spec",
-    "test2": "tape test/**/*.js",
-    "build": "browserify ./src/js/index.js -o ./src/js/reeborg_dev.js"
+    "test-spec": "tape test/**/*.js | tap-spec",
+    "test": "tape test/**/*.js | tap-diff",
+    "test-raw": "tape test/**/*.js",
+    "build": "browserify ./src/js/index.js -o ./src/js/reeborg_dev.js",
+    "js_docs": "jsdoc -c jsdoc_conf.json"
   },
   "repository": {
     "type": "git",
@@ -23,9 +25,11 @@
   "homepage": "https://github.com/aroberge/reeborg#readme",
   "devDependencies": {
     "browserify": "^13.0.0",
+    "ink-docstrap": "^1.1.0",
     "mock-require": "^1.2.1",
     "proxyquire": "^1.7.3",
     "silencer": "0.0.2",
+    "tap-diff": "^0.1.1",
     "tap-spec": "^4.1.1",
     "tape": "^4.4.0"
   }

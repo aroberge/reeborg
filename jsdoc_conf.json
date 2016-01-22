@@ -1,0 +1,24 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc","closure"]
+    },
+    "source": {
+        "include": [ "src/js"],
+        "includePattern": ".+\\.js(doc)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": ["plugins/markdown"],
+    "markdown": {
+        "tags": ["summary"]
+    },
+    "opts": {
+        "destination": "./doc_js/",
+        "recurse": true,
+        "readme": "src/js/README.md",
+        "template": "./node_modules/ink-docstrap/template"
+    },
+    "templates": {
+      "theme": "reeborg"
+    }
+}

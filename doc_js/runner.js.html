@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>DocStrap Source: runner.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cereluan.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">DocStrap</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="RUR.html">RUR</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: runner.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">
+require("./translator.js");
+require("./visible_world.js");
+require("./world.js");
+require("./state.js");
+require("./zz_dr_blockly.js");
+require("./recorder.js");
+require("./world_init.js");
+
+RUR.runner = {};
+
+RUR.state.code_evaluated = false;
+
+RUR.runner.run = function (playback) {
+    var src, fatal_error_found = false;
+    if (RUR.state.editing_world &amp;&amp; !RUR.state.code_evaluated) {
+        RUR.world.saved_world = RUR.world.clone_world(RUR.current_world);
+    }
+    if (!RUR.state.code_evaluated) {
+        RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
+        RUR.world_init.set();
+
+        if (RUR.state.input_method === "blockly") {
+            if (RUR.state.programming_language == "python") {
+                editor.setValue(Blockly.Python.workspaceToCode(RUR.blockly.workspace));
+            } else {
+                editor.setValue(Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace));
+            }
+        }
+        src = editor.getValue();
+        fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
+    }
+    if (!fatal_error_found) {
+        try {
+            localStorage.setItem(RUR.settings.editor, src);
+            localStorage.setItem(RUR.settings.library, library.getValue());
+        } catch (e) {}
+        // "playback" is a function called to play back the code in a sequence of frames
+        // or a "null function", f(){} can be passed if the code is not
+        // dependent on the robot world.
+        if (RUR.state.prevent_playback) {
+            return;
+        }
+        playback();
+    }
+};
+
+RUR.runner.eval = function(src) {  // jshint ignore:line
+    var error_name, message, response, other_info, from_python, error;
+    other_info = '';
+
+    /* At some point around version 3.2.0, Brython changed the way it
+       handled uncaught errors, and no longer pass a "nice" object
+       to the surrounding Javascript environment - since this is not
+       the way Brython programmers normally do things.   While this
+       has been changed back some time after version 3.2.3, we nonetheless
+       guard against any future changes by doing our own handling. */
+
+    RUR.__python_error = false;
+    try {
+        if (RUR.state.programming_language === "javascript") {
+            RUR.runner.eval_javascript(src);
+        } else if (RUR.state.programming_language === "python") {
+            RUR.runner.eval_python(src);
+            if (RUR.__python_error) {
+                throw RUR.__python_error;
+            }
+        } else {
+            alert("FATAL ERROR: Unrecognized programming language.");
+            return true;
+        }
+    } catch (e) {
+        if (RUR.__debug){
+            console.dir(e);
+        }
+        error = {};
+        if (RUR.state.programming_language === "python") {
+            error.reeborg_shouts = e.reeborg_shouts;
+            response = RUR.runner.simplify_python_traceback(e);
+            message = response.message;
+            other_info = response.other_info;
+            error_name = response.error_name;
+            error.message = "&lt;h3>" + error_name + "&lt;/h3>&lt;h4>" +
+                                    message + "&lt;/h4>&lt;p>" + other_info + '&lt;/p>';
+        } else {
+            error_name = e.name;
+            message = e.message;
+            other_info = '';
+            if (e.reeborg_shouts !== undefined) {
+                error.message = e.reeborg_shouts;
+                error.reeborg_shouts = e.reeborg_shouts;
+            }
+        }
+
+        if (e.reeborg_shouts !== undefined){
+            RUR.rec.record_frame("error", error);
+        } else {
+            RUR.show_feedback("#Reeborg-shouts",
+                                    "&lt;h3>" + error_name + "&lt;/h3>&lt;h4>" +
+                                    message + "&lt;/h4>&lt;p>" + other_info + '&lt;/p>');
+            return true;
+        }
+    }
+    RUR.state.code_evaluated = true;
+    return false;
+};
+
+
+RUR.runner.eval_javascript = function (src) {
+    // do not "use strict"
+    var pre_code, post_code;
+    pre_code = pre_code_editor.getValue();
+    post_code = post_code_editor.getValue();
+    RUR.reset_definitions();
+    src = pre_code + "\n" + src + "\n" + post_code;
+    eval(src); // jshint ignore:line
+};
+
+
+RUR.runner.eval_python = function (src) {
+    // do not  "use strict"
+    var pre_code, post_code, highlight;
+    RUR.reset_definitions();
+    pre_code = pre_code_editor.getValue();
+    post_code = post_code_editor.getValue();
+    translate_python(src, RUR.state.highlight, RUR.state.watch_vars, pre_code, post_code);
+};
+
+RUR.runner.simplify_python_traceback = function(e) {
+    "use strict";
+    var message, error_name, other_info, diagnostic;
+    other_info = '';
+    if (e.reeborg_shouts === undefined) {
+        message = e.$message;
+        error_name = e.__name__;
+        diagnostic = '';
+        switch (error_name) {
+            case "SyntaxError":
+                try {
+                    other_info = RUR.runner.find_line_number(e.args[1][3]);
+                    if (RUR.runner.check_colons(e.args[1][3])) {
+                        other_info += RUR.translate("&lt;br>Perhaps a missing colon is the cause.");
+                    } else if (RUR.runner.check_func_parentheses(e.args[1][3])){
+                        other_info += RUR.translate("&lt;br>Perhaps you forgot to add parentheses ().");
+                    }
+                } catch (e) { // jshint ignore:line
+                    other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
+                }
+                break;
+            case "IndentationError":
+                message = RUR.translate("The code is not indented correctly.");
+                try {
+                    other_info = RUR.runner.find_line_number(e.args[1][3]);
+                    if (e.args[1][3].indexOf("RUR.set_lineno_highlight([") == -1){
+                        other_info += "&lt;br>&lt;code>" + e.args[1][3] + "&lt;/code>";
+                    }
+                } catch (e) {  // jshint ignore:line
+                    other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
+                }
+                break;
+            case "NameError":
+                try {
+                    other_info = RUR.runner.find_line_number(message);
+                    other_info += RUR.translate("&lt;br>Perhaps you misspelled a word or forgot to define a function or a variable.");
+                } catch (e) {  // jshint ignore:line
+                    other_info = "I could not analyze this error; you might want to contact my programmer.";
+                }
+                break;
+            case "Internal Javascript error: SyntaxError":
+            case "Internal Javascript error: TypeError":
+                error_name = "Invalid Python Code";
+                message = '';
+                other_info = RUR.translate("I cannot help you with this problem.");
+                break;
+            default:
+                other_info = "";
+        }
+    } else {
+        message = e.reeborg_shouts;
+        if (e.__name__ === undefined) {
+            error_name = "ReeborgError";
+        } else {
+            error_name = e.__name__;
+        }
+    }
+    return {message:message, other_info:other_info, error_name:error_name};
+};
+
+
+RUR.runner.find_line_number = function(bad_code) {
+    /** With the possibility of having code inserted by the highlighting routine,
+        with some pre-code, and with Brython not counting empty lines at the
+        beginning of a program, it is more reliable to scan the source code
+        for the offending code as identified by Brython and see if it occurs
+        only once in the user's program */
+    var lines, found, i, lineno;
+    if (bad_code.indexOf("RUR.set_lineno_highlight([") != -1){
+        bad_code = bad_code.replace("RUR.set_lineno_highlight([", "");
+        lines = bad_code.split("]");
+        lineno = lines[0] + 1;
+        return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
+    }
+    lines = editor.getValue().split("\n");
+    found = false;
+    lineno = false;
+    for (i=0; i&lt;lines.length; i++) {
+        try {
+        } catch (e) {
+            return '';
+        }
+         if(lines[i].indexOf(bad_code) != -1){
+            if (found){
+                return '';   // found the offending code twice; can not rely on this
+            } else {
+                found = true;
+                lineno = i+1;
+            }
+        }
+    }
+    if (lineno) {
+        return RUR.translate("Error found at or near line {number}.").supplant({number: lineno.toString()});
+    }
+    return '';
+};
+
+
+RUR.runner.check_colons = function(line_of_code) {
+    var tokens, line, nb_token;
+    tokens = ['if ', 'if(', 'else', 'elif ','elif(','while ','while(',
+              'for ','for(', 'def '];
+    for (nb_token=0; nb_token &lt; tokens.length; nb_token++){
+        if (line_of_code.indexOf(tokens[nb_token]) != -1){
+            if (line_of_code.indexOf(":") == -1){
+                return true;    // missing colon
+            }
+        }
+    }
+    return false;  // no missing colon
+};
+
+RUR.runner.check_func_parentheses = function(line_of_code) {
+    if (line_of_code.indexOf('def') != -1){
+        if (line_of_code.indexOf("(") == -1){
+            return true;    // missing parentheses
+        }
+    }
+    return false;  // no missing parentheses
+};
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on 2016-01-22T11:50:41-04:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>
