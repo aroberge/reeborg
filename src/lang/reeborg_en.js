@@ -49,7 +49,6 @@ RUR.reset_definitions = function () {
     window.recording = RUR._recording_;
     window.remove_robots = RUR._remove_robots_;
     window.right_is_clear = RUR._right_is_clear_;
-    window.set_max_nb_robots = RUR._set_max_nb_robots_;
     window.set_max_steps = RUR._set_max_steps_;
     window.sound = RUR._sound_;
     window.take = RUR._take_;
@@ -66,7 +65,7 @@ RUR.reset_definitions = function () {
 
     UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
-        RUR.world_set.add_robot(this.body);
+        RUR._add_robot(this.body);
     };
 
     UsedRobot.prototype.at_goal = function () {

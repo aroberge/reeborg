@@ -68,7 +68,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     RUR.file_io.load_world_file(url, shortname);
 
     if (RUR.file_io.status !== undefined) {
-        RUR.rec.frames = [];
+        RUR.frames = [];
         RUR.ui.stop();
         RUR.state.prevent_playback = true;
     }
@@ -111,7 +111,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
         }
         RUR.world.import_world(data);
         RUR.file_io.status = "success";
-        RUR.rec.frames = [];
+        RUR.frames = [];
     } else {
         $.ajax({url: url,
             async: false,

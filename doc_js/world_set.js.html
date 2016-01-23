@@ -88,7 +88,7 @@ var set_dimension_form;
  * @param {integer} y               [description]
  * @param {integer} nb              [description]
  */
-RUR.world_set.add_goal_object = function (specific_object, x, y, nb){
+RUR.add_goal_object_at_position = function (specific_object, x, y, nb){
     "use strict";
     var coords;
 
@@ -140,7 +140,7 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     }
 };
 
-RUR.world_set.add_robot = function (robot) {
+RUR._add_robot = function (robot) {
     if (RUR.current_world.robots === undefined){
         RUR.current_world.robots = [];
     }
@@ -149,11 +149,11 @@ RUR.world_set.add_robot = function (robot) {
         throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
     }
     RUR.current_world.robots.push(robot);
-    RUR.rec.record_frame();
+    RUR.record_frame();
 };
 
 
-RUR.world_set.remove_robots = function () {
+RUR._remove_robots = function () {
     if (RUR.MAX_NB_ROBOTS !== undefined){
         throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
     } else {

@@ -7,7 +7,7 @@ require("./../translator.js");
  * @memberof RUR
  * @instance
  * @summary This function sets a specified quantity of a given object
- * as a certain location.
+ * at a certain location.
  * By "object" we mean a type of object that can be taken or put down by Reeborg.
  *
  * @desc Cette fonction spécifie la quantité d'un certain type d'objet qui doit être
@@ -28,21 +28,23 @@ require("./../translator.js");
  */
 RUR.add_object_at_position = function (specific_object, x, y, nb){
     "use strict";
-    var coords, tmp;
+    var coords, cw;
     if (RUR.objects.known_objects.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
 
     coords = x + "," + y;
-    RUR._ensure_key_exists(RUR.current_world, "objects");
-    RUR._ensure_key_exists(RUR.current_world.objects, coords);
-
-    if (nb === 0) {
-        delete RUR.current_world.objects[coords][specific_object];
-        if (Object.keys(RUR.current_world.objects[coords]).length === 0){
-            delete RUR.current_world.objects[coords];
-        }
+    cw = RUR.current_world;
+    RUR._ensure_key_exists(cw, "objects");
+    RUR._ensure_key_exists(cw.objects, coords);
+    if (nb !== 0) {
+        cw.objects[coords][specific_object] = nb;
     } else {
-        RUR.current_world.objects[coords][specific_object] = nb;
+        try {
+            delete cw.objects[coords][specific_object];
+        } catch (e) {}
+        if (Object.keys(cw.objects[coords]).length === 0){
+            delete cw.objects[coords];
+        }
     }
 };

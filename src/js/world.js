@@ -155,9 +155,6 @@ RUR.world.reset = function () {
         return;
     }
     RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
-    if (RUR.MAX_NB_ROBOTS !== undefined){
-        delete RUR.MAX_NB_ROBOTS;
-    }
     RUR.vis_robot.set_trace_style("default");
     RUR.MAX_STEPS = 1000;
     RUR.vis_world.draw_all();

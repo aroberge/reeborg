@@ -1,7 +1,7 @@
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
-require("./../world_set.js");
+require("./../world_set/add_object.js");
 require("./../visible_world.js");
 require("./../state.js");
 

@@ -5,7 +5,47 @@
 
 require("./translator.js");
 
+/** @namespace state
+ * @memberof RUR.private
+ * @property {boolean} code_evaluated - True if code has been evaluated and ready for playback.
+ * @property {boolean} do_not_record - If True, recording of frames do not occur.
+ * @property {boolean} editing_world - True if currently editing the world.
+ * @property {boolean} highlight - Indicates if the Python code in the editor will be
+ *     highlighted during the playback.
+ * @property {string} human_language - Standard two letter code
+ * @property {boolean} images_loaded - Indicates if all images have been loaded
+ *          so that the splash screen can be removed
+ * @property {string} input_method - Get program from "editor", "blockly" or "repl"?
+ * @property {string} programming_language - "python" or "javascript"
+ * @property {boolean} playback - True if playback active and not paused.
+ * @property {boolean} prevent_playback - TODO: see if this can be removed.
+ * @property {string} sound_id - "global" variable intended for private use.
+ * @property {boolean} sound_on - indicates if attempt must be made to play sounds.
+ * @property {string} specific_object - Object selected while editing world.
+ * @property {boolean} stop_called - True if stop button has been clicked.
+ * @property {boolean} watch_vars - Python only: set to True if watching variables
+ * @property {integer} x - Position selected while editing world.
+ * @property {integer} y - Position selected while editing world.
+ */
 RUR.state = {};
+RUR.state.code_evaluated = false;
+RUR.state.do_not_record = false;
+RUR.state.editing_world = false;
+RUR.state.highlight = true;
+RUR.state.human_language = "en";
+RUR.state.images_loaded = false;
+RUR.state.input_method = "editor";
+RUR.state.programming_language = "javascript"; // default for testing
+RUR.state.playback = false;
+RUR.state.prevent_playback = false;
+RUR.state.sound_id = undefined;
+RUR.state.sound_on = false;
+RUR.state.specific_object = undefined;
+RUR.state.stop_called = false;
+RUR.state.watch_vars = false;
+RUR.state.x = undefined;
+RUR.state.y = undefined;
+
 
 // TODO: create RUR.state.do_highlight()
 // this would be to combine all the flags required to have highlighting on
@@ -13,49 +53,14 @@ RUR.state = {};
 // TODO: after simplifying the permalink, see if RUR.state.prevent_playback
 // is still needed.
 
-RUR.state.set_initial_values = function () {
-    /* Determines if the Python code in the editor is going to be
-       highlighted in sync with playback. */
-    RUR.state.highlight = true;
-
-    /* Determines if all images are loaded, with a splash screen shown
-       in the meantime.  This can help end-user identify problems
-       (if splash-screen does not go away) and prevent user from clicking on
-       buttons (e.g. "run") before everything is ready. */
-    RUR.state.images_loaded = false;
-
-    /* Get program input from editor, blockly or repl? */
-    RUR.state.input_method = "editor";
-
-    /* Should be self-explanatory */
-    RUR.state.human_language = document.documentElement.lang;
-    RUR.state.programming_language = "javascript"; // default for testing
-
-    /* Python only: set to True if watching variables */
-    RUR.state.watch_vars = false;
-
-    /* if stop button has been clicked */
-    RUR.state.stop_called = false;
-
-    RUR.state.prevent_playback = false;
-
-    RUR.state.sound_on = false;
-    RUR.state.sound_id = undefined;
-
-    RUR.state.editing_world = false;
-    RUR.state.code_evaluated = false;
-
-    RUR.state.do_not_record = false;
-
-    /* The following are used to hold values while editing the world */
-    RUR.state.specific_object = undefined;
-    RUR.state.x = undefined;
-    RUR.state.y = undefined;
-};
-
+/** @function save
+ *  @memberof RUR.private.state
+ *  @instance
+ *  @summary Intended to save selected subset of state to local storage so that
+ *  future sessions can resume in same state.
+ */
 RUR.state.save = function () {
     /* Saves the current state in local storage */
-
     localStorage.setItem("programming_language", RUR.state.programming_language);
 };
 

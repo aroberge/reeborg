@@ -16,7 +16,7 @@ RUR.output.write = function () {
         }
     }
     output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-    RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
+    RUR.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
 
 RUR.output._write = function () {
@@ -28,23 +28,23 @@ RUR.output._write = function () {
             output_string += JSON.stringify(arguments[i]);
         }
     }
-    RUR.rec.record_frame("stdout", {"element": "#stdout", "message": output_string});
+    RUR.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
 
 RUR.output.clear_print = function () {
-    RUR.rec.record_frame("stdout", {"element": "#stdout", "clear": true});
+    RUR.record_frame("stdout", {"element": "#stdout", "clear": true});
 };
 
 RUR.output.print_html = function (arg, append) {
     if (append) {
-        RUR.rec.record_frame("print_html", {"element": "#print_html", "message": arg, "append": true});
+        RUR.record_frame("print_html", {"element": "#print_html", "message": arg, "append": true});
     } else {
-        RUR.rec.record_frame("print_html", {"element": "#print_html", "message": arg});
+        RUR.record_frame("print_html", {"element": "#print_html", "message": arg});
     }
 };
 
 RUR.output.watch_variables = function (arg) {
-    RUR.rec.record_frame("watch_variables", {"element": "#watch_variables", "message": arg});
+    RUR.record_frame("watch_variables", {"element": "#watch_variables", "message": arg});
 };
 
 

@@ -15,6 +15,10 @@ require("./world_set.js");
 require("./menus.js");
 require("./dialogs/create.js");
 
+require("./world_set/add_object.js");
+require("./world_set/add_goal_object.js");
+require("./world_set/add_robot.js");
+
 var dialog_add_object = require("./dialogs/add_object.js").dialog_add_object;
 var dialog_give_object = require("./dialogs/give_object.js").dialog_give_object;
 
@@ -104,7 +108,7 @@ RUR.we.select = function (choice) {
                 break;
             case "add":
                 RUR.we.alert_1("Added robot.");
-                RUR.we.add_robot();
+                RUR._add_robot();
                 RUR.we.edit_world();
                 RUR.menus.change_edit_robot();
                 break;
@@ -302,7 +306,7 @@ RUR.we.place_robot = function () {
                 robot.start_positions = [[robot.x, robot.y]];
             }
         } else {
-            RUR.we.add_robot();
+            RUR._add_robot();
             robot = world.robots[0];
             robot.x = position[0];
             robot.y = position[1];
@@ -382,11 +386,6 @@ RUR.we.turn_robot = function (orientation) {
     RUR.current_world.robots[0]._orientation = orientation;
     RUR.current_world.robots[0]._prev_orientation = orientation;
     RUR.vis_world.refresh_world_edited();
-};
-
-RUR.we.add_robot = function () {
-    "use strict";
-    RUR.current_world.robots = [RUR.robot.create_robot()];
 };
 
 RUR.we.calculate_wall_position = function () {
@@ -566,14 +565,15 @@ RUR.we._add_goal_objects = function (specific_object){
     y = position[1];
     coords = x + "," + y;
 
+    // TODO investigate potential bug; should toggle if box ...
     if (specific_object == "box") {
         if (RUR.current_world.goal !== undefined &&
             RUR.current_world.goal.objects !== undefined &&
             RUR.current_world.goal.objects[coords] !== undefined &&
             RUR.current_world.goal.objects[coords].box ==1){
-                RUR.world_set.add_goal_object("box", x, y, 0);
+                RUR.add_goal_object_at_position("box", x, y, 0);
         } else {
-            RUR.world_set.add_goal_object("box", x, y, 1);
+            RUR.add_goal_object_at_position("box", x, y, 1);
         }
         return;
     }

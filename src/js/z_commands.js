@@ -22,7 +22,6 @@ require("./state.js");
 require("./world.js");
 require("./world_set.js");
 
-
 RUR.inspect = function (obj){
     var props, result = "";
     for (props in obj) {
@@ -35,8 +34,6 @@ RUR.inspect = function (obj){
     RUR.output._write(result);
 };
 
-
-RUR._UR = {};
 
 RUR._at_goal_ = function () {
     return RUR.control.at_goal(RUR.current_world.robots[0]);
@@ -111,7 +108,9 @@ RUR._recording_ = function(bool) {
     }
 };
 
-RUR._remove_robots_ = RUR.world_set.remove_robots;
+RUR._remove_robots_ = function () {
+    RUR.current_world.robots = [];
+};
 
 RUR._right_is_clear_ = function() {
     return RUR.control.right_is_clear(RUR.current_world.robots[0]);
@@ -120,8 +119,6 @@ RUR._right_is_clear_ = function() {
 RUR._set_max_nb_instructions_ = function(n){
     RUR.MAX_STEPS = n;
 };
-
-RUR._set_max_nb_robots_ = RUR.control.set_max_nb_robots;
 
 RUR._set_trace_color_ = function(color){
     RUR.current_world.robots[0].trace_color = color;
@@ -160,6 +157,8 @@ RUR._MakeCustomMenu_ = RUR.custom_world_select.make;
 RUR._World_ = RUR.file_io.load_world_from_program;
 
 /*  methods below */
+
+RUR._UR = {};
 
 RUR._UR.at_goal_ = function (robot) {
     RUR.control.at_goal(robot);

@@ -10,6 +10,19 @@
 td.description p {
     font-style: normal;
     color: black;
+    margin: 0;
+}
+dl {
+    margin: 0;
+}
+dt a {
+    font-size: 1.4em;
+}
+hr {
+    display:none;
+}
+table {
+    border-bottom: 1px solid #ccc;
 }
 .description p, .last em, .last br {
     color: green;
@@ -30,10 +43,6 @@ code {
   font-weight: bold;
   font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
 }
-header {
-    display: none; /* repetitive for my purpose */
-}
-a[href*="#toc1"] {display: none;}
 .navbar, .navbar-default, .navbar-header {
     background-color: #123264;
     background-image: -webkit-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
@@ -1480,10 +1489,10 @@ ol ol {
   padding-left: 5px;
   padding-right: 5px;
 }
-dl {
+/*dl {
   margin-top: 0;
   margin-bottom: 20px;
-}
+}*/
 dt,
 dd {
   line-height: 1.42857143;

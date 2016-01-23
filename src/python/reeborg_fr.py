@@ -226,14 +226,6 @@ def max_nb_instructions(nb):  #py:set_max_nb_instructions
     RUR._set_max_steps_(nb)
 
 
-def max_nb_robots(nb):  #py:set_max_nb_robots
-    """Surtout destiné aux créateurs de mondes,
-       ceci permet de limiter le nombre de robots
-       permis dans un monde donné.
-    """
-    RUR._set_max_nb_robots_(nb)
-
-
 def couleur_de_trace(couleur):  #py:set_trace_color
     """Change la couleur de trace du robot.
 
@@ -383,7 +375,7 @@ class RobotUsage(object):  #py:UR
         else:
             robot = RUR.robot.create_robot(x, y, orientation, jeton)
         self.body = robot
-        RUR.world_set.add_robot(self.body)
+        RUR._add_robot(self.body)
 
     def __str__(self):  #py:UR.__str__
         location = "({}, {})".format(self.body.x, self.body.y)

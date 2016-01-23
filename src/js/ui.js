@@ -62,11 +62,11 @@ RUR.ui.run = function () {
 };
 
 RUR.ui.pause = function (ms) {
-    RUR.rec.playback = false;
+    RUR.state.playback = false;
     clearTimeout(RUR.rec.timer);
     $("#pause").attr("disabled", "true");
     if (ms !== undefined){      // pause called via a program instruction
-        RUR.rec.timer = setTimeout(RUR.ui.run, ms);  // will reset RUR.rec.playback to true
+        RUR.rec.timer = setTimeout(RUR.ui.run, ms);  // will reset RUR.state.playback to true
     } else {
         $("#run").removeAttr("disabled");
         $("#step").removeAttr("disabled");
@@ -84,8 +84,8 @@ RUR.ui.step = function () {
 
 
 RUR.ui.reverse_step = function () {
-    RUR.rec.current_frame -= 2;
-    if (RUR.rec.current_frame < 0){
+    RUR.current_frame_no -= 2;
+    if (RUR.current_frame_no < 0){
         $("#reverse-step").attr("disabled", "true");
     }
     RUR.runner.run(RUR.rec.display_frame);

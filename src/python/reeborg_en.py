@@ -223,13 +223,6 @@ def set_max_nb_instructions(nb):  #py:set_max_nb_instructions
     RUR._set_max_nb_instructions_(nb)
 
 
-def set_max_nb_robots(nb):  #py:set_max_nb_robots
-    """Intended primarily for world creators, this function
-       allows to set the maximum number of robots allowed in a given world.
-    """
-    RUR._set_max_nb_robots_(nb)
-
-
 def set_trace_color(color):  #py:set_trace_color
     """Change the color of the trace (oil leak).
 
@@ -381,7 +374,7 @@ class UsedRobot(object):  #py:UR
         else:
             robot = RUR.robot.create_robot(x, y, orientation, tokens)
         self.body = robot
-        RUR.world_set.add_robot(self.body)
+        RUR._add_robot(self.body)
 
     def __str__(self):  #py:UR.__str__
         location = "({}, {})".format(self.body.x, self.body.y)

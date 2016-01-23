@@ -11,40 +11,7 @@ RUR.world_set = {};
 var set_dimension_form;
 
 
-/** @function add_goal object
- * @desc description here
- * @memberof RUR
- * @instance
- * @param {string} specific_object [description]
- * @param {integer} x               [description]
- * @param {integer} y               [description]
- * @param {integer} nb              [description]
- */
-RUR.world_set.add_goal_object = function (specific_object, x, y, nb){
-    "use strict";
-    var coords;
 
-    coords = x + "," + y;
-
-    RUR._ensure_key_exists(RUR.current_world, "goal");
-    RUR._ensure_key_exists(RUR.current_world.goal, "objects");
-    RUR._ensure_key_exists(RUR.current_world.goal.objects, coords);
-    if (nb === 0) {
-        delete RUR.current_world.goal.objects[coords][specific_object];
-        if (JSON.stringify(RUR.current_world.goal.objects[coords]) === '{}'){
-            delete RUR.current_world.goal.objects[coords];
-        }
-        if (JSON.stringify(RUR.current_world.goal.objects) === '{}'){
-            delete RUR.current_world.goal.objects;
-        }
-        if (JSON.stringify(RUR.current_world.goal) === '{}'){
-            delete RUR.current_world.goal;
-        }
-    } else {
-        RUR.current_world.goal.objects[coords][specific_object] = nb;
-        RUR.vis_world.draw_goal();
-    }
-};
 
 RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     "use strict";
@@ -72,26 +39,7 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     }
 };
 
-RUR.world_set.add_robot = function (robot) {
-    if (RUR.current_world.robots === undefined){
-        RUR.current_world.robots = [];
-    }
-    if (RUR.MAX_NB_ROBOTS !== undefined &&
-        RUR.MAX_NB_ROBOTS >= RUR.current_world.robots.length){
-        throw new RUR.ReeborgError(RUR.translate("You cannot create another robot!"));
-    }
-    RUR.current_world.robots.push(robot);
-    RUR.rec.record_frame();
-};
 
-
-RUR.world_set.remove_robots = function () {
-    if (RUR.MAX_NB_ROBOTS !== undefined){
-        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
-    } else {
-        RUR.current_world.robots = [];
-    }
-};
 
 RUR.world_set.remove_all = function () {
     RUR.current_world.robots = [];

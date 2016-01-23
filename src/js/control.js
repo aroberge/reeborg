@@ -90,7 +90,7 @@ RUR.control.move = function (robot) {
     }
 
     RUR.state.sound_id = "#move-sound";
-    RUR.rec.record_frame("debug", "RUR.control.move");
+    RUR.record_frame("debug", "RUR.control.move");
 
     tile = RUR.world_get.tile_at_position(robot.x, robot.y);
     if (tile) {
@@ -144,7 +144,7 @@ RUR.control.turn_left = function(robot){
     robot._orientation += 1;  // could have used "++" instead of "+= 1"
     robot._orientation %= 4;
     RUR.state.sound_id = "#turn-sound";
-    RUR.rec.record_frame("debug", "RUR.control.turn_left");
+    RUR.record_frame("debug", "RUR.control.turn_left");
 };
 
 RUR.control.__turn_right = function(robot){
@@ -154,11 +154,11 @@ RUR.control.__turn_right = function(robot){
     robot._prev_y = robot.y;
     robot._orientation += 3;
     robot._orientation %= 4;
-    RUR.rec.record_frame("debug", "RUR.control.__turn_right");
+    RUR.record_frame("debug", "RUR.control.__turn_right");
 };
 
 RUR.control.pause = function (ms) {
-    RUR.rec.record_frame("pause", {pause_time:ms});
+    RUR.record_frame("pause", {pause_time:ms});
 };
 
 RUR.control.done = function () {
@@ -229,7 +229,7 @@ RUR.control._robot_put_down_object = function (robot, obj) {
     } else {
         RUR.current_world.objects[coords][obj] += 1;
     }
-    RUR.rec.record_frame("debug", "RUR.control._put_object");
+    RUR.record_frame("debug", "RUR.control._put_object");
 };
 
 
@@ -288,7 +288,7 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     } else {
         robot.objects[obj]++;
     }
-    RUR.rec.record_frame("debug", "RUR.control._take_object");
+    RUR.record_frame("debug", "RUR.control._take_object");
 };
 
 
@@ -340,7 +340,7 @@ RUR.control.build_wall = function (robot){
         walls[coords].push(orientation);
     }
     RUR.state.sound_id = "#build-sound";
-    RUR.rec.record_frame("debug", "RUR.control.build_wall");
+    RUR.record_frame("debug", "RUR.control.build_wall");
 };
 
 
@@ -497,7 +497,7 @@ RUR.control.is_facing_north = function (robot) {
 };
 
 RUR.control.think = function (delay) {
-    RUR.rec.delay = delay;
+    RUR.playback_delay = delay;
 };
 
 RUR.control.at_goal = function (robot) {
@@ -570,7 +570,7 @@ RUR.control.carries_object = function (robot, obj) {
 
 RUR.control.set_model = function(robot, model){
     robot.model = model;
-    RUR.rec.record_frame();
+    RUR.record_frame();
  };
 
 RUR.control.set_trace_color = function(robot, color){
@@ -605,14 +605,5 @@ RUR.control.set_tile_at_position = function (x, y, tile) {
     // note: "tile" will most often be a colour.
     RUR._ensure_key_exists(RUR.current_world, "tiles");
     RUR.current_world.tiles[x + "," + y] = tile;
-    RUR.rec.record_frame("debug", "set_tile_at_position");
-};
-
-
-RUR.control.set_max_nb_robots = function(nb){
-    if (RUR.MAX_NB_ROBOTS !== undefined){
-        throw new RUR.ReeborgError(RUR.translate("Cheater! You are not allowed to change the number of robots this way!"));
-    } else {
-        RUR.MAX_NB_ROBOTS = nb;
-    }
+    RUR.record_frame("debug", "set_tile_at_position");
 };

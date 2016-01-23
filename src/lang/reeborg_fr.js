@@ -42,7 +42,6 @@ RUR.reset_definitions = function () {
     window.enregistrement = RUR._recording_;
     window.plus_de_robots = RUR._remove_robots_;
     window.rien_a_droite = RUR._right_is_clear_;
-    window.nombre_de_robots = RUR._set_max_nb_robots_;
     window.nombre_d_instructions = RUR._set_max_steps_;
     window.son = RUR._sound_;
     window.prend = RUR._take_;
@@ -59,7 +58,7 @@ RUR.reset_definitions = function () {
     // The following are for OOP programming in Javascript
     RobotUsage = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
-        RUR.world_set.add_robot(this.body);
+        RUR._add_robot(this.body);
     };
     RobotUsage.prototype.au_but = function () {
         RUR._UR.at_goal_(this.body);

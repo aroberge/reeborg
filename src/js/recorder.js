@@ -14,30 +14,26 @@ var identical = require("./utils/identical.js").identical;
 
 RUR.rec = {};
 
-RUR.rec.play_sound = function (sound_id) {
-    var current_sound;
-    current_sound = $(sound_id)[0];
-    current_sound.load();
-    current_sound.play();
-};
+
 
 RUR.set_lineno_highlight = function(lineno, frame) {
-    RUR.current_lineno = lineno;
+    RUR.current_line_no = lineno;
     if (frame) {
-        RUR.rec.record_frame();
+        RUR.record_frame();
         return true;
     }
 };
 
 RUR.rec.reset = function() {
-    RUR.rec.nb_frames = 0;
-    RUR.rec.current_frame = 0;
-    RUR.rec.extra_highlighting_frames = 0;
-    RUR.current_lineno = undefined;
-    RUR.rec.frames = [];
+    RUR.nb_frames = 0;
+    RUR.current_frame_no = 0;
+    RUR.nb_extra_highlighting_frames = 0;  // TODO: see if we can eliminate this
+    // by inserting highlighting info in previous frame instead of separate frames.
+    RUR.current_line_no = undefined;
+    RUR.frames = [];
     RUR.rec._line_numbers = [];
-    RUR.rec.playback = false;
-    RUR.rec.delay = 300;
+    RUR.state.playback = false;
+    RUR.playback_delay = 300;
     RUR.state.do_not_record = false;
     RUR.watched_expressions = [];
     clearTimeout(RUR.rec.timer);
@@ -55,86 +51,13 @@ RUR.rec.reset = function() {
 };
 
 
-RUR.rec.record_frame = function (name, obj) {
-    // clone current world and store the clone
-    var frame = {};
-
-    /* if the REPL is active, we do not record anything, and show immediately
-       the updated world */
-    if (RUR.state.programming_language === "python" && RUR.state.input_method==="repl") {
-        RUR.vis_world.refresh();
-        if (name !== undefined && name == "print_html") {
-            if (obj.append){
-                $(obj.element).append(obj.message);
-            } else {
-                $(obj.element).html(obj.message);
-            }
-            $("#Reeborg-proclaims").dialog("open");
-        }
-        return;
-    }
-
-
-    if (RUR.state.do_not_record) {
-        return;
-    }
-    if (RUR.state.prevent_playback){
-        return;
-    }
-
-    // // Used mainly to add watch variables to previous frame
-    // if (name !== undefined && name == "output" &&
-    //     obj.element == "#print_html" && obj.append == undefined &&
-    //     RUR.rec.nb_frames > 1) {
-    //     RUR.rec.frames[RUR.rec.nb_frames-1]["output"] = obj;
-    //     return;
-    // }
-
-
-    frame.world = RUR.world.clone_world();
-    if (name !== undefined) {
-        frame[name] = obj;
-    }
-
-    frame.delay = RUR.rec.delay;
-    if (RUR.state.sound_id && RUR.state.sound_on && frame.delay >= RUR.MIN_TIME_SOUND) {
-        frame.sound_id = RUR.state.sound_id;
-    }
-
-   if (RUR.state.programming_language === "python" && RUR.state.highlight) {
-       if (RUR.current_lineno !== undefined) {
-           RUR.rec._line_numbers [RUR.rec.nb_frames] = RUR.current_lineno;
-       } else{
-           RUR.rec._line_numbers [RUR.rec.nb_frames] = [0];
-       }
-   }
-
-    RUR.previous_lineno = RUR.current_lineno;
-
-    RUR.rec.frames[RUR.rec.nb_frames] = frame;
-    RUR.rec.nb_frames++;
-
-    RUR.state.sound_id = undefined;
-    if (name === "error"){
-        return;
-    }
-
-    // catch any robot that teleported itself to a forbidden tile
-    // to try to do a sneaky action
-    RUR.rec.check_robots_on_tiles(frame);
-
-    if (RUR.rec.nb_frames > RUR.MAX_STEPS + RUR.rec.extra_highlighting_frames) {
-        throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
-    }
-};
-
 RUR.rec.play = function () {
     "use strict";
-    if (RUR.rec.playback){            // RUR.visible_world.running
-        RUR.rec.playback = false;
+    if (RUR.state.playback){            // RUR.visible_world.running
+        RUR.state.playback = false;
         return;
     }
-    RUR.rec.playback = true;
+    RUR.state.playback = true;
     RUR.rec.loop();
 };
 
@@ -142,7 +65,7 @@ RUR.rec.loop = function () {
     "use strict";
     var frame_info;
 
-    if (!RUR.rec.playback){
+    if (!RUR.state.playback){
         return;
     }
     frame_info = RUR.rec.display_frame();
@@ -153,7 +76,7 @@ RUR.rec.loop = function () {
         RUR.ui.stop();
         return;
     }
-    RUR.rec.timer = setTimeout(RUR.rec.loop, RUR.rec.delay);
+    RUR.rec.timer = setTimeout(RUR.rec.loop, RUR.playback_delay);
 };
 
 RUR.rec.display_frame = function () {
@@ -161,7 +84,7 @@ RUR.rec.display_frame = function () {
     "use strict";
     var frame, goal_status, i, next_frame_line_numbers;
 
-    if (RUR.rec.current_frame >= RUR.rec.nb_frames) {
+    if (RUR.current_frame_no >= RUR.nb_frames) {
         return RUR.rec.conclude();
     }
 
@@ -172,8 +95,8 @@ RUR.rec.display_frame = function () {
                 editor.removeLineClass(RUR.rec._previous_lines[i], 'background', 'editor-highlight');
             }
         }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
-        if (RUR.rec._line_numbers [RUR.rec.current_frame+1] !== undefined){
-            next_frame_line_numbers = RUR.rec._line_numbers [RUR.rec.current_frame+1];
+        if (RUR.rec._line_numbers [RUR.current_frame_no+1] !== undefined){
+            next_frame_line_numbers = RUR.rec._line_numbers [RUR.current_frame_no+1];
             for(i = 0; i < next_frame_line_numbers.length; i++){
                 editor.addLineClass(next_frame_line_numbers[i], 'background', 'editor-highlight');
             }
@@ -181,7 +104,7 @@ RUR.rec.display_frame = function () {
             if (RUR.rec._max_lineno_highlighted < next_frame_line_numbers[i]) {
                 RUR.rec._max_lineno_highlighted = next_frame_line_numbers[i];
             }
-            RUR.rec._previous_lines = RUR.rec._line_numbers [RUR.rec.current_frame+1];
+            RUR.rec._previous_lines = RUR.rec._line_numbers [RUR.current_frame_no+1];
         } else {
             try {  // try adding back to capture last line of program
                 for (i=0; i < RUR.rec._previous_lines.length; i++){
@@ -191,8 +114,8 @@ RUR.rec.display_frame = function () {
         }
     }
 
-    frame = RUR.rec.frames[RUR.rec.current_frame];
-    RUR.rec.current_frame++;
+    frame = RUR.frames[RUR.current_frame_no];
+    RUR.current_frame_no++;
 
     if (frame === undefined){
         //RUR.current_world = RUR.world.saved_world;  // useful when ...
@@ -210,7 +133,7 @@ RUR.rec.display_frame = function () {
 
 
     if (frame.delay !== undefined){
-        RUR.rec.delay = frame.delay;
+        RUR.playback_delay = frame.delay;
     }
 
     if (frame.pause) {
@@ -247,7 +170,7 @@ RUR.rec.display_frame = function () {
 
     RUR.current_world = frame.world;
     if (frame.sound_id !== undefined){
-        RUR.rec.play_sound(frame.sound_id);
+        RUR._play_sound(frame.sound_id);
     }
     RUR.vis_world.refresh();
 };
@@ -255,8 +178,8 @@ RUR.rec.display_frame = function () {
 RUR.rec.conclude = function () {
     var frame, goal_status;
 
-    if (RUR.rec.nb_frames > 0) {
-        frame = RUR.rec.frames[RUR.rec.nb_frames-1];
+    if (RUR.nb_frames > 0) {
+        frame = RUR.frames[RUR.nb_frames-1];
     }
     if (frame === undefined) {
         frame = {};
@@ -266,18 +189,18 @@ RUR.rec.conclude = function () {
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
             if (RUR.state.sound_on) {
-                RUR.rec.play_sound("#success-sound");
+                RUR._play_sound("#success-sound");
             }
             RUR.show_feedback("#Reeborg-concludes", goal_status.message);
         } else {
             if (RUR.state.sound_on) {
-                RUR.rec.play_sound("#error-sound");
+                RUR._play_sound("#error-sound");
             }
             RUR.show_feedback("#Reeborg-shouts", goal_status.message);
         }
     } else {
         if (RUR.state.sound_on) {
-            RUR.rec.play_sound("#success-sound");
+            RUR._play_sound("#success-sound");
         }
         RUR.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
@@ -295,14 +218,14 @@ RUR.rec.handle_error = function (frame) {
             return RUR.rec.conclude();
         } else {
             if (RUR.state.sound_on) {
-                RUR.rec.play_sound("#success-sound");
+                RUR._play_sound("#success-sound");
             }
             RUR.show_feedback("#Reeborg-concludes",
                 RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else {
         if (RUR.state.sound_on) {
-            RUR.rec.play_sound("#error-sound");
+            RUR._play_sound("#error-sound");
         }
         RUR.show_feedback("#Reeborg-shouts", frame.error.message);
     }

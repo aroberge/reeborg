@@ -93,7 +93,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         }
 
         if (e.reeborg_shouts !== undefined){
-            RUR.rec.record_frame("error", error);
+            RUR.record_frame("error", error);
         } else {
             RUR.show_feedback("#Reeborg-shouts",
                                     "<h3>" + error_name + "</h3><h4>" +

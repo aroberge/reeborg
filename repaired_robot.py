@@ -15,7 +15,7 @@ class RepairedRobot(UsedRobot):
         self.body.orientation += 3
         self.body.orientation %= 4
         if no_frame: return
-        RUR.rec.record_frame()
+        RUR.record_frame()
 
     def turn_around(self):
         self.body._prev_orientation = self.body.orientation + 1
@@ -24,7 +24,7 @@ class RepairedRobot(UsedRobot):
         self.body._prev_y = self.body.y
         self.body.orientation += 2
         self.body.orientation %= 4
-        RUR.rec.record_frame
+        RUR.record_frame
 
     def is_facing_south(self):
         return self.body.orientation == RUR.SOUTH

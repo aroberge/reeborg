@@ -32,7 +32,7 @@
 			<li class="dropdown">
 				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="RUR.html">RUR</a></li>
+					<li><a href="RUR.html">RUR</a></li><li><a href="RUR.private.html">RUR.private</a></li><li><a href="RUR.private.state.html">RUR.private.state</a></li>
 				</ul>
 			</li>
 			
@@ -123,6 +123,13 @@
     
 
     
+        <h3 class="subsection-title">Namespaces</h3>
+
+        <dl>
+            <dt><a href="namespaces.html#RUR.private"><a href="RUR.private.html">private</a></a></dt>
+            <dd></dd>
+        </dl>
+    
 
     
 
@@ -133,15 +140,21 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="add_goalobject"><span class="type-signature"></span>add_goal object(specific_object, x, y, nb)</h4>
+    <h4 class="name" id="add_goal_object"><span class="type-signature"></span>add_goal_object(specific_object, x, y, nb)</h4>
     
+    
+    <p class="summary"><p>This function sets a specified quantity of a given object
+as a goal at a certain location.
+By &quot;object&quot; we mean a type of object that can be taken or put down by Reeborg.</p></p>
     
 </dt>
 <dd>
 
     
     <div class="description">
-        <p>description here</p>
+        <p>Cette fonction spécifie la quantité d'un certain type d'objet qui doit être
+mis comme but à un endroit donné.
+Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou déposé par Reeborg.</p>
     </div>
     
 
@@ -193,7 +206,8 @@
 
             
 
-            <td class="description last"><p>[description]</p></td>
+            <td class="description last"><p>The name of the object type ; e.g. &quot;token&quot; <br>
+                       <em>Le nom du type de l'objet; par exemple, &quot;jeton&quot;.</em></p></td>
         </tr>
 
     
@@ -217,7 +231,8 @@
 
             
 
-            <td class="description last"><p>[description]</p></td>
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
         </tr>
 
     
@@ -241,7 +256,8 @@
 
             
 
-            <td class="description last"><p>[description]</p></td>
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
         </tr>
 
     
@@ -265,7 +281,10 @@
 
             
 
-            <td class="description last"><p>[description]</p></td>
+            <td class="description last"><p>Number of desired objects at that location;
+          a value of zero is used to remove any such goal set.
+          <br> <em>Nombre d'objets désiré à cet endroit;
+ une valeur de zéro est utilisée pour supprimer un but semblable pré-existant.</em></p></td>
         </tr>
 
     
@@ -337,7 +356,7 @@
     
     
     <p class="summary"><p>This function sets a specified quantity of a given object
-as a certain location.
+at a certain location.
 By &quot;object&quot; we mean a type of object that can be taken or put down by Reeborg.</p></p>
     
 </dt>
@@ -541,6 +560,188 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
     
 </dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toggle_decorative_object_at_position"><span class="type-signature"></span>toggle_decorative_object_at_position(specific_object, x, y)</h4>
+    
+    
+    <p class="summary"><p>This function adds or remove a given decorative object
+at a certain location.</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Cette fonction ajoute ou enlève un objet décoratif à un endroit donné.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>specific_object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the object type ; e.g. &quot;token&quot; <br>
+                       <em>Le nom du type de l'objet; par exemple, &quot;jeton&quot;.</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
         </dl>
     
 
@@ -589,7 +790,7 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
 <span class="jsdoc-message">
 	Documentation generated
 	
-		on 2016-01-22T15:55:14-04:00
+		on 2016-01-23T11:38:35-04:00
 	</a>.
 </span>
 </footer>
