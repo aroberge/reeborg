@@ -1,7 +1,8 @@
 require("./../exceptions.js");
-require("./../utils/key_exist.js");
 require("./../objects.js");
 require("./../translator.js");
+require("./../utils/key_exist.js");
+
 
 /** @function toggle_decorative_object_at_position
  * @memberof RUR
@@ -12,7 +13,7 @@ require("./../translator.js");
  * @desc Cette fonction ajoute ou enlève un objet décoratif à un endroit donné.
  *
  * @param {string} specific_object The name of the object type ; e.g. "token" <br>
- *                        _Le nom du type de l'objet; par exemple, "jeton"._
+ *                        _Le nom (anglais) du type de l'objet; par exemple, "token"._
  * @param {integer} x - Position of the object
  *                    <br> _position de l'objet_
  * @param {integer} y - Position of the object
@@ -22,7 +23,7 @@ require("./../translator.js");
 RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
     "use strict";
     var coords, cw;
-    if (RUR.objects.known_objects.indexOf(specific_object) == -1){
+    if (RUR.KNOWN_OBJECTS.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
                                                  {obj: specific_object}));
     }

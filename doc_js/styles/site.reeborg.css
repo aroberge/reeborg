@@ -25,22 +25,22 @@ table {
     border-bottom: 1px solid #ccc;
 }
 .description p, .last em, .last br {
-    color: green;
+    color: #468847;
     font-style: oblique;
 }
 h1, h2, h3, h5, h6, .h1, .h2, .h3, .h5, .h6 {
   color: #468847;
 }
 h4, .h4 {
-  color: blue;
+  color: #157ab5;
 }
 h5, .h5 {
   color: black;
 }
 code {
-  color: blue;
-  font-size:12px;
-  font-weight: bold;
+  color: #468847;
+  font-size:1.2em;
+  font-weight: 900;
   font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
 }
 .navbar, .navbar-default, .navbar-header {
@@ -158,7 +158,7 @@ hr {
 pre {
   overflow: auto;
 }
-code,
+/*code,*/
 kbd,
 pre,
 samp {
@@ -6982,7 +6982,6 @@ code {
   background-color: none;
   border: none;
 /*  color: orange; */
-  color: blue;
 }
 .buffered-name {
   padding-top: 62px;

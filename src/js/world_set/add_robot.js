@@ -1,8 +1,13 @@
-/* This function does not need to be documented as it should be called by
-   other functions instead of being called directly.
-*/
+require("./../recorder/record_frame.js");
 
-require("./../recorder.js");
+/** @function _add_robot
+ * @memberof RUR.private
+ * @instance
+ * @summary Adds a robot to the world.  Should _never_ be called directly.
+ *
+ * @param {object} robot - a robot "body"
+ *
+ */
 
 RUR._add_robot = function (robot) {
     if (RUR.current_world.robots === undefined){

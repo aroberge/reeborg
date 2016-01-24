@@ -124,12 +124,12 @@ RUR.world_get.world_info = function (no_grid) {
     tile = RUR.world_get.tile_at_position(x, y);
     topic = true;
     if (tile){
-        if (tile.info) {
+        if (RUR.translate(tile.info)) {
             if (topic){
                 topic = false;
                 information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
             }
-            information += "<br>" + tile.info;
+            information += "<br>" + RUR.translate(tile.info);
         }
     }
 
@@ -137,7 +137,7 @@ RUR.world_get.world_info = function (no_grid) {
     if (tiles) {
         for (tilename in tiles) {
             tile = RUR.solid_objects[tilename];
-            if (tile.info){
+            if (RUR.translate(tile.info)){
                 if (topic){
                     topic = false;
                     information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
@@ -145,10 +145,10 @@ RUR.world_get.world_info = function (no_grid) {
                 if (tile.name == "fence") {
                     if (!fence_noted) {
                         fence_noted = true;
-                        information += "<br>" + tile.info;
+                        information += "<br>" + RUR.translate(tile.info);
                     }
                 } else {
-                    information +=  "<br>" + tile.info;
+                    information +=  "<br>" + RUR.translate(tile.info);
                 }
             }
         }

@@ -4,7 +4,6 @@ called by zzz_doc_ready.js
 */
 
 require("./translator.js");
-require("./custom_dialogs.js");
 require("./world.js");
 require("./state.js");
 require("./world_editor.js");

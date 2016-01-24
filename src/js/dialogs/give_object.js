@@ -3,7 +3,7 @@
 
 require("./../world_set.js");
 require("./../visible_world.js");
-require("./../world_editor.js");
+require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
 
 exports.dialog_give_object = dialog_give_object = $("#dialog-give-object").dialog({
@@ -33,7 +33,7 @@ give_object = function () {
     } else {
         query = give_number_result;
     }
-    RUR.we.give_objects_to_robot(RUR.state.specific_object, query);
+    RUR.give_object_to_robot(RUR.state.specific_object, query);
     RUR.vis_world.refresh_world_edited();
     dialog_give_object.dialog("close");
     return true;

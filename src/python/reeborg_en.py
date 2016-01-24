@@ -367,7 +367,7 @@ class UsedRobot(object):  #py:UR
                             "w" or "west", "n" or "north", "s" or "south".
                tokens: Initial number of tokens to give to the robot;
                        its value must be a positive integer, or the string
-                       "inf" to indicate an infinite quantity.
+                       "Infinity" to indicate an infinite quantity.
         """
         if tokens is None:
             robot = RUR.robot.create_robot(x, y, orientation)

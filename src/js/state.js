@@ -13,12 +13,11 @@ require("./translator.js");
  * @property {boolean} highlight - Indicates if the Python code in the editor will be
  *     highlighted during the playback.
  * @property {string} human_language - Standard two letter code
- * @property {boolean} images_loaded - Indicates if all images have been loaded
- *          so that the splash screen can be removed
  * @property {string} input_method - Get program from "editor", "blockly" or "repl"?
  * @property {string} programming_language - "python" or "javascript"
  * @property {boolean} playback - True if playback active and not paused.
  * @property {boolean} prevent_playback - TODO: see if this can be removed.
+ * @property {boolean} ready - Indicates that the site is ready
  * @property {string} sound_id - "global" variable intended for private use.
  * @property {boolean} sound_on - indicates if attempt must be made to play sounds.
  * @property {string} specific_object - Object selected while editing world.
@@ -33,11 +32,11 @@ RUR.state.do_not_record = false;
 RUR.state.editing_world = false;
 RUR.state.highlight = true;
 RUR.state.human_language = "en";
-RUR.state.images_loaded = false;
 RUR.state.input_method = "editor";
 RUR.state.programming_language = "javascript"; // default for testing
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
+RUR.state.ready = false;
 RUR.state.sound_id = undefined;
 RUR.state.sound_on = false;
 RUR.state.specific_object = undefined;

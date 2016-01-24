@@ -1,10 +1,8 @@
 
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR */
-
 require("./constants.js");
 require("./translator.js");
 require("./exceptions.js");
+var filterInt = require("./utils/filterint.js").filterInt;
 
 RUR.robot = {};
 
@@ -14,8 +12,11 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot.x = x || 1;
     robot.y = y || 1;
     robot.objects = {};
-    if (tokens !== undefined && tokens > 0){
-        robot.objects.token = tokens;
+    if (tokens !== undefined){
+        tokens = filterInt(tokens);
+        if (tokens > 0) {
+            robot.objects.token = tokens;
+        }
     }
 
     if (orientation === undefined){
@@ -58,9 +59,11 @@ RUR.robot.cleanup_objects = function (robot) {
     var obj_name, objects_carried = {};
     for (obj_name in robot.objects) {
         if (robot.objects.hasOwnProperty(obj_name)){
-             if (robot.objects[obj_name] == "infinite" || robot.objects[obj_name] > 0){
+             if (robot.objects[obj_name] == "infinite") {
+                objects_carried[obj_name] = Infinity;
+            } else if (robot.objects[obj_name] > 0){
                 objects_carried[obj_name] = robot.objects[obj_name];
-             }
+            }
         }
     }
     robot.objects = objects_carried;

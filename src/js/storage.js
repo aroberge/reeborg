@@ -1,12 +1,10 @@
-/*
-   Utilities for dealing with html LocalStorage.
- */
-
 
 require("./translator.js");
 require("./world.js");
-require("./custom_dialogs.js");
 require("./world_select.js");
+
+var dialog_save_world_in_browser = require("./dialogs/save_world_in_browser.js").dialog_save_world_in_browser;
+
 
 RUR.storage = {};
 
@@ -28,7 +26,7 @@ RUR.storage.memorize_world = function () {
     if (existing_names) {
         $("#existing-world-names").html(existing_names);
     }
-    RUR.cd.dialog_save_world.dialog("open");
+    dialog_save_world_in_browser.dialog("open");
 };
 
 RUR.storage._save_world = function (name){

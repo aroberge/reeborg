@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test-spec": "tape test/**/*.js | tap-spec",
-    "test-diff": "tape test/**/*.js | tap-diff",
-    "test": "tape test/**/*.js | tap-dot",
+    "test": "tape test/**/*.js | tap-diff",
+    "test-dot": "tape test/**/*.js | tap-dot",
     "test-raw": "tape test/**/*.js",
     "build": "browserify ./src/js/index.js -o ./src/js/reeborg_dev.js",
     "jsdoc": "jsdoc -c jsdoc_conf.json",

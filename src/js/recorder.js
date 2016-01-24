@@ -316,7 +316,7 @@ RUR.rec.check_robots_on_tiles = function(frame){
         tile = RUR.world_get.tile_at_position(frame.world.robots[robot]);
         if (tile) {
             if (tile.fatal){
-                throw new RUR.ReeborgError(tile.message);
+                throw new RUR.ReeborgError(RUR.translate(tile.message));
             }
         }
     }

@@ -68,7 +68,7 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
         for (i=0; i < objects_carried.length; i++){
             image = RUR.objects[objects_carried[i]].image;
             nb_obj = robot.objects[objects_carried[i]];
-            if (nb_obj == "infinite") {
+            if (nb_obj == "infinite" || nb_obj == Infinity) {
                 nb_obj = "∞";
             }
             RUR.tooltip.ctx.drawImage(image, i*size, 0, image.width, image.height);

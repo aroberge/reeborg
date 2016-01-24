@@ -367,7 +367,7 @@ class RobotUsage(object):  #py:UR
                orientation: une des valeurs suivante: "nord", "sud",
                             est", "ouest"
                jeton: nombre initial de jetons à donner au robot;
-                      un entier positif, ou la chaîne "inf" pour un
+                      un entier positif, ou la chaîne "Infinity" pour un
                       nombre infini.
         """
         if jeton is None:

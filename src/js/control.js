@@ -96,11 +96,11 @@ RUR.control.move = function (robot) {
     if (tile) {
         if (tile.fatal){
             if (!(tile == RUR.tiles.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
-                throw new RUR.ReeborgError(tile.message);
+                throw new RUR.ReeborgError(RUR.translate(tile.message));
             }
         }
         if (tile.slippery){
-            RUR.output.write(tile.message + "\n");
+            RUR.output.write(RUR.translate(tile.message) + "\n");
             RUR.control.move(robot);
         }
     }
@@ -171,7 +171,7 @@ RUR.control.put = function(robot, arg){
 
     if (arg !== undefined) {
         translated_arg = RUR.translate_to_english(arg);
-        if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
+        if (RUR.KNOWN_OBJECTS.indexOf(translated_arg) == -1){
             throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
     }
@@ -214,11 +214,9 @@ RUR.control._robot_put_down_object = function (robot, obj) {
             }
         }
     }
-    if (robot.objects[obj] != "infinite") {
-        robot.objects[obj] -= 1;
-        if (robot.objects[obj] === 0) {
-            delete robot.objects[obj];
-        }
+    robot.objects[obj] -= 1;
+    if (robot.objects[obj] === 0) {
+        delete robot.objects[obj];
     }
 
     RUR._ensure_key_exists(RUR.current_world, "objects");
@@ -238,7 +236,7 @@ RUR.control.take = function(robot, arg){
     RUR.state.sound_id = "#take-sound";
     if (arg !== undefined) {
         translated_arg = RUR.translate_to_english(arg);
-        if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
+        if (RUR.KNOWN_OBJECTS.indexOf(translated_arg) == -1){
             throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
     }
@@ -283,15 +281,11 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     RUR._ensure_key_exists(robot, "objects");
     if (robot.objects[obj] === undefined){
         robot.objects[obj] = 1;
-    } else if (robot.objects[obj] == "infinite") {
-        return;
     } else {
         robot.objects[obj]++;
     }
     RUR.record_frame("debug", "RUR.control._take_object");
 };
-
-
 
 
 RUR.control.build_wall = function (robot){

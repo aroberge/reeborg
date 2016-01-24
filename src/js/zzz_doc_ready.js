@@ -26,13 +26,13 @@ $(document).ready(function() {
 
     function everything_loaded () {
         var loaded, total_images, py_modules=0;
-        if (RUR.objects.loaded_images == RUR.objects.nb_images &&
+        if (RUR._NB_IMAGES_LOADED == RUR._NB_IMAGES_TO_LOAD &&
             RUR.vis_robot.loaded_images == RUR.vis_robot.nb_images){
             RUR.vis_world.draw_all();
             $("#splash-screen").hide();
         } else {
-            loaded = RUR.objects.loaded_images + RUR.vis_robot.loaded_images;
-            total_images = RUR.objects.nb_images + RUR.vis_robot.nb_images;
+            loaded = RUR._NB_IMAGES_LOADED + RUR.vis_robot.loaded_images;
+            total_images = RUR._NB_IMAGES_TO_LOAD + RUR.vis_robot.nb_images;
             if (!RUR.state.images_loaded) {
                 $("#splash-text").html("Loading Python modules. <br>Images: " + loaded + "/" + total_images);
             } else {
@@ -55,7 +55,8 @@ $(document).ready(function() {
     // check if this is needed or does conflict with MakeCustomMenu
     RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
-    RUR.cd.create_custom_dialogs();
+    //TODO: replace the following
+    //RUR.cd.create_custom_dialogs();
     RUR.zz_dr_onclick();
     RUR.zz_dr_onchange();
     RUR.zz_dr_editor_ui();

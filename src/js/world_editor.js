@@ -3,7 +3,6 @@
 
 require("./translator.js");
 require("./constants.js");
-require("./custom_dialogs.js");
 require("./objects.js");
 require("./robot.js");
 require("./world.js");
@@ -21,6 +20,9 @@ require("./world_set/add_robot.js");
 
 var dialog_add_object = require("./dialogs/add_object.js").dialog_add_object;
 var dialog_give_object = require("./dialogs/give_object.js").dialog_give_object;
+var dialog_goal_object = require("./dialogs/goal_object.js").dialog_goal_object;
+var dialog_set_background_image = require("./dialogs/set_background_image.js").dialog_set_background_image;
+var dialog_select_colour = require("./dialogs/select_colour.js").dialog_select_colour;
 
 
 var filterInt = require("./utils/filterint.js").filterInt;
@@ -46,7 +48,7 @@ RUR.we.edit_world = function  () {
             break;
         case "object":
             if (RUR.we.decorative_objects) {
-                RUR.we._add_decorative_object(value);
+                RUR.toggle_decorative_object_at_position(value);
             } else {
                 RUR.we._add_object(value);
             }
@@ -132,7 +134,7 @@ RUR.we.select = function (choice) {
             RUR.we.alert_1("Click on desired object below.");
             break;
         case "background":
-            RUR.cd.dialog_set_background_image.dialog("open");
+            dialog_set_background_image.dialog("open");
             break;
         case "world":
             switch (value) {
@@ -353,34 +355,6 @@ RUR.we._give_objects_to_robot = function (specific_object){
     dialog_give_object.dialog("open");
 };
 
-
-RUR.we.give_objects_to_robot = function (obj, nb, robot) {
-    var translated_arg = RUR.translate_to_english(obj);
-
-    if (RUR.objects.known_objects.indexOf(translated_arg) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: obj}));
-    }
-
-    obj = translated_arg;
-    if (robot === undefined){
-        robot = RUR.current_world.robots[0];
-    }
-    RUR._ensure_key_exists(robot, "objects");
-
-    if (nb === "inf"){
-        robot.objects[obj] = "infinite";
-    } else if (filterInt(nb) >= 0) {
-        nb = filterInt(nb);
-        if (nb !== 0) {
-            robot.objects[obj] = nb;
-        } else if (robot.objects[obj] !== undefined) {
-            delete robot.objects[obj];
-        }
-    } else {
-        RUR.show_feedback("#Reeborg-shouts", nb + RUR.translate(" is not a valid value!"));
-    }
-};
-
 RUR.we.turn_robot = function (orientation) {
 
     RUR.current_world.robots[0]._orientation = orientation;
@@ -528,35 +502,6 @@ RUR.we._add_object = function (specific_object){
     dialog_add_object.dialog("open");
 };
 
-
-RUR.we._add_decorative_object = function (specific_object){
-    "use strict";
-    // only one decorative object is allowed per grid position
-    var position, x, y, coords;
-    position = RUR.we.calculate_grid_position();
-    x = position[0];
-    y = position[1];
-    coords = x + "," + y;
-
-    if (RUR.objects.known_objects.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
-    }
-
-    RUR._ensure_key_exists(RUR.current_world, "decorative_objects");
-    RUR._ensure_key_exists(RUR.current_world.decorative_objects, coords);
-
-    if (RUR.current_world.decorative_objects[coords][specific_object] !== undefined) {
-        delete RUR.current_world.decorative_objects[coords];
-    } else {
-        RUR.current_world.decorative_objects[coords] = {};
-        RUR.current_world.decorative_objects[coords][specific_object] = 1;
-    }
-};
-
-
-
-
-
 RUR.we._add_goal_objects = function (specific_object){
     "use strict";
     var position, x, y, coords, query;
@@ -582,7 +527,7 @@ RUR.we._add_goal_objects = function (specific_object){
     RUR.state.x = x;
     RUR.state.y = y;
     $("#goal-object-name").html(RUR.translate(specific_object));
-    RUR.cd.dialog_goal_object.dialog("open");
+    dialog_goal_object.dialog("open");
 };
 
 
@@ -650,8 +595,8 @@ RUR.we.toggle_tile = function (tile){
     if (!tile) {  // if we cancel the dialog
         return;
     } else if (tile === "colour") {
-        RUR.we.call_back = RUR.we.toggle_tile;
-        RUR.cd.dialog_select_colour.dialog("open");
+        RUR._CALLBACK_FN = RUR.we.toggle_tile;
+        dialog_select_colour.dialog("open");
         return;
     }
 
@@ -675,8 +620,8 @@ RUR.we.fill_with_tile = function (tile) {
     if (!tile) {    // if we cancel the dialog
         return;
     } else if (tile === "colour") {
-        RUR.we.call_back = RUR.we.fill_with_tile;
-        RUR.cd.dialog_select_colour.dialog("open");
+        RUR._CALLBACK_FN = RUR.we.fill_with_tile;
+        dialog_select_colour.dialog("open");
         return;
     }
 

@@ -352,6 +352,194 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
             
 <hr>
 <dt>
+    <h4 class="name" id="add_new_object_type"><span class="type-signature"></span>add_new_object_type(specific_object, url, url_goal)</h4>
+    
+    
+    <p class="summary"><p>This function makes it possible to add new objects. If the name
+   of an existing object is specified again, the images for that object are
+   replaced.  Two images must be provided: one for the object itself, and
+   another when this object is specified as a goal. N.B. existing names
+   are the English ones.</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Cette fonction permet l'ajout de nouveaux objets.  Si le nom d'un
+  objet existant est spécifié, les images pour cet objet seront remplacées
+  par les nouvelles images fournies.  N.B. les noms d'objets par défaut sont
+  des noms anglais (par exemple &quot;token&quot; plutôt que &quot;jeton&quot;).</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>specific_object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the object type ; e.g. &quot;mouse&quot; <br>
+                       <em>Le nom du type de l'objet; par exemple, &quot;souris&quot;.</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>URL where the image can be found.
+                   <br> <em>URL où l'image peut être trouvée</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>url_goal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>URL where the image as a goal can be found.
+                   <br> <em>URL où l'image comme but peut être trouvée</em></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="add_object_at_position"><span class="type-signature"></span>add_object_at_position(specific_object, x, y, nb)</h4>
     
     
@@ -628,7 +816,189 @@ at a certain location.</p></p>
             
 
             <td class="description last"><p>The name of the object type ; e.g. &quot;token&quot; <br>
-                       <em>Le nom du type de l'objet; par exemple, &quot;jeton&quot;.</em></p></td>
+                       <em>Le nom (anglais) du type de l'objet; par exemple, &quot;token&quot;.</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toggle_solid_object_at_position"><span class="type-signature"></span>toggle_solid_object_at_position(specific_object, x, y)</h4>
+    
+    
+    <p class="summary"><p>This function adds or remove a given solid object (like a fence)
+at a certain location.</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Cette fonction ajoute ou enlève un objet solide (comme une clôture) à un endroit donné.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>specific_object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the object type ; e.g. &quot;fence&quot; <br>
+                       <em>Le nom [anglais] du type de l'objet; par exemple, &quot;fence&quot;.</em></p></td>
         </tr>
 
     
@@ -790,7 +1160,7 @@ at a certain location.</p></p>
 <span class="jsdoc-message">
 	Documentation generated
 	
-		on 2016-01-23T11:38:35-04:00
+		on 2016-01-23T23:58:10-04:00
 	</a>.
 </span>
 </footer>
