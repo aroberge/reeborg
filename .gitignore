@@ -1,2 +1,5 @@
 */_build
 *.template
+build/
+graph.png
+node_modules/
