@@ -1,7 +1,11 @@
 require("jquery");
 require("./../state.js");
+var record_id = require("./../utils/record_id.js").record_id;
 
-RUR.toggle_highlight = function () {
+var highlight_button = document.getElementById("highlight");
+record_id("highlight");
+
+RUR.toggle_highlight = function () {  // keep part of RUR for Python
     if (RUR.state.highlight) {
         RUR.state.highlight = false;
         $("#highlight").addClass("blue-gradient");
@@ -12,3 +16,4 @@ RUR.toggle_highlight = function () {
         $("#highlight").removeClass("blue-gradient");
     }
 };
+highlight_button.addEventListener("click", RUR.toggle_highlight, false);

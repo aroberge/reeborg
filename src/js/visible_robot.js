@@ -66,29 +66,7 @@ RUR.vis_robot.images[3].robot_random_img.src = RUR._BASE_URL + '/src/images/robo
 
 RUR.vis_robot.style = 0;
 
-RUR.vis_robot.select_default_model = function (arg) {
-    var style;
-    RUR.vis_robot.style = parseInt(arg, 10);
-    style = RUR.vis_robot.style;
-    if ( !(style ===0 || style==1 || style==2 || style==3)){
-        RUR.vis_robot.style = 0;
-        style = 0;
-    }
-    // RUR.vis_robot.set_offsets();
 
-    style = RUR.vis_robot.style;
-    RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
-    RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
-    RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
-    RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
-    RUR.vis_robot.random_img = RUR.vis_robot.images[style].robot_random_img;
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
-
-    localStorage.setItem("robot_default_model", arg);
-};
-RUR.vis_robot.select_default_model(localStorage.getItem("robot_default_model"));
 
 // the following is to try to ensure that the images are loaded before the "final"
 // original drawing is made
@@ -245,53 +223,3 @@ RUR.vis_robot.set_trace_style = function (choice, robot){
 };
 
 RUR.vis_robot.set_trace_style("default");
-
-RUR.vis_robot.new_robot_images = function (images) {
-    var model = 0;
-    if (images.model !== undefined) {
-        switch (images.model) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-                model = images.model;
-                break;
-            default:
-                model = 0;
-        }
-    }
-
-    if (images.east !== undefined) {
-        RUR.vis_robot.images[model].robot_e_img.src = images.east;
-    }
-    if (images.west !== undefined) {
-        RUR.vis_robot.images[model].robot_w_img.src = images.west;
-    }
-    if (images.north !== undefined) {
-        RUR.vis_robot.images[model].robot_n_img.src = images.north;
-    }
-    if (images.south !== undefined) {
-        RUR.vis_robot.images[model].robot_s_img.src = images.south;
-    }
-    if (images.random !== undefined) {
-        RUR.vis_robot.images[model].robot_random_img.src = images.random;
-    }
-
-    // change the image displayed in the html file.
-    switch (model) {
-        case 0:
-            $("#classic-image img").attr("src", images.east);
-            break;
-        case 1:
-            $("#rover-type img").attr("src", images.east);
-            break;
-        case 2:
-            $("#3d-red-type img").attr("src", images.east);
-            break;
-        case 3:
-            $("#solar-panel-type img").attr("src", images.east);
-            break;
-    }
-
-    RUR.vis_robot.select_default_model(model);
-};

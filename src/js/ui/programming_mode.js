@@ -1,6 +1,6 @@
 require("jquery");
 require("./../state.js");
-require("./reload.js");
+require("./../listeners/reload.js");
 
 /* This sets up the various running mode blockly/editor/repl
    for both Python and Javascript (if relevant).

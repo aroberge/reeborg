@@ -52,16 +52,16 @@ RUR.zz_dr_onclick = function () {
     $("#editor-tab").on("click", function (evt) {
         if (RUR.state.programming_language == "python" && !RUR.state.editing_world) {
             $("#highlight").show();
-            $("#watch_variables_btn").show();
+            $("#watch-variables-btn").show();
         } else {
             $("#highlight").hide();
-            $("#watch_variables_btn").hide();
+            $("#watch-variables-btn").hide();
         }
     });
 
     $("#library-tab").on("click", function (evt) {
         $("#highlight").hide();
-        $("#watch_variables_btn").hide();
+        $("#watch-variables-btn").hide();
     });
 
     $("#save-editor").on("click", function (evt) {
@@ -101,25 +101,6 @@ RUR.zz_dr_onclick = function () {
         load_file(library);
     });
 
-    $("#memorize-world").on("click", function (evt) {
-        RUR.storage.memorize_world();
-    });
-
-    $("#classic-image").on("click", function (evt) {
-        RUR.vis_robot.select_default_model(0);
-    });
-
-    $("#rover-type").on("click", function (evt) {
-        RUR.vis_robot.select_default_model(1);
-    });
-
-    $("#3d-red-type").on("click", function (evt) {
-        RUR.vis_robot.select_default_model(2);
-    });
-
-    $("#solar-panel-type").on("click", function (evt) {
-        RUR.vis_robot.select_default_model(3);
-    });
 
     $("#add_editor_to_world").on("click", function(evt) {
         if ($(this).prop("checked")) {

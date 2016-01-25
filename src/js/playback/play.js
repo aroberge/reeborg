@@ -1,5 +1,5 @@
 require("./../state.js");
-require("./../ui/stop.js");
+require("./../listeners/stop.js");
 
 RUR.play = function () {
     "use strict";

@@ -1,9 +1,14 @@
+require("jquery");
 require("./../state.js");
 require("./reload.js");
 require("./../runner.js");
 require("./../playback/play.js");
+var record_id = require("./../utils/record_id.js").record_id;
 
-RUR.run = function () {
+var run_button = document.getElementById("run");
+record_id("run");
+
+function run () {
     if (RUR.state.stop_called){
         RUR.state.stop_called = false;
         RUR.reload();
@@ -17,12 +22,5 @@ RUR.run = function () {
 
     clearTimeout(RUR._TIMER);
     RUR.runner.run(RUR.play);
-};
-
-RUR.step = function () {
-    RUR.runner.run(RUR.rec.display_frame);
-    RUR.state.stop_called = false;
-    $("#stop").removeAttr("disabled");
-    $("#reverse-step").removeAttr("disabled");
-    clearTimeout(RUR._TIMER);
-};
+}
+run_button.addEventListener("click", run, false);

@@ -223,7 +223,7 @@ def max_nb_instructions(nb):  #py:set_max_nb_instructions
        ceci permet de changer le nombre maximal d'instructions
        exécutées par un robot.
     """
-    RUR._set_max_steps_(nb)
+    RUR._set_max_nb_instructions_(nb)
 
 
 def couleur_de_trace(couleur):  #py:set_trace_color

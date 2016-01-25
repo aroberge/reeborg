@@ -1,5 +1,9 @@
 require("jquery");
 require("./../state.js");
+var record_id = require("./../utils/record_id.js").record_id;
+
+var stop_button = document.getElementById("stop");
+record_id("stop");
 
 RUR.stop = function () {
     clearTimeout(RUR._TIMER);
@@ -11,3 +15,4 @@ RUR.stop = function () {
     $("#reload").removeAttr("disabled");
     RUR.state.stop_called = true;
 };
+stop_button.addEventListener("click", stop, false);

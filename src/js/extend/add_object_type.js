@@ -48,3 +48,5 @@ RUR.add_new_object_type = function (name, url, url_goal) {
 increment_loaded = function () {
     RUR._NB_IMAGES_LOADED += 1;
 };
+// supporting worlds created previously.
+RUR.add_object_image = RUR.add_new_object_type;

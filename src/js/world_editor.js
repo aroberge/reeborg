@@ -260,7 +260,7 @@ RUR.we.toggle_editing_mode = function () {
         RUR.vis_world.draw_all();
         // RUR.current_world = RUR.world.editors_set_default_values(RUR.current_world);
         $("#highlight").hide();
-        $("#watch_variables_btn").hide();
+        $("#watch-variables-btn").hide();
     }
 };
 

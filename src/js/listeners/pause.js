@@ -1,6 +1,10 @@
 require("./../state.js");
 require("jquery");
 require("./../playback/play.js");
+var record_id = require("./../utils/record_id.js").record_id;
+
+var pause_button = document.getElementById("step");
+record_id("pause");
 
 RUR.pause = function (ms) {
     RUR.state.playback = false;
@@ -14,3 +18,4 @@ RUR.pause = function (ms) {
         $("#reverse-step").removeAttr("disabled");
     }
 };
+pause_button.addEventListener("click", pause, false);

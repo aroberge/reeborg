@@ -12,6 +12,8 @@ RUR.solid_objects = {};
 RUR.home_images = {};
 RUR.background_image = new Image();
 RUR.background_image.src = '';
+RUR._RECORDED_IDS = [];
+RUR._TEXT_ELEMENTS = [];
 
 
 /** @namespace private
@@ -30,10 +32,11 @@ RUR.show_feedback = function (element, content) {
 require("./utils/cors.js");
 require("./utils/supplant.js");
 
-require("./ui/run.js"); /* only invoked from the html file - for now */
+require("./listeners/add_listeners.js");
+
 require("./ui/toggle_highlight.js"); /* only invoked from the html file - for now */
 require("./ui/toggle_watch_variables.js"); /* only invoked from the html file - for now */
-require("./ui/select_world_change.js"); 
+require("./ui/select-world_change.js");
 require("./playback/reverse_step.js"); /* only invoked from the html file - for now */
 
 require("./z_commands.js");

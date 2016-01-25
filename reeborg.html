@@ -33,7 +33,7 @@
 <header class="blue-gradient green-border">
   <a id="logo" href="index_en.html" class="fake_button"><img src="/src/images/robot_e.png">Reeborg's World</a>
   <div id="header-child">
-    <select id="select_world" title="Select world">
+    <select id="select-world" title="Select world">
     </select>
     <button class="blue-gradient" id="world-info-button">World info</button>
     <select id="select_programming_language" title="Select programming language">
@@ -141,22 +141,22 @@
 <div id="world-panel" class="active" >
 
   <div id="world-controls">
-    <button class="blue-gradient" id="run" title="run" onclick="RUR.run();">
+    <button class="blue-gradient" id="run" title="run">
       <img src="/src/images/play.png" alt="run">
     </button>
-    <button class="blue-gradient" id="step" title="step" disabled onclick="RUR.step();">
+    <button class="blue-gradient" id="step" title="step" disabled>
       <img src="/src/images/step.png" alt="step">
     </button>
-    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.pause();">
+    <button class="blue-gradient" id="pause" title="pause" disabled>
       <img src="/src/images/pause.png" alt="pause">
     </button>
-    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.stop();">
+    <button class="blue-gradient" id="stop" title="stop" disabled>
       <img src="/src/images/stop.png" alt="stop">
     </button>
-    <button class="blue-gradient" id="reload" title="reload" disabled onclick="RUR.reload();">
+    <button class="blue-gradient" id="reload" title="reload" disabled>
       <img src="/src/images/reload.png" alt="reload">
     </button>
-    <button class="blue-gradient" id="reload2" title="reload" disabled onclick="RUR.reload2();">
+    <button class="blue-gradient" id="reload2" title="reload" disabled>
         <img src="/src/images/reload.png" alt="reload">
     </button>
 
@@ -187,10 +187,10 @@
     <div id="World-info" title="Click on the world to get some additional information." style="display:none"></div>
 
       <div id="image-choice-buttons">
-      <button id="classic-image" title="Classic image"><img src="/src/images/robot_e.png" alt="Classic image"></button>
-      <button id="rover-type" title="Rover"><img src="/src/images/rover_e.png" alt="Rover"></button>
-      <button id="3d-red-type" title="3D rover"><img src="/src/images/plain_e.png" alt="3d rover"></button>
-      <button id="solar-panel-type" title="Solar Panel Robot"><img src="/src/images/sp_e.png" alt="Solar Panel Robot"></button>
+      <button id="robot0"><img src="/src/images/robot_e.png"></button>
+      <button id="robot1"><img src="/src/images/rover_e.png"></button>
+      <button id="robot2"><img src="/src/images/plain_e.png"></button>
+      <button id="robot3"><img src="/src/images/sp_e.png"></button>
     </div>
 </div>
 
@@ -206,10 +206,10 @@
       <li><a id="description-link" href="#description-div">Desc.</a></li>
       <li><a id="onload-editor-link" href="#onload-editor-div">onload</a></li>
 
-      <button id="watch_variables_btn" class="blue-gradient float-right" title="watch_variables" onclick="RUR.toggle_watch_variables()">
+      <button id="watch-variables-btn" class="blue-gradient float-right">
           <img src="/src/images/magnifying_yes.png" alt="watch">
       </button>
-      <button id="highlight" class="reverse-blue-gradient float-right" title="highlight" onclick="RUR.toggle_highlight()">
+      <button id="highlight" class="reverse-blue-gradient float-right">
         <img src="/src/images/highlight.png" alt="highlight">
       </button>
 
@@ -253,7 +253,7 @@
     <p> <input type="checkbox" name="add_editor_to_world" value="add_editor_to_world" id="add_editor_to_world">Add editor content to world
       <input type="checkbox" name="add_library_to_world" value="add_library_to_world" id="add_library_to_world">Add library content to world
     <br>
-    <button class="blue-gradient" onclick="javascript:RUR.storage.memorize_world();">Save world in browser</button>
+    <button id="memorize-world" class="blue-gradient">Save world in browser</button>
   <br>
     If you want to share your world (and corresponding challenges) with others,
         save it to a file, or better yet, save everything using a permalink
@@ -562,12 +562,6 @@ var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-edit
     <button class="blue-gradient" id="load-world">Open world from file</button>
     Loads a world from a file on your computer.
   </p>
-
-  <p><button class="blue-gradient" id="memorize-world">Save world to browser</button>
-     Saves a copy of the current state of the world in the browser's memory
-     (Local Storage) under a chosen name, and makes it available as a valid
-     selection with the pre-existing worlds above.
-   </p>
 
   <div id="delete-world" style="display:none;">
   <h3>The following refers to worlds currently stored in your browser which you can delete:</h3>

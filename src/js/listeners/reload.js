@@ -4,8 +4,12 @@ require("./../state.js");
 var set_ready_to_run = require("./set_ready_to_run.js").set_ready_to_run;
 var rec_reset = require("./../recorder/reset.js").reset;
 var reset_world = require("./../world_set/reset.js").reset_world;
+var record_id = require("./../utils/record_id.js").record_id;
 
-RUR._ensure_key_exists(RUR, "ui");
+var reload_button = document.getElementById("reload");
+record_id("reload");
+var reload2_button = document.getElementById("reload2");
+record_id("reload2");
 
 RUR.reload = function() {
     set_ready_to_run();
@@ -34,3 +38,6 @@ RUR.reload2 = function() {
         console.log("can not restart repl", e);
     }
 };
+
+reload_button.addEventListener("click", reload, false);
+reload2_button.addEventListener("click", reload2, false);

@@ -8,8 +8,8 @@ require("./world_get.js");
 require("./constants.js");
 require("./translator.js");
 require("./exceptions.js");
-require("./ui/pause.js");
-require("./ui/stop.js");
+require("./listeners/pause.js");
+require("./listeners/stop.js");
 
 var identical = require("./utils/identical.js").identical;
 var clone_world = require("./world/clone_world.js").clone_world;

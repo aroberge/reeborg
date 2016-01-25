@@ -6,7 +6,7 @@ require("./world_select.js");
 require("./permalink.js");
 require("./translator.js");
 require("./exceptions.js");
-require("./ui/stop.js");
+require("./listeners/stop.js");
 
 
 

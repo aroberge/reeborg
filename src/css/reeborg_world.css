@@ -143,7 +143,7 @@ nav a:first-child {
     border-radius: 20px 0 0 20px;
 }
 
-#highlight, #watch_variables_btn {
+#highlight, #watch-variables-btn {
     height: 40px;
 }
 
@@ -175,7 +175,7 @@ a[href^='http'] {
     background: transparent url(../images/external_link.png) right no-repeat;
 }
 
-#select_world {
+#select-world {
     margin: 10px;
 }
 .select-menu {

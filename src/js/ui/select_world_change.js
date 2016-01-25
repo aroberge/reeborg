@@ -2,7 +2,7 @@ require("jquery");
 require("./../file_io.js");
 require("./../storage.js");
 
-$("#select_world").change(function() {
+$("#select-world").change(function() {
     if (RUR.storage.appending_world_name_flag){
         RUR.storage.appending_world_name_flag = false;
         return;

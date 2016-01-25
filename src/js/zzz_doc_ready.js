@@ -109,6 +109,6 @@ $(document).ready(function() {
                 RUR.reset_programming_language('python-' + RUR.state.human_language);
         }
         // trigger it to load the initial world.
-        $("#select_world").change();
+        $("#select-world").change();
     }
 });
