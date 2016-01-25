@@ -3,12 +3,7 @@
 require("./translator.js");
 require("./extend/add_object_type.js");
 
-RUR.objects = {};
-RUR.tiles = {};
-RUR.solid_objects = {};
-RUR.home_images = {};
-RUR.background_image = new Image();
-RUR.background_image.src = '';
+
 
 _add_new_object_type = function (name) {
     "use strict";

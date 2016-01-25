@@ -1,5 +1,7 @@
 require("./../storage.js");
-require("./../world.js");
+require("jquery");
+require("jquery-ui");
+var clone_world = require("./../world/clone_world.js").clone_world;
 
 exports.dialog_save_world_in_browser = dialog = $("#dialog-save-world").dialog({
     autoOpen: false,
@@ -23,7 +25,7 @@ dialog.find("form").on("submit", function( event ) {
 
 save_world = function () {
     RUR.storage._save_world($("#world-name").val().trim());
-    RUR.world.saved_world = RUR.world.clone_world();
+    RUR._SAVED_WORLD = clone_world();
     dialog.dialog("close");
     $('#delete-world').show();
 };

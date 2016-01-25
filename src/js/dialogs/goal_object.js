@@ -1,6 +1,8 @@
 require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
+require("jquery");
+require("jquery-ui");
 
 exports.dialog_goal_object = dialog_goal_object = $("#dialog-goal-object").dialog({
     autoOpen: false,

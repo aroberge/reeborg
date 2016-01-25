@@ -11,7 +11,7 @@
     "test": "tape test/**/*.js | tap-diff",
     "test-dot": "tape test/**/*.js | tap-dot",
     "test-raw": "tape test/**/*.js",
-    "build": "browserify ./src/js/index.js -o ./src/js/reeborg_dev.js",
+    "build": "browserify ./src/js/index.js -o ./build/reeborg.js",
     "jsdoc": "jsdoc -c jsdoc_conf.json",
     "madge": "madge --image graph.png src/js"
   },
@@ -27,6 +27,7 @@
   "homepage": "https://github.com/aroberge/reeborg#readme",
   "devDependencies": {
     "browserify": "^13.0.0",
+    "browserify-shim": "^3.8.12",
     "ink-docstrap": "^1.1.0",
     "mock-require": "^1.2.1",
     "proxyquire": "^1.7.3",
@@ -35,5 +36,16 @@
     "tap-dot": "^1.0.1",
     "tap-spec": "^4.1.1",
     "tape": "^4.4.0"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "jquery": "global:$",
+    "jquery-ui": {
+      "depends": "jquery"
+    }
   }
 }

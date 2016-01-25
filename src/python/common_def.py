@@ -199,7 +199,7 @@ def generic_translate_python(src, lib, lang_import, highlight, var_watch,
             if not problem:
                 src = temp_src
             else:
-                window.RUR.ui.highlight()
+                window.RUR.toggle_highlight()
                 window.jQuery("#highlight-impossible").show()
         except Exception as e:
             window.RUR.__python_error = e

@@ -1,9 +1,11 @@
 
 require("./translator.js");
-require("./world.js");
 require("./world_select.js");
+require("jquery");
+require("jquery-ui");
 
-var dialog_save_world_in_browser = require("./dialogs/save_world_in_browser.js").dialog_save_world_in_browser;
+var export_world = require("./world/export_world.js").export_world;
+var clone_world = require("./world/clone_world.js").clone_world;
 
 
 RUR.storage = {};
@@ -36,17 +38,17 @@ RUR.storage._save_world = function (name){
             return;
         }
         // replace existing
-        localStorage.setItem("user_world:"+ name, RUR.world.export_world(RUR.current_world));
+        localStorage.setItem("user_world:"+ name, export_world(RUR.current_world));
     } else {
         RUR.storage.save_world(name);
     }
-    RUR.world.saved_world = RUR.world.clone_world();
+    RUR._SAVED_WORLD = clone_world();
 };
 
 RUR.storage.save_world = function (name){
     "use strict";
     var url = "user_world:"+ name;
-    localStorage.setItem(url, RUR.world.export_world(RUR.current_world));
+    localStorage.setItem(url, export_world(RUR.current_world));
     RUR.storage.append_world_name(name);
 };
 
@@ -83,4 +85,31 @@ RUR.storage.delete_world = function (name){
         }
     }
     $('#delete-world').hide();
+};
+
+dialog = $("#dialog-save-world").dialog({
+    autoOpen: false,
+    height: 400,
+    width: 500,
+    modal: true,
+    buttons: {
+        OK: function () {
+            save_world();
+        },
+        Cancel: function() {
+            dialog_save_world_in_browser.dialog("close");
+        }
+    }
+});
+
+dialog_save_world_in_browser.find("form").on("submit", function( event ) {
+    event.preventDefault();
+    save_world();
+});
+
+save_world = function () {
+    RUR.storage._save_world($("#world-name").val().trim());
+    RUR._SAVED_WORLD = clone_world();
+    dialog_save_world_in_browser.dialog("close");
+    $('#delete-world').show();
 };

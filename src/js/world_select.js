@@ -1,5 +1,3 @@
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
 
 /*  Purpose of this file: abstract handling of menus so that all jQuery
     dependencies (and possibly obscure syntax in some cases) can be pulled
@@ -9,6 +7,9 @@
     id = select_world.  Doing a global search for "#select_world" should
     only find items in this file.
 */
+
+require("jquery");
+
 RUR.world_select = {};
 
 RUR.world_select.empty_menu = function () {

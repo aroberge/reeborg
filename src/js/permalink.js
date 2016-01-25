@@ -5,6 +5,9 @@ require("./world.js");
 require("./translator.js");
 require("./aa_utils.js");
 
+var export_world = require("./world/export_world.js").export_world;
+
+
 RUR.permalink = {};
 
 // parseUri 1.2.2
@@ -54,7 +57,7 @@ RUR.permalink.__create = function () {
     }
     permalink += url_query.path;
     proglang = RUR.state.programming_language + "-" + RUR.state.human_language;
-    world = encodeURIComponent(RUR.world.export_world());
+    world = encodeURIComponent(export_world());
     _editor = encodeURIComponent(editor.getValue());
     if (RUR.state.programming_language == "python") {
         _library = encodeURIComponent(library.getValue());

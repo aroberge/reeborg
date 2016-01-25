@@ -1,12 +1,13 @@
 
 require("./output.js");
 require("./recorder.js");
-require("./ui.js");
 require("./world.js");
 require("./world_select.js");
 require("./permalink.js");
 require("./translator.js");
 require("./exceptions.js");
+require("./ui/stop.js");
+
 
 
 RUR.file_io = {};
@@ -69,7 +70,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
 
     if (RUR.file_io.status !== undefined) {
         RUR.frames = [];
-        RUR.ui.stop();
+        RUR.stop();
         RUR.state.prevent_playback = true;
     }
     if (RUR.file_io.status === "no link") {
@@ -121,7 +122,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
                     RUR.permalink.update(data, shortname);
-                    RUR.ui.reload();
+                    RUR.reload();
                 } else {
                     RUR.world.import_world(data);
                 }

@@ -10,6 +10,9 @@ require("./world_editor.js");
 require("./permalink.js");
 require("./visible_robot.js");
 
+var export_world = require("./world/export_world.js").export_world;
+
+
 RUR.zz_dr_onclick = function () {
 
     function load_file (obj) {
@@ -84,7 +87,7 @@ RUR.zz_dr_onclick = function () {
 
     $("#save-world").on("click", function (evt) {
         RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
-        var blob = new Blob([RUR.world.export_world()], {
+        var blob = new Blob([export_world()], {
             type: "text/javascript;charset=utf-8"
         });
         saveAs(blob, "filename.json", true);

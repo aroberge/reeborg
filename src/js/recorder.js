@@ -7,14 +7,14 @@ require("./visible_world.js");
 require("./world_get.js");
 require("./constants.js");
 require("./translator.js");
-require("./ui.js");
 require("./exceptions.js");
+require("./ui/pause.js");
+require("./ui/stop.js");
 
 var identical = require("./utils/identical.js").identical;
+var clone_world = require("./world/clone_world.js").clone_world;
 
 RUR.rec = {};
-
-
 
 RUR.set_lineno_highlight = function(lineno, frame) {
     RUR.current_line_no = lineno;
@@ -22,61 +22,6 @@ RUR.set_lineno_highlight = function(lineno, frame) {
         RUR.record_frame();
         return true;
     }
-};
-
-RUR.rec.reset = function() {
-    RUR.nb_frames = 0;
-    RUR.current_frame_no = 0;
-    RUR.nb_extra_highlighting_frames = 0;  // TODO: see if we can eliminate this
-    // by inserting highlighting info in previous frame instead of separate frames.
-    RUR.current_line_no = undefined;
-    RUR.frames = [];
-    RUR.rec._line_numbers = [];
-    RUR.state.playback = false;
-    RUR.playback_delay = 300;
-    RUR.state.do_not_record = false;
-    RUR.watched_expressions = [];
-    clearTimeout(RUR.rec.timer);
-    if (RUR.state.programming_language === "python" &&
-        RUR.state.highlight &&
-        RUR.rec._max_lineno_highlighted !== undefined) {
-        for (var i=0; i <= RUR.rec._max_lineno_highlighted; i++){
-            try {
-                editor.removeLineClass(i, 'background', 'editor-highlight');
-            }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
-        }
-    }
-    RUR.rec._previous_lines = [];
-    RUR.rec._max_lineno_highlighted = 0;
-};
-
-
-RUR.rec.play = function () {
-    "use strict";
-    if (RUR.state.playback){            // RUR.visible_world.running
-        RUR.state.playback = false;
-        return;
-    }
-    RUR.state.playback = true;
-    RUR.rec.loop();
-};
-
-RUR.rec.loop = function () {
-    "use strict";
-    var frame_info;
-
-    if (!RUR.state.playback){
-        return;
-    }
-    frame_info = RUR.rec.display_frame();
-
-    if (frame_info === "pause") {
-        return;
-    } else if (frame_info === "stopped") {
-        RUR.ui.stop();
-        return;
-    }
-    RUR.rec.timer = setTimeout(RUR.rec.loop, RUR.playback_delay);
 };
 
 RUR.rec.display_frame = function () {
@@ -91,24 +36,24 @@ RUR.rec.display_frame = function () {
     //track line number and highlight line to be executed
     if (RUR.state.programming_language === "python" && RUR.state.highlight) {
         try {
-            for (i = 0; i < RUR.rec._previous_lines.length; i++){
-                editor.removeLineClass(RUR.rec._previous_lines[i], 'background', 'editor-highlight');
+            for (i = 0; i < RUR.rec_previous_lines.length; i++){
+                editor.removeLineClass(RUR.rec_previous_lines[i], 'background', 'editor-highlight');
             }
         }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
-        if (RUR.rec._line_numbers [RUR.current_frame_no+1] !== undefined){
-            next_frame_line_numbers = RUR.rec._line_numbers [RUR.current_frame_no+1];
+        if (RUR.rec_line_numbers [RUR.current_frame_no+1] !== undefined){
+            next_frame_line_numbers = RUR.rec_line_numbers [RUR.current_frame_no+1];
             for(i = 0; i < next_frame_line_numbers.length; i++){
                 editor.addLineClass(next_frame_line_numbers[i], 'background', 'editor-highlight');
             }
             i = next_frame_line_numbers.length - 1;
-            if (RUR.rec._max_lineno_highlighted < next_frame_line_numbers[i]) {
-                RUR.rec._max_lineno_highlighted = next_frame_line_numbers[i];
+            if (RUR._max_lineno_highlighted < next_frame_line_numbers[i]) {
+                RUR._max_lineno_highlighted = next_frame_line_numbers[i];
             }
-            RUR.rec._previous_lines = RUR.rec._line_numbers [RUR.current_frame_no+1];
+            RUR.rec_previous_lines = RUR.rec_line_numbers [RUR.current_frame_no+1];
         } else {
             try {  // try adding back to capture last line of program
-                for (i=0; i < RUR.rec._previous_lines.length; i++){
-                    editor.addLineClass(RUR.rec._previous_lines[i], 'background', 'editor-highlight');
+                for (i=0; i < RUR.rec_previous_lines.length; i++){
+                    editor.addLineClass(RUR.rec_previous_lines[i], 'background', 'editor-highlight');
                 }
             }catch (e) {console.log("diagnostic: error was raised while trying to addLineClass", e);}
         }
@@ -118,7 +63,7 @@ RUR.rec.display_frame = function () {
     RUR.current_frame_no++;
 
     if (frame === undefined){
-        //RUR.current_world = RUR.world.saved_world;  // useful when ...
+        //RUR.current_world = RUR._SAVED_WORLD;  // useful when ...
         RUR.vis_world.refresh();                    // ... reversing step
         return;
     }
@@ -137,7 +82,7 @@ RUR.rec.display_frame = function () {
     }
 
     if (frame.pause) {
-        RUR.ui.pause(frame.pause.pause_time);
+        RUR.pause(frame.pause.pause_time);
         return "pause";
     }
 
@@ -183,7 +128,7 @@ RUR.rec.conclude = function () {
     }
     if (frame === undefined) {
         frame = {};
-        frame.world = RUR.world.clone_world();
+        frame.world = clone_world();
     }
     if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
@@ -207,7 +152,7 @@ RUR.rec.conclude = function () {
                              RUR.translate("Last instruction completed!") +
                              "</p>");
     }
-    RUR.ui.stop();
+    RUR.stop();
     return "stopped";
 };
 
@@ -229,7 +174,7 @@ RUR.rec.handle_error = function (frame) {
         }
         RUR.show_feedback("#Reeborg-shouts", frame.error.message);
     }
-    RUR.ui.stop();
+    RUR.stop();
     return "stopped";
 };
 

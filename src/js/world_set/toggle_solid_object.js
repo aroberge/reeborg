@@ -1,6 +1,5 @@
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
-require("./../objects.js");
 require("./../translator.js");
 
 /** @function toggle_solid_object_at_position

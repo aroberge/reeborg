@@ -1,4 +1,5 @@
 */_build
+build
 node_modules
 *.template
 graph.png

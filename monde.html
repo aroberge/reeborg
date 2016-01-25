@@ -140,22 +140,22 @@
 <div id="world-panel" class="active" >
 
   <div id="world-controls">
-    <button class="blue-gradient" id="run" title="exécution" onclick="RUR.ui.run();">
+    <button class="blue-gradient" id="run" title="exécution" onclick="RUR.run();">
       <img src="/src/images/play.png" alt="exécution">
     </button>
-    <button class="blue-gradient" id="step" title="une commande" disabled onclick="RUR.ui.step();">
+    <button class="blue-gradient" id="step" title="une commande" disabled onclick="RUR.step();">
       <img src="/src/images/step.png" alt="une commande">
     </button>
-    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.ui.pause();">
+    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.pause();">
       <img src="/src/images/pause.png" alt="pause">
     </button>
-    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.ui.stop();">
+    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.stop();">
       <img src="/src/images/stop.png" alt="stop">
     </button>
-    <button class="blue-gradient" id="reload" title="recommencer" disabled onclick="RUR.ui.reload();">
+    <button class="blue-gradient" id="reload" title="recommencer" disabled onclick="RUR.reload();">
       <img src="/src/images/reload.png" alt="recommencer">
     </button>
-      <button class="blue-gradient" id="reload2" title="recommencer" disabled onclick="RUR.ui.reload2();">
+      <button class="blue-gradient" id="reload2" title="recommencer" disabled onclick="RUR.reload2();">
           <img src="/src/images/reload.png" alt="recommencer">
     </button>
 
@@ -204,10 +204,10 @@
       <li><a id="description-link" href="#description-div">Desc.</a></li>
       <li><a id="onload-editor-link" href="#onload-editor-div">onload</a></li>
 
-      <button id="watch_variables_btn" class="blue-gradient float-right" title="observe variables" onclick="RUR.ui.watch_variables()">
+      <button id="watch_variables_btn" class="blue-gradient float-right" title="observe variables" onclick="RUR.toggle_watch_variables()">
           <img src="/src/images/magnifying_yes.png" alt="observe">
       </button>
-      <button id="highlight" class="reverse-blue-gradient float-right" title="surligner" onclick="RUR.ui.highlight()">
+      <button id="highlight" class="reverse-blue-gradient float-right" title="surligner" onclick="RUR.toggle_highlight()">
         <img src="/src/images/highlight.png" alt="surligner">
       </button>
 
@@ -584,7 +584,7 @@ var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-edit
 <h3>Options d'exécution</h3>
 
   <p>
-    <button class="blue-gradient" id="reverse-step" title="Renverse la commande" onclick="RUR.ui.reverse_step();">
+    <button class="blue-gradient" id="reverse-step" title="Renverse la commande" onclick="RUR.reverse_step();">
       <img src="/src/images/reverse_step.png" alt="Renverse la commande">
     </button>
     <span class="description"> Renverse l'instruction précédemment exécutée.

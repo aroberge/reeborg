@@ -91,7 +91,6 @@ RUR.translation.south = "south";
 RUR.translation["Unknown orientation for robot."] = "Unknown orientation for robot.";
 
 
-// in ui.js
 RUR.translation["World selected"] = "World {world} selected";
 RUR.translation["Could not find world"] = "Could not find world {world}";
 RUR.translation["Object names"] = " library, token, star, triangle, square, etc.";

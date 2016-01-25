@@ -1,12 +1,7 @@
 
-/*jshint browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
-
-
-
 require("./translator.js");
 require("./world_select.js");
-require("./ui.js");
+require("./storage.js");
 
 RUR.custom_world_select = {};
 
@@ -21,9 +16,9 @@ RUR.custom_world_select.make = function (contents) {
                                         shortname:contents[i][1]});
     }
 
-    if (RUR.ui.user_worlds_loaded === undefined) {
-        RUR.ui.load_user_worlds("initial");
-        RUR.ui.user_worlds_loaded = true;
+    if (RUR.USER_WORLDS_LOADED === undefined) {
+        load_user_worlds("initial");
+        RUR.USER_WORLDS_LOADED = true;
     }
 
     if (RUR.settings.initial_world) {  // loaded the very first time
@@ -41,6 +36,18 @@ RUR.custom_world_select.make = function (contents) {
         RUR.world_select.set_default();
     }
 };
+
+function load_user_worlds (initial) {
+    var key, name, i;
+    for (i = localStorage.length - 1; i >= 0; i--) {
+        key = localStorage.key(i);
+        if (key.slice(0, 11) === "user_world:") {
+            name = key.slice(11);
+            RUR.storage.append_world_name(name, initial);
+            $('#delete-world').show();
+        }
+    }
+}
 
 
 RUR.make_default_menu = function(language) {

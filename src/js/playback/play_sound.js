@@ -1,3 +1,4 @@
+require("jquery");
 /** @function _play_sound
  * @memberof RUR.private
  * @instance

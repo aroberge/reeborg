@@ -6,7 +6,7 @@ require("./translator.js");
 require("./constants.js");
 require("./objects.js");
 require("./output.js");
-require("./recorder.js");
+require("./../recorder/record_frame.js");
 require("./state.js");
 require("./exceptions.js");
 require("./world_get.js");
@@ -129,6 +129,7 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
     if (RUR.objects[obj].in_water &&
         RUR.world_get.tile_at_position(to_x, to_y) == RUR.tiles.water &&
         !bridge_already_there){
+            // TODO: fix this
         RUR.world_set.add_solid_object(RUR.objects[obj].in_water, to_x, to_y, 1);
     } else {
         RUR.add_object_at_position(obj, to_x, to_y, 1);

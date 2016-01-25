@@ -1,6 +1,5 @@
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
-require("./../objects.js");
 require("./../translator.js");
 
 /** @function add_goal_object

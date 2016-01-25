@@ -4,6 +4,7 @@
 require("./../world_set/add_object.js");
 require("./../visible_world.js");
 require("./../state.js");
+require("jquery");
 
 exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     autoOpen: false,

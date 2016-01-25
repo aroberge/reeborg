@@ -141,22 +141,22 @@
 <div id="world-panel" class="active" >
 
   <div id="world-controls">
-    <button class="blue-gradient" id="run" title="run" onclick="RUR.ui.run();">
+    <button class="blue-gradient" id="run" title="run" onclick="RUR.run();">
       <img src="/src/images/play.png" alt="run">
     </button>
-    <button class="blue-gradient" id="step" title="step" disabled onclick="RUR.ui.step();">
+    <button class="blue-gradient" id="step" title="step" disabled onclick="RUR.step();">
       <img src="/src/images/step.png" alt="step">
     </button>
-    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.ui.pause();">
+    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.pause();">
       <img src="/src/images/pause.png" alt="pause">
     </button>
-    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.ui.stop();">
+    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.stop();">
       <img src="/src/images/stop.png" alt="stop">
     </button>
-    <button class="blue-gradient" id="reload" title="reload" disabled onclick="RUR.ui.reload();">
+    <button class="blue-gradient" id="reload" title="reload" disabled onclick="RUR.reload();">
       <img src="/src/images/reload.png" alt="reload">
     </button>
-    <button class="blue-gradient" id="reload2" title="reload" disabled onclick="RUR.ui.reload2();">
+    <button class="blue-gradient" id="reload2" title="reload" disabled onclick="RUR.reload2();">
         <img src="/src/images/reload.png" alt="reload">
     </button>
 
@@ -206,10 +206,10 @@
       <li><a id="description-link" href="#description-div">Desc.</a></li>
       <li><a id="onload-editor-link" href="#onload-editor-div">onload</a></li>
 
-      <button id="watch_variables_btn" class="blue-gradient float-right" title="watch_variables" onclick="RUR.ui.watch_variables()">
+      <button id="watch_variables_btn" class="blue-gradient float-right" title="watch_variables" onclick="RUR.toggle_watch_variables()">
           <img src="/src/images/magnifying_yes.png" alt="watch">
       </button>
-      <button id="highlight" class="reverse-blue-gradient float-right" title="highlight" onclick="RUR.ui.highlight()">
+      <button id="highlight" class="reverse-blue-gradient float-right" title="highlight" onclick="RUR.toggle_highlight()">
         <img src="/src/images/highlight.png" alt="highlight">
       </button>
 
@@ -590,7 +590,7 @@ var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-edit
 <hr>
 <h3>Special execution features</h3>
   <p>
-    <button class="blue-gradient" id="reverse-step" onclick="RUR.ui.reverse_step();">
+    <button class="blue-gradient" id="reverse-step" onclick="RUR.reverse_step();">
       <img src="/src/images/reverse_step.png" alt="reverse step">
     </button>
      Reverses the previous execution step.

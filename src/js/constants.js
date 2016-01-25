@@ -11,6 +11,10 @@ RUR.TILE_SIZE = 40;
 RUR.DEFAULT_HEIGHT = 550;
 RUR.DEFAULT_WIDTH = 625;
 
+// TODO: set up all canvas in separate isolated function so that
+// unit testing can be done more easily - with contants defined but without
+// having to mock document.
+
 RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
 RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
 RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
@@ -54,3 +58,7 @@ RUR.KNOWN_OBJECTS = [];
 RUR.KNOWN_TILES = [];
 RUR.KNOWN_SOLID_OBJECTS = [];
 RUR.ANIMATION_TIME = 120;
+
+RUR._CALLBACK_FN = function () {
+    alert("FATAL internal error: RUR._CALLBACK_FN was not initialized.");
+};

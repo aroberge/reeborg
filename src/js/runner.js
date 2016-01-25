@@ -6,6 +6,7 @@ require("./state.js");
 require("./zz_dr_blockly.js");
 require("./recorder.js");
 require("./world_init.js");
+var clone_world = require("./world/clone_world.js").clone_world;
 
 RUR.runner = {};
 
@@ -14,10 +15,10 @@ RUR.state.code_evaluated = false;
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (RUR.state.editing_world && !RUR.state.code_evaluated) {
-        RUR.world.saved_world = RUR.world.clone_world(RUR.current_world);
+        RUR._SAVED_WORLD = clone_world(RUR.current_world);
     }
     if (!RUR.state.code_evaluated) {
-        RUR.current_world = RUR.world.clone_world(RUR.world.saved_world);
+        RUR.current_world = clone_world(RUR._SAVED_WORLD);
         RUR.world_init.set();
 
         if (RUR.state.input_method === "blockly") {

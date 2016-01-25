@@ -5,7 +5,6 @@
 require("./translator.js");
 require("./constants.js");
 require("./state.js");
-require("./objects.js");
 
 RUR.vis_world = {};
 

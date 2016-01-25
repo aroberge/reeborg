@@ -1,5 +1,4 @@
 require("./../exceptions.js");
-require("./../objects.js");
 require("./../translator.js");
 require("./../utils/key_exist.js");
 

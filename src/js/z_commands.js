@@ -3,13 +3,12 @@ modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
 the other modules.  This way, in theory, (most) refactoring can take place in the
 basic javascript code without affecting the end user code.
 
-Convention: all function names follow the pattern RUR._xyz_
+Convention: all "public" function names follow the pattern RUR._xyz_
             Use four spaces for indentation
             Order function names alphabetically (in English)
  */
 
-/*jshint devel:true, white:false, plusplus:false */
-
+require("jquery");
 require("./translator.js");
 require("./constants.js");
 require("./control.js");
@@ -17,7 +16,6 @@ require("./custom_world_select.js");
 require("./file_io.js");
 require("./output.js");
 require("./visible_robot.js");
-require("./ui.js");
 require("./state.js");
 require("./world.js");
 require("./world_set.js");
@@ -33,6 +31,14 @@ RUR.inspect = function (obj){
     }
     RUR.output._write(result);
 };
+
+function user_no_highlight () {
+    if (RUR.state.highlight) {
+        RUR.state.highlight = false;
+        $("#highlight").addClass("blue-gradient");
+        $("#highlight").removeClass("reverse-blue-gradient");
+    }
+}
 
 
 RUR._at_goal_ = function () {
@@ -77,7 +83,7 @@ RUR._move_ = function () {
 
 RUR._new_robot_images_ = RUR.vis_robot.new_robot_images;
 
-RUR._no_highlight_ = RUR.ui.user_no_highlight;
+RUR._no_highlight_ = user_no_highlight;
 
 RUR._object_here_ = function (arg) {
     return RUR.world_get.object_at_robot_position(RUR.current_world.robots[0], arg);

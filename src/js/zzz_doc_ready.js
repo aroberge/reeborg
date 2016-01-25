@@ -1,21 +1,22 @@
+//
+// require("./translator.js");
+// require("./state.js");
+// require("./objects.js");
+// require("./visible_robot.js");
+// require("./zz_dr_onclick.js");
+// require("./zz_dr_onchange.js");
+// require("./zz_dr_editor_ui.js");
+// require("./zz_dr_blockly.js");
+// require("./recorder.js");
+// require("./storage.js");
+// require("./world_select.js");
+// require("./world.js");
+// require("./keyboard.js");
+// require("./tooltip.js");
+// require("./custom_world_select.js");
+// require("./aa_utils.js");
+// var export_world = require("./world/export_world.js").export_world;
 
-require("./translator.js");
-require("./state.js");
-require("./objects.js");
-require("./visible_robot.js");
-require("./zz_dr_onclick.js");
-require("./zz_dr_onchange.js");
-require("./zz_dr_editor_ui.js");
-require("./zz_dr_blockly.js");
-require("./recorder.js");
-require("./storage.js");
-require("./world_select.js");
-require("./world.js");
-require("./keyboard.js");
-require("./ui.js");
-require("./tooltip.js");
-require("./custom_world_select.js");
-require("./aa_utils.js");
 
 $(document).ready(function() {
     "use strict";
@@ -63,8 +64,6 @@ $(document).ready(function() {
 
     brython({debug:1, pythonpath:['/src/python']});
 
-    RUR.ui.show_only_reload2(false);
-
     try {
         RUR.reset_code_in_editors();
     } catch (e){
@@ -79,7 +78,6 @@ $(document).ready(function() {
         RUR.permalink.update(event.data);
     }
 
-    RUR.ui.set_ready_to_run();
     RUR.kbd.select();
 
     RUR.make_default_menu(RUR.state.human_language);
@@ -95,7 +93,7 @@ $(document).ready(function() {
         RUR.reset_programming_language(prog_lang);
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
         name = RUR.translate("PERMALINK");
-        localStorage.setItem("user_world:"+ name, RUR.world.export_world());
+        localStorage.setItem("user_world:"+ name, export_world());
         RUR.storage.save_world(name);
 
         editor.setValue(decodeURIComponent(url_query.queryKey.editor));

@@ -1,6 +1,7 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
+require("./jquery");
 require("./translator.js");
 require("./constants.js");
 require("./objects.js");
@@ -11,13 +12,13 @@ require("./exceptions.js");
 require("./state.js");
 require("./world_get.js");
 require("./world_set.js");
-require("./menus.js");
 require("./dialogs/create.js");
 
 require("./world_set/add_object.js");
 require("./world_set/add_goal_object.js");
 require("./world_set/add_robot.js");
 
+var edit_robot_menu = require("./ui/edit_robot_menu.js");
 var dialog_add_object = require("./dialogs/add_object.js").dialog_add_object;
 var dialog_give_object = require("./dialogs/give_object.js").dialog_give_object;
 var dialog_goal_object = require("./dialogs/goal_object.js").dialog_goal_object;
@@ -112,7 +113,7 @@ RUR.we.select = function (choice) {
                 RUR.we.alert_1("Added robot.");
                 RUR._add_robot();
                 RUR.we.edit_world();
-                RUR.menus.change_edit_robot();
+                edit_robot_menu.toggle();
                 break;
             case "orientation":
                 RUR.we.alert_1("Click on image to turn robot");
@@ -241,7 +242,7 @@ RUR.we.toggle_editing_mode = function () {
             localStorage.setItem(RUR.settings.library, library.getValue());
         } catch (e) {}
         RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
-        if (!identical(RUR.current_world, RUR.world.saved_world)) {
+        if (!identical(RUR.current_world, RUR._SAVED_WORLD)) {
             $("#memorize-world").trigger('click');
         }
         $("#editor-tab").trigger('click');
@@ -252,7 +253,7 @@ RUR.we.toggle_editing_mode = function () {
         $("#description-link").parent().show();
         $("#onload-editor-link").parent().show();
 
-        RUR.menus.change_edit_robot();
+        edit_robot_menu.toggle();
         RUR.state.editing_world = true;
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
@@ -337,7 +338,7 @@ RUR.we.place_robot = function () {
 
     if (arr.length===0){
         RUR.current_world.robots = [];
-        RUR.menus.change_edit_robot();
+        edit_robot_menu.toggle();
         return;
     }
 

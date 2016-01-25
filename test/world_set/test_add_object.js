@@ -1,7 +1,5 @@
 var test = require('tape');
-var mock = require('mock-require');
 var silencer =  require('silencer');
-mock("../../src/js/objects.js", {});
 
 global.RUR = {};
 
