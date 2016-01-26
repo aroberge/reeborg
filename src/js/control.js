@@ -619,6 +619,10 @@ RUR.control.set_trace_style = function(robot, style){
     robot.trace_style = style;
  };
 
+if (RUR.state === undefined){
+    RUR.state = {};
+}
+
 RUR.state.sound_on = false;
 RUR.control.sound = function(on){
     if(!on){

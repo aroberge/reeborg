@@ -3,8 +3,10 @@
    state.  However, by using this convention and documentating them in a
    single place, it helps in avoiding the creation of inconsistent states.*/
 var RUR = RUR || {};
+if (RUR.state === undefined){
+    RUR.state = {};
+}
 
-RUR.state = {};
 
 // TODO: create RUR.state.do_highlight()
 // this would be to combine all the flags required to have highlighting on

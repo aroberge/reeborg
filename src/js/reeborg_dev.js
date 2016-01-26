@@ -853,6 +853,10 @@ RUR.control.set_trace_style = function(robot, style){
     robot.trace_style = style;
  };
 
+if (RUR.state === undefined){
+    RUR.state = {};
+}
+
 RUR.state.sound_on = false;
 RUR.control.sound = function(on){
     if(!on){
@@ -2896,8 +2900,10 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
    state.  However, by using this convention and documentating them in a
    single place, it helps in avoiding the creation of inconsistent states.*/
 var RUR = RUR || {};
+if (RUR.state === undefined){
+    RUR.state = {};
+}
 
-RUR.state = {};
 
 // TODO: create RUR.state.do_highlight()
 // this would be to combine all the flags required to have highlighting on
@@ -6598,6 +6604,7 @@ RUR.zz_dr_onchange = function () {
             hide_console();
             hide_blockly();
             RUR.state.input_method = "editor";
+            editor.setOption("readOnly", false);
         } else if($(this).val() == "repl") {
             hide_python_editor();
             show_console();
@@ -6608,6 +6615,7 @@ RUR.zz_dr_onchange = function () {
             hide_console();
             show_blockly();
             RUR.state.input_method = "blockly";
+            editor.setOption("readOnly", true);
         }
     });
 
@@ -6616,23 +6624,25 @@ RUR.zz_dr_onchange = function () {
             hide_javascript_editor();
             show_blockly();
             RUR.state.input_method = "blockly";
+            editor.setOption("readOnly", true);
         } else {
             show_javascript_editor();
             hide_blockly();
             RUR.state.input_method = "editor";
+            editor.setOption("readOnly", false);
         }
     });
 
     $('#editor_visible_blockly').change(function() {
         if ($('#editor_visible_blockly')[0].checked) {
-            RUR.state.input_method = "editor";
+            // RUR.state.input_method = "editor";
             if (RUR.state.programming_language == "python"){
                 show_python_editor();
             } else {
                 show_javascript_editor();
             }
         } else {
-            RUR.state.input_method = "blockly";
+            // RUR.state.input_method = "blockly";
             if (RUR.state.programming_language == "python"){
                 hide_python_editor();
             } else {
