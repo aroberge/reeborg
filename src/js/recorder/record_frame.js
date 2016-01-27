@@ -20,7 +20,7 @@ _record_frame = function (name, obj) {
 
     // // Used mainly to add watch variables to previous frame
     // if (name !== undefined && name == "output" &&
-    //     obj.element == "#print_html" && obj.append == undefined &&
+    //     obj.element == "#print-html" && obj.append == undefined &&
     //     RUR.nb_frames > 1) {
     //     RUR.frames[RUR.nb_frames-1]["output"] = obj;
     //     return;

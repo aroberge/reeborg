@@ -37,14 +37,14 @@ RUR.output.clear_print = function () {
 
 RUR.output.print_html = function (arg, append) {
     if (append) {
-        RUR.record_frame("print_html", {"element": "#print_html", "message": arg, "append": true});
+        RUR.record_frame("print_html", {"element": "#print-html", "message": arg, "append": true});
     } else {
-        RUR.record_frame("print_html", {"element": "#print_html", "message": arg});
+        RUR.record_frame("print_html", {"element": "#print-html", "message": arg});
     }
 };
 
 RUR.output.watch_variables = function (arg) {
-    RUR.record_frame("watch_variables", {"element": "#watch_variables", "message": arg});
+    RUR.record_frame("watch_variables", {"element": "#watch-variables", "message": arg});
 };
 
 

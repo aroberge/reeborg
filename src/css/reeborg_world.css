@@ -622,13 +622,13 @@ p.try {
     display: block;
 }
 
-#print_html {
+#print-html {
     font-family: Verdana, sans-serif;
     font-size: 16px;
     color: blue;
 }
 
-#watch_variables div {
+#watch-variables div {
     border-bottom: 1px dashed #3e7e10;
     margin: 4px;
 }

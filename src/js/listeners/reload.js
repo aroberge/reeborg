@@ -22,10 +22,10 @@ RUR.reload = function() {
 RUR.reload2 = function() {
     $("#stdout").html("");
     $(".view_source").remove();
-    $("#print_html").html("");
+    $("#print-html").html("");
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
-    $("#watch_variables").html("");
+    $("#watch-variables").html("");
     // reset the options in case the user has dragged the dialogs as it would
     // then open at the top left of the window
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot-canvas")}});
