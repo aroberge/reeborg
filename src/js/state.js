@@ -72,22 +72,22 @@ RUR.state.save = function () {
 //     RUR.state.programming_language = lang;
 //     switch(lang){
 //         case 'javascript':
-//             $("#python_choices").hide();
-//             $("#javascript_choices").show();
-//             $("#javascript_choices").change();
+//             $("#python-choices").hide();
+//             $("#javascript-choices").show();
+//             $("#javascript-choices").change();
 //             $("#editor-tab").html(RUR.translate("Javascript Code"));
 //             editor.setOption("mode", "javascript");
 //             pre_code_editor.setOption("mode", "javascript");
 //             post_code_editor.setOption("mode", "javascript");
 //             $("#library-tab").parent().hide();
 //             $("#python-additional-menu p button").attr("disabled", "true");
-//             $("#py_console").hide();
+//             $("#py-console").hide();
 //             RUR.kbd.set_programming_language("javascript");
 //             break;
 //         case 'python':
-//             $("#python_choices").show();
-//             $("#javascript_choices").hide();
-//             $("#python_choices").change();
+//             $("#python-choices").show();
+//             $("#javascript-choices").hide();
+//             $("#python-choices").change();
 //             $("#editor-tab").html(RUR.translate("Python Code"));
 //             editor.setOption("mode", {name: "python", version: 3});
 //             pre_code_editor.setOption("mode", {name: "python", version: 3});

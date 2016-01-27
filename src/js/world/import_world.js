@@ -68,9 +68,9 @@ RUR.world.import_world = function (json_string) {
     RUR.current_world.cols = RUR.current_world.cols || RUR.MAX_X;
     RUR.vis_world.compute_world_geometry(RUR.current_world.cols, RUR.current_world.rows);
 
-    $("#add_editor_to_world").prop("checked",
+    $("#add-editor-to-world").prop("checked",
                                    RUR.current_world.editor !== undefined);
-    $("#add_library_to_world").prop("checked",
+    $("#add-library-to-world").prop("checked",
                                     RUR.current_world.library !== undefined);
 
     if (RUR.current_world.editor !== undefined &&

@@ -155,7 +155,7 @@ RUR.we.select = function (choice) {
                 RUR.we.alert_1("Click on desired tile below.");
                 break;
             case "solid_objects":
-                $("#edit-solid_object").show();
+                $("#edit-solid-object").show();
                 RUR.we.alert_1("Click on desired object below.");
                 break;
             case "walls":
@@ -189,7 +189,7 @@ RUR.we.select = function (choice) {
             RUR.we.alert_2("Click on world to fill with given tile.", value);
             break;
         case "solid_object":
-            $("#edit-solid_object").show();
+            $("#edit-solid-object").show();
             RUR.we.alert_2("Click on world to toggle object.", value);
             break;
         case "position":
@@ -269,8 +269,8 @@ RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
 
 RUR.we.calculate_grid_position = function () {
     var ctx, x, y;
-    x = RUR.mouse_x - $("#robot_canvas").offset().left;
-    y = RUR.mouse_y - $("#robot_canvas").offset().top;
+    x = RUR.mouse_x - $("#robot-canvas").offset().left;
+    y = RUR.mouse_y - $("#robot-canvas").offset().top;
 
     x /= RUR.WALL_LENGTH;
     x = Math.floor(x);
@@ -365,8 +365,8 @@ RUR.we.turn_robot = function (orientation) {
 
 RUR.we.calculate_wall_position = function () {
     var ctx, x, y, orientation, remain_x, remain_y, del_x, del_y;
-    x = RUR.mouse_x - $("#robot_canvas").offset().left;
-    y = RUR.mouse_y - $("#robot_canvas").offset().top;
+    x = RUR.mouse_x - $("#robot-canvas").offset().left;
+    y = RUR.mouse_y - $("#robot-canvas").offset().top;
 
     y = RUR.BACKGROUND_CANVAS.height - y;  // count from bottom
 
@@ -654,7 +654,7 @@ RUR.we.toggle_solid_object = function (obj){
 
 
 
-$("#robot_canvas").on("click", function (evt) {
+$("#robot-canvas").on("click", function (evt) {
     RUR.mouse_x = evt.pageX;
     RUR.mouse_y = evt.pageY;
     if (RUR.state.editing_world) {

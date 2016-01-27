@@ -23,7 +23,7 @@ def print_exc():
 
 class PyConsole:
     def __init__(self):
-        self.textarea = document['py_console']
+        self.textarea = document['py-console']
 
     def refresh(self):
         self.textarea.value = ">>> "

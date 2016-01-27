@@ -61,27 +61,27 @@ canvas {
 }
 /* layering */
 
-#background_canvas {
+#background-canvas {
     z-index: 1;
 }
 
-#second_layer_canvas {
+#second-layer-canvas {
     z-index: 2;
 }
 
-#goal_canvas {
+#goal-canvas {
     z-index: 3;
 }
 
-#objects_canvas {
+#objects-canvas {
     z-index: 4;
 }
 
-#trace_canvas {
+#trace-canvas {
     z-index: 5;
 }
 
-#robot_canvas {
+#robot-canvas {
     z-index: 6;
 }
 
@@ -110,7 +110,7 @@ canvas {
     z-index: 7;
 }
 
-#py_console {
+#py-console {
     position: absolute;
     top: 100px;
     left: 650px;
@@ -496,7 +496,7 @@ p.try {
     border-top-right-radius: 10px;
 }
 
-#visible_blockly {
+#visible-blockly {
     display:none;
     color:white;
 }
@@ -529,7 +529,7 @@ p.try {
     color: green;
 }
 
-#url_input {
+#url-input {
     position: absolute;
     z-index: 10;
     top: 100px;

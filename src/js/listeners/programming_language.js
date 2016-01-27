@@ -1,5 +1,4 @@
 require("./../state.js");
-;
 require("./../keyboard.js");
 var record_id = require("./../utils/record_id.js").record_id;
 record_id("select-programming-language");
@@ -16,20 +15,20 @@ RUR.reset_programming_language = function(choice){
     $("#python-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
     $("#highlight").hide();
-    $("#py_console").hide();
+    $("#py-console").hide();
 
     $("#pre-code-link").parent().hide();
     $("#post-code-link").parent().hide();
     $("#description-link").parent().hide();
     $("#onload-editor-link").parent().hide();
-    $("#python_choices").hide();
-    $("#javascript_choices").hide();
+    $("#python-choices").hide();
+    $("#javascript-choices").hide();
     $("#special-keyboard-button").show();
 
     switch(RUR.settings.current_language){
         case 'python-' + RUR.state.human_language :
-            $("#python_choices").show();
-            $("#python_choices").change();
+            $("#python-choices").show();
+            $("#python-choices").change();
             // TODO review RUR.settings ...
             RUR.settings.editor = "editor_py_" + RUR.state.human_language;
             RUR.settings.library = "library_py_" + RUR.state.human_language;
@@ -42,13 +41,13 @@ RUR.reset_programming_language = function(choice){
             $("#library-tab").parent().show();
             $("#python-additional-menu p button").removeAttr("disabled");
             if (RUR.state.input_method==="repl") {
-                $("#py_console").show();
+                $("#py-console").show();
             }
             RUR.kbd.set_programming_language("python");
             break;
         case 'javascript-' + RUR.state.human_language :
-            $("#javascript_choices").show();
-            $("#javascript_choices").change();
+            $("#javascript-choices").show();
+            $("#javascript-choices").change();
             $("#editor-panel").addClass("active");
             RUR.settings.editor = "editor_js_" + RUR.state.human_language;
             RUR.state.programming_language = "javascript";

@@ -74,8 +74,8 @@ RUR.permalink.create = function () {
 
     permalink = RUR.permalink.__create();
 
-    $("#url_input_textarea").val(permalink);
-    $("#url_input").toggle();
+    $("#url-input-textarea").val(permalink);
+    $("#url-input").toggle();
     $("#ok-permalink").removeAttr("disabled");
     $("#cancel-permalink").removeAttr("disabled");
 
@@ -98,7 +98,7 @@ RUR.permalink.update = function (arg, shortname) {
     if (arg !== undefined) {
         url_query = parseUri(arg);
     } else {
-        url_query = parseUri($("#url_input_textarea").val());
+        url_query = parseUri($("#url-input-textarea").val());
     }
     if (url_query.queryKey.proglang !== undefined &&
        url_query.queryKey.world !== undefined &&
@@ -120,13 +120,13 @@ RUR.permalink.update = function (arg, shortname) {
         library.setValue(decodeURIComponent(url_query.queryKey.library));
     }
 
-    $("#url_input").hide();
+    $("#url-input").hide();
     $("#permalink").removeClass('reverse-blue-gradient');
     $("#permalink").addClass('blue-gradient');
 };
 
 RUR.permalink.cancel = function () {
-    $('#url_input').hide();
+    $('#url-input').hide();
     $("#permalink").removeClass('reverse-blue-gradient');
     $("#permalink").addClass('blue-gradient');
 };

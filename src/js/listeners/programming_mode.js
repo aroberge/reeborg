@@ -13,8 +13,8 @@ var record_id = require("./../utils/record_id.js").record_id;
 
 //TODO: add translations element to record_id
 
-record_id("python_choices");
-$("#python_choices").change(function() {
+record_id("python-choices");
+$("#python-choices").change(function() {
     if($(this).val() == "editor") {
         show_python_editor();
         hide_console();
@@ -35,8 +35,8 @@ $("#python_choices").change(function() {
     }
 });
 
-record_id("javascript_choices");
-$("#javascript_choices").change(function() {
+record_id("javascript-choices");
+$("#javascript-choices").change(function() {
     if($(this).val() == "blockly") {
         hide_javascript_editor();
         show_blockly();
@@ -50,9 +50,9 @@ $("#javascript_choices").change(function() {
     }
 });
 
-record_id("editor_visible_blockly");
-$('#editor_visible_blockly').change(function() {
-    if ($('#editor_visible_blockly')[0].checked) {
+record_id("editor-visible-blockly");
+$('#editor-visible-blockly').change(function() {
+    if ($('#editor-visible-blockly')[0].checked) {
         RUR.state.input_method = "editor";
         if (RUR.state.programming_language == "python"){
             show_python_editor();
@@ -71,13 +71,13 @@ $('#editor_visible_blockly').change(function() {
 
 function show_blockly () {
     $("#blockly-wrapper").show();
-    $("#visible_blockly").show();
+    $("#visible-blockly").show();
     if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
         $("#special-keyboard-button").click();
     }
     $("#special-keyboard-button").hide();
     $("#Reeborg-watches").dialog("close");
-    if ($('#editor_visible_blockly')[0].checked) {
+    if ($('#editor-visible-blockly')[0].checked) {
         show_python_editor();
     }
     window.dispatchEvent(new Event('resize')); // important to ensure that blockly is visible
@@ -86,38 +86,38 @@ function show_blockly () {
 function hide_blockly () {
     $("#blockly-wrapper").hide();
     window.dispatchEvent(new Event('resize'));
-    $("#visible_blockly").hide();
+    $("#visible-blockly").hide();
     $("#special-keyboard-button").show();
 }
 
 function show_javascript_editor () {
     $("#editor-panel").addClass("active");
-    $("#kbd_javascript_btn").show();
+    $("#kbd-javascript-btn").show();
     RUR.reload();
     editor.refresh();
 }
 
 function hide_javascript_editor () {
     $("#editor-panel").removeClass("active");
-    $("#kbd_javascript_btn").hide();
+    $("#kbd-javascript-btn").hide();
 }
 
 function show_python_editor () {
     $("#editor-panel").addClass("active");
-    $("#kbd_python_btn").show();
+    $("#kbd-python-btn").show();
     RUR.state.highlight = RUR.state.highlight || RUR._saved_highlight_value;
     RUR.reload();
     editor.refresh();
 }
 function hide_python_editor () {
     $("#editor-panel").removeClass("active");
-    $("#kbd_python_btn").hide();
+    $("#kbd-python-btn").hide();
     RUR._saved_highlight_value = RUR.state.highlight;
     RUR.state.highlight = false;
 }
 function show_console() {
-    $("#py_console").show();
-    $("#kbd_py_console_btn").show();
+    $("#py-console").show();
+    $("#kbd-py-console-btn").show();
     $("#stop").hide();
     $("#pause").hide();
     $("#run").hide();
@@ -134,8 +134,8 @@ function show_console() {
 }
 
 function hide_console() {
-    $("#py_console").hide();
-    $("#kbd_py_console_btn").hide();
+    $("#py-console").hide();
+    $("#kbd-py-console-btn").hide();
     $("#stop").show();
     $("#pause").show();
     $("#run").show();

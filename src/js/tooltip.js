@@ -10,7 +10,7 @@ RUR.tooltip.init = function () {  // call in zzz.doc_ready.js
     RUR.tooltip.ctx = RUR.tooltip.canvas.getContext("2d");
 
     // request mousemove events
-    $("#robot_canvas").mousemove(function (evt) {
+    $("#robot-canvas").mousemove(function (evt) {
         RUR.mouse_x = evt.pageX;
         RUR.mouse_y = evt.pageY;
         RUR.tooltip.handleMouseMove(evt);
@@ -23,8 +23,8 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
     var size = 40, objects_carried;
 
     world = RUR.current_world;
-    x = evt.pageX - $("#robot_canvas").offset().left;
-    y = evt.pageY - $("#robot_canvas").offset().top;
+    x = evt.pageX - $("#robot-canvas").offset().left;
+    y = evt.pageY - $("#robot-canvas").offset().top;
     position = RUR.we.calculate_grid_position();
     RUR.tooltip.canvas.style.left = "-200px";
     if (!RUR.we.mouse_contained_flag) {

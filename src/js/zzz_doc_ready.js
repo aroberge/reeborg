@@ -100,9 +100,9 @@ var rec_reset = require("./recorder/reset.js").reset;
         prog_lang = localStorage.getItem("last_programming_language_" + RUR.state.human_language);
         switch (prog_lang) {
             case 'python-' + RUR.state.human_language:
-                $("#python_choices").val("editor").change();  // jshint ignore:line
+                $("#python-choices").val("editor").change();  // jshint ignore:line
             case 'javascript-' + RUR.state.human_language:
-                $("#javascript_choices").val("editor").change(); // jshint ignore:line
+                $("#javascript-choices").val("editor").change(); // jshint ignore:line
             default:
                 RUR.reset_programming_language('python-' + RUR.state.human_language);
         }

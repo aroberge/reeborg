@@ -9,18 +9,18 @@ RUR.kbd.set_programming_language = function (lang) {
     switch (lang) {
         case "python":
             if (RUR.state.input_method==="repl"){
-                $("#kbd_python_btn").hide();
-                $("#kbd_py_console_btn").show();
+                $("#kbd-python-btn").hide();
+                $("#kbd-py-console-btn").show();
             } else {
-                $("#kbd_python_btn").show();
-                $("#kbd_py_console_btn").hide();
+                $("#kbd-python-btn").show();
+                $("#kbd-py-console-btn").hide();
             }
-            $("#kbd_javascript_btn").hide();
+            $("#kbd-javascript-btn").hide();
             break;
         case "javascript":
-            $("#kbd_python_btn").hide();
-            $("#kbd_py_console_btn").hide();
-            $("#kbd_javascript_btn").show();
+            $("#kbd-python-btn").hide();
+            $("#kbd-py-console-btn").hide();
+            $("#kbd-javascript-btn").show();
             break;
     }
     RUR.kbd.select();
@@ -35,7 +35,7 @@ RUR.kbd.insert2 = function (txt){
 };
 
 RUR.kbd.insert_in_console = function (txt) {
-    var console = $("#py_console");
+    var console = $("#py-console");
     console.val(console.val() + txt);
     console.focus();
 };
@@ -140,78 +140,78 @@ RUR.kbd.shift_tab = function () {
 
 RUR.kbd.select = function (choice) {
     "use strict";
-    $(".kbd_command").hide();
-    $(".kbd_condition").hide();
-    $(".kbd_objects").hide();
-    $(".kbd_python").hide();
-    $(".kbd_py_console").hide();
-    $(".kbd_javascript").hide();
-    $(".kbd_special").hide();
-    $(".no_console").hide();
-    if ($("#kbd_command_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_command_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_command_btn").addClass("blue-gradient");
-    } else if ($("#kbd_condition_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_condition_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_condition_btn").addClass("blue-gradient");
-    } else if ($("#kbd_python_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_python_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_python_btn").addClass("blue-gradient");
-    } else if ($("#kbd_py_console_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_py_console_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_py_console_btn").addClass("blue-gradient");
-    } else if ($("#kbd_javascript_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_javascript_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_javascript_btn").addClass("blue-gradient");
-    } else if ($("#kbd_objects_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_objects_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_objects_btn").addClass("blue-gradient");
-    } else if ($("#kbd_special_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_special_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_special_btn").addClass("blue-gradient");
+    $(".kbd-command").hide();
+    $(".kbd-condition").hide();
+    $(".kbd-objects").hide();
+    $(".kbd-python").hide();
+    $(".kbd-py-console").hide();
+    $(".kbd-javascript").hide();
+    $(".kbd-special").hide();
+    $(".no-console").hide();
+    if ($("#kbd-command-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-command-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-command-btn").addClass("blue-gradient");
+    } else if ($("#kbd-condition-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-condition-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-condition-btn").addClass("blue-gradient");
+    } else if ($("#kbd-python-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-python-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-python-btn").addClass("blue-gradient");
+    } else if ($("#kbd-py-console-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-py-console-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-py-console-btn").addClass("blue-gradient");
+    } else if ($("#kbd-javascript-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-javascript-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-javascript-btn").addClass("blue-gradient");
+    } else if ($("#kbd-objects-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-objects-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-objects-btn").addClass("blue-gradient");
+    } else if ($("#kbd-special-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-special-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-special-btn").addClass("blue-gradient");
     }
     switch (choice) {
-        case "kbd_condition":
-            $(".kbd_condition").show();
-            $("#kbd_condition_btn").removeClass("blue-gradient");
-            $("#kbd_condition_btn").addClass("reverse-blue-gradient");
+        case "kbd-condition":
+            $(".kbd-condition").show();
+            $("#kbd-condition-btn").removeClass("blue-gradient");
+            $("#kbd-condition-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_objects":
-            $(".kbd_objects").show();
-            $("#kbd_objects_btn").removeClass("blue-gradient");
-            $("#kbd_objects_btn").addClass("reverse-blue-gradient");
+        case "kbd-objects":
+            $(".kbd-objects").show();
+            $("#kbd-objects-btn").removeClass("blue-gradient");
+            $("#kbd-objects-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_python":
-            $(".kbd_python").show();
-            $("#kbd_python_btn").removeClass("blue-gradient");
-            $("#kbd_python_btn").addClass("reverse-blue-gradient");
+        case "kbd-python":
+            $(".kbd-python").show();
+            $("#kbd-python-btn").removeClass("blue-gradient");
+            $("#kbd-python-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_py_console":
-            $(".kbd_py_console").show();
-            $("#kbd_py_console_btn").removeClass("blue-gradient");
-            $("#kbd_py_console_btn").addClass("reverse-blue-gradient");
+        case "kbd-py-console":
+            $(".kbd-py-console").show();
+            $("#kbd-py-console-btn").removeClass("blue-gradient");
+            $("#kbd-py-console-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_javascript":
-            $(".kbd_javascript").show();
-            $("#kbd_javascript_btn").removeClass("blue-gradient");
-            $("#kbd_javascript_btn").addClass("reverse-blue-gradient");
+        case "kbd-javascript":
+            $(".kbd-javascript").show();
+            $("#kbd-javascript-btn").removeClass("blue-gradient");
+            $("#kbd-javascript-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_special":
-            $(".kbd_special").show();
-            $("#kbd_special_btn").removeClass("blue-gradient");
-            $("#kbd_special_btn").addClass("reverse-blue-gradient");
+        case "kbd-special":
+            $(".kbd-special").show();
+            $("#kbd-special-btn").removeClass("blue-gradient");
+            $("#kbd-special-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_command":  // jshint ignore:line
+        case "kbd-command":  // jshint ignore:line
         default:
-            $(".kbd_command").show();
-            $("#kbd_command_btn").removeClass("blue-gradient");
-            $("#kbd_command_btn").addClass("reverse-blue-gradient");
+            $(".kbd-command").show();
+            $("#kbd-command-btn").removeClass("blue-gradient");
+            $("#kbd-command-btn").addClass("reverse-blue-gradient");
     }
 
     if (RUR.state.programming_language == "python") {
         $(".only_py").show();
         if (RUR.state.input_method==="repl") {
-            $(".no_console").hide();
+            $(".no-console").hide();
         }
         $(".only_js").hide();
     } else {

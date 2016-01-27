@@ -35,24 +35,24 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
     }
 
     if (height !== RUR.HEIGHT || width !== RUR.WIDTH) {
-        RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
+        RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas");
         RUR.BACKGROUND_CANVAS.width = width;
         RUR.BACKGROUND_CANVAS.height = height;
-        RUR.second_layer_canvas = document.getElementById("second_layer_canvas");
-        RUR.second_layer_canvas.width = width;
-        RUR.second_layer_canvas.height = height;
-        RUR.goal_canvas = document.getElementById("goal_canvas");
-        RUR.goal_canvas.width = width;
-        RUR.goal_canvas.height = height;
-        RUR.objects_canvas = document.getElementById("objects_canvas");
-        RUR.objects_canvas.width = width;
-        RUR.objects_canvas.height = height;
-        RUR.trace_canvas = document.getElementById("trace_canvas");
-        RUR.trace_canvas.width = width;
-        RUR.trace_canvas.height = height;
-        RUR.robot_canvas = document.getElementById("robot_canvas");
-        RUR.robot_canvas.width = width;
-        RUR.robot_canvas.height = height;
+        RUR.SECOND_LAYER_CANVAS = document.getElementById("second-layer-canvas");
+        RUR.SECOND_LAYER_CANVAS.width = width;
+        RUR.SECOND_LAYER_CANVAS.height = height;
+        RUR.GOAL_CANVAS = document.getElementById("goal-canvas");
+        RUR.GOAL_CANVAS.width = width;
+        RUR.GOAL_CANVAS.height = height;
+        RUR.OBJECTS_CANVAS = document.getElementById("objects-canvas");
+        RUR.OBJECTS_CANVAS.width = width;
+        RUR.OBJECTS_CANVAS.height = height;
+        RUR.TRACE_CANVAS = document.getElementById("trace-canvas");
+        RUR.TRACE_CANVAS.width = width;
+        RUR.TRACE_CANVAS.height = height;
+        RUR.ROBOT_CANVAS = document.getElementById("robot-canvas");
+        RUR.ROBOT_CANVAS.width = width;
+        RUR.ROBOT_CANVAS.height = height;
         RUR.HEIGHT = height;
         RUR.WIDTH = width;
     }

@@ -45,13 +45,13 @@ RUR.create_and_activate_dialogs($("#special-keyboard-button"), $("#special-keybo
 
 
 $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
-                                position:{my: "center", at: "center", of: $("#robot_canvas")}});
+                                position:{my: "center", at: "center", of: $("#robot-canvas")}});
 $("#Reeborg-shouts").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert",
-                                position:{my: "center", at: "center", of: $("#robot_canvas")}});
+                                position:{my: "center", at: "center", of: $("#robot-canvas")}});
 $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:250,
                                 position:{my: "bottom", at: "bottom-20", of: window}});
 $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
-                                position:{my: "center", at: "center", of: $("#robot_canvas")}});
+                                position:{my: "center", at: "center", of: $("#robot-canvas")}});
 $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:800, dialogClass: "proclaims",
                                 position:{my: "bottom", at: "bottom-80", of: window}});
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",

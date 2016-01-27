@@ -102,7 +102,7 @@ RUR.zz_dr_onclick = function () {
     });
 
 
-    $("#add_editor_to_world").on("click", function(evt) {
+    $("#add-editor-to-world").on("click", function(evt) {
         if ($(this).prop("checked")) {
             RUR.current_world.editor = editor.getValue();
         } else {
@@ -110,7 +110,7 @@ RUR.zz_dr_onclick = function () {
         }
     });
 
-    $("#add_library_to_world").on("click", function(evt) {
+    $("#add-library-to-world").on("click", function(evt) {
         if ($(this).prop("checked")) {
             RUR.current_world.library = library.getValue();
         } else {
