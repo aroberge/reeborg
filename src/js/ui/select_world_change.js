@@ -1,4 +1,4 @@
-require("jquery");
+;
 require("./../file_io.js");
 require("./../storage.js");
 

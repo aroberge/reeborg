@@ -8,7 +8,7 @@ Convention: all "public" function names follow the pattern RUR._xyz_
             Order function names alphabetically (in English)
  */
 
-require("jquery");
+;
 require("./translator.js");
 require("./constants.js");
 require("./control.js");

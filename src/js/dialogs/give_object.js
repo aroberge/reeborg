@@ -3,8 +3,8 @@ require("./../world_set.js");
 require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
-require("jquery");
-require("jquery-ui");
+;
+// require("jquery-ui");
 
 exports.dialog_give_object = dialog_give_object = $("#dialog-give-object").dialog({
     autoOpen: false,

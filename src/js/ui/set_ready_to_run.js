@@ -1,5 +1,5 @@
 
-require("jquery");
+;
 require("./../state.js");
 
 exports.set_ready_to_run = set_ready_to_run = function () {

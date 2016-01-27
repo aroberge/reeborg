@@ -1,12 +1,14 @@
+require("./../state.js");
+;
+require("./../keyboard.js");
+var record_id = require("./../utils/record_id.js").record_id;
+record_id("select-programming-language");
 
-// aa_utils.js : name starting with aa so that it is loaded first :-/
-// TODO refactor so as to keep only translation functions here.
-
-require("./state.js");
-require("./keyboard.js");
+$("#select-programming-language").change(function() {
+    RUR.reset_programming_language($(this).val());
+});
 
 RUR.reset_programming_language = function(choice){
-
     RUR.settings.current_language = choice;
     try {
         localStorage.setItem("last_programming_language_" + RUR.state.human_language, RUR.settings.current_language);
@@ -28,6 +30,7 @@ RUR.reset_programming_language = function(choice){
         case 'python-' + RUR.state.human_language :
             $("#python_choices").show();
             $("#python_choices").change();
+            // TODO review RUR.settings ...
             RUR.settings.editor = "editor_py_" + RUR.state.human_language;
             RUR.settings.library = "library_py_" + RUR.state.human_language;
             RUR.state.programming_language = "python";

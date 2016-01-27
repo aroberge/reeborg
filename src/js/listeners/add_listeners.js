@@ -5,3 +5,6 @@ require("./stop.js");
 require("./reload.js");
 require("./toggle_watch.js");
 require("./toggle_highlight.js");
+require("./robot_model.js");
+require("./programming_language.js");
+require("./programming_mode.js");

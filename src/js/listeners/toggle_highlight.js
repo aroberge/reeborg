@@ -1,4 +1,4 @@
-require("jquery");
+;
 require("./../state.js");
 var record_id = require("./../utils/record_id.js").record_id;
 

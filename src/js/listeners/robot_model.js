@@ -1,40 +1,29 @@
-require("./../visual_robot.js");
+require("./../visible_robot.js");
+;
+require("./../state.js");
+var record_id = require("./../utils/record_id.js").record_id;
 
-$("#classic-image").on("click", function (evt) {
+record_id("robot0");
+record_id("robot1");
+record_id("robot2");
+record_id("robot3");
+
+$("#robot0").on("click", function (evt) {
     RUR.select_default_robot_model(0);
 });
 
-$("#rover-type").on("click", function (evt) {
+$("#robot1").on("click", function (evt) {
     RUR.select_default_robot_model(1);
 });
 
-$("#3d-red-type").on("click", function (evt) {
+$("#robot2").on("click", function (evt) {
     RUR.select_default_robot_model(2);
 });
 
-$("#solar-panel-type").on("click", function (evt) {
+$("#robot3").on("click", function (evt) {
     RUR.select_default_robot_model(3);
 });
 
-RUR.select_default_robot_model = function (arg) {
-    var style;
-    style = parseInt(arg, 10);
-    if ( !(style ===0 || style==1 || style==2 || style==3)){
-        style = 0;
-    }
-    RUR.vis_robot.style = style;
-    RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
-    RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
-    RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
-    RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
-    RUR.vis_robot.random_img = RUR.vis_robot.images[style].robot_random_img;
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
-
-    localStorage.setItem("robot_default_model", style);
-};
-RUR.select_default_robot_model(localStorage.getItem("robot_default_model"));
 
 RUR.vis_robot.new_robot_images = function (images) {
     var model;

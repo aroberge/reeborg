@@ -21,7 +21,7 @@ RUR._TEXT_ELEMENTS = [];
 
 require("./utils/key_exist.js");
 
-require("jquery");
+;
 
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
@@ -34,11 +34,8 @@ require("./utils/supplant.js");
 
 require("./listeners/add_listeners.js");
 
-require("./ui/toggle_highlight.js"); /* only invoked from the html file - for now */
-require("./ui/toggle_watch_variables.js"); /* only invoked from the html file - for now */
-require("./ui/select-world_change.js");
+require("./ui/select_world_change.js");
 require("./playback/reverse_step.js"); /* only invoked from the html file - for now */
 
 require("./z_commands.js");
-alert("Not ready to run");
-// require("./zzz_doc_ready.js");
+require("./zzz_doc_ready.js");

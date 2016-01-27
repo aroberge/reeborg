@@ -1,11 +1,11 @@
-require("./translator.js");
-require("./constants.js");
-require("./robot.js");
-require("./visible_world.js");
-require("./state.js");
-require("./exceptions.js");
-edit_robot_menu = require("./ui/edit_robot_menu.js");
-var clone_world = require("./world/clone_world.js").clone_world;
+require("./../translator.js");
+require("./../constants.js");
+require("./../robot.js");
+require("./../visible_world.js");
+require("./../state.js");
+require("./../exceptions.js");
+edit_robot_menu = require("./../ui/edit_robot_menu.js");
+var clone_world = require("./clone_world.js").clone_world;
 
 RUR.world.import_world = function (json_string) {
     "use strict";

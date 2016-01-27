@@ -1,7 +1,7 @@
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
-require("./jquery");
+// require("./jquery");
 require("./translator.js");
 require("./constants.js");
 require("./objects.js");

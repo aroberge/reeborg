@@ -3,27 +3,25 @@
 // require("./state.js");
 // require("./objects.js");
 // require("./visible_robot.js");
-// require("./zz_dr_onclick.js");
+require("./zz_dr_onclick.js");
 // require("./zz_dr_onchange.js");
-// require("./zz_dr_editor_ui.js");
-// require("./zz_dr_blockly.js");
+require("./zz_dr_editor_ui.js");
+require("./zz_dr_blockly.js");
 // require("./recorder.js");
 // require("./storage.js");
 // require("./world_select.js");
 // require("./world.js");
 // require("./keyboard.js");
-// require("./tooltip.js");
+require("./tooltip.js");
 // require("./custom_world_select.js");
 // require("./aa_utils.js");
 // var export_world = require("./world/export_world.js").export_world;
+var rec_reset = require("./recorder/reset.js").reset;
 
-
-$(document).ready(function() {
-    "use strict";
     var prog_lang, url_query, name;
     RUR.state.human_language = document.documentElement.lang;
 
-    RUR.state.set_initial_values();
+    // RUR.state.set_initial_values();
 
     function everything_loaded () {
         var loaded, total_images, py_modules=0;
@@ -43,8 +41,8 @@ $(document).ready(function() {
         }
     }
     everything_loaded();
-
-    RUR.rec.reset();
+    rec_reset();
+    // RUR.rec.reset();
     try {
         RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
     } catch (e) {
@@ -59,7 +57,7 @@ $(document).ready(function() {
     //TODO: replace the following
     //RUR.cd.create_custom_dialogs();
     RUR.zz_dr_onclick();
-    RUR.zz_dr_onchange();
+    // RUR.zz_dr_onchange();
     RUR.zz_dr_editor_ui();
 
     brython({debug:1, pythonpath:['/src/python']});
@@ -111,4 +109,3 @@ $(document).ready(function() {
         // trigger it to load the initial world.
         $("#select-world").change();
     }
-});

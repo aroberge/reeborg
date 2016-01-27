@@ -8,7 +8,7 @@
     only find items in this file.
 */
 
-require("jquery");
+;
 
 RUR.world_select = {};
 

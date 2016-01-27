@@ -33,11 +33,12 @@ RUR.add_new_object_type = function (name, url, url_goal) {
     obj[name].image.src = url;
     obj[name].image_goal.src = url_goal;
     if (RUR.state.ready) {
+        console.log("ready");
         obj[name].image.onload = RUR.vis_world.refresh;
         obj[name].image_goal.onload = RUR.vis_world.draw_goal;
     } else {
-        obj[name].image.onload = increment_loaded;
-        obj[name].image_goal.onload = increment_loaded;
+        obj[name].image.onload = RUR.increment_loaded;
+        obj[name].image_goal.onload = RUR.increment_loaded;
     }
     if (RUR.KNOWN_OBJECTS.indexOf(name) === -1) {
         RUR.KNOWN_OBJECTS.push(name);
@@ -45,7 +46,7 @@ RUR.add_new_object_type = function (name, url, url_goal) {
     RUR._NB_IMAGES_TO_LOAD += 2;
 };
 
-increment_loaded = function () {
+RUR.increment_loaded = function () {
     RUR._NB_IMAGES_LOADED += 1;
 };
 // supporting worlds created previously.

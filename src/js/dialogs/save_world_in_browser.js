@@ -1,6 +1,6 @@
 require("./../storage.js");
-require("jquery");
-require("jquery-ui");
+;
+// require("jquery-ui");
 var clone_world = require("./../world/clone_world.js").clone_world;
 
 exports.dialog_save_world_in_browser = dialog = $("#dialog-save-world").dialog({

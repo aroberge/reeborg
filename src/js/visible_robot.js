@@ -66,7 +66,25 @@ RUR.vis_robot.images[3].robot_random_img.src = RUR._BASE_URL + '/src/images/robo
 
 RUR.vis_robot.style = 0;
 
+RUR.select_default_robot_model = function (arg) {
+    var style;
+    style = parseInt(arg, 10);
+    if ( !(style ===0 || style==1 || style==2 || style==3)){
+        style = 0;
+    }
+    RUR.vis_robot.style = style;
+    RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
+    RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
+    RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
+    RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
+    RUR.vis_robot.random_img = RUR.vis_robot.images[style].robot_random_img;
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
 
+    localStorage.setItem("robot_default_model", style);
+};
+RUR.select_default_robot_model(localStorage.getItem("robot_default_model"));
 
 // the following is to try to ensure that the images are loaded before the "final"
 // original drawing is made

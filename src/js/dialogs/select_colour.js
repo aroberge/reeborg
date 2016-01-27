@@ -1,6 +1,6 @@
 require("./../visible_world.js");
-require("jquery");
-require("jquery-ui");
+;
+// require("jquery-ui");
 
 exports.dialog_select_colour = dialog_select_colour = $("#dialog-select-colour").dialog({
     autoOpen: false,

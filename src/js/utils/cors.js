@@ -1,4 +1,4 @@
-require("jquery");
+;
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
 
 // will modify a global object - no need to export anything.

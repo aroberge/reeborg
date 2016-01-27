@@ -1,6 +1,7 @@
-require("jquery");
 require("./../state.js");
 require("./../listeners/reload.js");
+var record_id = require("./../utils/record_id.js").record_id;
+
 
 /* This sets up the various running mode blockly/editor/repl
    for both Python and Javascript (if relevant).
@@ -10,12 +11,16 @@ require("./../listeners/reload.js");
    retrieved.
  */
 
+//TODO: add translations element to record_id
+
+record_id("python_choices");
 $("#python_choices").change(function() {
     if($(this).val() == "editor") {
         show_python_editor();
         hide_console();
         hide_blockly();
         RUR.state.input_method = "editor";
+        editor.setOption("readOnly", false);
     } else if($(this).val() == "repl") {
         hide_python_editor();
         show_console();
@@ -26,21 +31,26 @@ $("#python_choices").change(function() {
         hide_console();
         show_blockly();
         RUR.state.input_method = "blockly";
+        editor.setOption("readOnly", true);
     }
 });
 
+record_id("javascript_choices");
 $("#javascript_choices").change(function() {
     if($(this).val() == "blockly") {
         hide_javascript_editor();
         show_blockly();
         RUR.state.input_method = "blockly";
+        editor.setOption("readOnly", false);
     } else {
         show_javascript_editor();
         hide_blockly();
         RUR.state.input_method = "editor";
+        editor.setOption("readOnly", true);
     }
 });
 
+record_id("editor_visible_blockly");
 $('#editor_visible_blockly').change(function() {
     if ($('#editor_visible_blockly')[0].checked) {
         RUR.state.input_method = "editor";

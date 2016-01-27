@@ -6,7 +6,7 @@ require("./translator.js");
 require("./constants.js");
 require("./objects.js");
 require("./output.js");
-require("./../recorder/record_frame.js");
+require("./recorder/record_frame.js");
 require("./state.js");
 require("./exceptions.js");
 require("./world_get.js");

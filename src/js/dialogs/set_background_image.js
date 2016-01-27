@@ -1,6 +1,6 @@
 require("./../visible_world.js");
-require("jquery");
-require("jquery-ui");
+;
+// require("jquery-ui");
 
 exports.dialog_set_background_image = dialog = $("#dialog-set-background-image").dialog({
     autoOpen: false,

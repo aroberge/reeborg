@@ -1,6 +1,6 @@
 require("./../constants.js");
 
-exports.create_empty_world = function create_empty_world (blank_canvas) {
+exports.create_empty_world = create_empty_world = function (blank_canvas) {
     "use strict";
     var world = {};
     if (blank_canvas) {

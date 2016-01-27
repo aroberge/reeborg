@@ -1,7 +1,7 @@
 
 require("./../libs/jquery.ui.dialog.minmax.js");
-require("jquery");
-require("jquery-ui");
+;
+// require("jquery-ui");
 
 RUR.create_and_activate_dialogs = function(button, element, add_options, special_fn) {
     var options = {

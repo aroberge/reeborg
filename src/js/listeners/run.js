@@ -1,4 +1,4 @@
-require("jquery");
+;
 require("./../state.js");
 require("./reload.js");
 require("./../runner.js");

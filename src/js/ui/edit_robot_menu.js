@@ -1,4 +1,4 @@
-require("jquery");
+;
 
 exports.toggle = function () {
     if ("robots" in RUR.current_world &&
