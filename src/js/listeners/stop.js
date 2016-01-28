@@ -1,4 +1,4 @@
-;
+
 require("./../state.js");
 var record_id = require("./../utils/record_id.js").record_id;
 
@@ -15,4 +15,4 @@ RUR.stop = function () {
     $("#reload").removeAttr("disabled");
     RUR.state.stop_called = true;
 };
-stop_button.addEventListener("click", stop, false);
+stop_button.addEventListener("click", RUR.stop, false);

@@ -29,7 +29,7 @@ RUR.ROBOT_CTX = document.getElementById("robot-canvas").getContext("2d");
 RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
 
 RUR.WALL_LENGTH = 40;   // These can be adjusted
-RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.current_world.small_tiles become true.
+RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.CURRENT_WORLD.small_tiles become true.
 
 RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;

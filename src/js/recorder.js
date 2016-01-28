@@ -10,6 +10,7 @@ require("./translator.js");
 require("./exceptions.js");
 require("./listeners/pause.js");
 require("./listeners/stop.js");
+require("./playback/play_sound.js");
 
 var identical = require("./utils/identical.js").identical;
 var clone_world = require("./world/clone_world.js").clone_world;
@@ -63,7 +64,7 @@ RUR.rec.display_frame = function () {
     RUR.current_frame_no++;
 
     if (frame === undefined){
-        //RUR.current_world = RUR._SAVED_WORLD;  // useful when ...
+        //RUR.CURRENT_WORLD = RUR._SAVED_WORLD;  // useful when ...
         RUR.vis_world.refresh();                    // ... reversing step
         return;
     }
@@ -113,7 +114,7 @@ RUR.rec.display_frame = function () {
         $("#Reeborg-watches").dialog("open");
     }
 
-    RUR.current_world = frame.world;
+    RUR.CURRENT_WORLD = frame.world;
     if (frame.sound_id !== undefined){
         RUR._play_sound(frame.sound_id);
     }
@@ -181,7 +182,7 @@ RUR.rec.handle_error = function (frame) {
 RUR.rec.check_current_world_status = function() {
     // this function is to check goals from the Python console.
     frame = {};
-    frame.world = RUR.current_world;
+    frame.world = RUR.CURRENT_WORLD;
     if (frame.world.goal === undefined){
         RUR.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +

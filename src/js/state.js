@@ -5,27 +5,6 @@
 
 require("./translator.js");
 
-/** @namespace state
- * @memberof RUR.private
- * @property {boolean} code_evaluated - True if code has been evaluated and ready for playback.
- * @property {boolean} do_not_record - If True, recording of frames do not occur.
- * @property {boolean} editing_world - True if currently editing the world.
- * @property {boolean} highlight - Indicates if the Python code in the editor will be
- *     highlighted during the playback.
- * @property {string} human_language - Standard two letter code
- * @property {string} input_method - Get program from "editor", "blockly" or "repl"?
- * @property {string} programming_language - "python" or "javascript"
- * @property {boolean} playback - True if playback active and not paused.
- * @property {boolean} prevent_playback - TODO: see if this can be removed.
- * @property {boolean} ready - Indicates that the site is ready
- * @property {string} sound_id - "global" variable intended for private use.
- * @property {boolean} sound_on - indicates if attempt must be made to play sounds.
- * @property {string} specific_object - Object selected while editing world.
- * @property {boolean} stop_called - True if stop button has been clicked.
- * @property {boolean} watch_vars - Python only: set to True if watching variables
- * @property {integer} x - Position selected while editing world.
- * @property {integer} y - Position selected while editing world.
- */
 RUR.state = {};
 RUR.state.code_evaluated = false;
 RUR.state.do_not_record = false;
@@ -52,12 +31,7 @@ RUR.state.y = undefined;
 // TODO: after simplifying the permalink, see if RUR.state.prevent_playback
 // is still needed.
 
-/** @function save
- *  @memberof RUR.private.state
- *  @instance
- *  @summary Intended to save selected subset of state to local storage so that
- *  future sessions can resume in same state.
- */
+
 RUR.state.save = function () {
     /* Saves the current state in local storage */
     localStorage.setItem("programming_language", RUR.state.programming_language);

@@ -125,6 +125,6 @@
     "4,1": "gravel"
   },
   "description": "Aidez Reeborg à faire le tour du monde et à revenir à son point de départ sans marcher sur le gazon ni faire demi-tour.",
-  "pre_code": "__avance = avance\n__trajet = []\ndef avance():\n    reeborg = RUR.current_world.robots[0]\n    __avance()\n    __trajet.append((reeborg.x, reeborg.y))\n    \ndef termine():\n    raise ReeborgError(\"Il n'est pas permis d'utiliser la fonction 'termine()'.\")\n",
+  "pre_code": "__avance = avance\n__trajet = []\ndef avance():\n    reeborg = RUR.CURRENT_WORLD.robots[0]\n    __avance()\n    __trajet.append((reeborg.x, reeborg.y))\n    \ndef termine():\n    raise ReeborgError(\"Il n'est pas permis d'utiliser la fonction 'termine()'.\")\n",
   "post_code": "if __trajet != [\n              (2, 1), (3, 1), (4, 1), (5, 1), \n              (6, 1), (7, 1), (8, 1), (9, 1), (10, 1), \n              (10, 2), (10, 3), (10, 4), (10, 5), \n              (10, 6), (10, 7), (10, 8), (10, 9), \n              (10, 10), (9, 10), (8, 10), (7, 10), \n              (6, 10), (5, 10), (4, 10), (3, 10), \n              (2, 10), (1, 10), (1, 9), (1, 8), (1, 7), \n              (1, 6), (1, 5), (1, 4), (1, 3), (1, 2), \n              (1, 1)]:\n    raise ReeborgError(\"Reeborg n'a pas suivi le sentier!\")\n"
 }

@@ -32,7 +32,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
 
     obj = translated_arg;
     if (robot === undefined){
-        robot = RUR.current_world.robots[0];
+        robot = RUR.CURRENT_WORLD.robots[0];
     }
     RUR._ensure_key_exists(robot, "objects");
 

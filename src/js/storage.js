@@ -17,7 +17,7 @@ RUR.storage._save_world = function (name){
             return;
         }
         // replace existing
-        localStorage.setItem("user_world:"+ name, export_world(RUR.current_world));
+        localStorage.setItem("user_world:"+ name, export_world(RUR.CURRENT_WORLD));
     } else {
         RUR.storage.save_world(name);
     }
@@ -27,7 +27,7 @@ RUR.storage._save_world = function (name){
 RUR.storage.save_world = function (name){
     "use strict";
     var url = "user_world:"+ name;
-    localStorage.setItem(url, export_world(RUR.current_world));
+    localStorage.setItem(url, export_world(RUR.CURRENT_WORLD));
     RUR.storage.append_world_name(name);
 };
 

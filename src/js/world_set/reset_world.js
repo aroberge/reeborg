@@ -7,7 +7,7 @@ exports.reset_world = reset_world = function () {
     if (RUR.state.editing_world){
         return;
     }
-    RUR.current_world = clone_world(RUR._SAVED_WORLD);
+    RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
     RUR.vis_robot.set_trace_style("default");
     RUR.MAX_STEPS = 1000;
     RUR.vis_world.draw_all();

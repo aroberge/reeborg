@@ -22,7 +22,7 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
     var x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
     var size = 40, objects_carried;
 
-    world = RUR.current_world;
+    world = RUR.CURRENT_WORLD;
     x = evt.pageX - $("#robot-canvas").offset().left;
     y = evt.pageY - $("#robot-canvas").offset().top;
     position = RUR.we.calculate_grid_position();
@@ -66,7 +66,7 @@ RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
         RUR.tooltip.canvas.style.top = y + "px";
         RUR.tooltip.ctx.clearRect(0, 0, RUR.tooltip.canvas.width, RUR.tooltip.canvas.height);
         for (i=0; i < objects_carried.length; i++){
-            image = RUR.objects[objects_carried[i]].image;
+            image = RUR.OBJECTS[objects_carried[i]].image;
             nb_obj = robot.objects[objects_carried[i]];
             if (nb_obj == "infinite" || nb_obj == Infinity) {
                 nb_obj = "∞";

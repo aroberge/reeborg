@@ -2,22 +2,21 @@
 /** @namespace RUR */         // for jsdoc
 window.RUR = RUR || {};
 
-RUR._NB_IMAGES_TO_LOAD = 0;
-RUR._NB_IMAGES_LOADED = 0;
-RUR._BASE_URL = '';
-
-RUR.objects = {};
-RUR.tiles = {};
-RUR.solid_objects = {};
-RUR.home_images = {};
-RUR.background_image = new Image();
-RUR.background_image.src = '';
+RUR.OBJECTS = {};
+RUR.TILES = {};
+RUR.SOLID_OBJECTS = {};
+RUR.HOME_IMAGES = {};
+RUR.BACKGROUND_IMAGE = new Image();
+RUR.BACKGROUND_IMAGE.src = '';
 RUR._RECORDED_IDS = [];
 RUR._TEXT_ELEMENTS = [];
 
-
-/** @namespace private
-* @memberof RUR */   // for jsdoc
+RUR._NB_IMAGES_TO_LOAD = 0;
+RUR._NB_IMAGES_LOADED = 0;
+RUR._BASE_URL = '';
+RUR.INCREMENT_LOADED_FN = function () {
+    RUR._NB_IMAGES_LOADED += 1;
+};
 
 require("./utils/key_exist.js");
 
@@ -32,7 +31,6 @@ require("./utils/supplant.js");
 
 require("./listeners/add_listeners.js");
 
-require("./ui/select_world_change.js");
 require("./playback/reverse_step.js"); /* only invoked from the html file - for now */
 
 require("./z_commands.js");

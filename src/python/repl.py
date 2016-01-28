@@ -164,13 +164,13 @@ class Interpreter():
 
     def run_pre(self):
         try:
-            exec(RUR.current_world.pre_code, self.namespace)
+            exec(RUR.CURRENT_WORLD.pre_code, self.namespace)
         except:
             pass
 
     def done(self):
         try:
-            exec(RUR.current_world.post_code, self.namespace)
+            exec(RUR.CURRENT_WORLD.post_code, self.namespace)
         except Exception as e:
             if e.__name__ == "ReeborgError":
                 raise

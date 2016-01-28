@@ -5,6 +5,7 @@ require("./programming_language.js");
 require("./programming_mode.js");
 require("./reload.js");
 require("./robot_model.js");
+require("./select_world_change.js");
 require("./step.js");
 require("./stop.js");
 require("./toggle_highlight.js");

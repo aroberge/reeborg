@@ -94,14 +94,14 @@ RUR.world.dialog_update_editors_from_world = $("#dialog-update-editors-from-worl
 });
 
 $("#update-editor-content-btn").on("click", function(evt) {
-    editor.setValue(RUR.current_world.editor);
+    editor.setValue(RUR.CURRENT_WORLD.editor);
     $("#update-editor-content").hide();
     if (! $("#update-library-content").is(":visible")) {
         RUR.world.dialog_update_editors_from_world.dialog("close");
     }
 });
 $("#update-library-content-btn").on("click", function(evt) {
-    library.setValue(RUR.current_world.library);
+    library.setValue(RUR.CURRENT_WORLD.library);
     $("#update-library-content").hide();
     if (! $("#update-editor-content").is(":visible")) {
         RUR.world.dialog_update_editors_from_world.dialog("close");

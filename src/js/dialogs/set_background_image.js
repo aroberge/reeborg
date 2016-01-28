@@ -26,8 +26,8 @@ set_background_image = function () {
     if (!url) {
         url = '';
     }
-    RUR.current_world.background_image = url;
-    RUR.background_image.src = url;
-    RUR.background_image.onload = RUR.vis_world.draw_all;
+    RUR.CURRENT_WORLD.background_image = url;
+    RUR.BACKGROUND_IMAGE.src = url;
+    RUR.BACKGROUND_IMAGE.onload = RUR.vis_world.draw_all;
     dialog.dialog("close");
 };

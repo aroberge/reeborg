@@ -6,15 +6,17 @@ _La version française est incluse ci-dessous._
 
 # General information about this documentation
 
-The main goal of this documentation is to help users of Reeborg's World; however, some parts are
-intended only for developers. All the functions that are indicated as belonging
-to the `RUR.private` namespace should be ignored as they are not intended
-to be called directly.  In fact, there is no such namespace in the code; the
-name is an artifact that has been created as a helper in generating the
-documentation automatically while keeping the code intended for end users
-separate from the information intended for the developers.
-If you must use the private functions or variables in your code, simply ignore
-the `.private`; for example, instead of `RUR.private.x`, use `RUR.x`.
+While the *World editing dialog* makes it possible to create your own world,
+it is limited to create worlds with pre-defined objects.  Furthermore, it
+creates static worlds which are then interacted with through a user's program.
+A world creator may wish to introduce additional interactivity by changing
+the state of the world when a user's program has achieved a partial goal,
+like reaching a pre-defined position.  The functions documented here are
+intended to give world creators all the flexibility they need to create
+their own worlds.
+
+If you find that some additional capability is required, please do not hesitate
+to get in touch with me.
 
 
 ### About the RUR namespace
@@ -23,31 +25,50 @@ Since the goal of Reeborg's World is to allow the user (student) to
 run their own programs, name clashes have to be avoided between functions
 created for Reeborg's World and those created by the student.
 The imperfect solution I have chosen is to try, as much as possible, to use
-a single namespace, `RUR`, which can stand for **Reeborg the UsedRobot**, and is also valid
+a single global object or namespace,
+`RUR`, which can stand for **Reeborg the UsedRobot**, and is also valid
 in French as _le **Robot Usagé Reeborg**_, but refers to the first time the
 name **robot** was used [see wikipedia:RUR](https://en.wikipedia.org/wiki/R.U.R.).
+
+Please note that there are many more functions belonging to the `RUR` namespace
+than what is documented here.  As a rule, you should not create additional
+functions belonging to this namespace.
+
+To see the functions defined and belonging to this object, please use the
+selector at the top of this page.
 
 -----
 
 # _Information générale_
 
-_Le but premier de ce document est pour aider les utilisateurs du monde de Reeborg.
-Cependant, certaines sections sont documentées purement pour le bénéfice des
-développeurs.  Toutes ces fonctions sont indiquées comme appartenant au "namespace"
-`RUR.private`; en fait, il n'y a pas un tel objet dans le code et ce nom est utilisé
-simplement pour faciliter l'automatisation de la documentation, séparant automatiquement
-l'information prévue pour les utilisateurs du site de celle prévue à l'intention des
-développeurs.  Si vous devez absolument utiliser une variable ou une fonction
-"privée", oubliez tout simplement le terme `.private`; par exemple,
-au lieu de `RUR.private.x`, utilisez `RUR.x`._
+Bien que *l'éditeur de monde* vous donne la possibilité de créer vos propres
+mondes, il est limité à utiliser les objets pré-définis.  De plus, les mondes
+créés sont "statiques" et ne changent normalement que par le biais d'actions
+encodées dans les programmes des usagers.  Il est possible que vous désiriez
+créer des mondes plus interactifs et dont l'état change lorsqu'une étape
+partielle dans la réalisation d'un but a été réalisée, comme, par exemple,
+lorsque le robot se trouve à une certaine position. Les fonctions documentées
+ici devraient vous donner toute la flexibilité requise pour créer les mondes
+désirés.
+
+Si vous croyez que d'autres fontions seraient requises, SVP n'hésitez pas à
+me contacter.
 
 
 ### _Au sujet de l'utilisation de RUR_
 
 _Puisque le but du Monde de Reeborg est de permettre aux apprenants de créer leur
-propres fonctions, j'ai jugé qu'il était essentiel de créer un objet ("namespace")
-qui contiendrait les différents variables et fonctions requises pour le site.
+propres fonctions, j'ai jugé qu'il était essentiel de créer un objet global
+("namespace") qui contiendrait les différentes variables et
+fonctions requises pour le site.
 Le nom que j'ai choisi est `RUR` qu'on peut voir comme un acronyme pour
 le **Robot Usagé Reeborg**, ou pour l'équivalent anglais **Reeborg the UsedRobot**
 mais qui peut tout aussi bien faire référence à la toute première fois où
 le nom **robot** a été utilisé [voir wikipedia:RUR](https://fr.wikipedia.org/wiki/R.U.R.)._
+
+Veuillez noter qu'en plus des fonctions documentées ici,
+il en existe plusieurs autres qui appartiennent à l'objet global `RUR`;
+vous devriez vous abstenir de ne pas ajouter des fonctions à cet objet global.
+
+Pour voir les fonctions appartenant à cet objet global, veuillez utiliser
+le sélecteur qui se trouve au haut de cette page.

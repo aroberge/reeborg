@@ -14,9 +14,13 @@ RUR.world.import_world = function (json_string) {
         console.log("Problem: no argument passed to RUR.world.import_world");
         return {};
     }
+    RUR._ORDERED_TILES = {};
+    RUR._SYNC_TILES = {};
+    RUR._SYNC_TILES_VALUE = {};
+
     if (typeof json_string == "string"){
         try {
-            RUR.current_world = JSON.parse(json_string) || RUR.world.create_empty_world();
+            RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.world.create_empty_world();
         } catch (e) {
             console.log("Exception caught in import_world.");
             console.log(json_string);
@@ -25,13 +29,13 @@ RUR.world.import_world = function (json_string) {
             return;
         }
     } else {  // already parsed
-        RUR.current_world = json_string;
+        RUR.CURRENT_WORLD = json_string;
     }
 
-    if (RUR.current_world.robots !== undefined) {
-        if (RUR.current_world.robots[0] !== undefined) {
-            RUR.robot.cleanup_objects(RUR.current_world.robots[0]);
-            body = RUR.current_world.robots[0];
+    if (RUR.CURRENT_WORLD.robots !== undefined) {
+        if (RUR.CURRENT_WORLD.robots[0] !== undefined) {
+            RUR.robot.cleanup_objects(RUR.CURRENT_WORLD.robots[0]);
+            body = RUR.CURRENT_WORLD.robots[0];
             body._prev_x = body.x;
             body._prev_y = body.y;
             body._prev_orientation = body._orientation;
@@ -44,45 +48,45 @@ RUR.world.import_world = function (json_string) {
     // following http://stackoverflow.com/a/14592469/558799
     // thus ensuring that if a new world is created from an old one,
     // it will have the new syntax.
-    if (RUR.current_world.top_tiles !== undefined) {
-        Object.defineProperty(RUR.current_world, "solid_objects",
-            Object.getOwnPropertyDescriptor(RUR.current_world, "top_tiles"));
-        delete RUR.current_world.top_tiles;
+    if (RUR.CURRENT_WORLD.top_tiles !== undefined) {
+        Object.defineProperty(RUR.CURRENT_WORLD, "solid_objects",
+            Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "top_tiles"));
+        delete RUR.CURRENT_WORLD.top_tiles;
     }
 
-    if (RUR.current_world.background_image !== undefined) {
-        RUR.background_image.src = RUR.current_world.background_image;
-        RUR.background_image.onload = function () {
+    if (RUR.CURRENT_WORLD.background_image !== undefined) {
+        RUR.BACKGROUND_IMAGE.src = RUR.CURRENT_WORLD.background_image;
+        RUR.BACKGROUND_IMAGE.onload = function () {
             RUR.vis_world.draw_all();
         };
     } else {
-        RUR.background_image.src = '';
+        RUR.BACKGROUND_IMAGE.src = '';
     }
 
-    if (RUR.current_world.onload !== undefined) {
+    if (RUR.CURRENT_WORLD.onload !== undefined) {
         eval_onload();
     }
 
-    RUR.current_world.small_tiles = RUR.current_world.small_tiles || false;
-    RUR.current_world.rows = RUR.current_world.rows || RUR.MAX_Y;
-    RUR.current_world.cols = RUR.current_world.cols || RUR.MAX_X;
-    RUR.vis_world.compute_world_geometry(RUR.current_world.cols, RUR.current_world.rows);
+    RUR.CURRENT_WORLD.small_tiles = RUR.CURRENT_WORLD.small_tiles || false;
+    RUR.CURRENT_WORLD.rows = RUR.CURRENT_WORLD.rows || RUR.MAX_Y;
+    RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X;
+    RUR.vis_world.compute_world_geometry(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
 
     $("#add-editor-to-world").prop("checked",
-                                   RUR.current_world.editor !== undefined);
+                                   RUR.CURRENT_WORLD.editor !== undefined);
     $("#add-library-to-world").prop("checked",
-                                    RUR.current_world.library !== undefined);
+                                    RUR.CURRENT_WORLD.library !== undefined);
 
-    if (RUR.current_world.editor !== undefined &&
-        RUR.current_world.editor !== editor.getValue()) {
+    if (RUR.CURRENT_WORLD.editor !== undefined &&
+        RUR.CURRENT_WORLD.editor !== editor.getValue()) {
         RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-editor-content").show();
     } else {
         $("#update-editor-content").hide();
     }
     if (RUR.state.programming_language === "python" &&
-        RUR.current_world.library !== undefined &&
-        RUR.current_world.library !== library.getValue()) {
+        RUR.CURRENT_WORLD.library !== undefined &&
+        RUR.CURRENT_WORLD.library !== library.getValue()) {
         RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-library-content").show();
     } else {
@@ -90,11 +94,11 @@ RUR.world.import_world = function (json_string) {
     }
 
     // make a clean (predictable) copy
-    RUR.current_world = RUR.world.editors_remove_default_values(RUR.current_world);
+    RUR.CURRENT_WORLD = RUR.world.editors_remove_default_values(RUR.CURRENT_WORLD);
     RUR._SAVED_WORLD = clone_world();
     // restore defaults everywhere for easier comparison when editing
-    RUR.current_world = RUR.world.editors_set_default_values(RUR.current_world);
-    RUR.world.update_editors(RUR.current_world);
+    RUR.CURRENT_WORLD = RUR.world.editors_set_default_values(RUR.CURRENT_WORLD);
+    RUR.world.update_editors(RUR.CURRENT_WORLD);
 
     if (RUR.state.editing_world) {
         edit_robot_menu.toggle();
@@ -103,11 +107,11 @@ RUR.world.import_world = function (json_string) {
 
 eval_onload = function () {
     try {
-        eval(RUR.current_world.onload);  // jshint ignore:line
+        eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
     } catch (e) {
         RUR.show_feedback("#Reeborg-shouts",
             RUR.translate("Problem with onload code.") + "<br><pre>" +
-            RUR.current_world.onload + "</pre>");
+            RUR.CURRENT_WORLD.onload + "</pre>");
         console.log("error in onload:", e);
     }
 };

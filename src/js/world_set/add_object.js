@@ -33,7 +33,7 @@ RUR.add_object_at_position = function (specific_object, x, y, nb){
     }
 
     coords = x + "," + y;
-    cw = RUR.current_world;
+    cw = RUR.CURRENT_WORLD;
     RUR._ensure_key_exists(cw, "objects");
     RUR._ensure_key_exists(cw.objects, coords);
     if (nb !== 0) {

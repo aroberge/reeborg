@@ -86,7 +86,7 @@ RUR.zz_dr_onclick = function () {
     });
 
     $("#save-world").on("click", function (evt) {
-        RUR.current_world = RUR.world.update_from_editors(RUR.current_world);
+        RUR.CURRENT_WORLD = RUR.world.update_from_editors(RUR.CURRENT_WORLD);
         var blob = new Blob([export_world()], {
             type: "text/javascript;charset=utf-8"
         });
@@ -104,17 +104,17 @@ RUR.zz_dr_onclick = function () {
 
     $("#add-editor-to-world").on("click", function(evt) {
         if ($(this).prop("checked")) {
-            RUR.current_world.editor = editor.getValue();
+            RUR.CURRENT_WORLD.editor = editor.getValue();
         } else {
-            RUR.current_world.editor = null;
+            RUR.CURRENT_WORLD.editor = null;
         }
     });
 
     $("#add-library-to-world").on("click", function(evt) {
         if ($(this).prop("checked")) {
-            RUR.current_world.library = library.getValue();
+            RUR.CURRENT_WORLD.library = library.getValue();
         } else {
-            RUR.current_world.library = null;
+            RUR.CURRENT_WORLD.library = null;
         }
     });
 

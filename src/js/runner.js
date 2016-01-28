@@ -15,10 +15,10 @@ RUR.state.code_evaluated = false;
 RUR.runner.run = function (playback) {
     var src, fatal_error_found = false;
     if (RUR.state.editing_world && !RUR.state.code_evaluated) {
-        RUR._SAVED_WORLD = clone_world(RUR.current_world);
+        RUR._SAVED_WORLD = clone_world(RUR.CURRENT_WORLD);
     }
     if (!RUR.state.code_evaluated) {
-        RUR.current_world = clone_world(RUR._SAVED_WORLD);
+        RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
         RUR.world_init.set();
 
         if (RUR.state.input_method === "blockly") {

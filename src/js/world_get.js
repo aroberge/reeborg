@@ -8,11 +8,11 @@ require("./dialogs/create.js");
 RUR.world_get = {};
 
 RUR.world_get.is_wall_at = function (coords, orientation) {
-    if (RUR.current_world.walls === undefined) {
+    if (RUR.CURRENT_WORLD.walls === undefined) {
         return false;
     }
-    if (RUR.current_world.walls[coords] !== undefined){
-        if (RUR.current_world.walls[coords].indexOf(orientation) !== -1) {
+    if (RUR.CURRENT_WORLD.walls[coords] !== undefined){
+        if (RUR.CURRENT_WORLD.walls[coords].indexOf(orientation) !== -1) {
             return true;
         }
     }
@@ -23,21 +23,21 @@ RUR.world_get.is_wall_at = function (coords, orientation) {
 RUR.world_get.tile_at_position = function (x, y) {
     "use strict";
     var coords = x + "," + y;
-    if (RUR.current_world.tiles === undefined) return false;
-    if (RUR.current_world.tiles[coords] === undefined) return false;
-    return RUR.tiles[RUR.current_world.tiles[coords]];
+    if (RUR.CURRENT_WORLD.tiles === undefined) return false;
+    if (RUR.CURRENT_WORLD.tiles[coords] === undefined) return false;
+    return RUR.TILES[RUR.CURRENT_WORLD.tiles[coords]];
 };
 
 RUR.world_get.pushable_object_at_position = function(x, y) {
     "use strict";
     var objects_here, obj_here, obj_type, coords = x + ',' + y;
-    if (RUR.current_world.objects === undefined) return false;
-    if (RUR.current_world.objects[coords] === undefined) return false;
-    objects_here = RUR.current_world.objects[coords];
+    if (RUR.CURRENT_WORLD.objects === undefined) return false;
+    if (RUR.CURRENT_WORLD.objects[coords] === undefined) return false;
+    objects_here = RUR.CURRENT_WORLD.objects[coords];
 
     for (obj_type in objects_here) {
         if (objects_here.hasOwnProperty(obj_type)) {
-            if (RUR.objects[obj_type].pushable) {
+            if (RUR.OBJECTS[obj_type].pushable) {
                 return obj_type;
             }
         }
@@ -47,22 +47,22 @@ RUR.world_get.pushable_object_at_position = function(x, y) {
 RUR.world_get.solid_objects_at_position = function (x, y) {
     "use strict";
     var coords = x + "," + y;
-    if (RUR.current_world.solid_objects === undefined) return false;
-    if (RUR.current_world.solid_objects[coords] === undefined) return false;
-    return RUR.current_world.solid_objects[coords];
+    if (RUR.CURRENT_WORLD.solid_objects === undefined) return false;
+    if (RUR.CURRENT_WORLD.solid_objects[coords] === undefined) return false;
+    return RUR.CURRENT_WORLD.solid_objects[coords];
 };
 
 RUR.world_get.object_at_robot_position = function (robot, obj) {
-    return object_of_type_here(robot, obj, RUR.current_world.objects);
+    return object_of_type_here(robot, obj, RUR.CURRENT_WORLD.objects);
 };
 
 RUR.world_get.decorative_object_at_robot_position = function (robot, obj) {
-    return object_of_type_here(robot, obj, RUR.current_world.decorative_objects);
+    return object_of_type_here(robot, obj, RUR.CURRENT_WORLD.decorative_objects);
 };
 
 
 function object_of_type_here (robot, obj, object_type) {
-    // object_type == RUR.current_world.objects or RUR.current_world.decorative_objects
+    // object_type == RUR.CURRENT_WORLD.objects or RUR.CURRENT_WORLD.decorative_objects
     var obj_here, obj_type, all_objects;
     var coords = robot.x + "," + robot.y;
 
@@ -93,7 +93,7 @@ function object_of_type_here (robot, obj, object_type) {
 }
 
 RUR.world_get.world_map = function () {
-    return JSON.stringify(RUR.current_world, null, 2);
+    return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
 };
 
 RUR.world_get.world_info = function (no_grid) {
@@ -107,8 +107,8 @@ RUR.world_get.world_info = function (no_grid) {
 
     information = "";
 
-    if (RUR.current_world.description) {
-        information +="<b>" + RUR.translate("Description") + "</b><br>" + RUR.current_world.description + "<hr>";
+    if (RUR.CURRENT_WORLD.description) {
+        information +="<b>" + RUR.translate("Description") + "</b><br>" + RUR.CURRENT_WORLD.description + "<hr>";
     }
 
     if (!no_grid) {
@@ -136,7 +136,7 @@ RUR.world_get.world_info = function (no_grid) {
     tiles = RUR.world_get.solid_objects_at_position(x, y);
     if (tiles) {
         for (tilename in tiles) {
-            tile = RUR.solid_objects[tilename];
+            tile = RUR.SOLID_OBJECTS[tilename];
             if (RUR.translate(tile.info)){
                 if (topic){
                     topic = false;
@@ -154,7 +154,7 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    obj = RUR.current_world.objects;
+    obj = RUR.CURRENT_WORLD.objects;
     topic = true;
     if (obj !== undefined && obj[coords] !== undefined){
         obj_here = obj[coords];
@@ -169,7 +169,7 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    goals = RUR.current_world.goal;
+    goals = RUR.CURRENT_WORLD.goal;
     if (goals !== undefined){
         obj = goals.objects;
         topic = true;
@@ -218,7 +218,7 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    robots = RUR.current_world.robots;
+    robots = RUR.CURRENT_WORLD.robots;
     if (robots !== undefined && robots.length !== undefined){
         for (r=0; r<robots.length; r++){
             robot = robots[r];
@@ -245,7 +245,7 @@ RUR.world_get.world_info = function (no_grid) {
     }
 
 
-    goals = RUR.current_world.goal;
+    goals = RUR.CURRENT_WORLD.goal;
     if (goals !== undefined &&
          (goals.possible_positions !== undefined || goals.position !== undefined)){
         if (topic){

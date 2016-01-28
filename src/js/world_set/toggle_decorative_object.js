@@ -27,7 +27,7 @@ RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
-    cw = RUR.current_world;
+    cw = RUR.CURRENT_WORLD;
     RUR._ensure_key_exists(cw, "decorative_objects");
     RUR._ensure_key_exists(cw.decorative_objects, coords);
 

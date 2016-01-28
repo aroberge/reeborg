@@ -72,7 +72,7 @@ RUR.control.move = function (robot) {
         solid_object_beyond = false;
         if (solids_beyond) {
             for (name in solids_beyond) {
-                if (RUR.solid_objects[name] !== undefined && RUR.solid_objects[name].solid) {
+                if (RUR.SOLID_OBJECTS[name] !== undefined && RUR.SOLID_OBJECTS[name].solid) {
                     solid_object_beyond = true;
                     break;
                 }
@@ -95,7 +95,7 @@ RUR.control.move = function (robot) {
     tile = RUR.world_get.tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
-            if (!(tile == RUR.tiles.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
+            if (!(tile == RUR.TILES.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
                 throw new RUR.ReeborgError(RUR.translate(tile.message));
             }
         }
@@ -108,10 +108,10 @@ RUR.control.move = function (robot) {
     objects = RUR.world_get.solid_objects_at_position(robot.x, robot.y);
     if (objects) {
         for (name in objects) {
-            if (RUR.solid_objects[name] !== undefined && RUR.solid_objects[name].fatal) {
+            if (RUR.SOLID_OBJECTS[name] !== undefined && RUR.SOLID_OBJECTS[name].fatal) {
                 robot.x = robot._prev_x;
                 robot.y = robot._prev_y;
-                throw new RUR.ReeborgError(RUR.solid_objects[name].message);
+                throw new RUR.ReeborgError(RUR.SOLID_OBJECTS[name].message);
             }
         }
     }
@@ -126,11 +126,11 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
 
 
     RUR.add_object_at_position(obj, x, y, 0);
-    if (RUR.objects[obj].in_water &&
-        RUR.world_get.tile_at_position(to_x, to_y) == RUR.tiles.water &&
+    if (RUR.OBJECTS[obj].in_water &&
+        RUR.world_get.tile_at_position(to_x, to_y) == RUR.TILES.water &&
         !bridge_already_there){
             // TODO: fix this
-        RUR.world_set.add_solid_object(RUR.objects[obj].in_water, to_x, to_y, 1);
+        RUR.world_set.add_solid_object(RUR.OBJECTS[obj].in_water, to_x, to_y, 1);
     } else {
         RUR.add_object_at_position(obj, to_x, to_y, 1);
     }
@@ -220,13 +220,13 @@ RUR.control._robot_put_down_object = function (robot, obj) {
         delete robot.objects[obj];
     }
 
-    RUR._ensure_key_exists(RUR.current_world, "objects");
+    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "objects");
     coords = robot.x + "," + robot.y;
-    RUR._ensure_key_exists(RUR.current_world.objects, coords);
-    if (RUR.current_world.objects[coords][obj] === undefined) {
-        RUR.current_world.objects[coords][obj] = 1;
+    RUR._ensure_key_exists(RUR.CURRENT_WORLD.objects, coords);
+    if (RUR.CURRENT_WORLD.objects[coords][obj] === undefined) {
+        RUR.CURRENT_WORLD.objects[coords][obj] = 1;
     } else {
-        RUR.current_world.objects[coords][obj] += 1;
+        RUR.CURRENT_WORLD.objects[coords][obj] += 1;
     }
     RUR.record_frame("debug", "RUR.control._put_object");
 };
@@ -268,15 +268,15 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     var objects_here, coords;
     obj = RUR.translate_to_english(obj);
     coords = robot.x + "," + robot.y;
-    RUR.current_world.objects[coords][obj] -= 1;
+    RUR.CURRENT_WORLD.objects[coords][obj] -= 1;
 
-    if (RUR.current_world.objects[coords][obj] === 0){
-        delete RUR.current_world.objects[coords][obj];
+    if (RUR.CURRENT_WORLD.objects[coords][obj] === 0){
+        delete RUR.CURRENT_WORLD.objects[coords][obj];
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
         if (RUR.world_get.object_at_robot_position(robot) == false){ // jshint ignore:line
-            delete RUR.current_world.objects[coords];
+            delete RUR.CURRENT_WORLD.objects[coords];
         }
     }
     RUR._ensure_key_exists(robot, "objects");
@@ -323,10 +323,10 @@ RUR.control.build_wall = function (robot){
     }
 
     coords = x + "," + y;
-    walls = RUR.current_world.walls;
+    walls = RUR.CURRENT_WORLD.walls;
     if (walls === undefined){
         walls = {};
-        RUR.current_world.walls = walls;
+        RUR.CURRENT_WORLD.walls = walls;
     }
 
     if (walls[coords] === undefined){
@@ -438,7 +438,7 @@ RUR.control.front_is_clear = function(robot){
     tile = RUR.control.tile_in_front(robot);
     if (tile) {
         if (tile.detectable && tile.fatal){
-                if (tile == RUR.tiles.water) {
+                if (tile == RUR.TILES.water) {
                     if (!RUR.control._bridge_present(robot)){
                         return false;
                     }
@@ -451,9 +451,9 @@ RUR.control.front_is_clear = function(robot){
     solid = RUR.control.solid_objects_in_front(robot);
     if (solid) {
         for (name in solid) {
-            if (RUR.solid_objects[name] !== undefined &&
-                RUR.solid_objects[name].detectable &&
-                RUR.solid_objects[name].fatal) {
+            if (RUR.SOLID_OBJECTS[name] !== undefined &&
+                RUR.SOLID_OBJECTS[name].detectable &&
+                RUR.SOLID_OBJECTS[name].fatal) {
                 return false;
             }
         }
@@ -496,7 +496,7 @@ RUR.control.think = function (delay) {
 };
 
 RUR.control.at_goal = function (robot) {
-    var goal = RUR.current_world.goal;
+    var goal = RUR.CURRENT_WORLD.goal;
     if (goal !== undefined){
         if (goal.position !== undefined) {
             return (robot.x === goal.position.x && robot.y === goal.position.y);
@@ -512,12 +512,12 @@ RUR.control.solid_object_here = function (robot, tile) {
     var tile_here, tile_type, all_solid_objects;
     var coords = robot.x + "," + robot.y;
 
-    if (RUR.current_world.solid_objects === undefined ||
-        RUR.current_world.solid_objects[coords] === undefined) {
+    if (RUR.CURRENT_WORLD.solid_objects === undefined ||
+        RUR.CURRENT_WORLD.solid_objects[coords] === undefined) {
         return false;
     }
 
-    tile_here =  RUR.current_world.solid_objects[coords];
+    tile_here =  RUR.CURRENT_WORLD.solid_objects[coords];
 
     for (tile_type in tile_here) {
         if (tile_here.hasOwnProperty(tile_type)) {
@@ -589,7 +589,7 @@ RUR.control.get_colour_at_position = function (x, y) {
     if (RUR.world_get.tile_at_position(x, y)===false) {
         return null;
     } else if (RUR.world_get.tile_at_position(x, y)===undefined){
-        return RUR.current_world.tiles[x + "," + y];
+        return RUR.CURRENT_WORLD.tiles[x + "," + y];
     } else {
         return null;
     }
@@ -598,7 +598,7 @@ RUR.control.get_colour_at_position = function (x, y) {
 RUR.control.set_tile_at_position = function (x, y, tile) {
     "use strict";
     // note: "tile" will most often be a colour.
-    RUR._ensure_key_exists(RUR.current_world, "tiles");
-    RUR.current_world.tiles[x + "," + y] = tile;
+    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
+    RUR.CURRENT_WORLD.tiles[x + "," + y] = tile;
     RUR.record_frame("debug", "set_tile_at_position");
 };

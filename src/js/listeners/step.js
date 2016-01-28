@@ -1,4 +1,4 @@
-;
+
 require("./../state.js");
 require("./reload.js");
 require("./../runner.js");
@@ -8,7 +8,7 @@ var record_id = require("./../utils/record_id.js").record_id;
 var step_button = document.getElementById("step");
 record_id("step");
 
-RUR.step = function () {
+step = function () {
     RUR.runner.run(RUR.rec.display_frame);
     RUR.state.stop_called = false;
     $("#stop").removeAttr("disabled");

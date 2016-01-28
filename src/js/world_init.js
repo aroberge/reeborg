@@ -18,8 +18,8 @@ RUR.world_init.set = function () {
 
    // First, deal with objects
 
-    if (RUR.current_world.objects !== undefined){
-        objects = RUR.current_world.objects;
+    if (RUR.CURRENT_WORLD.objects !== undefined){
+        objects = RUR.CURRENT_WORLD.objects;
         for (coords in objects){
             if (objects.hasOwnProperty(coords)){
                 objects_here = objects[coords];
@@ -44,8 +44,8 @@ RUR.world_init.set = function () {
                         }
                     }
                 }
-                if (Object.keys(RUR.current_world.objects[coords]).length === 0){
-                    delete RUR.current_world.objects[coords];
+                if (Object.keys(RUR.CURRENT_WORLD.objects[coords]).length === 0){
+                    delete RUR.CURRENT_WORLD.objects[coords];
                 }
             }
         }
@@ -53,9 +53,9 @@ RUR.world_init.set = function () {
 
     // then look for "goals" with "all" as value;
 
-    if (RUR.current_world.goal !== undefined &&
-        RUR.current_world.goal.objects !== undefined){
-        objects = RUR.current_world.goal.objects;
+    if (RUR.CURRENT_WORLD.goal !== undefined &&
+        RUR.CURRENT_WORLD.goal.objects !== undefined){
+        objects = RUR.CURRENT_WORLD.goal.objects;
         for (coords in objects){
             if (objects.hasOwnProperty(coords)){
                 objects_here = objects[coords];
@@ -76,16 +76,16 @@ RUR.world_init.set = function () {
                         }
                     }
                 }
-                if (Object.keys(RUR.current_world.goal.objects[coords]).length === 0){
-                    delete RUR.current_world.goal.objects[coords];
+                if (Object.keys(RUR.CURRENT_WORLD.goal.objects[coords]).length === 0){
+                    delete RUR.CURRENT_WORLD.goal.objects[coords];
                 }
             }
         }
     }
 
     // next, initial position for robot
-    if (RUR.current_world.robots !== undefined && RUR.current_world.robots.length == 1){
-        robot = RUR.current_world.robots[0];
+    if (RUR.CURRENT_WORLD.robots !== undefined && RUR.CURRENT_WORLD.robots.length == 1){
+        robot = RUR.CURRENT_WORLD.robots[0];
         if (robot.start_positions !== undefined) {
             position = robot.start_positions[randint(0, robot.start_positions.length-1)];
             robot.x = position[0];
@@ -95,23 +95,23 @@ RUR.world_init.set = function () {
             delete robot.start_positions;
         }
         if (robot._orientation == -1){
-            RUR.current_world.robots[0]._orientation = randint(0, 3);
-            RUR.current_world.robots[0]._prev_orientation = RUR.current_world.robots[0]._orientation;
+            RUR.CURRENT_WORLD.robots[0]._orientation = randint(0, 3);
+            RUR.CURRENT_WORLD.robots[0]._prev_orientation = RUR.CURRENT_WORLD.robots[0]._orientation;
         }
     }
 
     // then final position for robot
 
-    if (RUR.current_world.goal !== undefined &&
-        RUR.current_world.goal.possible_positions !== undefined &&
-        RUR.current_world.goal.possible_positions.length > 1) {
-        goal = RUR.current_world.goal;
+    if (RUR.CURRENT_WORLD.goal !== undefined &&
+        RUR.CURRENT_WORLD.goal.possible_positions !== undefined &&
+        RUR.CURRENT_WORLD.goal.possible_positions.length > 1) {
+        goal = RUR.CURRENT_WORLD.goal;
         position = goal.possible_positions[randint(0, goal.possible_positions.length-1)];
         goal.position.x = position[0];
         goal.position.y = position[1];
         delete goal.possible_positions;
     }
-    if (RUR.current_world.goal !== undefined) {
+    if (RUR.CURRENT_WORLD.goal !== undefined) {
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.vis_world.draw_goal();
     }

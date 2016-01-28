@@ -198,7 +198,7 @@ RUR.vis_robot.draw_trace = function (robot) {
     }
 
     // overrides user choice for large world (small grid size)
-    if(RUR.current_world.small_tiles) {
+    if(RUR.CURRENT_WORLD.small_tiles) {
         RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
         RUR.vis_robot.trace_thickness = 2;
     } else {

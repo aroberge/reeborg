@@ -18,4 +18,4 @@ exports.create_empty_world = create_empty_world = function (blank_canvas) {
 
     return world;
 };
-RUR.current_world = create_empty_world();
+RUR.CURRENT_WORLD = create_empty_world();

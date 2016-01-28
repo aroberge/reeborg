@@ -35,24 +35,24 @@ RUR.add_goal_object_at_position = function (specific_object, x, y, nb){
 
     coords = x + "," + y;
 
-    RUR._ensure_key_exists(RUR.current_world, "goal");
-    RUR._ensure_key_exists(RUR.current_world.goal, "objects");
-    RUR._ensure_key_exists(RUR.current_world.goal.objects, coords);
+    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "goal");
+    RUR._ensure_key_exists(RUR.CURRENT_WORLD.goal, "objects");
+    RUR._ensure_key_exists(RUR.CURRENT_WORLD.goal.objects, coords);
     if (nb === 0) {
         try {
-            delete RUR.current_world.goal.objects[coords][specific_object];
+            delete RUR.CURRENT_WORLD.goal.objects[coords][specific_object];
         } catch (e) {}
 
-        if (Object.keys(RUR.current_world.goal.objects[coords]).length === 0){
-            delete RUR.current_world.goal.objects[coords];
-            if (Object.keys(RUR.current_world.goal.objects).length === 0){
-                delete RUR.current_world.goal.objects;
-                if (Object.keys(RUR.current_world.goal).length === 0){
-                    delete RUR.current_world.goal;
+        if (Object.keys(RUR.CURRENT_WORLD.goal.objects[coords]).length === 0){
+            delete RUR.CURRENT_WORLD.goal.objects[coords];
+            if (Object.keys(RUR.CURRENT_WORLD.goal.objects).length === 0){
+                delete RUR.CURRENT_WORLD.goal.objects;
+                if (Object.keys(RUR.CURRENT_WORLD.goal).length === 0){
+                    delete RUR.CURRENT_WORLD.goal;
                 }
             }
         }
     } else {
-        RUR.current_world.goal.objects[coords][specific_object] = nb;
+        RUR.CURRENT_WORLD.goal.objects[coords][specific_object] = nb;
     }
 };
