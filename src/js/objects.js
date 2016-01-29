@@ -46,26 +46,42 @@ RUR._add_new_tile_type = function (name, url) {
     RUR._NB_IMAGES_TO_LOAD += 1;
 };
 
-RUR._add_new_tile_type("mud");
-RUR.TILES.mud.fatal = true;
-RUR.TILES.mud.message = "I'm stuck in mud.";
-RUR.TILES.mud.info = "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.";
 
-RUR._add_new_tile_type("ice");
-RUR.TILES.ice.slippery = true;
-RUR.TILES.ice.message = "I'm slipping on ice!";
-RUR.TILES.ice.info = "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.";
+tile = {name: "mud",
+    url: RUR._BASE_URL + '/src/images/mud.png',
+    message: "I'm stuck in mud.",
+    fatal: true,
+    info: "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."
+};
+RUR.add_new_tile_type(tile);
 
-RUR._add_new_tile_type("grass");
-RUR.TILES.grass.info = "Grass: usually safe.";
+tile = {name: "ice",
+    url: RUR._BASE_URL + '/src/images/ice.png',
+    message: "I'm slipping on ice!",
+    slippery: true,
+    info: "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."
+};
+RUR.add_new_tile_type(tile);
 
-RUR._add_new_tile_type("pale_grass");
-RUR.TILES.grass.info = "Grass: usually safe.";
-RUR.TILES.pale_grass.name = "grass"; // replace
+tile = {name: "grass",
+    url: RUR._BASE_URL + '/src/images/grass.png',
+    info: "Grass: usually safe."
+};
+RUR.add_new_tile_type(tile);
 
-RUR._add_new_tile_type("gravel");
-RUR.TILES.gravel.info = "Gravel: usually safe.";
+tile = {name: "pale_grass",
+    url: RUR._BASE_URL + '/src/images/pale_grass.png',
+    info: "Grass: usually safe.",
+    public_name: "grass"
+};
+RUR.add_new_tile_type(tile);
 
+
+tile = {name: "gravel",
+    url: RUR._BASE_URL + '/src/images/gravel.png',
+    info: "Gravel: usually safe."
+};
+RUR.add_new_tile_type(tile);
 
 tile = {
     name:"water",
@@ -82,9 +98,6 @@ tile = {
 };
 
 RUR.add_new_tile_type(tile);
-
-
-
 
 RUR._add_new_tile_type("bricks");
 RUR.TILES.bricks.name = "brick wall"; // replace

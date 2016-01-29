@@ -91,7 +91,6 @@ RUR.control.move = function (robot) {
 
     RUR.state.sound_id = "#move-sound";
     RUR.record_frame("debug", "RUR.control.move");
-
     tile = RUR.world_get.tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){

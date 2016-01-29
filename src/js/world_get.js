@@ -42,6 +42,7 @@ RUR.world_get.pushable_object_at_position = function(x, y) {
             }
         }
     }
+    return false;
 };
 
 RUR.world_get.solid_objects_at_position = function (x, y) {

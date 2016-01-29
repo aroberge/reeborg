@@ -26,12 +26,12 @@ RUR.add_new_tile_type = function (tile) {
     name = tile.name;
     tiles[name] = {};
     tiles[name].name = tile.name;
-    if (tile.real_name) {
-        tiles[name].name = tile.real_name;
+    if (tile.public_name) {
+        tiles[name].name = tile.public_name;
     }
     if (tile.url) {
         tiles[name].image = new Image();
-        tiles[name].image.src = tile.image;
+        tiles[name].image.src = tile.url;
         RUR._NB_IMAGES_TO_LOAD += 1;
         tiles[name].image.onload = RUR.INCREMENT_LOADED_FN;
     } else if (tile.images) {
@@ -58,11 +58,17 @@ RUR.add_new_tile_type = function (tile) {
     } else {
         alert("Fatal error: need either tile.url or a list: tile.images");
     }
-    tiles[name].fatal = tile.fatal;
-    tiles[name].detectable = tile.detectable;
-    tiles[name].message = tile.message;
+
     tiles[name].info = tile.info;
-    tiles[name].slippery = tile.slippery;
+    if (tile.home) {
+        tiles[name].detectable = true;
+    } else {
+        tiles[name].fatal = tile.fatal;
+        tiles[name].detectable = tile.detectable;
+        tiles[name].message = tile.message;
+        tiles[name].slippery = tile.slippery;
+        tiles[name].solid = tile.solid;
+    }
 
     RUR.KNOWN_TILES.push(name);
 };
