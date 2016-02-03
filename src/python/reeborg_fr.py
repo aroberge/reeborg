@@ -675,3 +675,9 @@ def face_au_nord():
     # obsolete
     raise ReeborgError("face_au_nord() est désuet;" +
                        " utilisez est_face_au_nord()")
+
+def répète(fn, n):
+    '''Fonction maintenue pour compatibilité avec d'anciens programmes.
+       SVP, ne pas l'utiliser.'''
+    for i in range(n):
+        fn()
