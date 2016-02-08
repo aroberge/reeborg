@@ -1,6 +1,6 @@
 require("./../state.js");
 require("./../listeners/reload.js");
-var record_id = require("./../utils/record_id.js").record_id;
+var record_id = require("./../../lang/msg.js").record_id;
 
 
 /* This sets up the various running mode blockly/editor/repl
@@ -26,6 +26,7 @@ $("#python-choices").change(function() {
         show_console();
         hide_blockly();
         RUR.state.input_method = "repl";
+        editor.setOption("readOnly", true);
     } else {
         hide_python_editor();
         hide_console();
@@ -41,12 +42,12 @@ $("#javascript-choices").change(function() {
         hide_javascript_editor();
         show_blockly();
         RUR.state.input_method = "blockly";
-        editor.setOption("readOnly", false);
+        editor.setOption("readOnly", true);
     } else {
         show_javascript_editor();
         hide_blockly();
         RUR.state.input_method = "editor";
-        editor.setOption("readOnly", true);
+        editor.setOption("readOnly", false);
     }
 });
 

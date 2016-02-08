@@ -3,7 +3,7 @@ window.RUR = RUR || {};
 
 var RobotUsage;
 
-RUR.reset_definitions = function () {
+RUR.reset_definitions_fr = function () {
 
     window.au_but = RUR._at_goal_;
     window.construit_un_mur = RUR._build_wall_;
@@ -129,5 +129,3 @@ RUR.reset_definitions = function () {
     };
 
 };
-
-RUR.reset_definitions();

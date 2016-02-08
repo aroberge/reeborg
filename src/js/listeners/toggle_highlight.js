@@ -1,6 +1,6 @@
 ;
 require("./../state.js");
-var record_id = require("./../utils/record_id.js").record_id;
+var record_id = require("./../../lang/msg.js").record_id;
 
 var highlight_button = document.getElementById("highlight");
 record_id("highlight");

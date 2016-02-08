@@ -1,7 +1,7 @@
 
 require("./../state.js");
 require("./../storage.js");
-var record_id = require("./../utils/record_id.js").record_id;
+var record_id = require("./../../lang/msg.js").record_id;
 var clone_world = require("./../world/clone_world.js").clone_world;
 
 var memorize_button = document.getElementById("memorize-world");

@@ -165,16 +165,22 @@ def dir_py(obj, exclude=None):
     window["print_html"](html_escape("\n".join(out)).replace("\n", "<br>"))
 
 
-def generic_translate_python(src, lib, lang_import, highlight, var_watch,
-                             pre_code='', post_code=''):
+def generic_translate_python(src, highlight, var_watch, pre_code='',
+                             post_code=''):
     ''' RUR.translate Python code into Javascript and execute
 
         src: source code in editor
-        lib: string - language specific lib
-             (e.g. "library" in English, "biblio" in French)
-             already imported in html file
-        lang_import: something like "from reeborg_en import *"
+        highlight: determines if the code will be highlighted as it is run
+        var_watch: determines if some variable watch will take place
+        pre_code: code included with world definition and prepended to user code
+        post_code: code included with world definition and appended to user code
     '''
+    # lib: string - language specific lib
+    #      (e.g. "library" in English, "biblio" in French)
+    #      already imported in html file
+    lib = window.RUR.library_name
+    # lang_import: something like "from reeborg_en import *"
+    lang_import = window.RUR.from_import
     sys.stdout.write = __write
     sys.stderr.write = __write_err
     if lib in sys.modules:

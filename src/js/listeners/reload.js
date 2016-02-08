@@ -4,7 +4,7 @@ require("./../state.js");
 var set_ready_to_run = require("./../ui/set_ready_to_run.js").set_ready_to_run;
 var rec_reset = require("./../recorder/reset.js").reset;
 var reset_world = require("./../world_set/reset_world.js").reset_world;
-var record_id = require("./../utils/record_id.js").record_id;
+var record_id = require("./../../lang/msg.js").record_id;
 
 var reload_button = document.getElementById("reload");
 record_id("reload");

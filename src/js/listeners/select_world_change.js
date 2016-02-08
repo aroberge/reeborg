@@ -1,7 +1,7 @@
 require("./../file_io.js");
 require("./../storage.js");
 
-var record_id = require("./../utils/record_id.js").record_id;
+var record_id = require("./../../lang/msg.js").record_id;
 record_id("select-world");
 
 $("#select-world").change(function() {

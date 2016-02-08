@@ -1,6 +1,6 @@
 require("./../state.js");
 require("./../keyboard.js");
-var record_id = require("./../utils/record_id.js").record_id;
+var record_id = require("./../../lang/msg.js").record_id;
 record_id("select-programming-language");
 
 $("#select-programming-language").change(function() {

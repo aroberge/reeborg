@@ -1,7 +1,7 @@
 require("./../state.js");
 ;
 require("./../playback/play.js");
-var record_id = require("./../utils/record_id.js").record_id;
+var record_id = require("./../../lang/msg.js").record_id;
 
 var pause_button = document.getElementById("step");
 record_id("pause");

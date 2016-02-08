@@ -26,7 +26,7 @@ window.RUR = RUR || {};
 
 var UsedRobot;
 
-RUR.reset_definitions = function () {
+RUR.reset_definitions_en = function () {
 
     window.at_goal = RUR._at_goal_;
     window.build_wall = RUR._build_wall_;
@@ -144,4 +144,3 @@ RUR.reset_definitions = function () {
     window.set_delay = think;
     window.facing_north = is_facing_north;
 };
-RUR.reset_definitions();
