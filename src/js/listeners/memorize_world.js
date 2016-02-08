@@ -5,7 +5,7 @@ var record_id = require("./../utils/record_id.js").record_id;
 var clone_world = require("./../world/clone_world.js").clone_world;
 
 var memorize_button = document.getElementById("memorize-world");
-record_id("memorize-world", memorize_button, "Save world in browser");
+record_id("memorize-world", "Save world in browser");
 
 memorize_world = function () {
     var existing_names, i, key, response;

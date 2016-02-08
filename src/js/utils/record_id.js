@@ -1,12 +1,14 @@
+add_msg = require("./../../lang/msg.js").add_msg;
 
-exports.record_id = function (id, element, text) {
-    if (RUR._RECORDED_IDS.indexOf(id) !== -1) {
+_recorded_ids = [];
+
+exports.record_id = function (id, text) {
+    if (_recorded_ids.indexOf(id) !== -1) {
         alert("Fatal error: " + id + " already exists.");
     } else {
-        RUR._RECORDED_IDS.push(id);
+        _recorded_ids.push(id);
     }
-
-    if (element !== undefined) {
-        RUR._TEXT_ELEMENTS.push([element, text]);
+    if (text !== undefined) {
+        add_msg(id, text);
     }
 };

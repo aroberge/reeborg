@@ -682,6 +682,13 @@ p.try {
 #Reeborg-writes {
     background-color: white;
 }
+
+#human-language {
+    position: absolute;
+    right: 1em;
+    top: 10px;
+}
+
 /* edit world menu */
 
 #edit-world-nav {
