@@ -3,7 +3,7 @@ from browser import window
 try:
     from highlight import insert_highlight_info
 except Exception as e:
-    print("problem in common_def")
+    print("problem in common.py")
 from preprocess import transform
 
 def _add_watch(expr):
