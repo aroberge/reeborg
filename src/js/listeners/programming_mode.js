@@ -1,85 +1,87 @@
 require("./../state.js");
 require("./../listeners/reload.js");
+require("./../keyboard.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
+record_id("programming-mode");
 
-/* This sets up the various running mode blockly/editor/repl
-   for both Python and Javascript (if relevant).
-   Note that at the very end, we select a default which could be
-   superceded if we have set a different choice in the previous
-   session and if that choice has been saved in local storage and
-   retrieved.
- */
+$("#programming-mode").change(function() {
+    "use strict";
+    var choice = $(this).val();
+    RUR.state.input_method = choice;
+    localStorage.setItem("programming-mode", choice);
+    hide_everything();
 
-//TODO: add translations element to record_id
-
-record_id("python-choices");
-$("#python-choices").change(function() {
-    if($(this).val() == "editor") {
-        show_python_editor();
-        hide_console();
-        hide_blockly();
-        RUR.state.input_method = "editor";
-        editor.setOption("readOnly", false);
-    } else if($(this).val() == "repl") {
-        hide_python_editor();
-        show_console();
-        hide_blockly();
-        RUR.state.input_method = "repl";
-        editor.setOption("readOnly", true);
-    } else {
-        hide_python_editor();
-        hide_console();
-        show_blockly();
-        RUR.state.input_method = "blockly";
-        editor.setOption("readOnly", true);
+    switch(choice) {
+        case "python":
+            RUR.state.programming_language = "python";
+            show_editor("python");
+            editor.setOption("readOnly", false);
+            break;
+        case "javascript":
+            RUR.state.programming_language = "javascript";
+            show_editor("javascript");
+            editor.setOption("readOnly", false);
+            break;
+        case "blockly-py":
+            RUR.state.programming_language = "python";
+            show_blockly();
+            editor.setOption("readOnly", true);
+            break;
+        case "blockly-js":
+            RUR.state.programming_language = "javascript";
+            show_blockly();
+            editor.setOption("readOnly", true);
+            break;
+        case "py-repl":
+            RUR.state.programming_language = "python";
+            show_console();
+            break;
+        default:
+            RUR.state.programming_language = "python";
+            show_editor("python");
+            editor.setOption("readOnly", false);
+            console.log("Problem? Default value used in programming-mode select.");
     }
+
+    RUR.kbd.set_programming_language(RUR.state.programming_language);
 });
 
-record_id("javascript-choices");
-$("#javascript-choices").change(function() {
-    if($(this).val() == "blockly") {
-        hide_javascript_editor();
-        show_blockly();
-        RUR.state.input_method = "blockly";
-        editor.setOption("readOnly", true);
-    } else {
-        show_javascript_editor();
-        hide_blockly();
-        RUR.state.input_method = "editor";
-        editor.setOption("readOnly", false);
-    }
-});
 
 record_id("editor-visible-blockly");
 $('#editor-visible-blockly').change(function() {
     if ($('#editor-visible-blockly')[0].checked) {
-        RUR.state.input_method = "editor";
-        if (RUR.state.programming_language == "python"){
-            show_python_editor();
-        } else {
-            show_javascript_editor();
-        }
+        show_editor(RUR.state.programming_language);
     } else {
-        RUR.state.input_method = "blockly";
-        if (RUR.state.programming_language == "python"){
-            hide_python_editor();
-        } else {
-            hide_javascript_editor();
-        }
+        hide_editors();
     }
 });
 
-function show_blockly () {
-    $("#blockly-wrapper").show();
-    $("#visible-blockly").show();
+
+function hide_everything () {
+    /* By default, we start with a situation where everything is hidden
+       and only show later the relevant choices for a given option */
+    hide_blockly();
+    hide_editors();
+    hide_console();
     if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
         $("#special-keyboard-button").click();
     }
     $("#special-keyboard-button").hide();
+    // Python specific
+    $("#python-additional-menu p button").attr("disabled", "true");
+    $("#library-tab").parent().hide();
+    $("#highlight").hide();
+    $("#watch-variables-btn").hide();
     $("#Reeborg-watches").dialog("close");
+}
+
+function show_blockly () {
+    $("#blockly-wrapper").show();
+    $("#visible-blockly").show();
+    $("#editor-visible-blockly").show();
     if ($('#editor-visible-blockly')[0].checked) {
-        show_python_editor();
+        show_editor(RUR.state.programming_language);
     }
     window.dispatchEvent(new Event('resize')); // important to ensure that blockly is visible
 }
@@ -88,37 +90,64 @@ function hide_blockly () {
     $("#blockly-wrapper").hide();
     window.dispatchEvent(new Event('resize'));
     $("#visible-blockly").hide();
+    $("#editor-visible-blockly").hide();
     $("#special-keyboard-button").show();
 }
 
-function show_javascript_editor () {
+function show_editor(lang) {
+    if (lang == "python") {
+        show_python_editor();
+    } else {
+        show_javascript_editor();
+    }
     $("#editor-panel").addClass("active");
-    $("#kbd-javascript-btn").show();
+    $("#editor-tab").click();
     RUR.reload();
     editor.refresh();
+    if (RUR.state.editing_world) {
+        $("#pre-code-link").parent().show();
+        $("#post-code-link").parent().show();
+        $("#description-link").parent().show();
+        $("#onload-editor-link").parent().show();
+    }
 }
 
-function hide_javascript_editor () {
-    $("#editor-panel").removeClass("active");
-    $("#kbd-javascript-btn").hide();
+function show_javascript_editor () {
+    $("#editor-tab").html(RUR.translate("Javascript Code"));
+    editor.setOption("mode", "javascript");
+    pre_code_editor.setOption("mode", "javascript");
+    post_code_editor.setOption("mode", "javascript");
 }
 
 function show_python_editor () {
-    $("#editor-panel").addClass("active");
-    $("#kbd-python-btn").show();
-    RUR.state.highlight = RUR.state.highlight || RUR._saved_highlight_value;
-    RUR.reload();
-    editor.refresh();
+    $("#editor-tab").html(RUR.translate("Python Code"));
+    editor.setOption("mode", {name: "python", version: 3});
+    pre_code_editor.setOption("mode", {name: "python", version: 3});
+    post_code_editor.setOption("mode", {name: "python", version: 3});
+
+    RUR.state.highlight = RUR.state.highlight || RUR.state._saved_highlight_value;
+    $("#library-tab").parent().show();
+    $("#highlight").show();
+    $("#watch-variables-btn").show();
+    $("#python-additional-menu p button").removeAttr("disabled");
 }
-function hide_python_editor () {
+
+
+function hide_editors() {
+    if (RUR.state.programming_language == "python") {
+        RUR.state._saved_highlight_value = RUR.state.highlight;
+        RUR.state.highlight = false;
+    }
     $("#editor-panel").removeClass("active");
-    $("#kbd-python-btn").hide();
-    RUR._saved_highlight_value = RUR.state.highlight;
-    RUR.state.highlight = false;
+    // extra editors
+    $("#pre-code-link").parent().hide();
+    $("#post-code-link").parent().hide();
+    $("#description-link").parent().hide();
+    $("#onload-editor-link").parent().hide();
 }
+
 function show_console() {
     $("#py-console").show();
-    $("#kbd-py-console-btn").show();
     $("#stop").hide();
     $("#pause").hide();
     $("#run").hide();
@@ -127,16 +156,20 @@ function show_console() {
     $("#reload").hide();
     $("#reload2").show();
     $("#reload2").removeAttr("disabled");
+    _start_repl();
+}
+
+function _start_repl() {
     try {
         restart_repl();
     } catch (e) {
-        console.log("trying to restart repl failure", e);
+        console.log("_start_repl: failure", e);
+        window.setTimeout(_start_repl, 500);
     }
 }
 
 function hide_console() {
     $("#py-console").hide();
-    $("#kbd-py-console-btn").hide();
     $("#stop").show();
     $("#pause").show();
     $("#run").show();
@@ -146,4 +179,10 @@ function hide_console() {
     $("#reload2").hide();
 }
 
-hide_console();
+/* initialization */
+
+show_editor("python");
+if(localStorage.getItem("programming-mode")){
+    document.getElementById('programming-mode').value = localStorage.getItem("programming-mode");
+}
+// see end of index.js for initialization.

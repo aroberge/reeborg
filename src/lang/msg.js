@@ -33,3 +33,5 @@ exports.update_ui = update_ui;
 exports.record_id = record_id;
 
 add_msg("site-name", "SITE NAME");
+add_msg("world-info-button", "WORLD INFO");
+add_msg("visible-blockly", "EDITOR VISIBLE BLOCKLY");

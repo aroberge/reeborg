@@ -43,21 +43,18 @@
       <select id="select-world" title="Select world">
       </select>
       <button class="blue-gradient" id="world-info-button">World info</button>
-      <select id="select-programming-language" title="Select programming language">
-        <option value="python-en">Python</option>
-        <option value="javascript-en">Javascript</option>
-      </select>
-      <select id="python-choices" title="Select programming mode">
-        <option value="blockly">Blockly</option>
-        <option value="editor">Editor</option>
-        <option value="repl">Interpreter</option>
-      </select>
-      <select id="javascript-choices" title="Select programming mode" style="display:none">
-        <option value="blockly">Blockly</option>
-        <option value="editor">Editor</option>
-      </select>
-      <label id="visible-blockly">
-        <input type="checkbox" id="editor-visible-blockly" value="visible">Keep editor visible</label>
+
+
+    <select id="programming-mode" title="Select programming mode">
+        <option value="python">Python</option>
+        <option value="javascript">Javascript</option>
+        <option value="blockly-py">Blockly (Py)</option>
+        <option value="blockly-js">Blockly (Js)</option>
+        <option value="py-repl">REPL (Py)</option>
+    </select>
+
+      <input type="checkbox" id="editor-visible-blockly" value="visible">
+      <label id="visible-blockly">Keep editor visible</label>
       <button class="blue-gradient" id="special-keyboard-button">Reeborg's keyboard</button>
       <button id="more-menus-button" class="blue-gradient" title="Additional options">
         Additional options
@@ -551,7 +548,7 @@ from _importlib import optimize_import_for_path
 optimize_import_for_path('/src/python', 'py')
 from common import generic_translate_python
 window['translate_python'] = generic_translate_python
-import repl
+import py_repl
   </script>
 
   <script>

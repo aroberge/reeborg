@@ -1,16 +1,21 @@
 
+require("./../state.js");
+require("./../visible_world.js");
 require("./../world.js");
 require("./../exceptions.js");
+require("./show_immediate.js");
 var clone_world = require("./../world/clone_world.js").clone_world;
 
 _record_frame = function (name, obj) {
     "use strict";
     var frame = {};
 
-    if (RUR.state.programming_language === "python" && RUR.state.input_method==="repl") {
-        throw new RUR.ReeborgError("Fatal Error: " +
-            "Calling _record_frame while using the Python REPL.");
+/* if the REPL is active, we do not record anything, and show immediately
+       the updated world */
+    if (RUR.state.input_method==="py-repl") {
+        return RUR._show_immediate(name, obj);
     }
+
     if (RUR.state.do_not_record) {
         return;
     }

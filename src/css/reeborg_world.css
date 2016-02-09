@@ -155,7 +155,6 @@ button {
 }
 
 a.left-link, a.right-link, button, a.fake_button {
-    font-family: sans-serif;
     font-size: .8em;
     padding: 5px;
     text-decoration: none;
@@ -496,9 +495,11 @@ p.try {
     border-top-right-radius: 10px;
 }
 
-#visible-blockly {
+#visible-blockly, #editor-visible-blockly {
     display:none;
     color:white;
+    font-size: .8em;
+    font-weight: bold;
 }
 
 #run {

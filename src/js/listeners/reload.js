@@ -32,10 +32,12 @@ RUR.reload2 = function() {
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot-canvas")}});
     reset_world();
     rec_reset();
-    try {
-        restart_repl();
-    } catch (e) {
-        console.log("can not restart repl", e);
+    if (RUR.state.input_method == "py-repl") {
+        try {
+            restart_repl();
+        } catch (e) {
+            console.log("RUR.reload2: can not re/start repl", e);
+        }
     }
 };
 

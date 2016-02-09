@@ -6,20 +6,18 @@ require("./state.js");
 RUR.kbd = {};
 
 RUR.kbd.set_programming_language = function (lang) {
+    $("#kbd-python-btn").hide();
+    $("#kbd-py-console-btn").hide();
+    $("#kbd-javascript-btn").hide();
     switch (lang) {
         case "python":
-            if (RUR.state.input_method==="repl"){
-                $("#kbd-python-btn").hide();
+            if (RUR.state.input_method==="py-repl"){
                 $("#kbd-py-console-btn").show();
             } else {
                 $("#kbd-python-btn").show();
-                $("#kbd-py-console-btn").hide();
             }
-            $("#kbd-javascript-btn").hide();
             break;
         case "javascript":
-            $("#kbd-python-btn").hide();
-            $("#kbd-py-console-btn").hide();
             $("#kbd-javascript-btn").show();
             break;
     }
@@ -43,7 +41,7 @@ RUR.kbd.insert_in_console = function (txt) {
 RUR.kbd.insert = function (txt){
     "use strict";
     var doc, cursor, line, pos;
-    if (RUR.state.input_method==="repl") {
+    if (RUR.state.input_method==="py-repl") {
         RUR.kbd.insert_in_console(txt);
         return;
     }
@@ -93,7 +91,7 @@ RUR.kbd.redo = function () {
 RUR.kbd.enter = function () {
     "use strict";
     var doc, ev;
-    if (RUR.state.input_method==="repl") {
+    if (RUR.state.input_method==="py-repl") {
         ev = {};
         ev.keyCode = 13;
         ev.preventDefault = function () {};
@@ -112,7 +110,7 @@ RUR.kbd.enter = function () {
 RUR.kbd.tab = function () {
     "use strict";
     var doc;
-    if (RUR.state.input_method==="repl") {
+    if (RUR.state.input_method==="py-repl") {
         RUR.kbd.insert_in_console('    ');
         return;
     }
@@ -210,7 +208,7 @@ RUR.kbd.select = function (choice) {
 
     if (RUR.state.programming_language == "python") {
         $(".only_py").show();
-        if (RUR.state.input_method==="repl") {
+        if (RUR.state.input_method==="py-repl") {
             $(".no-console").hide();
         }
         $(".only_js").hide();

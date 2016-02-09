@@ -36,3 +36,8 @@ require("./playback/reverse_step.js"); /* only invoked from the html file - for 
 
 require("./z_commands.js");
 require("./zzz_doc_ready.js");
+
+// we reset the programming mode only at the end; this helps prevent
+// the CodeMirror editors from being improperly sized if the initial
+// mode is such that they would be hidden.
+$("#programming-mode").change();

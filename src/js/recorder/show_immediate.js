@@ -5,12 +5,6 @@ require("./../exceptions.js");
    the updated world */
 
 RUR._show_immediate = function (name, obj) {
-
-    if (RUR.state.programming_language !== "python" ||
-        RUR.state.input_method !=="repl") {
-            throw new RUR.ReeborgError("Fatal Error: " +
-                "Calling show_immediate while not using the Python REPL.");
-    }
     RUR.vis_world.refresh();
     // TODO: confirm that watching variables work.
     if (name !== undefined && name == "print_html") {

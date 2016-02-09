@@ -36,6 +36,18 @@ function update_commands (lang) {
     RUR.reset_definitions();
 }
 
+function update_home_url (lang) {
+    switch(lang) {
+        case "fr":
+            $("#logo").prop("href", "index_fr.html");
+            break;
+        case "en":
+            $("#logo").prop("href", "index_en.html");
+            break;
+        default:
+            $("#logo").prop("href", "index_en.html");
+    }
+}
 
 $("#human-language").change(function() {
     var lang = $(this).val();
@@ -43,8 +55,21 @@ $("#human-language").change(function() {
     update_translations(lang);
     msg.update_ui(lang);
     update_commands(lang);
+    update_home_url(lang);
+    // TODO update selectors text
     //TODO update blockly display
-    console.log("changed to", lang);
+    if (RUR.state.input_method == "py-repl") {
+        try {
+            restart_repl();
+        } catch (e) {
+            console.log("human-language change: can not re/start repl", e);
+        }
+    }
+    localStorage.setItem("human_language", lang);
 });
+
+if(localStorage.getItem("human_language")){
+    document.getElementById('human-language').value = localStorage.getItem("human_language");
+}
 
 $("#human-language").change();
