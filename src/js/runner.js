@@ -1,4 +1,5 @@
 
+require("./rur.js");
 require("./translator.js");
 require("./visible_world.js");
 require("./world.js");
@@ -20,13 +21,10 @@ RUR.runner.run = function (playback) {
     if (!RUR.state.code_evaluated) {
         RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
         RUR.world_init.set();
-
-        if (RUR.state.input_method === "blockly") {
-            if (RUR.state.programming_language == "python") {
+        if (RUR.state.input_method === "blockly-py") {
                 editor.setValue(Blockly.Python.workspaceToCode(RUR.blockly.workspace));
-            } else {
-                editor.setValue(Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace));
-            }
+        } else if (RUR.state.input_method === "blockly-js") {
+            editor.setValue(Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace));
         }
         src = editor.getValue();
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line

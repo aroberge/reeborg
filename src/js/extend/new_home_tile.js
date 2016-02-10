@@ -1,3 +1,4 @@
+require("./../rur.js");
 
 /** @function add_new_home_tile
  * @memberof RUR
@@ -23,6 +24,8 @@
  *                       comme "but: Reeborg peut détecter ceci en utilisant au\_but()".*
  *
  */
+
+RUR.HOME_IMAGES = {};
 
 RUR.add_new_home_tile = function (name, url, info) {
     var home = RUR.HOME_IMAGES;

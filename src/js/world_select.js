@@ -8,8 +8,6 @@
     only find items in this file.
 */
 
-;
-
 RUR.world_select = {};
 
 RUR.world_select.empty_menu = function () {

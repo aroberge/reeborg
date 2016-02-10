@@ -1,8 +1,4 @@
 
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR */
-
-
 require("./constants.js");
 require("./state.js");
 // TODO: RUR._BASE_URL -> need to change it to state...

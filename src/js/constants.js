@@ -1,4 +1,4 @@
-
+require("./rur.js");
 RUR.EAST = 0;
 RUR.NORTH = 1;
 RUR.WEST = 2;

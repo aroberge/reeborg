@@ -1,3 +1,5 @@
+require("./../rur.js");
+
 
 require("./../visible_world.js");
 require("./../state.js");
@@ -24,6 +26,7 @@ require("./../state.js");
  *                    <br> _URL où l'image comme but peut être trouvée_
  *
  */
+RUR.OBJECTS = {};
 
 RUR.add_new_object_type = function (name, url, url_goal) {
     var obj = RUR.OBJECTS;

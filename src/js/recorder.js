@@ -1,7 +1,4 @@
 
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR , editor*/
-
 require("./state.js");
 require("./visible_world.js");
 require("./world_get.js");

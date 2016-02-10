@@ -1,4 +1,6 @@
 
+require("./../rur.js");
+
 exports.toggle = function () {
     if ("robots" in RUR.CURRENT_WORLD &&
         RUR.CURRENT_WORLD.robots.length > 0) {

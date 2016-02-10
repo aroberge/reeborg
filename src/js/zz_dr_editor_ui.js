@@ -2,6 +2,7 @@
 
 called by zzz_doc_ready.js
 */
+require("./rur.js");
 
 RUR.zz_dr_editor_ui = function () {
     $("#tabs").tabs({

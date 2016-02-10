@@ -50,18 +50,16 @@ RUR.output.watch_variables = function (arg) {
 
 RUR.output.view_source_js = function(fn) {
     $("#Reeborg-explores").dialog("open");
-    RUR.show_feedback("#Reeborg-explores", "<pre class='js_code view_source'>" + fn + "</pre>" );
-    $('.js_code').each(function() {
+    RUR.show_feedback("#Reeborg-explores", "<pre class='view_source'>" + fn + "</pre>" );
+    $('.view_source').each(function() {
         var $this = $(this), $code = $this.text();
-        $this.removeClass("js_code");
-        $this.addClass("jscode");
         $this.empty();
         var myCodeMirror = CodeMirror(this, {
             value: $code,
             mode: 'javascript',
             lineNumbers: !$this.is('.inline'),
             readOnly: true,
-            theme: 'reeborg-dark'
+            theme: 'reeborg-readonly'
         });
     });
 };

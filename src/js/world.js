@@ -11,12 +11,6 @@ var clone_world = require("./world/clone_world.js").clone_world;
 RUR.world = {};
 
 
-
-
-
-
-
-
 /* When a world is edited, as we are about to leave the editing mode,
    a comparison of the world before editing and after is performed.
    If the content of the world before and after has changed, including that

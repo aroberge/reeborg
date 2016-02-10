@@ -3,24 +3,24 @@ require("./../state.js");
 require("./../visible_world.js");
 require("./../world.js");
 require("./../exceptions.js");
-require("./show_immediate.js");
+require("./../playback/show_immediate.js");
 var clone_world = require("./../world/clone_world.js").clone_world;
 
-_record_frame = function (name, obj) {
+RUR.record_frame = function (name, obj) {
     "use strict";
     var frame = {};
-
-/* if the REPL is active, we do not record anything, and show immediately
-       the updated world */
-    if (RUR.state.input_method==="py-repl") {
-        return RUR._show_immediate(name, obj);
-    }
 
     if (RUR.state.do_not_record) {
         return;
     }
     if (RUR.state.prevent_playback){  // TODO see if this can be replaced by do_not_record
         return;
+    }
+
+    /* if the REPL is active, we do not record anything, and show immediately
+       the updated world */
+    if (RUR.state.input_method==="py-repl") {
+        return RUR._show_immediate(name, obj);
     }
 
     // // Used mainly to add watch variables to previous frame
@@ -68,5 +68,3 @@ _record_frame = function (name, obj) {
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
 };
-
-RUR.record_frame = _record_frame;  // initial default

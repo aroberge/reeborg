@@ -1,21 +1,12 @@
-//
-// require("./translator.js");
-// require("./state.js");
-// require("./objects.js");
-// require("./visible_robot.js");
+
+require("./state.js");
 require("./zz_dr_onclick.js");
-// require("./zz_dr_onchange.js");
+
 require("./zz_dr_editor_ui.js");
 require("./zz_dr_blockly.js");
-// require("./recorder.js");
-// require("./storage.js");
-// require("./world_select.js");
-// require("./world.js");
-// require("./keyboard.js");
+
 require("./tooltip.js");
-// require("./custom_world_select.js");
-// require("./aa_utils.js");
-// var export_world = require("./world/export_world.js").export_world;
+
 var rec_reset = require("./recorder/reset.js").reset;
 
     var prog_lang, url_query, name;

@@ -1,6 +1,5 @@
 /* jshint -W069 */
-
-
+require("./rur.js");
 require("./translator.js");
 
 RUR.blockly = {};

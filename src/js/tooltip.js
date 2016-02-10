@@ -1,6 +1,5 @@
 /* Intended to provide information about objects carried by robot */
-
-
+require("./rur.js");
 require("./world_editor.js");
 
 RUR.tooltip = {};

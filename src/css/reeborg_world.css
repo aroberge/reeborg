@@ -346,93 +346,118 @@ p.try {
     border: 1px solid black;
 }
 
+/* reeborg-readonly is identical as reeborg-dark except for striped
+   background and the fact that the cursor is invisible;
+   it is meant to give a visual clue that the text cannot be edited */
+
+.cm-s-reeborg-readonly,
 .cm-s-reeborg-dark {
     font-size: 11pt;
     line-height: 1.4em;
 }
-
+.cm-s-reeborg-readonly,
 .cm-s-reeborg-dark {
     font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
 }
 
+.cm-s-reeborg-readonly.CodeMirror,
 .cm-s-reeborg-dark.CodeMirror {
     color: white;
     border: 0;
     background: #124;
 }
 
+.cm-s-reeborg-readonly .CodeMirror-gutters,
 .cm-s-reeborg-dark .CodeMirror-gutters {
     border-right: 3px solid rgb(117, 161, 16);
     background: #248;
 }
-
-.cm-s-reeborg-dark .CodeMirror-linenumber {
-    font-size: 9pt;
-    color: white;
-}
-
-.cm-s-reeborg-dark .CodeMirror-cursor {
-    border-left: 2px solid white !important;
-}
-
-.cm-s-reeborg-dark .cm-comment {
-    font-style: italic;
-    line-height: 1em;
-    color: #9c9;
-}
-
-.cm-s-reeborg-dark .cm-atom {
-    color: #f4c20b;
-}
-
-.cm-s-reeborg-dark .cm-number,
-.cm-s-reeborg-dark .cm-attribute {
-    color: #cef;
-}
-
-.cm-s-reeborg-dark .cm-keyword,
-.cm-s-reeborg-dark .cm-tag {
-    color: #fbde2d;
-}
-
-.cm-s-reeborg-dark .cm-operator {
-    color: #fbde2d;
-}
-
-.cm-s-reeborg-dark .cm-string {
-    color: #f08047;
-}
-
-.cm-s-reeborg-dark .cm-variable-2 {
-    color: #9f9;
-}
-
-.cm-s-reeborg-dark .cm-def {
-    color: #9f9;
-}
-
-.cm-s-reeborg-dark .cm-variable-3 {
-    color: #9f9;
-}
-
-.cm-s-reeborg-dark .cm-builtin,
-.cm-s-reeborg-dark .cm-special {
-    color: #ff9d00;
-}
-
-.cm-s-reeborg-dark .cm-tab:before {
-    content: '➤';
-    color: red;
-}
-
-.pycode .cm-s-reeborg-dark.CodeMirror,
-.jscode .cm-s-reeborg-dark.CodeMirror {
+.cm-s-reeborg-readonly.CodeMirror {
     background-image: -webkit-linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%, transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%, transparent 75%, transparent);
     background-image: -moz-linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%, transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%, transparent 75%, transparent);
     background-image: -ms-linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%, transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%, transparent 75%, transparent);
     background-image: -o-linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%, transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%, transparent 75%, transparent);
     background-image: linear-gradient(45deg, rgba(10, 10, 10, .4) 25%, transparent 25%, transparent 50%, rgba(10, 10, 10, .4) 50%, rgba(10, 10, 10, .4) 75%, transparent 75%, transparent);
     background-size: 50px 50px;
+}
+
+
+.cm-s-reeborg-readonly .CodeMirror-linenumber,
+.cm-s-reeborg-dark .CodeMirror-linenumber {
+    font-size: 9pt;
+    color: white;
+}
+
+
+.cm-s-reeborg-readonly .CodeMirror-cursor {
+    display: none;
+}
+.cm-s-reeborg-dark .CodeMirror-cursor {
+    border-left: 2px solid white !important;
+}
+
+.cm-s-reeborg-readonly .cm-comment,
+.cm-s-reeborg-dark .cm-comment {
+    font-style: italic;
+    line-height: 1em;
+    color: #9c9;
+}
+
+.cm-s-reeborg-readonly .cm-atom,
+.cm-s-reeborg-dark .cm-atom {
+    color: #f4c20b;
+}
+
+.cm-s-reeborg-readonly .cm-number,
+.cm-s-reeborg-readonly .cm-attribute,
+.cm-s-reeborg-dark .cm-number,
+.cm-s-reeborg-dark .cm-attribute {
+    color: #cef;
+}
+
+.cm-s-reeborg-readonly .cm-keyword,
+.cm-s-reeborg-readonly .cm-tag,
+.cm-s-reeborg-dark .cm-keyword,
+.cm-s-reeborg-dark .cm-tag {
+    color: #fbde2d;
+}
+
+.cm-s-reeborg-readonly .cm-operator,
+.cm-s-reeborg-dark .cm-operator {
+    color: #fbde2d;
+}
+
+.cm-s-reeborg-readonly .cm-string,
+.cm-s-reeborg-dark .cm-string {
+    color: #f08047;
+}
+
+.cm-s-reeborg-readonly .cm-variable-2,
+.cm-s-reeborg-dark .cm-variable-2 {
+    color: #9f9;
+}
+
+.cm-s-reeborg-readonly .cm-def,
+.cm-s-reeborg-dark .cm-def {
+    color: #9f9;
+}
+
+.cm-s-reeborg-readonly .cm-variable-3,
+.cm-s-reeborg-dark .cm-variable-3 {
+    color: #9f9;
+}
+
+.cm-s-reeborg-dark .cm-builtin,
+.cm-s-reeborg-dark .cm-special,
+.cm-s-reeborg-readonly .cm-builtin,
+.cm-s-reeborg-readonly .cm-special {
+    color: #ff9d00;
+}
+
+.cm-s-reeborg-dark .cm-tab:before,
+.cm-s-reeborg-readonly .cm-tab:before {
+    content: '➤';
+    color: red;
 }
 
 .lint-error {

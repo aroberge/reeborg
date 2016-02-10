@@ -1,8 +1,8 @@
 
+require("./rur.js");
 require("./translator.js");
 require("./world_select.js");
-;
-// require("jquery-ui");
+
 
 var export_world = require("./world/export_world.js").export_world;
 var clone_world = require("./world/clone_world.js").clone_world;

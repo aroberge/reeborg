@@ -3,6 +3,7 @@
    state.  However, by using this convention and documentating them in a
    single place, it helps in avoiding the creation of inconsistent states.*/
 
+require("./rur.js");
 require("./translator.js");
 
 RUR.state = {};

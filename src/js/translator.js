@@ -1,3 +1,4 @@
+require("./rur.js");
 require("./utils/supplant.js");
 
 RUR.translate = function (s) {

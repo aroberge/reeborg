@@ -1,10 +1,11 @@
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
+require("./../rur.js");
 require("./../world_set/add_object.js");
 require("./../visible_world.js");
 require("./../state.js");
-;
+
 
 exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     autoOpen: false,

@@ -17,21 +17,25 @@ $("#programming-mode").change(function() {
             RUR.state.programming_language = "python";
             show_editor("python");
             editor.setOption("readOnly", false);
+            editor.setOption("theme", "reeborg-dark");
             break;
         case "javascript":
             RUR.state.programming_language = "javascript";
             show_editor("javascript");
             editor.setOption("readOnly", false);
+            editor.setOption("theme", "reeborg-dark");
             break;
         case "blockly-py":
             RUR.state.programming_language = "python";
             show_blockly();
             editor.setOption("readOnly", true);
+            editor.setOption("theme", "reeborg-readonly");
             break;
         case "blockly-js":
             RUR.state.programming_language = "javascript";
             show_blockly();
             editor.setOption("readOnly", true);
+            editor.setOption("theme", "reeborg-readonly");
             break;
         case "py-repl":
             RUR.state.programming_language = "python";
@@ -41,7 +45,8 @@ $("#programming-mode").change(function() {
             RUR.state.programming_language = "python";
             show_editor("python");
             editor.setOption("readOnly", false);
-            console.log("Problem? Default value used in programming-mode select.");
+            editor.setOption("theme", "reeborg-dark");
+        console.log("Problem? Default value used in programming-mode select.");
     }
 
     RUR.kbd.set_programming_language(RUR.state.programming_language);

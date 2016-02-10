@@ -1,3 +1,4 @@
+require("./rur.js");
 require("./extend/add_object_type.js");
 require("./extend/add_tile_type.js");
 require("./extend/new_home_tile.js");
@@ -118,6 +119,7 @@ _add_new_home_tile("house", "house:");
 _add_new_home_tile("racing_flag", "racing flag:");
 
 
+RUR.SOLID_OBJECTS = {};
 RUR.add_new_solid_object_type = function (name, url, nickname) {
     var obj = RUR.SOLID_OBJECTS;
     obj[name] = {};

@@ -1,6 +1,7 @@
 require("./../state.js");
 require("./../../lang/reeborg_en.js");
 require("./../../lang/reeborg_fr.js");
+require("./../custom_world_select.js");
 var msg = require("./../../lang/msg.js");
 
 
@@ -56,6 +57,7 @@ $("#human-language").change(function() {
     msg.update_ui(lang);
     update_commands(lang);
     update_home_url(lang);
+    RUR.make_default_menu(lang);
     // TODO update selectors text
     //TODO update blockly display
     if (RUR.state.input_method == "py-repl") {

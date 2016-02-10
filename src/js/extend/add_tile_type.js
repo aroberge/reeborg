@@ -1,3 +1,5 @@
+require("./../rur.js");
+
 /** @function add_new_tile_type
  * @memberof RUR
  * @instance
@@ -20,6 +22,7 @@
  *                    <br> _URL où l'image comme but peut être trouvée_
  *
  */
+RUR.TILES = {};
 
 RUR.add_new_tile_type = function (tile) {
     var i, tiles = RUR.TILES;
