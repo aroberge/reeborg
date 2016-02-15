@@ -31,8 +31,8 @@ RUR.runner.run = function (playback) {
     }
     if (!fatal_error_found) {
         try {
-            localStorage.setItem(RUR.settings.editor, src);
-            localStorage.setItem(RUR.settings.library, library.getValue());
+            localStorage.setItem("editor", src);
+            localStorage.setItem("library", library.getValue());
         } catch (e) {}
         // "playback" is a function called to play back the code in a sequence of frames
         // or a "null function", f(){} can be passed if the code is not

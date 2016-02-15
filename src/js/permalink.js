@@ -24,9 +24,8 @@ RUR.permalink.update_live = function () {
     }
     permalink += url_query.path;
     permalink += "?lang=" + RUR.state.human_language + "&mode=" + RUR.state.input_method;
-    window.history.pushState({'dummy': 1}, "dummy", permalink);
+    window.history.pushState("dummy", "dummy", permalink);
 };
-
 
 RUR.permalink.__create = function () {
     "use strict";

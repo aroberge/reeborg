@@ -7,7 +7,6 @@ require("./rur.js");
 require("./translator.js");
 
 RUR.state = {};
-RUR.state.session_initialized = false;
 RUR.state.code_evaluated = false;
 RUR.state.do_not_record = false;
 RUR.state.editing_world = false;
@@ -18,6 +17,7 @@ RUR.state.programming_language = "javascript"; // default for testing
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
 RUR.state.ready = false;
+RUR.state.session_initialized = false;
 RUR.state.sound_id = undefined;
 RUR.state.sound_on = false;
 RUR.state.specific_object = undefined;

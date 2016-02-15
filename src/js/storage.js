@@ -52,7 +52,10 @@ RUR.storage.delete_world = function (name){
     $("select option[value='" + "user_world:" + name +"']").remove();
 
     try {
-        RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
+        RUR.world_select.set_url(
+            RUR.world_select.url_from_shortname(
+                localStorage.getItem("world"))
+            );
     } catch (e) {
         RUR.world_select.set_default();
     }

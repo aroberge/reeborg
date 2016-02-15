@@ -235,8 +235,8 @@ RUR.we.toggle_editing_mode = function () {
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
         try {
-            localStorage.setItem(RUR.settings.editor, editor.getValue());
-            localStorage.setItem(RUR.settings.library, library.getValue());
+            localStorage.setItem("editor", editor.getValue());
+            localStorage.setItem("library", library.getValue());
         } catch (e) {}
         RUR.CURRENT_WORLD = RUR.world.update_from_editors(RUR.CURRENT_WORLD);
         if (!identical(RUR.CURRENT_WORLD, RUR._SAVED_WORLD)) {

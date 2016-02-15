@@ -15,7 +15,7 @@ RUR.world_select.empty_menu = function () {
 };
 
 RUR.world_select.set_default = function () {
-    $("#select-world").selectedIndex = 0;
+    document.getElementById("select-world").selectedIndex = 0;
     $("#select-world").change();
 };
 

@@ -14,6 +14,7 @@ require("./state.js");
 
 function start_session () {
     "use strict";
+    RUR.state.session_initialized = false;
     var url_query = parseUri(window.location.href);
     set_language(url_query);
     set_mode(url_query);
@@ -28,7 +29,7 @@ start_session();
 function set_language (url_query) {
     "use strict";
     var lang;
-    if (url_query.queryKey.lang != undefined) {
+    if (url_query.queryKey.lang !== undefined) {
         lang = url_query.queryKey.lang;
     } else if (localStorage.getItem("human_language")) {
         lang = localStorage.getItem("human_language");
@@ -43,7 +44,7 @@ function set_language (url_query) {
 function set_mode (url_query) {
     "use strict";
     var mode;
-    if (url_query.queryKey.mode != undefined) {
+    if (url_query.queryKey.mode !== undefined) {
         mode = url_query.queryKey.mode;
     } else if (localStorage.getItem("programming-mode")) {
         mode = localStorage.getItem("programming-mode");
@@ -72,7 +73,7 @@ function set_library() {
 }
 
 function set_world(url_query) {
-    if (url_query.queryKey.world != undefined) {
+    if (url_query.queryKey.world !== undefined) {
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
         RUR.storage.save_world(RUR.translate("PERMALINK"));
     } else if (localStorage.getItem("world")) {

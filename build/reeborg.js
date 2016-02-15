@@ -680,31 +680,29 @@ RUR.custom_world_select = {};
 RUR.custom_world_select.make = function (contents) {
     "use strict";
     var i, url;
-
     RUR.world_select.empty_menu();
-
     for(i=0; i<contents.length; i++){
         RUR.world_select.append_world( {url:contents[i][0],
                                         shortname:contents[i][1]});
     }
-
+    load_user_worlds();
     if (RUR.state.session_initialized) {
         RUR.world_select.set_default();
-    } else {
-        load_user_worlds("initial");
     }
 };
 
-function load_user_worlds (initial) {
+function load_user_worlds() {
     var key, name, i;
+    RUR.state.creating_menu = true;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
             name = key.slice(11);
-            RUR.storage.append_world_name(name, initial);
+            RUR.storage.append_world_name(name);
             $('#delete-world').show();
         }
     }
+    RUR.state.creating_menu = false;
 }
 
 
@@ -3282,8 +3280,7 @@ var record_id = require("./../../lang/msg.js").record_id;
 record_id("select-world");
 
 $("#select-world").change(function() {
-    if (RUR.storage.appending_world_name_flag){
-        RUR.storage.appending_world_name_flag = false;
+    if (RUR.state.creating_menu){
         return;
     }
     if ($(this).val() !== null) {
@@ -3642,9 +3639,8 @@ RUR.permalink.update_live = function () {
     }
     permalink += url_query.path;
     permalink += "?lang=" + RUR.state.human_language + "&mode=" + RUR.state.input_method;
-    window.history.pushState({'dummy': 1}, "dummy", permalink);
+    window.history.pushState("dummy", "dummy", permalink);
 };
-
 
 RUR.permalink.__create = function () {
     "use strict";
@@ -4291,8 +4287,8 @@ RUR.runner.run = function (playback) {
     }
     if (!fatal_error_found) {
         try {
-            localStorage.setItem(RUR.settings.editor, src);
-            localStorage.setItem(RUR.settings.library, library.getValue());
+            localStorage.setItem("editor", src);
+            localStorage.setItem("library", library.getValue());
         } catch (e) {}
         // "playback" is a function called to play back the code in a sequence of frames
         // or a "null function", f(){} can be passed if the code is not
@@ -4541,6 +4537,7 @@ require("./state.js");
 
 function start_session () {
     "use strict";
+    RUR.state.session_initialized = false;
     var url_query = parseUri(window.location.href);
     set_language(url_query);
     set_mode(url_query);
@@ -4555,7 +4552,7 @@ start_session();
 function set_language (url_query) {
     "use strict";
     var lang;
-    if (url_query.queryKey.lang != undefined) {
+    if (url_query.queryKey.lang !== undefined) {
         lang = url_query.queryKey.lang;
     } else if (localStorage.getItem("human_language")) {
         lang = localStorage.getItem("human_language");
@@ -4570,7 +4567,7 @@ function set_language (url_query) {
 function set_mode (url_query) {
     "use strict";
     var mode;
-    if (url_query.queryKey.mode != undefined) {
+    if (url_query.queryKey.mode !== undefined) {
         mode = url_query.queryKey.mode;
     } else if (localStorage.getItem("programming-mode")) {
         mode = localStorage.getItem("programming-mode");
@@ -4599,7 +4596,7 @@ function set_library() {
 }
 
 function set_world(url_query) {
-    if (url_query.queryKey.world != undefined) {
+    if (url_query.queryKey.world !== undefined) {
         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
         RUR.storage.save_world(RUR.translate("PERMALINK"));
     } else if (localStorage.getItem("world")) {
@@ -4624,7 +4621,6 @@ require("./rur.js");
 require("./translator.js");
 
 RUR.state = {};
-RUR.state.session_initialized = false;
 RUR.state.code_evaluated = false;
 RUR.state.do_not_record = false;
 RUR.state.editing_world = false;
@@ -4635,6 +4631,7 @@ RUR.state.programming_language = "javascript"; // default for testing
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
 RUR.state.ready = false;
+RUR.state.session_initialized = false;
 RUR.state.sound_id = undefined;
 RUR.state.sound_on = false;
 RUR.state.specific_object = undefined;
@@ -4705,7 +4702,10 @@ RUR.storage.delete_world = function (name){
     $("select option[value='" + "user_world:" + name +"']").remove();
 
     try {
-        RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
+        RUR.world_select.set_url(
+            RUR.world_select.url_from_shortname(
+                localStorage.getItem("world"))
+            );
     } catch (e) {
         RUR.world_select.set_default();
     }
@@ -6357,8 +6357,8 @@ RUR.we.toggle_editing_mode = function () {
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         RUR.vis_world.draw_all();
         try {
-            localStorage.setItem(RUR.settings.editor, editor.getValue());
-            localStorage.setItem(RUR.settings.library, library.getValue());
+            localStorage.setItem("editor", editor.getValue());
+            localStorage.setItem("library", library.getValue());
         } catch (e) {}
         RUR.CURRENT_WORLD = RUR.world.update_from_editors(RUR.CURRENT_WORLD);
         if (!identical(RUR.CURRENT_WORLD, RUR._SAVED_WORLD)) {
@@ -7191,7 +7191,7 @@ RUR.world_select.empty_menu = function () {
 };
 
 RUR.world_select.set_default = function () {
-    $("#select-world").selectedIndex = 0;
+    document.getElementById("select-world").selectedIndex = 0;
     $("#select-world").change();
 };
 

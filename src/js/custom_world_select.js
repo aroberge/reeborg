@@ -8,31 +8,29 @@ RUR.custom_world_select = {};
 RUR.custom_world_select.make = function (contents) {
     "use strict";
     var i, url;
-
     RUR.world_select.empty_menu();
-
     for(i=0; i<contents.length; i++){
         RUR.world_select.append_world( {url:contents[i][0],
                                         shortname:contents[i][1]});
     }
-
+    load_user_worlds();
     if (RUR.state.session_initialized) {
         RUR.world_select.set_default();
-    } else {
-        load_user_worlds("initial");
     }
 };
 
-function load_user_worlds (initial) {
+function load_user_worlds() {
     var key, name, i;
+    RUR.state.creating_menu = true;
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
             name = key.slice(11);
-            RUR.storage.append_world_name(name, initial);
+            RUR.storage.append_world_name(name);
             $('#delete-world').show();
         }
     }
+    RUR.state.creating_menu = false;
 }
 
 

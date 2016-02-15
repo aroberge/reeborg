@@ -5,8 +5,7 @@ var record_id = require("./../../lang/msg.js").record_id;
 record_id("select-world");
 
 $("#select-world").change(function() {
-    if (RUR.storage.appending_world_name_flag){
-        RUR.storage.appending_world_name_flag = false;
+    if (RUR.state.creating_menu){
         return;
     }
     if ($(this).val() !== null) {
