@@ -13,6 +13,6 @@ $("#select-world").change(function() {
         RUR.file_io.load_world_file($(this).val());
     }
     try {
-        localStorage.setItem(RUR.settings.world, $(this).find(':selected').text());
+        localStorage.setItem("world", $(this).find(':selected').text());
     } catch (e) {}
 });

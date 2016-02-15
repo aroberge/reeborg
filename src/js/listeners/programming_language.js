@@ -60,9 +60,6 @@ RUR.reset_programming_language = function(choice){
             break;
     }
     $("#editor-tab").click();
-    try {
-        RUR.reset_code_in_editors();
-    } catch (e) {}
 
     if (RUR.state.editing_world) {
         $("#pre-code-link").parent().show();

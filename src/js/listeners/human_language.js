@@ -69,9 +69,3 @@ $("#human-language").change(function() {
     }
     localStorage.setItem("human_language", lang);
 });
-
-if(localStorage.getItem("human_language")){
-    document.getElementById('human-language').value = localStorage.getItem("human_language");
-}
-
-$("#human-language").change();

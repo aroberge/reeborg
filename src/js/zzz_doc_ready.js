@@ -34,16 +34,9 @@ var rec_reset = require("./recorder/reset.js").reset;
     everything_loaded();
     rec_reset();
     // RUR.rec.reset();
-    try {
-        RUR.world_select.set_url(localStorage.getItem(RUR.settings.world));
-    } catch (e) {
-        RUR.world_select.set_default();
-    }
 
     RUR.tooltip.init();
 
-    // check if this is needed or does conflict with MakeCustomMenu
-    RUR.settings.initial_world = localStorage.getItem(RUR.settings.world);
 
     //TODO: replace the following
     //RUR.cd.create_custom_dialogs();

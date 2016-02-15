@@ -184,10 +184,8 @@ function hide_console() {
     $("#reload2").hide();
 }
 
-/* initialization */
-
+/* Ensure that CodeMirror editors are set up properly
+   even if not to be used initially
+*/
 show_editor("python");
-if(localStorage.getItem("programming-mode")){
-    document.getElementById('programming-mode').value = localStorage.getItem("programming-mode");
-}
-// see end of index.js for initialization.
+// see start_session.js for initialization.

@@ -1,7 +1,5 @@
 
 require("./../state.js");
-require("./../visible_world.js");
-require("./../world.js");
 require("./../exceptions.js");
 require("./../playback/show_immediate.js");
 var clone_world = require("./../world/clone_world.js").clone_world;

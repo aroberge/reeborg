@@ -16,24 +16,10 @@ RUR.custom_world_select.make = function (contents) {
                                         shortname:contents[i][1]});
     }
 
-    if (RUR.USER_WORLDS_LOADED === undefined) {
-        load_user_worlds("initial");
-        RUR.USER_WORLDS_LOADED = true;
-    }
-
-    if (RUR.settings.initial_world) {  // loaded the very first time
-        url = RUR.world_select.url_from_shortname(RUR.settings.initial_world);
-        RUR.settings.initial_world = null;
-        if (url !== undefined) {
-            try {
-                RUR.world_select.set_url(url);
-            } catch (e) {
-                RUR.world_select.set_default();
-            }
-        }
-    } else {
-        editor.setValue(RUR.translate("move") + "()");
+    if (RUR.state.session_initialized) {
         RUR.world_select.set_default();
+    } else {
+        load_user_worlds("initial");
     }
 };
 

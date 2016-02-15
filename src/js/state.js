@@ -7,6 +7,7 @@ require("./rur.js");
 require("./translator.js");
 
 RUR.state = {};
+RUR.state.session_initialized = false;
 RUR.state.code_evaluated = false;
 RUR.state.do_not_record = false;
 RUR.state.editing_world = false;
@@ -31,32 +32,3 @@ RUR.state.y = undefined;
 
 // TODO: after simplifying the permalink, see if RUR.state.prevent_playback
 // is still needed.
-
-
-RUR.state.save = function () {
-    /* Saves the current state in local storage */
-    localStorage.setItem("programming_language", RUR.state.programming_language);
-};
-
-RUR.reset_code_in_editors = function () {
-    var library_default, library_content, editor_content, editor_default,
-        default_instruction = RUR.translate("move"),
-        library_default_en = "# from library import *";
-
-    if (RUR.state.programming_language == "javascript") {
-        editor_default = default_instruction + "();";
-    } else if (RUR.state.programming_language == "python") {
-        library_default = RUR.translate(library_default_en);
-        library_content = localStorage.getItem(RUR.settings.library);
-        if (!library_content || library_content == library_default_en){
-            library_content = library_default;
-        }
-        library.setValue(library_content);
-        editor_default = default_instruction + "()";
-    }
-    editor_content = localStorage.getItem(RUR.settings.editor);
-    if (!editor_content){
-        editor_content = editor_default;
-    }
-    editor.setValue(editor_content);
-};
