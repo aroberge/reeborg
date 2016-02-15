@@ -68,4 +68,5 @@ $("#human-language").change(function() {
         }
     }
     localStorage.setItem("human_language", lang);
+    RUR.permalink.update_live();
 });

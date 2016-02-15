@@ -3,7 +3,7 @@ require("./state.js");
 require("./storage.js");
 require("./world.js");
 require("./translator.js");
-require("./listeners/programming_language.js");
+require("./listeners/programming_mode.js");
 require("./utils/parseuri.js");
 
 var export_world = require("./world/export_world.js").export_world;
@@ -11,12 +11,26 @@ var export_world = require("./world/export_world.js").export_world;
 
 RUR.permalink = {};
 
-
+RUR.permalink.update_live = function () {
+    /* Used to maintain information about human language used and
+       input mode.
+    */
+    "use strict";
+    var proglang, url_query, permalink;
+    url_query = parseUri(window.location.href);
+    permalink = url_query.protocol + "://" + url_query.host;
+    if (url_query.port){
+        permalink += ":" + url_query.port;
+    }
+    permalink += url_query.path;
+    permalink += "?lang=" + RUR.state.human_language + "&mode=" + RUR.state.input_method;
+    window.history.pushState({'dummy': 1}, "dummy", permalink);
+};
 
 
 RUR.permalink.__create = function () {
     "use strict";
-    var proglang, world, _editor, _library, url_query, permalink, parts;
+    var proglang, world, _editor, _library, url_query, permalink;
     url_query = parseUri(window.location.href);
 
     permalink = url_query.protocol + "://" + url_query.host;

@@ -2,7 +2,6 @@ require("./human_language.js");
 require("./memorize_world.js");
 require("./pause.js");
 require("./run.js");
-require("./programming_language.js");
 require("./programming_mode.js");
 require("./reload.js");
 require("./robot_model.js");
