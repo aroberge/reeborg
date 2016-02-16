@@ -1,10 +1,17 @@
-// This file was automatically generated.  Do not modify.
+// modified for Reeborg!
 
-'use strict';
-
+// // This file was automatically generated.  Do not modify.
+//
+// 'use strict';
+//
 goog.provide('Blockly.Msg.fr');
+//
+// goog.require('Blockly.Msg');
 
-goog.require('Blockly.Msg');
+function blockly_init_fr () {
+
+// modified ... other value commented out below.
+    Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "pour";
 
 Blockly.Msg.ADD_COMMENT = "Ajouter un commentaire";
 Blockly.Msg.AUTH = "Veuillez autoriser cette application à permettre la sauvegarde de votre travail et à l’autoriser à la partager.";
@@ -275,7 +282,7 @@ Blockly.Msg.PROCEDURES_CREATE_DO = "Créer '%1'";
 Blockly.Msg.PROCEDURES_DEFNORETURN_DO = "";  // untranslated
 Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";  // untranslated
 Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "faire quelque chose";
-Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "à";
+// Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "à";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "Crée une fonction sans sortie.";
 Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";  // untranslated
 Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "retour";
@@ -381,3 +388,4 @@ Blockly.Msg.TEXT_APPEND_VARIABLE = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.TEXT_CREATE_JOIN_ITEM_TITLE_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.LISTS_INDEX_OF_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
 Blockly.Msg.LISTS_SET_INDEX_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
+}

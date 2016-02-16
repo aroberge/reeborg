@@ -15,7 +15,7 @@ Blockly.JavaScript['text_print'] = function(block) {
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
   return RUR.translate("write")+'(' + argument0 + ');\n';
 };
-Blockly.Msg.TEXT_PRINT_TITLE = "print %1";
+
 Blockly.makeColour = function(hue) {
   if (hue === RUR.done_colour){
       return hue;
@@ -24,15 +24,8 @@ Blockly.makeColour = function(hue) {
       Blockly.HSV_VALUE * 255);
 };
 
-if (document.documentElement.lang=="fr") {
-    Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "pour";
-    Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = "pour";
-}
 Blockly.Python.INDENT = '    ';
 Blockly.JavaScript.INDENT = '    ';
-Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
-Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
-Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
 
 // removing mutator for simple function definitions as per
 // https://groups.google.com/d/msg/blockly/_rrwh-Lc-sE/cHAk5yNfhUEJ
@@ -45,9 +38,15 @@ Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUN
     };
 })();
 
-/****  End of over-riding Blockly's default */
+
 
 RUR.blockly.init = function () {
+
+    // override some defaults 
+    Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
+    Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
+    Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
+
 
     Blockly.Blocks['_sound_'] = {
       init: function() {

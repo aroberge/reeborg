@@ -8,12 +8,27 @@ var msg = require("./../../lang/msg.js");
 msg.record_id("human-language");
 
 function update_translations(lang) {
-    var msg, dict;
-    dict = RUR[lang];
-    for (msg in dict) {
-        if (dict.hasOwnProperty(msg)) {
-            RUR.translation[msg] = dict[msg];
-        }
+    switch(lang) {
+        case "en":
+            RUR.translation = RUR.en;
+            RUR.translation_to_english = RUR.en_to_en;
+            blockly_init_en();
+            break;
+        case "fr":
+            RUR.translation = RUR.fr;
+            RUR.translation_to_english = RUR.fr_to_en;
+            blockly_init_fr();
+            break;
+        case "ko":
+            RUR.translation = RUR.ko;
+            RUR.translation_to_english = RUR.ko_to_en;
+            blockly_init_ko();
+            break;
+        default:
+            RUR.translation = RUR.en;
+            RUR.translation_to_english = RUR.en_to_en;
+            blockly_init_en();
+            break;
     }
 }
 
@@ -62,7 +77,7 @@ $("#human-language").change(function() {
     //TODO update blockly display
     $("#blocklyDiv").html(" ");
     RUR.blockly.init();
-    
+
     if (RUR.state.input_method == "py-repl") {
         try {
             restart_repl();

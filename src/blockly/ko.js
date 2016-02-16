@@ -1,10 +1,14 @@
-// This file was automatically generated.  Do not modify.
+// modified for Reeborg!
 
-'use strict';
-
+// // This file was automatically generated.  Do not modify.
+//
+// 'use strict';
+//
 goog.provide('Blockly.Msg.ko');
+//
+// goog.require('Blockly.Msg');
 
-goog.require('Blockly.Msg');
+function blockly_init_ko () {
 
 Blockly.Msg.ADD_COMMENT = "댓글 추가";
 Blockly.Msg.AUTH = "당신의 작업을 저장하고 다른 사람과 공유할 수 있도록 이 애플리케이션을 인증해 주십시오.";
@@ -381,3 +385,5 @@ Blockly.Msg.TEXT_APPEND_VARIABLE = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.TEXT_CREATE_JOIN_ITEM_TITLE_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.LISTS_INDEX_OF_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
 Blockly.Msg.LISTS_SET_INDEX_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
+
+}

@@ -2778,12 +2778,27 @@ var msg = require("./../../lang/msg.js");
 msg.record_id("human-language");
 
 function update_translations(lang) {
-    var msg, dict;
-    dict = RUR[lang];
-    for (msg in dict) {
-        if (dict.hasOwnProperty(msg)) {
-            RUR.translation[msg] = dict[msg];
-        }
+    switch(lang) {
+        case "en":
+            RUR.translation = RUR.en;
+            RUR.translation_to_english = RUR.en_to_en;
+            blockly_init_en();
+            break;
+        case "fr":
+            RUR.translation = RUR.fr;
+            RUR.translation_to_english = RUR.fr_to_en;
+            blockly_init_fr();
+            break;
+        case "ko":
+            RUR.translation = RUR.ko;
+            RUR.translation_to_english = RUR.ko_to_en;
+            blockly_init_ko();
+            break;
+        default:
+            RUR.translation = RUR.en;
+            RUR.translation_to_english = RUR.en_to_en;
+            blockly_init_en();
+            break;
     }
 }
 
@@ -2832,7 +2847,7 @@ $("#human-language").change(function() {
     //TODO update blockly display
     $("#blocklyDiv").html(" ");
     RUR.blockly.init();
-    
+
     if (RUR.state.input_method == "py-repl") {
         try {
             restart_repl();
@@ -7881,7 +7896,7 @@ Blockly.JavaScript['text_print'] = function(block) {
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
   return RUR.translate("write")+'(' + argument0 + ');\n';
 };
-Blockly.Msg.TEXT_PRINT_TITLE = "print %1";
+
 Blockly.makeColour = function(hue) {
   if (hue === RUR.done_colour){
       return hue;
@@ -7890,15 +7905,8 @@ Blockly.makeColour = function(hue) {
       Blockly.HSV_VALUE * 255);
 };
 
-if (document.documentElement.lang=="fr") {
-    Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "pour";
-    Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = "pour";
-}
 Blockly.Python.INDENT = '    ';
 Blockly.JavaScript.INDENT = '    ';
-Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
-Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
-Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
 
 // removing mutator for simple function definitions as per
 // https://groups.google.com/d/msg/blockly/_rrwh-Lc-sE/cHAk5yNfhUEJ
@@ -7911,9 +7919,15 @@ Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUN
     };
 })();
 
-/****  End of over-riding Blockly's default */
+
 
 RUR.blockly.init = function () {
+
+    // override some defaults 
+    Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
+    Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
+    Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
+
 
     Blockly.Blocks['_sound_'] = {
       init: function() {
@@ -8836,39 +8850,686 @@ var rec_reset = require("./recorder/reset.js").reset;
     // }
 
 },{"./recorder/reset.js":40,"./state.js":45,"./tooltip.js":47,"./zz_dr_blockly.js":75,"./zz_dr_editor_ui.js":76,"./zz_dr_onclick.js":77}],79:[function(require,module,exports){
-if (RUR === undefined) {
-    RUR = {};
-}
 RUR.en = {};
+RUR.en_to_en = {};
 
 RUR.en["SITE NAME"] = "Reeborg's World";
 RUR.en["WORLD INFO"] = "World Info";
 RUR.en["EDITOR VISIBLE BLOCKLY"] = "Keep editor visible";
-RUR.en["move"] = "move";
+
+
+RUR.en["apple"] = "apple";
+RUR.en_to_en["apple"] = "apple";
+RUR.en["banana"] = "banana";
+RUR.en_to_en["banana"] = "banana";
+RUR.en["box"] = "box";
+RUR.en_to_en["box"] = "box";
+RUR.en["bridge"] = "bridge";
+RUR.en_to_en["bridge"] = "bridge";
+RUR.en["carrot"] = "carrot";
+RUR.en_to_en["carrot"] = "carrot";
+RUR.en["daisy"] = "daisy";
+RUR.en_to_en["daisy"] = "daisy";
+RUR.en["dandelion"] = "dandelion";
+RUR.en_to_en["dandelion"] = "dandelion";
+RUR.en["leaf"] = "leaf";
+RUR.en_to_en["leaf"] = "leaf";
+RUR.en["orange"] = "orange";
+RUR.en_to_en["orange"] = "orange";
+RUR.en.square = "square";
+RUR.en_to_en["square"] = "square";
+RUR.en.star = "star";
+RUR.en_to_en["star"] = "star";
+RUR.en["strawberry"] = "strawberry";
+RUR.en_to_en["strawberry"] = "strawberry";
+RUR.en.token = "token";
+RUR.en_to_en["token"] = "token";
+RUR.en.triangle = "triangle";
+RUR.en_to_en["triangle"] = "triangle";
+RUR.en["tulip"] = "tulip";
+RUR.en_to_en["tulip"] = "tulip";
+
+// in world.js
+RUR.en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
+
+RUR.en["# from library import *"] = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
+RUR.en.move = "move";
+RUR.en["Python Code"] = "Python Code";
+RUR.en["Javascript Code"] = "Javascript Code";
+
+// in recorder.js
+RUR.en["Too many steps:"] = "Too many steps: {max_steps}";
+RUR.en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
+RUR.en["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg is at the wrong x position.</li>";
+RUR.en["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg is at the correct y position.</li>";
+RUR.en["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg is at the wrong y position.</li>";
+RUR.en["<li class='success'>All objects are at the correct location.</li>"] = "<li class='success'>All objects are at the correct location.</li>";
+RUR.en["<li class='failure'>One or more objects are not at the correct location.</li>"] = "<li class='failure'>One or more objects are not at the correct location.</li>";
+RUR.en["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>All walls have been built correctly.</li>";
+RUR.en["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>One or more walls missing or built at wrong location.</li>";
+RUR.en["Last instruction completed!"] = "Last instruction completed!";
+RUR.en["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>done()</code> executed.</p>";
+
+
+// in control.js
+RUR.en["Unknown object"] = "Unknown object: {obj}";
+RUR.en["No object found here"] = "No {obj} found here!";
+RUR.en["object"] = "object";
+RUR.en["I don't have any object to put down!"] = "I don't have any {obj} to put down!";
+RUR.en["There is already a wall here!"] = "There is already a wall here!";
+RUR.en["Ouch! I hit a wall!"] = "Ouch! I hit a wall!";
+RUR.en["Done!"] = "Done!";  // and recorder.js
+RUR.en["There is no position as a goal in this world!"] = "There is no position as a goal in this world!";
+RUR.en["There is no goal in this world!"] = "There is no goal in this world!";
+RUR.en["I carry too many different objects. I don't know which one to put down!"] = "I carry too many different objects. I don't know which one to put down!";
+RUR.en["Many objects are here; I do not know which one to take!"] = "Many different objects are here; I do not know which one to take!";
+
+// in robot.js (and possibly others)
+RUR.en.east = "east";
+RUR.en.north = "north";
+RUR.en.west = "west";
+RUR.en.south = "south";
+RUR.en["Unknown orientation for robot."] = "Unknown orientation for robot.";
+
+
+RUR.en["World selected"] = "World {world} selected";
+RUR.en["Could not find world"] = "Could not find world {world}";
+RUR.en["Object names"] = " library, token, star, triangle, square, etc.";
+
+
+// in doc_ready.js
+RUR.en["Invalid world file."] = "Invalid world file.";
+RUR.en["PERMALINK"] = "PERMALINK";
+
+// in file_io.js
+RUR.en["Could not find link: "] = "Could not find link: ";
+
+
+// in world_editor.js
+RUR.en["Click on world to move robot."] = "Click on world to add or remove possible starting positions for Reeborg.";
+RUR.en["Added robot."] = "Added Reeborg.";
+RUR.en["Click on image to turn robot"] = "Click on image to turn Reeborg";
+RUR.en["Robot now has tokens."] = "Reeborg now has {x_tokens} tokens.";
+RUR.en["Click on world to add object."] = "Click on world to set number of {obj}.";
+RUR.en["Click on desired object below."] = "Click on desired object below.";
+RUR.en["Click on world to toggle walls."] = "Click on world to toggle walls.";
+RUR.en["Click on world to set home position for robot."] = "Click on world to add/remove possible final positions for robot.";
+RUR.en["Click on world to toggle additional walls to build."] = "Click on world to toggle additional walls to build.";
+RUR.en["Click on desired goal object below."] = "Click on desired goal object below.";
+RUR.en["Click on world to set number of goal objects."] = "Click on world to set number of goal {obj}.";
+RUR.en["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for Reeborg to carry.";
+RUR.en[" is not a valid value!"] = " is not a valid value!";
+RUR.en["Enter number of objects desired at that location."] = "Click on world to set number {obj}.";
+RUR.en["Objects found here:"] = "Objects found here:";
+RUR.en["Description"] = "Description";
+RUR.en["A robot located here carries no objects."] = "A robot located at {x},{y} carries no objects.";
+RUR.en["Goal to achieve:"] = "Goal to achieve:";
+RUR.en["A robot located here carries:"] = "A robot located at {x},{y} carries:";
+RUR.en["random location"] = "random location";
+RUR.en["Enter number of objects to give to robot."] = "Enter number of {obj} to give to robot.";
+RUR.en["Special information about this location:"] = "Special information about this location:";
+RUR.en["Click on world to toggle tile."] = "Click on world to toggle {obj} tile.";
+RUR.en["Click on desired tile below."] = "Click on desired tile below.";
+RUR.en["mud"] = "mud";
+RUR.en["water"] = "water";
+RUR.en["grass"] = "grass";
+RUR.en["gravel"] = "gravel";
+RUR.en["ice"] = "ice";
+RUR.en["A wall must be built east of this location."] = "A wall must be built east of this location.";
+RUR.en["A wall must be built north of this location."] = "A wall must be built north of this location.";
+RUR.en["A wall must be built west of this location."] = "A wall must be built west of this location.";
+RUR.en["A wall must be built south of this location."] = "A wall must be built south of this location.";
+RUR.en["The final required position of the robot will be chosen at random."] = "The final required position of the robot will be chosen at random.";
+RUR.en["The final position of the robot must be (x, y) = "] = "The final position of the robot must be (x, y) = ";
+RUR.en["Click on world to fill with given tile."] = "Click on world to fill with given tile.";
+RUR.en["Click on desired object below."] = "Click on desired object below.";
+RUR.en["Enter url of image to use as background."] = "Enter url of image to use as background.";
+RUR.en["Replace editor content"] = "Do you wish to replace your editor code by that provided by the creator of this world?";
+RUR.en["Replace library content"] = "Do you wish to replace your library code by that provided by the creator of this world?";
+RUR.en["colour"] = "colour";
+
+
+// in storage.js
+RUR.en["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
+RUR.en["No such world!"] = "No such world!";
+RUR.en["Enter world name to save"] = "Enter world name to save; names in use: ";
+RUR.en["Enter world name to delete"] = "Enter world name to delete; existing worlds: ";
+RUR.en["Delete "] = "Delete ";
+
+
+// in runner.js
+RUR.en["Error found at or near line {number}."] = "Error found at or near line {number}.";
+RUR.en["<br>Perhaps a missing colon is the cause."] = "<br>Perhaps a missing colon is the cause.";
+RUR.en["<br>Perhaps you forgot to add parentheses ()."] = "<br>Perhaps you forgot to add parentheses ().";
+RUR.en["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Perhaps you misspelled a word or forgot to define a function or a variable.";
+
+
+// in images.js
+RUR.en["I'm stuck in mud."] = "I'm stuck in mud.";
+RUR.en["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.";
+RUR.en["I'm slipping on ice!"] = "I'm slipping on ice!";
+RUR.en["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.";
+RUR.en["Grass: usually safe."] = "Grass: usually safe.";
+RUR.en["Gravel: usually safe."] = "Gravel: usually safe.";
+RUR.en["I'm in water!"] = "I'm in water!";
+RUR.en["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.";
+RUR.en["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green_home_tile: Reeborg <b>can</b> detect this tile using at_goal().";
+RUR.en["Crash!"] = "Crash!";
+RUR.en["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.";
+RUR.en["I hit a fence!"] = "I hit a fence!";
+RUR.en["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
+RUR.en["Bridge:"] = "Bridge: ";
+RUR.en["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
+
+
+//===
+RUR.en["Something is blocking the way!"] = "Something is blocking the way!";
+RUR.en["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this using at_goal().";
+RUR.en["green home tile:"] = "green home tile:";
+RUR.en["home:"] = "home:";
+RUR.en["racing flag:"] = "racing flag:";
+RUR.en["house:"] = "house:";
+
+RUR.en["fence_right"] = "fence";
+RUR.en["fence_left"] = "fence";
+RUR.en["fence_double"] = "fence";
+RUR.en["fence_vertical"] = "fence";
+
+//=== in common_def.py
+RUR.en["Local variables"] = "Local variables";
+RUR.en["Global variables"] = "Global variables";
+RUR.en["Watched expressions"] = "Watched expressions";
+
+// in zz_dr_blockly.js
+
+RUR.en["move forward"] = "move forward";
+RUR.en["write"] = "write";
+RUR.en["turn left"] = "turn left";
+RUR.en["turn_left"] = "turn_left";
+RUR.en["take"] = "take";
+RUR.en["take object"] = "take object";
+RUR.en["put"] = "put";
+RUR.en["put object"] = "put object";
+RUR.en["pause"] = "pause";
+RUR.en["Pause the program's execution."] = "Pause the program's execution.";
+RUR.en["build_wall"] = "build_wall";
+RUR.en["Build a wall in front of the robot."] = "Build a wall in front of the robot.";
+RUR.en["done"] = "done";
+RUR.en["End the program's execution."] = "End the program's execution.";
+RUR.en["True if a wall is blocking the way."] = "True if a wall is blocking the way";
+RUR.en["wall_in_front"] = "wall_in_front";
+RUR.en["wall_on_right"] = "wall_on_right";
+RUR.en["True if nothing is blocking the way."] = "True if nothing is blocking the way.";
+RUR.en["front_is_clear"] = "front_is_clear";
+RUR.en["right_is_clear"] = "right_is_clear";
+RUR.en["at_goal"] = "at_goal";
+RUR.en["True if desired destination."] = "True if desired destination.";
+RUR.en["carries_object"] = "carries_object";
+RUR.en["True if robot carries at least one object."] = "True if robot carries at least one object.";
+RUR.en["object_here"] = "object_here";
+RUR.en["True if there is at least one object here."] = "True if there is at least one object here.";
+RUR.en["is_facing_north"] = "is_facing_north";
+RUR.en["True if robot is facing North."] = "True if robot is facing North.";
+RUR.en["sound"] = "sound";
+RUR.en["think"] = "think";
+RUR.en["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
 
 },{}],80:[function(require,module,exports){
-if (RUR === undefined) {
-    RUR = {};
-}
 RUR.fr = {};
+
+RUR.fr = {};
+RUR.fr_to_en = {};
 
 RUR.fr["SITE NAME"] = "Le monde de Reeborg";
 RUR.fr["WORLD INFO"] = "Description";
 RUR.fr["EDITOR VISIBLE BLOCKLY"] = "Garder l'éditeur visible";
-RUR.fr["move"] = "avance";
+
+
+RUR.fr["apple"] = "pomme";
+RUR.fr_to_en["pomme"] = "apple";
+RUR.fr["banana"] = "banane";
+RUR.fr_to_en["banane"] = "banana";
+RUR.fr["box"] = "boîte";
+RUR.fr_to_en["boîte"] = "box";
+RUR.fr["bridge"] = "pont";
+RUR.fr_to_en["pont"] = "bridge";
+RUR.fr["carrot"] = "carotte";
+RUR.fr_to_en["carotte"] = "carrot";
+RUR.fr["daisy"] = "marguerite";
+RUR.fr_to_en["marguerite"] = "daisy";
+RUR.fr["dandelion"] = "pissenlit";
+RUR.fr_to_en["pissenlit"] = "dandelion";
+RUR.fr["leaf"] = "feuille";
+RUR.fr_to_en["feuille"] = "leaf";
+RUR.fr["orange"] = "orange";
+RUR.fr_to_en["orange"] = "orange";
+RUR.fr.square = "carré";
+RUR.fr_to_en["carré"] = "square";
+RUR.fr.star = "étoile";
+RUR.fr_to_en["étoile"] = "star";
+RUR.fr["strawberry"] = "fraise";
+RUR.fr_to_en["fraise"] = "strawberry";
+RUR.fr.token = "jeton";
+RUR.fr_to_en["jeton"] = "token";
+RUR.fr.triangle = "triangle";
+RUR.fr_to_en["triangle"] = "triangle";
+RUR.fr["tulip"] = "tulipe";
+RUR.fr_to_en["tulipe"] = "tulip";
+
+// in world.js
+RUR.fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
+
+RUR.fr["# from library import *"] = "# 'from biblio import *' dans l'onglet Code Python est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
+RUR.fr.move = "avance";
+RUR.fr["Python Code"] = "Code Python";
+RUR.fr["Javascript Code"] = "Code Javascript";
+
+// in recorder.js
+RUR.fr["Too many steps:"] = "Trop d'instructions: {max_steps}";
+RUR.fr["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
+RUR.fr["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée x.</li>";
+RUR.fr["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée y.</li>";
+RUR.fr["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée y.</li>";
+RUR.fr["<li class='success'>All objects are at the correct location.</li>"] = "<li class='success'>Tous les objets sont aux bons endroits.</li>";
+RUR.fr["<li class='failure'>One or more objects are not at the correct location.</li>"] = "<li class='failure'>Un ou plusieurs objets ne sont pas aux bons endroits.</li>";
+RUR.fr["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>Tous les murs ont été construits correctement.</li>";
+RUR.fr["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>Un ou plusieurs murs manquent ou sont aux mauvais endroits.</li>";
+RUR.fr["Last instruction completed!"] = "Dernière instruction complétée!";
+RUR.fr["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>terminé()</code> exécutée.</p>";
+
+
+// in control.js
+RUR.fr["Unknown object"] = "Objet inconnu: {obj}";
+RUR.fr["No object found here"] = "Pas d'objet '{obj}'' trouvé ici !";
+RUR.fr["object"] = "objet";
+RUR.fr["I don't have any object to put down!"] = "Je n'ai pas de '{obj}'!";
+RUR.fr["There is already a wall here!"] = "Il y a déjà un mur ici !";
+RUR.fr["Ouch! I hit a wall!"] = "Ouch! J'ai frappé un mur!";
+RUR.fr["Done!"] = "Terminé !";  // and recorder.js
+RUR.fr["There is no position as a goal in this world!"] = "Aucune position n'a été spécifiée comme but dans ce monde!";
+RUR.fr["There is no goal in this world!"] = "Il n'y a pas de but dans ce monde!";
+RUR.fr["I carry too many different objects. I don't know which one to put down!"] = "Je transporte trop d'objets: je ne sais pas lequel déposer!";
+RUR.fr["Many objects are here; I do not know which one to take!"] = "Beaucoup d'objets différents sont ici; je ne sais pas lequel prendre!";
+
+
+// in robot.js (and possibly others)
+RUR.fr.east = "est";
+RUR.fr.north = "nord";
+RUR.fr.west = "ouest";
+RUR.fr.south = "sud";
+RUR.fr["Unknown orientation for robot."] = "Orientation inconnue.";
+
+
+RUR.fr["World selected"] = "Monde {world} choisi";
+RUR.fr["Could not find world"] = "Je ne peux pas trouver {world}";
+RUR.fr["Object names"] = " biblio, jeton, étoile, triangle, carré, etc.";
+
+
+// in doc_ready.js
+RUR.fr["Invalid world file."] = "Fichier monde invalide.";
+RUR.fr["PERMALINK"] = "PERMALIEN";
+
+// in file_io.js
+RUR.fr["Could not find link: "] = "Lien introuvable : ";
+
+// in world_editor.js
+
+RUR.fr["Click on world to move robot."] = "Cliquez sur le monde pour ajouter ou supprimer des positions de départ possibles pour Reeborg.";
+RUR.fr["Added robot."] = "Reeborg ajouté.";
+RUR.fr["Click on image to turn robot"] = "Cliquez sur l'image pour tourner Reeborg.";
+RUR.fr["Robot now has tokens."] = "Reeborg a {x_tokens} jetons.";
+RUR.fr["Click on world to add object."] = "Cliquez sur le monde pour ajouter des {obj}.";
+RUR.fr["Click on desired object below."] = "Cliquez sur l'objet désiré ci-dessous.";
+RUR.fr["Click on world to toggle walls."] = "Cliquez sur le monde pour ajouter/supprimer des murs.";
+RUR.fr["Click on world to set home position for robot."] = "Cliquez sur le monde pour ajouter ou supprimer une position finale possible du robot.";
+RUR.fr["Click on world to toggle additional walls to build."] = "Cliquez sur le monde pour ajouter/supprimer des murs à construire.";
+RUR.fr["Click on desired goal object below."] = "Cliquez sur l'objet désiré comme 'but'.";
+RUR.fr["Click on world to set number of goal objects."] = "Cliquez sur le monde pour fixer le nombre d'objet '{obj}' comme but.";
+RUR.fr["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg.";
+RUR.fr[" is not a valid value!"] = " n'est pas une valeur valide!";
+RUR.fr["Enter number of objects desired at that location."] = "Cliquez sur le monde pour fixer le nombre d'objet '{obj}' désiré à cet endroit.";
+RUR.fr["Objects found here:"] = "Objets trouvés ici:";
+RUR.fr["Description"] = "Description";
+RUR.fr["A robot located here carries no objects."] = "A robot situé à {x},{y} ne transporte aucun objet.";
+RUR.fr["A robot located here carries:"] = "Un robot situé à {x},{y} transporte:";
+RUR.fr["random location"] = "une position choisie au hasard";
+RUR.fr["Enter number of objects to give to robot."] = "Quel nombre de {obj} voulez-vous donner au robot?";
+RUR.fr["Special information about this location:"] = "Information particulière au sujet de cet endroit:";
+RUR.fr["Click on world to toggle tile."] = "Cliquez sur le monde pour ajouter/supprimer l'image: '{obj}'.";
+RUR.fr["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous.";
+RUR.fr["mud"] = "boue";
+RUR.fr["water"] = "eau";
+RUR.fr["grass"] = "gazon";
+RUR.fr["gravel"] = "gravier";
+RUR.fr["ice"] = "glace";
+RUR.fr["A wall must be built east of this location."] = "Un mur doit être construit à l'est de cet endroit.";
+RUR.fr["A wall must be built north of this location."] = "Un mur doit être construit au nord de cet endroit.";
+RUR.fr["A wall must be built west of this location."] = "Un mur doit être construit à l'ouest de cet endroit.";
+RUR.fr["A wall must be built south of this location."] = "Un mur doit être construit au sud de cet endroit.";
+RUR.fr["The final required position of the robot will be chosen at random."] = "La position finale requise pour Reeborg sera choisie au hasard.";
+RUR.fr["The final position of the robot must be (x, y) = "] = "La position finale de Reeborg doit être (x, y) = ";
+RUR.fr["Click on world to fill with given tile."] = "Cliquez sur le monde pour remplir avec cet objet.";
+RUR.fr["Click on desired object below."] = "Cliquez sur l'image désirée.";
+RUR.fr["Enter url of image to use as background."] = "Fournir l'adresse (URL) de l'image à utiliser.";
+RUR.fr["Replace editor content"] = "Voulez-vous remplacer le contenu du code de votre éditeur par celui défini par le créateur du monde?";
+RUR.fr["Replace library content"] = "Voulez-vous remplacer le contenu du code de votre biliothèque par celui défini par le créateur du monde?";
+RUR.fr["colour"] = "couleur";
+
+
+// in storage.js
+RUR.fr["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
+RUR.fr["No such world!"] = "Ce monde n'existe pas !";
+RUR.fr["Enter world name to save"] = "Quel nom doit-on utiliser pour ce monde? Noms utilisés:";
+RUR.fr["Enter world name to delete"] = "Écrivez le nom du monde à supprimer; mondes existant:";
+RUR.fr["Goal to achieve:"] = "Résultat désiré :";
+RUR.fr["Delete "] = "Effacer ";
+
+// in runner.js
+RUR.fr["Error found at or near line {number}."] = "Erreur trouvée à la ligne {number} ou tout près.";
+RUR.fr["<br>Perhaps a missing colon is the cause."] = "<br>Il manque peut-être deux points ':'.";
+RUR.fr["<br>Perhaps you forgot to add parentheses ()."] = "<br>Il manque peut-être des parenthèses ().";
+RUR.fr["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Il est possible qu'un mot soit mal épelé ou qu'une définition de fonction ou de variable manque.";
+
+
+// in images.js
+RUR.fr["I'm stuck in mud."] = "Je suis immobilisé dans la boue.";
+RUR.fr["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Boue: Reeborg <b>ne peut pas</b> détecter ceci et y sera immobilisé s'il va à cet endroit.";
+RUR.fr["I'm slipping on ice!"] = "Je glisse sur la glace!";
+RUR.fr["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "Glace: Reeborg <b>ne peut pas</b> détecter ceci et glissera à la prochaine case.";
+RUR.fr["Grass: usually safe."] = "Gazon: habituellement sans problèmes.";
+RUR.fr["Gravel: usually safe."] = "Gravier: habituellement sans problèmes.";
+RUR.fr["I'm in water!"] = "Je suis dans l'eau!";
+RUR.fr["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "Eau: Reeborg <b>peut</b> détecter ceci mais il va être endommagé s'il s'y déplace.";
+RUR.fr["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "tuile verte: Reeborg <b>peut</b> détecter ceci avec au_but().";
+RUR.fr["Crash!"] = "Crash!";
+RUR.fr["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Mur de brique: Reeborg <b>peut</b> détecter ceci mais il se fera mal s'il essaie de passer au travers.";
+RUR.fr["I hit a fence!"] = "J'ai frappé une clôture!";
+RUR.fr["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Clôture: Reeborg <b>peut</b> détecter ceci mais il ne peut pas passer au travers.";
+RUR.fr["Bridge:"] = "Pont: ";
+RUR.fr["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
+
+
+// =========
+RUR.fr_to_en["pont"] = "bridge";
+RUR.fr["Something is blocking the way!"] = "Quelque chose bloque le chemin!";
+RUR.fr["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>peut</b> détecter ceci avec au_but().";
+RUR.fr["green home tile:"] = "tuile verte pour l'arrivée:";
+RUR.fr["home:"] = "la maison:";
+RUR.fr["racing flag:"] = "drapeau d'arrivée:";
+RUR.fr["house:"] = "maison:";
+
+RUR.fr["fence_right"] = "clôture";
+RUR.fr["fence_left"] = "clôture";
+RUR.fr["fence_double"] = "clôture";
+RUR.fr["fence_vertical"] = "clôture";
+
+//=== in common_def.py
+RUR.fr["Local variables"] = "Variables locales";
+RUR.fr["Global variables"] = "Variables globales";
+RUR.fr["Watched expressions"] = "Watched expressions";
+
+// in zz_dr_blockly.js
+
+RUR.fr["move forward"] = "avance";
+RUR.fr["write"] = "ecrit";
+RUR.fr["turn left"] = "tourne à gauche";
+RUR.fr["turn_left"] = "tourne_a_gauche";
+RUR.fr["take"] = "prend";
+RUR.fr["take object"] = "prend l'objet";
+RUR.fr["put"] = "depose";
+RUR.fr["put object"] = "dépose l'objet";
+RUR.fr["pause"] = "pause";
+RUR.fr["Pause the program's execution."] = "Pause l'exécution du programme.";
+RUR.fr["build_wall"] = "construit_un_mur";
+RUR.fr["Build a wall in front of the robot."] = "Construit un mur devant le robot.";
+RUR.fr["done"] = "termine";
+RUR.fr["End the program's execution."] = "Termine l'exécution du programme.";
+RUR.fr["True if a wall is blocking the way."] = "Vrai si un mur bloque le chemin.";
+RUR.fr["wall_in_front"] = "mur_devant";
+RUR.fr["wall_on_right"] = "mur_a_droite";
+RUR.fr["True if nothing is blocking the way."] = "Vrai si rien ne bloque le chemin.";
+RUR.fr["front_is_clear"] = "rien_devant";
+RUR.fr["right_is_clear"] = "rien_a_droite";
+RUR.fr["at_goal"] = "at_goal";
+RUR.fr["True if desired destination."] = "Vrai si c'est la destination désirée.";
+RUR.fr["carries_object"] = "transporte";
+RUR.fr["True if robot carries at least one object."] = "Vrai si le robot transporte au moins un objet.";
+RUR.fr["object_here"] = "objet_ici";
+RUR.fr["True if there is at least one object here."] = "Vrai s'il y a au moins un objet ici.";
+RUR.fr["is_facing_north"] = "est_face_au_nord";
+RUR.fr["True if robot is facing North."] = "Vrai se le robot est face au nord.";
+RUR.fr["sound"] = "son";
+RUR.fr["think"] = "pense";
+RUR.fr["Delay between actions; default is 300 ms."] = "Délai entre les actions; le défaut est de 300 ms.";
 
 },{}],81:[function(require,module,exports){
-if (RUR === undefined) {
-    RUR = {};
-}
 RUR.ko = {};
+RUR.ko_to_en = {};
 
 RUR.ko["SITE NAME"] = "리보그의 세계";
 RUR.ko["WORLD INFO"] = "세계 정보";
 RUR.ko["EDITOR VISIBLE BLOCKLY"] = "Keep editor visible";
-RUR.ko["move"] = "move";
+
+
+RUR.ko["apple"] = "apple";
+RUR.ko_to_en["apple"] = "apple";
+RUR.ko["banana"] = "banana";
+RUR.ko_to_en["banana"] = "banana";
+RUR.ko["box"] = "box";
+RUR.ko_to_en["box"] = "box";
+RUR.ko["bridge"] = "bridge";
+RUR.ko_to_en["bridge"] = "bridge";
+RUR.ko["carrot"] = "carrot";
+RUR.ko_to_en["carrot"] = "carrot";
+RUR.ko["daisy"] = "daisy";
+RUR.ko_to_en["daisy"] = "daisy";
+RUR.ko["dandelion"] = "dandelion";
+RUR.ko_to_en["dandelion"] = "dandelion";
+RUR.ko["leaf"] = "leaf";
+RUR.ko_to_en["leaf"] = "leaf";
+RUR.ko["orange"] = "orange";
+RUR.ko_to_en["orange"] = "orange";
+RUR.ko.square = "square";
+RUR.ko_to_en["square"] = "square";
+RUR.ko.star = "star";
+RUR.ko_to_en["star"] = "star";
+RUR.ko["strawberry"] = "strawberry";
+RUR.ko_to_en["strawberry"] = "strawberry";
+RUR.ko.token = "token";
+RUR.ko_to_en["token"] = "token";
+RUR.ko.triangle = "triangle";
+RUR.ko_to_en["triangle"] = "triangle";
+RUR.ko["tulip"] = "tulip";
+RUR.ko_to_en["tulip"] = "tulip";
+
+// in world.js
+RUR.ko["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
+
+RUR.ko["# from library import *"] = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
+RUR.ko.move = "move";
+RUR.ko["Python Code"] = "Python Code";
+RUR.ko["Javascript Code"] = "Javascript Code";
+
+// in recorder.js
+RUR.ko["Too many steps:"] = "Too many steps: {max_steps}";
+RUR.ko["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
+RUR.ko["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg is at the wrong x position.</li>";
+RUR.ko["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg is at the correct y position.</li>";
+RUR.ko["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg is at the wrong y position.</li>";
+RUR.ko["<li class='success'>All objects are at the correct location.</li>"] = "<li class='success'>All objects are at the correct location.</li>";
+RUR.ko["<li class='failure'>One or more objects are not at the correct location.</li>"] = "<li class='failure'>One or more objects are not at the correct location.</li>";
+RUR.ko["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>All walls have been built correctly.</li>";
+RUR.ko["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>One or more walls missing or built at wrong location.</li>";
+RUR.ko["Last instruction completed!"] = "Last instruction completed!";
+RUR.ko["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>done()</code> executed.</p>";
+
+
+// in control.js
+RUR.ko["Unknown object"] = "Unknown object: {obj}";
+RUR.ko["No object found here"] = "No {obj} found here!";
+RUR.ko["object"] = "object";
+RUR.ko["I don't have any object to put down!"] = "I don't have any {obj} to put down!";
+RUR.ko["There is already a wall here!"] = "There is already a wall here!";
+RUR.ko["Ouch! I hit a wall!"] = "Ouch! I hit a wall!";
+RUR.ko["Done!"] = "Done!";  // and recorder.js
+RUR.ko["There is no position as a goal in this world!"] = "There is no position as a goal in this world!";
+RUR.ko["There is no goal in this world!"] = "There is no goal in this world!";
+RUR.ko["I carry too many different objects. I don't know which one to put down!"] = "I carry too many different objects. I don't know which one to put down!";
+RUR.ko["Many objects are here; I do not know which one to take!"] = "Many different objects are here; I do not know which one to take!";
+
+// in robot.js (and possibly others)
+RUR.ko.east = "east";
+RUR.ko.north = "north";
+RUR.ko.west = "west";
+RUR.ko.south = "south";
+RUR.ko["Unknown orientation for robot."] = "Unknown orientation for robot.";
+
+
+RUR.ko["World selected"] = "World {world} selected";
+RUR.ko["Could not find world"] = "Could not find world {world}";
+RUR.ko["Object names"] = " library, token, star, triangle, square, etc.";
+
+
+// in doc_ready.js
+RUR.ko["Invalid world file."] = "Invalid world file.";
+RUR.ko["PERMALINK"] = "PERMALINK";
+
+// in file_io.js
+RUR.ko["Could not find link: "] = "Could not find link: ";
+
+
+// in world_editor.js
+RUR.ko["Click on world to move robot."] = "Click on world to add or remove possible starting positions for Reeborg.";
+RUR.ko["Added robot."] = "Added Reeborg.";
+RUR.ko["Click on image to turn robot"] = "Click on image to turn Reeborg";
+RUR.ko["Robot now has tokens."] = "Reeborg now has {x_tokens} tokens.";
+RUR.ko["Click on world to add object."] = "Click on world to set number of {obj}.";
+RUR.ko["Click on desired object below."] = "Click on desired object below.";
+RUR.ko["Click on world to toggle walls."] = "Click on world to toggle walls.";
+RUR.ko["Click on world to set home position for robot."] = "Click on world to add/remove possible final positions for robot.";
+RUR.ko["Click on world to toggle additional walls to build."] = "Click on world to toggle additional walls to build.";
+RUR.ko["Click on desired goal object below."] = "Click on desired goal object below.";
+RUR.ko["Click on world to set number of goal objects."] = "Click on world to set number of goal {obj}.";
+RUR.ko["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for Reeborg to carry.";
+RUR.ko[" is not a valid value!"] = " is not a valid value!";
+RUR.ko["Enter number of objects desired at that location."] = "Click on world to set number {obj}.";
+RUR.ko["Objects found here:"] = "Objects found here:";
+RUR.ko["Description"] = "Description";
+RUR.ko["A robot located here carries no objects."] = "A robot located at {x},{y} carries no objects.";
+RUR.ko["Goal to achieve:"] = "Goal to achieve:";
+RUR.ko["A robot located here carries:"] = "A robot located at {x},{y} carries:";
+RUR.ko["random location"] = "random location";
+RUR.ko["Enter number of objects to give to robot."] = "Enter number of {obj} to give to robot.";
+RUR.ko["Special information about this location:"] = "Special information about this location:";
+RUR.ko["Click on world to toggle tile."] = "Click on world to toggle {obj} tile.";
+RUR.ko["Click on desired tile below."] = "Click on desired tile below.";
+RUR.ko["mud"] = "mud";
+RUR.ko["water"] = "water";
+RUR.ko["grass"] = "grass";
+RUR.ko["gravel"] = "gravel";
+RUR.ko["ice"] = "ice";
+RUR.ko["A wall must be built east of this location."] = "A wall must be built east of this location.";
+RUR.ko["A wall must be built north of this location."] = "A wall must be built north of this location.";
+RUR.ko["A wall must be built west of this location."] = "A wall must be built west of this location.";
+RUR.ko["A wall must be built south of this location."] = "A wall must be built south of this location.";
+RUR.ko["The final required position of the robot will be chosen at random."] = "The final required position of the robot will be chosen at random.";
+RUR.ko["The final position of the robot must be (x, y) = "] = "The final position of the robot must be (x, y) = ";
+RUR.ko["Click on world to fill with given tile."] = "Click on world to fill with given tile.";
+RUR.ko["Click on desired object below."] = "Click on desired object below.";
+RUR.ko["Enter url of image to use as background."] = "Enter url of image to use as background.";
+RUR.ko["Replace editor content"] = "Do you wish to replace your editor code by that provided by the creator of this world?";
+RUR.ko["Replace library content"] = "Do you wish to replace your library code by that provided by the creator of this world?";
+RUR.ko["colour"] = "colour";
+
+
+// in storage.js
+RUR.ko["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
+RUR.ko["No such world!"] = "No such world!";
+RUR.ko["Enter world name to save"] = "Enter world name to save; names in use: ";
+RUR.ko["Enter world name to delete"] = "Enter world name to delete; existing worlds: ";
+RUR.ko["Delete "] = "Delete ";
+
+
+// in runner.js
+RUR.ko["Error found at or near line {number}."] = "Error found at or near line {number}.";
+RUR.ko["<br>Perhaps a missing colon is the cause."] = "<br>Perhaps a missing colon is the cause.";
+RUR.ko["<br>Perhaps you forgot to add parentheses ()."] = "<br>Perhaps you forgot to add parentheses ().";
+RUR.ko["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Perhaps you misspelled a word or forgot to define a function or a variable.";
+
+
+// in images.js
+RUR.ko["I'm stuck in mud."] = "I'm stuck in mud.";
+RUR.ko["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.";
+RUR.ko["I'm slipping on ice!"] = "I'm slipping on ice!";
+RUR.ko["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.";
+RUR.ko["Grass: usually safe."] = "Grass: usually safe.";
+RUR.ko["Gravel: usually safe."] = "Gravel: usually safe.";
+RUR.ko["I'm in water!"] = "I'm in water!";
+RUR.ko["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.";
+RUR.ko["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green_home_tile: Reeborg <b>can</b> detect this tile using at_goal().";
+RUR.ko["Crash!"] = "Crash!";
+RUR.ko["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.";
+RUR.ko["I hit a fence!"] = "I hit a fence!";
+RUR.ko["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
+RUR.ko["Bridge:"] = "Bridge: ";
+RUR.ko["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
+
+
+//===
+RUR.ko["Something is blocking the way!"] = "Something is blocking the way!";
+RUR.ko["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this using at_goal().";
+RUR.ko["green home tile:"] = "green home tile:";
+RUR.ko["home:"] = "home:";
+RUR.ko["racing flag:"] = "racing flag:";
+RUR.ko["house:"] = "house:";
+
+RUR.ko["fence_right"] = "fence";
+RUR.ko["fence_left"] = "fence";
+RUR.ko["fence_double"] = "fence";
+RUR.ko["fence_vertical"] = "fence";
+
+//=== in common_def.py
+RUR.ko["Local variables"] = "Local variables";
+RUR.ko["Global variables"] = "Global variables";
+RUR.ko["Watched expressions"] = "Watched expressions";
+
+// in zz_dr_blockly.js
+
+RUR.ko["move forward"] = "move forward";
+RUR.ko["write"] = "write";
+RUR.ko["turn left"] = "turn left";
+RUR.ko["turn_left"] = "turn_left";
+RUR.ko["take"] = "take";
+RUR.ko["take object"] = "take object";
+RUR.ko["put"] = "put";
+RUR.ko["put object"] = "put object";
+RUR.ko["pause"] = "pause";
+RUR.ko["Pause the program's execution."] = "Pause the program's execution.";
+RUR.ko["build_wall"] = "build_wall";
+RUR.ko["Build a wall in front of the robot."] = "Build a wall in front of the robot.";
+RUR.ko["done"] = "done";
+RUR.ko["End the program's execution."] = "End the program's execution.";
+RUR.ko["True if a wall is blocking the way."] = "True if a wall is blocking the way";
+RUR.ko["wall_in_front"] = "wall_in_front";
+RUR.ko["wall_on_right"] = "wall_on_right";
+RUR.ko["True if nothing is blocking the way."] = "True if nothing is blocking the way.";
+RUR.ko["front_is_clear"] = "front_is_clear";
+RUR.ko["right_is_clear"] = "right_is_clear";
+RUR.ko["at_goal"] = "at_goal";
+RUR.ko["True if desired destination."] = "True if desired destination.";
+RUR.ko["carries_object"] = "carries_object";
+RUR.ko["True if robot carries at least one object."] = "True if robot carries at least one object.";
+RUR.ko["object_here"] = "object_here";
+RUR.ko["True if there is at least one object here."] = "True if there is at least one object here.";
+RUR.ko["is_facing_north"] = "is_facing_north";
+RUR.ko["True if robot is facing North."] = "True if robot is facing North.";
+RUR.ko["sound"] = "sound";
+RUR.ko["think"] = "think";
+RUR.ko["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
 
 },{}],82:[function(require,module,exports){
+RUR.translation = {};
+RUR.translation_to_english = {};
 
 var _recorded_ids = [];
 var _text_elements = [];

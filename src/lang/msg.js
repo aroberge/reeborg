@@ -1,3 +1,5 @@
+RUR.translation = {};
+RUR.translation_to_english = {};
 
 var _recorded_ids = [];
 var _text_elements = [];

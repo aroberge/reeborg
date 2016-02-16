@@ -1,10 +1,14 @@
-// This file was automatically generated.  Do not modify.
+// modified for Reeborg!
 
-'use strict';
-
+// // This file was automatically generated.  Do not modify.
+//
+// 'use strict';
+//
 goog.provide('Blockly.Msg.en');
+//
+// goog.require('Blockly.Msg');
 
-goog.require('Blockly.Msg');
+function blockly_init_en () {
 
 Blockly.Msg.ADD_COMMENT = "Add Comment";
 Blockly.Msg.AUTH = "Please authorize this app to enable your work to be saved and to allow it to be shared by you.";
@@ -381,3 +385,7 @@ Blockly.Msg.TEXT_APPEND_VARIABLE = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.TEXT_CREATE_JOIN_ITEM_TITLE_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.LISTS_INDEX_OF_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
 Blockly.Msg.LISTS_SET_INDEX_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
+
+}
+
+blockly_init_en();
