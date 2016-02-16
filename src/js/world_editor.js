@@ -10,6 +10,7 @@ require("./state.js");
 require("./world_get.js");
 require("./world_set.js");
 require("./dialogs/create.js");
+require("./listeners/canvas.js");
 
 require("./world_set/add_object.js");
 require("./world_set/add_goal_object.js");
@@ -264,41 +265,13 @@ RUR.we.toggle_editing_mode = function () {
 RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
                                  {}, RUR.we.toggle_editing_mode);
 
-RUR.we.calculate_grid_position = function () {
-    var ctx, x, y;
-    x = RUR.mouse_x - $("#robot-canvas").offset().left;
-    y = RUR.mouse_y - $("#robot-canvas").offset().top;
 
-    x /= RUR.WALL_LENGTH;
-    x = Math.floor(x);
-
-    y = RUR.HEIGHT - y + RUR.WALL_THICKNESS;
-    y /= RUR.WALL_LENGTH;
-    y = Math.floor(y);
-
-    RUR.we.mouse_contained_flag = true;  // used in tooltip.js
-    if (x < 1 ) {
-        x = 1;
-        RUR.we.mouse_contained_flag = false;
-    } else if (x > RUR.COLS) {
-        x = RUR.COLS;
-        RUR.we.mouse_contained_flag = false;
-    }
-    if (y < 1 ) {
-        y = 1;
-        RUR.we.mouse_contained_flag = false;
-    } else if (y > RUR.ROWS) {
-        y = RUR.ROWS;
-        RUR.we.mouse_contained_flag = false;
-    }
-    return [x, y];
-};
 
 
 RUR.we.place_robot = function () {
     "use strict";
     var position, world=RUR.CURRENT_WORLD, robot, arr=[], pos, present=false;
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     if (world.robots !== undefined){
         if (world.robots.length >0) {
             robot = world.robots[0];
@@ -479,7 +452,7 @@ RUR.we.toggle_goal_wall = function () {
 RUR.we._add_object = function (specific_object){
     "use strict";
     var position, x, y, query, tmp;
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
     if (specific_object == "box") {
@@ -503,7 +476,7 @@ RUR.we._add_object = function (specific_object){
 RUR.we._add_goal_objects = function (specific_object){
     "use strict";
     var position, x, y, coords, query;
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
     coords = x + "," + y;
@@ -552,7 +525,7 @@ RUR.we.set_goal_position = function (home){
 
     goal.position.image = home;
 
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     goal.position.x = position[0];
     goal.position.y = position[1];
 
@@ -598,7 +571,7 @@ RUR.we.toggle_tile = function (tile){
         return;
     }
 
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
     coords = x + "," + y;
@@ -638,7 +611,7 @@ RUR.we.toggle_solid_object = function (obj){
     "use strict";
     var x, y, position;
 
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
 
@@ -650,11 +623,9 @@ RUR.we.toggle_solid_object = function (obj){
 };
 
 
-
+// mouse clicks also requested in listeners/canvas.js
 $("#robot-canvas").on("click", function (evt) {
-    RUR.mouse_x = evt.pageX;
-    RUR.mouse_y = evt.pageY;
-    if (RUR.state.editing_world) {
+    if (RUR.state.editing_world && RUR.we.edit_world_flag !== undefined) {
         RUR.we.edit_world();
     }
     RUR.world_get.world_info();

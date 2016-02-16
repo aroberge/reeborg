@@ -4,6 +4,7 @@
 
 require("./objects.js");
 require("./dialogs/create.js");
+require("./listeners/canvas.js");
 
 RUR.world_get = {};
 
@@ -113,7 +114,7 @@ RUR.world_get.world_info = function (no_grid) {
     }
 
     if (!no_grid) {
-        position = RUR.we.calculate_grid_position();
+        position = RUR.calculate_grid_position();
         x = position[0];
         y = position[1];
         coords = x + "," + y;

@@ -1,3 +1,7 @@
+require("./../lang/en.js");
+require("./../lang/fr.js");
+require("./../lang/ko.js");
+
 RUR.translation = {};
 RUR.translation_to_english = {};
 

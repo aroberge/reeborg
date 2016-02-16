@@ -2,11 +2,6 @@
 require("./state.js");
 require("./zz_dr_onclick.js");
 
-require("./zz_dr_editor_ui.js");
-require("./zz_dr_blockly.js");
-
-require("./tooltip.js");
-
 var rec_reset = require("./recorder/reset.js").reset;
 
     var prog_lang, url_query, name;
@@ -31,12 +26,9 @@ var rec_reset = require("./recorder/reset.js").reset;
     everything_loaded();
     rec_reset();
 
-    RUR.tooltip.init();
-
 
     //TODO: replace the following
     RUR.zz_dr_onclick();
-    RUR.zz_dr_editor_ui();
 
     brython({debug:1, pythonpath:['/src/python']});
 

@@ -1,5 +1,5 @@
 require("./rur.js");
-require("./utils/supplant.js");
+require("./../lang/msg.js");
 
 RUR.translate = function (s) {
     if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {

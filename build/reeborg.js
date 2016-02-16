@@ -1,4 +1,954 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/* jshint -W069 */
+require("./rur.js");
+require("./translator.js");
+
+RUR.blockly = {};
+RUR.color_basic = 120;
+RUR.color_condition = 240;
+RUR.done_colour = "#aa0000";
+
+/****  Begin over-riding Blockly's default */
+Blockly.Blocks.loops.HUE = 230;
+
+Blockly.JavaScript['text_print'] = function(block) {
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return RUR.translate("write")+'(' + argument0 + ');\n';
+};
+
+Blockly.makeColour = function(hue) {
+  if (hue === RUR.done_colour){
+      return hue;
+  }
+  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
+      Blockly.HSV_VALUE * 255);
+};
+
+Blockly.Python.INDENT = '    ';
+Blockly.JavaScript.INDENT = '    ';
+
+// removing mutator for simple function definitions as per
+// https://groups.google.com/d/msg/blockly/_rrwh-Lc-sE/cHAk5yNfhUEJ
+
+(function(){var old = Blockly.Blocks.procedures_defnoreturn.init;
+    Blockly.Blocks.procedures_defnoreturn.init =
+    function(){old.call(this);
+        this.setMutator(undefined);
+        // this.setColour(RUR.color_basic);
+    };
+})();
+
+
+
+RUR.blockly.init = function () {
+
+    // override some defaults 
+    Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
+    Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
+    Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
+
+
+    Blockly.Blocks['_sound_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField(RUR.translate("sound"))
+            .appendField(new Blockly.FieldCheckbox("TRUE"), "SOUND");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(20);
+        this.setTooltip('');
+      }
+    };
+    Blockly.JavaScript['_sound_'] = function(block) {
+      var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
+      if (checkbox_sound) {
+          return RUR.translate("sound") + "(true);\n";
+      } else {
+          return RUR.translate("sound") + "(false);\n";
+      }
+    };
+    Blockly.Python['_sound_'] = function(block) {
+      var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
+      if (checkbox_sound) {
+          return RUR.translate("sound") + "(True)\n";
+      } else {
+          return RUR.translate("sound") + "(False)\n";
+      }
+    };
+
+    Blockly.Blocks['_think_'] = {
+      init: function() {
+        this.appendValueInput("NAME")
+            .setCheck("Number")
+            .appendField(RUR.translate("think"));
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(20);
+        this.setTooltip(RUR.translate("Delay between actions; default is 300 ms."));
+      }
+    };
+    Blockly.Python['_think_'] = function(block) {
+      var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+      return RUR.translate("think") + "("+value_name+")\n";
+    };
+    Blockly.JavaScript['_think_'] = function(block) {
+      var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+      return RUR.translate("think") + "("+value_name+");\n";
+    };
+
+    Blockly.Blocks['_move_'] = {
+      init: function() {
+        this.setColour(RUR.color_basic);
+        this.appendDummyInput().appendField(RUR.translate("move"));
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("move forward"));
+      }
+    };
+    Blockly.Python['_move_'] = function(block) {
+      return RUR.translate("move")+'()\n';
+    };
+    Blockly.JavaScript['_move_'] = function(block) {
+      return RUR.translate("move")+'();\n';
+    };
+
+
+    Blockly.Blocks['_turn_left_'] = {
+      init: function() {
+        this.setColour(RUR.color_basic);
+        this.appendDummyInput().appendField(RUR.translate("turn_left")+" \u21BA");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("turn left"));
+      }
+    };
+    Blockly.Python['_turn_left_'] = function(block) {
+      return RUR.translate("turn_left")+'()\n';
+    };
+    Blockly.JavaScript['_turn_left_'] = function(block) {
+      return RUR.translate("turn_left")+'();\n';
+    };
+
+
+    Blockly.Blocks['_take_'] = {
+      init: function() {
+        this.setColour(RUR.color_basic);
+        this.appendDummyInput().appendField(RUR.translate("take"));
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("take object"));
+      }
+    };
+    Blockly.Python['_take_'] = function(block) {
+      return RUR.translate("take")+'()\n';
+    };
+    Blockly.JavaScript['_take_'] = function(block) {
+      return RUR.translate("take")+'();\n';
+    };
+
+
+    Blockly.Blocks['_put_'] = {
+      init: function() {
+        this.setColour(RUR.color_basic);
+        this.appendDummyInput().appendField(RUR.translate("put"));
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("put object"));
+      }
+    };
+    Blockly.Python['_put_'] = function(block) {
+      return RUR.translate("put")+'()\n';
+    };
+    Blockly.JavaScript['_put_'] = function(block) {
+      return RUR.translate("put")+'();\n';
+    };
+
+
+    Blockly.Blocks['_pause_'] = {
+      init: function() {
+        this.setColour(30);
+        this.appendDummyInput().appendField(RUR.translate("pause"));
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("Pause the program's execution."));
+      }
+    };
+    Blockly.Python['_pause_'] = function(block) {
+      return RUR.translate("pause")+'()\n';
+    };
+    Blockly.JavaScript['_pause_'] = function(block) {
+      return RUR.translate("pause")+'();\n';
+    };
+
+
+    Blockly.Blocks['_build_wall_'] = {
+      init: function() {
+        this.setColour(RUR.color_basic);
+        this.appendDummyInput().appendField(RUR.translate("build_wall"));
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("Build a wall in front of the robot."));
+      }
+    };
+    Blockly.Python['_build_wall_'] = function(block) {
+      return RUR.translate("build_wall")+'()\n';
+    };
+    Blockly.JavaScript['_build_wall_'] = function(block) {
+      return RUR.translate("build_wall")+'();\n';
+    };
+
+
+    Blockly.Blocks['_done_'] = {
+      init: function() {
+        this.setColour(RUR.done_colour);
+        this.appendDummyInput().appendField(RUR.translate("done"));
+        this.setPreviousStatement(true);
+        this.setTooltip(RUR.translate("End the program's execution."));
+      }
+    };
+    Blockly.Python['_done_'] = function(block) {
+      return RUR.translate("done")+'()\n';
+    };
+    Blockly.JavaScript['_done_'] = function(block) {
+      return RUR.translate("done")+'();\n';
+    };
+
+
+    Blockly.Blocks['_wall_in_front_or_right_'] = {
+      init: function() {
+        var choices =  [
+            [RUR.translate("wall_in_front"), RUR.translate("wall_in_front")],
+            [RUR.translate("wall_on_right"), RUR.translate("wall_on_right")]];
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if a wall is blocking the way."));
+      }
+    };
+    Blockly.Python['_wall_in_front_or_right_'] = function(block) {
+      return [block.getFieldValue('choice')+'()'];
+    };
+    Blockly.JavaScript['_wall_in_front_or_right_'] = function(block) {
+      return [block.getFieldValue('choice')+'()'];
+    };
+
+
+    Blockly.Blocks['_front_or_right_is_clear_'] = {
+      init: function() {
+        var choices =  [
+            [RUR.translate("front_is_clear"), RUR.translate("front_is_clear")],
+            [RUR.translate("right_is_clear"), RUR.translate("right_is_clear")]];
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if nothing is blocking the way."));
+      }
+    };
+    Blockly.Python['_front_or_right_is_clear_'] = function(block) {
+      return [block.getFieldValue('choice')+'()'];
+    };
+    Blockly.JavaScript['_front_or_right_is_clear_'] = function(block) {
+      return [block.getFieldValue('choice')+'()'];
+    };
+
+
+    Blockly.Blocks['_at_goal_'] = {
+      init: function() {
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(RUR.translate("at_goal"));
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if desired destination."));
+      }
+    };
+    Blockly.Python['_at_goal_'] = function(block) {
+      return [RUR.translate("at_goal")+'()'];
+    };
+    Blockly.JavaScript['_at_goal_'] = function(block) {
+      return [RUR.translate("at_goal")+'()'];
+    };
+
+
+    Blockly.Blocks['_carries_object_'] = {
+      init: function() {
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(RUR.translate("carries_object"));
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if robot carries at least one object."));
+      }
+    };
+    Blockly.Python['_carries_object_'] = function(block) {
+      return [RUR.translate("carries_object")+'()'];
+    };
+    Blockly.JavaScript['_carries_object_'] = function(block) {
+      return [RUR.translate("carries_object")+'()'];
+    };
+
+
+    Blockly.Blocks['_object_here_'] = {
+      init: function() {
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(RUR.translate("object_here"));
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if there is at least one object here."));
+      }
+    };
+    Blockly.Python['_object_here_'] = function(block) {
+      return [RUR.translate("object_here")+'()'];
+    };
+    Blockly.JavaScript['_object_here_'] = function(block) {
+      return [RUR.translate("object_here")+'()'];
+    };
+
+
+    Blockly.Blocks['_is_facing_north_'] = {
+      init: function() {
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(RUR.translate("is_facing_north"));
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if robot is facing North."));
+      }
+    };
+    Blockly.Python['_is_facing_north_'] = function(block) {
+      return [RUR.translate("is_facing_north")+'()'];
+    };
+    Blockly.JavaScript['_is_facing_north_'] = function(block) {
+      return [RUR.translate("is_facing_north")+'()'];
+    };
+
+
+    Blockly.Blocks['_star_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("star"))
+            .appendField(new Blockly.FieldImage("/src/images/star.png", 15, 15, RUR.translate("star")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_star_'] = function(block) {
+      return [RUR.translate("star")];
+    };
+    Blockly.JavaScript['_star_'] = function(block) {
+      return [RUR.translate("star")];
+    };
+
+    Blockly.Blocks['_token_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("token"))
+            .appendField(new Blockly.FieldImage("/src/images/token.png", 15, 15, RUR.translate("token")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_token_'] = function(block) {
+      return [RUR.translate("token")];
+    };
+    Blockly.JavaScript['_token_'] = function(block) {
+      return [RUR.translate("token")];
+    };
+
+    Blockly.Blocks['_apple_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("apple"))
+            .appendField(new Blockly.FieldImage("/src/images/apple.png", 15, 15, RUR.translate("apple")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_apple_'] = function(block) {
+      return [RUR.translate("apple")];
+    };
+    Blockly.JavaScript['_apple_'] = function(block) {
+      return [RUR.translate("apple")];
+    };
+
+    Blockly.Blocks['_carrot_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("carrot"))
+            .appendField(new Blockly.FieldImage("/src/images/carrot.png", 15, 15, RUR.translate("carrot")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_carrot_'] = function(block) {
+      return [RUR.translate("carrot")];
+    };
+    Blockly.JavaScript['_carrot_'] = function(block) {
+      return [RUR.translate("carrot")];
+    };
+
+    Blockly.Blocks['_dandelion_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("dandelion"))
+            .appendField(new Blockly.FieldImage("/src/images/dandelion.png", 15, 15, RUR.translate("dandelion")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_dandelion_'] = function(block) {
+      return [RUR.translate("dandelion")];
+    };
+    Blockly.JavaScript['_dandelion_'] = function(block) {
+      return [RUR.translate("dandelion")];
+    };
+
+    Blockly.Blocks['_daisy_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("daisy"))
+            .appendField(new Blockly.FieldImage("/src/images/daisy.png", 15, 15, RUR.translate("daisy")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_daisy_'] = function(block) {
+      return [RUR.translate("daisy")];
+    };
+    Blockly.JavaScript['_daisy_'] = function(block) {
+      return [RUR.translate("daisy")];
+    };
+
+    Blockly.Blocks['_triangle_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("triangle"))
+            .appendField(new Blockly.FieldImage("/src/images/triangle.png", 15, 15, RUR.translate("triangle")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_triangle_'] = function(block) {
+      return [RUR.translate("triangle")];
+    };
+    Blockly.JavaScript['_triangle_'] = function(block) {
+      return [RUR.translate("triangle")];
+    };
+
+    Blockly.Blocks['_square_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("square"))
+            .appendField(new Blockly.FieldImage("/src/images/square.png", 15, 15, RUR.translate("square")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_square_'] = function(block) {
+      return [RUR.translate("square")];
+    };
+    Blockly.JavaScript['_square_'] = function(block) {
+      return [RUR.translate("square")];
+    };
+
+    Blockly.Blocks['_strawberry_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("strawberry"))
+            .appendField(new Blockly.FieldImage("/src/images/strawberry.png", 15, 15, RUR.translate("strawberry")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_strawberry_'] = function(block) {
+      return [RUR.translate("strawberry")];
+    };
+    Blockly.JavaScript['_strawberry_'] = function(block) {
+      return [RUR.translate("strawberry")];
+    };
+
+    Blockly.Blocks['_leaf_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("leaf"))
+            .appendField(new Blockly.FieldImage("/src/images/leaf.png", 15, 15, RUR.translate("leaf")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_leaf_'] = function(block) {
+      return [RUR.translate("leaf")];
+    };
+    Blockly.JavaScript['_leaf_'] = function(block) {
+      return [RUR.translate("leaf")];
+    };
+
+    Blockly.Blocks['_banana_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("banana"))
+            .appendField(new Blockly.FieldImage("/src/images/banana.png", 15, 15, RUR.translate("banana")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_banana_'] = function(block) {
+      return [RUR.translate("banana")];
+    };
+    Blockly.JavaScript['_banana_'] = function(block) {
+      return [RUR.translate("banana")];
+    };
+
+    Blockly.Blocks['_orange_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("orange"))
+            .appendField(new Blockly.FieldImage("/src/images/orange.png", 15, 15, RUR.translate("orange")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_orange_'] = function(block) {
+      return [RUR.translate("orange")];
+    };
+    Blockly.JavaScript['_orange_'] = function(block) {
+      return [RUR.translate("orange")];
+    };
+
+    Blockly.Blocks['_tulip_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("tulip"))
+            .appendField(new Blockly.FieldImage("/src/images/tulip.png", 15, 15, RUR.translate("tulip")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_tulip_'] = function(block) {
+      return [RUR.translate("tulip")];
+    };
+    Blockly.JavaScript['_tulip_'] = function(block) {
+      return [RUR.translate("tulip")];
+    };
+
+    Blockly.Blocks['_carries_object_or_here_'] = {
+      init: function() {
+        this.appendValueInput("action")
+            .setCheck("String")
+            .appendField(new Blockly.FieldDropdown([
+                [RUR.translate("carries_object"), RUR.translate("carries_object")],
+                [RUR.translate("object_here"), RUR.translate("object_here")]]), "condition");
+        this.setOutput(true, "Boolean");
+        this.setColour(RUR.color_condition);
+      }
+    };
+    Blockly.Python['_carries_object_or_here_'] = function(block) {
+      var dropdown_condition = block.getFieldValue('condition');
+      var value_action = Blockly.Python.valueToCode(block, 'action', Blockly.Python.ORDER_ATOMIC);
+      return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
+    };
+    Blockly.JavaScript['_carries_object_or_here_'] = function(block) {
+      var dropdown_condition = block.getFieldValue('condition');
+      var value_action = Blockly.JavaScript.valueToCode(block, 'action', Blockly.JavaScript.ORDER_ATOMIC);
+      return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
+    };
+
+
+    Blockly.Blocks['_take_or_put_'] = {
+      init: function() {
+        this.appendValueInput("obj")
+            .setCheck("String")
+            .appendField(new Blockly.FieldDropdown([
+                [RUR.translate("take"), RUR.translate("take")],
+                [RUR.translate("put"), RUR.translate("put")]]), "action");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(RUR.color_basic);
+      }
+    };
+    Blockly.Python['_take_or_put_'] = function(block) {
+      var dropdown_action = block.getFieldValue('action');
+      var value_obj = Blockly.Python.valueToCode(block, 'obj', Blockly.Python.ORDER_ATOMIC);
+      return dropdown_action + '("' + value_obj + '")\n';
+    };
+    Blockly.JavaScript['_take_or_put_'] = function(block) {
+      var dropdown_action = block.getFieldValue('action');
+      var value_obj = Blockly.JavaScript.valueToCode(block, 'obj', Blockly.JavaScript.ORDER_ATOMIC);
+      return dropdown_action + '("' + value_obj + '");\n';
+    };
+
+
+
+    /** Simple if skeletton from
+    https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#k8aine
+    ****/
+
+    Blockly.Blocks['_if_'] = {
+      init: function() {
+        this.appendValueInput("condition")
+            .setCheck("Boolean")
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+        this.appendStatementInput("then")
+            .setCheck(null)
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(210);
+        // this.setTooltip('');
+      }
+    };
+    Blockly.JavaScript['_if_'] = function(block) {
+      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+      var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
+      return "if (" + value_condition + ") {\n" + statements_then + "}\n";
+
+    };
+    Blockly.Python['_if_'] = function(block) {
+      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+      var statements_then = Blockly.Python.statementToCode(block, 'then');
+      return "if " + value_condition + ":\n" + statements_then;
+    };
+
+
+    Blockly.Blocks['_if_else_'] = {
+      init: function() {
+        this.appendValueInput("condition")
+            .setCheck("Boolean")
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+        this.appendStatementInput("then")
+            .setCheck(null)
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+        this.appendStatementInput("else")
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(210);
+        this.setTooltip('');
+      }
+    };
+    Blockly.JavaScript['_if_else_'] = function(block) {
+      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+      var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
+      var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
+      return "if (" + value_condition + ") {\n" + statements_then + "} else {\n" + statements_else+"}\n";
+    };
+    Blockly.Python['_if_else_'] = function(block) {
+      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+      var statements_then = Blockly.Python.statementToCode(block, 'then');
+      var statements_else = Blockly.Python.statementToCode(block, 'else');
+      return "if " + value_condition + ":\n" + statements_then + "else:\n" + statements_else;
+    };
+
+
+    Blockly.Blocks['_if_else_if_else_'] = {
+      init: function() {
+        this.appendValueInput("condition")
+            .setCheck("Boolean")
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+        this.appendStatementInput("do")
+            .setCheck(null)
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.appendValueInput("condition2")
+            .setCheck("Boolean")
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+        this.appendStatementInput("do2")
+            .setCheck(null)
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+        this.appendStatementInput("else")
+            .setCheck(null)
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(210);
+        this.setTooltip('');
+      }
+    };
+    Blockly.JavaScript['_if_else_if_else_'] = function(block) {
+      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+      var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
+      var value_condition2 = Blockly.JavaScript.valueToCode(block, 'condition2', Blockly.JavaScript.ORDER_ATOMIC);
+      var statements_do2 = Blockly.JavaScript.statementToCode(block, 'do2');
+      var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
+      return "if (" + value_condition + ") {\n" + statements_do +
+             "} else if (" + value_condition2 + ") {\n" + statements_do2 +
+             "} else {\n" + statements_else+"}\n";
+    };
+    Blockly.Python['_if_else_if_else_'] = function(block) {
+      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+      var statements_do = Blockly.Python.statementToCode(block, 'do');
+      var value_condition2 = Blockly.Python.valueToCode(block, 'condition2', Blockly.Python.ORDER_ATOMIC);
+      var statements_do2 = Blockly.Python.statementToCode(block, 'do2');
+      var statements_else = Blockly.Python.statementToCode(block, 'else');
+      return "if " + value_condition + ":\n" + statements_do +
+             "elif " + value_condition2 + ":\n" + statements_do2 +
+             "else:\n" + statements_else;
+    };
+    RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
+        toolbox: document.getElementById('toolbox'),
+        zoom:{
+            controls: true,
+            wheel: true,
+            startScale: 1.0,
+            maxScale: 3,
+            minScale: 0.3,
+            scaleSpeed: 1.2},
+        trashcan: true});
+
+};
+RUR.blockly.init();
+
+$("#blocklyDiv").resizable({
+    resize: function() {
+        $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
+        window.dispatchEvent(new Event('resize'));
+    }
+});
+
+$("#blockly-wrapper").draggable({
+    cursor: "move",
+    handle: "p",
+    drag: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    },
+    stop: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    }
+});
+
+},{"./rur.js":46,"./translator.js":50}],2:[function(require,module,exports){
+/*  The purpose of this module is to act as an intermediary between end user
+modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
+the other modules.  This way, in theory, (most) refactoring can take place in the
+basic javascript code without affecting the end user code.
+
+Convention: all "public" function names follow the pattern RUR._xyz_
+            Use four spaces for indentation
+            Order function names alphabetically (in English)
+ */
+
+require("./translator.js");
+require("./constants.js");
+require("./control.js");
+require("./custom_world_select.js");
+require("./file_io.js");
+require("./output.js");
+require("./visible_robot.js");
+require("./state.js");
+require("./world.js");
+require("./world_set.js");
+
+RUR.inspect = function (obj){
+    var props, result = "";
+    for (props in obj) {
+        if (typeof obj[props] === "function") {
+            result += props + "()\n";
+        } else{
+            result += props + "\n";
+        }
+    }
+    RUR.output._write(result);
+};
+
+function user_no_highlight () {
+    if (RUR.state.highlight) {
+        RUR.state.highlight = false;
+        $("#highlight").addClass("blue-gradient");
+        $("#highlight").removeClass("reverse-blue-gradient");
+    }
+}
+
+
+RUR._at_goal_ = function () {
+    return RUR.control.at_goal(RUR.CURRENT_WORLD.robots[0]);
+};
+
+RUR._build_wall_ = function() {
+    RUR.control.build_wall(RUR.CURRENT_WORLD.robots[0]);
+};
+
+RUR._carries_object_ = function (arg) {
+    return RUR.control.carries_object(RUR.CURRENT_WORLD.robots[0], arg);
+};
+
+RUR._clear_print_ = RUR.output.clear_print;
+
+RUR._color_here_ = function () {
+    var robot = RUR.CURRENT_WORLD.robots[0];
+    return RUR.control.get_color_at_position(robot.x, robot.y);
+};
+
+RUR._default_robot_body_ = function () { // simply returns body
+    return RUR.CURRENT_WORLD.robots[0];
+};
+
+RUR._dir_js_ = RUR.inspect;
+
+RUR._done_ = RUR.control.done;
+
+RUR._front_is_clear_ = function() {
+  return RUR.control.front_is_clear(RUR.CURRENT_WORLD.robots[0]);
+};
+
+
+RUR._is_facing_north_ = function () {
+    return RUR.control.is_facing_north(RUR.CURRENT_WORLD.robots[0]);
+};
+
+RUR._move_ = function () {
+    RUR.control.move(RUR.CURRENT_WORLD.robots[0]);
+};
+
+RUR._new_robot_images_ = RUR.vis_robot.new_robot_images;
+
+RUR._no_highlight_ = user_no_highlight;
+
+RUR._object_here_ = function (arg) {
+    return RUR.world_get.object_at_robot_position(RUR.CURRENT_WORLD.robots[0], arg);
+};
+
+RUR._paint_square_ = function (color) {
+    // note that this can do more than simply setting the color: it can also
+    // set the tile type.
+    var robot = RUR.CURRENT_WORLD.robots[0];
+    RUR.control.set_tile_at_position(x, y, color);
+};
+
+RUR._pause_ = RUR.control.pause;
+
+RUR._print_html_ = function (html, append) {
+    RUR.output.print_html(html, append);
+};
+
+RUR._put_ = function(arg) {
+    RUR.control.put(RUR.CURRENT_WORLD.robots[0], arg);
+};
+
+RUR._recording_ = function(bool) {
+    if (bool) {
+        RUR.state.do_not_record = false;
+    } else {
+        RUR.state.do_not_record = true;
+    }
+};
+
+RUR._remove_robots_ = function () {
+    RUR.CURRENT_WORLD.robots = [];
+};
+
+RUR._right_is_clear_ = function() {
+    return RUR.control.right_is_clear(RUR.CURRENT_WORLD.robots[0]);
+};
+
+RUR._set_max_nb_instructions_ = function(n){
+    RUR.MAX_STEPS = n;
+};
+
+RUR._set_trace_color_ = function(color){
+    RUR.CURRENT_WORLD.robots[0].trace_color = color;
+};
+
+RUR._set_trace_style_ = RUR.vis_robot.set_trace_style;
+
+RUR._sound_ = RUR.control.sound;
+
+RUR._take_ = function(arg) {
+    RUR.control.take(RUR.CURRENT_WORLD.robots[0], arg);
+};
+
+RUR._think_ = RUR.control.think;
+
+RUR._turn_left_ = function () {
+    RUR.control.turn_left(RUR.CURRENT_WORLD.robots[0]);
+};
+
+RUR._view_source_js_ = RUR.output.view_source_js;
+
+RUR._wall_in_front_ = function() {
+    return RUR.control.wall_in_front(RUR.CURRENT_WORLD.robots[0]);
+};
+
+RUR._write_ = RUR.output.write;
+
+RUR.__write_ = RUR.output._write;
+
+RUR._wall_on_right_ = function() {
+    return RUR.control.wall_on_right(RUR.CURRENT_WORLD.robots[0]);
+};
+
+RUR._MakeCustomMenu_ = RUR.custom_world_select.make;
+
+RUR._World_ = RUR.file_io.load_world_from_program;
+
+/*  methods below */
+
+RUR._UR = {};
+
+RUR._UR.at_goal_ = function (robot) {
+    RUR.control.at_goal(robot);
+};
+
+RUR._UR.build_wall_ = function (robot) {
+    RUR.control.build_wall(robot);
+};
+
+RUR._UR.carries_object_ = function (robot, obj) {
+    RUR.control.carries_object(robot, obj);
+};
+
+RUR._UR.front_is_clear_ = function (robot) {
+    RUR.control.front_is_clear(robot);
+};
+
+RUR._UR.is_facing_north_ = function (robot) {
+    RUR.control.is_facing_north(robot);
+};
+
+RUR._UR.move_ = function (robot) {
+    RUR.control.move(robot);
+};
+
+RUR._UR.object_here_ = function (robot, obj) {
+    RUR.world_get.object_at_robot_position(robot, obj);
+};
+
+RUR._UR.put_ = function (robot, obj) {
+    RUR.control.put(robot, obj);
+};
+
+RUR._UR.right_is_clear_ = function (robot) {
+    RUR.control.right_is_clear(robot);
+};
+
+RUR._UR.set_model_ = function (robot, model) {
+    RUR.control.set_model(robot, model);
+};
+
+RUR._UR.set_trace_color_ = function (robot, color) {
+    RUR.control.set_trace_color(robot, color);
+};
+
+RUR._UR.set_trace_style_ = function (robot, style) {
+    RUR.control.set_trace_style(robot, style);
+};
+
+RUR._UR.take_ = function (robot, obj) {
+    RUR.control.take(robot, obj);
+};
+
+RUR._UR.turn_left_ = function (robot) {
+    RUR.control.turn_left(robot);
+};
+
+RUR._UR.wall_in_front_ = function (robot) {
+    RUR.control.wall_in_front(robot);
+};
+
+RUR._UR.wall_on_right_ = function (robot) {
+    RUR.control.wall_on_right(robot);
+};
+
+},{"./constants.js":3,"./control.js":4,"./custom_world_select.js":5,"./file_io.js":16,"./output.js":35,"./state.js":48,"./translator.js":50,"./visible_robot.js":60,"./world.js":62,"./world_set.js":71}],3:[function(require,module,exports){
 require("./rur.js");
 RUR.EAST = 0;
 RUR.NORTH = 1;
@@ -64,7 +1014,7 @@ RUR._CALLBACK_FN = function () {
     alert("FATAL internal error: RUR._CALLBACK_FN was not initialized.");
 };
 
-},{"./rur.js":43}],2:[function(require,module,exports){
+},{"./rur.js":46}],4:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -669,7 +1619,7 @@ RUR.control.set_tile_at_position = function (x, y, tile) {
     RUR.record_frame("debug", "set_tile_at_position");
 };
 
-},{"./constants.js":1,"./exceptions.js":10,"./objects.js":31,"./output.js":32,"./recorder/record_frame.js":39,"./state.js":45,"./translator.js":48,"./world_get.js":65,"./world_set.js":68}],3:[function(require,module,exports){
+},{"./constants.js":3,"./exceptions.js":12,"./objects.js":34,"./output.js":35,"./recorder/record_frame.js":42,"./state.js":48,"./translator.js":50,"./world_get.js":68,"./world_set.js":71}],5:[function(require,module,exports){
 
 require("./translator.js");
 require("./world_select.js");
@@ -850,7 +1800,7 @@ RUR.make_default_menu_fr = function () {
     RUR.custom_world_select.make(contents);
 };
 
-},{"./storage.js":46,"./translator.js":48,"./world_select.js":67}],4:[function(require,module,exports){
+},{"./storage.js":49,"./translator.js":50,"./world_select.js":70}],6:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
@@ -899,7 +1849,7 @@ add_object_form = dialog_add_object.find("form").on("submit", function( event ) 
     add_object();
 });
 
-},{"./../rur.js":43,"./../state.js":45,"./../visible_world.js":58,"./../world_set/add_object.js":70}],5:[function(require,module,exports){
+},{"./../rur.js":46,"./../state.js":48,"./../visible_world.js":61,"./../world_set/add_object.js":73}],7:[function(require,module,exports){
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
@@ -959,7 +1909,7 @@ $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                 position:{my: "bottom", at: "bottom-140", of: window}});
 
-},{"./../libs/jquery.ui.dialog.minmax.js":17,"./../rur.js":43}],6:[function(require,module,exports){
+},{"./../libs/jquery.ui.dialog.minmax.js":19,"./../rur.js":46}],8:[function(require,module,exports){
 
 require("./../world_set.js");
 require("./../visible_world.js");
@@ -1005,7 +1955,7 @@ give_object_form = dialog_give_object.find("form").on("submit", function( event 
     give_object();
 });
 
-},{"./../rur.js":43,"./../state.js":45,"./../visible_world.js":58,"./../world_set.js":68,"./../world_set/give_object_to_robot.js":72}],7:[function(require,module,exports){
+},{"./../rur.js":46,"./../state.js":48,"./../visible_world.js":61,"./../world_set.js":71,"./../world_set/give_object_to_robot.js":75}],9:[function(require,module,exports){
 require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
@@ -1049,7 +1999,7 @@ goal_objects_form = dialog_goal_object.find("form").on("submit", function( event
     goal_objects();
 });
 
-},{"./../state.js":45,"./../visible_world.js":58,"./../world_set/give_object_to_robot.js":72}],8:[function(require,module,exports){
+},{"./../state.js":48,"./../visible_world.js":61,"./../world_set/give_object_to_robot.js":75}],10:[function(require,module,exports){
 require("./../visible_world.js");
 ;
 // require("jquery-ui");
@@ -1084,7 +2034,7 @@ select_colour = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../visible_world.js":58}],9:[function(require,module,exports){
+},{"./../visible_world.js":61}],11:[function(require,module,exports){
 require("./../visible_world.js");
 ;
 // require("jquery-ui");
@@ -1119,7 +2069,7 @@ set_background_image = function () {
     dialog.dialog("close");
 };
 
-},{"./../visible_world.js":58}],10:[function(require,module,exports){
+},{"./../visible_world.js":61}],12:[function(require,module,exports){
 
 require("./rur.js");
 
@@ -1141,7 +2091,7 @@ RUR.WallCollisionError = function (message) {
     this.reeborg_shouts = message;
 };
 
-},{"./rur.js":43}],11:[function(require,module,exports){
+},{"./rur.js":46}],13:[function(require,module,exports){
 require("./../rur.js");
 
 
@@ -1195,7 +2145,7 @@ RUR.add_new_object_type = function (name, url, url_goal) {
 // supporting worlds created previously.
 RUR.add_object_image = RUR.add_new_object_type;
 
-},{"./../rur.js":43,"./../state.js":45,"./../visible_world.js":58}],12:[function(require,module,exports){
+},{"./../rur.js":46,"./../state.js":48,"./../visible_world.js":61}],14:[function(require,module,exports){
 require("./../rur.js");
 
 /** @function add_new_tile_type
@@ -1308,7 +2258,7 @@ _sync = function (tile, nb, coords) {
     return tile["image" + RUR._SYNC_TILES_VALUE[tile.name]];
 };
 
-},{"./../rur.js":43}],13:[function(require,module,exports){
+},{"./../rur.js":46}],15:[function(require,module,exports){
 require("./../rur.js");
 
 /** @function add_new_home_tile
@@ -1349,7 +2299,7 @@ RUR.add_new_home_tile = function (name, url, info) {
     RUR._NB_IMAGES_TO_LOAD += 1;
 };
 
-},{"./../rur.js":43}],14:[function(require,module,exports){
+},{"./../rur.js":46}],16:[function(require,module,exports){
 
 require("./output.js");
 require("./recorder.js");
@@ -1485,12 +2435,9 @@ RUR.file_io.load_world_file = function (url, shortname) {
     }
 };
 
-},{"./exceptions.js":10,"./listeners/stop.js":28,"./output.js":32,"./permalink.js":33,"./recorder.js":38,"./translator.js":48,"./world.js":59,"./world/import_world.js":63,"./world_select.js":67}],15:[function(require,module,exports){
+},{"./exceptions.js":12,"./listeners/stop.js":31,"./output.js":35,"./permalink.js":36,"./recorder.js":41,"./translator.js":50,"./world.js":62,"./world/import_world.js":66,"./world_select.js":70}],17:[function(require,module,exports){
 
-require("./../lang/msg.js");
-require("./../lang/en.js");
-require("./../lang/fr.js");
-require("./../lang/ko.js");
+
 require("./utils/key_exist.js");
 
 /* require two modules that will automatically modify two global objects */
@@ -1498,19 +2445,15 @@ require("./utils/cors.js");
 require("./utils/supplant.js");
 
 require("./listeners/add_listeners.js");
+require("./ui/set_editors.js");
 
 require("./playback/reverse_step.js"); /* only invoked from the html file - for now */
 
-require("./z_commands.js");
+require("./commands.js");
 require("./zzz_doc_ready.js");
 require("./start_session.js");
 
-// we reset the programming mode only at the end; this helps prevent
-// the CodeMirror editors from being improperly sized if the initial
-// mode is such that they would be hidden.
-//$("#programming-mode").change();
-
-},{"./../lang/en.js":79,"./../lang/fr.js":80,"./../lang/ko.js":81,"./../lang/msg.js":82,"./listeners/add_listeners.js":18,"./playback/reverse_step.js":36,"./start_session.js":44,"./utils/cors.js":51,"./utils/key_exist.js":54,"./utils/supplant.js":56,"./z_commands.js":74,"./zzz_doc_ready.js":78}],16:[function(require,module,exports){
+},{"./commands.js":2,"./listeners/add_listeners.js":20,"./playback/reverse_step.js":39,"./start_session.js":47,"./ui/set_editors.js":52,"./utils/cors.js":54,"./utils/key_exist.js":57,"./utils/supplant.js":59,"./zzz_doc_ready.js":78}],18:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -1731,7 +2674,7 @@ RUR.kbd.select = function (choice) {
     }
 };
 
-},{"./state.js":45}],17:[function(require,module,exports){
+},{"./state.js":48}],19:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
  * w/ Minimize & Maximize Support
@@ -2753,7 +3696,7 @@ $.extend($.ui.dialog.overlay.prototype, {
 });
 
 }(jQuery));
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 require("./human_language.js");
 require("./memorize_world.js");
 require("./pause.js");
@@ -2766,8 +3709,116 @@ require("./step.js");
 require("./stop.js");
 require("./toggle_highlight.js");
 require("./toggle_watch.js");
+require("./canvas.js");
 
-},{"./human_language.js":19,"./memorize_world.js":20,"./pause.js":21,"./programming_mode.js":22,"./reload.js":23,"./robot_model.js":24,"./run.js":25,"./select_world_change.js":26,"./step.js":27,"./stop.js":28,"./toggle_highlight.js":29,"./toggle_watch.js":30}],19:[function(require,module,exports){
+},{"./canvas.js":21,"./human_language.js":22,"./memorize_world.js":23,"./pause.js":24,"./programming_mode.js":25,"./reload.js":26,"./robot_model.js":27,"./run.js":28,"./select_world_change.js":29,"./step.js":30,"./stop.js":31,"./toggle_highlight.js":32,"./toggle_watch.js":33}],21:[function(require,module,exports){
+require("./../rur.js");
+
+$("#robot-canvas").mousemove(function (evt) {
+    RUR.mouse_x = evt.pageX;
+    RUR.mouse_y = evt.pageY;
+    handleMouseMove(evt);
+});
+$("#robot-canvas").on("click", function (evt) {
+    RUR.mouse_x = evt.pageX;
+    RUR.mouse_y = evt.pageY;
+}); // mouse clicks also requested in world_editor.js (at bottom)
+
+/* tooltip intended to provide information about objects carried by robot */
+var tooltip = {};
+tooltip.canvas = document.getElementById("tooltip");
+tooltip.ctx = tooltip.canvas.getContext("2d");
+
+function handleMouseMove(evt) {
+    var x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
+    var size = 40, objects_carried;
+
+    world = RUR.CURRENT_WORLD;
+    x = evt.pageX - $("#robot-canvas").offset().left;
+    y = evt.pageY - $("#robot-canvas").offset().top;
+    position = RUR.calculate_grid_position();
+    tooltip.canvas.style.left = "-200px";
+    if (!tooltip.mouse_contained) {
+        return;
+    }
+
+    //mouse_above_robot = false;
+    if (world.robots !== undefined) {
+        for (i=0; i < world.robots.length; i++) {
+            robot = world.robots[i];
+            if (robot.start_positions === undefined) {
+                robot.start_positions = [[robot.x, robot.y]];
+            }
+            for (j=0; j < robot.start_positions.length; j++){
+                pos = robot.start_positions[j];
+                if(pos[0]==position[0] && pos[1]==position[1]){
+                    mouse_above_robot = true;
+                    if (robot.objects !== undefined){
+                        objects_carried = Object.keys(robot.objects);
+                        break;
+                    }
+                }
+            }
+            if (mouse_above_robot) {
+                break;
+            }
+        }
+    }
+
+    tooltip.canvas.height = size;
+    if (objects_carried !== undefined) {
+        tooltip.canvas.width = size*Math.max(objects_carried.length, 1);
+    } else {
+        tooltip.canvas.width = size;
+        objects_carried = [];
+    }
+    if (mouse_above_robot){
+        tooltip.canvas.style.left = x+20 + "px";
+        tooltip.canvas.style.top = y + "px";
+        tooltip.ctx.clearRect(0, 0, tooltip.canvas.width, tooltip.canvas.height);
+        for (i=0; i < objects_carried.length; i++){
+            image = RUR.OBJECTS[objects_carried[i]].image;
+            nb_obj = robot.objects[objects_carried[i]];
+            if (nb_obj == "infinite" || nb_obj == Infinity) {
+                nb_obj = "∞";
+            }
+            tooltip.ctx.drawImage(image, i*size, 0, image.width, image.height);
+            tooltip.ctx.fillText(nb_obj, i*size+1, size-1);
+        }
+    }
+}
+
+RUR.calculate_grid_position = function () {
+    var ctx, x, y;
+    x = RUR.mouse_x - $("#robot-canvas").offset().left;
+    y = RUR.mouse_y - $("#robot-canvas").offset().top;
+
+    x /= RUR.WALL_LENGTH;
+    x = Math.floor(x);
+
+    y = RUR.HEIGHT - y + RUR.WALL_THICKNESS;
+    y /= RUR.WALL_LENGTH;
+    y = Math.floor(y);
+
+    tooltip.mouse_contained = true;
+    if (x < 1 ) {
+        x = 1;
+        tooltip.mouse_contained = false;
+    } else if (x > RUR.COLS) {
+        x = RUR.COLS;
+        tooltip.mouse_contained = false;
+    }
+    if (y < 1 ) {
+        y = 1;
+        tooltip.mouse_contained = false;
+    } else if (y > RUR.ROWS) {
+        y = RUR.ROWS;
+        tooltip.mouse_contained = false;
+    }
+    return [x, y];
+};
+
+},{"./../rur.js":46}],22:[function(require,module,exports){
 require("./../state.js");
 require("./../../lang/reeborg_en.js");
 require("./../../lang/reeborg_fr.js");
@@ -2859,7 +3910,7 @@ $("#human-language").change(function() {
     RUR.permalink.update_live();
 });
 
-},{"./../../lang/msg.js":82,"./../../lang/reeborg_en.js":83,"./../../lang/reeborg_fr.js":84,"./../custom_world_select.js":3,"./../state.js":45}],20:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../../lang/reeborg_en.js":83,"./../../lang/reeborg_fr.js":84,"./../custom_world_select.js":5,"./../state.js":48}],23:[function(require,module,exports){
 
 require("./../state.js");
 require("./../storage.js");
@@ -2918,7 +3969,7 @@ save_world = function () {
     $('#delete-world').show();
 };
 
-},{"./../../lang/msg.js":82,"./../state.js":45,"./../storage.js":46,"./../world/clone_world.js":60}],21:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../state.js":48,"./../storage.js":49,"./../world/clone_world.js":63}],24:[function(require,module,exports){
 require("./../state.js");
 ;
 require("./../playback/play.js");
@@ -2941,7 +3992,7 @@ RUR.pause = function (ms) {
 };
 pause_button.addEventListener("click", pause, false);
 
-},{"./../../lang/msg.js":82,"./../playback/play.js":34,"./../state.js":45}],22:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../playback/play.js":37,"./../state.js":48}],25:[function(require,module,exports){
 require("./../state.js");
 require("./../listeners/reload.js");
 require("./../keyboard.js");
@@ -3135,7 +4186,7 @@ function hide_console() {
 show_editor("python");
 // see start_session.js for initialization.
 
-},{"./../../lang/msg.js":82,"./../keyboard.js":16,"./../listeners/reload.js":23,"./../state.js":45}],23:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../keyboard.js":18,"./../listeners/reload.js":26,"./../state.js":48}],26:[function(require,module,exports){
 
 require("./../utils/key_exist.js");
 require("./../state.js");
@@ -3182,7 +4233,7 @@ RUR.reload2 = function() {
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);
 
-},{"./../../lang/msg.js":82,"./../recorder/reset.js":40,"./../state.js":45,"./../ui/set_ready_to_run.js":50,"./../utils/key_exist.js":54,"./../world_set/reset_world.js":73}],24:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../recorder/reset.js":43,"./../state.js":48,"./../ui/set_ready_to_run.js":53,"./../utils/key_exist.js":57,"./../world_set/reset_world.js":76}],27:[function(require,module,exports){
 require("./../visible_robot.js");
 ;
 require("./../state.js");
@@ -3262,7 +4313,7 @@ RUR.vis_robot.new_robot_images = function (images) {
     RUR.select_default_robot_model(model);
 };
 
-},{"./../../lang/msg.js":82,"./../state.js":45,"./../visible_robot.js":57}],25:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../state.js":48,"./../visible_robot.js":60}],28:[function(require,module,exports){
 ;
 require("./../state.js");
 require("./reload.js");
@@ -3290,7 +4341,7 @@ function run () {
 }
 run_button.addEventListener("click", run, false);
 
-},{"./../../lang/msg.js":82,"./../playback/play.js":34,"./../runner.js":42,"./../state.js":45,"./reload.js":23}],26:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../playback/play.js":37,"./../runner.js":45,"./../state.js":48,"./reload.js":26}],29:[function(require,module,exports){
 require("./../file_io.js");
 require("./../storage.js");
 
@@ -3309,7 +4360,7 @@ $("#select-world").change(function() {
     } catch (e) {}
 });
 
-},{"./../../lang/msg.js":82,"./../file_io.js":14,"./../storage.js":46}],27:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../file_io.js":16,"./../storage.js":49}],30:[function(require,module,exports){
 
 require("./../state.js");
 require("./reload.js");
@@ -3329,7 +4380,7 @@ step = function () {
 };
 step_button.addEventListener("click", step, false);
 
-},{"./../../lang/msg.js":82,"./../playback/play.js":34,"./../runner.js":42,"./../state.js":45,"./reload.js":23}],28:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../playback/play.js":37,"./../runner.js":45,"./../state.js":48,"./reload.js":26}],31:[function(require,module,exports){
 
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -3349,7 +4400,7 @@ RUR.stop = function () {
 };
 stop_button.addEventListener("click", RUR.stop, false);
 
-},{"./../../lang/msg.js":82,"./../state.js":45}],29:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../state.js":48}],32:[function(require,module,exports){
 ;
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -3370,7 +4421,7 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
 };
 highlight_button.addEventListener("click", RUR.toggle_highlight, false);
 
-},{"./../../lang/msg.js":82,"./../state.js":45}],30:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../state.js":48}],33:[function(require,module,exports){
 ;
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -3395,7 +4446,7 @@ toggle_watch_variables = function () {
 };
 watch_button.addEventListener("click", toggle_watch_variables, false);
 
-},{"./../../lang/msg.js":82,"./../state.js":45}],31:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../state.js":48}],34:[function(require,module,exports){
 require("./rur.js");
 require("./extend/add_object_type.js");
 require("./extend/add_tile_type.js");
@@ -3563,7 +4614,7 @@ RUR.SOLID_OBJECTS.fence_vertical.message = RUR.SOLID_OBJECTS.fence_right.message
 RUR.SOLID_OBJECTS.fence_vertical.info = RUR.SOLID_OBJECTS.fence_right.info;
 RUR.SOLID_OBJECTS.fence7 = RUR.SOLID_OBJECTS.fence_vertical;  // compatibility with old worlds
 
-},{"./extend/add_object_type.js":11,"./extend/add_tile_type.js":12,"./extend/new_home_tile.js":13,"./rur.js":43}],32:[function(require,module,exports){
+},{"./extend/add_object_type.js":13,"./extend/add_tile_type.js":14,"./extend/new_home_tile.js":15,"./rur.js":46}],35:[function(require,module,exports){
 
 
 require("./recorder.js");
@@ -3630,7 +4681,7 @@ RUR.output.view_source_js = function(fn) {
     });
 };
 
-},{"./recorder.js":38,"./state.js":45}],33:[function(require,module,exports){
+},{"./recorder.js":41,"./state.js":48}],36:[function(require,module,exports){
 
 require("./state.js");
 require("./storage.js");
@@ -3746,7 +4797,7 @@ RUR.permalink.cancel = function () {
     $("#permalink").addClass('blue-gradient');
 };
 
-},{"./listeners/programming_mode.js":22,"./state.js":45,"./storage.js":46,"./translator.js":48,"./utils/parseuri.js":55,"./world.js":59,"./world/export_world.js":62}],34:[function(require,module,exports){
+},{"./listeners/programming_mode.js":25,"./state.js":48,"./storage.js":49,"./translator.js":50,"./utils/parseuri.js":58,"./world.js":62,"./world/export_world.js":65}],37:[function(require,module,exports){
 require("./../state.js");
 require("./../listeners/stop.js");
 
@@ -3778,7 +4829,7 @@ function loop () {
     RUR._TIMER = setTimeout(loop, RUR.playback_delay);
 }
 
-},{"./../listeners/stop.js":28,"./../state.js":45}],35:[function(require,module,exports){
+},{"./../listeners/stop.js":31,"./../state.js":48}],38:[function(require,module,exports){
 
 RUR._play_sound = function (sound_id) {
     "use strict";
@@ -3788,7 +4839,7 @@ RUR._play_sound = function (sound_id) {
     current_sound.play();
 };
 
-},{}],36:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 ;
 require("./../state.js");
 require("./../recorder.js");
@@ -3805,7 +4856,7 @@ RUR.reverse_step = function () {
     clearTimeout(RUR._TIMER);
 };
 
-},{"./../recorder.js":38,"./../state.js":45}],37:[function(require,module,exports){
+},{"./../recorder.js":41,"./../state.js":48}],40:[function(require,module,exports){
 
 require("./../visible_world.js");
 require("./../exceptions.js");
@@ -3825,7 +4876,7 @@ RUR._show_immediate = function (name, obj) {
     }
 };
 
-},{"./../exceptions.js":10,"./../visible_world.js":58}],38:[function(require,module,exports){
+},{"./../exceptions.js":12,"./../visible_world.js":61}],41:[function(require,module,exports){
 
 require("./state.js");
 require("./visible_world.js");
@@ -4093,7 +5144,7 @@ RUR.rec.check_robots_on_tiles = function(frame){
     }
 };
 
-},{"./constants.js":1,"./exceptions.js":10,"./listeners/pause.js":21,"./listeners/stop.js":28,"./playback/play_sound.js":35,"./state.js":45,"./translator.js":48,"./utils/identical.js":53,"./visible_world.js":58,"./world/clone_world.js":60,"./world_get.js":65}],39:[function(require,module,exports){
+},{"./constants.js":3,"./exceptions.js":12,"./listeners/pause.js":24,"./listeners/stop.js":31,"./playback/play_sound.js":38,"./state.js":48,"./translator.js":50,"./utils/identical.js":56,"./visible_world.js":61,"./world/clone_world.js":63,"./world_get.js":68}],42:[function(require,module,exports){
 
 require("./../state.js");
 require("./../exceptions.js");
@@ -4163,7 +5214,7 @@ RUR.record_frame = function (name, obj) {
     }
 };
 
-},{"./../exceptions.js":10,"./../playback/show_immediate.js":37,"./../state.js":45,"./../world/clone_world.js":60}],40:[function(require,module,exports){
+},{"./../exceptions.js":12,"./../playback/show_immediate.js":40,"./../state.js":48,"./../world/clone_world.js":63}],43:[function(require,module,exports){
 require("./../state.js");
 
 exports.reset = reset = function() {
@@ -4194,7 +5245,7 @@ exports.reset = reset = function() {
 
 reset();
 
-},{"./../state.js":45}],41:[function(require,module,exports){
+},{"./../state.js":48}],44:[function(require,module,exports){
 
 require("./constants.js");
 require("./translator.js");
@@ -4271,14 +5322,14 @@ RUR.robot.cleanup_objects = function (robot) {
     }
 };
 
-},{"./constants.js":1,"./exceptions.js":10,"./translator.js":48,"./utils/filterint.js":52}],42:[function(require,module,exports){
+},{"./constants.js":3,"./exceptions.js":12,"./translator.js":50,"./utils/filterint.js":55}],45:[function(require,module,exports){
 
 require("./rur.js");
 require("./translator.js");
 require("./visible_world.js");
 require("./world.js");
 require("./state.js");
-require("./zz_dr_blockly.js");
+require("./blockly.js");
 require("./recorder.js");
 require("./world_init.js");
 var clone_world = require("./world/clone_world.js").clone_world;
@@ -4526,7 +5577,7 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     return false;  // no missing parentheses
 };
 
-},{"./recorder.js":38,"./rur.js":43,"./state.js":45,"./translator.js":48,"./visible_world.js":58,"./world.js":59,"./world/clone_world.js":60,"./world_init.js":66,"./zz_dr_blockly.js":75}],43:[function(require,module,exports){
+},{"./blockly.js":1,"./recorder.js":41,"./rur.js":46,"./state.js":48,"./translator.js":50,"./visible_world.js":61,"./world.js":62,"./world/clone_world.js":63,"./world_init.js":69}],46:[function(require,module,exports){
 /** @namespace RUR */         // for jsdoc
 window.RUR = RUR || {}; // RUR could be already be defined in the html file
 
@@ -4544,7 +5595,7 @@ RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
 
-},{}],44:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 /* Once everything is loaded, we need to decide which UI to show.
    The priority is determined by:
 
@@ -4649,7 +5700,7 @@ function set_world(url_query) {
     }
 }
 
-},{"./listeners/add_listeners.js":18,"./state.js":45,"./storage.js":46,"./utils/parseuri.js":55,"./world/import_world.js":63}],45:[function(require,module,exports){
+},{"./listeners/add_listeners.js":20,"./state.js":48,"./storage.js":49,"./utils/parseuri.js":58,"./world/import_world.js":66}],48:[function(require,module,exports){
 /* Yes, I know, global variables are a terrible thing.
    And, in a sense, the following are global variables recording a given
    state.  However, by using this convention and documentating them in a
@@ -4685,7 +5736,7 @@ RUR.state.y = undefined;
 // TODO: after simplifying the permalink, see if RUR.state.prevent_playback
 // is still needed.
 
-},{"./rur.js":43,"./translator.js":48}],46:[function(require,module,exports){
+},{"./rur.js":46,"./translator.js":50}],49:[function(require,module,exports){
 
 require("./rur.js");
 require("./translator.js");
@@ -4759,88 +5810,9 @@ RUR.storage.delete_world = function (name){
     $('#delete-world').hide();
 };
 
-},{"./rur.js":43,"./translator.js":48,"./world/clone_world.js":60,"./world/export_world.js":62,"./world_select.js":67}],47:[function(require,module,exports){
-/* Intended to provide information about objects carried by robot */
+},{"./rur.js":46,"./translator.js":50,"./world/clone_world.js":63,"./world/export_world.js":65,"./world_select.js":70}],50:[function(require,module,exports){
 require("./rur.js");
-require("./world_editor.js");
-
-RUR.tooltip = {};
-
-RUR.tooltip.init = function () {  // call in zzz.doc_ready.js
-    RUR.tooltip.canvas = document.getElementById("tooltip");
-    RUR.tooltip.ctx = RUR.tooltip.canvas.getContext("2d");
-
-    // request mousemove events
-    $("#robot-canvas").mousemove(function (evt) {
-        RUR.mouse_x = evt.pageX;
-        RUR.mouse_y = evt.pageY;
-        RUR.tooltip.handleMouseMove(evt);
-    });
-};
-
-
-RUR.tooltip.handleMouseMove = function handleMouseMove(evt) {
-    var x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
-    var size = 40, objects_carried;
-
-    world = RUR.CURRENT_WORLD;
-    x = evt.pageX - $("#robot-canvas").offset().left;
-    y = evt.pageY - $("#robot-canvas").offset().top;
-    position = RUR.we.calculate_grid_position();
-    RUR.tooltip.canvas.style.left = "-200px";
-    if (!RUR.we.mouse_contained_flag) {
-        return;
-    }
-
-    //mouse_above_robot = false;
-    if (world.robots !== undefined) {
-        for (i=0; i < world.robots.length; i++) {
-            robot = world.robots[i];
-            if (robot.start_positions === undefined) {
-                robot.start_positions = [[robot.x, robot.y]];
-            }
-            for (j=0; j < robot.start_positions.length; j++){
-                pos = robot.start_positions[j];
-                if(pos[0]==position[0] && pos[1]==position[1]){
-                    mouse_above_robot = true;
-                    if (robot.objects !== undefined){
-                        objects_carried = Object.keys(robot.objects);
-                        break;
-                    }
-                }
-            }
-            if (mouse_above_robot) {
-                break;
-            }
-        }
-    }
-
-    RUR.tooltip.canvas.height = size;
-    if (objects_carried !== undefined) {
-        RUR.tooltip.canvas.width = size*Math.max(objects_carried.length, 1);
-    } else {
-        RUR.tooltip.canvas.width = size;
-        objects_carried = [];
-    }
-    if (mouse_above_robot){
-        RUR.tooltip.canvas.style.left = x+20 + "px";
-        RUR.tooltip.canvas.style.top = y + "px";
-        RUR.tooltip.ctx.clearRect(0, 0, RUR.tooltip.canvas.width, RUR.tooltip.canvas.height);
-        for (i=0; i < objects_carried.length; i++){
-            image = RUR.OBJECTS[objects_carried[i]].image;
-            nb_obj = robot.objects[objects_carried[i]];
-            if (nb_obj == "infinite" || nb_obj == Infinity) {
-                nb_obj = "∞";
-            }
-            RUR.tooltip.ctx.drawImage(image, i*size, 0, image.width, image.height);
-            RUR.tooltip.ctx.fillText(nb_obj, i*size+1, size-1);
-        }
-    }
-};
-
-},{"./rur.js":43,"./world_editor.js":64}],48:[function(require,module,exports){
-require("./rur.js");
-require("./utils/supplant.js");
+require("./../lang/msg.js");
 
 RUR.translate = function (s) {
     if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
@@ -4862,7 +5834,7 @@ RUR.translate_to_english = function (s) {
     }
 };
 
-},{"./rur.js":43,"./utils/supplant.js":56}],49:[function(require,module,exports){
+},{"./../lang/msg.js":82,"./rur.js":46}],51:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -4877,7 +5849,31 @@ exports.toggle = function () {
     }
 };
 
-},{"./../rur.js":43}],50:[function(require,module,exports){
+},{"./../rur.js":46}],52:[function(require,module,exports){
+$("#tabs").tabs({
+        heightStyle: "auto",
+        activate: function(event, ui){
+            editor.refresh();
+            library.refresh();
+            pre_code_editor.refresh();
+            post_code_editor.refresh();
+            description_editor.refresh();
+            onload_editor.refresh();
+        }
+});
+
+$("#editor-panel").resizable({
+    resize: function() {
+        editor.setSize(null, $(this).height()-40);
+        library.setSize(null, $(this).height()-40);
+        pre_code_editor.setSize(null, $(this).height()-40);
+        post_code_editor.setSize(null, $(this).height()-40);
+        description_editor.setSize(null, $(this).height()-40);
+        onload_editor.setSize(null, $(this).height()-40);
+    }
+}).draggable({cursor: "move", handle: "ul"});
+
+},{}],53:[function(require,module,exports){
 
 require("./../state.js");
 
@@ -4893,7 +5889,7 @@ exports.set_ready_to_run = set_ready_to_run = function () {
 
 set_ready_to_run();
 
-},{"./../state.js":45}],51:[function(require,module,exports){
+},{"./../state.js":48}],54:[function(require,module,exports){
 ;
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
 
@@ -4905,7 +5901,7 @@ $.ajaxPrefilter( function (options) {
   }
 });
 
-},{}],52:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 /* filterInt adapted from
 https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 */
@@ -4916,7 +5912,7 @@ exports.filterInt = function (value) {
   return undefined;
 };
 
-},{}],53:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 /*
     Original script title: "Object.identical.js"; version 1.12
     Copyright (c) 2011, Chris O'Brien, prettycode.org
@@ -4952,7 +5948,7 @@ exports.identical = function (a, b) {
     return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
 };
 
-},{}],54:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 require("./../rur.js");
 RUR._ensure_key_exists = function(obj, key){
     "use strict";
@@ -4961,7 +5957,7 @@ RUR._ensure_key_exists = function(obj, key){
     }
 };
 
-},{"./../rur.js":43}],55:[function(require,module,exports){
+},{"./../rur.js":46}],58:[function(require,module,exports){
 // parseUri 1.2.2
 // (c) Steven Levithan <stevenlevithan.com>
 // MIT License
@@ -4997,7 +5993,7 @@ parseUri.options = {
 
 window.parseUri = parseUri;
 
-},{}],56:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 // adapted from http://javascript.crockford.com/remedial.html
 
 // will modify a global object - no need to export anything.
@@ -5012,7 +6008,7 @@ String.prototype.supplant = function (o) {
     );
 };
 
-},{}],57:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 
 require("./constants.js");
 require("./state.js");
@@ -5253,7 +6249,7 @@ RUR.vis_robot.set_trace_style = function (choice, robot){
 
 RUR.vis_robot.set_trace_style("default");
 
-},{"./constants.js":1,"./state.js":45}],58:[function(require,module,exports){
+},{"./constants.js":3,"./state.js":48}],61:[function(require,module,exports){
 
 /*jshint  -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR*/
@@ -5896,7 +6892,7 @@ RUR.vis_world.draw_info = function() {
     }
 };
 
-},{"./constants.js":1,"./state.js":45,"./translator.js":48}],59:[function(require,module,exports){
+},{"./constants.js":3,"./state.js":48,"./translator.js":50}],62:[function(require,module,exports){
 
 require("./translator.js");
 require("./constants.js");
@@ -6001,7 +6997,7 @@ $("#update-library-content-btn").on("click", function(evt) {
     }
 });
 
-},{"./constants.js":1,"./exceptions.js":10,"./robot.js":41,"./state.js":45,"./translator.js":48,"./ui/edit_robot_menu.js":49,"./visible_world.js":58,"./world/clone_world.js":60}],60:[function(require,module,exports){
+},{"./constants.js":3,"./exceptions.js":12,"./robot.js":44,"./state.js":48,"./translator.js":50,"./ui/edit_robot_menu.js":51,"./visible_world.js":61,"./world/clone_world.js":63}],63:[function(require,module,exports){
 
 exports.clone_world = function (world) {
     if (world === undefined) {
@@ -6011,7 +7007,7 @@ exports.clone_world = function (world) {
     }
 };
 
-},{}],61:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 require("./../constants.js");
 
 exports.create_empty_world = create_empty_world = function (blank_canvas) {
@@ -6034,13 +7030,13 @@ exports.create_empty_world = create_empty_world = function (blank_canvas) {
 };
 RUR.CURRENT_WORLD = create_empty_world();
 
-},{"./../constants.js":1}],62:[function(require,module,exports){
+},{"./../constants.js":3}],65:[function(require,module,exports){
 
 exports.export_world = function () {
     return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
 };
 
-},{}],63:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 require("./../translator.js");
 require("./../constants.js");
 require("./../robot.js");
@@ -6159,7 +7155,7 @@ eval_onload = function () {
     }
 };
 
-},{"./../constants.js":1,"./../exceptions.js":10,"./../robot.js":41,"./../state.js":45,"./../translator.js":48,"./../ui/edit_robot_menu.js":49,"./../visible_world.js":58,"./clone_world.js":60}],64:[function(require,module,exports){
+},{"./../constants.js":3,"./../exceptions.js":12,"./../robot.js":44,"./../state.js":48,"./../translator.js":50,"./../ui/edit_robot_menu.js":51,"./../visible_world.js":61,"./clone_world.js":63}],67:[function(require,module,exports){
 
 require("./translator.js");
 require("./constants.js");
@@ -6172,6 +7168,7 @@ require("./state.js");
 require("./world_get.js");
 require("./world_set.js");
 require("./dialogs/create.js");
+require("./listeners/canvas.js");
 
 require("./world_set/add_object.js");
 require("./world_set/add_goal_object.js");
@@ -6426,41 +7423,13 @@ RUR.we.toggle_editing_mode = function () {
 RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
                                  {}, RUR.we.toggle_editing_mode);
 
-RUR.we.calculate_grid_position = function () {
-    var ctx, x, y;
-    x = RUR.mouse_x - $("#robot-canvas").offset().left;
-    y = RUR.mouse_y - $("#robot-canvas").offset().top;
 
-    x /= RUR.WALL_LENGTH;
-    x = Math.floor(x);
-
-    y = RUR.HEIGHT - y + RUR.WALL_THICKNESS;
-    y /= RUR.WALL_LENGTH;
-    y = Math.floor(y);
-
-    RUR.we.mouse_contained_flag = true;  // used in tooltip.js
-    if (x < 1 ) {
-        x = 1;
-        RUR.we.mouse_contained_flag = false;
-    } else if (x > RUR.COLS) {
-        x = RUR.COLS;
-        RUR.we.mouse_contained_flag = false;
-    }
-    if (y < 1 ) {
-        y = 1;
-        RUR.we.mouse_contained_flag = false;
-    } else if (y > RUR.ROWS) {
-        y = RUR.ROWS;
-        RUR.we.mouse_contained_flag = false;
-    }
-    return [x, y];
-};
 
 
 RUR.we.place_robot = function () {
     "use strict";
     var position, world=RUR.CURRENT_WORLD, robot, arr=[], pos, present=false;
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     if (world.robots !== undefined){
         if (world.robots.length >0) {
             robot = world.robots[0];
@@ -6641,7 +7610,7 @@ RUR.we.toggle_goal_wall = function () {
 RUR.we._add_object = function (specific_object){
     "use strict";
     var position, x, y, query, tmp;
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
     if (specific_object == "box") {
@@ -6665,7 +7634,7 @@ RUR.we._add_object = function (specific_object){
 RUR.we._add_goal_objects = function (specific_object){
     "use strict";
     var position, x, y, coords, query;
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
     coords = x + "," + y;
@@ -6714,7 +7683,7 @@ RUR.we.set_goal_position = function (home){
 
     goal.position.image = home;
 
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     goal.position.x = position[0];
     goal.position.y = position[1];
 
@@ -6760,7 +7729,7 @@ RUR.we.toggle_tile = function (tile){
         return;
     }
 
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
     coords = x + "," + y;
@@ -6800,7 +7769,7 @@ RUR.we.toggle_solid_object = function (obj){
     "use strict";
     var x, y, position;
 
-    position = RUR.we.calculate_grid_position();
+    position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
 
@@ -6812,23 +7781,22 @@ RUR.we.toggle_solid_object = function (obj){
 };
 
 
-
+// mouse clicks also requested in listeners/canvas.js
 $("#robot-canvas").on("click", function (evt) {
-    RUR.mouse_x = evt.pageX;
-    RUR.mouse_y = evt.pageY;
-    if (RUR.state.editing_world) {
+    if (RUR.state.editing_world && RUR.we.edit_world_flag !== undefined) {
         RUR.we.edit_world();
     }
     RUR.world_get.world_info();
 });
 
-},{"./constants.js":1,"./dialogs/add_object.js":4,"./dialogs/create.js":5,"./dialogs/give_object.js":6,"./dialogs/goal_object.js":7,"./dialogs/select_colour.js":8,"./dialogs/set_background_image.js":9,"./exceptions.js":10,"./objects.js":31,"./robot.js":41,"./state.js":45,"./translator.js":48,"./ui/edit_robot_menu.js":49,"./utils/filterint.js":52,"./utils/identical.js":53,"./visible_world.js":58,"./world.js":59,"./world_get.js":65,"./world_set.js":68,"./world_set/add_goal_object.js":69,"./world_set/add_object.js":70,"./world_set/add_robot.js":71}],65:[function(require,module,exports){
+},{"./constants.js":3,"./dialogs/add_object.js":6,"./dialogs/create.js":7,"./dialogs/give_object.js":8,"./dialogs/goal_object.js":9,"./dialogs/select_colour.js":10,"./dialogs/set_background_image.js":11,"./exceptions.js":12,"./listeners/canvas.js":21,"./objects.js":34,"./robot.js":44,"./state.js":48,"./translator.js":50,"./ui/edit_robot_menu.js":51,"./utils/filterint.js":55,"./utils/identical.js":56,"./visible_world.js":61,"./world.js":62,"./world_get.js":68,"./world_set.js":71,"./world_set/add_goal_object.js":72,"./world_set/add_object.js":73,"./world_set/add_robot.js":74}],68:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
 
 require("./objects.js");
 require("./dialogs/create.js");
+require("./listeners/canvas.js");
 
 RUR.world_get = {};
 
@@ -6938,7 +7906,7 @@ RUR.world_get.world_info = function (no_grid) {
     }
 
     if (!no_grid) {
-        position = RUR.we.calculate_grid_position();
+        position = RUR.calculate_grid_position();
         x = position[0];
         y = position[1];
         coords = x + "," + y;
@@ -7092,7 +8060,7 @@ RUR.world_get.world_info = function (no_grid) {
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:300, width:600}, RUR.world_get.world_info);
 
-},{"./dialogs/create.js":5,"./objects.js":31}],66:[function(require,module,exports){
+},{"./dialogs/create.js":7,"./listeners/canvas.js":21,"./objects.js":34}],69:[function(require,module,exports){
 
 require("./visible_world.js");
 require("./constants.js");
@@ -7213,7 +8181,7 @@ RUR.world_init.set = function () {
     RUR.vis_world.refresh();
 };
 
-},{"./constants.js":1,"./visible_world.js":58}],67:[function(require,module,exports){
+},{"./constants.js":3,"./visible_world.js":61}],70:[function(require,module,exports){
 
 /*  Purpose of this file: abstract handling of menus so that all jQuery
     dependencies (and possibly obscure syntax in some cases) can be pulled
@@ -7310,7 +8278,7 @@ RUR.world_select.append_world = function (arg) {
     }
 };
 
-},{}],68:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 /* In some ways, this is the counterpart of world_get.js
 */
 
@@ -7456,7 +8424,7 @@ set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit
     set_dimension();
 });
 
-},{"./exceptions.js":10,"./objects.js":31,"./recorder.js":38,"./visible_world.js":58}],69:[function(require,module,exports){
+},{"./exceptions.js":12,"./objects.js":34,"./recorder.js":41,"./visible_world.js":61}],72:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
@@ -7516,7 +8484,7 @@ RUR.add_goal_object_at_position = function (specific_object, x, y, nb){
     }
 };
 
-},{"./../exceptions.js":10,"./../translator.js":48,"./../utils/key_exist.js":54}],70:[function(require,module,exports){
+},{"./../exceptions.js":12,"./../translator.js":50,"./../utils/key_exist.js":57}],73:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
@@ -7567,7 +8535,7 @@ RUR.add_object_at_position = function (specific_object, x, y, nb){
     }
 };
 
-},{"./../exceptions.js":10,"./../translator.js":48,"./../utils/key_exist.js":54}],71:[function(require,module,exports){
+},{"./../exceptions.js":12,"./../translator.js":50,"./../utils/key_exist.js":57}],74:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -7579,7 +8547,7 @@ RUR._add_robot = function (robot) {
     RUR.record_frame();
 };
 
-},{"./../recorder/record_frame.js":39}],72:[function(require,module,exports){
+},{"./../recorder/record_frame.js":42}],75:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
@@ -7630,7 +8598,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../exceptions.js":10,"./../translator.js":48,"./../utils/key_exist.js":54}],73:[function(require,module,exports){
+},{"./../exceptions.js":12,"./../translator.js":50,"./../utils/key_exist.js":57}],76:[function(require,module,exports){
 require("./../world/create_empty.js");
 require("./../visible_robot.js");
 require("./../visible_world.js");
@@ -7648,989 +8616,7 @@ exports.reset_world = reset_world = function () {
 
 reset_world();
 
-},{"./../visible_robot.js":57,"./../visible_world.js":58,"./../world/clone_world.js":60,"./../world/create_empty.js":61}],74:[function(require,module,exports){
-/*  The purpose of this module is to act as an intermediary between end user
-modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
-the other modules.  This way, in theory, (most) refactoring can take place in the
-basic javascript code without affecting the end user code.
-
-Convention: all "public" function names follow the pattern RUR._xyz_
-            Use four spaces for indentation
-            Order function names alphabetically (in English)
- */
-
-require("./translator.js");
-require("./constants.js");
-require("./control.js");
-require("./custom_world_select.js");
-require("./file_io.js");
-require("./output.js");
-require("./visible_robot.js");
-require("./state.js");
-require("./world.js");
-require("./world_set.js");
-
-RUR.inspect = function (obj){
-    var props, result = "";
-    for (props in obj) {
-        if (typeof obj[props] === "function") {
-            result += props + "()\n";
-        } else{
-            result += props + "\n";
-        }
-    }
-    RUR.output._write(result);
-};
-
-function user_no_highlight () {
-    if (RUR.state.highlight) {
-        RUR.state.highlight = false;
-        $("#highlight").addClass("blue-gradient");
-        $("#highlight").removeClass("reverse-blue-gradient");
-    }
-}
-
-
-RUR._at_goal_ = function () {
-    return RUR.control.at_goal(RUR.CURRENT_WORLD.robots[0]);
-};
-
-RUR._build_wall_ = function() {
-    RUR.control.build_wall(RUR.CURRENT_WORLD.robots[0]);
-};
-
-RUR._carries_object_ = function (arg) {
-    return RUR.control.carries_object(RUR.CURRENT_WORLD.robots[0], arg);
-};
-
-RUR._clear_print_ = RUR.output.clear_print;
-
-RUR._color_here_ = function () {
-    var robot = RUR.CURRENT_WORLD.robots[0];
-    return RUR.control.get_color_at_position(robot.x, robot.y);
-};
-
-RUR._default_robot_body_ = function () { // simply returns body
-    return RUR.CURRENT_WORLD.robots[0];
-};
-
-RUR._dir_js_ = RUR.inspect;
-
-RUR._done_ = RUR.control.done;
-
-RUR._front_is_clear_ = function() {
-  return RUR.control.front_is_clear(RUR.CURRENT_WORLD.robots[0]);
-};
-
-
-RUR._is_facing_north_ = function () {
-    return RUR.control.is_facing_north(RUR.CURRENT_WORLD.robots[0]);
-};
-
-RUR._move_ = function () {
-    RUR.control.move(RUR.CURRENT_WORLD.robots[0]);
-};
-
-RUR._new_robot_images_ = RUR.vis_robot.new_robot_images;
-
-RUR._no_highlight_ = user_no_highlight;
-
-RUR._object_here_ = function (arg) {
-    return RUR.world_get.object_at_robot_position(RUR.CURRENT_WORLD.robots[0], arg);
-};
-
-RUR._paint_square_ = function (color) {
-    // note that this can do more than simply setting the color: it can also
-    // set the tile type.
-    var robot = RUR.CURRENT_WORLD.robots[0];
-    RUR.control.set_tile_at_position(x, y, color);
-};
-
-RUR._pause_ = RUR.control.pause;
-
-RUR._print_html_ = function (html, append) {
-    RUR.output.print_html(html, append);
-};
-
-RUR._put_ = function(arg) {
-    RUR.control.put(RUR.CURRENT_WORLD.robots[0], arg);
-};
-
-RUR._recording_ = function(bool) {
-    if (bool) {
-        RUR.state.do_not_record = false;
-    } else {
-        RUR.state.do_not_record = true;
-    }
-};
-
-RUR._remove_robots_ = function () {
-    RUR.CURRENT_WORLD.robots = [];
-};
-
-RUR._right_is_clear_ = function() {
-    return RUR.control.right_is_clear(RUR.CURRENT_WORLD.robots[0]);
-};
-
-RUR._set_max_nb_instructions_ = function(n){
-    RUR.MAX_STEPS = n;
-};
-
-RUR._set_trace_color_ = function(color){
-    RUR.CURRENT_WORLD.robots[0].trace_color = color;
-};
-
-RUR._set_trace_style_ = RUR.vis_robot.set_trace_style;
-
-RUR._sound_ = RUR.control.sound;
-
-RUR._take_ = function(arg) {
-    RUR.control.take(RUR.CURRENT_WORLD.robots[0], arg);
-};
-
-RUR._think_ = RUR.control.think;
-
-RUR._turn_left_ = function () {
-    RUR.control.turn_left(RUR.CURRENT_WORLD.robots[0]);
-};
-
-RUR._view_source_js_ = RUR.output.view_source_js;
-
-RUR._wall_in_front_ = function() {
-    return RUR.control.wall_in_front(RUR.CURRENT_WORLD.robots[0]);
-};
-
-RUR._write_ = RUR.output.write;
-
-RUR.__write_ = RUR.output._write;
-
-RUR._wall_on_right_ = function() {
-    return RUR.control.wall_on_right(RUR.CURRENT_WORLD.robots[0]);
-};
-
-RUR._MakeCustomMenu_ = RUR.custom_world_select.make;
-
-RUR._World_ = RUR.file_io.load_world_from_program;
-
-/*  methods below */
-
-RUR._UR = {};
-
-RUR._UR.at_goal_ = function (robot) {
-    RUR.control.at_goal(robot);
-};
-
-RUR._UR.build_wall_ = function (robot) {
-    RUR.control.build_wall(robot);
-};
-
-RUR._UR.carries_object_ = function (robot, obj) {
-    RUR.control.carries_object(robot, obj);
-};
-
-RUR._UR.front_is_clear_ = function (robot) {
-    RUR.control.front_is_clear(robot);
-};
-
-RUR._UR.is_facing_north_ = function (robot) {
-    RUR.control.is_facing_north(robot);
-};
-
-RUR._UR.move_ = function (robot) {
-    RUR.control.move(robot);
-};
-
-RUR._UR.object_here_ = function (robot, obj) {
-    RUR.world_get.object_at_robot_position(robot, obj);
-};
-
-RUR._UR.put_ = function (robot, obj) {
-    RUR.control.put(robot, obj);
-};
-
-RUR._UR.right_is_clear_ = function (robot) {
-    RUR.control.right_is_clear(robot);
-};
-
-RUR._UR.set_model_ = function (robot, model) {
-    RUR.control.set_model(robot, model);
-};
-
-RUR._UR.set_trace_color_ = function (robot, color) {
-    RUR.control.set_trace_color(robot, color);
-};
-
-RUR._UR.set_trace_style_ = function (robot, style) {
-    RUR.control.set_trace_style(robot, style);
-};
-
-RUR._UR.take_ = function (robot, obj) {
-    RUR.control.take(robot, obj);
-};
-
-RUR._UR.turn_left_ = function (robot) {
-    RUR.control.turn_left(robot);
-};
-
-RUR._UR.wall_in_front_ = function (robot) {
-    RUR.control.wall_in_front(robot);
-};
-
-RUR._UR.wall_on_right_ = function (robot) {
-    RUR.control.wall_on_right(robot);
-};
-
-},{"./constants.js":1,"./control.js":2,"./custom_world_select.js":3,"./file_io.js":14,"./output.js":32,"./state.js":45,"./translator.js":48,"./visible_robot.js":57,"./world.js":59,"./world_set.js":68}],75:[function(require,module,exports){
-/* jshint -W069 */
-require("./rur.js");
-require("./translator.js");
-
-RUR.blockly = {};
-RUR.color_basic = 120;
-RUR.color_condition = 240;
-RUR.done_colour = "#aa0000";
-
-/****  Begin over-riding Blockly's default */
-Blockly.Blocks.loops.HUE = 230;
-
-Blockly.JavaScript['text_print'] = function(block) {
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
-      Blockly.JavaScript.ORDER_NONE) || '\'\'';
-  return RUR.translate("write")+'(' + argument0 + ');\n';
-};
-
-Blockly.makeColour = function(hue) {
-  if (hue === RUR.done_colour){
-      return hue;
-  }
-  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
-      Blockly.HSV_VALUE * 255);
-};
-
-Blockly.Python.INDENT = '    ';
-Blockly.JavaScript.INDENT = '    ';
-
-// removing mutator for simple function definitions as per
-// https://groups.google.com/d/msg/blockly/_rrwh-Lc-sE/cHAk5yNfhUEJ
-
-(function(){var old = Blockly.Blocks.procedures_defnoreturn.init;
-    Blockly.Blocks.procedures_defnoreturn.init =
-    function(){old.call(this);
-        this.setMutator(undefined);
-        // this.setColour(RUR.color_basic);
-    };
-})();
-
-
-
-RUR.blockly.init = function () {
-
-    // override some defaults 
-    Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
-    Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
-    Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
-
-
-    Blockly.Blocks['_sound_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField(RUR.translate("sound"))
-            .appendField(new Blockly.FieldCheckbox("TRUE"), "SOUND");
-        this.setInputsInline(true);
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setColour(20);
-        this.setTooltip('');
-      }
-    };
-    Blockly.JavaScript['_sound_'] = function(block) {
-      var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
-      if (checkbox_sound) {
-          return RUR.translate("sound") + "(true);\n";
-      } else {
-          return RUR.translate("sound") + "(false);\n";
-      }
-    };
-    Blockly.Python['_sound_'] = function(block) {
-      var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
-      if (checkbox_sound) {
-          return RUR.translate("sound") + "(True)\n";
-      } else {
-          return RUR.translate("sound") + "(False)\n";
-      }
-    };
-
-    Blockly.Blocks['_think_'] = {
-      init: function() {
-        this.appendValueInput("NAME")
-            .setCheck("Number")
-            .appendField(RUR.translate("think"));
-        this.setInputsInline(true);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(20);
-        this.setTooltip(RUR.translate("Delay between actions; default is 300 ms."));
-      }
-    };
-    Blockly.Python['_think_'] = function(block) {
-      var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-      return RUR.translate("think") + "("+value_name+")\n";
-    };
-    Blockly.JavaScript['_think_'] = function(block) {
-      var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-      return RUR.translate("think") + "("+value_name+");\n";
-    };
-
-    Blockly.Blocks['_move_'] = {
-      init: function() {
-        this.setColour(RUR.color_basic);
-        this.appendDummyInput().appendField(RUR.translate("move"));
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("move forward"));
-      }
-    };
-    Blockly.Python['_move_'] = function(block) {
-      return RUR.translate("move")+'()\n';
-    };
-    Blockly.JavaScript['_move_'] = function(block) {
-      return RUR.translate("move")+'();\n';
-    };
-
-
-    Blockly.Blocks['_turn_left_'] = {
-      init: function() {
-        this.setColour(RUR.color_basic);
-        this.appendDummyInput().appendField(RUR.translate("turn_left")+" \u21BA");
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("turn left"));
-      }
-    };
-    Blockly.Python['_turn_left_'] = function(block) {
-      return RUR.translate("turn_left")+'()\n';
-    };
-    Blockly.JavaScript['_turn_left_'] = function(block) {
-      return RUR.translate("turn_left")+'();\n';
-    };
-
-
-    Blockly.Blocks['_take_'] = {
-      init: function() {
-        this.setColour(RUR.color_basic);
-        this.appendDummyInput().appendField(RUR.translate("take"));
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("take object"));
-      }
-    };
-    Blockly.Python['_take_'] = function(block) {
-      return RUR.translate("take")+'()\n';
-    };
-    Blockly.JavaScript['_take_'] = function(block) {
-      return RUR.translate("take")+'();\n';
-    };
-
-
-    Blockly.Blocks['_put_'] = {
-      init: function() {
-        this.setColour(RUR.color_basic);
-        this.appendDummyInput().appendField(RUR.translate("put"));
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("put object"));
-      }
-    };
-    Blockly.Python['_put_'] = function(block) {
-      return RUR.translate("put")+'()\n';
-    };
-    Blockly.JavaScript['_put_'] = function(block) {
-      return RUR.translate("put")+'();\n';
-    };
-
-
-    Blockly.Blocks['_pause_'] = {
-      init: function() {
-        this.setColour(30);
-        this.appendDummyInput().appendField(RUR.translate("pause"));
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("Pause the program's execution."));
-      }
-    };
-    Blockly.Python['_pause_'] = function(block) {
-      return RUR.translate("pause")+'()\n';
-    };
-    Blockly.JavaScript['_pause_'] = function(block) {
-      return RUR.translate("pause")+'();\n';
-    };
-
-
-    Blockly.Blocks['_build_wall_'] = {
-      init: function() {
-        this.setColour(RUR.color_basic);
-        this.appendDummyInput().appendField(RUR.translate("build_wall"));
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("Build a wall in front of the robot."));
-      }
-    };
-    Blockly.Python['_build_wall_'] = function(block) {
-      return RUR.translate("build_wall")+'()\n';
-    };
-    Blockly.JavaScript['_build_wall_'] = function(block) {
-      return RUR.translate("build_wall")+'();\n';
-    };
-
-
-    Blockly.Blocks['_done_'] = {
-      init: function() {
-        this.setColour(RUR.done_colour);
-        this.appendDummyInput().appendField(RUR.translate("done"));
-        this.setPreviousStatement(true);
-        this.setTooltip(RUR.translate("End the program's execution."));
-      }
-    };
-    Blockly.Python['_done_'] = function(block) {
-      return RUR.translate("done")+'()\n';
-    };
-    Blockly.JavaScript['_done_'] = function(block) {
-      return RUR.translate("done")+'();\n';
-    };
-
-
-    Blockly.Blocks['_wall_in_front_or_right_'] = {
-      init: function() {
-        var choices =  [
-            [RUR.translate("wall_in_front"), RUR.translate("wall_in_front")],
-            [RUR.translate("wall_on_right"), RUR.translate("wall_on_right")]];
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if a wall is blocking the way."));
-      }
-    };
-    Blockly.Python['_wall_in_front_or_right_'] = function(block) {
-      return [block.getFieldValue('choice')+'()'];
-    };
-    Blockly.JavaScript['_wall_in_front_or_right_'] = function(block) {
-      return [block.getFieldValue('choice')+'()'];
-    };
-
-
-    Blockly.Blocks['_front_or_right_is_clear_'] = {
-      init: function() {
-        var choices =  [
-            [RUR.translate("front_is_clear"), RUR.translate("front_is_clear")],
-            [RUR.translate("right_is_clear"), RUR.translate("right_is_clear")]];
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if nothing is blocking the way."));
-      }
-    };
-    Blockly.Python['_front_or_right_is_clear_'] = function(block) {
-      return [block.getFieldValue('choice')+'()'];
-    };
-    Blockly.JavaScript['_front_or_right_is_clear_'] = function(block) {
-      return [block.getFieldValue('choice')+'()'];
-    };
-
-
-    Blockly.Blocks['_at_goal_'] = {
-      init: function() {
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(RUR.translate("at_goal"));
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if desired destination."));
-      }
-    };
-    Blockly.Python['_at_goal_'] = function(block) {
-      return [RUR.translate("at_goal")+'()'];
-    };
-    Blockly.JavaScript['_at_goal_'] = function(block) {
-      return [RUR.translate("at_goal")+'()'];
-    };
-
-
-    Blockly.Blocks['_carries_object_'] = {
-      init: function() {
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(RUR.translate("carries_object"));
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if robot carries at least one object."));
-      }
-    };
-    Blockly.Python['_carries_object_'] = function(block) {
-      return [RUR.translate("carries_object")+'()'];
-    };
-    Blockly.JavaScript['_carries_object_'] = function(block) {
-      return [RUR.translate("carries_object")+'()'];
-    };
-
-
-    Blockly.Blocks['_object_here_'] = {
-      init: function() {
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(RUR.translate("object_here"));
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if there is at least one object here."));
-      }
-    };
-    Blockly.Python['_object_here_'] = function(block) {
-      return [RUR.translate("object_here")+'()'];
-    };
-    Blockly.JavaScript['_object_here_'] = function(block) {
-      return [RUR.translate("object_here")+'()'];
-    };
-
-
-    Blockly.Blocks['_is_facing_north_'] = {
-      init: function() {
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(RUR.translate("is_facing_north"));
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if robot is facing North."));
-      }
-    };
-    Blockly.Python['_is_facing_north_'] = function(block) {
-      return [RUR.translate("is_facing_north")+'()'];
-    };
-    Blockly.JavaScript['_is_facing_north_'] = function(block) {
-      return [RUR.translate("is_facing_north")+'()'];
-    };
-
-
-    Blockly.Blocks['_star_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("star"))
-            .appendField(new Blockly.FieldImage("/src/images/star.png", 15, 15, RUR.translate("star")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_star_'] = function(block) {
-      return [RUR.translate("star")];
-    };
-    Blockly.JavaScript['_star_'] = function(block) {
-      return [RUR.translate("star")];
-    };
-
-    Blockly.Blocks['_token_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("token"))
-            .appendField(new Blockly.FieldImage("/src/images/token.png", 15, 15, RUR.translate("token")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_token_'] = function(block) {
-      return [RUR.translate("token")];
-    };
-    Blockly.JavaScript['_token_'] = function(block) {
-      return [RUR.translate("token")];
-    };
-
-    Blockly.Blocks['_apple_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("apple"))
-            .appendField(new Blockly.FieldImage("/src/images/apple.png", 15, 15, RUR.translate("apple")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_apple_'] = function(block) {
-      return [RUR.translate("apple")];
-    };
-    Blockly.JavaScript['_apple_'] = function(block) {
-      return [RUR.translate("apple")];
-    };
-
-    Blockly.Blocks['_carrot_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("carrot"))
-            .appendField(new Blockly.FieldImage("/src/images/carrot.png", 15, 15, RUR.translate("carrot")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_carrot_'] = function(block) {
-      return [RUR.translate("carrot")];
-    };
-    Blockly.JavaScript['_carrot_'] = function(block) {
-      return [RUR.translate("carrot")];
-    };
-
-    Blockly.Blocks['_dandelion_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("dandelion"))
-            .appendField(new Blockly.FieldImage("/src/images/dandelion.png", 15, 15, RUR.translate("dandelion")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_dandelion_'] = function(block) {
-      return [RUR.translate("dandelion")];
-    };
-    Blockly.JavaScript['_dandelion_'] = function(block) {
-      return [RUR.translate("dandelion")];
-    };
-
-    Blockly.Blocks['_daisy_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("daisy"))
-            .appendField(new Blockly.FieldImage("/src/images/daisy.png", 15, 15, RUR.translate("daisy")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_daisy_'] = function(block) {
-      return [RUR.translate("daisy")];
-    };
-    Blockly.JavaScript['_daisy_'] = function(block) {
-      return [RUR.translate("daisy")];
-    };
-
-    Blockly.Blocks['_triangle_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("triangle"))
-            .appendField(new Blockly.FieldImage("/src/images/triangle.png", 15, 15, RUR.translate("triangle")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_triangle_'] = function(block) {
-      return [RUR.translate("triangle")];
-    };
-    Blockly.JavaScript['_triangle_'] = function(block) {
-      return [RUR.translate("triangle")];
-    };
-
-    Blockly.Blocks['_square_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("square"))
-            .appendField(new Blockly.FieldImage("/src/images/square.png", 15, 15, RUR.translate("square")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_square_'] = function(block) {
-      return [RUR.translate("square")];
-    };
-    Blockly.JavaScript['_square_'] = function(block) {
-      return [RUR.translate("square")];
-    };
-
-    Blockly.Blocks['_strawberry_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("strawberry"))
-            .appendField(new Blockly.FieldImage("/src/images/strawberry.png", 15, 15, RUR.translate("strawberry")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_strawberry_'] = function(block) {
-      return [RUR.translate("strawberry")];
-    };
-    Blockly.JavaScript['_strawberry_'] = function(block) {
-      return [RUR.translate("strawberry")];
-    };
-
-    Blockly.Blocks['_leaf_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("leaf"))
-            .appendField(new Blockly.FieldImage("/src/images/leaf.png", 15, 15, RUR.translate("leaf")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_leaf_'] = function(block) {
-      return [RUR.translate("leaf")];
-    };
-    Blockly.JavaScript['_leaf_'] = function(block) {
-      return [RUR.translate("leaf")];
-    };
-
-    Blockly.Blocks['_banana_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("banana"))
-            .appendField(new Blockly.FieldImage("/src/images/banana.png", 15, 15, RUR.translate("banana")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_banana_'] = function(block) {
-      return [RUR.translate("banana")];
-    };
-    Blockly.JavaScript['_banana_'] = function(block) {
-      return [RUR.translate("banana")];
-    };
-
-    Blockly.Blocks['_orange_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("orange"))
-            .appendField(new Blockly.FieldImage("/src/images/orange.png", 15, 15, RUR.translate("orange")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_orange_'] = function(block) {
-      return [RUR.translate("orange")];
-    };
-    Blockly.JavaScript['_orange_'] = function(block) {
-      return [RUR.translate("orange")];
-    };
-
-    Blockly.Blocks['_tulip_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("tulip"))
-            .appendField(new Blockly.FieldImage("/src/images/tulip.png", 15, 15, RUR.translate("tulip")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_tulip_'] = function(block) {
-      return [RUR.translate("tulip")];
-    };
-    Blockly.JavaScript['_tulip_'] = function(block) {
-      return [RUR.translate("tulip")];
-    };
-
-    Blockly.Blocks['_carries_object_or_here_'] = {
-      init: function() {
-        this.appendValueInput("action")
-            .setCheck("String")
-            .appendField(new Blockly.FieldDropdown([
-                [RUR.translate("carries_object"), RUR.translate("carries_object")],
-                [RUR.translate("object_here"), RUR.translate("object_here")]]), "condition");
-        this.setOutput(true, "Boolean");
-        this.setColour(RUR.color_condition);
-      }
-    };
-    Blockly.Python['_carries_object_or_here_'] = function(block) {
-      var dropdown_condition = block.getFieldValue('condition');
-      var value_action = Blockly.Python.valueToCode(block, 'action', Blockly.Python.ORDER_ATOMIC);
-      return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
-    };
-    Blockly.JavaScript['_carries_object_or_here_'] = function(block) {
-      var dropdown_condition = block.getFieldValue('condition');
-      var value_action = Blockly.JavaScript.valueToCode(block, 'action', Blockly.JavaScript.ORDER_ATOMIC);
-      return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
-    };
-
-
-    Blockly.Blocks['_take_or_put_'] = {
-      init: function() {
-        this.appendValueInput("obj")
-            .setCheck("String")
-            .appendField(new Blockly.FieldDropdown([
-                [RUR.translate("take"), RUR.translate("take")],
-                [RUR.translate("put"), RUR.translate("put")]]), "action");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(RUR.color_basic);
-      }
-    };
-    Blockly.Python['_take_or_put_'] = function(block) {
-      var dropdown_action = block.getFieldValue('action');
-      var value_obj = Blockly.Python.valueToCode(block, 'obj', Blockly.Python.ORDER_ATOMIC);
-      return dropdown_action + '("' + value_obj + '")\n';
-    };
-    Blockly.JavaScript['_take_or_put_'] = function(block) {
-      var dropdown_action = block.getFieldValue('action');
-      var value_obj = Blockly.JavaScript.valueToCode(block, 'obj', Blockly.JavaScript.ORDER_ATOMIC);
-      return dropdown_action + '("' + value_obj + '");\n';
-    };
-
-
-
-    /** Simple if skeletton from
-    https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#k8aine
-    ****/
-
-    Blockly.Blocks['_if_'] = {
-      init: function() {
-        this.appendValueInput("condition")
-            .setCheck("Boolean")
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
-        this.appendStatementInput("then")
-            .setCheck(null)
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setColour(210);
-        // this.setTooltip('');
-      }
-    };
-    Blockly.JavaScript['_if_'] = function(block) {
-      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-      var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
-      return "if (" + value_condition + ") {\n" + statements_then + "}\n";
-
-    };
-    Blockly.Python['_if_'] = function(block) {
-      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
-      var statements_then = Blockly.Python.statementToCode(block, 'then');
-      return "if " + value_condition + ":\n" + statements_then;
-    };
-
-
-    Blockly.Blocks['_if_else_'] = {
-      init: function() {
-        this.appendValueInput("condition")
-            .setCheck("Boolean")
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
-        this.appendStatementInput("then")
-            .setCheck(null)
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.appendDummyInput()
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
-        this.appendStatementInput("else")
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setColour(210);
-        this.setTooltip('');
-      }
-    };
-    Blockly.JavaScript['_if_else_'] = function(block) {
-      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-      var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
-      var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
-      return "if (" + value_condition + ") {\n" + statements_then + "} else {\n" + statements_else+"}\n";
-    };
-    Blockly.Python['_if_else_'] = function(block) {
-      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
-      var statements_then = Blockly.Python.statementToCode(block, 'then');
-      var statements_else = Blockly.Python.statementToCode(block, 'else');
-      return "if " + value_condition + ":\n" + statements_then + "else:\n" + statements_else;
-    };
-
-
-    Blockly.Blocks['_if_else_if_else_'] = {
-      init: function() {
-        this.appendValueInput("condition")
-            .setCheck("Boolean")
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
-        this.appendStatementInput("do")
-            .setCheck(null)
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.appendValueInput("condition2")
-            .setCheck("Boolean")
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
-        this.appendStatementInput("do2")
-            .setCheck(null)
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.appendDummyInput()
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
-        this.appendStatementInput("else")
-            .setCheck(null)
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setColour(210);
-        this.setTooltip('');
-      }
-    };
-    Blockly.JavaScript['_if_else_if_else_'] = function(block) {
-      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-      var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
-      var value_condition2 = Blockly.JavaScript.valueToCode(block, 'condition2', Blockly.JavaScript.ORDER_ATOMIC);
-      var statements_do2 = Blockly.JavaScript.statementToCode(block, 'do2');
-      var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
-      return "if (" + value_condition + ") {\n" + statements_do +
-             "} else if (" + value_condition2 + ") {\n" + statements_do2 +
-             "} else {\n" + statements_else+"}\n";
-    };
-    Blockly.Python['_if_else_if_else_'] = function(block) {
-      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
-      var statements_do = Blockly.Python.statementToCode(block, 'do');
-      var value_condition2 = Blockly.Python.valueToCode(block, 'condition2', Blockly.Python.ORDER_ATOMIC);
-      var statements_do2 = Blockly.Python.statementToCode(block, 'do2');
-      var statements_else = Blockly.Python.statementToCode(block, 'else');
-      return "if " + value_condition + ":\n" + statements_do +
-             "elif " + value_condition2 + ":\n" + statements_do2 +
-             "else:\n" + statements_else;
-    };
-    RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
-        toolbox: document.getElementById('toolbox'),
-        zoom:{
-            controls: true,
-            wheel: true,
-            startScale: 1.0,
-            maxScale: 3,
-            minScale: 0.3,
-            scaleSpeed: 1.2},
-        trashcan: true});
-
-};
-RUR.blockly.init();
-
-$("#blocklyDiv").resizable({
-    resize: function() {
-        $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
-        window.dispatchEvent(new Event('resize'));
-    }
-});
-
-$("#blockly-wrapper").draggable({
-    cursor: "move",
-    handle: "p",
-    drag: function( event, ui ) {
-        window.dispatchEvent(new Event('resize'));
-    },
-    stop: function( event, ui ) {
-        window.dispatchEvent(new Event('resize'));
-    }
-});
-
-},{"./rur.js":43,"./translator.js":48}],76:[function(require,module,exports){
-/* Sets up the UI for various editors.
-
-called by zzz_doc_ready.js
-*/
-require("./rur.js");
-
-RUR.zz_dr_editor_ui = function () {
-    $("#tabs").tabs({
-            heightStyle: "auto",
-            activate: function(event, ui){
-                editor.refresh();
-                library.refresh();
-                pre_code_editor.refresh();
-                post_code_editor.refresh();
-                description_editor.refresh();
-                onload_editor.refresh();
-            }
-    });
-
-    $("#editor-panel").resizable({
-        resize: function() {
-            editor.setSize(null, $(this).height()-40);
-            library.setSize(null, $(this).height()-40);
-            pre_code_editor.setSize(null, $(this).height()-40);
-            post_code_editor.setSize(null, $(this).height()-40);
-            description_editor.setSize(null, $(this).height()-40);
-            onload_editor.setSize(null, $(this).height()-40);
-        }
-    }).draggable({cursor: "move", handle: "ul"});
-};
-
-},{"./rur.js":43}],77:[function(require,module,exports){
+},{"./../visible_robot.js":60,"./../visible_world.js":61,"./../world/clone_world.js":63,"./../world/create_empty.js":64}],77:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 
 called by zzz_doc_ready.js
@@ -8754,22 +8740,14 @@ RUR.zz_dr_onclick = function () {
 
 };
 
-},{"./permalink.js":33,"./state.js":45,"./translator.js":48,"./visible_robot.js":57,"./world.js":59,"./world/export_world.js":62,"./world_editor.js":64}],78:[function(require,module,exports){
+},{"./permalink.js":36,"./state.js":48,"./translator.js":50,"./visible_robot.js":60,"./world.js":62,"./world/export_world.js":65,"./world_editor.js":67}],78:[function(require,module,exports){
 
 require("./state.js");
 require("./zz_dr_onclick.js");
 
-require("./zz_dr_editor_ui.js");
-require("./zz_dr_blockly.js");
-
-require("./tooltip.js");
-
 var rec_reset = require("./recorder/reset.js").reset;
 
     var prog_lang, url_query, name;
-    RUR.state.human_language = document.documentElement.lang;
-
-    // RUR.state.set_initial_values();
 
     function everything_loaded () {
         var loaded, total_images, py_modules=0;
@@ -8790,67 +8768,20 @@ var rec_reset = require("./recorder/reset.js").reset;
     }
     everything_loaded();
     rec_reset();
-    // RUR.rec.reset();
-
-    RUR.tooltip.init();
 
 
     //TODO: replace the following
-    //RUR.cd.create_custom_dialogs();
     RUR.zz_dr_onclick();
-    // RUR.zz_dr_onchange();
-    RUR.zz_dr_editor_ui();
 
     brython({debug:1, pythonpath:['/src/python']});
 
-    // try {
-    //     RUR.reset_code_in_editors();
-    // } catch (e){
-    //     console.log(e);
-    //     RUR.show_feedback("#Reeborg-shouts",
-    //                     "Your browser does not support localStorage. " +
-    //                     "You will not be able to save your functions in the library.");
-    // }
     // for embedding in iframe
     addEventListener("message", receiveMessage, false);
     function receiveMessage(event){
         RUR.permalink.update(event.data);
     }
 
-    RUR.kbd.select();
-
-
-
-    // url_query = parseUri(window.location.href);
-    // if (url_query.queryKey.proglang !== undefined &&
-    //    url_query.queryKey.world !== undefined &&
-    //    url_query.queryKey.editor !== undefined &&
-    //    url_query.queryKey.library !== undefined) {
-    //     prog_lang = url_query.queryKey.proglang;
-    //     $('input[type=radio][name=programming_language]').val([prog_lang]);
-    //     RUR.reset_programming_language(prog_lang);
-    //     RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-    //     name = RUR.translate("PERMALINK");
-    //     localStorage.setItem("user_world:"+ name, export_world());
-    //     RUR.storage.save_world(name);
-    //
-    //     editor.setValue(decodeURIComponent(url_query.queryKey.editor));
-    //     library.setValue(decodeURIComponent(url_query.queryKey.library));
-    // } else {
-    //     prog_lang = localStorage.getItem("last_programming_language_" + RUR.state.human_language);
-    //     switch (prog_lang) {
-    //         case 'python-' + RUR.state.human_language:
-    //             $("#python-choices").val("editor").change();  // jshint ignore:line
-    //         case 'javascript-' + RUR.state.human_language:
-    //             $("#javascript-choices").val("editor").change(); // jshint ignore:line
-    //         default:
-    //             RUR.reset_programming_language('python-' + RUR.state.human_language);
-    //     }
-    //     // trigger it to load the initial world.
-    //     $("#select-world").change();
-    // }
-
-},{"./recorder/reset.js":40,"./state.js":45,"./tooltip.js":47,"./zz_dr_blockly.js":75,"./zz_dr_editor_ui.js":76,"./zz_dr_onclick.js":77}],79:[function(require,module,exports){
+},{"./recorder/reset.js":43,"./state.js":48,"./zz_dr_onclick.js":77}],79:[function(require,module,exports){
 RUR.en = {};
 RUR.en_to_en = {};
 
@@ -9529,6 +9460,10 @@ RUR.ko["think"] = "think";
 RUR.ko["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
 
 },{}],82:[function(require,module,exports){
+require("./../lang/en.js");
+require("./../lang/fr.js");
+require("./../lang/ko.js");
+
 RUR.translation = {};
 RUR.translation_to_english = {};
 
@@ -9569,7 +9504,7 @@ add_msg("site-name", "SITE NAME");
 add_msg("world-info-button", "WORLD INFO");
 add_msg("visible-blockly", "EDITOR VISIBLE BLOCKLY");
 
-},{}],83:[function(require,module,exports){
+},{"./../lang/en.js":79,"./../lang/fr.js":80,"./../lang/ko.js":81}],83:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could
     (possibly accidently) redefine a basic function, which could lead to some
     apparent bugs.  For this reason, we include a function whose role is to
@@ -9850,4 +9785,4 @@ RUR.reset_definitions_fr = function () {
 
 };
 
-},{}]},{},[15]);
+},{}]},{},[17]);

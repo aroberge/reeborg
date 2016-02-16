@@ -4,7 +4,7 @@ require("./translator.js");
 require("./visible_world.js");
 require("./world.js");
 require("./state.js");
-require("./zz_dr_blockly.js");
+require("./blockly.js");
 require("./recorder.js");
 require("./world_init.js");
 var clone_world = require("./world/clone_world.js").clone_world;
