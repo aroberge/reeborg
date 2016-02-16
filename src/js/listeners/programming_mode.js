@@ -50,7 +50,7 @@ $("#programming-mode").change(function() {
     }
 
     RUR.kbd.set_programming_language(RUR.state.programming_language);
-    RUR.permalink.update_live();    
+    RUR.permalink.update_live();
 });
 
 

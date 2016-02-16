@@ -14,10 +14,13 @@ require("./state.js");
 
 function start_session () {
     "use strict";
+    var mode, url_query = parseUri(window.location.href);
     RUR.state.session_initialized = false;
-    var url_query = parseUri(window.location.href);
     set_language(url_query);
-    set_mode(url_query);
+    mode = set_mode(url_query);
+    if (mode === "blockly-py" || mode === "blockly-js") {
+        restore_blockly();
+    }
     set_editor();
     set_library();
     // The world can include some content for the editor and/or the library
@@ -25,6 +28,16 @@ function start_session () {
     RUR.state.session_initialized = true;
 }
 start_session();
+
+
+function restore_blockly () {
+    var xml, xml_text;
+    xml_text = localStorage.getItem("blockly");
+    if (xml_text) {
+        xml = Blockly.Xml.textToDom(xml_text);
+        Blockly.Xml.domToWorkspace(RUR.blockly.workspace, xml);
+    }
+}
 
 function set_language (url_query) {
     "use strict";
@@ -54,6 +67,7 @@ function set_mode (url_query) {
 
     document.getElementById('programming-mode').value = mode;
     $("#programming-mode").change();
+    return mode;
 }
 
 function set_editor() {

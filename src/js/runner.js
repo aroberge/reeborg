@@ -14,7 +14,7 @@ RUR.runner = {};
 RUR.state.code_evaluated = false;
 
 RUR.runner.run = function (playback) {
-    var src, fatal_error_found = false;
+    var src, fatal_error_found = false, xml, xml_text;
     if (RUR.state.editing_world && !RUR.state.code_evaluated) {
         RUR._SAVED_WORLD = clone_world(RUR.CURRENT_WORLD);
     }
@@ -22,9 +22,15 @@ RUR.runner.run = function (playback) {
         RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
         RUR.world_init.set();
         if (RUR.state.input_method === "blockly-py") {
-                editor.setValue(Blockly.Python.workspaceToCode(RUR.blockly.workspace));
+            editor.setValue(Blockly.Python.workspaceToCode(RUR.blockly.workspace));
         } else if (RUR.state.input_method === "blockly-js") {
             editor.setValue(Blockly.JavaScript.workspaceToCode(RUR.blockly.workspace));
+        }
+        if (RUR.state.input_method === "blockly-py" ||
+            RUR.state.input_method === "blockly-js") {
+                xml = Blockly.Xml.workspaceToDom(RUR.blockly.workspace);
+                xml_text = Blockly.Xml.domToText(xml);
+                localStorage.setItem("blockly", xml_text);
         }
         src = editor.getValue();
         fatal_error_found = RUR.runner.eval(src); // jshint ignore:line

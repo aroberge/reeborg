@@ -60,6 +60,9 @@ $("#human-language").change(function() {
     RUR.make_default_menu(lang);
     // TODO update selectors text
     //TODO update blockly display
+    $("#blocklyDiv").html(" ");
+    RUR.blockly.init();
+    
     if (RUR.state.input_method == "py-repl") {
         try {
             restart_repl();
