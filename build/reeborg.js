@@ -4725,7 +4725,9 @@ RUR.storage.append_world_name = function (name){
     RUR.storage.appending_world_name_flag = true;
     RUR.world_select.append_world({url:url, shortname:name, local_storage:true});
     RUR.world_select.set_url(url);  // reload as updating select choices blanks the world.
-
+    if (RUR.state.session_initialized) {
+        return;
+    }
     /* appends name to world selector and to list of possible worlds to delete */
     $('#delete-world h3').append(
         '<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world(' +
@@ -8817,7 +8819,6 @@ var rec_reset = require("./recorder/reset.js").reset;
 
     RUR.kbd.select();
 
-    RUR.make_default_menu(RUR.state.human_language);
 
 
     // url_query = parseUri(window.location.href);
