@@ -112,6 +112,8 @@ def default_help():
         dir_py(reeborg_en, exclude=exclude)
 
 
+#TODO: use textwrap.dedent to improve format of help.
+
 def Help(obj=None):
     '''Usage: help(obj)'''   # yes: lowercase!!!
     out = []

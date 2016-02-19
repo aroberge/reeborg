@@ -11,3 +11,4 @@ require("./stop.js");
 require("./toggle_highlight.js");
 require("./toggle_watch.js");
 require("./canvas.js");
+require("./onclick.js");

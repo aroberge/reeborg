@@ -76,6 +76,8 @@ function hide_everything () {
     }
     $("#special-keyboard-button").hide();
     // Python specific
+    $("#add-library-choice").hide();//
+    document.getElementById("add-library-to-world").checked = false;
     $("#python-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
     $("#highlight").hide();
@@ -109,6 +111,7 @@ function show_editor(lang) {
     }
     $("#editor-panel").addClass("active");
     $("#editor-tab").click();
+    $("#special-keyboard-button").show();
     RUR.reload();
     editor.refresh();
     if (RUR.state.editing_world) {
@@ -134,6 +137,7 @@ function show_python_editor () {
 
     RUR.state.highlight = RUR.state.highlight || RUR.state._saved_highlight_value;
     $("#library-tab").parent().show();
+    $("#add-library-choice").show();
     $("#highlight").show();
     $("#watch-variables-btn").show();
     $("#python-additional-menu p button").removeAttr("disabled");
@@ -154,6 +158,7 @@ function hide_editors() {
 }
 
 function show_console() {
+    $("#special-keyboard-button").show();    
     $("#py-console").show();
     $("#stop").hide();
     $("#pause").hide();

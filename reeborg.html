@@ -37,13 +37,12 @@
   <header class="blue-gradient green-border">
     <a id="logo" href="index_en.html" class="fake_button">
         <img src="/src/images/robot_e.png">
-        <span id="site-name">Reeborg's World</span>
+        <span id="site-name"></span>
     </a>
     <div id="header-child">
       <select id="select-world" title="Select world">
       </select>
-      <button class="blue-gradient" id="world-info-button">World info</button>
-
+      <button class="blue-gradient" id="world-info-button"></button>
 
     <select id="programming-mode" title="Select programming mode">
         <option value="python">Python</option>
@@ -54,7 +53,7 @@
     </select>
 
       <input type="checkbox" id="editor-visible-blockly" value="visible">
-      <label id="visible-blockly">Keep editor visible</label>
+      <label id="visible-blockly"></label>
       <button class="blue-gradient" id="special-keyboard-button">Reeborg's keyboard</button>
       <button id="more-menus-button" class="blue-gradient" title="Additional options">
         Additional options
@@ -253,8 +252,12 @@
 
   <div style="display:none;" id="edit-world-panel" title="World editor">
     <p>
-      <input type="checkbox" name="add-editor-to-world" value="add-editor-to-world" id="add-editor-to-world">Add editor content to world
-      <input type="checkbox" name="add-library-to-world" value="add-library-to-world" id="add-library-to-world">Add library content to world
+      <input type="checkbox" name="add-editor-to-world" value="add-editor-to-world" id="add-editor-to-world">
+      <span id="add-editor-text">Add editor content to world</span>
+      <span id="add-library-choice">
+        <input type="checkbox" name="add-library-to-world" value="add-library-to-world" id="add-library-to-world">
+        <span id="add-library-text">Add library content to world</span>
+      </span>
       <br>
       <button id="memorize-world" class="blue-gradient">Save world in browser</button>
       <br> If you want to share your world (and corresponding challenges) with others, save it to a file, or better yet, save everything using a permalink and send it to
@@ -683,18 +686,16 @@ import py_repl
     </p>
 
     <p>
-      <button id="save-permalink" class="blue-gradient">Save permalink</button>
-      <span id="save-permalink-text">
-        Saves a copy of the permalink to a file. 
-    </p>
-
-    <p>
-      <button class="blue-gradient" id="save-world">Save world to file</button>
-      Saves the world (as a json object) to a file on your computer.
+      <button id="save-permalink" class="blue-gradient"></button>
+      <span id="save-permalink-text"></span>
     </p>
     <p>
-      <button class="blue-gradient" id="load-world">Open world from file</button>
-      Loads a world from a file on your computer.
+      <button class="blue-gradient" id="save-world"></button>
+      <span id="save-world-text"></span>
+    </p>
+    <p>
+      <button class="blue-gradient" id="load-world"></button>
+      <span id="load-world-text"></span>
     </p>
 
     <div id="delete-world" style="display:none;">
@@ -704,13 +705,13 @@ import py_repl
     <hr>
     <h3>Program in editor</h3>
     <p>
-      <button class="blue-gradient" id="save-editor">Save program to file</button>
-      Saves the content of the editor in a file.
+      <button class="blue-gradient" id="save-editor"></button>
+      <span id="save-editor-text"></span>
     </p>
 
     <p>
-      <button class="blue-gradient" id="load-editor">Import program from file</button>
-      Opens a local file and use its content to replace the content of the Code editor.
+      <button class="blue-gradient" id="load-editor"></button>
+      <span id="load-editor-text"></span>
     </p>
 
 
@@ -738,12 +739,12 @@ import py_repl
     <h3>Python only</h3>
     <div id="python-additional-menu">
       <p>
-        <button class="blue-gradient" id="save-library">Save the library</button>
-        Saves the content of the library in a file.
+        <button class="blue-gradient" id="save-library"></button>
+        <span id="save-library-text"></span>
       </p>
       <p>
-        <button class="blue-gradient" id="load-library">Import library from a file</button>
-        Opens a file and use its content to replace the current content of the Library.
+        <button class="blue-gradient" id="load-library"></button>
+        <span id="load-library-text"></span>
       </p>
     </div>
   </div>

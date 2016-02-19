@@ -24,6 +24,8 @@ $("#save-permalink").on("click", function (evt) {
    format below.
  */
 
+//TODO Add a button to copy to clipboard the permalink.
+
 RUR.permalink = {};
 
 RUR.permalink.__create = function () {

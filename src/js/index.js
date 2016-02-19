@@ -11,10 +11,6 @@ require("./ui/set_editors.js");
 require("./playback/reverse_step.js"); /* only invoked from the html file - for now */
 
 require("./commands.js");
-
-//TODO: replace the following
-require("./zz_dr_onclick.js");
-RUR.zz_dr_onclick();
-
+require("./world_editor.js");
 
 require("./start_session.js");
