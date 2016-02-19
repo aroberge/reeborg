@@ -2,6 +2,7 @@ require("./../state.js");
 require("./../listeners/reload.js");
 require("./../keyboard.js");
 var record_id = require("./../../lang/msg.js").record_id;
+var update_url = require("./../utils/parseuri.js").update_url;
 
 record_id("programming-mode");
 
@@ -50,7 +51,7 @@ $("#programming-mode").change(function() {
     }
 
     RUR.kbd.set_programming_language(RUR.state.programming_language);
-    RUR.permalink.update_live();
+    update_url();
 });
 
 

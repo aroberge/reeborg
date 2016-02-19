@@ -3,6 +3,7 @@ require("./../../lang/reeborg_en.js");
 require("./../../lang/reeborg_fr.js");
 require("./../custom_world_select.js");
 var msg = require("./../../lang/msg.js");
+var update_url = require("./../utils/parseuri.js").update_url;
 
 
 msg.record_id("human-language");
@@ -86,5 +87,5 @@ $("#human-language").change(function() {
         }
     }
     localStorage.setItem("human_language", lang);
-    RUR.permalink.update_live();
+    update_url();
 });

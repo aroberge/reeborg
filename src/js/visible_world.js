@@ -5,6 +5,9 @@
 require("./translator.js");
 require("./constants.js");
 require("./state.js");
+require("./extend/add_object_type.js");
+require("./extend/add_tile_type.js");
+require("./extend/new_home_tile.js");
 
 RUR.vis_world = {};
 
@@ -69,6 +72,8 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
     RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
     RUR.CURRENT_WORLD.rows = RUR.ROWS;
     RUR.CURRENT_WORLD.cols = RUR.COLS;
+    //TODO: extract all of the above into separate function which can be
+    //put elsewhere.
     RUR.vis_world.draw_all();
 };
 

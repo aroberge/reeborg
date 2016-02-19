@@ -2,8 +2,8 @@ require("./../lang/en.js");
 require("./../lang/fr.js");
 require("./../lang/ko.js");
 
-RUR.translation = {};
-RUR.translation_to_english = {};
+RUR.translation = RUR.en;
+RUR.translation_to_english = RUR.en_to_en;
 
 var _recorded_ids = [];
 var _text_elements = [];

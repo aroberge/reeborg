@@ -221,3 +221,7 @@ RUR.en["True if robot is facing North."] = "True if robot is facing North.";
 RUR.en["sound"] = "sound";
 RUR.en["think"] = "think";
 RUR.en["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
+
+RUR.en["Save world in browser"] = "Save world in browser";
+RUR.en["Save permalink"] = "Save permalink";
+RUR.en["Save permalink explanation"] = "Saves a copy of the permalink to a file.";

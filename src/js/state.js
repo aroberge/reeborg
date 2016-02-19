@@ -16,7 +16,6 @@ RUR.state.input_method = "python";
 RUR.state.programming_language = "javascript"; // default for testing
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
-RUR.state.ready = false;
 RUR.state.session_initialized = false;
 RUR.state.sound_id = undefined;
 RUR.state.sound_on = false;

@@ -32,3 +32,19 @@ parseUri.options = {
 };
 
 window.parseUri = parseUri;
+
+exports.update_url = update_url = function () {
+    /* Used to maintain information about human language used and
+       input mode.
+    */
+    "use strict";
+    var proglang, url_query, permalink;
+    url_query = parseUri(window.location.href);
+    permalink = url_query.protocol + "://" + url_query.host;
+    if (url_query.port){
+        permalink += ":" + url_query.port;
+    }
+    permalink += url_query.path;
+    permalink += "?lang=" + RUR.state.human_language + "&mode=" + RUR.state.input_method;
+    window.history.pushState("dummy", "dummy", permalink);
+};

@@ -224,3 +224,7 @@ RUR.fr["True if robot is facing North."] = "Vrai se le robot est face au nord.";
 RUR.fr["sound"] = "son";
 RUR.fr["think"] = "pense";
 RUR.fr["Delay between actions; default is 300 ms."] = "Délai entre les actions; le défaut est de 300 ms.";
+
+RUR.fr["Save world in browser"] = "Sauvegarder le monde dans le navigateur";
+RUR.fr["Save permalink"] = "Sauvegarder le permalien";
+RUR.fr["Save permalink explanation"] = "Sauvegarde une copie du permalien dans un fichier.";

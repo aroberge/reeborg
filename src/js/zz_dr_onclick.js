@@ -1,14 +1,9 @@
 /* Sets up what happens when the user clicks on various html elements.
-
-called by zzz_doc_ready.js
 */
 
 require("./translator.js");
 require("./world.js");
 require("./state.js");
-require("./world_editor.js");
-require("./permalink.js");
-require("./visible_robot.js");
 
 var export_world = require("./world/export_world.js").export_world;
 
@@ -75,22 +70,16 @@ RUR.zz_dr_onclick = function () {
         var blob = new Blob([library.getValue()], {
             type: "text/javascript;charset=utf-8"
         });
-        saveAs(blob, "filename");
+        saveAs(blob, "filename"); // saveAs defined in src/libraries/filesaver.js
     });
 
-    $("#save-permalink").on("click", function (evt) {
-        var blob = new Blob([RUR.permalink.__create()], {
-            type: "text/javascript;charset=utf-8"
-        });
-        saveAs(blob, "filename");
-    });
 
     $("#save-world").on("click", function (evt) {
         RUR.CURRENT_WORLD = RUR.world.update_from_editors(RUR.CURRENT_WORLD);
         var blob = new Blob([export_world()], {
             type: "text/javascript;charset=utf-8"
         });
-        saveAs(blob, "filename.json", true);
+        saveAs(blob, "filename.json", true); // saveAs defined in src/libraries/filesaver.js
     });
 
     $("#load-editor").on("click", function (evt) {

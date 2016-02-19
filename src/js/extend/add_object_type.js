@@ -1,8 +1,15 @@
 require("./../rur.js");
-
-
-require("./../visible_world.js");
 require("./../state.js");
+
+/* We do not have
+       require("./../visible_world.js");
+   since it is only needed when the session is initialized;
+   this can help prevent a circular import without needing to create two
+   functions: we can use RUR.add_new_object_type for adding "default" objects,
+   as part of the initializing sequence, as it does not require visible_world.
+   However, visible_world requires RUR.OBJECTS which is defined here for
+   convenience.
+ */
 
 /** @function add_new_object_type
  * @memberof RUR
@@ -35,7 +42,7 @@ RUR.add_new_object_type = function (name, url, url_goal) {
     obj[name].image_goal = new Image();
     obj[name].image.src = url;
     obj[name].image_goal.src = url_goal;
-    if (RUR.state.ready) {
+    if (RUR.state.session_initialized) {
         obj[name].image.onload = RUR.vis_world.refresh;
         obj[name].image_goal.onload = RUR.vis_world.draw_goal;
     } else {
@@ -49,4 +56,5 @@ RUR.add_new_object_type = function (name, url, url_goal) {
 };
 
 // supporting worlds created previously.
+// TODO  see if this is still needed when Vincent Maille's book is published.
 RUR.add_object_image = RUR.add_new_object_type;

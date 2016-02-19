@@ -221,3 +221,7 @@ RUR.ko["True if robot is facing North."] = "True if robot is facing North.";
 RUR.ko["sound"] = "sound";
 RUR.ko["think"] = "think";
 RUR.ko["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
+
+RUR.ko["Save world in browser"] = "Save world in browser";
+RUR.ko["Save permalink"] = "퍼머 저장";
+RUR.ko["Save permalink explanation"] = "파일의 퍼머링크 복사본을 저장합니다.";
