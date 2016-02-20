@@ -27,11 +27,20 @@
 <body>
 
   <div id="splash-screen">
-    <p id="splash-screen-center">
-      <img src="src/images/square_splash.gif" alt="splash screen">
-      <br>
-      <span id="splash-text">Loading ...</span>
-    </p>
+<div class="sk-fading-circle">
+  <div class="sk-circle1 sk-circle"></div>
+  <div class="sk-circle2 sk-circle"></div>
+  <div class="sk-circle3 sk-circle"></div>
+  <div class="sk-circle4 sk-circle"></div>
+  <div class="sk-circle5 sk-circle"></div>
+  <div class="sk-circle6 sk-circle"></div>
+  <div class="sk-circle7 sk-circle"></div>
+  <div class="sk-circle8 sk-circle"></div>
+  <div class="sk-circle9 sk-circle"></div>
+  <div class="sk-circle10 sk-circle"></div>
+  <div class="sk-circle11 sk-circle"></div>
+  <div class="sk-circle12 sk-circle"></div>
+</div>
   </div>
 
   <header class="blue-gradient green-border">
@@ -54,10 +63,8 @@
 
       <input type="checkbox" id="editor-visible-blockly" value="visible">
       <label id="visible-blockly"></label>
-      <button class="blue-gradient" id="special-keyboard-button">Reeborg's keyboard</button>
-      <button id="more-menus-button" class="blue-gradient" title="Additional options">
-        Additional options
-      </button>
+      <button class="blue-gradient" id="special-keyboard-button"></button>
+      <button id="more-menus-button" class="blue-gradient"></button>
       <select id="human-language" title="Select UI language">
         <option value="en">English</option>
         <option value="fr">Français</option>
@@ -80,7 +87,7 @@
     <div id="blocklyDiv"></div>
   </div>
   <xml id="toolbox" style="display: none">
-    <category name="Basic commands" colour="120">
+    <category id="blockly-basic-commands" name="Basic commands" colour="120">
       <block type="_move_"></block>
       <block type="_turn_left_"></block>
       <block type="_take_"></block>
@@ -90,8 +97,8 @@
       <block type="_pause_"></block>
       <block type="_done_"></block>
     </category>
-    <category name="Defining" colour="290" custom="PROCEDURE"></category>
-    <category name="Loops" colour="230">
+    <category id="blockly-defining" name="Defining" colour="290" custom="PROCEDURE"></category>
+    <category id="blockly-loops" name="Loops" colour="230">
       <block type="controls_repeat_ext">
         <value name="TIMES">
           <block type="math_number"></block>
@@ -100,12 +107,12 @@
       <block type="controls_whileUntil"></block>
       <block type="controls_flow_statements"></block>
     </category>
-    <category name="Decisions" colour="240">
+    <category id="blockly-decisions" name="Decisions" colour="240">
       <block type="_if_"></block>
       <block type="_if_else_"></block>
       <block type="_if_else_if_else_"></block>
     </category>
-    <category name="Conditions" colour="240">
+    <category id="blockly-conditions" name="Conditions" colour="240">
       <block type="_at_goal_"></block>
       <block type="_carries_object_"></block>
       <block type="_object_here_"></block>
@@ -114,7 +121,7 @@
       <block type="_wall_in_front_or_right_"></block>
       <block type="logic_negate"></block>
     </category>
-    <category name="Using variables" colour="20">
+    <category id="blockly-using-variables" name="Using variables" colour="20">
       <category name="Objects" colour="20">
         <block type="_token_"></block>
         <block type="_apple_"></block>
@@ -129,13 +136,13 @@
         <block type="_tulip_"></block>
         <block type="_leaf_"></block>
       </category>
-      <category name="Commands" colour="120">
+      <category id="blockly-commands-var" name="Commands" colour="120">
         <block type="_take_or_put_"></block>
       </category>
-      <category name="Conditions" colour="240">
+      <category id="blockly-conditions-var" name="Conditions" colour="240">
         <block type="_carries_object_or_here_"></block>
       </category>
-      <category name="Other" colour="290">
+      <category id="blockly-other" name="Other" colour="290">
         <block type="_think_"></block>
         <block type="math_number"></block>
         <block type="text"></block>

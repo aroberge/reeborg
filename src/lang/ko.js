@@ -239,3 +239,14 @@ RUR.ko["SAVE WORLD"] = "파일로 저장";
 RUR.ko["SAVE WORLD EXPLAIN"] = "(json 확장자로) 세계를 컴퓨터에 저장합니다.";
 RUR.ko["ADD EDITOR TEXT"] = "Add editor content to world";
 RUR.ko["ADD LIBRARY TEXT"] = "Add library content to world";
+RUR.ko["KEYBOARD BUTTON"] = "리보그의 키보드";
+RUR.ko["ADDITIONAL OPTIONS"] = "추가 설정";
+
+RUR.ko["BASIC COMMANDS"] = "Basic commands";
+RUR.ko["DEFINING"] = "Defining";
+RUR.ko["LOOPS"] = "Loops";
+RUR.ko["DECISIONS"] = "Decisions";
+RUR.ko["CONDITIONS"] = "Conditions";
+RUR.ko["USING VARIABLES"] = "Using variables";
+RUR.ko["COMMANDS"] = "Commandes";
+RUR.ko["OTHER"] = "Other";

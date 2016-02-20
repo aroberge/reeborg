@@ -43,7 +43,7 @@ Blockly.JavaScript.INDENT = '    ';
 
 RUR.blockly.init = function () {
 
-    // override some defaults 
+    // override some defaults
     Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
     Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
     Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
@@ -684,6 +684,8 @@ RUR.blockly.init = function () {
              "elif " + value_condition2 + ":\n" + statements_do2 +
              "else:\n" + statements_else;
     };
+
+    $(".blocklyToolboxDiv").remove();
     RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
         toolbox: document.getElementById('toolbox'),
         zoom:{
@@ -695,26 +697,26 @@ RUR.blockly.init = function () {
             scaleSpeed: 1.2},
         trashcan: true});
 
+    $("#blocklyDiv").resizable({
+        resize: function() {
+            $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
+            window.dispatchEvent(new Event('resize'));
+        }
+    });
+
+    $("#blockly-wrapper").draggable({
+        cursor: "move",
+        handle: "p",
+        drag: function( event, ui ) {
+            window.dispatchEvent(new Event('resize'));
+        },
+        stop: function( event, ui ) {
+            window.dispatchEvent(new Event('resize'));
+        }
+    });
+
 };
 RUR.blockly.init();
-
-$("#blocklyDiv").resizable({
-    resize: function() {
-        $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
-        window.dispatchEvent(new Event('resize'));
-    }
-});
-
-$("#blockly-wrapper").draggable({
-    cursor: "move",
-    handle: "p",
-    drag: function( event, ui ) {
-        window.dispatchEvent(new Event('resize'));
-    },
-    stop: function( event, ui ) {
-        window.dispatchEvent(new Event('resize'));
-    }
-});
 
 },{"./rur.js":47,"./translator.js":52}],2:[function(require,module,exports){
 /*  The purpose of this module is to act as an intermediary between end user
@@ -5800,9 +5802,9 @@ function everything_loaded () {
         RUR.vis_world.draw_all();
         $("#splash-screen").hide();
     } else {
-        loaded = RUR._NB_IMAGES_LOADED + RUR.vis_robot.loaded_images;
-        total_images = RUR._NB_IMAGES_TO_LOAD + RUR.vis_robot.nb_images;
-        $("#splash-text").html("Images: " + loaded + "/" + total_images);
+        // loaded = RUR._NB_IMAGES_LOADED + RUR.vis_robot.loaded_images;
+        // total_images = RUR._NB_IMAGES_TO_LOAD + RUR.vis_robot.nb_images;
+        // $("#splash-text").html("Images: " + loaded + "/" + total_images);
         requestAnimationFrame(everything_loaded);
     }
 }
@@ -9067,6 +9069,17 @@ RUR.en["SAVE WORLD"] = "Save world to file";
 RUR.en["SAVE WORLD EXPLAIN"] = "Saves the world (as a json object) to a file on your computer.";
 RUR.en["ADD EDITOR TEXT"] = "Add editor content to world";
 RUR.en["ADD LIBRARY TEXT"] = "Add library content to world";
+RUR.en["KEYBOARD BUTTON"] = "Reeborg's keyboard";
+RUR.en["ADDITIONAL OPTIONS"] = "Additional options";
+
+RUR.en["BASIC COMMANDS"] = "Basic commands";
+RUR.en["DEFINING"] = "Defining";
+RUR.en["LOOPS"] = "Loops";
+RUR.en["DECISIONS"] = "Decisions";
+RUR.en["CONDITIONS"] = "Conditions";
+RUR.en["USING VARIABLES"] = "Using variables";
+RUR.en["COMMANDS"] = "Commandes";
+RUR.en["OTHER"] = "Other";
 
 },{}],80:[function(require,module,exports){
 RUR.fr = {};
@@ -9313,6 +9326,17 @@ RUR.fr["SAVE WORLD"] = "Sauvegarder le monde";
 RUR.fr["SAVE WORLD EXPLAIN"] = "Sauvegarde le monde dans un fichier (format json) sur votre ordinateur.";
 RUR.fr["ADD EDITOR TEXT"] = "Inclure le contenu de l'éditeur";
 RUR.fr["ADD LIBRARY TEXT"] = "Inclure le contenu de la bibliothèque";
+RUR.fr["KEYBOARD BUTTON"] = "Clavier de Reeborg";
+RUR.fr["ADDITIONAL OPTIONS"] = "Autres options";
+
+RUR.fr["BASIC COMMANDS"] = "Commandes";
+RUR.fr["DEFINING"] = "Définitions";
+RUR.fr["LOOPS"] = "Boucles";
+RUR.fr["DECISIONS"] = "Décisions";
+RUR.fr["CONDITIONS"] = "Conditions";
+RUR.fr["USING VARIABLES"] = "Utiliser des variables";
+RUR.fr["COMMANDS"] = "Commandes";
+RUR.fr["OTHER"] = "Autres";
 
 },{}],81:[function(require,module,exports){
 RUR.ko = {};
@@ -9556,6 +9580,17 @@ RUR.ko["SAVE WORLD"] = "파일로 저장";
 RUR.ko["SAVE WORLD EXPLAIN"] = "(json 확장자로) 세계를 컴퓨터에 저장합니다.";
 RUR.ko["ADD EDITOR TEXT"] = "Add editor content to world";
 RUR.ko["ADD LIBRARY TEXT"] = "Add library content to world";
+RUR.ko["KEYBOARD BUTTON"] = "리보그의 키보드";
+RUR.ko["ADDITIONAL OPTIONS"] = "추가 설정";
+
+RUR.ko["BASIC COMMANDS"] = "Basic commands";
+RUR.ko["DEFINING"] = "Defining";
+RUR.ko["LOOPS"] = "Loops";
+RUR.ko["DECISIONS"] = "Decisions";
+RUR.ko["CONDITIONS"] = "Conditions";
+RUR.ko["USING VARIABLES"] = "Using variables";
+RUR.ko["COMMANDS"] = "Commandes";
+RUR.ko["OTHER"] = "Other";
 
 },{}],82:[function(require,module,exports){
 require("./../lang/en.js");
@@ -9567,6 +9602,7 @@ RUR.translation_to_english = RUR.en_to_en;
 
 var _recorded_ids = [];
 var _text_elements = [];
+var _elements_names = [];
 
 record_id = function (id, text) {
     if (_recorded_ids.indexOf(id) !== -1) {
@@ -9583,6 +9619,10 @@ add_msg = function (id, msg){
     _text_elements.push([id, msg]);
 };
 
+add_name = function (id, msg){
+    _elements_names.push([id, msg]);
+};
+
 update_ui = function (lang) {
     "use strict";
     var i, id, msg;
@@ -9593,6 +9633,11 @@ update_ui = function (lang) {
         msg = _text_elements[i][1];
         $(id).text(RUR.translate(msg));
     }
+    for(i=0; i<_elements_names.length; i++) {
+        id = "#" + _elements_names[i][0];
+        msg = _elements_names[i][1];
+        $(id).attr("name", RUR.translate(msg));
+    }
 };
 
 exports.update_ui = update_ui;
@@ -9601,6 +9646,21 @@ exports.record_id = record_id;
 add_msg("site-name", "SITE NAME");
 add_msg("world-info-button", "WORLD INFO");
 add_msg("visible-blockly", "EDITOR VISIBLE BLOCKLY");
+add_msg("special-keyboard-button", "KEYBOARD BUTTON");
+add_msg("more-menus-button", "ADDITIONAL OPTIONS");
+
+record_id("blockly-wrapper");
+record_id("move-handle");
+record_id("blocklyDiv");
+add_name("blockly-basic-commands", "BASIC COMMANDS");
+add_name("blockly-defining", "DEFINING");
+add_name("blockly-loops", "LOOPS");
+add_name("blockly-decisions", "DECISIONS");
+add_name("blockly-conditions", "CONDITIONS");
+add_name("blockly-using-variables", "USING VARIABLES");
+add_name("blockly-commands-var", "COMMANDS");
+add_name("blockly-conditions-var", "CONDITIONS");
+add_name("blockly-other", "OTHER");
 
 },{"./../lang/en.js":79,"./../lang/fr.js":80,"./../lang/ko.js":81}],83:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could

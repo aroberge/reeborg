@@ -242,3 +242,14 @@ RUR.fr["SAVE WORLD"] = "Sauvegarder le monde";
 RUR.fr["SAVE WORLD EXPLAIN"] = "Sauvegarde le monde dans un fichier (format json) sur votre ordinateur.";
 RUR.fr["ADD EDITOR TEXT"] = "Inclure le contenu de l'éditeur";
 RUR.fr["ADD LIBRARY TEXT"] = "Inclure le contenu de la bibliothèque";
+RUR.fr["KEYBOARD BUTTON"] = "Clavier de Reeborg";
+RUR.fr["ADDITIONAL OPTIONS"] = "Autres options";
+
+RUR.fr["BASIC COMMANDS"] = "Commandes";
+RUR.fr["DEFINING"] = "Définitions";
+RUR.fr["LOOPS"] = "Boucles";
+RUR.fr["DECISIONS"] = "Décisions";
+RUR.fr["CONDITIONS"] = "Conditions";
+RUR.fr["USING VARIABLES"] = "Utiliser des variables";
+RUR.fr["COMMANDS"] = "Commandes";
+RUR.fr["OTHER"] = "Autres";

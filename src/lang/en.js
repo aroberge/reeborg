@@ -239,3 +239,14 @@ RUR.en["SAVE WORLD"] = "Save world to file";
 RUR.en["SAVE WORLD EXPLAIN"] = "Saves the world (as a json object) to a file on your computer.";
 RUR.en["ADD EDITOR TEXT"] = "Add editor content to world";
 RUR.en["ADD LIBRARY TEXT"] = "Add library content to world";
+RUR.en["KEYBOARD BUTTON"] = "Reeborg's keyboard";
+RUR.en["ADDITIONAL OPTIONS"] = "Additional options";
+
+RUR.en["BASIC COMMANDS"] = "Basic commands";
+RUR.en["DEFINING"] = "Defining";
+RUR.en["LOOPS"] = "Loops";
+RUR.en["DECISIONS"] = "Decisions";
+RUR.en["CONDITIONS"] = "Conditions";
+RUR.en["USING VARIABLES"] = "Using variables";
+RUR.en["COMMANDS"] = "Commandes";
+RUR.en["OTHER"] = "Other";

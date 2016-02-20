@@ -42,7 +42,7 @@ Blockly.JavaScript.INDENT = '    ';
 
 RUR.blockly.init = function () {
 
-    // override some defaults 
+    // override some defaults
     Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
     Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
     Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
@@ -683,6 +683,8 @@ RUR.blockly.init = function () {
              "elif " + value_condition2 + ":\n" + statements_do2 +
              "else:\n" + statements_else;
     };
+
+    $(".blocklyToolboxDiv").remove();
     RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
         toolbox: document.getElementById('toolbox'),
         zoom:{
@@ -694,23 +696,23 @@ RUR.blockly.init = function () {
             scaleSpeed: 1.2},
         trashcan: true});
 
+    $("#blocklyDiv").resizable({
+        resize: function() {
+            $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
+            window.dispatchEvent(new Event('resize'));
+        }
+    });
+
+    $("#blockly-wrapper").draggable({
+        cursor: "move",
+        handle: "p",
+        drag: function( event, ui ) {
+            window.dispatchEvent(new Event('resize'));
+        },
+        stop: function( event, ui ) {
+            window.dispatchEvent(new Event('resize'));
+        }
+    });
+
 };
 RUR.blockly.init();
-
-$("#blocklyDiv").resizable({
-    resize: function() {
-        $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
-        window.dispatchEvent(new Event('resize'));
-    }
-});
-
-$("#blockly-wrapper").draggable({
-    cursor: "move",
-    handle: "p",
-    drag: function( event, ui ) {
-        window.dispatchEvent(new Event('resize'));
-    },
-    stop: function( event, ui ) {
-        window.dispatchEvent(new Event('resize'));
-    }
-});
