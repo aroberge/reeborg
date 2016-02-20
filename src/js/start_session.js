@@ -9,6 +9,7 @@ require("./world/import_world.js");
 require("./storage.js");
 require("./state.js");
 require("./permalink.js");
+require("./create_editors.js");
 
 //
 brython({debug:1, pythonpath:['/src/python']});

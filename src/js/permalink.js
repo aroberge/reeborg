@@ -5,13 +5,13 @@ require("./world.js");
 require("./translator.js");
 require("./listeners/programming_mode.js");
 require("./utils/parseuri.js");
+require("./create_editors.js");
 
 var export_world = require("./world/export_world.js").export_world;
-
 var record_id = require("./../lang/msg.js").record_id;
+
 record_id("save-permalink", "Save permalink");
 record_id("save-permalink-text", "Save permalink explanation");
-
 $("#save-permalink").on("click", function (evt) {
     var blob = new Blob([RUR.permalink.__create()], {
         type: "text/javascript;charset=utf-8"
@@ -19,12 +19,9 @@ $("#save-permalink").on("click", function (evt) {
     saveAs(blob, "filename"); // saveAs defined in src/libraries/filesaver.js
 });
 
-
 /* IMPORTANT: we attempt to maintain compatibility with the old permalinks
    format below.
  */
-
-//TODO Add a button to copy to clipboard the permalink.
 
 RUR.permalink = {};
 
@@ -52,9 +49,7 @@ RUR.permalink.__create = function () {
 
 
 RUR.permalink.create = function () {
-    var permalink;
-
-    permalink = RUR.permalink.__create();
+    var permalink = RUR.permalink.__create();
 
     $("#url-input-textarea").val(permalink);
     $("#url-input").toggle();
@@ -152,12 +147,6 @@ RUR.permalink.update = function (arg, shortname) {
     $("#permalink").addClass('blue-gradient');
 };
 
-RUR.permalink.cancel = function () {
-    $('#url-input').hide();
-    $("#permalink").removeClass('reverse-blue-gradient');
-    $("#permalink").addClass('blue-gradient');
-};
-
 record_id("ok-permalink", "UPDATE");
 $("#ok-permalink").on("click", function (evt) {
     RUR.permalink.update();
@@ -165,7 +154,9 @@ $("#ok-permalink").on("click", function (evt) {
 
 record_id("cancel-permalink", "CANCEL");
 $("#cancel-permalink").on("click", function (evt) {
-    RUR.permalink.cancel();
+    $('#url-input').hide();
+    $("#permalink").removeClass('reverse-blue-gradient');
+    $("#permalink").addClass('blue-gradient');
 });
 
 // copy to clipboard

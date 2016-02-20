@@ -718,7 +718,7 @@ RUR.blockly.init = function () {
 };
 RUR.blockly.init();
 
-},{"./rur.js":48,"./translator.js":53}],2:[function(require,module,exports){
+},{"./rur.js":49,"./translator.js":54}],2:[function(require,module,exports){
 /*  The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
 the other modules.  This way, in theory, (most) refactoring can take place in the
@@ -950,7 +950,7 @@ RUR._UR.wall_on_right_ = function (robot) {
     RUR.control.wall_on_right(robot);
 };
 
-},{"./constants.js":3,"./control.js":4,"./custom_world_select.js":5,"./file_io.js":16,"./output.js":37,"./state.js":51,"./translator.js":53,"./visible_robot.js":62,"./world.js":64,"./world_set.js":73}],3:[function(require,module,exports){
+},{"./constants.js":3,"./control.js":4,"./custom_world_select.js":6,"./file_io.js":17,"./output.js":38,"./state.js":52,"./translator.js":54,"./visible_robot.js":63,"./world.js":65,"./world_set.js":74}],3:[function(require,module,exports){
 require("./rur.js");
 RUR.EAST = 0;
 RUR.NORTH = 1;
@@ -1016,7 +1016,7 @@ RUR._CALLBACK_FN = function () {
     alert("FATAL internal error: RUR._CALLBACK_FN was not initialized.");
 };
 
-},{"./rur.js":48}],4:[function(require,module,exports){
+},{"./rur.js":49}],4:[function(require,module,exports){
 
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
@@ -1621,7 +1621,114 @@ RUR.control.set_tile_at_position = function (x, y, tile) {
     RUR.record_frame("debug", "set_tile_at_position");
 };
 
-},{"./constants.js":3,"./exceptions.js":12,"./objects.js":36,"./output.js":37,"./recorder/record_frame.js":44,"./state.js":51,"./translator.js":53,"./world_get.js":70,"./world_set.js":73}],5:[function(require,module,exports){
+},{"./constants.js":3,"./exceptions.js":13,"./objects.js":37,"./output.js":38,"./recorder/record_frame.js":45,"./state.js":52,"./translator.js":54,"./world_get.js":71,"./world_set.js":74}],5:[function(require,module,exports){
+function betterTab(cm) {
+  if (cm.somethingSelected()) {
+    cm.indentSelection("add");
+  } else {
+    cm.replaceSelection(cm.getOption("indentWithTabs") ? "\t" :
+      Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");
+  }
+}
+
+function shiftTab(cm) {
+  cm.execCommand("indentLess");
+}
+
+window.editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+  mode: {
+    name: "python",
+    version: 3
+  },
+  tabMode: 'indent',
+  lineNumbers: true,
+  theme: 'reeborg-dark',
+  indentUnit: 4,
+  viewportMargin: Infinity
+});
+editor.setOption("extraKeys", {
+  Tab: betterTab,
+  "Shift-Tab": shiftTab
+});
+
+window.library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
+  mode: {
+    name: "python",
+    version: 3
+  },
+  tabMode: 'indent',
+  lineNumbers: true,
+  theme: 'reeborg-dark',
+  indentUnit: 4,
+  viewportMargin: Infinity
+});
+library.setOption("extraKeys", {
+  Tab: betterTab,
+  "Shift-Tab": shiftTab
+});
+
+window.pre_code_editor = CodeMirror.fromTextArea(document.getElementById('pre-code'), {
+  mode: {
+    name: "python",
+    version: 3
+  },
+  tabMode: 'indent',
+  lineNumbers: true,
+  theme: 'reeborg-dark',
+  indentUnit: 4,
+  viewportMargin: Infinity
+});
+pre_code_editor.setOption("extraKeys", {
+  Tab: betterTab,
+  "Shift-Tab": shiftTab
+});
+window.post_code_editor = CodeMirror.fromTextArea(document.getElementById('post-code'), {
+  mode: {
+    name: "python",
+    version: 3
+  },
+  tabMode: 'indent',
+  lineNumbers: true,
+  theme: 'reeborg-dark',
+  indentUnit: 4,
+  viewportMargin: Infinity
+});
+post_code_editor.setOption("extraKeys", {
+  Tab: betterTab,
+  "Shift-Tab": shiftTab
+});
+
+window.description_editor = CodeMirror.fromTextArea(document.getElementById('description'), {
+  mode: {
+    name: "htmlmixed"
+  },
+  tabMode: 'indent',
+  lineNumbers: true,
+  theme: 'reeborg-dark',
+  indentUnit: 4,
+  viewportMargin: Infinity
+});
+description_editor.setOption("extraKeys", {
+  Tab: betterTab,
+  "Shift-Tab": shiftTab
+});
+
+window.onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-editor'), {
+  mode: {
+    name: "javascript"
+  },
+  tabMode: 'indent',
+  lineNumbers: true,
+  theme: 'reeborg-dark',
+  indentUnit: 4,
+  viewportMargin: Infinity
+});
+onload_editor.setOption("extraKeys", {
+  Tab: betterTab,
+  "Shift-Tab": shiftTab
+});
+
+},{}],6:[function(require,module,exports){
 
 require("./translator.js");
 require("./world_select.js");
@@ -1802,7 +1909,7 @@ RUR.make_default_menu_fr = function () {
     RUR.custom_world_select.make(contents);
 };
 
-},{"./storage.js":52,"./translator.js":53,"./world_select.js":72}],6:[function(require,module,exports){
+},{"./storage.js":53,"./translator.js":54,"./world_select.js":73}],7:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
@@ -1851,7 +1958,7 @@ add_object_form = dialog_add_object.find("form").on("submit", function( event ) 
     add_object();
 });
 
-},{"./../rur.js":48,"./../state.js":51,"./../visible_world.js":63,"./../world_set/add_object.js":75}],7:[function(require,module,exports){
+},{"./../rur.js":49,"./../state.js":52,"./../visible_world.js":64,"./../world_set/add_object.js":76}],8:[function(require,module,exports){
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
@@ -1913,7 +2020,7 @@ $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                 position:{my: "bottom", at: "bottom-140", of: window}});
 
-},{"./../../lang/msg.js":82,"./../libs/jquery.ui.dialog.minmax.js":19,"./../rur.js":48}],8:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../libs/jquery.ui.dialog.minmax.js":20,"./../rur.js":49}],9:[function(require,module,exports){
 
 require("./../world_set.js");
 require("./../visible_world.js");
@@ -1959,7 +2066,7 @@ give_object_form = dialog_give_object.find("form").on("submit", function( event 
     give_object();
 });
 
-},{"./../rur.js":48,"./../state.js":51,"./../visible_world.js":63,"./../world_set.js":73,"./../world_set/give_object_to_robot.js":77}],9:[function(require,module,exports){
+},{"./../rur.js":49,"./../state.js":52,"./../visible_world.js":64,"./../world_set.js":74,"./../world_set/give_object_to_robot.js":78}],10:[function(require,module,exports){
 require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
@@ -2003,7 +2110,7 @@ goal_objects_form = dialog_goal_object.find("form").on("submit", function( event
     goal_objects();
 });
 
-},{"./../state.js":51,"./../visible_world.js":63,"./../world_set/give_object_to_robot.js":77}],10:[function(require,module,exports){
+},{"./../state.js":52,"./../visible_world.js":64,"./../world_set/give_object_to_robot.js":78}],11:[function(require,module,exports){
 require("./../visible_world.js");
 ;
 // require("jquery-ui");
@@ -2038,7 +2145,7 @@ select_colour = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../visible_world.js":63}],11:[function(require,module,exports){
+},{"./../visible_world.js":64}],12:[function(require,module,exports){
 require("./../visible_world.js");
 ;
 // require("jquery-ui");
@@ -2073,7 +2180,7 @@ set_background_image = function () {
     dialog.dialog("close");
 };
 
-},{"./../visible_world.js":63}],12:[function(require,module,exports){
+},{"./../visible_world.js":64}],13:[function(require,module,exports){
 
 require("./rur.js");
 
@@ -2095,7 +2202,7 @@ RUR.WallCollisionError = function (message) {
     this.reeborg_shouts = message;
 };
 
-},{"./rur.js":48}],13:[function(require,module,exports){
+},{"./rur.js":49}],14:[function(require,module,exports){
 require("./../rur.js");
 require("./../state.js");
 
@@ -2157,7 +2264,7 @@ RUR.add_new_object_type = function (name, url, url_goal) {
 // TODO  see if this is still needed when Vincent Maille's book is published.
 RUR.add_object_image = RUR.add_new_object_type;
 
-},{"./../rur.js":48,"./../state.js":51}],14:[function(require,module,exports){
+},{"./../rur.js":49,"./../state.js":52}],15:[function(require,module,exports){
 require("./../rur.js");
 
 /** @function add_new_tile_type
@@ -2270,7 +2377,7 @@ _sync = function (tile, nb, coords) {
     return tile["image" + RUR._SYNC_TILES_VALUE[tile.name]];
 };
 
-},{"./../rur.js":48}],15:[function(require,module,exports){
+},{"./../rur.js":49}],16:[function(require,module,exports){
 require("./../rur.js");
 
 /** @function add_new_home_tile
@@ -2311,7 +2418,7 @@ RUR.add_new_home_tile = function (name, url, info) {
     RUR._NB_IMAGES_TO_LOAD += 1;
 };
 
-},{"./../rur.js":48}],16:[function(require,module,exports){
+},{"./../rur.js":49}],17:[function(require,module,exports){
 
 require("./output.js");
 require("./recorder.js");
@@ -2447,7 +2554,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
     }
 };
 
-},{"./exceptions.js":12,"./listeners/stop.js":33,"./output.js":37,"./permalink.js":38,"./recorder.js":43,"./translator.js":53,"./world.js":64,"./world/import_world.js":68,"./world_select.js":72}],17:[function(require,module,exports){
+},{"./exceptions.js":13,"./listeners/stop.js":34,"./output.js":38,"./permalink.js":39,"./recorder.js":44,"./translator.js":54,"./world.js":65,"./world/import_world.js":69,"./world_select.js":73}],18:[function(require,module,exports){
 
 
 require("./utils/key_exist.js");
@@ -2463,7 +2570,7 @@ require("./world_editor.js");
 
 require("./start_session.js");
 
-},{"./commands.js":2,"./playback/reverse_step.js":41,"./start_session.js":50,"./utils/cors.js":56,"./utils/key_exist.js":59,"./utils/supplant.js":61,"./world_editor.js":69}],18:[function(require,module,exports){
+},{"./commands.js":2,"./playback/reverse_step.js":42,"./start_session.js":51,"./utils/cors.js":57,"./utils/key_exist.js":60,"./utils/supplant.js":62,"./world_editor.js":70}],19:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -2684,7 +2791,7 @@ RUR.kbd.select = function (choice) {
     }
 };
 
-},{"./state.js":51}],19:[function(require,module,exports){
+},{"./state.js":52}],20:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
  * w/ Minimize & Maximize Support
@@ -3706,7 +3813,7 @@ $.extend($.ui.dialog.overlay.prototype, {
 });
 
 }(jQuery));
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 require("./canvas.js");
 require("./editors_tabs.js");
 require("./human_language.js");
@@ -3723,7 +3830,7 @@ require("./stop.js");
 require("./toggle_highlight.js");
 require("./toggle_watch.js");
 
-},{"./canvas.js":21,"./editors_tabs.js":22,"./human_language.js":23,"./memorize_world.js":24,"./onclick.js":25,"./pause.js":26,"./programming_mode.js":27,"./reload.js":28,"./robot_model.js":29,"./run.js":30,"./select_world_change.js":31,"./step.js":32,"./stop.js":33,"./toggle_highlight.js":34,"./toggle_watch.js":35}],21:[function(require,module,exports){
+},{"./canvas.js":22,"./editors_tabs.js":23,"./human_language.js":24,"./memorize_world.js":25,"./onclick.js":26,"./pause.js":27,"./programming_mode.js":28,"./reload.js":29,"./robot_model.js":30,"./run.js":31,"./select_world_change.js":32,"./step.js":33,"./stop.js":34,"./toggle_highlight.js":35,"./toggle_watch.js":36}],22:[function(require,module,exports){
 require("./../rur.js");
 
 $("#robot-canvas").mousemove(function (evt) {
@@ -3830,8 +3937,8 @@ RUR.calculate_grid_position = function () {
     return [x, y];
 };
 
-},{"./../rur.js":48}],22:[function(require,module,exports){
-
+},{"./../rur.js":49}],23:[function(require,module,exports){
+require("./../create_editors.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
 // "tabs" is a jqueryUI method
@@ -3883,7 +3990,7 @@ $("#library-tab").on("click", function (evt) {
     $("#watch-variables-btn").hide();
 });
 
-},{"./../../lang/msg.js":82}],23:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../create_editors.js":5}],24:[function(require,module,exports){
 require("./../state.js");
 require("./../../lang/reeborg_en.js");
 require("./../../lang/reeborg_fr.js");
@@ -3976,7 +4083,7 @@ $("#human-language").change(function() {
     update_url();
 });
 
-},{"./../../lang/msg.js":82,"./../../lang/reeborg_en.js":83,"./../../lang/reeborg_fr.js":84,"./../custom_world_select.js":5,"./../state.js":51,"./../utils/parseuri.js":60}],24:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../../lang/reeborg_en.js":84,"./../../lang/reeborg_fr.js":85,"./../custom_world_select.js":6,"./../state.js":52,"./../utils/parseuri.js":61}],25:[function(require,module,exports){
 
 require("./../state.js");
 require("./../storage.js");
@@ -4035,13 +4142,14 @@ save_world = function () {
     $('#delete-world').show();
 };
 
-},{"./../../lang/msg.js":82,"./../state.js":51,"./../storage.js":52,"./../world/clone_world.js":65}],25:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../state.js":52,"./../storage.js":53,"./../world/clone_world.js":66}],26:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 */
 
 require("./../translator.js");
 require("./../world.js");
 require("./../state.js");
+require("./../create_editors.js");
 
 var export_world = require("./../world/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4142,7 +4250,7 @@ $("#add-library-to-world").on("click", function(evt) {
     }
 });
 
-},{"./../../lang/msg.js":82,"./../state.js":51,"./../translator.js":53,"./../world.js":64,"./../world/export_world.js":67}],26:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../create_editors.js":5,"./../state.js":52,"./../translator.js":54,"./../world.js":65,"./../world/export_world.js":68}],27:[function(require,module,exports){
 require("./../state.js");
 ;
 require("./../playback/play.js");
@@ -4165,10 +4273,11 @@ RUR.pause = function (ms) {
 };
 pause_button.addEventListener("click", pause, false);
 
-},{"./../../lang/msg.js":82,"./../playback/play.js":39,"./../state.js":51}],27:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../playback/play.js":40,"./../state.js":52}],28:[function(require,module,exports){
 require("./../state.js");
 require("./../listeners/reload.js");
 require("./../keyboard.js");
+require("./../create_editors.js");
 var record_id = require("./../../lang/msg.js").record_id;
 var update_url = require("./../utils/parseuri.js").update_url;
 
@@ -4367,7 +4476,7 @@ function hide_console() {
 show_editor("python");
 // see start_session.js for initialization.
 
-},{"./../../lang/msg.js":82,"./../keyboard.js":18,"./../listeners/reload.js":28,"./../state.js":51,"./../utils/parseuri.js":60}],28:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../create_editors.js":5,"./../keyboard.js":19,"./../listeners/reload.js":29,"./../state.js":52,"./../utils/parseuri.js":61}],29:[function(require,module,exports){
 
 require("./../utils/key_exist.js");
 require("./../state.js");
@@ -4414,7 +4523,7 @@ RUR.reload2 = function() {
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);
 
-},{"./../../lang/msg.js":82,"./../recorder/reset.js":45,"./../state.js":51,"./../ui/set_ready_to_run.js":55,"./../utils/key_exist.js":59,"./../world_set/reset_world.js":78}],29:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../recorder/reset.js":46,"./../state.js":52,"./../ui/set_ready_to_run.js":56,"./../utils/key_exist.js":60,"./../world_set/reset_world.js":79}],30:[function(require,module,exports){
 require("./../visible_robot.js");
 ;
 require("./../state.js");
@@ -4494,7 +4603,7 @@ RUR.vis_robot.new_robot_images = function (images) {
     RUR.select_default_robot_model(model);
 };
 
-},{"./../../lang/msg.js":82,"./../state.js":51,"./../visible_robot.js":62}],30:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../state.js":52,"./../visible_robot.js":63}],31:[function(require,module,exports){
 ;
 require("./../state.js");
 require("./reload.js");
@@ -4522,7 +4631,7 @@ function run () {
 }
 run_button.addEventListener("click", run, false);
 
-},{"./../../lang/msg.js":82,"./../playback/play.js":39,"./../runner.js":47,"./../state.js":51,"./reload.js":28}],31:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../playback/play.js":40,"./../runner.js":48,"./../state.js":52,"./reload.js":29}],32:[function(require,module,exports){
 require("./../file_io.js");
 require("./../storage.js");
 
@@ -4541,7 +4650,7 @@ $("#select-world").change(function() {
     } catch (e) {}
 });
 
-},{"./../../lang/msg.js":82,"./../file_io.js":16,"./../storage.js":52}],32:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../file_io.js":17,"./../storage.js":53}],33:[function(require,module,exports){
 
 require("./../state.js");
 require("./reload.js");
@@ -4561,7 +4670,7 @@ step = function () {
 };
 step_button.addEventListener("click", step, false);
 
-},{"./../../lang/msg.js":82,"./../playback/play.js":39,"./../runner.js":47,"./../state.js":51,"./reload.js":28}],33:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../playback/play.js":40,"./../runner.js":48,"./../state.js":52,"./reload.js":29}],34:[function(require,module,exports){
 
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4581,7 +4690,7 @@ RUR.stop = function () {
 };
 stop_button.addEventListener("click", RUR.stop, false);
 
-},{"./../../lang/msg.js":82,"./../state.js":51}],34:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../state.js":52}],35:[function(require,module,exports){
 ;
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4602,7 +4711,7 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
 };
 highlight_button.addEventListener("click", RUR.toggle_highlight, false);
 
-},{"./../../lang/msg.js":82,"./../state.js":51}],35:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../state.js":52}],36:[function(require,module,exports){
 ;
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4627,7 +4736,7 @@ toggle_watch_variables = function () {
 };
 watch_button.addEventListener("click", toggle_watch_variables, false);
 
-},{"./../../lang/msg.js":82,"./../state.js":51}],36:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../state.js":52}],37:[function(require,module,exports){
 require("./rur.js");
 require("./extend/add_object_type.js");
 require("./extend/add_tile_type.js");
@@ -4795,7 +4904,7 @@ RUR.SOLID_OBJECTS.fence_vertical.message = RUR.SOLID_OBJECTS.fence_right.message
 RUR.SOLID_OBJECTS.fence_vertical.info = RUR.SOLID_OBJECTS.fence_right.info;
 RUR.SOLID_OBJECTS.fence7 = RUR.SOLID_OBJECTS.fence_vertical;  // compatibility with old worlds
 
-},{"./extend/add_object_type.js":13,"./extend/add_tile_type.js":14,"./extend/new_home_tile.js":15,"./rur.js":48}],37:[function(require,module,exports){
+},{"./extend/add_object_type.js":14,"./extend/add_tile_type.js":15,"./extend/new_home_tile.js":16,"./rur.js":49}],38:[function(require,module,exports){
 
 
 require("./recorder.js");
@@ -4862,7 +4971,7 @@ RUR.output.view_source_js = function(fn) {
     });
 };
 
-},{"./recorder.js":43,"./state.js":51}],38:[function(require,module,exports){
+},{"./recorder.js":44,"./state.js":52}],39:[function(require,module,exports){
 
 require("./state.js");
 require("./storage.js");
@@ -4870,13 +4979,13 @@ require("./world.js");
 require("./translator.js");
 require("./listeners/programming_mode.js");
 require("./utils/parseuri.js");
+require("./create_editors.js");
 
 var export_world = require("./world/export_world.js").export_world;
-
 var record_id = require("./../lang/msg.js").record_id;
+
 record_id("save-permalink", "Save permalink");
 record_id("save-permalink-text", "Save permalink explanation");
-
 $("#save-permalink").on("click", function (evt) {
     var blob = new Blob([RUR.permalink.__create()], {
         type: "text/javascript;charset=utf-8"
@@ -4884,12 +4993,9 @@ $("#save-permalink").on("click", function (evt) {
     saveAs(blob, "filename"); // saveAs defined in src/libraries/filesaver.js
 });
 
-
 /* IMPORTANT: we attempt to maintain compatibility with the old permalinks
    format below.
  */
-
-//TODO Add a button to copy to clipboard the permalink.
 
 RUR.permalink = {};
 
@@ -4917,9 +5023,7 @@ RUR.permalink.__create = function () {
 
 
 RUR.permalink.create = function () {
-    var permalink;
-
-    permalink = RUR.permalink.__create();
+    var permalink = RUR.permalink.__create();
 
     $("#url-input-textarea").val(permalink);
     $("#url-input").toggle();
@@ -5017,12 +5121,6 @@ RUR.permalink.update = function (arg, shortname) {
     $("#permalink").addClass('blue-gradient');
 };
 
-RUR.permalink.cancel = function () {
-    $('#url-input').hide();
-    $("#permalink").removeClass('reverse-blue-gradient');
-    $("#permalink").addClass('blue-gradient');
-};
-
 record_id("ok-permalink", "UPDATE");
 $("#ok-permalink").on("click", function (evt) {
     RUR.permalink.update();
@@ -5030,7 +5128,9 @@ $("#ok-permalink").on("click", function (evt) {
 
 record_id("cancel-permalink", "CANCEL");
 $("#cancel-permalink").on("click", function (evt) {
-    RUR.permalink.cancel();
+    $('#url-input').hide();
+    $("#permalink").removeClass('reverse-blue-gradient');
+    $("#permalink").addClass('blue-gradient');
 });
 
 // copy to clipboard
@@ -5046,7 +5146,7 @@ function receiveMessage(event){
     RUR.permalink.update(event.data);
 }
 
-},{"./../lang/msg.js":82,"./listeners/programming_mode.js":27,"./state.js":51,"./storage.js":52,"./translator.js":53,"./utils/parseuri.js":60,"./world.js":64,"./world/export_world.js":67}],39:[function(require,module,exports){
+},{"./../lang/msg.js":83,"./create_editors.js":5,"./listeners/programming_mode.js":28,"./state.js":52,"./storage.js":53,"./translator.js":54,"./utils/parseuri.js":61,"./world.js":65,"./world/export_world.js":68}],40:[function(require,module,exports){
 require("./../state.js");
 require("./../listeners/stop.js");
 
@@ -5078,7 +5178,7 @@ function loop () {
     RUR._TIMER = setTimeout(loop, RUR.playback_delay);
 }
 
-},{"./../listeners/stop.js":33,"./../state.js":51}],40:[function(require,module,exports){
+},{"./../listeners/stop.js":34,"./../state.js":52}],41:[function(require,module,exports){
 
 RUR._play_sound = function (sound_id) {
     "use strict";
@@ -5088,7 +5188,7 @@ RUR._play_sound = function (sound_id) {
     current_sound.play();
 };
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 ;
 require("./../state.js");
 require("./../recorder.js");
@@ -5105,7 +5205,7 @@ RUR.reverse_step = function () {
     clearTimeout(RUR._TIMER);
 };
 
-},{"./../recorder.js":43,"./../state.js":51}],42:[function(require,module,exports){
+},{"./../recorder.js":44,"./../state.js":52}],43:[function(require,module,exports){
 
 require("./../visible_world.js");
 require("./../exceptions.js");
@@ -5125,7 +5225,7 @@ RUR._show_immediate = function (name, obj) {
     }
 };
 
-},{"./../exceptions.js":12,"./../visible_world.js":63}],43:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../visible_world.js":64}],44:[function(require,module,exports){
 
 require("./state.js");
 require("./visible_world.js");
@@ -5136,6 +5236,7 @@ require("./exceptions.js");
 require("./listeners/pause.js");
 require("./listeners/stop.js");
 require("./playback/play_sound.js");
+require("./create_editors.js");
 
 var identical = require("./utils/identical.js").identical;
 var clone_world = require("./world/clone_world.js").clone_world;
@@ -5393,7 +5494,7 @@ RUR.rec.check_robots_on_tiles = function(frame){
     }
 };
 
-},{"./constants.js":3,"./exceptions.js":12,"./listeners/pause.js":26,"./listeners/stop.js":33,"./playback/play_sound.js":40,"./state.js":51,"./translator.js":53,"./utils/identical.js":58,"./visible_world.js":63,"./world/clone_world.js":65,"./world_get.js":70}],44:[function(require,module,exports){
+},{"./constants.js":3,"./create_editors.js":5,"./exceptions.js":13,"./listeners/pause.js":27,"./listeners/stop.js":34,"./playback/play_sound.js":41,"./state.js":52,"./translator.js":54,"./utils/identical.js":59,"./visible_world.js":64,"./world/clone_world.js":66,"./world_get.js":71}],45:[function(require,module,exports){
 
 require("./../state.js");
 require("./../exceptions.js");
@@ -5463,8 +5564,9 @@ RUR.record_frame = function (name, obj) {
     }
 };
 
-},{"./../exceptions.js":12,"./../playback/show_immediate.js":42,"./../state.js":51,"./../world/clone_world.js":65}],45:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../playback/show_immediate.js":43,"./../state.js":52,"./../world/clone_world.js":66}],46:[function(require,module,exports){
 require("./../state.js");
+require("./../create_editors.js");
 
 exports.reset = reset = function() {
     RUR.nb_frames = 0;
@@ -5494,7 +5596,7 @@ exports.reset = reset = function() {
 
 reset();
 
-},{"./../state.js":51}],46:[function(require,module,exports){
+},{"./../create_editors.js":5,"./../state.js":52}],47:[function(require,module,exports){
 
 require("./constants.js");
 require("./translator.js");
@@ -5571,7 +5673,7 @@ RUR.robot.cleanup_objects = function (robot) {
     }
 };
 
-},{"./constants.js":3,"./exceptions.js":12,"./translator.js":53,"./utils/filterint.js":57}],47:[function(require,module,exports){
+},{"./constants.js":3,"./exceptions.js":13,"./translator.js":54,"./utils/filterint.js":58}],48:[function(require,module,exports){
 
 require("./rur.js");
 require("./translator.js");
@@ -5581,6 +5683,7 @@ require("./state.js");
 require("./blockly.js");
 require("./recorder.js");
 require("./world_init.js");
+require("./create_editors.js");
 var clone_world = require("./world/clone_world.js").clone_world;
 
 RUR.runner = {};
@@ -5826,7 +5929,7 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     return false;  // no missing parentheses
 };
 
-},{"./blockly.js":1,"./recorder.js":43,"./rur.js":48,"./state.js":51,"./translator.js":53,"./visible_world.js":63,"./world.js":64,"./world/clone_world.js":65,"./world_init.js":71}],48:[function(require,module,exports){
+},{"./blockly.js":1,"./create_editors.js":5,"./recorder.js":44,"./rur.js":49,"./state.js":52,"./translator.js":54,"./visible_world.js":64,"./world.js":65,"./world/clone_world.js":66,"./world_init.js":72}],49:[function(require,module,exports){
 /** @namespace RUR */         // for jsdoc
 window.RUR = RUR || {}; // RUR could be already be defined in the html file
 
@@ -5844,7 +5947,7 @@ RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
 
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 require("./state.js");
 require("./visible_world.js");
 require("./visible_robot.js");
@@ -5866,7 +5969,7 @@ function everything_loaded () {
 }
 everything_loaded();
 
-},{"./state.js":51,"./visible_robot.js":62,"./visible_world.js":63}],50:[function(require,module,exports){
+},{"./state.js":52,"./visible_robot.js":63,"./visible_world.js":64}],51:[function(require,module,exports){
 
 /* Requiring the following just to get things started */
 require("./listeners/add_listeners.js");
@@ -5878,6 +5981,7 @@ require("./world/import_world.js");
 require("./storage.js");
 require("./state.js");
 require("./permalink.js");
+require("./create_editors.js");
 
 //
 brython({debug:1, pythonpath:['/src/python']});
@@ -5947,7 +6051,7 @@ function set_world(url_query) {
     }
 }
 
-},{"./listeners/add_listeners.js":20,"./permalink.js":38,"./splash_screen.js":49,"./state.js":51,"./storage.js":52,"./utils/parseuri.js":60,"./world/import_world.js":68}],51:[function(require,module,exports){
+},{"./create_editors.js":5,"./listeners/add_listeners.js":21,"./permalink.js":39,"./splash_screen.js":50,"./state.js":52,"./storage.js":53,"./utils/parseuri.js":61,"./world/import_world.js":69}],52:[function(require,module,exports){
 /* Yes, I know, global variables are a terrible thing.
    And, in a sense, the following are global variables recording a given
    state.  However, by using this convention and documentating them in a
@@ -5982,7 +6086,7 @@ RUR.state.y = undefined;
 // TODO: after simplifying the permalink, see if RUR.state.prevent_playback
 // is still needed.
 
-},{"./rur.js":48,"./translator.js":53}],52:[function(require,module,exports){
+},{"./rur.js":49,"./translator.js":54}],53:[function(require,module,exports){
 
 require("./rur.js");
 require("./translator.js");
@@ -6056,7 +6160,7 @@ RUR.storage.delete_world = function (name){
     $('#delete-world').hide();
 };
 
-},{"./rur.js":48,"./translator.js":53,"./world/clone_world.js":65,"./world/export_world.js":67,"./world_select.js":72}],53:[function(require,module,exports){
+},{"./rur.js":49,"./translator.js":54,"./world/clone_world.js":66,"./world/export_world.js":68,"./world_select.js":73}],54:[function(require,module,exports){
 require("./rur.js");
 require("./../lang/msg.js");
 
@@ -6080,7 +6184,7 @@ RUR.translate_to_english = function (s) {
     }
 };
 
-},{"./../lang/msg.js":82,"./rur.js":48}],54:[function(require,module,exports){
+},{"./../lang/msg.js":83,"./rur.js":49}],55:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -6095,7 +6199,7 @@ exports.toggle = function () {
     }
 };
 
-},{"./../rur.js":48}],55:[function(require,module,exports){
+},{"./../rur.js":49}],56:[function(require,module,exports){
 
 require("./../state.js");
 
@@ -6111,7 +6215,7 @@ exports.set_ready_to_run = set_ready_to_run = function () {
 
 set_ready_to_run();
 
-},{"./../state.js":51}],56:[function(require,module,exports){
+},{"./../state.js":52}],57:[function(require,module,exports){
 ;
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
 
@@ -6123,7 +6227,7 @@ $.ajaxPrefilter( function (options) {
   }
 });
 
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 /* filterInt adapted from
 https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 */
@@ -6134,7 +6238,7 @@ exports.filterInt = function (value) {
   return undefined;
 };
 
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 /*
     Original script title: "Object.identical.js"; version 1.12
     Copyright (c) 2011, Chris O'Brien, prettycode.org
@@ -6170,7 +6274,7 @@ exports.identical = function (a, b) {
     return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
 };
 
-},{}],59:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 require("./../rur.js");
 RUR._ensure_key_exists = function(obj, key){
     "use strict";
@@ -6179,7 +6283,7 @@ RUR._ensure_key_exists = function(obj, key){
     }
 };
 
-},{"./../rur.js":48}],60:[function(require,module,exports){
+},{"./../rur.js":49}],61:[function(require,module,exports){
 // parseUri 1.2.2
 // (c) Steven Levithan <stevenlevithan.com>
 // MIT License
@@ -6231,7 +6335,7 @@ exports.update_url = update_url = function () {
     window.history.pushState("dummy", "dummy", permalink);
 };
 
-},{}],61:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 // adapted from http://javascript.crockford.com/remedial.html
 
 // will modify a global object - no need to export anything.
@@ -6246,7 +6350,7 @@ String.prototype.supplant = function (o) {
     );
 };
 
-},{}],62:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 
 require("./constants.js");
 require("./state.js");
@@ -6487,7 +6591,7 @@ RUR.vis_robot.set_trace_style = function (choice, robot){
 
 RUR.vis_robot.set_trace_style("default");
 
-},{"./constants.js":3,"./state.js":51}],63:[function(require,module,exports){
+},{"./constants.js":3,"./state.js":52}],64:[function(require,module,exports){
 
 /*jshint  -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR*/
@@ -7135,7 +7239,7 @@ RUR.vis_world.draw_info = function() {
     }
 };
 
-},{"./constants.js":3,"./extend/add_object_type.js":13,"./extend/add_tile_type.js":14,"./extend/new_home_tile.js":15,"./state.js":51,"./translator.js":53}],64:[function(require,module,exports){
+},{"./constants.js":3,"./extend/add_object_type.js":14,"./extend/add_tile_type.js":15,"./extend/new_home_tile.js":16,"./state.js":52,"./translator.js":54}],65:[function(require,module,exports){
 
 require("./translator.js");
 require("./constants.js");
@@ -7143,6 +7247,7 @@ require("./robot.js");
 require("./visible_world.js");
 require("./state.js");
 require("./exceptions.js");
+require("./create_editors.js");
 edit_robot_menu = require("./ui/edit_robot_menu.js");
 var clone_world = require("./world/clone_world.js").clone_world;
 
@@ -7240,7 +7345,7 @@ $("#update-library-content-btn").on("click", function(evt) {
     }
 });
 
-},{"./constants.js":3,"./exceptions.js":12,"./robot.js":46,"./state.js":51,"./translator.js":53,"./ui/edit_robot_menu.js":54,"./visible_world.js":63,"./world/clone_world.js":65}],65:[function(require,module,exports){
+},{"./constants.js":3,"./create_editors.js":5,"./exceptions.js":13,"./robot.js":47,"./state.js":52,"./translator.js":54,"./ui/edit_robot_menu.js":55,"./visible_world.js":64,"./world/clone_world.js":66}],66:[function(require,module,exports){
 
 exports.clone_world = function (world) {
     if (world === undefined) {
@@ -7250,7 +7355,7 @@ exports.clone_world = function (world) {
     }
 };
 
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 require("./../constants.js");
 
 exports.create_empty_world = create_empty_world = function (blank_canvas) {
@@ -7273,19 +7378,20 @@ exports.create_empty_world = create_empty_world = function (blank_canvas) {
 };
 RUR.CURRENT_WORLD = create_empty_world();
 
-},{"./../constants.js":3}],67:[function(require,module,exports){
+},{"./../constants.js":3}],68:[function(require,module,exports){
 
 exports.export_world = function () {
     return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
 };
 
-},{}],68:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 require("./../translator.js");
 require("./../constants.js");
 require("./../robot.js");
 require("./../visible_world.js");
 require("./../state.js");
 require("./../exceptions.js");
+require("./../create_editors.js");
 edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
 
@@ -7398,7 +7504,7 @@ eval_onload = function () {
     }
 };
 
-},{"./../constants.js":3,"./../exceptions.js":12,"./../robot.js":46,"./../state.js":51,"./../translator.js":53,"./../ui/edit_robot_menu.js":54,"./../visible_world.js":63,"./clone_world.js":65}],69:[function(require,module,exports){
+},{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../robot.js":47,"./../state.js":52,"./../translator.js":54,"./../ui/edit_robot_menu.js":55,"./../visible_world.js":64,"./clone_world.js":66}],70:[function(require,module,exports){
 
 require("./translator.js");
 require("./constants.js");
@@ -7412,6 +7518,7 @@ require("./world_get.js");
 require("./world_set.js");
 require("./dialogs/create.js");
 require("./listeners/canvas.js");
+require("./create_editors.js");
 
 require("./world_set/add_object.js");
 require("./world_set/add_goal_object.js");
@@ -8032,7 +8139,7 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./constants.js":3,"./dialogs/add_object.js":6,"./dialogs/create.js":7,"./dialogs/give_object.js":8,"./dialogs/goal_object.js":9,"./dialogs/select_colour.js":10,"./dialogs/set_background_image.js":11,"./exceptions.js":12,"./listeners/canvas.js":21,"./objects.js":36,"./robot.js":46,"./state.js":51,"./translator.js":53,"./ui/edit_robot_menu.js":54,"./utils/filterint.js":57,"./utils/identical.js":58,"./visible_world.js":63,"./world.js":64,"./world_get.js":70,"./world_set.js":73,"./world_set/add_goal_object.js":74,"./world_set/add_object.js":75,"./world_set/add_robot.js":76}],70:[function(require,module,exports){
+},{"./constants.js":3,"./create_editors.js":5,"./dialogs/add_object.js":7,"./dialogs/create.js":8,"./dialogs/give_object.js":9,"./dialogs/goal_object.js":10,"./dialogs/select_colour.js":11,"./dialogs/set_background_image.js":12,"./exceptions.js":13,"./listeners/canvas.js":22,"./objects.js":37,"./robot.js":47,"./state.js":52,"./translator.js":54,"./ui/edit_robot_menu.js":55,"./utils/filterint.js":58,"./utils/identical.js":59,"./visible_world.js":64,"./world.js":65,"./world_get.js":71,"./world_set.js":74,"./world_set/add_goal_object.js":75,"./world_set/add_object.js":76,"./world_set/add_robot.js":77}],71:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
@@ -8303,7 +8410,7 @@ RUR.world_get.world_info = function (no_grid) {
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:300, width:600}, RUR.world_get.world_info);
 
-},{"./dialogs/create.js":7,"./listeners/canvas.js":21,"./objects.js":36}],71:[function(require,module,exports){
+},{"./dialogs/create.js":8,"./listeners/canvas.js":22,"./objects.js":37}],72:[function(require,module,exports){
 
 require("./visible_world.js");
 require("./constants.js");
@@ -8424,7 +8531,7 @@ RUR.world_init.set = function () {
     RUR.vis_world.refresh();
 };
 
-},{"./constants.js":3,"./visible_world.js":63}],72:[function(require,module,exports){
+},{"./constants.js":3,"./visible_world.js":64}],73:[function(require,module,exports){
 
 /*  Purpose of this file: abstract handling of menus so that all jQuery
     dependencies (and possibly obscure syntax in some cases) can be pulled
@@ -8521,7 +8628,7 @@ RUR.world_select.append_world = function (arg) {
     }
 };
 
-},{}],73:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 /* In some ways, this is the counterpart of world_get.js
 */
 
@@ -8667,7 +8774,7 @@ set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit
     set_dimension();
 });
 
-},{"./exceptions.js":12,"./objects.js":36,"./recorder.js":43,"./visible_world.js":63}],74:[function(require,module,exports){
+},{"./exceptions.js":13,"./objects.js":37,"./recorder.js":44,"./visible_world.js":64}],75:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
@@ -8727,7 +8834,7 @@ RUR.add_goal_object_at_position = function (specific_object, x, y, nb){
     }
 };
 
-},{"./../exceptions.js":12,"./../translator.js":53,"./../utils/key_exist.js":59}],75:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/key_exist.js":60}],76:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
@@ -8778,7 +8885,7 @@ RUR.add_object_at_position = function (specific_object, x, y, nb){
     }
 };
 
-},{"./../exceptions.js":12,"./../translator.js":53,"./../utils/key_exist.js":59}],76:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/key_exist.js":60}],77:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -8790,7 +8897,7 @@ RUR._add_robot = function (robot) {
     RUR.record_frame();
 };
 
-},{"./../recorder/record_frame.js":44}],77:[function(require,module,exports){
+},{"./../recorder/record_frame.js":45}],78:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
@@ -8841,7 +8948,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../exceptions.js":12,"./../translator.js":53,"./../utils/key_exist.js":59}],78:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/key_exist.js":60}],79:[function(require,module,exports){
 require("./../world/create_empty.js");
 require("./../visible_robot.js");
 require("./../visible_world.js");
@@ -8859,7 +8966,7 @@ exports.reset_world = reset_world = function () {
 
 reset_world();
 
-},{"./../visible_robot.js":62,"./../visible_world.js":63,"./../world/clone_world.js":65,"./../world/create_empty.js":66}],79:[function(require,module,exports){
+},{"./../visible_robot.js":63,"./../visible_world.js":64,"./../world/clone_world.js":66,"./../world/create_empty.js":67}],80:[function(require,module,exports){
 RUR.en = {};
 RUR.en_to_en = {};
 
@@ -9128,7 +9235,7 @@ RUR.en["CANCEL"] = "Cancel";
 RUR.en["COPY"] = "Copy";
 RUR.en["PERMALINK EXPLAIN"] = "Copy the permalink and press cancel, or replace by new one and press Update.";
 
-},{}],80:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 RUR.fr = {};
 
 RUR.fr = {};
@@ -9399,7 +9506,7 @@ RUR.fr["CANCEL"] = "Annuler";
 RUR.fr["COPY"] = "Copier";
 RUR.fr["PERMALINK EXPLAIN"] = "Copiez le permalien et cliquez Annuler, ou remplacez par un nouveau et cliquez 'Mettre à jour'.";
 
-},{}],81:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 RUR.ko = {};
 RUR.ko_to_en = {};
 
@@ -9667,7 +9774,7 @@ RUR.ko["CANCEL"] = "취소";
 RUR.ko["COPY"] = "Copy";
 RUR.ko["PERMALINK EXPLAIN"] = "퍼머링크를 복사하고 취소를 누르세요, 아니면 새로 교체하고 업데이트를 누르세요.";
 
-},{}],82:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 require("./../lang/en.js");
 require("./../lang/fr.js");
 require("./../lang/ko.js");
@@ -9761,7 +9868,7 @@ add_msg("highlight-impossible", "HIGHLIGHT IMPOSSIBLE");
 add_msg("command-result", "COMMAND RESULT");
 add_msg("permalink-text", "PERMALINK EXPLAIN");
 
-},{"./../lang/en.js":79,"./../lang/fr.js":80,"./../lang/ko.js":81}],83:[function(require,module,exports){
+},{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ko.js":82}],84:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could
     (possibly accidently) redefine a basic function, which could lead to some
     apparent bugs.  For this reason, we include a function whose role is to
@@ -9909,7 +10016,7 @@ RUR.reset_definitions_en = function () {
     window.facing_north = is_facing_north;
 };
 
-},{}],84:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 /* See reeborg_en.js */
 window.RUR = RUR || {};
 
@@ -10042,4 +10149,4 @@ RUR.reset_definitions_fr = function () {
 
 };
 
-},{}]},{},[17]);
+},{}]},{},[18]);

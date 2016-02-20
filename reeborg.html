@@ -23,7 +23,6 @@
   </script>
 
 </head>
-
 <body>
 
 <div id="splash-screen"><div class="sk-fading-circle">
@@ -72,12 +71,12 @@
 
   </header>
   <div id="url-input" style="display:none">
-    <p id="permalink-text">Copy the permalink and press cancel, or replace by new one and press Update.</p>
-    <p><button class="blue-gradient" id="copy-permalink">Copy</button></p>
+    <p id="permalink-text"></p>
+    <p><button class="blue-gradient" id="copy-permalink"></button></p>
     <textarea id="url-input-textarea" cols="60" rows="10"></textarea>
     <p>
-      <button class="blue-gradient" id="ok-permalink">Update</button>
-      <button class="blue-gradient" id="cancel-permalink">Cancel</button>
+      <button class="blue-gradient" id="ok-permalink"></button>
+      <button class="blue-gradient" id="cancel-permalink"></button>
     </p>
   </div>
 
@@ -212,12 +211,12 @@
     <input type="file" id="fileInput" style="display:none;">
     <div id="tabs">
       <ul>
-        <li><a id="editor-tab" href="#editor">Python Code</a></li>
-        <li><a id="library-tab" href="#library">library</a></li>
-        <li><a id="pre-code-tab" href="#pre-code-div">Pre</a></li>
-        <li><a id="post-code-tab" href="#post-code-div">Post</a></li>
-        <li><a id="description-tab" href="#description-div">Desc.</a></li>
-        <li><a id="onload-editor-tab" href="#onload-editor-div">onload</a></li>
+        <li><a id="editor-tab" href="#editor"></a></li>
+        <li><a id="library-tab" href="#library"></a></li>
+        <li><a id="pre-code-tab" href="#pre-code-div"></a></li>
+        <li><a id="post-code-tab" href="#post-code-div"></a></li>
+        <li><a id="description-tab" href="#description-div"></a></li>
+        <li><a id="onload-editor-tab" href="#onload-editor-div"></a></li>
 
         <button id="watch-variables-btn" class="blue-gradient float-right">
           <img src="/src/images/magnifying_yes.png" alt="watch">
@@ -254,13 +253,13 @@
   <div style="display:none;" id="edit-world-panel" title="World editor">
     <p>
       <input type="checkbox" name="add-editor-to-world" value="add-editor-to-world" id="add-editor-to-world">
-      <span id="add-editor-text">Add editor content to world</span>
+      <span id="add-editor-text"></span>
       <span id="add-library-choice">
         <input type="checkbox" name="add-library-to-world" value="add-library-to-world" id="add-library-to-world">
-        <span id="add-library-text">Add library content to world</span>
+        <span id="add-library-text"></span>
       </span>
       <br>
-      <button id="memorize-world" class="blue-gradient">Save world in browser</button>
+      <button id="memorize-world" class="blue-gradient"></button>
     </p>
 
     <div id="edit-world-submenus-wrapper">
@@ -539,125 +538,7 @@
   <script src="/src/blockly/python_compressed.js"></script>
 
   <script src="/build/reeborg.js" defer></script>
-
-  <script type="text/python3">
-from browser import window
-from _importlib import optimize_import_for_path
-optimize_import_for_path('/src/python', 'py')
-from common import generic_translate_python
-window['translate_python'] = generic_translate_python
-import py_repl
-  </script>
-
-  <script>
-    function betterTab(cm) {
-      if (cm.somethingSelected()) {
-        cm.indentSelection("add");
-      } else {
-        cm.replaceSelection(cm.getOption("indentWithTabs") ? "\t" :
-          Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");
-      }
-    }
-
-    function shiftTab(cm) {
-      cm.execCommand("indentLess");
-    }
-
-    var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-      mode: {
-        name: "python",
-        version: 3
-      },
-      tabMode: 'indent',
-      lineNumbers: true,
-      theme: 'reeborg-dark',
-      indentUnit: 4,
-      viewportMargin: Infinity
-    });
-    editor.setOption("extraKeys", {
-      Tab: betterTab,
-      "Shift-Tab": shiftTab
-    });
-    editor.widgets = [];
-
-    var library = CodeMirror.fromTextArea(document.getElementById('library-code'), {
-      mode: {
-        name: "python",
-        version: 3
-      },
-      tabMode: 'indent',
-      lineNumbers: true,
-      theme: 'reeborg-dark',
-      indentUnit: 4,
-      viewportMargin: Infinity
-    });
-    library.setOption("extraKeys", {
-      Tab: betterTab,
-      "Shift-Tab": shiftTab
-    });
-
-    var pre_code_editor = CodeMirror.fromTextArea(document.getElementById('pre-code'), {
-      mode: {
-        name: "python",
-        version: 3
-      },
-      tabMode: 'indent',
-      lineNumbers: true,
-      theme: 'reeborg-dark',
-      indentUnit: 4,
-      viewportMargin: Infinity
-    });
-    pre_code_editor.setOption("extraKeys", {
-      Tab: betterTab,
-      "Shift-Tab": shiftTab
-    });
-    var post_code_editor = CodeMirror.fromTextArea(document.getElementById('post-code'), {
-      mode: {
-        name: "python",
-        version: 3
-      },
-      tabMode: 'indent',
-      lineNumbers: true,
-      theme: 'reeborg-dark',
-      indentUnit: 4,
-      viewportMargin: Infinity
-    });
-    post_code_editor.setOption("extraKeys", {
-      Tab: betterTab,
-      "Shift-Tab": shiftTab
-    });
-
-    var description_editor = CodeMirror.fromTextArea(document.getElementById('description'), {
-      mode: {
-        name: "htmlmixed"
-      },
-      tabMode: 'indent',
-      lineNumbers: true,
-      theme: 'reeborg-dark',
-      indentUnit: 4,
-      viewportMargin: Infinity
-    });
-    description_editor.setOption("extraKeys", {
-      Tab: betterTab,
-      "Shift-Tab": shiftTab
-    });
-
-    var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-editor'), {
-      mode: {
-        name: "javascript"
-      },
-      tabMode: 'indent',
-      lineNumbers: true,
-      theme: 'reeborg-dark',
-      indentUnit: 4,
-      viewportMargin: Infinity
-    });
-    onload_editor.setOption("extraKeys", {
-      Tab: betterTab,
-      "Shift-Tab": shiftTab
-    });
-  </script>
-
+  <script type="text/python3" src="src/python/init_reeborg.py"></script>
   <script async src="/src/libraries/filesaver.js"></script>
 
   <script>

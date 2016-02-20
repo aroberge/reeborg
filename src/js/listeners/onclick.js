@@ -4,6 +4,7 @@
 require("./../translator.js");
 require("./../world.js");
 require("./../state.js");
+require("./../create_editors.js");
 
 var export_world = require("./../world/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;

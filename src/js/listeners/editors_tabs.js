@@ -1,4 +1,4 @@
-
+require("./../create_editors.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
 // "tabs" is a jqueryUI method

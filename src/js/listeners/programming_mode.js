@@ -1,6 +1,7 @@
 require("./../state.js");
 require("./../listeners/reload.js");
 require("./../keyboard.js");
+require("./../create_editors.js");
 var record_id = require("./../../lang/msg.js").record_id;
 var update_url = require("./../utils/parseuri.js").update_url;
 

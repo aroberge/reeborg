@@ -5,6 +5,7 @@ require("./robot.js");
 require("./visible_world.js");
 require("./state.js");
 require("./exceptions.js");
+require("./create_editors.js");
 edit_robot_menu = require("./ui/edit_robot_menu.js");
 var clone_world = require("./world/clone_world.js").clone_world;
 

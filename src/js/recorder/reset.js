@@ -1,4 +1,5 @@
 require("./../state.js");
+require("./../create_editors.js");
 
 exports.reset = reset = function() {
     RUR.nb_frames = 0;
