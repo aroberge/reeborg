@@ -46,23 +46,6 @@ $("#load-world").on("click", function(evt) {
     });
 });
 
-record_id("editor-tab");
-$("#editor-tab").on("click", function (evt) {
-    if (RUR.state.programming_language == "python" && !RUR.state.editing_world) {
-        $("#highlight").show();
-        $("#watch-variables-btn").show();
-    } else {
-        $("#highlight").hide();
-        $("#watch-variables-btn").hide();
-    }
-});
-
-record_id("library-tab");
-$("#library-tab").on("click", function (evt) {
-    $("#highlight").hide();
-    $("#watch-variables-btn").hide();
-});
-
 record_id("save-editor", "SAVE EDITOR");
 record_id("save-editor-text", "SAVE EDITOR EXPLAIN");
 $("#save-editor").on("click", function (evt) {

@@ -59,6 +59,7 @@ record_id("editor-visible-blockly");
 $('#editor-visible-blockly').change(function() {
     if ($('#editor-visible-blockly')[0].checked) {
         show_editor(RUR.state.programming_language);
+        $("#special-keyboard-button").hide();
     } else {
         hide_editors();
     }
@@ -91,6 +92,7 @@ function show_blockly () {
     $("#editor-visible-blockly").show();
     if ($('#editor-visible-blockly')[0].checked) {
         show_editor(RUR.state.programming_language);
+        $("#special-keyboard-button").hide();
     }
     window.dispatchEvent(new Event('resize')); // important to ensure that blockly is visible
 }
@@ -115,10 +117,10 @@ function show_editor(lang) {
     RUR.reload();
     editor.refresh();
     if (RUR.state.editing_world) {
-        $("#pre-code-link").parent().show();
-        $("#post-code-link").parent().show();
-        $("#description-link").parent().show();
-        $("#onload-editor-link").parent().show();
+        $("#pre-code-tab").parent().show();
+        $("#post-code-tab").parent().show();
+        $("#description-tab").parent().show();
+        $("#onload-editor-tab").parent().show();
     }
 }
 
@@ -151,14 +153,14 @@ function hide_editors() {
     }
     $("#editor-panel").removeClass("active");
     // extra editors
-    $("#pre-code-link").parent().hide();
-    $("#post-code-link").parent().hide();
-    $("#description-link").parent().hide();
-    $("#onload-editor-link").parent().hide();
+    $("#pre-code-tab").parent().hide();
+    $("#post-code-tab").parent().hide();
+    $("#description-tab").parent().hide();
+    $("#onload-editor-tab").parent().hide();
 }
 
 function show_console() {
-    $("#special-keyboard-button").show();    
+    $("#special-keyboard-button").show();
     $("#py-console").show();
     $("#stop").hide();
     $("#pause").hide();

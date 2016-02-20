@@ -225,10 +225,10 @@ RUR.we.select = function (choice) {
 
 RUR.we.toggle_editing_mode = function () {
     if (RUR.state.editing_world) {  // done editing
-        $("#pre-code-link").parent().hide();
-        $("#post-code-link").parent().hide();
-        $("#description-link").parent().hide();
-        $("#onload-editor-link").parent().hide();
+        $("#pre-code-tab").parent().hide();
+        $("#post-code-tab").parent().hide();
+        $("#description-tab").parent().hide();
+        $("#onload-editor-tab").parent().hide();
 
         RUR.state.editing_world = false;
         RUR.state.code_evaluated = false;
@@ -246,10 +246,10 @@ RUR.we.toggle_editing_mode = function () {
         $("#editor-tab").trigger('click');
     } else {
 
-        $("#pre-code-link").parent().show();
-        $("#post-code-link").parent().show();
-        $("#description-link").parent().show();
-        $("#onload-editor-link").parent().show();
+        $("#pre-code-tab").parent().show();
+        $("#post-code-tab").parent().show();
+        $("#description-tab").parent().show();
+        $("#onload-editor-tab").parent().show();
 
         edit_robot_menu.toggle();
         RUR.state.editing_world = true;

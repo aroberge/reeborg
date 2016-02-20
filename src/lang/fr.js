@@ -44,8 +44,6 @@ RUR.fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veui
 
 RUR.fr["# from library import *"] = "# 'from biblio import *' dans l'onglet Code Python est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
 RUR.fr.move = "avance";
-RUR.fr["Python Code"] = "Code Python";
-RUR.fr["Javascript Code"] = "Code Javascript";
 
 // in recorder.js
 RUR.fr["Too many steps:"] = "Trop d'instructions: {max_steps}";
@@ -253,3 +251,11 @@ RUR.fr["CONDITIONS"] = "Conditions";
 RUR.fr["USING VARIABLES"] = "Utiliser des variables";
 RUR.fr["COMMANDS"] = "Commandes";
 RUR.fr["OTHER"] = "Autres";
+
+RUR.fr["Python Code"] = "Code Python";
+RUR.fr["Javascript Code"] = "Code Javascript";
+RUR.fr["LIBRARY"] = "biblio";
+RUR.fr["PRE"] = "Pre";
+RUR.fr["POST"] = "Post";
+RUR.fr["DESCRIPTION"] = "Desc.";
+RUR.fr["ONLOAD"] = "Onload";

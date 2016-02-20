@@ -42,8 +42,7 @@ RUR.en["Problem with onload code."] = "Invalid Javascript onload code; contact t
 
 RUR.en["# from library import *"] = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
 RUR.en.move = "move";
-RUR.en["Python Code"] = "Python Code";
-RUR.en["Javascript Code"] = "Javascript Code";
+
 
 // in recorder.js
 RUR.en["Too many steps:"] = "Too many steps: {max_steps}";
@@ -250,3 +249,11 @@ RUR.en["CONDITIONS"] = "Conditions";
 RUR.en["USING VARIABLES"] = "Using variables";
 RUR.en["COMMANDS"] = "Commandes";
 RUR.en["OTHER"] = "Other";
+
+RUR.en["Python Code"] = "Python Code";
+RUR.en["Javascript Code"] = "Javascript Code";
+RUR.en["LIBRARY"] = "library";
+RUR.en["PRE"] = "Pre";
+RUR.en["POST"] = "Post";
+RUR.en["DESCRIPTION"] = "Desc.";
+RUR.en["ONLOAD"] = "Onload";

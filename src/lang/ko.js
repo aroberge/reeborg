@@ -42,8 +42,6 @@ RUR.ko["Problem with onload code."] = "Invalid Javascript onload code; contact t
 
 RUR.ko["# from library import *"] = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
 RUR.ko.move = "move";
-RUR.ko["Python Code"] = "Python Code";
-RUR.ko["Javascript Code"] = "Javascript Code";
 
 // in recorder.js
 RUR.ko["Too many steps:"] = "Too many steps: {max_steps}";
@@ -250,3 +248,11 @@ RUR.ko["CONDITIONS"] = "Conditions";
 RUR.ko["USING VARIABLES"] = "Using variables";
 RUR.ko["COMMANDS"] = "Commandes";
 RUR.ko["OTHER"] = "Other";
+
+RUR.ko["Python Code"] = "Python Code";
+RUR.ko["Javascript Code"] = "Javascript Code";
+RUR.ko["LIBRARY"] = "library";
+RUR.ko["PRE"] = "전에";
+RUR.ko["POST"] = "후";
+RUR.ko["DESCRIPTION"] = "세계 정보";
+RUR.ko["ONLOAD"] = "Onload";
