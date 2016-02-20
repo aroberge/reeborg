@@ -256,3 +256,6 @@ RUR.ko["PRE"] = "전에";
 RUR.ko["POST"] = "후";
 RUR.ko["DESCRIPTION"] = "세계 정보";
 RUR.ko["ONLOAD"] = "Onload";
+
+RUR.ko["HIGHLIGHT IMPOSSIBLE"] = "구문 강조를 꺼서 문제가 발생했습니다.";
+RUR.ko["COMMAND RESULT"] = "아래 메뉴에서 수행할 작업을 선택합니다.";

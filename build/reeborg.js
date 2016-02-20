@@ -1855,6 +1855,7 @@ add_object_form = dialog_add_object.find("form").on("submit", function( event ) 
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
+var update_titles = require("./../../lang/msg.js").update_titles;
 
 
 RUR.create_and_activate_dialogs = function(button, element, add_options, special_fn) {
@@ -1888,6 +1889,7 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
         if (special_fn !== undefined && element.dialog("isOpen")){
             special_fn();
         }
+        update_titles();
     });
 };
 
@@ -1911,7 +1913,7 @@ $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                 position:{my: "bottom", at: "bottom-140", of: window}});
 
-},{"./../libs/jquery.ui.dialog.minmax.js":19,"./../rur.js":48}],8:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../libs/jquery.ui.dialog.minmax.js":19,"./../rur.js":48}],8:[function(require,module,exports){
 
 require("./../world_set.js");
 require("./../visible_world.js");
@@ -9101,6 +9103,9 @@ RUR.en["POST"] = "Post";
 RUR.en["DESCRIPTION"] = "Desc.";
 RUR.en["ONLOAD"] = "Onload";
 
+RUR.en["HIGHLIGHT IMPOSSIBLE"] = "A problem with your code has caused me to turn off the code highlighting.";
+RUR.en["COMMAND RESULT"] = "Select action to perform from menu below.";
+
 },{}],80:[function(require,module,exports){
 RUR.fr = {};
 
@@ -9364,6 +9369,9 @@ RUR.fr["POST"] = "Post";
 RUR.fr["DESCRIPTION"] = "Desc.";
 RUR.fr["ONLOAD"] = "Onload";
 
+RUR.fr["HIGHLIGHT IMPOSSIBLE"] = "Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le surlignage du code dans l'éditeur.";
+RUR.fr["COMMAND RESULT"] = "Sélectionnez l'action à performer dans le menu ci-dessous.";
+
 },{}],81:[function(require,module,exports){
 RUR.ko = {};
 RUR.ko_to_en = {};
@@ -9624,6 +9632,9 @@ RUR.ko["POST"] = "후";
 RUR.ko["DESCRIPTION"] = "세계 정보";
 RUR.ko["ONLOAD"] = "Onload";
 
+RUR.ko["HIGHLIGHT IMPOSSIBLE"] = "구문 강조를 꺼서 문제가 발생했습니다.";
+RUR.ko["COMMAND RESULT"] = "아래 메뉴에서 수행할 작업을 선택합니다.";
+
 },{}],82:[function(require,module,exports){
 require("./../lang/en.js");
 require("./../lang/fr.js");
@@ -9635,6 +9646,7 @@ RUR.translation_to_english = RUR.en_to_en;
 var _recorded_ids = [];
 var _text_elements = [];
 var _elements_names = [];
+var _elements_titles = [];
 
 record_id = function (id, text) {
     if (_recorded_ids.indexOf(id) !== -1) {
@@ -9655,6 +9667,11 @@ add_name = function (id, msg){
     _elements_names.push([id, msg]);
 };
 
+add_title = function (id, msg){
+    _elements_titles.push([id, msg]);
+};
+
+
 update_ui = function (lang) {
     "use strict";
     var i, id, msg;
@@ -9670,16 +9687,30 @@ update_ui = function (lang) {
         msg = _elements_names[i][1];
         $(id).attr("name", RUR.translate(msg));
     }
+    update_titles();
+};
+
+update_titles = function () {
+    "use strict";
+    var i, id, msg;
+    for(i=0; i<_elements_titles.length; i++) {
+        id = "#" + _elements_titles[i][0];
+        msg = _elements_titles[i][1];
+        $(id).text(RUR.translate(msg));
+    }
 };
 
 exports.update_ui = update_ui;
 exports.record_id = record_id;
+exports.update_titles = update_titles;
 
 add_msg("site-name", "SITE NAME");
 add_msg("world-info-button", "WORLD INFO");
 add_msg("visible-blockly", "EDITOR VISIBLE BLOCKLY");
 add_msg("special-keyboard-button", "KEYBOARD BUTTON");
 add_msg("more-menus-button", "ADDITIONAL OPTIONS");
+add_title("ui-dialog-title-more-menus", "ADDITIONAL OPTIONS");
+
 
 record_id("blockly-wrapper");
 record_id("move-handle");
@@ -9693,6 +9724,9 @@ add_name("blockly-using-variables", "USING VARIABLES");
 add_name("blockly-commands-var", "COMMANDS");
 add_name("blockly-conditions-var", "CONDITIONS");
 add_name("blockly-other", "OTHER");
+
+add_msg("highlight-impossible", "HIGHLIGHT IMPOSSIBLE");
+add_msg("command-result", "COMMAND RESULT");
 
 },{"./../lang/en.js":79,"./../lang/fr.js":80,"./../lang/ko.js":81}],83:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could

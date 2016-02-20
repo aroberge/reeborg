@@ -259,3 +259,6 @@ RUR.fr["PRE"] = "Pre";
 RUR.fr["POST"] = "Post";
 RUR.fr["DESCRIPTION"] = "Desc.";
 RUR.fr["ONLOAD"] = "Onload";
+
+RUR.fr["HIGHLIGHT IMPOSSIBLE"] = "Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le surlignage du code dans l'éditeur.";
+RUR.fr["COMMAND RESULT"] = "Sélectionnez l'action à performer dans le menu ci-dessous.";

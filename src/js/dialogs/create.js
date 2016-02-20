@@ -1,6 +1,7 @@
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
+var update_titles = require("./../../lang/msg.js").update_titles;
 
 
 RUR.create_and_activate_dialogs = function(button, element, add_options, special_fn) {
@@ -34,6 +35,7 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
         if (special_fn !== undefined && element.dialog("isOpen")){
             special_fn();
         }
+        update_titles();
     });
 };
 

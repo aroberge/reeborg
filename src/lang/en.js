@@ -257,3 +257,6 @@ RUR.en["PRE"] = "Pre";
 RUR.en["POST"] = "Post";
 RUR.en["DESCRIPTION"] = "Desc.";
 RUR.en["ONLOAD"] = "Onload";
+
+RUR.en["HIGHLIGHT IMPOSSIBLE"] = "A problem with your code has caused me to turn off the code highlighting.";
+RUR.en["COMMAND RESULT"] = "Select action to perform from menu below.";
