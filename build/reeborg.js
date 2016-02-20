@@ -7770,6 +7770,8 @@ RUR.we.toggle_editing_mode = function () {
     }
 };
 
+record_id("edit-world", "EDIT WORLD");
+record_id("edit-world-text", "EDIT WORLD EXPLAIN");
 RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
                                  {}, RUR.we.toggle_editing_mode);
 
@@ -9240,6 +9242,12 @@ RUR.en["DELETE WORLD TEXT"] = "The following refers to worlds currently stored i
 RUR.en["PYTHON ONLY"] = "Python only";
 RUR.en["COLLABORATION"] = "Collaboration";
 RUR.en["TOGETHERJS EXPLAIN"] = "Tool which permits collaboration with one or more other user using Mozilla's TogetherJS.";
+RUR.en["WORLD CREATION TITLE"] = "World: creation, edition, ...";
+RUR.en["EDIT WORLD"] = "Edit world";
+RUR.en["EDIT WORLD EXPLAIN"] = "You can create your own world by editing the current one.";
+RUR.en["PROGRAM IN EDITOR"] = "Program in editor";
+RUR.en["SPECIAL EXECUTION"] = "Special execution features";
+RUR.en["REVERSE STEP EXPLAIN"] = "Reverses the previous execution step.";
 
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
@@ -9519,6 +9527,12 @@ RUR.fr["DELETE WORLD TEXT"] = "En cliquant sur un bouton, éliminez un monde con
 RUR.fr["PYTHON ONLY"] = "Python seulement";
 RUR.fr["COLLABORATION"] = "Collaboration";
 RUR.fr["TOGETHERJS EXPLAIN"] = "Outil qui permet la collaboration à distance en utilisant l'outil TogetherJS de Mozilla (interface en anglais seulement).";
+RUR.fr["WORLD CREATION TITLE"] = "Monde : édition, création, ...";
+RUR.fr["EDIT WORLD"] = "Édition du monde";
+RUR.fr["EDIT WORLD EXPLAIN"] = "Vous pouvez créer vos propres mondes en modifiant un monde existant.";
+RUR.fr["PROGRAM IN EDITOR"] = "Programme dans l'éditeur";
+RUR.fr["SPECIAL EXECUTION"] = "Options d'exécution";
+RUR.fr["REVERSE STEP EXPLAIN"] = "Renverse l'instruction précédemment exécutée.";
 
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
@@ -9795,6 +9809,12 @@ RUR.ko["DELETE WORLD TEXT"] = "버튼을 클릭하면 브라우져의 메모리�
 RUR.ko["PYTHON ONLY"] = "파이썬 전용";
 RUR.ko["COLLABORATION"] = "협업";
 RUR.ko["TOGETHERJS EXPLAIN"] = "다른 사용자는 Mozilla의 TogetherJS를 이용하여 협업에 참여 할 수 있습니다.";
+RUR.ko["WORLD CREATION TITLE"] = "세계 : 창조, 수정..";
+RUR.ko["EDIT WORLD"] = "세계 수정";
+RUR.ko["EDIT WORLD EXPLAIN"] = "기존 세계를 수정하여 자신 만의 세계를 만들 수 있습니다.";
+RUR.ko["PROGRAM IN EDITOR"] = "에디터";
+RUR.ko["SPECIAL EXECUTION"] = "미래에 생겨날 기능";
+RUR.ko["REVERSE STEP EXPLAIN"] = "이전 실행 상태를 되돌립니다.";
 
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");
@@ -9893,6 +9913,10 @@ record_id("delete-world-text", "DELETE WORLD TEXT");
 record_id("python-only", "PYTHON ONLY");
 record_id("togetherjs", "COLLABORATION");
 record_id("togetherjs-text", "TOGETHERJS EXPLAIN");
+record_id("world-title", "WORLD CREATION TITLE");
+record_id("program-in-editor", "PROGRAM IN EDITOR");
+record_id("special-execution", "SPECIAL EXECUTION");
+record_id("reverse-step-text", "REVERSE STEP EXPLAIN");
 
 },{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ko.js":82}],84:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could

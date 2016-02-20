@@ -455,9 +455,10 @@
     </p>
 
     <hr>
-    <h3>World: creation, edition, ...</h3>
+    <h3 id="world-title"></h3>
     <p>
-      <button class="blue-gradient" id="edit-world">Edit world</button> You can create your own world by editing the current one.
+      <button class="blue-gradient" id="edit-world"></button>
+      <span id="edit-world-text"></span>
     </p>
     <p>
       <button class="blue-gradient" id="save-world"></button>
@@ -476,7 +477,7 @@
     </div>
 
     <hr>
-    <h3>Program in editor</h3>
+    <h3 id="program-in-editor"></h3>
     <p>
       <button class="blue-gradient" id="save-editor"></button>
       <span id="save-editor-text"></span>
@@ -489,12 +490,12 @@
 
 
     <hr>
-    <h3>Special execution features</h3>
+    <h3 id="special-execution"></h3>
     <p>
       <button class="blue-gradient" id="reverse-step" onclick="RUR.reverse_step();">
         <img src="/src/images/reverse_step.png" alt="reverse step">
       </button>
-      Reverses the previous execution step.
+      <span id="reverse-step-text"></span>
     </p>
 
     <p>

@@ -263,6 +263,8 @@ RUR.we.toggle_editing_mode = function () {
     }
 };
 
+record_id("edit-world", "EDIT WORLD");
+record_id("edit-world-text", "EDIT WORLD EXPLAIN");
 RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
                                  {}, RUR.we.toggle_editing_mode);
 
