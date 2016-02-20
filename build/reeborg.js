@@ -5023,6 +5023,23 @@ RUR.permalink.cancel = function () {
     $("#permalink").addClass('blue-gradient');
 };
 
+record_id("ok-permalink", "UPDATE");
+$("#ok-permalink").on("click", function (evt) {
+    RUR.permalink.update();
+});
+
+record_id("cancel-permalink", "CANCEL");
+$("#cancel-permalink").on("click", function (evt) {
+    RUR.permalink.cancel();
+});
+
+// copy to clipboard
+record_id("copy-permalink", "COPY");
+$("#copy-permalink").on("click", function (evt) {
+    document.querySelector('#url-input-textarea').select();
+    document.execCommand('copy');
+});
+
 // for embedding in iframe
 addEventListener("message", receiveMessage, false);
 function receiveMessage(event){
@@ -9106,6 +9123,11 @@ RUR.en["ONLOAD"] = "Onload";
 RUR.en["HIGHLIGHT IMPOSSIBLE"] = "A problem with your code has caused me to turn off the code highlighting.";
 RUR.en["COMMAND RESULT"] = "Select action to perform from menu below.";
 
+RUR.en["UPDATE"] = "Update";
+RUR.en["CANCEL"] = "Cancel";
+RUR.en["COPY"] = "Copy";
+RUR.en["PERMALINK EXPLAIN"] = "Copy the permalink and press cancel, or replace by new one and press Update.";
+
 },{}],80:[function(require,module,exports){
 RUR.fr = {};
 
@@ -9372,6 +9394,11 @@ RUR.fr["ONLOAD"] = "Onload";
 RUR.fr["HIGHLIGHT IMPOSSIBLE"] = "Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le surlignage du code dans l'éditeur.";
 RUR.fr["COMMAND RESULT"] = "Sélectionnez l'action à performer dans le menu ci-dessous.";
 
+RUR.fr["UPDATE"] = "Mettre à jour";
+RUR.fr["CANCEL"] = "Annuler";
+RUR.fr["COPY"] = "Copier";
+RUR.fr["PERMALINK EXPLAIN"] = "Copiez le permalien et cliquez Annuler, ou remplacez par un nouveau et cliquez 'Mettre à jour'.";
+
 },{}],81:[function(require,module,exports){
 RUR.ko = {};
 RUR.ko_to_en = {};
@@ -9635,6 +9662,11 @@ RUR.ko["ONLOAD"] = "Onload";
 RUR.ko["HIGHLIGHT IMPOSSIBLE"] = "구문 강조를 꺼서 문제가 발생했습니다.";
 RUR.ko["COMMAND RESULT"] = "아래 메뉴에서 수행할 작업을 선택합니다.";
 
+RUR.ko["UPDATE"] = "업데이트";
+RUR.ko["CANCEL"] = "취소";
+RUR.ko["COPY"] = "Copy";
+RUR.ko["PERMALINK EXPLAIN"] = "퍼머링크를 복사하고 취소를 누르세요, 아니면 새로 교체하고 업데이트를 누르세요.";
+
 },{}],82:[function(require,module,exports){
 require("./../lang/en.js");
 require("./../lang/fr.js");
@@ -9727,6 +9759,7 @@ add_name("blockly-other", "OTHER");
 
 add_msg("highlight-impossible", "HIGHLIGHT IMPOSSIBLE");
 add_msg("command-result", "COMMAND RESULT");
+add_msg("permalink-text", "PERMALINK EXPLAIN");
 
 },{"./../lang/en.js":79,"./../lang/fr.js":80,"./../lang/ko.js":81}],83:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could

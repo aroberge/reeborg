@@ -26,8 +26,7 @@
 
 <body>
 
-  <div id="splash-screen">
-<div class="sk-fading-circle">
+<div id="splash-screen"><div class="sk-fading-circle">
   <div class="sk-circle1 sk-circle"></div>
   <div class="sk-circle2 sk-circle"></div>
   <div class="sk-circle3 sk-circle"></div>
@@ -39,9 +38,8 @@
   <div class="sk-circle9 sk-circle"></div>
   <div class="sk-circle10 sk-circle"></div>
   <div class="sk-circle11 sk-circle"></div>
-  <div class="sk-circle12 sk-circle"></div>
+  <div class="sk-circle12 sk-circle"></div></div>
 </div>
-  </div>
 
   <header class="blue-gradient green-border">
     <a id="logo" href="index_en.html" class="fake_button">
@@ -74,11 +72,12 @@
 
   </header>
   <div id="url-input" style="display:none">
-    <p>Copy the permalink and press cancel, or replace by new one and press Update.</p>
+    <p id="permalink-text">Copy the permalink and press cancel, or replace by new one and press Update.</p>
+    <p><button class="blue-gradient" id="copy-permalink">Copy</button></p>
     <textarea id="url-input-textarea" cols="60" rows="10"></textarea>
     <p>
-      <button class="blue-gradient" id="ok-permalink" onclick="RUR.permalink.update();">Update</button>
-      <button class="blue-gradient" id="cancel-permalink" onclick="RUR.permalink.cancel();">Cancel</button>
+      <button class="blue-gradient" id="ok-permalink">Update</button>
+      <button class="blue-gradient" id="cancel-permalink">Cancel</button>
     </p>
   </div>
 

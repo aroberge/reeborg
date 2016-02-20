@@ -260,3 +260,8 @@ RUR.en["ONLOAD"] = "Onload";
 
 RUR.en["HIGHLIGHT IMPOSSIBLE"] = "A problem with your code has caused me to turn off the code highlighting.";
 RUR.en["COMMAND RESULT"] = "Select action to perform from menu below.";
+
+RUR.en["UPDATE"] = "Update";
+RUR.en["CANCEL"] = "Cancel";
+RUR.en["COPY"] = "Copy";
+RUR.en["PERMALINK EXPLAIN"] = "Copy the permalink and press cancel, or replace by new one and press Update.";

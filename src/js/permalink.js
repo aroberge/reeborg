@@ -158,6 +158,23 @@ RUR.permalink.cancel = function () {
     $("#permalink").addClass('blue-gradient');
 };
 
+record_id("ok-permalink", "UPDATE");
+$("#ok-permalink").on("click", function (evt) {
+    RUR.permalink.update();
+});
+
+record_id("cancel-permalink", "CANCEL");
+$("#cancel-permalink").on("click", function (evt) {
+    RUR.permalink.cancel();
+});
+
+// copy to clipboard
+record_id("copy-permalink", "COPY");
+$("#copy-permalink").on("click", function (evt) {
+    document.querySelector('#url-input-textarea').select();
+    document.execCommand('copy');
+});
+
 // for embedding in iframe
 addEventListener("message", receiveMessage, false);
 function receiveMessage(event){

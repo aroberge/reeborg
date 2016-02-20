@@ -557,7 +557,7 @@ p.try {
 
 #url-input {
     position: absolute;
-    z-index: 10;
+    z-index: 11;
     top: 100px;
     left: 100px;
     display: none;
@@ -566,6 +566,7 @@ p.try {
     background-color: white;
 }
 
+#copy-permalink,
 #ok-permalink,
 #cancel-permalink {
     margin-left: 10px;

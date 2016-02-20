@@ -262,3 +262,8 @@ RUR.fr["ONLOAD"] = "Onload";
 
 RUR.fr["HIGHLIGHT IMPOSSIBLE"] = "Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le surlignage du code dans l'éditeur.";
 RUR.fr["COMMAND RESULT"] = "Sélectionnez l'action à performer dans le menu ci-dessous.";
+
+RUR.fr["UPDATE"] = "Mettre à jour";
+RUR.fr["CANCEL"] = "Annuler";
+RUR.fr["COPY"] = "Copier";
+RUR.fr["PERMALINK EXPLAIN"] = "Copiez le permalien et cliquez Annuler, ou remplacez par un nouveau et cliquez 'Mettre à jour'.";
