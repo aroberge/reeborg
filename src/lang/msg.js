@@ -10,27 +10,28 @@ var _text_elements = [];
 var _elements_names = [];
 var _elements_titles = [];
 
-record_id = function (id, text) {
+__record_id = function(id){
     if (_recorded_ids.indexOf(id) !== -1) {
         alert("Fatal error: " + id + " already exists.");
     } else {
         _recorded_ids.push(id);
     }
+};
+
+record_id = function (id, text) {
+    __record_id(id);
     if (text !== undefined) {
-        add_msg(id, text);
+        _text_elements.push([id, text]);
     }
 };
 
-add_msg = function (id, msg){
-    _text_elements.push([id, msg]);
+record_name = function (id, text) {
+    __record_id(id);
+    _elements_names.push([id, text]);
 };
-
-add_name = function (id, msg){
-    _elements_names.push([id, msg]);
-};
-
-add_title = function (id, msg){
-    _elements_titles.push([id, msg]);
+record_title = function (id, text) {
+    __record_id(id);
+    _elements_titles.push([id, text]);
 };
 
 
@@ -66,27 +67,30 @@ exports.update_ui = update_ui;
 exports.record_id = record_id;
 exports.update_titles = update_titles;
 
-add_msg("site-name", "SITE NAME");
-add_msg("world-info-button", "WORLD INFO");
-add_msg("visible-blockly", "EDITOR VISIBLE BLOCKLY");
-add_msg("special-keyboard-button", "KEYBOARD BUTTON");
-add_msg("more-menus-button", "ADDITIONAL OPTIONS");
-add_title("ui-dialog-title-more-menus", "ADDITIONAL OPTIONS");
+record_id("site-name", "SITE NAME");
+record_id("world-info-button", "WORLD INFO");
+record_id("visible-blockly", "EDITOR VISIBLE BLOCKLY");
+record_id("special-keyboard-button", "KEYBOARD BUTTON");
+record_id("more-menus-button", "ADDITIONAL OPTIONS");
+record_title("ui-dialog-title-more-menus", "ADDITIONAL OPTIONS");
 
 
 record_id("blockly-wrapper");
 record_id("move-handle");
 record_id("blocklyDiv");
-add_name("blockly-basic-commands", "BASIC COMMANDS");
-add_name("blockly-defining", "DEFINING");
-add_name("blockly-loops", "LOOPS");
-add_name("blockly-decisions", "DECISIONS");
-add_name("blockly-conditions", "CONDITIONS");
-add_name("blockly-using-variables", "USING VARIABLES");
-add_name("blockly-commands-var", "COMMANDS");
-add_name("blockly-conditions-var", "CONDITIONS");
-add_name("blockly-other", "OTHER");
+record_name("blockly-basic-commands", "BASIC COMMANDS");
+record_name("blockly-defining", "DEFINING");
+record_name("blockly-loops", "LOOPS");
+record_name("blockly-decisions", "DECISIONS");
+record_name("blockly-conditions", "CONDITIONS");
+record_name("blockly-using-variables", "USING VARIABLES");
+record_name("blockly-commands-var", "COMMANDS");
+record_name("blockly-conditions-var", "CONDITIONS");
+record_name("blockly-other", "OTHER");
 
-add_msg("highlight-impossible", "HIGHLIGHT IMPOSSIBLE");
-add_msg("command-result", "COMMAND RESULT");
-add_msg("delete-world-text", "DELETE WORLD TEXT");
+record_id("highlight-impossible", "HIGHLIGHT IMPOSSIBLE");
+record_id("command-result", "COMMAND RESULT");
+record_id("delete-world-text", "DELETE WORLD TEXT");
+record_id("python-only", "PYTHON ONLY");
+record_id("togetherjs", "COLLABORATION");
+record_id("togetherjs-text", "TOGETHERJS EXPLAIN");

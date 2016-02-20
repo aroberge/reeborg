@@ -6129,9 +6129,6 @@ RUR.storage.append_world_name = function (name){
     RUR.storage.appending_world_name_flag = true;
     RUR.world_select.append_world({url:url, shortname:name, local_storage:true});
     RUR.world_select.set_url(url);  // reload as updating select choices blanks the world.
-    if (RUR.state.session_initialized) {
-        return;
-    }
     /* appends name to world selector and to list of possible worlds to delete */
     $('#delete-world h3').append(
         '<button class="blue-gradient inline-block" onclick="RUR.storage.delete_world(' +
@@ -9240,6 +9237,9 @@ RUR.en["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different 
 RUR.en["CANCEL"] = "Cancel";
 
 RUR.en["DELETE WORLD TEXT"] = "The following refers to worlds currently stored in your browser which you can delete:";
+RUR.en["PYTHON ONLY"] = "Python only";
+RUR.en["COLLABORATION"] = "Collaboration";
+RUR.en["TOGETHERJS EXPLAIN"] = "Tool which permits collaboration with one or more other user using Mozilla's TogetherJS.";
 
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
@@ -9516,6 +9516,9 @@ RUR.fr["REPLACE PERMALINK EXPLAIN"] = "Remplacez le contenu ci-dessus par un nou
 RUR.fr["CANCEL"] = "Annuler";
 
 RUR.fr["DELETE WORLD TEXT"] = "En cliquant sur un bouton, éliminez un monde connu de la mémoire de votre nagivageur.";
+RUR.fr["PYTHON ONLY"] = "Python seulement";
+RUR.fr["COLLABORATION"] = "Collaboration";
+RUR.fr["TOGETHERJS EXPLAIN"] = "Outil qui permet la collaboration à distance en utilisant l'outil TogetherJS de Mozilla (interface en anglais seulement).";
 
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
@@ -9789,6 +9792,9 @@ RUR.ko["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different 
 RUR.ko["CANCEL"] = "취소";
 
 RUR.ko["DELETE WORLD TEXT"] = "버튼을 클릭하면 브라우져의 메모리에 저장된 세계를 제거합니다:";
+RUR.ko["PYTHON ONLY"] = "파이썬 전용";
+RUR.ko["COLLABORATION"] = "협업";
+RUR.ko["TOGETHERJS EXPLAIN"] = "다른 사용자는 Mozilla의 TogetherJS를 이용하여 협업에 참여 할 수 있습니다.";
 
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");
@@ -9803,27 +9809,28 @@ var _text_elements = [];
 var _elements_names = [];
 var _elements_titles = [];
 
-record_id = function (id, text) {
+__record_id = function(id){
     if (_recorded_ids.indexOf(id) !== -1) {
         alert("Fatal error: " + id + " already exists.");
     } else {
         _recorded_ids.push(id);
     }
+};
+
+record_id = function (id, text) {
+    __record_id(id);
     if (text !== undefined) {
-        add_msg(id, text);
+        _text_elements.push([id, text]);
     }
 };
 
-add_msg = function (id, msg){
-    _text_elements.push([id, msg]);
+record_name = function (id, text) {
+    __record_id(id);
+    _elements_names.push([id, text]);
 };
-
-add_name = function (id, msg){
-    _elements_names.push([id, msg]);
-};
-
-add_title = function (id, msg){
-    _elements_titles.push([id, msg]);
+record_title = function (id, text) {
+    __record_id(id);
+    _elements_titles.push([id, text]);
 };
 
 
@@ -9859,30 +9866,33 @@ exports.update_ui = update_ui;
 exports.record_id = record_id;
 exports.update_titles = update_titles;
 
-add_msg("site-name", "SITE NAME");
-add_msg("world-info-button", "WORLD INFO");
-add_msg("visible-blockly", "EDITOR VISIBLE BLOCKLY");
-add_msg("special-keyboard-button", "KEYBOARD BUTTON");
-add_msg("more-menus-button", "ADDITIONAL OPTIONS");
-add_title("ui-dialog-title-more-menus", "ADDITIONAL OPTIONS");
+record_id("site-name", "SITE NAME");
+record_id("world-info-button", "WORLD INFO");
+record_id("visible-blockly", "EDITOR VISIBLE BLOCKLY");
+record_id("special-keyboard-button", "KEYBOARD BUTTON");
+record_id("more-menus-button", "ADDITIONAL OPTIONS");
+record_title("ui-dialog-title-more-menus", "ADDITIONAL OPTIONS");
 
 
 record_id("blockly-wrapper");
 record_id("move-handle");
 record_id("blocklyDiv");
-add_name("blockly-basic-commands", "BASIC COMMANDS");
-add_name("blockly-defining", "DEFINING");
-add_name("blockly-loops", "LOOPS");
-add_name("blockly-decisions", "DECISIONS");
-add_name("blockly-conditions", "CONDITIONS");
-add_name("blockly-using-variables", "USING VARIABLES");
-add_name("blockly-commands-var", "COMMANDS");
-add_name("blockly-conditions-var", "CONDITIONS");
-add_name("blockly-other", "OTHER");
+record_name("blockly-basic-commands", "BASIC COMMANDS");
+record_name("blockly-defining", "DEFINING");
+record_name("blockly-loops", "LOOPS");
+record_name("blockly-decisions", "DECISIONS");
+record_name("blockly-conditions", "CONDITIONS");
+record_name("blockly-using-variables", "USING VARIABLES");
+record_name("blockly-commands-var", "COMMANDS");
+record_name("blockly-conditions-var", "CONDITIONS");
+record_name("blockly-other", "OTHER");
 
-add_msg("highlight-impossible", "HIGHLIGHT IMPOSSIBLE");
-add_msg("command-result", "COMMAND RESULT");
-add_msg("delete-world-text", "DELETE WORLD TEXT");
+record_id("highlight-impossible", "HIGHLIGHT IMPOSSIBLE");
+record_id("command-result", "COMMAND RESULT");
+record_id("delete-world-text", "DELETE WORLD TEXT");
+record_id("python-only", "PYTHON ONLY");
+record_id("togetherjs", "COLLABORATION");
+record_id("togetherjs-text", "TOGETHERJS EXPLAIN");
 
 },{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ko.js":82}],84:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could

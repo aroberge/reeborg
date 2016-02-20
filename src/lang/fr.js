@@ -272,3 +272,6 @@ RUR.fr["REPLACE PERMALINK EXPLAIN"] = "Remplacez le contenu ci-dessus par un nou
 RUR.fr["CANCEL"] = "Annuler";
 
 RUR.fr["DELETE WORLD TEXT"] = "En cliquant sur un bouton, éliminez un monde connu de la mémoire de votre nagivageur.";
+RUR.fr["PYTHON ONLY"] = "Python seulement";
+RUR.fr["COLLABORATION"] = "Collaboration";
+RUR.fr["TOGETHERJS EXPLAIN"] = "Outil qui permet la collaboration à distance en utilisant l'outil TogetherJS de Mozilla (interface en anglais seulement).";

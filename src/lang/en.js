@@ -268,3 +268,6 @@ RUR.en["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different 
 RUR.en["CANCEL"] = "Cancel";
 
 RUR.en["DELETE WORLD TEXT"] = "The following refers to worlds currently stored in your browser which you can delete:";
+RUR.en["PYTHON ONLY"] = "Python only";
+RUR.en["COLLABORATION"] = "Collaboration";
+RUR.en["TOGETHERJS EXPLAIN"] = "Tool which permits collaboration with one or more other user using Mozilla's TogetherJS.";

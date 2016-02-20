@@ -269,3 +269,6 @@ RUR.ko["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different 
 RUR.ko["CANCEL"] = "취소";
 
 RUR.ko["DELETE WORLD TEXT"] = "버튼을 클릭하면 브라우져의 메모리에 저장된 세계를 제거합니다:";
+RUR.ko["PYTHON ONLY"] = "파이썬 전용";
+RUR.ko["COLLABORATION"] = "협업";
+RUR.ko["TOGETHERJS EXPLAIN"] = "다른 사용자는 Mozilla의 TogetherJS를 이용하여 협업에 참여 할 수 있습니다.";
