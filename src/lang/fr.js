@@ -88,7 +88,6 @@ RUR.fr["Object names"] = " biblio, jeton, étoile, triangle, carré, etc.";
 
 // in doc_ready.js
 RUR.fr["Invalid world file."] = "Fichier monde invalide.";
-RUR.fr["PERMALINK"] = "PERMALIEN";
 
 // in file_io.js
 RUR.fr["Could not find link: "] = "Lien introuvable : ";
@@ -263,7 +262,13 @@ RUR.fr["ONLOAD"] = "Onload";
 RUR.fr["HIGHLIGHT IMPOSSIBLE"] = "Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le surlignage du code dans l'éditeur.";
 RUR.fr["COMMAND RESULT"] = "Sélectionnez l'action à performer dans le menu ci-dessous.";
 
-RUR.fr["UPDATE"] = "Mettre à jour";
-RUR.fr["CANCEL"] = "Annuler";
+RUR.fr["PERMALINK"] = "Permalien";
 RUR.fr["COPY"] = "Copier";
-RUR.fr["PERMALINK EXPLAIN"] = "Copiez le permalien et cliquez Annuler, ou remplacez par un nouveau et cliquez 'Mettre à jour'.";
+RUR.fr["COPY PERMALINK EXPLAIN"] = "Copie le permalien dans le presse-papier.";
+RUR.fr["Save"] = "Sauvegarder";
+RUR.fr["Save permalink explanation"] = "Sauvegarde une copie du permalien dans un fichier.";
+RUR.fr["REPLACE PERMALINK"] = "Remplacer";
+RUR.fr["REPLACE PERMALINK EXPLAIN"] = "Remplacez le contenu ci-dessus par un nouveau permalien puis cliquez sur Remplacer.";
+RUR.fr["CANCEL"] = "Annuler";
+
+RUR.fr["DELETE WORLD TEXT"] = "En cliquant sur un bouton, éliminez un monde connu de la mémoire de votre nagivageur.";

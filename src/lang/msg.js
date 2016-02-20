@@ -89,4 +89,4 @@ add_name("blockly-other", "OTHER");
 
 add_msg("highlight-impossible", "HIGHLIGHT IMPOSSIBLE");
 add_msg("command-result", "COMMAND RESULT");
-add_msg("permalink-text", "PERMALINK EXPLAIN");
+add_msg("delete-world-text", "DELETE WORLD TEXT");

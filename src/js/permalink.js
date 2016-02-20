@@ -10,7 +10,7 @@ require("./create_editors.js");
 var export_world = require("./world/export_world.js").export_world;
 var record_id = require("./../lang/msg.js").record_id;
 
-record_id("save-permalink", "Save permalink");
+record_id("save-permalink", "Save");
 record_id("save-permalink-text", "Save permalink explanation");
 $("#save-permalink").on("click", function (evt) {
     var blob = new Blob([RUR.permalink.__create()], {
@@ -48,14 +48,15 @@ RUR.permalink.__create = function () {
 };
 
 
+record_id("permalink", "PERMALINK");
+$("#permalink").on("click", function (evt) {
+    RUR.permalink.create();
+});
 RUR.permalink.create = function () {
     var permalink = RUR.permalink.__create();
 
     $("#url-input-textarea").val(permalink);
     $("#url-input").toggle();
-    $("#ok-permalink").removeAttr("disabled");
-    $("#cancel-permalink").removeAttr("disabled");
-
     return false;
 };
 
@@ -147,8 +148,9 @@ RUR.permalink.update = function (arg, shortname) {
     $("#permalink").addClass('blue-gradient');
 };
 
-record_id("ok-permalink", "UPDATE");
-$("#ok-permalink").on("click", function (evt) {
+record_id("replace-permalink", "REPLACE PERMALINK");
+record_id("replace-permalink-text", "REPLACE PERMALINK EXPLAIN");
+$("#replace-permalink").on("click", function (evt) {
     RUR.permalink.update();
 });
 
@@ -161,6 +163,7 @@ $("#cancel-permalink").on("click", function (evt) {
 
 // copy to clipboard
 record_id("copy-permalink", "COPY");
+record_id("copy-permalink-text", "COPY PERMALINK EXPLAIN");
 $("#copy-permalink").on("click", function (evt) {
     document.querySelector('#url-input-textarea').select();
     document.execCommand('copy');

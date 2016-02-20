@@ -71,11 +71,15 @@
 
   </header>
   <div id="url-input" style="display:none">
-    <p id="permalink-text"></p>
-    <p><button class="blue-gradient" id="copy-permalink"></button></p>
+    <p><button class="blue-gradient" id="copy-permalink"></button>
+    <span id="copy-permalink-text"></span><br><br>
+      <button id="save-permalink" class="blue-gradient"></button>
+      <span id="save-permalink-text"></span>
+    </p>
     <textarea id="url-input-textarea" cols="60" rows="10"></textarea>
     <p>
-      <button class="blue-gradient" id="ok-permalink"></button>
+      <button class="blue-gradient" id="replace-permalink"></button>
+      <span id="replace-permalink-text"></span><br><br>
       <button class="blue-gradient" id="cancel-permalink"></button>
     </p>
   </div>
@@ -560,16 +564,6 @@
       <button class="blue-gradient" id="edit-world">Edit world</button> You can create your own world by editing the current one.
     </p>
     <p>
-      <button id="permalink" class="blue-gradient" onclick="RUR.permalink.create();">Permalink</button>
-      To save the complete content (current state of the world, content of the code editor and, if programming using Python, content of the library), click on the permalink button. This will create a permalink which can be saved by copying it and pasting it
-      in a location of your choice. Alternatively, you can copy a permalink into the dialog that will appear if you click on this button and then click on "update" to change the existing world.
-    </p>
-
-    <p>
-      <button id="save-permalink" class="blue-gradient"></button>
-      <span id="save-permalink-text"></span>
-    </p>
-    <p>
       <button class="blue-gradient" id="save-world"></button>
       <span id="save-world-text"></span>
     </p>
@@ -578,8 +572,11 @@
       <span id="load-world-text"></span>
     </p>
 
+    <p>
+      <button id="permalink" class="blue-gradient"></button>
+    </p>
     <div id="delete-world" style="display:none;">
-      <h3>The following refers to worlds currently stored in your browser which you can delete:</h3>
+      <h3 id="delete-world-text"></h3>
     </div>
 
     <hr>

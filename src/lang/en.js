@@ -222,8 +222,6 @@ RUR.en["think"] = "think";
 RUR.en["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
 
 RUR.en["Save world in browser"] = "Save world in browser";
-RUR.en["Save permalink"] = "Save permalink";
-RUR.en["Save permalink explanation"] = "Saves a copy of the permalink to a file.";
 RUR.en["LOAD EDITOR"] = "Import program from file";
 RUR.en["LOAD EDITOR EXPLAIN"] = "Opens a local file and use its content to replace the content of the Code editor.";
 RUR.en["LOAD LIBRARY"] = "Import library from a file";
@@ -261,7 +259,12 @@ RUR.en["ONLOAD"] = "Onload";
 RUR.en["HIGHLIGHT IMPOSSIBLE"] = "A problem with your code has caused me to turn off the code highlighting.";
 RUR.en["COMMAND RESULT"] = "Select action to perform from menu below.";
 
-RUR.en["UPDATE"] = "Update";
-RUR.en["CANCEL"] = "Cancel";
 RUR.en["COPY"] = "Copy";
-RUR.en["PERMALINK EXPLAIN"] = "Copy the permalink and press cancel, or replace by new one and press Update.";
+RUR.en["COPY PERMALINK EXPLAIN"] = "Copy the permalink to the clipboard.";
+RUR.en["Save"] = "Save";
+RUR.en["Save permalink explanation"] = "Saves a copy of the permalink to a file.";
+RUR.en["REPLACE PERMALINK"] = "Replace";
+RUR.en["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different permalink and click on Replace";
+RUR.en["CANCEL"] = "Cancel";
+
+RUR.en["DELETE WORLD TEXT"] = "The following refers to worlds currently stored in your browser which you can delete:";

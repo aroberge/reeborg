@@ -4984,7 +4984,7 @@ require("./create_editors.js");
 var export_world = require("./world/export_world.js").export_world;
 var record_id = require("./../lang/msg.js").record_id;
 
-record_id("save-permalink", "Save permalink");
+record_id("save-permalink", "Save");
 record_id("save-permalink-text", "Save permalink explanation");
 $("#save-permalink").on("click", function (evt) {
     var blob = new Blob([RUR.permalink.__create()], {
@@ -5022,14 +5022,15 @@ RUR.permalink.__create = function () {
 };
 
 
+record_id("permalink", "PERMALINK");
+$("#permalink").on("click", function (evt) {
+    RUR.permalink.create();
+});
 RUR.permalink.create = function () {
     var permalink = RUR.permalink.__create();
 
     $("#url-input-textarea").val(permalink);
     $("#url-input").toggle();
-    $("#ok-permalink").removeAttr("disabled");
-    $("#cancel-permalink").removeAttr("disabled");
-
     return false;
 };
 
@@ -5121,8 +5122,9 @@ RUR.permalink.update = function (arg, shortname) {
     $("#permalink").addClass('blue-gradient');
 };
 
-record_id("ok-permalink", "UPDATE");
-$("#ok-permalink").on("click", function (evt) {
+record_id("replace-permalink", "REPLACE PERMALINK");
+record_id("replace-permalink-text", "REPLACE PERMALINK EXPLAIN");
+$("#replace-permalink").on("click", function (evt) {
     RUR.permalink.update();
 });
 
@@ -5135,6 +5137,7 @@ $("#cancel-permalink").on("click", function (evt) {
 
 // copy to clipboard
 record_id("copy-permalink", "COPY");
+record_id("copy-permalink-text", "COPY PERMALINK EXPLAIN");
 $("#copy-permalink").on("click", function (evt) {
     document.querySelector('#url-input-textarea').select();
     document.execCommand('copy');
@@ -9191,8 +9194,6 @@ RUR.en["think"] = "think";
 RUR.en["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
 
 RUR.en["Save world in browser"] = "Save world in browser";
-RUR.en["Save permalink"] = "Save permalink";
-RUR.en["Save permalink explanation"] = "Saves a copy of the permalink to a file.";
 RUR.en["LOAD EDITOR"] = "Import program from file";
 RUR.en["LOAD EDITOR EXPLAIN"] = "Opens a local file and use its content to replace the content of the Code editor.";
 RUR.en["LOAD LIBRARY"] = "Import library from a file";
@@ -9230,10 +9231,15 @@ RUR.en["ONLOAD"] = "Onload";
 RUR.en["HIGHLIGHT IMPOSSIBLE"] = "A problem with your code has caused me to turn off the code highlighting.";
 RUR.en["COMMAND RESULT"] = "Select action to perform from menu below.";
 
-RUR.en["UPDATE"] = "Update";
-RUR.en["CANCEL"] = "Cancel";
 RUR.en["COPY"] = "Copy";
-RUR.en["PERMALINK EXPLAIN"] = "Copy the permalink and press cancel, or replace by new one and press Update.";
+RUR.en["COPY PERMALINK EXPLAIN"] = "Copy the permalink to the clipboard.";
+RUR.en["Save"] = "Save";
+RUR.en["Save permalink explanation"] = "Saves a copy of the permalink to a file.";
+RUR.en["REPLACE PERMALINK"] = "Replace";
+RUR.en["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different permalink and click on Replace";
+RUR.en["CANCEL"] = "Cancel";
+
+RUR.en["DELETE WORLD TEXT"] = "The following refers to worlds currently stored in your browser which you can delete:";
 
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
@@ -9326,7 +9332,6 @@ RUR.fr["Object names"] = " biblio, jeton, étoile, triangle, carré, etc.";
 
 // in doc_ready.js
 RUR.fr["Invalid world file."] = "Fichier monde invalide.";
-RUR.fr["PERMALINK"] = "PERMALIEN";
 
 // in file_io.js
 RUR.fr["Could not find link: "] = "Lien introuvable : ";
@@ -9501,10 +9506,16 @@ RUR.fr["ONLOAD"] = "Onload";
 RUR.fr["HIGHLIGHT IMPOSSIBLE"] = "Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le surlignage du code dans l'éditeur.";
 RUR.fr["COMMAND RESULT"] = "Sélectionnez l'action à performer dans le menu ci-dessous.";
 
-RUR.fr["UPDATE"] = "Mettre à jour";
-RUR.fr["CANCEL"] = "Annuler";
+RUR.fr["PERMALINK"] = "Permalien";
 RUR.fr["COPY"] = "Copier";
-RUR.fr["PERMALINK EXPLAIN"] = "Copiez le permalien et cliquez Annuler, ou remplacez par un nouveau et cliquez 'Mettre à jour'.";
+RUR.fr["COPY PERMALINK EXPLAIN"] = "Copie le permalien dans le presse-papier.";
+RUR.fr["Save"] = "Sauvegarder";
+RUR.fr["Save permalink explanation"] = "Sauvegarde une copie du permalien dans un fichier.";
+RUR.fr["REPLACE PERMALINK"] = "Remplacer";
+RUR.fr["REPLACE PERMALINK EXPLAIN"] = "Remplacez le contenu ci-dessus par un nouveau permalien puis cliquez sur Remplacer.";
+RUR.fr["CANCEL"] = "Annuler";
+
+RUR.fr["DELETE WORLD TEXT"] = "En cliquant sur un bouton, éliminez un monde connu de la mémoire de votre nagivageur.";
 
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
@@ -9594,7 +9605,6 @@ RUR.ko["Object names"] = " library, token, star, triangle, square, etc.";
 
 // in doc_ready.js
 RUR.ko["Invalid world file."] = "Invalid world file.";
-RUR.ko["PERMALINK"] = "PERMALINK";
 
 // in file_io.js
 RUR.ko["Could not find link: "] = "Could not find link: ";
@@ -9769,10 +9779,16 @@ RUR.ko["ONLOAD"] = "Onload";
 RUR.ko["HIGHLIGHT IMPOSSIBLE"] = "구문 강조를 꺼서 문제가 발생했습니다.";
 RUR.ko["COMMAND RESULT"] = "아래 메뉴에서 수행할 작업을 선택합니다.";
 
-RUR.ko["UPDATE"] = "업데이트";
-RUR.ko["CANCEL"] = "취소";
+RUR.ko["PERMALINK"] = "Permalink";
 RUR.ko["COPY"] = "Copy";
-RUR.ko["PERMALINK EXPLAIN"] = "퍼머링크를 복사하고 취소를 누르세요, 아니면 새로 교체하고 업데이트를 누르세요.";
+RUR.ko["COPY PERMALINK EXPLAIN"] = "Copy the permalink to the clipboard.";
+RUR.ko["Save"] = "Save";
+RUR.ko["Save permalink explanation"] = "Saves a copy of the permalink to a file.";
+RUR.ko["REPLACE PERMALINK"] = "Replace";
+RUR.ko["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different permalink and click on Replace";
+RUR.ko["CANCEL"] = "취소";
+
+RUR.ko["DELETE WORLD TEXT"] = "버튼을 클릭하면 브라우져의 메모리에 저장된 세계를 제거합니다:";
 
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");
@@ -9866,7 +9882,7 @@ add_name("blockly-other", "OTHER");
 
 add_msg("highlight-impossible", "HIGHLIGHT IMPOSSIBLE");
 add_msg("command-result", "COMMAND RESULT");
-add_msg("permalink-text", "PERMALINK EXPLAIN");
+add_msg("delete-world-text", "DELETE WORLD TEXT");
 
 },{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ko.js":82}],84:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could

@@ -85,7 +85,6 @@ RUR.ko["Object names"] = " library, token, star, triangle, square, etc.";
 
 // in doc_ready.js
 RUR.ko["Invalid world file."] = "Invalid world file.";
-RUR.ko["PERMALINK"] = "PERMALINK";
 
 // in file_io.js
 RUR.ko["Could not find link: "] = "Could not find link: ";
@@ -260,7 +259,13 @@ RUR.ko["ONLOAD"] = "Onload";
 RUR.ko["HIGHLIGHT IMPOSSIBLE"] = "구문 강조를 꺼서 문제가 발생했습니다.";
 RUR.ko["COMMAND RESULT"] = "아래 메뉴에서 수행할 작업을 선택합니다.";
 
-RUR.ko["UPDATE"] = "업데이트";
-RUR.ko["CANCEL"] = "취소";
+RUR.ko["PERMALINK"] = "Permalink";
 RUR.ko["COPY"] = "Copy";
-RUR.ko["PERMALINK EXPLAIN"] = "퍼머링크를 복사하고 취소를 누르세요, 아니면 새로 교체하고 업데이트를 누르세요.";
+RUR.ko["COPY PERMALINK EXPLAIN"] = "Copy the permalink to the clipboard.";
+RUR.ko["Save"] = "Save";
+RUR.ko["Save permalink explanation"] = "Saves a copy of the permalink to a file.";
+RUR.ko["REPLACE PERMALINK"] = "Replace";
+RUR.ko["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different permalink and click on Replace";
+RUR.ko["CANCEL"] = "취소";
+
+RUR.ko["DELETE WORLD TEXT"] = "버튼을 클릭하면 브라우져의 메모리에 저장된 세계를 제거합니다:";

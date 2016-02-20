@@ -566,8 +566,9 @@ p.try {
     background-color: white;
 }
 
+#save-permalink,
 #copy-permalink,
-#ok-permalink,
+#replace-permalink,
 #cancel-permalink {
     margin-left: 10px;
 }
