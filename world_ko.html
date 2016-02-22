@@ -14,7 +14,7 @@
 <!--offline <link rel="stylesheet" href="offline/codemirror-5.8.0/lib/codemirror.css"> /offline-->
 <!--online-->  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.css">  <!--/online-->
 <link rel="stylesheet" href="/src/css/reeborg_world.css"> <!-- load after codemirror.css -->
-<title>리보그의 세계</title>
+<title>리보그의 월드</title>
 <script type="text/javascript" src="https://cdn.rawgit.com/brython-dev/brython/3.2.4/www/src/brython.js">
 </script>
 
@@ -30,11 +30,11 @@
 </div>
 
 <header class="blue-gradient green-border">
-  <a id="logo" href="index_en.html" class="fake_button"><img src="/src/images/robot_e.png">리보그의 세계</a>
+  <a id="logo" href="index_en.html" class="fake_button"><img src="/src/images/robot_e.png">리보그의 월드</a>
   <div id="header-child">
     <select id="select-world" title="Select world">
     </select>
-    <button class="blue-gradient" id="world-info-button">세계 정보</button>
+    <button class="blue-gradient" id="world-info-button">월드 정보</button>
     <select id="select-programming-language" title="Select programming language">
         <option value="python-en">Python</option>
         <option value="javascript-en">Javascript</option>
@@ -183,7 +183,7 @@
         <div id="watch-variables"></div>
     </div>
 
-    <div id="World-info" title="추가 정보를 얻기 위해 세계를 클릭합니다." style="display:none"></div>
+    <div id="World-info" title="추가 정보를 얻기 위해 월드를 클릭합니다." style="display:none"></div>
 
       <div id="image-choice-buttons">
       <button id="classic-image" title="오래된 로봇"><img src="/src/images/robot_e.png" alt="Classic image"></button>
@@ -334,7 +334,7 @@
     </div>
 
     <ul id="edit-world-nav">
-        <li><a href="javascript:RUR.we.select('set-dimensions');">세계 크기</a></li>
+        <li><a href="javascript:RUR.we.select('set-dimensions');">월드 크기</a></li>
         <li class="a-like">로봇 <ul>
             <li class="robot-absent"><a href="javascript:RUR.we.select('robot-add');"> 로봇 추가</a></li>
             <li class="robot-present"><a href="javascript:RUR.we.select('robot-place');"> 위치(들)</a></li>
@@ -530,13 +530,13 @@ var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-edit
          <code>move()</code> 함수에 대한 도움말, 등을 얻으세요.</p>
   </p>
   <p>
-    <button class="blue-gradient" id="about-button">정보</button> 기존 세계를 수정하여 자신 만의 세계를 만들 수 있습니다.
+    <button class="blue-gradient" id="about-button">정보</button> 기존 월드를 수정하여 자신 만의 월드를 만들 수 있습니다.
   </p>
 
 <hr>
   <p>
-    <h3>세계 : 창조, 수정..</h3>
-      <button class="blue-gradient" id="edit-world">세계 수정</button> 기존 세계를 수정하여 자신 만의 세계를 만들 수 있습니다.
+    <h3>월드 : 창조, 수정..</h3>
+      <button class="blue-gradient" id="edit-world">월드 수정</button> 기존 월드를 수정하여 자신 만의 월드를 만들 수 있습니다.
   </p>
   <p>
     <button id="permalink" class="blue-gradient" onclick="RUR.create_permalink();">퍼머링크</button>
@@ -546,25 +546,25 @@ var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-edit
 
   <p>
     <button id="save-permalink" class="blue-gradient">퍼머 저장</button>
-    파일의 퍼머링크 복사본을 저장합니다. 자신의 세계를 만들때 유용합니다.
+    파일의 퍼머링크 복사본을 저장합니다. 자신의 월드를 만들때 유용합니다.
   </p>
 
   <p>
     <button class="blue-gradient" id="save-world">파일로 저장</button>
-    (json 확장자로) 세계를 컴퓨터에 저장합니다.
+    (json 확장자로) 월드를 컴퓨터에 저장합니다.
   </p>
   <p>
     <button class="blue-gradient" id="load-world">파일로 불러오기</button>
-    컴퓨터안의 파일로 세계를 불러옵니다.
+    컴퓨터안의 파일로 월드를 불러옵니다.
   </p>
 
   <p><button class="blue-gradient" id="memorize-world">브라우저로 저장</button>
-     브라우저 메모리 세계에 현재 상태의 복사본을 저장합니다.
-     선택한 이름으로(로컬 저장소) 유효하게 사용할 수 있도록 기존 세계를 열 수 있습니다.
+     브라우저 메모리 월드에 현재 상태의 복사본을 저장합니다.
+     선택한 이름으로(로컬 저장소) 유효하게 사용할 수 있도록 기존 월드를 열 수 있습니다.
    </p>
 
   <div id="delete-world" style="display:none;">
-  <h3>버튼을 클릭하면 브라우져의 메모리에 저장된 세계를 제거합니다:</h3>
+  <h3>버튼을 클릭하면 브라우져의 메모리에 저장된 월드를 제거합니다:</h3>
   </div>
 
   <hr>
