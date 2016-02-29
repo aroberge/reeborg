@@ -242,7 +242,12 @@ class Interpreter():
         try:
             _ = exec(block_src, self.namespace)
             if _ is not None:
-                print(repr(_))
+                # if clause temporarily inserted for investigation
+                if '1,$exec_' in _:
+                    if hasattr(RUR, 'debug') and RUR.debug:
+                        print(repr(_))
+                else:
+                    print(repr(_))
         except:
             print_exc()
         py_console.prompt()
