@@ -9711,7 +9711,7 @@ RUR.ko["CONDITIONS"] = "상태";
 RUR.ko["USING VARIABLES"] = "변수 사용하기";
 RUR.ko["COMMANDS"] = "명령어들";
 RUR.ko["OTHER"] = "그 외";
-RUR.ko["OBJECTS"] = "Objects";
+RUR.ko["OBJECTS"] = "객체들";
 
 RUR.ko["Python Code"] = "파이썬 코드";
 RUR.ko["Javascript Code"] = "자바스크립트 코드";
