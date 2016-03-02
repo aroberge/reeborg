@@ -5,7 +5,6 @@ RUR.en["SITE NAME"] = "Reeborg's World";
 RUR.en["WORLD INFO"] = "World Info";
 RUR.en["EDITOR VISIBLE BLOCKLY"] = "Keep editor visible";
 
-
 RUR.en["apple"] = "apple";
 RUR.en_to_en["apple"] = "apple";
 RUR.en["banana"] = "banana";
@@ -37,14 +36,10 @@ RUR.en_to_en["triangle"] = "triangle";
 RUR.en["tulip"] = "tulip";
 RUR.en_to_en["tulip"] = "tulip";
 
-// in world.js
 RUR.en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
-
 RUR.en["# from library import *"] = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
 RUR.en.move = "move";
 
-
-// in recorder.js
 RUR.en["Too many steps:"] = "Too many steps: {max_steps}";
 RUR.en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
 RUR.en["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg is at the wrong x position.</li>";
@@ -57,42 +52,32 @@ RUR.en["<li class='failure'>One or more walls missing or built at wrong location
 RUR.en["Last instruction completed!"] = "Last instruction completed!";
 RUR.en["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>done()</code> executed.</p>";
 
-
-// in control.js
 RUR.en["Unknown object"] = "Unknown object: {obj}";
 RUR.en["No object found here"] = "No {obj} found here!";
 RUR.en["object"] = "object";
 RUR.en["I don't have any object to put down!"] = "I don't have any {obj} to put down!";
 RUR.en["There is already a wall here!"] = "There is already a wall here!";
 RUR.en["Ouch! I hit a wall!"] = "Ouch! I hit a wall!";
-RUR.en["Done!"] = "Done!";  // and recorder.js
+RUR.en["Done!"] = "Done!";
 RUR.en["There is no position as a goal in this world!"] = "There is no position as a goal in this world!";
 RUR.en["There is no goal in this world!"] = "There is no goal in this world!";
 RUR.en["I carry too many different objects. I don't know which one to put down!"] = "I carry too many different objects. I don't know which one to put down!";
 RUR.en["Many objects are here; I do not know which one to take!"] = "Many different objects are here; I do not know which one to take!";
 
-// in robot.js (and possibly others)
 RUR.en.east = "east";
 RUR.en.north = "north";
 RUR.en.west = "west";
 RUR.en.south = "south";
 RUR.en["Unknown orientation for robot."] = "Unknown orientation for robot.";
 
-
 RUR.en["World selected"] = "World {world} selected";
 RUR.en["Could not find world"] = "Could not find world {world}";
 RUR.en["Object names"] = " library, token, star, triangle, square, etc.";
 
-
-// in doc_ready.js
 RUR.en["Invalid world file."] = "Invalid world file.";
 RUR.en["PERMALINK"] = "PERMALINK";
-
-// in file_io.js
 RUR.en["Could not find link: "] = "Could not find link: ";
 
-
-// in world_editor.js
 RUR.en["Click on world to move robot."] = "Click on world to add or remove possible starting positions for Reeborg.";
 RUR.en["Added robot."] = "Added Reeborg.";
 RUR.en["Click on image to turn robot"] = "Click on image to turn Reeborg";
@@ -135,23 +120,17 @@ RUR.en["Replace editor content"] = "Do you wish to replace your editor code by t
 RUR.en["Replace library content"] = "Do you wish to replace your library code by that provided by the creator of this world?";
 RUR.en["colour"] = "colour";
 
-
-// in storage.js
 RUR.en["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
 RUR.en["No such world!"] = "No such world!";
 RUR.en["Enter world name to save"] = "Enter world name to save; names in use: ";
 RUR.en["Enter world name to delete"] = "Enter world name to delete; existing worlds: ";
 RUR.en["Delete "] = "Delete ";
 
-
-// in runner.js
 RUR.en["Error found at or near line {number}."] = "Error found at or near line {number}.";
 RUR.en["<br>Perhaps a missing colon is the cause."] = "<br>Perhaps a missing colon is the cause.";
 RUR.en["<br>Perhaps you forgot to add parentheses ()."] = "<br>Perhaps you forgot to add parentheses ().";
 RUR.en["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Perhaps you misspelled a word or forgot to define a function or a variable.";
 
-
-// in images.js
 RUR.en["I'm stuck in mud."] = "I'm stuck in mud.";
 RUR.en["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.";
 RUR.en["I'm slipping on ice!"] = "I'm slipping on ice!";
@@ -168,8 +147,6 @@ RUR.en["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Fe
 RUR.en["Bridge:"] = "Bridge: ";
 RUR.en["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
 
-
-//===
 RUR.en["Something is blocking the way!"] = "Something is blocking the way!";
 RUR.en["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this using at_goal().";
 RUR.en["green home tile:"] = "green home tile:";
@@ -182,12 +159,9 @@ RUR.en["fence_left"] = "fence";
 RUR.en["fence_double"] = "fence";
 RUR.en["fence_vertical"] = "fence";
 
-//=== in common_def.py
 RUR.en["Local variables"] = "Local variables";
 RUR.en["Global variables"] = "Global variables";
 RUR.en["Watched expressions"] = "Watched expressions";
-
-// in zz_dr_blockly.js
 
 RUR.en["move forward"] = "move forward";
 RUR.en["write"] = "write";
@@ -247,6 +221,7 @@ RUR.en["CONDITIONS"] = "Conditions";
 RUR.en["USING VARIABLES"] = "Using variables";
 RUR.en["COMMANDS"] = "Commandes";
 RUR.en["OTHER"] = "Other";
+RUR.en["OBJECTS"] = "Objects";
 
 RUR.en["Python Code"] = "Python Code";
 RUR.en["Javascript Code"] = "Javascript Code";

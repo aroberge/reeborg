@@ -87,6 +87,7 @@ record_name("blockly-using-variables", "USING VARIABLES");
 record_name("blockly-commands-var", "COMMANDS");
 record_name("blockly-conditions-var", "CONDITIONS");
 record_name("blockly-other", "OTHER");
+record_name("blockly-objects", "OBJECTS");
 
 record_id("highlight-impossible", "HIGHLIGHT IMPOSSIBLE");
 record_id("command-result", "COMMAND RESULT");

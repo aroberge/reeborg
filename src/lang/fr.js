@@ -7,7 +7,6 @@ RUR.fr["SITE NAME"] = "Le monde de Reeborg";
 RUR.fr["WORLD INFO"] = "Description";
 RUR.fr["EDITOR VISIBLE BLOCKLY"] = "Garder l'éditeur visible";
 
-
 RUR.fr["apple"] = "pomme";
 RUR.fr_to_en["pomme"] = "apple";
 RUR.fr["banana"] = "banane";
@@ -39,13 +38,10 @@ RUR.fr_to_en["triangle"] = "triangle";
 RUR.fr["tulip"] = "tulipe";
 RUR.fr_to_en["tulipe"] = "tulip";
 
-// in world.js
 RUR.fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
-
 RUR.fr["# from library import *"] = "# 'from biblio import *' dans l'onglet Code Python est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
 RUR.fr.move = "avance";
 
-// in recorder.js
 RUR.fr["Too many steps:"] = "Trop d'instructions: {max_steps}";
 RUR.fr["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
 RUR.fr["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée x.</li>";
@@ -58,41 +54,30 @@ RUR.fr["<li class='failure'>One or more walls missing or built at wrong location
 RUR.fr["Last instruction completed!"] = "Dernière instruction complétée!";
 RUR.fr["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>terminé()</code> exécutée.</p>";
 
-
-// in control.js
 RUR.fr["Unknown object"] = "Objet inconnu: {obj}";
 RUR.fr["No object found here"] = "Pas d'objet '{obj}'' trouvé ici !";
 RUR.fr["object"] = "objet";
 RUR.fr["I don't have any object to put down!"] = "Je n'ai pas de '{obj}'!";
 RUR.fr["There is already a wall here!"] = "Il y a déjà un mur ici !";
 RUR.fr["Ouch! I hit a wall!"] = "Ouch! J'ai frappé un mur!";
-RUR.fr["Done!"] = "Terminé !";  // and recorder.js
+RUR.fr["Done!"] = "Terminé !";
 RUR.fr["There is no position as a goal in this world!"] = "Aucune position n'a été spécifiée comme but dans ce monde!";
 RUR.fr["There is no goal in this world!"] = "Il n'y a pas de but dans ce monde!";
 RUR.fr["I carry too many different objects. I don't know which one to put down!"] = "Je transporte trop d'objets: je ne sais pas lequel déposer!";
 RUR.fr["Many objects are here; I do not know which one to take!"] = "Beaucoup d'objets différents sont ici; je ne sais pas lequel prendre!";
 
-
-// in robot.js (and possibly others)
 RUR.fr.east = "est";
 RUR.fr.north = "nord";
 RUR.fr.west = "ouest";
 RUR.fr.south = "sud";
 RUR.fr["Unknown orientation for robot."] = "Orientation inconnue.";
 
-
 RUR.fr["World selected"] = "Monde {world} choisi";
 RUR.fr["Could not find world"] = "Je ne peux pas trouver {world}";
 RUR.fr["Object names"] = " biblio, jeton, étoile, triangle, carré, etc.";
 
-
-// in doc_ready.js
 RUR.fr["Invalid world file."] = "Fichier monde invalide.";
-
-// in file_io.js
 RUR.fr["Could not find link: "] = "Lien introuvable : ";
-
-// in world_editor.js
 
 RUR.fr["Click on world to move robot."] = "Cliquez sur le monde pour ajouter ou supprimer des positions de départ possibles pour Reeborg.";
 RUR.fr["Added robot."] = "Reeborg ajouté.";
@@ -135,8 +120,6 @@ RUR.fr["Replace editor content"] = "Voulez-vous remplacer le contenu du code de 
 RUR.fr["Replace library content"] = "Voulez-vous remplacer le contenu du code de votre biliothèque par celui défini par le créateur du monde?";
 RUR.fr["colour"] = "couleur";
 
-
-// in storage.js
 RUR.fr["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
 RUR.fr["No such world!"] = "Ce monde n'existe pas !";
 RUR.fr["Enter world name to save"] = "Quel nom doit-on utiliser pour ce monde? Noms utilisés:";
@@ -144,14 +127,11 @@ RUR.fr["Enter world name to delete"] = "Écrivez le nom du monde à supprimer; m
 RUR.fr["Goal to achieve:"] = "Résultat désiré :";
 RUR.fr["Delete "] = "Effacer ";
 
-// in runner.js
 RUR.fr["Error found at or near line {number}."] = "Erreur trouvée à la ligne {number} ou tout près.";
 RUR.fr["<br>Perhaps a missing colon is the cause."] = "<br>Il manque peut-être deux points ':'.";
 RUR.fr["<br>Perhaps you forgot to add parentheses ()."] = "<br>Il manque peut-être des parenthèses ().";
 RUR.fr["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Il est possible qu'un mot soit mal épelé ou qu'une définition de fonction ou de variable manque.";
 
-
-// in images.js
 RUR.fr["I'm stuck in mud."] = "Je suis immobilisé dans la boue.";
 RUR.fr["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Boue: Reeborg <b>ne peut pas</b> détecter ceci et y sera immobilisé s'il va à cet endroit.";
 RUR.fr["I'm slipping on ice!"] = "Je glisse sur la glace!";
@@ -168,8 +148,6 @@ RUR.fr["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Cl
 RUR.fr["Bridge:"] = "Pont: ";
 RUR.fr["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
 
-
-// =========
 RUR.fr_to_en["pont"] = "bridge";
 RUR.fr["Something is blocking the way!"] = "Quelque chose bloque le chemin!";
 RUR.fr["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>peut</b> détecter ceci avec au_but().";
@@ -183,12 +161,9 @@ RUR.fr["fence_left"] = "clôture";
 RUR.fr["fence_double"] = "clôture";
 RUR.fr["fence_vertical"] = "clôture";
 
-//=== in common_def.py
 RUR.fr["Local variables"] = "Variables locales";
 RUR.fr["Global variables"] = "Variables globales";
 RUR.fr["Watched expressions"] = "Watched expressions";
-
-// in zz_dr_blockly.js
 
 RUR.fr["move forward"] = "avance";
 RUR.fr["write"] = "ecrit";
@@ -250,6 +225,7 @@ RUR.fr["CONDITIONS"] = "Conditions";
 RUR.fr["USING VARIABLES"] = "Utiliser des variables";
 RUR.fr["COMMANDS"] = "Commandes";
 RUR.fr["OTHER"] = "Autres";
+RUR.fr["OBJECTS"] = "Objets";
 
 RUR.fr["Python Code"] = "Code Python";
 RUR.fr["Javascript Code"] = "Code Javascript";
