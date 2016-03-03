@@ -161,7 +161,7 @@ RUR.ko["fence_vertical"] = "울타리";
 
 RUR.ko["Local variables"] = "지역 변수";
 RUR.ko["Global variables"] = "전역 변수";
-RUR.ko["Watched expressions"] = "Watched expressions";
+RUR.ko["Watched expressions"] = "문장(expressions) 결과 보기";
 
 RUR.ko["move forward"] = "앞으로 움직이기";
 RUR.ko["write"] = "write";
@@ -223,7 +223,7 @@ RUR.ko["CONDITIONS"] = "상태";
 RUR.ko["USING VARIABLES"] = "변수 사용하기";
 RUR.ko["COMMANDS"] = "명령어들";
 RUR.ko["OTHER"] = "그 외";
-RUR.ko["OBJECTS"] = "Objects";
+RUR.ko["OBJECTS"] = "객체들";
 
 RUR.ko["Python Code"] = "파이썬 코드";
 RUR.ko["Javascript Code"] = "자바스크립트 코드";
