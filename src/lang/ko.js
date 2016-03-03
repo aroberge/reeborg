@@ -161,7 +161,7 @@ RUR.ko["fence_vertical"] = "울타리";
 
 RUR.ko["Local variables"] = "지역 변수";
 RUR.ko["Global variables"] = "전역 변수";
-RUR.ko["Watched expressions"] = "표현 기다리기";
+RUR.ko["Watched expressions"] = "문장(expressions) 결과 보기";
 
 RUR.ko["move forward"] = "앞으로 움직이기";
 RUR.ko["write"] = "write";
