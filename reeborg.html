@@ -448,11 +448,15 @@
 
   <div id="more-menus" title="Additional options" style="display:none">
 
-    <h3>Help</h3>
-    <p>If you need help, please <a href="http://reeborg.ca/docs/en" target="_blank">consult the documentation</a> or, when using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code>      function, etc. You can also click on <b>Reeborg's keyboard</b>.</p>
-    <p>
-      <button class="blue-gradient" id="about-button">About</button> Some potentially useful information about this site.
-    </p>
+    <h3 id="help"></h3>
+    <ul>
+        <li id="documentation"></li>
+        <li><a href="http://www.reddit.com/r/reeborg"><span id="forum"></span></a></li>
+        <li id="python-help"></li>
+        <li id="keyboard-help"></li>
+        <li><a href="https://github.com/aroberge/reeborg/issues"><span id="issues"></span></a></li>
+        <li><span id="contact"></span> <a href="mailto:andre.roberge@gmail.com">André Roberge</a></li>
+    </ul>
 
     <hr>
     <h3 id="world-title"></h3>
@@ -488,7 +492,6 @@
       <span id="load-editor-text"></span>
     </p>
 
-
     <hr>
     <h3 id="special-execution"></h3>
     <p>
@@ -499,8 +502,8 @@
     </p>
 
     <p>
-      <button class="blue-gradient" onclick="RUR.vis_world.clear_trace();">Erase trace</button>
-      Erases the trace left by Reeborg. This can be useful to focus on what happens after a program is paused.
+      <button id="erase-trace" class="blue-gradient" onclick="RUR.vis_world.clear_trace();"></button>
+      <span id="erase-trace-text"></span>
     </p>
 
     <hr>
@@ -523,43 +526,6 @@
     </div>
   </div>
 
-  <div id="about-div" title="About" style="display:none">
-    <p><small style="color:#900;">Discussions, questions, comments about Reeborg take place
-        <a href="http://www.reddit.com/r/reeborg">here</a>.
-      <a href="https://github.com/aroberge/reeborg/issues">Bug reports</a> are welcome!</small></p>
-
-    <h2>About Reeborg</h2>
-
-    <p>Inspired by Guido van Robot, itself inspired by the original Karel the Robot created by Richard Pattis, Reeborg first appeared in RUR-PLE, a program I created to learn Python, picking up programming as a hobby.</p>
-
-    <p> I hope you enjoy learning computer programming with Reeborg.</p>
-    <p>Feel free to contact me at
-      <a href="mailto:andre.roberge@gmail.com">Andre.Roberge@gmail.com</a></p>
-
-    <p>Reeborg is free and will remain free to use and to share under a
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-    Creative Commons License.</a> If you are using it to teach programming to students,
-      <b>please contact me to let me know about it and so that I can keep you informed of major changes.</b> You might also want to make a copy of this site on a local server.</p>
-
-
-    <h2>Contribute</h2>
-
-    <p> I am just a self-taught programmer, with no training in web design, graphics, etc. I would gladly welcome any suggestions or contributions to</p>
-    <ul>
-      <li>Improve the usability of this site.</li>
-      <li>Make better looking images.</li>
-      <li>New worlds, examples and challenges.</li>
-      <li>Corrections to the existing content, including fixing typos.</li>
-      <li>Help make Reeborg available (even partly) in languages other than English and French</li>
-      <li>etc.</li>
-    </ul>
-    <p><a href="https://code.google.com/p/reeborg/issues/list">Bug reports</a> are welcome!</p>
-    <ul>
-    </ul>
-    <p>
-      Audio samples from <a href="https://www.freesound.org">freesound</a>, all chosen (and modified) from Creative Commons license 0 submissions.
-    </p>
-  </div>
 
   <audio id="put-sound" preload>
     <source src="/src/sounds/toc.wav" type="audio/x-wav">

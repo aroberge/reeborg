@@ -43,7 +43,7 @@ update_ui = function (lang) {
     for(i=0; i<_text_elements.length; i++) {
         id = "#" + _text_elements[i][0];
         msg = _text_elements[i][1];
-        $(id).text(RUR.translate(msg));
+        $(id).html(RUR.translate(msg));
     }
     for(i=0; i<_elements_names.length; i++) {
         id = "#" + _elements_names[i][0];
@@ -99,3 +99,12 @@ record_id("world-title", "WORLD CREATION TITLE");
 record_id("program-in-editor", "PROGRAM IN EDITOR");
 record_id("special-execution", "SPECIAL EXECUTION");
 record_id("reverse-step-text", "REVERSE STEP EXPLAIN");
+record_id("erase-trace", "ERASE TRACE");
+record_id("erase-trace-text", "ERASE TRACE EXPLAIN");
+record_id("contact", "CONTACT");
+record_id("issues", "ISSUES");
+record_id("help", "HELP");
+record_id("forum", "FORUM");
+record_id("documentation", "DOCUMENTATION");
+record_id("python-help", "PYTHON HELP");
+record_id("keyboard-help", "KEYBOARD HELP");

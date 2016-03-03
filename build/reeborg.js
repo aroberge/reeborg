@@ -2000,12 +2000,9 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
     });
 };
 
-
-RUR.create_and_activate_dialogs($("#about-button"), $("#about-div"), {});
 RUR.create_and_activate_dialogs($("#more-menus-button"), $("#more-menus"), {height:700});
 RUR.create_and_activate_dialogs($("#special-keyboard-button"), $("#special-keyboard"),
         {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
-
 
 $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
                                 position:{my: "center", at: "center", of: $("#robot-canvas")}});
@@ -9223,6 +9220,15 @@ RUR.en["EDIT WORLD EXPLAIN"] = "You can create your own world by editing the cur
 RUR.en["PROGRAM IN EDITOR"] = "Program in editor";
 RUR.en["SPECIAL EXECUTION"] = "Special execution features";
 RUR.en["REVERSE STEP EXPLAIN"] = "Reverses the previous execution step.";
+RUR.en["ERASE TRACE"] = "Erase trace";
+RUR.en["ERASE TRACE EXPLAIN"] = "Erases the trace left by Reeborg. This can be useful to focus on what happens after a program is paused.";
+RUR.en["CONTACT"] = "(English/French only) Email:";
+RUR.en["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/French only)";
+RUR.en["FORUM"] = "Discussion forum (English/French only)";
+RUR.en["HELP"] = "Help";
+RUR.en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank">Documentation</a>';
+RUR.en["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
+RUR.en["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
 
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
@@ -9484,6 +9490,15 @@ RUR.fr["EDIT WORLD EXPLAIN"] = "Vous pouvez créer vos propres mondes en modifia
 RUR.fr["PROGRAM IN EDITOR"] = "Programme dans l'éditeur";
 RUR.fr["SPECIAL EXECUTION"] = "Options d'exécution";
 RUR.fr["REVERSE STEP EXPLAIN"] = "Renverse l'instruction précédemment exécutée.";
+RUR.fr["ERASE TRACE"] = "Effacer la trace";
+RUR.fr["ERASE TRACE EXPLAIN"] = "Efface la trace laissée par Reeborg.  Ceci est utile pour permettre de se concentrer sur ce qui arrive lorsqu'on résume un programme après une pause.";
+RUR.fr["CONTACT"] = "Courriel :";
+RUR.fr["ISSUES"] = "Rapports de bogues, suggestions, autres problèmes, etc. (en anglais ou en français seulement).";
+RUR.fr["FORUM"] = "Forum de discussions (en anglais ou en français seulement).";
+RUR.fr["HELP"] = "Aide";
+RUR.fr["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/fr" target="_blank">Documentation</a>';
+RUR.fr["PYTHON HELP"] = "En utilisant Python, executez un programme avec <code>help()</code> pour obtenir une liste de commandes ou <code>help(avance)</code> pour obtenir de l'aide sur la fonction <code>avance()</code>, etc.";
+RUR.fr["KEYBOARD HELP"] = "Cliquez sur le clavier de Reeborg keyboard pour voir une liste des commandes, la syntaxe Python, etc.";
 
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
@@ -9649,7 +9664,7 @@ RUR.ko["fence_vertical"] = "울타리";
 
 RUR.ko["Local variables"] = "지역 변수";
 RUR.ko["Global variables"] = "전역 변수";
-RUR.ko["Watched expressions"] = "Watched expressions";
+RUR.ko["Watched expressions"] = "문장 결과 보기";
 
 RUR.ko["move forward"] = "앞으로 움직이기";
 RUR.ko["write"] = "write";
@@ -9711,7 +9726,7 @@ RUR.ko["CONDITIONS"] = "상태";
 RUR.ko["USING VARIABLES"] = "변수 사용하기";
 RUR.ko["COMMANDS"] = "명령어들";
 RUR.ko["OTHER"] = "그 외";
-RUR.ko["OBJECTS"] = "Objects";
+RUR.ko["OBJECTS"] = "객체들";
 
 RUR.ko["Python Code"] = "파이썬 코드";
 RUR.ko["Javascript Code"] = "자바스크립트 코드";
@@ -9743,6 +9758,15 @@ RUR.ko["EDIT WORLD EXPLAIN"] = "기존 월드를 수정하여 자신 만의 월�
 RUR.ko["PROGRAM IN EDITOR"] = "에디터";
 RUR.ko["SPECIAL EXECUTION"] = "미래에 생겨날 기능";
 RUR.ko["REVERSE STEP EXPLAIN"] = "이전 실행 상태를 되돌립니다.";
+RUR.ko["ERASE TRACE"] = "흔적 지우기";
+RUR.ko["ERASE TRACE EXPLAIN"] = "흔적을 리보그만 남기고 지웁니다. 이 기능은 프로그램이 멈추었을때 유용합니다.";
+RUR.ko["CONTACT"] = "(English/French only) Email:";
+RUR.ko["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/French only)";
+RUR.ko["FORUM"] = "Discussion forum (English/French only)";
+RUR.ko["HELP"] = "도움말";
+RUR.ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank">Documentation</a>';
+RUR.ko["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
+RUR.ko["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
 
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");
@@ -9790,7 +9814,7 @@ update_ui = function (lang) {
     for(i=0; i<_text_elements.length; i++) {
         id = "#" + _text_elements[i][0];
         msg = _text_elements[i][1];
-        $(id).text(RUR.translate(msg));
+        $(id).html(RUR.translate(msg));
     }
     for(i=0; i<_elements_names.length; i++) {
         id = "#" + _elements_names[i][0];
@@ -9846,6 +9870,15 @@ record_id("world-title", "WORLD CREATION TITLE");
 record_id("program-in-editor", "PROGRAM IN EDITOR");
 record_id("special-execution", "SPECIAL EXECUTION");
 record_id("reverse-step-text", "REVERSE STEP EXPLAIN");
+record_id("erase-trace", "ERASE TRACE");
+record_id("erase-trace-text", "ERASE TRACE EXPLAIN");
+record_id("contact", "CONTACT");
+record_id("issues", "ISSUES");
+record_id("help", "HELP");
+record_id("forum", "FORUM");
+record_id("documentation", "DOCUMENTATION");
+record_id("python-help", "PYTHON HELP");
+record_id("keyboard-help", "KEYBOARD HELP");
 
 },{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ko.js":82}],84:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could

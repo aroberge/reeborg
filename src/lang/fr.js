@@ -257,3 +257,12 @@ RUR.fr["EDIT WORLD EXPLAIN"] = "Vous pouvez créer vos propres mondes en modifia
 RUR.fr["PROGRAM IN EDITOR"] = "Programme dans l'éditeur";
 RUR.fr["SPECIAL EXECUTION"] = "Options d'exécution";
 RUR.fr["REVERSE STEP EXPLAIN"] = "Renverse l'instruction précédemment exécutée.";
+RUR.fr["ERASE TRACE"] = "Effacer la trace";
+RUR.fr["ERASE TRACE EXPLAIN"] = "Efface la trace laissée par Reeborg.  Ceci est utile pour permettre de se concentrer sur ce qui arrive lorsqu'on résume un programme après une pause.";
+RUR.fr["CONTACT"] = "Courriel :";
+RUR.fr["ISSUES"] = "Rapports de bogues, suggestions, autres problèmes, etc. (en anglais ou en français seulement).";
+RUR.fr["FORUM"] = "Forum de discussions (en anglais ou en français seulement).";
+RUR.fr["HELP"] = "Aide";
+RUR.fr["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/fr" target="_blank">Documentation</a>';
+RUR.fr["PYTHON HELP"] = "En utilisant Python, executez un programme avec <code>help()</code> pour obtenir une liste de commandes ou <code>help(avance)</code> pour obtenir de l'aide sur la fonction <code>avance()</code>, etc.";
+RUR.fr["KEYBOARD HELP"] = "Cliquez sur le clavier de Reeborg keyboard pour voir une liste des commandes, la syntaxe Python, etc.";

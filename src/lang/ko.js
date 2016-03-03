@@ -161,7 +161,7 @@ RUR.ko["fence_vertical"] = "울타리";
 
 RUR.ko["Local variables"] = "지역 변수";
 RUR.ko["Global variables"] = "전역 변수";
-RUR.ko["Watched expressions"] = "Watched expressions";
+RUR.ko["Watched expressions"] = "문장 결과 보기";
 
 RUR.ko["move forward"] = "앞으로 움직이기";
 RUR.ko["write"] = "write";
@@ -223,7 +223,7 @@ RUR.ko["CONDITIONS"] = "상태";
 RUR.ko["USING VARIABLES"] = "변수 사용하기";
 RUR.ko["COMMANDS"] = "명령어들";
 RUR.ko["OTHER"] = "그 외";
-RUR.ko["OBJECTS"] = "Objects";
+RUR.ko["OBJECTS"] = "객체들";
 
 RUR.ko["Python Code"] = "파이썬 코드";
 RUR.ko["Javascript Code"] = "자바스크립트 코드";
@@ -255,3 +255,12 @@ RUR.ko["EDIT WORLD EXPLAIN"] = "기존 월드를 수정하여 자신 만의 월�
 RUR.ko["PROGRAM IN EDITOR"] = "에디터";
 RUR.ko["SPECIAL EXECUTION"] = "미래에 생겨날 기능";
 RUR.ko["REVERSE STEP EXPLAIN"] = "이전 실행 상태를 되돌립니다.";
+RUR.ko["ERASE TRACE"] = "흔적 지우기";
+RUR.ko["ERASE TRACE EXPLAIN"] = "흔적을 리보그만 남기고 지웁니다. 이 기능은 프로그램이 멈추었을때 유용합니다.";
+RUR.ko["CONTACT"] = "(English/French only) Email:";
+RUR.ko["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/French only)";
+RUR.ko["FORUM"] = "Discussion forum (English/French only)";
+RUR.ko["HELP"] = "도움말";
+RUR.ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank">Documentation</a>';
+RUR.ko["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
+RUR.ko["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";

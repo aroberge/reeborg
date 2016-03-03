@@ -252,3 +252,12 @@ RUR.en["EDIT WORLD EXPLAIN"] = "You can create your own world by editing the cur
 RUR.en["PROGRAM IN EDITOR"] = "Program in editor";
 RUR.en["SPECIAL EXECUTION"] = "Special execution features";
 RUR.en["REVERSE STEP EXPLAIN"] = "Reverses the previous execution step.";
+RUR.en["ERASE TRACE"] = "Erase trace";
+RUR.en["ERASE TRACE EXPLAIN"] = "Erases the trace left by Reeborg. This can be useful to focus on what happens after a program is paused.";
+RUR.en["CONTACT"] = "(English/French only) Email:";
+RUR.en["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/French only)";
+RUR.en["FORUM"] = "Discussion forum (English/French only)";
+RUR.en["HELP"] = "Help";
+RUR.en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank">Documentation</a>';
+RUR.en["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
+RUR.en["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
