@@ -9230,6 +9230,31 @@ RUR.en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank">D
 RUR.en["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
 RUR.en["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
 
+RUR.en["WORLD EDITOR"] = "World editor";
+RUR.en["m-east"] = "East";
+RUR.en["m-north"] = "North";
+RUR.en["m-west"] = "West";
+RUR.en["m-south"] = "South";
+RUR.en["m-random"] = "Random";
+RUR.en["m-dimensions"] = "World dimensions";
+RUR.en["m-add"] = "Add";
+RUR.en["m-add-robot"] = "Add robot";
+RUR.en["m-robot"] = "Robot";
+RUR.en["m-position"] = "Position(s)";
+RUR.en["m-turn"] = "Turn";
+RUR.en["m-objects"] = "Objects";
+RUR.en["m-walls"] = "Walls";
+RUR.en["m-objects2"] = "Objects";
+RUR.en["m-tiles"] = "Tiles";
+RUR.en["m-fill"] = "Fill";
+RUR.en["m-solid"] = "Solid objects";
+RUR.en["m-decorative"] = "Decorative objects";
+RUR.en["m-background"] = "Background image";
+RUR.en["m-goal"] = "Goal";
+RUR.en["mg-robot"] = "Robot";
+RUR.en["mg-walls"] = "Walls";
+RUR.en["mg-objects"] = "Objects";
+
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
 
@@ -9500,6 +9525,31 @@ RUR.fr["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/fr" target="_blank">D
 RUR.fr["PYTHON HELP"] = "En utilisant Python, executez un programme avec <code>help()</code> pour obtenir une liste de commandes ou <code>help(avance)</code> pour obtenir de l'aide sur la fonction <code>avance()</code>, etc.";
 RUR.fr["KEYBOARD HELP"] = "Cliquez sur le clavier de Reeborg keyboard pour voir une liste des commandes, la syntaxe Python, etc.";
 
+RUR.fr["WORLD EDITOR"] = "Éditeur de monde";
+RUR.fr["m-east"] = "Est";
+RUR.fr["m-north"] = "Nord";
+RUR.fr["m-west"] = "Ouest";
+RUR.fr["m-south"] = "Sud";
+RUR.fr["m-random"] = "Aléatoire";
+RUR.fr["m-dimensions"] = "Taille du monde";
+RUR.fr["m-add"] = "Ajouter";
+RUR.fr["m-add-robot"] = "Ajouter Reeborg";
+RUR.fr["m-robot"] = "Robot";
+RUR.fr["m-position"] = "Position(s)";
+RUR.fr["m-turn"] = "Orientation";
+RUR.fr["m-objects"] = "Objets";
+RUR.fr["m-walls"] = "Murs";
+RUR.fr["m-objects2"] = "Objets";
+RUR.fr["m-tiles"] = "Tuiles";
+RUR.fr["m-fill"] = "Remplir";
+RUR.fr["m-solid"] = "Objets solides";
+RUR.fr["m-decorative"] = "Objets décoratifs";
+RUR.fr["m-background"] = "Image de fond";
+RUR.fr["m-goal"] = "But";
+RUR.fr["mg-robot"] = "Robot";
+RUR.fr["mg-walls"] = "Murs";
+RUR.fr["mg-objects"] = "Objets";
+
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
 RUR.ko_to_en = {};
@@ -9768,6 +9818,31 @@ RUR.ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank">D
 RUR.ko["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
 RUR.ko["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
 
+RUR.en["WORLD EDITOR"] = "World editor";
+RUR.ko["m-east"] = "동쪽";
+RUR.ko["m-north"] = "북쪽";
+RUR.ko["m-west"] = "서쪽";
+RUR.ko["m-south"] = "남쪽";
+RUR.ko["m-random"] = "Random";
+RUR.ko["m-dimensions"] = "월드 크기";
+RUR.ko["m-add"] = "추가";
+RUR.ko["m-add-robot"] = "로봇 추가";
+RUR.ko["m-robot"] = "로봇";
+RUR.ko["m-position"] = "위치(들)";
+RUR.ko["m-turn"] = "회전";
+RUR.ko["m-objects"] = "객체";
+RUR.ko["m-walls"] = "벽";
+RUR.ko["m-objects2"] = "객체";
+RUR.ko["m-tiles"] = "타일들";
+RUR.ko["m-fill"] = "체우기";
+RUR.ko["m-solid"] = "특정 객체";
+RUR.ko["m-decorative"] = "꾸미기용 객체";
+RUR.ko["m-background"] = "Background image";
+RUR.ko["m-goal"] = "목표";
+RUR.ko["mg-robot"] = "로봇";
+RUR.ko["mg-walls"] = "벽";
+RUR.ko["mg-objects"] = "객체";
+
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");
 require("./../lang/fr.js");
@@ -9879,6 +9954,31 @@ record_id("forum", "FORUM");
 record_id("documentation", "DOCUMENTATION");
 record_id("python-help", "PYTHON HELP");
 record_id("keyboard-help", "KEYBOARD HELP");
+
+record_title("ui-dialog-title-edit-world-panel", "WORLD EDITOR");
+record_id("east", "m-east");
+record_id("north", "m-north");
+record_id("west", "m-west");
+record_id("south", "m-south");
+record_id("random", "m-random");
+record_id("m-dimensions", "m-dimensions");
+record_id("m-add-robot", "m-add-robot");
+record_id("m-robot", "m-robot");
+record_id("m-position", "m-position");
+record_id("m-turn", "m-turn");
+record_id("m-objects", "m-objects");
+record_id("m-add", "m-add");
+record_id("m-walls", "m-walls");
+record_id("m-objects2", "m-objects2");
+record_id("m-tiles", "m-tiles");
+record_id("m-fill", "m-fill");
+record_id("m-solid", "m-solid");
+record_id("m-decorative", "m-decorative");
+record_id("m-background", "m-background");
+record_id("m-goal", "m-goal");
+record_id("mg-robot", "mg-robot");
+record_id("mg-walls", "mg-walls");
+record_id("mg-objects", "mg-objects");
 
 },{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ko.js":82}],84:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could
