@@ -2595,12 +2595,13 @@ RUR.kbd.set_programming_language = function (lang) {
     RUR.kbd.select();
 };
 
-RUR.kbd.insert2 = function (txt){
+RUR.kbd.insert_statement = function (txt){
     if (RUR.state.programming_language == "javascript") {
         RUR.kbd.insert(txt + ";");
     } else {
         RUR.kbd.insert(txt);
     }
+    RUR.kbd.enter();
 };
 
 RUR.kbd.insert_in_console = function (txt) {
@@ -2805,6 +2806,33 @@ add_onclick_select("kbd-py-console");
 add_onclick_select("kbd-javascript");
 add_onclick_select("kbd-objects");
 add_onclick_select("kbd-special");
+
+function add_onclick_insert_statement(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert_statement(RUR.translate(arg));
+    });
+    record_id(id, arg);
+}
+add_onclick_insert_statement("kbd-move", "move()");
+add_onclick_insert_statement("kbd-turn-left", "turn_left()");
+add_onclick_insert_statement("kbd-take", "take()");
+add_onclick_insert_statement("kbd-put", "put()");
+add_onclick_insert_statement("kbd-build-wall", "build_wall()");
+add_onclick_insert_statement("kbd-pause", "pause()");
+add_onclick_insert_statement("kbd-done", "done()");
+add_onclick_insert_statement("kbd-think", "think(100)");
+add_onclick_insert_statement("kbd-sound", "sound(True)");
+add_onclick_insert_statement("kbd-sound-js", "sound(true)");
+add_onclick_insert_statement("kbd-world", 'World()');
+add_onclick_insert_statement("kbd-UsedRobot", "UsedRobot()");
+add_onclick_insert_statement("kbd-newUsedRobot", "new UsedRobot()");
+add_onclick_insert_statement("kbd-no-highlight", "no_highlight()");
+
+
+
+
+
+
 
 function add_onclick_insert(id, arg, enter) {
     $("#"+id).on("click", function (evt) {
@@ -9063,7 +9091,6 @@ RUR.en_to_en["tulip"] = "tulip";
 
 RUR.en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
 RUR.en["# from library import *"] = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
-RUR.en.move = "move";
 
 RUR.en["Too many steps:"] = "Too many steps: {max_steps}";
 RUR.en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
@@ -9191,16 +9218,10 @@ RUR.en["Watched expressions"] = "Watched expressions";
 RUR.en["move forward"] = "move forward";
 RUR.en["write"] = "write";
 RUR.en["turn left"] = "turn left";
-RUR.en["turn_left"] = "turn_left";
-RUR.en["take"] = "take";
 RUR.en["take object"] = "take object";
-RUR.en["put"] = "put";
 RUR.en["put object"] = "put object";
-RUR.en["pause"] = "pause";
 RUR.en["Pause the program's execution."] = "Pause the program's execution.";
-RUR.en["build_wall"] = "build_wall";
 RUR.en["Build a wall in front of the robot."] = "Build a wall in front of the robot.";
-RUR.en["done"] = "done";
 RUR.en["End the program's execution."] = "End the program's execution.";
 RUR.en["True if a wall is blocking the way."] = "True if a wall is blocking the way";
 RUR.en["True if nothing is blocking the way."] = "True if nothing is blocking the way.";
@@ -9208,8 +9229,6 @@ RUR.en["True if desired destination."] = "True if desired destination.";
 RUR.en["True if robot carries at least one object."] = "True if robot carries at least one object.";
 RUR.en["True if there is at least one object here."] = "True if there is at least one object here.";
 RUR.en["True if robot is facing North."] = "True if robot is facing North.";
-RUR.en["sound"] = "sound";
-RUR.en["think"] = "think";
 RUR.en["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
 
 RUR.en["Save world in browser"] = "Save world in browser";
@@ -9341,6 +9360,35 @@ RUR.en["carries_object()"] = "carries_object()";
 RUR.en["is_facing_north"] = "is_facing_north";
 RUR.en["is_facing_north()"] = "is_facing_north()";
 
+RUR.en["move"] = "move";
+RUR.en["move()"] = "move()";
+RUR.en["turn_left"] = "turn_left";
+RUR.en["turn_left()"] = "turn_left()";
+RUR.en["take"] = "take";
+RUR.en["take()"] = "take()";
+RUR.en["put"] = "put";
+RUR.en["put()"] = "put()";
+RUR.en["build_wall"] = "build_wall";
+RUR.en["build_wall()"] = "build_wall()";
+RUR.en["pause"] = "pause";
+RUR.en["pause()"] = "pause()";
+RUR.en["done"] = "done";
+RUR.en["done()"] = "done()";
+RUR.en["think"] = "think";
+RUR.en["think()"] = "think()";
+RUR.en["think(100)"] = "think(100)";
+RUR.en["sound"] = "sound";
+RUR.en["sound(True)"] = "sound(True)";
+RUR.en["sound(true)"] = "sound(true)";
+RUR.en["World"] = "World";
+RUR.en["World()"] = "World()";
+RUR.en["UsedRobot"] = "UsedRobot";
+RUR.en["UsedRobot()"] = "UsedRobot()";
+RUR.en["new UsedRobot"] = "new UsedRobot";
+RUR.en["new UsedRobot()"] = "new UsedRobot()";
+RUR.en["no_highlight"] = "no_highlight";
+RUR.en["no_highlight()"] = "no_highlight()";
+
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
 
@@ -9384,7 +9432,6 @@ RUR.fr_to_en["tulipe"] = "tulip";
 
 RUR.fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
 RUR.fr["# from library import *"] = "# 'from biblio import *' dans l'onglet Code Python est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
-RUR.fr.move = "avance";
 
 RUR.fr["Too many steps:"] = "Trop d'instructions: {max_steps}";
 RUR.fr["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
@@ -9510,18 +9557,11 @@ RUR.fr["Global variables"] = "Variables globales";
 RUR.fr["Watched expressions"] = "Watched expressions";
 
 RUR.fr["move forward"] = "avance";
-RUR.fr["write"] = "ecrit";
 RUR.fr["turn left"] = "tourne à gauche";
-RUR.fr["turn_left"] = "tourne_a_gauche";
-RUR.fr["take"] = "prend";
 RUR.fr["take object"] = "prend l'objet";
-RUR.fr["put"] = "depose";
 RUR.fr["put object"] = "dépose l'objet";
-RUR.fr["pause"] = "pause";
 RUR.fr["Pause the program's execution."] = "Pause l'exécution du programme.";
-RUR.fr["build_wall"] = "construit_un_mur";
 RUR.fr["Build a wall in front of the robot."] = "Construit un mur devant le robot.";
-RUR.fr["done"] = "termine";
 RUR.fr["End the program's execution."] = "Termine l'exécution du programme.";
 RUR.fr["True if a wall is blocking the way."] = "Vrai si un mur bloque le chemin.";
 RUR.fr["True if nothing is blocking the way."] = "Vrai si rien ne bloque le chemin.";
@@ -9529,8 +9569,6 @@ RUR.fr["True if desired destination."] = "Vrai si c'est la destination désirée
 RUR.fr["True if robot carries at least one object."] = "Vrai si le robot transporte au moins un objet.";
 RUR.fr["True if there is at least one object here."] = "Vrai s'il y a au moins un objet ici.";
 RUR.fr["True if robot is facing North."] = "Vrai se le robot est face au nord.";
-RUR.fr["sound"] = "son";
-RUR.fr["think"] = "pense";
 RUR.fr["Delay between actions; default is 300 ms."] = "Délai entre les actions; le défaut est de 300 ms.";
 
 RUR.fr["Save world in browser"] = "Sauvegarder le monde dans le navigateur";
@@ -9664,6 +9702,35 @@ RUR.fr["carries_object()"] = "transporte()";
 RUR.fr["is_facing_north"] = "est_face_au_nord";
 RUR.fr["is_facing_north()"] = "est_face_au_nord()";
 
+RUR.fr["move"] = "avance";
+RUR.fr["move()"] = "avance()";
+RUR.fr["turn_left"] = "tourne_a_gauche";
+RUR.fr["turn_left()"] = "tourne_a_gauche()";
+RUR.fr["take"] = "prend";
+RUR.fr["take()"] = "prend()";
+RUR.fr["put"] = "depose";
+RUR.fr["put()"] = "depose()";
+RUR.fr["build_wall"] = "construit_un_mur";
+RUR.fr["build_wall()"] = "construit_un_mur()";
+RUR.fr["pause"] = "pause";
+RUR.fr["pause()"] = "pause()";
+RUR.fr["done"] = "termine";
+RUR.fr["done()"] = "termine()";
+RUR.fr["think"] = "pense";
+RUR.fr["think()"] = "pense()";
+RUR.fr["think(100)"] = "pense(100)";
+RUR.fr["sound"] = "son";
+RUR.fr["sound(True)"] = "son(True)";
+RUR.fr["sound(true)"] = "son(true)";
+RUR.fr["World"] = "Monde";
+RUR.fr["World()"] = "Monde()";
+RUR.fr["UsedRobot"] = "RobotUsage";
+RUR.fr["UsedRobot()"] = "RobotUsage()";
+RUR.fr["new UsedRobot"] = "new RobotUsage";
+RUR.fr["new UsedRobot()"] = "new RobotUsage()";
+RUR.fr["no_highlight"] = "pas_de_surlignement";
+RUR.fr["no_highlight()"] = "pas_de_surlignement()";
+
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
 RUR.ko_to_en = {};
@@ -9706,7 +9773,6 @@ RUR.ko_to_en["튤립"] = "tulip";
 
 RUR.ko["Problem with onload code."] = "유효하지 않는 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
 RUR.ko["# from library import *"] = "# 사용을 할려먼 'from library import *' 이 파이썬 코드가 필요합니다.\n# 코드가 이 라이브러리 안에 있습니다. \n\n";
-RUR.ko.move = "move";
 
 RUR.ko["Too many steps:"] = "너무 많은 steps: {max_steps}";
 RUR.ko["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>리보그는 올바른 x 위치에 있습니다.</li>";
@@ -9831,18 +9897,11 @@ RUR.ko["Global variables"] = "전역 변수";
 RUR.ko["Watched expressions"] = "문장 결과 보기";
 
 RUR.ko["move forward"] = "앞으로 움직이기";
-RUR.ko["write"] = "write";
 RUR.ko["turn left"] = "turn left";
-RUR.ko["turn_left"] = "turn_left";
-RUR.ko["take"] = "take";
 RUR.ko["take object"] = "객체 가지기";
-RUR.ko["put"] = "put";
 RUR.ko["put object"] = "객체 넣기";
-RUR.ko["pause"] = "일시 정지";
 RUR.ko["Pause the program's execution."] = "프로그램 일시 정지.";
-RUR.ko["build_wall"] = "build_wall";
 RUR.ko["Build a wall in front of the robot."] = "벽을 로봇 앞에 짓기.";
-RUR.ko["done"] = "done";
 RUR.ko["End the program's execution."] = "프로그램 실행 종료.";
 RUR.ko["True if a wall is blocking the way."] = "벽이 길을 막고 있는 경우가 사실이라면.";
 RUR.ko["True if nothing is blocking the way."] = "아무것도 차단 하지 않는 경우가 사실이라면.";
@@ -9850,8 +9909,6 @@ RUR.ko["True if desired destination."] = "원하는 목적지가 있는 경우�
 RUR.ko["True if robot carries at least one object."] = "로봇이 적어도 하나의 객체를 싣고 있는 경우가 사실이라면.";
 RUR.ko["True if there is at least one object here."] = "적어도 하나의 객체가 여기에 있는 경우가 사실이라면.";
 RUR.ko["True if robot is facing North."] = "만약 로봇이 북쪽을 바라보고 있는 경우가 사실이라면.";
-RUR.ko["sound"] = "소리";
-RUR.ko["think"] = "생각";
 RUR.ko["Delay between actions; default is 300 ms."] = "행동을 지연시킵니다; 기본값은 300 밀리초.";
 
 RUR.ko["Save world in browser"] = "월드를 브라우저에 저장하기";
@@ -9984,6 +10041,35 @@ RUR.ko["carries_object"] = "carries_object";
 RUR.ko["carries_object()"] = "carries_object()";
 RUR.ko["is_facing_north"] = "is_facing_north";
 RUR.ko["is_facing_north()"] = "is_facing_north()";
+
+RUR.ko["move"] = "move";
+RUR.ko["move()"] = "move()";
+RUR.ko["turn_left"] = "turn_left";
+RUR.ko["turn_left()"] = "turn_left()";
+RUR.ko["take"] = "take";
+RUR.ko["take()"] = "take()";
+RUR.ko["put"] = "put";
+RUR.ko["put()"] = "put()";
+RUR.ko["build_wall"] = "build_wall";
+RUR.ko["build_wall()"] = "build_wall()";
+RUR.ko["pause"] = "pause";
+RUR.ko["pause()"] = "pause()";
+RUR.ko["done"] = "done";
+RUR.ko["done()"] = "done()";
+RUR.ko["think"] = "think";
+RUR.ko["think()"] = "think()";
+RUR.ko["think(100)"] = "think(100)";
+RUR.ko["sound"] = "sound";
+RUR.ko["sound(True)"] = "sound(True)";
+RUR.ko["sound(true)"] = "sound(true)";
+RUR.ko["World"] = "World";
+RUR.ko["World()"] = "World()";
+RUR.ko["UsedRobot"] = "UsedRobot";
+RUR.ko["UsedRobot()"] = "UsedRobot()";
+RUR.ko["new UsedRobot"] = "new UsedRobot";
+RUR.ko["new UsedRobot()"] = "new UsedRobot()";
+RUR.ko["no_highlight"] = "no_highlight";
+RUR.ko["no_highlight()"] = "no_highlight()";
 
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");

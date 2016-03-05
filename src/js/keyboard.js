@@ -24,12 +24,13 @@ RUR.kbd.set_programming_language = function (lang) {
     RUR.kbd.select();
 };
 
-RUR.kbd.insert2 = function (txt){
+RUR.kbd.insert_statement = function (txt){
     if (RUR.state.programming_language == "javascript") {
         RUR.kbd.insert(txt + ";");
     } else {
         RUR.kbd.insert(txt);
     }
+    RUR.kbd.enter();
 };
 
 RUR.kbd.insert_in_console = function (txt) {
@@ -234,6 +235,33 @@ add_onclick_select("kbd-py-console");
 add_onclick_select("kbd-javascript");
 add_onclick_select("kbd-objects");
 add_onclick_select("kbd-special");
+
+function add_onclick_insert_statement(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert_statement(RUR.translate(arg));
+    });
+    record_id(id, arg);
+}
+add_onclick_insert_statement("kbd-move", "move()");
+add_onclick_insert_statement("kbd-turn-left", "turn_left()");
+add_onclick_insert_statement("kbd-take", "take()");
+add_onclick_insert_statement("kbd-put", "put()");
+add_onclick_insert_statement("kbd-build-wall", "build_wall()");
+add_onclick_insert_statement("kbd-pause", "pause()");
+add_onclick_insert_statement("kbd-done", "done()");
+add_onclick_insert_statement("kbd-think", "think(100)");
+add_onclick_insert_statement("kbd-sound", "sound(True)");
+add_onclick_insert_statement("kbd-sound-js", "sound(true)");
+add_onclick_insert_statement("kbd-world", 'World()');
+add_onclick_insert_statement("kbd-UsedRobot", "UsedRobot()");
+add_onclick_insert_statement("kbd-newUsedRobot", "new UsedRobot()");
+add_onclick_insert_statement("kbd-no-highlight", "no_highlight()");
+
+
+
+
+
+
 
 function add_onclick_insert(id, arg, enter) {
     $("#"+id).on("click", function (evt) {

@@ -681,22 +681,20 @@
       <button id="kbd-objects-btn" class="blue-gradient"></button>
       <button id="kbd-special-btn" class="blue-gradient"></button>
       <ul class="kbd-command">
-        <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>move()</li>
-        <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>turn_left()</li>
-        <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>take()</li>
-        <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>put()</li>
-        <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>build_wall()</li>
-        <li class="kbd-command no-console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pause()</li>
-        <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>done()</li>
-        <li class="kbd-command no-console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>think(100)</li>
-        <li class="kbd-command only_py no-console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
-        <li class="kbd-command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>write(" ? ")</li>
-        <li class="kbd-command only_py no-console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>sound(True)</li>
-        <li class="kbd-command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>sound(true)</li>
-        <li class="kbd-command no-console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>World(" ? ")</li>
-        <li class="kbd-command only_py" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>UsedRobot()</li>
-        <li class="kbd-command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>new UsedRobot()</li>
-        <li class="kbd-command only_py no-console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>no_highlight()</li>
+        <li id="kbd-move" class="kbd-command"></li>
+        <li id="kbd-turn-left" class="kbd-command"></li>
+        <li id="kbd-take" class="kbd-command"></li>
+        <li id="kbd-put" class="kbd-command"></li>
+        <li id="kbd-build-wall" class="kbd-command"></li>
+        <li id="kbd-pause" class="kbd-command no-console"></li>
+        <li id="kbd-done" class="kbd-command"></li>
+        <li id="kbd-think" class="kbd-command no-console"></li>
+        <li id="kbd-sound" class="kbd-command only_py no-console"></li>
+        <li id="kbd-sound-js" class="kbd-command only_js"></li>
+        <li id="kbd-world" class="kbd-command"></li>
+        <li id="kbd-UsedRobot" class="kbd-command only_py"></li>
+        <li id="kbd-newUsedRobot" class="kbd-command only_js"></li>
+        <li id="kbd-no-highlight" class="kbd-command only_py no-console"></li>
       </ul>
       <ul class="kbd-condition">
         <li id="kbd-at-goal" class="kbd-condition"></li>
@@ -717,6 +715,7 @@
         <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>repeat ? :</li>
         <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>from library import ?</li>
         <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>for ? in ? :</li>
+        <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>print()</li>
         <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>range( ? )</li>
         <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>True</li>
         <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>False</li>
@@ -740,6 +739,7 @@
         <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>from library import </li>
         <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>for</li>
         <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>in</li>
+        <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>print(</li>
         <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>range(</li>
         <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>True</li>
         <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>False</li>
@@ -762,6 +762,7 @@
         <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>for (? ; ? ; ?) { }</li>
         <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>true</li>
         <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>false</li>
+        <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>write(?)</li>
         <li class="kbd-javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>return ?</li>
         <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>undefined</li>
         <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>!</li>
