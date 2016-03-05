@@ -286,3 +286,11 @@ RUR.en["m-goal"] = "Goal";
 RUR.en["mg-robot"] = "Robot";
 RUR.en["mg-walls"] = "Walls";
 RUR.en["mg-objects"] = "Objects";
+
+RUR.en["Reeborg says: I'm done!"] = "Reeborg says: I'm done!";
+RUR.en["Reeborg writes:"] = "Reeborg writes:";
+RUR.en["Reeborg shouts: Something is wrong!"] = "Reeborg shouts: Something is wrong!";
+RUR.en["Reeborg explores some Javascript code"] = "Reeborg explores some Javascript code";
+RUR.en["Reeborg states:"] = "Reeborg states:";
+RUR.en["Reeborg watches some variables!"] = "Reeborg watches some variables!";
+RUR.en["Click on the world to get some additional information."] = "Click on the world to get some additional information.";

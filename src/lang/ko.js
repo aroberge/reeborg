@@ -289,3 +289,11 @@ RUR.ko["m-goal"] = "목표";
 RUR.ko["mg-robot"] = "로봇";
 RUR.ko["mg-walls"] = "벽";
 RUR.ko["mg-objects"] = "객체";
+
+RUR.ko["Reeborg says: I'm done!"] = "리보그 : 다했어요";
+RUR.ko["Reeborg writes:"] = "리보그 쓰기:";
+RUR.ko["Reeborg shouts: Something is wrong!"] = "리보그 : 뭔가가 잘못 됬어요!";
+RUR.ko["Reeborg explores some Javascript code"] = "Reeborg explores some Javascript code";
+RUR.ko["Reeborg states:"] = "Reeborg states:";
+RUR.ko["Reeborg watches some variables!"] = "Reeborg watches some variables!";
+RUR.ko["Click on the world to get some additional information."] = "추가 정보를 얻기 위해 월드를 클릭합니다.";

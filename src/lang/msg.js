@@ -133,3 +133,11 @@ record_id("m-goal", "m-goal");
 record_id("mg-robot", "mg-robot");
 record_id("mg-walls", "mg-walls");
 record_id("mg-objects", "mg-objects");
+
+record_title("ui-dialog-title-Reeborg-concludes", "Reeborg says: I'm done!");
+record_title("ui-dialog-title-Reeborg-writes", "Reeborg writes:");
+record_title("ui-dialog-title-Reeborg-shouts", "Reeborg shouts: Something is wrong!");
+record_title("ui-dialog-title-Reeborg-explores", "Reeborg explores some Javascript code");
+record_title("ui-dialog-title-Reeborg-proclaims", "Reeborg states:");
+record_title("ui-dialog-title-Reeborg-watches", "Reeborg watches some variables!");
+record_title("ui-dialog-title-World-info", "Click on the world to get some additional information.");

@@ -9262,6 +9262,14 @@ RUR.en["mg-robot"] = "Robot";
 RUR.en["mg-walls"] = "Walls";
 RUR.en["mg-objects"] = "Objects";
 
+RUR.en["Reeborg says: I'm done!"] = "Reeborg says: I'm done!";
+RUR.en["Reeborg writes:"] = "Reeborg writes:";
+RUR.en["Reeborg shouts: Something is wrong!"] = "Reeborg shouts: Something is wrong!";
+RUR.en["Reeborg explores some Javascript code"] = "Reeborg explores some Javascript code";
+RUR.en["Reeborg states:"] = "Reeborg states:";
+RUR.en["Reeborg watches some variables!"] = "Reeborg watches some variables!";
+RUR.en["Click on the world to get some additional information."] = "Click on the world to get some additional information.";
+
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
 
@@ -9557,6 +9565,14 @@ RUR.fr["mg-robot"] = "Robot";
 RUR.fr["mg-walls"] = "Murs";
 RUR.fr["mg-objects"] = "Objets";
 
+RUR.fr["Reeborg says: I'm done!"] = "Reeborg dit : J'ai fini !";
+RUR.fr["Reeborg writes:"] = "Reeborg écrit :";
+RUR.fr["Reeborg shouts: Something is wrong!"] = "Reeborg crie: Quelque chose ne va pas !";
+RUR.fr["Reeborg explores some Javascript code"] = "Reeborg explore le code Javascript";
+RUR.fr["Reeborg states:"] = "Reeborg informe :";
+RUR.fr["Reeborg watches some variables!"] = "Reeborg observe des variables !";
+RUR.fr["Click on the world to get some additional information."] = "Cliquez sur le monde pour obtenir de l'information supplémentaire.";
+
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
 RUR.ko_to_en = {};
@@ -9850,6 +9866,14 @@ RUR.ko["mg-robot"] = "로봇";
 RUR.ko["mg-walls"] = "벽";
 RUR.ko["mg-objects"] = "객체";
 
+RUR.ko["Reeborg says: I'm done!"] = "리보그 : 다했어요";
+RUR.ko["Reeborg writes:"] = "리보그 쓰기:";
+RUR.ko["Reeborg shouts: Something is wrong!"] = "리보그 : 뭔가가 잘못 됬어요!";
+RUR.ko["Reeborg explores some Javascript code"] = "Reeborg explores some Javascript code";
+RUR.ko["Reeborg states:"] = "Reeborg states:";
+RUR.ko["Reeborg watches some variables!"] = "Reeborg watches some variables!";
+RUR.ko["Click on the world to get some additional information."] = "추가 정보를 얻기 위해 월드를 클릭합니다.";
+
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");
 require("./../lang/fr.js");
@@ -9986,6 +10010,14 @@ record_id("m-goal", "m-goal");
 record_id("mg-robot", "mg-robot");
 record_id("mg-walls", "mg-walls");
 record_id("mg-objects", "mg-objects");
+
+record_title("ui-dialog-title-Reeborg-concludes", "Reeborg says: I'm done!");
+record_title("ui-dialog-title-Reeborg-writes", "Reeborg writes:");
+record_title("ui-dialog-title-Reeborg-shouts", "Reeborg shouts: Something is wrong!");
+record_title("ui-dialog-title-Reeborg-explores", "Reeborg explores some Javascript code");
+record_title("ui-dialog-title-Reeborg-proclaims", "Reeborg states:");
+record_title("ui-dialog-title-Reeborg-watches", "Reeborg watches some variables!");
+record_title("ui-dialog-title-World-info", "Click on the world to get some additional information.");
 
 },{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ko.js":82}],84:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could

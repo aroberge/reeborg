@@ -291,3 +291,11 @@ RUR.fr["m-goal"] = "But";
 RUR.fr["mg-robot"] = "Robot";
 RUR.fr["mg-walls"] = "Murs";
 RUR.fr["mg-objects"] = "Objets";
+
+RUR.fr["Reeborg says: I'm done!"] = "Reeborg dit : J'ai fini !";
+RUR.fr["Reeborg writes:"] = "Reeborg écrit :";
+RUR.fr["Reeborg shouts: Something is wrong!"] = "Reeborg crie: Quelque chose ne va pas !";
+RUR.fr["Reeborg explores some Javascript code"] = "Reeborg explore le code Javascript";
+RUR.fr["Reeborg states:"] = "Reeborg informe :";
+RUR.fr["Reeborg watches some variables!"] = "Reeborg observe des variables !";
+RUR.fr["Click on the world to get some additional information."] = "Cliquez sur le monde pour obtenir de l'information supplémentaire.";
