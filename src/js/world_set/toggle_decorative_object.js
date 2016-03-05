@@ -1,7 +1,7 @@
 require("./../exceptions.js");
 require("./../translator.js");
 require("./../utils/key_exist.js");
-
+require("./../utils/supplant.js");
 
 /** @function toggle_decorative_object_at_position
  * @memberof RUR

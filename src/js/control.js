@@ -11,6 +11,7 @@ require("./state.js");
 require("./exceptions.js");
 require("./world_get.js");
 require("./world_set.js");
+require("./utils/supplant.js");
 
 RUR.control = {};
 

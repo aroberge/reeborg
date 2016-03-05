@@ -8,7 +8,7 @@ require("./permalink.js");
 require("./translator.js");
 require("./exceptions.js");
 require("./listeners/stop.js");
-
+require("./utils/supplant.js");
 
 
 RUR.file_io = {};

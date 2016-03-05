@@ -12,6 +12,7 @@ require("./world_set.js");
 require("./dialogs/create.js");
 require("./listeners/canvas.js");
 require("./create_editors.js");
+require("./utils/supplant.js");
 
 require("./world_set/add_object.js");
 require("./world_set/add_goal_object.js");

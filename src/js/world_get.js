@@ -5,6 +5,7 @@
 require("./objects.js");
 require("./dialogs/create.js");
 require("./listeners/canvas.js");
+require("./utils/supplant.js");
 
 RUR.world_get = {};
 

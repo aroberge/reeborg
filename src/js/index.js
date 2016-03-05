@@ -2,9 +2,8 @@
 
 require("./utils/key_exist.js");
 
-/* require two modules that will automatically modify two global objects */
+/* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
-require("./utils/supplant.js");
 
 require("./playback/reverse_step.js"); /* only invoked from the html file - for now */
 
