@@ -124,6 +124,9 @@
       <block type="logic_negate"></block>
     </category>
     <category id="blockly-using-variables" name="Using variables" colour="20">
+      <category id="blockly-commands-var" name="Commands" colour="120">
+        <block type="_take_or_put_"></block>
+      </category>
       <category id="blockly-objects" name="Objects" colour="20">
         <block type="_token_"></block>
         <block type="_apple_"></block>
@@ -137,9 +140,6 @@
         <block type="_dandelion_"></block>
         <block type="_tulip_"></block>
         <block type="_leaf_"></block>
-      </category>
-      <category id="blockly-commands-var" name="Commands" colour="120">
-        <block type="_take_or_put_"></block>
       </category>
       <category id="blockly-conditions-var" name="Conditions" colour="240">
         <block type="_carries_object_or_here_"></block>
@@ -673,20 +673,13 @@
 
   <div id="special-keyboard" title="Reeborg's basic keyboard" style="display:none">
     <div id="keyboard-buttons">
-      <button id="kbd-command-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-command");'>
-        Commands</button>
-      <button id="kbd-condition-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-condition");'>
-        Conditions</button>
-      <button id="kbd-python-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-python");'>
-        Python</button>
-      <button id="kbd-py-console-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-py-console");'>
-        Python</button>
-      <button id="kbd-javascript-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-javascript");'>
-        Javascript</button>
-      <button id="kbd-objects-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-objects");'>
-        Objects</button>
-      <button id="kbd-special-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-special");'>
-        Special</button>
+      <button id="kbd-command-btn" class="blue-gradient"></button>
+      <button id="kbd-condition-btn" class="blue-gradient"></button>
+      <button id="kbd-python-btn" class="blue-gradient"></button>
+      <button id="kbd-py-console-btn" class="blue-gradient"></button>
+      <button id="kbd-javascript-btn" class="blue-gradient"></button>
+      <button id="kbd-objects-btn" class="blue-gradient"></button>
+      <button id="kbd-special-btn" class="blue-gradient"></button>
       <ul class="kbd-command">
         <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>move()</li>
         <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>turn_left()</li>
@@ -706,14 +699,14 @@
         <li class="kbd-command only_py no-console" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>no_highlight()</li>
       </ul>
       <ul class="kbd-condition">
-        <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>at_goal()</li>
-        <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>front_is_clear()</li>
-        <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>right_is_clear()</li>
-        <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>wall_in_front()</li>
-        <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>wall_on_right()</li>
-        <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>object_here()</li>
-        <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>carries_object()</li>
-        <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>is_facing_north()</li>
+        <li id="kbd-at-goal" class="kbd-condition"></li>
+        <li id="kbd-front-is-clear" class="kbd-condition"></li>
+        <li id="kbd-right-is-clear" class="kbd-condition"></li>
+        <li id="kbd-wall-in-front" class="kbd-condition"></li>
+        <li id="kbd-wall-on-right" class="kbd-condition"></li>
+        <li id="kbd-object-here" class="kbd-condition"></li>
+        <li id="kbd-carries-object" class="kbd-condition"></li>
+        <li id="kbd-is-facing-north" class="kbd-condition"></li>
       </ul>
       <ul class="kbd-python">
         <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>def ? ( ):</li>

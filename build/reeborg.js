@@ -2789,6 +2789,56 @@ RUR.kbd.select = function (choice) {
     }
 };
 
+function add_onclick_select(arg) {
+    var id = arg + "-btn";
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.select(arg);
+    });
+    record_id(id, id);
+}
+
+record_title("ui-dialog-title-special-keyboard", "Reeborg's basic keyboard");
+add_onclick_select("kbd-command");
+add_onclick_select("kbd-condition");
+add_onclick_select("kbd-python");
+add_onclick_select("kbd-py-console");
+add_onclick_select("kbd-javascript");
+add_onclick_select("kbd-objects");
+add_onclick_select("kbd-special");
+
+function add_onclick_insert(id, arg, enter) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert(RUR.translate(arg));
+    });
+    if (enter) {
+        RUR.kbd.enter();
+    }
+    record_id(id, arg);
+}
+
+add_onclick_insert("kbd-at-goal", "at_goal()");
+add_onclick_insert("kbd-front-is-clear", "front_is_clear()");
+add_onclick_insert("kbd-right-is-clear", "right_is_clear()");
+add_onclick_insert("kbd-wall-in-front", "wall_in_front()");
+add_onclick_insert("kbd-wall-on-right", "wall_on_right()");
+add_onclick_insert("kbd-object-here", "object_here()");
+add_onclick_insert("kbd-carries-object", "carries_object()");
+add_onclick_insert("kbd-is-facing-north", "is_facing_north()");
+
+
+
+function add_onclick(id, fn, arg, record, enter) {
+    $("#"+id).on("click", function (evt) {
+        fn(arg);
+    });
+    if (enter) {
+        RUR.kbd.enter();
+    }
+    if (record) {
+        record_id(id, id);
+    }
+}
+
 },{"./state.js":52}],20:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
@@ -9153,18 +9203,10 @@ RUR.en["Build a wall in front of the robot."] = "Build a wall in front of the ro
 RUR.en["done"] = "done";
 RUR.en["End the program's execution."] = "End the program's execution.";
 RUR.en["True if a wall is blocking the way."] = "True if a wall is blocking the way";
-RUR.en["wall_in_front"] = "wall_in_front";
-RUR.en["wall_on_right"] = "wall_on_right";
 RUR.en["True if nothing is blocking the way."] = "True if nothing is blocking the way.";
-RUR.en["front_is_clear"] = "front_is_clear";
-RUR.en["right_is_clear"] = "right_is_clear";
-RUR.en["at_goal"] = "at_goal";
 RUR.en["True if desired destination."] = "True if desired destination.";
-RUR.en["carries_object"] = "carries_object";
 RUR.en["True if robot carries at least one object."] = "True if robot carries at least one object.";
-RUR.en["object_here"] = "object_here";
 RUR.en["True if there is at least one object here."] = "True if there is at least one object here.";
-RUR.en["is_facing_north"] = "is_facing_north";
 RUR.en["True if robot is facing North."] = "True if robot is facing North.";
 RUR.en["sound"] = "sound";
 RUR.en["think"] = "think";
@@ -9269,6 +9311,35 @@ RUR.en["Reeborg explores some Javascript code"] = "Reeborg explores some Javascr
 RUR.en["Reeborg states:"] = "Reeborg states:";
 RUR.en["Reeborg watches some variables!"] = "Reeborg watches some variables!";
 RUR.en["Click on the world to get some additional information."] = "Click on the world to get some additional information.";
+
+RUR.en["Reeborg's basic keyboard"] = "Reeborg's basic keyboard";
+RUR.en["kbd-command-btn"] = "Commands";
+RUR.en["kbd-condition-btn"] = "Conditions";
+RUR.en["kbd-python-btn"] = "Python";
+RUR.en["kbd-py-console-btn"] = "Python";
+RUR.en["kbd-javascript-btn"] = "Javascript";
+RUR.en["kbd-objects-btn"] = "Objects";
+RUR.en["kbd-special-btn"] = "Special";
+
+
+// Only translate the strings below if the corresponding functions are
+// defined in reeborg_xx.js and reeborg_xx.py
+RUR.en["at_goal"] = "at_goal";
+RUR.en["at_goal()"] = "at_goal()";
+RUR.en["front_is_clear"] = "front_is_clear";
+RUR.en["front_is_clear()"] = "front_is_clear()";
+RUR.en["right_is_clear"] = "right_is_clear";
+RUR.en["right_is_clear()"] = "right_is_clear()";
+RUR.en["wall_in_front"] = "wall_in_front";
+RUR.en["wall_in_front()"] = "wall_in_front()";
+RUR.en["wall_on_right"] = "wall_on_right";
+RUR.en["wall_on_right()"] = "wall_on_right()";
+RUR.en["object_here"] = "object_here";
+RUR.en["object_here()"] = "object_here()";
+RUR.en["carries_object"] = "carries_object";
+RUR.en["carries_object()"] = "carries_object()";
+RUR.en["is_facing_north"] = "is_facing_north";
+RUR.en["is_facing_north()"] = "is_facing_north()";
 
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
@@ -9453,18 +9524,10 @@ RUR.fr["Build a wall in front of the robot."] = "Construit un mur devant le robo
 RUR.fr["done"] = "termine";
 RUR.fr["End the program's execution."] = "Termine l'exécution du programme.";
 RUR.fr["True if a wall is blocking the way."] = "Vrai si un mur bloque le chemin.";
-RUR.fr["wall_in_front"] = "mur_devant";
-RUR.fr["wall_on_right"] = "mur_a_droite";
 RUR.fr["True if nothing is blocking the way."] = "Vrai si rien ne bloque le chemin.";
-RUR.fr["front_is_clear"] = "rien_devant";
-RUR.fr["right_is_clear"] = "rien_a_droite";
-RUR.fr["at_goal"] = "at_goal";
 RUR.fr["True if desired destination."] = "Vrai si c'est la destination désirée.";
-RUR.fr["carries_object"] = "transporte";
 RUR.fr["True if robot carries at least one object."] = "Vrai si le robot transporte au moins un objet.";
-RUR.fr["object_here"] = "objet_ici";
 RUR.fr["True if there is at least one object here."] = "Vrai s'il y a au moins un objet ici.";
-RUR.fr["is_facing_north"] = "est_face_au_nord";
 RUR.fr["True if robot is facing North."] = "Vrai se le robot est face au nord.";
 RUR.fr["sound"] = "son";
 RUR.fr["think"] = "pense";
@@ -9572,6 +9635,34 @@ RUR.fr["Reeborg explores some Javascript code"] = "Reeborg explore le code Javas
 RUR.fr["Reeborg states:"] = "Reeborg informe :";
 RUR.fr["Reeborg watches some variables!"] = "Reeborg observe des variables !";
 RUR.fr["Click on the world to get some additional information."] = "Cliquez sur le monde pour obtenir de l'information supplémentaire.";
+
+RUR.fr["Reeborg's basic keyboard"] = "Le clavier spécial de Reeborg";
+RUR.fr["kbd-command-btn"] = "Commandes";
+RUR.fr["kbd-condition-btn"] = "Conditions";
+RUR.fr["kbd-python-btn"] = "Python";
+RUR.fr["kbd-py-console-btn"] = "Python";
+RUR.fr["kbd-javascript-btn"] = "Javascript";
+RUR.fr["kbd-objects-btn"] = "Objets";
+RUR.fr["kbd-special-btn"] = "Spécial";
+
+// Ne pas traduire les fonctions ci-dessous SAUF si elles existent
+// dans reeborg_fr.js et reeborg_fr.py
+RUR.fr["at_goal"] = "au_but";
+RUR.fr["at_goal()"] = "au_but()";
+RUR.fr["front_is_clear"] = "rien_devant";
+RUR.fr["front_is_clear()"] = "rien_devant()";
+RUR.fr["right_is_clear"] = "rien_a_droite";
+RUR.fr["right_is_clear()"] = "rien_a_droite()";
+RUR.fr["wall_in_front"] = "mur_devant";
+RUR.fr["wall_in_front()"] = "mur_devant()";
+RUR.fr["wall_on_right"] = "mur_a_droite";
+RUR.fr["wall_on_right()"] = "mur_a_droite()";
+RUR.fr["object_here"] = "objet_ici";
+RUR.fr["object_here()"] = "objet_ici()";
+RUR.fr["carries_object"] = "transporte";
+RUR.fr["carries_object()"] = "transporte()";
+RUR.fr["is_facing_north"] = "est_face_au_nord";
+RUR.fr["is_facing_north()"] = "est_face_au_nord()";
 
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
@@ -9754,18 +9845,10 @@ RUR.ko["Build a wall in front of the robot."] = "벽을 로봇 앞에 짓기.";
 RUR.ko["done"] = "done";
 RUR.ko["End the program's execution."] = "프로그램 실행 종료.";
 RUR.ko["True if a wall is blocking the way."] = "벽이 길을 막고 있는 경우가 사실이라면.";
-RUR.ko["wall_in_front"] = "wall_in_front";
-RUR.ko["wall_on_right"] = "wall_on_right";
 RUR.ko["True if nothing is blocking the way."] = "아무것도 차단 하지 않는 경우가 사실이라면.";
-RUR.ko["front_is_clear"] = "front_is_clear";
-RUR.ko["right_is_clear"] = "right_is_clear";
-RUR.ko["at_goal"] = "at_goal";
 RUR.ko["True if desired destination."] = "원하는 목적지가 있는 경우가 사실이라면";
-RUR.ko["carries_object"] = "carries_object";
 RUR.ko["True if robot carries at least one object."] = "로봇이 적어도 하나의 객체를 싣고 있는 경우가 사실이라면.";
-RUR.ko["object_here"] = "object_here";
 RUR.ko["True if there is at least one object here."] = "적어도 하나의 객체가 여기에 있는 경우가 사실이라면.";
-RUR.ko["is_facing_north"] = "is_facing_north";
 RUR.ko["True if robot is facing North."] = "만약 로봇이 북쪽을 바라보고 있는 경우가 사실이라면.";
 RUR.ko["sound"] = "소리";
 RUR.ko["think"] = "생각";
@@ -9873,6 +9956,34 @@ RUR.ko["Reeborg explores some Javascript code"] = "Reeborg explores some Javascr
 RUR.ko["Reeborg states:"] = "Reeborg states:";
 RUR.ko["Reeborg watches some variables!"] = "Reeborg watches some variables!";
 RUR.ko["Click on the world to get some additional information."] = "추가 정보를 얻기 위해 월드를 클릭합니다.";
+
+RUR.ko["Reeborg's basic keyboard"] = "리보그의 기본적인 키보드";
+RUR.ko["kbd-command-btn"] = "명령어";
+RUR.ko["kbd-condition-btn"] = "상태";
+RUR.ko["kbd-python-btn"] = "파이썬";
+RUR.ko["kbd-py-console-btn"] = "파이썬";
+RUR.ko["kbd-javascript-btn"] = "자비스크립트";
+RUR.ko["kbd-objects-btn"] = "객체";
+RUR.ko["kbd-special-btn"] = "특수키";
+
+// Do not translate below unless the corresponding functions are
+// defined in reeborg_ko.js and reeborg_ko.py
+RUR.ko["at_goal"] = "at_goal";
+RUR.ko["at_goal()"] = "at_goal()";
+RUR.ko["front_is_clear"] = "front_is_clear";
+RUR.ko["front_is_clear()"] = "front_is_clear()";
+RUR.ko["right_is_clear"] = "right_is_clear";
+RUR.ko["right_is_clear()"] = "right_is_clear()";
+RUR.ko["wall_in_front"] = "wall_in_front";
+RUR.ko["wall_in_front()"] = "wall_in_front()";
+RUR.ko["wall_on_right"] = "wall_on_right";
+RUR.ko["wall_on_right()"] = "wall_on_right()";
+RUR.ko["object_here"] = "object_here";
+RUR.ko["object_here()"] = "object_here()";
+RUR.ko["carries_object"] = "carries_object";
+RUR.ko["carries_object()"] = "carries_object()";
+RUR.ko["is_facing_north"] = "is_facing_north";
+RUR.ko["is_facing_north()"] = "is_facing_north()";
 
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");

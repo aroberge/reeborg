@@ -217,3 +217,53 @@ RUR.kbd.select = function (choice) {
         $(".only_py").hide();
     }
 };
+
+function add_onclick_select(arg) {
+    var id = arg + "-btn";
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.select(arg);
+    });
+    record_id(id, id);
+}
+
+record_title("ui-dialog-title-special-keyboard", "Reeborg's basic keyboard");
+add_onclick_select("kbd-command");
+add_onclick_select("kbd-condition");
+add_onclick_select("kbd-python");
+add_onclick_select("kbd-py-console");
+add_onclick_select("kbd-javascript");
+add_onclick_select("kbd-objects");
+add_onclick_select("kbd-special");
+
+function add_onclick_insert(id, arg, enter) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert(RUR.translate(arg));
+    });
+    if (enter) {
+        RUR.kbd.enter();
+    }
+    record_id(id, arg);
+}
+
+add_onclick_insert("kbd-at-goal", "at_goal()");
+add_onclick_insert("kbd-front-is-clear", "front_is_clear()");
+add_onclick_insert("kbd-right-is-clear", "right_is_clear()");
+add_onclick_insert("kbd-wall-in-front", "wall_in_front()");
+add_onclick_insert("kbd-wall-on-right", "wall_on_right()");
+add_onclick_insert("kbd-object-here", "object_here()");
+add_onclick_insert("kbd-carries-object", "carries_object()");
+add_onclick_insert("kbd-is-facing-north", "is_facing_north()");
+
+
+
+function add_onclick(id, fn, arg, record, enter) {
+    $("#"+id).on("click", function (evt) {
+        fn(arg);
+    });
+    if (enter) {
+        RUR.kbd.enter();
+    }
+    if (record) {
+        record_id(id, id);
+    }
+}

@@ -178,18 +178,10 @@ RUR.en["Build a wall in front of the robot."] = "Build a wall in front of the ro
 RUR.en["done"] = "done";
 RUR.en["End the program's execution."] = "End the program's execution.";
 RUR.en["True if a wall is blocking the way."] = "True if a wall is blocking the way";
-RUR.en["wall_in_front"] = "wall_in_front";
-RUR.en["wall_on_right"] = "wall_on_right";
 RUR.en["True if nothing is blocking the way."] = "True if nothing is blocking the way.";
-RUR.en["front_is_clear"] = "front_is_clear";
-RUR.en["right_is_clear"] = "right_is_clear";
-RUR.en["at_goal"] = "at_goal";
 RUR.en["True if desired destination."] = "True if desired destination.";
-RUR.en["carries_object"] = "carries_object";
 RUR.en["True if robot carries at least one object."] = "True if robot carries at least one object.";
-RUR.en["object_here"] = "object_here";
 RUR.en["True if there is at least one object here."] = "True if there is at least one object here.";
-RUR.en["is_facing_north"] = "is_facing_north";
 RUR.en["True if robot is facing North."] = "True if robot is facing North.";
 RUR.en["sound"] = "sound";
 RUR.en["think"] = "think";
@@ -294,3 +286,32 @@ RUR.en["Reeborg explores some Javascript code"] = "Reeborg explores some Javascr
 RUR.en["Reeborg states:"] = "Reeborg states:";
 RUR.en["Reeborg watches some variables!"] = "Reeborg watches some variables!";
 RUR.en["Click on the world to get some additional information."] = "Click on the world to get some additional information.";
+
+RUR.en["Reeborg's basic keyboard"] = "Reeborg's basic keyboard";
+RUR.en["kbd-command-btn"] = "Commands";
+RUR.en["kbd-condition-btn"] = "Conditions";
+RUR.en["kbd-python-btn"] = "Python";
+RUR.en["kbd-py-console-btn"] = "Python";
+RUR.en["kbd-javascript-btn"] = "Javascript";
+RUR.en["kbd-objects-btn"] = "Objects";
+RUR.en["kbd-special-btn"] = "Special";
+
+
+// Only translate the strings below if the corresponding functions are
+// defined in reeborg_xx.js and reeborg_xx.py
+RUR.en["at_goal"] = "at_goal";
+RUR.en["at_goal()"] = "at_goal()";
+RUR.en["front_is_clear"] = "front_is_clear";
+RUR.en["front_is_clear()"] = "front_is_clear()";
+RUR.en["right_is_clear"] = "right_is_clear";
+RUR.en["right_is_clear()"] = "right_is_clear()";
+RUR.en["wall_in_front"] = "wall_in_front";
+RUR.en["wall_in_front()"] = "wall_in_front()";
+RUR.en["wall_on_right"] = "wall_on_right";
+RUR.en["wall_on_right()"] = "wall_on_right()";
+RUR.en["object_here"] = "object_here";
+RUR.en["object_here()"] = "object_here()";
+RUR.en["carries_object"] = "carries_object";
+RUR.en["carries_object()"] = "carries_object()";
+RUR.en["is_facing_north"] = "is_facing_north";
+RUR.en["is_facing_north()"] = "is_facing_north()";
