@@ -265,7 +265,7 @@ RUR.ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank">D
 RUR.ko["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
 RUR.ko["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
 
-RUR.en["WORLD EDITOR"] = "World editor";
+RUR.ko["WORLD EDITOR"] = "World editor";
 RUR.ko["m-east"] = "동쪽";
 RUR.ko["m-north"] = "북쪽";
 RUR.ko["m-west"] = "서쪽";

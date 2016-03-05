@@ -1,5 +1,6 @@
 
 require("./rur.js");
+require("./state.js");
 
 RUR.ReeborgError = function (message) {
     if (RUR.state.programming_language == "python"){

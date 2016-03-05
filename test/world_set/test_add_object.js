@@ -45,6 +45,7 @@ test('adding unknown object', function (assert) {
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = [];
     require("../../src/js/world_set/add_object.js");
+    RUR.translation = {};
     try {
         RUR.add_object_at_position('a', 2, 3, 4);
     } catch (e) {

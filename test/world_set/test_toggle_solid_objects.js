@@ -45,6 +45,7 @@ test('adding unknown solid object', function (assert) {
     RUR.OBJECTS = {};
     RUR.KNOWN_SOLID_OBJECTS = [];
     require("../../src/js/world_set/toggle_solid_object.js");
+    RUR.translation = {};
     try {
         RUR.toggle_solid_object_at_position('a', 2, 3, 4);
     } catch (e) {
