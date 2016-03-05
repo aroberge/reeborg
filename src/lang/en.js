@@ -335,3 +335,7 @@ RUR.en["new UsedRobot"] = "new UsedRobot";
 RUR.en["new UsedRobot()"] = "new UsedRobot()";
 RUR.en["no_highlight"] = "no_highlight";
 RUR.en["no_highlight()"] = "no_highlight()";
+
+RUR.en["tab"] = "TAB";
+RUR.en["shift-tab"] = "Shift-TAB";
+RUR.en["enter"] = "\u23CE";

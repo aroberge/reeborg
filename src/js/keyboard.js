@@ -46,9 +46,6 @@ RUR.kbd.insert = function (txt){
         RUR.kbd.insert_in_console(txt);
         return;
     }
-    if (txt === undefined) {
-        txt = "'";
-    }
 
     if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
@@ -257,12 +254,6 @@ add_onclick_insert_statement("kbd-UsedRobot", "UsedRobot()");
 add_onclick_insert_statement("kbd-newUsedRobot", "new UsedRobot()");
 add_onclick_insert_statement("kbd-no-highlight", "no_highlight()");
 
-
-
-
-
-
-
 function add_onclick_insert(id, arg, enter) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert(RUR.translate(arg));
@@ -282,6 +273,58 @@ add_onclick_insert("kbd-object-here", "object_here()");
 add_onclick_insert("kbd-carries-object", "carries_object()");
 add_onclick_insert("kbd-is-facing-north", "is_facing_north()");
 
+function add_onclick_insert_object(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert('"'+RUR.translate(arg)+'"');
+    });
+    record_id(id);
+}
+add_onclick_insert_object("kbd-token", "token");
+add_onclick_insert_object("kbd-apple", "apple");
+add_onclick_insert_object("kbd-banana", "banana");
+add_onclick_insert_object("kbd-carrot", "carrot");
+add_onclick_insert_object("kbd-daisy", "daisy");
+add_onclick_insert_object("kbd-dandelion", "dandelion");
+add_onclick_insert_object("kbd-leaf", "leaf");
+add_onclick_insert_object("kbd-orange", "orange");
+add_onclick_insert_object("kbd-square", "square");
+add_onclick_insert_object("kbd-star", "star");
+add_onclick_insert_object("kbd-strawberry", "strawberry");
+add_onclick_insert_object("kbd-triangle", "triangle");
+add_onclick_insert_object("kbd-tulip", "tulip");
+
+function add_onclick_insert_special(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert(arg);
+    });
+    record_id(id);
+}
+add_onclick_insert_special("kbd-colon", ":");
+add_onclick_insert_special("kbd-semi-colon", ";");
+add_onclick_insert_special("kbd-sharp", "#");
+add_onclick_insert_special("kbd-double-quote", "\"");
+add_onclick_insert_special("kbd-single-quote", "'");
+add_onclick_insert_special("kbd-equal", "=");
+add_onclick_insert_special("kbd-less-than", "<");
+add_onclick_insert_special("kbd-greater-than", ">");
+add_onclick_insert_special("kbd-ampersand", "&");
+add_onclick_insert_special("kbd-vertical-bar", "|");
+add_onclick_insert_special("kbd-parens", "( )");
+add_onclick_insert_special("kbd-curly-brackets", "{ }");
+add_onclick_insert_special("kbd-square-brackets", "[ ]");
+
+$("#kbd-tab").on("click", function (evt) {
+    RUR.kbd.tab();
+});
+record_id("kbd-tab", "tab");
+$("#kbd-shift-tab").on("click", function (evt) {
+    RUR.kbd.shift_tab();
+});
+record_id("kbd-shift-tab", "shift-tab");
+$("#kbd-enter").on("click", function (evt) {
+    RUR.kbd.enter();
+});
+record_id("kbd-enter", "enter");
 
 
 function add_onclick(id, fn, arg, record, enter) {

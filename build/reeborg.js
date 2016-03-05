@@ -2003,7 +2003,7 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
 
 RUR.create_and_activate_dialogs($("#more-menus-button"), $("#more-menus"), {height:700});
 RUR.create_and_activate_dialogs($("#special-keyboard-button"), $("#special-keyboard"),
-        {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
+        {autoOpen:false, width:750,  height:350, maximize: false, position:"left"});
 
 $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
                                 position:{my: "center", at: "center", of: $("#robot-canvas")}});
@@ -2617,9 +2617,6 @@ RUR.kbd.insert = function (txt){
         RUR.kbd.insert_in_console(txt);
         return;
     }
-    if (txt === undefined) {
-        txt = "'";
-    }
 
     if ($("#tabs").tabs('option', 'active') === 0) {
         doc = editor;
@@ -2828,12 +2825,6 @@ add_onclick_insert_statement("kbd-UsedRobot", "UsedRobot()");
 add_onclick_insert_statement("kbd-newUsedRobot", "new UsedRobot()");
 add_onclick_insert_statement("kbd-no-highlight", "no_highlight()");
 
-
-
-
-
-
-
 function add_onclick_insert(id, arg, enter) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert(RUR.translate(arg));
@@ -2853,6 +2844,58 @@ add_onclick_insert("kbd-object-here", "object_here()");
 add_onclick_insert("kbd-carries-object", "carries_object()");
 add_onclick_insert("kbd-is-facing-north", "is_facing_north()");
 
+function add_onclick_insert_object(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert('"'+RUR.translate(arg)+'"');
+    });
+    record_id(id);
+}
+add_onclick_insert_object("kbd-token", "token");
+add_onclick_insert_object("kbd-apple", "apple");
+add_onclick_insert_object("kbd-banana", "banana");
+add_onclick_insert_object("kbd-carrot", "carrot");
+add_onclick_insert_object("kbd-daisy", "daisy");
+add_onclick_insert_object("kbd-dandelion", "dandelion");
+add_onclick_insert_object("kbd-leaf", "leaf");
+add_onclick_insert_object("kbd-orange", "orange");
+add_onclick_insert_object("kbd-square", "square");
+add_onclick_insert_object("kbd-star", "star");
+add_onclick_insert_object("kbd-strawberry", "strawberry");
+add_onclick_insert_object("kbd-triangle", "triangle");
+add_onclick_insert_object("kbd-tulip", "tulip");
+
+function add_onclick_insert_special(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert(arg);
+    });
+    record_id(id);
+}
+add_onclick_insert_special("kbd-colon", ":");
+add_onclick_insert_special("kbd-semi-colon", ";");
+add_onclick_insert_special("kbd-sharp", "#");
+add_onclick_insert_special("kbd-double-quote", "\"");
+add_onclick_insert_special("kbd-single-quote", "'");
+add_onclick_insert_special("kbd-equal", "=");
+add_onclick_insert_special("kbd-less-than", "<");
+add_onclick_insert_special("kbd-greater-than", ">");
+add_onclick_insert_special("kbd-ampersand", "&");
+add_onclick_insert_special("kbd-vertical-bar", "|");
+add_onclick_insert_special("kbd-parens", "( )");
+add_onclick_insert_special("kbd-curly-brackets", "{ }");
+add_onclick_insert_special("kbd-square-brackets", "[ ]");
+
+$("#kbd-tab").on("click", function (evt) {
+    RUR.kbd.tab();
+});
+record_id("kbd-tab", "tab");
+$("#kbd-shift-tab").on("click", function (evt) {
+    RUR.kbd.shift_tab();
+});
+record_id("kbd-shift-tab", "shift-tab");
+$("#kbd-enter").on("click", function (evt) {
+    RUR.kbd.enter();
+});
+record_id("kbd-enter", "enter");
 
 
 function add_onclick(id, fn, arg, record, enter) {
@@ -9389,6 +9432,10 @@ RUR.en["new UsedRobot()"] = "new UsedRobot()";
 RUR.en["no_highlight"] = "no_highlight";
 RUR.en["no_highlight()"] = "no_highlight()";
 
+RUR.en["tab"] = "TAB";
+RUR.en["shift-tab"] = "Shift-TAB";
+RUR.en["enter"] = "\u23CE";
+
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
 
@@ -9731,6 +9778,10 @@ RUR.fr["new UsedRobot()"] = "new RobotUsage()";
 RUR.fr["no_highlight"] = "pas_de_surlignement";
 RUR.fr["no_highlight()"] = "pas_de_surlignement()";
 
+RUR.fr["tab"] = "TAB";
+RUR.fr["shift-tab"] = "Maj-TAB";
+RUR.fr["enter"] = "\u23CE";
+
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
 RUR.ko_to_en = {};
@@ -10070,6 +10121,10 @@ RUR.ko["new UsedRobot"] = "new UsedRobot";
 RUR.ko["new UsedRobot()"] = "new UsedRobot()";
 RUR.ko["no_highlight"] = "no_highlight";
 RUR.ko["no_highlight()"] = "no_highlight()";
+
+RUR.ko["tab"] = "TAB";
+RUR.ko["shift-tab"] = "Shift-TAB";
+RUR.ko["enter"] = "\u23CE";
 
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");

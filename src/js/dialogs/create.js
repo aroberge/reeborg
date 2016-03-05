@@ -41,7 +41,7 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
 
 RUR.create_and_activate_dialogs($("#more-menus-button"), $("#more-menus"), {height:700});
 RUR.create_and_activate_dialogs($("#special-keyboard-button"), $("#special-keyboard"),
-        {autoOpen:false, width:600,  height:350, maximize: false, position:"left"});
+        {autoOpen:false, width:750,  height:350, maximize: false, position:"left"});
 
 $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
                                 position:{my: "center", at: "center", of: $("#robot-canvas")}});

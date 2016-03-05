@@ -338,3 +338,7 @@ RUR.fr["new UsedRobot"] = "new RobotUsage";
 RUR.fr["new UsedRobot()"] = "new RobotUsage()";
 RUR.fr["no_highlight"] = "pas_de_surlignement";
 RUR.fr["no_highlight()"] = "pas_de_surlignement()";
+
+RUR.fr["tab"] = "TAB";
+RUR.fr["shift-tab"] = "Maj-TAB";
+RUR.fr["enter"] = "\u23CE";

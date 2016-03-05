@@ -686,15 +686,15 @@
         <li id="kbd-take"></li>
         <li id="kbd-put"></li>
         <li id="kbd-build-wall"></li>
-        <li id="kbd-pause" class="no-console"></li>
+        <li id="kbd-pause" class="no-console kbd-command"></li>
         <li id="kbd-done"></li>
-        <li id="kbd-think" class="no-console"></li>
-        <li id="kbd-sound" class="only_py no-console"></li>
-        <li id="kbd-sound-js" class="only_js"></li>
+        <li id="kbd-think" class="no-console kbd-command"></li>
+        <li id="kbd-sound" class="only_py no-console kbd-command"></li>
+        <li id="kbd-sound-js" class="only_js kbd-command"></li>
         <li id="kbd-world"></li>
-        <li id="kbd-UsedRobot" class="only_py"></li>
-        <li id="kbd-newUsedRobot" class="only_js"></li>
-        <li id="kbd-no-highlight" class="only_py no-console"></li>
+        <li id="kbd-UsedRobot" class="only_py kbd-command"></li>
+        <li id="kbd-newUsedRobot" class="only_js kbd-command"></li>
+        <li id="kbd-no-highlight" class="only_py no-console kbd-command"></li>
       </ul>
       <ul class="kbd-condition">
         <li id="kbd-at-goal"></li>
@@ -772,50 +772,37 @@
         <li onclick='RUR.kbd.insert2(this.innerHTML);'>break</li>
       </ul>
       <ul class="kbd-objects">
-        <li onclick='RUR.kbd.insert("\"token\"");'>
-          <img src="/src/images/token.png" title="token"></li>
-        <li onclick='RUR.kbd.insert("\"apple\"");'>
-          <img src="/src/images/apple.png" title="apple"></li>
-        <li onclick='RUR.kbd.insert("\"banana\"");'>
-          <img src="/src/images/banana.png" title="banana"></li>
-        <li onclick='RUR.kbd.insert("\"carrot\"");'>
-          <img src="/src/images/carrot.png" title="carrot"></li>
-        <li onclick='RUR.kbd.insert("\"daisy\"");'>
-          <img src="/src/images/daisy.png" title="daisy"></li>
-        <li onclick='RUR.kbd.insert("\"dandelion\"");'>
-          <img src="/src/images/dandelion.png" title="dandelion"></li>
-        <li onclick='RUR.kbd.insert("\"leaf\"");'>
-          <img src="/src/images/leaf.png" title="leaf"></li>
-        <li onclick='RUR.kbd.insert("\"orange\"");'>
-          <img src="/src/images/orange.png" title="orange"></li>
-        <li onclick='RUR.kbd.insert("\"square\"");'>
-          <img src="/src/images/square.png" title="square"></li>
-        <li onclick='RUR.kbd.insert("\"star\"");'>
-          <img src="/src/images/star.png" title="star"></li>
-        <li onclick='RUR.kbd.insert("\"strawberry\"");'>
-          <img src="/src/images/strawberry.png" title="strawberry"></li>
-        <li onclick='RUR.kbd.insert("\"triangle\"");'>
-          <img src="/src/images/triangle.png" title="triangle"></li>
-        <li onclick='RUR.kbd.insert("\"tulip\"");'>
-          <img src="/src/images/tulip.png" title="tulip"></li>
+        <li id="kbd-token"><img src="/src/images/token.png"></li>
+        <li id="kbd-apple"><img src="/src/images/apple.png"></li>
+        <li id="kbd-banana"><img src="/src/images/banana.png"></li>
+        <li id="kbd-carrot"><img src="/src/images/carrot.png"></li>
+        <li id="kbd-daisy"><img src="/src/images/daisy.png"></li>
+        <li id="kbd-dandelion"><img src="/src/images/dandelion.png"></li>
+        <li id="kbd-leaf"><img src="/src/images/leaf.png"></li>
+        <li id="kbd-orange"><img src="/src/images/orange.png"></li>
+        <li id="kbd-square"><img src="/src/images/square.png"></li>
+        <li id="kbd-star"><img src="/src/images/star.png"></li>
+        <li id="kbd-strawberry"><img src="/src/images/strawberry.png"></li>
+        <li id="kbd-triangle"><img src="/src/images/triangle.png"></li>
+        <li id="kbd-tulip"><img src="/src/images/tulip.png"></li>
       </ul>
       <ul class="kbd-special">
-        <li onclick='RUR.kbd.insert(":");'>&nbsp;&nbsp;:&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert(";");'>&nbsp;&nbsp;;&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert("#");'>&nbsp;&nbsp;#&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert("\"");'>&nbsp;&nbsp;"&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert();'>&nbsp;&nbsp;'&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert("=");'>&nbsp;&nbsp;=&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert("<");'>&nbsp;&nbsp;&lt;&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert(">");'>&nbsp;&nbsp;&gt;&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert("&");'>&nbsp;&nbsp;&amp;&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert("|");'>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert("()");'>&nbsp;&nbsp;( )&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert("{}");'>&nbsp;&nbsp;{ }&nbsp;&nbsp;</li>
-        <li onclick='RUR.kbd.insert("[]");'>&nbsp;[ ]&nbsp;</li>
-        <li onclick='RUR.kbd.tab();'>TAB</li>
-        <li class="kbd-special no-console" onclick='RUR.kbd.shift_tab();'>Shift-TAB</li>
-        <li onclick='RUR.kbd.enter();'>Enter</li>
+        <li id="kbd-colon">&nbsp;&nbsp;:&nbsp;&nbsp;</li>
+        <li id="kbd-semi-colon">&nbsp;&nbsp;;&nbsp;&nbsp;</li>
+        <li id="kbd-sharp">&nbsp;&nbsp;#&nbsp;&nbsp;</li>
+        <li id="kbd-double-quote">&nbsp;&nbsp;"&nbsp;&nbsp;</li>
+        <li id="kbd-single-quote">&nbsp;&nbsp;'&nbsp;&nbsp;</li>
+        <li id="kbd-equal">&nbsp;&nbsp;=&nbsp;&nbsp;</li>
+        <li id="kbd-less-than">&nbsp;&nbsp;&lt;&nbsp;&nbsp;</li>
+        <li id="kbd-greater-than">&nbsp;&nbsp;&gt;&nbsp;&nbsp;</li>
+        <li id="kbd-ampersand">&nbsp;&nbsp;&amp;&nbsp;&nbsp;</li>
+        <li id="kbd-vertical-bar">&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+        <li id="kbd-parens">&nbsp;&nbsp;( )&nbsp;&nbsp;</li>
+        <li id="kbd-curly-brackets">&nbsp;&nbsp;{ }&nbsp;&nbsp;</li>
+        <li id="kbd-square-brackets">&nbsp;[ ]&nbsp;</li>
+        <li id="kbd-tab"></li>
+        <li class="no-console kbd-special" id="kbd-shift-tab"></li>
+        <li id="kbd-enter"></li>
       </ul>
       <button onclick='RUR.kbd.undo()'>UNDO</button>
       <button onclick='RUR.kbd.redo()'>REDO</button>

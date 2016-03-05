@@ -336,3 +336,7 @@ RUR.ko["new UsedRobot"] = "new UsedRobot";
 RUR.ko["new UsedRobot()"] = "new UsedRobot()";
 RUR.ko["no_highlight"] = "no_highlight";
 RUR.ko["no_highlight()"] = "no_highlight()";
+
+RUR.ko["tab"] = "TAB";
+RUR.ko["shift-tab"] = "Shift-TAB";
+RUR.ko["enter"] = "\u23CE";
