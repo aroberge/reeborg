@@ -183,6 +183,9 @@ a[href^='http'] {
 .select-local-storage {
     background-color:#ff9;
 }
+.select-mixed {
+    background-color: beige;
+}
 
 
 fieldset {
@@ -997,4 +1000,15 @@ p.try {
 @keyframes sk-circleFadeDelay {
   0%, 39%, 100% { opacity: 0; }
   40% { opacity: 1; }
+}
+
+#mixed-language-info {
+    position: absolute;
+    background-color: beige;
+    bottom: 0;
+    padding: 10px;
+    margin: 10px;
+    border: darkred 1px solid;
+    border-radius: 10px;
+    line-height: 2em;
 }

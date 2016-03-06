@@ -1768,10 +1768,15 @@ function load_user_worlds() {
 
 RUR.make_default_menu = function(language) {
     switch (language) {
-        case 'en': RUR.make_default_menu_en();
-                   break;
-        case 'fr': RUR.make_default_menu_fr();
-                   break;
+        case 'en':
+        case 'fr-en':
+        case 'ko-en':
+            RUR.make_default_menu_en();
+            break;
+        case 'fr':
+        case 'en-fr':
+            RUR.make_default_menu_fr();
+            break;
         default: RUR.make_default_menu_en();
     }
 };
@@ -2018,7 +2023,7 @@ $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                 position:{my: "bottom", at: "bottom-140", of: window}});
 
-},{"./../../lang/msg.js":83,"./../libs/jquery.ui.dialog.minmax.js":20,"./../rur.js":49}],9:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../libs/jquery.ui.dialog.minmax.js":20,"./../rur.js":49}],9:[function(require,module,exports){
 
 require("./../world_set.js");
 require("./../visible_world.js");
@@ -4185,7 +4190,7 @@ $("#library-tab").on("click", function (evt) {
     $("#watch-variables-btn").hide();
 });
 
-},{"./../../lang/msg.js":83,"./../create_editors.js":5}],24:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../create_editors.js":5}],24:[function(require,module,exports){
 require("./../state.js");
 require("./../../lang/reeborg_en.js");
 require("./../../lang/reeborg_fr.js");
@@ -4193,42 +4198,75 @@ require("./../custom_world_select.js");
 var msg = require("./../../lang/msg.js");
 var update_url = require("./../utils/parseuri.js").update_url;
 
-
 msg.record_id("human-language");
+msg.record_id("mixed-language-info");
+
+function merge_dicts (base, other) {
+    var key;
+    for(key in other){
+        if(other.hasOwnProperty(key)){
+            base[key] = other[key];
+        }
+    }
+}
 
 function update_translations(lang) {
+    $("#mixed-language-info").show();
     switch(lang) {
         case "en":
-            RUR.translation = RUR.en;
+            RUR.translation = RUR.ui_en;
+            merge_dicts(RUR.translation, RUR.en);
             RUR.translation_to_english = RUR.en_to_en;
             blockly_init_en();
+            $("#mixed-language-info").hide();
             break;
         case "fr":
-            RUR.translation = RUR.fr;
+            RUR.translation = RUR.ui_fr;
+            merge_dicts(RUR.translation, RUR.fr);
             RUR.translation_to_english = RUR.fr_to_en;
             blockly_init_fr();
+            $("#mixed-language-info").hide();
             break;
-        case "ko":
-            RUR.translation = RUR.ko;
+        case "en-fr":
+            RUR.translation = RUR.ui_en;
+            merge_dicts(RUR.translation, RUR.fr);
+            RUR.translation_to_english = RUR.en_to_en;
+            blockly_init_fr();
+            break;
+        case "fr-en":
+            RUR.translation = RUR.ui_fr;
+            merge_dicts(RUR.translation, RUR.en);
+            RUR.translation_to_english = RUR.fr_to_en;
+            blockly_init_en();
+            break;
+        case "ko-en":
+            RUR.translation = RUR.ui_ko;
+            merge_dicts(RUR.translation, RUR.en);
             RUR.translation_to_english = RUR.ko_to_en;
             blockly_init_ko();
             break;
         default:
-            RUR.translation = RUR.en;
+            RUR.translation = RUR.ui_en;
+            merge_dicts(RUR.translation, RUR.en);
             RUR.translation_to_english = RUR.en_to_en;
             blockly_init_en();
+            $("#mixed-language-info").hide();
             break;
     }
+    $("#mixed-language-info").html(RUR.translate(lang));
 }
 
 function update_commands (lang) {
     switch(lang) {
         case "fr":
+        case "en-fr":
             RUR.reset_definitions = RUR.reset_definitions_fr;
             RUR.library_name = "biblio";
             RUR.from_import = "from reeborg_fr import *";
             break;
         case "en":
+        case "fr-en":
+        case "ko-en":
             RUR.reset_definitions = RUR.reset_definitions_en;
             RUR.library_name = "library";
             RUR.from_import = "from reeborg_en import *";
@@ -4244,9 +4282,11 @@ function update_commands (lang) {
 function update_home_url (lang) {
     switch(lang) {
         case "fr":
+        case "fr-en":
             $("#logo").prop("href", "index_fr.html");
             break;
         case "en":
+        case "en-fr":
             $("#logo").prop("href", "index_en.html");
             break;
         default:
@@ -4278,7 +4318,7 @@ $("#human-language").change(function() {
     update_url();
 });
 
-},{"./../../lang/msg.js":83,"./../../lang/reeborg_en.js":84,"./../../lang/reeborg_fr.js":85,"./../custom_world_select.js":6,"./../state.js":52,"./../utils/parseuri.js":61}],25:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../../lang/reeborg_en.js":83,"./../../lang/reeborg_fr.js":84,"./../custom_world_select.js":6,"./../state.js":52,"./../utils/parseuri.js":61}],25:[function(require,module,exports){
 
 require("./../state.js");
 require("./../storage.js");
@@ -4337,7 +4377,7 @@ save_world = function () {
     $('#delete-world').show();
 };
 
-},{"./../../lang/msg.js":83,"./../state.js":52,"./../storage.js":53,"./../world/clone_world.js":66}],26:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../state.js":52,"./../storage.js":53,"./../world/clone_world.js":66}],26:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 */
 
@@ -4445,7 +4485,7 @@ $("#add-library-to-world").on("click", function(evt) {
     }
 });
 
-},{"./../../lang/msg.js":83,"./../create_editors.js":5,"./../state.js":52,"./../translator.js":54,"./../world.js":65,"./../world/export_world.js":68}],27:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../create_editors.js":5,"./../state.js":52,"./../translator.js":54,"./../world.js":65,"./../world/export_world.js":68}],27:[function(require,module,exports){
 require("./../state.js");
 ;
 require("./../playback/play.js");
@@ -4468,7 +4508,7 @@ RUR.pause = function (ms) {
 };
 pause_button.addEventListener("click", pause, false);
 
-},{"./../../lang/msg.js":83,"./../playback/play.js":40,"./../state.js":52}],28:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../playback/play.js":40,"./../state.js":52}],28:[function(require,module,exports){
 require("./../state.js");
 require("./../listeners/reload.js");
 require("./../keyboard.js");
@@ -4684,7 +4724,7 @@ function hide_console() {
 show_editor("python");
 // see start_session.js for initialization.
 
-},{"./../../lang/msg.js":83,"./../create_editors.js":5,"./../keyboard.js":19,"./../listeners/reload.js":29,"./../state.js":52,"./../utils/parseuri.js":61}],29:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../create_editors.js":5,"./../keyboard.js":19,"./../listeners/reload.js":29,"./../state.js":52,"./../utils/parseuri.js":61}],29:[function(require,module,exports){
 
 require("./../utils/key_exist.js");
 require("./../state.js");
@@ -4731,7 +4771,7 @@ RUR.reload2 = function() {
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);
 
-},{"./../../lang/msg.js":83,"./../recorder/reset.js":46,"./../state.js":52,"./../ui/set_ready_to_run.js":56,"./../utils/key_exist.js":60,"./../world_set/reset_world.js":79}],30:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../recorder/reset.js":46,"./../state.js":52,"./../ui/set_ready_to_run.js":56,"./../utils/key_exist.js":60,"./../world_set/reset_world.js":79}],30:[function(require,module,exports){
 require("./../visible_robot.js");
 ;
 require("./../state.js");
@@ -4811,7 +4851,7 @@ RUR.vis_robot.new_robot_images = function (images) {
     RUR.select_default_robot_model(model);
 };
 
-},{"./../../lang/msg.js":83,"./../state.js":52,"./../visible_robot.js":63}],31:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../state.js":52,"./../visible_robot.js":63}],31:[function(require,module,exports){
 ;
 require("./../state.js");
 require("./reload.js");
@@ -4839,7 +4879,7 @@ function run () {
 }
 run_button.addEventListener("click", run, false);
 
-},{"./../../lang/msg.js":83,"./../playback/play.js":40,"./../runner.js":48,"./../state.js":52,"./reload.js":29}],32:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../playback/play.js":40,"./../runner.js":48,"./../state.js":52,"./reload.js":29}],32:[function(require,module,exports){
 require("./../file_io.js");
 require("./../storage.js");
 
@@ -4858,7 +4898,7 @@ $("#select-world").change(function() {
     } catch (e) {}
 });
 
-},{"./../../lang/msg.js":83,"./../file_io.js":17,"./../storage.js":53}],33:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../file_io.js":17,"./../storage.js":53}],33:[function(require,module,exports){
 
 require("./../state.js");
 require("./reload.js");
@@ -4878,7 +4918,7 @@ step = function () {
 };
 step_button.addEventListener("click", step, false);
 
-},{"./../../lang/msg.js":83,"./../playback/play.js":40,"./../runner.js":48,"./../state.js":52,"./reload.js":29}],34:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../playback/play.js":40,"./../runner.js":48,"./../state.js":52,"./reload.js":29}],34:[function(require,module,exports){
 
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4898,7 +4938,7 @@ RUR.stop = function () {
 };
 stop_button.addEventListener("click", RUR.stop, false);
 
-},{"./../../lang/msg.js":83,"./../state.js":52}],35:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../state.js":52}],35:[function(require,module,exports){
 ;
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4919,7 +4959,7 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
 };
 highlight_button.addEventListener("click", RUR.toggle_highlight, false);
 
-},{"./../../lang/msg.js":83,"./../state.js":52}],36:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../state.js":52}],36:[function(require,module,exports){
 ;
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4944,7 +4984,7 @@ toggle_watch_variables = function () {
 };
 watch_button.addEventListener("click", toggle_watch_variables, false);
 
-},{"./../../lang/msg.js":83,"./../state.js":52}],37:[function(require,module,exports){
+},{"./../../lang/msg.js":82,"./../state.js":52}],37:[function(require,module,exports){
 require("./rur.js");
 require("./extend/add_object_type.js");
 require("./extend/add_tile_type.js");
@@ -5357,7 +5397,7 @@ function receiveMessage(event){
     RUR.permalink.update(event.data);
 }
 
-},{"./../lang/msg.js":83,"./create_editors.js":5,"./listeners/programming_mode.js":28,"./state.js":52,"./storage.js":53,"./translator.js":54,"./utils/parseuri.js":61,"./world.js":65,"./world/export_world.js":68}],40:[function(require,module,exports){
+},{"./../lang/msg.js":82,"./create_editors.js":5,"./listeners/programming_mode.js":28,"./state.js":52,"./storage.js":53,"./translator.js":54,"./utils/parseuri.js":61,"./world.js":65,"./world/export_world.js":68}],40:[function(require,module,exports){
 require("./../state.js");
 require("./../listeners/stop.js");
 
@@ -6396,7 +6436,7 @@ RUR.translate_to_english = function (s) {
     }
 };
 
-},{"./../lang/msg.js":83,"./rur.js":49}],55:[function(require,module,exports){
+},{"./../lang/msg.js":82,"./rur.js":49}],55:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -9183,296 +9223,10 @@ exports.reset_world = reset_world = function () {
 reset_world();
 
 },{"./../visible_robot.js":63,"./../visible_world.js":64,"./../world/clone_world.js":66,"./../world/create_empty.js":67}],80:[function(require,module,exports){
-RUR.en = {};
-RUR.en_to_en = {};
-
-RUR.en["SITE NAME"] = "Reeborg's World";
-RUR.en["WORLD INFO"] = "World Info";
-RUR.en["EDITOR VISIBLE BLOCKLY"] = "Keep editor visible";
-
-RUR.en["apple"] = "apple";
-RUR.en_to_en["apple"] = "apple";
-RUR.en["banana"] = "banana";
-RUR.en_to_en["banana"] = "banana";
-RUR.en["box"] = "box";
-RUR.en_to_en["box"] = "box";
-RUR.en["bridge"] = "bridge";
-RUR.en_to_en["bridge"] = "bridge";
-RUR.en["carrot"] = "carrot";
-RUR.en_to_en["carrot"] = "carrot";
-RUR.en["daisy"] = "daisy";
-RUR.en_to_en["daisy"] = "daisy";
-RUR.en["dandelion"] = "dandelion";
-RUR.en_to_en["dandelion"] = "dandelion";
-RUR.en["leaf"] = "leaf";
-RUR.en_to_en["leaf"] = "leaf";
-RUR.en["orange"] = "orange";
-RUR.en_to_en["orange"] = "orange";
-RUR.en.square = "square";
-RUR.en_to_en["square"] = "square";
-RUR.en.star = "star";
-RUR.en_to_en["star"] = "star";
-RUR.en["strawberry"] = "strawberry";
-RUR.en_to_en["strawberry"] = "strawberry";
-RUR.en.token = "token";
-RUR.en_to_en["token"] = "token";
-RUR.en.triangle = "triangle";
-RUR.en_to_en["triangle"] = "triangle";
-RUR.en["tulip"] = "tulip";
-RUR.en_to_en["tulip"] = "tulip";
-
-RUR.en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
-
-RUR.en["Too many steps:"] = "Too many steps: {max_steps}";
-RUR.en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
-RUR.en["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg is at the wrong x position.</li>";
-RUR.en["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg is at the correct y position.</li>";
-RUR.en["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg is at the wrong y position.</li>";
-RUR.en["<li class='success'>All objects are at the correct location.</li>"] = "<li class='success'>All objects are at the correct location.</li>";
-RUR.en["<li class='failure'>One or more objects are not at the correct location.</li>"] = "<li class='failure'>One or more objects are not at the correct location.</li>";
-RUR.en["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>All walls have been built correctly.</li>";
-RUR.en["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>One or more walls missing or built at wrong location.</li>";
-RUR.en["Last instruction completed!"] = "Last instruction completed!";
-RUR.en["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>done()</code> executed.</p>";
-
-RUR.en["Unknown object"] = "Unknown object: {obj}";
-RUR.en["No object found here"] = "No {obj} found here!";
-RUR.en["object"] = "object";
-RUR.en["I don't have any object to put down!"] = "I don't have any {obj} to put down!";
-RUR.en["There is already a wall here!"] = "There is already a wall here!";
-RUR.en["Ouch! I hit a wall!"] = "Ouch! I hit a wall!";
-RUR.en["Done!"] = "Done!";
-RUR.en["There is no position as a goal in this world!"] = "There is no position as a goal in this world!";
-RUR.en["There is no goal in this world!"] = "There is no goal in this world!";
-RUR.en["I carry too many different objects. I don't know which one to put down!"] = "I carry too many different objects. I don't know which one to put down!";
-RUR.en["Many objects are here; I do not know which one to take!"] = "Many different objects are here; I do not know which one to take!";
-
-RUR.en.east = "east";
-RUR.en.north = "north";
-RUR.en.west = "west";
-RUR.en.south = "south";
-RUR.en["Unknown orientation for robot."] = "Unknown orientation for robot.";
-
-RUR.en["World selected"] = "World {world} selected";
-RUR.en["Could not find world"] = "Could not find world {world}";
-RUR.en["Object names"] = " library, token, star, triangle, square, etc.";
-
-RUR.en["Invalid world file."] = "Invalid world file.";
-RUR.en["PERMALINK"] = "PERMALINK";
-RUR.en["Could not find link: "] = "Could not find link: ";
-
-RUR.en["Click on world to move robot."] = "Click on world to add or remove possible starting positions for Reeborg.";
-RUR.en["Added robot."] = "Added Reeborg.";
-RUR.en["Click on image to turn robot"] = "Click on image to turn Reeborg";
-RUR.en["Robot now has tokens."] = "Reeborg now has {x_tokens} tokens.";
-RUR.en["Click on world to add object."] = "Click on world to set number of {obj}.";
-RUR.en["Click on desired object below."] = "Click on desired object below.";
-RUR.en["Click on world to toggle walls."] = "Click on world to toggle walls.";
-RUR.en["Click on world to set home position for robot."] = "Click on world to add/remove possible final positions for robot.";
-RUR.en["Click on world to toggle additional walls to build."] = "Click on world to toggle additional walls to build.";
-RUR.en["Click on desired goal object below."] = "Click on desired goal object below.";
-RUR.en["Click on world to set number of goal objects."] = "Click on world to set number of goal {obj}.";
-RUR.en["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for Reeborg to carry.";
-RUR.en[" is not a valid value!"] = " is not a valid value!";
-RUR.en["Enter number of objects desired at that location."] = "Click on world to set number {obj}.";
-RUR.en["Objects found here:"] = "Objects found here:";
-RUR.en["Description"] = "Description";
-RUR.en["A robot located here carries no objects."] = "A robot located at {x},{y} carries no objects.";
-RUR.en["Goal to achieve:"] = "Goal to achieve:";
-RUR.en["A robot located here carries:"] = "A robot located at {x},{y} carries:";
-RUR.en["random location"] = "random location";
-RUR.en["Enter number of objects to give to robot."] = "Enter number of {obj} to give to robot.";
-RUR.en["Special information about this location:"] = "Special information about this location:";
-RUR.en["Click on world to toggle tile."] = "Click on world to toggle {obj} tile.";
-RUR.en["Click on desired tile below."] = "Click on desired tile below or on the colour selector.";
-RUR.en["mud"] = "mud";
-RUR.en["water"] = "water";
-RUR.en["grass"] = "grass";
-RUR.en["gravel"] = "gravel";
-RUR.en["ice"] = "ice";
-RUR.en["A wall must be built east of this location."] = "A wall must be built east of this location.";
-RUR.en["A wall must be built north of this location."] = "A wall must be built north of this location.";
-RUR.en["A wall must be built west of this location."] = "A wall must be built west of this location.";
-RUR.en["A wall must be built south of this location."] = "A wall must be built south of this location.";
-RUR.en["The final required position of the robot will be chosen at random."] = "The final required position of the robot will be chosen at random.";
-RUR.en["The final position of the robot must be (x, y) = "] = "The final position of the robot must be (x, y) = ";
-RUR.en["Click on world to fill with given tile."] = "Click on world to fill with given tile.";
-RUR.en["Click on desired object below."] = "Click on desired object below.";
-RUR.en["Enter url of image to use as background."] = "Enter url of image to use as background.";
-RUR.en["Replace editor content"] = "Do you wish to replace your editor code by that provided by the creator of this world?";
-RUR.en["Replace library content"] = "Do you wish to replace your library code by that provided by the creator of this world?";
-RUR.en["colour"] = "colour";
-
-RUR.en["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
-RUR.en["No such world!"] = "No such world!";
-RUR.en["Enter world name to save"] = "Enter world name to save; names in use: ";
-RUR.en["Enter world name to delete"] = "Enter world name to delete; existing worlds: ";
-RUR.en["Delete "] = "Delete ";
-
-RUR.en["Error found at or near line {number}."] = "Error found at or near line {number}.";
-RUR.en["<br>Perhaps a missing colon is the cause."] = "<br>Perhaps a missing colon is the cause.";
-RUR.en["<br>Perhaps you forgot to add parentheses ()."] = "<br>Perhaps you forgot to add parentheses ().";
-RUR.en["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Perhaps you misspelled a word or forgot to define a function or a variable.";
-
-RUR.en["I'm stuck in mud."] = "I'm stuck in mud.";
-RUR.en["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.";
-RUR.en["I'm slipping on ice!"] = "I'm slipping on ice!";
-RUR.en["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.";
-RUR.en["Grass: usually safe."] = "Grass: usually safe.";
-RUR.en["Gravel: usually safe."] = "Gravel: usually safe.";
-RUR.en["I'm in water!"] = "I'm in water!";
-RUR.en["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.";
-RUR.en["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green_home_tile: Reeborg <b>can</b> detect this tile using at_goal().";
-RUR.en["Crash!"] = "Crash!";
-RUR.en["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.";
-RUR.en["I hit a fence!"] = "I hit a fence!";
-RUR.en["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
-RUR.en["Bridge:"] = "Bridge: ";
-RUR.en["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
-
-RUR.en["Something is blocking the way!"] = "Something is blocking the way!";
-RUR.en["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this using at_goal().";
-RUR.en["green home tile:"] = "green home tile:";
-RUR.en["home:"] = "home:";
-RUR.en["racing flag:"] = "racing flag:";
-RUR.en["house:"] = "house:";
-
-RUR.en["fence_right"] = "fence";
-RUR.en["fence_left"] = "fence";
-RUR.en["fence_double"] = "fence";
-RUR.en["fence_vertical"] = "fence";
-
-RUR.en["Local variables"] = "Local variables";
-RUR.en["Global variables"] = "Global variables";
-RUR.en["Watched expressions"] = "Watched expressions";
-
-RUR.en["move forward"] = "move forward";
-RUR.en["turn left"] = "turn left";
-RUR.en["take object"] = "take object";
-RUR.en["put object"] = "put object";
-RUR.en["Pause the program's execution."] = "Pause the program's execution.";
-RUR.en["Build a wall in front of the robot."] = "Build a wall in front of the robot.";
-RUR.en["End the program's execution."] = "End the program's execution.";
-RUR.en["True if a wall is blocking the way."] = "True if a wall is blocking the way";
-RUR.en["True if nothing is blocking the way."] = "True if nothing is blocking the way.";
-RUR.en["True if desired destination."] = "True if desired destination.";
-RUR.en["True if robot carries at least one object."] = "True if robot carries at least one object.";
-RUR.en["True if there is at least one object here."] = "True if there is at least one object here.";
-RUR.en["True if robot is facing North."] = "True if robot is facing North.";
-RUR.en["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
-
-RUR.en["Save world in browser"] = "Save world in browser";
-RUR.en["LOAD EDITOR"] = "Import program from file";
-RUR.en["LOAD EDITOR EXPLAIN"] = "Opens a local file and use its content to replace the content of the Code editor.";
-RUR.en["LOAD LIBRARY"] = "Import library from a file";
-RUR.en["LOAD LIBRARY EXPLAIN"] = "Opens a file and use its content to replace the current content of the Library.";
-RUR.en["LOAD WORLD"] = "Open world from file";
-RUR.en["LOAD WORLD EXPLAIN"] = "Loads a world from a file on your computer.";
-RUR.en["SAVE EDITOR"] = "Save program to file";
-RUR.en["SAVE EDITOR EXPLAIN"] = "Saves the content of the editor in a file.";
-RUR.en["SAVE LIBRARY"] = "Save the library";
-RUR.en["SAVE LIBRARY EXPLAIN"] = "Saves the content of the library in a file.";
-RUR.en["SAVE WORLD"] = "Save world to file";
-RUR.en["SAVE WORLD EXPLAIN"] = "Saves the world (as a json object) to a file on your computer.";
-RUR.en["ADD EDITOR TEXT"] = "Add editor content to world";
-RUR.en["ADD LIBRARY TEXT"] = "Add library content to world";
-RUR.en["KEYBOARD BUTTON"] = "Reeborg's keyboard";
-RUR.en["ADDITIONAL OPTIONS"] = "Additional options";
-
-RUR.en["BASIC COMMANDS"] = "Basic commands";
-RUR.en["DEFINING"] = "Defining";
-RUR.en["LOOPS"] = "Loops";
-RUR.en["DECISIONS"] = "Decisions";
-RUR.en["CONDITIONS"] = "Conditions";
-RUR.en["USING VARIABLES"] = "Using variables";
-RUR.en["COMMANDS"] = "Commandes";
-RUR.en["OTHER"] = "Other";
-RUR.en["OBJECTS"] = "Objects";
-
-RUR.en["Python Code"] = "Python Code";
-RUR.en["Javascript Code"] = "Javascript Code";
-RUR.en["LIBRARY"] = "library";
-RUR.en["PRE"] = "Pre";
-RUR.en["POST"] = "Post";
-RUR.en["DESCRIPTION"] = "Desc.";
-RUR.en["ONLOAD"] = "Onload";
-
-RUR.en["HIGHLIGHT IMPOSSIBLE"] = "A problem with your code has caused me to turn off the code highlighting.";
-RUR.en["COMMAND RESULT"] = "Select action to perform from menu below.";
-
-RUR.en["COPY"] = "Copy";
-RUR.en["COPY PERMALINK EXPLAIN"] = "Copy the permalink to the clipboard.";
-RUR.en["Save"] = "Save";
-RUR.en["Save permalink explanation"] = "Saves a copy of the permalink to a file.";
-RUR.en["REPLACE PERMALINK"] = "Replace";
-RUR.en["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different permalink and click on Replace";
-RUR.en["CANCEL"] = "Cancel";
-
-RUR.en["DELETE WORLD TEXT"] = "The following refers to worlds currently stored in your browser which you can delete:";
-RUR.en["PYTHON ONLY"] = "Python only";
-RUR.en["COLLABORATION"] = "Collaboration";
-RUR.en["TOGETHERJS EXPLAIN"] = "Tool which permits collaboration with one or more other user using Mozilla's TogetherJS.";
-RUR.en["WORLD CREATION TITLE"] = "World: creation, edition, ...";
-RUR.en["EDIT WORLD"] = "Edit world";
-RUR.en["EDIT WORLD EXPLAIN"] = "You can create your own world by editing the current one.";
-RUR.en["PROGRAM IN EDITOR"] = "Program in editor";
-RUR.en["SPECIAL EXECUTION"] = "Special execution features";
-RUR.en["REVERSE STEP EXPLAIN"] = "Reverses the previous execution step.";
-RUR.en["ERASE TRACE"] = "Erase trace";
-RUR.en["ERASE TRACE EXPLAIN"] = "Erases the trace left by Reeborg. This can be useful to focus on what happens after a program is paused.";
-RUR.en["CONTACT"] = "(English/French only) Email:";
-RUR.en["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/French only)";
-RUR.en["FORUM"] = "Discussion forum (English/French only)";
-RUR.en["HELP"] = "Help";
-RUR.en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank">Documentation</a>';
-RUR.en["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
-RUR.en["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
-
-RUR.en["WORLD EDITOR"] = "World editor";
-RUR.en["m-east"] = "East";
-RUR.en["m-north"] = "North";
-RUR.en["m-west"] = "West";
-RUR.en["m-south"] = "South";
-RUR.en["m-random"] = "Random";
-RUR.en["m-dimensions"] = "World dimensions";
-RUR.en["m-add"] = "Add";
-RUR.en["m-add-robot"] = "Add robot";
-RUR.en["m-robot"] = "Robot";
-RUR.en["m-position"] = "Position(s)";
-RUR.en["m-turn"] = "Turn";
-RUR.en["m-objects"] = "Objects";
-RUR.en["m-walls"] = "Walls";
-RUR.en["m-objects2"] = "Objects";
-RUR.en["m-tiles"] = "Tiles";
-RUR.en["m-fill"] = "Fill";
-RUR.en["m-solid"] = "Solid objects";
-RUR.en["m-decorative"] = "Decorative objects";
-RUR.en["m-background"] = "Background image";
-RUR.en["m-goal"] = "Goal";
-RUR.en["mg-robot"] = "Robot";
-RUR.en["mg-walls"] = "Walls";
-RUR.en["mg-objects"] = "Objects";
-
-RUR.en["Reeborg says: I'm done!"] = "Reeborg says: I'm done!";
-RUR.en["Reeborg writes:"] = "Reeborg writes:";
-RUR.en["Reeborg shouts: Something is wrong!"] = "Reeborg shouts: Something is wrong!";
-RUR.en["Reeborg explores some Javascript code"] = "Reeborg explores some Javascript code";
-RUR.en["Reeborg states:"] = "Reeborg states:";
-RUR.en["Reeborg watches some variables!"] = "Reeborg watches some variables!";
-RUR.en["Click on the world to get some additional information."] = "Click on the world to get some additional information.";
-
-RUR.en["Reeborg's basic keyboard"] = "Reeborg's basic keyboard";
-RUR.en["kbd-command-btn"] = "Commands";
-RUR.en["kbd-condition-btn"] = "Conditions";
-RUR.en["kbd-python-btn"] = "Python";
-RUR.en["kbd-py-console-btn"] = "Python";
-RUR.en["kbd-javascript-btn"] = "Javascript";
-RUR.en["kbd-objects-btn"] = "Objects";
-RUR.en["kbd-special-btn"] = "Special";
-
-
-// Only translate the strings below if the corresponding functions are
+// Only create a new version of this file for a target language
+// if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
+RUR.en = {};
 RUR.en["at_goal"] = "at_goal";
 RUR.en["at_goal()"] = "at_goal()";
 RUR.en["front_is_clear"] = "front_is_clear";
@@ -9522,312 +9276,17 @@ RUR.en["write"] = "write";
 RUR.en["write()"] = "write()";
 
 RUR.en["from library import ?"] = "from library import ?";
-RUR.en["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> is not a true Python keyword.";
-
-RUR.en["tab"] = "TAB";
-RUR.en["shift-tab"] = "Shift-TAB";
-RUR.en["enter"] = "\u23CE";
-RUR.en["UNDO"] = "UNDO";
-RUR.en["REDO"] = "REDO";
-
-RUR.en["Colour:"] = "Colour:";
-RUR.en["Enter a colour"] = "Enter a colour";
 
 },{}],81:[function(require,module,exports){
-RUR.fr = {};
+// Only create a new version of this file for a target language
+// if the corresponding functions are
+// defined in reeborg_xx.js and reeborg_xx.py
 
 RUR.fr = {};
-RUR.fr_to_en = {};
 
-RUR.fr["SITE NAME"] = "Le monde de Reeborg";
-RUR.fr["WORLD INFO"] = "Description";
-RUR.fr["EDITOR VISIBLE BLOCKLY"] = "Garder l'éditeur visible";
+RUR.ui_fr["fr-en"] = "Mode mixte: interface graphique en français; programmation en anglais.<br>" +
+    "Mixed mode: User Interface in French; programming language in English.<br>";
 
-RUR.fr["apple"] = "pomme";
-RUR.fr_to_en["pomme"] = "apple";
-RUR.fr["banana"] = "banane";
-RUR.fr_to_en["banane"] = "banana";
-RUR.fr["box"] = "boîte";
-RUR.fr_to_en["boîte"] = "box";
-RUR.fr["bridge"] = "pont";
-RUR.fr_to_en["pont"] = "bridge";
-RUR.fr["carrot"] = "carotte";
-RUR.fr_to_en["carotte"] = "carrot";
-RUR.fr["daisy"] = "marguerite";
-RUR.fr_to_en["marguerite"] = "daisy";
-RUR.fr["dandelion"] = "pissenlit";
-RUR.fr_to_en["pissenlit"] = "dandelion";
-RUR.fr["leaf"] = "feuille";
-RUR.fr_to_en["feuille"] = "leaf";
-RUR.fr["orange"] = "orange";
-RUR.fr_to_en["orange"] = "orange";
-RUR.fr.square = "carré";
-RUR.fr_to_en["carré"] = "square";
-RUR.fr.star = "étoile";
-RUR.fr_to_en["étoile"] = "star";
-RUR.fr["strawberry"] = "fraise";
-RUR.fr_to_en["fraise"] = "strawberry";
-RUR.fr.token = "jeton";
-RUR.fr_to_en["jeton"] = "token";
-RUR.fr.triangle = "triangle";
-RUR.fr_to_en["triangle"] = "triangle";
-RUR.fr["tulip"] = "tulipe";
-RUR.fr_to_en["tulipe"] = "tulip";
-
-RUR.fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
-
-RUR.fr["Too many steps:"] = "Trop d'instructions: {max_steps}";
-RUR.fr["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
-RUR.fr["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée x.</li>";
-RUR.fr["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée y.</li>";
-RUR.fr["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée y.</li>";
-RUR.fr["<li class='success'>All objects are at the correct location.</li>"] = "<li class='success'>Tous les objets sont aux bons endroits.</li>";
-RUR.fr["<li class='failure'>One or more objects are not at the correct location.</li>"] = "<li class='failure'>Un ou plusieurs objets ne sont pas aux bons endroits.</li>";
-RUR.fr["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>Tous les murs ont été construits correctement.</li>";
-RUR.fr["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>Un ou plusieurs murs manquent ou sont aux mauvais endroits.</li>";
-RUR.fr["Last instruction completed!"] = "Dernière instruction complétée!";
-RUR.fr["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>terminé()</code> exécutée.</p>";
-
-RUR.fr["Unknown object"] = "Objet inconnu: {obj}";
-RUR.fr["No object found here"] = "Pas d'objet '{obj}'' trouvé ici !";
-RUR.fr["object"] = "objet";
-RUR.fr["I don't have any object to put down!"] = "Je n'ai pas de '{obj}'!";
-RUR.fr["There is already a wall here!"] = "Il y a déjà un mur ici !";
-RUR.fr["Ouch! I hit a wall!"] = "Ouch! J'ai frappé un mur!";
-RUR.fr["Done!"] = "Terminé !";
-RUR.fr["There is no position as a goal in this world!"] = "Aucune position n'a été spécifiée comme but dans ce monde!";
-RUR.fr["There is no goal in this world!"] = "Il n'y a pas de but dans ce monde!";
-RUR.fr["I carry too many different objects. I don't know which one to put down!"] = "Je transporte trop d'objets: je ne sais pas lequel déposer!";
-RUR.fr["Many objects are here; I do not know which one to take!"] = "Beaucoup d'objets différents sont ici; je ne sais pas lequel prendre!";
-
-RUR.fr.east = "est";
-RUR.fr.north = "nord";
-RUR.fr.west = "ouest";
-RUR.fr.south = "sud";
-RUR.fr["Unknown orientation for robot."] = "Orientation inconnue.";
-
-RUR.fr["World selected"] = "Monde {world} choisi";
-RUR.fr["Could not find world"] = "Je ne peux pas trouver {world}";
-RUR.fr["Object names"] = " biblio, jeton, étoile, triangle, carré, etc.";
-
-RUR.fr["Invalid world file."] = "Fichier monde invalide.";
-RUR.fr["Could not find link: "] = "Lien introuvable : ";
-
-RUR.fr["Click on world to move robot."] = "Cliquez sur le monde pour ajouter ou supprimer des positions de départ possibles pour Reeborg.";
-RUR.fr["Added robot."] = "Reeborg ajouté.";
-RUR.fr["Click on image to turn robot"] = "Cliquez sur l'image pour tourner Reeborg.";
-RUR.fr["Robot now has tokens."] = "Reeborg a {x_tokens} jetons.";
-RUR.fr["Click on world to add object."] = "Cliquez sur le monde pour ajouter des {obj}.";
-RUR.fr["Click on desired object below."] = "Cliquez sur l'objet désiré ci-dessous.";
-RUR.fr["Click on world to toggle walls."] = "Cliquez sur le monde pour ajouter/supprimer des murs.";
-RUR.fr["Click on world to set home position for robot."] = "Cliquez sur le monde pour ajouter ou supprimer une position finale possible du robot.";
-RUR.fr["Click on world to toggle additional walls to build."] = "Cliquez sur le monde pour ajouter/supprimer des murs à construire.";
-RUR.fr["Click on desired goal object below."] = "Cliquez sur l'objet désiré comme 'but'.";
-RUR.fr["Click on world to set number of goal objects."] = "Cliquez sur le monde pour fixer le nombre d'objet '{obj}' comme but.";
-RUR.fr["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg.";
-RUR.fr[" is not a valid value!"] = " n'est pas une valeur valide!";
-RUR.fr["Enter number of objects desired at that location."] = "Cliquez sur le monde pour fixer le nombre d'objet '{obj}' désiré à cet endroit.";
-RUR.fr["Objects found here:"] = "Objets trouvés ici:";
-RUR.fr["Description"] = "Description";
-RUR.fr["A robot located here carries no objects."] = "A robot situé à {x},{y} ne transporte aucun objet.";
-RUR.fr["A robot located here carries:"] = "Un robot situé à {x},{y} transporte:";
-RUR.fr["random location"] = "une position choisie au hasard";
-RUR.fr["Enter number of objects to give to robot."] = "Quel nombre de {obj} voulez-vous donner au robot?";
-RUR.fr["Special information about this location:"] = "Information particulière au sujet de cet endroit:";
-RUR.fr["Click on world to toggle tile."] = "Cliquez sur le monde pour ajouter/supprimer l'image: '{obj}'.";
-RUR.fr["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous ou sur le sélecteur de couleur.";
-RUR.fr["mud"] = "boue";
-RUR.fr["water"] = "eau";
-RUR.fr["grass"] = "gazon";
-RUR.fr["gravel"] = "gravier";
-RUR.fr["ice"] = "glace";
-RUR.fr["A wall must be built east of this location."] = "Un mur doit être construit à l'est de cet endroit.";
-RUR.fr["A wall must be built north of this location."] = "Un mur doit être construit au nord de cet endroit.";
-RUR.fr["A wall must be built west of this location."] = "Un mur doit être construit à l'ouest de cet endroit.";
-RUR.fr["A wall must be built south of this location."] = "Un mur doit être construit au sud de cet endroit.";
-RUR.fr["The final required position of the robot will be chosen at random."] = "La position finale requise pour Reeborg sera choisie au hasard.";
-RUR.fr["The final position of the robot must be (x, y) = "] = "La position finale de Reeborg doit être (x, y) = ";
-RUR.fr["Click on world to fill with given tile."] = "Cliquez sur le monde pour remplir avec cet objet.";
-RUR.fr["Click on desired object below."] = "Cliquez sur l'objet désiré.";
-RUR.fr["Enter url of image to use as background."] = "Fournir l'adresse (URL) de l'image à utiliser.";
-RUR.fr["Replace editor content"] = "Voulez-vous remplacer le contenu du code de votre éditeur par celui défini par le créateur du monde?";
-RUR.fr["Replace library content"] = "Voulez-vous remplacer le contenu du code de votre biliothèque par celui défini par le créateur du monde?";
-RUR.fr["colour"] = "couleur";
-
-RUR.fr["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
-RUR.fr["No such world!"] = "Ce monde n'existe pas !";
-RUR.fr["Enter world name to save"] = "Quel nom doit-on utiliser pour ce monde? Noms utilisés:";
-RUR.fr["Enter world name to delete"] = "Écrivez le nom du monde à supprimer; mondes existant:";
-RUR.fr["Goal to achieve:"] = "Résultat désiré :";
-RUR.fr["Delete "] = "Effacer ";
-
-RUR.fr["Error found at or near line {number}."] = "Erreur trouvée à la ligne {number} ou tout près.";
-RUR.fr["<br>Perhaps a missing colon is the cause."] = "<br>Il manque peut-être deux points ':'.";
-RUR.fr["<br>Perhaps you forgot to add parentheses ()."] = "<br>Il manque peut-être des parenthèses ().";
-RUR.fr["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Il est possible qu'un mot soit mal épelé ou qu'une définition de fonction ou de variable manque.";
-
-RUR.fr["I'm stuck in mud."] = "Je suis immobilisé dans la boue.";
-RUR.fr["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Boue: Reeborg <b>ne peut pas</b> détecter ceci et y sera immobilisé s'il va à cet endroit.";
-RUR.fr["I'm slipping on ice!"] = "Je glisse sur la glace!";
-RUR.fr["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "Glace: Reeborg <b>ne peut pas</b> détecter ceci et glissera à la prochaine case.";
-RUR.fr["Grass: usually safe."] = "Gazon: habituellement sans problèmes.";
-RUR.fr["Gravel: usually safe."] = "Gravier: habituellement sans problèmes.";
-RUR.fr["I'm in water!"] = "Je suis dans l'eau!";
-RUR.fr["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "Eau: Reeborg <b>peut</b> détecter ceci mais il va être endommagé s'il s'y déplace.";
-RUR.fr["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "tuile verte: Reeborg <b>peut</b> détecter ceci avec au_but().";
-RUR.fr["Crash!"] = "Crash!";
-RUR.fr["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Mur de brique: Reeborg <b>peut</b> détecter ceci mais il se fera mal s'il essaie de passer au travers.";
-RUR.fr["I hit a fence!"] = "J'ai frappé une clôture!";
-RUR.fr["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Clôture: Reeborg <b>peut</b> détecter ceci mais il ne peut pas passer au travers.";
-RUR.fr["Bridge:"] = "Pont: ";
-RUR.fr["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
-
-RUR.fr_to_en["pont"] = "bridge";
-RUR.fr["Something is blocking the way!"] = "Quelque chose bloque le chemin!";
-RUR.fr["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>peut</b> détecter ceci avec au_but().";
-RUR.fr["green home tile:"] = "tuile verte pour l'arrivée:";
-RUR.fr["home:"] = "la maison:";
-RUR.fr["racing flag:"] = "drapeau d'arrivée:";
-RUR.fr["house:"] = "maison:";
-
-RUR.fr["fence_right"] = "clôture";
-RUR.fr["fence_left"] = "clôture";
-RUR.fr["fence_double"] = "clôture";
-RUR.fr["fence_vertical"] = "clôture";
-
-RUR.fr["Local variables"] = "Variables locales";
-RUR.fr["Global variables"] = "Variables globales";
-RUR.fr["Watched expressions"] = "Watched expressions";
-
-RUR.fr["move forward"] = "avance";
-RUR.fr["turn left"] = "tourne à gauche";
-RUR.fr["take object"] = "prend l'objet";
-RUR.fr["put object"] = "dépose l'objet";
-RUR.fr["Pause the program's execution."] = "Pause l'exécution du programme.";
-RUR.fr["Build a wall in front of the robot."] = "Construit un mur devant le robot.";
-RUR.fr["End the program's execution."] = "Termine l'exécution du programme.";
-RUR.fr["True if a wall is blocking the way."] = "Vrai si un mur bloque le chemin.";
-RUR.fr["True if nothing is blocking the way."] = "Vrai si rien ne bloque le chemin.";
-RUR.fr["True if desired destination."] = "Vrai si c'est la destination désirée.";
-RUR.fr["True if robot carries at least one object."] = "Vrai si le robot transporte au moins un objet.";
-RUR.fr["True if there is at least one object here."] = "Vrai s'il y a au moins un objet ici.";
-RUR.fr["True if robot is facing North."] = "Vrai se le robot est face au nord.";
-RUR.fr["Delay between actions; default is 300 ms."] = "Délai entre les actions; le défaut est de 300 ms.";
-
-RUR.fr["Save world in browser"] = "Sauvegarder le monde dans le navigateur";
-RUR.fr["Save permalink"] = "Sauvegarder le permalien";
-RUR.fr["Save permalink explanation"] = "Sauvegarde une copie du permalien dans un fichier.";
-RUR.fr["LOAD EDITOR"] = "Ouvrir un programme";
-RUR.fr["LOAD EDITOR EXPLAIN"] = "Ouvre un fichier local et remplace le contenu de l'éditeur par le contenu du fichier.";
-RUR.fr["LOAD LIBRARY"] = "Importer une bibliothèque";
-RUR.fr["LOAD LIBRARY EXPLAIN"] = "Ouvre un fichier contenant un programme et remplace le contenu de la bibliothèque par le contenu du fichier choisi.";
-RUR.fr["LOAD WORLD"] = "Ouvrir un monde";
-RUR.fr["LOAD WORLD EXPLAIN"] = "Ouvre un monde à partir d'un fichier.";
-RUR.fr["SAVE EDITOR"] = "Sauvegarder le programme";
-RUR.fr["SAVE EDITOR EXPLAIN"] = "Sauvegarde le contenu de l'éditeur dans un fichier.";
-RUR.fr["SAVE LIBRARY"] = "Sauvegarder la bibliothèque";
-RUR.fr["SAVE LIBRARY EXPLAIN"] = "Sauvegarde le contenu de la bibliothèque dans un fichier.";
-RUR.fr["SAVE WORLD"] = "Sauvegarder le monde";
-RUR.fr["SAVE WORLD EXPLAIN"] = "Sauvegarde le monde dans un fichier (format json) sur votre ordinateur.";
-RUR.fr["ADD EDITOR TEXT"] = "Inclure le contenu de l'éditeur";
-RUR.fr["ADD LIBRARY TEXT"] = "Inclure le contenu de la bibliothèque";
-RUR.fr["KEYBOARD BUTTON"] = "Clavier de Reeborg";
-RUR.fr["ADDITIONAL OPTIONS"] = "Autres options";
-
-RUR.fr["BASIC COMMANDS"] = "Commandes";
-RUR.fr["DEFINING"] = "Définitions";
-RUR.fr["LOOPS"] = "Boucles";
-RUR.fr["DECISIONS"] = "Décisions";
-RUR.fr["CONDITIONS"] = "Conditions";
-RUR.fr["USING VARIABLES"] = "Utiliser des variables";
-RUR.fr["COMMANDS"] = "Commandes";
-RUR.fr["OTHER"] = "Autres";
-RUR.fr["OBJECTS"] = "Objets";
-
-RUR.fr["Python Code"] = "Code Python";
-RUR.fr["Javascript Code"] = "Code Javascript";
-RUR.fr["LIBRARY"] = "biblio";
-RUR.fr["PRE"] = "Pre";
-RUR.fr["POST"] = "Post";
-RUR.fr["DESCRIPTION"] = "Desc.";
-RUR.fr["ONLOAD"] = "Onload";
-
-RUR.fr["HIGHLIGHT IMPOSSIBLE"] = "Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le surlignage du code dans l'éditeur.";
-RUR.fr["COMMAND RESULT"] = "Sélectionnez l'action à performer dans le menu ci-dessous.";
-
-RUR.fr["PERMALINK"] = "Permalien";
-RUR.fr["COPY"] = "Copier";
-RUR.fr["COPY PERMALINK EXPLAIN"] = "Copie le permalien dans le presse-papier.";
-RUR.fr["Save"] = "Sauvegarder";
-RUR.fr["Save permalink explanation"] = "Sauvegarde une copie du permalien dans un fichier.";
-RUR.fr["REPLACE PERMALINK"] = "Remplacer";
-RUR.fr["REPLACE PERMALINK EXPLAIN"] = "Remplacez le contenu ci-dessus par un nouveau permalien puis cliquez sur Remplacer.";
-RUR.fr["CANCEL"] = "Annuler";
-
-RUR.fr["DELETE WORLD TEXT"] = "En cliquant sur un bouton, éliminez un monde connu de la mémoire de votre nagivageur.";
-RUR.fr["PYTHON ONLY"] = "Python seulement";
-RUR.fr["COLLABORATION"] = "Collaboration";
-RUR.fr["TOGETHERJS EXPLAIN"] = "Outil qui permet la collaboration à distance en utilisant l'outil TogetherJS de Mozilla (interface en anglais seulement).";
-RUR.fr["WORLD CREATION TITLE"] = "Monde : édition, création, ...";
-RUR.fr["EDIT WORLD"] = "Édition du monde";
-RUR.fr["EDIT WORLD EXPLAIN"] = "Vous pouvez créer vos propres mondes en modifiant un monde existant.";
-RUR.fr["PROGRAM IN EDITOR"] = "Programme dans l'éditeur";
-RUR.fr["SPECIAL EXECUTION"] = "Options d'exécution";
-RUR.fr["REVERSE STEP EXPLAIN"] = "Renverse l'instruction précédemment exécutée.";
-RUR.fr["ERASE TRACE"] = "Effacer la trace";
-RUR.fr["ERASE TRACE EXPLAIN"] = "Efface la trace laissée par Reeborg.  Ceci est utile pour permettre de se concentrer sur ce qui arrive lorsqu'on résume un programme après une pause.";
-RUR.fr["CONTACT"] = "Courriel :";
-RUR.fr["ISSUES"] = "Rapports de bogues, suggestions, autres problèmes, etc. (en anglais ou en français seulement).";
-RUR.fr["FORUM"] = "Forum de discussions (en anglais ou en français seulement).";
-RUR.fr["HELP"] = "Aide";
-RUR.fr["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/fr" target="_blank">Documentation</a>';
-RUR.fr["PYTHON HELP"] = "En utilisant Python, executez un programme avec <code>help()</code> pour obtenir une liste de commandes ou <code>help(avance)</code> pour obtenir de l'aide sur la fonction <code>avance()</code>, etc.";
-RUR.fr["KEYBOARD HELP"] = "Cliquez sur le clavier de Reeborg keyboard pour voir une liste des commandes, la syntaxe Python, etc.";
-
-RUR.fr["WORLD EDITOR"] = "Éditeur de monde";
-RUR.fr["m-east"] = "Est";
-RUR.fr["m-north"] = "Nord";
-RUR.fr["m-west"] = "Ouest";
-RUR.fr["m-south"] = "Sud";
-RUR.fr["m-random"] = "Aléatoire";
-RUR.fr["m-dimensions"] = "Taille du monde";
-RUR.fr["m-add"] = "Ajouter";
-RUR.fr["m-add-robot"] = "Ajouter Reeborg";
-RUR.fr["m-robot"] = "Robot";
-RUR.fr["m-position"] = "Position(s)";
-RUR.fr["m-turn"] = "Orientation";
-RUR.fr["m-objects"] = "Objets";
-RUR.fr["m-walls"] = "Murs";
-RUR.fr["m-objects2"] = "Objets";
-RUR.fr["m-tiles"] = "Tuiles";
-RUR.fr["m-fill"] = "Remplir";
-RUR.fr["m-solid"] = "Objets solides";
-RUR.fr["m-decorative"] = "Objets décoratifs";
-RUR.fr["m-background"] = "Image de fond";
-RUR.fr["m-goal"] = "But";
-RUR.fr["mg-robot"] = "Robot";
-RUR.fr["mg-walls"] = "Murs";
-RUR.fr["mg-objects"] = "Objets";
-
-RUR.fr["Reeborg says: I'm done!"] = "Reeborg dit : J'ai fini !";
-RUR.fr["Reeborg writes:"] = "Reeborg écrit :";
-RUR.fr["Reeborg shouts: Something is wrong!"] = "Reeborg crie: Quelque chose ne va pas !";
-RUR.fr["Reeborg explores some Javascript code"] = "Reeborg explore le code Javascript";
-RUR.fr["Reeborg states:"] = "Reeborg informe :";
-RUR.fr["Reeborg watches some variables!"] = "Reeborg observe des variables !";
-RUR.fr["Click on the world to get some additional information."] = "Cliquez sur le monde pour obtenir de l'information supplémentaire.";
-
-RUR.fr["Reeborg's basic keyboard"] = "Le clavier spécial de Reeborg";
-RUR.fr["kbd-command-btn"] = "Commandes";
-RUR.fr["kbd-condition-btn"] = "Conditions";
-RUR.fr["kbd-python-btn"] = "Python";
-RUR.fr["kbd-py-console-btn"] = "Python";
-RUR.fr["kbd-javascript-btn"] = "Javascript";
-RUR.fr["kbd-objects-btn"] = "Objets";
-RUR.fr["kbd-special-btn"] = "Spécial";
-
-// Ne pas traduire les fonctions ci-dessous SAUF si elles existent
-// dans reeborg_fr.js et reeborg_fr.py
 RUR.fr["at_goal"] = "au_but";
 RUR.fr["at_goal()"] = "au_but()";
 RUR.fr["front_is_clear"] = "rien_devant";
@@ -9877,376 +9336,16 @@ RUR.fr["write"] = "ecrit";
 RUR.fr["write()"] = "ecrit()";
 
 RUR.fr["from library import ?"] = "from biblio import ?";
-RUR.fr["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> n'est pas un véritable mot-clé Python.";
-
-RUR.fr["tab"] = "TAB";
-RUR.fr["shift-tab"] = "Maj-TAB";
-RUR.fr["enter"] = "\u23CE";
-RUR.fr["UNDO"] = "RENVERSER";
-RUR.fr["REDO"] = "REFAIRE";
-
-RUR.fr["Colour:"] = "Couleur :";
-RUR.fr["Enter a colour"] = "Spécifiez une couleur";
 
 },{}],82:[function(require,module,exports){
-RUR.ko = {};
-RUR.ko_to_en = {};
+require("./../lang/ui_en.js");
+require("./../lang/ui_fr.js");
+require("./../lang/ui_ko.js");
 
-RUR.ko["SITE NAME"] = "리보그의 월드";
-RUR.ko["WORLD INFO"] = "월드 정보";
-RUR.ko["EDITOR VISIBLE BLOCKLY"] = "에디터 유지시키기";
-
-
-RUR.ko["apple"] = "사과";
-RUR.ko_to_en["사과"] = "apple";
-RUR.ko["banana"] = "바나나";
-RUR.ko_to_en["바나나"] = "banana";
-RUR.ko["box"] = "상자";
-RUR.ko_to_en["상자"] = "box";
-RUR.ko["bridge"] = "다리";
-RUR.ko_to_en["다리"] = "bridge";
-RUR.ko["carrot"] = "당근";
-RUR.ko_to_en["당근"] = "carrot";
-RUR.ko["daisy"] = "데이지꽃";
-RUR.ko_to_en["데이지꽃"] = "daisy";
-RUR.ko["dandelion"] = "민들레";
-RUR.ko_to_en["민들레"] = "dandelion";
-RUR.ko["leaf"] = "잎";
-RUR.ko_to_en["잎"] = "leaf";
-RUR.ko["orange"] = "귤";
-RUR.ko_to_en["귤"] = "orange";
-RUR.ko.square = "사각형";
-RUR.ko_to_en["사각형"] = "square";
-RUR.ko.star = "별";
-RUR.ko_to_en["별"] = "star";
-RUR.ko["strawberry"] = "딸기";
-RUR.ko_to_en["딸기"] = "strawberry";
-RUR.ko.token = "토큰";
-RUR.ko_to_en["토큰"] = "token";
-RUR.ko.triangle = "삼각형";
-RUR.ko_to_en["삼각형"] = "triangle";
-RUR.ko["tulip"] = "튤립";
-RUR.ko_to_en["튤립"] = "tulip";
-
-RUR.ko["Problem with onload code."] = "유효하지 않는 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
-
-RUR.ko["Too many steps:"] = "너무 많은 steps: {max_steps}";
-RUR.ko["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>리보그는 올바른 x 위치에 있습니다.</li>";
-RUR.ko["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>리보그는 잘못된 x 위치에 있습니다.</li>";
-RUR.ko["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>리보그는 올바른 y 위치에 있습니다.</li>";
-RUR.ko["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>리보그는 잘못된 y 위치에 있습니다.</li>";
-RUR.ko["<li class='success'>All objects are at the correct location.</li>"] = "<li class='success'>모든 객체가 올바른 위치에 있습니다.</li>";
-RUR.ko["<li class='failure'>One or more objects are not at the correct location.</li>"] = "<li class='failure'>하나 이상의 객체가 올바른 위치에 있지 않습니다.</li>";
-RUR.ko["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>모든 벽은 제대로 지어지고 있습니다.</li>";
-RUR.ko["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>하나 이상의 벽이 누락되거나 잘못된 위치에서 건설됬습니다.</li>";
-RUR.ko["Last instruction completed!"] = "마지막 명령이 완료됬습니다!";
-RUR.ko["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>명령 <code>done()</code> 실행.</p>";
-
-RUR.ko["Unknown object"] = "알 수 없는 객체: {obj}";
-RUR.ko["No object found here"] = "여기서 {obj} 를 찾을수 없어요!";
-RUR.ko["object"] = "객체";
-RUR.ko["I don't have any object to put down!"] = "나는 집어넣을 {obj} 가 없어요!";
-RUR.ko["There is already a wall here!"] = "벽이 여기에 이미 있어요!";
-RUR.ko["Ouch! I hit a wall!"] = "아으,, 아파요! 저는 벽을 부딛쳤어요!";
-RUR.ko["Done!"] = "끝!";
-RUR.ko["There is no position as a goal in this world!"] = "위치에 대한 목표가 없어요!";
-RUR.ko["There is no goal in this world!"] = "이 월드는 목표가 없어요.";
-RUR.ko["I carry too many different objects. I don't know which one to put down!"] = "저는 너무 많은 다른 객체들을 싣고 있어요. 저는 이중 어떤 걸 내려놓을지 모르겠어요!";
-RUR.ko["Many objects are here; I do not know which one to take!"] = "많은 객체들이 여기에 있어요; 저는 그 중 어떤걸 가져갈지 모르겠어요!";
-
-RUR.ko.east = "동쪽";
-RUR.ko.north = "북쪽";
-RUR.ko.west = "서쪽";
-RUR.ko.south = "남쪽";
-RUR.ko["Unknown orientation for robot."] = "로봇의 방향을 알 수 없습니다.";
-
-RUR.ko["World selected"] = "월드 {world} 가 선택되었습니다";
-RUR.ko["Could not find world"] = "월드를 찾을 수 없습니다 {world}";
-RUR.ko["Object names"] = " 라이브러리, 토큰, 별, 삼각형, 사각형, 등.";
-
-RUR.ko["Invalid world file."] = "유효하지 않는 월드 파일.";
-RUR.ko["Could not find link: "] = "링크를 찾을 수 없습니다: ";
-
-RUR.ko["Click on world to move robot."] = "월드를 클릭해서 추가하거나 시작 가능한 리보그 위치를 제거합니다.";
-RUR.ko["Added robot."] = "리보그 추가됨.";
-RUR.ko["Click on image to turn robot"] = "리보그를 회전하기 위해 이미지를 클릭하세요.";
-RUR.ko["Robot now has tokens."] = "이제 리보그는 {x_tokens} 토근을 가지고 있습니다.";
-RUR.ko["Click on world to add object."] = "{obj} 의 수를 설정하기 위해 월드를 클릭하세요.";
-RUR.ko["Click on desired object below."] = "아래에서 원하는 개체를 클릭합니다.";
-RUR.ko["Click on world to toggle walls."] = "벽을 달기 위해 월드를 클락하세요.";
-RUR.ko["Click on world to set home position for robot."] = "로봇의 최종위치를 정하기 위해 월드를 클릭하세요.";
-RUR.ko["Click on world to toggle additional walls to build."] = "추가적으로 벽을 달기 위해 월드를 클릭하세요.";
-RUR.ko["Click on desired goal object below."] = "아래에서 원하는 목표 객체를 클릭하세요.";
-RUR.ko["Click on world to set number of goal objects."] = "{obj}의 목표를 설정하기 위해 객체를 클릭하세요.";
-RUR.ko["Enter number of tokens for robot to carry (use inf for infinite number)"] = "싣고 갈 토큰의 수를 입력하세요.";
-RUR.ko[" is not a valid value!"] = " 유효하지 않는 값입니다!";
-RUR.ko["Enter number of objects desired at that location."] = "{obj} 의 수를 설정하기 위해 월드를 클릭하세요.";
-RUR.ko["Objects found here:"] = "객체를 여기서 찾음:";
-RUR.ko["Description"] = "설명";
-RUR.ko["A robot located here carries no objects."] = "로봇은 {x},{y} 에 위치해 있고 싣고 있는 객체는 없습니다.";
-RUR.ko["Goal to achieve:"] = "목표 달성:";
-RUR.ko["A robot located here carries:"] = "로봇은 {x},{y} 에 위치해 있습니다. 싣고 있는 객체:";
-RUR.ko["random location"] = "랜덤 위치";
-RUR.ko["Enter number of objects to give to robot."] = "로봇에게 주기 위해 {obj} 의 수를 입력하세요..";
-RUR.ko["Special information about this location:"] = "이 위치에 대한 특별한 정보:";
-RUR.ko["Click on world to toggle tile."] = "{obj} 타일을 달기 위해 월드를 클릭하세요.";
-RUR.ko["Click on desired tile below."] = "아래에서 원하는 타일을 클릭합니다. (or color selector)";
-RUR.ko["mud"] = "진흙";
-RUR.ko["water"] = "물";
-RUR.ko["grass"] = "잔디";
-RUR.ko["gravel"] = "자갈";
-RUR.ko["ice"] = "얼음";
-RUR.ko["A wall must be built east of this location."] = "벽은 이 위치의 동쪽에 지어져야 됩니다.";
-RUR.ko["A wall must be built north of this location."] = "벽은 이 위치의 북쪽에 지어져야 됩니다.";
-RUR.ko["A wall must be built west of this location."] = "벽은 이 위치의 서쪽에 지어져야 됩니다.";
-RUR.ko["A wall must be built south of this location."] = "벽은 이 위치의 남쪽에 지어져야 됩니다.";
-RUR.ko["The final required position of the robot will be chosen at random."] = "로봇의 마지막으로 필요한 위치가 무작위로 선택됩니다.";
-RUR.ko["The final position of the robot must be (x, y) = "] = "로봇의 최종위치는 반드시 (x, y) = ";
-RUR.ko["Click on world to fill with given tile."] = "주어진 타일을 채우기 위해 월드를 클릭합니다.";
-RUR.ko["Click on desired object below."] = "아래에서 원하는 객체를 클릭합니다.";
-RUR.ko["Enter url of image to use as background."] = "배경화면으로 쓰일 이미지나 이미지 주소를 입력해 주세요.";
-RUR.ko["Replace editor content"] = "당신의 이 월드의 제작자에 의해 제공되는 에디터 코드를 대체 하고 싶나요?";
-RUR.ko["Replace library content"] = "당신은 이 월드의 제작자에 의해 제공되는 라이브러리 코드를 대체 하고 싶나요?";
-RUR.ko["colour"] = "색";
-
-RUR.ko["Name already exist; confirm that you want to replace its content."] = "이름이 이미 존재합니다; 당신이 내용을 교체하고 싶으면 확인합니다.";
-RUR.ko["No such world!"] = "월드가 존재하지 않습니다!";
-RUR.ko["Enter world name to save"] = "월드를 저장하기 위해 월드 이름을 입력 해주세요; 사용될 이름: ";
-RUR.ko["Enter world name to delete"] = "월드를 삭제하기 위해 월드 이름을 입력 해주세요; 기존 세계: ";
-RUR.ko["Delete "] = "삭제 ";
-
-RUR.ko["Error found at or near line {number}."] = "오류를 발견했습니다 혹은 라인 근처에서 발견됬습니다. : {number}.";
-RUR.ko["<br>Perhaps a missing colon is the cause."] = "<br>아마도 콜론(:)을 놓쳐서 문제가 발생했을 겁니다.";
-RUR.ko["<br>Perhaps you forgot to add parentheses ()."] = "<br>아마도 당신은 괄호를 추가하는 것을 잊어버렸을 겁니다 ().";
-RUR.ko["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>아마도 당신은 단어의 철자나 함수를 정의하는것을 잊었거나 변수를 까먹었을 겁니다.";
-
-RUR.ko["I'm stuck in mud."] = "난 진흙에 걸렸어요.";
-RUR.ko["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "진흙: 리보그는 이것을 탐지 <b>하지 못하고<b> 이 위치로 이동하게 되면 걸리게 됩니다.";
-RUR.ko["I'm slipping on ice!"] = "저는 얼음에 미끄러지고 있어요!";
-RUR.ko["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "얼음: 리보그는 이것을 탐지 <b>하지 못하고</b> 만약 이 위치로 이동하게 되면 미끄러지고 다음 위치로 이동하게 됩니다.";
-RUR.ko["Grass: usually safe."] = "잔디: 보통 안전함.";
-RUR.ko["Gravel: usually safe."] = "자갈: 보통 안전함.";
-RUR.ko["I'm in water!"] = "난 물 속에 있어요!";
-RUR.ko["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "물: 리보그는 이것을 탐지 할 수 <b>있지만</b> 이 위치로 이동하는 경우 상처를 입히게 됩니다.";
-RUR.ko["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green_home_tile: 리보그는 at_goal 를 사용하면 이 타일을 감지 할 수 <b>있어요<b>.";
-RUR.ko["Crash!"] = "Crash!";
-RUR.ko["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "벽돌 벽: 리보그는 이것을 탐지 할 수 있지만 만약 벽돌 벽으로 간다면 자신을 다치게 합니다.";
-RUR.ko["I hit a fence!"] = "I hit a fence!";
-RUR.ko["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "울타리: 리보그는 이것을  <b>can</b> 탐지 할 수 있지만 그것에 의해 중지됩니다.";
-RUR.ko["Bridge:"] = "Bridge: ";
-RUR.ko["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "리보그는 이것을 탐지 할 수 <b>있으며</b> 이 물 위에서 안전한 통행을 허용하는것을 알게 될 것입니다.";
-
-RUR.ko["Something is blocking the way!"] = "뭔가가 길을 막고 있어요!";
-RUR.ko["Reeborg <b>can</b> detect this tile using at_goal()."] = "리보그는 at_goal() 를 사용해서 탐지 할 수 <b>있어요</b>.";
-RUR.ko["green home tile:"] = "초록색 홈 타일:";
-RUR.ko["home:"] = "홈:";
-RUR.ko["racing flag:"] = "레이싱 깃발:";
-RUR.ko["house:"] = "집:";
-
-RUR.ko["fence_right"] = "울타리";
-RUR.ko["fence_left"] = "울타리";
-RUR.ko["fence_double"] = "울타리";
-RUR.ko["fence_vertical"] = "울타리";
-
-RUR.ko["Local variables"] = "지역 변수";
-RUR.ko["Global variables"] = "전역 변수";
-RUR.ko["Watched expressions"] = "문장 결과 보기";
-
-RUR.ko["move forward"] = "앞으로 움직이기";
-RUR.ko["turn left"] = "왼쪽으로 움직이기";
-RUR.ko["take object"] = "객체 가지기";
-RUR.ko["put object"] = "객체 넣기";
-RUR.ko["Pause the program's execution."] = "프로그램 일시 정지.";
-RUR.ko["Build a wall in front of the robot."] = "벽을 로봇 앞에 짓기.";
-RUR.ko["End the program's execution."] = "프로그램 실행 종료.";
-RUR.ko["True if a wall is blocking the way."] = "벽이 길을 막고 있는 경우가 사실이라면.";
-RUR.ko["True if nothing is blocking the way."] = "아무것도 차단 하지 않는 경우가 사실이라면.";
-RUR.ko["True if desired destination."] = "원하는 목적지가 있는 경우가 사실이라면";
-RUR.ko["True if robot carries at least one object."] = "로봇이 적어도 하나의 객체를 싣고 있는 경우가 사실이라면.";
-RUR.ko["True if there is at least one object here."] = "적어도 하나의 객체가 여기에 있는 경우가 사실이라면.";
-RUR.ko["True if robot is facing North."] = "만약 로봇이 북쪽을 바라보고 있는 경우가 사실이라면.";
-RUR.ko["Delay between actions; default is 300 ms."] = "행동을 지연시킵니다; 기본값은 300 밀리초.";
-
-RUR.ko["Save world in browser"] = "월드를 브라우저에 저장하기";
-RUR.ko["Save permalink"] = "퍼머 저장";
-RUR.ko["Save permalink explanation"] = "파일의 퍼머링크 복사본을 저장하기";
-RUR.ko["LOAD EDITOR"] = "파일로 불러오기";
-RUR.ko["LOAD EDITOR EXPLAIN"] = "로컬 저장소에서 소스코드 불러오기";
-RUR.ko["LOAD LIBRARY"] = "파일에서 라이브러리를 가져오기";
-RUR.ko["LOAD LIBRARY EXPLAIN"] = "파일을 열고 라이브러리의 컨텐츠를 지금 사용합니다.";
-RUR.ko["LOAD WORLD"] = "파일로 불러오기";
-RUR.ko["LOAD WORLD EXPLAIN"] = "컴퓨터안의 파일로 월드를 불러오기";
-RUR.ko["SAVE EDITOR"] = "파일로 저장";
-RUR.ko["SAVE EDITOR EXPLAIN"] = "에디터 소스코드 저장";
-RUR.ko["SAVE LIBRARY"] = "라이브러리 저장";
-RUR.ko["SAVE LIBRARY EXPLAIN"] = "파일 라이브러리의 내용 저장";
-RUR.ko["SAVE WORLD"] = "파일로 저장";
-RUR.ko["SAVE WORLD EXPLAIN"] = "(json 확장자) 월드를 컴퓨터에 저장";
-RUR.ko["ADD EDITOR TEXT"] = "월드에 접속하기 위해 에디터 추가";
-RUR.ko["ADD LIBRARY TEXT"] = "월드에 접속하기 위해 라이브러리 추가";
-RUR.ko["KEYBOARD BUTTON"] = "리보그의 키보드";
-RUR.ko["ADDITIONAL OPTIONS"] = "추가 설정";
-
-RUR.ko["BASIC COMMANDS"] = "기본적인 명령어";
-RUR.ko["DEFINING"] = "정의";
-RUR.ko["LOOPS"] = "루프";
-RUR.ko["DECISIONS"] = "결정";
-RUR.ko["CONDITIONS"] = "상태";
-RUR.ko["USING VARIABLES"] = "변수 사용하기";
-RUR.ko["COMMANDS"] = "명령어들";
-RUR.ko["OTHER"] = "그 외";
-RUR.ko["OBJECTS"] = "객체들";
-
-RUR.ko["Python Code"] = "파이썬 코드";
-RUR.ko["Javascript Code"] = "자바스크립트 코드";
-RUR.ko["LIBRARY"] = "라이브러리";
-RUR.ko["PRE"] = "전에";
-RUR.ko["POST"] = "후";
-RUR.ko["DESCRIPTION"] = "월드 정보";
-RUR.ko["ONLOAD"] = "Onload";
-
-RUR.ko["HIGHLIGHT IMPOSSIBLE"] = "구문 강조를 꺼서 문제가 발생했습니다.";
-RUR.ko["COMMAND RESULT"] = "아래 메뉴에서 수행할 작업을 선택합니다.";
-
-RUR.ko["PERMALINK"] = "퍼머링크";
-RUR.ko["COPY"] = "복사";
-RUR.ko["COPY PERMALINK EXPLAIN"] = "퍼머링크를 클립보드로 복사하기.";
-RUR.ko["Save"] = "저장";
-RUR.ko["Save permalink explanation"] = "퍼머링크의 복사본을 파일로 저장합니다.";
-RUR.ko["REPLACE PERMALINK"] = "되돌리기";
-RUR.ko["REPLACE PERMALINK EXPLAIN"] = "위의 내용을 퍼머링크로 교체하고 교체를 클릭합니다.";
-RUR.ko["CANCEL"] = "취소";
-
-RUR.ko["DELETE WORLD TEXT"] = "버튼을 클릭하면 브라우져의 메모리에 저장된 월드를 제거합니다:";
-RUR.ko["PYTHON ONLY"] = "파이썬 전용";
-RUR.ko["COLLABORATION"] = "협업";
-RUR.ko["TOGETHERJS EXPLAIN"] = "다른 사용자는 Mozilla의 TogetherJS를 이용하여 협업에 참여 할 수 있습니다.";
-RUR.ko["WORLD CREATION TITLE"] = "월드 : 창조, 수정..";
-RUR.ko["EDIT WORLD"] = "월드 수정";
-RUR.ko["EDIT WORLD EXPLAIN"] = "기존 월드를 수정하여 자신 만의 월드를 만들 수 있습니다.";
-RUR.ko["PROGRAM IN EDITOR"] = "에디터";
-RUR.ko["SPECIAL EXECUTION"] = "미래에 생겨날 기능";
-RUR.ko["REVERSE STEP EXPLAIN"] = "이전 실행 상태를 되돌립니다.";
-RUR.ko["ERASE TRACE"] = "흔적 지우기";
-RUR.ko["ERASE TRACE EXPLAIN"] = "흔적을 리보그만 남기고 지웁니다. 이 기능은 프로그램이 멈추었을때 유용합니다.";
-RUR.ko["CONTACT"] = "(English/French only) 이메일:";
-RUR.ko["ISSUES"] = "버그 제보, 건의 그외 문제 등. (영어/프랑스어만 됨)";
-RUR.ko["FORUM"] = "토론 포럼 (영어/프랑스어만 됨";
-RUR.ko["HELP"] = "도움말";
-RUR.ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank">Documentation (참고 문서)</a>';
-RUR.ko["PYTHON HELP"] = "파이썬을 사용해서, <code>help()</code>를 실행해서 명령어의 목록을 얻으세요 또는 <code>help(함수명)</code>으로 해당 <code>함수명()</code>의 정보를 확인할 수 있습니다. 예를 들어, <code>help(move)</code>로 <code>move</code>함수의 정보를 얻을 수 있습니다.";
-RUR.ko["KEYBOARD HELP"] = "리보그의 키보드를 클릭해서 파이썬 키워드 등, 사용할수 있는 명령어의 목록을 보세요.";
-
-RUR.ko["WORLD EDITOR"] = "월드 에디터";
-RUR.ko["m-east"] = "동쪽";
-RUR.ko["m-north"] = "북쪽";
-RUR.ko["m-west"] = "서쪽";
-RUR.ko["m-south"] = "남쪽";
-RUR.ko["m-random"] = "랜덤";
-RUR.ko["m-dimensions"] = "월드 크기";
-RUR.ko["m-add"] = "추가";
-RUR.ko["m-add-robot"] = "로봇 추가";
-RUR.ko["m-robot"] = "로봇";
-RUR.ko["m-position"] = "위치(들)";
-RUR.ko["m-turn"] = "회전";
-RUR.ko["m-objects"] = "객체";
-RUR.ko["m-walls"] = "벽";
-RUR.ko["m-objects2"] = "객체";
-RUR.ko["m-tiles"] = "타일들";
-RUR.ko["m-fill"] = "체우기";
-RUR.ko["m-solid"] = "특정 객체";
-RUR.ko["m-decorative"] = "꾸미기용 객체";
-RUR.ko["m-background"] = "배경 사진";
-RUR.ko["m-goal"] = "목표";
-RUR.ko["mg-robot"] = "로봇";
-RUR.ko["mg-walls"] = "벽";
-RUR.ko["mg-objects"] = "객체";
-
-RUR.ko["Reeborg says: I'm done!"] = "리보그 : 다했어요";
-RUR.ko["Reeborg writes:"] = "리보그 쓰기:";
-RUR.ko["Reeborg shouts: Something is wrong!"] = "리보그 : 뭔가가 잘못 됬어요!";
-RUR.ko["Reeborg explores some Javascript code"] = "리보그는 일부 자바스크립트 코드를 조사했습니다";
-RUR.ko["Reeborg states:"] = "리보그 상태:";
-RUR.ko["Reeborg watches some variables!"] = "리보그는 몇가지의 변수를 보고 있습니다!";
-RUR.ko["Click on the world to get some additional information."] = "추가 정보를 얻기 위해 월드를 클릭합니다.";
-
-RUR.ko["Reeborg's basic keyboard"] = "리보그의 기본적인 키보드";
-RUR.ko["kbd-command-btn"] = "명령어";
-RUR.ko["kbd-condition-btn"] = "상태";
-RUR.ko["kbd-python-btn"] = "파이썬";
-RUR.ko["kbd-py-console-btn"] = "파이썬";
-RUR.ko["kbd-javascript-btn"] = "자비스크립트";
-RUR.ko["kbd-objects-btn"] = "객체";
-RUR.ko["kbd-special-btn"] = "특수키";
-
-// Do not translate below unless the corresponding functions are
-// defined in reeborg_ko.js and reeborg_ko.py
-RUR.ko["at_goal"] = "at_goal";
-RUR.ko["at_goal()"] = "at_goal()";
-RUR.ko["front_is_clear"] = "front_is_clear";
-RUR.ko["front_is_clear()"] = "front_is_clear()";
-RUR.ko["right_is_clear"] = "right_is_clear";
-RUR.ko["right_is_clear()"] = "right_is_clear()";
-RUR.ko["wall_in_front"] = "wall_in_front";
-RUR.ko["wall_in_front()"] = "wall_in_front()";
-RUR.ko["wall_on_right"] = "wall_on_right";
-RUR.ko["wall_on_right()"] = "wall_on_right()";
-RUR.ko["object_here"] = "object_here";
-RUR.ko["object_here()"] = "object_here()";
-RUR.ko["carries_object"] = "carries_object";
-RUR.ko["carries_object()"] = "carries_object()";
-RUR.ko["is_facing_north"] = "is_facing_north";
-RUR.ko["is_facing_north()"] = "is_facing_north()";
-
-RUR.ko["move"] = "move";
-RUR.ko["move()"] = "move()";
-RUR.ko["turn_left"] = "turn_left";
-RUR.ko["turn_left()"] = "turn_left()";
-RUR.ko["take"] = "take";
-RUR.ko["take()"] = "take()";
-RUR.ko["put"] = "put";
-RUR.ko["put()"] = "put()";
-RUR.ko["build_wall"] = "build_wall";
-RUR.ko["build_wall()"] = "build_wall()";
-RUR.ko["pause"] = "pause";
-RUR.ko["pause()"] = "pause()";
-RUR.ko["done"] = "done";
-RUR.ko["done()"] = "done()";
-RUR.ko["think"] = "think";
-RUR.ko["think()"] = "think()";
-RUR.ko["think(100)"] = "think(100)";
-RUR.ko["sound"] = "sound";
-RUR.ko["sound(True)"] = "sound(True)";
-RUR.ko["sound(true)"] = "sound(true)";
-RUR.ko["World"] = "World";
-RUR.ko["World()"] = "World()";
-RUR.ko["UsedRobot"] = "UsedRobot";
-RUR.ko["UsedRobot()"] = "UsedRobot()";
-RUR.ko["new UsedRobot"] = "new UsedRobot";
-RUR.ko["new UsedRobot()"] = "new UsedRobot()";
-RUR.ko["no_highlight"] = "no_highlight";
-RUR.ko["no_highlight()"] = "no_highlight()";
-RUR.ko["write"] = "write";
-RUR.ko["write()"] = "write()";
-
-RUR.ko["from library import ?"] = "from library import ?";
-RUR.ko["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code>는 여기에서만 작동하는 파이썬 키워드입니다.";
-
-RUR.ko["tab"] = "TAB";
-RUR.ko["shift-tab"] = "Shift-TAB";
-RUR.ko["enter"] = "\u23CE";
-RUR.ko["UNDO"] = "되돌리기";
-RUR.ko["REDO"] = "다시 실행";
-
-RUR.ko["Colour:"] = "색상:";
-RUR.ko["Enter a colour"] = "색상을 입력하세요";
-
-},{}],83:[function(require,module,exports){
 require("./../lang/en.js");
 require("./../lang/fr.js");
-require("./../lang/ko.js");
 
-RUR.translation = RUR.en;
+RUR.translation = RUR.ui_en;
 RUR.translation_to_english = RUR.en_to_en;
 
 var _recorded_ids = [];
@@ -10392,7 +9491,7 @@ record_id("color-selection-text", "Colour:");
 record_id("colour-selection");
 record_title("ui-dialog-title-dialog-select-colour", "Enter a colour");
 
-},{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ko.js":82}],84:[function(require,module,exports){
+},{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ui_en.js":85,"./../lang/ui_fr.js":86,"./../lang/ui_ko.js":87}],83:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could
     (possibly accidently) redefine a basic function, which could lead to some
     apparent bugs.  For this reason, we include a function whose role is to
@@ -10540,7 +9639,7 @@ RUR.reset_definitions_en = function () {
     window.facing_north = is_facing_north;
 };
 
-},{}],85:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 /* See reeborg_en.js */
 window.RUR = RUR || {};
 
@@ -10672,5 +9771,911 @@ RUR.reset_definitions_fr = function () {
     };
 
 };
+
+},{}],85:[function(require,module,exports){
+RUR.ui_en = {};
+RUR.en_to_en = {};
+
+RUR.ui_en["en-fr"] = "Mixed mode: User Interface in English; programming language in French.<br>" +
+    "Mode mixte: interface graphique en anglais; programmation en français.";
+
+RUR.ui_en["SITE NAME"] = "Reeborg's World";
+RUR.ui_en["WORLD INFO"] = "World Info";
+RUR.ui_en["EDITOR VISIBLE BLOCKLY"] = "Keep editor visible";
+
+RUR.ui_en["apple"] = "apple";
+RUR.en_to_en["apple"] = "apple";
+RUR.ui_en["banana"] = "banana";
+RUR.en_to_en["banana"] = "banana";
+RUR.ui_en["box"] = "box";
+RUR.en_to_en["box"] = "box";
+RUR.ui_en["bridge"] = "bridge";
+RUR.en_to_en["bridge"] = "bridge";
+RUR.ui_en["carrot"] = "carrot";
+RUR.en_to_en["carrot"] = "carrot";
+RUR.ui_en["daisy"] = "daisy";
+RUR.en_to_en["daisy"] = "daisy";
+RUR.ui_en["dandelion"] = "dandelion";
+RUR.en_to_en["dandelion"] = "dandelion";
+RUR.ui_en["leaf"] = "leaf";
+RUR.en_to_en["leaf"] = "leaf";
+RUR.ui_en["orange"] = "orange";
+RUR.en_to_en["orange"] = "orange";
+RUR.ui_en.square = "square";
+RUR.en_to_en["square"] = "square";
+RUR.ui_en.star = "star";
+RUR.en_to_en["star"] = "star";
+RUR.ui_en["strawberry"] = "strawberry";
+RUR.en_to_en["strawberry"] = "strawberry";
+RUR.ui_en.token = "token";
+RUR.en_to_en["token"] = "token";
+RUR.ui_en.triangle = "triangle";
+RUR.en_to_en["triangle"] = "triangle";
+RUR.ui_en["tulip"] = "tulip";
+RUR.en_to_en["tulip"] = "tulip";
+
+RUR.ui_en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
+
+RUR.ui_en["Too many steps:"] = "Too many steps: {max_steps}";
+RUR.ui_en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
+RUR.ui_en["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg is at the wrong x position.</li>";
+RUR.ui_en["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg is at the correct y position.</li>";
+RUR.ui_en["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg is at the wrong y position.</li>";
+RUR.ui_en["<li class='success'>All objects are at the correct location.</li>"] = "<li class='success'>All objects are at the correct location.</li>";
+RUR.ui_en["<li class='failure'>One or more objects are not at the correct location.</li>"] = "<li class='failure'>One or more objects are not at the correct location.</li>";
+RUR.ui_en["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>All walls have been built correctly.</li>";
+RUR.ui_en["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>One or more walls missing or built at wrong location.</li>";
+RUR.ui_en["Last instruction completed!"] = "Last instruction completed!";
+RUR.ui_en["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>done()</code> executed.</p>";
+
+RUR.ui_en["Unknown object"] = "Unknown object: {obj}";
+RUR.ui_en["No object found here"] = "No {obj} found here!";
+RUR.ui_en["object"] = "object";
+RUR.ui_en["I don't have any object to put down!"] = "I don't have any {obj} to put down!";
+RUR.ui_en["There is already a wall here!"] = "There is already a wall here!";
+RUR.ui_en["Ouch! I hit a wall!"] = "Ouch! I hit a wall!";
+RUR.ui_en["Done!"] = "Done!";
+RUR.ui_en["There is no position as a goal in this world!"] = "There is no position as a goal in this world!";
+RUR.ui_en["There is no goal in this world!"] = "There is no goal in this world!";
+RUR.ui_en["I carry too many different objects. I don't know which one to put down!"] = "I carry too many different objects. I don't know which one to put down!";
+RUR.ui_en["Many objects are here; I do not know which one to take!"] = "Many different objects are here; I do not know which one to take!";
+
+RUR.ui_en.east = "east";
+RUR.ui_en.north = "north";
+RUR.ui_en.west = "west";
+RUR.ui_en.south = "south";
+RUR.ui_en["Unknown orientation for robot."] = "Unknown orientation for robot.";
+
+RUR.ui_en["World selected"] = "World {world} selected";
+RUR.ui_en["Could not find world"] = "Could not find world {world}";
+RUR.ui_en["Object names"] = " library, token, star, triangle, square, etc.";
+
+RUR.ui_en["Invalid world file."] = "Invalid world file.";
+RUR.ui_en["PERMALINK"] = "PERMALINK";
+RUR.ui_en["Could not find link: "] = "Could not find link: ";
+
+RUR.ui_en["Click on world to move robot."] = "Click on world to add or remove possible starting positions for Reeborg.";
+RUR.ui_en["Added robot."] = "Added Reeborg.";
+RUR.ui_en["Click on image to turn robot"] = "Click on image to turn Reeborg";
+RUR.ui_en["Robot now has tokens."] = "Reeborg now has {x_tokens} tokens.";
+RUR.ui_en["Click on world to add object."] = "Click on world to set number of {obj}.";
+RUR.ui_en["Click on desired object below."] = "Click on desired object below.";
+RUR.ui_en["Click on world to toggle walls."] = "Click on world to toggle walls.";
+RUR.ui_en["Click on world to set home position for robot."] = "Click on world to add/remove possible final positions for robot.";
+RUR.ui_en["Click on world to toggle additional walls to build."] = "Click on world to toggle additional walls to build.";
+RUR.ui_en["Click on desired goal object below."] = "Click on desired goal object below.";
+RUR.ui_en["Click on world to set number of goal objects."] = "Click on world to set number of goal {obj}.";
+RUR.ui_en["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Enter number of tokens for Reeborg to carry.";
+RUR.ui_en[" is not a valid value!"] = " is not a valid value!";
+RUR.ui_en["Enter number of objects desired at that location."] = "Click on world to set number {obj}.";
+RUR.ui_en["Objects found here:"] = "Objects found here:";
+RUR.ui_en["Description"] = "Description";
+RUR.ui_en["A robot located here carries no objects."] = "A robot located at {x},{y} carries no objects.";
+RUR.ui_en["Goal to achieve:"] = "Goal to achieve:";
+RUR.ui_en["A robot located here carries:"] = "A robot located at {x},{y} carries:";
+RUR.ui_en["random location"] = "random location";
+RUR.ui_en["Enter number of objects to give to robot."] = "Enter number of {obj} to give to robot.";
+RUR.ui_en["Special information about this location:"] = "Special information about this location:";
+RUR.ui_en["Click on world to toggle tile."] = "Click on world to toggle {obj} tile.";
+RUR.ui_en["Click on desired tile below."] = "Click on desired tile below or on the colour selector.";
+RUR.ui_en["mud"] = "mud";
+RUR.ui_en["water"] = "water";
+RUR.ui_en["grass"] = "grass";
+RUR.ui_en["gravel"] = "gravel";
+RUR.ui_en["ice"] = "ice";
+RUR.ui_en["A wall must be built east of this location."] = "A wall must be built east of this location.";
+RUR.ui_en["A wall must be built north of this location."] = "A wall must be built north of this location.";
+RUR.ui_en["A wall must be built west of this location."] = "A wall must be built west of this location.";
+RUR.ui_en["A wall must be built south of this location."] = "A wall must be built south of this location.";
+RUR.ui_en["The final required position of the robot will be chosen at random."] = "The final required position of the robot will be chosen at random.";
+RUR.ui_en["The final position of the robot must be (x, y) = "] = "The final position of the robot must be (x, y) = ";
+RUR.ui_en["Click on world to fill with given tile."] = "Click on world to fill with given tile.";
+RUR.ui_en["Click on desired object below."] = "Click on desired object below.";
+RUR.ui_en["Enter url of image to use as background."] = "Enter url of image to use as background.";
+RUR.ui_en["Replace editor content"] = "Do you wish to replace your editor code by that provided by the creator of this world?";
+RUR.ui_en["Replace library content"] = "Do you wish to replace your library code by that provided by the creator of this world?";
+RUR.ui_en["colour"] = "colour";
+
+RUR.ui_en["Name already exist; confirm that you want to replace its content."] = "Name already exist; confirm that you want to replace its content.";
+RUR.ui_en["No such world!"] = "No such world!";
+RUR.ui_en["Enter world name to save"] = "Enter world name to save; names in use: ";
+RUR.ui_en["Enter world name to delete"] = "Enter world name to delete; existing worlds: ";
+RUR.ui_en["Delete "] = "Delete ";
+
+RUR.ui_en["Error found at or near line {number}."] = "Error found at or near line {number}.";
+RUR.ui_en["<br>Perhaps a missing colon is the cause."] = "<br>Perhaps a missing colon is the cause.";
+RUR.ui_en["<br>Perhaps you forgot to add parentheses ()."] = "<br>Perhaps you forgot to add parentheses ().";
+RUR.ui_en["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Perhaps you misspelled a word or forgot to define a function or a variable.";
+
+RUR.ui_en["I'm stuck in mud."] = "I'm stuck in mud.";
+RUR.ui_en["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.";
+RUR.ui_en["I'm slipping on ice!"] = "I'm slipping on ice!";
+RUR.ui_en["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.";
+RUR.ui_en["Grass: usually safe."] = "Grass: usually safe.";
+RUR.ui_en["Gravel: usually safe."] = "Gravel: usually safe.";
+RUR.ui_en["I'm in water!"] = "I'm in water!";
+RUR.ui_en["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.";
+RUR.ui_en["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green_home_tile: Reeborg <b>can</b> detect this tile using at_goal().";
+RUR.ui_en["Crash!"] = "Crash!";
+RUR.ui_en["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.";
+RUR.ui_en["I hit a fence!"] = "I hit a fence!";
+RUR.ui_en["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
+RUR.ui_en["Bridge:"] = "Bridge: ";
+RUR.ui_en["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
+
+RUR.ui_en["Something is blocking the way!"] = "Something is blocking the way!";
+RUR.ui_en["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this using at_goal().";
+RUR.ui_en["green home tile:"] = "green home tile:";
+RUR.ui_en["home:"] = "home:";
+RUR.ui_en["racing flag:"] = "racing flag:";
+RUR.ui_en["house:"] = "house:";
+
+RUR.ui_en["fence_right"] = "fence";
+RUR.ui_en["fence_left"] = "fence";
+RUR.ui_en["fence_double"] = "fence";
+RUR.ui_en["fence_vertical"] = "fence";
+
+RUR.ui_en["Local variables"] = "Local variables";
+RUR.ui_en["Global variables"] = "Global variables";
+RUR.ui_en["Watched expressions"] = "Watched expressions";
+
+RUR.ui_en["move forward"] = "move forward";
+RUR.ui_en["turn left"] = "turn left";
+RUR.ui_en["take object"] = "take object";
+RUR.ui_en["put object"] = "put object";
+RUR.ui_en["Pause the program's execution."] = "Pause the program's execution.";
+RUR.ui_en["Build a wall in front of the robot."] = "Build a wall in front of the robot.";
+RUR.ui_en["End the program's execution."] = "End the program's execution.";
+RUR.ui_en["True if a wall is blocking the way."] = "True if a wall is blocking the way";
+RUR.ui_en["True if nothing is blocking the way."] = "True if nothing is blocking the way.";
+RUR.ui_en["True if desired destination."] = "True if desired destination.";
+RUR.ui_en["True if robot carries at least one object."] = "True if robot carries at least one object.";
+RUR.ui_en["True if there is at least one object here."] = "True if there is at least one object here.";
+RUR.ui_en["True if robot is facing North."] = "True if robot is facing North.";
+RUR.ui_en["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
+
+RUR.ui_en["Save world in browser"] = "Save world in browser";
+RUR.ui_en["LOAD EDITOR"] = "Import program from file";
+RUR.ui_en["LOAD EDITOR EXPLAIN"] = "Opens a local file and use its content to replace the content of the Code editor.";
+RUR.ui_en["LOAD LIBRARY"] = "Import library from a file";
+RUR.ui_en["LOAD LIBRARY EXPLAIN"] = "Opens a file and use its content to replace the current content of the Library.";
+RUR.ui_en["LOAD WORLD"] = "Open world from file";
+RUR.ui_en["LOAD WORLD EXPLAIN"] = "Loads a world from a file on your computer.";
+RUR.ui_en["SAVE EDITOR"] = "Save program to file";
+RUR.ui_en["SAVE EDITOR EXPLAIN"] = "Saves the content of the editor in a file.";
+RUR.ui_en["SAVE LIBRARY"] = "Save the library";
+RUR.ui_en["SAVE LIBRARY EXPLAIN"] = "Saves the content of the library in a file.";
+RUR.ui_en["SAVE WORLD"] = "Save world to file";
+RUR.ui_en["SAVE WORLD EXPLAIN"] = "Saves the world (as a json object) to a file on your computer.";
+RUR.ui_en["ADD EDITOR TEXT"] = "Add editor content to world";
+RUR.ui_en["ADD LIBRARY TEXT"] = "Add library content to world";
+RUR.ui_en["KEYBOARD BUTTON"] = "Reeborg's keyboard";
+RUR.ui_en["ADDITIONAL OPTIONS"] = "Additional options";
+
+RUR.ui_en["BASIC COMMANDS"] = "Basic commands";
+RUR.ui_en["DEFINING"] = "Defining";
+RUR.ui_en["LOOPS"] = "Loops";
+RUR.ui_en["DECISIONS"] = "Decisions";
+RUR.ui_en["CONDITIONS"] = "Conditions";
+RUR.ui_en["USING VARIABLES"] = "Using variables";
+RUR.ui_en["COMMANDS"] = "Commandes";
+RUR.ui_en["OTHER"] = "Other";
+RUR.ui_en["OBJECTS"] = "Objects";
+
+RUR.ui_en["Python Code"] = "Python Code";
+RUR.ui_en["Javascript Code"] = "Javascript Code";
+RUR.ui_en["LIBRARY"] = "library";
+RUR.ui_en["PRE"] = "Pre";
+RUR.ui_en["POST"] = "Post";
+RUR.ui_en["DESCRIPTION"] = "Desc.";
+RUR.ui_en["ONLOAD"] = "Onload";
+
+RUR.ui_en["HIGHLIGHT IMPOSSIBLE"] = "A problem with your code has caused me to turn off the code highlighting.";
+RUR.ui_en["COMMAND RESULT"] = "Select action to perform from menu below.";
+
+RUR.ui_en["COPY"] = "Copy";
+RUR.ui_en["COPY PERMALINK EXPLAIN"] = "Copy the permalink to the clipboard.";
+RUR.ui_en["Save"] = "Save";
+RUR.ui_en["Save permalink explanation"] = "Saves a copy of the permalink to a file.";
+RUR.ui_en["REPLACE PERMALINK"] = "Replace";
+RUR.ui_en["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different permalink and click on Replace";
+RUR.ui_en["CANCEL"] = "Cancel";
+
+RUR.ui_en["DELETE WORLD TEXT"] = "The following refers to worlds currently stored in your browser which you can delete:";
+RUR.ui_en["PYTHON ONLY"] = "Python only";
+RUR.ui_en["COLLABORATION"] = "Collaboration";
+RUR.ui_en["TOGETHERJS EXPLAIN"] = "Tool which permits collaboration with one or more other user using Mozilla's TogetherJS.";
+RUR.ui_en["WORLD CREATION TITLE"] = "World: creation, edition, ...";
+RUR.ui_en["EDIT WORLD"] = "Edit world";
+RUR.ui_en["EDIT WORLD EXPLAIN"] = "You can create your own world by editing the current one.";
+RUR.ui_en["PROGRAM IN EDITOR"] = "Program in editor";
+RUR.ui_en["SPECIAL EXECUTION"] = "Special execution features";
+RUR.ui_en["REVERSE STEP EXPLAIN"] = "Reverses the previous execution step.";
+RUR.ui_en["ERASE TRACE"] = "Erase trace";
+RUR.ui_en["ERASE TRACE EXPLAIN"] = "Erases the trace left by Reeborg. This can be useful to focus on what happens after a program is paused.";
+RUR.ui_en["CONTACT"] = "(English/French only) Email:";
+RUR.ui_en["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/French only)";
+RUR.ui_en["FORUM"] = "Discussion forum (English/French only)";
+RUR.ui_en["HELP"] = "Help";
+RUR.ui_en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank">Documentation</a>';
+RUR.ui_en["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
+RUR.ui_en["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
+
+RUR.ui_en["WORLD EDITOR"] = "World editor";
+RUR.ui_en["m-east"] = "East";
+RUR.ui_en["m-north"] = "North";
+RUR.ui_en["m-west"] = "West";
+RUR.ui_en["m-south"] = "South";
+RUR.ui_en["m-random"] = "Random";
+RUR.ui_en["m-dimensions"] = "World dimensions";
+RUR.ui_en["m-add"] = "Add";
+RUR.ui_en["m-add-robot"] = "Add robot";
+RUR.ui_en["m-robot"] = "Robot";
+RUR.ui_en["m-position"] = "Position(s)";
+RUR.ui_en["m-turn"] = "Turn";
+RUR.ui_en["m-objects"] = "Objects";
+RUR.ui_en["m-walls"] = "Walls";
+RUR.ui_en["m-objects2"] = "Objects";
+RUR.ui_en["m-tiles"] = "Tiles";
+RUR.ui_en["m-fill"] = "Fill";
+RUR.ui_en["m-solid"] = "Solid objects";
+RUR.ui_en["m-decorative"] = "Decorative objects";
+RUR.ui_en["m-background"] = "Background image";
+RUR.ui_en["m-goal"] = "Goal";
+RUR.ui_en["mg-robot"] = "Robot";
+RUR.ui_en["mg-walls"] = "Walls";
+RUR.ui_en["mg-objects"] = "Objects";
+
+RUR.ui_en["Reeborg says: I'm done!"] = "Reeborg says: I'm done!";
+RUR.ui_en["Reeborg writes:"] = "Reeborg writes:";
+RUR.ui_en["Reeborg shouts: Something is wrong!"] = "Reeborg shouts: Something is wrong!";
+RUR.ui_en["Reeborg explores some Javascript code"] = "Reeborg explores some Javascript code";
+RUR.ui_en["Reeborg states:"] = "Reeborg states:";
+RUR.ui_en["Reeborg watches some variables!"] = "Reeborg watches some variables!";
+RUR.ui_en["Click on the world to get some additional information."] = "Click on the world to get some additional information.";
+
+RUR.ui_en["Reeborg's basic keyboard"] = "Reeborg's basic keyboard";
+RUR.ui_en["kbd-command-btn"] = "Commands";
+RUR.ui_en["kbd-condition-btn"] = "Conditions";
+RUR.ui_en["kbd-python-btn"] = "Python";
+RUR.ui_en["kbd-py-console-btn"] = "Python";
+RUR.ui_en["kbd-javascript-btn"] = "Javascript";
+RUR.ui_en["kbd-objects-btn"] = "Objects";
+RUR.ui_en["kbd-special-btn"] = "Special";
+
+RUR.ui_en["UNDO"] = "UNDO";
+RUR.ui_en["REDO"] = "REDO";
+RUR.ui_en["tab"] = "TAB";
+RUR.ui_en["shift-tab"] = "Shift-TAB";
+RUR.ui_en["enter"] = "\u23CE";
+RUR.ui_en["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> is not a true Python keyword.";
+
+RUR.ui_en["Colour:"] = "Colour:";
+RUR.ui_en["Enter a colour"] = "Enter a colour";
+
+},{}],86:[function(require,module,exports){
+RUR.ui_fr = {};
+RUR.fr_to_en = {};
+
+RUR.ui_fr["SITE NAME"] = "Le monde de Reeborg";
+RUR.ui_fr["WORLD INFO"] = "Description";
+RUR.ui_fr["EDITOR VISIBLE BLOCKLY"] = "Garder l'éditeur visible";
+
+RUR.ui_fr["apple"] = "pomme";
+RUR.fr_to_en["pomme"] = "apple";
+RUR.ui_fr["banana"] = "banane";
+RUR.fr_to_en["banane"] = "banana";
+RUR.ui_fr["box"] = "boîte";
+RUR.fr_to_en["boîte"] = "box";
+RUR.ui_fr["bridge"] = "pont";
+RUR.fr_to_en["pont"] = "bridge";
+RUR.ui_fr["carrot"] = "carotte";
+RUR.fr_to_en["carotte"] = "carrot";
+RUR.ui_fr["daisy"] = "marguerite";
+RUR.fr_to_en["marguerite"] = "daisy";
+RUR.ui_fr["dandelion"] = "pissenlit";
+RUR.fr_to_en["pissenlit"] = "dandelion";
+RUR.ui_fr["leaf"] = "feuille";
+RUR.fr_to_en["feuille"] = "leaf";
+RUR.ui_fr["orange"] = "orange";
+RUR.fr_to_en["orange"] = "orange";
+RUR.ui_fr.square = "carré";
+RUR.fr_to_en["carré"] = "square";
+RUR.ui_fr.star = "étoile";
+RUR.fr_to_en["étoile"] = "star";
+RUR.ui_fr["strawberry"] = "fraise";
+RUR.fr_to_en["fraise"] = "strawberry";
+RUR.ui_fr.token = "jeton";
+RUR.fr_to_en["jeton"] = "token";
+RUR.ui_fr.triangle = "triangle";
+RUR.fr_to_en["triangle"] = "triangle";
+RUR.ui_fr["tulip"] = "tulipe";
+RUR.fr_to_en["tulipe"] = "tulip";
+
+RUR.ui_fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
+
+RUR.ui_fr["Too many steps:"] = "Trop d'instructions: {max_steps}";
+RUR.ui_fr["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
+RUR.ui_fr["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée x.</li>";
+RUR.ui_fr["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée y.</li>";
+RUR.ui_fr["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée y.</li>";
+RUR.ui_fr["<li class='success'>All objects are at the correct location.</li>"] = "<li class='success'>Tous les objets sont aux bons endroits.</li>";
+RUR.ui_fr["<li class='failure'>One or more objects are not at the correct location.</li>"] = "<li class='failure'>Un ou plusieurs objets ne sont pas aux bons endroits.</li>";
+RUR.ui_fr["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>Tous les murs ont été construits correctement.</li>";
+RUR.ui_fr["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>Un ou plusieurs murs manquent ou sont aux mauvais endroits.</li>";
+RUR.ui_fr["Last instruction completed!"] = "Dernière instruction complétée!";
+RUR.ui_fr["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>Instruction <code>terminé()</code> exécutée.</p>";
+
+RUR.ui_fr["Unknown object"] = "Objet inconnu: {obj}";
+RUR.ui_fr["No object found here"] = "Pas d'objet '{obj}'' trouvé ici !";
+RUR.ui_fr["object"] = "objet";
+RUR.ui_fr["I don't have any object to put down!"] = "Je n'ai pas de '{obj}'!";
+RUR.ui_fr["There is already a wall here!"] = "Il y a déjà un mur ici !";
+RUR.ui_fr["Ouch! I hit a wall!"] = "Ouch! J'ai frappé un mur!";
+RUR.ui_fr["Done!"] = "Terminé !";
+RUR.ui_fr["There is no position as a goal in this world!"] = "Aucune position n'a été spécifiée comme but dans ce monde!";
+RUR.ui_fr["There is no goal in this world!"] = "Il n'y a pas de but dans ce monde!";
+RUR.ui_fr["I carry too many different objects. I don't know which one to put down!"] = "Je transporte trop d'objets: je ne sais pas lequel déposer!";
+RUR.ui_fr["Many objects are here; I do not know which one to take!"] = "Beaucoup d'objets différents sont ici; je ne sais pas lequel prendre!";
+
+RUR.ui_fr.east = "est";
+RUR.ui_fr.north = "nord";
+RUR.ui_fr.west = "ouest";
+RUR.ui_fr.south = "sud";
+RUR.ui_fr["Unknown orientation for robot."] = "Orientation inconnue.";
+
+RUR.ui_fr["World selected"] = "Monde {world} choisi";
+RUR.ui_fr["Could not find world"] = "Je ne peux pas trouver {world}";
+RUR.ui_fr["Object names"] = " biblio, jeton, étoile, triangle, carré, etc.";
+
+RUR.ui_fr["Invalid world file."] = "Fichier monde invalide.";
+RUR.ui_fr["Could not find link: "] = "Lien introuvable : ";
+
+RUR.ui_fr["Click on world to move robot."] = "Cliquez sur le monde pour ajouter ou supprimer des positions de départ possibles pour Reeborg.";
+RUR.ui_fr["Added robot."] = "Reeborg ajouté.";
+RUR.ui_fr["Click on image to turn robot"] = "Cliquez sur l'image pour tourner Reeborg.";
+RUR.ui_fr["Robot now has tokens."] = "Reeborg a {x_tokens} jetons.";
+RUR.ui_fr["Click on world to add object."] = "Cliquez sur le monde pour ajouter des {obj}.";
+RUR.ui_fr["Click on desired object below."] = "Cliquez sur l'objet désiré ci-dessous.";
+RUR.ui_fr["Click on world to toggle walls."] = "Cliquez sur le monde pour ajouter/supprimer des murs.";
+RUR.ui_fr["Click on world to set home position for robot."] = "Cliquez sur le monde pour ajouter ou supprimer une position finale possible du robot.";
+RUR.ui_fr["Click on world to toggle additional walls to build."] = "Cliquez sur le monde pour ajouter/supprimer des murs à construire.";
+RUR.ui_fr["Click on desired goal object below."] = "Cliquez sur l'objet désiré comme 'but'.";
+RUR.ui_fr["Click on world to set number of goal objects."] = "Cliquez sur le monde pour fixer le nombre d'objet '{obj}' comme but.";
+RUR.ui_fr["Enter number of tokens for robot to carry (use inf for infinite number)"] = "Entrez un nombre de jetons en possesion de Reeborg.";
+RUR.ui_fr[" is not a valid value!"] = " n'est pas une valeur valide!";
+RUR.ui_fr["Enter number of objects desired at that location."] = "Cliquez sur le monde pour fixer le nombre d'objet '{obj}' désiré à cet endroit.";
+RUR.ui_fr["Objects found here:"] = "Objets trouvés ici:";
+RUR.ui_fr["Description"] = "Description";
+RUR.ui_fr["A robot located here carries no objects."] = "A robot situé à {x},{y} ne transporte aucun objet.";
+RUR.ui_fr["A robot located here carries:"] = "Un robot situé à {x},{y} transporte:";
+RUR.ui_fr["random location"] = "une position choisie au hasard";
+RUR.ui_fr["Enter number of objects to give to robot."] = "Quel nombre de {obj} voulez-vous donner au robot?";
+RUR.ui_fr["Special information about this location:"] = "Information particulière au sujet de cet endroit:";
+RUR.ui_fr["Click on world to toggle tile."] = "Cliquez sur le monde pour ajouter/supprimer l'image: '{obj}'.";
+RUR.ui_fr["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous ou sur le sélecteur de couleur.";
+RUR.ui_fr["mud"] = "boue";
+RUR.ui_fr["water"] = "eau";
+RUR.ui_fr["grass"] = "gazon";
+RUR.ui_fr["gravel"] = "gravier";
+RUR.ui_fr["ice"] = "glace";
+RUR.ui_fr["A wall must be built east of this location."] = "Un mur doit être construit à l'est de cet endroit.";
+RUR.ui_fr["A wall must be built north of this location."] = "Un mur doit être construit au nord de cet endroit.";
+RUR.ui_fr["A wall must be built west of this location."] = "Un mur doit être construit à l'ouest de cet endroit.";
+RUR.ui_fr["A wall must be built south of this location."] = "Un mur doit être construit au sud de cet endroit.";
+RUR.ui_fr["The final required position of the robot will be chosen at random."] = "La position finale requise pour Reeborg sera choisie au hasard.";
+RUR.ui_fr["The final position of the robot must be (x, y) = "] = "La position finale de Reeborg doit être (x, y) = ";
+RUR.ui_fr["Click on world to fill with given tile."] = "Cliquez sur le monde pour remplir avec cet objet.";
+RUR.ui_fr["Click on desired object below."] = "Cliquez sur l'objet désiré.";
+RUR.ui_fr["Enter url of image to use as background."] = "Fournir l'adresse (URL) de l'image à utiliser.";
+RUR.ui_fr["Replace editor content"] = "Voulez-vous remplacer le contenu du code de votre éditeur par celui défini par le créateur du monde?";
+RUR.ui_fr["Replace library content"] = "Voulez-vous remplacer le contenu du code de votre biliothèque par celui défini par le créateur du monde?";
+RUR.ui_fr["colour"] = "couleur";
+
+RUR.ui_fr["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
+RUR.ui_fr["No such world!"] = "Ce monde n'existe pas !";
+RUR.ui_fr["Enter world name to save"] = "Quel nom doit-on utiliser pour ce monde? Noms utilisés:";
+RUR.ui_fr["Enter world name to delete"] = "Écrivez le nom du monde à supprimer; mondes existant:";
+RUR.ui_fr["Goal to achieve:"] = "Résultat désiré :";
+RUR.ui_fr["Delete "] = "Effacer ";
+
+RUR.ui_fr["Error found at or near line {number}."] = "Erreur trouvée à la ligne {number} ou tout près.";
+RUR.ui_fr["<br>Perhaps a missing colon is the cause."] = "<br>Il manque peut-être deux points ':'.";
+RUR.ui_fr["<br>Perhaps you forgot to add parentheses ()."] = "<br>Il manque peut-être des parenthèses ().";
+RUR.ui_fr["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Il est possible qu'un mot soit mal épelé ou qu'une définition de fonction ou de variable manque.";
+
+RUR.ui_fr["I'm stuck in mud."] = "Je suis immobilisé dans la boue.";
+RUR.ui_fr["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Boue: Reeborg <b>ne peut pas</b> détecter ceci et y sera immobilisé s'il va à cet endroit.";
+RUR.ui_fr["I'm slipping on ice!"] = "Je glisse sur la glace!";
+RUR.ui_fr["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "Glace: Reeborg <b>ne peut pas</b> détecter ceci et glissera à la prochaine case.";
+RUR.ui_fr["Grass: usually safe."] = "Gazon: habituellement sans problèmes.";
+RUR.ui_fr["Gravel: usually safe."] = "Gravier: habituellement sans problèmes.";
+RUR.ui_fr["I'm in water!"] = "Je suis dans l'eau!";
+RUR.ui_fr["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "Eau: Reeborg <b>peut</b> détecter ceci mais il va être endommagé s'il s'y déplace.";
+RUR.ui_fr["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "tuile verte: Reeborg <b>peut</b> détecter ceci avec au_but().";
+RUR.ui_fr["Crash!"] = "Crash!";
+RUR.ui_fr["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Mur de brique: Reeborg <b>peut</b> détecter ceci mais il se fera mal s'il essaie de passer au travers.";
+RUR.ui_fr["I hit a fence!"] = "J'ai frappé une clôture!";
+RUR.ui_fr["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Clôture: Reeborg <b>peut</b> détecter ceci mais il ne peut pas passer au travers.";
+RUR.ui_fr["Bridge:"] = "Pont: ";
+RUR.ui_fr["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
+
+RUR.fr_to_en["pont"] = "bridge";
+RUR.ui_fr["Something is blocking the way!"] = "Quelque chose bloque le chemin!";
+RUR.ui_fr["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>peut</b> détecter ceci avec au_but().";
+RUR.ui_fr["green home tile:"] = "tuile verte pour l'arrivée:";
+RUR.ui_fr["home:"] = "la maison:";
+RUR.ui_fr["racing flag:"] = "drapeau d'arrivée:";
+RUR.ui_fr["house:"] = "maison:";
+
+RUR.ui_fr["fence_right"] = "clôture";
+RUR.ui_fr["fence_left"] = "clôture";
+RUR.ui_fr["fence_double"] = "clôture";
+RUR.ui_fr["fence_vertical"] = "clôture";
+
+RUR.ui_fr["Local variables"] = "Variables locales";
+RUR.ui_fr["Global variables"] = "Variables globales";
+RUR.ui_fr["Watched expressions"] = "Watched expressions";
+
+RUR.ui_fr["move forward"] = "avance";
+RUR.ui_fr["turn left"] = "tourne à gauche";
+RUR.ui_fr["take object"] = "prend l'objet";
+RUR.ui_fr["put object"] = "dépose l'objet";
+RUR.ui_fr["Pause the program's execution."] = "Pause l'exécution du programme.";
+RUR.ui_fr["Build a wall in front of the robot."] = "Construit un mur devant le robot.";
+RUR.ui_fr["End the program's execution."] = "Termine l'exécution du programme.";
+RUR.ui_fr["True if a wall is blocking the way."] = "Vrai si un mur bloque le chemin.";
+RUR.ui_fr["True if nothing is blocking the way."] = "Vrai si rien ne bloque le chemin.";
+RUR.ui_fr["True if desired destination."] = "Vrai si c'est la destination désirée.";
+RUR.ui_fr["True if robot carries at least one object."] = "Vrai si le robot transporte au moins un objet.";
+RUR.ui_fr["True if there is at least one object here."] = "Vrai s'il y a au moins un objet ici.";
+RUR.ui_fr["True if robot is facing North."] = "Vrai se le robot est face au nord.";
+RUR.ui_fr["Delay between actions; default is 300 ms."] = "Délai entre les actions; le défaut est de 300 ms.";
+
+RUR.ui_fr["Save world in browser"] = "Sauvegarder le monde dans le navigateur";
+RUR.ui_fr["Save permalink"] = "Sauvegarder le permalien";
+RUR.ui_fr["Save permalink explanation"] = "Sauvegarde une copie du permalien dans un fichier.";
+RUR.ui_fr["LOAD EDITOR"] = "Ouvrir un programme";
+RUR.ui_fr["LOAD EDITOR EXPLAIN"] = "Ouvre un fichier local et remplace le contenu de l'éditeur par le contenu du fichier.";
+RUR.ui_fr["LOAD LIBRARY"] = "Importer une bibliothèque";
+RUR.ui_fr["LOAD LIBRARY EXPLAIN"] = "Ouvre un fichier contenant un programme et remplace le contenu de la bibliothèque par le contenu du fichier choisi.";
+RUR.ui_fr["LOAD WORLD"] = "Ouvrir un monde";
+RUR.ui_fr["LOAD WORLD EXPLAIN"] = "Ouvre un monde à partir d'un fichier.";
+RUR.ui_fr["SAVE EDITOR"] = "Sauvegarder le programme";
+RUR.ui_fr["SAVE EDITOR EXPLAIN"] = "Sauvegarde le contenu de l'éditeur dans un fichier.";
+RUR.ui_fr["SAVE LIBRARY"] = "Sauvegarder la bibliothèque";
+RUR.ui_fr["SAVE LIBRARY EXPLAIN"] = "Sauvegarde le contenu de la bibliothèque dans un fichier.";
+RUR.ui_fr["SAVE WORLD"] = "Sauvegarder le monde";
+RUR.ui_fr["SAVE WORLD EXPLAIN"] = "Sauvegarde le monde dans un fichier (format json) sur votre ordinateur.";
+RUR.ui_fr["ADD EDITOR TEXT"] = "Inclure le contenu de l'éditeur";
+RUR.ui_fr["ADD LIBRARY TEXT"] = "Inclure le contenu de la bibliothèque";
+RUR.ui_fr["KEYBOARD BUTTON"] = "Clavier de Reeborg";
+RUR.ui_fr["ADDITIONAL OPTIONS"] = "Autres options";
+
+RUR.ui_fr["BASIC COMMANDS"] = "Commandes";
+RUR.ui_fr["DEFINING"] = "Définitions";
+RUR.ui_fr["LOOPS"] = "Boucles";
+RUR.ui_fr["DECISIONS"] = "Décisions";
+RUR.ui_fr["CONDITIONS"] = "Conditions";
+RUR.ui_fr["USING VARIABLES"] = "Utiliser des variables";
+RUR.ui_fr["COMMANDS"] = "Commandes";
+RUR.ui_fr["OTHER"] = "Autres";
+RUR.ui_fr["OBJECTS"] = "Objets";
+
+RUR.ui_fr["Python Code"] = "Code Python";
+RUR.ui_fr["Javascript Code"] = "Code Javascript";
+RUR.ui_fr["LIBRARY"] = "biblio";
+RUR.ui_fr["PRE"] = "Pre";
+RUR.ui_fr["POST"] = "Post";
+RUR.ui_fr["DESCRIPTION"] = "Desc.";
+RUR.ui_fr["ONLOAD"] = "Onload";
+
+RUR.ui_fr["HIGHLIGHT IMPOSSIBLE"] = "Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le surlignage du code dans l'éditeur.";
+RUR.ui_fr["COMMAND RESULT"] = "Sélectionnez l'action à performer dans le menu ci-dessous.";
+
+RUR.ui_fr["PERMALINK"] = "Permalien";
+RUR.ui_fr["COPY"] = "Copier";
+RUR.ui_fr["COPY PERMALINK EXPLAIN"] = "Copie le permalien dans le presse-papier.";
+RUR.ui_fr["Save"] = "Sauvegarder";
+RUR.ui_fr["Save permalink explanation"] = "Sauvegarde une copie du permalien dans un fichier.";
+RUR.ui_fr["REPLACE PERMALINK"] = "Remplacer";
+RUR.ui_fr["REPLACE PERMALINK EXPLAIN"] = "Remplacez le contenu ci-dessus par un nouveau permalien puis cliquez sur Remplacer.";
+RUR.ui_fr["CANCEL"] = "Annuler";
+
+RUR.ui_fr["DELETE WORLD TEXT"] = "En cliquant sur un bouton, éliminez un monde connu de la mémoire de votre nagivageur.";
+RUR.ui_fr["PYTHON ONLY"] = "Python seulement";
+RUR.ui_fr["COLLABORATION"] = "Collaboration";
+RUR.ui_fr["TOGETHERJS EXPLAIN"] = "Outil qui permet la collaboration à distance en utilisant l'outil TogetherJS de Mozilla (interface en anglais seulement).";
+RUR.ui_fr["WORLD CREATION TITLE"] = "Monde : édition, création, ...";
+RUR.ui_fr["EDIT WORLD"] = "Édition du monde";
+RUR.ui_fr["EDIT WORLD EXPLAIN"] = "Vous pouvez créer vos propres mondes en modifiant un monde existant.";
+RUR.ui_fr["PROGRAM IN EDITOR"] = "Programme dans l'éditeur";
+RUR.ui_fr["SPECIAL EXECUTION"] = "Options d'exécution";
+RUR.ui_fr["REVERSE STEP EXPLAIN"] = "Renverse l'instruction précédemment exécutée.";
+RUR.ui_fr["ERASE TRACE"] = "Effacer la trace";
+RUR.ui_fr["ERASE TRACE EXPLAIN"] = "Efface la trace laissée par Reeborg.  Ceci est utile pour permettre de se concentrer sur ce qui arrive lorsqu'on résume un programme après une pause.";
+RUR.ui_fr["CONTACT"] = "Courriel :";
+RUR.ui_fr["ISSUES"] = "Rapports de bogues, suggestions, autres problèmes, etc. (en anglais ou en français seulement).";
+RUR.ui_fr["FORUM"] = "Forum de discussions (en anglais ou en français seulement).";
+RUR.ui_fr["HELP"] = "Aide";
+RUR.ui_fr["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/fr" target="_blank">Documentation</a>';
+RUR.ui_fr["PYTHON HELP"] = "En utilisant Python, executez un programme avec <code>help()</code> pour obtenir une liste de commandes ou <code>help(avance)</code> pour obtenir de l'aide sur la fonction <code>avance()</code>, etc.";
+RUR.ui_fr["KEYBOARD HELP"] = "Cliquez sur le clavier de Reeborg keyboard pour voir une liste des commandes, la syntaxe Python, etc.";
+
+RUR.ui_fr["WORLD EDITOR"] = "Éditeur de monde";
+RUR.ui_fr["m-east"] = "Est";
+RUR.ui_fr["m-north"] = "Nord";
+RUR.ui_fr["m-west"] = "Ouest";
+RUR.ui_fr["m-south"] = "Sud";
+RUR.ui_fr["m-random"] = "Aléatoire";
+RUR.ui_fr["m-dimensions"] = "Taille du monde";
+RUR.ui_fr["m-add"] = "Ajouter";
+RUR.ui_fr["m-add-robot"] = "Ajouter Reeborg";
+RUR.ui_fr["m-robot"] = "Robot";
+RUR.ui_fr["m-position"] = "Position(s)";
+RUR.ui_fr["m-turn"] = "Orientation";
+RUR.ui_fr["m-objects"] = "Objets";
+RUR.ui_fr["m-walls"] = "Murs";
+RUR.ui_fr["m-objects2"] = "Objets";
+RUR.ui_fr["m-tiles"] = "Tuiles";
+RUR.ui_fr["m-fill"] = "Remplir";
+RUR.ui_fr["m-solid"] = "Objets solides";
+RUR.ui_fr["m-decorative"] = "Objets décoratifs";
+RUR.ui_fr["m-background"] = "Image de fond";
+RUR.ui_fr["m-goal"] = "But";
+RUR.ui_fr["mg-robot"] = "Robot";
+RUR.ui_fr["mg-walls"] = "Murs";
+RUR.ui_fr["mg-objects"] = "Objets";
+
+RUR.ui_fr["Reeborg says: I'm done!"] = "Reeborg dit : J'ai fini !";
+RUR.ui_fr["Reeborg writes:"] = "Reeborg écrit :";
+RUR.ui_fr["Reeborg shouts: Something is wrong!"] = "Reeborg crie: Quelque chose ne va pas !";
+RUR.ui_fr["Reeborg explores some Javascript code"] = "Reeborg explore le code Javascript";
+RUR.ui_fr["Reeborg states:"] = "Reeborg informe :";
+RUR.ui_fr["Reeborg watches some variables!"] = "Reeborg observe des variables !";
+RUR.ui_fr["Click on the world to get some additional information."] = "Cliquez sur le monde pour obtenir de l'information supplémentaire.";
+
+RUR.ui_fr["Reeborg's basic keyboard"] = "Le clavier spécial de Reeborg";
+RUR.ui_fr["kbd-command-btn"] = "Commandes";
+RUR.ui_fr["kbd-condition-btn"] = "Conditions";
+RUR.ui_fr["kbd-python-btn"] = "Python";
+RUR.ui_fr["kbd-py-console-btn"] = "Python";
+RUR.ui_fr["kbd-javascript-btn"] = "Javascript";
+RUR.ui_fr["kbd-objects-btn"] = "Objets";
+RUR.ui_fr["kbd-special-btn"] = "Spécial";
+
+RUR.ui_fr["UNDO"] = "RENVERSER";
+RUR.ui_fr["REDO"] = "REFAIRE";
+RUR.ui_fr["tab"] = "TAB";
+RUR.ui_fr["shift-tab"] = "Maj-TAB";
+RUR.ui_fr["enter"] = "\u23CE";
+RUR.ui_fr["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> n'est pas un véritable mot-clé Python.";
+
+RUR.ui_fr["Colour:"] = "Couleur :";
+RUR.ui_fr["Enter a colour"] = "Spécifiez une couleur";
+
+},{}],87:[function(require,module,exports){
+RUR.ui_ko = {};
+RUR.ko_to_en = {};
+
+RUR.ui_ko["ko-en"] = "{Korean translation here}<br>" +
+    "Mixed mode: User Interface in Korean; programming language in English.<br>";
+
+RUR.ui_ko["SITE NAME"] = "리보그의 월드";
+RUR.ui_ko["WORLD INFO"] = "월드 정보";
+RUR.ui_ko["EDITOR VISIBLE BLOCKLY"] = "에디터 유지시키기";
+
+
+RUR.ui_ko["apple"] = "사과";
+RUR.ko_to_en["사과"] = "apple";
+RUR.ui_ko["banana"] = "바나나";
+RUR.ko_to_en["바나나"] = "banana";
+RUR.ui_ko["box"] = "상자";
+RUR.ko_to_en["상자"] = "box";
+RUR.ui_ko["bridge"] = "다리";
+RUR.ko_to_en["다리"] = "bridge";
+RUR.ui_ko["carrot"] = "당근";
+RUR.ko_to_en["당근"] = "carrot";
+RUR.ui_ko["daisy"] = "데이지꽃";
+RUR.ko_to_en["데이지꽃"] = "daisy";
+RUR.ui_ko["dandelion"] = "민들레";
+RUR.ko_to_en["민들레"] = "dandelion";
+RUR.ui_ko["leaf"] = "잎";
+RUR.ko_to_en["잎"] = "leaf";
+RUR.ui_ko["orange"] = "귤";
+RUR.ko_to_en["귤"] = "orange";
+RUR.ui_ko.square = "사각형";
+RUR.ko_to_en["사각형"] = "square";
+RUR.ui_ko.star = "별";
+RUR.ko_to_en["별"] = "star";
+RUR.ui_ko["strawberry"] = "딸기";
+RUR.ko_to_en["딸기"] = "strawberry";
+RUR.ui_ko.token = "토큰";
+RUR.ko_to_en["토큰"] = "token";
+RUR.ui_ko.triangle = "삼각형";
+RUR.ko_to_en["삼각형"] = "triangle";
+RUR.ui_ko["tulip"] = "튤립";
+RUR.ko_to_en["튤립"] = "tulip";
+
+RUR.ui_ko["Problem with onload code."] = "유효하지 않는 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
+
+RUR.ui_ko["Too many steps:"] = "너무 많은 steps: {max_steps}";
+RUR.ui_ko["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>리보그는 올바른 x 위치에 있습니다.</li>";
+RUR.ui_ko["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>리보그는 잘못된 x 위치에 있습니다.</li>";
+RUR.ui_ko["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>리보그는 올바른 y 위치에 있습니다.</li>";
+RUR.ui_ko["<li class='failure'>Reeborg is at the wrong y position.</li>"] = "<li class='failure'>리보그는 잘못된 y 위치에 있습니다.</li>";
+RUR.ui_ko["<li class='success'>All objects are at the correct location.</li>"] = "<li class='success'>모든 객체가 올바른 위치에 있습니다.</li>";
+RUR.ui_ko["<li class='failure'>One or more objects are not at the correct location.</li>"] = "<li class='failure'>하나 이상의 객체가 올바른 위치에 있지 않습니다.</li>";
+RUR.ui_ko["<li class='success'>All walls have been built correctly.</li>"] = "<li class='success'>모든 벽은 제대로 지어지고 있습니다.</li>";
+RUR.ui_ko["<li class='failure'>One or more walls missing or built at wrong location.</li>"] = "<li class='failure'>하나 이상의 벽이 누락되거나 잘못된 위치에서 건설됬습니다.</li>";
+RUR.ui_ko["Last instruction completed!"] = "마지막 명령이 완료됬습니다!";
+RUR.ui_ko["<p class='center'>Instruction <code>done()</code> executed.</p>"] = "<p class='center'>명령 <code>done()</code> 실행.</p>";
+
+RUR.ui_ko["Unknown object"] = "알 수 없는 객체: {obj}";
+RUR.ui_ko["No object found here"] = "여기서 {obj} 를 찾을수 없어요!";
+RUR.ui_ko["object"] = "객체";
+RUR.ui_ko["I don't have any object to put down!"] = "나는 집어넣을 {obj} 가 없어요!";
+RUR.ui_ko["There is already a wall here!"] = "벽이 여기에 이미 있어요!";
+RUR.ui_ko["Ouch! I hit a wall!"] = "아으,, 아파요! 저는 벽을 부딛쳤어요!";
+RUR.ui_ko["Done!"] = "끝!";
+RUR.ui_ko["There is no position as a goal in this world!"] = "위치에 대한 목표가 없어요!";
+RUR.ui_ko["There is no goal in this world!"] = "이 월드는 목표가 없어요.";
+RUR.ui_ko["I carry too many different objects. I don't know which one to put down!"] = "저는 너무 많은 다른 객체들을 싣고 있어요. 저는 이중 어떤 걸 내려놓을지 모르겠어요!";
+RUR.ui_ko["Many objects are here; I do not know which one to take!"] = "많은 객체들이 여기에 있어요; 저는 그 중 어떤걸 가져갈지 모르겠어요!";
+
+RUR.ui_ko.east = "동쪽";
+RUR.ui_ko.north = "북쪽";
+RUR.ui_ko.west = "서쪽";
+RUR.ui_ko.south = "남쪽";
+RUR.ui_ko["Unknown orientation for robot."] = "로봇의 방향을 알 수 없습니다.";
+
+RUR.ui_ko["World selected"] = "월드 {world} 가 선택되었습니다";
+RUR.ui_ko["Could not find world"] = "월드를 찾을 수 없습니다 {world}";
+RUR.ui_ko["Object names"] = " 라이브러리, 토큰, 별, 삼각형, 사각형, 등.";
+
+RUR.ui_ko["Invalid world file."] = "유효하지 않는 월드 파일.";
+RUR.ui_ko["Could not find link: "] = "링크를 찾을 수 없습니다: ";
+
+RUR.ui_ko["Click on world to move robot."] = "월드를 클릭해서 추가하거나 시작 가능한 리보그 위치를 제거합니다.";
+RUR.ui_ko["Added robot."] = "리보그 추가됨.";
+RUR.ui_ko["Click on image to turn robot"] = "리보그를 회전하기 위해 이미지를 클릭하세요.";
+RUR.ui_ko["Robot now has tokens."] = "이제 리보그는 {x_tokens} 토근을 가지고 있습니다.";
+RUR.ui_ko["Click on world to add object."] = "{obj} 의 수를 설정하기 위해 월드를 클릭하세요.";
+RUR.ui_ko["Click on desired object below."] = "아래에서 원하는 개체를 클릭합니다.";
+RUR.ui_ko["Click on world to toggle walls."] = "벽을 달기 위해 월드를 클락하세요.";
+RUR.ui_ko["Click on world to set home position for robot."] = "로봇의 최종위치를 정하기 위해 월드를 클릭하세요.";
+RUR.ui_ko["Click on world to toggle additional walls to build."] = "추가적으로 벽을 달기 위해 월드를 클릭하세요.";
+RUR.ui_ko["Click on desired goal object below."] = "아래에서 원하는 목표 객체를 클릭하세요.";
+RUR.ui_ko["Click on world to set number of goal objects."] = "{obj}의 목표를 설정하기 위해 객체를 클릭하세요.";
+RUR.ui_ko["Enter number of tokens for robot to carry (use inf for infinite number)"] = "싣고 갈 토큰의 수를 입력하세요.";
+RUR.ui_ko[" is not a valid value!"] = " 유효하지 않는 값입니다!";
+RUR.ui_ko["Enter number of objects desired at that location."] = "{obj} 의 수를 설정하기 위해 월드를 클릭하세요.";
+RUR.ui_ko["Objects found here:"] = "객체를 여기서 찾음:";
+RUR.ui_ko["Description"] = "설명";
+RUR.ui_ko["A robot located here carries no objects."] = "로봇은 {x},{y} 에 위치해 있고 싣고 있는 객체는 없습니다.";
+RUR.ui_ko["Goal to achieve:"] = "목표 달성:";
+RUR.ui_ko["A robot located here carries:"] = "로봇은 {x},{y} 에 위치해 있습니다. 싣고 있는 객체:";
+RUR.ui_ko["random location"] = "랜덤 위치";
+RUR.ui_ko["Enter number of objects to give to robot."] = "로봇에게 주기 위해 {obj} 의 수를 입력하세요..";
+RUR.ui_ko["Special information about this location:"] = "이 위치에 대한 특별한 정보:";
+RUR.ui_ko["Click on world to toggle tile."] = "{obj} 타일을 달기 위해 월드를 클릭하세요.";
+RUR.ui_ko["Click on desired tile below."] = "아래에서 원하는 타일을 클릭합니다. (or color selector)";
+RUR.ui_ko["mud"] = "진흙";
+RUR.ui_ko["water"] = "물";
+RUR.ui_ko["grass"] = "잔디";
+RUR.ui_ko["gravel"] = "자갈";
+RUR.ui_ko["ice"] = "얼음";
+RUR.ui_ko["A wall must be built east of this location."] = "벽은 이 위치의 동쪽에 지어져야 됩니다.";
+RUR.ui_ko["A wall must be built north of this location."] = "벽은 이 위치의 북쪽에 지어져야 됩니다.";
+RUR.ui_ko["A wall must be built west of this location."] = "벽은 이 위치의 서쪽에 지어져야 됩니다.";
+RUR.ui_ko["A wall must be built south of this location."] = "벽은 이 위치의 남쪽에 지어져야 됩니다.";
+RUR.ui_ko["The final required position of the robot will be chosen at random."] = "로봇의 마지막으로 필요한 위치가 무작위로 선택됩니다.";
+RUR.ui_ko["The final position of the robot must be (x, y) = "] = "로봇의 최종위치는 반드시 (x, y) = ";
+RUR.ui_ko["Click on world to fill with given tile."] = "주어진 타일을 채우기 위해 월드를 클릭합니다.";
+RUR.ui_ko["Click on desired object below."] = "아래에서 원하는 객체를 클릭합니다.";
+RUR.ui_ko["Enter url of image to use as background."] = "배경화면으로 쓰일 이미지나 이미지 주소를 입력해 주세요.";
+RUR.ui_ko["Replace editor content"] = "당신의 이 월드의 제작자에 의해 제공되는 에디터 코드를 대체 하고 싶나요?";
+RUR.ui_ko["Replace library content"] = "당신은 이 월드의 제작자에 의해 제공되는 라이브러리 코드를 대체 하고 싶나요?";
+RUR.ui_ko["colour"] = "색";
+
+RUR.ui_ko["Name already exist; confirm that you want to replace its content."] = "이름이 이미 존재합니다; 당신이 내용을 교체하고 싶으면 확인합니다.";
+RUR.ui_ko["No such world!"] = "월드가 존재하지 않습니다!";
+RUR.ui_ko["Enter world name to save"] = "월드를 저장하기 위해 월드 이름을 입력 해주세요; 사용될 이름: ";
+RUR.ui_ko["Enter world name to delete"] = "월드를 삭제하기 위해 월드 이름을 입력 해주세요; 기존 세계: ";
+RUR.ui_ko["Delete "] = "삭제 ";
+
+RUR.ui_ko["Error found at or near line {number}."] = "오류를 발견했습니다 혹은 라인 근처에서 발견됬습니다. : {number}.";
+RUR.ui_ko["<br>Perhaps a missing colon is the cause."] = "<br>아마도 콜론(:)을 놓쳐서 문제가 발생했을 겁니다.";
+RUR.ui_ko["<br>Perhaps you forgot to add parentheses ()."] = "<br>아마도 당신은 괄호를 추가하는 것을 잊어버렸을 겁니다 ().";
+RUR.ui_ko["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>아마도 당신은 단어의 철자나 함수를 정의하는것을 잊었거나 변수를 까먹었을 겁니다.";
+
+RUR.ui_ko["I'm stuck in mud."] = "난 진흙에 걸렸어요.";
+RUR.ui_ko["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "진흙: 리보그는 이것을 탐지 <b>하지 못하고<b> 이 위치로 이동하게 되면 걸리게 됩니다.";
+RUR.ui_ko["I'm slipping on ice!"] = "저는 얼음에 미끄러지고 있어요!";
+RUR.ui_ko["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "얼음: 리보그는 이것을 탐지 <b>하지 못하고</b> 만약 이 위치로 이동하게 되면 미끄러지고 다음 위치로 이동하게 됩니다.";
+RUR.ui_ko["Grass: usually safe."] = "잔디: 보통 안전함.";
+RUR.ui_ko["Gravel: usually safe."] = "자갈: 보통 안전함.";
+RUR.ui_ko["I'm in water!"] = "난 물 속에 있어요!";
+RUR.ui_ko["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "물: 리보그는 이것을 탐지 할 수 <b>있지만</b> 이 위치로 이동하는 경우 상처를 입히게 됩니다.";
+RUR.ui_ko["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green_home_tile: 리보그는 at_goal 를 사용하면 이 타일을 감지 할 수 <b>있어요<b>.";
+RUR.ui_ko["Crash!"] = "Crash!";
+RUR.ui_ko["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "벽돌 벽: 리보그는 이것을 탐지 할 수 있지만 만약 벽돌 벽으로 간다면 자신을 다치게 합니다.";
+RUR.ui_ko["I hit a fence!"] = "I hit a fence!";
+RUR.ui_ko["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "울타리: 리보그는 이것을  <b>can</b> 탐지 할 수 있지만 그것에 의해 중지됩니다.";
+RUR.ui_ko["Bridge:"] = "Bridge: ";
+RUR.ui_ko["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "리보그는 이것을 탐지 할 수 <b>있으며</b> 이 물 위에서 안전한 통행을 허용하는것을 알게 될 것입니다.";
+
+RUR.ui_ko["Something is blocking the way!"] = "뭔가가 길을 막고 있어요!";
+RUR.ui_ko["Reeborg <b>can</b> detect this tile using at_goal()."] = "리보그는 at_goal() 를 사용해서 탐지 할 수 <b>있어요</b>.";
+RUR.ui_ko["green home tile:"] = "초록색 홈 타일:";
+RUR.ui_ko["home:"] = "홈:";
+RUR.ui_ko["racing flag:"] = "레이싱 깃발:";
+RUR.ui_ko["house:"] = "집:";
+
+RUR.ui_ko["fence_right"] = "울타리";
+RUR.ui_ko["fence_left"] = "울타리";
+RUR.ui_ko["fence_double"] = "울타리";
+RUR.ui_ko["fence_vertical"] = "울타리";
+
+RUR.ui_ko["Local variables"] = "지역 변수";
+RUR.ui_ko["Global variables"] = "전역 변수";
+RUR.ui_ko["Watched expressions"] = "문장 결과 보기";
+
+RUR.ui_ko["move forward"] = "앞으로 움직이기";
+RUR.ui_ko["turn left"] = "왼쪽으로 움직이기";
+RUR.ui_ko["take object"] = "객체 가지기";
+RUR.ui_ko["put object"] = "객체 넣기";
+RUR.ui_ko["Pause the program's execution."] = "프로그램 일시 정지.";
+RUR.ui_ko["Build a wall in front of the robot."] = "벽을 로봇 앞에 짓기.";
+RUR.ui_ko["End the program's execution."] = "프로그램 실행 종료.";
+RUR.ui_ko["True if a wall is blocking the way."] = "벽이 길을 막고 있는 경우가 사실이라면.";
+RUR.ui_ko["True if nothing is blocking the way."] = "아무것도 차단 하지 않는 경우가 사실이라면.";
+RUR.ui_ko["True if desired destination."] = "원하는 목적지가 있는 경우가 사실이라면";
+RUR.ui_ko["True if robot carries at least one object."] = "로봇이 적어도 하나의 객체를 싣고 있는 경우가 사실이라면.";
+RUR.ui_ko["True if there is at least one object here."] = "적어도 하나의 객체가 여기에 있는 경우가 사실이라면.";
+RUR.ui_ko["True if robot is facing North."] = "만약 로봇이 북쪽을 바라보고 있는 경우가 사실이라면.";
+RUR.ui_ko["Delay between actions; default is 300 ms."] = "행동을 지연시킵니다; 기본값은 300 밀리초.";
+
+RUR.ui_ko["Save world in browser"] = "월드를 브라우저에 저장하기";
+RUR.ui_ko["Save permalink"] = "퍼머 저장";
+RUR.ui_ko["Save permalink explanation"] = "파일의 퍼머링크 복사본을 저장하기";
+RUR.ui_ko["LOAD EDITOR"] = "파일로 불러오기";
+RUR.ui_ko["LOAD EDITOR EXPLAIN"] = "로컬 저장소에서 소스코드 불러오기";
+RUR.ui_ko["LOAD LIBRARY"] = "파일에서 라이브러리를 가져오기";
+RUR.ui_ko["LOAD LIBRARY EXPLAIN"] = "파일을 열고 라이브러리의 컨텐츠를 지금 사용합니다.";
+RUR.ui_ko["LOAD WORLD"] = "파일로 불러오기";
+RUR.ui_ko["LOAD WORLD EXPLAIN"] = "컴퓨터안의 파일로 월드를 불러오기";
+RUR.ui_ko["SAVE EDITOR"] = "파일로 저장";
+RUR.ui_ko["SAVE EDITOR EXPLAIN"] = "에디터 소스코드 저장";
+RUR.ui_ko["SAVE LIBRARY"] = "라이브러리 저장";
+RUR.ui_ko["SAVE LIBRARY EXPLAIN"] = "파일 라이브러리의 내용 저장";
+RUR.ui_ko["SAVE WORLD"] = "파일로 저장";
+RUR.ui_ko["SAVE WORLD EXPLAIN"] = "(json 확장자) 월드를 컴퓨터에 저장";
+RUR.ui_ko["ADD EDITOR TEXT"] = "월드에 접속하기 위해 에디터 추가";
+RUR.ui_ko["ADD LIBRARY TEXT"] = "월드에 접속하기 위해 라이브러리 추가";
+RUR.ui_ko["KEYBOARD BUTTON"] = "리보그의 키보드";
+RUR.ui_ko["ADDITIONAL OPTIONS"] = "추가 설정";
+
+RUR.ui_ko["BASIC COMMANDS"] = "기본적인 명령어";
+RUR.ui_ko["DEFINING"] = "정의";
+RUR.ui_ko["LOOPS"] = "루프";
+RUR.ui_ko["DECISIONS"] = "결정";
+RUR.ui_ko["CONDITIONS"] = "상태";
+RUR.ui_ko["USING VARIABLES"] = "변수 사용하기";
+RUR.ui_ko["COMMANDS"] = "명령어들";
+RUR.ui_ko["OTHER"] = "그 외";
+RUR.ui_ko["OBJECTS"] = "객체들";
+
+RUR.ui_ko["Python Code"] = "파이썬 코드";
+RUR.ui_ko["Javascript Code"] = "자바스크립트 코드";
+RUR.ui_ko["LIBRARY"] = "라이브러리";
+RUR.ui_ko["PRE"] = "전에";
+RUR.ui_ko["POST"] = "후";
+RUR.ui_ko["DESCRIPTION"] = "월드 정보";
+RUR.ui_ko["ONLOAD"] = "Onload";
+
+RUR.ui_ko["HIGHLIGHT IMPOSSIBLE"] = "구문 강조를 꺼서 문제가 발생했습니다.";
+RUR.ui_ko["COMMAND RESULT"] = "아래 메뉴에서 수행할 작업을 선택합니다.";
+
+RUR.ui_ko["PERMALINK"] = "퍼머링크";
+RUR.ui_ko["COPY"] = "복사";
+RUR.ui_ko["COPY PERMALINK EXPLAIN"] = "퍼머링크를 클립보드로 복사하기.";
+RUR.ui_ko["Save"] = "저장";
+RUR.ui_ko["Save permalink explanation"] = "퍼머링크의 복사본을 파일로 저장합니다.";
+RUR.ui_ko["REPLACE PERMALINK"] = "되돌리기";
+RUR.ui_ko["REPLACE PERMALINK EXPLAIN"] = "위의 내용을 퍼머링크로 교체하고 교체를 클릭합니다.";
+RUR.ui_ko["CANCEL"] = "취소";
+
+RUR.ui_ko["DELETE WORLD TEXT"] = "버튼을 클릭하면 브라우져의 메모리에 저장된 월드를 제거합니다:";
+RUR.ui_ko["PYTHON ONLY"] = "파이썬 전용";
+RUR.ui_ko["COLLABORATION"] = "협업";
+RUR.ui_ko["TOGETHERJS EXPLAIN"] = "다른 사용자는 Mozilla의 TogetherJS를 이용하여 협업에 참여 할 수 있습니다.";
+RUR.ui_ko["WORLD CREATION TITLE"] = "월드 : 창조, 수정..";
+RUR.ui_ko["EDIT WORLD"] = "월드 수정";
+RUR.ui_ko["EDIT WORLD EXPLAIN"] = "기존 월드를 수정하여 자신 만의 월드를 만들 수 있습니다.";
+RUR.ui_ko["PROGRAM IN EDITOR"] = "에디터";
+RUR.ui_ko["SPECIAL EXECUTION"] = "미래에 생겨날 기능";
+RUR.ui_ko["REVERSE STEP EXPLAIN"] = "이전 실행 상태를 되돌립니다.";
+RUR.ui_ko["ERASE TRACE"] = "흔적 지우기";
+RUR.ui_ko["ERASE TRACE EXPLAIN"] = "흔적을 리보그만 남기고 지웁니다. 이 기능은 프로그램이 멈추었을때 유용합니다.";
+RUR.ui_ko["CONTACT"] = "(English/French only) 이메일:";
+RUR.ui_ko["ISSUES"] = "버그 제보, 건의 그외 문제 등. (영어/프랑스어만 됨)";
+RUR.ui_ko["FORUM"] = "토론 포럼 (영어/프랑스어만 됨";
+RUR.ui_ko["HELP"] = "도움말";
+RUR.ui_ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank">Documentation (참고 문서)</a>';
+RUR.ui_ko["PYTHON HELP"] = "파이썬을 사용해서, <code>help()</code>를 실행해서 명령어의 목록을 얻으세요 또는 <code>help(함수명)</code>으로 해당 <code>함수명()</code>의 정보를 확인할 수 있습니다. 예를 들어, <code>help(move)</code>로 <code>move</code>함수의 정보를 얻을 수 있습니다.";
+RUR.ui_ko["KEYBOARD HELP"] = "리보그의 키보드를 클릭해서 파이썬 키워드 등, 사용할수 있는 명령어의 목록을 보세요.";
+
+RUR.ui_ko["WORLD EDITOR"] = "월드 에디터";
+RUR.ui_ko["m-east"] = "동쪽";
+RUR.ui_ko["m-north"] = "북쪽";
+RUR.ui_ko["m-west"] = "서쪽";
+RUR.ui_ko["m-south"] = "남쪽";
+RUR.ui_ko["m-random"] = "랜덤";
+RUR.ui_ko["m-dimensions"] = "월드 크기";
+RUR.ui_ko["m-add"] = "추가";
+RUR.ui_ko["m-add-robot"] = "로봇 추가";
+RUR.ui_ko["m-robot"] = "로봇";
+RUR.ui_ko["m-position"] = "위치(들)";
+RUR.ui_ko["m-turn"] = "회전";
+RUR.ui_ko["m-objects"] = "객체";
+RUR.ui_ko["m-walls"] = "벽";
+RUR.ui_ko["m-objects2"] = "객체";
+RUR.ui_ko["m-tiles"] = "타일들";
+RUR.ui_ko["m-fill"] = "체우기";
+RUR.ui_ko["m-solid"] = "특정 객체";
+RUR.ui_ko["m-decorative"] = "꾸미기용 객체";
+RUR.ui_ko["m-background"] = "배경 사진";
+RUR.ui_ko["m-goal"] = "목표";
+RUR.ui_ko["mg-robot"] = "로봇";
+RUR.ui_ko["mg-walls"] = "벽";
+RUR.ui_ko["mg-objects"] = "객체";
+
+RUR.ui_ko["Reeborg says: I'm done!"] = "리보그 : 다했어요";
+RUR.ui_ko["Reeborg writes:"] = "리보그 쓰기:";
+RUR.ui_ko["Reeborg shouts: Something is wrong!"] = "리보그 : 뭔가가 잘못 됬어요!";
+RUR.ui_ko["Reeborg explores some Javascript code"] = "리보그는 일부 자바스크립트 코드를 조사했습니다";
+RUR.ui_ko["Reeborg states:"] = "리보그 상태:";
+RUR.ui_ko["Reeborg watches some variables!"] = "리보그는 몇가지의 변수를 보고 있습니다!";
+RUR.ui_ko["Click on the world to get some additional information."] = "추가 정보를 얻기 위해 월드를 클릭합니다.";
+
+RUR.ui_ko["Reeborg's basic keyboard"] = "리보그의 기본적인 키보드";
+RUR.ui_ko["kbd-command-btn"] = "명령어";
+RUR.ui_ko["kbd-condition-btn"] = "상태";
+RUR.ui_ko["kbd-python-btn"] = "파이썬";
+RUR.ui_ko["kbd-py-console-btn"] = "파이썬";
+RUR.ui_ko["kbd-javascript-btn"] = "자비스크립트";
+RUR.ui_ko["kbd-objects-btn"] = "객체";
+RUR.ui_ko["kbd-special-btn"] = "특수키";
+
+RUR.ui_ko["UNDO"] = "되돌리기";
+RUR.ui_ko["REDO"] = "다시 실행";
+RUR.ui_ko["tab"] = "TAB";
+RUR.ui_ko["shift-tab"] = "Shift-TAB";
+RUR.ui_ko["enter"] = "\u23CE";
+RUR.ui_ko["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code>는 여기에서만 작동하는 파이썬 키워드입니다.";
+
+RUR.ui_ko["Colour:"] = "색상:";
+RUR.ui_ko["Enter a colour"] = "색상을 입력하세요";
 
 },{}]},{},[18]);

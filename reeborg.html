@@ -61,7 +61,9 @@
       <select id="human-language" title="Select UI language">
         <option value="en">English</option>
         <option value="fr">Français</option>
-        <option value="ko">한국어</option>
+        <option class="select-mixed" value="ko-en">한국어 + en</option>
+        <option class="select-mixed" value="fr-en">Français + en</option>
+        <option class="select-mixed" value="en-fr">English + fr</option>
       </select>
     </div>
   </header>
@@ -203,6 +205,9 @@
       <button id="robot3"><img src="/src/images/sp_e.png"></button>
     </div>
   </div>
+
+  <div id="mixed-language-info"></div>
+
   <div id="editor-panel" class="active">
     <input type="file" id="fileInput" style="display:none;">
     <div id="tabs">

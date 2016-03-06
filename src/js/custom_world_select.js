@@ -36,10 +36,15 @@ function load_user_worlds() {
 
 RUR.make_default_menu = function(language) {
     switch (language) {
-        case 'en': RUR.make_default_menu_en();
-                   break;
-        case 'fr': RUR.make_default_menu_fr();
-                   break;
+        case 'en':
+        case 'fr-en':
+        case 'ko-en':
+            RUR.make_default_menu_en();
+            break;
+        case 'fr':
+        case 'en-fr':
+            RUR.make_default_menu_fr();
+            break;
         default: RUR.make_default_menu_en();
     }
 };

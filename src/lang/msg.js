@@ -1,8 +1,11 @@
+require("./../lang/ui_en.js");
+require("./../lang/ui_fr.js");
+require("./../lang/ui_ko.js");
+
 require("./../lang/en.js");
 require("./../lang/fr.js");
-require("./../lang/ko.js");
 
-RUR.translation = RUR.en;
+RUR.translation = RUR.ui_en;
 RUR.translation_to_english = RUR.en_to_en;
 
 var _recorded_ids = [];
