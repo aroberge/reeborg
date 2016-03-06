@@ -285,6 +285,15 @@ RUR.en["kbd-javascript-btn"] = "Javascript";
 RUR.en["kbd-objects-btn"] = "Objects";
 RUR.en["kbd-special-btn"] = "Special";
 
+RUR.en["UNDO"] = "UNDO";
+RUR.en["REDO"] = "REDO";
+RUR.en["tab"] = "TAB";
+RUR.en["shift-tab"] = "Shift-TAB";
+RUR.en["enter"] = "\u23CE";
+RUR.en["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> is not a true Python keyword.";
+
+RUR.en["Colour:"] = "Colour:";
+RUR.en["Enter a colour"] = "Enter a colour";
 
 // Only translate the strings below if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
@@ -337,13 +346,3 @@ RUR.en["write"] = "write";
 RUR.en["write()"] = "write()";
 
 RUR.en["from library import ?"] = "from library import ?";
-RUR.en["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> is not a true Python keyword.";
-
-RUR.en["tab"] = "TAB";
-RUR.en["shift-tab"] = "Shift-TAB";
-RUR.en["enter"] = "\u23CE";
-RUR.en["UNDO"] = "UNDO";
-RUR.en["REDO"] = "REDO";
-
-RUR.en["Colour:"] = "Colour:";
-RUR.en["Enter a colour"] = "Enter a colour";

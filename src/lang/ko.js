@@ -288,6 +288,16 @@ RUR.ko["kbd-javascript-btn"] = "자비스크립트";
 RUR.ko["kbd-objects-btn"] = "객체";
 RUR.ko["kbd-special-btn"] = "특수키";
 
+RUR.ko["UNDO"] = "되돌리기";
+RUR.ko["REDO"] = "다시 실행";
+RUR.ko["tab"] = "TAB";
+RUR.ko["shift-tab"] = "Shift-TAB";
+RUR.ko["enter"] = "\u23CE";
+RUR.ko["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code>는 여기에서만 작동하는 파이썬 키워드입니다.";
+
+RUR.ko["Colour:"] = "색상:";
+RUR.ko["Enter a colour"] = "색상을 입력하세요";
+
 // Do not translate below unless the corresponding functions are
 // defined in reeborg_ko.js and reeborg_ko.py
 RUR.ko["at_goal"] = "at_goal";
@@ -339,13 +349,3 @@ RUR.ko["write"] = "write";
 RUR.ko["write()"] = "write()";
 
 RUR.ko["from library import ?"] = "from library import ?";
-RUR.ko["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code>는 여기에서만 작동하는 파이썬 키워드입니다.";
-
-RUR.ko["tab"] = "TAB";
-RUR.ko["shift-tab"] = "Shift-TAB";
-RUR.ko["enter"] = "\u23CE";
-RUR.ko["UNDO"] = "되돌리기";
-RUR.ko["REDO"] = "다시 실행";
-
-RUR.ko["Colour:"] = "색상:";
-RUR.ko["Enter a colour"] = "색상을 입력하세요";

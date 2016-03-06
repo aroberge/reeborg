@@ -290,6 +290,16 @@ RUR.fr["kbd-javascript-btn"] = "Javascript";
 RUR.fr["kbd-objects-btn"] = "Objets";
 RUR.fr["kbd-special-btn"] = "Spécial";
 
+RUR.fr["UNDO"] = "RENVERSER";
+RUR.fr["REDO"] = "REFAIRE";
+RUR.fr["tab"] = "TAB";
+RUR.fr["shift-tab"] = "Maj-TAB";
+RUR.fr["enter"] = "\u23CE";
+RUR.fr["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> n'est pas un véritable mot-clé Python.";
+
+RUR.fr["Colour:"] = "Couleur :";
+RUR.fr["Enter a colour"] = "Spécifiez une couleur";
+
 // Ne pas traduire les fonctions ci-dessous SAUF si elles existent
 // dans reeborg_fr.js et reeborg_fr.py
 RUR.fr["at_goal"] = "au_but";
@@ -341,13 +351,3 @@ RUR.fr["write"] = "ecrit";
 RUR.fr["write()"] = "ecrit()";
 
 RUR.fr["from library import ?"] = "from biblio import ?";
-RUR.fr["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> n'est pas un véritable mot-clé Python.";
-
-RUR.fr["tab"] = "TAB";
-RUR.fr["shift-tab"] = "Maj-TAB";
-RUR.fr["enter"] = "\u23CE";
-RUR.fr["UNDO"] = "RENVERSER";
-RUR.fr["REDO"] = "REFAIRE";
-
-RUR.fr["Colour:"] = "Couleur :";
-RUR.fr["Enter a colour"] = "Spécifiez une couleur";
