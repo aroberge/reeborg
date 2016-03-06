@@ -57,9 +57,6 @@ RUR.we.edit_world = function  () {
         case "tile":
             RUR.we.toggle_tile(value);
             break;
-        case "fill":
-            RUR.we.fill_with_tile(value);
-            break;
         case "solid_object":
             RUR.we.toggle_solid_object(value);
             break;
@@ -185,8 +182,10 @@ RUR.we.select = function (choice) {
             RUR.we.alert_2("Click on world to toggle tile.", value);
             break;
         case "fill":
-            $("#fill-tile").show();
-            RUR.we.alert_2("Click on world to fill with given tile.", value);
+            RUR.we.fill_with_tile(value);
+            //
+            // $("#fill-tile").show();
+            // RUR.we.alert_2("Click on world to fill with given tile.", value);
             break;
         case "solid_object":
             $("#edit-solid-object").show();
@@ -607,6 +606,8 @@ RUR.we.fill_with_tile = function (tile) {
             RUR.CURRENT_WORLD.tiles[coords] = tile;
         }
     }
+    RUR.vis_world.refresh_world_edited();
+    $("#cmd-result").html("");
 };
 
 

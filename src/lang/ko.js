@@ -99,7 +99,7 @@ RUR.ko["random location"] = "랜덤 위치";
 RUR.ko["Enter number of objects to give to robot."] = "로봇에게 주기 위해 {obj} 의 수를 입력하세요..";
 RUR.ko["Special information about this location:"] = "이 위치에 대한 특별한 정보:";
 RUR.ko["Click on world to toggle tile."] = "{obj} 타일을 달기 위해 월드를 클릭하세요.";
-RUR.ko["Click on desired tile below."] = "아래에서 원하는 타일을 클릭합니다.";
+RUR.ko["Click on desired tile below."] = "아래에서 원하는 타일을 클릭합니다. (or color selector)";
 RUR.ko["mud"] = "진흙";
 RUR.ko["water"] = "물";
 RUR.ko["grass"] = "잔디";
@@ -346,3 +346,6 @@ RUR.ko["shift-tab"] = "Shift-TAB";
 RUR.ko["enter"] = "\u23CE";
 RUR.ko["UNDO"] = "되돌리기";
 RUR.ko["REDO"] = "다시 실행";
+
+RUR.ko["Colour:"] = "Color:";
+RUR.ko["Enter a colour"] = "Enter a color";

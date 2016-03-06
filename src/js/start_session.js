@@ -58,8 +58,6 @@ function set_editor() {
 function set_library() {
     if (localStorage.getItem("library")){
         library.setValue(localStorage.getItem("library"));
-    } else {
-        library.setValue(RUR.translate("# from library import *"));
     }
 }
 

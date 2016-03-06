@@ -4494,7 +4494,7 @@ $("#programming-mode").change(function() {
             try {
                 $("#kbd-undo").show();
                 $("#kbd-redo").show();
-            } catch(e) {}     
+            } catch(e) {}
             break;
         case "javascript":
             RUR.state.programming_language = "javascript";
@@ -4662,6 +4662,7 @@ function _start_repl() {
         restart_repl();
     } catch (e) {
         console.log("_start_repl: failure", e);
+        console.log("Will try again in 500ms.");
         window.setTimeout(_start_repl, 500);
     }
 }
@@ -6242,8 +6243,6 @@ function set_editor() {
 function set_library() {
     if (localStorage.getItem("library")){
         library.setValue(localStorage.getItem("library"));
-    } else {
-        library.setValue(RUR.translate("# from library import *"));
     }
 }
 
@@ -7777,9 +7776,6 @@ RUR.we.edit_world = function  () {
         case "tile":
             RUR.we.toggle_tile(value);
             break;
-        case "fill":
-            RUR.we.fill_with_tile(value);
-            break;
         case "solid_object":
             RUR.we.toggle_solid_object(value);
             break;
@@ -7905,8 +7901,10 @@ RUR.we.select = function (choice) {
             RUR.we.alert_2("Click on world to toggle tile.", value);
             break;
         case "fill":
-            $("#fill-tile").show();
-            RUR.we.alert_2("Click on world to fill with given tile.", value);
+            RUR.we.fill_with_tile(value);
+            //
+            // $("#fill-tile").show();
+            // RUR.we.alert_2("Click on world to fill with given tile.", value);
             break;
         case "solid_object":
             $("#edit-solid-object").show();
@@ -8327,6 +8325,8 @@ RUR.we.fill_with_tile = function (tile) {
             RUR.CURRENT_WORLD.tiles[coords] = tile;
         }
     }
+    RUR.vis_world.refresh_world_edited();
+    $("#cmd-result").html("");
 };
 
 
@@ -9287,7 +9287,7 @@ RUR.en["random location"] = "random location";
 RUR.en["Enter number of objects to give to robot."] = "Enter number of {obj} to give to robot.";
 RUR.en["Special information about this location:"] = "Special information about this location:";
 RUR.en["Click on world to toggle tile."] = "Click on world to toggle {obj} tile.";
-RUR.en["Click on desired tile below."] = "Click on desired tile below.";
+RUR.en["Click on desired tile below."] = "Click on desired tile below or on the colour selector.";
 RUR.en["mud"] = "mud";
 RUR.en["water"] = "water";
 RUR.en["grass"] = "grass";
@@ -9533,6 +9533,9 @@ RUR.en["enter"] = "\u23CE";
 RUR.en["UNDO"] = "UNDO";
 RUR.en["REDO"] = "REDO";
 
+RUR.en["Colour:"] = "Colour:";
+RUR.en["Enter a colour"] = "Enter a colour";
+
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
 
@@ -9635,7 +9638,7 @@ RUR.fr["random location"] = "une position choisie au hasard";
 RUR.fr["Enter number of objects to give to robot."] = "Quel nombre de {obj} voulez-vous donner au robot?";
 RUR.fr["Special information about this location:"] = "Information particulière au sujet de cet endroit:";
 RUR.fr["Click on world to toggle tile."] = "Cliquez sur le monde pour ajouter/supprimer l'image: '{obj}'.";
-RUR.fr["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous.";
+RUR.fr["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous ou sur le sélecteur de couleur.";
 RUR.fr["mud"] = "boue";
 RUR.fr["water"] = "eau";
 RUR.fr["grass"] = "gazon";
@@ -9648,7 +9651,7 @@ RUR.fr["A wall must be built south of this location."] = "Un mur doit être cons
 RUR.fr["The final required position of the robot will be chosen at random."] = "La position finale requise pour Reeborg sera choisie au hasard.";
 RUR.fr["The final position of the robot must be (x, y) = "] = "La position finale de Reeborg doit être (x, y) = ";
 RUR.fr["Click on world to fill with given tile."] = "Cliquez sur le monde pour remplir avec cet objet.";
-RUR.fr["Click on desired object below."] = "Cliquez sur l'image désirée.";
+RUR.fr["Click on desired object below."] = "Cliquez sur l'objet désiré.";
 RUR.fr["Enter url of image to use as background."] = "Fournir l'adresse (URL) de l'image à utiliser.";
 RUR.fr["Replace editor content"] = "Voulez-vous remplacer le contenu du code de votre éditeur par celui défini par le créateur du monde?";
 RUR.fr["Replace library content"] = "Voulez-vous remplacer le contenu du code de votre biliothèque par celui défini par le créateur du monde?";
@@ -9885,6 +9888,9 @@ RUR.fr["enter"] = "\u23CE";
 RUR.fr["UNDO"] = "RENVERSER";
 RUR.fr["REDO"] = "REFAIRE";
 
+RUR.fr["Colour:"] = "Couleur :";
+RUR.fr["Enter a colour"] = "Spécifiez une couleur";
+
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
 RUR.ko_to_en = {};
@@ -9987,7 +9993,7 @@ RUR.ko["random location"] = "랜덤 위치";
 RUR.ko["Enter number of objects to give to robot."] = "로봇에게 주기 위해 {obj} 의 수를 입력하세요..";
 RUR.ko["Special information about this location:"] = "이 위치에 대한 특별한 정보:";
 RUR.ko["Click on world to toggle tile."] = "{obj} 타일을 달기 위해 월드를 클릭하세요.";
-RUR.ko["Click on desired tile below."] = "아래에서 원하는 타일을 클릭합니다.";
+RUR.ko["Click on desired tile below."] = "아래에서 원하는 타일을 클릭합니다. (or color selector)";
 RUR.ko["mud"] = "진흙";
 RUR.ko["water"] = "물";
 RUR.ko["grass"] = "잔디";
@@ -10235,6 +10241,9 @@ RUR.ko["enter"] = "\u23CE";
 RUR.ko["UNDO"] = "되돌리기";
 RUR.ko["REDO"] = "다시 실행";
 
+RUR.ko["Colour:"] = "Color:";
+RUR.ko["Enter a colour"] = "Enter a color";
+
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");
 require("./../lang/fr.js");
@@ -10381,6 +10390,10 @@ record_title("ui-dialog-title-Reeborg-watches", "Reeborg watches some variables!
 record_title("ui-dialog-title-World-info", "Click on the world to get some additional information.");
 
 record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");
+
+record_id("color-selection-text", "Colour:");
+record_id("colour-selection");
+record_title("ui-dialog-title-dialog-select-colour", "Enter a colour");
 
 },{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ko.js":82}],84:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could

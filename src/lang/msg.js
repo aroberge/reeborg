@@ -143,3 +143,7 @@ record_title("ui-dialog-title-Reeborg-watches", "Reeborg watches some variables!
 record_title("ui-dialog-title-World-info", "Click on the world to get some additional information.");
 
 record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");
+
+record_id("color-selection-text", "Colour:");
+record_id("colour-selection");
+record_title("ui-dialog-title-dialog-select-colour", "Enter a colour");

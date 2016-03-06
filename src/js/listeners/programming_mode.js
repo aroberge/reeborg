@@ -23,7 +23,7 @@ $("#programming-mode").change(function() {
             try {
                 $("#kbd-undo").show();
                 $("#kbd-redo").show();
-            } catch(e) {}     
+            } catch(e) {}
             break;
         case "javascript":
             RUR.state.programming_language = "javascript";
@@ -191,6 +191,7 @@ function _start_repl() {
         restart_repl();
     } catch (e) {
         console.log("_start_repl: failure", e);
+        console.log("Will try again in 500ms.");
         window.setTimeout(_start_repl, 500);
     }
 }

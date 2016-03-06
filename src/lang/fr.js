@@ -99,7 +99,7 @@ RUR.fr["random location"] = "une position choisie au hasard";
 RUR.fr["Enter number of objects to give to robot."] = "Quel nombre de {obj} voulez-vous donner au robot?";
 RUR.fr["Special information about this location:"] = "Information particulière au sujet de cet endroit:";
 RUR.fr["Click on world to toggle tile."] = "Cliquez sur le monde pour ajouter/supprimer l'image: '{obj}'.";
-RUR.fr["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous.";
+RUR.fr["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous ou sur le sélecteur de couleur.";
 RUR.fr["mud"] = "boue";
 RUR.fr["water"] = "eau";
 RUR.fr["grass"] = "gazon";
@@ -112,7 +112,7 @@ RUR.fr["A wall must be built south of this location."] = "Un mur doit être cons
 RUR.fr["The final required position of the robot will be chosen at random."] = "La position finale requise pour Reeborg sera choisie au hasard.";
 RUR.fr["The final position of the robot must be (x, y) = "] = "La position finale de Reeborg doit être (x, y) = ";
 RUR.fr["Click on world to fill with given tile."] = "Cliquez sur le monde pour remplir avec cet objet.";
-RUR.fr["Click on desired object below."] = "Cliquez sur l'image désirée.";
+RUR.fr["Click on desired object below."] = "Cliquez sur l'objet désiré.";
 RUR.fr["Enter url of image to use as background."] = "Fournir l'adresse (URL) de l'image à utiliser.";
 RUR.fr["Replace editor content"] = "Voulez-vous remplacer le contenu du code de votre éditeur par celui défini par le créateur du monde?";
 RUR.fr["Replace library content"] = "Voulez-vous remplacer le contenu du code de votre biliothèque par celui défini par le créateur du monde?";
@@ -348,3 +348,6 @@ RUR.fr["shift-tab"] = "Maj-TAB";
 RUR.fr["enter"] = "\u23CE";
 RUR.fr["UNDO"] = "RENVERSER";
 RUR.fr["REDO"] = "REFAIRE";
+
+RUR.fr["Colour:"] = "Couleur :";
+RUR.fr["Enter a colour"] = "Spécifiez une couleur";

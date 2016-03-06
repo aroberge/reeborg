@@ -99,7 +99,7 @@ RUR.en["random location"] = "random location";
 RUR.en["Enter number of objects to give to robot."] = "Enter number of {obj} to give to robot.";
 RUR.en["Special information about this location:"] = "Special information about this location:";
 RUR.en["Click on world to toggle tile."] = "Click on world to toggle {obj} tile.";
-RUR.en["Click on desired tile below."] = "Click on desired tile below.";
+RUR.en["Click on desired tile below."] = "Click on desired tile below or on the colour selector.";
 RUR.en["mud"] = "mud";
 RUR.en["water"] = "water";
 RUR.en["grass"] = "grass";
@@ -344,3 +344,6 @@ RUR.en["shift-tab"] = "Shift-TAB";
 RUR.en["enter"] = "\u23CE";
 RUR.en["UNDO"] = "UNDO";
 RUR.en["REDO"] = "REDO";
+
+RUR.en["Colour:"] = "Colour:";
+RUR.en["Enter a colour"] = "Enter a colour";
