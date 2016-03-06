@@ -7902,9 +7902,6 @@ RUR.we.select = function (choice) {
             break;
         case "fill":
             RUR.we.fill_with_tile(value);
-            //
-            // $("#fill-tile").show();
-            // RUR.we.alert_2("Click on world to fill with given tile.", value);
             break;
         case "solid_object":
             $("#edit-solid-object").show();
@@ -10137,7 +10134,7 @@ RUR.ko["ISSUES"] = "버그 제보, 건의 그외 문제 등. (영어/프랑스�
 RUR.ko["FORUM"] = "토론 포럼 (영어/프랑스어만 됨";
 RUR.ko["HELP"] = "도움말";
 RUR.ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank">Documentation</a>';
-RUR.ko["PYTHON HELP"] = "파이썬을 사용해서, <code>help()</code>를 실행해서 명령어의 목록을 얻으세요 또는 <code>help(함수이름)</code>으로 해당 함수의 정보를 얻을수 있습니다. 예를 들어, <code>help(move)</code>로 <code>move</code>함수의 정보를 얻을 수 있습니다.;
+RUR.ko["PYTHON HELP"] = "파이썬을 사용해서, <code>help()</code>를 실행해서 명령어의 목록을 얻으세요 또는 <code>help(함수이름)</code>으로 해당 함수의 정보를 얻을수 있습니다. 예를 들어, <code>help(move)</code>로 <code>move</code>함수의 정보를 얻을 수 있습니다.";
 RUR.ko["KEYBOARD HELP"] = "리보그의 키보드를 클릭해서 파이썬 키워드 등, 사용할수 있는 명령어의 목록을 보세요.";
 
 RUR.ko["WORLD EDITOR"] = "월드 에디터";
@@ -10243,7 +10240,6 @@ RUR.ko["REDO"] = "다시 실행";
 
 RUR.ko["Colour:"] = "색상:";
 RUR.ko["Enter a colour"] = "색상을 입력하세요";
-
 
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");

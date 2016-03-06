@@ -183,9 +183,6 @@ RUR.we.select = function (choice) {
             break;
         case "fill":
             RUR.we.fill_with_tile(value);
-            //
-            // $("#fill-tile").show();
-            // RUR.we.alert_2("Click on world to fill with given tile.", value);
             break;
         case "solid_object":
             $("#edit-solid-object").show();
