@@ -1,4 +1,16 @@
 
+require("./output.js");
+require("./recorder.js");
+require("./world.js");
+require("./world/import_world.js");
+require("./world_select.js");
+require("./permalink.js");
+require("./translator.js");
+require("./exceptions.js");
+require("./listeners/stop.js");
+require("./utils/supplant.js");
+
+
 RUR.file_io = {};
 
 RUR.file_io.load_world_from_program = function (url, shortname) {
@@ -58,12 +70,12 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     RUR.file_io.load_world_file(url, shortname);
 
     if (RUR.file_io.status !== undefined) {
-        RUR.rec.frames = [];
-        RUR.ui.stop();
+        RUR.frames = [];
+        RUR.stop();
         RUR.state.prevent_playback = true;
     }
     if (RUR.file_io.status === "no link") {
-        RUR.cd.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-shouts",
                 RUR.translate("Could not find link: ") + url);
         throw new RUR.ReeborgError("no link");
     } else if (RUR.file_io.status === "success") {
@@ -71,7 +83,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
             RUR.world_select.append_world({url:url, shortname:new_world});
         }
         RUR.world_select.set_url(url);
-        RUR.cd.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-shouts",
             RUR.translate("World selected").supplant({world: shortname}));
         throw new RUR.ReeborgError("success");
     }
@@ -101,7 +113,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
         }
         RUR.world.import_world(data);
         RUR.file_io.status = "success";
-        RUR.rec.frames = [];
+        RUR.frames = [];
     } else {
         $.ajax({url: url,
             async: false,
@@ -111,7 +123,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
                     RUR.permalink.update(data, shortname);
-                    RUR.ui.reload();
+                    RUR.reload();
                 } else {
                     RUR.world.import_world(data);
                 }

@@ -1,9 +1,9 @@
 /* See reeborg_en.js */
-var RUR = RUR || {};
+window.RUR = RUR || {};
 
 var RobotUsage;
 
-RUR.reset_definitions = function () {
+RUR.reset_definitions_fr = function () {
 
     window.au_but = RUR._at_goal_;
     window.construit_un_mur = RUR._build_wall_;
@@ -42,7 +42,6 @@ RUR.reset_definitions = function () {
     window.enregistrement = RUR._recording_;
     window.plus_de_robots = RUR._remove_robots_;
     window.rien_a_droite = RUR._right_is_clear_;
-    window.nombre_de_robots = RUR._set_max_nb_robots_;
     window.nombre_d_instructions = RUR._set_max_steps_;
     window.son = RUR._sound_;
     window.prend = RUR._take_;
@@ -53,13 +52,13 @@ RUR.reset_definitions = function () {
     window.mur_a_droite = RUR._wall_on_right_;
     window.ecrit = RUR._write_;
     window._write = RUR.__write_;
-    window.MenuPersonalise = RUR._MakeCustomMenu_;    
+    window.MenuPersonalise = RUR._MakeCustomMenu_;
     window.Monde = RUR._World_;
 
     // The following are for OOP programming in Javascript
     RobotUsage = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
-        RUR.world.add_robot(this.body);
+        RUR._add_robot(this.body);
     };
     RobotUsage.prototype.au_but = function () {
         RUR._UR.at_goal_(this.body);
@@ -130,5 +129,3 @@ RUR.reset_definitions = function () {
     };
 
 };
-
-RUR.reset_definitions();

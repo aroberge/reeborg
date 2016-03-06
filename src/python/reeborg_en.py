@@ -223,13 +223,6 @@ def set_max_nb_instructions(nb):  #py:set_max_nb_instructions
     RUR._set_max_nb_instructions_(nb)
 
 
-def set_max_nb_robots(nb):  #py:set_max_nb_robots
-    """Intended primarily for world creators, this function
-       allows to set the maximum number of robots allowed in a given world.
-    """
-    RUR._set_max_nb_robots_(nb)
-
-
 def set_trace_color(color):  #py:set_trace_color
     """Change the color of the trace (oil leak).
 
@@ -374,14 +367,14 @@ class UsedRobot(object):  #py:UR
                             "w" or "west", "n" or "north", "s" or "south".
                tokens: Initial number of tokens to give to the robot;
                        its value must be a positive integer, or the string
-                       "inf" to indicate an infinite quantity.
+                       "Infinity" to indicate an infinite quantity.
         """
         if tokens is None:
             robot = RUR.robot.create_robot(x, y, orientation)
         else:
             robot = RUR.robot.create_robot(x, y, orientation, tokens)
         self.body = robot
-        RUR.world.add_robot(self.body)
+        RUR._add_robot(self.body)
 
     def __str__(self):  #py:UR.__str__
         location = "({}, {})".format(self.body.x, self.body.y)
@@ -660,11 +653,11 @@ class SatelliteInfo():  #py:SI
         '''Returns a dict containing information about world.
         '''
         import json
-        return json.loads(RUR.control.get_world_map())
+        return json.loads(RUR.world_get.world_map())
 
     def print_world_map(self):  #py:SI.print_world_map
         '''Prints a formatted copy of the world'''
-        print(RUR.control.get_world_map())
+        print(RUR.world_get.world_map())
 
 
 #py:obsolete

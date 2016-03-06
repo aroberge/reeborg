@@ -30,24 +30,24 @@
 <header class="blue-gradient green-border">
   <a id="logo" href="/index_fr.html" class="fake_button"><img src="/src/images/robot_e.png" alt="logo">Le monde de Reeborg</a>
   <div id="header-child">
-    <select id="select_world" title="Sélectionner un monde">
+    <select id="select-world" title="Sélectionner un monde">
     </select>
     <button class="blue-gradient" id="world-info-button">Description</button>
-    <select id="select_programming_language" title="Select programming language">
+    <select id="select-programming-language" title="Select programming language">
         <option value="python-fr">Python</option>
         <option value="javascript-fr">Javascript</option>
     </select>
-    <select id="python_choices" title="Select programming mode">
+    <select id="python-choices" title="Select programming mode">
         <option value="blockly">Blockly</option>
         <option value="editor">Éditeur</option>
         <option value="repl">Interprète</option>
     </select>
-    <select id="javascript_choices" title="Select programming mode" style="display:none">
+    <select id="javascript-choices" title="Select programming mode" style="display:none">
         <option value="blockly">Blockly</option>
         <option value="editor">Éditeur</option>
     </select>
-    <label id="visible_blockly">
-        <input type="checkbox" id="editor_visible_blockly" value="visible">Garder l'éditeur visible</label>
+    <label id="visible-blockly">
+        <input type="checkbox" id="editor-visible-blockly" value="visible">Garder l'éditeur visible</label>
     <button class="blue-gradient" id="special-keyboard-button">Clavier de Reeborg</button>
     <button id="more-menus-button" class="blue-gradient" title="Menu additionnel">
       Menu additionnel
@@ -55,10 +55,10 @@
   </div>
 
 </header>
-  <div id="url_input">
+  <div id="url-input">
   <p>Copiez le permalien et cliquez Annuler, ou remplacer par un nouveau et cliquez "Mettre à jour".
   </p>
-  <textarea id="url_input_textarea" cols="60" rows="10"></textarea>
+  <textarea id="url-input-textarea" cols="60" rows="10"></textarea>
   <p>
   <button class="blue-gradient" id="ok-permalink" onclick="RUR.permalink.update();">Mettre à jour</button>
   <button class="blue-gradient" id="cancel-permalink" onclick="RUR.permalink.cancel();">Annuler</button>
@@ -140,33 +140,33 @@
 <div id="world-panel" class="active" >
 
   <div id="world-controls">
-    <button class="blue-gradient" id="run" title="exécution" onclick="RUR.ui.run();">
+    <button class="blue-gradient" id="run" title="exécution" onclick="RUR.run();">
       <img src="/src/images/play.png" alt="exécution">
     </button>
-    <button class="blue-gradient" id="step" title="une commande" disabled onclick="RUR.ui.step();">
+    <button class="blue-gradient" id="step" title="une commande" disabled onclick="RUR.step();">
       <img src="/src/images/step.png" alt="une commande">
     </button>
-    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.ui.pause();">
+    <button class="blue-gradient" id="pause" title="pause" disabled onclick="RUR.pause();">
       <img src="/src/images/pause.png" alt="pause">
     </button>
-    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.ui.stop();">
+    <button class="blue-gradient" id="stop" title="stop" disabled onclick="RUR.stop();">
       <img src="/src/images/stop.png" alt="stop">
     </button>
-    <button class="blue-gradient" id="reload" title="recommencer" disabled onclick="RUR.ui.reload();">
+    <button class="blue-gradient" id="reload" title="recommencer" disabled onclick="RUR.reload();">
       <img src="/src/images/reload.png" alt="recommencer">
     </button>
-      <button class="blue-gradient" id="reload2" title="recommencer" disabled onclick="RUR.ui.reload2();">
+      <button class="blue-gradient" id="reload2" title="recommencer" disabled onclick="RUR.reload2();">
           <img src="/src/images/reload.png" alt="recommencer">
     </button>
 
   </div>
   <div id="canvas-wrapper">
-    <canvas id="background_canvas" width="625" height="550"></canvas>
-    <canvas id="second_layer_canvas" width="625" height="550"></canvas>
-    <canvas id="goal_canvas" width="625" height="550"></canvas>
-    <canvas id="objects_canvas" width="625" height="550"></canvas>
-    <canvas id="trace_canvas" width="625" height="550"></canvas>
-    <canvas id="robot_canvas" width="625" height="550"></canvas>
+    <canvas id="background-canvas" width="625" height="550"></canvas>
+    <canvas id="second-layer-canvas" width="625" height="550"></canvas>
+    <canvas id="goal-canvas" width="625" height="550"></canvas>
+    <canvas id="objects-canvas" width="625" height="550"></canvas>
+    <canvas id="trace-canvas" width="625" height="550"></canvas>
+    <canvas id="robot-canvas" width="625" height="550"></canvas>
     <canvas id="tooltip" width=40 height=40></canvas>
   </div>
 
@@ -177,10 +177,10 @@
   <div id="Reeborg-shouts" class="reeborg-print" title="Reeborg crie: Quelque chose ne va pas !" style="display:none"></div>
   <div id="Reeborg-explores" title="Reeborg explore le code Javascript" style="display:none"></div>
   <div id="Reeborg-proclaims" title="Reeborg annonce:" style="display:none">
-      <div id="print_html"></div>
+      <div id="print-html"></div>
   </div>
   <div id="Reeborg-watches" class="reeborg-print" title="Reeborg observe des variables!" style="display:none">
-      <div id="watch_variables"></div>
+      <div id="watch-variables"></div>
   </div>
 
   <div id="World-info" title="Cliquez sur le monde pour obtenir de l'information supplémentaire." style="display:none"></div>
@@ -204,10 +204,10 @@
       <li><a id="description-link" href="#description-div">Desc.</a></li>
       <li><a id="onload-editor-link" href="#onload-editor-div">onload</a></li>
 
-      <button id="watch_variables_btn" class="blue-gradient float-right" title="observe variables" onclick="RUR.ui.watch_variables()">
+      <button id="watch-variables-btn" class="blue-gradient float-right" title="observe variables" onclick="RUR.toggle_watch_variables()">
           <img src="/src/images/magnifying_yes.png" alt="observe">
       </button>
-      <button id="highlight" class="reverse-blue-gradient float-right" title="surligner" onclick="RUR.ui.highlight()">
+      <button id="highlight" class="reverse-blue-gradient float-right" title="surligner" onclick="RUR.toggle_highlight()">
         <img src="/src/images/highlight.png" alt="surligner">
       </button>
 
@@ -249,11 +249,11 @@
   </div>
 </div>
 
-<textarea id="py_console" rows=35, cols=81 style="display:none"></textarea>
+<textarea id="py-console" rows=35, cols=81 style="display:none"></textarea>
 
 <div style="display:none;" id="edit-world-panel" title="Créez vos propres mondes !">
-  <p>  <input type="checkbox" name="add_editor_to_world" value="add_editor_to_world" id="add_editor_to_world">Inclure le contenu de l'éditeur
-    <input type="checkbox" name="add_library_to_world" value="add_library_to_world" id="add_library_to_world">Inclure le contenu de la bibliothèque
+  <p>  <input type="checkbox" name="add-editor-to-world" value="add-editor-to-world" id="add-editor-to-world">Inclure le contenu de l'éditeur
+    <input type="checkbox" name="add-library-to-world" value="add-library-to-world" id="add-library-to-world">Inclure le contenu de la bibliothèque
     <br>
    <button class="blue-gradient" onclick="javascript:RUR.storage.memorize_world();">Sauvegarder dans le navigateur</button>
   <br>
@@ -308,7 +308,7 @@
             <li><a href="javascript:RUR.we.select('fill-bricks');"><img src="/src/images/bricks.png" alt="mur de briques"></a></li>
             <li><a href="javascript:RUR.we.select('fill-colour');"><img src="/src/images/tile_colour.png" alt="couleur"></a></li>
         </ul>
-        <ul class="edit-world-canvas" id="edit-solid_object" style="display:none">
+        <ul class="edit-world-canvas" id="edit-solid-object" style="display:none">
             <li><a href="javascript:RUR.we.select('solid_object-bridge');"><img src="/src/images/bridge.png" alt="pont"></a></li>
             <li><a href="javascript:RUR.we.select('solid_object-fence_right');"><img src="/src/images/fence_right.png" alt="cloture"></a></li>
             <li><a href="javascript:RUR.we.select('solid_object-fence_left');"><img src="/src/images/fence_left.png" alt="cloture"></a></li>
@@ -570,7 +570,6 @@ var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-edit
   <p>
     <button class="blue-gradient" id="save-editor">Sauvegarder le programme dans un fichier</button>
     Sauvegarde le contenu de l'éditeur dans un fichier.
-     Saves the content of the editor in a file.
   </p>
 
   <p>
@@ -584,7 +583,7 @@ var onload_editor = CodeMirror.fromTextArea(document.getElementById('onload-edit
 <h3>Options d'exécution</h3>
 
   <p>
-    <button class="blue-gradient" id="reverse-step" title="Renverse la commande" onclick="RUR.ui.reverse_step();">
+    <button class="blue-gradient" id="reverse-step" title="Renverse la commande" onclick="RUR.reverse_step();">
       <img src="/src/images/reverse_step.png" alt="Renverse la commande">
     </button>
     <span class="description"> Renverse l'instruction précédemment exécutée.
@@ -835,154 +834,154 @@ ils ont été tous choisis (et modifiés!) sur la base de leur licence "Creative
 
 <div id="special-keyboard" title="Le clavier spécial de Reeborg" style="display:none">
   <div id="keyboard-buttons">
-      <button id="kbd_command_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_command");'>
+      <button id="kbd-command-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-command");'>
         Commandes</button>
-      <button id="kbd_condition_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_condition");'>
+      <button id="kbd-condition-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-condition");'>
         Conditions</button>
-      <button id="kbd_python_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_python");'>
+      <button id="kbd-python-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-python");'>
         Python</button>
-      <button id="kbd_py_console_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_py_console");'>
+      <button id="kbd-py-console-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-py-console");'>
         Python</button>
-      <button id="kbd_javascript_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_javascript");'>
+      <button id="kbd-javascript-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-javascript");'>
         Javascript</button>
-      <button id="kbd_objects_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_objects");'>
+      <button id="kbd-objects-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-objects");'>
         Objets</button>
-      <button id="kbd_special_btn" class="blue-gradient" onclick='RUR.kbd.select("kbd_special");'>
+      <button id="kbd-special-btn" class="blue-gradient" onclick='RUR.kbd.select("kbd-special");'>
         Spécial</button>
-    <ul class="kbd_command">
-       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>avance()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>tourne_a_gauche()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>prend()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>depose()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>construit_un_mur()</li>
-       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pause()</li>
-       <li class="kbd_command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>termine()</li>
-       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pense(100)</li>
-       <li class="kbd_command only_py no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
-       <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>ecrit(" ? ")</li>
-       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>son(True)</li>
-       <li class="kbd_command no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>Monde(" ? ")</li>
-       <li class="kbd_command only_py" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>RobotUsage()</li>
-       <li class="kbd_command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>new RobotUsage()</li>
-       <li class="kbd_command only_py no_console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pas_de_surlignement()</li>
+    <ul class="kbd-command">
+       <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>avance()</li>
+       <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>tourne_a_gauche()</li>
+       <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>prend()</li>
+       <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>depose()</li>
+       <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>construit_un_mur()</li>
+       <li class="kbd-command no-console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pause()</li>
+       <li class="kbd-command" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>termine()</li>
+       <li class="kbd-command no-console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pense(100)</li>
+       <li class="kbd-command only_py no-console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>print(" ? ")</li>
+       <li class="kbd-command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>ecrit(" ? ")</li>
+       <li class="kbd-command no-console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>son(True)</li>
+       <li class="kbd-command no-console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>Monde(" ? ")</li>
+       <li class="kbd-command only_py" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>RobotUsage()</li>
+       <li class="kbd-command only_js" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>new RobotUsage()</li>
+       <li class="kbd-command only_py no-console" onclick='RUR.kbd.insert2(this.innerHTML);RUR.kbd.enter();'>pas_de_surlignement()</li>
     </ul>
-    <ul class="kbd_condition" >
-       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>au_but()</li>
-       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>rien_devant()</li>
-       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>rien_a_droite()</li>
-       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>mur_devant()</li>
-       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>mur_a_droite()</li>
-       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>objet_ici()</li>
-       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>transporte()</li>
-       <li class="kbd_condition" onclick='RUR.kbd.insert(this.innerHTML);'>face_au_nord()</li>
+    <ul class="kbd-condition" >
+       <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>au_but()</li>
+       <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>rien_devant()</li>
+       <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>rien_a_droite()</li>
+       <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>mur_devant()</li>
+       <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>mur_a_droite()</li>
+       <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>objet_ici()</li>
+       <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>transporte()</li>
+       <li class="kbd-condition" onclick='RUR.kbd.insert(this.innerHTML);'>face_au_nord()</li>
     </ul>
-    <ul class="kbd_python">
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>def ? ( ):</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>if ? :</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>elif ? :</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>else:</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>while ? :</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>repeat ? :</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>from biblio import ?</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>for ? in ? :</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>range( ? )</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>True</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>False</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>None</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>not</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>and</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>or</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>continue</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>break</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>return ?</li>
-       <li class="kbd_python" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
+    <ul class="kbd-python">
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>def ? ( ):</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>if ? :</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>elif ? :</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>else:</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>while ? :</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>repeat ? :</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>from biblio import ?</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);RUR.kbd.enter();'>for ? in ? :</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>range( ? )</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>True</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>False</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>None</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>not</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>and</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>or</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>continue</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>break</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>return ?</li>
+       <li class="kbd-python" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
        <br>
       <span>Rappel: <code>repeat</code> n'est pas un véritable mot-clé Python.</span>
     </ul>
-    <ul class="kbd_py_console">
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>def</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>if</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>elif</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>else:</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>while</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>from biblio import </li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>for</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>in</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>range(</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>True</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>False</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>None</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>not</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>and</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>or</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>continue</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>break</li>
-       <li class="kbd_py_console" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
+    <ul class="kbd-py-console">
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>def</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>if</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>elif</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>else:</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>while</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>from biblio import </li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>for</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>in</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>range(</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>True</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>False</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>None</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>not</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>and</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>or</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>continue</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>break</li>
+       <li class="kbd-py-console" onclick='RUR.kbd.insert(this.innerHTML);'>pass</li>
        <br>
     </ul>
-    <ul class="kbd_javascript">
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>var</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>function ? { }</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>if ( ? ) { }</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>else if ( ? ) { }</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>else { }</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>while ( ? ) { }</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>for (? ; ? ; ?) { }</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>true</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>false</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>return ?</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>undefined</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>!</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>&amp;&amp;</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert(this.innerHTML);'>||</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>continue</li>
-       <li class="kbd_javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>break</li>
+    <ul class="kbd-javascript">
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>var</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>function ? { }</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>if ( ? ) { }</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>else if ( ? ) { }</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>else { }</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>while ( ? ) { }</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>for (? ; ? ; ?) { }</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>true</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>false</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>return ?</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>undefined</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>!</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>&amp;&amp;</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert(this.innerHTML);'>||</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>continue</li>
+       <li class="kbd-javascript" onclick='RUR.kbd.insert2(this.innerHTML);'>break</li>
     </ul>
-    <ul class="kbd_objects" >
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"jeton\"");'>
+    <ul class="kbd-objects" >
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"jeton\"");'>
          <img src="/src/images/token.png" title="jeton"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"pomme\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"pomme\"");'>
         <img src="/src/images/apple.png" title="pomme"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"banane\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"banane\"");'>
         <img src="/src/images/banana.png" title="banane"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"carotte\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"carotte\"");'>
         <img src="/src/images/carrot.png" title="carotte"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"marguerite\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"marguerite\"");'>
         <img src="/src/images/daisy.png" title="marguerite"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"pissenlit\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"pissenlit\"");'>
         <img src="/src/images/dandelion.png" title="pissentlit"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"feuille\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"feuille\"");'>
         <img src="/src/images/leaf.png" title="feuille"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"orange\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"orange\"");'>
         <img src="/src/images/orange.png" title="orange"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"carré\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"carré\"");'>
         <img src="/src/images/square.png" title="carré"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"étoile\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"étoile\"");'>
         <img src="/src/images/star.png" title="étoile"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"fraise\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"fraise\"");'>
         <img src="/src/images/strawberry.png" title="fraise"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"triangle\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"triangle\"");'>
         <img src="/src/images/triangle.png" title="triangle"></li>
-       <li class="kbd_objects" onclick='RUR.kbd.insert("\"tulipe\"");'>
+       <li class="kbd-objects" onclick='RUR.kbd.insert("\"tulipe\"");'>
         <img src="/src/images/tulip.png" title="tulipe"></li>
     </ul>
-    <ul class="kbd_special">
-       <li class="kbd_special" onclick='RUR.kbd.insert(":");'>&nbsp;&nbsp;:&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert(";");'>&nbsp;&nbsp;;&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert("#");'>&nbsp;&nbsp;#&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert("\"");'>&nbsp;&nbsp;"&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert();'>&nbsp;&nbsp;'&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert("=");'>&nbsp;&nbsp;=&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert("<");'>&nbsp;&nbsp;&lt;&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert(">");'>&nbsp;&nbsp;&gt;&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert("&");'>&nbsp;&nbsp;&amp;&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert("|");'>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert("()");'>&nbsp;&nbsp;( )&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert("{}");'>&nbsp;&nbsp;{ }&nbsp;&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.insert("[]");'>&nbsp;[ ]&nbsp;</li>
-       <li class="kbd_special" onclick='RUR.kbd.tab();'>TAB</li>
-       <li class="kbd_special no_console" onclick='RUR.kbd.shift_tab();'>Maj-TAB</li>
-       <li class="kbd_special" onclick='RUR.kbd.enter();'>Enter</li>
+    <ul class="kbd-special">
+       <li class="kbd-special" onclick='RUR.kbd.insert(":");'>&nbsp;&nbsp;:&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert(";");'>&nbsp;&nbsp;;&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert("#");'>&nbsp;&nbsp;#&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert("\"");'>&nbsp;&nbsp;"&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert();'>&nbsp;&nbsp;'&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert("=");'>&nbsp;&nbsp;=&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert("<");'>&nbsp;&nbsp;&lt;&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert(">");'>&nbsp;&nbsp;&gt;&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert("&");'>&nbsp;&nbsp;&amp;&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert("|");'>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert("()");'>&nbsp;&nbsp;( )&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert("{}");'>&nbsp;&nbsp;{ }&nbsp;&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.insert("[]");'>&nbsp;[ ]&nbsp;</li>
+       <li class="kbd-special" onclick='RUR.kbd.tab();'>TAB</li>
+       <li class="kbd-special no-console" onclick='RUR.kbd.shift_tab();'>Maj-TAB</li>
+       <li class="kbd-special" onclick='RUR.kbd.enter();'>Enter</li>
     </ul>
       <button onclick='RUR.kbd.undo()'>RENVERSER</button>
       <button onclick='RUR.kbd.redo()'>REFAIRE</button>

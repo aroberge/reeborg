@@ -1,39 +1,43 @@
 /*  Handler of special on-screen keyboard
 */
 
+require("./state.js");
+require("./dialogs/create.js");
+require("./listeners/editors_tabs.js");
+require("./translator.js");
+
 RUR.kbd = {};
 
 RUR.kbd.set_programming_language = function (lang) {
+    $("#kbd-python-btn").hide();
+    $("#kbd-py-console-btn").hide();
+    $("#kbd-javascript-btn").hide();
     switch (lang) {
         case "python":
-            if (RUR.state.input_method==="repl"){
-                $("#kbd_python_btn").hide();
-                $("#kbd_py_console_btn").show();
+            if (RUR.state.input_method==="py-repl"){
+                $("#kbd-py-console-btn").show();
             } else {
-                $("#kbd_python_btn").show();
-                $("#kbd_py_console_btn").hide();
+                $("#kbd-python-btn").show();
             }
-            $("#kbd_javascript_btn").hide();
             break;
         case "javascript":
-            $("#kbd_python_btn").hide();
-            $("#kbd_py_console_btn").hide();
-            $("#kbd_javascript_btn").show();
+            $("#kbd-javascript-btn").show();
             break;
     }
     RUR.kbd.select();
 };
 
-RUR.kbd.insert2 = function (txt){
+RUR.kbd.insert_statement = function (txt){
     if (RUR.state.programming_language == "javascript") {
         RUR.kbd.insert(txt + ";");
     } else {
         RUR.kbd.insert(txt);
     }
+    RUR.kbd.enter();
 };
 
 RUR.kbd.insert_in_console = function (txt) {
-    var console = $("#py_console");
+    var console = $("#py-console");
     console.val(console.val() + txt);
     console.focus();
 };
@@ -41,12 +45,9 @@ RUR.kbd.insert_in_console = function (txt) {
 RUR.kbd.insert = function (txt){
     "use strict";
     var doc, cursor, line, pos;
-    if (RUR.state.input_method==="repl") {
+    if (RUR.state.input_method==="py-repl") {
         RUR.kbd.insert_in_console(txt);
         return;
-    }
-    if (txt === undefined) {
-        txt = "'";
     }
 
     if ($("#tabs").tabs('option', 'active') === 0) {
@@ -91,7 +92,7 @@ RUR.kbd.redo = function () {
 RUR.kbd.enter = function () {
     "use strict";
     var doc, ev;
-    if (RUR.state.input_method==="repl") {
+    if (RUR.state.input_method==="py-repl") {
         ev = {};
         ev.keyCode = 13;
         ev.preventDefault = function () {};
@@ -110,7 +111,7 @@ RUR.kbd.enter = function () {
 RUR.kbd.tab = function () {
     "use strict";
     var doc;
-    if (RUR.state.input_method==="repl") {
+    if (RUR.state.input_method==="py-repl") {
         RUR.kbd.insert_in_console('    ');
         return;
     }
@@ -138,78 +139,78 @@ RUR.kbd.shift_tab = function () {
 
 RUR.kbd.select = function (choice) {
     "use strict";
-    $(".kbd_command").hide();
-    $(".kbd_condition").hide();
-    $(".kbd_objects").hide();
-    $(".kbd_python").hide();
-    $(".kbd_py_console").hide();
-    $(".kbd_javascript").hide();
-    $(".kbd_special").hide();
-    $(".no_console").hide();
-    if ($("#kbd_command_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_command_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_command_btn").addClass("blue-gradient");
-    } else if ($("#kbd_condition_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_condition_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_condition_btn").addClass("blue-gradient");
-    } else if ($("#kbd_python_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_python_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_python_btn").addClass("blue-gradient");
-    } else if ($("#kbd_py_console_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_py_console_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_py_console_btn").addClass("blue-gradient");
-    } else if ($("#kbd_javascript_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_javascript_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_javascript_btn").addClass("blue-gradient");
-    } else if ($("#kbd_objects_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_objects_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_objects_btn").addClass("blue-gradient");
-    } else if ($("#kbd_special_btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd_special_btn").removeClass("reverse-blue-gradient");
-        $("#kbd_special_btn").addClass("blue-gradient");
+    $(".kbd-command").hide();
+    $(".kbd-condition").hide();
+    $(".kbd-objects").hide();
+    $(".kbd-python").hide();
+    $(".kbd-py-console").hide();
+    $(".kbd-javascript").hide();
+    $(".kbd-special").hide();
+    $(".no-console").hide();
+    if ($("#kbd-command-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-command-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-command-btn").addClass("blue-gradient");
+    } else if ($("#kbd-condition-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-condition-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-condition-btn").addClass("blue-gradient");
+    } else if ($("#kbd-python-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-python-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-python-btn").addClass("blue-gradient");
+    } else if ($("#kbd-py-console-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-py-console-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-py-console-btn").addClass("blue-gradient");
+    } else if ($("#kbd-javascript-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-javascript-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-javascript-btn").addClass("blue-gradient");
+    } else if ($("#kbd-objects-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-objects-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-objects-btn").addClass("blue-gradient");
+    } else if ($("#kbd-special-btn").hasClass("reverse-blue-gradient")) {
+        $("#kbd-special-btn").removeClass("reverse-blue-gradient");
+        $("#kbd-special-btn").addClass("blue-gradient");
     }
     switch (choice) {
-        case "kbd_condition":
-            $(".kbd_condition").show();
-            $("#kbd_condition_btn").removeClass("blue-gradient");
-            $("#kbd_condition_btn").addClass("reverse-blue-gradient");
+        case "kbd-condition":
+            $(".kbd-condition").show();
+            $("#kbd-condition-btn").removeClass("blue-gradient");
+            $("#kbd-condition-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_objects":
-            $(".kbd_objects").show();
-            $("#kbd_objects_btn").removeClass("blue-gradient");
-            $("#kbd_objects_btn").addClass("reverse-blue-gradient");
+        case "kbd-objects":
+            $(".kbd-objects").show();
+            $("#kbd-objects-btn").removeClass("blue-gradient");
+            $("#kbd-objects-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_python":
-            $(".kbd_python").show();
-            $("#kbd_python_btn").removeClass("blue-gradient");
-            $("#kbd_python_btn").addClass("reverse-blue-gradient");
+        case "kbd-python":
+            $(".kbd-python").show();
+            $("#kbd-python-btn").removeClass("blue-gradient");
+            $("#kbd-python-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_py_console":
-            $(".kbd_py_console").show();
-            $("#kbd_py_console_btn").removeClass("blue-gradient");
-            $("#kbd_py_console_btn").addClass("reverse-blue-gradient");
+        case "kbd-py-console":
+            $(".kbd-py-console").show();
+            $("#kbd-py-console-btn").removeClass("blue-gradient");
+            $("#kbd-py-console-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_javascript":
-            $(".kbd_javascript").show();
-            $("#kbd_javascript_btn").removeClass("blue-gradient");
-            $("#kbd_javascript_btn").addClass("reverse-blue-gradient");
+        case "kbd-javascript":
+            $(".kbd-javascript").show();
+            $("#kbd-javascript-btn").removeClass("blue-gradient");
+            $("#kbd-javascript-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_special":
-            $(".kbd_special").show();
-            $("#kbd_special_btn").removeClass("blue-gradient");
-            $("#kbd_special_btn").addClass("reverse-blue-gradient");
+        case "kbd-special":
+            $(".kbd-special").show();
+            $("#kbd-special-btn").removeClass("blue-gradient");
+            $("#kbd-special-btn").addClass("reverse-blue-gradient");
             break;
-        case "kbd_command":  // jshint ignore:line
+        case "kbd-command":  // jshint ignore:line
         default:
-            $(".kbd_command").show();
-            $("#kbd_command_btn").removeClass("blue-gradient");
-            $("#kbd_command_btn").addClass("reverse-blue-gradient");
+            $(".kbd-command").show();
+            $("#kbd-command-btn").removeClass("blue-gradient");
+            $("#kbd-command-btn").addClass("reverse-blue-gradient");
     }
 
     if (RUR.state.programming_language == "python") {
         $(".only_py").show();
-        if (RUR.state.input_method==="repl") {
-            $(".no_console").hide();
+        if (RUR.state.input_method==="py-repl") {
+            $(".no-console").hide();
         }
         $(".only_js").hide();
     } else {
@@ -217,3 +218,199 @@ RUR.kbd.select = function (choice) {
         $(".only_py").hide();
     }
 };
+
+function add_onclick_select(arg) {
+    var id = arg + "-btn";
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.select(arg);
+    });
+    record_id(id, id);
+}
+
+record_title("ui-dialog-title-special-keyboard", "Reeborg's basic keyboard");
+add_onclick_select("kbd-command");
+add_onclick_select("kbd-condition");
+add_onclick_select("kbd-python");
+add_onclick_select("kbd-py-console");
+add_onclick_select("kbd-javascript");
+add_onclick_select("kbd-objects");
+add_onclick_select("kbd-special");
+
+function add_onclick_insert_statement(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert_statement(RUR.translate(arg));
+    });
+    record_id(id, arg);
+}
+function add_onclick_insert_untranslated_statement(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert_statement(arg);
+    });
+    record_id(id, arg);
+    RUR.untranslated[arg] = true;
+}
+add_onclick_insert_statement("kbd-move", "move()");
+add_onclick_insert_statement("kbd-turn-left", "turn_left()");
+add_onclick_insert_statement("kbd-take", "take()");
+add_onclick_insert_statement("kbd-put", "put()");
+add_onclick_insert_statement("kbd-build-wall", "build_wall()");
+add_onclick_insert_statement("kbd-pause", "pause()");
+add_onclick_insert_statement("kbd-done", "done()");
+add_onclick_insert_statement("kbd-think", "think(100)");
+add_onclick_insert_statement("kbd-sound", "sound(True)");
+add_onclick_insert_statement("kbd-sound-js", "sound(true)");
+add_onclick_insert_statement("kbd-world", 'World()');
+add_onclick_insert_statement("kbd-UsedRobot", "UsedRobot()");
+add_onclick_insert_statement("kbd-newUsedRobot", "new UsedRobot()");
+add_onclick_insert_statement("kbd-no-highlight", "no_highlight()");
+
+function add_onclick_insert(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert(RUR.translate(arg));
+    });
+    record_id(id, arg);
+}
+
+function add_onclick_insert_untranslated(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert(arg);
+    });
+    record_id(id, arg);
+    RUR.untranslated[arg] = true;
+}
+
+add_onclick_insert("kbd-at-goal", "at_goal()");
+add_onclick_insert("kbd-front-is-clear", "front_is_clear()");
+add_onclick_insert("kbd-right-is-clear", "right_is_clear()");
+add_onclick_insert("kbd-wall-in-front", "wall_in_front()");
+add_onclick_insert("kbd-wall-on-right", "wall_on_right()");
+add_onclick_insert("kbd-object-here", "object_here()");
+add_onclick_insert("kbd-carries-object", "carries_object()");
+add_onclick_insert("kbd-is-facing-north", "is_facing_north()");
+
+function add_onclick_insert_object(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert('"'+RUR.translate(arg)+'"');
+    });
+    record_id(id);
+}
+add_onclick_insert_object("kbd-token", "token");
+add_onclick_insert_object("kbd-apple", "apple");
+add_onclick_insert_object("kbd-banana", "banana");
+add_onclick_insert_object("kbd-carrot", "carrot");
+add_onclick_insert_object("kbd-daisy", "daisy");
+add_onclick_insert_object("kbd-dandelion", "dandelion");
+add_onclick_insert_object("kbd-leaf", "leaf");
+add_onclick_insert_object("kbd-orange", "orange");
+add_onclick_insert_object("kbd-square", "square");
+add_onclick_insert_object("kbd-star", "star");
+add_onclick_insert_object("kbd-strawberry", "strawberry");
+add_onclick_insert_object("kbd-triangle", "triangle");
+add_onclick_insert_object("kbd-tulip", "tulip");
+
+add_onclick_insert_untranslated_statement("kbd-js-var", "var ");
+add_onclick_insert_untranslated("kbd-js-function", "function ? { \n\n}");
+add_onclick_insert_untranslated("kbd-js-if", "if ( ? ) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-elif", "else if ( ? ) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-else", "else { \n\n}");
+add_onclick_insert_untranslated("kbd-js-while", "while ( ? ) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-for", "for (? ; ? ; ?) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-true", "true");
+add_onclick_insert_untranslated("kbd-js-false", "false");
+add_onclick_insert_untranslated("kbd-js-undefined", "undefined");
+add_onclick_insert_untranslated("kbd-js-not", "!");
+add_onclick_insert_untranslated("kbd-js-and", "&&");
+add_onclick_insert_untranslated("kbd-js-or", "||");
+add_onclick_insert_statement("kbd-js-write", "write()");
+add_onclick_insert_untranslated_statement("kbd-js-return", "return");
+add_onclick_insert_untranslated_statement("kbd-js-continue", "continue");
+add_onclick_insert_untranslated_statement("kbd-js-break", "break");
+
+add_onclick_insert_untranslated_statement("kbd-py-def", "def ? ( ):");
+add_onclick_insert_untranslated_statement("kbd-py-if", "if ? :");
+add_onclick_insert_untranslated_statement("kbd-py-elif", "elif ? :");
+add_onclick_insert_untranslated_statement("kbd-py-else", "else:");
+add_onclick_insert_untranslated_statement("kbd-py-while", "while ? :");
+add_onclick_insert_untranslated_statement("kbd-py-repeat", "repeat ? :");
+add_onclick_insert_statement("kbd-py-library", "from library import ?");
+add_onclick_insert_untranslated_statement("kbd-py-for", "for ? in ? :");
+add_onclick_insert_untranslated_statement("kbd-py-print", "print()");
+add_onclick_insert_untranslated_statement("kbd-py-range", "range(?)");
+add_onclick_insert_untranslated_statement("kbd-py-true", "True");
+add_onclick_insert_untranslated_statement("kbd-py-false", "False");
+add_onclick_insert_untranslated_statement("kbd-py-none", "None");
+add_onclick_insert_untranslated_statement("kbd-py-not", "not");
+add_onclick_insert_untranslated_statement("kbd-py-and", "and");
+add_onclick_insert_untranslated_statement("kbd-py-or", "or");
+add_onclick_insert_untranslated_statement("kbd-py-continue", "continue");
+add_onclick_insert_untranslated_statement("kbd-py-break", "break");
+add_onclick_insert_untranslated_statement("kbd-py-return", "return ?");
+add_onclick_insert_untranslated_statement("kbd-py-pass", "pass");
+
+add_onclick_insert_untranslated("kbd-pyrepl-def", "def ");
+add_onclick_insert_untranslated("kbd-pyrepl-if", "if ");
+add_onclick_insert_untranslated("kbd-pyrepl-elif", "elif ");
+add_onclick_insert_untranslated("kbd-pyrepl-else", "else:");
+add_onclick_insert_untranslated("kbd-pyrepl-while", "while ");
+add_onclick_insert("kbd-pyrepl-library", "from library import ?");
+add_onclick_insert_untranslated("kbd-pyrepl-for", "for ");
+add_onclick_insert_untranslated("kbd-pyrepl-in", "in ");
+add_onclick_insert_untranslated("kbd-pyrepl-print", "print(");
+add_onclick_insert_untranslated("kbd-pyrepl-range", "range(");
+add_onclick_insert_untranslated("kbd-pyrepl-true", "True");
+add_onclick_insert_untranslated("kbd-pyrepl-false", "False");
+add_onclick_insert_untranslated("kbd-pyrepl-none", "None");
+add_onclick_insert_untranslated("kbd-pyrepl-not", "not");
+add_onclick_insert_untranslated("kbd-pyrepl-and", "and");
+add_onclick_insert_untranslated("kbd-pyrepl-or", "or");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-continue", "continue");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-break", "break");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-return", "return");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-pass", "pass");
+
+add_onclick_insert_untranslated("kbd-colon", ":");
+add_onclick_insert_untranslated("kbd-semi-colon", ";");
+add_onclick_insert_untranslated("kbd-sharp", "#");
+add_onclick_insert_untranslated("kbd-double-quote", "\"");
+add_onclick_insert_untranslated("kbd-single-quote", "'");
+add_onclick_insert_untranslated("kbd-equal", "=");
+add_onclick_insert_untranslated("kbd-less-than", "<");
+add_onclick_insert_untranslated("kbd-greater-than", ">");
+add_onclick_insert_untranslated("kbd-ampersand", "&");
+add_onclick_insert_untranslated("kbd-vertical-bar", "|");
+add_onclick_insert_untranslated("kbd-parens", "( )");
+add_onclick_insert_untranslated("kbd-curly-brackets", "{ }");
+add_onclick_insert_untranslated("kbd-square-brackets", "[ ]");
+
+$("#kbd-tab").on("click", function (evt) {
+    RUR.kbd.tab();
+});
+record_id("kbd-tab", "tab");
+$("#kbd-shift-tab").on("click", function (evt) {
+    RUR.kbd.shift_tab();
+});
+record_id("kbd-shift-tab", "shift-tab");
+$("#kbd-enter").on("click", function (evt) {
+    RUR.kbd.enter();
+});
+record_id("kbd-enter", "enter");
+$("#kbd-undo").on("click", function (evt) {
+    RUR.kbd.undo();
+});
+record_id("kbd-undo", "UNDO");
+$("#kbd-redo").on("click", function (evt) {
+    RUR.kbd.redo();
+});
+record_id("kbd-redo", "REDO");
+
+function add_onclick(id, fn, arg, record, enter) {
+    $("#"+id).on("click", function (evt) {
+        fn(arg);
+    });
+    if (enter) {
+        RUR.kbd.enter();
+    }
+    if (record) {
+        record_id(id, id);
+    }
+}

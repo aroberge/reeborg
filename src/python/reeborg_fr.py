@@ -226,14 +226,6 @@ def max_nb_instructions(nb):  #py:set_max_nb_instructions
     RUR._set_max_nb_instructions_(nb)
 
 
-def max_nb_robots(nb):  #py:set_max_nb_robots
-    """Surtout destiné aux créateurs de mondes,
-       ceci permet de limiter le nombre de robots
-       permis dans un monde donné.
-    """
-    RUR._set_max_nb_robots_(nb)
-
-
 def couleur_de_trace(couleur):  #py:set_trace_color
     """Change la couleur de trace du robot.
 
@@ -375,7 +367,7 @@ class RobotUsage(object):  #py:UR
                orientation: une des valeurs suivante: "nord", "sud",
                             est", "ouest"
                jeton: nombre initial de jetons à donner au robot;
-                      un entier positif, ou la chaîne "inf" pour un
+                      un entier positif, ou la chaîne "Infinity" pour un
                       nombre infini.
         """
         if jeton is None:
@@ -383,7 +375,7 @@ class RobotUsage(object):  #py:UR
         else:
             robot = RUR.robot.create_robot(x, y, orientation, jeton)
         self.body = robot
-        RUR.world.add_robot(self.body)
+        RUR._add_robot(self.body)
 
     def __str__(self):  #py:UR.__str__
         location = "({}, {})".format(self.body.x, self.body.y)
@@ -663,11 +655,11 @@ class InfoSatellite():  #py:SI
            sujet du monde.
         """
         import json
-        return json.loads(RUR.control.get_world_map())
+        return json.loads(RUR.world_get.world_map())
 
     def imprime_carte(self):  #py:SI.print_world_map
         """imprime une copie formattée de la carte"""
-        print(RUR.control.get_world_map())
+        print(RUR.world_get.world_map())
 
 
 #py:obsolete
@@ -684,8 +676,9 @@ def face_au_nord():
     raise ReeborgError("face_au_nord() est désuet;" +
                        " utilisez est_face_au_nord()")
 
-def répète(fn, n):
+def repete(fn, n):
     '''Fonction maintenue pour compatibilité avec d'anciens programmes.
        SVP, ne pas l'utiliser.'''
     for i in range(n):
         fn()
+répète = repete

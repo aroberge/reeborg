@@ -2,12 +2,24 @@
 /*jshint  -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals RUR*/
 
+require("./translator.js");
+require("./constants.js");
+require("./state.js");
+require("./extend/add_object_type.js");
+require("./extend/add_tile_type.js");
+require("./extend/new_home_tile.js");
+
 RUR.vis_world = {};
+
+RUR.vis_world.refresh_world_edited = function () {
+    RUR.vis_world.draw_all();
+    RUR.world_get.world_info();
+};
 
 RUR.vis_world.compute_world_geometry = function (cols, rows) {
     "use strict";
     var height, width;
-    if (RUR.current_world.small_tiles) {
+    if (RUR.CURRENT_WORLD.small_tiles) {
         RUR.WALL_LENGTH = 20;
         RUR.WALL_THICKNESS = 2;
         RUR.SCALE = 0.5;
@@ -26,31 +38,31 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
     }
 
     if (height !== RUR.HEIGHT || width !== RUR.WIDTH) {
-        RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
+        RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas");
         RUR.BACKGROUND_CANVAS.width = width;
         RUR.BACKGROUND_CANVAS.height = height;
-        RUR.second_layer_canvas = document.getElementById("second_layer_canvas");
-        RUR.second_layer_canvas.width = width;
-        RUR.second_layer_canvas.height = height;
-        RUR.goal_canvas = document.getElementById("goal_canvas");
-        RUR.goal_canvas.width = width;
-        RUR.goal_canvas.height = height;
-        RUR.objects_canvas = document.getElementById("objects_canvas");
-        RUR.objects_canvas.width = width;
-        RUR.objects_canvas.height = height;
-        RUR.trace_canvas = document.getElementById("trace_canvas");
-        RUR.trace_canvas.width = width;
-        RUR.trace_canvas.height = height;
-        RUR.robot_canvas = document.getElementById("robot_canvas");
-        RUR.robot_canvas.width = width;
-        RUR.robot_canvas.height = height;
+        RUR.SECOND_LAYER_CANVAS = document.getElementById("second-layer-canvas");
+        RUR.SECOND_LAYER_CANVAS.width = width;
+        RUR.SECOND_LAYER_CANVAS.height = height;
+        RUR.GOAL_CANVAS = document.getElementById("goal-canvas");
+        RUR.GOAL_CANVAS.width = width;
+        RUR.GOAL_CANVAS.height = height;
+        RUR.OBJECTS_CANVAS = document.getElementById("objects-canvas");
+        RUR.OBJECTS_CANVAS.width = width;
+        RUR.OBJECTS_CANVAS.height = height;
+        RUR.TRACE_CANVAS = document.getElementById("trace-canvas");
+        RUR.TRACE_CANVAS.width = width;
+        RUR.TRACE_CANVAS.height = height;
+        RUR.ROBOT_CANVAS = document.getElementById("robot-canvas");
+        RUR.ROBOT_CANVAS.width = width;
+        RUR.ROBOT_CANVAS.height = height;
         RUR.HEIGHT = height;
         RUR.WIDTH = width;
     }
 
     // background context may have change - hence wait until here
     // to set
-    if (RUR.current_world.small_tiles) {
+    if (RUR.CURRENT_WORLD.small_tiles) {
         RUR.BACKGROUND_CTX.font = "8px sans-serif";
     } else {
         RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
@@ -58,22 +70,24 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
 
     RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
     RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
-    RUR.current_world.rows = RUR.ROWS;
-    RUR.current_world.cols = RUR.COLS;
+    RUR.CURRENT_WORLD.rows = RUR.ROWS;
+    RUR.CURRENT_WORLD.cols = RUR.COLS;
+    //TODO: extract all of the above into separate function which can be
+    //put elsewhere.
     RUR.vis_world.draw_all();
 };
 
 RUR.vis_world.draw_all = function () {
     "use strict";
 
-    if (RUR.current_world.blank_canvas) {
-        if (RUR.we.editing_world) {
-            RUR.cd.show_feedback("#Reeborg-shouts",
+    if (RUR.CURRENT_WORLD.blank_canvas) {
+        if (RUR.state.editing_world) {
+            RUR.show_feedback("#Reeborg-shouts",
                                 RUR.translate("Editing of blank canvas is not supported."));
             return;
          }
-        clearTimeout(RUR.animation_frame_id);
-        RUR.animation_frame_id = undefined;
+        clearTimeout(RUR.ANIMATION_FRAME_ID);
+        RUR.ANIMATION_FRAME_ID = undefined;
         RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -86,15 +100,15 @@ RUR.vis_world.draw_all = function () {
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.animated_tiles = false;
 
-    if (RUR.we.editing_world) {
-        if (RUR.background_image.src) {
-            RUR.vis_world.draw_single_object(RUR.background_image, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
+    if (RUR.state.editing_world) {
+        if (RUR.BACKGROUND_IMAGE.src) {
+            RUR.vis_world.draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
         }
         RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
     } else {
         RUR.vis_world.draw_grid_walls();
-        if (RUR.background_image.src) {
-            RUR.vis_world.draw_single_object(RUR.background_image, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
+        if (RUR.BACKGROUND_IMAGE.src) {
+            RUR.vis_world.draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
         }
     }
 
@@ -126,22 +140,22 @@ RUR.vis_world.refresh = function () {
     if (!RUR.animated_tiles) {
         RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
     }
-    RUR.vis_world.draw_tiles(RUR.current_world.tiles); // on BACKGROUND_CTX
+    RUR.vis_world.draw_tiles(RUR.CURRENT_WORLD.tiles); // on BACKGROUND_CTX
 
     if (RUR.__debug) {
         RUR.vis_world.sanity_check(0);
     }
-    RUR.vis_world.draw_foreground_walls(RUR.current_world.walls); // on OBJECTS_CTX
-    RUR.vis_world.draw_all_objects(RUR.current_world.decorative_objects);
-    RUR.vis_world.draw_all_objects(RUR.current_world.objects);  // on OBJECTS_CTX
+    RUR.vis_world.draw_foreground_walls(RUR.CURRENT_WORLD.walls); // on OBJECTS_CTX
+    RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.decorative_objects);
+    RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.objects);  // on OBJECTS_CTX
         // RUR.vis_world.draw_all_objects also called by draw_goal, and draws on GOAL_CTX
         // and, draws some objects on ROBOT_CTX
 
     // objects: goal is false, tile is true
-    RUR.vis_world.draw_all_objects(RUR.current_world.solid_objects, false, true); // likely on RUR.SECOND_LAYER_CTX
+    RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.solid_objects, false, true); // likely on RUR.SECOND_LAYER_CTX
 
 
-    RUR.vis_world.draw_robots(RUR.current_world.robots);  // on ROBOT_CTX
+    RUR.vis_world.draw_robots(RUR.CURRENT_WORLD.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
     RUR.vis_world.draw_info();     // on ROBOT_CTX
     if (RUR.__debug) {
@@ -193,7 +207,7 @@ RUR.vis_world.draw_coordinates = function() {
 
 RUR.vis_world.draw_grid_walls = function(){
     var i, j, ctx;
-    if (RUR.we.editing_world) {
+    if (RUR.state.editing_world) {
         ctx = RUR.GOAL_CTX;     // have the appear above the tiles while editing
     } else {
         ctx = RUR.BACKGROUND_CTX;
@@ -313,15 +327,15 @@ RUR.vis_world.draw_goal = function () {
     "use strict";
     var goal, ctx = RUR.GOAL_CTX;
 
-    if (RUR.we.editing_world){  // have to appear above tiles;
+    if (RUR.state.editing_world){  // have to appear above tiles;
         RUR.vis_world.draw_grid_walls();  //  so this is a convenient canvas
     }
 
-    if (RUR.current_world.goal === undefined) {
+    if (RUR.CURRENT_WORLD.goal === undefined) {
         return;
     }
 
-    goal = RUR.current_world.goal;
+    goal = RUR.CURRENT_WORLD.goal;
     if (goal.position !== undefined) {
         RUR.vis_world.draw_goal_position(goal, ctx);
     }
@@ -341,12 +355,12 @@ RUR.vis_world.draw_goal_position = function (goal, ctx) {
 
     if (goal.position.image !== undefined &&
         typeof goal.position.image === 'string' &&
-        RUR.home_images[goal.position.image] !== undefined){
-        image = RUR.home_images[goal.position.image].image;
+        RUR.HOME_IMAGES[goal.position.image] !== undefined){
+        image = RUR.HOME_IMAGES[goal.position.image].image;
     } else {    // For anyone wondering, this step might be needed only when using older world
                 // files that were created when there was not a choice
                 // of image for indicating the home position.
-        image = RUR.home_images.green_home_tile.image;
+        image = RUR.HOME_IMAGES.green_home_tile.image;
     }
     if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
             ctx.save();
@@ -399,7 +413,7 @@ RUR.vis_world.draw_tiles = function (tiles){
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
         if (tiles[keys[key]] !== undefined) {
-            tile = RUR.tiles[tiles[keys[key]]];
+            tile = RUR.TILES[tiles[keys[key]]];
             if (tile === undefined) {
                 colour = tiles[keys[key]];
                 RUR.vis_world.draw_coloured_tile(colour, i, j, RUR.BACKGROUND_CTX);
@@ -416,32 +430,33 @@ RUR.vis_world.draw_tiles = function (tiles){
 
 RUR.vis_world.draw_animated_tiles = function (){
     "use strict";
-    var i, j, k, keys, key, image, tile, tiles;
+    var i, j, i_j, coords, k, image, tile, tiles;
 
-    tiles = RUR.current_world.tiles;
+    tiles = RUR.CURRENT_WORLD.tiles;
     if (tiles === undefined) {
         return;
     }
 
     RUR.animated_tiles = false;
-    keys = Object.keys(tiles);
-    for (key=0; key < keys.length; key++){
-        k = keys[key].split(",");
-        i = parseInt(k[0], 10);
-        j = parseInt(k[1], 10);
-        tile = RUR.tiles[tiles[keys[key]]];
+    coords = Object.keys(tiles);
+    for (k=0; k < coords.length; k++){
+        i_j = coords[k].split(",");
+        i = parseInt(i_j[0], 10);
+        j = parseInt(i_j[1], 10);
+        tile = RUR.TILES[tiles[coords[k]]];
         if (tile === undefined) {
             continue;
         }
         if (tile.choose_image !== undefined){
+            image = tile.choose_image(coords[k]);
             RUR.animated_tiles = true;
-            image = tile.choose_image();
             RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
         }
     }
     if (RUR.animated_tiles) {
-        clearTimeout(RUR.animation_frame_id);
-        RUR.animation_frame_id = setTimeout(RUR.vis_world.draw_animated_tiles, 120);
+        clearTimeout(RUR.ANIMATION_FRAME_ID);
+        RUR.ANIMATION_FRAME_ID = setTimeout(RUR.vis_world.draw_animated_tiles,
+            RUR.ANIMATION_TIME);
     }
 };
 
@@ -476,9 +491,9 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
                 for (obj_name in objects_here){
                     if (objects_here.hasOwnProperty(obj_name)){
                         if (tile){
-                            specific_object = RUR.solid_objects[obj_name];
+                            specific_object = RUR.SOLID_OBJECTS[obj_name];
                         } else {
-                            specific_object = RUR.objects[obj_name];
+                            specific_object = RUR.OBJECTS[obj_name];
                         }
                         if (goal) {
                             ctx = RUR.GOAL_CTX;
@@ -523,16 +538,16 @@ RUR.vis_world.compile_info = function() {
     RUR.vis_world.information = {};
     RUR.vis_world.goal_information = {};
     RUR.vis_world.goal_present = false;
-    if (RUR.current_world.goal !== undefined &&
-        RUR.current_world.goal.objects !== undefined) {
-        RUR.vis_world.compile_partial_info(RUR.current_world.goal.objects,
+    if (RUR.CURRENT_WORLD.goal !== undefined &&
+        RUR.CURRENT_WORLD.goal.objects !== undefined) {
+        RUR.vis_world.compile_partial_info(RUR.CURRENT_WORLD.goal.objects,
             RUR.vis_world.goal_information, 'goal');
             RUR.vis_world.goal_present = true;
     }
 
 
-    if (RUR.current_world.objects !== undefined) {
-        RUR.vis_world.compile_partial_info(RUR.current_world.objects,
+    if (RUR.CURRENT_WORLD.objects !== undefined) {
+        RUR.vis_world.compile_partial_info(RUR.CURRENT_WORLD.objects,
             RUR.vis_world.information, 'objects');
     }
 };

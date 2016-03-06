@@ -96,5 +96,5 @@
     }
   },
   "post_code": "_desired_path = [\n(2,1), (3,1), (4,1), (5,1), (6,1), (6,2), (6,3), (6,4), (6,5), (5,5), (4,5), (4,4), (4,3), (5,3), (6,3), (7,3), (8,3), (9,3), (10,3)]\n\nif _desired_path != _path_followed:\n    raise ReeborgError(\"Desired path not followed!\")\n\n",
-  "pre_code": "_path_followed = []\nold_move = move\ndef move():\n    reeborg = RUR.current_world.robots[0]\n    old_move()\n    _path_followed.append((reeborg.x, reeborg.y))\n"
+  "pre_code": "_path_followed = []\nold_move = move\ndef move():\n    reeborg = RUR.CURRENT_WORLD.robots[0]\n    old_move()\n    _path_followed.append((reeborg.x, reeborg.y))\n"
 }

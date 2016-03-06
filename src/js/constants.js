@@ -1,10 +1,4 @@
-/* 
-   Defining base name space and various constants.
- */
-
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-var RUR = RUR || {};
-
+require("./rur.js");
 RUR.EAST = 0;
 RUR.NORTH = 1;
 RUR.WEST = 2;
@@ -17,21 +11,25 @@ RUR.TILE_SIZE = 40;
 RUR.DEFAULT_HEIGHT = 550;
 RUR.DEFAULT_WIDTH = 625;
 
-RUR.BACKGROUND_CANVAS = document.getElementById("background_canvas");
+// TODO: set up all canvas in separate isolated function so that
+// unit testing can be done more easily - with contants defined but without
+// having to mock document.
+
+RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas");
 RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
 RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
 
-RUR.BACKGROUND_CTX = document.getElementById("background_canvas").getContext("2d");
-RUR.SECOND_LAYER_CTX = document.getElementById("second_layer_canvas").getContext("2d");
-RUR.GOAL_CTX = document.getElementById("goal_canvas").getContext("2d");
-RUR.OBJECTS_CTX = document.getElementById("objects_canvas").getContext("2d");
-RUR.TRACE_CTX = document.getElementById("trace_canvas").getContext("2d");
-RUR.ROBOT_CTX = document.getElementById("robot_canvas").getContext("2d");
+RUR.BACKGROUND_CTX = document.getElementById("background-canvas").getContext("2d");
+RUR.SECOND_LAYER_CTX = document.getElementById("second-layer-canvas").getContext("2d");
+RUR.GOAL_CTX = document.getElementById("goal-canvas").getContext("2d");
+RUR.OBJECTS_CTX = document.getElementById("objects-canvas").getContext("2d");
+RUR.TRACE_CTX = document.getElementById("trace-canvas").getContext("2d");
+RUR.ROBOT_CTX = document.getElementById("robot-canvas").getContext("2d");
 
 RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
 
 RUR.WALL_LENGTH = 40;   // These can be adjusted
-RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.current_world.small_tiles become true.
+RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.CURRENT_WORLD.small_tiles become true.
 
 RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
@@ -55,3 +53,12 @@ RUR.MAX_STEPS = 1000;
 RUR.MIN_TIME_SOUND = 250;
 
 RUR.DEFAULT_TRACE_COLOR = "seagreen";
+
+RUR.KNOWN_OBJECTS = [];
+RUR.KNOWN_TILES = [];
+RUR.KNOWN_SOLID_OBJECTS = [];
+RUR.ANIMATION_TIME = 120;
+
+RUR._CALLBACK_FN = function () {
+    alert("FATAL internal error: RUR._CALLBACK_FN was not initialized.");
+};
