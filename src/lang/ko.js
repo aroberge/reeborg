@@ -38,7 +38,6 @@ RUR.ko["tulip"] = "튤립";
 RUR.ko_to_en["튤립"] = "tulip";
 
 RUR.ko["Problem with onload code."] = "유효하지 않는 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
-RUR.ko["# from library import *"] = "# 사용을 할려먼 'from library import *' 이 파이썬 코드가 필요합니다.\n# 코드가 이 라이브러리 안에 있습니다. \n\n";
 
 RUR.ko["Too many steps:"] = "너무 많은 steps: {max_steps}";
 RUR.ko["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>리보그는 올바른 x 위치에 있습니다.</li>";
@@ -336,7 +335,14 @@ RUR.ko["new UsedRobot"] = "new UsedRobot";
 RUR.ko["new UsedRobot()"] = "new UsedRobot()";
 RUR.ko["no_highlight"] = "no_highlight";
 RUR.ko["no_highlight()"] = "no_highlight()";
+RUR.ko["write"] = "write";
+RUR.ko["write()"] = "write()";
+
+RUR.ko["from library import ?"] = "from library import ?";
+RUR.ko["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code>는 여기에서만 작동하는 파이썬 키워드입니다.";
 
 RUR.ko["tab"] = "TAB";
 RUR.ko["shift-tab"] = "Shift-TAB";
 RUR.ko["enter"] = "\u23CE";
+RUR.ko["UNDO"] = "되돌리기";
+RUR.ko["REDO"] = "다시 실행";

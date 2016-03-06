@@ -37,7 +37,6 @@ RUR.en["tulip"] = "tulip";
 RUR.en_to_en["tulip"] = "tulip";
 
 RUR.en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
-RUR.en["# from library import *"] = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
 
 RUR.en["Too many steps:"] = "Too many steps: {max_steps}";
 RUR.en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
@@ -163,7 +162,6 @@ RUR.en["Global variables"] = "Global variables";
 RUR.en["Watched expressions"] = "Watched expressions";
 
 RUR.en["move forward"] = "move forward";
-RUR.en["write"] = "write";
 RUR.en["turn left"] = "turn left";
 RUR.en["take object"] = "take object";
 RUR.en["put object"] = "put object";
@@ -335,7 +333,14 @@ RUR.en["new UsedRobot"] = "new UsedRobot";
 RUR.en["new UsedRobot()"] = "new UsedRobot()";
 RUR.en["no_highlight"] = "no_highlight";
 RUR.en["no_highlight()"] = "no_highlight()";
+RUR.en["write"] = "write";
+RUR.en["write()"] = "write()";
+
+RUR.en["from library import ?"] = "from library import ?";
+RUR.en["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> is not a true Python keyword.";
 
 RUR.en["tab"] = "TAB";
 RUR.en["shift-tab"] = "Shift-TAB";
 RUR.en["enter"] = "\u23CE";
+RUR.en["UNDO"] = "UNDO";
+RUR.en["REDO"] = "REDO";

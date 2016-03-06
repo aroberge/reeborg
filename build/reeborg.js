@@ -2003,7 +2003,7 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
 
 RUR.create_and_activate_dialogs($("#more-menus-button"), $("#more-menus"), {height:700});
 RUR.create_and_activate_dialogs($("#special-keyboard-button"), $("#special-keyboard"),
-        {autoOpen:false, width:750,  height:350, maximize: false, position:"left"});
+        {autoOpen:false, width:750,  height:330, maximize: false, position:"left"});
 
 $("#Reeborg-concludes").dialog({minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes",
                                 position:{my: "center", at: "center", of: $("#robot-canvas")}});
@@ -2573,6 +2573,9 @@ require("./start_session.js");
 */
 
 require("./state.js");
+require("./dialogs/create.js");
+require("./listeners/editors_tabs.js");
+require("./translator.js");
 
 RUR.kbd = {};
 
@@ -2810,6 +2813,13 @@ function add_onclick_insert_statement(id, arg) {
     });
     record_id(id, arg);
 }
+function add_onclick_insert_untranslated_statement(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert_statement(arg);
+    });
+    record_id(id, arg);
+    RUR.untranslated[arg] = true;
+}
 add_onclick_insert_statement("kbd-move", "move()");
 add_onclick_insert_statement("kbd-turn-left", "turn_left()");
 add_onclick_insert_statement("kbd-take", "take()");
@@ -2825,14 +2835,19 @@ add_onclick_insert_statement("kbd-UsedRobot", "UsedRobot()");
 add_onclick_insert_statement("kbd-newUsedRobot", "new UsedRobot()");
 add_onclick_insert_statement("kbd-no-highlight", "no_highlight()");
 
-function add_onclick_insert(id, arg, enter) {
+function add_onclick_insert(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert(RUR.translate(arg));
     });
-    if (enter) {
-        RUR.kbd.enter();
-    }
     record_id(id, arg);
+}
+
+function add_onclick_insert_untranslated(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert(arg);
+    });
+    record_id(id, arg);
+    RUR.untranslated[arg] = true;
 }
 
 add_onclick_insert("kbd-at-goal", "at_goal()");
@@ -2864,25 +2879,79 @@ add_onclick_insert_object("kbd-strawberry", "strawberry");
 add_onclick_insert_object("kbd-triangle", "triangle");
 add_onclick_insert_object("kbd-tulip", "tulip");
 
-function add_onclick_insert_special(id, arg) {
-    $("#"+id).on("click", function (evt) {
-        RUR.kbd.insert(arg);
-    });
-    record_id(id);
-}
-add_onclick_insert_special("kbd-colon", ":");
-add_onclick_insert_special("kbd-semi-colon", ";");
-add_onclick_insert_special("kbd-sharp", "#");
-add_onclick_insert_special("kbd-double-quote", "\"");
-add_onclick_insert_special("kbd-single-quote", "'");
-add_onclick_insert_special("kbd-equal", "=");
-add_onclick_insert_special("kbd-less-than", "<");
-add_onclick_insert_special("kbd-greater-than", ">");
-add_onclick_insert_special("kbd-ampersand", "&");
-add_onclick_insert_special("kbd-vertical-bar", "|");
-add_onclick_insert_special("kbd-parens", "( )");
-add_onclick_insert_special("kbd-curly-brackets", "{ }");
-add_onclick_insert_special("kbd-square-brackets", "[ ]");
+add_onclick_insert_untranslated_statement("kbd-js-var", "var ");
+add_onclick_insert_untranslated("kbd-js-function", "function ? { \n\n}");
+add_onclick_insert_untranslated("kbd-js-if", "if ( ? ) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-elif", "else if ( ? ) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-else", "else { \n\n}");
+add_onclick_insert_untranslated("kbd-js-while", "while ( ? ) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-for", "for (? ; ? ; ?) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-true", "true");
+add_onclick_insert_untranslated("kbd-js-false", "false");
+add_onclick_insert_untranslated("kbd-js-undefined", "undefined");
+add_onclick_insert_untranslated("kbd-js-not", "!");
+add_onclick_insert_untranslated("kbd-js-and", "&&");
+add_onclick_insert_untranslated("kbd-js-or", "||");
+add_onclick_insert_statement("kbd-js-write", "write()");
+add_onclick_insert_untranslated_statement("kbd-js-return", "return");
+add_onclick_insert_untranslated_statement("kbd-js-continue", "continue");
+add_onclick_insert_untranslated_statement("kbd-js-break", "break");
+
+add_onclick_insert_untranslated_statement("kbd-py-def", "def ? ( ):");
+add_onclick_insert_untranslated_statement("kbd-py-if", "if ? :");
+add_onclick_insert_untranslated_statement("kbd-py-elif", "elif ? :");
+add_onclick_insert_untranslated_statement("kbd-py-else", "else:");
+add_onclick_insert_untranslated_statement("kbd-py-while", "while ? :");
+add_onclick_insert_untranslated_statement("kbd-py-repeat", "repeat ? :");
+add_onclick_insert_statement("kbd-py-library", "from library import ?");
+add_onclick_insert_untranslated_statement("kbd-py-for", "for ? in ? :");
+add_onclick_insert_untranslated_statement("kbd-py-print", "print()");
+add_onclick_insert_untranslated_statement("kbd-py-range", "range(?)");
+add_onclick_insert_untranslated_statement("kbd-py-true", "True");
+add_onclick_insert_untranslated_statement("kbd-py-false", "False");
+add_onclick_insert_untranslated_statement("kbd-py-none", "None");
+add_onclick_insert_untranslated_statement("kbd-py-not", "not");
+add_onclick_insert_untranslated_statement("kbd-py-and", "and");
+add_onclick_insert_untranslated_statement("kbd-py-or", "or");
+add_onclick_insert_untranslated_statement("kbd-py-continue", "continue");
+add_onclick_insert_untranslated_statement("kbd-py-break", "break");
+add_onclick_insert_untranslated_statement("kbd-py-return", "return ?");
+add_onclick_insert_untranslated_statement("kbd-py-pass", "pass");
+
+add_onclick_insert_untranslated("kbd-pyrepl-def", "def ");
+add_onclick_insert_untranslated("kbd-pyrepl-if", "if ");
+add_onclick_insert_untranslated("kbd-pyrepl-elif", "elif ");
+add_onclick_insert_untranslated("kbd-pyrepl-else", "else:");
+add_onclick_insert_untranslated("kbd-pyrepl-while", "while ");
+add_onclick_insert("kbd-pyrepl-library", "from library import ?");
+add_onclick_insert_untranslated("kbd-pyrepl-for", "for ");
+add_onclick_insert_untranslated("kbd-pyrepl-in", "in ");
+add_onclick_insert_untranslated("kbd-pyrepl-print", "print(");
+add_onclick_insert_untranslated("kbd-pyrepl-range", "range(");
+add_onclick_insert_untranslated("kbd-pyrepl-true", "True");
+add_onclick_insert_untranslated("kbd-pyrepl-false", "False");
+add_onclick_insert_untranslated("kbd-pyrepl-none", "None");
+add_onclick_insert_untranslated("kbd-pyrepl-not", "not");
+add_onclick_insert_untranslated("kbd-pyrepl-and", "and");
+add_onclick_insert_untranslated("kbd-pyrepl-or", "or");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-continue", "continue");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-break", "break");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-return", "return");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-pass", "pass");
+
+add_onclick_insert_untranslated("kbd-colon", ":");
+add_onclick_insert_untranslated("kbd-semi-colon", ";");
+add_onclick_insert_untranslated("kbd-sharp", "#");
+add_onclick_insert_untranslated("kbd-double-quote", "\"");
+add_onclick_insert_untranslated("kbd-single-quote", "'");
+add_onclick_insert_untranslated("kbd-equal", "=");
+add_onclick_insert_untranslated("kbd-less-than", "<");
+add_onclick_insert_untranslated("kbd-greater-than", ">");
+add_onclick_insert_untranslated("kbd-ampersand", "&");
+add_onclick_insert_untranslated("kbd-vertical-bar", "|");
+add_onclick_insert_untranslated("kbd-parens", "( )");
+add_onclick_insert_untranslated("kbd-curly-brackets", "{ }");
+add_onclick_insert_untranslated("kbd-square-brackets", "[ ]");
 
 $("#kbd-tab").on("click", function (evt) {
     RUR.kbd.tab();
@@ -2896,7 +2965,14 @@ $("#kbd-enter").on("click", function (evt) {
     RUR.kbd.enter();
 });
 record_id("kbd-enter", "enter");
-
+$("#kbd-undo").on("click", function (evt) {
+    RUR.kbd.undo();
+});
+record_id("kbd-undo", "UNDO");
+$("#kbd-redo").on("click", function (evt) {
+    RUR.kbd.redo();
+});
+record_id("kbd-redo", "REDO");
 
 function add_onclick(id, fn, arg, record, enter) {
     $("#"+id).on("click", function (evt) {
@@ -2910,7 +2986,7 @@ function add_onclick(id, fn, arg, record, enter) {
     }
 }
 
-},{"./state.js":52}],20:[function(require,module,exports){
+},{"./dialogs/create.js":8,"./listeners/editors_tabs.js":23,"./state.js":52,"./translator.js":54}],20:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
  * w/ Minimize & Maximize Support
@@ -4415,12 +4491,20 @@ $("#programming-mode").change(function() {
             show_editor("python");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
+            try {
+                $("#kbd-undo").show();
+                $("#kbd-redo").show();
+            } catch(e) {}     
             break;
         case "javascript":
             RUR.state.programming_language = "javascript";
             show_editor("javascript");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
+            try {
+                $("#kbd-undo").show();
+                $("#kbd-redo").show();
+            } catch(e) {}
             break;
         case "blockly-py":
             RUR.state.programming_language = "python";
@@ -4443,9 +4527,8 @@ $("#programming-mode").change(function() {
             show_editor("python");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
-        console.log("Problem? Default value used in programming-mode select.");
+            console.log("Problem? Default value used in programming-mode select.");
     }
-
     RUR.kbd.set_programming_language(RUR.state.programming_language);
     update_url();
 });
@@ -4480,6 +4563,11 @@ function hide_everything () {
     $("#highlight").hide();
     $("#watch-variables-btn").hide();
     $("#Reeborg-watches").dialog("close");
+    try{
+        $("#kbd-undo").hide();
+        $("#kbd-redo").hide();
+    } catch(e) {}
+
 }
 
 function show_blockly () {
@@ -6285,8 +6373,12 @@ RUR.storage.delete_world = function (name){
 require("./rur.js");
 require("./../lang/msg.js");
 
+RUR.untranslated = {};
+
 RUR.translate = function (s) {
-    if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
+    if (RUR.untranslated[s]) {
+        return s;
+    } else if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
         return RUR.translation[s];
     } else {
         console.log("Translation needed for");
@@ -9133,7 +9225,6 @@ RUR.en["tulip"] = "tulip";
 RUR.en_to_en["tulip"] = "tulip";
 
 RUR.en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
-RUR.en["# from library import *"] = "# 'from library import *' in Python Code is required to use\n# the code in this library. \n\n";
 
 RUR.en["Too many steps:"] = "Too many steps: {max_steps}";
 RUR.en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
@@ -9259,7 +9350,6 @@ RUR.en["Global variables"] = "Global variables";
 RUR.en["Watched expressions"] = "Watched expressions";
 
 RUR.en["move forward"] = "move forward";
-RUR.en["write"] = "write";
 RUR.en["turn left"] = "turn left";
 RUR.en["take object"] = "take object";
 RUR.en["put object"] = "put object";
@@ -9431,10 +9521,17 @@ RUR.en["new UsedRobot"] = "new UsedRobot";
 RUR.en["new UsedRobot()"] = "new UsedRobot()";
 RUR.en["no_highlight"] = "no_highlight";
 RUR.en["no_highlight()"] = "no_highlight()";
+RUR.en["write"] = "write";
+RUR.en["write()"] = "write()";
+
+RUR.en["from library import ?"] = "from library import ?";
+RUR.en["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> is not a true Python keyword.";
 
 RUR.en["tab"] = "TAB";
 RUR.en["shift-tab"] = "Shift-TAB";
 RUR.en["enter"] = "\u23CE";
+RUR.en["UNDO"] = "UNDO";
+RUR.en["REDO"] = "REDO";
 
 },{}],81:[function(require,module,exports){
 RUR.fr = {};
@@ -9478,7 +9575,6 @@ RUR.fr["tulip"] = "tulipe";
 RUR.fr_to_en["tulipe"] = "tulip";
 
 RUR.fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
-RUR.fr["# from library import *"] = "# 'from biblio import *' dans l'onglet Code Python est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
 
 RUR.fr["Too many steps:"] = "Trop d'instructions: {max_steps}";
 RUR.fr["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
@@ -9777,10 +9873,17 @@ RUR.fr["new UsedRobot"] = "new RobotUsage";
 RUR.fr["new UsedRobot()"] = "new RobotUsage()";
 RUR.fr["no_highlight"] = "pas_de_surlignement";
 RUR.fr["no_highlight()"] = "pas_de_surlignement()";
+RUR.fr["write"] = "ecrit";
+RUR.fr["write()"] = "ecrit()";
+
+RUR.fr["from library import ?"] = "from biblio import ?";
+RUR.fr["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> n'est pas un véritable mot-clé Python.";
 
 RUR.fr["tab"] = "TAB";
 RUR.fr["shift-tab"] = "Maj-TAB";
 RUR.fr["enter"] = "\u23CE";
+RUR.fr["UNDO"] = "RENVERSER";
+RUR.fr["REDO"] = "REFAIRE";
 
 },{}],82:[function(require,module,exports){
 RUR.ko = {};
@@ -9823,7 +9926,6 @@ RUR.ko["tulip"] = "튤립";
 RUR.ko_to_en["튤립"] = "tulip";
 
 RUR.ko["Problem with onload code."] = "유효하지 않는 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
-RUR.ko["# from library import *"] = "# 사용을 할려먼 'from library import *' 이 파이썬 코드가 필요합니다.\n# 코드가 이 라이브러리 안에 있습니다. \n\n";
 
 RUR.ko["Too many steps:"] = "너무 많은 steps: {max_steps}";
 RUR.ko["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>리보그는 올바른 x 위치에 있습니다.</li>";
@@ -10121,10 +10223,17 @@ RUR.ko["new UsedRobot"] = "new UsedRobot";
 RUR.ko["new UsedRobot()"] = "new UsedRobot()";
 RUR.ko["no_highlight"] = "no_highlight";
 RUR.ko["no_highlight()"] = "no_highlight()";
+RUR.ko["write"] = "write";
+RUR.ko["write()"] = "write()";
+
+RUR.ko["from library import ?"] = "from library import ?";
+RUR.ko["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code>는 여기에서만 작동하는 파이썬 키워드입니다.";
 
 RUR.ko["tab"] = "TAB";
 RUR.ko["shift-tab"] = "Shift-TAB";
 RUR.ko["enter"] = "\u23CE";
+RUR.ko["UNDO"] = "되돌리기";
+RUR.ko["REDO"] = "다시 실행";
 
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");
@@ -10270,6 +10379,8 @@ record_title("ui-dialog-title-Reeborg-explores", "Reeborg explores some Javascri
 record_title("ui-dialog-title-Reeborg-proclaims", "Reeborg states:");
 record_title("ui-dialog-title-Reeborg-watches", "Reeborg watches some variables!");
 record_title("ui-dialog-title-World-info", "Click on the world to get some additional information.");
+
+record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");
 
 },{"./../lang/en.js":80,"./../lang/fr.js":81,"./../lang/ko.js":82}],84:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could

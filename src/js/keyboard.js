@@ -2,6 +2,9 @@
 */
 
 require("./state.js");
+require("./dialogs/create.js");
+require("./listeners/editors_tabs.js");
+require("./translator.js");
 
 RUR.kbd = {};
 
@@ -239,6 +242,13 @@ function add_onclick_insert_statement(id, arg) {
     });
     record_id(id, arg);
 }
+function add_onclick_insert_untranslated_statement(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert_statement(arg);
+    });
+    record_id(id, arg);
+    RUR.untranslated[arg] = true;
+}
 add_onclick_insert_statement("kbd-move", "move()");
 add_onclick_insert_statement("kbd-turn-left", "turn_left()");
 add_onclick_insert_statement("kbd-take", "take()");
@@ -254,14 +264,19 @@ add_onclick_insert_statement("kbd-UsedRobot", "UsedRobot()");
 add_onclick_insert_statement("kbd-newUsedRobot", "new UsedRobot()");
 add_onclick_insert_statement("kbd-no-highlight", "no_highlight()");
 
-function add_onclick_insert(id, arg, enter) {
+function add_onclick_insert(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert(RUR.translate(arg));
     });
-    if (enter) {
-        RUR.kbd.enter();
-    }
     record_id(id, arg);
+}
+
+function add_onclick_insert_untranslated(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert(arg);
+    });
+    record_id(id, arg);
+    RUR.untranslated[arg] = true;
 }
 
 add_onclick_insert("kbd-at-goal", "at_goal()");
@@ -293,25 +308,79 @@ add_onclick_insert_object("kbd-strawberry", "strawberry");
 add_onclick_insert_object("kbd-triangle", "triangle");
 add_onclick_insert_object("kbd-tulip", "tulip");
 
-function add_onclick_insert_special(id, arg) {
-    $("#"+id).on("click", function (evt) {
-        RUR.kbd.insert(arg);
-    });
-    record_id(id);
-}
-add_onclick_insert_special("kbd-colon", ":");
-add_onclick_insert_special("kbd-semi-colon", ";");
-add_onclick_insert_special("kbd-sharp", "#");
-add_onclick_insert_special("kbd-double-quote", "\"");
-add_onclick_insert_special("kbd-single-quote", "'");
-add_onclick_insert_special("kbd-equal", "=");
-add_onclick_insert_special("kbd-less-than", "<");
-add_onclick_insert_special("kbd-greater-than", ">");
-add_onclick_insert_special("kbd-ampersand", "&");
-add_onclick_insert_special("kbd-vertical-bar", "|");
-add_onclick_insert_special("kbd-parens", "( )");
-add_onclick_insert_special("kbd-curly-brackets", "{ }");
-add_onclick_insert_special("kbd-square-brackets", "[ ]");
+add_onclick_insert_untranslated_statement("kbd-js-var", "var ");
+add_onclick_insert_untranslated("kbd-js-function", "function ? { \n\n}");
+add_onclick_insert_untranslated("kbd-js-if", "if ( ? ) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-elif", "else if ( ? ) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-else", "else { \n\n}");
+add_onclick_insert_untranslated("kbd-js-while", "while ( ? ) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-for", "for (? ; ? ; ?) { \n\n}");
+add_onclick_insert_untranslated("kbd-js-true", "true");
+add_onclick_insert_untranslated("kbd-js-false", "false");
+add_onclick_insert_untranslated("kbd-js-undefined", "undefined");
+add_onclick_insert_untranslated("kbd-js-not", "!");
+add_onclick_insert_untranslated("kbd-js-and", "&&");
+add_onclick_insert_untranslated("kbd-js-or", "||");
+add_onclick_insert_statement("kbd-js-write", "write()");
+add_onclick_insert_untranslated_statement("kbd-js-return", "return");
+add_onclick_insert_untranslated_statement("kbd-js-continue", "continue");
+add_onclick_insert_untranslated_statement("kbd-js-break", "break");
+
+add_onclick_insert_untranslated_statement("kbd-py-def", "def ? ( ):");
+add_onclick_insert_untranslated_statement("kbd-py-if", "if ? :");
+add_onclick_insert_untranslated_statement("kbd-py-elif", "elif ? :");
+add_onclick_insert_untranslated_statement("kbd-py-else", "else:");
+add_onclick_insert_untranslated_statement("kbd-py-while", "while ? :");
+add_onclick_insert_untranslated_statement("kbd-py-repeat", "repeat ? :");
+add_onclick_insert_statement("kbd-py-library", "from library import ?");
+add_onclick_insert_untranslated_statement("kbd-py-for", "for ? in ? :");
+add_onclick_insert_untranslated_statement("kbd-py-print", "print()");
+add_onclick_insert_untranslated_statement("kbd-py-range", "range(?)");
+add_onclick_insert_untranslated_statement("kbd-py-true", "True");
+add_onclick_insert_untranslated_statement("kbd-py-false", "False");
+add_onclick_insert_untranslated_statement("kbd-py-none", "None");
+add_onclick_insert_untranslated_statement("kbd-py-not", "not");
+add_onclick_insert_untranslated_statement("kbd-py-and", "and");
+add_onclick_insert_untranslated_statement("kbd-py-or", "or");
+add_onclick_insert_untranslated_statement("kbd-py-continue", "continue");
+add_onclick_insert_untranslated_statement("kbd-py-break", "break");
+add_onclick_insert_untranslated_statement("kbd-py-return", "return ?");
+add_onclick_insert_untranslated_statement("kbd-py-pass", "pass");
+
+add_onclick_insert_untranslated("kbd-pyrepl-def", "def ");
+add_onclick_insert_untranslated("kbd-pyrepl-if", "if ");
+add_onclick_insert_untranslated("kbd-pyrepl-elif", "elif ");
+add_onclick_insert_untranslated("kbd-pyrepl-else", "else:");
+add_onclick_insert_untranslated("kbd-pyrepl-while", "while ");
+add_onclick_insert("kbd-pyrepl-library", "from library import ?");
+add_onclick_insert_untranslated("kbd-pyrepl-for", "for ");
+add_onclick_insert_untranslated("kbd-pyrepl-in", "in ");
+add_onclick_insert_untranslated("kbd-pyrepl-print", "print(");
+add_onclick_insert_untranslated("kbd-pyrepl-range", "range(");
+add_onclick_insert_untranslated("kbd-pyrepl-true", "True");
+add_onclick_insert_untranslated("kbd-pyrepl-false", "False");
+add_onclick_insert_untranslated("kbd-pyrepl-none", "None");
+add_onclick_insert_untranslated("kbd-pyrepl-not", "not");
+add_onclick_insert_untranslated("kbd-pyrepl-and", "and");
+add_onclick_insert_untranslated("kbd-pyrepl-or", "or");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-continue", "continue");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-break", "break");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-return", "return");
+add_onclick_insert_untranslated_statement("kbd-pyrepl-pass", "pass");
+
+add_onclick_insert_untranslated("kbd-colon", ":");
+add_onclick_insert_untranslated("kbd-semi-colon", ";");
+add_onclick_insert_untranslated("kbd-sharp", "#");
+add_onclick_insert_untranslated("kbd-double-quote", "\"");
+add_onclick_insert_untranslated("kbd-single-quote", "'");
+add_onclick_insert_untranslated("kbd-equal", "=");
+add_onclick_insert_untranslated("kbd-less-than", "<");
+add_onclick_insert_untranslated("kbd-greater-than", ">");
+add_onclick_insert_untranslated("kbd-ampersand", "&");
+add_onclick_insert_untranslated("kbd-vertical-bar", "|");
+add_onclick_insert_untranslated("kbd-parens", "( )");
+add_onclick_insert_untranslated("kbd-curly-brackets", "{ }");
+add_onclick_insert_untranslated("kbd-square-brackets", "[ ]");
 
 $("#kbd-tab").on("click", function (evt) {
     RUR.kbd.tab();
@@ -325,7 +394,14 @@ $("#kbd-enter").on("click", function (evt) {
     RUR.kbd.enter();
 });
 record_id("kbd-enter", "enter");
-
+$("#kbd-undo").on("click", function (evt) {
+    RUR.kbd.undo();
+});
+record_id("kbd-undo", "UNDO");
+$("#kbd-redo").on("click", function (evt) {
+    RUR.kbd.redo();
+});
+record_id("kbd-redo", "REDO");
 
 function add_onclick(id, fn, arg, record, enter) {
     $("#"+id).on("click", function (evt) {

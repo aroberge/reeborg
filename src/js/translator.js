@@ -1,8 +1,12 @@
 require("./rur.js");
 require("./../lang/msg.js");
 
+RUR.untranslated = {};
+
 RUR.translate = function (s) {
-    if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
+    if (RUR.untranslated[s]) {
+        return s;
+    } else if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
         return RUR.translation[s];
     } else {
         console.log("Translation needed for");

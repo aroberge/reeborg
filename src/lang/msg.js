@@ -141,3 +141,5 @@ record_title("ui-dialog-title-Reeborg-explores", "Reeborg explores some Javascri
 record_title("ui-dialog-title-Reeborg-proclaims", "Reeborg states:");
 record_title("ui-dialog-title-Reeborg-watches", "Reeborg watches some variables!");
 record_title("ui-dialog-title-World-info", "Click on the world to get some additional information.");
+
+record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");

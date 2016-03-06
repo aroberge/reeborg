@@ -39,7 +39,6 @@ RUR.fr["tulip"] = "tulipe";
 RUR.fr_to_en["tulipe"] = "tulip";
 
 RUR.fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
-RUR.fr["# from library import *"] = "# 'from biblio import *' dans l'onglet Code Python est requis pour\n# pouvoir utiliser le code de cette bibliothèque.\n\n";
 
 RUR.fr["Too many steps:"] = "Trop d'instructions: {max_steps}";
 RUR.fr["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
@@ -338,7 +337,14 @@ RUR.fr["new UsedRobot"] = "new RobotUsage";
 RUR.fr["new UsedRobot()"] = "new RobotUsage()";
 RUR.fr["no_highlight"] = "pas_de_surlignement";
 RUR.fr["no_highlight()"] = "pas_de_surlignement()";
+RUR.fr["write"] = "ecrit";
+RUR.fr["write()"] = "ecrit()";
+
+RUR.fr["from library import ?"] = "from biblio import ?";
+RUR.fr["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</code> n'est pas un véritable mot-clé Python.";
 
 RUR.fr["tab"] = "TAB";
 RUR.fr["shift-tab"] = "Maj-TAB";
 RUR.fr["enter"] = "\u23CE";
+RUR.fr["UNDO"] = "RENVERSER";
+RUR.fr["REDO"] = "REFAIRE";

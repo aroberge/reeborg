@@ -20,12 +20,20 @@ $("#programming-mode").change(function() {
             show_editor("python");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
+            try {
+                $("#kbd-undo").show();
+                $("#kbd-redo").show();
+            } catch(e) {}     
             break;
         case "javascript":
             RUR.state.programming_language = "javascript";
             show_editor("javascript");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
+            try {
+                $("#kbd-undo").show();
+                $("#kbd-redo").show();
+            } catch(e) {}
             break;
         case "blockly-py":
             RUR.state.programming_language = "python";
@@ -48,9 +56,8 @@ $("#programming-mode").change(function() {
             show_editor("python");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
-        console.log("Problem? Default value used in programming-mode select.");
+            console.log("Problem? Default value used in programming-mode select.");
     }
-
     RUR.kbd.set_programming_language(RUR.state.programming_language);
     update_url();
 });
@@ -85,6 +92,11 @@ function hide_everything () {
     $("#highlight").hide();
     $("#watch-variables-btn").hide();
     $("#Reeborg-watches").dialog("close");
+    try{
+        $("#kbd-undo").hide();
+        $("#kbd-redo").hide();
+    } catch(e) {}
+
 }
 
 function show_blockly () {
