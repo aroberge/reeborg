@@ -10025,7 +10025,7 @@ RUR.ko["<br>Perhaps you misspelled a word or forgot to define a function or a va
 
 RUR.ko["I'm stuck in mud."] = "난 진흙에 걸렸어요.";
 RUR.ko["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "진흙: 리보그는 이것을 탐지 <b>하지 못하고<b> 이 위치로 이동하게 되면 걸리게 됩니다.";
-RUR.ko["I'm slipping on ice!"] = "I'm slipping on ice!";
+RUR.ko["I'm slipping on ice!"] = "저는 얼음에 미끄러지고 있어요!";
 RUR.ko["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "얼음: 리보그는 이것을 탐지 <b>하지 못하고</b> 만약 이 위치로 이동하게 되면 미끄러지고 다음 위치로 이동하게 됩니다.";
 RUR.ko["Grass: usually safe."] = "잔디: 보통 안전함.";
 RUR.ko["Gravel: usually safe."] = "자갈: 보통 안전함.";
@@ -10056,7 +10056,7 @@ RUR.ko["Global variables"] = "전역 변수";
 RUR.ko["Watched expressions"] = "문장 결과 보기";
 
 RUR.ko["move forward"] = "앞으로 움직이기";
-RUR.ko["turn left"] = "turn left";
+RUR.ko["turn left"] = "왼쪽으로 움직이기";
 RUR.ko["take object"] = "객체 가지기";
 RUR.ko["put object"] = "객체 넣기";
 RUR.ko["Pause the program's execution."] = "프로그램 일시 정지.";
@@ -10084,7 +10084,7 @@ RUR.ko["SAVE EDITOR EXPLAIN"] = "에디터 소스코드 저장";
 RUR.ko["SAVE LIBRARY"] = "라이브러리 저장";
 RUR.ko["SAVE LIBRARY EXPLAIN"] = "파일 라이브러리의 내용 저장";
 RUR.ko["SAVE WORLD"] = "파일로 저장";
-RUR.ko["SAVE WORLD EXPLAIN"] = "(json 확장자로) 월드를 컴퓨터에 저장";
+RUR.ko["SAVE WORLD EXPLAIN"] = "(json 확장자) 월드를 컴퓨터에 저장";
 RUR.ko["ADD EDITOR TEXT"] = "월드에 접속하기 위해 에디터 추가";
 RUR.ko["ADD LIBRARY TEXT"] = "월드에 접속하기 위해 라이브러리 추가";
 RUR.ko["KEYBOARD BUTTON"] = "리보그의 키보드";
@@ -10132,20 +10132,20 @@ RUR.ko["SPECIAL EXECUTION"] = "미래에 생겨날 기능";
 RUR.ko["REVERSE STEP EXPLAIN"] = "이전 실행 상태를 되돌립니다.";
 RUR.ko["ERASE TRACE"] = "흔적 지우기";
 RUR.ko["ERASE TRACE EXPLAIN"] = "흔적을 리보그만 남기고 지웁니다. 이 기능은 프로그램이 멈추었을때 유용합니다.";
-RUR.ko["CONTACT"] = "(English/French only) Email:";
-RUR.ko["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/French only)";
-RUR.ko["FORUM"] = "Discussion forum (English/French only)";
+RUR.ko["CONTACT"] = "(English/French only) 이메일:";
+RUR.ko["ISSUES"] = "버그 제보, 건의 그외 문제 등. (영어/프랑스어만 됨)";
+RUR.ko["FORUM"] = "토론 포럼 (영어/프랑스어만 됨";
 RUR.ko["HELP"] = "도움말";
 RUR.ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank">Documentation</a>';
-RUR.ko["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
-RUR.ko["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
+RUR.ko["PYTHON HELP"] = "파이썬을 사용해서, <code>help()</code>를 실행해서 명령어의 목록을 얻으세요 또는 <code>help(함수이름)</code>으로 해당 함수의 정보를 얻을수 있습니다. 예를 들어, <code>help(move)</code>로 <code>move</code>함수의 정보를 얻을 수 있습니다.;
+RUR.ko["KEYBOARD HELP"] = "리보그의 키보드를 클릭해서 파이썬 키워드 등, 사용할수 있는 명령어의 목록을 보세요.";
 
-RUR.ko["WORLD EDITOR"] = "World editor";
+RUR.ko["WORLD EDITOR"] = "월드 에디터";
 RUR.ko["m-east"] = "동쪽";
 RUR.ko["m-north"] = "북쪽";
 RUR.ko["m-west"] = "서쪽";
 RUR.ko["m-south"] = "남쪽";
-RUR.ko["m-random"] = "Random";
+RUR.ko["m-random"] = "랜덤";
 RUR.ko["m-dimensions"] = "월드 크기";
 RUR.ko["m-add"] = "추가";
 RUR.ko["m-add-robot"] = "로봇 추가";
@@ -10159,7 +10159,7 @@ RUR.ko["m-tiles"] = "타일들";
 RUR.ko["m-fill"] = "체우기";
 RUR.ko["m-solid"] = "특정 객체";
 RUR.ko["m-decorative"] = "꾸미기용 객체";
-RUR.ko["m-background"] = "Background image";
+RUR.ko["m-background"] = "배경 사진";
 RUR.ko["m-goal"] = "목표";
 RUR.ko["mg-robot"] = "로봇";
 RUR.ko["mg-walls"] = "벽";
@@ -10168,9 +10168,9 @@ RUR.ko["mg-objects"] = "객체";
 RUR.ko["Reeborg says: I'm done!"] = "리보그 : 다했어요";
 RUR.ko["Reeborg writes:"] = "리보그 쓰기:";
 RUR.ko["Reeborg shouts: Something is wrong!"] = "리보그 : 뭔가가 잘못 됬어요!";
-RUR.ko["Reeborg explores some Javascript code"] = "Reeborg explores some Javascript code";
-RUR.ko["Reeborg states:"] = "Reeborg states:";
-RUR.ko["Reeborg watches some variables!"] = "Reeborg watches some variables!";
+RUR.ko["Reeborg explores some Javascript code"] = "리보그는 일부 자바스크립트 코드를 조사했습니다";
+RUR.ko["Reeborg states:"] = "리보그 상태:";
+RUR.ko["Reeborg watches some variables!"] = "리보그는 몇가지의 변수를 보고 있습니다!";
 RUR.ko["Click on the world to get some additional information."] = "추가 정보를 얻기 위해 월드를 클릭합니다.";
 
 RUR.ko["Reeborg's basic keyboard"] = "리보그의 기본적인 키보드";
@@ -10241,8 +10241,9 @@ RUR.ko["enter"] = "\u23CE";
 RUR.ko["UNDO"] = "되돌리기";
 RUR.ko["REDO"] = "다시 실행";
 
-RUR.ko["Colour:"] = "Color:";
-RUR.ko["Enter a colour"] = "Enter a color";
+RUR.ko["Colour:"] = "색상:";
+RUR.ko["Enter a colour"] = "색상을 입력하세요";
+
 
 },{}],83:[function(require,module,exports){
 require("./../lang/en.js");
