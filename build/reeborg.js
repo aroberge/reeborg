@@ -1595,6 +1595,10 @@ RUR.control.set_trace_style = function(robot, style){
     robot.trace_style = style;
  };
 
+if (RUR.state === undefined){
+    RUR.state = {};
+}
+
 RUR.state.sound_on = false;
 RUR.control.sound = function(on){
     if(!on){
@@ -10018,7 +10022,7 @@ RUR.ui_en["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/Fre
 RUR.ui_en["FORUM"] = "Discussion forum (English/French only)";
 RUR.ui_en["HELP"] = "Help";
 RUR.ui_en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank">Documentation</a>';
-RUR.ui_en["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
+RUR.ui_en["PYTHON HELP"] = "Using Python, execute a program with <code>help(reeborg_en)</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
 RUR.ui_en["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
 
 RUR.ui_en["WORLD EDITOR"] = "World editor";
@@ -10319,7 +10323,7 @@ RUR.ui_fr["ISSUES"] = "Rapports de bogues, suggestions, autres problèmes, etc. 
 RUR.ui_fr["FORUM"] = "Forum de discussions (en anglais ou en français seulement).";
 RUR.ui_fr["HELP"] = "Aide";
 RUR.ui_fr["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/fr" target="_blank">Documentation</a>';
-RUR.ui_fr["PYTHON HELP"] = "En utilisant Python, executez un programme avec <code>help()</code> pour obtenir une liste de commandes ou <code>help(avance)</code> pour obtenir de l'aide sur la fonction <code>avance()</code>, etc.";
+RUR.ui_fr["PYTHON HELP"] = "En utilisant Python, executez un programme avec <code>help(reeborg_fr)</code> pour obtenir une liste de commandes ou <code>help(avance)</code> pour obtenir de l'aide sur la fonction <code>avance()</code>, etc.";
 RUR.ui_fr["KEYBOARD HELP"] = "Cliquez sur le clavier de Reeborg keyboard pour voir une liste des commandes, la syntaxe Python, etc.";
 
 RUR.ui_fr["WORLD EDITOR"] = "Éditeur de monde";
@@ -10623,7 +10627,7 @@ RUR.ui_ko["ISSUES"] = "버그 제보, 건의 그외 문제 등. (영어/프랑�
 RUR.ui_ko["FORUM"] = "토론 포럼 (영어/프랑스어만 됨";
 RUR.ui_ko["HELP"] = "도움말";
 RUR.ui_ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank">Documentation (참고 문서)</a>';
-RUR.ui_ko["PYTHON HELP"] = "파이썬을 사용해서, <code>help()</code>를 실행해서 명령어의 목록을 얻으세요 또는 <code>help(함수명)</code>으로 해당 <code>함수명()</code>의 정보를 확인할 수 있습니다. 예를 들어, <code>help(move)</code>로 <code>move</code>함수의 정보를 얻을 수 있습니다.";
+RUR.ui_ko["PYTHON HELP"] = "파이썬을 사용해서, <code>help(reeborg_en)</code>를 실행해서 명령어의 목록을 얻으세요 또는 <code>help(함수명)</code>으로 해당 <code>함수명()</code>의 정보를 확인할 수 있습니다. 예를 들어, <code>help(move)</code>로 <code>move</code>함수의 정보를 얻을 수 있습니다.";
 RUR.ui_ko["KEYBOARD HELP"] = "리보그의 키보드를 클릭해서 파이썬 키워드 등, 사용할수 있는 명령어의 목록을 보세요.";
 
 RUR.ui_ko["WORLD EDITOR"] = "월드 에디터";
