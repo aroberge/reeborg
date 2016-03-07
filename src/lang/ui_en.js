@@ -243,7 +243,7 @@ RUR.ui_en["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/Fre
 RUR.ui_en["FORUM"] = "Discussion forum (English/French only)";
 RUR.ui_en["HELP"] = "Help";
 RUR.ui_en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank">Documentation</a>';
-RUR.ui_en["PYTHON HELP"] = "Using Python, execute a program with <code>help(reeborg_en)</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
+RUR.ui_en["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
 RUR.ui_en["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
 
 RUR.ui_en["WORLD EDITOR"] = "World editor";

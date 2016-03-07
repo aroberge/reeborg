@@ -591,22 +591,6 @@ def observer(expr):  #py:add_watch
     RUR.add_watch(expr)
 
 
-def dir_py(obj):  #py:dir_py
-    """Lists attributes and methods of a Python object, excluding
-       those whose name start with a double underscore and are
-       considered to be private.
-    """
-    attrs = []
-    for attr in dir(obj):
-        if attr.startswith("__"):
-            continue
-        if callable(getattr(obj, attr)):
-            attr += "()"
-        attrs.append(attr)
-    print_html(str("\n".join(attrs)).replace("&", "&amp").replace("<", "&lt;"
-                  ).replace(">", "&gt;").replace("\n", "<br>"))
-
-
 class ReeborgError(Exception):  #py:RE
     """Exceptions spécifique au monde de Reeborg.
 

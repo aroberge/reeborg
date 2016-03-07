@@ -11,14 +11,6 @@ def _add_watch(expr):
 
 window.RUR.add_watch = _add_watch
 
-lang = window.document.documentElement.lang
-if lang == 'en':
-    import reeborg_en
-elif lang == 'fr':
-    import reeborg_fr
-else:
-    import reeborg_en
-
 def _write(data):
     window.RUR.output._write(str(data))
 
@@ -104,12 +96,17 @@ def _watch_(default, loc={}, gl={}):
 def default_help():
     '''list available commands'''
     exclude = ["toString", "window", "RUR", "say", "face_au_nord", "narration"]
-    if lang == 'en':
+    lang = window.RUR.state.human_language
+    if lang in ['en', 'fr_en', 'ko_en']:
+        import reeborg_en  # NOQA
+        reeborg_en.dir_py = dir_py
         dir_py(reeborg_en, exclude=exclude)
-    elif lang == 'fr':
+    elif lang in ['fr', 'en_fr']:
+        import reeborg_fr  # NOQA
+        reeborg_fr.dir_py = dir_py
         dir_py(reeborg_fr, exclude=exclude)
     else:
-        dir_py(reeborg_en, exclude=exclude)
+        print("Unrecognized language; please file an issue!")
 
 
 #TODO: use textwrap.dedent to improve format of help.
@@ -164,7 +161,7 @@ def dir_py(obj, exclude=None):
                     out.append(attr)
         except AttributeError:  # javascript extension, as in supplant()
             pass              # string prototype extension, can cause problems
-    window["print_html"](html_escape("\n".join(out)).replace("\n", "<br>"))
+    window.print_html(html_escape("\n".join(out)).replace("\n", "<br>"))
 
 
 def generic_translate_python(src, highlight, var_watch, pre_code='',
