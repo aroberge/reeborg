@@ -1,5 +1,4 @@
 
-require("./../utils/key_exist.js");
 require("./../state.js");
 var set_ready_to_run = require("./../ui/set_ready_to_run.js").set_ready_to_run;
 var rec_reset = require("./../recorder/reset.js").reset;

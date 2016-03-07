@@ -12,6 +12,7 @@ require("./exceptions.js");
 require("./world_get.js");
 require("./world_set.js");
 require("./utils/supplant.js");
+require("./utils/key_exist.js");
 
 RUR.control = {};
 

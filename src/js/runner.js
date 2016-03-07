@@ -16,7 +16,8 @@ RUR.runner = {};
 RUR.state.code_evaluated = false;
 
 RUR.runner.run = function (playback) {
-    var src, fatal_error_found = false, xml, xml_text;
+    "use strict";
+    var fatal_error_found = false, xml, xml_text;
     if (RUR.state.editing_world && !RUR.state.code_evaluated) {
         RUR._SAVED_WORLD = clone_world(RUR.CURRENT_WORLD);
     }
@@ -34,12 +35,13 @@ RUR.runner.run = function (playback) {
                 xml_text = Blockly.Xml.domToText(xml);
                 localStorage.setItem("blockly", xml_text);
         }
-        src = editor.getValue();
-        fatal_error_found = RUR.runner.eval(src); // jshint ignore:line
+        fatal_error_found = RUR.runner.eval(editor.getValue()); // jshint ignore:line
     }
     if (!fatal_error_found) {
+        // save program so that it a new browser session can use it as
+        // starting point.
         try {
-            localStorage.setItem("editor", src);
+            localStorage.setItem("editor", editor.getValue());
             localStorage.setItem("library", library.getValue());
         } catch (e) {}
         // "playback" is a function called to play back the code in a sequence of frames

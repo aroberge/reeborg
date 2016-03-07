@@ -1,9 +1,14 @@
-;
 require("./../state.js");
 require("./../recorder.js");
 
+var record_id = require("./../../lang/msg.js").record_id;
+record_id("reverse-step");
+record_id("reverse-step-text", "REVERSE STEP EXPLAIN");
+$("#reverse-step").on("click", function (evt) {
+    reverse_step();
+});
 
-RUR.reverse_step = function () {
+reverse_step = function () {
     RUR.current_frame_no -= 2;
     if (RUR.current_frame_no < 0){
         $("#reverse-step").attr("disabled", "true");

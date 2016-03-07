@@ -5,13 +5,11 @@ require("./objects.js");
 require("./exceptions.js");
 require("./visible_world.js");
 require("./recorder.js");
+require("./utils/key_exist.js");
 
 RUR.world_set = {};
 
 var set_dimension_form;
-
-
-
 
 RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     "use strict";

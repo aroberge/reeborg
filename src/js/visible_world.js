@@ -395,12 +395,6 @@ RUR.vis_world.draw_goal_walls = function (goal, ctx) {
     }
 };
 
-RUR.vis_world.clear_trace = function(){
-    "use strict";
-    // potentially useful as it can be called from a user's program.
-    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-};
-
 RUR.vis_world.draw_tiles = function (tiles){
     "use strict";
     var i, j, k, keys, key, image, tile, colour;
