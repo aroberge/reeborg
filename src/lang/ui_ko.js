@@ -300,3 +300,20 @@ RUR.ui_ko["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</
 
 RUR.ui_ko["Colour:"] = "색상:";
 RUR.ui_ko["Enter a colour"] = "색상을 입력하세요";
+
+RUR.ui_ko["Background image"] = "Background image";
+
+RUR.ui_ko["NAME:"] = "Name:";
+RUR.ui_ko["Save world in browser"] = "Save world in browser";
+
+
+RUR.ui_ko["Set the world's dimensions"] = "Set the world's dimensions";
+RUR.ui_ko["set-dimensions-explain"] = "If so desired, you can set the size of the world to be different from the default dimensions. Please remember that smaller resolution screen may not be able to display very large worlds.";
+RUR.ui_ko["Maximum x value:"] = "최대 x 값:";
+RUR.ui_ko["Maximum y value:"] = "최대 y 값:";
+RUR.ui_ko["Use small tiles"] = "작은 타일 사용하기";
+
+RUR.ui_ko["Set goal number for object"] = "Set goal number for object";
+RUR.ui_ko["dialog-goal-object-explain"] = "Click on the checkbox if you wish that number to be equal to the total number of such objects found in the world at the beginning.";
+RUR.ui_ko["Number of objects"] = "객체의 수:";
+RUR.ui_ko["All such objects"] = "All such objects";

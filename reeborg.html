@@ -702,37 +702,37 @@
   </div>
 
   <div id="dialog-goal-object" title="Set goal number for object" style="display:none;">
-    <p>Choose a number of
-      <code><span id="goal-object-name">object</span></code> to use as a goal. Click on the checkbox if you wish that number to be equal to the total number of such objects found in the world at the beginning.
-    </p>
+    <p id="dialog-goal-object-explain"></p>
     <form>
       <fieldset>
-        <label for="input-goal-number"><code>Number of objects</code>:
+        <label for="input-goal-number"><code id="input-goal-number-text"></code>:
           <input type="number" name="input-goal-number" id="input-goal-number" min="0" value="1">
         </label>
         <br>
         <label for="all-objects">
-          <input type="checkbox" name="all-objects" id="all-objects"> All such objects </label>
+          <input type="checkbox" name="all-objects" id="all-objects"> <span id="all-objects-text"></span>
+        </label>
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
       </fieldset>
     </form>
   </div>
 
   <div id="dialog-set-dimensions" title="Set the world's dimensions" style="display:none;">
-    <p>If so desired, you can set the size of the world to be different from the default dimensions. Please remember that smaller resolution screen may not be able to display very large worlds.
-    </p>
+    <p id="set-dimensions-explain"></p>
     <form>
       <fieldset>
-        <label for="input-max-x">Maximum x value:
+        <label for="input-max-x"><span id="input-max-x-text"></span>
           <input type="number" name="input-max-x" id="input-max-x" min="1" value="14">
         </label>
         <br>
-        <label for="input-max-y">Maximum y value:
+        <label for="input-max-y"><span id="input-max-y-text"></span>
           <input type="number" name="input-max-y" id="input-max-y" min="1" value="12">
         </label>
         <br>
         <label for="use-small-tiles">
-          <input type="checkbox" name="use-small-tiles" id="use-small-tiles"> Use small tiles</label>
+          <input type="checkbox" name="use-small-tiles" id="use-small-tiles">
+          <span id="use-small-tiles-text"></span>
+        </label>
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
       </fieldset>
     </form>
@@ -742,7 +742,7 @@
     <p id="existing-world-names"></p>
     <form>
       <fieldset>
-        <label for="world-name">Name:
+        <label for="world-name"><span id="browser-world-name"></span>
           <input type="text" name="world-name" id="world-name">
         </label>
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
@@ -762,7 +762,7 @@
   <div id="dialog-set-background-image" title="Background image" style="display:none;">
     <form>
       <fieldset>
-        <label for="image-url">url:
+        <label for="image-url">URL:
           <input type="text" name="image-url" id="image-url">
         </label>
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">

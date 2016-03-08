@@ -4,13 +4,16 @@
 require("./objects.js");
 require("./exceptions.js");
 require("./visible_world.js");
-require("./recorder.js");
+require("./recorder.js"); // TODO: investigate if needed.
 require("./utils/key_exist.js");
+
+var msg = require("./../lang/msg.js");
 
 RUR.world_set = {};
 
 var set_dimension_form;
 
+//TODO: move add_solid_object to world_set folder
 RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     "use strict";
     var coords, tmp;
@@ -107,11 +110,18 @@ function remove_all_at_location (coords) {
     }
 }
 
+msg.record_id("dialog-set-dimensions");
+msg.record_title("ui-dialog-title-dialog-set-dimensions", "Set the world's dimensions");
+msg.record_id("set-dimensions-explain", "set-dimensions-explain");
+msg.record_id("input-max-x-text", "Maximum x value:");
+msg.record_id("input-max-y-text", "Maximum y value:");
+msg.record_id("use-small-tiles-text", "Use small tiles");
+
 RUR.world_set.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
     autoOpen: false,
     height: 400,
     width: 500,
-    //modal: true,
+    modal: true,
     buttons: {
         OK: function () {
             set_dimension();

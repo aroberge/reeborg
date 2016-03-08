@@ -297,3 +297,20 @@ RUR.ui_fr["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</
 
 RUR.ui_fr["Colour:"] = "Couleur :";
 RUR.ui_fr["Enter a colour"] = "Spécifiez une couleur";
+
+RUR.ui_fr["Background image"] = "Image de fond";
+
+RUR.ui_fr["NAME:"] = "Nom :";
+RUR.ui_fr["Save world in browser"] = "Mémoriser une copie du monde";
+
+
+RUR.ui_fr["Set the world's dimensions"] = "Dimensions du monde";
+RUR.ui_fr["set-dimensions-explain"] = "Vous pouvez changer les dimensions (hauteur et largeur) du monde. Rappelez-vous que les mondes très grands pourraient être difficile à visualiser sur des écrans plus petits.";
+RUR.ui_fr["Maximum x value:"] = "Valeur maximale pour 'x'";
+RUR.ui_fr["Maximum y value:"] = "Valeur maximale pour 'y'";
+RUR.ui_fr["Use small tiles"] = "Utilisez une petite grille";
+
+RUR.ui_fr["Set goal number for object"] = "Nombre d'objets désirés";
+RUR.ui_fr["dialog-goal-object-explain"] = "Cliquez sur la case à cocher si vous désirez que le nombre d'objet soit égal au nombre total d'objet de ce genre présent dans le monde au tout début.";
+RUR.ui_fr["Number of objects"] = "Nombre d'objets";
+RUR.ui_fr["All such objects"] = "Tous les objets de ce genre";

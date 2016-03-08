@@ -2078,8 +2078,14 @@ give_object_form = dialog_give_object.find("form").on("submit", function( event 
 require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
-;
-// require("jquery-ui");
+
+var msg = require("./../../lang/msg.js");
+
+msg.record_id("dialog-goal-object");
+msg.record_title("ui-dialog-title-dialog-goal-object", "Set goal number for object");
+msg.record_id("dialog-goal-object-explain", "dialog-goal-object-explain");
+msg.record_id("input-goal-number-text", "Number of objects");
+msg.record_id("all-objects-text", "All such objects");
 
 exports.dialog_goal_object = dialog_goal_object = $("#dialog-goal-object").dialog({
     autoOpen: false,
@@ -2118,10 +2124,14 @@ goal_objects_form = dialog_goal_object.find("form").on("submit", function( event
     goal_objects();
 });
 
-},{"./../state.js":53,"./../visible_world.js":65,"./../world_set/give_object_to_robot.js":79}],11:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../state.js":53,"./../visible_world.js":65,"./../world_set/give_object_to_robot.js":79}],11:[function(require,module,exports){
 require("./../visible_world.js");
-;
-// require("jquery-ui");
+var msg = require("./../../lang/msg.js");
+
+msg.record_id("color-selection-text", "Colour:");
+msg.record_id("colour-selection");
+msg.record_id("dialog-select-colour");
+msg.record_title("ui-dialog-title-dialog-select-colour", "Enter a colour");
 
 exports.dialog_select_colour = dialog_select_colour = $("#dialog-select-colour").dialog({
     autoOpen: false,
@@ -2153,10 +2163,13 @@ select_colour = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../visible_world.js":65}],12:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../visible_world.js":65}],12:[function(require,module,exports){
 require("./../visible_world.js");
-;
-// require("jquery-ui");
+var msg = require("./../../lang/msg.js");
+var dialog;
+
+msg.record_id("dialog-set-background-image");
+msg.record_title("ui-dialog-title-dialog-set-background-image", "Background image");
 
 exports.dialog_set_background_image = dialog = $("#dialog-set-background-image").dialog({
     autoOpen: false,
@@ -2188,7 +2201,7 @@ set_background_image = function () {
     dialog.dialog("close");
 };
 
-},{"./../visible_world.js":65}],13:[function(require,module,exports){
+},{"./../../lang/msg.js":83,"./../visible_world.js":65}],13:[function(require,module,exports){
 
 require("./rur.js");
 require("./state.js");
@@ -4315,8 +4328,6 @@ $("#human-language").change(function() {
     update_commands(lang);
     update_home_url(lang);
     RUR.make_default_menu(lang);
-    // TODO update selectors text
-    //TODO update blockly display
     $("#blocklyDiv").html(" ");
     RUR.blockly.init();
 
@@ -4807,7 +4818,7 @@ reverse_step = function () {
 
 },{"./../../lang/msg.js":83,"./../recorder.js":45,"./../state.js":53}],32:[function(require,module,exports){
 require("./../visible_robot.js");
-;
+
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
@@ -4831,59 +4842,6 @@ $("#robot2").on("click", function (evt) {
 $("#robot3").on("click", function (evt) {
     RUR.select_default_robot_model(3);
 });
-
-
-RUR.vis_robot.new_robot_images = function (images) {
-    var model;
-    if (images.model !== undefined) {
-        switch (images.model) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-                model = images.model;
-                break;
-            default:
-                model = 0;
-        }
-    } else {
-        model = 0;
-    }
-
-    if (images.east !== undefined) {
-        RUR.vis_robot.images[model].robot_e_img.src = images.east;
-    }
-    if (images.west !== undefined) {
-        RUR.vis_robot.images[model].robot_w_img.src = images.west;
-    }
-    if (images.north !== undefined) {
-        RUR.vis_robot.images[model].robot_n_img.src = images.north;
-    }
-    if (images.south !== undefined) {
-        RUR.vis_robot.images[model].robot_s_img.src = images.south;
-    }
-    if (images.random !== undefined) {
-        RUR.vis_robot.images[model].robot_random_img.src = images.random;
-    }
-
-    // change the image displayed in the html file.
-    switch (model) {
-        case 0:
-            $("#robot0 img").attr("src", images.east);
-            break;
-        case 1:
-            $("#robot1 img").attr("src", images.east);
-            break;
-        case 2:
-            $("#robot2 img").attr("src", images.east);
-            break;
-        case 3:
-            $("#robot3 img").attr("src", images.east);
-            break;
-    }
-
-    RUR.select_default_robot_model(model);
-};
 
 },{"./../../lang/msg.js":83,"./../state.js":53,"./../visible_robot.js":64}],33:[function(require,module,exports){
 ;
@@ -6430,9 +6388,16 @@ RUR.storage.delete_world = function (name){
 
 },{"./rur.js":50,"./translator.js":55,"./world/clone_world.js":67,"./world/export_world.js":69,"./world_select.js":74}],55:[function(require,module,exports){
 require("./rur.js");
-require("./../lang/msg.js");
+require("./../lang/ui_en.js");
+require("./../lang/ui_fr.js");
+require("./../lang/ui_ko.js");
 
-RUR.untranslated = {};
+require("./../lang/en.js");
+require("./../lang/fr.js");
+RUR.untranslated = {"en":true, "fr":true};
+
+RUR.translation = RUR.ui_en;
+RUR.translation_to_english = RUR.en_to_en;
 
 RUR.translate = function (s) {
     if (RUR.untranslated[s]) {
@@ -6456,7 +6421,7 @@ RUR.translate_to_english = function (s) {
     }
 };
 
-},{"./../lang/msg.js":83,"./rur.js":50}],56:[function(require,module,exports){
+},{"./../lang/en.js":81,"./../lang/fr.js":82,"./../lang/ui_en.js":86,"./../lang/ui_fr.js":87,"./../lang/ui_ko.js":88,"./rur.js":50}],56:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -6862,6 +6827,58 @@ RUR.vis_robot.set_trace_style = function (choice, robot){
 };
 
 RUR.vis_robot.set_trace_style("default");
+
+RUR.vis_robot.new_robot_images = function (images) {
+    var model;
+    if (images.model !== undefined) {
+        switch (images.model) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                model = images.model;
+                break;
+            default:
+                model = 0;
+        }
+    } else {
+        model = 0;
+    }
+
+    if (images.east !== undefined) {
+        RUR.vis_robot.images[model].robot_e_img.src = images.east;
+    }
+    if (images.west !== undefined) {
+        RUR.vis_robot.images[model].robot_w_img.src = images.west;
+    }
+    if (images.north !== undefined) {
+        RUR.vis_robot.images[model].robot_n_img.src = images.north;
+    }
+    if (images.south !== undefined) {
+        RUR.vis_robot.images[model].robot_s_img.src = images.south;
+    }
+    if (images.random !== undefined) {
+        RUR.vis_robot.images[model].robot_random_img.src = images.random;
+    }
+
+    // change the image displayed in the html file.
+    switch (model) {
+        case 0:
+            $("#robot0 img").attr("src", images.east);
+            break;
+        case 1:
+            $("#robot1 img").attr("src", images.east);
+            break;
+        case 2:
+            $("#robot2 img").attr("src", images.east);
+            break;
+        case 3:
+            $("#robot3 img").attr("src", images.east);
+            break;
+    }
+
+    RUR.select_default_robot_model(model);
+};
 
 },{"./constants.js":3,"./state.js":53}],65:[function(require,module,exports){
 
@@ -8271,7 +8288,6 @@ RUR.we._add_goal_objects = function (specific_object){
     RUR.state.specific_object = specific_object;
     RUR.state.x = x;
     RUR.state.y = y;
-    $("#goal-object-name").html(RUR.translate(specific_object));
     dialog_goal_object.dialog("open");
 };
 
@@ -8904,13 +8920,16 @@ RUR.world_select.append_world = function (arg) {
 require("./objects.js");
 require("./exceptions.js");
 require("./visible_world.js");
-require("./recorder.js");
+require("./recorder.js"); // TODO: investigate if needed.
 require("./utils/key_exist.js");
+
+var msg = require("./../lang/msg.js");
 
 RUR.world_set = {};
 
 var set_dimension_form;
 
+//TODO: move add_solid_object to world_set folder
 RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     "use strict";
     var coords, tmp;
@@ -9007,11 +9026,18 @@ function remove_all_at_location (coords) {
     }
 }
 
+msg.record_id("dialog-set-dimensions");
+msg.record_title("ui-dialog-title-dialog-set-dimensions", "Set the world's dimensions");
+msg.record_id("set-dimensions-explain", "set-dimensions-explain");
+msg.record_id("input-max-x-text", "Maximum x value:");
+msg.record_id("input-max-y-text", "Maximum y value:");
+msg.record_id("use-small-tiles-text", "Use small tiles");
+
 RUR.world_set.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
     autoOpen: false,
     height: 400,
     width: 500,
-    //modal: true,
+    modal: true,
     buttons: {
         OK: function () {
             set_dimension();
@@ -9041,7 +9067,7 @@ set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit
     set_dimension();
 });
 
-},{"./exceptions.js":13,"./objects.js":39,"./recorder.js":45,"./utils/key_exist.js":61,"./visible_world.js":65}],76:[function(require,module,exports){
+},{"./../lang/msg.js":83,"./exceptions.js":13,"./objects.js":39,"./recorder.js":45,"./utils/key_exist.js":61,"./visible_world.js":65}],76:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
@@ -9351,16 +9377,6 @@ RUR.fr["write()"] = "ecrit()";
 RUR.fr["from library import ?"] = "from biblio import ?";
 
 },{}],83:[function(require,module,exports){
-require("./../lang/ui_en.js");
-require("./../lang/ui_fr.js");
-require("./../lang/ui_ko.js");
-
-require("./../lang/en.js");
-require("./../lang/fr.js");
-
-RUR.translation = RUR.ui_en;
-RUR.translation_to_english = RUR.en_to_en;
-
 var _recorded_ids = [];
 var _text_elements = [];
 var _elements_names = [];
@@ -9422,6 +9438,7 @@ update_titles = function () {
 exports.update_ui = update_ui;
 exports.record_id = record_id;
 exports.update_titles = update_titles;
+exports.record_title = record_title;
 
 record_id("site-name", "SITE NAME");
 record_id("world-info-button", "WORLD INFO");
@@ -9497,11 +9514,7 @@ record_title("ui-dialog-title-World-info", "Click on the world to get some addit
 
 record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");
 
-record_id("color-selection-text", "Colour:");
-record_id("colour-selection");
-record_title("ui-dialog-title-dialog-select-colour", "Enter a colour");
-
-},{"./../lang/en.js":81,"./../lang/fr.js":82,"./../lang/ui_en.js":86,"./../lang/ui_fr.js":87,"./../lang/ui_ko.js":88}],84:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could
     (possibly accidently) redefine a basic function, which could lead to some
     apparent bugs.  For this reason, we include a function whose role is to
@@ -9671,8 +9684,8 @@ RUR.reset_definitions_fr = function () {
     window.est_face_au_nord = RUR._is_facing_north_;
     window.avance = RUR._move_;
 
-    mur_devant = RUR._wall_in_front_;
-    window.nouvelles_images_de_robot = function (image) {
+    window.mur_devant = RUR._wall_in_front_;
+    window.nouvelles_images_de_robot = function (images) {
         if (images.est !== undefined) {
             images.east = images.est;
         }
@@ -10083,6 +10096,22 @@ RUR.ui_en["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</
 RUR.ui_en["Colour:"] = "Colour:";
 RUR.ui_en["Enter a colour"] = "Enter a colour";
 
+RUR.ui_en["Background image"] = "Background image";
+
+RUR.ui_en["NAME:"] = "Name:";
+RUR.ui_en["Save world in browser"] = "Save world in browser";
+
+RUR.ui_en["Set the world's dimensions"] = "Set the world's dimensions";
+RUR.ui_en["set-dimensions-explain"] = "If so desired, you can set the size of the world to be different from the default dimensions. Please remember that smaller resolution screen may not be able to display very large worlds.";
+RUR.ui_en["Maximum x value:"] = "Maximum x value:";
+RUR.ui_en["Maximum y value:"] = "Maximum y value:";
+RUR.ui_en["Use small tiles"] = "Use small tiles";
+
+RUR.ui_en["Set goal number for object"] = "Set goal number for object";
+RUR.ui_en["dialog-goal-object-explain"] = "Click on the checkbox if you wish that number to be equal to the total number of such objects found in the world at the beginning.";
+RUR.ui_en["Number of objects"] = "Number of objects";
+RUR.ui_en["All such objects"] = "All such objects";
+
 },{}],87:[function(require,module,exports){
 RUR.ui_fr = {};
 RUR.fr_to_en = {};
@@ -10383,6 +10412,23 @@ RUR.ui_fr["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</
 
 RUR.ui_fr["Colour:"] = "Couleur :";
 RUR.ui_fr["Enter a colour"] = "Spécifiez une couleur";
+
+RUR.ui_fr["Background image"] = "Image de fond";
+
+RUR.ui_fr["NAME:"] = "Nom :";
+RUR.ui_fr["Save world in browser"] = "Mémoriser une copie du monde";
+
+
+RUR.ui_fr["Set the world's dimensions"] = "Dimensions du monde";
+RUR.ui_fr["set-dimensions-explain"] = "Vous pouvez changer les dimensions (hauteur et largeur) du monde. Rappelez-vous que les mondes très grands pourraient être difficile à visualiser sur des écrans plus petits.";
+RUR.ui_fr["Maximum x value:"] = "Valeur maximale pour 'x'";
+RUR.ui_fr["Maximum y value:"] = "Valeur maximale pour 'y'";
+RUR.ui_fr["Use small tiles"] = "Utilisez une petite grille";
+
+RUR.ui_fr["Set goal number for object"] = "Nombre d'objets désirés";
+RUR.ui_fr["dialog-goal-object-explain"] = "Cliquez sur la case à cocher si vous désirez que le nombre d'objet soit égal au nombre total d'objet de ce genre présent dans le monde au tout début.";
+RUR.ui_fr["Number of objects"] = "Nombre d'objets";
+RUR.ui_fr["All such objects"] = "Tous les objets de ce genre";
 
 },{}],88:[function(require,module,exports){
 RUR.ui_ko = {};
@@ -10687,5 +10733,22 @@ RUR.ui_ko["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</
 
 RUR.ui_ko["Colour:"] = "색상:";
 RUR.ui_ko["Enter a colour"] = "색상을 입력하세요";
+
+RUR.ui_ko["Background image"] = "Background image";
+
+RUR.ui_ko["NAME:"] = "Name:";
+RUR.ui_ko["Save world in browser"] = "Save world in browser";
+
+
+RUR.ui_ko["Set the world's dimensions"] = "Set the world's dimensions";
+RUR.ui_ko["set-dimensions-explain"] = "If so desired, you can set the size of the world to be different from the default dimensions. Please remember that smaller resolution screen may not be able to display very large worlds.";
+RUR.ui_ko["Maximum x value:"] = "최대 x 값:";
+RUR.ui_ko["Maximum y value:"] = "최대 y 값:";
+RUR.ui_ko["Use small tiles"] = "작은 타일 사용하기";
+
+RUR.ui_ko["Set goal number for object"] = "Set goal number for object";
+RUR.ui_ko["dialog-goal-object-explain"] = "Click on the checkbox if you wish that number to be equal to the total number of such objects found in the world at the beginning.";
+RUR.ui_ko["Number of objects"] = "객체의 수:";
+RUR.ui_ko["All such objects"] = "All such objects";
 
 },{}]},{},[18]);

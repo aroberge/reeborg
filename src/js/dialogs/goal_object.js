@@ -1,8 +1,14 @@
 require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
-;
-// require("jquery-ui");
+
+var msg = require("./../../lang/msg.js");
+
+msg.record_id("dialog-goal-object");
+msg.record_title("ui-dialog-title-dialog-goal-object", "Set goal number for object");
+msg.record_id("dialog-goal-object-explain", "dialog-goal-object-explain");
+msg.record_id("input-goal-number-text", "Number of objects");
+msg.record_id("all-objects-text", "All such objects");
 
 exports.dialog_goal_object = dialog_goal_object = $("#dialog-goal-object").dialog({
     autoOpen: false,

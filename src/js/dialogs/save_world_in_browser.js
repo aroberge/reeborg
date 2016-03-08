@@ -1,7 +1,11 @@
 require("./../storage.js");
-;
-// require("jquery-ui");
 var clone_world = require("./../world/clone_world.js").clone_world;
+var msg = require("./../../lang/msg.js");
+
+msg.record_id("browser-world-name", "NAME:");
+msg.record_id("existing-world-names");
+msg.record_id("dialog-save-world");
+msg.record_title("ui-dialog-title-dialog-save-world", "Save world in browser");
 
 exports.dialog_save_world_in_browser = dialog = $("#dialog-save-world").dialog({
     autoOpen: false,

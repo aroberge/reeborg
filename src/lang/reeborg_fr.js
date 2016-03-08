@@ -19,8 +19,8 @@ RUR.reset_definitions_fr = function () {
     window.est_face_au_nord = RUR._is_facing_north_;
     window.avance = RUR._move_;
 
-    mur_devant = RUR._wall_in_front_;
-    window.nouvelles_images_de_robot = function (image) {
+    window.mur_devant = RUR._wall_in_front_;
+    window.nouvelles_images_de_robot = function (images) {
         if (images.est !== undefined) {
             images.east = images.est;
         }

@@ -297,3 +297,19 @@ RUR.ui_en["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</
 
 RUR.ui_en["Colour:"] = "Colour:";
 RUR.ui_en["Enter a colour"] = "Enter a colour";
+
+RUR.ui_en["Background image"] = "Background image";
+
+RUR.ui_en["NAME:"] = "Name:";
+RUR.ui_en["Save world in browser"] = "Save world in browser";
+
+RUR.ui_en["Set the world's dimensions"] = "Set the world's dimensions";
+RUR.ui_en["set-dimensions-explain"] = "If so desired, you can set the size of the world to be different from the default dimensions. Please remember that smaller resolution screen may not be able to display very large worlds.";
+RUR.ui_en["Maximum x value:"] = "Maximum x value:";
+RUR.ui_en["Maximum y value:"] = "Maximum y value:";
+RUR.ui_en["Use small tiles"] = "Use small tiles";
+
+RUR.ui_en["Set goal number for object"] = "Set goal number for object";
+RUR.ui_en["dialog-goal-object-explain"] = "Click on the checkbox if you wish that number to be equal to the total number of such objects found in the world at the beginning.";
+RUR.ui_en["Number of objects"] = "Number of objects";
+RUR.ui_en["All such objects"] = "All such objects";

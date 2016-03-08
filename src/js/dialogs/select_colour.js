@@ -1,6 +1,10 @@
 require("./../visible_world.js");
-;
-// require("jquery-ui");
+var msg = require("./../../lang/msg.js");
+
+msg.record_id("color-selection-text", "Colour:");
+msg.record_id("colour-selection");
+msg.record_id("dialog-select-colour");
+msg.record_title("ui-dialog-title-dialog-select-colour", "Enter a colour");
 
 exports.dialog_select_colour = dialog_select_colour = $("#dialog-select-colour").dialog({
     autoOpen: false,

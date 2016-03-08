@@ -1,13 +1,3 @@
-require("./../lang/ui_en.js");
-require("./../lang/ui_fr.js");
-require("./../lang/ui_ko.js");
-
-require("./../lang/en.js");
-require("./../lang/fr.js");
-
-RUR.translation = RUR.ui_en;
-RUR.translation_to_english = RUR.en_to_en;
-
 var _recorded_ids = [];
 var _text_elements = [];
 var _elements_names = [];
@@ -69,6 +59,7 @@ update_titles = function () {
 exports.update_ui = update_ui;
 exports.record_id = record_id;
 exports.update_titles = update_titles;
+exports.record_title = record_title;
 
 record_id("site-name", "SITE NAME");
 record_id("world-info-button", "WORLD INFO");
@@ -143,7 +134,3 @@ record_title("ui-dialog-title-Reeborg-watches", "Reeborg watches some variables!
 record_title("ui-dialog-title-World-info", "Click on the world to get some additional information.");
 
 record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");
-
-record_id("color-selection-text", "Colour:");
-record_id("colour-selection");
-record_title("ui-dialog-title-dialog-select-colour", "Enter a colour");

@@ -1,7 +1,14 @@
 require("./rur.js");
-require("./../lang/msg.js");
+require("./../lang/ui_en.js");
+require("./../lang/ui_fr.js");
+require("./../lang/ui_ko.js");
 
-RUR.untranslated = {};
+require("./../lang/en.js");
+require("./../lang/fr.js");
+RUR.untranslated = {"en":true, "fr":true};
+
+RUR.translation = RUR.ui_en;
+RUR.translation_to_english = RUR.en_to_en;
 
 RUR.translate = function (s) {
     if (RUR.untranslated[s]) {

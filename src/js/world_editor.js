@@ -498,7 +498,6 @@ RUR.we._add_goal_objects = function (specific_object){
     RUR.state.specific_object = specific_object;
     RUR.state.x = x;
     RUR.state.y = y;
-    $("#goal-object-name").html(RUR.translate(specific_object));
     dialog_goal_object.dialog("open");
 };
 

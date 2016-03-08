@@ -1,6 +1,9 @@
 require("./../visible_world.js");
-;
-// require("jquery-ui");
+var msg = require("./../../lang/msg.js");
+var dialog;
+
+msg.record_id("dialog-set-background-image");
+msg.record_title("ui-dialog-title-dialog-set-background-image", "Background image");
 
 exports.dialog_set_background_image = dialog = $("#dialog-set-background-image").dialog({
     autoOpen: false,

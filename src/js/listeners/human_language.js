@@ -109,8 +109,6 @@ $("#human-language").change(function() {
     update_commands(lang);
     update_home_url(lang);
     RUR.make_default_menu(lang);
-    // TODO update selectors text
-    //TODO update blockly display
     $("#blocklyDiv").html(" ");
     RUR.blockly.init();
 
