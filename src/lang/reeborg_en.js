@@ -24,8 +24,6 @@
 
 window.RUR = RUR || {};
 
-var UsedRobot;
-
 RUR.reset_definitions_en = function () {
 
     window.at_goal = RUR._at_goal_;
@@ -63,7 +61,7 @@ RUR.reset_definitions_en = function () {
     window.World = RUR._World_;
 
 
-    UsedRobot = function (x, y, orientation, tokens)  {
+    var UsedRobot = window.UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR._add_robot(this.body);
     };

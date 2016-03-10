@@ -25,7 +25,7 @@ exports.dialog_give_object = dialog_give_object = $("#dialog-give-object").dialo
 });
 give_object = function () {
     "use strict";
-    var query;
+    var query, give_number_result, unlimited_number_result;
     give_number_result = parseInt($("#input-give-number").val(), 10);
     unlimited_number_result = $("#unlimited-number").prop("checked");
     if (unlimited_number_result){

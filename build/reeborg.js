@@ -1929,7 +1929,6 @@ require("./../world_set/add_object.js");
 require("./../visible_world.js");
 require("./../state.js");
 
-
 exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     autoOpen: false,
     height: 400,
@@ -1950,7 +1949,7 @@ exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
 
 function add_object () {
     "use strict";
-    var query;
+    var query, input_add_number_result, input_maximum_result;
     input_add_number_result = parseInt($("#input-add-number").val(), 10);
     input_maximum_result = parseInt($("#maximum-number").val(), 10);
     if (input_maximum_result > input_add_number_result){
@@ -2028,7 +2027,7 @@ $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                 position:{my: "bottom", at: "bottom-140", of: window}});
 
-},{"./../../lang/msg.js":83,"./../libs/jquery.ui.dialog.minmax.js":20,"./../rur.js":50}],9:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../libs/jquery.ui.dialog.minmax.js":20,"./../rur.js":50}],9:[function(require,module,exports){
 
 require("./../world_set.js");
 require("./../visible_world.js");
@@ -2056,7 +2055,7 @@ exports.dialog_give_object = dialog_give_object = $("#dialog-give-object").dialo
 });
 give_object = function () {
     "use strict";
-    var query;
+    var query, give_number_result, unlimited_number_result;
     give_number_result = parseInt($("#input-give-number").val(), 10);
     unlimited_number_result = $("#unlimited-number").prop("checked");
     if (unlimited_number_result){
@@ -2106,7 +2105,7 @@ exports.dialog_goal_object = dialog_goal_object = $("#dialog-goal-object").dialo
 });
 goal_objects = function () {
     "use strict";
-    var query;
+    var query, input_goal_number_result, all_objects_result;
     input_goal_number_result = parseInt($("#input-goal-number").val(), 10);
     all_objects_result = $("#all-objects").prop("checked");
     if (all_objects_result){
@@ -2124,7 +2123,7 @@ goal_objects_form = dialog_goal_object.find("form").on("submit", function( event
     goal_objects();
 });
 
-},{"./../../lang/msg.js":83,"./../state.js":53,"./../visible_world.js":65,"./../world_set/give_object_to_robot.js":79}],11:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../state.js":53,"./../visible_world.js":65,"./../world_set/give_object_to_robot.js":79}],11:[function(require,module,exports){
 require("./../visible_world.js");
 var msg = require("./../../lang/msg.js");
 
@@ -2163,7 +2162,7 @@ select_colour = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../../lang/msg.js":83,"./../visible_world.js":65}],12:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../visible_world.js":65}],12:[function(require,module,exports){
 require("./../visible_world.js");
 var msg = require("./../../lang/msg.js");
 var dialog;
@@ -2201,7 +2200,7 @@ set_background_image = function () {
     dialog.dialog("close");
 };
 
-},{"./../../lang/msg.js":83,"./../visible_world.js":65}],13:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../visible_world.js":65}],13:[function(require,module,exports){
 
 require("./rur.js");
 require("./state.js");
@@ -4204,7 +4203,7 @@ $("#library-tab").on("click", function (evt) {
     $("#watch-variables-btn").hide();
 });
 
-},{"./../../lang/msg.js":83,"./../create_editors.js":5}],24:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../create_editors.js":5}],24:[function(require,module,exports){
 require("./../constants.js");
 
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4216,7 +4215,7 @@ RUR.erase_trace = function(){
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 };
 
-},{"./../../lang/msg.js":83,"./../constants.js":3}],25:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../constants.js":3}],25:[function(require,module,exports){
 require("./../state.js");
 require("./../../lang/reeborg_en.js");
 require("./../../lang/reeborg_fr.js");
@@ -4342,7 +4341,7 @@ $("#human-language").change(function() {
     update_url();
 });
 
-},{"./../../lang/msg.js":83,"./../../lang/reeborg_en.js":84,"./../../lang/reeborg_fr.js":85,"./../custom_world_select.js":6,"./../state.js":53,"./../utils/parseuri.js":62}],26:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../../lang/reeborg_en.js":86,"./../../lang/reeborg_fr.js":87,"./../custom_world_select.js":6,"./../state.js":53,"./../utils/parseuri.js":62}],26:[function(require,module,exports){
 
 require("./../state.js");
 require("./../storage.js");
@@ -4401,7 +4400,7 @@ save_world = function () {
     $('#delete-world').show();
 };
 
-},{"./../../lang/msg.js":83,"./../state.js":53,"./../storage.js":54,"./../world/clone_world.js":67}],27:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../state.js":53,"./../storage.js":54,"./../world/clone_world.js":67}],27:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 */
 
@@ -4509,7 +4508,7 @@ $("#add-library-to-world").on("click", function(evt) {
     }
 });
 
-},{"./../../lang/msg.js":83,"./../create_editors.js":5,"./../state.js":53,"./../translator.js":55,"./../world.js":66,"./../world/export_world.js":69}],28:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../create_editors.js":5,"./../state.js":53,"./../translator.js":55,"./../world.js":66,"./../world/export_world.js":69}],28:[function(require,module,exports){
 require("./../state.js");
 ;
 require("./../playback/play.js");
@@ -4532,7 +4531,7 @@ RUR.pause = function (ms) {
 };
 pause_button.addEventListener("click", pause, false);
 
-},{"./../../lang/msg.js":83,"./../playback/play.js":42,"./../state.js":53}],29:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../playback/play.js":42,"./../state.js":53}],29:[function(require,module,exports){
 require("./../state.js");
 require("./../listeners/reload.js");
 require("./../keyboard.js");
@@ -4748,7 +4747,7 @@ function hide_console() {
 show_editor("python");
 // see start_session.js for initialization.
 
-},{"./../../lang/msg.js":83,"./../create_editors.js":5,"./../keyboard.js":19,"./../listeners/reload.js":30,"./../state.js":53,"./../utils/parseuri.js":62}],30:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../create_editors.js":5,"./../keyboard.js":19,"./../listeners/reload.js":30,"./../state.js":53,"./../utils/parseuri.js":62}],30:[function(require,module,exports){
 
 require("./../state.js");
 var set_ready_to_run = require("./../ui/set_ready_to_run.js").set_ready_to_run;
@@ -4794,7 +4793,7 @@ RUR.reload2 = function() {
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);
 
-},{"./../../lang/msg.js":83,"./../recorder/reset.js":47,"./../state.js":53,"./../ui/set_ready_to_run.js":57,"./../world_set/reset_world.js":80}],31:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../recorder/reset.js":47,"./../state.js":53,"./../ui/set_ready_to_run.js":57,"./../world_set/reset_world.js":80}],31:[function(require,module,exports){
 require("./../state.js");
 require("./../recorder.js");
 
@@ -4816,7 +4815,7 @@ reverse_step = function () {
     clearTimeout(RUR._TIMER);
 };
 
-},{"./../../lang/msg.js":83,"./../recorder.js":45,"./../state.js":53}],32:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../recorder.js":45,"./../state.js":53}],32:[function(require,module,exports){
 require("./../visible_robot.js");
 
 require("./../state.js");
@@ -4843,7 +4842,7 @@ $("#robot3").on("click", function (evt) {
     RUR.select_default_robot_model(3);
 });
 
-},{"./../../lang/msg.js":83,"./../state.js":53,"./../visible_robot.js":64}],33:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../state.js":53,"./../visible_robot.js":64}],33:[function(require,module,exports){
 ;
 require("./../state.js");
 require("./reload.js");
@@ -4871,7 +4870,7 @@ function run () {
 }
 run_button.addEventListener("click", run, false);
 
-},{"./../../lang/msg.js":83,"./../playback/play.js":42,"./../runner.js":49,"./../state.js":53,"./reload.js":30}],34:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../playback/play.js":42,"./../runner.js":49,"./../state.js":53,"./reload.js":30}],34:[function(require,module,exports){
 require("./../file_io.js");
 require("./../storage.js");
 
@@ -4890,7 +4889,7 @@ $("#select-world").change(function() {
     } catch (e) {}
 });
 
-},{"./../../lang/msg.js":83,"./../file_io.js":17,"./../storage.js":54}],35:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../file_io.js":17,"./../storage.js":54}],35:[function(require,module,exports){
 
 require("./../state.js");
 require("./reload.js");
@@ -4910,7 +4909,7 @@ step = function () {
 };
 step_button.addEventListener("click", step, false);
 
-},{"./../../lang/msg.js":83,"./../playback/play.js":42,"./../runner.js":49,"./../state.js":53,"./reload.js":30}],36:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../playback/play.js":42,"./../runner.js":49,"./../state.js":53,"./reload.js":30}],36:[function(require,module,exports){
 
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4930,7 +4929,7 @@ RUR.stop = function () {
 };
 stop_button.addEventListener("click", RUR.stop, false);
 
-},{"./../../lang/msg.js":83,"./../state.js":53}],37:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../state.js":53}],37:[function(require,module,exports){
 ;
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4951,7 +4950,7 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
 };
 highlight_button.addEventListener("click", RUR.toggle_highlight, false);
 
-},{"./../../lang/msg.js":83,"./../state.js":53}],38:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../state.js":53}],38:[function(require,module,exports){
 ;
 require("./../state.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4976,7 +4975,7 @@ toggle_watch_variables = function () {
 };
 watch_button.addEventListener("click", toggle_watch_variables, false);
 
-},{"./../../lang/msg.js":83,"./../state.js":53}],39:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../state.js":53}],39:[function(require,module,exports){
 require("./rur.js");
 require("./extend/add_object_type.js");
 require("./extend/add_tile_type.js");
@@ -5389,7 +5388,7 @@ function receiveMessage(event){
     RUR.permalink.update(event.data);
 }
 
-},{"./../lang/msg.js":83,"./create_editors.js":5,"./listeners/programming_mode.js":29,"./state.js":53,"./storage.js":54,"./translator.js":55,"./utils/parseuri.js":62,"./world.js":66,"./world/export_world.js":69}],42:[function(require,module,exports){
+},{"./../lang/msg.js":85,"./create_editors.js":5,"./listeners/programming_mode.js":29,"./state.js":53,"./storage.js":54,"./translator.js":55,"./utils/parseuri.js":62,"./world.js":66,"./world/export_world.js":69}],42:[function(require,module,exports){
 require("./../state.js");
 require("./../listeners/stop.js");
 
@@ -6215,6 +6214,9 @@ require("./create_editors.js");
 
 //
 brython({debug:1, pythonpath:['/src/python']});
+if (__BRYTHON__.__MAGIC__ != "3.2.5") {
+    alert("Expecting Brython version 3.2.5 and got " + __BRYTHON__.__MAGIC__);
+}
 
 /* Once everything is loaded, we need to decide which UI to show.
    The priority is determined by:
@@ -6421,7 +6423,7 @@ RUR.translate_to_english = function (s) {
     }
 };
 
-},{"./../lang/en.js":81,"./../lang/fr.js":82,"./../lang/ui_en.js":86,"./../lang/ui_fr.js":87,"./../lang/ui_ko.js":88,"./rur.js":50}],56:[function(require,module,exports){
+},{"./../lang/en.js":83,"./../lang/fr.js":84,"./../lang/ui_en.js":88,"./../lang/ui_fr.js":89,"./../lang/ui_ko.js":90,"./rur.js":50}],56:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -7808,6 +7810,10 @@ require("./utils/key_exist.js");
 require("./world_set/add_object.js");
 require("./world_set/add_goal_object.js");
 require("./world_set/add_robot.js");
+require("./world_set/toggle_decorative_object.js");
+require("./world_set/toggle_solid_object.js");
+require("./world_set/give_object_to_robot.js");
+
 
 var edit_robot_menu = require("./ui/edit_robot_menu.js");
 var dialog_add_object = require("./dialogs/add_object.js").dialog_add_object;
@@ -8054,7 +8060,8 @@ RUR.we.toggle_editing_mode = function () {
 record_id("edit-world", "EDIT WORLD");
 record_id("edit-world-text", "EDIT WORLD EXPLAIN");
 RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
-                                 {}, RUR.we.toggle_editing_mode);
+                                 {}, function () {RUR.we.toggle_editing_mode();
+                                     $("#more-menus").dialog("minimize"); });
 
 
 
@@ -8423,7 +8430,7 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./constants.js":3,"./create_editors.js":5,"./dialogs/add_object.js":7,"./dialogs/create.js":8,"./dialogs/give_object.js":9,"./dialogs/goal_object.js":10,"./dialogs/select_colour.js":11,"./dialogs/set_background_image.js":12,"./exceptions.js":13,"./listeners/canvas.js":22,"./objects.js":39,"./robot.js":48,"./state.js":53,"./translator.js":55,"./ui/edit_robot_menu.js":56,"./utils/filterint.js":59,"./utils/identical.js":60,"./utils/key_exist.js":61,"./utils/supplant.js":63,"./visible_world.js":65,"./world.js":66,"./world_get.js":72,"./world_set.js":75,"./world_set/add_goal_object.js":76,"./world_set/add_object.js":77,"./world_set/add_robot.js":78}],72:[function(require,module,exports){
+},{"./constants.js":3,"./create_editors.js":5,"./dialogs/add_object.js":7,"./dialogs/create.js":8,"./dialogs/give_object.js":9,"./dialogs/goal_object.js":10,"./dialogs/select_colour.js":11,"./dialogs/set_background_image.js":12,"./exceptions.js":13,"./listeners/canvas.js":22,"./objects.js":39,"./robot.js":48,"./state.js":53,"./translator.js":55,"./ui/edit_robot_menu.js":56,"./utils/filterint.js":59,"./utils/identical.js":60,"./utils/key_exist.js":61,"./utils/supplant.js":63,"./visible_world.js":65,"./world.js":66,"./world_get.js":72,"./world_set.js":75,"./world_set/add_goal_object.js":76,"./world_set/add_object.js":77,"./world_set/add_robot.js":78,"./world_set/give_object_to_robot.js":79,"./world_set/toggle_decorative_object.js":81,"./world_set/toggle_solid_object.js":82}],72:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
@@ -9067,7 +9074,7 @@ set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit
     set_dimension();
 });
 
-},{"./../lang/msg.js":83,"./exceptions.js":13,"./objects.js":39,"./recorder.js":45,"./utils/key_exist.js":61,"./visible_world.js":65}],76:[function(require,module,exports){
+},{"./../lang/msg.js":85,"./exceptions.js":13,"./objects.js":39,"./recorder.js":45,"./utils/key_exist.js":61,"./visible_world.js":65}],76:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
@@ -9157,9 +9164,11 @@ require("./../translator.js");
  *           une valeur de zéro est utilisée pour supprimer les objets._
  *
  */
+
 RUR.add_object_at_position = function (specific_object, x, y, nb){
     "use strict";
     var coords, cw;
+    specific_object = RUR.translate_to_english(specific_object);
     if (RUR.KNOWN_OBJECTS.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
@@ -9196,6 +9205,7 @@ RUR._add_robot = function (robot) {
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
+var filterInt = require("./../utils/filterint.js").filterInt;
 
 /** @function give_object_to_robot
  * @memberof RUR
@@ -9243,7 +9253,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../exceptions.js":13,"./../translator.js":55,"./../utils/key_exist.js":61}],80:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../translator.js":55,"./../utils/filterint.js":59,"./../utils/key_exist.js":61}],80:[function(require,module,exports){
 require("./../world/create_empty.js");
 require("./../visible_robot.js");
 require("./../visible_world.js");
@@ -9262,6 +9272,101 @@ exports.reset_world = reset_world = function () {
 reset_world();
 
 },{"./../visible_robot.js":64,"./../visible_world.js":65,"./../world/clone_world.js":67,"./../world/create_empty.js":68}],81:[function(require,module,exports){
+require("./../exceptions.js");
+require("./../translator.js");
+require("./../utils/key_exist.js");
+require("./../utils/supplant.js");
+
+/** @function toggle_decorative_object_at_position
+ * @memberof RUR
+ * @instance
+ * @summary This function adds or remove a given decorative object
+ * at a certain location.
+ *
+ * @desc Cette fonction ajoute ou enlève un objet décoratif à un endroit donné.
+ *
+ * @param {string} specific_object The name of the object type ; e.g. "token" <br>
+ *                        _Le nom (anglais) du type de l'objet; par exemple, "token"._
+ * @param {integer} x - Position of the object
+ *                    <br> _position de l'objet_
+ * @param {integer} y - Position of the object
+ *                    <br> _position de l'objet_
+ */
+
+RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
+    "use strict";
+    var coords, cw;
+    specific_object = RUR.translate_to_english(specific_object);
+    if (RUR.KNOWN_OBJECTS.indexOf(specific_object) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
+                                                 {obj: specific_object}));
+    }
+    coords = x + "," + y;
+    cw = RUR.CURRENT_WORLD;
+    RUR._ensure_key_exists(cw, "decorative_objects");
+    RUR._ensure_key_exists(cw.decorative_objects, coords);
+
+    if (cw.decorative_objects[coords][specific_object]) {
+        delete cw.decorative_objects[coords][specific_object];
+        if (Object.keys(cw.decorative_objects[coords]).length === 0) {
+            delete cw.decorative_objects[coords];
+            if (Object.keys(cw.decorative_objects).length === 0) {
+                delete cw.decorative_objects;
+            }
+        }
+    } else {
+        cw.decorative_objects[coords][specific_object] = true;
+    }
+};
+
+},{"./../exceptions.js":13,"./../translator.js":55,"./../utils/key_exist.js":61,"./../utils/supplant.js":63}],82:[function(require,module,exports){
+require("./../exceptions.js");
+require("./../utils/key_exist.js");
+require("./../translator.js");
+require("./../utils/supplant.js");
+
+/** @function toggle_solid_object_at_position
+ * @memberof RUR
+ * @instance
+ * @summary This function adds or remove a given solid object (like a fence)
+ * at a certain location.
+ *
+ * @desc Cette fonction ajoute ou enlève un objet solide (comme une clôture) à un endroit donné.
+ *
+ * @param {string} specific_object The name of the object type ; e.g. "fence" <br>
+ *                        _Le nom [anglais] du type de l'objet; par exemple, "fence"._
+ * @param {integer} x - Position of the object
+ *                    <br> _position de l'objet_
+ * @param {integer} y - Position of the object
+ *                    <br> _position de l'objet_
+ */
+
+RUR.toggle_solid_object_at_position = function (specific_object, x, y){
+    "use strict";
+    var coords, cw;
+    if (RUR.KNOWN_SOLID_OBJECTS.indexOf(specific_object) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
+                                                 {obj: specific_object}));
+    }
+    coords = x + "," + y;
+    cw = RUR.CURRENT_WORLD;
+    RUR._ensure_key_exists(cw, "solid_objects");
+    RUR._ensure_key_exists(cw.solid_objects, coords);
+
+    if (cw.solid_objects[coords][specific_object]) {
+        delete cw.solid_objects[coords][specific_object];
+        if (Object.keys(cw.solid_objects[coords]).length === 0) {
+            delete cw.solid_objects[coords];
+            if (Object.keys(cw.solid_objects).length === 0) {
+                delete cw.solid_objects;
+            }
+        }
+    } else {
+        cw.solid_objects[coords][specific_object] = true;
+    }
+};
+
+},{"./../exceptions.js":13,"./../translator.js":55,"./../utils/key_exist.js":61,"./../utils/supplant.js":63}],83:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
@@ -9316,7 +9421,7 @@ RUR.en["write()"] = "write()";
 
 RUR.en["from library import ?"] = "from library import ?";
 
-},{}],82:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
@@ -9376,7 +9481,7 @@ RUR.fr["write()"] = "ecrit()";
 
 RUR.fr["from library import ?"] = "from biblio import ?";
 
-},{}],83:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 var _recorded_ids = [];
 var _text_elements = [];
 var _elements_names = [];
@@ -9514,7 +9619,7 @@ record_title("ui-dialog-title-World-info", "Click on the world to get some addit
 
 record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");
 
-},{}],84:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 /** Since Javascript is a dynamic language, a user or world creator could
     (possibly accidently) redefine a basic function, which could lead to some
     apparent bugs.  For this reason, we include a function whose role is to
@@ -9540,8 +9645,6 @@ record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python ke
 **/
 
 window.RUR = RUR || {};
-
-var UsedRobot;
 
 RUR.reset_definitions_en = function () {
 
@@ -9580,7 +9683,7 @@ RUR.reset_definitions_en = function () {
     window.World = RUR._World_;
 
 
-    UsedRobot = function (x, y, orientation, tokens)  {
+    var UsedRobot = window.UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR._add_robot(this.body);
     };
@@ -9662,11 +9765,9 @@ RUR.reset_definitions_en = function () {
     window.facing_north = is_facing_north;
 };
 
-},{}],85:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 /* See reeborg_en.js */
 window.RUR = RUR || {};
-
-var RobotUsage;
 
 RUR.reset_definitions_fr = function () {
 
@@ -9721,7 +9822,7 @@ RUR.reset_definitions_fr = function () {
     window.Monde = RUR._World_;
 
     // The following are for OOP programming in Javascript
-    RobotUsage = function (x, y, orientation, tokens)  {
+    var RobotUsage = window.RobotUsage = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR._add_robot(this.body);
     };
@@ -9795,7 +9896,7 @@ RUR.reset_definitions_fr = function () {
 
 };
 
-},{}],86:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 RUR.ui_en = {};
 RUR.en_to_en = {};
 
@@ -10112,7 +10213,7 @@ RUR.ui_en["dialog-goal-object-explain"] = "Click on the checkbox if you wish tha
 RUR.ui_en["Number of objects"] = "Number of objects";
 RUR.ui_en["All such objects"] = "All such objects";
 
-},{}],87:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 RUR.ui_fr = {};
 RUR.fr_to_en = {};
 
@@ -10430,7 +10531,7 @@ RUR.ui_fr["dialog-goal-object-explain"] = "Cliquez sur la case à cocher si vous
 RUR.ui_fr["Number of objects"] = "Nombre d'objets";
 RUR.ui_fr["All such objects"] = "Tous les objets de ce genre";
 
-},{}],88:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 RUR.ui_ko = {};
 RUR.ko_to_en = {};
 

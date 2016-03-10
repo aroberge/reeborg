@@ -1,8 +1,6 @@
 /* See reeborg_en.js */
 window.RUR = RUR || {};
 
-var RobotUsage;
-
 RUR.reset_definitions_fr = function () {
 
     window.au_but = RUR._at_goal_;
@@ -56,7 +54,7 @@ RUR.reset_definitions_fr = function () {
     window.Monde = RUR._World_;
 
     // The following are for OOP programming in Javascript
-    RobotUsage = function (x, y, orientation, tokens)  {
+    var RobotUsage = window.RobotUsage = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR._add_robot(this.body);
     };

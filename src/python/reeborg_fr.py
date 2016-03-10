@@ -318,7 +318,7 @@ def mur_a_droite():  #py:wall_on_right
     return RUR._wall_on_right_()
 
 
-def MenuPersonalise(contenu):  #py:MakeCustomMenu
+def MenuPersonnalise(contenu):  #py:MakeCustomMenu
     """À l'intention des éducateurs.  Permet de créer des menus de monde
        personalisés.  Voir la documentation pour plus de détails."""
     RUR._MakeCustomMenu_(contenu)

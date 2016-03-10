@@ -29,7 +29,7 @@ exports.dialog_goal_object = dialog_goal_object = $("#dialog-goal-object").dialo
 });
 goal_objects = function () {
     "use strict";
-    var query;
+    var query, input_goal_number_result, all_objects_result;
     input_goal_number_result = parseInt($("#input-goal-number").val(), 10);
     all_objects_result = $("#all-objects").prop("checked");
     if (all_objects_result){

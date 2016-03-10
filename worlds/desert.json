@@ -21,6 +21,6 @@
     "2,10": "water",
     "1,10": "water"
   },
-  "onload": "/* Javascript */\nvar r;\nif (document.documentElement.lang == \"fr\") {\n    r = new RobotUsage();\n    r.modele(3);\n} else {\n    r = new UsedRobot();\n    r.set_model(3);\n}\n",
+  "onload": "/* Javascript */\nvar r;\nif (RUR.state.human_language == \"fr\") {\n    r = new RobotUsage();\n    r.modele(3);\n} else {\n    r = new UsedRobot();\n    r.set_model(3);\n}\n",
   "description": "Image adapted from https://www.flickr.com/photos/argenberg/1224013711/in/photostream/"
 }

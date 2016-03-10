@@ -18,6 +18,10 @@ require("./utils/key_exist.js");
 require("./world_set/add_object.js");
 require("./world_set/add_goal_object.js");
 require("./world_set/add_robot.js");
+require("./world_set/toggle_decorative_object.js");
+require("./world_set/toggle_solid_object.js");
+require("./world_set/give_object_to_robot.js");
+
 
 var edit_robot_menu = require("./ui/edit_robot_menu.js");
 var dialog_add_object = require("./dialogs/add_object.js").dialog_add_object;
@@ -264,7 +268,8 @@ RUR.we.toggle_editing_mode = function () {
 record_id("edit-world", "EDIT WORLD");
 record_id("edit-world-text", "EDIT WORLD EXPLAIN");
 RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
-                                 {}, RUR.we.toggle_editing_mode);
+                                 {}, function () {RUR.we.toggle_editing_mode();
+                                     $("#more-menus").dialog("minimize"); });
 
 
 

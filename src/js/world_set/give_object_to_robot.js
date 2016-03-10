@@ -1,6 +1,7 @@
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
+var filterInt = require("./../utils/filterint.js").filterInt;
 
 /** @function give_object_to_robot
  * @memberof RUR

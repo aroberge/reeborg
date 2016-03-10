@@ -6,7 +6,6 @@ require("./../world_set/add_object.js");
 require("./../visible_world.js");
 require("./../state.js");
 
-
 exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     autoOpen: false,
     height: 400,
@@ -27,7 +26,7 @@ exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
 
 function add_object () {
     "use strict";
-    var query;
+    var query, input_add_number_result, input_maximum_result;
     input_add_number_result = parseInt($("#input-add-number").val(), 10);
     input_maximum_result = parseInt($("#maximum-number").val(), 10);
     if (input_maximum_result > input_add_number_result){

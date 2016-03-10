@@ -5,9 +5,9 @@ ErrorDocument 404 /404.html
 Header set Cache-Control "max-age=2592000"
 </FilesMatch>
 
-# cache for 12 hours
+# cache for 6 hours
 <FilesMatch ".(js|css|html|htm)$">
-Header set Cache-Control "max-age=43200"
+Header set Cache-Control "max-age=21600"
 </FilesMatch>
 RemoveHandler .py
 
