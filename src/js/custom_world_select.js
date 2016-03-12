@@ -131,7 +131,7 @@ RUR.make_default_menu_fr = function () {
 
 
     contents = [
-        ['/src/worlds/alone.json', 'Seul'],
+        ['/src/worlds/seul.json', 'Seul'],
         ['/src/worlds/empty.json', 'Vide'],
         [base_url2 + 'around1.json', 'Autour 1'],
         [base_url2 + 'around2.json', 'Autour 2'],

@@ -17,7 +17,7 @@
     }
   ],
   "walls": {},
-  "description": "A simple, empty world, ready for Reeborg to explore.",
+  "description": "Un simple monde vide, que Reeborg peut explorer à sa guise.\n",
   "small_tiles": false,
   "rows": 10,
   "cols": 10,
