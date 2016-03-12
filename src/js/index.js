@@ -12,5 +12,6 @@ require("./start_session.js");
 //       Use jsdoc and put on site.
 // TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
 // TODO: implement paint() and colour_here() in Blockly
-// TODO: Change world "Alone" so that it sets/restores default robot images
+// TODO: Change world "Alone" so that it sets/restores default robot images; also make it smaller
+//       so that the information about mixed language UI can be shown on smaller screens.
 // TODO: Create offline version as part of the build sequence
