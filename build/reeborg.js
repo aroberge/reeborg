@@ -10835,21 +10835,21 @@ RUR.ui_ko["<code>repeat</code> is not a true Python keyword."] = "<code>repeat</
 RUR.ui_ko["Colour:"] = "색상:";
 RUR.ui_ko["Enter a colour"] = "색상을 입력하세요";
 
-RUR.ui_ko["Background image"] = "Background image";
+RUR.ui_ko["Background image"] = "배경 이미지";
 
-RUR.ui_ko["NAME:"] = "Name:";
-RUR.ui_ko["Save world in browser"] = "Save world in browser";
+RUR.ui_ko["NAME:"] = "이름:";
+RUR.ui_ko["Save world in browser"] = "월드를 브라우저에 저장하기";
 
 
-RUR.ui_ko["Set the world's dimensions"] = "Set the world's dimensions";
-RUR.ui_ko["set-dimensions-explain"] = "If so desired, you can set the size of the world to be different from the default dimensions. Please remember that smaller resolution screen may not be able to display very large worlds.";
+RUR.ui_ko["Set the world's dimensions"] = "월드의 크기를 조절하세요";
+RUR.ui_ko["set-dimensions-explain"] = "원하는 경우 월드의 기본 크기를 다르게 설정할 수 있습니다. 작은 해상도의 화면은 매우 큰 세계를 볼수 없음을 기억하세요.";
 RUR.ui_ko["Maximum x value:"] = "최대 x 값:";
 RUR.ui_ko["Maximum y value:"] = "최대 y 값:";
 RUR.ui_ko["Use small tiles"] = "작은 타일 사용하기";
 
-RUR.ui_ko["Set goal number for object"] = "Set goal number for object";
-RUR.ui_ko["dialog-goal-object-explain"] = "Click on the checkbox if you wish that number to be equal to the total number of such objects found in the world at the beginning.";
+RUR.ui_ko["Set goal number for object"] = "객체의 목표 수를 설정합니다.";
+RUR.ui_ko["dialog-goal-object-explain"] = "체크박스를 클릭하세요. 월드가 시작될때 당신의 원하는 객체의 모든 숫자가 보입니다.";
 RUR.ui_ko["Number of objects"] = "객체의 수:";
-RUR.ui_ko["All such objects"] = "All such objects";
+RUR.ui_ko["All such objects"] = "모든 종류의 객체";
 
 },{}]},{},[18]);
