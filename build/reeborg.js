@@ -2584,6 +2584,15 @@ require("./world_editor.js");
 
 require("./start_session.js");
 
+// TODO: easy function to hide edit world button (to prevent students seeing hidden code)
+// TODO: animated robots/ decorative objects, objects
+// TODO: document all world-editing functions, make them directly available as methods of RUR.
+//       Use jsdoc and put on site.
+// TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
+// TODO: implement paint() and colour_here() in Blockly
+// TODO: Change world "Alone" so that it sets/restores default robot images
+// TODO: Create offline version as part of the build sequence
+
 },{"./commands.js":2,"./start_session.js":52,"./utils/cors.js":58,"./world_editor.js":71}],19:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
@@ -10535,7 +10544,7 @@ RUR.ui_fr["All such objects"] = "Tous les objets de ce genre";
 RUR.ui_ko = {};
 RUR.ko_to_en = {};
 
-RUR.ui_ko["ko-en"] = "{Korean translation here}<br>" +
+RUR.ui_ko["ko-en"] = "혼용된 모드: 사용자 환경은 한국어로 번역되어 있지만, 프로그래밍 언어는 영어로 이루어져 있습니다.<br>" +
     "Mixed mode: User Interface in Korean; programming language in English.<br>";
 
 RUR.ui_ko["SITE NAME"] = "리보그의 월드";
