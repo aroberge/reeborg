@@ -4,7 +4,15 @@ require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
 require("./../rur.js");
+var msg = require("./../../lang/msg.js");
 
+msg.record_id("give-number-of-objects", "Number of objects:");
+msg.record_id("unlimited-text", "Unlimited:");
+msg.record_id("give-object-explain", "GIVE OBJECT EXPLAIN");
+msg.record_id("input-give-number");
+msg.record_id("unlimited-number");
+msg.record_id("dialog-give-object");
+msg.record_title("ui-dialog-title-dialog-give-object", "Give object to robot");
 
 exports.dialog_give_object = dialog_give_object = $("#dialog-give-object").dialog({
     autoOpen: false,

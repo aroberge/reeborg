@@ -1928,6 +1928,15 @@ require("./../rur.js");
 require("./../world_set/add_object.js");
 require("./../visible_world.js");
 require("./../state.js");
+var msg = require("./../../lang/msg.js");
+
+msg.record_id("number-of-objects", "Number of objects:");
+msg.record_id("maximum-text", "Maximum:");
+msg.record_id("add-object-explain", "ADD OBJECT EXPLAIN");
+msg.record_id("input-add-number");
+msg.record_id("maximum-number");
+msg.record_id("dialog-add-object");
+msg.record_title("ui-dialog-title-dialog-add-object", "Add object in the world");
 
 exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     autoOpen: false,
@@ -1968,7 +1977,7 @@ add_object_form = dialog_add_object.find("form").on("submit", function( event ) 
     add_object();
 });
 
-},{"./../rur.js":50,"./../state.js":53,"./../visible_world.js":65,"./../world_set/add_object.js":77}],8:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../rur.js":50,"./../state.js":53,"./../visible_world.js":65,"./../world_set/add_object.js":77}],8:[function(require,module,exports){
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
@@ -2034,7 +2043,15 @@ require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
 require("./../rur.js");
+var msg = require("./../../lang/msg.js");
 
+msg.record_id("give-number-of-objects", "Number of objects:");
+msg.record_id("unlimited-text", "Unlimited:");
+msg.record_id("give-object-explain", "GIVE OBJECT EXPLAIN");
+msg.record_id("input-give-number");
+msg.record_id("unlimited-number");
+msg.record_id("dialog-give-object");
+msg.record_title("ui-dialog-title-dialog-give-object", "Give object to robot");
 
 exports.dialog_give_object = dialog_give_object = $("#dialog-give-object").dialog({
     autoOpen: false,
@@ -2073,7 +2090,7 @@ give_object_form = dialog_give_object.find("form").on("submit", function( event 
     give_object();
 });
 
-},{"./../rur.js":50,"./../state.js":53,"./../visible_world.js":65,"./../world_set.js":75,"./../world_set/give_object_to_robot.js":79}],10:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../rur.js":50,"./../state.js":53,"./../visible_world.js":65,"./../world_set.js":75,"./../world_set/give_object_to_robot.js":79}],10:[function(require,module,exports){
 require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
@@ -2590,8 +2607,6 @@ require("./start_session.js");
 //       Use jsdoc and put on site.
 // TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
 // TODO: implement paint() and colour_here() in Blockly
-// TODO: Change world "Alone" so that it sets/restores default robot images; also make it smaller
-//       so that the information about mixed language UI can be shown on smaller screens.
 // TODO: Create offline version as part of the build sequence
 
 },{"./commands.js":2,"./start_session.js":52,"./utils/cors.js":58,"./world_editor.js":71}],19:[function(require,module,exports){
@@ -7552,6 +7567,7 @@ require("./exceptions.js");
 require("./create_editors.js");
 edit_robot_menu = require("./ui/edit_robot_menu.js");
 var clone_world = require("./world/clone_world.js").clone_world;
+var msg = require("./../lang/msg.js");
 
 RUR.world = {};
 
@@ -7620,6 +7636,15 @@ RUR.world.update_editors = function (world) {
    onload_editor.setValue(world.onload);
 };
 
+msg.record_id("update-editor-content");
+msg.record_id("update-editor-content-text", "UPDATE EDITOR CONTENT");
+msg.record_id("update-editor-content-btn", "UPDATE EDITOR BUTTON");
+msg.record_id("update-library-content");
+msg.record_id("update-library-content-text", "UPDATE LIBRARY CONTENT");
+msg.record_id("update-library-content-btn", "UPDATE LIBRARY BUTTON");
+msg.record_id("dialog-update-editors-from-world");
+msg.record_title("ui-dialog-title-dialog-update-editors-from-world", "Contents from World");
+
 RUR.world.dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
     autoOpen: false,
     height: 400,
@@ -7647,7 +7672,7 @@ $("#update-library-content-btn").on("click", function(evt) {
     }
 });
 
-},{"./constants.js":3,"./create_editors.js":5,"./exceptions.js":13,"./robot.js":48,"./state.js":53,"./translator.js":55,"./ui/edit_robot_menu.js":56,"./visible_world.js":65,"./world/clone_world.js":67}],67:[function(require,module,exports){
+},{"./../lang/msg.js":85,"./constants.js":3,"./create_editors.js":5,"./exceptions.js":13,"./robot.js":48,"./state.js":53,"./translator.js":55,"./ui/edit_robot_menu.js":56,"./visible_world.js":65,"./world/clone_world.js":67}],67:[function(require,module,exports){
 
 exports.clone_world = function (world) {
     if (world === undefined) {
@@ -10230,6 +10255,21 @@ RUR.ui_en["dialog-goal-object-explain"] = "Click on the checkbox if you wish tha
 RUR.ui_en["Number of objects"] = "Number of objects";
 RUR.ui_en["All such objects"] = "All such objects";
 
+RUR.ui_en["Number of objects:"] = "Number of objects:";
+RUR.ui_en["Maximum:"] = "Maximum:";
+RUR.ui_en["Add object in the world"] = "Set number of object";
+RUR.ui_en["ADD OBJECT EXPLAIN"] = "Choose zero to remove any existing such object at this location. If <code>Maximum</code> is set to a value greater than the <code>Number of objects</code>, a number of objects, between these two values, will be chosen randomly each time a program is run.";
+
+RUR.ui_en["Unlimited:"] = "Unlimited:";
+RUR.ui_en["Give object to robot"] = "Give object to robot";
+RUR.ui_en["GIVE OBJECT EXPLAIN"] = "Choose a number of objects for the robot to carry. Click on the checkbox if you wish that number to be unlimited.";
+
+RUR.ui_en["UPDATE EDITOR CONTENT"] = "This world has some default content for the editor. To replace the current content of your editor, click on the button";
+RUR.ui_en["UPDATE EDITOR BUTTON"] = "Replace editor content";
+RUR.ui_en["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
+RUR.ui_en["UPDATE LIBRARY BUTTON"] = "Replace library content";
+RUR.ui_en["Contents from World"] = "Contents from World";
+
 },{}],89:[function(require,module,exports){
 RUR.ui_fr = {};
 RUR.fr_to_en = {};
@@ -10547,6 +10587,21 @@ RUR.ui_fr["Set goal number for object"] = "Nombre d'objets désirés";
 RUR.ui_fr["dialog-goal-object-explain"] = "Cliquez sur la case à cocher si vous désirez que le nombre d'objet soit égal au nombre total d'objet de ce genre présent dans le monde au tout début.";
 RUR.ui_fr["Number of objects"] = "Nombre d'objets";
 RUR.ui_fr["All such objects"] = "Tous les objets de ce genre";
+
+RUR.ui_fr["Number of objects:"] = "Nombre d'objets :";
+RUR.ui_fr["Maximum:"] = "Maximum :";
+RUR.ui_fr["Add object in the world"] = "Modifier le nombre d'objets";
+RUR.ui_fr["ADD OBJECT EXPLAIN"] = "Choisissez la valeur zéro pour ne pas avoir un tel objet à cet endroit. Si <code>Maximum</code> a une valeur supérieure à <code>Nombre d'objets</code> alors un nombre aléatoire d'objets, entre ces deux valeurs, sera choisi au tout début de l'exécution d'un programme.";
+
+RUR.ui_fr["Unlimited:"] = "Nombre illimité ";
+RUR.ui_fr["Give object to robot"] = "Donner des objets à Reeborg";
+RUR.ui_fr["GIVE OBJECT EXPLAIN"] = "Choisissez un nombre d'objects que Reeborg aura en sa possession au début du programme. Cliquez sur la case à cocher si vous voulez un nombre illimité.";
+
+RUR.ui_fr["UPDATE EDITOR CONTENT"] = "Ce monde inclus un contenu pour l'éditeur qui est différent de celui qui s'y trouve présentement. Pour remplacer le contenu de l'éditeur par celui défini par le monde, cliquez sur le bouton.";
+RUR.ui_fr["UPDATE EDITOR BUTTON"] = "Remplacer le contenu de l'éditeur";
+RUR.ui_fr["UPDATE LIBRARY CONTENT"] = "Ce monde inclus un contenu pour la bibliothèque qui est différent de celui qui s'y trouve présentement. Pour remplacer le contenu de la bibliothèque par celui défini par le monde, cliquez sur le bouton.";
+RUR.ui_fr["UPDATE LIBRARY BUTTON"] = "Remplacer le contenu de la bibliothèque";
+RUR.ui_fr["Contents from World"] = "Remplacement de contenus";
 
 },{}],90:[function(require,module,exports){
 RUR.ui_ko = {};
@@ -10868,5 +10923,20 @@ RUR.ui_ko["Set goal number for object"] = "객체의 목표 수를 설정합니�
 RUR.ui_ko["dialog-goal-object-explain"] = "체크박스를 클릭하세요. 월드가 시작될때 당신의 원하는 객체의 모든 숫자가 보입니다.";
 RUR.ui_ko["Number of objects"] = "객체의 수:";
 RUR.ui_ko["All such objects"] = "모든 종류의 객체";
+
+RUR.ui_ko["Number of objects:"] = "객체의 수:";
+RUR.ui_ko["Maximum:"] = "최대 값:";
+RUR.ui_ko["Add object in the world"] = "Set number of object";
+RUR.ui_ko["ADD OBJECT EXPLAIN"] = "Choose zero to remove any existing such object at this location. If <code>Maximum</code> is set to a value greater than the <code>Number of objects</code>, a number of objects, between these two values, will be chosen randomly each time a program is run.";
+
+RUR.ui_ko["Unlimited:"] = "Unlimited:";
+RUR.ui_ko["Give object to robot"] = "Give object to robot";
+RUR.ui_ko["GIVE OBJECT EXPLAIN"] = "로봇이 운반 할 객체의 수를 고르세요. 더 많은 수를 원한다면 체크박스를 클릭하세요.";
+
+RUR.ui_ko["UPDATE EDITOR CONTENT"] = "This world has some default content for the editor. To replace the current content of your editor, click on the button";
+RUR.ui_ko["UPDATE EDITOR BUTTON"] = "Replace editor content";
+RUR.ui_ko["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
+RUR.ui_ko["UPDATE LIBRARY BUTTON"] = "Replace library content";
+RUR.ui_ko["Contents from World"] = "Contents from World";
 
 },{}]},{},[18]);

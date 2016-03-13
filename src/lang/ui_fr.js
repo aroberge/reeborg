@@ -314,3 +314,18 @@ RUR.ui_fr["Set goal number for object"] = "Nombre d'objets désirés";
 RUR.ui_fr["dialog-goal-object-explain"] = "Cliquez sur la case à cocher si vous désirez que le nombre d'objet soit égal au nombre total d'objet de ce genre présent dans le monde au tout début.";
 RUR.ui_fr["Number of objects"] = "Nombre d'objets";
 RUR.ui_fr["All such objects"] = "Tous les objets de ce genre";
+
+RUR.ui_fr["Number of objects:"] = "Nombre d'objets :";
+RUR.ui_fr["Maximum:"] = "Maximum :";
+RUR.ui_fr["Add object in the world"] = "Modifier le nombre d'objets";
+RUR.ui_fr["ADD OBJECT EXPLAIN"] = "Choisissez la valeur zéro pour ne pas avoir un tel objet à cet endroit. Si <code>Maximum</code> a une valeur supérieure à <code>Nombre d'objets</code> alors un nombre aléatoire d'objets, entre ces deux valeurs, sera choisi au tout début de l'exécution d'un programme.";
+
+RUR.ui_fr["Unlimited:"] = "Nombre illimité ";
+RUR.ui_fr["Give object to robot"] = "Donner des objets à Reeborg";
+RUR.ui_fr["GIVE OBJECT EXPLAIN"] = "Choisissez un nombre d'objects que Reeborg aura en sa possession au début du programme. Cliquez sur la case à cocher si vous voulez un nombre illimité.";
+
+RUR.ui_fr["UPDATE EDITOR CONTENT"] = "Ce monde inclus un contenu pour l'éditeur qui est différent de celui qui s'y trouve présentement. Pour remplacer le contenu de l'éditeur par celui défini par le monde, cliquez sur le bouton.";
+RUR.ui_fr["UPDATE EDITOR BUTTON"] = "Remplacer le contenu de l'éditeur";
+RUR.ui_fr["UPDATE LIBRARY CONTENT"] = "Ce monde inclus un contenu pour la bibliothèque qui est différent de celui qui s'y trouve présentement. Pour remplacer le contenu de la bibliothèque par celui défini par le monde, cliquez sur le bouton.";
+RUR.ui_fr["UPDATE LIBRARY BUTTON"] = "Remplacer le contenu de la bibliothèque";
+RUR.ui_fr["Contents from World"] = "Remplacement de contenus";

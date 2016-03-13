@@ -666,16 +666,16 @@
   </audio>
 
   <div id="dialog-add-object" title="Add object in the world" style="display:none;">
-    <p>Choose zero to remove any existing
-      <code><span id="add-object-name">object</span></code> at this location. If <code>Maximum</code> is set to a value greater than the <code>Number of objects</code>, a number of objects, between these two values, will be chosen randomly each time a
-      program is run.</p>
+    <p><code id="add-object-name"></code> -
+      <span id="add-object-explain"></span>
+    </p>
     <form>
       <fieldset>
-        <label for="input-add-number"><code>Number of objects</code>:
+        <label for="input-add-number"><code id="number-of-objects"></code>
           <input type="number" name="input-add-number" id="input-add-number" min="0" value="1">
         </label>
         <br>
-        <label for="maximum-number"><code>Maximum</code>:
+        <label for="maximum-number"><code id="maximum-text"></code>
           <input type="number" name="maximum-number" id="maximum-number" min="0" value="0">
         </label>
         <!-- Allow form submission with keyboard without duplicating the dialog button -->
@@ -685,17 +685,18 @@
   </div>
 
   <div id="dialog-give-object" title="Give object to robot" style="display:none;">
-    <p>Choose a number of
-      <code><span id="give-object-name">object</span></code> for the robot to carry. Click on the checkbox if you wish that number to be unlimited.
+    <p><code id="give-object-name"></code> -
+      <span id="give-object-explain"></span>
     </p>
     <form>
       <fieldset>
-        <label for="input-give-number"><code>Number of objects</code>:
+        <label for="input-give-number"><code id="give-number-of-objects"></code>
           <input type="number" name="input-give-number" id="input-give-number" min="0" value="1">
         </label>
         <br>
         <label for="unlimited-number">
-          <input type="checkbox" name="unlimited-number" id="unlimited-number"> Unlimited </label>
+          <input type="checkbox" name="unlimited-number" id="unlimited-number">
+          <code id="unlimited-text"></code></label>
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
       </fieldset>
     </form>
@@ -751,11 +752,11 @@
   </div>
 
   <div id="dialog-update-editors-from-world" title="Update editors content" style="display:none;">
-    <p id="update-editor-content">This world has some default content for the editor. To replace the current content of your editor,
-      <button class="blue-gradient" id="update-editor-content-btn">click here.</button>
+    <p id="update-editor-content"> <span id="update-editor-content-text"></span><br>
+      <button class="blue-gradient" id="update-editor-content-btn"></button>
     </p>
-    <p id="update-library-content">This world has some default content for the library. To replace the current content of your library,
-      <button class="blue-gradient" id="update-library-content-btn">click here.</button>
+    <p id="update-library-content"> <span id="update-library-content-text"></span><br>
+      <button class="blue-gradient" id="update-library-content-btn"></button>
     </p>
   </div>
 

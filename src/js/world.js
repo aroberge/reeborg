@@ -8,6 +8,7 @@ require("./exceptions.js");
 require("./create_editors.js");
 edit_robot_menu = require("./ui/edit_robot_menu.js");
 var clone_world = require("./world/clone_world.js").clone_world;
+var msg = require("./../lang/msg.js");
 
 RUR.world = {};
 
@@ -75,6 +76,15 @@ RUR.world.update_editors = function (world) {
    description_editor.setValue(world.description);
    onload_editor.setValue(world.onload);
 };
+
+msg.record_id("update-editor-content");
+msg.record_id("update-editor-content-text", "UPDATE EDITOR CONTENT");
+msg.record_id("update-editor-content-btn", "UPDATE EDITOR BUTTON");
+msg.record_id("update-library-content");
+msg.record_id("update-library-content-text", "UPDATE LIBRARY CONTENT");
+msg.record_id("update-library-content-btn", "UPDATE LIBRARY BUTTON");
+msg.record_id("dialog-update-editors-from-world");
+msg.record_title("ui-dialog-title-dialog-update-editors-from-world", "Contents from World");
 
 RUR.world.dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
     autoOpen: false,

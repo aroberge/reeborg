@@ -317,3 +317,18 @@ RUR.ui_ko["Set goal number for object"] = "객체의 목표 수를 설정합니�
 RUR.ui_ko["dialog-goal-object-explain"] = "체크박스를 클릭하세요. 월드가 시작될때 당신의 원하는 객체의 모든 숫자가 보입니다.";
 RUR.ui_ko["Number of objects"] = "객체의 수:";
 RUR.ui_ko["All such objects"] = "모든 종류의 객체";
+
+RUR.ui_ko["Number of objects:"] = "객체의 수:";
+RUR.ui_ko["Maximum:"] = "최대 값:";
+RUR.ui_ko["Add object in the world"] = "Set number of object";
+RUR.ui_ko["ADD OBJECT EXPLAIN"] = "Choose zero to remove any existing such object at this location. If <code>Maximum</code> is set to a value greater than the <code>Number of objects</code>, a number of objects, between these two values, will be chosen randomly each time a program is run.";
+
+RUR.ui_ko["Unlimited:"] = "Unlimited:";
+RUR.ui_ko["Give object to robot"] = "Give object to robot";
+RUR.ui_ko["GIVE OBJECT EXPLAIN"] = "로봇이 운반 할 객체의 수를 고르세요. 더 많은 수를 원한다면 체크박스를 클릭하세요.";
+
+RUR.ui_ko["UPDATE EDITOR CONTENT"] = "This world has some default content for the editor. To replace the current content of your editor, click on the button";
+RUR.ui_ko["UPDATE EDITOR BUTTON"] = "Replace editor content";
+RUR.ui_ko["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
+RUR.ui_ko["UPDATE LIBRARY BUTTON"] = "Replace library content";
+RUR.ui_ko["Contents from World"] = "Contents from World";

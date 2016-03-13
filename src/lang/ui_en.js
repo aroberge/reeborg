@@ -313,3 +313,18 @@ RUR.ui_en["Set goal number for object"] = "Set goal number for object";
 RUR.ui_en["dialog-goal-object-explain"] = "Click on the checkbox if you wish that number to be equal to the total number of such objects found in the world at the beginning.";
 RUR.ui_en["Number of objects"] = "Number of objects";
 RUR.ui_en["All such objects"] = "All such objects";
+
+RUR.ui_en["Number of objects:"] = "Number of objects:";
+RUR.ui_en["Maximum:"] = "Maximum:";
+RUR.ui_en["Add object in the world"] = "Set number of object";
+RUR.ui_en["ADD OBJECT EXPLAIN"] = "Choose zero to remove any existing such object at this location. If <code>Maximum</code> is set to a value greater than the <code>Number of objects</code>, a number of objects, between these two values, will be chosen randomly each time a program is run.";
+
+RUR.ui_en["Unlimited:"] = "Unlimited:";
+RUR.ui_en["Give object to robot"] = "Give object to robot";
+RUR.ui_en["GIVE OBJECT EXPLAIN"] = "Choose a number of objects for the robot to carry. Click on the checkbox if you wish that number to be unlimited.";
+
+RUR.ui_en["UPDATE EDITOR CONTENT"] = "This world has some default content for the editor. To replace the current content of your editor, click on the button";
+RUR.ui_en["UPDATE EDITOR BUTTON"] = "Replace editor content";
+RUR.ui_en["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
+RUR.ui_en["UPDATE LIBRARY BUTTON"] = "Replace library content";
+RUR.ui_en["Contents from World"] = "Contents from World";

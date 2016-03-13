@@ -5,6 +5,15 @@ require("./../rur.js");
 require("./../world_set/add_object.js");
 require("./../visible_world.js");
 require("./../state.js");
+var msg = require("./../../lang/msg.js");
+
+msg.record_id("number-of-objects", "Number of objects:");
+msg.record_id("maximum-text", "Maximum:");
+msg.record_id("add-object-explain", "ADD OBJECT EXPLAIN");
+msg.record_id("input-add-number");
+msg.record_id("maximum-number");
+msg.record_id("dialog-add-object");
+msg.record_title("ui-dialog-title-dialog-add-object", "Add object in the world");
 
 exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     autoOpen: false,
