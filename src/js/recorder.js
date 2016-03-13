@@ -18,7 +18,7 @@ RUR.rec = {};
 RUR.set_lineno_highlight = function(lineno, frame) {
     RUR.current_line_no = lineno;
     if (frame) {
-        RUR.record_frame();
+        RUR.record_frame("highlight");
         return true;
     }
 };

@@ -4,8 +4,6 @@ require("./../create_editors.js");
 exports.reset = reset = function() {
     RUR.nb_frames = 0;
     RUR.current_frame_no = 0;
-    RUR.nb_extra_highlighting_frames = 0;  // TODO: see if we can eliminate this
-    // by inserting highlighting info in previous frame instead of separate frames.
     RUR.current_line_no = undefined;
     RUR.frames = [];
     RUR.rec_line_numbers = [];

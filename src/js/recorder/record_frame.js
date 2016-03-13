@@ -8,7 +8,6 @@ var clone_world = require("./../world/clone_world.js").clone_world;
 RUR.record_frame = function (name, obj) {
     "use strict";
     var frame = {};
-
     if (RUR.state.do_not_record) {
         return;
     }
@@ -22,13 +21,12 @@ RUR.record_frame = function (name, obj) {
         return RUR._show_immediate(name, obj);
     }
 
-    // // Used mainly to add watch variables to previous frame
-    // if (name !== undefined && name == "output" &&
-    //     obj.element == "#print-html" && obj.append == undefined &&
-    //     RUR.nb_frames > 1) {
-    //     RUR.frames[RUR.nb_frames-1]["output"] = obj;
-    //     return;
-    // }
+    // Wathched variables are appended to previous frame so as to avoid
+    // generating too many extra frames.
+    if (name == "watch_variables" && RUR.nb_frames >= 1) {
+        RUR.frames[RUR.nb_frames-1]["watch_variables"] = obj;
+        return;
+    }
 
 
     frame.world = clone_world();
@@ -43,6 +41,12 @@ RUR.record_frame = function (name, obj) {
 
    if (RUR.state.programming_language === "python" && RUR.state.highlight) {
        if (RUR.current_line_no !== undefined) {
+           if (RUR.nb_frames >= 1){
+               if (name=="highlight" &&
+                   RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
+                   return;
+               }
+           }
            RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
        } else{
            RUR.rec_line_numbers [RUR.nb_frames] = [0];
@@ -62,8 +66,7 @@ RUR.record_frame = function (name, obj) {
     // catch any robot that teleported itself to a forbidden tile
     // to try to do a sneaky action
     RUR.rec.check_robots_on_tiles(frame);
-
-    if (RUR.nb_frames > RUR.MAX_STEPS + RUR.nb_extra_highlighting_frames) {
+    if (RUR.nb_frames > RUR.MAX_STEPS) {
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
 };

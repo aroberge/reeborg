@@ -35,8 +35,8 @@ function start_session () {
     }
     set_editor();
     set_library();
-    // The world can include some content for the editor and/or the library
-    set_world(url_query);  //TODO enable capturing blockly config in world.
+    // The world can include some content for the editor and/or the library, and/or the blocks
+    set_world(url_query);
     RUR.state.session_initialized = true;
 }
 start_session();
