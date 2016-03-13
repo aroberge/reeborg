@@ -55,7 +55,7 @@ function set_editor() {
     if (localStorage.getItem("editor")){
         editor.setValue(localStorage.getItem("editor"));
     } else {
-        editor.setValue(RUR.translate("move()"));
+        editor.setValue(RUR.translate("move") + "()");
     }
 }
 

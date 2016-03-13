@@ -2,6 +2,7 @@ var _recorded_ids = [];
 var _text_elements = [];
 var _elements_names = [];
 var _elements_titles = [];
+var _function_names = [];
 
 __record_id = function(id){
     if (_recorded_ids.indexOf(id) !== -1) {
@@ -18,6 +19,10 @@ record_id = function (id, text) {
     }
 };
 
+record_fn = function (id, text) {
+    __record_id(id);
+    _function_names.push([id, text]);
+};
 record_name = function (id, text) {
     __record_id(id);
     _elements_names.push([id, text]);
@@ -33,6 +38,11 @@ update_ui = function (lang) {
     var i, id, msg;
     window.document.documentElement.lang = lang;
 
+    for(i=0; i<_function_names.length; i++) {
+        id = "#" + _function_names[i][0];
+        msg = _function_names[i][1];
+        $(id).html(RUR.translate(msg) + "()");
+    }
     for(i=0; i<_text_elements.length; i++) {
         id = "#" + _text_elements[i][0];
         msg = _text_elements[i][1];
@@ -60,6 +70,7 @@ exports.update_ui = update_ui;
 exports.record_id = record_id;
 exports.update_titles = update_titles;
 exports.record_title = record_title;
+exports.record_fn = record_fn;
 
 record_id("site-name", "SITE NAME");
 record_id("world-info-button", "WORLD INFO");

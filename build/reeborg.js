@@ -2617,6 +2617,7 @@ require("./state.js");
 require("./dialogs/create.js");
 require("./listeners/editors_tabs.js");
 require("./translator.js");
+var msg = require("./../lang/msg.js");
 
 RUR.kbd = {};
 
@@ -2836,10 +2837,10 @@ function add_onclick_select(arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.select(arg);
     });
-    record_id(id, id);
+    msg.record_id(id, id);
 }
 
-record_title("ui-dialog-title-special-keyboard", "Reeborg's basic keyboard");
+msg.record_title("ui-dialog-title-special-keyboard", "Reeborg's basic keyboard");
 add_onclick_select("kbd-command");
 add_onclick_select("kbd-condition");
 add_onclick_select("kbd-python");
@@ -2852,59 +2853,70 @@ function add_onclick_insert_statement(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert_statement(RUR.translate(arg));
     });
-    record_id(id, arg);
+    msg.record_id(id, arg);
+}
+function add_onclick_insert_function_statement(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert_statement(RUR.translate(arg) + "()");
+    });
+    msg.record_fn(id, arg);
 }
 function add_onclick_insert_untranslated_statement(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert_statement(arg);
     });
-    record_id(id, arg);
+    msg.record_id(id, arg);
     RUR.untranslated[arg] = true;
 }
-add_onclick_insert_statement("kbd-move", "move()");
-add_onclick_insert_statement("kbd-turn-left", "turn_left()");
-add_onclick_insert_statement("kbd-take", "take()");
-add_onclick_insert_statement("kbd-put", "put()");
-add_onclick_insert_statement("kbd-build-wall", "build_wall()");
-add_onclick_insert_statement("kbd-pause", "pause()");
-add_onclick_insert_statement("kbd-done", "done()");
+add_onclick_insert_function_statement("kbd-move", "move");
+add_onclick_insert_function_statement("kbd-turn-left", "turn_left");
+add_onclick_insert_function_statement("kbd-take", "take");
+add_onclick_insert_function_statement("kbd-put", "put");
+add_onclick_insert_function_statement("kbd-build-wall", "build_wall");
+add_onclick_insert_function_statement("kbd-pause", "pause");
+add_onclick_insert_function_statement("kbd-done", "done");
 add_onclick_insert_statement("kbd-think", "think(100)");
 add_onclick_insert_statement("kbd-sound", "sound(True)");
 add_onclick_insert_statement("kbd-sound-js", "sound(true)");
-add_onclick_insert_statement("kbd-world", 'World()');
-add_onclick_insert_statement("kbd-UsedRobot", "UsedRobot()");
-add_onclick_insert_statement("kbd-newUsedRobot", "new UsedRobot()");
-add_onclick_insert_statement("kbd-no-highlight", "no_highlight()");
+add_onclick_insert_function_statement("kbd-world", 'World');
+add_onclick_insert_function_statement("kbd-UsedRobot", "UsedRobot");
+add_onclick_insert_function_statement("kbd-newUsedRobot", "new UsedRobot");
+add_onclick_insert_function_statement("kbd-no-highlight", "no_highlight");
 
 function add_onclick_insert(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert(RUR.translate(arg));
     });
-    record_id(id, arg);
+    msg.record_id(id, arg);
 }
-
+function add_onclick_insert_function(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert(RUR.translate(arg) + "()");
+    });
+    msg.record_fn(id, arg);
+}
 function add_onclick_insert_untranslated(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert(arg);
     });
-    record_id(id, arg);
+    msg.record_id(id, arg);
     RUR.untranslated[arg] = true;
 }
 
-add_onclick_insert("kbd-at-goal", "at_goal()");
-add_onclick_insert("kbd-front-is-clear", "front_is_clear()");
-add_onclick_insert("kbd-right-is-clear", "right_is_clear()");
-add_onclick_insert("kbd-wall-in-front", "wall_in_front()");
-add_onclick_insert("kbd-wall-on-right", "wall_on_right()");
-add_onclick_insert("kbd-object-here", "object_here()");
-add_onclick_insert("kbd-carries-object", "carries_object()");
-add_onclick_insert("kbd-is-facing-north", "is_facing_north()");
+add_onclick_insert_function("kbd-at-goal", "at_goal");
+add_onclick_insert_function("kbd-front-is-clear", "front_is_clear");
+add_onclick_insert_function("kbd-right-is-clear", "right_is_clear");
+add_onclick_insert_function("kbd-wall-in-front", "wall_in_front");
+add_onclick_insert_function("kbd-wall-on-right", "wall_on_right");
+add_onclick_insert_function("kbd-object-here", "object_here");
+add_onclick_insert_function("kbd-carries-object", "carries_object");
+add_onclick_insert_function("kbd-is-facing-north", "is_facing_north");
 
 function add_onclick_insert_object(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert('"'+RUR.translate(arg)+'"');
     });
-    record_id(id);
+    msg.record_id(id);
 }
 add_onclick_insert_object("kbd-token", "token");
 add_onclick_insert_object("kbd-apple", "apple");
@@ -2997,23 +3009,23 @@ add_onclick_insert_untranslated("kbd-square-brackets", "[ ]");
 $("#kbd-tab").on("click", function (evt) {
     RUR.kbd.tab();
 });
-record_id("kbd-tab", "tab");
+msg.record_id("kbd-tab", "tab");
 $("#kbd-shift-tab").on("click", function (evt) {
     RUR.kbd.shift_tab();
 });
-record_id("kbd-shift-tab", "shift-tab");
+msg.record_id("kbd-shift-tab", "shift-tab");
 $("#kbd-enter").on("click", function (evt) {
     RUR.kbd.enter();
 });
-record_id("kbd-enter", "enter");
+msg.record_id("kbd-enter", "enter");
 $("#kbd-undo").on("click", function (evt) {
     RUR.kbd.undo();
 });
-record_id("kbd-undo", "UNDO");
+msg.record_id("kbd-undo", "UNDO");
 $("#kbd-redo").on("click", function (evt) {
     RUR.kbd.redo();
 });
-record_id("kbd-redo", "REDO");
+msg.record_id("kbd-redo", "REDO");
 
 function add_onclick(id, fn, arg, record, enter) {
     $("#"+id).on("click", function (evt) {
@@ -3023,11 +3035,11 @@ function add_onclick(id, fn, arg, record, enter) {
         RUR.kbd.enter();
     }
     if (record) {
-        record_id(id, id);
+        msg.record_id(id, id);
     }
 }
 
-},{"./dialogs/create.js":8,"./listeners/editors_tabs.js":23,"./state.js":53,"./translator.js":55}],20:[function(require,module,exports){
+},{"./../lang/msg.js":85,"./dialogs/create.js":8,"./listeners/editors_tabs.js":23,"./state.js":53,"./translator.js":55}],20:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
  * w/ Minimize & Maximize Support
@@ -6281,7 +6293,7 @@ function set_editor() {
     if (localStorage.getItem("editor")){
         editor.setValue(localStorage.getItem("editor"));
     } else {
-        editor.setValue(RUR.translate("move()"));
+        editor.setValue(RUR.translate("move") + "()");
     }
 }
 
@@ -9414,52 +9426,31 @@ RUR.toggle_solid_object_at_position = function (specific_object, x, y){
 // defined in reeborg_xx.js and reeborg_xx.py
 RUR.en = {};
 RUR.en["at_goal"] = "at_goal";
-RUR.en["at_goal()"] = "at_goal()";
 RUR.en["front_is_clear"] = "front_is_clear";
-RUR.en["front_is_clear()"] = "front_is_clear()";
 RUR.en["right_is_clear"] = "right_is_clear";
-RUR.en["right_is_clear()"] = "right_is_clear()";
 RUR.en["wall_in_front"] = "wall_in_front";
-RUR.en["wall_in_front()"] = "wall_in_front()";
 RUR.en["wall_on_right"] = "wall_on_right";
-RUR.en["wall_on_right()"] = "wall_on_right()";
 RUR.en["object_here"] = "object_here";
-RUR.en["object_here()"] = "object_here()";
 RUR.en["carries_object"] = "carries_object";
-RUR.en["carries_object()"] = "carries_object()";
 RUR.en["is_facing_north"] = "is_facing_north";
-RUR.en["is_facing_north()"] = "is_facing_north()";
 
 RUR.en["move"] = "move";
-RUR.en["move()"] = "move()";
 RUR.en["turn_left"] = "turn_left";
-RUR.en["turn_left()"] = "turn_left()";
 RUR.en["take"] = "take";
-RUR.en["take()"] = "take()";
 RUR.en["put"] = "put";
-RUR.en["put()"] = "put()";
 RUR.en["build_wall"] = "build_wall";
-RUR.en["build_wall()"] = "build_wall()";
 RUR.en["pause"] = "pause";
-RUR.en["pause()"] = "pause()";
 RUR.en["done"] = "done";
-RUR.en["done()"] = "done()";
 RUR.en["think"] = "think";
-RUR.en["think()"] = "think()";
 RUR.en["think(100)"] = "think(100)";
 RUR.en["sound"] = "sound";
 RUR.en["sound(True)"] = "sound(True)";
 RUR.en["sound(true)"] = "sound(true)";
 RUR.en["World"] = "World";
-RUR.en["World()"] = "World()";
 RUR.en["UsedRobot"] = "UsedRobot";
-RUR.en["UsedRobot()"] = "UsedRobot()";
 RUR.en["new UsedRobot"] = "new UsedRobot";
-RUR.en["new UsedRobot()"] = "new UsedRobot()";
 RUR.en["no_highlight"] = "no_highlight";
-RUR.en["no_highlight()"] = "no_highlight()";
 RUR.en["write"] = "write";
-RUR.en["write()"] = "write()";
 
 RUR.en["from library import ?"] = "from library import ?";
 
@@ -9474,52 +9465,31 @@ RUR.ui_fr["fr-en"] = "Mode mixte: interface graphique en français; programmatio
     "Mixed mode: User Interface in French; programming language in English.<br>";
 
 RUR.fr["at_goal"] = "au_but";
-RUR.fr["at_goal()"] = "au_but()";
 RUR.fr["front_is_clear"] = "rien_devant";
-RUR.fr["front_is_clear()"] = "rien_devant()";
 RUR.fr["right_is_clear"] = "rien_a_droite";
-RUR.fr["right_is_clear()"] = "rien_a_droite()";
 RUR.fr["wall_in_front"] = "mur_devant";
-RUR.fr["wall_in_front()"] = "mur_devant()";
 RUR.fr["wall_on_right"] = "mur_a_droite";
-RUR.fr["wall_on_right()"] = "mur_a_droite()";
 RUR.fr["object_here"] = "objet_ici";
-RUR.fr["object_here()"] = "objet_ici()";
 RUR.fr["carries_object"] = "transporte";
-RUR.fr["carries_object()"] = "transporte()";
 RUR.fr["is_facing_north"] = "est_face_au_nord";
-RUR.fr["is_facing_north()"] = "est_face_au_nord()";
 
 RUR.fr["move"] = "avance";
-RUR.fr["move()"] = "avance()";
 RUR.fr["turn_left"] = "tourne_a_gauche";
-RUR.fr["turn_left()"] = "tourne_a_gauche()";
 RUR.fr["take"] = "prend";
-RUR.fr["take()"] = "prend()";
 RUR.fr["put"] = "depose";
-RUR.fr["put()"] = "depose()";
 RUR.fr["build_wall"] = "construit_un_mur";
-RUR.fr["build_wall()"] = "construit_un_mur()";
 RUR.fr["pause"] = "pause";
-RUR.fr["pause()"] = "pause()";
 RUR.fr["done"] = "termine";
-RUR.fr["done()"] = "termine()";
 RUR.fr["think"] = "pense";
-RUR.fr["think()"] = "pense()";
 RUR.fr["think(100)"] = "pense(100)";
 RUR.fr["sound"] = "son";
 RUR.fr["sound(True)"] = "son(True)";
 RUR.fr["sound(true)"] = "son(true)";
 RUR.fr["World"] = "Monde";
-RUR.fr["World()"] = "Monde()";
 RUR.fr["UsedRobot"] = "RobotUsage";
-RUR.fr["UsedRobot()"] = "RobotUsage()";
 RUR.fr["new UsedRobot"] = "new RobotUsage";
-RUR.fr["new UsedRobot()"] = "new RobotUsage()";
 RUR.fr["no_highlight"] = "pas_de_surlignement";
-RUR.fr["no_highlight()"] = "pas_de_surlignement()";
 RUR.fr["write"] = "ecrit";
-RUR.fr["write()"] = "ecrit()";
 
 RUR.fr["from library import ?"] = "from biblio import ?";
 
@@ -9528,6 +9498,7 @@ var _recorded_ids = [];
 var _text_elements = [];
 var _elements_names = [];
 var _elements_titles = [];
+var _function_names = [];
 
 __record_id = function(id){
     if (_recorded_ids.indexOf(id) !== -1) {
@@ -9544,6 +9515,10 @@ record_id = function (id, text) {
     }
 };
 
+record_fn = function (id, text) {
+    __record_id(id);
+    _function_names.push([id, text]);
+};
 record_name = function (id, text) {
     __record_id(id);
     _elements_names.push([id, text]);
@@ -9559,6 +9534,11 @@ update_ui = function (lang) {
     var i, id, msg;
     window.document.documentElement.lang = lang;
 
+    for(i=0; i<_function_names.length; i++) {
+        id = "#" + _function_names[i][0];
+        msg = _function_names[i][1];
+        $(id).html(RUR.translate(msg) + "()");
+    }
     for(i=0; i<_text_elements.length; i++) {
         id = "#" + _text_elements[i][0];
         msg = _text_elements[i][1];
@@ -9586,6 +9566,7 @@ exports.update_ui = update_ui;
 exports.record_id = record_id;
 exports.update_titles = update_titles;
 exports.record_title = record_title;
+exports.record_fn = record_fn;
 
 record_id("site-name", "SITE NAME");
 record_id("world-info-button", "WORLD INFO");

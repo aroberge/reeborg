@@ -5,6 +5,7 @@ require("./state.js");
 require("./dialogs/create.js");
 require("./listeners/editors_tabs.js");
 require("./translator.js");
+var msg = require("./../lang/msg.js");
 
 RUR.kbd = {};
 
@@ -224,10 +225,10 @@ function add_onclick_select(arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.select(arg);
     });
-    record_id(id, id);
+    msg.record_id(id, id);
 }
 
-record_title("ui-dialog-title-special-keyboard", "Reeborg's basic keyboard");
+msg.record_title("ui-dialog-title-special-keyboard", "Reeborg's basic keyboard");
 add_onclick_select("kbd-command");
 add_onclick_select("kbd-condition");
 add_onclick_select("kbd-python");
@@ -240,59 +241,70 @@ function add_onclick_insert_statement(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert_statement(RUR.translate(arg));
     });
-    record_id(id, arg);
+    msg.record_id(id, arg);
+}
+function add_onclick_insert_function_statement(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert_statement(RUR.translate(arg) + "()");
+    });
+    msg.record_fn(id, arg);
 }
 function add_onclick_insert_untranslated_statement(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert_statement(arg);
     });
-    record_id(id, arg);
+    msg.record_id(id, arg);
     RUR.untranslated[arg] = true;
 }
-add_onclick_insert_statement("kbd-move", "move()");
-add_onclick_insert_statement("kbd-turn-left", "turn_left()");
-add_onclick_insert_statement("kbd-take", "take()");
-add_onclick_insert_statement("kbd-put", "put()");
-add_onclick_insert_statement("kbd-build-wall", "build_wall()");
-add_onclick_insert_statement("kbd-pause", "pause()");
-add_onclick_insert_statement("kbd-done", "done()");
+add_onclick_insert_function_statement("kbd-move", "move");
+add_onclick_insert_function_statement("kbd-turn-left", "turn_left");
+add_onclick_insert_function_statement("kbd-take", "take");
+add_onclick_insert_function_statement("kbd-put", "put");
+add_onclick_insert_function_statement("kbd-build-wall", "build_wall");
+add_onclick_insert_function_statement("kbd-pause", "pause");
+add_onclick_insert_function_statement("kbd-done", "done");
 add_onclick_insert_statement("kbd-think", "think(100)");
 add_onclick_insert_statement("kbd-sound", "sound(True)");
 add_onclick_insert_statement("kbd-sound-js", "sound(true)");
-add_onclick_insert_statement("kbd-world", 'World()');
-add_onclick_insert_statement("kbd-UsedRobot", "UsedRobot()");
-add_onclick_insert_statement("kbd-newUsedRobot", "new UsedRobot()");
-add_onclick_insert_statement("kbd-no-highlight", "no_highlight()");
+add_onclick_insert_function_statement("kbd-world", 'World');
+add_onclick_insert_function_statement("kbd-UsedRobot", "UsedRobot");
+add_onclick_insert_function_statement("kbd-newUsedRobot", "new UsedRobot");
+add_onclick_insert_function_statement("kbd-no-highlight", "no_highlight");
 
 function add_onclick_insert(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert(RUR.translate(arg));
     });
-    record_id(id, arg);
+    msg.record_id(id, arg);
 }
-
+function add_onclick_insert_function(id, arg) {
+    $("#"+id).on("click", function (evt) {
+        RUR.kbd.insert(RUR.translate(arg) + "()");
+    });
+    msg.record_fn(id, arg);
+}
 function add_onclick_insert_untranslated(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert(arg);
     });
-    record_id(id, arg);
+    msg.record_id(id, arg);
     RUR.untranslated[arg] = true;
 }
 
-add_onclick_insert("kbd-at-goal", "at_goal()");
-add_onclick_insert("kbd-front-is-clear", "front_is_clear()");
-add_onclick_insert("kbd-right-is-clear", "right_is_clear()");
-add_onclick_insert("kbd-wall-in-front", "wall_in_front()");
-add_onclick_insert("kbd-wall-on-right", "wall_on_right()");
-add_onclick_insert("kbd-object-here", "object_here()");
-add_onclick_insert("kbd-carries-object", "carries_object()");
-add_onclick_insert("kbd-is-facing-north", "is_facing_north()");
+add_onclick_insert_function("kbd-at-goal", "at_goal");
+add_onclick_insert_function("kbd-front-is-clear", "front_is_clear");
+add_onclick_insert_function("kbd-right-is-clear", "right_is_clear");
+add_onclick_insert_function("kbd-wall-in-front", "wall_in_front");
+add_onclick_insert_function("kbd-wall-on-right", "wall_on_right");
+add_onclick_insert_function("kbd-object-here", "object_here");
+add_onclick_insert_function("kbd-carries-object", "carries_object");
+add_onclick_insert_function("kbd-is-facing-north", "is_facing_north");
 
 function add_onclick_insert_object(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert('"'+RUR.translate(arg)+'"');
     });
-    record_id(id);
+    msg.record_id(id);
 }
 add_onclick_insert_object("kbd-token", "token");
 add_onclick_insert_object("kbd-apple", "apple");
@@ -385,23 +397,23 @@ add_onclick_insert_untranslated("kbd-square-brackets", "[ ]");
 $("#kbd-tab").on("click", function (evt) {
     RUR.kbd.tab();
 });
-record_id("kbd-tab", "tab");
+msg.record_id("kbd-tab", "tab");
 $("#kbd-shift-tab").on("click", function (evt) {
     RUR.kbd.shift_tab();
 });
-record_id("kbd-shift-tab", "shift-tab");
+msg.record_id("kbd-shift-tab", "shift-tab");
 $("#kbd-enter").on("click", function (evt) {
     RUR.kbd.enter();
 });
-record_id("kbd-enter", "enter");
+msg.record_id("kbd-enter", "enter");
 $("#kbd-undo").on("click", function (evt) {
     RUR.kbd.undo();
 });
-record_id("kbd-undo", "UNDO");
+msg.record_id("kbd-undo", "UNDO");
 $("#kbd-redo").on("click", function (evt) {
     RUR.kbd.redo();
 });
-record_id("kbd-redo", "REDO");
+msg.record_id("kbd-redo", "REDO");
 
 function add_onclick(id, fn, arg, record, enter) {
     $("#"+id).on("click", function (evt) {
@@ -411,6 +423,6 @@ function add_onclick(id, fn, arg, record, enter) {
         RUR.kbd.enter();
     }
     if (record) {
-        record_id(id, id);
+        msg.record_id(id, id);
     }
 }
