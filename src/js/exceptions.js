@@ -2,6 +2,13 @@
 require("./rur.js");
 require("./state.js");
 
+RUR.ReeborgSuccess = function (message) {
+    if (RUR.state.programming_language == "python"){
+        return ReeborgSuccess(message);
+    }
+    this.reeborg_concludes = message;
+};
+
 RUR.ReeborgError = function (message) {
     if (RUR.state.programming_language == "python"){
         return ReeborgError(message);

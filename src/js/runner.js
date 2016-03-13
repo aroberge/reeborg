@@ -83,6 +83,13 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             console.dir(e);
         }
         error = {};
+        if (e.reeborg_concludes !== undefined) {
+            error.message = e.reeborg_concludes;
+            error.name = "success";
+            RUR.record_frame("error", error);
+            RUR.state.code_evaluated = true;
+            return false;
+        }
         if (RUR.state.programming_language === "python") {
             error.reeborg_shouts = e.reeborg_shouts;
             response = RUR.runner.simplify_python_traceback(e);

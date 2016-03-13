@@ -44,6 +44,7 @@ RUR.record_frame = function (name, obj) {
            if (RUR.nb_frames >= 1){
                if (name=="highlight" &&
                    RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
+                    // no change: do not include any extra frame
                    return;
                }
            }

@@ -2232,6 +2232,13 @@ set_background_image = function () {
 require("./rur.js");
 require("./state.js");
 
+RUR.ReeborgSuccess = function (message) {
+    if (RUR.state.programming_language == "python"){
+        return ReeborgSuccess(message);
+    }
+    this.reeborg_concludes = message;
+};
+
 RUR.ReeborgError = function (message) {
     if (RUR.state.programming_language == "python"){
         return ReeborgError(message);
@@ -5621,6 +5628,7 @@ RUR.rec.display_frame = function () {
     }
 
     if (frame.error !== undefined) {
+
         return RUR.rec.handle_error(frame);
     }
 
@@ -5692,7 +5700,12 @@ RUR.rec.conclude = function () {
 
 RUR.rec.handle_error = function (frame) {
     var goal_status;
-    if (frame.error.reeborg_shouts === RUR.translate("Done!")){
+    if (frame.error.name == "success") {
+        RUR.show_feedback("#Reeborg-concludes",
+                             "<p class='center'>" +
+                             frame.error.message +
+                             "</p>");
+    } else if (frame.error.reeborg_shouts === RUR.translate("Done!")){
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
@@ -5848,6 +5861,7 @@ RUR.record_frame = function (name, obj) {
            if (RUR.nb_frames >= 1){
                if (name=="highlight" &&
                    RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
+                    // no change: do not include any extra frame
                    return;
                }
            }
@@ -6068,6 +6082,13 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             console.dir(e);
         }
         error = {};
+        if (e.reeborg_concludes !== undefined) {
+            error.message = e.reeborg_concludes;
+            error.name = "success";
+            RUR.record_frame("error", error);
+            RUR.state.code_evaluated = true;
+            return false;
+        }
         if (RUR.state.programming_language === "python") {
             error.reeborg_shouts = e.reeborg_shouts;
             response = RUR.runner.simplify_python_traceback(e);

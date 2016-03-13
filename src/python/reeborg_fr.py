@@ -589,6 +589,19 @@ def observer(expr):  #py:add_watch
        à la liste des variables à observer.
     """
     RUR.add_watch(expr)
+class ReeborgSuccess(Exception):  #py:RE
+    """Exceptions specific to Reeborg's World; used for successful execution.
+    """
+
+    def __init__(self, message):  #py:RE.__init__
+        self.reeborg_concludes = message
+
+    def __str__(self):  #py:RE.__str__
+        return repr(self.reeborg_concludes)
+try:
+    window['ReeborgSuccess'] = ReeborgSuccess
+except:
+    pass
 
 
 class ReeborgError(Exception):  #py:RE

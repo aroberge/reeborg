@@ -589,6 +589,22 @@ def add_watch(expr):  #py:add_watch
     RUR.add_watch(expr)
 
 
+class ReeborgSuccess(Exception):  #py:RE
+    """Exceptions spécifique au monde de Reeborg. Utile pour indiquer qu'un
+       programme s'est terminé correctement.
+    """
+
+    def __init__(self, message):  #py:RE.__init__
+        self.reeborg_concludes = message
+
+    def __str__(self):  #py:RE.__str__
+        return repr(self.reeborg_concludes)
+try:
+    window['ReeborgSuccess'] = ReeborgSuccess
+except:
+    pass
+
+
 class ReeborgError(Exception):  #py:RE
     """Exceptions specific to Reeborg's World.
 
