@@ -718,6 +718,16 @@ RUR.blockly.init = function () {
 };
 RUR.blockly.init();
 
+RUR.blockly.getValue = function () {
+    var xml = Blockly.Xml.workspaceToDom(RUR.blockly.workspace);
+    return Blockly.Xml.domToText(xml);
+};
+RUR.blockly.setValue = function (xml_text) {
+    var xml = Blockly.Xml.textToDom(xml_text);
+    RUR.blockly.workspace.clear();
+    Blockly.Xml.domToWorkspace(RUR.blockly.workspace, xml);
+};
+
 },{"./rur.js":50,"./translator.js":55}],2:[function(require,module,exports){
 /*  The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
@@ -2945,7 +2955,7 @@ add_onclick_insert_untranslated("kbd-js-undefined", "undefined");
 add_onclick_insert_untranslated("kbd-js-not", "!");
 add_onclick_insert_untranslated("kbd-js-and", "&&");
 add_onclick_insert_untranslated("kbd-js-or", "||");
-add_onclick_insert_statement("kbd-js-write", "write()");
+add_onclick_insert_function_statement("kbd-js-write", "write");
 add_onclick_insert_untranslated_statement("kbd-js-return", "return");
 add_onclick_insert_untranslated_statement("kbd-js-continue", "continue");
 add_onclick_insert_untranslated_statement("kbd-js-break", "break");
@@ -4487,18 +4497,27 @@ $("#load-world").on("click", function(evt) {
     });
 });
 
-record_id("save-editor", "SAVE EDITOR");
+record_id("save-blockly-btn", "SAVE BLOCKLY");
+record_id("save-blockly-text", "SAVE BLOCKLY EXPLAIN");
+$("#save-blockly-btn").on("click", function (evt) {
+    var xml, blob = new Blob([RUR.blockly.getValue()], {
+        type: "text/javascript;charset=utf-8"
+    });
+    saveAs(blob, "filename.xml"); // saveAs defined in src/libraries/filesaver.js
+});
+
+record_id("save-editor-btn", "SAVE EDITOR");
 record_id("save-editor-text", "SAVE EDITOR EXPLAIN");
-$("#save-editor").on("click", function (evt) {
+$("#save-editor-btn").on("click", function (evt) {
     var blob = new Blob([editor.getValue()], {
         type: "text/javascript;charset=utf-8"
     });
     saveAs(blob, "filename"); // saveAs defined in src/libraries/filesaver.js
 });
 
-record_id("save-library", "SAVE LIBRARY");
+record_id("save-library-btn", "SAVE LIBRARY");
 record_id("save-library-text", "SAVE LIBRARY EXPLAIN");
-$("#save-library").on("click", function (evt) {
+$("#save-library-btn").on("click", function (evt) {
     var blob = new Blob([library.getValue()], {
         type: "text/javascript;charset=utf-8"
     });
@@ -4515,16 +4534,31 @@ $("#save-world").on("click", function (evt) {
     saveAs(blob, "filename.json", true); // saveAs defined in src/libraries/filesaver.js
 });
 
-record_id("load-editor", "LOAD EDITOR");
+record_id("load-blockly-btn", "LOAD BLOCKLY");
+record_id("load-blockly-text", "LOAD BLOCKLY EXPLAIN");
+$("#load-blockly-btn").on("click", function (evt) {
+    load_file(RUR.blockly);
+});
+
+record_id("load-editor-btn", "LOAD EDITOR");
 record_id("load-editor-text", "LOAD EDITOR EXPLAIN");
-$("#load-editor").on("click", function (evt) {
+$("#load-editor-btn").on("click", function (evt) {
     load_file(editor);
 });
 
-record_id("load-library", "LOAD LIBRARY");
+record_id("load-library-btn", "LOAD LIBRARY");
 record_id("load-library-text", "LOAD LIBRARY EXPLAIN");
-$("#load-library").on("click", function (evt) {
+$("#load-library-btn").on("click", function (evt) {
     load_file(library);
+});
+
+record_id("add-blockly-text", "ADD BLOCKLY TEXT");
+$("#add-blockly-to-world").on("click", function(evt) {
+    if ($(this).prop("checked")) {
+        RUR.CURRENT_WORLD.blockly = RUR.blockly.getValue();
+    } else {
+        RUR.CURRENT_WORLD.blockly = null;
+    }
 });
 
 record_id("add-editor-text", "ADD EDITOR TEXT");
@@ -4644,6 +4678,9 @@ $('#editor-visible-blockly').change(function() {
     }
 });
 
+record_id("add-blockly-choice");
+record_id("add-editor-choice");
+record_id("add-library-choice");
 
 function hide_everything () {
     /* By default, we start with a situation where everything is hidden
@@ -4655,8 +4692,6 @@ function hide_everything () {
         $("#special-keyboard-button").click();
     }
     $("#special-keyboard-button").hide();
-    // Python specific
-    $("#add-library-choice").hide();//
     document.getElementById("add-library-to-world").checked = false;
     $("#python-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
@@ -4671,6 +4706,8 @@ function hide_everything () {
 }
 
 function show_blockly () {
+    $("#add-blockly-choice").show();
+    $("#save-blockly-btn").removeAttr("disabled");
     $("#blockly-wrapper").show();
     $("#visible-blockly").show();
     $("#editor-visible-blockly").show();
@@ -4682,6 +4719,8 @@ function show_blockly () {
 }
 
 function hide_blockly () {
+    $("#add-blockly-choice").hide();
+    $("#save-blockly-btn").attr("disabled", "true");
     $("#blockly-wrapper").hide();
     window.dispatchEvent(new Event('resize'));
     $("#visible-blockly").hide();
@@ -4695,6 +4734,8 @@ function show_editor(lang) {
     } else {
         show_javascript_editor();
     }
+    $("#add-editor-choice").show();
+    $("#save-editor-btn").removeAttr("disabled");
     $("#editor-panel").addClass("active");
     $("#editor-tab").click();
     $("#special-keyboard-button").show();
@@ -4731,6 +4772,10 @@ function show_python_editor () {
 
 
 function hide_editors() {
+    $("#add-editor-choice").hide();
+    $("#save-editor-btn").attr("disabled", "true");
+    $("#save-library-btn").attr("disabled", "true");
+    $("#add-library-choice").hide();   // Python specific
     if (RUR.state.programming_language == "python") {
         RUR.state._saved_highlight_value = RUR.state.highlight;
         RUR.state.highlight = false;
@@ -7648,6 +7693,9 @@ RUR.world.update_editors = function (world) {
    onload_editor.setValue(world.onload);
 };
 
+msg.record_id("update-blockly-content");
+msg.record_id("update-blockly-content-text", "UPDATE BLOCKLY CONTENT");
+msg.record_id("update-blockly-content-btn", "UPDATE BLOCKLY BUTTON");
 msg.record_id("update-editor-content");
 msg.record_id("update-editor-content-text", "UPDATE EDITOR CONTENT");
 msg.record_id("update-editor-content-btn", "UPDATE EDITOR BUTTON");
@@ -7669,17 +7717,30 @@ RUR.world.dialog_update_editors_from_world = $("#dialog-update-editors-from-worl
     }
 });
 
+$("#update-blockly-content-btn").on("click", function(evt) {
+    RUR.blockly.setValue(RUR.CURRENT_WORLD.blockly);
+    $("#update-blockly-content").hide();
+    if  (!$("#update-editor-content").is(":visible") &&
+         !$("#update-library-content").is(":visible")
+        ){
+        RUR.world.dialog_update_editors_from_world.dialog("close");
+    }
+});
 $("#update-editor-content-btn").on("click", function(evt) {
     editor.setValue(RUR.CURRENT_WORLD.editor);
     $("#update-editor-content").hide();
-    if (! $("#update-library-content").is(":visible")) {
+    if  (!$("#update-blockly-content").is(":visible") &&
+         !$("#update-library-content").is(":visible")
+        ){
         RUR.world.dialog_update_editors_from_world.dialog("close");
     }
 });
 $("#update-library-content-btn").on("click", function(evt) {
     library.setValue(RUR.CURRENT_WORLD.library);
     $("#update-library-content").hide();
-    if (! $("#update-editor-content").is(":visible")) {
+    if  (!$("#update-blockly-content").is(":visible") &&
+         !$("#update-editor-content").is(":visible")
+        ){
         RUR.world.dialog_update_editors_from_world.dialog("close");
     }
 });
@@ -7819,7 +7880,13 @@ RUR.world.import_world = function (json_string) {
     } else {
         $("#update-library-content").hide();
     }
-
+    if (RUR.CURRENT_WORLD.blockly !== undefined &&
+        RUR.CURRENT_WORLD.blockly !== RUR.blockly.getValue()) {
+        RUR.world.dialog_update_editors_from_world.dialog("open");
+        $("#update-blockly-content").show();
+    } else {
+        $("#update-blockly-content").hide();
+    }
     // make a clean (predictable) copy
     RUR.CURRENT_WORLD = RUR.world.editors_remove_default_values(RUR.CURRENT_WORLD);
     RUR._SAVED_WORLD = clone_world();
@@ -9598,6 +9665,7 @@ record_id("togetherjs", "COLLABORATION");
 record_id("togetherjs-text", "TOGETHERJS EXPLAIN");
 record_id("world-title", "WORLD CREATION TITLE");
 record_id("program-in-editor", "PROGRAM IN EDITOR");
+record_id("program-in-blockly-workspace", "PROGRAM IN BLOCKLY WORKSPACE");
 record_id("special-execution", "SPECIAL EXECUTION");
 record_id("contact", "CONTACT");
 record_id("issues", "ISSUES");
@@ -10102,18 +10170,23 @@ RUR.ui_en["True if robot is facing North."] = "True if robot is facing North.";
 RUR.ui_en["Delay between actions; default is 300 ms."] = "Delay between actions; default is 300 ms.";
 
 RUR.ui_en["Save world in browser"] = "Save world in browser";
+RUR.ui_en["LOAD BLOCKLY"] = "Import program (blocks) from file";
+RUR.ui_en["LOAD BLOCKLY EXPLAIN"] = "Opens a local file and use its content to replace the content of the Blockly workspace.";
 RUR.ui_en["LOAD EDITOR"] = "Import program from file";
 RUR.ui_en["LOAD EDITOR EXPLAIN"] = "Opens a local file and use its content to replace the content of the Code editor.";
 RUR.ui_en["LOAD LIBRARY"] = "Import library from a file";
 RUR.ui_en["LOAD LIBRARY EXPLAIN"] = "Opens a file and use its content to replace the current content of the Library.";
 RUR.ui_en["LOAD WORLD"] = "Open world from file";
 RUR.ui_en["LOAD WORLD EXPLAIN"] = "Loads a world from a file on your computer.";
+RUR.ui_en["SAVE BLOCKLY"] = "Save program to file";
+RUR.ui_en["SAVE BLOCKLY EXPLAIN"] = "Saves the current blocks in a file.";
 RUR.ui_en["SAVE EDITOR"] = "Save program to file";
 RUR.ui_en["SAVE EDITOR EXPLAIN"] = "Saves the content of the editor in a file.";
 RUR.ui_en["SAVE LIBRARY"] = "Save the library";
 RUR.ui_en["SAVE LIBRARY EXPLAIN"] = "Saves the content of the library in a file.";
 RUR.ui_en["SAVE WORLD"] = "Save world to file";
 RUR.ui_en["SAVE WORLD EXPLAIN"] = "Saves the world (as a json object) to a file on your computer.";
+RUR.ui_en["ADD BLOCKLY TEXT"] = "Add blocs content to world";
 RUR.ui_en["ADD EDITOR TEXT"] = "Add editor content to world";
 RUR.ui_en["ADD LIBRARY TEXT"] = "Add library content to world";
 RUR.ui_en["KEYBOARD BUTTON"] = "Reeborg's keyboard";
@@ -10156,6 +10229,7 @@ RUR.ui_en["WORLD CREATION TITLE"] = "World: creation, edition, ...";
 RUR.ui_en["EDIT WORLD"] = "Edit world";
 RUR.ui_en["EDIT WORLD EXPLAIN"] = "You can create your own world by editing the current one.";
 RUR.ui_en["PROGRAM IN EDITOR"] = "Program in editor";
+RUR.ui_en["PROGRAM IN BLOCKLY WORKSPACE"] = "Program in blockly workspace";
 RUR.ui_en["SPECIAL EXECUTION"] = "Special execution features";
 RUR.ui_en["REVERSE STEP EXPLAIN"] = "Reverses the previous execution step.";
 RUR.ui_en["ERASE TRACE"] = "Erase trace";
@@ -10249,6 +10323,8 @@ RUR.ui_en["UPDATE EDITOR CONTENT"] = "This world has some default content for th
 RUR.ui_en["UPDATE EDITOR BUTTON"] = "Replace editor content";
 RUR.ui_en["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
 RUR.ui_en["UPDATE LIBRARY BUTTON"] = "Replace library content";
+RUR.ui_en["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the blocks workspace. To replace the current blocks content, click on the button";
+RUR.ui_en["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 RUR.ui_en["Contents from World"] = "Contents from World";
 
 },{}],89:[function(require,module,exports){
@@ -10433,20 +10509,25 @@ RUR.ui_fr["Delay between actions; default is 300 ms."] = "Délai entre les actio
 RUR.ui_fr["Save world in browser"] = "Sauvegarder le monde dans le navigateur";
 RUR.ui_fr["Save permalink"] = "Sauvegarder le permalien";
 RUR.ui_fr["Save permalink explanation"] = "Sauvegarde une copie du permalien dans un fichier.";
+RUR.ui_fr["LOAD BLOCKLY"] = "Ouvrir un programme (blocs)";
+RUR.ui_fr["LOAD BLOCKLY EXPLAIN"] = "Ouvre un fichier local et remplace les blocs (Blockly) par le contenu du fichier.";
 RUR.ui_fr["LOAD EDITOR"] = "Ouvrir un programme";
 RUR.ui_fr["LOAD EDITOR EXPLAIN"] = "Ouvre un fichier local et remplace le contenu de l'éditeur par le contenu du fichier.";
 RUR.ui_fr["LOAD LIBRARY"] = "Importer une bibliothèque";
 RUR.ui_fr["LOAD LIBRARY EXPLAIN"] = "Ouvre un fichier contenant un programme et remplace le contenu de la bibliothèque par le contenu du fichier choisi.";
 RUR.ui_fr["LOAD WORLD"] = "Ouvrir un monde";
 RUR.ui_fr["LOAD WORLD EXPLAIN"] = "Ouvre un monde à partir d'un fichier.";
+RUR.ui_fr["SAVE BLOCKLY"] = "Sauvegarder les blocs.";
+RUR.ui_fr["SAVE BLOCKLY EXPLAIN"] = "Sauvegarde le programme (blocs).";
 RUR.ui_fr["SAVE EDITOR"] = "Sauvegarder le programme";
 RUR.ui_fr["SAVE EDITOR EXPLAIN"] = "Sauvegarde le contenu de l'éditeur dans un fichier.";
 RUR.ui_fr["SAVE LIBRARY"] = "Sauvegarder la bibliothèque";
 RUR.ui_fr["SAVE LIBRARY EXPLAIN"] = "Sauvegarde le contenu de la bibliothèque dans un fichier.";
 RUR.ui_fr["SAVE WORLD"] = "Sauvegarder le monde";
 RUR.ui_fr["SAVE WORLD EXPLAIN"] = "Sauvegarde le monde dans un fichier (format json) sur votre ordinateur.";
-RUR.ui_fr["ADD EDITOR TEXT"] = "Inclure le contenu de l'éditeur";
-RUR.ui_fr["ADD LIBRARY TEXT"] = "Inclure le contenu de la bibliothèque";
+RUR.ui_fr["ADD BLOCKLY TEXT"] = "Inclure les blocs du programme dans la définition du monde.";
+RUR.ui_fr["ADD EDITOR TEXT"] = "Inclure le contenu de l'éditeur dans la définition du monde.";
+RUR.ui_fr["ADD LIBRARY TEXT"] = "Inclure le contenu de la bibliothèque dans la définition du monde.";
 RUR.ui_fr["KEYBOARD BUTTON"] = "Clavier de Reeborg";
 RUR.ui_fr["ADDITIONAL OPTIONS"] = "Autres options";
 
@@ -10488,6 +10569,7 @@ RUR.ui_fr["WORLD CREATION TITLE"] = "Monde : édition, création, ...";
 RUR.ui_fr["EDIT WORLD"] = "Édition du monde";
 RUR.ui_fr["EDIT WORLD EXPLAIN"] = "Vous pouvez créer vos propres mondes en modifiant un monde existant.";
 RUR.ui_fr["PROGRAM IN EDITOR"] = "Programme dans l'éditeur";
+RUR.ui_fr["PROGRAM IN BLOCKLY WORKSPACE"] = "Programme de blocs";
 RUR.ui_fr["SPECIAL EXECUTION"] = "Options d'exécution";
 RUR.ui_fr["REVERSE STEP EXPLAIN"] = "Renverse l'instruction précédemment exécutée.";
 RUR.ui_fr["ERASE TRACE"] = "Effacer la trace";
@@ -10582,6 +10664,8 @@ RUR.ui_fr["UPDATE EDITOR CONTENT"] = "Ce monde inclus un contenu pour l'éditeur
 RUR.ui_fr["UPDATE EDITOR BUTTON"] = "Remplacer le contenu de l'éditeur";
 RUR.ui_fr["UPDATE LIBRARY CONTENT"] = "Ce monde inclus un contenu pour la bibliothèque qui est différent de celui qui s'y trouve présentement. Pour remplacer le contenu de la bibliothèque par celui défini par le monde, cliquez sur le bouton.";
 RUR.ui_fr["UPDATE LIBRARY BUTTON"] = "Remplacer le contenu de la bibliothèque";
+RUR.ui_fr["UPDATE BLOCKLY CONTENT"] = "Ce monde inclus des blocs différents de ceux qui s'y trouvent présentement. Pour remplacer les blocs présents par ceux définis par le monde, cliquez sur le bouton.";
+RUR.ui_fr["UPDATE BLOCKLY BUTTON"] = "Remplacer les blocs";
 RUR.ui_fr["Contents from World"] = "Remplacement de contenus";
 
 },{}],90:[function(require,module,exports){
@@ -10769,18 +10853,23 @@ RUR.ui_ko["Delay between actions; default is 300 ms."] = "행동을 지연시킵
 RUR.ui_ko["Save world in browser"] = "월드를 브라우저에 저장하기";
 RUR.ui_ko["Save permalink"] = "퍼머 저장";
 RUR.ui_ko["Save permalink explanation"] = "파일의 퍼머링크 복사본을 저장하기";
+RUR.ui_ko["LOAD BLOCKLY"] = "Import program (blocks) from file";
+RUR.ui_ko["LOAD BLOCKLY EXPLAIN"] = "Opens a local file and use its content to replace the content of the Blockly workspace.";
 RUR.ui_ko["LOAD EDITOR"] = "파일로 불러오기";
 RUR.ui_ko["LOAD EDITOR EXPLAIN"] = "로컬 저장소에서 소스코드 불러오기";
 RUR.ui_ko["LOAD LIBRARY"] = "파일에서 라이브러리를 가져오기";
 RUR.ui_ko["LOAD LIBRARY EXPLAIN"] = "파일을 열고 라이브러리의 컨텐츠를 지금 사용합니다.";
 RUR.ui_ko["LOAD WORLD"] = "파일로 불러오기";
 RUR.ui_ko["LOAD WORLD EXPLAIN"] = "컴퓨터안의 파일로 월드를 불러오기";
+RUR.ui_ko["SAVE BLOCKLY"] = "Save program to file";
+RUR.ui_ko["SAVE BLOCKLY EXPLAIN"] = "Saves the current blocks in a file.";
 RUR.ui_ko["SAVE EDITOR"] = "파일로 저장";
 RUR.ui_ko["SAVE EDITOR EXPLAIN"] = "에디터 소스코드 저장";
 RUR.ui_ko["SAVE LIBRARY"] = "라이브러리 저장";
 RUR.ui_ko["SAVE LIBRARY EXPLAIN"] = "파일 라이브러리의 내용 저장";
 RUR.ui_ko["SAVE WORLD"] = "파일로 저장";
 RUR.ui_ko["SAVE WORLD EXPLAIN"] = "(json 확장자) 월드를 컴퓨터에 저장";
+RUR.ui_ko["ADD BLOCKLY TEXT"] = "Add blocs content to world";
 RUR.ui_ko["ADD EDITOR TEXT"] = "월드에 접속하기 위해 에디터 추가";
 RUR.ui_ko["ADD LIBRARY TEXT"] = "월드에 접속하기 위해 라이브러리 추가";
 RUR.ui_ko["KEYBOARD BUTTON"] = "리보그의 키보드";
@@ -10824,6 +10913,7 @@ RUR.ui_ko["WORLD CREATION TITLE"] = "월드 : 창조, 수정..";
 RUR.ui_ko["EDIT WORLD"] = "월드 수정";
 RUR.ui_ko["EDIT WORLD EXPLAIN"] = "기존 월드를 수정하여 자신 만의 월드를 만들 수 있습니다.";
 RUR.ui_ko["PROGRAM IN EDITOR"] = "에디터";
+RUR.ui_ko["PROGRAM IN BLOCKLY WORKSPACE"] = "Program in blockly workspace";
 RUR.ui_ko["SPECIAL EXECUTION"] = "미래에 생겨날 기능";
 RUR.ui_ko["REVERSE STEP EXPLAIN"] = "이전 실행 상태를 되돌립니다.";
 RUR.ui_ko["ERASE TRACE"] = "흔적 지우기";
@@ -10918,6 +11008,8 @@ RUR.ui_ko["UPDATE EDITOR CONTENT"] = "This world has some default content for th
 RUR.ui_ko["UPDATE EDITOR BUTTON"] = "Replace editor content";
 RUR.ui_ko["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
 RUR.ui_ko["UPDATE LIBRARY BUTTON"] = "Replace library content";
+RUR.ui_ko["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the blocks workspace. To replace the current blocks content, click on the button";
+RUR.ui_ko["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 RUR.ui_ko["Contents from World"] = "Contents from World";
 
 },{}]},{},[18]);

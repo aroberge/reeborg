@@ -47,18 +47,27 @@ $("#load-world").on("click", function(evt) {
     });
 });
 
-record_id("save-editor", "SAVE EDITOR");
+record_id("save-blockly-btn", "SAVE BLOCKLY");
+record_id("save-blockly-text", "SAVE BLOCKLY EXPLAIN");
+$("#save-blockly-btn").on("click", function (evt) {
+    var xml, blob = new Blob([RUR.blockly.getValue()], {
+        type: "text/javascript;charset=utf-8"
+    });
+    saveAs(blob, "filename.xml"); // saveAs defined in src/libraries/filesaver.js
+});
+
+record_id("save-editor-btn", "SAVE EDITOR");
 record_id("save-editor-text", "SAVE EDITOR EXPLAIN");
-$("#save-editor").on("click", function (evt) {
+$("#save-editor-btn").on("click", function (evt) {
     var blob = new Blob([editor.getValue()], {
         type: "text/javascript;charset=utf-8"
     });
     saveAs(blob, "filename"); // saveAs defined in src/libraries/filesaver.js
 });
 
-record_id("save-library", "SAVE LIBRARY");
+record_id("save-library-btn", "SAVE LIBRARY");
 record_id("save-library-text", "SAVE LIBRARY EXPLAIN");
-$("#save-library").on("click", function (evt) {
+$("#save-library-btn").on("click", function (evt) {
     var blob = new Blob([library.getValue()], {
         type: "text/javascript;charset=utf-8"
     });
@@ -75,16 +84,31 @@ $("#save-world").on("click", function (evt) {
     saveAs(blob, "filename.json", true); // saveAs defined in src/libraries/filesaver.js
 });
 
-record_id("load-editor", "LOAD EDITOR");
+record_id("load-blockly-btn", "LOAD BLOCKLY");
+record_id("load-blockly-text", "LOAD BLOCKLY EXPLAIN");
+$("#load-blockly-btn").on("click", function (evt) {
+    load_file(RUR.blockly);
+});
+
+record_id("load-editor-btn", "LOAD EDITOR");
 record_id("load-editor-text", "LOAD EDITOR EXPLAIN");
-$("#load-editor").on("click", function (evt) {
+$("#load-editor-btn").on("click", function (evt) {
     load_file(editor);
 });
 
-record_id("load-library", "LOAD LIBRARY");
+record_id("load-library-btn", "LOAD LIBRARY");
 record_id("load-library-text", "LOAD LIBRARY EXPLAIN");
-$("#load-library").on("click", function (evt) {
+$("#load-library-btn").on("click", function (evt) {
     load_file(library);
+});
+
+record_id("add-blockly-text", "ADD BLOCKLY TEXT");
+$("#add-blockly-to-world").on("click", function(evt) {
+    if ($(this).prop("checked")) {
+        RUR.CURRENT_WORLD.blockly = RUR.blockly.getValue();
+    } else {
+        RUR.CURRENT_WORLD.blockly = null;
+    }
 });
 
 record_id("add-editor-text", "ADD EDITOR TEXT");

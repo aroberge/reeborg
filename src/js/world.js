@@ -77,6 +77,9 @@ RUR.world.update_editors = function (world) {
    onload_editor.setValue(world.onload);
 };
 
+msg.record_id("update-blockly-content");
+msg.record_id("update-blockly-content-text", "UPDATE BLOCKLY CONTENT");
+msg.record_id("update-blockly-content-btn", "UPDATE BLOCKLY BUTTON");
 msg.record_id("update-editor-content");
 msg.record_id("update-editor-content-text", "UPDATE EDITOR CONTENT");
 msg.record_id("update-editor-content-btn", "UPDATE EDITOR BUTTON");
@@ -98,17 +101,30 @@ RUR.world.dialog_update_editors_from_world = $("#dialog-update-editors-from-worl
     }
 });
 
+$("#update-blockly-content-btn").on("click", function(evt) {
+    RUR.blockly.setValue(RUR.CURRENT_WORLD.blockly);
+    $("#update-blockly-content").hide();
+    if  (!$("#update-editor-content").is(":visible") &&
+         !$("#update-library-content").is(":visible")
+        ){
+        RUR.world.dialog_update_editors_from_world.dialog("close");
+    }
+});
 $("#update-editor-content-btn").on("click", function(evt) {
     editor.setValue(RUR.CURRENT_WORLD.editor);
     $("#update-editor-content").hide();
-    if (! $("#update-library-content").is(":visible")) {
+    if  (!$("#update-blockly-content").is(":visible") &&
+         !$("#update-library-content").is(":visible")
+        ){
         RUR.world.dialog_update_editors_from_world.dialog("close");
     }
 });
 $("#update-library-content-btn").on("click", function(evt) {
     library.setValue(RUR.CURRENT_WORLD.library);
     $("#update-library-content").hide();
-    if (! $("#update-editor-content").is(":visible")) {
+    if  (!$("#update-blockly-content").is(":visible") &&
+         !$("#update-editor-content").is(":visible")
+        ){
         RUR.world.dialog_update_editors_from_world.dialog("close");
     }
 });

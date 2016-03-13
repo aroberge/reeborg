@@ -102,6 +102,7 @@ record_id("togetherjs", "COLLABORATION");
 record_id("togetherjs-text", "TOGETHERJS EXPLAIN");
 record_id("world-title", "WORLD CREATION TITLE");
 record_id("program-in-editor", "PROGRAM IN EDITOR");
+record_id("program-in-blockly-workspace", "PROGRAM IN BLOCKLY WORKSPACE");
 record_id("special-execution", "SPECIAL EXECUTION");
 record_id("contact", "CONTACT");
 record_id("issues", "ISSUES");

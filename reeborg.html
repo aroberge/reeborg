@@ -263,8 +263,14 @@
   <textarea id="py-console" rows=35, cols=81 style="display:none"></textarea>
   <div style="display:none;" id="edit-world-panel" title="World editor">
     <p>
-      <input type="checkbox" name="add-editor-to-world" value="add-editor-to-world" id="add-editor-to-world">
-      <span id="add-editor-text"></span>
+      <span id="add-blockly-choice">
+        <input type="checkbox" name="add-blockly-to-world" value="add-blockly-to-world" id="add-blockly-to-world">
+        <span id="add-blockly-text"></span>
+      </span>
+      <span id="add-editor-choice">
+        <input type="checkbox" name="add-editor-to-world" value="add-editor-to-world" id="add-editor-to-world">
+        <span id="add-editor-text"></span>
+      </span>
       <span id="add-library-choice">
         <input type="checkbox" name="add-library-to-world" value="add-library-to-world" id="add-library-to-world">
         <span id="add-library-text"></span>
@@ -603,14 +609,26 @@
     <hr>
     <h3 id="program-in-editor"></h3>
     <p>
-      <button class="blue-gradient" id="save-editor"></button>
+      <button class="blue-gradient" id="save-editor-btn"></button>
       <span id="save-editor-text"></span>
     </p>
     <p>
-      <button class="blue-gradient" id="load-editor"></button>
+      <button class="blue-gradient" id="load-editor-btn"></button>
       <span id="load-editor-text"></span>
     </p>
     <hr>
+
+    <h3 id="program-in-blockly-workspace"></h3>
+    <p>
+      <button class="blue-gradient" id="save-blockly-btn"></button>
+      <span id="save-blockly-text"></span>
+    </p>
+    <p>
+      <button class="blue-gradient" id="load-blockly-btn"></button>
+      <span id="load-blockly-text"></span>
+    </p>
+    <hr>
+
     <h3 id="special-execution"></h3>
     <p>
       <button class="blue-gradient" id="reverse-step">
@@ -631,11 +649,11 @@
     <h3 id="python-only"></h3>
     <div id="python-additional-menu">
       <p>
-        <button class="blue-gradient" id="save-library"></button>
+        <button class="blue-gradient" id="save-library-btn"></button>
         <span id="save-library-text"></span>
       </p>
       <p>
-        <button class="blue-gradient" id="load-library"></button>
+        <button class="blue-gradient" id="load-library-btn"></button>
         <span id="load-library-text"></span>
       </p>
     </div>
@@ -757,6 +775,9 @@
     </p>
     <p id="update-library-content"> <span id="update-library-content-text"></span><br>
       <button class="blue-gradient" id="update-library-content-btn"></button>
+    </p>
+    <p id="update-blockly-content"> <span id="update-blockly-content-text"></span><br>
+      <button class="blue-gradient" id="update-blockly-content-btn"></button>
     </p>
   </div>
 

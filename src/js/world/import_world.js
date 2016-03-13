@@ -93,7 +93,13 @@ RUR.world.import_world = function (json_string) {
     } else {
         $("#update-library-content").hide();
     }
-
+    if (RUR.CURRENT_WORLD.blockly !== undefined &&
+        RUR.CURRENT_WORLD.blockly !== RUR.blockly.getValue()) {
+        RUR.world.dialog_update_editors_from_world.dialog("open");
+        $("#update-blockly-content").show();
+    } else {
+        $("#update-blockly-content").hide();
+    }
     // make a clean (predictable) copy
     RUR.CURRENT_WORLD = RUR.world.editors_remove_default_values(RUR.CURRENT_WORLD);
     RUR._SAVED_WORLD = clone_world();

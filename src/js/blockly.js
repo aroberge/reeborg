@@ -716,3 +716,13 @@ RUR.blockly.init = function () {
 
 };
 RUR.blockly.init();
+
+RUR.blockly.getValue = function () {
+    var xml = Blockly.Xml.workspaceToDom(RUR.blockly.workspace);
+    return Blockly.Xml.domToText(xml);
+};
+RUR.blockly.setValue = function (xml_text) {
+    var xml = Blockly.Xml.textToDom(xml_text);
+    RUR.blockly.workspace.clear();
+    Blockly.Xml.domToWorkspace(RUR.blockly.workspace, xml);
+};

@@ -333,7 +333,7 @@ add_onclick_insert_untranslated("kbd-js-undefined", "undefined");
 add_onclick_insert_untranslated("kbd-js-not", "!");
 add_onclick_insert_untranslated("kbd-js-and", "&&");
 add_onclick_insert_untranslated("kbd-js-or", "||");
-add_onclick_insert_statement("kbd-js-write", "write()");
+add_onclick_insert_function_statement("kbd-js-write", "write");
 add_onclick_insert_untranslated_statement("kbd-js-return", "return");
 add_onclick_insert_untranslated_statement("kbd-js-continue", "continue");
 add_onclick_insert_untranslated_statement("kbd-js-break", "break");
