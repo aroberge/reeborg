@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Namespace: RUR</title>
+	<title>Advanced World Creation Namespace: RUR</title>
 
 	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
 	<link type="text/css" rel="stylesheet" href="styles/site.reeborg.css">
@@ -14,7 +14,7 @@
 <div class="navbar navbar-default navbar-fixed-top ">
 <div class="container">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="index.html">Documentation</a>
+		<a class="navbar-brand" href="index.html">Advanced World Creation</a>
 		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -341,384 +341,7 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
             
 <hr>
 <dt>
-    <h4 class="name" id="add_new_home_tile"><span class="type-signature"></span>add_new_home_tile(name, url, info)</h4>
-    
-    
-    <p class="summary"><p>This function makes it possible to add a new image to use as
-   a home tile. If the name of an existing home tile is specified again,
-   the image for that object is replaced; we suggest you do not do this.</p></p>
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Cette fonction permet l'ajout de nouvelles images à utiliser comme
-  but à atteindre pour le robot.  Si le nom d'un but existant est spécifié,
-  l'image pour ce but est remplacée par la nouvelle image; nous vous suggérons
-  de ne pas faire ceci.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The name to be used for this tile<br>
-                       <em>Le nom à utiliser pour cet objet.</em></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>URL where the image can be found.
-                   <br> <em>URL où l'image peut être trouvée</em></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>info</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>A sentence to be displayed when the user queries information
-                      about the world; something like &quot;goal: Reeborg can detect
-                      this tile using at_goal().&quot; <br> <em>Une phrase décrivant ce but lorsqu
-                      l'usager consulte la description du monde; quelque chosen
-                      comme &quot;but: Reeborg peut détecter ceci en utilisant au_but()&quot;.</em></p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
     <h4 class="name" id="add_new_object_type"><span class="type-signature"></span>add_new_object_type(specific_object, url, url_goal)</h4>
-    
-    
-    <p class="summary"><p>This function makes it possible to add new objects. If the name
-   of an existing object is specified again, the images for that object are
-   replaced.  Two images must be provided: one for the object itself, and
-   another when this object is specified as a goal. N.B. existing names
-   are the English ones.</p></p>
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Cette fonction permet l'ajout de nouveaux objets.  Si le nom d'un
-  objet existant est spécifié, les images pour cet objet seront remplacées
-  par les nouvelles images fournies.  N.B. les noms d'objets par défaut sont
-  des noms anglais (par exemple &quot;token&quot; plutôt que &quot;jeton&quot;).</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>specific_object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The name of the object type ; e.g. &quot;mouse&quot; <br>
-                       <em>Le nom du type de l'objet; par exemple, &quot;souris&quot;.</em></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>URL where the image can be found.
-                   <br> <em>URL où l'image peut être trouvée</em></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>url_goal</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>URL where the image as a goal can be found.
-                   <br> <em>URL où l'image comme but peut être trouvée</em></p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="add_new_tile_type"><span class="type-signature"></span>add_new_tile_type(specific_object, url, url_goal)</h4>
     
     
     <p class="summary"><p>This function makes it possible to add new objects. If the name
@@ -1051,6 +674,372 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
           a value of zero is used to remove objects.
           <br> <em>Nombre d'objets à cet endroit;
           une valeur de zéro est utilisée pour supprimer les objets.</em></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="add_tile_type"><span class="type-signature"></span>add_tile_type(tile)</h4>
+    
+    
+    <p class="summary"><p>This function makes it possible to add new tiles. If the name
+   of an existing tile is specified again, it is replaced by a new one
+   which may have completely different characteristics.</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Cette fonction permet l'ajout de nouveaux tuiles.  Si le nom d'une
+  tuile existante est spécifiée, elle est remplacée par la nouvelle qui pourrait
+  avoir des caractéristiques complètement différentes.
+  N.B. les noms de tuiles par défaut sont
+  des noms anglais (par exemple &quot;grass&quot; plutôt que &quot;gazon&quot;).</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tile</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A Javascript object (similar to a Python dict) that
+                     describes the properties of the tile. <br>
+                     <em>Un objet javascript (similaire à un dict en Python)
+                     qui décrit les propriétés de la tuile.</em></p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The unique name to be given to the tile. <br>
+                           <em>Le nom unique donné à la tuile</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>public_name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If various tiles are meant to represent
+                                   the same type of tile (e.g. different shades of &quot;grass&quot;)
+                                   this attribute can be used to specify that single name.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If a single image is used, this indicated the source.
+                           <strong>Either tile.url or tile.images must be specified.</strong></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>images</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If multiple images are used (for animated tiles),
+                              this contains the various URLs.
+                           <strong>Either tile.url or tile.images must be specified.</strong></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>selection_method</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    "random"
+                
+                </td>
+            
+
+            <td class="description last"><p>For animated tiles; choose one of
+                          &quot;sync&quot;, &quot;ordered&quot; or &quot;random&quot;</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -1721,7 +1710,7 @@ at a certain location.</p></p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on 2016-03-12T10:48:07-04:00
+		on 2016-03-15T08:58:14-03:00
 	
 </span>
 </footer>

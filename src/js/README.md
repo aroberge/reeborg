@@ -4,7 +4,9 @@
 
 _La version française est incluse ci-dessous._
 
-# General information about this documentation
+**This documentation is generated automatically from comments in source files.**
+
+# General information
 
 While the *World editing dialog* makes it possible to create your own world,
 it is limited to create worlds with pre-defined objects.  Furthermore, it
@@ -15,8 +17,8 @@ like reaching a pre-defined position.  The functions documented here are
 intended to give world creators all the flexibility they need to create
 their own worlds.
 
-If you find that some additional capability is required, please do not hesitate
-to get in touch with me.
+If you find that some additional capability is required, or that the information
+provided here is incorrect, please do not hesitate to get in touch with me.
 
 
 ### About the RUR namespace
@@ -35,7 +37,7 @@ than what is documented here.  As a rule, you should not create additional
 functions belonging to this namespace.
 
 To see the functions defined and belonging to this object, please use the
-selector at the top of this page.
+**Namespaces** selector at the top of this page.
 
 -----
 
@@ -51,8 +53,8 @@ lorsque le robot se trouve à une certaine position. Les fonctions documentées
 ici devraient vous donner toute la flexibilité requise pour créer les mondes
 désirés.
 
-Si vous croyez que d'autres fontions seraient requises, SVP n'hésitez pas à
-me contacter.
+Si vous croyez que d'autres fontions seraient requises, ou si vous identifiez
+des erreurs dans ce document, SVP n'hésitez pas à me contacter.
 
 
 ### _Au sujet de l'utilisation de RUR_
@@ -71,4 +73,4 @@ il en existe plusieurs autres qui appartiennent à l'objet global `RUR`;
 vous devriez vous abstenir de ne pas ajouter des fonctions à cet objet global.
 
 Pour voir les fonctions appartenant à cet objet global, veuillez utiliser
-le sélecteur qui se trouve au haut de cette page.
+le sélecteur **Namespaces** qui se trouve au haut de cette page.

@@ -12,6 +12,29 @@ require("./../rur.js");
  *   avoir des caractéristiques complètement différentes.
  *   N.B. les noms de tuiles par défaut sont
  *   des noms anglais (par exemple "grass" plutôt que "gazon").
+ *
+ * @param {Object} tile A Javascript object (similar to a Python dict) that
+ *                      describes the properties of the tile. <br>
+ *                      _Un objet javascript (similaire à un dict en Python)
+ *                      qui décrit les propriétés de la tuile._
+ *
+ * @param {string} tile.name  The unique name to be given to the tile. <br>
+ *                            _Le nom unique donné à la tuile_
+ *
+ * @param {string} [tile.public_name] If various tiles are meant to represent
+ *                                    the same type of tile (e.g. different shades of "grass")
+ *                                    this attribute can be used to specify that single name.
+ *
+ * @param {string} [tile.url] If a single image is used, this indicated the source.
+ *                            **Either tile.url or tile.images must be specified.**
+ *
+ * @param {string[]} [tile.images] If multiple images are used (for animated tiles),
+ *                               this array (list) contains the various URLs.
+ *                            **Either tile.url or tile.images must be specified.**
+ *
+ * @param {string} [tile.selection_method = "random"]  For animated tiles; choose one of
+ *                           "sync", "ordered" or "random"
+ *
  */
 RUR.TILES = {};
 
