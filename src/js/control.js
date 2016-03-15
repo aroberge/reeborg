@@ -599,11 +599,3 @@ RUR.control.get_colour_at_position = function (x, y) {
         return null;
     }
 };
-
-RUR.control.set_tile_at_position = function (x, y, tile) {
-    "use strict";
-    // note: "tile" will most often be a colour.
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
-    RUR.CURRENT_WORLD.tiles[x + "," + y] = tile;
-    RUR.record_frame("debug", "set_tile_at_position");
-};

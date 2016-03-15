@@ -7,6 +7,21 @@ var update_url = require("./../utils/parseuri.js").update_url;
 
 record_id("programming-mode");
 
+RUR.set_programming_mode = function(mode) {
+    switch (mode) {
+        case "python":
+        case "javascript":
+        case "blockly-py":
+        case "blockly-js":
+        case "py-repl":
+            $("#programming-mode").val(mode);
+            $("#programming-mode").change();
+            break;
+        default:
+            alert("Unrecognized mode in RUR.set_programming_mode" + mode);
+    }
+};
+
 $("#programming-mode").change(function() {
     "use strict";
     var choice = $(this).val();

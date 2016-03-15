@@ -18,6 +18,7 @@ require("./visible_robot.js");
 require("./state.js");
 require("./world.js");
 require("./world_set.js");
+require("./world_set/set_tile.js");
 
 RUR.inspect = function (obj){
     var props, result = "";
@@ -92,7 +93,7 @@ RUR._paint_square_ = function (color) {
     // note that this can do more than simply setting the color: it can also
     // set the tile type.
     var robot = RUR.CURRENT_WORLD.robots[0];
-    RUR.control.set_tile_at_position(x, y, color);
+    RUR.set_tile_at_position(color, x, y);
 };
 
 RUR._pause_ = RUR.control.pause;

@@ -158,12 +158,7 @@ RUR.rec.conclude = function () {
 
 RUR.rec.handle_error = function (frame) {
     var goal_status;
-    if (frame.error.name == "success") {
-        RUR.show_feedback("#Reeborg-concludes",
-                             "<p class='center'>" +
-                             frame.error.message +
-                             "</p>");
-    } else if (frame.error.reeborg_shouts === RUR.translate("Done!")){
+    if (frame.error.reeborg_shouts === RUR.translate("Done!")){
         if (frame.world.goal !== undefined){
             return RUR.rec.conclude();
         } else {
@@ -173,6 +168,11 @@ RUR.rec.handle_error = function (frame) {
             RUR.show_feedback("#Reeborg-concludes",
                 RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
+    } else if (frame.error.name == "ReeborgOK") {
+        RUR.show_feedback("#Reeborg-concludes",
+                             "<p class='center'>" +
+                             frame.error.message +
+                             "</p>");
     } else {
         if (RUR.state.sound_on) {
             RUR._play_sound("#error-sound");

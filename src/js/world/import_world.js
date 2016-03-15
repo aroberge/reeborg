@@ -33,6 +33,8 @@ RUR.world.import_world = function (json_string) {
         RUR.CURRENT_WORLD = json_string;
     }
 
+console.log("imported world: ", RUR.CURRENT_WORLD);
+
     if (RUR.CURRENT_WORLD.robots !== undefined) {
         if (RUR.CURRENT_WORLD.robots[0] !== undefined) {
             RUR.robot.cleanup_objects(RUR.CURRENT_WORLD.robots[0]);
@@ -64,10 +66,6 @@ RUR.world.import_world = function (json_string) {
         RUR.BACKGROUND_IMAGE.src = '';
     }
 
-    if (RUR.CURRENT_WORLD.onload !== undefined) {
-        eval_onload();
-    }
-
     RUR.CURRENT_WORLD.small_tiles = RUR.CURRENT_WORLD.small_tiles || false;
     RUR.CURRENT_WORLD.rows = RUR.CURRENT_WORLD.rows || RUR.MAX_Y;
     RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X;
@@ -78,6 +76,7 @@ RUR.world.import_world = function (json_string) {
     $("#add-library-to-world").prop("checked",
                                     RUR.CURRENT_WORLD.library !== undefined);
 
+console.log("editor", RUR.CURRENT_WORLD.editor);
     if (RUR.CURRENT_WORLD.editor !== undefined &&
         RUR.CURRENT_WORLD.editor !== editor.getValue()) {
         RUR.world.dialog_update_editors_from_world.dialog("open");
@@ -110,6 +109,11 @@ RUR.world.import_world = function (json_string) {
     if (RUR.state.editing_world) {
         edit_robot_menu.toggle();
     }
+
+    if (RUR.CURRENT_WORLD.onload !== undefined) {
+        eval_onload();
+    }
+
 };
 
 eval_onload = function () {

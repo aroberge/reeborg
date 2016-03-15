@@ -990,7 +990,7 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
             
 
             <td class="description last"><p>If multiple images are used (for animated tiles),
-                              this contains the various URLs.
+                              this array (list) contains the various URLs.
                            <strong>Either tile.url or tile.images must be specified.</strong></p></td>
         </tr>
 
@@ -1033,6 +1033,160 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
 
             <td class="description last"><p>For animated tiles; choose one of
                           &quot;sync&quot;, &quot;ordered&quot; or &quot;random&quot;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fatal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Program ends if Reeborg steps on such a tile set to &quot;true&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>detectable</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If <code>tile.fatal == tile.detectable == True</code>, Reeborg can
+                                   detect with <code>front_is_clear()</code> and <code>right_is_clear()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>solid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If sets to &quot;true&quot;, prevents a box from sliding onto this tile.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>slippery</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If sets to &quot;true&quot;, Reeborg will keep going to next tile if
+                                 it attempts to move on this tile.</p></td>
         </tr>
 
     
@@ -1250,6 +1404,185 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
 
             <td class="description last"><p>Optional argument
                    <br> <em>argument optionnel</em></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="set_tile_at_position"><span class="type-signature"></span>set_tile_at_position(tile, x, y)</h4>
+    
+    
+    <p class="summary"><p>This function sets a given tile type at a location.</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Cette fonction spécifie le type de tuile à un endroit.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tile</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of a tile <strong>or</strong> a colour recognized by HTML <br>
+                     <em>Le nom d'une tuile <strong>ou</strong> celui d'une couleur reconnue par HTML.</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the tile. <br>  <em>Position de la tuile</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the tile. <br>  <em>Position de la tuile</em></p></td>
         </tr>
 
     
@@ -1710,7 +2043,7 @@ at a certain location.</p></p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on 2016-03-15T08:58:14-03:00
+		on 2016-03-15T15:24:34-03:00
 	
 </span>
 </footer>

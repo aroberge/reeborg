@@ -85,7 +85,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         error = {};
         if (e.reeborg_concludes !== undefined) {
             error.message = e.reeborg_concludes;
-            error.name = "success";
+            error.name = "ReeborgOK";
             RUR.record_frame("error", error);
             RUR.state.code_evaluated = true;
             return false;

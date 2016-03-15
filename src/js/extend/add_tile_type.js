@@ -35,6 +35,16 @@ require("./../rur.js");
  * @param {string} [tile.selection_method = "random"]  For animated tiles; choose one of
  *                           "sync", "ordered" or "random"
  *
+ * @param {boolean} [tile.fatal] Program ends if Reeborg steps on such a tile set to "true".
+ *
+ * @param {boolean} [tile.detectable] If `tile.fatal == tile.detectable == True`, Reeborg can
+ *                                    detect with `front_is_clear()` and `right_is_clear()`.
+ *
+ * @param {boolean} [tile.solid] If sets to "true", prevents a box from sliding onto this tile.
+ *
+ * @param {boolean} [tile.slippery] If sets to "true", Reeborg will keep going to next tile if
+ *                                  it attempts to move on this tile.
+ *
  */
 RUR.TILES = {};
 
