@@ -4,6 +4,8 @@ require("./listeners/add_listeners.js");
 require("./splash_screen.js");
 /* --- */
 
+require("./init/tiles.js");
+
 require("./utils/parseuri.js");
 require("./world/import_world.js");
 require("./storage.js");

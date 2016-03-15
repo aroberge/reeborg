@@ -1,79 +1,71 @@
 require("./../rur.js");
 
-/** @function add_new_tile_type
+/** @function add_tile_type
  * @memberof RUR
  * @instance
- * @summary This function makes it possible to add new objects. If the name
- *    of an existing object is specified again, the images for that object are
- *    replaced.  Two images must be provided: one for the object itself, and
- *    another when this object is specified as a goal. N.B. existing names
- *    are the English ones.
+ * @summary This function makes it possible to add new tiles. If the name
+ *    of an existing tile is specified again, it is replaced by a new one
+ *    which may have completely different characteristics.
  *
- * @desc Cette fonction permet l'ajout de nouveaux objets.  Si le nom d'un
- *   objet existant est spécifié, les images pour cet objet seront remplacées
- *   par les nouvelles images fournies.  N.B. les noms d'objets par défaut sont
- *   des noms anglais (par exemple "token" plutôt que "jeton").
- *
- * @param {string} specific_object The name of the object type ; e.g. "mouse" <br>
- *                        _Le nom du type de l'objet; par exemple, "souris"._
- * @param {string} url - URL where the image can be found.
- *                    <br> _URL où l'image peut être trouvée_
- * @param {string} url_goal - URL where the image as a goal can be found.
- *                    <br> _URL où l'image comme but peut être trouvée_
- *
+ * @desc Cette fonction permet l'ajout de nouveaux tuiles.  Si le nom d'une
+ *   tuile existante est spécifiée, elle est remplacée par la nouvelle qui pourrait
+ *   avoir des caractéristiques complètement différentes.
+ *   N.B. les noms de tuiles par défaut sont
+ *   des noms anglais (par exemple "grass" plutôt que "gazon").
  */
 RUR.TILES = {};
 
-RUR.add_new_tile_type = function (tile) {
-    var i, tiles = RUR.TILES;
-    name = tile.name;
-    tiles[name] = {};
-    tiles[name].name = tile.name;
+RUR.add_tile_type = function (new_tile) {
+    "use strict";
+    var i, key, keys, name, tile;
+    name = new_tile.name;
+    if (RUR.KNOWN_TILES.indexOf(new_tile.name) != -1) {
+        console.log("Warning: tile name " + name + " already exists");
+    } else {
+        RUR.KNOWN_TILES.push(name);
+    }
+    RUR.TILES[name] = {};
+    tile = RUR.TILES[name];
+    // copy all properties
+    keys = Object.keys(new_tile);
+    for(i=0; i < keys.length; i++){
+        key = keys[i];
+        tile[key] = new_tile[key];
+    }
+    // allow multiple tiles to appear under the same name;
+    // for example, we might want to visually have different types of grass tiles
+    // but referring under the single name "grass" when giving information
     if (tile.public_name) {
-        tiles[name].name = tile.public_name;
+        tile.name = tile.public_name;
     }
     if (tile.url) {
-        tiles[name].image = new Image();
-        tiles[name].image.src = tile.url;
+        tile.image = new Image();
+        tile.image.src = tile.url;
         RUR._NB_IMAGES_TO_LOAD += 1;
-        tiles[name].image.onload = RUR.INCREMENT_LOADED_FN;
+        tile.image.onload = RUR.INCREMENT_LOADED_FN;
     } else if (tile.images) {
         for (i=0; i < tile.images.length; i++){
-            tiles[name]["image"+i] = new Image();
-            tiles[name]["image"+i].src = tile.images[i];
-            tiles[name]["image"+i].onload = RUR.INCREMENT_LOADED_FN;
+            tile["image"+i] = new Image();
+            tile["image"+i].src = tile.images[i];
+            tile["image"+i].onload = RUR.INCREMENT_LOADED_FN;
         }
         RUR._NB_IMAGES_TO_LOAD += tile.images.length;
         if (tile.selection_method === "sync") {
-            tiles[name].choose_image = function (coords) {
-                return _sync(tiles[name], tile.images.length, coords);
+            tile.choose_image = function (coords) {
+                return _sync(tile, tile.images.length, coords);
             };
         } else if (tile.selection_method === "ordered") {
-            tiles[name].choose_image = function (coords) {
-                return _ordered(tiles[name], tile.images.length, coords);
+            tile.choose_image = function (coords) {
+                return _ordered(tile, tile.images.length, coords);
             };
         } else {
-            tiles[name].choose_image = function (coords) {
-                return _random(tiles[name], tile.images.length);
+            tile.choose_image = function (coords) {
+                return _random(tile, tile.images.length);
             };
         }
-
     } else {
         alert("Fatal error: need either tile.url or a list: tile.images");
     }
-
-    tiles[name].info = tile.info;
-    if (tile.home) {
-        tiles[name].detectable = true;
-    } else {
-        tiles[name].fatal = tile.fatal;
-        tiles[name].detectable = tile.detectable;
-        tiles[name].message = tile.message;
-        tiles[name].slippery = tile.slippery;
-        tiles[name].solid = tile.solid;
-    }
-
-    RUR.KNOWN_TILES.push(name);
 };
 
 _random = function (tile, nb) {

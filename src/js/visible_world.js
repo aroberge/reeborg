@@ -7,7 +7,6 @@ require("./constants.js");
 require("./state.js");
 require("./extend/add_object_type.js");
 require("./extend/add_tile_type.js");
-require("./extend/new_home_tile.js");
 
 RUR.vis_world = {};
 
@@ -355,12 +354,12 @@ RUR.vis_world.draw_goal_position = function (goal, ctx) {
 
     if (goal.position.image !== undefined &&
         typeof goal.position.image === 'string' &&
-        RUR.HOME_IMAGES[goal.position.image] !== undefined){
-        image = RUR.HOME_IMAGES[goal.position.image].image;
+        RUR.TILES[goal.position.image] !== undefined){
+        image = RUR.TILES[goal.position.image].image;
     } else {    // For anyone wondering, this step might be needed only when using older world
                 // files that were created when there was not a choice
                 // of image for indicating the home position.
-        image = RUR.HOME_IMAGES.green_home_tile.image;
+        image = RUR.TILES["green_home_tile"].image;
     }
     if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
             ctx.save();
@@ -417,6 +416,10 @@ RUR.vis_world.draw_tiles = function (tiles){
 
         if (tile.choose_image === undefined){
             image = tile.image;
+            if (image === undefined){
+                console.log("problem in draw_tiles; tile =", tile);
+                throw new ReeborgError("Problem in draw_tiles.");
+            }
             RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
         }
     }
@@ -443,6 +446,10 @@ RUR.vis_world.draw_animated_tiles = function (){
         }
         if (tile.choose_image !== undefined){
             image = tile.choose_image(coords[k]);
+            if (image === undefined){
+                console.log("problem in draw_animated_tiles; tile =", tile);
+                throw new ReeborgError("Problem in draw_animated_tiles at" + coords);
+            }
             RUR.animated_tiles = true;
             RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
         }
@@ -518,7 +525,7 @@ RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
     try{
        ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
    } catch (e) {
-       console.log("problem in draw_single_object", image, ctx);
+       console.log("problem in draw_single_object", image, ctx, e);
    }
 };
 

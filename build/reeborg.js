@@ -960,7 +960,7 @@ RUR._UR.wall_on_right_ = function (robot) {
     RUR.control.wall_on_right(robot);
 };
 
-},{"./constants.js":3,"./control.js":4,"./custom_world_select.js":6,"./file_io.js":17,"./output.js":40,"./state.js":53,"./translator.js":55,"./visible_robot.js":64,"./world.js":66,"./world_set.js":75}],3:[function(require,module,exports){
+},{"./constants.js":3,"./control.js":4,"./custom_world_select.js":6,"./file_io.js":16,"./output.js":40,"./state.js":53,"./translator.js":55,"./visible_robot.js":64,"./world.js":66,"./world_set.js":75}],3:[function(require,module,exports){
 require("./rur.js");
 RUR.EAST = 0;
 RUR.NORTH = 1;
@@ -2322,80 +2322,72 @@ RUR.add_object_image = RUR.add_new_object_type;
 },{"./../rur.js":50,"./../state.js":53}],15:[function(require,module,exports){
 require("./../rur.js");
 
-/** @function add_new_tile_type
+/** @function add_tile_type
  * @memberof RUR
  * @instance
- * @summary This function makes it possible to add new objects. If the name
- *    of an existing object is specified again, the images for that object are
- *    replaced.  Two images must be provided: one for the object itself, and
- *    another when this object is specified as a goal. N.B. existing names
- *    are the English ones.
+ * @summary This function makes it possible to add new tiles. If the name
+ *    of an existing tile is specified again, it is replaced by a new one
+ *    which may have completely different characteristics.
  *
- * @desc Cette fonction permet l'ajout de nouveaux objets.  Si le nom d'un
- *   objet existant est spécifié, les images pour cet objet seront remplacées
- *   par les nouvelles images fournies.  N.B. les noms d'objets par défaut sont
- *   des noms anglais (par exemple "token" plutôt que "jeton").
- *
- * @param {string} specific_object The name of the object type ; e.g. "mouse" <br>
- *                        _Le nom du type de l'objet; par exemple, "souris"._
- * @param {string} url - URL where the image can be found.
- *                    <br> _URL où l'image peut être trouvée_
- * @param {string} url_goal - URL where the image as a goal can be found.
- *                    <br> _URL où l'image comme but peut être trouvée_
- *
+ * @desc Cette fonction permet l'ajout de nouveaux tuiles.  Si le nom d'une
+ *   tuile existante est spécifiée, elle est remplacée par la nouvelle qui pourrait
+ *   avoir des caractéristiques complètement différentes.
+ *   N.B. les noms de tuiles par défaut sont
+ *   des noms anglais (par exemple "grass" plutôt que "gazon").
  */
 RUR.TILES = {};
 
-RUR.add_new_tile_type = function (tile) {
-    var i, tiles = RUR.TILES;
-    name = tile.name;
-    tiles[name] = {};
-    tiles[name].name = tile.name;
+RUR.add_tile_type = function (new_tile) {
+    "use strict";
+    var i, key, keys, name, tile;
+    name = new_tile.name;
+    if (RUR.KNOWN_TILES.indexOf(new_tile.name) != -1) {
+        console.log("Warning: tile name " + name + " already exists");
+    } else {
+        RUR.KNOWN_TILES.push(name);
+    }
+    RUR.TILES[name] = {};
+    tile = RUR.TILES[name];
+    // copy all properties
+    keys = Object.keys(new_tile);
+    for(i=0; i < keys.length; i++){
+        key = keys[i];
+        tile[key] = new_tile[key];
+    }
+    // allow multiple tiles to appear under the same name;
+    // for example, we might want to visually have different types of grass tiles
+    // but referring under the single name "grass" when giving information
     if (tile.public_name) {
-        tiles[name].name = tile.public_name;
+        tile.name = tile.public_name;
     }
     if (tile.url) {
-        tiles[name].image = new Image();
-        tiles[name].image.src = tile.url;
+        tile.image = new Image();
+        tile.image.src = tile.url;
         RUR._NB_IMAGES_TO_LOAD += 1;
-        tiles[name].image.onload = RUR.INCREMENT_LOADED_FN;
+        tile.image.onload = RUR.INCREMENT_LOADED_FN;
     } else if (tile.images) {
         for (i=0; i < tile.images.length; i++){
-            tiles[name]["image"+i] = new Image();
-            tiles[name]["image"+i].src = tile.images[i];
-            tiles[name]["image"+i].onload = RUR.INCREMENT_LOADED_FN;
+            tile["image"+i] = new Image();
+            tile["image"+i].src = tile.images[i];
+            tile["image"+i].onload = RUR.INCREMENT_LOADED_FN;
         }
         RUR._NB_IMAGES_TO_LOAD += tile.images.length;
         if (tile.selection_method === "sync") {
-            tiles[name].choose_image = function (coords) {
-                return _sync(tiles[name], tile.images.length, coords);
+            tile.choose_image = function (coords) {
+                return _sync(tile, tile.images.length, coords);
             };
         } else if (tile.selection_method === "ordered") {
-            tiles[name].choose_image = function (coords) {
-                return _ordered(tiles[name], tile.images.length, coords);
+            tile.choose_image = function (coords) {
+                return _ordered(tile, tile.images.length, coords);
             };
         } else {
-            tiles[name].choose_image = function (coords) {
-                return _random(tiles[name], tile.images.length);
+            tile.choose_image = function (coords) {
+                return _random(tile, tile.images.length);
             };
         }
-
     } else {
         alert("Fatal error: need either tile.url or a list: tile.images");
     }
-
-    tiles[name].info = tile.info;
-    if (tile.home) {
-        tiles[name].detectable = true;
-    } else {
-        tiles[name].fatal = tile.fatal;
-        tiles[name].detectable = tile.detectable;
-        tiles[name].message = tile.message;
-        tiles[name].slippery = tile.slippery;
-        tiles[name].solid = tile.solid;
-    }
-
-    RUR.KNOWN_TILES.push(name);
 };
 
 _random = function (tile, nb) {
@@ -2433,47 +2425,6 @@ _sync = function (tile, nb, coords) {
 };
 
 },{"./../rur.js":50}],16:[function(require,module,exports){
-require("./../rur.js");
-
-/** @function add_new_home_tile
- * @memberof RUR
- * @instance
- * @summary This function makes it possible to add a new image to use as
- *    a home tile. If the name of an existing home tile is specified again,
- *    the image for that object is replaced; we suggest you do not do this.
-
- *
- * @desc Cette fonction permet l'ajout de nouvelles images à utiliser comme
- *   but à atteindre pour le robot.  Si le nom d'un but existant est spécifié,
- *   l'image pour ce but est remplacée par la nouvelle image; nous vous suggérons
- *   de ne pas faire ceci.
- *
- * @param {string} name The name to be used for this tile<br>
- *                        _Le nom à utiliser pour cet objet._
- * @param {string} url - URL where the image can be found.
- *                    <br> _URL où l'image peut être trouvée_
- * @param {string} info - A sentence to be displayed when the user queries information
- *                       about the world; something like "goal: Reeborg can detect
- *                       this tile using at\_goal()." <br> *Une phrase décrivant ce but lorsqu
- *                       l'usager consulte la description du monde; quelque chosen
- *                       comme "but: Reeborg peut détecter ceci en utilisant au\_but()".*
- *
- */
-
-RUR.HOME_IMAGES = {};
-
-RUR.add_new_home_tile = function (name, url, info) {
-    var home = RUR.HOME_IMAGES;
-    home[name] = {};
-    home[name].detectable = true;
-    home[name].info = info;
-    home[name].image = new Image();
-    home[name].image.src = url;
-    home[name].image.onload = RUR.INCREMENT_LOADED_FN;
-    RUR._NB_IMAGES_TO_LOAD += 1;
-};
-
-},{"./../rur.js":50}],17:[function(require,module,exports){
 
 require("./output.js");
 require("./recorder.js");
@@ -2609,7 +2560,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
     }
 };
 
-},{"./exceptions.js":13,"./listeners/stop.js":36,"./output.js":40,"./permalink.js":41,"./recorder.js":45,"./translator.js":55,"./utils/supplant.js":63,"./world.js":66,"./world/import_world.js":70,"./world_select.js":74}],18:[function(require,module,exports){
+},{"./exceptions.js":13,"./listeners/stop.js":36,"./output.js":40,"./permalink.js":41,"./recorder.js":45,"./translator.js":55,"./utils/supplant.js":63,"./world.js":66,"./world/import_world.js":70,"./world_select.js":74}],17:[function(require,module,exports){
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
@@ -2626,7 +2577,116 @@ require("./start_session.js");
 // TODO: implement paint() and colour_here() in Blockly
 // TODO: Create offline version as part of the build sequence
 
-},{"./commands.js":2,"./start_session.js":52,"./utils/cors.js":58,"./world_editor.js":71}],19:[function(require,module,exports){
+},{"./commands.js":2,"./start_session.js":52,"./utils/cors.js":58,"./world_editor.js":71}],18:[function(require,module,exports){
+/* This file contains the tiles included by default */
+require("./../rur.js");
+require("./../extend/add_tile_type.js");
+
+var home_message, tile;
+
+tile = {name: "mud",
+    url: RUR._BASE_URL + '/src/images/mud.png',
+    message: "I'm stuck in mud.",
+    fatal: true,
+    info: "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."
+};
+RUR.add_tile_type(tile);
+
+tile = {name: "ice",
+    url: RUR._BASE_URL + '/src/images/ice.png',
+    message: "I'm slipping on ice!",
+    slippery: true,
+    info: "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."
+};
+RUR.add_tile_type(tile);
+
+tile = {name: "grass",
+    url: RUR._BASE_URL + '/src/images/grass.png',
+    info: "Grass: usually safe."
+};
+RUR.add_tile_type(tile);
+
+tile = {name: "pale_grass",
+    url: RUR._BASE_URL + '/src/images/pale_grass.png',
+    info: "Grass: usually safe.",
+    public_name: "grass"
+};
+RUR.add_tile_type(tile);
+
+tile = {name: "gravel",
+    url: RUR._BASE_URL + '/src/images/gravel.png',
+    info: "Gravel: usually safe."
+};
+RUR.add_tile_type(tile);
+
+tile = {
+    name:"water",
+    images: [RUR._BASE_URL + '/src/images/water.png',
+        RUR._BASE_URL + '/src/images/water2.png',
+        RUR._BASE_URL + '/src/images/water3.png',
+        RUR._BASE_URL + '/src/images/water4.png',
+        RUR._BASE_URL + '/src/images/water5.png',
+        RUR._BASE_URL + '/src/images/water6.png'],
+    info: "Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.",
+    fatal: true,
+    detectable: true,
+    message: "I'm in water!"
+};
+RUR.add_tile_type(tile);
+
+
+RUR._add_new_tile_type = function (name, url) {
+    var tiles = RUR.TILES;
+    tiles[name] = {};
+    tiles[name].name = name;
+    tiles[name].image = new Image();
+    if (url===undefined) {
+        tiles[name].image.src = RUR._BASE_URL + '/src/images/' + name + '.png';
+    } else {
+        tiles[name].image.src = url;
+    }
+    tiles[name].image.onload = RUR.INCREMENT_LOADED_FN;
+    RUR.KNOWN_TILES.push(name);
+    RUR._NB_IMAGES_TO_LOAD += 1;
+};
+
+tile = {name: "bricks",
+    public_name: "brick wall",
+    url: RUR._BASE_URL + '/src/images/bricks.png',
+    info: "brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.",
+    message: "Crash!",
+    detectable: true,
+    fatal: true,
+    solid: true
+};
+RUR.add_tile_type(tile);
+
+/*--- home tiles ---*/
+
+home_message = ": Reeborg <b>can</b> detect this tile using at_goal().";
+
+tile = {name: "green_home_tile",
+    url: RUR._BASE_URL + '/src/images/green_home_tile.png',
+    info: "green_home_tile" + home_message,
+    detectable: true
+};
+RUR.add_tile_type(tile);
+
+tile = {name: "house",
+    url: RUR._BASE_URL + '/src/images/house.png',
+    info: "house" + home_message,
+    detectable: true
+};
+RUR.add_tile_type(tile);
+
+tile = {name: "racing_flag",
+    url: RUR._BASE_URL + '/src/images/racing_flag.png',
+    info: "racing_flag" + home_message,
+    detectable: true
+};
+RUR.add_tile_type(tile);
+
+},{"./../extend/add_tile_type.js":15,"./../rur.js":50}],19:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -4978,7 +5038,7 @@ $("#select-world").change(function() {
     } catch (e) {}
 });
 
-},{"./../../lang/msg.js":85,"./../file_io.js":17,"./../storage.js":54}],35:[function(require,module,exports){
+},{"./../../lang/msg.js":85,"./../file_io.js":16,"./../storage.js":54}],35:[function(require,module,exports){
 
 require("./../state.js");
 require("./reload.js");
@@ -5067,8 +5127,6 @@ watch_button.addEventListener("click", toggle_watch_variables, false);
 },{"./../../lang/msg.js":85,"./../state.js":53}],39:[function(require,module,exports){
 require("./rur.js");
 require("./extend/add_object_type.js");
-require("./extend/add_tile_type.js");
-require("./extend/new_home_tile.js");
 
 _add_new_object_type = function (name) {
     "use strict";
@@ -5097,93 +5155,6 @@ RUR.OBJECTS.box.name = "box";
 RUR.OBJECTS.box.pushable = true;
 RUR.OBJECTS.box.in_water = "bridge";
 RUR.OBJECTS.box.ctx = RUR.ROBOT_CTX;
-
-
-RUR._add_new_tile_type = function (name, url) {
-    var tiles = RUR.TILES;
-    tiles[name] = {};
-    tiles[name].name = name;
-    tiles[name].image = new Image();
-    if (url===undefined) {
-        tiles[name].image.src = RUR._BASE_URL + '/src/images/' + name + '.png';
-    } else {
-        tiles[name].image.src = url;
-    }
-    tiles[name].image.onload = RUR.INCREMENT_LOADED_FN;
-    RUR.KNOWN_TILES.push(name);
-    RUR._NB_IMAGES_TO_LOAD += 1;
-};
-
-
-tile = {name: "mud",
-    url: RUR._BASE_URL + '/src/images/mud.png',
-    message: "I'm stuck in mud.",
-    fatal: true,
-    info: "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."
-};
-RUR.add_new_tile_type(tile);
-
-tile = {name: "ice",
-    url: RUR._BASE_URL + '/src/images/ice.png',
-    message: "I'm slipping on ice!",
-    slippery: true,
-    info: "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."
-};
-RUR.add_new_tile_type(tile);
-
-tile = {name: "grass",
-    url: RUR._BASE_URL + '/src/images/grass.png',
-    info: "Grass: usually safe."
-};
-RUR.add_new_tile_type(tile);
-
-tile = {name: "pale_grass",
-    url: RUR._BASE_URL + '/src/images/pale_grass.png',
-    info: "Grass: usually safe.",
-    public_name: "grass"
-};
-RUR.add_new_tile_type(tile);
-
-
-tile = {name: "gravel",
-    url: RUR._BASE_URL + '/src/images/gravel.png',
-    info: "Gravel: usually safe."
-};
-RUR.add_new_tile_type(tile);
-
-tile = {
-    name:"water",
-    images: [RUR._BASE_URL + '/src/images/water.png',
-        RUR._BASE_URL + '/src/images/water2.png',
-        RUR._BASE_URL + '/src/images/water3.png',
-        RUR._BASE_URL + '/src/images/water4.png',
-        RUR._BASE_URL + '/src/images/water5.png',
-        RUR._BASE_URL + '/src/images/water6.png'],
-    info: "Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.",
-    fatal: true,
-    detectable: true,
-    message: "I'm in water!"
-};
-
-RUR.add_new_tile_type(tile);
-
-RUR._add_new_tile_type("bricks");
-RUR.TILES.bricks.name = "brick wall"; // replace
-RUR.TILES.bricks.fatal = true;
-RUR.TILES.bricks.solid = true;
-RUR.TILES.bricks.detectable = true;
-RUR.TILES.bricks.message = "Crash!";
-RUR.TILES.bricks.info = "brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.";
-
-_add_new_home_tile = function (name, info) {
-    info = info + "Reeborg <b>can</b> detect this tile using at_goal().";
-    url = RUR._BASE_URL + '/src/images/' + name + '.png';
-    RUR.add_new_home_tile(name, url, info);
-};
-
-_add_new_home_tile("green_home_tile", "green home tile:");
-_add_new_home_tile("house", "house:");
-_add_new_home_tile("racing_flag", "racing flag:");
 
 
 RUR.SOLID_OBJECTS = {};
@@ -5232,7 +5203,7 @@ RUR.SOLID_OBJECTS.fence_vertical.message = RUR.SOLID_OBJECTS.fence_right.message
 RUR.SOLID_OBJECTS.fence_vertical.info = RUR.SOLID_OBJECTS.fence_right.info;
 RUR.SOLID_OBJECTS.fence7 = RUR.SOLID_OBJECTS.fence_vertical;  // compatibility with old worlds
 
-},{"./extend/add_object_type.js":14,"./extend/add_tile_type.js":15,"./extend/new_home_tile.js":16,"./rur.js":50}],40:[function(require,module,exports){
+},{"./extend/add_object_type.js":14,"./rur.js":50}],40:[function(require,module,exports){
 
 
 require("./recorder.js");
@@ -6309,6 +6280,8 @@ require("./listeners/add_listeners.js");
 require("./splash_screen.js");
 /* --- */
 
+require("./init/tiles.js");
+
 require("./utils/parseuri.js");
 require("./world/import_world.js");
 require("./storage.js");
@@ -6386,7 +6359,7 @@ function set_world(url_query) {
     }
 }
 
-},{"./create_editors.js":5,"./listeners/add_listeners.js":21,"./permalink.js":41,"./splash_screen.js":51,"./state.js":53,"./storage.js":54,"./utils/parseuri.js":62,"./world/import_world.js":70}],53:[function(require,module,exports){
+},{"./create_editors.js":5,"./init/tiles.js":18,"./listeners/add_listeners.js":21,"./permalink.js":41,"./splash_screen.js":51,"./state.js":53,"./storage.js":54,"./utils/parseuri.js":62,"./world/import_world.js":70}],53:[function(require,module,exports){
 /* Yes, I know, global variables are a terrible thing.
    And, in a sense, the following are global variables recording a given
    state.  However, by using this convention and documentating them in a
@@ -7003,7 +6976,6 @@ require("./constants.js");
 require("./state.js");
 require("./extend/add_object_type.js");
 require("./extend/add_tile_type.js");
-require("./extend/new_home_tile.js");
 
 RUR.vis_world = {};
 
@@ -7351,12 +7323,12 @@ RUR.vis_world.draw_goal_position = function (goal, ctx) {
 
     if (goal.position.image !== undefined &&
         typeof goal.position.image === 'string' &&
-        RUR.HOME_IMAGES[goal.position.image] !== undefined){
-        image = RUR.HOME_IMAGES[goal.position.image].image;
+        RUR.TILES[goal.position.image] !== undefined){
+        image = RUR.TILES[goal.position.image].image;
     } else {    // For anyone wondering, this step might be needed only when using older world
                 // files that were created when there was not a choice
                 // of image for indicating the home position.
-        image = RUR.HOME_IMAGES.green_home_tile.image;
+        image = RUR.TILES["green_home_tile"].image;
     }
     if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
             ctx.save();
@@ -7413,6 +7385,10 @@ RUR.vis_world.draw_tiles = function (tiles){
 
         if (tile.choose_image === undefined){
             image = tile.image;
+            if (image === undefined){
+                console.log("problem in draw_tiles; tile =", tile);
+                throw new ReeborgError("Problem in draw_tiles.");
+            }
             RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
         }
     }
@@ -7439,6 +7415,10 @@ RUR.vis_world.draw_animated_tiles = function (){
         }
         if (tile.choose_image !== undefined){
             image = tile.choose_image(coords[k]);
+            if (image === undefined){
+                console.log("problem in draw_animated_tiles; tile =", tile);
+                throw new ReeborgError("Problem in draw_animated_tiles at" + coords);
+            }
             RUR.animated_tiles = true;
             RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
         }
@@ -7514,7 +7494,7 @@ RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
     try{
        ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
    } catch (e) {
-       console.log("problem in draw_single_object", image, ctx);
+       console.log("problem in draw_single_object", image, ctx, e);
    }
 };
 
@@ -7635,7 +7615,7 @@ RUR.vis_world.draw_info = function() {
     }
 };
 
-},{"./constants.js":3,"./extend/add_object_type.js":14,"./extend/add_tile_type.js":15,"./extend/new_home_tile.js":16,"./state.js":53,"./translator.js":55}],66:[function(require,module,exports){
+},{"./constants.js":3,"./extend/add_object_type.js":14,"./extend/add_tile_type.js":15,"./state.js":53,"./translator.js":55}],66:[function(require,module,exports){
 
 require("./translator.js");
 require("./constants.js");
@@ -11034,4 +11014,4 @@ RUR.ui_ko["UPDATE BLOCKLY CONTENT"] = "This world has some default content for t
 RUR.ui_ko["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 RUR.ui_ko["Contents from World"] = "Contents from World";
 
-},{}]},{},[18]);
+},{}]},{},[17]);

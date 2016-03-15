@@ -1,7 +1,5 @@
 require("./rur.js");
 require("./extend/add_object_type.js");
-require("./extend/add_tile_type.js");
-require("./extend/new_home_tile.js");
 
 _add_new_object_type = function (name) {
     "use strict";
@@ -30,93 +28,6 @@ RUR.OBJECTS.box.name = "box";
 RUR.OBJECTS.box.pushable = true;
 RUR.OBJECTS.box.in_water = "bridge";
 RUR.OBJECTS.box.ctx = RUR.ROBOT_CTX;
-
-
-RUR._add_new_tile_type = function (name, url) {
-    var tiles = RUR.TILES;
-    tiles[name] = {};
-    tiles[name].name = name;
-    tiles[name].image = new Image();
-    if (url===undefined) {
-        tiles[name].image.src = RUR._BASE_URL + '/src/images/' + name + '.png';
-    } else {
-        tiles[name].image.src = url;
-    }
-    tiles[name].image.onload = RUR.INCREMENT_LOADED_FN;
-    RUR.KNOWN_TILES.push(name);
-    RUR._NB_IMAGES_TO_LOAD += 1;
-};
-
-
-tile = {name: "mud",
-    url: RUR._BASE_URL + '/src/images/mud.png',
-    message: "I'm stuck in mud.",
-    fatal: true,
-    info: "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."
-};
-RUR.add_new_tile_type(tile);
-
-tile = {name: "ice",
-    url: RUR._BASE_URL + '/src/images/ice.png',
-    message: "I'm slipping on ice!",
-    slippery: true,
-    info: "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."
-};
-RUR.add_new_tile_type(tile);
-
-tile = {name: "grass",
-    url: RUR._BASE_URL + '/src/images/grass.png',
-    info: "Grass: usually safe."
-};
-RUR.add_new_tile_type(tile);
-
-tile = {name: "pale_grass",
-    url: RUR._BASE_URL + '/src/images/pale_grass.png',
-    info: "Grass: usually safe.",
-    public_name: "grass"
-};
-RUR.add_new_tile_type(tile);
-
-
-tile = {name: "gravel",
-    url: RUR._BASE_URL + '/src/images/gravel.png',
-    info: "Gravel: usually safe."
-};
-RUR.add_new_tile_type(tile);
-
-tile = {
-    name:"water",
-    images: [RUR._BASE_URL + '/src/images/water.png',
-        RUR._BASE_URL + '/src/images/water2.png',
-        RUR._BASE_URL + '/src/images/water3.png',
-        RUR._BASE_URL + '/src/images/water4.png',
-        RUR._BASE_URL + '/src/images/water5.png',
-        RUR._BASE_URL + '/src/images/water6.png'],
-    info: "Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.",
-    fatal: true,
-    detectable: true,
-    message: "I'm in water!"
-};
-
-RUR.add_new_tile_type(tile);
-
-RUR._add_new_tile_type("bricks");
-RUR.TILES.bricks.name = "brick wall"; // replace
-RUR.TILES.bricks.fatal = true;
-RUR.TILES.bricks.solid = true;
-RUR.TILES.bricks.detectable = true;
-RUR.TILES.bricks.message = "Crash!";
-RUR.TILES.bricks.info = "brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.";
-
-_add_new_home_tile = function (name, info) {
-    info = info + "Reeborg <b>can</b> detect this tile using at_goal().";
-    url = RUR._BASE_URL + '/src/images/' + name + '.png';
-    RUR.add_new_home_tile(name, url, info);
-};
-
-_add_new_home_tile("green_home_tile", "green home tile:");
-_add_new_home_tile("house", "house:");
-_add_new_home_tile("racing_flag", "racing flag:");
 
 
 RUR.SOLID_OBJECTS = {};
