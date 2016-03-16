@@ -36,6 +36,7 @@ $("#load-world").on("click", function(evt) {
         reader.onload = function(e) {
             try {
                 RUR.world.import_world(reader.result);
+                RUR.storage.save_world(file.name);
             } catch (e) {  // jshint ignore:line
                 console.log("invalid world", e);
                 RUR.show_feedback("#Reeborg-shouts",
