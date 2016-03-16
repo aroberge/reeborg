@@ -68,7 +68,6 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     }
 
     RUR.file_io.load_world_file(url, shortname);
-
     if (RUR.file_io.status !== undefined) {
         RUR.frames = [];
         RUR.stop();
@@ -96,7 +95,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
     var data;
-
     if (RUR.file_io.last_url_loaded == url &&
         RUR.file_io.last_shortname_loaded == shortname) {
             return;

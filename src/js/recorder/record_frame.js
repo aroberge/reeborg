@@ -28,7 +28,6 @@ RUR.record_frame = function (name, obj) {
         return;
     }
 
-
     frame.world = clone_world();
     if (name !== undefined) {
         frame[name] = obj;

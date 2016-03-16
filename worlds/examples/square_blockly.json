@@ -1,0 +1,27 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "Demonstrating some tile-related functions.",
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "onload": "RUR.onload_set_programming_mode('blockly');\n",
+  "editor": null,
+  "blockly": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"controls_repeat_ext\" x=\"88\" y=\"33\"><value name=\"TIMES\"><block type=\"math_number\"><field name=\"NUM\">4</field></block></value><statement name=\"DO\"><block type=\"_move_\"><next><block type=\"_turn_left_\"></block></next></block></statement></block></xml>"
+}

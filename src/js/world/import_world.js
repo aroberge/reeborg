@@ -33,7 +33,6 @@ RUR.world.import_world = function (json_string) {
         RUR.CURRENT_WORLD = json_string;
     }
 
-console.log("imported world: ", RUR.CURRENT_WORLD);
 
     if (RUR.CURRENT_WORLD.robots !== undefined) {
         if (RUR.CURRENT_WORLD.robots[0] !== undefined) {
@@ -76,8 +75,7 @@ console.log("imported world: ", RUR.CURRENT_WORLD);
     $("#add-library-to-world").prop("checked",
                                     RUR.CURRENT_WORLD.library !== undefined);
 
-console.log("editor", RUR.CURRENT_WORLD.editor);
-    if (RUR.CURRENT_WORLD.editor !== undefined &&
+    if (RUR.CURRENT_WORLD.editor &&
         RUR.CURRENT_WORLD.editor !== editor.getValue()) {
         RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-editor-content").show();
@@ -85,14 +83,14 @@ console.log("editor", RUR.CURRENT_WORLD.editor);
         $("#update-editor-content").hide();
     }
     if (RUR.state.programming_language === "python" &&
-        RUR.CURRENT_WORLD.library !== undefined &&
+        RUR.CURRENT_WORLD.library &&
         RUR.CURRENT_WORLD.library !== library.getValue()) {
         RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-library-content").show();
     } else {
         $("#update-library-content").hide();
     }
-    if (RUR.CURRENT_WORLD.blockly !== undefined &&
+    if (RUR.CURRENT_WORLD.blockly &&
         RUR.CURRENT_WORLD.blockly !== RUR.blockly.getValue()) {
         RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-blockly-content").show();
@@ -117,6 +115,7 @@ console.log("editor", RUR.CURRENT_WORLD.editor);
 };
 
 eval_onload = function () {
+    RUR.state.evaluating_onload = true;
     try {
         eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
     } catch (e) {
@@ -125,4 +124,5 @@ eval_onload = function () {
             RUR.CURRENT_WORLD.onload + "</pre>");
         console.log("error in onload:", e);
     }
+    RUR.state.evaluating_onload = false;    
 };

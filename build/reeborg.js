@@ -2522,7 +2522,6 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     }
 
     RUR.file_io.load_world_file(url, shortname);
-
     if (RUR.file_io.status !== undefined) {
         RUR.frames = [];
         RUR.stop();
@@ -2550,7 +2549,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
     var data;
-
     if (RUR.file_io.last_url_loaded == url &&
         RUR.file_io.last_shortname_loaded == shortname) {
             return;
@@ -4706,19 +4704,61 @@ var update_url = require("./../utils/parseuri.js").update_url;
 
 record_id("programming-mode");
 
-RUR.set_programming_mode = function(mode) {
+
+
+
+
+RUR.onload_set_programming_mode = function(mode) {
+    //TODO: Document this function
+    //
+    //
+    if (!RUR.state.evaluating_onload) {
+        alert("RUR.onload_set_programming_mode should only be called from the 'onload' World component.");
+        return;
+    }
+    /* First determine if any change is needed */
     switch (mode) {
         case "python":
         case "javascript":
-        case "blockly-py":
-        case "blockly-js":
-        case "py-repl":
-            $("#programming-mode").val(mode);
-            $("#programming-mode").change();
+            if (RUR.state.input_method == mode) {
+                return;
+            }
+            break;
+        case "blockly":
+            if (RUR.state.input_method == "blockly-js" ||
+                RUR.state.input_method == "blockly-py") {
+                return;
+            }
             break;
         default:
-            alert("Unrecognized mode in RUR.set_programming_mode" + mode);
+            alert(mode + " is not allowed; only 'python', 'javascript' and 'blockly' are allowed.");
+            return;
     }
+
+    /* When a world is imported from a program using World() or Monde(),
+       and the onload editor contains a call to RUR.set_programming_mode,
+       it is useful to delay its execution so that any error thrown
+       (e.g. info about changed world) be handled properly by the language
+       used to run the original program.
+     */
+    setTimeout( function() {
+        switch (mode) {
+            case "python":
+            case "javascript":
+                break;
+            case "blockly":
+                if (RUR.state.programming_language === "javascript") {
+                    mode = "blockly-js";
+                } else {
+                    mode = "blockly-py";
+                }
+                break;
+            default:
+                alert("Unrecognized mode in RUR.set_programming_mode" + mode);
+        }
+        $("#programming-mode").val(mode);
+        $("#programming-mode").change();
+    }, 300);
 };
 
 $("#programming-mode").change(function() {
@@ -5858,7 +5898,6 @@ RUR.record_frame = function (name, obj) {
         return;
     }
 
-
     frame.world = clone_world();
     if (name !== undefined) {
         frame[name] = obj;
@@ -6025,6 +6064,16 @@ var clone_world = require("./world/clone_world.js").clone_world;
 
 RUR.runner = {};
 
+/* A user program is evaluated when the user clicks on "run" or "step" for
+   the first time and the result is stored in a series of frames.
+   The playback is then done automatically (clicking on "run") or can be done
+   frame by frame (clicking on "step").  When clicking on "step" repeatedly,
+   we do not need to evaluate the program again, but simply to show a frame
+   recorded.  The RUR.state.code_evaluated flag is used to determine if we
+   only need to show a frame already recorded, or if we need to evaluate the
+   program.
+ */
+
 RUR.state.code_evaluated = false;
 
 RUR.runner.run = function (playback) {
@@ -6066,6 +6115,7 @@ RUR.runner.run = function (playback) {
     }
 };
 
+/* RUR.runner.eval returns true if a fatal error is found, false otherwise */
 RUR.runner.eval = function(src) {  // jshint ignore:line
     var error_name, message, response, other_info, from_python, error;
     other_info = '';
@@ -6083,6 +6133,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             RUR.runner.eval_javascript(src);
         } else if (RUR.state.programming_language === "python") {
             RUR.runner.eval_python(src);
+            // This is the error handling referenced in the above comment.
             if (RUR.__python_error) {
                 throw RUR.__python_error;
             }
@@ -6091,16 +6142,20 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             return true;
         }
     } catch (e) {
+        RUR.state.code_evaluated = true;
         if (RUR.__debug){
             console.dir(e);
         }
         error = {};
-        if (e.reeborg_concludes !== undefined) {
+        if (e.reeborg_concludes !== undefined) {  // indicates success
             error.message = e.reeborg_concludes;
             error.name = "ReeborgOK";
-            RUR.record_frame("error", error);
-            RUR.state.code_evaluated = true;
-            return false;
+            if (RUR.state.prevent_playback) {
+                RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+            } else {
+                RUR.record_frame("error", error);
+            }
+            return false; // since success, not a fatal error.
         }
         if (RUR.state.programming_language === "python") {
             error.reeborg_shouts = e.reeborg_shouts;
@@ -6417,7 +6472,8 @@ RUR.state.editing_world = false;
 RUR.state.highlight = true;
 RUR.state.human_language = "en";
 RUR.state.input_method = "python";
-RUR.state.programming_language = "javascript"; // default for testing
+RUR.state.evaluating_onload = false;
+RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
 RUR.state.session_initialized = false;
@@ -7707,7 +7763,7 @@ RUR.world.editors_remove_default_values = function (world) {
     var edit, editors;
     editors = RUR.world.editors_default_values;
     for (edit in editors) {
-        if (world[edit] === undefined) {
+        if (!world[edit]) {
             continue;
         }
         if (world[edit] == editors[edit] || world[edit].trim().length < 3) {
@@ -7864,7 +7920,6 @@ RUR.world.import_world = function (json_string) {
         RUR.CURRENT_WORLD = json_string;
     }
 
-console.log("imported world: ", RUR.CURRENT_WORLD);
 
     if (RUR.CURRENT_WORLD.robots !== undefined) {
         if (RUR.CURRENT_WORLD.robots[0] !== undefined) {
@@ -7907,8 +7962,7 @@ console.log("imported world: ", RUR.CURRENT_WORLD);
     $("#add-library-to-world").prop("checked",
                                     RUR.CURRENT_WORLD.library !== undefined);
 
-console.log("editor", RUR.CURRENT_WORLD.editor);
-    if (RUR.CURRENT_WORLD.editor !== undefined &&
+    if (RUR.CURRENT_WORLD.editor &&
         RUR.CURRENT_WORLD.editor !== editor.getValue()) {
         RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-editor-content").show();
@@ -7916,14 +7970,14 @@ console.log("editor", RUR.CURRENT_WORLD.editor);
         $("#update-editor-content").hide();
     }
     if (RUR.state.programming_language === "python" &&
-        RUR.CURRENT_WORLD.library !== undefined &&
+        RUR.CURRENT_WORLD.library &&
         RUR.CURRENT_WORLD.library !== library.getValue()) {
         RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-library-content").show();
     } else {
         $("#update-library-content").hide();
     }
-    if (RUR.CURRENT_WORLD.blockly !== undefined &&
+    if (RUR.CURRENT_WORLD.blockly &&
         RUR.CURRENT_WORLD.blockly !== RUR.blockly.getValue()) {
         RUR.world.dialog_update_editors_from_world.dialog("open");
         $("#update-blockly-content").show();
@@ -7948,6 +8002,7 @@ console.log("editor", RUR.CURRENT_WORLD.editor);
 };
 
 eval_onload = function () {
+    RUR.state.evaluating_onload = true;
     try {
         eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
     } catch (e) {
@@ -7956,6 +8011,7 @@ eval_onload = function () {
             RUR.CURRENT_WORLD.onload + "</pre>");
         console.log("error in onload:", e);
     }
+    RUR.state.evaluating_onload = false;    
 };
 
 },{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../robot.js":48,"./../state.js":53,"./../translator.js":55,"./../ui/edit_robot_menu.js":56,"./../visible_world.js":65,"./clone_world.js":67}],71:[function(require,module,exports){
@@ -9461,6 +9517,12 @@ require("./../recorder/record_frame.js");
  * @param {integer} x  Position of the tile. <br>  _Position de la tuile_
  *
  * @param {integer} y  Position of the tile. <br>  _Position de la tuile_
+ *
+ * @example
+ * // shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 

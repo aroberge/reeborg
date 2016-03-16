@@ -7,19 +7,61 @@ var update_url = require("./../utils/parseuri.js").update_url;
 
 record_id("programming-mode");
 
-RUR.set_programming_mode = function(mode) {
+
+
+
+
+RUR.onload_set_programming_mode = function(mode) {
+    //TODO: Document this function
+    //
+    //
+    if (!RUR.state.evaluating_onload) {
+        alert("RUR.onload_set_programming_mode should only be called from the 'onload' World component.");
+        return;
+    }
+    /* First determine if any change is needed */
     switch (mode) {
         case "python":
         case "javascript":
-        case "blockly-py":
-        case "blockly-js":
-        case "py-repl":
-            $("#programming-mode").val(mode);
-            $("#programming-mode").change();
+            if (RUR.state.input_method == mode) {
+                return;
+            }
+            break;
+        case "blockly":
+            if (RUR.state.input_method == "blockly-js" ||
+                RUR.state.input_method == "blockly-py") {
+                return;
+            }
             break;
         default:
-            alert("Unrecognized mode in RUR.set_programming_mode" + mode);
+            alert(mode + " is not allowed; only 'python', 'javascript' and 'blockly' are allowed.");
+            return;
     }
+
+    /* When a world is imported from a program using World() or Monde(),
+       and the onload editor contains a call to RUR.set_programming_mode,
+       it is useful to delay its execution so that any error thrown
+       (e.g. info about changed world) be handled properly by the language
+       used to run the original program.
+     */
+    setTimeout( function() {
+        switch (mode) {
+            case "python":
+            case "javascript":
+                break;
+            case "blockly":
+                if (RUR.state.programming_language === "javascript") {
+                    mode = "blockly-js";
+                } else {
+                    mode = "blockly-py";
+                }
+                break;
+            default:
+                alert("Unrecognized mode in RUR.set_programming_mode" + mode);
+        }
+        $("#programming-mode").val(mode);
+        $("#programming-mode").change();
+    }, 300);
 };
 
 $("#programming-mode").change(function() {

@@ -19,6 +19,12 @@ require("./../recorder/record_frame.js");
  *
  * @param {integer} y  Position of the tile. <br>  _Position de la tuile_
  *
+ * @example
+ * // shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
  */
 
 RUR.set_tile_at_position = function (tile, x, y) {

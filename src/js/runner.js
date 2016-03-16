@@ -13,6 +13,16 @@ var clone_world = require("./world/clone_world.js").clone_world;
 
 RUR.runner = {};
 
+/* A user program is evaluated when the user clicks on "run" or "step" for
+   the first time and the result is stored in a series of frames.
+   The playback is then done automatically (clicking on "run") or can be done
+   frame by frame (clicking on "step").  When clicking on "step" repeatedly,
+   we do not need to evaluate the program again, but simply to show a frame
+   recorded.  The RUR.state.code_evaluated flag is used to determine if we
+   only need to show a frame already recorded, or if we need to evaluate the
+   program.
+ */
+
 RUR.state.code_evaluated = false;
 
 RUR.runner.run = function (playback) {
@@ -54,6 +64,7 @@ RUR.runner.run = function (playback) {
     }
 };
 
+/* RUR.runner.eval returns true if a fatal error is found, false otherwise */
 RUR.runner.eval = function(src) {  // jshint ignore:line
     var error_name, message, response, other_info, from_python, error;
     other_info = '';
@@ -71,6 +82,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             RUR.runner.eval_javascript(src);
         } else if (RUR.state.programming_language === "python") {
             RUR.runner.eval_python(src);
+            // This is the error handling referenced in the above comment.
             if (RUR.__python_error) {
                 throw RUR.__python_error;
             }
@@ -79,16 +91,20 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             return true;
         }
     } catch (e) {
+        RUR.state.code_evaluated = true;
         if (RUR.__debug){
             console.dir(e);
         }
         error = {};
-        if (e.reeborg_concludes !== undefined) {
+        if (e.reeborg_concludes !== undefined) {  // indicates success
             error.message = e.reeborg_concludes;
             error.name = "ReeborgOK";
-            RUR.record_frame("error", error);
-            RUR.state.code_evaluated = true;
-            return false;
+            if (RUR.state.prevent_playback) {
+                RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+            } else {
+                RUR.record_frame("error", error);
+            }
+            return false; // since success, not a fatal error.
         }
         if (RUR.state.programming_language === "python") {
             error.reeborg_shouts = e.reeborg_shouts;

@@ -47,7 +47,7 @@ RUR.world.editors_remove_default_values = function (world) {
     var edit, editors;
     editors = RUR.world.editors_default_values;
     for (edit in editors) {
-        if (world[edit] === undefined) {
+        if (!world[edit]) {
             continue;
         }
         if (world[edit] == editors[edit] || world[edit].trim().length < 3) {
