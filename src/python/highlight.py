@@ -64,10 +64,12 @@ def replace_brackets(src):
 
 
 def remove_comments(src):
+    # only remove pure line comments.
     lines = src.split("\n")
     new_lines = []
     for line in lines:
-        line = line.split("#")[0]
+        if line.strip().startswith("#"):
+            line = ''
         new_lines.append(line)
     return '\n'.join(new_lines)
 
