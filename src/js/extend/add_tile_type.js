@@ -45,6 +45,16 @@ require("./../rur.js");
  * @param {boolean} [tile.slippery] If sets to "true", Reeborg will keep going to next tile if
  *                                  it attempts to move on this tile.
  *
+ * @example
+ * // This first example shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ * // A second example shows how one can change tiles behaviour.
+ * // A possible usage of this would be to have Reeborg wear crampons
+ * // so that it does not slip on the ice.
+ * World("/worlds/examples/tile2.json", "Example 2")
  */
 RUR.TILES = {};
 
