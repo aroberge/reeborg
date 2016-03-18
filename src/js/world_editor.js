@@ -259,7 +259,6 @@ RUR.we.toggle_editing_mode = function () {
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();
-        // RUR.CURRENT_WORLD = RUR.world.editors_set_default_values(RUR.CURRENT_WORLD);
         $("#highlight").hide();
         $("#watch-variables-btn").hide();
     }

@@ -24,9 +24,9 @@ RUR.world = {};
    following.
 */
 RUR.world.editors_default_values = {
-    'pre_code': '"pre code"',
-    'post_code': '"post code"',
-    'description': 'description',
+    'pre_code': '',
+    'post_code': '',
+    'description': 'Description',
     'onload': '/* Javascript */'
 };
 

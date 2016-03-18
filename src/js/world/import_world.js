@@ -70,10 +70,9 @@ RUR.world.import_world = function (json_string) {
     RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X;
     RUR.vis_world.compute_world_geometry(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
 
-    $("#add-editor-to-world").prop("checked",
-                                   RUR.CURRENT_WORLD.editor !== undefined);
-    $("#add-library-to-world").prop("checked",
-                                    RUR.CURRENT_WORLD.library !== undefined);
+    $("#add-editor-to-world").prop("checked",false);
+    $("#add-library-to-world").prop("checked",false);
+    $("#add-blockly-to-world").prop("checked",false);
 
     if (RUR.CURRENT_WORLD.editor &&
         RUR.CURRENT_WORLD.editor !== editor.getValue()) {
@@ -124,5 +123,5 @@ eval_onload = function () {
             RUR.CURRENT_WORLD.onload + "</pre>");
         console.log("error in onload:", e);
     }
-    RUR.state.evaluating_onload = false;    
+    RUR.state.evaluating_onload = false;
 };

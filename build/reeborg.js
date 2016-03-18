@@ -686,16 +686,30 @@ RUR.blockly.init = function () {
     };
 
     $(".blocklyToolboxDiv").remove();
-    RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
-        toolbox: document.getElementById('toolbox'),
-        zoom:{
-            controls: true,
-            wheel: true,
-            startScale: 1.0,
-            maxScale: 3,
-            minScale: 0.3,
-            scaleSpeed: 1.2},
-        trashcan: true});
+    $("#blocklyDiv").remove();
+    $("#blockly-wrapper").append('<div id="blocklyDiv"></div>');
+
+    /* With the current version of the code, Firefox does not display
+       the trashcan and controls properly; so we do not show them ... but
+       allow for testing via the console by setting RUR.firefox_ok to true */
+    var firefox_present = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    if (firefox_present && !RUR.firefox_ok) {
+        console.log(firefox_present, RUR.firefox_ok, firefox_present && !RUR.firefox_ok);
+        RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('toolbox'),
+            trashcan: false});
+    } else {
+        RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('toolbox'),
+            zoom:{
+                controls: true,
+                wheel: true,
+                startScale: 1.0,
+                maxScale: 3,
+                minScale: 0.3,
+                scaleSpeed: 1.2},
+            trashcan: true});
+    }
 
     $("#blocklyDiv").resizable({
         resize: function() {
@@ -704,19 +718,20 @@ RUR.blockly.init = function () {
         }
     });
 
-    $("#blockly-wrapper").draggable({
-        cursor: "move",
-        handle: "p",
-        drag: function( event, ui ) {
-            window.dispatchEvent(new Event('resize'));
-        },
-        stop: function( event, ui ) {
-            window.dispatchEvent(new Event('resize'));
-        }
-    });
-
 };
-RUR.blockly.init();
+
+$("#blockly-wrapper").draggable({
+    cursor: "move",
+    handle: "p",
+    drag: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    },
+    stop: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    }
+});
+
+
 
 RUR.blockly.getValue = function () {
     var xml = Blockly.Xml.workspaceToDom(RUR.blockly.workspace);
@@ -2361,6 +2376,16 @@ require("./../rur.js");
  * @param {boolean} [tile.slippery] If sets to "true", Reeborg will keep going to next tile if
  *                                  it attempts to move on this tile.
  *
+ * @example
+ * // This first example shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ * // A second example shows how one can change tiles behaviour.
+ * // A possible usage of this would be to have Reeborg wear crampons
+ * // so that it does not slip on the ice.
+ * World("/worlds/examples/tile2.json", "Example 2")
  */
 RUR.TILES = {};
 
@@ -4466,7 +4491,7 @@ $("#human-language").change(function() {
     update_commands(lang);
     update_home_url(lang);
     RUR.make_default_menu(lang);
-    $("#blocklyDiv").html(" ");
+    // $("#blocklyDiv").html(" ");
     RUR.blockly.init();
 
     if (RUR.state.input_method == "py-repl") {
@@ -4705,9 +4730,26 @@ var update_url = require("./../utils/parseuri.js").update_url;
 
 record_id("programming-mode");
 
-
-
-
+/** @function onload_set_programming_mode
+ * @memberof RUR
+ * @instance
+ * @summary This function MUST be called from an onload editor. It is used
+ *          to specify which of three mode must be used for a given world.
+ *          This should only be required if the world contains some content to
+ *          be run (either as blocks, in the editor, or in the pre- or post- code stage.)
+ *
+ * @desc Cette fonction doit être invoquée **uniquement** à partir de l'éditeur "onload".
+ *       Son but est de changer le mode de programmation devant être utilisé pour un
+ *       monde particulier.  Ceci ne devrait être requis que si le monde en question contient
+ *       du code prédéfini (dans l'éditeur, sous forme de blocs, ou dans l'éditeur pre- ou post-.)
+ *
+ * @param {string} mode  One of "python", "javascript", or "blokcly" <br>
+ *                            _Un de trois choix possibles : "python", "javascript", or "blokcly"_
+ *
+ * @example
+ * // shows how to switch mode to Blockly, where some blocks are already placed.
+ * World("/worlds/examples/square_blockly.json", "Square")
+ */
 
 RUR.onload_set_programming_mode = function(mode) {
     //TODO: Document this function
@@ -7741,9 +7783,9 @@ RUR.world = {};
    following.
 */
 RUR.world.editors_default_values = {
-    'pre_code': '"pre code"',
-    'post_code': '"post code"',
-    'description': 'description',
+    'pre_code': '',
+    'post_code': '',
+    'description': 'Description',
     'onload': '/* Javascript */'
 };
 
@@ -7958,10 +8000,9 @@ RUR.world.import_world = function (json_string) {
     RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X;
     RUR.vis_world.compute_world_geometry(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
 
-    $("#add-editor-to-world").prop("checked",
-                                   RUR.CURRENT_WORLD.editor !== undefined);
-    $("#add-library-to-world").prop("checked",
-                                    RUR.CURRENT_WORLD.library !== undefined);
+    $("#add-editor-to-world").prop("checked",false);
+    $("#add-library-to-world").prop("checked",false);
+    $("#add-blockly-to-world").prop("checked",false);
 
     if (RUR.CURRENT_WORLD.editor &&
         RUR.CURRENT_WORLD.editor !== editor.getValue()) {
@@ -8012,7 +8053,7 @@ eval_onload = function () {
             RUR.CURRENT_WORLD.onload + "</pre>");
         console.log("error in onload:", e);
     }
-    RUR.state.evaluating_onload = false;    
+    RUR.state.evaluating_onload = false;
 };
 
 },{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../robot.js":48,"./../state.js":53,"./../translator.js":55,"./../ui/edit_robot_menu.js":56,"./../visible_world.js":65,"./clone_world.js":67}],71:[function(require,module,exports){
@@ -8277,7 +8318,6 @@ RUR.we.toggle_editing_mode = function () {
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
         RUR.vis_world.draw_all();
-        // RUR.CURRENT_WORLD = RUR.world.editors_set_default_values(RUR.CURRENT_WORLD);
         $("#highlight").hide();
         $("#watch-variables-btn").hide();
     }
