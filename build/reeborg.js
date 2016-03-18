@@ -694,7 +694,6 @@ RUR.blockly.init = function () {
        allow for testing via the console by setting RUR.firefox_ok to true */
     var firefox_present = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     if (firefox_present && !RUR.firefox_ok) {
-        console.log(firefox_present, RUR.firefox_ok, firefox_present && !RUR.firefox_ok);
         RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
             toolbox: document.getElementById('toolbox'),
             trashcan: false});
@@ -719,6 +718,7 @@ RUR.blockly.init = function () {
     });
 
 };
+RUR.firefox_ok = false;
 
 $("#blockly-wrapper").draggable({
     cursor: "move",
@@ -7210,13 +7210,13 @@ RUR.vis_world.draw_all = function () {
     RUR.animated_tiles = false;
 
     if (RUR.state.editing_world) {
-        if (RUR.BACKGROUND_IMAGE.src) {
+        if (RUR.CURRENT_WORLD.background_image !== undefined) {
             RUR.vis_world.draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
         }
         RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
     } else {
         RUR.vis_world.draw_grid_walls();
-        if (RUR.BACKGROUND_IMAGE.src) {
+        if (RUR.CURRENT_WORLD.background_image !== undefined) {
             RUR.vis_world.draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
         }
     }

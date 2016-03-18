@@ -100,13 +100,13 @@ RUR.vis_world.draw_all = function () {
     RUR.animated_tiles = false;
 
     if (RUR.state.editing_world) {
-        if (RUR.BACKGROUND_IMAGE.src) {
+        if (RUR.CURRENT_WORLD.background_image !== undefined) {
             RUR.vis_world.draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
         }
         RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
     } else {
         RUR.vis_world.draw_grid_walls();
-        if (RUR.BACKGROUND_IMAGE.src) {
+        if (RUR.CURRENT_WORLD.background_image !== undefined) {
             RUR.vis_world.draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
         }
     }
