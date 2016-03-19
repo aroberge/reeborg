@@ -3,15 +3,16 @@ var record_id = require("./../../lang/msg.js").record_id;
 
 // "tabs" is a jqueryUI method
 $("#tabs").tabs({
-        heightStyle: "auto",
-        activate: function(event, ui){
-            editor.refresh();
-            library.refresh();
-            pre_code_editor.refresh();
-            post_code_editor.refresh();
-            description_editor.refresh();
-            onload_editor.refresh();
-        }
+    heightStyle: "content",
+    activate: function(event, ui){
+        var height_adjust = $(this).height()-60;
+        editor.setSize(null, height_adjust);
+        library.setSize(null, height_adjust);
+        pre_code_editor.setSize(null, height_adjust);
+        post_code_editor.setSize(null, height_adjust);
+        description_editor.setSize(null, height_adjust);
+        onload_editor.setSize(null, height_adjust);
+    }
 });
 
 record_id("editor-tab", "Python Code");
@@ -23,15 +24,15 @@ record_id("onload-editor-tab", "ONLOAD");
 
 $("#editor-panel").resizable({
     resize: function() {
-        editor.setSize(null, $(this).height()-40);
-        library.setSize(null, $(this).height()-40);
-        pre_code_editor.setSize(null, $(this).height()-40);
-        post_code_editor.setSize(null, $(this).height()-40);
-        description_editor.setSize(null, $(this).height()-40);
-        onload_editor.setSize(null, $(this).height()-40);
+        var height_adjust = $(this).height()-60;
+        editor.setSize(null, height_adjust);
+        library.setSize(null, height_adjust);
+        pre_code_editor.setSize(null, height_adjust);
+        post_code_editor.setSize(null, height_adjust);
+        description_editor.setSize(null, height_adjust);
+        onload_editor.setSize(null, height_adjust);
     }
 }).draggable({cursor: "move", handle: "ul"});
-
 
 
 $("#editor-tab").on("click", function (evt) {

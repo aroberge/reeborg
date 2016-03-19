@@ -196,9 +196,16 @@ RUR.ui_en["SAVE LIBRARY"] = "Save the library";
 RUR.ui_en["SAVE LIBRARY EXPLAIN"] = "Saves the content of the library in a file.";
 RUR.ui_en["SAVE WORLD"] = "Save world to file";
 RUR.ui_en["SAVE WORLD EXPLAIN"] = "Saves the world (as a json object) to a file on your computer.";
-RUR.ui_en["ADD BLOCKLY TEXT"] = "Add blocs content to world";
-RUR.ui_en["ADD EDITOR TEXT"] = "Add editor content to world";
-RUR.ui_en["ADD LIBRARY TEXT"] = "Add library content to world";
+
+RUR.ui_en["ADD CONTENT TO WORLD"] = "Add content to world from selected items below.";
+RUR.ui_en["ADD BLOCKLY TEXT"] = "Code blocks";
+RUR.ui_en["ADD EDITOR TEXT"] = "Code in editor";
+RUR.ui_en["ADD LIBRARY TEXT"] = "Library";
+RUR.ui_en["ADD PRE TEXT"] = "Pre";
+RUR.ui_en["ADD POST TEXT"] = "Post";
+RUR.ui_en["ADD DESCRIPTION TEXT"] = "Description";
+RUR.ui_en["ADD ONLOAD TEXT"] = "Onload";
+
 RUR.ui_en["KEYBOARD BUTTON"] = "Reeborg's keyboard";
 RUR.ui_en["ADDITIONAL OPTIONS"] = "Additional options";
 

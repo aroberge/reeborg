@@ -198,9 +198,16 @@ RUR.ui_ko["SAVE LIBRARY"] = "라이브러리 저장";
 RUR.ui_ko["SAVE LIBRARY EXPLAIN"] = "파일 라이브러리의 내용 저장";
 RUR.ui_ko["SAVE WORLD"] = "파일로 저장";
 RUR.ui_ko["SAVE WORLD EXPLAIN"] = "(json 확장자) 월드를 컴퓨터에 저장";
-RUR.ui_ko["ADD BLOCKLY TEXT"] = "Add blocs content to world";
-RUR.ui_ko["ADD EDITOR TEXT"] = "월드에 접속하기 위해 에디터 추가";
-RUR.ui_ko["ADD LIBRARY TEXT"] = "월드에 접속하기 위해 라이브러리 추가";
+
+RUR.ui_ko["ADD CONTENT TO WORLD"] = "Add content to world from selected items below.";
+RUR.ui_ko["ADD BLOCKLY TEXT"] = "Code blocks";
+RUR.ui_ko["ADD EDITOR TEXT"] = "Code in editor";
+RUR.ui_ko["ADD LIBRARY TEXT"] = "Library";
+RUR.ui_ko["ADD PRE TEXT"] = "Pre";
+RUR.ui_ko["ADD POST TEXT"] = "Post";
+RUR.ui_ko["ADD DESCRIPTION TEXT"] = "Description";
+RUR.ui_ko["ADD ONLOAD TEXT"] = "Onload";
+
 RUR.ui_ko["KEYBOARD BUTTON"] = "리보그의 키보드";
 RUR.ui_ko["ADDITIONAL OPTIONS"] = "추가 설정";
 

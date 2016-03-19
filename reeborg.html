@@ -262,21 +262,44 @@
   </div>
   <textarea id="py-console" rows=35, cols=81 style="display:none"></textarea>
   <div style="display:none;" id="edit-world-panel" title="World editor">
+    <button id="memorize-world" class="blue-gradient"></button>
+    <span id="add-content-to-world"></span>
     <p>
-      <span id="add-blockly-choice">
-        <input type="checkbox" name="add-blockly-to-world" value="add-blockly-to-world" id="add-blockly-to-world">
+      <button id="add-blockly-to-world-btn" class="blue-gradient">
+        <img src="src/images/ok.png" id="add-blockly-ok" style="display:none">
+        <img src="src/images/not_ok.png" id="add-blockly-not-ok">
         <span id="add-blockly-text"></span>
-      </span>
-      <span id="add-editor-choice">
-        <input type="checkbox" name="add-editor-to-world" value="add-editor-to-world" id="add-editor-to-world">
+      </button>
+      <button id="add-editor-to-world-btn" class="blue-gradient">
+        <img src="src/images/ok.png" id="add-editor-ok" style="display:none">
+        <img src="src/images/not_ok.png" id="add-editor-not-ok">
         <span id="add-editor-text"></span>
-      </span>
-      <span id="add-library-choice">
-        <input type="checkbox" name="add-library-to-world" value="add-library-to-world" id="add-library-to-world">
+      </button>
+      <button id="add-library-to-world-btn" class="blue-gradient">
+        <img src="src/images/ok.png" id="add-library-ok" style="display:none">
+        <img src="src/images/not_ok.png" id="add-library-not-ok">
         <span id="add-library-text"></span>
-      </span>
-      <br>
-      <button id="memorize-world" class="blue-gradient"></button>
+      </button>
+      <button id="add-pre-to-world-btn" class="blue-gradient">
+        <img src="src/images/ok.png" id="add-pre-ok" style="display:none">
+        <img src="src/images/not_ok.png" id="add-pre-not-ok">
+        <span id="add-pre-text"></span>
+      </button>
+      <button id="add-post-to-world-btn" class="blue-gradient">
+        <img src="src/images/ok.png" id="add-post-ok" style="display:none">
+        <img src="src/images/not_ok.png" id="add-post-not-ok">
+        <span id="add-post-text"></span>
+      </button>
+      <button id="add-description-to-world-btn" class="blue-gradient">
+        <img src="src/images/ok.png" id="add-description-ok" style="display:none">
+        <img src="src/images/not_ok.png" id="add-description-not-ok">
+        <span id="add-description-text"></span>
+      </button>
+      <button id="add-onload-to-world-btn" class="blue-gradient">
+        <img src="src/images/ok.png" id="add-onload-ok" style="display:none">
+        <img src="src/images/not_ok.png" id="add-onload-not-ok">
+        <span id="add-onload-text"></span>
+      </button>
     </p>
     <div id="edit-world-submenus-wrapper">
       <p id="cmd-result"></p>

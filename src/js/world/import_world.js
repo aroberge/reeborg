@@ -70,37 +70,7 @@ RUR.world.import_world = function (json_string) {
     RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X;
     RUR.vis_world.compute_world_geometry(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
 
-    $("#add-editor-to-world").prop("checked",false);
-    $("#add-library-to-world").prop("checked",false);
-    $("#add-blockly-to-world").prop("checked",false);
-
-    if (RUR.CURRENT_WORLD.editor &&
-        RUR.CURRENT_WORLD.editor !== editor.getValue()) {
-        RUR.world.dialog_update_editors_from_world.dialog("open");
-        $("#update-editor-content").show();
-    } else {
-        $("#update-editor-content").hide();
-    }
-    if (RUR.state.programming_language === "python" &&
-        RUR.CURRENT_WORLD.library &&
-        RUR.CURRENT_WORLD.library !== library.getValue()) {
-        RUR.world.dialog_update_editors_from_world.dialog("open");
-        $("#update-library-content").show();
-    } else {
-        $("#update-library-content").hide();
-    }
-    if (RUR.CURRENT_WORLD.blockly &&
-        RUR.CURRENT_WORLD.blockly !== RUR.blockly.getValue()) {
-        RUR.world.dialog_update_editors_from_world.dialog("open");
-        $("#update-blockly-content").show();
-    } else {
-        $("#update-blockly-content").hide();
-    }
-    // make a clean (predictable) copy
-    RUR.CURRENT_WORLD = RUR.world.editors_remove_default_values(RUR.CURRENT_WORLD);
     RUR._SAVED_WORLD = clone_world();
-    // restore defaults everywhere for easier comparison when editing
-    RUR.CURRENT_WORLD = RUR.world.editors_set_default_values(RUR.CURRENT_WORLD);
     RUR.world.update_editors(RUR.CURRENT_WORLD);
 
     if (RUR.state.editing_world) {

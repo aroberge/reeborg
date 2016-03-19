@@ -301,6 +301,7 @@ button {
     position: relative;
     height: 37px;
     margin: 0;
+    background-color: #124;
 }
 
 a.left-link, a.right-link, button, a.fake_button {
@@ -472,23 +473,6 @@ li.success:after {
 
 li.failure:after {
     content: url(../images/not_ok.png);
-}
-
-p.try {
-    border: 1px solid #75a110;
-    border-radius: 10px;
-}
-
-.panel {
-    position: relative;
-    top: 0;
-    display: none;
-    float: left;
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: 94%;
-    padding: 3px;
-    border-right: 1px dashed #124;
 }
 
 .CodeMirror {
@@ -768,7 +752,6 @@ p.try {
     position: absolute;
     margin-top: 32px;
     vertical-align: top;
-    display: none;
 }
 
 #world-panel,
@@ -792,13 +775,12 @@ p.try {
     position: relative;
 }
 
-#world-panel {
-    background-color: white;
-}
-
 #editor-panel.active {
     z-index: 10;
     display: block;
+}
+#editor-panel {
+    display:none;
 }
 #world-panel.active {
     z-index: 1;
@@ -848,7 +830,7 @@ p.try {
     background-color: #3e7e10;
     color: white;
     font-weight: bold;
-    font-size: 1.5;
+    font-size: 1.5em;
     padding-left: 3em;
     padding-right: 3em;
 }

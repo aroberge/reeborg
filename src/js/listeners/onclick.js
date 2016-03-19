@@ -5,6 +5,7 @@ require("./../translator.js");
 require("./../world.js");
 require("./../state.js");
 require("./../create_editors.js");
+require("./../blockly.js");
 
 var export_world = require("./../world/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;
@@ -103,29 +104,43 @@ $("#load-library-btn").on("click", function (evt) {
     load_file(library);
 });
 
+
+function toggle_content (name, obj) {
+    record_id("add-" + name + "-to-world-btn");
+    record_id("add-" + name + "-ok");
+    record_id("add-" + name + "-not-ok");
+    $("#add-" + name + "-to-world-btn").on("click", function(evt) {
+        if ($(this).hasClass("blue-gradient")) {
+            $("#add-" + name + "-ok").show();
+            $("#add-" + name + "-not-ok").hide();
+            RUR.CURRENT_WORLD[name] = obj.getValue();
+        } else {
+            $("#add-" + name + "-ok").hide();
+            $("#add-" + name + "-not-ok").show();
+            delete RUR.CURRENT_WORLD[name];
+        }
+        $(this).toggleClass("blue-gradient");
+    });
+}
+
+record_id("add-content-to-world", "ADD CONTENT TO WORLD");
 record_id("add-blockly-text", "ADD BLOCKLY TEXT");
-$("#add-blockly-to-world").on("click", function(evt) {
-    if ($(this).prop("checked")) {
-        RUR.CURRENT_WORLD.blockly = RUR.blockly.getValue();
-    } else {
-        RUR.CURRENT_WORLD.blockly = null;
-    }
-});
+toggle_content("blockly", RUR.blockly);
 
 record_id("add-editor-text", "ADD EDITOR TEXT");
-$("#add-editor-to-world").on("click", function(evt) {
-    if ($(this).prop("checked")) {
-        RUR.CURRENT_WORLD.editor = editor.getValue();
-    } else {
-        RUR.CURRENT_WORLD.editor = null;
-    }
-});
+toggle_content("editor", editor);
 
 record_id("add-library-text", "ADD LIBRARY TEXT");
-$("#add-library-to-world").on("click", function(evt) {
-    if ($(this).prop("checked")) {
-        RUR.CURRENT_WORLD.library = library.getValue();
-    } else {
-        RUR.CURRENT_WORLD.library = null;
-    }
-});
+toggle_content("library", library);
+
+record_id("add-pre-text", "ADD PRE TEXT");
+toggle_content("pre", pre_code_editor);
+
+record_id("add-post-text", "ADD POST TEXT");
+toggle_content("post", post_code_editor);
+
+record_id("add-description-text", "ADD DESCRIPTION TEXT");
+toggle_content("description", description_editor);
+
+record_id("add-onload-text", "ADD ONLOAD TEXT");
+toggle_content("onload", onload_editor);

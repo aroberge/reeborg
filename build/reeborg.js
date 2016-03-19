@@ -685,9 +685,9 @@ RUR.blockly.init = function () {
              "else:\n" + statements_else;
     };
 
-    $(".blocklyToolboxDiv").remove();
     $("#blocklyDiv").remove();
     $("#blockly-wrapper").append('<div id="blocklyDiv"></div>');
+    $(".blocklyToolboxDiv").remove();
 
     /* With the current version of the code, Firefox does not display
        the trashcan and controls properly; so we do not show them ... but
@@ -716,6 +716,12 @@ RUR.blockly.init = function () {
             window.dispatchEvent(new Event('resize'));
         }
     });
+
+    if (RUR.state.input_method == "python" ||
+        RUR.state.input_method == "javascript" ||
+        RUR.state.input_method == "py-repl") {
+            $(".blocklyToolboxDiv").css({"pointer-events": "none", "opacity": 0.01});
+        }
 
 };
 RUR.firefox_ok = false;
@@ -4320,15 +4326,16 @@ var record_id = require("./../../lang/msg.js").record_id;
 
 // "tabs" is a jqueryUI method
 $("#tabs").tabs({
-        heightStyle: "auto",
-        activate: function(event, ui){
-            editor.refresh();
-            library.refresh();
-            pre_code_editor.refresh();
-            post_code_editor.refresh();
-            description_editor.refresh();
-            onload_editor.refresh();
-        }
+    heightStyle: "content",
+    activate: function(event, ui){
+        var height_adjust = $(this).height()-60;
+        editor.setSize(null, height_adjust);
+        library.setSize(null, height_adjust);
+        pre_code_editor.setSize(null, height_adjust);
+        post_code_editor.setSize(null, height_adjust);
+        description_editor.setSize(null, height_adjust);
+        onload_editor.setSize(null, height_adjust);
+    }
 });
 
 record_id("editor-tab", "Python Code");
@@ -4340,15 +4347,15 @@ record_id("onload-editor-tab", "ONLOAD");
 
 $("#editor-panel").resizable({
     resize: function() {
-        editor.setSize(null, $(this).height()-40);
-        library.setSize(null, $(this).height()-40);
-        pre_code_editor.setSize(null, $(this).height()-40);
-        post_code_editor.setSize(null, $(this).height()-40);
-        description_editor.setSize(null, $(this).height()-40);
-        onload_editor.setSize(null, $(this).height()-40);
+        var height_adjust = $(this).height()-60;
+        editor.setSize(null, height_adjust);
+        library.setSize(null, height_adjust);
+        pre_code_editor.setSize(null, height_adjust);
+        post_code_editor.setSize(null, height_adjust);
+        description_editor.setSize(null, height_adjust);
+        onload_editor.setSize(null, height_adjust);
     }
 }).draggable({cursor: "move", handle: "ul"});
-
 
 
 $("#editor-tab").on("click", function (evt) {
@@ -4491,7 +4498,6 @@ $("#human-language").change(function() {
     update_commands(lang);
     update_home_url(lang);
     RUR.make_default_menu(lang);
-    // $("#blocklyDiv").html(" ");
     RUR.blockly.init();
 
     if (RUR.state.input_method == "py-repl") {
@@ -4572,6 +4578,7 @@ require("./../translator.js");
 require("./../world.js");
 require("./../state.js");
 require("./../create_editors.js");
+require("./../blockly.js");
 
 var export_world = require("./../world/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4670,34 +4677,48 @@ $("#load-library-btn").on("click", function (evt) {
     load_file(library);
 });
 
+
+function toggle_content (name, obj) {
+    record_id("add-" + name + "-to-world-btn");
+    record_id("add-" + name + "-ok");
+    record_id("add-" + name + "-not-ok");
+    $("#add-" + name + "-to-world-btn").on("click", function(evt) {
+        if ($(this).hasClass("blue-gradient")) {
+            $("#add-" + name + "-ok").show();
+            $("#add-" + name + "-not-ok").hide();
+            RUR.CURRENT_WORLD[name] = obj.getValue();
+        } else {
+            $("#add-" + name + "-ok").hide();
+            $("#add-" + name + "-not-ok").show();
+            delete RUR.CURRENT_WORLD[name];
+        }
+        $(this).toggleClass("blue-gradient");
+    });
+}
+
+record_id("add-content-to-world", "ADD CONTENT TO WORLD");
 record_id("add-blockly-text", "ADD BLOCKLY TEXT");
-$("#add-blockly-to-world").on("click", function(evt) {
-    if ($(this).prop("checked")) {
-        RUR.CURRENT_WORLD.blockly = RUR.blockly.getValue();
-    } else {
-        RUR.CURRENT_WORLD.blockly = null;
-    }
-});
+toggle_content("blockly", RUR.blockly);
 
 record_id("add-editor-text", "ADD EDITOR TEXT");
-$("#add-editor-to-world").on("click", function(evt) {
-    if ($(this).prop("checked")) {
-        RUR.CURRENT_WORLD.editor = editor.getValue();
-    } else {
-        RUR.CURRENT_WORLD.editor = null;
-    }
-});
+toggle_content("editor", editor);
 
 record_id("add-library-text", "ADD LIBRARY TEXT");
-$("#add-library-to-world").on("click", function(evt) {
-    if ($(this).prop("checked")) {
-        RUR.CURRENT_WORLD.library = library.getValue();
-    } else {
-        RUR.CURRENT_WORLD.library = null;
-    }
-});
+toggle_content("library", library);
 
-},{"./../../lang/msg.js":86,"./../create_editors.js":5,"./../state.js":53,"./../translator.js":55,"./../world.js":66,"./../world/export_world.js":69}],28:[function(require,module,exports){
+record_id("add-pre-text", "ADD PRE TEXT");
+toggle_content("pre", pre_code_editor);
+
+record_id("add-post-text", "ADD POST TEXT");
+toggle_content("post", post_code_editor);
+
+record_id("add-description-text", "ADD DESCRIPTION TEXT");
+toggle_content("description", description_editor);
+
+record_id("add-onload-text", "ADD ONLOAD TEXT");
+toggle_content("onload", onload_editor);
+
+},{"./../../lang/msg.js":86,"./../blockly.js":1,"./../create_editors.js":5,"./../state.js":53,"./../translator.js":55,"./../world.js":66,"./../world/export_world.js":69}],28:[function(require,module,exports){
 require("./../state.js");
 ;
 require("./../playback/play.js");
@@ -4870,9 +4891,6 @@ $('#editor-visible-blockly').change(function() {
     }
 });
 
-record_id("add-blockly-choice");
-record_id("add-editor-choice");
-record_id("add-library-choice");
 
 function hide_everything () {
     /* By default, we start with a situation where everything is hidden
@@ -4884,7 +4902,6 @@ function hide_everything () {
         $("#special-keyboard-button").click();
     }
     $("#special-keyboard-button").hide();
-    document.getElementById("add-library-to-world").checked = false;
     $("#python-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
     $("#highlight").hide();
@@ -4898,9 +4915,11 @@ function hide_everything () {
 }
 
 function show_blockly () {
-    $("#add-blockly-choice").show();
+    var style_enable = {"pointer-events": "auto", "opacity": 1};
     $("#save-blockly-btn").removeAttr("disabled");
-    $("#blockly-wrapper").show();
+    $(".blocklyToolboxDiv").css(style_enable);
+    $("#blockly-wrapper").css(style_enable);
+    // $("#blockly-wrapper").show();
     $("#visible-blockly").show();
     $("#editor-visible-blockly").show();
     if ($('#editor-visible-blockly')[0].checked) {
@@ -4911,9 +4930,11 @@ function show_blockly () {
 }
 
 function hide_blockly () {
-    $("#add-blockly-choice").hide();
+    var style_disable = {"pointer-events": "none", "opacity": 0.01};
     $("#save-blockly-btn").attr("disabled", "true");
-    $("#blockly-wrapper").hide();
+    $(".blocklyToolboxDiv").css(style_disable);
+    $("#blockly-wrapper").css(style_disable);
+    // $("#blockly-wrapper").hide();
     window.dispatchEvent(new Event('resize'));
     $("#visible-blockly").hide();
     $("#editor-visible-blockly").hide();
@@ -4926,7 +4947,6 @@ function show_editor(lang) {
     } else {
         show_javascript_editor();
     }
-    $("#add-editor-choice").show();
     $("#save-editor-btn").removeAttr("disabled");
     $("#editor-panel").addClass("active");
     $("#editor-tab").click();
@@ -4956,7 +4976,6 @@ function show_python_editor () {
 
     RUR.state.highlight = RUR.state.highlight || RUR.state._saved_highlight_value;
     $("#library-tab").parent().show();
-    $("#add-library-choice").show();
     $("#highlight").show();
     $("#watch-variables-btn").show();
     $("#python-additional-menu p button").removeAttr("disabled");
@@ -4964,10 +4983,8 @@ function show_python_editor () {
 
 
 function hide_editors() {
-    $("#add-editor-choice").hide();
     $("#save-editor-btn").attr("disabled", "true");
     $("#save-library-btn").attr("disabled", "true");
-    $("#add-library-choice").hide();   // Python specific
     if (RUR.state.programming_language == "python") {
         RUR.state._saved_highlight_value = RUR.state.highlight;
         RUR.state.highlight = false;
@@ -7758,82 +7775,118 @@ RUR.vis_world.draw_info = function() {
 
 },{"./constants.js":3,"./extend/add_object_type.js":14,"./extend/add_tile_type.js":15,"./state.js":53,"./translator.js":55}],66:[function(require,module,exports){
 
-require("./translator.js");
-require("./constants.js");
-require("./robot.js");
-require("./visible_world.js");
 require("./state.js");
-require("./exceptions.js");
 require("./create_editors.js");
-edit_robot_menu = require("./ui/edit_robot_menu.js");
-var clone_world = require("./world/clone_world.js").clone_world;
 var msg = require("./../lang/msg.js");
 
 RUR.world = {};
 
-
-/* When a world is edited, as we are about to leave the editing mode,
-   a comparison of the world before editing and after is performed.
-   If the content of the world before and after has changed, including that
-   of the editors, this is taken as an indication that the world should
-   perhaps be saved.  Some worlds are saved without having some content in
-   the extra editors (perhaps because they were created before new editors
-   were added, or since the new cleanup procedure was introduced). To avoid
-   erroneous indication that the world content has changed, we use the
-   following.
-*/
-RUR.world.editors_default_values = {
-    'pre_code': '',
-    'post_code': '',
-    'description': 'Description',
-    'onload': '/* Javascript */'
-};
-
-RUR.world.editors_set_default_values = function (world) {
-    "use strict";
-    var edit, editors;
-    editors = RUR.world.editors_default_values;
-    for (edit in editors){
-        if (!world[edit]){
-            world[edit] = editors[edit];
-        }
-    }
-    return world;
-};
-
-RUR.world.editors_remove_default_values = function (world) {
-    "use strict";
-    var edit, editors;
-    editors = RUR.world.editors_default_values;
-    for (edit in editors) {
-        if (!world[edit]) {
-            continue;
-        }
-        if (world[edit] == editors[edit] || world[edit].trim().length < 3) {
-            try {
-                delete world[edit];
-            } catch (e) {}
-        }
-    }
-    return world;
-};
-
 RUR.world.update_from_editors = function (world) {
-    /* When editing a world, new content may be inserted in the additional
-       editors.  This function updates the world to include this content,
-       while removing the irrelevant, default */
-    world.pre_code = pre_code_editor.getValue();
-    world.post_code = post_code_editor.getValue();
-    world.description = description_editor.getValue();
-    world.onload = onload_editor.getValue();
-    return RUR.world.editors_remove_default_values(world);
+   if (!$("#add-blockly-to-world-btn").hasClass("blue-gradient")) {
+       world.blockly = RUR.blockly.getValue();
+   }
+   if (!$("#add-editor-to-world-btn").hasClass("blue-gradient")) {
+       world.editor = editor.getValue();
+   }
+   if (!$("#add-library-to-world-btn").hasClass("blue-gradient")) {
+       world.library = library.getValue();
+   }
+   if (!$("#add-pre-to-world-btn").hasClass("blue-gradient")) {
+       world.pre = pre_code_editor.getValue();
+   }
+   if (!$("#add-post-to-world-btn").hasClass("blue-gradient")) {
+       world.post = post_code_editor.getValue();
+   }
+   if (!$("#add-description-to-world-btn").hasClass("blue-gradient")) {
+       world.description = description_editor.getValue();
+   }
+   if (!$("#add-onload-to-world-btn").hasClass("blue-gradient")) {
+       world.onload = onload_editor.getValue();
+   }
+    return world;
 };
+
+function show_update_editor_dialog(world, editor_name, _editor, _id) {
+    if (world[editor_name] !== _editor.getValue()) {
+        dialog_update_editors_from_world.dialog("open");
+        $(_id).show();
+    } else {
+        $(_id).hide();
+    }
+}
+
+function set_button (name, content_present) {
+    if (content_present &&
+        $("#add-" + name + "-to-world-btn").hasClass("blue-gradient")) {
+            $("#add-" + name + "-ok").show();
+            $("#add-" + name + "-not-ok").hide();
+            $("#add-" + name + "-to-world-btn").removeClass("blue-gradient");
+    } else if (!content_present &&
+        ! $("#add-" + name + "-to-world-btn").hasClass("blue-gradient")) {
+        $("#add-" + name + "-ok").hide();
+        $("#add-" + name + "-not-ok").show();
+        $("#add-" + name + "-to-world-btn").addClass("blue-gradient");
+    }
+}
 
 RUR.world.update_editors = function (world) {
-   pre_code_editor.setValue(world.pre_code);
-   post_code_editor.setValue(world.post_code);
-   description_editor.setValue(world.description);
-   onload_editor.setValue(world.onload);
+
+    // For blockly, editor and library, the user is given the choice to
+    // update the content or to keep their own.
+    if (world.blockly) {
+        set_button("blockly", true);
+        show_update_editor_dialog(world, "blockly", RUR.blockly, "#update-blockly-content");
+    } else {
+        set_button("blockly", false);
+    }
+
+    if (world.editor) {
+        set_button("editor", true);
+        show_update_editor_dialog(world, "editor", editor, "#update-editor-content");
+    } else {
+        set_button("editor", false);
+    }
+
+    if (world.library) {
+        set_button("library", true);
+        show_update_editor_dialog(world, "library", library, "#update-library-content");
+    } else {
+        set_button("library", false);
+    }
+
+    // For pre, post, description, onload, the values in set by the world
+    // designer/creator.
+    if (world.pre_code) {
+        set_button("pre", true);
+        pre_code_editor.setValue(world.pre_code);
+    } else {
+        set_button("pre", false);
+        pre_code_editor.setValue('\n');
+    }
+
+    if (world.post_code) {
+        set_button("post", true);
+        post_code_editor.setValue(world.post_code);
+    } else {
+        set_button("post", false);
+        post_code_editor.setValue('\n');
+    }
+
+    if (world.description) {
+        set_button("description", true);
+        description_editor.setValue(world.description);
+    } else {
+        set_button("description", false);
+        description_editor.setValue('\n');
+    }
+
+    if (world.onload) {
+        set_button("onload", true);
+        onload_editor.setValue(world.onload);
+    } else {
+        set_button("onload", false);
+        onload_editor.setValue('\n');
+    }
 };
 
 msg.record_id("update-blockly-content");
@@ -7848,14 +7901,14 @@ msg.record_id("update-library-content-btn", "UPDATE LIBRARY BUTTON");
 msg.record_id("dialog-update-editors-from-world");
 msg.record_title("ui-dialog-title-dialog-update-editors-from-world", "Contents from World");
 
-RUR.world.dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
+dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
     autoOpen: false,
     height: 400,
     width: 500,
     modal: true,
     buttons: {
         Cancel: function() {
-            RUR.world.dialog_update_editors_from_world.dialog("close");
+            dialog_update_editors_from_world.dialog("close");
         }
     }
 });
@@ -7866,7 +7919,7 @@ $("#update-blockly-content-btn").on("click", function(evt) {
     if  (!$("#update-editor-content").is(":visible") &&
          !$("#update-library-content").is(":visible")
         ){
-        RUR.world.dialog_update_editors_from_world.dialog("close");
+        dialog_update_editors_from_world.dialog("close");
     }
 });
 $("#update-editor-content-btn").on("click", function(evt) {
@@ -7875,7 +7928,7 @@ $("#update-editor-content-btn").on("click", function(evt) {
     if  (!$("#update-blockly-content").is(":visible") &&
          !$("#update-library-content").is(":visible")
         ){
-        RUR.world.dialog_update_editors_from_world.dialog("close");
+        dialog_update_editors_from_world.dialog("close");
     }
 });
 $("#update-library-content-btn").on("click", function(evt) {
@@ -7884,11 +7937,11 @@ $("#update-library-content-btn").on("click", function(evt) {
     if  (!$("#update-blockly-content").is(":visible") &&
          !$("#update-editor-content").is(":visible")
         ){
-        RUR.world.dialog_update_editors_from_world.dialog("close");
+        dialog_update_editors_from_world.dialog("close");
     }
 });
 
-},{"./../lang/msg.js":86,"./constants.js":3,"./create_editors.js":5,"./exceptions.js":13,"./robot.js":48,"./state.js":53,"./translator.js":55,"./ui/edit_robot_menu.js":56,"./visible_world.js":65,"./world/clone_world.js":67}],67:[function(require,module,exports){
+},{"./../lang/msg.js":86,"./create_editors.js":5,"./state.js":53}],67:[function(require,module,exports){
 
 exports.clone_world = function (world) {
     if (world === undefined) {
@@ -8000,37 +8053,7 @@ RUR.world.import_world = function (json_string) {
     RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X;
     RUR.vis_world.compute_world_geometry(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
 
-    $("#add-editor-to-world").prop("checked",false);
-    $("#add-library-to-world").prop("checked",false);
-    $("#add-blockly-to-world").prop("checked",false);
-
-    if (RUR.CURRENT_WORLD.editor &&
-        RUR.CURRENT_WORLD.editor !== editor.getValue()) {
-        RUR.world.dialog_update_editors_from_world.dialog("open");
-        $("#update-editor-content").show();
-    } else {
-        $("#update-editor-content").hide();
-    }
-    if (RUR.state.programming_language === "python" &&
-        RUR.CURRENT_WORLD.library &&
-        RUR.CURRENT_WORLD.library !== library.getValue()) {
-        RUR.world.dialog_update_editors_from_world.dialog("open");
-        $("#update-library-content").show();
-    } else {
-        $("#update-library-content").hide();
-    }
-    if (RUR.CURRENT_WORLD.blockly &&
-        RUR.CURRENT_WORLD.blockly !== RUR.blockly.getValue()) {
-        RUR.world.dialog_update_editors_from_world.dialog("open");
-        $("#update-blockly-content").show();
-    } else {
-        $("#update-blockly-content").hide();
-    }
-    // make a clean (predictable) copy
-    RUR.CURRENT_WORLD = RUR.world.editors_remove_default_values(RUR.CURRENT_WORLD);
     RUR._SAVED_WORLD = clone_world();
-    // restore defaults everywhere for easier comparison when editing
-    RUR.CURRENT_WORLD = RUR.world.editors_set_default_values(RUR.CURRENT_WORLD);
     RUR.world.update_editors(RUR.CURRENT_WORLD);
 
     if (RUR.state.editing_world) {
@@ -8301,10 +8324,6 @@ RUR.we.toggle_editing_mode = function () {
             localStorage.setItem("editor", editor.getValue());
             localStorage.setItem("library", library.getValue());
         } catch (e) {}
-        RUR.CURRENT_WORLD = RUR.world.update_from_editors(RUR.CURRENT_WORLD);
-        if (!identical(RUR.CURRENT_WORLD, RUR._SAVED_WORLD)) {
-            $("#memorize-world").trigger('click');
-        }
         $("#editor-tab").trigger('click');
     } else {
 
@@ -10368,9 +10387,16 @@ RUR.ui_en["SAVE LIBRARY"] = "Save the library";
 RUR.ui_en["SAVE LIBRARY EXPLAIN"] = "Saves the content of the library in a file.";
 RUR.ui_en["SAVE WORLD"] = "Save world to file";
 RUR.ui_en["SAVE WORLD EXPLAIN"] = "Saves the world (as a json object) to a file on your computer.";
-RUR.ui_en["ADD BLOCKLY TEXT"] = "Add blocs content to world";
-RUR.ui_en["ADD EDITOR TEXT"] = "Add editor content to world";
-RUR.ui_en["ADD LIBRARY TEXT"] = "Add library content to world";
+
+RUR.ui_en["ADD CONTENT TO WORLD"] = "Add content to world from selected items below.";
+RUR.ui_en["ADD BLOCKLY TEXT"] = "Code blocks";
+RUR.ui_en["ADD EDITOR TEXT"] = "Code in editor";
+RUR.ui_en["ADD LIBRARY TEXT"] = "Library";
+RUR.ui_en["ADD PRE TEXT"] = "Pre";
+RUR.ui_en["ADD POST TEXT"] = "Post";
+RUR.ui_en["ADD DESCRIPTION TEXT"] = "Description";
+RUR.ui_en["ADD ONLOAD TEXT"] = "Onload";
+
 RUR.ui_en["KEYBOARD BUTTON"] = "Reeborg's keyboard";
 RUR.ui_en["ADDITIONAL OPTIONS"] = "Additional options";
 
@@ -10707,9 +10733,16 @@ RUR.ui_fr["SAVE LIBRARY"] = "Sauvegarder la bibliothèque";
 RUR.ui_fr["SAVE LIBRARY EXPLAIN"] = "Sauvegarde le contenu de la bibliothèque dans un fichier.";
 RUR.ui_fr["SAVE WORLD"] = "Sauvegarder le monde";
 RUR.ui_fr["SAVE WORLD EXPLAIN"] = "Sauvegarde le monde dans un fichier (format json) sur votre ordinateur.";
-RUR.ui_fr["ADD BLOCKLY TEXT"] = "Inclure les blocs du programme dans la définition du monde.";
-RUR.ui_fr["ADD EDITOR TEXT"] = "Inclure le contenu de l'éditeur dans la définition du monde.";
-RUR.ui_fr["ADD LIBRARY TEXT"] = "Inclure le contenu de la bibliothèque dans la définition du monde.";
+
+RUR.ui_fr["ADD CONTENT TO WORLD"] = "Ajouter au monde le contenu des items indiqués ci-dessous.";
+RUR.ui_fr["ADD BLOCKLY TEXT"] = "Blocs de code";
+RUR.ui_fr["ADD EDITOR TEXT"] = "Code dans l'éditeur";
+RUR.ui_fr["ADD LIBRARY TEXT"] = "Biblio";
+RUR.ui_fr["ADD PRE TEXT"] = "Pre";
+RUR.ui_fr["ADD POST TEXT"] = "Post";
+RUR.ui_fr["ADD DESCRIPTION TEXT"] = "Description";
+RUR.ui_fr["ADD ONLOAD TEXT"] = "Onload";
+
 RUR.ui_fr["KEYBOARD BUTTON"] = "Clavier de Reeborg";
 RUR.ui_fr["ADDITIONAL OPTIONS"] = "Autres options";
 
@@ -11051,9 +11084,16 @@ RUR.ui_ko["SAVE LIBRARY"] = "라이브러리 저장";
 RUR.ui_ko["SAVE LIBRARY EXPLAIN"] = "파일 라이브러리의 내용 저장";
 RUR.ui_ko["SAVE WORLD"] = "파일로 저장";
 RUR.ui_ko["SAVE WORLD EXPLAIN"] = "(json 확장자) 월드를 컴퓨터에 저장";
-RUR.ui_ko["ADD BLOCKLY TEXT"] = "Add blocs content to world";
-RUR.ui_ko["ADD EDITOR TEXT"] = "월드에 접속하기 위해 에디터 추가";
-RUR.ui_ko["ADD LIBRARY TEXT"] = "월드에 접속하기 위해 라이브러리 추가";
+
+RUR.ui_ko["ADD CONTENT TO WORLD"] = "Add content to world from selected items below.";
+RUR.ui_ko["ADD BLOCKLY TEXT"] = "Code blocks";
+RUR.ui_ko["ADD EDITOR TEXT"] = "Code in editor";
+RUR.ui_ko["ADD LIBRARY TEXT"] = "Library";
+RUR.ui_ko["ADD PRE TEXT"] = "Pre";
+RUR.ui_ko["ADD POST TEXT"] = "Post";
+RUR.ui_ko["ADD DESCRIPTION TEXT"] = "Description";
+RUR.ui_ko["ADD ONLOAD TEXT"] = "Onload";
+
 RUR.ui_ko["KEYBOARD BUTTON"] = "리보그의 키보드";
 RUR.ui_ko["ADDITIONAL OPTIONS"] = "추가 설정";
 

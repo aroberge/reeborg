@@ -242,10 +242,6 @@ RUR.we.toggle_editing_mode = function () {
             localStorage.setItem("editor", editor.getValue());
             localStorage.setItem("library", library.getValue());
         } catch (e) {}
-        RUR.CURRENT_WORLD = RUR.world.update_from_editors(RUR.CURRENT_WORLD);
-        if (!identical(RUR.CURRENT_WORLD, RUR._SAVED_WORLD)) {
-            $("#memorize-world").trigger('click');
-        }
         $("#editor-tab").trigger('click');
     } else {
 

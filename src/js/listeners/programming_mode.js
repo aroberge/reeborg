@@ -147,9 +147,6 @@ $('#editor-visible-blockly').change(function() {
     }
 });
 
-record_id("add-blockly-choice");
-record_id("add-editor-choice");
-record_id("add-library-choice");
 
 function hide_everything () {
     /* By default, we start with a situation where everything is hidden
@@ -161,7 +158,6 @@ function hide_everything () {
         $("#special-keyboard-button").click();
     }
     $("#special-keyboard-button").hide();
-    document.getElementById("add-library-to-world").checked = false;
     $("#python-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
     $("#highlight").hide();
@@ -175,9 +171,11 @@ function hide_everything () {
 }
 
 function show_blockly () {
-    $("#add-blockly-choice").show();
+    var style_enable = {"pointer-events": "auto", "opacity": 1};
     $("#save-blockly-btn").removeAttr("disabled");
-    $("#blockly-wrapper").show();
+    $(".blocklyToolboxDiv").css(style_enable);
+    $("#blockly-wrapper").css(style_enable);
+    // $("#blockly-wrapper").show();
     $("#visible-blockly").show();
     $("#editor-visible-blockly").show();
     if ($('#editor-visible-blockly')[0].checked) {
@@ -188,9 +186,11 @@ function show_blockly () {
 }
 
 function hide_blockly () {
-    $("#add-blockly-choice").hide();
+    var style_disable = {"pointer-events": "none", "opacity": 0.01};
     $("#save-blockly-btn").attr("disabled", "true");
-    $("#blockly-wrapper").hide();
+    $(".blocklyToolboxDiv").css(style_disable);
+    $("#blockly-wrapper").css(style_disable);
+    // $("#blockly-wrapper").hide();
     window.dispatchEvent(new Event('resize'));
     $("#visible-blockly").hide();
     $("#editor-visible-blockly").hide();
@@ -203,7 +203,6 @@ function show_editor(lang) {
     } else {
         show_javascript_editor();
     }
-    $("#add-editor-choice").show();
     $("#save-editor-btn").removeAttr("disabled");
     $("#editor-panel").addClass("active");
     $("#editor-tab").click();
@@ -233,7 +232,6 @@ function show_python_editor () {
 
     RUR.state.highlight = RUR.state.highlight || RUR.state._saved_highlight_value;
     $("#library-tab").parent().show();
-    $("#add-library-choice").show();
     $("#highlight").show();
     $("#watch-variables-btn").show();
     $("#python-additional-menu p button").removeAttr("disabled");
@@ -241,10 +239,8 @@ function show_python_editor () {
 
 
 function hide_editors() {
-    $("#add-editor-choice").hide();
     $("#save-editor-btn").attr("disabled", "true");
     $("#save-library-btn").attr("disabled", "true");
-    $("#add-library-choice").hide();   // Python specific
     if (RUR.state.programming_language == "python") {
         RUR.state._saved_highlight_value = RUR.state.highlight;
         RUR.state.highlight = false;

@@ -1,80 +1,116 @@
 
-require("./translator.js");
-require("./constants.js");
-require("./robot.js");
-require("./visible_world.js");
 require("./state.js");
-require("./exceptions.js");
 require("./create_editors.js");
-edit_robot_menu = require("./ui/edit_robot_menu.js");
-var clone_world = require("./world/clone_world.js").clone_world;
 var msg = require("./../lang/msg.js");
 
 RUR.world = {};
 
-
-/* When a world is edited, as we are about to leave the editing mode,
-   a comparison of the world before editing and after is performed.
-   If the content of the world before and after has changed, including that
-   of the editors, this is taken as an indication that the world should
-   perhaps be saved.  Some worlds are saved without having some content in
-   the extra editors (perhaps because they were created before new editors
-   were added, or since the new cleanup procedure was introduced). To avoid
-   erroneous indication that the world content has changed, we use the
-   following.
-*/
-RUR.world.editors_default_values = {
-    'pre_code': '',
-    'post_code': '',
-    'description': 'Description',
-    'onload': '/* Javascript */'
-};
-
-RUR.world.editors_set_default_values = function (world) {
-    "use strict";
-    var edit, editors;
-    editors = RUR.world.editors_default_values;
-    for (edit in editors){
-        if (!world[edit]){
-            world[edit] = editors[edit];
-        }
-    }
-    return world;
-};
-
-RUR.world.editors_remove_default_values = function (world) {
-    "use strict";
-    var edit, editors;
-    editors = RUR.world.editors_default_values;
-    for (edit in editors) {
-        if (!world[edit]) {
-            continue;
-        }
-        if (world[edit] == editors[edit] || world[edit].trim().length < 3) {
-            try {
-                delete world[edit];
-            } catch (e) {}
-        }
-    }
-    return world;
-};
-
 RUR.world.update_from_editors = function (world) {
-    /* When editing a world, new content may be inserted in the additional
-       editors.  This function updates the world to include this content,
-       while removing the irrelevant, default */
-    world.pre_code = pre_code_editor.getValue();
-    world.post_code = post_code_editor.getValue();
-    world.description = description_editor.getValue();
-    world.onload = onload_editor.getValue();
-    return RUR.world.editors_remove_default_values(world);
+   if (!$("#add-blockly-to-world-btn").hasClass("blue-gradient")) {
+       world.blockly = RUR.blockly.getValue();
+   }
+   if (!$("#add-editor-to-world-btn").hasClass("blue-gradient")) {
+       world.editor = editor.getValue();
+   }
+   if (!$("#add-library-to-world-btn").hasClass("blue-gradient")) {
+       world.library = library.getValue();
+   }
+   if (!$("#add-pre-to-world-btn").hasClass("blue-gradient")) {
+       world.pre = pre_code_editor.getValue();
+   }
+   if (!$("#add-post-to-world-btn").hasClass("blue-gradient")) {
+       world.post = post_code_editor.getValue();
+   }
+   if (!$("#add-description-to-world-btn").hasClass("blue-gradient")) {
+       world.description = description_editor.getValue();
+   }
+   if (!$("#add-onload-to-world-btn").hasClass("blue-gradient")) {
+       world.onload = onload_editor.getValue();
+   }
+    return world;
 };
+
+function show_update_editor_dialog(world, editor_name, _editor, _id) {
+    if (world[editor_name] !== _editor.getValue()) {
+        dialog_update_editors_from_world.dialog("open");
+        $(_id).show();
+    } else {
+        $(_id).hide();
+    }
+}
+
+function set_button (name, content_present) {
+    if (content_present &&
+        $("#add-" + name + "-to-world-btn").hasClass("blue-gradient")) {
+            $("#add-" + name + "-ok").show();
+            $("#add-" + name + "-not-ok").hide();
+            $("#add-" + name + "-to-world-btn").removeClass("blue-gradient");
+    } else if (!content_present &&
+        ! $("#add-" + name + "-to-world-btn").hasClass("blue-gradient")) {
+        $("#add-" + name + "-ok").hide();
+        $("#add-" + name + "-not-ok").show();
+        $("#add-" + name + "-to-world-btn").addClass("blue-gradient");
+    }
+}
 
 RUR.world.update_editors = function (world) {
-   pre_code_editor.setValue(world.pre_code);
-   post_code_editor.setValue(world.post_code);
-   description_editor.setValue(world.description);
-   onload_editor.setValue(world.onload);
+
+    // For blockly, editor and library, the user is given the choice to
+    // update the content or to keep their own.
+    if (world.blockly) {
+        set_button("blockly", true);
+        show_update_editor_dialog(world, "blockly", RUR.blockly, "#update-blockly-content");
+    } else {
+        set_button("blockly", false);
+    }
+
+    if (world.editor) {
+        set_button("editor", true);
+        show_update_editor_dialog(world, "editor", editor, "#update-editor-content");
+    } else {
+        set_button("editor", false);
+    }
+
+    if (world.library) {
+        set_button("library", true);
+        show_update_editor_dialog(world, "library", library, "#update-library-content");
+    } else {
+        set_button("library", false);
+    }
+
+    // For pre, post, description, onload, the values in set by the world
+    // designer/creator.
+    if (world.pre_code) {
+        set_button("pre", true);
+        pre_code_editor.setValue(world.pre_code);
+    } else {
+        set_button("pre", false);
+        pre_code_editor.setValue('\n');
+    }
+
+    if (world.post_code) {
+        set_button("post", true);
+        post_code_editor.setValue(world.post_code);
+    } else {
+        set_button("post", false);
+        post_code_editor.setValue('\n');
+    }
+
+    if (world.description) {
+        set_button("description", true);
+        description_editor.setValue(world.description);
+    } else {
+        set_button("description", false);
+        description_editor.setValue('\n');
+    }
+
+    if (world.onload) {
+        set_button("onload", true);
+        onload_editor.setValue(world.onload);
+    } else {
+        set_button("onload", false);
+        onload_editor.setValue('\n');
+    }
 };
 
 msg.record_id("update-blockly-content");
@@ -89,14 +125,14 @@ msg.record_id("update-library-content-btn", "UPDATE LIBRARY BUTTON");
 msg.record_id("dialog-update-editors-from-world");
 msg.record_title("ui-dialog-title-dialog-update-editors-from-world", "Contents from World");
 
-RUR.world.dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
+dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog({
     autoOpen: false,
     height: 400,
     width: 500,
     modal: true,
     buttons: {
         Cancel: function() {
-            RUR.world.dialog_update_editors_from_world.dialog("close");
+            dialog_update_editors_from_world.dialog("close");
         }
     }
 });
@@ -107,7 +143,7 @@ $("#update-blockly-content-btn").on("click", function(evt) {
     if  (!$("#update-editor-content").is(":visible") &&
          !$("#update-library-content").is(":visible")
         ){
-        RUR.world.dialog_update_editors_from_world.dialog("close");
+        dialog_update_editors_from_world.dialog("close");
     }
 });
 $("#update-editor-content-btn").on("click", function(evt) {
@@ -116,7 +152,7 @@ $("#update-editor-content-btn").on("click", function(evt) {
     if  (!$("#update-blockly-content").is(":visible") &&
          !$("#update-library-content").is(":visible")
         ){
-        RUR.world.dialog_update_editors_from_world.dialog("close");
+        dialog_update_editors_from_world.dialog("close");
     }
 });
 $("#update-library-content-btn").on("click", function(evt) {
@@ -125,6 +161,6 @@ $("#update-library-content-btn").on("click", function(evt) {
     if  (!$("#update-blockly-content").is(":visible") &&
          !$("#update-editor-content").is(":visible")
         ){
-        RUR.world.dialog_update_editors_from_world.dialog("close");
+        dialog_update_editors_from_world.dialog("close");
     }
 });

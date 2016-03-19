@@ -684,9 +684,9 @@ RUR.blockly.init = function () {
              "else:\n" + statements_else;
     };
 
-    $(".blocklyToolboxDiv").remove();
     $("#blocklyDiv").remove();
     $("#blockly-wrapper").append('<div id="blocklyDiv"></div>');
+    $(".blocklyToolboxDiv").remove();
 
     /* With the current version of the code, Firefox does not display
        the trashcan and controls properly; so we do not show them ... but
@@ -715,6 +715,12 @@ RUR.blockly.init = function () {
             window.dispatchEvent(new Event('resize'));
         }
     });
+
+    if (RUR.state.input_method == "python" ||
+        RUR.state.input_method == "javascript" ||
+        RUR.state.input_method == "py-repl") {
+            $(".blocklyToolboxDiv").css({"pointer-events": "none", "opacity": 0.01});
+        }
 
 };
 RUR.firefox_ok = false;
