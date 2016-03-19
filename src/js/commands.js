@@ -36,7 +36,7 @@ function user_no_highlight () {
     if (RUR.state.highlight) {
         RUR.state.highlight = false;
         $("#highlight").addClass("blue-gradient");
-        $("#highlight").removeClass("reverse-blue-gradient");
+        $("#highlight").removeClass("active-element");
     }
 }
 

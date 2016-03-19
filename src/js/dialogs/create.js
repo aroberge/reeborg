@@ -13,7 +13,7 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
     height: 600,
     position: {my: "center", at: "center", of: window},
     beforeClose: function( event, ui ) {
-            button.addClass("blue-gradient").removeClass("reverse-blue-gradient");
+            button.addClass("blue-gradient").removeClass("active-element");
             if (special_fn !== undefined){
                 special_fn();
             }
@@ -26,8 +26,8 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
     button.on("click", function(evt) {
         element.dialog(options);
         button.toggleClass("blue-gradient");
-        button.toggleClass("reverse-blue-gradient");
-        if (button.hasClass("reverse-blue-gradient")) {
+        button.toggleClass("active-element");
+        if (button.hasClass("active-element")) {
             element.dialog("open");
         } else {
             element.dialog("close");

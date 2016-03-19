@@ -148,64 +148,64 @@ RUR.kbd.select = function (choice) {
     $(".kbd-javascript").hide();
     $(".kbd-special").hide();
     $(".no-console").hide();
-    if ($("#kbd-command-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-command-btn").removeClass("reverse-blue-gradient");
+    if ($("#kbd-command-btn").hasClass("active-element")) {
+        $("#kbd-command-btn").removeClass("active-element");
         $("#kbd-command-btn").addClass("blue-gradient");
-    } else if ($("#kbd-condition-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-condition-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-condition-btn").hasClass("active-element")) {
+        $("#kbd-condition-btn").removeClass("active-element");
         $("#kbd-condition-btn").addClass("blue-gradient");
-    } else if ($("#kbd-python-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-python-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-python-btn").hasClass("active-element")) {
+        $("#kbd-python-btn").removeClass("active-element");
         $("#kbd-python-btn").addClass("blue-gradient");
-    } else if ($("#kbd-py-console-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-py-console-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-py-console-btn").hasClass("active-element")) {
+        $("#kbd-py-console-btn").removeClass("active-element");
         $("#kbd-py-console-btn").addClass("blue-gradient");
-    } else if ($("#kbd-javascript-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-javascript-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-javascript-btn").hasClass("active-element")) {
+        $("#kbd-javascript-btn").removeClass("active-element");
         $("#kbd-javascript-btn").addClass("blue-gradient");
-    } else if ($("#kbd-objects-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-objects-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-objects-btn").hasClass("active-element")) {
+        $("#kbd-objects-btn").removeClass("active-element");
         $("#kbd-objects-btn").addClass("blue-gradient");
-    } else if ($("#kbd-special-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-special-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-special-btn").hasClass("active-element")) {
+        $("#kbd-special-btn").removeClass("active-element");
         $("#kbd-special-btn").addClass("blue-gradient");
     }
     switch (choice) {
         case "kbd-condition":
             $(".kbd-condition").show();
             $("#kbd-condition-btn").removeClass("blue-gradient");
-            $("#kbd-condition-btn").addClass("reverse-blue-gradient");
+            $("#kbd-condition-btn").addClass("active-element");
             break;
         case "kbd-objects":
             $(".kbd-objects").show();
             $("#kbd-objects-btn").removeClass("blue-gradient");
-            $("#kbd-objects-btn").addClass("reverse-blue-gradient");
+            $("#kbd-objects-btn").addClass("active-element");
             break;
         case "kbd-python":
             $(".kbd-python").show();
             $("#kbd-python-btn").removeClass("blue-gradient");
-            $("#kbd-python-btn").addClass("reverse-blue-gradient");
+            $("#kbd-python-btn").addClass("active-element");
             break;
         case "kbd-py-console":
             $(".kbd-py-console").show();
             $("#kbd-py-console-btn").removeClass("blue-gradient");
-            $("#kbd-py-console-btn").addClass("reverse-blue-gradient");
+            $("#kbd-py-console-btn").addClass("active-element");
             break;
         case "kbd-javascript":
             $(".kbd-javascript").show();
             $("#kbd-javascript-btn").removeClass("blue-gradient");
-            $("#kbd-javascript-btn").addClass("reverse-blue-gradient");
+            $("#kbd-javascript-btn").addClass("active-element");
             break;
         case "kbd-special":
             $(".kbd-special").show();
             $("#kbd-special-btn").removeClass("blue-gradient");
-            $("#kbd-special-btn").addClass("reverse-blue-gradient");
+            $("#kbd-special-btn").addClass("active-element");
             break;
         case "kbd-command":  // jshint ignore:line
         default:
             $(".kbd-command").show();
             $("#kbd-command-btn").removeClass("blue-gradient");
-            $("#kbd-command-btn").addClass("reverse-blue-gradient");
+            $("#kbd-command-btn").addClass("active-element");
     }
 
     if (RUR.state.programming_language == "python") {

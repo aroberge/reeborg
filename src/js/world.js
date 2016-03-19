@@ -45,11 +45,13 @@ function set_button (name, content_present) {
             $("#add-" + name + "-ok").show();
             $("#add-" + name + "-not-ok").hide();
             $("#add-" + name + "-to-world-btn").removeClass("blue-gradient");
+            $("#add-" + name + "-to-world-btn").addClass("active-element");
     } else if (!content_present &&
         ! $("#add-" + name + "-to-world-btn").hasClass("blue-gradient")) {
         $("#add-" + name + "-ok").hide();
         $("#add-" + name + "-not-ok").show();
         $("#add-" + name + "-to-world-btn").addClass("blue-gradient");
+        $("#add-" + name + "-to-world-btn").removeClass("active-element");
     }
 }
 

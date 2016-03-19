@@ -144,7 +144,7 @@ RUR.permalink.update = function (arg, shortname) {
     }
 
     $("#url-input").hide();
-    $("#permalink").removeClass('reverse-blue-gradient');
+    $("#permalink").removeClass('active-element');
     $("#permalink").addClass('blue-gradient');
 };
 
@@ -157,7 +157,7 @@ $("#replace-permalink").on("click", function (evt) {
 record_id("cancel-permalink", "CANCEL");
 $("#cancel-permalink").on("click", function (evt) {
     $('#url-input').hide();
-    $("#permalink").removeClass('reverse-blue-gradient');
+    $("#permalink").removeClass('active-element');
     $("#permalink").addClass('blue-gradient');
 });
 

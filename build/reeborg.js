@@ -788,7 +788,7 @@ function user_no_highlight () {
     if (RUR.state.highlight) {
         RUR.state.highlight = false;
         $("#highlight").addClass("blue-gradient");
-        $("#highlight").removeClass("reverse-blue-gradient");
+        $("#highlight").removeClass("active-element");
     }
 }
 
@@ -2017,7 +2017,7 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
     height: 600,
     position: {my: "center", at: "center", of: window},
     beforeClose: function( event, ui ) {
-            button.addClass("blue-gradient").removeClass("reverse-blue-gradient");
+            button.addClass("blue-gradient").removeClass("active-element");
             if (special_fn !== undefined){
                 special_fn();
             }
@@ -2030,8 +2030,8 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
     button.on("click", function(evt) {
         element.dialog(options);
         button.toggleClass("blue-gradient");
-        button.toggleClass("reverse-blue-gradient");
-        if (button.hasClass("reverse-blue-gradient")) {
+        button.toggleClass("active-element");
+        if (button.hasClass("active-element")) {
             element.dialog("open");
         } else {
             element.dialog("close");
@@ -2893,64 +2893,64 @@ RUR.kbd.select = function (choice) {
     $(".kbd-javascript").hide();
     $(".kbd-special").hide();
     $(".no-console").hide();
-    if ($("#kbd-command-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-command-btn").removeClass("reverse-blue-gradient");
+    if ($("#kbd-command-btn").hasClass("active-element")) {
+        $("#kbd-command-btn").removeClass("active-element");
         $("#kbd-command-btn").addClass("blue-gradient");
-    } else if ($("#kbd-condition-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-condition-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-condition-btn").hasClass("active-element")) {
+        $("#kbd-condition-btn").removeClass("active-element");
         $("#kbd-condition-btn").addClass("blue-gradient");
-    } else if ($("#kbd-python-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-python-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-python-btn").hasClass("active-element")) {
+        $("#kbd-python-btn").removeClass("active-element");
         $("#kbd-python-btn").addClass("blue-gradient");
-    } else if ($("#kbd-py-console-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-py-console-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-py-console-btn").hasClass("active-element")) {
+        $("#kbd-py-console-btn").removeClass("active-element");
         $("#kbd-py-console-btn").addClass("blue-gradient");
-    } else if ($("#kbd-javascript-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-javascript-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-javascript-btn").hasClass("active-element")) {
+        $("#kbd-javascript-btn").removeClass("active-element");
         $("#kbd-javascript-btn").addClass("blue-gradient");
-    } else if ($("#kbd-objects-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-objects-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-objects-btn").hasClass("active-element")) {
+        $("#kbd-objects-btn").removeClass("active-element");
         $("#kbd-objects-btn").addClass("blue-gradient");
-    } else if ($("#kbd-special-btn").hasClass("reverse-blue-gradient")) {
-        $("#kbd-special-btn").removeClass("reverse-blue-gradient");
+    } else if ($("#kbd-special-btn").hasClass("active-element")) {
+        $("#kbd-special-btn").removeClass("active-element");
         $("#kbd-special-btn").addClass("blue-gradient");
     }
     switch (choice) {
         case "kbd-condition":
             $(".kbd-condition").show();
             $("#kbd-condition-btn").removeClass("blue-gradient");
-            $("#kbd-condition-btn").addClass("reverse-blue-gradient");
+            $("#kbd-condition-btn").addClass("active-element");
             break;
         case "kbd-objects":
             $(".kbd-objects").show();
             $("#kbd-objects-btn").removeClass("blue-gradient");
-            $("#kbd-objects-btn").addClass("reverse-blue-gradient");
+            $("#kbd-objects-btn").addClass("active-element");
             break;
         case "kbd-python":
             $(".kbd-python").show();
             $("#kbd-python-btn").removeClass("blue-gradient");
-            $("#kbd-python-btn").addClass("reverse-blue-gradient");
+            $("#kbd-python-btn").addClass("active-element");
             break;
         case "kbd-py-console":
             $(".kbd-py-console").show();
             $("#kbd-py-console-btn").removeClass("blue-gradient");
-            $("#kbd-py-console-btn").addClass("reverse-blue-gradient");
+            $("#kbd-py-console-btn").addClass("active-element");
             break;
         case "kbd-javascript":
             $(".kbd-javascript").show();
             $("#kbd-javascript-btn").removeClass("blue-gradient");
-            $("#kbd-javascript-btn").addClass("reverse-blue-gradient");
+            $("#kbd-javascript-btn").addClass("active-element");
             break;
         case "kbd-special":
             $(".kbd-special").show();
             $("#kbd-special-btn").removeClass("blue-gradient");
-            $("#kbd-special-btn").addClass("reverse-blue-gradient");
+            $("#kbd-special-btn").addClass("active-element");
             break;
         case "kbd-command":  // jshint ignore:line
         default:
             $(".kbd-command").show();
             $("#kbd-command-btn").removeClass("blue-gradient");
-            $("#kbd-command-btn").addClass("reverse-blue-gradient");
+            $("#kbd-command-btn").addClass("active-element");
     }
 
     if (RUR.state.programming_language == "python") {
@@ -4693,6 +4693,7 @@ function toggle_content (name, obj) {
             delete RUR.CURRENT_WORLD[name];
         }
         $(this).toggleClass("blue-gradient");
+        $(this).toggleClass("active-element");
     });
 }
 
@@ -4898,7 +4899,7 @@ function hide_everything () {
     hide_blockly();
     hide_editors();
     hide_console();
-    if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
+    if ($("#special-keyboard-button").hasClass("active-element")) {
         $("#special-keyboard-button").click();
     }
     $("#special-keyboard-button").hide();
@@ -5232,10 +5233,10 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
     if (RUR.state.highlight) {
         RUR.state.highlight = false;
         $("#highlight").addClass("blue-gradient");
-        $("#highlight").removeClass("reverse-blue-gradient");
+        $("#highlight").removeClass("active-element");
     } else {
         RUR.state.highlight = true;
-        $("#highlight").addClass("reverse-blue-gradient");
+        $("#highlight").addClass("active-element");
         $("#highlight").removeClass("blue-gradient");
     }
 };
@@ -5253,12 +5254,12 @@ toggle_watch_variables = function () {
     if (RUR.state.watch_vars) {
         RUR.state.watch_vars = false;
         $("#watch-variables-btn").addClass("blue-gradient");
-        $("#watch-variables-btn").removeClass("reverse-blue-gradient");
+        $("#watch-variables-btn").removeClass("active-element");
         $("#watch-variables").html("");
         $("#Reeborg-watches").dialog("close");
     } else {
         RUR.state.watch_vars = true;
-        $("#watch-variables-btn").addClass("reverse-blue-gradient");
+        $("#watch-variables-btn").addClass("active-element");
         $("#watch-variables-btn").removeClass("blue-gradient");
         $("#watch-variables").html("");
         $("#Reeborg-watches").dialog("open");
@@ -5559,7 +5560,7 @@ RUR.permalink.update = function (arg, shortname) {
     }
 
     $("#url-input").hide();
-    $("#permalink").removeClass('reverse-blue-gradient');
+    $("#permalink").removeClass('active-element');
     $("#permalink").addClass('blue-gradient');
 };
 
@@ -5572,7 +5573,7 @@ $("#replace-permalink").on("click", function (evt) {
 record_id("cancel-permalink", "CANCEL");
 $("#cancel-permalink").on("click", function (evt) {
     $('#url-input').hide();
-    $("#permalink").removeClass('reverse-blue-gradient');
+    $("#permalink").removeClass('active-element');
     $("#permalink").addClass('blue-gradient');
 });
 
@@ -7821,11 +7822,13 @@ function set_button (name, content_present) {
             $("#add-" + name + "-ok").show();
             $("#add-" + name + "-not-ok").hide();
             $("#add-" + name + "-to-world-btn").removeClass("blue-gradient");
+            $("#add-" + name + "-to-world-btn").addClass("active-element");
     } else if (!content_present &&
         ! $("#add-" + name + "-to-world-btn").hasClass("blue-gradient")) {
         $("#add-" + name + "-ok").hide();
         $("#add-" + name + "-not-ok").show();
         $("#add-" + name + "-to-world-btn").addClass("blue-gradient");
+        $("#add-" + name + "-to-world-btn").removeClass("active-element");
     }
 }
 

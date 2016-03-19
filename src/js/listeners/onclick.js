@@ -120,6 +120,7 @@ function toggle_content (name, obj) {
             delete RUR.CURRENT_WORLD[name];
         }
         $(this).toggleClass("blue-gradient");
+        $(this).toggleClass("active-element");
     });
 }
 

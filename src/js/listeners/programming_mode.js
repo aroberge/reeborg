@@ -154,7 +154,7 @@ function hide_everything () {
     hide_blockly();
     hide_editors();
     hide_console();
-    if ($("#special-keyboard-button").hasClass("reverse-blue-gradient")) {
+    if ($("#special-keyboard-button").hasClass("active-element")) {
         $("#special-keyboard-button").click();
     }
     $("#special-keyboard-button").hide();

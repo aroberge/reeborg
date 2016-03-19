@@ -365,13 +365,8 @@ legend {
     float: right;
 }
 
-.reverse-blue-gradient {
+.active-element {
     background-color: #124;
-    background-image: -webkit-linear-gradient(top, #123264 20%, #1e3c78 40%, #749ef2 80%);
-    background-image: -moz-linear-gradient(top, #123264 20%, #1e3c78 40%, #749ef2 80%);
-    background-image: -ms-linear-gradient(top, #123264 20%, #1e3c78 40%, #749ef2 80%);
-    background-image: -o-linear-gradient(top, #123264 20%, #1e3c78 40%, #749ef2 80%);
-    background-image: -linear-gradient(top, #123264 20%, #1e3c78 40%, #749ef2 80%);
 }
 
 .ui-tabs .ui-tabs-nav li,
