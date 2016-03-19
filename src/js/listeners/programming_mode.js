@@ -91,6 +91,7 @@ $("#programming-mode").change(function() {
     switch(choice) {
         case "python":
             RUR.state.programming_language = "python";
+            $("#editor-tab").html(RUR.translate("Python Code"));
             show_editor("python");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
@@ -101,6 +102,7 @@ $("#programming-mode").change(function() {
             break;
         case "javascript":
             RUR.state.programming_language = "javascript";
+            $("#editor-tab").html(RUR.translate("Javascript Code"));
             show_editor("javascript");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
@@ -111,12 +113,14 @@ $("#programming-mode").change(function() {
             break;
         case "blockly-py":
             RUR.state.programming_language = "python";
+            $("#editor-tab").html(RUR.translate("Python Code"));
             show_blockly();
             editor.setOption("readOnly", true);
             editor.setOption("theme", "reeborg-readonly");
             break;
         case "blockly-js":
             RUR.state.programming_language = "javascript";
+            $("#editor-tab").html(RUR.translate("Javascript Code"));
             show_blockly();
             editor.setOption("readOnly", true);
             editor.setOption("theme", "reeborg-readonly");
@@ -127,6 +131,7 @@ $("#programming-mode").change(function() {
             break;
         default:
             RUR.state.programming_language = "python";
+            $("#editor-tab").html(RUR.translate("Python Code"));
             show_editor("python");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
@@ -218,14 +223,12 @@ function show_editor(lang) {
 }
 
 function show_javascript_editor () {
-    $("#editor-tab").html(RUR.translate("Javascript Code"));
     editor.setOption("mode", "javascript");
     pre_code_editor.setOption("mode", "javascript");
     post_code_editor.setOption("mode", "javascript");
 }
 
 function show_python_editor () {
-    $("#editor-tab").html(RUR.translate("Python Code"));
     editor.setOption("mode", {name: "python", version: 3});
     pre_code_editor.setOption("mode", {name: "python", version: 3});
     post_code_editor.setOption("mode", {name: "python", version: 3});

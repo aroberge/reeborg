@@ -111,6 +111,12 @@ $("#human-language").change(function() {
     RUR.make_default_menu(lang);
     RUR.blockly.init();
 
+    if (RUR.state.programming_language == "python") {
+        $("#editor-tab").html(RUR.translate("Python Code"));
+    } else {
+        $("#editor-tab").html(RUR.translate("Javascript Code"));
+    }
+
     if (RUR.state.input_method == "py-repl") {
         try {
             restart_repl();
