@@ -71,7 +71,6 @@ function _update_world_editor (world, code_name, name, ed) {
 }
 
 RUR.world.update_editors = function (world) {
-    console.log("inside update_editors, CURRENT_WORLD = ", RUR.CURRENT_WORLD);
     _update_user_editor(world, "blockly", RUR.blockly);
     _update_user_editor(world, "editor", editor);
     _update_user_editor(world, "library", library);

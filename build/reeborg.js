@@ -7793,7 +7793,6 @@ var msg = require("./../lang/msg.js");
 RUR.world = {};
 
 function _update_from_editor(world, name, _editor) {
-
     if ($("#add-"+name+"-to-world-btn").hasClass("blue-gradient")) {
         delete world[name];
     } else {
@@ -7814,8 +7813,6 @@ RUR.world.update_from_editors = function (world) {
 
 function show_update_editor_dialog(world, editor_name, _editor, _id) {
     if (world[editor_name] != _editor.getValue()) {
-        console.log("content in world", world[editor_name]);
-        console.log("content in editor", _editor.getValue());
         dialog_update_editors_from_world.dialog("open");
         $(_id).show();
     }
@@ -7840,7 +7837,6 @@ function set_button (name, content_present) {
 function _update_user_editor (world, name, ed) {
     // For blockly, editor and library, the user is given the choice to
     // update the content or to keep their own.
-    console.log("inside _update_user_editor", name, world);
     if (world[name]) {
         set_button("name", true);
         show_update_editor_dialog(world, name, ed, "#update-"+name+"-content");
@@ -7862,7 +7858,6 @@ function _update_world_editor (world, code_name, name, ed) {
 }
 
 RUR.world.update_editors = function (world) {
-    console.log("inside update_editors, CURRENT_WORLD = ", RUR.CURRENT_WORLD);
     _update_user_editor(world, "blockly", RUR.blockly);
     _update_user_editor(world, "editor", editor);
     _update_user_editor(world, "library", library);
