@@ -14,7 +14,7 @@ require("./permalink.js");
 require("./create_editors.js");
 
 //
-brython({debug:1, pythonpath:['/src/python']});
+brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.5") {
     alert("Expecting Brython version 3.2.5 and got " + __BRYTHON__.__MAGIC__);
 }

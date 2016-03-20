@@ -6,7 +6,11 @@ RUR.BACKGROUND_IMAGE.src = '';
 
 RUR._NB_IMAGES_TO_LOAD = 0;
 RUR._NB_IMAGES_LOADED = 0;
-RUR._BASE_URL = '';
+try {
+    RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
+} catch(e) {  // for testing, window.location... is not defined.
+    RUR._BASE_URL = '';
+}
 RUR.INCREMENT_LOADED_FN = function () {
     RUR._NB_IMAGES_LOADED += 1;
 };
