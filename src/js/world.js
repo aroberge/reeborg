@@ -5,37 +5,29 @@ var msg = require("./../lang/msg.js");
 
 RUR.world = {};
 
+function _update_from_editor(world, name, _editor) {
+    if ($("#add-"+name+"-to-world-btn").hasClass("blue-gradient")) {
+        delete world[name];
+    } else {
+        world[name] = _editor.getValue();
+    }
+}
+
 RUR.world.update_from_editors = function (world) {
-   if (!$("#add-blockly-to-world-btn").hasClass("blue-gradient")) {
-       world.blockly = RUR.blockly.getValue();
-   }
-   if (!$("#add-editor-to-world-btn").hasClass("blue-gradient")) {
-       world.editor = editor.getValue();
-   }
-   if (!$("#add-library-to-world-btn").hasClass("blue-gradient")) {
-       world.library = library.getValue();
-   }
-   if (!$("#add-pre-to-world-btn").hasClass("blue-gradient")) {
-       world.pre = pre_code_editor.getValue();
-   }
-   if (!$("#add-post-to-world-btn").hasClass("blue-gradient")) {
-       world.post = post_code_editor.getValue();
-   }
-   if (!$("#add-description-to-world-btn").hasClass("blue-gradient")) {
-       world.description = description_editor.getValue();
-   }
-   if (!$("#add-onload-to-world-btn").hasClass("blue-gradient")) {
-       world.onload = onload_editor.getValue();
-   }
+    _update_from_editor(world, "blockly", RUR.blockly);
+    _update_from_editor(world, "editor", editor);
+    _update_from_editor(world, "library", library);
+    _update_from_editor(world, "pre", pre_code_editor);
+    _update_from_editor(world, "post", post_code_editor);
+    _update_from_editor(world, "description", description_editor);
+    _update_from_editor(world, "onload", onload_editor);
     return world;
 };
 
 function show_update_editor_dialog(world, editor_name, _editor, _id) {
-    if (world[editor_name] !== _editor.getValue()) {
+    if (world[editor_name] != _editor.getValue()) {
         dialog_update_editors_from_world.dialog("open");
         $(_id).show();
-    } else {
-        $(_id).hide();
     }
 }
 
@@ -55,64 +47,39 @@ function set_button (name, content_present) {
     }
 }
 
-RUR.world.update_editors = function (world) {
-
+function _update_user_editor (world, name, ed) {
     // For blockly, editor and library, the user is given the choice to
     // update the content or to keep their own.
-    if (world.blockly) {
-        set_button("blockly", true);
-        show_update_editor_dialog(world, "blockly", RUR.blockly, "#update-blockly-content");
+    if (world[name]) {
+        set_button("name", true);
+        show_update_editor_dialog(world, name, ed, "#update-"+name+"-content");
     } else {
-        set_button("blockly", false);
+        set_button("name", false);
+        $("#update-"+name+"-content").hide();
     }
+}
 
-    if (world.editor) {
-        set_button("editor", true);
-        show_update_editor_dialog(world, "editor", editor, "#update-editor-content");
+function _update_world_editor (world, code_name, name, ed) {
+    // For editors defining the world: pre, post, description, onload.
+    if (world[code_name]) {
+        set_button(name, true);
+        ed.setValue(world[code_name]);
     } else {
-        set_button("editor", false);
+        set_button(name, false);
+        ed.setValue('\n');
     }
+}
 
-    if (world.library) {
-        set_button("library", true);
-        show_update_editor_dialog(world, "library", library, "#update-library-content");
-    } else {
-        set_button("library", false);
-    }
+RUR.world.update_editors = function (world) {
+    console.log("inside update_editors, CURRENT_WORLD = ", RUR.CURRENT_WORLD);
+    _update_user_editor(world, "blockly", RUR.blockly);
+    _update_user_editor(world, "editor", editor);
+    _update_user_editor(world, "library", library);
 
-    // For pre, post, description, onload, the values in set by the world
-    // designer/creator.
-    if (world.pre_code) {
-        set_button("pre", true);
-        pre_code_editor.setValue(world.pre_code);
-    } else {
-        set_button("pre", false);
-        pre_code_editor.setValue('\n');
-    }
-
-    if (world.post_code) {
-        set_button("post", true);
-        post_code_editor.setValue(world.post_code);
-    } else {
-        set_button("post", false);
-        post_code_editor.setValue('\n');
-    }
-
-    if (world.description) {
-        set_button("description", true);
-        description_editor.setValue(world.description);
-    } else {
-        set_button("description", false);
-        description_editor.setValue('\n');
-    }
-
-    if (world.onload) {
-        set_button("onload", true);
-        onload_editor.setValue(world.onload);
-    } else {
-        set_button("onload", false);
-        onload_editor.setValue('\n');
-    }
+    _update_world_editor (world, "pre_code", "pre", pre_code_editor);
+    _update_world_editor (world, "post_code", "post", post_code_editor);
+    _update_world_editor (world, "description", "description", description_editor);
+    _update_world_editor (world, "onload", "onload", onload_editor);
 };
 
 msg.record_id("update-blockly-content");

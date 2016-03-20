@@ -679,7 +679,6 @@ li.failure:after {
 
 #editor-panel {
     box-shadow: 5px 5px 7px 0 rgba(50, 50, 50, .6);
-    scroll-x: auto;
 }
 
 #cmd-result {

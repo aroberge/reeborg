@@ -20,6 +20,5 @@
   "description": "Un simple monde vide, que Reeborg peut explorer à sa guise.\n",
   "small_tiles": false,
   "rows": 10,
-  "cols": 10,
-  "onload": "try{RUR.reset_default_robot_images();}catch(e){}\n"
+  "cols": 10
 }

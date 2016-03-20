@@ -18,21 +18,21 @@ RUR.world.import_world = function (json_string) {
     RUR._ORDERED_TILES = {};
     RUR._SYNC_TILES = {};
     RUR._SYNC_TILES_VALUE = {};
+    RUR.ANIMATION_TIME = 120;
 
     if (typeof json_string == "string"){
         try {
             RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.world.create_empty_world();
         } catch (e) {
             console.log("Exception caught in import_world.");
-            console.log(json_string);
-            console.log(e);
+            console.log("json_string = ", json_string);
+            console.log("error = ", e);
             RUR.world.create_empty_world();
             return;
         }
     } else {  // already parsed
         RUR.CURRENT_WORLD = json_string;
     }
-
 
     if (RUR.CURRENT_WORLD.robots !== undefined) {
         if (RUR.CURRENT_WORLD.robots[0] !== undefined) {
@@ -70,7 +70,6 @@ RUR.world.import_world = function (json_string) {
     RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X;
     RUR.vis_world.compute_world_geometry(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
 
-    RUR._SAVED_WORLD = clone_world();
     RUR.world.update_editors(RUR.CURRENT_WORLD);
 
     if (RUR.state.editing_world) {
@@ -80,6 +79,7 @@ RUR.world.import_world = function (json_string) {
     if (RUR.CURRENT_WORLD.onload !== undefined) {
         eval_onload();
     }
+    RUR._SAVED_WORLD = clone_world();
 
 };
 
@@ -94,4 +94,5 @@ eval_onload = function () {
         console.log("error in onload:", e);
     }
     RUR.state.evaluating_onload = false;
+    RUR.vis_world.draw_all();
 };

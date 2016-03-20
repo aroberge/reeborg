@@ -4570,6 +4570,7 @@ dialog.find("form").on("submit", function( event ) {
 });
 
 save_world = function () {
+    RUR.CURRENT_WORLD = RUR.world.update_from_editors(RUR.CURRENT_WORLD);
     RUR.storage._save_world($("#world-name").val().trim());
     RUR._SAVED_WORLD = clone_world();
     dialog.dialog("close");
@@ -7791,37 +7792,32 @@ var msg = require("./../lang/msg.js");
 
 RUR.world = {};
 
+function _update_from_editor(world, name, _editor) {
+
+    if ($("#add-"+name+"-to-world-btn").hasClass("blue-gradient")) {
+        delete world[name];
+    } else {
+        world[name] = _editor.getValue();
+    }
+}
+
 RUR.world.update_from_editors = function (world) {
-   if (!$("#add-blockly-to-world-btn").hasClass("blue-gradient")) {
-       world.blockly = RUR.blockly.getValue();
-   }
-   if (!$("#add-editor-to-world-btn").hasClass("blue-gradient")) {
-       world.editor = editor.getValue();
-   }
-   if (!$("#add-library-to-world-btn").hasClass("blue-gradient")) {
-       world.library = library.getValue();
-   }
-   if (!$("#add-pre-to-world-btn").hasClass("blue-gradient")) {
-       world.pre = pre_code_editor.getValue();
-   }
-   if (!$("#add-post-to-world-btn").hasClass("blue-gradient")) {
-       world.post = post_code_editor.getValue();
-   }
-   if (!$("#add-description-to-world-btn").hasClass("blue-gradient")) {
-       world.description = description_editor.getValue();
-   }
-   if (!$("#add-onload-to-world-btn").hasClass("blue-gradient")) {
-       world.onload = onload_editor.getValue();
-   }
+    _update_from_editor(world, "blockly", RUR.blockly);
+    _update_from_editor(world, "editor", editor);
+    _update_from_editor(world, "library", library);
+    _update_from_editor(world, "pre", pre_code_editor);
+    _update_from_editor(world, "post", post_code_editor);
+    _update_from_editor(world, "description", description_editor);
+    _update_from_editor(world, "onload", onload_editor);
     return world;
 };
 
 function show_update_editor_dialog(world, editor_name, _editor, _id) {
-    if (world[editor_name] !== _editor.getValue()) {
+    if (world[editor_name] != _editor.getValue()) {
+        console.log("content in world", world[editor_name]);
+        console.log("content in editor", _editor.getValue());
         dialog_update_editors_from_world.dialog("open");
         $(_id).show();
-    } else {
-        $(_id).hide();
     }
 }
 
@@ -7841,64 +7837,40 @@ function set_button (name, content_present) {
     }
 }
 
-RUR.world.update_editors = function (world) {
-
+function _update_user_editor (world, name, ed) {
     // For blockly, editor and library, the user is given the choice to
     // update the content or to keep their own.
-    if (world.blockly) {
-        set_button("blockly", true);
-        show_update_editor_dialog(world, "blockly", RUR.blockly, "#update-blockly-content");
+    console.log("inside _update_user_editor", name, world);
+    if (world[name]) {
+        set_button("name", true);
+        show_update_editor_dialog(world, name, ed, "#update-"+name+"-content");
     } else {
-        set_button("blockly", false);
+        set_button("name", false);
+        $("#update-"+name+"-content").hide();
     }
+}
 
-    if (world.editor) {
-        set_button("editor", true);
-        show_update_editor_dialog(world, "editor", editor, "#update-editor-content");
+function _update_world_editor (world, code_name, name, ed) {
+    // For editors defining the world: pre, post, description, onload.
+    if (world[code_name]) {
+        set_button(name, true);
+        ed.setValue(world[code_name]);
     } else {
-        set_button("editor", false);
+        set_button(name, false);
+        ed.setValue('\n');
     }
+}
 
-    if (world.library) {
-        set_button("library", true);
-        show_update_editor_dialog(world, "library", library, "#update-library-content");
-    } else {
-        set_button("library", false);
-    }
+RUR.world.update_editors = function (world) {
+    console.log("inside update_editors, CURRENT_WORLD = ", RUR.CURRENT_WORLD);
+    _update_user_editor(world, "blockly", RUR.blockly);
+    _update_user_editor(world, "editor", editor);
+    _update_user_editor(world, "library", library);
 
-    // For pre, post, description, onload, the values in set by the world
-    // designer/creator.
-    if (world.pre_code) {
-        set_button("pre", true);
-        pre_code_editor.setValue(world.pre_code);
-    } else {
-        set_button("pre", false);
-        pre_code_editor.setValue('\n');
-    }
-
-    if (world.post_code) {
-        set_button("post", true);
-        post_code_editor.setValue(world.post_code);
-    } else {
-        set_button("post", false);
-        post_code_editor.setValue('\n');
-    }
-
-    if (world.description) {
-        set_button("description", true);
-        description_editor.setValue(world.description);
-    } else {
-        set_button("description", false);
-        description_editor.setValue('\n');
-    }
-
-    if (world.onload) {
-        set_button("onload", true);
-        onload_editor.setValue(world.onload);
-    } else {
-        set_button("onload", false);
-        onload_editor.setValue('\n');
-    }
+    _update_world_editor (world, "pre_code", "pre", pre_code_editor);
+    _update_world_editor (world, "post_code", "post", post_code_editor);
+    _update_world_editor (world, "description", "description", description_editor);
+    _update_world_editor (world, "onload", "onload", onload_editor);
 };
 
 msg.record_id("update-blockly-content");
@@ -8013,21 +7985,21 @@ RUR.world.import_world = function (json_string) {
     RUR._ORDERED_TILES = {};
     RUR._SYNC_TILES = {};
     RUR._SYNC_TILES_VALUE = {};
+    RUR.ANIMATION_TIME = 120;
 
     if (typeof json_string == "string"){
         try {
             RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.world.create_empty_world();
         } catch (e) {
             console.log("Exception caught in import_world.");
-            console.log(json_string);
-            console.log(e);
+            console.log("json_string = ", json_string);
+            console.log("error = ", e);
             RUR.world.create_empty_world();
             return;
         }
     } else {  // already parsed
         RUR.CURRENT_WORLD = json_string;
     }
-
 
     if (RUR.CURRENT_WORLD.robots !== undefined) {
         if (RUR.CURRENT_WORLD.robots[0] !== undefined) {
@@ -8065,7 +8037,6 @@ RUR.world.import_world = function (json_string) {
     RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X;
     RUR.vis_world.compute_world_geometry(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
 
-    RUR._SAVED_WORLD = clone_world();
     RUR.world.update_editors(RUR.CURRENT_WORLD);
 
     if (RUR.state.editing_world) {
@@ -8075,6 +8046,7 @@ RUR.world.import_world = function (json_string) {
     if (RUR.CURRENT_WORLD.onload !== undefined) {
         eval_onload();
     }
+    RUR._SAVED_WORLD = clone_world();
 
 };
 
@@ -8089,6 +8061,7 @@ eval_onload = function () {
         console.log("error in onload:", e);
     }
     RUR.state.evaluating_onload = false;
+    RUR.vis_world.draw_all();
 };
 
 },{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../robot.js":48,"./../state.js":53,"./../translator.js":55,"./../ui/edit_robot_menu.js":56,"./../visible_world.js":65,"./clone_world.js":67}],71:[function(require,module,exports){
@@ -9556,13 +9529,32 @@ require("./../visible_robot.js");
 require("./../visible_world.js");
 var clone_world = require("./../world/clone_world.js").clone_world;
 
+//TODO: code for evaluating onload is essentially repeated in two different
+//files; it should be refactored.
+//
+//TODO: See if all defaults could be incorporated here, e.g. robot images, etc.
+
 exports.reset_world = reset_world = function () {
     if (RUR.state.editing_world){
         return;
     }
     RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
     RUR.vis_robot.set_trace_style("default");
+    RUR.reset_default_robot_images();
     RUR.MAX_STEPS = 1000;
+    RUR.ANIMATION_TIME = 120;
+    if (RUR.CURRENT_WORLD.onload) {
+        RUR.state.evaluating_onload = true;
+        try {
+            eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
+        } catch (e) {
+            RUR.show_feedback("#Reeborg-shouts",
+                RUR.translate("Problem with onload code.") + "<br><pre>" +
+                RUR.CURRENT_WORLD.onload + "</pre>");
+            console.log("error in onload:", e);
+        }
+        RUR.state.evaluating_onload = false;
+    }
     RUR.vis_world.draw_all();
 };
 
