@@ -1,4 +1,5 @@
 require("./../rur.js");
+require("./../init/images_onload.js");
 
 /** @function add_tile_type
  * @memberof RUR
@@ -84,15 +85,13 @@ RUR.add_tile_type = function (new_tile) {
     if (tile.url) {
         tile.image = new Image();
         tile.image.src = tile.url;
-        RUR._NB_IMAGES_TO_LOAD += 1;
-        tile.image.onload = RUR.INCREMENT_LOADED_FN;
+        RUR.images_onload(tile.image);
     } else if (tile.images) {
         for (i=0; i < tile.images.length; i++){
             tile["image"+i] = new Image();
             tile["image"+i].src = tile.images[i];
-            tile["image"+i].onload = RUR.INCREMENT_LOADED_FN;
+            RUR.images_onload(tile["image"+i]);
         }
-        RUR._NB_IMAGES_TO_LOAD += tile.images.length;
         if (tile.selection_method === "sync") {
             tile.choose_image = function (coords) {
                 return _sync(tile, tile.images.length, coords);

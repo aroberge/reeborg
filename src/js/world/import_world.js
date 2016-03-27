@@ -18,6 +18,9 @@ RUR.world.import_world = function (json_string) {
     RUR._ORDERED_TILES = {};
     RUR._SYNC_TILES = {};
     RUR._SYNC_TILES_VALUE = {};
+    RUR._ORDERED_OBJECTS = {};
+    RUR._SYNC_OBJECTS = {};
+    RUR._SYNC_OBJECTS_VALUE = {};
     RUR.ANIMATION_TIME = 120;
 
     if (typeof json_string == "string"){

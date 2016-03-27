@@ -49,4 +49,5 @@ RUR.add_object_at_position = function (specific_object, x, y, nb){
             delete cw.objects[coords];
         }
     }
+    RUR.record_frame("debug", "add_object_at_position");
 };

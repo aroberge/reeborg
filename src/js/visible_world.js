@@ -112,12 +112,7 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.vis_world.draw_coordinates(); // on BACKGROUND_CTX
-
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-
-    RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.vis_world.draw_goal();  // on GOAL_CTX
-
     RUR.vis_world.refresh();
 };
 
@@ -126,7 +121,6 @@ RUR.vis_world.refresh = function () {
     "use strict";
     // meant to be called at each step
     // does not draw background (i.e. coordinates and grid walls)
-    // does not draw goals - they should not change during a running program
     // does not clear trace
 
     // start by clearing all the relevant contexts first.
@@ -134,16 +128,15 @@ RUR.vis_world.refresh = function () {
     RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
     // animated tiles are redrawn according to their own schedule
     if (!RUR.animated_tiles) {
         RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
     }
-    RUR.vis_world.draw_tiles(RUR.CURRENT_WORLD.tiles); // on BACKGROUND_CTX
 
-    if (RUR.__debug) {
-        RUR.vis_world.sanity_check(0);
-    }
+    RUR.vis_world.draw_goal();  // on GOAL_CTX
+    RUR.vis_world.draw_tiles(RUR.CURRENT_WORLD.tiles); // on BACKGROUND_CTX
     RUR.vis_world.draw_foreground_walls(RUR.CURRENT_WORLD.walls); // on OBJECTS_CTX
     RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.decorative_objects);
     RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.objects);  // on OBJECTS_CTX
@@ -153,36 +146,10 @@ RUR.vis_world.refresh = function () {
     // objects: goal is false, tile is true
     RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.solid_objects, false, true); // likely on RUR.SECOND_LAYER_CTX
 
-
     RUR.vis_world.draw_robots(RUR.CURRENT_WORLD.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
     RUR.vis_world.draw_info();     // on ROBOT_CTX
-    if (RUR.__debug) {
-        RUR.vis_world.sanity_check(100);
-    }
 };
-
-RUR.vis_world.sanity_check = function(offset) {
-    // An intermittent bug sometimes  causes the robot NOT to be drawn.
-    // This sanity check is, enabled when the debug option is turned on,
-    // is performed so as to see if any unexpected
-    // canvas clearing occurs.
-
-    RUR.BACKGROUND_CTX.fillStyle = "red";
-    RUR.SECOND_LAYER_CTX.fillStyle = "green";
-    RUR.GOAL_CTX.fillStyle = "yellow";
-    RUR.OBJECTS_CTX.fillStyle = "blue";
-    RUR.TRACE_CTX.fillStyle = "cyan";
-    RUR.ROBOT_CTX.fillStyle = "magenta";
-
-    RUR.BACKGROUND_CTX.fillRect(0+offset, 0, 10, 10);
-    RUR.SECOND_LAYER_CTX.fillRect(10+offset, 0, 10, 10);
-    RUR.GOAL_CTX.fillRect(20+offset, 0, 10, 10);
-    RUR.OBJECTS_CTX.fillRect(30+offset, 0, 10, 10);
-    RUR.TRACE_CTX.fillRect(40+offset, 0, 10, 10);
-    RUR.ROBOT_CTX.fillRect(50+offset, 0, 10, 10);
-};
-
 
 RUR.vis_world.draw_coordinates = function() {
     "use strict";

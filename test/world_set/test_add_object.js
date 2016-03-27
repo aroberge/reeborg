@@ -7,6 +7,7 @@ test('adding known object', function (assert) {
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = ['a'];
+    RUR.record_frame = function () {};
     require("../../src/js/world_set/add_object.js");
     global.RUR.add_object_at_position('a', 2, 3, 4);
     assert.equal(RUR.CURRENT_WORLD.objects['2,3'].a, 4, "nb objects ok");
@@ -18,6 +19,7 @@ test('adding and removing known object', function (assert) {
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = ['a'];
+    RUR.record_frame = function () {};
     require("../../src/js/world_set/add_object.js");
     RUR.add_object_at_position('a', 2, 3, 4);
     RUR.add_object_at_position('a', 2, 3, 0);
@@ -30,6 +32,7 @@ test('adding two and removing one known objects', function (assert) {
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = ['a', 'b'];
+    RUR.record_frame = function () {};
     require("../../src/js/world_set/add_object.js");
     RUR.add_object_at_position('b', 2, 3, 4);
     RUR.add_object_at_position('a', 2, 3, 4);
@@ -45,6 +48,7 @@ test('adding unknown object', function (assert) {
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = [];
     require("../../src/js/world_set/add_object.js");
+    RUR.record_frame = function () {};    
     RUR.translation = {};
     try {
         RUR.add_object_at_position('a', 2, 3, 4);
