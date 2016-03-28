@@ -651,7 +651,7 @@ li.failure:after {
     border-top-right-radius: 10px;
 }
 
-#visible-blockly, #editor-visible-blockly {
+#editor-visible-label, #editor-visible-input {
     display:none;
     color:white;
     font-size: .8em;

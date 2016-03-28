@@ -1,29 +1,29 @@
 require("./rur.js");
 require("./extend/add_object_type.js");
 
-_add_new_object_type = function (name) {
+_add_object_type = function (name) {
     "use strict";
     var url, url_goal;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
     url_goal = RUR._BASE_URL + '/src/images/' + name + '_goal.png';
-    RUR.add_new_object_type(name, url, url_goal);
+    RUR.add_object_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };
 
-_add_new_object_type("token");
-_add_new_object_type("star");
-_add_new_object_type("triangle");
-_add_new_object_type("square");
-_add_new_object_type("strawberry");
-_add_new_object_type("banana");
-_add_new_object_type("apple");
-_add_new_object_type("leaf");
-_add_new_object_type("carrot");
-_add_new_object_type("dandelion");
-_add_new_object_type("orange");
-_add_new_object_type("daisy");
-_add_new_object_type("tulip");
+_add_object_type("token");
+_add_object_type("star");
+_add_object_type("triangle");
+_add_object_type("square");
+_add_object_type("strawberry");
+_add_object_type("banana");
+_add_object_type("apple");
+_add_object_type("leaf");
+_add_object_type("carrot");
+_add_object_type("dandelion");
+_add_object_type("orange");
+_add_object_type("daisy");
+_add_object_type("tulip");
 
-_add_new_object_type("box");
+_add_object_type("box");
 RUR.OBJECTS.box.name = "box";
 RUR.OBJECTS.box.pushable = true;
 RUR.OBJECTS.box.in_water = "bridge";

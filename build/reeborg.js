@@ -982,7 +982,7 @@ RUR._UR.wall_on_right_ = function (robot) {
     RUR.control.wall_on_right(robot);
 };
 
-},{"./constants.js":3,"./control.js":4,"./custom_world_select.js":6,"./file_io.js":16,"./output.js":41,"./state.js":54,"./translator.js":56,"./visible_robot.js":65,"./world.js":67,"./world_set.js":76,"./world_set/set_tile.js":82}],3:[function(require,module,exports){
+},{"./constants.js":3,"./control.js":4,"./custom_world_select.js":6,"./file_io.js":17,"./output.js":41,"./state.js":54,"./translator.js":56,"./visible_robot.js":65,"./world.js":67,"./world_set.js":76,"./world_set/set_tile.js":82}],3:[function(require,module,exports){
 require("./rur.js");
 RUR.EAST = 0;
 RUR.NORTH = 1;
@@ -2273,7 +2273,7 @@ RUR.WallCollisionError = function (message) {
 
 },{"./rur.js":51,"./state.js":54}],14:[function(require,module,exports){
 require("./../rur.js");
-require("./../init/images_onload.js");
+require("./images.js");
 
 
 /** @function add_object_type
@@ -2357,88 +2357,21 @@ RUR.add_object_type = function (new_obj) {
         obj.image.src = obj.url;
         RUR.images_onload(obj.image);
     } else if (obj.images) {
-        for (i=0; i < obj.images.length; i++){
-            obj["image"+i] = new Image();
-            obj["image"+i].src = obj.images[i];
-            RUR.images_onload(obj["image"+i]);
-        }
-        if (obj.selection_method === "sync") {
-            obj.choose_image = function (coords) {
-                return _sync(obj, obj.images.length, coords);
-            };
-        } else if (obj.selection_method === "ordered") {
-            obj.choose_image = function (coords) {
-                return _ordered(obj, obj.images.length, coords);
-            };
-        } else {
-            obj.choose_image = function (coords) {
-                return _random(obj, obj.images.length);
-            };
-        }
+        RUR.animate_images(obj);
     } else {
         alert("Fatal error: need either obj.url or a list: obj.images");
     }
-
     // Object goal (not required for decorative objects): either
     // a single url or a list for animated images.
-    if (obj.url_goal) {
-        obj.image_goal = new Image();
-        obj.image_goal.src = obj.url_goal;
-        RUR.images_onload(obj.image_goal);
-    } else if (obj.images_goal) {
-        for (i=0; i < obj.images_goal.length; i++){
-            obj["image_goal"+i] = new Image();
-            obj["image_goal"+i].src = obj.images_goal[i];
-            RUR.images_onload(obj["image_goal"+i]);
-        }
-        if (obj.selection_method_goal === "sync") {
-            obj.choose_image = function (coords) {
-                return _sync(obj, obj.images_goal.length, coords);
-            };
-        } else if (obj.selection_method_goal === "ordered") {
-            obj.choose_image = function (coords) {
-                return _ordered(obj, obj.images_goal.length, coords);
-            };
-        } else {
-            obj.choose_image = function (coords) {
-                return _random(obj, obj.images_goal.length);
-            };
+    if (obj.goal) {
+        if (obj.goal.url) {
+            obj.goal.image = new Image();
+            obj.goal.image.src = obj.goal.url;
+            RUR.images_onload(obj.goal.image);
+        } else if (obj.goal.images) {
+            RUR.animate_images(obj.goal);
         }
     }
-};
-
-_random = function (obj, nb) {
-    // each object is given a random value at all iteration
-    var choice = Math.floor(Math.random() * nb);
-    return obj["image" + choice];
-};
-_ordered = function (obj, nb, coords) {
-    // each object is given a random initial value but then goes in order
-
-    if (RUR._ORDERED_OBJECTS[obj.name] === undefined) {
-        RUR._ORDERED_OBJECTS[obj.name] = {};
-        RUR._ORDERED_OBJECTS[obj.name][coords] = Math.floor(Math.random() * nb);
-    } else if (Object.keys(RUR._ORDERED_OBJECTS[obj.name]).indexOf(coords) === -1) {
-        RUR._ORDERED_OBJECTS[obj.name][coords] = Math.floor(Math.random() * nb);
-    } else {
-        RUR._ORDERED_OBJECTS[obj.name][coords] += 1;
-        RUR._ORDERED_OBJECTS[obj.name][coords] %= nb;
-    }
-    return obj["image" + RUR._ORDERED_OBJECTS[obj.name][coords]];
-};
-_sync = function (obj, nb, coords) {
-    // every object of this type is kept in sync
-    if (RUR._SYNC_OBJECTS[obj.name] === undefined) {
-        RUR._SYNC_OBJECTS[obj.name] = [];
-        RUR._SYNC_OBJECTS_VALUE[obj.name] = 1;
-    } else if (RUR._SYNC_OBJECTS[obj.name].indexOf(coords) !== -1) {
-        // see a same object present: we are starting a new sequence
-        RUR._SYNC_OBJECTS[obj.name] = [];
-        RUR._SYNC_OBJECTS_VALUE[obj.name] += 1;
-        RUR._SYNC_OBJECTS_VALUE[obj.name] %= nb;
-    }
-    RUR._SYNC_OBJECTS[obj.name].push(coords);
-    return obj["image" + RUR._SYNC_OBJECTS_VALUE[obj.name]];
 };
 
 
@@ -2446,12 +2379,13 @@ _sync = function (obj, nb, coords) {
 // TODO  see if this is still needed when Vincent Maille's book is published.
 //
 RUR.add_new_object_type = function (name, url, url_goal) {
-    RUR.add_object_type({"name": name, "url": url, "url_goal":url_goal});
+    RUR.add_object_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };
 
-},{"./../init/images_onload.js":18,"./../rur.js":51}],15:[function(require,module,exports){
+},{"./../rur.js":51,"./images.js":16}],15:[function(require,module,exports){
 require("./../rur.js");
-require("./../init/images_onload.js");
+require("./images.js");
+//require("./../init/images_onload.js");
 
 /** @function add_tile_type
  * @memberof RUR
@@ -2539,64 +2473,106 @@ RUR.add_tile_type = function (new_tile) {
         tile.image.src = tile.url;
         RUR.images_onload(tile.image);
     } else if (tile.images) {
-        for (i=0; i < tile.images.length; i++){
-            tile["image"+i] = new Image();
-            tile["image"+i].src = tile.images[i];
-            RUR.images_onload(tile["image"+i]);
-        }
-        if (tile.selection_method === "sync") {
-            tile.choose_image = function (coords) {
-                return _sync(tile, tile.images.length, coords);
-            };
-        } else if (tile.selection_method === "ordered") {
-            tile.choose_image = function (coords) {
-                return _ordered(tile, tile.images.length, coords);
-            };
-        } else {
-            tile.choose_image = function (coords) {
-                return _random(tile, tile.images.length);
-            };
-        }
+        RUR.animate_images(tile);
     } else {
         alert("Fatal error: need either tile.url or a list: tile.images");
     }
 };
 
-_random = function (tile, nb) {
-    // each tile is given a random value at all iteration
-    var choice = Math.floor(Math.random() * nb);
-    return tile["image" + choice];
-};
-_ordered = function (tile, nb, coords) {
-    // each tile is given a random initial value but then goes in order
+},{"./../rur.js":51,"./images.js":16}],16:[function(require,module,exports){
+require("./../rur.js");
+require("./../state.js");
 
-    if (RUR._ORDERED_TILES[tile.name] === undefined) {
-        RUR._ORDERED_TILES[tile.name] = {};
-        RUR._ORDERED_TILES[tile.name][coords] = Math.floor(Math.random() * nb);
-    } else if (Object.keys(RUR._ORDERED_TILES[tile.name]).indexOf(coords) === -1) {
-        RUR._ORDERED_TILES[tile.name][coords] = Math.floor(Math.random() * nb);
+var _ORDERED, _SYNC, _SYNC_VALUE;
+
+exports.images_init = images_init = function () {
+    _ORDERED = {};
+    _SYNC = {};
+    _SYNC_VALUE = {};
+    RUR.ANIMATION_TIME = 120;
+};
+
+/* Important: we need to use a method from visible_world.js ONLY after
+   the session is initialized; at that point, we know that visible_world.js
+   has been loaded and we know it will be available even if we don't
+   put it as a formal requirement.  If we were to put it as a requirement,
+   we would end up with a circular requirement (e.g. objs.js require
+   visible_world.js which require objs.js) with unpredictable consequences.
+*/
+
+//TODO: move RUR.INCREMENT_LOADED_FN here.
+
+
+RUR.images_onload = function (image) {
+    if (RUR.state.session_initialized) {
+        image.onload = RUR.vis_world.refresh;
     } else {
-        RUR._ORDERED_TILES[tile.name][coords] += 1;
-        RUR._ORDERED_TILES[tile.name][coords] %= nb;
+        RUR._NB_IMAGES_TO_LOAD += 1;
+        image.onload = RUR.INCREMENT_LOADED_FN;
     }
-    return tile["image" + RUR._ORDERED_TILES[tile.name][coords]];
-};
-_sync = function (tile, nb, coords) {
-    // every tile of this type is kept in sync
-    if (RUR._SYNC_TILES[tile.name] === undefined) {
-        RUR._SYNC_TILES[tile.name] = [];
-        RUR._SYNC_TILES_VALUE[tile.name] = 1;
-    } else if (RUR._SYNC_TILES[tile.name].indexOf(coords) !== -1) {
-        // see a same tile present: we are starting a new sequence
-        RUR._SYNC_TILES[tile.name] = [];
-        RUR._SYNC_TILES_VALUE[tile.name] += 1;
-        RUR._SYNC_TILES_VALUE[tile.name] %= nb;
-    }
-    RUR._SYNC_TILES[tile.name].push(coords);
-    return tile["image" + RUR._SYNC_TILES_VALUE[tile.name]];
 };
 
-},{"./../init/images_onload.js":18,"./../rur.js":51}],16:[function(require,module,exports){
+RUR.animate_images = function (obj) {
+    for (i=0; i < obj.images.length; i++){
+        obj["image"+i] = new Image();
+        obj["image"+i].src = obj.images[i];
+        RUR.images_onload(obj["image"+i]);
+    }
+    if (obj.selection_method === "sync") {
+        obj.choose_image = function (coords) {
+            return RUR._sync(obj, obj.images.length, coords);
+        };
+    } else if (obj.selection_method === "ordered") {
+        obj.choose_image = function (coords) {
+            return RUR._ordered(obj, obj.images.length, coords);
+        };
+    } else {
+        obj.choose_image = function (coords) {
+            return RUR._random(obj, obj.images.length);
+        };
+    }
+};
+
+
+
+
+RUR._random = function (obj, nb) {
+    // each animated image is given a random value at all iteration
+    var choice = Math.floor(Math.random() * nb);
+    return obj["image" + choice];
+};
+
+RUR._ordered = function (obj, nb, coords) {
+    // each animated image is given a random initial value but then goes in order
+
+    if (_ORDERED[obj.name] === undefined) {
+        _ORDERED[obj.name] = {};
+        _ORDERED[obj.name][coords] = Math.floor(Math.random() * nb);
+    } else if (Object.keys(_ORDERED[obj.name]).indexOf(coords) === -1) {
+        _ORDERED[obj.name][coords] = Math.floor(Math.random() * nb);
+    } else {
+        _ORDERED[obj.name][coords] += 1;
+        _ORDERED[obj.name][coords] %= nb;
+    }
+    return obj["image" + _ORDERED[obj.name][coords]];
+};
+
+RUR._sync = function (obj, nb, coords) {
+    // every animated image of this type is kept in sync
+    if (_SYNC[obj.name] === undefined) {
+        _SYNC[obj.name] = [];
+        _SYNC_VALUE[obj.name] = 1;
+    } else if (_SYNC[obj.name].indexOf(coords) !== -1) {
+        // see an same animated image present: we are starting a new sequence
+        _SYNC[obj.name] = [];
+        _SYNC_VALUE[obj.name] += 1;
+        _SYNC_VALUE[obj.name] %= nb;
+    }
+    _SYNC[obj.name].push(coords);
+    return obj["image" + _SYNC_VALUE[obj.name]];
+};
+
+},{"./../rur.js":51,"./../state.js":54}],17:[function(require,module,exports){
 
 require("./output.js");
 require("./recorder.js");
@@ -2730,7 +2706,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
     }
 };
 
-},{"./exceptions.js":13,"./listeners/stop.js":37,"./output.js":41,"./permalink.js":42,"./recorder.js":46,"./translator.js":56,"./utils/supplant.js":64,"./world.js":67,"./world/import_world.js":71,"./world_select.js":75}],17:[function(require,module,exports){
+},{"./exceptions.js":13,"./listeners/stop.js":37,"./output.js":41,"./permalink.js":42,"./recorder.js":46,"./translator.js":56,"./utils/supplant.js":64,"./world.js":67,"./world/import_world.js":71,"./world_select.js":75}],18:[function(require,module,exports){
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
@@ -2747,31 +2723,7 @@ require("./start_session.js");
 // TODO: implement paint() and colour_here() in Blockly
 // TODO: Create offline version as part of the build sequence
 
-},{"./commands.js":2,"./start_session.js":53,"./utils/cors.js":59,"./world_editor.js":72}],18:[function(require,module,exports){
-require("./../rur.js");
-require("./../state.js");
-
-/* Important: we need to use a method from visible_world.js ONLY after
-   the session is initialized; at that point, we know that visible_world.js
-   has been loaded and we know it will be available even if we don't
-   put it as a formal requirement.  If we were to put it as a requirement,
-   we would end up with a circular requirement (e.g. tiles.js require
-   visible_world.js which require tiles.js) with unpredictable consequences.
-*/
-
-//TODO: move RUR.INCREMENT_LOADED_FN here.
-
-
-RUR.images_onload = function (image) {
-    if (RUR.state.session_initialized) {
-        image.onload = RUR.vis_world.refresh;
-    } else {
-        RUR._NB_IMAGES_TO_LOAD += 1;
-        image.onload = RUR.INCREMENT_LOADED_FN;
-    }
-};
-
-},{"./../rur.js":51,"./../state.js":54}],19:[function(require,module,exports){
+},{"./commands.js":2,"./start_session.js":53,"./utils/cors.js":59,"./world_editor.js":72}],19:[function(require,module,exports){
 /* This file contains the tiles included by default */
 require("./../rur.js");
 require("./../extend/add_tile_type.js");
@@ -5017,6 +4969,8 @@ $("#programming-mode").change(function() {
             break;
         case "py-repl":
             RUR.state.programming_language = "python";
+            editor.setOption("readOnly", true);
+            editor.setOption("theme", "reeborg-readonly");            
             show_console();
             break;
         default:
@@ -5032,9 +4986,9 @@ $("#programming-mode").change(function() {
 });
 
 
-record_id("editor-visible-blockly");
-$('#editor-visible-blockly').change(function() {
-    if ($('#editor-visible-blockly')[0].checked) {
+record_id("editor-visible-input");
+$('#editor-visible-input').change(function() {
+    if ($('#editor-visible-input')[0].checked) {
         show_editor(RUR.state.programming_language);
         $("#special-keyboard-button").hide();
     } else {
@@ -5049,6 +5003,8 @@ function hide_everything () {
     hide_blockly();
     hide_editors();
     hide_console();
+    $("#editor-visible-label").hide();
+    $("#editor-visible-input").hide();
     if ($("#special-keyboard-button").hasClass("active-element")) {
         $("#special-keyboard-button").click();
     }
@@ -5071,9 +5027,9 @@ function show_blockly () {
     $(".blocklyToolboxDiv").css(style_enable);
     $("#blockly-wrapper").css(style_enable);
     // $("#blockly-wrapper").show();
-    $("#visible-blockly").show();
-    $("#editor-visible-blockly").show();
-    if ($('#editor-visible-blockly')[0].checked) {
+    $("#editor-visible-label").show();
+    $("#editor-visible-input").show();
+    if ($('#editor-visible-input')[0].checked) {
         show_editor(RUR.state.programming_language);
         $("#special-keyboard-button").hide();
     }
@@ -5087,8 +5043,6 @@ function hide_blockly () {
     $("#blockly-wrapper").css(style_disable);
     // $("#blockly-wrapper").hide();
     window.dispatchEvent(new Event('resize'));
-    $("#visible-blockly").hide();
-    $("#editor-visible-blockly").hide();
     $("#special-keyboard-button").show();
 }
 
@@ -5147,6 +5101,8 @@ function hide_editors() {
 }
 
 function show_console() {
+    $("#editor-visible-label").show();
+    $("#editor-visible-input").show();
     $("#special-keyboard-button").show();
     $("#py-console").show();
     $("#stop").hide();
@@ -5329,7 +5285,7 @@ $("#select-world").change(function() {
     } catch (e) {}
 });
 
-},{"./../../lang/msg.js":87,"./../file_io.js":16,"./../storage.js":55}],36:[function(require,module,exports){
+},{"./../../lang/msg.js":87,"./../file_io.js":17,"./../storage.js":55}],36:[function(require,module,exports){
 
 require("./../state.js");
 require("./reload.js");
@@ -5419,29 +5375,29 @@ watch_button.addEventListener("click", toggle_watch_variables, false);
 require("./rur.js");
 require("./extend/add_object_type.js");
 
-_add_new_object_type = function (name) {
+_add_object_type = function (name) {
     "use strict";
     var url, url_goal;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
     url_goal = RUR._BASE_URL + '/src/images/' + name + '_goal.png';
-    RUR.add_new_object_type(name, url, url_goal);
+    RUR.add_object_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };
 
-_add_new_object_type("token");
-_add_new_object_type("star");
-_add_new_object_type("triangle");
-_add_new_object_type("square");
-_add_new_object_type("strawberry");
-_add_new_object_type("banana");
-_add_new_object_type("apple");
-_add_new_object_type("leaf");
-_add_new_object_type("carrot");
-_add_new_object_type("dandelion");
-_add_new_object_type("orange");
-_add_new_object_type("daisy");
-_add_new_object_type("tulip");
+_add_object_type("token");
+_add_object_type("star");
+_add_object_type("triangle");
+_add_object_type("square");
+_add_object_type("strawberry");
+_add_object_type("banana");
+_add_object_type("apple");
+_add_object_type("leaf");
+_add_object_type("carrot");
+_add_object_type("dandelion");
+_add_object_type("orange");
+_add_object_type("daisy");
+_add_object_type("tulip");
 
-_add_new_object_type("box");
+_add_object_type("box");
 RUR.OBJECTS.box.name = "box";
 RUR.OBJECTS.box.pushable = true;
 RUR.OBJECTS.box.in_water = "bridge";
@@ -7745,7 +7701,7 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
                         }
                         if (goal) {
                             ctx = RUR.GOAL_CTX;
-                            image = specific_object.image_goal;
+                            image = specific_object.goal.image;
                         } else if (specific_object.ctx !== undefined){
                             ctx = specific_object.ctx;
                             image = specific_object.image;
@@ -7910,7 +7866,7 @@ function _update_from_editor(world, name, _editor) {
 }
 
 RUR.world.update_from_editors = function (world) {
-    _update_from_editor(world, "blockly", RUR.blockly);
+    _update_from_editor(world, "blockly",RUR.blockly);
     _update_from_editor(world, "editor", editor);
     _update_from_editor(world, "library", library);
     _update_from_editor(world, "pre", pre_code_editor);
@@ -7920,10 +7876,9 @@ RUR.world.update_from_editors = function (world) {
     return world;
 };
 
-function show_update_editor_dialog(world, editor_name, _editor, _id) {
+function show_update_editor_dialog(world, editor_name, _editor) {
     if (world[editor_name] != _editor.getValue()) {
         dialog_update_editors_from_world.dialog("open");
-        $(_id).show();
     }
 }
 
@@ -7948,18 +7903,19 @@ function _update_user_editor (world, name, ed) {
     // update the content or to keep their own.
     if (world[name]) {
         set_button("name", true);
-        show_update_editor_dialog(world, name, ed, "#update-"+name+"-content");
+        $("#update-"+name+"-content").show();
+        show_update_editor_dialog(world, name, ed);
     } else {
         set_button("name", false);
         $("#update-"+name+"-content").hide();
     }
 }
 
-function _update_world_editor (world, code_name, name, ed) {
+function _update_world_editor (world, name, ed) {
     // For editors defining the world: pre, post, description, onload.
-    if (world[code_name]) {
+    if (world[name]) {
         set_button(name, true);
-        ed.setValue(world[code_name]);
+        ed.setValue(world[name]);
     } else {
         set_button(name, false);
         ed.setValue('\n');
@@ -7971,10 +7927,10 @@ RUR.world.update_editors = function (world) {
     _update_user_editor(world, "editor", editor);
     _update_user_editor(world, "library", library);
 
-    _update_world_editor (world, "pre_code", "pre", pre_code_editor);
-    _update_world_editor (world, "post_code", "post", post_code_editor);
-    _update_world_editor (world, "description", "description", description_editor);
-    _update_world_editor (world, "onload", "onload", onload_editor);
+    _update_world_editor (world, "pre", pre_code_editor);
+    _update_world_editor (world, "post", post_code_editor);
+    _update_world_editor (world, "description", description_editor);
+    _update_world_editor (world, "onload", onload_editor);
 };
 
 msg.record_id("update-blockly-content");
@@ -8076,7 +8032,8 @@ require("./../visible_world.js");
 require("./../state.js");
 require("./../exceptions.js");
 require("./../create_editors.js");
-edit_robot_menu = require("./../ui/edit_robot_menu.js");
+var images_init = require("./../extend/images.js").images_init;
+var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
 
 RUR.world.import_world = function (json_string) {
@@ -8086,13 +8043,7 @@ RUR.world.import_world = function (json_string) {
         console.log("Problem: no argument passed to RUR.world.import_world");
         return {};
     }
-    RUR._ORDERED_TILES = {};
-    RUR._SYNC_TILES = {};
-    RUR._SYNC_TILES_VALUE = {};
-    RUR._ORDERED_OBJECTS = {};
-    RUR._SYNC_OBJECTS = {};
-    RUR._SYNC_OBJECTS_VALUE = {};
-    RUR.ANIMATION_TIME = 120;
+    images_init();
 
     if (typeof json_string == "string"){
         try {
@@ -8128,6 +8079,18 @@ RUR.world.import_world = function (json_string) {
         Object.defineProperty(RUR.CURRENT_WORLD, "solid_objects",
             Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "top_tiles"));
         delete RUR.CURRENT_WORLD.top_tiles;
+    }
+
+    // Backward compatibility change done on March 28, 2016, where
+    // "pre_code" and "post_code" were simplified to "pre" and "post"
+    // for consistency with other editor contents.
+    if (RUR.CURRENT_WORLD.pre_code !== undefined) {
+        RUR.CURRENT_WORLD.pre = RUR.CURRENT_WORLD.pre_code;
+        delete RUR.CURRENT_WORLD.pre_code;
+    }
+    if (RUR.CURRENT_WORLD.post_code !== undefined) {
+        RUR.CURRENT_WORLD.post = RUR.CURRENT_WORLD.post_code;
+        delete RUR.CURRENT_WORLD.post_code;
     }
 
     if (RUR.CURRENT_WORLD.background_image !== undefined) {
@@ -8171,7 +8134,7 @@ eval_onload = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../robot.js":49,"./../state.js":54,"./../translator.js":56,"./../ui/edit_robot_menu.js":57,"./../visible_world.js":66,"./clone_world.js":68}],72:[function(require,module,exports){
+},{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../extend/images.js":16,"./../robot.js":49,"./../state.js":54,"./../translator.js":56,"./../ui/edit_robot_menu.js":57,"./../visible_world.js":66,"./clone_world.js":68}],72:[function(require,module,exports){
 
 require("./translator.js");
 require("./constants.js");
@@ -9950,7 +9913,7 @@ exports.record_fn = record_fn;
 
 record_id("site-name", "SITE NAME");
 record_id("world-info-button", "WORLD INFO");
-record_id("visible-blockly", "EDITOR VISIBLE BLOCKLY");
+record_id("editor-visible-label", "EDITOR VISIBLE");
 record_id("special-keyboard-button", "KEYBOARD BUTTON");
 record_id("more-menus-button", "ADDITIONAL OPTIONS");
 record_title("ui-dialog-title-more-menus", "ADDITIONAL OPTIONS");
@@ -10309,7 +10272,7 @@ RUR.ui_en["en-fr"] = "Mixed mode: User Interface in English; programming languag
 
 RUR.ui_en["SITE NAME"] = "Reeborg's World";
 RUR.ui_en["WORLD INFO"] = "World Info";
-RUR.ui_en["EDITOR VISIBLE BLOCKLY"] = "Keep editor visible";
+RUR.ui_en["EDITOR VISIBLE"] = "Keep editor visible";
 
 RUR.ui_en["apple"] = "apple";
 RUR.en_to_en["apple"] = "apple";
@@ -10653,7 +10616,7 @@ RUR.fr_to_en = {};
 
 RUR.ui_fr["SITE NAME"] = "Le monde de Reeborg";
 RUR.ui_fr["WORLD INFO"] = "Description";
-RUR.ui_fr["EDITOR VISIBLE BLOCKLY"] = "Garder l'éditeur visible";
+RUR.ui_fr["EDITOR VISIBLE"] = "Garder l'éditeur visible";
 
 RUR.ui_fr["apple"] = "pomme";
 RUR.fr_to_en["pomme"] = "apple";
@@ -11004,7 +10967,7 @@ RUR.ui_ko["ko-en"] = "혼용된 모드: 사용자 환경은 한국어로 번역�
 
 RUR.ui_ko["SITE NAME"] = "리보그의 월드";
 RUR.ui_ko["WORLD INFO"] = "월드 정보";
-RUR.ui_ko["EDITOR VISIBLE BLOCKLY"] = "에디터 유지시키기";
+RUR.ui_ko["EDITOR VISIBLE"] = "에디터 유지시키기";
 
 
 RUR.ui_ko["apple"] = "사과";
@@ -11346,4 +11309,4 @@ RUR.ui_ko["UPDATE BLOCKLY CONTENT"] = "This world has some default content for t
 RUR.ui_ko["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 RUR.ui_ko["Contents from World"] = "Contents from World";
 
-},{}]},{},[17]);
+},{}]},{},[18]);

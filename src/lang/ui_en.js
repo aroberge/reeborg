@@ -6,7 +6,7 @@ RUR.ui_en["en-fr"] = "Mixed mode: User Interface in English; programming languag
 
 RUR.ui_en["SITE NAME"] = "Reeborg's World";
 RUR.ui_en["WORLD INFO"] = "World Info";
-RUR.ui_en["EDITOR VISIBLE BLOCKLY"] = "Keep editor visible";
+RUR.ui_en["EDITOR VISIBLE"] = "Keep editor visible";
 
 RUR.ui_en["apple"] = "apple";
 RUR.en_to_en["apple"] = "apple";

@@ -3,7 +3,7 @@ RUR.fr_to_en = {};
 
 RUR.ui_fr["SITE NAME"] = "Le monde de Reeborg";
 RUR.ui_fr["WORLD INFO"] = "Description";
-RUR.ui_fr["EDITOR VISIBLE BLOCKLY"] = "Garder l'éditeur visible";
+RUR.ui_fr["EDITOR VISIBLE"] = "Garder l'éditeur visible";
 
 RUR.ui_fr["apple"] = "pomme";
 RUR.fr_to_en["pomme"] = "apple";

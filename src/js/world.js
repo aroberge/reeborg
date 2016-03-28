@@ -14,7 +14,7 @@ function _update_from_editor(world, name, _editor) {
 }
 
 RUR.world.update_from_editors = function (world) {
-    _update_from_editor(world, "blockly", RUR.blockly);
+    _update_from_editor(world, "blockly",RUR.blockly);
     _update_from_editor(world, "editor", editor);
     _update_from_editor(world, "library", library);
     _update_from_editor(world, "pre", pre_code_editor);
@@ -24,10 +24,9 @@ RUR.world.update_from_editors = function (world) {
     return world;
 };
 
-function show_update_editor_dialog(world, editor_name, _editor, _id) {
+function show_update_editor_dialog(world, editor_name, _editor) {
     if (world[editor_name] != _editor.getValue()) {
         dialog_update_editors_from_world.dialog("open");
-        $(_id).show();
     }
 }
 
@@ -52,18 +51,19 @@ function _update_user_editor (world, name, ed) {
     // update the content or to keep their own.
     if (world[name]) {
         set_button("name", true);
-        show_update_editor_dialog(world, name, ed, "#update-"+name+"-content");
+        $("#update-"+name+"-content").show();
+        show_update_editor_dialog(world, name, ed);
     } else {
         set_button("name", false);
         $("#update-"+name+"-content").hide();
     }
 }
 
-function _update_world_editor (world, code_name, name, ed) {
+function _update_world_editor (world, name, ed) {
     // For editors defining the world: pre, post, description, onload.
-    if (world[code_name]) {
+    if (world[name]) {
         set_button(name, true);
-        ed.setValue(world[code_name]);
+        ed.setValue(world[name]);
     } else {
         set_button(name, false);
         ed.setValue('\n');
@@ -75,10 +75,10 @@ RUR.world.update_editors = function (world) {
     _update_user_editor(world, "editor", editor);
     _update_user_editor(world, "library", library);
 
-    _update_world_editor (world, "pre_code", "pre", pre_code_editor);
-    _update_world_editor (world, "post_code", "post", post_code_editor);
-    _update_world_editor (world, "description", "description", description_editor);
-    _update_world_editor (world, "onload", "onload", onload_editor);
+    _update_world_editor (world, "pre", pre_code_editor);
+    _update_world_editor (world, "post", post_code_editor);
+    _update_world_editor (world, "description", description_editor);
+    _update_world_editor (world, "onload", onload_editor);
 };
 
 msg.record_id("update-blockly-content");

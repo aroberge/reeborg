@@ -1,5 +1,5 @@
 require("./../rur.js");
-require("./../init/images_onload.js");
+require("./images.js");
 
 
 /** @function add_object_type
@@ -83,88 +83,21 @@ RUR.add_object_type = function (new_obj) {
         obj.image.src = obj.url;
         RUR.images_onload(obj.image);
     } else if (obj.images) {
-        for (i=0; i < obj.images.length; i++){
-            obj["image"+i] = new Image();
-            obj["image"+i].src = obj.images[i];
-            RUR.images_onload(obj["image"+i]);
-        }
-        if (obj.selection_method === "sync") {
-            obj.choose_image = function (coords) {
-                return _sync(obj, obj.images.length, coords);
-            };
-        } else if (obj.selection_method === "ordered") {
-            obj.choose_image = function (coords) {
-                return _ordered(obj, obj.images.length, coords);
-            };
-        } else {
-            obj.choose_image = function (coords) {
-                return _random(obj, obj.images.length);
-            };
-        }
+        RUR.animate_images(obj);
     } else {
         alert("Fatal error: need either obj.url or a list: obj.images");
     }
-
     // Object goal (not required for decorative objects): either
     // a single url or a list for animated images.
-    if (obj.url_goal) {
-        obj.image_goal = new Image();
-        obj.image_goal.src = obj.url_goal;
-        RUR.images_onload(obj.image_goal);
-    } else if (obj.images_goal) {
-        for (i=0; i < obj.images_goal.length; i++){
-            obj["image_goal"+i] = new Image();
-            obj["image_goal"+i].src = obj.images_goal[i];
-            RUR.images_onload(obj["image_goal"+i]);
-        }
-        if (obj.selection_method_goal === "sync") {
-            obj.choose_image = function (coords) {
-                return _sync(obj, obj.images_goal.length, coords);
-            };
-        } else if (obj.selection_method_goal === "ordered") {
-            obj.choose_image = function (coords) {
-                return _ordered(obj, obj.images_goal.length, coords);
-            };
-        } else {
-            obj.choose_image = function (coords) {
-                return _random(obj, obj.images_goal.length);
-            };
+    if (obj.goal) {
+        if (obj.goal.url) {
+            obj.goal.image = new Image();
+            obj.goal.image.src = obj.goal.url;
+            RUR.images_onload(obj.goal.image);
+        } else if (obj.goal.images) {
+            RUR.animate_images(obj.goal);
         }
     }
-};
-
-_random = function (obj, nb) {
-    // each object is given a random value at all iteration
-    var choice = Math.floor(Math.random() * nb);
-    return obj["image" + choice];
-};
-_ordered = function (obj, nb, coords) {
-    // each object is given a random initial value but then goes in order
-
-    if (RUR._ORDERED_OBJECTS[obj.name] === undefined) {
-        RUR._ORDERED_OBJECTS[obj.name] = {};
-        RUR._ORDERED_OBJECTS[obj.name][coords] = Math.floor(Math.random() * nb);
-    } else if (Object.keys(RUR._ORDERED_OBJECTS[obj.name]).indexOf(coords) === -1) {
-        RUR._ORDERED_OBJECTS[obj.name][coords] = Math.floor(Math.random() * nb);
-    } else {
-        RUR._ORDERED_OBJECTS[obj.name][coords] += 1;
-        RUR._ORDERED_OBJECTS[obj.name][coords] %= nb;
-    }
-    return obj["image" + RUR._ORDERED_OBJECTS[obj.name][coords]];
-};
-_sync = function (obj, nb, coords) {
-    // every object of this type is kept in sync
-    if (RUR._SYNC_OBJECTS[obj.name] === undefined) {
-        RUR._SYNC_OBJECTS[obj.name] = [];
-        RUR._SYNC_OBJECTS_VALUE[obj.name] = 1;
-    } else if (RUR._SYNC_OBJECTS[obj.name].indexOf(coords) !== -1) {
-        // see a same object present: we are starting a new sequence
-        RUR._SYNC_OBJECTS[obj.name] = [];
-        RUR._SYNC_OBJECTS_VALUE[obj.name] += 1;
-        RUR._SYNC_OBJECTS_VALUE[obj.name] %= nb;
-    }
-    RUR._SYNC_OBJECTS[obj.name].push(coords);
-    return obj["image" + RUR._SYNC_OBJECTS_VALUE[obj.name]];
 };
 
 
@@ -172,5 +105,5 @@ _sync = function (obj, nb, coords) {
 // TODO  see if this is still needed when Vincent Maille's book is published.
 //
 RUR.add_new_object_type = function (name, url, url_goal) {
-    RUR.add_object_type({"name": name, "url": url, "url_goal":url_goal});
+    RUR.add_object_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };

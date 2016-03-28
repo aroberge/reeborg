@@ -1,5 +1,6 @@
 require("./../rur.js");
-require("./../init/images_onload.js");
+require("./images.js");
+//require("./../init/images_onload.js");
 
 /** @function add_tile_type
  * @memberof RUR
@@ -87,59 +88,8 @@ RUR.add_tile_type = function (new_tile) {
         tile.image.src = tile.url;
         RUR.images_onload(tile.image);
     } else if (tile.images) {
-        for (i=0; i < tile.images.length; i++){
-            tile["image"+i] = new Image();
-            tile["image"+i].src = tile.images[i];
-            RUR.images_onload(tile["image"+i]);
-        }
-        if (tile.selection_method === "sync") {
-            tile.choose_image = function (coords) {
-                return _sync(tile, tile.images.length, coords);
-            };
-        } else if (tile.selection_method === "ordered") {
-            tile.choose_image = function (coords) {
-                return _ordered(tile, tile.images.length, coords);
-            };
-        } else {
-            tile.choose_image = function (coords) {
-                return _random(tile, tile.images.length);
-            };
-        }
+        RUR.animate_images(tile);
     } else {
         alert("Fatal error: need either tile.url or a list: tile.images");
     }
-};
-
-_random = function (tile, nb) {
-    // each tile is given a random value at all iteration
-    var choice = Math.floor(Math.random() * nb);
-    return tile["image" + choice];
-};
-_ordered = function (tile, nb, coords) {
-    // each tile is given a random initial value but then goes in order
-
-    if (RUR._ORDERED_TILES[tile.name] === undefined) {
-        RUR._ORDERED_TILES[tile.name] = {};
-        RUR._ORDERED_TILES[tile.name][coords] = Math.floor(Math.random() * nb);
-    } else if (Object.keys(RUR._ORDERED_TILES[tile.name]).indexOf(coords) === -1) {
-        RUR._ORDERED_TILES[tile.name][coords] = Math.floor(Math.random() * nb);
-    } else {
-        RUR._ORDERED_TILES[tile.name][coords] += 1;
-        RUR._ORDERED_TILES[tile.name][coords] %= nb;
-    }
-    return tile["image" + RUR._ORDERED_TILES[tile.name][coords]];
-};
-_sync = function (tile, nb, coords) {
-    // every tile of this type is kept in sync
-    if (RUR._SYNC_TILES[tile.name] === undefined) {
-        RUR._SYNC_TILES[tile.name] = [];
-        RUR._SYNC_TILES_VALUE[tile.name] = 1;
-    } else if (RUR._SYNC_TILES[tile.name].indexOf(coords) !== -1) {
-        // see a same tile present: we are starting a new sequence
-        RUR._SYNC_TILES[tile.name] = [];
-        RUR._SYNC_TILES_VALUE[tile.name] += 1;
-        RUR._SYNC_TILES_VALUE[tile.name] %= nb;
-    }
-    RUR._SYNC_TILES[tile.name].push(coords);
-    return tile["image" + RUR._SYNC_TILES_VALUE[tile.name]];
 };

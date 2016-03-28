@@ -6,7 +6,7 @@ RUR.ui_ko["ko-en"] = "혼용된 모드: 사용자 환경은 한국어로 번역�
 
 RUR.ui_ko["SITE NAME"] = "리보그의 월드";
 RUR.ui_ko["WORLD INFO"] = "월드 정보";
-RUR.ui_ko["EDITOR VISIBLE BLOCKLY"] = "에디터 유지시키기";
+RUR.ui_ko["EDITOR VISIBLE"] = "에디터 유지시키기";
 
 
 RUR.ui_ko["apple"] = "사과";

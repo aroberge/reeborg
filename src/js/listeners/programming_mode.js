@@ -127,6 +127,8 @@ $("#programming-mode").change(function() {
             break;
         case "py-repl":
             RUR.state.programming_language = "python";
+            editor.setOption("readOnly", true);
+            editor.setOption("theme", "reeborg-readonly");            
             show_console();
             break;
         default:
@@ -142,9 +144,9 @@ $("#programming-mode").change(function() {
 });
 
 
-record_id("editor-visible-blockly");
-$('#editor-visible-blockly').change(function() {
-    if ($('#editor-visible-blockly')[0].checked) {
+record_id("editor-visible-input");
+$('#editor-visible-input').change(function() {
+    if ($('#editor-visible-input')[0].checked) {
         show_editor(RUR.state.programming_language);
         $("#special-keyboard-button").hide();
     } else {
@@ -159,6 +161,8 @@ function hide_everything () {
     hide_blockly();
     hide_editors();
     hide_console();
+    $("#editor-visible-label").hide();
+    $("#editor-visible-input").hide();
     if ($("#special-keyboard-button").hasClass("active-element")) {
         $("#special-keyboard-button").click();
     }
@@ -181,9 +185,9 @@ function show_blockly () {
     $(".blocklyToolboxDiv").css(style_enable);
     $("#blockly-wrapper").css(style_enable);
     // $("#blockly-wrapper").show();
-    $("#visible-blockly").show();
-    $("#editor-visible-blockly").show();
-    if ($('#editor-visible-blockly')[0].checked) {
+    $("#editor-visible-label").show();
+    $("#editor-visible-input").show();
+    if ($('#editor-visible-input')[0].checked) {
         show_editor(RUR.state.programming_language);
         $("#special-keyboard-button").hide();
     }
@@ -197,8 +201,6 @@ function hide_blockly () {
     $("#blockly-wrapper").css(style_disable);
     // $("#blockly-wrapper").hide();
     window.dispatchEvent(new Event('resize'));
-    $("#visible-blockly").hide();
-    $("#editor-visible-blockly").hide();
     $("#special-keyboard-button").show();
 }
 
@@ -257,6 +259,8 @@ function hide_editors() {
 }
 
 function show_console() {
+    $("#editor-visible-label").show();
+    $("#editor-visible-input").show();
     $("#special-keyboard-button").show();
     $("#py-console").show();
     $("#stop").hide();

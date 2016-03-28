@@ -5,7 +5,8 @@ require("./../visible_world.js");
 require("./../state.js");
 require("./../exceptions.js");
 require("./../create_editors.js");
-edit_robot_menu = require("./../ui/edit_robot_menu.js");
+var images_init = require("./../extend/images.js").images_init;
+var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
 
 RUR.world.import_world = function (json_string) {
@@ -15,13 +16,7 @@ RUR.world.import_world = function (json_string) {
         console.log("Problem: no argument passed to RUR.world.import_world");
         return {};
     }
-    RUR._ORDERED_TILES = {};
-    RUR._SYNC_TILES = {};
-    RUR._SYNC_TILES_VALUE = {};
-    RUR._ORDERED_OBJECTS = {};
-    RUR._SYNC_OBJECTS = {};
-    RUR._SYNC_OBJECTS_VALUE = {};
-    RUR.ANIMATION_TIME = 120;
+    images_init();
 
     if (typeof json_string == "string"){
         try {
@@ -57,6 +52,18 @@ RUR.world.import_world = function (json_string) {
         Object.defineProperty(RUR.CURRENT_WORLD, "solid_objects",
             Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "top_tiles"));
         delete RUR.CURRENT_WORLD.top_tiles;
+    }
+
+    // Backward compatibility change done on March 28, 2016, where
+    // "pre_code" and "post_code" were simplified to "pre" and "post"
+    // for consistency with other editor contents.
+    if (RUR.CURRENT_WORLD.pre_code !== undefined) {
+        RUR.CURRENT_WORLD.pre = RUR.CURRENT_WORLD.pre_code;
+        delete RUR.CURRENT_WORLD.pre_code;
+    }
+    if (RUR.CURRENT_WORLD.post_code !== undefined) {
+        RUR.CURRENT_WORLD.post = RUR.CURRENT_WORLD.post_code;
+        delete RUR.CURRENT_WORLD.post_code;
     }
 
     if (RUR.CURRENT_WORLD.background_image !== undefined) {

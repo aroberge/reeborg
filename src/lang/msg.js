@@ -74,7 +74,7 @@ exports.record_fn = record_fn;
 
 record_id("site-name", "SITE NAME");
 record_id("world-info-button", "WORLD INFO");
-record_id("visible-blockly", "EDITOR VISIBLE BLOCKLY");
+record_id("editor-visible-label", "EDITOR VISIBLE");
 record_id("special-keyboard-button", "KEYBOARD BUTTON");
 record_id("more-menus-button", "ADDITIONAL OPTIONS");
 record_title("ui-dialog-title-more-menus", "ADDITIONAL OPTIONS");

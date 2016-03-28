@@ -465,7 +465,7 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
                         }
                         if (goal) {
                             ctx = RUR.GOAL_CTX;
-                            image = specific_object.image_goal;
+                            image = specific_object.goal.image;
                         } else if (specific_object.ctx !== undefined){
                             ctx = specific_object.ctx;
                             image = specific_object.image;

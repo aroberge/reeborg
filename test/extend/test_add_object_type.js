@@ -23,10 +23,10 @@ test('adding new object type', function (assert) {
     RUR.add_new_object_type('name', 'URL', 'GOAL');
     assert.equal(RUR.KNOWN_OBJECTS[0], 'name', "object added");
     assert.equal(RUR.OBJECTS.name.image.src, 'URL', "url for objects ok");
-    assert.equal(RUR.OBJECTS.name.image_goal.src, 'GOAL', "url for goal ok");
+    assert.equal(RUR.OBJECTS.name.goal.image.src, 'GOAL', "url for goal ok");
     assert.equal(RUR._NB_IMAGES_TO_LOAD, 2, "two images to load.");
     RUR.OBJECTS.name.image.onload();
-    RUR.OBJECTS.name.image_goal.onload();
+    RUR.OBJECTS.name.goal.image.onload();
     assert.equal(RUR._NB_IMAGES_LOADED, 2, "two images loaded.");
     assert.end();
 });
@@ -41,6 +41,6 @@ test('replace object type', function (assert) {
     RUR.add_new_object_type('name', 'URL', 'GOAL');
     assert.equal(RUR.KNOWN_OBJECTS[0], 'name', "object replaced");
     assert.equal(RUR.OBJECTS.name.image.src, 'URL', "url for objects ok");
-    assert.equal(RUR.OBJECTS.name.image_goal.src, 'GOAL', "url for goal ok");
+    assert.equal(RUR.OBJECTS.name.goal.image.src, 'GOAL', "url for goal ok");
     assert.end();
 });
