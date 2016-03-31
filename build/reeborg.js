@@ -1005,7 +1005,8 @@ RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
 RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
 
 RUR.BACKGROUND_CTX = document.getElementById("background-canvas").getContext("2d");
-RUR.SECOND_LAYER_CTX = document.getElementById("second-layer-canvas").getContext("2d");
+RUR.TILES_CTX = document.getElementById("tiles-canvas").getContext("2d");
+RUR.OBSTACLES_CTX = document.getElementById("obstacles-canvas").getContext("2d");
 RUR.GOAL_CTX = document.getElementById("goal-canvas").getContext("2d");
 RUR.OBJECTS_CTX = document.getElementById("objects-canvas").getContext("2d");
 RUR.TRACE_CTX = document.getElementById("trace-canvas").getContext("2d");
@@ -1041,7 +1042,7 @@ RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 RUR.KNOWN_OBJECTS = [];
 RUR.KNOWN_TILES = [];
-RUR.KNOWN_SOLID_OBJECTS = [];
+RUR.KNOWN_OBSTACLES = [];
 RUR.ANIMATION_TIME = 120;
 
 RUR._CALLBACK_FN = function () {
@@ -1121,11 +1122,11 @@ RUR.control.move = function (robot) {
             solid_tile_beyond = false;
         }
 
-        solids_beyond = RUR.world_get.solid_objects_at_position(x_beyond, y_beyond);
+        solids_beyond = RUR.world_get.obstacles_at_position(x_beyond, y_beyond);
         solid_object_beyond = false;
         if (solids_beyond) {
             for (name in solids_beyond) {
-                if (RUR.SOLID_OBJECTS[name] !== undefined && RUR.SOLID_OBJECTS[name].solid) {
+                if (RUR.OBSTACLES[name] !== undefined && RUR.OBSTACLES[name].solid) {
                     solid_object_beyond = true;
                     break;
                 }
@@ -1157,13 +1158,13 @@ RUR.control.move = function (robot) {
         }
     }
 
-    objects = RUR.world_get.solid_objects_at_position(robot.x, robot.y);
+    objects = RUR.world_get.obstacles_at_position(robot.x, robot.y);
     if (objects) {
         for (name in objects) {
-            if (RUR.SOLID_OBJECTS[name] !== undefined && RUR.SOLID_OBJECTS[name].fatal) {
+            if (RUR.OBSTACLES[name] !== undefined && RUR.OBSTACLES[name].fatal) {
                 robot.x = robot._prev_x;
                 robot.y = robot._prev_y;
-                throw new RUR.ReeborgError(RUR.SOLID_OBJECTS[name].message);
+                throw new RUR.ReeborgError(RUR.OBSTACLES[name].message);
             }
         }
     }
@@ -1172,7 +1173,7 @@ RUR.control.move = function (robot) {
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
     "use strict";
     var bridge_already_there = false;
-    if (RUR.world_get.solid_objects_at_position(to_x, to_y).bridge !== undefined){
+    if (RUR.world_get.obstacles_at_position(to_x, to_y).bridge !== undefined){
         bridge_already_there = true;
     }
 
@@ -1465,19 +1466,19 @@ RUR.control.tile_in_front = function (robot) {
 };
 
 
-RUR.control.solid_objects_in_front = function (robot) {
+RUR.control.obstacles_in_front = function (robot) {
     // returns list of tiles
     switch (robot._orientation){
     case RUR.EAST:
-        return RUR.world_get.solid_objects_at_position(robot.x+1, robot.y);
+        return RUR.world_get.obstacles_at_position(robot.x+1, robot.y);
     case RUR.NORTH:
-        return RUR.world_get.solid_objects_at_position(robot.x, robot.y+1);
+        return RUR.world_get.obstacles_at_position(robot.x, robot.y+1);
     case RUR.WEST:
-        return RUR.world_get.solid_objects_at_position(robot.x-1, robot.y);
+        return RUR.world_get.obstacles_at_position(robot.x-1, robot.y);
     case RUR.SOUTH:
-        return RUR.world_get.solid_objects_at_position(robot.x, robot.y-1);
+        return RUR.world_get.obstacles_at_position(robot.x, robot.y-1);
     default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.solid_objects_in_front().");
+        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.obstacles_in_front().");
     }
 };
 
@@ -1500,12 +1501,12 @@ RUR.control.front_is_clear = function(robot){
         }
     }
 
-    solid = RUR.control.solid_objects_in_front(robot);
+    solid = RUR.control.obstacles_in_front(robot);
     if (solid) {
         for (name in solid) {
-            if (RUR.SOLID_OBJECTS[name] !== undefined &&
-                RUR.SOLID_OBJECTS[name].detectable &&
-                RUR.SOLID_OBJECTS[name].fatal) {
+            if (RUR.OBSTACLES[name] !== undefined &&
+                RUR.OBSTACLES[name].detectable &&
+                RUR.OBSTACLES[name].fatal) {
                 return false;
             }
         }
@@ -1517,7 +1518,7 @@ RUR.control.front_is_clear = function(robot){
 
 RUR.control._bridge_present = function(robot) {
     var solid, name;
-        solid = RUR.control.solid_objects_in_front(robot);
+        solid = RUR.control.obstacles_in_front(robot);
     if (solid) {
         for (name in solid) {
             if (name == "bridge") {
@@ -1564,12 +1565,12 @@ RUR.control.solid_object_here = function (robot, tile) {
     var tile_here, tile_type, all_solid_objects;
     var coords = robot.x + "," + robot.y;
 
-    if (RUR.CURRENT_WORLD.solid_objects === undefined ||
-        RUR.CURRENT_WORLD.solid_objects[coords] === undefined) {
+    if (RUR.CURRENT_WORLD.obstacles === undefined ||
+        RUR.CURRENT_WORLD.obstacles[coords] === undefined) {
         return false;
     }
 
-    tile_here =  RUR.CURRENT_WORLD.solid_objects[coords];
+    tile_here =  RUR.CURRENT_WORLD.obstacles[coords];
 
     for (tile_type in tile_here) {
         if (tile_here.hasOwnProperty(tile_type)) {
@@ -1849,8 +1850,8 @@ RUR.make_default_menu_en = function () {
         [tutorial_en + 'newspaper0.json', 'Newspaper 0'],
         [tutorial_en + 'newspaper1.json', 'Newspaper 1'],
         [tutorial_en + 'newspaper2.json', 'Newspaper 2'],
-        [tutorial_en + 'rain1.json', 'Rain 1'],
-        [tutorial_en + 'rain2.json', 'Rain 2'],
+        [tutorial_en + 'rain1_en.json', 'Rain 1'],
+        [tutorial_en + 'rain2_en.json', 'Rain 2'],
         [tutorial_en + 'storm1.json', 'Storm 1'],
         [tutorial_en + 'storm2.json', 'Storm 2'],
         [tutorial_en + 'storm3.json', 'Storm 3'],
@@ -5404,9 +5405,9 @@ RUR.OBJECTS.box.in_water = "bridge";
 RUR.OBJECTS.box.ctx = RUR.ROBOT_CTX;
 
 
-RUR.SOLID_OBJECTS = {};
+RUR.OBSTACLES = {};
 RUR.add_new_solid_object_type = function (name, url, nickname) {
-    var obj = RUR.SOLID_OBJECTS;
+    var obj = RUR.OBSTACLES;
     obj[name] = {};
     if (nickname === undefined) {
         obj[name].name = name;
@@ -5416,7 +5417,7 @@ RUR.add_new_solid_object_type = function (name, url, nickname) {
         obj[name].solid = true;
         obj[name].detectable = true;
     }
-    obj[name].ctx = RUR.SECOND_LAYER_CTX;
+    obj[name].ctx = RUR.OBSTACLES_CTX;
     obj[name].image = new Image();
     if (!url) {
         obj[name].image.src = RUR._BASE_URL + '/src/images/' + name + '.png';
@@ -5428,27 +5429,27 @@ RUR.add_new_solid_object_type = function (name, url, nickname) {
 };
 
 RUR.add_new_solid_object_type("bridge");
-RUR.SOLID_OBJECTS.bridge.info = "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
+RUR.OBSTACLES.bridge.info = "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
 
 RUR.add_new_solid_object_type("fence_right", false, "fence");
-RUR.SOLID_OBJECTS.fence_right.message = "I hit a fence!";
-RUR.SOLID_OBJECTS.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
-RUR.SOLID_OBJECTS.fence4 = RUR.SOLID_OBJECTS.fence_right;  // compatibility with old worlds
+RUR.OBSTACLES.fence_right.message = "I hit a fence!";
+RUR.OBSTACLES.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
+RUR.OBSTACLES.fence4 = RUR.OBSTACLES.fence_right;  // compatibility with old worlds
 
 RUR.add_new_solid_object_type("fence_left", false, "fence");
-RUR.SOLID_OBJECTS.fence_left.message = RUR.SOLID_OBJECTS.fence_right.message;
-RUR.SOLID_OBJECTS.fence_left.info = RUR.SOLID_OBJECTS.fence_right.info;
-RUR.SOLID_OBJECTS.fence5 = RUR.SOLID_OBJECTS.fence_left;  // compatibility with old worlds
+RUR.OBSTACLES.fence_left.message = RUR.OBSTACLES.fence_right.message;
+RUR.OBSTACLES.fence_left.info = RUR.OBSTACLES.fence_right.info;
+RUR.OBSTACLES.fence5 = RUR.OBSTACLES.fence_left;  // compatibility with old worlds
 
 RUR.add_new_solid_object_type("fence_double", false, "fence");
-RUR.SOLID_OBJECTS.fence_double.message = RUR.SOLID_OBJECTS.fence_right.message;
-RUR.SOLID_OBJECTS.fence_double.info = RUR.SOLID_OBJECTS.fence_right.info;
-RUR.SOLID_OBJECTS.fence6 = RUR.SOLID_OBJECTS.fence_double;  // compatibility with old worlds
+RUR.OBSTACLES.fence_double.message = RUR.OBSTACLES.fence_right.message;
+RUR.OBSTACLES.fence_double.info = RUR.OBSTACLES.fence_right.info;
+RUR.OBSTACLES.fence6 = RUR.OBSTACLES.fence_double;  // compatibility with old worlds
 
 RUR.add_new_solid_object_type("fence_vertical", false, "fence");
-RUR.SOLID_OBJECTS.fence_vertical.message = RUR.SOLID_OBJECTS.fence_right.message;
-RUR.SOLID_OBJECTS.fence_vertical.info = RUR.SOLID_OBJECTS.fence_right.info;
-RUR.SOLID_OBJECTS.fence7 = RUR.SOLID_OBJECTS.fence_vertical;  // compatibility with old worlds
+RUR.OBSTACLES.fence_vertical.message = RUR.OBSTACLES.fence_right.message;
+RUR.OBSTACLES.fence_vertical.info = RUR.OBSTACLES.fence_right.info;
+RUR.OBSTACLES.fence7 = RUR.OBSTACLES.fence_vertical;  // compatibility with old worlds
 
 },{"./extend/add_object_type.js":14,"./rur.js":51}],41:[function(require,module,exports){
 
@@ -7276,9 +7277,12 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
         RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas");
         RUR.BACKGROUND_CANVAS.width = width;
         RUR.BACKGROUND_CANVAS.height = height;
-        RUR.SECOND_LAYER_CANVAS = document.getElementById("second-layer-canvas");
-        RUR.SECOND_LAYER_CANVAS.width = width;
-        RUR.SECOND_LAYER_CANVAS.height = height;
+        RUR.TILES_CANVAS = document.getElementById("tiles-canvas");
+        RUR.TILES_CANVAS.width = width;
+        RUR.TILES_CANVAS.height = height;
+        RUR.OBSTACLES_CANVAS = document.getElementById("obstacles-canvas");
+        RUR.OBSTACLES_CANVAS.width = width;
+        RUR.OBSTACLES_CANVAS.height = height;
         RUR.GOAL_CANVAS = document.getElementById("goal-canvas");
         RUR.GOAL_CANVAS.width = width;
         RUR.GOAL_CANVAS.height = height;
@@ -7324,7 +7328,7 @@ RUR.vis_world.draw_all = function () {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = undefined;
         RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -7333,7 +7337,7 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.animated_tiles = false;
+    RUR.animated_images = false;
 
     if (RUR.state.editing_world) {
         if (RUR.CURRENT_WORLD.background_image !== undefined) {
@@ -7363,16 +7367,16 @@ RUR.vis_world.refresh = function () {
     // some objects are drown on their own contexts.
     RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
-    // animated tiles are redrawn according to their own schedule
-    if (!RUR.animated_tiles) {
-        RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
+    // animated images are redrawn according to their own schedule
+    if (!RUR.animated_images) {
+        RUR.vis_world.draw_animated_tiles(); // on TILES_CTX
     }
 
     RUR.vis_world.draw_goal();  // on GOAL_CTX
-    RUR.vis_world.draw_tiles(RUR.CURRENT_WORLD.tiles); // on BACKGROUND_CTX
+    RUR.vis_world.draw_tiles(RUR.CURRENT_WORLD.tiles); // on TILES_CTX
     RUR.vis_world.draw_foreground_walls(RUR.CURRENT_WORLD.walls); // on OBJECTS_CTX
     RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.decorative_objects);
     RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.objects);  // on OBJECTS_CTX
@@ -7380,7 +7384,7 @@ RUR.vis_world.refresh = function () {
         // and, draws some objects on ROBOT_CTX
 
     // objects: goal is false, tile is true
-    RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.solid_objects, false, true); // likely on RUR.SECOND_LAYER_CTX
+    RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
 
     RUR.vis_world.draw_robots(RUR.CURRENT_WORLD.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
@@ -7612,7 +7616,7 @@ RUR.vis_world.draw_tiles = function (tiles){
             tile = RUR.TILES[tiles[keys[key]]];
             if (tile === undefined) {
                 colour = tiles[keys[key]];
-                RUR.vis_world.draw_coloured_tile(colour, i, j, RUR.BACKGROUND_CTX);
+                RUR.vis_world.draw_coloured_tile(colour, i, j, RUR.TILES_CTX);
                 continue;
             }
         }
@@ -7623,7 +7627,7 @@ RUR.vis_world.draw_tiles = function (tiles){
                 console.log("problem in draw_tiles; tile =", tile);
                 throw new ReeborgError("Problem in draw_tiles.");
             }
-            RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
+            RUR.vis_world.draw_single_object(image, i, j, RUR.TILES_CTX);
         }
     }
 };
@@ -7637,7 +7641,7 @@ RUR.vis_world.draw_animated_tiles = function (){
         return;
     }
 
-    RUR.animated_tiles = false;
+    RUR.animated_images = false;
     coords = Object.keys(tiles);
     for (k=0; k < coords.length; k++){
         i_j = coords[k].split(",");
@@ -7653,11 +7657,11 @@ RUR.vis_world.draw_animated_tiles = function (){
                 console.log("problem in draw_animated_tiles; tile =", tile);
                 throw new ReeborgError("Problem in draw_animated_tiles at" + coords);
             }
-            RUR.animated_tiles = true;
-            RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
+            RUR.animated_images = true;
+            RUR.vis_world.draw_single_object(image, i, j, RUR.TILES_CTX);
         }
     }
-    if (RUR.animated_tiles) {
+    if (RUR.animated_images) {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = setTimeout(RUR.vis_world.draw_animated_tiles,
             RUR.ANIMATION_TIME);
@@ -7695,7 +7699,7 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
                 for (obj_name in objects_here){
                     if (objects_here.hasOwnProperty(obj_name)){
                         if (tile){
-                            specific_object = RUR.SOLID_OBJECTS[obj_name];
+                            specific_object = RUR.OBSTACLES[obj_name];
                         } else {
                             specific_object = RUR.OBJECTS[obj_name];
                         }
@@ -8156,7 +8160,7 @@ require("./world_set/add_object.js");
 require("./world_set/add_goal_object.js");
 require("./world_set/add_robot.js");
 require("./world_set/toggle_decorative_object.js");
-require("./world_set/toggle_solid_object.js");
+require("./world_set/toggle_obstacle.js");
 require("./world_set/give_object_to_robot.js");
 
 
@@ -8200,7 +8204,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_tile(value);
             break;
         case "solid_object":
-            RUR.we.toggle_solid_object(value);
+            RUR.we.toggle_obstacle(value);
             break;
         case "world":
             if (value == "walls") {
@@ -8534,6 +8538,15 @@ RUR.we._toggle_wall = function () {
     RUR.we.toggle_wall(x, y, orientation);
 };
 
+/** @function toggle_wall
+ * @memberof RUR
+ * @instance
+ * @summary TODO  This needs to be documented
+ *
+ * @desc Ceci doit être documenté
+ *
+ */
+
 RUR.we.toggle_wall = function (x, y, orientation) {
     var coords, index;
     coords = x + "," + y;
@@ -8554,6 +8567,15 @@ RUR.we.toggle_wall = function (x, y, orientation) {
     }
 };
 
+
+/** @function toggle_goal_wall
+ * @memberof RUR
+ * @instance
+ * @summary TODO This needs to be refactored and documented
+ *
+ * @desc Ceci doit être documenté
+ *
+ */
 
 
 RUR.we.toggle_goal_wall = function () {
@@ -8638,7 +8660,14 @@ RUR.we._add_goal_objects = function (specific_object){
     dialog_goal_object.dialog("open");
 };
 
-
+/** @function set_goal_position
+ * @memberof RUR
+ * @instance
+ * @summary TODO This needs to be refactored and documented
+ *
+ * @desc Ceci doit être documenté
+ *
+ */
 
 
 RUR.we.set_goal_position = function (home){
@@ -8745,7 +8774,7 @@ RUR.we.fill_with_tile = function (tile) {
 };
 
 
-RUR.we.toggle_solid_object = function (obj){
+RUR.we.toggle_obstacle = function (obj){
     // will remove the position if clicked again with object of same type.
     "use strict";
     var x, y, position;
@@ -8754,7 +8783,7 @@ RUR.we.toggle_solid_object = function (obj){
     x = position[0];
     y = position[1];
 
-    if (RUR.world_get.solid_objects_at_position(x, y)[obj] !== undefined) {
+    if (RUR.world_get.obstacles_at_position(x, y)[obj] !== undefined) {
         RUR.world_set.add_solid_object(obj, x, y, 0);
     } else {
         RUR.world_set.add_solid_object(obj, x, y, 1);
@@ -8770,7 +8799,7 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./constants.js":3,"./create_editors.js":5,"./dialogs/add_object.js":7,"./dialogs/create.js":8,"./dialogs/give_object.js":9,"./dialogs/goal_object.js":10,"./dialogs/select_colour.js":11,"./dialogs/set_background_image.js":12,"./exceptions.js":13,"./listeners/canvas.js":23,"./objects.js":40,"./robot.js":49,"./state.js":54,"./translator.js":56,"./ui/edit_robot_menu.js":57,"./utils/filterint.js":60,"./utils/identical.js":61,"./utils/key_exist.js":62,"./utils/supplant.js":64,"./visible_world.js":66,"./world.js":67,"./world_get.js":73,"./world_set.js":76,"./world_set/add_goal_object.js":77,"./world_set/add_object.js":78,"./world_set/add_robot.js":79,"./world_set/give_object_to_robot.js":80,"./world_set/toggle_decorative_object.js":83,"./world_set/toggle_solid_object.js":84}],73:[function(require,module,exports){
+},{"./constants.js":3,"./create_editors.js":5,"./dialogs/add_object.js":7,"./dialogs/create.js":8,"./dialogs/give_object.js":9,"./dialogs/goal_object.js":10,"./dialogs/select_colour.js":11,"./dialogs/set_background_image.js":12,"./exceptions.js":13,"./listeners/canvas.js":23,"./objects.js":40,"./robot.js":49,"./state.js":54,"./translator.js":56,"./ui/edit_robot_menu.js":57,"./utils/filterint.js":60,"./utils/identical.js":61,"./utils/key_exist.js":62,"./utils/supplant.js":64,"./visible_world.js":66,"./world.js":67,"./world_get.js":73,"./world_set.js":76,"./world_set/add_goal_object.js":77,"./world_set/add_object.js":78,"./world_set/add_robot.js":79,"./world_set/give_object_to_robot.js":80,"./world_set/toggle_decorative_object.js":83,"./world_set/toggle_obstacle.js":84}],73:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
@@ -8820,12 +8849,12 @@ RUR.world_get.pushable_object_at_position = function(x, y) {
     return false;
 };
 
-RUR.world_get.solid_objects_at_position = function (x, y) {
+RUR.world_get.obstacles_at_position = function (x, y) {
     "use strict";
     var coords = x + "," + y;
-    if (RUR.CURRENT_WORLD.solid_objects === undefined) return false;
-    if (RUR.CURRENT_WORLD.solid_objects[coords] === undefined) return false;
-    return RUR.CURRENT_WORLD.solid_objects[coords];
+    if (RUR.CURRENT_WORLD.obstacles === undefined) return false;
+    if (RUR.CURRENT_WORLD.obstacles[coords] === undefined) return false;
+    return RUR.CURRENT_WORLD.obstacles[coords];
 };
 
 RUR.world_get.object_at_robot_position = function (robot, obj) {
@@ -8909,10 +8938,10 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    tiles = RUR.world_get.solid_objects_at_position(x, y);
+    tiles = RUR.world_get.obstacles_at_position(x, y);
     if (tiles) {
         for (tilename in tiles) {
-            tile = RUR.SOLID_OBJECTS[tilename];
+            tile = RUR.OBSTACLES[tilename];
             if (RUR.translate(tile.info)){
                 if (topic){
                     topic = false;
@@ -9283,7 +9312,7 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
 
     coords = x + "," + y;
     RUR._ensure_key_exists(RUR.CURRENT_WORLD, "solid_objects");
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD.solid_objects, coords);
+    RUR._ensure_key_exists(RUR.CURRENT_WORLD.obstacles, coords);
 
     try {
         tmp = parseInt(nb, 10);
@@ -9291,15 +9320,15 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     } catch (e) {}
 
     if (nb === 0) {
-        delete RUR.CURRENT_WORLD.solid_objects[coords][specific_object];
-        if (Object.keys(RUR.CURRENT_WORLD.solid_objects[coords]).length === 0){
-            delete RUR.CURRENT_WORLD.solid_objects[coords];
+        delete RUR.CURRENT_WORLD.obstacles[coords][specific_object];
+        if (Object.keys(RUR.CURRENT_WORLD.obstacles[coords]).length === 0){
+            delete RUR.CURRENT_WORLD.obstacles[coords];
         }
-        if (Object.keys(RUR.CURRENT_WORLD.solid_objects).length === 0){
-            delete RUR.CURRENT_WORLD.solid_objects;
+        if (Object.keys(RUR.CURRENT_WORLD.obstacles).length === 0){
+            delete RUR.CURRENT_WORLD.obstacles;
         }
     } else {
-        RUR.CURRENT_WORLD.solid_objects[coords][specific_object] = nb;
+        RUR.CURRENT_WORLD.obstacles[coords][specific_object] = nb;
     }
 };
 
@@ -9342,9 +9371,9 @@ function remove_all_at_location (coords) {
             delete RUR.CURRENT_WORLD.tiles[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.solid_objects !== undefined) {
-        if (RUR.CURRENT_WORLD.solid_objects[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.solid_objects[coords];
+    if (RUR.CURRENT_WORLD.obstacles !== undefined) {
+        if (RUR.CURRENT_WORLD.obstacles[coords] !== undefined){
+            delete RUR.CURRENT_WORLD.obstacles[coords];
         }
     }
     if (RUR.CURRENT_WORLD.objects !== undefined) {
@@ -9722,7 +9751,7 @@ require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/supplant.js");
 
-/** @function toggle_solid_object_at_position
+/** @function toggle_obstacle_at_position
  * @memberof RUR
  * @instance
  * @summary This function adds or remove a given solid object (like a fence)
@@ -9738,28 +9767,28 @@ require("./../utils/supplant.js");
  *                    <br> _position de l'objet_
  */
 
-RUR.toggle_solid_object_at_position = function (specific_object, x, y){
+RUR.toggle_obstacle_at_position = function (specific_object, x, y){
     "use strict";
     var coords, cw;
-    if (RUR.KNOWN_SOLID_OBJECTS.indexOf(specific_object) == -1){
+    if (RUR.KNOWN_OBSTACLES.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
     cw = RUR.CURRENT_WORLD;
-    RUR._ensure_key_exists(cw, "solid_objects");
-    RUR._ensure_key_exists(cw.solid_objects, coords);
+    RUR._ensure_key_exists(cw, "obstacles");
+    RUR._ensure_key_exists(cw.obstacles, coords);
 
-    if (cw.solid_objects[coords][specific_object]) {
-        delete cw.solid_objects[coords][specific_object];
-        if (Object.keys(cw.solid_objects[coords]).length === 0) {
-            delete cw.solid_objects[coords];
-            if (Object.keys(cw.solid_objects).length === 0) {
-                delete cw.solid_objects;
+    if (cw.obstacles[coords][specific_object]) {
+        delete cw.obstacles[coords][specific_object];
+        if (Object.keys(cw.obstacles[coords]).length === 0) {
+            delete cw.obstacles[coords];
+            if (Object.keys(cw.obstacles).length === 0) {
+                delete cw.obstacles;
             }
         }
     } else {
-        cw.solid_objects[coords][specific_object] = true;
+        cw.obstacles[coords][specific_object] = true;
     }
 };
 

@@ -8,6 +8,8 @@ require("./state.js");
 require("./extend/add_object_type.js");
 require("./extend/add_tile_type.js");
 
+//TODO add overlay object (like sensor) on robot canvas.
+
 RUR.vis_world = {};
 
 RUR.vis_world.refresh_world_edited = function () {
@@ -40,9 +42,12 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
         RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas");
         RUR.BACKGROUND_CANVAS.width = width;
         RUR.BACKGROUND_CANVAS.height = height;
-        RUR.SECOND_LAYER_CANVAS = document.getElementById("second-layer-canvas");
-        RUR.SECOND_LAYER_CANVAS.width = width;
-        RUR.SECOND_LAYER_CANVAS.height = height;
+        RUR.TILES_CANVAS = document.getElementById("tiles-canvas");
+        RUR.TILES_CANVAS.width = width;
+        RUR.TILES_CANVAS.height = height;
+        RUR.OBSTACLES_CANVAS = document.getElementById("obstacles-canvas");
+        RUR.OBSTACLES_CANVAS.width = width;
+        RUR.OBSTACLES_CANVAS.height = height;
         RUR.GOAL_CANVAS = document.getElementById("goal-canvas");
         RUR.GOAL_CANVAS.width = width;
         RUR.GOAL_CANVAS.height = height;
@@ -88,7 +93,7 @@ RUR.vis_world.draw_all = function () {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = undefined;
         RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -97,7 +102,7 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.animated_tiles = false;
+    RUR.animated_images = false;
 
     if (RUR.state.editing_world) {
         if (RUR.CURRENT_WORLD.background_image !== undefined) {
@@ -127,16 +132,16 @@ RUR.vis_world.refresh = function () {
     // some objects are drown on their own contexts.
     RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.SECOND_LAYER_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
-    // animated tiles are redrawn according to their own schedule
-    if (!RUR.animated_tiles) {
-        RUR.vis_world.draw_animated_tiles(); // on BACKGROUND_CTX
+    // animated images are redrawn according to their own schedule
+    if (!RUR.animated_images) {
+        RUR.vis_world.draw_animated_tiles(); // on TILES_CTX
     }
 
     RUR.vis_world.draw_goal();  // on GOAL_CTX
-    RUR.vis_world.draw_tiles(RUR.CURRENT_WORLD.tiles); // on BACKGROUND_CTX
+    RUR.vis_world.draw_tiles(RUR.CURRENT_WORLD.tiles); // on TILES_CTX
     RUR.vis_world.draw_foreground_walls(RUR.CURRENT_WORLD.walls); // on OBJECTS_CTX
     RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.decorative_objects);
     RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.objects);  // on OBJECTS_CTX
@@ -144,7 +149,7 @@ RUR.vis_world.refresh = function () {
         // and, draws some objects on ROBOT_CTX
 
     // objects: goal is false, tile is true
-    RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.solid_objects, false, true); // likely on RUR.SECOND_LAYER_CTX
+    RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
 
     RUR.vis_world.draw_robots(RUR.CURRENT_WORLD.robots);  // on ROBOT_CTX
     RUR.vis_world.compile_info();  // on ROBOT_CTX
@@ -376,7 +381,7 @@ RUR.vis_world.draw_tiles = function (tiles){
             tile = RUR.TILES[tiles[keys[key]]];
             if (tile === undefined) {
                 colour = tiles[keys[key]];
-                RUR.vis_world.draw_coloured_tile(colour, i, j, RUR.BACKGROUND_CTX);
+                RUR.vis_world.draw_coloured_tile(colour, i, j, RUR.TILES_CTX);
                 continue;
             }
         }
@@ -387,7 +392,7 @@ RUR.vis_world.draw_tiles = function (tiles){
                 console.log("problem in draw_tiles; tile =", tile);
                 throw new ReeborgError("Problem in draw_tiles.");
             }
-            RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
+            RUR.vis_world.draw_single_object(image, i, j, RUR.TILES_CTX);
         }
     }
 };
@@ -401,7 +406,7 @@ RUR.vis_world.draw_animated_tiles = function (){
         return;
     }
 
-    RUR.animated_tiles = false;
+    RUR.animated_images = false;
     coords = Object.keys(tiles);
     for (k=0; k < coords.length; k++){
         i_j = coords[k].split(",");
@@ -417,11 +422,11 @@ RUR.vis_world.draw_animated_tiles = function (){
                 console.log("problem in draw_animated_tiles; tile =", tile);
                 throw new ReeborgError("Problem in draw_animated_tiles at" + coords);
             }
-            RUR.animated_tiles = true;
-            RUR.vis_world.draw_single_object(image, i, j, RUR.BACKGROUND_CTX);
+            RUR.animated_images = true;
+            RUR.vis_world.draw_single_object(image, i, j, RUR.TILES_CTX);
         }
     }
-    if (RUR.animated_tiles) {
+    if (RUR.animated_images) {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = setTimeout(RUR.vis_world.draw_animated_tiles,
             RUR.ANIMATION_TIME);
@@ -459,7 +464,7 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
                 for (obj_name in objects_here){
                     if (objects_here.hasOwnProperty(obj_name)){
                         if (tile){
-                            specific_object = RUR.SOLID_OBJECTS[obj_name];
+                            specific_object = RUR.OBSTACLES[obj_name];
                         } else {
                             specific_object = RUR.OBJECTS[obj_name];
                         }

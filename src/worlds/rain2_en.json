@@ -1,0 +1,239 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 6,
+      "tokens": 0,
+      "_prev_x": 1,
+      "_prev_y": 6,
+      "_prev_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          6
+        ]
+      ],
+      "objects": {},
+      "_orientation": 0
+    }
+  ],
+  "walls": {
+    "3,7": [
+      "east"
+    ],
+    "3,8": [
+      "east"
+    ],
+    "3,5": [
+      "east"
+    ],
+    "3,4": [
+      "east"
+    ],
+    "8,8": [
+      "north"
+    ],
+    "5,8": [
+      "north"
+    ],
+    "4,8": [
+      "north"
+    ],
+    "4,3": [
+      "north"
+    ],
+    "6,3": [
+      "north",
+      "east"
+    ],
+    "7,2": [
+      "north"
+    ],
+    "8,2": [
+      "north"
+    ],
+    "10,2": [
+      "north"
+    ],
+    "11,2": [
+      "north"
+    ],
+    "11,3": [
+      "east"
+    ],
+    "11,5": [
+      "east"
+    ],
+    "11,7": [
+      "east"
+    ],
+    "11,8": [
+      "east",
+      "north"
+    ],
+    "10,8": [
+      "north"
+    ],
+    "7,8": [
+      "north"
+    ]
+  },
+  "goal": {
+    "walls": {
+      "5,3": [
+        "north"
+      ],
+      "9,2": [
+        "north"
+      ],
+      "11,4": [
+        "east"
+      ],
+      "11,6": [
+        "east"
+      ],
+      "9,8": [
+        "north"
+      ],
+      "6,8": [
+        "north"
+      ]
+    },
+    "position": {
+      "x": 4,
+      "y": 6
+    },
+    "orientation": 2
+  },
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "tiles": {
+    "1,1": "water",
+    "1,2": "water",
+    "1,3": "water",
+    "1,4": "water",
+    "1,5": "water",
+    "1,7": "water",
+    "1,8": "water",
+    "1,9": "water",
+    "1,10": "water",
+    "1,11": "water",
+    "1,12": "water",
+    "2,1": "water",
+    "2,2": "water",
+    "2,3": "water",
+    "2,4": "water",
+    "2,5": "water",
+    "2,7": "water",
+    "2,8": "water",
+    "2,9": "water",
+    "2,10": "water",
+    "2,11": "water",
+    "2,12": "water",
+    "3,1": "water",
+    "3,2": "water",
+    "3,3": "water",
+    "3,4": "water",
+    "3,5": "water",
+    "3,7": "water",
+    "3,8": "water",
+    "3,9": "water",
+    "3,10": "water",
+    "3,11": "water",
+    "3,12": "water",
+    "4,1": "water",
+    "4,2": "water",
+    "4,3": "water",
+    "4,9": "water",
+    "4,10": "water",
+    "4,11": "water",
+    "4,12": "water",
+    "5,1": "water",
+    "5,2": "water",
+    "5,3": "water",
+    "5,9": "water",
+    "5,10": "water",
+    "5,11": "water",
+    "5,12": "water",
+    "6,1": "water",
+    "6,2": "water",
+    "6,3": "water",
+    "6,9": "water",
+    "6,10": "water",
+    "6,11": "water",
+    "6,12": "water",
+    "7,1": "water",
+    "7,2": "water",
+    "7,9": "water",
+    "7,10": "water",
+    "7,11": "water",
+    "7,12": "water",
+    "8,1": "water",
+    "8,2": "water",
+    "8,9": "water",
+    "8,10": "water",
+    "8,11": "water",
+    "8,12": "water",
+    "9,1": "water",
+    "9,2": "water",
+    "9,9": "water",
+    "9,10": "water",
+    "9,11": "water",
+    "9,12": "water",
+    "10,1": "water",
+    "10,2": "water",
+    "10,9": "water",
+    "10,10": "water",
+    "10,11": "water",
+    "10,12": "water",
+    "11,1": "water",
+    "11,2": "water",
+    "11,9": "water",
+    "11,10": "water",
+    "11,11": "water",
+    "11,12": "water",
+    "12,1": "water",
+    "12,2": "water",
+    "12,3": "water",
+    "12,4": "water",
+    "12,5": "water",
+    "12,6": "water",
+    "12,7": "water",
+    "12,8": "water",
+    "12,9": "water",
+    "12,10": "water",
+    "12,11": "water",
+    "12,12": "water",
+    "13,1": "water",
+    "13,2": "water",
+    "13,3": "water",
+    "13,4": "water",
+    "13,5": "water",
+    "13,6": "water",
+    "13,7": "water",
+    "13,8": "water",
+    "13,9": "water",
+    "13,10": "water",
+    "13,11": "water",
+    "13,12": "water",
+    "14,1": "water",
+    "14,2": "water",
+    "14,3": "water",
+    "14,4": "water",
+    "14,5": "water",
+    "14,6": "water",
+    "14,7": "water",
+    "14,8": "water",
+    "14,9": "water",
+    "14,10": "water",
+    "14,11": "water",
+    "14,12": "water",
+    "1,6": "gravel",
+    "2,6": "gravel",
+    "3,6": "gravel"
+  },
+  "description": "Using <code>build_wall()</code> Reeborg must close all the open windows to \nprevent the water from coming in.\nYou can use <code>wall_in_front()</code> or <code>wall_on_right()</code>\n<b>however</b> you neither can use <code>front_is_clear()</code>\nnor <code>right_is_clear()</code>",
+  "onload": "RUR.onload_set_programming_mode(\"python\")\n",
+  "pre": "def front_is_clear():\n    raise ReeborgError(\"You are not allowed to use front_is_clear().\")\n\ndef right_is_clear():\n    raise ReeborgError(\"You are not allowed to use right_is_clear().\")"
+}

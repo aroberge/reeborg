@@ -214,24 +214,28 @@ canvas {
     z-index: 1;
 }
 
-#second-layer-canvas {
+#tiles-canvas {
     z-index: 2;
 }
 
-#goal-canvas {
+#obstacles-canvas {
     z-index: 3;
 }
 
-#objects-canvas {
+#goal-canvas {
     z-index: 4;
 }
 
-#trace-canvas {
+#objects-canvas {
     z-index: 5;
 }
 
-#robot-canvas {
+#trace-canvas {
     z-index: 6;
+}
+
+#robot-canvas {
+    z-index: 7;
 }
 
 #tooltip {

@@ -20,7 +20,7 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
 
     coords = x + "," + y;
     RUR._ensure_key_exists(RUR.CURRENT_WORLD, "solid_objects");
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD.solid_objects, coords);
+    RUR._ensure_key_exists(RUR.CURRENT_WORLD.obstacles, coords);
 
     try {
         tmp = parseInt(nb, 10);
@@ -28,15 +28,15 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     } catch (e) {}
 
     if (nb === 0) {
-        delete RUR.CURRENT_WORLD.solid_objects[coords][specific_object];
-        if (Object.keys(RUR.CURRENT_WORLD.solid_objects[coords]).length === 0){
-            delete RUR.CURRENT_WORLD.solid_objects[coords];
+        delete RUR.CURRENT_WORLD.obstacles[coords][specific_object];
+        if (Object.keys(RUR.CURRENT_WORLD.obstacles[coords]).length === 0){
+            delete RUR.CURRENT_WORLD.obstacles[coords];
         }
-        if (Object.keys(RUR.CURRENT_WORLD.solid_objects).length === 0){
-            delete RUR.CURRENT_WORLD.solid_objects;
+        if (Object.keys(RUR.CURRENT_WORLD.obstacles).length === 0){
+            delete RUR.CURRENT_WORLD.obstacles;
         }
     } else {
-        RUR.CURRENT_WORLD.solid_objects[coords][specific_object] = nb;
+        RUR.CURRENT_WORLD.obstacles[coords][specific_object] = nb;
     }
 };
 
@@ -79,9 +79,9 @@ function remove_all_at_location (coords) {
             delete RUR.CURRENT_WORLD.tiles[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.solid_objects !== undefined) {
-        if (RUR.CURRENT_WORLD.solid_objects[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.solid_objects[coords];
+    if (RUR.CURRENT_WORLD.obstacles !== undefined) {
+        if (RUR.CURRENT_WORLD.obstacles[coords] !== undefined){
+            delete RUR.CURRENT_WORLD.obstacles[coords];
         }
     }
     if (RUR.CURRENT_WORLD.objects !== undefined) {

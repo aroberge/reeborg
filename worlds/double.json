@@ -1,0 +1,8 @@
+{
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "post": "no_error = True\n\ntry:\n    assert double(2) == 4\nexcept AssertionError:\n    msg = \"double(2) should be equal to 4<br>\"\n    msg += \"The result was %s \" % double(2)\n    no_error = False\n    \nif no_error:\n    raise ReeborgOk(\"Well done!\")\nelse:\n    raise ReeborgError(msg)\n",
+  "description": "A description goes here.\n",
+  "editor": "def double(x):\n    '''Write the code so that this function will\n       return the double of its argument.'''\n"
+}

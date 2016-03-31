@@ -70,11 +70,11 @@ RUR.control.move = function (robot) {
             solid_tile_beyond = false;
         }
 
-        solids_beyond = RUR.world_get.solid_objects_at_position(x_beyond, y_beyond);
+        solids_beyond = RUR.world_get.obstacles_at_position(x_beyond, y_beyond);
         solid_object_beyond = false;
         if (solids_beyond) {
             for (name in solids_beyond) {
-                if (RUR.SOLID_OBJECTS[name] !== undefined && RUR.SOLID_OBJECTS[name].solid) {
+                if (RUR.OBSTACLES[name] !== undefined && RUR.OBSTACLES[name].solid) {
                     solid_object_beyond = true;
                     break;
                 }
@@ -106,13 +106,13 @@ RUR.control.move = function (robot) {
         }
     }
 
-    objects = RUR.world_get.solid_objects_at_position(robot.x, robot.y);
+    objects = RUR.world_get.obstacles_at_position(robot.x, robot.y);
     if (objects) {
         for (name in objects) {
-            if (RUR.SOLID_OBJECTS[name] !== undefined && RUR.SOLID_OBJECTS[name].fatal) {
+            if (RUR.OBSTACLES[name] !== undefined && RUR.OBSTACLES[name].fatal) {
                 robot.x = robot._prev_x;
                 robot.y = robot._prev_y;
-                throw new RUR.ReeborgError(RUR.SOLID_OBJECTS[name].message);
+                throw new RUR.ReeborgError(RUR.OBSTACLES[name].message);
             }
         }
     }
@@ -121,7 +121,7 @@ RUR.control.move = function (robot) {
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
     "use strict";
     var bridge_already_there = false;
-    if (RUR.world_get.solid_objects_at_position(to_x, to_y).bridge !== undefined){
+    if (RUR.world_get.obstacles_at_position(to_x, to_y).bridge !== undefined){
         bridge_already_there = true;
     }
 
@@ -414,19 +414,19 @@ RUR.control.tile_in_front = function (robot) {
 };
 
 
-RUR.control.solid_objects_in_front = function (robot) {
+RUR.control.obstacles_in_front = function (robot) {
     // returns list of tiles
     switch (robot._orientation){
     case RUR.EAST:
-        return RUR.world_get.solid_objects_at_position(robot.x+1, robot.y);
+        return RUR.world_get.obstacles_at_position(robot.x+1, robot.y);
     case RUR.NORTH:
-        return RUR.world_get.solid_objects_at_position(robot.x, robot.y+1);
+        return RUR.world_get.obstacles_at_position(robot.x, robot.y+1);
     case RUR.WEST:
-        return RUR.world_get.solid_objects_at_position(robot.x-1, robot.y);
+        return RUR.world_get.obstacles_at_position(robot.x-1, robot.y);
     case RUR.SOUTH:
-        return RUR.world_get.solid_objects_at_position(robot.x, robot.y-1);
+        return RUR.world_get.obstacles_at_position(robot.x, robot.y-1);
     default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.solid_objects_in_front().");
+        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.obstacles_in_front().");
     }
 };
 
@@ -449,12 +449,12 @@ RUR.control.front_is_clear = function(robot){
         }
     }
 
-    solid = RUR.control.solid_objects_in_front(robot);
+    solid = RUR.control.obstacles_in_front(robot);
     if (solid) {
         for (name in solid) {
-            if (RUR.SOLID_OBJECTS[name] !== undefined &&
-                RUR.SOLID_OBJECTS[name].detectable &&
-                RUR.SOLID_OBJECTS[name].fatal) {
+            if (RUR.OBSTACLES[name] !== undefined &&
+                RUR.OBSTACLES[name].detectable &&
+                RUR.OBSTACLES[name].fatal) {
                 return false;
             }
         }
@@ -466,7 +466,7 @@ RUR.control.front_is_clear = function(robot){
 
 RUR.control._bridge_present = function(robot) {
     var solid, name;
-        solid = RUR.control.solid_objects_in_front(robot);
+        solid = RUR.control.obstacles_in_front(robot);
     if (solid) {
         for (name in solid) {
             if (name == "bridge") {
@@ -513,12 +513,12 @@ RUR.control.solid_object_here = function (robot, tile) {
     var tile_here, tile_type, all_solid_objects;
     var coords = robot.x + "," + robot.y;
 
-    if (RUR.CURRENT_WORLD.solid_objects === undefined ||
-        RUR.CURRENT_WORLD.solid_objects[coords] === undefined) {
+    if (RUR.CURRENT_WORLD.obstacles === undefined ||
+        RUR.CURRENT_WORLD.obstacles[coords] === undefined) {
         return false;
     }
 
-    tile_here =  RUR.CURRENT_WORLD.solid_objects[coords];
+    tile_here =  RUR.CURRENT_WORLD.obstacles[coords];
 
     for (tile_type in tile_here) {
         if (tile_here.hasOwnProperty(tile_type)) {

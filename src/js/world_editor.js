@@ -19,7 +19,7 @@ require("./world_set/add_object.js");
 require("./world_set/add_goal_object.js");
 require("./world_set/add_robot.js");
 require("./world_set/toggle_decorative_object.js");
-require("./world_set/toggle_solid_object.js");
+require("./world_set/toggle_obstacle.js");
 require("./world_set/give_object_to_robot.js");
 
 
@@ -63,7 +63,7 @@ RUR.we.edit_world = function  () {
             RUR.we.toggle_tile(value);
             break;
         case "solid_object":
-            RUR.we.toggle_solid_object(value);
+            RUR.we.toggle_obstacle(value);
             break;
         case "world":
             if (value == "walls") {
@@ -397,6 +397,15 @@ RUR.we._toggle_wall = function () {
     RUR.we.toggle_wall(x, y, orientation);
 };
 
+/** @function toggle_wall
+ * @memberof RUR
+ * @instance
+ * @summary TODO  This needs to be documented
+ *
+ * @desc Ceci doit être documenté
+ *
+ */
+
 RUR.we.toggle_wall = function (x, y, orientation) {
     var coords, index;
     coords = x + "," + y;
@@ -417,6 +426,15 @@ RUR.we.toggle_wall = function (x, y, orientation) {
     }
 };
 
+
+/** @function toggle_goal_wall
+ * @memberof RUR
+ * @instance
+ * @summary TODO This needs to be refactored and documented
+ *
+ * @desc Ceci doit être documenté
+ *
+ */
 
 
 RUR.we.toggle_goal_wall = function () {
@@ -501,7 +519,14 @@ RUR.we._add_goal_objects = function (specific_object){
     dialog_goal_object.dialog("open");
 };
 
-
+/** @function set_goal_position
+ * @memberof RUR
+ * @instance
+ * @summary TODO This needs to be refactored and documented
+ *
+ * @desc Ceci doit être documenté
+ *
+ */
 
 
 RUR.we.set_goal_position = function (home){
@@ -608,7 +633,7 @@ RUR.we.fill_with_tile = function (tile) {
 };
 
 
-RUR.we.toggle_solid_object = function (obj){
+RUR.we.toggle_obstacle = function (obj){
     // will remove the position if clicked again with object of same type.
     "use strict";
     var x, y, position;
@@ -617,7 +642,7 @@ RUR.we.toggle_solid_object = function (obj){
     x = position[0];
     y = position[1];
 
-    if (RUR.world_get.solid_objects_at_position(x, y)[obj] !== undefined) {
+    if (RUR.world_get.obstacles_at_position(x, y)[obj] !== undefined) {
         RUR.world_set.add_solid_object(obj, x, y, 0);
     } else {
         RUR.world_set.add_solid_object(obj, x, y, 1);

@@ -47,12 +47,12 @@ RUR.world_get.pushable_object_at_position = function(x, y) {
     return false;
 };
 
-RUR.world_get.solid_objects_at_position = function (x, y) {
+RUR.world_get.obstacles_at_position = function (x, y) {
     "use strict";
     var coords = x + "," + y;
-    if (RUR.CURRENT_WORLD.solid_objects === undefined) return false;
-    if (RUR.CURRENT_WORLD.solid_objects[coords] === undefined) return false;
-    return RUR.CURRENT_WORLD.solid_objects[coords];
+    if (RUR.CURRENT_WORLD.obstacles === undefined) return false;
+    if (RUR.CURRENT_WORLD.obstacles[coords] === undefined) return false;
+    return RUR.CURRENT_WORLD.obstacles[coords];
 };
 
 RUR.world_get.object_at_robot_position = function (robot, obj) {
@@ -136,10 +136,10 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    tiles = RUR.world_get.solid_objects_at_position(x, y);
+    tiles = RUR.world_get.obstacles_at_position(x, y);
     if (tiles) {
         for (tilename in tiles) {
-            tile = RUR.SOLID_OBJECTS[tilename];
+            tile = RUR.OBSTACLES[tilename];
             if (RUR.translate(tile.info)){
                 if (topic){
                     topic = false;

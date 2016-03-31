@@ -3,7 +3,7 @@ require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/supplant.js");
 
-/** @function toggle_solid_object_at_position
+/** @function toggle_obstacle_at_position
  * @memberof RUR
  * @instance
  * @summary This function adds or remove a given solid object (like a fence)
@@ -19,27 +19,27 @@ require("./../utils/supplant.js");
  *                    <br> _position de l'objet_
  */
 
-RUR.toggle_solid_object_at_position = function (specific_object, x, y){
+RUR.toggle_obstacle_at_position = function (specific_object, x, y){
     "use strict";
     var coords, cw;
-    if (RUR.KNOWN_SOLID_OBJECTS.indexOf(specific_object) == -1){
+    if (RUR.KNOWN_OBSTACLES.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
     cw = RUR.CURRENT_WORLD;
-    RUR._ensure_key_exists(cw, "solid_objects");
-    RUR._ensure_key_exists(cw.solid_objects, coords);
+    RUR._ensure_key_exists(cw, "obstacles");
+    RUR._ensure_key_exists(cw.obstacles, coords);
 
-    if (cw.solid_objects[coords][specific_object]) {
-        delete cw.solid_objects[coords][specific_object];
-        if (Object.keys(cw.solid_objects[coords]).length === 0) {
-            delete cw.solid_objects[coords];
-            if (Object.keys(cw.solid_objects).length === 0) {
-                delete cw.solid_objects;
+    if (cw.obstacles[coords][specific_object]) {
+        delete cw.obstacles[coords][specific_object];
+        if (Object.keys(cw.obstacles[coords]).length === 0) {
+            delete cw.obstacles[coords];
+            if (Object.keys(cw.obstacles).length === 0) {
+                delete cw.obstacles;
             }
         }
     } else {
-        cw.solid_objects[coords][specific_object] = true;
+        cw.obstacles[coords][specific_object] = true;
     }
 };

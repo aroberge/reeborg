@@ -20,7 +20,8 @@ RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
 RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
 
 RUR.BACKGROUND_CTX = document.getElementById("background-canvas").getContext("2d");
-RUR.SECOND_LAYER_CTX = document.getElementById("second-layer-canvas").getContext("2d");
+RUR.TILES_CTX = document.getElementById("tiles-canvas").getContext("2d");
+RUR.OBSTACLES_CTX = document.getElementById("obstacles-canvas").getContext("2d");
 RUR.GOAL_CTX = document.getElementById("goal-canvas").getContext("2d");
 RUR.OBJECTS_CTX = document.getElementById("objects-canvas").getContext("2d");
 RUR.TRACE_CTX = document.getElementById("trace-canvas").getContext("2d");
@@ -56,7 +57,7 @@ RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 RUR.KNOWN_OBJECTS = [];
 RUR.KNOWN_TILES = [];
-RUR.KNOWN_SOLID_OBJECTS = [];
+RUR.KNOWN_OBSTACLES = [];
 RUR.ANIMATION_TIME = 120;
 
 RUR._CALLBACK_FN = function () {
