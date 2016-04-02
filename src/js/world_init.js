@@ -111,9 +111,5 @@ RUR.world_init.set = function () {
         goal.position.y = position[1];
         delete goal.possible_positions;
     }
-    if (RUR.CURRENT_WORLD.goal !== undefined) {
-        RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.vis_world.draw_goal();
-    }
     RUR.vis_world.refresh();
 };

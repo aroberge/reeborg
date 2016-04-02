@@ -7245,6 +7245,8 @@ require("./state.js");
 require("./extend/add_object_type.js");
 require("./extend/add_tile_type.js");
 
+//TODO add overlay object (like sensor) on robot canvas.
+
 RUR.vis_world = {};
 
 RUR.vis_world.refresh_world_edited = function () {
@@ -7328,6 +7330,7 @@ RUR.vis_world.draw_all = function () {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = undefined;
         RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -7337,72 +7340,70 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.animated_images = false;
-
-    if (RUR.state.editing_world) {
-        if (RUR.CURRENT_WORLD.background_image !== undefined) {
-            RUR.vis_world.draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
-        }
-        RUR.vis_world.draw_grid_walls();  // on BACKGROUND_CTX
-    } else {
-        RUR.vis_world.draw_grid_walls();
-        if (RUR.CURRENT_WORLD.background_image !== undefined) {
-            RUR.vis_world.draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
-        }
+    draw_grid_walls(RUR.BACKGROUND_CTX);
+    if (RUR.CURRENT_WORLD.background_image !== undefined) {
+        draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
     }
-
-    RUR.vis_world.draw_coordinates(); // on BACKGROUND_CTX
+    draw_coordinates(); // on BACKGROUND_CTX
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.animated_images = false;
+    RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.refresh();
 };
 
 
 RUR.vis_world.refresh = function () {
     "use strict";
+    var current = RUR.CURRENT_WORLD;
     // meant to be called at each step
-    // does not draw background (i.e. coordinates and grid walls)
+    // does not draw background (i.e. coordinates, grid walls and possibly image)
     // does not clear trace
 
     // start by clearing all the relevant contexts first.
     // some objects are drown on their own contexts.
-    RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+    if (RUR.state.editing_world) {
+        // make them appear above background and tiles but below foreground walls.
+        draw_grid_walls(RUR.GOAL_CTX);
+    }
 
     // animated images are redrawn according to their own schedule
     if (!RUR.animated_images) {
-        RUR.vis_world.draw_animated_tiles(); // on TILES_CTX
+        draw_animated_images();
     }
 
-    RUR.vis_world.draw_goal();  // on GOAL_CTX
-    RUR.vis_world.draw_tiles(RUR.CURRENT_WORLD.tiles); // on TILES_CTX
-    RUR.vis_world.draw_foreground_walls(RUR.CURRENT_WORLD.walls); // on OBJECTS_CTX
-    RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.decorative_objects);
-    RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.objects);  // on OBJECTS_CTX
-        // RUR.vis_world.draw_all_objects also called by draw_goal, and draws on GOAL_CTX
+    draw_goal();  // on GOAL_CTX
+    draw_tiles(current.tiles); // on TILES_CTX
+    draw_foreground_walls(current.walls); // on OBJECTS_CTX
+    draw_all_objects(current.decorative_objects);
+    draw_all_objects(current.objects);  // on OBJECTS_CTX
+        // draw_all_objects also called by draw_goal, and draws on GOAL_CTX
         // and, draws some objects on ROBOT_CTX
 
     // objects: goal is false, tile is true
-    RUR.vis_world.draw_all_objects(RUR.CURRENT_WORLD.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
+    draw_all_objects(current.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
 
-    RUR.vis_world.draw_robots(RUR.CURRENT_WORLD.robots);  // on ROBOT_CTX
-    RUR.vis_world.compile_info();  // on ROBOT_CTX
-    RUR.vis_world.draw_info();     // on ROBOT_CTX
+    draw_robots(current.robots);  // on ROBOT_CTX
+    compile_info();  // on ROBOT_CTX
+    draw_info();     // on ROBOT_CTX
 };
 
-RUR.vis_world.draw_coordinates = function() {
+draw_coordinates = function() {
     "use strict";
-    var x, y, ctx = RUR.BACKGROUND_CTX;
+    var x, y, ctx = RUR.BACKGROUND_CTX, size=RUR.WALL_LENGTH;
 
     ctx.fillStyle = RUR.COORDINATES_COLOR;
-    y = RUR.HEIGHT + 5 - RUR.WALL_LENGTH/2;
+    y = RUR.HEIGHT + 5 - size/2;
     for(x=1; x <= RUR.COLS; x++){
-        ctx.fillText(x, (x+0.5)*RUR.WALL_LENGTH, y);
+        ctx.fillText(x, (x+0.5)*size, y);
     }
-    x = RUR.WALL_LENGTH/2 -5;
+    x = size/2 -5;
     for(y=1; y <= RUR.ROWS; y++){
-        ctx.fillText(y, x, RUR.HEIGHT - (y+0.3)*RUR.WALL_LENGTH);
+        ctx.fillText(y, x, RUR.HEIGHT - (y+0.3)*size);
     }
 
     ctx.fillStyle = RUR.AXIS_LABEL_COLOR;
@@ -7411,24 +7412,19 @@ RUR.vis_world.draw_coordinates = function() {
 };
 
 
-RUR.vis_world.draw_grid_walls = function(){
-    var i, j, ctx;
-    if (RUR.state.editing_world) {
-        ctx = RUR.GOAL_CTX;     // have the appear above the tiles while editing
-    } else {
-        ctx = RUR.BACKGROUND_CTX;
-    }
+draw_grid_walls = function(ctx){
+    var i, j;
 
     ctx.fillStyle = RUR.SHADOW_WALL_COLOR;
     for (i = 1; i <= RUR.COLS; i++) {
         for (j = 1; j <= RUR.ROWS; j++) {
-            RUR.vis_world.draw_north_wall(ctx, i, j);
-            RUR.vis_world.draw_east_wall(ctx, i, j);
+            draw_north_wall(ctx, i, j);
+            draw_east_wall(ctx, i, j);
         }
     }
 };
 
-RUR.vis_world.draw_foreground_walls = function (walls) {
+draw_foreground_walls = function (walls) {
     "use strict";
     var keys, key, i, j, k, ctx = RUR.OBJECTS_CTX;
 
@@ -7436,16 +7432,16 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
     // border walls (x and y axis)
     ctx.fillStyle = RUR.WALL_COLOR;
     for (j = 1; j <= RUR.ROWS; j++) {
-        RUR.vis_world.draw_east_wall(ctx, 0, j);
+        draw_east_wall(ctx, 0, j);
     }
     for (i = 1; i <= RUR.COLS; i++) {
-        RUR.vis_world.draw_north_wall(ctx, i, 0);
+        draw_north_wall(ctx, i, 0);
     }
     for (j = 1; j <= RUR.ROWS; j++) {
-        RUR.vis_world.draw_east_wall(ctx, RUR.COLS, j);
+        draw_east_wall(ctx, RUR.COLS, j);
     }
     for (i = 1; i <= RUR.COLS; i++) {
-        RUR.vis_world.draw_north_wall(ctx, i, RUR.ROWS);
+        draw_north_wall(ctx, i, RUR.ROWS);
     }
 
 
@@ -7461,44 +7457,42 @@ RUR.vis_world.draw_foreground_walls = function (walls) {
         j = parseInt(k[1], 10);
         if ( walls[keys[key]].indexOf("north") !== -1 &&
             i <= RUR.COLS && j <= RUR.ROWS) {
-            RUR.vis_world.draw_north_wall(ctx, i, j);
+            draw_north_wall(ctx, i, j);
         }
         if (walls[keys[key]].indexOf("east") !== -1 &&
             i <= RUR.COLS && j <= RUR.ROWS) {
-            RUR.vis_world.draw_east_wall(ctx, i, j);
+            draw_east_wall(ctx, i, j);
         }
     }
 };
 
-RUR.vis_world.draw_north_wall = function(ctx, i, j, goal) {
+draw_north_wall = function(ctx, i, j, goal) {
     "use strict";
+    var length=RUR.WALL_LENGTH, thick=RUR.WALL_THICKNESS;
     if (goal){
         ctx.strokeStyle = RUR.GOAL_WALL_COLOR;
         ctx.beginPath();
-        ctx.rect(i*RUR.WALL_LENGTH, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH,
-                      RUR.WALL_LENGTH + RUR.WALL_THICKNESS, RUR.WALL_THICKNESS);
+        ctx.rect(i*length, RUR.HEIGHT - (j+1)*length, length + thick, thick);
         ctx.stroke();
         return;
     }
-    ctx.fillRect(i*RUR.WALL_LENGTH, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH,
-                      RUR.WALL_LENGTH + RUR.WALL_THICKNESS, RUR.WALL_THICKNESS);
+    ctx.fillRect(i*length, RUR.HEIGHT - (j+1)*length, length + thick, thick);
 };
 
-RUR.vis_world.draw_east_wall = function(ctx, i, j, goal) {
+draw_east_wall = function(ctx, i, j, goal) {
     "use strict";
+    var length=RUR.WALL_LENGTH, thick=RUR.WALL_THICKNESS;
     if (goal){
         ctx.strokeStyle = RUR.GOAL_WALL_COLOR;
         ctx.beginPath();
-        ctx.rect((i+1)*RUR.WALL_LENGTH, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH,
-                      RUR.WALL_THICKNESS, RUR.WALL_LENGTH + RUR.WALL_THICKNESS);
+        ctx.rect((i+1)*length, RUR.HEIGHT - (j+1)*length, thick, length + thick);
         ctx.stroke();
         return;
     }
-    ctx.fillRect((i+1)*RUR.WALL_LENGTH, RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH,
-                      RUR.WALL_THICKNESS, RUR.WALL_LENGTH + RUR.WALL_THICKNESS);
+    ctx.fillRect((i+1)*length, RUR.HEIGHT - (j+1)*length, thick, length + thick);
 };
 
-RUR.vis_world.draw_robots = function (robots) {
+draw_robots = function (robots) {
     "use strict";
     var robot;
     if (!robots || robots[0] === undefined) {
@@ -7506,14 +7500,14 @@ RUR.vis_world.draw_robots = function (robots) {
     }
     for (robot=0; robot < robots.length; robot++){
         if (robots[robot].start_positions !== undefined && robots[robot].start_positions.length > 1){
-            RUR.vis_world.draw_robot_clones(robots[robot]);
+            draw_robot_clones(robots[robot]);
         } else {
             RUR.vis_robot.draw(robots[robot]); // draws trace automatically
         }
     }
 };
 
-RUR.vis_world.draw_robot_clones = function(robot){
+draw_robot_clones = function(robot){
     "use strict";
     var i, clone;
     RUR.ROBOT_CTX.save();
@@ -7529,13 +7523,9 @@ RUR.vis_world.draw_robot_clones = function(robot){
     RUR.ROBOT_CTX.restore();
 };
 
-RUR.vis_world.draw_goal = function () {
+draw_goal = function () {
     "use strict";
     var goal, ctx = RUR.GOAL_CTX;
-
-    if (RUR.state.editing_world){  // have to appear above tiles;
-        RUR.vis_world.draw_grid_walls();  //  so this is a convenient canvas
-    }
 
     if (RUR.CURRENT_WORLD.goal === undefined) {
         return;
@@ -7543,19 +7533,18 @@ RUR.vis_world.draw_goal = function () {
 
     goal = RUR.CURRENT_WORLD.goal;
     if (goal.position !== undefined) {
-        RUR.vis_world.draw_goal_position(goal, ctx);
+        draw_goal_position(goal, ctx);
     }
     if (goal.objects !== undefined){
-        RUR.vis_world.draw_all_objects(goal.objects, true);
+        draw_all_objects(goal.objects, true);
     }
 
     if (goal.walls !== undefined){
-        RUR.vis_world.draw_goal_walls(goal, ctx);
+        draw_goal_walls(goal, ctx);
     }
 };
 
-
-RUR.vis_world.draw_goal_position = function (goal, ctx) {
+draw_goal_position = function (goal, ctx) {
     "use strict";
     var image, i, g;
 
@@ -7573,15 +7562,15 @@ RUR.vis_world.draw_goal_position = function (goal, ctx) {
             ctx.globalAlpha = 0.5;
             for (i=0; i < goal.possible_positions.length; i++){
                     g = goal.possible_positions[i];
-                    RUR.vis_world.draw_single_object(image, g[0], g[1], ctx);
+                    draw_single_object(image, g[0], g[1], ctx);
             }
             ctx.restore();
     } else {
-        RUR.vis_world.draw_single_object(image, goal.position.x, goal.position.y, ctx);
+        draw_single_object(image, goal.position.x, goal.position.y, ctx);
     }
 };
 
-RUR.vis_world.draw_goal_walls = function (goal, ctx) {
+draw_goal_walls = function (goal, ctx) {
     "use strict";
     var key, keys, i, j, k;
     ctx.fillStyle = RUR.WALL_COLOR;
@@ -7592,16 +7581,16 @@ RUR.vis_world.draw_goal_walls = function (goal, ctx) {
         j = parseInt(k[1], 10);
         if ( goal.walls[keys[key]].indexOf("north") !== -1 &&
             i <= RUR.COLS && j <= RUR.ROWS) {
-            RUR.vis_world.draw_north_wall(ctx, i, j, true);
+            draw_north_wall(ctx, i, j, true);
         }
         if (goal.walls[keys[key]].indexOf("east") !== -1 &&
             i <= RUR.COLS && j <= RUR.ROWS) {
-            RUR.vis_world.draw_east_wall(ctx, i, j, true);
+            draw_east_wall(ctx, i, j, true);
         }
     }
 };
 
-RUR.vis_world.draw_tiles = function (tiles){
+draw_tiles = function (tiles){
     "use strict";
     var i, j, k, keys, key, image, tile, colour;
     if (tiles === undefined) {
@@ -7616,7 +7605,7 @@ RUR.vis_world.draw_tiles = function (tiles){
             tile = RUR.TILES[tiles[keys[key]]];
             if (tile === undefined) {
                 colour = tiles[keys[key]];
-                RUR.vis_world.draw_coloured_tile(colour, i, j, RUR.TILES_CTX);
+                draw_coloured_tile(colour, i, j, RUR.TILES_CTX);
                 continue;
             }
         }
@@ -7627,62 +7616,92 @@ RUR.vis_world.draw_tiles = function (tiles){
                 console.log("problem in draw_tiles; tile =", tile);
                 throw new ReeborgError("Problem in draw_tiles.");
             }
-            RUR.vis_world.draw_single_object(image, i, j, RUR.TILES_CTX);
+            draw_single_object(image, i, j, RUR.TILES_CTX);
         }
     }
 };
 
-RUR.vis_world.draw_animated_tiles = function (){
+draw_animated_images = function (){
     "use strict";
-    var i, j, i_j, coords, k, image, tile, tiles;
-
-    tiles = RUR.CURRENT_WORLD.tiles;
-    if (tiles === undefined) {
-        return;
-    }
+    var objects;
 
     RUR.animated_images = false;
-    coords = Object.keys(tiles);
-    for (k=0; k < coords.length; k++){
-        i_j = coords[k].split(",");
-        i = parseInt(i_j[0], 10);
-        j = parseInt(i_j[1], 10);
-        tile = RUR.TILES[tiles[coords[k]]];
-        if (tile === undefined) {
-            continue;
-        }
-        if (tile.choose_image !== undefined){
-            image = tile.choose_image(coords[k]);
-            if (image === undefined){
-                console.log("problem in draw_animated_tiles; tile =", tile);
-                throw new ReeborgError("Problem in draw_animated_tiles at" + coords);
-            }
-            RUR.animated_images = true;
-            RUR.vis_world.draw_single_object(image, i, j, RUR.TILES_CTX);
-        }
-    }
+    objects = RUR.CURRENT_WORLD.tiles;
+    RUR.animated_images = __draw_animated_images(objects,
+                                RUR.animated_images, RUR.TILES, RUR.TILES_CTX);
+    objects = RUR.CURRENT_WORLD.objects;
+    RUR.animated_images = __draw_animated_images(objects,
+                                RUR.animated_images, RUR.OBJECTS, RUR.OBJECTS_CTX);
     if (RUR.animated_images) {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
-        RUR.ANIMATION_FRAME_ID = setTimeout(RUR.vis_world.draw_animated_tiles,
+        RUR.ANIMATION_FRAME_ID = setTimeout(draw_animated_images,
             RUR.ANIMATION_TIME);
     }
 };
 
-RUR.vis_world.draw_coloured_tile = function (colour, i, j, ctx) {
-    var thick = RUR.WALL_THICKNESS;
-    var x, y, size;
+function __draw_animated_images (objects, flag, obj_ref, ctx) {
+    "use strict";
+    var i, j, i_j, coords, k, image, obj, obj_here, elem;
+    if (objects === undefined) {
+        return flag;
+    }
+    coords = Object.keys(objects);
+    for (k=0; k < coords.length; k++){
+        i_j = coords[k].split(",");
+        i = parseInt(i_j[0], 10);
+        j = parseInt(i_j[1], 10);
+
+        obj_here = objects[coords[k]];
+        if (typeof obj_here == "string") {  // e.g. tiles: single object at postion
+            obj = obj_ref[obj_here];
+            if (obj === undefined) {
+                continue;
+            } else if (obj.choose_image !== undefined){
+                _draw_single_animated(obj, coords[k], i, j, ctx);
+                flag = true;
+            }
+        } else if (typeof obj_here == "object") { // e.g. objects: many at position
+            for (elem in obj_here) {
+                obj = obj_ref[elem];
+                if (obj === undefined) {
+                    continue;
+                } else if (obj.choose_image !== undefined){
+                    clear_single_object(obj.image0, i, j, ctx);
+                    _draw_single_animated(obj, coords[k], i, j, ctx);
+                    flag = true;
+                }
+            }
+        } else {
+            console.log("Unknown type in __draw_animated_images");
+        }
+    }
+    return flag;
+}
+
+function _draw_single_animated (obj, coords, i, j, ctx){
+    var image;
+    image = obj.choose_image(coords);
+    if (image === undefined){
+        console.log("problem in _draw_single_animated; obj =", obj);
+        throw new ReeborgError("Problem in _draw_single_animated at" + coords);
+    }
+    draw_single_object(image, i, j, ctx);
+}
+
+draw_coloured_tile = function (colour, i, j, ctx) {
+    var thick = RUR.WALL_THICKNESS, size = RUR.WALL_LENGTH;
+    var x, y;
     if (i > RUR.COLS || j > RUR.ROWS){
         return;
     }
-    x = i*RUR.WALL_LENGTH + thick/2;
-    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
-    size = RUR.WALL_LENGTH*RUR.SCALE;
+    x = i*size + thick/2;
+    y = RUR.HEIGHT - (j+1)*size + thick/2;
     ctx.fillStyle = colour;
     ctx.fillRect(x, y, size, size);
 };
 
 
-RUR.vis_world.draw_all_objects = function (objects, goal, tile){
+draw_all_objects = function (objects, goal, tile){
     "use strict";
     var i, j, image, ctx, coords, specific_object, objects_here, obj_name, grid_pos;
     if (objects === undefined) {
@@ -7713,7 +7732,14 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
                             ctx = RUR.OBJECTS_CTX;
                             image = specific_object.image;
                         }
-                        RUR.vis_world.draw_single_object(image, i, j, ctx);
+
+                        if (specific_object.choose_image === undefined){
+                            if (image === undefined){
+                                console.log("problem in draw_all_objects; obj =", specific_object);
+                                throw new ReeborgError("Problem in draw_all_objects.");
+                            }
+                            draw_single_object(image, i, j, ctx);
+                        }
                     }
                 }
             }
@@ -7721,24 +7747,39 @@ RUR.vis_world.draw_all_objects = function (objects, goal, tile){
     }
 };
 
-RUR.vis_world.draw_single_object = function (image, i, j, ctx) {
-    var thick = RUR.WALL_THICKNESS;
+draw_single_object = function (image, i, j, ctx) {
+    var thick=RUR.WALL_THICKNESS, size=RUR.WALL_LENGTH;
     var x, y;
     if (i > RUR.COLS || j > RUR.ROWS){
         return;
     }
-    x = i*RUR.WALL_LENGTH + thick/2;
-    y = RUR.HEIGHT - (j+1)*RUR.WALL_LENGTH + thick/2;
+    x = i*size + thick/2;
+    y = RUR.HEIGHT - (j+1)*size + thick/2;
     try{
-       ctx.drawImage(image, x, y, image.width*RUR.SCALE, image.height*RUR.SCALE);
+       ctx.drawImage(image, x, y, size, size);
    } catch (e) {
        console.log("problem in draw_single_object", image, ctx, e);
    }
 };
 
+clear_single_object = function (image, i, j, ctx) {
+    var thick=RUR.WALL_THICKNESS, size=RUR.WALL_LENGTH;
+    var x, y;
+    if (i > RUR.COLS || j > RUR.ROWS){
+        return;
+    }
+    x = i*size + thick/2;
+    y = RUR.HEIGHT - (j+1)*size + thick/2;
+    try{
+       ctx.clearRect(x, y, size, size);
+   } catch (e) {
+       console.log("problem in clear_single_object", image, ctx, e);
+   }
+};
 
 
-RUR.vis_world.compile_info = function() {
+
+compile_info = function() {
     // compiles the information about objects and goal found at each
     // grid location, so that we can determine what should be
     // drown - if anything.
@@ -7748,19 +7789,19 @@ RUR.vis_world.compile_info = function() {
     RUR.vis_world.goal_present = false;
     if (RUR.CURRENT_WORLD.goal !== undefined &&
         RUR.CURRENT_WORLD.goal.objects !== undefined) {
-        RUR.vis_world.compile_partial_info(RUR.CURRENT_WORLD.goal.objects,
+        compile_partial_info(RUR.CURRENT_WORLD.goal.objects,
             RUR.vis_world.goal_information, 'goal');
             RUR.vis_world.goal_present = true;
     }
 
 
     if (RUR.CURRENT_WORLD.objects !== undefined) {
-        RUR.vis_world.compile_partial_info(RUR.CURRENT_WORLD.objects,
+        compile_partial_info(RUR.CURRENT_WORLD.objects,
             RUR.vis_world.information, 'objects');
     }
 };
 
-RUR.vis_world.compile_partial_info = function(objects, information, type){
+compile_partial_info = function(objects, information, type){
     "use strict";
     var coords, obj, quantity, color, goal_information;
     if (type=="objects") {
@@ -7789,7 +7830,7 @@ RUR.vis_world.compile_partial_info = function(objects, information, type){
                                 quantity = parseInt(quantity, 10);
                             } catch (e) {
                                 quantity = "?";
-                                console.log("WARNING: this should not happen in RUR.vis_world.compile_info");
+                                console.log("WARNING: this should not happen in compile_info");
                             }
                         }
                         if (RUR.vis_world.goal_present && typeof quantity == 'number' && goal_information !== undefined) {
@@ -7808,7 +7849,7 @@ RUR.vis_world.compile_partial_info = function(objects, information, type){
     }
 };
 
-RUR.vis_world.draw_info = function() {
+draw_info = function() {
     var i, j, coords, keys, key, info, ctx;
     var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
     if (RUR.vis_world.information === undefined &&
@@ -8378,27 +8419,24 @@ RUR.we.toggle_editing_mode = function () {
         RUR.state.code_evaluated = false;
         RUR.WALL_COLOR = "brown";
         RUR.SHADOW_WALL_COLOR = "#f0f0f0";
-        RUR.vis_world.draw_all();
         try {
             localStorage.setItem("editor", editor.getValue());
             localStorage.setItem("library", library.getValue());
         } catch (e) {}
         $("#editor-tab").trigger('click');
     } else {
-
         $("#pre-code-tab").parent().show();
         $("#post-code-tab").parent().show();
         $("#description-tab").parent().show();
         $("#onload-editor-tab").parent().show();
-
         edit_robot_menu.toggle();
         RUR.state.editing_world = true;
         RUR.WALL_COLOR = "black";
         RUR.SHADOW_WALL_COLOR = "#ccd";
-        RUR.vis_world.draw_all();
         $("#highlight").hide();
         $("#watch-variables-btn").hide();
     }
+    RUR.vis_world.draw_all();
 };
 
 record_id("edit-world", "EDIT WORLD");
@@ -9184,10 +9222,6 @@ RUR.world_init.set = function () {
         goal.position.x = position[0];
         goal.position.y = position[1];
         delete goal.possible_positions;
-    }
-    if (RUR.CURRENT_WORLD.goal !== undefined) {
-        RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.vis_world.draw_goal();
     }
     RUR.vis_world.refresh();
 };
