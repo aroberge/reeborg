@@ -1168,6 +1168,11 @@ RUR.control.move = function (robot) {
             }
         }
     }
+    if (!robot._is_leaky) {  // update to avoid drawing from previous point.
+        robot._prev_x = robot.x;
+        robot._prev_y = robot.y;
+    }
+
 };
 
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
@@ -1198,6 +1203,9 @@ RUR.control.turn_left = function(robot){
     robot._orientation += 1;  // could have used "++" instead of "+= 1"
     robot._orientation %= 4;
     RUR.state.sound_id = "#turn-sound";
+    if (!robot._is_leaky) {  // update to avoid drawing from previous point.
+        robot._prev_orientation = robot._orientation;
+    }    
     RUR.record_frame("debug", "RUR.control.turn_left");
 };
 
@@ -1208,6 +1216,9 @@ RUR.control.__turn_right = function(robot){
     robot._prev_y = robot.y;
     robot._orientation += 3;
     robot._orientation %= 4;
+    if (!robot._is_leaky) {  // update to avoid drawing from previous point.
+        robot._prev_orientation = robot._orientation;
+    }
     RUR.record_frame("debug", "RUR.control.__turn_right");
 };
 
