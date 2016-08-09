@@ -26,6 +26,8 @@ RUR.state.watch_vars = false;
 RUR.state.x = undefined;
 RUR.state.y = undefined;
 
+RUR.state.changed_cells = [];
+
 
 // TODO: create RUR.state.do_highlight()
 // this would be to combine all the flags required to have highlighting on

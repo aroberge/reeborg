@@ -1,7 +1,3 @@
-
-/*jshint  -W002, browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals RUR*/
-
 require("./translator.js");
 require("./constants.js");
 require("./state.js");
@@ -173,7 +169,6 @@ draw_coordinates = function() {
     ctx.fillText("x", RUR.WIDTH/2, RUR.HEIGHT - 10);
     ctx.fillText("y", 5, RUR.HEIGHT/2 );
 };
-
 
 draw_grid_walls = function(ctx){
     var i, j;
@@ -415,7 +410,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
         j = parseInt(i_j[1], 10);
 
         obj_here = objects[coords[k]];
-        if (typeof obj_here == "string") {  // e.g. tiles: single object at postion
+        if (typeof obj_here == "string") {  // e.g. tiles: single object at position
             obj = obj_ref[obj_here];
             if (obj === undefined) {
                 continue;
@@ -429,7 +424,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
                 if (obj === undefined) {
                     continue;
                 } else if (obj.choose_image !== undefined){
-                    clear_single_object(obj.image0, i, j, ctx);
+                    clear_single_cell(i, j, ctx);
                     _draw_single_animated(obj, coords[k], i, j, ctx);
                     flag = true;
                 }
@@ -462,7 +457,6 @@ draw_coloured_tile = function (colour, i, j, ctx) {
     ctx.fillStyle = colour;
     ctx.fillRect(x, y, size, size);
 };
-
 
 draw_all_objects = function (objects, goal, tile){
     "use strict";
@@ -511,13 +505,13 @@ draw_all_objects = function (objects, goal, tile){
 };
 
 draw_single_object = function (image, i, j, ctx) {
-    var thick=RUR.WALL_THICKNESS, size=RUR.WALL_LENGTH;
+    var thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
     var x, y;
     if (i > RUR.COLS || j > RUR.ROWS){
         return;
     }
-    x = i*size + thick/2;
-    y = RUR.HEIGHT - (j+1)*size + thick/2;
+    x = i*size + thick;
+    y = RUR.HEIGHT - (j+1)*size + thick;
     try{
        ctx.drawImage(image, x, y, size, size);
    } catch (e) {
@@ -525,22 +519,12 @@ draw_single_object = function (image, i, j, ctx) {
    }
 };
 
-clear_single_object = function (image, i, j, ctx) {
-    var thick=RUR.WALL_THICKNESS, size=RUR.WALL_LENGTH;
-    var x, y;
-    if (i > RUR.COLS || j > RUR.ROWS){
-        return;
-    }
-    x = i*size + thick/2;
-    y = RUR.HEIGHT - (j+1)*size + thick/2;
-    try{
-       ctx.clearRect(x, y, size, size);
-   } catch (e) {
-       console.log("problem in clear_single_object", image, ctx, e);
-   }
+clear_single_cell = function (i, j, ctx) {
+    var x, y, thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
+    x = i*size + thick;
+    y = RUR.HEIGHT - (j+1)*size + thick;
+    ctx.clearRect(x, y, size, size);
 };
-
-
 
 compile_info = function() {
     // compiles the information about objects and goal found at each

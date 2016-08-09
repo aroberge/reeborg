@@ -740,6 +740,9 @@ li.failure:after {
 #world-panel, #blockly-wrapper {
     width: 620px;
 }
+#world-panel {
+    z-index: 12;
+}
 
 #editor-panel {
     width: 590px;
@@ -779,10 +782,6 @@ li.failure:after {
 }
 #editor-panel {
     display:none;
-}
-#world-panel.active {
-    z-index: 1;
-    display: block;
 }
 
 #print-html {

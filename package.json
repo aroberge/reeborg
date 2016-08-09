@@ -11,7 +11,8 @@
     "test": "tape test/**/*.js | tap-diff",
     "test-dot": "tape test/**/*.js | tap-dot",
     "test-raw": "tape test/**/*.js",
-    "build": "tape test/**/*.js | tap-spec && madge -c ./src/js && browserify ./src/js/index.js -o ./build/reeborg.js",
+    "build": "tape test/**/*.js | tap-spec && browserify ./src/js/index.js -o ./build/reeborg.js",
+    "only-build": "browserify ./src/js/index.js -o ./build/reeborg.js",
     "jsdoc": "jsdoc -c jsdoc_conf.json",
     "madge": "madge --image graph.png src/js"
   },

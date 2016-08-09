@@ -80,5 +80,7 @@ function set_world(url_query) {
         } catch (e) {
             RUR.world_select.set_default();
         }
+    } else {
+        RUR.world_select.set_default();
     }
 }

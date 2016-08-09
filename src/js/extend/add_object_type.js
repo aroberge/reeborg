@@ -102,8 +102,8 @@ RUR.add_object_type = function (new_obj) {
 
 
 // supporting worlds created previously.
-// TODO  see if this is still needed when Vincent Maille's book is published.
 //
 RUR.add_new_object_type = function (name, url, url_goal) {
     RUR.add_object_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };
+RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
