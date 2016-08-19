@@ -131,6 +131,7 @@ RUR.ui_ko["Error found at or near line {number}."] = "오류를 발견했습니�
 RUR.ui_ko["<br>Perhaps a missing colon is the cause."] = "<br>아마도 콜론(:)을 놓쳐서 문제가 발생했을 겁니다.";
 RUR.ui_ko["<br>Perhaps you forgot to add parentheses ()."] = "<br>아마도 당신은 괄호를 추가하는 것을 잊어버렸을 겁니다 ().";
 RUR.ui_ko["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>아마도 당신은 단어의 철자나 함수를 정의하는것을 잊었거나 변수를 까먹었을 겁니다.";
+RUR.ui_ko["I cannot help you with this problem."] = "I cannot help you with this problem.";
 
 RUR.ui_ko["I'm stuck in mud."] = "난 진흙에 걸렸어요.";
 RUR.ui_ko["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "진흙: 리보그는 이것을 탐지 <b>하지 못하고<b> 이 위치로 이동하게 되면 걸리게 됩니다.";

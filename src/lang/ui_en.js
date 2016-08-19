@@ -131,6 +131,7 @@ RUR.ui_en["Error found at or near line {number}."] = "Error found at or near lin
 RUR.ui_en["<br>Perhaps a missing colon is the cause."] = "<br>Perhaps a missing colon is the cause.";
 RUR.ui_en["<br>Perhaps you forgot to add parentheses ()."] = "<br>Perhaps you forgot to add parentheses ().";
 RUR.ui_en["<br>Perhaps you misspelled a word or forgot to define a function or a variable."] = "<br>Perhaps you misspelled a word or forgot to define a function or a variable.";
+RUR.ui_en["I cannot help you with this problem."] = "I cannot help you with this problem.";
 
 RUR.ui_en["I'm stuck in mud."] = "I'm stuck in mud.";
 RUR.ui_en["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.";
