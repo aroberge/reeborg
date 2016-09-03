@@ -7370,7 +7370,6 @@ RUR.vis_world.draw_all = function () {
     draw_coordinates(); // on BACKGROUND_CTX
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.animated_images = false;
-    RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.vis_world.refresh();
 };
 
@@ -7388,6 +7387,7 @@ RUR.vis_world.refresh = function () {
     RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
     if (RUR.state.editing_world) {
         // make them appear above background and tiles but below foreground walls.
