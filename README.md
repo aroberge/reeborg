@@ -16,3 +16,10 @@ Important information
 =====================
 
 This project uses npm and browserify as part of its build process.
+
+Offline version
+===============
+
+An offline version (reeborg_offline.html) can be used without an Internet connection.
+You do need a local webserver running (I usually do this via `python -m http.server`).
+
