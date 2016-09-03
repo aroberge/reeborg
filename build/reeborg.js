@@ -845,7 +845,7 @@ RUR._paint_square_ = function (color) {
     // note that this can do more than simply setting the color: it can also
     // set the tile type.
     var robot = RUR.CURRENT_WORLD.robots[0];
-    RUR.set_tile_at_position(color, x, y);
+    RUR.set_tile_at_position(color, robot.x, robot.y);
 };
 
 RUR._pause_ = RUR.control.pause;
@@ -2354,8 +2354,8 @@ RUR.add_object_type = function (new_obj) {
         console.log("Warning: object name " + name + " already exists");
     } else {
         RUR.KNOWN_OBJECTS.push(name);
+        RUR.OBJECTS[name] = {};
     }
-    RUR.OBJECTS[name] = {};
     // copy all properties
     keys = Object.keys(new_obj);
     obj = RUR.OBJECTS[name];
@@ -6569,8 +6569,8 @@ require("./create_editors.js");
 
 //
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
-if (__BRYTHON__.__MAGIC__ != "3.2.5") {
-    alert("Expecting Brython version 3.2.5 and got " + __BRYTHON__.__MAGIC__);
+if (__BRYTHON__.__MAGIC__ != "3.2.7") {
+    alert("Expecting Brython version 3.2.7 and got " + __BRYTHON__.__MAGIC__);
 }
 
 /* Once everything is loaded, we need to decide which UI to show.
@@ -7293,15 +7293,27 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
         RUR.TILES_CANVAS = document.getElementById("tiles-canvas");
         RUR.TILES_CANVAS.width = width;
         RUR.TILES_CANVAS.height = height;
+        RUR.TILES_CANVAS_ANIM = document.getElementById("tiles-canvas-anim");
+        RUR.TILES_CANVAS_ANIM.width = width;
+        RUR.TILES_CANVAS_ANIM.height = height;
         RUR.OBSTACLES_CANVAS = document.getElementById("obstacles-canvas");
         RUR.OBSTACLES_CANVAS.width = width;
         RUR.OBSTACLES_CANVAS.height = height;
+        RUR.OBSTACLES_CANVAS_ANIM = document.getElementById("obstacles-canvas-anim");
+        RUR.OBSTACLES_CANVAS_ANIM.width = width;
+        RUR.OBSTACLES_CANVAS_ANIM.height = height;
         RUR.GOAL_CANVAS = document.getElementById("goal-canvas");
         RUR.GOAL_CANVAS.width = width;
         RUR.GOAL_CANVAS.height = height;
+        RUR.GOAL_CANVAS_ANIM = document.getElementById("goal-canvas-anim");
+        RUR.GOAL_CANVAS_ANIM.width = width;
+        RUR.GOAL_CANVAS_ANIM.height = height;
         RUR.OBJECTS_CANVAS = document.getElementById("objects-canvas");
         RUR.OBJECTS_CANVAS.width = width;
         RUR.OBJECTS_CANVAS.height = height;
+        RUR.OBJECTS_CANVAS_ANIM = document.getElementById("objects-canvas-anim");
+        RUR.OBJECTS_CANVAS_ANIM.width = width;
+        RUR.OBJECTS_CANVAS_ANIM.height = height;
         RUR.TRACE_CANVAS = document.getElementById("trace-canvas");
         RUR.TRACE_CANVAS.width = width;
         RUR.TRACE_CANVAS.height = height;
@@ -7734,6 +7746,15 @@ draw_all_objects = function (objects, goal, tile){
                         if (goal) {
                             ctx = RUR.GOAL_CTX;
                             image = specific_object.goal.image;
+                        } else if (specific_object === undefined){
+                            console.log("specific_object is undefined");
+                            console.log("obj_name = ", obj_name, "  tile = ", tile);
+                            if (tile) {
+                                console.log("RUR.OBSTACLES = ", RUR.OBSTACLES);
+                            } else {
+                                console.log("RUR.OBJECTS = ", RUR.OBJECTS);
+                            }
+                            image = undefined;
                         } else if (specific_object.ctx !== undefined){
                             ctx = specific_object.ctx;
                             image = specific_object.image;
@@ -7745,7 +7766,6 @@ draw_all_objects = function (objects, goal, tile){
                         if (specific_object.choose_image === undefined){
                             if (image === undefined){
                                 console.log("problem in draw_all_objects; obj =", specific_object);
-                                throw new ReeborgError("Problem in draw_all_objects.");
                             }
                             draw_single_object(image, i, j, ctx);
                         }

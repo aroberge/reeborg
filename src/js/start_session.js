@@ -15,8 +15,8 @@ require("./create_editors.js");
 
 //
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
-if (__BRYTHON__.__MAGIC__ != "3.2.5") {
-    alert("Expecting Brython version 3.2.5 and got " + __BRYTHON__.__MAGIC__);
+if (__BRYTHON__.__MAGIC__ != "3.2.7") {
+    alert("Expecting Brython version 3.2.7 and got " + __BRYTHON__.__MAGIC__);
 }
 
 /* Once everything is loaded, we need to decide which UI to show.

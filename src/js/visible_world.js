@@ -41,15 +41,27 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
         RUR.TILES_CANVAS = document.getElementById("tiles-canvas");
         RUR.TILES_CANVAS.width = width;
         RUR.TILES_CANVAS.height = height;
+        RUR.TILES_CANVAS_ANIM = document.getElementById("tiles-canvas-anim");
+        RUR.TILES_CANVAS_ANIM.width = width;
+        RUR.TILES_CANVAS_ANIM.height = height;
         RUR.OBSTACLES_CANVAS = document.getElementById("obstacles-canvas");
         RUR.OBSTACLES_CANVAS.width = width;
         RUR.OBSTACLES_CANVAS.height = height;
+        RUR.OBSTACLES_CANVAS_ANIM = document.getElementById("obstacles-canvas-anim");
+        RUR.OBSTACLES_CANVAS_ANIM.width = width;
+        RUR.OBSTACLES_CANVAS_ANIM.height = height;
         RUR.GOAL_CANVAS = document.getElementById("goal-canvas");
         RUR.GOAL_CANVAS.width = width;
         RUR.GOAL_CANVAS.height = height;
+        RUR.GOAL_CANVAS_ANIM = document.getElementById("goal-canvas-anim");
+        RUR.GOAL_CANVAS_ANIM.width = width;
+        RUR.GOAL_CANVAS_ANIM.height = height;
         RUR.OBJECTS_CANVAS = document.getElementById("objects-canvas");
         RUR.OBJECTS_CANVAS.width = width;
         RUR.OBJECTS_CANVAS.height = height;
+        RUR.OBJECTS_CANVAS_ANIM = document.getElementById("objects-canvas-anim");
+        RUR.OBJECTS_CANVAS_ANIM.width = width;
+        RUR.OBJECTS_CANVAS_ANIM.height = height;
         RUR.TRACE_CANVAS = document.getElementById("trace-canvas");
         RUR.TRACE_CANVAS.width = width;
         RUR.TRACE_CANVAS.height = height;
@@ -482,6 +494,15 @@ draw_all_objects = function (objects, goal, tile){
                         if (goal) {
                             ctx = RUR.GOAL_CTX;
                             image = specific_object.goal.image;
+                        } else if (specific_object === undefined){
+                            console.log("specific_object is undefined");
+                            console.log("obj_name = ", obj_name, "  tile = ", tile);
+                            if (tile) {
+                                console.log("RUR.OBSTACLES = ", RUR.OBSTACLES);
+                            } else {
+                                console.log("RUR.OBJECTS = ", RUR.OBJECTS);
+                            }
+                            image = undefined;
                         } else if (specific_object.ctx !== undefined){
                             ctx = specific_object.ctx;
                             image = specific_object.image;
@@ -493,7 +514,6 @@ draw_all_objects = function (objects, goal, tile){
                         if (specific_object.choose_image === undefined){
                             if (image === undefined){
                                 console.log("problem in draw_all_objects; obj =", specific_object);
-                                throw new ReeborgError("Problem in draw_all_objects.");
                             }
                             draw_single_object(image, i, j, ctx);
                         }

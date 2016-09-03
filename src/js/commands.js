@@ -93,7 +93,7 @@ RUR._paint_square_ = function (color) {
     // note that this can do more than simply setting the color: it can also
     // set the tile type.
     var robot = RUR.CURRENT_WORLD.robots[0];
-    RUR.set_tile_at_position(color, x, y);
+    RUR.set_tile_at_position(color, robot.x, robot.y);
 };
 
 RUR._pause_ = RUR.control.pause;

@@ -700,6 +700,7 @@ li.failure:after {
     border: 1px solid blue;
     border-radius: 3px;
     background: white;
+    margin-top: 5px;
 }
 
 #game-controls,

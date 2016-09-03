@@ -68,8 +68,8 @@ RUR.add_object_type = function (new_obj) {
         console.log("Warning: object name " + name + " already exists");
     } else {
         RUR.KNOWN_OBJECTS.push(name);
+        RUR.OBJECTS[name] = {};
     }
-    RUR.OBJECTS[name] = {};
     // copy all properties
     keys = Object.keys(new_obj);
     obj = RUR.OBJECTS[name];
