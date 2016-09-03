@@ -21,5 +21,9 @@ Offline version
 ===============
 
 An offline version (reeborg_offline.html) can be used without an Internet connection.
-You do need a local webserver running (I usually do this via `python -m http.server`).
+You do need a local webserver running (I usually do this via `python -m http.server`)
+as well as a copy of the repository.
+After starting the webserver, point your browser to `http://localhost:8000/reeborg_offline.html`.
+
+Note that some multimedia files (sound and images) needed for the blockly version will be missing.
 
