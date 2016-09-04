@@ -70,6 +70,10 @@ RUR.vis_world.draw_all = function () {
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+        RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
         return;
     }
 
@@ -358,13 +362,16 @@ draw_animated_images = function (){
     "use strict";
     var objects;
 
+    RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
     RUR.animated_images = false;
     objects = RUR.CURRENT_WORLD.tiles;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.TILES, RUR.TILES_CTX);
+                                RUR.animated_images, RUR.TILES, RUR.TILES_ANIM_CTX);
     objects = RUR.CURRENT_WORLD.objects;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.OBJECTS, RUR.OBJECTS_CTX);
+                                RUR.animated_images, RUR.OBJECTS, RUR.OBJECTS_ANIM_CTX);
     if (RUR.animated_images) {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = setTimeout(draw_animated_images,

@@ -7359,6 +7359,10 @@ RUR.vis_world.draw_all = function () {
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+        RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
         return;
     }
 
@@ -7647,13 +7651,16 @@ draw_animated_images = function (){
     "use strict";
     var objects;
 
+    RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
     RUR.animated_images = false;
     objects = RUR.CURRENT_WORLD.tiles;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.TILES, RUR.TILES_CTX);
+                                RUR.animated_images, RUR.TILES, RUR.TILES_ANIM_CTX);
     objects = RUR.CURRENT_WORLD.objects;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.OBJECTS, RUR.OBJECTS_CTX);
+                                RUR.animated_images, RUR.OBJECTS, RUR.OBJECTS_ANIM_CTX);
     if (RUR.animated_images) {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = setTimeout(draw_animated_images,
@@ -8134,13 +8141,13 @@ RUR.world.import_world = function (json_string) {
     }
 
     // Backward compatibility following change done on Jan 5, 2016
-    // top_tiles has been renamed solid_objects; to ensure compatibility of
+    // top_tiles has been renamed obstacles; to ensure compatibility of
     // worlds created prior to using solid_objects, we change the old name
     // following http://stackoverflow.com/a/14592469/558799
     // thus ensuring that if a new world is created from an old one,
     // it will have the new syntax.
     if (RUR.CURRENT_WORLD.top_tiles !== undefined) {
-        Object.defineProperty(RUR.CURRENT_WORLD, "solid_objects",
+        Object.defineProperty(RUR.CURRENT_WORLD, "obstacles",
             Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "top_tiles"));
         delete RUR.CURRENT_WORLD.top_tiles;
     }
@@ -9364,7 +9371,7 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     var coords, tmp;
 
     coords = x + "," + y;
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "solid_objects");
+    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "obstacles");
     RUR._ensure_key_exists(RUR.CURRENT_WORLD.obstacles, coords);
 
     try {

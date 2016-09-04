@@ -19,7 +19,7 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
     var coords, tmp;
 
     coords = x + "," + y;
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "solid_objects");
+    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "obstacles");
     RUR._ensure_key_exists(RUR.CURRENT_WORLD.obstacles, coords);
 
     try {
