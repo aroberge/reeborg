@@ -15,17 +15,54 @@ RUR.DEFAULT_WIDTH = 625;
 // unit testing can be done more easily - with contants defined but without
 // having to mock document.
 
-RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas");
-RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
-RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
+RUR.CANVASES = [];
 
-RUR.BACKGROUND_CTX = document.getElementById("background-canvas").getContext("2d");
-RUR.TILES_CTX = document.getElementById("tiles-canvas").getContext("2d");
-RUR.OBSTACLES_CTX = document.getElementById("obstacles-canvas").getContext("2d");
-RUR.GOAL_CTX = document.getElementById("goal-canvas").getContext("2d");
-RUR.OBJECTS_CTX = document.getElementById("objects-canvas").getContext("2d");
-RUR.TRACE_CTX = document.getElementById("trace-canvas").getContext("2d");
-RUR.ROBOT_CTX = document.getElementById("robot-canvas").getContext("2d");
+RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas");
+RUR.BACKGROUND_CTX = RUR.BACKGROUND_CANVAS.getContext("2d");
+RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height; // getting defaults
+RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;   // from html file
+RUR.CANVASES.push(RUR.BACKGROUND_CANVAS);
+
+RUR.TILES_CANVAS = document.getElementById("tiles-canvas");
+RUR.TILES_CTX = RUR.TILES_CANVAS.getContext("2d");
+RUR.CANVASES.push(RUR.TILES_CANVAS);
+
+RUR.TILES_CANVAS_ANIM = document.getElementById("tiles-canvas-anim");
+RUR.TILES_ANIM_CTX = RUR.TILES_CANVAS_ANIM.getContext("2d");
+RUR.CANVASES.push(RUR.TILES_CANVAS_ANIM);
+
+RUR.OBSTACLES_CANVAS = document.getElementById("obstacles-canvas");
+RUR.OBSTACLES_CTX = RUR.OBSTACLES_CANVAS.getContext("2d");
+RUR.CANVASES.push(RUR.OBSTACLES_CANVAS);
+
+RUR.OBSTACLES_CANVAS_ANIM = document.getElementById("obstacles-canvas-anim");
+RUR.OBSTACLES_ANIM_CTX = RUR.OBSTACLES_CANVAS_ANIM.getContext("2d");
+RUR.CANVASES.push(RUR.OBSTACLES_CANVAS_ANIM);
+
+RUR.GOAL_CANVAS = document.getElementById("goal-canvas");
+RUR.GOAL_CTX = RUR.GOAL_CANVAS.getContext("2d");
+RUR.CANVASES.push(RUR.GOAL_CANVAS);
+
+RUR.GOAL_CANVAS_ANIM = document.getElementById("goal-canvas-anim");
+RUR.GOAL_ANIM_CTX = RUR.GOAL_CANVAS_ANIM.getContext("2d");
+RUR.CANVASES.push(RUR.GOAL_CANVAS_ANIM);
+
+RUR.OBJECTS_CANVAS = document.getElementById("objects-canvas");
+RUR.OBJECTS_CTX = RUR.OBJECTS_CANVAS.getContext("2d");
+RUR.CANVASES.push(RUR.OBJECTS_CANVAS);
+
+RUR.OBJECTS_CANVAS_ANIM = document.getElementById("objects-canvas-anim");
+RUR.OBJECTS_ANIM_CTX = RUR.OBJECTS_CANVAS_ANIM.getContext("2d");
+RUR.CANVASES.push(RUR.OBJECTS_CANVAS_ANIM);
+
+RUR.TRACE_CANVAS = document.getElementById("trace-canvas");
+RUR.TRACE_CTX = RUR.TRACE_CANVAS.getContext("2d");
+RUR.CANVASES.push(RUR.TRACE_CANVAS);
+
+RUR.ROBOT_CANVAS = document.getElementById("robot-canvas");
+RUR.ROBOT_CTX = RUR.ROBOT_CANVAS.getContext("2d");
+RUR.CANVASES.push(RUR.ROBOT_CANVAS);
+
 
 RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
 
@@ -42,7 +79,7 @@ RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
 // worlds created.  Everywhere else, RUR.COLS and RUR.ROWS should be used.
 RUR.MAX_X = 14;
 RUR.MAX_Y = 12;
-RUR.USE_SMALL_TILES = false;  // keep as unchanged default
+RUR.USE_SMALL_TILES = false;
 
 RUR.WALL_COLOR = "brown";   // changed (toggled) in world_editor.js
 RUR.SHADOW_WALL_COLOR= "#f0f0f0";    // changed (toggled) in world_editor.js

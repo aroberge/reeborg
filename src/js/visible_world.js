@@ -15,77 +15,40 @@ RUR.vis_world.refresh_world_edited = function () {
 
 RUR.vis_world.compute_world_geometry = function (cols, rows) {
     "use strict";
-    var height, width;
+    var height, width, canvas;
     if (RUR.CURRENT_WORLD.small_tiles) {
         RUR.WALL_LENGTH = 20;
         RUR.WALL_THICKNESS = 2;
         RUR.SCALE = 0.5;
+        RUR.BACKGROUND_CTX.font = "8px sans-serif";
     } else {
         RUR.WALL_LENGTH = 40;
         RUR.WALL_THICKNESS = 4;
         RUR.SCALE = 1;
+        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
     }
 
     if (cols !== undefined && rows !== undefined) {
         height = (rows + 1.5) * RUR.WALL_LENGTH;
         width = (cols + 1.5) * RUR.WALL_LENGTH;
+        RUR.ROWS = rows;
+        RUR.COLS = cols;
     } else {
         height = (RUR.ROWS + 1.5) * RUR.WALL_LENGTH;
         width = (RUR.COLS + 1.5) * RUR.WALL_LENGTH;
     }
+    RUR.CURRENT_WORLD.rows = RUR.ROWS;
+    RUR.CURRENT_WORLD.cols = RUR.COLS;
 
     if (height !== RUR.HEIGHT || width !== RUR.WIDTH) {
-        RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas");
-        RUR.BACKGROUND_CANVAS.width = width;
-        RUR.BACKGROUND_CANVAS.height = height;
-        RUR.TILES_CANVAS = document.getElementById("tiles-canvas");
-        RUR.TILES_CANVAS.width = width;
-        RUR.TILES_CANVAS.height = height;
-        RUR.TILES_CANVAS_ANIM = document.getElementById("tiles-canvas-anim");
-        RUR.TILES_CANVAS_ANIM.width = width;
-        RUR.TILES_CANVAS_ANIM.height = height;
-        RUR.OBSTACLES_CANVAS = document.getElementById("obstacles-canvas");
-        RUR.OBSTACLES_CANVAS.width = width;
-        RUR.OBSTACLES_CANVAS.height = height;
-        RUR.OBSTACLES_CANVAS_ANIM = document.getElementById("obstacles-canvas-anim");
-        RUR.OBSTACLES_CANVAS_ANIM.width = width;
-        RUR.OBSTACLES_CANVAS_ANIM.height = height;
-        RUR.GOAL_CANVAS = document.getElementById("goal-canvas");
-        RUR.GOAL_CANVAS.width = width;
-        RUR.GOAL_CANVAS.height = height;
-        RUR.GOAL_CANVAS_ANIM = document.getElementById("goal-canvas-anim");
-        RUR.GOAL_CANVAS_ANIM.width = width;
-        RUR.GOAL_CANVAS_ANIM.height = height;
-        RUR.OBJECTS_CANVAS = document.getElementById("objects-canvas");
-        RUR.OBJECTS_CANVAS.width = width;
-        RUR.OBJECTS_CANVAS.height = height;
-        RUR.OBJECTS_CANVAS_ANIM = document.getElementById("objects-canvas-anim");
-        RUR.OBJECTS_CANVAS_ANIM.width = width;
-        RUR.OBJECTS_CANVAS_ANIM.height = height;
-        RUR.TRACE_CANVAS = document.getElementById("trace-canvas");
-        RUR.TRACE_CANVAS.width = width;
-        RUR.TRACE_CANVAS.height = height;
-        RUR.ROBOT_CANVAS = document.getElementById("robot-canvas");
-        RUR.ROBOT_CANVAS.width = width;
-        RUR.ROBOT_CANVAS.height = height;
+        for (canvas of RUR.CANVASES) { //jshint ignore:line
+            canvas.width = width;
+            canvas.height = height;
+        }
         RUR.HEIGHT = height;
         RUR.WIDTH = width;
     }
 
-    // background context may have change - hence wait until here
-    // to set
-    if (RUR.CURRENT_WORLD.small_tiles) {
-        RUR.BACKGROUND_CTX.font = "8px sans-serif";
-    } else {
-        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
-    }
-
-    RUR.ROWS = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
-    RUR.COLS = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
-    RUR.CURRENT_WORLD.rows = RUR.ROWS;
-    RUR.CURRENT_WORLD.cols = RUR.COLS;
-    //TODO: extract all of the above into separate function which can be
-    //put elsewhere.
     RUR.vis_world.draw_all();
 };
 
