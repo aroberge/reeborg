@@ -51,6 +51,7 @@ RUR.add_new_solid_object_type = function (name, url, nickname) {
     }
     obj[name].image.onload = RUR.INCREMENT_LOADED_FN;
     RUR._NB_IMAGES_TO_LOAD += 1;
+    RUR.KNOWN_OBSTACLES.push(name);
 };
 
 RUR.add_new_solid_object_type("bridge");

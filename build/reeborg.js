@@ -5484,6 +5484,7 @@ RUR.add_new_solid_object_type = function (name, url, nickname) {
     }
     obj[name].image.onload = RUR.INCREMENT_LOADED_FN;
     RUR._NB_IMAGES_TO_LOAD += 1;
+    RUR.KNOWN_OBSTACLES.push(name);
 };
 
 RUR.add_new_solid_object_type("bridge");
@@ -8260,7 +8261,7 @@ RUR.we.edit_world = function  () {
     "use strict";
     // usually triggered when canvas is clicked if editing world;
     // call explicitly if needed.
-    var value, split, root;
+    var value, split, root, x, y, position;
     split = RUR.we.edit_world_flag.split("-");
     root = split[0];
     value = split[1];
@@ -8272,7 +8273,10 @@ RUR.we.edit_world = function  () {
             break;
         case "object":
             if (RUR.we.decorative_objects) {
-                RUR.toggle_decorative_object_at_position(value);
+                position = RUR.calculate_grid_position();
+                x = position[0];
+                y = position[1];
+                RUR.toggle_decorative_object_at_position(value, x, y);
             } else {
                 RUR.we._add_object(value);
             }
@@ -8857,11 +8861,14 @@ RUR.we.toggle_obstacle = function (obj){
     x = position[0];
     y = position[1];
 
-    if (RUR.world_get.obstacles_at_position(x, y)[obj] !== undefined) {
-        RUR.world_set.add_solid_object(obj, x, y, 0);
-    } else {
-        RUR.world_set.add_solid_object(obj, x, y, 1);
-    }
+    RUR.toggle_obstacle_at_position(obj, x, y);
+
+
+    // if (RUR.world_get.obstacles_at_position(x, y)[obj] !== undefined) {
+    //     RUR.world_set.add_solid_object(obj, x, y, 0);
+    // } else {
+    //     RUR.world_set.add_solid_object(obj, x, y, 1);
+    // }
 };
 
 
