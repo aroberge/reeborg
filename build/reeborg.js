@@ -4729,7 +4729,15 @@ require("./../blockly.js");
 var export_world = require("./../world/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;
 
+function remove_fileInput_listener () {
+    // see http://stackoverflow.com/a/19470348
+    var el = document.getElementById('fileInput'),
+        elClone = el.cloneNode(true);
+    el.parentNode.replaceChild(elClone, el);
+}
+
 function load_file (obj) {
+    remove_fileInput_listener();
     $("#fileInput").click();
     var fileInput = document.getElementById('fileInput');
     fileInput.addEventListener('change', function(e) {
@@ -4748,6 +4756,7 @@ record_id("load-world", "LOAD WORLD");
 record_id("load-world-text", "LOAD WORLD EXPLAIN");
 
 $("#load-world").on("click", function(evt) {
+    remove_fileInput_listener();
     $("#fileInput").click();
     var fileInput = document.getElementById('fileInput');
     fileInput.addEventListener('change', function(e) {
