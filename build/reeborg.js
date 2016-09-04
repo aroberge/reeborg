@@ -809,7 +809,7 @@ RUR._clear_print_ = RUR.output.clear_print;
 
 RUR._color_here_ = function () {
     var robot = RUR.CURRENT_WORLD.robots[0];
-    return RUR.control.get_color_at_position(robot.x, robot.y);
+    return RUR.control.get_colour_at_position(robot.x, robot.y);
 };
 
 RUR._default_robot_body_ = function () { // simply returns body
@@ -1699,6 +1699,7 @@ RUR.control.get_colour_at_position = function (x, y) {
         return null;
     }
 };
+RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
 
 },{"./constants.js":3,"./exceptions.js":13,"./objects.js":40,"./output.js":41,"./recorder/record_frame.js":47,"./state.js":54,"./translator.js":56,"./utils/key_exist.js":62,"./utils/supplant.js":64,"./world_get.js":73,"./world_set.js":76}],5:[function(require,module,exports){
 function betterTab(cm) {

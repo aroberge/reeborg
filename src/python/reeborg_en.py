@@ -68,7 +68,7 @@ def clear_print():  #py:clear_print
 
 def color_here():  #py:color_here
     return RUR._color_here_()
-
+colour_here = color_here
 
 def default_robot():  #py:default_robot
     """Returns a recreated version of the default robot."""

@@ -57,7 +57,7 @@ RUR._clear_print_ = RUR.output.clear_print;
 
 RUR._color_here_ = function () {
     var robot = RUR.CURRENT_WORLD.robots[0];
-    return RUR.control.get_color_at_position(robot.x, robot.y);
+    return RUR.control.get_colour_at_position(robot.x, robot.y);
 };
 
 RUR._default_robot_body_ = function () { // simply returns body

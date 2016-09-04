@@ -610,3 +610,4 @@ RUR.control.get_colour_at_position = function (x, y) {
         return null;
     }
 };
+RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
