@@ -1,4 +1,3 @@
-
 /*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
 /*globals $, RUR */
 
@@ -175,7 +174,14 @@ RUR.control.pause = function (ms) {
 };
 
 RUR.control.done = function () {
-    throw new RUR.ReeborgError(RUR.translate("Done!"));
+    if (RUR.state.input_method === "py-repl") {
+        RUR.frames = [];
+        RUR.nb_frames = 1;
+        RUR.record_frame();
+        RUR.rec.conclude();
+    } else {
+        throw new RUR.ReeborgError(RUR.translate("Done!"));
+    }
 };
 
 RUR.control.put = function(robot, arg){
