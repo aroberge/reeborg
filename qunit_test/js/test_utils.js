@@ -1,6 +1,13 @@
 RUR.unit_tests = {};
 RUR.blockly = {};
 
+RUR.unit_tests.stop_server = function () { // for use with custom server.
+    $.ajax({url: "/stop_server",
+        async: false,
+        success: function(data){}
+    });
+};
+
 RUR.unit_tests.reset = function () {
     RUR.CURRENT_WORLD = RUR.clone_world(RUR.unit_tests.empty_world);
     RUR._reset();

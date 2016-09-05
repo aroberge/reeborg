@@ -10,12 +10,9 @@
   <link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon">
   <link rel="icon" href="src/images/favicon.ico" type="image/icon">
   <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet">
+  <!--online<link href='http://fonts.googleapis.com/css?family=Roboto+Mono:700' rel='stylesheet' type='text/css'>/online-->
 
-  <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.18.0.css">
-
-  <!--online--><link href='http://fonts.googleapis.com/css?family=Roboto+Mono:700' rel='stylesheet' type='text/css'><!--/online-->
-
-   <!--offline <style>
+   <!--offline--> <style>
   @font-face {
     font-family: 'Roboto Mono';
     font-weight: 700;
@@ -29,22 +26,29 @@
         url('offline/roboto_mono/fonts/Roboto-Mono-700/Roboto-Mono-700.ttf') format('truetype'),
         url('offline/roboto_mono/fonts/Roboto-Mono-700/Roboto-Mono-700.svg#RobotoMono') format('svg');
   }
-  </style> /offline-->
+  </style> <!--/offline-->
 
-  <!--offline <link rel="stylesheet" href="offline/codemirror-5.8.0/lib/codemirror.css"> /offline-->
-  <!--online--><link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.css"><!--/online-->
+  <!--offline--> <link rel="stylesheet" href="offline/codemirror-5.8.0/lib/codemirror.css"> <!--/offline-->
+  <!--online<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.css">/online-->
   <link rel="stylesheet" href="src/css/reeborg_world2.css">
   <!-- load after codemirror.css -->
-  <title>Reeborg's World automated tests</title>
-  <!--online--><script type="text/javascript" src="https://cdn.rawgit.com/brython-dev/brython/3.2.7/www/src/brython.js"></script><!--/online-->
-  <!--offline <script type="text/javascript" src="offline/brython/brython.js"></script> /offline-->
+  <title>Reeborg's World</title>
+  <!--online<script type="text/javascript" src="https://cdn.rawgit.com/brython-dev/brython/3.2.7/www/src/brython.js"></script>/online-->
+  <!--offline--> <script type="text/javascript" src="offline/brython/brython.js"></script> <!--/offline-->
 
+
+<link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.18.0.css">
 </head>
+
 <body>
+  <h1>After tests are completed:
+  <button onclick="RUR.unit_tests.stop_server()">click to stop server</button>
+  </h1>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
 
   <div style="display:none;">
+
   <div id="splash-screen">
     <div class="sk-fading-circle">
       <div class="sk-circle1 sk-circle"></div>
@@ -577,29 +581,29 @@
       </li>
     </ul>
   </div>
-  <!--offline <script src="offline/jquery-2.1.0/jquery.min.js"></script> /offline-->
-  <!--online--><script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script><!--/online-->
+  <!--offline--> <script src="offline/jquery-2.1.0/jquery.min.js"></script> <!--/offline-->
+  <!--online<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>/online-->
 
-  <!--offline <script src="offline/jqueryui-1.10.4/jquery-ui.min.js"></script> /offline-->
-  <!--online--><script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script><!--/online-->
+  <!--offline--> <script src="offline/jqueryui-1.10.4/jquery-ui.min.js"></script> <!--/offline-->
+  <!--online<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>/online-->
 
-  <!--offline <script src="offline/codemirror-5.8.0/lib/codemirror.js"></script> /offline-->
-  <!--online--><script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script><!--/online-->
+  <!--offline--> <script src="offline/codemirror-5.8.0/lib/codemirror.js"></script> <!--/offline-->
+  <!--online<script src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>/online-->
 
-  <!--offline <script src="offline/codemirror-5.8.0/mode/javascript/javascript.js"></script> /offline-->
-  <!--online--><script defer src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/javascript/javascript.min.js"></script><!--/online-->
+  <!--offline--> <script src="offline/codemirror-5.8.0/mode/javascript/javascript.js"></script> <!--/offline-->
+  <!--online<script defer src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/javascript/javascript.min.js"></script>/online-->
 
-  <!--offline <script src="offline/codemirror-5.8.0/mode/xml/xml.js"></script> /offline-->
-  <!--online--><script defer src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/xml/xml.min.js"></script><!--/online-->
+  <!--offline--> <script src="offline/codemirror-5.8.0/mode/xml/xml.js"></script> <!--/offline-->
+  <!--online<script defer src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/xml/xml.min.js"></script>/online-->
 
-  <!--offline <script src="offline/codemirror-5.8.0/mode/css/css.js"></script> /offline-->
-  <!--online--><script defer src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/css/css.min.js"></script><!--/online-->
+  <!--offline--> <script src="offline/codemirror-5.8.0/mode/css/css.js"></script> <!--/offline-->
+  <!--online<script defer src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/css/css.min.js"></script>/online-->
 
-  <!--offline <script src="offline/codemirror-5.8.0/mode/htmlmixed/htmlmixed.js"></script> /offline-->
-  <!--online--><script defer src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/htmlmixed/htmlmixed.min.js"></script><!--/online-->
+  <!--offline--> <script src="offline/codemirror-5.8.0/mode/htmlmixed/htmlmixed.js"></script> <!--/offline-->
+  <!--online<script defer src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/htmlmixed/htmlmixed.min.js"></script>/online-->
 
-  <!--offline <script src="offline/codemirror-5.8.0/mode/python/python.js"></script> /offline-->
-  <!--online--><script defer src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/python/python.min.js"></script><!--/online-->
+  <!--offline--> <script src="offline/codemirror-5.8.0/mode/python/python.js"></script> <!--/offline-->
+  <!--online<script defer src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/python/python.min.js"></script>/online-->
 
   <script>
     var RUR = {};
@@ -619,7 +623,7 @@
     TogetherJSConfig_cloneClicks = true;
   </script>
 
-  <!--online--><script defer src="https://togetherjs.com/togetherjs-min.js"></script><!--/online-->
+  <!--online<script defer src="https://togetherjs.com/togetherjs-min.js"></script>/online-->
 
   <div id="more-menus" title="Additional options" style="display:none">
     <h3 id="help"></h3>
@@ -687,9 +691,9 @@
     </p>
     <hr>
     <p>
-      <!--online--><button id="togetherjs" class="blue-gradient" onclick="TogetherJS(this); return false;"></button><!--/online-->
-      <!--online--><span id="togetherjs-text"></span><!--/online-->
-      <!--offline Offline version: TogetherJS disabled. /offline-->
+      <!--online<button id="togetherjs" class="blue-gradient" onclick="TogetherJS(this); return false;"></button>/online-->
+      <!--online<span id="togetherjs-text"></span>/online-->
+      <!--offline--> Offline version: TogetherJS disabled. <!--/offline-->
 
     </p>
     <hr>
@@ -988,6 +992,20 @@
     </div>
   </div>
 
+  <!--online
+  <a style="display:none" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" /></a>
+  <script type="text/javascript">
+    var clicky_site_ids = clicky_site_ids || [];
+    clicky_site_ids.push(100788691);
+    (function() {
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = '//static.getclicky.com/js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+    })();
+  </script>
+  /online-->
 
 </div>
 <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
