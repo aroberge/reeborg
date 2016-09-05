@@ -10,14 +10,14 @@
         </style>
     </head>
     <body>
-        <iframe id="reeborg-iframe" src="http://reeborg.ca/world.html" onload="onLoadHandler();"></iframe>
+        <iframe id="reeborg-iframe" src="http://reeborg.ca/reeborg.html" onload="onLoadHandler();"></iframe>
     </body>
 
 <script type="text/javascript">
-var permalink = "http://reeborg.ca/world.html?proglang=python-en&world=%7B%22robots%22%3A%5B%7B%22x%22%3A1%2C%22y%22%3A1%2C%22tokens%22%3A%22infinite%22%2C%22orientation%22%3A0%2C%22_prev_x%22%3A1%2C%22_prev_y%22%3A1%2C%22_prev_orientation%22%3A0%7D%5D%2C%22walls%22%3A%7B%7D%7D&editor=move(%20%20%20%20%20)%0Amove()%0A%0A&library=%0Adef%20turn_right()%3A%0A%20%20%20%20repeat(turn_left%2C%203)%0A%20%20%20%20%0Adef%20follow_wall()%3A%0A%20%20%20%20if%20right_is_clear()%3A%0A%20%20%20%20%20%20%20%20turn_right()%0A%20%20%20%20if%20front_is_clear()%3A%0A%20%20%20%20%20%20%20%20move()%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20turn_left()%0A"
+var permalink = "http://reeborg.ca/reeborg.html?proglang=python-en&world=%7B%22robots%22%3A%5B%7B%22x%22%3A1%2C%22y%22%3A1%2C%22tokens%22%3A%22infinite%22%2C%22orientation%22%3A0%2C%22_prev_x%22%3A1%2C%22_prev_y%22%3A1%2C%22_prev_orientation%22%3A0%7D%5D%2C%22walls%22%3A%7B%7D%7D&editor=move(%20%20%20%20%20)%0Amove()%0A%0A&library=%0Adef%20turn_right()%3A%0A%20%20%20%20repeat(turn_left%2C%203)%0A%20%20%20%20%0Adef%20follow_wall()%3A%0A%20%20%20%20if%20right_is_clear()%3A%0A%20%20%20%20%20%20%20%20turn_right()%0A%20%20%20%20if%20front_is_clear()%3A%0A%20%20%20%20%20%20%20%20move()%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20turn_left()%0A"
 var embedded_iframe = document.getElementById('reeborg-iframe').contentWindow;
 function onLoadHandler(){
-    embedded_iframe.postMessage(permalink, "http://reeborg.ca/world.html");
+    embedded_iframe.postMessage(permalink, "http://reeborg.ca/reeborg.html");
 }
 </script>
 
