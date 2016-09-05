@@ -6,13 +6,13 @@ require("./../utils/supplant.js");
 /** @function toggle_obstacle_at_position
  * @memberof RUR
  * @instance
- * @summary This function adds or remove a given solid object (like a fence)
+ * @summary This function adds or removes a given solid object (like a fence)
  * at a certain location.
  *
  * @desc Cette fonction ajoute ou enlève un objet solide (comme une clôture) à un endroit donné.
  *
- * @param {string} specific_object The name of the object type ; e.g. "fence" <br>
- *                        _Le nom [anglais] du type de l'objet; par exemple, "fence"._
+ * @param {string} specific_object The name of the object type ; e.g. "fence_right" <br>
+ *                        _Le nom [anglais] du type de l'objet; par exemple, "fence_right"._
  * @param {integer} x - Position of the object
  *                    <br> _position de l'objet_
  * @param {integer} y - Position of the object
@@ -40,6 +40,87 @@ RUR.toggle_obstacle_at_position = function (specific_object, x, y){
             }
         }
     } else {
+        cw.obstacles[coords][specific_object] = true;
+    }
+};
+
+/** @function add_obstacle_at_position
+ * @memberof RUR
+ * @instance
+ * @summary This function adds a given solid object (like a fence)
+ * at a certain location.
+ *
+ * @desc Cette fonction ajoute un objet solide (comme une clôture) à un endroit donné.
+ *
+ * @param {string} specific_object The name of the object type ; e.g. "fence_right" <br>
+ *                        _Le nom [anglais] du type de l'objet; par exemple, "fence_right"._
+ * @param {integer} x - Position of the object
+ *                    <br> _position de l'objet_
+ * @param {integer} y - Position of the object
+ *                    <br> _position de l'objet_
+ */
+
+RUR.add_obstacle_at_position = function (specific_object, x, y){
+    "use strict";
+    var coords, cw;
+    if (RUR.KNOWN_OBSTACLES.indexOf(specific_object) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
+                                                 {obj: specific_object}));
+    }
+    coords = x + "," + y;
+    cw = RUR.CURRENT_WORLD;
+    RUR._ensure_key_exists(cw, "obstacles");
+    RUR._ensure_key_exists(cw.obstacles, coords);
+
+    if (cw.obstacles[coords][specific_object]) {
+        RUR.output.print_html("<h2>Warning</h2><p>" +
+            specific_object +
+            " is already present at the requested location.</p>", true);
+    } else {
+        cw.obstacles[coords][specific_object] = true;
+    }
+};
+
+/** @function remove_obstacle_at_position
+ * @memberof RUR
+ * @instance
+ * @summary This function removes a given solid object (like a fence)
+ * at a certain location.
+ *
+ * @desc Cette fonction enlève un objet solide (comme une clôture) à un endroit donné.
+ *
+ * @param {string} specific_object The name of the object type ; e.g. "fence_right" <br>
+ *                        _Le nom [anglais] du type de l'objet; par exemple, "fence_right"._
+ * @param {integer} x - Position of the object
+ *                    <br> _position de l'objet_
+ * @param {integer} y - Position of the object
+ *                    <br> _position de l'objet_
+ */
+
+RUR.remove_obstacle_at_position = function (specific_object, x, y){
+    "use strict";
+    var coords, cw;
+    if (RUR.KNOWN_OBSTACLES.indexOf(specific_object) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
+                                                 {obj: specific_object}));
+    }
+    coords = x + "," + y;
+    cw = RUR.CURRENT_WORLD;
+    RUR._ensure_key_exists(cw, "obstacles");
+    RUR._ensure_key_exists(cw.obstacles, coords);
+
+    if (cw.obstacles[coords][specific_object]) {
+        delete cw.obstacles[coords][specific_object];
+        if (Object.keys(cw.obstacles[coords]).length === 0) {
+            delete cw.obstacles[coords];
+            if (Object.keys(cw.obstacles).length === 0) {
+                delete cw.obstacles;
+            }
+        }
+    } else {
+        RUR.output.print_html("<h2>Warning</h2><p>" +
+            specific_object +
+            " is <b>not</b> present at the requested location.</p>", true);
         cw.obstacles[coords][specific_object] = true;
     }
 };
