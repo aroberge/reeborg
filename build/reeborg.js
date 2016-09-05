@@ -1322,7 +1322,9 @@ RUR.control._robot_put_down_object = function (robot, obj) {
             }
         }
     }
-    robot.objects[obj] -= 1;
+    if (robot.objects[obj] != "infinite") {
+        robot.objects[obj] -= 1;
+    }
     if (robot.objects[obj] === 0) {
         delete robot.objects[obj];
     }
@@ -1390,7 +1392,9 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     if (robot.objects[obj] === undefined){
         robot.objects[obj] = 1;
     } else {
-        robot.objects[obj]++;
+        if (robot.objects[obj] != "infinite") {
+            robot.objects[obj]++;
+        }
     }
     RUR.record_frame("debug", "RUR.control._take_object");
 };
@@ -2713,8 +2717,6 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
             RUR.world_select.append_world({url:url, shortname:new_world});
         }
         RUR.world_select.set_url(url);
-        // RUR.show_feedback("#Reeborg-shouts",
-        //     RUR.translate("World selected").supplant({world: shortname}));
         throw new RUR.ReeborgOK(RUR.translate("World selected").supplant({world: shortname}));
     }
 };
@@ -6201,6 +6203,7 @@ exports.reset = reset = function() {
 };
 
 reset();
+RUR._reset = reset; // for automated testing
 
 },{"./../create_editors.js":5,"./../state.js":54}],49:[function(require,module,exports){
 
@@ -6264,9 +6267,8 @@ RUR.robot.cleanup_objects = function (robot) {
     var obj_name, objects_carried = {};
     for (obj_name in robot.objects) {
         if (robot.objects.hasOwnProperty(obj_name)){
-             if (robot.objects[obj_name] == "infinite") {
-                objects_carried[obj_name] = Infinity;
-            } else if (robot.objects[obj_name] > 0){
+             if (robot.objects[obj_name] == "infinite" ||
+                 robot.objects[obj_name] > 0){
                 objects_carried[obj_name] = robot.objects[obj_name];
             }
         }
@@ -6904,7 +6906,7 @@ exports.filterInt = function (value) {
     are meaningful and can be compared.
 */
 
-exports.identical = function (a, b) {
+exports.identical = identical = function (a, b) {
 
     function sort(object) {
         if (Array.isArray(object)) {
@@ -6926,6 +6928,8 @@ exports.identical = function (a, b) {
 
     return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
 };
+
+RUR.object_identical = identical; // for automated testing.
 
 },{}],62:[function(require,module,exports){
 require("./../rur.js");
@@ -7309,6 +7313,7 @@ require("./constants.js");
 require("./state.js");
 require("./extend/add_object_type.js");
 require("./extend/add_tile_type.js");
+require("./world/create_empty.js");
 
 //TODO add overlay object (like sensor) on robot canvas.
 
@@ -7937,7 +7942,7 @@ draw_info = function() {
     }
 };
 
-},{"./constants.js":3,"./extend/add_object_type.js":14,"./extend/add_tile_type.js":15,"./state.js":54,"./translator.js":56}],67:[function(require,module,exports){
+},{"./constants.js":3,"./extend/add_object_type.js":14,"./extend/add_tile_type.js":15,"./state.js":54,"./translator.js":56,"./world/create_empty.js":69}],67:[function(require,module,exports){
 
 require("./state.js");
 require("./create_editors.js");
@@ -8075,18 +8080,19 @@ $("#update-library-content-btn").on("click", function(evt) {
 
 },{"./../lang/msg.js":87,"./create_editors.js":5,"./state.js":54}],68:[function(require,module,exports){
 
-exports.clone_world = function (world) {
+exports.clone_world = clone_world = function (world) {
     if (world === undefined) {
         return JSON.parse(JSON.stringify(RUR.CURRENT_WORLD));
     } else {
         return JSON.parse(JSON.stringify(world));
     }
 };
+RUR.clone_world = clone_world; // for automated testing
 
 },{}],69:[function(require,module,exports){
 require("./../constants.js");
 
-exports.create_empty_world = create_empty_world = function (blank_canvas) {
+create_empty_world = function (blank_canvas) {
     "use strict";
     var world = {};
     if (blank_canvas) {
@@ -8102,8 +8108,10 @@ exports.create_empty_world = create_empty_world = function (blank_canvas) {
     world.rows = RUR.MAX_Y;
     world.cols = RUR.MAX_X;
 
+    RUR.CURRENT_WORLD = world;
     return world;
 };
+RUR.create_empty_world = create_empty_world; // for automated tests.
 RUR.CURRENT_WORLD = create_empty_world();
 
 },{"./../constants.js":3}],70:[function(require,module,exports){
@@ -8120,6 +8128,7 @@ require("./../visible_world.js");
 require("./../state.js");
 require("./../exceptions.js");
 require("./../create_editors.js");
+require("./create_empty.js");
 var images_init = require("./../extend/images.js").images_init;
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
@@ -8132,15 +8141,15 @@ RUR.world.import_world = function (json_string) {
         return {};
     }
     images_init();
-
     if (typeof json_string == "string"){
         try {
-            RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.world.create_empty_world();
+            RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.create_empty_world();
         } catch (e) {
+            alert(e);
             console.log("Exception caught in import_world.");
             console.log("json_string = ", json_string);
             console.log("error = ", e);
-            RUR.world.create_empty_world();
+            RUR.create_empty_world();
             return;
         }
     } else {  // already parsed
@@ -8222,7 +8231,7 @@ eval_onload = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../extend/images.js":16,"./../robot.js":49,"./../state.js":54,"./../translator.js":56,"./../ui/edit_robot_menu.js":57,"./../visible_world.js":66,"./clone_world.js":68}],72:[function(require,module,exports){
+},{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../extend/images.js":16,"./../robot.js":49,"./../state.js":54,"./../translator.js":56,"./../ui/edit_robot_menu.js":57,"./../visible_world.js":66,"./clone_world.js":68,"./create_empty.js":69}],72:[function(require,module,exports){
 
 require("./translator.js");
 require("./constants.js");

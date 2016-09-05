@@ -4,8 +4,11 @@ loop_keyword = 'repeat '  # include space after
 
 
 def transform(text):
-    nb = text.count(loop_keyword)
-    if nb == 0:
+    try:
+        nb = text.count(loop_keyword)
+        if nb == 0:
+            return text
+    except:
         return text
 
     var_names = get_unique_variable_names(text, nb)

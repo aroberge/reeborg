@@ -10,7 +10,7 @@
     are meaningful and can be compared.
 */
 
-exports.identical = function (a, b) {
+exports.identical = identical = function (a, b) {
 
     function sort(object) {
         if (Array.isArray(object)) {
@@ -32,3 +32,5 @@ exports.identical = function (a, b) {
 
     return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
 };
+
+RUR.object_identical = identical; // for automated testing.

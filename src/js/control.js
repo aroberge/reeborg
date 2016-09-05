@@ -233,7 +233,9 @@ RUR.control._robot_put_down_object = function (robot, obj) {
             }
         }
     }
-    robot.objects[obj] -= 1;
+    if (robot.objects[obj] != "infinite") {
+        robot.objects[obj] -= 1;
+    }
     if (robot.objects[obj] === 0) {
         delete robot.objects[obj];
     }
@@ -301,7 +303,9 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     if (robot.objects[obj] === undefined){
         robot.objects[obj] = 1;
     } else {
-        robot.objects[obj]++;
+        if (robot.objects[obj] != "infinite") {
+            robot.objects[obj]++;
+        }
     }
     RUR.record_frame("debug", "RUR.control._take_object");
 };

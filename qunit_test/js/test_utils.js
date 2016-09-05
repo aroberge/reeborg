@@ -2,8 +2,8 @@ RUR.unit_tests = {};
 RUR.blockly = {};
 
 RUR.unit_tests.reset = function () {
-    RUR.current_world = RUR.world.clone_world(RUR.unit_tests.empty_world);
-    RUR.rec.reset();
+    RUR.CURRENT_WORLD = RUR.clone_world(RUR.unit_tests.empty_world);
+    RUR._reset();
     RUR.state.highlight = false;
     RUR.state.prevent_playback = false;
     RUR.unit_tests.feedback_element = undefined;
@@ -74,7 +74,7 @@ RUR.unit_tests.eval_program = function(world_url, program_url, language) {
         RUR.unit_tests.load_program(program_url);
     }
     RUR.runner.eval(RUR.unit_tests.program);
-    last_frame = RUR.rec.frames[RUR.rec.frames.length - 1];
+    last_frame = RUR.frames[RUR.frames.length - 1];
     return RUR.rec.check_goal(last_frame);
 };
 
@@ -102,33 +102,20 @@ RUR.unit_tests.run_program = function(world_url, program_url, language) {
         RUR.unit_tests.load_program(program_url);
     }
     RUR.runner.run(RUR.unit_tests.playback);
-    return RUR.rec.frames;
+    return RUR.frames;
 };
 
 RUR.unit_tests.playback = function() {
     return true;
 };
 
-// Initial world should be created upon loading world.js module
-RUR.unit_tests.initial_world = RUR.current_world;
+RUR.unit_tests.initial_world = RUR.create_empty_world();
 RUR.unit_tests.empty_world = {robots: [],
         objects: {},
         walls: {},
         rows: RUR.MAX_Y,
         cols: RUR.MAX_X,
         small_tiles: false
-    };
-
-RUR.unit_tests.empty_world_with_extra = {robots: [],
-        objects: {},
-        walls: {},
-        rows: RUR.MAX_Y,
-        cols: RUR.MAX_X,
-        small_tiles: false,
-        pre_code: '"pre code"',
-        post_code: '"post code"',
-        description: 'description',
-        onload: '/* Javascript */'
     };
 
 editor.getValue = function() {
@@ -156,7 +143,7 @@ post_code_editor.getValue = function () {
 description_editor.getValue = function () {
     return RUR.unit_tests.description || '';
 };
-onload.getValue = function () {
+onload_editor.getValue = function () {
     return RUR.unit_tests.onload || "/* Javascript */";
 };
 

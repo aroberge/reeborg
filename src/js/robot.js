@@ -59,9 +59,8 @@ RUR.robot.cleanup_objects = function (robot) {
     var obj_name, objects_carried = {};
     for (obj_name in robot.objects) {
         if (robot.objects.hasOwnProperty(obj_name)){
-             if (robot.objects[obj_name] == "infinite") {
-                objects_carried[obj_name] = Infinity;
-            } else if (robot.objects[obj_name] > 0){
+             if (robot.objects[obj_name] == "infinite" ||
+                 robot.objects[obj_name] > 0){
                 objects_carried[obj_name] = robot.objects[obj_name];
             }
         }

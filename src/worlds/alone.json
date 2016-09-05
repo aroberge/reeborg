@@ -7,18 +7,12 @@
       "_prev_y": 1,
       "_prev_orientation": 0,
       "objects": {},
-      "_orientation": 0,
-      "start_positions": [
-        [
-          1,
-          1
-        ]
-      ]
+      "_orientation": 0
     }
   ],
   "walls": {},
   "description": "A simple, empty world, ready for Reeborg to explore.",
   "small_tiles": false,
-  "rows": 10,
-  "cols": 10
+  "rows": 12,
+  "cols": 14
 }

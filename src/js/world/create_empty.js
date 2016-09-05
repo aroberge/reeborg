@@ -1,6 +1,6 @@
 require("./../constants.js");
 
-exports.create_empty_world = create_empty_world = function (blank_canvas) {
+create_empty_world = function (blank_canvas) {
     "use strict";
     var world = {};
     if (blank_canvas) {
@@ -16,6 +16,8 @@ exports.create_empty_world = create_empty_world = function (blank_canvas) {
     world.rows = RUR.MAX_Y;
     world.cols = RUR.MAX_X;
 
+    RUR.CURRENT_WORLD = world;
     return world;
 };
+RUR.create_empty_world = create_empty_world; // for automated tests.
 RUR.CURRENT_WORLD = create_empty_world();

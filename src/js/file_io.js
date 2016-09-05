@@ -82,8 +82,6 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
             RUR.world_select.append_world({url:url, shortname:new_world});
         }
         RUR.world_select.set_url(url);
-        // RUR.show_feedback("#Reeborg-shouts",
-        //     RUR.translate("World selected").supplant({world: shortname}));
         throw new RUR.ReeborgOK(RUR.translate("World selected").supplant({world: shortname}));
     }
 };

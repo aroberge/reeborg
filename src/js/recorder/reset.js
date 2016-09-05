@@ -26,3 +26,4 @@ exports.reset = reset = function() {
 };
 
 reset();
+RUR._reset = reset; // for automated testing
