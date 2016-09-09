@@ -167,23 +167,23 @@ RUR._World_ = RUR.file_io.load_world_from_program;
 RUR._UR = {};
 
 RUR._UR.at_goal_ = function (robot) {
-    RUR.control.at_goal(robot);
+    return RUR.control.at_goal(robot);
 };
 
 RUR._UR.build_wall_ = function (robot) {
-    RUR.control.build_wall(robot);
+    return RUR.control.build_wall(robot);
 };
 
 RUR._UR.carries_object_ = function (robot, obj) {
-    RUR.control.carries_object(robot, obj);
+    return RUR.control.carries_object(robot, obj);
 };
 
 RUR._UR.front_is_clear_ = function (robot) {
-    RUR.control.front_is_clear(robot);
+    return RUR.control.front_is_clear(robot);
 };
 
 RUR._UR.is_facing_north_ = function (robot) {
-    RUR.control.is_facing_north(robot);
+    return RUR.control.is_facing_north(robot);
 };
 
 RUR._UR.move_ = function (robot) {
@@ -191,7 +191,7 @@ RUR._UR.move_ = function (robot) {
 };
 
 RUR._UR.object_here_ = function (robot, obj) {
-    RUR.world_get.object_at_robot_position(robot, obj);
+    return RUR.world_get.object_at_robot_position(robot, obj);
 };
 
 RUR._UR.put_ = function (robot, obj) {
@@ -199,7 +199,7 @@ RUR._UR.put_ = function (robot, obj) {
 };
 
 RUR._UR.right_is_clear_ = function (robot) {
-    RUR.control.right_is_clear(robot);
+    return RUR.control.right_is_clear(robot);
 };
 
 RUR._UR.set_model_ = function (robot, model) {
@@ -223,9 +223,9 @@ RUR._UR.turn_left_ = function (robot) {
 };
 
 RUR._UR.wall_in_front_ = function (robot) {
-    RUR.control.wall_in_front(robot);
+    return RUR.control.wall_in_front(robot);
 };
 
 RUR._UR.wall_on_right_ = function (robot) {
-    RUR.control.wall_on_right(robot);
+    return RUR.control.wall_on_right(robot);
 };
