@@ -34,7 +34,7 @@ print("""
     to stop server session.
     """)
 server_address = ('', 8800)
-webbrowser.open_new("http://localhost:8800/reeborg_qunit_test.html")
+webbrowser.open_new("http://localhost:8800/reeborg_qunit_test.html?lang=en&mode=python")
 httpd = MyTCPServer(server_address, MyHandler)
 try:
     httpd.serve_forever()

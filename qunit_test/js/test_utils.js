@@ -1,11 +1,15 @@
 RUR.unit_tests = {};
-RUR.blockly = {};
 
 RUR.unit_tests.stop_server = function () { // for use with custom server.
     $.ajax({url: "/stop_server",
         async: false,
         success: function(data){}
     });
+};
+
+RUR.unit_tests.set_human_language = function (lang) {
+    document.getElementById('human-language').value = lang;
+    $("#human-language").change();
 };
 
 RUR.unit_tests.reset = function () {
