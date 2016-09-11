@@ -51,7 +51,6 @@ QUNIT_BEGIN = """
 QUNIT_END = """
     </div>
     <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
-    <script src="qunit_test/js/blanket.min.js"></script>
     <script src="qunit_test/js/test_utils.js" defer></script>
     <script src="qunit_test/js/all_qunit_tests.js" defer></script>
     </body>

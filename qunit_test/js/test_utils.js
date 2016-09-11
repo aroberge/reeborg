@@ -38,7 +38,6 @@ RUR.unit_tests.load_world_file = function (url) {
     });
 };
 
-
 RUR.unit_tests.load_program = function (url) {
     /** Loads a program */
     "use strict";
@@ -48,7 +47,8 @@ RUR.unit_tests.load_program = function (url) {
         async: false,
         dataType: "text",
         error: function(e){
-            throw new Error("Problem in _load_program");        },
+            throw new Error("Problem in _load_program");
+        },
         success: function(data){
             RUR.unit_tests.program = data;
         }
@@ -63,17 +63,20 @@ RUR.unit_tests.mock_show_feedback = function(element, content) {
 
 RUR.unit_tests.set_mocks = function() {
     RUR.show_feedback = RUR.unit_tests.mock_show_feedback;
+    RUR.blockly.init = function (){};
+    RUR.blockly.workspace = function (){};
+    window.blockly_init_en = function (){};
+    window.blockly_init_fr = function (){};
 };
+RUR.unit_tests.set_mocks();
 
 RUR.unit_tests.eval_javascript = function (world_url, program_url) {
     return RUR.unit_tests.eval_program(world_url, program_url, "javascript");
 };
 
-
 RUR.unit_tests.eval_python = function (world_url, program_url) {
     return RUR.unit_tests.eval_program(world_url, program_url, "python");
 };
-
 
 RUR.unit_tests.eval_program = function(world_url, program_url, language) {
     var last_frame, world;
@@ -88,7 +91,6 @@ RUR.unit_tests.eval_program = function(world_url, program_url, language) {
     last_frame = RUR.frames[RUR.frames.length - 1];
     return RUR.rec.check_goal(last_frame);
 };
-
 
 RUR.unit_tests.run_javascript = function (world_url, program_url) {
     return RUR.unit_tests.run_program(world_url, program_url, "javascript");
