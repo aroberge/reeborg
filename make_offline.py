@@ -45,7 +45,7 @@ with open('reeborg_qunit_test.html', 'w') as f:
 <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
 <script src="qunit_test/js/blanket.min.js"></script>
 <script src="qunit_test/js/test_utils.js" defer></script>
-<script src="qunit_test/js/test_english.js" defer></script>
+<script src="qunit_test/js/all_qunit_tests.js" defer></script>
 </body>
 """
         f.write(line)
