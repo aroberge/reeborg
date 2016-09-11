@@ -417,7 +417,7 @@ class UsedRobot(object):  #py:UR
         """
         RUR._UR.build_wall_(self.body)
 
-    def carries_object(self, obj=''):  #py:UR.carries_object
+    def carries_object(self, obj=None):  #py:UR.carries_object
         """Indicates whether Reeborg carries an object or not.
 
         Args:
