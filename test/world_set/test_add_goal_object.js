@@ -53,8 +53,8 @@ test('adding unknown goal object', function (assert) {
         assert.equal(e.message, "Unknown object", "error message");
         assert.equal(e.reeborg_shouts, "Unknown object", "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
-        assert.ok(silencer.getOutput('log')[0][0].startsWith("Translation needed for"),
-                  "Console log ok.");
+        assert.ok(silencer.getOutput('log')[0][0].startsWith("Translation to English"),
+                "Console log ok.");
         assert.end();
     }
 });

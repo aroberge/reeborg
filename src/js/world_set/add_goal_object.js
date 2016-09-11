@@ -29,7 +29,7 @@ require("./../translator.js");
 RUR.add_goal_object_at_position = function (specific_object, x, y, nb){
     "use strict";
     var coords;
-
+    specific_object = RUR.translate_to_english(specific_object);
     if (RUR.KNOWN_OBJECTS.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
