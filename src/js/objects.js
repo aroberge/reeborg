@@ -33,10 +33,10 @@ RUR.OBJECTS.box.ctx = RUR.ROBOT_CTX;
 
 obj = {"name": 'beeper',
     "selection_method": 'ordered',
-    "images": ['/src/images/beeper_goal.png',
-    '/src/images/beeper1.png',
-             '/src/images/beeper2.png',
-             '/src/images/beeper3.png'],
+    "images": ['/src/images/beeper0.png',
+            '/src/images/beeper1.png',
+            '/src/images/beeper2.png',
+            '/src/images/beeper3.png'],
     "goal": {'url': '/src/images/beeper_goal.png'}
 };
 RUR.add_object_type(obj);
