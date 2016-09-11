@@ -358,7 +358,7 @@ def Monde(url, nom=None):  #py:World
 
 
 class RobotUsage(object):  #py:UR
-    def __init__(self, x=1, y=1, orientation='est', jeton=None):  #py:UR.__init__
+    def __init__(self, x=1, y=1, orientation='est', jeton=None, **kwargs):  #py:UR.__init__
         """Créé un robot usagé.
 
            Args:
@@ -369,11 +369,18 @@ class RobotUsage(object):  #py:UR
                jeton: nombre initial de jetons à donner au robot;
                       un entier positif, ou la chaîne "Infinity" pour un
                       nombre infini.
+
+               autres: tout autre argument (objet=nombre) va être considéré
+                       comme étant un nombre d'objet devant être donné au
+                       robot.
         """
         if jeton is None:
             robot = RUR.robot.create_robot(x, y, orientation)
         else:
             robot = RUR.robot.create_robot(x, y, orientation, jeton)
+        for key in kwargs:
+            if key not in {'x', 'y', 'orientation', 'jeton'}:
+                RUR.give_object_to_robot(key, kwargs[key], robot)
         self.body = robot
         RUR._add_robot(self.body)
 
@@ -389,13 +396,15 @@ class RobotUsage(object):  #py:UR
         elif self.body._orientation == RUR.SOUTH:
             facing = "est face au sud"
 
-        if 'token' in self.body.objects:
-            if self.body.objects['token'] == 'inf':
-                carries = "transporte un nombre infini de jetons."
+        carries = ''
+        for obj in self.body.objects:
+            if self.body.objects[obj] == 'inf':
+                carries += "\ntransporte un nombre infini de %s" % obj
             else:
-                carries = 'transporte %s jetons' % self.body.objects['token']
-        else:
-            carries = 'ne transporte pas de jetons'
+                carries += '\ntransporte %s %s' % (self.body.objects[obj], obj)
+        if not carries:
+            carries = "ne transporte pas d'objet"
+
         return "RobotUsage situé en {} {} {}.".format(location, facing, carries)  # NOQA
 
     def au_but(self):  #py:UR.at_goal
@@ -431,7 +440,7 @@ class RobotUsage(object):  #py:UR
 
             >>> reeborg = RobotUsage()
             >>> reeborg.transporte()
-            {"jeton": 2, "pomme": 1}
+            {"jeton": 2}
             >>> reeborg.transporte("jeton")
             2
             >>> reeborg.transporte("fraise")

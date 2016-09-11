@@ -8,7 +8,7 @@ body {
 
 /** Collecting all z-indices for easier maintenance */
 header                 {z-index: 100;}
-#splash-screen         {z-index: 200;}
+#splash-screen         {z-index: 1000;}
 #background-canvas     {z-index: 1;}
 #tiles-canvas          {z-index: 10;}
 #tiles-canvas-anim     {z-index: 11;}
@@ -21,14 +21,14 @@ header                 {z-index: 100;}
 #trace-canvas          {z-index: 50;}
 #robot-canvas          {z-index: 60;}
 #tooltip               {z-index: 70;}
-#Reeborg-writes        {z-index: 200;}
-#Reeborg-concludes     {z-index: 201;}
-#Reeborg-shouts        {z-index: 201;}
-#World-info            {z-index: 200;}
+#Reeborg-writes        {z-index: 210;}
+#Reeborg-concludes     {z-index: 211;}
+#Reeborg-shouts        {z-index: 211;}
+#World-info            {z-index: 205;}
 #url-input             {z-index: 300;}
 #world-panel           {z-index: 120}
-#editor-panel.active   {z-index: 110;}
-#keyboard-buttons ul li {z-index:130;}
+#editor-panel.active   {z-index: 200;}
+#keyboard-buttons ul li {z-index:230;}
 
 /** splash screen displayed first */
 #splash-screen {

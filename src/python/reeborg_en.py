@@ -356,7 +356,7 @@ def World(url, shortname=None):  #py:World
 
 
 class UsedRobot(object):  #py:UR
-    def __init__(self, x=1, y=1, orientation='e', tokens=None):  #py:UR.__init__
+    def __init__(self, x=1, y=1, orientation='e', tokens=None, **kwargs):  #py:UR.__init__
         """Creates a UsedRobot.
 
             Args:
@@ -368,12 +368,18 @@ class UsedRobot(object):  #py:UR
                tokens: Initial number of tokens to give to the robot;
                        its value must be a positive integer, or the string
                        "Infinity" to indicate an infinite quantity.
+
+               other: any other keyword argument will be taken as a number of
+                      objects to give to a robot.
         """
         if tokens is None:
             robot = RUR.robot.create_robot(x, y, orientation)
         else:
             robot = RUR.robot.create_robot(x, y, orientation, tokens)
         self.body = robot
+        for key in kwargs:
+            if key not in {'x', 'y', 'orientation', 'tokens'}:
+                RUR.give_object_to_robot(key, kwargs[key], robot)
         RUR._add_robot(self.body)
 
     def __str__(self):  #py:UR.__str__
@@ -387,13 +393,14 @@ class UsedRobot(object):  #py:UR
         elif self.body._orientation == RUR.SOUTH:
             facing = "facing South"
 
-        if 'token' in self.body.objects:
-            if self.body.objects['token'] == 'inf':
-                carries = "carries an infinite number of tokens."
+        carries = ''
+        for obj in self.body.objects:
+            if self.body.objects[obj] == 'inf':
+                carries += "\ncarries an infinite number of %s" % obj
             else:
-                carries = 'carries %s tokens' % self.body.objects['token']
-        else:
-            carries = 'carries no tokens'
+                carries += '\ncarries %s %s' % (self.body.objects[obj], obj)
+        if not carries:
+            carries = 'carries no objects'
         return "UsedRobot at {} {} {}.".format(location, facing, carries)
 
     def at_goal(self):  #py:UR.at_goal
@@ -428,7 +435,7 @@ class UsedRobot(object):  #py:UR
 
             >>> reeborg = UsedRobot()
             >>> reeborg.carries_object()
-            {"token": 2, "apple": 1}
+            {"token": 2}
             >>> reeborg.carries_object("token")
             2
             >>> reeborg.carries_object("banana")
