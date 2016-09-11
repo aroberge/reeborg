@@ -1,5 +1,6 @@
 
 require("./../state.js");
+require("./reset.js");
 require("./../exceptions.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");

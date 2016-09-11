@@ -1,6 +1,8 @@
 require("./rur.js");
 require("./extend/add_object_type.js");
 
+var obj;
+
 _add_object_type = function (name) {
     "use strict";
     var url, url_goal;
@@ -28,6 +30,16 @@ RUR.OBJECTS.box.name = "box";
 RUR.OBJECTS.box.pushable = true;
 RUR.OBJECTS.box.in_water = "bridge";
 RUR.OBJECTS.box.ctx = RUR.ROBOT_CTX;
+
+obj = {"name": 'beeper',
+    "selection_method": 'ordered',
+    "images": ['/src/images/beeper_goal.png',
+    '/src/images/beeper1.png',
+             '/src/images/beeper2.png',
+             '/src/images/beeper3.png'],
+    "goal": {'url': '/src/images/beeper_goal.png'}
+};
+RUR.add_object_type(obj);
 
 
 RUR.OBSTACLES = {};

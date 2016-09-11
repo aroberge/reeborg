@@ -4428,6 +4428,9 @@ function handleMouseMove(evt) {
         tooltip.ctx.clearRect(0, 0, tooltip.canvas.width, tooltip.canvas.height);
         for (i=0; i < objects_carried.length; i++){
             image = RUR.OBJECTS[objects_carried[i]].image;
+            if (image === undefined) {
+                image = RUR.OBJECTS[objects_carried[i]]["image0"];
+            }
             nb_obj = robot.objects[objects_carried[i]];
             if (nb_obj == "infinite" || nb_obj == Infinity) {
                 nb_obj = "∞";
@@ -5442,6 +5445,8 @@ watch_button.addEventListener("click", toggle_watch_variables, false);
 require("./rur.js");
 require("./extend/add_object_type.js");
 
+var obj;
+
 _add_object_type = function (name) {
     "use strict";
     var url, url_goal;
@@ -5469,6 +5474,16 @@ RUR.OBJECTS.box.name = "box";
 RUR.OBJECTS.box.pushable = true;
 RUR.OBJECTS.box.in_water = "bridge";
 RUR.OBJECTS.box.ctx = RUR.ROBOT_CTX;
+
+obj = {"name": 'beeper',
+    "selection_method": 'ordered',
+    "images": ['/src/images/beeper_goal.png',
+    '/src/images/beeper1.png',
+             '/src/images/beeper2.png',
+             '/src/images/beeper3.png'],
+    "goal": {'url': '/src/images/beeper_goal.png'}
+};
+RUR.add_object_type(obj);
 
 
 RUR.OBSTACLES = {};
@@ -6103,6 +6118,7 @@ RUR.rec.check_robots_on_tiles = function(frame){
 },{"./constants.js":3,"./create_editors.js":5,"./exceptions.js":13,"./listeners/pause.js":29,"./listeners/stop.js":37,"./playback/play_sound.js":44,"./state.js":54,"./translator.js":56,"./utils/identical.js":61,"./visible_world.js":66,"./world/clone_world.js":68,"./world_get.js":73}],47:[function(require,module,exports){
 
 require("./../state.js");
+require("./reset.js");
 require("./../exceptions.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
@@ -6174,7 +6190,7 @@ RUR.record_frame = function (name, obj) {
     }
 };
 
-},{"./../exceptions.js":13,"./../playback/show_immediate.js":45,"./../state.js":54,"./../utils/supplant.js":64,"./../world/clone_world.js":68}],48:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../playback/show_immediate.js":45,"./../state.js":54,"./../utils/supplant.js":64,"./../world/clone_world.js":68,"./reset.js":48}],48:[function(require,module,exports){
 require("./../state.js");
 require("./../create_editors.js");
 
@@ -7585,6 +7601,7 @@ draw_goal = function () {
     }
     if (goal.objects !== undefined){
         draw_all_objects(goal.objects, true);
+        console.log("goal.objects", goal.objects);
     }
 
     if (goal.walls !== undefined){
@@ -7775,6 +7792,7 @@ draw_all_objects = function (objects, goal, tile){
                         if (goal) {
                             ctx = RUR.GOAL_CTX;
                             image = specific_object.goal.image;
+                            console.log("goal image,", image);
                         } else if (specific_object === undefined){
                             console.log("specific_object is undefined");
                             console.log("obj_name = ", obj_name, "  tile = ", tile);
@@ -7792,7 +7810,10 @@ draw_all_objects = function (objects, goal, tile){
                             image = specific_object.image;
                         }
 
-                        if (specific_object.choose_image === undefined){
+                        if (goal) {
+                            console.log("before draw_single_object, image=", image);
+                            draw_single_object(image, i, j, ctx);
+                        } else if (specific_object.choose_image === undefined){
                             if (image === undefined){
                                 console.log("problem in draw_all_objects; obj =", specific_object);
                             }
@@ -9594,6 +9615,9 @@ RUR.add_goal_object_at_position = function (specific_object, x, y, nb){
     } else {
         RUR.CURRENT_WORLD.goal.objects[coords][specific_object] = nb;
     }
+    try {
+        RUR.record_frame("debug", "add_goal_object_at_position");
+    } catch (e) {}
 };
 
 },{"./../exceptions.js":13,"./../translator.js":56,"./../utils/key_exist.js":62,"./../utils/supplant.js":64}],78:[function(require,module,exports){

@@ -56,4 +56,7 @@ RUR.add_goal_object_at_position = function (specific_object, x, y, nb){
     } else {
         RUR.CURRENT_WORLD.goal.objects[coords][specific_object] = nb;
     }
+    try {
+        RUR.record_frame("debug", "add_goal_object_at_position");
+    } catch (e) {}
 };
