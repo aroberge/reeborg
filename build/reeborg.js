@@ -7601,7 +7601,6 @@ draw_goal = function () {
     }
     if (goal.objects !== undefined){
         draw_all_objects(goal.objects, true);
-        console.log("goal.objects", goal.objects);
     }
 
     if (goal.walls !== undefined){
@@ -7792,7 +7791,6 @@ draw_all_objects = function (objects, goal, tile){
                         if (goal) {
                             ctx = RUR.GOAL_CTX;
                             image = specific_object.goal.image;
-                            console.log("goal image,", image);
                         } else if (specific_object === undefined){
                             console.log("specific_object is undefined");
                             console.log("obj_name = ", obj_name, "  tile = ", tile);
@@ -7811,7 +7809,6 @@ draw_all_objects = function (objects, goal, tile){
                         }
 
                         if (goal) {
-                            console.log("before draw_single_object, image=", image);
                             draw_single_object(image, i, j, ctx);
                         } else if (specific_object.choose_image === undefined){
                             if (image === undefined){
