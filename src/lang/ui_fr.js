@@ -1,3 +1,5 @@
+var mac_user_save_files_fr = " <b>Utilisateurs Mac:</b> consultez <a href='https://github.com/aroberge/reeborg/blob/master/known_problems.md' target='_blank'>Problèmes connus</a>.";
+
 RUR.ui_fr = {};
 RUR.fr_to_en = {};
 
@@ -191,13 +193,13 @@ RUR.ui_fr["LOAD LIBRARY EXPLAIN"] = "Ouvre un fichier contenant un programme et 
 RUR.ui_fr["LOAD WORLD"] = "Ouvrir un monde";
 RUR.ui_fr["LOAD WORLD EXPLAIN"] = "Ouvre un monde à partir d'un fichier.";
 RUR.ui_fr["SAVE BLOCKLY"] = "Sauvegarder les blocs.";
-RUR.ui_fr["SAVE BLOCKLY EXPLAIN"] = "Sauvegarde le programme (blocs).";
+RUR.ui_fr["SAVE BLOCKLY EXPLAIN"] = "Sauvegarde le programme (blocs)." + mac_user_save_files_fr;
 RUR.ui_fr["SAVE EDITOR"] = "Sauvegarder le programme";
-RUR.ui_fr["SAVE EDITOR EXPLAIN"] = "Sauvegarde le contenu de l'éditeur dans un fichier.";
+RUR.ui_fr["SAVE EDITOR EXPLAIN"] = "Sauvegarde le contenu de l'éditeur dans un fichier." + mac_user_save_files_fr;
 RUR.ui_fr["SAVE LIBRARY"] = "Sauvegarder la bibliothèque";
-RUR.ui_fr["SAVE LIBRARY EXPLAIN"] = "Sauvegarde le contenu de la bibliothèque dans un fichier.";
+RUR.ui_fr["SAVE LIBRARY EXPLAIN"] = "Sauvegarde le contenu de la bibliothèque dans un fichier." + mac_user_save_files_fr;
 RUR.ui_fr["SAVE WORLD"] = "Sauvegarder le monde";
-RUR.ui_fr["SAVE WORLD EXPLAIN"] = "Sauvegarde le monde dans un fichier (format json) sur votre ordinateur.";
+RUR.ui_fr["SAVE WORLD EXPLAIN"] = "Sauvegarde le monde dans un fichier (format json) sur votre ordinateur." + mac_user_save_files_fr;
 
 RUR.ui_fr["ADD CONTENT TO WORLD"] = "Ajouter au monde le contenu des items indiqués ci-dessous.";
 RUR.ui_fr["ADD BLOCKLY TEXT"] = "Blocs de code";
@@ -244,7 +246,7 @@ RUR.ui_fr["CANCEL"] = "Annuler";
 RUR.ui_fr["DELETE WORLD TEXT"] = "En cliquant sur un bouton, éliminez un monde connu de la mémoire de votre nagivageur.";
 RUR.ui_fr["PYTHON ONLY"] = "Python seulement";
 RUR.ui_fr["COLLABORATION"] = "Collaboration";
-RUR.ui_fr["TOGETHERJS EXPLAIN"] = "Outil qui permet la collaboration à distance en utilisant l'outil TogetherJS de Mozilla (interface en anglais seulement).";
+RUR.ui_fr["TOGETHERJS EXPLAIN"] = "Outil qui permet la collaboration à distance en utilisant l'outil TogetherJS de Mozilla (interface en anglais seulement). Ne fonctionne pas avec Blockly.";
 RUR.ui_fr["WORLD CREATION TITLE"] = "Monde : édition, création, ...";
 RUR.ui_fr["EDIT WORLD"] = "Édition du monde";
 RUR.ui_fr["EDIT WORLD EXPLAIN"] = "Vous pouvez créer vos propres mondes en modifiant un monde existant.";

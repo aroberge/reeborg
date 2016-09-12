@@ -1,3 +1,5 @@
+var mac_user_save_files_ko = " <b>Mac users:</b> please see <a href='https://github.com/aroberge/reeborg/blob/master/known_problems.md' target='_blank'>Known problems</a>.";
+
 RUR.ui_ko = {};
 RUR.ko_to_en = {};
 
@@ -194,13 +196,13 @@ RUR.ui_ko["LOAD LIBRARY EXPLAIN"] = "파일을 열고 라이브러리의 컨텐�
 RUR.ui_ko["LOAD WORLD"] = "파일로 불러오기";
 RUR.ui_ko["LOAD WORLD EXPLAIN"] = "컴퓨터안의 파일로 월드를 불러오기";
 RUR.ui_ko["SAVE BLOCKLY"] = "Save program to file";
-RUR.ui_ko["SAVE BLOCKLY EXPLAIN"] = "Saves the current blocks in a file.";
+RUR.ui_ko["SAVE BLOCKLY EXPLAIN"] = "Saves the current blocks in a file." + mac_user_save_files_ko;
 RUR.ui_ko["SAVE EDITOR"] = "파일로 저장";
-RUR.ui_ko["SAVE EDITOR EXPLAIN"] = "에디터 소스코드 저장";
+RUR.ui_ko["SAVE EDITOR EXPLAIN"] = "에디터 소스코드 저장" + mac_user_save_files_ko;
 RUR.ui_ko["SAVE LIBRARY"] = "라이브러리 저장";
-RUR.ui_ko["SAVE LIBRARY EXPLAIN"] = "파일 라이브러리의 내용 저장";
+RUR.ui_ko["SAVE LIBRARY EXPLAIN"] = "파일 라이브러리의 내용 저장" + mac_user_save_files_ko;
 RUR.ui_ko["SAVE WORLD"] = "파일로 저장";
-RUR.ui_ko["SAVE WORLD EXPLAIN"] = "(json 확장자) 월드를 컴퓨터에 저장";
+RUR.ui_ko["SAVE WORLD EXPLAIN"] = "(json 확장자) 월드를 컴퓨터에 저장" + mac_user_save_files_ko;
 
 RUR.ui_ko["ADD CONTENT TO WORLD"] = "Add content to world from selected items below.";
 RUR.ui_ko["ADD BLOCKLY TEXT"] = "Code blocks";
@@ -247,7 +249,7 @@ RUR.ui_ko["CANCEL"] = "취소";
 RUR.ui_ko["DELETE WORLD TEXT"] = "버튼을 클릭하면 브라우져의 메모리에 저장된 월드를 제거합니다:";
 RUR.ui_ko["PYTHON ONLY"] = "파이썬 전용";
 RUR.ui_ko["COLLABORATION"] = "협업";
-RUR.ui_ko["TOGETHERJS EXPLAIN"] = "다른 사용자는 Mozilla의 TogetherJS를 이용하여 협업에 참여 할 수 있습니다.";
+RUR.ui_ko["TOGETHERJS EXPLAIN"] = "다른 사용자는 Mozilla의 TogetherJS를 이용하여 협업에 참여 할 수 있습니다.  (Does not work with Blockly.)";
 RUR.ui_ko["WORLD CREATION TITLE"] = "월드 : 창조, 수정..";
 RUR.ui_ko["EDIT WORLD"] = "월드 수정";
 RUR.ui_ko["EDIT WORLD EXPLAIN"] = "기존 월드를 수정하여 자신 만의 월드를 만들 수 있습니다.";

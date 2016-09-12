@@ -1,3 +1,5 @@
+var mac_user_save_files_en = " <b>Mac users:</b> please see <a href='https://github.com/aroberge/reeborg/blob/master/known_problems.md' target='_blank'>Known problems</a>.";
+
 RUR.ui_en = {};
 RUR.en_to_en = {};
 
@@ -192,13 +194,13 @@ RUR.ui_en["LOAD LIBRARY EXPLAIN"] = "Opens a file and use its content to replace
 RUR.ui_en["LOAD WORLD"] = "Open world from file";
 RUR.ui_en["LOAD WORLD EXPLAIN"] = "Loads a world from a file on your computer.";
 RUR.ui_en["SAVE BLOCKLY"] = "Save program to file";
-RUR.ui_en["SAVE BLOCKLY EXPLAIN"] = "Saves the current blocks in a file.";
+RUR.ui_en["SAVE BLOCKLY EXPLAIN"] = "Saves the current blocks in a file." + mac_user_save_files_en;
 RUR.ui_en["SAVE EDITOR"] = "Save program to file";
-RUR.ui_en["SAVE EDITOR EXPLAIN"] = "Saves the content of the editor in a file.";
+RUR.ui_en["SAVE EDITOR EXPLAIN"] = "Saves the content of the editor in a file." + mac_user_save_files_en;
 RUR.ui_en["SAVE LIBRARY"] = "Save the library";
-RUR.ui_en["SAVE LIBRARY EXPLAIN"] = "Saves the content of the library in a file.";
+RUR.ui_en["SAVE LIBRARY EXPLAIN"] = "Saves the content of the library in a file." + mac_user_save_files_en;
 RUR.ui_en["SAVE WORLD"] = "Save world to file";
-RUR.ui_en["SAVE WORLD EXPLAIN"] = "Saves the world (as a json object) to a file on your computer.";
+RUR.ui_en["SAVE WORLD EXPLAIN"] = "Saves the world (as a json object) to a file on your computer." + mac_user_save_files_en;
 
 RUR.ui_en["ADD CONTENT TO WORLD"] = "Add content to world from selected items below.";
 RUR.ui_en["ADD BLOCKLY TEXT"] = "Code blocks";
@@ -244,7 +246,7 @@ RUR.ui_en["CANCEL"] = "Cancel";
 RUR.ui_en["DELETE WORLD TEXT"] = "The following refers to worlds currently stored in your browser which you can delete:";
 RUR.ui_en["PYTHON ONLY"] = "Python only";
 RUR.ui_en["COLLABORATION"] = "Collaboration";
-RUR.ui_en["TOGETHERJS EXPLAIN"] = "Tool which permits collaboration with one or more other user using Mozilla's TogetherJS.";
+RUR.ui_en["TOGETHERJS EXPLAIN"] = "Tool which permits collaboration with one or more other user using Mozilla's TogetherJS. Does not work with Blockly.";
 RUR.ui_en["WORLD CREATION TITLE"] = "World: creation, edition, ...";
 RUR.ui_en["EDIT WORLD"] = "Edit world";
 RUR.ui_en["EDIT WORLD EXPLAIN"] = "You can create your own world by editing the current one.";
