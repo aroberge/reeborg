@@ -1,10 +1,14 @@
 # Known problems / _Problèmes connus_
 
-## Mac computers / _Ordinateurs Mac_
-
 **Note**: I can only do tests on a Windows 10 computer.
+Furthermore, I only attempt to support Chrome and Firefox.
 
-**N.B.** : _Je ne peut faire des tests que sur un ordinateur Windows 10._
+**N.B.** : _Je ne peux faire des tests que sur un ordinateur Windows 10.
+De plus, je ne peux pas assurer la compatibilité des navigateurs autre
+que Chrome et Firefox._
+
+
+## Mac computers / _Ordinateurs Mac_
 
 ### Firefox / Chrome
 
