@@ -44,8 +44,8 @@ def tracing_line(indent, current_group, frame=False, last_line=False):
     return watch_info + trace
 
 
-def replace_brackets(src):
-    '''replace ()[]{} by spaces inside strings'''
+def replace_brackets_and_sharp(src):
+    '''replace ()[]{} and # by spaces inside strings'''
     new_src = []
     quote = None
     in_string = False
@@ -64,19 +64,19 @@ def replace_brackets(src):
 
 
 def remove_comments(src):
-    # only remove pure line comments.
+    # only remove comments that start with a '#'
     lines = src.split("\n")
     new_lines = []
     for line in lines:
-        if line.strip().startswith("#"):
-            line = ''
+        if '#' in line:
+            line = line.split('#')[0]
         new_lines.append(line)
     return '\n'.join(new_lines)
 
 
 def check_balanced_brackets(src):
+    src = replace_brackets_and_sharp(src)
     src = remove_comments(src)
-    src = replace_brackets(src)
     lines = src.split("\n")
     line_info = []
     paren_count = 0

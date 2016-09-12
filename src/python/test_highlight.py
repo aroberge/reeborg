@@ -588,4 +588,5 @@ class TestSequenceFunctions(unittest.TestCase):
         self.assertEqual(test_yield_result, result)
 
 if __name__ == '__main__':
-    unittest.main()
+    #unittest.main()
+    print("WARNING: this file needs to be rewritten.")
