@@ -9,6 +9,7 @@ require("./../blockly.js");
 
 var export_world = require("./../world/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;
+var record_value = require("./../../lang/msg.js").record_value;
 
 function remove_fileInput_listener () {
     // see http://stackoverflow.com/a/19470348
@@ -58,42 +59,64 @@ $("#load-world").on("click", function(evt) {
     });
 });
 
-record_id("save-blockly-btn", "SAVE BLOCKLY");
+record_value("save-blockly", "SAVE BLOCKLY");
 record_id("save-blockly-text", "SAVE BLOCKLY EXPLAIN");
-$("#save-blockly-btn").on("click", function (evt) {
-    var xml, blob = new Blob([RUR.blockly.getValue()], {
-        type: "text/javascript;charset=utf-8"
-    });
-    saveAs(blob, "filename.xml"); // saveAs defined in src/libraries/filesaver.js
-});
-
-record_id("save-editor-btn", "SAVE EDITOR");
-record_id("save-editor-text", "SAVE EDITOR EXPLAIN");
-$("#save-editor-btn").on("click", function (evt) {
-    var blob = new Blob([editor.getValue()], {
-        type: "text/javascript;charset=utf-8"
-    });
-    saveAs(blob, "filename"); // saveAs defined in src/libraries/filesaver.js
-});
-
-record_id("save-library-btn", "SAVE LIBRARY");
-record_id("save-library-text", "SAVE LIBRARY EXPLAIN");
-$("#save-library-btn").on("click", function (evt) {
+var save_blockly_form = document.getElementById("save-blockly-form");
+save_blockly_form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    var blockly_filename = document.getElementById("blockly-filename");
     var blob = new Blob([library.getValue()], {
-        type: "text/javascript;charset=utf-8"
+        type: "text/xml;charset=utf-8"
     });
-    saveAs(blob, "filename"); // saveAs defined in src/libraries/filesaver.js
-});
+    saveAs(blob, (blockly_filename.value || blockly_filename.placeholder) + ".xml", true);
+ }, false);
 
-record_id("save-world", "SAVE WORLD");
+record_value("save-editor", "SAVE EDITOR");
+record_id("save-editor-text", "SAVE EDITOR EXPLAIN");
+var save_editor_form = document.getElementById("save-editor-form");
+save_editor_form.addEventListener("submit", function(event) {
+    var blob;
+    event.preventDefault();
+    var editor_filename = document.getElementById("editor-filename");
+    if (RUR.state.programming_language == "python") {
+        blob = new Blob([library.getValue()], {
+            type: "text/python;charset=utf-8"
+        });
+        saveAs(blob, (editor_filename.value || editor_filename.placeholder) + ".py", true);
+    } else {
+        blob = new Blob([library.getValue()], {
+            type: "text/javascript;charset=utf-8"
+        });
+        saveAs(blob, (editor_filename.value || editor_filename.placeholder) + ".js", true);
+    }
+
+ }, false);
+
+record_value("save-library", "SAVE LIBRARY");
+record_id("save-library-text", "SAVE LIBRARY EXPLAIN");
+var save_library_form = document.getElementById("save-library-form");
+save_library_form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    var library_filename = document.getElementById("library-filename");
+    var blob = new Blob([library.getValue()], {
+        type: "text/python;charset=utf-8"
+    });
+    saveAs(blob, (library_filename.value || library_filename.placeholder) + ".py", true);
+ }, false);
+
+record_value("save-world", "SAVE WORLD");
 record_id("save-world-text", "SAVE WORLD EXPLAIN");
-$("#save-world").on("click", function (evt) {
+var save_world_form = document.getElementById("save-world-form");
+save_world_form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    var world_filename = document.getElementById("world-filename");
     RUR.CURRENT_WORLD = RUR.world.update_from_editors(RUR.CURRENT_WORLD);
     var blob = new Blob([export_world()], {
         type: "text/javascript;charset=utf-8"
     });
-    saveAs(blob, "filename.json", true); // saveAs defined in src/libraries/filesaver.js
-});
+    saveAs(blob, (world_filename.value || world_filename.placeholder) + ".json", true);
+ }, false);
+
 
 record_id("load-blockly-btn", "LOAD BLOCKLY");
 record_id("load-blockly-text", "LOAD BLOCKLY EXPLAIN");
