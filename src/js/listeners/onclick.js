@@ -79,12 +79,12 @@ save_editor_form.addEventListener("submit", function(event) {
     event.preventDefault();
     var editor_filename = document.getElementById("editor-filename");
     if (RUR.state.programming_language == "python") {
-        blob = new Blob([library.getValue()], {
+        blob = new Blob([editor.getValue()], {
             type: "text/python;charset=utf-8"
         });
         saveAs(blob, (editor_filename.value || editor_filename.placeholder) + ".py", true);
     } else {
-        blob = new Blob([library.getValue()], {
+        blob = new Blob([editor.getValue()], {
             type: "text/javascript;charset=utf-8"
         });
         saveAs(blob, (editor_filename.value || editor_filename.placeholder) + ".js", true);
