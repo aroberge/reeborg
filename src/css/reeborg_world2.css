@@ -703,21 +703,22 @@ li.failure:after {
     top: 42px;
 }
 
-#image-choice-buttons {
+#image-choice-buttons button,  /* old */
+#image-choice-buttons-small button {
     float: right;
-}
-
-#image-choice-buttons button {
     margin-left: 1px;
     padding: 0;
     border: 1px solid blue;
     border-radius: 3px;
     background: white;
     margin-top: 5px;
+}
+
+#image-choice-buttons-small button {
     height: 20px;
     width: 22px;
 }
-#image-choice-buttons button img {
+#image-choice-buttons-small button img {
     width: 20px;
 }
 
