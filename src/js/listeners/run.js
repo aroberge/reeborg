@@ -1,4 +1,4 @@
-;
+
 require("./../state.js");
 require("./reload.js");
 require("./../runner.js");
@@ -19,6 +19,7 @@ function run () {
     $("#step").attr("disabled", "true");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
+    $("#frame-selector").attr("disabled", "true").addClass("disabled").removeClass("enabled");
 
     clearTimeout(RUR._TIMER);
     RUR.runner.run(RUR.play);

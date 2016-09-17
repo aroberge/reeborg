@@ -34,6 +34,13 @@ RUR.runner.run = function (playback) {
     if (!RUR.state.code_evaluated) {
         RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
         RUR.world_init.set();
+
+        if (!(RUR.state.programming_language === "python" && RUR.state.highlight) ) {
+            RUR.record_frame();  // record the starting state as first frame;
+            // for python with highlighting on, the first frame will be the first
+            // instruction to be executed highlighted.
+        }
+
         if (RUR.state.input_method === "blockly-py") {
             editor.setValue(Blockly.Python.workspaceToCode(RUR.blockly.workspace));
         } else if (RUR.state.input_method === "blockly-js") {

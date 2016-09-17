@@ -15,6 +15,7 @@ var clone_world = require("./world/clone_world.js").clone_world;
 
 RUR.rec = {};
 
+
 RUR.set_lineno_highlight = function(lineno, frame) {
     RUR.current_line_no = lineno;
     if (frame) {
@@ -27,7 +28,6 @@ RUR.rec.display_frame = function () {
     // set current world to frame being played.
     "use strict";
     var frame, goal_status, i, next_frame_line_numbers;
-
     if (RUR.current_frame_no >= RUR.nb_frames) {
         return RUR.rec.conclude();
     }
@@ -59,6 +59,7 @@ RUR.rec.display_frame = function () {
     }
 
     frame = RUR.frames[RUR.current_frame_no];
+    RUR.update_frame_nb_info();
     RUR.current_frame_no++;
 
     if (frame === undefined){

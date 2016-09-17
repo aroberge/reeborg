@@ -1,6 +1,7 @@
 require("./canvas.js");
 require("./editors_tabs.js");
 require("./erase_trace.js");
+require("./frame_slider.js");
 require("./human_language.js");
 require("./memorize_world.js");
 require("./onclick.js");

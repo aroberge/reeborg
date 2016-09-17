@@ -13,6 +13,7 @@ step = function () {
     RUR.state.stop_called = false;
     $("#stop").removeAttr("disabled");
     $("#reverse-step").removeAttr("disabled");
+    $("#frame-selector").removeAttr("disabled").addClass("enabled").removeClass("disabled");
     clearTimeout(RUR._TIMER);
 };
 step_button.addEventListener("click", step, false);

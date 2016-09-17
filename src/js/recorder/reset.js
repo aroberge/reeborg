@@ -4,6 +4,9 @@ require("./../create_editors.js");
 exports.reset = reset = function() {
     RUR.nb_frames = 0;
     RUR.current_frame_no = 0;
+    try {
+        RUR.update_frame_nb_info(); // slider may not be defined initially
+    } catch (e) {}
     RUR.current_line_no = undefined;
     RUR.frames = [];
     RUR.rec_line_numbers = [];

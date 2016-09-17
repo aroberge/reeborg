@@ -708,12 +708,17 @@ li.failure:after {
 }
 
 #image-choice-buttons button {
-    margin-left: 10px;
-    padding: 0 2px 0 2px;
+    margin-left: 1px;
+    padding: 0;
     border: 1px solid blue;
     border-radius: 3px;
     background: white;
     margin-top: 5px;
+    height: 20px;
+    width: 22px;
+}
+#image-choice-buttons button img {
+    width: 20px;
 }
 
 #game-controls,
@@ -726,7 +731,6 @@ li.failure:after {
 #world-controls button,
 #world-edit-buttons button {
     float: none;
-    margin-right: 4px;
 }
 
 #world-panel, #blockly-wrapper {
@@ -971,7 +975,6 @@ li.failure:after {
     margin-top:0;
 }
 
-
 #mixed-language-info {
     position: absolute;
     background-color: beige;
@@ -981,4 +984,13 @@ li.failure:after {
     border: darkred 1px solid;
     border-radius: 10px;
     line-height: 2em;
+}
+
+input[type=range].enabled {
+  cursor: pointer;
+  color: blue;
+}
+input[type=range].disabled {
+  cursor: not-allowed;
+  color: red;
 }
