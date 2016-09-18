@@ -702,10 +702,13 @@ li.failure:after {
     position: absolute;
     top: 42px;
 }
+#image-choice-buttons,  /* old */
+#image-choice-buttons-small {
+    float: right;
+}
 
 #image-choice-buttons button,  /* old */
 #image-choice-buttons-small button {
-    float: right;
     margin-left: 1px;
     padding: 0;
     border: 1px solid blue;

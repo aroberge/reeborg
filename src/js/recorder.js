@@ -29,6 +29,7 @@ RUR.rec.display_frame = function () {
     "use strict";
     var frame, goal_status, i, next_frame_line_numbers;
     if (RUR.current_frame_no >= RUR.nb_frames) {
+        RUR.update_frame_nb_info();
         return RUR.rec.conclude();
     }
 
