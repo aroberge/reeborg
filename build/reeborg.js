@@ -879,10 +879,12 @@ RUR._set_max_nb_instructions_ = function(n){
 };
 
 RUR._set_trace_color_ = function(color){
-    RUR.CURRENT_WORLD.robots[0].trace_color = color;
+    RUR.CURRENT_WORLD.robots[0]._trace_color = color;
 };
 
-RUR._set_trace_style_ = RUR.vis_robot.set_trace_style;
+RUR._set_trace_style_ = function(style){
+    RUR.CURRENT_WORLD.robots[0]._trace_style = style;
+};
 
 RUR._sound_ = RUR.control.sound;
 
@@ -1680,11 +1682,11 @@ RUR.control.set_model = function(robot, model){
  };
 
 RUR.control.set_trace_color = function(robot, color){
-    robot.trace_color = color;
+    robot._trace_color = color;
  };
 
 RUR.control.set_trace_style = function(robot, style){
-    robot.trace_style = style;
+    robot._trace_style = style;
  };
 
 if (RUR.state === undefined){
@@ -6212,7 +6214,7 @@ var clone_world = require("./../world/clone_world.js").clone_world;
 
 RUR.record_frame = function (name, obj) {
     "use strict";
-    var frame = {};
+    var frame = {}, robot;
     if (RUR.state.do_not_record) {
         return;
     }
@@ -6233,7 +6235,12 @@ RUR.record_frame = function (name, obj) {
         return;
     }
 
+    for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
+        RUR.vis_robot.update_trace_history(robot);
+    }
     frame.world = clone_world();
+
+
     if (name !== undefined) {
         frame[name] = obj;
     }
@@ -6364,6 +6371,10 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot._prev_y = robot.y;
     robot._prev_orientation = robot._orientation;
 
+    robot._trace_history = [];
+    robot._trace_style = "default";
+    robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
+
     return robot;
 };
 
@@ -6383,6 +6394,18 @@ RUR.robot.cleanup_objects = function (robot) {
     if (robot.orientation !== undefined){
         robot._orientation = robot.orientation;
         delete robot.orientation;
+    }
+    if (robot._trace_history === undefined) {
+        robot._trace_history = [];
+    }
+    if (robot._trace_style === undefined) {
+        robot._trace_style = "default";
+    }
+    if (robot._trace_color === undefined) {
+        robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
+    }
+    if (robot._is_leaky === undefined) {
+        robot._is_leaky = true;
     }
 };
 
@@ -7235,8 +7258,6 @@ RUR.vis_robot.random_img.onload = function () {
 };
 RUR.vis_robot.nb_images += 1;
 
-
-
 RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y, width, height, image;
@@ -7303,69 +7324,67 @@ RUR.vis_robot.draw = function (robot) {
     if (RUR.state.editing_world){
         return;
     }
-    RUR.vis_robot.draw_trace(robot);
+    RUR.vis_robot.draw_trace_history(robot);
 };
 
 
-RUR.vis_robot.draw_trace = function (robot) {
-    "use strict";
-    if (robot === undefined || robot._is_leaky === false || robot._orientation === -1) {
-        return;
-    }
-    if (robot.x > RUR.COLS || robot.y > RUR.ROWS) {
-        return;
-    }
-    var ctx = RUR.TRACE_CTX;
-    if (robot.trace_color !== undefined){
-        ctx.strokeStyle = robot.trace_color;
+
+RUR.vis_robot.update_trace_history = function (robot) {
+    var offset, prev_offset, trace_segment={};
+    if (robot._prev_x == robot.x &&
+        robot._prev_y == robot.y &&
+        robot._prev_orientation == robot._orientation) {
+            return;
+        }
+
+    if (robot._trace_style == "invisible" || !robot._is_leaky) {
+        trace_segment["color"] = "rgba(0,0,0,0)";
     } else {
-        ctx.strokeStyle = RUR.vis_robot.trace_color;
+        trace_segment["color"] = robot._trace_color;
     }
 
-    // overrides user choice for large world (small grid size)
+    offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
+
     if(RUR.CURRENT_WORLD.small_tiles) {
-        RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
-        RUR.vis_robot.trace_thickness = 2;
-    } else {
-        RUR.vis_robot.set_trace_style(RUR.TRACE_STYLE, robot);
-    }
+        offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
+        trace_segment["thickness"] = 2;
+    } else if (robot._trace_style === "thick") {
+        offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
+        trace_segment["thickness"] = 4;
+    }  else if (robot._trace_style === "default") {
+        trace_segment["thickness"] = 1;
+    } // else, invisible and we do not care.
 
-    ctx.lineWidth = RUR.vis_robot.trace_thickness;
+    prev_offset = offset[robot._prev_orientation%4];
+    offset = offset[robot._orientation%4];
+
+    trace_segment["prev_x"] = robot._prev_x * RUR.WALL_LENGTH + prev_offset[0];
+    trace_segment["x"] = robot.x * RUR.WALL_LENGTH + offset[0];
+    trace_segment["prev_y"] = RUR.HEIGHT - (robot._prev_y+1) * RUR.WALL_LENGTH + prev_offset[1];
+    trace_segment["y"] = RUR.HEIGHT - (robot.y+1) * RUR.WALL_LENGTH + offset[1];
+
+    robot._trace_history.push(trace_segment);
+};
+
+RUR.vis_robot.draw_trace_history  = function(robot) {
+    var segment;
+    for (segment of robot._trace_history) { //jshint ignore:line
+        RUR.vis_robot.draw_trace_segment(segment);
+    }
+};
+
+RUR.vis_robot.draw_trace_segment = function (segment) {
+    "use strict";
+    var ctx = RUR.TRACE_CTX;
+    ctx.strokeStyle = segment["color"];
+    ctx.lineWidth = segment["thickness"];
     ctx.lineCap = "round";
 
     ctx.beginPath();
-    // ensure that _prev_orientation and orientation are within bounds as these could be messed
-    // up by a user program and crash the robot program with a message sent to the console and nothing else.
-    ctx.moveTo(robot._prev_x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation%4][0],
-                    RUR.HEIGHT - (robot._prev_y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation%4][1]);
-    ctx.lineTo(robot.x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._orientation%4][0],
-                    RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._orientation%4][1]);
+    ctx.moveTo(segment["prev_x"], segment["prev_y"]);
+    ctx.lineTo(segment["x"], segment["y"]);
     ctx.stroke();
 };
-
-RUR.vis_robot.set_trace_style = function (choice, robot){
-    "use strict";
-    if (choice === undefined) {
-        return;
-    }
-    RUR.TRACE_STYLE = choice;
-    if (robot !== undefined && robot.trace_style !== undefined){
-        choice = robot.trace_style;
-    }
-    if (choice === "thick") {
-        RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
-        RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
-        RUR.vis_robot.trace_thickness = 4;
-    } else if (choice === "invisible") {
-        RUR.vis_robot.trace_color = "rgba(0,0,0,0)";
-    } else if (choice === "default") {
-        RUR.vis_robot.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
-        RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
-        RUR.vis_robot.trace_thickness = 1;
-    }
-};
-
-RUR.vis_robot.set_trace_style("default");
 
 RUR.vis_robot.new_robot_images = function (images) {
     var model;
@@ -7491,7 +7510,7 @@ RUR.vis_world.draw_all = function () {
         RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+//        RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
         RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -7515,6 +7534,8 @@ RUR.vis_world.draw_all = function () {
 RUR.vis_world.refresh = function () {
     "use strict";
     var current = RUR.CURRENT_WORLD;
+    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
     // meant to be called at each step
     // does not draw background (i.e. coordinates, grid walls and possibly image)
     // does not clear trace
@@ -9848,7 +9869,6 @@ exports.reset_world = reset_world = function () {
         return;
     }
     RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
-    RUR.vis_robot.set_trace_style("default");
     RUR.reset_default_robot_images();
     RUR.MAX_STEPS = 1000;
     RUR.ANIMATION_TIME = 120;

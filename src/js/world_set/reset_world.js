@@ -13,7 +13,6 @@ exports.reset_world = reset_world = function () {
         return;
     }
     RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
-    RUR.vis_robot.set_trace_style("default");
     RUR.reset_default_robot_images();
     RUR.MAX_STEPS = 1000;
     RUR.ANIMATION_TIME = 120;

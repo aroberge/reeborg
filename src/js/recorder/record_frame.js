@@ -8,7 +8,7 @@ var clone_world = require("./../world/clone_world.js").clone_world;
 
 RUR.record_frame = function (name, obj) {
     "use strict";
-    var frame = {};
+    var frame = {}, robot;
     if (RUR.state.do_not_record) {
         return;
     }
@@ -29,7 +29,12 @@ RUR.record_frame = function (name, obj) {
         return;
     }
 
+    for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
+        RUR.vis_robot.update_trace_history(robot);
+    }
     frame.world = clone_world();
+
+
     if (name !== undefined) {
         frame[name] = obj;
     }

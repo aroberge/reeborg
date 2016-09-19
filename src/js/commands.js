@@ -127,10 +127,12 @@ RUR._set_max_nb_instructions_ = function(n){
 };
 
 RUR._set_trace_color_ = function(color){
-    RUR.CURRENT_WORLD.robots[0].trace_color = color;
+    RUR.CURRENT_WORLD.robots[0]._trace_color = color;
 };
 
-RUR._set_trace_style_ = RUR.vis_robot.set_trace_style;
+RUR._set_trace_style_ = function(style){
+    RUR.CURRENT_WORLD.robots[0]._trace_style = style;
+};
 
 RUR._sound_ = RUR.control.sound;
 

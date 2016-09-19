@@ -591,11 +591,11 @@ RUR.control.set_model = function(robot, model){
  };
 
 RUR.control.set_trace_color = function(robot, color){
-    robot.trace_color = color;
+    robot._trace_color = color;
  };
 
 RUR.control.set_trace_style = function(robot, style){
-    robot.trace_style = style;
+    robot._trace_style = style;
  };
 
 if (RUR.state === undefined){

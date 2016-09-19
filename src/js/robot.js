@@ -51,6 +51,10 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot._prev_y = robot.y;
     robot._prev_orientation = robot._orientation;
 
+    robot._trace_history = [];
+    robot._trace_style = "default";
+    robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
+
     return robot;
 };
 
@@ -70,5 +74,17 @@ RUR.robot.cleanup_objects = function (robot) {
     if (robot.orientation !== undefined){
         robot._orientation = robot.orientation;
         delete robot.orientation;
+    }
+    if (robot._trace_history === undefined) {
+        robot._trace_history = [];
+    }
+    if (robot._trace_style === undefined) {
+        robot._trace_style = "default";
+    }
+    if (robot._trace_color === undefined) {
+        robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
+    }
+    if (robot._is_leaky === undefined) {
+        robot._is_leaky = true;
     }
 };
