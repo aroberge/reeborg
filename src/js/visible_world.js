@@ -81,7 +81,7 @@ RUR.vis_world.draw_all = function () {
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     draw_grid_walls(RUR.BACKGROUND_CTX);
     if (RUR.CURRENT_WORLD.background_image !== undefined) {
-        draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
+        draw_background_image(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
     }
     draw_coordinates(); // on BACKGROUND_CTX
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -415,7 +415,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
                 }
             }
         } else {
-            console.log("Unknown type in __draw_animated_images");
+            console.log("Problem: unknown type in __draw_animated_images");
         }
     }
     return flag;
@@ -468,12 +468,12 @@ draw_all_objects = function (objects, goal, tile){
                             ctx = RUR.GOAL_CTX;
                             image = specific_object.goal.image;
                         } else if (specific_object === undefined){
-                            console.log("specific_object is undefined");
-                            console.log("obj_name = ", obj_name, "  tile = ", tile);
+                            console.log("problem: specific_object is undefined");
+                            console.log("    obj_name = ", obj_name, "  tile = ", tile);
                             if (tile) {
-                                console.log("RUR.OBSTACLES = ", RUR.OBSTACLES);
+                                console.log("    RUR.OBSTACLES = ", RUR.OBSTACLES);
                             } else {
-                                console.log("RUR.OBJECTS = ", RUR.OBJECTS);
+                                console.log("    RUR.OBJECTS = ", RUR.OBJECTS);
                             }
                             image = undefined;
                         } else if (specific_object.ctx !== undefined){
@@ -513,6 +513,23 @@ draw_single_object = function (image, i, j, ctx) {
        console.log("problem in draw_single_object", image, ctx, e);
    }
 };
+
+draw_background_image = function (image, i, j, ctx) {
+    //like draw_single_object but we do not fix the size.
+    var thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
+    var x, y;
+    if (i > RUR.COLS || j > RUR.ROWS){
+        return;
+    }
+    x = i*size + thick;
+    y = RUR.HEIGHT - (j+1)*size + thick;
+    try{
+       ctx.drawImage(image, x, y);
+   } catch (e) {
+       console.log("problem in draw_background_image", image, ctx, e);
+   }
+};
+
 
 clear_single_cell = function (i, j, ctx) {
     var x, y, thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;

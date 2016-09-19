@@ -10,7 +10,6 @@ require("./exceptions.js");
 require("./listeners/stop.js");
 require("./utils/supplant.js");
 
-
 RUR.file_io = {};
 
 RUR.file_io.load_world_from_program = function (url, shortname) {

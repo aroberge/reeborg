@@ -879,10 +879,12 @@ RUR._set_max_nb_instructions_ = function(n){
 };
 
 RUR._set_trace_color_ = function(color){
-    RUR.CURRENT_WORLD.robots[0].trace_color = color;
+    RUR.CURRENT_WORLD.robots[0]._trace_color = color;
 };
 
-RUR._set_trace_style_ = RUR.vis_robot.set_trace_style;
+RUR._set_trace_style_ = function(style){
+    RUR.CURRENT_WORLD.robots[0]._trace_style = style;
+};
 
 RUR._sound_ = RUR.control.sound;
 
@@ -1680,11 +1682,11 @@ RUR.control.set_model = function(robot, model){
  };
 
 RUR.control.set_trace_color = function(robot, color){
-    robot.trace_color = color;
+    robot._trace_color = color;
  };
 
 RUR.control.set_trace_style = function(robot, style){
-    robot.trace_style = style;
+    robot._trace_style = style;
  };
 
 if (RUR.state === undefined){
@@ -2305,9 +2307,17 @@ set_background_image = function () {
 require("./rur.js");
 require("./state.js");
 
+/* When loading a world from a url, Python names may not have been
+   defined in the running environment. If that is the case,
+   we make sure to stop that error and let a the basic javascript
+   one propagate so that the correct dialog can be shown.
+ */
+
 RUR.ReeborgOK = function (message) {
     if (RUR.state.programming_language == "python"){
-        return ReeborgOK(message);
+        try { // see comment above
+            return ReeborgOK(message);
+        } catch (e) {}
     }
     this.reeborg_concludes = message;
     this.message = message;
@@ -2315,8 +2325,11 @@ RUR.ReeborgOK = function (message) {
 
 RUR.ReeborgError = function (message) {
     if (RUR.state.programming_language == "python"){
-        return ReeborgError(message);
+        try { // see comment above
+            return ReeborgError(message);
+        } catch (e) {}
     }
+
     this.name = "ReeborgError";
     this.message = message;
     this.reeborg_shouts = message;
@@ -2644,7 +2657,6 @@ require("./translator.js");
 require("./exceptions.js");
 require("./listeners/stop.js");
 require("./utils/supplant.js");
-
 
 RUR.file_io = {};
 
@@ -4544,9 +4556,22 @@ require("./reload.js");
 require("./../runner.js");
 
 RUR.update_frame_nb_info = function() {
-    RUR.frame_id_info.innerHTML = RUR.current_frame_no + "/" + RUR.nb_frames;
-    RUR.frame_selector.value = RUR.current_frame_no;
-    RUR.frame_selector.max = RUR.nb_frames;
+    var frame_no=0;
+    try {  // termporarily keeping the "old" version compatible
+        if (RUR.nb_frames === 0) {
+            RUR.frame_id_info.innerHTML = "0/0";
+            RUR.frame_selector.value = 0;
+            RUR.frame_selector.min = 0;
+            RUR.frame_selector.max = 0;
+        } else {
+            RUR.frame_selector.max = RUR.nb_frames;
+            RUR.frame_selector.value = RUR.current_frame_no;
+            // do not display zero-based index as this would confuse
+            // beginners ... especially without no additional explanation.
+            frame_no = Math.min(RUR.current_frame_no+1, RUR.nb_frames+1);
+            RUR.frame_id_info.innerHTML = frame_no + "/" + (RUR.nb_frames+1);
+        }
+    } catch (e) {}
 };
 RUR.frame_selector = document.getElementById("frame-selector");
 RUR.frame_id_info = document.getElementById("frame-id");
@@ -4555,7 +4580,7 @@ $("#frame-selector").on("input change", function() {
     if (RUR.state.playback) {
         return;
     }
-    RUR.current_frame_no = RUR.frame_selector.value;
+    RUR.current_frame_no = parseInt(RUR.frame_selector.value, 10);
     if (RUR.current_frame_no <= 0){
         $("#reverse-step").attr("disabled", "true");
     } else if ($("#reverse-step").attr("disabled")) {
@@ -5739,13 +5764,15 @@ RUR.permalink.set_mode = function (url_query) {
     var mode;
     if (url_query.queryKey.mode !== undefined) {
         mode = url_query.queryKey.mode;
-    } else if (url_query.queryKey.proglang !== undefined) {  // old permalinks
-        if (url_query.queryKey.proglang.startsWith("python")) {
-            mode = "python";
-        } else {
-            mode = "javascript";
-        }
-    } else if (localStorage.getItem("programming-mode")) {
+    }
+    //  else if (url_query.queryKey.proglang !== undefined) {  // old permalinks
+    //     if (url_query.queryKey.proglang.startsWith("python")) {
+    //         mode = "python";
+    //     } else {
+    //         mode = "javascript";
+    //     }
+    // }
+    else if (localStorage.getItem("programming-mode")) {
         mode = localStorage.getItem("programming-mode");
     } else {
         mode = 'python';
@@ -5761,12 +5788,12 @@ RUR.permalink.set_language = function (url_query) {
     var lang;
     if (url_query.queryKey.lang !== undefined) {
         lang = url_query.queryKey.lang;
-    } else if (url_query.queryKey.proglang !== undefined) {  // old permalinks
-        if (url_query.queryKey.proglang.endsWith("fr")) {
-            lang = "fr";
-        } else {
-            lang = 'en';
-        }
+    // } else if (url_query.queryKey.proglang !== undefined) {  // old permalinks
+    //     if (url_query.queryKey.proglang.endsWith("fr")) {
+    //         lang = "fr";
+    //     } else {
+    //         lang = 'en';
+    //     }
     } else if (localStorage.getItem("human_language")) {
         lang = localStorage.getItem("human_language");
     } else {
@@ -5776,65 +5803,97 @@ RUR.permalink.set_language = function (url_query) {
     $("#human-language").change();
 };
 
-
-RUR.permalink.update = function (arg, shortname) {
-    "use strict";
-    var url_query, mode, name, tmp;
-
-	if (RUR.permalink_update_previous_arg === undefined) {
-		RUR.permalink_update_previous_arg = arg;
-	} else if (RUR.permalink_update_previous_arg === arg) {
-		return;
-	} else {
-		RUR.permalink_update_previous_arg = arg;
-	}
-
-    if (arg !== undefined) {
-        url_query = parseUri(arg);
+RUR.permalink.from_url = function(url_query) {
+    var from_url=false, url=false, name=false;
+    if (url_query.queryKey.url !== undefined) {
+        url = decodeURIComponent(url_query.queryKey.url);
+    }
+    if (url_query.queryKey.name !== undefined) {
+        name = decodeURIComponent(url_query.queryKey.name);
+    }
+    if (!(url || name)) {
+        return false;
     } else {
-        url_query = parseUri($("#url-input-textarea").val());
-    }
-
-    RUR.permalink.set_language(url_query);
-    RUR.permalink.set_mode(url_query);
-
-    if ( url_query.queryKey.editor !== undefined) { // old permalink
-        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
-    }
-    if (RUR.state.programming_language == "python" &&
-       url_query.queryKey.library !== undefined) {  // old permalink
-        library.setValue(decodeURIComponent(url_query.queryKey.library));
-    }
-    /* The world can contain some content for the editor and the library which
-       would potentially replace what's defined in the permalink.
-     */
-    if (url_query.queryKey.world !== undefined) {
-        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        if (shortname !== undefined) {
-            RUR.storage.save_world(shortname);
-        } else {
-            RUR.storage.save_world(RUR.translate("PERMALINK"));
+        try { // see comment above
+            if (url && name) {
+                RUR.file_io.load_world_from_program(url, name);
+            } else if (url) {
+                RUR.file_io.load_world_from_program(url);
+            } else {
+                RUR.file_io.load_world_from_program(name);
+            }
+        } catch (e) {
+            if (e.reeborg_concludes) {
+                RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+            } else if (e.reeborg_shouts) {
+                RUR.show_feedback("#Reeborg-shouts", e.reeborg_shouts);
+            } else {
+                console.log("unidentified error", e);
+            }
         }
+        return true;
     }
-
-    $("#url-input").hide();
-    $("#permalink").removeClass('active-element');
-    $("#permalink").addClass('blue-gradient');
 };
 
-record_id("replace-permalink", "REPLACE PERMALINK");
-record_id("replace-permalink-text", "REPLACE PERMALINK EXPLAIN");
-$("#replace-permalink").on("click", function (evt) {
-    RUR.permalink.update();
-});
+// RUR.permalink.update = function (arg, shortname) {
+//     "use strict";
+//     var url_query, mode, name, tmp;
+//
+// 	if (RUR.permalink_update_previous_arg === undefined) {
+// 		RUR.permalink_update_previous_arg = arg;
+// 	} else if (RUR.permalink_update_previous_arg === arg) {
+// 		return;
+// 	} else {
+// 		RUR.permalink_update_previous_arg = arg;
+// 	}
+//
+//     if (arg !== undefined) {
+//         url_query = parseUri(arg);
+//     } else {
+//         url_query = parseUri($("#url-input-textarea").val());
+//     }
+//
+//     RUR.permalink.set_language(url_query);
+//     RUR.permalink.set_mode(url_query);
+//
+//     if ( url_query.queryKey.editor !== undefined) { // old permalink
+//         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
+//     }
+//     if (RUR.state.programming_language == "python" &&
+//        url_query.queryKey.library !== undefined) {  // old permalink
+//         library.setValue(decodeURIComponent(url_query.queryKey.library));
+//     }
+//     /* The world can contain some content for the editor and the library which
+//        would potentially replace what's defined in the permalink.
+//      */
+//     if (url_query.queryKey.world !== undefined) {
+//         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
+//         if (shortname !== undefined) {
+//             RUR.storage.save_world(shortname);
+//         } else {
+//             RUR.storage.save_world(RUR.translate("PERMALINK"));
+//         }
+//     }
+//
+//     $("#url-input").hide();
+//     $("#permalink").removeClass('active-element');
+//     $("#permalink").addClass('blue-gradient');
+// };
 
-record_id("cancel-permalink", "CANCEL");
-$("#cancel-permalink").on("click", function (evt) {
-    $('#url-input').hide();
-    $("#permalink").removeClass('active-element');
-    $("#permalink").addClass('blue-gradient');
-});
+// record_id("replace-permalink", "REPLACE PERMALINK");
+// record_id("replace-permalink-text", "REPLACE PERMALINK EXPLAIN");
+// $("#replace-permalink").on("click", function (evt) {
+//     RUR.permalink.update();
+// });
 
+// record_id("cancel-permalink", "CANCEL");
+// $("#cancel-permalink").on("click", function (evt) {
+//     $('#url-input').hide();
+//     $("#permalink").removeClass('active-element');
+//     $("#permalink").addClass('blue-gradient');
+// });
+
+/* IMPORTANT : keep version of copy to clipboard. */
 // copy to clipboard
 record_id("copy-permalink", "COPY");
 record_id("copy-permalink-text", "COPY PERMALINK EXPLAIN");
@@ -5943,6 +6002,7 @@ RUR.rec.display_frame = function () {
     "use strict";
     var frame, goal_status, i, next_frame_line_numbers;
     if (RUR.current_frame_no >= RUR.nb_frames) {
+        RUR.update_frame_nb_info();
         return RUR.rec.conclude();
     }
 
@@ -6198,7 +6258,7 @@ var clone_world = require("./../world/clone_world.js").clone_world;
 
 RUR.record_frame = function (name, obj) {
     "use strict";
-    var frame = {};
+    var frame = {}, robot;
     if (RUR.state.do_not_record) {
         return;
     }
@@ -6219,7 +6279,12 @@ RUR.record_frame = function (name, obj) {
         return;
     }
 
+    for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
+        RUR.vis_robot.update_trace_history(robot);
+    }
     frame.world = clone_world();
+
+
     if (name !== undefined) {
         frame[name] = obj;
     }
@@ -6350,6 +6415,10 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot._prev_y = robot.y;
     robot._prev_orientation = robot._orientation;
 
+    robot._trace_history = [];
+    robot._trace_style = "default";
+    robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
+
     return robot;
 };
 
@@ -6369,6 +6438,18 @@ RUR.robot.cleanup_objects = function (robot) {
     if (robot.orientation !== undefined){
         robot._orientation = robot.orientation;
         delete robot.orientation;
+    }
+    if (robot._trace_history === undefined) {
+        robot._trace_history = [];
+    }
+    if (robot._trace_style === undefined) {
+        robot._trace_style = "default";
+    }
+    if (robot._trace_color === undefined) {
+        robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
+    }
+    if (robot._is_leaky === undefined) {
+        robot._is_leaky = true;
     }
 };
 
@@ -6721,7 +6802,6 @@ require("./state.js");
 require("./permalink.js");
 require("./create_editors.js");
 
-//
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {
     alert("Expecting Brython version 3.2.7 and got " + __BRYTHON__.__MAGIC__);
@@ -6738,14 +6818,14 @@ function start_session () {
     "use strict";
     var mode, url_query = parseUri(window.location.href);
     RUR.state.session_initialized = false;
+    set_editor();
+    set_library();
+    // The world can include some content for the editor and/or the library, and/or the blocks
     RUR.permalink.set_language(url_query);
     mode = RUR.permalink.set_mode(url_query);
     if (mode === "blockly-py" || mode === "blockly-js") {
         restore_blockly();
     }
-    set_editor();
-    set_library();
-    // The world can include some content for the editor and/or the library, and/or the blocks
     set_world(url_query);
     RUR.state.session_initialized = true;
 }
@@ -6776,10 +6856,13 @@ function set_library() {
 }
 
 function set_world(url_query) {
-    if (url_query.queryKey.world !== undefined) {
-        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        RUR.storage.save_world(RUR.translate("PERMALINK"));
-    } else if (localStorage.getItem("world")) {
+    if (RUR.permalink.from_url(url_query)){
+        return;
+    }
+    //     RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
+    //     RUR.storage.save_world(RUR.translate("PERMALINK"));
+    // } else
+    if (localStorage.getItem("world")) {
         try {
             RUR.world_select.set_url(
                 RUR.world_select.url_from_shortname(
@@ -7221,8 +7304,6 @@ RUR.vis_robot.random_img.onload = function () {
 };
 RUR.vis_robot.nb_images += 1;
 
-
-
 RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y, width, height, image;
@@ -7289,69 +7370,67 @@ RUR.vis_robot.draw = function (robot) {
     if (RUR.state.editing_world){
         return;
     }
-    RUR.vis_robot.draw_trace(robot);
+    RUR.vis_robot.draw_trace_history(robot);
 };
 
 
-RUR.vis_robot.draw_trace = function (robot) {
-    "use strict";
-    if (robot === undefined || robot._is_leaky === false || robot._orientation === -1) {
-        return;
-    }
-    if (robot.x > RUR.COLS || robot.y > RUR.ROWS) {
-        return;
-    }
-    var ctx = RUR.TRACE_CTX;
-    if (robot.trace_color !== undefined){
-        ctx.strokeStyle = robot.trace_color;
+
+RUR.vis_robot.update_trace_history = function (robot) {
+    var offset, prev_offset, trace_segment={};
+    if (robot._prev_x == robot.x &&
+        robot._prev_y == robot.y &&
+        robot._prev_orientation == robot._orientation) {
+            return;
+        }
+
+    if (robot._trace_style == "invisible" || !robot._is_leaky) {
+        trace_segment["color"] = "rgba(0,0,0,0)";
     } else {
-        ctx.strokeStyle = RUR.vis_robot.trace_color;
+        trace_segment["color"] = robot._trace_color;
     }
 
-    // overrides user choice for large world (small grid size)
+    offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
+
     if(RUR.CURRENT_WORLD.small_tiles) {
-        RUR.vis_robot.trace_offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
-        RUR.vis_robot.trace_thickness = 2;
-    } else {
-        RUR.vis_robot.set_trace_style(RUR.TRACE_STYLE, robot);
-    }
+        offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
+        trace_segment["thickness"] = 2;
+    } else if (robot._trace_style === "thick") {
+        offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
+        trace_segment["thickness"] = 4;
+    }  else if (robot._trace_style === "default") {
+        trace_segment["thickness"] = 1;
+    } // else, invisible and we do not care.
 
-    ctx.lineWidth = RUR.vis_robot.trace_thickness;
+    prev_offset = offset[robot._prev_orientation%4];
+    offset = offset[robot._orientation%4];
+
+    trace_segment["prev_x"] = robot._prev_x * RUR.WALL_LENGTH + prev_offset[0];
+    trace_segment["x"] = robot.x * RUR.WALL_LENGTH + offset[0];
+    trace_segment["prev_y"] = RUR.HEIGHT - (robot._prev_y+1) * RUR.WALL_LENGTH + prev_offset[1];
+    trace_segment["y"] = RUR.HEIGHT - (robot.y+1) * RUR.WALL_LENGTH + offset[1];
+
+    robot._trace_history.push(trace_segment);
+};
+
+RUR.vis_robot.draw_trace_history  = function(robot) {
+    var segment;
+    for (segment of robot._trace_history) { //jshint ignore:line
+        RUR.vis_robot.draw_trace_segment(segment);
+    }
+};
+
+RUR.vis_robot.draw_trace_segment = function (segment) {
+    "use strict";
+    var ctx = RUR.TRACE_CTX;
+    ctx.strokeStyle = segment["color"];
+    ctx.lineWidth = segment["thickness"];
     ctx.lineCap = "round";
 
     ctx.beginPath();
-    // ensure that _prev_orientation and orientation are within bounds as these could be messed
-    // up by a user program and crash the robot program with a message sent to the console and nothing else.
-    ctx.moveTo(robot._prev_x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation%4][0],
-                    RUR.HEIGHT - (robot._prev_y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._prev_orientation%4][1]);
-    ctx.lineTo(robot.x* RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._orientation%4][0],
-                    RUR.HEIGHT - (robot.y +1) * RUR.WALL_LENGTH + RUR.vis_robot.trace_offset[robot._orientation%4][1]);
+    ctx.moveTo(segment["prev_x"], segment["prev_y"]);
+    ctx.lineTo(segment["x"], segment["y"]);
     ctx.stroke();
 };
-
-RUR.vis_robot.set_trace_style = function (choice, robot){
-    "use strict";
-    if (choice === undefined) {
-        return;
-    }
-    RUR.TRACE_STYLE = choice;
-    if (robot !== undefined && robot.trace_style !== undefined){
-        choice = robot.trace_style;
-    }
-    if (choice === "thick") {
-        RUR.vis_robot.trace_offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
-        RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
-        RUR.vis_robot.trace_thickness = 4;
-    } else if (choice === "invisible") {
-        RUR.vis_robot.trace_color = "rgba(0,0,0,0)";
-    } else if (choice === "default") {
-        RUR.vis_robot.trace_offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
-        RUR.vis_robot.trace_color = RUR.DEFAULT_TRACE_COLOR;
-        RUR.vis_robot.trace_thickness = 1;
-    }
-};
-
-RUR.vis_robot.set_trace_style("default");
 
 RUR.vis_robot.new_robot_images = function (images) {
     var model;
@@ -7477,7 +7556,7 @@ RUR.vis_world.draw_all = function () {
         RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+//        RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
         RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -7489,7 +7568,7 @@ RUR.vis_world.draw_all = function () {
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     draw_grid_walls(RUR.BACKGROUND_CTX);
     if (RUR.CURRENT_WORLD.background_image !== undefined) {
-        draw_single_object(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
+        draw_background_image(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
     }
     draw_coordinates(); // on BACKGROUND_CTX
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -7501,6 +7580,8 @@ RUR.vis_world.draw_all = function () {
 RUR.vis_world.refresh = function () {
     "use strict";
     var current = RUR.CURRENT_WORLD;
+    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
     // meant to be called at each step
     // does not draw background (i.e. coordinates, grid walls and possibly image)
     // does not clear trace
@@ -7821,7 +7902,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
                 }
             }
         } else {
-            console.log("Unknown type in __draw_animated_images");
+            console.log("Problem: unknown type in __draw_animated_images");
         }
     }
     return flag;
@@ -7874,12 +7955,12 @@ draw_all_objects = function (objects, goal, tile){
                             ctx = RUR.GOAL_CTX;
                             image = specific_object.goal.image;
                         } else if (specific_object === undefined){
-                            console.log("specific_object is undefined");
-                            console.log("obj_name = ", obj_name, "  tile = ", tile);
+                            console.log("problem: specific_object is undefined");
+                            console.log("    obj_name = ", obj_name, "  tile = ", tile);
                             if (tile) {
-                                console.log("RUR.OBSTACLES = ", RUR.OBSTACLES);
+                                console.log("    RUR.OBSTACLES = ", RUR.OBSTACLES);
                             } else {
-                                console.log("RUR.OBJECTS = ", RUR.OBJECTS);
+                                console.log("    RUR.OBJECTS = ", RUR.OBJECTS);
                             }
                             image = undefined;
                         } else if (specific_object.ctx !== undefined){
@@ -7919,6 +8000,23 @@ draw_single_object = function (image, i, j, ctx) {
        console.log("problem in draw_single_object", image, ctx, e);
    }
 };
+
+draw_background_image = function (image, i, j, ctx) {
+    //like draw_single_object but we do not fix the size.
+    var thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
+    var x, y;
+    if (i > RUR.COLS || j > RUR.ROWS){
+        return;
+    }
+    x = i*size + thick;
+    y = RUR.HEIGHT - (j+1)*size + thick;
+    try{
+       ctx.drawImage(image, x, y);
+   } catch (e) {
+       console.log("problem in draw_background_image", image, ctx, e);
+   }
+};
+
 
 clear_single_cell = function (i, j, ctx) {
     var x, y, thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
@@ -9834,7 +9932,6 @@ exports.reset_world = reset_world = function () {
         return;
     }
     RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
-    RUR.vis_robot.set_trace_style("default");
     RUR.reset_default_robot_images();
     RUR.MAX_STEPS = 1000;
     RUR.ANIMATION_TIME = 120;

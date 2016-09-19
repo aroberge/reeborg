@@ -13,7 +13,6 @@ require("./state.js");
 require("./permalink.js");
 require("./create_editors.js");
 
-//
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {
     alert("Expecting Brython version 3.2.7 and got " + __BRYTHON__.__MAGIC__);
@@ -30,14 +29,14 @@ function start_session () {
     "use strict";
     var mode, url_query = parseUri(window.location.href);
     RUR.state.session_initialized = false;
+    set_editor();
+    set_library();
+    // The world can include some content for the editor and/or the library, and/or the blocks
     RUR.permalink.set_language(url_query);
     mode = RUR.permalink.set_mode(url_query);
     if (mode === "blockly-py" || mode === "blockly-js") {
         restore_blockly();
     }
-    set_editor();
-    set_library();
-    // The world can include some content for the editor and/or the library, and/or the blocks
     set_world(url_query);
     RUR.state.session_initialized = true;
 }
@@ -68,10 +67,13 @@ function set_library() {
 }
 
 function set_world(url_query) {
-    if (url_query.queryKey.world !== undefined) {
-        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        RUR.storage.save_world(RUR.translate("PERMALINK"));
-    } else if (localStorage.getItem("world")) {
+    if (RUR.permalink.from_url(url_query)){
+        return;
+    }
+    //     RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
+    //     RUR.storage.save_world(RUR.translate("PERMALINK"));
+    // } else
+    if (localStorage.getItem("world")) {
         try {
             RUR.world_select.set_url(
                 RUR.world_select.url_from_shortname(

@@ -65,13 +65,15 @@ RUR.permalink.set_mode = function (url_query) {
     var mode;
     if (url_query.queryKey.mode !== undefined) {
         mode = url_query.queryKey.mode;
-    } else if (url_query.queryKey.proglang !== undefined) {  // old permalinks
-        if (url_query.queryKey.proglang.startsWith("python")) {
-            mode = "python";
-        } else {
-            mode = "javascript";
-        }
-    } else if (localStorage.getItem("programming-mode")) {
+    }
+    //  else if (url_query.queryKey.proglang !== undefined) {  // old permalinks
+    //     if (url_query.queryKey.proglang.startsWith("python")) {
+    //         mode = "python";
+    //     } else {
+    //         mode = "javascript";
+    //     }
+    // }
+    else if (localStorage.getItem("programming-mode")) {
         mode = localStorage.getItem("programming-mode");
     } else {
         mode = 'python';
@@ -87,12 +89,12 @@ RUR.permalink.set_language = function (url_query) {
     var lang;
     if (url_query.queryKey.lang !== undefined) {
         lang = url_query.queryKey.lang;
-    } else if (url_query.queryKey.proglang !== undefined) {  // old permalinks
-        if (url_query.queryKey.proglang.endsWith("fr")) {
-            lang = "fr";
-        } else {
-            lang = 'en';
-        }
+    // } else if (url_query.queryKey.proglang !== undefined) {  // old permalinks
+    //     if (url_query.queryKey.proglang.endsWith("fr")) {
+    //         lang = "fr";
+    //     } else {
+    //         lang = 'en';
+    //     }
     } else if (localStorage.getItem("human_language")) {
         lang = localStorage.getItem("human_language");
     } else {
@@ -102,65 +104,97 @@ RUR.permalink.set_language = function (url_query) {
     $("#human-language").change();
 };
 
-
-RUR.permalink.update = function (arg, shortname) {
-    "use strict";
-    var url_query, mode, name, tmp;
-
-	if (RUR.permalink_update_previous_arg === undefined) {
-		RUR.permalink_update_previous_arg = arg;
-	} else if (RUR.permalink_update_previous_arg === arg) {
-		return;
-	} else {
-		RUR.permalink_update_previous_arg = arg;
-	}
-
-    if (arg !== undefined) {
-        url_query = parseUri(arg);
+RUR.permalink.from_url = function(url_query) {
+    var from_url=false, url=false, name=false;
+    if (url_query.queryKey.url !== undefined) {
+        url = decodeURIComponent(url_query.queryKey.url);
+    }
+    if (url_query.queryKey.name !== undefined) {
+        name = decodeURIComponent(url_query.queryKey.name);
+    }
+    if (!(url || name)) {
+        return false;
     } else {
-        url_query = parseUri($("#url-input-textarea").val());
-    }
-
-    RUR.permalink.set_language(url_query);
-    RUR.permalink.set_mode(url_query);
-
-    if ( url_query.queryKey.editor !== undefined) { // old permalink
-        editor.setValue(decodeURIComponent(url_query.queryKey.editor));
-    }
-    if (RUR.state.programming_language == "python" &&
-       url_query.queryKey.library !== undefined) {  // old permalink
-        library.setValue(decodeURIComponent(url_query.queryKey.library));
-    }
-    /* The world can contain some content for the editor and the library which
-       would potentially replace what's defined in the permalink.
-     */
-    if (url_query.queryKey.world !== undefined) {
-        RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-        if (shortname !== undefined) {
-            RUR.storage.save_world(shortname);
-        } else {
-            RUR.storage.save_world(RUR.translate("PERMALINK"));
+        try { // see comment above
+            if (url && name) {
+                RUR.file_io.load_world_from_program(url, name);
+            } else if (url) {
+                RUR.file_io.load_world_from_program(url);
+            } else {
+                RUR.file_io.load_world_from_program(name);
+            }
+        } catch (e) {
+            if (e.reeborg_concludes) {
+                RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+            } else if (e.reeborg_shouts) {
+                RUR.show_feedback("#Reeborg-shouts", e.reeborg_shouts);
+            } else {
+                console.log("unidentified error", e);
+            }
         }
+        return true;
     }
-
-    $("#url-input").hide();
-    $("#permalink").removeClass('active-element');
-    $("#permalink").addClass('blue-gradient');
 };
 
-record_id("replace-permalink", "REPLACE PERMALINK");
-record_id("replace-permalink-text", "REPLACE PERMALINK EXPLAIN");
-$("#replace-permalink").on("click", function (evt) {
-    RUR.permalink.update();
-});
+// RUR.permalink.update = function (arg, shortname) {
+//     "use strict";
+//     var url_query, mode, name, tmp;
+//
+// 	if (RUR.permalink_update_previous_arg === undefined) {
+// 		RUR.permalink_update_previous_arg = arg;
+// 	} else if (RUR.permalink_update_previous_arg === arg) {
+// 		return;
+// 	} else {
+// 		RUR.permalink_update_previous_arg = arg;
+// 	}
+//
+//     if (arg !== undefined) {
+//         url_query = parseUri(arg);
+//     } else {
+//         url_query = parseUri($("#url-input-textarea").val());
+//     }
+//
+//     RUR.permalink.set_language(url_query);
+//     RUR.permalink.set_mode(url_query);
+//
+//     if ( url_query.queryKey.editor !== undefined) { // old permalink
+//         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
+//     }
+//     if (RUR.state.programming_language == "python" &&
+//        url_query.queryKey.library !== undefined) {  // old permalink
+//         library.setValue(decodeURIComponent(url_query.queryKey.library));
+//     }
+//     /* The world can contain some content for the editor and the library which
+//        would potentially replace what's defined in the permalink.
+//      */
+//     if (url_query.queryKey.world !== undefined) {
+//         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
+//         if (shortname !== undefined) {
+//             RUR.storage.save_world(shortname);
+//         } else {
+//             RUR.storage.save_world(RUR.translate("PERMALINK"));
+//         }
+//     }
+//
+//     $("#url-input").hide();
+//     $("#permalink").removeClass('active-element');
+//     $("#permalink").addClass('blue-gradient');
+// };
 
-record_id("cancel-permalink", "CANCEL");
-$("#cancel-permalink").on("click", function (evt) {
-    $('#url-input').hide();
-    $("#permalink").removeClass('active-element');
-    $("#permalink").addClass('blue-gradient');
-});
+// record_id("replace-permalink", "REPLACE PERMALINK");
+// record_id("replace-permalink-text", "REPLACE PERMALINK EXPLAIN");
+// $("#replace-permalink").on("click", function (evt) {
+//     RUR.permalink.update();
+// });
 
+// record_id("cancel-permalink", "CANCEL");
+// $("#cancel-permalink").on("click", function (evt) {
+//     $('#url-input').hide();
+//     $("#permalink").removeClass('active-element');
+//     $("#permalink").addClass('blue-gradient');
+// });
+
+/* IMPORTANT : keep version of copy to clipboard. */
 // copy to clipboard
 record_id("copy-permalink", "COPY");
 record_id("copy-permalink-text", "COPY PERMALINK EXPLAIN");
