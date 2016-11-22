@@ -616,7 +616,7 @@
   <script src="src/blockly_msg/ko.js"></script>
   <script defer src="src/blockly/python_compressed.js"></script>
 
-  <script src="build/reeborg.js" defer></script>
+  <script src="build/reeborg.js" defer data-cover></script>
   <script type="text/python3" src="src/python/init_reeborg.py"></script>
   <script defer src="src/libraries/filesaver.js"></script>
   <script>
@@ -642,7 +642,10 @@
       <span id="edit-world-text"></span>
     </p>
     <p>
-      <button class="blue-gradient" id="save-world"></button>
+      <form id="save-world-form">
+          <label><input type="text" class="filename" id="world-filename" placeholder="world"/>.json</label>
+          <input type="submit" value="Save" id="save-world" class="blue-gradient"/>
+      </form>
       <span id="save-world-text"></span>
     </p>
     <p>
@@ -658,7 +661,13 @@
     <hr>
     <h3 id="program-in-editor"></h3>
     <p>
-      <button class="blue-gradient" id="save-editor-btn"></button>
+      <form id="save-editor-form">
+          <label><input type="text" class="filename" id="editor-filename" placeholder="program"/>
+            <span class="only_js">.js</span>
+            <span class="only_py">.py</span>
+          </label>
+          <input type="submit" value="Save" id="save-editor" class="blue-gradient"/>
+      </form>
       <span id="save-editor-text"></span>
     </p>
     <p>
@@ -669,7 +678,10 @@
 
     <h3 id="program-in-blockly-workspace"></h3>
     <p>
-      <button class="blue-gradient" id="save-blockly-btn"></button>
+      <form id="save-blockly-form">
+          <label><input type="text" class="filename" id="blockly-filename" placeholder="program"/>.xml</label>
+          <input type="submit" value="Save" id="save-blockly" class="blue-gradient"/>
+      </form>
       <span id="save-blockly-text"></span>
     </p>
     <p>
@@ -700,10 +712,12 @@
     <h3 id="python-only"></h3>
     <div id="python-additional-menu">
       <p>
-        <button class="blue-gradient" id="save-library-btn"></button>
+        <form id="save-library-form">
+            <label><input type="text" class="filename" id="library-filename" placeholder="lib"/>.py</label>
+            <input type="submit" value="Save" id="save-library" class="blue-gradient"/>
+        </form>
         <span id="save-library-text"></span>
       </p>
-      <p>
         <button class="blue-gradient" id="load-library-btn"></button>
         <span id="load-library-text"></span>
       </p>
@@ -1011,6 +1025,6 @@
 <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
 <script src="qunit_test/js/blanket.min.js"></script>
 <script src="qunit_test/js/test_utils.js" defer></script>
-<script src="qunit_test/js/test_english.js" defer></script>
+<script src="qunit_test/js/all_qunit_tests.js" defer></script>
 </body>
 </html>
