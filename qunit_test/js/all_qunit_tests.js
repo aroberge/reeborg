@@ -32,6 +32,10 @@ QUnit.test("Load world", function(assert) {
                   "_prev_x": 1,
                   "_prev_y": 1,
                   "_prev_orientation": 0,
+                  "_is_leaky": true,
+                  "_trace_color": "seagreen",
+                  "_trace_history": [],
+                  "_trace_style": "default",
                   "objects": {}
                 }
             ],
@@ -155,7 +159,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
     base_url = "/src/worlds/tutorial_en/";
     world_file = "around1.json";
     frames = RUR.unit_tests.run_python(base_url + world_file, "/qunit_test/src/around_en.py");
-    equal(frames.length, 40, "Nb of frames for solution for world " + world_file);
+    equal(frames.length, 41, "Nb of frames for solution for world " + world_file);
     last_frame = frames[frames.length-1];
     equal(last_frame.world.robots[0].x, 1, "x-position of robot.");
     equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
@@ -169,7 +173,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
 
     world_file = "around2.json";
     frames = RUR.unit_tests.run_python(base_url + world_file, "/qunit_test/src/around_en.py");
-    equal(frames.length, 44, "Nb of frames for solution for world " + world_file);
+    equal(frames.length, 45, "Nb of frames for solution for world " + world_file);
     last_frame = frames[frames.length-1];
     equal(last_frame.world.robots[0].x, 1, "x-position of robot.");
     equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
@@ -178,7 +182,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
 
     world_file = "around3.json";
     frames = RUR.unit_tests.run_python(base_url + world_file);
-    equal(frames.length, 55, "Nb of frames for solution for world " + world_file);
+    equal(frames.length, 56, "Nb of frames for solution for world " + world_file);
     last_frame = frames[frames.length-1];
     equal(last_frame.world.robots[0].x, 2, "x-position of robot.");
     equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
@@ -187,7 +191,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
 
     world_file = "around4.json";
     frames = RUR.unit_tests.run_python(base_url + world_file);
-    equal(frames.length, 61, "Nb of frames for solution for world " + world_file);
+    equal(frames.length, 62, "Nb of frames for solution for world " + world_file);
     last_frame = frames[frames.length-1];
     equal(last_frame.world.robots[0].x, 2, "x-position of robot.");
     equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
@@ -479,7 +483,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
     base_url = "/src/worlds/tutorial_en/";
     world_file = "around1.json";
     frames = RUR.unit_tests.run_python(base_url + world_file, "/qunit_test/src/around_fr.py");
-    equal(frames.length, 40, "Nb of frames for solution for world " + world_file);
+    equal(frames.length, 41, "Nb of frames for solution for world " + world_file);
     last_frame = frames[frames.length-1];
     equal(last_frame.world.robots[0].x, 1, "x-position of robot.");
     equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
@@ -493,7 +497,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
 
     world_file = "around2.json";
     frames = RUR.unit_tests.run_python(base_url + world_file, "/qunit_test/src/around_fr.py");
-    equal(frames.length, 44, "Nb of frames for solution for world " + world_file);
+    equal(frames.length, 45, "Nb of frames for solution for world " + world_file);
     last_frame = frames[frames.length-1];
     equal(last_frame.world.robots[0].x, 1, "x-position of robot.");
     equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
@@ -502,7 +506,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
 
     world_file = "around3.json";
     frames = RUR.unit_tests.run_python(base_url + world_file);
-    equal(frames.length, 55, "Nb of frames for solution for world " + world_file);
+    equal(frames.length, 56, "Nb of frames for solution for world " + world_file);
     last_frame = frames[frames.length-1];
     equal(last_frame.world.robots[0].x, 2, "x-position of robot.");
     equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
@@ -511,7 +515,7 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
 
     world_file = "around4.json";
     frames = RUR.unit_tests.run_python(base_url + world_file);
-    equal(frames.length, 61, "Nb of frames for solution for world " + world_file);
+    equal(frames.length, 62, "Nb of frames for solution for world " + world_file);
     last_frame = frames[frames.length-1];
     equal(last_frame.world.robots[0].x, 2, "x-position of robot.");
     equal(last_frame.world.robots[0].y, 1, "y-position of robot.");
