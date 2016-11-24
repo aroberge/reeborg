@@ -1953,8 +1953,8 @@ RUR.make_default_menu_fr = function () {
     worlds = RUR._BASE_URL + '/src/worlds/';
 
     contents = [
-        ['/src/worlds/seul.json', 'Seul'],
-        ['/src/worlds/empty.json', 'Vide'],
+        ['src/worlds/seul.json', 'Seul'],
+        ['src/worlds/empty.json', 'Vide'],
         [base_url2 + 'around1.json', 'Autour 1'],
         [base_url2 + 'around2.json', 'Autour 2'],
         [base_url2 + 'around3.json', 'Autour 3'],
@@ -1999,7 +1999,7 @@ RUR.make_default_menu_fr = function () {
         [worlds + 'gravel_path_fr',
                            'Sentier de gravier (solution)'],
         [worlds + 'slalom.json', 'Slalom'],
-        [RUR._BASE_URL + '/src/worlds/blank.json', 'Canevas graphique'],
+        [RUR._BASE_URL + 'src/worlds/blank.json', 'Canevas graphique'],
     ];
 
     RUR.custom_world_select.make(contents);
