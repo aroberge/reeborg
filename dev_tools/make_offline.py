@@ -4,6 +4,7 @@
    Creates another offline version used to run some automated tests using QUnit.
 '''
 
+# First we create the version that can be run without internet access
 with open('reeborg.html', 'r') as f:
     lines = f.readlines()
 
@@ -16,6 +17,19 @@ with open('reeborg_offline.html', 'w') as f:
         f.write(line)
 
 print("offline version recreated.")
+
+# Next, we use this offline version to create a version that will
+# be used to run some integration tests using QUnit.
+#
+# The basic idea is to use the current offline version (html file)
+# but hide all the UI specific to Reeborg's World.
+# Then we add a div required to display the results from
+# the QUnit tests.  We also add a button used to stop the custom
+# server we use to run the tests. Since this is run from
+# a command line, it gives us a nice way to return to the
+# command line without having to use ctrl-c which I have found
+# to be unreliable.
+#
 
 with open('reeborg_offline.html', 'r') as f:
     lines = f.readlines()

@@ -1,5 +1,15 @@
-python make_offline.py
+@ECHO OFF
+
+REM Create offline version as well as integrated version to use with QUnit
+python dev_tools/make_offline.py
+
+REM Combine all javascript files and run some unit tests
 call npm run build
-call npm run test-dot
-call madge -c src\js
-python run_qunit_test.py
+
+REM Madge can find circular dependencies
+call madge -c src\js 
+
+REM Run the integrated tests with a custom server
+python dev_tools/run_qunit_test.py
+
+@ECHO ON
